@@ -43,7 +43,7 @@
 
 #ifdef PPS_ENABLE_DEBUG
 static PpsDebugSection pps_debug = PPS_NO_DEBUG;
-static PpsProfileSection pps_profile = PPS_NO_PROFILE;
+static gboolean ev_profile = FALSE;
 static PpsDebugBorders pps_debug_borders = PPS_DEBUG_BORDER_NONE;
 
 static GHashTable *timers = NULL;
@@ -74,15 +74,10 @@ debug_init (void)
 static void
 profile_init (void)
 {
-	if (g_getenv ("PPS_PROFILE") != NULL) {
-		/* enable all profiling */
-		pps_profile = ~PPS_NO_PROFILE;
-	} else {
-		if (g_getenv ("PPS_PROFILE_JOBS") != NULL)
-			pps_profile |= PPS_PROFILE_JOBS;
-	}
+	if (g_getenv ("PPS_PROFILE") != NULL ||
+	    g_getenv ("PPS_PROFILE_JOBS") != NULL) {
+		pps_profile = TRUE;
 
-	if (pps_profile) {
 		timers = g_hash_table_new_full (g_str_hash,
 						g_str_equal,
 						(GDestroyNotify) g_free,
@@ -130,10 +125,9 @@ pps_debug_message (PpsDebugSection  section,
 }
 
 void
-pps_profiler_start (PpsProfileSection section,
-		   const gchar     *format, ...)
+pps_profiler_start (const gchar *format, ...)
 {
-	if (G_UNLIKELY (pps_profile & section)) {
+	if (G_UNLIKELY (pps_profile)) {
 		GTimer *timer;
 		gchar  *name;
 		va_list args;
@@ -156,10 +150,9 @@ pps_profiler_start (PpsProfileSection section,
 }
 
 void
-pps_profiler_stop (PpsProfileSection section,
-		  const gchar     *format, ...)
+pps_profiler_stop (const gchar *format, ...)
 {
-	if (G_UNLIKELY (pps_profile & section)) {
+	if (G_UNLIKELY (pps_profile)) {
 		GTimer *timer;
 		gchar  *name;
 		va_list args;

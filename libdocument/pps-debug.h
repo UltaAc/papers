@@ -81,16 +81,6 @@ typedef enum {
 
 #define DEBUG_JOBS      PPS_DEBUG_JOBS,    __FILE__, __LINE__, G_STRFUNC
 
-/*
- * Set an environmental var of the same name to turn on
- * profiling. Setting PPS_PROFILE will turn on all
- * sections.
- */
-typedef enum {
-	PPS_NO_PROFILE   = 0,
-	PPS_PROFILE_JOBS = 1 << 0
-} PpsProfileSection;
-
 void _pps_debug_init     (void);
 void _pps_debug_shutdown (void);
 
@@ -101,11 +91,9 @@ void pps_debug_message  (PpsDebugSection   section,
 			const gchar     *function,
 			const gchar     *format, ...) G_GNUC_PRINTF(5, 6);
 PPS_PRIVATE
-void pps_profiler_start (PpsProfileSection section,
-			const gchar     *format, ...) G_GNUC_PRINTF(2, 3);
+void pps_profiler_start (PpsProfileSection section) G_GNUC_PRINTF(1, 2);
 PPS_PRIVATE
-void pps_profiler_stop  (PpsProfileSection section,
-			const gchar     *format, ...) G_GNUC_PRINTF(2, 3);
+void pps_profiler_stop  (PpsProfileSection section) G_GNUC_PRINTF(1, 2);
 
 PPS_PRIVATE
 PpsDebugBorders pps_debug_get_debug_borders (void);
