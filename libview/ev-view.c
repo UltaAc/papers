@@ -159,7 +159,7 @@ static void       link_preview_job_finished_cb               (EvJobThumbnail    
 							      EvView             *view);
 static gboolean   link_preview_popover_motion_notify         (EvView             *view,
 							      GdkEventMotion     *event);
-static gboolean   link_preview_delayed_show                  (EvView *view);
+static void       link_preview_delayed_show                  (EvView *view);
 /*** Forms ***/
 static EvFormField *ev_view_get_form_field_at_location       (EvView             *view,
 							       gdouble            x,
@@ -2367,9 +2367,10 @@ handle_cursor_over_link (EvView *view, EvLink *link, gint x, gint y)
 	if (type == EV_LINK_DEST_TYPE_NAMED)
 		g_object_unref (dest);
 
-	view->link_preview.delay_timeout_id = g_timeout_add (LINK_PREVIEW_DELAY_MS,
-							     (GSourceFunc)link_preview_delayed_show,
-							     view);
+	view->link_preview.delay_timeout_id =
+		g_timeout_add_once (LINK_PREVIEW_DELAY_MS,
+				    (GSourceOnceFunc)link_preview_delayed_show,
+				    view);
 	g_source_set_name_by_id (view->link_preview.delay_timeout_id,
 				 "[evince] link_preview_timeout");
 }
@@ -2577,19 +2578,11 @@ ev_view_form_field_get_region (EvView      *view,
 	return cairo_region_create_rectangle (&view_area);
 }
 
-static gboolean
-ev_view_forms_remove_widgets (EvView *view)
-{
-	ev_view_remove_all_form_fields (view);
-
-	return G_SOURCE_REMOVE;
-}
-
 static void
 ev_view_form_field_destroy (GtkWidget *widget,
 			    EvView    *view)
 {
-	g_idle_add ((GSourceFunc)ev_view_forms_remove_widgets, view);
+	g_idle_add_once ((GSourceOnceFunc)ev_view_remove_all_form_fields, view);
 }
 
 static void
@@ -2912,7 +2905,7 @@ typedef struct _PopupShownData {
 	EvView      *view;
 } PopupShownData;
 
-static gboolean
+static void
 ev_view_form_field_choice_popup_shown_real (PopupShownData *data)
 {
 	ev_view_form_field_choice_changed (data->choice, data->field);
@@ -2921,8 +2914,6 @@ ev_view_form_field_choice_popup_shown_real (PopupShownData *data)
 	g_object_unref (data->choice);
 	g_object_unref (data->field);
 	g_free (data);
-
-	return G_SOURCE_REMOVE;
 }
 
 static void
@@ -2948,7 +2939,8 @@ ev_view_form_field_choice_popup_shown_cb (GObject    *self,
 	data->field = g_object_ref (field);
 	data->view = view;
 	/* We need to use an idle here because combobox "active" item is not updated yet */
-	g_idle_add ((GSourceFunc) ev_view_form_field_choice_popup_shown_real, (gpointer) data);
+	g_idle_add_once ((GSourceOnceFunc) ev_view_form_field_choice_popup_shown_real,
+			 (gpointer) data);
 }
 
 static GtkWidget *
@@ -5164,14 +5156,13 @@ link_preview_popover_motion_notify (EvView         *view,
 	return TRUE;
 }
 
-static gboolean
+static void
 link_preview_delayed_show (EvView *view)
 {
 	GtkWidget *popover = view->link_preview.popover;
 	gtk_widget_show (popover);
 
 	view->link_preview.delay_timeout_id = 0;
-	return G_SOURCE_REMOVE;
 }
 
 static void
@@ -5717,7 +5708,7 @@ ev_view_drag_motion (GtkWidget      *widget,
 	return TRUE;
 }
 
-static gboolean
+static void
 selection_update_idle_cb (EvView *view)
 {
 	compute_selections (view,
@@ -5725,7 +5716,6 @@ selection_update_idle_cb (EvView *view)
 			    &view->selection_info.start,
 			    &view->motion);
 	view->selection_update_id = 0;
-	return G_SOURCE_REMOVE;
 }
 
 static gboolean
@@ -6061,7 +6051,9 @@ ev_view_motion_notify_event (GtkWidget      *widget,
 			 * idle to make sure we catch up and don't visibly lag the
 			 * mouse. */
 			if (!view->selection_update_id)
-				view->selection_update_id = g_idle_add ((GSourceFunc)selection_update_idle_cb, view);
+				view->selection_update_id =
+					g_idle_add_once ((GSourceOnceFunc)selection_update_idle_cb,
+							 view);
 		}
 
 		return TRUE;
