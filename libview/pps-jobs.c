@@ -692,9 +692,6 @@ pps_job_render_texture_run (PpsJob *job)
 	pps_profiler_start ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	pps_document_doc_mutex_lock ();
-
-	pps_profiler_start ("Rendering page %d", job_render->page);
-
 	pps_document_fc_mutex_lock ();
 
 	pps_page = pps_document_get_page (job->document, job_render->page);
