@@ -118,9 +118,9 @@ pps_job_init (PpsJob *job)
 static void
 pps_job_dispose (GObject *object)
 {
-	PpsJob *job;
+	PpsJob *job = PPS_JOB (object);
 
-	job = PPS_JOB (object);
+	pps_debug_message (DEBUG_JOBS, "disposing %s (%p)", PPS_GET_TYPE_NAME(job), job);
 
 	g_clear_object (&job->document);
 	g_clear_object (&job->cancellable);
@@ -355,8 +355,6 @@ pps_job_links_dispose (GObject *object)
 {
 	PpsJobLinks *job;
 
-	pps_debug_message (DEBUG_JOBS, NULL);
-
 	job = PPS_JOB_LINKS (object);
 
 	g_clear_object (&job->model);
@@ -466,11 +464,7 @@ pps_job_attachments_init (PpsJobAttachments *job)
 static void
 pps_job_attachments_dispose (GObject *object)
 {
-	PpsJobAttachments *job;
-
-	pps_debug_message (DEBUG_JOBS, NULL);
-
-	job = PPS_JOB_ATTACHMENTS (object);
+	PpsJobAttachments *job = PPS_JOB_ATTACHMENTS (object);
 
 	g_list_free_full (g_steal_pointer (&job->attachments), g_object_unref);
 
@@ -539,11 +533,7 @@ pps_job_annots_init (PpsJobAnnots *job)
 static void
 pps_job_annots_dispose (GObject *object)
 {
-	PpsJobAnnots *job;
-
-	pps_debug_message (DEBUG_JOBS, NULL);
-
-	job = PPS_JOB_ANNOTS (object);
+	PpsJobAnnots *job = PPS_JOB_ANNOTS (object);
 
 	g_list_free_full (g_steal_pointer (&job->annots), (GDestroyNotify) pps_mapping_list_unref);
 
@@ -614,11 +604,9 @@ pps_job_render_texture_init (PpsJobRenderTexture *job)
 static void
 pps_job_render_texture_dispose (GObject *object)
 {
-	PpsJobRenderTexture *job;
+	PpsJobRenderTexture *job = PPS_JOB_RENDER_TEXTURE (object);
 
-	job = PPS_JOB_RENDER_TEXTURE (object);
-
-	pps_debug_message (DEBUG_JOBS, "page: %d (%p)", job->page, job);
+	pps_debug_message (DEBUG_JOBS, "disposing job render: %d (%p)", job->page, job);
 
 	g_clear_object (&job->texture);
 	g_clear_object (&job->selection);
@@ -900,11 +888,9 @@ pps_job_thumbnail_texture_init (PpsJobThumbnailTexture *job)
 static void
 pps_job_thumbnail_texture_dispose (GObject *object)
 {
-	PpsJobThumbnailTexture *job;
+	PpsJobThumbnailTexture *job = PPS_JOB_THUMBNAIL_TEXTURE (object);
 
-	job = PPS_JOB_THUMBNAIL_TEXTURE (object);
-
-	pps_debug_message (DEBUG_JOBS, "%d (%p)", job->page, job);
+	pps_debug_message (DEBUG_JOBS, "disposing job thumbnail: page: %d (%p)", job->page, job);
 
 	g_clear_object (&job->thumbnail_texture);
 
@@ -1088,8 +1074,6 @@ static void
 pps_job_load_dispose (GObject *object)
 {
 	PpsJobLoad *job = PPS_JOB_LOAD (object);
-
-	pps_debug_message (DEBUG_JOBS, NULL);
 
 	if (job->fd != -1) {
 		close (job->fd);
@@ -1371,7 +1355,7 @@ pps_job_save_dispose (GObject *object)
 {
 	PpsJobSave *job = PPS_JOB_SAVE (object);
 
-	pps_debug_message (DEBUG_JOBS, "%s", job->uri);
+	pps_debug_message (DEBUG_JOBS, "disposing job save: uri: %s", job->uri);
 
 	g_clear_pointer (&job->uri, g_free);
 	g_clear_pointer (&job->document_uri, g_free);
@@ -1515,8 +1499,6 @@ static void
 pps_job_find_dispose (GObject *object)
 {
 	PpsJobFind *job = PPS_JOB_FIND (object);
-
-	pps_debug_message (DEBUG_JOBS, NULL);
 
 	g_clear_pointer (&job->text, g_free);
 
@@ -1678,11 +1660,7 @@ pps_job_layers_init (PpsJobLayers *job)
 static void
 pps_job_layers_dispose (GObject *object)
 {
-	PpsJobLayers *job;
-
-	pps_debug_message (DEBUG_JOBS, NULL);
-
-	job = PPS_JOB_LAYERS (object);
+	PpsJobLayers *job = PPS_JOB_LAYERS (object);
 
 	g_clear_object (&job->model);
 
@@ -1752,11 +1730,7 @@ pps_job_export_init (PpsJobExport *job)
 static void
 pps_job_export_dispose (GObject *object)
 {
-	PpsJobExport *job;
-
-	pps_debug_message (DEBUG_JOBS, NULL);
-
-	job = PPS_JOB_EXPORT (object);
+	PpsJobExport *job = PPS_JOB_EXPORT (object);
 
 	g_clear_object (&job->rc);
 
@@ -1838,11 +1812,7 @@ pps_job_print_init (PpsJobPrint *job)
 static void
 pps_job_print_dispose (GObject *object)
 {
-	PpsJobPrint *job;
-
-	pps_debug_message (DEBUG_JOBS, NULL);
-
-	job = PPS_JOB_PRINT (object);
+	PpsJobPrint *job = PPS_JOB_PRINT (object);
 
 	g_clear_pointer (&job->cr, cairo_destroy);
 
