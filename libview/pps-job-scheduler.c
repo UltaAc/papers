@@ -53,7 +53,7 @@ pps_scheduler_job_free (PpsSchedulerJob *job)
 static void
 pps_scheduler_job_destroy (PpsSchedulerJob *job)
 {
-	pps_debug_message (DEBUG_JOBS, "%s", PPS_GET_TYPE_NAME (job->job));
+	pps_debug_message (DEBUG_JOBS, "destroying job: %s", PPS_GET_TYPE_NAME (job->job));
 
 	g_hash_table_remove (pps_jobs_hash (), job);
 	pps_scheduler_job_free (job);
@@ -64,7 +64,7 @@ pps_job_thread (PpsSchedulerJob *scheduler_job, gpointer data)
 {
 	PpsJob *job = scheduler_job->job;
 
-	pps_debug_message (DEBUG_JOBS, "%s", PPS_GET_TYPE_NAME (job));
+	pps_debug_message (DEBUG_JOBS, "running thread for job: %s", PPS_GET_TYPE_NAME (job));
 
 	if (!g_cancellable_is_cancelled (job->cancellable))
 		pps_job_run (job);
@@ -112,7 +112,8 @@ pps_thread_pool (void)
 static void
 pps_job_queue_push (PpsSchedulerJob *job)
 {
-	pps_debug_message (DEBUG_JOBS, "%s priority %d", PPS_GET_TYPE_NAME (job->job), job->priority);
+	pps_debug_message (DEBUG_JOBS, "pushing job: %s, priority: %d",
+			   PPS_GET_TYPE_NAME (job->job), job->priority);
 
 	g_hash_table_insert (pps_jobs_hash (), job->job, job);
 	g_thread_pool_push (pps_thread_pool (), job, NULL);
@@ -123,8 +124,6 @@ pps_job_scheduler_push_job (PpsJob         *job,
 			   PpsJobPriority  priority)
 {
 	PpsSchedulerJob *s_job;
-
-	pps_debug_message (DEBUG_JOBS, "%s priority %d", PPS_GET_TYPE_NAME (job), priority);
 
 	s_job = g_new0 (PpsSchedulerJob, 1);
 	s_job->job = g_object_ref (job);
@@ -137,7 +136,8 @@ void
 pps_job_scheduler_update_job (PpsJob         *job,
 			     PpsJobPriority  priority)
 {
-	pps_debug_message (DEBUG_JOBS, "%s priority %d", PPS_GET_TYPE_NAME (job), priority);
+	pps_debug_message (DEBUG_JOBS, "update priority for job: %s, priority %d",
+			   PPS_GET_TYPE_NAME (job), priority);
 
 	if (priority == PPS_JOB_PRIORITY_URGENT)
 		g_thread_pool_move_to_front (pps_thread_pool(),
