@@ -375,7 +375,7 @@ pps_job_links_run (PpsJob *job)
 {
 	PpsJobLinks *job_links = PPS_JOB_LINKS (job);
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "running links job");
 
 	pps_document_doc_mutex_lock ();
 	job_links->model = pps_document_links_get_links_model (PPS_DOCUMENT_LINKS (job->document));
@@ -449,7 +449,7 @@ pps_job_attachments_run (PpsJob *job)
 {
 	PpsJobAttachments *job_attachments = PPS_JOB_ATTACHMENTS (job);
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "running attachments job");
 
 	pps_document_doc_mutex_lock ();
 	job_attachments->attachments =
@@ -519,7 +519,7 @@ pps_job_annots_run (PpsJob *job)
 	PpsJobAnnots *job_annots = PPS_JOB_ANNOTS (job);
 	gint         i;
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "running annots job");
 
 	pps_document_doc_mutex_lock ();
 	for (i = 0; i < pps_document_get_n_pages (job->document); i++) {
@@ -648,7 +648,7 @@ pps_job_render_texture_run (PpsJob *job)
 	PpsRenderContext *rc;
 	cairo_surface_t *surface, *selection = NULL;
 
-	pps_debug_message (DEBUG_JOBS, "page: %d (%p)", job_render->page, job);
+	pps_debug_message (DEBUG_JOBS, "running render job: page: %d (%p)", job_render->page, job);
 
 	pps_document_doc_mutex_lock ();
 	pps_document_fc_mutex_lock ();
@@ -771,7 +771,7 @@ pps_job_page_data_run (PpsJob *job)
 	PpsJobPageData *job_pd = PPS_JOB_PAGE_DATA (job);
 	PpsPage        *pps_page;
 
-	pps_debug_message (DEBUG_JOBS, "page: %d (%p)", job_pd->page, job);
+	pps_debug_message (DEBUG_JOBS, "running page data job: page: %d (%p)", job_pd->page, job);
 
 	pps_document_doc_mutex_lock ();
 	pps_page = pps_document_get_page (job->document, job_pd->page);
@@ -878,7 +878,7 @@ pps_job_thumbnail_texture_run (PpsJob *job)
 	PpsPage          *page;
 	cairo_surface_t *surface;
 
-	pps_debug_message (DEBUG_JOBS, "%d (%p)", job_thumb->page, job);
+	pps_debug_message (DEBUG_JOBS, "running thumbnail job: page: %d (%p)", job_thumb->page, job);
 
 	pps_document_doc_mutex_lock ();
 
@@ -987,7 +987,7 @@ pps_job_fonts_run (PpsJob *job)
 {
 	PpsDocument *document = pps_job_get_document (job);
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "running fonts job");
 
 	pps_document_doc_mutex_lock ();
 	pps_document_fc_mutex_lock ();
@@ -1083,7 +1083,7 @@ pps_job_load_run (PpsJob *job)
 	PpsJobLoad *job_load = PPS_JOB_LOAD (job);
 	GError    *error = NULL;
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "running load job");
 
 	if (job_load->uri == NULL && job_load->fd == -1) {
 		g_set_error_literal (&error, G_FILE_ERROR, G_FILE_ERROR_BADF,
@@ -1345,7 +1345,8 @@ pps_job_save_run (PpsJob *job)
 	gchar     *local_uri;
 	GError    *error = NULL;
 
-	pps_debug_message (DEBUG_JOBS, "uri: %s, document_uri: %s", job_save->uri, job_save->document_uri);
+	pps_debug_message (DEBUG_JOBS, "running save job: uri: %s, document_uri: %s",
+			   job_save->uri, job_save->document_uri);
 
         fd = pps_mkstemp ("saveacopy.XXXXXX", &tmp_filename, &error);
         if (fd == -1) {
@@ -1496,7 +1497,7 @@ pps_job_find_run (PpsJob *job)
 	PpsPage         *pps_page;
 	GList           *matches;
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "running find job");
 
 	for (gint current_page = job_find->start_page;
 	     (current_page + 1) % job_find->n_pages != job_find->start_page;
@@ -1645,7 +1646,7 @@ pps_job_layers_run (PpsJob *job)
 {
 	PpsJobLayers *job_layers = PPS_JOB_LAYERS (job);
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "running layers job");
 
 	pps_document_doc_mutex_lock ();
 	job_layers->model = pps_document_layers_get_layers (PPS_DOCUMENT_LAYERS (job->document));
@@ -1718,7 +1719,7 @@ pps_job_export_run (PpsJob *job)
 
 	g_assert (job_export->page != -1);
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "running export job");
 
 	pps_document_doc_mutex_lock ();
 
@@ -1802,7 +1803,7 @@ pps_job_print_run (PpsJob *job)
 	g_assert (job_print->page != -1);
 	g_assert (job_print->cr != NULL);
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "running print job");
 
 	job->failed = FALSE;
 	job->finished = FALSE;
