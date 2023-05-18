@@ -31,6 +31,8 @@
 
 #include <papers-document.h>
 
+#define PPS_GET_TYPE_NAME(instance) g_type_name_from_instance ((gpointer)instance)
+
 G_BEGIN_DECLS
 
 typedef struct _PpsJob PpsJob;

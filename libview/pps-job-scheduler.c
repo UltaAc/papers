@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include "pps-debug.h"
 #include "pps-job-scheduler.h"
 
 #ifdef G_LOG_DOMAIN

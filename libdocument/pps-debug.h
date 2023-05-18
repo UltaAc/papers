@@ -44,8 +44,6 @@
 
 G_BEGIN_DECLS
 
-#define PPS_GET_TYPE_NAME(instance) g_type_name_from_instance ((gpointer)instance)
-
 #ifndef PPS_ENABLE_DEBUG
 
 #define _pps_debug_init()
