@@ -47,33 +47,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-static void pps_job_init                       (PpsJob                    *job);
-static void pps_job_class_init                 (PpsJobClass               *class);
-static void pps_job_links_init                 (PpsJobLinks               *job);
-static void pps_job_links_class_init           (PpsJobLinksClass          *class);
-static void pps_job_attachments_init           (PpsJobAttachments         *job);
-static void pps_job_attachments_class_init     (PpsJobAttachmentsClass    *class);
-static void pps_job_annots_init                (PpsJobAnnots              *job);
-static void pps_job_annots_class_init          (PpsJobAnnotsClass         *class);
-static void pps_job_render_texture_init        (PpsJobRenderTexture         *job);
-static void pps_job_render_texture_class_init  (PpsJobRenderTextureClass    *class);
-static void pps_job_page_data_init             (PpsJobPageData            *job);
-static void pps_job_page_data_class_init       (PpsJobPageDataClass       *class);
-static void pps_job_thumbnail_texture_init       (PpsJobThumbnailTexture      *job);
-static void pps_job_thumbnail_texture_class_init (PpsJobThumbnailTextureClass *class);
-static void pps_job_load_init                  (PpsJobLoad                *job);
-static void pps_job_load_class_init            (PpsJobLoadClass           *class);
-static void pps_job_save_init                  (PpsJobSave                *job);
-static void pps_job_save_class_init            (PpsJobSaveClass           *class);
-static void pps_job_find_init                  (PpsJobFind                *job);
-static void pps_job_find_class_init            (PpsJobFindClass           *class);
-static void pps_job_layers_init                (PpsJobLayers              *job);
-static void pps_job_layers_class_init          (PpsJobLayersClass         *class);
-static void pps_job_export_init                (PpsJobExport              *job);
-static void pps_job_export_class_init          (PpsJobExportClass         *class);
-static void pps_job_print_init                 (PpsJobPrint               *job);
-static void pps_job_print_class_init           (PpsJobPrintClass          *class);
-
 enum {
 	PROP_0,
 	PROP_DOCUMENT,
