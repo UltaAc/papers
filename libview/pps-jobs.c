@@ -430,7 +430,7 @@ pps_job_links_new (PpsDocument *document)
 {
 	PpsJob *job;
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "new links job");
 
 	job = g_object_new (PPS_TYPE_JOB_LINKS,
 			    "document", document,
@@ -515,7 +515,7 @@ pps_job_attachments_new (PpsDocument *document)
 {
 	PpsJob *job;
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "new attachments job");
 
 	job = g_object_new (PPS_TYPE_JOB_ATTACHMENTS,
 			    "document", document,
@@ -585,7 +585,7 @@ pps_job_annots_new (PpsDocument *document)
 {
 	PpsJob *job;
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "new annots job");
 
 	job = g_object_new (PPS_TYPE_JOB_ANNOTS,
 			    "document", document,
@@ -652,7 +652,7 @@ pps_job_render_texture_new (PpsDocument   *document,
 {
 	PpsJobRenderTexture *job;
 
-	pps_debug_message (DEBUG_JOBS, "page: %d", page);
+	pps_debug_message (DEBUG_JOBS, "new render job: page: %d", page);
 
 	job = g_object_new (PPS_TYPE_JOB_RENDER_TEXTURE,
 			    "document", document,
@@ -867,7 +867,7 @@ pps_job_page_data_new (PpsDocument        *document,
 {
 	PpsJobPageData *job;
 
-	pps_debug_message (DEBUG_JOBS, "%d", page);
+	pps_debug_message (DEBUG_JOBS, "new page data job: page: %d", page);
 
 	job = g_object_new (PPS_TYPE_JOB_PAGE_DATA,
 			    "document", document,
@@ -955,7 +955,7 @@ pps_job_thumbnail_texture_new (PpsDocument *document,
 {
 	PpsJobThumbnailTexture *job;
 
-	pps_debug_message (DEBUG_JOBS, "%d", page);
+	pps_debug_message (DEBUG_JOBS, "new thumbnail job: page: %d", page);
 
 	job = g_object_new (PPS_TYPE_JOB_THUMBNAIL_TEXTURE,
 			    "document", document,
@@ -1042,7 +1042,7 @@ pps_job_fonts_new (PpsDocument *document)
 {
 	PpsJobFonts *job;
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "new fonts job");
 
 	job = g_object_new (PPS_TYPE_JOB_FONTS,
 			    "document", document,
@@ -1207,7 +1207,7 @@ pps_job_load_new (void)
 {
 	PpsJobLoad *job;
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "new load job");
 
 	job = g_object_new (PPS_TYPE_JOB_LOAD, NULL);
 
@@ -1231,7 +1231,7 @@ pps_job_load_set_uri (PpsJobLoad   *job,
 	g_return_if_fail (uri != NULL);
 	g_return_if_fail (job->fd == -1);
 
-	pps_debug_message (DEBUG_JOBS, "%s", uri);
+	pps_debug_message (DEBUG_JOBS, "load job set uri: %s", uri);
 
 	g_free (job->uri);
 	job->uri = g_strdup (uri);
@@ -1264,7 +1264,7 @@ pps_job_load_set_fd (PpsJobLoad   *job,
 	g_return_val_if_fail (mime_type != NULL, FALSE);
 	g_return_val_if_fail (job->uri == NULL, FALSE);
 
-	pps_debug_message (DEBUG_JOBS, "%d %s", fd, mime_type);
+	pps_debug_message (DEBUG_JOBS, "load job set fd: %d, mime: %s", fd, mime_type);
 
 	g_free (job->mime_type);
 	job->mime_type = g_strdup (mime_type);
@@ -1477,7 +1477,7 @@ pps_job_save_new (PpsDocument  *document,
 {
 	PpsJobSave *job;
 
-	pps_debug_message (DEBUG_JOBS, "uri: %s, document_uri: %s", uri, document_uri);
+	pps_debug_message (DEBUG_JOBS, "new save job: uri: %s, document_uri: %s", uri, document_uri);
 
 	job = g_object_new (PPS_TYPE_JOB_SAVE,
 			    "document", document,
@@ -1578,7 +1578,7 @@ pps_job_find_new (PpsDocument    *document,
 {
 	PpsJobFind *job;
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "new find job");
 
 	job = g_object_new (PPS_TYPE_JOB_FIND,
 			    "document", document,
@@ -1710,7 +1710,7 @@ pps_job_layers_new (PpsDocument *document)
 {
 	PpsJob *job;
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "new layers job");
 
 	job = g_object_new (PPS_TYPE_JOB_LAYERS,
 			    "document", document,
@@ -1785,7 +1785,7 @@ pps_job_export_new (PpsDocument *document)
 {
 	PpsJob *job;
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "new export job");
 
 	job = g_object_new (PPS_TYPE_JOB_EXPORT,
 			    "document", document,
@@ -1877,7 +1877,7 @@ pps_job_print_new (PpsDocument *document)
 {
 	PpsJob *job;
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "new print job");
 
 	job = g_object_new (PPS_TYPE_JOB_PRINT,
 			    "document", document,
