@@ -173,7 +173,7 @@ emit_finished (PpsJob *job)
 static void
 pps_job_emit_finished (PpsJob *job)
 {
-	pps_debug_message (DEBUG_JOBS, "%s (%p)", PPS_GET_TYPE_NAME (job), job);
+	pps_debug_message (DEBUG_JOBS, "emit finished for %s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	if (g_cancellable_is_cancelled (job->cancellable)) {
 		pps_debug_message (DEBUG_JOBS, "%s (%p) job was cancelled, returning", PPS_GET_TYPE_NAME (job), job);
