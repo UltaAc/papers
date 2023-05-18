@@ -1270,7 +1270,7 @@ pps_job_load_take_fd (PpsJobLoad  *job,
 	g_return_if_fail (mime_type != NULL);
 	g_return_if_fail (job->uri == NULL);
 
-	pps_debug_message (DEBUG_JOBS, "%d %s", fd, mime_type);
+	pps_debug_message (DEBUG_JOBS, "load job take fd: %d %s", fd, mime_type);
 
 	g_free (job->mime_type);
 	job->mime_type = g_strdup (mime_type);
@@ -1283,7 +1283,7 @@ pps_job_load_set_password (PpsJobLoad *job, const gchar *password)
 {
 	g_return_if_fail (PPS_IS_JOB_LOAD (job));
 
-	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_debug_message (DEBUG_JOBS, "load job setting password");
 
 	g_free (job->password);
 	job->password = g_strdup (password);
