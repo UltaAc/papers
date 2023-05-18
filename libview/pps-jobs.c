@@ -47,6 +47,11 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+#ifdef G_LOG_DOMAIN
+#undef G_LOG_DOMAIN
+#endif
+#define G_LOG_DOMAIN "PpsJobs"
+
 enum {
 	PROP_0,
 	PROP_DOCUMENT,
@@ -93,7 +98,7 @@ pps_job_dispose (GObject *object)
 {
 	PpsJob *job = PPS_JOB (object);
 
-	pps_debug_message (DEBUG_JOBS, "disposing %s (%p)", PPS_GET_TYPE_NAME(job), job);
+	g_debug ("disposing %s (%p)", PPS_GET_TYPE_NAME(job), job);
 
 	g_clear_object (&job->document);
 	g_clear_object (&job->cancellable);
@@ -158,12 +163,12 @@ pps_job_class_init (PpsJobClass *klass)
 static gboolean
 emit_finished (PpsJob *job)
 {
-	pps_debug_message (DEBUG_JOBS, "%s (%p)", PPS_GET_TYPE_NAME (job), job);
+	g_debug ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	job->idle_finished_id = 0;
 
 	if (job->cancelled)
-		pps_debug_message (DEBUG_JOBS, "%s (%p) job was cancelled, do not emit finished", PPS_GET_TYPE_NAME (job), job);
+		g_debug ("%s (%p) job was cancelled, do not emit finished", PPS_GET_TYPE_NAME (job), job);
 	else
 		g_signal_emit (job, job_signals[FINISHED], 0);
 
@@ -173,10 +178,10 @@ emit_finished (PpsJob *job)
 static void
 pps_job_emit_finished (PpsJob *job)
 {
-	pps_debug_message (DEBUG_JOBS, "emit finished for %s (%p)", PPS_GET_TYPE_NAME (job), job);
+	g_debug ("emit finished for %s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	if (g_cancellable_is_cancelled (job->cancellable)) {
-		pps_debug_message (DEBUG_JOBS, "%s (%p) job was cancelled, returning", PPS_GET_TYPE_NAME (job), job);
+		g_debug ("%s (%p) job was cancelled, returning", PPS_GET_TYPE_NAME (job), job);
 		return;
 	}
 
@@ -207,7 +212,7 @@ pps_job_cancel (PpsJob *job)
 	if (job->cancelled)
 		return;
 
-	pps_debug_message (DEBUG_JOBS, "job %s (%p) cancelled", PPS_GET_TYPE_NAME (job), job);
+	g_debug ("job %s (%p) cancelled", PPS_GET_TYPE_NAME (job), job);
 
 	/* This should never be called from a thread */
 	job->cancelled = TRUE;
@@ -232,7 +237,7 @@ pps_job_failed (PpsJob       *job,
 	if (job->failed || job->finished)
 		return;
 
-	pps_debug_message (DEBUG_JOBS, "job %s (%p) failed", PPS_GET_TYPE_NAME (job), job);
+	g_debug ("job %s (%p) failed", PPS_GET_TYPE_NAME (job), job);
 
 	job->failed = TRUE;
 
@@ -258,7 +263,7 @@ pps_job_failed_from_error (PpsJob  *job,
 	if (job->failed || job->finished)
 		return;
 
-	pps_debug_message (DEBUG_JOBS, "job %s (%p) failed", PPS_GET_TYPE_NAME (job), job);
+	g_debug ("job %s (%p) failed", PPS_GET_TYPE_NAME (job), job);
 
 	job->failed = TRUE;
 	job->error = g_error_copy (error);
@@ -272,7 +277,7 @@ pps_job_succeeded (PpsJob *job)
 	if (job->finished)
 		return;
 
-	pps_debug_message (DEBUG_JOBS, "job %s (%p) succeeded", PPS_GET_TYPE_NAME (job), job);
+	g_debug ("job %s (%p) succeeded", PPS_GET_TYPE_NAME (job), job);
 
 	job->failed = FALSE;
 	pps_job_emit_finished (job);
@@ -375,7 +380,7 @@ pps_job_links_run (PpsJob *job)
 {
 	PpsJobLinks *job_links = PPS_JOB_LINKS (job);
 
-	pps_debug_message (DEBUG_JOBS, "running links job");
+	g_debug ("running links job");
 
 	pps_document_doc_mutex_lock ();
 	job_links->model = pps_document_links_get_links_model (PPS_DOCUMENT_LINKS (job->document));
@@ -403,7 +408,7 @@ pps_job_links_new (PpsDocument *document)
 {
 	PpsJob *job;
 
-	pps_debug_message (DEBUG_JOBS, "new links job");
+	g_debug ("new links job");
 
 	job = g_object_new (PPS_TYPE_JOB_LINKS,
 			    "document", document,
@@ -449,7 +454,7 @@ pps_job_attachments_run (PpsJob *job)
 {
 	PpsJobAttachments *job_attachments = PPS_JOB_ATTACHMENTS (job);
 
-	pps_debug_message (DEBUG_JOBS, "running attachments job");
+	g_debug ("running attachments job");
 
 	pps_document_doc_mutex_lock ();
 	job_attachments->attachments =
@@ -488,7 +493,7 @@ pps_job_attachments_new (PpsDocument *document)
 {
 	PpsJob *job;
 
-	pps_debug_message (DEBUG_JOBS, "new attachments job");
+	g_debug ("new attachments job");
 
 	job = g_object_new (PPS_TYPE_JOB_ATTACHMENTS,
 			    "document", document,
@@ -519,7 +524,7 @@ pps_job_annots_run (PpsJob *job)
 	PpsJobAnnots *job_annots = PPS_JOB_ANNOTS (job);
 	gint         i;
 
-	pps_debug_message (DEBUG_JOBS, "running annots job");
+	g_debug ("running annots job");
 
 	pps_document_doc_mutex_lock ();
 	for (i = 0; i < pps_document_get_n_pages (job->document); i++) {
@@ -558,7 +563,7 @@ pps_job_annots_new (PpsDocument *document)
 {
 	PpsJob *job;
 
-	pps_debug_message (DEBUG_JOBS, "new annots job");
+	g_debug ("new annots job");
 
 	job = g_object_new (PPS_TYPE_JOB_ANNOTS,
 			    "document", document,
@@ -579,7 +584,7 @@ pps_job_render_texture_dispose (GObject *object)
 {
 	PpsJobRenderTexture *job = PPS_JOB_RENDER_TEXTURE (object);
 
-	pps_debug_message (DEBUG_JOBS, "disposing job render: %d (%p)", job->page, job);
+	g_debug ("disposing job render: %d (%p)", job->page, job);
 
 	g_clear_object (&job->texture);
 	g_clear_object (&job->selection);
@@ -625,7 +630,7 @@ pps_job_render_texture_new (PpsDocument   *document,
 {
 	PpsJobRenderTexture *job;
 
-	pps_debug_message (DEBUG_JOBS, "new render job: page: %d", page);
+	g_debug ("new render job: page: %d", page);
 
 	job = g_object_new (PPS_TYPE_JOB_RENDER_TEXTURE,
 			    "document", document,
@@ -648,7 +653,7 @@ pps_job_render_texture_run (PpsJob *job)
 	PpsRenderContext *rc;
 	cairo_surface_t *surface, *selection = NULL;
 
-	pps_debug_message (DEBUG_JOBS, "running render job: page: %d (%p)", job_render->page, job);
+	g_debug ("running render job: page: %d (%p)", job_render->page, job);
 
 	pps_document_doc_mutex_lock ();
 	pps_document_fc_mutex_lock ();
@@ -771,7 +776,7 @@ pps_job_page_data_run (PpsJob *job)
 	PpsJobPageData *job_pd = PPS_JOB_PAGE_DATA (job);
 	PpsPage        *pps_page;
 
-	pps_debug_message (DEBUG_JOBS, "running page data job: page: %d (%p)", job_pd->page, job);
+	g_debug ("running page data job: page: %d (%p)", job_pd->page, job);
 
 	pps_document_doc_mutex_lock ();
 	pps_page = pps_document_get_page (job->document, job_pd->page);
@@ -840,7 +845,7 @@ pps_job_page_data_new (PpsDocument        *document,
 {
 	PpsJobPageData *job;
 
-	pps_debug_message (DEBUG_JOBS, "new page data job: page: %d", page);
+	g_debug ("new page data job: page: %d", page);
 
 	job = g_object_new (PPS_TYPE_JOB_PAGE_DATA,
 			    "document", document,
@@ -863,7 +868,7 @@ pps_job_thumbnail_texture_dispose (GObject *object)
 {
 	PpsJobThumbnailTexture *job = PPS_JOB_THUMBNAIL_TEXTURE (object);
 
-	pps_debug_message (DEBUG_JOBS, "disposing job thumbnail: page: %d (%p)", job->page, job);
+	g_debug ("disposing job thumbnail: page: %d (%p)", job->page, job);
 
 	g_clear_object (&job->thumbnail_texture);
 
@@ -878,7 +883,7 @@ pps_job_thumbnail_texture_run (PpsJob *job)
 	PpsPage          *page;
 	cairo_surface_t *surface;
 
-	pps_debug_message (DEBUG_JOBS, "running thumbnail job: page: %d (%p)", job_thumb->page, job);
+	g_debug ("running thumbnail job: page: %d (%p)", job_thumb->page, job);
 
 	pps_document_doc_mutex_lock ();
 
@@ -928,7 +933,7 @@ pps_job_thumbnail_texture_new (PpsDocument *document,
 {
 	PpsJobThumbnailTexture *job;
 
-	pps_debug_message (DEBUG_JOBS, "new thumbnail job: page: %d", page);
+	g_debug ("new thumbnail job: page: %d", page);
 
 	job = g_object_new (PPS_TYPE_JOB_THUMBNAIL_TEXTURE,
 			    "document", document,
@@ -987,7 +992,7 @@ pps_job_fonts_run (PpsJob *job)
 {
 	PpsDocument *document = pps_job_get_document (job);
 
-	pps_debug_message (DEBUG_JOBS, "running fonts job");
+	g_debug ("running fonts job");
 
 	pps_document_doc_mutex_lock ();
 	pps_document_fc_mutex_lock ();
@@ -1015,7 +1020,7 @@ pps_job_fonts_new (PpsDocument *document)
 {
 	PpsJobFonts *job;
 
-	pps_debug_message (DEBUG_JOBS, "new fonts job");
+	g_debug ("new fonts job");
 
 	job = g_object_new (PPS_TYPE_JOB_FONTS,
 			    "document", document,
@@ -1083,7 +1088,7 @@ pps_job_load_run (PpsJob *job)
 	PpsJobLoad *job_load = PPS_JOB_LOAD (job);
 	GError    *error = NULL;
 
-	pps_debug_message (DEBUG_JOBS, "running load job");
+	g_debug ("running load job");
 
 	if (job_load->uri == NULL && job_load->fd == -1) {
 		g_set_error_literal (&error, G_FILE_ERROR, G_FILE_ERROR_BADF,
@@ -1180,7 +1185,7 @@ pps_job_load_new (void)
 {
 	PpsJobLoad *job;
 
-	pps_debug_message (DEBUG_JOBS, "new load job");
+	g_debug ("new load job");
 
 	job = g_object_new (PPS_TYPE_JOB_LOAD, NULL);
 
@@ -1204,7 +1209,7 @@ pps_job_load_set_uri (PpsJobLoad   *job,
 	g_return_if_fail (uri != NULL);
 	g_return_if_fail (job->fd == -1);
 
-	pps_debug_message (DEBUG_JOBS, "load job set uri: %s", uri);
+	g_debug ("load job set uri: %s", uri);
 
 	g_free (job->uri);
 	job->uri = g_strdup (uri);
@@ -1237,7 +1242,7 @@ pps_job_load_set_fd (PpsJobLoad   *job,
 	g_return_val_if_fail (mime_type != NULL, FALSE);
 	g_return_val_if_fail (job->uri == NULL, FALSE);
 
-	pps_debug_message (DEBUG_JOBS, "load job set fd: %d, mime: %s", fd, mime_type);
+	g_debug ("load job set fd: %d, mime: %s", fd, mime_type);
 
 	g_free (job->mime_type);
 	job->mime_type = g_strdup (mime_type);
@@ -1270,7 +1275,7 @@ pps_job_load_take_fd (PpsJobLoad  *job,
 	g_return_if_fail (mime_type != NULL);
 	g_return_if_fail (job->uri == NULL);
 
-	pps_debug_message (DEBUG_JOBS, "load job take fd: %d %s", fd, mime_type);
+	g_debug ("load job take fd: %d %s", fd, mime_type);
 
 	g_free (job->mime_type);
 	job->mime_type = g_strdup (mime_type);
@@ -1283,7 +1288,7 @@ pps_job_load_set_password (PpsJobLoad *job, const gchar *password)
 {
 	g_return_if_fail (PPS_IS_JOB_LOAD (job));
 
-	pps_debug_message (DEBUG_JOBS, "load job setting password");
+	g_debug ("load job setting password");
 
 	g_free (job->password);
 	job->password = g_strdup (password);
@@ -1328,7 +1333,7 @@ pps_job_save_dispose (GObject *object)
 {
 	PpsJobSave *job = PPS_JOB_SAVE (object);
 
-	pps_debug_message (DEBUG_JOBS, "disposing job save: uri: %s", job->uri);
+	g_debug ("disposing job save: uri: %s", job->uri);
 
 	g_clear_pointer (&job->uri, g_free);
 	g_clear_pointer (&job->document_uri, g_free);
@@ -1345,7 +1350,7 @@ pps_job_save_run (PpsJob *job)
 	gchar     *local_uri;
 	GError    *error = NULL;
 
-	pps_debug_message (DEBUG_JOBS, "running save job: uri: %s, document_uri: %s",
+	g_debug ("running save job: uri: %s, document_uri: %s",
 			   job_save->uri, job_save->document_uri);
 
         fd = pps_mkstemp ("saveacopy.XXXXXX", &tmp_filename, &error);
@@ -1451,7 +1456,7 @@ pps_job_save_new (PpsDocument  *document,
 {
 	PpsJobSave *job;
 
-	pps_debug_message (DEBUG_JOBS, "new save job: uri: %s, document_uri: %s", uri, document_uri);
+	g_debug ("new save job: uri: %s, document_uri: %s", uri, document_uri);
 
 	job = g_object_new (PPS_TYPE_JOB_SAVE,
 			    "document", document,
@@ -1497,7 +1502,7 @@ pps_job_find_run (PpsJob *job)
 	PpsPage         *pps_page;
 	GList           *matches;
 
-	pps_debug_message (DEBUG_JOBS, "running find job");
+	g_debug ("running find job");
 
 	for (gint current_page = job_find->start_page;
 	     (current_page + 1) % job_find->n_pages != job_find->start_page;
@@ -1552,7 +1557,7 @@ pps_job_find_new (PpsDocument    *document,
 {
 	PpsJobFind *job;
 
-	pps_debug_message (DEBUG_JOBS, "new find job");
+	g_debug ("new find job");
 
 	job = g_object_new (PPS_TYPE_JOB_FIND,
 			    "document", document,
@@ -1646,7 +1651,7 @@ pps_job_layers_run (PpsJob *job)
 {
 	PpsJobLayers *job_layers = PPS_JOB_LAYERS (job);
 
-	pps_debug_message (DEBUG_JOBS, "running layers job");
+	g_debug ("running layers job");
 
 	pps_document_doc_mutex_lock ();
 	job_layers->model = pps_document_layers_get_layers (PPS_DOCUMENT_LAYERS (job->document));
@@ -1684,7 +1689,7 @@ pps_job_layers_new (PpsDocument *document)
 {
 	PpsJob *job;
 
-	pps_debug_message (DEBUG_JOBS, "new layers job");
+	g_debug ("new layers job");
 
 	job = g_object_new (PPS_TYPE_JOB_LAYERS,
 			    "document", document,
@@ -1719,7 +1724,7 @@ pps_job_export_run (PpsJob *job)
 
 	g_assert (job_export->page != -1);
 
-	pps_debug_message (DEBUG_JOBS, "running export job");
+	g_debug ("running export job");
 
 	pps_document_doc_mutex_lock ();
 
@@ -1759,7 +1764,7 @@ pps_job_export_new (PpsDocument *document)
 {
 	PpsJob *job;
 
-	pps_debug_message (DEBUG_JOBS, "new export job");
+	g_debug ("new export job");
 
 	job = g_object_new (PPS_TYPE_JOB_EXPORT,
 			    "document", document,
@@ -1803,7 +1808,7 @@ pps_job_print_run (PpsJob *job)
 	g_assert (job_print->page != -1);
 	g_assert (job_print->cr != NULL);
 
-	pps_debug_message (DEBUG_JOBS, "running print job");
+	g_debug ("running print job");
 
 	job->failed = FALSE;
 	job->finished = FALSE;
@@ -1851,7 +1856,7 @@ pps_job_print_new (PpsDocument *document)
 {
 	PpsJob *job;
 
-	pps_debug_message (DEBUG_JOBS, "new print job");
+	g_debug ("new print job");
 
 	job = g_object_new (PPS_TYPE_JOB_PRINT,
 			    "document", document,

@@ -50,22 +50,10 @@ G_BEGIN_DECLS
 
 #define _pps_debug_init()
 #define _pps_debug_shutdown()
-#define pps_debug_message(...) G_STMT_START { } G_STMT_END
 #define pps_profiler_start(...) G_STMT_START { } G_STMT_END
 #define pps_profiler_stop(...) G_STMT_START { } G_STMT_END
 
 #else /* ENABLE_DEBUG */
-
-/*
- * Set an environmental var of the same name to turn on
- * debugging output. Setting PPS_DEBUG will turn on all
- * sections.
- */
-typedef enum {
-	PPS_NO_DEBUG           = 0,
-	PPS_DEBUG_JOBS         = 1 << 0,
-        PPS_DEBUG_SHOW_BORDERS = 1 << 1
-} PpsDebugSection;
 
 typedef enum {
         PPS_DEBUG_BORDER_NONE       = 0,
@@ -79,16 +67,7 @@ typedef enum {
         PPS_DEBUG_BORDER_ALL        = (1 << 7) - 1
 } PpsDebugBorders;
 
-#define DEBUG_JOBS      PPS_DEBUG_JOBS,    __FILE__, __LINE__, G_STRFUNC
-
 void _pps_debug_init     (void);
-
-PPS_PRIVATE
-void pps_debug_message  (PpsDebugSection   section,
-			const gchar     *file,
-			gint             line,
-			const gchar     *function,
-			const gchar     *format, ...) G_GNUC_PRINTF(5, 6);
 
 PPS_PRIVATE
 PpsDebugBorders pps_debug_get_debug_borders (void);

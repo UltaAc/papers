@@ -21,6 +21,11 @@
 #include "pps-debug.h"
 #include "pps-job-scheduler.h"
 
+#ifdef G_LOG_DOMAIN
+#undef G_LOG_DOMAIN
+#endif
+#define G_LOG_DOMAIN "PpsJobScheduler"
+
 typedef struct _PpsSchedulerJob {
 	PpsJob         *job;
 	PpsJobPriority  priority;
@@ -53,7 +58,7 @@ pps_scheduler_job_free (PpsSchedulerJob *job)
 static void
 pps_scheduler_job_destroy (PpsSchedulerJob *job)
 {
-	pps_debug_message (DEBUG_JOBS, "destroying job: %s", PPS_GET_TYPE_NAME (job->job));
+	g_debug ("destroying job: %s", PPS_GET_TYPE_NAME (job->job));
 
 	g_hash_table_remove (pps_jobs_hash (), job);
 	pps_scheduler_job_free (job);
@@ -64,7 +69,7 @@ pps_job_thread (PpsSchedulerJob *scheduler_job, gpointer data)
 {
 	PpsJob *job = scheduler_job->job;
 
-	pps_debug_message (DEBUG_JOBS, "running thread for job: %s", PPS_GET_TYPE_NAME (job));
+	g_debug ("running thread for job: %s", PPS_GET_TYPE_NAME (job));
 
 	if (!g_cancellable_is_cancelled (job->cancellable))
 		pps_job_run (job);
@@ -112,8 +117,8 @@ pps_thread_pool (void)
 static void
 pps_job_queue_push (PpsSchedulerJob *job)
 {
-	pps_debug_message (DEBUG_JOBS, "pushing job: %s, priority: %d",
-			   PPS_GET_TYPE_NAME (job->job), job->priority);
+	g_debug ("pushing job: %s, priority: %d",
+		 PPS_GET_TYPE_NAME (job->job), job->priority);
 
 	g_hash_table_insert (pps_jobs_hash (), job->job, job);
 	g_thread_pool_push (pps_thread_pool (), job, NULL);
@@ -136,8 +141,8 @@ void
 pps_job_scheduler_update_job (PpsJob         *job,
 			     PpsJobPriority  priority)
 {
-	pps_debug_message (DEBUG_JOBS, "update priority for job: %s, priority %d",
-			   PPS_GET_TYPE_NAME (job), priority);
+	g_debug ("update priority for job: %s, priority %d",
+		 PPS_GET_TYPE_NAME (job), priority);
 
 	if (priority == PPS_JOB_PRIORITY_URGENT)
 		g_thread_pool_move_to_front (pps_thread_pool(),
@@ -153,10 +158,10 @@ pps_job_scheduler_update_job (PpsJob         *job,
 void
 pps_job_scheduler_wait (void)
 {
-	pps_debug_message (DEBUG_JOBS, "Waiting for empty job list");
+	g_debug ("Waiting for empty job list");
 
 	while (g_thread_pool_unprocessed (pps_thread_pool()))
 		g_usleep (100);
 
-	pps_debug_message (DEBUG_JOBS, "Job list is empty");
+	g_debug ("Job list is empty");
 }

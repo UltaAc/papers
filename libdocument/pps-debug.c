@@ -36,22 +36,14 @@
 #include <config.h>
 #endif
 
-#include <stdio.h>
-#include <string.h>
-
 #include "pps-debug.h"
 
 #ifdef PPS_ENABLE_DEBUG
-static PpsDebugSection pps_debug = PPS_NO_DEBUG;
 static PpsDebugBorders pps_debug_borders = PPS_DEBUG_BORDER_NONE;
 
 void
 _pps_debug_init (void)
 {
-        const GDebugKey keys[] = {
-                { "jobs",    PPS_DEBUG_JOBS         },
-                { "borders", PPS_DEBUG_SHOW_BORDERS }
-        };
         const GDebugKey border_keys[] = {
                 { "chars",      PPS_DEBUG_BORDER_CHARS      },
                 { "links",      PPS_DEBUG_BORDER_LINKS      },
@@ -62,36 +54,9 @@ _pps_debug_init (void)
                 { "selections", PPS_DEBUG_BORDER_SELECTIONS }
         };
 
-        pps_debug = g_parse_debug_string (g_getenv ("PPS_DEBUG"), keys, G_N_ELEMENTS (keys));
-        if (pps_debug & PPS_DEBUG_SHOW_BORDERS)
-                pps_debug_borders = g_parse_debug_string (g_getenv ("PPS_DEBUG_SHOW_BORDERS"),
-                                                         border_keys, G_N_ELEMENTS (border_keys));
+	pps_debug_borders = g_parse_debug_string (g_getenv ("PPS_DEBUG_SHOW_BORDERS"),
+						  border_keys, G_N_ELEMENTS (border_keys));
 }
-
-void
-pps_debug_message (PpsDebugSection  section,
-		  const gchar    *file,
-		  gint            line,
-		  const gchar    *function,
-		  const gchar    *format, ...)
-{
-	if (G_UNLIKELY (pps_debug & section)) {
-		gchar *msg = NULL;
-
-		if (format) {
-			va_list args;
-
-			va_start (args, format);
-			msg = g_strdup_vprintf (format, args);
-			va_end (args);
-		}
-
-		g_print ("%s:%d (%s) %s\n", file, line, function, msg ? msg : "");
-
-		fflush (stdout);
-
-		g_free (msg);
-	}
 }
 
 PpsDebugBorders
