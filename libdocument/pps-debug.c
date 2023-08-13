@@ -39,30 +39,28 @@
 #include "pps-debug.h"
 
 #ifdef PPS_ENABLE_DEBUG
+static gboolean pps_debug_borders_initialized = FALSE;
 static PpsDebugBorders pps_debug_borders = PPS_DEBUG_BORDER_NONE;
 
-void
-_pps_debug_init (void)
-{
-        const GDebugKey border_keys[] = {
-                { "chars",      PPS_DEBUG_BORDER_CHARS      },
-                { "links",      PPS_DEBUG_BORDER_LINKS      },
-                { "forms",      PPS_DEBUG_BORDER_FORMS      },
-                { "annots",     PPS_DEBUG_BORDER_ANNOTS     },
-                { "images",     PPS_DEBUG_BORDER_IMAGES     },
-                { "media",      PPS_DEBUG_BORDER_MEDIA      },
-                { "selections", PPS_DEBUG_BORDER_SELECTIONS }
-        };
-
-	pps_debug_borders = g_parse_debug_string (g_getenv ("PPS_DEBUG_SHOW_BORDERS"),
-						  border_keys, G_N_ELEMENTS (border_keys));
-}
-}
+const GDebugKey border_keys[] = {
+	{ "chars",      PPS_DEBUG_BORDER_CHARS      },
+	{ "links",      PPS_DEBUG_BORDER_LINKS      },
+	{ "forms",      PPS_DEBUG_BORDER_FORMS      },
+	{ "annots",     PPS_DEBUG_BORDER_ANNOTS     },
+	{ "images",     PPS_DEBUG_BORDER_IMAGES     },
+	{ "media",      PPS_DEBUG_BORDER_MEDIA      },
+	{ "selections", PPS_DEBUG_BORDER_SELECTIONS }
+};
 
 PpsDebugBorders
 pps_debug_get_debug_borders (void)
 {
-        return pps_debug_borders;
+	if (!pps_debug_borders_initialized) {
+		pps_debug_borders = g_parse_debug_string (g_getenv ("PPS_DEBUG_SHOW_BORDERS"),
+							  border_keys, G_N_ELEMENTS (border_keys));
+		pps_debug_borders_initialized = TRUE;
+	}
+	return pps_debug_borders;
 }
 
 #endif /* PPS_ENABLE_DEBUG */

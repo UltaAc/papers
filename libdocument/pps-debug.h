@@ -44,14 +44,7 @@
 
 G_BEGIN_DECLS
 
-#ifndef PPS_ENABLE_DEBUG
-
-#define _pps_debug_init()
-#define _pps_debug_shutdown()
-#define pps_profiler_start(...) G_STMT_START { } G_STMT_END
-#define pps_profiler_stop(...) G_STMT_START { } G_STMT_END
-
-#else /* ENABLE_DEBUG */
+#ifdef PPS_ENABLE_DEBUG
 
 typedef enum {
         PPS_DEBUG_BORDER_NONE       = 0,
@@ -64,8 +57,6 @@ typedef enum {
         PPS_DEBUG_BORDER_SELECTIONS = 1 << 6,
         PPS_DEBUG_BORDER_ALL        = (1 << 7) - 1
 } PpsDebugBorders;
-
-void _pps_debug_init     (void);
 
 PPS_PRIVATE
 PpsDebugBorders pps_debug_get_debug_borders (void);

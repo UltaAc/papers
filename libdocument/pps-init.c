@@ -27,10 +27,9 @@
 
 #include <exempi/xmp.h>
 
-#include "pps-init.h"
 #include "pps-document-factory.h"
-#include "pps-debug.h"
 #include "pps-file-helpers.h"
+#include "pps-init.h"
 
 static int pps_init_count;
 
@@ -118,7 +117,6 @@ pps_init (void)
 
 	xmp_init ();
         gdk_pixbuf_init_modules (EXTRA_GDK_PIXBUF_LOADERS_DIR, NULL);
-        _pps_debug_init ();
         _pps_file_helpers_init ();
         have_backends = _pps_document_factory_init ();
 
