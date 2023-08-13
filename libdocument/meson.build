@@ -52,7 +52,6 @@ sources = files(
   'pps-annotation.c',
   'pps-attachment.c',
   'pps-backend-info.c',
-  'pps-debug.c',
   'pps-document.c',
   'pps-document-annotations.c',
   'pps-document-attachments.c',

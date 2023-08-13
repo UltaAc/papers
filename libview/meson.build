@@ -19,6 +19,7 @@ install_headers(
 sources = files(
   'pps-annotation-window.c',
   'pps-color-contrast.c',
+  'pps-debug.c',
   'pps-document-model.c',
   #'pps-form-field-accessible.c',
   #'pps-image-accessible.c',
