@@ -434,8 +434,8 @@ mime_types_conf.set('PACKAGE_ICON_NAME', app_id)
 subdir('cut-n-paste')
 subdir('libdocument')
 subdir('backend')
-#subdir('libview')
-#subdir('libmisc')
+subdir('libview')
+subdir('libmisc')
 subdir('properties')
 
 # *** Document Viewer ***
@@ -456,7 +456,7 @@ endif
 # Print Previewer
 enable_previewer = get_option('previewer')
 if enable_previewer
-  #subdir('previewer')
+  subdir('previewer')
 endif
 
 subdir('data')
