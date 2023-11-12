@@ -432,11 +432,11 @@ mime_types_conf.set('EVINCE_MIME_TYPES', ';'.join(evince_mime_types))
 mime_types_conf.set('PACKAGE_ICON_NAME', app_id)
 
 subdir('cut-n-paste')
-#subdir('libdocument')
-#subdir('backend')
+subdir('libdocument')
+subdir('backend')
 #subdir('libview')
 #subdir('libmisc')
-#subdir('properties')
+subdir('properties')
 
 # *** Document Viewer ***
 enable_viewer = get_option('viewer')
@@ -450,7 +450,7 @@ subdir('po')
 # *** Thumbnailer ***
 enable_thumbnailer = get_option('thumbnailer')
 if enable_thumbnailer
-  #subdir('thumbnailer')
+  subdir('thumbnailer')
 endif
 
 # Print Previewer
