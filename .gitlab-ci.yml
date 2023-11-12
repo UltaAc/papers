@@ -52,7 +52,6 @@ meson-internal-synctex:
 flatpak:
     extends: .flatpak
     stage: build
-    when: manual
 
     variables:
         MANIFEST_PATH: "build-aux/flatpak/org.gnome.Evince.json"
