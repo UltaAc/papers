@@ -177,6 +177,7 @@
             "buildsystem": "meson",
             "config-opts": [
                 "-Ddesktop_docs=false",
+                "-Dudev=disabled",
                 "-Ddebug_tools=false"
             ],
             "cleanup": [
