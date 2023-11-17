@@ -203,7 +203,7 @@
                 "-Dnautilus=false",
                 "-Dthumbnailer=false",
                 "-Dgtk_doc=false",
-                "-Dintrospection=true",
+                "-Dintrospection=false",
                 "-Duser_doc=false",
                 "-Ddevelopment=true"
             ],
