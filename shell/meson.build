@@ -31,7 +31,6 @@ papers_sources = files(
   'pps-sidebar-thumbnails.c',
   'pps-stack-switcher.c',
   'pps-zoom-action.c',
-  'main.c',
 )
 
 papers_sources += gnome.compile_resources(
@@ -88,9 +87,32 @@ if enable_keyring
   papers_deps += libsecret_dep
 endif
 
-papers = executable(
-  'papers',
-  sources: papers_sources,
+shell_sources = papers_sources + ['main.c']
+
+enum_types = 'ev-shell-type-builtins'
+enum_header_prefix = '''
+#include <papers-document.h>
+'''
+
+headers = files(
+  'pps-window.h',
+  'pps-metadata.h',
+  'pps-application.h',
+  'pps-sidebar-page.h'
+)
+
+enum_sources = gnome.mkenums_simple(
+  enum_types,
+  sources: headers,
+  header_prefix: enum_header_prefix,
+  decorator: 'PPS_PUBLIC',
+  install_header: false,
+)
+
+libppsshell = shared_library(
+  'ppsshell-' + pps_api_version,
+  version: pps_view_version,
+  sources: papers_sources + enum_sources,
   include_directories: top_inc,
   dependencies: papers_deps,
   c_args: papers_cflags,
@@ -132,5 +154,49 @@ if enable_dbus
     c_args: papersd_cflags,
     install: true,
     install_dir: pps_libexecdir,
+  )
+endif
+
+libppsshell_dep = declare_dependency(
+  sources: headers + [enum_sources[1]],
+  include_directories: libview_inc,
+  dependencies: deps,
+  link_with: libppsshell,
+)
+
+evince = executable(
+  'papers',
+  sources: ['main.c'],
+  include_directories: top_inc,
+  dependencies: [papers_deps, libppsshell_dep],
+  c_args: papers_cflags,
+  install: true,
+)
+
+# GObject Introspection
+if enable_introspection
+  incs = [
+    'Gdk-4.0',
+    'GdkPixbuf-2.0',
+    'Gio-2.0',
+    'GLib-2.0',
+    'GObject-2.0',
+    'Gtk-4.0',
+    'Adw-1',
+    libppsdocument_gir[0],
+    libppsview_gir[0],
+  ]
+
+  libppsshell_gir = gnome.generate_gir(
+    [libppsshell, libppsview, libppsdocument],
+    sources: papers_sources + headers + [enum_sources[1]],
+    includes: incs,
+    nsversion: pps_api_version,
+    namespace: 'PapersShell',
+    identifier_prefix: pps_code_prefix,
+    symbol_prefix: pps_code_prefix.to_lower(),
+    export_packages: 'papers-shell-' + pps_api_version,
+    extra_args: '-DPAPERS_COMPILATION',
+    install: false,
   )
 endif
