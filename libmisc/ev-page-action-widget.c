@@ -277,10 +277,7 @@ void
 ev_page_action_widget_set_model (EvPageActionWidget *action_widget,
 				 EvDocumentModel    *model)
 {
-	if (action_widget->doc_model) {
-		g_object_remove_weak_pointer (G_OBJECT (action_widget->doc_model),
-					      (gpointer)&action_widget->doc_model);
-	}
+	g_clear_weak_pointer (&action_widget->doc_model);
 	action_widget->doc_model = model;
 	g_object_add_weak_pointer (G_OBJECT (model),
 				   (gpointer)&action_widget->doc_model);
@@ -301,11 +298,7 @@ ev_page_action_widget_finalize (GObject *object)
 	g_clear_signal_handler (&action_widget->notify_document_signal_id,
 				action_widget->doc_model);
 	ev_page_action_widget_clear_document (action_widget);
-	if (action_widget->doc_model != NULL) {
-		g_object_remove_weak_pointer (G_OBJECT (action_widget->doc_model),
-					      (gpointer)&action_widget->doc_model);
-		action_widget->doc_model = NULL;
-	}
+	g_clear_weak_pointer (&action_widget->doc_model);
 
 	g_clear_object (&action_widget->completion);
 
