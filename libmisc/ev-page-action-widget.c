@@ -239,8 +239,14 @@ ev_page_action_widget_clear_document(EvPageActionWidget *action_widget)
 {
 	g_clear_object (&action_widget->document);
 
-	g_clear_signal_handler (&action_widget->signal_id,
-				action_widget->doc_model);
+	// doc_model is weak pointer, so it might be NULL while we have non-NULL
+	// handlers. Clearing the signals in such case is an error. We don't
+	// really have to worry about setting the ids to 0, since we're already
+	// in finalize
+	if (action_widget->doc_model != NULL) {
+		g_clear_signal_handler (&action_widget->signal_id,
+					action_widget->doc_model);
+	}
 }
 
 static void
@@ -295,8 +301,14 @@ ev_page_action_widget_finalize (GObject *object)
 {
 	EvPageActionWidget *action_widget = EV_PAGE_ACTION_WIDGET (object);
 
-	g_clear_signal_handler (&action_widget->notify_document_signal_id,
-				action_widget->doc_model);
+	// doc_model is weak pointer, so it might be NULL while we have non-NULL
+	// handlers. Clearing the signals in such case is an error. We don't
+	// really have to worry about setting the ids to 0, since we're already
+	// in finalize
+	if (action_widget->doc_model != NULL) {
+		g_clear_signal_handler (&action_widget->notify_document_signal_id,
+					action_widget->doc_model);
+	}
 	ev_page_action_widget_clear_document (action_widget);
 	g_clear_weak_pointer (&action_widget->doc_model);
 
