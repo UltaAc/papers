@@ -235,22 +235,24 @@ ev_page_action_widget_init (EvPageActionWidget *action_widget)
 }
 
 static void
-ev_page_action_widget_set_document (EvPageActionWidget *action_widget,
-                                    EvDocument         *document)
+ev_page_action_widget_clear_document(EvPageActionWidget *action_widget)
 {
-        if (document) {
-                g_object_ref (document);
-                gtk_widget_set_sensitive (GTK_WIDGET (action_widget), ev_document_get_n_pages (document) > 0);
-        }
+	g_clear_object (&action_widget->document);
 
 	g_clear_signal_handler (&action_widget->signal_id,
 				action_widget->doc_model);
+}
 
-        if (action_widget->document)
-                g_object_unref (action_widget->document);
-        action_widget->document = document;
-        if (!action_widget->document)
-                return;
+static void
+ev_page_action_widget_set_document (EvPageActionWidget *action_widget,
+                                    EvDocument         *document)
+{
+	if (document == NULL)
+		return;
+
+	ev_page_action_widget_clear_document (action_widget);
+	action_widget->document = g_object_ref (document);
+	gtk_widget_set_sensitive (GTK_WIDGET (action_widget), ev_document_get_n_pages (document) > 0);
 
         action_widget->signal_id =
                 g_signal_connect (action_widget->doc_model,
@@ -296,10 +298,9 @@ ev_page_action_widget_finalize (GObject *object)
 {
 	EvPageActionWidget *action_widget = EV_PAGE_ACTION_WIDGET (object);
 
-	g_clear_signal_handler (&action_widget->signal_id,
-				action_widget->doc_model);
 	g_clear_signal_handler (&action_widget->notify_document_signal_id,
 				action_widget->doc_model);
+	ev_page_action_widget_clear_document (action_widget);
 	if (action_widget->doc_model != NULL) {
 		g_object_remove_weak_pointer (G_OBJECT (action_widget->doc_model),
 					      (gpointer)&action_widget->doc_model);
@@ -307,8 +308,6 @@ ev_page_action_widget_finalize (GObject *object)
 	}
 
 	g_clear_object (&action_widget->completion);
-
-        ev_page_action_widget_set_document (action_widget, NULL);
 
 	G_OBJECT_CLASS (ev_page_action_widget_parent_class)->finalize (object);
 }
