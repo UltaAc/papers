@@ -2259,6 +2259,14 @@ set_filenames (EvWindow *ev_window, GFile *f)
 		priv->edit_name = g_file_get_basename (f);
 }
 
+/**
+ * ev_window_open_uri:
+ * @ev_window: a `EvWindow`
+ * @uri: uri to open
+ * @dest: (nullable): destination to point to
+ * @mode: open mode
+ * @search_string: (nullable): window will search this string if specified
+ */
 void
 ev_window_open_uri (EvWindow       *ev_window,
 		    const char     *uri,
@@ -4092,7 +4100,7 @@ ev_window_focus_page_selector (EvWindow *window)
 
 /**
  * ev_window_start_page_selector_search:
- * @ev_window: The instance of the #EvWindow.
+ * @window: The instance of the #EvWindow.
  *
  * Prepares page_selector text entry for searching the Outline,
  * basically this:
