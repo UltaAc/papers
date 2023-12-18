@@ -98,12 +98,13 @@ static void ev_application_open_uri_in_window (EvApplication  *application,
 EvApplication *
 ev_application_new (void)
 {
-  const GApplicationFlags flags = G_APPLICATION_NON_UNIQUE;
+	const GApplicationFlags flags = G_APPLICATION_NON_UNIQUE;
 
-  return g_object_new (EV_TYPE_APPLICATION,
-                       "application-id", APPLICATION_NAME,
-                       "flags", flags,
-                       NULL);
+	return g_object_new (EV_TYPE_APPLICATION,
+			     "application-id", APPLICATION_NAME,
+			     "flags", flags,
+			     "resource-base-path", "/org/gnome/evince",
+			     NULL);
 }
 
 #ifdef ENABLE_DBUS
@@ -852,8 +853,6 @@ ev_application_startup (GApplication *gapplication)
 
         EvApplication *application = EV_APPLICATION (gapplication);
         const gchar **it;
-
-	g_application_set_resource_base_path (gapplication, "/org/gnome/evince");
 
         G_APPLICATION_CLASS (ev_application_parent_class)->startup (gapplication);
 
