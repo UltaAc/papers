@@ -711,7 +711,7 @@ ev_window_error_message (EvWindow    *window,
 	g_signal_connect (ev_message_area_get_info_bar (EV_MESSAGE_AREA (area)), "response",
 			  G_CALLBACK (ev_window_message_area_response_cb),
 			  window);
-	gtk_widget_show (area);
+	gtk_widget_set_visible (area, TRUE);
 	ev_window_set_message_area (window, area);
 }
 
@@ -740,7 +740,7 @@ ev_window_warning_message (EvWindow    *window,
 	g_signal_connect (ev_message_area_get_info_bar (EV_MESSAGE_AREA (area)), "response",
 			  G_CALLBACK (ev_window_message_area_response_cb),
 			  window);
-	gtk_widget_show (area);
+	gtk_widget_set_visible (area, TRUE);
 	ev_window_set_message_area (window, area);
 }
 
@@ -750,7 +750,7 @@ show_loading_message_cb (EvWindow *window)
 	EvWindowPrivate *priv = GET_PRIVATE (window);
 
 	priv->loading_message_timeout = 0;
-	gtk_widget_show (priv->loading_message);
+	gtk_widget_set_visible (priv->loading_message, TRUE);
 
 	return G_SOURCE_REMOVE;
 }
@@ -776,7 +776,7 @@ ev_window_hide_loading_message (EvWindow *window)
 		priv->loading_message_timeout = 0;
 	}
 
-	gtk_widget_hide (priv->loading_message);
+	gtk_widget_set_visible (priv->loading_message, FALSE);
 }
 
 typedef struct _LinkTitleData {
@@ -2425,7 +2425,7 @@ ev_window_open_recent_view (EvWindow *ev_window)
 	if (priv->recent_view)
 		return;
 
-	gtk_widget_hide (priv->hpaned);
+	gtk_widget_set_visible (priv->hpaned, FALSE);
 
 	priv->recent_view = EV_RECENT_VIEW (ev_recent_view_new ());
 	g_signal_connect_object (priv->recent_view,
@@ -2451,7 +2451,7 @@ ev_window_destroy_recent_view (EvWindow *ev_window)
 
 	gtk_box_remove (GTK_BOX (priv->main_box), GTK_WIDGET (priv->recent_view));
 	priv->recent_view = NULL;
-	gtk_widget_show (priv->hpaned);
+	gtk_widget_set_visible (priv->hpaned, TRUE);
 }
 
 static void
@@ -2490,7 +2490,7 @@ show_reloading_progress (EvWindow *ev_window)
 			  G_CALLBACK (ev_window_progress_response_cb),
 			  ev_window);
 
-	gtk_widget_show (area);
+	gtk_widget_set_visible (area, TRUE);
 	ev_window_set_message_area (ev_window, area);
 	g_free (text);
 
@@ -2838,7 +2838,7 @@ show_saving_progress (GFile *dst)
 	g_signal_connect (ev_message_area_get_info_bar (EV_MESSAGE_AREA (area)), "response",
 			  G_CALLBACK (ev_window_progress_response_cb),
 			  ev_window);
-	gtk_widget_show (area);
+	gtk_widget_set_visible (area, TRUE);
 	ev_window_set_message_area (ev_window, area);
 	g_free (text);
 }
@@ -3493,7 +3493,7 @@ ev_window_print_operation_done (EvPrintOperation       *op,
 		g_signal_connect (dialog, "response",
 				  G_CALLBACK (gtk_window_destroy),
 				  NULL);
-		gtk_widget_show (dialog);
+		gtk_widget_set_visible (dialog, TRUE);
 
 		g_error_free (error);
 	}
@@ -3526,7 +3526,7 @@ ev_window_print_progress_response_cb (EvProgressMessageArea *area,
 		op = g_queue_peek_tail (priv->print_queue);
 		ev_print_operation_cancel (op);
 	} else {
-		gtk_widget_hide (GTK_WIDGET (area));
+		gtk_widget_set_visible (GTK_WIDGET (area), FALSE);
 	}
 }
 
@@ -3559,7 +3559,7 @@ ev_window_print_operation_status_changed (EvPrintOperation *op,
 				  G_CALLBACK (ev_window_print_progress_response_cb),
 				  ev_window);
 
-		gtk_widget_show (area);
+		gtk_widget_set_visible (area, TRUE);
 		ev_window_set_message_area (ev_window, area);
 		g_free (text);
 	}
@@ -3714,7 +3714,7 @@ ev_window_cmd_file_properties (GSimpleAction *action,
 	}
 
 	ev_document_fc_mutex_lock ();
-	gtk_widget_show (GTK_WIDGET (priv->properties));
+	gtk_widget_set_visible (GTK_WIDGET (priv->properties), TRUE);
 	ev_document_fc_mutex_unlock ();
 }
 
@@ -3820,7 +3820,7 @@ ev_window_check_document_modified (EvWindow      *ev_window,
 						  "%s %s", secondary_text, secondary_text_command);
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 
-	gtk_widget_show (dialog);
+	gtk_widget_set_visible (dialog, TRUE);
 
 	return TRUE;
 }
@@ -3921,7 +3921,7 @@ ev_window_check_print_queue (EvWindow *ev_window)
 	g_signal_connect (dialog, "response",
 			  G_CALLBACK (print_jobs_confirmation_dialog_response),
 			  ev_window);
-	gtk_widget_show (dialog);
+	gtk_widget_set_visible (dialog, TRUE);
 
 	return TRUE;
 }
@@ -4606,14 +4606,14 @@ ev_window_run_presentation (EvWindow *window)
 	gtk_box_prepend (GTK_BOX (priv->main_box),
 			    priv->presentation_view);
 
-	gtk_widget_hide (priv->hpaned);
+	gtk_widget_set_visible (priv->hpaned, FALSE);
 	gtk_widget_set_visible (priv->toolbar, FALSE);
 
 	gtk_widget_grab_focus (priv->presentation_view);
 	if (fullscreen_window)
 		gtk_window_fullscreen (GTK_WINDOW (window));
 
-	gtk_widget_show (priv->presentation_view);
+	gtk_widget_set_visible (priv->presentation_view, TRUE);
 
         ev_window_inhibit_screensaver (window);
 
@@ -4640,7 +4640,7 @@ ev_window_stop_presentation (EvWindow *window,
 	gtk_box_remove (GTK_BOX (priv->main_box), priv->presentation_view);
 	priv->presentation_view = NULL;
 
-	gtk_widget_show (priv->hpaned);
+	gtk_widget_set_visible (priv->hpaned, TRUE);
 	gtk_widget_set_visible (priv->toolbar, TRUE);
 	if (unfullscreen_window)
 		gtk_window_unfullscreen (GTK_WINDOW (window));
@@ -5650,7 +5650,7 @@ ev_window_show_find_bar (EvWindow *ev_window,
 
 	g_object_ref (priv->sidebar);
 	gtk_paned_set_start_child (GTK_PANED (priv->hpaned), priv->find_sidebar);
-	gtk_widget_show (priv->find_sidebar);
+	gtk_widget_set_visible (priv->find_sidebar, TRUE);
 
 
 	gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (priv->search_bar), TRUE);
@@ -5676,7 +5676,7 @@ ev_window_close_find_bar (EvWindow *ev_window)
 
 	g_object_ref (priv->find_sidebar);
 	gtk_paned_set_start_child (GTK_PANED (priv->hpaned), priv->sidebar);
-	gtk_widget_hide (priv->find_sidebar);
+	gtk_widget_set_visible (priv->find_sidebar, FALSE);
 
 	gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (priv->search_bar), FALSE);
 	gtk_widget_grab_focus (priv->view);
@@ -5795,7 +5795,7 @@ ev_window_cmd_view_toggle_caret_navigation (GSimpleAction *action,
 			  G_CALLBACK (ev_window_caret_navigation_message_area_response_cb),
 			  window);
 
-	gtk_widget_show (message_area);
+	gtk_widget_set_visible (message_area, TRUE);
 	ev_window_set_message_area (window, message_area);
 }
 
@@ -5827,11 +5827,7 @@ ev_window_cmd_toggle_edit_annots (GSimpleAction *action,
 	EvWindow *ev_window = user_data;
 	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
 
-	if (g_variant_get_boolean (state))
-		gtk_widget_show (priv->annots_toolbar);
-	else
-		gtk_widget_hide (priv->annots_toolbar);
-
+	gtk_widget_set_visible (priv->annots_toolbar, g_variant_get_boolean (state));
 	g_simple_action_set_state (action, state);
 }
 
@@ -6766,7 +6762,7 @@ ev_window_popup_cmd_annot_properties (GSimpleAction *action,
 	g_signal_connect (dialog, "response",
 				G_CALLBACK (ev_window_popup_cmd_annot_properties_response_cb),
 				window);
-	gtk_widget_show (GTK_WIDGET (dialog));
+	gtk_widget_set_visible (GTK_WIDGET (dialog), TRUE);
 }
 
 static void
