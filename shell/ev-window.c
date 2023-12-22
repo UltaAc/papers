@@ -97,11 +97,6 @@
 #define MOUSE_FORWARD_BUTTON 9
 
 typedef enum {
-	PAGE_MODE_DOCUMENT,
-	PAGE_MODE_PASSWORD
-} EvWindowPageMode;
-
-typedef enum {
 	EV_SAVE_DOCUMENT,
 	EV_SAVE_ATTACHMENT,
 	EV_SAVE_IMAGE
@@ -179,7 +174,6 @@ typedef struct {
 
 	EvDocument *document;
 	EvHistory *history;
-	EvWindowPageMode page_mode;
 	EvWindowTitle *title;
 	EvMetadata *metadata;
 	EvBookmarks *bookmarks;
@@ -265,8 +259,8 @@ static const gchar *document_print_settings[] = {
 };
 
 static void	ev_window_update_actions_sensitivity    (EvWindow         *ev_window);
-static void     ev_window_set_page_mode                 (EvWindow         *window,
-							 EvWindowPageMode  page_mode);
+static void	ev_window_set_mode			(EvWindow         *window,
+							 EvWindowRunMode   mode);
 static void	ev_window_load_job_cb  			(EvJob            *job,
 							 gpointer          data);
 static gboolean ev_window_check_document_modified 	(EvWindow         *ev_window,
@@ -1548,7 +1542,7 @@ ev_window_setup_document (EvWindow *ev_window)
 
 	priv->setup_document_idle = 0;
 
-	ev_window_set_page_mode (ev_window, PAGE_MODE_DOCUMENT);
+	ev_window_set_mode (ev_window, EV_WINDOW_MODE_NORMAL);
 	ev_window_title_set_document (priv->title, document);
 	ev_window_title_set_filename (priv->title,
 				      priv->display_name);
@@ -1848,7 +1842,7 @@ ev_window_load_job_cb (EvJob *job,
 		ev_password_view_set_filename (EV_PASSWORD_VIEW (priv->password_view),
 					       priv->display_name);
 
-		ev_window_set_page_mode (ev_window, PAGE_MODE_PASSWORD);
+		ev_window_set_mode (ev_window, EV_WINDOW_MODE_PASSWORD_VIEW);
 
 		ev_job_load_set_password (job_load, NULL);
 		ev_password_view_ask_password (EV_PASSWORD_VIEW (priv->password_view));
@@ -2282,7 +2276,7 @@ ev_window_open_uri (EvWindow       *ev_window,
 	ev_window_clear_load_job (ev_window);
 	ev_window_clear_local_uri (ev_window);
 
-	priv->window_mode = mode;
+	ev_window_set_mode (ev_window, mode);
 
 	source_file = g_file_new_for_uri (uri);
 
@@ -2411,12 +2405,8 @@ ev_window_open_recent_view (EvWindow *ev_window)
 				 G_CALLBACK (recent_view_item_activated_cb),
 				 ev_window, 0);
 
-	priv->window_mode = EV_WINDOW_MODE_RECENT_VIEW;
-
 	adw_view_stack_add (ADW_VIEW_STACK (priv->stack), priv->recent_view);
-	adw_view_stack_set_visible_child (ADW_VIEW_STACK (priv->stack), priv->recent_view);
-
-	ev_window_update_actions_sensitivity (ev_window);
+	ev_window_set_mode (ev_window, EV_WINDOW_MODE_RECENT_VIEW);
 }
 
 static void
@@ -2427,9 +2417,8 @@ ev_window_destroy_recent_view (EvWindow *ev_window)
 	if (!priv->recent_view)
 		return;
 
+	ev_window_set_mode (ev_window, EV_WINDOW_MODE_NORMAL);
 	adw_view_stack_remove (ADW_VIEW_STACK (priv->stack), priv->recent_view);
-	adw_view_stack_set_visible_child_name (ADW_VIEW_STACK (priv->stack), "document");
-
 	priv->recent_view = NULL;
 }
 
@@ -4569,7 +4558,7 @@ ev_window_run_presentation (EvWindow *window)
 	gtk_widget_set_hexpand (GTK_WIDGET (priv->presentation_view), TRUE);
 	gtk_widget_set_vexpand (GTK_WIDGET (priv->presentation_view), TRUE);
 
-	adw_view_stack_set_visible_child (ADW_VIEW_STACK (priv->stack), priv->presentation_view);
+	ev_window_set_mode (window, EV_WINDOW_MODE_PRESENTATION);
 
 	gtk_widget_grab_focus (priv->presentation_view);
 	gtk_window_fullscreen (GTK_WINDOW (window));
@@ -4596,7 +4585,7 @@ ev_window_stop_presentation (EvWindow *window,
 	rotation = ev_view_presentation_get_rotation (EV_VIEW_PRESENTATION (priv->presentation_view));
 	ev_document_model_set_rotation (priv->model, rotation);
 
-	adw_view_stack_set_visible_child_name (ADW_VIEW_STACK (priv->stack), "document");
+	ev_window_set_mode (window, EV_WINDOW_MODE_NORMAL);
 	adw_view_stack_remove (ADW_VIEW_STACK (priv->stack), priv->presentation_view);
 	priv->presentation_view = NULL;
 
@@ -4628,22 +4617,30 @@ ev_window_cmd_view_presentation (GSimpleAction *action,
 }
 
 static void
-ev_window_set_page_mode (EvWindow         *window,
-			 EvWindowPageMode  page_mode)
+ev_window_set_mode (EvWindow         *window,
+		    EvWindowRunMode   mode)
 {
 	EvWindowPrivate *priv = GET_PRIVATE (window);
 
-	if (priv->page_mode == page_mode)
+	if (priv->window_mode == mode)
 		return;
 
-	priv->page_mode = page_mode;
+	priv->window_mode = mode;
 
-	switch (page_mode) {
-	        case PAGE_MODE_DOCUMENT:
+	switch (mode) {
+		case EV_WINDOW_MODE_NORMAL:
 			adw_view_stack_set_visible_child_name (ADW_VIEW_STACK (priv->stack), "document");
 			break;
-	        case PAGE_MODE_PASSWORD:
+		case EV_WINDOW_MODE_PASSWORD_VIEW:
 			adw_view_stack_set_visible_child (ADW_VIEW_STACK (priv->stack), priv->password_view);
+			break;
+		case EV_WINDOW_MODE_RECENT_VIEW:
+			g_return_if_fail (priv->recent_view != NULL);
+			adw_view_stack_set_visible_child (ADW_VIEW_STACK (priv->stack), priv->recent_view);
+			break;
+		case EV_WINDOW_MODE_PRESENTATION:
+			g_return_if_fail (priv->presentation_view != NULL);
+			adw_view_stack_set_visible_child (ADW_VIEW_STACK (priv->stack), priv->presentation_view);
 			break;
 	        default:
 			g_assert_not_reached ();
@@ -6985,7 +6982,6 @@ ev_window_init (EvWindow *ev_window)
         }
 #endif /* ENABLE_DBUS */
 
-	priv->page_mode = PAGE_MODE_DOCUMENT;
         priv->presentation_mode_inhibit_id = 0;
 	priv->title = ev_window_title_new (ev_window);
 	priv->history = ev_history_new (priv->model);
