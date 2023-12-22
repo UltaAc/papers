@@ -114,6 +114,7 @@ typedef enum {
 
 typedef struct {
 	/* UI */
+	GtkWidget *stack;
 	GtkWidget *main_box;
 	GtkWidget *toolbar;
 	GtkWidget *hpaned;
@@ -7154,6 +7155,7 @@ ev_window_class_init (EvWindowClass *ev_window_class)
 	gtk_widget_class_bind_template_child_private (widget_class, EvWindow, search_box);
 	gtk_widget_class_bind_template_child_private (widget_class, EvWindow, model);
 	gtk_widget_class_bind_template_child_private (widget_class, EvWindow, view);
+	gtk_widget_class_bind_template_child_private (widget_class, EvWindow, stack);
 
 	/* sidebar */
 	gtk_widget_class_bind_template_child_private (widget_class, EvWindow, sidebar_thumbs);
