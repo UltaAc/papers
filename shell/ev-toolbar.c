@@ -40,7 +40,6 @@ enum
 typedef struct {
 	AdwHeaderBar *header_bar;
 
-	GtkWidget *open_button;
 	GtkWidget *sidebar_button;
 	GtkWidget *page_selector;
 	GtkWidget *annots_button;
@@ -127,7 +126,6 @@ ev_toolbar_class_init (EvToolbarClass *klass)
 
 	gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/evince/ui/ev-toolbar.ui");
 	gtk_widget_class_bind_template_child_private (widget_class, EvToolbar, header_bar);
-	gtk_widget_class_bind_template_child_private (widget_class, EvToolbar, open_button);
 	gtk_widget_class_bind_template_child_private (widget_class, EvToolbar, sidebar_button);
 	gtk_widget_class_bind_template_child_private (widget_class, EvToolbar, page_selector);
 	gtk_widget_class_bind_template_child_private (widget_class, EvToolbar, annots_button);
@@ -226,16 +224,6 @@ ev_toolbar_set_mode (EvToolbar     *ev_toolbar,
                 gtk_widget_set_visible (priv->page_selector, TRUE);
                 gtk_widget_set_visible (priv->find_button, TRUE);
                 gtk_widget_set_visible (priv->annots_button, TRUE);
-                gtk_widget_set_visible (priv->open_button, FALSE);
-                break;
-	case EV_TOOLBAR_MODE_RECENT_VIEW:
-                gtk_widget_set_visible (priv->sidebar_button, FALSE);
-                gtk_widget_set_visible (priv->action_menu_button, FALSE);
-                gtk_widget_set_visible (priv->zoom_action, FALSE);
-                gtk_widget_set_visible (priv->page_selector, FALSE);
-                gtk_widget_set_visible (priv->find_button, FALSE);
-                gtk_widget_set_visible (priv->annots_button, FALSE);
-                gtk_widget_set_visible (priv->open_button, TRUE);
                 break;
 	case EV_TOOLBAR_MODE_PASSWORD_VIEW:
 		gtk_widget_set_visible (priv->sidebar_button, FALSE);
@@ -244,7 +232,6 @@ ev_toolbar_set_mode (EvToolbar     *ev_toolbar,
 		gtk_widget_set_visible (priv->page_selector, FALSE);
 		gtk_widget_set_visible (priv->find_button, FALSE);
 		gtk_widget_set_visible (priv->annots_button, FALSE);
-		gtk_widget_set_visible (priv->open_button, FALSE);
 		break;
         }
 }

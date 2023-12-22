@@ -164,7 +164,7 @@ typedef struct {
 	GList        *attach_list;
 
 	/* For bookshelf view of recent items*/
-	EvRecentView *recent_view;
+	GtkWidget    *recent_view;
 
 	/* Document */
 	EvDocumentModel *model;
@@ -1713,7 +1713,6 @@ ev_window_password_view_cancelled (EvWindow *ev_window)
 	if (ev_window_is_recent_view (ev_window)) {
 		ev_window_clear_load_job (ev_window);
 		ev_application_clear_uri (EV_APP);
-		ev_window_title_set_type (priv->title, EV_WINDOW_TITLE_RECENT);
 	}
 }
 
@@ -1866,7 +1865,6 @@ ev_window_load_job_cb (EvJob *job,
 		ev_job_load_set_password (job_load, NULL);
 		ev_password_view_ask_password (EV_PASSWORD_VIEW (priv->password_view));
 	} else {
-		ev_toolbar_set_mode (EV_TOOLBAR (priv->toolbar), EV_TOOLBAR_MODE_RECENT_VIEW);
 		text = g_uri_unescape_string (job_load->uri, NULL);
 		display_name = g_markup_escape_text (text, -1);
 		g_free (text);
@@ -2419,20 +2417,16 @@ ev_window_open_recent_view (EvWindow *ev_window)
 	if (priv->recent_view)
 		return;
 
-	gtk_widget_set_visible (priv->hpaned, FALSE);
-
-	priv->recent_view = EV_RECENT_VIEW (ev_recent_view_new ());
+	priv->recent_view = ev_recent_view_new ();
 	g_signal_connect_object (priv->recent_view,
 				 "item-activated",
 				 G_CALLBACK (recent_view_item_activated_cb),
 				 ev_window, 0);
-	gtk_box_append (GTK_BOX (priv->main_box),
-			    GTK_WIDGET (priv->recent_view));
 
 	priv->window_mode = EV_WINDOW_MODE_RECENT_VIEW;
 
-	ev_toolbar_set_mode (EV_TOOLBAR (priv->toolbar), EV_TOOLBAR_MODE_RECENT_VIEW);
-	ev_window_title_set_type (priv->title, EV_WINDOW_TITLE_RECENT);
+	adw_view_stack_add (ADW_VIEW_STACK (priv->stack), priv->recent_view);
+	adw_view_stack_set_visible_child (ADW_VIEW_STACK (priv->stack), priv->recent_view);
 
 	ev_window_update_actions_sensitivity (ev_window);
 }
@@ -2445,9 +2439,10 @@ ev_window_destroy_recent_view (EvWindow *ev_window)
 	if (!priv->recent_view)
 		return;
 
-	gtk_box_remove (GTK_BOX (priv->main_box), GTK_WIDGET (priv->recent_view));
+	adw_view_stack_remove (ADW_VIEW_STACK (priv->stack), priv->recent_view);
+	adw_view_stack_set_visible_child_name (ADW_VIEW_STACK (priv->stack), "document");
+
 	priv->recent_view = NULL;
-	gtk_widget_set_visible (priv->hpaned, TRUE);
 }
 
 static void

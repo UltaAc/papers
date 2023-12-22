@@ -8,16 +8,6 @@
           </object>
         </child>
         <child type="start">
-          <object class="GtkButton" id="open_button">
-            <property name="action-name">win.open</property>
-            <property name="label" translatable="yes">Open…</property>
-            <property name="tooltip-text" translatable="yes">Open an existing document</property>
-            <style>
-              <class name="suggested-action" />
-            </style>
-          </object>
-        </child>
-        <child type="start">
           <object class="GtkToggleButton" id="sidebar_button">
             <property name="icon-name">sidebar-show-symbolic</property>
             <property name="action-name">win.show-side-pane</property>

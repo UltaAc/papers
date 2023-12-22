@@ -40,6 +40,7 @@
 typedef struct {
 	GtkWidget        *view;
 	GtkWidget        *stack;
+	GtkWidget        *title;
 	GListStore       *model;
 	GtkRecentManager *recent_manager;
 	gulong            recent_manager_changed_handler_id;
@@ -664,6 +665,8 @@ ev_recent_view_init (EvRecentView *ev_recent_view)
 
         gtk_widget_init_template (GTK_WIDGET (ev_recent_view));
 
+	adw_window_title_set_title (ADW_WINDOW_TITLE (priv->title), g_get_application_name ());
+
         priv->recent_manager = gtk_recent_manager_get_default ();
         priv->recent_manager_changed_handler_id =
                 g_signal_connect_swapped (priv->recent_manager,
@@ -686,6 +689,7 @@ ev_recent_view_class_init (EvRecentViewClass *klass)
         gtk_widget_class_bind_template_child_private (widget_class, EvRecentView, model);
         gtk_widget_class_bind_template_child_private (widget_class, EvRecentView, view);
         gtk_widget_class_bind_template_child_private (widget_class, EvRecentView, stack);
+        gtk_widget_class_bind_template_child_private (widget_class, EvRecentView, title);
 	gtk_widget_class_bind_template_callback (widget_class, grid_view_item_activated_cb);
 
         signals[ITEM_ACTIVATED] =

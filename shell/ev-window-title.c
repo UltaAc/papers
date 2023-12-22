@@ -104,13 +104,6 @@ ev_window_title_update (EvWindowTitle *window_title)
 	char *subtitle = NULL, *title_header = NULL;
 	gboolean ltr;
 
-	if (window_title->type == EV_WINDOW_TITLE_RECENT) {
-		adw_window_title_set_title (title_widget, g_get_application_name ());
-		adw_window_title_set_subtitle (title_widget, NULL);
-		gtk_window_set_title (window, _("Recent Documents"));
-                return;
-	}
-
 	ltr = gtk_widget_get_direction (GTK_WIDGET (window)) == GTK_TEXT_DIR_LTR;
 
 	if (window_title->doc_title && window_title->filename) {
@@ -161,7 +154,7 @@ ev_window_title_update (EvWindowTitle *window_title)
 		adw_window_title_set_subtitle (title_widget, title);
         }
 		break;
-        case EV_WINDOW_TITLE_RECENT:
+        default:
                 g_assert_not_reached ();
                 break;
 	}
