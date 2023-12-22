@@ -45,6 +45,5 @@ GtkWidget    *ev_toolbar_get_page_selector  (EvToolbar *ev_toolbar);
 AdwHeaderBar *ev_toolbar_get_header_bar     (EvToolbar *ev_toolbar);
 void          ev_toolbar_set_mode           (EvToolbar     *ev_toolbar,
 					     EvToolbarMode  mode);
-EvToolbarMode ev_toolbar_get_mode           (EvToolbar     *ev_toolbar);
 
 G_END_DECLS

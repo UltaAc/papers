@@ -248,15 +248,3 @@ ev_toolbar_set_mode (EvToolbar     *ev_toolbar,
 		break;
         }
 }
-
-EvToolbarMode
-ev_toolbar_get_mode (EvToolbar *ev_toolbar)
-{
-        EvToolbarPrivate *priv;
-
-        g_return_val_if_fail (EV_IS_TOOLBAR (ev_toolbar), EV_TOOLBAR_MODE_NORMAL);
-
-        priv = GET_PRIVATE (ev_toolbar);
-
-        return priv->toolbar_mode;
-}

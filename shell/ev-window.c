@@ -363,7 +363,7 @@ ev_window_is_recent_view (EvWindow *ev_window)
 {
 	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
 
-	return ev_toolbar_get_mode (EV_TOOLBAR (priv->toolbar)) == EV_TOOLBAR_MODE_RECENT_VIEW;
+	return priv->window_mode == EV_WINDOW_MODE_RECENT_VIEW;
 }
 
 static void
@@ -2427,6 +2427,8 @@ ev_window_open_recent_view (EvWindow *ev_window)
 				 ev_window, 0);
 	gtk_box_append (GTK_BOX (priv->main_box),
 			    GTK_WIDGET (priv->recent_view));
+
+	priv->window_mode = EV_WINDOW_MODE_RECENT_VIEW;
 
 	ev_toolbar_set_mode (EV_TOOLBAR (priv->toolbar), EV_TOOLBAR_MODE_RECENT_VIEW);
 	ev_window_title_set_type (priv->title, EV_WINDOW_TITLE_RECENT);
