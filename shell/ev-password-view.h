@@ -21,14 +21,15 @@
 
 #include <gtk/gtk.h>
 #include <gio/gio.h>
+#include <adwaita.h>
 
 G_BEGIN_DECLS
 
 #define EV_TYPE_PASSWORD_VIEW            (ev_password_view_get_type ())
-G_DECLARE_FINAL_TYPE (EvPasswordView, ev_password_view, EV, PASSWORD_VIEW, GtkBox);
+G_DECLARE_FINAL_TYPE (EvPasswordView, ev_password_view, EV, PASSWORD_VIEW, AdwBin);
 
 struct _EvPasswordView {
-	GtkBox parent_instance;
+	AdwBin parent_instance;
 };
 
 EvPasswordView *ev_password_view_new                     (void);

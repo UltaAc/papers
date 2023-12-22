@@ -26,15 +26,7 @@ G_BEGIN_DECLS
 
 typedef struct _EvWindowTitle EvWindowTitle;
 
-typedef enum
-{
-	EV_WINDOW_TITLE_DOCUMENT,
-	EV_WINDOW_TITLE_PASSWORD,
-} EvWindowTitleType;
-
 EvWindowTitle *ev_window_title_new	    (EvWindow *window);
-void	       ev_window_title_set_type     (EvWindowTitle     *window_title,
-					     EvWindowTitleType  type);
 void           ev_window_title_set_document (EvWindowTitle     *window_title,
 					     EvDocument        *document);
 void	       ev_window_title_set_filename (EvWindowTitle     *window_title,

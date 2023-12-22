@@ -247,6 +247,17 @@
             </property>
           </object>
         </child>
+        <child>
+          <object class="AdwViewStackPage">
+            <property name="name">password</property>
+            <property name="child">
+              <object class="EvPasswordView" id="password_view">
+                <signal name="unlock" handler="ev_window_password_view_unlock" swapped="yes" />
+                <signal name="cancelled" handler="ev_window_password_view_cancelled" swapped="yes" />
+              </object>
+            </property>
+          </object>
+        </child>
       </object>
     </child>
     <child>
@@ -346,11 +357,6 @@
   <object class="EvFindSidebar" id="find_sidebar">
     <property name="visible">False</property>
     <signal name="result-activated" handler="find_sidebar_result_activated_cb" />
-  </object>
-
-  <object class="EvPasswordView" id="password_view">
-    <signal name="unlock" handler="ev_window_password_view_unlock" swapped="yes" />
-    <signal name="cancelled" handler="ev_window_password_view_cancelled" swapped="yes" />
   </object>
 
   <menu id="action-menu">

@@ -26,11 +26,6 @@
 
 G_BEGIN_DECLS
 
-typedef enum {
-	EV_TOOLBAR_MODE_NORMAL,
-	EV_TOOLBAR_MODE_PASSWORD_VIEW
-} EvToolbarMode;
-
 #define EV_TYPE_TOOLBAR              (ev_toolbar_get_type())
 G_DECLARE_FINAL_TYPE (EvToolbar, ev_toolbar, EV, TOOLBAR, AdwBin);
 
@@ -42,7 +37,5 @@ GtkWidget    *ev_toolbar_new                (void);
 void          ev_toolbar_action_menu_toggle (EvToolbar *ev_toolbar);
 GtkWidget    *ev_toolbar_get_page_selector  (EvToolbar *ev_toolbar);
 AdwHeaderBar *ev_toolbar_get_header_bar     (EvToolbar *ev_toolbar);
-void          ev_toolbar_set_mode           (EvToolbar     *ev_toolbar,
-					     EvToolbarMode  mode);
 
 G_END_DECLS

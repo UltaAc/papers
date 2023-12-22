@@ -49,7 +49,6 @@ typedef struct {
 
 	EvDocumentModel *model;
 
-	EvToolbarMode toolbar_mode;
 } EvToolbarPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (EvToolbar, ev_toolbar, ADW_TYPE_BIN)
@@ -149,10 +148,6 @@ ev_toolbar_class_init (EvToolbarClass *klass)
 static void
 ev_toolbar_init (EvToolbar *ev_toolbar)
 {
-	EvToolbarPrivate *priv = GET_PRIVATE (ev_toolbar);
-
-	priv->toolbar_mode = EV_TOOLBAR_MODE_NORMAL;
-
         /* Ensure GTK+ private types used by the template
          * definition before calling gtk_widget_init_template() */
         g_type_ensure (EV_TYPE_PAGE_SELECTOR);
@@ -203,35 +198,4 @@ ev_toolbar_get_header_bar (EvToolbar *ev_toolbar)
         priv = GET_PRIVATE (ev_toolbar);
 
         return priv->header_bar;
-}
-
-void
-ev_toolbar_set_mode (EvToolbar     *ev_toolbar,
-                     EvToolbarMode  mode)
-{
-        EvToolbarPrivate *priv;
-
-        g_return_if_fail (EV_IS_TOOLBAR (ev_toolbar));
-
-        priv = GET_PRIVATE (ev_toolbar);
-        priv->toolbar_mode = mode;
-
-        switch (mode) {
-        case EV_TOOLBAR_MODE_NORMAL:
-                gtk_widget_set_visible (priv->sidebar_button, TRUE);
-                gtk_widget_set_visible (priv->action_menu_button, TRUE);
-                gtk_widget_set_visible (priv->zoom_action, TRUE);
-                gtk_widget_set_visible (priv->page_selector, TRUE);
-                gtk_widget_set_visible (priv->find_button, TRUE);
-                gtk_widget_set_visible (priv->annots_button, TRUE);
-                break;
-	case EV_TOOLBAR_MODE_PASSWORD_VIEW:
-		gtk_widget_set_visible (priv->sidebar_button, FALSE);
-		gtk_widget_set_visible (priv->action_menu_button, FALSE);
-		gtk_widget_set_visible (priv->zoom_action, FALSE);
-		gtk_widget_set_visible (priv->page_selector, FALSE);
-		gtk_widget_set_visible (priv->find_button, FALSE);
-		gtk_widget_set_visible (priv->annots_button, FALSE);
-		break;
-        }
 }

@@ -1638,8 +1638,6 @@ ev_window_set_document (EvWindow *ev_window, EvDocument *document)
 
 	ev_window_destroy_recent_view (ev_window);
 
-	ev_toolbar_set_mode (EV_TOOLBAR (priv->toolbar), EV_TOOLBAR_MODE_NORMAL);
-	ev_window_title_set_type (priv->title, EV_WINDOW_TITLE_DOCUMENT);
 	ev_window_update_actions_sensitivity (ev_window);
 
 	if (EV_WINDOW_IS_PRESENTATION (priv)) {
@@ -1794,8 +1792,6 @@ ev_window_load_job_cb (EvJob *job,
 
 		gtk_recent_manager_add_item (gtk_recent_manager_get_default (), priv->uri);
 
-		ev_window_title_set_type (priv->title,
-					  EV_WINDOW_TITLE_DOCUMENT);
 		if (job_load->password) {
 			GPasswordSave flags;
 
@@ -1852,11 +1848,6 @@ ev_window_load_job_cb (EvJob *job,
 		}
 
 		/* We need to ask the user for a password */
-		ev_window_title_set_filename (priv->title,
-					      priv->display_name);
-		ev_window_title_set_type (priv->title,
-					  EV_WINDOW_TITLE_PASSWORD);
-
 		ev_password_view_set_filename (EV_PASSWORD_VIEW (priv->password_view),
 					       priv->display_name);
 
@@ -4652,8 +4643,6 @@ ev_window_set_page_mode (EvWindow         *window,
 			 EvWindowPageMode  page_mode)
 {
 	EvWindowPrivate *priv = GET_PRIVATE (window);
-	GtkWidget *child = NULL;
-	GtkWidget *real_child;
 
 	if (priv->page_mode == page_mode)
 		return;
@@ -4662,20 +4651,15 @@ ev_window_set_page_mode (EvWindow         *window,
 
 	switch (page_mode) {
 	        case PAGE_MODE_DOCUMENT:
-			child = priv->view;
+			adw_view_stack_set_visible_child_name (ADW_VIEW_STACK (priv->stack), "document");
 			break;
 	        case PAGE_MODE_PASSWORD:
-			ev_toolbar_set_mode (EV_TOOLBAR (priv->toolbar), EV_TOOLBAR_MODE_PASSWORD_VIEW);
-			child = priv->password_view;
+			adw_view_stack_set_visible_child (ADW_VIEW_STACK (priv->stack), priv->password_view);
 			break;
 	        default:
 			g_assert_not_reached ();
 	}
 
-	real_child = gtk_scrolled_window_get_child (GTK_SCROLLED_WINDOW (priv->scrolled_window));
-	if (child != real_child) {
-		gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (priv->scrolled_window), child);
-	}
 	ev_window_update_actions_sensitivity (window);
 }
 
@@ -5853,8 +5837,6 @@ ev_window_dispose (GObject *object)
 	}
 
 	g_clear_object (&priv->document);
-	g_clear_object (&priv->view);
-	g_clear_object (&priv->password_view);
 
 	ev_window_clear_load_job (window);
 	ev_window_clear_reload_job (window);
@@ -7108,10 +7090,6 @@ ev_window_init (EvWindow *ev_window)
 				  G_CALLBACK (ev_window_sync_source),
 				  ev_window);
 #endif
-
-	/* We own a ref on these widgets, as we can swap them in and out */
-	g_object_ref (priv->view);
-	g_object_ref (priv->password_view);
 
 	/* Give focus to the document view */
 	gtk_widget_grab_focus (priv->view);

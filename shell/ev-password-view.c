@@ -54,7 +54,7 @@ static guint password_view_signals [LAST_SIGNAL] = { 0 };
 
 #define GET_PRIVATE(o) ev_password_view_get_instance_private (o)
 
-G_DEFINE_TYPE_WITH_PRIVATE (EvPasswordView, ev_password_view, GTK_TYPE_BOX)
+G_DEFINE_TYPE_WITH_PRIVATE (EvPasswordView, ev_password_view, ADW_TYPE_BIN)
 
 static void ev_password_view_clicked_cb (GtkWidget      *button,
 					 EvPasswordView *password_view);

@@ -41,7 +41,6 @@ typedef struct
 struct _EvWindowTitle
 {
 	EvWindow *window;
-	EvWindowTitleType type;
 	EvDocument *document;
 	char *filename;
 	char *doc_title;
@@ -126,38 +125,16 @@ ev_window_title_update (EvWindowTitle *window_title)
 		title = g_strdup (_("Document Viewer"));
 	}
 
-	switch (window_title->type) {
-	case EV_WINDOW_TITLE_DOCUMENT:
-		gtk_window_set_title (window, title);
-		if (title_header && subtitle) {
-			adw_window_title_set_title (title_widget, title_header);
-			adw_window_title_set_subtitle (title_widget, subtitle);
-		} else if (title) {
-			adw_window_title_set_title (title_widget, title);
-		}
-		if (window_title->dirname)
-			gtk_widget_set_tooltip_text (GTK_WIDGET (toolbar),
-						     window_title->dirname);
-		break;
-	case EV_WINDOW_TITLE_PASSWORD: {
-                gchar *password_title;
-
-		if (ltr)
-			password_title = g_strdup_printf ("%s — %s", title, _("Password Required"));
-		else
-			password_title = g_strdup_printf ("%s — %s", _("Password Required"), title);
-
-		gtk_window_set_title (window, password_title);
-		g_free (password_title);
-
-		adw_window_title_set_title (title_widget, _("Password Required"));
-		adw_window_title_set_subtitle (title_widget, title);
-        }
-		break;
-        default:
-                g_assert_not_reached ();
-                break;
+	gtk_window_set_title (window, title);
+	if (title_header && subtitle) {
+		adw_window_title_set_title (title_widget, title_header);
+		adw_window_title_set_subtitle (title_widget, subtitle);
+	} else if (title) {
+		adw_window_title_set_title (title_widget, title);
 	}
+	if (window_title->dirname)
+		gtk_widget_set_tooltip_text (GTK_WIDGET (toolbar),
+					     window_title->dirname);
 
 	g_free (title);
 }
@@ -169,19 +146,10 @@ ev_window_title_new (EvWindow *window)
 
 	window_title = g_new0 (EvWindowTitle, 1);
 	window_title->window = window;
-	window_title->type = EV_WINDOW_TITLE_DOCUMENT;
 
         ev_window_title_update (window_title);
 
 	return window_title;
-}
-
-void
-ev_window_title_set_type (EvWindowTitle *window_title, EvWindowTitleType type)
-{
-	window_title->type = type;
-
-	ev_window_title_update (window_title);
 }
 
 static void
