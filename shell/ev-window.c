@@ -1646,9 +1646,6 @@ ev_window_set_document (EvWindow *ev_window, EvDocument *document)
 		current_page = ev_view_presentation_get_current_page (
 			EV_VIEW_PRESENTATION (priv->presentation_view));
 
-		gtk_box_remove (GTK_BOX (priv->main_box), priv->presentation_view);
-		priv->presentation_view = NULL;
-
 		/* Update the model with the current presentation page */
 		ev_document_model_set_page (priv->model, current_page);
 		ev_window_run_presentation (ev_window);
@@ -4520,7 +4517,6 @@ ev_window_run_presentation (EvWindow *window)
 	EvWindowPrivate *priv = GET_PRIVATE (window);
 	GAction  *action;
 	GVariant *annot_state;
-	gboolean  fullscreen_window = TRUE;
 	guint     current_page;
 	guint     rotation;
 	gboolean  inverted_colors;
@@ -4542,10 +4538,8 @@ ev_window_run_presentation (EvWindow *window)
 					  annot_state,
 					  window);
 
-	if (gtk_window_is_fullscreen (GTK_WINDOW (window))) {
+	if (gtk_window_is_fullscreen (GTK_WINDOW (window)))
 		ev_window_stop_fullscreen (window, FALSE);
-		fullscreen_window = FALSE;
-	}
 
 	current_page = ev_document_model_get_page (priv->model);
 	rotation = ev_document_model_get_rotation (priv->model);
@@ -4554,6 +4548,9 @@ ev_window_run_presentation (EvWindow *window)
 									current_page,
 									rotation,
 									inverted_colors));
+
+	adw_view_stack_add (ADW_VIEW_STACK (priv->stack), priv->presentation_view);
+
 	g_signal_connect_swapped (priv->presentation_view, "finished",
 				  G_CALLBACK (ev_window_view_presentation_finished),
 				  window);
@@ -4572,17 +4569,10 @@ ev_window_run_presentation (EvWindow *window)
 	gtk_widget_set_hexpand (GTK_WIDGET (priv->presentation_view), TRUE);
 	gtk_widget_set_vexpand (GTK_WIDGET (priv->presentation_view), TRUE);
 
-	gtk_box_prepend (GTK_BOX (priv->main_box),
-			    priv->presentation_view);
-
-	gtk_widget_set_visible (priv->hpaned, FALSE);
-	gtk_widget_set_visible (priv->toolbar, FALSE);
+	adw_view_stack_set_visible_child (ADW_VIEW_STACK (priv->stack), priv->presentation_view);
 
 	gtk_widget_grab_focus (priv->presentation_view);
-	if (fullscreen_window)
-		gtk_window_fullscreen (GTK_WINDOW (window));
-
-	gtk_widget_set_visible (priv->presentation_view, TRUE);
+	gtk_window_fullscreen (GTK_WINDOW (window));
 
         ev_window_inhibit_screensaver (window);
 
@@ -4606,11 +4596,10 @@ ev_window_stop_presentation (EvWindow *window,
 	rotation = ev_view_presentation_get_rotation (EV_VIEW_PRESENTATION (priv->presentation_view));
 	ev_document_model_set_rotation (priv->model, rotation);
 
-	gtk_box_remove (GTK_BOX (priv->main_box), priv->presentation_view);
+	adw_view_stack_set_visible_child_name (ADW_VIEW_STACK (priv->stack), "document");
+	adw_view_stack_remove (ADW_VIEW_STACK (priv->stack), priv->presentation_view);
 	priv->presentation_view = NULL;
 
-	gtk_widget_set_visible (priv->hpaned, TRUE);
-	gtk_widget_set_visible (priv->toolbar, TRUE);
 	if (unfullscreen_window)
 		gtk_window_unfullscreen (GTK_WINDOW (window));
 
