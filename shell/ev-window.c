@@ -1017,40 +1017,6 @@ page_changed_cb (EvWindow        *ev_window,
 		ev_metadata_set_int (priv->metadata, "page", new_page);
 }
 
-
-static const gchar *
-ev_window_sidebar_get_current_page_id (EvWindow *ev_window)
-{
-	GtkWidget   *current_page;
-	const gchar *id;
-	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
-
-	g_object_get (priv->sidebar,
-		      "current_page", &current_page,
-		      NULL);
-
-	if (current_page == priv->sidebar_links) {
-		id = LINKS_SIDEBAR_ID;
-	} else if (current_page == priv->sidebar_thumbs) {
-		id = THUMBNAILS_SIDEBAR_ID;
-	} else if (current_page == priv->sidebar_attachments) {
-		id = ATTACHMENTS_SIDEBAR_ID;
-	} else if (current_page == priv->sidebar_layers) {
-		id = LAYERS_SIDEBAR_ID;
-	} else if (current_page == priv->sidebar_annots) {
-		id = ANNOTS_SIDEBAR_ID;
-	} else if (current_page == priv->sidebar_bookmarks) {
-		id = BOOKMARKS_SIDEBAR_ID;
-	} else {
-		g_assert_not_reached();
-	}
-
-	g_object_unref (current_page);
-
-	return id;
-}
-
-
 static void
 ev_window_sidebar_set_current_page (EvWindow    *window,
 				    const gchar *page_id)
@@ -3919,7 +3885,7 @@ ev_window_save_settings (EvWindow *ev_window)
 	g_settings_set_int (settings, "sidebar-size",
 			    gtk_paned_get_position (GTK_PANED (priv->hpaned)));
 	g_settings_set_string (settings, "sidebar-page",
-			       ev_window_sidebar_get_current_page_id (ev_window));
+				ev_sidebar_get_visible_child_name (EV_SIDEBAR (priv->sidebar)));
 	g_settings_set_boolean (settings, "enable-spellchecking",
 				ev_view_get_enable_spellchecking (ev_view));
 	g_settings_apply (settings);
@@ -5172,11 +5138,12 @@ sidebar_current_page_changed_cb (EvSidebar  *ev_sidebar,
 					   EvWindow   *ev_window)
 {
 	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
+	EvSidebar *sidebar = EV_SIDEBAR (priv->sidebar);
 
 	if (priv->metadata && !ev_window_is_empty (ev_window)) {
 		ev_metadata_set_string (priv->metadata,
 					"sidebar_page",
-					ev_window_sidebar_get_current_page_id (ev_window));
+					ev_sidebar_get_visible_child_name (sidebar));
 	}
 }
 

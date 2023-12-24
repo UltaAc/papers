@@ -94,6 +94,14 @@ ev_sidebar_get_current_page (EvSidebar *ev_sidebar)
 	return gtk_stack_get_visible_child (GTK_STACK (priv->stack));
 }
 
+const char *
+ev_sidebar_get_visible_child_name (EvSidebar *ev_sidebar)
+{
+	EvSidebarPrivate *priv = GET_PRIVATE (ev_sidebar);
+
+	return gtk_stack_get_visible_child_name (GTK_STACK (priv->stack));
+}
+
 static void
 ev_sidebar_get_property (GObject *object,
 			 guint prop_id,
