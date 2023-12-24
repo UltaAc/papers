@@ -5581,7 +5581,7 @@ ev_window_show_find_bar (EvWindow *ev_window,
 {
 	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
 
-	if (gtk_widget_get_visible (priv->find_sidebar)) {
+	if (gtk_paned_get_start_child (GTK_PANED (priv->hpaned)) == priv->find_sidebar) {
 		gtk_widget_grab_focus (priv->search_box);
 		return;
 	}
@@ -5596,10 +5596,7 @@ ev_window_show_find_bar (EvWindow *ev_window,
 
 	ev_history_freeze (priv->history);
 
-	g_object_ref (priv->sidebar);
 	gtk_paned_set_start_child (GTK_PANED (priv->hpaned), priv->find_sidebar);
-	gtk_widget_set_visible (priv->find_sidebar, TRUE);
-
 
 	gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (priv->search_bar), TRUE);
 	gtk_widget_grab_focus (priv->search_box);
@@ -5619,12 +5616,10 @@ ev_window_close_find_bar (EvWindow *ev_window)
 {
 	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
 
-	if (!gtk_widget_get_visible (priv->find_sidebar))
+	if (gtk_paned_get_start_child (GTK_PANED (priv->hpaned)) != priv->find_sidebar)
 		return;
 
-	g_object_ref (priv->find_sidebar);
 	gtk_paned_set_start_child (GTK_PANED (priv->hpaned), priv->sidebar);
-	gtk_widget_set_visible (priv->find_sidebar, FALSE);
 
 	gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (priv->search_bar), FALSE);
 	gtk_widget_grab_focus (priv->view);

@@ -355,7 +355,6 @@
   </template>
 
   <object class="EvFindSidebar" id="find_sidebar">
-    <property name="visible">False</property>
     <signal name="result-activated" handler="find_sidebar_result_activated_cb" />
   </object>
 
