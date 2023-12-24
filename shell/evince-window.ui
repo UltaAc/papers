@@ -30,14 +30,13 @@
             <property name="name">document</property>
             <property name="title">Document</property>
             <property name="child">
-              <object class="GtkBox" id="main_box">
-                <property name="orientation">vertical</property>
-                <child>
+              <object class="AdwToolbarView" id="main_box">
+                <child type="top">
                   <object class="EvToolbar" id="toolbar">
                     <property name="document-model">model</property>
                   </object>
                 </child>
-                <child>
+                <child type="top">
                   <object class="EvAnnotationsToolbar" id="annots_toolbar">
                     <property name="visible">False</property>
                     <signal name="begin-add-annot" handler="ev_window_begin_add_annot"
@@ -46,7 +45,7 @@
                       swapped="yes" />
                   </object>
                 </child>
-                <child>
+                <child type="top">
                   <object class="GtkSearchBar" id="search_bar">
                     <style>
                       <class name="evsearchbox" />
@@ -73,7 +72,7 @@
                     </child>
                   </object>
                 </child>
-                <child>
+                <property name="content">
                   <object class="GtkPaned" id="hpaned">
                     <property name="orientation">horizontal</property>
                     <property name="vexpand">True</property>
@@ -220,6 +219,21 @@
                             </child>
                           </object>
                         </child>
+                        <child>
+                          <object class="GtkPopoverMenu" id="view_popup">
+                            <property name="has-arrow">False</property>
+                            <property name="menu-model">view-popup-menu</property>
+                            <property name="halign">start</property>
+                            <signal name="hide" handler="view_popup_hide_cb" />
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkPopoverMenu" id="attachment_popup">
+                            <property name="has-arrow">False</property>
+                            <property name="menu-model">attachments-popup</property>
+                            <property name="halign">start</property>
+                          </object>
+                        </child>
                       </object>
                     </child>
                     <!-- HACK: GtkPaned set the shrink-start-child property to True when they
@@ -227,22 +241,7 @@
                                 the child node. Let's set the property to False after that. -->
                     <property name="shrink-start-child">False</property>
                   </object>
-                </child>
-                <child>
-                  <object class="GtkPopoverMenu" id="view_popup">
-                    <property name="has-arrow">False</property>
-                    <property name="menu-model">view-popup-menu</property>
-                    <property name="halign">start</property>
-                    <signal name="hide" handler="view_popup_hide_cb" />
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkPopoverMenu" id="attachment_popup">
-                    <property name="has-arrow">False</property>
-                    <property name="menu-model">attachments-popup</property>
-                    <property name="halign">start</property>
-                  </object>
-                </child>
+                </property>
               </object>
             </property>
           </object>
