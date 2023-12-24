@@ -122,10 +122,8 @@ typedef struct {
 	GtkWidget *presentation_view;
 	GtkWidget *message_area;
 	GtkWidget *password_view;
-	GtkWidget *sidebar_thumbs;
 	GtkWidget *sidebar_links;
 	GtkWidget *find_sidebar;
-	GtkWidget *sidebar_attachments;
 	GtkWidget *sidebar_layers;
 	GtkWidget *sidebar_annots;
 	GtkWidget *sidebar_bookmarks;
@@ -235,13 +233,6 @@ typedef struct {
 #define GS_LAST_DOCUMENT_DIRECTORY "document-directory"
 #define GS_LAST_PICTURES_DIRECTORY "pictures-directory"
 #define GS_ALLOW_LINKS_CHANGE_ZOOM "allow-links-change-zoom"
-
-#define LINKS_SIDEBAR_ID "links"
-#define THUMBNAILS_SIDEBAR_ID "thumbnails"
-#define ATTACHMENTS_SIDEBAR_ID "attachments"
-#define LAYERS_SIDEBAR_ID "layers"
-#define ANNOTS_SIDEBAR_ID "annotations"
-#define BOOKMARKS_SIDEBAR_ID "bookmarks"
 
 #define EV_PRINT_SETTINGS_FILE  "print-settings"
 #define EV_PRINT_SETTINGS_GROUP "Print Settings"
@@ -1018,44 +1009,6 @@ page_changed_cb (EvWindow        *ev_window,
 }
 
 static void
-ev_window_sidebar_set_current_page (EvWindow    *window,
-				    const gchar *page_id)
-{
-	EvWindowPrivate *priv = GET_PRIVATE (window);
-	EvDocument *document = priv->document;
-	EvSidebar  *sidebar = EV_SIDEBAR (priv->sidebar);
-	GtkWidget  *links = priv->sidebar_links;
-	GtkWidget  *thumbs = priv->sidebar_thumbs;
-	GtkWidget  *attachments = priv->sidebar_attachments;
-	GtkWidget  *annots = priv->sidebar_annots;
-	GtkWidget  *layers = priv->sidebar_layers;
-	GtkWidget  *bookmarks = priv->sidebar_bookmarks;
-
-	if (strcmp (page_id, LINKS_SIDEBAR_ID) == 0 &&
-	    ev_sidebar_page_support_document (EV_SIDEBAR_PAGE (links), document)) {
-		ev_sidebar_set_page (sidebar, links);
-	} else if (strcmp (page_id, THUMBNAILS_SIDEBAR_ID) == 0 &&
-		   ev_sidebar_page_support_document (EV_SIDEBAR_PAGE (thumbs), document)) {
-		ev_sidebar_set_page (sidebar, thumbs);
-	} else if (strcmp (page_id, ATTACHMENTS_SIDEBAR_ID) == 0 &&
-		   ev_sidebar_page_support_document (EV_SIDEBAR_PAGE (attachments), document)) {
-		ev_sidebar_set_page (sidebar, attachments);
-	} else if (strcmp (page_id, LAYERS_SIDEBAR_ID) == 0 &&
-		   ev_sidebar_page_support_document (EV_SIDEBAR_PAGE (layers), document)) {
-		ev_sidebar_set_page (sidebar, layers);
-	} else if (strcmp (page_id, ANNOTS_SIDEBAR_ID) == 0 &&
-		   ev_sidebar_page_support_document (EV_SIDEBAR_PAGE (annots), document)) {
-		ev_sidebar_set_page (sidebar, annots);
-	} else if (strcmp (page_id, BOOKMARKS_SIDEBAR_ID) == 0 &&
-		   ev_sidebar_page_support_document (EV_SIDEBAR_PAGE (bookmarks), document)) {
-		ev_sidebar_set_page (sidebar, bookmarks);
-	} else {
-		/* setup thumbnails by default */
-		ev_sidebar_set_page (sidebar, thumbs);
-	}
-}
-
-static void
 update_document_mode (EvWindow *window, EvDocumentMode mode)
 {
 	if (mode == EV_DOCUMENT_MODE_PRESENTATION) {
@@ -1146,7 +1099,7 @@ setup_sidebar_from_metadata (EvWindow *window)
 		gtk_paned_set_position (GTK_PANED (priv->hpaned), sidebar_size);
 
 	if (ev_metadata_get_string (priv->metadata, "sidebar_page", &page_id))
-		ev_window_sidebar_set_current_page (window, page_id);
+		ev_sidebar_set_visible_child_name (EV_SIDEBAR (priv->sidebar), page_id);
 }
 
 static void
@@ -7078,10 +7031,8 @@ ev_window_class_init (EvWindowClass *ev_window_class)
 	gtk_widget_class_bind_template_child_private (widget_class, EvWindow, stack);
 
 	/* sidebar */
-	gtk_widget_class_bind_template_child_private (widget_class, EvWindow, sidebar_thumbs);
 	gtk_widget_class_bind_template_child_private (widget_class, EvWindow, sidebar_links);
 	gtk_widget_class_bind_template_child_private (widget_class, EvWindow, sidebar_annots);
-	gtk_widget_class_bind_template_child_private (widget_class, EvWindow, sidebar_attachments);
 	gtk_widget_class_bind_template_child_private (widget_class, EvWindow, sidebar_bookmarks);
 	gtk_widget_class_bind_template_child_private (widget_class, EvWindow, sidebar_layers);
 

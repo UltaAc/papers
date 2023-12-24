@@ -45,5 +45,7 @@ void       ev_sidebar_set_model (EvSidebar       *ev_sidebar,
                                  EvDocumentModel *model);
 GtkWidget *ev_sidebar_get_current_page (EvSidebar *ev_sidebar);
 const char *ev_sidebar_get_visible_child_name (EvSidebar *ev_sidebar);
+void	   ev_sidebar_set_visible_child_name (EvSidebar *ev_sidebar,
+					      const char *name);
 
 G_END_DECLS

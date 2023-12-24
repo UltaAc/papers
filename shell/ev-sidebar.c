@@ -102,6 +102,22 @@ ev_sidebar_get_visible_child_name (EvSidebar *ev_sidebar)
 	return gtk_stack_get_visible_child_name (GTK_STACK (priv->stack));
 }
 
+void
+ev_sidebar_set_visible_child_name (EvSidebar *ev_sidebar, const char *name)
+{
+	EvSidebarPrivate *priv = GET_PRIVATE (ev_sidebar);
+	EvDocument *document = ev_document_model_get_document (priv->model);
+	GtkWidget *page = gtk_stack_get_child_by_name (GTK_STACK (priv->stack), name);
+
+	g_warn_if_fail (page != NULL);
+
+	if (page && ev_sidebar_page_support_document (EV_SIDEBAR_PAGE (page), document)) {
+		gtk_stack_set_visible_child (GTK_STACK (priv->stack), page);
+	} else {
+		gtk_stack_set_visible_child_name (GTK_STACK (priv->stack), "thumbnails");
+	}
+}
+
 static void
 ev_sidebar_get_property (GObject *object,
 			 guint prop_id,
