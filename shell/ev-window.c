@@ -1573,7 +1573,6 @@ ev_window_setup_document (EvWindow *ev_window)
 
 	if (priv->properties) {
 		ev_properties_dialog_set_document (EV_PROPERTIES_DIALOG (priv->properties),
-						   priv->uri,
 					           priv->document);
 	}
 
@@ -3696,7 +3695,6 @@ ev_window_cmd_file_properties (GSimpleAction *action,
 	if (priv->properties == NULL) {
 		priv->properties = GTK_WINDOW (ev_properties_dialog_new ());
 		ev_properties_dialog_set_document (EV_PROPERTIES_DIALOG (priv->properties),
-						   priv->uri,
 					           priv->document);
 		g_object_add_weak_pointer (G_OBJECT (priv->properties),
 					   (gpointer) &(priv->properties));
