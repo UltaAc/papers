@@ -34,7 +34,6 @@ struct _EvToolbar {
 };
 
 GtkWidget    *ev_toolbar_new                (void);
-void          ev_toolbar_action_menu_toggle (EvToolbar *ev_toolbar);
 GtkWidget    *ev_toolbar_get_page_selector  (EvToolbar *ev_toolbar);
 AdwHeaderBar *ev_toolbar_get_header_bar     (EvToolbar *ev_toolbar);
 

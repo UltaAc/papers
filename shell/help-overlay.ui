@@ -386,7 +386,7 @@
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" context="shortcut window">Toggle primary menu</property>
-                <property name="action-name">win.toggle-menu</property>
+                <property name="accelerator">F10</property>
               </object>
             </child>
             <child>

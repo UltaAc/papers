@@ -37,6 +37,7 @@
             <property name="icon-name">open-menu-symbolic</property>
             <property name="tooltip-text" translatable="yes">File options</property>
             <property name="menu-model">action-menu</property>
+            <property name="primary">True</property>
             <accessibility>
               <property name="label" translatable="yes">File options</property>
             </accessibility>

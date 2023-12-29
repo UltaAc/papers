@@ -782,7 +782,6 @@ ev_application_startup (GApplication *gapplication)
           "win.go-back-history",        "<alt>P", "Back", NULL,
           "win.go-forward-history",     "<alt>N", "Forward", NULL,
           "win.default-zoom",           "<Ctrl>0", "<Ctrl>KP_0", NULL,
-          "win.toggle-menu",            "F10", NULL,
           "win.caret-navigation",       "F7", NULL,
           "win.show-side-pane",         "F9", NULL,
           "win.fullscreen",             "F11", NULL,

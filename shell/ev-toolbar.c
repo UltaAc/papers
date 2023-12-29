@@ -162,20 +162,6 @@ ev_toolbar_new (void)
         return GTK_WIDGET (g_object_new (EV_TYPE_TOOLBAR, NULL));
 }
 
-void
-ev_toolbar_action_menu_toggle (EvToolbar *ev_toolbar)
-{
-	EvToolbarPrivate *priv = GET_PRIVATE (ev_toolbar);
-	gboolean is_active;
-
-	g_return_if_fail (EV_IS_TOOLBAR (ev_toolbar));
-
-	is_active = gtk_menu_button_get_active (GTK_MENU_BUTTON (priv->action_menu_button));
-
-	/* FIXME: main menu can't be closed by pressing F10 again */
-	gtk_menu_button_set_active (GTK_MENU_BUTTON (priv->action_menu_button), !is_active);
-}
-
 GtkWidget *
 ev_toolbar_get_page_selector (EvToolbar *ev_toolbar)
 {

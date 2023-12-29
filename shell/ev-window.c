@@ -505,7 +505,6 @@ ev_window_update_actions_sensitivity (EvWindow *ev_window)
 	ev_window_set_action_enabled (ev_window, "sizing-mode", !recent_view_mode);
 	ev_window_set_action_enabled (ev_window, "zoom", !recent_view_mode);
 	ev_window_set_action_enabled (ev_window, "escape", !recent_view_mode);
-	ev_window_set_action_enabled (ev_window, "toggle-menu", !recent_view_mode);
 
 	/* Don't enable popup actions here because the page can change while a
 	 * popup is visible due to kinetic scrolling. The 'popup' functions
@@ -5056,18 +5055,6 @@ direction_changed_cb (EvDocumentModel *model,
 					 rtl);
 }
 
-
-static void
-ev_window_cmd_action_menu (GSimpleAction *action,
-			   GVariant      *parameter,
-			   gpointer       user_data)
-{
-	EvWindow  *ev_window = user_data;
-	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
-
-	ev_toolbar_action_menu_toggle (EV_TOOLBAR (priv->toolbar));
-}
-
 static void
 ev_window_view_cmd_toggle_sidebar (GSimpleAction *action,
 				   GVariant      *state,
@@ -5852,7 +5839,6 @@ static const GActionEntry actions[] = {
 	{ "zoom", ev_window_cmd_view_zoom, "d" },
 	{ "default-zoom", ev_window_cmd_set_default_zoom },
 	{ "escape", ev_window_cmd_escape },
-	{ "toggle-menu", ev_window_cmd_action_menu },
 	{ "caret-navigation", NULL, NULL, "false", ev_window_cmd_view_toggle_caret_navigation },
 	{ "add-annotation", NULL, NULL, "false", ev_window_cmd_add_annotation },
 	{ "highlight-annotation", ev_window_cmd_add_highlight_annotation },
