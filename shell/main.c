@@ -219,8 +219,6 @@ main (int argc, char *argv[])
         if (!ev_init ())
                 return 1;
 
-	gtk_init ();
-
         application = ev_application_new ();
         if (!g_application_register (G_APPLICATION (application), NULL, &error)) {
                 g_printerr ("Failed to register: %s\n", error->message);
