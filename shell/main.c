@@ -46,11 +46,8 @@ static gchar   *ev_find_string;
 static gint     ev_page_index = 0;
 static gchar   *ev_named_dest;
 static gboolean new_window = FALSE;
-static gboolean preview_mode = FALSE;
 static gboolean fullscreen_mode = FALSE;
 static gboolean presentation_mode = FALSE;
-static gboolean unlink_temp_file = FALSE;
-static gchar   *print_settings;
 static const char **file_arguments = NULL;
 
 
@@ -74,70 +71,11 @@ static const GOptionEntry goption_options[] =
 	{ "named-dest", 'n', 0, G_OPTION_ARG_STRING, &ev_named_dest, N_("Named destination to display."), N_("DEST")},
 	{ "fullscreen", 'f', 0, G_OPTION_ARG_NONE, &fullscreen_mode, N_("Run evince in fullscreen mode"), NULL },
 	{ "presentation", 's', 0, G_OPTION_ARG_NONE, &presentation_mode, N_("Run evince in presentation mode"), NULL },
-	{ "preview", 'w', 0, G_OPTION_ARG_NONE, &preview_mode, N_("Run evince as a previewer"), NULL },
 	{ "find", 'l', 0, G_OPTION_ARG_STRING, &ev_find_string, N_("The word or phrase to find in the document"), N_("STRING")},
-	{ "unlink-tempfile", 'u', G_OPTION_FLAG_HIDDEN, G_OPTION_ARG_NONE, &unlink_temp_file, NULL, NULL },
-	{ "print-settings", 't', G_OPTION_FLAG_HIDDEN, G_OPTION_ARG_FILENAME, &print_settings, NULL, NULL },
 	{ "version", 0, G_OPTION_FLAG_NO_ARG | G_OPTION_FLAG_HIDDEN, G_OPTION_ARG_CALLBACK, option_version_cb, NULL, NULL },
 	{ G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &file_arguments, NULL, N_("[FILE…]") },
 	{ NULL }
 };
-
-static gboolean
-launch_previewer (void)
-{
-	GString *cmd_str;
-	gchar   *cmd;
-	gboolean retval = FALSE;
-	GError  *error = NULL;
-
-	/* Rebuild the command line, ignoring options
-	 * not supported by the previewer and taking only
-	 * the first path given
-	 */
-	cmd_str = g_string_new ("evince-previewer");
-
-	if (print_settings) {
-		gchar *quoted;
-
-		quoted = g_shell_quote (print_settings);
-		g_string_append_printf (cmd_str, " --print-settings %s", quoted);
-		g_free (quoted);
-	}
-
-	if (unlink_temp_file)
-		g_string_append (cmd_str, " --unlink-tempfile");
-
-	if (file_arguments) {
-		gchar *quoted;
-
-		quoted = g_shell_quote (file_arguments[0]);
-		g_string_append_printf (cmd_str, " %s", quoted);
-		g_free (quoted);
-	}
-
-	cmd = g_string_free (cmd_str, FALSE);
-
-	if (!error) {
-		GAppInfo *app;
-
-		app = g_app_info_create_from_commandline (cmd, NULL, 0, &error);
-
-		if (app != NULL) {
-			retval = g_app_info_launch (app, NULL, NULL, &error);
-			g_object_unref (app);
-		}
-	}
-
-	if (error) {
-		g_warning ("Error launching previewer: %s\n", error->message);
-		g_error_free (error);
-	}
-
-	g_free (cmd);
-
-	return retval;
-}
 
 static gchar *
 get_label_from_filename (const gchar *filename)
@@ -277,14 +215,6 @@ main (int argc, char *argv[])
 		return 1;
 	}
 	g_option_context_free (context);
-
-	if (preview_mode) {
-		gboolean retval;
-
-		retval = launch_previewer ();
-
-		return retval ? 0 : 1;
-	}
 
         if (!ev_init ())
                 return 1;
