@@ -802,6 +802,10 @@ ev_application_startup (GApplication *gapplication)
 
         G_APPLICATION_CLASS (ev_application_parent_class)->startup (gapplication);
 
+	/* Manually set name and icon */
+	g_set_application_name (_("Document Viewer"));
+	gtk_window_set_default_icon_name (PACKAGE_ICON_NAME);
+
         for (it = action_accels; it[0]; it += g_strv_length ((gchar **)it) + 1)
                 gtk_application_set_accels_for_action (GTK_APPLICATION (application), it[0], &it[1]);
 }
