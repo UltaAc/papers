@@ -62,7 +62,7 @@
 #include "ev-jobs.h"
 #include "ev-message-area.h"
 #include "ev-metadata.h"
-#include "ev-page-action-widget.h"
+#include "ev-page-selector.h"
 #include "ev-password-view.h"
 #include "ev-properties-dialog.h"
 #include "ev-sidebar-annotations.h"
@@ -4104,23 +4104,19 @@ ev_window_focus_page_selector (EvWindow *window)
 void
 ev_window_start_page_selector_search (EvWindow *window)
 {
-	EvWindowPrivate *priv;
-	GtkWidget *page_selector;
-	EvPageActionWidget *action_widget;
+	EvWindowPrivate *priv = GET_PRIVATE (window);
+	EvPageSelector *page_selector;
 
 	g_return_if_fail (EV_IS_WINDOW (window));
 
-	priv = GET_PRIVATE (window);
-
-	page_selector = ev_toolbar_get_page_selector (EV_TOOLBAR (priv->toolbar));
-	action_widget = EV_PAGE_ACTION_WIDGET (page_selector);
-	if (!action_widget)
+	page_selector = EV_PAGE_SELECTOR (ev_toolbar_get_page_selector (EV_TOOLBAR (priv->toolbar)));
+	if (!page_selector)
 		return;
 
 	ev_window_focus_page_selector (window);
-	ev_page_action_widget_clear (action_widget);
-	ev_page_action_widget_set_temporary_entry_width (action_widget, 15);
-	ev_page_action_widget_enable_completion_search (action_widget, TRUE);
+	ev_page_selector_clear (page_selector);
+	ev_page_selector_set_temporary_entry_width (page_selector, 15);
+	ev_page_selector_enable_completion_search (page_selector, TRUE);
 }
 
 static void
@@ -6125,10 +6121,10 @@ sidebar_links_link_model_changed (EvSidebarLinks *ev_sidebar_links,
 		return;
 
 	page_selector = ev_toolbar_get_page_selector (EV_TOOLBAR (priv->toolbar));
-	ev_page_action_widget_update_links_model (EV_PAGE_ACTION_WIDGET (page_selector), model);
+	ev_page_selector_update_links_model (EV_PAGE_SELECTOR (page_selector), model);
 	/* Let's disable initially the completion search so it does not misfire when the user
 	 * is entering page numbers. Fixes issue #1759 */
-	ev_page_action_widget_enable_completion_search (EV_PAGE_ACTION_WIDGET (page_selector), FALSE);
+	ev_page_selector_enable_completion_search (EV_PAGE_SELECTOR (page_selector), FALSE);
 	g_object_unref (model);
 }
 
@@ -6988,7 +6984,7 @@ ev_window_init (EvWindow *ev_window)
 	g_type_ensure (EV_TYPE_SIDEBAR_LAYERS);
 	g_type_ensure (EV_TYPE_SIDEBAR_BOOKMARKS);
 	g_type_ensure (EV_TYPE_SIDEBAR_THUMBNAILS);
-	g_type_ensure (EV_TYPE_PAGE_ACTION_WIDGET);
+	g_type_ensure (EV_TYPE_PAGE_SELECTOR);
 	g_type_ensure (EV_TYPE_SIDEBAR_ATTACHMENTS);
 	g_type_ensure (EV_TYPE_SIDEBAR_ANNOTATIONS);
 	g_type_ensure (EV_TYPE_ANNOTATIONS_TOOLBAR);
@@ -7040,8 +7036,8 @@ ev_window_init (EvWindow *ev_window)
 					 actions, G_N_ELEMENTS (actions),
 					 ev_window);
 
-	ev_page_action_widget_set_model (EV_PAGE_ACTION_WIDGET (
-		ev_toolbar_get_page_selector (EV_TOOLBAR(priv->toolbar))),
+	ev_page_selector_set_model (EV_PAGE_SELECTOR (
+		ev_toolbar_get_page_selector (EV_TOOLBAR (priv->toolbar))),
 		priv->model);
 
 	g_signal_connect (ev_toolbar_get_page_selector (EV_TOOLBAR (priv->toolbar)),

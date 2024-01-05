@@ -26,12 +26,12 @@
 #include <gtk/gtk.h>
 
 #include <evince-document.h>
-#include "ev-page-action-widget.h"
+#include "ev-page-selector.h"
 
 #define COMPLETION_RESULTS_WIDTH 50
 
 /* Widget we pass back */
-static gboolean ev_page_action_widget_completion_search_is_enabled (EvPageActionWidget *proxy);
+static gboolean ev_page_selector_completion_search_is_enabled (EvPageSelector *proxy);
 
 enum
 {
@@ -39,7 +39,7 @@ enum
 	WIDGET_N_SIGNALS
 };
 
-struct _EvPageActionWidget
+struct _EvPageSelector
 {
 	GtkBox parent;
 
@@ -57,61 +57,61 @@ struct _EvPageActionWidget
 
 static guint widget_signals[WIDGET_N_SIGNALS] = {0, };
 
-G_DEFINE_TYPE (EvPageActionWidget, ev_page_action_widget, GTK_TYPE_BOX)
+G_DEFINE_TYPE (EvPageSelector, ev_page_selector, GTK_TYPE_BOX)
 
 static gboolean
-show_page_number_in_pages_label (EvPageActionWidget *action_widget,
+show_page_number_in_pages_label (EvPageSelector *page_selector,
                                  gint                page)
 {
         gchar   *page_label;
         gboolean retval;
 
-        if (!ev_document_has_text_page_labels (action_widget->document))
+        if (!ev_document_has_text_page_labels (page_selector->document))
                 return FALSE;
 
         page_label = g_strdup_printf ("%d", page + 1);
-        retval = g_strcmp0 (page_label, gtk_editable_get_text (GTK_EDITABLE (action_widget->entry))) != 0;
+        retval = g_strcmp0 (page_label, gtk_editable_get_text (GTK_EDITABLE (page_selector->entry))) != 0;
         g_free (page_label);
 
         return retval;
 }
 
 static void
-update_pages_label (EvPageActionWidget *action_widget,
-		    gint                page)
+update_pages_label (EvPageSelector *page_selector,
+		    gint            page)
 {
 	char *label_text;
 	gint n_pages;
 
-	n_pages = ev_document_get_n_pages (action_widget->document);
-        if (show_page_number_in_pages_label (action_widget, page))
+	n_pages = ev_document_get_n_pages (page_selector->document);
+        if (show_page_number_in_pages_label (page_selector, page))
                 label_text = g_strdup_printf (_("(%d of %d)"), page + 1, n_pages);
         else
                 label_text = g_strdup_printf (_("of %d"), n_pages);
-	gtk_editable_set_text (GTK_EDITABLE (action_widget->label), label_text);
+	gtk_editable_set_text (GTK_EDITABLE (page_selector->label), label_text);
 	g_free (label_text);
 }
 
 static void
-ev_page_action_widget_set_current_page (EvPageActionWidget *action_widget,
-					gint                page)
+ev_page_selector_set_current_page (EvPageSelector *page_selector,
+				   gint                page)
 {
 	if (page >= 0) {
 		gchar *page_label;
 
-		page_label = ev_document_get_page_label (action_widget->document, page);
-		gtk_editable_set_text (GTK_EDITABLE (action_widget->entry), page_label);
-		gtk_editable_set_position (GTK_EDITABLE (action_widget->entry), -1);
+		page_label = ev_document_get_page_label (page_selector->document, page);
+		gtk_editable_set_text (GTK_EDITABLE (page_selector->entry), page_label);
+		gtk_editable_set_position (GTK_EDITABLE (page_selector->entry), -1);
 		g_free (page_label);
 	} else {
-		gtk_editable_set_text (GTK_EDITABLE (action_widget->entry), "");
+		gtk_editable_set_text (GTK_EDITABLE (page_selector->entry), "");
 	}
 
-	update_pages_label (action_widget, page);
+	update_pages_label (page_selector, page);
 }
 
 static void
-ev_page_action_widget_update_max_width (EvPageActionWidget *action_widget)
+ev_page_selector_update_max_width (EvPageSelector *page_selector)
 {
         gchar *max_label;
         gint   n_pages;
@@ -119,11 +119,11 @@ ev_page_action_widget_update_max_width (EvPageActionWidget *action_widget)
         gchar *max_page_label;
         gchar *max_page_numeric_label;
 
-        n_pages = ev_document_get_n_pages (action_widget->document);
+        n_pages = ev_document_get_n_pages (page_selector->document);
 
-        max_page_label = ev_document_get_page_label (action_widget->document, n_pages - 1);
+        max_page_label = ev_document_get_page_label (page_selector->document, n_pages - 1);
         max_page_numeric_label = g_strdup_printf ("%d", n_pages);
-        if (ev_document_has_text_page_labels (action_widget->document) != 0) {
+        if (ev_document_has_text_page_labels (page_selector->document) != 0) {
                 max_label = g_strdup_printf (_("(%d of %d)"), n_pages, n_pages);
                 /* Do not take into account the parentheses for the size computation */
                 max_label_len = g_utf8_strlen (max_label, -1) - 2;
@@ -133,11 +133,11 @@ ev_page_action_widget_update_max_width (EvPageActionWidget *action_widget)
         }
         g_free (max_page_label);
 
-        gtk_editable_set_width_chars (GTK_EDITABLE (action_widget->label), max_label_len);
+        gtk_editable_set_width_chars (GTK_EDITABLE (page_selector->label), max_label_len);
         g_free (max_label);
 
-        max_label_len = ev_document_get_max_label_len (action_widget->document);
-        gtk_editable_set_width_chars (GTK_EDITABLE (action_widget->entry),
+        max_label_len = ev_document_get_max_label_len (page_selector->document);
+        gtk_editable_set_width_chars (GTK_EDITABLE (page_selector->entry),
                                    CLAMP (max_label_len, strlen (max_page_numeric_label) + 1, 12));
         g_free (max_page_numeric_label);
 }
@@ -146,9 +146,9 @@ static void
 page_changed_cb (EvDocumentModel    *model,
 		 gint                old_page,
 		 gint                new_page,
-		 EvPageActionWidget *action_widget)
+		 EvPageSelector *page_selector)
 {
-	ev_page_action_widget_set_current_page (action_widget, new_page);
+	ev_page_selector_set_current_page (page_selector, new_page);
 }
 
 static gboolean
@@ -157,15 +157,15 @@ page_scroll_cb (GtkEventControllerScroll	*self,
 		gdouble				 dy,
 		gpointer			 user_data)
 {
-	EvPageActionWidget *action_widget = EV_PAGE_ACTION_WIDGET (user_data);
-	EvDocumentModel *model = action_widget->doc_model;
+	EvPageSelector *page_selector = EV_PAGE_SELECTOR (user_data);
+	EvDocumentModel *model = page_selector->doc_model;
 	GdkEvent *event = gtk_event_controller_get_current_event (
 			GTK_EVENT_CONTROLLER (self));
 	GdkScrollDirection direction = gdk_scroll_event_get_direction (event);
 	gint pageno = ev_document_model_get_page (model);
 
 	if ((direction == GDK_SCROLL_DOWN) &&
-	    (pageno < ev_document_get_n_pages (action_widget->document) - 1))
+	    (pageno < ev_document_get_n_pages (page_selector->document) - 1))
 		pageno++;
 	if ((direction == GDK_SCROLL_UP) && (pageno > 0))
 		pageno--;
@@ -175,7 +175,7 @@ page_scroll_cb (GtkEventControllerScroll	*self,
 }
 
 static void
-activate_cb (EvPageActionWidget *action_widget)
+activate_cb (EvPageSelector *page_selector)
 {
 	EvDocumentModel *model;
 	const char *text;
@@ -186,17 +186,17 @@ activate_cb (EvPageActionWidget *action_widget)
 	gchar *new_text;
 	gint current_page;
 
-	model = action_widget->doc_model;
+	model = page_selector->doc_model;
 	current_page = ev_document_model_get_page (model);
 
-	text = gtk_editable_get_text (GTK_EDITABLE (action_widget->entry));
+	text = gtk_editable_get_text (GTK_EDITABLE (page_selector->entry));
 
 	/* If we are not in search mode, i.e. we are entering a page number */
-	if (!ev_page_action_widget_completion_search_is_enabled (action_widget)) {
+	if (!ev_page_selector_completion_search_is_enabled (page_selector)) {
 		/* Convert utf8 fullwidth numbers (eg. japanese) to halfwidth - fixes #1518 */
 		new_text = g_utf8_normalize (text, -1, G_NORMALIZE_ALL);
-		gtk_editable_set_text (GTK_EDITABLE (action_widget->entry), new_text);
-		text = gtk_editable_get_text (GTK_EDITABLE (action_widget->entry));
+		gtk_editable_set_text (GTK_EDITABLE (page_selector->entry), new_text);
+		text = gtk_editable_get_text (GTK_EDITABLE (page_selector->entry));
 		g_free (new_text);
 	}
 
@@ -205,7 +205,7 @@ activate_cb (EvPageActionWidget *action_widget)
 	link_text = g_strdup_printf (_("Page %s"), text);
 	link = ev_link_new (link_text, link_action);
 
-	g_signal_emit (action_widget, widget_signals[WIDGET_ACTIVATE_LINK], 0, link);
+	g_signal_emit (page_selector, widget_signals[WIDGET_ACTIVATE_LINK], 0, link);
 
 	g_object_unref (link_dest);
 	g_object_unref (link_action);
@@ -213,135 +213,135 @@ activate_cb (EvPageActionWidget *action_widget)
 	g_free (link_text);
 
 	if (current_page == ev_document_model_get_page (model))
-		ev_page_action_widget_set_current_page (action_widget, current_page);
+		ev_page_selector_set_current_page (page_selector, current_page);
 }
 
 static void
-disable_completion_search (EvPageActionWidget *action_widget)
+disable_completion_search (EvPageSelector *page_selector)
 {
-	ev_page_action_widget_enable_completion_search (action_widget, FALSE);
+	ev_page_selector_enable_completion_search (page_selector, FALSE);
 }
 
 static gboolean
-focus_out_cb (EvPageActionWidget *action_widget)
+focus_out_cb (EvPageSelector *page_selector)
 {
-        ev_page_action_widget_set_current_page (action_widget,
-                                                ev_document_model_get_page (action_widget->doc_model));
-        g_object_set (action_widget->entry, "xalign", 1.0, NULL);
-        ev_page_action_widget_update_max_width (action_widget);
-	g_idle_add_once ((GSourceOnceFunc)disable_completion_search, action_widget);
+        ev_page_selector_set_current_page (page_selector,
+                                                ev_document_model_get_page (page_selector->doc_model));
+        g_object_set (page_selector->entry, "xalign", 1.0, NULL);
+        ev_page_selector_update_max_width (page_selector);
+	g_idle_add_once ((GSourceOnceFunc)disable_completion_search, page_selector);
 
         return FALSE;
 }
 
 static void
-ev_page_action_widget_init (EvPageActionWidget *action_widget)
+ev_page_selector_init (EvPageSelector *page_selector)
 {
-	gtk_widget_init_template (GTK_WIDGET (action_widget));
+	gtk_widget_init_template (GTK_WIDGET (page_selector));
 }
 
 static void
-ev_page_action_widget_clear_document(EvPageActionWidget *action_widget)
+ev_page_selector_clear_document(EvPageSelector *page_selector)
 {
-	g_clear_object (&action_widget->document);
+	g_clear_object (&page_selector->document);
 
 	// doc_model is weak pointer, so it might be NULL while we have non-NULL
 	// handlers. Clearing the signals in such case is an error. We don't
 	// really have to worry about setting the ids to 0, since we're already
 	// in finalize
-	if (action_widget->doc_model != NULL) {
-		g_clear_signal_handler (&action_widget->signal_id,
-					action_widget->doc_model);
+	if (page_selector->doc_model != NULL) {
+		g_clear_signal_handler (&page_selector->signal_id,
+					page_selector->doc_model);
 	}
 }
 
 static void
-ev_page_action_widget_set_document (EvPageActionWidget *action_widget,
-                                    EvDocument         *document)
+ev_page_selector_set_document (EvPageSelector *page_selector,
+                               EvDocument     *document)
 {
 	if (document == NULL)
 		return;
 
-	ev_page_action_widget_clear_document (action_widget);
-	action_widget->document = g_object_ref (document);
-	gtk_widget_set_sensitive (GTK_WIDGET (action_widget), ev_document_get_n_pages (document) > 0);
+	ev_page_selector_clear_document (page_selector);
+	page_selector->document = g_object_ref (document);
+	gtk_widget_set_sensitive (GTK_WIDGET (page_selector), ev_document_get_n_pages (document) > 0);
 
-        action_widget->signal_id =
-                g_signal_connect (action_widget->doc_model,
+        page_selector->signal_id =
+                g_signal_connect (page_selector->doc_model,
                                   "page-changed",
                                   G_CALLBACK (page_changed_cb),
-                                  action_widget);
+                                  page_selector);
 
-        ev_page_action_widget_set_current_page (action_widget,
-                                                ev_document_model_get_page (action_widget->doc_model));
-        ev_page_action_widget_update_max_width (action_widget);
+        ev_page_selector_set_current_page (page_selector,
+                                                ev_document_model_get_page (page_selector->doc_model));
+        ev_page_selector_update_max_width (page_selector);
 }
 
 static void
-ev_page_action_widget_document_changed_cb (EvDocumentModel    *model,
-					   GParamSpec         *pspec,
-					   EvPageActionWidget *action_widget)
+ev_page_selector_document_changed_cb (EvDocumentModel    *model,
+				      GParamSpec         *pspec,
+				      EvPageSelector     *page_selector)
 {
-        ev_page_action_widget_set_document (action_widget, ev_document_model_get_document (model));
+        ev_page_selector_set_document (page_selector, ev_document_model_get_document (model));
 }
 
 void
-ev_page_action_widget_set_model (EvPageActionWidget *action_widget,
-				 EvDocumentModel    *model)
+ev_page_selector_set_model (EvPageSelector  *page_selector,
+			    EvDocumentModel *model)
 {
-	g_clear_weak_pointer (&action_widget->doc_model);
-	action_widget->doc_model = model;
+	g_clear_weak_pointer (&page_selector->doc_model);
+	page_selector->doc_model = model;
 	g_object_add_weak_pointer (G_OBJECT (model),
-				   (gpointer)&action_widget->doc_model);
+				   (gpointer)&page_selector->doc_model);
 
-        ev_page_action_widget_set_document (action_widget, ev_document_model_get_document (model));
+        ev_page_selector_set_document (page_selector, ev_document_model_get_document (model));
 
-	action_widget->notify_document_signal_id =
+	page_selector->notify_document_signal_id =
 		g_signal_connect (model, "notify::document",
-				  G_CALLBACK (ev_page_action_widget_document_changed_cb),
-				  action_widget);
+				  G_CALLBACK (ev_page_selector_document_changed_cb),
+				  page_selector);
 }
 
 static void
-ev_page_action_widget_finalize (GObject *object)
+ev_page_selector_finalize (GObject *object)
 {
-	EvPageActionWidget *action_widget = EV_PAGE_ACTION_WIDGET (object);
+	EvPageSelector *page_selector = EV_PAGE_SELECTOR (object);
 
 	// doc_model is weak pointer, so it might be NULL while we have non-NULL
 	// handlers. Clearing the signals in such case is an error. We don't
 	// really have to worry about setting the ids to 0, since we're already
 	// in finalize
-	if (action_widget->doc_model != NULL) {
-		g_clear_signal_handler (&action_widget->notify_document_signal_id,
-					action_widget->doc_model);
+	if (page_selector->doc_model != NULL) {
+		g_clear_signal_handler (&page_selector->notify_document_signal_id,
+					page_selector->doc_model);
 	}
-	ev_page_action_widget_clear_document (action_widget);
-	g_clear_weak_pointer (&action_widget->doc_model);
+	ev_page_selector_clear_document (page_selector);
+	g_clear_weak_pointer (&page_selector->doc_model);
 
-	g_clear_object (&action_widget->completion);
+	g_clear_object (&page_selector->completion);
 
-	G_OBJECT_CLASS (ev_page_action_widget_parent_class)->finalize (object);
+	G_OBJECT_CLASS (ev_page_selector_parent_class)->finalize (object);
 }
 
 static gboolean
-ev_page_action_widget_grab_focus (GtkWidget *proxy)
+ev_page_selector_grab_focus (GtkWidget *proxy)
 {
-	return gtk_widget_grab_focus (EV_PAGE_ACTION_WIDGET (proxy)->entry);
+	return gtk_widget_grab_focus (EV_PAGE_SELECTOR (proxy)->entry);
 }
 
 static void
-ev_page_action_widget_class_init (EvPageActionWidgetClass *klass)
+ev_page_selector_class_init (EvPageSelectorClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-	object_class->finalize = ev_page_action_widget_finalize;
-	widget_class->grab_focus = ev_page_action_widget_grab_focus;
+	object_class->finalize = ev_page_selector_finalize;
+	widget_class->grab_focus = ev_page_selector_grab_focus;
 
 	gtk_widget_class_set_template_from_resource (widget_class,
-						     "/org/gnome/evince/ui/ev-page-action-widget.ui");
-	gtk_widget_class_bind_template_child (widget_class, EvPageActionWidget, entry);
-	gtk_widget_class_bind_template_child (widget_class, EvPageActionWidget, label);
+						     "/org/gnome/evince/ui/ev-page-selector.ui");
+	gtk_widget_class_bind_template_child (widget_class, EvPageSelector, entry);
+	gtk_widget_class_bind_template_child (widget_class, EvPageSelector, label);
 
 	gtk_widget_class_bind_template_callback (widget_class, page_scroll_cb);
 	gtk_widget_class_bind_template_callback (widget_class, activate_cb);
@@ -351,7 +351,7 @@ ev_page_action_widget_class_init (EvPageActionWidgetClass *klass)
 		g_signal_new ("activate_link",
 			      G_OBJECT_CLASS_TYPE (object_class),
 			      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-			      G_STRUCT_OFFSET (EvPageActionWidgetClass, activate_link),
+			      G_STRUCT_OFFSET (EvPageSelectorClass, activate_link),
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__OBJECT,
 			      G_TYPE_NONE, 1,
@@ -363,7 +363,7 @@ static gboolean
 match_selected_cb (GtkEntryCompletion *completion,
 		   GtkTreeModel       *filter_model,
 		   GtkTreeIter        *filter_iter,
-		   EvPageActionWidget *proxy)
+		   EvPageSelector *proxy)
 {
 	EvLink *link;
 	GtkTreeIter *iter;
@@ -391,7 +391,7 @@ display_completion_text (GtkCellLayout      *cell_layout,
 			 GtkCellRenderer    *renderer,
 			 GtkTreeModel       *filter_model,
 			 GtkTreeIter        *filter_iter,
-			 EvPageActionWidget *proxy)
+			 EvPageSelector *proxy)
 {
 	EvLink *link;
 	GtkTreeIter *iter;
@@ -415,7 +415,7 @@ static gboolean
 match_completion (GtkEntryCompletion *completion,
 		  const gchar        *key,
 		  GtkTreeIter        *filter_iter,
-		  EvPageActionWidget *proxy)
+		  EvPageSelector *proxy)
 {
 	EvLink *link;
 	GtkTreeIter *iter;
@@ -527,7 +527,7 @@ get_filter_model_from_model (GtkTreeModel *model)
 
 
 void
-ev_page_action_widget_update_links_model (EvPageActionWidget *proxy, GtkTreeModel *model)
+ev_page_selector_update_links_model (EvPageSelector *proxy, GtkTreeModel *model)
 {
 	GtkTreeModel *filter_model;
 	GtkEntryCompletion *completion;
@@ -566,7 +566,7 @@ ev_page_action_widget_update_links_model (EvPageActionWidget *proxy, GtkTreeMode
 }
 
 void
-ev_page_action_widget_clear (EvPageActionWidget *proxy)
+ev_page_selector_clear (EvPageSelector *proxy)
 {
 	gtk_editable_set_text (GTK_EDITABLE (proxy->entry), "");
 }
@@ -576,7 +576,7 @@ ev_page_action_widget_clear (EvPageActionWidget *proxy)
  * when searching the Outline, so the user has more space
  * to write the search term. */
 void
-ev_page_action_widget_set_temporary_entry_width (EvPageActionWidget *proxy, gint width)
+ev_page_selector_set_temporary_entry_width (EvPageSelector *proxy, gint width)
 {
 	gtk_editable_set_width_chars (GTK_EDITABLE (proxy->entry), width);
 	/* xalign will also be restablished on focus_out */
@@ -585,7 +585,7 @@ ev_page_action_widget_set_temporary_entry_width (EvPageActionWidget *proxy, gint
 
 /* Enables or disables the completion search on @proxy according to @enable */
 void
-ev_page_action_widget_enable_completion_search (EvPageActionWidget *proxy, gboolean enable)
+ev_page_selector_enable_completion_search (EvPageSelector *proxy, gboolean enable)
 {
 	GtkEntryCompletion *completion = enable ? proxy->completion : NULL;
 	gtk_entry_set_completion (GTK_ENTRY (proxy->entry), completion);
@@ -593,7 +593,7 @@ ev_page_action_widget_enable_completion_search (EvPageActionWidget *proxy, gbool
 
 /* Returns whether the completion search is enabled in @proxy */
 static gboolean
-ev_page_action_widget_completion_search_is_enabled (EvPageActionWidget *proxy)
+ev_page_selector_completion_search_is_enabled (EvPageSelector *proxy)
 {
 	return gtk_entry_get_completion (GTK_ENTRY (proxy->entry)) != NULL;
 }

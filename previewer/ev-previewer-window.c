@@ -30,7 +30,7 @@
 #include <glib/gi18n.h>
 #include <adwaita.h>
 #include <evince-view.h>
-#include "ev-page-action-widget.h"
+#include "ev-page-selector.h"
 
 #include "ev-previewer-window.h"
 
@@ -391,7 +391,7 @@ ev_previewer_window_constructed (GObject *object)
 	ev_document_model_set_continuous (window->model, FALSE);
 
 	ev_view_set_model (window->view, window->model);
-	ev_page_action_widget_set_model (EV_PAGE_ACTION_WIDGET (window->page_selector),
+	ev_page_selector_set_model (EV_PAGE_SELECTOR (window->page_selector),
 			window->model);
 
 	dpi = ev_document_misc_get_widget_dpi (GTK_WIDGET (window));
@@ -420,7 +420,7 @@ ev_previewer_window_class_init (EvPreviewerWindowClass *klass)
 	gobject_class->constructed = ev_previewer_window_constructed;
 	gobject_class->dispose = ev_previewer_window_dispose;
 
-	g_type_ensure (EV_TYPE_PAGE_ACTION_WIDGET);
+	g_type_ensure (EV_TYPE_PAGE_SELECTOR);
 	gtk_widget_class_set_template_from_resource (widget_class,
 			"/org/gnome/evince/previewer/ui/previewer-window.ui");
 

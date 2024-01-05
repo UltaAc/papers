@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="EvPageActionWidget" parent="GtkBox">
+  <template class="EvPageSelector" parent="GtkBox">
     <style>
       <class name="linked" />
       <class name="tnum" />

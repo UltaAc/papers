@@ -17,6 +17,6 @@
 -->
 <gresources>
   <gresource prefix="/org/gnome/evince">
-    <file alias="ui/ev-page-action-widget.ui" compressed="true" preprocess="xml-stripblanks">ev-page-action-widget.ui</file>
+    <file alias="ui/ev-page-selector.ui" compressed="true" preprocess="xml-stripblanks">ev-page-selector.ui</file>
   </gresource>
 </gresources>

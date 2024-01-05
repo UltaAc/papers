@@ -1,5 +1,5 @@
 sources = files(
-  'ev-page-action-widget.c',
+  'ev-page-selector.c',
 )
 
 sources += gnome.compile_resources(

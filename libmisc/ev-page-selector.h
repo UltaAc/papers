@@ -26,29 +26,29 @@
 
 G_BEGIN_DECLS
 
-#define EV_TYPE_PAGE_ACTION_WIDGET (ev_page_action_widget_get_type ())
-#define EV_PAGE_ACTION_WIDGET(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), EV_TYPE_PAGE_ACTION_WIDGET, EvPageActionWidget))
+#define EV_TYPE_PAGE_SELECTOR (ev_page_selector_get_type ())
+#define EV_PAGE_SELECTOR(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), EV_TYPE_PAGE_SELECTOR, EvPageSelector))
 
-typedef struct _EvPageActionWidget EvPageActionWidget;
-typedef struct _EvPageActionWidgetClass EvPageActionWidgetClass;
+typedef struct _EvPageSelector EvPageSelector;
+typedef struct _EvPageSelectorClass EvPageSelectorClass;
 
-struct _EvPageActionWidgetClass
+struct _EvPageSelectorClass
 {
 	GtkBoxClass parent_class;
 
-	void (* activate_link) (EvPageActionWidget *page_action,
+	void (* activate_link) (EvPageSelector *page_action,
 			        EvLink             *link);
 };
 
-GType ev_page_action_widget_get_type          (void) G_GNUC_CONST;
+GType ev_page_selector_get_type          (void) G_GNUC_CONST;
 
-void ev_page_action_widget_update_links_model (EvPageActionWidget *proxy,
-					       GtkTreeModel       *model);
+void ev_page_selector_update_links_model (EvPageSelector *proxy,
+					  GtkTreeModel       *model);
 
-void ev_page_action_widget_set_model          (EvPageActionWidget *action_widget,
-					       EvDocumentModel    *doc_model);
-void ev_page_action_widget_clear              (EvPageActionWidget *proxy);
-void ev_page_action_widget_set_temporary_entry_width (EvPageActionWidget *proxy, gint width);
-void ev_page_action_widget_enable_completion_search (EvPageActionWidget *proxy, gboolean enable);
+void ev_page_selector_set_model          (EvPageSelector *page_selector,
+					  EvDocumentModel    *doc_model);
+void ev_page_selector_clear              (EvPageSelector *proxy);
+void ev_page_selector_set_temporary_entry_width (EvPageSelector *proxy, gint width);
+void ev_page_selector_enable_completion_search (EvPageSelector *proxy, gboolean enable);
 
 G_END_DECLS

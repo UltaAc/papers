@@ -29,7 +29,7 @@
 
 #include "ev-zoom-action.h"
 #include "ev-application.h"
-#include "ev-page-action-widget.h"
+#include "ev-page-selector.h"
 
 enum
 {
@@ -110,7 +110,7 @@ ev_toolbar_constructed (GObject *object)
 
         G_OBJECT_CLASS (ev_toolbar_parent_class)->constructed (object);
 
-	ev_page_action_widget_set_model (EV_PAGE_ACTION_WIDGET (priv->page_selector),
+	ev_page_selector_set_model (EV_PAGE_SELECTOR (priv->page_selector),
 					 priv->model);
 
 	ev_zoom_action_set_model (EV_ZOOM_ACTION (priv->zoom_action), priv->model);
@@ -157,7 +157,7 @@ ev_toolbar_init (EvToolbar *ev_toolbar)
 
         /* Ensure GTK+ private types used by the template
          * definition before calling gtk_widget_init_template() */
-        g_type_ensure (EV_TYPE_PAGE_ACTION_WIDGET);
+        g_type_ensure (EV_TYPE_PAGE_SELECTOR);
         g_type_ensure (EV_TYPE_ZOOM_ACTION);
 
 	gtk_widget_init_template (GTK_WIDGET (ev_toolbar));
