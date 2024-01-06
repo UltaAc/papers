@@ -344,7 +344,8 @@ document_load_job_completed_callback (EvJobLoad                *job_load,
 static void
 load_document_and_get_document_info (GetDocumentInfoAsyncData *data)
 {
-        data->job_load = EV_JOB (ev_job_load_new (data->uri));
+	data->job_load = ev_job_load_new ();
+	ev_job_load_set_uri (EV_JOB_LOAD (data->job_load), data->uri);
         g_signal_connect (data->job_load, "finished",
                           G_CALLBACK (document_load_job_completed_callback),
                           data);

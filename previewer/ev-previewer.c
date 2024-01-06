@@ -86,7 +86,7 @@ static void
 startup_cb (GApplication *application,
             gpointer      data)
 {
-	EvJob *job;
+	EvJobLoad *job;
         GError *error = NULL;
         gboolean ps_ok = TRUE;
 
@@ -106,6 +106,7 @@ startup_cb (GApplication *application,
                 g_clear_error (&error);
         }
 
+	job = EV_JOB_LOAD (ev_job_load_new ());
         if (input_fd != -1) {
                 if (!ev_previewer_window_set_source_fd (EV_PREVIEWER_WINDOW (window), input_fd, &error)) {
                         g_printerr ("Failed to set source FD: %s\n", error->message);
@@ -115,8 +116,8 @@ startup_cb (GApplication *application,
                         return;
                 }
 
-                job = ev_job_load_fd_new_take (input_fd, input_mime_type,
-                                               EV_DOCUMENT_LOAD_FLAG_NO_CACHE);
+		ev_job_load_take_fd (job, input_fd, input_mime_type);
+		ev_job_load_set_load_flags (job, EV_DOCUMENT_LOAD_FLAG_NO_CACHE);
 
                 input_fd = -1;
         } else {
@@ -129,7 +130,7 @@ startup_cb (GApplication *application,
                 path = g_file_get_path (file);
 
                 ev_previewer_window_set_source_file (EV_PREVIEWER_WINDOW (window), path);
-                job = ev_job_load_new (uri);
+		ev_job_load_set_uri (job, uri);
 
                 g_free (uri);
                 g_free (path);
@@ -138,7 +139,7 @@ startup_cb (GApplication *application,
 		g_clear_pointer (&input_file, g_free);
         }
 
-        ev_previewer_window_set_job (window, job);
+        ev_previewer_window_set_job (window, EV_JOB (job));
         g_object_unref (job);
 
         /* Window will be presented by 'activate' signal */

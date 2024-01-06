@@ -2226,7 +2226,9 @@ ev_window_open_uri (EvWindow       *ev_window,
 	setup_size_from_metadata (ev_window);
 	setup_model_from_metadata (ev_window);
 
-	priv->load_job = ev_job_load_new (priv->uri);
+	priv->load_job = ev_job_load_new ();
+	ev_job_load_set_uri (EV_JOB_LOAD (priv->load_job), priv->uri);
+
 	g_signal_connect (priv->load_job,
 			  "finished",
 			  G_CALLBACK (ev_window_load_job_cb),
@@ -2347,7 +2349,9 @@ ev_window_reload_local (EvWindow *ev_window)
 	const gchar *uri;
 
 	uri = priv->local_uri ? priv->local_uri : priv->uri;
-	priv->reload_job = ev_job_load_new (uri);
+	priv->reload_job = ev_job_load_new ();
+	ev_job_load_set_uri (EV_JOB_LOAD (priv->reload_job), uri);
+
 	g_signal_connect (priv->reload_job, "finished",
 			  G_CALLBACK (ev_window_reload_job_cb),
 			  ev_window);
