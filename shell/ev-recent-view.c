@@ -70,7 +70,8 @@ typedef struct {
 	int                  scale;
 	EvThumbnailItem     *item;
         GCancellable        *cancellable;
-        EvJob               *job;
+        EvJob               *job_thumbnail;
+	EvJob               *job_load;
         guint                needs_metadata : 1;
         guint                needs_thumbnail : 1;
 } GetDocumentInfoAsyncData;
@@ -78,10 +79,15 @@ typedef struct {
 static void
 get_document_info_async_data_free (GetDocumentInfoAsyncData *data)
 {
-        if (data->job) {
-                g_signal_handlers_disconnect_by_data (data->job, data->ev_recent_view);
-                ev_job_cancel (data->job);
-                g_object_unref (data->job);
+        if (data->job_load) {
+                g_signal_handlers_disconnect_by_data (data->job_load, data->ev_recent_view);
+                ev_job_cancel (data->job_load);
+                g_clear_object (&data->job_load);
+        }
+        if (data->job_thumbnail) {
+                g_signal_handlers_disconnect_by_data (data->job_thumbnail, data->ev_recent_view);
+                ev_job_cancel (data->job_thumbnail);
+                g_clear_object (&data->job_thumbnail);
         }
 
         g_clear_object (&data->cancellable);
@@ -210,7 +216,7 @@ save_thumbnail_in_cache_thread (GTask                    *task,
         GError *error = NULL;
 #endif
 
-	surface = EV_JOB_THUMBNAIL_CAIRO (data->job)->thumbnail_surface;
+	surface = EV_JOB_THUMBNAIL_CAIRO (data->job_thumbnail)->thumbnail_surface;
         thumbnail = gdk_pixbuf_get_from_surface (surface, 0, 0,
                                                  cairo_image_surface_get_width (surface),
                                                  cairo_image_surface_get_height (surface));
@@ -230,32 +236,21 @@ save_thumbnail_in_cache_thread (GTask                    *task,
 
         g_task_return_boolean (task, TRUE);
 }
-
-static void
-save_thumbnail_in_cache_cb (EvRecentView             *ev_recent_view,
-                            GAsyncResult             *result,
-                            GetDocumentInfoAsyncData *data)
-{
-        get_document_info_async_data_free (data);
-}
 #endif /* HAVE_LIBGNOME_DESKTOP */
 
+#ifdef HAVE_LIBGNOME_DESKTOP
 static void
 save_document_thumbnail_in_cache (GetDocumentInfoAsyncData *data)
 {
-#ifdef HAVE_LIBGNOME_DESKTOP
         GTask *task;
 
         ev_recent_view_ensure_desktop_thumbnail_factory (data->ev_recent_view);
-        task = g_task_new (data->ev_recent_view, data->cancellable,
-                           (GAsyncReadyCallback)save_thumbnail_in_cache_cb, data);
+	task = g_task_new (data->ev_recent_view, data->cancellable, NULL, NULL);
         g_task_set_task_data (task, data, NULL);
         g_task_run_in_thread (task, (GTaskThreadFunc)save_thumbnail_in_cache_thread);
         g_object_unref (task);
-#else
-        get_document_info_async_data_free (data);
-#endif /* HAVE_LIBGNOME_DESKTOP */
 }
+#endif /* HAVE_LIBGNOME_DESKTOP */
 
 static void
 thumbnail_job_completed_callback (EvJobThumbnailCairo      *job,
@@ -274,7 +269,10 @@ thumbnail_job_completed_callback (EvJobThumbnailCairo      *job,
 			cairo_image_surface_get_height (job->thumbnail_surface));
 
 	add_thumbnail_to_model (data, pixbuf);
+#ifdef HAVE_LIBGNOME_DESKTOP
         save_document_thumbnail_in_cache (data);
+#endif /* HAVE_LIBGNOME_DESKTOP */
+	get_document_info_async_data_free (data);
 }
 
 static void
@@ -288,8 +286,6 @@ document_load_job_completed_callback (EvJobLoad                *job_load,
                 get_document_info_async_data_free (data);
                 return;
         }
-
-        g_clear_object (&data->job);
 
         if (data->needs_thumbnail) {
                 gdouble width, height;
@@ -307,14 +303,14 @@ document_load_job_completed_callback (EvJobLoad                *job_load,
 		target_width *= data->scale;
 		target_height *= data->scale;
 
-		data->job = ev_job_thumbnail_cairo_new_with_target_size (document, 0, 0,
-									 target_width,
-									 target_height);
+		data->job_thumbnail = ev_job_thumbnail_cairo_new_with_target_size (document, 0, 0,
+										   target_width,
+										   target_height);
 
-                g_signal_connect (data->job, "finished",
+                g_signal_connect (data->job_thumbnail, "finished",
                                   G_CALLBACK (thumbnail_job_completed_callback),
                                   data);
-                ev_job_scheduler_push_job (data->job, EV_JOB_PRIORITY_HIGH);
+                ev_job_scheduler_push_job (data->job_thumbnail, EV_JOB_PRIORITY_HIGH);
         }
 
         if (data->needs_metadata) {
@@ -341,18 +337,18 @@ document_load_job_completed_callback (EvJobLoad                *job_load,
                 g_object_unref (file);
         }
 
-        if (!data->job)
-                get_document_info_async_data_free (data);
+	if (!data->job_thumbnail)
+		get_document_info_async_data_free (data);
 }
 
 static void
 load_document_and_get_document_info (GetDocumentInfoAsyncData *data)
 {
-        data->job = EV_JOB (ev_job_load_new (data->uri));
-        g_signal_connect (data->job, "finished",
+        data->job_load = EV_JOB (ev_job_load_new (data->uri));
+        g_signal_connect (data->job_load, "finished",
                           G_CALLBACK (document_load_job_completed_callback),
                           data);
-        ev_job_scheduler_push_job (data->job, EV_JOB_PRIORITY_HIGH);
+        ev_job_scheduler_push_job (data->job_load, EV_JOB_PRIORITY_HIGH);
 }
 
 #ifdef HAVE_LIBGNOME_DESKTOP
@@ -500,7 +496,7 @@ document_query_info_cb (GFile                    *file,
                         GAsyncResult             *result,
                         GetDocumentInfoAsyncData *data)
 {
-        GFileInfo  *info;
+	g_autoptr (GFileInfo)  info = NULL;
         char       *title = NULL;
         char       *author = NULL;
         char      **attrs;
@@ -512,15 +508,8 @@ document_query_info_cb (GFile                    *file,
         }
 
         info = g_file_query_info_finish (file, result, NULL);
-        if (!info) {
+	if (!info || !g_file_info_has_namespace (info, "metadata")) {
                 get_document_info (data);
-                return;
-        }
-
-        if (!g_file_info_has_namespace (info, "metadata")) {
-                get_document_info (data);
-                g_object_unref (info);
-
                 return;
         }
 
@@ -548,8 +537,6 @@ document_query_info_cb (GFile                    *file,
 				ev_thumbnail_item_set_secondary_text (data->item, author);
                 }
         }
-
-        g_object_unref (info);
 
         get_document_info (data);
 }
