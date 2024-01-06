@@ -40,17 +40,6 @@ EvDocument *ev_document_factory_get_document_full (const char           *uri,
 						   EvDocumentLoadFlags   flags,
 						   GError              **error);
 EV_PUBLIC
-EvDocument* ev_document_factory_get_document_for_gfile (GFile *file,
-                                                        EvDocumentLoadFlags flags,
-                                                        GCancellable *cancellable,
-                                                        GError **error);
-EV_PUBLIC
-EvDocument* ev_document_factory_get_document_for_stream (GInputStream *stream,
-                                                         const char *mime_type,
-                                                         EvDocumentLoadFlags flags,
-                                                         GCancellable *cancellable,
-                                                         GError **error);
-EV_PUBLIC
 EvDocument* ev_document_factory_get_document_for_fd (int fd,
                                                      const char *mime_type,
                                                      EvDocumentLoadFlags flags,

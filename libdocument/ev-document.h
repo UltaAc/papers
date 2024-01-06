@@ -162,18 +162,6 @@ gboolean         ev_document_load_full            (EvDocument           *documen
 						   EvDocumentLoadFlags   flags,
 						   GError              **error);
 EV_PUBLIC
-gboolean         ev_document_load_stream          (EvDocument         *document,
-                                                   GInputStream       *stream,
-                                                   EvDocumentLoadFlags flags,
-                                                   GCancellable       *cancellable,
-                                                   GError            **error);
-EV_PUBLIC
-gboolean         ev_document_load_gfile           (EvDocument         *document,
-                                                   GFile              *file,
-                                                   EvDocumentLoadFlags flags,
-                                                   GCancellable       *cancellable,
-                                                   GError            **error);
-EV_PUBLIC
 gboolean         ev_document_load_fd              (EvDocument         *document,
                                                    int                 fd,
                                                    EvDocumentLoadFlags flags,
