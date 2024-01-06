@@ -27,7 +27,7 @@
               </object>
             </child>
             <child>
-              <object class="EvPageActionWidget" id="page_selector">
+              <object class="EvPageSelector" id="page_selector">
                 <property name="tooltip-text" translatable="yes">Select Page or Search in the Outline</property>
               </object>
             </child>
