@@ -1334,6 +1334,8 @@ ev_job_fonts_new (EvDocument *document)
 static void
 ev_job_load_init (EvJobLoad *job)
 {
+	job->flags = EV_DOCUMENT_LOAD_FLAG_NONE;
+
 	EV_JOB (job)->run_mode = EV_JOB_RUN_THREAD;
 }
 
@@ -1378,12 +1380,14 @@ ev_job_load_run (EvJob *job)
 
 		uncompressed_uri = g_object_get_data (G_OBJECT (job->document),
 						      "uri-uncompressed");
-		ev_document_load (job->document,
-				  uncompressed_uri ? uncompressed_uri : job_load->uri,
-				  &error);
+		ev_document_load_full (job->document,
+				       uncompressed_uri ? uncompressed_uri : job_load->uri,
+				       job->flags,
+				       &error);
 	} else {
-		job->document = ev_document_factory_get_document (job_load->uri,
-								  &error);
+		job->document = ev_document_factory_get_document_full (job_load->uri,
+								       job_load->flags,
+								       &error);
 	}
 
 	ev_document_fc_mutex_unlock ();
@@ -1434,11 +1438,21 @@ ev_job_load_set_uri (EvJobLoad *job, const gchar *uri)
 void
 ev_job_load_set_password (EvJobLoad *job, const gchar *password)
 {
+	g_return_if_fail (EV_IS_JOB_LOAD (job));
+
 	ev_debug_message (DEBUG_JOBS, NULL);
 
-	if (job->password)
-		g_free (job->password);
-	job->password = password ? g_strdup (password) : NULL;
+	g_free (job->password);
+	job->password = g_strdup (password);
+}
+
+void
+ev_job_load_set_load_flags (EvJobLoad           *job,
+			    EvDocumentLoadFlags  flags)
+{
+	g_return_if_fail (EV_IS_JOB_LOAD (job));
+
+	job->flags = flags;
 }
 
 /* EvJobLoadFd */

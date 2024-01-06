@@ -425,6 +425,7 @@ struct _EvJobLoad
 
 	gchar *uri;
 	gchar *password;
+	EvDocumentLoadFlags flags;
 };
 
 struct _EvJobLoadClass
@@ -661,6 +662,9 @@ void            ev_job_load_set_uri       (EvJobLoad       *load,
 EV_PUBLIC
 void            ev_job_load_set_password  (EvJobLoad       *job,
 					   const gchar     *password);
+EV_PUBLIC
+void           ev_job_load_set_load_flags (EvJobLoad           *job,
+					   EvDocumentLoadFlags  flags)
 
 /* EvJobLoadFd */
 EV_PUBLIC
