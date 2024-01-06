@@ -418,6 +418,7 @@ struct _EvJobLoad
 	char *mime_type;
 	gchar *password;
 	EvDocumentLoadFlags flags;
+	EvDocument *loaded_document;
 };
 
 struct _EvJobLoadClass
@@ -651,6 +652,8 @@ void            ev_job_load_set_password  (EvJobLoad       *job,
 EV_PUBLIC
 void           ev_job_load_set_load_flags (EvJobLoad           *job,
 					   EvDocumentLoadFlags  flags);
+EV_PUBLIC
+EvDocument     *ev_job_load_get_loaded_document (EvJobLoad *job);
 
 /* EvJobSave */
 EV_PUBLIC

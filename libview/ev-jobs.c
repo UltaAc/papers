@@ -1365,6 +1365,7 @@ ev_job_load_dispose (GObject *object)
 	g_clear_pointer (&job->mime_type, g_free);
 	g_clear_pointer (&job->uri, g_free);
 	g_clear_pointer (&job->password, g_free);
+	g_clear_object (&job->loaded_document);
 
 	G_OBJECT_CLASS (ev_job_load_parent_class)->dispose (object);
 }
@@ -1408,11 +1409,12 @@ ev_job_load_run (EvJob *job)
 	/* This job may already have a document even if the job didn't complete
 	   because, e.g., a password is required - if so, just reload rather than
 	   creating a new instance */
-	if (job->document) {
+	if (job_load->loaded_document) {
+		EvDocument *loaded_doc = job_load->loaded_document;
 		const gchar *uncompressed_uri;
 
 		if (job_load->password) {
-			ev_document_security_set_password (EV_DOCUMENT_SECURITY (job->document),
+			ev_document_security_set_password (EV_DOCUMENT_SECURITY (loaded_doc),
 							   job_load->password);
 		}
 
@@ -1421,9 +1423,9 @@ ev_job_load_run (EvJob *job)
 		g_clear_error (&job->error);
 
 		if (job_load->uri) {
-			uncompressed_uri = g_object_get_data (G_OBJECT (job->document),
+			uncompressed_uri = g_object_get_data (G_OBJECT (loaded_doc),
 							      "uri-uncompressed");
-			ev_document_load_full (job->document,
+			ev_document_load_full (loaded_doc,
 					       uncompressed_uri ? uncompressed_uri : job_load->uri,
 					       job_load->flags,
 					       &error);
@@ -1434,7 +1436,7 @@ ev_job_load_run (EvJob *job)
 			 */
 			int fd = ev_dupfd (job_load->fd, &error);
 			if (fd != -1)
-				ev_document_load_fd (job->document,
+				ev_document_load_fd (loaded_doc,
 						     fd,
 						     job_load->flags,
 						     job->cancellable,
@@ -1442,7 +1444,7 @@ ev_job_load_run (EvJob *job)
 		}
 	} else {
 		if (job_load->uri) {
-			job->document =
+			job_load->loaded_document =
 				ev_document_factory_get_document_full (job_load->uri,
 								       job_load->flags,
 								       &error);
@@ -1453,7 +1455,7 @@ ev_job_load_run (EvJob *job)
 			 */
 			int fd = ev_dupfd (job_load->fd, &error);
 			if (fd != -1)
-				job->document =
+				job_load->loaded_document =
 					ev_document_factory_get_document_for_fd (fd,
 										 job_load->mime_type,
 										 job_load->flags,
@@ -1605,6 +1607,22 @@ ev_job_load_set_load_flags (EvJobLoad           *job,
 	g_return_if_fail (EV_IS_JOB_LOAD (job));
 
 	job->flags = flags;
+}
+
+/**
+ * ev_job_load_get_loaded_document:
+ * @job: an #EvJobLoad
+ *
+ * Returns: (nullable) (transfer full): The loaded document, if available
+ *
+ * Since: 46.0
+ */
+EvDocument*
+ev_job_load_get_loaded_document (EvJobLoad *job)
+{
+	g_return_val_if_fail (EV_IS_JOB_LOAD (job), NULL);
+
+	return g_steal_pointer (&job->loaded_document);
 }
 
 /* EvJobSave */

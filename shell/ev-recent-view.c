@@ -279,7 +279,7 @@ static void
 document_load_job_completed_callback (EvJobLoad                *job_load,
                                       GetDocumentInfoAsyncData *data)
 {
-        EvDocument          *document = EV_JOB (job_load)->document;
+	g_autoptr (EvDocument) document = ev_job_load_get_loaded_document (job_load);
 
         if (g_cancellable_is_cancelled (data->cancellable) ||
             ev_job_is_failed (EV_JOB (job_load))) {

@@ -333,7 +333,7 @@ load_job_finished_cb (EvJob             *job,
                 return;
         }
 
-        window->document = g_object_ref (job->document);
+	window->document = ev_job_load_get_loaded_document (EV_JOB_LOAD (job));
 
 	g_clear_object (&window->job);
 

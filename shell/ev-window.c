@@ -1679,8 +1679,8 @@ ev_window_load_job_cb (EvJob *job,
 		       gpointer data)
 {
 	EvWindow *ev_window = EV_WINDOW (data);
-	EvDocument *document = EV_JOB (job)->document;
 	EvJobLoad *job_load = EV_JOB_LOAD (job);
+	g_autoptr (EvDocument) document = ev_job_load_get_loaded_document (job_load);
 	gchar     *text;
 	gchar 	  *display_name;
 	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
@@ -1691,7 +1691,7 @@ ev_window_load_job_cb (EvJob *job,
 
 	/* Success! */
 	if (!ev_job_is_failed (job)) {
-		ev_document_model_set_document (priv->model, document);
+		ev_document_model_set_document (priv->model, g_steal_pointer (&document));
 
 #ifdef ENABLE_DBUS
 		ev_window_emit_doc_loaded (ev_window);
@@ -1791,7 +1791,7 @@ ev_window_reload_job_cb (EvJob    *job,
 	}
 
 	ev_document_model_set_document (priv->model,
-					job->document);
+					ev_job_load_get_loaded_document (EV_JOB_LOAD (job)));
 	if (priv->dest) {
 		ev_window_handle_link (ev_window, priv->dest);
 		g_clear_object (&priv->dest);
