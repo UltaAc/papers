@@ -45,7 +45,6 @@ int
 main (int argc, char *argv[])
 {
         EvApplication  *application;
-	GError         *error = NULL;
         int             status;
 
 #ifdef G_OS_WIN32
@@ -82,12 +81,6 @@ main (int argc, char *argv[])
                 return 1;
 
         application = ev_application_new ();
-        if (!g_application_register (G_APPLICATION (application), NULL, &error)) {
-                g_printerr ("Failed to register: %s\n", error->message);
-                g_error_free (error);
-                status = 1;
-                goto done;
-        }
 
 	/* Change directory so we don't prevent unmounting in case the initial cwd
 	 * is on an external device (see bug #575436)
@@ -96,7 +89,6 @@ main (int argc, char *argv[])
 
 	status = g_application_run (G_APPLICATION (application), argc, argv);
 
-    done:
 	ev_job_scheduler_wait ();
 	ev_shutdown ();
 
