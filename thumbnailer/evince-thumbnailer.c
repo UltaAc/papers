@@ -26,15 +26,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifdef G_OS_WIN32
-#include <io.h>
-#include <conio.h>
-#if !(_WIN32_WINNT >= 0x0500)
-#error "_WIN32_WINNT must be defined >= 0x0500"
-#endif
-#include <windows.h>
-#endif
-
 #define THUMBNAIL_SIZE 128
 #define DEFAULT_SLEEP_TIME (15 * G_USEC_PER_SEC) /* 15 seconds */
 
