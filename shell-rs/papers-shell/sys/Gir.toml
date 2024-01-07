@@ -1,0 +1,21 @@
+[options]
+library = "PapersShell"
+version = "4.0"
+target_path = "."
+min_cfg_version = "4.0"
+work_mode = "sys"
+disable_format = false
+girs_directories = ["../../gir-files/", "../../ev-girs"]
+
+external_libraries = [
+    "Gio",
+    "GLib",
+    "GObject",
+    "Cairo",
+    "Gdk",
+    "Gtk",
+    "GdkPixbuf",
+    "Pango",
+    "PapersDocument",
+    "PapersView",
+]

@@ -437,6 +437,7 @@ subdir('properties')
 enable_viewer = get_option('viewer')
 if enable_viewer
   subdir('shell')
+  subdir('shell-rs')
 endif
 
 subdir('po')

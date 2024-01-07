@@ -1,0 +1,94 @@
+config = configure_file(
+  input: 'config.rs.in',
+  output: 'config.rs',
+  configuration: config_h,
+)
+
+build_root = meson.project_build_root()
+source_root = meson.current_source_dir()
+
+cargo = find_program('cargo', required: true)
+
+cargo_options = [ '--manifest-path', shell_rs_root / 'Cargo.toml' ]
+cargo_options += [ '--target-dir', meson.current_build_dir() ]
+
+if not pps_debug
+  cargo_options += [ '--release' ]
+  rust_target = 'release'
+  message('Building in release mode')
+else
+  rust_target = 'debug'
+  message('Building in debug mode')
+endif
+
+cargo_env = environment()
+# it seems that flatpak can't access network during install stage.
+cargo_env.set('CARGO_HOME', build_root / 'cargo-home')
+cargo_env.set('CODEGEN_BUILD_DIR', meson.current_build_dir())
+# override library lookup, we should not use the system library.
+cargo_env.set('SYSTEM_DEPS_PAPERS_SHELL_4_0_NO_PKG_CONFIG', '1')
+cargo_env.set('SYSTEM_DEPS_PAPERS_SHELL_4_0_SEARCH_NATIVE', build_root / 'shell')
+cargo_env.set('SYSTEM_DEPS_PAPERS_SHELL_4_0_LIB', 'ppsshell-4.0')
+cargo_env.set('SYSTEM_DEPS_PAPERS_VIEW_4_0_NO_PKG_CONFIG', '1')
+cargo_env.set('SYSTEM_DEPS_PAPERS_VIEW_4_0_SEARCH_NATIVE', build_root / 'libview')
+cargo_env.set('SYSTEM_DEPS_PAPERS_VIEW_4_0_LIB', 'ppsview-4.0')
+cargo_env.set('SYSTEM_DEPS_PAPERS_DOCUMENT_4_0_NO_PKG_CONFIG', '1')
+cargo_env.set('SYSTEM_DEPS_PAPERS_DOCUMENT_4_0_SEARCH_NATIVE', build_root / 'libdocument')
+cargo_env.set('SYSTEM_DEPS_PAPERS_DOCUMENT_4_0_LIB', 'ppsdocument-4.0')
+
+cargo_build = custom_target(
+  'cargo-build',
+  build_by_default: true,
+  build_always_stale: true,
+  output: 'src',
+  console: true,
+  depends: [libppsshell],
+  env: cargo_env,
+  command: [
+    cargo, 'build',
+    cargo_options,
+  ]
+)
+
+copy_binary = custom_target(
+  'cp-binary',
+  depends: cargo_build,
+  build_by_default: true,
+  build_always_stale: true,
+  install: true,
+  install_dir: get_option('bindir'),
+  output: meson.project_name(),
+  command: [
+    'cp',
+    meson.current_build_dir() / rust_target / meson.project_name(),
+    '@OUTPUT@',
+  ],
+)
+
+cargo_doc = custom_target(
+  'cargo-doc',
+  build_by_default: false,
+  build_always_stale: true,
+  output: 'doc',
+  console: true,
+  command: [
+    cargo, 'doc',
+    cargo_options + ['--document-private-items', '--all-features', '--workspace'],
+  ],
+)
+
+test(
+  'cargo-test',
+  cargo,
+  args: [
+    'test',
+    cargo_options,
+    '--',
+    '--test-threads=1',
+  ],
+  env: cargo_env,
+  is_parallel: false,
+  timeout: 1800,
+)
+
+meson.add_devenv(cargo_env)

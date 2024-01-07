@@ -87,8 +87,6 @@ if enable_keyring
   papers_deps += libsecret_dep
 endif
 
-shell_sources = papers_sources + ['main.c']
-
 enum_types = 'ev-shell-type-builtins'
 enum_header_prefix = '''
 #include <papers-document.h>
@@ -156,22 +154,6 @@ if enable_dbus
     install_dir: pps_libexecdir,
   )
 endif
-
-libppsshell_dep = declare_dependency(
-  sources: headers + [enum_sources[1]],
-  include_directories: libview_inc,
-  dependencies: deps,
-  link_with: libppsshell,
-)
-
-evince = executable(
-  'papers',
-  sources: ['main.c'],
-  include_directories: top_inc,
-  dependencies: [papers_deps, libppsshell_dep],
-  c_args: papers_cflags,
-  install: true,
-)
 
 # GObject Introspection
 if enable_introspection

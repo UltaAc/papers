@@ -1,0 +1,84 @@
+[external_libraries]
+Gio = {min_version = "2.66"}
+[options]
+girs_directories = ["../gir-files", "../ev-girs"]
+library = "PapersShell"
+version = "4.0"
+min_cfg_version = "4.0"
+target_path = "."
+work_mode = "normal"
+generate_safety_asserts = true
+deprecate_by_min_version = true
+single_version_file = true
+generate_builder = true
+use_gi_docgen = true
+disable_format = false
+
+external_libraries = [
+   "GLib",
+   "GObject",
+   "Gdk",
+   "GdkPixbuf",
+   "Gtk",
+   "Pango",
+   "PapersDocument",
+   "PapersView",
+]
+
+generate = [
+    "PapersShell.Application",
+    "PapersShell.PapersApplication",
+    "PapersShell.PapersWindow",
+    "PapersShell.WindowRunMode",
+    "PapersShell.Window",
+    "PapersShell.SidebarPage",
+    #"PapersShell.Metadata",
+]
+
+manual = [
+    "Gio.ListModel",
+    "Gio.Application",
+    "Gio.ActionGroup",
+    "Gio.ActionMap",
+    "GObject.Object",
+    "Gdk.Display",
+    "Gtk.Application",
+    "Gtk.ApplicationWindow",
+    "Gtk.PrintOperation",
+    "PapersDocument.LinkDest",
+    "PapersDocument.Document",
+    "PapersDocument.Annotation",
+    "PapersView.DocumentModel",
+    "Adw.HeaderBar",
+    "Adw.Application",
+    "Adw.ApplicationWindow",
+    "Gio.DBusProxy",
+    "Gio.AsyncInitable",
+    "Gio.DBusInterface",
+    "Gio.Initable",
+    "Gio.DBusInterfaceSkeleton",
+    "Gio.DBusObject",
+    "Gio.DBusObjectManagerClient",
+    "Gio.DBusObjectManager",
+    "Gio.DBusObjectProxy",
+    "PapersShell.Object",
+    "Gio.DBusObjectSkeleton",
+    "Gtk.Window",
+    "Gtk.Widget",
+    "Gtk.Accessible",
+    "Gtk.Buildable",
+    "Gtk.ConstraintTarget",
+    "Gtk.Native",
+    "Gtk.Root",
+    "Gtk.ShortcutManager",
+]
+
+#[[object]]
+#name = "PapersView.View"
+#status = "generate"
+#    [[object.signal]]
+#    name = "popup"
+#    manual = true
+#    [[object.function]]
+#    name = "focus_annotation"
+#    manual = true

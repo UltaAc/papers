@@ -1,0 +1,46 @@
+[package]
+name = "papers-view"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[package.metadata.docs.rs]
+all-features = true
+# For build.rs scripts
+rustc-args = ["--cfg", "docsrs"]
+# For rustdoc
+rustdoc-args = ["--cfg", "docsrs"]
+
+[dependencies]
+libc = "0.2"
+bitflags = "2.2"
+
+[dependencies.ffi]
+package = "papers-view-sys"
+path = "./sys"
+
+[dependencies.glib]
+package = "glib"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+
+[dependencies.gio]
+package = "gio"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+
+[dependencies.gdk_pixbuf]
+package = "gdk-pixbuf"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+
+[dependencies.gtk]
+package = "gtk4"
+git = "https://github.com/gtk-rs/gtk4-rs"
+
+[dependencies.gdk]
+package = "gdk4"
+git = "https://github.com/gtk-rs/gtk4-rs"
+
+[dependencies.papers_document]
+package = "papers-document"
+path = "../papers-document"

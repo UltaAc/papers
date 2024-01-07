@@ -1,0 +1,4412 @@
+<?xml version="1.0"?>
+<!-- This file was automatically generated from C sources - DO NOT EDIT!
+To affect the contents of this file, edit the original C definitions,
+and/or use gtk-doc annotations.  -->
+<repository version="1.2"
+            xmlns="http://www.gtk.org/introspection/core/1.0"
+            xmlns:c="http://www.gtk.org/introspection/c/1.0"
+            xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <include name="GLib" version="2.0"/>
+  <include name="GObject" version="2.0"/>
+  <include name="Gdk" version="4.0"/>
+  <include name="GdkPixbuf" version="2.0"/>
+  <include name="Gio" version="2.0"/>
+  <include name="Gtk" version="4.0"/>
+  <include name="PapersDocument" version="4.0"/>
+  <package name="papers-view-4.0"/>
+  <namespace name="PapersView"
+             version="4.0"
+             shared-library="libppsview-4.0.so.4,libppsdocument-4.0.so.5"
+             c:identifier-prefixes="Pps"
+             c:symbol-prefixes="pps">
+    <class name="DocumentModel"
+           c:symbol-prefix="document_model"
+           c:type="PpsDocumentModel"
+           parent="GObject.Object"
+           glib:type-name="PpsDocumentModel"
+           glib:get-type="pps_document_model_get_type"
+           glib:type-struct="DocumentModelClass">
+      <source-position filename="libview/pps-document-model.h" line="34"/>
+      <constructor name="new" c:identifier="pps_document_model_new">
+        <source-position filename="libview/pps-document-model.h" line="57"/>
+        <return-value transfer-ownership="full">
+          <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+        </return-value>
+      </constructor>
+      <constructor name="new_with_document"
+                   c:identifier="pps_document_model_new_with_document">
+        <source-position filename="libview/pps-document-model.h" line="59"/>
+        <return-value transfer-ownership="full">
+          <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="get_continuous"
+              c:identifier="pps_document_model_get_continuous"
+              glib:get-property="continuous">
+        <source-position filename="libview/pps-document-model.h" line="113"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_document"
+              c:identifier="pps_document_model_get_document"
+              glib:get-property="document">
+        <doc xml:space="preserve"
+             filename="libview/pps-document-model.c"
+             line="355">Returns the #PpsDocument referenced by the model.</doc>
+        <source-position filename="libview/pps-document-model.h" line="65"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libview/pps-document-model.c"
+               line="361">a #PpsDocument</doc>
+          <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-document-model.c"
+                 line="357">a #PpsDocumentModel</doc>
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_dual_page_odd_pages_left"
+              c:identifier="pps_document_model_get_dual_page_odd_pages_left">
+        <source-position filename="libview/pps-document-model.h" line="118"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_inverted_colors"
+              c:identifier="pps_document_model_get_inverted_colors"
+              glib:get-property="inverted-colors">
+        <source-position filename="libview/pps-document-model.h" line="108"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_max_scale"
+              c:identifier="pps_document_model_get_max_scale"
+              glib:get-property="max-scale">
+        <source-position filename="libview/pps-document-model.h" line="83"/>
+        <return-value transfer-ownership="none">
+          <type name="gdouble" c:type="gdouble"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_min_scale"
+              c:identifier="pps_document_model_get_min_scale"
+              glib:get-property="min-scale">
+        <source-position filename="libview/pps-document-model.h" line="88"/>
+        <return-value transfer-ownership="none">
+          <type name="gdouble" c:type="gdouble"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_page"
+              c:identifier="pps_document_model_get_page"
+              glib:get-property="page">
+        <source-position filename="libview/pps-document-model.h" line="73"/>
+        <return-value transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_page_layout"
+              c:identifier="pps_document_model_get_page_layout"
+              glib:get-property="page-layout"
+              version="3.8">
+        <source-position filename="libview/pps-document-model.h" line="98"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libview/pps-document-model.c"
+               line="537">the document model's page layout</doc>
+          <type name="PageLayout" c:type="PpsPageLayout"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-document-model.c"
+                 line="535">a #PpsDocumentModel</doc>
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_rotation"
+              c:identifier="pps_document_model_get_rotation"
+              glib:get-property="rotation">
+        <source-position filename="libview/pps-document-model.h" line="103"/>
+        <return-value transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_rtl"
+              c:identifier="pps_document_model_get_rtl"
+              glib:get-property="rtl">
+        <source-position filename="libview/pps-document-model.h" line="123"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_scale"
+              c:identifier="pps_document_model_get_scale"
+              glib:get-property="scale">
+        <source-position filename="libview/pps-document-model.h" line="78"/>
+        <return-value transfer-ownership="none">
+          <type name="gdouble" c:type="gdouble"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_sizing_mode"
+              c:identifier="pps_document_model_get_sizing_mode"
+              glib:get-property="sizing-mode">
+        <source-position filename="libview/pps-document-model.h" line="93"/>
+        <return-value transfer-ownership="none">
+          <type name="SizingMode" c:type="PpsSizingMode"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="set_continuous"
+              c:identifier="pps_document_model_set_continuous"
+              glib:set-property="continuous">
+        <source-position filename="libview/pps-document-model.h" line="110"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+          <parameter name="continuous" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_document"
+              c:identifier="pps_document_model_set_document"
+              glib:set-property="document">
+        <source-position filename="libview/pps-document-model.h" line="62"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_dual_page_odd_pages_left"
+              c:identifier="pps_document_model_set_dual_page_odd_pages_left">
+        <source-position filename="libview/pps-document-model.h" line="115"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+          <parameter name="odd_left" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_inverted_colors"
+              c:identifier="pps_document_model_set_inverted_colors"
+              glib:set-property="inverted-colors">
+        <source-position filename="libview/pps-document-model.h" line="105"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+          <parameter name="inverted_colors" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_max_scale"
+              c:identifier="pps_document_model_set_max_scale"
+              glib:set-property="max-scale">
+        <source-position filename="libview/pps-document-model.h" line="80"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+          <parameter name="max_scale" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_min_scale"
+              c:identifier="pps_document_model_set_min_scale"
+              glib:set-property="min-scale">
+        <source-position filename="libview/pps-document-model.h" line="85"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+          <parameter name="min_scale" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_page"
+              c:identifier="pps_document_model_set_page"
+              glib:set-property="page">
+        <source-position filename="libview/pps-document-model.h" line="67"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_page_by_label"
+              c:identifier="pps_document_model_set_page_by_label">
+        <source-position filename="libview/pps-document-model.h" line="70"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+          <parameter name="page_label" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_page_layout"
+              c:identifier="pps_document_model_set_page_layout"
+              glib:set-property="page-layout"
+              version="3.8">
+        <doc xml:space="preserve"
+             filename="libview/pps-document-model.c"
+             line="510">Sets the document model's page layout to @layout.</doc>
+        <source-position filename="libview/pps-document-model.h" line="95"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-document-model.c"
+                 line="512">a #PpsDocumentModel</doc>
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+          <parameter name="layout" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-document-model.c"
+                 line="513">a #PpsPageLayout</doc>
+            <type name="PageLayout" c:type="PpsPageLayout"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_rotation"
+              c:identifier="pps_document_model_set_rotation"
+              glib:set-property="rotation">
+        <source-position filename="libview/pps-document-model.h" line="100"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+          <parameter name="rotation" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_rtl"
+              c:identifier="pps_document_model_set_rtl"
+              glib:set-property="rtl">
+        <source-position filename="libview/pps-document-model.h" line="120"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+          <parameter name="rtl" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_scale"
+              c:identifier="pps_document_model_set_scale"
+              glib:set-property="scale">
+        <source-position filename="libview/pps-document-model.h" line="75"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+          <parameter name="scale" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_sizing_mode"
+              c:identifier="pps_document_model_set_sizing_mode"
+              glib:set-property="sizing-mode">
+        <source-position filename="libview/pps-document-model.h" line="90"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </instance-parameter>
+          <parameter name="mode" transfer-ownership="none">
+            <type name="SizingMode" c:type="PpsSizingMode"/>
+          </parameter>
+        </parameters>
+      </method>
+      <property name="continuous"
+                writable="1"
+                transfer-ownership="none"
+                setter="set_continuous"
+                getter="get_continuous"
+                default-value="TRUE">
+        <type name="gboolean" c:type="gboolean"/>
+      </property>
+      <property name="document"
+                writable="1"
+                transfer-ownership="none"
+                setter="set_document"
+                getter="get_document">
+        <type name="PapersDocument.Document"/>
+      </property>
+      <property name="dual-odd-left"
+                writable="1"
+                transfer-ownership="none"
+                default-value="FALSE">
+        <type name="gboolean" c:type="gboolean"/>
+      </property>
+      <property name="inverted-colors"
+                writable="1"
+                transfer-ownership="none"
+                setter="set_inverted_colors"
+                getter="get_inverted_colors"
+                default-value="FALSE">
+        <type name="gboolean" c:type="gboolean"/>
+      </property>
+      <property name="max-scale"
+                writable="1"
+                transfer-ownership="none"
+                setter="set_max_scale"
+                getter="get_max_scale"
+                default-value="5.000000">
+        <type name="gdouble" c:type="gdouble"/>
+      </property>
+      <property name="min-scale"
+                writable="1"
+                transfer-ownership="none"
+                setter="set_min_scale"
+                getter="get_min_scale"
+                default-value="0.250000">
+        <type name="gdouble" c:type="gdouble"/>
+      </property>
+      <property name="page"
+                writable="1"
+                transfer-ownership="none"
+                setter="set_page"
+                getter="get_page"
+                default-value="-1">
+        <type name="gint" c:type="gint"/>
+      </property>
+      <property name="page-layout"
+                writable="1"
+                transfer-ownership="none"
+                setter="set_page_layout"
+                getter="get_page_layout"
+                default-value="PPS_PAGE_LAYOUT_SINGLE">
+        <type name="PageLayout"/>
+      </property>
+      <property name="rotation"
+                writable="1"
+                transfer-ownership="none"
+                setter="set_rotation"
+                getter="get_rotation"
+                default-value="0">
+        <type name="gint" c:type="gint"/>
+      </property>
+      <property name="rtl"
+                writable="1"
+                transfer-ownership="none"
+                setter="set_rtl"
+                getter="get_rtl"
+                default-value="FALSE">
+        <type name="gboolean" c:type="gboolean"/>
+      </property>
+      <property name="scale"
+                writable="1"
+                transfer-ownership="none"
+                setter="set_scale"
+                getter="get_scale"
+                default-value="1.000000">
+        <type name="gdouble" c:type="gdouble"/>
+      </property>
+      <property name="sizing-mode"
+                writable="1"
+                transfer-ownership="none"
+                setter="set_sizing_mode"
+                getter="get_sizing_mode"
+                default-value="PPS_SIZING_FIT_WIDTH">
+        <type name="SizingMode"/>
+      </property>
+      <glib:signal name="page-changed" when="last">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="p0" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </class>
+    <record name="DocumentModelClass"
+            c:type="PpsDocumentModelClass"
+            glib:is-gtype-struct-for="DocumentModel">
+      <source-position filename="libview/pps-document-model.h" line="34"/>
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <function-macro name="IS_JOB" c:identifier="PPS_IS_JOB" introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="85"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_ANNOTS"
+                    c:identifier="PPS_IS_JOB_ANNOTS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="106"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_ANNOTS_CLASS"
+                    c:identifier="PPS_IS_JOB_ANNOTS_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="108"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_ATTACHMENTS"
+                    c:identifier="PPS_IS_JOB_ATTACHMENTS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="99"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_ATTACHMENTS_CLASS"
+                    c:identifier="PPS_IS_JOB_ATTACHMENTS_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="101"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_CLASS"
+                    c:identifier="PPS_IS_JOB_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="87"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_EXPORT"
+                    c:identifier="PPS_IS_JOB_EXPORT"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="184"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_EXPORT_CLASS"
+                    c:identifier="PPS_IS_JOB_EXPORT_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="186"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_FIND"
+                    c:identifier="PPS_IS_JOB_FIND"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="170"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_FIND_CLASS"
+                    c:identifier="PPS_IS_JOB_FIND_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="172"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_FONTS"
+                    c:identifier="PPS_IS_JOB_FONTS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="148"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_FONTS_CLASS"
+                    c:identifier="PPS_IS_JOB_FONTS_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="150"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_LAYERS"
+                    c:identifier="PPS_IS_JOB_LAYERS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="177"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_LAYERS_CLASS"
+                    c:identifier="PPS_IS_JOB_LAYERS_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="179"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_LINKS"
+                    c:identifier="PPS_IS_JOB_LINKS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="92"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_LINKS_CLASS"
+                    c:identifier="PPS_IS_JOB_LINKS_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="94"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_LOAD"
+                    c:identifier="PPS_IS_JOB_LOAD"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="156"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_LOAD_CLASS"
+                    c:identifier="PPS_IS_JOB_LOAD_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="158"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_PAGE_DATA"
+                    c:identifier="PPS_IS_JOB_PAGE_DATA"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="127"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_PAGE_DATA_CLASS"
+                    c:identifier="PPS_IS_JOB_PAGE_DATA_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="129"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_PRINT"
+                    c:identifier="PPS_IS_JOB_PRINT"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="191"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_PRINT_CLASS"
+                    c:identifier="PPS_IS_JOB_PRINT_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="193"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_RENDER_CAIRO"
+                    c:identifier="PPS_IS_JOB_RENDER_CAIRO"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="113"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_RENDER_CAIRO_CLASS"
+                    c:identifier="PPS_IS_JOB_RENDER_CAIRO_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="115"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_RENDER_TEXTURE"
+                    c:identifier="PPS_IS_JOB_RENDER_TEXTURE"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="120"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_RENDER_TEXTURE_CLASS"
+                    c:identifier="PPS_IS_JOB_RENDER_TEXTURE_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="122"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_SAVE"
+                    c:identifier="PPS_IS_JOB_SAVE"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="163"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_SAVE_CLASS"
+                    c:identifier="PPS_IS_JOB_SAVE_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="165"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_THUMBNAIL_CAIRO"
+                    c:identifier="PPS_IS_JOB_THUMBNAIL_CAIRO"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="134"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_THUMBNAIL_CAIRO_CLASS"
+                    c:identifier="PPS_IS_JOB_THUMBNAIL_CAIRO_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="136"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_THUMBNAIL_TEXTURE"
+                    c:identifier="PPS_IS_JOB_THUMBNAIL_TEXTURE"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="141"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_JOB_THUMBNAIL_TEXTURE_CLASS"
+                    c:identifier="PPS_IS_JOB_THUMBNAIL_TEXTURE_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="143"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_PRINT_OPERATION"
+                    c:identifier="PPS_IS_PRINT_OPERATION"
+                    introspectable="0">
+      <source-position filename="libview/pps-print-operation.h" line="38"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_PRINT_OPERATION_CLASS"
+                    c:identifier="PPS_IS_PRINT_OPERATION_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-print-operation.h" line="40"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_VIEW_PRESENTATION"
+                    c:identifier="PPS_IS_VIEW_PRESENTATION"
+                    introspectable="0">
+      <source-position filename="libview/pps-view-presentation.h" line="35"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="IS_VIEW_PRESENTATION_CLASS"
+                    c:identifier="PPS_IS_VIEW_PRESENTATION_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-view-presentation.h" line="37"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB" c:identifier="PPS_JOB" introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="84"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_ANNOTS"
+                    c:identifier="PPS_JOB_ANNOTS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="105"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_ANNOTS_CLASS"
+                    c:identifier="PPS_JOB_ANNOTS_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="107"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_ANNOTS_GET_CLASS"
+                    c:identifier="PPS_JOB_ANNOTS_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="109"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_ATTACHMENTS"
+                    c:identifier="PPS_JOB_ATTACHMENTS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="98"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_ATTACHMENTS_CLASS"
+                    c:identifier="PPS_JOB_ATTACHMENTS_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="100"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_ATTACHMENTS_GET_CLASS"
+                    c:identifier="PPS_JOB_ATTACHMENTS_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="102"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_CLASS"
+                    c:identifier="PPS_JOB_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="86"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_EXPORT"
+                    c:identifier="PPS_JOB_EXPORT"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="183"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_EXPORT_CLASS"
+                    c:identifier="PPS_JOB_EXPORT_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="185"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_EXPORT_GET_CLASS"
+                    c:identifier="PPS_JOB_EXPORT_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="187"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_FIND"
+                    c:identifier="PPS_JOB_FIND"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="169"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_FIND_CLASS"
+                    c:identifier="PPS_JOB_FIND_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="171"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_FIND_GET_CLASS"
+                    c:identifier="PPS_JOB_FIND_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="173"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_FONTS"
+                    c:identifier="PPS_JOB_FONTS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="147"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_FONTS_CLASS"
+                    c:identifier="PPS_JOB_FONTS_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="149"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_FONTS_GET_CLASS"
+                    c:identifier="PPS_JOB_FONTS_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="151"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_GET_CLASS"
+                    c:identifier="PPS_JOB_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="88"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_LAYERS"
+                    c:identifier="PPS_JOB_LAYERS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="176"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_LAYERS_CLASS"
+                    c:identifier="PPS_JOB_LAYERS_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="178"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_LAYERS_GET_CLASS"
+                    c:identifier="PPS_JOB_LAYERS_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="180"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_LINKS"
+                    c:identifier="PPS_JOB_LINKS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="91"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_LINKS_CLASS"
+                    c:identifier="PPS_JOB_LINKS_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="93"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_LINKS_GET_CLASS"
+                    c:identifier="PPS_JOB_LINKS_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="95"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_LOAD"
+                    c:identifier="PPS_JOB_LOAD"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="155"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_LOAD_CLASS"
+                    c:identifier="PPS_JOB_LOAD_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="157"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_LOAD_GET_CLASS"
+                    c:identifier="PPS_JOB_LOAD_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="159"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_PAGE_DATA"
+                    c:identifier="PPS_JOB_PAGE_DATA"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="126"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_PAGE_DATA_CLASS"
+                    c:identifier="PPS_JOB_PAGE_DATA_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="128"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_PAGE_DATA_GET_CLASS"
+                    c:identifier="PPS_JOB_PAGE_DATA_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="130"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_PRINT"
+                    c:identifier="PPS_JOB_PRINT"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="190"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_PRINT_CLASS"
+                    c:identifier="PPS_JOB_PRINT_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="192"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_PRINT_GET_CLASS"
+                    c:identifier="PPS_JOB_PRINT_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="194"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_RENDER_CAIRO"
+                    c:identifier="PPS_JOB_RENDER_CAIRO"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="112"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_RENDER_CAIRO_CLASS"
+                    c:identifier="PPS_JOB_RENDER_CAIRO_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="114"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_RENDER_CAIRO_GET_CLASS"
+                    c:identifier="PPS_JOB_RENDER_CAIRO_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="116"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_RENDER_TEXTURE"
+                    c:identifier="PPS_JOB_RENDER_TEXTURE"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="119"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_RENDER_TEXTURE_CLASS"
+                    c:identifier="PPS_JOB_RENDER_TEXTURE_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="121"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_RENDER_TEXTURE_GET_CLASS"
+                    c:identifier="PPS_JOB_RENDER_TEXTURE_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="123"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_SAVE"
+                    c:identifier="PPS_JOB_SAVE"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="162"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_SAVE_CLASS"
+                    c:identifier="PPS_JOB_SAVE_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="164"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_SAVE_GET_CLASS"
+                    c:identifier="PPS_JOB_SAVE_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="166"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_THUMBNAIL_CAIRO"
+                    c:identifier="PPS_JOB_THUMBNAIL_CAIRO"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="133"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_THUMBNAIL_CAIRO_CLASS"
+                    c:identifier="PPS_JOB_THUMBNAIL_CAIRO_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="135"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_THUMBNAIL_CAIRO_GET_CLASS"
+                    c:identifier="PPS_JOB_THUMBNAIL_CAIRO_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="137"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_THUMBNAIL_TEXTURE"
+                    c:identifier="PPS_JOB_THUMBNAIL_TEXTURE"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="140"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_THUMBNAIL_TEXTURE_CLASS"
+                    c:identifier="PPS_JOB_THUMBNAIL_TEXTURE_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="142"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="JOB_THUMBNAIL_TEXTURE_GET_CLASS"
+                    c:identifier="PPS_JOB_THUMBNAIL_TEXTURE_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-jobs.h" line="144"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <class name="Job"
+           c:symbol-prefix="job"
+           c:type="PpsJob"
+           parent="GObject.Object"
+           abstract="1"
+           glib:type-name="PpsJob"
+           glib:get-type="pps_job_get_type"
+           glib:type-struct="JobClass">
+      <source-position filename="libview/pps-jobs.h" line="229"/>
+      <function name="scheduler_get_running_thread_job"
+                c:identifier="pps_job_scheduler_get_running_thread_job">
+        <source-position filename="libview/pps-job-scheduler.h" line="49"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libview/pps-job-scheduler.c"
+               line="313">an #PpsJob</doc>
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+      </function>
+      <function name="scheduler_wait" c:identifier="pps_job_scheduler_wait">
+        <doc xml:space="preserve"
+             filename="libview/pps-job-scheduler.c"
+             line="321">Synchronously waits until all jobs are done.
+Remember that main loop is not running already probably.</doc>
+        <source-position filename="libview/pps-job-scheduler.h" line="52"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </function>
+      <virtual-method name="cancelled">
+        <source-position filename="libview/pps-jobs.h" line="227"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="Job" c:type="PpsJob*"/>
+          </instance-parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="finished">
+        <source-position filename="libview/pps-jobs.h" line="228"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="Job" c:type="PpsJob*"/>
+          </instance-parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="run" invoker="run">
+        <source-position filename="libview/pps-jobs.h" line="224"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="Job" c:type="PpsJob*"/>
+          </instance-parameter>
+        </parameters>
+      </virtual-method>
+      <method name="cancel" c:identifier="pps_job_cancel">
+        <source-position filename="libview/pps-jobs.h" line="504"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="Job" c:type="PpsJob*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="failed"
+              c:identifier="pps_job_failed"
+              shadowed-by="failed_from_error"
+              introspectable="0">
+        <source-position filename="libview/pps-jobs.h" line="506"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="Job" c:type="PpsJob*"/>
+          </instance-parameter>
+          <parameter name="domain" transfer-ownership="none">
+            <type name="GLib.Quark" c:type="GQuark"/>
+          </parameter>
+          <parameter name="code" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="format" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="..." transfer-ownership="none">
+            <varargs/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="failed_from_error"
+              c:identifier="pps_job_failed_from_error"
+              shadows="failed">
+        <source-position filename="libview/pps-jobs.h" line="512"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="256">an #PpsJob</doc>
+            <type name="Job" c:type="PpsJob*"/>
+          </instance-parameter>
+          <parameter name="error" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="257">a #GError</doc>
+            <type name="GLib.Error" c:type="GError*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_document" c:identifier="pps_job_get_document">
+        <source-position filename="libview/pps-jobs.h" line="526"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libview/pps-jobs.c"
+               line="316">The #PpsDocument of this job.</doc>
+          <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="314">an #PpsJob</doc>
+            <type name="Job" c:type="PpsJob*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_run_mode" c:identifier="pps_job_get_run_mode">
+        <source-position filename="libview/pps-jobs.h" line="521"/>
+        <return-value transfer-ownership="none">
+          <type name="JobRunMode" c:type="PpsJobRunMode"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="Job" c:type="PpsJob*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="is_failed" c:identifier="pps_job_is_failed">
+        <source-position filename="libview/pps-jobs.h" line="519"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="Job" c:type="PpsJob*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="is_finished" c:identifier="pps_job_is_finished">
+        <source-position filename="libview/pps-jobs.h" line="517"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="Job" c:type="PpsJob*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="run" c:identifier="pps_job_run">
+        <source-position filename="libview/pps-jobs.h" line="502"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="Job" c:type="PpsJob*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="scheduler_push_job"
+              c:identifier="pps_job_scheduler_push_job">
+        <source-position filename="libview/pps-job-scheduler.h" line="43"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="Job" c:type="PpsJob*"/>
+          </instance-parameter>
+          <parameter name="priority" transfer-ownership="none">
+            <type name="JobPriority" c:type="PpsJobPriority"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="scheduler_update_job"
+              c:identifier="pps_job_scheduler_update_job">
+        <source-position filename="libview/pps-job-scheduler.h" line="46"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="Job" c:type="PpsJob*"/>
+          </instance-parameter>
+          <parameter name="priority" transfer-ownership="none">
+            <type name="JobPriority" c:type="PpsJobPriority"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_run_mode" c:identifier="pps_job_set_run_mode">
+        <source-position filename="libview/pps-jobs.h" line="523"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="Job" c:type="PpsJob*"/>
+          </instance-parameter>
+          <parameter name="run_mode" transfer-ownership="none">
+            <type name="JobRunMode" c:type="PpsJobRunMode"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="succeeded" c:identifier="pps_job_succeeded">
+        <source-position filename="libview/pps-jobs.h" line="515"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="Job" c:type="PpsJob*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <field name="parent">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="document">
+        <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+      </field>
+      <field name="run_mode">
+        <type name="JobRunMode" c:type="PpsJobRunMode"/>
+      </field>
+      <field name="cancelled" bits="1">
+        <type name="guint" c:type="guint"/>
+      </field>
+      <field name="finished" bits="1">
+        <type name="guint" c:type="guint"/>
+      </field>
+      <field name="failed" bits="1">
+        <type name="guint" c:type="guint"/>
+      </field>
+      <field name="error">
+        <type name="GLib.Error" c:type="GError*"/>
+      </field>
+      <field name="cancellable">
+        <type name="Gio.Cancellable" c:type="GCancellable*"/>
+      </field>
+      <field name="idle_finished_id">
+        <type name="guint" c:type="guint"/>
+      </field>
+      <field name="idle_cancelled_id">
+        <type name="guint" c:type="guint"/>
+      </field>
+      <glib:signal name="cancelled" when="last">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </glib:signal>
+      <glib:signal name="finished" when="first">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </glib:signal>
+    </class>
+    <class name="JobAnnots"
+           c:symbol-prefix="job_annots"
+           c:type="PpsJobAnnots"
+           parent="Job"
+           glib:type-name="PpsJobAnnots"
+           glib:get-type="pps_job_annots_get_type"
+           glib:type-struct="JobAnnotsClass">
+      <source-position filename="libview/pps-jobs.h" line="265"/>
+      <constructor name="new" c:identifier="pps_job_annots_new">
+        <source-position filename="libview/pps-jobs.h" line="546"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <field name="parent">
+        <type name="Job" c:type="PpsJob"/>
+      </field>
+      <field name="annots">
+        <type name="GLib.List" c:type="GList*">
+          <type name="gpointer" c:type="gpointer"/>
+        </type>
+      </field>
+    </class>
+    <record name="JobAnnotsClass"
+            c:type="PpsJobAnnotsClass"
+            glib:is-gtype-struct-for="JobAnnots">
+      <source-position filename="libview/pps-jobs.h" line="265"/>
+      <field name="parent_class">
+        <type name="JobClass" c:type="PpsJobClass"/>
+      </field>
+    </record>
+    <class name="JobAttachments"
+           c:symbol-prefix="job_attachments"
+           c:type="PpsJobAttachments"
+           parent="Job"
+           glib:type-name="PpsJobAttachments"
+           glib:get-type="pps_job_attachments_get_type"
+           glib:type-struct="JobAttachmentsClass">
+      <source-position filename="libview/pps-jobs.h" line="253"/>
+      <constructor name="new" c:identifier="pps_job_attachments_new">
+        <source-position filename="libview/pps-jobs.h" line="540"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <field name="parent">
+        <type name="Job" c:type="PpsJob"/>
+      </field>
+      <field name="attachments">
+        <type name="GLib.List" c:type="GList*">
+          <type name="gpointer" c:type="gpointer"/>
+        </type>
+      </field>
+    </class>
+    <record name="JobAttachmentsClass"
+            c:type="PpsJobAttachmentsClass"
+            glib:is-gtype-struct-for="JobAttachments">
+      <source-position filename="libview/pps-jobs.h" line="253"/>
+      <field name="parent_class">
+        <type name="JobClass" c:type="PpsJobClass"/>
+      </field>
+    </record>
+    <record name="JobClass"
+            c:type="PpsJobClass"
+            glib:is-gtype-struct-for="Job">
+      <source-position filename="libview/pps-jobs.h" line="229"/>
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="run">
+        <callback name="run">
+          <source-position filename="libview/pps-jobs.h" line="224"/>
+          <return-value transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="job" transfer-ownership="none">
+              <type name="Job" c:type="PpsJob*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="cancelled">
+        <callback name="cancelled">
+          <source-position filename="libview/pps-jobs.h" line="227"/>
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="job" transfer-ownership="none">
+              <type name="Job" c:type="PpsJob*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="finished">
+        <callback name="finished">
+          <source-position filename="libview/pps-jobs.h" line="228"/>
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="job" transfer-ownership="none">
+              <type name="Job" c:type="PpsJob*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <class name="JobExport"
+           c:symbol-prefix="job_export"
+           c:type="PpsJobExport"
+           parent="Job"
+           glib:type-name="PpsJobExport"
+           glib:get-type="pps_job_export_get_type"
+           glib:type-struct="JobExportClass">
+      <source-position filename="libview/pps-jobs.h" line="483"/>
+      <constructor name="new" c:identifier="pps_job_export_new">
+        <source-position filename="libview/pps-jobs.h" line="692"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="set_page" c:identifier="pps_job_export_set_page">
+        <source-position filename="libview/pps-jobs.h" line="694"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="JobExport" c:type="PpsJobExport*"/>
+          </instance-parameter>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent">
+        <type name="Job" c:type="PpsJob"/>
+      </field>
+      <field name="page">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="rc">
+        <type name="PapersDocument.RenderContext" c:type="PpsRenderContext*"/>
+      </field>
+    </class>
+    <record name="JobExportClass"
+            c:type="PpsJobExportClass"
+            glib:is-gtype-struct-for="JobExport">
+      <source-position filename="libview/pps-jobs.h" line="483"/>
+      <field name="parent_class">
+        <type name="JobClass" c:type="PpsJobClass"/>
+      </field>
+    </record>
+    <class name="JobFind"
+           c:symbol-prefix="job_find"
+           c:type="PpsJobFind"
+           parent="Job"
+           glib:type-name="PpsJobFind"
+           glib:get-type="pps_job_find_get_type"
+           glib:type-struct="JobFindClass">
+      <source-position filename="libview/pps-jobs.h" line="458"/>
+      <constructor name="new" c:identifier="pps_job_find_new">
+        <source-position filename="libview/pps-jobs.h" line="665"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+          <parameter name="start_page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="n_pages" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="text" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="options" transfer-ownership="none">
+            <type name="PapersDocument.FindOptions" c:type="PpsFindOptions"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <virtual-method name="updated">
+        <source-position filename="libview/pps-jobs.h" line="456"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="JobFind" c:type="PpsJobFind*"/>
+          </instance-parameter>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="get_n_main_results"
+              c:identifier="pps_job_find_get_n_main_results">
+        <doc xml:space="preserve"
+             filename="libview/pps-jobs.c"
+             line="1883">This is similar to pps_job_find_get_n_results() but it takes
+care to treat any multi-line matches as being only one result.</doc>
+        <source-position filename="libview/pps-jobs.h" line="673"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libview/pps-jobs.c"
+               line="1891">total number of match results in @page</doc>
+          <type name="gint" c:type="gint"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="1885">an #PpsJobFind job</doc>
+            <type name="JobFind" c:type="PpsJobFind*"/>
+          </instance-parameter>
+          <parameter name="page" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="1886">number of the page we want to count its match results.</doc>
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_options"
+              c:identifier="pps_job_find_get_options"
+              version="3.6">
+        <source-position filename="libview/pps-jobs.h" line="671"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libview/pps-jobs.c"
+               line="1873">the job's find options</doc>
+          <type name="PapersDocument.FindOptions" c:type="PpsFindOptions"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="JobFind" c:type="PpsJobFind*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_progress" c:identifier="pps_job_find_get_progress">
+        <source-position filename="libview/pps-jobs.h" line="676"/>
+        <return-value transfer-ownership="none">
+          <type name="gdouble" c:type="gdouble"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="JobFind" c:type="PpsJobFind*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_results"
+              c:identifier="pps_job_find_get_results"
+              introspectable="0">
+        <source-position filename="libview/pps-jobs.h" line="680"/>
+        <return-value>
+          <doc xml:space="preserve"
+               filename="libview/pps-jobs.c"
+               line="1937">a #GList of #GList&lt;!-- --&gt;s containing #PpsFindRectangle&lt;!-- --&gt;s</doc>
+          <type name="GLib.List" c:type="GList**">
+            <type name="gpointer" c:type="gpointer"/>
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="1935">an #PpsJobFind</doc>
+            <type name="JobFind" c:type="PpsJobFind*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="has_results" c:identifier="pps_job_find_has_results">
+        <source-position filename="libview/pps-jobs.h" line="678"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="JobFind" c:type="PpsJobFind*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <field name="parent">
+        <type name="Job" c:type="PpsJob"/>
+      </field>
+      <field name="start_page">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="current_page">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="n_pages">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="pages">
+        <type name="GLib.List" c:type="GList**">
+          <type name="gpointer" c:type="gpointer"/>
+        </type>
+      </field>
+      <field name="text">
+        <type name="utf8" c:type="gchar*"/>
+      </field>
+      <field name="has_results">
+        <type name="gboolean" c:type="gboolean"/>
+      </field>
+      <field name="options">
+        <type name="PapersDocument.FindOptions" c:type="PpsFindOptions"/>
+      </field>
+      <glib:signal name="updated" when="last">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </class>
+    <record name="JobFindClass"
+            c:type="PpsJobFindClass"
+            glib:is-gtype-struct-for="JobFind">
+      <source-position filename="libview/pps-jobs.h" line="458"/>
+      <field name="parent_class">
+        <type name="JobClass" c:type="PpsJobClass"/>
+      </field>
+      <field name="updated">
+        <callback name="updated">
+          <source-position filename="libview/pps-jobs.h" line="456"/>
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="job" transfer-ownership="none">
+              <type name="JobFind" c:type="PpsJobFind*"/>
+            </parameter>
+            <parameter name="page" transfer-ownership="none">
+              <type name="gint" c:type="gint"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <class name="JobFonts"
+           c:symbol-prefix="job_fonts"
+           c:type="PpsJobFonts"
+           parent="Job"
+           glib:type-name="PpsJobFonts"
+           glib:get-type="pps_job_fonts_get_type"
+           glib:type-struct="JobFontsClass">
+      <source-position filename="libview/pps-jobs.h" line="406"/>
+      <constructor name="new" c:identifier="pps_job_fonts_new">
+        <source-position filename="libview/pps-jobs.h" line="626"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <field name="parent">
+        <type name="Job" c:type="PpsJob"/>
+      </field>
+    </class>
+    <record name="JobFontsClass"
+            c:type="PpsJobFontsClass"
+            glib:is-gtype-struct-for="JobFonts">
+      <source-position filename="libview/pps-jobs.h" line="406"/>
+      <field name="parent_class">
+        <type name="JobClass" c:type="PpsJobClass"/>
+      </field>
+    </record>
+    <class name="JobLayers"
+           c:symbol-prefix="job_layers"
+           c:type="PpsJobLayers"
+           parent="Job"
+           glib:type-name="PpsJobLayers"
+           glib:get-type="pps_job_layers_get_type"
+           glib:type-struct="JobLayersClass">
+      <source-position filename="libview/pps-jobs.h" line="470"/>
+      <constructor name="new" c:identifier="pps_job_layers_new">
+        <source-position filename="libview/pps-jobs.h" line="686"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <field name="parent">
+        <type name="Job" c:type="PpsJob"/>
+      </field>
+      <field name="model">
+        <type name="Gtk.TreeModel" c:type="GtkTreeModel*"/>
+      </field>
+    </class>
+    <record name="JobLayersClass"
+            c:type="PpsJobLayersClass"
+            glib:is-gtype-struct-for="JobLayers">
+      <source-position filename="libview/pps-jobs.h" line="470"/>
+      <field name="parent_class">
+        <type name="JobClass" c:type="PpsJobClass"/>
+      </field>
+    </record>
+    <class name="JobLinks"
+           c:symbol-prefix="job_links"
+           c:type="PpsJobLinks"
+           parent="Job"
+           glib:type-name="PpsJobLinks"
+           glib:get-type="pps_job_links_get_type"
+           glib:type-struct="JobLinksClass">
+      <source-position filename="libview/pps-jobs.h" line="241"/>
+      <constructor name="new" c:identifier="pps_job_links_new">
+        <source-position filename="libview/pps-jobs.h" line="532"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="get_model"
+              c:identifier="pps_job_links_get_model"
+              version="3.6">
+        <doc xml:space="preserve"
+             filename="libview/pps-jobs.c"
+             line="421">Get a #GtkTreeModel loaded with the links</doc>
+        <source-position filename="libview/pps-jobs.h" line="534"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libview/pps-jobs.c"
+               line="427">The #GtkTreeModel loaded</doc>
+          <type name="Gtk.TreeModel" c:type="GtkTreeModel*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="423">#PpsJobLinks</doc>
+            <type name="JobLinks" c:type="PpsJobLinks*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <field name="parent">
+        <type name="Job" c:type="PpsJob"/>
+      </field>
+      <field name="model">
+        <type name="Gtk.TreeModel" c:type="GtkTreeModel*"/>
+      </field>
+    </class>
+    <record name="JobLinksClass"
+            c:type="PpsJobLinksClass"
+            glib:is-gtype-struct-for="JobLinks">
+      <source-position filename="libview/pps-jobs.h" line="241"/>
+      <field name="parent_class">
+        <type name="JobClass" c:type="PpsJobClass"/>
+      </field>
+    </record>
+    <class name="JobLoad"
+           c:symbol-prefix="job_load"
+           c:type="PpsJobLoad"
+           parent="Job"
+           glib:type-name="PpsJobLoad"
+           glib:get-type="pps_job_load_get_type"
+           glib:type-struct="JobLoadClass">
+      <doc xml:space="preserve"
+           filename="libview/pps-jobs.c"
+           line="1307">A job class to load an #PpsDocument
+
+Supports loading in different forms depending on the options
+being set.</doc>
+      <source-position filename="libview/pps-jobs.h" line="423"/>
+      <constructor name="new" c:identifier="pps_job_load_new">
+        <source-position filename="libview/pps-jobs.h" line="632"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+      </constructor>
+      <method name="get_loaded_document"
+              c:identifier="pps_job_load_get_loaded_document"
+              version="46.0">
+        <source-position filename="libview/pps-jobs.h" line="652"/>
+        <return-value transfer-ownership="full" nullable="1">
+          <doc xml:space="preserve"
+               filename="libview/pps-jobs.c"
+               line="1591">The loaded document, if available</doc>
+          <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="1589">an #PpsJobLoad</doc>
+            <type name="JobLoad" c:type="PpsJobLoad*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="set_fd"
+              c:identifier="pps_job_load_set_fd"
+              version="46.0"
+              throws="1">
+        <doc xml:space="preserve"
+             filename="libview/pps-jobs.c"
+             line="1499">Sets @fd as the file descriptor in @job. If duplicating @fd fails,
+returns %FALSE with @error filled in.
+
+It is an error to call this function if uri is set for the job</doc>
+        <source-position filename="libview/pps-jobs.h" line="637"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libview/pps-jobs.c"
+               line="1511">%TRUE if the file descriptor could be set</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="1501">an #PpsJobLoad</doc>
+            <type name="JobLoad" c:type="PpsJobLoad*"/>
+          </instance-parameter>
+          <parameter name="fd" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="1502">a file descriptor</doc>
+            <type name="gint" c:type="int"/>
+          </parameter>
+          <parameter name="mime_type" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="1503">the mime type of the file descriptor</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_load_flags" c:identifier="pps_job_load_set_load_flags">
+        <source-position filename="libview/pps-jobs.h" line="649"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="JobLoad" c:type="PpsJobLoad*"/>
+          </instance-parameter>
+          <parameter name="flags" transfer-ownership="none">
+            <type name="PapersDocument.DocumentLoadFlags"
+                  c:type="PpsDocumentLoadFlags"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_password" c:identifier="pps_job_load_set_password">
+        <source-position filename="libview/pps-jobs.h" line="646"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="JobLoad" c:type="PpsJobLoad*"/>
+          </instance-parameter>
+          <parameter name="password" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_uri" c:identifier="pps_job_load_set_uri">
+        <doc xml:space="preserve"
+             filename="libview/pps-jobs.c"
+             line="1476">It is an error to call this function if the file descriptor
+is set for the job.</doc>
+        <source-position filename="libview/pps-jobs.h" line="634"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="1478">an #PpsJobLoad</doc>
+            <type name="JobLoad" c:type="PpsJobLoad*"/>
+          </instance-parameter>
+          <parameter name="uri" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="1479">an uri representing a file</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="take_fd"
+              c:identifier="pps_job_load_take_fd"
+              version="46.0">
+        <doc xml:space="preserve"
+             filename="libview/pps-jobs.c"
+             line="1535">Sets @fd as the file descriptor in @job.
+Note that @job takes ownership of @fd; you must not do anything
+with it afterwards.
+
+It is an error to call this function if uri is set for the job</doc>
+        <source-position filename="libview/pps-jobs.h" line="642"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="1537">an #PpsJobLoad</doc>
+            <type name="JobLoad" c:type="PpsJobLoad*"/>
+          </instance-parameter>
+          <parameter name="fd" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="1538">a file descriptor</doc>
+            <type name="gint" c:type="int"/>
+          </parameter>
+          <parameter name="mime_type" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="1539">the mime type of the file descriptor</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent">
+        <type name="Job" c:type="PpsJob"/>
+      </field>
+      <field name="uri">
+        <type name="utf8" c:type="gchar*"/>
+      </field>
+      <field name="fd">
+        <type name="gint" c:type="int"/>
+      </field>
+      <field name="mime_type">
+        <type name="utf8" c:type="char*"/>
+      </field>
+      <field name="password">
+        <type name="utf8" c:type="gchar*"/>
+      </field>
+      <field name="flags">
+        <type name="PapersDocument.DocumentLoadFlags"
+              c:type="PpsDocumentLoadFlags"/>
+      </field>
+      <field name="loaded_document">
+        <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+      </field>
+    </class>
+    <record name="JobLoadClass"
+            c:type="PpsJobLoadClass"
+            glib:is-gtype-struct-for="JobLoad">
+      <source-position filename="libview/pps-jobs.h" line="423"/>
+      <field name="parent_class">
+        <type name="JobClass" c:type="PpsJobClass"/>
+      </field>
+    </record>
+    <class name="JobPageData"
+           c:symbol-prefix="job_page_data"
+           c:type="PpsJobPageData"
+           parent="Job"
+           glib:type-name="PpsJobPageData"
+           glib:get-type="pps_job_page_data_get_type"
+           glib:type-struct="JobPageDataClass">
+      <source-position filename="libview/pps-jobs.h" line="360"/>
+      <constructor name="new" c:identifier="pps_job_page_data_new">
+        <source-position filename="libview/pps-jobs.h" line="586"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="flags" transfer-ownership="none">
+            <type name="JobPageDataFlags" c:type="PpsJobPageDataFlags"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <field name="parent">
+        <type name="Job" c:type="PpsJob"/>
+      </field>
+      <field name="page">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="flags">
+        <type name="JobPageDataFlags" c:type="PpsJobPageDataFlags"/>
+      </field>
+      <field name="link_mapping">
+        <type name="PapersDocument.MappingList" c:type="PpsMappingList*"/>
+      </field>
+      <field name="image_mapping">
+        <type name="PapersDocument.MappingList" c:type="PpsMappingList*"/>
+      </field>
+      <field name="form_field_mapping">
+        <type name="PapersDocument.MappingList" c:type="PpsMappingList*"/>
+      </field>
+      <field name="annot_mapping">
+        <type name="PapersDocument.MappingList" c:type="PpsMappingList*"/>
+      </field>
+      <field name="media_mapping">
+        <type name="PapersDocument.MappingList" c:type="PpsMappingList*"/>
+      </field>
+      <field name="text_mapping">
+        <type name="cairo.Region" c:type="cairo_region_t*"/>
+      </field>
+      <field name="text">
+        <type name="utf8" c:type="gchar*"/>
+      </field>
+      <field name="text_layout">
+        <type name="PapersDocument.Rectangle" c:type="PpsRectangle*"/>
+      </field>
+      <field name="text_layout_length">
+        <type name="guint" c:type="guint"/>
+      </field>
+      <field name="text_attrs">
+        <type name="Pango.AttrList" c:type="PangoAttrList*"/>
+      </field>
+      <field name="text_log_attrs">
+        <type name="Pango.LogAttr" c:type="PangoLogAttr*"/>
+      </field>
+      <field name="text_log_attrs_length">
+        <type name="gulong" c:type="gulong"/>
+      </field>
+    </class>
+    <record name="JobPageDataClass"
+            c:type="PpsJobPageDataClass"
+            glib:is-gtype-struct-for="JobPageData">
+      <source-position filename="libview/pps-jobs.h" line="360"/>
+      <field name="parent_class">
+        <type name="JobClass" c:type="PpsJobClass"/>
+      </field>
+    </record>
+    <bitfield name="JobPageDataFlags"
+              glib:type-name="PpsJobPageDataFlags"
+              glib:get-type="pps_job_page_data_flags_get_type"
+              c:type="PpsJobPageDataFlags">
+      <member name="none"
+              value="0"
+              c:identifier="PPS_PAGE_DATA_INCLUDE_NONE"
+              glib:nick="none"
+              glib:name="PPS_PAGE_DATA_INCLUDE_NONE">
+      </member>
+      <member name="links"
+              value="1"
+              c:identifier="PPS_PAGE_DATA_INCLUDE_LINKS"
+              glib:nick="links"
+              glib:name="PPS_PAGE_DATA_INCLUDE_LINKS">
+      </member>
+      <member name="text"
+              value="2"
+              c:identifier="PPS_PAGE_DATA_INCLUDE_TEXT"
+              glib:nick="text"
+              glib:name="PPS_PAGE_DATA_INCLUDE_TEXT">
+      </member>
+      <member name="text_mapping"
+              value="4"
+              c:identifier="PPS_PAGE_DATA_INCLUDE_TEXT_MAPPING"
+              glib:nick="text-mapping"
+              glib:name="PPS_PAGE_DATA_INCLUDE_TEXT_MAPPING">
+      </member>
+      <member name="text_layout"
+              value="8"
+              c:identifier="PPS_PAGE_DATA_INCLUDE_TEXT_LAYOUT"
+              glib:nick="text-layout"
+              glib:name="PPS_PAGE_DATA_INCLUDE_TEXT_LAYOUT">
+      </member>
+      <member name="text_attrs"
+              value="16"
+              c:identifier="PPS_PAGE_DATA_INCLUDE_TEXT_ATTRS"
+              glib:nick="text-attrs"
+              glib:name="PPS_PAGE_DATA_INCLUDE_TEXT_ATTRS">
+      </member>
+      <member name="text_log_attrs"
+              value="32"
+              c:identifier="PPS_PAGE_DATA_INCLUDE_TEXT_LOG_ATTRS"
+              glib:nick="text-log-attrs"
+              glib:name="PPS_PAGE_DATA_INCLUDE_TEXT_LOG_ATTRS">
+      </member>
+      <member name="images"
+              value="64"
+              c:identifier="PPS_PAGE_DATA_INCLUDE_IMAGES"
+              glib:nick="images"
+              glib:name="PPS_PAGE_DATA_INCLUDE_IMAGES">
+      </member>
+      <member name="forms"
+              value="128"
+              c:identifier="PPS_PAGE_DATA_INCLUDE_FORMS"
+              glib:nick="forms"
+              glib:name="PPS_PAGE_DATA_INCLUDE_FORMS">
+      </member>
+      <member name="annots"
+              value="256"
+              c:identifier="PPS_PAGE_DATA_INCLUDE_ANNOTS"
+              glib:nick="annots"
+              glib:name="PPS_PAGE_DATA_INCLUDE_ANNOTS">
+      </member>
+      <member name="media"
+              value="512"
+              c:identifier="PPS_PAGE_DATA_INCLUDE_MEDIA"
+              glib:nick="media"
+              glib:name="PPS_PAGE_DATA_INCLUDE_MEDIA">
+      </member>
+      <member name="all"
+              value="1023"
+              c:identifier="PPS_PAGE_DATA_INCLUDE_ALL"
+              glib:nick="all"
+              glib:name="PPS_PAGE_DATA_INCLUDE_ALL">
+      </member>
+    </bitfield>
+    <class name="JobPrint"
+           c:symbol-prefix="job_print"
+           c:type="PpsJobPrint"
+           parent="Job"
+           glib:type-name="PpsJobPrint"
+           glib:get-type="pps_job_print_get_type"
+           glib:type-struct="JobPrintClass">
+      <source-position filename="libview/pps-jobs.h" line="496"/>
+      <constructor name="new" c:identifier="pps_job_print_new">
+        <source-position filename="libview/pps-jobs.h" line="700"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="set_cairo" c:identifier="pps_job_print_set_cairo">
+        <source-position filename="libview/pps-jobs.h" line="705"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="JobPrint" c:type="PpsJobPrint*"/>
+          </instance-parameter>
+          <parameter name="cr" transfer-ownership="none">
+            <type name="cairo.Context" c:type="cairo_t*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_page" c:identifier="pps_job_print_set_page">
+        <source-position filename="libview/pps-jobs.h" line="702"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="JobPrint" c:type="PpsJobPrint*"/>
+          </instance-parameter>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent">
+        <type name="Job" c:type="PpsJob"/>
+      </field>
+      <field name="page">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="cr">
+        <type name="cairo.Context" c:type="cairo_t*"/>
+      </field>
+    </class>
+    <record name="JobPrintClass"
+            c:type="PpsJobPrintClass"
+            glib:is-gtype-struct-for="JobPrint">
+      <source-position filename="libview/pps-jobs.h" line="496"/>
+      <field name="parent_class">
+        <type name="JobClass" c:type="PpsJobClass"/>
+      </field>
+    </record>
+    <enumeration name="JobPriority"
+                 glib:type-name="PpsJobPriority"
+                 glib:get-type="pps_job_priority_get_type"
+                 c:type="PpsJobPriority">
+      <member name="priority_urgent"
+              value="0"
+              c:identifier="PPS_JOB_PRIORITY_URGENT"
+              glib:nick="priority-urgent"
+              glib:name="PPS_JOB_PRIORITY_URGENT">
+      </member>
+      <member name="priority_high"
+              value="1"
+              c:identifier="PPS_JOB_PRIORITY_HIGH"
+              glib:nick="priority-high"
+              glib:name="PPS_JOB_PRIORITY_HIGH">
+      </member>
+      <member name="priority_low"
+              value="2"
+              c:identifier="PPS_JOB_PRIORITY_LOW"
+              glib:nick="priority-low"
+              glib:name="PPS_JOB_PRIORITY_LOW">
+      </member>
+      <member name="priority_none"
+              value="3"
+              c:identifier="PPS_JOB_PRIORITY_NONE"
+              glib:nick="priority-none"
+              glib:name="PPS_JOB_PRIORITY_NONE">
+      </member>
+      <member name="n_priorities"
+              value="4"
+              c:identifier="PPS_JOB_N_PRIORITIES"
+              glib:nick="n-priorities"
+              glib:name="PPS_JOB_N_PRIORITIES">
+      </member>
+    </enumeration>
+    <class name="JobRenderCairo"
+           c:symbol-prefix="job_render_cairo"
+           c:type="PpsJobRenderCairo"
+           parent="Job"
+           glib:type-name="PpsJobRenderCairo"
+           glib:get-type="pps_job_render_cairo_get_type"
+           glib:type-struct="JobRenderCairoClass">
+      <source-position filename="libview/pps-jobs.h" line="292"/>
+      <constructor name="new" c:identifier="pps_job_render_cairo_new">
+        <source-position filename="libview/pps-jobs.h" line="552"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="rotation" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="scale" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+          <parameter name="width" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="height" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="set_selection_info"
+              c:identifier="pps_job_render_cairo_set_selection_info">
+        <source-position filename="libview/pps-jobs.h" line="559"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="JobRenderCairo" c:type="PpsJobRenderCairo*"/>
+          </instance-parameter>
+          <parameter name="selection_points" transfer-ownership="none">
+            <type name="PapersDocument.Rectangle" c:type="PpsRectangle*"/>
+          </parameter>
+          <parameter name="selection_style" transfer-ownership="none">
+            <type name="PapersDocument.SelectionStyle"
+                  c:type="PpsSelectionStyle"/>
+          </parameter>
+          <parameter name="text" transfer-ownership="none">
+            <type name="Gdk.RGBA" c:type="GdkRGBA*"/>
+          </parameter>
+          <parameter name="base" transfer-ownership="none">
+            <type name="Gdk.RGBA" c:type="GdkRGBA*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent">
+        <type name="Job" c:type="PpsJob"/>
+      </field>
+      <field name="page">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="rotation">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="scale">
+        <type name="gdouble" c:type="gdouble"/>
+      </field>
+      <field name="page_ready">
+        <type name="gboolean" c:type="gboolean"/>
+      </field>
+      <field name="target_width">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="target_height">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="surface">
+        <type name="cairo.Surface" c:type="cairo_surface_t*"/>
+      </field>
+      <field name="include_selection">
+        <type name="gboolean" c:type="gboolean"/>
+      </field>
+      <field name="selection">
+        <type name="cairo.Surface" c:type="cairo_surface_t*"/>
+      </field>
+      <field name="selection_region">
+        <type name="cairo.Region" c:type="cairo_region_t*"/>
+      </field>
+      <field name="selection_points">
+        <type name="PapersDocument.Rectangle" c:type="PpsRectangle"/>
+      </field>
+      <field name="selection_style">
+        <type name="PapersDocument.SelectionStyle" c:type="PpsSelectionStyle"/>
+      </field>
+      <field name="base">
+        <type name="Gdk.RGBA" c:type="GdkRGBA"/>
+      </field>
+      <field name="text">
+        <type name="Gdk.RGBA" c:type="GdkRGBA"/>
+      </field>
+    </class>
+    <record name="JobRenderCairoClass"
+            c:type="PpsJobRenderCairoClass"
+            glib:is-gtype-struct-for="JobRenderCairo">
+      <source-position filename="libview/pps-jobs.h" line="292"/>
+      <field name="parent_class">
+        <type name="JobClass" c:type="PpsJobClass"/>
+      </field>
+    </record>
+    <class name="JobRenderTexture"
+           c:symbol-prefix="job_render_texture"
+           c:type="PpsJobRenderTexture"
+           parent="Job"
+           glib:type-name="PpsJobRenderTexture"
+           glib:get-type="pps_job_render_texture_get_type"
+           glib:type-struct="JobRenderTextureClass">
+      <source-position filename="libview/pps-jobs.h" line="319"/>
+      <constructor name="new" c:identifier="pps_job_render_texture_new">
+        <source-position filename="libview/pps-jobs.h" line="569"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="rotation" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="scale" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+          <parameter name="width" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="height" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="set_selection_info"
+              c:identifier="pps_job_render_texture_set_selection_info">
+        <source-position filename="libview/pps-jobs.h" line="576"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <type name="JobRenderTexture" c:type="PpsJobRenderTexture*"/>
+          </instance-parameter>
+          <parameter name="selection_points" transfer-ownership="none">
+            <type name="PapersDocument.Rectangle" c:type="PpsRectangle*"/>
+          </parameter>
+          <parameter name="selection_style" transfer-ownership="none">
+            <type name="PapersDocument.SelectionStyle"
+                  c:type="PpsSelectionStyle"/>
+          </parameter>
+          <parameter name="text" transfer-ownership="none">
+            <type name="Gdk.RGBA" c:type="GdkRGBA*"/>
+          </parameter>
+          <parameter name="base" transfer-ownership="none">
+            <type name="Gdk.RGBA" c:type="GdkRGBA*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent">
+        <type name="Job" c:type="PpsJob"/>
+      </field>
+      <field name="page">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="rotation">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="scale">
+        <type name="gdouble" c:type="gdouble"/>
+      </field>
+      <field name="page_ready">
+        <type name="gboolean" c:type="gboolean"/>
+      </field>
+      <field name="target_width">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="target_height">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="texture">
+        <type name="Gdk.Texture" c:type="GdkTexture*"/>
+      </field>
+      <field name="include_selection">
+        <type name="gboolean" c:type="gboolean"/>
+      </field>
+      <field name="selection">
+        <type name="Gdk.Texture" c:type="GdkTexture*"/>
+      </field>
+      <field name="selection_region">
+        <type name="cairo.Region" c:type="cairo_region_t*"/>
+      </field>
+      <field name="selection_points">
+        <type name="PapersDocument.Rectangle" c:type="PpsRectangle"/>
+      </field>
+      <field name="selection_style">
+        <type name="PapersDocument.SelectionStyle" c:type="PpsSelectionStyle"/>
+      </field>
+      <field name="base">
+        <type name="Gdk.RGBA" c:type="GdkRGBA"/>
+      </field>
+      <field name="text">
+        <type name="Gdk.RGBA" c:type="GdkRGBA"/>
+      </field>
+    </class>
+    <record name="JobRenderTextureClass"
+            c:type="PpsJobRenderTextureClass"
+            glib:is-gtype-struct-for="JobRenderTexture">
+      <source-position filename="libview/pps-jobs.h" line="319"/>
+      <field name="parent_class">
+        <type name="JobClass" c:type="PpsJobClass"/>
+      </field>
+    </record>
+    <enumeration name="JobRunMode"
+                 glib:type-name="PpsJobRunMode"
+                 glib:get-type="pps_job_run_mode_get_type"
+                 c:type="PpsJobRunMode">
+      <member name="thread"
+              value="0"
+              c:identifier="PPS_JOB_RUN_THREAD"
+              glib:nick="thread"
+              glib:name="PPS_JOB_RUN_THREAD">
+      </member>
+      <member name="main_loop"
+              value="1"
+              c:identifier="PPS_JOB_RUN_MAIN_LOOP"
+              glib:nick="main-loop"
+              glib:name="PPS_JOB_RUN_MAIN_LOOP">
+      </member>
+    </enumeration>
+    <class name="JobSave"
+           c:symbol-prefix="job_save"
+           c:type="PpsJobSave"
+           parent="Job"
+           glib:type-name="PpsJobSave"
+           glib:get-type="pps_job_save_get_type"
+           glib:type-struct="JobSaveClass">
+      <source-position filename="libview/pps-jobs.h" line="436"/>
+      <constructor name="new" c:identifier="pps_job_save_new">
+        <source-position filename="libview/pps-jobs.h" line="658"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+          <parameter name="uri" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="document_uri" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <field name="parent">
+        <type name="Job" c:type="PpsJob"/>
+      </field>
+      <field name="uri">
+        <type name="utf8" c:type="gchar*"/>
+      </field>
+      <field name="document_uri">
+        <type name="utf8" c:type="gchar*"/>
+      </field>
+    </class>
+    <record name="JobSaveClass"
+            c:type="PpsJobSaveClass"
+            glib:is-gtype-struct-for="JobSave">
+      <source-position filename="libview/pps-jobs.h" line="436"/>
+      <field name="parent_class">
+        <type name="JobClass" c:type="PpsJobClass"/>
+      </field>
+    </record>
+    <class name="JobThumbnailCairo"
+           c:symbol-prefix="job_thumbnail_cairo"
+           c:type="PpsJobThumbnailCairo"
+           parent="Job"
+           glib:type-name="PpsJobThumbnailCairo"
+           glib:get-type="pps_job_thumbnail_cairo_get_type"
+           glib:type-struct="JobThumbnailCairoClass">
+      <source-position filename="libview/pps-jobs.h" line="378"/>
+      <constructor name="new" c:identifier="pps_job_thumbnail_cairo_new">
+        <source-position filename="libview/pps-jobs.h" line="594"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="rotation" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="scale" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <constructor name="new_with_target_size"
+                   c:identifier="pps_job_thumbnail_cairo_new_with_target_size">
+        <source-position filename="libview/pps-jobs.h" line="599"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="rotation" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="target_width" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="target_height" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <field name="parent">
+        <type name="Job" c:type="PpsJob"/>
+      </field>
+      <field name="page">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="rotation">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="scale">
+        <type name="gdouble" c:type="gdouble"/>
+      </field>
+      <field name="target_width">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="target_height">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="thumbnail_surface">
+        <type name="cairo.Surface" c:type="cairo_surface_t*"/>
+      </field>
+    </class>
+    <record name="JobThumbnailCairoClass"
+            c:type="PpsJobThumbnailCairoClass"
+            glib:is-gtype-struct-for="JobThumbnailCairo">
+      <source-position filename="libview/pps-jobs.h" line="378"/>
+      <field name="parent_class">
+        <type name="JobClass" c:type="PpsJobClass"/>
+      </field>
+    </record>
+    <class name="JobThumbnailTexture"
+           c:symbol-prefix="job_thumbnail_texture"
+           c:type="PpsJobThumbnailTexture"
+           parent="Job"
+           glib:type-name="PpsJobThumbnailTexture"
+           glib:get-type="pps_job_thumbnail_texture_get_type"
+           glib:type-struct="JobThumbnailTextureClass">
+      <source-position filename="libview/pps-jobs.h" line="396"/>
+      <constructor name="new" c:identifier="pps_job_thumbnail_texture_new">
+        <source-position filename="libview/pps-jobs.h" line="609"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="rotation" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="scale" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <constructor name="new_with_target_size"
+                   c:identifier="pps_job_thumbnail_texture_new_with_target_size">
+        <source-position filename="libview/pps-jobs.h" line="614"/>
+        <return-value transfer-ownership="full">
+          <type name="Job" c:type="PpsJob*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="rotation" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="target_width" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="target_height" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="get_texture"
+              c:identifier="pps_job_thumbnail_texture_get_texture">
+        <doc xml:space="preserve"
+             filename="libview/pps-jobs.c"
+             line="1235">This is similar to pps_job_find_get_n_results() but it takes
+care to treat any multi-line matches as being only one result.</doc>
+        <source-position filename="libview/pps-jobs.h" line="620"/>
+        <return-value transfer-ownership="none" nullable="1">
+          <doc xml:space="preserve"
+               filename="libview/pps-jobs.c"
+               line="1242">total number of match results in @page</doc>
+          <type name="Gdk.Texture" c:type="GdkTexture*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="job" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-jobs.c"
+                 line="1237">an #PpsJobThumbnailTexture job</doc>
+            <type name="JobThumbnailTexture" c:type="PpsJobThumbnailTexture*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <field name="parent">
+        <type name="Job" c:type="PpsJob"/>
+      </field>
+      <field name="page">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="rotation">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="scale">
+        <type name="gdouble" c:type="gdouble"/>
+      </field>
+      <field name="target_width">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="target_height">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="thumbnail_texture">
+        <type name="Gdk.Texture" c:type="GdkTexture*"/>
+      </field>
+    </class>
+    <record name="JobThumbnailTextureClass"
+            c:type="PpsJobThumbnailTextureClass"
+            glib:is-gtype-struct-for="JobThumbnailTexture">
+      <source-position filename="libview/pps-jobs.h" line="396"/>
+      <field name="parent_class">
+        <type name="JobClass" c:type="PpsJobClass"/>
+      </field>
+    </record>
+    <function-macro name="PRINT_OPERATION"
+                    c:identifier="PPS_PRINT_OPERATION"
+                    introspectable="0">
+      <source-position filename="libview/pps-print-operation.h" line="37"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="PRINT_OPERATION_CLASS"
+                    c:identifier="PPS_PRINT_OPERATION_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-print-operation.h" line="39"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="PRINT_OPERATION_GET_CLASS"
+                    c:identifier="PPS_PRINT_OPERATION_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-print-operation.h" line="41"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <enumeration name="PageLayout"
+                 glib:type-name="PpsPageLayout"
+                 glib:get-type="pps_page_layout_get_type"
+                 c:type="PpsPageLayout">
+      <member name="single"
+              value="0"
+              c:identifier="PPS_PAGE_LAYOUT_SINGLE"
+              glib:nick="single"
+              glib:name="PPS_PAGE_LAYOUT_SINGLE">
+      </member>
+      <member name="dual"
+              value="1"
+              c:identifier="PPS_PAGE_LAYOUT_DUAL"
+              glib:nick="dual"
+              glib:name="PPS_PAGE_LAYOUT_DUAL">
+      </member>
+      <member name="automatic"
+              value="2"
+              c:identifier="PPS_PAGE_LAYOUT_AUTOMATIC"
+              glib:nick="automatic"
+              glib:name="PPS_PAGE_LAYOUT_AUTOMATIC">
+      </member>
+    </enumeration>
+    <class name="PrintOperation"
+           c:symbol-prefix="print_operation"
+           c:type="PpsPrintOperation"
+           parent="GObject.Object"
+           abstract="1"
+           glib:type-name="PpsPrintOperation"
+           glib:get-type="pps_print_operation_get_type"
+           glib:type-struct="PrintOperationClass">
+      <source-position filename="libview/pps-print-operation.h" line="34"/>
+      <constructor name="new" c:identifier="pps_print_operation_new">
+        <source-position filename="libview/pps-print-operation.h" line="49"/>
+        <return-value transfer-ownership="full">
+          <type name="PrintOperation" c:type="PpsPrintOperation*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <function name="exists_for_document"
+                c:identifier="pps_print_operation_exists_for_document">
+        <source-position filename="libview/pps-print-operation.h" line="47"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+        </parameters>
+      </function>
+      <method name="cancel" c:identifier="pps_print_operation_cancel">
+        <source-position filename="libview/pps-print-operation.h" line="72"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="op" transfer-ownership="none">
+            <type name="PrintOperation" c:type="PpsPrintOperation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_default_page_setup"
+              c:identifier="pps_print_operation_get_default_page_setup">
+        <source-position filename="libview/pps-print-operation.h" line="62"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libview/pps-print-operation.c"
+               line="229">a #GtkPageSetup</doc>
+          <type name="Gtk.PageSetup" c:type="GtkPageSetup*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="op" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-print-operation.c"
+                 line="227">an #PpsPrintOperation</doc>
+            <type name="PrintOperation" c:type="PpsPrintOperation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_embed_page_setup"
+              c:identifier="pps_print_operation_get_embed_page_setup">
+        <source-position filename="libview/pps-print-operation.h" line="80"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="op" transfer-ownership="none">
+            <type name="PrintOperation" c:type="PpsPrintOperation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_error"
+              c:identifier="pps_print_operation_get_error"
+              throws="1">
+        <source-position filename="libview/pps-print-operation.h" line="74"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="op" transfer-ownership="none">
+            <type name="PrintOperation" c:type="PpsPrintOperation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_job_name"
+              c:identifier="pps_print_operation_get_job_name">
+        <source-position filename="libview/pps-print-operation.h" line="67"/>
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="op" transfer-ownership="none">
+            <type name="PrintOperation" c:type="PpsPrintOperation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_print_settings"
+              c:identifier="pps_print_operation_get_print_settings">
+        <source-position filename="libview/pps-print-operation.h" line="57"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libview/pps-print-operation.c"
+               line="201">a #GtkPrintSettings</doc>
+          <type name="Gtk.PrintSettings" c:type="GtkPrintSettings*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="op" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-print-operation.c"
+                 line="199">an #PpsPrintOperation</doc>
+            <type name="PrintOperation" c:type="PpsPrintOperation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_progress"
+              c:identifier="pps_print_operation_get_progress">
+        <source-position filename="libview/pps-print-operation.h" line="84"/>
+        <return-value transfer-ownership="none">
+          <type name="gdouble" c:type="gdouble"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="op" transfer-ownership="none">
+            <type name="PrintOperation" c:type="PpsPrintOperation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_status" c:identifier="pps_print_operation_get_status">
+        <source-position filename="libview/pps-print-operation.h" line="82"/>
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="op" transfer-ownership="none">
+            <type name="PrintOperation" c:type="PpsPrintOperation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="run" c:identifier="pps_print_operation_run">
+        <source-position filename="libview/pps-print-operation.h" line="69"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="op" transfer-ownership="none">
+            <type name="PrintOperation" c:type="PpsPrintOperation*"/>
+          </instance-parameter>
+          <parameter name="parent" transfer-ownership="none">
+            <type name="Gtk.Window" c:type="GtkWindow*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_current_page"
+              c:identifier="pps_print_operation_set_current_page">
+        <source-position filename="libview/pps-print-operation.h" line="51"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="op" transfer-ownership="none">
+            <type name="PrintOperation" c:type="PpsPrintOperation*"/>
+          </instance-parameter>
+          <parameter name="current_page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_default_page_setup"
+              c:identifier="pps_print_operation_set_default_page_setup">
+        <source-position filename="libview/pps-print-operation.h" line="59"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="op" transfer-ownership="none">
+            <type name="PrintOperation" c:type="PpsPrintOperation*"/>
+          </instance-parameter>
+          <parameter name="page_setup" transfer-ownership="none">
+            <type name="Gtk.PageSetup" c:type="GtkPageSetup*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_embed_page_setup"
+              c:identifier="pps_print_operation_set_embed_page_setup">
+        <source-position filename="libview/pps-print-operation.h" line="77"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="op" transfer-ownership="none">
+            <type name="PrintOperation" c:type="PpsPrintOperation*"/>
+          </instance-parameter>
+          <parameter name="embed" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_job_name"
+              c:identifier="pps_print_operation_set_job_name">
+        <source-position filename="libview/pps-print-operation.h" line="64"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="op" transfer-ownership="none">
+            <type name="PrintOperation" c:type="PpsPrintOperation*"/>
+          </instance-parameter>
+          <parameter name="job_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_print_settings"
+              c:identifier="pps_print_operation_set_print_settings">
+        <source-position filename="libview/pps-print-operation.h" line="54"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="op" transfer-ownership="none">
+            <type name="PrintOperation" c:type="PpsPrintOperation*"/>
+          </instance-parameter>
+          <parameter name="print_settings" transfer-ownership="none">
+            <type name="Gtk.PrintSettings" c:type="GtkPrintSettings*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <property name="document"
+                readable="0"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="PapersDocument.Document"/>
+      </property>
+      <glib:signal name="begin-print" when="last">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </glib:signal>
+      <glib:signal name="done" when="last">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="Gtk.PrintOperationResult"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="status-changed" when="last">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </glib:signal>
+    </class>
+    <record name="PrintOperationClass"
+            c:type="PpsPrintOperationClass"
+            disguised="1"
+            opaque="1"
+            glib:is-gtype-struct-for="PrintOperation">
+      <source-position filename="libview/pps-print-operation.h" line="34"/>
+    </record>
+    <enumeration name="SizingMode"
+                 glib:type-name="PpsSizingMode"
+                 glib:get-type="pps_sizing_mode_get_type"
+                 c:type="PpsSizingMode">
+      <member name="fit_page"
+              value="0"
+              c:identifier="PPS_SIZING_FIT_PAGE"
+              glib:nick="fit-page"
+              glib:name="PPS_SIZING_FIT_PAGE">
+        <doc xml:space="preserve"
+             filename="libview/pps-document-model.h"
+             line="38">Since: 3.8</doc>
+      </member>
+      <member name="fit_width"
+              value="1"
+              c:identifier="PPS_SIZING_FIT_WIDTH"
+              glib:nick="fit-width"
+              glib:name="PPS_SIZING_FIT_WIDTH">
+      </member>
+      <member name="free"
+              value="2"
+              c:identifier="PPS_SIZING_FREE"
+              glib:nick="free"
+              glib:name="PPS_SIZING_FREE">
+      </member>
+      <member name="automatic"
+              value="3"
+              c:identifier="PPS_SIZING_AUTOMATIC"
+              glib:nick="automatic"
+              glib:name="PPS_SIZING_AUTOMATIC">
+        <doc xml:space="preserve"
+             filename="libview/pps-document-model.h"
+             line="41">Since: 3.8</doc>
+      </member>
+    </enumeration>
+    <function-macro name="VIEW_PRESENTATION"
+                    c:identifier="PPS_VIEW_PRESENTATION"
+                    introspectable="0">
+      <source-position filename="libview/pps-view-presentation.h" line="34"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="VIEW_PRESENTATION_CLASS"
+                    c:identifier="PPS_VIEW_PRESENTATION_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-view-presentation.h" line="36"/>
+      <parameters>
+        <parameter name="klass">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <function-macro name="VIEW_PRESENTATION_GET_CLASS"
+                    c:identifier="PPS_VIEW_PRESENTATION_GET_CLASS"
+                    introspectable="0">
+      <source-position filename="libview/pps-view-presentation.h" line="38"/>
+      <parameters>
+        <parameter name="obj">
+        </parameter>
+      </parameters>
+    </function-macro>
+    <class name="View"
+           c:symbol-prefix="view"
+           c:type="PpsView"
+           parent="Gtk.Widget"
+           glib:type-name="PpsView"
+           glib:get-type="pps_view_get_type"
+           glib:type-struct="ViewClass">
+      <source-position filename="libview/pps-view.h" line="37"/>
+      <implements name="Gtk.Accessible"/>
+      <implements name="Gtk.Buildable"/>
+      <implements name="Gtk.ConstraintTarget"/>
+      <implements name="Gtk.Scrollable"/>
+      <constructor name="new" c:identifier="pps_view_new">
+        <source-position filename="libview/pps-view.h" line="40"/>
+        <return-value transfer-ownership="none">
+          <type name="View" c:type="PpsView*"/>
+        </return-value>
+      </constructor>
+      <function name="get_resource" c:identifier="pps_view_get_resource">
+        <source-position filename="libview/pps-view-resources.h" line="6"/>
+        <return-value transfer-ownership="full">
+          <type name="Gio.Resource" c:type="GResource*"/>
+        </return-value>
+      </function>
+      <method name="add_text_markup_annotation_for_selected_text"
+              c:identifier="pps_view_add_text_markup_annotation_for_selected_text"
+              version="3.30">
+        <doc xml:space="preserve"
+             filename="libview/pps-view.c"
+             line="6088">Adds a Text Markup annotation (defaulting to a 'highlight' one) to
+the currently selected text on the document.
+
+When the selected text spans more than one page, it will add a
+corresponding annotation for each page that contains selected text.</doc>
+        <source-position filename="libview/pps-view.h" line="153"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libview/pps-view.c"
+               line="6098">%TRUE if annotations were added successfully, %FALSE otherwise.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-view.c"
+                 line="6090">#PpsView instance</doc>
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="autoscroll_start" c:identifier="pps_view_autoscroll_start">
+        <source-position filename="libview/pps-view.h" line="125"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="autoscroll_stop" c:identifier="pps_view_autoscroll_stop">
+        <source-position filename="libview/pps-view.h" line="127"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="begin_add_annotation"
+              c:identifier="pps_view_begin_add_annotation">
+        <source-position filename="libview/pps-view.h" line="145"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="annot_type" transfer-ownership="none">
+            <type name="PapersDocument.AnnotationType"
+                  c:type="PpsAnnotationType"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="can_zoom_in"
+              c:identifier="pps_view_can_zoom_in"
+              glib:get-property="can-zoom-in">
+        <source-position filename="libview/pps-view.h" line="73"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="can_zoom_out"
+              c:identifier="pps_view_can_zoom_out"
+              glib:get-property="can-zoom-out">
+        <source-position filename="libview/pps-view.h" line="77"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="cancel_add_annotation"
+              c:identifier="pps_view_cancel_add_annotation">
+        <source-position filename="libview/pps-view.h" line="148"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="copy" c:identifier="pps_view_copy">
+        <source-position filename="libview/pps-view.h" line="60"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="copy_link_address"
+              c:identifier="pps_view_copy_link_address">
+        <source-position filename="libview/pps-view.h" line="62"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="action" transfer-ownership="none">
+            <type name="PapersDocument.LinkAction" c:type="PpsLinkAction*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="current_event_is_type"
+              c:identifier="pps_view_current_event_is_type">
+        <source-position filename="libview/pps-view.h" line="173"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="type" transfer-ownership="none">
+            <type name="Gdk.EventType" c:type="GdkEventType"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="find_cancel" c:identifier="pps_view_find_cancel">
+        <source-position filename="libview/pps-view.h" line="102"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="find_next" c:identifier="pps_view_find_next">
+        <source-position filename="libview/pps-view.h" line="89"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="find_previous" c:identifier="pps_view_find_previous">
+        <source-position filename="libview/pps-view.h" line="91"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="find_restart"
+              c:identifier="pps_view_find_restart"
+              version="3.12">
+        <doc xml:space="preserve"
+             filename="libview/pps-view.c"
+             line="9256">Restart the current search operation from the given @page.</doc>
+        <source-position filename="libview/pps-view.h" line="86"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-view.c"
+                 line="9258">an #PpsView</doc>
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="page" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-view.c"
+                 line="9259">a page index</doc>
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="find_search_changed"
+              c:identifier="pps_view_find_search_changed">
+        <source-position filename="libview/pps-view.h" line="97"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="find_set_highlight_search"
+              c:identifier="pps_view_find_set_highlight_search">
+        <source-position filename="libview/pps-view.h" line="99"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="value" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="find_set_result"
+              c:identifier="pps_view_find_set_result"
+              version="3.10">
+        <doc xml:space="preserve"
+             filename="libview/pps-view.c"
+             line="9323">FIXME</doc>
+        <source-position filename="libview/pps-view.h" line="93"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-view.c"
+                 line="9325">a #PpsView</doc>
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="result" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="find_started"
+              c:identifier="pps_view_find_started"
+              version="3.6">
+        <source-position filename="libview/pps-view.h" line="83"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="job" transfer-ownership="none">
+            <type name="JobFind" c:type="PpsJobFind*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="focus_annotation" c:identifier="pps_view_focus_annotation">
+        <source-position filename="libview/pps-view.h" line="142"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="annot_mapping" transfer-ownership="none">
+            <type name="PapersDocument.Mapping" c:type="PpsMapping*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_allow_links_change_zoom"
+              c:identifier="pps_view_get_allow_links_change_zoom">
+        <source-position filename="libview/pps-view.h" line="56"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_enable_spellchecking"
+              c:identifier="pps_view_get_enable_spellchecking">
+        <source-position filename="libview/pps-view.h" line="158"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_page_extents" c:identifier="pps_view_get_page_extents">
+        <source-position filename="libview/pps-view.h" line="130"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="page_area" transfer-ownership="none">
+            <type name="Gdk.Rectangle" c:type="GdkRectangle*"/>
+          </parameter>
+          <parameter name="border" transfer-ownership="none">
+            <type name="Gtk.Border" c:type="GtkBorder*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_page_extents_for_border"
+              c:identifier="pps_view_get_page_extents_for_border">
+        <source-position filename="libview/pps-view.h" line="135"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="border" transfer-ownership="none">
+            <type name="Gtk.Border" c:type="GtkBorder*"/>
+          </parameter>
+          <parameter name="page_area" transfer-ownership="none">
+            <type name="Gdk.Rectangle" c:type="GdkRectangle*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_selected_text"
+              c:identifier="pps_view_get_selected_text"
+              version="3.30">
+        <doc xml:space="preserve"
+             filename="libview/pps-view.c"
+             line="6069">Returns a pointer to a constant string containing the selected
+text in the view.
+
+The value returned may be NULL if there is no selected text.</doc>
+        <source-position filename="libview/pps-view.h" line="69"/>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve"
+               filename="libview/pps-view.c"
+               line="6078">The string representing selected text.</doc>
+          <type name="utf8" c:type="char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-view.c"
+                 line="6071">#PpsView instance</doc>
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="handle_link" c:identifier="pps_view_handle_link">
+        <source-position filename="libview/pps-view.h" line="117"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="link" transfer-ownership="none">
+            <type name="PapersDocument.Link" c:type="PpsLink*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="has_selection" c:identifier="pps_view_has_selection">
+        <source-position filename="libview/pps-view.h" line="67"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="hide_cursor" c:identifier="pps_view_hide_cursor">
+        <source-position filename="libview/pps-view.h" line="111"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="highlight_forward_search"
+              c:identifier="pps_view_highlight_forward_search">
+        <source-position filename="libview/pps-view.h" line="106"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="link" transfer-ownership="none">
+            <type name="PapersDocument.SourceLink" c:type="PpsSourceLink*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="is_caret_navigation_enabled"
+              c:identifier="pps_view_is_caret_navigation_enabled">
+        <source-position filename="libview/pps-view.h" line="164"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="is_loading"
+              c:identifier="pps_view_is_loading"
+              glib:get-property="is-loading"
+              version="3.8">
+        <source-position filename="libview/pps-view.h" line="45"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libview/pps-view.c"
+               line="8386">%TRUE iff the view is currently loading a document</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="next_page" c:identifier="pps_view_next_page">
+        <source-position filename="libview/pps-view.h" line="120"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="previous_page" c:identifier="pps_view_previous_page">
+        <source-position filename="libview/pps-view.h" line="122"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="reload" c:identifier="pps_view_reload">
+        <source-position filename="libview/pps-view.h" line="47"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="remove_annotation"
+              c:identifier="pps_view_remove_annotation">
+        <source-position filename="libview/pps-view.h" line="150"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="annot" transfer-ownership="none">
+            <type name="PapersDocument.Annotation" c:type="PpsAnnotation*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="select_all" c:identifier="pps_view_select_all">
+        <source-position filename="libview/pps-view.h" line="65"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="set_allow_links_change_zoom"
+              c:identifier="pps_view_set_allow_links_change_zoom">
+        <source-position filename="libview/pps-view.h" line="53"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="allowed" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_caret_cursor_position"
+              c:identifier="pps_view_set_caret_cursor_position"
+              version="3.10">
+        <source-position filename="libview/pps-view.h" line="169"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-view.c"
+                 line="4189">a #PpsView</doc>
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="page" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="offset" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_caret_navigation_enabled"
+              c:identifier="pps_view_set_caret_navigation_enabled"
+              version="3.10">
+        <doc xml:space="preserve"
+             filename="libview/pps-view.c"
+             line="4142">Enables or disables caret navigation mode for the document.</doc>
+        <source-position filename="libview/pps-view.h" line="166"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-view.c"
+                 line="4144">a #PpsView</doc>
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="enabled" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-view.c"
+                 line="4145">whether to enable caret navigation mode</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_enable_spellchecking"
+              c:identifier="pps_view_set_enable_spellchecking">
+        <source-position filename="libview/pps-view.h" line="155"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="spellcheck" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_model" c:identifier="pps_view_set_model">
+        <source-position filename="libview/pps-view.h" line="42"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="model" transfer-ownership="none">
+            <type name="DocumentModel" c:type="PpsDocumentModel*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_page_cache_size"
+              c:identifier="pps_view_set_page_cache_size">
+        <doc xml:space="preserve"
+             filename="libview/pps-view.c"
+             line="8354">Sets the maximum size in bytes that will be used to cache
+rendered pages. Use 0 to disable caching rendered pages.
+
+Note that this limit doesn't affect the current visible page range,
+which will always be rendered. In order to limit the total memory used
+you have to use pps_document_model_set_max_scale() too.</doc>
+        <source-position filename="libview/pps-view.h" line="49"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-view.c"
+                 line="8356">#PpsView instance</doc>
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="cache_size" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-view.c"
+                 line="8357">size in bytes</doc>
+            <type name="gsize" c:type="gsize"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="show_cursor" c:identifier="pps_view_show_cursor">
+        <source-position filename="libview/pps-view.h" line="113"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="supports_caret_navigation"
+              c:identifier="pps_view_supports_caret_navigation"
+              version="3.10">
+        <source-position filename="libview/pps-view.h" line="162"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libview/pps-view.c"
+               line="4122">whether the document supports caret navigation</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-view.c"
+                 line="4120">a #PpsView</doc>
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="zoom_in" c:identifier="pps_view_zoom_in">
+        <source-position filename="libview/pps-view.h" line="75"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="zoom_out" c:identifier="pps_view_zoom_out">
+        <source-position filename="libview/pps-view.h" line="79"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <property name="can-zoom-in"
+                version="3.8"
+                transfer-ownership="none"
+                getter="can_zoom_in"
+                default-value="TRUE">
+        <type name="gboolean" c:type="gboolean"/>
+      </property>
+      <property name="can-zoom-out"
+                version="3.8"
+                transfer-ownership="none"
+                getter="can_zoom_out"
+                default-value="TRUE">
+        <type name="gboolean" c:type="gboolean"/>
+      </property>
+      <property name="is-loading"
+                version="3.8"
+                transfer-ownership="none"
+                getter="is_loading"
+                default-value="FALSE">
+        <doc xml:space="preserve"
+             filename="libview/pps-view.c"
+             line="7909">Allows to implement a custom notification system.</doc>
+        <type name="gboolean" c:type="gboolean"/>
+      </property>
+      <field name="parent_instance">
+        <type name="Gtk.Widget" c:type="GtkWidget"/>
+      </field>
+      <glib:signal name="activate" when="first" action="1">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </glib:signal>
+      <glib:signal name="annot-added" when="last" action="1">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="PapersDocument.Annotation"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="annot-cancel-add" when="last" action="1">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </glib:signal>
+      <glib:signal name="annot-changed" when="last" action="1">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="PapersDocument.Annotation"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="annot-removed" when="last" action="1">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="PapersDocument.Annotation"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="cursor-moved" when="last">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="p0" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="external-link" when="last" action="1">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="GObject.Object"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="handle-link" when="last" action="1">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="GObject.Object"/>
+          </parameter>
+          <parameter name="p0" transfer-ownership="none">
+            <type name="GObject.Object"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="layers-changed" when="last" action="1">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </glib:signal>
+      <glib:signal name="move-cursor" when="last" action="1">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="Gtk.MovementStep"/>
+          </parameter>
+          <parameter name="p0" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="p1" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="popup" when="last" action="1">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="object"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <type name="gpointer" c:type="gpointer"/>
+          </parameter>
+          <parameter name="p0" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+          <parameter name="p1" transfer-ownership="none">
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="scroll" when="last" action="1">
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="Gtk.ScrollType"/>
+          </parameter>
+          <parameter name="p0" transfer-ownership="none">
+            <type name="Gtk.Orientation"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="selection-changed" when="last" action="1">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </glib:signal>
+      <glib:signal name="sync-source" when="last" action="1">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="PapersDocument.SourceLink"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </class>
+    <record name="ViewClass"
+            c:type="PpsViewClass"
+            disguised="1"
+            opaque="1"
+            glib:is-gtype-struct-for="View">
+      <source-position filename="libview/pps-view.h" line="37"/>
+    </record>
+    <class name="ViewPresentation"
+           c:symbol-prefix="view_presentation"
+           c:type="PpsViewPresentation"
+           parent="Gtk.Widget"
+           glib:type-name="PpsViewPresentation"
+           glib:get-type="pps_view_presentation_get_type"
+           glib:type-struct="ViewPresentationClass">
+      <source-position filename="libview/pps-view-presentation.h" line="41"/>
+      <implements name="Gtk.Accessible"/>
+      <implements name="Gtk.Buildable"/>
+      <implements name="Gtk.ConstraintTarget"/>
+      <constructor name="new" c:identifier="pps_view_presentation_new">
+        <source-position filename="libview/pps-view-presentation.h" line="47"/>
+        <return-value transfer-ownership="none">
+          <type name="ViewPresentation" c:type="PpsViewPresentation*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+          <parameter name="current_page" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="rotation" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="inverted_colors" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="get_current_page"
+              c:identifier="pps_view_presentation_get_current_page"
+              glib:get-property="current-page">
+        <source-position filename="libview/pps-view-presentation.h" line="52"/>
+        <return-value transfer-ownership="none">
+          <type name="guint" c:type="guint"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pview" transfer-ownership="none">
+            <type name="ViewPresentation" c:type="PpsViewPresentation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_rotation"
+              c:identifier="pps_view_presentation_get_rotation"
+              glib:get-property="rotation">
+        <source-position filename="libview/pps-view-presentation.h" line="61"/>
+        <return-value transfer-ownership="none">
+          <type name="guint" c:type="guint"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pview" transfer-ownership="none">
+            <type name="ViewPresentation" c:type="PpsViewPresentation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="next_page" c:identifier="pps_view_presentation_next_page">
+        <source-position filename="libview/pps-view-presentation.h" line="54"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pview" transfer-ownership="none">
+            <type name="ViewPresentation" c:type="PpsViewPresentation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="previous_page"
+              c:identifier="pps_view_presentation_previous_page">
+        <source-position filename="libview/pps-view-presentation.h" line="56"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pview" transfer-ownership="none">
+            <type name="ViewPresentation" c:type="PpsViewPresentation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="set_rotation"
+              c:identifier="pps_view_presentation_set_rotation"
+              glib:set-property="rotation">
+        <source-position filename="libview/pps-view-presentation.h" line="58"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pview" transfer-ownership="none">
+            <type name="ViewPresentation" c:type="PpsViewPresentation*"/>
+          </instance-parameter>
+          <parameter name="rotation" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <property name="current-page"
+                writable="1"
+                construct="1"
+                transfer-ownership="none"
+                getter="get_current_page"
+                default-value="0">
+        <type name="guint" c:type="guint"/>
+      </property>
+      <property name="document"
+                readable="0"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="PapersDocument.Document"/>
+      </property>
+      <property name="inverted-colors"
+                readable="0"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none"
+                default-value="FALSE">
+        <type name="gboolean" c:type="gboolean"/>
+      </property>
+      <property name="rotation"
+                writable="1"
+                construct="1"
+                transfer-ownership="none"
+                setter="set_rotation"
+                getter="get_rotation"
+                default-value="0">
+        <type name="guint" c:type="guint"/>
+      </property>
+      <glib:signal name="change-page" when="last" action="1">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="Gtk.ScrollType"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="external-link" when="last" action="1">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="object" transfer-ownership="none">
+            <type name="GObject.Object"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+      <glib:signal name="finished" when="last" action="1">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </glib:signal>
+    </class>
+    <record name="ViewPresentationClass"
+            c:type="PpsViewPresentationClass"
+            disguised="1"
+            opaque="1"
+            glib:is-gtype-struct-for="ViewPresentation">
+      <source-position filename="libview/pps-view-presentation.h" line="41"/>
+    </record>
+  </namespace>
+</repository>
