@@ -801,6 +801,13 @@ ev_application_startup (GApplication *gapplication)
 
         G_APPLICATION_CLASS (ev_application_parent_class)->startup (gapplication);
 
+	ev_init();
+
+	/* Change directory so we don't prevent unmounting in case the initial cwd
+	 * is on an external device (see bug #575436)
+	 */
+	g_chdir (g_get_home_dir ());
+
 	/* Manually set name and icon */
 	g_set_application_name (_("Document Viewer"));
 	gtk_window_set_default_icon_name (PACKAGE_ICON_NAME);
@@ -822,6 +829,9 @@ ev_application_shutdown (GApplication *gapplication)
 	g_clear_pointer (&application->uri, g_free);
 
 	g_clear_pointer (&application->dot_dir, g_free);
+
+	ev_shutdown();
+	ev_job_scheduler_wait ();
 
         G_APPLICATION_CLASS (ev_application_parent_class)->shutdown (gapplication);
 }

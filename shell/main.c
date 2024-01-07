@@ -77,20 +77,9 @@ main (int argc, char *argv[])
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 
-        if (!ev_init ())
-                return 1;
-
         application = ev_application_new ();
 
-	/* Change directory so we don't prevent unmounting in case the initial cwd
-	 * is on an external device (see bug #575436)
-	 */
-	g_chdir (g_get_home_dir ());
-
 	status = g_application_run (G_APPLICATION (application), argc, argv);
-
-	ev_job_scheduler_wait ();
-	ev_shutdown ();
 
         g_object_unref (application);
 	return status;
