@@ -95,7 +95,7 @@ static void ev_application_open_uri_in_window (EvApplication  *application,
 EvApplication *
 ev_application_new (void)
 {
-	const GApplicationFlags flags = G_APPLICATION_NON_UNIQUE;
+	const GApplicationFlags flags = G_APPLICATION_NON_UNIQUE | G_APPLICATION_HANDLES_COMMAND_LINE;
 
 	return g_object_new (EV_TYPE_APPLICATION,
 			     "application-id", APPLICATION_NAME,
@@ -895,6 +895,110 @@ ev_application_dbus_unregister (GApplication    *gapplication,
 }
 
 #endif /* ENABLE_DBUS */
+static gchar *
+get_label_from_filename (const gchar *filename)
+{
+	GFile   *file;
+	gchar   *label;
+	gboolean exists;
+
+	label = g_strrstr (filename, "#");
+	if (!label)
+		return NULL;
+
+	/* Filename contains a #, check
+	 * whether it's part of the path
+	 * or a label
+	 */
+	file = g_file_new_for_commandline_arg (filename);
+	exists = g_file_query_exists (file, NULL);
+	g_object_unref (file);
+
+	return exists ? NULL : label;
+}
+
+static int
+ev_application_command_line (GApplication	     *gapplication,
+			     GApplicationCommandLine *command_line)
+{
+	GVariantDict *options = g_application_command_line_get_options_dict (command_line);
+	EvApplication *ev_app = EV_APPLICATION (gapplication);
+	GdkDisplay *display = gdk_display_get_default();
+	EvWindowRunMode  mode = EV_WINDOW_MODE_NORMAL;
+	gint             i;
+	EvLinkDest      *global_dest = NULL;
+	gint32 page_index = 0;
+	gchar *named_dest = NULL, *page_label = NULL, *find_string = NULL;
+	g_autofree const gchar **files = NULL;
+
+	if (g_variant_dict_contains (options, "fullscreen"))
+		mode = EV_WINDOW_MODE_FULLSCREEN;
+	else if (g_variant_dict_contains (options, "presentation"))
+		mode = EV_WINDOW_MODE_PRESENTATION;
+
+	g_variant_dict_lookup (options, "page-label", "s", &page_label);
+	g_variant_dict_lookup (options, "named-dest", "s", &named_dest);
+	g_variant_dict_lookup (options, "find", "s", &find_string);
+	g_variant_dict_lookup (options, "page-index", "i", &page_index);
+	g_variant_dict_lookup (options, G_OPTION_REMAINING, "^a&ay", &files);
+
+	if (!files) {
+		ev_application_open_recent_view (ev_app, display);
+		return 0;
+	}
+
+	if (page_label)
+		global_dest = ev_link_dest_new_page_label (page_label);
+	else if (page_index)
+		global_dest = ev_link_dest_new_page (MAX (0, page_index - 1));
+	else if (named_dest)
+		global_dest = ev_link_dest_new_named (named_dest);
+
+	for (i = 0; files[i]; i++) {
+		const gchar *filename;
+		gchar       *uri;
+		gchar       *label;
+		GFile       *file;
+		EvLinkDest  *dest = NULL;
+
+		filename = files[i];
+		label = get_label_from_filename (filename);
+		if (label) {
+			*label = 0;
+			label++;
+			dest = ev_link_dest_new_page_label (label);
+		} else if (global_dest) {
+			dest = g_object_ref (global_dest);
+		}
+
+		file = g_file_new_for_commandline_arg (filename);
+		uri = g_file_get_uri (file);
+		g_object_unref (file);
+
+		ev_application_open_uri_at_dest (ev_app, uri, display, dest,
+						 mode, find_string,
+						 GDK_CURRENT_TIME);
+
+		if (dest)
+			g_object_unref (dest);
+		g_free (uri);
+        }
+
+	return 0;
+}
+
+static gint
+ev_application_handle_local_options (GApplication *gapplication,
+				     GVariantDict *options)
+{
+	/* print the version in local instance rather than sending it to primary */
+	if (g_variant_dict_contains(options, "version")) {
+		g_print ("%s %s\n", _("GNOME Document Viewer"), VERSION);
+		return 0;
+	}
+
+	return -1;
+}
 
 static void
 ev_application_class_init (EvApplicationClass *ev_application_class)
@@ -904,6 +1008,8 @@ ev_application_class_init (EvApplicationClass *ev_application_class)
         g_application_class->startup = ev_application_startup;
         g_application_class->activate = ev_application_activate;
         g_application_class->shutdown = ev_application_shutdown;
+	g_application_class->command_line = ev_application_command_line;
+	g_application_class->handle_local_options = ev_application_handle_local_options;
 
 #ifdef ENABLE_DBUS
         g_application_class->dbus_register = ev_application_dbus_register;
@@ -914,8 +1020,24 @@ ev_application_class_init (EvApplicationClass *ev_application_class)
 static void
 ev_application_init (EvApplication *ev_application)
 {
-        ev_application->dot_dir = g_build_filename (g_get_user_config_dir (),
-                                                    "evince", NULL);
+	static const GOptionEntry option_entries[] =
+	{
+		{ "page-label", 'p', 0, G_OPTION_ARG_STRING, NULL, N_("The page label of the document to display."), N_("PAGE")},
+		{ "page-index", 'i', 0, G_OPTION_ARG_INT, NULL, N_("The page number of the document to display."), N_("NUMBER")},
+		{ "named-dest", 'n', 0, G_OPTION_ARG_STRING, NULL, N_("Named destination to display."), N_("DEST")},
+		{ "fullscreen", 'f', 0, G_OPTION_ARG_NONE, NULL, N_("Run evince in fullscreen mode."), NULL },
+		{ "presentation", 's', 0, G_OPTION_ARG_NONE, NULL, N_("Run evince in presentation mode."), NULL },
+		{ "find", 'l', 0, G_OPTION_ARG_STRING, NULL, N_("The word or phrase to find in the document."), N_("STRING")},
+		{ "version", 0, 0, G_OPTION_ARG_NONE, NULL, N_("Show the version of the program."), NULL },
+		{ G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, NULL, NULL, N_("[FILE…]") },
+		{ NULL }
+	};
+
+	ev_application->dot_dir = g_build_filename (g_get_user_config_dir (),
+						    "evince", NULL);
+
+	g_application_set_option_context_parameter_string (G_APPLICATION (ev_application), N_("GNOME Document Viewer"));
+	g_application_add_main_option_entries (G_APPLICATION (ev_application), option_entries);
 }
 
 gboolean
