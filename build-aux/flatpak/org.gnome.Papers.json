@@ -3,6 +3,7 @@
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "master",
     "sdk" : "org.gnome.Sdk",
+    "sdk-extensions" : 	[ "org.freedesktop.Sdk.Extension.rust-stable" ],
     "command" : "papers",
     "tags" : [
         "devel"
@@ -26,6 +27,10 @@
         "--require-version=0.11.6"
     ],
     "build-options" : {
+        "append-path" : "/usr/lib/sdk/rust-stable/bin:",
+        "build-args" : [
+            "--share=network"
+        ],
         "cflags" : "-O2 -g",
         "cxxflags" : "-O2 -g",
         "env" : {
