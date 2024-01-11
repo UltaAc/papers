@@ -258,13 +258,17 @@ ev_search_box_set_options (EvSearchBox  *box,
 
 
 static void
-whole_words_only_toggled_cb (GtkCheckButton	*button,
-                             EvSearchBox	*box)
+whole_words_only_toggled_cb (GSimpleAction *action,
+			     GVariant      *state,
+			     gpointer       user_data)
 {
+	EvSearchBox *box = EV_SEARCH_BOX (user_data);
         EvSearchBoxPrivate *priv = GET_PRIVATE (box);
         EvFindOptions options = priv->options;
+	gboolean active = g_variant_get_boolean (state);
+	g_simple_action_set_state (action, state);
 
-        if (gtk_check_button_get_active (button))
+        if (active)
                 options |= EV_FIND_WHOLE_WORDS_ONLY;
         else
                 options &= ~EV_FIND_WHOLE_WORDS_ONLY;
@@ -272,13 +276,17 @@ whole_words_only_toggled_cb (GtkCheckButton	*button,
 }
 
 static void
-case_sensitive_toggled_cb (GtkCheckButton	*button,
-                           EvSearchBox		*box)
+case_sensitive_toggled_cb (GSimpleAction *action,
+			   GVariant      *state,
+			   gpointer       user_data)
 {
+	EvSearchBox *box = EV_SEARCH_BOX (user_data);
         EvSearchBoxPrivate *priv = GET_PRIVATE (box);
         EvFindOptions options = priv->options;
+	gboolean active = g_variant_get_boolean (state);
+	g_simple_action_set_state (action, state);
 
-        if (gtk_check_button_get_active (button))
+        if (active)
                 options |= EV_FIND_CASE_SENSITIVE;
         else
                 options &= ~EV_FIND_CASE_SENSITIVE;
@@ -501,10 +509,23 @@ ev_search_box_class_init (EvSearchBoxClass *klass)
                                       "next", NULL);
 }
 
+const GActionEntry actions[] = {
+	{ "whole-words-only", NULL, NULL, "false", whole_words_only_toggled_cb },
+	{ "case-sensitive", NULL, NULL, "false", case_sensitive_toggled_cb },
+};
+
 static void
 ev_search_box_init (EvSearchBox *box)
 {
+	GSimpleActionGroup *group;
+
 	gtk_widget_init_template (GTK_WIDGET (box));
+
+	group = g_simple_action_group_new ();
+	g_action_map_add_action_entries (G_ACTION_MAP (group), actions,
+					 G_N_ELEMENTS (actions), box);
+
+	gtk_widget_insert_action_group (GTK_WIDGET (box), "search", G_ACTION_GROUP (group));
 }
 
 GtkWidget *

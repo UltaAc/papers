@@ -45,29 +45,7 @@
               <object class="GtkMenuButton">
                 <property name="direction">down</property>
                 <property name="icon-name">view-more-symbolic</property>
-                <property name="popover">
-                  <object class="GtkPopover">
-                    <child>
-                      <object class="GtkBox">
-                        <property name="orientation">vertical</property>
-                        <child>
-                          <object class="GtkCheckButton">
-                            <property name="label">_Whole Words Only</property>
-                            <property name="use-underline">True</property>
-                            <signal name="toggled" handler="whole_words_only_toggled_cb" />
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkCheckButton">
-                            <property name="label">C_ase Sensitive</property>
-                            <property name="use-underline">True</property>
-                            <signal name="toggled" handler="case_sensitive_toggled_cb" />
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </property>
+                <property name="menu-model">search_options</property>
               </object>
             </child>
           </object>
@@ -75,4 +53,16 @@
       </object>
     </child>
   </template>
+  <menu id="search_options">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Whole Words Only</attribute>
+        <attribute name="action">search.whole-words-only</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">C_ase Sensitive</attribute>
+        <attribute name="action">search.case-sensitive</attribute>
+      </item>
+    </section>
+  </menu>
 </interface>
