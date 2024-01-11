@@ -18,33 +18,25 @@ editorconfig:
 meson:
     image: registry.gitlab.gnome.org/gnome/evince/x86_64-ubuntu:gtk4v2
     stage: build
-
     script:
-        - >
-            meson
-            -Dlibhandy:examples=false -Dlibhandy:tests=false -Dlibhandy:vapi=false
-            -Dlibhandy:glade_catalog=disabled -Dlibhandy:introspection=disabled
-            _build
-        - ninja -C _build all
-
+        - meson setup _build
+        - meson compile -C _build
     artifacts:
         when: on_failure
         paths:
-        - _build/meson-logs/meson-log.txt
+            - _build/meson-logs/meson-log.txt
         expire_in: 2 days
 
 meson-internal-synctex:
     image: registry.gitlab.gnome.org/gnome/evince/x86_64-ubuntu:gtk4v2
     stage: build
-
     script:
-        - meson -Dinternal_synctex=true _build
-        - ninja -C _build all
-
+        - meson setup -Dinternal_synctex=true _build
+        - meson compile -C _build
     artifacts:
         when: on_failure
         paths:
-        - _build/meson-logs/meson-log.txt
+            - _build/meson-logs/meson-log.txt
         expire_in: 2 days
 
 flatpak:
