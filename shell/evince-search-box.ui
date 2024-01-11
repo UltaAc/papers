@@ -16,9 +16,7 @@
           <object class="GtkBox">
             <property name="orientation">horizontal</property>
             <property name="halign">center</property>
-            <style>
-              <class name="linked" />
-            </style>
+            <property name="spacing">6</property>
             <child>
               <object class="GtkSearchEntry" id="entry">
                 <signal name="search-changed" handler="search_changed_cb" />
