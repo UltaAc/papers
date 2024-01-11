@@ -194,6 +194,7 @@ ev_find_sidebar_init (EvFindSidebar *sidebar)
                                         GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
         priv->tree_view = gtk_tree_view_new ();
+	gtk_widget_add_css_class (priv->tree_view, "navigation-sidebar");
         ev_find_sidebar_reset_model (sidebar);
 
         gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->tree_view), -1);

@@ -37,7 +37,9 @@
                 <signal name="pressed" handler="ev_sidebar_bookmarks_button_press_cb" />
               </object>
             </child>
-
+            <style>
+              <class name="navigation-sidebar"/>
+            </style>
           </object>
         </child>
       </object>

@@ -56,6 +56,9 @@
                 <signal name="pressed" handler="button_press_cb" />
               </object>
             </child>
+            <style>
+              <class name="navigation-sidebar"/>
+            </style>
           </object>
         </child>
       </object>

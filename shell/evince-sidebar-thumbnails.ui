@@ -35,6 +35,9 @@
                 <attribute name="markup">0</attribute>
               </attributes>
             </child>
+            <style>
+              <class name="navigation-sidebar"/>
+            </style>
           </object>
         </child>
       </object>

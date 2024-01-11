@@ -112,7 +112,6 @@ typedef struct {
 	GtkWidget *stack;
 	GtkWidget *main_box;
 	GtkWidget *toolbar;
-	GtkWidget *hpaned;
 	GtkWidget *sidebar;
 	GtkWidget *search_box;
 	GtkWidget *search_bar;
@@ -128,6 +127,8 @@ typedef struct {
 	GtkWidget *sidebar_annots;
 	GtkWidget *sidebar_bookmarks;
 	GtkWidget *annots_toolbar;
+
+	AdwOverlaySplitView *split_view;
 
 	/* Settings */
 	GSettings *settings;
@@ -1030,10 +1031,6 @@ ev_window_init_metadata_with_default_values (EvWindow *window)
 		ev_metadata_set_boolean (metadata, "sidebar_visibility",
 					 g_settings_get_boolean (settings, "show-sidebar"));
 	}
-	if (!ev_metadata_has_key (metadata, "sidebar_size")) {
-		ev_metadata_set_int (metadata, "sidebar_size",
-				     g_settings_get_int (settings, "sidebar-size"));
-	}
 	if (!ev_metadata_has_key (metadata, "sidebar_page")) {
 		gchar *sidebar_page_id = g_settings_get_string (settings, "sidebar-page");
 
@@ -1085,17 +1082,16 @@ setup_sidebar_from_metadata (EvWindow *window)
 {
 	gboolean show_sidebar;
 	gchar *page_id;
-	gint   sidebar_size;
 	EvWindowPrivate *priv = GET_PRIVATE (window);
 
 	if (!priv->metadata)
 		return;
 
-	if (ev_metadata_get_boolean (priv->metadata, "sidebar_visibility", &show_sidebar))
-		gtk_widget_set_visible (priv->sidebar, show_sidebar);
+	adw_overlay_split_view_set_show_sidebar (priv->split_view,
+						 ev_metadata_get_boolean (priv->metadata,
+									  "sidebar_visibility",
+									  &show_sidebar));
 
-	if (ev_metadata_get_int (priv->metadata, "sidebar_size", &sidebar_size))
-		gtk_paned_set_position (GTK_PANED (priv->hpaned), sidebar_size);
 
 	if (ev_metadata_get_string (priv->metadata, "sidebar_page", &page_id))
 		ev_sidebar_set_visible_child_name (EV_SIDEBAR (priv->sidebar), page_id);
@@ -1383,9 +1379,9 @@ ev_window_setup_default (EvWindow *ev_window)
 	GSettings       *settings = priv->default_settings;
 
 	/* Sidebar */
-	gtk_paned_set_position (GTK_PANED (priv->hpaned),
-				g_settings_get_int (settings, "sidebar-size"));
-	gtk_widget_set_visible (priv->sidebar, g_settings_get_boolean (settings, "show-sidebar"));
+	adw_overlay_split_view_set_show_sidebar (priv->split_view,
+						 g_settings_get_boolean (settings, "show-sidebar"));
+	g_signal_emit_by_name (priv->split_view, "notify::show-sidebar", NULL);
 
 	/* Document model */
 	ev_document_model_set_continuous (model, g_settings_get_boolean (settings, "continuous"));
@@ -2666,6 +2662,8 @@ ev_window_open_copy_at_dest (EvWindow   *window,
 				 dest, 0, NULL);
 	gtk_widget_set_visible (new_priv->sidebar,
 				gtk_widget_is_visible (priv->sidebar));
+	adw_overlay_split_view_set_show_sidebar (new_priv->split_view,
+						 adw_overlay_split_view_get_show_sidebar (priv->split_view));
 
 	gtk_window_present (GTK_WINDOW (new_window));
 }
@@ -3838,8 +3836,6 @@ ev_window_save_settings (EvWindow *ev_window)
 	}
 	g_settings_set_boolean (settings, "show-sidebar",
 				gtk_widget_get_visible (priv->sidebar));
-	g_settings_set_int (settings, "sidebar-size",
-			    gtk_paned_get_position (GTK_PANED (priv->hpaned)));
 	g_settings_set_string (settings, "sidebar-page",
 				ev_sidebar_get_visible_child_name (EV_SIDEBAR (priv->sidebar)));
 	g_settings_set_boolean (settings, "enable-spellchecking",
@@ -4296,18 +4292,6 @@ ev_window_cmd_edit_copy (GSimpleAction *action,
 	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
 
 	ev_view_copy (EV_VIEW (priv->view));
-}
-
-static void
-sidebar_position_changed_cb (GObject    *object,
-				      GParamSpec *pspec,
-				      EvWindow   *ev_window)
-{
-	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
-
-	if (priv->metadata && !ev_window_is_empty (ev_window))
-		ev_metadata_set_int (priv->metadata, "sidebar_size",
-				     gtk_paned_get_position (GTK_PANED (object)));
 }
 
 static void
@@ -5073,7 +5057,7 @@ ev_window_view_cmd_toggle_sidebar (GSimpleAction *action,
 
 	show_side_pane = g_variant_get_boolean (state);
 	g_simple_action_set_state (action, g_variant_new_boolean (show_side_pane));
-	gtk_widget_set_visible (priv->sidebar, show_side_pane);
+	adw_overlay_split_view_set_show_sidebar (priv->split_view, show_side_pane);
 }
 
 static void
@@ -5092,14 +5076,14 @@ sidebar_current_page_changed_cb (EvSidebar  *ev_sidebar,
 }
 
 static void
-sidebar_visibility_changed_cb (EvSidebar  *ev_sidebar,
-					 GParamSpec *pspec,
-					 EvWindow   *ev_window)
+sidebar_visibility_changed_cb (AdwOverlaySplitView *split_view,
+                               GParamSpec          *pspec,
+                               EvWindow            *ev_window)
 {
 	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
 
 	if (!EV_WINDOW_IS_PRESENTATION (priv)) {
-		gboolean visible = gtk_widget_get_visible (GTK_WIDGET (ev_sidebar));
+		gboolean visible = adw_overlay_split_view_get_show_sidebar (split_view);
 
 		g_action_group_change_action_state (G_ACTION_GROUP (ev_window), "show-side-pane",
 						    g_variant_new_boolean (visible));
@@ -5492,7 +5476,7 @@ ev_window_show_find_bar (EvWindow *ev_window,
 {
 	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
 
-	if (gtk_paned_get_start_child (GTK_PANED (priv->hpaned)) == priv->find_sidebar) {
+	if (adw_overlay_split_view_get_sidebar (priv->split_view) == priv->find_sidebar) {
 		gtk_widget_grab_focus (priv->search_box);
 		return;
 	}
@@ -5507,7 +5491,7 @@ ev_window_show_find_bar (EvWindow *ev_window,
 
 	ev_history_freeze (priv->history);
 
-	gtk_paned_set_start_child (GTK_PANED (priv->hpaned), priv->find_sidebar);
+	adw_overlay_split_view_set_sidebar (priv->split_view, priv->find_sidebar);
 
 	gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (priv->search_bar), TRUE);
 	gtk_widget_grab_focus (priv->search_box);
@@ -5527,10 +5511,10 @@ ev_window_close_find_bar (EvWindow *ev_window)
 {
 	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
 
-	if (gtk_paned_get_start_child (GTK_PANED (priv->hpaned)) != priv->find_sidebar)
+	if (adw_overlay_split_view_get_sidebar (priv->split_view) != priv->find_sidebar)
 		return;
 
-	gtk_paned_set_start_child (GTK_PANED (priv->hpaned), priv->sidebar);
+	adw_overlay_split_view_set_sidebar (priv->split_view, priv->sidebar);
 
 	gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (priv->search_bar), FALSE);
 	gtk_widget_grab_focus (priv->view);
@@ -7007,7 +6991,7 @@ ev_window_class_init (EvWindowClass *ev_window_class)
 	gtk_widget_class_bind_template_child_private(widget_class, EvWindow, main_box);
 	gtk_widget_class_bind_template_child_private(widget_class, EvWindow, toolbar);
 	gtk_widget_class_bind_template_child_private(widget_class, EvWindow, sidebar);
-	gtk_widget_class_bind_template_child_private(widget_class, EvWindow, hpaned);
+	gtk_widget_class_bind_template_child_private(widget_class, EvWindow, split_view);
 	gtk_widget_class_bind_template_child_private(widget_class, EvWindow, scrolled_window);
 	gtk_widget_class_bind_template_child_private(widget_class, EvWindow, loading_message);
 	gtk_widget_class_bind_template_child_private(widget_class, EvWindow, password_view);
@@ -7039,7 +7023,6 @@ ev_window_class_init (EvWindowClass *ev_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, window_size_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_visibility_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_current_page_changed_cb);
-	gtk_widget_class_bind_template_callback (widget_class, sidebar_position_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, ev_window_button_pressed);
 	gtk_widget_class_bind_template_callback (widget_class, ev_window_drag_data_received);
 	gtk_widget_class_bind_template_callback (widget_class, view_popup_hide_cb);
@@ -7159,19 +7142,14 @@ gint
 ev_window_get_metadata_sidebar_size (EvWindow *ev_window)
 {
 	EvWindowPrivate *priv;
-	gint sidebar_size;
+	GtkWidget *sidebar;
 
 	g_return_val_if_fail (EV_WINDOW (ev_window), 0);
 
 	priv = GET_PRIVATE (ev_window);
+	sidebar = adw_overlay_split_view_get_sidebar (priv->split_view);
 
-	if (!priv->metadata)
-		return 0;
-
-	if (ev_metadata_get_int (priv->metadata, "sidebar_size", &sidebar_size))
-		return sidebar_size;
-
-	return 0;
+	return gtk_widget_get_width (GTK_WIDGET (sidebar));
 }
 
 /* Sets the position of the divider between the sidebar and the main view */
@@ -7185,5 +7163,6 @@ ev_window_set_divider_position (EvWindow *ev_window,
 
 	priv = GET_PRIVATE (ev_window);
 
-	gtk_paned_set_position (GTK_PANED (priv->hpaned), sidebar_width);
+	/* TODO: Rework the dual mode handling to work with AdwOverlaySplitView */
+	// gtk_paned_set_position (GTK_PANED (priv->hpaned), sidebar_width);
 }
