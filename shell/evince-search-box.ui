@@ -26,9 +26,25 @@
               </object>
             </child>
             <child>
+              <object class="GtkButton" id="prev_button">
+                <property name="icon-name">go-up-symbolic</property>
+                <property name="focus-on-click">False</property>
+                <property name="tooltip-text" translatable="yes">Find previous occurrence of the search string</property>
+                <signal name="clicked" handler="previous_clicked_cb" />
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="next_button">
+                <property name="icon-name">go-down-symbolic</property>
+                <property name="focus-on-click">False</property>
+                <property name="tooltip-text" translatable="yes">Find next occurrence of the search string</property>
+                <signal name="clicked" handler="next_clicked_cb" />
+              </object>
+            </child>
+            <child>
               <object class="GtkMenuButton">
                 <property name="direction">down</property>
-                <property name="icon-name">pan-down</property>
+                <property name="icon-name">view-more-symbolic</property>
                 <property name="popover">
                   <object class="GtkPopover">
                     <child>
@@ -52,22 +68,6 @@
                     </child>
                   </object>
                 </property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton" id="prev_button">
-                <property name="icon-name">go-up-symbolic</property>
-                <property name="focus-on-click">False</property>
-                <property name="tooltip-text" translatable="yes">Find previous occurrence of the search string</property>
-                <signal name="clicked" handler="previous_clicked_cb" />
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton" id="next_button">
-                <property name="icon-name">go-down-symbolic</property>
-                <property name="focus-on-click">False</property>
-                <property name="tooltip-text" translatable="yes">Find next occurrence of the search string</property>
-                <signal name="clicked" handler="next_clicked_cb" />
               </object>
             </child>
           </object>
