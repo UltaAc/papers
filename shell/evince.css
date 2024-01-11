@@ -62,12 +62,6 @@ evpresentationview.white-mode {
     font-feature-settings: "tnum";
 }
 
-searchbar.evsearchbox box {
-    padding-left: 0px;
-    padding-right: 0px;
-    border-spacing: 0px 6px;
-}
-
 .ev-author-label {
     opacity: 0.55;
     font-size: 82%;
