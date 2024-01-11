@@ -1,12 +1,23 @@
 include:
     - project: "GNOME/citemplates"
       file: "flatpak/flatpak_ci_initiative.yml"
+    - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/f9171e21724bc4e2abeabad5f2d7e2e5cc10cbe3/templates/fedora.yml'
 
 stages:
     - lint
+    - prepare
     - build
     - deploy
-    - image
+
+variables:
+    # When branching a stable release, change 'main'
+    # to the release number/branch to ensure that
+    # a new image will be created, tailored for the
+    # stable branch.
+    # Could probably also switch away from rawhide,
+    # to stable fedora branch as well.
+    FDO_DISTRIBUTION_TAG: '2024-01-11.1-main'
+    FDO_DISTRIBUTION_VERSION: rawhide
 
 editorconfig:
     stage: lint
@@ -15,29 +26,61 @@ editorconfig:
         - apk add editorconfig-checker
         - ec --disable-indentation --exclude '^.git/|cut-n-paste'
 
-meson:
-    image: registry.gitlab.gnome.org/gnome/evince/x86_64-ubuntu:gtk4v2
+build.container.fedora:
+    extends: '.fdo.container-build@fedora'
+    stage: prepare
+    variables:
+        # no need to pull the whole tree for rebuilding the image
+        GIT_STRATEGY: none
+        # Expiry sets fdo.expires on the image
+        FDO_EXPIRES_AFTER: 8w
+        FDO_DISTRIBUTION_PACKAGES: >-
+            meson
+            appstream
+            cairo-devel
+            dbus-devel
+            desktop-file-utils
+            djvulibre-devel
+            exempi-devel
+            gi-docgen
+            glib2-devel
+            gnome-desktop4-devel
+            gobject-introspection-devel
+            gsettings-desktop-schemas-devel
+            gtk4-devel
+            itstool
+            libadwaita-devel
+            libarchive-devel
+            libgxps-devel
+            libsecret-devel
+            libspectre-devel
+            libtiff-devel
+            nautilus-devel
+            poppler-glib-devel
+            texlive-lib-devel
+            yelp-tools
+            zlib-devel
+
+.run-meson:
     stage: build
-    script:
-        - meson setup _build
-        - meson compile -C _build
+    extends: '.fdo.distribution-image@fedora'
     artifacts:
         when: on_failure
         paths:
             - _build/meson-logs/meson-log.txt
         expire_in: 2 days
 
+meson:
+    extends: '.run-meson'
+    script:
+        - meson setup _build
+        - meson compile -C _build
+
 meson-internal-synctex:
-    image: registry.gitlab.gnome.org/gnome/evince/x86_64-ubuntu:gtk4v2
-    stage: build
+    extends: '.run-meson'
     script:
         - meson setup -Dinternal_synctex=true _build
         - meson compile -C _build
-    artifacts:
-        when: on_failure
-        paths:
-            - _build/meson-logs/meson-log.txt
-        expire_in: 2 days
 
 flatpak:
     extends: .flatpak
@@ -64,30 +107,3 @@ pages:
         paths:
             - public/
         expire_in: 2 days
-
-update image:
-    variables:
-        IMAGE_TAG: $CI_REGISTRY_IMAGE/x86_64-ubuntu
-        # Tell 'docker:dind' to enable TLS (recommended)
-        # and generate certificates in the specified directory.
-        DOCKER_TLS_CERTDIR: "/certs"
-        STORAGE_DRIVER: vfs
-        BUILDAH_FORMAT: docker
-        BUILDAH_ISOLATION: chroot
-    image: ubuntu:gtk4
-    stage: image
-    script:
-        - apk add --no-cache buildah runc
-        - buildah bud --tag $IMAGE_TAG -f .gitlab-ci/ubuntu.Dockerfile
-        - buildah tag $IMAGE_TAG "$IMAGE_TAG:v$CI_JOB_ID"
-        - buildah login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-        - buildah push --creds $CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD $IMAGE_TAG
-        - buildah push --creds $CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD "$IMAGE_TAG:v$CI_JOB_ID"
-    when: manual
-    only:
-       - web
-       - main
-       - evince-next
-    except:
-       variables:
-           - $CI_PROJECT_NAMESPACE != "GNOME"
