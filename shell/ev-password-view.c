@@ -141,27 +141,23 @@ ev_password_view_set_filename (EvPasswordView *password_view,
 }
 
 static void
-ev_password_dialog_got_response (GtkDialog      *dialog,
-				 gint            response_id,
-				 EvPasswordView *password_view)
+ev_password_dialog_got_response (AdwMessageDialog *dialog,
+                                 GAsyncResult     *result,
+                                 EvPasswordView   *password_view)
 {
 	EvPasswordViewPrivate *priv = GET_PRIVATE (password_view);
+	const char *response = adw_message_dialog_choose_finish (dialog, result);
 
 	gtk_widget_set_sensitive (GTK_WIDGET (password_view), TRUE);
 
-	if (response_id == GTK_RESPONSE_OK) {
-		g_free (priv->password);
+	if (g_strcmp0 (response, "unlock") == 0) {
 		priv->password =
 			g_strdup (gtk_editable_get_text (GTK_EDITABLE (priv->password_entry)));
 
 		g_signal_emit (password_view, password_view_signals[UNLOCK], 0);
-	} else if (response_id == GTK_RESPONSE_CANCEL ||
-		   response_id == GTK_RESPONSE_CLOSE ||
-		   response_id == GTK_RESPONSE_DELETE_EVENT) {
+	} else {
 		g_signal_emit (password_view, password_view_signals[CANCELLED], 0);
 	}
-
-	gtk_window_destroy (GTK_WINDOW (dialog));
 }
 
 static void
@@ -179,82 +175,62 @@ ev_password_dialog_remember_button_toggled (GtkCheckButton *button,
 }
 
 static void
-ev_password_dialog_entry_changed_cb (GtkEditable *editable,
-				     GtkDialog   *dialog)
+ev_password_dialog_entry_changed_cb (GtkEditable      *editable,
+                                     AdwMessageDialog *dialog)
 {
 	const char *text;
 
 	text = gtk_editable_get_text (GTK_EDITABLE (editable));
 
-	gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GTK_RESPONSE_OK,
-					   (text != NULL && *text != '\0'));
-}
-
-static void
-ev_password_dialog_entry_activated_cb (GtkEntry  *entry,
-				       GtkDialog *dialog)
-{
-	gtk_dialog_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+	adw_message_dialog_set_response_enabled (dialog, "unlock",
+						 (text != NULL && *text != '\0'));
 }
 
 void
 ev_password_view_ask_password (EvPasswordView *password_view)
 {
-	GtkMessageDialog *dialog;
+	AdwMessageDialog *dialog;
 	GtkWidget *message_area;
-	GtkWidget *grid, *label;
 	GtkWidget *password_entry;
 	gchar     *text;
 	EvPasswordViewPrivate *priv = GET_PRIVATE (password_view);
 	GtkWindow *parent_window;
 
-        text = g_markup_printf_escaped (_("The document “%s” is locked and requires a password before it can be opened."),
+        text = g_markup_printf_escaped (_("The document “%s” is locked and requires a password before it can be opened"),
                                         priv->filename);
 
 	parent_window = GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (password_view)));
 
-	dialog = GTK_MESSAGE_DIALOG (gtk_message_dialog_new (parent_window,
-		                         GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-		                         GTK_MESSAGE_QUESTION,
-		                         GTK_BUTTONS_NONE,
-					 _("Password required")));
-	gtk_message_dialog_format_secondary_markup (dialog, "%s", text);
+	dialog = ADW_MESSAGE_DIALOG (adw_message_dialog_new (parent_window,
+							     _("Password Required"),
+							     NULL));
+	adw_message_dialog_set_body_use_markup (dialog, true);
+	adw_message_dialog_set_body (dialog, text);
 	g_free (text);
 
-	message_area = gtk_message_dialog_get_message_area (dialog);
+	adw_message_dialog_add_responses (dialog,
+					  "cancel", _("_Cancel"),
+					  "unlock", _("_Unlock"),
+					  NULL);
+	adw_message_dialog_set_close_response (dialog, "cancel");
+	adw_message_dialog_set_default_response (dialog, "unlock");
+	adw_message_dialog_set_response_enabled (dialog, "unlock", FALSE);
 
-	gtk_dialog_add_buttons (GTK_DIALOG (dialog),
-				_("_Cancel"), GTK_RESPONSE_CANCEL,
-				_("_Unlock"), GTK_RESPONSE_OK,
-				NULL);
-	gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog),
-					   GTK_RESPONSE_OK, FALSE);
-
-	grid = gtk_grid_new ();
-	gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
-	gtk_box_prepend (GTK_BOX (message_area), grid);
-
-	gtk_widget_set_halign (grid, GTK_ALIGN_CENTER);
-
-	label = gtk_label_new_with_mnemonic (_("_Password:"));
-	g_object_set (G_OBJECT (label), "xalign", 0., "yalign", 0.5, NULL);
+	message_area = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
+	adw_message_dialog_set_extra_child (dialog, message_area);
 
 	password_entry = gtk_password_entry_new ();
 	gtk_password_entry_set_show_peek_icon (GTK_PASSWORD_ENTRY (password_entry), TRUE);
+	g_object_set (G_OBJECT (password_entry),
+		      "placeholder-text", _("Password"),
+		      NULL);
+	g_object_set (G_OBJECT (password_entry), "activates-default", TRUE, NULL);
 	g_object_set (G_OBJECT (password_entry), "width-chars", 32, NULL);
 	g_signal_connect (password_entry, "changed",
 			  G_CALLBACK (ev_password_dialog_entry_changed_cb),
 			  dialog);
-	g_signal_connect (password_entry, "activate",
-			  G_CALLBACK (ev_password_dialog_entry_activated_cb),
-			  dialog);
-	gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
 
-	gtk_grid_attach (GTK_GRID (grid), password_entry, 1, 0, 1, 1);
-	gtk_widget_set_hexpand (password_entry, TRUE);
-
-	gtk_label_set_mnemonic_widget (GTK_LABEL (label),
-				       password_entry);
+	gtk_box_append (GTK_BOX (message_area), password_entry);
 
 	priv->password_entry = password_entry;
 
@@ -264,7 +240,7 @@ ev_password_view_ask_password (EvPasswordView *password_view)
 		GtkWidget  *group;
 
 		remember_box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
-		gtk_box_prepend (GTK_BOX (message_area), remember_box);
+		gtk_box_append (GTK_BOX (message_area), remember_box);
 		gtk_widget_set_halign (remember_box, GTK_ALIGN_CENTER);
 
 		choice = gtk_check_button_new_with_mnemonic (_("Forget password _immediately"));
@@ -302,11 +278,9 @@ ev_password_view_ask_password (EvPasswordView *password_view)
 		gtk_box_append (GTK_BOX (remember_box), choice);
 	}
 
-	g_signal_connect (dialog, "response",
-			  G_CALLBACK (ev_password_dialog_got_response),
-			  password_view);
-
-	gtk_window_present (GTK_WINDOW (dialog));
+	adw_message_dialog_choose (dialog, NULL,
+				   (GAsyncReadyCallback) ev_password_dialog_got_response,
+				   password_view);
 }
 
 const gchar *
