@@ -31,6 +31,7 @@
             <property name="title">Document</property>
             <property name="child">
               <object class="AdwToolbarView" id="main_box">
+                <property name="top-bar-style">raised</property>
                 <child type="top">
                   <object class="EvToolbar" id="toolbar">
                     <property name="document-model">model</property>
