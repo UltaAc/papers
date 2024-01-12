@@ -126,6 +126,7 @@ typedef struct {
 	GtkWidget *sidebar_layers;
 	GtkWidget *sidebar_annots;
 	GtkWidget *sidebar_bookmarks;
+	GtkWidget *annots_toolbar_revealer;
 	GtkWidget *annots_toolbar;
 
 	AdwOverlaySplitView *split_view;
@@ -5665,7 +5666,8 @@ ev_window_cmd_toggle_edit_annots (GSimpleAction *action,
 	EvWindow *ev_window = user_data;
 	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
 
-	gtk_widget_set_visible (priv->annots_toolbar, g_variant_get_boolean (state));
+	gtk_revealer_set_reveal_child (GTK_REVEALER (priv->annots_toolbar_revealer),
+				       g_variant_get_boolean (state));
 	g_simple_action_set_state (action, state);
 }
 
@@ -6996,6 +6998,7 @@ ev_window_class_init (EvWindowClass *ev_window_class)
 	gtk_widget_class_bind_template_child_private(widget_class, EvWindow, loading_message);
 	gtk_widget_class_bind_template_child_private(widget_class, EvWindow, password_view);
 
+	gtk_widget_class_bind_template_child_private (widget_class, EvWindow, annots_toolbar_revealer);
 	gtk_widget_class_bind_template_child_private (widget_class, EvWindow, annots_toolbar);
 	gtk_widget_class_bind_template_child_private (widget_class, EvWindow, find_sidebar);
 	gtk_widget_class_bind_template_child_private (widget_class, EvWindow, search_bar);

@@ -38,12 +38,15 @@
                   </object>
                 </child>
                 <child type="top">
-                  <object class="EvAnnotationsToolbar" id="annots_toolbar">
-                    <property name="visible">False</property>
-                    <signal name="begin-add-annot" handler="ev_window_begin_add_annot"
-                      swapped="yes" />
-                    <signal name="cancel-add-annot" handler="ev_window_cancel_add_annot"
-                      swapped="yes" />
+                  <object class="GtkRevealer" id="annots_toolbar_revealer">
+                    <property name="child">
+                      <object class="EvAnnotationsToolbar" id="annots_toolbar">
+                        <signal name="begin-add-annot" handler="ev_window_begin_add_annot"
+                          swapped="yes" />
+                        <signal name="cancel-add-annot" handler="ev_window_cancel_add_annot"
+                          swapped="yes" />
+                      </object>
+                    </property>
                   </object>
                 </child>
                 <child type="top">
