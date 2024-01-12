@@ -635,7 +635,7 @@ GType           ev_job_load_get_type      (void) G_GNUC_CONST;
 EV_PUBLIC
 EvJob          *ev_job_load_new           (void);
 EV_PUBLIC
-void            ev_job_load_set_uri       (EvJobLoad       *load,
+void            ev_job_load_set_uri       (EvJobLoad       *job,
 					   const gchar     *uri);
 EV_PUBLIC
 gboolean        ev_job_load_set_fd        (EvJobLoad       *job,
