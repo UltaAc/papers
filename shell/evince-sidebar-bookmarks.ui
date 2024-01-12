@@ -48,17 +48,14 @@
     <child type="end">
       <object class="GtkBox" id="hbox">
         <style>
-          <class name="linked" />
+          <class name="toolbar"/>
+          <class name="nested"/>
         </style>
         <property name="orientation">horizontal</property>
-        <property name="margin-bottom">6</property>
-        <property name="margin-end">6</property>
-        <property name="margin-start">6</property>
-        <property name="margin-top">6</property>
-        <property name="halign">center</property>
-        <property name="valign">fill</property>
+        <property name="hexpand">True</property>
         <child>
           <object class="GtkButton" id="add_button">
+            <property name="hexpand">True</property>
             <property name="icon-name">list-add-symbolic</property>
             <property name="sensitive">False</property>
             <property name="tooltip-text" translatable="yes">Add bookmark</property>
@@ -67,6 +64,7 @@
         </child>
         <child>
           <object class="GtkButton" id="del_button">
+            <property name="hexpand">True</property>
             <property name="icon-name">list-remove-symbolic</property>
             <property name="sensitive">False</property>
             <property name="tooltip-text" translatable="yes">Remove bookmark</property>
