@@ -30,6 +30,7 @@ evince_sources = files(
   'ev-sidebar-links.c',
   'ev-sidebar-page.c',
   'ev-sidebar-thumbnails.c',
+  'ev-stack-switcher.c',
   'ev-zoom-action.c',
   'main.c',
 )

@@ -9,12 +9,8 @@
           </object>
         </property>
         <child type="bottom">
-          <object class="GtkStackSwitcher" id="switcher">
-            <style>
-              <class name="toolbar" />
-            </style>
+          <object class="EvStackSwitcher" id="switcher">
             <property name="stack">stack</property>
-            <property name="halign">fill</property>
           </object>
         </child>
       </object>

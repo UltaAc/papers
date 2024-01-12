@@ -36,6 +36,7 @@
 #include "ev-sidebar.h"
 #include "ev-sidebar-page.h"
 #include "ev-sidebar-links.h"
+#include "ev-stack-switcher.h"
 
 enum
 {
@@ -146,6 +147,8 @@ ev_sidebar_class_init (EvSidebarClass *ev_sidebar_class)
 	g_object_class->set_property = ev_sidebar_set_property;
 
 	g_type_ensure (EV_TYPE_SIDEBAR_LINKS);
+	g_type_ensure (EV_TYPE_STACK_SWITCHER);
+
 	gtk_widget_class_set_template_from_resource (widget_class,
 			"/org/gnome/evince/ui/sidebar.ui");
 	gtk_widget_class_bind_template_child_private (widget_class, EvSidebar, switcher);
