@@ -62,6 +62,7 @@ build.container.fedora:
             zlib-devel
             rust
             cargo
+            git
 
 .run-meson:
     stage: build
@@ -75,13 +76,23 @@ build.container.fedora:
 meson:
     extends: '.run-meson'
     script:
+        - git submodule init
+        - git submodule update --checkout
+        - cargo install --path shell-rs/gir
+        - export PATH=$PATH:$HOME/.cargo/bin
         - meson setup _build
+        - meson compile -C _build update-rust-bindings
         - meson compile -C _build
 
 meson-internal-synctex:
     extends: '.run-meson'
     script:
+        - git submodule init
+        - git submodule update --checkout
+        - cargo install --path shell-rs/gir
+        - export PATH=$PATH:$HOME/.cargo/bin
         - meson setup -Dinternal_synctex=true _build
+        - meson compile -C _build update-rust-bindings
         - meson compile -C _build
 
 flatpak:
