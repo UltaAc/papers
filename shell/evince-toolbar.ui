@@ -36,7 +36,7 @@
           <object class="GtkMenuButton" id="action_menu_button">
             <property name="icon-name">open-menu-symbolic</property>
             <property name="tooltip-text" translatable="yes">File options</property>
-            <property name="menu-model">action-menu</property>
+            <property name="popover">action_popover</property>
             <property name="primary">True</property>
             <accessibility>
               <property name="label" translatable="yes">File options</property>
@@ -64,21 +64,8 @@
 
   <menu id="action-menu">
     <section>
-      <attribute name="display-hint">horizontal-buttons</attribute>
       <item>
-        <attribute name="label" translatable="yes">Print…</attribute>
-        <attribute name="action">win.print</attribute>
-        <attribute name="verb-icon">printer-symbolic</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Fullscreen</attribute>
-        <attribute name="action">win.fullscreen</attribute>
-        <attribute name="verb-icon">view-fullscreen-symbolic</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Send To…</attribute>
-        <attribute name="action">win.send-to</attribute>
-        <attribute name="verb-icon">send-to-symbolic</attribute>
+        <attribute name="custom">header</attribute>
       </item>
     </section>
     <section>
@@ -160,4 +147,37 @@
       </item>
     </section>
   </menu>
+
+  <object class="GtkPopoverMenu" id="action_popover">
+    <property name="menu-model">action-menu</property>
+    <child type="header">
+      <object class="GtkBox" id="button-box">
+        <property name="orientation">horizontal</property>
+        <property name="spacing">6</property>
+        <property name="homogeneous">True</property>
+        <child>
+          <object class="GtkButton">
+            <property name="tooltip_text" translatable="yes">Print…</property>
+            <property name="icon-name">printer-symbolic</property>
+            <property name="action-name">win.print</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="tooltip_text" translatable="yes">Fullscreen</property>
+            <property name="icon-name">view-fullscreen-symbolic</property>
+            <property name="action-name">win.fullscreen</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="tooltip_text" translatable="yes">Send To…</property>
+            <property name="icon-name">send-to-symbolic</property>
+            <property name="action-name">win.send-to</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
 </interface>
