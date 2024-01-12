@@ -8,11 +8,14 @@ project(
   ]
 )
 
-if get_option('development')
-  app_id = 'org.gnome.Papers.Devel'
+if get_option('profile') == 'devel'
+  profile = '.Devel'
+  object_profile = '/Devel'
 else
-  app_id = 'org.gnome.Papers'
+  profile = ''
+  object_profile = ''
 endif
+app_id = 'org.gnome.Papers@0@'.format(profile)
 
 pps_name = meson.project_name().to_lower()
 
@@ -76,7 +79,9 @@ config_h = configuration_data()
 config_h.set10('_GNU_SOURCE', true)
 
 # package
-config_h.set_quoted('PACKAGE_ICON_NAME', app_id)
+config_h.set_quoted('APP_ID', app_id)
+config_h.set_quoted('PROFILE', profile)
+config_h.set_quoted('OBJECT_PROFILE', object_profile)
 config_h.set_quoted('PACKAGE_VERSION', pps_version)
 config_h.set_quoted('VERSION', pps_version)
 

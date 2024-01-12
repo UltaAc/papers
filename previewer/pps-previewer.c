@@ -271,7 +271,7 @@ main (gint argc, gchar **argv)
                 return 1;
 
 	g_set_application_name (_("GNOME Document Previewer"));
-	gtk_window_set_default_icon_name (PACKAGE_ICON_NAME);
+	gtk_window_set_default_icon_name (APP_ID);
 
         application = adw_application_new (NULL, G_APPLICATION_NON_UNIQUE);
 	g_application_set_resource_base_path (G_APPLICATION (application),

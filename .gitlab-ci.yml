@@ -104,8 +104,8 @@ flatpak:
         MANIFEST_PATH: "build-aux/flatpak/org.gnome.Papers.json"
         RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
         FLATPAK_MODULE: "papers"
-        APP_ID: "org.gnome.Papers"
-        BUNDLE: "org.gnome.Papers.flatpak"
+        APP_ID: "org.gnome.Papers.Devel"
+        BUNDLE: "org.gnome.Papers.Devel.flatpak"
 
 pages:
     extends: '.fdo.distribution-image@fedora'

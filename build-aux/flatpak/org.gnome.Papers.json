@@ -1,5 +1,5 @@
 {
-    "app-id" : "org.gnome.Papers",
+    "app-id" : "org.gnome.Papers.Devel",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "master",
     "sdk" : "org.gnome.Sdk",
@@ -162,13 +162,13 @@
                 "-Dgtk_doc=false",
                 "-Dintrospection=false",
                 "-Duser_doc=false",
-                "-Ddevelopment=true",
+                "-Dprofile=devel",
                 "-Dtests=false"
             ],
             "sources": [
                 {
                     "type": "git",
-                    "branch": "papers-next",
+                    "branch": "main",
                     "url": "https://gitlab.gnome.org/pabloyoyoista/papers.git"
                 }
             ]

@@ -33,9 +33,9 @@
 
 #include "pps-daemon-gdbus-generated.h"
 
-#define PPS_DBUS_DAEMON_NAME             "org.gnome.papers.Daemon"
+#define PPS_DBUS_DAEMON_NAME             "org.gnome.papers" PROFILE ".Daemon"
 #define PPS_DBUS_DAEMON_INTERFACE_NAME   "org.gnome.papers.Daemon"
-#define PPS_DBUS_DAEMON_OBJECT_PATH      "/org/gnome/papers/Daemon"
+#define PPS_DBUS_DAEMON_OBJECT_PATH      "/org/gnome/papers" OBJECT_PROFILE "/Daemon"
 
 #define PPS_DBUS_WINDOW_INTERFACE_NAME   "org.gnome.papers.Window"
 

@@ -221,7 +221,7 @@ typedef struct {
 #define GS_LOCKDOWN_PRINT_SETUP  "disable-print-setup"
 
 #ifdef ENABLE_DBUS
-#define PPS_WINDOW_DBUS_OBJECT_PATH "/org/gnome/papers/Window/%d"
+#define PPS_WINDOW_DBUS_OBJECT_PATH "/org/gnome/papers" OBJECT_PROFILE "/Window/%d"
 #endif
 
 #define GS_SCHEMA_NAME           "org.gnome.Papers"
@@ -3949,7 +3949,7 @@ pps_window_cmd_about (GSimpleAction *action,
                                "developers", developers,
                                "documenters", documenters,
                                "translator-credits", _("translator-credits"),
-                               "application-icon", PACKAGE_ICON_NAME,
+                               "application-icon", APP_ID,
                                NULL);
 }
 
@@ -6949,6 +6949,12 @@ pps_window_init (PpsWindow *pps_window)
 
 	sizing_mode_changed_cb (priv->model, NULL, pps_window);
 	pps_window_update_actions_sensitivity (pps_window);
+
+	if (g_strcmp0 (PROFILE, "") != 0) {
+		GtkStyleContext *style_context;
+		style_context = gtk_widget_get_style_context (GTK_WIDGET (pps_window));
+		gtk_style_context_add_class (style_context, "devel");
+	}
 }
 
 static void

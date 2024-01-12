@@ -59,13 +59,12 @@ struct _PpsApplicationClass {
 
 G_DEFINE_TYPE (PpsApplication, pps_application, ADW_TYPE_APPLICATION)
 
-#define APPLICATION_NAME             "org.gnome.Papers"
 #ifdef ENABLE_DBUS
-#define APPLICATION_DBUS_OBJECT_PATH "/org/gnome/papers/Papers"
+#define APPLICATION_DBUS_OBJECT_PATH "/org/gnome/papers/Papers" OBJECT_PROFILE
 #define APPLICATION_DBUS_INTERFACE   "org.gnome.papers.Application"
 
-#define PAPERS_DAEMON_SERVICE        "org.gnome.papers.Daemon"
-#define PAPERS_DAEMON_OBJECT_PATH    "/org/gnome/papers/Daemon"
+#define PAPERS_DAEMON_SERVICE        "org.gnome.papers" PROFILE ".Daemon"
+#define PAPERS_DAEMON_OBJECT_PATH    "/org/gnome/papers" OBJECT_PROFILE "/Daemon"
 #define PAPERS_DAEMON_INTERFACE      "org.gnome.papers.Daemon"
 #endif
 
@@ -98,7 +97,7 @@ pps_application_new (void)
 	const GApplicationFlags flags = G_APPLICATION_NON_UNIQUE | G_APPLICATION_HANDLES_COMMAND_LINE;
 
 	return g_object_new (PPS_TYPE_APPLICATION,
-			     "application-id", APPLICATION_NAME,
+			     "application-id", APP_ID,
 			     "flags", flags,
 			     "resource-base-path", "/org/gnome/papers",
 			     NULL);
@@ -808,7 +807,7 @@ pps_application_startup (GApplication *gapplication)
 
 	/* Manually set name and icon */
 	g_set_application_name (_("Papers"));
-	gtk_window_set_default_icon_name (PACKAGE_ICON_NAME);
+	gtk_window_set_default_icon_name (APP_ID);
 
         for (it = action_accels; it[0]; it += g_strv_length ((gchar **)it) + 1)
                 gtk_application_set_accels_for_action (GTK_APPLICATION (application), it[0], &it[1]);

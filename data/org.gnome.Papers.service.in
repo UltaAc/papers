@@ -4,5 +4,5 @@ Documentation=man:papers(1)
 
 [Service]
 Type=dbus
-BusName=org.gnome.papers.Daemon
+BusName=org.gnome.papers@PROFILE@.Daemon
 ExecStart=@libexecdir@/papersd

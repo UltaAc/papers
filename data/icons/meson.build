@@ -5,4 +5,5 @@ install_data(
 install_data(
   join_paths('symbolic', 'apps', '@0@-symbolic.svg'.format(pps_namespace)),
   install_dir: join_paths(pps_datadir, 'icons', 'hicolor', 'symbolic', 'apps'),
+  rename: '@0@-symbolic.svg'.format(app_id),
 )

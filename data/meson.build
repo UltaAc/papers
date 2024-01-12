@@ -1,23 +1,23 @@
 subdir('icons')
 
 # Desktop file
-desktops = [pps_namespace + '.desktop']
+desktops = [[pps_namespace + '.desktop', app_id + '.desktop']]
 
 if enable_previewer
-  desktops += [pps_namespace + '-previewer.desktop']
+  desktops += [[pps_namespace + '-previewer.desktop', app_id + '-previewer.desktop']]
 endif
 
 foreach desktop: desktops
-  desktop_in = configure_file(
-    input: desktop + '.in.in',
-    output: desktop + '.in',
-    configuration: mime_types_conf,
-  )
-
+  desktop_in = desktop[0]
+  desktop_out = desktop[1]
   i18n.merge_file(
     type: 'desktop',
-    input: desktop_in,
-    output: desktop,
+    input: configure_file(
+      input: desktop_in + '.in.in',
+      output: desktop_in + '.in',
+      configuration: mime_types_conf,
+    ),
+    output: desktop_out,
     po_dir: po_dir,
     install: true,
     install_dir: join_paths(pps_datadir, 'applications'),
@@ -28,6 +28,7 @@ endforeach
 if enable_dbus
   service_conf = configuration_data()
   service_conf.set('libexecdir', pps_libexecdir)
+  service_conf.set('PROFILE', profile)
 
   # The D-Bus interface names are in lowercase, which does not match
   # the application name nor the namespace. However, we keep it in
@@ -71,10 +72,15 @@ foreach man_page: man_pages
 endforeach
 
 # Metainfo file
-metainfo = pps_namespace + '.metainfo.xml'
-i18n.merge_file(
-  input: metainfo + '.in',
-  output: metainfo,
+metainfo_conf = configuration_data()
+metainfo_conf.set('APP_ID', app_id)
+metainfo_file = i18n.merge_file(
+  input: configure_file(
+    input: files('@0@.metainfo.xml.in.in'.format(pps_namespace)),
+    output: '@0@.metainfo.xml.in'.format(pps_namespace),
+    configuration: metainfo_conf,
+  ),
+  output: '@0@.metainfo.xml'.format(app_id),
   po_dir: po_dir,
   install: true,
   install_dir: join_paths(pps_datadir, 'metainfo'),
@@ -86,7 +92,7 @@ if get_option('tests')
   if (appstreamcli.found())
     test('validate-appdata',
          appstreamcli,
-         args: ['validate', '--strict', '--pedantic', '--explain', metainfo],
+         args: ['validate', '--strict', '--pedantic', '--explain', metainfo_file],
          workdir: meson.current_build_dir()
         )
   endif
