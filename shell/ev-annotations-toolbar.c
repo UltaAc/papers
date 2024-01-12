@@ -114,18 +114,14 @@ ev_annotations_toolbar_init (EvAnnotationsToolbar *toolbar)
 
 	gtk_widget_add_css_class (GTK_WIDGET (toolbar), "toolbar");
 
-        /* Use Text label until we have:
-         *   1. More buttons in the toolbar (lack of space)
-         *   2. Clear icons for an action.
-         */
         toolbar->text_button = ev_annotations_toolbar_create_toggle_button (toolbar,
                                /* Translators: an annotation that looks like a "sticky note" */
-                                                                            _("Note text"),
+                                                                            _("Add Note"),
                                                                             "annotations-text-symbolic");
         gtk_box_append (GTK_BOX(toolbar), toolbar->text_button);
 
         toolbar->highlight_button = ev_annotations_toolbar_create_toggle_button (toolbar,
-                                                                                 _("Highlight text"),
+                                                                                 _("Highlight Text"),
                                                                                  "marker-symbolic");
 
         gtk_box_append (GTK_BOX (toolbar), toolbar->highlight_button);
