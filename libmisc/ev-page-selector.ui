@@ -2,7 +2,6 @@
 <interface>
   <template class="EvPageSelector" parent="GtkBox">
     <style>
-      <class name="linked" />
       <class name="tnum" />
     </style>
     <property name="orientation">horizontal</property>
@@ -30,7 +29,7 @@
       </object>
     </child>
     <child>
-      <object class="GtkEntry" id="label">
+      <object class="GtkLabel" id="label">
         <property name="max-width-chars">0</property>
         <property name="width-chars">5</property>
         <property name="sensitive">False</property>

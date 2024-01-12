@@ -88,7 +88,7 @@ update_pages_label (EvPageSelector *page_selector,
                 label_text = g_strdup_printf (_("(%d of %d)"), page + 1, n_pages);
         else
                 label_text = g_strdup_printf (_("of %d"), n_pages);
-	gtk_editable_set_text (GTK_EDITABLE (page_selector->label), label_text);
+	gtk_label_set_text (GTK_LABEL (page_selector->label), label_text);
 	g_free (label_text);
 }
 
@@ -133,7 +133,7 @@ ev_page_selector_update_max_width (EvPageSelector *page_selector)
         }
         g_free (max_page_label);
 
-        gtk_editable_set_width_chars (GTK_EDITABLE (page_selector->label), max_label_len);
+        gtk_label_set_width_chars (GTK_LABEL (page_selector->label), max_label_len);
         g_free (max_label);
 
         max_label_len = ev_document_get_max_label_len (page_selector->document);
