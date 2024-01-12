@@ -47,3 +47,6 @@ trim_trailing_whitespace=false
 
 [*.po]
 trim_trailing_whitespace=false
+
+[/shell-rs/**]
+trim_trailing_whitespace = unset
