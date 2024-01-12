@@ -60,6 +60,8 @@ build.container.fedora:
             texlive-lib-devel
             yelp-tools
             zlib-devel
+            rust
+            cargo
 
 .run-meson:
     stage: build
