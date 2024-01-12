@@ -48,11 +48,6 @@ evpresentationview.white-mode {
     background-color: white;
 }
 
-.inline-toolbar {
-    border-width: 0 0 1px;
-    border-radius: 0;
-}
-
 .toolbar.nested {
   padding-top: 0px;
   padding-bottom: 0px;

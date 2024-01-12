@@ -113,8 +113,7 @@ ev_annotations_toolbar_init (EvAnnotationsToolbar *toolbar)
 {
         gtk_orientable_set_orientation (GTK_ORIENTABLE (toolbar), GTK_ORIENTATION_HORIZONTAL);
 
-	gtk_widget_add_css_class(GTK_WIDGET (toolbar), "inline-toolbar");
-	gtk_widget_add_css_class(GTK_WIDGET (toolbar), "linked");
+	gtk_widget_add_css_class (GTK_WIDGET (toolbar), "toolbar");
 
         /* Use Text label until we have:
          *   1. More buttons in the toolbar (lack of space)
