@@ -57,7 +57,7 @@ static void ev_sidebar_child_change_cb (GObject    *gobject,
 static void ev_sidebar_buildable_iface_init (GtkBuildableIface *iface);
 static GtkBuildableIface *parent_buildable_iface;
 
-G_DEFINE_TYPE_WITH_CODE (EvSidebar, ev_sidebar, GTK_TYPE_BOX,
+G_DEFINE_TYPE_WITH_CODE (EvSidebar, ev_sidebar, ADW_TYPE_BIN,
                          G_ADD_PRIVATE (EvSidebar)
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE,
                                                 ev_sidebar_buildable_iface_init))

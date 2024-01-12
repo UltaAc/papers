@@ -25,17 +25,17 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
+#include <adwaita.h>
 
 #include "ev-document-model.h"
 
 G_BEGIN_DECLS
 
 #define EV_TYPE_SIDEBAR		     (ev_sidebar_get_type())
-G_DECLARE_FINAL_TYPE (EvSidebar, ev_sidebar, EV, SIDEBAR, GtkBox);
+G_DECLARE_FINAL_TYPE (EvSidebar, ev_sidebar, EV, SIDEBAR, AdwBin);
 
 struct _EvSidebar {
-	GtkBox base_instance;
+	AdwBin base_instance;
 };
 
 GtkWidget *ev_sidebar_new       (void);
