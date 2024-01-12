@@ -2,7 +2,7 @@
 <interface>
   <template class="EvPageSelector" parent="GtkBox">
     <style>
-      <class name="tnum" />
+      <class name="numeric" />
     </style>
     <property name="orientation">horizontal</property>
     <property name="sensitive">False</property>

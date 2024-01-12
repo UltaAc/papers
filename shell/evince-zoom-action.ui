@@ -7,7 +7,7 @@
     <child>
       <object class="GtkEntry" id="entry">
         <style>
-          <class name="tnum" />
+          <class name="numeric" />
         </style>
         <property name="secondary-icon-name">pan-down-symbolic</property>
         <property name="vexpand">True</property>

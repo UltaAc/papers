@@ -58,10 +58,6 @@ evpresentationview.white-mode {
     padding-right: 2px;
 }
 
-.tnum {
-    font-feature-settings: "tnum";
-}
-
 .ev-author-label {
     opacity: 0.55;
     font-size: 82%;
