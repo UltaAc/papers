@@ -1120,15 +1120,12 @@ ev_sidebar_thumbnails_to_two_columns (EvSidebarThumbnails *sidebar)
  * in dual mode are met and activates/deactivates the mode accordingly (that
  * is setting priv->blank_first_dual_mode on/off).
  *
- * Aditionally, we resize the sidebar when asked to do so by following
- * parameter:
- * @resize_sidebar: When true, we will resize sidebar to be one or
+ * Aditionally, we resize the sidebar to be one or
  * two columns width, according to whether dual mode is currently off/on.
  * Exception is when user has set sidebar to >=3 columns width, in that
  * case we won't do any resizing to not affect that custom setting */
 static void
-check_toggle_blank_first_dual_mode_real (EvSidebarThumbnails *sidebar_thumbnails,
-					 gboolean resize_sidebar)
+check_toggle_blank_first_dual_mode (EvSidebarThumbnails *sidebar_thumbnails)
 {
 	EvSidebarThumbnailsPrivate *priv;
 	GtkTreeModel *tree_model;
@@ -1145,7 +1142,7 @@ check_toggle_blank_first_dual_mode_real (EvSidebarThumbnails *sidebar_thumbnails
 	is_two_columns = ev_sidebar_thumbnails_is_two_columns (sidebar_thumbnails);
 	is_one_column = !is_two_columns && ev_sidebar_thumbnails_is_one_column (sidebar_thumbnails);
 	if (should_be_enabled)
-		should_be_enabled = is_two_columns || resize_sidebar;
+		should_be_enabled = is_two_columns;
 
 	if (should_be_enabled && !priv->blank_first_dual_mode) {
 		/* Do enable it */
@@ -1165,7 +1162,7 @@ check_toggle_blank_first_dual_mode_real (EvSidebarThumbnails *sidebar_thumbnails
 							   COLUMN_JOB, NULL,
 							   -1);
 		}
-		if (resize_sidebar && is_one_column) {
+		if (is_one_column) {
 			sidebar = ev_sidebar_thumbnails_get_ev_sidebar (sidebar_thumbnails);
 			/* If sidebar is set to show thumbnails */
 			if (sidebar && ev_sidebar_get_current_page (sidebar) == GTK_WIDGET (sidebar_thumbnails)) {
@@ -1185,17 +1182,17 @@ check_toggle_blank_first_dual_mode_real (EvSidebarThumbnails *sidebar_thumbnails
 
 		gtk_list_store_remove (priv->list_store, &first);
 
-		if (resize_sidebar && is_two_columns) {
+		if (is_two_columns) {
 			sidebar = ev_sidebar_thumbnails_get_ev_sidebar (sidebar_thumbnails);
 			/* If dual_mode disabled and is_two_cols and sidebar is set to show thumbnails */
 			if (!dual_mode && sidebar && is_two_columns &&
 			    ev_sidebar_get_current_page (sidebar) == GTK_WIDGET (sidebar_thumbnails)) {
 				ev_sidebar_thumbnails_to_one_column (sidebar_thumbnails);
 			}
-		} else if (resize_sidebar && !is_one_column) {
+		} else if (!is_one_column) {
 			ev_sidebar_check_reset_current_page (sidebar_thumbnails);
 		}
-	} else if (resize_sidebar) {
+	} else {
 		/* Match sidebar width with dual_mode when sidebar has currently a width of 1 or 2 columns */
 		if (dual_mode && is_one_column) {
 			sidebar = ev_sidebar_thumbnails_get_ev_sidebar (sidebar_thumbnails);
@@ -1210,16 +1207,7 @@ check_toggle_blank_first_dual_mode_real (EvSidebarThumbnails *sidebar_thumbnails
 		} else {
 			ev_sidebar_check_reset_current_page (sidebar_thumbnails);
 		}
-	} else {
-		ev_sidebar_check_reset_current_page (sidebar_thumbnails);
 	}
-}
-
-/* Callback when dual_mode or odd_left preferences are enabled/disabled by the user */
-static void
-check_toggle_blank_first_dual_mode (EvSidebarThumbnails *sidebar_thumbnails)
-{
-	check_toggle_blank_first_dual_mode_real (sidebar_thumbnails, TRUE);
 }
 
 static void
