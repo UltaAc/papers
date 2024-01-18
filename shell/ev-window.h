@@ -83,8 +83,6 @@ AdwHeaderBar   *ev_window_get_toolbar                    (EvWindow       *ev_win
 void            ev_window_handle_annot_popup             (EvWindow       *ev_window,
                                                           EvAnnotation   *annot);
 EvMetadata     *ev_window_get_metadata			 (EvWindow	 *ev_window);
-void            ev_window_set_divider_position		 (EvWindow	 *ev_window,
-							  gint		  sidebar_width);
 void            ev_window_start_page_selector_search     (EvWindow       *window);
 
 G_END_DECLS

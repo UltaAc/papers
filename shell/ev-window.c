@@ -7164,18 +7164,3 @@ ev_window_get_metadata (EvWindow *ev_window)
 
 	return priv->metadata;
 }
-
-/* Sets the position of the divider between the sidebar and the main view */
-void
-ev_window_set_divider_position (EvWindow *ev_window,
-				gint sidebar_width)
-{
-	EvWindowPrivate *priv;
-
-	g_return_if_fail (EV_WINDOW (ev_window));
-
-	priv = GET_PRIVATE (ev_window);
-
-	/* TODO: Rework the dual mode handling to work with AdwOverlaySplitView */
-	// gtk_paned_set_position (GTK_PANED (priv->hpaned), sidebar_width);
-}

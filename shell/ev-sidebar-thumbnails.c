@@ -1052,19 +1052,14 @@ static void
 ev_sidebar_thumbnails_set_sidebar_width (EvSidebarThumbnails *sidebar,
 					 gint sidebar_width)
 {
-	EvWindow *ev_window;
-	EvSidebarThumbnailsPrivate *priv;
+	g_return_if_fail (sidebar != NULL);
 
 	if (sidebar_width <= 0)
 		return;
 
-	ev_window = ev_sidebar_thumbnails_get_ev_window (sidebar);
-	if (ev_window) {
-		priv = sidebar->priv;
-		priv->width = sidebar_width;
-		ev_window_set_divider_position (ev_window, sidebar_width);
-		g_idle_add_once ((GSourceOnceFunc)ev_sidebar_check_reset_current_page, sidebar);
-	}
+	gtk_widget_set_size_request (GTK_WIDGET (sidebar), sidebar_width, -1);
+
+	g_idle_add_once ((GSourceOnceFunc)ev_sidebar_check_reset_current_page, sidebar);
 }
 
 /* Returns whether the thumbnail sidebar is currently showing
