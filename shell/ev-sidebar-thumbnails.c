@@ -665,24 +665,6 @@ ev_sidebar_icon_selection_changed (GtkIconView         *icon_view,
 }
 
 static void
-ev_sidebar_init_icon_view (EvSidebarThumbnails *ev_sidebar_thumbnails)
-{
-	EvSidebarThumbnailsPrivate *priv;
-
-	priv = ev_sidebar_thumbnails->priv;
-
-	g_signal_connect_data (priv->model, "notify::page-layout",
-			       G_CALLBACK (check_toggle_blank_first_dual_mode), ev_sidebar_thumbnails,
-			       NULL, G_CONNECT_SWAPPED | G_CONNECT_AFTER);
-
-	g_signal_connect_data (priv->model, "notify::dual-odd-left",
-			       G_CALLBACK (check_toggle_blank_first_dual_mode), ev_sidebar_thumbnails,
-			       NULL, G_CONNECT_SWAPPED | G_CONNECT_AFTER);
-
-	check_toggle_blank_first_dual_mode (ev_sidebar_thumbnails);
-}
-
-static void
 ev_sidebar_thumbnails_device_scale_factor_changed_cb (EvSidebarThumbnails *sidebar_thumbnails,
                                                       GParamSpec          *pspec)
 
@@ -885,12 +867,6 @@ ev_sidebar_thumbnails_document_changed_cb (EvDocumentModel     *model,
 	ev_sidebar_thumbnails_clear_model (sidebar_thumbnails);
 	ev_sidebar_thumbnails_fill_model (sidebar_thumbnails);
 
-	if (! priv->icon_view) {
-		ev_sidebar_init_icon_view (sidebar_thumbnails);
-	} else {
-		gtk_widget_queue_resize (priv->icon_view);
-	}
-
 	/* Connect to the signal and trigger a fake callback */
 	g_signal_connect_swapped (priv->model, "page-changed",
 				  G_CALLBACK (page_changed_cb),
@@ -901,10 +877,19 @@ ev_sidebar_thumbnails_document_changed_cb (EvDocumentModel     *model,
 	g_signal_connect (priv->model, "notify::inverted-colors",
 			  G_CALLBACK (ev_sidebar_thumbnails_inverted_colors_changed_cb),
 			  sidebar_thumbnails);
+	g_signal_connect_data (priv->model, "notify::page-layout",
+			       G_CALLBACK (check_toggle_blank_first_dual_mode),
+			       sidebar_thumbnails,
+			       NULL, G_CONNECT_SWAPPED | G_CONNECT_AFTER);
+	g_signal_connect_data (priv->model, "notify::dual-odd-left",
+			       G_CALLBACK (check_toggle_blank_first_dual_mode),
+			       sidebar_thumbnails,
+			       NULL, G_CONNECT_SWAPPED | G_CONNECT_AFTER);
 	sidebar_thumbnails->priv->start_page = -1;
 	sidebar_thumbnails->priv->end_page = -1;
 	ev_sidebar_thumbnails_set_current_page (sidebar_thumbnails,
 						ev_document_model_get_page (model));
+	check_toggle_blank_first_dual_mode (sidebar_thumbnails);
 	adjustment_changed_cb (sidebar_thumbnails);
 }
 
