@@ -5013,9 +5013,9 @@ inverted_colors_changed_cb (EvDocumentModel *model,
 }
 
 static void
-dual_mode_changed_cb (EvDocumentModel *model,
-				GParamSpec      *pspec,
-				EvWindow        *ev_window)
+page_layout_changed_cb (EvDocumentModel *model,
+			GParamSpec      *pspec,
+			EvWindow        *ev_window)
 {
 	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
 	gboolean dual_page;
@@ -7070,7 +7070,7 @@ ev_window_class_init (EvWindowClass *ev_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, sizing_mode_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, rotation_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, continuous_changed_cb);
-	gtk_widget_class_bind_template_callback (widget_class, dual_mode_changed_cb);
+	gtk_widget_class_bind_template_callback (widget_class, page_layout_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, dual_mode_odd_pages_left_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, direction_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, inverted_colors_changed_cb);

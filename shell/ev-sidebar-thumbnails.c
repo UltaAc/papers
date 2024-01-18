@@ -690,7 +690,7 @@ ev_sidebar_init_icon_view (EvSidebarThumbnails *ev_sidebar_thumbnails)
 
 	priv = ev_sidebar_thumbnails->priv;
 
-	g_signal_connect_data (priv->model, "notify::dual-page",
+	g_signal_connect_data (priv->model, "notify::page-layout",
 			       G_CALLBACK (check_toggle_blank_first_dual_mode), ev_sidebar_thumbnails,
 			       NULL, G_CONNECT_SWAPPED | G_CONNECT_AFTER);
 
