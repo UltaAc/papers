@@ -1010,19 +1010,6 @@ ev_sidebar_thumbnails_frame_horizontal_width (EvSidebarThumbnails *sidebar)
         return offset;
 }
 
-static EvWindow *
-ev_sidebar_thumbnails_get_ev_window (EvSidebarThumbnails *sidebar)
-{
-	GtkRoot *toplevel;
-
-	toplevel = gtk_widget_get_root (GTK_WIDGET (sidebar));
-
-	if (toplevel && EV_IS_WINDOW (toplevel))
-		return EV_WINDOW (toplevel);
-
-	return NULL;
-}
-
 static EvSidebar *
 ev_sidebar_thumbnails_get_ev_sidebar (EvSidebarThumbnails *sidebar)
 {
@@ -1077,22 +1064,6 @@ ev_sidebar_thumbnails_get_column_widths (EvSidebarThumbnails *sidebar,
 }
 
 static void
-ev_sidebar_thumbnails_get_sidebar_width (EvSidebarThumbnails *sidebar,
-					 gint *sidebar_width)
-{
-	EvWindow *ev_window;
-
-	if (!sidebar_width)
-		return;
-
-	ev_window = ev_sidebar_thumbnails_get_ev_window (sidebar);
-	if (ev_window)
-		*sidebar_width = ev_window_get_metadata_sidebar_size (ev_window);
-	else
-		*sidebar_width = 0;
-}
-
-static void
 ev_sidebar_thumbnails_set_sidebar_width (EvSidebarThumbnails *sidebar,
 					 gint sidebar_width)
 {
@@ -1120,7 +1091,7 @@ ev_sidebar_thumbnails_is_two_columns (EvSidebarThumbnails *sidebar)
 
 	ev_sidebar_thumbnails_get_column_widths (sidebar, NULL, &two_columns_width,
 						 &three_columns_width);
-	ev_sidebar_thumbnails_get_sidebar_width (sidebar, &sidebar_width);
+	sidebar_width = gtk_widget_get_width (GTK_WIDGET (sidebar));
 
 	return sidebar_width >= two_columns_width &&
 	       sidebar_width < three_columns_width;
@@ -1135,7 +1106,7 @@ ev_sidebar_thumbnails_is_one_column (EvSidebarThumbnails *sidebar)
 
 	ev_sidebar_thumbnails_get_column_widths (sidebar, &one_column_width,
 						 &two_columns_width, NULL);
-	ev_sidebar_thumbnails_get_sidebar_width (sidebar, &sidebar_width);
+	sidebar_width = gtk_widget_get_width (GTK_WIDGET (sidebar));
 
 	return sidebar_width >= one_column_width &&
 	       sidebar_width < two_columns_width;

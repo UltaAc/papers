@@ -7165,20 +7165,6 @@ ev_window_get_metadata (EvWindow *ev_window)
 	return priv->metadata;
 }
 
-gint
-ev_window_get_metadata_sidebar_size (EvWindow *ev_window)
-{
-	EvWindowPrivate *priv;
-	GtkWidget *sidebar;
-
-	g_return_val_if_fail (EV_WINDOW (ev_window), 0);
-
-	priv = GET_PRIVATE (ev_window);
-	sidebar = adw_overlay_split_view_get_sidebar (priv->split_view);
-
-	return gtk_widget_get_width (GTK_WIDGET (sidebar));
-}
-
 /* Sets the position of the divider between the sidebar and the main view */
 void
 ev_window_set_divider_position (EvWindow *ev_window,
