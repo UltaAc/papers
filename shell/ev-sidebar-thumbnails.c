@@ -66,7 +66,6 @@ struct _EvSidebarThumbnailsPrivate {
 	EvDocument *document;
 	EvDocumentModel *model;
 	EvThumbsSizeCache *size_cache;
-        gint width;
 
 	gint n_pages, pages_done;
 
@@ -324,24 +323,6 @@ ev_sidebar_check_reset_current_page (EvSidebarThumbnails *sidebar)
 	page = ev_document_model_get_page (sidebar->priv->model);
 	if (!ev_sidebar_thumbnails_page_is_in_visible_range (sidebar, page))
 		ev_sidebar_thumbnails_set_current_page (sidebar, page);
-}
-
-static void
-ev_sidebar_thumbnails_size_allocate (GtkWidget	*widget,
-				     int	 width,
-				     int	 height,
-				     int	 baseline)
-{
-        EvSidebarThumbnails *sidebar = EV_SIDEBAR_THUMBNAILS (widget);
-
-        GTK_WIDGET_CLASS (ev_sidebar_thumbnails_parent_class)->size_allocate (widget, width, height, baseline);
-
-        if (width != sidebar->priv->width) {
-                sidebar->priv->width = width;
-
-                /* Might have a new number of columns, reset current page */
-                ev_sidebar_check_reset_current_page (sidebar);
-        }
 }
 
 GtkWidget *
@@ -1100,22 +1081,15 @@ ev_sidebar_thumbnails_get_sidebar_width (EvSidebarThumbnails *sidebar,
 					 gint *sidebar_width)
 {
 	EvWindow *ev_window;
-	EvSidebarThumbnailsPrivate *priv;
 
 	if (!sidebar_width)
 		return;
 
-	priv = sidebar->priv;
-
-	if (priv->width == 0) {
-		ev_window = ev_sidebar_thumbnails_get_ev_window (sidebar);
-		if (ev_window)
-			*sidebar_width = ev_window_get_metadata_sidebar_size (ev_window);
-		else
-			*sidebar_width = 0;
-	} else {
-		*sidebar_width = priv->width;
-	}
+	ev_window = ev_sidebar_thumbnails_get_ev_window (sidebar);
+	if (ev_window)
+		*sidebar_width = ev_window_get_metadata_sidebar_size (ev_window);
+	else
+		*sidebar_width = 0;
 }
 
 static void
@@ -1310,7 +1284,6 @@ ev_sidebar_thumbnails_class_init (EvSidebarThumbnailsClass *ev_sidebar_thumbnail
 	g_object_class->get_property = ev_sidebar_thumbnails_get_property;
 	g_object_class->set_property = ev_sidebar_thumbnails_set_property;
 	widget_class->map = ev_sidebar_thumbnails_map;
-	widget_class->size_allocate = ev_sidebar_thumbnails_size_allocate;
 
 	gtk_widget_class_set_css_name (widget_class, "evsidebarthumbnails");
 
