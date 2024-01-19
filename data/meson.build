@@ -85,7 +85,7 @@ appstreamcli = find_program('appstreamcli', required: false)
 if (appstreamcli.found())
   test('validate-appdata',
     appstreamcli,
-    args: ['validate', '--no-net', '--explain', metainfo],
+    args: ['validate', '--strict', '--pedantic', '--explain', metainfo],
     workdir: meson.current_build_dir()
   )
 endif
