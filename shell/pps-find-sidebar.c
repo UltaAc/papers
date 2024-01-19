@@ -465,7 +465,7 @@ process_matches_idle (PpsFindSidebar *sidebar)
 		return;
         }
 
-        document = PPS_JOB (priv->job)->document;
+	document = pps_job_get_document (PPS_JOB (priv->job));
         model = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->tree_view));
 
         do {

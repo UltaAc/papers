@@ -354,7 +354,7 @@ check_job_size_and_unref (PpsPixbufCache *pixbuf_cache,
 
         device_scale = get_device_scale (pixbuf_cache);
 	if (job_info->device_scale == device_scale) {
-		_get_page_size_for_scale_and_rotation (job_info->job->document,
+		_get_page_size_for_scale_and_rotation (pps_job_get_document (job_info->job),
 						       PPS_JOB_RENDER_TEXTURE (job_info->job)->page,
 						       scale,
 						       PPS_JOB_RENDER_TEXTURE (job_info->job)->rotation,

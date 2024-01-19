@@ -130,7 +130,7 @@ pps_scheduler_job_destroy (PpsSchedulerJob *job)
 {
 	pps_debug_message (DEBUG_JOBS, "%s", PPS_GET_TYPE_NAME (job->job));
 
-	if (job->job->run_mode == PPS_JOB_RUN_MAIN_LOOP) {
+	if (pps_job_get_run_mode (job->job) == PPS_JOB_RUN_MAIN_LOOP) {
 		g_signal_handlers_disconnect_by_func (job->job,
 						      G_CALLBACK (pps_scheduler_job_destroy),
 						      job);
