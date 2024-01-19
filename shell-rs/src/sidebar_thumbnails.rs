@@ -216,6 +216,7 @@ mod imp {
                 job.connect_finished(glib::clone!(@weak self as obj => move |job| {
                     if let Some(item) = obj.list_store.item(model_index as u32) {
                         if let Ok(item) = item.downcast::<PpsThumbnailItem>() {
+                            // TODO: Take care of failed job code-path
                             debug!("load thumbnail of page: {doc_page}");
 
                             obj.lru.borrow_mut().as_mut().unwrap().put(model_index as u32, item.clone());

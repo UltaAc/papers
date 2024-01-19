@@ -327,7 +327,7 @@ job_finished_cb (PpsJob         *job,
 
 	job_info = find_job_cache (pixbuf_cache, job_render->page);
 
-	if (pps_job_is_failed (job)) {
+	if (pps_job_is_failed (job, NULL)) {
 		g_clear_object (&job_info->job);
 		return;
 	}

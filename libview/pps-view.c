@@ -5130,7 +5130,7 @@ link_preview_job_finished_cb (PpsJobThumbnailTexture *job,
 			      PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	if (pps_job_is_failed (PPS_JOB (job))) {
+	if (pps_job_is_failed (PPS_JOB (job), NULL)) {
 		gtk_widget_unparent (priv->link_preview.popover);
 		priv->link_preview.popover = NULL;
 		g_object_unref (job);

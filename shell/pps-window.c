@@ -1668,13 +1668,14 @@ pps_window_load_job_cb (PpsJob *job,
 	gchar     *text;
 	gchar 	  *display_name;
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
+	GError *error = NULL;
 
 	g_assert (job_load->uri);
 
 	pps_window_hide_loading_message (pps_window);
 
 	/* Success! */
-	if (!pps_job_is_failed (job)) {
+	if (!pps_job_is_failed (job, &error)) {
 		pps_document_model_set_document (priv->model, g_steal_pointer (&document));
 
 #ifdef ENABLE_DBUS
@@ -1717,7 +1718,7 @@ pps_window_load_job_cb (PpsJob *job,
 		return;
 	}
 
-	if (g_error_matches (job->error, PPS_DOCUMENT_ERROR, PPS_DOCUMENT_ERROR_ENCRYPTED) &&
+	if (g_error_matches (error, PPS_DOCUMENT_ERROR, PPS_DOCUMENT_ERROR_ENCRYPTED) &&
 	    PPS_IS_DOCUMENT_SECURITY (document)) {
 		gchar *password;
 
@@ -1752,7 +1753,7 @@ pps_window_load_job_cb (PpsJob *job,
 		text = g_uri_unescape_string (job_load->uri, NULL);
 		display_name = g_markup_escape_text (text, -1);
 		g_free (text);
-		pps_window_error_message (pps_window, job->error,
+		pps_window_error_message (pps_window, error,
 					 _("Unable to open document “%s”."),
 					 display_name);
 		adw_overlay_split_view_set_show_sidebar(priv->split_view, FALSE);
@@ -1767,7 +1768,7 @@ pps_window_reload_job_cb (PpsJob    *job,
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
-	if (pps_job_is_failed (job)) {
+	if (pps_job_is_failed (job, NULL)) {
 		pps_window_clear_reload_job (pps_window);
 		priv->in_reload = FALSE;
 		g_clear_object (&priv->dest);
@@ -2827,9 +2828,10 @@ pps_window_save_job_cb (PpsJob     *job,
 		       PpsWindow  *window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
-	if (pps_job_is_failed (job)) {
+	GError *error;
+	if (pps_job_is_failed (job, &error)) {
 		priv->close_after_save = FALSE;
-		pps_window_error_message (window, job->error,
+		pps_window_error_message (window, error,
 					 _("The file could not be saved as “%s”."),
 					 PPS_JOB_SAVE (job)->uri);
 	} else {
