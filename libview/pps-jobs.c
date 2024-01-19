@@ -74,6 +74,11 @@ static void pps_job_print_init                 (PpsJobPrint               *job);
 static void pps_job_print_class_init           (PpsJobPrintClass          *class);
 
 enum {
+	PROP_0,
+	PROP_DOCUMENT,
+};
+
+enum {
 	CANCELLED,
 	FINISHED,
 	LAST_SIGNAL
@@ -124,13 +129,29 @@ pps_job_dispose (GObject *object)
 }
 
 static void
-pps_job_class_init (PpsJobClass *class)
+pps_job_set_property (GObject      *object,
+		     guint         prop_id,
+		     const GValue *value,
+		     GParamSpec   *pspec)
 {
-	GObjectClass *oclass;
+	PpsJob *job = PPS_JOB (object);
 
-	oclass = G_OBJECT_CLASS (class);
+	switch (prop_id) {
+	case PROP_DOCUMENT:
+		job->document = g_value_dup_object (value);
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+	}
+}
 
-	oclass->dispose = pps_job_dispose;
+static void
+pps_job_class_init (PpsJobClass *klass)
+{
+	GObjectClass *g_object_class = G_OBJECT_CLASS (klass);
+
+	g_object_class->dispose = pps_job_dispose;
+	g_object_class->set_property = pps_job_set_property;
 
 	job_signals[CANCELLED] =
 		g_signal_new ("cancelled",
@@ -148,6 +169,16 @@ pps_job_class_init (PpsJobClass *class)
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
+
+	g_object_class_install_property (g_object_class,
+					 PROP_DOCUMENT,
+					 g_param_spec_object ("document",
+							      "Document",
+							      "The document",
+							      PPS_TYPE_DOCUMENT,
+							      G_PARAM_WRITABLE |
+							      G_PARAM_CONSTRUCT_ONLY |
+							      G_PARAM_STATIC_STRINGS));
 }
 
 static gboolean
@@ -406,8 +437,9 @@ pps_job_links_new (PpsDocument *document)
 
 	pps_debug_message (DEBUG_JOBS, NULL);
 
-	job = g_object_new (PPS_TYPE_JOB_LINKS, NULL);
-	job->document = g_object_ref (document);
+	job = g_object_new (PPS_TYPE_JOB_LINKS,
+			    "document", document,
+			    NULL);
 
 	return job;
 }
@@ -484,8 +516,9 @@ pps_job_attachments_new (PpsDocument *document)
 
 	pps_debug_message (DEBUG_JOBS, NULL);
 
-	job = g_object_new (PPS_TYPE_JOB_ATTACHMENTS, NULL);
-	job->document = g_object_ref (document);
+	job = g_object_new (PPS_TYPE_JOB_ATTACHMENTS,
+			    "document", document,
+			    NULL);
 
 	return job;
 }
@@ -559,8 +592,10 @@ pps_job_annots_new (PpsDocument *document)
 
 	pps_debug_message (DEBUG_JOBS, NULL);
 
-	job = g_object_new (PPS_TYPE_JOB_ANNOTS, NULL);
-	job->document = g_object_ref (document);
+	job = g_object_new (PPS_TYPE_JOB_ANNOTS,
+			    "document", document,
+			    NULL);
+
 
 	return job;
 }
@@ -627,9 +662,10 @@ pps_job_render_texture_new (PpsDocument   *document,
 
 	pps_debug_message (DEBUG_JOBS, "page: %d", page);
 
-	job = g_object_new (PPS_TYPE_JOB_RENDER_TEXTURE, NULL);
+	job = g_object_new (PPS_TYPE_JOB_RENDER_TEXTURE,
+			    "document", document,
+			    NULL);
 
-	PPS_JOB (job)->document = g_object_ref (document);
 	job->page = page;
 	job->rotation = rotation;
 	job->scale = scale;
@@ -844,9 +880,10 @@ pps_job_page_data_new (PpsDocument        *document,
 
 	pps_debug_message (DEBUG_JOBS, "%d", page);
 
-	job = g_object_new (PPS_TYPE_JOB_PAGE_DATA, NULL);
+	job = g_object_new (PPS_TYPE_JOB_PAGE_DATA,
+			    "document", document,
+			    NULL);
 
-	PPS_JOB (job)->document = g_object_ref (document);
 	job->page = page;
 	job->flags = flags;
 
@@ -933,9 +970,10 @@ pps_job_thumbnail_texture_new (PpsDocument *document,
 
 	pps_debug_message (DEBUG_JOBS, "%d", page);
 
-	job = g_object_new (PPS_TYPE_JOB_THUMBNAIL_TEXTURE, NULL);
+	job = g_object_new (PPS_TYPE_JOB_THUMBNAIL_TEXTURE,
+			    "document", document,
+			    NULL);
 
-	PPS_JOB (job)->document = g_object_ref (document);
 	job->page = page;
 	job->rotation = rotation;
 	job->scale = scale;
@@ -1026,9 +1064,9 @@ pps_job_fonts_new (PpsDocument *document)
 
 	pps_debug_message (DEBUG_JOBS, NULL);
 
-	job = g_object_new (PPS_TYPE_JOB_FONTS, NULL);
-
-	PPS_JOB (job)->document = g_object_ref (document);
+	job = g_object_new (PPS_TYPE_JOB_FONTS,
+			    "document", document,
+			    NULL);
 
 	return PPS_JOB (job);
 }
@@ -1469,9 +1507,10 @@ pps_job_save_new (PpsDocument  *document,
 
 	pps_debug_message (DEBUG_JOBS, "uri: %s, document_uri: %s", uri, document_uri);
 
-	job = g_object_new (PPS_TYPE_JOB_SAVE, NULL);
+	job = g_object_new (PPS_TYPE_JOB_SAVE,
+			    "document", document,
+			    NULL);
 
-	PPS_JOB (job)->document = g_object_ref (document);
 	job->uri = g_strdup (uri);
 	job->document_uri = g_strdup (document_uri);
 
@@ -1581,9 +1620,10 @@ pps_job_find_new (PpsDocument    *document,
 
 	pps_debug_message (DEBUG_JOBS, NULL);
 
-	job = g_object_new (PPS_TYPE_JOB_FIND, NULL);
+	job = g_object_new (PPS_TYPE_JOB_FIND,
+			    "document", document,
+			    NULL);
 
-	PPS_JOB (job)->document = g_object_ref (document);
 	job->start_page = start_page;
 	job->current_page = start_page;
 	job->n_pages = n_pages;
@@ -1726,8 +1766,10 @@ pps_job_layers_new (PpsDocument *document)
 
 	pps_debug_message (DEBUG_JOBS, NULL);
 
-	job = g_object_new (PPS_TYPE_JOB_LAYERS, NULL);
-	job->document = g_object_ref (document);
+	job = g_object_new (PPS_TYPE_JOB_LAYERS,
+			    "document", document,
+			    NULL);
+
 
 	return job;
 }
@@ -1805,8 +1847,10 @@ pps_job_export_new (PpsDocument *document)
 
 	pps_debug_message (DEBUG_JOBS, NULL);
 
-	job = g_object_new (PPS_TYPE_JOB_EXPORT, NULL);
-	job->document = g_object_ref (document);
+	job = g_object_new (PPS_TYPE_JOB_EXPORT,
+			    "document", document,
+			    NULL);
+
 
 	return job;
 }
@@ -1901,8 +1945,10 @@ pps_job_print_new (PpsDocument *document)
 
 	pps_debug_message (DEBUG_JOBS, NULL);
 
-	job = g_object_new (PPS_TYPE_JOB_PRINT, NULL);
-	job->document = g_object_ref (document);
+	job = g_object_new (PPS_TYPE_JOB_PRINT,
+			    "document", document,
+			    NULL);
+
 
 	return job;
 }
