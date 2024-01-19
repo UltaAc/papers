@@ -85,7 +85,6 @@
 #include "ev-annotation-properties-dialog.h"
 #include "ev-zoom-action.h"
 #include "ev-bookmarks.h"
-#include "ev-recent-view.h"
 #include "ev-search-box.h"
 #include "ev-toolbar.h"
 
@@ -157,9 +156,6 @@ typedef struct {
 	GMenuModel   *attachment_popup_menu;
 	GtkWidget    *attachment_popup;
 	GList        *attach_list;
-
-	/* For bookshelf view of recent items*/
-	GtkWidget    *recent_view;
 
 	/* Document */
 	EvDocumentModel *model;
@@ -331,10 +327,6 @@ static void 	ev_window_emit_doc_loaded		(EvWindow	  *window);
 static void     ev_window_show_find_bar                 (EvWindow         *ev_window,
 							 gboolean          restart);
 static void     ev_window_close_find_bar                (EvWindow         *ev_window);
-static void     ev_window_destroy_recent_view           (EvWindow         *ev_window);
-static void     recent_view_item_activated_cb           (EvRecentView     *recent_view,
-                                                         const char       *uri,
-                                                         EvWindow         *ev_window);
 static void     ev_window_begin_add_annot               (EvWindow         *ev_window,
 							 EvAnnotationType  annot_type);
 static void	ev_window_cancel_add_annot		(EvWindow *window);
@@ -347,11 +339,11 @@ static gchar *nautilus_sendto = NULL;
 G_DEFINE_TYPE_WITH_PRIVATE (EvWindow, ev_window, ADW_TYPE_APPLICATION_WINDOW)
 
 static gboolean
-ev_window_is_recent_view (EvWindow *ev_window)
+ev_window_is_start_view (EvWindow *ev_window)
 {
 	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
 
-	return priv->window_mode == EV_WINDOW_MODE_RECENT_VIEW;
+	return priv->window_mode == EV_WINDOW_MODE_START_VIEW;
 }
 
 static void
@@ -382,7 +374,7 @@ ev_window_update_actions_sensitivity (EvWindow *ev_window)
 	gboolean can_find_in_page;
 	gboolean can_annotate = FALSE;
 	gboolean presentation_mode;
-	gboolean recent_view_mode;
+	gboolean start_view_mode;
 	gboolean dual_mode = FALSE;
 	gboolean has_pages = FALSE;
 	int      n_pages = 0, page = -1;
@@ -438,80 +430,80 @@ ev_window_update_actions_sensitivity (EvWindow *ev_window)
 
 	/* Get modes */
 	presentation_mode = EV_WINDOW_IS_PRESENTATION (priv);
-	recent_view_mode = ev_window_is_recent_view (ev_window);
+	start_view_mode = ev_window_is_start_view (ev_window);
 
 	/* File menu */
 	ev_window_set_action_enabled (ev_window, "open-copy", has_document);
 	ev_window_set_action_enabled (ev_window, "save-as", has_document &&
-				      ok_to_copy && !recent_view_mode);
+				      ok_to_copy && !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "print", has_pages &&
-				      ok_to_print && !recent_view_mode);
+				      ok_to_print && !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "show-properties",
 				      has_document && has_properties &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "open-containing-folder",
-				      has_document && !recent_view_mode);
+				      has_document && !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "send-to", has_document &&
 				      priv->has_mailto_handler &&
 	                              nautilus_sendto &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "fullscreen",
-				      has_document && !recent_view_mode);
+				      has_document && !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "presentation",
-				      has_document && !recent_view_mode);
+				      has_document && !start_view_mode);
 
         /* Edit menu */
 	ev_window_set_action_enabled (ev_window, "select-all", has_pages &&
-				      can_get_text && !recent_view_mode);
+				      can_get_text && !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "find", can_find &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "toggle-find", can_find &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "add-annotation", can_annotate &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "highlight-annotation", can_annotate &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "toggle-edit-annots", can_annotate &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "rotate-left", has_pages &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "rotate-right", has_pages &&
-				      !recent_view_mode);
+				      !start_view_mode);
 
         /* View menu */
 	ev_window_set_action_enabled (ev_window, "continuous", has_pages &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "dual-page", has_pages &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "rtl", has_pages &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "reload", has_pages &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "auto-scroll", has_pages &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "inverted-colors",
-				      has_pages && !recent_view_mode);
+				      has_pages && !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "enable-spellchecking", FALSE);
 
 	/* Bookmarks menu */
 	ev_window_set_action_enabled (ev_window, "add-bookmark",
 				      has_pages && priv->bookmarks &&
-				      !recent_view_mode);
+				      !start_view_mode);
 
 	/* Other actions that must be disabled in recent view, in
 	 * case they have a shortcut or gesture associated
 	 */
-	ev_window_set_action_enabled (ev_window, "show-side-pane", !recent_view_mode);
-	ev_window_set_action_enabled (ev_window, "scroll-forward", !recent_view_mode);
-	ev_window_set_action_enabled (ev_window, "scroll-backwards", !recent_view_mode);
-	ev_window_set_action_enabled (ev_window, "sizing-mode", !recent_view_mode);
-	ev_window_set_action_enabled (ev_window, "zoom", !recent_view_mode);
-	ev_window_set_action_enabled (ev_window, "escape", !recent_view_mode);
+	ev_window_set_action_enabled (ev_window, "show-side-pane", !start_view_mode);
+	ev_window_set_action_enabled (ev_window, "scroll-forward", !start_view_mode);
+	ev_window_set_action_enabled (ev_window, "scroll-backwards", !start_view_mode);
+	ev_window_set_action_enabled (ev_window, "sizing-mode", !start_view_mode);
+	ev_window_set_action_enabled (ev_window, "zoom", !start_view_mode);
+	ev_window_set_action_enabled (ev_window, "escape", !start_view_mode);
 
 	/* Don't enable popup actions here because the page can change while a
 	 * popup is visible due to kinetic scrolling. The 'popup' functions
 	 * will enable appropriate actions when the popup is shown. */
-	if (recent_view_mode) {
+	if (start_view_mode) {
 		ev_window_set_action_enabled (ev_window, "open-link", FALSE);
 		ev_window_set_action_enabled (ev_window, "open-link-new-window", FALSE);
 		ev_window_set_action_enabled (ev_window, "go-to-link", FALSE);
@@ -529,26 +521,26 @@ ev_window_update_actions_sensitivity (EvWindow *ev_window)
 	ev_window_set_action_enabled (ev_window, "copy",
 					has_pages &&
 					ev_view_has_selection (view) &&
-					!recent_view_mode);
+					!start_view_mode);
 	ev_window_set_action_enabled (ev_window, "find-next",
 				      has_pages && can_find_in_page &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "find-previous",
 				      has_pages && can_find_in_page &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "dual-odd-left", dual_mode &&
-				      has_pages && !recent_view_mode);
+				      has_pages && !start_view_mode);
 
 	ev_window_set_action_enabled (ev_window, "zoom-in",
 				      has_pages &&
 				      ev_view_can_zoom_in (view) &&
 				      !presentation_mode &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "zoom-out",
 				      has_pages &&
 				      ev_view_can_zoom_out (view) &&
 				      !presentation_mode &&
-				      !recent_view_mode);
+				      !start_view_mode);
 
         /* Go menu */
 	if (has_pages) {
@@ -568,17 +560,17 @@ ev_window_update_actions_sensitivity (EvWindow *ev_window)
 	ev_window_set_action_enabled (ev_window, "go-back-history",
 				      !ev_history_is_frozen (priv->history) &&
 				      ev_history_can_go_back (priv->history) &&
-				      !recent_view_mode);
+				      !start_view_mode);
 	ev_window_set_action_enabled (ev_window, "go-forward-history",
 				      !ev_history_is_frozen (priv->history) &&
 				      ev_history_can_go_forward (priv->history) &&
-				      !recent_view_mode);
+				      !start_view_mode);
 
 	ev_window_set_action_enabled (ev_window, "caret-navigation",
 				      has_pages &&
 				      ev_view_supports_caret_navigation (view) &&
 				      !presentation_mode &&
-				      !recent_view_mode);
+				      !start_view_mode);
 }
 
 
@@ -1402,6 +1394,8 @@ ev_window_setup_default (EvWindow *ev_window)
 	);
 	ev_view_set_enable_spellchecking (EV_VIEW (priv->view),
 		g_settings_get_boolean (settings, "enable-spellchecking"));
+
+	ev_window_set_mode (ev_window, EV_WINDOW_MODE_START_VIEW);
 }
 
 static void
@@ -1545,7 +1539,7 @@ ev_window_set_document (EvWindow *ev_window, EvDocument *document)
 					   _("The document contains only empty pages"));
 	}
 
-	ev_window_destroy_recent_view (ev_window);
+	ev_window_set_mode(ev_window, EV_WINDOW_MODE_NORMAL);
 
 	ev_window_update_actions_sensitivity (ev_window);
 
@@ -1614,7 +1608,7 @@ ev_window_password_view_cancelled (EvWindow *ev_window)
 	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
 
 	priv->password_view_cancelled = TRUE;
-	if (ev_window_is_recent_view (ev_window)) {
+	if (ev_window_is_start_view (ev_window)) {
 		ev_window_clear_load_job (ev_window);
 		ev_application_clear_uri (EV_APP);
 	}
@@ -2330,37 +2324,6 @@ ev_window_open_document (EvWindow       *ev_window,
 	g_signal_connect_swapped (priv->monitor, "changed",
 				  G_CALLBACK (ev_window_file_changed),
 				  ev_window);
-}
-
-void
-ev_window_open_recent_view (EvWindow *ev_window)
-{
-	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
-
-	if (priv->recent_view)
-		return;
-
-	priv->recent_view = ev_recent_view_new ();
-	g_signal_connect_object (priv->recent_view,
-				 "item-activated",
-				 G_CALLBACK (recent_view_item_activated_cb),
-				 ev_window, 0);
-
-	adw_view_stack_add (ADW_VIEW_STACK (priv->stack), priv->recent_view);
-	ev_window_set_mode (ev_window, EV_WINDOW_MODE_RECENT_VIEW);
-}
-
-static void
-ev_window_destroy_recent_view (EvWindow *ev_window)
-{
-	EvWindowPrivate *priv = GET_PRIVATE (ev_window);
-
-	if (!priv->recent_view)
-		return;
-
-	ev_window_set_mode (ev_window, EV_WINDOW_MODE_NORMAL);
-	adw_view_stack_remove (ADW_VIEW_STACK (priv->stack), priv->recent_view);
-	priv->recent_view = NULL;
 }
 
 static void
@@ -3891,7 +3854,7 @@ ev_window_close (EvWindow *ev_window)
 	if (ev_window_check_print_queue (ev_window))
 		return FALSE;
 
-	if (!ev_window_is_recent_view (ev_window))
+	if (!ev_window_is_start_view (ev_window))
 		ev_window_save_settings (ev_window);
 
 	return TRUE;
@@ -4091,7 +4054,7 @@ ev_window_cmd_dual (GSimpleAction *action,
 	EvDocument *document = priv->document;
 	gboolean has_pages = FALSE;
 	gboolean dual_page;
-	gboolean recent_view_mode;
+	gboolean start_view_mode;
 
 	dual_page = g_variant_get_boolean (state);
 
@@ -4100,13 +4063,13 @@ ev_window_cmd_dual (GSimpleAction *action,
 			dual_page ? EV_PAGE_LAYOUT_DUAL : EV_PAGE_LAYOUT_SINGLE);
 	g_simple_action_set_state (action, state);
 
-	recent_view_mode = ev_window_is_recent_view (window);
+	start_view_mode = ev_window_is_start_view (window);
 
 	if (document)
 		has_pages = ev_document_get_n_pages (priv->document) > 0;
 
 	ev_window_set_action_enabled (window, "dual-odd-left", dual_page &&
-				      has_pages && !recent_view_mode);
+				      has_pages && !start_view_mode);
 }
 
 static void
@@ -4565,9 +4528,8 @@ ev_window_set_mode (EvWindow         *window,
 		case EV_WINDOW_MODE_PASSWORD_VIEW:
 			adw_view_stack_set_visible_child (ADW_VIEW_STACK (priv->stack), priv->password_view);
 			break;
-		case EV_WINDOW_MODE_RECENT_VIEW:
-			g_return_if_fail (priv->recent_view != NULL);
-			adw_view_stack_set_visible_child (ADW_VIEW_STACK (priv->stack), priv->recent_view);
+		case EV_WINDOW_MODE_START_VIEW:
+			adw_view_stack_set_visible_child_name (ADW_VIEW_STACK (priv->stack), "start");
 			break;
 		case EV_WINDOW_MODE_PRESENTATION:
 			g_return_if_fail (priv->presentation_view != NULL);
@@ -5399,16 +5361,6 @@ find_sidebar_result_activated_cb (EvFindSidebar *find_sidebar,
 	EvWindowPrivate *priv = GET_PRIVATE (window);
 
 	ev_view_find_set_result (EV_VIEW (priv->view), page, result);
-}
-
-static void
-recent_view_item_activated_cb (EvRecentView *recent_view,
-                               const char   *uri,
-                               EvWindow     *ev_window)
-{
-	ev_application_open_uri_at_dest (EV_APP, uri,
-					 gtk_widget_get_display (GTK_WIDGET (ev_window)),
-					 NULL, 0, NULL, GDK_CURRENT_TIME);
 }
 
 static void

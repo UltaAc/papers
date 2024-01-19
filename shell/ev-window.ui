@@ -27,6 +27,39 @@
       <object class="AdwViewStack" id="stack">
         <child>
           <object class="AdwViewStackPage">
+            <property name="name">start</property>
+            <property name="child">
+              <object class="AdwToolbarView">
+                <child type="top">
+                  <object class="AdwHeaderBar">
+                  </object>
+                </child>
+                <property name="content">
+                  <object class="AdwStatusPage">
+                    <property name="icon-name">x-office-document-symbolic</property>
+                    <property name="title">Open a Document</property>
+                    <property name="description" translatable="yes">Drag and drop documents here</property>
+                    <child>
+                      <object class="GtkButton" id="open_button">
+                        <property name="halign">center</property>
+                        <property name="action-name">win.open</property>
+                        <property name="label" translatable="yes">_Open…</property>
+                        <property name="use-underline">True</property>
+                        <property name="tooltip-text" translatable="yes">Open an existing document</property>
+                        <style>
+                          <class name="suggested-action" />
+                          <class name="pill" />
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwViewStackPage">
             <property name="name">document</property>
             <property name="title">Document</property>
             <property name="child">

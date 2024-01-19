@@ -638,12 +638,10 @@ ev_application_new_window (EvApplication *application,
  * Creates a new window showing the recent view
  */
 void
-ev_application_open_recent_view (EvApplication *application,
+ev_application_open_start_view (EvApplication *application,
                                  GdkDisplay    *display)
 {
 	GtkWidget *new_window = GTK_WIDGET (ev_window_new ());
-
-	ev_window_open_recent_view (EV_WINDOW (new_window));
 
 	if (display)
 		gtk_window_set_display (GTK_WINDOW (new_window), display);
@@ -953,7 +951,7 @@ ev_application_command_line (GApplication	     *gapplication,
 	g_variant_dict_lookup (options, G_OPTION_REMAINING, "^a&ay", &files);
 
 	if (!files) {
-		ev_application_open_recent_view (ev_app, display);
+		ev_application_open_start_view (ev_app, display);
 		return 0;
 	}
 

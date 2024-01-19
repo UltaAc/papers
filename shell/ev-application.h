@@ -40,7 +40,7 @@ G_DECLARE_FINAL_TYPE (EvApplication, ev_application, EV, APPLICATION, AdwApplica
 
 EvApplication    *ev_application_new                 (void);
 
-void              ev_application_open_recent_view    (EvApplication   *application,
+void              ev_application_open_start_view     (EvApplication   *application,
 						      GdkDisplay      *display);
 void              ev_application_open_uri_at_dest    (EvApplication   *application,
 						      const char      *uri,
