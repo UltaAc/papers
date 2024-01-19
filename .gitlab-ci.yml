@@ -71,6 +71,7 @@ build.container.fedora:
         when: on_failure
         paths:
             - _build/meson-logs/meson-log.txt
+            - _build/meson-logs/testlog.txt
         expire_in: 2 days
 
 meson:
@@ -83,6 +84,7 @@ meson:
         - meson setup _build
         - meson compile -C _build update-rust-bindings
         - meson compile -C _build
+        - meson test -C _build
 
 meson-internal-synctex:
     extends: '.run-meson'
@@ -94,6 +96,7 @@ meson-internal-synctex:
         - meson setup -Dinternal_synctex=true _build
         - meson compile -C _build update-rust-bindings
         - meson compile -C _build
+        - meson test -C _build
 
 flatpak:
     extends: .flatpak
