@@ -25,7 +25,6 @@
     <file alias="ui/password-view.ui" compressed="true" preprocess="xml-stripblanks">ev-password-view.ui</file>
     <file alias="ui/progress-message-area.ui" compressed="true" preprocess="xml-stripblanks">ev-progress-message-area.ui</file>
     <file alias="ui/properties-fonts.ui" compressed="true" preprocess="xml-stripblanks">ev-properties-fonts.ui</file>
-    <file alias="ui/recent-view.ui" compressed="true" preprocess="xml-stripblanks">ev-recent-view.ui</file>
     <file alias="ui/sidebar.ui" compressed="true" preprocess="xml-stripblanks">ev-sidebar.ui</file>
     <file alias="ui/sidebar-annotations.ui" compressed="true" preprocess="xml-stripblanks">ev-sidebar-annotations.ui</file>
     <file alias="ui/sidebar-bookmarks.ui" compressed="true" preprocess="xml-stripblanks">ev-sidebar-bookmarks.ui</file>

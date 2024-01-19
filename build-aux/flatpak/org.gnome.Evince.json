@@ -173,30 +173,6 @@
             ]
         },
         {
-            "name": "gnome-desktop",
-            "buildsystem": "meson",
-            "config-opts": [
-                "-Ddesktop_docs=false",
-                "-Dudev=disabled",
-                "-Ddebug_tools=false"
-            ],
-            "cleanup": [
-                "/lib/girepository-1.0",
-                "/share/gir-1.0"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://download.gnome.org/sources/gnome-desktop/44/gnome-desktop-44.0.tar.xz",
-                    "sha256": "42c773745d84ba14bc1cf1c4c6f4606148803a5cd337941c63964795f3c59d42",
-                    "x-checker-data": {
-                        "type": "gnome",
-                        "name": "gnome-desktop"
-                    }
-                }
-            ]
-        },
-        {
             "name": "evince",
             "buildsystem": "meson",
             "config-opts": [

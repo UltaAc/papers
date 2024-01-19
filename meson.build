@@ -216,11 +216,6 @@ else
   enable_gtk_doc = false
 endif
 
-# *** GNOME Desktop (Thumbnail cache) ***
-gnome_desktop_dep = dependency('gnome-desktop-4', required: get_option('thumbnail_cache'))
-enable_thumbnail_cache = gdk_pixbuf_dep.found() and gnome_desktop_dep.found()
-config_h.set('HAVE_LIBGNOME_DESKTOP', enable_thumbnail_cache)
-
 # *** systemd user unit dir ***
 systemd_user_unit_dir = get_option('systemduserunitdir')
 install_systemd_user_unit_dir = (systemd_user_unit_dir != 'no')
@@ -523,6 +518,5 @@ summary({'Gtk-doc reference..........': enable_gtk_doc,
          'Systemd units installation.': systemd_user_unit_dir,
          'Keyring integration........': enable_keyring,
          'GTK+ Unix print ...........': enable_gtk_unix_print,
-         'Thumbnail cache ...........': enable_thumbnail_cache,
          'SyncTex ...................': external_synctex.to_string('external', 'internal'),
         }, section: 'Features', bool_yn: true)

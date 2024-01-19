@@ -15,7 +15,6 @@ evince_sources = files(
   'ev-properties-view.c',
   'ev-properties-fonts.c',
   'ev-properties-license.c',
-  'ev-recent-view.c',
   'ev-toolbar.c',
   'ev-thumbnail-item.c',
   'ev-utils.c',
@@ -56,7 +55,6 @@ evince_sources += marshal_sources
 
 evince_deps = [
   gdk_pixbuf_dep,
-  gnome_desktop_dep,
   libaw_dep,
   libevmisc_dep,
   libevdocument_dep,
