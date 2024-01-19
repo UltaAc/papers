@@ -1622,7 +1622,10 @@ ev_job_load_get_loaded_document (EvJobLoad *job)
 {
 	g_return_val_if_fail (EV_IS_JOB_LOAD (job), NULL);
 
-	return g_steal_pointer (&job->loaded_document);
+	if (!job->loaded_document)
+		return NULL;
+
+	return g_object_ref (job->loaded_document);
 }
 
 /* EvJobSave */
