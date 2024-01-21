@@ -1,5 +1,5 @@
 i18n.gettext(
-  ev_name,
+  pps_name,
   preset: 'glib',
   args: '--keyword=TypeDescription',
 )

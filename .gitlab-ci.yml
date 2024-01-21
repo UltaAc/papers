@@ -86,11 +86,11 @@ flatpak:
     extends: .flatpak
     stage: build
     variables:
-        MANIFEST_PATH: "build-aux/flatpak/org.gnome.Evince.json"
+        MANIFEST_PATH: "build-aux/flatpak/org.gnome.Papers.json"
         RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
-        FLATPAK_MODULE: "evince"
-        APP_ID: "org.gnome.Evince"
-        BUNDLE: "org.gnome.Evince.flatpak"
+        FLATPAK_MODULE: "papers"
+        APP_ID: "org.gnome.Papers"
+        BUNDLE: "org.gnome.Papers.flatpak"
 
 pages:
     image: registry.gitlab.gnome.org/gnome/evince/x86_64-ubuntu:gtk4v2
@@ -101,8 +101,8 @@ pages:
         - meson setup _build
         - ninja -C _build
         - mkdir public
-        - mv _build/help/reference/libdocument/libevdocument public/document/
-        - mv _build/help/reference/libview/libevview public/view/
+        - mv _build/help/reference/libdocument/libppsdocument public/document/
+        - mv _build/help/reference/libview/libppsview public/view/
     artifacts:
         paths:
             - public/

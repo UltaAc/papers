@@ -26,25 +26,25 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
-#include "ev-application.h"
-#include "ev-debug.h"
-#include "ev-init.h"
-#include "ev-file-helpers.h"
-#include "ev-metadata.h"
+#include "pps-application.h"
+#include "pps-debug.h"
+#include "pps-init.h"
+#include "pps-file-helpers.h"
+#include "pps-metadata.h"
 
 
 int
 main (int argc, char *argv[])
 {
-        EvApplication  *application;
+        PpsApplication  *application;
         int             status;
 
 	/* Initialize the i18n stuff */
-	bindtextdomain (GETTEXT_PACKAGE, ev_get_locale_dir());
+	bindtextdomain (GETTEXT_PACKAGE, pps_get_locale_dir());
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 
-        application = ev_application_new ();
+        application = pps_application_new ();
 
 	status = g_application_run (G_APPLICATION (application), argc, argv);
 

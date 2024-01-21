@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "ev-document.h"
+#include "pps-document.h"
 
 #include <string.h>
 #include <glib.h>
@@ -34,7 +34,7 @@ struct _DjvuTextPage {
 	GList *results;
 	miniexp_t char_symbol;
 	miniexp_t word_symbol;
-	EvRectangle *bounding_box;
+	PpsRectangle *bounding_box;
 	miniexp_t text_structure;
 	miniexp_t start;
 	miniexp_t end;
@@ -51,9 +51,9 @@ typedef enum {
 } DjvuSelectionType;
 
 GList        *djvu_text_page_get_selection_region (DjvuTextPage *page,
-                                                   EvRectangle  *rectangle);
+                                                   PpsRectangle  *rectangle);
 char         *djvu_text_page_copy                 (DjvuTextPage *page,
-                                                   EvRectangle  *rectangle);
+                                                   PpsRectangle  *rectangle);
 void          djvu_text_page_index_text           (DjvuTextPage *page,
                                                    gboolean      case_sensitive);
 void          djvu_text_page_search               (DjvuTextPage *page,

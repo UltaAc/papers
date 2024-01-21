@@ -25,8 +25,8 @@
 #include "djvu-document.h"
 #include "djvu-links.h"
 #include "djvu-document-private.h"
-#include "ev-document-links.h"
-#include "ev-mapping-list.h"
+#include "pps-document-links.h"
+#include "pps-mapping-list.h"
 
 static gboolean number_from_miniexp(miniexp_t sexp, int *number)
 {
@@ -94,7 +94,7 @@ get_djvu_link_page (const DjvuDocument *djvu_document, const gchar *link_name, i
 	return page_num;
 }
 
-static EvLinkDest *
+static PpsLinkDest *
 get_djvu_link_dest (const DjvuDocument *djvu_document, const gchar *link_name, int base_page)
 {
 	/* #+pagenum #-pagenum #file_id.djvu */
@@ -102,36 +102,36 @@ get_djvu_link_dest (const DjvuDocument *djvu_document, const gchar *link_name, i
 		if (g_str_has_suffix (link_name, ".djvu") ||
 		    (base_page > 0 && g_str_has_prefix (link_name + 1, "+")) ||
 		    (base_page > 0 && g_str_has_prefix (link_name + 1, "-"))) {
-			return ev_link_dest_new_page (get_djvu_link_page (djvu_document, link_name, base_page));
+			return pps_link_dest_new_page (get_djvu_link_page (djvu_document, link_name, base_page));
 		} else {
 			/* #pagenum #page_label: the djvu spec is not clear on whether #pagenum represents
 			 * a link to a page number or to a page label. Here we mimic djview,
 			 * and always treat #pagenum as a link to a page label */
-			return ev_link_dest_new_page_label (link_name + 1);
+			return pps_link_dest_new_page_label (link_name + 1);
 		}
 	}
 
 	return NULL;
 }
 
-static EvLinkAction *
+static PpsLinkAction *
 get_djvu_link_action (const DjvuDocument *djvu_document, const gchar *link_name, int base_page)
 {
-	EvLinkDest *ev_dest = NULL;
-	EvLinkAction *ev_action = NULL;
+	PpsLinkDest *pps_dest = NULL;
+	PpsLinkAction *pps_action = NULL;
 
 	/* File component identifiers are handled by get_djvu_link_dest */
 
-	ev_dest = get_djvu_link_dest (djvu_document, link_name, base_page);
-	if (ev_dest) {
-		ev_action = ev_link_action_new_dest (ev_dest);
-		g_object_unref (ev_dest);
+	pps_dest = get_djvu_link_dest (djvu_document, link_name, base_page);
+	if (pps_dest) {
+		pps_action = pps_link_action_new_dest (pps_dest);
+		g_object_unref (pps_dest);
 	} else if (strstr(link_name, "://") != NULL) {
 		/* It's probably an URI */
-		ev_action = ev_link_action_new_external_uri (link_name);
+		pps_action = pps_link_action_new_external_uri (link_name);
 	}
 
-	return ev_action;
+	return pps_action;
 }
 
 static gchar *
@@ -188,8 +188,8 @@ build_tree (const DjvuDocument *djvu_document,
 	const char *title, *link_dest;
 	char *title_markup;
 
-	EvLinkAction *ev_action = NULL;
-	EvLink *ev_link = NULL;
+	PpsLinkAction *pps_action = NULL;
+	PpsLink *pps_link = NULL;
 	GtkTreeIter tree_iter;
 
 	if (miniexp_car (iter) == miniexp_symbol ("bookmarks")) {
@@ -210,23 +210,23 @@ build_tree (const DjvuDocument *djvu_document,
 			title_markup = g_markup_escape_text (title, -1);
 		}
 
-		ev_action = get_djvu_link_action (djvu_document, link_dest, -1);
+		pps_action = get_djvu_link_action (djvu_document, link_dest, -1);
 
-		if (ev_action) {
-			ev_link = ev_link_new (utf8_title ? utf8_title : title, ev_action);
+		if (pps_action) {
+			pps_link = pps_link_new (utf8_title ? utf8_title : title, pps_action);
 			gtk_tree_store_append (GTK_TREE_STORE (model), &tree_iter, parent);
 			gtk_tree_store_set (GTK_TREE_STORE (model), &tree_iter,
-					    EV_DOCUMENT_LINKS_COLUMN_MARKUP, title_markup,
-					    EV_DOCUMENT_LINKS_COLUMN_LINK, ev_link,
-					    EV_DOCUMENT_LINKS_COLUMN_EXPAND, FALSE,
+					    PPS_DOCUMENT_LINKS_COLUMN_MARKUP, title_markup,
+					    PPS_DOCUMENT_LINKS_COLUMN_LINK, pps_link,
+					    PPS_DOCUMENT_LINKS_COLUMN_EXPAND, FALSE,
 					    -1);
-			g_object_unref (ev_action);
-			g_object_unref (ev_link);
+			g_object_unref (pps_action);
+			g_object_unref (pps_link);
 		} else {
 			gtk_tree_store_append (GTK_TREE_STORE (model), &tree_iter, parent);
 			gtk_tree_store_set (GTK_TREE_STORE (model), &tree_iter,
-					    EV_DOCUMENT_LINKS_COLUMN_MARKUP, title_markup,
-					    EV_DOCUMENT_LINKS_COLUMN_EXPAND, FALSE,
+					    PPS_DOCUMENT_LINKS_COLUMN_MARKUP, title_markup,
+					    PPS_DOCUMENT_LINKS_COLUMN_EXPAND, FALSE,
 					    -1);
 		}
 
@@ -251,7 +251,7 @@ build_tree (const DjvuDocument *djvu_document,
 static gboolean
 get_djvu_hyperlink_area (ddjvu_pageinfo_t *page_info,
 			 miniexp_t         sexp,
-			 EvMapping        *ev_link_mapping)
+			 PpsMapping        *pps_link_mapping)
 {
 	miniexp_t iter;
 
@@ -259,7 +259,7 @@ get_djvu_hyperlink_area (ddjvu_pageinfo_t *page_info,
 
 	if ((miniexp_car (iter) == miniexp_symbol ("rect") || miniexp_car (iter) == miniexp_symbol ("oval"))
 	    && miniexp_length (iter) == 5) {
-		/* FIXME: get bounding box for (oval) since Evince doesn't support shaped links */
+		/* FIXME: get bounding box for (oval) since Papers doesn't support shaped links */
 		int minx, miny, width, height;
 
 		iter = miniexp_cdr (iter);
@@ -271,14 +271,14 @@ get_djvu_hyperlink_area (ddjvu_pageinfo_t *page_info,
 		iter = miniexp_cdr (iter);
 		if (!number_from_miniexp (miniexp_car (iter), &height)) goto unknown_link;
 
-		ev_link_mapping->area.x1 = minx;
-		ev_link_mapping->area.x2 = (minx + width);
-		ev_link_mapping->area.y1 = (page_info->height - (miny + height));
-		ev_link_mapping->area.y2 = (page_info->height - miny);
+		pps_link_mapping->area.x1 = minx;
+		pps_link_mapping->area.x2 = (minx + width);
+		pps_link_mapping->area.y1 = (page_info->height - (miny + height));
+		pps_link_mapping->area.y2 = (page_info->height - miny);
 	} else if (miniexp_car (iter) == miniexp_symbol ("poly")
 		   && miniexp_length (iter) >= 5 && miniexp_length (iter) % 2 == 1) {
 
-		/* FIXME: get bounding box since Evince doesn't support shaped links */
+		/* FIXME: get bounding box since Papers doesn't support shaped links */
 		int minx = G_MAXINT, miny = G_MAXINT;
 		int maxx = G_MININT, maxy = G_MININT;
 
@@ -297,10 +297,10 @@ get_djvu_hyperlink_area (ddjvu_pageinfo_t *page_info,
 			maxy = MAX (maxy, y);
 		}
 
-		ev_link_mapping->area.x1 = minx;
-		ev_link_mapping->area.x2 = maxx;
-		ev_link_mapping->area.y1 = (page_info->height - maxy);
-		ev_link_mapping->area.y2 = (page_info->height - miny);
+		pps_link_mapping->area.x1 = minx;
+		pps_link_mapping->area.x2 = maxx;
+		pps_link_mapping->area.y1 = (page_info->height - maxy);
+		pps_link_mapping->area.y2 = (page_info->height - miny);
 	} else {
 		/* unknown */
 		goto unknown_link;
@@ -313,18 +313,18 @@ get_djvu_hyperlink_area (ddjvu_pageinfo_t *page_info,
 	return FALSE;
 }
 
-static EvMapping *
+static PpsMapping *
 get_djvu_hyperlink_mapping (DjvuDocument     *djvu_document,
 			    int               page,
 			    ddjvu_pageinfo_t *page_info,
 			    miniexp_t         sexp)
 {
-	EvMapping *ev_link_mapping = NULL;
-	EvLinkAction *ev_action = NULL;
+	PpsMapping *pps_link_mapping = NULL;
+	PpsLinkAction *pps_action = NULL;
 	miniexp_t iter;
 	const char *url, *url_target, *comment;
 
-	ev_link_mapping = g_new (EvMapping, 1);
+	pps_link_mapping = g_new (PpsMapping, 1);
 
 	iter = sexp;
 
@@ -344,28 +344,28 @@ get_djvu_hyperlink_mapping (DjvuDocument     *djvu_document,
 	if (!string_from_miniexp (miniexp_car(iter), &comment)) goto unknown_mapping;
 
 	iter = miniexp_cdr (iter);
-	if (!get_djvu_hyperlink_area (page_info, miniexp_car(iter), ev_link_mapping)) goto unknown_mapping;
+	if (!get_djvu_hyperlink_area (page_info, miniexp_car(iter), pps_link_mapping)) goto unknown_mapping;
 
 	iter = miniexp_cdr (iter);
 	/* FIXME: DjVu hyperlink attributes are ignored */
 
-	ev_action = get_djvu_link_action (djvu_document, url, page);
-	if (!ev_action) goto unknown_mapping;
+	pps_action = get_djvu_link_action (djvu_document, url, page);
+	if (!pps_action) goto unknown_mapping;
 
-	ev_link_mapping->data = ev_link_new (comment, ev_action);
-	g_object_unref (ev_action);
+	pps_link_mapping->data = pps_link_new (comment, pps_action);
+	g_object_unref (pps_action);
 
-	return ev_link_mapping;
+	return pps_link_mapping;
 
  unknown_mapping:
-	if (ev_link_mapping) g_free(ev_link_mapping);
+	if (pps_link_mapping) g_free(pps_link_mapping);
 	g_warning("DjvuLibre error: Unknown hyperlink %s", miniexp_to_name(miniexp_car(sexp)));
 	return NULL;
 }
 
 
 gboolean
-djvu_links_has_document_links (EvDocumentLinks *document_links)
+djvu_links_has_document_links (PpsDocumentLinks *document_links)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (document_links);
 	miniexp_t outline;
@@ -381,8 +381,8 @@ djvu_links_has_document_links (EvDocumentLinks *document_links)
 	return FALSE;
 }
 
-EvMappingList *
-djvu_links_get_links (EvDocumentLinks *document_links,
+PpsMappingList *
+djvu_links_get_links (PpsDocumentLinks *document_links,
                       gint             page,
                       double           scale_factor)
 {
@@ -390,7 +390,7 @@ djvu_links_get_links (EvDocumentLinks *document_links,
 	GList *retval = NULL;
 	miniexp_t page_annotations = miniexp_nil;
 	miniexp_t *hyperlinks = NULL, *iter = NULL;
-	EvMapping *ev_link_mapping;
+	PpsMapping *pps_link_mapping;
         ddjvu_pageinfo_t page_info;
 
 	while ((page_annotations = ddjvu_document_get_pageanno (djvu_document->d_document, page)) == miniexp_dummy)
@@ -403,13 +403,13 @@ djvu_links_get_links (EvDocumentLinks *document_links,
 		hyperlinks = ddjvu_anno_get_hyperlinks (page_annotations);
 		if (hyperlinks) {
 			for (iter = hyperlinks; *iter; ++iter) {
-				ev_link_mapping = get_djvu_hyperlink_mapping (djvu_document, page, &page_info, *iter);
-				if (ev_link_mapping) {
-					ev_link_mapping->area.x1 *= scale_factor;
-					ev_link_mapping->area.x2 *= scale_factor;
-					ev_link_mapping->area.y1 *= scale_factor;
-					ev_link_mapping->area.y2 *= scale_factor;
-					retval = g_list_prepend (retval, ev_link_mapping);
+				pps_link_mapping = get_djvu_hyperlink_mapping (djvu_document, page, &page_info, *iter);
+				if (pps_link_mapping) {
+					pps_link_mapping->area.x1 *= scale_factor;
+					pps_link_mapping->area.x2 *= scale_factor;
+					pps_link_mapping->area.y1 *= scale_factor;
+					pps_link_mapping->area.y2 *= scale_factor;
+					retval = g_list_prepend (retval, pps_link_mapping);
 				}
 			}
 			free (hyperlinks);
@@ -417,27 +417,27 @@ djvu_links_get_links (EvDocumentLinks *document_links,
 		ddjvu_miniexp_release (djvu_document->d_document, page_annotations);
 	}
 
-	return ev_mapping_list_new (page, retval, (GDestroyNotify)g_object_unref);
+	return pps_mapping_list_new (page, retval, (GDestroyNotify)g_object_unref);
 }
 
-EvLinkDest *
-djvu_links_find_link_dest (EvDocumentLinks  *document_links,
+PpsLinkDest *
+djvu_links_find_link_dest (PpsDocumentLinks  *document_links,
                            const gchar      *link_name)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (document_links);
-	EvLinkDest *ev_dest = NULL;
+	PpsLinkDest *pps_dest = NULL;
 
-	ev_dest = get_djvu_link_dest (djvu_document, link_name, -1);
+	pps_dest = get_djvu_link_dest (djvu_document, link_name, -1);
 
-	if (!ev_dest) {
+	if (!pps_dest) {
 		g_warning ("DjvuLibre error: unknown link destination %s", link_name);
 	}
 
-	return ev_dest;
+	return pps_dest;
 }
 
 gint
-djvu_links_find_link_page (EvDocumentLinks  *document_links,
+djvu_links_find_link_page (PpsDocumentLinks  *document_links,
 			   const gchar      *link_name)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (document_links);
@@ -453,7 +453,7 @@ djvu_links_find_link_page (EvDocumentLinks  *document_links,
 }
 
 GtkTreeModel *
-djvu_links_get_links_model (EvDocumentLinks *document_links)
+djvu_links_get_links_model (PpsDocumentLinks *document_links)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (document_links);
 	GtkTreeModel *model = NULL;
@@ -463,7 +463,7 @@ djvu_links_get_links_model (EvDocumentLinks *document_links)
 		djvu_handle_events (djvu_document, TRUE, NULL);
 
 	if (outline) {
-		model = (GtkTreeModel *) gtk_tree_store_new (EV_DOCUMENT_LINKS_COLUMN_NUM_COLUMNS,
+		model = (GtkTreeModel *) gtk_tree_store_new (PPS_DOCUMENT_LINKS_COLUMN_NUM_COLUMNS,
 							     G_TYPE_STRING,
 							     G_TYPE_OBJECT,
 							     G_TYPE_BOOLEAN,

@@ -1324,7 +1324,7 @@
 
 2007-09-05  Kjartan Maraas  <kmaraas@gnome.org>
 
-	* POTFILES.in: Add ev-jobs.c
+	* POTFILES.in: Add pps-jobs.c
 	* nb.po: Updated Norwegian bokmål translation.
 
 2007-09-02  Gil Forcada  <gforcada@svn.gnome.org>
@@ -2950,7 +2950,7 @@
 
 	* pt.po: Updated Portuguese translation.
 
-2006-01-27  Evandro Fernandes Giovanini <evandrofg@ig.com.br>
+2006-01-27  Ppsandro Fernandes Giovanini <evandrofg@ig.com.br>
 
 	* pt_BR.po: Updated Brazilian Portuguese translation.
 
@@ -3278,7 +3278,7 @@
 
 	* nl.po: Translation updated by Tino Meinen.
 
-2005-08-27  Evandro Fernandes Giovanini <evandrofg@ig.com.br>
+2005-08-27  Ppsandro Fernandes Giovanini <evandrofg@ig.com.br>
 
 	* pt_BR.po: Updated Brazilian Portuguese translation.
 
@@ -3630,7 +3630,7 @@
 
 2005-07-08  Kjartan Maraas  <kmaraas@gnome.org>
 
-	* POTFILES.in: Add ev-properties.c
+	* POTFILES.in: Add pps-properties.c
 	* nb.po: Update
 	* no.po: Same
 
@@ -4013,7 +4013,7 @@
 
 2005-03-26  Francisco Javier F. Serrador  <serrador@cvs.gnome.org>
 
-	* es.po: Authoritative update of Evince Spanish translation.
+	* es.po: Authoritative update of Papers Spanish translation.
 
 2005-03-26  Miloslav Trmac  <mitr@volny.cz>
 
@@ -4029,7 +4029,7 @@
 
 2005-03-24  Kjartan Maraas  <kmaraas@gnome.org>
 
-	* POTFILES.in: Add ev-sidebar-links.c
+	* POTFILES.in: Add pps-sidebar-links.c
 	* nb.po: Update
 
 2005-03-18  Josep Puigdemont  <josep@imatge-sintetica.com>
@@ -4329,7 +4329,7 @@
 
 2005-01-15  Kjartan Maraas  <kmaraas@gnome.org>
 
-	* POTFILES.in: Add shell/ev-history.c
+	* POTFILES.in: Add shell/pps-history.c
 	* nb.po: Update
 
 2005-01-13  Adam Weinberger  <adamw@gnome.org>
@@ -4358,7 +4358,7 @@
 
 2005-01-08  Martin Kretzschmar  <martink@gnome.org>
 
-	* POTFILES.in: Added ev-print-job.c.
+	* POTFILES.in: Added pps-print-job.c.
 
 2005-01-08  Satoru SATOH <ss@gnome.gr.jp>
 
@@ -4418,7 +4418,7 @@
 
 2004-12-22  Martin Kretzschmar  <martink@gnome.org>
 
-	* evince.pot: remove from cvs.
+	* papers.pot: remove from cvs.
 	* de.po: update a little.
 	* POTFILES.in: update.
 	* .cvsignore: add *.mo, *.pot.

@@ -1,6 +1,6 @@
-# Italian translation for evince manual
+# Italian translation for papers manual
 # Copyright (c) 2006 Free Software Foundation, inc.
-# This file is distributed under the same license as the evince manual.
+# This file is distributed under the same license as the papers manual.
 # Ubuntu Italian Team, 2006
 # Luca Ferretti <elle.uca@libero.it>, 2006
 # Milo Casagrande <milo@ubuntu.com>, 2007-2008
@@ -8,7 +8,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evince manual\n"
+"Project-Id-Version: papers manual\n"
 "POT-Creation-Date: 2022-04-19 14:24+0000\n"
 "PO-Revision-Date: 2022-08-03 13:08+0200\n"
 "Last-Translator: Davide Ferracin <davide.ferracin@protonmail.com>\n"
@@ -561,8 +561,8 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/introduction.page:18
-msgid "Introduction to the <em>Evince Document Viewer</em>."
-msgstr "Introduzione al <em>Visualizzatore documenti Evince</em>."
+msgid "Introduction to the <em>Papers Document Viewer</em>."
+msgstr "Introduzione al <em>Visualizzatore documenti Papers</em>."
 
 #. (itstool) path: page/title
 #: C/introduction.page:21
@@ -572,10 +572,10 @@ msgstr "Introduzione"
 #. (itstool) path: page/p
 #: C/introduction.page:23
 msgid ""
-"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a "
+"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
-"<app>Evince</app> è un visualizzatore di documenti. Si veda <link xref="
+"<app>Papers</app> è un visualizzatore di documenti. Si veda <link xref="
 "\"formats\"/> per una lista dei tipi di file che può visualizzare."
 
 #. (itstool) path: info/desc
@@ -690,7 +690,7 @@ msgstr ""
 #: C/singlesided-3-4pages.page:97 C/singlesided-17-20pages.page:98
 #: C/singlesided-npages.page:104 C/singlesided-13-16pages.page:100
 #: C/singlesided-9-12pages.page:97 C/singlesided-5-8pages.page:97
-msgid "In the <gui>Only print</gui> menu, select <gui>Even sheets</gui>."
+msgid "In the <gui>Only print</gui> menu, select <gui>Ppsen sheets</gui>."
 msgstr ""
 "Nell'opzione <gui>Stampare solo:</gui>, selezionare <gui>Pagine "
 "pari</gui>."
@@ -849,12 +849,12 @@ msgstr "Vim-LaTeX"
 #. (itstool) path: section/p
 #: C/synctex-editors.page:29
 msgid ""
-"The <app>gedit</app> plugin contains a python script (<file>evince_dbus.py</"
+"The <app>gedit</app> plugin contains a python script (<file>papers_dbus.py</"
 "file>) that can be used to get SyncTeX working with Vim. In order to use vim-"
 "latex together with the <app>document viewer</app> you need to follow the "
 "next steps:"
 msgstr ""
-"Il plugin per <app>gedit</app> contiene uno script Python (<file>evince_dbus."
+"Il plugin per <app>gedit</app> contiene uno script Python (<file>papers_dbus."
 "py</file>) che può essere usato per far funzionare SyncTeX con Vim. Per "
 "usare Vim-LaTeX insieme al <app>Visualizzatore documenti</app> è necessario "
 "seguire i seguenti passaggi:"
@@ -864,10 +864,10 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/synctex-editors.page:35
 msgid ""
-"Copy the <file>evince_dbus.py</file> to some directory in your path and give "
+"Copy the <file>papers_dbus.py</file> to some directory in your path and give "
 "it +x permissions."
 msgstr ""
-"Copiare il file <file>evince_dbus.py</file> in una cartella all'interno del "
+"Copiare il file <file>papers_dbus.py</file> in una cartella all'interno del "
 "proprio PATH e assegnare ad esso il permesso +x."
 
 #. (itstool) path: item/p
@@ -882,12 +882,12 @@ msgstr ""
 #, no-wrap
 msgid ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 msgstr ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 
@@ -1160,8 +1160,8 @@ msgstr "Fare clic su <gui>Editor dconf</gui>."
 
 #. (itstool) path: item/p
 #: C/noprint.page:100
-msgid "Browse to <sys>/org/gnome/evince</sys>."
-msgstr "Andare su <sys>/org/gnome/evince</sys>."
+msgid "Browse to <sys>/org/gnome/papers</sys>."
+msgstr "Andare su <sys>/org/gnome/papers</sys>."
 
 #. (itstool) path: item/p
 #: C/noprint.page:103
@@ -1537,10 +1537,10 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/translate.page:27
 msgid ""
-"There are <link href=\"http://l10n.gnome.org/module/evince/\">many "
+"There are <link href=\"http://l10n.gnome.org/module/papers/\">many "
 "languages</link> for which translations are still needed."
 msgstr ""
-"Ci sono <link href=\"http://l10n.gnome.org/module/evince/\">molte "
+"Ci sono <link href=\"http://l10n.gnome.org/module/papers/\">molte "
 "lingue</link> per le quali c'è ancora bisogno di traduzioni."
 
 #. (itstool) path: page/p
@@ -2084,17 +2084,17 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/develop.page:23
 msgid ""
-"If you would like to <link href=\"https://wiki.gnome.org/Apps/Evince\">help "
+"If you would like to <link href=\"https://wiki.gnome.org/Apps/Papers\">help "
 "develop</link> the <app>Document Viewer</app>, you can get in touch with the "
 "developers using <link href=\"https://cbe005.chat.mibbit.com/?url=irc%3A%2F"
-"%2Firc.gnome.org%2Fevince\">irc</link>, or via our <link href=\"https://mail."
-"gnome.org/mailman/listinfo/evince-list\">mailing list</link>."
+"%2Firc.gnome.org%2Fpapers\">irc</link>, or via our <link href=\"https://mail."
+"gnome.org/mailman/listinfo/papers-list\">mailing list</link>."
 msgstr ""
-"Per <link href=\"https://wiki.gnome.org/Apps/Evince\">aiutare con lo sviluppo "
+"Per <link href=\"https://wiki.gnome.org/Apps/Papers\">aiutare con lo sviluppo "
 "</link> del <app>Visualizzatore documenti</app>, è possibile contattare gli "
 "sviluppatori usando <link href=\"https://cbe005.chat.mibbit.com/?url=irc%3A%2F"
-"%2Firc.gnome.org%2Fevince\">IRC</link>, oppure tramite la nostra <link "
-"href=\"https://mail.gnome.org/mailman/listinfo/evince-list\">mailing "
+"%2Firc.gnome.org%2Fpapers\">IRC</link>, oppure tramite la nostra <link "
+"href=\"https://mail.gnome.org/mailman/listinfo/papers-list\">mailing "
 "list</link>."
 
 #. (itstool) path: info/desc
@@ -2764,12 +2764,12 @@ msgid ""
 "The <app>document viewer</app> is maintained by a volunteer community. You "
 "are welcome to participate. If you notice a problem you can file a <em>bug "
 "report</em>. To file a bug, go to <link href=\"https://gitlab.gnome.org/"
-"GNOME/evince/issues/\"/>."
+"GNOME/papers/issues/\"/>."
 msgstr ""
 "Il <app>Visualizzatore documenti</app> è gestito da una comunità di volontari. "
 "Chiunque voglia partecipare è il benvenuto. Se si nota un problema, si può "
 "inviare una <em>segnalazione</em> a riguardo su <link href=\"https://gitlab.gnome.org/"
-"GNOME/evince/issues/\"/>."
+"GNOME/papers/issues/\"/>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2803,13 +2803,13 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/GNOME/evince/issues\">browse</"
+"please <link href=\"https://gitlab.gnome.org/GNOME/papers/issues\">browse</"
 "link> for the bug to see if it already exists."
 msgstr ""
 "Una volta creato un account, accedere e fare clic su <gui>New issue</gui>. Prima "
 "di segnalare un bug, si è pregati di leggere le <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">linee guida sulla segnalazione dei bug</link>, "
-"e di <link href=\"https://gitlab.gnome.org/GNOME/evince/issues\">cercare</"
+"e di <link href=\"https://gitlab.gnome.org/GNOME/papers/issues\">cercare</"
 "link> il bug per controllare che non sia già stato segnalato."
 
 # [NdT] Non trovo queste "Labels" nella pagina delle "Issues" di GitLab... forse
@@ -3478,10 +3478,10 @@ msgstr "Riga di comando"
 #. (itstool) path: info/desc
 #: C/commandline.page:8
 msgid ""
-"The <cmd>evince</cmd> command can open any number of files, at specific "
+"The <cmd>papers</cmd> command can open any number of files, at specific "
 "pages and in various modes."
 msgstr ""
-"Con il comando <cmd>evince</cmd> è possibile aprire un qualsiasi numero di "
+"Con il comando <cmd>papers</cmd> è possibile aprire un qualsiasi numero di "
 "file, a pagine specifiche e in varie modalità."
 
 #. (itstool) path: page/title
@@ -3493,51 +3493,51 @@ msgstr "La riga di comando"
 #: C/commandline.page:25
 msgid ""
 "To start the <app>Document Viewer</app> from the command line, type "
-"<cmd>evince</cmd>. You can open a specific file by typing the filename after "
-"the evince command:"
+"<cmd>papers</cmd>. You can open a specific file by typing the filename after "
+"the papers command:"
 msgstr ""
 "Per lanciare il <app>Visualizzatore documenti</app> dalla riga di comando, "
-"digitare <cmd>evince</cmd>. Per aprire un file, digitare il nome del file "
-"dopo il comando di evince:"
+"digitare <cmd>papers</cmd>. Per aprire un file, digitare il nome del file "
+"dopo il comando di papers:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:30
 #, no-wrap
-msgid "evince file.pdf"
-msgstr "evince file.pdf"
+msgid "papers file.pdf"
+msgstr "papers file.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:31
 msgid ""
-"You can open multiple files by typing the filenames after the evince "
+"You can open multiple files by typing the filenames after the papers "
 "command, separating the filenames by a space:"
 msgstr ""
 "Per aprire più file contemporaneamente, digitare uno dopo l'altro, dopo "
-"il comando di evince, i nomi dei file, separandoli con uno spazio:"
+"il comando di papers, i nomi dei file, separandoli con uno spazio:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:34
 #, no-wrap
-msgid "evince file1.pdf file2.pdf"
-msgstr "evince file1.pdf file2.pdf"
+msgid "papers file1.pdf file2.pdf"
+msgstr "papers file1.pdf file2.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:35
 msgid ""
 "The <app>document viewer</app> also supports the handling of files on the "
-"web. For example, after the evince command you can give the location of a "
+"web. For example, after the papers command you can give the location of a "
 "file on the web:"
 msgstr ""
 "Il <app>Visualizzatore documenti</app> può lavorare anche con file in rete. "
-"Per esempio, dopo il comando di evince si può fornire la posizione di un "
+"Per esempio, dopo il comando di papers si può fornire la posizione di un "
 "file in rete:"
 
 # [NdT] Il link nel msgid è obsoleto: ho puntato al sito aggiornato.
 #. (itstool) path: page/screen
 #: C/commandline.page:38
 #, no-wrap
-msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "evince http://www.claymath.org/sites/default/files/pvsnp.pdf"
+msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "papers http://www.claymath.org/sites/default/files/pvsnp.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:40
@@ -3557,8 +3557,8 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:45
 #, no-wrap
-msgid "evince --page-label=3 file.pdf"
-msgstr "evince --page-label=3 file.pdf"
+msgid "papers --page-label=3 file.pdf"
+msgstr "papers --page-label=3 file.pdf"
 
 #. (itstool) path: section/p
 #: C/commandline.page:46
@@ -3577,8 +3577,8 @@ msgstr "Aprire un documento a schermo intero"
 #. (itstool) path: section/screen
 #: C/commandline.page:53
 #, no-wrap
-msgid "evince --fullscreen file.pdf"
-msgstr "evince --fullscreen file.pdf"
+msgid "papers --fullscreen file.pdf"
+msgstr "papers --fullscreen file.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:56
@@ -3588,8 +3588,8 @@ msgstr "Aprire un documento in modalità presentazione"
 #. (itstool) path: section/screen
 #: C/commandline.page:57
 #, no-wrap
-msgid "evince --presentation file.pdf"
-msgstr "evince --presentation file.pdf"
+msgid "papers --presentation file.pdf"
+msgstr "papers --presentation file.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:60
@@ -3599,8 +3599,8 @@ msgstr "Aprire un documento in modalità anteprima"
 #. (itstool) path: section/screen
 #: C/commandline.page:61
 #, no-wrap
-msgid "evince --preview file.pdf"
-msgstr "evince --preview file.pdf"
+msgid "papers --preview file.pdf"
+msgstr "papers --preview file.pdf"
 
 #. (itstool) path: info/desc
 #: C/annotations.page:8
@@ -3763,29 +3763,29 @@ msgstr ""
 #. (itstool) path: info/title
 #: C/index.page:7
 msgctxt "link:trail"
-msgid "Evince Document Viewer"
-msgstr "Visualizzatore documenti Evince"
+msgid "Papers Document Viewer"
+msgstr "Visualizzatore documenti Papers"
 
 #. (itstool) path: info/title
 #: C/index.page:8
 msgctxt "link"
-msgid "Evince Document Viewer"
-msgstr "Visualizzatore documenti Evince"
+msgid "Papers Document Viewer"
+msgstr "Visualizzatore documenti Papers"
 
 #. (itstool) path: info/title
 #: C/index.page:9
 msgctxt "text"
-msgid "Evince Document Viewer"
-msgstr "Visualizzatore documenti Evince"
+msgid "Papers Document Viewer"
+msgstr "Visualizzatore documenti Papers"
 
 #. (itstool) path: info/desc
 #: C/index.page:24
 msgid ""
-"<app>Document Viewer</app>, formally known as <app>Evince</app>, is made for "
+"<app>Document Viewer</app>, formally known as <app>Papers</app>, is made for "
 "viewing PDF documents. Learn how to get started with <app>Document Viewer</"
 "app> and its features."
 msgstr ""
-"<app>Visualizzatore documenti</app>, già noto come <app>Evince</app>, è fatto per "
+"<app>Visualizzatore documenti</app>, già noto come <app>Papers</app>, è fatto per "
 "visualizzare documenti PDF. Con questa guida si possono compiere i primi passi con "
 "<app>Visualizzatore documenti</app> e conoscere le sue funzionalità."
 
@@ -4237,19 +4237,19 @@ msgstr ""
 "nel codice TeX verrà evidenziata."
 
 #~ msgid ""
-#~ "@@image: 'figures/evince_start_window.png'; "
+#~ "@@image: 'figures/papers_start_window.png'; "
 #~ "md5=7f4da5e33bcac35738a268d93d497d47"
 #~ msgstr "fatto"
 
-#~ msgid "Evince Document Viewer Manual"
-#~ msgstr "Manuale di Visualizzatore documenti Evince"
+#~ msgid "Papers Document Viewer Manual"
+#~ msgstr "Manuale di Visualizzatore documenti Papers"
 
 #~ msgid ""
-#~ "The Evince Document Viewer application enables you to view documents of "
+#~ "The Papers Document Viewer application enables you to view documents of "
 #~ "various formats like Portable Document Format (PDF) files and PostScript "
 #~ "files"
 #~ msgstr ""
-#~ "L'applicazione Visualizzatore documenti Evince consente di visualizzare "
+#~ "L'applicazione Visualizzatore documenti Papers consente di visualizzare "
 #~ "vari formati di documenti come i PDF (Portable Document Format) e "
 #~ "PostScript."
 
@@ -4384,8 +4384,8 @@ msgstr ""
 #~ msgid "nshmyrev@yandex.ru"
 #~ msgstr "nshmyrev@yandex.ru"
 
-#~ msgid "Evince Document Viewer Manual V1.1"
-#~ msgstr "Manuale di Visualizzatore documenti Evince V1.1"
+#~ msgid "Papers Document Viewer Manual V1.1"
+#~ msgstr "Manuale di Visualizzatore documenti Papers V1.1"
 
 #~ msgid "2008-04-05"
 #~ msgstr "05/04/2005"
@@ -4396,84 +4396,84 @@ msgstr ""
 #~ msgid "Claude Paroz"
 #~ msgstr "Claude Paroz"
 
-#~ msgid "Evince Document Viewer Manual V1.0"
-#~ msgstr "Manuale di Visualizzatore documenti Evince V1.0"
+#~ msgid "Papers Document Viewer Manual V1.0"
+#~ msgstr "Manuale di Visualizzatore documenti Papers V1.0"
 
 #~ msgid "2005-04-06"
 #~ msgstr "06/04/2005"
 
-#~ msgid "This manual describes version 0.2 of Evince Document Viewer"
+#~ msgid "This manual describes version 0.2 of Papers Document Viewer"
 #~ msgstr ""
-#~ "Questo manuale descrive la versione 0.2 di Visualizzatore documenti Evince"
+#~ "Questo manuale descrive la versione 0.2 di Visualizzatore documenti Papers"
 
 #~ msgid "Feedback"
 #~ msgstr "Commenti"
 
 #~ msgid ""
-#~ "To report a bug or make a suggestion regarding the Evince Document Viewer "
+#~ "To report a bug or make a suggestion regarding the Papers Document Viewer "
 #~ "application or this manual, follow the directions in the <ulink url="
 #~ "\"ghelp:gnome-feedback\" type=\"help\">GNOME Feedback Page</ulink>."
 #~ msgstr ""
 #~ "Per segnalare un problema o inviare suggerimenti su Visualizzatore "
-#~ "documenti Evince o su questo manuale, seguire le istruzioni presenti alla "
+#~ "documenti Papers o su questo manuale, seguire le istruzioni presenti alla "
 #~ "<ulink url=\"ghelp:gnome-feedback\" type=\"help\">pagina di commenti di "
 #~ "GNOME</ulink>."
 
-#~ msgid "evince"
-#~ msgstr "evince"
+#~ msgid "papers"
+#~ msgstr "papers"
 
 #~ msgid ""
-#~ "The <application>Evince Document Viewer</application> application enables "
+#~ "The <application>Papers Document Viewer</application> application enables "
 #~ "you to view documents of various formats like Portable Document Format "
-#~ "(PDF) files and PostScript files. <application>Evince Document Viewer</"
+#~ "(PDF) files and PostScript files. <application>Papers Document Viewer</"
 #~ "application> follows Freedesktop.org and GNOME standards to provide "
 #~ "integration with Desktop Environment."
 #~ msgstr ""
-#~ "L'applicazione <application>Visualizzatore documenti Evince</application> "
+#~ "L'applicazione <application>Visualizzatore documenti Papers</application> "
 #~ "consente di visualizzare documenti di vari formati come i file PDF "
 #~ "(Portable Document Format) e i file PostScript. "
-#~ "<application>Visualizzatore documenti Evince</application> segue gli "
+#~ "<application>Visualizzatore documenti Papers</application> segue gli "
 #~ "standard di Freedesktop.org e di GNOME per fornire l'integrazione con "
 #~ "l'ambiente desktop."
 
 #~ msgid "Getting Started"
 #~ msgstr "Per iniziare"
 
-#~ msgid "To Start Evince Document Viewer"
-#~ msgstr "Avviare Visualizzatore documenti Evince"
+#~ msgid "To Start Papers Document Viewer"
+#~ msgstr "Avviare Visualizzatore documenti Papers"
 
 #~ msgid ""
-#~ "<application>Evince Document Viewer</application> starts when you open a "
+#~ "<application>Papers Document Viewer</application> starts when you open a "
 #~ "document such as a PDF or PostScript file."
 #~ msgstr ""
-#~ "<application>Visualizzatore documenti Evince</application> si avvia "
+#~ "<application>Visualizzatore documenti Papers</application> si avvia "
 #~ "quando viene aperto un documento come un file PDF o PostScript."
 
 #~ msgid ""
-#~ "Alternatively, you can start <application>Evince Document Viewer</"
-#~ "application> from the command line, with the command: <command>evince</"
+#~ "Alternatively, you can start <application>Papers Document Viewer</"
+#~ "application> from the command line, with the command: <command>papers</"
 #~ "command>."
 #~ msgstr ""
 #~ "In alternativa, è possibile avviare <application>Visualizzatore documenti "
-#~ "Evince</application> dalla riga di comando con il comando: "
-#~ "<command>evince</command>."
+#~ "Papers</application> dalla riga di comando con il comando: "
+#~ "<command>papers</command>."
 
 #~ msgid ""
-#~ "When you start <application>Evince Document Viewer</application>, the "
+#~ "When you start <application>Papers Document Viewer</application>, the "
 #~ "following window is displayed."
 #~ msgstr ""
-#~ "Quando si avvia <application>Visualizzatore documenti Evince</"
+#~ "Quando si avvia <application>Visualizzatore documenti Papers</"
 #~ "application>, viene visualizzata la seguente finestra."
 
-#~ msgid "Evince Document Viewer Window"
-#~ msgstr "Finestra di Visualizzatore documenti Evince"
+#~ msgid "Papers Document Viewer Window"
+#~ msgstr "Finestra di Visualizzatore documenti Papers"
 
 #~ msgid ""
-#~ "Shows Evince Document Viewer main window. Contains titlebar, menubar, "
+#~ "Shows Papers Document Viewer main window. Contains titlebar, menubar, "
 #~ "toolbar and display area. Menubar contains File, Edit, View, Go and Help "
 #~ "menus."
 #~ msgstr ""
-#~ "Mostra la finestra principale di Visualizzatore documenti Evince. "
+#~ "Mostra la finestra principale di Visualizzatore documenti Papers. "
 #~ "Contiene la barra del titolo, la barra dei menù, la barra degli strumenti "
 #~ "e l'area di visualizzazione. La barra dei menù contiene i menù File, "
 #~ "Modifica, Visualizza, Vai e Aiuto."
@@ -4483,10 +4483,10 @@ msgstr ""
 
 #~ msgid ""
 #~ "The menus on the menubar contain all of the commands that you need to "
-#~ "work with documents in <application>Evince Document Viewer</application>."
+#~ "work with documents in <application>Papers Document Viewer</application>."
 #~ msgstr ""
 #~ "I menù nella barra dei menù contengono tutti i comandi necessari per "
-#~ "lavorare con i documenti in <application>Visualizzatore documenti Evince</"
+#~ "lavorare con i documenti in <application>Visualizzatore documenti Papers</"
 #~ "application>."
 
 #~ msgid "Toolbar"
@@ -4515,11 +4515,11 @@ msgstr ""
 #~ msgstr "Finestra"
 
 #~ msgid ""
-#~ "Drag a file into the <application>Evince Document Viewer</application> "
+#~ "Drag a file into the <application>Papers Document Viewer</application> "
 #~ "window from another application such as a file manager."
 #~ msgstr ""
 #~ "Trascinare un file all'interno della finestra di "
-#~ "<application>Visualizzatore documenti Evince</application> da un'altra "
+#~ "<application>Visualizzatore documenti Papers</application> da un'altra "
 #~ "applicazione come il file manager."
 
 #~ msgid ""
@@ -4533,14 +4533,14 @@ msgstr ""
 #~ msgstr "Tasti scorciatoia"
 
 #~ msgid ""
-#~ "In <application>Evince Document Viewer</application>, you can perform the "
+#~ "In <application>Papers Document Viewer</application>, you can perform the "
 #~ "same action in several ways. For example, you can open a document in the "
 #~ "following ways: <informaltable frame=\"all\"><tgroup cols=\"2\" colsep="
 #~ "\"1\" rowsep=\"1\"><colspec colname=\"COLSPEC0\" colwidth=\"50*\"/"
 #~ "><colspec colname=\"COLSPEC1\" colwidth=\"50*\"/><placeholder-1/"
 #~ "><placeholder-2/></tgroup></informaltable>"
 #~ msgstr ""
-#~ "Con <application>Visualizzatore documenti Evince</application> è "
+#~ "Con <application>Visualizzatore documenti Papers</application> è "
 #~ "possibile compiere la stessa azione in modi diversi. Ad esempio, è "
 #~ "possibile aprire un documento nei seguenti modi: <informaltable frame="
 #~ "\"all\"><tgroup cols=\"2\" colsep=\"1\" rowsep=\"1\"><colspec colname="
@@ -4561,32 +4561,32 @@ msgstr ""
 #~ "selezionare il file da aprire."
 
 #~ msgid ""
-#~ "Click <guibutton>Open</guibutton>. <application>Evince Document Viewer</"
+#~ "Click <guibutton>Open</guibutton>. <application>Papers Document Viewer</"
 #~ "application> displays the name of the document in the titlebar of the "
 #~ "window."
 #~ msgstr ""
 #~ "Fare clic su <guibutton>Apri</guibutton>. Il nome del documento viene "
 #~ "mostrato nella barra del titolo della finestra di "
-#~ "<application>Visualizzatore documenti Evince</application>."
+#~ "<application>Visualizzatore documenti Papers</application>."
 
 #~ msgid ""
 #~ "To open another document, choose <menuchoice><guimenu>File</"
 #~ "guimenu><guimenuitem>Open</guimenuitem></menuchoice> again. "
-#~ "<application>Evince Document Viewer</application> opens each file in a "
+#~ "<application>Papers Document Viewer</application> opens each file in a "
 #~ "new window."
 #~ msgstr ""
 #~ "Per aprire un altro documento, scegliere nuovamente "
 #~ "<menuchoice><guimenu>File</guimenu><guimenuitem>Apri</guimenuitem></"
 #~ "menuchoice>. Ciascun file viene aperto all'interno di una nuova finestra "
-#~ "di <application>Visualizzatore documenti Evince</application>."
+#~ "di <application>Visualizzatore documenti Papers</application>."
 
 #~ msgid ""
-#~ "If you try to open a document with format that <application>Evince "
+#~ "If you try to open a document with format that <application>Papers "
 #~ "Document Viewer</application> does not recognize, the application "
 #~ "displays an error message."
 #~ msgstr ""
 #~ "Se si cerca di aprire un documento con un formato non riconosciuto da "
-#~ "<application>Visualizzatore documenti Evince</application>, viene "
+#~ "<application>Visualizzatore documenti Papers</application>, viene "
 #~ "visualizzato un messaggio di errore."
 
 #~ msgid "You can navigate through a file as follows:"
@@ -4657,11 +4657,11 @@ msgstr ""
 
 #~ msgid ""
 #~ "You can use the following methods to resize a page in the "
-#~ "<application>Evince Document Viewer</application> display area:"
+#~ "<application>Papers Document Viewer</application> display area:"
 #~ msgstr ""
 #~ "È possibile usare i seguenti metodi per ridimensionare una pagina "
 #~ "nell'area di visualizzazione di <application>Visualizzatore documenti "
-#~ "Evince</application>:"
+#~ "Papers</application>:"
 
 #~ msgid ""
 #~ "To increase the page size, choose <menuchoice><guimenu>View</"
@@ -4680,39 +4680,39 @@ msgstr ""
 #~ "ingrandimento</guimenuitem></menuchoice>."
 
 #~ msgid ""
-#~ "To resize a page to have the same width as the <application>Evince "
+#~ "To resize a page to have the same width as the <application>Papers "
 #~ "Document Viewer</application> display area, choose "
 #~ "<menuchoice><guimenu>View</guimenu><guimenuitem>Fit page width</"
 #~ "guimenuitem></menuchoice>."
 #~ msgstr ""
 #~ "Per ridimensionare una pagina affinché abbia la stessa larghezza "
 #~ "dell'area di visualizzazione di <application>Visualizzatore documenti "
-#~ "Evince</application>, scegliere <menuchoice><guimenu>Visualizza</"
+#~ "Papers</application>, scegliere <menuchoice><guimenu>Visualizza</"
 #~ "guimenu><guimenuitem>Adatta alla larghezza</guimenuitem></menuchoice>."
 
 #~ msgid ""
-#~ "To resize a page to fit within the <application>Evince Document Viewer</"
+#~ "To resize a page to fit within the <application>Papers Document Viewer</"
 #~ "application> display area, choose <menuchoice><guimenu>View</"
 #~ "guimenu><guimenuitem>Best Fit</guimenuitem></menuchoice>."
 #~ msgstr ""
 #~ "Per ridimensionare una pagina affinché sia interamente contenuta "
 #~ "nell'area di visualizzazione di <application>Visualizzatore documenti "
-#~ "Evince</application>, scegliere <menuchoice><guimenu>Visualizza</"
+#~ "Papers</application>, scegliere <menuchoice><guimenu>Visualizza</"
 #~ "guimenu><guimenuitem>Adatta alla pagina</guimenuitem></menuchoice>."
 
 #~ msgid ""
-#~ "To resize the <application>Evince Document Viewer</application> window to "
+#~ "To resize the <application>Papers Document Viewer</application> window to "
 #~ "have the same width and height as the screen, choose "
 #~ "<menuchoice><guimenu>View</guimenu><guimenuitem>Full Screen</"
-#~ "guimenuitem></menuchoice>. To resize the <application>Evince Document "
+#~ "guimenuitem></menuchoice>. To resize the <application>Papers Document "
 #~ "Viewer</application> window to the original size, click on the "
 #~ "<guibutton>Exit Full Screen</guibutton> button."
 #~ msgstr ""
 #~ "Per ridimensionare la finestra di <application>Visualizzatore documenti "
-#~ "Evince</application> affinché abbia le stesse dimensioni dello schermo, "
+#~ "Papers</application> affinché abbia le stesse dimensioni dello schermo, "
 #~ "scegliere <menuchoice><guimenu>Visualizza</guimenu><guimenuitem>Schermo "
 #~ "intero</guimenuitem></menuchoice>. Per riportare la finestra di "
-#~ "<application>Visualizzatore documenti Evince</application> alle "
+#~ "<application>Visualizzatore documenti Papers</application> alle "
 #~ "dimensioni originali, fare clic sul pulsante <guibutton>Finestra normale</"
 #~ "guibutton>."
 
@@ -4781,14 +4781,14 @@ msgstr ""
 #~ "If you cannot choose the <guimenuitem>Print</guimenuitem> menu item, the "
 #~ "author of the document has disabled the print option for this document. "
 #~ "To enable the print option, you must enter the master password when you "
-#~ "open the document. See <xref linkend=\"evince-password\"/> for more "
+#~ "open the document. See <xref linkend=\"papers-password\"/> for more "
 #~ "information about password-protected files."
 #~ msgstr ""
 #~ "Se non è possibile scegliere la voce di menù <guimenuitem>Stampa</"
 #~ "guimenuitem>, l'autore del documento ha disabilitato il supporto per la "
 #~ "stampa del documento. Per abilitare la stampa è necessario inserire la "
 #~ "password principale all'apertura del documento. Per maggiori informazioni "
-#~ "riguardo i file protetti da password, consultare <xref linkend=\"evince-"
+#~ "riguardo i file protetti da password, consultare <xref linkend=\"papers-"
 #~ "password\"/>."
 
 #~ msgid ""
@@ -4832,10 +4832,10 @@ msgstr ""
 
 #~ msgid ""
 #~ "The <guilabel>Create a PDF document</guilabel> option is not supported in "
-#~ "this version of <application>Evince Document Viewer</application>."
+#~ "this version of <application>Papers Document Viewer</application>."
 #~ msgstr ""
 #~ "L'opzione <guilabel>Create a PDF document</guilabel> non è supportata in "
-#~ "questa versione di <application>Visualizzatore documento Evince</"
+#~ "questa versione di <application>Visualizzatore documento Papers</"
 #~ "application>."
 
 #~ msgid "Use this drop-down list to select the printer settings."
@@ -4906,10 +4906,10 @@ msgstr ""
 
 #~ msgid ""
 #~ "This functionality is not supported in this version of "
-#~ "<application>Evince Document Viewer</application>."
+#~ "<application>Papers Document Viewer</application>."
 #~ msgstr ""
 #~ "Questa funzionalità non è supportata in questa versione di "
-#~ "<application>Visualizzatore documenti Evince</application>."
+#~ "<application>Visualizzatore documenti Papers</application>."
 
 #~ msgid "Type"
 #~ msgstr "Tipo"
@@ -5014,14 +5014,14 @@ msgstr ""
 #~ "come la stampa del documento."
 
 #~ msgid ""
-#~ "When you try to open a password-protected document, <application>Evince "
+#~ "When you try to open a password-protected document, <application>Papers "
 #~ "Document Viewer</application> displays a security dialog. Type either the "
 #~ "user password or the master password in the <guilabel>Enter document "
 #~ "password</guilabel> text box, then click <guibutton>Open Document</"
 #~ "guibutton>."
 #~ msgstr ""
 #~ "Quando si prova ad aprire un documento protetto da password, "
-#~ "<application>Visualizzatore documenti Evince</application> mostra una "
+#~ "<application>Visualizzatore documenti Papers</application> mostra una "
 #~ "finestra di dialogo di sicurezza. Digitare la password utente o quella "
 #~ "principale nella casella di testo <guilabel>Inserire password documento</"
 #~ "guilabel>, quindi fare clic su <guibutton>Apri documento</guibutton>."
@@ -5037,21 +5037,21 @@ msgstr ""
 #~ "guimenu><guimenuitem>Chiudi</guimenuitem></menuchoice>."
 
 #~ msgid ""
-#~ "If the window is the last <application>Evince Document Viewer</"
+#~ "If the window is the last <application>Papers Document Viewer</"
 #~ "application> window open, the application exits."
 #~ msgstr ""
-#~ "Se la finestra di <application>Visualizzatore documenti Evince</"
+#~ "Se la finestra di <application>Visualizzatore documenti Papers</"
 #~ "application> è l'unica aperta, l'applicazione esce."
 
 #~ msgid "Shortcuts"
 #~ msgstr "Tasti scorciatoia"
 
 #~ msgid ""
-#~ "Below is a list of all shortcuts present in <application>Evince Document "
+#~ "Below is a list of all shortcuts present in <application>Papers Document "
 #~ "Viewer</application>:"
 #~ msgstr ""
 #~ "Di seguito viene presentato un elenco di tutte le scorciatoie presenti in "
-#~ "<application>Visualizzatore documenti Evince</application>:"
+#~ "<application>Visualizzatore documenti Papers</application>:"
 
 #~ msgid "Shortcut"
 #~ msgstr "Scorciatoia"

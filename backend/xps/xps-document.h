@@ -1,13 +1,13 @@
-/* this file is part of evince, a gnome document viewer
+/* this file is part of papers, a gnome document viewer
  *
  * Copyright (C) 2010 Carlos Garcia Campos <carlosgc@gnome.org>
  *
- * Evince is free software; you can redistribute it and/or modify it
+ * Papers is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
  *
- * Evince is distributed in the hope that it will be useful, but
+ * Papers is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
@@ -21,8 +21,8 @@
 
 #include <glib-object.h>
 
-#include "ev-macros.h"
-#include "ev-document.h"
+#include "pps-macros.h"
+#include "pps-document.h"
 
 G_BEGIN_DECLS
 

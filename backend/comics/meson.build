@@ -1,6 +1,6 @@
 backend_sources = files(
   'comics-document.c',
-  'ev-archive.c',
+  'pps-archive.c',
 )
 
 backend_incs = backends_common_incs + [cut_n_paste_inc]
@@ -9,11 +9,11 @@ backend_deps = backends_common_deps + [
   libarchive_dep,
 ]
 
-test_name = 'test-ev-archive'
+test_name = 'test-pps-archive'
 
 test_sources = files(
-  'ev-archive.c',
-  'test-ev-archive.c',
+  'pps-archive.c',
+  'test-pps-archive.c',
 )
 
 executable(

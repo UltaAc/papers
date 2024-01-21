@@ -1,11 +1,11 @@
-# Malagasy translation of EVINCE.
+# Malagasy translation of PAPERS.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Fano Rajaonarisoa <fano@isvtec.com>, 2006
 # Thierry Randrianiriana <thierry@isvtec.com>, 2006-2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: EVINCE VERSION\n"
+"Project-Id-Version: PAPERS VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-23 17:17+0000\n"
 "PO-Revision-Date: 2007-12-28 19:32+0300\n"
@@ -41,60 +41,60 @@ msgid "DVI document has incorrect format"
 msgstr "Diso ny lamin'io tahirin-kevitra DVI io"
 
 #. translators: this is the document security state
-#: ../backend/pdf/ev-poppler.cc:675
+#: ../backend/pdf/pps-poppler.cc:675
 msgid "Yes"
 msgstr "Eny"
 
 #. translators: this is the document security state
-#: ../backend/pdf/ev-poppler.cc:678
+#: ../backend/pdf/pps-poppler.cc:678
 msgid "No"
 msgstr "Tsia"
 
-#: ../backend/pdf/ev-poppler.cc:751
+#: ../backend/pdf/pps-poppler.cc:751
 msgid "Type 1"
 msgstr "Karazana 1"
 
-#: ../backend/pdf/ev-poppler.cc:753
+#: ../backend/pdf/pps-poppler.cc:753
 msgid "Type 1C"
 msgstr "Karazana 1C"
 
-#: ../backend/pdf/ev-poppler.cc:755
+#: ../backend/pdf/pps-poppler.cc:755
 msgid "Type 3"
 msgstr "Karazana 3"
 
-#: ../backend/pdf/ev-poppler.cc:757
+#: ../backend/pdf/pps-poppler.cc:757
 msgid "TrueType"
 msgstr "TrueType"
 
-#: ../backend/pdf/ev-poppler.cc:759
+#: ../backend/pdf/pps-poppler.cc:759
 msgid "Type 1 (CID)"
 msgstr "Karazana 1 (CID)"
 
-#: ../backend/pdf/ev-poppler.cc:761
+#: ../backend/pdf/pps-poppler.cc:761
 msgid "Type 1C (CID)"
 msgstr "Karazana 1C (CID)"
 
-#: ../backend/pdf/ev-poppler.cc:763
+#: ../backend/pdf/pps-poppler.cc:763
 msgid "TrueType (CID)"
 msgstr "TrueType (CID)"
 
-#: ../backend/pdf/ev-poppler.cc:765
+#: ../backend/pdf/pps-poppler.cc:765
 msgid "Unknown font type"
 msgstr "Karazan'endri-tsoratra tsy fantatra"
 
-#: ../backend/pdf/ev-poppler.cc:791
+#: ../backend/pdf/pps-poppler.cc:791
 msgid "No name"
 msgstr "Tsy misy anarana"
 
-#: ../backend/pdf/ev-poppler.cc:799
+#: ../backend/pdf/pps-poppler.cc:799
 msgid "Embedded subset"
 msgstr "Zana-pitambarana voarakitra"
 
-#: ../backend/pdf/ev-poppler.cc:801
+#: ../backend/pdf/pps-poppler.cc:801
 msgid "Embedded"
 msgstr "Voarakitra"
 
-#: ../backend/pdf/ev-poppler.cc:803
+#: ../backend/pdf/pps-poppler.cc:803
 msgid "Not embedded"
 msgstr "Tsy voarakitra"
 
@@ -131,7 +131,7 @@ msgstr "Tsy voavaky ny karazan-daza avy amin'ny rakitra"
 msgid "Cannot find file in the zip archive"
 msgstr ""
 
-#: ../backend/impress/zip.c:76 ../shell/ev-window.c:4830
+#: ../backend/impress/zip.c:76 ../shell/pps-window.c:4830
 msgid "Unknown error"
 msgstr ""
 
@@ -248,64 +248,64 @@ msgstr ""
 msgid "Invalid document"
 msgstr "Tahirin-kevitra diso"
 
-#: ../libdocument/ev-attachment.c:303 ../libdocument/ev-attachment.c:316
+#: ../libdocument/pps-attachment.c:303 ../libdocument/pps-attachment.c:316
 #, c-format
 msgid "Couldn't save attachment “%s”: %s"
 msgstr "Tsy voaraikitra ny mpanaraka “%s”: %s"
 
-#: ../libdocument/ev-attachment.c:348
+#: ../libdocument/pps-attachment.c:348
 #, c-format
 msgid "Couldn't open attachment “%s”: %s"
 msgstr "Tsy voasokatra ny mpanaraka “%s”: %s"
 
-#: ../libdocument/ev-attachment.c:381
+#: ../libdocument/pps-attachment.c:381
 #, c-format
 msgid "Couldn't open attachment “%s”"
 msgstr "Tsy voasokatra ny mpanaraka “%s”"
 
-#: ../libdocument/ev-document-factory.c:291
-#: ../libdocument/ev-document-factory.c:398
+#: ../libdocument/pps-document-factory.c:291
+#: ../libdocument/pps-document-factory.c:398
 msgid "Unknown MIME Type"
 msgstr "Karazana MIME tsy fantatra"
 
-#: ../libdocument/ev-document-factory.c:302
+#: ../libdocument/pps-document-factory.c:302
 #, c-format
 msgid "Unhandled MIME type: “%s”"
 msgstr "Karazana MIME tsy raisina an-tànana: “%s”"
 
-#: ../libdocument/ev-document-factory.c:439
+#: ../libdocument/pps-document-factory.c:439
 msgid "All Documents"
 msgstr "Ny tahirin-kevitra rehetra"
 
-#: ../libdocument/ev-document-factory.c:447
+#: ../libdocument/pps-document-factory.c:447
 msgid "PostScript Documents"
 msgstr "Tahirin-kevitra PostScript"
 
-#: ../libdocument/ev-document-factory.c:457
+#: ../libdocument/pps-document-factory.c:457
 msgid "PDF Documents"
 msgstr "Tahirin-kevitra PDF"
 
-#: ../libdocument/ev-document-factory.c:467 ../shell/ev-window.c:5054
+#: ../libdocument/pps-document-factory.c:467 ../shell/pps-window.c:5054
 msgid "Images"
 msgstr "Sary"
 
-#: ../libdocument/ev-document-factory.c:477
+#: ../libdocument/pps-document-factory.c:477
 msgid "DVI Documents"
 msgstr "Tahirin-kevitra DVI"
 
-#: ../libdocument/ev-document-factory.c:487
+#: ../libdocument/pps-document-factory.c:487
 msgid "Djvu Documents"
 msgstr "Tahirin-kevitra Djvu"
 
-#: ../libdocument/ev-document-factory.c:497
+#: ../libdocument/pps-document-factory.c:497
 msgid "Comic Books"
 msgstr "Boky mahatsikaiky"
 
-#: ../libdocument/ev-document-factory.c:507
+#: ../libdocument/pps-document-factory.c:507
 msgid "Impress Slides"
 msgstr "Diapo Impress"
 
-#: ../libdocument/ev-document-factory.c:515
+#: ../libdocument/pps-document-factory.c:515
 msgid "All Files"
 msgstr "Ny rakitra rehetra"
 
@@ -352,10 +352,10 @@ msgstr "Mpampisaraka"
 #: ../cut-n-paste/totem-screensaver/totem-scrsaver.c:111
 #, fuzzy
 msgid "Running in presentation mode"
-msgstr "Alefa toa fampisehoana ny evince"
+msgstr "Alefa toa fampisehoana ny papers"
 
 #. translators: this is the label for toolbar button
-#: ../cut-n-paste/zoom-control/ephy-zoom.h:48 ../shell/ev-window.c:4645
+#: ../cut-n-paste/zoom-control/ephy-zoom.h:48 ../shell/pps-window.c:4645
 msgid "Best Fit"
 msgstr "Ny tena mety"
 
@@ -403,98 +403,98 @@ msgstr "300%"
 msgid "400%"
 msgstr "400%"
 
-#: ../data/evince.desktop.in.in.h:1 ../shell/ev-window.c:3770
-#: ../shell/ev-window-title.c:126
+#: ../data/papers.desktop.in.in.h:1 ../shell/pps-window.c:3770
+#: ../shell/pps-window-title.c:126
 msgid "Document Viewer"
 msgstr "Mpaneho tahirin-kevitra"
 
-#: ../data/evince.desktop.in.in.h:2
+#: ../data/papers.desktop.in.in.h:2
 msgid "View multipage documents"
 msgstr "Maneho tahirin-kevitra maro pejy"
 
-#: ../data/evince-password.glade.h:1
+#: ../data/papers-password.glade.h:1
 msgid "Password Entry"
 msgstr "Teny fanalahidy"
 
-#: ../data/evince-password.glade.h:2
+#: ../data/papers-password.glade.h:2
 msgid "Remember password for this session"
 msgstr "Tadidio ny teny fanalahidiko amin'ity session ity"
 
-#: ../data/evince-password.glade.h:3
+#: ../data/papers-password.glade.h:3
 msgid "Save password in keyring"
 msgstr "Mandraikitra ilay teny fanalahidy amin'ny rojo"
 
-#: ../data/evince-password.glade.h:4
+#: ../data/papers-password.glade.h:4
 msgid "_Password:"
 msgstr "_Teny fanalahidy:"
 
-#: ../data/evince-properties.glade.h:1
+#: ../data/papers-properties.glade.h:1
 msgid "<b>Author:</b>"
 msgstr "<b>Mpanoratra:</b>"
 
-#: ../data/evince-properties.glade.h:2
+#: ../data/papers-properties.glade.h:2
 msgid "<b>Created:</b>"
 msgstr "<b>Noforonina:</b>"
 
-#: ../data/evince-properties.glade.h:3
+#: ../data/papers-properties.glade.h:3
 msgid "<b>Creator:</b>"
 msgstr "<b>Mpamorona:</b>"
 
-#: ../data/evince-properties.glade.h:4
+#: ../data/papers-properties.glade.h:4
 msgid "<b>Format:</b>"
 msgstr "<b>Lamina:</b>"
 
-#: ../data/evince-properties.glade.h:5
+#: ../data/papers-properties.glade.h:5
 msgid "<b>Keywords:</b>"
 msgstr "<b>Teny fanalahidy:</b>"
 
-#: ../data/evince-properties.glade.h:6
+#: ../data/papers-properties.glade.h:6
 msgid "<b>Modified:</b>"
 msgstr "<b>Novana:</b>"
 
-#: ../data/evince-properties.glade.h:7
+#: ../data/papers-properties.glade.h:7
 msgid "<b>Number of Pages:</b>"
 msgstr "<b>Isan'ny pejy:</b>"
 
-#: ../data/evince-properties.glade.h:8
+#: ../data/papers-properties.glade.h:8
 msgid "<b>Optimized:</b>"
 msgstr "<b>Nomena aina:</b>"
 
-#: ../data/evince-properties.glade.h:9
+#: ../data/papers-properties.glade.h:9
 msgid "<b>Paper Size:</b>"
 msgstr "<b>Haben'ny taratrasy:</b>"
 
-#: ../data/evince-properties.glade.h:10
+#: ../data/papers-properties.glade.h:10
 msgid "<b>Producer:</b>"
 msgstr "<b>Mpamokatra:</b>"
 
-#: ../data/evince-properties.glade.h:11
+#: ../data/papers-properties.glade.h:11
 msgid "<b>Security:</b>"
 msgstr "<b>Fiarovana:</b>"
 
-#: ../data/evince-properties.glade.h:12
+#: ../data/papers-properties.glade.h:12
 msgid "<b>Subject:</b>"
 msgstr "<b>Anton-dresaka:</b>"
 
-#: ../data/evince-properties.glade.h:13
+#: ../data/papers-properties.glade.h:13
 msgid "<b>Title:</b>"
 msgstr "<b>Lohateny:</b>"
 
-#: ../data/evince.schemas.in.h:1
+#: ../data/papers.schemas.in.h:1
 msgid "Override document restrictions"
 msgstr "Dingano ireo fameperana amin'ilay tahirin-kevitra"
 
-#: ../data/evince.schemas.in.h:2
+#: ../data/papers.schemas.in.h:2
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr ""
 "Dingano ireo fameperana amin'ilay tahirin-kevitra, toy ny famerana ny "
 "fandikana na fanontana."
 
-#: ../properties/ev-properties-main.c:110
+#: ../properties/pps-properties-main.c:110
 msgid "Document"
 msgstr "Tahirin-kevitra"
 
-#: ../properties/ev-properties-view.c:182
+#: ../properties/pps-properties-view.c:182
 msgid "None"
 msgstr "Tsy misy"
 
@@ -504,41 +504,41 @@ msgstr "Tsy misy"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: ../properties/ev-properties-view.c:207
-#: ../properties/ev-properties-view.c:367
+#: ../properties/pps-properties-view.c:207
+#: ../properties/pps-properties-view.c:367
 msgid "default:mm"
 msgstr ""
 
 #. Metric measurement (millimeters)
-#: ../properties/ev-properties-view.c:249
-#: ../properties/ev-properties-view.c:404
+#: ../properties/pps-properties-view.c:249
+#: ../properties/pps-properties-view.c:404
 #, c-format
 msgid "%.0f x %.0f mm"
 msgstr ""
 
-#: ../properties/ev-properties-view.c:253
+#: ../properties/pps-properties-view.c:253
 #, c-format
 msgid "%.2f x %.2f inch"
 msgstr ""
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/ev-properties-view.c:277
-#: ../properties/ev-properties-view.c:415
+#: ../properties/pps-properties-view.c:277
+#: ../properties/pps-properties-view.c:415
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr ""
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/ev-properties-view.c:284
-#: ../properties/ev-properties-view.c:422
+#: ../properties/pps-properties-view.c:284
+#: ../properties/pps-properties-view.c:422
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr ""
 
 #. Imperial measurement (inches)
-#: ../properties/ev-properties-view.c:399
+#: ../properties/pps-properties-view.c:399
 #, c-format
 msgid "%.2f x %.2f in"
 msgstr ""
@@ -603,31 +603,31 @@ msgstr "_Manaja haben-tsoratra"
 msgid "Toggle case sensitive search"
 msgstr "Mampihatra na tsia ny karoka manaja haben-tsoratra"
 
-#: ../shell/ev-jobs.c:652
+#: ../shell/pps-jobs.c:652
 #, c-format
 msgid "Failed to create file “%s”: %s"
 msgstr "Tsy afaka namorona ny rakitra “%s”: %s"
 
-#: ../shell/ev-open-recent-action.c:70
+#: ../shell/pps-open-recent-action.c:70
 #, fuzzy
 msgid "Open a recently used document"
 msgstr "Manokatra tahirin-kevitra"
 
-#: ../shell/ev-page-action.c:76
+#: ../shell/pps-page-action.c:76
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%d amin'ny %d)"
 
-#: ../shell/ev-page-action.c:78
+#: ../shell/pps-page-action.c:78
 #, c-format
 msgid "of %d"
 msgstr "amin'ny %d"
 
-#: ../shell/ev-password.c:83
+#: ../shell/pps-password.c:83
 msgid "Password required"
 msgstr "Mila teny fanalahidy"
 
-#: ../shell/ev-password.c:84
+#: ../shell/pps-password.c:84
 #, c-format
 msgid ""
 "The document “%s” is locked and requires a password before it can be opened."
@@ -635,20 +635,20 @@ msgstr ""
 "Voageja ny tahirin-kevitra “%s” ka mila teny fanalahidy izay vao mety "
 "sokafana."
 
-#: ../shell/ev-password.c:149
+#: ../shell/pps-password.c:149
 msgid "Enter password"
 msgstr "Soraty ny teny fanalahidy"
 
-#: ../shell/ev-password.c:252
+#: ../shell/pps-password.c:252
 #, c-format
 msgid "Password for document %s"
 msgstr "Teny fanalahidin'ny tahirin-kevitra %s"
 
-#: ../shell/ev-password.c:334
+#: ../shell/pps-password.c:334
 msgid "Incorrect password"
 msgstr "Teny fanalahidy diso"
 
-#: ../shell/ev-password-view.c:111
+#: ../shell/pps-password-view.c:111
 msgid ""
 "This document is locked and can only be read by entering the correct "
 "password."
@@ -656,193 +656,193 @@ msgstr ""
 "Voageja io tahirin-kevitra io ary tsy ho azo vakiana raha tsy manome ny teny "
 "fanalahidy marina ianao."
 
-#: ../shell/ev-password-view.c:120
+#: ../shell/pps-password-view.c:120
 msgid "_Unlock Document"
 msgstr "_Hamaha ilay tahirin-kevitra"
 
-#: ../shell/ev-properties-dialog.c:61
+#: ../shell/pps-properties-dialog.c:61
 msgid "Properties"
 msgstr "Toetoetra"
 
-#: ../shell/ev-properties-dialog.c:94
+#: ../shell/pps-properties-dialog.c:94
 msgid "General"
 msgstr "Ankapobe"
 
-#: ../shell/ev-properties-dialog.c:104
+#: ../shell/pps-properties-dialog.c:104
 msgid "Fonts"
 msgstr "endri-tsoratra"
 
-#: ../shell/ev-properties-fonts.c:141
+#: ../shell/pps-properties-fonts.c:141
 msgid "Font"
 msgstr "Endri-tsoratra"
 
-#: ../shell/ev-properties-fonts.c:152
+#: ../shell/pps-properties-fonts.c:152
 #, c-format
 msgid "Gathering font information... %3d%%"
 msgstr "Manangona ireo laza momba ny endri-tsoratra... %3d%%"
 
-#: ../shell/ev-sidebar-attachments.c:670
+#: ../shell/pps-sidebar-attachments.c:670
 msgid "Attachments"
 msgstr "Mpanaraka"
 
-#: ../shell/ev-sidebar-links.c:266 ../shell/ev-view.c:3537
+#: ../shell/pps-sidebar-links.c:266 ../shell/pps-view.c:3537
 msgid "Loading..."
 msgstr "Maka..."
 
-#: ../shell/ev-sidebar-links.c:342
+#: ../shell/pps-sidebar-links.c:342
 msgid "Print..."
 msgstr "Hanonta..."
 
-#: ../shell/ev-sidebar-links.c:722
+#: ../shell/pps-sidebar-links.c:722
 msgid "Index"
 msgstr "Fizahan-takila"
 
-#: ../shell/ev-sidebar-thumbnails.c:728
+#: ../shell/pps-sidebar-thumbnails.c:728
 msgid "Thumbnails"
 msgstr "Sary madinika"
 
-#: ../shell/ev-view-accessible.c:40
+#: ../shell/pps-view-accessible.c:40
 msgid "Scroll Up"
 msgstr "Mampikorisa miakatra"
 
-#: ../shell/ev-view-accessible.c:41
+#: ../shell/pps-view-accessible.c:41
 msgid "Scroll Down"
 msgstr "Mampikorisa midina"
 
-#: ../shell/ev-view-accessible.c:47
+#: ../shell/pps-view-accessible.c:47
 msgid "Scroll View Up"
 msgstr "Mampikorisa ny seho miakatra"
 
-#: ../shell/ev-view-accessible.c:48
+#: ../shell/pps-view-accessible.c:48
 msgid "Scroll View Down"
 msgstr "Mampikorisa ny seho midina"
 
-#: ../shell/ev-view-accessible.c:532
+#: ../shell/pps-view-accessible.c:532
 msgid "Document View"
 msgstr "Sehon'ilay tahirin-kevitra"
 
-#: ../shell/ev-view.c:1440
+#: ../shell/pps-view.c:1440
 msgid "Go to first page"
 msgstr "Ho any amin'ny pejy voalohany"
 
-#: ../shell/ev-view.c:1442
+#: ../shell/pps-view.c:1442
 msgid "Go to previous page"
 msgstr "Mankany any amin'ny pejy eo aloha"
 
-#: ../shell/ev-view.c:1444
+#: ../shell/pps-view.c:1444
 msgid "Go to next page"
 msgstr "Mankany amin'ny pejy manaraka"
 
-#: ../shell/ev-view.c:1446
+#: ../shell/pps-view.c:1446
 msgid "Go to last page"
 msgstr "Ho any amin'ny pejy manaraka"
 
-#: ../shell/ev-view.c:1448
+#: ../shell/pps-view.c:1448
 msgid "Go to page"
 msgstr "Ho any amin'ny pejy"
 
-#: ../shell/ev-view.c:1450
+#: ../shell/pps-view.c:1450
 msgid "Find"
 msgstr "Tadiavo"
 
-#: ../shell/ev-view.c:1478
+#: ../shell/pps-view.c:1478
 #, c-format
 msgid "Go to page %s"
 msgstr "Ho any amin'ny pejy %s"
 
-#: ../shell/ev-view.c:1484
+#: ../shell/pps-view.c:1484
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Ho any amin'ny %s amin'ny rakitra “%s”"
 
-#: ../shell/ev-view.c:1487
+#: ../shell/pps-view.c:1487
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Ho any amin'ny “%s”"
 
-#: ../shell/ev-view.c:1495
+#: ../shell/pps-view.c:1495
 #, c-format
 msgid "Launch %s"
 msgstr "Handefa ny %s"
 
-#: ../shell/ev-view.c:2444
+#: ../shell/pps-view.c:2444
 msgid "End of presentation. Press Escape to exit."
 msgstr ""
 
-#: ../shell/ev-view.c:3260
+#: ../shell/pps-view.c:3260
 msgid "Jump to page:"
 msgstr "Ho any amin'ny pejy:"
 
 #. TRANS: Sometimes this could be better translated as
 #. "%d hit(s) on this page".  Therefore this string
 #. contains plural cases.
-#: ../shell/ev-view.c:4939
+#: ../shell/pps-view.c:4939
 #, c-format
 msgid "%d found on this page"
 msgid_plural "%d found on this page"
 msgstr[0] "in-%d hita anatin'ity pejy ity"
 msgstr[1] "in-%d hita anatin'ity pejy ity"
 
-#: ../shell/ev-view.c:4948
+#: ../shell/pps-view.c:4948
 #, c-format
 msgid "%3d%% remaining to search"
 msgstr "%3d%% sisa tadiavina"
 
-#: ../shell/ev-window.c:781
+#: ../shell/pps-window.c:781
 #, c-format
 msgid "Page %s - %s"
 msgstr ""
 
-#: ../shell/ev-window.c:783
+#: ../shell/pps-window.c:783
 #, fuzzy, c-format
 msgid "Page %s"
 msgstr "Pejy"
 
-#: ../shell/ev-window.c:1421
+#: ../shell/pps-window.c:1421
 msgid "Unable to open document"
 msgstr "Tsy nahasokatra ilay tahirin-kevitra"
 
-#: ../shell/ev-window.c:1617
+#: ../shell/pps-window.c:1617
 msgid "Open Document"
 msgstr "Hanokatra ilay tahirin-kevitra"
 
-#: ../shell/ev-window.c:1687
+#: ../shell/pps-window.c:1687
 #, fuzzy, c-format
 msgid "Couldn't create symlink “%s”: %s"
 msgstr "Tsy voaraikitra ny mpanaraka “%s”: %s"
 
-#: ../shell/ev-window.c:1716
+#: ../shell/pps-window.c:1716
 #, fuzzy
 msgid "Cannot open a copy."
 msgstr "Tsy voasokatra ny rakitra “%s”.\n"
 
-#: ../shell/ev-window.c:1961 ../shell/ev-window.c:2033
+#: ../shell/pps-window.c:1961 ../shell/pps-window.c:2033
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Tsy voaraikitra ho “%s” ilay rakitra."
 
-#: ../shell/ev-window.c:2082
+#: ../shell/pps-window.c:2082
 msgid "Save a Copy"
 msgstr "Handraikitra dika mitovy"
 
-#: ../shell/ev-window.c:2214 ../shell/ev-window.c:3469
+#: ../shell/pps-window.c:2214 ../shell/pps-window.c:3469
 msgid "Failed to print document"
 msgstr "Tsy nahavita nanonta ilay tahirin-kevitra"
 
-#: ../shell/ev-window.c:2378 ../shell/ev-window.c:2568
+#: ../shell/pps-window.c:2378 ../shell/pps-window.c:2568
 msgid "Printing is not supported on this printer."
 msgstr "Tsy raisin'ity milina ity an-tànana ny fanontana."
 
-#: ../shell/ev-window.c:2504 ../shell/ev-window.c:2619
-#: ../shell/ev-window.c:4440
+#: ../shell/pps-window.c:2504 ../shell/pps-window.c:2619
+#: ../shell/pps-window.c:4440
 msgid "Print"
 msgstr "Hanonta"
 
-#: ../shell/ev-window.c:2558
+#: ../shell/pps-window.c:2558
 msgid "Generating PDF is not supported"
 msgstr "Tsy raisina an-tànana ny famoronana PDF"
 
-#: ../shell/ev-window.c:2570
+#: ../shell/pps-window.c:2570
 #, c-format
 msgid ""
 "You were trying to print to a printer using the “%s” driver. This program "
@@ -851,15 +851,15 @@ msgstr ""
 "Nanandrana nanonta tamin'ny mpanonta-printy iray tamin'ny alalan'ny mpamily "
 "“%s” ianao. Mila mpamily PostScript io rindranasa io."
 
-#: ../shell/ev-window.c:2628
+#: ../shell/pps-window.c:2628
 msgid "Pages"
 msgstr "Pejy"
 
-#: ../shell/ev-window.c:3244
+#: ../shell/pps-window.c:3244
 msgid "Toolbar Editor"
 msgstr "Mpanova anjam-pitaovana"
 
-#: ../shell/ev-window.c:3766
+#: ../shell/pps-window.c:3766
 #, fuzzy, c-format
 msgid ""
 "Document Viewer.\n"
@@ -868,21 +868,21 @@ msgstr ""
 "Mpizaha rakitra PostScript sy PDF.\n"
 "Mampiasa ny poppler %s (%s)"
 
-#: ../shell/ev-window.c:3794
+#: ../shell/pps-window.c:3794
 msgid ""
-"Evince is free software; you can redistribute it and/or modify it under the "
+"Papers is free software; you can redistribute it and/or modify it under the "
 "terms of the GNU General Public License as published by the Free Software "
 "Foundation; either version 2 of the License, or (at your option) any later "
 "version.\n"
 msgstr ""
-"Rindran'asa maimaimpoana ny Evince. Azonao zaraina ary/na ovaina mifanaraka "
+"Rindran'asa maimaimpoana ny Papers. Azonao zaraina ary/na ovaina mifanaraka "
 "amin'ireo fepetra voalaza anatin'ny fahazoan-dàlana ho an'ny besinimaro GNU "
 "izay navoakan'ny Free Software Foundation io rindran'asa io; na ilay andiany "
 "faha 2, na izay andiany taty afara (araka ny safidinao).\n"
 
-#: ../shell/ev-window.c:3798
+#: ../shell/pps-window.c:3798
 msgid ""
-"Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
+"Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
 "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 "details.\n"
@@ -893,10 +893,10 @@ msgstr ""
 "ZAVATRA aza. Vakio ilay Fahazoan-dàlana ho an'ny besinimaro GNU hahalalanao "
 "ny antsipiriany.\n"
 
-#: ../shell/ev-window.c:3802
+#: ../shell/pps-window.c:3802
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"Evince; if not, write to the Free Software Foundation, Inc., 59 Temple "
+"Papers; if not, write to the Free Software Foundation, Inc., 59 Temple "
 "Place, Fifth Floor, Boston, MA  02110-1301  USA\n"
 msgstr ""
 "Tokony nahazo dika mitovin'ny Fahazoan-dàlana ho an'ny besinimaro GNU ianao "
@@ -904,387 +904,387 @@ msgstr ""
 "amin'ny  Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, "
 "Boston, MA 02110-1301, USA\n"
 
-#: ../shell/ev-window.c:3826 ../shell/main.c:344
-msgid "Evince"
-msgstr "Evince"
+#: ../shell/pps-window.c:3826 ../shell/main.c:344
+msgid "Papers"
+msgstr "Papers"
 
-#: ../shell/ev-window.c:3829
+#: ../shell/pps-window.c:3829
 #, fuzzy
-msgid "© 1996-2007 The Evince authors"
-msgstr "© 1996-2005 Ireo mpamolavola ny Evince "
+msgid "© 1996-2007 The Papers authors"
+msgstr "© 1996-2005 Ireo mpamolavola ny Papers "
 
-#: ../shell/ev-window.c:3835
+#: ../shell/pps-window.c:3835
 msgid "translator-credits"
 msgstr ""
 "Mpandrindra: Thierry Randrianiriana <thierry@isvtec.com>\n"
 "Mpandika teny: Fanomezana Rajaonarisoa <fano@isvtec.com>"
 
-#: ../shell/ev-window.c:4352
+#: ../shell/pps-window.c:4352
 msgid "_File"
 msgstr "_Rakitra"
 
-#: ../shell/ev-window.c:4353
+#: ../shell/pps-window.c:4353
 msgid "_Edit"
 msgstr "_Fanovana"
 
-#: ../shell/ev-window.c:4354
+#: ../shell/pps-window.c:4354
 msgid "_View"
 msgstr "_Seho"
 
-#: ../shell/ev-window.c:4355
+#: ../shell/pps-window.c:4355
 msgid "_Go"
 msgstr "_Alefa"
 
-#: ../shell/ev-window.c:4356
+#: ../shell/pps-window.c:4356
 msgid "_Help"
 msgstr "_Toro-làlana"
 
 #. File menu
-#: ../shell/ev-window.c:4359 ../shell/ev-window.c:4536
-#: ../shell/ev-window.c:4607
+#: ../shell/pps-window.c:4359 ../shell/pps-window.c:4536
+#: ../shell/pps-window.c:4607
 msgid "_Open..."
 msgstr "_Hanokatra..."
 
-#: ../shell/ev-window.c:4360 ../shell/ev-window.c:4608
+#: ../shell/pps-window.c:4360 ../shell/pps-window.c:4608
 msgid "Open an existing document"
 msgstr "Manokatra tahirin-kevitra"
 
-#: ../shell/ev-window.c:4362
+#: ../shell/pps-window.c:4362
 #, fuzzy
 msgid "Op_en a Copy"
 msgstr "Handraikitra dika mitovy"
 
-#: ../shell/ev-window.c:4363
+#: ../shell/pps-window.c:4363
 #, fuzzy
 msgid "Open a copy of the current document in a new window"
 msgstr "Mandraikitra dika mitovy amin'io tahirin-kevitra io"
 
-#: ../shell/ev-window.c:4365 ../shell/ev-window.c:4538
+#: ../shell/pps-window.c:4365 ../shell/pps-window.c:4538
 msgid "_Save a Copy..."
 msgstr "_Handraikitra dika mitovy..."
 
-#: ../shell/ev-window.c:4366
+#: ../shell/pps-window.c:4366
 msgid "Save a copy of the current document"
 msgstr "Mandraikitra dika mitovy amin'io tahirin-kevitra io"
 
-#: ../shell/ev-window.c:4368
+#: ../shell/pps-window.c:4368
 #, fuzzy
 msgid "Print Set_up..."
 msgstr "Hanonta..."
 
-#: ../shell/ev-window.c:4369
+#: ../shell/pps-window.c:4369
 msgid "Setup the page settings for printing"
 msgstr ""
 
-#: ../shell/ev-window.c:4371
+#: ../shell/pps-window.c:4371
 msgid "_Print..."
 msgstr "_Hanonta..."
 
-#: ../shell/ev-window.c:4372 ../shell/ev-window.c:4441
+#: ../shell/pps-window.c:4372 ../shell/pps-window.c:4441
 msgid "Print this document"
 msgstr "Manonta ity tahirin-kevitra ity"
 
-#: ../shell/ev-window.c:4374
+#: ../shell/pps-window.c:4374
 msgid "P_roperties"
 msgstr "_Toetoetra"
 
-#: ../shell/ev-window.c:4382
+#: ../shell/pps-window.c:4382
 msgid "Select _All"
 msgstr "Farito izy _rehetra"
 
-#: ../shell/ev-window.c:4384
+#: ../shell/pps-window.c:4384
 msgid "_Find..."
 msgstr "_Karohy..."
 
-#: ../shell/ev-window.c:4385
+#: ../shell/pps-window.c:4385
 msgid "Find a word or phrase in the document"
 msgstr "Mikaroka teny na andian-teny ao anatin'ilay tahirin-kevitra"
 
-#: ../shell/ev-window.c:4387
+#: ../shell/pps-window.c:4387
 msgid "Find Ne_xt"
 msgstr "_Manaraka"
 
-#: ../shell/ev-window.c:4389
+#: ../shell/pps-window.c:4389
 msgid "Find Pre_vious"
 msgstr "_Aloha"
 
-#: ../shell/ev-window.c:4391
+#: ../shell/pps-window.c:4391
 msgid "T_oolbar"
 msgstr "_Anjam-pitaovana"
 
-#: ../shell/ev-window.c:4393
+#: ../shell/pps-window.c:4393
 msgid "Rotate _Left"
 msgstr "Ahodino _miankavia"
 
-#: ../shell/ev-window.c:4395
+#: ../shell/pps-window.c:4395
 msgid "Rotate _Right"
 msgstr "Ahodino mianka_vanana"
 
-#: ../shell/ev-window.c:4400
+#: ../shell/pps-window.c:4400
 msgid "Enlarge the document"
 msgstr "Alehibiazo ilay tahirin-kevitra"
 
-#: ../shell/ev-window.c:4403
+#: ../shell/pps-window.c:4403
 msgid "Shrink the document"
 msgstr "Akelezo ilay tahirin-kevitra"
 
-#: ../shell/ev-window.c:4405
+#: ../shell/pps-window.c:4405
 msgid "_Reload"
 msgstr "_Avereno aseho"
 
-#: ../shell/ev-window.c:4406
+#: ../shell/pps-window.c:4406
 msgid "Reload the document"
 msgstr "Mamerina maneho ilay tahirin-kevitra"
 
-#: ../shell/ev-window.c:4409
+#: ../shell/pps-window.c:4409
 msgid "Auto_scroll"
 msgstr ""
 
 #. Go menu
-#: ../shell/ev-window.c:4413
+#: ../shell/pps-window.c:4413
 msgid "_Previous Page"
 msgstr "_Pejy aloha"
 
-#: ../shell/ev-window.c:4414
+#: ../shell/pps-window.c:4414
 msgid "Go to the previous page"
 msgstr "Mankany amin'ny pejy aloha"
 
-#: ../shell/ev-window.c:4416
+#: ../shell/pps-window.c:4416
 msgid "_Next Page"
 msgstr "Pejy _manaraka"
 
-#: ../shell/ev-window.c:4417
+#: ../shell/pps-window.c:4417
 msgid "Go to the next page"
 msgstr "Mankany amin'ny pejy manaraka"
 
-#: ../shell/ev-window.c:4419
+#: ../shell/pps-window.c:4419
 msgid "_First Page"
 msgstr "Pejy _voalohany"
 
-#: ../shell/ev-window.c:4420
+#: ../shell/pps-window.c:4420
 msgid "Go to the first page"
 msgstr "Mankany amin'ny pejy voalohany"
 
-#: ../shell/ev-window.c:4422
+#: ../shell/pps-window.c:4422
 msgid "_Last Page"
 msgstr "_Pejy _farany"
 
-#: ../shell/ev-window.c:4423
+#: ../shell/pps-window.c:4423
 msgid "Go to the last page"
 msgstr "Mankany amin'ny pejy farany"
 
 #. Help menu
-#: ../shell/ev-window.c:4427
+#: ../shell/pps-window.c:4427
 msgid "_Contents"
 msgstr "_Mpiaty"
 
-#: ../shell/ev-window.c:4430
+#: ../shell/pps-window.c:4430
 msgid "_About"
 msgstr "_Mombamomba"
 
 #. Toolbar-only
-#: ../shell/ev-window.c:4434
+#: ../shell/pps-window.c:4434
 msgid "Leave Fullscreen"
 msgstr "Tsy mameno efijery intsony"
 
-#: ../shell/ev-window.c:4435
+#: ../shell/pps-window.c:4435
 msgid "Leave fullscreen mode"
 msgstr "Mitsahatra mameno efijery"
 
-#: ../shell/ev-window.c:4437
+#: ../shell/pps-window.c:4437
 #, fuzzy
 msgid "Start Presentation"
 msgstr "_Fampisehoana"
 
-#: ../shell/ev-window.c:4438
+#: ../shell/pps-window.c:4438
 #, fuzzy
 msgid "Start a presentation"
 msgstr "Mandefa ilay tahirin-kevitra tahaka ny hoe fampisehoana"
 
 #. View Menu
-#: ../shell/ev-window.c:4492
+#: ../shell/pps-window.c:4492
 msgid "_Toolbar"
 msgstr "_Anjam-pitaovana"
 
-#: ../shell/ev-window.c:4493
+#: ../shell/pps-window.c:4493
 msgid "Show or hide the toolbar"
 msgstr "Maneho na manafina ny anjam-pitaovana"
 
-#: ../shell/ev-window.c:4495
+#: ../shell/pps-window.c:4495
 msgid "Side _Pane"
 msgstr "_Tontonana an-tsisiny"
 
-#: ../shell/ev-window.c:4496
+#: ../shell/pps-window.c:4496
 msgid "Show or hide the side pane"
 msgstr "Maneho na manafina ny tontonana an-tsisiny"
 
-#: ../shell/ev-window.c:4498
+#: ../shell/pps-window.c:4498
 msgid "_Continuous"
 msgstr "_Mitohitohy"
 
-#: ../shell/ev-window.c:4499
+#: ../shell/pps-window.c:4499
 msgid "Show the entire document"
 msgstr "Maneho ilay tahirin-kevitra iray manontolo"
 
-#: ../shell/ev-window.c:4501
+#: ../shell/pps-window.c:4501
 msgid "_Dual"
 msgstr "_Roa"
 
-#: ../shell/ev-window.c:4502
+#: ../shell/pps-window.c:4502
 msgid "Show two pages at once"
 msgstr "Maneho pejy roa miaraka"
 
-#: ../shell/ev-window.c:4504
+#: ../shell/pps-window.c:4504
 msgid "_Fullscreen"
 msgstr "_Mameno efijery"
 
-#: ../shell/ev-window.c:4505
+#: ../shell/pps-window.c:4505
 msgid "Expand the window to fill the screen"
 msgstr "Mahatonga ny fikandrana hameno ny efijery"
 
-#: ../shell/ev-window.c:4507
+#: ../shell/pps-window.c:4507
 #, fuzzy
 msgid "Pre_sentation"
 msgstr "_Fampisehoana"
 
-#: ../shell/ev-window.c:4508
+#: ../shell/pps-window.c:4508
 msgid "Run document as a presentation"
 msgstr "Mandefa ilay tahirin-kevitra tahaka ny hoe fampisehoana"
 
-#: ../shell/ev-window.c:4510
+#: ../shell/pps-window.c:4510
 msgid "_Best Fit"
 msgstr "Ny _tena mety"
 
-#: ../shell/ev-window.c:4511
+#: ../shell/pps-window.c:4511
 msgid "Make the current document fill the window"
 msgstr "Mahatonga ity tahirin-kevitra ity hameno ny fikandrana"
 
-#: ../shell/ev-window.c:4513
+#: ../shell/pps-window.c:4513
 msgid "Fit Page _Width"
 msgstr "_Mameno ny indran'ny pejy"
 
-#: ../shell/ev-window.c:4514
+#: ../shell/pps-window.c:4514
 msgid "Make the current document fill the window width"
 msgstr "Mahatonga ity tahirin-kevitra ity hameno ny indran'ny fikandrana"
 
 #. Links
-#: ../shell/ev-window.c:4521
+#: ../shell/pps-window.c:4521
 msgid "_Open Link"
 msgstr "_Sokafy io rohy io"
 
-#: ../shell/ev-window.c:4523
+#: ../shell/pps-window.c:4523
 msgid "_Go To"
 msgstr "_Ho any amin'ny"
 
-#: ../shell/ev-window.c:4525
+#: ../shell/pps-window.c:4525
 msgid "Open in New _Window"
 msgstr ""
 
-#: ../shell/ev-window.c:4527
+#: ../shell/pps-window.c:4527
 msgid "_Copy Link Address"
 msgstr "_Adikao ny adiresiny"
 
-#: ../shell/ev-window.c:4529
+#: ../shell/pps-window.c:4529
 #, fuzzy
 msgid "_Save Image As..."
 msgstr "_Handraikitra dika mitovy..."
 
-#: ../shell/ev-window.c:4531
+#: ../shell/pps-window.c:4531
 msgid "Copy _Image"
 msgstr ""
 
-#: ../shell/ev-window.c:4570
+#: ../shell/pps-window.c:4570
 msgid "Page"
 msgstr "Pejy"
 
-#: ../shell/ev-window.c:4571
+#: ../shell/pps-window.c:4571
 msgid "Select Page"
 msgstr "Mamaritra ilay pejy"
 
-#: ../shell/ev-window.c:4582
+#: ../shell/pps-window.c:4582
 msgid "Zoom"
 msgstr "Zòma"
 
-#: ../shell/ev-window.c:4584
+#: ../shell/pps-window.c:4584
 msgid "Adjust the zoom level"
 msgstr "Manamboatra ny tahan'ny zòma"
 
-#: ../shell/ev-window.c:4594
+#: ../shell/pps-window.c:4594
 msgid "Navigation"
 msgstr ""
 
-#: ../shell/ev-window.c:4596
+#: ../shell/pps-window.c:4596
 msgid "Back"
 msgstr ""
 
-#: ../shell/ev-window.c:4598
+#: ../shell/pps-window.c:4598
 msgid "Move across visited pages"
 msgstr ""
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:4628
+#: ../shell/pps-window.c:4628
 msgid "Previous"
 msgstr "Aloha"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:4633
+#: ../shell/pps-window.c:4633
 msgid "Next"
 msgstr "Manaraka"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:4637
+#: ../shell/pps-window.c:4637
 msgid "Zoom In"
 msgstr "Manalehibe"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:4641
+#: ../shell/pps-window.c:4641
 msgid "Zoom Out"
 msgstr "Manakely"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:4649
+#: ../shell/pps-window.c:4649
 msgid "Fit Width"
 msgstr "Mameno ny indra"
 
-#: ../shell/ev-window.c:4824
+#: ../shell/pps-window.c:4824
 #, fuzzy, c-format
 msgid "Invalid URI: “%s”"
 msgstr "Karazana MIME tsy raisina an-tànana: “%s”"
 
-#: ../shell/ev-window.c:4827
+#: ../shell/pps-window.c:4827
 #, c-format
 msgid "Unsupported URI: “%s”"
 msgstr ""
 
-#: ../shell/ev-window.c:4837
+#: ../shell/pps-window.c:4837
 #, fuzzy
 msgid "Unable to open external link"
 msgstr "Tsy nahasokatra ilay mpanaraka"
 
-#: ../shell/ev-window.c:5006
+#: ../shell/pps-window.c:5006
 #, fuzzy
 msgid "The image could not be saved."
 msgstr "Tsy nety noraiketina ilay mpanaraka."
 
-#: ../shell/ev-window.c:5041
+#: ../shell/pps-window.c:5041
 #, fuzzy
 msgid "Save Image"
 msgstr "Sary"
 
-#: ../shell/ev-window.c:5097
+#: ../shell/pps-window.c:5097
 msgid "Unable to open attachment"
 msgstr "Tsy nahasokatra ilay mpanaraka"
 
-#: ../shell/ev-window.c:5150
+#: ../shell/pps-window.c:5150
 msgid "The attachment could not be saved."
 msgstr "Tsy nety noraiketina ilay mpanaraka."
 
-#: ../shell/ev-window.c:5202
+#: ../shell/pps-window.c:5202
 #, fuzzy
 msgid "Save Attachment"
 msgstr "Mpanaraka"
 
-#: ../shell/ev-window-title.c:139
+#: ../shell/pps-window-title.c:139
 #, c-format
 msgid "%s - Password Required"
 msgstr "%s - Mila teny fanalahidy"
@@ -1298,16 +1298,16 @@ msgid "PAGE"
 msgstr "PEJY"
 
 #: ../shell/main.c:61
-msgid "Run evince in fullscreen mode"
-msgstr "Alefa mameno efijery ny evince"
+msgid "Run papers in fullscreen mode"
+msgstr "Alefa mameno efijery ny papers"
 
 #: ../shell/main.c:62
-msgid "Run evince in presentation mode"
-msgstr "Alefa toa fampisehoana ny evince"
+msgid "Run papers in presentation mode"
+msgstr "Alefa toa fampisehoana ny papers"
 
 #: ../shell/main.c:63
-msgid "Run evince as a previewer"
-msgstr "Alefa toa fitaovam-pizahana ny evince"
+msgid "Run papers as a previewer"
+msgstr "Alefa toa fitaovam-pizahana ny papers"
 
 #: ../shell/main.c:64
 #, fuzzy
@@ -1327,10 +1327,10 @@ msgid "GNOME Document Viewer"
 msgstr "Mpizaha tahirin-kevitry ny GNOME"
 
 #: ../shell/main.c:387
-msgid "Evince Document Viewer"
-msgstr "Evince mpizaha tahirin-kevitra"
+msgid "Papers Document Viewer"
+msgstr "Papers mpizaha tahirin-kevitra"
 
-#: ../thumbnailer/evince-thumbnailer.schemas.in.h:1
+#: ../thumbnailer/papers-thumbnailer.schemas.in.h:1
 msgid ""
 "Boolean options available, true enables thumbnailing and false disables the "
 "creation of new thumbnails"
@@ -1338,15 +1338,15 @@ msgstr ""
 "Misy safidy bolenina; ny marina mamela ny fanaovan-tsary madinika ary ny "
 "diso mampitsahatra ny famoronana sary madinika vaovao"
 
-#: ../thumbnailer/evince-thumbnailer.schemas.in.h:2
+#: ../thumbnailer/papers-thumbnailer.schemas.in.h:2
 msgid "Enable thumbnailing of PDF Documents"
 msgstr "Mandefa ny fanaovan-tsary madinika ho an'ny tahirin-kevitra PDF"
 
-#: ../thumbnailer/evince-thumbnailer.schemas.in.h:3
+#: ../thumbnailer/papers-thumbnailer.schemas.in.h:3
 msgid "Thumbnail command for PDF Documents"
 msgstr "Baikon'ny fanaovana sary madinika ho an'ny tahirin-kevitra PDF"
 
-#: ../thumbnailer/evince-thumbnailer.schemas.in.h:4
+#: ../thumbnailer/papers-thumbnailer.schemas.in.h:4
 msgid ""
 "Valid command plus arguments for the PDF Document thumbnailer. See nautilus "
 "thumbnailer documentation for more information."

@@ -1,22 +1,22 @@
 sources = files(
-  'ev-page-selector.c',
+  'pps-page-selector.c',
 )
 
 sources += gnome.compile_resources(
-  'ev-resources',
+  'pps-resources',
   'libmisc.gresource.xml',
   c_name: 'libmisc',
 )
 
-libevmisc = static_library(
+libppsmisc = static_library(
   'evmisc',
   sources: sources,
   include_directories: top_inc,
-  dependencies: libevview_dep,
+  dependencies: libppsview_dep,
 )
 
-libevmisc_dep = declare_dependency(
+libppsmisc_dep = declare_dependency(
   include_directories: include_directories('.'),
-  dependencies: libevview_dep,
-  link_whole: libevmisc,
+  dependencies: libppsview_dep,
+  link_whole: libppsmisc,
 )

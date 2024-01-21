@@ -30,19 +30,19 @@
 #include "tiffio.h"
 #include "tiff2ps.h"
 #include "tiff-document.h"
-#include "ev-document-info.h"
-#include "ev-document-misc.h"
-#include "ev-file-exporter.h"
-#include "ev-file-helpers.h"
+#include "pps-document-info.h"
+#include "pps-document-misc.h"
+#include "pps-file-exporter.h"
+#include "pps-file-helpers.h"
 
 struct _TiffDocumentClass
 {
-  EvDocumentClass parent_class;
+  PpsDocumentClass parent_class;
 };
 
 struct _TiffDocument
 {
-  EvDocument parent_instance;
+  PpsDocument parent_instance;
 
   TIFF *tiff;
   gint n_pages;
@@ -53,10 +53,10 @@ struct _TiffDocument
 
 typedef struct _TiffDocumentClass TiffDocumentClass;
 
-static void tiff_document_document_file_exporter_iface_init (EvFileExporterInterface *iface);
+static void tiff_document_document_file_exporter_iface_init (PpsFileExporterInterface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (TiffDocument, tiff_document, EV_TYPE_DOCUMENT,
-			 G_IMPLEMENT_INTERFACE (EV_TYPE_FILE_EXPORTER,
+G_DEFINE_TYPE_WITH_CODE (TiffDocument, tiff_document, PPS_TYPE_DOCUMENT,
+			 G_IMPLEMENT_INTERFACE (PPS_TYPE_FILE_EXPORTER,
 						tiff_document_document_file_exporter_iface_init))
 
 static TIFFErrorHandler orig_error_handler = NULL;
@@ -77,7 +77,7 @@ pop_handlers (void)
 }
 
 static gboolean
-tiff_document_load (EvDocument  *document,
+tiff_document_load (PpsDocument  *document,
 		    const char  *uri,
 		    GError     **error)
 {
@@ -117,8 +117,8 @@ tiff_document_load (EvDocument  *document,
 		pop_handlers ();
 
     		g_set_error_literal (error,
-				     EV_DOCUMENT_ERROR,
-				     EV_DOCUMENT_ERROR_INVALID,
+				     PPS_DOCUMENT_ERROR,
+				     PPS_DOCUMENT_ERROR_INVALID,
 				     _("Invalid document"));
 
 		g_free (filename);
@@ -135,17 +135,17 @@ tiff_document_load (EvDocument  *document,
 }
 
 static gboolean
-tiff_document_save (EvDocument  *document,
+tiff_document_save (PpsDocument  *document,
 		    const char  *uri,
 		    GError     **error)
 {
 	TiffDocument *tiff_document = TIFF_DOCUMENT (document);
 
-	return ev_xfer_uri_simple (tiff_document->uri, uri, error);
+	return pps_xfer_uri_simple (tiff_document->uri, uri, error);
 }
 
 static int
-tiff_document_get_n_pages (EvDocument  *document)
+tiff_document_get_n_pages (PpsDocument  *document)
 {
 	TiffDocument *tiff_document = TIFF_DOCUMENT (document);
 
@@ -191,8 +191,8 @@ tiff_document_get_resolution (TiffDocument *tiff_document,
 }
 
 static void
-tiff_document_get_page_size (EvDocument *document,
-			     EvPage     *page,
+tiff_document_get_page_size (PpsDocument *document,
+			     PpsPage     *page,
 			     double     *width,
 			     double     *height)
 {
@@ -221,8 +221,8 @@ tiff_document_get_page_size (EvDocument *document,
 }
 
 static cairo_surface_t *
-tiff_document_render (EvDocument      *document,
-		      EvRenderContext *rc)
+tiff_document_render (PpsDocument      *document,
+		      PpsRenderContext *rc)
 {
 	TiffDocument *tiff_document = TIFF_DOCUMENT (document);
 	int width, height;
@@ -325,9 +325,9 @@ tiff_document_render (EvDocument      *document,
 		p += 4;
 	}
 
-	ev_render_context_compute_scaled_size (rc, width, height * (x_res / y_res),
+	pps_render_context_compute_scaled_size (rc, width, height * (x_res / y_res),
 					       &scaled_width, &scaled_height);
-	rotated_surface = ev_document_misc_surface_rotate_and_scale (surface,
+	rotated_surface = pps_document_misc_surface_rotate_and_scale (surface,
 								     scaled_width, scaled_height,
 								     rc->rotation);
 	cairo_surface_destroy (surface);
@@ -342,8 +342,8 @@ free_buffer (guchar *pixels, gpointer data)
 }
 
 static GdkPixbuf *
-tiff_document_get_thumbnail (EvDocument      *document,
-			     EvRenderContext *rc)
+tiff_document_get_thumbnail (PpsDocument      *document,
+			     PpsRenderContext *rc)
 {
 	TiffDocument *tiff_document = TIFF_DOCUMENT (document);
 	int width, height;
@@ -406,7 +406,7 @@ tiff_document_get_thumbnail (EvDocument      *document,
 					   free_buffer, NULL);
 	pop_handlers ();
 
-	ev_render_context_compute_scaled_size (rc, width, height * (x_res / y_res),
+	pps_render_context_compute_scaled_size (rc, width, height * (x_res / y_res),
 					       &scaled_width, &scaled_height);
 	scaled_pixbuf = gdk_pixbuf_scale_simple (pixbuf,
 						 scaled_width, scaled_height,
@@ -420,8 +420,8 @@ tiff_document_get_thumbnail (EvDocument      *document,
 }
 
 static gchar *
-tiff_document_get_page_label (EvDocument *document,
-			      EvPage     *page)
+tiff_document_get_page_label (PpsDocument *document,
+			      PpsPage     *page)
 {
 	TiffDocument *tiff_document = TIFF_DOCUMENT (document);
 	static gchar *label;
@@ -434,18 +434,18 @@ tiff_document_get_page_label (EvDocument *document,
 	return NULL;
 }
 
-static EvDocumentInfo *
-tiff_document_get_info (EvDocument *document)
+static PpsDocumentInfo *
+tiff_document_get_info (PpsDocument *document)
 {
         TiffDocument *tiff_document = TIFF_DOCUMENT (document);
-        EvDocumentInfo *info;
+        PpsDocumentInfo *info;
         const void *data;
         uint32_t size;
 
-        info = ev_document_info_new ();
+        info = pps_document_info_new ();
 
         if (TIFFGetField (tiff_document->tiff, TIFFTAG_XMLPACKET, &size, &data) == 1) {
-                ev_document_info_set_from_xmp (info, (const char*)data, size);
+                pps_document_info_set_from_xmp (info, (const char*)data, size);
         }
 
         return info;
@@ -468,24 +468,24 @@ static void
 tiff_document_class_init (TiffDocumentClass *klass)
 {
 	GObjectClass    *gobject_class = G_OBJECT_CLASS (klass);
-	EvDocumentClass *ev_document_class = EV_DOCUMENT_CLASS (klass);
+	PpsDocumentClass *pps_document_class = PPS_DOCUMENT_CLASS (klass);
 
 	gobject_class->finalize = tiff_document_finalize;
 
-	ev_document_class->load = tiff_document_load;
-	ev_document_class->save = tiff_document_save;
-	ev_document_class->get_n_pages = tiff_document_get_n_pages;
-	ev_document_class->get_page_size = tiff_document_get_page_size;
-	ev_document_class->render = tiff_document_render;
-	ev_document_class->get_thumbnail = tiff_document_get_thumbnail;
-	ev_document_class->get_page_label = tiff_document_get_page_label;
-	ev_document_class->get_info = tiff_document_get_info;
+	pps_document_class->load = tiff_document_load;
+	pps_document_class->save = tiff_document_save;
+	pps_document_class->get_n_pages = tiff_document_get_n_pages;
+	pps_document_class->get_page_size = tiff_document_get_page_size;
+	pps_document_class->render = tiff_document_render;
+	pps_document_class->get_thumbnail = tiff_document_get_thumbnail;
+	pps_document_class->get_page_label = tiff_document_get_page_label;
+	pps_document_class->get_info = tiff_document_get_info;
 }
 
 /* postscript exporter implementation */
 static void
-tiff_document_file_exporter_begin (EvFileExporter        *exporter,
-				   EvFileExporterContext *fc)
+tiff_document_file_exporter_begin (PpsFileExporter        *exporter,
+				   PpsFileExporterContext *fc)
 {
 	TiffDocument *document = TIFF_DOCUMENT (exporter);
 
@@ -493,7 +493,7 @@ tiff_document_file_exporter_begin (EvFileExporter        *exporter,
 }
 
 static void
-tiff_document_file_exporter_do_page (EvFileExporter *exporter, EvRenderContext *rc)
+tiff_document_file_exporter_do_page (PpsFileExporter *exporter, PpsRenderContext *rc)
 {
 	TiffDocument *document = TIFF_DOCUMENT (exporter);
 
@@ -506,7 +506,7 @@ tiff_document_file_exporter_do_page (EvFileExporter *exporter, EvRenderContext *
 }
 
 static void
-tiff_document_file_exporter_end (EvFileExporter *exporter)
+tiff_document_file_exporter_end (PpsFileExporter *exporter)
 {
 	TiffDocument *document = TIFF_DOCUMENT (exporter);
 
@@ -515,18 +515,18 @@ tiff_document_file_exporter_end (EvFileExporter *exporter)
 	tiff2ps_context_finalize(document->ps_export_ctx);
 }
 
-static EvFileExporterCapabilities
-tiff_document_file_exporter_get_capabilities (EvFileExporter *exporter)
+static PpsFileExporterCapabilities
+tiff_document_file_exporter_get_capabilities (PpsFileExporter *exporter)
 {
-	return  EV_FILE_EXPORTER_CAN_PAGE_SET |
-		EV_FILE_EXPORTER_CAN_COPIES |
-		EV_FILE_EXPORTER_CAN_COLLATE |
-		EV_FILE_EXPORTER_CAN_REVERSE |
-		EV_FILE_EXPORTER_CAN_GENERATE_PS;
+	return  PPS_FILE_EXPORTER_CAN_PAGE_SET |
+		PPS_FILE_EXPORTER_CAN_COPIES |
+		PPS_FILE_EXPORTER_CAN_COLLATE |
+		PPS_FILE_EXPORTER_CAN_REVERSE |
+		PPS_FILE_EXPORTER_CAN_GENERATE_PS;
 }
 
 static void
-tiff_document_document_file_exporter_iface_init (EvFileExporterInterface *iface)
+tiff_document_document_file_exporter_iface_init (PpsFileExporterInterface *iface)
 {
 	iface->begin = tiff_document_file_exporter_begin;
 	iface->do_page = tiff_document_file_exporter_do_page;
@@ -541,7 +541,7 @@ tiff_document_init (TiffDocument *tiff_document)
 }
 
 GType
-ev_backend_query_type (void)
+pps_backend_query_type (void)
 {
 	return TIFF_TYPE_DOCUMENT;
 }

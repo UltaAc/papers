@@ -1,4 +1,4 @@
-name: evince
+name: papers
 version: git
 summary: Document viewer for popular document formats
 description: |
@@ -11,14 +11,14 @@ base: core20
 
 slots:
   # for GtkApplication registration
-  evince:
+  papers:
     interface: dbus
     bus: session
-    name: org.gnome.Evince
+    name: org.gnome.Papers
 
 apps:
-  evince:
-    command: usr/bin/evince
+  papers:
+    command: usr/bin/papers
     extensions: [gnome-3-38]
     plugs:
       - avahi-observe
@@ -27,35 +27,35 @@ apps:
       - home
       - network
       - removable-media
-    desktop: usr/share/applications/org.gnome.Evince.desktop
-  evince-previewer:
-    command: usr/bin/evince-previewer
+    desktop: usr/share/applications/org.gnome.Papers.desktop
+  papers-previewer:
+    command: usr/bin/papers-previewer
     plugs:
       - avahi-observe
       - cups-control
       - gsettings
       - home
       - network
-    desktop: usr/share/applications/org.gnome.Evince-previewer.desktop
-  evince-thumbnailer:
-    command: usr/bin/evince-thumbnailer
+    desktop: usr/share/applications/org.gnome.Papers-previewer.desktop
+  papers-thumbnailer:
+    command: usr/bin/papers-thumbnailer
     plugs:
       - gsettings
       - home
 
 parts:
-  evince:
+  papers:
     source: .
     source-type: git
     plugin: meson
     meson-parameters:
-       - --prefix=/snap/evince/current/usr
+       - --prefix=/snap/papers/current/usr
        - -Dnautilus=false
        - -Dgtk_doc=false
        - -Dintrospection=false
 
     organize:
-      snap/evince/current/usr: usr
+      snap/papers/current/usr: usr
     build-packages:
       - appstream
       - intltool
@@ -81,7 +81,7 @@ parts:
       - "-usr/lib/mozilla"
       - "-usr/lib/pkgconfig"
       - "-usr/lib/systemd"
-      - "-usr/lib/evince/4/backends/*.a"
+      - "-usr/lib/papers/4/backends/*.a"
       - "-usr/share/appdata"
   libraries:
     plugin: nil

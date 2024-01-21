@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright © 2014 Christian Persch
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2, or (at your option)
+  any later version.
+
+  This program is distributed in the hope conf it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<component type="desktop-application">
+  <id>org.gnome.Papers</id>
+  <launchable type="desktop-id">org.gnome.Papers.desktop</launchable>
+  <metadata_license>GPL-2.0+ or GFDL-1.3-only</metadata_license>
+  <project_license>GPL-2.0-or-later</project_license>
+  <name>Document Viewer</name>
+  <summary>Document viewer for popular document formats</summary>
+  <description>
+    <p>A document viewer for the GNOME desktop. You can view, search or annotate documents in many different formats.</p>
+    <p>Papers supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, DVI (with SyncTeX), and Comic Books archives (CBR, CBT, CBZ, CB7).</p>
+  </description>
+  <provides>
+    <id>papers.desktop</id>
+  </provides>
+  <screenshots>
+    <screenshot type="default">
+    <image>https://gitlab.gnome.org/GNOME/papers/raw/main/data/screenshots/papers-1.png</image>
+    <caption>A clear, simple UI</caption>
+    </screenshot>
+    <screenshot>
+    <image>https://gitlab.gnome.org/GNOME/papers/raw/main/data/screenshots/papers-2.png</image>
+    <caption>Advanced highlighting and annotation</caption>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://wiki.gnome.org/Apps/Papers</url>
+  <url type="bugtracker">https://gitlab.gnome.org/GNOME/papers/-/issues/new</url>
+  <url type="translate">https://wiki.gnome.org/TranslationProject</url>
+  <url type="donation">https://www.gnome.org/donate/</url>
+  <url type="vcs-browser">https://gitlab.gnome.org/GNOME/papers/</url>
+  <project_group>GNOME</project_group>
+  <developer id="gnome.org">
+    <name>The GNOME Project</name>
+  </developer>
+  <update_contact>https://discourse.gnome.org/tag/papers</update_contact>
+  <kudos>
+    <kudo>AppMenu</kudo>
+    <kudo>ModernToolkit</kudo>
+    <kudo>UserDocs</kudo>
+  </kudos>
+  <translation type="gettext">papers</translation>
+  <content_rating type="oars-1.1" />
+  <releases>
+    <release version="45.0" type="stable" date="2023-09-18">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1138">#1138</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1620">#1620</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1683">#1683</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1733">#1733</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1905">#1905</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1919">#1919</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1929">#1929</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1930">#1930</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1933">#1933</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1936">#1936</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1943">#1943</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1950">#1950</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1951">#1951</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1969">#1969</issue>
+      </issues>
+    </release>
+    <release version="45~rc" type="development" date="2023-09-04">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1951">#1951</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1969">#1969</issue>
+      </issues>
+    </release>
+		<release version="45~alpha" type="development" date="2023-07-01">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1138">#1138</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1620">#1620</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1683">#1683</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1733">#1733</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1905">#1905</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1919">#1919</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1929">#1929</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1930">#1930</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1933">#1933</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1936">#1936</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1943">#1943</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1950">#1950</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/692988">#692988</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/704631">#704631</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/704631">#704631</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/704631">#704631</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/704631">#704631</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/704631">#704631</issue>
+      </issues>
+    </release>
+    <release version="44.0" type="stable" date="2023-03-17">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1518">#1518</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1555">#1555</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1759">#1759</issue>
+      </issues>
+    </release>
+    <release version="44~rc" type="development" date="2023-03-07">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1242">#1242</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1723">#1723</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1861">#1861</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1864">#1864</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1869">#1869</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1885">#1885</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1898">#1898</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/724096">#724096</issue>
+      </issues>
+    </release>
+    <release version="43.1" type="stable" date="2022-10-26">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1766">#1766</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1857">#1857</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1858">#1858</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1866">#1866</issue>
+      </issues>
+    </release>
+    <release version="43.0" type="stable" date="2022-09-18">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/333">#333</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1713">#1713</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1776">#1776</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1779">#1779</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1784">#1784</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1800">#1800</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1814">#1814</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1821">#1821</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1822">#1822</issue>
+      </issues>
+    </release>
+    <release version="42.0" type="stable" date="2022-03-18">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/48">#48</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/704">#704</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/848">#848</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/931">#931</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/965">#965</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1425">#1425</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1490">#1490</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1576">#1576</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1666">#1666</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1690">#1690</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1695">#1695</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1711">#1711</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1725">#1725</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1730">#1730</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1756">#1756</issue>
+      </issues>
+    </release>
+    <release version="41.2" type="stable" date="2021-10-09">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1682">#1682</issue>
+      </issues>
+    </release>
+    <release version="41.1" type="stable" date="2021-10-09" />
+    <release version="41.0" type="stable" date="2021-10-09">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/220">#220</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/386">#386</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/602">#602</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/637">#637</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/736">#736</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/968">#968</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1004">#1004</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1004">#1004</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1351">#1351</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1549">#1549</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1557">#1557</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1570">#1570</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1571">#1571</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1587">#1587</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1618">#1618</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1638">#1638</issue>
+      </issues>
+    </release>
+    <release version="40.2" date="2021-06-08">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1587">#1587</issue>
+      </issues>
+    </release>
+    <release version="40.1" date="2021-03-26">
+      <description>
+        <p>Restore libraries soname.</p>
+      </description>
+    </release>
+    <release version="40.0" date="2021-03-26">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1190">#1190</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1566">#1566</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1568">#1568</issue>
+      </issues>
+    </release>
+    <release version="3.39.2" date="2021-02-14">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/336">#336</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1085">#1085</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1403">#1403</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1442">#1442</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1541">#1541</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1543">#1543</issue>
+      </issues>
+    </release>
+    <release version="3.39.1" date="2021-01-25">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#46">#46</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#221">#221</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#445">#445</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1416">#1416</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1328">#1328</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1333">#1333</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1504">#1504</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1545">#1545</issue>
+      </issues>
+    </release>
+    <release version="3.38.0" date="2020-09-12">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#842">#842</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1477">#1477</issue>
+      </issues>
+    </release>
+    <release version="3.37.90" date="2020-08-22">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#53">#53</issue>
+      </issues>
+    </release>
+    <release version="3.37.3" date="2020-07-04">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#128">#128</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#623">#623</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#637">#637</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#662">#662</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#680">#680</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#810">#810</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1010">#1010</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1147">#1147</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1344">#1344</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1345">#1345</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1418">#1418</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1426">#1426</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1429">#1429</issue>
+      </issues>
+    </release>
+    <release version="3.37.2" date="2020-05-30">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1410">#1410</issue>
+      </issues>
+    </release>
+    <release version="3.37.1" date="2020-05-30">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#795">#795</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#860">#860</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1275">#1275</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1409">#1409</issue>
+      </issues>
+    </release>
+    <release version="3.36.1" date="2020-05-19">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#842">#842</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#570">#570</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1339">#1339</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1364">#1364</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1365">#1365</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1373">#1373</issue>
+      </issues>
+    </release>
+    <release version="3.36.0" date="2020-03-07" />
+    <release version="3.35.92" date="2020-02-22">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#943">#943</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1010">#1010</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1023">#1023</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1278">#1278</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1312">#1312</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1314">#1314</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/#1316">#1316</issue>
+      </issues>
+    </release>
+    <release version="3.35.1" date="2019-11-23">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/390">#390</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/617">#617</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/830">#830</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1168">#1168</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1203">#1203</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1274">#1274</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1302">#1302</issue>
+      </issues>
+    </release>
+    <release version="3.34.2" date="2019-11-23">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1168">#1168</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1246">#1246</issue>
+      </issues>
+    </release>
+    <release version="3.34.1" date="2019-10-07">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/Initiatives/issues/12">#12</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/54">#54</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/700">#700</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1262">#1262</issue>
+      </issues>
+    </release>
+    <release version="3.34.0" date="2019-09-29">
+      <issues>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/787">#787</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/789">#789</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1008">#1008</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1023">#1023</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1179">#1179</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1129">#1129</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1113">#1113</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1119">#1119</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1120">#1120</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1125">#1125</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1135">#1135</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1177">#1177</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1212">#1212</issue>
+        <issue url="https://gitlab.gnome.org/GNOME/papers/issues/1218">#1218</issue>
+      </issues>
+    </release>
+    <release version="3.32.1" date="2019-09-29" />
+    <release version="3.32.0" date="2019-03-14" />
+    <release version="3.30.3" date="2019-09-29" />
+  </releases>
+</component>

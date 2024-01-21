@@ -1,8 +1,8 @@
 backends_common_incs = [top_inc]
-backends_common_deps = [libevdocument_dep]
+backends_common_deps = [libppsdocument_dep]
 backends_common_cflags = [
-  '-DEV_LOCALEDIR="@0@"'.format(ev_localedir),
-  '-DEVINCE_COMPILATION',
+  '-DPPS_LOCALEDIR="@0@"'.format(pps_localedir),
+  '-DPAPERS_COMPILATION',
 ]
 
 foreach backend, backend_mime_types: backends
@@ -23,7 +23,7 @@ foreach backend, backend_mime_types: backends
     c_args: backend_cflags,
     gnu_symbol_visibility: 'hidden',
     install: true,
-    install_dir: ev_backendsdir,
+    install_dir: pps_backendsdir,
   )
 
   backend_mime_types_conf = configuration_data()
@@ -36,7 +36,7 @@ foreach backend, backend_mime_types: backends
 
   backend_mime_types_conf.set('METAINFO_@0@_MIME_TYPES'.format(backend.to_upper()), metainfo_mime_types)
 
-  backend_desc = backend_name + '.evince-backend'
+  backend_desc = backend_name + '.papers-backend'
 
   backend_desc_in = configure_file(
     input: '@0@/@1@.desktop.in.in'.format(backend, backend_desc),
@@ -50,11 +50,11 @@ foreach backend, backend_mime_types: backends
     output: backend_desc,
     po_dir: po_dir,
     install: true,
-    install_dir: ev_backendsdir,
+    install_dir: pps_backendsdir,
     args: '--keyword=TypeDescription',
   )
 
-  appstream = 'evince-@0@.metainfo.xml'.format(backend_name)
+  appstream = 'papers-@0@.metainfo.xml'.format(backend_name)
 
   appstream_in = configure_file(
     input: '@0@/@1@.in.in'.format(backend, appstream),
@@ -67,12 +67,12 @@ foreach backend, backend_mime_types: backends
     output: appstream,
     po_dir: po_dir,
     install: true,
-    install_dir: ev_appstreamdir,
+    install_dir: pps_appstreamdir,
   )
 endforeach
 
-if ev_debug
+if pps_debug
   devenv = environment()
-  devenv.set('EV_BACKENDS_DIR', meson.current_build_dir())
+  devenv.set('PPS_BACKENDS_DIR', meson.current_build_dir())
   meson.add_devenv(devenv)
 endif

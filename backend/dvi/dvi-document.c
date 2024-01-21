@@ -21,9 +21,9 @@
 
 #include "dvi-document.h"
 #include "texmfcnf.h"
-#include "ev-document-misc.h"
-#include "ev-file-exporter.h"
-#include "ev-file-helpers.h"
+#include "pps-document-misc.h"
+#include "pps-file-exporter.h"
+#include "pps-file-helpers.h"
 
 #include "mdvi.h"
 #include "fonts.h"
@@ -49,12 +49,12 @@ enum {
 
 struct _DviDocumentClass
 {
-	EvDocumentClass parent_class;
+	PpsDocumentClass parent_class;
 };
 
 struct _DviDocument
 {
-	EvDocument parent_instance;
+	PpsDocument parent_instance;
 
 	DviContext *context;
 	DviPageSpec *spec;
@@ -73,17 +73,17 @@ struct _DviDocument
 
 typedef struct _DviDocumentClass DviDocumentClass;
 
-static void dvi_document_file_exporter_iface_init (EvFileExporterInterface       *iface);
+static void dvi_document_file_exporter_iface_init (PpsFileExporterInterface       *iface);
 static void dvi_document_do_color_special         (DviContext                    *dvi,
 						   const char                    *prefix,
 						   const char                    *arg);
 
-G_DEFINE_TYPE_WITH_CODE (DviDocument, dvi_document, EV_TYPE_DOCUMENT,
-			 G_IMPLEMENT_INTERFACE (EV_TYPE_FILE_EXPORTER,
+G_DEFINE_TYPE_WITH_CODE (DviDocument, dvi_document, PPS_TYPE_DOCUMENT,
+			 G_IMPLEMENT_INTERFACE (PPS_TYPE_FILE_EXPORTER,
 						dvi_document_file_exporter_iface_init))
 
 static gboolean
-dvi_document_load (EvDocument  *document,
+dvi_document_load (PpsDocument  *document,
 		   const char  *uri,
 		   GError     **error)
 {
@@ -104,8 +104,8 @@ dvi_document_load (EvDocument  *document,
 
 	if (!dvi_document->context) {
     		g_set_error_literal (error,
-                                     EV_DOCUMENT_ERROR,
-                                     EV_DOCUMENT_ERROR_INVALID,
+                                     PPS_DOCUMENT_ERROR,
+                                     PPS_DOCUMENT_ERROR_INVALID,
                                      _("DVI document has incorrect format"));
         	return FALSE;
 	}
@@ -127,17 +127,17 @@ dvi_document_load (EvDocument  *document,
 
 
 static gboolean
-dvi_document_save (EvDocument  *document,
+dvi_document_save (PpsDocument  *document,
 		      const char  *uri,
 		      GError     **error)
 {
 	DviDocument *dvi_document = DVI_DOCUMENT (document);
 
-	return ev_xfer_uri_simple (dvi_document->uri, uri, error);
+	return pps_xfer_uri_simple (dvi_document->uri, uri, error);
 }
 
 static int
-dvi_document_get_n_pages (EvDocument *document)
+dvi_document_get_n_pages (PpsDocument *document)
 {
 	DviDocument *dvi_document = DVI_DOCUMENT (document);
 
@@ -145,8 +145,8 @@ dvi_document_get_n_pages (EvDocument *document)
 }
 
 static void
-dvi_document_get_page_size (EvDocument *document,
-			    EvPage     *page,
+dvi_document_get_page_size (PpsDocument *document,
+			    PpsPage     *page,
 			    double     *width,
 			    double     *height)
 {
@@ -157,8 +157,8 @@ dvi_document_get_page_size (EvDocument *document,
 }
 
 static cairo_surface_t *
-dvi_document_render (EvDocument      *document,
-		     EvRenderContext *rc)
+dvi_document_render (PpsDocument      *document,
+		     PpsRenderContext *rc)
 {
 	cairo_surface_t *surface;
 	cairo_surface_t *rotated_surface;
@@ -176,13 +176,13 @@ dvi_document_render (EvDocument      *document,
 
 	mdvi_setpage (dvi_document->context, rc->page->index);
 
-	ev_render_context_compute_scales (rc, dvi_document->base_width, dvi_document->base_height,
+	pps_render_context_compute_scales (rc, dvi_document->base_width, dvi_document->base_height,
 					  &xscale, &yscale);
 	mdvi_set_shrink (dvi_document->context,
 			 (int)((dvi_document->params->hshrink - 1) / xscale) + 1,
 			 (int)((dvi_document->params->vshrink - 1) / yscale) + 1);
 
-	ev_render_context_compute_scaled_size (rc, dvi_document->base_width, dvi_document->base_height,
+	pps_render_context_compute_scaled_size (rc, dvi_document->base_width, dvi_document->base_height,
 					       &required_width, &required_height);
 	proposed_width = dvi_document->context->dvi_page_w * dvi_document->context->params.conv;
 	proposed_height = dvi_document->context->dvi_page_h * dvi_document->context->params.vconv;
@@ -199,7 +199,7 @@ dvi_document_render (EvDocument      *document,
 
 	g_mutex_unlock (&dvi_context_mutex);
 
-	rotated_surface = ev_document_misc_surface_rotate_and_scale (surface,
+	rotated_surface = pps_document_misc_surface_rotate_and_scale (surface,
 								     required_width,
 								     required_height,
 								     rc->rotation);
@@ -235,7 +235,7 @@ dvi_document_finalize (GObject *object)
 }
 
 static gboolean
-dvi_document_support_synctex (EvDocument *document)
+dvi_document_support_synctex (PpsDocument *document)
 {
 	return TRUE;
 }
@@ -244,30 +244,30 @@ static void
 dvi_document_class_init (DviDocumentClass *klass)
 {
 	GObjectClass    *gobject_class = G_OBJECT_CLASS (klass);
-	EvDocumentClass *ev_document_class = EV_DOCUMENT_CLASS (klass);
+	PpsDocumentClass *pps_document_class = PPS_DOCUMENT_CLASS (klass);
 	gchar *texmfcnf;
 
 	gobject_class->finalize = dvi_document_finalize;
 
 	texmfcnf = get_texmfcnf();
-	mdvi_init_kpathsea ("evince", MDVI_MFMODE, MDVI_FALLBACK_FONT, MDVI_DPI, texmfcnf);
+	mdvi_init_kpathsea ("papers", MDVI_MFMODE, MDVI_FALLBACK_FONT, MDVI_DPI, texmfcnf);
 	g_free(texmfcnf);
 
 	mdvi_register_special ("Color", "color", NULL, dvi_document_do_color_special, 1);
 	mdvi_register_fonts ();
 
-	ev_document_class->load = dvi_document_load;
-	ev_document_class->save = dvi_document_save;
-	ev_document_class->get_n_pages = dvi_document_get_n_pages;
-	ev_document_class->get_page_size = dvi_document_get_page_size;
-	ev_document_class->render = dvi_document_render;
-	ev_document_class->support_synctex = dvi_document_support_synctex;
+	pps_document_class->load = dvi_document_load;
+	pps_document_class->save = dvi_document_save;
+	pps_document_class->get_n_pages = dvi_document_get_n_pages;
+	pps_document_class->get_page_size = dvi_document_get_page_size;
+	pps_document_class->render = dvi_document_render;
+	pps_document_class->support_synctex = dvi_document_support_synctex;
 }
 
-/* EvFileExporterIface */
+/* PpsFileExporterIface */
 static void
-dvi_document_file_exporter_begin (EvFileExporter        *exporter,
-				  EvFileExporterContext *fc)
+dvi_document_file_exporter_begin (PpsFileExporter        *exporter,
+				  PpsFileExporterContext *fc)
 {
 	DviDocument *dvi_document = DVI_DOCUMENT(exporter);
 
@@ -282,8 +282,8 @@ dvi_document_file_exporter_begin (EvFileExporter        *exporter,
 }
 
 static void
-dvi_document_file_exporter_do_page (EvFileExporter  *exporter,
-				    EvRenderContext *rc)
+dvi_document_file_exporter_do_page (PpsFileExporter  *exporter,
+				    PpsRenderContext *rc)
 {
        DviDocument *dvi_document = DVI_DOCUMENT(exporter);
 
@@ -291,7 +291,7 @@ dvi_document_file_exporter_do_page (EvFileExporter  *exporter,
 }
 
 static void
-dvi_document_file_exporter_end (EvFileExporter *exporter)
+dvi_document_file_exporter_end (PpsFileExporter *exporter)
 {
 	gchar *command_line;
 	gint exit_stat;
@@ -325,18 +325,18 @@ dvi_document_file_exporter_end (EvFileExporter *exporter)
 		g_error_free (err);
 }
 
-static EvFileExporterCapabilities
-dvi_document_file_exporter_get_capabilities (EvFileExporter *exporter)
+static PpsFileExporterCapabilities
+dvi_document_file_exporter_get_capabilities (PpsFileExporter *exporter)
 {
-	return  EV_FILE_EXPORTER_CAN_PAGE_SET |
-		EV_FILE_EXPORTER_CAN_COPIES |
-		EV_FILE_EXPORTER_CAN_COLLATE |
-		EV_FILE_EXPORTER_CAN_REVERSE |
-		EV_FILE_EXPORTER_CAN_GENERATE_PDF;
+	return  PPS_FILE_EXPORTER_CAN_PAGE_SET |
+		PPS_FILE_EXPORTER_CAN_COPIES |
+		PPS_FILE_EXPORTER_CAN_COLLATE |
+		PPS_FILE_EXPORTER_CAN_REVERSE |
+		PPS_FILE_EXPORTER_CAN_GENERATE_PDF;
 }
 
 static void
-dvi_document_file_exporter_iface_init (EvFileExporterInterface *iface)
+dvi_document_file_exporter_iface_init (PpsFileExporterInterface *iface)
 {
         iface->begin = dvi_document_file_exporter_begin;
         iface->do_page = dvi_document_file_exporter_do_page;
@@ -527,7 +527,7 @@ dvi_document_init (DviDocument *dvi_document)
 }
 
 GType
-ev_backend_query_type (void)
+pps_backend_query_type (void)
 {
 	return DVI_TYPE_DOCUMENT;
 }

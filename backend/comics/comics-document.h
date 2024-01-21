@@ -1,4 +1,4 @@
-/* comics-document.h: Implementation of EvDocument for comic book archives
+/* comics-document.h: Implementation of PpsDocument for comic book archives
  * Copyright (C) 2005, Teemu Tervo <teemu.tervo@gmx.net>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include "ev-macros.h"
-#include "ev-document.h"
+#include "pps-macros.h"
+#include "pps-document.h"
 
 G_BEGIN_DECLS
 

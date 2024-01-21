@@ -1,0 +1,30 @@
+/*
+* Copyright © 2009 Christian Persch
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation; either version 2.1 of the License, or (at your
+ * option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
+
+#pragma once
+
+#define __PPS_PAPERS_VIEW_H_INSIDE__
+
+#include <libview/pps-job-scheduler.h>
+#include <libview/pps-jobs.h>
+#include <libview/pps-document-model.h>
+#include <libview/pps-print-operation.h>
+#include <libview/pps-view.h>
+#include <libview/pps-view-type-builtins.h>
+
+#undef __PPS_PAPERS_VIEW_H_INSIDE__

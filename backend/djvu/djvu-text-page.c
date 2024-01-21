@@ -33,8 +33,8 @@
  * in the first.
  */
 static void
-djvu_text_page_union (EvRectangle *target,
-		      EvRectangle *source)
+djvu_text_page_union (PpsRectangle *target,
+		      PpsRectangle *source)
 {
 	if (source->x1 < target->x1)
 		target->x1 = source->x1;
@@ -62,7 +62,7 @@ djvu_text_page_selection_process_box (DjvuTextPage *page,
 				      int           delimit)
 {
 	if (page->results || p == page->start) {
-		EvRectangle box;
+		PpsRectangle box;
 		const char *text;
 
 		box.x1 = miniexp_to_int (miniexp_nth (1, p));
@@ -73,13 +73,13 @@ djvu_text_page_selection_process_box (DjvuTextPage *page,
 
 		if (text != NULL && text[0] != '\0') {
 			if (!(delimit & 2) && page->results != NULL) {
-				EvRectangle *union_box = (EvRectangle *)page->results->data;
+				PpsRectangle *union_box = (PpsRectangle *)page->results->data;
 
                                 /* If still on the same line, add box to union */
 				djvu_text_page_union (union_box, &box);
 			} else {
 				/* A new line, a new box */
-				page->results = g_list_prepend (page->results, ev_rectangle_copy (&box));
+				page->results = g_list_prepend (page->results, pps_rectangle_copy (&box));
 			}
 		}
 
@@ -172,9 +172,9 @@ djvu_text_page_selection (DjvuSelectionType type,
 static void
 djvu_text_page_limits_process (DjvuTextPage *page,
 			       miniexp_t     p,
-			       EvRectangle  *rect)
+			       PpsRectangle  *rect)
 {
-	EvRectangle current;
+	PpsRectangle current;
 	const char *text;
 
 	current.x1 = miniexp_to_int (miniexp_nth (1, p));
@@ -195,7 +195,7 @@ djvu_text_page_limits_process (DjvuTextPage *page,
 static void
 djvu_text_page_limits (DjvuTextPage *page,
 			  miniexp_t     p,
-			  EvRectangle  *rect)
+			  PpsRectangle  *rect)
 {
         miniexp_t deeper;
 
@@ -217,13 +217,13 @@ djvu_text_page_limits (DjvuTextPage *page,
 /**
  * djvu_text_page_get_selection:
  * @page: #DjvuTextPage instance
- * @rectangle: #EvRectangle of the selection
+ * @rectangle: #PpsRectangle of the selection
  *
  * Returns: The bounding boxes of the selection
  */
 GList *
 djvu_text_page_get_selection_region (DjvuTextPage *page,
-                                     EvRectangle  *rectangle)
+                                     PpsRectangle  *rectangle)
 {
 	page->start = miniexp_nil;
 	page->end = miniexp_nil;
@@ -239,7 +239,7 @@ djvu_text_page_get_selection_region (DjvuTextPage *page,
 
 char *
 djvu_text_page_copy (DjvuTextPage *page,
-		     EvRectangle  *rectangle)
+		     PpsRectangle  *rectangle)
 {
 	char* text;
 
@@ -312,7 +312,7 @@ djvu_text_page_sexpr_process (DjvuTextPage *page,
                               miniexp_t     end)
 {
 	if (page->bounding_box || p == start) {
-		EvRectangle *new_rectangle = ev_rectangle_new ();
+		PpsRectangle *new_rectangle = pps_rectangle_new ();
 		new_rectangle->x1 = miniexp_to_int (miniexp_nth (1, p));
 		new_rectangle->y1 = miniexp_to_int (miniexp_nth (2, p));
 		new_rectangle->x2 = miniexp_to_int (miniexp_nth (3, p));
@@ -377,7 +377,7 @@ djvu_text_page_sexpr (DjvuTextPage *page,
  *
  * Builds a rectangle that contains all s-expressions in the given range.
  */
-static EvRectangle *
+static PpsRectangle *
 djvu_text_page_box (DjvuTextPage *page,
 		    miniexp_t     start,
 		    miniexp_t     end)
@@ -457,7 +457,7 @@ djvu_text_page_search (DjvuTextPage *page,
 {
 	char *haystack = page->text;
 	int search_len;
-	EvRectangle *result;
+	PpsRectangle *result;
 	if (page->links->len == 0)
 		return;
 

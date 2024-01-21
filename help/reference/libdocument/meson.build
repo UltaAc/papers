@@ -1,14 +1,14 @@
-libevdocument_toml = configure_file(
-  input: 'libevdocument.toml.in',
-  output: 'libevdocument-' + ev_api_version + '.toml',
+libppsdocument_toml = configure_file(
+  input: 'libppsdocument.toml.in',
+  output: 'libppsdocument-' + pps_api_version + '.toml',
   configuration: toml_conf,
   install: true,
-  install_dir: docs_dir / 'libevdocument',
+  install_dir: docs_dir / 'libppsdocument',
 )
 
-custom_target('libevdocument-doc',
-  input: [ libevdocument_toml, libevdocument_gir[0] ],
-  output: 'libevdocument',
+custom_target('libppsdocument-doc',
+  input: [ libppsdocument_toml, libppsdocument_gir[0] ],
+  output: 'libppsdocument',
   command: [
     gidocgen,
     'generate',

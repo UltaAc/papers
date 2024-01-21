@@ -1,13 +1,13 @@
-# Turkish translation for evince.
-# Copyright (C) 2021-2023 evince's COPYRIGHT HOLDER
-# This file is distributed under the same license as the evince package.
+# Turkish translation for papers.
+# Copyright (C) 2021-2023 papers's COPYRIGHT HOLDER
+# This file is distributed under the same license as the papers package.
 #
 # Sabri Ünal <libreajans@gmail.com>, 2021-2023.
 # Emin Tufan Çetin <etcetin@gmail.com>, 2021-2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evince master\n"
+"Project-Id-Version: papers master\n"
 "POT-Creation-Date: 2023-10-17 13:55+0000\n"
 "PO-Revision-Date: 2023-10-17 23:33+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
@@ -468,8 +468,8 @@ msgstr "<em>Düzen</em> altında, <gui>İki taraflı</gui> seçeneğinde <gui>K�
 
 #. (itstool) path: info/desc
 #: C/introduction.page:18
-msgid "Introduction to the <em>Evince Document Viewer</em>."
-msgstr "<em>Evince Belge Görüntüleyici</em>’ye giriş."
+msgid "Introduction to the <em>Papers Document Viewer</em>."
+msgstr "<em>Papers Belge Görüntüleyici</em>’ye giriş."
 
 #. (itstool) path: page/title
 #: C/introduction.page:21
@@ -479,9 +479,9 @@ msgstr "Giriş"
 #. (itstool) path: page/p
 #: C/introduction.page:23
 msgid ""
-"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a list of file types you can view."
+"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a list of file types you can view."
 msgstr ""
-"<app>Evince</app> belge görüntüleyicidir. Görüntüleyebildiği dosya türleri için bkz: <link xref=\"formats\"/"
+"<app>Papers</app> belge görüntüleyicidir. Görüntüleyebildiği dosya türleri için bkz: <link xref=\"formats\"/"
 ">."
 
 #. (itstool) path: info/desc
@@ -571,7 +571,7 @@ msgstr "Tüm sayfalar yazdırıldığında, sayfaları ters çevirin ve yazıcı
 #. (itstool) path: item/p
 #: C/singlesided-3-4pages.page:97 C/singlesided-17-20pages.page:98 C/singlesided-npages.page:104
 #: C/singlesided-13-16pages.page:100 C/singlesided-9-12pages.page:97 C/singlesided-5-8pages.page:97
-msgid "In the <gui>Only print</gui> menu, select <gui>Even sheets</gui>."
+msgid "In the <gui>Only print</gui> menu, select <gui>Ppsen sheets</gui>."
 msgstr "<gui>Yalnızca yazdır</gui> seçeneğinde, <gui>Çift kağıtlar</gui>ʼı seçin."
 
 #. (itstool) path: info/desc
@@ -719,18 +719,18 @@ msgstr "Vim-latex"
 #. (itstool) path: section/p
 #: C/synctex-editors.page:29
 msgid ""
-"The <app>gedit</app> plugin contains a python script (<file>evince_dbus.py</file>) that can be used to get "
+"The <app>gedit</app> plugin contains a python script (<file>papers_dbus.py</file>) that can be used to get "
 "SyncTeX working with Vim. In order to use vim-latex together with the <app>document viewer</app> you need "
 "to follow the next steps:"
 msgstr ""
 "<app>gedit</app> eklentisi, SyncTeXʼin Vim ile çalışmasını sağlamak için kullanılabilecek python betiği "
-"(<file>evince_dbus.py</file>) içerir. vim-latexʼi <app>belge görüntüleyici</app> ile kullanmak için "
+"(<file>papers_dbus.py</file>) içerir. vim-latexʼi <app>belge görüntüleyici</app> ile kullanmak için "
 "aşağıdaki adımları izleyiniz:"
 
 #. (itstool) path: item/p
 #: C/synctex-editors.page:35
-msgid "Copy the <file>evince_dbus.py</file> to some directory in your path and give it +x permissions."
-msgstr "<file>evince_dbus.py</file> dosyasını yolunuzdaki bir dizine kopyalayın ve ona +x izni verin."
+msgid "Copy the <file>papers_dbus.py</file> to some directory in your path and give it +x permissions."
+msgstr "<file>papers_dbus.py</file> dosyasını yolunuzdaki bir dizine kopyalayın ve ona +x izni verin."
 
 #. (itstool) path: item/p
 #: C/synctex-editors.page:41
@@ -742,12 +742,12 @@ msgstr "<file>~/.vimrc</file> dosyanızı düzenleyin ve aşağıdaki satırlar�
 #, no-wrap
 msgid ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 msgstr ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 
@@ -986,8 +986,8 @@ msgstr "<gui>dconf Düzenleyici</gui>’ye tıklayın."
 
 #. (itstool) path: item/p
 #: C/noprint.page:100
-msgid "Browse to <sys>/org/gnome/evince</sys>."
-msgstr "<sys>/org/gnome/evince</sys> ayarlarına göz atınız."
+msgid "Browse to <sys>/org/gnome/papers</sys>."
+msgstr "<sys>/org/gnome/papers</sys> ayarlarına göz atınız."
 
 #. (itstool) path: item/p
 #: C/noprint.page:103
@@ -1316,10 +1316,10 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/translate.page:27
 msgid ""
-"There are <link href=\"https://l10n.gnome.org/module/evince/\">many languages</link> for which translations "
+"There are <link href=\"https://l10n.gnome.org/module/papers/\">many languages</link> for which translations "
 "are still needed."
 msgstr ""
-"Çeviriye gereksinen <link href=\"https://l10n.gnome.org/module/evince/\">çok fazla dil</link> "
+"Çeviriye gereksinen <link href=\"https://l10n.gnome.org/module/papers/\">çok fazla dil</link> "
 "bulabilirsiniz. Türkçe çevirileri düşünmeyin, biz tümünü bitirdik. Yine de bulduğunuz hataları bize "
 "bildirmekten çekinmeyin."
 
@@ -1802,17 +1802,17 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/develop.page:23
 msgid ""
-"If you would like to <link href=\"https://wiki.gnome.org/Apps/Evince\">help develop</link> the "
+"If you would like to <link href=\"https://wiki.gnome.org/Apps/Papers\">help develop</link> the "
 "<app>Document Viewer</app>, you can get in touch with the developers at <link href=\"https://matrix.to/#/"
-"#evince:gnome.org\">#evince:gnome.org</link> on <link xref=\"help:gnome-help/help-matrix\">Matrix</link> or "
-"<link href=\"https://web.libera.chat/#gnome-evince\">#gnome-evince</link> on irc.libera.chat, or via <link "
-"href=\"https://discourse.gnome.org/tag/evince\">GNOME Discourse</link>."
+"#papers:gnome.org\">#papers:gnome.org</link> on <link xref=\"help:gnome-help/help-matrix\">Matrix</link> or "
+"<link href=\"https://web.libera.chat/#gnome-papers\">#gnome-papers</link> on irc.libera.chat, or via <link "
+"href=\"https://discourse.gnome.org/tag/papers\">GNOME Discourse</link>."
 msgstr ""
-"<app>Belge Görüntüleyici</app>’nin <link href=\"https://wiki.gnome.org/Apps/Evince\">gelişimine yardımcı "
+"<app>Belge Görüntüleyici</app>’nin <link href=\"https://wiki.gnome.org/Apps/Papers\">gelişimine yardımcı "
 "olmak</link> isterseniz, <link xref=\"help:gnome-help/help-matrix\">Matrix</link> kullanarak <link "
-"href=\"https://matrix.to/#/#evince:gnome.org\">#evince:gnome.org</link> üstünden, irc.libera.chat "
-"kullanarak <link href=\"https://web.libera.chat/#gnome-evince\">#gnome-evince</link> üstünden, ya da <link "
-"href=\"https://discourse.gnome.org/tag/evince\">GNOME Discourse</link> üstünden geliştiricilerle iletişime "
+"href=\"https://matrix.to/#/#papers:gnome.org\">#papers:gnome.org</link> üstünden, irc.libera.chat "
+"kullanarak <link href=\"https://web.libera.chat/#gnome-papers\">#gnome-papers</link> üstünden, ya da <link "
+"href=\"https://discourse.gnome.org/tag/papers\">GNOME Discourse</link> üstünden geliştiricilerle iletişime "
 "geçebilirsiniz."
 
 #. (itstool) path: info/desc
@@ -2401,11 +2401,11 @@ msgstr "<app>Belge Görüntüleyici</app> hakkında hata bildir"
 msgid ""
 "The <app>document viewer</app> is maintained by a volunteer community. You are welcome to participate. If "
 "you notice a problem you can file a <em>bug report</em>. To file a bug, go to <link href=\"https://gitlab."
-"gnome.org/GNOME/evince/issues/\"/>."
+"gnome.org/GNOME/papers/issues/\"/>."
 msgstr ""
 "<app>Belge görüntüleyici</app>’nin bakımı gönüllü bir toplulukça yapılmaktadır. Katılmak isterseniz "
 "hoşgeldiniz. Sorun saptadığınızda <em>hata bildiriminde</em> bulunabilirsiniz. Hata bildirmek için "
-"(İngilizce) şu adresi kullanabilirsiniz: <link href=\"https://gitlab.gnome.org/GNOME/evince/issues/\"/>."
+"(İngilizce) şu adresi kullanabilirsiniz: <link href=\"https://gitlab.gnome.org/GNOME/papers/issues/\"/>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2433,13 +2433,13 @@ msgstr ""
 msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before reporting a bug, please read "
 "the <link href=\"https://wiki.gnome.org/GettingInTouch/BugReportingGuidelines\">bug writing guidelines</"
-"link>, and please <link href=\"https://gitlab.gnome.org/GNOME/evince/issues\">browse</link> for the bug to "
+"link>, and please <link href=\"https://gitlab.gnome.org/GNOME/papers/issues\">browse</link> for the bug to "
 "see if it already exists."
 msgstr ""
 "Hesabınız olduğunda, giriş yapın ve <gui>New issue</gui> düğmesine tıklayın. Hata bildirmeden önce lütfen "
 "<link href=\"https://wiki.gnome.org/Community/GettingInTouch/BugReportingGuidelines\">Bug Reporting "
 "Guidelines</link> sayfasını okuyun ve hatanın zaten var olup olmadığını görmek için <link href=\"https://"
-"gitlab .gnome.org/GNOME/evince/issues\">var olan hatalara göz atın</link>."
+"gitlab .gnome.org/GNOME/papers/issues\">var olan hatalara göz atın</link>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:33
@@ -3022,8 +3022,8 @@ msgstr "Komut satırı"
 
 #. (itstool) path: info/desc
 #: C/commandline.page:8
-msgid "The <cmd>evince</cmd> command can open any number of files, at specific pages and in various modes."
-msgstr "<cmd>evince</cmd> komutu, belirli sayfaları ve türlü kiplerde herhangi bir sayıda dosyayı açabilir."
+msgid "The <cmd>papers</cmd> command can open any number of files, at specific pages and in various modes."
+msgstr "<cmd>papers</cmd> komutu, belirli sayfaları ve türlü kiplerde herhangi bir sayıda dosyayı açabilir."
 
 #. (itstool) path: page/title
 #: C/commandline.page:24
@@ -3033,49 +3033,49 @@ msgstr "Komut satırı"
 #. (itstool) path: page/p
 #: C/commandline.page:25
 msgid ""
-"To start the <app>Document Viewer</app> from the command line, type <cmd>evince</cmd>. You can open a "
-"specific file by typing the filename after the evince command:"
+"To start the <app>Document Viewer</app> from the command line, type <cmd>papers</cmd>. You can open a "
+"specific file by typing the filename after the papers command:"
 msgstr ""
-"<app>Belge Görüntüleyici</app>’yi komut satırından başlatmak için <cmd>evince</cmd> yazın. evince "
+"<app>Belge Görüntüleyici</app>’yi komut satırından başlatmak için <cmd>papers</cmd> yazın. papers "
 "komutundan sonra dosya adını yazarak belirli bir dosyayı açabilirsiniz:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:30
 #, no-wrap
-msgid "evince file.pdf"
-msgstr "evince dosya.pdf"
+msgid "papers file.pdf"
+msgstr "papers dosya.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:31
 msgid ""
-"You can open multiple files by typing the filenames after the evince command, separating the filenames by a "
+"You can open multiple files by typing the filenames after the papers command, separating the filenames by a "
 "space:"
 msgstr ""
-"<cmd>evince</cmd> komutundan sonra dosya adlarını yazarak, dosya adlarını boşlukla ayırarak birden çok "
+"<cmd>papers</cmd> komutundan sonra dosya adlarını yazarak, dosya adlarını boşlukla ayırarak birden çok "
 "dosya açabilirsiniz:"
 
 # Hata: Bu şekilde açınca dosyalardaki son durum bilgisi doğru yüklenmiyor. İlk dosya doğru yüklense ikinci dosya öntanımlı ayarlar ile açılıyor.
 #. (itstool) path: page/screen
 #: C/commandline.page:34
 #, no-wrap
-msgid "evince file1.pdf file2.pdf"
-msgstr "evince dosya1.pdf dosya2.pdf"
+msgid "papers file1.pdf file2.pdf"
+msgstr "papers dosya1.pdf dosya2.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:35
 msgid ""
 "The <app>document viewer</app> also supports the handling of files on the web. For example, after the "
-"evince command you can give the location of a file on the web:"
+"papers command you can give the location of a file on the web:"
 msgstr ""
-"<app>Belge görüntüleyici</app>, web üzerindeki dosyaların işlenmesini de destekler. Örneğin, <cmd>evince</"
+"<app>Belge görüntüleyici</app>, web üzerindeki dosyaların işlenmesini de destekler. Örneğin, <cmd>papers</"
 "cmd> komutundan sonra internetteki bir dosyanın konumunu verebilirsiniz:"
 
 # Hata: Hedef pdf dosyası silinmiş, daha makul ve reel olmayan bir örnek vermek gerekebilir.
 #. (itstool) path: page/screen
 #: C/commandline.page:38
 #, no-wrap
-msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "evince http://web.archive.org/web/20090126225156/http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "papers http://web.archive.org/web/20090126225156/http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:40
@@ -3094,8 +3094,8 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:45
 #, no-wrap
-msgid "evince --page-label=3 file.pdf"
-msgstr "evince --page-label=3 dosya.pdf"
+msgid "papers --page-label=3 file.pdf"
+msgstr "papers --page-label=3 dosya.pdf"
 
 # Hata: Ne demek istediği çok belirsiz ve örnek yok.
 #. (itstool) path: section/p
@@ -3115,8 +3115,8 @@ msgstr "Belgeyi tam ekran kipinde açmak"
 #. (itstool) path: section/screen
 #: C/commandline.page:53
 #, no-wrap
-msgid "evince --fullscreen file.pdf"
-msgstr "evince --fullscreen dosya.pdf"
+msgid "papers --fullscreen file.pdf"
+msgstr "papers --fullscreen dosya.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:56
@@ -3126,8 +3126,8 @@ msgstr "Belgeyi sunum kipinde açmak"
 #. (itstool) path: section/screen
 #: C/commandline.page:57
 #, no-wrap
-msgid "evince --presentation file.pdf"
-msgstr "evince --presentation dosya.pdf"
+msgid "papers --presentation file.pdf"
+msgstr "papers --presentation dosya.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:60
@@ -3137,8 +3137,8 @@ msgstr "Belgeye ön izleme kipinde açmak"
 #. (itstool) path: section/screen
 #: C/commandline.page:61
 #, no-wrap
-msgid "evince --preview file.pdf"
-msgstr "evince --preview dosya.pdf"
+msgid "papers --preview file.pdf"
+msgstr "papers --preview dosya.pdf"
 
 #. (itstool) path: info/desc
 #: C/annotations.page:8
@@ -3283,28 +3283,28 @@ msgstr "<link xref=\"duplex-4page\">4 sayfa kitapçık</link> yazdırma adımlar
 #. (itstool) path: info/title
 #: C/index.page:7
 msgctxt "link:trail"
-msgid "Evince Document Viewer"
-msgstr "Evince Belge Görüntüleyici"
+msgid "Papers Document Viewer"
+msgstr "Papers Belge Görüntüleyici"
 
 #. (itstool) path: info/title
 #: C/index.page:8
 msgctxt "link"
-msgid "Evince Document Viewer"
-msgstr "Evince Belge Görüntüleyici"
+msgid "Papers Document Viewer"
+msgstr "Papers Belge Görüntüleyici"
 
 #. (itstool) path: info/title
 #: C/index.page:9
 msgctxt "text"
-msgid "Evince Document Viewer"
-msgstr "Evince Belge Görüntüleyici"
+msgid "Papers Document Viewer"
+msgstr "Papers Belge Görüntüleyici"
 
 #. (itstool) path: info/desc
 #: C/index.page:24
 msgid ""
-"<app>Document Viewer</app>, formally known as <app>Evince</app>, is made for viewing PDF documents. Learn "
+"<app>Document Viewer</app>, formally known as <app>Papers</app>, is made for viewing PDF documents. Learn "
 "how to get started with <app>Document Viewer</app> and its features."
 msgstr ""
-"<app>Belge Görüntüleyici</app>, eski adıyla <app>Evince</app>, PDF belgeleri görüntülemek için "
+"<app>Belge Görüntüleyici</app>, eski adıyla <app>Papers</app>, PDF belgeleri görüntülemek için "
 "üretilmiştir. <app>Belge Görüntüleyici</app> ve özellikleriyle ilgili daha çok bilgi edinin."
 
 #. (itstool) path: page/title

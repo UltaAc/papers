@@ -1,44 +1,44 @@
 libdocument_inc = include_directories('.')
 
-include_subdir = join_paths(ev_include_subdir, 'libdocument')
+include_subdir = join_paths(pps_include_subdir, 'libdocument')
 
 headers = files(
-  'ev-annotation.h',
-  'ev-attachment.h',
-  'ev-document-annotations.h',
-  'ev-document-attachments.h',
-  'ev-document-factory.h',
-  'ev-document-find.h',
-  'ev-document-fonts.h',
-  'ev-document-forms.h',
-  'ev-document-images.h',
-  'ev-document-info.h',
-  'ev-document-layers.h',
-  'ev-document-links.h',
-  'ev-document-media.h',
-  'ev-document-misc.h',
-  'ev-document-print.h',
-  'ev-document-security.h',
-  'ev-document-text.h',
-  'ev-document-transition.h',
-  'ev-document.h',
-  'ev-file-exporter.h',
-  'ev-file-helpers.h',
-  'ev-form-field.h',
-  'ev-image.h',
-  'ev-init.h',
-  'ev-layer.h',
-  'ev-link-action.h',
-  'ev-link-dest.h',
-  'ev-link.h',
-  'ev-macros.h',
-  'ev-mapping-list.h',
-  'ev-media.h',
-  'ev-page.h',
-  'ev-portal.h',
-  'ev-render-context.h',
-  'ev-selection.h',
-  'ev-transition-effect.h',
+  'pps-annotation.h',
+  'pps-attachment.h',
+  'pps-document-annotations.h',
+  'pps-document-attachments.h',
+  'pps-document-factory.h',
+  'pps-document-find.h',
+  'pps-document-fonts.h',
+  'pps-document-forms.h',
+  'pps-document-images.h',
+  'pps-document-info.h',
+  'pps-document-layers.h',
+  'pps-document-links.h',
+  'pps-document-media.h',
+  'pps-document-misc.h',
+  'pps-document-print.h',
+  'pps-document-security.h',
+  'pps-document-text.h',
+  'pps-document-transition.h',
+  'pps-document.h',
+  'pps-file-exporter.h',
+  'pps-file-helpers.h',
+  'pps-form-field.h',
+  'pps-image.h',
+  'pps-init.h',
+  'pps-layer.h',
+  'pps-link-action.h',
+  'pps-link-dest.h',
+  'pps-link.h',
+  'pps-macros.h',
+  'pps-mapping-list.h',
+  'pps-media.h',
+  'pps-page.h',
+  'pps-portal.h',
+  'pps-render-context.h',
+  'pps-selection.h',
+  'pps-transition-effect.h',
 )
 
 install_headers(
@@ -47,77 +47,77 @@ install_headers(
 )
 
 sources = files(
-  'ev-annotation.c',
-  'ev-attachment.c',
-  'ev-backend-info.c',
-  'ev-debug.c',
-  'ev-document.c',
-  'ev-document-annotations.c',
-  'ev-document-attachments.c',
-  'ev-document-factory.c',
-  'ev-document-find.c',
-  'ev-document-fonts.c',
-  'ev-document-forms.c',
-  'ev-document-images.c',
-  'ev-document-info.c',
-  'ev-document-layers.c',
-  'ev-document-links.c',
-  'ev-document-media.c',
-  'ev-document-misc.c',
-  'ev-document-print.c',
-  'ev-document-security.c',
-  'ev-document-text.c',
-  'ev-document-transition.c',
-  'ev-file-exporter.c',
-  'ev-file-helpers.c',
-  'ev-form-field.c',
-  'ev-image.c',
-  'ev-init.c',
-  'ev-layer.c',
-  'ev-link-action.c',
-  'ev-link.c',
-  'ev-link-dest.c',
-  'ev-mapping-list.c',
-  'ev-media.c',
-  'ev-page.c',
-  'ev-portal.c',
-  'ev-render-context.c',
-  'ev-selection.c',
-  'ev-transition-effect.c',
-  'ev-xmp.c',
-  'ev-xmp.h',
+  'pps-annotation.c',
+  'pps-attachment.c',
+  'pps-backend-info.c',
+  'pps-debug.c',
+  'pps-document.c',
+  'pps-document-annotations.c',
+  'pps-document-attachments.c',
+  'pps-document-factory.c',
+  'pps-document-find.c',
+  'pps-document-fonts.c',
+  'pps-document-forms.c',
+  'pps-document-images.c',
+  'pps-document-info.c',
+  'pps-document-layers.c',
+  'pps-document-links.c',
+  'pps-document-media.c',
+  'pps-document-misc.c',
+  'pps-document-print.c',
+  'pps-document-security.c',
+  'pps-document-text.c',
+  'pps-document-transition.c',
+  'pps-file-exporter.c',
+  'pps-file-helpers.c',
+  'pps-form-field.c',
+  'pps-image.c',
+  'pps-init.c',
+  'pps-layer.c',
+  'pps-link-action.c',
+  'pps-link.c',
+  'pps-link-dest.c',
+  'pps-mapping-list.c',
+  'pps-media.c',
+  'pps-page.c',
+  'pps-portal.c',
+  'pps-render-context.c',
+  'pps-selection.c',
+  'pps-transition-effect.c',
+  'pps-xmp.c',
+  'pps-xmp.h',
 )
 
 version_conf = configuration_data()
-version_conf.set('EV_MAJOR_VERSION', ev_major_version)
-version_conf.set('EV_MINOR_VERSION', ev_minor_version)
+version_conf.set('PPS_MAJOR_VERSION', pps_major_version)
+version_conf.set('PPS_MINOR_VERSION', pps_minor_version)
 
-version = 'ev-version.h'
+version = 'pps-version.h'
 
 version_header = configure_file(
   input: version + '.in',
   output: version,
   configuration: version_conf,
   install: true,
-  install_dir: join_paths(ev_includedir, include_subdir),
+  install_dir: join_paths(pps_includedir, include_subdir),
 )
 
-enum_types = 'ev-document-type-builtins'
+enum_types = 'pps-document-type-builtins'
 enum_header_prefix = '''
-#if !defined (__EV_EVINCE_DOCUMENT_H_INSIDE__) && !defined (EVINCE_COMPILATION)
-#error "Only <evince-document.h> can be included directly."
+#if !defined (__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#error "Only <papers-document.h> can be included directly."
 #endif
 
-#include "ev-macros.h"
+#include "pps-macros.h"
 '''
 
 enum_sources = gnome.mkenums_simple(
   enum_types,
   sources: headers,
   header_prefix: enum_header_prefix,
-  decorator: 'EV_PUBLIC',
+  decorator: 'PPS_PUBLIC',
   install_header: true,
-  install_dir: join_paths(ev_includedir, include_subdir),
+  install_dir: join_paths(pps_includedir, include_subdir),
 )
 
 common_deps = [
@@ -137,16 +137,16 @@ deps = common_deps + [
 ]
 
 cflags = [
-  '-DG_LOG_DOMAIN="EvinceDocument"',
-  '-DEV_LOCALEDIR="@0@"'.format(ev_localedir),
-  '-DEV_BACKENDSDIR="@0@"'.format(ev_backendsdir),
-  '-DEV_BACKENDSBINARYVERSION="@0@"'.format(ev_backends_binary_version),
-  '-DEVINCE_COMPILATION',
+  '-DG_LOG_DOMAIN="PapersDocument"',
+  '-DPPS_LOCALEDIR="@0@"'.format(pps_localedir),
+  '-DPPS_BACKENDSDIR="@0@"'.format(pps_backendsdir),
+  '-DPPS_BACKENDSBINARYVERSION="@0@"'.format(pps_backends_binary_version),
+  '-DPAPERS_COMPILATION',
 ]
 
-libevdocument = shared_library(
-  'evdocument-' + ev_api_version,
-  version: ev_document_version,
+libppsdocument = shared_library(
+  'evdocument-' + pps_api_version,
+  version: pps_document_version,
   sources: sources + enum_sources + [version_header],
   include_directories: top_inc,
   dependencies: deps,
@@ -155,32 +155,32 @@ libevdocument = shared_library(
   gnu_symbol_visibility: 'hidden',
 )
 
-libevdocument_dep = declare_dependency(
+libppsdocument_dep = declare_dependency(
   sources: headers + [enum_sources[1]] + [version_header],
   include_directories: libdocument_inc,
   dependencies: deps,
-  link_with: libevdocument,
+  link_with: libppsdocument,
 )
 
 pkg.generate(
-  libevdocument,
-  filebase: 'evince-document-' + ev_api_version,
-  name: 'Evince Document',
+  libppsdocument,
+  filebase: 'papers-document-' + pps_api_version,
+  name: 'Papers Document',
   description: 'GNOME document viewer backend library',
-  subdirs: ev_include_subdir,
+  subdirs: pps_include_subdir,
   requires: [
     gio_dep,
     gtk_dep,
   ],
   variables: [
     'exec_prefix=${prefix}',
-    'backenddir=' + join_paths('${libdir}', ev_backends_subdir),
+    'backenddir=' + join_paths('${libdir}', pps_backends_subdir),
   ],
 )
 
 install_headers(
-  files('evince-document.h'),
-  subdir: ev_include_subdir,
+  files('papers-document.h'),
+  subdir: pps_include_subdir,
 )
 
 # GObject Introspection
@@ -193,16 +193,16 @@ if enable_introspection
     'Gtk-4.0',
   ]
 
-  libevdocument_gir = gnome.generate_gir(
-    libevdocument,
+  libppsdocument_gir = gnome.generate_gir(
+    libppsdocument,
     sources: sources + headers + [enum_sources[1], version_header],
     includes: incs,
-    nsversion: ev_api_version,
-    namespace: 'EvinceDocument',
-    identifier_prefix: ev_code_prefix,
-    symbol_prefix: ev_code_prefix.to_lower(),
-    export_packages: 'evince-document-' + ev_api_version,
-    extra_args: '-DEVINCE_COMPILATION',
+    nsversion: pps_api_version,
+    namespace: 'PapersDocument',
+    identifier_prefix: pps_code_prefix,
+    symbol_prefix: pps_code_prefix.to_lower(),
+    export_packages: 'papers-document-' + pps_api_version,
+    extra_args: '-DPAPERS_COMPILATION',
     install: true,
   )
 endif

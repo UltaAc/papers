@@ -1,11 +1,11 @@
-# Latvian translation for evince.
-# Copyright (C) 2012 evince's COPYRIGHT HOLDER
-# This file is distributed under the same license as the evince package.
+# Latvian translation for papers.
+# Copyright (C) 2012 papers's COPYRIGHT HOLDER
+# This file is distributed under the same license as the papers package.
 #
 # Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: evince master\n"
+"Project-Id-Version: papers master\n"
 "POT-Creation-Date: 2013-09-27 22:13+0000\n"
 "PO-Revision-Date: 2013-10-02 22:41+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
@@ -33,13 +33,13 @@ msgstr ""
 #. whatever you like once you have updated your copy of the file.
 #: C/index.page:6
 #| msgid ""
-#| "@@image: 'figures/evince-trail.png'; md5=a1a70d04c37f05937d0b3e7a0705d2d4"
+#| "@@image: 'figures/papers-trail.png'; md5=a1a70d04c37f05937d0b3e7a0705d2d4"
 msgctxt "_"
 msgid ""
-"external ref='figures/evince-trail.png' "
+"external ref='figures/papers-trail.png' "
 "md5='a1a70d04c37f05937d0b3e7a0705d2d4'"
 msgstr ""
-"external ref='figures/evince-trail.png' "
+"external ref='figures/papers-trail.png' "
 "md5='a1a70d04c37f05937d0b3e7a0705d2d4'"
 
 #. (itstool) path: media
@@ -49,26 +49,26 @@ msgstr ""
 #. whatever you like once you have updated your copy of the file.
 #: C/index.page:23
 #| msgid ""
-#| "@@image: 'figures/evincelogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
+#| "@@image: 'figures/paperslogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
 msgctxt "_"
 msgid ""
-"external ref='figures/evincelogo.png' md5='a5856135b500d4c4b74a052eef6e09d2'"
+"external ref='figures/paperslogo.png' md5='a5856135b500d4c4b74a052eef6e09d2'"
 msgstr ""
-"external ref='figures/evincelogo.png' md5='a5856135b500d4c4b74a052eef6e09d2'"
+"external ref='figures/paperslogo.png' md5='a5856135b500d4c4b74a052eef6e09d2'"
 
 #. (itstool) path: info/title
 #: C/index.page:7
-#| msgid "Evince Document Viewer"
+#| msgid "Papers Document Viewer"
 msgctxt "link"
-msgid "Evince Document Viewer"
-msgstr "Evince dokumentu skatītājs"
+msgid "Papers Document Viewer"
+msgstr "Papers dokumentu skatītājs"
 
 #. (itstool) path: info/title
 #: C/index.page:8
-#| msgid "Evince Document Viewer"
+#| msgid "Papers Document Viewer"
 msgctxt "text"
-msgid "Evince Document Viewer"
-msgstr "Evince dokumentu skatītājs"
+msgid "Papers Document Viewer"
+msgstr "Papers dokumentu skatītājs"
 
 #. (itstool) path: credit/name
 #: C/index.page:11 C/commandline.page:11 C/convertpdf.page:11
@@ -137,11 +137,11 @@ msgstr "Creative Commons Share Alike 3.0 licence"
 #. (itstool) path: page/title
 #: C/index.page:23
 msgid ""
-"<media type=\"image\" src=\"figures/evincelogo.png\">Evince logo</"
-"media>Evince document viewer"
+"<media type=\"image\" src=\"figures/paperslogo.png\">Papers logo</"
+"media>Papers document viewer"
 msgstr ""
-"<media type=\"image\" src=\"figures/evincelogo.png\">Evince logo</"
-"media>Evince dokumentu skatītājs"
+"<media type=\"image\" src=\"figures/paperslogo.png\">Papers logo</"
+"media>Papers dokumentu skatītājs"
 
 #. (itstool) path: section/title
 #: C/index.page:26
@@ -612,18 +612,18 @@ msgstr ""
 #: C/bug-filing.page:29
 msgid ""
 "Once you have an account, log in, click on <guiseq><gui>File a Bug</"
-"gui><gui>Core</gui><gui>evince</gui></guiseq>. Before reporting a bug, "
+"gui><gui>Core</gui><gui>papers</gui></guiseq>. Before reporting a bug, "
 "please read the <link href=\"https://bugzilla.gnome.org/page.cgi?id=bug-"
 "writing.html\">bug writing guidelines</link>, and please <link href="
-"\"https://bugzilla.gnome.org/browse.cgi?product=evince\">browse</link> for "
+"\"https://bugzilla.gnome.org/browse.cgi?product=papers\">browse</link> for "
 "the bug to see if it already exists."
 msgstr ""
 "Kolīdz jums ir konts, ierakstieties sistēmā un spiediet  <guiseq><gui>File a "
 "Bug</"
-"gui><gui>Core</gui><gui>evince</gui></guiseq>. Pirms kļūdas ziņojuma "
+"gui><gui>Core</gui><gui>papers</gui></guiseq>. Pirms kļūdas ziņojuma "
 "iesniegšanas, lūdzu izlasiet <link href=\"https://bugzilla.gnome.org/page.cgi?"
 "id=bug-writing.html\">kļūdu iesniegšanas pamācību</link>, kā arī, lūdzu, "
-"<link href=\"https://bugzilla.gnome.org/browse.cgi?product=evince"
+"<link href=\"https://bugzilla.gnome.org/browse.cgi?product=papers"
 "\">pārbaudiet</link> vai šāda kļūda jau nav iesniegta."
 
 #. (itstool) path: page/p
@@ -667,10 +667,10 @@ msgstr "Komandrinda"
 #. (itstool) path: info/desc
 #: C/commandline.page:8
 msgid ""
-"The <cmd>evince</cmd> command can open any number of files, at specific "
+"The <cmd>papers</cmd> command can open any number of files, at specific "
 "pages and in various modes."
 msgstr ""
-"Komanda <cmd>evince</cmd> var atvērt jebkādu daudzumu datņu, noteiktās "
+"Komanda <cmd>papers</cmd> var atvērt jebkādu daudzumu datņu, noteiktās "
 "lappusēs un dažādos veidos."
 
 #. (itstool) path: page/title
@@ -682,49 +682,49 @@ msgstr "Komandrinda"
 #: C/commandline.page:24
 msgid ""
 "To start the <app>Document Viewer</app> from the command line, type "
-"<cmd>evince</cmd>. You can open a specific file by typing the filename after "
-"the evince command:"
+"<cmd>papers</cmd>. You can open a specific file by typing the filename after "
+"the papers command:"
 msgstr ""
 "Lai palaistu <app>dokumentu skatītāju</app> no komandrindas, ierakstiet "
-"<cmd>evince</cmd>. Noteiktu datni var atvērt, ierakstot datnes nosaukumu pēc "
-"evince komandas:"
+"<cmd>papers</cmd>. Noteiktu datni var atvērt, ierakstot datnes nosaukumu pēc "
+"papers komandas:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:29
 #, no-wrap
-msgid "evince file.pdf"
-msgstr "evince datne.pdf"
+msgid "papers file.pdf"
+msgstr "papers datne.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:30
 msgid ""
-"You can open multiple files by typing the filenames after the evince "
+"You can open multiple files by typing the filenames after the papers "
 "command, separating the filenames by a space:"
 msgstr ""
-"Varat atvērt vairākas datnes, atdalot to nosaukums ar atstarpēm pēc evince "
+"Varat atvērt vairākas datnes, atdalot to nosaukums ar atstarpēm pēc papers "
 "komandas:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:33
 #, no-wrap
-msgid "evince file1.pdf file2.pdf"
-msgstr "evince datne1.pdf datne2.pdf"
+msgid "papers file1.pdf file2.pdf"
+msgstr "papers datne1.pdf datne2.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:34
 msgid ""
 "The <app>document viewer</app> also supports the handling of files on the "
-"web. For example, after the evince command you can give the location of a "
+"web. For example, after the papers command you can give the location of a "
 "file on the web:"
 msgstr ""
 "<app>Dokumentu skatītāja</app> lietotne atbalsta tīmekļa datņu pārvaldību. "
-"Piemēram, pēc evince komandas varat sniegt datnes atrašanās vietu tīmeklī:"
+"Piemēram, pēc papers komandas varat sniegt datnes atrašanās vietu tīmeklī:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:37
 #, no-wrap
-msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:39
@@ -744,8 +744,8 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:44
 #, no-wrap
-msgid "evince --page-label=3 file.pdf"
-msgstr "evince --page-label=3 datne.pdf"
+msgid "papers --page-label=3 file.pdf"
+msgstr "papers --page-label=3 datne.pdf"
 
 #. (itstool) path: section/p
 #: C/commandline.page:45
@@ -765,8 +765,8 @@ msgstr "Dokumenta atvēršana pilnekrāna režīmā"
 #. (itstool) path: section/screen
 #: C/commandline.page:52
 #, no-wrap
-msgid "evince --fullscreen file.pdf"
-msgstr "evince --fullscreen datne.pdf"
+msgid "papers --fullscreen file.pdf"
+msgstr "papers --fullscreen datne.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:55
@@ -776,8 +776,8 @@ msgstr "Dokumenta atvēršana prezentācijas režīmā"
 #. (itstool) path: section/screen
 #: C/commandline.page:56
 #, no-wrap
-msgid "evince --presentation file.pdf"
-msgstr "evince --presentation datne.pdf"
+msgid "papers --presentation file.pdf"
+msgstr "papers --presentation datne.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:59
@@ -787,8 +787,8 @@ msgstr "Dokumenta atvēršana priekšskatījuma režīmā"
 #. (itstool) path: section/screen
 #: C/commandline.page:60
 #, no-wrap
-msgid "evince --preview file.pdf"
-msgstr "evince --preview datne.pdf"
+msgid "papers --preview file.pdf"
+msgstr "papers --preview datne.pdf"
 
 #. (itstool) path: info/desc
 #: C/convertpdf.page:7
@@ -1053,17 +1053,17 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/develop.page:23
 msgid ""
-"If you would like to <link href=\"https://live.gnome.org/Evince\">help "
+"If you would like to <link href=\"https://live.gnome.org/Papers\">help "
 "develop</link> the <app>Document Viewer</app>, you can get in touch with the "
 "developers using <link href=\"https://cbe005.chat.mibbit.com/?url=irc%3A%2F"
-"%2Firc.gnome.org%2Fevince\">irc</link>, or via our <link href=\"https://mail."
-"gnome.org/mailman/listinfo/evince-list\">mailing list</link>."
+"%2Firc.gnome.org%2Fpapers\">irc</link>, or via our <link href=\"https://mail."
+"gnome.org/mailman/listinfo/papers-list\">mailing list</link>."
 msgstr ""
-"Ja vēlies <link href=\"https://live.gnome.org/Evince\">palīdzēt veidot</"
+"Ja vēlies <link href=\"https://live.gnome.org/Papers\">palīdzēt veidot</"
 "link> <app>Dokumentu skatītāju</app>, tu vari sazināties ar izstrādātājiem, "
 "izmantojot <link href=\"https://cbe005.chat.mibbit.com/?url=irc%3A%2F%2Firc."
-"gnome.org%2Fevince\">irc</link>, vai ar <link href=\"https://mail.gnome.org/"
-"mailman/listinfo/evince-list\">adresātu sarakstu</link>."
+"gnome.org%2Fpapers\">irc</link>, vai ar <link href=\"https://mail.gnome.org/"
+"mailman/listinfo/papers-list\">adresātu sarakstu</link>."
 
 #. (itstool) path: info/desc
 #: C/documentation.page:7
@@ -2228,8 +2228,8 @@ msgstr "Šifrētu datņu kopijas nevar saglabāt vai drukāt."
 
 #. (itstool) path: info/desc
 #: C/introduction.page:7
-msgid "Introduction to the <em>Evince Document Viewer</em>."
-msgstr "Ievads <em>Evince dokumentu skatītāja</em> lietotnē."
+msgid "Introduction to the <em>Papers Document Viewer</em>."
+msgstr "Ievads <em>Papers dokumentu skatītāja</em> lietotnē."
 
 #. (itstool) path: page/title
 #: C/introduction.page:20
@@ -2239,10 +2239,10 @@ msgstr "Ievads"
 #. (itstool) path: page/p
 #: C/introduction.page:25
 msgid ""
-"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a "
+"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
-"<app>Evince</app> ir dokumentu skatītājs. Lasiet <link xref=\"formats\"/>, "
+"<app>Papers</app> ir dokumentu skatītājs. Lasiet <link xref=\"formats\"/>, "
 "lai "
 "redzētu datņu tipus, kurus varat skatīt."
 
@@ -2859,8 +2859,8 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/noprint.page:76
-msgid "Browse to <sys>/org/gnome/evince</sys> using the side pane."
-msgstr "Aizej uz <sys>/org/gnome/evince</sys>, izmantojot sānu paneli."
+msgid "Browse to <sys>/org/gnome/papers</sys> using the side pane."
+msgstr "Aizej uz <sys>/org/gnome/papers</sys>, izmantojot sānu paneli."
 
 #. (itstool) path: item/p
 #: C/noprint.page:78
@@ -3927,7 +3927,7 @@ msgstr ""
 #: C/singlesided-13-16pages.page:100 C/singlesided-17-20pages.page:98
 #: C/singlesided-3-4pages.page:97 C/singlesided-5-8pages.page:97
 #: C/singlesided-9-12pages.page:97 C/singlesided-npages.page:104
-msgid "In the <gui>Only print</gui> menu, select <gui>Even sheets</gui>."
+msgid "In the <gui>Only print</gui> menu, select <gui>Ppsen sheets</gui>."
 msgstr "<gui>Drukāt tikai</gui> izvēlnē, izvēlies <gui>Pāra lapas</gui>."
 
 #. (itstool) path: info/desc
@@ -4224,22 +4224,22 @@ msgstr "Vim-latex"
 #. (itstool) path: section/p
 #: C/synctex-editors.page:29
 msgid ""
-"The <app>gedit</app> plugin contains a python script (evince_dbus.py) that "
+"The <app>gedit</app> plugin contains a python script (papers_dbus.py) that "
 "can be used to get SyncTeX working with Vim. In order to use vim-latex "
 "together with the <app>document viewer</app> you need to follow the next "
 "steps:"
 msgstr ""
-"<app>Gedit</app> spraudnis satur python skriptu (evince_dbus.py), kurš var "
+"<app>Gedit</app> spraudnis satur python skriptu (papers_dbus.py), kurš var "
 "tikt izmantots, lai SyncTeX strādātu ar Vim. Lai izmantotu vim-latex kopā ar "
 "<app>dokumentu skatītāju</app>, jāseko šiem soļiem:"
 
 #. (itstool) path: item/p
 #: C/synctex-editors.page:35
 msgid ""
-"Copy the evince_dbus.py to some directory in your path and give it +x "
+"Copy the papers_dbus.py to some directory in your path and give it +x "
 "permissions."
 msgstr ""
-"Nokopē evince_dbus.py uz kādu citu direktoriju savā 'ceļā' un piešķir tam +x "
+"Nokopē papers_dbus.py uz kādu citu direktoriju savā 'ceļā' un piešķir tam +x "
 "atļaujas."
 
 #. (itstool) path: item/p
@@ -4252,13 +4252,13 @@ msgstr "Modificē savu ~/.vimrc datni un pievieno sekojošās rindiņas."
 #, no-wrap
 msgid ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode "
 "$*'\n"
 msgstr ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode "
 "$*'\n"
@@ -4553,14 +4553,14 @@ msgstr ""
 #. whatever you like once you have updated your copy of the file.
 #: C/toolbar.page:30
 #| msgid ""
-#| "@@image: 'figures/evince-toolbar-default.png'; "
+#| "@@image: 'figures/papers-toolbar-default.png'; "
 #| "md5=2a826732c770c08b11684e28e259bb31"
 msgctxt "_"
 msgid ""
-"external ref='figures/evince-toolbar-default.png' "
+"external ref='figures/papers-toolbar-default.png' "
 "md5='2a826732c770c08b11684e28e259bb31'"
 msgstr ""
-"external ref='figures/evince-toolbar-default.png' "
+"external ref='figures/papers-toolbar-default.png' "
 "md5='2a826732c770c08b11684e28e259bb31'"
 
 #. (itstool) path: media
@@ -4570,14 +4570,14 @@ msgstr ""
 #. whatever you like once you have updated your copy of the file.
 #: C/toolbar.page:51
 #| msgid ""
-#| "@@image: 'figures/evince-toolbar-editor.png'; "
+#| "@@image: 'figures/papers-toolbar-editor.png'; "
 #| "md5=e6c66f764c39ab5ba01441d970425cd9"
 msgctxt "_"
 msgid ""
-"external ref='figures/evince-toolbar-editor.png' "
+"external ref='figures/papers-toolbar-editor.png' "
 "md5='e6c66f764c39ab5ba01441d970425cd9'"
 msgstr ""
-"external ref='figures/evince-toolbar-editor.png' "
+"external ref='figures/papers-toolbar-editor.png' "
 "md5='e6c66f764c39ab5ba01441d970425cd9'"
 
 #. (itstool) path: info/desc
@@ -4732,10 +4732,10 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/translate.page:27
 msgid ""
-"There are <link href=\"http://l10n.gnome.org/module/evince/\">many "
+"There are <link href=\"http://l10n.gnome.org/module/papers/\">many "
 "languages</link> for which translations are still needed."
 msgstr ""
-"Ir <link href=\"http://l10n.gnome.org/module/evince/\">daudzas valodas</"
+"Ir <link href=\"http://l10n.gnome.org/module/papers/\">daudzas valodas</"
 "link>, kurām joprojām ir vajadzīgi tulkojumi."
 
 #. (itstool) path: page/p

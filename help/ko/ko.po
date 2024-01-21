@@ -1,15 +1,15 @@
-# Korean translation for evince.
+# Korean translation for papers.
 # Copyright (C) 2012 Carlos Garcia Campos et al.
-# This file is distributed under the same license as the evince package.
+# This file is distributed under the same license as the papers package.
 # Seong-ho Cho <shcho@gnome.org>, 2012, 2013, 2018, 2021, 2022, 2023.
 # Changwoo Ryu <cwryu@debian.org>, 2014-2015.
 #
 # 주의
-# - evince 메시지 번역과 일관성을 지키십시오. UI 번역은 모두 동일한지 확인해야 합니다.
+# - papers 메시지 번역과 일관성을 지키십시오. UI 번역은 모두 동일한지 확인해야 합니다.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evince-help.master\n"
+"Project-Id-Version: papers-help.master\n"
 "POT-Creation-Date: 2023-03-04 13:43+0000\n"
 "PO-Revision-Date: 2023-03-05 00:06+0900\n"
 "Last-Translator: Seong-ho Cho <shcho@gnome.org>\n"
@@ -545,7 +545,7 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/introduction.page:18
-msgid "Introduction to the <em>Evince Document Viewer</em>."
+msgid "Introduction to the <em>Papers Document Viewer</em>."
 msgstr "<em>에빈스 문서 보기</em>를 소개합니다."
 
 #. (itstool) path: page/title
@@ -556,7 +556,7 @@ msgstr "소개"
 #. (itstool) path: page/p
 #: C/introduction.page:23
 msgid ""
-"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a "
+"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
 "<app>에빈스</app>는 문서 보기 프로그램입니다. 볼 수 있는 파일 형식의 목록은 "
@@ -667,7 +667,7 @@ msgstr "모든 페이지를 인쇄하면, 페이지를 뒤집어서 프린터에
 #: C/singlesided-3-4pages.page:97 C/singlesided-17-20pages.page:98
 #: C/singlesided-npages.page:104 C/singlesided-13-16pages.page:100
 #: C/singlesided-9-12pages.page:97 C/singlesided-5-8pages.page:97
-msgid "In the <gui>Only print</gui> menu, select <gui>Even sheets</gui>."
+msgid "In the <gui>Only print</gui> menu, select <gui>Ppsen sheets</gui>."
 msgstr "이제 <gui>다음만 인쇄</gui> 에서 <gui>짝수만 인쇄</gui>를 선택합니다."
 
 #. (itstool) path: info/desc
@@ -821,21 +821,21 @@ msgstr "Vim-latex"
 #. (itstool) path: section/p
 #: C/synctex-editors.page:29
 msgid ""
-"The <app>gedit</app> plugin contains a python script (<file>evince_dbus.py</"
+"The <app>gedit</app> plugin contains a python script (<file>papers_dbus.py</"
 "file>) that can be used to get SyncTeX working with Vim. In order to use vim-"
 "latex together with the <app>document viewer</app> you need to follow the "
 "next steps:"
 msgstr ""
 "<app>지에디트</app> 플러그인에 SyncTeX이 Vim과 동작할 수 있게 하는 파이썬 스"
-"크립트(<file>evince_dbus.py</file>)가 있습니다. vim-latex를 <app>문서 보기</"
+"크립트(<file>papers_dbus.py</file>)가 있습니다. vim-latex를 <app>문서 보기</"
 "app>와 사용하려면 다음 순서를 따라야 합니다:"
 
 #. (itstool) path: item/p
 #: C/synctex-editors.page:35
 msgid ""
-"Copy the <file>evince_dbus.py</file> to some directory in your path and give "
+"Copy the <file>papers_dbus.py</file> to some directory in your path and give "
 "it +x permissions."
-msgstr "<file>evince_dbus.py</file>를 경로 어딘가에 복사하고 +x 권한을 줍니다."
+msgstr "<file>papers_dbus.py</file>를 경로 어딘가에 복사하고 +x 권한을 줍니다."
 
 #. (itstool) path: item/p
 #: C/synctex-editors.page:41
@@ -847,12 +847,12 @@ msgstr "<file>~/.vimrc</file> 파일을 수정하고 다음 줄을 추가합니�
 #, no-wrap
 msgid ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 msgstr ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 
@@ -1118,8 +1118,8 @@ msgstr "<gui>dconf 편집기</gui>를 누릅니다."
 
 #. (itstool) path: item/p
 #: C/noprint.page:100
-msgid "Browse to <sys>/org/gnome/evince</sys>."
-msgstr "<sys>/org/gnome/evince</sys> 항목을 찾습니다."
+msgid "Browse to <sys>/org/gnome/papers</sys>."
+msgstr "<sys>/org/gnome/papers</sys> 항목을 찾습니다."
 
 #. (itstool) path: item/p
 #: C/noprint.page:103
@@ -1478,10 +1478,10 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/translate.page:27
 msgid ""
-"There are <link href=\"http://l10n.gnome.org/module/evince/\">many "
+"There are <link href=\"http://l10n.gnome.org/module/papers/\">many "
 "languages</link> for which translations are still needed."
 msgstr ""
-"여전히 <link href=\"http://l10n.gnome.org/module/evince/\">수많은 언어</link>"
+"여전히 <link href=\"http://l10n.gnome.org/module/papers/\">수많은 언어</link>"
 "로 번역이 필요합니다."
 
 #. (itstool) path: page/p
@@ -2004,16 +2004,16 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/develop.page:23
 msgid ""
-"If you would like to <link href=\"https://wiki.gnome.org/Apps/Evince\">help "
+"If you would like to <link href=\"https://wiki.gnome.org/Apps/Papers\">help "
 "develop</link> the <app>Document Viewer</app>, you can get in touch with the "
 "developers using <link href=\"https://cbe005.chat.mibbit.com/?"
-"url=irc%3A%2F%2Firc.gnome.org%2Fevince\">irc</link>, or via <link "
-"href=\"https://discourse.gnome.org/tag/evince\">GNOME Discourse</link>."
+"url=irc%3A%2F%2Firc.gnome.org%2Fpapers\">irc</link>, or via <link "
+"href=\"https://discourse.gnome.org/tag/papers\">GNOME Discourse</link>."
 msgstr ""
-"<app>문서 보기</app> <link href=\"https://live.gnome.org/Evince\">개발에 도움"
+"<app>문서 보기</app> <link href=\"https://live.gnome.org/Papers\">개발에 도움"
 "</link>을 주고 싶다면, <link href=\"https://cbe005.chat.mibbit.com/?"
-"url=irc%3A%2F%2Firc.gnome.org%2Fevince\">IRC</link> 또는 <link "
-"href=\"https://discourse.gnome.org/tag/evince\">그놈 디스코스</link>를 활용하"
+"url=irc%3A%2F%2Firc.gnome.org%2Fpapers\">IRC</link> 또는 <link "
+"href=\"https://discourse.gnome.org/tag/papers\">그놈 디스코스</link>를 활용하"
 "여 개발자와 연락할 수 있습니다."
 
 #. (itstool) path: info/desc
@@ -2662,11 +2662,11 @@ msgid ""
 "The <app>document viewer</app> is maintained by a volunteer community. You "
 "are welcome to participate. If you notice a problem you can file a <em>bug "
 "report</em>. To file a bug, go to <link href=\"https://gitlab.gnome.org/"
-"GNOME/evince/issues/\"/>."
+"GNOME/papers/issues/\"/>."
 msgstr ""
 "<app>문서 보기</app>는 자발적인 커뮤니티가 관리합니다. 여러분도 참여할 수 있"
 "습니다. 문제점을 발견하면 <em>버그 리포트</em>를 할 수 있습니다. 버그를 리포"
-"트하려면, <link href=\"https://gitlab.gnome.org/GNOME/evince/issues/\"/> 사이"
+"트하려면, <link href=\"https://gitlab.gnome.org/GNOME/papers/issues/\"/> 사이"
 "트로 가십시오."
 
 #. (itstool) path: page/p
@@ -2697,13 +2697,13 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/GNOME/evince/issues\">browse</"
+"please <link href=\"https://gitlab.gnome.org/GNOME/papers/issues\">browse</"
 "link> for the bug to see if it already exists."
 msgstr ""
 "계정이 있으면 로그인 후 <gui>New issue</gui>를 누르십시오. 버그를 보고하기 전"
 "에 <link href=\"https://wiki.gnome.org/Community/GettingInTouch/Bugzilla/"
 "Guidelines\">버그 작성 안내서</link>를 읽어 보십시오. 이미 등록한 유사/동일 "
-"버그가 있는지 <link href=\"https://gitlab.gnome.org/GNOME/evince/issues\">살"
+"버그가 있는지 <link href=\"https://gitlab.gnome.org/GNOME/papers/issues\">살"
 "펴보십시오</link>."
 
 #. (itstool) path: page/p
@@ -3350,10 +3350,10 @@ msgstr "명령줄"
 #. (itstool) path: info/desc
 #: C/commandline.page:8
 msgid ""
-"The <cmd>evince</cmd> command can open any number of files, at specific "
+"The <cmd>papers</cmd> command can open any number of files, at specific "
 "pages and in various modes."
 msgstr ""
-"<cmd>evince</cmd> 명령은 많은 파일, 지정한 페이지 등 다양한 상태로 열 수 있습"
+"<cmd>papers</cmd> 명령은 많은 파일, 지정한 페이지 등 다양한 상태로 열 수 있습"
 "니다."
 
 #. (itstool) path: page/title
@@ -3365,48 +3365,48 @@ msgstr "명령줄"
 #: C/commandline.page:25
 msgid ""
 "To start the <app>Document Viewer</app> from the command line, type "
-"<cmd>evince</cmd>. You can open a specific file by typing the filename after "
-"the evince command:"
+"<cmd>papers</cmd>. You can open a specific file by typing the filename after "
+"the papers command:"
 msgstr ""
-"<app>문서 보기</app>를 명령줄에서 시작하려면, <cmd>evince</cmd>를 입력합니"
-"다. evince 명령 다음에 파일 이름을 입력해서 지정한 파일을 열 수 있습니다:"
+"<app>문서 보기</app>를 명령줄에서 시작하려면, <cmd>papers</cmd>를 입력합니"
+"다. papers 명령 다음에 파일 이름을 입력해서 지정한 파일을 열 수 있습니다:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:30
 #, no-wrap
-msgid "evince file.pdf"
-msgstr "evince file.pdf"
+msgid "papers file.pdf"
+msgstr "papers file.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:31
 msgid ""
-"You can open multiple files by typing the filenames after the evince "
+"You can open multiple files by typing the filenames after the papers "
 "command, separating the filenames by a space:"
 msgstr ""
-"문서 보기 실행 명령인 evince 명령 다음 <app>LibreOffice Draw</app> or "
+"문서 보기 실행 명령인 papers 명령 다음 <app>LibreOffice Draw</app> or "
 "<app>Okular</app>여러 파일 이름을 입력해서 여러 파일을 열 수 있습니다:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:34
 #, no-wrap
-msgid "evince file1.pdf file2.pdf"
-msgstr "evince file1.pdf file2.pdf"
+msgid "papers file1.pdf file2.pdf"
+msgstr "papers file1.pdf file2.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:35
 msgid ""
 "The <app>document viewer</app> also supports the handling of files on the "
-"web. For example, after the evince command you can give the location of a "
+"web. For example, after the papers command you can give the location of a "
 "file on the web:"
 msgstr ""
-"<app>문서 보기</app>는 웹에 있는 파일도 처리할 수 있습니다. 예를 들어 evince "
+"<app>문서 보기</app>는 웹에 있는 파일도 처리할 수 있습니다. 예를 들어 papers "
 "명령 다음에 웹에 있는 파일의 위치를 쓸 수 있습니다:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:38
 #, no-wrap
-msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:40
@@ -3425,8 +3425,8 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:45
 #, no-wrap
-msgid "evince --page-label=3 file.pdf"
-msgstr "evince --page-label=3 file.pdf"
+msgid "papers --page-label=3 file.pdf"
+msgstr "papers --page-label=3 file.pdf"
 
 #. (itstool) path: section/p
 #: C/commandline.page:46
@@ -3445,8 +3445,8 @@ msgstr "전체 화면 모드로 문서를 엽니다"
 #. (itstool) path: section/screen
 #: C/commandline.page:53
 #, no-wrap
-msgid "evince --fullscreen file.pdf"
-msgstr "evince --fullscreen file.pdf"
+msgid "papers --fullscreen file.pdf"
+msgstr "papers --fullscreen file.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:56
@@ -3456,8 +3456,8 @@ msgstr "프리젠테이션 모드로 문서를 엽니다"
 #. (itstool) path: section/screen
 #: C/commandline.page:57
 #, no-wrap
-msgid "evince --presentation file.pdf"
-msgstr "evince --presentation file.pdf"
+msgid "papers --presentation file.pdf"
+msgstr "papers --presentation file.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:60
@@ -3467,8 +3467,8 @@ msgstr "미리 보기 모드로 문서를 엽니다"
 #. (itstool) path: section/screen
 #: C/commandline.page:61
 #, no-wrap
-msgid "evince --preview file.pdf"
-msgstr "evince --preview file.pdf"
+msgid "papers --preview file.pdf"
+msgstr "papers --preview file.pdf"
 
 #. (itstool) path: info/desc
 #: C/annotations.page:8
@@ -3626,25 +3626,25 @@ msgstr ""
 #. (itstool) path: info/title
 #: C/index.page:7
 msgctxt "link:trail"
-msgid "Evince Document Viewer"
+msgid "Papers Document Viewer"
 msgstr "에빈스 문서 보기"
 
 #. (itstool) path: info/title
 #: C/index.page:8
 msgctxt "link"
-msgid "Evince Document Viewer"
+msgid "Papers Document Viewer"
 msgstr "에빈스 문서 보기"
 
 #. (itstool) path: info/title
 #: C/index.page:9
 msgctxt "text"
-msgid "Evince Document Viewer"
+msgid "Papers Document Viewer"
 msgstr "에빈스 문서 보기"
 
 #. (itstool) path: info/desc
 #: C/index.page:24
 msgid ""
-"<app>Document Viewer</app>, formally known as <app>Evince</app>, is made for "
+"<app>Document Viewer</app>, formally known as <app>Papers</app>, is made for "
 "viewing PDF documents. Learn how to get started with <app>Document Viewer</"
 "app> and its features."
 msgstr ""

@@ -1,5 +1,5 @@
 
-/* pdfdocument.h: Implementation of EvDocument for tiffs
+/* pdfdocument.h: Implementation of PpsDocument for tiffs
  * Copyright (C) 2005, Jonathan Blandford <jrb@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,8 +19,8 @@
 
 #pragma once
 
-#include "ev-macros.h"
-#include "ev-document.h"
+#include "pps-macros.h"
+#include "pps-document.h"
 
 G_BEGIN_DECLS
 

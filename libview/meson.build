@@ -1,14 +1,14 @@
 libview_inc = include_directories('.')
 
-include_subdir = join_paths(ev_include_subdir, 'libview')
+include_subdir = join_paths(pps_include_subdir, 'libview')
 
 headers = files(
-  'ev-document-model.h',
-  'ev-job-scheduler.h',
-  'ev-jobs.h',
-  'ev-print-operation.h',
-  'ev-view-presentation.h',
-  'ev-view.h',
+  'pps-document-model.h',
+  'pps-job-scheduler.h',
+  'pps-jobs.h',
+  'pps-print-operation.h',
+  'pps-view-presentation.h',
+  'pps-view.h',
 )
 
 install_headers(
@@ -17,75 +17,75 @@ install_headers(
 )
 
 sources = files(
-  'ev-annotation-window.c',
-  'ev-color-contrast.c',
-  'ev-document-model.c',
-  #'ev-form-field-accessible.c',
-  #'ev-image-accessible.c',
-  'ev-jobs.c',
-  'ev-job-scheduler.c',
-  #'ev-link-accessible.c',
-  #'ev-page-accessible.c',
-  'ev-page-cache.c',
-  'ev-pixbuf-cache.c',
-  'ev-print-operation.c',
-  'ev-view.c',
-  #'ev-view-accessible.c',
-  'ev-view-cursor.c',
-  'ev-view-presentation.c',
+  'pps-annotation-window.c',
+  'pps-color-contrast.c',
+  'pps-document-model.c',
+  #'pps-form-field-accessible.c',
+  #'pps-image-accessible.c',
+  'pps-jobs.c',
+  'pps-job-scheduler.c',
+  #'pps-link-accessible.c',
+  #'pps-page-accessible.c',
+  'pps-page-cache.c',
+  'pps-pixbuf-cache.c',
+  'pps-print-operation.c',
+  'pps-view.c',
+  #'pps-view-accessible.c',
+  'pps-view-cursor.c',
+  'pps-view-presentation.c',
 )
 
-marshal = 'ev-view-marshal'
+marshal = 'pps-view-marshal'
 
 marshal_sources = gnome.genmarshal(
   marshal,
   sources: marshal + '.list',
-  prefix: 'ev_view_marshal',
+  prefix: 'pps_view_marshal',
   internal: true,
   extra_args: '--prototypes',
 )
 
-enum_types = 'ev-view-type-builtins'
+enum_types = 'pps-view-type-builtins'
 enum_header_prefix = '''
-#if !defined (__EV_EVINCE_VIEW_H_INSIDE__) && !defined (EVINCE_COMPILATION)
-#error "Only <evince-view.h> can be included directly."
+#if !defined (__PPS_PAPERS_VIEW_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#error "Only <papers-view.h> can be included directly."
 #endif
 
-#include <evince-document.h>
+#include <papers-document.h>
 '''
 
 enum_sources = gnome.mkenums_simple(
   enum_types,
   sources: headers,
   header_prefix: enum_header_prefix,
-  decorator: 'EV_PUBLIC',
+  decorator: 'PPS_PUBLIC',
   install_header: true,
-  install_dir: join_paths(ev_includedir, include_subdir),
+  install_dir: join_paths(pps_includedir, include_subdir),
 )
 
 deps = [
   gtk_unix_print_dep,
   gthread_dep,
-  libevdocument_dep,
+  libppsdocument_dep,
   m_dep,
 ]
 
 cflags = [
-  '-DG_LOG_DOMAIN="EvinceView"',
-  '-DEVINCE_COMPILATION'
+  '-DG_LOG_DOMAIN="PapersView"',
+  '-DPAPERS_COMPILATION'
 ]
 
 sources += gnome.compile_resources(
-  'ev-view-resources',
+  'pps-view-resources',
   'libview.gresource.xml',
   source_dir: data_dir,
-  c_name: 'ev_view',
+  c_name: 'pps_view',
 )
 
 
-libevview = shared_library(
-  'evview-' + ev_api_version,
-  version: ev_view_version,
+libppsview = shared_library(
+  'evview-' + pps_api_version,
+  version: pps_view_version,
   sources: sources + marshal_sources + enum_sources,
   include_directories: top_inc,
   dependencies: deps,
@@ -94,29 +94,29 @@ libevview = shared_library(
   gnu_symbol_visibility: 'hidden',
 )
 
-libevview_dep = declare_dependency(
+libppsview_dep = declare_dependency(
   sources: headers + [enum_sources[1]],
   include_directories: libview_inc,
   dependencies: deps,
-  link_with: libevview,
+  link_with: libppsview,
 )
 
 pkg.generate(
-  libevview,
-  filebase: 'evince-view-' + ev_api_version,
-  name: 'Evince View',
+  libppsview,
+  filebase: 'papers-view-' + pps_api_version,
+  name: 'Papers View',
   description: 'GNOME document viewer view library',
-  subdirs: ev_include_subdir,
+  subdirs: pps_include_subdir,
   requires: [
-    'evince-document-@0@ = @1@'.format(ev_api_version, ev_version),
+    'papers-document-@0@ = @1@'.format(pps_api_version, pps_version),
     gthread_dep,
   ],
   variables: 'exec_prefix=${prefix}',
 )
 
 install_headers(
-  files('evince-view.h'),
-  subdir: ev_include_subdir,
+  files('papers-view.h'),
+  subdir: pps_include_subdir,
 )
 
 # GObject Introspection
@@ -128,19 +128,19 @@ if enable_introspection
     'GLib-2.0',
     'GObject-2.0',
     'Gtk-4.0',
-    libevdocument_gir[0],
+    libppsdocument_gir[0],
   ]
 
-  libevview_gir = gnome.generate_gir(
-    [libevview, libevdocument],
+  libppsview_gir = gnome.generate_gir(
+    [libppsview, libppsdocument],
     sources: sources + headers + [enum_sources[1]],
     includes: incs,
-    nsversion: ev_api_version,
-    namespace: 'EvinceView',
-    identifier_prefix: ev_code_prefix,
-    symbol_prefix: ev_code_prefix.to_lower(),
-    export_packages: 'evince-view-' + ev_api_version,
-    extra_args: '-DEVINCE_COMPILATION',
+    nsversion: pps_api_version,
+    namespace: 'PapersView',
+    identifier_prefix: pps_code_prefix,
+    symbol_prefix: pps_code_prefix.to_lower(),
+    export_packages: 'papers-view-' + pps_api_version,
+    extra_args: '-DPAPERS_COMPILATION',
     install: true,
   )
 endif

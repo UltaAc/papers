@@ -25,7 +25,7 @@
 #include <libdjvu/ddjvuapi.h>
 
 struct _DjvuDocument {
-	EvDocument        parent_instance;
+	PpsDocument        parent_instance;
 
 	ddjvu_context_t  *d_context;
 	ddjvu_document_t *d_document;
@@ -42,7 +42,7 @@ struct _DjvuDocument {
 	GHashTable	 *file_ids;
 };
 
-int  djvu_document_get_n_pages (EvDocument   *document);
+int  djvu_document_get_n_pages (PpsDocument   *document);
 void djvu_handle_events        (DjvuDocument *djvu_document,
 			        int           wait,
 				GError      **error);

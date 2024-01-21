@@ -1,6 +1,6 @@
-# Esperanto translation for evince.
+# Esperanto translation for papers.
 # Copyright (C) 2005 Free Software Foundation, Inc.
-# This file is distributed under the same license as the evince package.
+# This file is distributed under the same license as the papers package.
 # Dominique PELLÉ <dominique.pelle@free.fr>, 2005.
 # Andreas SCHLAPSI < >, 2005.
 # Sergio ALDANA < >, 2009.
@@ -18,8 +18,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evince\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/evince/issues\n"
+"Project-Id-Version: papers\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/papers/issues\n"
 "POT-Creation-Date: 2023-06-21 01:14+0000\n"
 "PO-Revision-Date: 2023-09-27 22:24+0200\n"
 "Last-Translator: Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>\n"
@@ -65,12 +65,12 @@ msgstr ""
 msgid "Can not get local path for archive"
 msgstr "Ne eblas atingi lokan vojon por arĥivo"
 
-#: backend/comics/comicsdocument.evince-backend.desktop.in.in:4
-#: backend/comics/evince-comicsdocument.metainfo.xml.in.in:5
+#: backend/comics/comicsdocument.papers-backend.desktop.in.in:4
+#: backend/comics/papers-comicsdocument.metainfo.xml.in.in:5
 msgid "Comic Books"
 msgstr "Komikso"
 
-#: backend/comics/evince-comicsdocument.metainfo.xml.in.in:6
+#: backend/comics/papers-comicsdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading comic books"
 msgstr "Aldonas subtenon por legi komiksojn"
 
@@ -86,12 +86,12 @@ msgstr ""
 "Tiu ĉi dokumento konsistas el pluraj dosieroj. Almenaŭ unu el ili estas ne "
 "atingebla."
 
-#: backend/djvu/djvudocument.evince-backend.desktop.in.in:4
-#: backend/djvu/evince-djvudocument.metainfo.xml.in.in:5
+#: backend/djvu/djvudocument.papers-backend.desktop.in.in:4
+#: backend/djvu/papers-djvudocument.metainfo.xml.in.in:5
 msgid "DjVu Documents"
 msgstr "DjVu-dokumentoj"
 
-#: backend/djvu/evince-djvudocument.metainfo.xml.in.in:6
+#: backend/djvu/papers-djvudocument.metainfo.xml.in.in:6
 msgid "Adds support for reading DjVu documents"
 msgstr "Aldonas subtenon por legi DjVu-dokumentojn"
 
@@ -99,69 +99,69 @@ msgstr "Aldonas subtenon por legi DjVu-dokumentojn"
 msgid "DVI document has incorrect format"
 msgstr "La DVI-dokumento havas nekorektan strukturon"
 
-#: backend/dvi/dvidocument.evince-backend.desktop.in.in:4
-#: backend/dvi/evince-dvidocument.metainfo.xml.in.in:5
+#: backend/dvi/dvidocument.papers-backend.desktop.in.in:4
+#: backend/dvi/papers-dvidocument.metainfo.xml.in.in:5
 msgid "DVI Documents"
 msgstr "DVI-dokumentoj"
 
-#: backend/dvi/evince-dvidocument.metainfo.xml.in.in:6
+#: backend/dvi/papers-dvidocument.metainfo.xml.in.in:6
 msgid "Adds support for reading DVI documents"
 msgstr "Aldonas subtenon por legi DVI-dokumentojn"
 
-#: backend/pdf/evince-pdfdocument.metainfo.xml.in.in:5
-#: backend/pdf/pdfdocument.evince-backend.desktop.in.in:5
+#: backend/pdf/papers-pdfdocument.metainfo.xml.in.in:5
+#: backend/pdf/pdfdocument.papers-backend.desktop.in.in:5
 msgid "PDF Documents"
 msgstr "PDF-dokumentoj"
 
-#: backend/pdf/evince-pdfdocument.metainfo.xml.in.in:6
+#: backend/pdf/papers-pdfdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading PDF Documents"
 msgstr "Aldonas subtenon por legi PDF-dokumentojn"
 
 #. translators: this is the document security state
-#: backend/pdf/ev-poppler.c:731 backend/pdf/ev-poppler.c:737
-#: properties/ev-properties-view.c:429
+#: backend/pdf/pps-poppler.c:731 backend/pdf/pps-poppler.c:737
+#: properties/pps-properties-view.c:429
 msgid "Yes"
 msgstr "Jes"
 
 #. translators: this is the document security state
-#: backend/pdf/ev-poppler.c:734 backend/pdf/ev-poppler.c:737
-#: properties/ev-properties-view.c:431
+#: backend/pdf/pps-poppler.c:734 backend/pdf/pps-poppler.c:737
+#: properties/pps-properties-view.c:431
 msgid "No"
 msgstr "Ne"
 
-#: backend/pdf/ev-poppler.c:879
+#: backend/pdf/pps-poppler.c:879
 msgid "Type 1"
 msgstr "Tipo 1"
 
-#: backend/pdf/ev-poppler.c:881
+#: backend/pdf/pps-poppler.c:881
 msgid "Type 1C"
 msgstr "Tipo 1C"
 
-#: backend/pdf/ev-poppler.c:883
+#: backend/pdf/pps-poppler.c:883
 msgid "Type 3"
 msgstr "Tipo 3"
 
-#: backend/pdf/ev-poppler.c:885
+#: backend/pdf/pps-poppler.c:885
 msgid "TrueType"
 msgstr "Trutajpa"
 
-#: backend/pdf/ev-poppler.c:887
+#: backend/pdf/pps-poppler.c:887
 msgid "Type 1 (CID)"
 msgstr "Tipo 1 (CID)"
 
-#: backend/pdf/ev-poppler.c:889
+#: backend/pdf/pps-poppler.c:889
 msgid "Type 1C (CID)"
 msgstr "Tipo 1C (CID)"
 
-#: backend/pdf/ev-poppler.c:891
+#: backend/pdf/pps-poppler.c:891
 msgid "TrueType (CID)"
 msgstr "Trutajpa (CID)"
 
-#: backend/pdf/ev-poppler.c:893
+#: backend/pdf/pps-poppler.c:893
 msgid "Unknown font type"
 msgstr "Nekonata tipo de tiparo"
 
-#: backend/pdf/ev-poppler.c:937
+#: backend/pdf/pps-poppler.c:937
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
@@ -172,11 +172,11 @@ msgstr ""
 "sama kiel la tiparoj uzitaj por krei na PDF, tiam la bildigo eble ne estas "
 "ĝusta."
 
-#: backend/pdf/ev-poppler.c:942
+#: backend/pdf/pps-poppler.c:942
 msgid "All fonts are either standard or embedded."
 msgstr "Ĉiuj tiparoj estas normaj aŭ enkorpigitaj."
 
-#: backend/pdf/ev-poppler.c:972
+#: backend/pdf/pps-poppler.c:972
 msgid "No name"
 msgstr "Neniu nomo"
 
@@ -190,20 +190,20 @@ msgstr "Neniu nomo"
 #. Author: None
 #. Keywords: None
 #.
-#: backend/pdf/ev-poppler.c:981 libview/ev-print-operation.c:2691
-#: properties/ev-properties-view.c:230
+#: backend/pdf/pps-poppler.c:981 libview/pps-print-operation.c:2691
+#: properties/pps-properties-view.c:230
 msgid "None"
 msgstr "Neniu"
 
-#: backend/pdf/ev-poppler.c:989
+#: backend/pdf/pps-poppler.c:989
 msgid "Embedded subset"
 msgstr "Enkorpigita subaro"
 
-#: backend/pdf/ev-poppler.c:991
+#: backend/pdf/pps-poppler.c:991
 msgid "Embedded"
 msgstr "Enkorpigite"
 
-#: backend/pdf/ev-poppler.c:993
+#: backend/pdf/pps-poppler.c:993
 msgid "Not embedded"
 msgstr "Ne enkorpigite"
 
@@ -212,7 +212,7 @@ msgstr "Ne enkorpigite"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: backend/pdf/ev-poppler.c:1000
+#: backend/pdf/pps-poppler.c:1000
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (Unu el la Normaj 14 Tiparoj)"
 
@@ -221,7 +221,7 @@ msgstr " (Unu el la Normaj 14 Tiparoj)"
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: backend/pdf/ev-poppler.c:1007
+#: backend/pdf/pps-poppler.c:1007
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (Ne unu el la Normaj 14 Tiparoj)"
 
@@ -235,7 +235,7 @@ msgstr " (Ne unu el la Normaj 14 Tiparoj)"
 #. * Substituting with TeXGyreTermes-Regular
 #. * (/usr/share/textmf/.../texgyretermes-regular.otf)
 #.
-#: backend/pdf/ev-poppler.c:1026
+#: backend/pdf/pps-poppler.c:1026
 #, c-format
 msgid ""
 "%s%s\n"
@@ -259,7 +259,7 @@ msgstr ""
 #. * Encoding: Custom
 #. * Embedded subset
 #.
-#: backend/pdf/ev-poppler.c:1044
+#: backend/pdf/pps-poppler.c:1044
 #, c-format
 msgid ""
 "%s%s\n"
@@ -270,31 +270,31 @@ msgstr ""
 "Kodoprezento: %s\n"
 "%s"
 
-#: backend/ps/evince-psdocument.metainfo.xml.in.in:5
-#: backend/ps/psdocument.evince-backend.desktop.in.in:5
+#: backend/ps/papers-psdocument.metainfo.xml.in.in:5
+#: backend/ps/psdocument.papers-backend.desktop.in.in:5
 msgid "PostScript Documents"
 msgstr "PostSkripto-dokumentoj"
 
-#: backend/ps/evince-psdocument.metainfo.xml.in.in:6
+#: backend/ps/papers-psdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading PostScript documents"
 msgstr "Aldonas subtenon por legi PostScript-dokumentojn"
 
-#: backend/ps/ev-spectre.c:98
+#: backend/ps/pps-spectre.c:98
 #, c-format
 msgid "Failed to load document “%s”"
 msgstr "Malsukcesis ŝargado de dokumento “%s”"
 
-#: backend/ps/ev-spectre.c:131
+#: backend/ps/pps-spectre.c:131
 #, c-format
 msgid "Failed to save document “%s”"
 msgstr "Malsukcesis konservado de dokumento “%s”"
 
-#: backend/tiff/evince-tiffdocument.metainfo.xml.in.in:5
-#: backend/tiff/tiffdocument.evince-backend.desktop.in.in:4
+#: backend/tiff/papers-tiffdocument.metainfo.xml.in.in:5
+#: backend/tiff/tiffdocument.papers-backend.desktop.in.in:4
 msgid "TIFF Documents"
 msgstr "TIFF-dokumentoj"
 
-#: backend/tiff/evince-tiffdocument.metainfo.xml.in.in:6
+#: backend/tiff/papers-tiffdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading TIFF documents"
 msgstr "Aldonas subtenon por legi TIFF-dokumentojn"
 
@@ -302,67 +302,67 @@ msgstr "Aldonas subtenon por legi TIFF-dokumentojn"
 msgid "Invalid document"
 msgstr "Nevalida dokumento"
 
-#: backend/xps/evince-xpsdocument.metainfo.xml.in.in:5
-#: backend/xps/xpsdocument.evince-backend.desktop.in.in:5
+#: backend/xps/papers-xpsdocument.metainfo.xml.in.in:5
+#: backend/xps/xpsdocument.papers-backend.desktop.in.in:5
 msgid "XPS Documents"
 msgstr "XPS-dokumentoj"
 
-#: backend/xps/evince-xpsdocument.metainfo.xml.in.in:6
+#: backend/xps/papers-xpsdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading XPS documents"
 msgstr "Aldonas subtenon por legi XPS-dokumentojn"
 
 #. Manually set name and icon
-#: data/org.gnome.Evince.desktop.in.in:3 org.gnome.Evince.metainfo.xml.in:23
-#: shell/ev-window-title.c:131 shell/main.c:300
+#: data/org.gnome.Papers.desktop.in.in:3 org.gnome.Papers.metainfo.xml.in:23
+#: shell/pps-window-title.c:131 shell/main.c:300
 msgid "Document Viewer"
 msgstr "Dokumentmontrilo"
 
-#: data/org.gnome.Evince.desktop.in.in:4
+#: data/org.gnome.Papers.desktop.in.in:4
 msgid "View multi-page documents"
 msgstr "Montri mult-paĝajn dokumentojn"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Evince.desktop.in.in:6
+#: data/org.gnome.Papers.desktop.in.in:6
 msgid ""
-"pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;viewer;evince;"
+"pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;viewer;papers;"
 msgstr ""
-"pdf;ps;postscript;dvi;xps;djvu;tiff;dokumento;prezentaĵo;montrilo;evince;"
+"pdf;ps;postscript;dvi;xps;djvu;tiff;dokumento;prezentaĵo;montrilo;papers;"
 "evinco;"
 
-#: data/org.gnome.Evince.desktop.in.in:19
+#: data/org.gnome.Papers.desktop.in.in:19
 msgid "New Window"
 msgstr "Nova fenestro"
 
-#: data/org.gnome.Evince.gschema.xml:14
+#: data/org.gnome.Papers.gschema.xml:14
 msgid "Override document restrictions"
 msgstr "Superskribi rajtlimigojn de dokumento"
 
-#: data/org.gnome.Evince.gschema.xml:15
+#: data/org.gnome.Papers.gschema.xml:15
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr ""
 "Superskribi rajtlimigojn de dokumento, kiel rajtlimigo por kopii aŭ presi."
 
-#: data/org.gnome.Evince.gschema.xml:19
+#: data/org.gnome.Papers.gschema.xml:19
 msgid "Automatically reload the document"
 msgstr "Autoreŝargi la dokumenton"
 
-#: data/org.gnome.Evince.gschema.xml:20
+#: data/org.gnome.Papers.gschema.xml:20
 msgid "The document is automatically reloaded on file change."
 msgstr "La dokumento estas autoreŝargata kiam la dosiero ŝanĝas."
 
-#: data/org.gnome.Evince.gschema.xml:24
+#: data/org.gnome.Papers.gschema.xml:24
 msgid "The URI of the directory last used to open or save a document"
 msgstr "La URI de la dosierujo laste uzita por malfermi aŭ konservi dokumenton"
 
-#: data/org.gnome.Evince.gschema.xml:28
+#: data/org.gnome.Papers.gschema.xml:28
 msgid "The URI of the directory last used to save a picture"
 msgstr "La URI de la dosierujo laste uzita por konservi bildon"
 
-#: data/org.gnome.Evince.gschema.xml:32
+#: data/org.gnome.Papers.gschema.xml:32
 msgid "Page cache size in MiB"
 msgstr "Paĝo kaŝmemora grando en MiB"
 
-#: data/org.gnome.Evince.gschema.xml:33
+#: data/org.gnome.Papers.gschema.xml:33
 msgid ""
 "The maximum size that will be used to cache rendered pages, limits maximum "
 "zoom level."
@@ -370,43 +370,43 @@ msgstr ""
 "La maksimuma grando kiu uzatos por kaŝmemorigi bildigitajn paĝojn; limigas "
 "la maksimuman zoman nivelon."
 
-#: data/org.gnome.Evince.gschema.xml:37
+#: data/org.gnome.Papers.gschema.xml:37
 msgid ""
 "Show a dialog to confirm that the user wants to activate the caret "
 "navigation."
 msgstr ""
 "Montri dialogujon por konfermi ke la uzanto volas ebligi kursoran navigadon."
 
-#: data/org.gnome.Evince.gschema.xml:41
+#: data/org.gnome.Papers.gschema.xml:41
 msgid "Allow links to change the zoom level."
 msgstr "Permesi al ligiloj ŝanĝi la zomnivelon."
 
-#: data/org.gnome.Evince.gschema.xml:49
+#: data/org.gnome.Papers.gschema.xml:49
 msgid "Check spelling when writing annotation notes or filling text forms."
 msgstr ""
 "Kontroli literumadon dum skribado de notoj aŭ plenigado de tekstformularoj."
 
-#: data/org.gnome.Evince.gschema.xml:53
+#: data/org.gnome.Papers.gschema.xml:53
 msgid "Show a side bar next to the document to help navigate the document."
 msgstr ""
 "Montri flankan breton apud la dokumento por helpi navigi la dokumenton."
 
-#: data/org.gnome.Evince.gschema.xml:63
+#: data/org.gnome.Papers.gschema.xml:63
 msgid "Set the default zoom level to display a document."
 msgstr "Agordi la defaŭltan zomnivelon por montri dokumenton."
 
-#: data/org.gnome.Evince.gschema.xml:70
+#: data/org.gnome.Papers.gschema.xml:70
 msgid ""
 "Display the document as a continuous stream of pages instead of page at a "
 "time."
 msgstr ""
 "Montri la dokumenton kiel kontinuan fluon de paĝoj anstataŭ paĝo post paĝo."
 
-#: data/org.gnome.Evince.gschema.xml:74
+#: data/org.gnome.Papers.gschema.xml:74
 msgid "Show two pages side by side."
 msgstr "Montri du paĝojn unu apud la alia."
 
-#: data/org.gnome.Evince.gschema.xml:78
+#: data/org.gnome.Papers.gschema.xml:78
 msgid ""
 "Show the first page (odd page) on the left (when displaying two pages side "
 "by side)"
@@ -414,182 +414,182 @@ msgstr ""
 "Montri la unuan paĝon (neparan paĝon) maldekstre (kiam oni montras du paĝojn "
 "unu apud la alia)"
 
-#: data/org.gnome.Evince-previewer.desktop.in.in:3
+#: data/org.gnome.Papers-previewer.desktop.in.in:3
 msgid "Print Preview"
 msgstr "Aspekto de la presotaĵo"
 
-#: data/org.gnome.Evince-previewer.desktop.in.in:4
+#: data/org.gnome.Papers-previewer.desktop.in.in:4
 msgid "Preview before printing"
 msgstr "Aspekti antaŭ presi"
 
-#: libdocument/ev-attachment.c:310 libdocument/ev-attachment.c:331
+#: libdocument/pps-attachment.c:310 libdocument/pps-attachment.c:331
 #, c-format
 msgid "Couldn’t save attachment “%s”: %s"
 msgstr "Ne eblis konservi aldonaĵon “%s”: %s"
 
-#: libdocument/ev-attachment.c:378
+#: libdocument/pps-attachment.c:378
 #, c-format
 msgid "Couldn’t open attachment “%s”: %s"
 msgstr "Ne eblis malfermi aldonaĵon “%s”: %s"
 
-#: libdocument/ev-attachment.c:417
+#: libdocument/pps-attachment.c:417
 #, c-format
 msgid "Couldn’t open attachment “%s”"
 msgstr "Ne eblis malfermi aldonaĵon “%s”"
 
-#: libdocument/ev-document-factory.c:105
+#: libdocument/pps-document-factory.c:105
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "Dosiertipo %s (%s) ne estas subtenata"
 
-#: libdocument/ev-document-factory.c:370 libdocument/ev-file-helpers.c:417
-#: libdocument/ev-file-helpers.c:463 libdocument/ev-file-helpers.c:482
-#: libdocument/ev-file-helpers.c:563 libdocument/ev-file-helpers.c:572
+#: libdocument/pps-document-factory.c:370 libdocument/pps-file-helpers.c:417
+#: libdocument/pps-file-helpers.c:463 libdocument/pps-file-helpers.c:482
+#: libdocument/pps-file-helpers.c:563 libdocument/pps-file-helpers.c:572
 msgid "Unknown MIME Type"
 msgstr "Nekonata MIME-tipo"
 
-#: libdocument/ev-document-factory.c:637
+#: libdocument/pps-document-factory.c:637
 msgid "All Documents"
 msgstr "Ĉiuj dokumentoj"
 
-#: libdocument/ev-document-factory.c:664 shell/ev-utils.c:272
+#: libdocument/pps-document-factory.c:664 shell/pps-utils.c:272
 msgid "All Files"
 msgstr "Ĉiuj dosieroj"
 
-#: libdocument/ev-file-helpers.c:157
+#: libdocument/pps-file-helpers.c:157
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "Malsukcesis krei provizoran dosieron: %s"
 
-#: libdocument/ev-file-helpers.c:234
+#: libdocument/pps-file-helpers.c:234
 #, c-format
 msgid "Failed to create a temporary directory: %s"
 msgstr "Malsukcesis krei provizoran dosierujon: %s"
 
-#: libdocument/ev-xmp.c:350
+#: libdocument/pps-xmp.c:350
 msgid "This work is in the Public Domain"
 msgstr "Tiu ĉi verko estas publika havaĵo"
 
-#: libmisc/ev-page-action-widget.c:90 libmisc/ev-page-action-widget.c:129
+#: libmisc/pps-page-action-widget.c:90 libmisc/pps-page-action-widget.c:129
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%d de %d)"
 
-#: libmisc/ev-page-action-widget.c:92 libmisc/ev-page-action-widget.c:133
+#: libmisc/pps-page-action-widget.c:92 libmisc/pps-page-action-widget.c:133
 #, c-format
 msgid "of %d"
 msgstr "de %d"
 
-#: libmisc/ev-page-action-widget.c:201 shell/ev-history.c:454
-#: shell/ev-sidebar-bookmarks.c:343 shell/ev-window.c:954
-#: shell/ev-window.c:5155
+#: libmisc/pps-page-action-widget.c:201 shell/pps-history.c:454
+#: shell/pps-sidebar-bookmarks.c:343 shell/pps-window.c:954
+#: shell/pps-window.c:5155
 #, c-format
 msgid "Page %s"
 msgstr "Paĝo %s"
 
-#: libmisc/ev-search-box.c:112
+#: libmisc/pps-search-box.c:112
 msgid "Not found, click to change search options"
 msgstr "Ne trovita, alklaku por ŝanĝi serĉajn opciojn"
 
-#: libmisc/ev-search-box.c:186 libmisc/ev-search-box.c:242
+#: libmisc/pps-search-box.c:186 libmisc/pps-search-box.c:242
 msgid "Search options"
 msgstr "Serĉaj opcioj"
 
-#: libmisc/ev-search-box.c:318
+#: libmisc/pps-search-box.c:318
 msgid "_Whole Words Only"
 msgstr "_Tutaj vortoj sole"
 
-#: libmisc/ev-search-box.c:331
+#: libmisc/pps-search-box.c:331
 msgid "C_ase Sensitive"
 msgstr "Us_klecodistinga"
 
-#: libmisc/ev-search-box.c:600
+#: libmisc/pps-search-box.c:600
 msgid "Find previous occurrence of the search string"
 msgstr "Trovi antaŭan aperon de la serĉata ĉeno"
 
-#: libmisc/ev-search-box.c:606
+#: libmisc/pps-search-box.c:606
 msgid "Find next occurrence of the search string"
 msgstr "Trovi sekvan aperon de la serĉata ĉeno"
 
-#: libview/ev-jobs.c:625
+#: libview/pps-jobs.c:625
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "Malsukcesis bildigi paĝon %d: %s"
 
-#: libview/ev-jobs.c:632
+#: libview/pps-jobs.c:632
 #, c-format
 msgid "Failed to render page %d"
 msgstr "Malsukcesis bildigi paĝon %d"
 
-#: libview/ev-jobs.c:878
+#: libview/pps-jobs.c:878
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "Malsukcesis krei bildeton por paĝo %d"
 
-#: libview/ev-jobs.c:2288
+#: libview/pps-jobs.c:2288
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "Malsukcesis presi la paĝon %d: %s"
 
 #. Initial state
-#: libview/ev-print-operation.c:346
+#: libview/pps-print-operation.c:346
 msgid "Preparing preview…"
 msgstr "Pretiganta por antaŭvido…"
 
-#: libview/ev-print-operation.c:348 libview/ev-print-operation.c:358
+#: libview/pps-print-operation.c:348 libview/pps-print-operation.c:358
 msgid "Finishing…"
 msgstr "Finigante…"
 
-#: libview/ev-print-operation.c:350
+#: libview/pps-print-operation.c:350
 #, c-format
 msgid "Generating preview: page %d of %d"
 msgstr "Farante antaŭvidon: %d el %d"
 
 #. Initial state
-#: libview/ev-print-operation.c:356
+#: libview/pps-print-operation.c:356
 msgid "Preparing to print…"
 msgstr "Pretiganta por presi…"
 
-#: libview/ev-print-operation.c:360
+#: libview/pps-print-operation.c:360
 #, c-format
 msgid "Printing page %d of %d…"
 msgstr "Presante la paĝon %d el %d…"
 
-#: libview/ev-print-operation.c:1561 libview/ev-print-operation.c:2028
+#: libview/pps-print-operation.c:1561 libview/pps-print-operation.c:2028
 msgid "Your print range selection does not include any pages"
 msgstr "Via elektita prestasko ne enhavas paĝojn"
 
 #. translators: Title of the print dialog
-#: libview/ev-print-operation.c:1702 libview/ev-print-operation.c:1800
-#: libview/ev-print-operation.c:2079
+#: libview/pps-print-operation.c:1702 libview/pps-print-operation.c:1800
+#: libview/pps-print-operation.c:2079
 msgid "Print"
 msgstr "Presi"
 
-#: libview/ev-print-operation.c:2002
+#: libview/pps-print-operation.c:2002
 msgid "Requested format is not supported by this printer."
 msgstr "Petita formo ne estas subtenata de ĉi tiu presilo."
 
-#: libview/ev-print-operation.c:2025
+#: libview/pps-print-operation.c:2025
 msgid "Invalid page selection"
 msgstr "Malvalida paĝelekto"
 
-#: libview/ev-print-operation.c:2026
+#: libview/pps-print-operation.c:2026
 msgid "Warning"
 msgstr "Averto"
 
-#: libview/ev-print-operation.c:2685
+#: libview/pps-print-operation.c:2685
 msgid "Page Scaling:"
 msgstr "Paĝskalo:"
 
-#: libview/ev-print-operation.c:2692
+#: libview/pps-print-operation.c:2692
 msgid "Shrink to Printable Area"
 msgstr "Ŝrumpi al presebla areo"
 
-#: libview/ev-print-operation.c:2693
+#: libview/pps-print-operation.c:2693
 msgid "Fit to Printable Area"
 msgstr "Adapti al presebla areo"
 
-#: libview/ev-print-operation.c:2696
+#: libview/pps-print-operation.c:2696
 msgid ""
 "Scale document pages to fit the selected printer page. Select from one of "
 "the following:\n"
@@ -613,11 +613,11 @@ msgstr ""
 "• “Adapti al presebla areo”: Dokument-paĝoj estos pligrandigitaj aŭ "
 "malpligrandigitaj al la presebla areo de la presilpaĝo.\n"
 
-#: libview/ev-print-operation.c:2708
+#: libview/pps-print-operation.c:2708
 msgid "Auto Rotate and Center"
 msgstr "Aŭtomate turni kaj centrigi"
 
-#: libview/ev-print-operation.c:2711
+#: libview/pps-print-operation.c:2711
 msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
@@ -625,11 +625,11 @@ msgstr ""
 "Turni la orientiĝon de la presilpaĝoj de ĉiu paĝo por kongrui al orientiĝo "
 "de ĉiu dokumentpaĝo. La dokumentpaĝoj estos centrigitaj je la presilpaĝo."
 
-#: libview/ev-print-operation.c:2716
+#: libview/pps-print-operation.c:2716
 msgid "Select page size using document page size"
 msgstr "Elekti paĝgrandon uzante dokumentpaĝgrandon"
 
-#: libview/ev-print-operation.c:2718
+#: libview/pps-print-operation.c:2718
 msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
@@ -637,99 +637,99 @@ msgstr ""
 "Se enŝaltite, ĉiu paĝo estos presita sur la sama papergrando kiel la "
 "dokumentpaĝo."
 
-#: libview/ev-print-operation.c:2723
+#: libview/pps-print-operation.c:2723
 msgid "Draw border around pages"
 msgstr "Desegni randon ĉirkaŭ paĝoj"
 
-#: libview/ev-print-operation.c:2725
+#: libview/pps-print-operation.c:2725
 msgid "When enabled, a border will be drawn around each page."
 msgstr "Se ĝi estas ebligita, rando estos desegnita ĉirkaŭ ĉiu paĝo."
 
-#: libview/ev-print-operation.c:2819
+#: libview/pps-print-operation.c:2819
 msgid "Page Handling"
 msgstr "Paĝtraktado"
 
-#: libview/ev-view-accessible.c:43
+#: libview/pps-view-accessible.c:43
 msgid "Scroll Up"
 msgstr "Rulumi supren"
 
-#: libview/ev-view-accessible.c:44
+#: libview/pps-view-accessible.c:44
 msgid "Scroll Down"
 msgstr "Rulumi suben"
 
-#: libview/ev-view-accessible.c:50
+#: libview/pps-view-accessible.c:50
 msgid "Scroll View Up"
 msgstr "Rulumi vidpanelon supren"
 
-#: libview/ev-view-accessible.c:51
+#: libview/pps-view-accessible.c:51
 msgid "Scroll View Down"
 msgstr "Rulumi vidpanelon suben"
 
-#: libview/ev-view-accessible.c:131
+#: libview/pps-view-accessible.c:131
 msgid "Document View"
 msgstr "Vido de dokumento"
 
-#: libview/ev-view.c:2113
+#: libview/pps-view.c:2113
 msgid "Go to first page"
 msgstr "Iri al la unua paĝo"
 
-#: libview/ev-view.c:2115
+#: libview/pps-view.c:2115
 msgid "Go to previous page"
 msgstr "Iri al la antaŭa paĝo"
 
-#: libview/ev-view.c:2117
+#: libview/pps-view.c:2117
 msgid "Go to next page"
 msgstr "Iri al la sekva paĝo"
 
-#: libview/ev-view.c:2119
+#: libview/pps-view.c:2119
 msgid "Go to last page"
 msgstr "Iri al la lasta paĝo"
 
-#: libview/ev-view.c:2121
+#: libview/pps-view.c:2121
 msgid "Go to page"
 msgstr "Iri al paĝo"
 
-#: libview/ev-view.c:2123
+#: libview/pps-view.c:2123
 msgid "Find"
 msgstr "Serĉi"
 
-#: libview/ev-view.c:2151
+#: libview/pps-view.c:2151
 #, c-format
 msgid "Go to page %s"
 msgstr "Iri al paĝo %s"
 
-#: libview/ev-view.c:2157
+#: libview/pps-view.c:2157
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Iri al %s en dosiero “%s”"
 
-#: libview/ev-view.c:2160
+#: libview/pps-view.c:2160
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Iri al dosiero “%s”"
 
-#: libview/ev-view.c:2168
+#: libview/pps-view.c:2168
 #, c-format
 msgid "Launch %s"
 msgstr "Lanĉi %s"
 
-#: libview/ev-view.c:2175
+#: libview/pps-view.c:2175
 msgid "Reset form"
 msgstr "Restarigi formularon"
 
-#: libview/ev-view-presentation.c:726
+#: libview/pps-view-presentation.c:726
 msgid "Jump to page:"
 msgstr "Salti al la paĝo:"
 
-#: libview/ev-view-presentation.c:1009
+#: libview/pps-view-presentation.c:1009
 msgid "End of presentation. Press Esc or click to exit."
 msgstr "Fino de la prezentaĵo. Premu Esk aŭ klaku por eliri."
 
-#: org.gnome.Evince.metainfo.xml.in:24
+#: org.gnome.Papers.metainfo.xml.in:24
 msgid "Document viewer for popular document formats"
 msgstr "Dokumentmontrilo por popularaj dokumentaj dosierformoj"
 
-#: org.gnome.Evince.metainfo.xml.in:26
+#: org.gnome.Papers.metainfo.xml.in:26
 msgid ""
 "A document viewer for the GNOME desktop. You can view, search or annotate "
 "documents in many different formats."
@@ -737,82 +737,82 @@ msgstr ""
 "Dokumentmontrilo por la GNOME labortablo. Vi povas vidi, serĉi aŭ noti "
 "dokumentojn en multe da diversaj formoj."
 
-#: org.gnome.Evince.metainfo.xml.in:27
+#: org.gnome.Papers.metainfo.xml.in:27
 msgid ""
-"Evince supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, DVI (with "
+"Papers supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, DVI (with "
 "SyncTeX), and Comic Books archives (CBR, CBT, CBZ, CB7)."
 msgstr ""
-"Evinco subtenas la sekvajn dosierformojn: PDF, PS, EPS, XPS, DjVu, TIFF, DVI "
+"Ppsinco subtenas la sekvajn dosierformojn: PDF, PS, EPS, XPS, DjVu, TIFF, DVI "
 "(kun SyncTeX), kaj komiksaj dosieroj (CBR, CBT, CBZ, CB7)."
 
-#: org.gnome.Evince.metainfo.xml.in:35
+#: org.gnome.Papers.metainfo.xml.in:35
 msgid "A clear, simple UI"
 msgstr "Klara, simpla grafika fasado"
 
-#: org.gnome.Evince.metainfo.xml.in:39
+#: org.gnome.Papers.metainfo.xml.in:39
 msgid "Advanced highlighting and annotation"
 msgstr "Alnivela emfazado kaj notado"
 
-#: previewer/ev-previewer.c:57
+#: previewer/pps-previewer.c:57
 msgid "Delete the temporary file"
 msgstr "Forigi la provizorajn dosierojn"
 
-#: previewer/ev-previewer.c:59
+#: previewer/pps-previewer.c:59
 msgid "File specifying print settings"
 msgstr "Dosiero kiu specifas presilagordojn"
 
-#: previewer/ev-previewer.c:59
+#: previewer/pps-previewer.c:59
 msgid "FILE"
 msgstr "DOSIERO"
 
-#: previewer/ev-previewer.c:61
+#: previewer/pps-previewer.c:61
 msgid "File descriptor of input file"
 msgstr "Dosiera priskribo de eniga dosiero"
 
-#: previewer/ev-previewer.c:61 previewer/ev-previewer.c:65
+#: previewer/pps-previewer.c:61 previewer/pps-previewer.c:65
 msgid "FD"
 msgstr "DP"
 
-#: previewer/ev-previewer.c:63
+#: previewer/pps-previewer.c:63
 msgid "MIME type of input file"
 msgstr "MIME-tipo de eniga dosiero"
 
-#: previewer/ev-previewer.c:63
+#: previewer/pps-previewer.c:63
 msgid "TYPE"
 msgstr "TIPO"
 
-#: previewer/ev-previewer.c:65
+#: previewer/pps-previewer.c:65
 msgid "File descriptor of print settings file"
 msgstr "Dosiera priskribo de presita agorda dosiero"
 
-#: previewer/ev-previewer.c:295 previewer/ev-previewer.c:315
+#: previewer/pps-previewer.c:295 previewer/pps-previewer.c:315
 msgid "GNOME Document Previewer"
 msgstr "Dokument-antaŭrigardilo de GNOMEo"
 
-#: previewer/ev-previewer-toolbar.c:112 shell/evince-toolbar.ui:35
+#: previewer/pps-previewer-toolbar.c:112 shell/papers-toolbar.ui:35
 msgid "Select page or search in the outline"
 msgstr "Elekti paĝon aŭ serĉi en la skizo"
 
-#: previewer/ev-previewer-toolbar.c:114 shell/evince-toolbar.ui:38
+#: previewer/pps-previewer-toolbar.c:114 shell/papers-toolbar.ui:38
 msgid "Select page"
 msgstr "Elekti paĝon"
 
-#: previewer/ev-previewer-window.c:78 shell/ev-window.c:3636
+#: previewer/pps-previewer-window.c:78 shell/pps-window.c:3636
 msgid "Failed to print document"
 msgstr "Malsukcesis presi la dokumenton"
 
-#: previewer/ev-previewer-window.c:193 previewer/ev-previewer-window.c:558
-msgid "Evince Document Viewer"
-msgstr "Evinco Dokumentmontrilo"
+#: previewer/pps-previewer-window.c:193 previewer/pps-previewer-window.c:558
+msgid "Papers Document Viewer"
+msgstr "Ppsinco Dokumentmontrilo"
 
-#: previewer/ev-previewer-window.c:229
+#: previewer/pps-previewer-window.c:229
 #, c-format
 msgid "The selected printer “%s” could not be found"
 msgstr "La elektita presilo “%s” ne povas esti trovita"
 
-#: previewer/ev-previewer-window.c:536 shell/ev-window.c:4227
-msgid "Evince"
-msgstr "Evinco"
+#: previewer/pps-previewer-window.c:536 shell/pps-window.c:4227
+msgid "Papers"
+msgstr "Ppsinco"
 
 #: previewer/previewer.ui:7
 msgid "_Print"
@@ -822,11 +822,11 @@ msgstr "_Presi"
 msgid "Print this document"
 msgstr "Presi tiun dokumenton"
 
-#: previewer/previewer.ui:20 shell/evince-menus.ui:129
+#: previewer/previewer.ui:20 shell/papers-menus.ui:129
 msgid "Previous Page"
 msgstr "Antaŭa paĝo"
 
-#: previewer/previewer.ui:27 shell/evince-menus.ui:133
+#: previewer/previewer.ui:27 shell/papers-menus.ui:133
 msgid "Next Page"
 msgstr "Sekva paĝo"
 
@@ -842,72 +842,72 @@ msgstr "Malpligrandigi la dokumenton"
 msgid "Reset zoom and make the page fit in the window"
 msgstr "Reagordi zomon kaj adapti la paĝon al la fenestro"
 
-#: properties/ev-properties-main.c:116
+#: properties/pps-properties-main.c:116
 msgid "Document"
 msgstr "Dokumento"
 
-#: properties/ev-properties-view.c:62
+#: properties/pps-properties-view.c:62
 msgid "Title:"
 msgstr "Titolo:"
 
-#: properties/ev-properties-view.c:63
+#: properties/pps-properties-view.c:63
 msgid "Location:"
 msgstr "Loko:"
 
-#: properties/ev-properties-view.c:64
+#: properties/pps-properties-view.c:64
 msgid "Subject:"
 msgstr "Temo:"
 
-#: properties/ev-properties-view.c:65
-#: shell/ev-annotation-properties-dialog.c:169
+#: properties/pps-properties-view.c:65
+#: shell/pps-annotation-properties-dialog.c:169
 msgid "Author:"
 msgstr "Aŭtoro:"
 
-#: properties/ev-properties-view.c:66
+#: properties/pps-properties-view.c:66
 msgid "Keywords:"
 msgstr "Ŝlosilvortoj:"
 
-#: properties/ev-properties-view.c:67
+#: properties/pps-properties-view.c:67
 msgid "Producer:"
 msgstr "Produktinto:"
 
-#: properties/ev-properties-view.c:68
+#: properties/pps-properties-view.c:68
 msgid "Creator:"
 msgstr "Kreinto:"
 
-#: properties/ev-properties-view.c:69
+#: properties/pps-properties-view.c:69
 msgid "Created:"
 msgstr "Kreite:"
 
-#: properties/ev-properties-view.c:70
+#: properties/pps-properties-view.c:70
 msgid "Modified:"
 msgstr "Modifite:"
 
-#: properties/ev-properties-view.c:71
+#: properties/pps-properties-view.c:71
 msgid "Number of Pages:"
 msgstr "Nombro de paĝoj:"
 
-#: properties/ev-properties-view.c:72
+#: properties/pps-properties-view.c:72
 msgid "Optimized:"
 msgstr "Optimumigite:"
 
-#: properties/ev-properties-view.c:73
+#: properties/pps-properties-view.c:73
 msgid "Format:"
 msgstr "Formato:"
 
-#: properties/ev-properties-view.c:74
+#: properties/pps-properties-view.c:74
 msgid "Security:"
 msgstr "Sekureco:"
 
-#: properties/ev-properties-view.c:75
+#: properties/pps-properties-view.c:75
 msgid "Contains Javascript:"
 msgstr "Enhavas JavaScript:"
 
-#: properties/ev-properties-view.c:76
+#: properties/pps-properties-view.c:76
 msgid "Paper Size:"
 msgstr "Papergrando:"
 
-#: properties/ev-properties-view.c:77
+#: properties/pps-properties-view.c:77
 msgid "Size:"
 msgstr "Grando:"
 
@@ -917,709 +917,709 @@ msgstr "Grando:"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: properties/ev-properties-view.c:267
+#: properties/pps-properties-view.c:267
 msgid "default:mm"
 msgstr "default:mm"
 
-#: properties/ev-properties-view.c:311
+#: properties/pps-properties-view.c:311
 #, c-format
 msgid "%.0f × %.0f mm"
 msgstr "%.0f × %.0f mm"
 
-#: properties/ev-properties-view.c:315
+#: properties/pps-properties-view.c:315
 #, c-format
 msgid "%.2f × %.2f inch"
 msgstr "%.2f × %.2f colo"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: properties/ev-properties-view.c:339
+#: properties/pps-properties-view.c:339
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr "%s, Portreto (%s)"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: properties/ev-properties-view.c:346
+#: properties/pps-properties-view.c:346
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr "%s, Pejzaĝo (%s)"
 
-#: properties/ev-properties-view.c:433
-#: shell/ev-annotation-properties-dialog.c:109
+#: properties/pps-properties-view.c:433
+#: shell/pps-annotation-properties-dialog.c:109
 msgid "Unknown"
 msgstr "Nekonate"
 
-#: shell/ev-annotation-properties-dialog.c:94
+#: shell/pps-annotation-properties-dialog.c:94
 msgid "Icon:"
 msgstr "Piktogramo:"
 
-#: shell/ev-annotation-properties-dialog.c:100
+#: shell/pps-annotation-properties-dialog.c:100
 msgid "Note"
 msgstr "Noto"
 
-#: shell/ev-annotation-properties-dialog.c:101
+#: shell/pps-annotation-properties-dialog.c:101
 msgid "Comment"
 msgstr "Komento"
 
-#: shell/ev-annotation-properties-dialog.c:102
+#: shell/pps-annotation-properties-dialog.c:102
 msgid "Key"
 msgstr "Ŝlosilo"
 
-#: shell/ev-annotation-properties-dialog.c:103
+#: shell/pps-annotation-properties-dialog.c:103
 msgid "Help"
 msgstr "Helpo"
 
-#: shell/ev-annotation-properties-dialog.c:104
+#: shell/pps-annotation-properties-dialog.c:104
 msgid "New Paragraph"
 msgstr "Nova alineo"
 
-#: shell/ev-annotation-properties-dialog.c:105
+#: shell/pps-annotation-properties-dialog.c:105
 msgid "Paragraph"
 msgstr "Alineo"
 
-#: shell/ev-annotation-properties-dialog.c:106
+#: shell/pps-annotation-properties-dialog.c:106
 msgid "Insert"
 msgstr "Enmeti"
 
-#: shell/ev-annotation-properties-dialog.c:107
+#: shell/pps-annotation-properties-dialog.c:107
 msgid "Cross"
 msgstr "Kruco"
 
-#: shell/ev-annotation-properties-dialog.c:108
+#: shell/pps-annotation-properties-dialog.c:108
 msgid "Circle"
 msgstr "Cirklo"
 
-#: shell/ev-annotation-properties-dialog.c:120
+#: shell/pps-annotation-properties-dialog.c:120
 msgid "Markup type:"
 msgstr "Markada tipo:"
 
-#: shell/ev-annotation-properties-dialog.c:126
+#: shell/pps-annotation-properties-dialog.c:126
 msgid "Highlight"
 msgstr "Emfazi"
 
-#: shell/ev-annotation-properties-dialog.c:127
+#: shell/pps-annotation-properties-dialog.c:127
 msgid "Strike out"
 msgstr "Trastreki"
 
-#: shell/ev-annotation-properties-dialog.c:128
+#: shell/pps-annotation-properties-dialog.c:128
 msgid "Underline"
 msgstr "Substreki"
 
-#: shell/ev-annotation-properties-dialog.c:129
+#: shell/pps-annotation-properties-dialog.c:129
 msgid "Squiggly"
 msgstr "Zigzageta"
 
-#: shell/ev-annotation-properties-dialog.c:150 shell/evince-menus.ui:170
+#: shell/pps-annotation-properties-dialog.c:150 shell/papers-menus.ui:170
 msgid "Annotation Properties"
 msgstr "Notaj ecoj"
 
-#: shell/ev-annotation-properties-dialog.c:154
+#: shell/pps-annotation-properties-dialog.c:154
 msgid "_Close"
 msgstr "_Fermi"
 
-#: shell/ev-annotation-properties-dialog.c:155
+#: shell/pps-annotation-properties-dialog.c:155
 msgid "_Apply"
 msgstr "_Apliki"
 
-#: shell/ev-annotation-properties-dialog.c:180
+#: shell/pps-annotation-properties-dialog.c:180
 msgid "Color:"
 msgstr "Koloro:"
 
-#: shell/ev-annotation-properties-dialog.c:190
+#: shell/pps-annotation-properties-dialog.c:190
 msgid "Opacity:"
 msgstr "Opakeco:"
 
-#: shell/ev-annotation-properties-dialog.c:202
+#: shell/pps-annotation-properties-dialog.c:202
 msgid "Initial window state:"
 msgstr "Dekomenca fenstrostato:"
 
-#: shell/ev-annotation-properties-dialog.c:208
+#: shell/pps-annotation-properties-dialog.c:208
 msgid "Open"
 msgstr "Malfermi"
 
-#: shell/ev-annotation-properties-dialog.c:209
+#: shell/pps-annotation-properties-dialog.c:209
 msgid "Close"
 msgstr "Fermi"
 
 #. Translators: an annotation that looks like a "sticky note"
-#: shell/ev-annotations-toolbar.c:132
+#: shell/pps-annotations-toolbar.c:132
 msgid "Note text"
 msgstr "Nota teksto"
 
-#: shell/ev-annotations-toolbar.c:134
+#: shell/pps-annotations-toolbar.c:134
 msgid "Add text annotation"
 msgstr "Aldoni tekstnoton"
 
-#: shell/ev-annotations-toolbar.c:139
+#: shell/pps-annotations-toolbar.c:139
 msgid "Highlight text"
 msgstr "Emfazi tekston"
 
-#: shell/ev-annotations-toolbar.c:141
+#: shell/pps-annotations-toolbar.c:141
 msgid "Add highlight annotation"
 msgstr "Aldoni emfazan tekstnoton"
 
-#: shell/evince-menus.ui:24
+#: shell/papers-menus.ui:24
 msgid "_Open Link"
 msgstr "Malfermi la ligil_on"
 
-#: shell/evince-menus.ui:29
+#: shell/papers-menus.ui:29
 msgid "_Copy Link Address"
 msgstr "_Kopii la ligiladreson"
 
-#: shell/evince-menus.ui:34
+#: shell/papers-menus.ui:34
 msgid "_Go To"
 msgstr "_Iri al"
 
-#: shell/evince-menus.ui:39
+#: shell/papers-menus.ui:39
 msgid "Open in New _Window"
 msgstr "Malfermi en nova _fenestro"
 
-#: shell/evince-menus.ui:46
+#: shell/papers-menus.ui:46
 msgid "_Previous Page"
 msgstr "_Antaŭa paĝo"
 
-#: shell/evince-menus.ui:50
+#: shell/papers-menus.ui:50
 msgid "_Next Page"
 msgstr "_Sekva paĝo"
 
-#: shell/evince-menus.ui:54 shell/ev-window.c:3935
+#: shell/papers-menus.ui:54 shell/pps-window.c:3935
 msgid "_Reload"
 msgstr "_Reŝargi"
 
-#: shell/evince-menus.ui:58
+#: shell/papers-menus.ui:58
 msgid "Auto_scroll"
 msgstr "Aŭtomata _rulumado"
 
-#: shell/evince-menus.ui:64
+#: shell/papers-menus.ui:64
 msgid "_Copy"
 msgstr "_Kopii"
 
-#: shell/evince-menus.ui:68
+#: shell/papers-menus.ui:68
 msgid "Select _All"
 msgstr "_Elekti ĉiujn"
 
-#: shell/evince-menus.ui:74
+#: shell/papers-menus.ui:74
 msgid "_Save Image As…"
 msgstr "Kon_servi la bildon kiel…"
 
-#: shell/evince-menus.ui:79
+#: shell/papers-menus.ui:79
 msgid "Copy _Image"
 msgstr "Kopii la _bildon"
 
-#: shell/evince-menus.ui:86 shell/evince-menus.ui:157 shell/evince-menus.ui:180
+#: shell/papers-menus.ui:86 shell/papers-menus.ui:157 shell/papers-menus.ui:180
 msgid "_Open Attachment"
 msgstr "_Malfermi aldonaĵon"
 
-#: shell/evince-menus.ui:91 shell/evince-menus.ui:161 shell/evince-menus.ui:185
+#: shell/papers-menus.ui:91 shell/papers-menus.ui:161 shell/papers-menus.ui:185
 msgid "_Save Attachment As…"
 msgstr "Kon_servi aldonaĵon kiel…"
 
-#: shell/evince-menus.ui:98
+#: shell/papers-menus.ui:98
 msgid "Annotation _Properties"
 msgstr "Notaj _ecoj"
 
-#: shell/evince-menus.ui:103
+#: shell/papers-menus.ui:103
 msgid "R_emove Annotation"
 msgstr "F_origi noton"
 
-#: shell/evince-menus.ui:110
+#: shell/papers-menus.ui:110
 msgid "_Highlight Selected Text"
 msgstr "_Emfazi elektitan tekston"
 
-#: shell/evince-menus.ui:115 shell/evince-toolbar.ui:153
+#: shell/papers-menus.ui:115 shell/papers-toolbar.ui:153
 msgid "Open Containing _Folder"
 msgstr "Malfermi enhavantan _dosierujon"
 
-#: shell/evince-menus.ui:123
+#: shell/papers-menus.ui:123
 msgid "Navigation"
 msgstr "Navigado"
 
-#: shell/evince-menus.ui:125
+#: shell/papers-menus.ui:125
 msgid "First Page"
 msgstr "Unua paĝo"
 
-#: shell/evince-menus.ui:137
+#: shell/papers-menus.ui:137
 msgid "Last Page"
 msgstr "Lasta paĝo"
 
-#: shell/evince-menus.ui:142
+#: shell/papers-menus.ui:142
 msgid "History"
 msgstr "Historio"
 
-#: shell/evince-menus.ui:144
+#: shell/papers-menus.ui:144
 msgid "Back"
 msgstr "Malantaŭen"
 
-#: shell/evince-menus.ui:148
+#: shell/papers-menus.ui:148
 msgid "Forward"
 msgstr "Antaŭen"
 
-#: shell/evince-menus.ui:175
+#: shell/papers-menus.ui:175
 msgid "Remove Annotation"
 msgstr "Forigi noton"
 
-#: shell/evince-menus.ui:195
+#: shell/papers-menus.ui:195
 msgid "_Open Bookmark"
 msgstr "_Malfermi legosignon"
 
-#: shell/evince-menus.ui:201
+#: shell/papers-menus.ui:201
 msgid "_Rename Bookmark"
 msgstr "_Alinomi legosignon"
 
-#: shell/evince-menus.ui:205
+#: shell/papers-menus.ui:205
 msgid "_Delete Bookmark"
 msgstr "_Forigi legosignon"
 
-#: shell/evince-menus.ui:214
+#: shell/papers-menus.ui:214
 msgid "Search in the outline…"
 msgstr "Serĉi en la skizo…"
 
-#: shell/evince-menus.ui:218
+#: shell/papers-menus.ui:218
 msgid "Print this section…"
 msgstr "Presi tiun sekcion…"
 
-#: shell/evince-menus.ui:222
+#: shell/papers-menus.ui:222
 msgid "Collapse all tree"
 msgstr "Disfalti la tutan arbon"
 
-#: shell/evince-menus.ui:226
+#: shell/papers-menus.ui:226
 msgid "Expand all tree"
 msgstr "Vastigi la tutan arbon"
 
-#: shell/evince-menus.ui:230
+#: shell/papers-menus.ui:230
 msgid "Expand all under this element"
 msgstr "Vastigi ĉion sub ĉi tiu elemento"
 
-#: shell/evince-password-view.ui:22
+#: shell/papers-password-view.ui:22
 msgid ""
 "This document is locked and can only be read by entering the correct "
 "password."
 msgstr ""
 "Tiu dokumento estas ŝlosita kaj nur estos legebla per la ĝusta pasvorto."
 
-#: shell/evince-password-view.ui:37
+#: shell/papers-password-view.ui:37
 msgid "_Unlock Document"
 msgstr "_Malŝlosi dokumenton"
 
-#: shell/evince-properties-fonts.ui:40
+#: shell/papers-properties-fonts.ui:40
 msgid "Font"
 msgstr "Tiparo"
 
-#: shell/evince-sidebar-bookmarks.ui:55
+#: shell/papers-sidebar-bookmarks.ui:55
 msgid "Add bookmark"
 msgstr "Aldoni legosignon"
 
-#: shell/evince-sidebar-bookmarks.ui:64
+#: shell/papers-sidebar-bookmarks.ui:64
 msgid "Remove bookmark"
 msgstr "Forigi la legosignon"
 
-#: shell/evince-toolbar.ui:10
+#: shell/papers-toolbar.ui:10
 msgid "Open…"
 msgstr "Malfermi…"
 
-#: shell/evince-toolbar.ui:11
+#: shell/papers-toolbar.ui:11
 msgid "Open an existing document"
 msgstr "Malfermi ekzistan dokumenton"
 
-#: shell/evince-toolbar.ui:20
+#: shell/papers-toolbar.ui:20
 msgid "Side pane"
 msgstr "Flanka panelo"
 
-#: shell/evince-toolbar.ui:49
+#: shell/papers-toolbar.ui:49
 msgid "Annotate the document"
 msgstr "Noti la dokumenton"
 
-#: shell/evince-toolbar.ui:59
+#: shell/papers-toolbar.ui:59
 msgid "Annotate document"
 msgstr "Noti dokumenton"
 
-#: shell/evince-toolbar.ui:70 shell/evince-toolbar.ui:81
+#: shell/papers-toolbar.ui:70 shell/papers-toolbar.ui:81
 msgid "File options"
 msgstr "Dosieraj opcioj"
 
-#: shell/evince-toolbar.ui:110
+#: shell/papers-toolbar.ui:110
 msgid "Set zoom level"
 msgstr "Agordi zomnivelon"
 
-#: shell/evince-toolbar.ui:126
+#: shell/papers-toolbar.ui:126
 msgid "Print…"
 msgstr "Presi…"
 
-#: shell/evince-toolbar.ui:131
+#: shell/papers-toolbar.ui:131
 msgid "Fullscreen"
 msgstr "Tutekrana reĝimo"
 
-#: shell/evince-toolbar.ui:136
+#: shell/papers-toolbar.ui:136
 msgid "Send To…"
 msgstr "Sendi al…"
 
-#: shell/evince-toolbar.ui:143
+#: shell/papers-toolbar.ui:143
 msgid "New _Window"
 msgstr "Nova _fenestro"
 
-#: shell/evince-toolbar.ui:149
+#: shell/papers-toolbar.ui:149
 msgid "Open a C_opy"
 msgstr "Malfermi _kopion"
 
-#: shell/evince-toolbar.ui:159
+#: shell/papers-toolbar.ui:159
 msgid "_Save As…"
 msgstr "Kon_servi kiel…"
 
-#: shell/evince-toolbar.ui:165
+#: shell/papers-toolbar.ui:165
 msgid "Present as _Slideshow"
 msgstr "Prezenti kiel _lumbilda prezento"
 
-#: shell/evince-toolbar.ui:171
+#: shell/papers-toolbar.ui:171
 msgid "_Continuous"
 msgstr "_Kontinue"
 
-#: shell/evince-toolbar.ui:175
+#: shell/papers-toolbar.ui:175
 msgid "_Dual"
 msgstr "_Duale"
 
-#: shell/evince-toolbar.ui:179
+#: shell/papers-toolbar.ui:179
 msgid "_Odd Pages Left"
 msgstr "_Malpara paĝoj maldekstre"
 
-#: shell/evince-toolbar.ui:183
+#: shell/papers-toolbar.ui:183
 msgid "Right to Left Document"
 msgstr "De dekstre maldekstren-dokumento"
 
-#: shell/evince-toolbar.ui:189
+#: shell/papers-toolbar.ui:189
 msgid "Ro_tate ⤵"
 msgstr "_Turni ⤵"
 
-#: shell/evince-toolbar.ui:195
+#: shell/papers-toolbar.ui:195
 msgid "Ni_ght Mode"
 msgstr "No_kta reĝimo"
 
-#: shell/evince-toolbar.ui:201
+#: shell/papers-toolbar.ui:201
 msgid "Prop_erties"
 msgstr "_Ecoj"
 
-#: shell/evince-toolbar.ui:207
+#: shell/papers-toolbar.ui:207
 msgid "_Keyboard Shortcuts"
 msgstr "_Klavkombinoj"
 
-#: shell/evince-toolbar.ui:211
+#: shell/papers-toolbar.ui:211
 msgid "_Help"
 msgstr "_Helpo"
 
-#: shell/evince-toolbar.ui:215
+#: shell/papers-toolbar.ui:215
 msgid "_About Document Viewer"
 msgstr "_Pri Dokumentmontrilo"
 
-#: shell/evince-zoom-action.ui:5
+#: shell/papers-zoom-action.ui:5
 msgid "Select or set the zoom level of the document"
 msgstr "Elekti aŭ agordi la zomnivelojn por la dokumento"
 
-#: shell/evince-zoom-action.ui:30
+#: shell/papers-zoom-action.ui:30
 msgid "Fit Pa_ge"
 msgstr "_Adapti paĝon"
 
-#: shell/evince-zoom-action.ui:35
+#: shell/papers-zoom-action.ui:35
 msgid "Fit _Width"
 msgstr "Adapti _larĝon"
 
-#: shell/evince-zoom-action.ui:40
+#: shell/papers-zoom-action.ui:40
 msgid "_Automatic"
 msgstr "_Aŭtomata"
 
-#: shell/ev-keyring.c:86
+#: shell/pps-keyring.c:86
 #, c-format
 msgid "Password for document %s"
 msgstr "Pasvorto por dokumento %s"
 
-#: shell/ev-loading-message.c:50 shell/ev-sidebar-annotations.c:140
-#: shell/ev-sidebar-layers.c:119 shell/ev-sidebar-links.c:274
+#: shell/pps-loading-message.c:50 shell/pps-sidebar-annotations.c:140
+#: shell/pps-sidebar-layers.c:119 shell/pps-sidebar-links.c:274
 msgid "Loading…"
 msgstr "Ŝargante…"
 
-#: shell/ev-password-view.c:224
+#: shell/pps-password-view.c:224
 #, c-format
 msgid ""
 "The document “%s” is locked and requires a password before it can be opened."
 msgstr "La dokumento “%s” estas ŝlosita kaj bezonas pasvorton por malfermado."
 
-#: shell/ev-password-view.c:231
+#: shell/pps-password-view.c:231
 msgid "Password required"
 msgstr "Pasvorto bezonatas"
 
-#: shell/ev-password-view.c:238 shell/ev-sidebar-attachments.c:493
-#: shell/ev-window.c:2877 shell/ev-window.c:3174 shell/ev-window.c:4059
-#: shell/ev-window.c:6983 shell/ev-window.c:7209
+#: shell/pps-password-view.c:238 shell/pps-sidebar-attachments.c:493
+#: shell/pps-window.c:2877 shell/pps-window.c:3174 shell/pps-window.c:4059
+#: shell/pps-window.c:6983 shell/pps-window.c:7209
 msgid "_Cancel"
 msgstr "_Nuligi"
 
-#: shell/ev-password-view.c:239
+#: shell/pps-password-view.c:239
 msgid "_Unlock"
 msgstr "_Malŝlosi"
 
-#: shell/ev-password-view.c:251
+#: shell/pps-password-view.c:251
 msgid "_Password:"
 msgstr "_Pasvorto:"
 
-#: shell/ev-password-view.c:285
+#: shell/pps-password-view.c:285
 msgid "Forget password _immediately"
 msgstr "_Forgesi pasvorton tuj"
 
-#: shell/ev-password-view.c:296
+#: shell/pps-password-view.c:296
 msgid "Remember password until you _log out"
 msgstr "Memori la pasvorton ĝis via e_lsalutado"
 
-#: shell/ev-password-view.c:307
+#: shell/pps-password-view.c:307
 msgid "Remember _forever"
 msgstr "Memori _porĉiame"
 
-#: shell/ev-properties-dialog.c:63
+#: shell/pps-properties-dialog.c:63
 msgid "Properties"
 msgstr "Atributoj"
 
-#: shell/ev-properties-dialog.c:85
+#: shell/pps-properties-dialog.c:85
 msgid "General"
 msgstr "Ĝenerale"
 
-#: shell/ev-properties-dialog.c:95
+#: shell/pps-properties-dialog.c:95
 msgid "Fonts"
 msgstr "Tiparoj"
 
-#: shell/ev-properties-dialog.c:108
+#: shell/pps-properties-dialog.c:108
 msgid "Document License"
 msgstr "Permesilo de la dokumento"
 
-#: shell/ev-properties-fonts.c:136
+#: shell/pps-properties-fonts.c:136
 #, c-format
 msgid "Gathering font information… %3d%%"
 msgstr "Kolektante tiparinformojn… %3d%%"
 
-#: shell/ev-properties-license.c:146
+#: shell/pps-properties-license.c:146
 msgid "Usage terms"
 msgstr "Uzkondiĉoj"
 
-#: shell/ev-properties-license.c:158
+#: shell/pps-properties-license.c:158
 msgid "Text License"
 msgstr "Permesilo de la teksto"
 
-#: shell/ev-properties-license.c:169
+#: shell/pps-properties-license.c:169
 msgid "Further Information"
 msgstr "Pliaj informoj"
 
-#: shell/ev-sidebar-annotations.c:341
+#: shell/pps-sidebar-annotations.c:341
 msgid "Document contains no annotations"
 msgstr "La dokumento ne enhavas notojn"
 
-#: shell/ev-sidebar-annotations.c:369
+#: shell/pps-sidebar-annotations.c:369
 #, c-format
 msgid "Page %d"
 msgstr "Paĝo %d"
 
-#: shell/ev-sidebar-annotations.c:403
+#: shell/pps-sidebar-annotations.c:403
 msgid "No Comment"
 msgstr "Neniu komento"
 
-#: shell/ev-sidebar-annotations.c:564 shell/ev-window.c:7592
+#: shell/pps-sidebar-annotations.c:564 shell/pps-window.c:7592
 msgid "Annotations"
 msgstr "Notoj"
 
-#: shell/ev-sidebar-attachments.c:485
+#: shell/pps-sidebar-attachments.c:485
 #, c-format
 msgid "A file named “%s” already exists. Do you want to replace it?"
 msgstr "Dosiero nomita “%s” jam ekzistas. Ĉu vi volas ĝin anstataŭigi?"
 
-#: shell/ev-sidebar-attachments.c:489
+#: shell/pps-sidebar-attachments.c:489
 #, c-format
 msgid "The file “%s” already exists. Replacing it will overwrite its contents."
 msgstr ""
 "La dosiero “%s” jam ekzistas. Anstataŭigi ĝin ankaŭ anstataŭigos ĝian "
 "enhavon."
 
-#: shell/ev-sidebar-attachments.c:494
+#: shell/pps-sidebar-attachments.c:494
 msgid "_Replace"
 msgstr "_Anstataŭigi"
 
-#: shell/ev-sidebar-attachments.c:892 shell/ev-window.c:7616
+#: shell/pps-sidebar-attachments.c:892 shell/pps-window.c:7616
 msgid "Attachments"
 msgstr "Aldonaĵoj"
 
-#: shell/ev-sidebar-bookmarks.c:553 shell/ev-window.c:7600
+#: shell/pps-sidebar-bookmarks.c:553 shell/pps-window.c:7600
 msgid "Bookmarks"
 msgstr "Legosignoj"
 
-#: shell/ev-sidebar-layers.c:439 shell/ev-window.c:7628
+#: shell/pps-sidebar-layers.c:439 shell/pps-window.c:7628
 msgid "Layers"
 msgstr "Tavoloj"
 
 #. Translators: This is the title for the sidebar pane that
 #. * shows the Outline or Table of Contents of the document.
 #.
-#: shell/ev-sidebar-links.c:1450 shell/ev-window.c:7580
+#: shell/pps-sidebar-links.c:1450 shell/pps-window.c:7580
 msgid "Outline"
 msgstr "Enhavo"
 
-#: shell/ev-sidebar-thumbnails.c:1038 shell/ev-window.c:7563
+#: shell/pps-sidebar-thumbnails.c:1038 shell/pps-window.c:7563
 msgid "Thumbnails"
 msgstr "Miniaturoj"
 
-#: shell/ev-toolbar.c:98
+#: shell/pps-toolbar.c:98
 msgid "Find a word or phrase in the document"
 msgstr "Serĉi vorton aŭ frazon en la dokumento"
 
-#: shell/ev-toolbar.c:104
+#: shell/pps-toolbar.c:104
 msgid "Search not available for this document"
 msgstr "Serĉo ne disponeblas por ĉi tiu dokumento"
 
-#: shell/ev-utils.c:268
+#: shell/pps-utils.c:268
 msgid "Supported Image Files"
 msgstr "Subtenataj bildaj dosieroj"
 
-#: shell/ev-window.c:1753
+#: shell/pps-window.c:1753
 msgid "The document contains no pages"
 msgstr "Tiu dokumento ne enhavas paĝojn"
 
-#: shell/ev-window.c:1756
+#: shell/pps-window.c:1756
 msgid "The document contains only empty pages"
 msgstr "La dokumento enhavas nur malplenajn paĝojn"
 
-#: shell/ev-window.c:1997 shell/ev-window.c:2171
+#: shell/pps-window.c:1997 shell/pps-window.c:2171
 #, c-format
 msgid "Unable to open document “%s”."
 msgstr "Ne eblis malfermi la dokumenton “%s”."
 
-#: shell/ev-window.c:2136
+#: shell/pps-window.c:2136
 #, c-format
 msgid "Loading document from “%s”"
 msgstr "Ŝargante dokumenton de “%s”"
 
-#: shell/ev-window.c:2141 shell/ev-window.c:2599 shell/ev-window.c:2965
-#: shell/ev-window.c:3700 shell/ev-window.c:3948
+#: shell/pps-window.c:2141 shell/pps-window.c:2599 shell/pps-window.c:2965
+#: shell/pps-window.c:3700 shell/pps-window.c:3948
 msgid "C_ancel"
 msgstr "N_uligi"
 
-#: shell/ev-window.c:2293 shell/ev-window.c:2650
+#: shell/pps-window.c:2293 shell/pps-window.c:2650
 #, c-format
 msgid "Downloading document (%d%%)"
 msgstr "Elŝutante la dokumenton (%d%%)"
 
-#: shell/ev-window.c:2326
+#: shell/pps-window.c:2326
 msgid "Failed to load remote file."
 msgstr "Elŝuto de fora dosiero fiaskis."
 
-#: shell/ev-window.c:2595
+#: shell/pps-window.c:2595
 #, c-format
 msgid "Reloading document from %s"
 msgstr "Reŝargi la dokumenton de %s"
 
-#: shell/ev-window.c:2625
+#: shell/pps-window.c:2625
 msgid "Failed to reload document."
 msgstr "Malsukcesis reŝargi dokumenton."
 
-#: shell/ev-window.c:2873
+#: shell/pps-window.c:2873
 msgid "Open Document"
 msgstr "Malfermi dokumenton"
 
-#: shell/ev-window.c:2876
+#: shell/pps-window.c:2876
 msgid "_Open"
 msgstr "_Malfermi"
 
-#: shell/ev-window.c:2951
+#: shell/pps-window.c:2951
 #, c-format
 msgid "Saving document to %s"
 msgstr "Konservas la dokumenton al %s"
 
-#: shell/ev-window.c:2954
+#: shell/pps-window.c:2954
 #, c-format
 msgid "Saving attachment to %s"
 msgstr "Konservi aldonaĵon al %s"
 
-#: shell/ev-window.c:2957
+#: shell/pps-window.c:2957
 #, c-format
 msgid "Saving image to %s"
 msgstr "Konservi la bildon al %s"
 
-#: shell/ev-window.c:2999 shell/ev-window.c:3113
+#: shell/pps-window.c:2999 shell/pps-window.c:3113
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Ne eblas konservi la dosieron kiel “%s”."
 
-#: shell/ev-window.c:3031
+#: shell/pps-window.c:3031
 #, c-format
 msgid "Uploading document (%d%%)"
 msgstr "Alŝuti dokumenton (%d%%)"
 
-#: shell/ev-window.c:3035
+#: shell/pps-window.c:3035
 #, c-format
 msgid "Uploading attachment (%d%%)"
 msgstr "Alŝutante aldonaĵon (%d%%)"
 
-#: shell/ev-window.c:3039
+#: shell/pps-window.c:3039
 #, c-format
 msgid "Uploading image (%d%%)"
 msgstr "Alŝutante bildon (%d%%)"
 
-#: shell/ev-window.c:3171
+#: shell/pps-window.c:3171
 msgid "Save As…"
 msgstr "Konservi kiel…"
 
-#: shell/ev-window.c:3173 shell/ev-window.c:6982 shell/ev-window.c:7208
+#: shell/pps-window.c:3173 shell/pps-window.c:6982 shell/pps-window.c:7208
 msgid "_Save"
 msgstr "Kon_servi"
 
-#: shell/ev-window.c:3260
+#: shell/pps-window.c:3260
 msgid "Could not send current document"
 msgstr "Ne eblis sendi aktualan dokumenton"
 
-#: shell/ev-window.c:3587
+#: shell/pps-window.c:3587
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "%d okazota tasko en la atendovico"
 msgstr[1] "%d okazotaj taskoj en la atendovico"
 
-#: shell/ev-window.c:3696
+#: shell/pps-window.c:3696
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Prestasko “%s”"
 
-#: shell/ev-window.c:3914
+#: shell/pps-window.c:3914
 msgid "Document contains form fields that have been filled out."
 msgstr "Dokumento enhavas formularajn plenigitajn kampojn."
 
-#: shell/ev-window.c:3917
+#: shell/pps-window.c:3917
 msgid "Document contains new or modified annotations."
 msgstr "Dokomento enhavas novajn aŭ modifitajn notojn."
 
-#: shell/ev-window.c:3929
+#: shell/pps-window.c:3929
 #, c-format
 msgid "Reload document “%s”?"
 msgstr "Reŝargi dokumenton “%s”?"
 
-#: shell/ev-window.c:3931
+#: shell/pps-window.c:3931
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "Se vi reŝargas la dokumenton, ŝanĝoj daŭre perdiĝos."
 
-#: shell/ev-window.c:3933
+#: shell/pps-window.c:3933
 msgid "_No"
 msgstr "_Ne"
 
-#: shell/ev-window.c:3942
+#: shell/pps-window.c:3942
 #, c-format
 msgid "Save a copy of document “%s” before closing?"
 msgstr "Ĉu konservi kopion de dokumento “%s” antaŭ fermo?"
 
-#: shell/ev-window.c:3944
+#: shell/pps-window.c:3944
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "Se vi ne konservas kopion, ŝanĝoj daŭre perdiĝos."
 
-#: shell/ev-window.c:3946
+#: shell/pps-window.c:3946
 msgid "Close _without Saving"
 msgstr "Fermi _sen konservado"
 
-#: shell/ev-window.c:3950
+#: shell/pps-window.c:3950
 msgid "Save a _Copy"
 msgstr "Konservi _kopion"
 
-#: shell/ev-window.c:4032
+#: shell/pps-window.c:4032
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr "Ĉu atendi ĝis la fino de la prestasko “%s” antaŭ fermo?"
@@ -1627,7 +1627,7 @@ msgstr "Ĉu atendi ĝis la fino de la prestasko “%s” antaŭ fermo?"
 #. TRANS: the singular form is not really used as n_print_jobs > 1
 #. but some languages distinguish between different plurals forms,
 #. so the ngettext is needed.
-#: shell/ev-window.c:4038
+#: shell/pps-window.c:4038
 #, c-format
 msgid "There is %d print job active. Wait until print finishes before closing?"
 msgid_plural ""
@@ -1637,27 +1637,27 @@ msgstr[0] ""
 msgstr[1] ""
 "Estas %d aktivaj prestaskoj. Ĉu atendi ĝis la fino de la presado antaŭ fermo?"
 
-#: shell/ev-window.c:4053
+#: shell/pps-window.c:4053
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr "Se vi fermos la fenestron, okazontaj prestaskoj ne estos presotaj."
 
-#: shell/ev-window.c:4057
+#: shell/pps-window.c:4057
 msgid "Cancel _print and Close"
 msgstr "Nuligi _presadon kaj eliri"
 
-#: shell/ev-window.c:4061
+#: shell/pps-window.c:4061
 msgid "Close _after Printing"
 msgstr "Fermi _post presado"
 
-#: shell/ev-window.c:4229
-msgid "© 1996–2022 The Evince document viewer authors"
-msgstr "© 1996-2022 La aŭtoroj de Evinco"
+#: shell/pps-window.c:4229
+msgid "© 1996–2022 The Papers document viewer authors"
+msgstr "© 1996-2022 La aŭtoroj de Ppsinco"
 
-#: shell/ev-window.c:4232
-msgid "Evince is a simple document viewer for GNOME"
-msgstr "Evinco estas simpla dokumentovidigilo por GNOME"
+#: shell/pps-window.c:4232
+msgid "Papers is a simple document viewer for GNOME"
+msgstr "Ppsinco estas simpla dokumentovidigilo por GNOME"
 
-#: shell/ev-window.c:4235
+#: shell/pps-window.c:4235
 msgid "translator-credits"
 msgstr ""
 "Dominique PELLÉ\n"
@@ -1672,23 +1672,23 @@ msgstr ""
 "William THEAKER\n"
 "Carmen Bianca BAKKER <carmen@carmenbianca.eu>"
 
-#: shell/ev-window.c:4713
+#: shell/pps-window.c:4713
 msgid "Running in presentation mode"
 msgstr "Lanĉante prezentaĵe"
 
-#: shell/ev-window.c:5700
+#: shell/pps-window.c:5700
 msgid "The attachment could not be saved."
 msgstr "Ne eblis konservi la aldonaĵon."
 
-#: shell/ev-window.c:6022
+#: shell/pps-window.c:6022
 msgid "Enable caret navigation?"
 msgstr "Ĉu ebligi kursoran navigadon?"
 
-#: shell/ev-window.c:6023
+#: shell/pps-window.c:6023
 msgid "_Enable"
 msgstr "_Ebligi"
 
-#: shell/ev-window.c:6026
+#: shell/pps-window.c:6026
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1698,11 +1698,11 @@ msgstr ""
 "metas moveblan kursoron en teksta paĝoj, permesante vin movi ĉirkaŭe kaj "
 "elekti tekston per via klavaro. Ĉu vi volas enŝalti tajpmontrilan navigadon?"
 
-#: shell/ev-window.c:6031
+#: shell/pps-window.c:6031
 msgid "Don’t show this message again"
 msgstr "Ne montri ĉi tiun mesagon denove"
 
-#: shell/ev-window.c:6620
+#: shell/pps-window.c:6620
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
@@ -1710,92 +1710,92 @@ msgstr ""
 "Sekureca atentigo: ĉi tiu dokumento estis malhelpita malfermi la dosieron "
 "“%s”"
 
-#: shell/ev-window.c:6685
+#: shell/pps-window.c:6685
 msgid "Unable to open external link"
 msgstr "Malsukcesis malfermi eksteran ligilon"
 
-#: shell/ev-window.c:6911
+#: shell/pps-window.c:6911
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Ne eblas trovi taŭgan aranĝon per kiu konservi la bildon"
 
-#: shell/ev-window.c:6943
+#: shell/pps-window.c:6943
 msgid "The image could not be saved."
 msgstr "Ne eblas konservi la bildon."
 
-#: shell/ev-window.c:6979
+#: shell/pps-window.c:6979
 msgid "Save Image"
 msgstr "Konservi la bildon"
 
-#: shell/ev-window.c:7137
+#: shell/pps-window.c:7137
 msgid "Unable to open attachment"
 msgstr "Malsukcesis malfermi la aldonaĵon"
 
-#: shell/ev-window.c:7205
+#: shell/pps-window.c:7205
 msgid "Save Attachment"
 msgstr "Konservi aldonaĵon"
 
-#: shell/ev-window-title.c:108
+#: shell/pps-window-title.c:108
 msgid "Recent Documents"
 msgstr "Lastatempaj dokumentoj"
 
-#: shell/ev-window-title.c:151 shell/ev-window-title.c:153
-#: shell/ev-window-title.c:158
+#: shell/pps-window-title.c:151 shell/pps-window-title.c:153
+#: shell/pps-window-title.c:158
 msgid "Password Required"
 msgstr "Pasvorto necesas"
 
-#: shell/ev-zoom-action.c:41
+#: shell/pps-zoom-action.c:41
 msgid "50%"
 msgstr "50%"
 
-#: shell/ev-zoom-action.c:42
+#: shell/pps-zoom-action.c:42
 msgid "70%"
 msgstr "70%"
 
-#: shell/ev-zoom-action.c:43
+#: shell/pps-zoom-action.c:43
 msgid "85%"
 msgstr "85%"
 
-#: shell/ev-zoom-action.c:44
+#: shell/pps-zoom-action.c:44
 msgid "100%"
 msgstr "100%"
 
-#: shell/ev-zoom-action.c:45
+#: shell/pps-zoom-action.c:45
 msgid "125%"
 msgstr "125%"
 
-#: shell/ev-zoom-action.c:46
+#: shell/pps-zoom-action.c:46
 msgid "150%"
 msgstr "150%"
 
-#: shell/ev-zoom-action.c:47
+#: shell/pps-zoom-action.c:47
 msgid "175%"
 msgstr "175%"
 
-#: shell/ev-zoom-action.c:48
+#: shell/pps-zoom-action.c:48
 msgid "200%"
 msgstr "200%"
 
-#: shell/ev-zoom-action.c:49
+#: shell/pps-zoom-action.c:49
 msgid "300%"
 msgstr "300%"
 
-#: shell/ev-zoom-action.c:50
+#: shell/pps-zoom-action.c:50
 msgid "400%"
 msgstr "400%"
 
-#: shell/ev-zoom-action.c:51
+#: shell/pps-zoom-action.c:51
 msgid "800%"
 msgstr "800%"
 
-#: shell/ev-zoom-action.c:52
+#: shell/pps-zoom-action.c:52
 msgid "1600%"
 msgstr "1600%"
 
-#: shell/ev-zoom-action.c:53
+#: shell/pps-zoom-action.c:53
 msgid "3200%"
 msgstr "3200%"
 
-#: shell/ev-zoom-action.c:54
+#: shell/pps-zoom-action.c:54
 msgid "6400%"
 msgstr "6400%"
 
@@ -2137,16 +2137,16 @@ msgid "DEST"
 msgstr "CELLOKO"
 
 #: shell/main.c:76
-msgid "Run evince in fullscreen mode"
-msgstr "Ruli Evincon tutekrane"
+msgid "Run papers in fullscreen mode"
+msgstr "Ruli Ppsincon tutekrane"
 
 #: shell/main.c:77
-msgid "Run evince in presentation mode"
-msgstr "Ruli Evincon prezentaĵe"
+msgid "Run papers in presentation mode"
+msgstr "Ruli Ppsincon prezentaĵe"
 
 #: shell/main.c:78
-msgid "Run evince as a previewer"
-msgstr "Lanĉi Evincon kiel antaŭrigardilo"
+msgid "Run papers as a previewer"
+msgstr "Lanĉi Ppsincon kiel antaŭrigardilo"
 
 #: shell/main.c:79
 msgid "The word or phrase to find in the document"
@@ -2204,8 +2204,8 @@ msgstr "[DOSIERO…]"
 #~ msgid "Toggle inverted colors"
 #~ msgstr "Baskuligi inversigitajn kolorojn"
 
-#~ msgid "org.gnome.Evince"
-#~ msgstr "org.gnome.Evince"
+#~ msgid "org.gnome.Papers"
+#~ msgstr "org.gnome.Papers"
 
 #~ msgid "document-print-preview"
 #~ msgstr "document-print-preview"
@@ -2281,34 +2281,34 @@ msgstr "[DOSIERO…]"
 #~ msgstr "Maldiafana"
 
 #~ msgid ""
-#~ "Evince is free software; you can redistribute it and/or modify it under "
+#~ "Papers is free software; you can redistribute it and/or modify it under "
 #~ "the terms of the GNU General Public License as published by the Free "
 #~ "Software Foundation; either version 2 of the License, or (at your option) "
 #~ "any later version.\n"
 #~ msgstr ""
-#~ "Evinco estas libera programaro; vi povas pludisdoni kopiojn kaj modifi "
+#~ "Ppsinco estas libera programaro; vi povas pludisdoni kopiojn kaj modifi "
 #~ "ĝin sub la kondiĉoj de la Ĝenerala Publika Permesilo de GNU, kiel tio "
 #~ "estas eldonita de Free Software Foundation; aŭ versio 2 de la permesilo, "
 #~ "aŭ (laŭ via volo) iu sekva versio.\n"
 
 #~ msgid ""
-#~ "Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
+#~ "Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
 #~ "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 #~ "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 #~ "details.\n"
 #~ msgstr ""
-#~ "Evinco estas disdonita kun la espero, ke ĝi estos utila, sed SEN IA AJN "
+#~ "Ppsinco estas disdonita kun la espero, ke ĝi estos utila, sed SEN IA AJN "
 #~ "GARANTIO; eĉ sen la implicita garantio de KOMERCA KVALITO aŭ ADEKVATECO "
 #~ "POR DIFINITA CELO.  Vidu la Ĝeneralan Publikan Permesilon de GNU por pli "
 #~ "da detaloj.\n"
 
 #~ msgid ""
 #~ "You should have received a copy of the GNU General Public License along "
-#~ "with Evince; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "with Papers; if not, write to the Free Software Foundation, Inc., 51 "
 #~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 #~ msgstr ""
 #~ "Vi devintus ricevi kopion de la Ĝenerala Publika Permesilo de GNU kun "
-#~ "Evinco; se ne, skribu al Free Software Foundation, Inc., 51 Franklin "
+#~ "Ppsinco; se ne, skribu al Free Software Foundation, Inc., 51 Franklin "
 #~ "Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 
 #~ msgid "Go to previous history item"
@@ -2568,7 +2568,7 @@ msgstr "[DOSIERO…]"
 #~ msgid "_Toolbar"
 #~ msgstr "Ilobre_to"
 
-#~ msgid "_Dual (Even pages left)"
+#~ msgid "_Dual (Ppsen pages left)"
 #~ msgstr "_Duale (Para paĝoj maldekstre)"
 
 #~ msgid "Show two pages at once with even pages on the left"
@@ -2608,11 +2608,11 @@ msgstr "[DOSIERO…]"
 #~ msgstr "Konvertante metadatumon"
 
 #~ msgid ""
-#~ "The metadata format used by Evince has changed, and hence it needs to be "
+#~ "The metadata format used by Papers has changed, and hence it needs to be "
 #~ "migrated. If the migration is cancelled the metadata storage will not "
 #~ "work."
 #~ msgstr ""
-#~ "La metadatuma aranĝo uzata de Evinco ŝanĝiĝis kaj do ĝi necesas migrigon. "
+#~ "La metadatuma aranĝo uzata de Ppsinco ŝanĝiĝis kaj do ĝi necesas migrigon. "
 #~ "Se la migrigo estas nuligita la konservado de metadatumo ne funkcios."
 
 #~ msgid ""
@@ -2637,11 +2637,11 @@ msgstr "[DOSIERO…]"
 
 #~ msgid ""
 #~ "You should have received a copy of the GNU General Public License along "
-#~ "with Evince; if not, write to the Free Software Foundation, Inc., 59 "
+#~ "with Papers; if not, write to the Free Software Foundation, Inc., 59 "
 #~ "Temple Place, Fifth Floor, Boston, MA  02110-1301  USA\n"
 #~ msgstr ""
 #~ "Vi devus esti ricevinta kopion de la Ĝenerala Publika Rajtigilo de GNU "
-#~ "kun Evince; se ne, skribu al Free Software Foundation, Inc., 59 Temple "
+#~ "kun Papers; se ne, skribu al Free Software Foundation, Inc., 59 Temple "
 #~ "Place, Fifth Floor, Boston, MA  02110-1301  USA\n"
 
 #~ msgid "The page of the document to display."

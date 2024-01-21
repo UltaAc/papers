@@ -1,9 +1,9 @@
-# Slovenian translation for evince-help.
-# This file is distributed under the same license as the evince-help package.
+# Slovenian translation for papers-help.
+# This file is distributed under the same license as the papers-help package.
 # Andrej Žnidaršič <andrej.znidarsic@gmail.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: Evince documentation\n"
+"Project-Id-Version: Papers documentation\n"
 "POT-Creation-Date: 2012-09-20 07:38+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Andrej Žnidaršič <andrej.znidarsic@gmail.com>\n"
@@ -33,8 +33,8 @@ msgstr "Andrej Žnidaršič"
 #. whatever you like once you have updated your copy of the file.
 #: C/index.page:6(media)
 msgctxt "_"
-msgid "external ref='figures/evince-trail.png' md5='a1a70d04c37f05937d0b3e7a0705d2d4'"
-msgstr "external ref='figures/evince-trail.png' md5='a1a70d04c37f05937d0b3e7a0705d2d4'"
+msgid "external ref='figures/papers-trail.png' md5='a1a70d04c37f05937d0b3e7a0705d2d4'"
+msgstr "external ref='figures/papers-trail.png' md5='a1a70d04c37f05937d0b3e7a0705d2d4'"
 
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
@@ -47,18 +47,18 @@ msgstr "external ref='figures/evince-trail.png' md5='a1a70d04c37f05937d0b3e7a070
 #. whatever you like once you have updated your copy of the file.
 #: C/index.page:23(media)
 msgctxt "_"
-msgid "external ref='figures/evincelogo.png' md5='a5856135b500d4c4b74a052eef6e09d2'"
-msgstr "external ref='figures/evincelogo.png' md5='a5856135b500d4c4b74a052eef6e09d2'"
+msgid "external ref='figures/paperslogo.png' md5='a5856135b500d4c4b74a052eef6e09d2'"
+msgstr "external ref='figures/paperslogo.png' md5='a5856135b500d4c4b74a052eef6e09d2'"
 
 #: C/index.page:7(info/title)
 msgctxt "link"
-msgid "Evince Document Viewer"
-msgstr "Pregledovalnik dokumentov Evince"
+msgid "Papers Document Viewer"
+msgstr "Pregledovalnik dokumentov Papers"
 
 #: C/index.page:8(info/title)
 msgctxt "text"
-msgid "Evince Document Viewer"
-msgstr "Pregledovalnik dokumentov Evince"
+msgid "Papers Document Viewer"
+msgstr "Pregledovalnik dokumentov Papers"
 
 #: C/index.page:11(credit/name)
 #: C/commandline.page:11(credit/name)
@@ -205,8 +205,8 @@ msgid "Creative Commons Share Alike 3.0"
 msgstr "Dovoljenje Creative Commons - priznanje avtorstva - deljenje pod istimi pogoji 3.0"
 
 #: C/index.page:23(page/title)
-msgid "<media type=\"image\" src=\"figures/evincelogo.png\">Evince logo</media>Evince document viewer"
-msgstr "<media type=\"image\" src=\"figures/evincelogo.png\">Logotip Evince</media> Evince pregledovalnik dokumentov"
+msgid "<media type=\"image\" src=\"figures/paperslogo.png\">Papers logo</media>Papers document viewer"
+msgstr "<media type=\"image\" src=\"figures/paperslogo.png\">Logotip Papers</media> Papers pregledovalnik dokumentov"
 
 #: C/index.page:26(section/title)
 msgid "Reading documents"
@@ -472,8 +472,8 @@ msgid "To participate you need an account which will give you the ability to gai
 msgstr "Za sodelovanje potrebujete račun, ki vam bo dal zmožnost dostopa, poročanja hroščev in delanja opomb. Vpisati se morate tudi zato, da lahko preko e-pošte prejemate posodobitve o stanju vašega hrošča. Če računa še nimate, kliknite <gui>Nov račun</gui> za njegovo ustvarjanje. "
 
 #: C/bug-filing.page:29(page/p)
-msgid "Once you have an account, log in, click on <guiseq><gui>File a Bug</gui><gui>Core</gui><gui>evince</gui></guiseq>. Before reporting a bug, please read the <link href=\"https://bugzilla.gnome.org/page.cgi?id=bug-writing.html\">bug writing guidelines</link>, and please <link href=\"https://bugzilla.gnome.org/browse.cgi?product=evince\">browse</link> for the bug to see if it already exists."
-msgstr "Ko imate račun, se prijavite, kliknite na <guiseq><gui>Poročaj hrošča</gui><gui>Jedro</gui><gui>evince</gui></guiseq>. Pred poročanjem hrošča preberite <link href=\"https://bugzilla.gnome.org/page.cgi?id=bug-writing.html\">smernice o poročanju hroščev</link> in  <link href=\"https://bugzilla.gnome.org/browse.cgi?product=evince\">prebrskajte</link> in preverite, če hrošč že obstaja."
+msgid "Once you have an account, log in, click on <guiseq><gui>File a Bug</gui><gui>Core</gui><gui>papers</gui></guiseq>. Before reporting a bug, please read the <link href=\"https://bugzilla.gnome.org/page.cgi?id=bug-writing.html\">bug writing guidelines</link>, and please <link href=\"https://bugzilla.gnome.org/browse.cgi?product=papers\">browse</link> for the bug to see if it already exists."
+msgstr "Ko imate račun, se prijavite, kliknite na <guiseq><gui>Poročaj hrošča</gui><gui>Jedro</gui><gui>papers</gui></guiseq>. Pred poročanjem hrošča preberite <link href=\"https://bugzilla.gnome.org/page.cgi?id=bug-writing.html\">smernice o poročanju hroščev</link> in  <link href=\"https://bugzilla.gnome.org/browse.cgi?product=papers\">prebrskajte</link> in preverite, če hrošč že obstaja."
 
 #: C/bug-filing.page:33(page/p)
 msgid "To file your bug, choose the component in the <gui>Component</gui> menu. If you are not sure which component your bug pertains to, choose <gui>general</gui>."
@@ -494,39 +494,39 @@ msgid "Command line"
 msgstr "Ukazna vrstica"
 
 #: C/commandline.page:8(info/desc)
-msgid "The <cmd>evince</cmd> command can open any number of files, at specific pages and in various modes."
-msgstr "Ukaz <cmd>evince</cmd> lahko odpre poljubno število datotek na določenih straneh in v različnih načinih."
+msgid "The <cmd>papers</cmd> command can open any number of files, at specific pages and in various modes."
+msgstr "Ukaz <cmd>papers</cmd> lahko odpre poljubno število datotek na določenih straneh in v različnih načinih."
 
 #: C/commandline.page:23(page/title)
 msgid "The command line"
 msgstr "Ukazna vrstica"
 
 #: C/commandline.page:24(page/p)
-msgid "To start the <app>Document Viewer</app> from the command line, type <cmd>evince</cmd>. You can open a specific file by typing the filename after the evince command:"
-msgstr "Za začenjanje <app>Pregledovalnika dokumentov</app> iz ukazne vrstice, vpišite <cmd>evince</cmd>. Določeno datoteko lahko odprete z vnašanjem imena datoteke po ukazu evince:"
+msgid "To start the <app>Document Viewer</app> from the command line, type <cmd>papers</cmd>. You can open a specific file by typing the filename after the papers command:"
+msgstr "Za začenjanje <app>Pregledovalnika dokumentov</app> iz ukazne vrstice, vpišite <cmd>papers</cmd>. Določeno datoteko lahko odprete z vnašanjem imena datoteke po ukazu papers:"
 
 #: C/commandline.page:29(page/screen)
 #, no-wrap
-msgid "evince file.pdf"
-msgstr "evince datoteka.pdf"
+msgid "papers file.pdf"
+msgstr "papers datoteka.pdf"
 
 #: C/commandline.page:30(page/p)
-msgid "You can open multiple files by typing the filenames after the evince command, separating the filenames by a space:"
-msgstr "Več datotek lahko odprete s tipkanjem imen datotek po ukazu evince, pri čemer ločujte imena datotek s presledkom:"
+msgid "You can open multiple files by typing the filenames after the papers command, separating the filenames by a space:"
+msgstr "Več datotek lahko odprete s tipkanjem imen datotek po ukazu papers, pri čemer ločujte imena datotek s presledkom:"
 
 #: C/commandline.page:33(page/screen)
 #, no-wrap
-msgid "evince file1.pdf file2.pdf"
-msgstr "evince datoteka1.pdf datoteka2.pdf"
+msgid "papers file1.pdf file2.pdf"
+msgstr "papers datoteka1.pdf datoteka2.pdf"
 
 #: C/commandline.page:34(page/p)
-msgid "The <app>document viewer</app> also supports the handling of files on the web. For example, after the evince command you can give the location of a file on the web:"
-msgstr "<app>Pregledovalnik dokumentov</app> podpira tudi upravljanje datotek na spletu. Na primer, po ukazu evince lahko podatke mesto datoteke na spletu:"
+msgid "The <app>document viewer</app> also supports the handling of files on the web. For example, after the papers command you can give the location of a file on the web:"
+msgstr "<app>Pregledovalnik dokumentov</app> podpira tudi upravljanje datotek na spletu. Na primer, po ukazu papers lahko podatke mesto datoteke na spletu:"
 
 #: C/commandline.page:37(page/screen)
 #, no-wrap
-msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 
 #: C/commandline.page:39(section/title)
 msgid "Opening a document at a specific page"
@@ -538,8 +538,8 @@ msgstr "Uporabite lahko stikalo <cmd>--page-label</cmd> za odprtje dokumenta na 
 
 #: C/commandline.page:44(section/screen)
 #, no-wrap
-msgid "evince --page-label=3 file.pdf"
-msgstr "evince --page-label=3 datoteka.pdf"
+msgid "papers --page-label=3 file.pdf"
+msgstr "papers --page-label=3 datoteka.pdf"
 
 #: C/commandline.page:45(section/p)
 msgid "The page label should be in the same format as the page number displayed in the <app>Document Viewer</app> toolbar."
@@ -551,8 +551,8 @@ msgstr "Odpiranje dokumenta v celozaslonskem načinu"
 
 #: C/commandline.page:52(section/screen)
 #, no-wrap
-msgid "evince --fullscreen file.pdf"
-msgstr "evince -- celozaslonska datoteka.pdf"
+msgid "papers --fullscreen file.pdf"
+msgstr "papers -- celozaslonska datoteka.pdf"
 
 #: C/commandline.page:55(section/title)
 msgid "Opening a document in presentation mode"
@@ -560,7 +560,7 @@ msgstr "Odpiranje dokumenta v načinu predstavitve"
 
 #: C/commandline.page:56(section/screen)
 #, no-wrap
-msgid "evince --presentation file.pdf"
+msgid "papers --presentation file.pdf"
 msgstr "evine -- predstavitevena datoteka.pdf"
 
 #: C/commandline.page:59(section/title)
@@ -569,8 +569,8 @@ msgstr "Odpiranje dokumenta v načinu predogleda"
 
 #: C/commandline.page:60(section/screen)
 #, no-wrap
-msgid "evince --preview file.pdf"
-msgstr "evince - predogled datoteke.pdf"
+msgid "papers --preview file.pdf"
+msgstr "papers - predogled datoteke.pdf"
 
 #: C/convertpdf.page:7(info/desc)
 msgid "You can convert a document to PDF by \"printing\" it to a file."
@@ -710,8 +710,8 @@ msgid "The <app>Document Viewer</app> is developed and maintained by a volunteer
 msgstr "<app>Pregledovalnik dokumentov</app> razvija in vzdržuje skupnost prostovoljcev. Vabimo vas k sodelovanju."
 
 #: C/develop.page:23(page/p)
-msgid "If you would like to <link href=\"https://live.gnome.org/Evince\">help develop</link> the <app>Document Viewer</app>, you can get in touch with the developers using <link href=\"https://cbe005.chat.mibbit.com/?url=irc%3A%2F%2Firc.gnome.org%2Fevince\">irc</link>, or via our <link href=\"https://mail.gnome.org/mailman/listinfo/evince-list\">mailing list</link>."
-msgstr "Če želite <link href=\"https://live.gnome.org/Evince\">pomagati pri razvoju</link> <app>Pregledovalnika dokumentov</app>, lahko stopite v stik z razvijalci preko kanala <link href=\"https://cbe005.chat.mibbit.com/?url=irc%3A%2F%2Firc.gnome.org%2Fevince\">irc</link> ali preko našega <link href=\"https://mail.gnome.org/mailman/listinfo/evince-list\">dopisnega seznama</link>."
+msgid "If you would like to <link href=\"https://live.gnome.org/Papers\">help develop</link> the <app>Document Viewer</app>, you can get in touch with the developers using <link href=\"https://cbe005.chat.mibbit.com/?url=irc%3A%2F%2Firc.gnome.org%2Fpapers\">irc</link>, or via our <link href=\"https://mail.gnome.org/mailman/listinfo/papers-list\">mailing list</link>."
+msgstr "Če želite <link href=\"https://live.gnome.org/Papers\">pomagati pri razvoju</link> <app>Pregledovalnika dokumentov</app>, lahko stopite v stik z razvijalci preko kanala <link href=\"https://cbe005.chat.mibbit.com/?url=irc%3A%2F%2Firc.gnome.org%2Fpapers\">irc</link> ali preko našega <link href=\"https://mail.gnome.org/mailman/listinfo/papers-list\">dopisnega seznama</link>."
 
 #: C/documentation.page:7(info/desc)
 msgid "Contact the Documentation Team."
@@ -1487,7 +1487,7 @@ msgstr "Za skritje iskalne vrstice kliknite kjerkoli v dokumentu."
 
 #: C/finding.page:38(page/p)
 msgid "If the word or phrase you searched is not present in the entire document, the message will say <em>Not found</em>. However, if it appears in the document at least once, the message will inform you of how many times the word you searched occur on each page. This is apparent if you skip from one result to another as described above or scroll through the document."
-msgstr "V primeru, da se beseda ali fraza, ki jo iščete v celotnemu dokumentu ne pojavi, bo <app>pregledovalnik dokumentov</app> javil <em>Ni najdeno</em> V primeru, da se v dokumentu besedilo ali fraza pojavi vsaj enkrat, vas bo Evince obvestil kolikokrat se iskana beseda pojavi na vsaki strani. To je vidno, če skočite z enega rezultata na drug kot je opisano zgoraj ali drsite skozi dokument."
+msgstr "V primeru, da se beseda ali fraza, ki jo iščete v celotnemu dokumentu ne pojavi, bo <app>pregledovalnik dokumentov</app> javil <em>Ni najdeno</em> V primeru, da se v dokumentu besedilo ali fraza pojavi vsaj enkrat, vas bo Papers obvestil kolikokrat se iskana beseda pojavi na vsaki strani. To je vidno, če skočite z enega rezultata na drug kot je opisano zgoraj ali drsite skozi dokument."
 
 #: C/finding.page:43(note/p)
 msgid "Only PDF documents are searchable. Some PDF documents are not searchable because their text is encoded in the document as an image."
@@ -1584,16 +1584,16 @@ msgid "Copies of encrypted files can't be saved or printed."
 msgstr "Kopij šifriranih datotek ni mogoče shraniti ali natisniti."
 
 #: C/introduction.page:7(info/desc)
-msgid "Introduction to the <em>Evince Document Viewer</em>."
-msgstr "Uvod v <em>Evince pregledovalnik dokumentov</em>."
+msgid "Introduction to the <em>Papers Document Viewer</em>."
+msgstr "Uvod v <em>Papers pregledovalnik dokumentov</em>."
 
 #: C/introduction.page:20(page/title)
 msgid "Introduction"
 msgstr "Uvod"
 
 #: C/introduction.page:25(page/p)
-msgid "<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a list of file types you can view."
-msgstr "<app>Evince</app> je pregledovalnik dokumentov. Oglejte si <link xref=\"formats\"/> za seznam vrst datotek, ki si jih lahko ogledate."
+msgid "<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a list of file types you can view."
+msgstr "<app>Papers</app> je pregledovalnik dokumentov. Oglejte si <link xref=\"formats\"/> za seznam vrst datotek, ki si jih lahko ogledate."
 
 #: C/invert-colors.page:8(info/desc)
 msgid "Inverting the colors can make it easier to read some text."
@@ -1937,8 +1937,8 @@ msgid "Type <input>dconf-editor</input> into the text box and click <gui>Run</gu
 msgstr "V besedilno polje vpišite <input>dconf-editor</input> in kliknite <gui>Zaženi</gui>. Odprl se bo Urejevalnik nastavitev."
 
 #: C/noprint.page:76(item/p)
-msgid "Browse to <sys>/org/gnome/evince</sys> using the side pane."
-msgstr "Brskajte do <sys>/org/gnome/evince</sys> s pomočjo stranskega pladnja."
+msgid "Browse to <sys>/org/gnome/papers</sys> using the side pane."
+msgstr "Brskajte do <sys>/org/gnome/papers</sys> s pomočjo stranskega pladnja."
 
 #: C/noprint.page:78(item/p)
 msgid "Make sure that the <gui>override_restrictions</gui> option is checked."
@@ -2625,7 +2625,7 @@ msgstr "Ko so vse strani natisnjene, jih obrnite okoli in postavite nazaj v tisk
 #: C/singlesided-5-8pages.page:97(item/p)
 #: C/singlesided-9-12pages.page:97(item/p)
 #: C/singlesided-npages.page:104(item/p)
-msgid "In the <gui>Only print</gui> menu, select <gui>Even sheets</gui>."
+msgid "In the <gui>Only print</gui> menu, select <gui>Ppsen sheets</gui>."
 msgstr "V meniju <em>Le natisni</em> izberite <gui>Sode strani</gui>."
 
 #: C/singlesided-17-20pages.page:8(info/desc)
@@ -2805,12 +2805,12 @@ msgid "Vim-latex"
 msgstr "Vim-latex"
 
 #: C/synctex-editors.page:29(section/p)
-msgid "The <app>gedit</app> plugin contains a python script (evince_dbus.py) that can be used to get SyncTeX working with Vim. In order to use vim-latex together with the <app>document viewer</app> you need to follow the next steps:"
-msgstr "Vstavek <app>Gedit</app> vsebuje skript python (evince_dbus.py), ki ga lahko uporabite, da začne Synctex delovati z Vim. Da lahko vim-latex uporabite skupaj s <app>pregledovalnikom dokumentov</app>, boste morali izvesti naslednje korake:"
+msgid "The <app>gedit</app> plugin contains a python script (papers_dbus.py) that can be used to get SyncTeX working with Vim. In order to use vim-latex together with the <app>document viewer</app> you need to follow the next steps:"
+msgstr "Vstavek <app>Gedit</app> vsebuje skript python (papers_dbus.py), ki ga lahko uporabite, da začne Synctex delovati z Vim. Da lahko vim-latex uporabite skupaj s <app>pregledovalnikom dokumentov</app>, boste morali izvesti naslednje korake:"
 
 #: C/synctex-editors.page:35(item/p)
-msgid "Copy the evince_dbus.py to some directory in your path and give it +x permissions."
-msgstr "Kopirajte evince_dbus.py v mapo na vaši poti in ji dajte dovoljenja +x. "
+msgid "Copy the papers_dbus.py to some directory in your path and give it +x permissions."
+msgstr "Kopirajte papers_dbus.py v mapo na vaši poti in ji dajte dovoljenja +x. "
 
 #: C/synctex-editors.page:41(item/p)
 msgid "Modify your ~/.vimrc file and add the following lines."
@@ -2820,12 +2820,12 @@ msgstr "Spremenite svojo datoteko ~/.vimrc in dodajte naslednje vrstice."
 #, no-wrap
 msgid ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 msgstr ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 
@@ -2981,8 +2981,8 @@ msgstr "Na žalost ne obstaja pravi način za popravilo te težave. Kopiranje ma
 #. whatever you like once you have updated your copy of the file.
 #: C/toolbar.page:30(media)
 msgctxt "_"
-msgid "external ref='figures/evince-toolbar-default.png' md5='2a826732c770c08b11684e28e259bb31'"
-msgstr "external ref='figures/evince-toolbar-default.png' md5='2a826732c770c08b11684e28e259bb31'"
+msgid "external ref='figures/papers-toolbar-default.png' md5='2a826732c770c08b11684e28e259bb31'"
+msgstr "external ref='figures/papers-toolbar-default.png' md5='2a826732c770c08b11684e28e259bb31'"
 
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
@@ -2990,8 +2990,8 @@ msgstr "external ref='figures/evince-toolbar-default.png' md5='2a826732c770c08b1
 #. whatever you like once you have updated your copy of the file.
 #: C/toolbar.page:51(media)
 msgctxt "_"
-msgid "external ref='figures/evince-toolbar-editor.png' md5='e6c66f764c39ab5ba01441d970425cd9'"
-msgstr "external ref='figures/evince-toolbar-editor.png' md5='e6c66f764c39ab5ba01441d970425cd9'"
+msgid "external ref='figures/papers-toolbar-editor.png' md5='e6c66f764c39ab5ba01441d970425cd9'"
+msgstr "external ref='figures/papers-toolbar-editor.png' md5='e6c66f764c39ab5ba01441d970425cd9'"
 
 #: C/toolbar.page:7(info/desc)
 msgid "<link xref=\"toolbar#view\">Show, hide</link> or <link xref=\"toolbar#edit\">edit</link> the toolbar."
@@ -3090,8 +3090,8 @@ msgid "The <app>Document Viewer</app> user interface and documentation is being 
 msgstr "<gui>Pregledovalnik dokumentov</gui> in njegovo dokumentacijo prevaja skupnost prostovoljcev. Vabimo vas k sodelovanju."
 
 #: C/translate.page:27(page/p)
-msgid "There are <link href=\"http://l10n.gnome.org/module/evince/\">many languages</link> for which translations are still needed."
-msgstr "Obstaja <link href=\"http://l10n.gnome.org/module/evince/\">veliko jezikov</link> za katere prevodi še vedno manjkajo."
+msgid "There are <link href=\"http://l10n.gnome.org/module/papers/\">many languages</link> for which translations are still needed."
+msgstr "Obstaja <link href=\"http://l10n.gnome.org/module/papers/\">veliko jezikov</link> za katere prevodi še vedno manjkajo."
 
 #: C/translate.page:30(page/p)
 msgid "To start translating you will need to <link href=\"http:l10n.gnome.org\">create an account</link> and join the <link href=\"http://l10n.gnome.org/teams/\">translation team</link> for your language. This will give you the ability to upload new translations."
@@ -3207,8 +3207,8 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 #~ msgid "Demo"
 #~ msgstr "Prikaz"
 
-#~ msgid "Help for the Evince Document Viewer."
-#~ msgstr "Pomoč za Evince pregledovalnik dokumentov."
+#~ msgid "Help for the Papers Document Viewer."
+#~ msgstr "Pomoč za Papers pregledovalnik dokumentov."
 
 #~ msgid ""
 #~ "To print page 3, Click <guiseq><gui>File</gui><gui>Print</gui></guiseq> "
@@ -3249,14 +3249,14 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 #~ msgstr ""
 #~ "Kliknite <guiseq><gui> Datoteka </gui><gui> Natisni ... </gui></guiseq>"
 
-#~ msgid "You can play presentations with <app>Evince</app>."
-#~ msgstr "V <app>Evince</app> lahko predvajate predstavitve."
+#~ msgid "You can play presentations with <app>Papers</app>."
+#~ msgstr "V <app>Papers</app> lahko predvajate predstavitve."
 
-#~ msgid "<app>Evince</app> can be used to display presentations."
-#~ msgstr "<app>Evince</app> lahko uporabite za prikaz predstavitev."
+#~ msgid "<app>Papers</app> can be used to display presentations."
+#~ msgstr "<app>Papers</app> lahko uporabite za prikaz predstavitev."
 
-#~ msgid "How to open a document using <app>Evince</app>."
-#~ msgstr "Kako odpreti dokument z <app>Evince</app>."
+#~ msgid "How to open a document using <app>Papers</app>."
+#~ msgstr "Kako odpreti dokument z <app>Papers</app>."
 
 #~ msgid ""
 #~ "Choose <guiseq><gui>System</gui><gui>Administration</gui><gui>Printing</"
@@ -3275,10 +3275,10 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 #~ msgstr "Opomba:"
 
 #~ msgid ""
-#~ "To file a bug against <app>Evince</app>, click on the link <link href="
+#~ "To file a bug against <app>Papers</app>, click on the link <link href="
 #~ "\"https://bugzilla.gnome.org/\"/>."
 #~ msgstr ""
-#~ "Ta poročanje hrošča v <app>Evince</app>, kliknite na povezavo <link href="
+#~ "Ta poročanje hrošča v <app>Papers</app>, kliknite na povezavo <link href="
 #~ "\"https://bugzilla.gnome.org/\"/>."
 
 #~ msgid ""
@@ -3379,21 +3379,21 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 #~ "PostScript (.ps) ni mogoče iskati."
 
 #~ msgid ""
-#~ "The Document Viewer can be started with the <cmd>evince</cmd> command."
+#~ "The Document Viewer can be started with the <cmd>papers</cmd> command."
 #~ msgstr ""
-#~ "Pregledovalnik dokumentov lahko zaženete z ukazom <cmd>evince</cmd>."
+#~ "Pregledovalnik dokumentov lahko zaženete z ukazom <cmd>papers</cmd>."
 
 #~ msgid "Opening The Document Viewer From The Command Line"
 #~ msgstr "Odpiranje Pregledovalnika dokumentov iz ukazne vrstice"
 
-#~ msgid "Can I create bookmarks in <app>Evince Document Viewer</app>?"
+#~ msgid "Can I create bookmarks in <app>Papers Document Viewer</app>?"
 #~ msgstr ""
-#~ "Ali lahko v <app>Evince pregledovalniku dokumentov</app> ustvarim "
+#~ "Ali lahko v <app>Papers pregledovalniku dokumentov</app> ustvarim "
 #~ "zaznamke?"
 
-#~ msgid "Creating Annotations in <app>Evince Document Viewer</app>."
+#~ msgid "Creating Annotations in <app>Papers Document Viewer</app>."
 #~ msgstr ""
-#~ "Ustvarjanje zabeležk v <app>Evince pregledovalniku dokumentov</app>."
+#~ "Ustvarjanje zabeležk v <app>Papers pregledovalniku dokumentov</app>."
 
 #~ msgid "Thumbnails"
 #~ msgstr "Sličice"
@@ -3408,23 +3408,23 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 #~ msgstr "Plasti"
 
 #~ msgid ""
-#~ "You can not remove an annotation in <app>Evince Document Viewer</app>."
+#~ "You can not remove an annotation in <app>Papers Document Viewer</app>."
 #~ msgstr ""
-#~ "V <app>Evince pregledovalniku dokumentov</app> ne morete odstraniti "
+#~ "V <app>Papers pregledovalniku dokumentov</app> ne morete odstraniti "
 #~ "zabeležke."
 
 #~ msgid "How can I remove an annotation?"
 #~ msgstr "Kako lahko odstranim zabeležko?"
 
-#~ msgid "Evince Document Viewer Manual"
-#~ msgstr "Priročnik Evince pregledovalnika dokumentov"
+#~ msgid "Papers Document Viewer Manual"
+#~ msgstr "Priročnik Papers pregledovalnika dokumentov"
 
 #~ msgid ""
-#~ "The Evince Document Viewer application enables you to view documents of "
+#~ "The Papers Document Viewer application enables you to view documents of "
 #~ "various formats like Portable Document Format (PDF) files and PostScript "
 #~ "files"
 #~ msgstr ""
-#~ "Evince pregledovalnik dokumentov vam omogoča ogled dokumentov različnih "
+#~ "Papers pregledovalnik dokumentov vam omogoča ogled dokumentov različnih "
 #~ "vrst kot sta datoteki Prenosljiva vrsta dokumenta (PDF) in datoteke "
 #~ "PostScript "
 
@@ -3504,8 +3504,8 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 #~ msgid "nshmyrev@yandex.ru"
 #~ msgstr "nshmyrev@yandex.ru"
 
-#~ msgid "Evince Document Viewer Manual V1.1"
-#~ msgstr "Priročnik Evince pregledovalnika dokumentov r 1.1"
+#~ msgid "Papers Document Viewer Manual V1.1"
+#~ msgstr "Priročnik Papers pregledovalnika dokumentov r 1.1"
 
 #~ msgid "2008-04-05"
 #~ msgstr "05.04.2008"
@@ -3516,40 +3516,40 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 #~ msgid "Claude Paroz"
 #~ msgstr "Claude Paroz"
 
-#~ msgid "Evince Document Viewer Manual V1.0"
-#~ msgstr "Priročnik Evince pregledovalnika dokumentov r 1.0"
+#~ msgid "Papers Document Viewer Manual V1.0"
+#~ msgstr "Priročnik Papers pregledovalnika dokumentov r 1.0"
 
 #~ msgid "2005-04-06"
 #~ msgstr "06.04.2005"
 
-#~ msgid "This manual describes version 0.2 of Evince Document Viewer"
-#~ msgstr "Ta priročnik opisuje Evince pregledovalnik dokumentov različico 0.2"
+#~ msgid "This manual describes version 0.2 of Papers Document Viewer"
+#~ msgstr "Ta priročnik opisuje Papers pregledovalnik dokumentov različico 0.2"
 
 #~ msgid "Feedback"
 #~ msgstr "Odziv"
 
 #~ msgid ""
-#~ "To report a bug or make a suggestion regarding the Evince Document Viewer "
+#~ "To report a bug or make a suggestion regarding the Papers Document Viewer "
 #~ "application or this manual, follow the directions in the <ulink url="
 #~ "\"ghelp:gnome-feedback\" type=\"help\">GNOME Feedback Page</ulink>."
 #~ msgstr ""
-#~ "Za poročilo hrošča ali predloga glede Evince pregledovalnika dokumentov "
+#~ "Za poročilo hrošča ali predloga glede Papers pregledovalnika dokumentov "
 #~ "ali tega priročnika sledite smernicam na <ulink url=\"ghelp:gnome-feedback"
 #~ "\" type=\"help\">Strani odziva GNOME </ulink>."
 
-#~ msgid "evince"
-#~ msgstr "evince"
+#~ msgid "papers"
+#~ msgstr "papers"
 
 #~ msgid ""
-#~ "The <application>Evince Document Viewer</application> application enables "
+#~ "The <application>Papers Document Viewer</application> application enables "
 #~ "you to view documents of various formats like Portable Document Format "
-#~ "(PDF) files and PostScript files. <application>Evince Document Viewer</"
+#~ "(PDF) files and PostScript files. <application>Papers Document Viewer</"
 #~ "application> follows Freedesktop.org and GNOME standards to provide "
 #~ "integration with Desktop Environment."
 #~ msgstr ""
-#~ "Program <application>Evince pregledovalnik dokumentov</application> vam "
+#~ "Program <application>Papers pregledovalnik dokumentov</application> vam "
 #~ "omogoča ogled dokumentov različnih vrst kot so datoteke Prenosljiva vrsta "
-#~ "dokumenta (PDF) in PostScript. <application>Evince pregledovalnik "
+#~ "dokumenta (PDF) in PostScript. <application>Papers pregledovalnik "
 #~ "dokumentov</application> sledi Freedestop.org  in GNOME standardom za "
 #~ "vključitev v namizno okolje."
 
@@ -3557,37 +3557,37 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 #~ msgstr "Kako začeti"
 
 #~ msgid ""
-#~ "<application>Evince Document Viewer</application> starts when you open a "
+#~ "<application>Papers Document Viewer</application> starts when you open a "
 #~ "document such as a PDF or PostScript file."
 #~ msgstr ""
-#~ "<application>Evince pregledovalnik dokumentov</application> se zažene, ko "
+#~ "<application>Papers pregledovalnik dokumentov</application> se zažene, ko "
 #~ "odprete dokument kot je datoteka PDF ali PostScript."
 
 #~ msgid ""
-#~ "Alternatively, you can start <application>Evince Document Viewer</"
-#~ "application> from the command line, with the command: <command>evince</"
+#~ "Alternatively, you can start <application>Papers Document Viewer</"
+#~ "application> from the command line, with the command: <command>papers</"
 #~ "command>."
 #~ msgstr ""
-#~ "Dodatno lahko <application>Evince pregledovalnik dokumentov</application> "
-#~ "zaženete v ukazni vrstici z ukazom: <command>evince</command>."
+#~ "Dodatno lahko <application>Papers pregledovalnik dokumentov</application> "
+#~ "zaženete v ukazni vrstici z ukazom: <command>papers</command>."
 
-#~ msgid "Evince Document Viewer Window"
-#~ msgstr "Okno Evince pregledovalnika dokumentov "
+#~ msgid "Papers Document Viewer Window"
+#~ msgstr "Okno Papers pregledovalnika dokumentov "
 
 #~ msgid ""
-#~ "Shows Evince Document Viewer main window. Contains titlebar, menubar, "
+#~ "Shows Papers Document Viewer main window. Contains titlebar, menubar, "
 #~ "toolbar and display area. Menubar contains File, Edit, View, Go and Help "
 #~ "menus."
 #~ msgstr ""
-#~ "Pokaže glavno okno Evince pregledovalnika dokumentov. Vsebuje naslovno "
+#~ "Pokaže glavno okno Papers pregledovalnika dokumentov. Vsebuje naslovno "
 #~ "vrstico, menijsko vrstico, orodno vrstico in področje prikaza. Menijska "
 #~ "vrstica vsebuje menije Datoteka, Uredi, Pogled in Pomoč."
 
 #~ msgid ""
-#~ "The <application>Evince Document Viewer</application> window contains the "
+#~ "The <application>Papers Document Viewer</application> window contains the "
 #~ "following elements:"
 #~ msgstr ""
-#~ "Okno <application>Evince pregledovalnika dokumentov</application> vsebuje "
+#~ "Okno <application>Papers pregledovalnika dokumentov</application> vsebuje "
 #~ "naslednje predmete:"
 
 #~ msgid "Menubar"
@@ -3595,10 +3595,10 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 
 #~ msgid ""
 #~ "The menus on the menubar contain all of the commands that you need to "
-#~ "work with documents in <application>Evince Document Viewer</application>."
+#~ "work with documents in <application>Papers Document Viewer</application>."
 #~ msgstr ""
 #~ "Meniji v menijski vrstici vsebujejo vse ukaze, ki jih potrebujete za delo "
-#~ "z dokumenti v <application>Evince pregledovalniku dokumentov</"
+#~ "z dokumenti v <application>Papers pregledovalniku dokumentov</"
 #~ "application>."
 
 #~ msgid ""
@@ -3622,10 +3622,10 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 #~ msgstr "Okno"
 
 #~ msgid ""
-#~ "Drag a file into the <application>Evince Document Viewer</application> "
+#~ "Drag a file into the <application>Papers Document Viewer</application> "
 #~ "window from another application such as a file manager."
 #~ msgstr ""
-#~ "Povlecite datoteko v okno <application>Evince pregledovalnika dokumentov</"
+#~ "Povlecite datoteko v okno <application>Papers pregledovalnika dokumentov</"
 #~ "application> iz drugega programa kot je upravljalnik datotek."
 
 #~ msgid ""
@@ -3643,14 +3643,14 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 #~ "Pritisnite <keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>."
 
 #~ msgid ""
-#~ "In <application>Evince Document Viewer</application>, you can perform the "
+#~ "In <application>Papers Document Viewer</application>, you can perform the "
 #~ "same action in several ways. For example, you can open a document in the "
 #~ "following ways: <informaltable frame=\"all\"><tgroup cols=\"2\" colsep="
 #~ "\"1\" rowsep=\"1\"><colspec colname=\"COLSPEC0\" colwidth=\"50*\"/"
 #~ "><colspec colname=\"COLSPEC1\" colwidth=\"50*\"/><placeholder-1/"
 #~ "><placeholder-2/></tgroup></informaltable>"
 #~ msgstr ""
-#~ "V <application>Evince pregledovalniku dokumentov</application> lahko isto "
+#~ "V <application>Papers pregledovalniku dokumentov</application> lahko isto "
 #~ "dejanje izvedete na več načinov. Dokument lahko na primer odprete na "
 #~ "naslednje načine: <informaltable frame=\"all\"><tgroup cols=\"2\" colsep="
 #~ "\"1\" rowsep=\"1\"><colspec colname=\"COLSPEC0\" colwidth=\"50*\"/"
@@ -3671,22 +3671,22 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 #~ "ki jo želite odpreti."
 
 #~ msgid ""
-#~ "Click <guibutton>Open</guibutton>. <application>Evince Document Viewer</"
+#~ "Click <guibutton>Open</guibutton>. <application>Papers Document Viewer</"
 #~ "application> displays the name of the document in the titlebar of the "
 #~ "window."
 #~ msgstr ""
-#~ "Kliknite <guibutton>Odpri</guibutton>. <application>Evince pregledovalnik "
+#~ "Kliknite <guibutton>Odpri</guibutton>. <application>Papers pregledovalnik "
 #~ "dokumentov</application> prikaže ime dokumenta v naslovni vrstici okna."
 
 #~ msgid ""
 #~ "To open another document, choose <menuchoice><guimenu>File</"
 #~ "guimenu><guimenuitem>Open</guimenuitem></menuchoice> again. "
-#~ "<application>Evince Document Viewer</application> opens each file in a "
+#~ "<application>Papers Document Viewer</application> opens each file in a "
 #~ "new window."
 #~ msgstr ""
 #~ "Za odprtje drugega dokumenta ponovno izberite "
 #~ "<menuchoice><guimenu>Datoteka</guimenu><guimenuitem>Odpri</guimenuitem></"
-#~ "menuchoice>. <application>Evince pregledovalnik dokumentov</application> "
+#~ "menuchoice>. <application>Papers pregledovalnik dokumentov</application> "
 #~ "odpre vsako datoteko v svojemu oknu."
 
 #~ msgid "To Navigate Through a Document"
@@ -3757,39 +3757,39 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 #~ "guimenu><guimenuitem>Oddalji</guimenuitem></menuchoice>."
 
 #~ msgid ""
-#~ "To resize a page to have the same width as the <application>Evince "
+#~ "To resize a page to have the same width as the <application>Papers "
 #~ "Document Viewer</application> display area, choose "
 #~ "<menuchoice><guimenu>View</guimenu><guimenuitem>Fit page width</"
 #~ "guimenuitem></menuchoice>."
 #~ msgstr ""
-#~ "Za spremembo širine strani na širino področja prikaza <application>Evince "
+#~ "Za spremembo širine strani na širino področja prikaza <application>Papers "
 #~ "pregledovalnika dokumentov</application> izberite "
 #~ "<menuchoice><guimenu>Pogled</guimenu><guimenuitem>Prilagojeno širini "
 #~ "strani</guimenuitem></menuchoice>."
 
 #~ msgid ""
-#~ "To resize a page to fit within the <application>Evince Document Viewer</"
+#~ "To resize a page to fit within the <application>Papers Document Viewer</"
 #~ "application> display area, choose <menuchoice><guimenu>View</"
 #~ "guimenu><guimenuitem>Best Fit</guimenuitem></menuchoice>."
 #~ msgstr ""
-#~ "Za spremembo velikosti strani v področju prikaza <application>Evince "
+#~ "Za spremembo velikosti strani v področju prikaza <application>Papers "
 #~ "pregledovalnika dokumentov</application> izberite "
 #~ "<menuchoice><guimenu>Pogled</guimenu><guimenuitem>Prilagojeno zaslonu</"
 #~ "guimenuitem></menuchoice>."
 
 #~ msgid ""
-#~ "To resize the <application>Evince Document Viewer</application> window to "
+#~ "To resize the <application>Papers Document Viewer</application> window to "
 #~ "have the same width and height as the screen, choose "
 #~ "<menuchoice><guimenu>View</guimenu><guimenuitem>Full Screen</"
-#~ "guimenuitem></menuchoice>. To resize the <application>Evince Document "
+#~ "guimenuitem></menuchoice>. To resize the <application>Papers Document "
 #~ "Viewer</application> window to the original size, click on the "
 #~ "<guibutton>Exit Full Screen</guibutton> button."
 #~ msgstr ""
-#~ "Za spremembo velikosti okna <application>Evince pregledovalnika "
+#~ "Za spremembo velikosti okna <application>Papers pregledovalnika "
 #~ "dokumentov</application> na enako širino in višino kot zaslon izberite "
 #~ "<menuchoice><guimenu>Pogled</guimenu><guimenuitem>Celozaslonski način</"
 #~ "guimenuitem></menuchoice>. Za spremembo velikosti okna "
-#~ "<application>Evince pregledovalnika dokumentov</application> nazaj na "
+#~ "<application>Papers pregledovalnika dokumentov</application> nazaj na "
 #~ "izvorno velikost kliknite na gumb <guibutton>Zapusti celozaslonski način</"
 #~ "guibutton>."
 
@@ -3848,13 +3848,13 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 #~ "If you cannot choose the <guimenuitem>Print</guimenuitem> menu item, the "
 #~ "author of the document has disabled the print option for this document. "
 #~ "To enable the print option, you must enter the master password when you "
-#~ "open the document. See <xref linkend=\"evince-password\"/> for more "
+#~ "open the document. See <xref linkend=\"papers-password\"/> for more "
 #~ "information about password-protected files."
 #~ msgstr ""
 #~ "V primeru da ne morete izbrati predmeta menija <guimenuitem>Natisni</"
 #~ "guimenuitem> je avtor dokumenta za ta dokument onemogočil možnost tiska. "
 #~ "Za omogočitev možnosti tiskanja morate pri odpiranju dokumenta vnesti "
-#~ "glavno geslo. Oglejte si <xref linkend=\"evince-password\"/> za več "
+#~ "glavno geslo. Oglejte si <xref linkend=\"papers-password\"/> za več "
 #~ "podrobnosti o z geslom zaščitenih datotekah."
 
 #~ msgid ""
@@ -3896,10 +3896,10 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 
 #~ msgid ""
 #~ "The <guilabel>Create a PDF document</guilabel> option is not supported in "
-#~ "this version of <application>Evince Document Viewer</application>."
+#~ "this version of <application>Papers Document Viewer</application>."
 #~ msgstr ""
 #~ "Možnost <guilabel>Ustvari dokument PDF</guilabel> v tej različici "
-#~ "<application>Evince pregledovalnika dokumentov</application> ni podprta."
+#~ "<application>Papers pregledovalnika dokumentov</application> ni podprta."
 
 #~ msgid "Settings"
 #~ msgstr "Nastavitve"
@@ -3962,9 +3962,9 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 
 #~ msgid ""
 #~ "This functionality is not supported in this version of "
-#~ "<application>Evince Document Viewer</application>."
+#~ "<application>Papers Document Viewer</application>."
 #~ msgstr ""
-#~ "Ta zmožnost v tej različici <application>Evince pregledovalnika "
+#~ "Ta zmožnost v tej različici <application>Papers pregledovalnika "
 #~ "dokumentov</application> ni podprta."
 
 #~ msgid "Type"
@@ -4061,13 +4061,13 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 #~ "dokumenta."
 
 #~ msgid ""
-#~ "When you try to open a password-protected document, <application>Evince "
+#~ "When you try to open a password-protected document, <application>Papers "
 #~ "Document Viewer</application> displays a security dialog. Type either the "
 #~ "user password or the master password in the <guilabel>Enter document "
 #~ "password</guilabel> text box, then click <guibutton>Open Document</"
 #~ "guibutton>."
 #~ msgstr ""
-#~ "Ko poskusite odpreti z geslom zaščiten dokument, <application>Evince "
+#~ "Ko poskusite odpreti z geslom zaščiten dokument, <application>Papers "
 #~ "pregledovalnik dokumentov</application> prikaže pogovorno okno varnosti. "
 #~ "V polje <guilabel>Vnesite geslo dokumenta</guilabel> vpišite uporabniško "
 #~ "geslo ali glavno geslo in nato kliknite <guibutton>Odpri dokument</"
@@ -4084,10 +4084,10 @@ msgstr "Namesto tega lahko stopite v stik s prevajalsko ekipo preko njihovega <l
 #~ "guimenu><guimenuitem>Zapri</guimenuitem></menuchoice>."
 
 #~ msgid ""
-#~ "If the window is the last <application>Evince Document Viewer</"
+#~ "If the window is the last <application>Papers Document Viewer</"
 #~ "application> window open, the application exits."
 #~ msgstr ""
-#~ "V primeru da je okno zadnje odprto okno <application>Evince "
+#~ "V primeru da je okno zadnje odprto okno <application>Papers "
 #~ "pregledovalnika dokumentov</application> se program zapre."
 
 #~ msgid "Shortcut"

@@ -1,20 +1,20 @@
 previewer_sources = files(
-  'ev-previewer-window.c',
-  'ev-previewer-window.h',
-  'ev-previewer.c',
+  'pps-previewer-window.c',
+  'pps-previewer-window.h',
+  'pps-previewer.c',
 )
 
 previewer_sources += gnome.compile_resources(
-  'ev-previewer-resources',
+  'pps-previewer-resources',
   'previewer.gresource.xml',
   source_dir: data_dir,
-  c_name: 'ev_previewer',
+  c_name: 'pps_previewer',
 )
 
 previewer_deps = [
-  libevdocument_dep,
-  libevmisc_dep,
-  libevview_dep,
+  libppsdocument_dep,
+  libppsmisc_dep,
+  libppsview_dep,
   libaw_dep
 ]
 
@@ -23,7 +23,7 @@ if enable_gtk_unix_print
 endif
 
 previewer = executable(
-  'evince-previewer',
+  'papers-previewer',
   previewer_sources,
   include_directories: top_inc,
   dependencies: previewer_deps,

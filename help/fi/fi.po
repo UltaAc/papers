@@ -1,4 +1,4 @@
-# Finnish translation of Evince manual.
+# Finnish translation of Papers manual.
 #
 # Copyright © Tommi Vainikainen, 2006.
 # Copyright © Flammie Pirinen, 2006. (merged from gucharmap translation)
@@ -6,7 +6,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evince 0.5.2\n"
+"Project-Id-Version: papers 0.5.2\n"
 "POT-Creation-Date: 2014-04-15 11:05+0000\n"
 "PO-Revision-Date: 2013-12-31 08:15+0200\n"
 "Last-Translator: Sami Jaktholm <sjakthol@outlook.com>\n"
@@ -561,17 +561,17 @@ msgstr ""
 #: C/bug-filing.page:29
 msgid ""
 "Once you have an account, log in, click on <guiseq><gui>File a Bug</"
-"gui><gui>Core</gui><gui>evince</gui></guiseq>. Before reporting a bug, "
+"gui><gui>Core</gui><gui>papers</gui></guiseq>. Before reporting a bug, "
 "please read the <link href=\"https://bugzilla.gnome.org/page.cgi?id=bug-"
 "writing.html\">bug writing guidelines</link>, and please <link href="
-"\"https://bugzilla.gnome.org/browse.cgi?product=evince\">browse</link> for "
+"\"https://bugzilla.gnome.org/browse.cgi?product=papers\">browse</link> for "
 "the bug to see if it already exists."
 msgstr ""
 "Luotuasi tilin kirjaudu sisään ja valitse <guiseq><gui>File a Bug</"
-"gui><gui>Core</gui><gui>evince</gui></guiseq>. Lue <link href=\"https://"
+"gui><gui>Core</gui><gui>papers</gui></guiseq>. Lue <link href=\"https://"
 "bugzilla.gnome.org/page.cgi?id=bug-writing.html\">virheilmoituksen "
 "lähetysohjeet</link> ja <link href=\"https://bugzilla.gnome.org/browse.cgi?"
-"product=evince\">etsi</link> vastaavia ongelmia jo lähetettyjen ilmoitusten "
+"product=papers\">etsi</link> vastaavia ongelmia jo lähetettyjen ilmoitusten "
 "joukosta ennen virheraportin lähettämistä."
 
 #. (itstool) path: page/p
@@ -614,10 +614,10 @@ msgstr "Komentorivi"
 #. (itstool) path: info/desc
 #: C/commandline.page:8
 msgid ""
-"The <cmd>evince</cmd> command can open any number of files, at specific "
+"The <cmd>papers</cmd> command can open any number of files, at specific "
 "pages and in various modes."
 msgstr ""
-"<cmd>evince</cmd>-komennolla voi avata useita tiedostoja valitulle sivulle "
+"<cmd>papers</cmd>-komennolla voi avata useita tiedostoja valitulle sivulle "
 "halutussa tilassa."
 
 #. (itstool) path: credit/name
@@ -640,49 +640,49 @@ msgstr "Komentorivin käyttö"
 #: C/commandline.page:24
 msgid ""
 "To start the <app>Document Viewer</app> from the command line, type "
-"<cmd>evince</cmd>. You can open a specific file by typing the filename after "
-"the evince command:"
+"<cmd>papers</cmd>. You can open a specific file by typing the filename after "
+"the papers command:"
 msgstr ""
 "<app>Asiakirjakatselin</app> käynnistyy komentoriviltä komennolla "
-"<cmd>evince</cmd>. Tietty tiedosto voidaan avata kirjoittamalla tiedoston "
-"nimi evince-komenon jälkeen:"
+"<cmd>papers</cmd>. Tietty tiedosto voidaan avata kirjoittamalla tiedoston "
+"nimi papers-komenon jälkeen:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:29
 #, no-wrap
-msgid "evince file.pdf"
-msgstr "evince tiedosto.pdf"
+msgid "papers file.pdf"
+msgstr "papers tiedosto.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:30
 msgid ""
-"You can open multiple files by typing the filenames after the evince "
+"You can open multiple files by typing the filenames after the papers "
 "command, separating the filenames by a space:"
 msgstr ""
-"Useita tiedostoja voi avata kerralla kirjoittamalla tiedostonimet evince-"
+"Useita tiedostoja voi avata kerralla kirjoittamalla tiedostonimet papers-"
 "komennon perään välilyönnillä erotettuna:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:33
 #, no-wrap
-msgid "evince file1.pdf file2.pdf"
-msgstr "evince tiedosto1.pdf tiedosto2.pdf"
+msgid "papers file1.pdf file2.pdf"
+msgstr "papers tiedosto1.pdf tiedosto2.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:34
 msgid ""
 "The <app>document viewer</app> also supports the handling of files on the "
-"web. For example, after the evince command you can give the location of a "
+"web. For example, after the papers command you can give the location of a "
 "file on the web:"
 msgstr ""
-"<app>Asiakirjakatselin</app> tukee myös verkkotiedostojen avaamista. Evince-"
+"<app>Asiakirjakatselin</app> tukee myös verkkotiedostojen avaamista. Papers-"
 "komennon perään voi kirjoittaa tiedoston verkko-osoitteen:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:37
 #, no-wrap
-msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:39
@@ -701,8 +701,8 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:44
 #, no-wrap
-msgid "evince --page-label=3 file.pdf"
-msgstr "evince --page-label=3 tiedosto.pdf"
+msgid "papers --page-label=3 file.pdf"
+msgstr "papers --page-label=3 tiedosto.pdf"
 
 #. (itstool) path: section/p
 #: C/commandline.page:45
@@ -721,8 +721,8 @@ msgstr "Asiakirjan avaaminen kokoruututilassa"
 #. (itstool) path: section/screen
 #: C/commandline.page:52
 #, no-wrap
-msgid "evince --fullscreen file.pdf"
-msgstr "evince --fullscreen tiedosto.pdf"
+msgid "papers --fullscreen file.pdf"
+msgstr "papers --fullscreen tiedosto.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:55
@@ -732,8 +732,8 @@ msgstr "Asiakirjan avaaminen esitystilassa"
 #. (itstool) path: section/screen
 #: C/commandline.page:56
 #, no-wrap
-msgid "evince --presentation file.pdf"
-msgstr "evince --presentation tiedosto.pdf"
+msgid "papers --presentation file.pdf"
+msgstr "papers --presentation tiedosto.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:59
@@ -743,8 +743,8 @@ msgstr "Asiakirjan avaaminen esikatselutilassa"
 #. (itstool) path: section/screen
 #: C/commandline.page:60
 #, no-wrap
-msgid "evince --preview file.pdf"
-msgstr "evince --preview tiedosto.pdf"
+msgid "papers --preview file.pdf"
+msgstr "papers --preview tiedosto.pdf"
 
 #. (itstool) path: info/desc
 #: C/convertpdf.page:7
@@ -1047,24 +1047,24 @@ msgstr ""
 #: C/develop.page:23
 #, fuzzy
 #| msgid ""
-#| "If you would like to <link href=\"https://live.gnome.org/Evince\">help "
+#| "If you would like to <link href=\"https://live.gnome.org/Papers\">help "
 #| "develop</link> the <app>Document Viewer</app>, you can get in touch with "
 #| "the developers using <link href=\"https://cbe005.chat.mibbit.com/?url=irc"
-#| "%3A%2F%2Firc.gnome.org%2Fevince\">irc</link>, or via our <link href="
-#| "\"https://mail.gnome.org/mailman/listinfo/evince-list\">mailing list</"
+#| "%3A%2F%2Firc.gnome.org%2Fpapers\">irc</link>, or via our <link href="
+#| "\"https://mail.gnome.org/mailman/listinfo/papers-list\">mailing list</"
 #| "link>."
 msgid ""
-"If you would like to <link href=\"https://wiki.gnome.org/Apps/Evince\">help "
+"If you would like to <link href=\"https://wiki.gnome.org/Apps/Papers\">help "
 "develop</link> the <app>Document Viewer</app>, you can get in touch with the "
 "developers using <link href=\"https://cbe005.chat.mibbit.com/?url=irc%3A%2F"
-"%2Firc.gnome.org%2Fevince\">irc</link>, or via our <link href=\"https://mail."
-"gnome.org/mailman/listinfo/evince-list\">mailing list</link>."
+"%2Firc.gnome.org%2Fpapers\">irc</link>, or via our <link href=\"https://mail."
+"gnome.org/mailman/listinfo/papers-list\">mailing list</link>."
 msgstr ""
-"Jos haluat <link href=\"https://live.gnome.org/Evince\">auttaa kehittämään</"
+"Jos haluat <link href=\"https://live.gnome.org/Papers\">auttaa kehittämään</"
 "link> <app>Asiakirjakatselinta</app>, ota yhteyttä kehittäjiin <link href="
-"\"https://cbe005.chat.mibbit.com/?url=irc%3A%2F%2Firc.gnome.org%2Fevince"
+"\"https://cbe005.chat.mibbit.com/?url=irc%3A%2F%2Firc.gnome.org%2Fpapers"
 "\">irc:n</link> tai <link href=\"https://mail.gnome.org/mailman/listinfo/"
-"evince-list\">postituslistan</link> avulla."
+"papers-list\">postituslistan</link> avulla."
 
 #. (itstool) path: info/desc
 #: C/documentation.page:7
@@ -2241,19 +2241,19 @@ msgstr "Salattujen tiedostojen kopioita ei voi tallentaa tai tulostaa."
 #. (itstool) path: info/title
 #: C/index.page:8
 msgctxt "link"
-msgid "Evince Document Viewer"
-msgstr "Evince-asiakirjakatselin"
+msgid "Papers Document Viewer"
+msgstr "Papers-asiakirjakatselin"
 
 #. (itstool) path: info/title
 #: C/index.page:9
 msgctxt "text"
-msgid "Evince Document Viewer"
-msgstr "Evince-asiakirjakatselin"
+msgid "Papers Document Viewer"
+msgstr "Papers-asiakirjakatselin"
 
 #. (itstool) path: info/desc
 #: C/index.page:24
 msgid ""
-"<app>Document Viewer</app>, formally known as <app>Evince</app>, is made for "
+"<app>Document Viewer</app>, formally known as <app>Papers</app>, is made for "
 "viewing PDF documents. Learn how to get started with <app>Document Viewer</"
 "app> and its features."
 msgstr ""
@@ -2262,9 +2262,9 @@ msgstr ""
 #: C/index.page:30
 #, fuzzy
 #| msgctxt "link"
-#| msgid "Evince Document Viewer"
+#| msgid "Papers Document Viewer"
 msgid "<_:media-1/> Document Viewer Help"
-msgstr "Evince-asiakirjakatselin"
+msgstr "Papers-asiakirjakatselin"
 
 #. (itstool) path: section/title
 #: C/index.page:36
@@ -2318,8 +2318,8 @@ msgstr "Liity kehitystyöhön"
 
 #. (itstool) path: info/desc
 #: C/introduction.page:18
-msgid "Introduction to the <em>Evince Document Viewer</em>."
-msgstr "Johdanto <em>Evince-asiakirjakatselimen</em> käyttöön."
+msgid "Introduction to the <em>Papers Document Viewer</em>."
+msgstr "Johdanto <em>Papers-asiakirjakatselimen</em> käyttöön."
 
 #. (itstool) path: page/title
 #: C/introduction.page:21
@@ -2329,10 +2329,10 @@ msgstr "Johdanto"
 #. (itstool) path: page/p
 #: C/introduction.page:23
 msgid ""
-"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a "
+"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
-"<app>Evince</app> on asiakirjakatselin. Katso tuetut tiedostomuodot "
+"<app>Papers</app> on asiakirjakatselin. Katso tuetut tiedostomuodot "
 "artikkelista <link xref=\"formats\"/>."
 
 #. (itstool) path: info/desc
@@ -2991,8 +2991,8 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/noprint.page:76
-msgid "Browse to <sys>/org/gnome/evince</sys> using the side pane."
-msgstr "Etsi kohde <sys>/org/gnome/evince</sys> sivupaneelista."
+msgid "Browse to <sys>/org/gnome/papers</sys> using the side pane."
+msgstr "Etsi kohde <sys>/org/gnome/papers</sys> sivupaneelista."
 
 #. (itstool) path: item/p
 #: C/noprint.page:78
@@ -4038,7 +4038,7 @@ msgstr ""
 #: C/singlesided-13-16pages.page:100 C/singlesided-17-20pages.page:98
 #: C/singlesided-3-4pages.page:97 C/singlesided-5-8pages.page:97
 #: C/singlesided-9-12pages.page:97 C/singlesided-npages.page:104
-msgid "In the <gui>Only print</gui> menu, select <gui>Even sheets</gui>."
+msgid "In the <gui>Only print</gui> menu, select <gui>Ppsen sheets</gui>."
 msgstr ""
 "Valitse <gui>Tulosta vain</gui> -valikosta <gui>Parilliset sivut</gui>."
 
@@ -4335,22 +4335,22 @@ msgstr "Vim-latex"
 #. (itstool) path: section/p
 #: C/synctex-editors.page:29
 msgid ""
-"The <app>gedit</app> plugin contains a python script (evince_dbus.py) that "
+"The <app>gedit</app> plugin contains a python script (papers_dbus.py) that "
 "can be used to get SyncTeX working with Vim. In order to use vim-latex "
 "together with the <app>document viewer</app> you need to follow the next "
 "steps:"
 msgstr ""
-"<app>Gedit</app>-lisäosa sisältää python-komentotiedoston (evince_dbus.py), "
+"<app>Gedit</app>-lisäosa sisältää python-komentotiedoston (papers_dbus.py), "
 "jota voi hyödyntää myös Vim:n kanssa. Vim-latexia voi käyttää "
 "<app>asiakirjakatselimen</app> kanssa seuraavasti:"
 
 #. (itstool) path: item/p
 #: C/synctex-editors.page:35
 msgid ""
-"Copy the evince_dbus.py to some directory in your path and give it +x "
+"Copy the papers_dbus.py to some directory in your path and give it +x "
 "permissions."
 msgstr ""
-"Kopioi evince_dbus.py kansioon, joka on suoritettavien ohjelmien polussa ja "
+"Kopioi papers_dbus.py kansioon, joka on suoritettavien ohjelmien polussa ja "
 "anna sille suoritusoikeudet (+x)."
 
 #. (itstool) path: item/p
@@ -4363,12 +4363,12 @@ msgstr "Lisää ~/.vimrc -tiedostoon seuraavat rivit:"
 #, no-wrap
 msgid ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 msgstr ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 
@@ -4702,7 +4702,7 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/translate.page:27
 msgid ""
-"There are <link href=\"http://l10n.gnome.org/module/evince/\">many "
+"There are <link href=\"http://l10n.gnome.org/module/papers/\">many "
 "languages</link> for which translations are still needed."
 msgstr ""
 "Käännös puuttuu vielä <link href=\"http://l10n.gnome.org/module/eog/"
@@ -4757,11 +4757,11 @@ msgstr ""
 "%20muokkaaminen\">Ubuntu Suomen wikistä</link>."
 
 #~ msgid ""
-#~ "<media type=\"image\" src=\"figures/evincelogo.png\">Evince logo</"
-#~ "media>Evince document viewer"
+#~ "<media type=\"image\" src=\"figures/paperslogo.png\">Papers logo</"
+#~ "media>Papers document viewer"
 #~ msgstr ""
-#~ "<media type=\"image\" src=\"figures/evincelogo.png\">Evince-logo</"
-#~ "media>Evince-asiakirjakatselin"
+#~ "<media type=\"image\" src=\"figures/paperslogo.png\">Papers-logo</"
+#~ "media>Papers-asiakirjakatselin"
 
 #~ msgid ""
 #~ "Click <guiseq><gui>File</gui><gui>Print</gui></guiseq> and go to the "
@@ -4908,21 +4908,21 @@ msgstr ""
 #~ "DOCUMENTATION LICENSEN EHDOIN SEKÄ YMMÄRTÄEN ETTÄ: <placeholder-1/>"
 
 #~ msgid ""
-#~ "@@image: 'figures/evince_start_window.png'; "
+#~ "@@image: 'figures/papers_start_window.png'; "
 #~ "md5=7f4da5e33bcac35738a268d93d497d47"
 #~ msgstr ""
-#~ "@@image: 'figures/evince_start_window.png'; "
+#~ "@@image: 'figures/papers_start_window.png'; "
 #~ "md5=7f4da5e33bcac35738a268d93d497d47"
 
-#~ msgid "Evince Document Viewer Manual"
-#~ msgstr "Evince-asiakirjakatselimen käyttöohje"
+#~ msgid "Papers Document Viewer Manual"
+#~ msgstr "Papers-asiakirjakatselimen käyttöohje"
 
 #~ msgid ""
-#~ "The Evince Document Viewer application enables you to view documents of "
+#~ "The Papers Document Viewer application enables you to view documents of "
 #~ "various formats like Portable Document Format (PDF) files and PostScript "
 #~ "files"
 #~ msgstr ""
-#~ "Evince-asiakirjakatselimella voi katsella mm. PDF- ja PostScript-"
+#~ "Papers-asiakirjakatselimella voi katsella mm. PDF- ja PostScript-"
 #~ "muotoisia asiakirjoja"
 
 #~ msgid "2005"
@@ -4952,81 +4952,81 @@ msgstr ""
 #~ msgid "nshmyrev@yandex.ru"
 #~ msgstr "nshmyrev@yandex.ru"
 
-#~ msgid "Evince Document Viewer Manual V1.0"
-#~ msgstr "Evince-asiakirjakatselimen käyttöohje v1.0"
+#~ msgid "Papers Document Viewer Manual V1.0"
+#~ msgstr "Papers-asiakirjakatselimen käyttöohje v1.0"
 
 #~ msgid "2005-04-06"
 #~ msgstr "2005-04-06"
 
-#~ msgid "This manual describes version 0.2 of Evince Document Viewer"
-#~ msgstr "Tämä käyttöohje kuvaa Evince-asiakirjakatselimen version 0.2"
+#~ msgid "This manual describes version 0.2 of Papers Document Viewer"
+#~ msgstr "Tämä käyttöohje kuvaa Papers-asiakirjakatselimen version 0.2"
 
 #~ msgid "Feedback"
 #~ msgstr "Palaute"
 
 #~ msgid ""
-#~ "To report a bug or make a suggestion regarding the Evince Document Viewer "
+#~ "To report a bug or make a suggestion regarding the Papers Document Viewer "
 #~ "application or this manual, follow the directions in the <ulink url="
 #~ "\"ghelp:gnome-feedback\" type=\"help\">GNOME Feedback Page</ulink>."
 #~ msgstr ""
-#~ "Ilmoittaaksesi viasta tai tehdäksesi ehdotuksen Evince-"
+#~ "Ilmoittaaksesi viasta tai tehdäksesi ehdotuksen Papers-"
 #~ "asiakirjakatselimeen taikka tähän käyttöohjeeseen liittyen, seuraa "
 #~ "ohjeita <ulink url=\"ghelp:gnome-feedback\" type=\"help\">Gnomen "
 #~ "palautesivulla</ulink>."
 
-#~ msgid "evince"
-#~ msgstr "evince"
+#~ msgid "papers"
+#~ msgstr "papers"
 
 #~ msgid ""
-#~ "The <application>Evince Document Viewer</application> application enables "
+#~ "The <application>Papers Document Viewer</application> application enables "
 #~ "you to view documents of various formats like Portable Document Format "
-#~ "(PDF) files and PostScript files. <application>Evince Document Viewer</"
+#~ "(PDF) files and PostScript files. <application>Papers Document Viewer</"
 #~ "application> follows Freedesktop.org and GNOME standards to provide "
 #~ "integration with Desktop Environment."
 #~ msgstr ""
-#~ "<application>Evince-asiakirjakatselimella</application> voit katsoa "
+#~ "<application>Papers-asiakirjakatselimella</application> voit katsoa "
 #~ "asiakirjoja eri tiedostomuodoissa kuten Portable Document Format (PDF) ja "
-#~ "PostScript. <application>Evince-asiakirjakatselin</application> noudattaa "
+#~ "PostScript. <application>Papers-asiakirjakatselin</application> noudattaa "
 #~ "Freedesktop.org- ja Gnome-standardeja ja sulautuu sen ansiosta "
 #~ "luontevasti työpöytäympäristöön."
 
 #~ msgid "Getting Started"
 #~ msgstr "Aloittaminen"
 
-#~ msgid "To Start Evince Document Viewer"
-#~ msgstr "Evince-asiakirjakatselimen käynnistäminen"
+#~ msgid "To Start Papers Document Viewer"
+#~ msgstr "Papers-asiakirjakatselimen käynnistäminen"
 
 #~ msgid ""
-#~ "<application>Evince Document Viewer</application> starts when you open a "
+#~ "<application>Papers Document Viewer</application> starts when you open a "
 #~ "document such as a PDF or PostScript file."
 #~ msgstr ""
-#~ "<application>Evince-asiakirjakatselin</application> käynnistyy kun avaat "
+#~ "<application>Papers-asiakirjakatselin</application> käynnistyy kun avaat "
 #~ "asiakirjan kuten PDF- tai PostScript-tiedoston."
 
 #~ msgid ""
-#~ "Alternatively, you can start <application>Evince Document Viewer</"
-#~ "application> from the command line, with the command: <command>evince</"
+#~ "Alternatively, you can start <application>Papers Document Viewer</"
+#~ "application> from the command line, with the command: <command>papers</"
 #~ "command>."
 #~ msgstr ""
-#~ "Vaihtoehtoisesti voit käynnistää <application>Evince-asiakirjakatselimen</"
-#~ "application> komentoriviltä komennolla: <command>evince</command>."
+#~ "Vaihtoehtoisesti voit käynnistää <application>Papers-asiakirjakatselimen</"
+#~ "application> komentoriviltä komennolla: <command>papers</command>."
 
 #~ msgid ""
-#~ "When you start <application>Evince Document Viewer</application>, the "
+#~ "When you start <application>Papers Document Viewer</application>, the "
 #~ "following window is displayed."
 #~ msgstr ""
-#~ "Kun käynnistät <application>Evince-asiakirjakatselimen</application>, "
+#~ "Kun käynnistät <application>Papers-asiakirjakatselimen</application>, "
 #~ "seuraava ikkuna ilmaantuu näkyviin."
 
-#~ msgid "Evince Document Viewer Window"
-#~ msgstr "Evince-asiakirjakatselimen ikkuna"
+#~ msgid "Papers Document Viewer Window"
+#~ msgstr "Papers-asiakirjakatselimen ikkuna"
 
 #~ msgid ""
-#~ "Shows Evince Document Viewer main window. Contains titlebar, menubar, "
+#~ "Shows Papers Document Viewer main window. Contains titlebar, menubar, "
 #~ "toolbar and display area. Menubar contains File, Edit, View, Go and Help "
 #~ "menus."
 #~ msgstr ""
-#~ "Näkymä Evince-asiakirjakatselimen pääikkunasta. Ikkuna sisältää "
+#~ "Näkymä Papers-asiakirjakatselimen pääikkunasta. Ikkuna sisältää "
 #~ "otsikkopalkin, valikkopalkin, työkalupalkin sekä näyttöalueen. "
 #~ "Valikkopalkki sisältää Tiedosto-, Muokkaa-, Näkymä-, Mene- ja Ohje-"
 #~ "valikot."
@@ -5036,10 +5036,10 @@ msgstr ""
 
 #~ msgid ""
 #~ "The menus on the menubar contain all of the commands that you need to "
-#~ "work with documents in <application>Evince Document Viewer</application>."
+#~ "work with documents in <application>Papers Document Viewer</application>."
 #~ msgstr ""
 #~ "Valikkopalkin valikot sisältävät kaikki komennot, joita tarvitset "
-#~ "asiakirjojen kanssa työskennellessä <application>Evince-"
+#~ "asiakirjojen kanssa työskennellessä <application>Papers-"
 #~ "asiakirjakatselimella</application>."
 
 #~ msgid ""
@@ -5064,10 +5064,10 @@ msgstr ""
 #~ msgstr "Ikkuna"
 
 #~ msgid ""
-#~ "Drag a file into the <application>Evince Document Viewer</application> "
+#~ "Drag a file into the <application>Papers Document Viewer</application> "
 #~ "window from another application such as a file manager."
 #~ msgstr ""
-#~ "Vedä tiedosto <application>Evince-asiakirjakatselimen</application> "
+#~ "Vedä tiedosto <application>Papers-asiakirjakatselimen</application> "
 #~ "ikkunaan toisesta sovelluksesta kuten tiedostonhallinnasta."
 
 #~ msgid ""
@@ -5081,14 +5081,14 @@ msgstr ""
 #~ msgstr "Pikanäppäimet"
 
 #~ msgid ""
-#~ "In <application>Evince Document Viewer</application>, you can perform the "
+#~ "In <application>Papers Document Viewer</application>, you can perform the "
 #~ "same action in several ways. For example, you can open a document in the "
 #~ "following ways: <informaltable frame=\"all\"><tgroup cols=\"2\" colsep="
 #~ "\"1\" rowsep=\"1\"><colspec colname=\"COLSPEC0\" colwidth=\"50*\"/"
 #~ "><colspec colname=\"COLSPEC1\" colwidth=\"50*\"/><placeholder-1/"
 #~ "><placeholder-2/></tgroup></informaltable>"
 #~ msgstr ""
-#~ "<application>Evince-asiakirjakatselimessa</application> voit suorittaa "
+#~ "<application>Papers-asiakirjakatselimessa</application> voit suorittaa "
 #~ "samoja toimintoja useilla tavoilla. Esimerkiksi voit avata asiakirjan "
 #~ "seuraavilla tavoin: <informaltable frame=\"all\"><tgroup cols=\"2\" "
 #~ "colsep=\"1\" rowsep=\"1\"><colspec colname=\"COLSPEC0\" colwidth=\"50*\"/"
@@ -5109,31 +5109,31 @@ msgstr ""
 #~ "valintaikkunassa."
 
 #~ msgid ""
-#~ "Click <guibutton>Open</guibutton>. <application>Evince Document Viewer</"
+#~ "Click <guibutton>Open</guibutton>. <application>Papers Document Viewer</"
 #~ "application> displays the name of the document in the titlebar of the "
 #~ "window."
 #~ msgstr ""
-#~ "Napsauta <guibutton>Avaa</guibutton>. <application>Evince-"
+#~ "Napsauta <guibutton>Avaa</guibutton>. <application>Papers-"
 #~ "asiakirjakatselin</application> näyttää asiakirjan nimen ikkunan "
 #~ "otsikkopalkissa."
 
 #~ msgid ""
 #~ "To open another document, choose <menuchoice><guimenu>File</"
 #~ "guimenu><guimenuitem>Open</guimenuitem></menuchoice> again. "
-#~ "<application>Evince Document Viewer</application> opens each file in a "
+#~ "<application>Papers Document Viewer</application> opens each file in a "
 #~ "new window."
 #~ msgstr ""
 #~ "Avataksesi toisen asiakirjan valitse jälleen "
 #~ "<menuchoice><guimenu>Tiedosto</guimenu><guimenuitem>Avaa</guimenuitem></"
-#~ "menuchoice>. <application>Evince-asiakirjakatselin</application> avaa "
+#~ "menuchoice>. <application>Papers-asiakirjakatselin</application> avaa "
 #~ "jokaisen tiedoston uuteen ikkunaan."
 
 #~ msgid ""
-#~ "If you try to open a document with format that <application>Evince "
+#~ "If you try to open a document with format that <application>Papers "
 #~ "Document Viewer</application> does not recognize, the application "
 #~ "displays an error message."
 #~ msgstr ""
-#~ "Mikäli yrität avata <application>Evince-asiakirjakatselimella</"
+#~ "Mikäli yrität avata <application>Papers-asiakirjakatselimella</"
 #~ "application> asiakirjan, jonka tiedostomuotoa ei tunnisteta, sovellus "
 #~ "näyttää virheilmoituksen."
 
@@ -5198,9 +5198,9 @@ msgstr ""
 
 #~ msgid ""
 #~ "You can use the following methods to resize a page in the "
-#~ "<application>Evince Document Viewer</application> display area:"
+#~ "<application>Papers Document Viewer</application> display area:"
 #~ msgstr ""
-#~ "Voit käyttää seuraavia tapoja sivukoon muuttamiseksi <application>Evince-"
+#~ "Voit käyttää seuraavia tapoja sivukoon muuttamiseksi <application>Papers-"
 #~ "asiakirjakatselimen</application> näyttöalueessa:"
 
 #~ msgid ""
@@ -5218,37 +5218,37 @@ msgstr ""
 #~ "guimenu><guimenuitem>Loitonna</guimenuitem></menuchoice>."
 
 #~ msgid ""
-#~ "To resize a page to have the same width as the <application>Evince "
+#~ "To resize a page to have the same width as the <application>Papers "
 #~ "Document Viewer</application> display area, choose "
 #~ "<menuchoice><guimenu>View</guimenu><guimenuitem>Fit page width</"
 #~ "guimenuitem></menuchoice>."
 #~ msgstr ""
-#~ "Sivun leveys muutetaan samaksi kuin <application>Evince-"
+#~ "Sivun leveys muutetaan samaksi kuin <application>Papers-"
 #~ "asiakirjakatselimen</application> näyttöalue valitsemalla "
 #~ "<menuchoice><guimenu>Näkymä</guimenu><guimenuitem>Sovita sivun leveys</"
 #~ "guimenuitem></menuchoice>."
 
 #~ msgid ""
-#~ "To resize a page to fit within the <application>Evince Document Viewer</"
+#~ "To resize a page to fit within the <application>Papers Document Viewer</"
 #~ "application> display area, choose <menuchoice><guimenu>View</"
 #~ "guimenu><guimenuitem>Best Fit</guimenuitem></menuchoice>."
 #~ msgstr ""
-#~ "Sivun koko sovitetaan <application>Evince-asiakirjakatselimen</"
+#~ "Sivun koko sovitetaan <application>Papers-asiakirjakatselimen</"
 #~ "application> näyttöalueeseen valitsemalla <menuchoice><guimenu>Näkymä</"
 #~ "guimenu><guimenuitem>Paras sovitus</guimenuitem></menuchoice>."
 
 #~ msgid ""
-#~ "To resize the <application>Evince Document Viewer</application> window to "
+#~ "To resize the <application>Papers Document Viewer</application> window to "
 #~ "have the same width and height as the screen, choose "
 #~ "<menuchoice><guimenu>View</guimenu><guimenuitem>Full Screen</"
-#~ "guimenuitem></menuchoice>. To resize the <application>Evince Document "
+#~ "guimenuitem></menuchoice>. To resize the <application>Papers Document "
 #~ "Viewer</application> window to the original size, click on the "
 #~ "<guibutton>Exit Full Screen</guibutton> button."
 #~ msgstr ""
-#~ "Suurentaaksesi <application>Evince-asiakirjakatselimen</application> "
+#~ "Suurentaaksesi <application>Papers-asiakirjakatselimen</application> "
 #~ "ikkunan kokoa ruudun leveyteen ja korkeuteen valitse "
 #~ "<menuchoice><guimenu>Näkymä</guimenu><guimenuitem>Kokoruutu</"
-#~ "guimenuitem></menuchoice>. Palauttaaksesi <application>Evince-"
+#~ "guimenuitem></menuchoice>. Palauttaaksesi <application>Papers-"
 #~ "asiakirjakatselimen</application> ikkunan alkuperäiseen kokoon, napsauta "
 #~ "<guibutton>Lopeta kokoruutu</guibutton> -painiketta."
 
@@ -5303,13 +5303,13 @@ msgstr ""
 #~ "If you cannot choose the <guimenuitem>Print</guimenuitem> menu item, the "
 #~ "author of the document has disabled the print option for this document. "
 #~ "To enable the print option, you must enter the master password when you "
-#~ "open the document. See <xref linkend=\"evince-password\"/> for more "
+#~ "open the document. See <xref linkend=\"papers-password\"/> for more "
 #~ "information about password-protected files."
 #~ msgstr ""
 #~ "Mikäli <guimenuitem>Tulosta</guimenuitem> ei ole valittavissa valikosta, "
 #~ "asiakirjan tekijä on estänyt tämän asiakirjan tulostamisen. Asiakirja "
 #~ "voidaan tulostaa, jos sitä avattaessa syötetään pääsalasanan. Katso "
-#~ "kappaleesta <xref linkend=\"evince-password\"/> lisätietoa "
+#~ "kappaleesta <xref linkend=\"papers-password\"/> lisätietoa "
 #~ "salasanasuojatuista tiedostoista."
 
 #~ msgid ""
@@ -5349,9 +5349,9 @@ msgstr ""
 
 #~ msgid ""
 #~ "The <guilabel>Create a PDF document</guilabel> option is not supported in "
-#~ "this version of <application>Evince Document Viewer</application>."
+#~ "this version of <application>Papers Document Viewer</application>."
 #~ msgstr ""
-#~ "Tämä versio <application>Evince-asiakirjakatselimesta</application> ei "
+#~ "Tämä versio <application>Papers-asiakirjakatselimesta</application> ei "
 #~ "tue vaihtoehtoa <guilabel>Luo PDF-asiakirja</guilabel>."
 
 #~ msgid "Settings"
@@ -5422,9 +5422,9 @@ msgstr ""
 
 #~ msgid ""
 #~ "This functionality is not supported in this version of "
-#~ "<application>Evince Document Viewer</application>."
+#~ "<application>Papers Document Viewer</application>."
 #~ msgstr ""
-#~ "Tämä versio <application>Evince-asiakirjakatselimesta</application> ei "
+#~ "Tämä versio <application>Papers-asiakirjakatselimesta</application> ei "
 #~ "tue tätä toimintoa."
 
 #~ msgid "Type"
@@ -5514,13 +5514,13 @@ msgstr ""
 #~ "asiakirjan."
 
 #~ msgid ""
-#~ "When you try to open a password-protected document, <application>Evince "
+#~ "When you try to open a password-protected document, <application>Papers "
 #~ "Document Viewer</application> displays a security dialog. Type either the "
 #~ "user password or the master password in the <guilabel>Enter document "
 #~ "password</guilabel> text box, then click <guibutton>Open Document</"
 #~ "guibutton>."
 #~ msgstr ""
-#~ "Kun yrität avata salasanasuojatun asiakirjan, <application>Evince-"
+#~ "Kun yrität avata salasanasuojatun asiakirjan, <application>Papers-"
 #~ "asiakirjakatselin</application> näyttää turvakyselyn. Syötä joko "
 #~ "käyttäjä- tai pääsalasana <guilabel>Syötä salasana</guilabel> -"
 #~ "tekstikenttään ja napsauta <guibutton>Avaa asiakirja</guibutton>."
@@ -5536,14 +5536,14 @@ msgstr ""
 #~ "guimenu><guimenuitem>Sulje</guimenuitem</menuchoice>."
 
 #~ msgid ""
-#~ "If the window is the last <application>Evince Document Viewer</"
+#~ "If the window is the last <application>Papers Document Viewer</"
 #~ "application> window open, the application exits."
 #~ msgstr ""
-#~ "Mikäli ikkuna on viimeinen <application>Evince-asiakirjakatselimen</"
+#~ "Mikäli ikkuna on viimeinen <application>Papers-asiakirjakatselimen</"
 #~ "application> avoinna oleva ikkuna, sovellus lopetetaan."
 
-#~ msgid "Evince Document Viewer Manual V1.1"
-#~ msgstr "Evince-asiakirjakatselimen käyttöohje v1.1"
+#~ msgid "Papers Document Viewer Manual V1.1"
+#~ msgstr "Papers-asiakirjakatselimen käyttöohje v1.1"
 
 #~ msgid "2008-04-05"
 #~ msgstr "2008-04-05"
@@ -5555,10 +5555,10 @@ msgstr ""
 #~ msgstr "Claude Paroz"
 
 #~ msgid ""
-#~ "Below is a list of all shortcuts present in <application>Evince Document "
+#~ "Below is a list of all shortcuts present in <application>Papers Document "
 #~ "Viewer</application>:"
 #~ msgstr ""
-#~ "<application>Evince-asiakirjakatselimessa</application> käytettävissä "
+#~ "<application>Papers-asiakirjakatselimessa</application> käytettävissä "
 #~ "olevat pikanäppäimet on lueteltu alla:"
 
 #~ msgid "Shortcut"

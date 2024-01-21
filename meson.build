@@ -1,5 +1,5 @@
 project(
-  'evince', ['c'],
+  'papers', ['c'],
   version: '46.alpha',
   license: 'GPL-2.0-or-later',
   meson_version: '>= 0.59.0',
@@ -9,30 +9,30 @@ project(
 )
 
 if get_option('development')
-  app_id = 'org.gnome.Evince.Devel'
+  app_id = 'org.gnome.Papers.Devel'
 else
-  app_id = 'org.gnome.Evince'
+  app_id = 'org.gnome.Papers'
 endif
 
-ev_name = meson.project_name().to_lower()
+pps_name = meson.project_name().to_lower()
 
-ev_version = meson.project_version()
-version_array = ev_version.split('.')
-ev_major_version = version_array[0].to_int()
-ev_minor_version = version_array[1]
+pps_version = meson.project_version()
+version_array = pps_version.split('.')
+pps_major_version = version_array[0].to_int()
+pps_minor_version = version_array[1]
 
-ev_prefix = get_option('prefix')
-ev_bindir = join_paths(ev_prefix, get_option('bindir'))
-ev_datadir = join_paths(ev_prefix, get_option('datadir'))
-ev_includedir = join_paths(ev_prefix, get_option('includedir'))
-ev_libdir = join_paths(ev_prefix, get_option('libdir'))
-ev_libexecdir = join_paths(ev_prefix, get_option('libexecdir'))
-ev_localedir = join_paths(ev_prefix, get_option('localedir'))
-ev_mandir = join_paths(ev_prefix, get_option('mandir'))
+pps_prefix = get_option('prefix')
+pps_bindir = join_paths(pps_prefix, get_option('bindir'))
+pps_datadir = join_paths(pps_prefix, get_option('datadir'))
+pps_includedir = join_paths(pps_prefix, get_option('includedir'))
+pps_libdir = join_paths(pps_prefix, get_option('libdir'))
+pps_libexecdir = join_paths(pps_prefix, get_option('libexecdir'))
+pps_localedir = join_paths(pps_prefix, get_option('localedir'))
+pps_mandir = join_paths(pps_prefix, get_option('mandir'))
 
-ev_pkgdatadir = join_paths(ev_datadir, ev_name)
+pps_pkgdatadir = join_paths(pps_datadir, pps_name)
 
-ev_appstreamdir = join_paths(ev_datadir, 'metainfo')
+pps_appstreamdir = join_paths(pps_datadir, 'metainfo')
 
 # Libtool versioning. The backend and view libraries have separate versions.
 # Before making a release, the libtool version should be modified.
@@ -44,33 +44,33 @@ ev_appstreamdir = join_paths(ev_datadir, 'metainfo')
 # - If the interface is the same as the previous version, change to C:R+1:A
 
 # Libtool version of the backend library
-ev_document_current = 5
-ev_document_revision = 0
-ev_document_age = 0
-ev_document_version = '@0@.@1@.@2@'.format(ev_document_current, ev_document_revision, ev_document_age)
-ev_document_current_minus_age = ev_document_current - ev_document_age
+pps_document_current = 5
+pps_document_revision = 0
+pps_document_age = 0
+pps_document_version = '@0@.@1@.@2@'.format(pps_document_current, pps_document_revision, pps_document_age)
+pps_document_current_minus_age = pps_document_current - pps_document_age
 
 # Libtool version of the view library
-ev_view_current = 4
-ev_view_revision = 0
-ev_view_age = 0
-ev_view_version = '@0@.@1@.@2@'.format(ev_view_current, ev_view_revision, ev_view_age)
-ev_view_current_minus_age = ev_view_current - ev_view_age
+pps_view_current = 4
+pps_view_revision = 0
+pps_view_age = 0
+pps_view_version = '@0@.@1@.@2@'.format(pps_view_current, pps_view_revision, pps_view_age)
+pps_view_current_minus_age = pps_view_current - pps_view_age
 
-ev_api_version = '4.0'
+pps_api_version = '4.0'
 
-ev_include_subdir = join_paths(ev_name, ev_api_version)
+pps_include_subdir = join_paths(pps_name, pps_api_version)
 
 # Backends directory
-ev_backends_binary_version = ev_document_current
-ev_backends_subdir = join_paths(ev_name, ev_backends_binary_version.to_string(), 'backends')
-ev_backendsdir = join_paths(ev_libdir, ev_backends_subdir)
+pps_backends_binary_version = pps_document_current
+pps_backends_subdir = join_paths(pps_name, pps_backends_binary_version.to_string(), 'backends')
+pps_backendsdir = join_paths(pps_libdir, pps_backends_subdir)
 
-ev_namespace = 'org.gnome.Evince'
+pps_namespace = 'org.gnome.Papers'
 
-ev_code_prefix = 'Ev'
+pps_code_prefix = 'Pps'
 
-ev_debug = get_option('buildtype').contains('debug')
+pps_debug = get_option('buildtype').contains('debug')
 
 cc = meson.get_compiler('c')
 
@@ -79,11 +79,11 @@ config_h.set10('_GNU_SOURCE', true)
 
 # package
 config_h.set_quoted('PACKAGE_ICON_NAME', app_id)
-config_h.set_quoted('PACKAGE_VERSION', ev_version)
-config_h.set_quoted('VERSION', ev_version)
+config_h.set_quoted('PACKAGE_VERSION', pps_version)
+config_h.set_quoted('VERSION', pps_version)
 
 # i18n
-config_h.set_quoted('GETTEXT_PACKAGE', ev_name)
+config_h.set_quoted('GETTEXT_PACKAGE', pps_name)
 
 # Support for nl_langinfo (_NL_MEASUREMENT_MEASUREMENT) (optional)
 langinfo_measurement_src = '''
@@ -109,8 +109,8 @@ if build_machine.system() == 'windows'
   common_ldflags = cc.get_supported_link_arguments('-mwindows')
 endif
 
-if ev_debug
-  common_flags += ['-DEV_ENABLE_DEBUG'] + cc.get_supported_arguments([
+if pps_debug
+  common_flags += ['-DPPS_ENABLE_DEBUG'] + cc.get_supported_arguments([
     '-Wnested-externs',
     '-Wstrict-prototypes',
     '-Werror=format=2',
@@ -144,7 +144,7 @@ exempi_req_version = '>= 2.0'
 
 gdk_pixbuf_dep = dependency('gdk-pixbuf-2.0', version: '>= 2.40.0')
 config_h.set_quoted('EXTRA_GDK_PIXBUF_LOADERS_DIR',
-                    join_paths (ev_libdir, ev_name, 'gdk-pixbuf', gdk_pixbuf_dep.get_variable(pkgconfig: 'gdk_pixbuf_binary_version')))
+                    join_paths (pps_libdir, pps_name, 'gdk-pixbuf', gdk_pixbuf_dep.get_variable(pkgconfig: 'gdk_pixbuf_binary_version')))
 
 gio_dep = dependency('gio-2.0', version: glib_req_version)
 glib_dep = dependency('glib-2.0', version: glib_req_version)
@@ -163,20 +163,20 @@ zlib_dep = cc.find_library('z', required: false)
 assert(zlib_dep.found() and cc.has_function('inflate', dependencies: zlib_dep) and cc.has_function('crc32', dependencies: zlib_dep),
       'No sufficient zlib library found on your system')
 
-ev_platform = get_option('platform')
-if ev_platform == 'gnome'
+pps_platform = get_option('platform')
+if pps_platform == 'gnome'
   # *** Nautilus property page build ***
   enable_nautilus = get_option('nautilus')
   if enable_nautilus
     libnautilus_extension_dep = dependency('libnautilus-extension-4', version: ['>= 43'])
-    nautilus_extension_dir = libnautilus_extension_dep.get_variable(pkgconfig: 'extensiondir', pkgconfig_define: ['libdir', ev_libdir])
+    nautilus_extension_dir = libnautilus_extension_dep.get_variable(pkgconfig: 'extensiondir', pkgconfig_define: ['libdir', pps_libdir])
   endif
 
   # *** DBUS ***
   enable_dbus = get_option('dbus')
   if enable_dbus
     # Check for dbus service dir
-    dbus_service_dir = dependency('dbus-1').get_variable(pkgconfig: 'session_bus_services_dir', pkgconfig_define: ['datadir', ev_datadir])
+    dbus_service_dir = dependency('dbus-1').get_variable(pkgconfig: 'session_bus_services_dir', pkgconfig_define: ['datadir', pps_datadir])
   endif
   config_h.set('ENABLE_DBUS', enable_dbus)
 
@@ -221,7 +221,7 @@ systemd_user_unit_dir = get_option('systemduserunitdir')
 install_systemd_user_unit_dir = (systemd_user_unit_dir != 'no')
 
 if install_systemd_user_unit_dir and systemd_user_unit_dir == ''
-  systemd_user_unit_dir = join_paths(ev_prefix, 'lib', 'systemd', 'user')
+  systemd_user_unit_dir = join_paths(pps_prefix, 'lib', 'systemd', 'user')
 endif
 
 # *** Check for Desktop Schemas ***
@@ -295,7 +295,7 @@ mime_types_list = {
 }
 
 backends = {}
-evince_mime_types = []
+papers_mime_types = []
 
 # *** Spectre ***
 if not get_option('ps').disabled() or not get_option('dvi').disabled()
@@ -313,7 +313,7 @@ libarchive_dep = dependency('libarchive', version: libarchive_req_version, requi
 enable_comics = libarchive_dep.found()
 if enable_comics
   backends += {'comics': mime_types_list.get('comics')}
-  evince_mime_types += mime_types_list.get('comics')
+  papers_mime_types += mime_types_list.get('comics')
 elif get_option('comics').auto()
   warning('** Comics support is disabled since libarchive (version ' + libarchive_req_version + ') is needed')
 endif
@@ -324,7 +324,7 @@ ddjvuapi_dep = dependency('ddjvuapi', version: ddjvuapi_req_version, required: g
 enable_djvu = ddjvuapi_dep.found()
 if enable_djvu
   backends += {'djvu': mime_types_list.get('djvu')}
-  evince_mime_types += mime_types_list.get('djvu')
+  papers_mime_types += mime_types_list.get('djvu')
 elif get_option('djvu').auto()
   warning('Djvu support is disabled since a recent version of the djvulibre library was not found. You need at least djvulibre ' + ddjvuapi_req_version + ' which can be found on http://djvulibre.djvuzone.org')
 endif
@@ -352,7 +352,7 @@ if enable_dvi
   endforeach
 
   backends += {'dvi': mime_types_list.get('dvi')}
-  evince_mime_types += mime_types_list.get('dvi')
+  papers_mime_types += mime_types_list.get('dvi')
 elif get_option('dvi').auto()
   warning('Dvi support is disabled since kpathsea library was not found. Check your installation.')
 endif
@@ -375,7 +375,7 @@ if enable_pdf
   endif
 
   backends += {'pdf': mime_types_list.get('pdf')}
-  evince_mime_types += mime_types_list.get('pdf')
+  papers_mime_types += mime_types_list.get('pdf')
 elif get_option('pdf').auto()
   warning('PDF support is disabled since poppler-glib version ' + poppler_req_version + ' not found')
 endif
@@ -384,7 +384,7 @@ endif
 enable_ps = not get_option('ps').disabled() and libspectre_dep.found()
 if enable_ps
   backends += {'ps': mime_types_list.get('ps')}
-  evince_mime_types += mime_types_list.get('ps')
+  papers_mime_types += mime_types_list.get('ps')
 elif not get_option('ps').disabled()
   str = 'PS support is disabled since libspectre (version ' + libspectre_req_version + ') is needed'
   if get_option('ps').auto()
@@ -398,7 +398,7 @@ libtiff_dep = dependency('libtiff-4', required: get_option('tiff'))
 enable_tiff = libtiff_dep.found()
 if enable_tiff
   backends += {'tiff': mime_types_list.get('tiff')}
-  evince_mime_types += mime_types_list.get('tiff')
+  papers_mime_types += mime_types_list.get('tiff')
 elif get_option('tiff').auto()
   warning('Tiff support is disabled since tiff library version 4.0 or newer not found')
 endif
@@ -409,7 +409,7 @@ libgxps_dep = dependency('libgxps', version: libgxps_req_version, required: get_
 enable_xps = libgxps_dep.found()
 if enable_xps
   backends += {'xps': mime_types_list.get('xps')}
-  evince_mime_types += mime_types_list.get('xps')
+  papers_mime_types += mime_types_list.get('xps')
 elif get_option('xps').auto()
   warning('** XPS support is disabled since libgxps (version ' + libgxps_req_version + ') is needed')
 endif
@@ -419,11 +419,11 @@ if enable_pdf and enable_ps
     'pdf': mime_types_list.get('pdf') + mime_types_list.get('illustrator'),
     'ps': mime_types_list.get('ps') + mime_types_list.get('illustrator'),
   }
-  evince_mime_types += mime_types_list.get('illustrator')
+  papers_mime_types += mime_types_list.get('illustrator')
 endif
 
 mime_types_conf = configuration_data()
-mime_types_conf.set('EVINCE_MIME_TYPES', ';'.join(evince_mime_types))
+mime_types_conf.set('PAPERS_MIME_TYPES', ';'.join(papers_mime_types))
 mime_types_conf.set('PACKAGE_ICON_NAME', app_id)
 
 subdir('cut-n-paste')
@@ -467,15 +467,15 @@ gnome.post_install(
   update_desktop_database: true,
 )
 
-is_stable = (ev_minor_version != 'alpha' and
-  ev_minor_version != 'beta' and
-  ev_minor_version != 'rc')
+is_stable = (pps_minor_version != 'alpha' and
+  pps_minor_version != 'beta' and
+  pps_minor_version != 'rc')
 if is_stable
   meson.add_dist_script(
     find_program('check-news.sh').full_path(),
     '@0@'.format(meson.project_version()),
     'NEWS',
-    join_paths('data', 'org.gnome.Evince.metainfo.xml.in')
+    join_paths('data', 'org.gnome.Papers.metainfo.xml.in')
   )
 else
   meson.add_dist_script(
@@ -485,8 +485,8 @@ else
   )
 endif
 
-summary({'Platform...................': ev_platform,
-         'Debug mode.................': ev_debug,
+summary({'Platform...................': pps_platform,
+         'Debug mode.................': pps_debug,
         }, section: 'General', bool_yn: true)
 summary({'Viewer.....................': enable_viewer,
          'Previewer..................': enable_previewer,

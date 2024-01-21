@@ -90,12 +90,12 @@ if enable_user_doc
     'figures/add-text-annotation.png',
     'figures/annotations-nav-to-page.png',
     'figures/emblem-system-symbolic.svg',
-    'figures/org.gnome.Evince.svg',
+    'figures/org.gnome.Papers.svg',
     'figures/zoom.png',
   ]
 
   gnome.yelp(
-    ev_name,
+    pps_name,
     sources: sources,
     media: media,
     symlink_media: true,

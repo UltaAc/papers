@@ -1,13 +1,13 @@
-/* this file is part of evince, a gnome document viewer
+/* this file is part of papers, a gnome document viewer
  *
  * Copyright (C) 2010 Carlos Garcia Campos <carlosgc@gnome.org>
  *
- * Evince is free software; you can redistribute it and/or modify it
+ * Papers is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
  *
- * Evince is distributed in the hope that it will be useful, but
+ * Papers is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
@@ -23,12 +23,12 @@
 #include <libgxps/gxps.h>
 
 #include "xps-document.h"
-#include "ev-document-links.h"
-#include "ev-document-print.h"
-#include "ev-document-misc.h"
+#include "pps-document-links.h"
+#include "pps-document-print.h"
+#include "pps-document-misc.h"
 
 struct _XPSDocument {
-	EvDocument    object;
+	PpsDocument    object;
 
 	GFile        *file;
 	GXPSFile     *xps;
@@ -36,16 +36,16 @@ struct _XPSDocument {
 };
 
 struct _XPSDocumentClass {
-	EvDocumentClass parent_class;
+	PpsDocumentClass parent_class;
 };
 
-static void xps_document_document_links_iface_init (EvDocumentLinksInterface *iface);
-static void xps_document_document_print_iface_init (EvDocumentPrintInterface *iface);
+static void xps_document_document_links_iface_init (PpsDocumentLinksInterface *iface);
+static void xps_document_document_print_iface_init (PpsDocumentPrintInterface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (XPSDocument, xps_document, EV_TYPE_DOCUMENT,
-			 G_IMPLEMENT_INTERFACE (EV_TYPE_DOCUMENT_LINKS,
+G_DEFINE_TYPE_WITH_CODE (XPSDocument, xps_document, PPS_TYPE_DOCUMENT,
+			 G_IMPLEMENT_INTERFACE (PPS_TYPE_DOCUMENT_LINKS,
 						xps_document_document_links_iface_init)
-			 G_IMPLEMENT_INTERFACE (EV_TYPE_DOCUMENT_PRINT,
+			 G_IMPLEMENT_INTERFACE (PPS_TYPE_DOCUMENT_PRINT,
 						xps_document_document_print_iface_init))
 
 /* XPSDocument */
@@ -77,9 +77,9 @@ xps_document_dispose (GObject *object)
 	G_OBJECT_CLASS (xps_document_parent_class)->dispose (object);
 }
 
-/* EvDocumentIface */
+/* PpsDocumentIface */
 static gboolean
-xps_document_load (EvDocument *document,
+xps_document_load (PpsDocument *document,
 		   const char *uri,
 		   GError    **error)
 {
@@ -104,7 +104,7 @@ xps_document_load (EvDocument *document,
 }
 
 static gboolean
-xps_document_save (EvDocument *document,
+xps_document_save (PpsDocument *document,
 		   const char *uri,
 		   GError    **error)
 {
@@ -123,50 +123,50 @@ xps_document_save (EvDocument *document,
 }
 
 static gint
-xps_document_get_n_pages (EvDocument *document)
+xps_document_get_n_pages (PpsDocument *document)
 {
 	XPSDocument *xps = XPS_DOCUMENT (document);
 
 	return gxps_document_get_n_pages (xps->doc);
 }
 
-static EvPage *
-xps_document_get_page (EvDocument *document,
+static PpsPage *
+xps_document_get_page (PpsDocument *document,
 		       gint        index)
 {
 	XPSDocument *xps = XPS_DOCUMENT (document);
 	GXPSPage    *xps_page;
-	EvPage      *page;
+	PpsPage      *page;
 
 	xps_page = gxps_document_get_page (xps->doc, index, NULL);
-	page = ev_page_new (index);
+	page = pps_page_new (index);
 	if (xps_page) {
-		page->backend_page = (EvBackendPage)xps_page;
-		page->backend_destroy_func = (EvBackendPageDestroyFunc)g_object_unref;
+		page->backend_page = (PpsBackendPage)xps_page;
+		page->backend_destroy_func = (PpsBackendPageDestroyFunc)g_object_unref;
 	}
 
 	return page;
 }
 
 static void
-xps_document_get_page_size (EvDocument *document,
-			    EvPage     *page,
+xps_document_get_page_size (PpsDocument *document,
+			    PpsPage     *page,
 			    double     *width,
 			    double     *height)
 {
 	gxps_page_get_size (GXPS_PAGE (page->backend_page), width, height);
 }
 
-static EvDocumentInfo *
-xps_document_get_info (EvDocument *document)
+static PpsDocumentInfo *
+xps_document_get_info (PpsDocument *document)
 {
 	XPSDocument    *xps = XPS_DOCUMENT (document);
-	EvDocumentInfo *info;
+	PpsDocumentInfo *info;
 
-	info = ev_document_info_new ();
+	info = pps_document_info_new ();
 	info->fields_mask |=
-		EV_DOCUMENT_INFO_N_PAGES |
-		EV_DOCUMENT_INFO_PAPER_SIZE;
+		PPS_DOCUMENT_INFO_N_PAGES |
+		PPS_DOCUMENT_INFO_PAPER_SIZE;
 
 
         info->n_pages = gxps_document_get_n_pages (xps->doc);
@@ -185,8 +185,8 @@ xps_document_get_info (EvDocument *document)
 }
 
 static gboolean
-xps_document_get_backend_info (EvDocument            *document,
-			       EvDocumentBackendInfo *info)
+xps_document_get_backend_info (PpsDocument            *document,
+			       PpsDocumentBackendInfo *info)
 {
 	info->name = "libgxps";
 	info->version = GXPS_VERSION_STRING;
@@ -195,8 +195,8 @@ xps_document_get_backend_info (EvDocument            *document,
 }
 
 static cairo_surface_t *
-xps_document_render (EvDocument      *document,
-		     EvRenderContext *rc)
+xps_document_render (PpsDocument      *document,
+		     PpsRenderContext *rc)
 {
 	GXPSPage        *xps_page;
 	gdouble          page_width, page_height;
@@ -209,7 +209,7 @@ xps_document_render (EvDocument      *document,
 	xps_page = GXPS_PAGE (rc->page->backend_page);
 
 	gxps_page_get_size (xps_page, &page_width, &page_height);
-	ev_render_context_compute_transformed_size (rc, page_width, page_height,
+	pps_render_context_compute_transformed_size (rc, page_width, page_height,
                                                     &width, &height);
 
 	surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
@@ -233,7 +233,7 @@ xps_document_render (EvDocument      *document,
 		cairo_translate (cr, 0, 0);
 	}
 
-	ev_render_context_compute_scales (rc, page_width, page_height,
+	pps_render_context_compute_scales (rc, page_width, page_height,
 					  &scale_x, &scale_y);
 	cairo_scale (cr, scale_x, scale_y);
 
@@ -254,23 +254,23 @@ static void
 xps_document_class_init (XPSDocumentClass *klass)
 {
 	GObjectClass    *object_class = G_OBJECT_CLASS (klass);
-	EvDocumentClass *ev_document_class = EV_DOCUMENT_CLASS (klass);
+	PpsDocumentClass *pps_document_class = PPS_DOCUMENT_CLASS (klass);
 
 	object_class->dispose = xps_document_dispose;
 
-	ev_document_class->load = xps_document_load;
-	ev_document_class->save = xps_document_save;
-	ev_document_class->get_n_pages = xps_document_get_n_pages;
-	ev_document_class->get_page = xps_document_get_page;
-	ev_document_class->get_page_size = xps_document_get_page_size;
-	ev_document_class->get_info = xps_document_get_info;
-	ev_document_class->get_backend_info = xps_document_get_backend_info;
-	ev_document_class->render = xps_document_render;
+	pps_document_class->load = xps_document_load;
+	pps_document_class->save = xps_document_save;
+	pps_document_class->get_n_pages = xps_document_get_n_pages;
+	pps_document_class->get_page = xps_document_get_page;
+	pps_document_class->get_page_size = xps_document_get_page_size;
+	pps_document_class->get_info = xps_document_get_info;
+	pps_document_class->get_backend_info = xps_document_get_backend_info;
+	pps_document_class->render = xps_document_render;
 }
 
-/* EvDocumentLinks */
+/* PpsDocumentLinks */
 static gboolean
-xps_document_links_has_document_links (EvDocumentLinks *document_links)
+xps_document_links_has_document_links (PpsDocumentLinks *document_links)
 {
 	XPSDocument           *xps_document = XPS_DOCUMENT (document_links);
 	GXPSDocumentStructure *structure;
@@ -286,14 +286,14 @@ xps_document_links_has_document_links (EvDocumentLinks *document_links)
 	return retval;
 }
 
-static EvLinkAction *
+static PpsLinkAction *
 link_action_from_target (XPSDocument    *xps_document,
                          GXPSLinkTarget *target)
 {
-	EvLinkAction *ev_action;
+	PpsLinkAction *pps_action;
 
 	if (gxps_link_target_is_internal (target)) {
-		EvLinkDest  *dest = NULL;
+		PpsLinkDest  *dest = NULL;
 		gint         doc;
 		const gchar *anchor;
 
@@ -305,16 +305,16 @@ link_action_from_target (XPSDocument    *xps_document,
 			if (!anchor)
 				return NULL;
 
-			dest = ev_link_dest_new_named (anchor);
-			ev_action = ev_link_action_new_dest (dest);
+			dest = pps_link_dest_new_named (anchor);
+			pps_action = pps_link_action_new_dest (dest);
 			g_object_unref (dest);
 		} else if (doc == -1 && anchor &&
 			   gxps_document_get_page_for_anchor (xps_document->doc, anchor) >= 0) {
 			/* Internal, but source is not a doc,
 			 * let's try with doc = 0
 			 */
-			dest = ev_link_dest_new_named (anchor);
-			ev_action = ev_link_action_new_dest (dest);
+			dest = pps_link_dest_new_named (anchor);
+			pps_action = pps_link_action_new_dest (dest);
 			g_object_unref (dest);
 		} else {
 			gchar *filename;
@@ -323,8 +323,8 @@ link_action_from_target (XPSDocument    *xps_document,
 			filename = g_file_get_path (xps_document->file);
 
 			if (anchor)
-				dest = ev_link_dest_new_named (anchor);
-			ev_action = ev_link_action_new_remote (dest, filename);
+				dest = pps_link_dest_new_named (anchor);
+			pps_action = pps_link_action_new_remote (dest, filename);
 			g_clear_object (&dest);
 			g_free (filename);
 		}
@@ -332,10 +332,10 @@ link_action_from_target (XPSDocument    *xps_document,
 		const gchar *uri;
 
 		uri = gxps_link_target_get_uri (target);
-		ev_action = ev_link_action_new_external_uri (uri);
+		pps_action = pps_link_action_new_external_uri (uri);
 	}
 
-        return ev_action;
+        return pps_action;
 }
 
 static void
@@ -347,23 +347,23 @@ build_tree (XPSDocument     *xps_document,
 	do {
 		GtkTreeIter     tree_iter;
 		GXPSOutlineIter child_iter;
-                EvLinkAction   *action;
-		EvLink         *link;
+                PpsLinkAction   *action;
+		PpsLink         *link;
 		GXPSLinkTarget *target;
 		gchar          *title;
 
 		target = gxps_outline_iter_get_target (iter);
 		title = g_markup_escape_text (gxps_outline_iter_get_description (iter), -1);
                 action = link_action_from_target (xps_document, target);
-		link = ev_link_new (title, action);
+		link = pps_link_new (title, action);
                 g_object_unref (action);
 		gxps_link_target_free (target);
 
 		gtk_tree_store_append (GTK_TREE_STORE (model), &tree_iter, parent);
 		gtk_tree_store_set (GTK_TREE_STORE (model), &tree_iter,
-				    EV_DOCUMENT_LINKS_COLUMN_MARKUP, title,
-				    EV_DOCUMENT_LINKS_COLUMN_LINK, link,
-				    EV_DOCUMENT_LINKS_COLUMN_EXPAND, FALSE,
+				    PPS_DOCUMENT_LINKS_COLUMN_MARKUP, title,
+				    PPS_DOCUMENT_LINKS_COLUMN_LINK, link,
+				    PPS_DOCUMENT_LINKS_COLUMN_EXPAND, FALSE,
 				    -1);
 		g_object_unref (link);
 		g_free (title);
@@ -374,7 +374,7 @@ build_tree (XPSDocument     *xps_document,
 }
 
 static GtkTreeModel *
-xps_document_links_get_links_model (EvDocumentLinks *document_links)
+xps_document_links_get_links_model (PpsDocumentLinks *document_links)
 {
 	XPSDocument           *xps_document = XPS_DOCUMENT (document_links);
 	GXPSDocumentStructure *structure;
@@ -386,7 +386,7 @@ xps_document_links_get_links_model (EvDocumentLinks *document_links)
 		return NULL;
 
 	if (gxps_document_structure_outline_iter_init (&iter, structure)) {
-		model = (GtkTreeModel *) gtk_tree_store_new (EV_DOCUMENT_LINKS_COLUMN_NUM_COLUMNS,
+		model = (GtkTreeModel *) gtk_tree_store_new (PPS_DOCUMENT_LINKS_COLUMN_NUM_COLUMNS,
 							     G_TYPE_STRING,
 							     G_TYPE_OBJECT,
 							     G_TYPE_BOOLEAN,
@@ -399,9 +399,9 @@ xps_document_links_get_links_model (EvDocumentLinks *document_links)
 	return model;
 }
 
-static EvMappingList *
-xps_document_links_get_links (EvDocumentLinks *document_links,
-			      EvPage          *page)
+static PpsMappingList *
+xps_document_links_get_links (PpsDocumentLinks *document_links,
+			      PpsPage          *page)
 {
 	XPSDocument *xps_document = XPS_DOCUMENT (document_links);
 	GXPSPage    *xps_page;
@@ -415,41 +415,41 @@ xps_document_links_get_links (EvDocumentLinks *document_links,
 	for (list = mapping_list; list; list = list->next) {
 		GXPSLink *xps_link;
 		GXPSLinkTarget *target;
-                EvLinkAction *action;
-		EvMapping *ev_link_mapping;
+                PpsLinkAction *action;
+		PpsMapping *pps_link_mapping;
 		cairo_rectangle_t area;
 
 		xps_link = (GXPSLink *)list->data;
-		ev_link_mapping = g_new (EvMapping, 1);
+		pps_link_mapping = g_new (PpsMapping, 1);
 		gxps_link_get_area (xps_link, &area);
 		target = gxps_link_get_target (xps_link);
                 action = link_action_from_target (xps_document, target);
 
-		ev_link_mapping->data = ev_link_new (NULL, action);
-		ev_link_mapping->area.x1 = area.x;
-		ev_link_mapping->area.x2 = area.x + area.width;
-		ev_link_mapping->area.y1 = area.y;
-		ev_link_mapping->area.y2 = area.y + area.height;
+		pps_link_mapping->data = pps_link_new (NULL, action);
+		pps_link_mapping->area.x1 = area.x;
+		pps_link_mapping->area.x2 = area.x + area.width;
+		pps_link_mapping->area.y1 = area.y;
+		pps_link_mapping->area.y2 = area.y + area.height;
 
-		retval = g_list_prepend (retval, ev_link_mapping);
+		retval = g_list_prepend (retval, pps_link_mapping);
 		gxps_link_free (xps_link);
                 g_object_unref (action);
 	}
 
 	g_list_free (mapping_list);
 
-	return ev_mapping_list_new (page->index, g_list_reverse (retval), (GDestroyNotify)g_object_unref);
+	return pps_mapping_list_new (page->index, g_list_reverse (retval), (GDestroyNotify)g_object_unref);
 }
 
-static EvLinkDest *
-xps_document_links_find_link_dest (EvDocumentLinks *document_links,
+static PpsLinkDest *
+xps_document_links_find_link_dest (PpsDocumentLinks *document_links,
 				   const gchar     *link_name)
 {
 	XPSDocument       *xps_document = XPS_DOCUMENT (document_links);
 	GXPSPage          *xps_page;
 	gint               page;
 	cairo_rectangle_t  area;
-	EvLinkDest        *dest = NULL;
+	PpsLinkDest        *dest = NULL;
 
 	page = gxps_document_get_page_for_anchor (xps_document->doc, link_name);
 	if (page == -1)
@@ -460,7 +460,7 @@ xps_document_links_find_link_dest (EvDocumentLinks *document_links,
 		return NULL;
 
 	if (gxps_page_get_anchor_destination (xps_page, link_name, &area, NULL))
-		dest = ev_link_dest_new_xyz (page, area.x, area.y, 1., TRUE, TRUE, FALSE);
+		dest = pps_link_dest_new_xyz (page, area.x, area.y, 1., TRUE, TRUE, FALSE);
 
 	g_object_unref (xps_page);
 
@@ -468,7 +468,7 @@ xps_document_links_find_link_dest (EvDocumentLinks *document_links,
 }
 
 static gint
-xps_document_links_find_link_page (EvDocumentLinks *document_links,
+xps_document_links_find_link_page (PpsDocumentLinks *document_links,
 				   const gchar     *link_name)
 {
 	XPSDocument *xps_document = XPS_DOCUMENT (document_links);
@@ -477,7 +477,7 @@ xps_document_links_find_link_page (EvDocumentLinks *document_links,
 }
 
 static void
-xps_document_document_links_iface_init (EvDocumentLinksInterface *iface)
+xps_document_document_links_iface_init (PpsDocumentLinksInterface *iface)
 {
 	iface->has_document_links = xps_document_links_has_document_links;
 	iface->get_links_model = xps_document_links_get_links_model;
@@ -486,10 +486,10 @@ xps_document_document_links_iface_init (EvDocumentLinksInterface *iface)
 	iface->find_link_page = xps_document_links_find_link_page;
 }
 
-/* EvDocumentPrint */
+/* PpsDocumentPrint */
 static void
-xps_document_print_print_page (EvDocumentPrint *document,
-			       EvPage          *page,
+xps_document_print_print_page (PpsDocumentPrint *document,
+			       PpsPage          *page,
 			       cairo_t         *cr)
 {
 	GError *error = NULL;
@@ -503,7 +503,7 @@ xps_document_print_print_page (EvDocumentPrint *document,
 }
 
 static void
-xps_document_document_print_iface_init (EvDocumentPrintInterface *iface)
+xps_document_document_print_iface_init (PpsDocumentPrintInterface *iface)
 {
 	iface->print_page = xps_document_print_print_page;
 }

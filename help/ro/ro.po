@@ -1,12 +1,12 @@
-# Romanian translation for evince.
-# Copyright (C) 2010 evince's COPYRIGHT HOLDER
-# This file is distributed under the same license as the evince package.
+# Romanian translation for papers.
+# Copyright (C) 2010 papers's COPYRIGHT HOLDER
+# This file is distributed under the same license as the papers package.
 # Tabita Dolean <dtabita21@gmail.com>, 2010, 2011.
 # Daniel Șerbănescu <cyber19rider@gmail.com>, 2011.
 # Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version: evince master\n"
+"Project-Id-Version: papers master\n"
 "POT-Creation-Date: 2021-04-23 12:38+0000\n"
 "PO-Revision-Date: 2021-08-23 16:29+0200\n"
 "Last-Translator: Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>\n"
@@ -579,9 +579,9 @@ msgstr "Cum și unde se raportează problemele."
 #. (itstool) path: page/title
 #: C/bug-filing.page:19
 #, fuzzy
-#| msgid "File a Bug Against <app>Evince</app>"
+#| msgid "File a Bug Against <app>Papers</app>"
 msgid "File a bug against the <app>document viewer</app>"
-msgstr "Trimiteți o notificare de defecțiune pentru <app>Evince</app>"
+msgstr "Trimiteți o notificare de defecțiune pentru <app>Papers</app>"
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:20
@@ -589,7 +589,7 @@ msgid ""
 "The <app>document viewer</app> is maintained by a volunteer community. You "
 "are welcome to participate. If you notice a problem you can file a <em>bug "
 "report</em>. To file a bug, go to <link href=\"https://gitlab.gnome.org/"
-"GNOME/evince/issues/\"/>."
+"GNOME/papers/issues/\"/>."
 msgstr ""
 
 #. (itstool) path: page/p
@@ -629,23 +629,23 @@ msgstr ""
 #, fuzzy
 #| msgid ""
 #| "Once you have an account, log in, click on <guiseq><gui>Fila a Bug</"
-#| "gui><gui>Desktop</gui><gui>evince</gui></guiseq>. Before reporting a bug, "
+#| "gui><gui>Desktop</gui><gui>papers</gui></guiseq>. Before reporting a bug, "
 #| "please read the <link href=\"https://bugzilla.gnome.org/page.cgi?id=bug-"
 #| "writing.html\">bug writing guidelines</link>, and please <link href="
-#| "\"https://bugzilla.gnome.org/browse.cgi?product=evince\">browse</link> "
+#| "\"https://bugzilla.gnome.org/browse.cgi?product=papers\">browse</link> "
 #| "for the bug to see if it already exists."
 msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "Community/GettingInTouch/Bugzilla/Guidelines\">bug writing guidelines</"
-"link>, and please <link href=\"https://gitlab.gnome.org/GNOME/evince/issues"
+"link>, and please <link href=\"https://gitlab.gnome.org/GNOME/papers/issues"
 "\">browse</link> for the bug to see if it already exists."
 msgstr ""
 "Odată ce aveți un cont, conectați-vă, faceți clic pe <guiseq><gui>Fill a a "
-"Bug</gui><gui>Desktop</gui><gui>evince</gui></guiseq>. Înainte să raportați "
+"Bug</gui><gui>Desktop</gui><gui>papers</gui></guiseq>. Înainte să raportați "
 "o defecțiune, vă rugăm să citiți <link href=\"https://bugzilla.gnome.org/"
 "page.cgi?id=bug-writing.html\">ghid de notificare a defecțiunilor</link>, și "
-"vă rugăm să <link href=\"https://bugzilla.gnome.org/browse.cgi?product=evince"
+"vă rugăm să <link href=\"https://bugzilla.gnome.org/browse.cgi?product=papers"
 "\">răsfoiți</link> pentru defecțiune pentru a vedea dacă acesta există deja."
 
 #. (itstool) path: page/p
@@ -686,10 +686,10 @@ msgstr "Linie de comandă"
 #. (itstool) path: info/desc
 #: C/commandline.page:8
 msgid ""
-"The <cmd>evince</cmd> command can open any number of files, at specific "
+"The <cmd>papers</cmd> command can open any number of files, at specific "
 "pages and in various modes."
 msgstr ""
-"Comanda <cmd>evince</cmd> poate deschide orice număr de fișiere, la anumite "
+"Comanda <cmd>papers</cmd> poate deschide orice număr de fișiere, la anumite "
 "pagini și în diverse moduri."
 
 #. (itstool) path: credit/name
@@ -714,58 +714,58 @@ msgstr "Linia de comandă"
 #: C/commandline.page:25
 #, fuzzy
 #| msgid ""
-#| "To start the Document Viewer from the command line, type <cmd>evince</"
+#| "To start the Document Viewer from the command line, type <cmd>papers</"
 #| "cmd>. You can open a specific file by typing the filename after the "
-#| "evince command:"
+#| "papers command:"
 msgid ""
 "To start the <app>Document Viewer</app> from the command line, type "
-"<cmd>evince</cmd>. You can open a specific file by typing the filename after "
-"the evince command:"
+"<cmd>papers</cmd>. You can open a specific file by typing the filename after "
+"the papers command:"
 msgstr ""
 "Pentru a porni Vizualizatorul de documente din linia de comandă, tastați "
-"<cmd>evince</cmd>. Aveți posibilitatea să deschideți un fișier specific prin "
-"tastarea numelui fișierului după comanda evince:"
+"<cmd>papers</cmd>. Aveți posibilitatea să deschideți un fișier specific prin "
+"tastarea numelui fișierului după comanda papers:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:30
 #, no-wrap
-msgid "evince file.pdf"
-msgstr "evince fișier.pdf"
+msgid "papers file.pdf"
+msgstr "papers fișier.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:31
 msgid ""
-"You can open multiple files by typing the filenames after the evince "
+"You can open multiple files by typing the filenames after the papers "
 "command, separating the filenames by a space:"
 msgstr ""
 "Aveți posibilitatea să deschideți mai multe fișiere prin tastarea numelor de "
-"fișiere după comanda evince, separând numele fișierelor cu un spațiu:"
+"fișiere după comanda papers, separând numele fișierelor cu un spațiu:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:34
 #, no-wrap
-msgid "evince file1.pdf file2.pdf"
-msgstr "evince fișier1.pdf fișier2.pdf"
+msgid "papers file1.pdf file2.pdf"
+msgstr "papers fișier1.pdf fișier2.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:35
 #, fuzzy
 #| msgid ""
-#| "Evince also supports the handling of files on the web. For example, after "
-#| "the evince command you can give the location of a file on the web:"
+#| "Papers also supports the handling of files on the web. For example, after "
+#| "the papers command you can give the location of a file on the web:"
 msgid ""
 "The <app>document viewer</app> also supports the handling of files on the "
-"web. For example, after the evince command you can give the location of a "
+"web. For example, after the papers command you can give the location of a "
 "file on the web:"
 msgstr ""
-"Evince suportă de asemenea gestionarea de fișiere de pe web. De exemplu, "
-"după comanda evince se poate specifica locația unui fișier de pe web:"
+"Papers suportă de asemenea gestionarea de fișiere de pe web. De exemplu, "
+"după comanda papers se poate specifica locația unui fișier de pe web:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:38
 #, no-wrap
-msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:40
@@ -787,9 +787,9 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:45
 #, fuzzy, no-wrap
-#| msgid "evince --page-label=3"
-msgid "evince --page-label=3 file.pdf"
-msgstr "evince --page-label=3"
+#| msgid "papers --page-label=3"
+msgid "papers --page-label=3 file.pdf"
+msgstr "papers --page-label=3"
 
 #. (itstool) path: section/p
 #: C/commandline.page:46
@@ -814,8 +814,8 @@ msgstr "Deschiderea unui document pe tot ecranul"
 #. (itstool) path: section/screen
 #: C/commandline.page:53
 #, no-wrap
-msgid "evince --fullscreen file.pdf"
-msgstr "evince --fullscreen fișier.pdf"
+msgid "papers --fullscreen file.pdf"
+msgstr "papers --fullscreen fișier.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:56
@@ -827,8 +827,8 @@ msgstr "Deschiderea unui document în modul de prezentare"
 #. (itstool) path: section/screen
 #: C/commandline.page:57
 #, no-wrap
-msgid "evince --presentation file.pdf"
-msgstr "evince --presentation fișier.pdf"
+msgid "papers --presentation file.pdf"
+msgstr "papers --presentation fișier.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:60
@@ -840,8 +840,8 @@ msgstr "Deschiderea unui document în modul de previzualizare"
 #. (itstool) path: section/screen
 #: C/commandline.page:61
 #, no-wrap
-msgid "evince --preview file.pdf"
-msgstr "evince --preview fișier.pdf"
+msgid "papers --preview file.pdf"
+msgstr "papers --preview fișier.pdf"
 
 #. (itstool) path: info/desc
 #: C/convertpdf.page:7
@@ -1150,9 +1150,9 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/develop.page:7
 #, fuzzy
-#| msgid "Open <app>Evince Document Viewer</app>."
+#| msgid "Open <app>Papers Document Viewer</app>."
 msgid "Improve the <app>Document Viewer</app>."
-msgstr "Deschideți <app>Vizualizator de documente Evince</app>."
+msgstr "Deschideți <app>Vizualizator de documente Papers</app>."
 
 #. (itstool) path: credit/years
 #: C/develop.page:12 C/documentation.page:11 C/translate.page:12
@@ -1174,11 +1174,11 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/develop.page:23
 msgid ""
-"If you would like to <link href=\"https://wiki.gnome.org/Apps/Evince\">help "
+"If you would like to <link href=\"https://wiki.gnome.org/Apps/Papers\">help "
 "develop</link> the <app>Document Viewer</app>, you can get in touch with the "
 "developers using <link href=\"https://cbe005.chat.mibbit.com/?url=irc%3A%2F"
-"%2Firc.gnome.org%2Fevince\">irc</link>, or via our <link href=\"https://mail."
-"gnome.org/mailman/listinfo/evince-list\">mailing list</link>."
+"%2Firc.gnome.org%2Fpapers\">irc</link>, or via our <link href=\"https://mail."
+"gnome.org/mailman/listinfo/papers-list\">mailing list</link>."
 msgstr ""
 
 #. (itstool) path: info/desc
@@ -2064,10 +2064,10 @@ msgstr "Tastați numerele paginilor în această ordine: 11, 2, 1"
 #. (itstool) path: info/desc
 #: C/editing.page:7
 #, fuzzy
-#| msgid "You can not use the <app>Evince Document Viewer</app> to edit files."
+#| msgid "You can not use the <app>Papers Document Viewer</app> to edit files."
 msgid "You can't use the <app>document viewer</app> to edit files."
 msgstr ""
-"Nu puteți utiliza <app>Vizualizator de documente Evince</app> pentru a edita "
+"Nu puteți utiliza <app>Vizualizator de documente Papers</app> pentru a edita "
 "fișiere."
 
 #. (itstool) path: page/title
@@ -2081,7 +2081,7 @@ msgstr "Pot edita documentele în Vizualizatorul de documente?"
 #: C/editing.page:24
 #, fuzzy
 #| msgid ""
-#| "<app>Evince</app> can not be used to make changes to documents. You need "
+#| "<app>Papers</app> can not be used to make changes to documents. You need "
 #| "to use the appropriate editing application for the type of file you want "
 #| "to change."
 msgid ""
@@ -2089,7 +2089,7 @@ msgid ""
 "You need to use the appropriate editing application for the type of file you "
 "want to change."
 msgstr ""
-"<app>Evince</app> nu poate fi folosit pentru a modifica documente. Aveți "
+"<app>Papers</app> nu poate fi folosit pentru a modifica documente. Aveți "
 "nevoie să folosiți aplicația de editare corespunzătoare pentru tipul de "
 "fișier pe care doriți să îl modificați."
 
@@ -2184,8 +2184,8 @@ msgstr ""
 #, fuzzy
 #| msgid ""
 #| "If the word or phrase you searched does not appear in the entire document "
-#| "<app>Evince</app> will say <em>Not found</em>. However, if it appears in "
-#| "the document at least once, Evince will tell you how many times the word "
+#| "<app>Papers</app> will say <em>Not found</em>. However, if it appears in "
+#| "the document at least once, Papers will tell you how many times the word "
 #| "you searched occurs on each page. This is apparent if you skip from one "
 #| "result to another as described above or scroll through the document."
 msgid ""
@@ -2195,9 +2195,9 @@ msgid ""
 "appears on the current page."
 msgstr ""
 "În cazul în care cuvântul sau expresia pe care ați căutat-o nu apare în "
-"întregul document <app>Evince</app> va spune <em>nu a fost găsit</em>. Cu "
+"întregul document <app>Papers</app> va spune <em>nu a fost găsit</em>. Cu "
 "toate acestea, în cazul în care acesta apare în document cel puțin o dată, "
-"Evince va spune de câte ori apare cuvântul căutat pe fiecare pagină. Acest "
+"Papers va spune de câte ori apare cuvântul căutat pe fiecare pagină. Acest "
 "lucru este evident dacă treceți de la un rezultat la altul descris mai sus "
 "sau dacă defilați prin document."
 
@@ -2225,9 +2225,9 @@ msgstr "Formate suportate"
 #. (itstool) path: page/p
 #: C/formats.page:29
 #, fuzzy
-#| msgid "<app>Evince</app> supports the following formats:"
+#| msgid "<app>Papers</app> supports the following formats:"
 msgid "The <app>document viewer</app> supports the following formats:"
-msgstr "<app>Evince</app> acceptă următoarele formate:"
+msgstr "<app>Papers</app> acceptă următoarele formate:"
 
 #. (itstool) path: item/p
 #: C/formats.page:33 C/presentations.page:77
@@ -2253,7 +2253,7 @@ msgstr ""
 #: C/formats.page:44
 #, fuzzy
 #| msgid ""
-#| "Support for a format is called a <em>backend</em>. If <app>Evince</app> "
+#| "Support for a format is called a <em>backend</em>. If <app>Papers</app> "
 #| "gives you the error \"Unable to Open Document\", you may wish to check "
 #| "whether the backend package for the format is installed."
 msgid ""
@@ -2261,7 +2261,7 @@ msgid ""
 "\"Unable to Open Document\", you may wish to check whether the backend "
 "package for the format is installed."
 msgstr ""
-"Suportarea unui format este numit un <em>suport</em>. Dacă <app>Evince</app> "
+"Suportarea unui format este numit un <em>suport</em>. Dacă <app>Papers</app> "
 "vă dă eroarea \"Imposibil de deschis documentul\", poate doriți să "
 "verificați dacă este instalat pachetul suport pentru format."
 
@@ -2456,19 +2456,19 @@ msgstr ""
 #. (itstool) path: info/title
 #: C/index.page:8
 msgctxt "link"
-msgid "Evince Document Viewer"
-msgstr "Vizualizator de documente Evince"
+msgid "Papers Document Viewer"
+msgstr "Vizualizator de documente Papers"
 
 #. (itstool) path: info/title
 #: C/index.page:9
 msgctxt "text"
-msgid "Evince Document Viewer"
-msgstr "Vizualizator de documente Evince"
+msgid "Papers Document Viewer"
+msgstr "Vizualizator de documente Papers"
 
 #. (itstool) path: info/desc
 #: C/index.page:24
 msgid ""
-"<app>Document Viewer</app>, formally known as <app>Evince</app>, is made for "
+"<app>Document Viewer</app>, formally known as <app>Papers</app>, is made for "
 "viewing PDF documents. Learn how to get started with <app>Document Viewer</"
 "app> and its features."
 msgstr ""
@@ -2546,8 +2546,8 @@ msgstr "Implicați-vă"
 
 #. (itstool) path: info/desc
 #: C/introduction.page:18
-msgid "Introduction to the <em>Evince Document Viewer</em>."
-msgstr "Introducere în <em>Vizualizatorul de documente Evince</em>."
+msgid "Introduction to the <em>Papers Document Viewer</em>."
+msgstr "Introducere în <em>Vizualizatorul de documente Papers</em>."
 
 #. (itstool) path: page/title
 #: C/introduction.page:21
@@ -2557,10 +2557,10 @@ msgstr "Introducere"
 #. (itstool) path: page/p
 #: C/introduction.page:23
 msgid ""
-"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a "
+"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
-"<app>Evince</app> este un vizualizator de documente. A se vedea <link xref="
+"<app>Papers</app> este un vizualizator de documente. A se vedea <link xref="
 "\"formats\"/> pentru o listă de tipuri de fișiere pe care le puteți "
 "vizualiza."
 
@@ -3189,7 +3189,7 @@ msgstr "restricții de tipărire ale PDF-ului."
 #| msgid ""
 #| "Some PDF documents have a setting which prevents you from printing them. "
 #| "Authors can set this printing restriction when they write a document. "
-#| "Evince overrides this restriction by default, but you may want to check "
+#| "Papers overrides this restriction by default, but you may want to check "
 #| "that it hasn't been disabled:"
 msgid ""
 "Some PDF documents have a setting which prevents you from printing them. "
@@ -3199,7 +3199,7 @@ msgid ""
 msgstr ""
 "Unele documente PDF au o setare care vă împiedică tipărirea acestora. "
 "Autorii pot seta această restricție de tipărire, atunci când scriu un "
-"document. Evince ignoră această restricție în mod implicit, dar poate doriți "
+"document. Papers ignoră această restricție în mod implicit, dar poate doriți "
 "să verificați dacă nu a fost dezactivat:"
 
 #. (itstool) path: item/p
@@ -3227,10 +3227,10 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/noprint.page:89
 #, fuzzy
-#| msgid "Browse to <sys>/apps/evince</sys> using the side pane."
-msgid "Browse to <sys>/org/gnome/evince</sys> using the side pane."
+#| msgid "Browse to <sys>/apps/papers</sys> using the side pane."
+msgid "Browse to <sys>/org/gnome/papers</sys> using the side pane."
 msgstr ""
-"Răsfoiește până la <sys>/apps/evince</sys> pentru a utiliza panoul lateral."
+"Răsfoiește până la <sys>/apps/papers</sys> pentru a utiliza panoul lateral."
 
 #. (itstool) path: item/p
 #: C/noprint.page:91
@@ -3262,7 +3262,7 @@ msgstr "De ce nu pot deschide un fișier?"
 #: C/openerror.page:24
 #, fuzzy
 #| msgid ""
-#| "If you try to open a document of a format that <app>Evince</app> does not "
+#| "If you try to open a document of a format that <app>Papers</app> does not "
 #| "recognize, you will get an \"Unable to open document\" error message. "
 #| "Click <gui>Close</gui> to return to the Document Viewer window."
 msgid ""
@@ -3271,7 +3271,7 @@ msgid ""
 "message. Click <gui>Close</gui> to return to the <app>Document Viewer</app> "
 "window."
 msgstr ""
-"Dacă încercați să deschideți un document cu un format pe care <app>Evince</"
+"Dacă încercați să deschideți un document cu un format pe care <app>Papers</"
 "app> nu-l recunoaște, veți primi un mesaj de eroare \"Nu pot deschide "
 "documentul\". Clic pe <gui>Închide</gui> pentru a reveni la fereastra "
 "Vizualizatorului de documente."
@@ -3294,10 +3294,10 @@ msgstr "Deschide un document."
 #: C/opening.page:29
 #, fuzzy
 #| msgid ""
-#| "You can open a document in <app>Evince</app> using the following ways:"
+#| "You can open a document in <app>Papers</app> using the following ways:"
 msgid "You can open a document using any one of the following ways:"
 msgstr ""
-"Aveți posibilitatea să deschideți un document în <app>Evince</app> în "
+"Aveți posibilitatea să deschideți un document în <app>Papers</app> în "
 "următoarele moduri:"
 
 #. (itstool) path: item/p
@@ -3541,9 +3541,9 @@ msgstr ""
 #. (itstool) path: section/title
 #: C/presentations.page:72
 #, fuzzy
-#| msgid "evince --presentation file.pdf"
+#| msgid "papers --presentation file.pdf"
 msgid "Supported presentation file formats"
-msgstr "evince --presentation fișier.pdf"
+msgstr "papers --presentation fișier.pdf"
 
 #. (itstool) path: section/p
 #: C/presentations.page:73
@@ -3968,13 +3968,13 @@ msgstr ""
 #: C/reload.page:8
 #, fuzzy
 #| msgid ""
-#| "<app>Evince</app> automatically reloads your document if another program "
+#| "<app>Papers</app> automatically reloads your document if another program "
 #| "changes it while you're viewing it."
 msgid ""
 "Your document will be automatically reloaded if another program changes it "
 "while you're viewing it."
 msgstr ""
-"<app>Evince</app> încarcă automat documentul dumneavoastră dacă un alt "
+"<app>Papers</app> încarcă automat documentul dumneavoastră dacă un alt "
 "program îl schimbă în timp ce îl vizualizați."
 
 #. (itstool) path: page/title
@@ -4008,13 +4008,13 @@ msgstr ""
 #, fuzzy
 #| msgid ""
 #| "If the document is deleted while you are still viewing it, it will remain "
-#| "open in <app>Evince</app>."
+#| "open in <app>Papers</app>."
 msgid ""
 "If the document is deleted while you are still viewing it, it will still "
 "remain open."
 msgstr ""
 "În cazul în care documentul este șters în timp ce îl vizualizați, acesta va "
-"rămâne deschis în <app>Evince</app>."
+"rămâne deschis în <app>Papers</app>."
 
 #. (itstool) path: info/desc
 #: C/shortcuts.page:7
@@ -4485,9 +4485,9 @@ msgstr "<key>F5</key> / <keyseq><key>Shift</key><key>F5</key></keyseq>"
 #. (itstool) path: section/title
 #: C/shortcuts.page:238
 #, fuzzy
-#| msgid "Evince Document Viewer"
+#| msgid "Papers Document Viewer"
 msgid "Document view"
-msgstr "Vizualizator de documente Evince"
+msgstr "Vizualizator de documente Papers"
 
 #. (itstool) path: td/p
 #: C/shortcuts.page:241
@@ -4641,7 +4641,7 @@ msgstr ""
 #: C/singlesided-13-16pages.page:100 C/singlesided-17-20pages.page:98
 #: C/singlesided-3-4pages.page:97 C/singlesided-5-8pages.page:97
 #: C/singlesided-9-12pages.page:97 C/singlesided-npages.page:104
-msgid "In the <gui>Only print</gui> menu, select <gui>Even sheets</gui>."
+msgid "In the <gui>Only print</gui> menu, select <gui>Ppsen sheets</gui>."
 msgstr ""
 "În meniul <gui>Doar tipărire</gui> menu, selectați <gui>Foi pare</gui>."
 
@@ -4820,13 +4820,13 @@ msgstr ""
 #, fuzzy
 #| msgid ""
 #| "Forward Search: From Beamer-LaTeX source to PDF (<app>Gedit</app> to "
-#| "<app>Evince</app>)"
+#| "<app>Papers</app>)"
 msgid ""
 "Forward search: from Beamer-LaTeX source to PDF (<app>gedit</app> to the "
 "<app>document viewer</app>)"
 msgstr ""
 "Cătare înainte: Din sursa Beamer-LaTeX în PDF (<app>Gedit</app> în "
-"<app>Evince</app>)"
+"<app>Papers</app>)"
 
 #. (itstool) path: section/p
 #: C/synctex-beamer.page:28
@@ -4845,13 +4845,13 @@ msgstr ""
 #: C/synctex-beamer.page:35
 #, fuzzy
 #| msgid ""
-#| "Backward Search: From PDF to Beamer-LaTeX source(<app>Evince</app> to "
+#| "Backward Search: From PDF to Beamer-LaTeX source(<app>Papers</app> to "
 #| "<app>Gedit</app>)"
 msgid ""
 "Backward search: from PDF to Beamer-LaTeX source (from the <app>document "
 "viewer</app> to <app>gedit</app>)"
 msgstr ""
-"Cătare înapoi: Din PDF în sursă Beamer-LaTeX(<app>Evince</app> în "
+"Cătare înapoi: Din PDF în sursă Beamer-LaTeX(<app>Papers</app> în "
 "<app>Gedit</app>)"
 
 #. (itstool) path: section/p
@@ -4974,31 +4974,31 @@ msgstr "Vim-latex"
 #: C/synctex-editors.page:29
 #, fuzzy
 #| msgid ""
-#| "The <app>Gedit</app> plugin contains a python script (evince_dbus.py) "
+#| "The <app>Gedit</app> plugin contains a python script (papers_dbus.py) "
 #| "that can be used to get Synctex working with Vim. In order to use vim-"
-#| "latex together with <app>Evince</app> you need to follow the next steps:"
+#| "latex together with <app>Papers</app> you need to follow the next steps:"
 msgid ""
-"The <app>gedit</app> plugin contains a python script (<file>evince_dbus.py</"
+"The <app>gedit</app> plugin contains a python script (<file>papers_dbus.py</"
 "file>) that can be used to get SyncTeX working with Vim. In order to use vim-"
 "latex together with the <app>document viewer</app> you need to follow the "
 "next steps:"
 msgstr ""
-"Plugin-ul <app>Gedit</app> conține un script python (evince_dbus.py) care "
+"Plugin-ul <app>Gedit</app> conține un script python (papers_dbus.py) care "
 "poate fi folosit pentru a face Synctex să funcționeze cu Vim. Pentru a "
-"folosi vim-latex împreună cu <app>Evince</app> trebuie să urmați pașii "
+"folosi vim-latex împreună cu <app>Papers</app> trebuie să urmați pașii "
 "următori:"
 
 #. (itstool) path: item/p
 #: C/synctex-editors.page:35
 #, fuzzy
 #| msgid ""
-#| "Copy the evince_dbus.py to some directory in your path and give it +x "
+#| "Copy the papers_dbus.py to some directory in your path and give it +x "
 #| "permissions."
 msgid ""
-"Copy the <file>evince_dbus.py</file> to some directory in your path and give "
+"Copy the <file>papers_dbus.py</file> to some directory in your path and give "
 "it +x permissions."
 msgstr ""
-"Copiați evince_dbus.py în unele directoare din calea dumneavoastră și dați-i "
+"Copiați papers_dbus.py în unele directoare din calea dumneavoastră și dați-i "
 "permisiunile +x."
 
 #. (itstool) path: item/p
@@ -5013,12 +5013,12 @@ msgstr "Modificați fișierul ~/.vimrc și adăugați următoarele linii."
 #, no-wrap
 msgid ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 msgstr ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 
@@ -5034,9 +5034,9 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/synctex.page:7
 #, fuzzy
-#| msgid "SyncTeX support is available in <app>Evince</app>."
+#| msgid "SyncTeX support is available in <app>Papers</app>."
 msgid "SyncTeX support is available."
-msgstr "Suportul pentru SyncTeX este disponibil în <app>Evince</app>."
+msgstr "Suportul pentru SyncTeX este disponibil în <app>Papers</app>."
 
 #. (itstool) path: page/title
 #: C/synctex.page:20
@@ -5055,9 +5055,9 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/synctex-search.page:7
 #, fuzzy
-#| msgid "Flip between <app>Evince</app> and <app>Gedit</app>."
+#| msgid "Flip between <app>Papers</app> and <app>Gedit</app>."
 msgid "Flip between the <app>document viewer</app> and <app>gedit</app>."
-msgstr "Schimbați între <app>Evince</app> și <app>Gedit</app>."
+msgstr "Schimbați între <app>Papers</app> și <app>Gedit</app>."
 
 #. (itstool) path: page/title
 #: C/synctex-search.page:20
@@ -5086,12 +5086,12 @@ msgstr ""
 #: C/synctex-search.page:26
 #, fuzzy
 #| msgid ""
-#| "Forward Search: From TeX to PDF (<app>Gedit</app> to <app>Evince</app>)"
+#| "Forward Search: From TeX to PDF (<app>Gedit</app> to <app>Papers</app>)"
 msgid ""
 "Forward search: from TeX to PDF (from <app>gedit</app> to the <app>document "
 "viewer</app>)"
 msgstr ""
-"Căutare înainte: Din TeX în PDF (<app>Gedit</app> în <app>Evince</app>)"
+"Căutare înainte: Din TeX în PDF (<app>Gedit</app> în <app>Papers</app>)"
 
 #. (itstool) path: section/p
 #: C/synctex-search.page:27
@@ -5142,13 +5142,13 @@ msgstr ""
 #, fuzzy
 #| msgid ""
 #| "If the corresponding PDF file is not open, performing a forward search "
-#| "will open the PDF in <app>Evince</app>."
+#| "will open the PDF in <app>Papers</app>."
 msgid ""
 "If the corresponding PDF file is not open, performing a forward search will "
 "open the PDF in the <app>document viewer</app>."
 msgstr ""
 "Dacă fișierul PDF corespunzător nu este deschis, efectuarea unei căutări "
-"înainte va deschide PDF-ul în <app>Evince</app>."
+"înainte va deschide PDF-ul în <app>Papers</app>."
 
 #. (itstool) path: section/p
 #: C/synctex-search.page:50
@@ -5178,12 +5178,12 @@ msgstr ""
 #: C/synctex-search.page:61
 #, fuzzy
 #| msgid ""
-#| "Backward Search: From PDF to TeX (<app>Evince</app> to <app>Gedit</app>)"
+#| "Backward Search: From PDF to TeX (<app>Papers</app> to <app>Gedit</app>)"
 msgid ""
 "Backward search: from PDF to TeX (from the <app>document viewer</app> to "
 "<app>gedit</app>)"
 msgstr ""
-"Căutare înapoi: Din  PDF în TeX (<app>Evince</app> în <app>Gedit</app>)"
+"Căutare înapoi: Din  PDF în TeX (<app>Papers</app> în <app>Gedit</app>)"
 
 #. (itstool) path: section/p
 #: C/synctex-search.page:62
@@ -5199,7 +5199,7 @@ msgstr ""
 #, fuzzy
 #| msgid ""
 #| "You can perform a backward search by pressing <key>Ctrl</key>+ Left Click "
-#| "in <app>Evince</app>. The corresponding line in the TeX source code will "
+#| "in <app>Papers</app>. The corresponding line in the TeX source code will "
 #| "be hightlighted."
 msgid ""
 "You can perform a backward search by pressing <keyseq><key>Ctrl</key>left "
@@ -5207,7 +5207,7 @@ msgid ""
 "the TeX source code will be highlighted."
 msgstr ""
 "Aveți posibilitatea să efectuați o căutare înapoi prin apăsarea <key>Ctrl</"
-"key>+ Clic Stânga în <app>Evince</app>. Linia corespunzătoare în codul sursă "
+"key>+ Clic Stânga în <app>Papers</app>. Linia corespunzătoare în codul sursă "
 "TeX va fi marcată."
 
 #. (itstool) path: info/desc
@@ -5292,7 +5292,7 @@ msgstr "De ce textul pe care l-am selectat nu s-a copiat corect?"
 #: C/textselection.page:23
 #, fuzzy
 #| msgid ""
-#| "If you highlight and copy text from a document using <app>Evince</app> "
+#| "If you highlight and copy text from a document using <app>Papers</app> "
 #| "and then paste it into another application, the formatting may alter. It "
 #| "may also contain different characters than the original selection. This "
 #| "often happens when copying text from a PDF document with multiple columns."
@@ -5304,7 +5304,7 @@ msgid ""
 "columns."
 msgstr ""
 "Dacă evidențiați și copiați textul dintr-un document folosind "
-"<app>Vizualizatorul de documente Evince</app> și apoi lipiți în altă "
+"<app>Vizualizatorul de documente Papers</app> și apoi lipiți în altă "
 "aplicație formatarea poate fi modificată. Ea poate conține, de asemenea, "
 "caractere diferite decât selecția inițială. Aceasta se întâmplă de multe ori "
 "când copiați textul dintr-un document PDF cu mai multe coloane."
@@ -5344,9 +5344,9 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/translate.page:7
 #, fuzzy
-#| msgid "Close <app>Evince Document Viewer</app>."
+#| msgid "Close <app>Papers Document Viewer</app>."
 msgid "Localize the <app>Document Viewer.</app>"
-msgstr "Închideți <app>Vizualizator de documente Evince</app>."
+msgstr "Închideți <app>Vizualizator de documente Papers</app>."
 
 #. (itstool) path: credit/name
 #: C/translate.page:15
@@ -5369,7 +5369,7 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/translate.page:27
 msgid ""
-"There are <link href=\"http://l10n.gnome.org/module/evince/\">many "
+"There are <link href=\"http://l10n.gnome.org/module/papers/\">many "
 "languages</link> for which translations are still needed."
 msgstr ""
 
@@ -5684,9 +5684,9 @@ msgstr ""
 #~ msgstr "Puteți adăuga/modifica scurtături după cum urmează:"
 
 #, fuzzy
-#~| msgid "Open <app>Evince Document Viewer</app>."
+#~| msgid "Open <app>Papers Document Viewer</app>."
 #~ msgid "Open the <app>document viewer</app>."
-#~ msgstr "Deschideți <app>Vizualizator de documente Evince</app>."
+#~ msgstr "Deschideți <app>Vizualizator de documente Papers</app>."
 
 #~ msgid ""
 #~ "Hover the pointer over the menu item you want to change/create the "
@@ -5703,9 +5703,9 @@ msgstr ""
 #~ "<keyseq><key>Ctrl</key><key>Shift</key><key>T</key></keyseq>."
 
 #, fuzzy
-#~| msgid "Close <app>Evince Document Viewer</app>."
+#~| msgid "Close <app>Papers Document Viewer</app>."
 #~ msgid "Close the <app>document viewer</app>."
-#~ msgstr "Închideți <app>Vizualizator de documente Evince</app>."
+#~ msgstr "Închideți <app>Vizualizator de documente Papers</app>."
 
 #~ msgid "Repeat steps 1-3."
 #~ msgstr "Repetați pașii 1-3."
@@ -5719,12 +5719,12 @@ msgstr ""
 
 #, fuzzy
 #~| msgid ""
-#~| "The next time Evince starts your custom shortcut key will be preserved."
+#~| "The next time Papers starts your custom shortcut key will be preserved."
 #~ msgid ""
 #~ "The next time the <app>document viewer</app> launches, your custom "
 #~ "shortcut key will be preserved."
 #~ msgstr ""
-#~ "Data viitoare cand Evince pornește, scurtătura de tastatură personalizată "
+#~ "Data viitoare cand Papers pornește, scurtătura de tastatură personalizată "
 #~ "va fi păstrată."
 
 #~ msgid "Note that this also works for many other Gnome applications as well."
@@ -5848,11 +5848,11 @@ msgstr ""
 #~ msgid "Landscape"
 #~ msgstr "Vedere"
 
-#~ msgid "You can play presentations with <app>Evince</app>."
-#~ msgstr "Puteți reda prezentări cu <app>Evince</app>."
+#~ msgid "You can play presentations with <app>Papers</app>."
+#~ msgstr "Puteți reda prezentări cu <app>Papers</app>."
 
-#~ msgid "<app>Evince</app> can be used to display presentations."
-#~ msgstr "<app>Evince</app> poate fi folosit pentru a afișa prezentări."
+#~ msgid "<app>Papers</app> can be used to display presentations."
+#~ msgstr "<app>Papers</app> poate fi folosit pentru a afișa prezentări."
 
 #~ msgid "Open a file"
 #~ msgstr "Deschide un fișier"
@@ -5871,8 +5871,8 @@ msgstr ""
 #~ "<em>parolă principală</em> e necesară pentru a tipări documentul, precum "
 #~ "și vizualizarea acestuia."
 
-#~ msgid "How to open a document using <app>Evince</app>."
-#~ msgstr "Cum se deschide un document utilizând <app>Evince</app>."
+#~ msgid "How to open a document using <app>Papers</app>."
+#~ msgstr "Cum se deschide un document utilizând <app>Papers</app>."
 
 #~ msgid "Opening A Document"
 #~ msgstr "Deschiderea unui document"
@@ -5908,24 +5908,24 @@ msgstr ""
 #~ msgstr "Pagina anterioară"
 
 #, fuzzy
-#~| msgid "@@image: 'evincelogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
+#~| msgid "@@image: 'paperslogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
 #~ msgid ""
-#~ "@@image: 'figures/evincelogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
-#~ msgstr "@@image: 'evincelogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
+#~ "@@image: 'figures/paperslogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
+#~ msgstr "@@image: 'paperslogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
 
-#~ msgid "Help for the Evince Document Viewer."
-#~ msgstr "Ajutor pentru Vizualizatorul de documente Evince."
+#~ msgid "Help for the Papers Document Viewer."
+#~ msgstr "Ajutor pentru Vizualizatorul de documente Papers."
 
 #, fuzzy
 #~| msgid ""
-#~| "<media type=\"image\" src=\"evincelogo.png\">Evince logo</media> Evince "
+#~| "<media type=\"image\" src=\"paperslogo.png\">Papers logo</media> Papers "
 #~| "Document Viewer"
 #~ msgid ""
-#~ "<media type=\"image\" src=\"figures/evincelogo.png\">Evince logo</media> "
-#~ "Evince Document Viewer"
+#~ "<media type=\"image\" src=\"figures/paperslogo.png\">Papers logo</media> "
+#~ "Papers Document Viewer"
 #~ msgstr ""
-#~ "<media type=\"image\" src=\"evincelogo.png\">Sigla Evince</media> "
-#~ "Vizualizator de documente Evince"
+#~ "<media type=\"image\" src=\"paperslogo.png\">Sigla Papers</media> "
+#~ "Vizualizator de documente Papers"
 
 #~ msgid "Save a copy"
 #~ msgstr "Salvați o copie"
@@ -5957,21 +5957,21 @@ msgstr ""
 #~ msgstr "Notă:"
 
 #~ msgid ""
-#~ "To file a bug against <app>Evince</app>, click on the link <link href="
+#~ "To file a bug against <app>Papers</app>, click on the link <link href="
 #~ "\"https://bugzilla.gnome.org/\"/>."
 #~ msgstr ""
-#~ "Pentru a trimite o notificare de defecțiune pentru <app>Evince</app>, "
+#~ "Pentru a trimite o notificare de defecțiune pentru <app>Papers</app>, "
 #~ "faceți clic pe linkul <link href=\"https://bugzilla.gnome.org/\"/>."
 
 #~ msgid ""
-#~ "<app>Evince</app> does not have a bookmark system. However, you can use "
+#~ "<app>Papers</app> does not have a bookmark system. However, you can use "
 #~ "<link xref=\"annotations\">annotations</link> like bookmarks."
 #~ msgstr ""
-#~ "<app>Evince</app> nu are un sistem de marcaj. Cu toate acestea, puteți "
+#~ "<app>Papers</app> nu are un sistem de marcaj. Cu toate acestea, puteți "
 #~ "utiliza ca și marcaje, <link xref=\"annotations\">adnotările</link> ."
 
 #~ msgid "You can not remove annotations."
 #~ msgstr "Nu aveți posibilitatea să eliminați adnotări"
 
-#~ msgid "You can not remove an annotation in <app>Evince</app> at this time."
-#~ msgstr "Nu puteți elimina o adnotare momentan în <app>Evince</app>."
+#~ msgid "You can not remove an annotation in <app>Papers</app> at this time."
+#~ msgstr "Nu puteți elimina o adnotare momentan în <app>Papers</app>."

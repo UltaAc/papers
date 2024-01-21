@@ -1,4 +1,0 @@
-[Evince Backend]
-Module=tiffdocument
-TypeDescription=TIFF Documents
-MimeType=@TIFF_MIME_TYPES@;

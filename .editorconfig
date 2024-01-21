@@ -42,7 +42,7 @@ indent_size=4
 [ChangeLog*]
 trim_trailing_whitespace=false
 
-[NEWS]
+[NEWS*]
 trim_trailing_whitespace=false
 
 [*.po]

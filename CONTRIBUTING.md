@@ -2,7 +2,7 @@
 
 ## Licensing
 
-Your work is considered a derivative work of the Evince codebase, and
+Your work is considered a derivative work of the Papers codebase, and
 therefore must be licensed as GPLv2+.
 
 You do not need to assign us copyright attribution.
@@ -11,23 +11,23 @@ It is our belief that you should always retain copyright on your own work.
 ## Troubleshooting
 
 To enable the debug messages, set the environment variable for the section
-you want to debug or set `EV_DEBUG` to enable debug messages for all sections.
+you want to debug or set `PPS_DEBUG` to enable debug messages for all sections.
 
 The following sections are available:
 
 ```c
-EV_DEBUG_JOBS
-EV_DEBUG_SHOW_BORDERS
+PPS_DEBUG_JOBS
+PPS_DEBUG_SHOW_BORDERS
 ```
 
 #### Example
 ```c
-EV_DEBUG_JOBS=1 evince document.pdf
+PPS_DEBUG_JOBS=1 papers document.pdf
 ```
 
 ### ‘Show borders’ debugging hint
 
-Evince can show a border around the following graphical elements:
+Papers can show a border around the following graphical elements:
 
  * text characters
  * links
@@ -39,13 +39,13 @@ Evince can show a border around the following graphical elements:
 
 this can be very helpful when debugging display issues related to those
 elements, to activate it you just need to set two env vars when calling
-Evince from a terminal, e.g. to show annotation borders:
+Papers from a terminal, e.g. to show annotation borders:
 
 ```sh
-EV_DEBUG=borders EV_DEBUG_SHOW_BORDERS=annots evince
+PPS_DEBUG=borders PPS_DEBUG_SHOW_BORDERS=annots papers
 ```
 
-where `EV_DEBUG_SHOW_BORDERS` can be set to any of the following values:
+where `PPS_DEBUG_SHOW_BORDERS` can be set to any of the following values:
 `chars` `links` `forms` `annots` `images` `media` `selections`.
 
 If you need to add additional tracing macros to debug a problem, it is
@@ -54,26 +54,26 @@ else will need to debug stuff in the future.
 
 ### Debug Poppler messages
 
-Poppler is the library used by Evince to render PDF documents. When a document
+Poppler is the library used by Papers to render PDF documents. When a document
 presents error, or there are issues in Poppler to handle it, the output can be
 seen by setting `G_MESSAGES_DEBUG` to enable debug messages for Poppler.
 
 #### Example
 
 ```
-G_MESSAGES_DEBUG=Poppler evince document.pdf
+G_MESSAGES_DEBUG=Poppler papers document.pdf
 ```
 
 or
 
 ```
-G_MESSAGES_DEBUG=all evince document.pdf
+G_MESSAGES_DEBUG=all papers document.pdf
 ```
 
 
 ## Code Style
 
-Evince follows the Linux coding style (K&R), with some mix of GObject
+Papers follows the Linux coding style (K&R), with some mix of GObject
 and Gtk coding style. However, the code has not evolved organically, and
 there is a mix and match of coding style with respect to indentation.
 
@@ -152,7 +152,7 @@ Closes #1234
  second newline, but that is not nice for the interfaces).
 
  - Whenever possible, the first line should include the subsystem of
-   the evince the commit belongs: `shell`, `libdocument`, `libview`,
+   the papers the commit belongs: `shell`, `libdocument`, `libview`,
    `libmisc`, `backends`, `cut-n-paste`, `build`, `doc`, `flatpak`.
    e.g. “flatpak: bump version of poppler”
 

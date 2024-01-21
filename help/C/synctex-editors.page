@@ -27,13 +27,13 @@
 
 <section id="vim-latex"><title>Vim-latex</title>
 <p>
-The <app>gedit</app> plugin contains a python script (<file>evince_dbus.py</file>) that can be used to get SyncTeX working with Vim.
+The <app>gedit</app> plugin contains a python script (<file>papers_dbus.py</file>) that can be used to get SyncTeX working with Vim.
 In order to use vim-latex together with the <app>document viewer</app> you need to follow the next steps:
 </p>
 <steps>
  <item>
   <p>
-     Copy the <file>evince_dbus.py</file> to some directory in your path and give it +x permissions.
+     Copy the <file>papers_dbus.py</file> to some directory in your path and give it +x permissions.
 
  </p>
  </item>
@@ -42,7 +42,7 @@ In order to use vim-latex together with the <app>document viewer</app> you need 
      Modify your <file>~/.vimrc</file> file and add the following lines.
     </p>
 <code>
-let g:Tex_ViewRule_pdf = 'evince_dbus.py'
+let g:Tex_ViewRule_pdf = 'papers_dbus.py'
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'
 </code>

@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <gresources>
-  <gresource prefix="/org/gnome/evince/shader">
+  <gresource prefix="/org/gnome/papers/shader">
     <file alias="fade.glsl" compressed="true">shader/fade.glsl</file>
     <file alias="split.glsl" compressed="true">shader/split.glsl</file>
     <file alias="wipe.glsl" compressed="true">shader/wipe.glsl</file>
@@ -29,7 +29,7 @@
     <file alias="fly.glsl" compressed="true">shader/fly.glsl</file>
     <file alias="glitter.glsl" compressed="true">shader/glitter.glsl</file>
   </gresource>
-  <gresource prefix="/org/gnome/evince/ui">
-    <file alias="view.ui" compressed="true" preprocess="xml-stripblanks">ev-view.ui</file>
+  <gresource prefix="/org/gnome/papers/ui">
+    <file alias="view.ui" compressed="true" preprocess="xml-stripblanks">pps-view.ui</file>
   </gresource>
 </gresources>

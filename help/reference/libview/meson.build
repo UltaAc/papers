@@ -1,14 +1,14 @@
-libevview_toml = configure_file(
-  input: 'libevview.toml.in',
-  output: 'libevview.toml',
+libppsview_toml = configure_file(
+  input: 'libppsview.toml.in',
+  output: 'libppsview.toml',
   configuration: toml_conf,
   install: true,
-  install_dir: docs_dir / 'libevview',
+  install_dir: docs_dir / 'libppsview',
 )
 
-custom_target('libevview-doc',
-  input: [ libevview_toml, libevview_gir[0] ],
-  output: 'libevview',
+custom_target('libppsview-doc',
+  input: [ libppsview_toml, libppsview_gir[0] ],
+  output: 'libppsview',
   command: [
     gidocgen,
     'generate',
@@ -21,7 +21,7 @@ custom_target('libevview-doc',
     '--content-dir=@0@'.format(meson.current_source_dir()),
     '@INPUT1@',
   ],
-  depends: [ libevdocument_gir[0] ],
+  depends: [ libppsdocument_gir[0] ],
   build_by_default: true,
   install: true,
   install_dir: docs_dir,

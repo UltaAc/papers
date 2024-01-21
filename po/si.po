@@ -42,63 +42,63 @@ msgid "DVI document has incorrect format"
 msgstr ""
 
 #. translators: this is the document security state
-#: ../backend/pdf/ev-poppler.cc:687
+#: ../backend/pdf/pps-poppler.cc:687
 
 msgid "Yes"
 msgstr "ඔව්"
 
 #. translators: this is the document security state
-#: ../backend/pdf/ev-poppler.cc:690
+#: ../backend/pdf/pps-poppler.cc:690
 
 msgid "No"
 msgstr "නැත"
 
-#: ../backend/pdf/ev-poppler.cc:790
+#: ../backend/pdf/pps-poppler.cc:790
 msgid "Type 1"
 msgstr "වර්‍ගය 1"
 
-#: ../backend/pdf/ev-poppler.cc:792
+#: ../backend/pdf/pps-poppler.cc:792
 msgid "Type 1C"
 msgstr "වර්‍ගය 1C"
 
-#: ../backend/pdf/ev-poppler.cc:794
+#: ../backend/pdf/pps-poppler.cc:794
 msgid "Type 3"
 msgstr "වර්‍ගය 3"
 
-#: ../backend/pdf/ev-poppler.cc:796
+#: ../backend/pdf/pps-poppler.cc:796
 msgid "TrueType"
 msgstr "සත්‍ය වර්‍ගය"
 
-#: ../backend/pdf/ev-poppler.cc:798
+#: ../backend/pdf/pps-poppler.cc:798
 msgid "Type 1 (CID)"
 msgstr "වර්‍ගය 1 (CID)"
 
-#: ../backend/pdf/ev-poppler.cc:800
+#: ../backend/pdf/pps-poppler.cc:800
 msgid "Type 1C (CID)"
 msgstr "වර්‍ගය 1C (CID)"
 
-#: ../backend/pdf/ev-poppler.cc:802
+#: ../backend/pdf/pps-poppler.cc:802
 msgid "TrueType (CID)"
 msgstr "සත්‍ය වර්‍ගය (CID)"
 
-#: ../backend/pdf/ev-poppler.cc:804
+#: ../backend/pdf/pps-poppler.cc:804
 msgid "Unknown font type"
 msgstr "නොදන්නා අක්‍ෂර වර්‍ගය"
 
-#: ../backend/pdf/ev-poppler.cc:830
+#: ../backend/pdf/pps-poppler.cc:830
 
 msgid "No name"
 msgstr "නමක් නැත"
 
-#: ../backend/pdf/ev-poppler.cc:838
+#: ../backend/pdf/pps-poppler.cc:838
 msgid "Embedded subset"
 msgstr "කාවැද්දු උප කුළකය"
 
-#: ../backend/pdf/ev-poppler.cc:840
+#: ../backend/pdf/pps-poppler.cc:840
 msgid "Embedded"
 msgstr "කාවැද්දු"
 
-#: ../backend/pdf/ev-poppler.cc:842
+#: ../backend/pdf/pps-poppler.cc:842
 msgid "Not embedded"
 msgstr "කාවැද්දා නැති"
 
@@ -252,65 +252,65 @@ msgstr ""
 msgid "Invalid document"
 msgstr "සාවද්‍ය ලේඛනය"
 
-#: ../libdocument/ev-attachment.c:303 ../libdocument/ev-attachment.c:316
+#: ../libdocument/pps-attachment.c:303 ../libdocument/pps-attachment.c:316
 #, c-format
 msgid "Couldn't save attachment “%s”: %s"
 msgstr ""
 
-#: ../libdocument/ev-attachment.c:348
+#: ../libdocument/pps-attachment.c:348
 #, c-format
 msgid "Couldn't open attachment “%s”: %s"
 msgstr ""
 
-#: ../libdocument/ev-attachment.c:381
+#: ../libdocument/pps-attachment.c:381
 #, c-format
 msgid "Couldn't open attachment “%s”"
 msgstr ""
 
-#: ../libdocument/ev-document-factory.c:291
-#: ../libdocument/ev-document-factory.c:398
+#: ../libdocument/pps-document-factory.c:291
+#: ../libdocument/pps-document-factory.c:398
 msgid "Unknown MIME Type"
 msgstr "නොදන්නා MIME වර්‍ගය"
 
-#: ../libdocument/ev-document-factory.c:302
+#: ../libdocument/pps-document-factory.c:302
 #, c-format
 msgid "Unhandled MIME type: “%s”"
 msgstr ""
 
-#: ../libdocument/ev-document-factory.c:439
+#: ../libdocument/pps-document-factory.c:439
 msgid "All Documents"
 msgstr "සියළුම ලේඛන"
 
-#: ../libdocument/ev-document-factory.c:447
+#: ../libdocument/pps-document-factory.c:447
 msgid "PostScript Documents"
 msgstr ""
 
-#: ../libdocument/ev-document-factory.c:457
+#: ../libdocument/pps-document-factory.c:457
 msgid "PDF Documents"
 msgstr "PDF ලේඛන"
 
-#: ../libdocument/ev-document-factory.c:467 ../shell/ev-window.c:4941
+#: ../libdocument/pps-document-factory.c:467 ../shell/pps-window.c:4941
 
 msgid "Images"
 msgstr "පිළිඹිබු"
 
-#: ../libdocument/ev-document-factory.c:477
+#: ../libdocument/pps-document-factory.c:477
 msgid "DVI Documents"
 msgstr "DVI ලේඛන"
 
-#: ../libdocument/ev-document-factory.c:487
+#: ../libdocument/pps-document-factory.c:487
 msgid "Djvu Documents"
 msgstr "Djvu ලේඛන"
 
-#: ../libdocument/ev-document-factory.c:497
+#: ../libdocument/pps-document-factory.c:497
 msgid "Comic Books"
 msgstr ""
 
-#: ../libdocument/ev-document-factory.c:507
+#: ../libdocument/pps-document-factory.c:507
 msgid "Impress Slides"
 msgstr ""
 
-#: ../libdocument/ev-document-factory.c:515
+#: ../libdocument/pps-document-factory.c:515
 
 msgid "All Files"
 msgstr "සියළුම ගොනු"
@@ -378,7 +378,7 @@ msgid "Running in presentation mode"
 msgstr ""
 
 #. translators: this is the label for toolbar button
-#: ../cut-n-paste/zoom-control/ephy-zoom.h:48 ../shell/ev-window.c:4531
+#: ../cut-n-paste/zoom-control/ephy-zoom.h:48 ../shell/pps-window.c:4531
 msgid "Best Fit"
 msgstr ""
 
@@ -432,98 +432,98 @@ msgstr "300%"
 msgid "400%"
 msgstr "400%"
 
-#: ../data/evince.desktop.in.in.h:1 ../shell/ev-window.c:3683
-#: ../shell/ev-window-title.c:126
+#: ../data/papers.desktop.in.in.h:1 ../shell/pps-window.c:3683
+#: ../shell/pps-window-title.c:126
 msgid "Document Viewer"
 msgstr "ලේඛන දසුන"
 
-#: ../data/evince.desktop.in.in.h:2
+#: ../data/papers.desktop.in.in.h:2
 msgid "View multipage documents"
 msgstr ""
 
-#: ../data/evince-password.glade.h:1
+#: ../data/papers-password.glade.h:1
 msgid "Password Entry"
 msgstr "රහස්පද ඇතුළත් කිරීම්"
 
-#: ../data/evince-password.glade.h:2
+#: ../data/papers-password.glade.h:2
 msgid "Remember password for this session"
 msgstr ""
 
-#: ../data/evince-password.glade.h:3
+#: ../data/papers-password.glade.h:3
 msgid "Save password in keyring"
 msgstr ""
 
-#: ../data/evince-password.glade.h:4
+#: ../data/papers-password.glade.h:4
 
 msgid "_Password:"
 msgstr "රහස්පදය: (_P)"
 
-#: ../data/evince-properties.glade.h:1
+#: ../data/papers-properties.glade.h:1
 msgid "<b>Author:</b>"
 msgstr "<b>කතෘ:</b>"
 
-#: ../data/evince-properties.glade.h:2
+#: ../data/papers-properties.glade.h:2
 msgid "<b>Created:</b>"
 msgstr "<b>නිර්මාණය කළ දිනය:</b>"
 
-#: ../data/evince-properties.glade.h:3
+#: ../data/papers-properties.glade.h:3
 msgid "<b>Creator:</b>"
 msgstr ""
 
-#: ../data/evince-properties.glade.h:4
+#: ../data/papers-properties.glade.h:4
 msgid "<b>Format:</b>"
 msgstr "<b>සංයුතිය:</b>"
 
-#: ../data/evince-properties.glade.h:5
+#: ../data/papers-properties.glade.h:5
 msgid "<b>Keywords:</b>"
 msgstr ""
 
-#: ../data/evince-properties.glade.h:6
+#: ../data/papers-properties.glade.h:6
 msgid "<b>Modified:</b>"
 msgstr ""
 
-#: ../data/evince-properties.glade.h:7
+#: ../data/papers-properties.glade.h:7
 msgid "<b>Number of Pages:</b>"
 msgstr ""
 
-#: ../data/evince-properties.glade.h:8
+#: ../data/papers-properties.glade.h:8
 msgid "<b>Optimized:</b>"
 msgstr ""
 
-#: ../data/evince-properties.glade.h:9
+#: ../data/papers-properties.glade.h:9
 msgid "<b>Paper Size:</b>"
 msgstr ""
 
-#: ../data/evince-properties.glade.h:10
+#: ../data/papers-properties.glade.h:10
 msgid "<b>Producer:</b>"
 msgstr "<b>නිෂ්පාදක:</b>"
 
-#: ../data/evince-properties.glade.h:11
+#: ../data/papers-properties.glade.h:11
 msgid "<b>Security:</b>"
 msgstr "<b>ආරක්‍ෂාව:</b>"
 
-#: ../data/evince-properties.glade.h:12
+#: ../data/papers-properties.glade.h:12
 msgid "<b>Subject:</b>"
 msgstr "<b>විශය:</b>"
 
-#: ../data/evince-properties.glade.h:13
+#: ../data/papers-properties.glade.h:13
 msgid "<b>Title:</b>"
 msgstr "<b>සිරස්තලය:</b>"
 
-#: ../data/evince.schemas.in.h:1
+#: ../data/papers.schemas.in.h:1
 msgid "Override document restrictions"
 msgstr ""
 
-#: ../data/evince.schemas.in.h:2
+#: ../data/papers.schemas.in.h:2
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr ""
 
-#: ../properties/ev-properties-main.c:110
+#: ../properties/pps-properties-main.c:110
 
 msgid "Document"
 msgstr "ලේඛන"
 
-#: ../properties/ev-properties-view.c:182
+#: ../properties/pps-properties-view.c:182
 
 msgid "None"
 msgstr "කිසිවක් නැත"
@@ -534,41 +534,41 @@ msgstr "කිසිවක් නැත"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: ../properties/ev-properties-view.c:207
-#: ../properties/ev-properties-view.c:367
+#: ../properties/pps-properties-view.c:207
+#: ../properties/pps-properties-view.c:367
 msgid "default:mm"
 msgstr "default:mm"
 
 #. Metric measurement (millimeters)
-#: ../properties/ev-properties-view.c:249
-#: ../properties/ev-properties-view.c:404
+#: ../properties/pps-properties-view.c:249
+#: ../properties/pps-properties-view.c:404
 #, c-format
 msgid "%.0f x %.0f mm"
 msgstr "%.0f x %.0f mm"
 
-#: ../properties/ev-properties-view.c:253
+#: ../properties/pps-properties-view.c:253
 #, c-format
 msgid "%.2f x %.2f inch"
 msgstr "%.2f x %.2f inch"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/ev-properties-view.c:277
-#: ../properties/ev-properties-view.c:415
+#: ../properties/pps-properties-view.c:277
+#: ../properties/pps-properties-view.c:415
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr ""
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/ev-properties-view.c:284
-#: ../properties/ev-properties-view.c:422
+#: ../properties/pps-properties-view.c:284
+#: ../properties/pps-properties-view.c:422
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr ""
 
 #. Imperial measurement (inches)
-#: ../properties/ev-properties-view.c:399
+#: ../properties/pps-properties-view.c:399
 #, c-format
 msgid "%.2f x %.2f in"
 msgstr "%.2f x %.2f in"
@@ -633,679 +633,679 @@ msgstr ""
 msgid "Toggle case sensitive search"
 msgstr ""
 
-#: ../shell/ev-page-action.c:76
+#: ../shell/pps-page-action.c:76
 #, c-format
 msgid "(%d of %d)"
 msgstr ""
 
-#: ../shell/ev-page-action.c:78
+#: ../shell/pps-page-action.c:78
 #, c-format
 msgid "of %d"
 msgstr ""
 
-#: ../shell/ev-password.c:83
+#: ../shell/pps-password.c:83
 msgid "Password required"
 msgstr ""
 
-#: ../shell/ev-password.c:84
+#: ../shell/pps-password.c:84
 #, c-format
 msgid "The document “%s” is locked and requires a password before it can be opened."
 msgstr ""
 
-#: ../shell/ev-password.c:149
+#: ../shell/pps-password.c:149
 
 msgid "Enter password"
 msgstr "රහස්පදය ඇතුළත් කරන්න"
 
-#: ../shell/ev-password.c:252
+#: ../shell/pps-password.c:252
 #, c-format
 msgid "Password for document %s"
 msgstr ""
 
-#: ../shell/ev-password.c:334
+#: ../shell/pps-password.c:334
 msgid "Incorrect password"
 msgstr ""
 
-#: ../shell/ev-password-view.c:111
+#: ../shell/pps-password-view.c:111
 msgid ""
 "This document is locked and can only be read by entering the correct "
 "password."
 msgstr ""
 
-#: ../shell/ev-password-view.c:120
+#: ../shell/pps-password-view.c:120
 msgid "_Unlock Document"
 msgstr ""
 
-#: ../shell/ev-properties-dialog.c:61
+#: ../shell/pps-properties-dialog.c:61
 
 msgid "Properties"
 msgstr "වත්කම්"
 
-#: ../shell/ev-properties-dialog.c:94
+#: ../shell/pps-properties-dialog.c:94
 
 msgid "General"
 msgstr "සාමාන්‍ය"
 
-#: ../shell/ev-properties-dialog.c:104
+#: ../shell/pps-properties-dialog.c:104
 
 msgid "Fonts"
 msgstr "අකුරු"
 
-#: ../shell/ev-properties-fonts.c:141
+#: ../shell/pps-properties-fonts.c:141
 
 msgid "Font"
 msgstr "අක්‍ෂර"
 
-#: ../shell/ev-properties-fonts.c:152
+#: ../shell/pps-properties-fonts.c:152
 #, c-format
 msgid "Gathering font information... %3d%%"
 msgstr ""
 
-#: ../shell/ev-sidebar-attachments.c:670
+#: ../shell/pps-sidebar-attachments.c:670
 
 msgid "Attachments"
 msgstr "ඇමුණුම්"
 
-#: ../shell/ev-sidebar-links.c:266 ../shell/ev-view.c:3446
+#: ../shell/pps-sidebar-links.c:266 ../shell/pps-view.c:3446
 
 msgid "Loading..."
 msgstr "පුරණය වෙමින්..."
 
-#: ../shell/ev-sidebar-links.c:342
+#: ../shell/pps-sidebar-links.c:342
 
 msgid "Print..."
 msgstr "මුද්‍රණය..."
 
-#: ../shell/ev-sidebar-links.c:722
+#: ../shell/pps-sidebar-links.c:722
 msgid "Index"
 msgstr "පටුන"
 
-#: ../shell/ev-sidebar-thumbnails.c:733
+#: ../shell/pps-sidebar-thumbnails.c:733
 msgid "Thumbnails"
 msgstr ""
 
-#: ../shell/ev-view-accessible.c:42
+#: ../shell/pps-view-accessible.c:42
 msgid "Scroll Up"
 msgstr ""
 
-#: ../shell/ev-view-accessible.c:43
+#: ../shell/pps-view-accessible.c:43
 msgid "Scroll Down"
 msgstr ""
 
-#: ../shell/ev-view-accessible.c:49
+#: ../shell/pps-view-accessible.c:49
 msgid "Scroll View Up"
 msgstr ""
 
-#: ../shell/ev-view-accessible.c:50
+#: ../shell/pps-view-accessible.c:50
 msgid "Scroll View Down"
 msgstr ""
 
-#: ../shell/ev-view-accessible.c:536
+#: ../shell/pps-view-accessible.c:536
 msgid "Document View"
 msgstr ""
 
-#: ../shell/ev-view.c:1422
+#: ../shell/pps-view.c:1422
 msgid "Go to first page"
 msgstr ""
 
-#: ../shell/ev-view.c:1424
+#: ../shell/pps-view.c:1424
 msgid "Go to previous page"
 msgstr ""
 
-#: ../shell/ev-view.c:1426
+#: ../shell/pps-view.c:1426
 msgid "Go to next page"
 msgstr ""
 
-#: ../shell/ev-view.c:1428
+#: ../shell/pps-view.c:1428
 msgid "Go to last page"
 msgstr ""
 
-#: ../shell/ev-view.c:1430
+#: ../shell/pps-view.c:1430
 msgid "Go to page"
 msgstr ""
 
-#: ../shell/ev-view.c:1432
+#: ../shell/pps-view.c:1432
 
 msgid "Find"
 msgstr "සොයන්න"
 
-#: ../shell/ev-view.c:1460
+#: ../shell/pps-view.c:1460
 #, c-format
 msgid "Go to page %s"
 msgstr ""
 
-#: ../shell/ev-view.c:1466
+#: ../shell/pps-view.c:1466
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr ""
 
-#: ../shell/ev-view.c:1469
+#: ../shell/pps-view.c:1469
 #, c-format
 msgid "Go to file “%s”"
 msgstr ""
 
-#: ../shell/ev-view.c:1477
+#: ../shell/pps-view.c:1477
 #, c-format
 msgid "Launch %s"
 msgstr ""
 
-#: ../shell/ev-view.c:2412
+#: ../shell/pps-view.c:2412
 msgid "End of presentation. Press Escape to exit."
 msgstr ""
 
-#: ../shell/ev-view.c:3168
+#: ../shell/pps-view.c:3168
 msgid "Jump to page:"
 msgstr ""
 
 #. TRANS: Sometimes this could be better translated as
 #. "%d hit(s) on this page".  Therefore this string
 #. contains plural cases.
-#: ../shell/ev-view.c:4817
+#: ../shell/pps-view.c:4817
 #, c-format
 msgid "%d found on this page"
 msgid_plural "%d found on this page"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../shell/ev-view.c:4826
+#: ../shell/pps-view.c:4826
 #, c-format
 msgid "%3d%% remaining to search"
 msgstr ""
 
-#: ../shell/ev-window.c:737
+#: ../shell/pps-window.c:737
 #, c-format
 msgid "Page %s - %s"
 msgstr "පිටුව %s - %s"
 
-#: ../shell/ev-window.c:739
+#: ../shell/pps-window.c:739
 #, c-format
 msgid "Page %s"
 msgstr "%s පිටුව"
 
-#: ../shell/ev-window.c:1347
+#: ../shell/pps-window.c:1347
 msgid "Unable to open document"
 msgstr ""
 
-#: ../shell/ev-window.c:1536
+#: ../shell/pps-window.c:1536
 msgid "Open Document"
 msgstr "ලේඛනය විවෘත කරන්න"
 
-#: ../shell/ev-window.c:1598
+#: ../shell/pps-window.c:1598
 #, c-format
 msgid "Couldn't create symlink “%s”: %s"
 msgstr ""
 
-#: ../shell/ev-window.c:1627
+#: ../shell/pps-window.c:1627
 msgid "Cannot open a copy."
 msgstr ""
 
-#: ../shell/ev-window.c:1909 ../shell/ev-window.c:1996
-#: ../shell/ev-window.c:2052
+#: ../shell/pps-window.c:1909 ../shell/pps-window.c:1996
+#: ../shell/pps-window.c:2052
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr ""
 
-#: ../shell/ev-window.c:1992
+#: ../shell/pps-window.c:1992
 #, c-format
 msgid "Failed to create file “%s”: %s"
 msgstr ""
 
-#: ../shell/ev-window.c:2096
+#: ../shell/pps-window.c:2096
 msgid "Save a Copy"
 msgstr "පිටපතක් සුරකින්න"
 
-#: ../shell/ev-window.c:2186 ../shell/ev-window.c:3384
+#: ../shell/pps-window.c:2186 ../shell/pps-window.c:3384
 msgid "Failed to print document"
 msgstr ""
 
-#: ../shell/ev-window.c:2346 ../shell/ev-window.c:2525
+#: ../shell/pps-window.c:2346 ../shell/pps-window.c:2525
 msgid "Printing is not supported on this printer."
 msgstr ""
 
-#: ../shell/ev-window.c:2461 ../shell/ev-window.c:2576
-#: ../shell/ev-window.c:4340
+#: ../shell/pps-window.c:2461 ../shell/pps-window.c:2576
+#: ../shell/pps-window.c:4340
 
 msgid "Print"
 msgstr "මුද්‍රණය"
 
-#: ../shell/ev-window.c:2515
+#: ../shell/pps-window.c:2515
 msgid "Generating PDF is not supported"
 msgstr ""
 
-#: ../shell/ev-window.c:2527
+#: ../shell/pps-window.c:2527
 #, c-format
 msgid ""
 "You were trying to print to a printer using the “%s” driver. This program "
 "requires a PostScript printer driver."
 msgstr ""
 
-#: ../shell/ev-window.c:2585
+#: ../shell/pps-window.c:2585
 msgid "Pages"
 msgstr ""
 
-#: ../shell/ev-window.c:3167
+#: ../shell/pps-window.c:3167
 
 msgid "Toolbar Editor"
 msgstr "මෙවලම් පුවරු සකසනය"
 
-#: ../shell/ev-window.c:3679
+#: ../shell/pps-window.c:3679
 #, c-format
 msgid ""
 "Document Viewer.\n"
 "Using poppler %s (%s)"
 msgstr ""
 
-#: ../shell/ev-window.c:3707
+#: ../shell/pps-window.c:3707
 msgid ""
-"Evince is free software; you can redistribute it and/or modify it under the "
+"Papers is free software; you can redistribute it and/or modify it under the "
 "terms of the GNU General Public License as published by the Free Software "
 "Foundation; either version 2 of the License, or (at your option) any later "
 "version.\n"
 msgstr ""
 
-#: ../shell/ev-window.c:3711
+#: ../shell/pps-window.c:3711
 msgid ""
-"Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
+"Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
 "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 "details.\n"
 msgstr ""
 
-#: ../shell/ev-window.c:3715
+#: ../shell/pps-window.c:3715
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"Evince; if not, write to the Free Software Foundation, Inc., 59 Temple "
+"Papers; if not, write to the Free Software Foundation, Inc., 59 Temple "
 "Place, Fifth Floor, Boston, MA  02110-1301  USA\n"
 msgstr ""
 
-#: ../shell/ev-window.c:3739 ../shell/main.c:331
-msgid "Evince"
+#: ../shell/pps-window.c:3739 ../shell/main.c:331
+msgid "Papers"
 msgstr ""
 
-#: ../shell/ev-window.c:3742
-msgid "© 1996-2007 The Evince authors"
+#: ../shell/pps-window.c:3742
+msgid "© 1996-2007 The Papers authors"
 msgstr ""
 
-#: ../shell/ev-window.c:3748
+#: ../shell/pps-window.c:3748
 
 msgid "translator-credits"
 msgstr "පරිවර්තන ස්තුතිය"
 
-#: ../shell/ev-window.c:4251
+#: ../shell/pps-window.c:4251
 
 msgid "_File"
 msgstr "ගොනු (_F)"
 
-#: ../shell/ev-window.c:4252
+#: ../shell/pps-window.c:4252
 
 msgid "_Edit"
 msgstr "සැකසුම් (_E)"
 
-#: ../shell/ev-window.c:4253
+#: ../shell/pps-window.c:4253
 
 msgid "_View"
 msgstr "දසුන (_V)"
 
-#: ../shell/ev-window.c:4254
+#: ../shell/pps-window.c:4254
 
 msgid "_Go"
 msgstr "යන්න (_G)"
 
-#: ../shell/ev-window.c:4255
+#: ../shell/pps-window.c:4255
 
 msgid "_Help"
 msgstr "උදව් (_H)"
 
 #. File menu
-#: ../shell/ev-window.c:4258 ../shell/ev-window.c:4436
+#: ../shell/pps-window.c:4258 ../shell/pps-window.c:4436
 
 msgid "_Open..."
 msgstr "විවෘත කරන්න... (_O)"
 
-#: ../shell/ev-window.c:4259
+#: ../shell/pps-window.c:4259
 msgid "Open an existing document"
 msgstr ""
 
-#: ../shell/ev-window.c:4261
+#: ../shell/pps-window.c:4261
 msgid "Op_en a Copy"
 msgstr ""
 
-#: ../shell/ev-window.c:4262
+#: ../shell/pps-window.c:4262
 msgid "Open a copy of the current document in a new window"
 msgstr ""
 
-#: ../shell/ev-window.c:4264 ../shell/ev-window.c:4438
+#: ../shell/pps-window.c:4264 ../shell/pps-window.c:4438
 msgid "_Save a Copy..."
 msgstr ""
 
-#: ../shell/ev-window.c:4265
+#: ../shell/pps-window.c:4265
 msgid "Save a copy of the current document"
 msgstr ""
 
-#: ../shell/ev-window.c:4267
+#: ../shell/pps-window.c:4267
 msgid "Print Set_up..."
 msgstr ""
 
-#: ../shell/ev-window.c:4268
+#: ../shell/pps-window.c:4268
 msgid "Setup the page settings for printing"
 msgstr ""
 
-#: ../shell/ev-window.c:4270
+#: ../shell/pps-window.c:4270
 
 msgid "_Print..."
 msgstr "මුද්‍රණය... (_P)"
 
-#: ../shell/ev-window.c:4271 ../shell/ev-window.c:4341
+#: ../shell/pps-window.c:4271 ../shell/pps-window.c:4341
 msgid "Print this document"
 msgstr ""
 
-#: ../shell/ev-window.c:4273
+#: ../shell/pps-window.c:4273
 
 msgid "P_roperties"
 msgstr "අංගයන් (_r)"
 
-#: ../shell/ev-window.c:4282 ../shell/ev-window.c:4284
+#: ../shell/pps-window.c:4282 ../shell/pps-window.c:4284
 
 msgid "Select _All"
 msgstr "සියල්ල තෝරන්න (_A)"
 
-#: ../shell/ev-window.c:4287
+#: ../shell/pps-window.c:4287
 
 msgid "_Find..."
 msgstr "සොයන්න... (_F)"
 
-#: ../shell/ev-window.c:4288
+#: ../shell/pps-window.c:4288
 msgid "Find a word or phrase in the document"
 msgstr ""
 
-#: ../shell/ev-window.c:4290
+#: ../shell/pps-window.c:4290
 
 msgid "Find Ne_xt"
 msgstr "මීළඟ සෙවුම (_x)"
 
-#: ../shell/ev-window.c:4292
+#: ../shell/pps-window.c:4292
 
 msgid "Find Pre_vious"
 msgstr "පෙර සෙවුම (_x)"
 
-#: ../shell/ev-window.c:4294
+#: ../shell/pps-window.c:4294
 
 msgid "T_oolbar"
 msgstr "මෙවලම් පුවරුව (_o)"
 
-#: ../shell/ev-window.c:4296
+#: ../shell/pps-window.c:4296
 msgid "Rotate _Left"
 msgstr ""
 
-#: ../shell/ev-window.c:4298
+#: ../shell/pps-window.c:4298
 msgid "Rotate _Right"
 msgstr ""
 
-#: ../shell/ev-window.c:4303
+#: ../shell/pps-window.c:4303
 msgid "Enlarge the document"
 msgstr ""
 
-#: ../shell/ev-window.c:4306
+#: ../shell/pps-window.c:4306
 msgid "Shrink the document"
 msgstr ""
 
-#: ../shell/ev-window.c:4308
+#: ../shell/pps-window.c:4308
 
 msgid "_Reload"
 msgstr "ප්‍රතිපුරණය (_R)"
 
-#: ../shell/ev-window.c:4309
+#: ../shell/pps-window.c:4309
 msgid "Reload the document"
 msgstr ""
 
 #. Go menu
-#: ../shell/ev-window.c:4313
+#: ../shell/pps-window.c:4313
 msgid "_Previous Page"
 msgstr ""
 
-#: ../shell/ev-window.c:4314
+#: ../shell/pps-window.c:4314
 msgid "Go to the previous page"
 msgstr ""
 
-#: ../shell/ev-window.c:4316
+#: ../shell/pps-window.c:4316
 msgid "_Next Page"
 msgstr ""
 
-#: ../shell/ev-window.c:4317
+#: ../shell/pps-window.c:4317
 msgid "Go to the next page"
 msgstr ""
 
-#: ../shell/ev-window.c:4319
+#: ../shell/pps-window.c:4319
 msgid "_First Page"
 msgstr ""
 
-#: ../shell/ev-window.c:4320
+#: ../shell/pps-window.c:4320
 msgid "Go to the first page"
 msgstr ""
 
-#: ../shell/ev-window.c:4322
+#: ../shell/pps-window.c:4322
 msgid "_Last Page"
 msgstr ""
 
-#: ../shell/ev-window.c:4323
+#: ../shell/pps-window.c:4323
 msgid "Go to the last page"
 msgstr ""
 
 #. Help menu
-#: ../shell/ev-window.c:4327
+#: ../shell/pps-window.c:4327
 
 msgid "_Contents"
 msgstr "අන්තර්ගත (_C)"
 
-#: ../shell/ev-window.c:4330
+#: ../shell/pps-window.c:4330
 
 msgid "_About"
 msgstr "සම්බන්ධව (_A)"
 
 #. Toolbar-only
-#: ../shell/ev-window.c:4334
+#: ../shell/pps-window.c:4334
 msgid "Leave Fullscreen"
 msgstr ""
 
-#: ../shell/ev-window.c:4335
+#: ../shell/pps-window.c:4335
 msgid "Leave fullscreen mode"
 msgstr ""
 
-#: ../shell/ev-window.c:4337
+#: ../shell/pps-window.c:4337
 msgid "Start Presentation"
 msgstr ""
 
-#: ../shell/ev-window.c:4338
+#: ../shell/pps-window.c:4338
 msgid "Start a presentation"
 msgstr ""
 
 #. View Menu
-#: ../shell/ev-window.c:4392
+#: ../shell/pps-window.c:4392
 
 msgid "_Toolbar"
 msgstr "මෙවලම් පුවරුව (_T)"
 
-#: ../shell/ev-window.c:4393
+#: ../shell/pps-window.c:4393
 msgid "Show or hide the toolbar"
 msgstr ""
 
-#: ../shell/ev-window.c:4395
+#: ../shell/pps-window.c:4395
 
 msgid "Side _Pane"
 msgstr "පැති පුවරුව (_P)"
 
-#: ../shell/ev-window.c:4396
+#: ../shell/pps-window.c:4396
 msgid "Show or hide the side pane"
 msgstr ""
 
-#: ../shell/ev-window.c:4398
+#: ../shell/pps-window.c:4398
 msgid "_Continuous"
 msgstr ""
 
-#: ../shell/ev-window.c:4399
+#: ../shell/pps-window.c:4399
 msgid "Show the entire document"
 msgstr ""
 
-#: ../shell/ev-window.c:4401
+#: ../shell/pps-window.c:4401
 msgid "_Dual"
 msgstr ""
 
-#: ../shell/ev-window.c:4402
+#: ../shell/pps-window.c:4402
 msgid "Show two pages at once"
 msgstr ""
 
-#: ../shell/ev-window.c:4404
+#: ../shell/pps-window.c:4404
 
 msgid "_Fullscreen"
 msgstr "සම්පූර්ණ තිරය (_F)"
 
-#: ../shell/ev-window.c:4405
+#: ../shell/pps-window.c:4405
 msgid "Expand the window to fill the screen"
 msgstr ""
 
-#: ../shell/ev-window.c:4407
+#: ../shell/pps-window.c:4407
 msgid "_Presentation"
 msgstr ""
 
-#: ../shell/ev-window.c:4408
+#: ../shell/pps-window.c:4408
 msgid "Run document as a presentation"
 msgstr ""
 
-#: ../shell/ev-window.c:4410
+#: ../shell/pps-window.c:4410
 msgid "_Best Fit"
 msgstr ""
 
-#: ../shell/ev-window.c:4411
+#: ../shell/pps-window.c:4411
 msgid "Make the current document fill the window"
 msgstr ""
 
-#: ../shell/ev-window.c:4413
+#: ../shell/pps-window.c:4413
 msgid "Fit Page _Width"
 msgstr ""
 
-#: ../shell/ev-window.c:4414
+#: ../shell/pps-window.c:4414
 msgid "Make the current document fill the window width"
 msgstr ""
 
 #. Links
-#: ../shell/ev-window.c:4421
+#: ../shell/pps-window.c:4421
 
 msgid "_Open Link"
 msgstr "පුරුක විවෘත කරන්න (_O)"
 
-#: ../shell/ev-window.c:4423
+#: ../shell/pps-window.c:4423
 
 msgid "_Go To"
 msgstr "වෙතට යන්න (_G)"
 
-#: ../shell/ev-window.c:4425
+#: ../shell/pps-window.c:4425
 
 msgid "Open in New _Window"
 msgstr "නව කවුළුවක විවෘත කරන්න (_W)"
 
-#: ../shell/ev-window.c:4427
+#: ../shell/pps-window.c:4427
 
 msgid "_Copy Link Address"
 msgstr "පුරුක් ලිපිනය පිටපත් කරන්න (_C)"
 
-#: ../shell/ev-window.c:4429
+#: ../shell/pps-window.c:4429
 msgid "_Save Image As..."
 msgstr ""
 
-#: ../shell/ev-window.c:4431
+#: ../shell/pps-window.c:4431
 msgid "Copy _Image"
 msgstr ""
 
-#: ../shell/ev-window.c:4470
+#: ../shell/pps-window.c:4470
 
 msgid "Page"
 msgstr "පිටුව"
 
-#: ../shell/ev-window.c:4471
+#: ../shell/pps-window.c:4471
 msgid "Select Page"
 msgstr "පිටුව තෝරන්න"
 
-#: ../shell/ev-window.c:4482
+#: ../shell/pps-window.c:4482
 
 msgid "Zoom"
 msgstr "විශාලණය"
 
-#: ../shell/ev-window.c:4484
+#: ../shell/pps-window.c:4484
 msgid "Adjust the zoom level"
 msgstr ""
 
-#: ../shell/ev-window.c:4494
+#: ../shell/pps-window.c:4494
 msgid "Navigation"
 msgstr ""
 
-#: ../shell/ev-window.c:4496
+#: ../shell/pps-window.c:4496
 msgid "Back"
 msgstr "පසුපසට"
 
-#: ../shell/ev-window.c:4498
+#: ../shell/pps-window.c:4498
 msgid "Move across visited pages"
 msgstr ""
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:4514
+#: ../shell/pps-window.c:4514
 
 msgid "Previous"
 msgstr "පෙර"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:4519
+#: ../shell/pps-window.c:4519
 
 msgid "Next"
 msgstr "මීළඟ"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:4523
+#: ../shell/pps-window.c:4523
 
 msgid "Zoom In"
 msgstr "විශාල කරන්න"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:4527
+#: ../shell/pps-window.c:4527
 
 msgid "Zoom Out"
 msgstr "කුඩා කරන්න"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:4535
+#: ../shell/pps-window.c:4535
 msgid "Fit Width"
 msgstr ""
 
-#: ../shell/ev-window.c:4723
+#: ../shell/pps-window.c:4723
 msgid "Unable to open external link"
 msgstr ""
 
-#: ../shell/ev-window.c:4725
+#: ../shell/pps-window.c:4725
 #, c-format
 msgid "Invalid URI: “%s”"
 msgstr ""
 
-#: ../shell/ev-window.c:4893
+#: ../shell/pps-window.c:4893
 msgid "The image could not be saved."
 msgstr ""
 
-#: ../shell/ev-window.c:4928
+#: ../shell/pps-window.c:4928
 
 msgid "Save Image"
 msgstr "පිළිඹිබුව සුරකින්න"
 
-#: ../shell/ev-window.c:4984
+#: ../shell/pps-window.c:4984
 msgid "Unable to open attachment"
 msgstr ""
 
-#: ../shell/ev-window.c:5037
+#: ../shell/pps-window.c:5037
 msgid "The attachment could not be saved."
 msgstr ""
 
-#: ../shell/ev-window.c:5089
+#: ../shell/pps-window.c:5089
 msgid "Save Attachment"
 msgstr ""
 
-#: ../shell/ev-window-title.c:139
+#: ../shell/pps-window-title.c:139
 #, c-format
 msgid "%s - Password Required"
 msgstr "%s - රහස්පදය අවශ්‍යවේ"
@@ -1319,15 +1319,15 @@ msgid "PAGE"
 msgstr "PAGE"
 
 #: ../shell/main.c:60
-msgid "Run evince in fullscreen mode"
+msgid "Run papers in fullscreen mode"
 msgstr ""
 
 #: ../shell/main.c:61
-msgid "Run evince in presentation mode"
+msgid "Run papers in presentation mode"
 msgstr ""
 
 #: ../shell/main.c:62
-msgid "Run evince as a previewer"
+msgid "Run papers as a previewer"
 msgstr ""
 
 #: ../shell/main.c:65
@@ -1339,24 +1339,24 @@ msgid "GNOME Document Viewer"
 msgstr ""
 
 #: ../shell/main.c:374
-msgid "Evince Document Viewer"
+msgid "Papers Document Viewer"
 msgstr ""
 
-#: ../thumbnailer/evince-thumbnailer.schemas.in.h:1
+#: ../thumbnailer/papers-thumbnailer.schemas.in.h:1
 msgid ""
 "Boolean options available, true enables thumbnailing and false disables the "
 "creation of new thumbnails"
 msgstr ""
 
-#: ../thumbnailer/evince-thumbnailer.schemas.in.h:2
+#: ../thumbnailer/papers-thumbnailer.schemas.in.h:2
 msgid "Enable thumbnailing of PDF Documents"
 msgstr ""
 
-#: ../thumbnailer/evince-thumbnailer.schemas.in.h:3
+#: ../thumbnailer/papers-thumbnailer.schemas.in.h:3
 msgid "Thumbnail command for PDF Documents"
 msgstr ""
 
-#: ../thumbnailer/evince-thumbnailer.schemas.in.h:4
+#: ../thumbnailer/papers-thumbnailer.schemas.in.h:4
 msgid ""
 "Valid command plus arguments for the PDF Document thumbnailer. See nautilus "
 "thumbnailer documentation for more information."

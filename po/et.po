@@ -1,9 +1,9 @@
-# Evince'i eesti keele tõlge.
-# Estonian translation of Evince.
+# Papers'i eesti keele tõlge.
+# Estonian translation of Papers.
 #
 # Copyright (C) 2005, 2006 Free Software Foundation, Inc.
 # Copyright (C) 2007–2010 The GNOME Project
-# This file is distributed under the same license as the evince package.
+# This file is distributed under the same license as the papers package.
 #
 # Sven Sapelson <sven.sapelson gmail com>, 2005.
 # Ivar Smolin <okul linux ee>, 2005–2010.
@@ -12,9 +12,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Evince MASTER\n"
+"Project-Id-Version: Papers MASTER\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=evince&keywords=I18N+L10N&component=general\n"
+"product=papers&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2013-09-18 20:12+0000\n"
 "PO-Revision-Date: 2013-09-19 16:09+0300\n"
 "Last-Translator: Mattias Põldaru <mahfiaz@gmail.com>\n"
@@ -957,7 +957,7 @@ msgid "Close _after Printing"
 msgstr "Sulge _pärast printimist"
 
 msgid "Running in presentation mode"
-msgstr "Evince käivitamine esitlusrežiimis"
+msgstr "Papers käivitamine esitlusrežiimis"
 
 #, c-format
 msgid ""
@@ -968,41 +968,41 @@ msgstr ""
 "Kasutusel %s (%s)"
 
 msgid ""
-"Evince is free software; you can redistribute it and/or modify it under the "
+"Papers is free software; you can redistribute it and/or modify it under the "
 "terms of the GNU General Public License as published by the Free Software "
 "Foundation; either version 2 of the License, or (at your option) any later "
 "version.\n"
 msgstr ""
-"Evince on vaba tarkvara. Te võite seda edasi levitada ja/või muuta vastavalt "
+"Papers on vaba tarkvara. Te võite seda edasi levitada ja/või muuta vastavalt "
 "GNU Üldise Avaliku Litsentsi tingimustele, nagu need on Vaba Tarkvara Fondi "
 "poolt avaldatud; kas Litsentsi versioon number 2 või (vastavalt Teie "
 "valikule) ükskõik milline hilisem versioon.\n"
 
 msgid ""
-"Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
+"Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
 "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 "details.\n"
 msgstr ""
-"Evince'i levitatakse lootuses, et see on kasulik, kuid ILMA IGASUGUSE "
+"Papers'i levitatakse lootuses, et see on kasulik, kuid ILMA IGASUGUSE "
 "GARANTIITA; isegi KESKMISE/TAVALISE KVALITEEDIGARANTIITA või SOBIVUSELE "
 "TEATUD KINDLAKS EESMÄRGIKS. Üksikasjade suhtes vaata GNU Üldist Avalikku "
 "Litsentsi.\n"
 
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"Evince; if not, write to the Free Software Foundation, Inc., 51 Franklin "
+"Papers; if not, write to the Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 msgstr ""
-"Te peaks olema saanud GNU Üldise Avaliku Litsentsi koopia koos Evince'ga; "
+"Te peaks olema saanud GNU Üldise Avaliku Litsentsi koopia koos Papers'ga; "
 "kui ei, siis võtke ühendust Free Software Foundation'iga, 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 
-msgid "Evince"
-msgstr "Evince"
+msgid "Papers"
+msgstr "Papers"
 
-msgid "© 1996–2012 The Evince authors"
-msgstr "© 1996–2012 Evince'i autorid"
+msgid "© 1996–2012 The Papers authors"
+msgstr "© 1996–2012 Papers'i autorid"
 
 msgid "translator-credits"
 msgstr ""
@@ -1135,7 +1135,7 @@ msgid "Add a bookmark for the current page"
 msgstr "Käesoleva lehe kohta järjehoidja lisamine"
 
 msgid "_About"
-msgstr "_Evince'ist lähemalt"
+msgstr "_Papers'ist lähemalt"
 
 #. Toolbar-only
 msgid "Leave Fullscreen"
@@ -1313,14 +1313,14 @@ msgstr "Nimeline sihtkoht, mida kuvatakse."
 msgid "DEST"
 msgstr "SIHT"
 
-msgid "Run evince in fullscreen mode"
-msgstr "Evince käivitamine täisekraanirežiimis"
+msgid "Run papers in fullscreen mode"
+msgstr "Papers käivitamine täisekraanirežiimis"
 
-msgid "Run evince in presentation mode"
-msgstr "Evince käivitamine esitlusžiimis"
+msgid "Run papers in presentation mode"
+msgstr "Papers käivitamine esitlusžiimis"
 
-msgid "Run evince as a previewer"
-msgstr "Evince käivitamine eelvaatlusrežiimis"
+msgid "Run papers as a previewer"
+msgstr "Papers käivitamine eelvaatlusrežiimis"
 
 msgid "The word or phrase to find in the document"
 msgstr "Dokumendist otsitav sõna või fraas"
@@ -1463,7 +1463,7 @@ msgstr "A_bi"
 #~ msgid "Show or hide the toolbar"
 #~ msgstr "Tööriistariba näitamine või peitmine"
 
-#~ msgid "_Dual (Even pages left)"
+#~ msgid "_Dual (Ppsen pages left)"
 #~ msgstr "_Kaksikvaade (paarisleheküljed vasakul)"
 
 #~ msgid "Show two pages at once with even pages on the left"

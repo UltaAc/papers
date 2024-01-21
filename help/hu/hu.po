@@ -1,6 +1,6 @@
-# Hungarian translation for evince_help.
+# Hungarian translation for papers_help.
 # Copyright (C) 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023 Free Software Foundation, Inc.
-# This file is distributed under the same license as the evince help.
+# This file is distributed under the same license as the papers help.
 #
 # Attila Hammer <hammera at pickup dot hu>, 2014.
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2019.
@@ -8,7 +8,7 @@
 # Balázs Meskó <mesko.balazs at fsf dot hu>, 2021.
 msgid ""
 msgstr ""
-"Project-Id-Version: evince master\n"
+"Project-Id-Version: papers master\n"
 "POT-Creation-Date: 2023-09-15 00:54+0000\n"
 "PO-Revision-Date: 2023-09-19 20:56+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
@@ -563,8 +563,8 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/introduction.page:18
-msgid "Introduction to the <em>Evince Document Viewer</em>."
-msgstr "Az <em>Evince dokumentummegjelenítő</em> bemutatása."
+msgid "Introduction to the <em>Papers Document Viewer</em>."
+msgstr "Az <em>Papers dokumentummegjelenítő</em> bemutatása."
 
 #. (itstool) path: page/title
 #: C/introduction.page:21
@@ -574,10 +574,10 @@ msgstr "Bevezetés"
 #. (itstool) path: page/p
 #: C/introduction.page:23
 msgid ""
-"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a "
+"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
-"Az <app>Evince</app> egy dokumentummegjelenítő. A megjeleníthető fájltípusok "
+"Az <app>Papers</app> egy dokumentummegjelenítő. A megjeleníthető fájltípusok "
 "listájáért nézze meg a <link xref=\"formats\"/> szakaszt."
 
 #. (itstool) path: info/desc
@@ -693,7 +693,7 @@ msgstr ""
 #: C/singlesided-3-4pages.page:97 C/singlesided-17-20pages.page:98
 #: C/singlesided-npages.page:104 C/singlesided-13-16pages.page:100
 #: C/singlesided-9-12pages.page:97 C/singlesided-5-8pages.page:97
-msgid "In the <gui>Only print</gui> menu, select <gui>Even sheets</gui>."
+msgid "In the <gui>Only print</gui> menu, select <gui>Ppsen sheets</gui>."
 msgstr ""
 "A <gui>Nyomtatandó</gui> menüben válassza a <gui>Páratlan oldalak</gui> "
 "lehetőséget."
@@ -861,23 +861,23 @@ msgstr "Vim-latex"
 #. (itstool) path: section/p
 #: C/synctex-editors.page:29
 msgid ""
-"The <app>gedit</app> plugin contains a python script (<file>evince_dbus.py</"
+"The <app>gedit</app> plugin contains a python script (<file>papers_dbus.py</"
 "file>) that can be used to get SyncTeX working with Vim. In order to use vim-"
 "latex together with the <app>document viewer</app> you need to follow the "
 "next steps:"
 msgstr ""
 "A <app>gedit</app> bővítmény tartalmaz egy Python parancsfájlt "
-"(<file>evince_dbus.py</file>), amelynek segítségével a SyncTeX használható "
+"(<file>papers_dbus.py</file>), amelynek segítségével a SyncTeX használható "
 "Vimből. A vim-latex és a <app>dokumentummegjelenítő</app> együttes "
 "használatához tegye a következőket:"
 
 #. (itstool) path: item/p
 #: C/synctex-editors.page:35
 msgid ""
-"Copy the <file>evince_dbus.py</file> to some directory in your path and give "
+"Copy the <file>papers_dbus.py</file> to some directory in your path and give "
 "it +x permissions."
 msgstr ""
-"Másolja az <file>evince_dbus.py</file> fájlt a keresési útvonalon lévő "
+"Másolja az <file>papers_dbus.py</file> fájlt a keresési útvonalon lévő "
 "valamelyik könyvtárba, és adjon rá +x (futtatható) jogosultságot."
 
 #. (itstool) path: item/p
@@ -891,12 +891,12 @@ msgstr ""
 #, no-wrap
 msgid ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 msgstr ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 
@@ -1172,8 +1172,8 @@ msgstr "Kattintson a <gui>dconf szerkesztő</gui> gombra."
 
 #. (itstool) path: item/p
 #: C/noprint.page:100
-msgid "Browse to <sys>/org/gnome/evince</sys>."
-msgstr "Tallózzon rá az <sys>/org/gnome/evince</sys> helyre."
+msgid "Browse to <sys>/org/gnome/papers</sys>."
+msgstr "Tallózzon rá az <sys>/org/gnome/papers</sys> helyre."
 
 #. (itstool) path: item/p
 #: C/noprint.page:103
@@ -1548,13 +1548,13 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/translate.page:27
 #| msgid ""
-#| "There are <link href=\"http://l10n.gnome.org/module/evince/\">many "
+#| "There are <link href=\"http://l10n.gnome.org/module/papers/\">many "
 #| "languages</link> for which translations are still needed."
 msgid ""
-"There are <link href=\"https://l10n.gnome.org/module/evince/\">many "
+"There are <link href=\"https://l10n.gnome.org/module/papers/\">many "
 "languages</link> for which translations are still needed."
 msgstr ""
-"<link href=\"https://l10n.gnome.org/module/evince/\">Számos nyelv van</"
+"<link href=\"https://l10n.gnome.org/module/papers/\">Számos nyelv van</"
 "link>, amelyhez még szükség van fordításokra."
 
 #. (itstool) path: page/p
@@ -2114,27 +2114,27 @@ msgstr ""
 #: C/develop.page:23
 #| msgid ""
 #| "If you would like to <link href=\"https://wiki.gnome.org/Apps/"
-#| "Evince\">help develop</link> the <app>Document Viewer</app>, you can get "
+#| "Papers\">help develop</link> the <app>Document Viewer</app>, you can get "
 #| "in touch with the developers using <link href=\"https://cbe005.chat."
-#| "mibbit.com/?url=irc%3A%2F%2Firc.gnome.org%2Fevince\">irc</link>, or via "
-#| "<link href=\"https://discourse.gnome.org/tag/evince\">GNOME Discourse</"
+#| "mibbit.com/?url=irc%3A%2F%2Firc.gnome.org%2Fpapers\">irc</link>, or via "
+#| "<link href=\"https://discourse.gnome.org/tag/papers\">GNOME Discourse</"
 #| "link>."
 msgid ""
-"If you would like to <link href=\"https://wiki.gnome.org/Apps/Evince\">help "
+"If you would like to <link href=\"https://wiki.gnome.org/Apps/Papers\">help "
 "develop</link> the <app>Document Viewer</app>, you can get in touch with the "
-"developers at <link href=\"https://matrix.to/#/#evince:gnome.org\">#evince:"
+"developers at <link href=\"https://matrix.to/#/#papers:gnome.org\">#papers:"
 "gnome.org</link> on <link xref=\"help:gnome-help/help-matrix\">Matrix</link> "
-"or <link href=\"https://web.libera.chat/#gnome-evince\">#gnome-evince</link> "
+"or <link href=\"https://web.libera.chat/#gnome-papers\">#gnome-papers</link> "
 "on irc.libera.chat, or via <link href=\"https://discourse.gnome.org/tag/"
-"evince\">GNOME Discourse</link>."
+"papers\">GNOME Discourse</link>."
 msgstr ""
-"Ha szeretne <link href=\"https://wiki.gnome.org/Apps/Evince\">közreműködni a "
+"Ha szeretne <link href=\"https://wiki.gnome.org/Apps/Papers\">közreműködni a "
 "<app>Dokumentummegjelenítő</app> fejlesztésében</link>, akkor a fejlesztőkkel a "
-"kapcsolatot az <link href=\"https://matrix.to/#/#evince:gnome.org\">#evince:"
+"kapcsolatot az <link href=\"https://matrix.to/#/#papers:gnome.org\">#papers:"
 "gnome.org</link> szobában <link xref=\"help:gnome-help/help-"
 "matrix\">Matrixon</link> vagy a <link href=\"https://web.libera.chat/#gnome-"
-"evince\">#gnome-evince</link> csatornán az irc.libera.chat oldalon, illetve "
-"a <link href=\"https://discourse.gnome.org/tag/evince\">GNOME Discourse</"
+"papers\">#gnome-papers</link> csatornán az irc.libera.chat oldalon, illetve "
+"a <link href=\"https://discourse.gnome.org/tag/papers\">GNOME Discourse</"
 "link> fórumon veheti fel."
 
 #. (itstool) path: info/desc
@@ -2799,12 +2799,12 @@ msgid ""
 "The <app>document viewer</app> is maintained by a volunteer community. You "
 "are welcome to participate. If you notice a problem you can file a <em>bug "
 "report</em>. To file a bug, go to <link href=\"https://gitlab.gnome.org/"
-"GNOME/evince/issues/\"/>."
+"GNOME/papers/issues/\"/>."
 msgstr ""
 "A <app>dokumentummegjelenítőt</app> egy önkéntes közösség készíti. "
 "Közreműködését szívesen fogadjuk. Ha hibát észlelt, beküldhet egy "
 "<em>hibajelentést</em>. Ehhez keresse fel a <link href=\"https://gitlab."
-"gnome.org/GNOME/evince/issues/\"/> oldalt."
+"gnome.org/GNOME/papers/issues/\"/> oldalt."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2837,13 +2837,13 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/GNOME/evince/issues\">browse</"
+"please <link href=\"https://gitlab.gnome.org/GNOME/papers/issues\">browse</"
 "link> for the bug to see if it already exists."
 msgstr ""
 "Ha létrehozta fiókját, jelentkezzen be és kattintson a <gui>New issue</gui> "
 "gombra. Hiba jelentése előtt olvassa el a <link href=\"https://wiki.gnome."
 "org/GettingInTouch/BugReportingGuidelines\">hibajelentés-írási irányelveket</"
-"link>, és <link href=\"https://gitlab.gnome.org/GNOME/evince/"
+"link>, és <link href=\"https://gitlab.gnome.org/GNOME/papers/"
 "issues\">ellenőrizze</link>, hogy nincs-e már a hiba bejelentve."
 
 #. (itstool) path: page/p
@@ -3519,10 +3519,10 @@ msgstr "Parancssor"
 #. (itstool) path: info/desc
 #: C/commandline.page:8
 msgid ""
-"The <cmd>evince</cmd> command can open any number of files, at specific "
+"The <cmd>papers</cmd> command can open any number of files, at specific "
 "pages and in various modes."
 msgstr ""
-"Az <cmd>evince</cmd> paranccsal tetszőleges számú fájlt nyithat meg "
+"Az <cmd>papers</cmd> paranccsal tetszőleges számú fájlt nyithat meg "
 "különböző oldalakon és módokban."
 
 #. (itstool) path: page/title
@@ -3534,49 +3534,49 @@ msgstr "A parancssor"
 #: C/commandline.page:25
 msgid ""
 "To start the <app>Document Viewer</app> from the command line, type "
-"<cmd>evince</cmd>. You can open a specific file by typing the filename after "
-"the evince command:"
+"<cmd>papers</cmd>. You can open a specific file by typing the filename after "
+"the papers command:"
 msgstr ""
 "A <app>Dokumentummegjelenítő</app> parancssorból való elindításához írja be "
-"az <cmd>evince</cmd> parancsot. Egy adott fájl megnyitásához írja be a "
-"fájlnevet az evince parancs után:"
+"az <cmd>papers</cmd> parancsot. Egy adott fájl megnyitásához írja be a "
+"fájlnevet az papers parancs után:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:30
 #, no-wrap
-msgid "evince file.pdf"
-msgstr "evince fájl.pdf"
+msgid "papers file.pdf"
+msgstr "papers fájl.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:31
 msgid ""
-"You can open multiple files by typing the filenames after the evince "
+"You can open multiple files by typing the filenames after the papers "
 "command, separating the filenames by a space:"
 msgstr ""
 "Több fájlt is megnyithat a szóközzel elválasztott fájlnevek beírásával az "
-"evince parancs után:"
+"papers parancs után:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:34
 #, no-wrap
-msgid "evince file1.pdf file2.pdf"
-msgstr "evince fájl1.pdf fájl2.pdf"
+msgid "papers file1.pdf file2.pdf"
+msgstr "papers fájl1.pdf fájl2.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:35
 msgid ""
 "The <app>document viewer</app> also supports the handling of files on the "
-"web. For example, after the evince command you can give the location of a "
+"web. For example, after the papers command you can give the location of a "
 "file on the web:"
 msgstr ""
 "A <app>dokumentummegjelenítő</app> támogatja a weben található fájlok "
-"kezelését. Az evince parancs után például megadhatja egy fájl helyét a weben:"
+"kezelését. Az papers parancs után például megadhatja egy fájl helyét a weben:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:38
 #, no-wrap
-msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:40
@@ -3596,8 +3596,8 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:45
 #, no-wrap
-msgid "evince --page-label=3 file.pdf"
-msgstr "evince --page-label=3 fájl.pdf"
+msgid "papers --page-label=3 file.pdf"
+msgstr "papers --page-label=3 fájl.pdf"
 
 #. (itstool) path: section/p
 #: C/commandline.page:46
@@ -3616,8 +3616,8 @@ msgstr "Dokumentum megnyitása teljes képernyős módban"
 #. (itstool) path: section/screen
 #: C/commandline.page:53
 #, no-wrap
-msgid "evince --fullscreen file.pdf"
-msgstr "evince --fullscreen fájl.pdf"
+msgid "papers --fullscreen file.pdf"
+msgstr "papers --fullscreen fájl.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:56
@@ -3627,8 +3627,8 @@ msgstr "Dokumentum megnyitása bemutató módban"
 #. (itstool) path: section/screen
 #: C/commandline.page:57
 #, no-wrap
-msgid "evince --presentation file.pdf"
-msgstr "evince --presentation fájl.pdf"
+msgid "papers --presentation file.pdf"
+msgstr "papers --presentation fájl.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:60
@@ -3638,8 +3638,8 @@ msgstr "Dokumentum megnyitása előnézet módban"
 #. (itstool) path: section/screen
 #: C/commandline.page:61
 #, no-wrap
-msgid "evince --preview file.pdf"
-msgstr "evince --preview fájl.pdf"
+msgid "papers --preview file.pdf"
+msgstr "papers --preview fájl.pdf"
 
 #. (itstool) path: info/desc
 #: C/annotations.page:8
@@ -3803,29 +3803,29 @@ msgstr ""
 #. (itstool) path: info/title
 #: C/index.page:7
 msgctxt "link:trail"
-msgid "Evince Document Viewer"
-msgstr "Evince dokumentummegjelenítő"
+msgid "Papers Document Viewer"
+msgstr "Papers dokumentummegjelenítő"
 
 #. (itstool) path: info/title
 #: C/index.page:8
 msgctxt "link"
-msgid "Evince Document Viewer"
-msgstr "Evince dokumentummegjelenítő"
+msgid "Papers Document Viewer"
+msgstr "Papers dokumentummegjelenítő"
 
 #. (itstool) path: info/title
 #: C/index.page:9
 msgctxt "text"
-msgid "Evince Document Viewer"
-msgstr "Evince dokumentummegjelenítő"
+msgid "Papers Document Viewer"
+msgstr "Papers dokumentummegjelenítő"
 
 #. (itstool) path: info/desc
 #: C/index.page:24
 msgid ""
-"<app>Document Viewer</app>, formally known as <app>Evince</app>, is made for "
+"<app>Document Viewer</app>, formally known as <app>Papers</app>, is made for "
 "viewing PDF documents. Learn how to get started with <app>Document Viewer</"
 "app> and its features."
 msgstr ""
-"A <app>Dokumentummegjelenítő</app>, más néven <app>Evince</app> "
+"A <app>Dokumentummegjelenítő</app>, más néven <app>Papers</app> "
 "alkalmazással PDF dokumentumokat jeleníthet meg. A súgóból megtanulhatja, "
 "hogyan kezdheti el használni a <app>Dokumentummegjelenítőt</app> és a "
 "különböző funkcióit."

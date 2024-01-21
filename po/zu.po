@@ -1,12 +1,12 @@
-# Zulu translation for evince.
-# Copyright (C) 2011 evince's COPYRIGHT HOLDER
-# This file is distributed under the same license as the evince package.
+# Zulu translation for papers.
+# Copyright (C) 2011 papers's COPYRIGHT HOLDER
+# This file is distributed under the same license as the papers package.
 # Priscilla Mahlangu <priny@translate.org.za>, 2011.
 # F Wolff <friedel@translate.org.za>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=evince"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=papers"
 "&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2011-04-04 18:18+0000\n"
 "PO-Revision-Date: 2011-08-04 09:52+0200\n"
@@ -51,8 +51,8 @@ msgstr ""
 "yamahlaya"
 
 #: ../backend/comics/comics-document.c:458
-#: ../libdocument/ev-document-factory.c:93
-#: ../libdocument/ev-document-factory.c:230
+#: ../libdocument/pps-document-factory.c:93
+#: ../libdocument/pps-document-factory.c:230
 msgid "Unknown MIME Type"
 msgstr "Uhlobo lwe-MIME olungaziwa"
 
@@ -79,7 +79,7 @@ msgstr "Kube nephutha ekususeni i-“%s”."
 msgid "Error %s"
 msgstr "Iphutha %s"
 
-#: ../backend/comics/comicsdocument.evince-backend.in.h:1
+#: ../backend/comics/comicsdocument.papers-backend.in.h:1
 msgid "Comic Books"
 msgstr "Incwadi yamahlaya"
 
@@ -95,7 +95,7 @@ msgstr ""
 "Idokhumende lenziwe ngamafayela ambalwa. Eyodwa noma amaningi walawa "
 "mafayela akakwazi ukufinyelelwa."
 
-#: ../backend/djvu/djvudocument.evince-backend.in.h:1
+#: ../backend/djvu/djvudocument.papers-backend.in.h:1
 msgid "DjVu Documents"
 msgstr "Amadokhumende we-DjVu"
 
@@ -103,87 +103,87 @@ msgstr "Amadokhumende we-DjVu"
 msgid "DVI document has incorrect format"
 msgstr "Amadokhumende we-DVI anefomethi elingalungile"
 
-#: ../backend/dvi/dvidocument.evince-backend.in.h:1
+#: ../backend/dvi/dvidocument.papers-backend.in.h:1
 msgid "DVI Documents"
 msgstr "Amadokhumende we-DVI"
 
-#: ../backend/pdf/ev-poppler.cc:590
+#: ../backend/pdf/pps-poppler.cc:590
 msgid "This work is in the Public Domain"
 msgstr "Lo msebenzi ukukwetha nokuqamba okusesidlangalaleni"
 
 #. translators: this is the document security state
-#: ../backend/pdf/ev-poppler.cc:844 ../backend/pdf/ev-poppler.cc:850
+#: ../backend/pdf/pps-poppler.cc:844 ../backend/pdf/pps-poppler.cc:850
 msgid "Yes"
 msgstr "Yebo"
 
 #. translators: this is the document security state
-#: ../backend/pdf/ev-poppler.cc:847 ../backend/pdf/ev-poppler.cc:850
+#: ../backend/pdf/pps-poppler.cc:847 ../backend/pdf/pps-poppler.cc:850
 msgid "No"
 msgstr "Cha"
 
-#: ../backend/pdf/ev-poppler.cc:978
+#: ../backend/pdf/pps-poppler.cc:978
 msgid "Type 1"
 msgstr "Uhlobo 1"
 
-#: ../backend/pdf/ev-poppler.cc:980
+#: ../backend/pdf/pps-poppler.cc:980
 msgid "Type 1C"
 msgstr "Uhlobo 1C"
 
-#: ../backend/pdf/ev-poppler.cc:982
+#: ../backend/pdf/pps-poppler.cc:982
 msgid "Type 3"
 msgstr "Uhlobo 3"
 
-#: ../backend/pdf/ev-poppler.cc:984
+#: ../backend/pdf/pps-poppler.cc:984
 msgid "TrueType"
 msgstr "I-TrueType"
 
-#: ../backend/pdf/ev-poppler.cc:986
+#: ../backend/pdf/pps-poppler.cc:986
 msgid "Type 1 (CID)"
 msgstr "Uhlobo 1 (CID)"
 
-#: ../backend/pdf/ev-poppler.cc:988
+#: ../backend/pdf/pps-poppler.cc:988
 msgid "Type 1C (CID)"
 msgstr "Uhlobo 1C (CID)"
 
-#: ../backend/pdf/ev-poppler.cc:990
+#: ../backend/pdf/pps-poppler.cc:990
 msgid "TrueType (CID)"
 msgstr "I-TrueType (CID)"
 
-#: ../backend/pdf/ev-poppler.cc:992
+#: ../backend/pdf/pps-poppler.cc:992
 msgid "Unknown font type"
 msgstr "Uhlobo lwefonti olungaziwa"
 
-#: ../backend/pdf/ev-poppler.cc:1018
+#: ../backend/pdf/pps-poppler.cc:1018
 msgid "No name"
 msgstr "Akukho gama"
 
-#: ../backend/pdf/ev-poppler.cc:1026
+#: ../backend/pdf/pps-poppler.cc:1026
 msgid "Embedded subset"
 msgstr "Isthi elincane elisumekiwe"
 
-#: ../backend/pdf/ev-poppler.cc:1028
+#: ../backend/pdf/pps-poppler.cc:1028
 msgid "Embedded"
 msgstr "Kushumekiwe"
 
-#: ../backend/pdf/ev-poppler.cc:1030
+#: ../backend/pdf/pps-poppler.cc:1030
 msgid "Not embedded"
 msgstr "Akushumekiwe"
 
-#: ../backend/pdf/pdfdocument.evince-backend.in.h:1
+#: ../backend/pdf/pdfdocument.papers-backend.in.h:1
 msgid "PDF Documents"
 msgstr "Amadokhumende we-PDF"
 
-#: ../backend/ps/ev-spectre.c:98
+#: ../backend/ps/pps-spectre.c:98
 #, c-format
 msgid "Failed to load document “%s”"
 msgstr "Kuhluleke ukulayisha idokhumende “%s”"
 
-#: ../backend/ps/ev-spectre.c:131
+#: ../backend/ps/pps-spectre.c:131
 #, c-format
 msgid "Failed to save document “%s”"
 msgstr "Kuhluleke ukugcina idokhumende “%s”"
 
-#: ../backend/ps/psdocument.evince-backend.in.h:1
+#: ../backend/ps/psdocument.papers-backend.in.h:1
 msgid "PostScript Documents"
 msgstr "Amadokhumende we-PostScript"
 
@@ -191,40 +191,40 @@ msgstr "Amadokhumende we-PostScript"
 msgid "Invalid document"
 msgstr "Idokhumende elingavumelekile"
 
-#: ../libdocument/ev-attachment.c:304 ../libdocument/ev-attachment.c:325
+#: ../libdocument/pps-attachment.c:304 ../libdocument/pps-attachment.c:325
 #, c-format
 msgid "Couldn't save attachment “%s”: %s"
 msgstr "Ayikwazanga ukugcina okunamathiseliwe kwe-“%s”: %s"
 
-#: ../libdocument/ev-attachment.c:372
+#: ../libdocument/pps-attachment.c:372
 #, c-format
 msgid "Couldn't open attachment “%s”: %s"
 msgstr "Ayikwazanga ukuvula okunamathiseliwe kwe-“%s”: %s"
 
-#: ../libdocument/ev-attachment.c:407
+#: ../libdocument/pps-attachment.c:407
 #, c-format
 msgid "Couldn't open attachment “%s”"
 msgstr "Ayikwazanga ukuvula okunamathiseliwe kwe-“%s”"
 
-#: ../libdocument/ev-document-factory.c:112
+#: ../libdocument/pps-document-factory.c:112
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "Uhlobo lwefayela %s (%s) alixhasiwe"
 
-#: ../libdocument/ev-document-factory.c:283
+#: ../libdocument/pps-document-factory.c:283
 msgid "All Documents"
 msgstr "Amadokhumende wonke"
 
-#: ../libdocument/ev-document-factory.c:315
+#: ../libdocument/pps-document-factory.c:315
 msgid "All Files"
 msgstr "Amafayela wonke"
 
-#: ../libdocument/ev-file-helpers.c:146
+#: ../libdocument/pps-file-helpers.c:146
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "Kuhluleke ukudala ifayela lesikhashana: %s"
 
-#: ../libdocument/ev-file-helpers.c:308
+#: ../libdocument/pps-file-helpers.c:308
 #, c-format
 msgid "Failed to create a temporary directory: %s"
 msgstr "Kuhleleke ukudala uhla lwemibhalo lwesikhashana: %s"
@@ -274,8 +274,8 @@ msgstr "Khubaza ukuxhumanisa komphathi wesikhathi"
 msgid "Specify file containing saved configuration"
 msgstr "Cacisa ifayela eliqukethe izilungiselelo ezigciniwe"
 
-#: ../cut-n-paste/smclient/eggsmclient.c:229 ../previewer/ev-previewer.c:45
-#: ../previewer/ev-previewer.c:46
+#: ../cut-n-paste/smclient/eggsmclient.c:229 ../previewer/pps-previewer.c:45
+#: ../previewer/pps-previewer.c:46
 msgid "FILE"
 msgstr "IFAYELA"
 
@@ -336,7 +336,7 @@ msgid "Separator"
 msgstr "Isihlukanisi"
 
 #. translators: this is the label for toolbar button
-#: ../cut-n-paste/zoom-control/ephy-zoom.h:48 ../shell/ev-window.c:6006
+#: ../cut-n-paste/zoom-control/ephy-zoom.h:48 ../shell/pps-window.c:6006
 msgid "Best Fit"
 msgstr "Ukulunga okukahle kakhulu"
 
@@ -401,156 +401,156 @@ msgid "6400%"
 msgstr "6400%"
 
 #. Manually set name and icon
-#: ../data/evince.desktop.in.in.h:1 ../shell/ev-window.c:4769
-#: ../shell/ev-window-title.c:157 ../shell/main.c:310
+#: ../data/papers.desktop.in.in.h:1 ../shell/pps-window.c:4769
+#: ../shell/pps-window-title.c:157 ../shell/main.c:310
 #, c-format
 msgid "Document Viewer"
 msgstr "Isibuki samadokhumende"
 
-#: ../data/evince.desktop.in.in.h:2
+#: ../data/papers.desktop.in.in.h:2
 msgid "View multi-page documents"
 msgstr "Buka amadokhumende wamakhasi amaningi"
 
-#: ../previewer/ev-previewer.c:44
+#: ../previewer/pps-previewer.c:44
 msgid "Delete the temporary file"
 msgstr "Susa ifayela lesikhashana"
 
-#: ../previewer/ev-previewer.c:45
+#: ../previewer/pps-previewer.c:45
 msgid "Print settings file"
 msgstr "Phrinta ifayela lezilungiselelo"
 
-#: ../previewer/ev-previewer.c:144 ../previewer/ev-previewer.c:178
+#: ../previewer/pps-previewer.c:144 ../previewer/pps-previewer.c:178
 msgid "GNOME Document Previewer"
 msgstr "Isibuki ngaphambili sedokhumende ye-GNOME"
 
-#: ../previewer/ev-previewer-window.c:91 ../shell/ev-window.c:3275
+#: ../previewer/pps-previewer-window.c:91 ../shell/pps-window.c:3275
 msgid "Failed to print document"
 msgstr "Ihlulekile ukuphrinta idokhumende"
 
-#: ../previewer/ev-previewer-window.c:237
+#: ../previewer/pps-previewer-window.c:237
 #, c-format
 msgid "The selected printer '%s' could not be found"
 msgstr "Iphrinta '%s' ekhethiwe ayitholiwanga"
 
 #. Go menu
-#: ../previewer/ev-previewer-window.c:284 ../shell/ev-window.c:5705
+#: ../previewer/pps-previewer-window.c:284 ../shell/pps-window.c:5705
 msgid "_Previous Page"
 msgstr "_Ikhasi lokubuka ngaphambili"
 
-#: ../previewer/ev-previewer-window.c:285 ../shell/ev-window.c:5706
+#: ../previewer/pps-previewer-window.c:285 ../shell/pps-window.c:5706
 msgid "Go to the previous page"
 msgstr "Iya kwikhasi lokubuka ngaphambili"
 
-#: ../previewer/ev-previewer-window.c:287 ../shell/ev-window.c:5708
+#: ../previewer/pps-previewer-window.c:287 ../shell/pps-window.c:5708
 msgid "_Next Page"
 msgstr "I_khasi elilandelayo"
 
-#: ../previewer/ev-previewer-window.c:288 ../shell/ev-window.c:5709
+#: ../previewer/pps-previewer-window.c:288 ../shell/pps-window.c:5709
 msgid "Go to the next page"
 msgstr "Iya kwikhasi elilandelayo"
 
-#: ../previewer/ev-previewer-window.c:291 ../shell/ev-window.c:5692
+#: ../previewer/pps-previewer-window.c:291 ../shell/pps-window.c:5692
 msgid "Enlarge the document"
 msgstr "Khulisa idokhumende"
 
-#: ../previewer/ev-previewer-window.c:294 ../shell/ev-window.c:5695
+#: ../previewer/pps-previewer-window.c:294 ../shell/pps-window.c:5695
 msgid "Shrink the document"
 msgstr "Nciphisa idokhumende"
 
-#: ../previewer/ev-previewer-window.c:297 ../libview/ev-print-operation.c:1308
+#: ../previewer/pps-previewer-window.c:297 ../libview/pps-print-operation.c:1308
 msgid "Print"
 msgstr "Phrinta"
 
-#: ../previewer/ev-previewer-window.c:298 ../shell/ev-window.c:5661
+#: ../previewer/pps-previewer-window.c:298 ../shell/pps-window.c:5661
 msgid "Print this document"
 msgstr "Phrinta leli dokhumende"
 
-#: ../previewer/ev-previewer-window.c:342 ../shell/ev-window.c:5812
+#: ../previewer/pps-previewer-window.c:342 ../shell/pps-window.c:5812
 msgid "_Best Fit"
 msgstr "_Ukulingana okulungile"
 
-#: ../previewer/ev-previewer-window.c:343 ../shell/ev-window.c:5813
+#: ../previewer/pps-previewer-window.c:343 ../shell/pps-window.c:5813
 msgid "Make the current document fill the window"
 msgstr "Yenza idokhumende lamanje ukuthi ligcwale iwindi"
 
-#: ../previewer/ev-previewer-window.c:345 ../shell/ev-window.c:5815
+#: ../previewer/pps-previewer-window.c:345 ../shell/pps-window.c:5815
 msgid "Fit Page _Width"
 msgstr "Linganisa ikhasi _ububanzi"
 
-#: ../previewer/ev-previewer-window.c:346 ../shell/ev-window.c:5816
+#: ../previewer/pps-previewer-window.c:346 ../shell/pps-window.c:5816
 msgid "Make the current document fill the window width"
 msgstr "Yenza idokhumende lamanje okuthi liugcwale ububanzi bewindi"
 
-#: ../previewer/ev-previewer-window.c:558 ../shell/ev-window.c:5924
+#: ../previewer/pps-previewer-window.c:558 ../shell/pps-window.c:5924
 msgid "Page"
 msgstr "Ikhasi"
 
-#: ../previewer/ev-previewer-window.c:559 ../shell/ev-window.c:5925
+#: ../previewer/pps-previewer-window.c:559 ../shell/pps-window.c:5925
 msgid "Select Page"
 msgstr "Khetha ikhasi"
 
-#: ../properties/ev-properties-main.c:116
+#: ../properties/pps-properties-main.c:116
 msgid "Document"
 msgstr "Idokhumende"
 
-#: ../properties/ev-properties-view.c:60
+#: ../properties/pps-properties-view.c:60
 msgid "Title:"
 msgstr "Isihloko:"
 
-#: ../properties/ev-properties-view.c:61
+#: ../properties/pps-properties-view.c:61
 msgid "Location:"
 msgstr "Indawo:"
 
-#: ../properties/ev-properties-view.c:62
+#: ../properties/pps-properties-view.c:62
 msgid "Subject:"
 msgstr "Udaba:"
 
-#: ../properties/ev-properties-view.c:63
-#: ../shell/ev-annotation-properties-dialog.c:159
+#: ../properties/pps-properties-view.c:63
+#: ../shell/pps-annotation-properties-dialog.c:159
 msgid "Author:"
 msgstr "Umbhali:"
 
-#: ../properties/ev-properties-view.c:64
+#: ../properties/pps-properties-view.c:64
 msgid "Keywords:"
 msgstr "Amagama angukhiye:"
 
-#: ../properties/ev-properties-view.c:65
+#: ../properties/pps-properties-view.c:65
 msgid "Producer:"
 msgstr "Umkhiqizi:"
 
-#: ../properties/ev-properties-view.c:66
+#: ../properties/pps-properties-view.c:66
 msgid "Creator:"
 msgstr "Isidali:"
 
-#: ../properties/ev-properties-view.c:67
+#: ../properties/pps-properties-view.c:67
 msgid "Created:"
 msgstr "Idalwe:"
 
-#: ../properties/ev-properties-view.c:68
+#: ../properties/pps-properties-view.c:68
 msgid "Modified:"
 msgstr "Kulungisiwe:"
 
-#: ../properties/ev-properties-view.c:69
+#: ../properties/pps-properties-view.c:69
 msgid "Number of Pages:"
 msgstr "Inani lamakhasi:"
 
-#: ../properties/ev-properties-view.c:70
+#: ../properties/pps-properties-view.c:70
 msgid "Optimized:"
 msgstr "Sebenzisa ngokugcwele:"
 
-#: ../properties/ev-properties-view.c:71
+#: ../properties/pps-properties-view.c:71
 msgid "Format:"
 msgstr "Ifomethi:"
 
-#: ../properties/ev-properties-view.c:72
+#: ../properties/pps-properties-view.c:72
 msgid "Security:"
 msgstr "Ukuphepha:"
 
-#: ../properties/ev-properties-view.c:73
+#: ../properties/pps-properties-view.c:73
 msgid "Paper Size:"
 msgstr "Isayizi lephepha:"
 
-#: ../properties/ev-properties-view.c:188 ../libview/ev-print-operation.c:1892
+#: ../properties/pps-properties-view.c:188 ../libview/pps-print-operation.c:1892
 msgid "None"
 msgstr "Akukho"
 
@@ -560,95 +560,95 @@ msgstr "Akukho"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: ../properties/ev-properties-view.c:217
+#: ../properties/pps-properties-view.c:217
 msgid "default:mm"
 msgstr "default:mm"
 
-#: ../properties/ev-properties-view.c:261
+#: ../properties/pps-properties-view.c:261
 #, c-format
 msgid "%.0f × %.0f mm"
 msgstr "%.0f × %.0f mm"
 
-#: ../properties/ev-properties-view.c:265
+#: ../properties/pps-properties-view.c:265
 #, c-format
 msgid "%.2f × %.2f inch"
 msgstr "%.2f × %.2f inch"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/ev-properties-view.c:289
+#: ../properties/pps-properties-view.c:289
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr "%s, Isithombe (%s)"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/ev-properties-view.c:296
+#: ../properties/pps-properties-view.c:296
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr "%s, Ukubukeka (%s)"
 
-#: ../libmisc/ev-page-action-widget.c:68
+#: ../libmisc/pps-page-action-widget.c:68
 #, c-format
 msgid "(%d of %d)"
 msgstr "(i-%d ye-%d)"
 
-#: ../libmisc/ev-page-action-widget.c:70
+#: ../libmisc/pps-page-action-widget.c:70
 #, c-format
 msgid "of %d"
 msgstr "ye %d"
 
 #. Create tree view
-#: ../libview/ev-loading-window.c:76 ../shell/ev-sidebar-annotations.c:133
-#: ../shell/ev-sidebar-layers.c:125 ../shell/ev-sidebar-links.c:262
+#: ../libview/pps-loading-window.c:76 ../shell/pps-sidebar-annotations.c:133
+#: ../shell/pps-sidebar-layers.c:125 ../shell/pps-sidebar-links.c:262
 msgid "Loading…"
 msgstr "Kuyalayisha…"
 
 #. Initial state
-#: ../libview/ev-print-operation.c:334
+#: ../libview/pps-print-operation.c:334
 msgid "Preparing to print…"
 msgstr "Kulungiselwa ukuphrinta…"
 
-#: ../libview/ev-print-operation.c:336
+#: ../libview/pps-print-operation.c:336
 msgid "Finishing…"
 msgstr "Kuyaqedwa…"
 
-#: ../libview/ev-print-operation.c:338
+#: ../libview/pps-print-operation.c:338
 #, c-format
 msgid "Printing page %d of %d…"
 msgstr "Kuphrintiwa ikhasi %d lika %d…"
 
-#: ../libview/ev-print-operation.c:1162
+#: ../libview/pps-print-operation.c:1162
 msgid "Printing is not supported on this printer."
 msgstr "Ukuphrintiwa akuxhasiwe kule phrinta."
 
-#: ../libview/ev-print-operation.c:1227
+#: ../libview/pps-print-operation.c:1227
 msgid "Invalid page selection"
 msgstr "Ukukhethwa kwekhasi okungavumelekile"
 
-#: ../libview/ev-print-operation.c:1228
+#: ../libview/pps-print-operation.c:1228
 msgid "Warning"
 msgstr "Isixwayiso"
 
-#: ../libview/ev-print-operation.c:1230
+#: ../libview/pps-print-operation.c:1230
 #, fuzzy
 msgid "Your print range selection does not include any pages"
 msgstr ""
 "Ukhetho lwakho lwwbanga lokuphrinta alufaki phakathi amakhasi nanoma yimaphi"
 
-#: ../libview/ev-print-operation.c:1887
+#: ../libview/pps-print-operation.c:1887
 msgid "Page Scaling:"
 msgstr "Ukukala kwekhasi:"
 
-#: ../libview/ev-print-operation.c:1893
+#: ../libview/pps-print-operation.c:1893
 msgid "Shrink to Printable Area"
 msgstr "Nciphisa uyise kwindawo yokuphrinta"
 
-#: ../libview/ev-print-operation.c:1894
+#: ../libview/pps-print-operation.c:1894
 msgid "Fit to Printable Area"
 msgstr "Linganisela endaweni yokuphrinta"
 
-#: ../libview/ev-print-operation.c:1897
+#: ../libview/pps-print-operation.c:1897
 msgid ""
 "Scale document pages to fit the selected printer page. Select from one of "
 "the following:\n"
@@ -673,11 +673,11 @@ msgstr ""
 "anciphiswe njengokudingeka ukuthi alingane nendawo ephrintekayo yekhasi "
 "lokuphrinta.\n"
 
-#: ../libview/ev-print-operation.c:1909
+#: ../libview/pps-print-operation.c:1909
 msgid "Auto Rotate and Center"
 msgstr "Jikeleza ngokuzenzakalela bese ubeke ngaphakathi"
 
-#: ../libview/ev-print-operation.c:1912
+#: ../libview/pps-print-operation.c:1912
 msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
@@ -686,11 +686,11 @@ msgstr ""
 "ngalinye lekhasi ledokhumende. Amakhasi wedokhumende azobekwa ngaphakathi "
 "kwekhasi lokuphrinta."
 
-#: ../libview/ev-print-operation.c:1917
+#: ../libview/pps-print-operation.c:1917
 msgid "Select page size using document page size"
 msgstr "Khetha isayizi lekhasi usebenzisa isayizi lekhasi"
 
-#: ../libview/ev-print-operation.c:1919
+#: ../libview/pps-print-operation.c:1919
 msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
@@ -698,83 +698,83 @@ msgstr ""
 "Uma kwenziwe kwasebenza, ikhasi ngalinye lizophrinteka kwiphepha lona lelo "
 "lesayizi njengekhasi ledokhumende."
 
-#: ../libview/ev-print-operation.c:2001
+#: ../libview/pps-print-operation.c:2001
 msgid "Page Handling"
 msgstr "Ukuphathwa kwekhasi"
 
-#: ../libview/ev-jobs.c:1573
+#: ../libview/pps-jobs.c:1573
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "Kuhluleke ukuphrinta ikhasi %d: %s"
 
-#: ../libview/ev-view-accessible.c:46
+#: ../libview/pps-view-accessible.c:46
 msgid "Scroll Up"
 msgstr "Iya phezulu"
 
-#: ../libview/ev-view-accessible.c:47
+#: ../libview/pps-view-accessible.c:47
 msgid "Scroll Down"
 msgstr "Iya phansi"
 
-#: ../libview/ev-view-accessible.c:53
+#: ../libview/pps-view-accessible.c:53
 msgid "Scroll View Up"
 msgstr "Iya kukubukela phezulu"
 
-#: ../libview/ev-view-accessible.c:54
+#: ../libview/pps-view-accessible.c:54
 msgid "Scroll View Down"
 msgstr "Iya kukubukela phansi"
 
-#: ../libview/ev-view-accessible.c:883
+#: ../libview/pps-view-accessible.c:883
 msgid "Document View"
 msgstr "Ukubukwa kwedokhumende"
 
-#: ../libview/ev-view-presentation.c:691
+#: ../libview/pps-view-presentation.c:691
 msgid "Jump to page:"
 msgstr "Gqumkela kwikhasi:"
 
-#: ../libview/ev-view-presentation.c:998
+#: ../libview/pps-view-presentation.c:998
 msgid "End of presentation. Click to exit."
 msgstr "Kuqedwa umbukiso. Chofoza ukuze uphume."
 
-#: ../libview/ev-view.c:1834
+#: ../libview/pps-view.c:1834
 msgid "Go to first page"
 msgstr "Iya kwikhasi lokuqala"
 
-#: ../libview/ev-view.c:1836
+#: ../libview/pps-view.c:1836
 msgid "Go to previous page"
 msgstr "Iya kwikhasi eledlule"
 
-#: ../libview/ev-view.c:1838
+#: ../libview/pps-view.c:1838
 msgid "Go to next page"
 msgstr "Iya kwikhasi elilandelayo"
 
-#: ../libview/ev-view.c:1840
+#: ../libview/pps-view.c:1840
 msgid "Go to last page"
 msgstr "Iya kwikhasi lokugcina"
 
-#: ../libview/ev-view.c:1842
+#: ../libview/pps-view.c:1842
 msgid "Go to page"
 msgstr "Iya kwikhasi"
 
-#: ../libview/ev-view.c:1844
+#: ../libview/pps-view.c:1844
 msgid "Find"
 msgstr "Thola"
 
-#: ../libview/ev-view.c:1872
+#: ../libview/pps-view.c:1872
 #, c-format
 msgid "Go to page %s"
 msgstr "Iya kwikhasi %s"
 
-#: ../libview/ev-view.c:1878
+#: ../libview/pps-view.c:1878
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Iya kwi-%s kwifayela “%s”"
 
-#: ../libview/ev-view.c:1881
+#: ../libview/pps-view.c:1881
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Iya kwifayela “%s”"
 
-#: ../libview/ev-view.c:1889
+#: ../libview/pps-view.c:1889
 #, c-format
 msgid "Launch %s"
 msgstr "Qalisa %s"
@@ -783,7 +783,7 @@ msgstr "Qalisa %s"
 msgid "Find:"
 msgstr "Thola:"
 
-#: ../shell/eggfindbar.c:314 ../shell/ev-window.c:5678
+#: ../shell/eggfindbar.c:314 ../shell/pps-window.c:5678
 msgid "Find Pre_vious"
 msgstr "Thola okwe_dlule"
 
@@ -791,7 +791,7 @@ msgstr "Thola okwe_dlule"
 msgid "Find previous occurrence of the search string"
 msgstr "Thola isenzeko esedlule sochungechunge losesho"
 
-#: ../shell/eggfindbar.c:322 ../shell/ev-window.c:5676
+#: ../shell/eggfindbar.c:322 ../shell/pps-window.c:5676
 msgid "Find Ne_xt"
 msgstr "Thola okula_ndelayo"
 
@@ -807,96 +807,96 @@ msgstr "Kuqaphe ubu_khulu kanye nobuncane bamagama"
 msgid "Toggle case sensitive search"
 msgstr "Nyakazisa ubukhulu kanye nobuncane bamagama bosesho"
 
-#: ../shell/ev-annotation-properties-dialog.c:97
+#: ../shell/pps-annotation-properties-dialog.c:97
 msgid "Icon:"
 msgstr "Isithonjana:"
 
-#: ../shell/ev-annotation-properties-dialog.c:104
+#: ../shell/pps-annotation-properties-dialog.c:104
 msgid "Note"
 msgstr "Yazi"
 
-#: ../shell/ev-annotation-properties-dialog.c:105
+#: ../shell/pps-annotation-properties-dialog.c:105
 msgid "Comment"
 msgstr "Amazwana"
 
-#: ../shell/ev-annotation-properties-dialog.c:106
+#: ../shell/pps-annotation-properties-dialog.c:106
 msgid "Key"
 msgstr "Ukhiye"
 
-#: ../shell/ev-annotation-properties-dialog.c:107
+#: ../shell/pps-annotation-properties-dialog.c:107
 msgid "Help"
 msgstr "Usizo"
 
-#: ../shell/ev-annotation-properties-dialog.c:108
+#: ../shell/pps-annotation-properties-dialog.c:108
 msgid "New Paragraph"
 msgstr "Indima entsha"
 
-#: ../shell/ev-annotation-properties-dialog.c:109
+#: ../shell/pps-annotation-properties-dialog.c:109
 msgid "Paragraph"
 msgstr "Indima"
 
-#: ../shell/ev-annotation-properties-dialog.c:110
+#: ../shell/pps-annotation-properties-dialog.c:110
 msgid "Insert"
 msgstr "Faka"
 
-#: ../shell/ev-annotation-properties-dialog.c:111
+#: ../shell/pps-annotation-properties-dialog.c:111
 msgid "Cross"
 msgstr "Uphawu"
 
-#: ../shell/ev-annotation-properties-dialog.c:112
+#: ../shell/pps-annotation-properties-dialog.c:112
 msgid "Circle"
 msgstr "Indingiliza"
 
-#: ../shell/ev-annotation-properties-dialog.c:113
+#: ../shell/pps-annotation-properties-dialog.c:113
 msgid "Unknown"
 msgstr "Akwaziwa"
 
-#: ../shell/ev-annotation-properties-dialog.c:139
+#: ../shell/pps-annotation-properties-dialog.c:139
 msgid "Annotation Properties"
 msgstr "Izakhiwo zesichasiselo"
 
-#: ../shell/ev-annotation-properties-dialog.c:172
+#: ../shell/pps-annotation-properties-dialog.c:172
 msgid "Color:"
 msgstr "Umbala:"
 
-#: ../shell/ev-annotation-properties-dialog.c:184
+#: ../shell/pps-annotation-properties-dialog.c:184
 msgid "Style:"
 msgstr "Isitayela:"
 
-#: ../shell/ev-annotation-properties-dialog.c:200
+#: ../shell/pps-annotation-properties-dialog.c:200
 msgid "Transparent"
 msgstr "Ukubonakala"
 
-#: ../shell/ev-annotation-properties-dialog.c:207
+#: ../shell/pps-annotation-properties-dialog.c:207
 msgid "Opaque"
 msgstr "I-opaque"
 
-#: ../shell/ev-annotation-properties-dialog.c:218
+#: ../shell/pps-annotation-properties-dialog.c:218
 msgid "Initial window state:"
 msgstr "Isimo sefasitela sokuqala:"
 
-#: ../shell/ev-annotation-properties-dialog.c:225
+#: ../shell/pps-annotation-properties-dialog.c:225
 msgid "Open"
 msgstr "Vula"
 
-#: ../shell/ev-annotation-properties-dialog.c:226
+#: ../shell/pps-annotation-properties-dialog.c:226
 msgid "Close"
 msgstr "Vala"
 
-#: ../shell/ev-application.c:1112
+#: ../shell/pps-application.c:1112
 msgid "Running in presentation mode"
 msgstr "Kudlalwa kwendlela yombukiso"
 
-#: ../shell/ev-keyring.c:102
+#: ../shell/pps-keyring.c:102
 #, c-format
 msgid "Password for document %s"
 msgstr "Iphasiwedi yedokhumende %s"
 
-#: ../shell/ev-open-recent-action.c:72
+#: ../shell/pps-open-recent-action.c:72
 msgid "Open a recently used document"
 msgstr "Vula idokhumende esetshenziswe kungekudala"
 
-#: ../shell/ev-password-view.c:144
+#: ../shell/pps-password-view.c:144
 msgid ""
 "This document is locked and can only be read by entering the correct "
 "password."
@@ -904,19 +904,19 @@ msgstr ""
 "Leli dokhumende likhiyiwe futhi lingafundwa kuphela ngokungeniswa "
 "kwephasiwedi elungile."
 
-#: ../shell/ev-password-view.c:153 ../shell/ev-password-view.c:271
+#: ../shell/pps-password-view.c:153 ../shell/pps-password-view.c:271
 msgid "_Unlock Document"
 msgstr "_Vula idokhumende"
 
-#: ../shell/ev-password-view.c:263
+#: ../shell/pps-password-view.c:263
 msgid "Enter password"
 msgstr "Faka iphasiwedi"
 
-#: ../shell/ev-password-view.c:303
+#: ../shell/pps-password-view.c:303
 msgid "Password required"
 msgstr "Kufuneka iphasiwedi"
 
-#: ../shell/ev-password-view.c:304
+#: ../shell/pps-password-view.c:304
 #, c-format
 msgid ""
 "The document “%s” is locked and requires a password before it can be opened."
@@ -924,230 +924,230 @@ msgstr ""
 "Idokhumende le-“%s” likhiyiwe futhi lidinga iphasiwedi ngaphambi kokuba "
 "livulwe."
 
-#: ../shell/ev-password-view.c:334
+#: ../shell/pps-password-view.c:334
 msgid "_Password:"
 msgstr "Iphasi_wedi:"
 
-#: ../shell/ev-password-view.c:367
+#: ../shell/pps-password-view.c:367
 msgid "Forget password _immediately"
 msgstr "Ukhohlwe iphasiwedi _ngokushesha"
 
-#: ../shell/ev-password-view.c:379
+#: ../shell/pps-password-view.c:379
 msgid "Remember password until you _log out"
 msgstr "Khumbula iphasiwedi kufikela _uphuma ngemvume"
 
-#: ../shell/ev-password-view.c:391
+#: ../shell/pps-password-view.c:391
 msgid "Remember _forever"
 msgstr "Khumbula _unomphela"
 
-#: ../shell/ev-properties-dialog.c:62
+#: ../shell/pps-properties-dialog.c:62
 msgid "Properties"
 msgstr "Izakhiwo"
 
-#: ../shell/ev-properties-dialog.c:94
+#: ../shell/pps-properties-dialog.c:94
 msgid "General"
 msgstr "Okujikelele"
 
-#: ../shell/ev-properties-dialog.c:104
+#: ../shell/pps-properties-dialog.c:104
 msgid "Fonts"
 msgstr "Amafonti"
 
-#: ../shell/ev-properties-dialog.c:117
+#: ../shell/pps-properties-dialog.c:117
 msgid "Document License"
 msgstr "Ilayisense yedokhumende"
 
-#: ../shell/ev-properties-fonts.c:135
+#: ../shell/pps-properties-fonts.c:135
 msgid "Font"
 msgstr "Ifonti"
 
-#: ../shell/ev-properties-fonts.c:162
+#: ../shell/pps-properties-fonts.c:162
 #, c-format
 msgid "Gathering font information… %3d%%"
 msgstr "Kubuthelela ulwazi lwefonti… %3d%%"
 
-#: ../shell/ev-properties-license.c:137
+#: ../shell/pps-properties-license.c:137
 msgid "Usage terms"
 msgstr "Amazwi asetshenziswayo"
 
-#: ../shell/ev-properties-license.c:143
+#: ../shell/pps-properties-license.c:143
 msgid "Text License"
 msgstr "Ilayisensi yokulotshiwe"
 
-#: ../shell/ev-properties-license.c:149
+#: ../shell/pps-properties-license.c:149
 msgid "Further Information"
 msgstr "Ulwazi olubanzi"
 
-#: ../shell/ev-sidebar-annotations.c:161
+#: ../shell/pps-sidebar-annotations.c:161
 msgid "List"
 msgstr "Uhlu"
 
-#: ../shell/ev-sidebar-annotations.c:203 ../shell/ev-sidebar-annotations.c:531
+#: ../shell/pps-sidebar-annotations.c:203 ../shell/pps-sidebar-annotations.c:531
 msgid "Annotations"
 msgstr "Amazwana"
 
-#: ../shell/ev-sidebar-annotations.c:209
+#: ../shell/pps-sidebar-annotations.c:209
 msgid "Text"
 msgstr "Umbhalo"
 
-#: ../shell/ev-sidebar-annotations.c:210
+#: ../shell/pps-sidebar-annotations.c:210
 msgid "Add text annotation"
 msgstr "Engeza amazwana wombhalo"
 
-#: ../shell/ev-sidebar-annotations.c:221
+#: ../shell/pps-sidebar-annotations.c:221
 msgid "Add"
 msgstr "Engeza"
 
-#: ../shell/ev-sidebar-annotations.c:364
+#: ../shell/pps-sidebar-annotations.c:364
 msgid "Document contains no annotations"
 msgstr "Idokhumende aliqukethwanga amazwana"
 
-#: ../shell/ev-sidebar-annotations.c:396
+#: ../shell/pps-sidebar-annotations.c:396
 #, c-format
 msgid "Page %d"
 msgstr "Ikhasi %d"
 
-#: ../shell/ev-sidebar-attachments.c:695
+#: ../shell/pps-sidebar-attachments.c:695
 msgid "Attachments"
 msgstr "Okunamathiselwe"
 
-#: ../shell/ev-sidebar-bookmarks.c:152
+#: ../shell/pps-sidebar-bookmarks.c:152
 msgid "_Open Bookmark"
 msgstr "_Vula uphawu lokubekisa"
 
-#: ../shell/ev-sidebar-bookmarks.c:154
+#: ../shell/pps-sidebar-bookmarks.c:154
 msgid "_Rename Bookmark"
 msgstr "_Qamba kabusha uphawu lokubekisa"
 
-#: ../shell/ev-sidebar-bookmarks.c:156
+#: ../shell/pps-sidebar-bookmarks.c:156
 msgid "_Remove Bookmark"
 msgstr "_Susa uphawu lokubekisa"
 
-#: ../shell/ev-sidebar-bookmarks.c:311 ../shell/ev-window.c:898
-#: ../shell/ev-window.c:4517
+#: ../shell/pps-sidebar-bookmarks.c:311 ../shell/pps-window.c:898
+#: ../shell/pps-window.c:4517
 #, c-format
 msgid "Page %s"
 msgstr "Ikhasi %s"
 
-#: ../shell/ev-sidebar-bookmarks.c:605
+#: ../shell/pps-sidebar-bookmarks.c:605
 msgid "Bookmarks"
 msgstr "Uphawu lokubekisa"
 
-#: ../shell/ev-sidebar-layers.c:444
+#: ../shell/pps-sidebar-layers.c:444
 msgid "Layers"
 msgstr "Izindlali"
 
-#: ../shell/ev-sidebar-links.c:338
+#: ../shell/pps-sidebar-links.c:338
 msgid "Print…"
 msgstr "Phrinta…"
 
-#: ../shell/ev-sidebar-links.c:722
+#: ../shell/pps-sidebar-links.c:722
 msgid "Index"
 msgstr "Inkomba"
 
-#: ../shell/ev-sidebar-thumbnails.c:936
+#: ../shell/pps-sidebar-thumbnails.c:936
 msgid "Thumbnails"
 msgstr "Izithonjana"
 
-#: ../shell/ev-window.c:895
+#: ../shell/pps-window.c:895
 #, c-format
 msgid "Page %s — %s"
 msgstr "Ikhasi %s — %s"
 
-#: ../shell/ev-window.c:1463
+#: ../shell/pps-window.c:1463
 msgid "The document contains no pages"
 msgstr "Idokhumende alinawo amakhasi"
 
-#: ../shell/ev-window.c:1466
+#: ../shell/pps-window.c:1466
 msgid "The document contains only empty pages"
 msgstr "Idokhumende liqukethwe amakhasi angena lutho"
 
-#: ../shell/ev-window.c:1678 ../shell/ev-window.c:1844
+#: ../shell/pps-window.c:1678 ../shell/pps-window.c:1844
 msgid "Unable to open document"
 msgstr "Ayikwazi ukuvula amadokhumende"
 
-#: ../shell/ev-window.c:1815
+#: ../shell/pps-window.c:1815
 #, c-format
 msgid "Loading document from “%s”"
 msgstr "Kulayishwa idokhumende kusuka ku-“%s”"
 
-#: ../shell/ev-window.c:1957 ../shell/ev-window.c:2250
+#: ../shell/pps-window.c:1957 ../shell/pps-window.c:2250
 #, c-format
 msgid "Downloading document (%d%%)"
 msgstr "Kulayishwa kungeniswa idokhumende (%d%%)"
 
-#: ../shell/ev-window.c:1990
+#: ../shell/pps-window.c:1990
 msgid "Failed to load remote file."
 msgstr "Kuhluleke ukulayishwa ifayela eqondisiwe."
 
-#: ../shell/ev-window.c:2194
+#: ../shell/pps-window.c:2194
 #, c-format
 msgid "Reloading document from %s"
 msgstr "Kuphinda kufakwe idokhumende kusuka ku-%s"
 
-#: ../shell/ev-window.c:2226
+#: ../shell/pps-window.c:2226
 msgid "Failed to reload document."
 msgstr "Kuhluleke ukuphinda kufakwe idokhumende."
 
-#: ../shell/ev-window.c:2381
+#: ../shell/pps-window.c:2381
 msgid "Open Document"
 msgstr "Vula idokhumende"
 
-#: ../shell/ev-window.c:2679
+#: ../shell/pps-window.c:2679
 #, c-format
 msgid "Saving document to %s"
 msgstr "Kugcinwa kudokhumende ku-%s"
 
-#: ../shell/ev-window.c:2682
+#: ../shell/pps-window.c:2682
 #, c-format
 msgid "Saving attachment to %s"
 msgstr "Kugcinwa okunamathiselwe ku-%s"
 
-#: ../shell/ev-window.c:2685
+#: ../shell/pps-window.c:2685
 #, c-format
 msgid "Saving image to %s"
 msgstr "Kugcinwa isithombe ku-%s"
 
-#: ../shell/ev-window.c:2729 ../shell/ev-window.c:2829
+#: ../shell/pps-window.c:2729 ../shell/pps-window.c:2829
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Ifayela alikwazanga ukugcinwa njenge-“%s”."
 
-#: ../shell/ev-window.c:2760
+#: ../shell/pps-window.c:2760
 #, c-format
 msgid "Uploading document (%d%%)"
 msgstr "Kulayishwa idokhumende (%d%%)"
 
-#: ../shell/ev-window.c:2764
+#: ../shell/pps-window.c:2764
 #, c-format
 msgid "Uploading attachment (%d%%)"
 msgstr "Kulayishwa okunamathiselwe (%d%%)"
 
-#: ../shell/ev-window.c:2768
+#: ../shell/pps-window.c:2768
 #, c-format
 msgid "Uploading image (%d%%)"
 msgstr "Kulayishwa isithombe (%d%%)"
 
-#: ../shell/ev-window.c:2892
+#: ../shell/pps-window.c:2892
 msgid "Save a Copy"
 msgstr "Gcina ikhophi"
 
-#: ../shell/ev-window.c:2958
+#: ../shell/pps-window.c:2958
 msgid "Could not open the containing folder"
 msgstr "Ayikwazanga ukuvula ifolda equkethwe"
 
-#: ../shell/ev-window.c:3219
+#: ../shell/pps-window.c:3219
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "kunomsebenzi ongu-%d okuhlu"
 msgstr[1] "kunemisebenzi engu-%d ekuhlu"
 
-#: ../shell/ev-window.c:3332
+#: ../shell/pps-window.c:3332
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Kuphrintiwa umsebenzi “%s”"
 
-#: ../shell/ev-window.c:3509
+#: ../shell/pps-window.c:3509
 msgid ""
 "Document contains form fields that have been filled out. If you don't save a "
 "copy, changes will be permanently lost."
@@ -1155,7 +1155,7 @@ msgstr ""
 "Idokhumende liqukethwe izinkambu ezigcwalisiwe. Uma ungagcini ikhophi, "
 "izinguquko zizolahleka unomphela."
 
-#: ../shell/ev-window.c:3513
+#: ../shell/pps-window.c:3513
 msgid ""
 "Document contains new or modified annotations. If you don't save a copy, "
 "changes will be permanently lost."
@@ -1163,25 +1163,25 @@ msgstr ""
 "Idokhumende liqukethwe amazwana amasha noma alungisiwe. Uma ungagcini "
 "ikhophi, izinguquko zizolahleka unomphela."
 
-#: ../shell/ev-window.c:3520
+#: ../shell/pps-window.c:3520
 #, c-format
 msgid "Save a copy of document “%s” before closing?"
 msgstr "Gcina ikhophi ledokhumende “%s” ngaphambi kokuba uvale?"
 
-#: ../shell/ev-window.c:3539
+#: ../shell/pps-window.c:3539
 msgid "Close _without Saving"
 msgstr "Vala _ngaphandle kokugcina"
 
-#: ../shell/ev-window.c:3543
+#: ../shell/pps-window.c:3543
 msgid "Save a _Copy"
 msgstr "Gcina i_khophi"
 
-#: ../shell/ev-window.c:3617
+#: ../shell/pps-window.c:3617
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr "Yima ukuze umsebenzi wokuphrinta we-“%s” uqede ngaphambi kokuba uvale?"
 
-#: ../shell/ev-window.c:3620
+#: ../shell/pps-window.c:3620
 #, c-format
 msgid ""
 "There are %d print jobs active. Wait until print finishes before closing?"
@@ -1189,27 +1189,27 @@ msgstr ""
 "Kunemisebenzi yokuphrinta engu-%d esebenzayo. Yima ukuze ukuphrinta kuqede "
 "ngaphambi kokuthi uvale?"
 
-#: ../shell/ev-window.c:3632
+#: ../shell/pps-window.c:3632
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr "Uma uvala iwindi, imisebenzi elindiwe yokuphrinta angeke iphrintiwe."
 
-#: ../shell/ev-window.c:3636
+#: ../shell/pps-window.c:3636
 msgid "Cancel _print and Close"
 msgstr "Khansela _ukuphrinta bese uyavala"
 
-#: ../shell/ev-window.c:3640
+#: ../shell/pps-window.c:3640
 msgid "Close _after Printing"
 msgstr "Vala _emuva kokuphrinta"
 
-#: ../shell/ev-window.c:4301
+#: ../shell/pps-window.c:4301
 msgid "Toolbar Editor"
 msgstr "Umhleli webha yamathuluzi"
 
-#: ../shell/ev-window.c:4553
+#: ../shell/pps-window.c:4553
 msgid "There was an error displaying help"
 msgstr "Kube nephutha ekukhombeni usizo"
 
-#: ../shell/ev-window.c:4765
+#: ../shell/pps-window.c:4765
 #, c-format
 msgid ""
 "Document Viewer\n"
@@ -1218,410 +1218,410 @@ msgstr ""
 "Isibuki sedokhumende\n"
 "Kusetshenziswa %s (%s)"
 
-#: ../shell/ev-window.c:4796
+#: ../shell/pps-window.c:4796
 #, fuzzy
 msgid ""
-"Evince is free software; you can redistribute it and/or modify it under the "
+"Papers is free software; you can redistribute it and/or modify it under the "
 "terms of the GNU General Public License as published by the Free Software "
 "Foundation; either version 2 of the License, or (at your option) any later "
 "version.\n"
-msgstr "I-Evince iyisofthiwe engakhokhwa; ungayisabalalisa futhi futhi/noma "
+msgstr "I-Papers iyisofthiwe engakhokhwa; ungayisabalalisa futhi futhi/noma "
 "uyilungise ngaphansi kwemigomo yelayisense yomphakathi jikelele we-GNU "
 "njengomshiceleli we-foundation yesofthiwe yamahhala; noma kuyinguquko yesi-2 "
 "yelayisense, noma (ngenketho yakho) nanoma kuyiphi inguquko ezayo.\n"
 
-#: ../shell/ev-window.c:4800
+#: ../shell/pps-window.c:4800
 #, fuzzy
 msgid ""
-"Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
+"Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
 "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 "details.\n"
-msgstr "I-Evince isatshalaliswa ngokuthemba ukuthi izobanosizo, nodwa ngaphandle "
+msgstr "I-Papers isatshalaliswa ngokuthemba ukuthi izobanosizo, nodwa ngaphandle "
 "KWESITHEMBISO; ngaphandle futhi ngesithembiso esishiwo SOKUTHENGISEKA noma "
 "UKULUNGA KWESIZATHU ESITHILE.  Bona i-gnu yekayisense yomphakathi jikelele "
 "ukuze uthole ulwazi olungaphezulu.\n"
 
-#: ../shell/ev-window.c:4804
+#: ../shell/pps-window.c:4804
 #, fuzzy
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"Evince; if not, write to the Free Software Foundation, Inc., 51 Franklin "
+"Papers; if not, write to the Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 msgstr "Kumele ngabe uthole ikhophi yelayisense yomphakathi jikelele we-GNU kanye "
-"ne-evince; uma kungenjalo, bhalela i-foundation yesofthiwe yamahhala, Inc., "
+"ne-papers; uma kungenjalo, bhalela i-foundation yesofthiwe yamahhala, Inc., "
 "51 Franklin Street, Fifth floor, Boston, MA 02110-1301  USA\n"
 
-#: ../shell/ev-window.c:4829
-msgid "Evince"
-msgstr "i-Evince"
+#: ../shell/pps-window.c:4829
+msgid "Papers"
+msgstr "i-Papers"
 
-#: ../shell/ev-window.c:4832
-msgid "© 1996–2010 The Evince authors"
-msgstr "© 1996–2010 Ababhali be-Evince"
+#: ../shell/pps-window.c:4832
+msgid "© 1996–2010 The Papers authors"
+msgstr "© 1996–2010 Ababhali be-Papers"
 
-#: ../shell/ev-window.c:4838
+#: ../shell/pps-window.c:4838
 msgid "translator-credits"
 msgstr "Priscilla Mahlangu"
 
 #. TRANS: Sometimes this could be better translated as
 #. "%d hit(s) on this page".  Therefore this string
 #. contains plural cases.
-#: ../shell/ev-window.c:5106
+#: ../shell/pps-window.c:5106
 #, c-format
 msgid "%d found on this page"
 msgid_plural "%d found on this page"
 msgstr[0] "okungu-%d okutholwe kuleli khasi"
 msgstr[1] "okungu-%d okutholwe kuleli khasi"
 
-#: ../shell/ev-window.c:5111
+#: ../shell/pps-window.c:5111
 msgid "Not found"
 msgstr "Akukhutholiwe"
 
-#: ../shell/ev-window.c:5117
+#: ../shell/pps-window.c:5117
 #, c-format
 msgid "%3d%% remaining to search"
 msgstr "kusele okungu-%3d%% kulolu sesho"
 
-#: ../shell/ev-window.c:5640
+#: ../shell/pps-window.c:5640
 msgid "_File"
 msgstr "I_fayela"
 
-#: ../shell/ev-window.c:5641
+#: ../shell/pps-window.c:5641
 msgid "_Edit"
 msgstr "Hl_ela"
 
-#: ../shell/ev-window.c:5642
+#: ../shell/pps-window.c:5642
 msgid "_View"
 msgstr "Bu_ka"
 
-#: ../shell/ev-window.c:5643
+#: ../shell/pps-window.c:5643
 msgid "_Go"
 msgstr "I_ya"
 
-#: ../shell/ev-window.c:5644
+#: ../shell/pps-window.c:5644
 msgid "_Bookmarks"
 msgstr "Uphawu loku_bekisa"
 
-#: ../shell/ev-window.c:5645
+#: ../shell/pps-window.c:5645
 msgid "_Help"
 msgstr "U_sizo"
 
 #. File menu
-#: ../shell/ev-window.c:5648 ../shell/ev-window.c:5964
+#: ../shell/pps-window.c:5648 ../shell/pps-window.c:5964
 msgid "_Open…"
 msgstr "Vu_la…"
 
-#: ../shell/ev-window.c:5649 ../shell/ev-window.c:5965
+#: ../shell/pps-window.c:5649 ../shell/pps-window.c:5965
 msgid "Open an existing document"
 msgstr "Vula idokhumende elisekhona"
 
-#: ../shell/ev-window.c:5651
+#: ../shell/pps-window.c:5651
 msgid "Op_en a Copy"
 msgstr "V_ula ikhophi"
 
-#: ../shell/ev-window.c:5652
+#: ../shell/pps-window.c:5652
 msgid "Open a copy of the current document in a new window"
 msgstr "Vula ikhophi ledokhumende lamanje kwiwindi esha"
 
-#: ../shell/ev-window.c:5654
+#: ../shell/pps-window.c:5654
 msgid "_Save a Copy…"
 msgstr "G_cina ikhophi…"
 
-#: ../shell/ev-window.c:5655
+#: ../shell/pps-window.c:5655
 msgid "Save a copy of the current document"
 msgstr "Gcina ikhophi ledokhumende yamanje"
 
-#: ../shell/ev-window.c:5657
+#: ../shell/pps-window.c:5657
 msgid "Open Containing _Folder"
 msgstr "Vula ifol_da equkethwe"
 
-#: ../shell/ev-window.c:5658
+#: ../shell/pps-window.c:5658
 msgid "Show the folder which contains this file in the file manager"
 msgstr "Bonisa ifolda leyo equkethwe leli fayela kumphathi wamafayela"
 
-#: ../shell/ev-window.c:5660
+#: ../shell/pps-window.c:5660
 msgid "_Print…"
 msgstr "_Phrinta…"
 
-#: ../shell/ev-window.c:5663
+#: ../shell/pps-window.c:5663
 msgid "P_roperties"
 msgstr "I_zilungiselelo"
 
-#: ../shell/ev-window.c:5671
+#: ../shell/pps-window.c:5671
 msgid "Select _All"
 msgstr "Khetha ko_nke"
 
-#: ../shell/ev-window.c:5673
+#: ../shell/pps-window.c:5673
 msgid "_Find…"
 msgstr "Th_ola…"
 
-#: ../shell/ev-window.c:5674
+#: ../shell/pps-window.c:5674
 msgid "Find a word or phrase in the document"
 msgstr "Thola igama noma ibizo kwidokhumende"
 
-#: ../shell/ev-window.c:5680
+#: ../shell/pps-window.c:5680
 msgid "T_oolbar"
 msgstr "I-bha yama_thuluzi"
 
-#: ../shell/ev-window.c:5682
+#: ../shell/pps-window.c:5682
 msgid "Rotate _Left"
 msgstr "Jikelezisa Kwe_sobunxele"
 
-#: ../shell/ev-window.c:5684
+#: ../shell/pps-window.c:5684
 msgid "Rotate _Right"
 msgstr "Jikelezisa k_wesokudla"
 
-#: ../shell/ev-window.c:5686
+#: ../shell/pps-window.c:5686
 msgid "Save Current Settings as _Default"
 msgstr "Gcina izilungiselelo zamanje _njengokwakhona"
 
-#: ../shell/ev-window.c:5697
+#: ../shell/pps-window.c:5697
 msgid "_Reload"
 msgstr "_Phinda ufake"
 
-#: ../shell/ev-window.c:5698
+#: ../shell/pps-window.c:5698
 msgid "Reload the document"
 msgstr "Phinda ufake idokhumende"
 
-#: ../shell/ev-window.c:5701
+#: ../shell/pps-window.c:5701
 msgid "Auto_scroll"
 msgstr "Phenya_ngokuzenzakalela"
 
-#: ../shell/ev-window.c:5711
+#: ../shell/pps-window.c:5711
 msgid "_First Page"
 msgstr "Ikhasi loku_qala"
 
-#: ../shell/ev-window.c:5712
+#: ../shell/pps-window.c:5712
 msgid "Go to the first page"
 msgstr "Iya kwikhasi lokuqala"
 
-#: ../shell/ev-window.c:5714
+#: ../shell/pps-window.c:5714
 msgid "_Last Page"
 msgstr "Ikhasi loku_gcina"
 
-#: ../shell/ev-window.c:5715
+#: ../shell/pps-window.c:5715
 msgid "Go to the last page"
 msgstr "Iya kwikhasi lokugcina"
 
 #. Bookmarks menu
-#: ../shell/ev-window.c:5719
+#: ../shell/pps-window.c:5719
 msgid "_Add Bookmark"
 msgstr "Engez_a uphawu lokubekisa"
 
-#: ../shell/ev-window.c:5720
+#: ../shell/pps-window.c:5720
 msgid "Add a bookmark for the current page"
 msgstr "Engeza uphawu lokubekisa kwikhasi lamanje"
 
 #. Help menu
-#: ../shell/ev-window.c:5724
+#: ../shell/pps-window.c:5724
 msgid "_Contents"
 msgstr "O_kuqukethwe"
 
-#: ../shell/ev-window.c:5727
+#: ../shell/pps-window.c:5727
 msgid "_About"
 msgstr "M_ayelana"
 
 #. Toolbar-only
-#: ../shell/ev-window.c:5731
+#: ../shell/pps-window.c:5731
 msgid "Leave Fullscreen"
 msgstr "Phuma kwisikrini esigcwele"
 
-#: ../shell/ev-window.c:5732
+#: ../shell/pps-window.c:5732
 msgid "Leave fullscreen mode"
 msgstr "Phuma kwindlela yesikrini esigcwele"
 
-#: ../shell/ev-window.c:5734
+#: ../shell/pps-window.c:5734
 msgid "Start Presentation"
 msgstr "Qalisa umbukiso"
 
-#: ../shell/ev-window.c:5735
+#: ../shell/pps-window.c:5735
 msgid "Start a presentation"
 msgstr "Qalisa umbukiso"
 
 #. View Menu
-#: ../shell/ev-window.c:5794
+#: ../shell/pps-window.c:5794
 msgid "_Toolbar"
 msgstr "Ib_ha yamathuluzi"
 
-#: ../shell/ev-window.c:5795
+#: ../shell/pps-window.c:5795
 msgid "Show or hide the toolbar"
 msgstr "Bonisa noma fihla ibha yamathuluzi"
 
-#: ../shell/ev-window.c:5797
+#: ../shell/pps-window.c:5797
 msgid "Side _Pane"
 msgstr "I-pane _yokushelela"
 
-#: ../shell/ev-window.c:5798
+#: ../shell/pps-window.c:5798
 msgid "Show or hide the side pane"
 msgstr "Bonisa noma fihla i-pane yaseqeleni"
 
-#: ../shell/ev-window.c:5800
+#: ../shell/pps-window.c:5800
 msgid "_Continuous"
 msgstr "Okuq_hubekayo"
 
-#: ../shell/ev-window.c:5801
+#: ../shell/pps-window.c:5801
 msgid "Show the entire document"
 msgstr "Bonisa idokhumende lonke"
 
-#: ../shell/ev-window.c:5803
+#: ../shell/pps-window.c:5803
 msgid "_Dual"
 msgstr "O_kubili"
 
-#: ../shell/ev-window.c:5804
+#: ../shell/pps-window.c:5804
 msgid "Show two pages at once"
 msgstr "Bonisa amakhasi amabili ngesikhathi sinye"
 
-#: ../shell/ev-window.c:5806
+#: ../shell/pps-window.c:5806
 msgid "_Fullscreen"
 msgstr "Isik_rini esigcwele"
 
-#: ../shell/ev-window.c:5807
+#: ../shell/pps-window.c:5807
 msgid "Expand the window to fill the screen"
 msgstr "Nwebisa iwindi ukuze ligcwale isikrini"
 
-#: ../shell/ev-window.c:5809
+#: ../shell/pps-window.c:5809
 msgid "Pre_sentation"
 msgstr "Umb_ukiso"
 
-#: ../shell/ev-window.c:5810
+#: ../shell/pps-window.c:5810
 msgid "Run document as a presentation"
 msgstr "Hambisa idokhumende njengombukiso"
 
-#: ../shell/ev-window.c:5818
+#: ../shell/pps-window.c:5818
 msgid "_Inverted Colors"
 msgstr "Imib_ala eguquliwe"
 
-#: ../shell/ev-window.c:5819
+#: ../shell/pps-window.c:5819
 msgid "Show page contents with the colors inverted"
 msgstr "Bonisa okuqukethwe kwekhasi ngeibala eguquliwe"
 
 #. Links
-#: ../shell/ev-window.c:5827
+#: ../shell/pps-window.c:5827
 msgid "_Open Link"
 msgstr "_Vula isixhumanisi"
 
-#: ../shell/ev-window.c:5829
+#: ../shell/pps-window.c:5829
 msgid "_Go To"
 msgstr "Iy_a ku"
 
-#: ../shell/ev-window.c:5831
+#: ../shell/pps-window.c:5831
 msgid "Open in New _Window"
 msgstr "Vula _kwiwindi elisha"
 
-#: ../shell/ev-window.c:5833
+#: ../shell/pps-window.c:5833
 msgid "_Copy Link Address"
 msgstr "_Kopisha ikheli lesixhumanisi"
 
-#: ../shell/ev-window.c:5835
+#: ../shell/pps-window.c:5835
 msgid "_Save Image As…"
 msgstr "_Gcina isithombe njenge…"
 
-#: ../shell/ev-window.c:5837
+#: ../shell/pps-window.c:5837
 msgid "Copy _Image"
 msgstr "Kopisha _isithombe"
 
-#: ../shell/ev-window.c:5839
+#: ../shell/pps-window.c:5839
 msgid "Annotation Properties…"
 msgstr "Izakhiwo zesichasiselo…"
 
-#: ../shell/ev-window.c:5844
+#: ../shell/pps-window.c:5844
 msgid "_Open Attachment"
 msgstr "_Vula okunamathiselwe"
 
-#: ../shell/ev-window.c:5846
+#: ../shell/pps-window.c:5846
 msgid "_Save Attachment As…"
 msgstr "_Gcina okunamathiselwe njenge…"
 
-#: ../shell/ev-window.c:5938
+#: ../shell/pps-window.c:5938
 msgid "Zoom"
 msgstr "Sondeza"
 
-#: ../shell/ev-window.c:5940
+#: ../shell/pps-window.c:5940
 msgid "Adjust the zoom level"
 msgstr "Lungisa izinga lokusondela"
 
-#: ../shell/ev-window.c:5950
+#: ../shell/pps-window.c:5950
 msgid "Navigation"
 msgstr "Ukuzula"
 
-#: ../shell/ev-window.c:5952
+#: ../shell/pps-window.c:5952
 msgid "Back"
 msgstr "Emuva"
 
 #. translators: this is the history action
-#: ../shell/ev-window.c:5955
+#: ../shell/pps-window.c:5955
 msgid "Move across visited pages"
 msgstr "Nyakaza kumakhasi avakashelwe"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:5984
+#: ../shell/pps-window.c:5984
 msgid "Open Folder"
 msgstr "Vula ifolda"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:5989
+#: ../shell/pps-window.c:5989
 msgid "Previous"
 msgstr "Okudlule"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:5994
+#: ../shell/pps-window.c:5994
 msgid "Next"
 msgstr "Okulandelayo"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:5998
+#: ../shell/pps-window.c:5998
 msgid "Zoom In"
 msgstr "Sondeza phakathi"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:6002
+#: ../shell/pps-window.c:6002
 msgid "Zoom Out"
 msgstr "Hlehlisa isithombe"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:6010
+#: ../shell/pps-window.c:6010
 msgid "Fit Width"
 msgstr "Linganisa ububanzi"
 
-#: ../shell/ev-window.c:6155 ../shell/ev-window.c:6172
+#: ../shell/pps-window.c:6155 ../shell/pps-window.c:6172
 msgid "Unable to launch external application."
 msgstr "Ayikwazi ukuqalisa uhlelo lokusebenza lwangaphandle."
 
-#: ../shell/ev-window.c:6229
+#: ../shell/pps-window.c:6229
 msgid "Unable to open external link"
 msgstr "Ayikwazi ukuvula isixhumanisi sangaphandle"
 
-#: ../shell/ev-window.c:6419
+#: ../shell/pps-window.c:6419
 msgid "Couldn't find appropriate format to save image"
 msgstr "Ayikwazanga ukuthola ifomethi elilungile lokugcina isithombe"
 
-#: ../shell/ev-window.c:6451
+#: ../shell/pps-window.c:6451
 msgid "The image could not be saved."
 msgstr "Isithombe asikwazanga ukugcinwa."
 
-#: ../shell/ev-window.c:6483
+#: ../shell/pps-window.c:6483
 msgid "Save Image"
 msgstr "Gcina isithombe"
 
-#: ../shell/ev-window.c:6611
+#: ../shell/pps-window.c:6611
 msgid "Unable to open attachment"
 msgstr "Ayikwazanga ukuvula okunamathiselwe"
 
-#: ../shell/ev-window.c:6664
+#: ../shell/pps-window.c:6664
 msgid "The attachment could not be saved."
 msgstr "Okunamathiselwe akukwazanga ukugcinwa."
 
-#: ../shell/ev-window.c:6709
+#: ../shell/pps-window.c:6709
 msgid "Save Attachment"
 msgstr "Gcina okunamathiselwe"
 
-#: ../shell/ev-window-title.c:170
+#: ../shell/pps-window-title.c:170
 #, c-format
 msgid "%s — Password Required"
 msgstr "%s — Kudingeka iphasiwedi"
 
-#: ../shell/ev-utils.c:318
+#: ../shell/pps-utils.c:318
 msgid "By extension"
 msgstr "Ngokwangaphandle"
 
@@ -1646,16 +1646,16 @@ msgid "NUMBER"
 msgstr "INOMBOLO"
 
 #: ../shell/main.c:79
-msgid "Run evince in fullscreen mode"
-msgstr "Hambisa i-evince ngendlela yesikrini esigcwele"
+msgid "Run papers in fullscreen mode"
+msgstr "Hambisa i-papers ngendlela yesikrini esigcwele"
 
 #: ../shell/main.c:80
-msgid "Run evince in presentation mode"
-msgstr "Hambisa i-evince ngendlela yombukiso"
+msgid "Run papers in presentation mode"
+msgstr "Hambisa i-papers ngendlela yombukiso"
 
 #: ../shell/main.c:81
-msgid "Run evince as a previewer"
-msgstr "Hambisa i-evince njengokokuhlola kuqala"
+msgid "Run papers as a previewer"
+msgstr "Hambisa i-papers njengokokuhlola kuqala"
 
 #: ../shell/main.c:82
 msgid "The word or phrase to find in the document"

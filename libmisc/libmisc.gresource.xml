@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <gresources>
-  <gresource prefix="/org/gnome/evince">
-    <file alias="ui/ev-page-selector.ui" compressed="true" preprocess="xml-stripblanks">ev-page-selector.ui</file>
+  <gresource prefix="/org/gnome/papers">
+    <file alias="ui/pps-page-selector.ui" compressed="true" preprocess="xml-stripblanks">pps-page-selector.ui</file>
   </gresource>
 </gresources>

@@ -1,10 +1,10 @@
 subdir('icons')
 
 # Desktop file
-desktops = [ev_namespace + '.desktop']
+desktops = [pps_namespace + '.desktop']
 
 if enable_previewer
-  desktops += [ev_namespace + '-previewer.desktop']
+  desktops += [pps_namespace + '-previewer.desktop']
 endif
 
 foreach desktop: desktops
@@ -20,22 +20,22 @@ foreach desktop: desktops
     output: desktop,
     po_dir: po_dir,
     install: true,
-    install_dir: join_paths(ev_datadir, 'applications'),
+    install_dir: join_paths(pps_datadir, 'applications'),
   )
 endforeach
 
 # DBus service file
 if enable_dbus
   service_conf = configuration_data()
-  service_conf.set('libexecdir', ev_libexecdir)
+  service_conf.set('libexecdir', pps_libexecdir)
 
   # The D-Bus interface names are in lowercase, which does not match
   # the application name nor the namespace. However, we keep it in
   # lowercase for backward compatibility.
-  services = [[ev_namespace.to_lower() + '.Daemon.service', dbus_service_dir]]
+  services = [[pps_namespace.to_lower() + '.Daemon.service', dbus_service_dir]]
 
   if install_systemd_user_unit_dir
-    services += [[ev_namespace + '.service', systemd_user_unit_dir]]
+    services += [[pps_namespace + '.service', systemd_user_unit_dir]]
   endif
 
   foreach service: services
@@ -50,34 +50,34 @@ if enable_dbus
 endif
 
 # GSettings schema
-gschema_file = ev_namespace + '.gschema.xml'
+gschema_file = pps_namespace + '.gschema.xml'
 install_data(
   gschema_file,
-  install_dir: join_paths(ev_datadir, 'glib-2.0', 'schemas'),
+  install_dir: join_paths(pps_datadir, 'glib-2.0', 'schemas'),
 )
-if ev_debug
+if pps_debug
   gnome.compile_schemas(
     depend_files: gschema_file,
   )
 endif
 
 # man file
-man_pages = ['evince.1', 'evince-previewer.1', 'evince-thumbnailer.1']
+man_pages = ['papers.1', 'papers-previewer.1', 'papers-thumbnailer.1']
 foreach man_page: man_pages
   install_data(
     man_page,
-    install_dir: join_paths(ev_mandir, 'man1'),
+    install_dir: join_paths(pps_mandir, 'man1'),
   )
 endforeach
 
 # Metainfo file
-metainfo = ev_namespace + '.metainfo.xml'
+metainfo = pps_namespace + '.metainfo.xml'
 i18n.merge_file(
   input: metainfo + '.in',
   output: metainfo,
   po_dir: po_dir,
   install: true,
-  install_dir: ev_appstreamdir,
+  install_dir: pps_appstreamdir,
 )
 
 # Validate Appdata

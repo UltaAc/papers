@@ -1,12 +1,12 @@
-# Low German translation for evince.
-# Copyright (C) 2009 evince's COPYRIGHT HOLDER
-# This file is distributed under the same license as the evince package.
+# Low German translation for papers.
+# Copyright (C) 2009 papers's COPYRIGHT HOLDER
+# This file is distributed under the same license as the papers package.
 # Nils-Christoph Fiedler <fiedler@medienkompanie.de>, 2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evince master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=evince&component=general\n"
+"Project-Id-Version: papers master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=papers&component=general\n"
 "POT-Creation-Date: 2009-11-30 11:09+0000\n"
 "PO-Revision-Date: 2010-03-19 15:33+0100\n"
 "Last-Translator: Nils-Christoph Fiedler <fiedler@medienkompanie.de>\n"
@@ -42,8 +42,8 @@ msgid "Can't find an appropriate command to decompress this type of comic book"
 msgstr ""
 
 #: ../backend/comics/comics-document.c:402
-#: ../libdocument/ev-document-factory.c:143
-#: ../libdocument/ev-document-factory.c:286
+#: ../libdocument/pps-document-factory.c:143
+#: ../libdocument/pps-document-factory.c:286
 msgid "Unknown MIME Type"
 msgstr "Unbekannter MIME Typ"
 
@@ -70,7 +70,7 @@ msgstr "Künn \"%s\" nich akerat löschen."
 msgid "Error %s"
 msgstr "Fehler %s"
 
-#: ../backend/comics/comicsdocument.evince-backend.in.h:1
+#: ../backend/comics/comicsdocument.papers-backend.in.h:1
 msgid "Comic Books"
 msgstr "Comics"
 
@@ -82,7 +82,7 @@ msgstr "DJVU Dokument het nich akerates Format"
 msgid "The document is composed of several files. One or more of such files cannot be accessed."
 msgstr ""
 
-#: ../backend/djvu/djvudocument.evince-backend.in.h:1
+#: ../backend/djvu/djvudocument.papers-backend.in.h:1
 msgid "Djvu Documents"
 msgstr "Djvu Dokumente"
 
@@ -90,73 +90,73 @@ msgstr "Djvu Dokumente"
 msgid "DVI document has incorrect format"
 msgstr "DVI Dokument het nich akerates Format"
 
-#: ../backend/dvi/dvidocument.evince-backend.in.h:1
+#: ../backend/dvi/dvidocument.papers-backend.in.h:1
 msgid "DVI Documents"
 msgstr "DVI Dokumente"
 
-#: ../backend/pdf/ev-poppler.cc:571
+#: ../backend/pdf/pps-poppler.cc:571
 msgid "This work is in the Public Domain"
 msgstr ""
 
 #. translators: this is the document security state
-#: ../backend/pdf/ev-poppler.cc:824
+#: ../backend/pdf/pps-poppler.cc:824
 msgid "Yes"
 msgstr "Ja"
 
 #. translators: this is the document security state
-#: ../backend/pdf/ev-poppler.cc:827
+#: ../backend/pdf/pps-poppler.cc:827
 msgid "No"
 msgstr "Nee"
 
-#: ../backend/pdf/ev-poppler.cc:924
+#: ../backend/pdf/pps-poppler.cc:924
 msgid "Type 1"
 msgstr "Typ 1"
 
-#: ../backend/pdf/ev-poppler.cc:926
+#: ../backend/pdf/pps-poppler.cc:926
 msgid "Type 1C"
 msgstr "Typ 1C"
 
-#: ../backend/pdf/ev-poppler.cc:928
+#: ../backend/pdf/pps-poppler.cc:928
 msgid "Type 3"
 msgstr "Typ 3"
 
-#: ../backend/pdf/ev-poppler.cc:930
+#: ../backend/pdf/pps-poppler.cc:930
 msgid "TrueType"
 msgstr "TrueType"
 
-#: ../backend/pdf/ev-poppler.cc:932
+#: ../backend/pdf/pps-poppler.cc:932
 msgid "Type 1 (CID)"
 msgstr "Typ 1 (CID)"
 
-#: ../backend/pdf/ev-poppler.cc:934
+#: ../backend/pdf/pps-poppler.cc:934
 msgid "Type 1C (CID)"
 msgstr "Typ 1C (CID)"
 
-#: ../backend/pdf/ev-poppler.cc:936
+#: ../backend/pdf/pps-poppler.cc:936
 msgid "TrueType (CID)"
 msgstr "TrueType (CID)"
 
-#: ../backend/pdf/ev-poppler.cc:938
+#: ../backend/pdf/pps-poppler.cc:938
 msgid "Unknown font type"
 msgstr "Unbekannte Schriftart"
 
-#: ../backend/pdf/ev-poppler.cc:964
+#: ../backend/pdf/pps-poppler.cc:964
 msgid "No name"
 msgstr "Keen Naam"
 
-#: ../backend/pdf/ev-poppler.cc:972
+#: ../backend/pdf/pps-poppler.cc:972
 msgid "Embedded subset"
 msgstr ""
 
-#: ../backend/pdf/ev-poppler.cc:974
+#: ../backend/pdf/pps-poppler.cc:974
 msgid "Embedded"
 msgstr "Inbett"
 
-#: ../backend/pdf/ev-poppler.cc:976
+#: ../backend/pdf/pps-poppler.cc:976
 msgid "Not embedded"
 msgstr "nich inbett"
 
-#: ../backend/pdf/pdfdocument.evince-backend.in.h:1
+#: ../backend/pdf/pdfdocument.papers-backend.in.h:1
 msgid "PDF Documents"
 msgstr "PDF Dokumente"
 
@@ -168,7 +168,7 @@ msgstr "Nich akerates Dokument"
 #.
 #. * vim: sw=2 ts=8 cindent noai bs=2
 #.
-#: ../backend/impress/impressdocument.evince-backend.in.h:1
+#: ../backend/impress/impressdocument.papers-backend.in.h:1
 msgid "Impress Slides"
 msgstr ""
 
@@ -208,55 +208,55 @@ msgstr ""
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
-#: ../backend/ps/ev-spectre.c:102
+#: ../backend/ps/pps-spectre.c:102
 #, c-format
 msgid "Failed to load document “%s”"
 msgstr "Künn Dokument \"%s\" nich laden"
 
-#: ../backend/ps/ev-spectre.c:135
+#: ../backend/ps/pps-spectre.c:135
 #, c-format
 msgid "Failed to save document “%s”"
 msgstr "Künn dokument \"%s\" nich spiekern"
 
-#: ../backend/ps/psdocument.evince-backend.in.h:1
+#: ../backend/ps/psdocument.papers-backend.in.h:1
 msgid "PostScript Documents"
 msgstr "PostScript Dokumente"
 
-#: ../libdocument/ev-attachment.c:304
-#: ../libdocument/ev-attachment.c:325
+#: ../libdocument/pps-attachment.c:304
+#: ../libdocument/pps-attachment.c:325
 #, c-format
 msgid "Couldn't save attachment “%s”: %s"
 msgstr "Künn Anhangen \"%s\" nich spiekern: %s"
 
-#: ../libdocument/ev-attachment.c:373
+#: ../libdocument/pps-attachment.c:373
 #, c-format
 msgid "Couldn't open attachment “%s”: %s"
 msgstr "Künn Anhangen \"%s\" nich opmaken: %s"
 
-#: ../libdocument/ev-attachment.c:408
+#: ../libdocument/pps-attachment.c:408
 #, c-format
 msgid "Couldn't open attachment “%s”"
 msgstr "Künn Anhangen \"%s\" nich opmaken"
 
-#: ../libdocument/ev-document-factory.c:168
+#: ../libdocument/pps-document-factory.c:168
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "Dateityp %s (%s) is nich unnerstütt"
 
-#: ../libdocument/ev-document-factory.c:359
+#: ../libdocument/pps-document-factory.c:359
 msgid "All Documents"
 msgstr "All Dokumente"
 
-#: ../libdocument/ev-document-factory.c:391
+#: ../libdocument/pps-document-factory.c:391
 msgid "All Files"
 msgstr "All Dateien"
 
-#: ../libdocument/ev-file-helpers.c:146
+#: ../libdocument/pps-file-helpers.c:146
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr ""
 
-#: ../libdocument/ev-file-helpers.c:223
+#: ../libdocument/pps-file-helpers.c:223
 #, c-format
 msgid "Failed to create a temporary directory: %s"
 msgstr ""
@@ -305,8 +305,8 @@ msgid "Specify file containing saved configuration"
 msgstr ""
 
 #: ../cut-n-paste/smclient/eggsmclient.c:228
-#: ../previewer/ev-previewer.c:46
-#: ../previewer/ev-previewer.c:47
+#: ../previewer/pps-previewer.c:46
+#: ../previewer/pps-previewer.c:47
 msgid "FILE"
 msgstr "FILE"
 
@@ -372,7 +372,7 @@ msgstr "Lööpt in Vordragsmodus"
 
 #. translators: this is the label for toolbar button
 #: ../cut-n-paste/zoom-control/ephy-zoom.h:48
-#: ../shell/ev-window.c:5387
+#: ../shell/pps-window.c:5387
 msgid "Best Fit"
 msgstr "Best Anpassen"
 
@@ -421,181 +421,181 @@ msgid "400%"
 msgstr "400%"
 
 #. Manually set name and icon
-#: ../data/evince.desktop.in.in.h:1
-#: ../shell/ev-window.c:4263
-#: ../shell/ev-window-title.c:149
+#: ../data/papers.desktop.in.in.h:1
+#: ../shell/pps-window.c:4263
+#: ../shell/pps-window-title.c:149
 #: ../shell/main.c:280
 #, c-format
 msgid "Document Viewer"
 msgstr "Dokumentkieker"
 
-#: ../data/evince.desktop.in.in.h:2
+#: ../data/papers.desktop.in.in.h:2
 msgid "View multipage documents"
 msgstr "Unnerscheedliche Dokumente opwiesen"
 
-#: ../data/evince.schemas.in.h:1
+#: ../data/papers.schemas.in.h:1
 msgid "Override document restrictions"
 msgstr ""
 
-#: ../data/evince.schemas.in.h:2
+#: ../data/papers.schemas.in.h:2
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr ""
 
-#: ../previewer/ev-previewer.c:45
+#: ../previewer/pps-previewer.c:45
 msgid "Delete the temporary file"
 msgstr "Twüschentiedliche Datei löschen"
 
-#: ../previewer/ev-previewer.c:46
+#: ../previewer/pps-previewer.c:46
 msgid "Print settings file"
 msgstr "Druckinstellendatei"
 
-#: ../previewer/ev-previewer.c:141
-#: ../previewer/ev-previewer.c:175
+#: ../previewer/pps-previewer.c:141
+#: ../previewer/pps-previewer.c:175
 msgid "GNOME Document Previewer"
 msgstr "GNOME Dokument Utblick"
 
-#: ../previewer/ev-previewer-window.c:95
-#: ../shell/ev-window.c:2985
+#: ../previewer/pps-previewer-window.c:95
+#: ../shell/pps-window.c:2985
 msgid "Failed to print document"
 msgstr "Künn dat Dokument nich drucken"
 
-#: ../previewer/ev-previewer-window.c:209
+#: ../previewer/pps-previewer-window.c:209
 #, c-format
 msgid "The selected printer '%s' could not be found"
 msgstr ""
 
 #. Go menu
-#: ../previewer/ev-previewer-window.c:253
-#: ../shell/ev-window.c:5136
+#: ../previewer/pps-previewer-window.c:253
+#: ../shell/pps-window.c:5136
 msgid "_Previous Page"
 msgstr "Een Siet _torügg"
 
-#: ../previewer/ev-previewer-window.c:254
-#: ../shell/ev-window.c:5137
+#: ../previewer/pps-previewer-window.c:254
+#: ../shell/pps-window.c:5137
 msgid "Go to the previous page"
 msgstr "To lester Siet geihn"
 
-#: ../previewer/ev-previewer-window.c:256
-#: ../shell/ev-window.c:5139
+#: ../previewer/pps-previewer-window.c:256
+#: ../shell/pps-window.c:5139
 msgid "_Next Page"
 msgstr "Een Siet _vor"
 
-#: ../previewer/ev-previewer-window.c:257
-#: ../shell/ev-window.c:5140
+#: ../previewer/pps-previewer-window.c:257
+#: ../shell/pps-window.c:5140
 msgid "Go to the next page"
 msgstr "To nähster Siet geihn"
 
-#: ../previewer/ev-previewer-window.c:260
-#: ../shell/ev-window.c:5123
+#: ../previewer/pps-previewer-window.c:260
+#: ../shell/pps-window.c:5123
 msgid "Enlarge the document"
 msgstr "Dokument gröter maken"
 
-#: ../previewer/ev-previewer-window.c:263
-#: ../shell/ev-window.c:5126
+#: ../previewer/pps-previewer-window.c:263
+#: ../shell/pps-window.c:5126
 msgid "Shrink the document"
 msgstr "Dokument lütter maken"
 
-#: ../previewer/ev-previewer-window.c:266
-#: ../shell/ev-print-operation.c:1319
+#: ../previewer/pps-previewer-window.c:266
+#: ../shell/pps-print-operation.c:1319
 msgid "Print"
 msgstr "Drucken"
 
-#: ../previewer/ev-previewer-window.c:267
-#: ../shell/ev-window.c:5094
+#: ../previewer/pps-previewer-window.c:267
+#: ../shell/pps-window.c:5094
 msgid "Print this document"
 msgstr "Düsses Dokument drucken"
 
-#: ../previewer/ev-previewer-window.c:273
-#: ../shell/ev-window.c:5238
+#: ../previewer/pps-previewer-window.c:273
+#: ../shell/pps-window.c:5238
 msgid "_Best Fit"
 msgstr "Dat, wat am Besten _passt"
 
-#: ../previewer/ev-previewer-window.c:274
-#: ../shell/ev-window.c:5239
+#: ../previewer/pps-previewer-window.c:274
+#: ../shell/pps-window.c:5239
 msgid "Make the current document fill the window"
 msgstr ""
 
-#: ../previewer/ev-previewer-window.c:276
-#: ../shell/ev-window.c:5241
+#: ../previewer/pps-previewer-window.c:276
+#: ../shell/pps-window.c:5241
 msgid "Fit Page _Width"
 msgstr "Sieten_brede ännern"
 
-#: ../previewer/ev-previewer-window.c:277
-#: ../shell/ev-window.c:5242
+#: ../previewer/pps-previewer-window.c:277
+#: ../shell/pps-window.c:5242
 msgid "Make the current document fill the window width"
 msgstr ""
 
-#: ../previewer/ev-previewer-window.c:462
-#: ../shell/ev-window.c:5309
+#: ../previewer/pps-previewer-window.c:462
+#: ../shell/pps-window.c:5309
 msgid "Page"
 msgstr "Siet"
 
-#: ../previewer/ev-previewer-window.c:463
-#: ../shell/ev-window.c:5310
+#: ../previewer/pps-previewer-window.c:463
+#: ../shell/pps-window.c:5310
 msgid "Select Page"
 msgstr "Siet utwählen"
 
-#: ../properties/ev-properties-main.c:116
+#: ../properties/pps-properties-main.c:116
 msgid "Document"
 msgstr "Dokument"
 
-#: ../properties/ev-properties-view.c:59
+#: ../properties/pps-properties-view.c:59
 msgid "Title:"
 msgstr "Titel:"
 
-#: ../properties/ev-properties-view.c:60
+#: ../properties/pps-properties-view.c:60
 msgid "Location:"
 msgstr "Ort:"
 
-#: ../properties/ev-properties-view.c:61
+#: ../properties/pps-properties-view.c:61
 msgid "Subject:"
 msgstr "Verwennen:"
 
-#: ../properties/ev-properties-view.c:62
+#: ../properties/pps-properties-view.c:62
 msgid "Author:"
 msgstr "Schriever:"
 
-#: ../properties/ev-properties-view.c:63
+#: ../properties/pps-properties-view.c:63
 msgid "Keywords:"
 msgstr "Slötelwöör:"
 
-#: ../properties/ev-properties-view.c:64
+#: ../properties/pps-properties-view.c:64
 msgid "Producer:"
 msgstr "Produzent:"
 
-#: ../properties/ev-properties-view.c:65
+#: ../properties/pps-properties-view.c:65
 msgid "Creator:"
 msgstr "Urheber:"
 
-#: ../properties/ev-properties-view.c:66
+#: ../properties/pps-properties-view.c:66
 msgid "Created:"
 msgstr "Erstellt:"
 
-#: ../properties/ev-properties-view.c:67
+#: ../properties/pps-properties-view.c:67
 msgid "Modified:"
 msgstr "Ännert:"
 
-#: ../properties/ev-properties-view.c:68
+#: ../properties/pps-properties-view.c:68
 msgid "Number of Pages:"
 msgstr "Sietentaal:"
 
-#: ../properties/ev-properties-view.c:69
+#: ../properties/pps-properties-view.c:69
 msgid "Optimized:"
 msgstr "Better makt:"
 
-#: ../properties/ev-properties-view.c:70
+#: ../properties/pps-properties-view.c:70
 msgid "Format:"
 msgstr "Format:"
 
-#: ../properties/ev-properties-view.c:71
+#: ../properties/pps-properties-view.c:71
 msgid "Security:"
 msgstr "Sekerheit:"
 
-#: ../properties/ev-properties-view.c:72
+#: ../properties/pps-properties-view.c:72
 msgid "Paper Size:"
 msgstr "Papiergröte:"
 
-#: ../properties/ev-properties-view.c:202
+#: ../properties/pps-properties-view.c:202
 msgid "None"
 msgstr "Keen"
 
@@ -605,124 +605,124 @@ msgstr "Keen"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: ../properties/ev-properties-view.c:227
+#: ../properties/pps-properties-view.c:227
 msgid "default:mm"
 msgstr "default:mm"
 
-#: ../properties/ev-properties-view.c:271
+#: ../properties/pps-properties-view.c:271
 #, c-format
 msgid "%.0f x %.0f mm"
 msgstr "%.0f x %.0f mm"
 
-#: ../properties/ev-properties-view.c:275
+#: ../properties/pps-properties-view.c:275
 #, c-format
 msgid "%.2f x %.2f inch"
 msgstr "%.2f x %.2f inch"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/ev-properties-view.c:299
+#: ../properties/pps-properties-view.c:299
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr "%s, Portrait (%s)"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/ev-properties-view.c:306
+#: ../properties/pps-properties-view.c:306
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr "%s, Landschapt (%s)"
 
-#: ../libmisc/ev-page-action-widget.c:68
+#: ../libmisc/pps-page-action-widget.c:68
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%d vun %d)"
 
-#: ../libmisc/ev-page-action-widget.c:70
+#: ../libmisc/pps-page-action-widget.c:70
 #, c-format
 msgid "of %d"
 msgstr "vun %d"
 
-#: ../libview/ev-jobs.c:1426
+#: ../libview/pps-jobs.c:1426
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr ""
 
-#: ../libview/ev-view-accessible.c:41
+#: ../libview/pps-view-accessible.c:41
 msgid "Scroll Up"
 msgstr "Nah boven rollen"
 
-#: ../libview/ev-view-accessible.c:42
+#: ../libview/pps-view-accessible.c:42
 msgid "Scroll Down"
 msgstr "Runner rollen"
 
-#: ../libview/ev-view-accessible.c:48
+#: ../libview/pps-view-accessible.c:48
 msgid "Scroll View Up"
 msgstr ""
 
-#: ../libview/ev-view-accessible.c:49
+#: ../libview/pps-view-accessible.c:49
 msgid "Scroll View Down"
 msgstr ""
 
-#: ../libview/ev-view-accessible.c:533
+#: ../libview/pps-view-accessible.c:533
 msgid "Document View"
 msgstr "Dokumentansicht"
 
-#: ../libview/ev-view.c:1766
+#: ../libview/pps-view.c:1766
 msgid "Go to first page"
 msgstr "To de erste Siet wesseln"
 
-#: ../libview/ev-view.c:1768
+#: ../libview/pps-view.c:1768
 msgid "Go to previous page"
 msgstr "To lester Siet geihn"
 
-#: ../libview/ev-view.c:1770
+#: ../libview/pps-view.c:1770
 msgid "Go to next page"
 msgstr "To nähster Siet geihn"
 
-#: ../libview/ev-view.c:1772
+#: ../libview/pps-view.c:1772
 msgid "Go to last page"
 msgstr "To de leste Siet wesseln"
 
-#: ../libview/ev-view.c:1774
+#: ../libview/pps-view.c:1774
 msgid "Go to page"
 msgstr "To Siet wesseln"
 
-#: ../libview/ev-view.c:1776
+#: ../libview/pps-view.c:1776
 msgid "Find"
 msgstr "Finnen"
 
-#: ../libview/ev-view.c:1804
+#: ../libview/pps-view.c:1804
 #, c-format
 msgid "Go to page %s"
 msgstr "To Siet %s wesseln"
 
-#: ../libview/ev-view.c:1810
+#: ../libview/pps-view.c:1810
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr ""
 
-#: ../libview/ev-view.c:1813
+#: ../libview/pps-view.c:1813
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Geih to Datei \"%s\""
 
-#: ../libview/ev-view.c:1821
+#: ../libview/pps-view.c:1821
 #, c-format
 msgid "Launch %s"
 msgstr "%s starten"
 
-#: ../libview/ev-view.c:3096
+#: ../libview/pps-view.c:3096
 msgid "End of presentation. Press Escape to exit."
 msgstr ""
 
-#: ../libview/ev-view.c:4042
+#: ../libview/pps-view.c:4042
 msgid "Jump to page:"
 msgstr "To Siet hüppen:"
 
-#: ../libview/ev-view.c:4324
-#: ../shell/ev-sidebar-layers.c:125
-#: ../shell/ev-sidebar-links.c:262
+#: ../libview/pps-view.c:4324
+#: ../shell/pps-sidebar-layers.c:125
+#: ../shell/pps-sidebar-links.c:262
 msgid "Loading..."
 msgstr "Lade..."
 
@@ -731,7 +731,7 @@ msgid "Find:"
 msgstr "Finnen:"
 
 #: ../shell/eggfindbar.c:329
-#: ../shell/ev-window.c:5111
+#: ../shell/pps-window.c:5111
 msgid "Find Pre_vious"
 msgstr "_Vorige finnen"
 
@@ -740,7 +740,7 @@ msgid "Find previous occurrence of the search string"
 msgstr ""
 
 #: ../shell/eggfindbar.c:337
-#: ../shell/ev-window.c:5109
+#: ../shell/pps-window.c:5109
 msgid "Find Ne_xt"
 msgstr "_Nähsten finnen"
 
@@ -756,657 +756,657 @@ msgstr ""
 msgid "Toggle case sensitive search"
 msgstr ""
 
-#: ../shell/ev-keyring.c:102
+#: ../shell/pps-keyring.c:102
 #, c-format
 msgid "Password for document %s"
 msgstr "Passwoord för dat Dokument %s"
 
-#: ../shell/ev-convert-metadata.c:88
+#: ../shell/pps-convert-metadata.c:88
 #, c-format
 msgid "Converting %s"
 msgstr ""
 
-#: ../shell/ev-convert-metadata.c:92
+#: ../shell/pps-convert-metadata.c:92
 #, c-format
 msgid "%d of %d documents converted"
 msgstr ""
 
-#: ../shell/ev-convert-metadata.c:164
-#: ../shell/ev-convert-metadata.c:179
+#: ../shell/pps-convert-metadata.c:164
+#: ../shell/pps-convert-metadata.c:179
 msgid "Converting metadata"
 msgstr ""
 
-#: ../shell/ev-convert-metadata.c:185
-msgid "The metadata format used by Evince has changed, and hence it needs to be migrated. If the migration is cancelled the metadata storage will not work."
+#: ../shell/pps-convert-metadata.c:185
+msgid "The metadata format used by Papers has changed, and hence it needs to be migrated. If the migration is cancelled the metadata storage will not work."
 msgstr ""
 
-#: ../shell/ev-open-recent-action.c:72
+#: ../shell/pps-open-recent-action.c:72
 msgid "Open a recently used document"
 msgstr ""
 
-#: ../shell/ev-password-view.c:144
+#: ../shell/pps-password-view.c:144
 msgid "This document is locked and can only be read by entering the correct password."
 msgstr ""
 
-#: ../shell/ev-password-view.c:153
-#: ../shell/ev-password-view.c:269
+#: ../shell/pps-password-view.c:153
+#: ../shell/pps-password-view.c:269
 msgid "_Unlock Document"
 msgstr "_Slute Dokument op"
 
-#: ../shell/ev-password-view.c:261
+#: ../shell/pps-password-view.c:261
 msgid "Enter password"
 msgstr "Passwoord ingeven"
 
-#: ../shell/ev-password-view.c:301
+#: ../shell/pps-password-view.c:301
 msgid "Password required"
 msgstr "Passwoord nödig"
 
-#: ../shell/ev-password-view.c:302
+#: ../shell/pps-password-view.c:302
 #, c-format
 msgid "The document “%s” is locked and requires a password before it can be opened."
 msgstr ""
 
-#: ../shell/ev-password-view.c:332
+#: ../shell/pps-password-view.c:332
 msgid "_Password:"
 msgstr "_Passwoord:"
 
-#: ../shell/ev-password-view.c:365
+#: ../shell/pps-password-view.c:365
 msgid "Forget password _immediately"
 msgstr "Passwoord just wedder _vergeten"
 
-#: ../shell/ev-password-view.c:377
+#: ../shell/pps-password-view.c:377
 msgid "Remember password until you _logout"
 msgstr "Passwoord merken bit _Avmellen"
 
-#: ../shell/ev-password-view.c:389
+#: ../shell/pps-password-view.c:389
 msgid "Remember _forever"
 msgstr "Jümmers _merken"
 
 #. Initial state
-#: ../shell/ev-print-operation.c:345
+#: ../shell/pps-print-operation.c:345
 msgid "Preparing to print ..."
 msgstr ""
 
-#: ../shell/ev-print-operation.c:347
+#: ../shell/pps-print-operation.c:347
 msgid "Finishing..."
 msgstr "Beenne..."
 
-#: ../shell/ev-print-operation.c:349
+#: ../shell/pps-print-operation.c:349
 #, c-format
 msgid "Printing page %d of %d..."
 msgstr "Drucke Siet %d vun %d..."
 
-#: ../shell/ev-print-operation.c:1173
+#: ../shell/pps-print-operation.c:1173
 #, fuzzy
 msgid "Printing is not supported on this printer."
 msgstr "Drucken wird auf diesem Drucker nicht unterstützt"
 
-#: ../shell/ev-print-operation.c:1238
+#: ../shell/pps-print-operation.c:1238
 msgid "Invalid page selection"
 msgstr "Nich akerate Sietenutwahl"
 
-#: ../shell/ev-print-operation.c:1239
+#: ../shell/pps-print-operation.c:1239
 msgid "Warning"
 msgstr "Oppassen!"
 
-#: ../shell/ev-print-operation.c:1241
+#: ../shell/pps-print-operation.c:1241
 msgid "Your print range selection does not include any page"
 msgstr ""
 
-#: ../shell/ev-properties-dialog.c:58
+#: ../shell/pps-properties-dialog.c:58
 msgid "Properties"
 msgstr "Eegenschapten"
 
-#: ../shell/ev-properties-dialog.c:92
+#: ../shell/pps-properties-dialog.c:92
 msgid "General"
 msgstr "Allgemeen"
 
-#: ../shell/ev-properties-dialog.c:102
+#: ../shell/pps-properties-dialog.c:102
 msgid "Fonts"
 msgstr "Schriftarten"
 
-#: ../shell/ev-properties-dialog.c:115
+#: ../shell/pps-properties-dialog.c:115
 msgid "Document License"
 msgstr "Dokumentlizenz"
 
-#: ../shell/ev-properties-fonts.c:135
+#: ../shell/pps-properties-fonts.c:135
 msgid "Font"
 msgstr "Schriftart"
 
-#: ../shell/ev-properties-fonts.c:162
+#: ../shell/pps-properties-fonts.c:162
 #, c-format
 msgid "Gathering font information... %3d%%"
 msgstr ""
 
-#: ../shell/ev-properties-license.c:138
+#: ../shell/pps-properties-license.c:138
 msgid "Usage terms"
 msgstr "Gebrukregeln"
 
-#: ../shell/ev-properties-license.c:144
+#: ../shell/pps-properties-license.c:144
 msgid "Text License"
 msgstr "textlizenz"
 
-#: ../shell/ev-properties-license.c:150
+#: ../shell/pps-properties-license.c:150
 msgid "Further Information"
 msgstr "Mehr Informatschoonen"
 
-#: ../shell/ev-sidebar-attachments.c:712
+#: ../shell/pps-sidebar-attachments.c:712
 msgid "Attachments"
 msgstr "Anhangen"
 
-#: ../shell/ev-sidebar-layers.c:401
+#: ../shell/pps-sidebar-layers.c:401
 msgid "Layers"
 msgstr ""
 
-#: ../shell/ev-sidebar-links.c:335
+#: ../shell/pps-sidebar-links.c:335
 msgid "Print..."
 msgstr "Drucken..."
 
-#: ../shell/ev-sidebar-links.c:750
+#: ../shell/pps-sidebar-links.c:750
 msgid "Index"
 msgstr "Index"
 
-#: ../shell/ev-sidebar-thumbnails.c:956
+#: ../shell/pps-sidebar-thumbnails.c:956
 msgid "Thumbnails"
 msgstr "Utblickbillers"
 
-#: ../shell/ev-window.c:830
+#: ../shell/pps-window.c:830
 #, c-format
 msgid "Page %s - %s"
 msgstr "Siet %s - %s"
 
-#: ../shell/ev-window.c:832
+#: ../shell/pps-window.c:832
 #, c-format
 msgid "Page %s"
 msgstr "Siet %s"
 
-#: ../shell/ev-window.c:1265
+#: ../shell/pps-window.c:1265
 msgid "The document contains no pages"
 msgstr "dat Dokument het keene Sieten in"
 
-#: ../shell/ev-window.c:1268
+#: ../shell/pps-window.c:1268
 msgid "The document contains only empty pages"
 msgstr ""
 
-#: ../shell/ev-window.c:1462
-#: ../shell/ev-window.c:1628
+#: ../shell/pps-window.c:1462
+#: ../shell/pps-window.c:1628
 msgid "Unable to open document"
 msgstr "Künn dat Dokument nich opmaken"
 
-#: ../shell/ev-window.c:1599
+#: ../shell/pps-window.c:1599
 #, c-format
 msgid "Loading document from “%s”"
 msgstr "Lade Dokument vun \"%s\""
 
-#: ../shell/ev-window.c:1741
-#: ../shell/ev-window.c:2018
+#: ../shell/pps-window.c:1741
+#: ../shell/pps-window.c:2018
 #, c-format
 msgid "Downloading document (%d%%)"
 msgstr "Lade Dokument daal (%d%%)"
 
-#: ../shell/ev-window.c:1774
+#: ../shell/pps-window.c:1774
 msgid "Failed to load remote file."
 msgstr ""
 
-#: ../shell/ev-window.c:1962
+#: ../shell/pps-window.c:1962
 #, c-format
 msgid "Reloading document from %s"
 msgstr ""
 
-#: ../shell/ev-window.c:1994
+#: ../shell/pps-window.c:1994
 msgid "Failed to reload document."
 msgstr ""
 
-#: ../shell/ev-window.c:2149
+#: ../shell/pps-window.c:2149
 msgid "Open Document"
 msgstr "Dokument opmaken"
 
-#: ../shell/ev-window.c:2413
+#: ../shell/pps-window.c:2413
 #, c-format
 msgid "Saving document to %s"
 msgstr "Spieker Dokument nah %s"
 
-#: ../shell/ev-window.c:2416
+#: ../shell/pps-window.c:2416
 #, c-format
 msgid "Saving attachment to %s"
 msgstr "Spieker Anhangen nah %s"
 
-#: ../shell/ev-window.c:2419
+#: ../shell/pps-window.c:2419
 #, c-format
 msgid "Saving image to %s"
 msgstr "Bill spiekern nah %s"
 
-#: ../shell/ev-window.c:2463
-#: ../shell/ev-window.c:2563
+#: ../shell/pps-window.c:2463
+#: ../shell/pps-window.c:2563
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr ""
 
-#: ../shell/ev-window.c:2494
+#: ../shell/pps-window.c:2494
 #, c-format
 msgid "Uploading document (%d%%)"
 msgstr ""
 
-#: ../shell/ev-window.c:2498
+#: ../shell/pps-window.c:2498
 #, c-format
 msgid "Uploading attachment (%d%%)"
 msgstr ""
 
-#: ../shell/ev-window.c:2502
+#: ../shell/pps-window.c:2502
 #, c-format
 msgid "Uploading image (%d%%)"
 msgstr ""
 
-#: ../shell/ev-window.c:2624
+#: ../shell/pps-window.c:2624
 msgid "Save a Copy"
 msgstr "Kopie spiekern"
 
-#: ../shell/ev-window.c:2929
+#: ../shell/pps-window.c:2929
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "%d Opdrag tövt in Reeg"
 msgstr[1] "%d Opdräge töven in Reeg"
 
-#: ../shell/ev-window.c:3042
+#: ../shell/pps-window.c:3042
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Drucke Opdrag \"%s\""
 
-#: ../shell/ev-window.c:3245
+#: ../shell/pps-window.c:3245
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr ""
 
-#: ../shell/ev-window.c:3248
+#: ../shell/pps-window.c:3248
 #, c-format
 msgid "There are %d print jobs active. Wait until print finishes before closing?"
 msgstr ""
 
-#: ../shell/ev-window.c:3260
+#: ../shell/pps-window.c:3260
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr ""
 
-#: ../shell/ev-window.c:3264
+#: ../shell/pps-window.c:3264
 msgid "Cancel _print and Close"
 msgstr "_Druck avbreken un sluten"
 
-#: ../shell/ev-window.c:3268
+#: ../shell/pps-window.c:3268
 msgid "Close _after Printing"
 msgstr "_Achter Drucken sluten"
 
-#: ../shell/ev-window.c:3892
+#: ../shell/pps-window.c:3892
 msgid "Toolbar Editor"
 msgstr "Warktüügbalkenbewarker"
 
-#: ../shell/ev-window.c:4024
+#: ../shell/pps-window.c:4024
 #, fuzzy
 msgid "There was an error displaying help"
 msgstr "Beim aufrufen der Hilfefunktion ist ein Fehler aufgetreten: %s"
 
-#: ../shell/ev-window.c:4259
+#: ../shell/pps-window.c:4259
 #, c-format
 msgid ""
 "Document Viewer.\n"
 "Using poppler %s (%s)"
 msgstr ""
 
-#: ../shell/ev-window.c:4288
-msgid "Evince is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.\n"
+#: ../shell/pps-window.c:4288
+msgid "Papers is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.\n"
 msgstr ""
 
-#: ../shell/ev-window.c:4292
-msgid "Evince is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
+#: ../shell/pps-window.c:4292
+msgid "Papers is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
 msgstr ""
 
-#: ../shell/ev-window.c:4296
-msgid "You should have received a copy of the GNU General Public License along with Evince; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA\n"
+#: ../shell/pps-window.c:4296
+msgid "You should have received a copy of the GNU General Public License along with Papers; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA\n"
 msgstr ""
 
-#: ../shell/ev-window.c:4320
-msgid "Evince"
-msgstr "Evince"
+#: ../shell/pps-window.c:4320
+msgid "Papers"
+msgstr "Papers"
 
-#: ../shell/ev-window.c:4323
-msgid "© 1996–2009 The Evince authors"
-msgstr "© 1996–2009 De Evince Schrievers"
+#: ../shell/pps-window.c:4323
+msgid "© 1996–2009 The Papers authors"
+msgstr "© 1996–2009 De Papers Schrievers"
 
-#: ../shell/ev-window.c:4329
+#: ../shell/pps-window.c:4329
 msgid "translator-credits"
 msgstr "Nils-Christoph Fiedler <fiedler@medienkompanie.de>"
 
 #. TRANS: Sometimes this could be better translated as
 #. "%d hit(s) on this page".  Therefore this string
 #. contains plural cases.
-#: ../shell/ev-window.c:4584
+#: ../shell/pps-window.c:4584
 #, c-format
 msgid "%d found on this page"
 msgid_plural "%d found on this page"
 msgstr[0] "%d op düsse Siet funnen"
 msgstr[1] "%d op düsse Siet funnen"
 
-#: ../shell/ev-window.c:4592
+#: ../shell/pps-window.c:4592
 #, c-format
 msgid "%3d%% remaining to search"
 msgstr ""
 
-#: ../shell/ev-window.c:5074
+#: ../shell/pps-window.c:5074
 msgid "_File"
 msgstr "_Datei"
 
-#: ../shell/ev-window.c:5075
+#: ../shell/pps-window.c:5075
 msgid "_Edit"
 msgstr "_Bewarken"
 
-#: ../shell/ev-window.c:5076
+#: ../shell/pps-window.c:5076
 msgid "_View"
 msgstr "_Ansicht"
 
-#: ../shell/ev-window.c:5077
+#: ../shell/pps-window.c:5077
 msgid "_Go"
 msgstr "_Denn man to"
 
-#: ../shell/ev-window.c:5078
+#: ../shell/pps-window.c:5078
 msgid "_Help"
 msgstr "_Hölp"
 
 #. File menu
-#: ../shell/ev-window.c:5081
-#: ../shell/ev-window.c:5349
+#: ../shell/pps-window.c:5081
+#: ../shell/pps-window.c:5349
 msgid "_Open..."
 msgstr "_Opmaken..."
 
-#: ../shell/ev-window.c:5082
-#: ../shell/ev-window.c:5350
+#: ../shell/pps-window.c:5082
+#: ../shell/pps-window.c:5350
 msgid "Open an existing document"
 msgstr ""
 
-#: ../shell/ev-window.c:5084
+#: ../shell/pps-window.c:5084
 msgid "Op_en a Copy"
 msgstr "Eene K_opiie opmaken"
 
-#: ../shell/ev-window.c:5085
+#: ../shell/pps-window.c:5085
 msgid "Open a copy of the current document in a new window"
 msgstr ""
 
-#: ../shell/ev-window.c:5087
+#: ../shell/pps-window.c:5087
 msgid "_Save a Copy..."
 msgstr "_Eene Kopie spiekern..."
 
-#: ../shell/ev-window.c:5088
+#: ../shell/pps-window.c:5088
 msgid "Save a copy of the current document"
 msgstr ""
 
-#: ../shell/ev-window.c:5090
+#: ../shell/pps-window.c:5090
 msgid "Page Set_up..."
 msgstr "Sieten_instellens..."
 
-#: ../shell/ev-window.c:5091
+#: ../shell/pps-window.c:5091
 msgid "Setup the page settings for printing"
 msgstr ""
 
-#: ../shell/ev-window.c:5093
+#: ../shell/pps-window.c:5093
 msgid "_Print..."
 msgstr "_Drucken..."
 
-#: ../shell/ev-window.c:5096
+#: ../shell/pps-window.c:5096
 msgid "P_roperties"
 msgstr "E_egenschapten"
 
-#: ../shell/ev-window.c:5104
+#: ../shell/pps-window.c:5104
 msgid "Select _All"
 msgstr "_Allens markeren"
 
-#: ../shell/ev-window.c:5106
+#: ../shell/pps-window.c:5106
 msgid "_Find..."
 msgstr "_Finnen..."
 
-#: ../shell/ev-window.c:5107
+#: ../shell/pps-window.c:5107
 msgid "Find a word or phrase in the document"
 msgstr ""
 
-#: ../shell/ev-window.c:5113
+#: ../shell/pps-window.c:5113
 msgid "T_oolbar"
 msgstr "_Warktüügbalken"
 
-#: ../shell/ev-window.c:5115
+#: ../shell/pps-window.c:5115
 msgid "Rotate _Left"
 msgstr "Nah _links dreihn"
 
-#: ../shell/ev-window.c:5117
+#: ../shell/pps-window.c:5117
 msgid "Rotate _Right"
 msgstr "Nah _rechts dreihn"
 
-#: ../shell/ev-window.c:5128
+#: ../shell/pps-window.c:5128
 msgid "_Reload"
 msgstr "_Opfrischen"
 
-#: ../shell/ev-window.c:5129
+#: ../shell/pps-window.c:5129
 msgid "Reload the document"
 msgstr "Düsses Dokument opfrischen"
 
-#: ../shell/ev-window.c:5132
+#: ../shell/pps-window.c:5132
 msgid "Auto_scroll"
 msgstr "_Vun alleen rollen"
 
-#: ../shell/ev-window.c:5142
+#: ../shell/pps-window.c:5142
 msgid "_First Page"
 msgstr "_Erste Siet"
 
-#: ../shell/ev-window.c:5143
+#: ../shell/pps-window.c:5143
 msgid "Go to the first page"
 msgstr "To de erste Siet wesseln"
 
-#: ../shell/ev-window.c:5145
+#: ../shell/pps-window.c:5145
 msgid "_Last Page"
 msgstr "_Leste Siet"
 
-#: ../shell/ev-window.c:5146
+#: ../shell/pps-window.c:5146
 msgid "Go to the last page"
 msgstr "To de leste Siet wesseln"
 
 #. Help menu
-#: ../shell/ev-window.c:5150
+#: ../shell/pps-window.c:5150
 msgid "_Contents"
 msgstr "_Inholls"
 
-#: ../shell/ev-window.c:5153
+#: ../shell/pps-window.c:5153
 msgid "_About"
 msgstr "_Över"
 
 #. Toolbar-only
-#: ../shell/ev-window.c:5157
+#: ../shell/pps-window.c:5157
 msgid "Leave Fullscreen"
 msgstr "Fullbill verloten"
 
-#: ../shell/ev-window.c:5158
+#: ../shell/pps-window.c:5158
 msgid "Leave fullscreen mode"
 msgstr "Fullbill sluten"
 
-#: ../shell/ev-window.c:5160
+#: ../shell/pps-window.c:5160
 msgid "Start Presentation"
 msgstr "Präsentatschoon starten"
 
-#: ../shell/ev-window.c:5161
+#: ../shell/pps-window.c:5161
 #, fuzzy
 msgid "Start a presentation"
 msgstr "Präsentatschoon starten"
 
 #. View Menu
-#: ../shell/ev-window.c:5220
+#: ../shell/pps-window.c:5220
 msgid "_Toolbar"
 msgstr "_Warktüügbalken"
 
-#: ../shell/ev-window.c:5221
+#: ../shell/pps-window.c:5221
 msgid "Show or hide the toolbar"
 msgstr "Warktüügbalken opwiesen or verbargen"
 
-#: ../shell/ev-window.c:5223
+#: ../shell/pps-window.c:5223
 msgid "Side _Pane"
 msgstr "_Sietenrebeet"
 
-#: ../shell/ev-window.c:5224
+#: ../shell/pps-window.c:5224
 msgid "Show or hide the side pane"
 msgstr ""
 
-#: ../shell/ev-window.c:5226
+#: ../shell/pps-window.c:5226
 msgid "_Continuous"
 msgstr ""
 
-#: ../shell/ev-window.c:5227
+#: ../shell/pps-window.c:5227
 msgid "Show the entire document"
 msgstr "Dat heele Dokument opwiesen"
 
-#: ../shell/ev-window.c:5229
+#: ../shell/pps-window.c:5229
 msgid "_Dual"
 msgstr "_Twejfach"
 
-#: ../shell/ev-window.c:5230
+#: ../shell/pps-window.c:5230
 msgid "Show two pages at once"
 msgstr "Twej Sieten op eenmol opwiesen"
 
-#: ../shell/ev-window.c:5232
+#: ../shell/pps-window.c:5232
 msgid "_Fullscreen"
 msgstr "_Fullbill"
 
-#: ../shell/ev-window.c:5233
+#: ../shell/pps-window.c:5233
 msgid "Expand the window to fill the screen"
 msgstr ""
 
-#: ../shell/ev-window.c:5235
+#: ../shell/pps-window.c:5235
 msgid "Pre_sentation"
 msgstr "Präsentat_schoon"
 
-#: ../shell/ev-window.c:5236
+#: ../shell/pps-window.c:5236
 msgid "Run document as a presentation"
 msgstr "Dokument as Vordrag opmaken"
 
-#: ../shell/ev-window.c:5244
+#: ../shell/pps-window.c:5244
 msgid "_Inverted Colors"
 msgstr "_Klöörs umdreihn"
 
-#: ../shell/ev-window.c:5245
+#: ../shell/pps-window.c:5245
 msgid "Show page contents with the colors inverted"
 msgstr ""
 
 #. Links
-#: ../shell/ev-window.c:5253
+#: ../shell/pps-window.c:5253
 msgid "_Open Link"
 msgstr "_Verknüppen opmaken"
 
-#: ../shell/ev-window.c:5255
+#: ../shell/pps-window.c:5255
 msgid "_Go To"
 msgstr "_Denn man to"
 
-#: ../shell/ev-window.c:5257
+#: ../shell/pps-window.c:5257
 msgid "Open in New _Window"
 msgstr "In nejem _Finster opmaken"
 
-#: ../shell/ev-window.c:5259
+#: ../shell/pps-window.c:5259
 msgid "_Copy Link Address"
 msgstr "_Verknüppenanskrivt koperen"
 
-#: ../shell/ev-window.c:5261
+#: ../shell/pps-window.c:5261
 msgid "_Save Image As..."
 msgstr "_Bill spiekern as..."
 
-#: ../shell/ev-window.c:5263
+#: ../shell/pps-window.c:5263
 msgid "Copy _Image"
 msgstr "Bill _koperen"
 
-#: ../shell/ev-window.c:5268
+#: ../shell/pps-window.c:5268
 msgid "_Open Attachment"
 msgstr "Anhangen _opmaken"
 
-#: ../shell/ev-window.c:5270
+#: ../shell/pps-window.c:5270
 msgid "_Save Attachment As..."
 msgstr "Anhangen _spiekern as..."
 
-#: ../shell/ev-window.c:5323
+#: ../shell/pps-window.c:5323
 msgid "Zoom"
 msgstr "Gröte"
 
-#: ../shell/ev-window.c:5325
+#: ../shell/pps-window.c:5325
 msgid "Adjust the zoom level"
 msgstr "Gröte ännern"
 
-#: ../shell/ev-window.c:5335
+#: ../shell/pps-window.c:5335
 msgid "Navigation"
 msgstr "Navigatschoon"
 
-#: ../shell/ev-window.c:5337
+#: ../shell/pps-window.c:5337
 msgid "Back"
 msgstr "Torügg"
 
 #. translators: this is the history action
-#: ../shell/ev-window.c:5340
+#: ../shell/pps-window.c:5340
 msgid "Move across visited pages"
 msgstr ""
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:5370
+#: ../shell/pps-window.c:5370
 msgid "Previous"
 msgstr "Een' torügg"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:5375
+#: ../shell/pps-window.c:5375
 msgid "Next"
 msgstr "Een' vor"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:5379
+#: ../shell/pps-window.c:5379
 msgid "Zoom In"
 msgstr "Gröter maken"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:5383
+#: ../shell/pps-window.c:5383
 msgid "Zoom Out"
 msgstr "Lütter maken"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:5391
+#: ../shell/pps-window.c:5391
 msgid "Fit Width"
 msgstr "Brede ännern"
 
-#: ../shell/ev-window.c:5552
-#: ../shell/ev-window.c:5569
+#: ../shell/pps-window.c:5552
+#: ../shell/pps-window.c:5569
 msgid "Unable to launch external application."
 msgstr ""
 
-#: ../shell/ev-window.c:5609
+#: ../shell/pps-window.c:5609
 msgid "Unable to open external link"
 msgstr ""
 
-#: ../shell/ev-window.c:5776
+#: ../shell/pps-window.c:5776
 msgid "Couldn't find appropriate format to save image"
 msgstr ""
 
-#: ../shell/ev-window.c:5818
+#: ../shell/pps-window.c:5818
 msgid "The image could not be saved."
 msgstr ""
 
-#: ../shell/ev-window.c:5850
+#: ../shell/pps-window.c:5850
 msgid "Save Image"
 msgstr "Bill spiekern"
 
-#: ../shell/ev-window.c:5917
+#: ../shell/pps-window.c:5917
 msgid "Unable to open attachment"
 msgstr "Künn Anhangen nich opmaken"
 
-#: ../shell/ev-window.c:5970
+#: ../shell/pps-window.c:5970
 msgid "The attachment could not be saved."
 msgstr ""
 
-#: ../shell/ev-window.c:6015
+#: ../shell/pps-window.c:6015
 msgid "Save Attachment"
 msgstr "Anhang spiekern"
 
-#: ../shell/ev-window-title.c:162
+#: ../shell/pps-window-title.c:162
 #, c-format
 msgid "%s - Password Required"
 msgstr "%s - Passwoord nödig"
 
-#: ../shell/ev-utils.c:330
+#: ../shell/pps-utils.c:330
 msgid "By extension"
 msgstr "Nah Erwietern"
 
@@ -1424,15 +1424,15 @@ msgid "PAGE"
 msgstr "PAGE"
 
 #: ../shell/main.c:77
-msgid "Run evince in fullscreen mode"
-msgstr "Evince in Fullbill lööpen laten"
+msgid "Run papers in fullscreen mode"
+msgstr "Papers in Fullbill lööpen laten"
 
 #: ../shell/main.c:78
-msgid "Run evince in presentation mode"
-msgstr "Evince in Vordragsmodus lööpen laten"
+msgid "Run papers in presentation mode"
+msgstr "Papers in Vordragsmodus lööpen laten"
 
 #: ../shell/main.c:79
-msgid "Run evince as a previewer"
+msgid "Run papers as a previewer"
 msgstr ""
 
 #: ../shell/main.c:80
@@ -1447,19 +1447,19 @@ msgstr "STRING"
 msgid "[FILE...]"
 msgstr "[FILE...]"
 
-#: ../thumbnailer/evince-thumbnailer.schemas.in.h:1
+#: ../thumbnailer/papers-thumbnailer.schemas.in.h:1
 msgid "Boolean options available, true enables thumbnailing and false disables the creation of new thumbnails"
 msgstr ""
 
-#: ../thumbnailer/evince-thumbnailer.schemas.in.h:2
+#: ../thumbnailer/papers-thumbnailer.schemas.in.h:2
 msgid "Enable thumbnailing of PDF Documents"
 msgstr ""
 
-#: ../thumbnailer/evince-thumbnailer.schemas.in.h:3
+#: ../thumbnailer/papers-thumbnailer.schemas.in.h:3
 msgid "Thumbnail command for PDF Documents"
 msgstr ""
 
-#: ../thumbnailer/evince-thumbnailer.schemas.in.h:4
+#: ../thumbnailer/papers-thumbnailer.schemas.in.h:4
 msgid "Valid command plus arguments for the PDF Document thumbnailer. See nautilus thumbnailer documentation for more information."
 msgstr ""
 

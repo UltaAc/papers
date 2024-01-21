@@ -4,4 +4,4 @@ backend_deps = backends_common_deps + [
   poppler_glib_dep,
 ]
 
-backend_sources = files('ev-poppler.c')
+backend_sources = files('pps-poppler.c')

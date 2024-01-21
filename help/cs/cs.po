@@ -1,6 +1,6 @@
-# Czech translation of evince
-# Copyright (C) YEAR THE evince COPYRIGHT HOLDER
-# This file is distributed under the same license as the evince package.
+# Czech translation of papers
+# Copyright (C) YEAR THE papers COPYRIGHT HOLDER
+# This file is distributed under the same license as the papers package.
 #
 # Martin Picek <picek.martin@gnome-cesko.cz>, 2009.
 # Lucas Lommer <llommer@svn.gnome.org>, 2009. (mikroopravy)
@@ -8,7 +8,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: evince\n"
+"Project-Id-Version: papers\n"
 "POT-Creation-Date: 2022-07-15 19:37+0000\n"
 "PO-Revision-Date: 2022-09-19 10:31+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
@@ -554,8 +554,8 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/introduction.page:18
-msgid "Introduction to the <em>Evince Document Viewer</em>."
-msgstr "Úvod do <em>prohlížeče dokumentů Evince</em>."
+msgid "Introduction to the <em>Papers Document Viewer</em>."
+msgstr "Úvod do <em>prohlížeče dokumentů Papers</em>."
 
 #. (itstool) path: page/title
 #: C/introduction.page:21
@@ -565,10 +565,10 @@ msgstr "Úvod"
 #. (itstool) path: page/p
 #: C/introduction.page:23
 msgid ""
-"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a "
+"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
-"<app>Evince</app> je prohlížeč dokumentů. Viz <link xref=\"formats\"/> pro "
+"<app>Papers</app> je prohlížeč dokumentů. Viz <link xref=\"formats\"/> pro "
 "seznam všech typů souborů, které můžete prohlížet."
 
 #. (itstool) path: info/desc
@@ -681,7 +681,7 @@ msgstr ""
 #: C/singlesided-3-4pages.page:97 C/singlesided-17-20pages.page:98
 #: C/singlesided-npages.page:104 C/singlesided-13-16pages.page:100
 #: C/singlesided-9-12pages.page:97 C/singlesided-5-8pages.page:97
-msgid "In the <gui>Only print</gui> menu, select <gui>Even sheets</gui>."
+msgid "In the <gui>Only print</gui> menu, select <gui>Ppsen sheets</gui>."
 msgstr "V nabídce <gui>Tisknout pouze</gui> vyberte <gui>Sudé listy</gui>."
 
 #. (itstool) path: info/desc
@@ -837,23 +837,23 @@ msgstr "Vim-latex"
 #. (itstool) path: section/p
 #: C/synctex-editors.page:29
 msgid ""
-"The <app>gedit</app> plugin contains a python script (<file>evince_dbus.py</"
+"The <app>gedit</app> plugin contains a python script (<file>papers_dbus.py</"
 "file>) that can be used to get SyncTeX working with Vim. In order to use vim-"
 "latex together with the <app>document viewer</app> you need to follow the "
 "next steps:"
 msgstr ""
 "Zásuvný modul aplikace <app>gedit</app> obsahuje skript v jazyce Python "
-"(<file>evince_dbus.py</file>), který lze použít ke zprovoznění SyncTeX spolu "
+"(<file>papers_dbus.py</file>), který lze použít ke zprovoznění SyncTeX spolu "
 "s editorem Vim. Aby vim-latex fungoval dohromady s <app>prohlížečem "
 "dokumentů</app>, musíte provést následující kroky:"
 
 #. (itstool) path: item/p
 #: C/synctex-editors.page:35
 msgid ""
-"Copy the <file>evince_dbus.py</file> to some directory in your path and give "
+"Copy the <file>papers_dbus.py</file> to some directory in your path and give "
 "it +x permissions."
 msgstr ""
-"Nakopírovat <file>evince_dbus.py</file> do nějaké složky, která je v "
+"Nakopírovat <file>papers_dbus.py</file> do nějaké složky, která je v "
 "prohledávaných cestách a přidělit mu práva +x."
 
 #. (itstool) path: item/p
@@ -867,12 +867,12 @@ msgstr ""
 #, no-wrap
 msgid ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 msgstr ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 
@@ -1143,8 +1143,8 @@ msgstr "Klikněte na <gui>Editor dconf</gui>."
 
 #. (itstool) path: item/p
 #: C/noprint.page:100
-msgid "Browse to <sys>/org/gnome/evince</sys>."
-msgstr "Přejděte do <sys>/org/gnome/evince</sys>."
+msgid "Browse to <sys>/org/gnome/papers</sys>."
+msgstr "Přejděte do <sys>/org/gnome/papers</sys>."
 
 #. (itstool) path: item/p
 #: C/noprint.page:103
@@ -1512,10 +1512,10 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/translate.page:27
 msgid ""
-"There are <link href=\"http://l10n.gnome.org/module/evince/\">many "
+"There are <link href=\"http://l10n.gnome.org/module/papers/\">many "
 "languages</link> for which translations are still needed."
 msgstr ""
-"Stále je <link href=\"http://l10n.gnome.org/module/evince/\">řada jazyků</"
+"Stále je <link href=\"http://l10n.gnome.org/module/papers/\">řada jazyků</"
 "link>, do kterých je třeba překlad udělat."
 
 #. (itstool) path: page/p
@@ -2052,17 +2052,17 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/develop.page:23
 msgid ""
-"If you would like to <link href=\"https://wiki.gnome.org/Apps/Evince\">help "
+"If you would like to <link href=\"https://wiki.gnome.org/Apps/Papers\">help "
 "develop</link> the <app>Document Viewer</app>, you can get in touch with the "
 "developers using <link href=\"https://cbe005.chat.mibbit.com/?url=irc%3A%2F"
-"%2Firc.gnome.org%2Fevince\">irc</link>, or via our <link href=\"https://mail."
-"gnome.org/mailman/listinfo/evince-list\">mailing list</link>."
+"%2Firc.gnome.org%2Fpapers\">irc</link>, or via our <link href=\"https://mail."
+"gnome.org/mailman/listinfo/papers-list\">mailing list</link>."
 msgstr ""
-"Jestli chcete <link href=\"https://wiki.gnome.org/Apps/Evince\">pomoci s "
+"Jestli chcete <link href=\"https://wiki.gnome.org/Apps/Papers\">pomoci s "
 "vývojem</link> <app>Prohlížeče dokumentů</app>, můžete se s vývojáři "
 "kontaktovat na <link href=\"https://cbe005.chat.mibbit.com/?url=irc%3A%2F"
-"%2Firc.gnome.org%2Fevince\">IRC</link> nebo přes <link href=\"https://mail."
-"gnome.org/mailman/listinfo/evince-list\">poštovní konferenci</link>. Ke "
+"%2Firc.gnome.org%2Fpapers\">IRC</link> nebo přes <link href=\"https://mail."
+"gnome.org/mailman/listinfo/papers-list\">poštovní konferenci</link>. Ke "
 "komunikaci se používá angličtina."
 
 #. (itstool) path: info/desc
@@ -2723,12 +2723,12 @@ msgid ""
 "The <app>document viewer</app> is maintained by a volunteer community. You "
 "are welcome to participate. If you notice a problem you can file a <em>bug "
 "report</em>. To file a bug, go to <link href=\"https://gitlab.gnome.org/"
-"GNOME/evince/issues/\"/>."
+"GNOME/papers/issues/\"/>."
 msgstr ""
 "O <app>Prohlížeče dokumentů</app> se stará komunita dobrovolníků. Vaše "
 "případná účast bude vítána. Pokud si povšimnete nějakého problému, můžete "
 "vyplnit <em>chybové hlášení</em> na <link href=\"https://gitlab.gnome.org/"
-"GNOME/evince/issues/\"/>."
+"GNOME/papers/issues/\"/>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2761,13 +2761,13 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/GNOME/evince/issues\">browse</"
+"please <link href=\"https://gitlab.gnome.org/GNOME/papers/issues\">browse</"
 "link> for the bug to see if it already exists."
 msgstr ""
 "Když už účet máte, přihlaste se a klikněte na <gui>New issue</gui>. Před "
 "nahlášením chyby si prosím přečtěte <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">přiručku k hlášení chyb</link> "
-"(odkaz je v angličtině) a <link href=\"https://gitlab.gnome.org/GNOME/evince/"
+"(odkaz je v angličtině) a <link href=\"https://gitlab.gnome.org/GNOME/papers/"
 "issues\">podívejte</link> se prosím, jestli stejnou chybu nenahlásil už "
 "někdo jiný."
 
@@ -3438,10 +3438,10 @@ msgstr "Příkazový řádek"
 #. (itstool) path: info/desc
 #: C/commandline.page:8
 msgid ""
-"The <cmd>evince</cmd> command can open any number of files, at specific "
+"The <cmd>papers</cmd> command can open any number of files, at specific "
 "pages and in various modes."
 msgstr ""
-"Příkaz <cmd>evince</cmd> umí otevřít libovolný počet souborů na určených "
+"Příkaz <cmd>papers</cmd> umí otevřít libovolný počet souborů na určených "
 "stránkách a v různých režimech."
 
 #. (itstool) path: page/title
@@ -3453,49 +3453,49 @@ msgstr "Příkazový řádek"
 #: C/commandline.page:25
 msgid ""
 "To start the <app>Document Viewer</app> from the command line, type "
-"<cmd>evince</cmd>. You can open a specific file by typing the filename after "
-"the evince command:"
+"<cmd>papers</cmd>. You can open a specific file by typing the filename after "
+"the papers command:"
 msgstr ""
 "Pro spuštění <app>prohlížeče dokumentů</app> z příkazového řádku napište "
-"<cmd>evince</cmd>. Můžete také otevřít konkrétní soubor zadáním jeho názvu "
-"za příkaz evince:"
+"<cmd>papers</cmd>. Můžete také otevřít konkrétní soubor zadáním jeho názvu "
+"za příkaz papers:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:30
 #, no-wrap
-msgid "evince file.pdf"
-msgstr "evince soubor.pdf"
+msgid "papers file.pdf"
+msgstr "papers soubor.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:31
 msgid ""
-"You can open multiple files by typing the filenames after the evince "
+"You can open multiple files by typing the filenames after the papers "
 "command, separating the filenames by a space:"
 msgstr ""
-"Abyste otevřeli více souborů, zadejte zadejte za příkaz evince jejich názvy "
+"Abyste otevřeli více souborů, zadejte zadejte za příkaz papers jejich názvy "
 "oddělené pomocí mezer:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:34
 #, no-wrap
-msgid "evince file1.pdf file2.pdf"
-msgstr "evince soubor1.pdf soubor2.pdf"
+msgid "papers file1.pdf file2.pdf"
+msgstr "papers soubor1.pdf soubor2.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:35
 msgid ""
 "The <app>document viewer</app> also supports the handling of files on the "
-"web. For example, after the evince command you can give the location of a "
+"web. For example, after the papers command you can give the location of a "
 "file on the web:"
 msgstr ""
 "<app>Prohlížeč dokumentů</app> podporuje také práci se soubory z webu. "
-"Můžete napříkaz za příkaz evince zadat umístění souboru na webu:"
+"Můžete napříkaz za příkaz papers zadat umístění souboru na webu:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:38
 #, no-wrap
-msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:40
@@ -3514,8 +3514,8 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:45
 #, no-wrap
-msgid "evince --page-label=3 file.pdf"
-msgstr "evince --page-label=3 soubor.pdf"
+msgid "papers --page-label=3 file.pdf"
+msgstr "papers --page-label=3 soubor.pdf"
 
 #. (itstool) path: section/p
 #: C/commandline.page:46
@@ -3534,8 +3534,8 @@ msgstr "Otevření dokumentu v režimu celé obrazovky"
 #. (itstool) path: section/screen
 #: C/commandline.page:53
 #, no-wrap
-msgid "evince --fullscreen file.pdf"
-msgstr "evince --fullscreen soubor.pdf"
+msgid "papers --fullscreen file.pdf"
+msgstr "papers --fullscreen soubor.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:56
@@ -3545,8 +3545,8 @@ msgstr "Otevření dokumentu v režimu prezentace"
 #. (itstool) path: section/screen
 #: C/commandline.page:57
 #, no-wrap
-msgid "evince --presentation file.pdf"
-msgstr "evince --presentation soubor.pdf"
+msgid "papers --presentation file.pdf"
+msgstr "papers --presentation soubor.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:60
@@ -3556,8 +3556,8 @@ msgstr "Otevření dokumentu v režimu náhledu"
 #. (itstool) path: section/screen
 #: C/commandline.page:61
 #, no-wrap
-msgid "evince --preview file.pdf"
-msgstr "evince --preview soubor.pdf"
+msgid "papers --preview file.pdf"
+msgstr "papers --preview soubor.pdf"
 
 #. (itstool) path: info/desc
 #: C/annotations.page:8
@@ -3719,36 +3719,36 @@ msgstr ""
 #. (itstool) path: info/title
 #: C/index.page:7
 msgctxt "link:trail"
-msgid "Evince Document Viewer"
-msgstr "Prohlížeč dokumentů Evince"
+msgid "Papers Document Viewer"
+msgstr "Prohlížeč dokumentů Papers"
 
 #. (itstool) path: info/title
 #: C/index.page:8
 msgctxt "link"
-msgid "Evince Document Viewer"
-msgstr "Prohlížeč dokumentů Evince"
+msgid "Papers Document Viewer"
+msgstr "Prohlížeč dokumentů Papers"
 
 #. (itstool) path: info/title
 #: C/index.page:9
 msgctxt "text"
-msgid "Evince Document Viewer"
-msgstr "Prohlížeč dokumentů Evince"
+msgid "Papers Document Viewer"
+msgstr "Prohlížeč dokumentů Papers"
 
 #. (itstool) path: info/desc
 #: C/index.page:24
 msgid ""
-"<app>Document Viewer</app>, formally known as <app>Evince</app>, is made for "
+"<app>Document Viewer</app>, formally known as <app>Papers</app>, is made for "
 "viewing PDF documents. Learn how to get started with <app>Document Viewer</"
 "app> and its features."
 msgstr ""
-"<app>Prohlížeč dokumentů</app>, dříve známý jak <app>Evince</app> je stvořen "
+"<app>Prohlížeč dokumentů</app>, dříve známý jak <app>Papers</app> je stvořen "
 "k prohlížení dokumentů PDF. Podívejte se, jak se s ním pracuje a co všechno "
 "umí."
 
 #. (itstool) path: page/title
 #: C/index.page:30
 msgid "<_:media-1/> Document Viewer Help"
-msgstr "<_:media-1/> Prohlížeč dokumentů Evince"
+msgstr "<_:media-1/> Prohlížeč dokumentů Papers"
 
 #. (itstool) path: section/title
 #: C/index.page:36

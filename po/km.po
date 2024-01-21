@@ -1,14 +1,14 @@
-# translation of po_evince-km.po to Khmer
-# Khmer translation for evince
+# translation of po_papers-km.po to Khmer
+# Khmer translation for papers
 # Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
-# This file is distributed under the same license as the evince package.
+# This file is distributed under the same license as the papers package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 # Khoem Sokhem <khoemsokhem@khmeros.info>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: po_evince-km\n"
+"Project-Id-Version: po_papers-km\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=evince&keywords=I18N+L10N&component=general\n"
+"product=papers&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-10-01 12:38+0000\n"
 "PO-Revision-Date: 2012-04-19 04:15+0000\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
@@ -70,7 +70,7 @@ msgstr "មាន​កំហុស​ក្នុង​ការ​លុប �
 msgid "Error %s"
 msgstr "កំហុស %s"
 
-#: ../backend/comics/comicsdocument.evince-backend.in.h:1
+#: ../backend/comics/comicsdocument.papers-backend.in.h:1
 msgid "Comic Books"
 msgstr "សៀវភៅ​កំប្លែង"
 
@@ -86,7 +86,7 @@ msgstr ""
 "ឯកសារ​ត្រូវ​បាន​បង្កើត​ឡើង​ដោយ​ឯកសារ​ច្រើន ។ ឯកសារ​មួយ ឬ​ច្រើន​ក្នុង​ចំណោម​ឯកសារ​ទាំងនេះ​មិន​អាច​ត្រូវ​បាន​"
 "ចូល​ដំណើរការ​ទេ ។"
 
-#: ../backend/djvu/djvudocument.evince-backend.in.h:1
+#: ../backend/djvu/djvudocument.papers-backend.in.h:1
 msgid "DjVu Documents"
 msgstr "ឯកសារ DjVu"
 
@@ -94,100 +94,100 @@ msgstr "ឯកសារ DjVu"
 msgid "DVI document has incorrect format"
 msgstr "ឯកសារ DVI មាន​ទ្រង់ទ្រាយ​មិន​ត្រឹមត្រូវ"
 
-#: ../backend/dvi/dvidocument.evince-backend.in.h:1
+#: ../backend/dvi/dvidocument.papers-backend.in.h:1
 msgid "DVI Documents"
 msgstr "ឯកសារ DVI"
 
-#: ../backend/pdf/ev-poppler.cc:639
+#: ../backend/pdf/pps-poppler.cc:639
 msgid "This work is in the Public Domain"
 msgstr "ការងារ​នេះ​គឺ​នៅ​ក្នុង​ដែន​សាធារណៈ"
 
 #. translators: this is the document security state
-#: ../backend/pdf/ev-poppler.cc:892 ../backend/pdf/ev-poppler.cc:898
+#: ../backend/pdf/pps-poppler.cc:892 ../backend/pdf/pps-poppler.cc:898
 msgid "Yes"
 msgstr "បាទ/ចាស"
 
 #. translators: this is the document security state
-#: ../backend/pdf/ev-poppler.cc:895 ../backend/pdf/ev-poppler.cc:898
+#: ../backend/pdf/pps-poppler.cc:895 ../backend/pdf/pps-poppler.cc:898
 msgid "No"
 msgstr "ទេ"
 
-#: ../backend/pdf/ev-poppler.cc:1032
+#: ../backend/pdf/pps-poppler.cc:1032
 msgid "Type 1"
 msgstr "ប្រភេទ ១"
 
-#: ../backend/pdf/ev-poppler.cc:1034
+#: ../backend/pdf/pps-poppler.cc:1034
 msgid "Type 1C"
 msgstr "ប្រភេទ ១ C"
 
-#: ../backend/pdf/ev-poppler.cc:1036
+#: ../backend/pdf/pps-poppler.cc:1036
 msgid "Type 3"
 msgstr "ប្រភេទ ៣"
 
-#: ../backend/pdf/ev-poppler.cc:1038
+#: ../backend/pdf/pps-poppler.cc:1038
 msgid "TrueType"
 msgstr "TrueType"
 
-#: ../backend/pdf/ev-poppler.cc:1040
+#: ../backend/pdf/pps-poppler.cc:1040
 msgid "Type 1 (CID)"
 msgstr "ប្រភេទ ១ (CID)"
 
-#: ../backend/pdf/ev-poppler.cc:1042
+#: ../backend/pdf/pps-poppler.cc:1042
 msgid "Type 1C (CID)"
 msgstr "ប្រភេទ ១ C (CID)"
 
-#: ../backend/pdf/ev-poppler.cc:1044
+#: ../backend/pdf/pps-poppler.cc:1044
 msgid "TrueType (CID)"
 msgstr "TrueType (CID)"
 
-#: ../backend/pdf/ev-poppler.cc:1046
+#: ../backend/pdf/pps-poppler.cc:1046
 msgid "Unknown font type"
 msgstr "មិន​ស្គាល់​ប្រភេទ​ពុម្ពអក្សរ"
 
-#: ../backend/pdf/ev-poppler.cc:1077
+#: ../backend/pdf/pps-poppler.cc:1077
 msgid "No name"
 msgstr "គ្មាន​ឈ្មោះ"
 
-#: ../backend/pdf/ev-poppler.cc:1082 ../libview/ev-print-operation.c:1893
-#: ../properties/ev-properties-view.c:187
+#: ../backend/pdf/pps-poppler.cc:1082 ../libview/pps-print-operation.c:1893
+#: ../properties/pps-properties-view.c:187
 msgid "None"
 msgstr "គ្មាន"
 
-#: ../backend/pdf/ev-poppler.cc:1089
+#: ../backend/pdf/pps-poppler.cc:1089
 msgid "Embedded subset"
 msgstr "សំណុំ​រង​ដែល​បាន​បង្កប់"
 
-#: ../backend/pdf/ev-poppler.cc:1091
+#: ../backend/pdf/pps-poppler.cc:1091
 msgid "Embedded"
 msgstr "បាន​បង្កប់"
 
-#: ../backend/pdf/ev-poppler.cc:1093
+#: ../backend/pdf/pps-poppler.cc:1093
 msgid "Not embedded"
 msgstr "មិន​បាន​បង្កប់"
 
-#: ../backend/pdf/ev-poppler.cc:1098
+#: ../backend/pdf/pps-poppler.cc:1098
 msgid "Encoding"
 msgstr "ការ​អ៊ីនកូដ"
 
-#: ../backend/pdf/ev-poppler.cc:1099
+#: ../backend/pdf/pps-poppler.cc:1099
 msgid "substituting with"
 msgstr "ជំនួស​ដោយ"
 
-#: ../backend/pdf/pdfdocument.evince-backend.in.h:1
+#: ../backend/pdf/pdfdocument.papers-backend.in.h:1
 msgid "PDF Documents"
 msgstr "ឯកសារ PDF"
 
-#: ../backend/ps/ev-spectre.c:98
+#: ../backend/ps/pps-spectre.c:98
 #, c-format
 msgid "Failed to load document “%s”"
 msgstr "បាន​បរាជ័យ​ក្នុង​ការ​ទាញ​យក​ឯកសារ “%s”"
 
-#: ../backend/ps/ev-spectre.c:131
+#: ../backend/ps/pps-spectre.c:131
 #, c-format
 msgid "Failed to save document “%s”"
 msgstr "បាន​បរាជ័យ​ក្នុង​ការ​រក្សាទុក​ឯកសារ “%s”"
 
-#: ../backend/ps/psdocument.evince-backend.in.h:1
+#: ../backend/ps/psdocument.papers-backend.in.h:1
 msgid "PostScript Documents"
 msgstr "ឯកសារ PostScript"
 
@@ -195,11 +195,11 @@ msgstr "ឯកសារ PostScript"
 msgid "Invalid document"
 msgstr "ឯកសារ​មិន​ត្រឹមត្រូវ"
 
-#: ../backend/tiff/tiffdocument.evince-backend.in.h:1
+#: ../backend/tiff/tiffdocument.papers-backend.in.h:1
 msgid "TIFF Documents"
 msgstr "ឯកសារ TIFF"
 
-#: ../backend/xps/xpsdocument.evince-backend.in.h:1
+#: ../backend/xps/xpsdocument.papers-backend.in.h:1
 msgid "XPS Documents"
 msgstr "ឯកសារ XPS"
 
@@ -251,7 +251,7 @@ msgstr "បិទ​ការ​តភ្ជាប់​ទៅកាន់​ក
 msgid "Specify file containing saved configuration"
 msgstr "បញ្ជាក់​ឯកសារ​ដែល​បាន​រក្សាទុក​ការ​កំណត់​រចនា​សម្ព័ន្ធ"
 
-#: ../cut-n-paste/smclient/eggsmclient.c:229 ../previewer/ev-previewer.c:46
+#: ../cut-n-paste/smclient/eggsmclient.c:229 ../previewer/pps-previewer.c:46
 msgid "FILE"
 msgstr "ឯកសារ"
 
@@ -312,7 +312,7 @@ msgid "Separator"
 msgstr "សញ្ញា​បំបែក"
 
 #. translators: this is the label for toolbar button
-#: ../cut-n-paste/zoom-control/ephy-zoom.h:48 ../shell/ev-window.c:6268
+#: ../cut-n-paste/zoom-control/ephy-zoom.h:48 ../shell/pps-window.c:6268
 msgid "Best Fit"
 msgstr "សម​បំផុត"
 
@@ -377,146 +377,146 @@ msgid "6400%"
 msgstr "៦៤០០%"
 
 #. Manually set name and icon
-#: ../data/evince.desktop.in.in.h:1 ../shell/ev-window.c:5011
-#: ../shell/ev-window-title.c:156 ../shell/main.c:312
+#: ../data/papers.desktop.in.in.h:1 ../shell/pps-window.c:5011
+#: ../shell/pps-window-title.c:156 ../shell/main.c:312
 #, c-format
 msgid "Document Viewer"
 msgstr "កម្មវិធី​មើល​ឯកសារ"
 
-#: ../data/evince.desktop.in.in.h:2
+#: ../data/papers.desktop.in.in.h:2
 msgid "View multi-page documents"
 msgstr "មើល​ឯកសារ​មាន​ច្រើន​ទំព័រ"
 
-#: ../data/org.gnome.Evince.gschema.xml.in.h:1
+#: ../data/org.gnome.Papers.gschema.xml.in.h:1
 msgid "Override document restrictions"
 msgstr "បដិសេធ​ការ​ដាក់​កម្រិត​ឯកសារ"
 
-#: ../data/org.gnome.Evince.gschema.xml.in.h:2
+#: ../data/org.gnome.Papers.gschema.xml.in.h:2
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr "បដិសេធ​ការ​ដាក់​កម្រិត​ឯកសារ​ផ្សេងៗ ដូចជា​ការ​ចម្លង ឬ​ការ​បោះពុម្ព ។"
 
-#: ../data/org.gnome.Evince.gschema.xml.in.h:3
+#: ../data/org.gnome.Papers.gschema.xml.in.h:3
 msgid "Automatically reload the document"
 msgstr "ផ្ទុក​ឯកសារ​ឡើងវិញ​ដោយ​ស្វ័យប្រវត្តិ"
 
-#: ../data/org.gnome.Evince.gschema.xml.in.h:4
+#: ../data/org.gnome.Papers.gschema.xml.in.h:4
 msgid "The document is automatically reloaded on file change."
 msgstr "ឯកសារ​ត្រូវ​បាន​ផ្ទុក​ឡើងវិញ​ដោយ​ស្វ័យប្រវត្តិ​នៅ​លើ​ឯកសារ​ផ្លាស់ប្ដូរ ។"
 
-#: ../data/org.gnome.Evince.gschema.xml.in.h:5
+#: ../data/org.gnome.Papers.gschema.xml.in.h:5
 msgid "The URI of the directory last used to open or save a document"
 msgstr "URI របស់​ថត​ដែល​បាន​ប្រើ​ចុងក្រោយ ដើម្បី​បើក ឬ​រក្សាទុក​ឯកសារ"
 
-#: ../data/org.gnome.Evince.gschema.xml.in.h:6
+#: ../data/org.gnome.Papers.gschema.xml.in.h:6
 msgid "The URI of the directory last used to save a picture"
 msgstr "URI របស់​ថត​ដែល​បាន​ប្រើ​ចុងក្រោយ​ ដើម្បី​រក្សាទុក​រូបភាព"
 
-#: ../libdocument/ev-attachment.c:310 ../libdocument/ev-attachment.c:331
+#: ../libdocument/pps-attachment.c:310 ../libdocument/pps-attachment.c:331
 #, c-format
 msgid "Couldn't save attachment “%s”: %s"
 msgstr "មិន​អាច​រក្សាទុក​ឯកសារ​ភ្ជាប់ “%s” ៖ %s"
 
-#: ../libdocument/ev-attachment.c:379
+#: ../libdocument/pps-attachment.c:379
 #, c-format
 msgid "Couldn't open attachment “%s”: %s"
 msgstr "មិន​អាច​បើក​ឯកសារ​ភ្ជាប់ “%s” ៖ %s"
 
-#: ../libdocument/ev-attachment.c:414
+#: ../libdocument/pps-attachment.c:414
 #, c-format
 msgid "Couldn't open attachment “%s”"
 msgstr "មិន​អាច​បើក​ឯកសារ​ភ្ជាប់ “%s”"
 
-#: ../libdocument/ev-document-factory.c:101
+#: ../libdocument/pps-document-factory.c:101
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "មិន​គាំទ្រ​ប្រភេទ​ឯកសារ %s (%s)"
 
-#: ../libdocument/ev-document-factory.c:364
-#: ../libdocument/ev-file-helpers.c:490 ../libdocument/ev-file-helpers.c:536
-#: ../libdocument/ev-file-helpers.c:555
+#: ../libdocument/pps-document-factory.c:364
+#: ../libdocument/pps-file-helpers.c:490 ../libdocument/pps-file-helpers.c:536
+#: ../libdocument/pps-file-helpers.c:555
 msgid "Unknown MIME Type"
 msgstr "មិន​ស្គាល់​ប្រភេទ MIME"
 
-#: ../libdocument/ev-document-factory.c:552
+#: ../libdocument/pps-document-factory.c:552
 msgid "All Documents"
 msgstr "ឯកសារ​ទាំងអស់"
 
-#: ../libdocument/ev-document-factory.c:579
+#: ../libdocument/pps-document-factory.c:579
 msgid "All Files"
 msgstr "ឯកសារ​ទាំងអស់"
 
-#: ../libdocument/ev-file-helpers.c:146
+#: ../libdocument/pps-file-helpers.c:146
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "បាន​បរាជ័យ​ក្នុង​ការ​បង្កើត​ឯកសារ​បណ្ដោះអាសន្ន ៖ %s"
 
-#: ../libdocument/ev-file-helpers.c:308
+#: ../libdocument/pps-file-helpers.c:308
 #, c-format
 msgid "Failed to create a temporary directory: %s"
 msgstr "បាន​បរាជ័យ​ក្នុង​ការ​បង្កើត​ថត​បណ្ដោះអាសន្ន ៖ %s"
 
-#: ../libmisc/ev-page-action-widget.c:68
+#: ../libmisc/pps-page-action-widget.c:68
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%d នៃ %d)"
 
-#: ../libmisc/ev-page-action-widget.c:70
+#: ../libmisc/pps-page-action-widget.c:70
 #, c-format
 msgid "of %d"
 msgstr "នៃ %d"
 
-#: ../libview/ev-jobs.c:1896
+#: ../libview/pps-jobs.c:1896
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "បាន​បរាជ័យ​ក្នុង​ការ​បោះពុម្ព​ទំព័រ %d ៖ %s"
 
 #. Initial state
-#: ../libview/ev-print-operation.c:335
+#: ../libview/pps-print-operation.c:335
 msgid "Preparing to print…"
 msgstr "កំពុង​រៀបចំ​បោះពុម្ព..."
 
-#: ../libview/ev-print-operation.c:337
+#: ../libview/pps-print-operation.c:337
 msgid "Finishing…"
 msgstr "កំពុង​បញ្ចប់..."
 
-#: ../libview/ev-print-operation.c:339
+#: ../libview/pps-print-operation.c:339
 #, c-format
 msgid "Printing page %d of %d…"
 msgstr "កំពុង​បោះពុម្ព​ទំព័រ​ទី %d នៃ %d…"
 
-#: ../libview/ev-print-operation.c:1163
+#: ../libview/pps-print-operation.c:1163
 msgid "Printing is not supported on this printer."
 msgstr "ការ​បោះពុម្ព​មិន​ត្រូវ​បាន​គាំទ្រ​ដោយ​ម៉ាស៊ីន​បោះពុម្ព​នេះ​ទេ ។"
 
-#: ../libview/ev-print-operation.c:1228
+#: ../libview/pps-print-operation.c:1228
 msgid "Invalid page selection"
 msgstr "ជម្រើស​ទំព័រ​មិន​ត្រឹមត្រូវ"
 
-#: ../libview/ev-print-operation.c:1229
+#: ../libview/pps-print-operation.c:1229
 msgid "Warning"
 msgstr "ការ​ព្រមាន"
 
-#: ../libview/ev-print-operation.c:1231
+#: ../libview/pps-print-operation.c:1231
 msgid "Your print range selection does not include any pages"
 msgstr "ជម្រើស​ជួរ​បោះពុម្ព​របស់​អ្នក​មិន​បាន​បញ្ចូល​ទំព័រ​ណាមួយ​ទេ"
 
-#: ../libview/ev-print-operation.c:1309 ../previewer/ev-previewer-window.c:297
+#: ../libview/pps-print-operation.c:1309 ../previewer/pps-previewer-window.c:297
 msgid "Print"
 msgstr "បោះពុម្ព"
 
-#: ../libview/ev-print-operation.c:1888
+#: ../libview/pps-print-operation.c:1888
 msgid "Page Scaling:"
 msgstr "មាត្រដ្ឋាន​ទំព័រ ៖"
 
-#: ../libview/ev-print-operation.c:1894
+#: ../libview/pps-print-operation.c:1894
 msgid "Shrink to Printable Area"
 msgstr "បង្រួញ​ទៅកាន់​តំបន់​ដែល​អាច​បោះពុម្ព​បាន"
 
-#: ../libview/ev-print-operation.c:1895
+#: ../libview/pps-print-operation.c:1895
 msgid "Fit to Printable Area"
 msgstr "សម​ទៅ​នឹង​តំបន់​ដែល​អាច​បោះពុម្ព​បាន"
 
-#: ../libview/ev-print-operation.c:1898
+#: ../libview/pps-print-operation.c:1898
 msgid ""
 "Scale document pages to fit the selected printer page. Select from one of "
 "the following:\n"
@@ -539,11 +539,11 @@ msgstr ""
 "• \"សម​ទៅ​នឹង​តំបន់​បោះពុម្ព\" ៖ ទំព័រ​ឯកសារ​ត្រូវ​បាន​ពង្រីក ឬ​បង្រួម​តាម​តម្រូវការ​ដើម្បីឲ្យ​សម​ទៅ​នឹង​តំបន់​"
 "បោះពុម្ព​របស់​ទំព័រ​ម៉ាស៊ីន​បោះពុម្ព ។\n"
 
-#: ../libview/ev-print-operation.c:1910
+#: ../libview/pps-print-operation.c:1910
 msgid "Auto Rotate and Center"
 msgstr "បង្វិល និង​ដាក់​ចំកណ្ដាល​ដោយ​ស្វ័យប្រវត្តិ"
 
-#: ../libview/ev-print-operation.c:1913
+#: ../libview/pps-print-operation.c:1913
 msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
@@ -551,224 +551,224 @@ msgstr ""
 "បង្វិល​ទិស​ទំព័រ​របស់​ម៉ាស៊ីន​បោះពុម្ព​ទំព័រ​នីមួយៗ​ដើម្បីឲ្យ​វា​ផ្គូផ្គង​ជាមួយ​ទិស​របស់​ទំព័រ​ឯកសារ​នីមួយៗ ។ ទំព័រ​ឯកសារ​នឹង​"
 "ត្រូវ​បាន​ដាក់​ចំកណ្ដាល​នៃ​ទំព័រ​ម៉ាស៊ីន​បោះពុម្ព ។"
 
-#: ../libview/ev-print-operation.c:1918
+#: ../libview/pps-print-operation.c:1918
 msgid "Select page size using document page size"
 msgstr "ជ្រើស​ទំហំ​ទំព័រ​ដោយ​ប្រើ​ទំហំ​ទំព័រ​ឯកសារ"
 
-#: ../libview/ev-print-operation.c:1920
+#: ../libview/pps-print-operation.c:1920
 msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
 msgstr "ប្រសិនបើ​បាន​បើក ទំព័រ​នីមួយៗ​នឹង​ត្រូវ​បាន​បោះពុម្ព​នៅ​ក្នុង​ទំហំ​ក្រដាស​ដូចគ្នា​ទៅ​នឹង​ទំព័រ​ឯកសារ ។"
 
-#: ../libview/ev-print-operation.c:2009
+#: ../libview/pps-print-operation.c:2009
 msgid "Page Handling"
 msgstr "ការ​ប្រើ​ទំព័រ"
 
-#: ../libview/ev-view-accessible.c:46
+#: ../libview/pps-view-accessible.c:46
 msgid "Scroll Up"
 msgstr "រមូរ​ឡើងលើ"
 
-#: ../libview/ev-view-accessible.c:47
+#: ../libview/pps-view-accessible.c:47
 msgid "Scroll Down"
 msgstr "រមូរ​ចុះក្រោម"
 
-#: ../libview/ev-view-accessible.c:53
+#: ../libview/pps-view-accessible.c:53
 msgid "Scroll View Up"
 msgstr "រមូរ​ទិដ្ឋភាព​ឡើងលើ"
 
-#: ../libview/ev-view-accessible.c:54
+#: ../libview/pps-view-accessible.c:54
 msgid "Scroll View Down"
 msgstr "រមូរ​ទិដ្ឋភាព​ចុះក្រោម"
 
-#: ../libview/ev-view-accessible.c:883
+#: ../libview/pps-view-accessible.c:883
 msgid "Document View"
 msgstr "ទិដ្ឋភាព​ឯកសារ"
 
-#: ../libview/ev-view.c:1818
+#: ../libview/pps-view.c:1818
 msgid "Go to first page"
 msgstr "ទៅកាន់​ទំព័រ​ដំបូង"
 
-#: ../libview/ev-view.c:1820
+#: ../libview/pps-view.c:1820
 msgid "Go to previous page"
 msgstr "ទៅកាន់​ទំព័រ​មុន"
 
-#: ../libview/ev-view.c:1822
+#: ../libview/pps-view.c:1822
 msgid "Go to next page"
 msgstr "ទៅន់​ទំព័រ​បន្ទាប់"
 
-#: ../libview/ev-view.c:1824
+#: ../libview/pps-view.c:1824
 msgid "Go to last page"
 msgstr "ទៅកាន់​ទំព័រ​ចុង​ក្រោយ"
 
-#: ../libview/ev-view.c:1826
+#: ../libview/pps-view.c:1826
 msgid "Go to page"
 msgstr "ទៅកាន់​ទំព័រ"
 
-#: ../libview/ev-view.c:1828
+#: ../libview/pps-view.c:1828
 msgid "Find"
 msgstr "រក"
 
-#: ../libview/ev-view.c:1856
+#: ../libview/pps-view.c:1856
 #, c-format
 msgid "Go to page %s"
 msgstr "ទៅកាន់​ទំព័រ %s"
 
-#: ../libview/ev-view.c:1862
+#: ../libview/pps-view.c:1862
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "ទៅកាន់ %s នៅ​លើ​ឯកសារ “%s”"
 
-#: ../libview/ev-view.c:1865
+#: ../libview/pps-view.c:1865
 #, c-format
 msgid "Go to file “%s”"
 msgstr "ទៅកាន់​ឯកសារ “%s”"
 
-#: ../libview/ev-view.c:1873
+#: ../libview/pps-view.c:1873
 #, c-format
 msgid "Launch %s"
 msgstr "ចាប់ផ្ដើម %s"
 
-#: ../libview/ev-view-presentation.c:692
+#: ../libview/pps-view-presentation.c:692
 msgid "Jump to page:"
 msgstr "ទៅកាន់​ទំព័រ ៖"
 
-#: ../libview/ev-view-presentation.c:997
+#: ../libview/pps-view-presentation.c:997
 msgid "End of presentation. Click to exit."
 msgstr "ចុង​នៃ​ការ​បង្ហាញ ។ ចុច​ដើម្បី​ចេញ ។"
 
-#: ../previewer/ev-previewer.c:45
+#: ../previewer/pps-previewer.c:45
 msgid "Delete the temporary file"
 msgstr "លុប​ឯកសារ​បណ្ដោះអាសន្ន"
 
-#: ../previewer/ev-previewer.c:46
+#: ../previewer/pps-previewer.c:46
 msgid "Print settings file"
 msgstr "បោះពុម្ព​ឯកសារ​ការ​កំណត់"
 
-#: ../previewer/ev-previewer.c:175 ../previewer/ev-previewer.c:207
+#: ../previewer/pps-previewer.c:175 ../previewer/pps-previewer.c:207
 msgid "GNOME Document Previewer"
 msgstr "កម្មវិធី​មើល​ឯកសារ​របស់ GNOME"
 
-#: ../previewer/ev-previewer-window.c:91 ../shell/ev-window.c:3441
+#: ../previewer/pps-previewer-window.c:91 ../shell/pps-window.c:3441
 msgid "Failed to print document"
 msgstr "បាន​បរាជ័យ​ក្នុង​ការ​បោះពុម្ព​ឯកសារ"
 
-#: ../previewer/ev-previewer-window.c:237
+#: ../previewer/pps-previewer-window.c:237
 #, c-format
 msgid "The selected printer '%s' could not be found"
 msgstr "រក​មិន​ឃើញ​ម៉ាស៊ីន​បោះពុម្ព '%s' ដែល​បាន​ជ្រើស"
 
 #. Go menu
-#: ../previewer/ev-previewer-window.c:284 ../shell/ev-window.c:5952
+#: ../previewer/pps-previewer-window.c:284 ../shell/pps-window.c:5952
 msgid "_Previous Page"
 msgstr "ទំព័រ​មុន"
 
-#: ../previewer/ev-previewer-window.c:285 ../shell/ev-window.c:5953
+#: ../previewer/pps-previewer-window.c:285 ../shell/pps-window.c:5953
 msgid "Go to the previous page"
 msgstr "ទៅកាន់​ទំព័រ​មុន"
 
-#: ../previewer/ev-previewer-window.c:287 ../shell/ev-window.c:5955
+#: ../previewer/pps-previewer-window.c:287 ../shell/pps-window.c:5955
 msgid "_Next Page"
 msgstr "ទំព័រ​បន្ទាប់"
 
-#: ../previewer/ev-previewer-window.c:288 ../shell/ev-window.c:5956
+#: ../previewer/pps-previewer-window.c:288 ../shell/pps-window.c:5956
 msgid "Go to the next page"
 msgstr "ទៅកាន់​ទំព័រ​បន្ទាប់"
 
-#: ../previewer/ev-previewer-window.c:291 ../shell/ev-window.c:5939
+#: ../previewer/pps-previewer-window.c:291 ../shell/pps-window.c:5939
 msgid "Enlarge the document"
 msgstr "ពង្រីក​ឯកសារ"
 
-#: ../previewer/ev-previewer-window.c:294 ../shell/ev-window.c:5942
+#: ../previewer/pps-previewer-window.c:294 ../shell/pps-window.c:5942
 msgid "Shrink the document"
 msgstr "បង្រួញ​ឯសារ"
 
-#: ../previewer/ev-previewer-window.c:298 ../shell/ev-window.c:5908
+#: ../previewer/pps-previewer-window.c:298 ../shell/pps-window.c:5908
 msgid "Print this document"
 msgstr "បោះពុម្ព​ឯកសារ​នេះ"
 
-#: ../previewer/ev-previewer-window.c:342 ../shell/ev-window.c:6069
+#: ../previewer/pps-previewer-window.c:342 ../shell/pps-window.c:6069
 msgid "_Best Fit"
 msgstr "សម​បំផុត"
 
-#: ../previewer/ev-previewer-window.c:343 ../shell/ev-window.c:6070
+#: ../previewer/pps-previewer-window.c:343 ../shell/pps-window.c:6070
 msgid "Make the current document fill the window"
 msgstr "ធ្វើឲ្យ​ឯកសារ​បច្ចុប្បន្ន​ពេញ​បង្អួច"
 
-#: ../previewer/ev-previewer-window.c:345 ../shell/ev-window.c:6072
+#: ../previewer/pps-previewer-window.c:345 ../shell/pps-window.c:6072
 msgid "Fit Page _Width"
 msgstr "ទទឹង​ទំព័រ​ដែល​សម"
 
-#: ../previewer/ev-previewer-window.c:346 ../shell/ev-window.c:6073
+#: ../previewer/pps-previewer-window.c:346 ../shell/pps-window.c:6073
 msgid "Make the current document fill the window width"
 msgstr "ធ្វើឲ្យ​ឯកសារ​បច្ចុប្បន​ពេញ​ទទឹង​បង្អួច"
 
-#: ../previewer/ev-previewer-window.c:539 ../shell/ev-window.c:6181
+#: ../previewer/pps-previewer-window.c:539 ../shell/pps-window.c:6181
 msgid "Page"
 msgstr "ទំព័រ"
 
-#: ../previewer/ev-previewer-window.c:540 ../shell/ev-window.c:6182
+#: ../previewer/pps-previewer-window.c:540 ../shell/pps-window.c:6182
 msgid "Select Page"
 msgstr "ជ្រើស​ទំព័រ"
 
-#: ../properties/ev-properties-main.c:116
+#: ../properties/pps-properties-main.c:116
 msgid "Document"
 msgstr "ឯកសារ"
 
-#: ../properties/ev-properties-view.c:60
+#: ../properties/pps-properties-view.c:60
 msgid "Title:"
 msgstr "ចំណងជើង ៖"
 
-#: ../properties/ev-properties-view.c:61
+#: ../properties/pps-properties-view.c:61
 msgid "Location:"
 msgstr "ទីតាំង ៖"
 
-#: ../properties/ev-properties-view.c:62
+#: ../properties/pps-properties-view.c:62
 msgid "Subject:"
 msgstr "ប្រធានបទ ៖"
 
-#: ../properties/ev-properties-view.c:63
-#: ../shell/ev-annotation-properties-dialog.c:154
+#: ../properties/pps-properties-view.c:63
+#: ../shell/pps-annotation-properties-dialog.c:154
 msgid "Author:"
 msgstr "អ្នក​និពន្ធ ៖"
 
-#: ../properties/ev-properties-view.c:64
+#: ../properties/pps-properties-view.c:64
 msgid "Keywords:"
 msgstr "ពាក្យ​គន្លឹះ ៖"
 
-#: ../properties/ev-properties-view.c:65
+#: ../properties/pps-properties-view.c:65
 msgid "Producer:"
 msgstr "ផលិតករ ៖"
 
-#: ../properties/ev-properties-view.c:66
+#: ../properties/pps-properties-view.c:66
 msgid "Creator:"
 msgstr "អ្នក​បង្កើត ៖"
 
-#: ../properties/ev-properties-view.c:67
+#: ../properties/pps-properties-view.c:67
 msgid "Created:"
 msgstr "បាន​បង្កើត ៖"
 
-#: ../properties/ev-properties-view.c:68
+#: ../properties/pps-properties-view.c:68
 msgid "Modified:"
 msgstr "បាន​កែប្រែ ៖"
 
-#: ../properties/ev-properties-view.c:69
+#: ../properties/pps-properties-view.c:69
 msgid "Number of Pages:"
 msgstr "លេខ​ទំព័រ ៖"
 
-#: ../properties/ev-properties-view.c:70
+#: ../properties/pps-properties-view.c:70
 msgid "Optimized:"
 msgstr "គុណភាព​ខ្ពស់ ៖"
 
-#: ../properties/ev-properties-view.c:71
+#: ../properties/pps-properties-view.c:71
 msgid "Format:"
 msgstr "ទ្រង់ទ្រាយ ៖"
 
-#: ../properties/ev-properties-view.c:72
+#: ../properties/pps-properties-view.c:72
 msgid "Security:"
 msgstr "សុវត្ថិភាព ៖"
 
-#: ../properties/ev-properties-view.c:73
+#: ../properties/pps-properties-view.c:73
 msgid "Paper Size:"
 msgstr "ទំហំ​ក្រដាស ៖"
 
@@ -778,30 +778,30 @@ msgstr "ទំហំ​ក្រដាស ៖"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: ../properties/ev-properties-view.c:215
+#: ../properties/pps-properties-view.c:215
 msgid "default:mm"
 msgstr "default:mm"
 
-#: ../properties/ev-properties-view.c:259
+#: ../properties/pps-properties-view.c:259
 #, c-format
 msgid "%.0f × %.0f mm"
 msgstr "%.0f × %.0f ម.ម."
 
-#: ../properties/ev-properties-view.c:263
+#: ../properties/pps-properties-view.c:263
 #, c-format
 msgid "%.2f × %.2f inch"
 msgstr "%.2f × %.2f អ៊ិន្ឈ៍"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/ev-properties-view.c:287
+#: ../properties/pps-properties-view.c:287
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr "%s បញ្ឈរ (%s)"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/ev-properties-view.c:294
+#: ../properties/pps-properties-view.c:294
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr "%s ផ្ដេក (%s)"
@@ -822,7 +822,7 @@ msgstr "រក ៖"
 msgid "Find options"
 msgstr "ជម្រើសស្វែងរក"
 
-#: ../shell/eggfindbar.c:427 ../shell/ev-window.c:5925
+#: ../shell/eggfindbar.c:427 ../shell/pps-window.c:5925
 msgid "Find Pre_vious"
 msgstr "រក​មុន"
 
@@ -830,7 +830,7 @@ msgstr "រក​មុន"
 msgid "Find previous occurrence of the search string"
 msgstr "រក​ការ​កើតឡើង​មុន​នៃ​ខ្សែ​អក្សរ​ស្វែងរក"
 
-#: ../shell/eggfindbar.c:435 ../shell/ev-window.c:5923
+#: ../shell/eggfindbar.c:435 ../shell/pps-window.c:5923
 msgid "Find Ne_xt"
 msgstr "រក​បន្ទាប់"
 
@@ -838,353 +838,353 @@ msgstr "រក​បន្ទាប់"
 msgid "Find next occurrence of the search string"
 msgstr "រក​ការ​កើតឡើង​បន្ទាប់​នៃ​ខ្សែ​អក្សរ​ស្វែងរក"
 
-#: ../shell/ev-annotation-properties-dialog.c:94
+#: ../shell/pps-annotation-properties-dialog.c:94
 msgid "Icon:"
 msgstr "រូបតំណាង ៖"
 
-#: ../shell/ev-annotation-properties-dialog.c:100
+#: ../shell/pps-annotation-properties-dialog.c:100
 msgid "Note"
 msgstr "ចំណាំ"
 
-#: ../shell/ev-annotation-properties-dialog.c:101
+#: ../shell/pps-annotation-properties-dialog.c:101
 msgid "Comment"
 msgstr "មតិយោបល់"
 
-#: ../shell/ev-annotation-properties-dialog.c:102
+#: ../shell/pps-annotation-properties-dialog.c:102
 msgid "Key"
 msgstr "ពាក្យ​គន្លឹះ"
 
-#: ../shell/ev-annotation-properties-dialog.c:103
+#: ../shell/pps-annotation-properties-dialog.c:103
 msgid "Help"
 msgstr "ជំនួយ"
 
-#: ../shell/ev-annotation-properties-dialog.c:104
+#: ../shell/pps-annotation-properties-dialog.c:104
 msgid "New Paragraph"
 msgstr "កថាខណ្ឌ​ថ្មី"
 
-#: ../shell/ev-annotation-properties-dialog.c:105
+#: ../shell/pps-annotation-properties-dialog.c:105
 msgid "Paragraph"
 msgstr "កថាខណ្ឌ"
 
-#: ../shell/ev-annotation-properties-dialog.c:106
+#: ../shell/pps-annotation-properties-dialog.c:106
 msgid "Insert"
 msgstr "បញ្ចូល"
 
-#: ../shell/ev-annotation-properties-dialog.c:107
+#: ../shell/pps-annotation-properties-dialog.c:107
 msgid "Cross"
 msgstr "ខ្វែង"
 
-#: ../shell/ev-annotation-properties-dialog.c:108
+#: ../shell/pps-annotation-properties-dialog.c:108
 msgid "Circle"
 msgstr "រង្វង់"
 
-#: ../shell/ev-annotation-properties-dialog.c:109
+#: ../shell/pps-annotation-properties-dialog.c:109
 msgid "Unknown"
 msgstr "មិន​ស្គាល់"
 
-#: ../shell/ev-annotation-properties-dialog.c:134
+#: ../shell/pps-annotation-properties-dialog.c:134
 msgid "Annotation Properties"
 msgstr "លក្ខណសម្បត្តិ​ចំណារ​ពន្យល់"
 
-#: ../shell/ev-annotation-properties-dialog.c:165
+#: ../shell/pps-annotation-properties-dialog.c:165
 msgid "Color:"
 msgstr "ពណ៌ ៖"
 
-#: ../shell/ev-annotation-properties-dialog.c:175
+#: ../shell/pps-annotation-properties-dialog.c:175
 msgid "Style:"
 msgstr "រចនាប័ទ្ម ៖"
 
-#: ../shell/ev-annotation-properties-dialog.c:190
+#: ../shell/pps-annotation-properties-dialog.c:190
 msgid "Transparent"
 msgstr "ថ្លា"
 
-#: ../shell/ev-annotation-properties-dialog.c:197
+#: ../shell/pps-annotation-properties-dialog.c:197
 msgid "Opaque"
 msgstr "ស្រអាប់"
 
-#: ../shell/ev-annotation-properties-dialog.c:207
+#: ../shell/pps-annotation-properties-dialog.c:207
 msgid "Initial window state:"
 msgstr "ស្ថានភាព​បង្អួច​ដំបូង ៖"
 
-#: ../shell/ev-annotation-properties-dialog.c:213
+#: ../shell/pps-annotation-properties-dialog.c:213
 msgid "Open"
 msgstr "បើក"
 
-#: ../shell/ev-annotation-properties-dialog.c:214
+#: ../shell/pps-annotation-properties-dialog.c:214
 msgid "Close"
 msgstr "បិទ"
 
-#: ../shell/ev-keyring.c:102
+#: ../shell/pps-keyring.c:102
 #, c-format
 msgid "Password for document %s"
 msgstr "ពាក្យសម្ងាត់​សម្រាប់​ឯកសារ %s"
 
 #. Create tree view
-#: ../shell/ev-loading-message.c:52 ../shell/ev-sidebar-annotations.c:131
-#: ../shell/ev-sidebar-layers.c:125 ../shell/ev-sidebar-links.c:261
+#: ../shell/pps-loading-message.c:52 ../shell/pps-sidebar-annotations.c:131
+#: ../shell/pps-sidebar-layers.c:125 ../shell/pps-sidebar-links.c:261
 msgid "Loading…"
 msgstr "កំពុង​ផ្ទុក..."
 
-#: ../shell/ev-open-recent-action.c:72
+#: ../shell/pps-open-recent-action.c:72
 msgid "Open a recently used document"
 msgstr "បើក​ឯកសារ​ដែល​បាន​ប្រើ​ថ្មីៗ"
 
-#: ../shell/ev-password-view.c:142
+#: ../shell/pps-password-view.c:142
 msgid ""
 "This document is locked and can only be read by entering the correct "
 "password."
 msgstr ""
 "ឯកសារ​នេះ​ត្រូវ​បាន​ចាក់សោ ហើយ​វា​អាច​អាន​បាន​ដោយ​ការ​បញ្ចូល​ពាក្យសម្ងាត់​ដែល​ត្រឹមត្រូវ​តែប៉ុណ្ណោះ ។"
 
-#: ../shell/ev-password-view.c:151 ../shell/ev-password-view.c:269
+#: ../shell/pps-password-view.c:151 ../shell/pps-password-view.c:269
 msgid "_Unlock Document"
 msgstr "ដោះ​សោ​ឯកសារ"
 
-#: ../shell/ev-password-view.c:261
+#: ../shell/pps-password-view.c:261
 msgid "Enter password"
 msgstr "បញ្ចូល​ពាក្យសម្ងាត់"
 
-#: ../shell/ev-password-view.c:301
+#: ../shell/pps-password-view.c:301
 msgid "Password required"
 msgstr "បាន​ទាមទារ​ពាក្យសម្ងាត់"
 
-#: ../shell/ev-password-view.c:302
+#: ../shell/pps-password-view.c:302
 #, c-format
 msgid ""
 "The document “%s” is locked and requires a password before it can be opened."
 msgstr "ឯកសារ “%s” ត្រូវ​បាន​ចាក់សោ និង​ទាមទារ​ពាក្យសម្ងាត់​មុន​ពេល​បើក ។"
 
-#: ../shell/ev-password-view.c:332
+#: ../shell/pps-password-view.c:332
 msgid "_Password:"
 msgstr "ពាក្យ​សម្ងាត់ ៖"
 
-#: ../shell/ev-password-view.c:363
+#: ../shell/pps-password-view.c:363
 msgid "Forget password _immediately"
 msgstr "បំភ្លេច​ពាក្យសម្ងាត់​ភ្លាមៗ"
 
-#: ../shell/ev-password-view.c:375
+#: ../shell/pps-password-view.c:375
 msgid "Remember password until you _log out"
 msgstr "ចងចាំ​ពាក្យសម្ងាត់​រហូតដល់​ពេល​ចេញ"
 
-#: ../shell/ev-password-view.c:387
+#: ../shell/pps-password-view.c:387
 msgid "Remember _forever"
 msgstr "ចងចាំ​រហូត"
 
-#: ../shell/ev-properties-dialog.c:62
+#: ../shell/pps-properties-dialog.c:62
 msgid "Properties"
 msgstr "លក្ខណសម្បត្តិ"
 
-#: ../shell/ev-properties-dialog.c:94
+#: ../shell/pps-properties-dialog.c:94
 msgid "General"
 msgstr "ទូទៅ"
 
-#: ../shell/ev-properties-dialog.c:104
+#: ../shell/pps-properties-dialog.c:104
 msgid "Fonts"
 msgstr "ពុម្ពអក្សរ"
 
-#: ../shell/ev-properties-dialog.c:117
+#: ../shell/pps-properties-dialog.c:117
 msgid "Document License"
 msgstr "អាជ្ញាប័ណ្ណ​ឯកសារ"
 
-#: ../shell/ev-properties-fonts.c:132
+#: ../shell/pps-properties-fonts.c:132
 msgid "Font"
 msgstr "ពុម្ពអក្សរ"
 
-#: ../shell/ev-properties-fonts.c:159
+#: ../shell/pps-properties-fonts.c:159
 #, c-format
 msgid "Gathering font information… %3d%%"
 msgstr "កំពុង​ប្រមូល​ព័ត៌មាន​ពុម្ពអក្សរ… %3d%%"
 
-#: ../shell/ev-properties-license.c:134
+#: ../shell/pps-properties-license.c:134
 msgid "Usage terms"
 msgstr "ពាក្យ​ដែល​ប្រើ"
 
-#: ../shell/ev-properties-license.c:140
+#: ../shell/pps-properties-license.c:140
 msgid "Text License"
 msgstr "អាជ្ញាប័ណ្ណ​អត្ថបទ"
 
-#: ../shell/ev-properties-license.c:146
+#: ../shell/pps-properties-license.c:146
 msgid "Further Information"
 msgstr "ព័ត៌មាន​បន្ថែម"
 
-#: ../shell/ev-sidebar-annotations.c:159
+#: ../shell/pps-sidebar-annotations.c:159
 msgid "List"
 msgstr "បញ្ជី"
 
-#: ../shell/ev-sidebar-annotations.c:199 ../shell/ev-sidebar-annotations.c:527
+#: ../shell/pps-sidebar-annotations.c:199 ../shell/pps-sidebar-annotations.c:527
 msgid "Annotations"
 msgstr "ចំណារ​ពន្យល់"
 
-#: ../shell/ev-sidebar-annotations.c:205
+#: ../shell/pps-sidebar-annotations.c:205
 msgid "Text"
 msgstr "អត្ថបទ"
 
-#: ../shell/ev-sidebar-annotations.c:206
+#: ../shell/pps-sidebar-annotations.c:206
 msgid "Add text annotation"
 msgstr "បន្ថែម​អត្ថបទ​ចំណារ​ពន្យល់"
 
-#: ../shell/ev-sidebar-annotations.c:217
+#: ../shell/pps-sidebar-annotations.c:217
 msgid "Add"
 msgstr "បន្ថែម"
 
-#: ../shell/ev-sidebar-annotations.c:360
+#: ../shell/pps-sidebar-annotations.c:360
 msgid "Document contains no annotations"
 msgstr "ឯកសារ​គ្មាន​អត្ថបទ​ចំណារ​ពន្យល់"
 
-#: ../shell/ev-sidebar-annotations.c:392
+#: ../shell/pps-sidebar-annotations.c:392
 #, c-format
 msgid "Page %d"
 msgstr "ទំព័រ %d"
 
-#: ../shell/ev-sidebar-attachments.c:696
+#: ../shell/pps-sidebar-attachments.c:696
 msgid "Attachments"
 msgstr "ឯកសារ​ភ្ជាប់"
 
-#: ../shell/ev-sidebar-bookmarks.c:153
+#: ../shell/pps-sidebar-bookmarks.c:153
 msgid "_Open Bookmark"
 msgstr "បើក​ចំណាំ"
 
-#: ../shell/ev-sidebar-bookmarks.c:155
+#: ../shell/pps-sidebar-bookmarks.c:155
 msgid "_Rename Bookmark"
 msgstr "ប្ដូរ​ឈ្មោះ​ចំណាំ"
 
-#: ../shell/ev-sidebar-bookmarks.c:157
+#: ../shell/pps-sidebar-bookmarks.c:157
 msgid "_Remove Bookmark"
 msgstr "យក​ចំណាំ​ចេញ"
 
-#: ../shell/ev-sidebar-bookmarks.c:312 ../shell/ev-window.c:957
-#: ../shell/ev-window.c:4747
+#: ../shell/pps-sidebar-bookmarks.c:312 ../shell/pps-window.c:957
+#: ../shell/pps-window.c:4747
 #, c-format
 msgid "Page %s"
 msgstr "ទំព័រ %s"
 
-#: ../shell/ev-sidebar-bookmarks.c:603
+#: ../shell/pps-sidebar-bookmarks.c:603
 msgid "Bookmarks"
 msgstr "ចំណាំ"
 
-#: ../shell/ev-sidebar-layers.c:444
+#: ../shell/pps-sidebar-layers.c:444
 msgid "Layers"
 msgstr "ស្រទាប់"
 
-#: ../shell/ev-sidebar-links.c:337
+#: ../shell/pps-sidebar-links.c:337
 msgid "Print…"
 msgstr "បោះពុម្ព…"
 
-#: ../shell/ev-sidebar-links.c:719
+#: ../shell/pps-sidebar-links.c:719
 msgid "Index"
 msgstr "លិបិក្រម"
 
-#: ../shell/ev-sidebar-thumbnails.c:952
+#: ../shell/pps-sidebar-thumbnails.c:952
 msgid "Thumbnails"
 msgstr "រូបភាព​តូចៗ"
 
-#: ../shell/ev-utils.c:318
+#: ../shell/pps-utils.c:318
 msgid "By extension"
 msgstr "តាម​ផ្នែក​បន្ថែម"
 
-#: ../shell/ev-window.c:954
+#: ../shell/pps-window.c:954
 #, c-format
 msgid "Page %s — %s"
 msgstr "ទំព័រ %s — %s"
 
-#: ../shell/ev-window.c:1575
+#: ../shell/pps-window.c:1575
 msgid "The document contains no pages"
 msgstr "ឯកសារ​គ្មាន​ទំព័រ"
 
-#: ../shell/ev-window.c:1578
+#: ../shell/pps-window.c:1578
 msgid "The document contains only empty pages"
 msgstr "ឯកសារ​មាន​ទំព័រ​ទទេ​តែប៉ុណ្ណោះ"
 
-#: ../shell/ev-window.c:1793 ../shell/ev-window.c:1959
+#: ../shell/pps-window.c:1793 ../shell/pps-window.c:1959
 msgid "Unable to open document"
 msgstr "មិន​អាច​បើក​ឯកសារ"
 
-#: ../shell/ev-window.c:1930
+#: ../shell/pps-window.c:1930
 #, c-format
 msgid "Loading document from “%s”"
 msgstr "កំពុង​ផ្ទុក​ឯកសារ​ពីរ “%s”"
 
-#: ../shell/ev-window.c:2072 ../shell/ev-window.c:2366
+#: ../shell/pps-window.c:2072 ../shell/pps-window.c:2366
 #, c-format
 msgid "Downloading document (%d%%)"
 msgstr "កំពុង​ទាញ​យក​ឯកសារ​ពី (%d%%)"
 
-#: ../shell/ev-window.c:2105
+#: ../shell/pps-window.c:2105
 msgid "Failed to load remote file."
 msgstr "បាន​បរាជ័យ​ក្នុង​ការ​ផ្ទុក​ឯកសារ​ពី​ចម្ងាយ ។"
 
-#: ../shell/ev-window.c:2310
+#: ../shell/pps-window.c:2310
 #, c-format
 msgid "Reloading document from %s"
 msgstr "ការ​ផ្ទុក​ឯកសារ​ឡើងវិញ​ពី %s"
 
-#: ../shell/ev-window.c:2342
+#: ../shell/pps-window.c:2342
 msgid "Failed to reload document."
 msgstr "បាន​បរាជ័យ​ក្នុង​ការ​ផ្ទុក​ឯកសារ ។"
 
-#: ../shell/ev-window.c:2555
+#: ../shell/pps-window.c:2555
 msgid "Open Document"
 msgstr "បើក​ឯកសារ"
 
-#: ../shell/ev-window.c:2828
+#: ../shell/pps-window.c:2828
 #, c-format
 msgid "Saving document to %s"
 msgstr "កំពុង​រក្សាទុក​ឯកសារ​ទៅកាន់ %s"
 
-#: ../shell/ev-window.c:2831
+#: ../shell/pps-window.c:2831
 #, c-format
 msgid "Saving attachment to %s"
 msgstr "កំពុង​រក្សាទុក​ឯកសារ​ភ្ជាប់​ទៅកាន់ %s"
 
-#: ../shell/ev-window.c:2834
+#: ../shell/pps-window.c:2834
 #, c-format
 msgid "Saving image to %s"
 msgstr "កំពុង​រក្សាទុក​រូបភាព​ទៅកាន់ %s"
 
-#: ../shell/ev-window.c:2878 ../shell/ev-window.c:2978
+#: ../shell/pps-window.c:2878 ../shell/pps-window.c:2978
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "ឯកសារ​មិន​អាច​ត្រូវ​បាន​រក្សាទុក​ជា “%s” ។"
 
-#: ../shell/ev-window.c:2909
+#: ../shell/pps-window.c:2909
 #, c-format
 msgid "Uploading document (%d%%)"
 msgstr "កំពុង​ផ្ទុក​ឯកសារ​ឡើង (%d%%)"
 
-#: ../shell/ev-window.c:2913
+#: ../shell/pps-window.c:2913
 #, c-format
 msgid "Uploading attachment (%d%%)"
 msgstr "កំពុង​ផ្ទុក​ឯកសារ​ភ្ជាប់​ឡើង (%d%%)"
 
-#: ../shell/ev-window.c:2917
+#: ../shell/pps-window.c:2917
 #, c-format
 msgid "Uploading image (%d%%)"
 msgstr "កំពុង​ផ្ទុក​រូបភាព​ឡើង (%d%%)"
 
-#: ../shell/ev-window.c:3029
+#: ../shell/pps-window.c:3029
 msgid "Save a Copy"
 msgstr "រក្សាទុក​ច្បាប់​ចម្លង"
 
-#: ../shell/ev-window.c:3093
+#: ../shell/pps-window.c:3093
 msgid "Could not send current document"
 msgstr "មិន​អាច​ផ្ញើ​ឯកសារ​បច្ចុប្បន្ន"
 
-#: ../shell/ev-window.c:3124
+#: ../shell/pps-window.c:3124
 msgid "Could not open the containing folder"
 msgstr "មិន​អាច​បើក​ឯកសារ​ដែល​មាន"
 
-#: ../shell/ev-window.c:3385
+#: ../shell/pps-window.c:3385
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "ការ​បោះពុម្ព​​ឯកសារ %d កំពុង​នៅ​ក្នុង​ជួរ"
 
-#: ../shell/ev-window.c:3498
+#: ../shell/pps-window.c:3498
 #, c-format
 msgid "Printing job “%s”"
 msgstr "កំពុង​បោះពុម្ព “%s”"
 
-#: ../shell/ev-window.c:3675
+#: ../shell/pps-window.c:3675
 msgid ""
 "Document contains form fields that have been filled out. If you don't save a "
 "copy, changes will be permanently lost."
@@ -1192,7 +1192,7 @@ msgstr ""
 "ឯកសារ​មាន​វាល​ដែល​ត្រូវតែ​បាន​បំពេញ ។ ប្រសិនបើ​អ្នក​មិន​រក្សាទុក​ច្បាប់​ចម្លង​ទេ ការ​ផ្លាស់ប្ដូរ​នឹង​ត្រូវ​បាន​"
 "បាត់បង់​ជា​អចិន្ត្រៃយ៍ ។"
 
-#: ../shell/ev-window.c:3679
+#: ../shell/pps-window.c:3679
 msgid ""
 "Document contains new or modified annotations. If you don't save a copy, "
 "changes will be permanently lost."
@@ -1200,20 +1200,20 @@ msgstr ""
 "ឯកសារ​មាន​ចំណារ​ពន្យល់​ថ្មី ឬ​ដែល​បាន​កែប្រែ ។ ប្រសិនបើ​អ្នក​មិន​រក្សាទុក​ច្បាប់​ចម្លង​ទេ ការ​ផ្លាស់ប្ដូរ​នឹង​ត្រូវ​"
 "បាន​បាត់បង់​ជា​អចិន្ត្រៃយ៍ ។"
 
-#: ../shell/ev-window.c:3686
+#: ../shell/pps-window.c:3686
 #, c-format
 msgid "Save a copy of document “%s” before closing?"
 msgstr "រក្សាទុក​ច្បាប់​ចម្លង​ឯកសារ “%s” មុន​ពេល​បិទ​ឬ ?"
 
-#: ../shell/ev-window.c:3705
+#: ../shell/pps-window.c:3705
 msgid "Close _without Saving"
 msgstr "បិទ​ដោយ​មិន​រក្សាទុក"
 
-#: ../shell/ev-window.c:3709
+#: ../shell/pps-window.c:3709
 msgid "Save a _Copy"
 msgstr "រក្សាទុក​ច្បាប់​ចម្លង"
 
-#: ../shell/ev-window.c:3783
+#: ../shell/pps-window.c:3783
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr "រង់ចាំ​រហូត​ទាល់តែ​ការ​បោះពុម្ព “%s” បញ្ចប់​ទើប​បិទ​ឬ ?"
@@ -1221,34 +1221,34 @@ msgstr "រង់ចាំ​រហូត​ទាល់តែ​ការ​ប
 #. TRANS: the singular form is not really used as n_print_jobs > 1
 #. but some languages distinguish between different plurals forms,
 #. so the ngettext is needed.
-#: ../shell/ev-window.c:3789
+#: ../shell/pps-window.c:3789
 #, c-format
 msgid "There is %d print job active. Wait until print finishes before closing?"
 msgid_plural ""
 "There are %d print jobs active. Wait until print finishes before closing?"
 msgstr[0] "កំពុង​បោះពុម្ព​ឯកសារ  %d ។ រង់ចាំ​រហូត​ទាល់តែ​ការ​បោះពុម្ព​បាន​បញ្ចប់​ទើប​បិទឬ ?"
 
-#: ../shell/ev-window.c:3804
+#: ../shell/pps-window.c:3804
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr "ប្រសិនបើ​អ្នក​បិទ​បង្អួច​ ឯកសារ​ដែល​កំពុង​បោះពុម្ព​នឹង​មិន​ត្រូវ​បាន​បោះពុម្ព​ទេ ។"
 
-#: ../shell/ev-window.c:3808
+#: ../shell/pps-window.c:3808
 msgid "Cancel _print and Close"
 msgstr "បោះបង់​ការ​បោះពុម្ព រួច​បិទ"
 
-#: ../shell/ev-window.c:3812
+#: ../shell/pps-window.c:3812
 msgid "Close _after Printing"
 msgstr "បិទ​បន្ទាប់ពី​បោះពុម្ព"
 
-#: ../shell/ev-window.c:4152
+#: ../shell/pps-window.c:4152
 msgid "Running in presentation mode"
 msgstr "ដំណើរការ​ក្នុង​របៀប​បទ​បង្ហាញ"
 
-#: ../shell/ev-window.c:4519
+#: ../shell/pps-window.c:4519
 msgid "Toolbar Editor"
 msgstr "កម្មវិធី​កែសម្រួល​របារ​ឧបករណ៍"
 
-#: ../shell/ev-window.c:5007
+#: ../shell/pps-window.c:5007
 #, c-format
 msgid ""
 "Document Viewer\n"
@@ -1257,47 +1257,47 @@ msgstr ""
 "កម្មវិធី​មើល​ឯកសារ\n"
 "ដោយ​ប្រើ %s (%s)"
 
-#: ../shell/ev-window.c:5040
+#: ../shell/pps-window.c:5040
 msgid ""
-"Evince is free software; you can redistribute it and/or modify it under the "
+"Papers is free software; you can redistribute it and/or modify it under the "
 "terms of the GNU General Public License as published by the Free Software "
 "Foundation; either version 2 of the License, or (at your option) any later "
 "version.\n"
 msgstr ""
-"Evince គឺជា​កម្មវិធី​ឥត​បង់​ថ្លៃ អ្នក​អាច​ចែកចាយ និង/ឬ​កែប្រែ​វា​ក្រោម​លក្ខខណ្ឌ​អាជ្ញាប័ណ្ណ​សាធារណៈ​ទូទៅ "
+"Papers គឺជា​កម្មវិធី​ឥត​បង់​ថ្លៃ អ្នក​អាច​ចែកចាយ និង/ឬ​កែប្រែ​វា​ក្រោម​លក្ខខណ្ឌ​អាជ្ញាប័ណ្ណ​សាធារណៈ​ទូទៅ "
 "GNU ដែល​បាន​បោះពុម្ពផ្សាយ​ដោយ​មូលនិធិ​កម្មវិធី​ឥត​បង់​ថ្លៃ មិន​ថា​អាជ្ញាប័ណ្ណ​កំណែ ២ ឬ (ជម្រើស​របស់​អ្នក) កំណែ​"
 "ក្រោយៗ​ទៀត​ឡើយ ។\n"
 
-#: ../shell/ev-window.c:5044
+#: ../shell/pps-window.c:5044
 msgid ""
-"Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
+"Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
 "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 "details.\n"
 msgstr ""
-"Evince ត្រូវ​បាន​ចែកចាយ​ដោយ​សង្ឃឹម​ថា​នឹង​មាន​ប្រយោជន៍ ប៉ុន្តែ​ដោយ​គ្មាន​ការ​ធានា​ណាមួយ​ទេ សូម្បីតែ​ការ​ធានា​"
+"Papers ត្រូវ​បាន​ចែកចាយ​ដោយ​សង្ឃឹម​ថា​នឹង​មាន​ប្រយោជន៍ ប៉ុន្តែ​ដោយ​គ្មាន​ការ​ធានា​ណាមួយ​ទេ សូម្បីតែ​ការ​ធានា​"
 "ដែល​បាន​បញ្ជាក់​ដោយ​ការ​ធ្វើ​ជំនួញ ឬ​ភាព​សមរម្យ​សម្រាប់​គោលបំណង​ជាក់លាក់​ក៏ដោយ ។ សូម​មើល​អាជ្ញាប័ណ្ណ​សាធារណៈ​"
 "ទូទៅ GNU សម្រាប់​សេចក្ដី​លម្អិត ។\n"
 
-#: ../shell/ev-window.c:5048
+#: ../shell/pps-window.c:5048
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"Evince; if not, write to the Free Software Foundation, Inc., 51 Franklin "
+"Papers; if not, write to the Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 msgstr ""
 "អ្នក​គួរតែ​បាន​ទទួល​ច្បាប់​ចម្លង​នៃ​អាជ្ញាប័ណ្ណ​សាធារណៈ​ទូទៅ GNU ដែល​មក​ជាមួយ​កម្មវិធី​នេះ ។ ប្រសិនបើ​មិន​បាន​"
 "ទទួល​ទេ សូម​សរសេរ​ទៅ Free Software Foundation, Inc., 51 Franklin Street, Fifth "
 "Floor, Boston, MA 02110-1301  USA\n"
 
-#: ../shell/ev-window.c:5073
-msgid "Evince"
-msgstr "Evince"
+#: ../shell/pps-window.c:5073
+msgid "Papers"
+msgstr "Papers"
 
-#: ../shell/ev-window.c:5076
-msgid "© 1996–2012 The Evince authors"
-msgstr "រក្សាសិទ្ធិ​ឆ្នាំ ១៩៩៦–២០១២ ដោយ​អ្នកនិពន្ធ​របស់ Evince"
+#: ../shell/pps-window.c:5076
+msgid "© 1996–2012 The Papers authors"
+msgstr "រក្សាសិទ្ធិ​ឆ្នាំ ១៩៩៦–២០១២ ដោយ​អ្នកនិពន្ធ​របស់ Papers"
 
-#: ../shell/ev-window.c:5082
+#: ../shell/pps-window.c:5082
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -1306,384 +1306,384 @@ msgstr ""
 #. TRANS: Sometimes this could be better translated as
 #. "%d hit(s) on this page".  Therefore this string
 #. contains plural cases.
-#: ../shell/ev-window.c:5350
+#: ../shell/pps-window.c:5350
 #, c-format
 msgid "%d found on this page"
 msgid_plural "%d found on this page"
 msgstr[0] "បាន​រក​ឃើញ %d  នៅ​លើ​ទំព័រ​នេះ"
 
-#: ../shell/ev-window.c:5355
+#: ../shell/pps-window.c:5355
 msgid "Not found"
 msgstr "រក​មិន​ឃើញ"
 
-#: ../shell/ev-window.c:5361
+#: ../shell/pps-window.c:5361
 #, c-format
 msgid "%3d%% remaining to search"
 msgstr "ការ​ស្វែងរក​នៅសល់ %3d%%"
 
-#: ../shell/ev-window.c:5884
+#: ../shell/pps-window.c:5884
 msgid "_File"
 msgstr "ឯកសារ"
 
-#: ../shell/ev-window.c:5885
+#: ../shell/pps-window.c:5885
 msgid "_Edit"
 msgstr "កែសម្រួល"
 
-#: ../shell/ev-window.c:5886
+#: ../shell/pps-window.c:5886
 msgid "_View"
 msgstr "មើល"
 
-#: ../shell/ev-window.c:5887
+#: ../shell/pps-window.c:5887
 msgid "_Go"
 msgstr "ទៅ"
 
-#: ../shell/ev-window.c:5888
+#: ../shell/pps-window.c:5888
 msgid "_Bookmarks"
 msgstr "ចំណាំ"
 
-#: ../shell/ev-window.c:5889 ../shell/evince-appmenu.ui.h:1
+#: ../shell/pps-window.c:5889 ../shell/papers-appmenu.ui.h:1
 msgid "_Help"
 msgstr "ជំនួយ"
 
 #. File menu
-#: ../shell/ev-window.c:5892 ../shell/ev-window.c:6221
+#: ../shell/pps-window.c:5892 ../shell/pps-window.c:6221
 msgid "_Open…"
 msgstr "បើក…"
 
-#: ../shell/ev-window.c:5893 ../shell/ev-window.c:6222
+#: ../shell/pps-window.c:5893 ../shell/pps-window.c:6222
 msgid "Open an existing document"
 msgstr "បើក​ឯកសារ​ដែល​មាន"
 
-#: ../shell/ev-window.c:5895
+#: ../shell/pps-window.c:5895
 msgid "Op_en a Copy"
 msgstr "បើក​ច្បាប់​ចម្លង"
 
-#: ../shell/ev-window.c:5896
+#: ../shell/pps-window.c:5896
 msgid "Open a copy of the current document in a new window"
 msgstr "បើក​ច្បាប់​ចម្លង​ឯកសារ​បច្ចុប្បន្ន​នៅ​ក្នុង​បង្អួច​ថ្មី"
 
-#: ../shell/ev-window.c:5898
+#: ../shell/pps-window.c:5898
 msgid "_Save a Copy…"
 msgstr "រក្សាទុក​ច្បាប់​ចម្លង..."
 
-#: ../shell/ev-window.c:5899
+#: ../shell/pps-window.c:5899
 msgid "Save a copy of the current document"
 msgstr "រក្សាទុក​ច្បាប់​ចម្លង​ឯកសារ​បច្ចុប្បន្ន"
 
-#: ../shell/ev-window.c:5901
+#: ../shell/pps-window.c:5901
 msgid "Send _To..."
 msgstr "ផ្ញើ​ទៅកាន់..."
 
-#: ../shell/ev-window.c:5902
+#: ../shell/pps-window.c:5902
 msgid "Send current document by mail, instant message..."
 msgstr "ផ្ញើ​ឯកសារ​បច្ចុប្បន្ន​តាម​អ៊ីមែល សារ​បន្ទាន់..."
 
-#: ../shell/ev-window.c:5904
+#: ../shell/pps-window.c:5904
 msgid "Open Containing _Folder"
 msgstr "បើក​ថត​ដែល​មាន"
 
-#: ../shell/ev-window.c:5905
+#: ../shell/pps-window.c:5905
 msgid "Show the folder which contains this file in the file manager"
 msgstr "បង្ហាញ​ថត​ដែល​មាន​ឯកសារ​នៅ​ក្នុង​កម្មវិធី​គ្រប់គ្រង​ឯកសារ"
 
-#: ../shell/ev-window.c:5907
+#: ../shell/pps-window.c:5907
 msgid "_Print…"
 msgstr "បោះពុម្ព…"
 
-#: ../shell/ev-window.c:5910
+#: ../shell/pps-window.c:5910
 msgid "P_roperties"
 msgstr "លក្ខណសម្បត្តិ"
 
-#: ../shell/ev-window.c:5918
+#: ../shell/pps-window.c:5918
 msgid "Select _All"
 msgstr "ជ្រើស​ទាំងអស់"
 
-#: ../shell/ev-window.c:5920
+#: ../shell/pps-window.c:5920
 msgid "_Find…"
 msgstr "រក…"
 
-#: ../shell/ev-window.c:5921
+#: ../shell/pps-window.c:5921
 msgid "Find a word or phrase in the document"
 msgstr "រក​ពាក្យ ឬ​ឃ្លា​នៅ​ក្នុង​ឯកសារ"
 
-#: ../shell/ev-window.c:5927
+#: ../shell/pps-window.c:5927
 msgid "T_oolbar"
 msgstr "របារ​ឧបករណ៍"
 
-#: ../shell/ev-window.c:5929
+#: ../shell/pps-window.c:5929
 msgid "Rotate _Left"
 msgstr "បង្វិល​ឆ្វេង"
 
-#: ../shell/ev-window.c:5931
+#: ../shell/pps-window.c:5931
 msgid "Rotate _Right"
 msgstr "បង្វិល​ស្ដាំ"
 
-#: ../shell/ev-window.c:5933
+#: ../shell/pps-window.c:5933
 msgid "Save Current Settings as _Default"
 msgstr "រក្សាទុក​ការ​កំណត់​បច្ចុប្បន្ន​ជា​លំនាំដើម"
 
-#: ../shell/ev-window.c:5944
+#: ../shell/pps-window.c:5944
 msgid "_Reload"
 msgstr "ផ្ទុក​ឡើងវិញ"
 
-#: ../shell/ev-window.c:5945
+#: ../shell/pps-window.c:5945
 msgid "Reload the document"
 msgstr "ផ្ទុក​ឯកសារ​ទាំងអស់​ឡើងវិញ"
 
-#: ../shell/ev-window.c:5948
+#: ../shell/pps-window.c:5948
 msgid "Auto_scroll"
 msgstr "រមូរ​ស្វ័យប្រវត្តិ"
 
-#: ../shell/ev-window.c:5958
+#: ../shell/pps-window.c:5958
 msgid "_First Page"
 msgstr "ទំព័រ​ដំបូង"
 
-#: ../shell/ev-window.c:5959
+#: ../shell/pps-window.c:5959
 msgid "Go to the first page"
 msgstr "ទៅកាន់​ទំព័រ​ដំបូង"
 
-#: ../shell/ev-window.c:5961
+#: ../shell/pps-window.c:5961
 msgid "_Last Page"
 msgstr "ទំព័រ​ចុងក្រោយ"
 
-#: ../shell/ev-window.c:5962
+#: ../shell/pps-window.c:5962
 msgid "Go to the last page"
 msgstr "ទៅកាន់​ទំព័រ​ចុងក្រោយ"
 
-#: ../shell/ev-window.c:5964
+#: ../shell/pps-window.c:5964
 msgid "Go to Pa_ge"
 msgstr "ទៅកាន់​ទំព័រ"
 
-#: ../shell/ev-window.c:5965
+#: ../shell/pps-window.c:5965
 msgid "Go to Page"
 msgstr "ទៅកាន់​ទំព័រ"
 
 #. Bookmarks menu
-#: ../shell/ev-window.c:5969
+#: ../shell/pps-window.c:5969
 msgid "_Add Bookmark"
 msgstr "បន្ថែម​ចំណាំ"
 
-#: ../shell/ev-window.c:5970
+#: ../shell/pps-window.c:5970
 msgid "Add a bookmark for the current page"
 msgstr "បន្ថែម​ចំណាំ​សម្រាប់​ទំព័រ​បច្ចុប្បន្ន"
 
 #. Help menu
-#: ../shell/ev-window.c:5974
+#: ../shell/pps-window.c:5974
 msgid "_Contents"
 msgstr "មាតិកា"
 
-#: ../shell/ev-window.c:5977
+#: ../shell/pps-window.c:5977
 msgid "_About"
 msgstr "អំពី"
 
 #. Toolbar-only
-#: ../shell/ev-window.c:5981
+#: ../shell/pps-window.c:5981
 msgid "Leave Fullscreen"
 msgstr "ចេញពី​ពេញ​អេក្រង់"
 
-#: ../shell/ev-window.c:5982
+#: ../shell/pps-window.c:5982
 msgid "Leave fullscreen mode"
 msgstr "ចេញពី​របៀប​ពេញ​អេក្រង់"
 
-#: ../shell/ev-window.c:5984
+#: ../shell/pps-window.c:5984
 msgid "Start Presentation"
 msgstr "ចាប់ផ្ដើម​ការ​បង្ហាញ"
 
-#: ../shell/ev-window.c:5985
+#: ../shell/pps-window.c:5985
 msgid "Start a presentation"
 msgstr "ចាប់ផ្ដើម​ការ​បង្ហាញ"
 
 #. View Menu
-#: ../shell/ev-window.c:6048
+#: ../shell/pps-window.c:6048
 msgid "_Toolbar"
 msgstr "របារ​ឧបករណ៍"
 
-#: ../shell/ev-window.c:6049
+#: ../shell/pps-window.c:6049
 msgid "Show or hide the toolbar"
 msgstr "បង្ហាញ ឬ​លាក់​របារ​ឧបករណ៍"
 
-#: ../shell/ev-window.c:6051
+#: ../shell/pps-window.c:6051
 msgid "Side _Pane"
 msgstr "ស្លាបព្រិល​ចំហៀង"
 
-#: ../shell/ev-window.c:6052
+#: ../shell/pps-window.c:6052
 msgid "Show or hide the side pane"
 msgstr "បង្ហាញ ឬ​លាក់​ស្លាបព្រិល​ចំហៀង"
 
-#: ../shell/ev-window.c:6054
+#: ../shell/pps-window.c:6054
 msgid "_Continuous"
 msgstr "បន្ត"
 
-#: ../shell/ev-window.c:6055
+#: ../shell/pps-window.c:6055
 msgid "Show the entire document"
 msgstr "បង្ហាញ​ឯកសារ​ទាំងមូល"
 
-#: ../shell/ev-window.c:6057
-msgid "_Dual (Even pages left)"
+#: ../shell/pps-window.c:6057
+msgid "_Dual (Ppsen pages left)"
 msgstr "ទ្វេ (ទំព័រ​គូ​នៅ​ខាងឆ្វេង)"
 
-#: ../shell/ev-window.c:6058
+#: ../shell/pps-window.c:6058
 msgid "Show two pages at once with even pages on the left"
 msgstr "បង្ហាញ​ទំព័រ​ពីរ​នៅ​ពេល​តែមួយ​ជាមួយ​ទំព័រ​គូ​នៅ​ខាងឆ្វេង"
 
-#: ../shell/ev-window.c:6060
+#: ../shell/pps-window.c:6060
 msgid "Dual (_Odd pages left)"
 msgstr "ទ្វេ (ទំព័រ​សេស​នៅ​ខាងស្ដាំ)"
 
-#: ../shell/ev-window.c:6061
+#: ../shell/pps-window.c:6061
 msgid "Show two pages at once with odd pages on the left"
 msgstr "បង្ហាញ​ទំព័រ​ពីរ​នៅ​ពេល​តែមួយ​ជាមួយ​ទំព័រ​សេស​នៅ​ខាងឆ្វេង"
 
-#: ../shell/ev-window.c:6063
+#: ../shell/pps-window.c:6063
 msgid "_Fullscreen"
 msgstr "ពេញ​អេក្រង់"
 
-#: ../shell/ev-window.c:6064
+#: ../shell/pps-window.c:6064
 msgid "Expand the window to fill the screen"
 msgstr "ពង្រីក​បង្អួច​ឲ្យ​ពេញ​អេក្រង់"
 
-#: ../shell/ev-window.c:6066
+#: ../shell/pps-window.c:6066
 msgid "Pre_sentation"
 msgstr "បទ​បង្ហាញ"
 
-#: ../shell/ev-window.c:6067
+#: ../shell/pps-window.c:6067
 msgid "Run document as a presentation"
 msgstr "ដំណើរការ​ឯកសារ​ជា​ការ​បង្ហាញ"
 
-#: ../shell/ev-window.c:6075
+#: ../shell/pps-window.c:6075
 msgid "_Inverted Colors"
 msgstr "ពណ៌​ដែល​បញ្ច្រាស"
 
-#: ../shell/ev-window.c:6076
+#: ../shell/pps-window.c:6076
 msgid "Show page contents with the colors inverted"
 msgstr "បង្ហាញ​មាតិកា​ទំព័រ​ដែល​មាន​ពណ៌​បព្ច្រាស"
 
 #. Links
-#: ../shell/ev-window.c:6084
+#: ../shell/pps-window.c:6084
 msgid "_Open Link"
 msgstr "បើក​តំណ"
 
-#: ../shell/ev-window.c:6086
+#: ../shell/pps-window.c:6086
 msgid "_Go To"
 msgstr "ទៅកាន់"
 
-#: ../shell/ev-window.c:6088
+#: ../shell/pps-window.c:6088
 msgid "Open in New _Window"
 msgstr "បើក​នៅ​ក្នុង​បង្អួច​ថ្មី"
 
-#: ../shell/ev-window.c:6090
+#: ../shell/pps-window.c:6090
 msgid "_Copy Link Address"
 msgstr "ចម្លង​អាសយដ្ឋាន​តំណ"
 
-#: ../shell/ev-window.c:6092
+#: ../shell/pps-window.c:6092
 msgid "_Save Image As…"
 msgstr "រក្សាទុក​រូបភាព​ជា…"
 
-#: ../shell/ev-window.c:6094
+#: ../shell/pps-window.c:6094
 msgid "Copy _Image"
 msgstr "ចម្លង​រូបភាព"
 
-#: ../shell/ev-window.c:6096
+#: ../shell/pps-window.c:6096
 msgid "Annotation Properties…"
 msgstr "លក្ខណសម្បត្តិ​ចំណារ​ពន្យល់…"
 
-#: ../shell/ev-window.c:6101
+#: ../shell/pps-window.c:6101
 msgid "_Open Attachment"
 msgstr "បើក​ឯកសារ​ភ្ជាប់"
 
-#: ../shell/ev-window.c:6103
+#: ../shell/pps-window.c:6103
 msgid "_Save Attachment As…"
 msgstr "រក្សាទុក​ឯកសារ​ភ្ជាប់​ជា..."
 
-#: ../shell/ev-window.c:6195
+#: ../shell/pps-window.c:6195
 msgid "Zoom"
 msgstr "ពង្រីក"
 
-#: ../shell/ev-window.c:6197
+#: ../shell/pps-window.c:6197
 msgid "Adjust the zoom level"
 msgstr "លៃ​តម្រូវ​កម្រិត​ពង្រីក"
 
-#: ../shell/ev-window.c:6207
+#: ../shell/pps-window.c:6207
 msgid "Navigation"
 msgstr "ការ​រុករក"
 
-#: ../shell/ev-window.c:6209
+#: ../shell/pps-window.c:6209
 msgid "Back"
 msgstr "ថយក្រោយ"
 
 #. translators: this is the history action
-#: ../shell/ev-window.c:6212
+#: ../shell/pps-window.c:6212
 msgid "Move across visited pages"
 msgstr "ផ្លាស់ទី​កាត់តាម​ទំព័រ​ដែល​បាន​ទស្សនា"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:6241
+#: ../shell/pps-window.c:6241
 msgid "Open Folder"
 msgstr "បើក​ថត"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:6245
+#: ../shell/pps-window.c:6245
 msgid "Send To"
 msgstr "ផ្ញើ​ទៅ"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:6251
+#: ../shell/pps-window.c:6251
 msgid "Previous"
 msgstr "មុន"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:6256
+#: ../shell/pps-window.c:6256
 msgid "Next"
 msgstr "បន្ទាប់"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:6260
+#: ../shell/pps-window.c:6260
 msgid "Zoom In"
 msgstr "ពង្រីក"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:6264
+#: ../shell/pps-window.c:6264
 msgid "Zoom Out"
 msgstr "បង្រួម"
 
 #. translators: this is the label for toolbar button
-#: ../shell/ev-window.c:6272
+#: ../shell/pps-window.c:6272
 msgid "Fit Width"
 msgstr "សម​ទទឹង"
 
-#: ../shell/ev-window.c:6419 ../shell/ev-window.c:6435
+#: ../shell/pps-window.c:6419 ../shell/pps-window.c:6435
 msgid "Unable to launch external application."
 msgstr "មិន​អាច​ចាប់ផ្ដើម​កម្មវិធី​ខាងក្រៅ ។"
 
-#: ../shell/ev-window.c:6492
+#: ../shell/pps-window.c:6492
 msgid "Unable to open external link"
 msgstr "មិន​អាច​បើក​តំណ​ខាងក្រៅ"
 
-#: ../shell/ev-window.c:6685
+#: ../shell/pps-window.c:6685
 msgid "Couldn't find appropriate format to save image"
 msgstr "មិន​អាច​រក​ឃើញ​ទ្រង់ទ្រាយ​សមរម្យ​ដើម្បី​រក្សាទុក​រូបភាព"
 
-#: ../shell/ev-window.c:6717
+#: ../shell/pps-window.c:6717
 msgid "The image could not be saved."
 msgstr "រូបភាព​មិន​អាច​ត្រូវ​បាន​រក្សាទុក​ទេ ។"
 
-#: ../shell/ev-window.c:6749
+#: ../shell/pps-window.c:6749
 msgid "Save Image"
 msgstr "រក្សាទុក​រូបភាព"
 
-#: ../shell/ev-window.c:6880
+#: ../shell/pps-window.c:6880
 msgid "Unable to open attachment"
 msgstr "មិន​អាច​បើក​ឯកសារ​ភ្ជាប់"
 
-#: ../shell/ev-window.c:6936
+#: ../shell/pps-window.c:6936
 msgid "The attachment could not be saved."
 msgstr "ឯកសារ​ភ្ជាប់​មិន​អាច​ត្រូវ​បាន​រក្សាទុក​ទេ ។"
 
-#: ../shell/ev-window.c:6981
+#: ../shell/pps-window.c:6981
 msgid "Save Attachment"
 msgstr "រក្សាទុក​ឯកសារ​ភ្ជាប់"
 
-#: ../shell/ev-window-title.c:169
+#: ../shell/pps-window-title.c:169
 #, c-format
 msgid "%s — Password Required"
 msgstr "%s — ទាមទារ​ពាក្យសម្ងាត់"
@@ -1717,16 +1717,16 @@ msgid "DEST"
 msgstr "ទិសដៅ"
 
 #: ../shell/main.c:81
-msgid "Run evince in fullscreen mode"
-msgstr "ដំណើរការ evince ក្នុង​របៀប​ពេញ​អេក្រង់"
+msgid "Run papers in fullscreen mode"
+msgstr "ដំណើរការ papers ក្នុង​របៀប​ពេញ​អេក្រង់"
 
 #: ../shell/main.c:82
-msgid "Run evince in presentation mode"
-msgstr "ដំណើរការ evince ក្នុង​របៀប​បទ​បង្ហាញ"
+msgid "Run papers in presentation mode"
+msgstr "ដំណើរការ papers ក្នុង​របៀប​បទ​បង្ហាញ"
 
 #: ../shell/main.c:83
-msgid "Run evince as a previewer"
-msgstr "ដំណើរការ evince ជា​កម្មវិធី​មើល"
+msgid "Run papers as a previewer"
+msgstr "ដំណើរការ papers ជា​កម្មវិធី​មើល"
 
 #: ../shell/main.c:84
 msgid "The word or phrase to find in the document"

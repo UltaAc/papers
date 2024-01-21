@@ -23,14 +23,14 @@
 #include "djvu-text-page.h"
 #include "djvu-links.h"
 #include "djvu-document-private.h"
-#include "ev-file-exporter.h"
-#include "ev-document-info.h"
-#include "ev-document-misc.h"
-#include "ev-document-find.h"
-#include "ev-document-links.h"
-#include "ev-selection.h"
-#include "ev-file-helpers.h"
-#include "ev-document-text.h"
+#include "pps-file-exporter.h"
+#include "pps-document-info.h"
+#include "pps-document-misc.h"
+#include "pps-document-find.h"
+#include "pps-document-links.h"
+#include "pps-selection.h"
+#include "pps-file-helpers.h"
+#include "pps-document-text.h"
 
 #include <glib.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
@@ -44,40 +44,40 @@ enum {
 
 struct _DjvuDocumentClass
 {
-	EvDocumentClass parent_class;
+	PpsDocumentClass parent_class;
 };
 
 typedef struct _DjvuDocumentClass DjvuDocumentClass;
 
-static void djvu_document_file_exporter_iface_init (EvFileExporterInterface *iface);
-static void djvu_document_find_iface_init (EvDocumentFindInterface *iface);
-static void djvu_document_document_links_iface_init  (EvDocumentLinksInterface *iface);
-static void djvu_selection_iface_init (EvSelectionInterface *iface);
-static void djvu_document_text_iface_init (EvDocumentTextInterface *iface);
+static void djvu_document_file_exporter_iface_init (PpsFileExporterInterface *iface);
+static void djvu_document_find_iface_init (PpsDocumentFindInterface *iface);
+static void djvu_document_document_links_iface_init  (PpsDocumentLinksInterface *iface);
+static void djvu_selection_iface_init (PpsSelectionInterface *iface);
+static void djvu_document_text_iface_init (PpsDocumentTextInterface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (DjvuDocument,
 			 djvu_document,
-			 EV_TYPE_DOCUMENT,
-			 G_IMPLEMENT_INTERFACE (EV_TYPE_FILE_EXPORTER,
+			 PPS_TYPE_DOCUMENT,
+			 G_IMPLEMENT_INTERFACE (PPS_TYPE_FILE_EXPORTER,
 						djvu_document_file_exporter_iface_init)
-			 G_IMPLEMENT_INTERFACE (EV_TYPE_DOCUMENT_FIND,
+			 G_IMPLEMENT_INTERFACE (PPS_TYPE_DOCUMENT_FIND,
 						djvu_document_find_iface_init)
-			 G_IMPLEMENT_INTERFACE (EV_TYPE_DOCUMENT_LINKS,
+			 G_IMPLEMENT_INTERFACE (PPS_TYPE_DOCUMENT_LINKS,
 						djvu_document_document_links_iface_init)
-			 G_IMPLEMENT_INTERFACE (EV_TYPE_SELECTION,
+			 G_IMPLEMENT_INTERFACE (PPS_TYPE_SELECTION,
 						djvu_selection_iface_init)
-			 G_IMPLEMENT_INTERFACE (EV_TYPE_DOCUMENT_TEXT,
+			 G_IMPLEMENT_INTERFACE (PPS_TYPE_DOCUMENT_TEXT,
 						djvu_document_text_iface_init))
 
 
-#define EV_DJVU_ERROR ev_djvu_error_quark ()
+#define PPS_DJVU_ERROR pps_djvu_error_quark ()
 
 static GQuark
-ev_djvu_error_quark (void)
+pps_djvu_error_quark (void)
 {
 	static GQuark q = 0;
 	if (q == 0)
-		q = g_quark_from_string ("ev-djvu-quark");
+		q = g_quark_from_string ("pps-djvu-quark");
 
 	return q;
 }
@@ -99,7 +99,7 @@ handle_message (const ddjvu_message_t *msg, GError **error)
 			}
 
 			if (error) {
-				g_set_error_literal (error, EV_DJVU_ERROR, 0, error_str);
+				g_set_error_literal (error, PPS_DJVU_ERROR, 0, error_str);
 			} else {
 				g_warning ("%s", error_str);
 			}
@@ -151,7 +151,7 @@ djvu_wait_for_message (DjvuDocument *djvu_document, ddjvu_message_tag_t message,
 }
 
 static gboolean
-djvu_document_load (EvDocument  *document,
+djvu_document_load (PpsDocument  *document,
 		    const char  *uri,
 		    GError     **error)
 {
@@ -179,8 +179,8 @@ djvu_document_load (EvDocument  *document,
 	if (!doc) {
 		g_free (filename);
     		g_set_error_literal (error,
-				     EV_DOCUMENT_ERROR,
-				     EV_DOCUMENT_ERROR_INVALID,
+				     PPS_DOCUMENT_ERROR,
+				     PPS_DOCUMENT_ERROR_INVALID,
 				     _("DjVu document has incorrect format"));
 		return FALSE;
 	}
@@ -193,8 +193,8 @@ djvu_document_load (EvDocument  *document,
 	djvu_wait_for_message (djvu_document, DDJVU_DOCINFO, &djvu_error);
 	if (djvu_error) {
 		g_set_error_literal (error,
-				     EV_DOCUMENT_ERROR,
-				     EV_DOCUMENT_ERROR_INVALID,
+				     PPS_DOCUMENT_ERROR,
+				     PPS_DOCUMENT_ERROR_INVALID,
 				     djvu_error->message);
 		g_error_free (djvu_error);
 		g_free (filename);
@@ -209,8 +209,8 @@ djvu_document_load (EvDocument  *document,
 
 	if (djvu_error) {
 		g_set_error_literal (error,
-				     EV_DOCUMENT_ERROR,
-				     EV_DOCUMENT_ERROR_INVALID,
+				     PPS_DOCUMENT_ERROR,
+				     PPS_DOCUMENT_ERROR_INVALID,
 				     djvu_error->message);
 		g_error_free (djvu_error);
 		g_free (filename);
@@ -279,17 +279,17 @@ djvu_document_load (EvDocument  *document,
 
 
 static gboolean
-djvu_document_save (EvDocument  *document,
+djvu_document_save (PpsDocument  *document,
 		    const char  *uri,
 		    GError     **error)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (document);
 
-	return ev_xfer_uri_simple (djvu_document->uri, uri, error);
+	return pps_xfer_uri_simple (djvu_document->uri, uri, error);
 }
 
 int
-djvu_document_get_n_pages (EvDocument  *document)
+djvu_document_get_n_pages (PpsDocument  *document)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (document);
 
@@ -323,8 +323,8 @@ document_get_page_size (DjvuDocument *djvu_document,
 }
 
 static void
-djvu_document_get_page_size (EvDocument   *document,
-			     EvPage       *page,
+djvu_document_get_page_size (PpsDocument   *document,
+			     PpsPage       *page,
 			     double       *width,
 			     double       *height)
 {
@@ -337,8 +337,8 @@ djvu_document_get_page_size (EvDocument   *document,
 }
 
 static cairo_surface_t *
-djvu_document_render (EvDocument      *document,
-		      EvRenderContext *rc)
+djvu_document_render (PpsDocument      *document,
+		      PpsRenderContext *rc)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (document);
 	cairo_surface_t *surface;
@@ -360,11 +360,11 @@ djvu_document_render (EvDocument      *document,
 	document_get_page_size (djvu_document, rc->page->index, &page_width, &page_height, NULL);
 	rotation = ddjvu_page_get_initial_rotation (d_page);
 
-	ev_render_context_compute_transformed_size (rc, page_width, page_height,
+	pps_render_context_compute_transformed_size (rc, page_width, page_height,
 						    &transformed_width, &transformed_height);
 
 	/*
-	 * Evince rotates documents in clockwise direction
+	 * Papers rotates documents in clockwise direction
 	 * and djvulibre rotates documents in counter-clockwise direction.
 	 */
 	switch (rc->rotation) {
@@ -420,8 +420,8 @@ djvu_document_render (EvDocument      *document,
 }
 
 static char *
-djvu_document_get_page_label (EvDocument *document,
-                              EvPage     *page)
+djvu_document_get_page_label (PpsDocument *document,
+                              PpsPage     *page)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (document);
 	const gchar *title = NULL;
@@ -441,8 +441,8 @@ djvu_document_get_page_label (EvDocument *document,
 }
 
 static GdkPixbuf *
-djvu_document_get_thumbnail (EvDocument      *document,
-			     EvRenderContext *rc)
+djvu_document_get_thumbnail (PpsDocument      *document,
+			     PpsRenderContext *rc)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (document);
 	GdkPixbuf *pixbuf, *rotated_pixbuf;
@@ -452,10 +452,10 @@ djvu_document_get_thumbnail (EvDocument      *document,
 
 	g_return_val_if_fail (djvu_document->d_document, NULL);
 
-	djvu_document_get_page_size (EV_DOCUMENT(djvu_document), rc->page,
+	djvu_document_get_page_size (PPS_DOCUMENT(djvu_document), rc->page,
 				     &page_width, &page_height);
 
-	ev_render_context_compute_scaled_size (rc, page_width, page_height,
+	pps_render_context_compute_scaled_size (rc, page_width, page_height,
 					       &thumb_width, &thumb_height);
 
 	pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8,
@@ -479,8 +479,8 @@ djvu_document_get_thumbnail (EvDocument      *document,
 }
 
 static cairo_surface_t *
-djvu_document_get_thumbnail_surface (EvDocument      *document,
-				     EvRenderContext *rc)
+djvu_document_get_thumbnail_surface (PpsDocument      *document,
+				     PpsRenderContext *rc)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (document);
 	cairo_surface_t *surface, *rotated_surface;
@@ -491,10 +491,10 @@ djvu_document_get_thumbnail_surface (EvDocument      *document,
 
 	g_return_val_if_fail (djvu_document->d_document, NULL);
 
-	djvu_document_get_page_size (EV_DOCUMENT(djvu_document), rc->page,
+	djvu_document_get_page_size (PPS_DOCUMENT(djvu_document), rc->page,
 				     &page_width, &page_height);
 
-	ev_render_context_compute_scaled_size (rc, page_width, page_height,
+	pps_render_context_compute_scaled_size (rc, page_width, page_height,
 					       &thumb_width, &thumb_height);
 
 	surface = cairo_image_surface_create (CAIRO_FORMAT_RGB24,
@@ -516,7 +516,7 @@ djvu_document_get_thumbnail_surface (EvDocument      *document,
 		surface = djvu_document_render (document, rc);
 	} else {
 		cairo_surface_mark_dirty (surface);
-		rotated_surface = ev_document_misc_surface_rotate_and_scale (surface,
+		rotated_surface = pps_document_misc_surface_rotate_and_scale (surface,
 									     thumb_width,
 									     thumb_height,
 									     rc->rotation);
@@ -527,15 +527,15 @@ djvu_document_get_thumbnail_surface (EvDocument      *document,
 	return surface;
 }
 
-static EvDocumentInfo *
-djvu_document_get_info (EvDocument *document)
+static PpsDocumentInfo *
+djvu_document_get_info (PpsDocument *document)
 {
         DjvuDocument *djvu_document = DJVU_DOCUMENT (document);
         const char *xmp;
         miniexp_t anno;
-        EvDocumentInfo *info;
+        PpsDocumentInfo *info;
 
-        info = ev_document_info_new ();
+        info = pps_document_info_new ();
 
         anno = ddjvu_document_get_anno (djvu_document->d_document, 1);
         if (anno == miniexp_nil) {
@@ -545,7 +545,7 @@ djvu_document_get_info (EvDocument *document)
 
         xmp = ddjvu_anno_get_xmp (anno);
         if (xmp != NULL) {
-                ev_document_info_set_from_xmp (info, xmp, -1);
+                pps_document_info_set_from_xmp (info, xmp, -1);
         }
 
         ddjvu_miniexp_release (djvu_document->d_document, anno);
@@ -584,25 +584,25 @@ static void
 djvu_document_class_init (DjvuDocumentClass *klass)
 {
 	GObjectClass    *gobject_class = G_OBJECT_CLASS (klass);
-	EvDocumentClass *ev_document_class = EV_DOCUMENT_CLASS (klass);
+	PpsDocumentClass *pps_document_class = PPS_DOCUMENT_CLASS (klass);
 
 	gobject_class->finalize = djvu_document_finalize;
 
-	ev_document_class->load = djvu_document_load;
-	ev_document_class->save = djvu_document_save;
-	ev_document_class->get_n_pages = djvu_document_get_n_pages;
-	ev_document_class->get_page_label = djvu_document_get_page_label;
-	ev_document_class->get_page_size = djvu_document_get_page_size;
-	ev_document_class->render = djvu_document_render;
-	ev_document_class->get_thumbnail = djvu_document_get_thumbnail;
-	ev_document_class->get_thumbnail_surface = djvu_document_get_thumbnail_surface;
-	ev_document_class->get_info = djvu_document_get_info;
+	pps_document_class->load = djvu_document_load;
+	pps_document_class->save = djvu_document_save;
+	pps_document_class->get_n_pages = djvu_document_get_n_pages;
+	pps_document_class->get_page_label = djvu_document_get_page_label;
+	pps_document_class->get_page_size = djvu_document_get_page_size;
+	pps_document_class->render = djvu_document_render;
+	pps_document_class->get_thumbnail = djvu_document_get_thumbnail;
+	pps_document_class->get_thumbnail_surface = djvu_document_get_thumbnail_surface;
+	pps_document_class->get_info = djvu_document_get_info;
 }
 
 static gchar *
 djvu_text_copy (DjvuDocument *djvu_document,
 		gint           page_num,
-		EvRectangle  *rectangle)
+		PpsRectangle  *rectangle)
 {
 	miniexp_t page_text;
 	gchar    *text = NULL;
@@ -624,8 +624,8 @@ djvu_text_copy (DjvuDocument *djvu_document,
 }
 
 static void
-djvu_convert_to_doc_rect (EvRectangle *dest,
-			  EvRectangle *source,
+djvu_convert_to_doc_rect (PpsRectangle *dest,
+			  PpsRectangle *source,
 			  gdouble height,
 			  gdouble dpi)
 {
@@ -638,12 +638,12 @@ djvu_convert_to_doc_rect (EvRectangle *dest,
 static GList *
 djvu_selection_get_selection_rects (DjvuDocument    *djvu_document,
 				    gint             page,
-				    EvRectangle     *points,
+				    PpsRectangle     *points,
 				    gdouble          height,
 				    gdouble          dpi)
 {
 	miniexp_t   page_text;
-	EvRectangle rectangle;
+	PpsRectangle rectangle;
 	GList      *rects = NULL;
 
 	djvu_convert_to_doc_rect (&rectangle, points, height, dpi);
@@ -668,7 +668,7 @@ djvu_get_selection_region (DjvuDocument *djvu_document,
                            gint page,
                            gdouble scale_x,
                            gdouble scale_y,
-                           EvRectangle *points)
+                           PpsRectangle *points)
 {
 	double          height, dpi;
 	GList          *rects = NULL, *l;
@@ -680,7 +680,7 @@ djvu_get_selection_region (DjvuDocument *djvu_document,
 	region = cairo_region_create ();
 	for (l = rects; l && l->data; l = g_list_next (l)) {
 		cairo_rectangle_int_t rect;
-		EvRectangle          *r = (EvRectangle *)l->data;
+		PpsRectangle          *r = (PpsRectangle *)l->data;
 		gdouble               tmp;
 
 		tmp = r->y1;
@@ -694,7 +694,7 @@ djvu_get_selection_region (DjvuDocument *djvu_document,
 		rect.width = (gint) ((r->x2 * scale_x) + 0.5) - rect.x;
 		rect.height = (gint) ((r->y2 * scale_y) + 0.5) - rect.y;
 		cairo_region_union_rectangle (region, &rect);
-		ev_rectangle_free (r);
+		pps_rectangle_free (r);
 	}
 	g_list_free (l);
 
@@ -702,31 +702,31 @@ djvu_get_selection_region (DjvuDocument *djvu_document,
 }
 
 static cairo_region_t *
-djvu_selection_get_selection_region (EvSelection    *selection,
-				     EvRenderContext *rc,
-				     EvSelectionStyle style,
-				     EvRectangle     *points)
+djvu_selection_get_selection_region (PpsSelection    *selection,
+				     PpsRenderContext *rc,
+				     PpsSelectionStyle style,
+				     PpsRectangle     *points)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (selection);
 	gdouble page_width, page_height;
 	gdouble scale_x, scale_y;
 
 	document_get_page_size (djvu_document, rc->page->index, &page_width, &page_height, NULL);
-	ev_render_context_compute_scales (rc, page_width, page_height, &scale_x, &scale_y);
+	pps_render_context_compute_scales (rc, page_width, page_height, &scale_x, &scale_y);
 
 	return djvu_get_selection_region (djvu_document, rc->page->index,
 					  scale_x, scale_y, points);
 }
 
 static gchar *
-djvu_selection_get_selected_text (EvSelection     *selection,
-				  EvPage          *page,
-				  EvSelectionStyle style,
-				  EvRectangle     *points)
+djvu_selection_get_selected_text (PpsSelection     *selection,
+				  PpsPage          *page,
+				  PpsSelectionStyle style,
+				  PpsRectangle     *points)
 {
       	DjvuDocument *djvu_document = DJVU_DOCUMENT (selection);
 	double height, dpi;
-      	EvRectangle rectangle;
+      	PpsRectangle rectangle;
       	gchar *text;
 
 	document_get_page_size (djvu_document, page->index, NULL, &height, &dpi);
@@ -740,18 +740,18 @@ djvu_selection_get_selected_text (EvSelection     *selection,
 }
 
 static void
-djvu_selection_iface_init (EvSelectionInterface *iface)
+djvu_selection_iface_init (PpsSelectionInterface *iface)
 {
 	iface->get_selected_text = djvu_selection_get_selected_text;
 	iface->get_selection_region = djvu_selection_get_selection_region;
 }
 
 static cairo_region_t *
-djvu_document_text_get_text_mapping (EvDocumentText *document_text,
-				     EvPage         *page)
+djvu_document_text_get_text_mapping (PpsDocumentText *document_text,
+				     PpsPage         *page)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (document_text);
-	EvRectangle points;
+	PpsRectangle points;
 
 	points.x1 = 0;
 	points.y1 = 0;
@@ -764,8 +764,8 @@ djvu_document_text_get_text_mapping (EvDocumentText *document_text,
 }
 
 static gchar *
-djvu_document_text_get_text (EvDocumentText  *selection,
-                             EvPage          *page)
+djvu_document_text_get_text (PpsDocumentText  *selection,
+                             PpsPage          *page)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (selection);
 	miniexp_t     page_text;
@@ -789,16 +789,16 @@ djvu_document_text_get_text (EvDocumentText  *selection,
 }
 
 static void
-djvu_document_text_iface_init (EvDocumentTextInterface *iface)
+djvu_document_text_iface_init (PpsDocumentTextInterface *iface)
 {
 	iface->get_text_mapping = djvu_document_text_get_text_mapping;
 	iface->get_text = djvu_document_text_get_text;
 }
 
-/* EvFileExporterIface */
+/* PpsFileExporterIface */
 static void
-djvu_document_file_exporter_begin (EvFileExporter        *exporter,
-				   EvFileExporterContext *fc)
+djvu_document_file_exporter_begin (PpsFileExporter        *exporter,
+				   PpsFileExporterContext *fc)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (exporter);
 
@@ -810,8 +810,8 @@ djvu_document_file_exporter_begin (EvFileExporter        *exporter,
 }
 
 static void
-djvu_document_file_exporter_do_page (EvFileExporter  *exporter,
-				     EvRenderContext *rc)
+djvu_document_file_exporter_do_page (PpsFileExporter  *exporter,
+				     PpsRenderContext *rc)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (exporter);
 
@@ -819,7 +819,7 @@ djvu_document_file_exporter_do_page (EvFileExporter  *exporter,
 }
 
 static void
-djvu_document_file_exporter_end (EvFileExporter *exporter)
+djvu_document_file_exporter_end (PpsFileExporter *exporter)
 {
 	int d_optc = 1;
 	const char *d_optv[d_optc];
@@ -843,18 +843,18 @@ djvu_document_file_exporter_end (EvFileExporter *exporter)
 	fclose(fn);
 }
 
-static EvFileExporterCapabilities
-djvu_document_file_exporter_get_capabilities (EvFileExporter *exporter)
+static PpsFileExporterCapabilities
+djvu_document_file_exporter_get_capabilities (PpsFileExporter *exporter)
 {
-	return  EV_FILE_EXPORTER_CAN_PAGE_SET |
-		EV_FILE_EXPORTER_CAN_COPIES |
-		EV_FILE_EXPORTER_CAN_COLLATE |
-		EV_FILE_EXPORTER_CAN_REVERSE |
-		EV_FILE_EXPORTER_CAN_GENERATE_PS;
+	return  PPS_FILE_EXPORTER_CAN_PAGE_SET |
+		PPS_FILE_EXPORTER_CAN_COPIES |
+		PPS_FILE_EXPORTER_CAN_COLLATE |
+		PPS_FILE_EXPORTER_CAN_REVERSE |
+		PPS_FILE_EXPORTER_CAN_GENERATE_PS;
 }
 
 static void
-djvu_document_file_exporter_iface_init (EvFileExporterInterface *iface)
+djvu_document_file_exporter_iface_init (PpsFileExporterInterface *iface)
 {
         iface->begin = djvu_document_file_exporter_begin;
         iface->do_page = djvu_document_file_exporter_do_page;
@@ -867,7 +867,7 @@ djvu_document_init (DjvuDocument *djvu_document)
 {
 	guint masks[4] = { 0xff0000, 0xff00, 0xff, 0xff000000 };
 
-	djvu_document->d_context = ddjvu_context_create ("Evince");
+	djvu_document->d_context = ddjvu_context_create ("Papers");
 	djvu_document->d_format = ddjvu_format_create (DDJVU_FORMAT_RGBMASK32, 4, masks);
 	ddjvu_format_set_row_order (djvu_document->d_format, 1);
 
@@ -881,17 +881,17 @@ djvu_document_init (DjvuDocument *djvu_document)
 }
 
 static GList *
-djvu_document_find_find_text (EvDocumentFind *document,
-			      EvPage *page,
+djvu_document_find_find_text (PpsDocumentFind *document,
+			      PpsPage *page,
 			      const char *text,
-			      EvFindOptions options)
+			      PpsFindOptions options)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (document);
 	miniexp_t page_text;
 	gdouble width, height, dpi;
 	GList *matches = NULL, *l;
 	char *search_text = NULL;
-	gboolean case_sensitive = (options & EV_FIND_CASE_SENSITIVE);
+	gboolean case_sensitive = (options & PPS_FIND_CASE_SENSITIVE);
 
 	g_return_val_if_fail (text != NULL, NULL);
 
@@ -922,7 +922,7 @@ djvu_document_find_find_text (EvDocumentFind *document,
 
 	document_get_page_size (djvu_document, page->index, &width, &height, &dpi);
 	for (l = matches; l && l->data; l = g_list_next (l)) {
-		EvRectangle *r = (EvRectangle *)l->data;
+		PpsRectangle *r = (PpsRectangle *)l->data;
 		gdouble tmp = r->y1;
 
 		r->x1 *= 72.0 / dpi;
@@ -931,36 +931,36 @@ djvu_document_find_find_text (EvDocumentFind *document,
 		r->y1 = height - r->y2 * 72.0 / dpi;
 		r->y2 = height - tmp * 72.0 / dpi;
 
-		EvFindRectangle *ev_rect = ev_find_rectangle_new ();
-		ev_rect->x1 = r->x1;
-		ev_rect->x2 = r->x2;
-		ev_rect->y1 = r->y1;
-		ev_rect->y2 = r->y2;
+		PpsFindRectangle *pps_rect = pps_find_rectangle_new ();
+		pps_rect->x1 = r->x1;
+		pps_rect->x2 = r->x2;
+		pps_rect->y1 = r->y1;
+		pps_rect->y2 = r->y2;
 
-		ev_rectangle_free (r);
-		l->data = ev_rect;
+		pps_rectangle_free (r);
+		l->data = pps_rect;
 	}
 
 
 	return matches;
 }
 
-static EvFindOptions
-djvu_document_find_get_supported_options (EvDocumentFind *document)
+static PpsFindOptions
+djvu_document_find_get_supported_options (PpsDocumentFind *document)
 {
-	return EV_FIND_CASE_SENSITIVE;
+	return PPS_FIND_CASE_SENSITIVE;
 }
 
 static void
-djvu_document_find_iface_init (EvDocumentFindInterface *iface)
+djvu_document_find_iface_init (PpsDocumentFindInterface *iface)
 {
         iface->find_text = djvu_document_find_find_text;
 	iface->get_supported_options = djvu_document_find_get_supported_options;
 }
 
-static EvMappingList *
-djvu_document_links_get_links (EvDocumentLinks *document_links,
-			       EvPage          *page)
+static PpsMappingList *
+djvu_document_links_get_links (PpsDocumentLinks *document_links,
+			       PpsPage          *page)
 {
 	gdouble dpi;
 
@@ -969,7 +969,7 @@ djvu_document_links_get_links (EvDocumentLinks *document_links,
 }
 
 static void
-djvu_document_document_links_iface_init  (EvDocumentLinksInterface *iface)
+djvu_document_document_links_iface_init  (PpsDocumentLinksInterface *iface)
 {
 	iface->has_document_links = djvu_links_has_document_links;
 	iface->get_links_model = djvu_links_get_links_model;
@@ -979,7 +979,7 @@ djvu_document_document_links_iface_init  (EvDocumentLinksInterface *iface)
 }
 
 GType
-ev_backend_query_type (void)
+pps_backend_query_type (void)
 {
 	return DJVU_TYPE_DOCUMENT;
 }

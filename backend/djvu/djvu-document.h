@@ -1,4 +1,4 @@
-/* djvu-document.h: Implementation of EvDocument for djvu documents
+/* djvu-document.h: Implementation of PpsDocument for djvu documents
  * Copyright (C) 2005, Nickolay V. Shmyrev <nshmyrev@yandex.ru>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -18,8 +18,8 @@
 
 #pragma once
 
-#include "ev-macros.h"
-#include "ev-document.h"
+#include "pps-macros.h"
+#include "pps-document.h"
 
 G_BEGIN_DECLS
 
