@@ -18,19 +18,6 @@
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 -->
 <interface>
-  <menu id="attachments-popup">
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">_Open Attachment</attribute>
-        <attribute name="action">win.open-attachment</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">_Save Attachment As…</attribute>
-        <attribute name="action">win.save-attachment</attribute>
-      </item>
-    </section>
-  </menu>
-
   <menu id="bookmarks-popup">
     <section>
       <item>
