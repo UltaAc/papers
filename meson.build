@@ -456,16 +456,6 @@ endif
 
 subdir('data')
 
-headers = files(
-  'evince-document.h',
-  'evince-view.h',
-)
-
-install_headers(
-  headers,
-  subdir: ev_include_subdir,
-)
-
 configure_file(
   output: 'config.h',
   configuration: config_h,

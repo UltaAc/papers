@@ -178,6 +178,11 @@ pkg.generate(
   ],
 )
 
+install_headers(
+  files('evince-document.h'),
+  subdir: ev_include_subdir,
+)
+
 # GObject Introspection
 if enable_introspection
   incs = [

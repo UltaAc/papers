@@ -114,6 +114,11 @@ pkg.generate(
   variables: 'exec_prefix=${prefix}',
 )
 
+install_headers(
+  files('evince-view.h'),
+  subdir: ev_include_subdir,
+)
+
 # GObject Introspection
 if enable_introspection
   incs = [
