@@ -81,11 +81,13 @@ i18n.merge_file(
 )
 
 # Validate Appdata
-appstreamcli = find_program('appstreamcli', required: false)
-if (appstreamcli.found())
-  test('validate-appdata',
-    appstreamcli,
-    args: ['validate', '--strict', '--pedantic', '--explain', metainfo],
-    workdir: meson.current_build_dir()
-  )
+if get_option('tests')
+  appstreamcli = find_program('appstreamcli', required: true)
+  if (appstreamcli.found())
+    test('validate-appdata',
+         appstreamcli,
+         args: ['validate', '--strict', '--pedantic', '--explain', metainfo],
+         workdir: meson.current_build_dir()
+        )
+  endif
 endif
