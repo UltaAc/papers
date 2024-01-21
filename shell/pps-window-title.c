@@ -122,7 +122,7 @@ pps_window_title_update (PpsWindowTitle *window_title)
 	} else if (window_title->filename) {
 		title = g_strdup (window_title->filename);
 	} else {
-		title = g_strdup (_("Document Viewer"));
+		title = g_strdup (_("Papers"));
 	}
 
 	gtk_window_set_title (window, title);

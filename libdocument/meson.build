@@ -166,7 +166,7 @@ pkg.generate(
   libppsdocument,
   filebase: 'papers-document-' + pps_api_version,
   name: 'Papers Document',
-  description: 'GNOME document viewer backend library',
+  description: 'Papers document backend library',
   subdirs: pps_include_subdir,
   requires: [
     gio_dep,

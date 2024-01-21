@@ -433,7 +433,7 @@ subdir('libview')
 subdir('libmisc')
 subdir('properties')
 
-# *** Document Viewer ***
+# *** Papers ***
 enable_viewer = get_option('viewer')
 if enable_viewer
   subdir('shell')

@@ -807,7 +807,7 @@ pps_application_startup (GApplication *gapplication)
 	g_chdir (g_get_home_dir ());
 
 	/* Manually set name and icon */
-	g_set_application_name (_("Document Viewer"));
+	g_set_application_name (_("Papers"));
 	gtk_window_set_default_icon_name (PACKAGE_ICON_NAME);
 
         for (it = action_accels; it[0]; it += g_strv_length ((gchar **)it) + 1)
@@ -1001,7 +1001,7 @@ pps_application_handle_local_options (GApplication *gapplication,
 {
 	/* print the version in local instance rather than sending it to primary */
 	if (g_variant_dict_contains(options, "version")) {
-		g_print ("%s %s\n", _("GNOME Document Viewer"), VERSION);
+		g_print ("%s %s\n", _("Papers"), VERSION);
 		return 0;
 	}
 
@@ -1044,7 +1044,7 @@ pps_application_init (PpsApplication *pps_application)
 	pps_application->dot_dir = g_build_filename (g_get_user_config_dir (),
 						    "papers", NULL);
 
-	g_application_set_option_context_parameter_string (G_APPLICATION (pps_application), N_("GNOME Document Viewer"));
+	g_application_set_option_context_parameter_string (G_APPLICATION (pps_application), N_("Papers"));
 	g_application_add_main_option_entries (G_APPLICATION (pps_application), option_entries);
 }
 

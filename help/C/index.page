@@ -21,7 +21,7 @@
 
     <include href="legal-unported.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
-    <desc><app>Document Viewer</app>, formally known as <app>Papers</app>, is
+    <desc><app>Papers</app>, formally known as <app>Papers</app>, is
     made for viewing PDF documents. Learn how to get started with <app>Document
     Viewer</app> and its features.</desc>
 

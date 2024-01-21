@@ -3925,6 +3925,7 @@ pps_window_cmd_about (GSimpleAction *action,
                 "Christian Persch <chpe" "\100" "src.gnome.org>",
                 "Germán Poo-Caamaño <gpoo" "\100" "gnome.org>",
                 "Qiu Wenbo <crab2313" "\100" "gmail.com>",
+                "Pablo Correa Gómez <ablocorrea" "\100" "hotmail.com>",
                 NULL
         };
         const char *documenters[] = {
@@ -3945,7 +3946,7 @@ pps_window_cmd_about (GSimpleAction *action,
         adw_show_about_window (GTK_WINDOW (pps_window),
                                "application-name", _("Papers"),
                                "version", VERSION,
-                               "copyright", _("© 1996–2023 The Papers document viewer authors"),
+                               "copyright", _("© 1996–2024 The Papers authors"),
                                "license-type", GTK_LICENSE_GPL_2_0,
                                "website", "https://wiki.gnome.org/Apps/Papers",
                                "comments", _("Papers is a simple document viewer for GNOME"),

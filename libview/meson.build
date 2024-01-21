@@ -105,7 +105,7 @@ pkg.generate(
   libppsview,
   filebase: 'papers-view-' + pps_api_version,
   name: 'Papers View',
-  description: 'GNOME document viewer view library',
+  description: 'Papers view library',
   subdirs: pps_include_subdir,
   requires: [
     'papers-document-@0@ = @1@'.format(pps_api_version, pps_version),
