@@ -54,20 +54,17 @@ foreach backend, backend_mime_types: backends
     args: '--keyword=TypeDescription',
   )
 
-  appstream = 'papers-@0@.metainfo.xml'.format(backend_name)
-
-  appstream_in = configure_file(
-    input: '@0@/@1@.in.in'.format(backend, appstream),
-    output: appstream + '.in',
-    configuration: backend_mime_types_conf,
-  )
-
+  backend_metainfo = 'papers-@0@.metainfo.xml'.format(backend_name)
   i18n.merge_file(
-    input: appstream_in,
-    output: appstream,
+    input: configure_file(
+      input: '@0@/@1@.in.in'.format(backend, backend_metainfo),
+      output: backend_metainfo + '.in',
+      configuration: backend_mime_types_conf,
+    ),
+    output: backend_metainfo,
     po_dir: po_dir,
     install: true,
-    install_dir: pps_appstreamdir,
+    install_dir: join_paths(pps_datadir, 'metainfo'),
   )
 endforeach
 

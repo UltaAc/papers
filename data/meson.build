@@ -77,7 +77,7 @@ i18n.merge_file(
   output: metainfo,
   po_dir: po_dir,
   install: true,
-  install_dir: pps_appstreamdir,
+  install_dir: join_paths(pps_datadir, 'metainfo'),
 )
 
 # Validate Appdata

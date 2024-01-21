@@ -32,8 +32,6 @@ pps_mandir = join_paths(pps_prefix, get_option('mandir'))
 
 pps_pkgdatadir = join_paths(pps_datadir, pps_name)
 
-pps_appstreamdir = join_paths(pps_datadir, 'metainfo')
-
 # Libtool versioning. The backend and view libraries have separate versions.
 # Before making a release, the libtool version should be modified.
 # The string is of the form C:R:A.
