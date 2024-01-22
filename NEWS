@@ -1,0 +1,45 @@
+=================
+Papers unreleased
+=================
+
+Papers has been forked from Evince, including the whole history of the
+evince-next branch to which the authors of the fork contributed extensively.
+Papers has landed the GTK4 port from Qiu Wenbo, many (breaking) cleanups to
+both libraries, and a bunch of cleanups, modernizations and improvements to
+the application itself. Among the changes, we can highlight:
+
+libraries (libppsdocument, libppsview):
+  * Due to the of modernization of these, all deprecated API has been removed.
+    There have also been some API-breaking changes all around the code, mostly
+    aimed at implementing new patterns. The goal of the authors is to reduce the
+    public surface of the libraries. So please come in contact if you are a user
+    and want to continue using the libraries long-term. We want to learn from
+    your usage to provide a good and long-term maintainable experience.
+  * The libraries no longer provide any icons or use any custom ones.
+  * EvDocumentModel dual-page property has been removed
+  * Transition backends to use a new interface for registration
+  * Mark types as derivable or final as need be
+  * Rename and deprecate EvJobs that do rendering based on cairo
+  * Drop EvJobLoadStream and EvJobLoadGFile. Merge EvJobLoad and EvJobLoadFd
+  * GPU based transition of presentation mode with additional effects support.
+    Transitions will no longer work if HW acceleration is not supported
+
+shell:
+  * Port to GTK4 thanks to the effort of Qiu Wenbo
+  * Removed spell-checking feature. Hopefully will come back through libspelling
+  * Implemented some new mockups for the first time in years (thanks Chris!)
+  * Many internal cleanups to use standard widgets, instead of showing and
+    hiding internal widgets as different parts of the application change.
+  * Ported many widgets to UI templates
+  * Make the main widget of PpsWindow an AdwViewStack
+  * The initial work to rewrite the UI in Rust has started (#21)
+
+properties:
+  * Can now be used in Nautilus again. Dropped GTK dependency
+
+Of course, all this does not come without some issues, so we have likely
+regressed in some aspects. We look forward to testers and gathering feedback.
+
+As of the writing, the total diff lays at:
+
+340 files changed, 13598 insertions(+), 29659 deletions(-)
