@@ -50,7 +50,6 @@
         "*.a"
     ],
     "modules": [
-        "python3-gi-docgen-dependencies.json",
         {
             "name": "webp-pixbuf-loader",
             "buildsystem": "meson",
