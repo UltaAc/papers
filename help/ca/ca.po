@@ -2763,7 +2763,7 @@ msgstr ""
 "El <app>visualitzador de documents</app> el manté una comunitat de "
 "voluntaris. Us convidem a participar-hi. Si robeu algun problema podeu "
 "informar a <em>Informe d'error</em>. Per a informar, aneu a <link href="
-"\"https://gitlab.gnome.org/GNOME/papers/issues/\"/>."
+"\"https://gitlab.gnome.org/pabloyoyoista/papers/issues/\"/>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2795,13 +2795,13 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/GNOME/papers/issues\">browse</"
+"please <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues\">browse</"
 "link> for the bug to see if it already exists."
 msgstr ""
 "Quan tingueu un compte, accediu-hi, i feu clic a <gui>New issue</gui>. Abans "
 "d'informar sobre un error, si us plau llegiu <link href=\"https://wiki.gnome."
 "org/GettingInTouch/BugReportingGuidelines\">pautes d'escriptura d'errors</"
-"link>, i si us plau <link href=\"https://gitlab.gnome.org/GNOME/papers/issues"
+"link>, i si us plau <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues"
 "\">navegueu</link> per la llista d'error per a comprovar si ja existeix."
 
 #. (itstool) path: page/p

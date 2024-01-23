@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Nepali Translation Project\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/papers/issues\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/pabloyoyoista/papers/issues\n"
 "POT-Creation-Date: 2022-07-15 19:37+0000\n"
 "PO-Revision-Date: 2022-09-11 13:36+0545\n"
 "Last-Translator: Pawan Chitrakar <chautari@gmail.com>\n"

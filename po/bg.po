@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: papers main\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/papers/issues\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/pabloyoyoista/papers/issues\n"
 "POT-Creation-Date: 2023-03-11 05:02+0000\n"
 "PO-Revision-Date: 2023-03-11 13:51+0200\n"
 "Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"

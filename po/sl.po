@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: papers master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/papers/issues\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/pabloyoyoista/papers/issues\n"
 "POT-Creation-Date: 2023-07-28 18:21+0000\n"
 "PO-Revision-Date: 2023-07-29 16:01+0200\n"
 "Last-Translator: Matej Urbančič <mateju@src.gnome.org>\n"

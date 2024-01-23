@@ -9,7 +9,7 @@
   <homepage rdf:resource="https://wiki.gnome.org/Apps/Papers" />
   <support-forum rdf:resource="https://discourse.gnome.org/tag/papers" />
   <download-page rdf:resource="https://download.gnome.org/sources/papers/" />
-  <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/papers/issues/" />
+  <bug-database rdf:resource="https://gitlab.gnome.org/pabloyoyoista/papers/issues/" />
   <category rdf:resource="http://api.gnome.org/doap-extensions#core" />
   <programming-language>C</programming-language>
   <maintainer>

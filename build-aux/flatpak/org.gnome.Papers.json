@@ -192,7 +192,7 @@
                 {
                     "type": "git",
                     "branch": "papers-next",
-                    "url": "https://gitlab.gnome.org/GNOME/papers.git"
+                    "url": "https://gitlab.gnome.org/pabloyoyoista/papers.git"
                 }
             ]
         }

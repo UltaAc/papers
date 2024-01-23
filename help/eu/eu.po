@@ -2345,7 +2345,7 @@ msgid ""
 "are welcome to participate. If you notice a problem you can file a <em>bug "
 "report</em>. To file a bug, go to <link href=\"https://gitlab.gnome.org/"
 "GNOME/papers/issues/\"/>."
-msgstr "<app>Dokumentu-ikustailea</app> aplikazioa boluntarioen komunitate batek mantentzen du. Ongi etorria izango zara lagundu nahi baduzu. Arazoren bat ikusten baduzu, bete ezazu <em>akatsaren jakinarazpena</em>. Akatsa jakinarazteko, joan <link href=\"https://gitlab.gnome.org/GNOME/papers/issues\"/> gunera."
+msgstr "<app>Dokumentu-ikustailea</app> aplikazioa boluntarioen komunitate batek mantentzen du. Ongi etorria izango zara lagundu nahi baduzu. Arazoren bat ikusten baduzu, bete ezazu <em>akatsaren jakinarazpena</em>. Akatsa jakinarazteko, joan <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues\"/> gunera."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2370,9 +2370,9 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/GNOME/papers/issues\">browse</"
+"please <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues\">browse</"
 "link> for the bug to see if it already exists."
-msgstr "Kontu bat sortu ondoren, hasi saioa eta egin klik <gui>Auzi berria</gui> aukeran. Akats bat jakinarazi baino lehen, irakurri <link href=\"https://wiki.gnome.org/GettingInTouch/BugReportingGuidelines\">akatsak idazteko gidalerroak</link> eta <link href=\"https://gitlab.gnome.org/GNOME/papers/issues\">arakatu</link> lehendik dadudenak, jakiteko ea zure akatsa jadanik badagoen ala ez."
+msgstr "Kontu bat sortu ondoren, hasi saioa eta egin klik <gui>Auzi berria</gui> aukeran. Akats bat jakinarazi baino lehen, irakurri <link href=\"https://wiki.gnome.org/GettingInTouch/BugReportingGuidelines\">akatsak idazteko gidalerroak</link> eta <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues\">arakatu</link> lehendik dadudenak, jakiteko ea zure akatsa jadanik badagoen ala ez."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:33

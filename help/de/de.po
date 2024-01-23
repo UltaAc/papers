@@ -2832,7 +2832,7 @@ msgstr ""
 "Freiwilligen entwickelt. Sie sind herzlich eingeladen, sich daran zu "
 "beteiligen. Falls Sie ein Problem entdecken, können Sie einen "
 "<em>Fehlerbericht erstellen</em>. Besuchen Sie hierzu <link href=\"https://"
-"gitlab.gnome.org/GNOME/papers/issues/\"/>."
+"gitlab.gnome.org/pabloyoyoista/papers/issues/\"/>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2864,7 +2864,7 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/GNOME/papers/issues\">browse</"
+"please <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues\">browse</"
 "link> for the bug to see if it already exists."
 msgstr ""
 "Sobald die Erstellung des Kontos abgeschlossen ist, klicken Sie auf <gui>New "

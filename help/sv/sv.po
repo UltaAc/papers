@@ -2752,7 +2752,7 @@ msgstr ""
 "<app>Dokumentvisare</app> underhålls av en frivillig gemenskap. Du är "
 "välkommen att delta. Om du märker av ett problem kan du skapa en "
 "<em>felrapport</em>. För att rapportera ett fel, gå till <link "
-"href=\"https://gitlab.gnome.org/GNOME/papers/issues/\"/>."
+"href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues/\"/>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2784,13 +2784,13 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/GNOME/papers/issues\">browse</"
+"please <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues\">browse</"
 "link> for the bug to see if it already exists."
 msgstr ""
 "När du har ett konto, logga in och klicka på <gui>New issue</gui>. Innan du "
 "rapporterar ett fel, läs <link href=\"https://wiki.gnome.org/GettingInTouch/"
 "BugReportingGuidelines\">riktlinjerna för hur man skriver en felrapport</"
-"link> och <link href=\"https://gitlab.gnome.org/GNOME/papers/issues\">sök</"
+"link> och <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues\">sök</"
 "link> för att se om felet redan rapporterats."
 
 #. (itstool) path: page/p

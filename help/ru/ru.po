@@ -2750,7 +2750,7 @@ msgstr ""
 "<app>Просмотр документов</app> поддерживается сообществом добровольцев. Вы "
 "можете принять в нем участие. Если вы заметили проблему, вы можете отправить "
 "<em>сообщение об ошибке</em>. Чтобы сообщить об ошибке, перейдите по адресу "
-"<link href=\"https://gitlab.gnome.org/GNOME/papers/issues/\"/>."
+"<link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues/\"/>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2783,14 +2783,14 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/GNOME/papers/issues\">browse</"
+"please <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues\">browse</"
 "link> for the bug to see if it already exists."
 msgstr ""
 "После создания учетной записи войдите в систему и нажмите <gui>New issue</"
 "gui>. Прежде чем сообщить об ошибке, пожалуйста, прочитайте <link "
 "href=\"https://wiki.gnome.org/GettingInTouch/"
 "BugReportingGuidelines\">руководство по написанию ошибок</link>, а также "
-"<link href=\"https://gitlab.gnome.org/GNOME/papers/issues\">просмотрите</"
+"<link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues\">просмотрите</"
 "link>, не существует ли уже такая ошибка."
 
 #. (itstool) path: page/p
