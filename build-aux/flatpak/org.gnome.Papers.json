@@ -186,7 +186,8 @@
                 "-Dgtk_doc=false",
                 "-Dintrospection=false",
                 "-Duser_doc=false",
-                "-Ddevelopment=true"
+                "-Ddevelopment=true",
+                "-Dtests=false"
             ],
             "sources": [
                 {
