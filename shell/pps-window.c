@@ -7072,7 +7072,6 @@ pps_window_get_dbus_object_path (PpsWindow *pps_window)
 
 /**
  * pps_window_get_toolbar:
- *
  * @pps_window: the #PpsWindow
  *
  * Returns: (transfer none): the #AdwHeaderBar that represents the toolbar of the window.
@@ -7104,7 +7103,6 @@ pps_window_focus_view (PpsWindow *pps_window)
 
 /**
  * pps_window_get_metadata:
- *
  * @pps_window: the #PpsWindow
  *
  * Returns: (transfer none): the #PpsMetadata of the document shown in the window.
