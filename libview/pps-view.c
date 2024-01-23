@@ -148,7 +148,7 @@ static void       get_link_area                              (PpsView           
 							      GdkRectangle       *area);
 static void       link_preview_show_thumbnail                (GdkTexture    *page_surface,
 							      PpsView             *view);
-static void       link_preview_job_finished_cb               (PpsJobThumbnailCairo     *job,
+static void       link_preview_job_finished_cb               (PpsJobThumbnailTexture     *job,
 							      PpsView             *view);
 static void       link_preview_delayed_show                  (PpsView *view);
 /*** Forms ***/
@@ -2281,7 +2281,7 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y, gboolean 
 	/* Start thumbnailing job async */
 	link_dest_page = pps_link_dest_get_page (dest);
 	device_scale = gtk_widget_get_scale_factor (GTK_WIDGET (view));
-	priv->link_preview.job = pps_job_thumbnail_cairo_new (priv->document,
+	priv->link_preview.job = pps_job_thumbnail_texture_new (priv->document,
 							     link_dest_page,
 							     priv->rotation,
 							     priv->scale * device_scale);
@@ -5125,35 +5125,8 @@ link_preview_delayed_show (PpsView *view)
 	priv->link_preview.delay_timeout_id = 0;
 }
 
-static GdkTexture *
-gdk_texture_new_for_surface(cairo_surface_t *surface)
-{
-	GdkTexture *texture;
-	GBytes *bytes;
-
-	g_return_val_if_fail(surface != NULL, NULL);
-	g_return_val_if_fail(cairo_surface_get_type(surface) == CAIRO_SURFACE_TYPE_IMAGE, NULL);
-	g_return_val_if_fail(cairo_image_surface_get_width(surface) > 0, NULL);
-	g_return_val_if_fail(cairo_image_surface_get_height(surface) > 0, NULL);
-
-	bytes = g_bytes_new_with_free_func(cairo_image_surface_get_data(surface),
-					   cairo_image_surface_get_height(surface) * cairo_image_surface_get_stride(surface),
-					   (GDestroyNotify)cairo_surface_destroy,
-					   cairo_surface_reference(surface));
-
-	texture = gdk_memory_texture_new(cairo_image_surface_get_width(surface),
-					 cairo_image_surface_get_height(surface),
-					 GDK_MEMORY_DEFAULT,
-					 bytes,
-					 cairo_image_surface_get_stride(surface));
-
-	g_bytes_unref(bytes);
-
-	return texture;
-}
-
 static void
-link_preview_job_finished_cb (PpsJobThumbnailCairo *job,
+link_preview_job_finished_cb (PpsJobThumbnailTexture *job,
 			      PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -5165,7 +5138,7 @@ link_preview_job_finished_cb (PpsJobThumbnailCairo *job,
 		return;
 	}
 
-	link_preview_show_thumbnail (gdk_texture_new_for_surface (job->thumbnail_surface), view);
+	link_preview_show_thumbnail (job->thumbnail_texture, view);
 
 	g_object_unref (job);
 	priv->link_preview.job = NULL;
