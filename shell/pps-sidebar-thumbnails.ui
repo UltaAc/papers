@@ -3,40 +3,26 @@
   <requires lib="gtk" version="4.0"/>
   <template class="PpsSidebarThumbnails" parent="GtkBox">
     <property name="orientation">vertical</property>
+    <signal name="notify::scale-factor" handler="reload" />
     <child>
-      <object class="GtkScrolledWindow" id="swindow">
+      <object class="GtkScrolledWindow">
         <property name="valign">fill</property>
         <property name="vexpand">True</property>
         <property name="hscrollbar-policy">never</property>
         <property name="vscrollbar-policy">automatic</property>
         <child>
-          <object class="GtkIconView" id="icon_view">
-            <property name="model">list_store</property>
-            <signal name="selection-changed" handler="pps_sidebar_icon_selection_changed" />
-            <child>
-              <object class="GtkCellRendererPixbuf">
-                <property name="xalign">0.5</property>
-                <property name="yalign">1.0</property>
+          <object class="GtkGridView" id="grid_view">
+            <property name="max-columns">1</property>
+            <property name="min-columns">1</property>
+            <property name="factory">
+              <object class="GtkSignalListItemFactory" id="factory">
+                <signal name="setup" handler="grid_view_factory_setup" swapped="yes" />
+                <signal name="bind" handler="grid_view_factory_bind" swapped="yes" />
+                <signal name="unbind" handler="grid_view_factory_unbind" swapped="yes" />
               </object>
-              <attributes>
-                <attribute name="texture">1</attribute>
-              </attributes>
-            </child>
-            <child>
-              <object class="GtkCellRendererText">
-                <property name="alignment">center</property>
-                <property name="wrap-mode">char</property>
-                <property name="xalign">0.5</property>
-                <property name="yalign">0.5</property>
-                <property name="width">100</property>
-                <property name="wrap-width">100</property>
-              </object>
-              <attributes>
-                <attribute name="markup">0</attribute>
-              </attributes>
-            </child>
+            </property>
             <style>
-              <class name="navigation-sidebar"/>
+              <class name="navigation-sidebar" />
             </style>
           </object>
         </child>
@@ -44,12 +30,12 @@
     </child>
   </template>
 
-  <object class="GtkListStore" id="list_store">
-    <columns>
-      <column type="gchararray" />
-      <column type="GdkTexture" />
-      <column type="gboolean" />
-      <column type="PpsJobThumbnailCairo" />
-    </columns>
+  <object class="GtkSingleSelection" id="selection_model">
+    <property name="autoselect">True</property>
+    <property name="model">
+      <object class="GListStore" id="list_store">
+      </object>
+    </property>
+    <signal name="notify::selected" handler="grid_view_selection_changed" swapped="yes" />
   </object>
 </interface>

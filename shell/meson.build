@@ -16,7 +16,6 @@ papers_sources = files(
   'pps-properties-fonts.c',
   'pps-properties-license.c',
   'pps-toolbar.c',
-  'pps-thumbnail-item.c',
   'pps-utils.c',
   'pps-window.c',
   'pps-window-title.c',
@@ -28,7 +27,6 @@ papers_sources = files(
   'pps-sidebar-layers.c',
   'pps-sidebar-links.c',
   'pps-sidebar-page.c',
-  'pps-sidebar-thumbnails.c',
   'pps-stack-switcher.c',
 )
 

@@ -71,7 +71,6 @@
 #include "pps-sidebar.h"
 #include "pps-sidebar-links.h"
 #include "pps-sidebar-page.h"
-#include "pps-sidebar-thumbnails.h"
 #include "pps-sidebar-layers.h"
 #include "pps-utils.h"
 #include "pps-keyring.h"
@@ -6811,7 +6810,6 @@ pps_window_init (PpsWindow *pps_window)
 	g_type_ensure (PPS_TYPE_PASSWORD_VIEW);
 	g_type_ensure (PPS_TYPE_SIDEBAR_LAYERS);
 	g_type_ensure (PPS_TYPE_SIDEBAR_BOOKMARKS);
-	g_type_ensure (PPS_TYPE_SIDEBAR_THUMBNAILS);
 	g_type_ensure (PPS_TYPE_PAGE_SELECTOR);
 	g_type_ensure (PPS_TYPE_SIDEBAR_ATTACHMENTS);
 	g_type_ensure (PPS_TYPE_SIDEBAR_ANNOTATIONS);

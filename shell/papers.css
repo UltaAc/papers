@@ -31,13 +31,8 @@ evview.document-page.inverted {
     background-color: black;
 }
 
-evsidebarthumbnails.page-thumbnail {
-    background-color: white;
-    border: 1px solid black;
-}
-
-evsidebarthumbnails.page-thumbnail.inverted {
-    background-color: black;
+.inverted-color {
+    filter: invert(1);
 }
 
 evpresentationview {

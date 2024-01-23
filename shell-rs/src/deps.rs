@@ -9,6 +9,7 @@ pub use papers_view::prelude::*;
 pub use papers_document::Document;
 pub use papers_document::DocumentInfo;
 pub use papers_view::DocumentModel;
+pub use papers_view::JobThumbnailTexture;
 
 pub use gtk::CompositeTemplate;
 pub use gtk::TemplateChild;
