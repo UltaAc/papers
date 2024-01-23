@@ -67,13 +67,6 @@ pps_sidebar_page_default_init (PpsSidebarPageInterface *iface)
 
 	if (!initialized) {
 		g_object_interface_install_property (iface,
-						     g_param_spec_object ("main-widget",
-									  "Main Widget",
-									  "Main page widget, used to handle focus",
-									  GTK_TYPE_WIDGET,
-									  G_PARAM_READABLE |
-                                                                          G_PARAM_STATIC_STRINGS));
-		g_object_interface_install_property (iface,
 						     g_param_spec_object ("document-model",
 									  "DocumentModel",
 									  "The document model",

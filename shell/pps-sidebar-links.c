@@ -59,7 +59,6 @@ struct _PpsSidebarLinksPrivate {
 enum {
 	PROP_0,
 	PROP_MODEL,
-	PROP_WIDGET,
 	PROP_DOCUMENT_MODEL,
 };
 
@@ -136,9 +135,6 @@ pps_sidebar_links_get_property (GObject    *object,
 	{
 	case PROP_MODEL:
 		g_value_set_object (value, pps_sidebar_links->priv->model);
-		break;
-	case PROP_WIDGET:
-		g_value_set_object (value, pps_sidebar_links->priv->tree_view);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1033,7 +1029,6 @@ pps_sidebar_links_class_init (PpsSidebarLinksClass *pps_sidebar_links_class)
 							      G_PARAM_READWRITE |
 							      G_PARAM_STATIC_STRINGS));
 
-	g_object_class_override_property (g_object_class, PROP_WIDGET, "main-widget");
 	g_object_class_override_property (g_object_class, PROP_DOCUMENT_MODEL, "document-model");
 }
 

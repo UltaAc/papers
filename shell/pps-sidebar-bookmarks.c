@@ -32,7 +32,6 @@
 
 enum {
 	PROP_0,
-	PROP_WIDGET,
 	PROP_DOCUMENT_MODEL
 };
 
@@ -420,25 +419,6 @@ pps_sidebar_bookmarks_init (PpsSidebarBookmarks *sidebar_bookmarks)
 }
 
 static void
-pps_sidebar_bookmarks_get_property (GObject    *object,
-                                   guint       prop_id,
-                                   GValue     *value,
-                                   GParamSpec *pspec)
-{
-        PpsSidebarBookmarks *sidebar_bookmarks = PPS_SIDEBAR_BOOKMARKS (object);
-	PpsSidebarBookmarksPrivate *priv = GET_PRIVATE (sidebar_bookmarks);
-
-        switch (prop_id) {
-        case PROP_WIDGET:
-                g_value_set_object (value, priv->tree_view);
-                break;
-        default:
-                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-                break;
-        }
-}
-
-static void
 pps_sidebar_bookmarks_set_property (GObject      *object,
 				   guint         prop_id,
 				   const GValue *value,
@@ -464,7 +444,6 @@ pps_sidebar_bookmarks_class_init (PpsSidebarBookmarksClass *klass)
         GObjectClass   *g_object_class = G_OBJECT_CLASS (klass);
         GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-        g_object_class->get_property = pps_sidebar_bookmarks_get_property;
         g_object_class->set_property = pps_sidebar_bookmarks_set_property;
         g_object_class->dispose = pps_sidebar_bookmarks_dispose;
 
@@ -482,7 +461,6 @@ pps_sidebar_bookmarks_class_init (PpsSidebarBookmarksClass *klass)
 	gtk_widget_class_bind_template_callback (widget_class, pps_sidebar_bookmarks_query_tooltip);
 	gtk_widget_class_bind_template_callback (widget_class, pps_sidebar_bookmarks_button_press_cb);
 
-        g_object_class_override_property (g_object_class, PROP_WIDGET, "main-widget");
 	g_object_class_override_property (g_object_class, PROP_DOCUMENT_MODEL, "document-model");
 
 	/* Signals */

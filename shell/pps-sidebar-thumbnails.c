@@ -87,7 +87,6 @@ enum {
 
 enum {
 	PROP_0,
-	PROP_WIDGET,
 	PROP_DOCUMENT_MODEL,
 };
 
@@ -260,24 +259,6 @@ pps_sidebar_thumbnails_dispose (GObject *object)
 			 g_hash_table_destroy);
 
 	G_OBJECT_CLASS (pps_sidebar_thumbnails_parent_class)->dispose (object);
-}
-
-static void
-pps_sidebar_thumbnails_get_property (GObject    *object,
-				    guint       prop_id,
-				    GValue     *value,
-				    GParamSpec *pspec)
-{
-	PpsSidebarThumbnails *sidebar = PPS_SIDEBAR_THUMBNAILS (object);
-
-	switch (prop_id) {
-	case PROP_WIDGET:
-		g_value_set_object (value, sidebar->priv->icon_view);
-		break;
-	default:
-		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-		break;
-	}
 }
 
 static void
@@ -1127,7 +1108,6 @@ pps_sidebar_thumbnails_class_init (PpsSidebarThumbnailsClass *pps_sidebar_thumbn
 	widget_class = GTK_WIDGET_CLASS (pps_sidebar_thumbnails_class);
 
 	g_object_class->dispose = pps_sidebar_thumbnails_dispose;
-	g_object_class->get_property = pps_sidebar_thumbnails_get_property;
 	g_object_class->set_property = pps_sidebar_thumbnails_set_property;
 	widget_class->map = pps_sidebar_thumbnails_map;
 
@@ -1141,6 +1121,5 @@ pps_sidebar_thumbnails_class_init (PpsSidebarThumbnailsClass *pps_sidebar_thumbn
 
 	gtk_widget_class_bind_template_callback (widget_class, pps_sidebar_icon_selection_changed);
 
-	g_object_class_override_property (g_object_class, PROP_WIDGET, "main-widget");
 	g_object_class_override_property (g_object_class, PROP_DOCUMENT_MODEL, "document-model");
 }

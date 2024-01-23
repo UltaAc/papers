@@ -51,7 +51,6 @@ enum {
 
 enum {
 	PROP_0,
-	PROP_WIDGET,
 	PROP_DOCUMENT_MODEL,
 };
 
@@ -360,25 +359,6 @@ pps_sidebar_attachments_drop_cb (GtkDropTarget	*self,
 }
 
 static void
-pps_sidebar_attachments_get_property (GObject    *object,
-				     guint       prop_id,
-			    	     GValue     *value,
-		      	             GParamSpec *pspec)
-{
-	PpsSidebarAttachments *pps_attachbar = PPS_SIDEBAR_ATTACHMENTS (object);
-	PpsSidebarAttachmentsPrivate *priv = GET_PRIVATE (pps_attachbar);
-
-	switch (prop_id) {
-	        case PROP_WIDGET:
-			g_value_set_object (value, priv->icon_view);
-			break;
-	        default:
-			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-			break;
-	}
-}
-
-static void
 pps_sidebar_attachments_set_property (GObject      *object,
 			       guint         prop_id,
 			       const GValue *value,
@@ -414,7 +394,6 @@ pps_sidebar_attachments_class_init (PpsSidebarAttachmentsClass *pps_attachbar_cl
 	gtk_widget_class_bind_template_callback (widget_class, pps_sidebar_attachments_drag_prepare);
 	gtk_widget_class_bind_template_callback (widget_class, pps_sidebar_attachments_drop_cb);
 
-	g_object_class->get_property = pps_sidebar_attachments_get_property;
 	g_object_class->set_property = pps_sidebar_attachments_set_property;
 
 	/* Signals */
@@ -441,7 +420,6 @@ pps_sidebar_attachments_class_init (PpsSidebarAttachmentsClass *pps_attachbar_cl
 			      G_TYPE_OBJECT,
 		              G_TYPE_STRING);
 
-	g_object_class_override_property (g_object_class, PROP_WIDGET, "main-widget");
 	g_object_class_override_property (g_object_class, PROP_DOCUMENT_MODEL, "document-model");
 }
 

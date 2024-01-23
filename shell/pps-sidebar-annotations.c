@@ -33,7 +33,6 @@
 
 enum {
 	PROP_0,
-	PROP_WIDGET,
 	PROP_DOCUMENT_MODEL
 };
 
@@ -105,25 +104,6 @@ pps_sidebar_annotations_init (PpsSidebarAnnotations *pps_annots)
 }
 
 static void
-pps_sidebar_annotations_get_property (GObject    *object,
-				     guint       prop_id,
-				     GValue     *value,
-				     GParamSpec *pspec)
-{
-	PpsSidebarAnnotations *sidebar_annots = PPS_SIDEBAR_ANNOTATIONS (object);
-	PpsSidebarAnnotationsPrivate *priv = GET_PRIVATE (sidebar_annots);
-
-	switch (prop_id) {
-	        case PROP_WIDGET:
-			g_value_set_object (value, priv->stack);
-			break;
-	        default:
-			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-			break;
-	}
-}
-
-static void
 pps_sidebar_annotations_set_property (GObject      *object,
 			       guint         prop_id,
 			       const GValue *value,
@@ -149,7 +129,6 @@ pps_sidebar_annotations_class_init (PpsSidebarAnnotationsClass *klass)
 	GObjectClass *g_object_class = G_OBJECT_CLASS (klass);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-	g_object_class->get_property = pps_sidebar_annotations_get_property;
 	g_object_class->set_property = pps_sidebar_annotations_set_property;
 	g_object_class->dispose = pps_sidebar_annotations_dispose;
 
@@ -160,7 +139,6 @@ pps_sidebar_annotations_class_init (PpsSidebarAnnotationsClass *klass)
 	gtk_widget_class_bind_template_child_private (widget_class, PpsSidebarAnnotations, popup);
 
 	g_object_class_override_property (g_object_class, PROP_DOCUMENT_MODEL, "document-model");
-	g_object_class_override_property (g_object_class, PROP_WIDGET, "main-widget");
 
 	signals[ANNOT_ACTIVATED] =
 		g_signal_new ("annot-activated",

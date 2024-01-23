@@ -37,7 +37,6 @@ struct _PpsSidebarLayersPrivate {
 
 enum {
 	PROP_0,
-	PROP_WIDGET,
 	PROP_DOCUMENT_MODEL,
 };
 
@@ -78,26 +77,6 @@ pps_sidebar_layers_dispose (GObject *object)
 	g_clear_object (&sidebar->priv->document);
 
 	G_OBJECT_CLASS (pps_sidebar_layers_parent_class)->dispose (object);
-}
-
-static void
-pps_sidebar_layers_get_property (GObject    *object,
-				guint       prop_id,
-				GValue     *value,
-				GParamSpec *pspec)
-{
-	PpsSidebarLayers *pps_sidebar_layers;
-
-	pps_sidebar_layers = PPS_SIDEBAR_LAYERS (object);
-
-	switch (prop_id) {
-	        case PROP_WIDGET:
-			g_value_set_object (value, pps_sidebar_layers->priv->tree_view);
-			break;
-	        default:
-			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-			break;
-	}
 }
 
 static void
@@ -325,11 +304,9 @@ pps_sidebar_layers_class_init (PpsSidebarLayersClass *pps_layers_class)
 {
 	GObjectClass *g_object_class = G_OBJECT_CLASS (pps_layers_class);
 
-	g_object_class->get_property = pps_sidebar_layers_get_property;
 	g_object_class->set_property = pps_sidebar_layers_set_property;
 	g_object_class->dispose = pps_sidebar_layers_dispose;
 
-	g_object_class_override_property (g_object_class, PROP_WIDGET, "main-widget");
 	g_object_class_override_property (g_object_class, PROP_DOCUMENT_MODEL, "document-model");
 
 	signals[LAYERS_VISIBILITY_CHANGED] =
