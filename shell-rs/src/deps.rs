@@ -1,14 +1,14 @@
 pub use adw::prelude::*;
 pub use adw::subclass::prelude::*;
 
-pub use evince_document::prelude::*;
-pub use evince_shell::prelude::*;
-pub use evince_shell::subclass::prelude::*;
-pub use evince_view::prelude::*;
+pub use papers_document::prelude::*;
+pub use papers_shell::prelude::*;
+pub use papers_shell::subclass::prelude::*;
+pub use papers_view::prelude::*;
 
-pub use evince_document::Document;
-pub use evince_document::DocumentInfo;
-pub use evince_view::DocumentModel;
+pub use papers_document::Document;
+pub use papers_document::DocumentInfo;
+pub use papers_view::DocumentModel;
 
 pub use gtk::CompositeTemplate;
 pub use gtk::TemplateChild;
@@ -22,8 +22,6 @@ pub use std::cell::RefCell;
 pub use gettextrs::gettext;
 
 pub use once_cell::sync::Lazy;
-
-pub use crate::utils::*;
 
 pub use log::{debug, error, info, warn};
 

@@ -37,3 +37,9 @@ pub fn shutdown() {
         ffi::pps_shutdown();
     }
 }
+
+use glib::translate::*;
+
+pub fn widget_dpi(widget: &impl glib::IsA<gtk::Widget>) -> f64 {
+    unsafe { ffi::pps_document_misc_get_widget_dpi(widget.as_ref().to_glib_none().0) }
+}

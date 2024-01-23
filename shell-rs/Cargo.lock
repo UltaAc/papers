@@ -707,7 +707,9 @@ version = "0.1.0"
 dependencies = [
  "bitflags 2.4.2",
  "gdk-pixbuf",
+ "gdk4",
  "glib",
+ "gtk4",
  "libc",
  "papers-document-sys",
 ]

@@ -27,7 +27,6 @@
 
 #include "pps-toolbar.h"
 
-#include "pps-zoom-action.h"
 #include "pps-application.h"
 #include "pps-page-selector.h"
 
@@ -111,7 +110,7 @@ pps_toolbar_constructed (GObject *object)
 	pps_page_selector_set_model (PPS_PAGE_SELECTOR (priv->page_selector),
 					 priv->model);
 
-	pps_zoom_action_set_model (PPS_ZOOM_ACTION (priv->zoom_action), priv->model);
+	g_object_set (priv->zoom_action, "document-model", priv->model, NULL);
 }
 
 static void
@@ -151,7 +150,6 @@ pps_toolbar_init (PpsToolbar *pps_toolbar)
         /* Ensure GTK+ private types used by the template
          * definition before calling gtk_widget_init_template() */
         g_type_ensure (PPS_TYPE_PAGE_SELECTOR);
-        g_type_ensure (PPS_TYPE_ZOOM_ACTION);
 
 	gtk_widget_init_template (GTK_WIDGET (pps_toolbar));
 }

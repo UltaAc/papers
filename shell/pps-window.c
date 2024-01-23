@@ -83,7 +83,6 @@
 #include "pps-print-operation.h"
 #include "pps-progress-message-area.h"
 #include "pps-annotation-properties-dialog.h"
-#include "pps-zoom-action.h"
 #include "pps-bookmarks.h"
 #include "pps-search-box.h"
 #include "pps-toolbar.h"
@@ -6807,7 +6806,6 @@ pps_window_init (PpsWindow *pps_window)
 	g_type_ensure (PPS_TYPE_TOOLBAR);
 	g_type_ensure (PPS_TYPE_SIDEBAR);
 	g_type_ensure (PPS_TYPE_SEARCH_BOX);
-	g_type_ensure (PPS_TYPE_ZOOM_ACTION);
 	g_type_ensure (PPS_TYPE_FIND_SIDEBAR);
 	g_type_ensure (PPS_TYPE_SIDEBAR_LINKS);
 	g_type_ensure (PPS_TYPE_PASSWORD_VIEW);

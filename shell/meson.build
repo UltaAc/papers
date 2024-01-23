@@ -30,7 +30,6 @@ papers_sources = files(
   'pps-sidebar-page.c',
   'pps-sidebar-thumbnails.c',
   'pps-stack-switcher.c',
-  'pps-zoom-action.c',
 )
 
 papers_sources += gnome.compile_resources(

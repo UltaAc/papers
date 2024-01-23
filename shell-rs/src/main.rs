@@ -9,8 +9,15 @@ mod config {
 use config::GETTEXT_PACKAGE;
 use papers_shell::Application;
 
+mod deps;
+mod zoom_action;
+
 fn ensure_type() {
+    // HACK: don't need gtk4::init after PpsApplicationWindow is port to rust
+    let _ = gtk::init();
+
     // Hack: ensure type here so we don't need to add C interface
+    zoom_action::PpsZoomAction::ensure_type();
 }
 
 fn main() -> glib::ExitCode {

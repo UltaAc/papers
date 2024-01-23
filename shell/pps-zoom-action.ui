@@ -16,12 +16,11 @@
         <property name="vexpand">True</property>
         <property name="xalign">1.0</property>
         <property name="max-width-chars">0</property>
-        <property name="visible">True</property>
-        <signal name="icon-press" handler="entry_icon_press_cb" />
-        <signal name="activate" handler="entry_activated_cb" />
+        <signal name="icon-press" handler="entry_icon_press" swapped="yes" />
+        <signal name="activate" handler="entry_activated" swapped="yes" />
         <child>
           <object class="GtkEventControllerFocus">
-            <signal name="leave" handler="pps_zoom_action_update_zoom_level" swapped="yes" />
+            <signal name="leave" handler="update_zoom_level" swapped="yes" />
           </object>
         </child>
       </object>
@@ -52,6 +51,6 @@
         <attribute name="target">automatic</attribute>
       </item>
     </section>
-    <section />
+    <section id="free_section"/>
   </menu>
 </interface>
