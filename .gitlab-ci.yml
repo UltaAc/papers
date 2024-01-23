@@ -108,7 +108,7 @@ flatpak:
         BUNDLE: "org.gnome.Papers.flatpak"
 
 pages:
-    image: registry.gitlab.gnome.org/gnome/evince/x86_64-ubuntu:gtk4v2
+    extends: '.fdo.distribution-image@fedora'
     stage: deploy
     rules:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PROJECT_NAMESPACE == "GNOME"
