@@ -35,9 +35,6 @@ G_BEGIN_DECLS
 typedef struct _PpsJob PpsJob;
 typedef struct _PpsJobClass PpsJobClass;
 
-typedef struct _PpsJobRenderCairo PpsJobRenderCairo;
-typedef struct _PpsJobRenderCairoClass PpsJobRenderCairoClass;
-
 typedef struct _PpsJobRenderTexture PpsJobRenderTexture;
 typedef struct _PpsJobRenderTextureClass PpsJobRenderTextureClass;
 
@@ -107,13 +104,6 @@ typedef struct _PpsJobPrintClass PpsJobPrintClass;
 #define PPS_JOB_ANNOTS_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_JOB_ANNOTS, PpsJobAnnotsClass))
 #define PPS_IS_JOB_ANNOTS_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_JOB_ANNOTS))
 #define PPS_JOB_ANNOTS_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_JOB_ANNOTS, PpsJobAnnotsClass))
-
-#define PPS_TYPE_JOB_RENDER_CAIRO            (pps_job_render_cairo_get_type())
-#define PPS_JOB_RENDER_CAIRO(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_JOB_RENDER_CAIRO, PpsJobRenderCairo))
-#define PPS_IS_JOB_RENDER_CAIRO(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PPS_TYPE_JOB_RENDER_CAIRO))
-#define PPS_JOB_RENDER_CAIRO_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_JOB_RENDER_CAIRO, PpsJobRenderCairoClass))
-#define PPS_IS_JOB_RENDER_CAIRO_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_JOB_RENDER_CAIRO))
-#define PPS_JOB_RENDER_CAIRO_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_JOB_RENDER_CAIRO, PpsJobRenderCairoClass))
 
 #define PPS_TYPE_JOB_RENDER_TEXTURE            (pps_job_render_texture_get_type())
 #define PPS_JOB_RENDER_TEXTURE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_JOB_RENDER_TEXTURE, PpsJobRenderTexture))
@@ -544,23 +534,6 @@ PPS_PUBLIC
 GType           pps_job_annots_get_type      (void) G_GNUC_CONST;
 PPS_PUBLIC
 PpsJob          *pps_job_annots_new           (PpsDocument     *document);
-
-/* PpsJobRenderCairo */
-PPS_PUBLIC
-GType           pps_job_render_cairo_get_type    (void) G_GNUC_CONST;
-PPS_DEPRECATED PPS_PUBLIC
-PpsJob          *pps_job_render_cairo_new         (PpsDocument      *document,
-						 gint             page,
-						 gint             rotation,
-						 gdouble          scale,
-						 gint             width,
-						 gint             height);
-PPS_DEPRECATED PPS_PUBLIC
-void     pps_job_render_cairo_set_selection_info (PpsJobRenderCairo     *job,
-						 PpsRectangle     *selection_points,
-						 PpsSelectionStyle selection_style,
-						 GdkRGBA         *text,
-						 GdkRGBA         *base);
 
 /* PpsJobRenderTexture */
 PPS_PUBLIC

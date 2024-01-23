@@ -1064,7 +1064,7 @@ pps_pixbuf_cache_get_selection_region (PpsPixbufCache *pixbuf_cache,
 	/* If we have a running job, we just return what we have under the
 	 * assumption that it'll be updated later and we can scale it as need
 	 * be */
-	if (job_info->job && PPS_JOB_RENDER_CAIRO (job_info->job)->include_selection)
+	if (job_info->job && PPS_JOB_RENDER_TEXTURE (job_info->job)->include_selection)
 		return job_info->selection_region && !cairo_region_is_empty(job_info->selection_region) ?
                         job_info->selection_region : NULL;
 

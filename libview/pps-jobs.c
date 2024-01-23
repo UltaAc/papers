@@ -54,8 +54,6 @@ static void pps_job_attachments_init           (PpsJobAttachments         *job);
 static void pps_job_attachments_class_init     (PpsJobAttachmentsClass    *class);
 static void pps_job_annots_init                (PpsJobAnnots              *job);
 static void pps_job_annots_class_init          (PpsJobAnnotsClass         *class);
-static void pps_job_render_cairo_init          (PpsJobRenderCairo         *job);
-static void pps_job_render_cairo_class_init    (PpsJobRenderCairoClass    *class);
 static void pps_job_render_texture_init        (PpsJobRenderTexture         *job);
 static void pps_job_render_texture_class_init  (PpsJobRenderTextureClass    *class);
 static void pps_job_page_data_init             (PpsJobPageData            *job);
@@ -95,7 +93,6 @@ G_DEFINE_ABSTRACT_TYPE (PpsJob, pps_job, G_TYPE_OBJECT)
 G_DEFINE_TYPE (PpsJobLinks, pps_job_links, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobAttachments, pps_job_attachments, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobAnnots, pps_job_annots, PPS_TYPE_JOB)
-G_DEFINE_TYPE (PpsJobRenderCairo, pps_job_render_cairo, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobRenderTexture, pps_job_render_texture, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobPageData, pps_job_page_data, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobThumbnailCairo, pps_job_thumbnail_cairo, PPS_TYPE_JOB)
@@ -570,165 +567,6 @@ pps_job_annots_new (PpsDocument *document)
 
 	return job;
 }
-
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-/* PpsJobRenderCairo */
-static void
-pps_job_render_cairo_init (PpsJobRenderCairo *job)
-{
-	PPS_JOB (job)->run_mode = PPS_JOB_RUN_THREAD;
-}
-
-static void
-pps_job_render_cairo_dispose (GObject *object)
-{
-	PpsJobRenderCairo *job;
-
-	job = PPS_JOB_RENDER_CAIRO (object);
-
-	pps_debug_message (DEBUG_JOBS, "page: %d (%p)", job->page, job);
-
-	g_clear_pointer (&job->surface, cairo_surface_destroy);
-	g_clear_pointer (&job->selection, cairo_surface_destroy);
-	g_clear_pointer (&job->selection_region, cairo_region_destroy);
-
-	G_OBJECT_CLASS (pps_job_render_cairo_parent_class)->dispose (object);
-}
-
-static gboolean
-pps_job_render_cairo_run (PpsJob *job)
-{
-	PpsJobRenderCairo     *job_render = PPS_JOB_RENDER_CAIRO (job);
-	PpsPage          *pps_page;
-	PpsRenderContext *rc;
-
-	pps_debug_message (DEBUG_JOBS, "page: %d (%p)", job_render->page, job);
-	pps_profiler_start (PPS_PROFILE_JOBS, "%s (%p)", PPS_GET_TYPE_NAME (job), job);
-
-	pps_document_doc_mutex_lock ();
-
-	pps_profiler_start (PPS_PROFILE_JOBS, "Rendering page %d", job_render->page);
-
-	pps_document_fc_mutex_lock ();
-
-	pps_page = pps_document_get_page (job->document, job_render->page);
-	rc = pps_render_context_new (pps_page, job_render->rotation, job_render->scale);
-	pps_render_context_set_target_size (rc,
-					   job_render->target_width, job_render->target_height);
-	g_object_unref (pps_page);
-
-	job_render->surface = pps_document_render (job->document, rc);
-
-	if (job_render->surface == NULL ||
-	    cairo_surface_status (job_render->surface) != CAIRO_STATUS_SUCCESS) {
-		pps_document_fc_mutex_unlock ();
-		pps_document_doc_mutex_unlock ();
-		g_object_unref (rc);
-
-                if (job_render->surface != NULL) {
-                        cairo_status_t status = cairo_surface_status (job_render->surface);
-                        pps_job_failed (job,
-                                       PPS_DOCUMENT_ERROR,
-                                       PPS_DOCUMENT_ERROR_INVALID,
-                                       _("Failed to render page %d: %s"),
-                                       job_render->page,
-                                       cairo_status_to_string (status));
-                } else {
-                        pps_job_failed (job,
-                                       PPS_DOCUMENT_ERROR,
-                                       PPS_DOCUMENT_ERROR_INVALID,
-                                       _("Failed to render page %d"),
-                                       job_render->page);
-                }
-
-		return FALSE;
-	}
-
-	/* If job was cancelled during the page rendering,
-	 * we return now, so that the thread is finished ASAP
-	 */
-	if (g_cancellable_is_cancelled (job->cancellable)) {
-		pps_document_fc_mutex_unlock ();
-		pps_document_doc_mutex_unlock ();
-		g_object_unref (rc);
-
-		return FALSE;
-	}
-
-	if (job_render->include_selection && PPS_IS_SELECTION (job->document)) {
-		pps_selection_render_selection (PPS_SELECTION (job->document),
-					       rc,
-					       &(job_render->selection),
-					       &(job_render->selection_points),
-					       NULL,
-					       job_render->selection_style,
-					       &(job_render->text), &(job_render->base));
-		job_render->selection_region =
-			pps_selection_get_selection_region (PPS_SELECTION (job->document),
-							   rc,
-							   job_render->selection_style,
-							   &(job_render->selection_points));
-	}
-
-	g_object_unref (rc);
-
-	pps_document_fc_mutex_unlock ();
-	pps_document_doc_mutex_unlock ();
-
-	pps_job_succeeded (job);
-
-	return FALSE;
-}
-
-static void
-pps_job_render_cairo_class_init (PpsJobRenderCairoClass *class)
-{
-	GObjectClass *oclass = G_OBJECT_CLASS (class);
-	PpsJobClass   *job_class = PPS_JOB_CLASS (class);
-
-	oclass->dispose = pps_job_render_cairo_dispose;
-	job_class->run = pps_job_render_cairo_run;
-}
-
-PpsJob *
-pps_job_render_cairo_new (PpsDocument   *document,
-			 gint          page,
-			 gint          rotation,
-			 gdouble       scale,
-			 gint          width,
-			 gint          height)
-{
-	PpsJobRenderCairo *job;
-
-	pps_debug_message (DEBUG_JOBS, "page: %d", page);
-
-	job = g_object_new (PPS_TYPE_JOB_RENDER_CAIRO, NULL);
-
-	PPS_JOB (job)->document = g_object_ref (document);
-	job->page = page;
-	job->rotation = rotation;
-	job->scale = scale;
-	job->target_width = width;
-	job->target_height = height;
-
-	return PPS_JOB (job);
-}
-
-void
-pps_job_render_cairo_set_selection_info (PpsJobRenderCairo *job,
-					PpsRectangle      *selection_points,
-					PpsSelectionStyle  selection_style,
-					GdkRGBA          *text,
-					GdkRGBA          *base)
-{
-	job->include_selection = TRUE;
-
-	job->selection_points = *selection_points;
-	job->selection_style = selection_style;
-	job->text = *text;
-	job->base = *base;
-}
-G_GNUC_END_IGNORE_DEPRECATIONS
 
 /* PpsJobRenderTexture */
 static void
