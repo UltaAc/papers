@@ -53,9 +53,6 @@
         <child type="end">
           <object class="PpsZoomAction" id="zoom_action">
             <signal name="activated" handler="pps_toolbar_zoom_selector_activated" />
-            <accessibility>
-              <property name="label" translatable="yes">Set zoom level</property>
-            </accessibility>
           </object>
         </child>
       </object>
