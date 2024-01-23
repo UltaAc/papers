@@ -84,7 +84,7 @@ sources += gnome.compile_resources(
 
 
 libppsview = shared_library(
-  'evview-' + pps_api_version,
+  'ppsview-' + pps_api_version,
   version: pps_view_version,
   sources: sources + marshal_sources + enum_sources,
   include_directories: top_inc,

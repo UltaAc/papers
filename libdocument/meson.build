@@ -145,7 +145,7 @@ cflags = [
 ]
 
 libppsdocument = shared_library(
-  'evdocument-' + pps_api_version,
+  'ppsdocument-' + pps_api_version,
   version: pps_document_version,
   sources: sources + enum_sources + [version_header],
   include_directories: top_inc,
