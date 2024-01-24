@@ -13,6 +13,9 @@
               <object class="AdwStatusPage">
                 <property name="title" translatable="yes">No Annotations</property>
                 <property name="icon-name">x-office-document-symbolic</property>
+                <style>
+                  <class name="compact" />
+                </style>
               </object>
             </property>
           </object>
