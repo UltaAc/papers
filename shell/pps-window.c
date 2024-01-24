@@ -1757,6 +1757,7 @@ pps_window_load_job_cb (PpsJob *job,
 		pps_window_error_message (pps_window, job->error,
 					 _("Unable to open document “%s”."),
 					 display_name);
+		adw_overlay_split_view_set_show_sidebar(priv->split_view, FALSE);
 		g_free (display_name);
 		pps_window_clear_load_job (pps_window);
 	}
