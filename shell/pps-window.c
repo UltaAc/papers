@@ -109,7 +109,7 @@ typedef enum {
 typedef struct {
 	/* UI */
 	GtkWidget *stack;
-	GtkWidget *main_box;
+	GtkWidget *toolbar_view;
 	GtkWidget *toolbar;
 	GtkWidget *sidebar;
 	GtkWidget *search_box;
@@ -632,18 +632,13 @@ pps_window_set_message_area (PpsWindow  *window,
 		return;
 
 	if (priv->message_area)
-		gtk_box_remove (GTK_BOX (priv->main_box), priv->message_area);
+		adw_toolbar_view_remove (ADW_TOOLBAR_VIEW (priv->toolbar_view), priv->message_area);
 	priv->message_area = area;
 
 	if (!area)
 		return;
 
-	gtk_box_append (GTK_BOX (priv->main_box), priv->message_area);
-        /* Pack the message area right after the search bar */
-        gtk_box_reorder_child_after (GTK_BOX (priv->main_box),
-                               priv->message_area, priv->search_bar);
-	g_object_add_weak_pointer (G_OBJECT (priv->message_area),
-				   (gpointer) &(priv->message_area));
+	adw_toolbar_view_add_top_bar(ADW_TOOLBAR_VIEW (priv->toolbar_view), priv->message_area);
 }
 
 static void
@@ -6967,7 +6962,7 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 
 	gtk_widget_class_set_template_from_resource (widget_class,
 		"/org/gnome/papers/ui/window.ui");
-	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, main_box);
+	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, toolbar_view);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, toolbar);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, sidebar);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, split_view);

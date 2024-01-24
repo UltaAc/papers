@@ -63,7 +63,7 @@
             <property name="name">document</property>
             <property name="title">Document</property>
             <property name="child">
-              <object class="AdwToolbarView" id="main_box">
+              <object class="AdwToolbarView" id="toolbar_view">
                 <property name="top-bar-style">raised</property>
                 <child type="top">
                   <object class="PpsToolbar" id="toolbar">
