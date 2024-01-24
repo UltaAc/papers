@@ -77,6 +77,11 @@ cargo_doc = custom_target(
   ],
 )
 
+pps_library_path = '@0@/libview:@0@/libdocument:@0@/shell'.format(build_root)
+test_env = cargo_env
+test_env.set('DYLD_LIBRARY_PATH', pps_library_path)
+test_env.set('LD_LIBRARY_PATH', pps_library_path)
+
 test(
   'cargo-test',
   cargo,
@@ -86,7 +91,8 @@ test(
     '--',
     '--test-threads=1',
   ],
-  env: cargo_env,
+  depends: cargo_build,
+  env: test_env,
   is_parallel: false,
   timeout: 1800,
 )
