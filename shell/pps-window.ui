@@ -111,7 +111,7 @@
                 </child>
                 <property name="content">
                   <object class="AdwOverlaySplitView" id="split_view">
-                    <property name="max-sidebar-width">250</property>
+                    <property name="max-sidebar-width">300</property>
                     <signal name="notify::show-sidebar" handler="sidebar_visibility_changed_cb" />
                     <property name="sidebar">
                       <object class="PpsSidebar" id="sidebar">
