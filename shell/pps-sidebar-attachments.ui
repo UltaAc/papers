@@ -59,29 +59,6 @@
         </child>
       </object>
     </child>
-
-    <child type="end">
-      <object class="GtkBox" id="hbox">
-        <property name="orientation">horizontal</property>
-        <property name="margin-top">6</property>
-        <property name="margin-bottom">6</property>
-        <property name="margin-start">6</property>
-        <property name="margin-end">6</property>
-        <property name="halign">center</property>
-        <child>
-          <object class="GtkButton" id="add_button">
-            <property name="icon-name">list-add-symbolic</property>
-            <property name="sensitive">False</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="del_button">
-            <property name="icon-name">list-remove-symbolic</property>
-            <property name="sensitive">False</property>
-          </object>
-        </child>
-      </object>
-    </child>
   </template>
 
   <object class="GtkListStore" id="model">
