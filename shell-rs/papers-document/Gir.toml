@@ -22,6 +22,7 @@ external_libraries = [
 generate = [
     "PapersDocument.Attachment",
     "PapersDocument.DocumentAttachments",
+    "PapersDocument.DocumentLinks",
     "PapersDocument.DocumentInfoFields",
     "PapersDocument.DocumentContainsJS",
     "PapersDocument.DocumentFonts",
@@ -38,6 +39,7 @@ generate = [
     "PapersDocument.LinkDest",
     "PapersDocument.Link",
     "PapersDocument.Layer",
+    "PapersDocument.Outlines",
     "PapersDocument.TransitionEffect",
     "PapersDocument.SelectionStyle",
     "PapersDocument.TransitionEffectType",

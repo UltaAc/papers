@@ -6,11 +6,8 @@
 mod application;
 pub use self::application::Application;
 
-mod papers_application;
-pub use self::papers_application::PapersApplication;
-
-mod papers_window;
-pub use self::papers_window::PapersWindow;
+mod metadata;
+pub use self::metadata::Metadata;
 
 mod sidebar_page;
 pub use self::sidebar_page::SidebarPage;
@@ -22,8 +19,6 @@ mod enums;
 pub use self::enums::WindowRunMode;
 
 pub(crate) mod traits {
-    pub use super::papers_application::PapersApplicationExt;
-    pub use super::papers_window::PapersWindowExt;
     pub use super::sidebar_page::SidebarPageExt;
     pub use super::window::WindowExt;
 }

@@ -33,6 +33,7 @@ generate = [
     "PapersView.JobFonts",
     "PapersView.JobLoad",
     "PapersView.JobLayers",
+    "PapersView.JobLinks",
     "PapersView.JobThumbnailTexture",
 ]
 

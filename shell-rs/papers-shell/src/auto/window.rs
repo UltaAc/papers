@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::WindowRunMode;
+use crate::{Metadata, WindowRunMode};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -434,11 +434,11 @@ pub trait WindowExt: IsA<Window> + sealed::Sealed + 'static {
         }
     }
 
-    //#[doc(alias = "pps_window_get_metadata")]
-    //#[doc(alias = "get_metadata")]
-    //fn metadata(&self) -> /*Ignored*/Option<Metadata> {
-    //    unsafe { TODO: call ffi:pps_window_get_metadata() }
-    //}
+    #[doc(alias = "pps_window_get_metadata")]
+    #[doc(alias = "get_metadata")]
+    fn metadata(&self) -> Option<Metadata> {
+        unsafe { from_glib_none(ffi::pps_window_get_metadata(self.as_ref().to_glib_none().0)) }
+    }
 
     #[doc(alias = "pps_window_get_uri")]
     #[doc(alias = "get_uri")]

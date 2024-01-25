@@ -34,7 +34,7 @@ generate = [
     "PapersShell.SidebarPage",
     "PapersShell.PropertiesFonts",
     "PapersShell.PropertiesLicense",
-    #"PapersShell.Metadata",
+    "PapersShell.Metadata",
 ]
 
 manual = [

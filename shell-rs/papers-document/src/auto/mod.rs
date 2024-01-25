@@ -21,6 +21,9 @@ pub use self::document_fonts::DocumentFonts;
 mod document_layers;
 pub use self::document_layers::DocumentLayers;
 
+mod document_links;
+pub use self::document_links::DocumentLinks;
+
 mod image;
 pub use self::image::Image;
 
@@ -35,6 +38,9 @@ pub use self::link_action::LinkAction;
 
 mod link_dest;
 pub use self::link_dest::LinkDest;
+
+mod outlines;
+pub use self::outlines::Outlines;
 
 mod page;
 pub use self::page::Page;
@@ -72,8 +78,10 @@ pub(crate) mod traits {
     pub use super::document_attachments::DocumentAttachmentsExt;
     pub use super::document_fonts::DocumentFontsExt;
     pub use super::document_layers::DocumentLayersExt;
+    pub use super::document_links::DocumentLinksExt;
     pub use super::image::ImageExt;
     pub use super::layer::LayerExt;
+    pub use super::outlines::OutlinesExt;
     pub use super::selection::SelectionExt;
     pub use super::transition_effect::TransitionEffectExt;
 }

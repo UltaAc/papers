@@ -5730,20 +5730,20 @@ interface</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-links.c"
-               line="77">an #PpsLinkDest</doc>
+               line="74">an #PpsLinkDest</doc>
           <type name="LinkDest" c:type="PpsLinkDest*"/>
         </return-value>
         <parameters>
           <instance-parameter name="document_links" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-links.c"
-                 line="74">an #PpsDocumentLinks</doc>
+                 line="71">an #PpsDocumentLinks</doc>
             <type name="DocumentLinks" c:type="PpsDocumentLinks*"/>
           </instance-parameter>
           <parameter name="link_name" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-links.c"
-                 line="75">the link name</doc>
+                 line="72">the link name</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
         </parameters>
@@ -5784,8 +5784,8 @@ interface</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-links.c"
-               line="50">a #GtkTreeModel</doc>
-          <type name="Gtk.TreeModel" c:type="GtkTreeModel*"/>
+               line="50">a #GListModel</doc>
+          <type name="Gio.ListModel" c:type="GListModel*"/>
         </return-value>
         <parameters>
           <instance-parameter name="document_links" transfer-ownership="none">
@@ -5815,20 +5815,20 @@ interface</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-links.c"
-               line="77">an #PpsLinkDest</doc>
+               line="74">an #PpsLinkDest</doc>
           <type name="LinkDest" c:type="PpsLinkDest*"/>
         </return-value>
         <parameters>
           <instance-parameter name="document_links" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-links.c"
-                 line="74">an #PpsDocumentLinks</doc>
+                 line="71">an #PpsDocumentLinks</doc>
             <type name="DocumentLinks" c:type="PpsDocumentLinks*"/>
           </instance-parameter>
           <parameter name="link_name" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-links.c"
-                 line="75">the link name</doc>
+                 line="72">the link name</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
         </parameters>
@@ -5935,8 +5935,8 @@ interface</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-links.c"
-               line="50">a #GtkTreeModel</doc>
-          <type name="Gtk.TreeModel" c:type="GtkTreeModel*"/>
+               line="50">a #GListModel</doc>
+          <type name="Gio.ListModel" c:type="GListModel*"/>
         </return-value>
         <parameters>
           <instance-parameter name="document_links" transfer-ownership="none">
@@ -5989,8 +5989,8 @@ interface</doc>
           <return-value transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-links.c"
-                 line="50">a #GtkTreeModel</doc>
-            <type name="Gtk.TreeModel" c:type="GtkTreeModel*"/>
+                 line="50">a #GListModel</doc>
+            <type name="Gio.ListModel" c:type="GListModel*"/>
           </return-value>
           <parameters>
             <parameter name="document_links" transfer-ownership="none">
@@ -6026,20 +6026,20 @@ interface</doc>
           <return-value transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-links.c"
-                 line="77">an #PpsLinkDest</doc>
+                 line="74">an #PpsLinkDest</doc>
             <type name="LinkDest" c:type="PpsLinkDest*"/>
           </return-value>
           <parameters>
             <parameter name="document_links" transfer-ownership="none">
               <doc xml:space="preserve"
                    filename="libdocument/pps-document-links.c"
-                   line="74">an #PpsDocumentLinks</doc>
+                   line="71">an #PpsDocumentLinks</doc>
               <type name="DocumentLinks" c:type="PpsDocumentLinks*"/>
             </parameter>
             <parameter name="link_name" transfer-ownership="none">
               <doc xml:space="preserve"
                    filename="libdocument/pps-document-links.c"
-                   line="75">the link name</doc>
+                   line="72">the link name</doc>
               <type name="utf8" c:type="const gchar*"/>
             </parameter>
           </parameters>
@@ -9531,6 +9531,223 @@ interface</doc>
             c:type="PpsMediaClass"
             glib:is-gtype-struct-for="Media">
       <source-position filename="libdocument/pps-media.h" line="36"/>
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <class name="Outlines"
+           c:symbol-prefix="outlines"
+           c:type="PpsOutlines"
+           parent="GObject.Object"
+           glib:type-name="PpsOutlines"
+           glib:get-type="pps_outlines_get_type"
+           glib:type-struct="OutlinesClass">
+      <source-position filename="libdocument/pps-outlines.h" line="33"/>
+      <constructor name="new" c:identifier="pps_outlines_new">
+        <source-position filename="libdocument/pps-outlines.h" line="41"/>
+        <return-value transfer-ownership="full">
+          <type name="Outlines" c:type="PpsOutlines*"/>
+        </return-value>
+      </constructor>
+      <method name="get_children"
+              c:identifier="pps_outlines_get_children"
+              glib:get-property="children">
+        <source-position filename="libdocument/pps-outlines.h" line="57"/>
+        <return-value transfer-ownership="none" nullable="1">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-outlines.c"
+               line="167">The children of the outlines</doc>
+          <type name="Gio.ListModel" c:type="GListModel*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_outlines" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-outlines.c"
+                 line="165">A #PpsOutlines</doc>
+            <type name="Outlines" c:type="PpsOutlines*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_expand"
+              c:identifier="pps_outlines_get_expand"
+              glib:get-property="expand">
+        <source-position filename="libdocument/pps-outlines.h" line="59"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-outlines.c"
+               line="134">Whether the outlines should be expanded</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_outlines" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-outlines.c"
+                 line="131">A #PpsOutlines</doc>
+            <type name="Outlines" c:type="PpsOutlines*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_link"
+              c:identifier="pps_outlines_get_link"
+              glib:get-property="link">
+        <source-position filename="libdocument/pps-outlines.h" line="55"/>
+        <return-value transfer-ownership="none" nullable="1">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-outlines.c"
+               line="101">The #PpsLink of the outlines</doc>
+          <type name="Link" c:type="PpsLink*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_outlines" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-outlines.c"
+                 line="99">A #PpsOutlines</doc>
+            <type name="Outlines" c:type="PpsOutlines*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="set_children"
+              c:identifier="pps_outlines_set_children"
+              glib:set-property="children">
+        <doc xml:space="preserve"
+             filename="libdocument/pps-outlines.c"
+             line="145">Sets the 'children' property of the outlines.</doc>
+        <source-position filename="libdocument/pps-outlines.h" line="52"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_outlines" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-outlines.c"
+                 line="147">A #PpsOutlines</doc>
+            <type name="Outlines" c:type="PpsOutlines*"/>
+          </instance-parameter>
+          <parameter name="children" transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-outlines.c"
+                 line="148">The children of the outlines</doc>
+            <type name="Gio.ListModel" c:type="GListModel*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_expand"
+              c:identifier="pps_outlines_set_expand"
+              glib:set-property="expand">
+        <doc xml:space="preserve"
+             filename="libdocument/pps-outlines.c"
+             line="112">Sets the 'expand' property of the outlines.</doc>
+        <source-position filename="libdocument/pps-outlines.h" line="48"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_outlines" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-outlines.c"
+                 line="114">A #PpsOutlines</doc>
+            <type name="Outlines" c:type="PpsOutlines*"/>
+          </instance-parameter>
+          <parameter name="expand" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-outlines.c"
+                 line="115">Whether the outlines should be expanded</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_label"
+              c:identifier="pps_outlines_set_label"
+              glib:set-property="label">
+        <source-position filename="libdocument/pps-outlines.h" line="46"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_outlines" transfer-ownership="none">
+            <type name="Outlines" c:type="PpsOutlines*"/>
+          </instance-parameter>
+          <parameter name="label" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_link"
+              c:identifier="pps_outlines_set_link"
+              glib:set-property="link">
+        <source-position filename="libdocument/pps-outlines.h" line="50"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_outlines" transfer-ownership="none">
+            <type name="Outlines" c:type="PpsOutlines*"/>
+          </instance-parameter>
+          <parameter name="link" transfer-ownership="none">
+            <type name="Link" c:type="PpsLink*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_markup"
+              c:identifier="pps_outlines_set_markup"
+              glib:set-property="markup">
+        <source-position filename="libdocument/pps-outlines.h" line="44"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_outlines" transfer-ownership="none">
+            <type name="Outlines" c:type="PpsOutlines*"/>
+          </instance-parameter>
+          <parameter name="markup" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <property name="children"
+                writable="1"
+                transfer-ownership="none"
+                setter="set_children"
+                getter="get_children">
+        <type name="Gio.ListModel"/>
+      </property>
+      <property name="expand"
+                writable="1"
+                transfer-ownership="none"
+                setter="set_expand"
+                getter="get_expand"
+                default-value="FALSE">
+        <type name="gboolean" c:type="gboolean"/>
+      </property>
+      <property name="label"
+                writable="1"
+                transfer-ownership="none"
+                setter="set_label"
+                default-value="NULL">
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="link"
+                writable="1"
+                transfer-ownership="none"
+                setter="set_link"
+                getter="get_link">
+        <type name="Link"/>
+      </property>
+      <property name="markup"
+                writable="1"
+                transfer-ownership="none"
+                setter="set_markup"
+                default-value="NULL">
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <field name="parent">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+    </class>
+    <record name="OutlinesClass"
+            c:type="PpsOutlinesClass"
+            glib:is-gtype-struct-for="Outlines">
+      <source-position filename="libdocument/pps-outlines.h" line="33"/>
       <field name="parent_class">
         <type name="GObject.ObjectClass" c:type="GObjectClass"/>
       </field>
