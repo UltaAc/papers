@@ -92,3 +92,6 @@ test(
 )
 
 meson.add_devenv(cargo_env)
+meson_env = environment()
+meson_env.prepend('PATH', meson.current_build_dir())
+meson.add_devenv(meson_env)
