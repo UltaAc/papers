@@ -236,6 +236,7 @@ pps_sidebar_layers_create_tree_view (PpsSidebarLayers *pps_layers)
 	gtk_tree_selection_set_mode (gtk_tree_view_get_selection (tree_view),
 				     GTK_SELECTION_NONE);
 
+	gtk_widget_add_css_class (GTK_WIDGET (tree_view), "navigation-sidebar");
 
 	column = gtk_tree_view_column_new ();
 
