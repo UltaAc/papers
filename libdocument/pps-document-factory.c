@@ -494,10 +494,10 @@ file_filter_add_mime_types (PpsBackendInfo *info, GtkFileFilter *filter)
 
 /**
  * pps_document_factory_add_filters:
- * @chooser: a #GtkFileChooser
+ * @dialog: a #GtkFileDialog
  * @document: a #PpsDocument, or %NULL
  *
- * Adds some file filters to @chooser.
+ * Adds some file filters to @dialog.
 
  * Always add a "All documents" format.
  *
@@ -507,19 +507,20 @@ file_filter_add_mime_types (PpsBackendInfo *info, GtkFileFilter *filter)
  * can handle.
  */
 void
-pps_document_factory_add_filters (GtkFileChooser *chooser, PpsDocument *document)
+pps_document_factory_add_filters (GtkFileDialog *dialog, PpsDocument *document)
 {
 	GtkFileFilter *filter;
 	GtkFileFilter *default_filter;
 	GtkFileFilter *document_filter;
+	GListStore *filters = g_list_store_new (GTK_TYPE_FILTER);
 
-        g_return_if_fail (GTK_IS_FILE_CHOOSER (chooser));
-        g_return_if_fail (document == NULL || PPS_IS_DOCUMENT (document));
+	g_return_if_fail (GTK_IS_FILE_DIALOG (dialog));
+	g_return_if_fail (document == NULL || PPS_IS_DOCUMENT (document));
 
 	default_filter = document_filter = filter = gtk_file_filter_new ();
 	gtk_file_filter_set_name (filter, _("All Documents"));
 	g_list_foreach (pps_backends_list, (GFunc)file_filter_add_mime_types, filter);
-	gtk_file_chooser_add_filter (chooser, filter);
+	g_list_store_append(filters, filter);
 
 	if (document) {
 		PpsBackendInfo *info;
@@ -529,7 +530,7 @@ pps_document_factory_add_filters (GtkFileChooser *chooser, PpsDocument *document
 		default_filter = filter = gtk_file_filter_new ();
 		gtk_file_filter_set_name (filter, info->type_desc);
 		file_filter_add_mime_types (info, filter);
-		gtk_file_chooser_add_filter (chooser, filter);
+		g_list_store_append (filters, filter);
 	} else {
 		GList *l;
 
@@ -539,15 +540,16 @@ pps_document_factory_add_filters (GtkFileChooser *chooser, PpsDocument *document
 			default_filter = filter = gtk_file_filter_new ();
 			gtk_file_filter_set_name (filter, info->type_desc);
 			file_filter_add_mime_types (info, filter);
-			gtk_file_chooser_add_filter (chooser, filter);
+			g_list_store_append (filters, filter);
 		}
 	}
 
 	filter = gtk_file_filter_new ();
 	gtk_file_filter_set_name (filter, _("All Files"));
 	gtk_file_filter_add_pattern (filter, "*");
-	gtk_file_chooser_add_filter (chooser, filter);
+	g_list_store_append (filters, filter);
 
-	gtk_file_chooser_set_filter (chooser,
-				     document == NULL ? document_filter : default_filter);
+	gtk_file_dialog_set_filters (dialog, G_LIST_MODEL (filters));
+	gtk_file_dialog_set_default_filter (dialog,
+			document == NULL ? document_filter : default_filter);
 }

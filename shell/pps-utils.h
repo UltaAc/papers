@@ -27,7 +27,6 @@ G_BEGIN_DECLS
 
 void			pps_print_region_contents (cairo_region_t *region);
 
-void           		file_chooser_dialog_add_writable_pixbuf_formats (GtkFileChooser *chooser);
 GdkPixbufFormat* 	get_gdk_pixbuf_format_by_extension (const gchar *uri);
 gchar*                  pps_str_replace (const char *str, const char *substr, const char *repl);
 

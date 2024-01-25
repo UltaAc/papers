@@ -47,6 +47,6 @@ PpsDocument* pps_document_factory_get_document_for_fd (int fd,
                                                      GError **error);
 
 PPS_PUBLIC
-void 	    pps_document_factory_add_filters  (GtkFileChooser *chooser, PpsDocument *document);
+void 	    pps_document_factory_add_filters  (GtkFileDialog *dialog, PpsDocument *document);
 
 G_END_DECLS

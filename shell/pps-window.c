@@ -2490,9 +2490,9 @@ get_settings_key_for_directory (GUserDirectory directory)
 }
 
 static void
-pps_window_file_chooser_restore_folder (PpsWindow       *window,
-                                       GtkFileChooser *file_chooser,
-                                       GUserDirectory  directory)
+pps_window_file_dialog_restore_folder (PpsWindow       *window,
+				       GtkFileDialog   *dialog,
+				       GUserDirectory   directory)
 {
         const gchar *dir;
         gchar *folder_path;
@@ -2506,28 +2506,29 @@ pps_window_file_chooser_restore_folder (PpsWindow       *window,
         folder_path = folder_path ?: g_strdup (dir) ?: g_strdup (g_get_home_dir ());
 
         folder = g_file_new_for_path (folder_path);
-        gtk_file_chooser_set_current_folder (file_chooser, folder, NULL);
+	gtk_file_dialog_set_initial_folder (dialog, folder);
 
         g_free (folder_path);
         g_object_unref (folder);
 }
 
 static void
-pps_window_file_chooser_save_folder (PpsWindow       *window,
-                                    GtkFileChooser *file_chooser,
-                                    GUserDirectory  directory)
+pps_window_file_dialog_save_folder (PpsWindow       *window,
+				    GFile           *file,
+				    GUserDirectory   directory)
 {
         gchar *path = NULL;
-        GFile *folder;
+        GFile *folder = NULL;
 
-        folder = gtk_file_chooser_get_current_folder (file_chooser);
+	if (file)
+		folder = g_file_get_parent (file);
+
 
 	/* Store 'nothing' if the folder is the default one */
         if (folder && g_strcmp0 (g_file_get_path (folder), g_get_user_special_dir (directory)) != 0)
                 path = g_file_get_path (folder);
 
-        if (folder)
-                g_object_unref (folder);
+	g_clear_object (&folder);
 
         g_settings_set (pps_window_ensure_settings (window),
                         get_settings_key_for_directory (directory),
@@ -2536,23 +2537,20 @@ pps_window_file_chooser_save_folder (PpsWindow       *window,
 }
 
 static void
-file_open_dialog_response_cb (GtkWidget *chooser,
-			      gint       response_id,
-			      PpsWindow  *pps_window)
+file_open_dialog_response_cb (GtkFileDialog	*dialog,
+			      GAsyncResult	*result,
+			      PpsWindow		*pps_window)
 {
-	if (response_id == GTK_RESPONSE_ACCEPT) {
-		GListModel *files;
+	GListModel *files = gtk_file_dialog_open_multiple_finish (dialog, result, NULL);
 
-                pps_window_file_chooser_save_folder (pps_window, GTK_FILE_CHOOSER (chooser),
-                                                    G_USER_DIRECTORY_DOCUMENTS);
-
-		files = gtk_file_chooser_get_files (GTK_FILE_CHOOSER (chooser));
-
+	if (files) {
 		pps_application_open_uri_list (PPS_APP, files);
-                g_object_unref (files);
 	}
 
-	g_object_unref (chooser);
+	if (g_list_model_get_n_items (files))
+		pps_window_file_dialog_save_folder (pps_window,
+						     g_list_model_get_item (files, 0),
+						     G_USER_DIRECTORY_DOCUMENTS);
 }
 
 static void
@@ -2561,25 +2559,16 @@ pps_window_cmd_file_open (GSimpleAction *action,
 			 gpointer       user_data)
 {
 	PpsWindow  *window = user_data;
-	GtkFileChooserNative *chooser;
 
-	chooser = gtk_file_chooser_native_new (_("Open Document"),
-					       GTK_WINDOW (window),
-					       GTK_FILE_CHOOSER_ACTION_OPEN,
-					       _("_Open"),
-					       _("_Cancel"));
+	GtkFileDialog *dialog = gtk_file_dialog_new ();
 
-	pps_document_factory_add_filters (GTK_FILE_CHOOSER (chooser), NULL);
-	gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER (chooser), TRUE);
-
-        pps_window_file_chooser_restore_folder (window, GTK_FILE_CHOOSER (chooser),
+	gtk_file_dialog_set_modal (dialog, TRUE);
+	pps_document_factory_add_filters (dialog, NULL);
+        pps_window_file_dialog_restore_folder (window, dialog,
                                                G_USER_DIRECTORY_DOCUMENTS);
 
-	g_signal_connect (chooser, "response",
-			  G_CALLBACK (file_open_dialog_response_cb),
-			  window);
-	gtk_native_dialog_set_modal (GTK_NATIVE_DIALOG (chooser), TRUE);
-	gtk_native_dialog_show (GTK_NATIVE_DIALOG (chooser));
+	gtk_file_dialog_open_multiple (dialog, GTK_WINDOW (window), NULL,
+		(GAsyncReadyCallback)file_open_dialog_response_cb, window);
 }
 
 static void
@@ -2800,25 +2789,26 @@ pps_window_save_job_cb (PpsJob     *job,
 }
 
 static void
-file_save_dialog_response_cb (GtkWidget *fc,
-			      gint       response_id,
-			      PpsWindow  *pps_window)
+file_save_dialog_response_cb (GtkFileDialog	*dialog,
+			      GAsyncResult	*result,
+			      PpsWindow		*pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 	GFile *file;
 	gchar *uri;
 
-	if (response_id != GTK_RESPONSE_ACCEPT) {
+	file = gtk_file_dialog_save_finish (dialog, result, NULL);
+
+	if (!file) {
 		priv->close_after_save = FALSE;
-		g_object_unref (fc);
 		return;
 	}
 
-        pps_window_file_chooser_save_folder (pps_window, GTK_FILE_CHOOSER (fc),
+        pps_window_file_dialog_save_folder (pps_window, file,
                                             G_USER_DIRECTORY_DOCUMENTS);
 
-	file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (fc));
 	uri = g_file_get_uri (file);
+	g_clear_object (&file);
 
 	/* FIXME: remote copy should be done here rather than in the save job,
 	 * so that we can track progress and cancel the operation
@@ -2834,25 +2824,21 @@ file_save_dialog_response_cb (GtkWidget *fc,
 	pps_job_scheduler_push_job (priv->save_job, PPS_JOB_PRIORITY_NONE);
 
 	g_free (uri);
-	g_object_unref (fc);
 }
 
 static void
 pps_window_save_as (PpsWindow *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	GtkFileChooserNative *fc;
+	GtkFileDialog *dialog;
 	gchar *base_name, *dir_name, *var_tmp_dir, *tmp_dir;
 	GFile *file, *parent, *dest_file;
 	const gchar *default_dir, *dest_dir, *documents_dir;
 
-	fc = gtk_file_chooser_native_new (
-		_("Save As…"),
-		GTK_WINDOW (pps_window), GTK_FILE_CHOOSER_ACTION_SAVE,
-		_("_Save"),
-		_("_Cancel"));
+	dialog = gtk_file_dialog_new ();
 
-	pps_document_factory_add_filters (GTK_FILE_CHOOSER (fc), priv->document);
+	gtk_file_dialog_set_title (dialog, _("Save As…"));
+	pps_document_factory_add_filters (dialog, priv->document);
 
 	file = g_file_new_for_uri (priv->uri);
 	base_name = priv->edit_name;
@@ -2860,7 +2846,7 @@ pps_window_save_as (PpsWindow *pps_window)
 	dir_name = g_file_get_path (parent);
 	g_object_unref (parent);
 
-	gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (fc), base_name);
+	gtk_file_dialog_set_initial_name (dialog, base_name);
 
 	documents_dir = g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS);
 	default_dir = g_file_test (documents_dir, G_FILE_TEST_EXISTS | G_FILE_TEST_IS_DIR) ?
@@ -2874,8 +2860,7 @@ pps_window_save_as (PpsWindow *pps_window)
 	                    dir_name : default_dir;
 
 	dest_file = g_file_new_for_path (dest_dir);
-	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (fc),
-					     dest_file, NULL);
+	gtk_file_dialog_set_initial_folder (dialog, dest_file);
 
 	g_object_unref (file);
 	g_object_unref (dest_file);
@@ -2883,12 +2868,10 @@ pps_window_save_as (PpsWindow *pps_window)
 	g_free (var_tmp_dir);
 	g_free (dir_name);
 
-	g_signal_connect (fc, "response",
-			  G_CALLBACK (file_save_dialog_response_cb),
-			  pps_window);
+	gtk_file_dialog_set_modal (dialog, TRUE);
 
-	gtk_native_dialog_set_modal (GTK_NATIVE_DIALOG (fc), TRUE);
-	gtk_native_dialog_show (GTK_NATIVE_DIALOG (fc));
+	gtk_file_dialog_save (dialog, GTK_WINDOW (pps_window), NULL,
+			(GAsyncReadyCallback)file_save_dialog_response_cb, pps_window);
 }
 
 static void
@@ -6045,9 +6028,9 @@ create_file_from_uri_for_format (const gchar     *uri,
 }
 
 static void
-image_save_dialog_response_cb (GtkFileChooserNative *fc,
-			       gint       response_id,
-			       PpsWindow  *pps_window)
+image_save_dialog_response_cb (GtkFileDialog     *dialog,
+			       GAsyncResult      *result,
+			       PpsWindow         *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 	GFile           *target_file;
@@ -6057,26 +6040,21 @@ image_save_dialog_response_cb (GtkFileChooserNative *fc,
 	gchar           *uri;
 	gchar           *filename;
 	gchar           *file_format;
-	GdkPixbufFormat *format;
-	GtkFileFilter   *filter;
+	GdkPixbufFormat *format = NULL;
 	GFile		*file;
 
-	if (response_id != GTK_RESPONSE_ACCEPT) {
-		g_object_unref (fc);
+	file = gtk_file_dialog_save_finish (dialog, result, NULL);
+
+	if (!file)
 		return;
-	}
 
-	pps_window_file_chooser_save_folder (pps_window, GTK_FILE_CHOOSER (fc),
-                                            G_USER_DIRECTORY_PICTURES);
+	pps_window_file_dialog_save_folder (pps_window, file,
+					     G_USER_DIRECTORY_PICTURES);
 
-	file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (fc));
 	uri = g_file_get_uri (file);
-	filter = gtk_file_chooser_get_filter (GTK_FILE_CHOOSER (fc));
-	format = g_object_get_data (G_OBJECT (filter), "pixbuf-format");
+	g_clear_object (&file);
 
-	if (format == NULL) {
-		format = get_gdk_pixbuf_format_by_extension (uri);
-	}
+	format = get_gdk_pixbuf_format_by_extension (uri);
 
 	if (format == NULL && g_strrstr (uri, ".") == NULL) {
 		/* no extension found and no extension provided within uri */
@@ -6092,13 +6070,10 @@ image_save_dialog_response_cb (GtkFileChooserNative *fc,
 					 "%s",
 					 _("Couldn’t find appropriate format to save image"));
 		g_free (uri);
-		g_object_unref (fc);
-
 		return;
 	}
 
 	target_file = create_file_from_uri_for_format (uri, format);
-	g_object_unref (file);
 	g_free (uri);
 
 	is_native = g_file_is_native (target_file);
@@ -6127,8 +6102,6 @@ image_save_dialog_response_cb (GtkFileChooserNative *fc,
 		g_error_free (error);
 		g_free (filename);
 		g_object_unref (target_file);
-		g_object_unref (fc);
-
 		return;
 	}
 
@@ -6144,7 +6117,6 @@ image_save_dialog_response_cb (GtkFileChooserNative *fc,
 
 	g_free (filename);
 	g_object_unref (target_file);
-	g_object_unref (fc);
 }
 
 static void
@@ -6152,30 +6124,35 @@ pps_window_popup_cmd_save_image_as (GSimpleAction *action,
 				   GVariant      *parameter,
 				   gpointer       user_data)
 {
-	GtkFileChooserNative *fc;
 	PpsWindow  *window = user_data;
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
+	GtkFileDialog *dialog;
+	g_autoptr(GDateTime) now = NULL;
+	g_autofree gchar *initial_name =  NULL;
 
 	if (!priv->image)
 		return;
 
-	fc = gtk_file_chooser_native_new (_("Save Image"),
-					  GTK_WINDOW (window),
-					  GTK_FILE_CHOOSER_ACTION_SAVE,
-					  _("_Save"),
-					  _("_Cancel"));
+	dialog = gtk_file_dialog_new ();
 
-	file_chooser_dialog_add_writable_pixbuf_formats (GTK_FILE_CHOOSER (fc));
+	gtk_file_dialog_set_title (dialog, _("Save Image"));
+	gtk_file_dialog_set_modal (dialog, TRUE);
 
-        pps_window_file_chooser_restore_folder (window, GTK_FILE_CHOOSER (fc),
-                                               G_USER_DIRECTORY_PICTURES);
+	now = g_date_time_new_now_local ();
 
-	g_signal_connect (fc, "response",
-			  G_CALLBACK (image_save_dialog_response_cb),
-			  window);
+	/* We simply give user a default name here. The extension is not hardcoded
+	 * and we will detect the target file extension to determine the format.
+	 * We will fallback to png or jpeg when no extension is specified.
+	 */
+	initial_name = g_date_time_format (now, "%c.png");
+	gtk_file_dialog_set_initial_name (dialog, initial_name);
 
-	gtk_native_dialog_set_modal (GTK_NATIVE_DIALOG (fc), TRUE);
-	gtk_native_dialog_show (GTK_NATIVE_DIALOG (fc));
+	pps_window_file_dialog_restore_folder (window, dialog,
+					       G_USER_DIRECTORY_PICTURES);
+
+	gtk_file_dialog_save (dialog, GTK_WINDOW (window), NULL,
+			      (GAsyncReadyCallback)image_save_dialog_response_cb,
+			      window);
 }
 
 
@@ -6343,28 +6320,29 @@ pps_window_popup_cmd_open_attachment (GSimpleAction *action,
 }
 
 static void
-attachment_save_dialog_response_cb (GtkWidget *fc,
-				    gint       response_id,
-				    PpsWindow  *pps_window)
+attachment_save_dialog_response_cb (GtkFileDialog     *dialog,
+				    GAsyncResult      *result,
+				    PpsWindow         *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 	GFile                *target_file;
 	GList                *l;
-	GtkFileChooserAction  fc_action;
 	gboolean              is_dir;
 	gboolean              is_native;
 
-	if (response_id != GTK_RESPONSE_ACCEPT) {
-		g_object_unref (fc);
-		return;
+	is_dir = g_list_length (priv->attach_list) != 1;
+
+	if (is_dir) {
+		target_file = gtk_file_dialog_select_folder_finish (dialog, result, NULL);
+	} else {
+		target_file = gtk_file_dialog_save_finish (dialog, result, NULL);
 	}
 
-	pps_window_file_chooser_save_folder (pps_window, GTK_FILE_CHOOSER (fc),
-                                            G_USER_DIRECTORY_DOCUMENTS);
+	if (!target_file)
+		return;
 
-	target_file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (fc));
-	g_object_get (G_OBJECT (fc), "action", &fc_action, NULL);
-	is_dir = (fc_action == GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+	pps_window_file_dialog_save_folder (pps_window, target_file, G_USER_DIRECTORY_DOCUMENTS);
+
 	is_native = g_file_is_native (target_file);
 
 	for (l = priv->attach_list; l && l->data; l = g_list_next (l)) {
@@ -6380,7 +6358,6 @@ attachment_save_dialog_response_cb (GtkWidget *fc,
 	}
 
 	g_object_unref (target_file);
-	g_object_unref (fc);
 }
 
 static void
@@ -6388,7 +6365,7 @@ pps_window_popup_cmd_save_attachment_as (GSimpleAction *action,
 					GVariant      *parameter,
 					gpointer       user_data)
 {
-	GtkFileChooserNative    *fc;
+	GtkFileDialog *dialog;
 	PpsAttachment *attachment = NULL;
 	PpsWindow     *window = user_data;
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
@@ -6399,26 +6376,27 @@ pps_window_popup_cmd_save_attachment_as (GSimpleAction *action,
 	if (g_list_length (priv->attach_list) == 1)
 		attachment = (PpsAttachment *) priv->attach_list->data;
 
-	fc = gtk_file_chooser_native_new (
-		_("Save Attachment"),
-		GTK_WINDOW (window),
-		attachment ? GTK_FILE_CHOOSER_ACTION_SAVE : GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
-		_("_Save"),
-		_("_Cancel"));
+	dialog = gtk_file_dialog_new ();
+
+	gtk_file_dialog_set_title (dialog, _("Save Attachment"));
+	gtk_file_dialog_set_modal (dialog, TRUE);
 
 	if (attachment)
-		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (fc),
-						   pps_attachment_get_name (attachment));
+		gtk_file_dialog_set_initial_name (dialog, pps_attachment_get_name (attachment));
 
-        pps_window_file_chooser_restore_folder (window, GTK_FILE_CHOOSER (fc),
+        pps_window_file_dialog_restore_folder (window, dialog,
                                                G_USER_DIRECTORY_DOCUMENTS);
 
-	g_signal_connect (fc, "response",
-			  G_CALLBACK (attachment_save_dialog_response_cb),
-			  window);
 
-	gtk_native_dialog_set_modal (GTK_NATIVE_DIALOG (fc), TRUE);
-	gtk_native_dialog_show (GTK_NATIVE_DIALOG (fc));
+	if (attachment) {
+		gtk_file_dialog_save (dialog, GTK_WINDOW (window), NULL,
+			      (GAsyncReadyCallback)attachment_save_dialog_response_cb,
+			      window);
+	} else {
+		gtk_file_dialog_select_folder (dialog, GTK_WINDOW (window), NULL,
+			      (GAsyncReadyCallback)attachment_save_dialog_response_cb,
+			      window);
+	}
 }
 
 #ifdef ENABLE_DBUS

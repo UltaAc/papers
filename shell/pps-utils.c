@@ -56,59 +56,6 @@ pps_print_region_contents (cairo_region_t *region)
 	}
 }
 
-static void
-file_filter_add_mime_types (GdkPixbufFormat *format, GtkFileFilter *filter,
-			    GtkFileFilter   *supported_filter)
-{
-	gchar **mime_types;
-	gint i;
-
-	mime_types = gdk_pixbuf_format_get_mime_types (format);
-	for (i = 0; mime_types[i] != 0; i++) {
-		gtk_file_filter_add_mime_type (filter, mime_types[i]);
-		gtk_file_filter_add_mime_type (supported_filter, mime_types[i]);
-	}
-	g_strfreev (mime_types);
-}
-
-void
-file_chooser_dialog_add_writable_pixbuf_formats (GtkFileChooser *chooser)
-{
-	GSList *pixbuf_formats = NULL;
-	GSList *iter;
-	GtkFileFilter *filter, *supported_filter;
-
-	supported_filter = gtk_file_filter_new ();
-	gtk_file_filter_set_name (supported_filter, _("Supported Image Files"));
-	gtk_file_chooser_add_filter (chooser, supported_filter);
-
-	filter = gtk_file_filter_new ();
-	gtk_file_filter_set_name (filter, _("All Files"));
-	gtk_file_filter_add_pattern (filter, "*");
-	gtk_file_chooser_add_filter (chooser, filter);
-
-	pixbuf_formats = gdk_pixbuf_get_formats ();
-
-	for (iter = pixbuf_formats; iter; iter = iter->next) {
-		GdkPixbufFormat *format = iter->data;
-		gchar *name;
-
-		if (gdk_pixbuf_format_is_disabled (format) ||
-		    !gdk_pixbuf_format_is_writable (format))
-			continue;
-
-		filter = gtk_file_filter_new ();
-		name = gdk_pixbuf_format_get_description (format);
-		gtk_file_filter_set_name (filter, name);
-
-		file_filter_add_mime_types (format, filter, supported_filter);
-		g_object_set_data (G_OBJECT(filter), "pixbuf-format", format);
-		gtk_file_chooser_add_filter (chooser, filter);
-	}
-
-	g_slist_free (pixbuf_formats);
-}
-
 GdkPixbufFormat*
 get_gdk_pixbuf_format_by_extension (const gchar *uri)
 {
