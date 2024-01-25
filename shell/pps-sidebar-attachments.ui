@@ -55,6 +55,9 @@
                 <signal name="drop" handler="pps_sidebar_attachments_drop_cb" />
               </object>
             </child>
+            <style>
+              <class name="navigation-sidebar"/>
+            </style>
           </object>
         </child>
       </object>
