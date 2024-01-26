@@ -127,6 +127,8 @@ if pps_debug
 endif
 
 add_project_arguments(common_flags, language: 'c')
+add_project_arguments('-DI_KNOW_THE_PAPERS_LIBS_ARE_UNSTABLE_AND_HAVE_TALKED_WITH_THE_AUTHORS',
+                      language: 'c')
 
 gnome = import('gnome')
 i18n = import('i18n')

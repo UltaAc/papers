@@ -20,6 +20,10 @@
 
 #define __PPS_PAPERS_VIEW_H_INSIDE__
 
+#ifndef I_KNOW_THE_PAPERS_LIBS_ARE_UNSTABLE_AND_HAVE_TALKED_WITH_THE_AUTHORS
+#error You have to define I_KNOW_THE_PAPERS_LIBS_ARE_UNSTABLE_AND_HAVE_TALKED_WITH_THE_AUTHORS. And please! Contact the authors
+#endif
+
 #include <libview/pps-job-scheduler.h>
 #include <libview/pps-jobs.h>
 #include <libview/pps-document-model.h>
