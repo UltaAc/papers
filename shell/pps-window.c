@@ -124,6 +124,7 @@ typedef struct {
 	GtkWidget *sidebar_bookmarks;
 	GtkWidget *annots_toolbar_revealer;
 	GtkWidget *annots_toolbar;
+	GtkWidget *error_page;
 
 	AdwOverlaySplitView *split_view;
 
@@ -1663,8 +1664,6 @@ pps_window_load_job_cb (PpsJob *job,
 	PpsWindow *pps_window = PPS_WINDOW (data);
 	PpsJobLoad *job_load = PPS_JOB_LOAD (job);
 	g_autoptr (PpsDocument) document = pps_job_load_get_loaded_document (job_load);
-	gchar     *text;
-	gchar 	  *display_name;
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 	GError *error = NULL;
 
@@ -1748,14 +1747,12 @@ pps_window_load_job_cb (PpsJob *job,
 		pps_job_load_set_password (job_load, NULL);
 		pps_password_view_ask_password (PPS_PASSWORD_VIEW (priv->password_view));
 	} else {
-		text = g_uri_unescape_string (job_load->uri, NULL);
-		display_name = g_markup_escape_text (text, -1);
-		g_free (text);
-		pps_window_error_message (pps_window, error,
-					 _("Unable to open document “%s”."),
-					 display_name);
-		adw_overlay_split_view_set_show_sidebar(priv->split_view, FALSE);
-		g_free (display_name);
+		adw_status_page_set_description (ADW_STATUS_PAGE (priv->error_page), error->message);
+		pps_window_set_mode (pps_window, PPS_WINDOW_MODE_ERROR_VIEW);
+
+		pps_window_clear_local_uri (pps_window);
+		pps_application_clear_uri (PPS_APP);
+
 		pps_window_clear_load_job (pps_window);
 	}
 }
@@ -4437,6 +4434,9 @@ pps_window_set_mode (PpsWindow         *window,
 		case PPS_WINDOW_MODE_START_VIEW:
 			adw_view_stack_set_visible_child_name (ADW_VIEW_STACK (priv->stack), "start");
 			break;
+		case PPS_WINDOW_MODE_ERROR_VIEW:
+			adw_view_stack_set_visible_child_name (ADW_VIEW_STACK (priv->stack), "error");
+			break;
 		case PPS_WINDOW_MODE_PRESENTATION:
 			g_return_if_fail (priv->presentation_view != NULL);
 			adw_view_stack_set_visible_child (ADW_VIEW_STACK (priv->stack), priv->presentation_view);
@@ -6890,6 +6890,7 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, model);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, view);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, stack);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, error_page);
 
 	/* sidebar */
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_links);

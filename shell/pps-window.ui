@@ -60,6 +60,36 @@
         </child>
         <child>
           <object class="AdwViewStackPage">
+            <property name="name">error</property>
+            <property name="child">
+              <object class="AdwToolbarView">
+                <child type="top">
+                  <object class="AdwHeaderBar" />
+                </child>
+                <property name="content">
+                  <object class="AdwStatusPage" id="error_page">
+                    <property name="icon-name">dialog-error-symbolic</property>
+                    <property name="title" translatable="yes">Unable to Open Document</property>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="halign">center</property>
+                        <property name="action-name">win.open</property>
+                        <property name="label" translatable="yes">_Open Other File…</property>
+                        <property name="use-underline">True</property>
+                        <style>
+                          <class name="suggested-action" />
+                          <class name="pill" />
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwViewStackPage">
             <property name="name">document</property>
             <property name="title">Document</property>
             <property name="child">
