@@ -41,9 +41,6 @@ typedef struct _PpsJobRenderTextureClass PpsJobRenderTextureClass;
 typedef struct _PpsJobPageData PpsJobPageData;
 typedef struct _PpsJobPageDataClass PpsJobPageDataClass;
 
-typedef struct _PpsJobThumbnailCairo PpsJobThumbnailCairo;
-typedef struct _PpsJobThumbnailCairoClass PpsJobThumbnailCairoClass;
-
 typedef struct _PpsJobThumbnailTexture PpsJobThumbnailTexture;
 typedef struct _PpsJobThumbnailTextureClass PpsJobThumbnailTextureClass;
 
@@ -118,13 +115,6 @@ typedef struct _PpsJobPrintClass PpsJobPrintClass;
 #define PPS_JOB_PAGE_DATA_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_JOB_PAGE_DATA, PpsJobPageDataClass))
 #define PPS_IS_JOB_PAGE_DATA_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_JOB_PAGE_DATA))
 #define PPS_JOB_PAGE_DATA_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_JOB_PAGE_DATA, PpsJobPageDataClass))
-
-#define PPS_TYPE_JOB_THUMBNAIL_CAIRO            (pps_job_thumbnail_cairo_get_type())
-#define PPS_JOB_THUMBNAIL_CAIRO(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_JOB_THUMBNAIL_CAIRO, PpsJobThumbnailCairo))
-#define PPS_IS_JOB_THUMBNAIL_CAIRO(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PPS_TYPE_JOB_THUMBNAIL_CAIRO))
-#define PPS_JOB_THUMBNAIL_CAIRO_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_JOB_THUMBNAIL_CAIRO, PpsJobThumbnailCairoClass))
-#define PPS_IS_JOB_THUMBNAIL_CAIRO_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_JOB_THUMBNAIL_CAIRO))
-#define PPS_JOB_THUMBNAIL_CAIRO_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_JOB_THUMBNAIL_CAIRO, PpsJobThumbnailCairoClass))
 
 #define PPS_TYPE_JOB_THUMBNAIL_TEXTURE            (pps_job_thumbnail_texture_get_type())
 #define PPS_JOB_THUMBNAIL_TEXTURE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_JOB_THUMBNAIL_TEXTURE, PpsJobThumbnailTexture))
@@ -349,24 +339,6 @@ struct _PpsJobPageDataClass
 	PpsJobClass parent_class;
 };
 
-struct _PpsJobThumbnailCairo
-{
-	PpsJob parent;
-
-	gint page;
-	gint rotation;
-	gdouble scale;
-	gint target_width;
-	gint target_height;
-
-        cairo_surface_t *thumbnail_surface;
-};
-
-struct _PpsJobThumbnailCairoClass
-{
-	PpsJobClass parent_class;
-};
-
 struct _PpsJobThumbnailTexture
 {
 	PpsJob parent;
@@ -560,22 +532,6 @@ PpsJob          *pps_job_page_data_new      (PpsDocument      *document,
 					   gint             page,
 					   PpsJobPageDataFlags flags);
 
-/* PpsJobThumbnailCairo */
-PPS_DEPRECATED PPS_PUBLIC
-GType           pps_job_thumbnail_cairo_get_type      (void) G_GNUC_CONST;
-PPS_DEPRECATED PPS_PUBLIC
-PpsJob          *pps_job_thumbnail_cairo_new           (PpsDocument      *document,
-						      gint             page,
-						      gint             rotation,
-						      gdouble          scale);
-PPS_DEPRECATED PPS_PUBLIC
-PpsJob          *pps_job_thumbnail_cairo_new_with_target_size (PpsDocument *document,
-							     gint        page,
-							     gint        rotation,
-							     gint        target_width,
-							     gint        target_height);
-
-/* PpsJobThumbnailTexture */
 PPS_PUBLIC
 GType           pps_job_thumbnail_texture_get_type      (void) G_GNUC_CONST;
 PPS_PUBLIC

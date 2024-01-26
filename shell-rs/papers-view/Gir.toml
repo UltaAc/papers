@@ -30,7 +30,6 @@ generate = [
     "PapersView.JobPriority",
     "PapersView.JobFind",
     "PapersView.JobLoad",
-    "PapersView.JobThumbnailCairo",
     "PapersView.JobThumbnailTexture",
 ]
 

@@ -58,8 +58,6 @@ static void pps_job_render_texture_init        (PpsJobRenderTexture         *job
 static void pps_job_render_texture_class_init  (PpsJobRenderTextureClass    *class);
 static void pps_job_page_data_init             (PpsJobPageData            *job);
 static void pps_job_page_data_class_init       (PpsJobPageDataClass       *class);
-static void pps_job_thumbnail_cairo_init       (PpsJobThumbnailCairo      *job);
-static void pps_job_thumbnail_cairo_class_init (PpsJobThumbnailCairoClass *class);
 static void pps_job_thumbnail_texture_init       (PpsJobThumbnailTexture      *job);
 static void pps_job_thumbnail_texture_class_init (PpsJobThumbnailTextureClass *class);
 static void pps_job_load_init                  (PpsJobLoad                *job);
@@ -95,7 +93,6 @@ G_DEFINE_TYPE (PpsJobAttachments, pps_job_attachments, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobAnnots, pps_job_annots, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobRenderTexture, pps_job_render_texture, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobPageData, pps_job_page_data, PPS_TYPE_JOB)
-G_DEFINE_TYPE (PpsJobThumbnailCairo, pps_job_thumbnail_cairo, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobThumbnailTexture, pps_job_thumbnail_texture, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobFonts, pps_job_fonts, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobLoad, pps_job_load, PPS_TYPE_JOB)
@@ -855,112 +852,6 @@ pps_job_page_data_new (PpsDocument        *document,
 
 	return PPS_JOB (job);
 }
-
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-/* PpsJobThumbnailCairo */
-static void
-pps_job_thumbnail_cairo_init (PpsJobThumbnailCairo *job)
-{
-	PPS_JOB (job)->run_mode = PPS_JOB_RUN_THREAD;
-}
-
-static void
-pps_job_thumbnail_cairo_dispose (GObject *object)
-{
-	PpsJobThumbnailCairo *job;
-
-	job = PPS_JOB_THUMBNAIL_CAIRO (object);
-
-	pps_debug_message (DEBUG_JOBS, "%d (%p)", job->page, job);
-
-	g_clear_pointer (&job->thumbnail_surface, cairo_surface_destroy);
-
-	G_OBJECT_CLASS (pps_job_thumbnail_cairo_parent_class)->dispose (object);
-}
-
-static gboolean
-pps_job_thumbnail_cairo_run (PpsJob *job)
-{
-	PpsJobThumbnailCairo  *job_thumb = PPS_JOB_THUMBNAIL_CAIRO (job);
-	PpsRenderContext *rc;
-	PpsPage          *page;
-
-	pps_debug_message (DEBUG_JOBS, "%d (%p)", job_thumb->page, job);
-	pps_profiler_start (PPS_PROFILE_JOBS, "%s (%p)", PPS_GET_TYPE_NAME (job), job);
-
-	pps_document_doc_mutex_lock ();
-
-	page = pps_document_get_page (job->document, job_thumb->page);
-	rc = pps_render_context_new (page, job_thumb->rotation, job_thumb->scale);
-	pps_render_context_set_target_size (rc,
-					   job_thumb->target_width, job_thumb->target_height);
-	g_object_unref (page);
-
-	job_thumb->thumbnail_surface = pps_document_get_thumbnail_surface (job->document, rc);
-	g_object_unref (rc);
-	pps_document_doc_mutex_unlock ();
-
-	if (job_thumb->thumbnail_surface == NULL) {
-		pps_job_failed (job,
-			       PPS_DOCUMENT_ERROR,
-			       PPS_DOCUMENT_ERROR_INVALID,
-			       _("Failed to create thumbnail for page %d"),
-			       job_thumb->page);
-	} else {
-		pps_job_succeeded (job);
-	}
-
-	return FALSE;
-}
-
-static void
-pps_job_thumbnail_cairo_class_init (PpsJobThumbnailCairoClass *class)
-{
-	GObjectClass *oclass = G_OBJECT_CLASS (class);
-	PpsJobClass   *job_class = PPS_JOB_CLASS (class);
-
-	oclass->dispose = pps_job_thumbnail_cairo_dispose;
-	job_class->run = pps_job_thumbnail_cairo_run;
-}
-
-PpsJob *
-pps_job_thumbnail_cairo_new (PpsDocument *document,
-			    gint        page,
-			    gint        rotation,
-			    gdouble     scale)
-{
-	PpsJobThumbnailCairo *job;
-
-	pps_debug_message (DEBUG_JOBS, "%d", page);
-
-	job = g_object_new (PPS_TYPE_JOB_THUMBNAIL_CAIRO, NULL);
-
-	PPS_JOB (job)->document = g_object_ref (document);
-	job->page = page;
-	job->rotation = rotation;
-	job->scale = scale;
-        job->target_width = -1;
-        job->target_height = -1;
-
-	return PPS_JOB (job);
-}
-
-PpsJob *
-pps_job_thumbnail_cairo_new_with_target_size (PpsDocument *document,
-					     gint        page,
-					     gint        rotation,
-					     gint        target_width,
-					     gint        target_height)
-{
-	PpsJob *job = pps_job_thumbnail_cairo_new (document, page, rotation, 1.);
-	PpsJobThumbnailCairo  *job_thumb = PPS_JOB_THUMBNAIL_CAIRO (job);
-
-        job_thumb->target_width = target_width;
-        job_thumb->target_height = target_height;
-
-        return job;
-}
-G_GNUC_END_IGNORE_DEPRECATIONS
 
 /* PpsJobThumbnailTexture */
 static void
