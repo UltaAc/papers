@@ -244,33 +244,6 @@ struct _PpsJobAnnotsClass
 	PpsJobClass parent_class;
 };
 
-struct _PpsJobRenderCairo
-{
-	PpsJob parent;
-
-	gint page;
-	gint rotation;
-	gdouble scale;
-
-	gboolean page_ready;
-	gint target_width;
-	gint target_height;
-	cairo_surface_t *surface;
-
-	gboolean include_selection;
-	cairo_surface_t *selection;
-	cairo_region_t *selection_region;
-	PpsRectangle selection_points;
-	PpsSelectionStyle selection_style;
-	GdkRGBA base;
-	GdkRGBA text;
-};
-
-struct _PpsJobRenderCairoClass
-{
-	PpsJobClass parent_class;
-};
-
 struct _PpsJobRenderTexture
 {
 	PpsJob parent;
