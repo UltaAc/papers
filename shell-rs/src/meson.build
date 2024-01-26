@@ -12,13 +12,11 @@ cargo = find_program('cargo', required: true)
 cargo_options = [ '--manifest-path', shell_rs_root / 'Cargo.toml' ]
 cargo_options += [ '--target-dir', meson.current_build_dir() ]
 
-if not pps_debug
+if get_option('profile') == 'devel'
+  rust_target = 'debug'
+else
   cargo_options += [ '--release' ]
   rust_target = 'release'
-  message('Building in release mode')
-else
-  rust_target = 'debug'
-  message('Building in debug mode')
 endif
 
 cargo_env = environment()

@@ -493,6 +493,7 @@ endif
 
 summary({'Platform...................': pps_platform,
          'Debug mode.................': pps_debug,
+         'Rust build mode............': rust_target,
         }, section: 'General', bool_yn: true)
 summary({'Viewer.....................': enable_viewer,
          'Previewer..................': enable_previewer,
