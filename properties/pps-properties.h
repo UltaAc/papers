@@ -74,6 +74,4 @@ static const PropertyInfo properties_info[] = {
 	{ FILE_SIZE_PROPERTY,     N_("Size") }
 };
 
-char *		pps_regular_paper_size			(const PpsDocumentInfo *info);
-
 G_END_DECLS

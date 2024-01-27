@@ -55,7 +55,6 @@ papers_deps = [
   libppsmisc_dep,
   libppsdocument_dep,
   libppsview_dep,
-  libppsproperties_dep,
   libdazzle_dep,
   m_dep,
 ]

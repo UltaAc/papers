@@ -268,7 +268,7 @@ pps_properties_view_set_info (PpsPropertiesView *properties, const PpsDocumentIn
 		set_property (properties, GTK_GRID (grid), SECURITY_PROPERTY, info->security, &row);
 	}
 	if (info->fields_mask & PPS_DOCUMENT_INFO_PAPER_SIZE) {
-		text = pps_regular_paper_size (info);
+		text = pps_document_info_regular_paper_size (info);
 		set_property (properties, GTK_GRID (grid), PAPER_SIZE_PROPERTY, text, &row);
 		g_free (text);
 	}

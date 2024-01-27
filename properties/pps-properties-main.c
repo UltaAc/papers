@@ -135,7 +135,7 @@ build_properties (PpsDocument *document)
 	FIELD_SET_PROPERTY (SECURITY, info->security);
 
 	if (info->fields_mask & PPS_DOCUMENT_INFO_PAPER_SIZE) {
-		text = pps_regular_paper_size (info);
+		text = pps_document_info_regular_paper_size (info);
 		SET_PROPERTY (PAPER_SIZE, text);
 		g_free (text);
 	}

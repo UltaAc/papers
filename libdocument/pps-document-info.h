@@ -151,6 +151,8 @@ PPS_PUBLIC
 GDateTime      *pps_document_info_get_created_datetime   (const PpsDocumentInfo *info);
 PPS_PUBLIC
 GDateTime      *pps_document_info_get_modified_datetime  (const PpsDocumentInfo *info);
+PPS_PUBLIC
+char           *pps_document_info_regular_paper_size     (const PpsDocumentInfo *info);
 
 PPS_PRIVATE
 void            pps_document_info_take_created_datetime  (PpsDocumentInfo *info,
