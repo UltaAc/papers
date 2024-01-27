@@ -6,8 +6,7 @@
 use glib::translate::*;
 
 glib::wrapper! {
-    #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct DocumentInfo(Boxed<ffi::PpsDocumentInfo>);
+    pub struct DocumentInfo(BoxedInline<ffi::PpsDocumentInfo>);
 
     match fn {
         copy => |ptr| ffi::pps_document_info_copy(mut_override(ptr)),
@@ -38,6 +37,15 @@ impl DocumentInfo {
     pub fn modified_datetime(&self) -> Option<glib::DateTime> {
         unsafe {
             from_glib_none(ffi::pps_document_info_get_modified_datetime(
+                self.to_glib_none().0,
+            ))
+        }
+    }
+
+    #[doc(alias = "pps_document_info_regular_paper_size")]
+    pub fn regular_paper_size(&self) -> Option<glib::GString> {
+        unsafe {
+            from_glib_full(ffi::pps_document_info_regular_paper_size(
                 self.to_glib_none().0,
             ))
         }

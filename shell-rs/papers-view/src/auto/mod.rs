@@ -15,9 +15,6 @@ pub use self::job_find::JobFind;
 mod job_load;
 pub use self::job_load::JobLoad;
 
-mod job_thumbnail_cairo;
-pub use self::job_thumbnail_cairo::JobThumbnailCairo;
-
 mod job_thumbnail_texture;
 pub use self::job_thumbnail_texture::JobThumbnailTexture;
 

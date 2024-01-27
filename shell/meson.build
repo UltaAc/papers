@@ -92,7 +92,9 @@ headers = files(
   'pps-window.h',
   'pps-metadata.h',
   'pps-application.h',
-  'pps-sidebar-page.h'
+  'pps-sidebar-page.h',
+  'pps-properties-fonts.h',
+  'pps-properties-license.h',
 )
 
 enum_sources = gnome.mkenums_simple(

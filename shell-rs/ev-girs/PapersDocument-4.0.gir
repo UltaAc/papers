@@ -5212,7 +5212,7 @@ the given line in the source file. It must be free with g_free when done</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-info.c"
-               line="35">a new, empty #PpsDocumentInfo</doc>
+               line="42">a new, empty #PpsDocumentInfo</doc>
           <type name="DocumentInfo" c:type="PpsDocumentInfo*"/>
         </return-value>
       </constructor>
@@ -5222,14 +5222,14 @@ the given line in the source file. It must be free with g_free when done</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-info.c"
-               line="47">a copy of @info</doc>
+               line="54">a copy of @info</doc>
           <type name="DocumentInfo" c:type="PpsDocumentInfo*"/>
         </return-value>
         <parameters>
           <instance-parameter name="info" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-info.c"
-                 line="45">a #PpsDocumentInfo</doc>
+                 line="52">a #PpsDocumentInfo</doc>
             <type name="DocumentInfo" c:type="PpsDocumentInfo*"/>
           </instance-parameter>
         </parameters>
@@ -5237,7 +5237,7 @@ the given line in the source file. It must be free with g_free when done</doc>
       <method name="free" c:identifier="pps_document_info_free">
         <doc xml:space="preserve"
              filename="libdocument/pps-document-info.c"
-             line="83">Frees @info.</doc>
+             line="90">Frees @info.</doc>
         <source-position filename="libdocument/pps-document-info.h"
                          line="149"/>
         <return-value transfer-ownership="none">
@@ -5247,7 +5247,7 @@ the given line in the source file. It must be free with g_free when done</doc>
           <instance-parameter name="info" transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-info.c"
-                 line="85">a #PpsDocumentInfo</doc>
+                 line="92">a #PpsDocumentInfo</doc>
             <type name="DocumentInfo" c:type="PpsDocumentInfo*"/>
           </instance-parameter>
         </parameters>
@@ -5259,14 +5259,14 @@ the given line in the source file. It must be free with g_free when done</doc>
         <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-info.c"
-               line="134">a #GDateTime for when the document was created</doc>
+               line="141">a #GDateTime for when the document was created</doc>
           <type name="GLib.DateTime" c:type="GDateTime*"/>
         </return-value>
         <parameters>
           <instance-parameter name="info" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-info.c"
-                 line="132">a #PpsDocumentInfo</doc>
+                 line="139">a #PpsDocumentInfo</doc>
             <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
           </instance-parameter>
         </parameters>
@@ -5278,14 +5278,27 @@ the given line in the source file. It must be free with g_free when done</doc>
         <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-info.c"
-               line="167">a #GDateTime for when the document was last modified</doc>
+               line="174">a #GDateTime for when the document was last modified</doc>
           <type name="GLib.DateTime" c:type="GDateTime*"/>
         </return-value>
         <parameters>
           <instance-parameter name="info" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-info.c"
-                 line="165">a #PpsDocumentInfo</doc>
+                 line="172">a #PpsDocumentInfo</doc>
+            <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="regular_paper_size"
+              c:identifier="pps_document_info_regular_paper_size">
+        <source-position filename="libdocument/pps-document-info.h"
+                         line="155"/>
+        <return-value transfer-ownership="full">
+          <type name="utf8" c:type="char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="info" transfer-ownership="none">
             <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
           </instance-parameter>
         </parameters>
@@ -5293,7 +5306,7 @@ the given line in the source file. It must be free with g_free when done</doc>
       <method name="set_from_xmp"
               c:identifier="pps_document_info_set_from_xmp">
         <source-position filename="libdocument/pps-document-info.h"
-                         line="162"/>
+                         line="164"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -5312,7 +5325,7 @@ the given line in the source file. It must be free with g_free when done</doc>
       <method name="take_created_datetime"
               c:identifier="pps_document_info_take_created_datetime">
         <source-position filename="libdocument/pps-document-info.h"
-                         line="156"/>
+                         line="158"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -5328,7 +5341,7 @@ the given line in the source file. It must be free with g_free when done</doc>
       <method name="take_modified_datetime"
               c:identifier="pps_document_info_take_modified_datetime">
         <source-position filename="libdocument/pps-document-info.h"
-                         line="159"/>
+                         line="161"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -5759,7 +5772,7 @@ the given line in the source file. It must be free with g_free when done</doc>
             glib:type-name="PpsDocumentLicense"
             glib:get-type="pps_document_license_get_type"
             c:symbol-prefix="document_license">
-      <source-position filename="libdocument/pps-document-info.h" line="172"/>
+      <source-position filename="libdocument/pps-document-info.h" line="174"/>
       <field name="text" writable="1">
         <type name="utf8" c:type="gchar*"/>
       </field>
@@ -5771,21 +5784,21 @@ the given line in the source file. It must be free with g_free when done</doc>
       </field>
       <constructor name="new" c:identifier="pps_document_license_new">
         <source-position filename="libdocument/pps-document-info.h"
-                         line="176"/>
+                         line="178"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-info.c"
-               line="202">a new, empty #PpsDocumentLicense</doc>
+               line="321">a new, empty #PpsDocumentLicense</doc>
           <type name="DocumentLicense" c:type="PpsDocumentLicense*"/>
         </return-value>
       </constructor>
       <method name="copy" c:identifier="pps_document_license_copy">
         <source-position filename="libdocument/pps-document-info.h"
-                         line="178"/>
+                         line="180"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-info.c"
-               line="214">a copy of @license, or %NULL</doc>
+               line="333">a copy of @license, or %NULL</doc>
           <type name="DocumentLicense" c:type="PpsDocumentLicense*"/>
         </return-value>
         <parameters>
@@ -5795,7 +5808,7 @@ the given line in the source file. It must be free with g_free when done</doc>
                               allow-none="1">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-info.c"
-                 line="212">a #PpsDocumentLicense</doc>
+                 line="331">a #PpsDocumentLicense</doc>
             <type name="DocumentLicense" c:type="PpsDocumentLicense*"/>
           </instance-parameter>
         </parameters>
@@ -5803,9 +5816,9 @@ the given line in the source file. It must be free with g_free when done</doc>
       <method name="free" c:identifier="pps_document_license_free">
         <doc xml:space="preserve"
              filename="libdocument/pps-document-info.c"
-             line="236">Frees @license.</doc>
+             line="355">Frees @license.</doc>
         <source-position filename="libdocument/pps-document-info.h"
-                         line="180"/>
+                         line="182"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -5813,43 +5826,43 @@ the given line in the source file. It must be free with g_free when done</doc>
           <instance-parameter name="license" transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-info.c"
-                 line="238">a #PpsDocumentLicense</doc>
+                 line="357">a #PpsDocumentLicense</doc>
             <type name="DocumentLicense" c:type="PpsDocumentLicense*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="get_text" c:identifier="pps_document_license_get_text">
         <source-position filename="libdocument/pps-document-info.h"
-                         line="182"/>
+                         line="184"/>
         <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-info.c"
-               line="259">the license text</doc>
+               line="378">the license text</doc>
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
         <parameters>
           <instance-parameter name="license" transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-info.c"
-                 line="257">a #PpsDocumentLicense</doc>
+                 line="376">a #PpsDocumentLicense</doc>
             <type name="DocumentLicense" c:type="PpsDocumentLicense*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="get_uri" c:identifier="pps_document_license_get_uri">
         <source-position filename="libdocument/pps-document-info.h"
-                         line="184"/>
+                         line="186"/>
         <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-info.c"
-               line="271">the license URI</doc>
+               line="390">the license URI</doc>
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
         <parameters>
           <instance-parameter name="license" transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-info.c"
-                 line="269">a #PpsDocumentLicense</doc>
+                 line="388">a #PpsDocumentLicense</doc>
             <type name="DocumentLicense" c:type="PpsDocumentLicense*"/>
           </instance-parameter>
         </parameters>
@@ -5857,18 +5870,18 @@ the given line in the source file. It must be free with g_free when done</doc>
       <method name="get_web_statement"
               c:identifier="pps_document_license_get_web_statement">
         <source-position filename="libdocument/pps-document-info.h"
-                         line="186"/>
+                         line="188"/>
         <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-info.c"
-               line="283">the license web statement</doc>
+               line="402">the license web statement</doc>
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
         <parameters>
           <instance-parameter name="license" transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-info.c"
-                 line="281">a #PpsDocumentLicense</doc>
+                 line="400">a #PpsDocumentLicense</doc>
             <type name="DocumentLicense" c:type="PpsDocumentLicense*"/>
           </instance-parameter>
         </parameters>

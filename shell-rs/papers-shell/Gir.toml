@@ -32,6 +32,8 @@ generate = [
     "PapersShell.WindowRunMode",
     "PapersShell.Window",
     "PapersShell.SidebarPage",
+    "PapersShell.PropertiesFonts",
+    "PapersShell.PropertiesLicense",
     #"PapersShell.Metadata",
 ]
 
@@ -48,6 +50,7 @@ manual = [
     "PapersDocument.LinkDest",
     "PapersDocument.Document",
     "PapersDocument.Annotation",
+    "PapersDocument.DocumentLicense",
     "PapersView.DocumentModel",
     "Adw.HeaderBar",
     "Adw.Application",

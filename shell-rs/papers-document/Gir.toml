@@ -20,8 +20,10 @@ external_libraries = [
 ]
 
 generate = [
-    "PapersDocument.DocumentInfo",
     "PapersDocument.DocumentInfoFields",
+    "PapersDocument.DocumentContainsJS",
+    "PapersDocument.DocumentFonts",
+    "PapersDocument.DocumentLicense",
     #"PapersDocument.RenderContext",
     "PapersDocument.Selection",
     "PapersDocument.Annotation",
@@ -51,7 +53,7 @@ status = "generate"
 boxed_inline = true
 
 [[object]]
-name = "PapersDocument.RGBA"
+name = "PapersDocument.DocumentInfo"
 status = "generate"
 boxed_inline = true
 

@@ -9,6 +9,9 @@ pub use self::annotation::Annotation;
 mod document;
 pub use self::document::Document;
 
+mod document_fonts;
+pub use self::document_fonts::DocumentFonts;
+
 mod image;
 pub use self::image::Image;
 
@@ -33,6 +36,9 @@ pub use self::transition_effect::TransitionEffect;
 mod document_info;
 pub use self::document_info::DocumentInfo;
 
+mod document_license;
+pub use self::document_license::DocumentLicense;
+
 mod rectangle;
 pub use self::rectangle::Rectangle;
 
@@ -41,6 +47,7 @@ pub use self::source_link::SourceLink;
 
 mod enums;
 pub use self::enums::AnnotationType;
+pub use self::enums::DocumentContainsJS;
 pub use self::enums::SelectionStyle;
 pub use self::enums::TransitionEffectAlignment;
 pub use self::enums::TransitionEffectDirection;
@@ -52,6 +59,7 @@ pub use self::flags::DocumentInfoFields;
 pub(crate) mod traits {
     pub use super::annotation::AnnotationExt;
     pub use super::document::DocumentExt;
+    pub use super::document_fonts::DocumentFontsExt;
     pub use super::image::ImageExt;
     pub use super::selection::SelectionExt;
     pub use super::transition_effect::TransitionEffectExt;

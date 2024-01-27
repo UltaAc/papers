@@ -3,12 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{
-    prelude::*,
-    signal::{connect_raw, SignalHandlerId},
-    translate::*,
-};
-use std::boxed::Box as Box_;
+use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsSidebarPage")]
@@ -43,37 +38,6 @@ pub trait SidebarPageExt: IsA<SidebarPage> + sealed::Sealed + 'static {
                 self.as_ref().to_glib_none().0,
                 document.as_ref().to_glib_none().0,
             ))
-        }
-    }
-
-    #[doc(alias = "main-widget")]
-    fn main_widget(&self) -> Option<gtk::Widget> {
-        ObjectExt::property(self.as_ref(), "main-widget")
-    }
-
-    #[doc(alias = "main-widget")]
-    fn connect_main_widget_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_main_widget_trampoline<
-            P: IsA<SidebarPage>,
-            F: Fn(&P) + 'static,
-        >(
-            this: *mut ffi::PpsSidebarPage,
-            _param_spec: glib::ffi::gpointer,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(SidebarPage::from_glib_borrow(this).unsafe_cast_ref())
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"notify::main-widget\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
-                    notify_main_widget_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
         }
     }
 }
