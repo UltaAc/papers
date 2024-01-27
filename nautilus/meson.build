@@ -1,7 +1,7 @@
 if enable_nautilus
   shared_module(
-    'papers-properties-page',
-    sources: 'pps-properties-main.c',
+    'papers-document-properties',
+    sources: 'pps-nautilus-extension.c',
     include_directories: top_inc,
     dependencies: [libppsdocument_dep, libnautilus_extension_dep],
     install: true,

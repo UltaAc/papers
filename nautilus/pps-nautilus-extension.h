@@ -74,4 +74,12 @@ static const PropertyInfo properties_info[] = {
 	{ FILE_SIZE_PROPERTY,     N_("Size") }
 };
 
+#define PPS_TYPE_DOCUMENT_PROPERTIES_MODEL_PROVIDER (pps_document_properties_model_provider_get_type ())
+
+G_DECLARE_FINAL_TYPE (PpsDocumentPropertiesModelProvider,
+                      pps_document_properties_model_provider,
+                      PPS, DOCUMENT_PROPERTIES_MODEL_PROVIDER,
+                      GObject)
+
+
 G_END_DECLS

@@ -2,6 +2,7 @@
  * Copyright (C) 2000, 2001 Eazel Inc.
  * Copyright (C) 2003  Andrew Sobala <aes@gnome.org>
  * Copyright (C) 2005  Bastien Nocera <hadess@hadess.net>
+ * Copyright (C) 2024  Qiu Wenbo <qiuwenbo@kylinos.com.cn>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -32,53 +33,28 @@
 #include <string.h>
 
 #include <glib/gi18n-lib.h>
-#include <gtk/gtk.h>
-
 #include <nautilus-extension.h>
-
 #include <papers-document.h>
-#include "pps-properties.h"
 
-static GType epp_type = 0;
-static void property_page_provider_iface_init
+#include "pps-nautilus-extension.h"
+
+static void properties_model_provider_iface_init
 	(NautilusPropertiesModelProviderInterface *iface);
+
+struct _PpsDocumentPropertiesModelProvider
+{
+	GObject parent_instance;
+};
+
 static GList *pps_properties_get_models
 	(NautilusPropertiesModelProvider *provider, GList *files);
 
-static void
-pps_properties_plugin_register_type (GTypeModule *module)
-{
-	const GTypeInfo info = {
-		sizeof (GObjectClass),
-		(GBaseInitFunc) NULL,
-		(GBaseFinalizeFunc) NULL,
-		(GClassInitFunc) NULL,
-		NULL,
-		NULL,
-		sizeof (GObject),
-		0,
-		(GInstanceInitFunc) NULL
-	};
-	const GInterfaceInfo property_page_provider_iface_info = {
-		(GInterfaceInitFunc)property_page_provider_iface_init,
-		NULL,
-		NULL
-	};
-
-	epp_type = g_type_module_register_type (module, G_TYPE_OBJECT,
-			"PpsPropertiesPlugin",
-			&info, 0);
-	g_type_module_add_interface (module,
-			epp_type,
-			NAUTILUS_TYPE_PROPERTIES_MODEL_PROVIDER,
-			&property_page_provider_iface_info);
-}
-
-static void
-property_page_provider_iface_init (NautilusPropertiesModelProviderInterface *iface)
-{
-	iface->get_models = pps_properties_get_models;
-}
+G_DEFINE_DYNAMIC_TYPE_EXTENDED (PpsDocumentPropertiesModelProvider,
+                                pps_document_properties_model_provider,
+                                G_TYPE_OBJECT,
+                                0,
+                                G_IMPLEMENT_INTERFACE_DYNAMIC (NAUTILUS_TYPE_PROPERTIES_MODEL_PROVIDER,
+                                                               properties_model_provider_iface_init))
 
 static GListModel *
 build_properties (PpsDocument *document)
@@ -202,13 +178,34 @@ end:
 	return models;
 }
 
+static void
+pps_document_properties_model_provider_init (PpsDocumentPropertiesModelProvider *self)
+{
+}
+
+static void
+pps_document_properties_model_provider_class_init (PpsDocumentPropertiesModelProviderClass *klass)
+{
+}
+
+static void
+pps_document_properties_model_provider_class_finalize (PpsDocumentPropertiesModelProviderClass *klass)
+{
+}
+
+static void
+properties_model_provider_iface_init (NautilusPropertiesModelProviderInterface *iface)
+{
+	iface->get_models = pps_properties_get_models;
+}
+
 /* --- extension interface --- */
 
 PPS_PUBLIC
 void
 nautilus_module_initialize (GTypeModule *module)
 {
-	pps_properties_plugin_register_type (module);
+	pps_document_properties_model_provider_register_type (module);
 	pps_init ();
 }
 
@@ -226,7 +223,7 @@ nautilus_module_list_types (const GType **types,
 {
 	static GType type_list[1];
 
-	type_list[0] = epp_type;
+	type_list[0] = PPS_TYPE_DOCUMENT_PROPERTIES_MODEL_PROVIDER;
 	*types = type_list;
 	*num_types = G_N_ELEMENTS (type_list);
 }

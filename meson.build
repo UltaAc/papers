@@ -436,7 +436,7 @@ subdir('libdocument')
 subdir('backend')
 subdir('libview')
 subdir('libmisc')
-subdir('properties')
+subdir('nautilus')
 
 # *** Papers ***
 enable_viewer = get_option('viewer')
