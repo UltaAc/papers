@@ -11,8 +11,6 @@ papers_sources = files(
   'pps-metadata.c',
   'pps-password-view.c',
   'pps-progress-message-area.c',
-  'pps-properties-dialog.c',
-  'pps-properties-view.c',
   'pps-properties-fonts.c',
   'pps-properties-license.c',
   'pps-toolbar.c',

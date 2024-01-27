@@ -45,7 +45,7 @@ git = "https://github.com/gtk-rs/gtk4-rs"
 [dependencies.adw]
 package = "libadwaita"
 git = "https://gitlab.gnome.org/World/Rust/libadwaita-rs.git"
-features = ["v1_2"]
+features = ["v1_4"]
 
 
 [dependencies.papers_shell]

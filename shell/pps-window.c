@@ -64,7 +64,6 @@
 #include "pps-metadata.h"
 #include "pps-page-selector.h"
 #include "pps-password-view.h"
-#include "pps-properties-dialog.h"
 #include "pps-sidebar-annotations.h"
 #include "pps-sidebar-attachments.h"
 #include "pps-sidebar-bookmarks.h"
@@ -1464,8 +1463,7 @@ pps_window_setup_document (PpsWindow *pps_window)
 	pps_window_update_actions_sensitivity (pps_window);
 
 	if (priv->properties) {
-		pps_properties_dialog_set_document (PPS_PROPERTIES_DIALOG (priv->properties),
-					           priv->document);
+		g_object_set (priv->properties, "document", priv->document, NULL);
 	}
 
 	info = pps_document_get_info (document);
@@ -3566,9 +3564,8 @@ pps_window_cmd_file_properties (GSimpleAction *action,
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
 	if (priv->properties == NULL) {
-		priv->properties = GTK_WINDOW (pps_properties_dialog_new ());
-		pps_properties_dialog_set_document (PPS_PROPERTIES_DIALOG (priv->properties),
-					           priv->document);
+		priv->properties = g_object_new (g_type_from_name ("PpsPropertiesWindow"),
+						 "document", priv->document, NULL);
 		g_object_add_weak_pointer (G_OBJECT (priv->properties),
 					   (gpointer) &(priv->properties));
 		gtk_window_set_transient_for (GTK_WINDOW (priv->properties),
@@ -3576,7 +3573,7 @@ pps_window_cmd_file_properties (GSimpleAction *action,
 	}
 
 	pps_document_fc_mutex_lock ();
-	gtk_widget_set_visible (GTK_WIDGET (priv->properties), TRUE);
+	gtk_window_present (GTK_WINDOW (priv->properties));
 	pps_document_fc_mutex_unlock ();
 }
 

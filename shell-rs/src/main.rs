@@ -10,6 +10,8 @@ use config::GETTEXT_PACKAGE;
 use papers_shell::Application;
 
 mod deps;
+mod properties_general;
+mod properties_window;
 mod sidebar_thumbnails;
 mod thumbnail_item;
 mod zoom_action;
@@ -21,6 +23,8 @@ fn ensure_type() {
     // Hack: ensure type here so we don't need to add C interface
     zoom_action::PpsZoomAction::ensure_type();
     sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
+    properties_general::PpsPropertiesGeneral::ensure_type();
+    properties_window::PpsPropertiesWindow::ensure_type();
 }
 
 fn main() -> glib::ExitCode {
