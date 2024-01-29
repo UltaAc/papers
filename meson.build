@@ -146,6 +146,7 @@ gtk_req_version = '>= 4.6.0'
 libaw_req_version = '>= 1.4.0'
 libxml_req_version = '>= 2.5.0'
 exempi_req_version = '>= 2.0'
+synctex_req_version = '>= 1.19'
 
 gdk_pixbuf_dep = dependency('gdk-pixbuf-2.0', version: '>= 2.40.0')
 config_h.set_quoted('EXTRA_GDK_PIXBUF_LOADERS_DIR',
@@ -158,6 +159,7 @@ gtk_dep = dependency('gtk4', version: gtk_req_version)
 gthread_dep = dependency('gthread-2.0', version: glib_req_version)
 libaw_dep = dependency('libadwaita-1', version: libaw_req_version)
 exempi_dep = dependency('exempi-2.0', version: exempi_req_version)
+synctex_dep = dependency('synctex', version: synctex_req_version)
 
 m_dep = cc.find_library('m')
 
@@ -232,18 +234,6 @@ endif
 # *** Check for Desktop Schemas ***
 gsettings_desktop_schemas_dep = dependency('gsettings-desktop-schemas', required: false)
 config_h.set('HAVE_DESKTOP_SCHEMAS', gsettings_desktop_schemas_dep.found())
-
-# *** libsynctex ***
-if get_option('internal_synctex') == 'true'
-  external_synctex = false
-else
-  synctex_dep = dependency('synctex', version: '>= 1.19', required: false)
-  external_synctex = synctex_dep.found()
-
-  if not external_synctex and get_option('internal_synctex') == 'false'
-    error('External synctex requested but not found')
-  endif
-endif
 
 # *** Mime types list ***
 mime_types_list = {
@@ -397,7 +387,6 @@ mime_types_conf = configuration_data()
 mime_types_conf.set('PAPERS_MIME_TYPES', ';'.join(papers_mime_types))
 mime_types_conf.set('PACKAGE_ICON_NAME', app_id)
 
-subdir('cut-n-paste')
 subdir('libdocument')
 subdir('backend')
 subdir('libview')
@@ -481,5 +470,4 @@ summary({'tests......................': get_option('tests'),
          'Systemd units installation.': systemd_user_unit_dir,
          'Keyring integration........': enable_keyring,
          'GTK+ Unix print ...........': enable_gtk_unix_print,
-         'SyncTex ...................': external_synctex.to_string('external', 'internal'),
         }, section: 'Features', bool_yn: true)

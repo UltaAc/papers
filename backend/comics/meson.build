@@ -3,7 +3,7 @@ backend_sources = files(
   'pps-archive.c',
 )
 
-backend_incs = backends_common_incs + [cut_n_paste_inc]
+backend_incs = backends_common_incs
 
 backend_deps = backends_common_deps + [
   libarchive_dep,
