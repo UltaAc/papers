@@ -260,7 +260,7 @@ pps_sidebar_attachments_drag_prepare (GtkDragSource		*source,
 				     double		 	y,
                                      PpsSidebarAttachments	*pps_attachbar)
 {
-	g_autoptr (PpsAttachment) attachment;
+	g_autoptr (PpsAttachment) attachment = NULL;
 	g_autoptr (GFile)     file = NULL;
 	g_autoptr (GError)    error = NULL;
 	gchar                *template;

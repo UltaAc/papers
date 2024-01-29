@@ -1950,9 +1950,7 @@ set_uri_mtime (GFile        *source,
 		priv->uri_mtime = 0;
 		g_error_free (error);
 	} else {
-		g_autoptr(GDateTime) dt;
-
-		dt = g_file_info_get_modification_date_time (info);
+		g_autoptr(GDateTime) dt = g_file_info_get_modification_date_time (info);
 		if (dt != NULL)
 			priv->uri_mtime = g_date_time_to_unix (dt);
 		else
@@ -2423,7 +2421,7 @@ query_remote_uri_mtime_cb (GFile        *remote,
 	GFileInfo *info;
 	gint64     mtime;
 	GError    *error = NULL;
-	g_autoptr(GDateTime) dt;
+	g_autoptr(GDateTime) dt = NULL;
 
 	info = g_file_query_info_finish (remote, async_result, &error);
 	if (error) {
