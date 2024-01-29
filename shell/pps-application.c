@@ -757,6 +757,56 @@ pps_application_open_uri_list (PpsApplication *application,
 }
 
 static void
+pps_application_about_activated (GSimpleAction *action,
+				 GVariant      *parameter,
+				 gpointer       app)
+{
+	GtkWindow *window = gtk_application_get_active_window (GTK_APPLICATION (app));
+
+        const char *developers[] = {
+                "Martin Kretzschmar <m_kretzschmar@gmx.net>",
+                "Jonathan Blandford <jrb@gnome.org>",
+                "Marco Pesenti Gritti <marco@gnome.org>",
+                "Nickolay V. Shmyrev <nshmyrev@yandex.ru>",
+                "Bryan Clark <clarkbw@gnome.org>",
+                "Carlos Garcia Campos <carlosgc@gnome.org>",
+                "Wouter Bolsterlee <wbolster@gnome.org>",
+                "Christian Persch <chpe" "\100" "src.gnome.org>",
+                "Germán Poo-Caamaño <gpoo" "\100" "gnome.org>",
+                "Qiu Wenbo <crab2313" "\100" "gmail.com>",
+                "Pablo Correa Gómez <ablocorrea" "\100" "hotmail.com>",
+                NULL
+        };
+        const char *documenters[] = {
+                "Nickolay V. Shmyrev <nshmyrev@yandex.ru>",
+                "Phil Bull <philbull@gmail.com>",
+                "Tiffany Antpolski <tiffany.antopolski@gmail.com>",
+                NULL
+        };
+
+        const char **p;
+
+        for (p = developers; *p; ++p)
+                *p = _(*p);
+
+        for (p = documenters; *p; ++p)
+                *p = _(*p);
+
+        adw_show_about_window (window,
+                               "application-name", _("Papers"),
+                               "version", VERSION,
+                               "copyright", _("© 1996–2024 The Papers authors"),
+                               "license-type", GTK_LICENSE_GPL_2_0,
+                               "website", "https://wiki.gnome.org/Apps/Papers",
+                               "comments", _("Papers is a simple document viewer for GNOME"),
+                               "developers", developers,
+                               "documenters", documenters,
+                               "translator-credits", _("translator-credits"),
+                               "application-icon", APP_ID,
+                               NULL);
+}
+
+static void
 pps_application_startup (GApplication *gapplication)
 {
         const gchar *action_accels[] = {
@@ -789,9 +839,13 @@ pps_application_startup (GApplication *gapplication)
           "win.reload",                 "<Ctrl>R", NULL,
           "win.highlight-annotation",   "<Ctrl>H", NULL,
           "win.help",                   "F1", NULL,
-          "win.about",                  NULL, NULL,
+          "app.about",                  NULL, NULL,
           NULL
         };
+
+	static GActionEntry app_entries[] = {
+		{"about", pps_application_about_activated, NULL, NULL, NULL},
+	};
 
         PpsApplication *application = PPS_APPLICATION (gapplication);
         const gchar **it;
@@ -808,6 +862,9 @@ pps_application_startup (GApplication *gapplication)
 	/* Manually set name and icon */
 	g_set_application_name (_("Papers"));
 	gtk_window_set_default_icon_name (APP_ID);
+
+	g_action_map_add_action_entries (G_ACTION_MAP (application), app_entries,
+			G_N_ELEMENTS (app_entries), application);
 
         for (it = action_accels; it[0]; it += g_strv_length ((gchar **)it) + 1)
                 gtk_application_set_accels_for_action (GTK_APPLICATION (application), it[0], &it[1]);

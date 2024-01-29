@@ -3899,56 +3899,6 @@ pps_window_cmd_help (GSimpleAction *action,
 }
 
 static void
-pps_window_cmd_about (GSimpleAction *action,
-		     GVariant      *parameter,
-		     gpointer       user_data)
-{
-	PpsWindow *pps_window = user_data;
-
-        const char *developers[] = {
-                "Martin Kretzschmar <m_kretzschmar@gmx.net>",
-                "Jonathan Blandford <jrb@gnome.org>",
-                "Marco Pesenti Gritti <marco@gnome.org>",
-                "Nickolay V. Shmyrev <nshmyrev@yandex.ru>",
-                "Bryan Clark <clarkbw@gnome.org>",
-                "Carlos Garcia Campos <carlosgc@gnome.org>",
-                "Wouter Bolsterlee <wbolster@gnome.org>",
-                "Christian Persch <chpe" "\100" "src.gnome.org>",
-                "Germán Poo-Caamaño <gpoo" "\100" "gnome.org>",
-                "Qiu Wenbo <crab2313" "\100" "gmail.com>",
-                "Pablo Correa Gómez <ablocorrea" "\100" "hotmail.com>",
-                NULL
-        };
-        const char *documenters[] = {
-                "Nickolay V. Shmyrev <nshmyrev@yandex.ru>",
-                "Phil Bull <philbull@gmail.com>",
-                "Tiffany Antpolski <tiffany.antopolski@gmail.com>",
-                NULL
-        };
-
-        const char **p;
-
-        for (p = developers; *p; ++p)
-                *p = _(*p);
-
-        for (p = documenters; *p; ++p)
-                *p = _(*p);
-
-        adw_show_about_window (GTK_WINDOW (pps_window),
-                               "application-name", _("Papers"),
-                               "version", VERSION,
-                               "copyright", _("© 1996–2024 The Papers authors"),
-                               "license-type", GTK_LICENSE_GPL_2_0,
-                               "website", "https://wiki.gnome.org/Apps/Papers",
-                               "comments", _("Papers is a simple document viewer for GNOME"),
-                               "developers", developers,
-                               "documenters", documenters,
-                               "translator-credits", _("translator-credits"),
-                               "application-icon", APP_ID,
-                               NULL);
-}
-
-static void
 pps_window_focus_page_selector (PpsWindow *window)
 {
 	PpsWindowPrivate *priv;
@@ -5801,7 +5751,6 @@ static const GActionEntry actions[] = {
 	{ "add-annotation", NULL, NULL, "false", pps_window_cmd_add_annotation },
 	{ "highlight-annotation", pps_window_cmd_add_highlight_annotation },
 	{ "toggle-edit-annots", NULL, NULL, "false", pps_window_cmd_toggle_edit_annots },
-	{ "about", pps_window_cmd_about },
 	{ "help", pps_window_cmd_help },
 	/* Popups specific items */
 	{ "open-link", pps_window_popup_cmd_open_link },

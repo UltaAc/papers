@@ -140,7 +140,7 @@
       </item>
       <item>
         <attribute name="label" translatable="yes">_About Papers</attribute>
-        <attribute name="action">win.about</attribute>
+        <attribute name="action">app.about</attribute>
       </item>
     </section>
   </menu>
