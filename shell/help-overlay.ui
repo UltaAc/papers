@@ -379,7 +379,7 @@
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" context="shortcut window">Show help</property>
-                <property name="action-name">win.help</property>
+                <property name="action-name">app.help</property>
               </object>
             </child>
             <child>

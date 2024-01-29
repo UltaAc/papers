@@ -807,6 +807,17 @@ pps_application_about_activated (GSimpleAction *action,
 }
 
 static void
+pps_application_help_activated (GSimpleAction *action,
+				GVariant      *parameter,
+				gpointer       app)
+{
+	GtkWindow *window = gtk_application_get_active_window (GTK_APPLICATION (app));
+	GtkUriLauncher *launcher = gtk_uri_launcher_new ("help:papers");
+
+	gtk_uri_launcher_launch(launcher, window, NULL, NULL, NULL);
+}
+
+static void
 pps_application_startup (GApplication *gapplication)
 {
         const gchar *action_accels[] = {
@@ -838,13 +849,14 @@ pps_application_startup (GApplication *gapplication)
           "win.inverted-colors",        "<Ctrl>I", NULL,
           "win.reload",                 "<Ctrl>R", NULL,
           "win.highlight-annotation",   "<Ctrl>H", NULL,
-          "win.help",                   "F1", NULL,
+          "app.help",                   "F1", NULL,
           "app.about",                  NULL, NULL,
           NULL
         };
 
 	static GActionEntry app_entries[] = {
 		{"about", pps_application_about_activated, NULL, NULL, NULL},
+		{"help", pps_application_help_activated, NULL, NULL, NULL},
 	};
 
         PpsApplication *application = PPS_APPLICATION (gapplication);

@@ -3862,42 +3862,6 @@ pps_window_cmd_file_close_window (GSimpleAction *action,
 		gtk_window_destroy (GTK_WINDOW (pps_window));
 }
 
-/**
- * pps_window_show_help:
- * @window: the #PpsWindow
- * @topic: (allow-none): the help topic, or %NULL to show the index
- *
- * Launches the help viewer on @screen to show the papers help.
- * If @topic is %NULL, shows the help index; otherwise the topic.
- */
-static void
-pps_window_show_help (PpsWindow   *window,
-                     const char *topic)
-{
-        char *escaped_topic, *uri;
-
-        if (topic != NULL) {
-                escaped_topic = g_uri_escape_string (topic, NULL, TRUE);
-                uri = g_strdup_printf ("help:papers/%s", escaped_topic);
-                g_free (escaped_topic);
-        } else {
-                uri = g_strdup ("help:papers");
-        }
-
-        gtk_show_uri (GTK_WINDOW (window), uri, GDK_CURRENT_TIME);
-        g_free (uri);
-}
-
-static void
-pps_window_cmd_help (GSimpleAction *action,
-		    GVariant      *parameter,
-		    gpointer       user_data)
-{
-	PpsWindow *pps_window = user_data;
-
-        pps_window_show_help (pps_window, NULL);
-}
-
 static void
 pps_window_focus_page_selector (PpsWindow *window)
 {
@@ -5751,7 +5715,6 @@ static const GActionEntry actions[] = {
 	{ "add-annotation", NULL, NULL, "false", pps_window_cmd_add_annotation },
 	{ "highlight-annotation", pps_window_cmd_add_highlight_annotation },
 	{ "toggle-edit-annots", NULL, NULL, "false", pps_window_cmd_toggle_edit_annots },
-	{ "help", pps_window_cmd_help },
 	/* Popups specific items */
 	{ "open-link", pps_window_popup_cmd_open_link },
 	{ "open-link-new-window", pps_window_popup_cmd_open_link_new_window },
