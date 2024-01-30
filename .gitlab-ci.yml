@@ -106,6 +106,7 @@ flatpak:
         FLATPAK_MODULE: "papers"
         APP_ID: "org.gnome.Papers.Devel"
         BUNDLE: "org.gnome.Papers.Devel.flatpak"
+    retry: 2
 
 pages:
     extends: '.fdo.distribution-image@fedora'
