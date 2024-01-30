@@ -818,6 +818,14 @@ pps_application_help_activated (GSimpleAction *action,
 }
 
 static void
+pps_application_quit_activated (GSimpleAction *action,
+				GVariant      *parameter,
+				gpointer       app)
+{
+	g_application_quit (G_APPLICATION (app));
+}
+
+static void
 pps_application_startup (GApplication *gapplication)
 {
         const gchar *action_accels[] = {
@@ -851,12 +859,14 @@ pps_application_startup (GApplication *gapplication)
           "win.highlight-annotation",   "<Ctrl>H", NULL,
           "app.help",                   "F1", NULL,
           "app.about",                  NULL, NULL,
+          "app.quit",                  NULL, NULL,
           NULL
         };
 
 	static GActionEntry app_entries[] = {
 		{"about", pps_application_about_activated, NULL, NULL, NULL},
 		{"help", pps_application_help_activated, NULL, NULL, NULL},
+		{"quit", pps_application_quit_activated, NULL, NULL, NULL},
 	};
 
         PpsApplication *application = PPS_APPLICATION (gapplication);
