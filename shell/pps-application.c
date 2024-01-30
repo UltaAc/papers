@@ -1087,6 +1087,26 @@ pps_application_handle_local_options (GApplication *gapplication,
 }
 
 static void
+pps_application_open (GApplication	 *application,
+		      GFile		**files,
+		      gint		  n_files,
+		      const gchar	 *hint)
+{
+	guint pos;
+	const char *uri;
+
+	for (pos = 0; pos < n_files; pos++) {
+		uri = g_file_get_uri (files[pos]);
+		if (!uri)
+			continue;
+
+		pps_application_open_uri_at_dest (PPS_APPLICATION (application), uri,
+						 NULL, NULL, 0, NULL,
+						 GDK_CURRENT_TIME);
+	}
+}
+
+static void
 pps_application_class_init (PpsApplicationClass *pps_application_class)
 {
         GApplicationClass *g_application_class = G_APPLICATION_CLASS (pps_application_class);
@@ -1096,6 +1116,7 @@ pps_application_class_init (PpsApplicationClass *pps_application_class)
         g_application_class->shutdown = pps_application_shutdown;
 	g_application_class->command_line = pps_application_command_line;
 	g_application_class->handle_local_options = pps_application_handle_local_options;
+	g_application_class->open = pps_application_open;
 
 #ifdef ENABLE_DBUS
         g_application_class->dbus_register = pps_application_dbus_register;
