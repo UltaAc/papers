@@ -3,7 +3,6 @@
   <template class="PpsView" parent="GtkWidget">
     <style>
       <class name="content-view" />
-      <class name="view" />
     </style>
     <property name="has-tooltip">True</property>
     <property name="can-focus">True</property>
