@@ -157,6 +157,7 @@ mod imp {
                 .margin_bottom(6)
                 .halign(gtk::Align::Center)
                 .css_classes(css_classes)
+                .accessible_role(gtk::AccessibleRole::Presentation)
                 .build();
 
             let label = gtk::Label::builder()

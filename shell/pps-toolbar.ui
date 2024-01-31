@@ -17,9 +17,6 @@
         <child type="start">
           <object class="PpsPageSelector" id="page_selector">
             <property name="tooltip-text" translatable="yes">Select page or search in the outline</property>
-            <accessibility>
-              <property name="label" translatable="yes">Select page</property>
-            </accessibility>
           </object>
         </child>
         <child type="start">

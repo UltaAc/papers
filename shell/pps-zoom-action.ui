@@ -2,9 +2,6 @@
 <interface>
   <requires lib="gtk" version="4.0" />
   <template class="PpsZoomAction" parent="GtkBox">
-    <accessibility>
-      <property name="label" translatable="yes">Set zoom level</property>
-    </accessibility>
     <property name="orientation">vertical</property>
     <property name="tooltip-text" translatable="yes">Select or set the zoom level of the document</property>
     <child>
@@ -23,6 +20,9 @@
             <signal name="leave" handler="update_zoom_level" swapped="yes" />
           </object>
         </child>
+        <accessibility>
+          <property name="label" translatable="yes">Set zoom level</property>
+        </accessibility>
       </object>
     </child>
     <child>

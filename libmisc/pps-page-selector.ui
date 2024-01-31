@@ -9,7 +9,7 @@
     <child>
       <object class="GtkEntry" id="entry">
         <accessibility>
-          <property name="label" translatable="yes">page-label-entry</property>
+          <property name="label" translatable="yes">Select page</property>
         </accessibility>
         <property name="max-width-chars">0</property>
         <property name="width-chars">5</property>

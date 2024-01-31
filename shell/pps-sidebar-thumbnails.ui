@@ -24,6 +24,9 @@
             <style>
               <class name="navigation-sidebar" />
             </style>
+            <accessibility>
+              <property name="label" translatable="yes">Previews</property>
+            </accessibility>
           </object>
         </child>
       </object>
