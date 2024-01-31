@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <template class="PpsPropertiesWindow" parent="AdwWindow">
+    <property name="modal">True</property>
     <property name="width-request">360</property>
     <property name="height-request">294</property>
     <property name="title" translatable="yes">Properties</property>
