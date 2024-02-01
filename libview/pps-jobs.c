@@ -1040,19 +1040,14 @@ static gboolean
 pps_job_fonts_run (PpsJob *job)
 {
 	PpsDocument *document = pps_job_get_document (job);
-	gint         npages;
-	gboolean     fonts_remaining;
 
 	pps_debug_message (DEBUG_JOBS, NULL);
 	pps_profiler_start (PPS_PROFILE_JOBS, "%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
-	npages = pps_document_get_n_pages (document);
-
 	pps_document_doc_mutex_lock ();
 	pps_document_fc_mutex_lock ();
 
-	fonts_remaining = pps_document_fonts_scan (PPS_DOCUMENT_FONTS (document), npages);
-	g_assert (fonts_remaining == TRUE);
+	pps_document_fonts_scan (PPS_DOCUMENT_FONTS (document));
 
 	pps_document_fc_mutex_unlock ();
 	pps_document_doc_mutex_unlock ();

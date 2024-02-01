@@ -32,13 +32,21 @@ pps_document_fonts_default_init (PpsDocumentFontsInterface *klass)
 {
 }
 
-gboolean
-pps_document_fonts_scan (PpsDocumentFonts *document_fonts,
-			int              n_pages)
+/**
+ * pps_document_fonts_scan:
+ * @document_fonts: a #PpsDocument which implements the #PpsDocumentFonts
+ * interface
+ *
+ * Runs through the slow process of finding the fonts being used in a document.
+ * To get the results of the scan, use pps_document_fonts_fill_model and
+ * pps_document_fonts_get_fonts_summary
+ */
+void
+pps_document_fonts_scan (PpsDocumentFonts *document_fonts)
 {
 	PpsDocumentFontsInterface *iface = PPS_DOCUMENT_FONTS_GET_IFACE (document_fonts);
 
-	return iface->scan (document_fonts, n_pages);
+	iface->scan (document_fonts);
 }
 
 void

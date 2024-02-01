@@ -52,17 +52,15 @@ struct _PpsDocumentFontsInterface
 {
 	GTypeInterface base_iface;
 
-        /* Methods */
-        gboolean     (* scan)              (PpsDocumentFonts *document_fonts,
-                                            int              n_pages);
+	/* Methods */
+	void         (* scan)              (PpsDocumentFonts *document_fonts);
         void         (* fill_model)        (PpsDocumentFonts *document_fonts,
                                             GtkTreeModel    *model);
         const gchar *(* get_fonts_summary) (PpsDocumentFonts *document_fonts);
 };
 
 PPS_PUBLIC
-gboolean     pps_document_fonts_scan              (PpsDocumentFonts *document_fonts,
-                                                  int              n_pages);
+void         pps_document_fonts_scan              (PpsDocumentFonts *document_fonts);
 PPS_PUBLIC
 void         pps_document_fonts_fill_model        (PpsDocumentFonts *document_fonts,
                                                   GtkTreeModel    *model);
