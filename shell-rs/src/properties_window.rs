@@ -68,7 +68,7 @@ mod imp {
                 let has_fonts = document.dynamic_cast_ref::<DocumentFonts>().is_some();
 
                 if has_fonts {
-                    self.fonts.set_document(document);
+                    self.fonts.set_document(document.clone());
                 }
 
                 if let Some(mut license) = license {

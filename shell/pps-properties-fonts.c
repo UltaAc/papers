@@ -65,6 +65,8 @@ pps_properties_fonts_dispose (GObject *object)
 		g_clear_object (&properties->fonts_job);
 	}
 
+	g_clear_object (&properties->document);
+
 	G_OBJECT_CLASS (pps_properties_fonts_parent_class)->dispose (object);
 }
 
@@ -148,14 +150,26 @@ job_fonts_finished_cb (PpsJob *job, PpsPropertiesFonts *properties)
 	}
 }
 
+/**
+ * pps_properties_fonts_set_document:
+ * @properties: a #PpsPropertiesFonts
+ * @document: (transfer full): a #PpsDocument which implements the
+ * #PpsDocumentFonts interface
+ *
+ * Sets the document on the properties to the fonts can be scanned.
+ */
 void
 pps_properties_fonts_set_document (PpsPropertiesFonts *properties,
-				  PpsDocument        *document)
+				   PpsDocument        *document)
 {
 	GtkTreeView *tree_view = properties->fonts_treeview;
 	GtkListStore *list_store;
 
-	properties->document = document;
+	if (document == properties->document)
+		return;
+
+	g_clear_object (&properties->document);
+	properties->document = g_object_ref (document);
 
 	list_store = gtk_list_store_new (PPS_DOCUMENT_FONTS_COLUMN_NUM_COLUMNS,
 					 G_TYPE_STRING, G_TYPE_STRING);
