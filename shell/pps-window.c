@@ -711,38 +711,40 @@ pps_window_hide_loading_message (PpsWindow *window)
 	gtk_widget_set_visible (priv->loading_message, FALSE);
 }
 
-typedef struct _LinkTitleData {
-	PpsLink      *link;
-	const gchar *link_title;
-} LinkTitleData;
-
-static gboolean
-find_link_cb (GtkTreeModel  *tree_model,
-	      GtkTreePath   *path,
-	      GtkTreeIter   *iter,
-	      LinkTitleData *data)
+static const gchar *
+find_link_in_outlines (PpsOutlines *outlines, PpsLink *link)
 {
-	PpsLink *link;
+	PpsLink *outlines_link;
 	PpsLinkAction *a, *b;
-	gboolean retval = FALSE;
+	const gchar *link_title = NULL;
+	GListModel *children;
 
-	gtk_tree_model_get (tree_model, iter,
-			    PPS_DOCUMENT_LINKS_COLUMN_LINK, &link,
-			    -1);
-	if (!link)
-		return retval;
+	outlines_link = pps_outlines_get_link (outlines);
 
-	a = pps_link_get_action (data->link);
-	b = pps_link_get_action (link);
+	if (outlines_link) {
+		a = pps_link_get_action (link);
+		b = pps_link_get_action (outlines_link);
 
-	if (a && b && pps_link_action_equal (a, b)) {
-		data->link_title = pps_link_get_title (link);
-		retval = TRUE;
+		if (a && b && pps_link_action_equal (a, b)) {
+			link_title = pps_link_get_title (link);
+		}
 	}
 
-	g_object_unref (link);
+	children = pps_outlines_get_children (outlines);
 
-	return retval;
+	if (children) {
+		int n = 0;
+		PpsOutlines *child;
+
+		while ((child = g_list_model_get_item (children, n++)) != NULL) {
+			link_title = find_link_in_outlines (child, link);
+
+			if (link_title)
+				break;
+		}
+	}
+
+	return link_title;
 }
 
 static const gchar *
@@ -753,24 +755,26 @@ pps_window_find_title_for_link (PpsWindow *window,
 
 	if (PPS_IS_DOCUMENT_LINKS (priv->document) &&
 	    pps_document_links_has_document_links (PPS_DOCUMENT_LINKS (priv->document))) {
-		LinkTitleData data;
-		GtkTreeModel *model;
-
-		data.link = link;
-		data.link_title = NULL;
+		GListModel *model;
+		const gchar *link_title = NULL;
 
 		g_object_get (G_OBJECT (priv->sidebar_links),
 			      "model", &model,
 			      NULL);
 		if (model) {
-			gtk_tree_model_foreach (model,
-						(GtkTreeModelForeachFunc)find_link_cb,
-						&data);
+			int n = g_list_model_get_n_items (model);
+
+			for (int i = 0; i < n; i++) {
+				link_title = find_link_in_outlines (g_list_model_get_item (model, i), link);
+
+				if (link_title)
+					break;
+			}
 
 			g_object_unref (model);
 		}
 
-		return data.link_title;
+		return link_title;
 	}
 
 	return NULL;
@@ -6624,6 +6628,7 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, header_bar);
 
 	/* sidebar */
+	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_links);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_annots);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_bookmarks);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_layers);

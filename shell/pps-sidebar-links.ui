@@ -5,59 +5,27 @@
   <template class="PpsSidebarLinks" parent="GtkBox">
     <property name="orientation">vertical</property>
     <child type="start">
-      <object class="GtkScrolledWindow" id="swindow">
+      <object class="GtkScrolledWindow">
         <property name="halign">fill</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <property name="child">
-          <object class="GtkTreeView" id="tree_view">
-            <property name="model">list-model</property>
-            <property name="headers-visible">False</property>
-            <property name="tooltip-column">0</property>
-            <property name="enable-search">False</property>
-            <signal name="row-collapsed" handler="row_collapsed_cb" />
-            <signal name="row-expanded" handler="row_expanded_cb" />
-            <child>
-              <object class="GtkTreeViewColumn">
-                <property name="expand">True</property>
-                <child>
-                  <object class="GtkCellRendererText">
-                    <property name="ellipsize">end</property>
-                  </object>
-                  <attributes>
-                    <attribute name="markup">0</attribute>
-                  </attributes>
-                </child>
+          <object class="GtkListView" id="list_view">
+            <property name="model">
+              <object class="GtkSingleSelection" id="selection_model">
+                <property name="autoselect">False</property>
+                <signal name="selection-changed" handler="list_view_selection_changed" swapped="yes" />
               </object>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn">
-                <child>
-                  <object class="GtkCellRendererText">
-                    <property name="ellipsize">middle</property>
-                    <property name="width-chars">7</property>
-                    <property name="style">italic</property>
-                    <property name="xalign">1.0</property>
-                  </object>
-                  <attributes>
-                    <attribute name="text">3</attribute>
-                  </attributes>
-                </child>
+            </property>
+            <property name="factory">
+              <object class="GtkSignalListItemFactory">
+                <signal name="setup" handler="list_view_factory_setup" swapped="yes" />
+                <signal name="bind" handler="list_view_factory_bind" swapped="yes" />
+                <signal name="unbind" handler="list_view_factory_unbind" swapped="yes" />
               </object>
-            </child>
-            <child internal-child="selection">
-              <object class="GtkTreeSelection" id="selection">
-                <property name="mode">none</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkGestureClick">
-                <property name="button">3</property>
-                <signal name="pressed" handler="button_press_cb" />
-              </object>
-            </child>
+            </property>
             <style>
-              <class name="navigation-sidebar"/>
+              <class name="navigation-sidebar" />
             </style>
           </object>
         </property>
@@ -72,21 +40,10 @@
     </child>
   </template>
 
-  <object class="GtkListStore" id="list-model">
-    <columns>
-      <column type="gchararray" />
-      <column type="GObject" />
-      <column type="gboolean" />
-      <column type="gchararray" />
-    </columns>
-  </object>
+  <object class="GSimpleActionGroup" id="action_group" />
 
   <menu id="links-menu">
     <section>
-      <item>
-        <attribute name="label" translatable="yes">Search in the outline…</attribute>
-        <attribute name="action">links.search-outline</attribute>
-      </item>
       <item>
         <attribute name="label" translatable="yes">Collapse all tree</attribute>
         <attribute name="action">links.collapse-all</attribute>
@@ -103,7 +60,7 @@
     <section>
       <item>
         <attribute name="label" translatable="yes">Print this section…</attribute>
-        <attribute name="action">links.print</attribute>
+        <attribute name="action">links.print-section</attribute>
       </item>
     </section>
   </menu>

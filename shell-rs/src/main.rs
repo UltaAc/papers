@@ -14,6 +14,7 @@ mod properties_license;
 mod properties_window;
 mod sidebar_attachments;
 mod sidebar_layers;
+mod sidebar_links;
 mod sidebar_thumbnails;
 mod stack_switcher;
 mod thumbnail_item;
@@ -29,6 +30,8 @@ fn ensure_type() {
     properties_general::PpsPropertiesGeneral::ensure_type();
     properties_window::PpsPropertiesWindow::ensure_type();
     sidebar_attachments::PpsSidebarAttachments::ensure_type();
+    sidebar_links::PpsSidebarLinks::ensure_type();
+    sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
     sidebar_layers::PpsSidebarLayers::ensure_type();
     sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
     stack_switcher::PpsStackSwitcher::ensure_type();

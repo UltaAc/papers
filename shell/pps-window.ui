@@ -211,7 +211,7 @@
                                 </property>
                               </object>
                             </child>
-                            <!-- <child>
+                            <child>
                               <object class="GtkStackPage">
                                 <property name="name">links</property>
                                 <property name="title" translatable="yes">Outline</property>
@@ -225,7 +225,6 @@
                                 </property>
                               </object>
                             </child>
-                            -->
                             <child>
                               <object class="GtkStackPage">
                                 <property name="name">annotations</property>
