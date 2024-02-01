@@ -55,7 +55,6 @@
 #include "pps-sidebar-annotations.h"
 #include "pps-sidebar-bookmarks.h"
 #include "pps-sidebar.h"
-#include "pps-sidebar-links.h"
 #include "pps-utils.h"
 #include "pps-keyring.h"
 #include "pps-view-presentation.h"
@@ -5575,7 +5574,7 @@ static const GActionEntry actions[] = {
 };
 
 static void
-sidebar_links_link_activated_cb (PpsSidebarLinks *sidebar_links, PpsLink *link, PpsWindow *window)
+sidebar_links_link_activated_cb (void *sidebar_links, PpsLink *link, PpsWindow *window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
@@ -6466,7 +6465,6 @@ pps_window_init (PpsWindow *pps_window)
 	g_type_ensure (PPS_TYPE_SIDEBAR);
 	g_type_ensure (PPS_TYPE_SEARCH_BOX);
 	g_type_ensure (PPS_TYPE_FIND_SIDEBAR);
-	g_type_ensure (PPS_TYPE_SIDEBAR_LINKS);
 	g_type_ensure (PPS_TYPE_PASSWORD_VIEW);
 	g_type_ensure (PPS_TYPE_SIDEBAR_BOOKMARKS);
 	g_type_ensure (PPS_TYPE_PAGE_SELECTOR);
@@ -6626,7 +6624,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, header_bar);
 
 	/* sidebar */
-	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_links);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_annots);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_bookmarks);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_layers);

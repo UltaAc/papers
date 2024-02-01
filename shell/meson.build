@@ -18,7 +18,6 @@ papers_sources = files(
   'pps-sidebar-annotations.c',
   'pps-sidebar-bookmarks.c',
   'pps-sidebar.c',
-  'pps-sidebar-links.c',
   'pps-sidebar-page.c',
 )
 

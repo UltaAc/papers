@@ -55,9 +55,9 @@ shell/pps-sidebar-annotations.c
 shell/pps-sidebar-annotations.ui
 shell/pps-sidebar-bookmarks.c
 shell/pps-sidebar-bookmarks.ui
-shell/pps-sidebar-links.c
 shell/pps-sidebar-links.ui
 shell/pps-sidebar-thumbnails.ui
+shell/pps-sidebar-layers.c
 shell/pps-utils.c
 shell/pps-window.c
 shell/pps-window.ui
