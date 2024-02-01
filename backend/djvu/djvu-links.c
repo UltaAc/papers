@@ -27,6 +27,7 @@
 #include "djvu-document-private.h"
 #include "pps-document-links.h"
 #include "pps-mapping-list.h"
+#include "pps-outlines.h"
 
 static gboolean number_from_miniexp(miniexp_t sexp, int *number)
 {
@@ -181,8 +182,7 @@ str_to_utf8 (const gchar *text)
  */
 static void
 build_tree (const DjvuDocument *djvu_document,
-	    GtkTreeModel       *model,
-	    GtkTreeIter        *parent,
+	    GListStore         *model,
 	    miniexp_t           iter)
 {
 	const char *title, *link_dest;
@@ -190,7 +190,7 @@ build_tree (const DjvuDocument *djvu_document,
 
 	PpsLinkAction *pps_action = NULL;
 	PpsLink *pps_link = NULL;
-	GtkTreeIter tree_iter;
+	PpsOutlines *outlines = NULL;
 
 	if (miniexp_car (iter) == miniexp_symbol ("bookmarks")) {
 		/* The (bookmarks) cons */
@@ -214,32 +214,28 @@ build_tree (const DjvuDocument *djvu_document,
 
 		if (pps_action) {
 			pps_link = pps_link_new (utf8_title ? utf8_title : title, pps_action);
-			gtk_tree_store_append (GTK_TREE_STORE (model), &tree_iter, parent);
-			gtk_tree_store_set (GTK_TREE_STORE (model), &tree_iter,
-					    PPS_DOCUMENT_LINKS_COLUMN_MARKUP, title_markup,
-					    PPS_DOCUMENT_LINKS_COLUMN_LINK, pps_link,
-					    PPS_DOCUMENT_LINKS_COLUMN_EXPAND, FALSE,
-					    -1);
-			g_object_unref (pps_action);
-			g_object_unref (pps_link);
-		} else {
-			gtk_tree_store_append (GTK_TREE_STORE (model), &tree_iter, parent);
-			gtk_tree_store_set (GTK_TREE_STORE (model), &tree_iter,
-					    PPS_DOCUMENT_LINKS_COLUMN_MARKUP, title_markup,
-					    PPS_DOCUMENT_LINKS_COLUMN_EXPAND, FALSE,
-					    -1);
 		}
 
+		outlines = g_object_new (PPS_TYPE_OUTLINES, "markup", title_markup, "expand", FALSE, "link", link, NULL);
+		g_list_store_append(model, outlines);
+
+		g_clear_object (&pps_action);
+		g_clear_object (&pps_link);
 		g_free (title_markup);
 		g_free (utf8_title);
 		iter = miniexp_cddr (iter);
-		parent = &tree_iter;
 	} else {
 		goto unknown_entry;
 	}
 
 	for (; iter != miniexp_nil; iter = miniexp_cdr (iter)) {
-		build_tree (djvu_document, model, parent, miniexp_car (iter));
+		if (outlines) {
+			GListStore *children = g_list_store_new (PPS_TYPE_OUTLINES);
+			build_tree (djvu_document, children, miniexp_car (iter));
+			g_object_set (outlines, "children", children, NULL);
+		} else {
+			build_tree (djvu_document, model, miniexp_car (iter));
+		}
 	}
 	return;
 
@@ -452,26 +448,24 @@ djvu_links_find_link_page (PpsDocumentLinks  *document_links,
 	return page;
 }
 
-GtkTreeModel *
+GListModel *
 djvu_links_get_links_model (PpsDocumentLinks *document_links)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (document_links);
-	GtkTreeModel *model = NULL;
+	GListStore *model = NULL;
 	miniexp_t outline = miniexp_nil;
 
 	while ((outline = ddjvu_document_get_outline (djvu_document->d_document)) == miniexp_dummy)
 		djvu_handle_events (djvu_document, TRUE, NULL);
 
 	if (outline) {
-		model = (GtkTreeModel *) gtk_tree_store_new (PPS_DOCUMENT_LINKS_COLUMN_NUM_COLUMNS,
-							     G_TYPE_STRING,
-							     G_TYPE_OBJECT,
-							     G_TYPE_BOOLEAN,
-							     G_TYPE_STRING);
-		build_tree (djvu_document, model, NULL, outline);
+		model = g_list_store_new (PPS_TYPE_OUTLINES);
+		build_tree (djvu_document, model, outline);
 
 		ddjvu_miniexp_release (djvu_document->d_document, outline);
+
+		return G_LIST_MODEL (model);
 	}
 
-	return model;
+	return NULL;
 }

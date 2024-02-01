@@ -38,6 +38,7 @@
 #include "pps-document-attachments.h"
 #include "pps-document-media.h"
 #include "pps-document-text.h"
+#include "pps-outlines.h"
 #include "pps-debug.h"
 
 #include <errno.h>
@@ -362,36 +363,39 @@ pps_job_links_dispose (GObject *object)
 	(* G_OBJECT_CLASS (pps_job_links_parent_class)->dispose) (object);
 }
 
-static gboolean
-fill_page_labels (GtkTreeModel   *tree_model,
-		  GtkTreePath    *path,
-		  GtkTreeIter    *iter,
-		  PpsJob          *job)
+static void
+fill_page_labels (GListModel *model, PpsJob *job)
 {
 	PpsDocumentLinks *document_links;
 	PpsLink          *link;
-	gchar           *page_label;
+	gchar            *page_label;
+	GListModel	 *children;
+	guint items = g_list_model_get_n_items (model);
 
-	gtk_tree_model_get (tree_model, iter,
-			    PPS_DOCUMENT_LINKS_COLUMN_LINK, &link,
-			    -1);
+	for (int i = 0; i < items; i++) {
+		PpsOutlines *outlines = g_list_model_get_item(model, i);
 
-	if (!link)
-		return FALSE;
+		g_object_get (outlines, "link", &link, "children", &children, NULL);
 
-	document_links = PPS_DOCUMENT_LINKS (job->document);
-	page_label = pps_document_links_get_link_page_label (document_links, link);
-	if (!page_label)
-		return FALSE;
 
-	gtk_tree_store_set (GTK_TREE_STORE (tree_model), iter,
-			    PPS_DOCUMENT_LINKS_COLUMN_PAGE_LABEL, page_label,
-			    -1);
+		if (!link)
+			continue;;
 
-	g_free (page_label);
-	g_object_unref (link);
+		document_links = PPS_DOCUMENT_LINKS (job->document);
+		page_label = pps_document_links_get_link_page_label (document_links, link);
+		if (!page_label)
+			continue;
 
-	return FALSE;
+		g_object_set (outlines, "label", page_label, NULL);
+
+		g_free (page_label);
+		g_object_unref (link);
+
+		if (children) {
+			g_assert (G_IS_LIST_MODEL (children));
+			fill_page_labels (children, job);
+		}
+	}
 }
 
 static gboolean
@@ -406,7 +410,7 @@ pps_job_links_run (PpsJob *job)
 	job_links->model = pps_document_links_get_links_model (PPS_DOCUMENT_LINKS (job->document));
 	pps_document_doc_mutex_unlock ();
 
-	gtk_tree_model_foreach (job_links->model, (GtkTreeModelForeachFunc)fill_page_labels, job);
+	fill_page_labels (job_links->model, job);
 
 	pps_job_succeeded (job);
 
@@ -447,7 +451,7 @@ pps_job_links_new (PpsDocument *document)
  *
  * Since: 3.6
  */
-GtkTreeModel *
+GListModel *
 pps_job_links_get_model (PpsJobLinks *job)
 {
 	return job->model;

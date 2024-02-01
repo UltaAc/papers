@@ -23,7 +23,7 @@
 
 #include <glib.h>
 
-GtkTreeModel  *djvu_links_get_links_model    (PpsDocumentLinks *document_links);
+GListModel     *djvu_links_get_links_model    (PpsDocumentLinks *document_links);
 PpsMappingList *djvu_links_get_links          (PpsDocumentLinks *document_links,
 					      gint             page,
 					      double           scale_factor);

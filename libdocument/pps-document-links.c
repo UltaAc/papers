@@ -47,17 +47,14 @@ pps_document_links_has_document_links (PpsDocumentLinks *document_links)
  * pps_document_links_get_links_model:
  * @document_links: an #PpsDocumentLinks
  *
- * Returns: (transfer full): a #GtkTreeModel
+ * Returns: (transfer full): a #GListModel
  */
-GtkTreeModel *
+GListModel *
 pps_document_links_get_links_model (PpsDocumentLinks *document_links)
 {
 	PpsDocumentLinksInterface *iface = PPS_DOCUMENT_LINKS_GET_IFACE (document_links);
-	GtkTreeModel *retval;
 
-	retval = iface->get_links_model (document_links);
-
-	return retval;
+	return iface->get_links_model (document_links);
 }
 
 PpsMappingList *

@@ -57,7 +57,7 @@ struct _PpsDocumentLinksInterface
 
 	/* Methods  */
 	gboolean       (* has_document_links) (PpsDocumentLinks *document_links);
-	GtkTreeModel  *(* get_links_model)    (PpsDocumentLinks *document_links);
+	GListModel     *(* get_links_model)    (PpsDocumentLinks *document_links);
 	PpsMappingList *(* get_links)          (PpsDocumentLinks *document_links,
 					       PpsPage          *page);
 	PpsLinkDest    *(* find_link_dest)     (PpsDocumentLinks *document_links,
@@ -69,7 +69,7 @@ struct _PpsDocumentLinksInterface
 PPS_PUBLIC
 gboolean       pps_document_links_has_document_links  (PpsDocumentLinks *document_links);
 PPS_PUBLIC
-GtkTreeModel  *pps_document_links_get_links_model     (PpsDocumentLinks *document_links);
+GListModel    *pps_document_links_get_links_model     (PpsDocumentLinks *document_links);
 
 PPS_PUBLIC
 PpsMappingList *pps_document_links_get_links           (PpsDocumentLinks *document_links,

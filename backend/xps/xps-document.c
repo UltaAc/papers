@@ -26,6 +26,7 @@
 #include "pps-document-links.h"
 #include "pps-document-print.h"
 #include "pps-document-misc.h"
+#include "pps-outlines.h"
 
 struct _XPSDocument {
 	PpsDocument    object;
@@ -340,17 +341,17 @@ link_action_from_target (XPSDocument    *xps_document,
 
 static void
 build_tree (XPSDocument     *xps_document,
-	    GtkTreeModel    *model,
-	    GtkTreeIter     *parent,
+	    GListStore      *model,
 	    GXPSOutlineIter *iter)
 {
 	do {
-		GtkTreeIter     tree_iter;
 		GXPSOutlineIter child_iter;
                 PpsLinkAction   *action;
 		PpsLink         *link;
 		GXPSLinkTarget *target;
 		gchar          *title;
+		PpsOutlines    *outlines;
+		GListStore     *children = NULL;
 
 		target = gxps_outline_iter_get_target (iter);
 		title = g_markup_escape_text (gxps_outline_iter_get_description (iter), -1);
@@ -359,44 +360,41 @@ build_tree (XPSDocument     *xps_document,
                 g_object_unref (action);
 		gxps_link_target_free (target);
 
-		gtk_tree_store_append (GTK_TREE_STORE (model), &tree_iter, parent);
-		gtk_tree_store_set (GTK_TREE_STORE (model), &tree_iter,
-				    PPS_DOCUMENT_LINKS_COLUMN_MARKUP, title,
-				    PPS_DOCUMENT_LINKS_COLUMN_LINK, link,
-				    PPS_DOCUMENT_LINKS_COLUMN_EXPAND, FALSE,
-				    -1);
+		outlines = g_object_new (PPS_TYPE_OUTLINES, "markup", title, "expand", FALSE, "link", link, NULL);
+		g_list_store_append(model, outlines);
+
 		g_object_unref (link);
 		g_free (title);
 
-		if (gxps_outline_iter_children (&child_iter, iter))
-			build_tree (xps_document, model, &tree_iter, &child_iter);
+		if (gxps_outline_iter_children (&child_iter, iter)) {
+			children = g_list_store_new (PPS_TYPE_OUTLINES);
+			build_tree (xps_document, children, &child_iter);
+		}
+
+		g_object_set (outlines, "children", children, NULL);
 	} while (gxps_outline_iter_next (iter));
 }
 
-static GtkTreeModel *
+static GListModel *
 xps_document_links_get_links_model (PpsDocumentLinks *document_links)
 {
 	XPSDocument           *xps_document = XPS_DOCUMENT (document_links);
 	GXPSDocumentStructure *structure;
 	GXPSOutlineIter        iter;
-	GtkTreeModel          *model = NULL;
+	GListStore            *model = NULL;
 
 	structure = gxps_document_get_structure (xps_document->doc);
 	if (!structure)
 		return NULL;
 
 	if (gxps_document_structure_outline_iter_init (&iter, structure)) {
-		model = (GtkTreeModel *) gtk_tree_store_new (PPS_DOCUMENT_LINKS_COLUMN_NUM_COLUMNS,
-							     G_TYPE_STRING,
-							     G_TYPE_OBJECT,
-							     G_TYPE_BOOLEAN,
-							     G_TYPE_STRING);
-		build_tree (xps_document, model, NULL, &iter);
+		model = g_list_store_new (PPS_TYPE_OUTLINES);
+		build_tree (xps_document, model, &iter);
 	}
 
 	g_object_unref (structure);
 
-	return model;
+	return G_LIST_MODEL (model);
 }
 
 static PpsMappingList *

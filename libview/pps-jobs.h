@@ -206,7 +206,7 @@ struct _PpsJobLinks
 {
 	PpsJob parent;
 
-	GtkTreeModel *model;
+	GListModel *model;
 };
 
 struct _PpsJobLinksClass
@@ -455,7 +455,7 @@ GType           pps_job_links_get_type     (void) G_GNUC_CONST;
 PPS_PUBLIC
 PpsJob          *pps_job_links_new          (PpsDocument     *document);
 PPS_PUBLIC
-GtkTreeModel   *pps_job_links_get_model    (PpsJobLinks     *job);
+GListModel      *pps_job_links_get_model    (PpsJobLinks     *job);
 
 /* PpsJobAttachments */
 PPS_PUBLIC

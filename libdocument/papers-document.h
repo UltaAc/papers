@@ -57,6 +57,7 @@
 #include <libdocument/pps-macros.h>
 #include <libdocument/pps-mapping-list.h>
 #include <libdocument/pps-media.h>
+#include <libdocument/pps-outlines.h>
 #include <libdocument/pps-page.h>
 #include <libdocument/pps-render-context.h>
 #include <libdocument/pps-selection.h>

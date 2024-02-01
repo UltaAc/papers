@@ -20,6 +20,7 @@
  */
 
 #include "config.h"
+#include "pps-outlines.h"
 
 #include <math.h>
 #include <string.h>
@@ -1255,15 +1256,15 @@ pps_link_from_action (PdfDocument   *pdf_document,
 
 static void
 build_tree (PdfDocument      *pdf_document,
-	    GtkTreeModel     *model,
-	    GtkTreeIter      *parent,
+	    GListStore       *model,
 	    PopplerIndexIter *iter)
 {
 
 	do {
-		GtkTreeIter tree_iter;
 		PopplerIndexIter *child;
 		PopplerAction *action;
+		PpsOutlines *outlines;
+		GListStore *children = NULL;
 		PpsLink *link = NULL;
 		gboolean expand;
 		char *title_markup;
@@ -1283,32 +1284,33 @@ build_tree (PdfDocument      *pdf_document,
 			continue;
 		}
 
-		gtk_tree_store_append (GTK_TREE_STORE (model), &tree_iter, parent);
 		title_markup = g_markup_escape_text (pps_link_get_title (link), -1);
 
-		gtk_tree_store_set (GTK_TREE_STORE (model), &tree_iter,
-				    PPS_DOCUMENT_LINKS_COLUMN_MARKUP, title_markup,
-				    PPS_DOCUMENT_LINKS_COLUMN_LINK, link,
-				    PPS_DOCUMENT_LINKS_COLUMN_EXPAND, expand,
-				    -1);
+		outlines = g_object_new (PPS_TYPE_OUTLINES, "markup", title_markup, "expand", expand, "link", link, NULL);
+
+		g_list_store_append(model, outlines);
 
 		g_free (title_markup);
 		g_object_unref (link);
 
 		child = poppler_index_iter_get_child (iter);
-		if (child)
-			build_tree (pdf_document, model, &tree_iter, child);
+		if (child) {
+			children = g_list_store_new (PPS_TYPE_OUTLINES);
+			build_tree (pdf_document, children, child);
+		}
+
+		g_object_set (outlines, "children", children, NULL);
 		poppler_index_iter_free (child);
 		poppler_action_free (action);
 
 	} while (poppler_index_iter_next (iter));
 }
 
-static GtkTreeModel *
+static GListModel *
 pdf_document_links_get_links_model (PpsDocumentLinks *document_links)
 {
 	PdfDocument *pdf_document = PDF_DOCUMENT (document_links);
-	GtkTreeModel *model = NULL;
+	GListStore *model = NULL;
 	PopplerIndexIter *iter;
 
 	g_return_val_if_fail (PDF_IS_DOCUMENT (document_links), NULL);
@@ -1316,16 +1318,15 @@ pdf_document_links_get_links_model (PpsDocumentLinks *document_links)
 	iter = poppler_index_iter_new (pdf_document->document);
 	/* Create the model if we have items*/
 	if (iter != NULL) {
-		model = (GtkTreeModel *) gtk_tree_store_new (PPS_DOCUMENT_LINKS_COLUMN_NUM_COLUMNS,
-							     G_TYPE_STRING,
-							     G_TYPE_OBJECT,
-							     G_TYPE_BOOLEAN,
-							     G_TYPE_STRING);
-		build_tree (pdf_document, model, NULL, iter);
+		model = g_list_store_new (PPS_TYPE_OUTLINES);
+
+		build_tree (pdf_document, model, iter);
 		poppler_index_iter_free (iter);
+
+		return G_LIST_MODEL (model);
 	}
 
-	return model;
+	return NULL;
 }
 
 static PpsMappingList *
