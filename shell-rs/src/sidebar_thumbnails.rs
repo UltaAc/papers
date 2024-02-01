@@ -39,6 +39,7 @@ mod imp {
         /// model index between page index due to support of this mode.
         #[property(set, get)]
         pub(super) blank_head: Cell<bool>,
+        pub(super) stop_change_page: Cell<bool>,
         pub(super) lru: RefCell<Option<LruCache<u32, PpsThumbnailItem>>>,
     }
 
@@ -112,7 +113,11 @@ mod imp {
             }));
 
             model.connect_page_changed(glib::clone!(@weak obj => move |_, _, new| {
+                debug!("page changed callback {new}");
+
+                obj.imp().stop_change_page.set(true);
                 obj.imp().set_current_page(new);
+                obj.imp().stop_change_page.set(false);
             }));
 
             model.connect_inverted_colors_notify(glib::clone!(@weak obj => move |_| {
@@ -268,6 +273,10 @@ mod imp {
             _pspec: &glib::ParamSpec,
             selection: &gtk::SingleSelection,
         ) {
+            if self.stop_change_page.get() {
+                return;
+            }
+
             if let Some(model) = self.model() {
                 let store_index = selection.selected() as i32;
                 let doc_page = self.page_of_document(store_index);
@@ -388,7 +397,7 @@ mod imp {
         fn set_current_page(&self, doc_page: i32) {
             let store_index = self.index_of_store(doc_page);
 
-            debug!("set list store index to {store_index}");
+            debug!("set current selected page to {store_index}");
 
             self.grid_view
                 .scroll_to(store_index as u32, gtk::ListScrollFlags::SELECT, None);
