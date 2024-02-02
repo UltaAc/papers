@@ -24,6 +24,7 @@
 
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
+#include <adwaita.h>
 
 #include "pps-document-fonts.h"
 #include "pps-job-scheduler.h"
@@ -33,11 +34,11 @@
 struct _PpsPropertiesFonts {
 	GtkBox base_instance;
 
-	GtkTreeView *fonts_treeview;
+	GtkWidget *list_box;
 	GtkWidget *fonts_summary;
-	GtkTreeViewColumn *column;
-	GtkCellRenderer *renderer;
-	PpsJob     *fonts_job;
+	PpsJob    *fonts_job;
+
+	GListModel* model;
 
 	PpsDocument *document;
 };
@@ -66,6 +67,7 @@ pps_properties_fonts_dispose (GObject *object)
 	}
 
 	g_clear_object (&properties->document);
+	g_clear_object (&properties->model);
 
 	G_OBJECT_CLASS (pps_properties_fonts_parent_class)->dispose (object);
 }
@@ -80,39 +82,10 @@ pps_properties_fonts_class_init (PpsPropertiesFontsClass *properties_class)
 
 	gtk_widget_class_set_template_from_resource (widget_class,
 				"/org/gnome/papers/ui/properties-fonts.ui");
-	gtk_widget_class_bind_template_child (widget_class, PpsPropertiesFonts, column);
-	gtk_widget_class_bind_template_child (widget_class, PpsPropertiesFonts, renderer);
 	gtk_widget_class_bind_template_child (widget_class,
-					      PpsPropertiesFonts, fonts_treeview);
+					      PpsPropertiesFonts, list_box);
 	gtk_widget_class_bind_template_child (widget_class,
 					      PpsPropertiesFonts, fonts_summary);
-}
-
-static void
-font_cell_data_func (GtkTreeViewColumn *col, GtkCellRenderer *renderer,
-		     GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data)
-{
-	char *name;
-	char *details;
-	char *markup;
-
-	gtk_tree_model_get (model, iter,
-			    PPS_DOCUMENT_FONTS_COLUMN_NAME, &name,
-			    PPS_DOCUMENT_FONTS_COLUMN_DETAILS, &details,
-			    -1);
-
-	if (details) {
-		markup = g_strdup_printf ("<b><big>Font: %s</big></b>\n<small>%s</small>",
-					  name, details);
-	} else {
-		markup = g_strdup_printf ("<b><big>%s</big></b>", name);
-	}
-
-	g_object_set (renderer, "markup", markup, NULL, NULL);
-
-	g_free (markup);
-	g_free (details);
-	g_free (name);
 }
 
 static void
@@ -121,25 +94,35 @@ pps_properties_fonts_init (PpsPropertiesFonts *properties)
 	GtkWidget *widget = GTK_WIDGET (properties);
 
 	gtk_widget_init_template (widget);
-	gtk_tree_view_column_set_cell_data_func (properties->column,
-						 properties->renderer,
-						 font_cell_data_func,
-						 NULL, NULL);
+}
+
+static GtkWidget *
+font_create_row_func (gpointer item, gpointer user_data)
+{
+	PpsFontDescription *font_description = PPS_FONT_DESCRIPTION (item);
+	GtkWidget *row = adw_action_row_new ();
+
+	g_object_bind_property (font_description, "name", row, "title",
+				G_BINDING_SYNC_CREATE);
+	g_object_bind_property (font_description, "details", row, "subtitle",
+				G_BINDING_SYNC_CREATE);
+
+	return row;
 }
 
 static void
 job_fonts_finished_cb (PpsJob *job, PpsPropertiesFonts *properties)
 {
 	PpsDocumentFonts *document_fonts = PPS_DOCUMENT_FONTS (properties->document);
-	GtkTreeModel *model;
 	const gchar     *font_summary;
 
 	g_signal_handlers_disconnect_by_func (job, job_fonts_finished_cb, properties);
 	g_clear_object (&properties->fonts_job);
 
-	model = gtk_tree_view_get_model (properties->fonts_treeview);
-	pps_document_fonts_fill_model (document_fonts, model);
-
+	properties->model = pps_document_fonts_get_model (document_fonts);
+	gtk_list_box_bind_model (GTK_LIST_BOX (properties->list_box),
+				 properties->model, font_create_row_func,
+				 NULL, NULL);
 	font_summary = pps_document_fonts_get_fonts_summary (document_fonts);
 	if (font_summary) {
 		gtk_label_set_text (GTK_LABEL (properties->fonts_summary),
@@ -162,18 +145,11 @@ void
 pps_properties_fonts_set_document (PpsPropertiesFonts *properties,
 				   PpsDocument        *document)
 {
-	GtkTreeView *tree_view = properties->fonts_treeview;
-	GtkListStore *list_store;
-
 	if (document == properties->document)
 		return;
 
 	g_clear_object (&properties->document);
 	properties->document = g_object_ref (document);
-
-	list_store = gtk_list_store_new (PPS_DOCUMENT_FONTS_COLUMN_NUM_COLUMNS,
-					 G_TYPE_STRING, G_TYPE_STRING);
-	gtk_tree_view_set_model (tree_view, GTK_TREE_MODEL (list_store));
 
 	properties->fonts_job = pps_job_fonts_new (properties->document);
 	g_signal_connect (properties->fonts_job, "finished",

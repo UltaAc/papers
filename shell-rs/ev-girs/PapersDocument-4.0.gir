@@ -4054,68 +4054,63 @@ the given line in the source file. It must be free with g_free when done</doc>
                glib:type-name="PpsDocumentFonts"
                glib:get-type="pps_document_fonts_get_type"
                glib:type-struct="DocumentFontsInterface">
-      <source-position filename="libdocument/pps-document-fonts.h" line="61"/>
-      <virtual-method name="fill_model" invoker="fill_model">
-        <source-position filename="libdocument/pps-document-fonts.h"
-                         line="58"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="document_fonts" transfer-ownership="none">
-            <type name="DocumentFonts" c:type="PpsDocumentFonts*"/>
-          </instance-parameter>
-          <parameter name="model" transfer-ownership="none">
-            <type name="Gtk.TreeModel" c:type="GtkTreeModel*"/>
-          </parameter>
-        </parameters>
-      </virtual-method>
+      <source-position filename="libdocument/pps-document-fonts.h" line="59"/>
       <virtual-method name="get_fonts_summary" invoker="get_fonts_summary">
         <source-position filename="libdocument/pps-document-fonts.h"
-                         line="60"/>
+                         line="58"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
         <parameters>
           <instance-parameter name="document_fonts" transfer-ownership="none">
+            <type name="DocumentFonts" c:type="PpsDocumentFonts*"/>
+          </instance-parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="get_model" invoker="get_model">
+        <source-position filename="libdocument/pps-document-fonts.h"
+                         line="57"/>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-fonts.c"
+               line="57">A #GListModel holding #PpsFontDescription objects</doc>
+          <type name="Gio.ListModel" c:type="GListModel*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_fonts" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-fonts.c"
+                 line="54">a #PpsDocument which implements the #PpsDocumentFonts
+interface</doc>
             <type name="DocumentFonts" c:type="PpsDocumentFonts*"/>
           </instance-parameter>
         </parameters>
       </virtual-method>
       <virtual-method name="scan" invoker="scan">
+        <doc xml:space="preserve"
+             filename="libdocument/pps-document-fonts.c"
+             line="35">Runs through the slow process of finding the fonts being used in a document.
+To get the results of the scan, use pps_document_fonts_fill_model and
+pps_document_fonts_get_fonts_summary</doc>
         <source-position filename="libdocument/pps-document-fonts.h"
                          line="56"/>
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="document_fonts" transfer-ownership="none">
-            <type name="DocumentFonts" c:type="PpsDocumentFonts*"/>
-          </instance-parameter>
-          <parameter name="n_pages" transfer-ownership="none">
-            <type name="gint" c:type="int"/>
-          </parameter>
-        </parameters>
-      </virtual-method>
-      <method name="fill_model" c:identifier="pps_document_fonts_fill_model">
-        <source-position filename="libdocument/pps-document-fonts.h"
-                         line="67"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
           <instance-parameter name="document_fonts" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-fonts.c"
+                 line="37">a #PpsDocument which implements the #PpsDocumentFonts
+interface</doc>
             <type name="DocumentFonts" c:type="PpsDocumentFonts*"/>
           </instance-parameter>
-          <parameter name="model" transfer-ownership="none">
-            <type name="Gtk.TreeModel" c:type="GtkTreeModel*"/>
-          </parameter>
         </parameters>
-      </method>
+      </virtual-method>
       <method name="get_fonts_summary"
               c:identifier="pps_document_fonts_get_fonts_summary">
         <source-position filename="libdocument/pps-document-fonts.h"
-                         line="70"/>
+                         line="66"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -4125,26 +4120,51 @@ the given line in the source file. It must be free with g_free when done</doc>
           </instance-parameter>
         </parameters>
       </method>
-      <method name="scan" c:identifier="pps_document_fonts_scan">
+      <method name="get_model" c:identifier="pps_document_fonts_get_model">
         <source-position filename="libdocument/pps-document-fonts.h"
                          line="64"/>
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-fonts.c"
+               line="57">A #GListModel holding #PpsFontDescription objects</doc>
+          <type name="Gio.ListModel" c:type="GListModel*"/>
         </return-value>
         <parameters>
           <instance-parameter name="document_fonts" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-fonts.c"
+                 line="54">a #PpsDocument which implements the #PpsDocumentFonts
+interface</doc>
             <type name="DocumentFonts" c:type="PpsDocumentFonts*"/>
           </instance-parameter>
-          <parameter name="n_pages" transfer-ownership="none">
-            <type name="gint" c:type="int"/>
-          </parameter>
+        </parameters>
+      </method>
+      <method name="scan" c:identifier="pps_document_fonts_scan">
+        <doc xml:space="preserve"
+             filename="libdocument/pps-document-fonts.c"
+             line="35">Runs through the slow process of finding the fonts being used in a document.
+To get the results of the scan, use pps_document_fonts_fill_model and
+pps_document_fonts_get_fonts_summary</doc>
+        <source-position filename="libdocument/pps-document-fonts.h"
+                         line="62"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_fonts" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-fonts.c"
+                 line="37">a #PpsDocument which implements the #PpsDocumentFonts
+interface</doc>
+            <type name="DocumentFonts" c:type="PpsDocumentFonts*"/>
+          </instance-parameter>
         </parameters>
       </method>
     </interface>
     <record name="DocumentFontsInterface"
             c:type="PpsDocumentFontsInterface"
             glib:is-gtype-struct-for="DocumentFonts">
-      <source-position filename="libdocument/pps-document-fonts.h" line="61"/>
+      <source-position filename="libdocument/pps-document-fonts.h" line="59"/>
       <field name="base_iface">
         <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
       </field>
@@ -4153,31 +4173,36 @@ the given line in the source file. It must be free with g_free when done</doc>
           <source-position filename="libdocument/pps-document-fonts.h"
                            line="56"/>
           <return-value transfer-ownership="none">
-            <type name="gboolean" c:type="gboolean"/>
-          </return-value>
-          <parameters>
-            <parameter name="document_fonts" transfer-ownership="none">
-              <type name="DocumentFonts" c:type="PpsDocumentFonts*"/>
-            </parameter>
-            <parameter name="n_pages" transfer-ownership="none">
-              <type name="gint" c:type="int"/>
-            </parameter>
-          </parameters>
-        </callback>
-      </field>
-      <field name="fill_model">
-        <callback name="fill_model">
-          <source-position filename="libdocument/pps-document-fonts.h"
-                           line="58"/>
-          <return-value transfer-ownership="none">
             <type name="none" c:type="void"/>
           </return-value>
           <parameters>
             <parameter name="document_fonts" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="libdocument/pps-document-fonts.c"
+                   line="37">a #PpsDocument which implements the #PpsDocumentFonts
+interface</doc>
               <type name="DocumentFonts" c:type="PpsDocumentFonts*"/>
             </parameter>
-            <parameter name="model" transfer-ownership="none">
-              <type name="Gtk.TreeModel" c:type="GtkTreeModel*"/>
+          </parameters>
+        </callback>
+      </field>
+      <field name="get_model">
+        <callback name="get_model">
+          <source-position filename="libdocument/pps-document-fonts.h"
+                           line="57"/>
+          <return-value transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-fonts.c"
+                 line="57">A #GListModel holding #PpsFontDescription objects</doc>
+            <type name="Gio.ListModel" c:type="GListModel*"/>
+          </return-value>
+          <parameters>
+            <parameter name="document_fonts" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="libdocument/pps-document-fonts.c"
+                   line="54">a #PpsDocument which implements the #PpsDocumentFonts
+interface</doc>
+              <type name="DocumentFonts" c:type="PpsDocumentFonts*"/>
             </parameter>
           </parameters>
         </callback>
@@ -4185,7 +4210,7 @@ the given line in the source file. It must be free with g_free when done</doc>
       <field name="get_fonts_summary">
         <callback name="get_fonts_summary">
           <source-position filename="libdocument/pps-document-fonts.h"
-                           line="60"/>
+                           line="58"/>
           <return-value transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </return-value>
@@ -7605,6 +7630,49 @@ the given line in the source file. It must be free with g_free when done</doc>
           </instance-parameter>
         </parameters>
       </method>
+    </record>
+    <class name="FontDescription"
+           c:symbol-prefix="font_description"
+           c:type="PpsFontDescription"
+           parent="GObject.Object"
+           glib:type-name="PpsFontDescription"
+           glib:get-type="pps_font_description_get_type"
+           glib:type-struct="FontDescriptionClass">
+      <source-position filename="libdocument/pps-font-description.h"
+                       line="35"/>
+      <constructor name="new" c:identifier="pps_font_description_new">
+        <source-position filename="libdocument/pps-font-description.h"
+                         line="42"/>
+        <return-value transfer-ownership="full">
+          <type name="FontDescription" c:type="PpsFontDescription*"/>
+        </return-value>
+      </constructor>
+      <property name="details"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none"
+                default-value="NULL">
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="name"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none"
+                default-value="NULL">
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <field name="parent">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+    </class>
+    <record name="FontDescriptionClass"
+            c:type="PpsFontDescriptionClass"
+            glib:is-gtype-struct-for="FontDescription">
+      <source-position filename="libdocument/pps-font-description.h"
+                       line="35"/>
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
     </record>
     <class name="FormField"
            c:symbol-prefix="form_field"

@@ -20,25 +20,14 @@
       <object class="GtkScrolledWindow">
         <property name="can-focus">False</property>
         <child>
-          <object class="GtkTreeView" id="fonts_treeview">
+          <object class="GtkListBox" id="list_box">
+            <property name="selection-mode">none</property>
+            <style>
+              <class name="boxed-list"/>
+            </style>
             <property name="can-focus">False</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
-            <property name="headers-visible">False</property>
-            <child internal-child="selection">
-              <object class="GtkTreeSelection"/>
-            </child>
-            <child>
-              <object class="GtkTreeViewColumn" id="column">
-                <property name="title" translatable="yes">Font</property>
-                <property name="expand">True</property>
-                <child>
-                  <object class="GtkCellRendererText" id="renderer">
-                    <property name="ypad">6</property>
-                  </object>
-                </child>
-              </object>
-            </child>
           </object>
         </child>
       </object>

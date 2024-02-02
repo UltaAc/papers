@@ -3547,15 +3547,25 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
       </constructor>
       <method name="set_document"
               c:identifier="pps_properties_fonts_set_document">
+        <doc xml:space="preserve"
+             filename="shell/pps-properties-fonts.c"
+             line="136">Sets the document on the properties to the fonts can be scanned.</doc>
         <source-position filename="shell/pps-properties-fonts.h" line="42"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
           <instance-parameter name="properties" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="shell/pps-properties-fonts.c"
+                 line="138">a #PpsPropertiesFonts</doc>
             <type name="PropertiesFonts" c:type="PpsPropertiesFonts*"/>
           </instance-parameter>
-          <parameter name="document" transfer-ownership="none">
+          <parameter name="document" transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="shell/pps-properties-fonts.c"
+                 line="139">a #PpsDocument which implements the
+#PpsDocumentFonts interface</doc>
             <type name="PapersDocument.Document" c:type="PpsDocument*"/>
           </parameter>
         </parameters>

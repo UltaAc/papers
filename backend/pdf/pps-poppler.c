@@ -55,6 +55,7 @@
 #include "pps-document-annotations.h"
 #include "pps-document-attachments.h"
 #include "pps-document-text.h"
+#include "pps-font-description.h"
 #include "pps-form-field-private.h"
 #include "pps-selection.h"
 #include "pps-transition-effect.h"
@@ -907,20 +908,21 @@ pdf_document_fonts_get_fonts_summary (PpsDocumentFonts *document_fonts)
 		return _("All fonts are either standard or embedded.");
 }
 
-static void
-pdf_document_fonts_fill_model (PpsDocumentFonts *document_fonts,
-			       GtkTreeModel    *model)
+static GListModel *
+pdf_document_fonts_get_model (PpsDocumentFonts *document_fonts)
 {
 	PdfDocument *pdf_document = PDF_DOCUMENT (document_fonts);
 	PopplerFontsIter *iter = pdf_document->fonts_iter;
+	GListStore *model = NULL;
 
-	g_return_if_fail (PDF_IS_DOCUMENT (document_fonts));
+	g_return_val_if_fail (PDF_IS_DOCUMENT (document_fonts), NULL);
 
 	if (!iter)
-		return;
+		return NULL;
+
+	model = g_list_store_new (PPS_TYPE_FONT_DESCRIPTION);
 
 	do {
-		GtkTreeIter list_iter;
 		const char *name;
 		PopplerFontType type;
 		const char *type_str;
@@ -1012,20 +1014,22 @@ pdf_document_fonts_fill_model (PpsDocumentFonts *document_fonts,
 							   type_str, standard_str,
 							   encoding, embedded);
 
-		gtk_list_store_append (GTK_LIST_STORE (model), &list_iter);
-		gtk_list_store_set (GTK_LIST_STORE (model), &list_iter,
-				    PPS_DOCUMENT_FONTS_COLUMN_NAME, name,
-				    PPS_DOCUMENT_FONTS_COLUMN_DETAILS, details,
-				    -1);
+		g_list_store_append (model,
+				     g_object_new (PPS_TYPE_FONT_DESCRIPTION,
+						   "name", name,
+						   "details", details,
+						   NULL));
 
 		g_free (details);
 	} while (poppler_fonts_iter_next (iter));
+
+	return G_LIST_MODEL (model);
 }
 
 static void
 pdf_document_document_fonts_iface_init (PpsDocumentFontsInterface *iface)
 {
-	iface->fill_model = pdf_document_fonts_fill_model;
+	iface->get_model = pdf_document_fonts_get_model;
 	iface->get_fonts_summary = pdf_document_fonts_get_fonts_summary;
 	iface->scan = pdf_document_fonts_scan;
 }

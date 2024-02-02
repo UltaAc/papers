@@ -46,6 +46,7 @@
 #include <libdocument/pps-document.h>
 #include <libdocument/pps-file-exporter.h>
 #include <libdocument/pps-file-helpers.h>
+#include <libdocument/pps-font-description.h>
 #include <libdocument/pps-form-field.h>
 #include <libdocument/pps-image.h>
 #include <libdocument/pps-init.h>

@@ -1720,26 +1720,26 @@ Remember that main loop is not running already probably.</doc>
               c:identifier="pps_job_find_get_n_main_results">
         <doc xml:space="preserve"
              filename="libview/pps-jobs.c"
-             line="1665">This is similar to pps_job_find_get_n_results() but it takes
+             line="1660">This is similar to pps_job_find_get_n_results() but it takes
 care to treat any multi-line matches as being only one result.</doc>
         <source-position filename="libview/pps-jobs.h" line="576"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/pps-jobs.c"
-               line="1673">total number of match results in @page</doc>
+               line="1668">total number of match results in @page</doc>
           <type name="gint" c:type="gint"/>
         </return-value>
         <parameters>
           <instance-parameter name="job" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-jobs.c"
-                 line="1667">an #PpsJobFind job</doc>
+                 line="1662">an #PpsJobFind job</doc>
             <type name="JobFind" c:type="PpsJobFind*"/>
           </instance-parameter>
           <parameter name="page" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-jobs.c"
-                 line="1668">number of the page we want to count its match results.</doc>
+                 line="1663">number of the page we want to count its match results.</doc>
             <type name="gint" c:type="gint"/>
           </parameter>
         </parameters>
@@ -1751,7 +1751,7 @@ care to treat any multi-line matches as being only one result.</doc>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/pps-jobs.c"
-               line="1655">the job's find options</doc>
+               line="1650">the job's find options</doc>
           <type name="PapersDocument.FindOptions" c:type="PpsFindOptions"/>
         </return-value>
         <parameters>
@@ -1778,7 +1778,7 @@ care to treat any multi-line matches as being only one result.</doc>
         <return-value>
           <doc xml:space="preserve"
                filename="libview/pps-jobs.c"
-               line="1719">a #GList of #GList&lt;!-- --&gt;s containing #PpsFindRectangle&lt;!-- --&gt;s</doc>
+               line="1714">a #GList of #GList&lt;!-- --&gt;s containing #PpsFindRectangle&lt;!-- --&gt;s</doc>
           <type name="GLib.List" c:type="GList**">
             <type name="gpointer" c:type="gpointer"/>
           </type>
@@ -1787,7 +1787,7 @@ care to treat any multi-line matches as being only one result.</doc>
           <instance-parameter name="job" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-jobs.c"
-                 line="1717">an #PpsJobFind</doc>
+                 line="1712">an #PpsJobFind</doc>
             <type name="JobFind" c:type="PpsJobFind*"/>
           </instance-parameter>
         </parameters>
@@ -1994,7 +1994,7 @@ care to treat any multi-line matches as being only one result.</doc>
            glib:type-struct="JobLoadClass">
       <doc xml:space="preserve"
            filename="libview/pps-jobs.c"
-           line="1087">A job class to load an #PpsDocument
+           line="1082">A job class to load an #PpsDocument
 
 Supports loading in different forms depending on the options
 being set.</doc>
@@ -2012,14 +2012,14 @@ being set.</doc>
         <return-value transfer-ownership="full" nullable="1">
           <doc xml:space="preserve"
                filename="libview/pps-jobs.c"
-               line="1371">The loaded document, if available</doc>
+               line="1366">The loaded document, if available</doc>
           <type name="PapersDocument.Document" c:type="PpsDocument*"/>
         </return-value>
         <parameters>
           <instance-parameter name="job" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-jobs.c"
-                 line="1369">an #PpsJobLoad</doc>
+                 line="1364">an #PpsJobLoad</doc>
             <type name="JobLoad" c:type="PpsJobLoad*"/>
           </instance-parameter>
         </parameters>
@@ -2030,7 +2030,7 @@ being set.</doc>
               throws="1">
         <doc xml:space="preserve"
              filename="libview/pps-jobs.c"
-             line="1279">Sets @fd as the file descriptor in @job. If duplicating @fd fails,
+             line="1274">Sets @fd as the file descriptor in @job. If duplicating @fd fails,
 returns %FALSE with @error filled in.
 
 It is an error to call this function if uri is set for the job</doc>
@@ -2038,26 +2038,26 @@ It is an error to call this function if uri is set for the job</doc>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/pps-jobs.c"
-               line="1291">%TRUE if the file descriptor could be set</doc>
+               line="1286">%TRUE if the file descriptor could be set</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="job" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-jobs.c"
-                 line="1281">an #PpsJobLoad</doc>
+                 line="1276">an #PpsJobLoad</doc>
             <type name="JobLoad" c:type="PpsJobLoad*"/>
           </instance-parameter>
           <parameter name="fd" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-jobs.c"
-                 line="1282">a file descriptor</doc>
+                 line="1277">a file descriptor</doc>
             <type name="gint" c:type="int"/>
           </parameter>
           <parameter name="mime_type" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-jobs.c"
-                 line="1283">the mime type of the file descriptor</doc>
+                 line="1278">the mime type of the file descriptor</doc>
             <type name="utf8" c:type="const char*"/>
           </parameter>
         </parameters>
@@ -2094,7 +2094,7 @@ It is an error to call this function if uri is set for the job</doc>
       <method name="set_uri" c:identifier="pps_job_load_set_uri">
         <doc xml:space="preserve"
              filename="libview/pps-jobs.c"
-             line="1256">It is an error to call this function if the file descriptor
+             line="1251">It is an error to call this function if the file descriptor
 is set for the job.</doc>
         <source-position filename="libview/pps-jobs.h" line="537"/>
         <return-value transfer-ownership="none">
@@ -2104,13 +2104,13 @@ is set for the job.</doc>
           <instance-parameter name="job" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-jobs.c"
-                 line="1258">an #PpsJobLoad</doc>
+                 line="1253">an #PpsJobLoad</doc>
             <type name="JobLoad" c:type="PpsJobLoad*"/>
           </instance-parameter>
           <parameter name="uri" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-jobs.c"
-                 line="1259">an uri representing a file</doc>
+                 line="1254">an uri representing a file</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
         </parameters>
@@ -2120,7 +2120,7 @@ is set for the job.</doc>
               version="46.0">
         <doc xml:space="preserve"
              filename="libview/pps-jobs.c"
-             line="1315">Sets @fd as the file descriptor in @job.
+             line="1310">Sets @fd as the file descriptor in @job.
 Note that @job takes ownership of @fd; you must not do anything
 with it afterwards.
 
@@ -2133,19 +2133,19 @@ It is an error to call this function if uri is set for the job</doc>
           <instance-parameter name="job" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-jobs.c"
-                 line="1317">an #PpsJobLoad</doc>
+                 line="1312">an #PpsJobLoad</doc>
             <type name="JobLoad" c:type="PpsJobLoad*"/>
           </instance-parameter>
           <parameter name="fd" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-jobs.c"
-                 line="1318">a file descriptor</doc>
+                 line="1313">a file descriptor</doc>
             <type name="gint" c:type="int"/>
           </parameter>
           <parameter name="mime_type" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-jobs.c"
-                 line="1319">the mime type of the file descriptor</doc>
+                 line="1314">the mime type of the file descriptor</doc>
             <type name="utf8" c:type="const char*"/>
           </parameter>
         </parameters>

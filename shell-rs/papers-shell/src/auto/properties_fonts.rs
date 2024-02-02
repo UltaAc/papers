@@ -30,11 +30,11 @@ impl PropertiesFonts {
     }
 
     #[doc(alias = "pps_properties_fonts_set_document")]
-    pub fn set_document(&self, document: &impl IsA<papers_document::Document>) {
+    pub fn set_document(&self, document: impl IsA<papers_document::Document>) {
         unsafe {
             ffi::pps_properties_fonts_set_document(
                 self.to_glib_none().0,
-                document.as_ref().to_glib_none().0,
+                document.upcast().into_glib_ptr(),
             );
         }
     }

@@ -24,11 +24,6 @@ mod sealed {
 }
 
 pub trait DocumentFontsExt: IsA<DocumentFonts> + sealed::Sealed + 'static {
-    //#[doc(alias = "pps_document_fonts_fill_model")]
-    //fn fill_model(&self, model: /*Ignored*/&gtk::TreeModel) {
-    //    unsafe { TODO: call ffi:pps_document_fonts_fill_model() }
-    //}
-
     #[doc(alias = "pps_document_fonts_get_fonts_summary")]
     #[doc(alias = "get_fonts_summary")]
     fn fonts_summary(&self) -> Option<glib::GString> {
@@ -39,13 +34,16 @@ pub trait DocumentFontsExt: IsA<DocumentFonts> + sealed::Sealed + 'static {
         }
     }
 
+    //#[doc(alias = "pps_document_fonts_get_model")]
+    //#[doc(alias = "get_model")]
+    //fn model(&self) -> /*Ignored*/Option<gio::ListModel> {
+    //    unsafe { TODO: call ffi:pps_document_fonts_get_model() }
+    //}
+
     #[doc(alias = "pps_document_fonts_scan")]
-    fn scan(&self, n_pages: i32) -> bool {
+    fn scan(&self) {
         unsafe {
-            from_glib(ffi::pps_document_fonts_scan(
-                self.as_ref().to_glib_none().0,
-                n_pages,
-            ))
+            ffi::pps_document_fonts_scan(self.as_ref().to_glib_none().0);
         }
     }
 }

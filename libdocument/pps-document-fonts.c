@@ -49,13 +49,19 @@ pps_document_fonts_scan (PpsDocumentFonts *document_fonts)
 	iface->scan (document_fonts);
 }
 
-void
-pps_document_fonts_fill_model (PpsDocumentFonts *document_fonts,
-			      GtkTreeModel    *model)
+/**
+ * pps_document_fonts_get_model:
+ * @document_fonts: a #PpsDocument which implements the #PpsDocumentFonts
+ * interface
+ *
+ * Returns: (transfer full): A #GListModel holding #PpsFontDescription objects
+ */
+GListModel *
+pps_document_fonts_get_model (PpsDocumentFonts *document_fonts)
 {
 	PpsDocumentFontsInterface *iface = PPS_DOCUMENT_FONTS_GET_IFACE (document_fonts);
 
-	iface->fill_model (document_fonts, model);
+	return iface->get_model (document_fonts);
 }
 
 const gchar *

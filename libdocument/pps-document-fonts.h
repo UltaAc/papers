@@ -54,16 +54,14 @@ struct _PpsDocumentFontsInterface
 
 	/* Methods */
 	void         (* scan)              (PpsDocumentFonts *document_fonts);
-        void         (* fill_model)        (PpsDocumentFonts *document_fonts,
-                                            GtkTreeModel    *model);
+	GListModel  *(* get_model)         (PpsDocumentFonts *document_fonts);
         const gchar *(* get_fonts_summary) (PpsDocumentFonts *document_fonts);
 };
 
 PPS_PUBLIC
 void         pps_document_fonts_scan              (PpsDocumentFonts *document_fonts);
 PPS_PUBLIC
-void         pps_document_fonts_fill_model        (PpsDocumentFonts *document_fonts,
-                                                  GtkTreeModel    *model);
+GListModel  *pps_document_fonts_get_model         (PpsDocumentFonts *document_fonts);
 PPS_PUBLIC
 const gchar *pps_document_fonts_get_fonts_summary (PpsDocumentFonts *document_fonts);
 
