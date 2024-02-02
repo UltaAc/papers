@@ -34,7 +34,7 @@
   </template>
 
   <object class="GtkSingleSelection" id="selection_model">
-    <property name="autoselect">True</property>
+    <property name="autoselect">False</property>
     <property name="model">
       <object class="GListStore" id="list_store">
       </object>
