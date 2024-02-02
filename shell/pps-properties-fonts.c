@@ -31,9 +31,7 @@
 #include "pps-jobs.h"
 #include "pps-properties-fonts.h"
 
-struct _PpsPropertiesFonts {
-	GtkBox base_instance;
-
+typedef struct {
 	GtkWidget *list_box;
 	GtkWidget *fonts_summary;
 	PpsJob    *fonts_job;
@@ -41,33 +39,32 @@ struct _PpsPropertiesFonts {
 	GListModel* model;
 
 	PpsDocument *document;
-};
+} PpsPropertiesFontsPrivate;
 
-struct _PpsPropertiesFontsClass {
-	GtkBoxClass base_class;
-};
+G_DEFINE_TYPE_WITH_PRIVATE (PpsPropertiesFonts, pps_properties_fonts, ADW_TYPE_BIN)
+
+#define GET_PRIVATE(o) pps_properties_fonts_get_instance_private (o)
 
 static void
 job_fonts_finished_cb (PpsJob *job, PpsPropertiesFonts *properties);
-
-G_DEFINE_TYPE (PpsPropertiesFonts, pps_properties_fonts, GTK_TYPE_BOX)
 
 static void
 pps_properties_fonts_dispose (GObject *object)
 {
 	PpsPropertiesFonts *properties = PPS_PROPERTIES_FONTS (object);
+	PpsPropertiesFontsPrivate *priv = GET_PRIVATE (properties);
 
-	if (properties->fonts_job) {
-		g_signal_handlers_disconnect_by_func (properties->fonts_job,
+	if (priv->fonts_job) {
+		g_signal_handlers_disconnect_by_func (priv->fonts_job,
 						      job_fonts_finished_cb,
 						      properties);
-		pps_job_cancel (properties->fonts_job);
+		pps_job_cancel (priv->fonts_job);
 
-		g_clear_object (&properties->fonts_job);
+		g_clear_object (&priv->fonts_job);
 	}
 
-	g_clear_object (&properties->document);
-	g_clear_object (&properties->model);
+	g_clear_object (&priv->document);
+	g_clear_object (&priv->model);
 
 	G_OBJECT_CLASS (pps_properties_fonts_parent_class)->dispose (object);
 }
@@ -82,10 +79,10 @@ pps_properties_fonts_class_init (PpsPropertiesFontsClass *properties_class)
 
 	gtk_widget_class_set_template_from_resource (widget_class,
 				"/org/gnome/papers/ui/properties-fonts.ui");
-	gtk_widget_class_bind_template_child (widget_class,
-					      PpsPropertiesFonts, list_box);
-	gtk_widget_class_bind_template_child (widget_class,
-					      PpsPropertiesFonts, fonts_summary);
+	gtk_widget_class_bind_template_child_private (widget_class,
+						      PpsPropertiesFonts, list_box);
+	gtk_widget_class_bind_template_child_private (widget_class,
+						      PpsPropertiesFonts, fonts_summary);
 }
 
 static void
@@ -113,24 +110,19 @@ font_create_row_func (gpointer item, gpointer user_data)
 static void
 job_fonts_finished_cb (PpsJob *job, PpsPropertiesFonts *properties)
 {
-	PpsDocumentFonts *document_fonts = PPS_DOCUMENT_FONTS (properties->document);
+	PpsPropertiesFontsPrivate *priv = GET_PRIVATE (properties);
+	PpsDocumentFonts *document_fonts = PPS_DOCUMENT_FONTS (priv->document);
 	const gchar     *font_summary;
 
 	g_signal_handlers_disconnect_by_func (job, job_fonts_finished_cb, properties);
-	g_clear_object (&properties->fonts_job);
+	g_clear_object (&priv->fonts_job);
 
-	properties->model = pps_document_fonts_get_model (document_fonts);
-	gtk_list_box_bind_model (GTK_LIST_BOX (properties->list_box),
-				 properties->model, font_create_row_func,
+	priv->model = pps_document_fonts_get_model (document_fonts);
+	gtk_list_box_bind_model (GTK_LIST_BOX (priv->list_box),
+				 priv->model, font_create_row_func,
 				 NULL, NULL);
 	font_summary = pps_document_fonts_get_fonts_summary (document_fonts);
-	if (font_summary) {
-		gtk_label_set_text (GTK_LABEL (properties->fonts_summary),
-				    font_summary);
-		/* show the label only when fonts are scanned, so the label
-		 * does not take space while it is loading */
-		gtk_widget_set_visible (properties->fonts_summary, TRUE);
-	}
+	gtk_label_set_text (GTK_LABEL (priv->fonts_summary), font_summary);
 }
 
 /**
@@ -145,17 +137,19 @@ void
 pps_properties_fonts_set_document (PpsPropertiesFonts *properties,
 				   PpsDocument        *document)
 {
-	if (document == properties->document)
+	PpsPropertiesFontsPrivate *priv = GET_PRIVATE (properties);
+
+	if (document == priv->document)
 		return;
 
-	g_clear_object (&properties->document);
-	properties->document = g_object_ref (document);
+	g_clear_object (&priv->document);
+	priv->document = g_object_ref (document);
 
-	properties->fonts_job = pps_job_fonts_new (properties->document);
-	g_signal_connect (properties->fonts_job, "finished",
+	priv->fonts_job = pps_job_fonts_new (priv->document);
+	g_signal_connect (priv->fonts_job, "finished",
 			  G_CALLBACK (job_fonts_finished_cb),
 			  properties);
-	pps_job_scheduler_push_job (properties->fonts_job, PPS_JOB_PRIORITY_NONE);
+	pps_job_scheduler_push_job (priv->fonts_job, PPS_JOB_PRIORITY_NONE);
 }
 
 GtkWidget *

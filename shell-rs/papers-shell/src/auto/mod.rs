@@ -30,6 +30,7 @@ pub use self::enums::WindowRunMode;
 pub(crate) mod traits {
     pub use super::papers_application::PapersApplicationExt;
     pub use super::papers_window::PapersWindowExt;
+    pub use super::properties_fonts::PropertiesFontsExt;
     pub use super::sidebar_page::SidebarPageExt;
     pub use super::window::WindowExt;
 }

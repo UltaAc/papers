@@ -15,6 +15,8 @@ glib::wrapper! {
 }
 
 impl PropertiesFonts {
+    pub const NONE: Option<&'static PropertiesFonts> = None;
+
     #[doc(alias = "pps_properties_fonts_new")]
     pub fn new() -> PropertiesFonts {
         assert_initialized_main_thread!();
@@ -27,16 +29,6 @@ impl PropertiesFonts {
     /// This method returns an instance of [`PropertiesFontsBuilder`](crate::builders::PropertiesFontsBuilder) which can be used to create [`PropertiesFonts`] objects.
     pub fn builder() -> PropertiesFontsBuilder {
         PropertiesFontsBuilder::new()
-    }
-
-    #[doc(alias = "pps_properties_fonts_set_document")]
-    pub fn set_document(&self, document: impl IsA<papers_document::Document>) {
-        unsafe {
-            ffi::pps_properties_fonts_set_document(
-                self.to_glib_none().0,
-                document.upcast().into_glib_ptr(),
-            );
-        }
     }
 }
 
@@ -239,3 +231,22 @@ impl PropertiesFontsBuilder {
         self.builder.build()
     }
 }
+
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::PropertiesFonts>> Sealed for T {}
+}
+
+pub trait PropertiesFontsExt: IsA<PropertiesFonts> + sealed::Sealed + 'static {
+    #[doc(alias = "pps_properties_fonts_set_document")]
+    fn set_document(&self, document: impl IsA<papers_document::Document>) {
+        unsafe {
+            ffi::pps_properties_fonts_set_document(
+                self.as_ref().to_glib_none().0,
+                document.upcast().into_glib_ptr(),
+            );
+        }
+    }
+}
+
+impl<O: IsA<PropertiesFonts>> PropertiesFontsExt for O {}

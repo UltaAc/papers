@@ -23,23 +23,20 @@
 #include "pps-document.h"
 
 #include <gtk/gtk.h>
+#include <adwaita.h>
 
 G_BEGIN_DECLS
 
-typedef struct _PpsPropertiesFonts PpsPropertiesFonts;
-typedef struct _PpsPropertiesFontsClass PpsPropertiesFontsClass;
-typedef struct _PpsPropertiesFontsPrivate PpsPropertiesFontsPrivate;
+#define PPS_TYPE_PROPERTIES_FONTS (pps_properties_fonts_get_type())
 
-#define PPS_TYPE_PROPERTIES_FONTS		(pps_properties_fonts_get_type())
-#define PPS_PROPERTIES_FONTS(object)	        (G_TYPE_CHECK_INSTANCE_CAST((object), PPS_TYPE_PROPERTIES_FONTS, PpsPropertiesFonts))
-#define PPS_PROPERTIES_FONTS_CLASS(klass)	(G_TYPE_CHECK_CLASS_CAST((klass), PPS_TYPE_PROPERTIES_FONTS, PpsPropertiesFontsClass))
-#define PPS_IS_PROPERTIES(object)		(G_TYPE_CHECK_INSTANCE_TYPE((object), PPS_TYPE_PROPERTIES_FONTS))
-#define PPS_IS_PROPERTIES_CLASS(klass)   	(G_TYPE_CHECK_CLASS_TYPE((klass), PPS_TYPE_PROPERTIES_FONTS))
-#define PPS_PROPERTIES_FONTS_GET_CLASS(object)	(G_TYPE_INSTANCE_GET_CLASS((object), PPS_TYPE_PROPERTIES_FONTS, PpsPropertiesFontsClass))
+G_DECLARE_FINAL_TYPE (PpsPropertiesFonts, pps_properties_fonts, PPS, PROPERTIES_FONTS, AdwBin);
 
-GType	           pps_properties_fonts_get_type     (void);
+struct _PpsPropertiesFonts {
+	AdwBin parent;
+};
+
 GtkWidget         *pps_properties_fonts_new          (void);
 void		   pps_properties_fonts_set_document (PpsPropertiesFonts *properties,
-					  	     PpsDocument        *document);
+						      PpsDocument        *document);
 
 G_END_DECLS

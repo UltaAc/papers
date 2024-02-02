@@ -373,24 +373,6 @@ in recent view.</doc>
         </parameter>
       </parameters>
     </function-macro>
-    <function-macro name="IS_PROPERTIES"
-                    c:identifier="PPS_IS_PROPERTIES"
-                    introspectable="0">
-      <source-position filename="shell/pps-properties-fonts.h" line="36"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_PROPERTIES_CLASS"
-                    c:identifier="PPS_IS_PROPERTIES_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-properties-fonts.h" line="37"/>
-      <parameters>
-        <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
     <function-macro name="IS_PROPERTIES_LICENSE"
                     c:identifier="PPS_IS_PROPERTIES_LICENSE"
                     introspectable="0">
@@ -1563,33 +1545,6 @@ See pps_object_manager_client_new_for_bus_sync() for the synchronous, blocking v
       <source-position filename="shell/pps-gdbus-generated.h" line="373"/>
       <parameters>
         <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="PROPERTIES_FONTS"
-                    c:identifier="PPS_PROPERTIES_FONTS"
-                    introspectable="0">
-      <source-position filename="shell/pps-properties-fonts.h" line="34"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="PROPERTIES_FONTS_CLASS"
-                    c:identifier="PPS_PROPERTIES_FONTS_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-properties-fonts.h" line="35"/>
-      <parameters>
-        <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="PROPERTIES_FONTS_GET_CLASS"
-                    c:identifier="PPS_PROPERTIES_FONTS_GET_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-properties-fonts.h" line="38"/>
-      <parameters>
-        <parameter name="object">
         </parameter>
       </parameters>
     </function-macro>
@@ -3530,17 +3485,16 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
     <class name="PropertiesFonts"
            c:symbol-prefix="properties_fonts"
            c:type="PpsPropertiesFonts"
-           parent="Gtk.Box"
+           parent="Adw.Bin"
            glib:type-name="PpsPropertiesFonts"
            glib:get-type="pps_properties_fonts_get_type"
            glib:type-struct="PropertiesFontsClass">
-      <source-position filename="shell/pps-properties-fonts.h" line="30"/>
+      <source-position filename="shell/pps-properties-fonts.h" line="32"/>
       <implements name="Gtk.Accessible"/>
       <implements name="Gtk.Buildable"/>
       <implements name="Gtk.ConstraintTarget"/>
-      <implements name="Gtk.Orientable"/>
       <constructor name="new" c:identifier="pps_properties_fonts_new">
-        <source-position filename="shell/pps-properties-fonts.h" line="41"/>
+        <source-position filename="shell/pps-properties-fonts.h" line="38"/>
         <return-value transfer-ownership="none">
           <type name="Gtk.Widget" c:type="GtkWidget*"/>
         </return-value>
@@ -3549,8 +3503,8 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
               c:identifier="pps_properties_fonts_set_document">
         <doc xml:space="preserve"
              filename="shell/pps-properties-fonts.c"
-             line="136">Sets the document on the properties to the fonts can be scanned.</doc>
-        <source-position filename="shell/pps-properties-fonts.h" line="42"/>
+             line="128">Sets the document on the properties to the fonts can be scanned.</doc>
+        <source-position filename="shell/pps-properties-fonts.h" line="39"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -3558,31 +3512,29 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
           <instance-parameter name="properties" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-properties-fonts.c"
-                 line="138">a #PpsPropertiesFonts</doc>
+                 line="130">a #PpsPropertiesFonts</doc>
             <type name="PropertiesFonts" c:type="PpsPropertiesFonts*"/>
           </instance-parameter>
           <parameter name="document" transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="shell/pps-properties-fonts.c"
-                 line="139">a #PpsDocument which implements the
+                 line="131">a #PpsDocument which implements the
 #PpsDocumentFonts interface</doc>
             <type name="PapersDocument.Document" c:type="PpsDocument*"/>
           </parameter>
         </parameters>
       </method>
+      <field name="parent">
+        <type name="Adw.Bin" c:type="AdwBin"/>
+      </field>
     </class>
     <record name="PropertiesFontsClass"
             c:type="PpsPropertiesFontsClass"
-            disguised="1"
-            opaque="1"
             glib:is-gtype-struct-for="PropertiesFonts">
-      <source-position filename="shell/pps-properties-fonts.h" line="30"/>
-    </record>
-    <record name="PropertiesFontsPrivate"
-            c:type="PpsPropertiesFontsPrivate"
-            disguised="1"
-            opaque="1">
-      <source-position filename="shell/pps-properties-fonts.h" line="31"/>
+      <source-position filename="shell/pps-properties-fonts.h" line="32"/>
+      <field name="parent_class">
+        <type name="Adw.BinClass" c:type="AdwBinClass"/>
+      </field>
     </record>
     <class name="PropertiesLicense"
            c:symbol-prefix="properties_license"
