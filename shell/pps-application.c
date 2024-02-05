@@ -738,8 +738,7 @@ handle_reload_cb (PpsPapersApplication   *object,
 void
 pps_application_open_uri_list (PpsApplication *application,
 			      GListModel    *files,
-			      GdkDisplay    *display,
-			      guint          timestamp)
+			      GdkDisplay    *display)
 {
 	GFile *file;
 	guint pos = 0;
@@ -752,7 +751,7 @@ pps_application_open_uri_list (PpsApplication *application,
 
 		pps_application_open_uri_at_dest (application, uri,
 						 display, NULL, 0, NULL,
-						 timestamp);
+						 GDK_CURRENT_TIME);
 	}
 }
 

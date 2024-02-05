@@ -51,8 +51,7 @@ void              pps_application_open_uri_at_dest    (PpsApplication   *applica
 						      guint32          timestamp);
 void	          pps_application_open_uri_list       (PpsApplication   *application,
 						      GListModel      *files,
-						      GdkDisplay      *display,
-						      guint32          timestamp);
+						      GdkDisplay      *display);
 gboolean	  pps_application_has_window	     (PpsApplication   *application);
 guint             pps_application_get_n_windows       (PpsApplication   *application);
 const gchar *     pps_application_get_uri             (PpsApplication   *application);

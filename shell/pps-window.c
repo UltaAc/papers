@@ -2574,8 +2574,7 @@ file_open_dialog_response_cb (GtkWidget *chooser,
 		files = gtk_file_chooser_get_files (GTK_FILE_CHOOSER (chooser));
 
 		pps_application_open_uri_list (PPS_APP, files,
-                                                gtk_widget_get_display(GTK_WIDGET (pps_window)),
-					      0);
+                                                gtk_widget_get_display(GTK_WIDGET (pps_window)));
                 g_object_unref (files);
 	}
 
@@ -5424,8 +5423,7 @@ pps_window_drag_data_received (GtkDropTarget* self,
 	}
 
 	pps_application_open_uri_list (PPS_APP, G_LIST_MODEL (uri_list),
-					gtk_widget_get_display (GTK_WIDGET (window)),
-					GDK_CURRENT_TIME);
+					gtk_widget_get_display (GTK_WIDGET (window)));
 
 	g_object_unref (uri_list);
 
