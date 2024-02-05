@@ -126,8 +126,8 @@ mod imp {
         }
 
         fn set_width_chars(&self, width: i32) {
-            // width + 2 (one decimals and the comma) + 3 (for the icon)
-            self.entry.set_width_chars(width + 2 + 3);
+            // width + 2 (one decimals and the comma)
+            self.entry.set_width_chars(width + 2);
         }
 
         fn set_zoom_level(&self, zoom: f64) {
