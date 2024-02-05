@@ -2590,7 +2590,7 @@ pps_window_cmd_new_window (GSimpleAction *action,
 	PpsWindow  *window = user_data;
 	GdkDisplay *display = gtk_widget_get_display(GTK_WIDGET(window));
 
-	pps_application_new_window (PPS_APP, display, GDK_CURRENT_TIME);
+	pps_application_new_window (PPS_APP, display);
 }
 
 static void
@@ -5980,8 +5980,7 @@ launch_action (PpsWindow *pps_window, PpsLinkAction *action)
 	pps_application_open_uri_at_dest (PPS_APP, uri,
 					 gtk_widget_get_display (GTK_WIDGET (pps_window)),
 					 pps_link_action_get_dest (action),
-					 priv->window_mode, NULL,
-					 GDK_CURRENT_TIME);
+					 priv->window_mode, NULL);
 	g_free (uri);
 
 }
@@ -6058,8 +6057,7 @@ open_remote_link (PpsWindow *window, PpsLinkAction *action)
 					 NULL,
 					 pps_link_action_get_dest (action),
 					 0,
-					 NULL,
-					 GDK_CURRENT_TIME);
+					 NULL);
 
 	g_free (uri);
 }

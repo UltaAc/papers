@@ -73,16 +73,14 @@ static void _pps_application_open_uri_at_dest (PpsApplication  *application,
 					      GdkDisplay     *display,
 					      PpsLinkDest     *dest,
 					      PpsWindowRunMode mode,
-					      const gchar    *search_string,
-					      guint           timestamp);
+					      const gchar    *search_string);
 static void pps_application_open_uri_in_window (PpsApplication  *application,
 					       const char     *uri,
 					       PpsWindow       *pps_window,
 					       GdkDisplay     *display,
 					       PpsLinkDest     *dest,
 					       PpsWindowRunMode mode,
-					       const gchar    *search_string,
-					       guint           timestamp);
+					       const gchar    *search_string);
 
 /**
  * pps_application_new:
@@ -145,8 +143,7 @@ pps_spawn (const char     *uri,
 	  GdkDisplay     *display,
 	  PpsLinkDest     *dest,
 	  PpsWindowRunMode mode,
-	  const gchar    *search_string,
-	  guint           timestamp)
+	  const gchar    *search_string)
 {
 	GString *cmd;
 	gchar *path, *cmdline;
@@ -222,7 +219,6 @@ pps_spawn (const char     *uri,
 		GdkAppLaunchContext *ctx;
 
 		ctx = gdk_display_get_app_launch_context (display);
-		gdk_app_launch_context_set_timestamp (ctx, timestamp);
 
                 /* Some URIs can be changed when passed through a GFile
                  * (for instance unsupported uris with strange formats like mailto:),
@@ -282,7 +278,6 @@ typedef struct {
 	PpsLinkDest     *dest;
 	PpsWindowRunMode mode;
 	gchar          *search_string;
-	guint           timestamp;
 } PpsRegisterDocData;
 
 static void
@@ -343,8 +338,7 @@ on_register_uri_cb (GObject      *source_object,
 						  data->display,
 						  data->dest,
 						  data->mode,
-						  data->search_string,
-						  data->timestamp);
+						  data->search_string);
 		pps_register_doc_data_free (g_steal_pointer (&data));
 
 		return;
@@ -365,15 +359,14 @@ on_register_uri_cb (GObject      *source_object,
 						  data->display,
 						  data->dest,
 						  data->mode,
-						  data->search_string,
-						  data->timestamp);
+						  data->search_string);
 		pps_register_doc_data_free (g_steal_pointer(&data));
 
                 return;
         }
 
 	/* Already registered */
-	g_variant_builder_init (&builder, G_VARIANT_TYPE ("(a{sv}u)"));
+	g_variant_builder_init (&builder, G_VARIANT_TYPE ("(a{sv})"));
         g_variant_builder_open (&builder, G_VARIANT_TYPE ("a{sv}"));
         g_variant_builder_add (&builder, "{sv}",
                                "display",
@@ -408,8 +401,6 @@ on_register_uri_cb (GObject      *source_object,
 	}
         g_variant_builder_close (&builder);
 
-        g_variant_builder_add (&builder, "u", data->timestamp);
-
         g_dbus_connection_call (connection,
 				owner,
 				APPLICATION_DBUS_OBJECT_PATH,
@@ -435,7 +426,6 @@ on_register_uri_cb (GObject      *source_object,
  * @dest: The #PpsLinkDest of the document.
  * @mode: The run mode of the window.
  * @search_string: The word or phrase to find in the document.
- * @timestamp: Current time value.
  *
  * Registers @uri with papers-daemon.
  *
@@ -446,14 +436,13 @@ pps_application_register_uri (PpsApplication  *application,
                              GdkDisplay     *display,
                              PpsLinkDest     *dest,
                              PpsWindowRunMode mode,
-                             const gchar    *search_string,
-			     guint           timestamp)
+                             const gchar    *search_string)
 {
 	PpsRegisterDocData *data;
 
 	/* If connection hasn't been made fall back to opening without D-BUS features */
 	if (!application->skeleton) {
-		_pps_application_open_uri_at_dest (application, uri, display, dest, mode, search_string, timestamp);
+		_pps_application_open_uri_at_dest (application, uri, display, dest, mode, search_string);
 		return;
 	}
 
@@ -469,8 +458,7 @@ pps_application_register_uri (PpsApplication  *application,
 			pps_application_open_uri_in_window (application, uri,
                                                            PPS_WINDOW (l->data),
 							   display, dest, mode,
-							   search_string,
-							   timestamp);
+							   search_string);
 		}
 
 		return;
@@ -482,7 +470,6 @@ pps_application_register_uri (PpsApplication  *application,
 	data->dest = dest ? g_object_ref (dest) : NULL;
 	data->mode = mode;
 	data->search_string = search_string ? g_strdup (search_string) : NULL;
-	data->timestamp = timestamp;
 
         g_dbus_connection_call (g_application_get_dbus_connection (G_APPLICATION (application)),
 				PAPERS_DAEMON_SERVICE,
@@ -542,8 +529,7 @@ pps_application_open_uri_in_window (PpsApplication  *application,
 				   GdkDisplay     *display,
 				   PpsLinkDest     *dest,
 				   PpsWindowRunMode mode,
-				   const gchar    *search_string,
-				   guint           timestamp)
+				   const gchar    *search_string)
 {
         if (uri == NULL)
                 uri = application->uri;
@@ -567,8 +553,7 @@ _pps_application_open_uri_at_dest (PpsApplication  *application,
 				  GdkDisplay     *display,
 				  PpsLinkDest     *dest,
 				  PpsWindowRunMode mode,
-				  const gchar    *search_string,
-				  guint           timestamp)
+				  const gchar    *search_string)
 {
 	PpsWindow *pps_window;
 
@@ -578,8 +563,7 @@ _pps_application_open_uri_at_dest (PpsApplication  *application,
 
 	pps_application_open_uri_in_window (application, uri, pps_window,
 					   display, dest, mode,
-					   search_string,
-					   timestamp);
+					   search_string);
 }
 
 /**
@@ -590,7 +574,6 @@ _pps_application_open_uri_at_dest (PpsApplication  *application,
  * @dest: The #PpsLinkDest of the document.
  * @mode: The run mode of the window.
  * @search_string: The word or phrase to find in the document.
- * @timestamp: Current time value.
  */
 void
 pps_application_open_uri_at_dest (PpsApplication  *application,
@@ -598,14 +581,13 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 				 GdkDisplay     *display,
 				 PpsLinkDest     *dest,
 				 PpsWindowRunMode mode,
-				 const gchar    *search_string,
-				 guint           timestamp)
+				 const gchar    *search_string)
 {
 	g_return_if_fail (uri != NULL);
 
 	if (application->uri && strcmp (application->uri, uri) != 0) {
 		/* spawn a new papers process */
-		pps_spawn (uri, display, dest, mode, search_string, timestamp);
+		pps_spawn (uri, display, dest, mode, search_string);
 		return;
 	} else if (!application->uri) {
 		application->uri = g_strdup (uri);
@@ -615,19 +597,18 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 	/* Register the uri or send Reload to
 	 * remote instance if already registered
 	 */
-	pps_application_register_uri (application, uri, display, dest, mode, search_string, timestamp);
+	pps_application_register_uri (application, uri, display, dest, mode, search_string);
 #else
-	_pps_application_open_uri_at_dest (application, uri, display, dest, mode, search_string, timestamp);
+	_pps_application_open_uri_at_dest (application, uri, display, dest, mode, search_string);
 #endif /* ENABLE_DBUS */
 }
 
 void
 pps_application_new_window (PpsApplication *application,
-			   GdkDisplay    *display,
-			   guint32        timestamp)
+			   GdkDisplay    *display)
 {
         /* spawn an empty window */
-	pps_spawn (NULL, display, NULL, PPS_WINDOW_MODE_NORMAL, NULL, timestamp);
+	pps_spawn (NULL, display, NULL, PPS_WINDOW_MODE_NORMAL, NULL);
 }
 
 /**
@@ -684,7 +665,6 @@ static gboolean
 handle_reload_cb (PpsPapersApplication   *object,
                   GDBusMethodInvocation *invocation,
                   GVariant              *args,
-                  guint                  timestamp,
                   PpsApplication         *application)
 {
         GList           *windows, *l;
@@ -722,8 +702,7 @@ handle_reload_cb (PpsPapersApplication   *object,
                 pps_application_open_uri_in_window (application, NULL,
                                                    PPS_WINDOW (l->data),
                                                    display, dest, mode,
-                                                   search_string,
-                                                   timestamp);
+                                                   search_string);
         }
 
         if (dest)
@@ -750,8 +729,7 @@ pps_application_open_uri_list (PpsApplication *application,
 			continue;
 
 		pps_application_open_uri_at_dest (application, uri,
-						 display, NULL, 0, NULL,
-						 GDK_CURRENT_TIME);
+						 display, NULL, 0, NULL);
 	}
 }
 
@@ -1061,8 +1039,7 @@ pps_application_command_line (GApplication	     *gapplication,
 		g_object_unref (file);
 
 		pps_application_open_uri_at_dest (pps_app, uri, display, dest,
-						 mode, find_string,
-						 GDK_CURRENT_TIME);
+						 mode, find_string);
 
 		if (dest)
 			g_object_unref (dest);
@@ -1100,8 +1077,7 @@ pps_application_open (GApplication	 *application,
 			continue;
 
 		pps_application_open_uri_at_dest (PPS_APPLICATION (application), uri,
-						 NULL, NULL, 0, NULL,
-						 GDK_CURRENT_TIME);
+						 NULL, NULL, 0, NULL);
 	}
 }
 

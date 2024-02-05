@@ -47,8 +47,7 @@ void              pps_application_open_uri_at_dest    (PpsApplication   *applica
 						      GdkDisplay      *display,
 						      PpsLinkDest      *dest,
 						      PpsWindowRunMode  mode,
-						      const gchar     *search_string,
-						      guint32          timestamp);
+						      const gchar     *search_string);
 void	          pps_application_open_uri_list       (PpsApplication   *application,
 						      GListModel      *files,
 						      GdkDisplay      *display);
@@ -60,7 +59,6 @@ void              pps_application_clear_uri           (PpsApplication   *applica
 const gchar      *pps_application_get_dot_dir         (PpsApplication   *application,
                                                       gboolean         create);
 void              pps_application_new_window          (PpsApplication *application,
-						      GdkDisplay      *display,
-						      guint32        timestamp);
+						      GdkDisplay      *display);
 
 G_END_DECLS
