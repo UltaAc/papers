@@ -2764,7 +2764,7 @@ msgstr ""
 "Una comunidad de voluntarios ha creado <app>Visor de documentos</app>. Se le "
 "dará la bienvenida si quiere participar. Si descubre un problema, puede "
 "rellenar un <em>informe de error</em>. Para informar de un error, vaya a "
-"<link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues/\"/>."
+"<link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues/\"/>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2797,13 +2797,13 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues\">browse</"
+"please <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues\">browse</"
 "link> for the bug to see if it already exists."
 msgstr ""
 "Una vez que tenga su cuenta, inicie sesión y pulse en <gui>New issue</gui>. "
 "Antes de informar de un error, lea la <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">guía para informar de un error</"
-"link> y <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues\">busque</"
+"link> y <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues\">busque</"
 "link> el error para ver si ya existe."
 
 #. (itstool) path: page/p

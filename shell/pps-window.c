@@ -6070,7 +6070,7 @@ do_action_named (PpsWindow *window, PpsLinkAction *action)
 	} else {
 		g_warning ("Unimplemented named action: %s, please post a "
 		           "bug report in Papers Gitlab "
-		           "(https://gitlab.gnome.org/pabloyoyoista/papers/issues) "
+		           "(https://gitlab.gnome.org/GNOME/Incubator/papers/issues) "
 			   "with a testcase.",
 			   name);
 	}

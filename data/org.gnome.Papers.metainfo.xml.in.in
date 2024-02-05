@@ -31,19 +31,19 @@
   </provides>
   <screenshots>
     <screenshot type="default">
-    <image>https://gitlab.gnome.org/pabloyoyoista/papers/raw/main/data/screenshots/papers-1.png</image>
+    <image>https://gitlab.gnome.org/GNOME/Incubator/papers/raw/main/data/screenshots/papers-1.png</image>
     <caption>A clear, simple UI</caption>
     </screenshot>
     <screenshot>
-    <image>https://gitlab.gnome.org/pabloyoyoista/papers/raw/main/data/screenshots/papers-2.png</image>
+    <image>https://gitlab.gnome.org/GNOME/Incubator/papers/raw/main/data/screenshots/papers-2.png</image>
     <caption>Advanced highlighting and annotation</caption>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://gitlab.gnome.org/pabloyoyoista/papers/</url>
-  <url type="bugtracker">https://gitlab.gnome.org/pabloyoyoista/papers/-/issues/new</url>
+  <url type="homepage">https://gitlab.gnome.org/GNOME/Incubator/papers/</url>
+  <url type="bugtracker">https://gitlab.gnome.org/GNOME/Incubator/papers/-/issues/new</url>
   <url type="translate">https://wiki.gnome.org/TranslationProject</url>
   <url type="donation">https://www.gnome.org/donate/</url>
-  <url type="vcs-browser">https://gitlab.gnome.org/pabloyoyoista/papers/</url>
+  <url type="vcs-browser">https://gitlab.gnome.org/GNOME/Incubator/papers/</url>
   <project_group>GNOME</project_group>
   <developer id="gnome.org">
     <name>The GNOME Project</name>

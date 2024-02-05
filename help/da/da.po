@@ -2734,7 +2734,7 @@ msgstr ""
 "<app>Dokumentfremviser</app> vedligeholdes af et fællesskab af frivillige. "
 "Du er velkommen til at være med. Hvis du bemærker et problem, kan du oprette "
 "en <em>fejlrapport</em>. Rapportér en fejl ved at gå til <link "
-"href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues/\"/>."
+"href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues/\"/>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2765,13 +2765,13 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues\">browse</"
+"please <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues\">browse</"
 "link> for the bug to see if it already exists."
 msgstr ""
 "Når du har en konto, så log ind og klik på <gui>New issue</gui>. Inden du "
 "rapporterer en fejl, så læs venligst <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">retningslinjer til fejlrapportering</"
-"link> og <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues\">se</"
+"link> og <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues\">se</"
 "link> venligst om fejlen allerede er anmeldt."
 
 #. (itstool) path: page/p

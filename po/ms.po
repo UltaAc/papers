@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: papers master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/pabloyoyoista/papers/issues\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/issues\n"
 "POT-Creation-Date: 2019-12-25 01:22+0000\n"
 "PO-Revision-Date: 2020-01-27 17:12+0800\n"
 "Last-Translator: abuyop <abuyop@gmail.com>\n"

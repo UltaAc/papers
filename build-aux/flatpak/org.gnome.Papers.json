@@ -169,7 +169,7 @@
                 {
                     "type": "git",
                     "branch": "main",
-                    "url": "https://gitlab.gnome.org/pabloyoyoista/papers.git"
+                    "url": "https://gitlab.gnome.org/GNOME/Incubator/papers.git"
                 }
             ]
         }

@@ -2742,7 +2742,7 @@ msgstr ""
 "<app>penampil dokumen</app> dikembangkan dan dipelihara oleh komunitas "
 "relawan. Anda dipersilakan untuk berpartisipasi. Bila Anda menjumpai suatu "
 "masalah, Anda dapat <em>melaporkan bug</em>. Untuk melaporkan bug, silakan "
-"menuju <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues/\"/>."
+"menuju <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues/\"/>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2774,13 +2774,13 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues\">browse</"
+"please <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues\">browse</"
 "link> for the bug to see if it already exists."
 msgstr ""
 "Setelah Anda memiliki akun, log masuk, klik pada <gui>New issue</gui>. "
 "Sebelum melaporkan suatu bug, harap baca <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">panduan menulis bug</link>, dan "
-"mohon <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues\">ramban</"
+"mohon <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues\">ramban</"
 "link> bug tersebut untuk melihat apakah sudah dilaporkan."
 
 #. (itstool) path: page/p

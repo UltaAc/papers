@@ -1129,7 +1129,7 @@ pps_link_dest_from_dest (PdfDocument *pdf_document,
 	if (unimplemented_dest) {
 		g_warning ("Unimplemented destination: %s, please post a "
 		           "bug report in Papers issue tracker "
-		           "(https://gitlab.gnome.org/pabloyoyoista/papers/issues) with a testcase.",
+		           "(https://gitlab.gnome.org/GNOME/Incubator/papers/issues) with a testcase.",
 			   unimplemented_dest);
 	}
 
@@ -1250,7 +1250,7 @@ pps_link_from_action (PdfDocument   *pdf_document,
 
 	if (unimplemented_action) {
 		g_warning ("Unimplemented action: %s, please post a bug report "
-			   "in Papers issue tracker (https://gitlab.gnome.org/pabloyoyoista/papers/issues) "
+			   "in Papers issue tracker (https://gitlab.gnome.org/GNOME/Incubator/papers/issues) "
 			   "with a testcase.", unimplemented_action);
 	}
 
@@ -2789,7 +2789,7 @@ pps_annot_from_poppler_annot (PopplerAnnot *poppler_annot,
 		} else {
 			g_warning ("Unimplemented annotation: %s, please post a "
 			           "bug report in Papers issue tracker "
-			           "(https://gitlab.gnome.org/pabloyoyoista/papers/issues) with a testcase.",
+			           "(https://gitlab.gnome.org/GNOME/Incubator/papers/issues) with a testcase.",
 				   unimplemented_annot);
 		}
 	}

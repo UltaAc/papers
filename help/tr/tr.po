@@ -2405,7 +2405,7 @@ msgid ""
 msgstr ""
 "<app>Belge görüntüleyici</app>’nin bakımı gönüllü bir toplulukça yapılmaktadır. Katılmak isterseniz "
 "hoşgeldiniz. Sorun saptadığınızda <em>hata bildiriminde</em> bulunabilirsiniz. Hata bildirmek için "
-"(İngilizce) şu adresi kullanabilirsiniz: <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues/\"/>."
+"(İngilizce) şu adresi kullanabilirsiniz: <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues/\"/>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2433,7 +2433,7 @@ msgstr ""
 msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before reporting a bug, please read "
 "the <link href=\"https://wiki.gnome.org/GettingInTouch/BugReportingGuidelines\">bug writing guidelines</"
-"link>, and please <link href=\"https://gitlab.gnome.org/pabloyoyoista/papers/issues\">browse</link> for the bug to "
+"link>, and please <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues\">browse</link> for the bug to "
 "see if it already exists."
 msgstr ""
 "Hesabınız olduğunda, giriş yapın ve <gui>New issue</gui> düğmesine tıklayın. Hata bildirmeden önce lütfen "
