@@ -2964,7 +2964,6 @@ pps_window_cmd_send_to (GSimpleAction *action,
 
 		display = gtk_widget_get_display(GTK_WIDGET(pps_window));
 		context = gdk_display_get_app_launch_context (display);
-		gdk_app_launch_context_set_timestamp (context, GDK_CURRENT_TIME);
 		g_app_info_launch (app_info, NULL, G_APP_LAUNCH_CONTEXT (context), &error);
 		g_object_unref (context);
 
@@ -3022,7 +3021,6 @@ pps_window_cmd_open_containing_folder (GSimpleAction *action,
 	display = gtk_widget_get_display (GTK_WIDGET (window));
 
 	context = gdk_display_get_app_launch_context (display);
-	gdk_app_launch_context_set_timestamp (context, GDK_CURRENT_TIME);
 
 	/* FIXME: Papers will hang forever when we pass the context here */
 	g_app_info_launch (app, &list, NULL, &error);
@@ -6004,7 +6002,6 @@ launch_external_uri (PpsWindow *window, PpsLinkAction *action)
 
 	display = gtk_widget_get_display (GTK_WIDGET (window));
 	context = gdk_display_get_app_launch_context (display);
-	gdk_app_launch_context_set_timestamp (context, GDK_CURRENT_TIME);
 	file = g_file_new_for_uri (uri);
 	uri_scheme = g_file_get_uri_scheme (file);
 	g_object_unref (file);
