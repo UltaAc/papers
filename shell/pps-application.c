@@ -705,8 +705,7 @@ handle_reload_cb (PpsPapersApplication   *object,
                                                    search_string);
         }
 
-        if (dest)
-                g_object_unref (dest);
+	g_clear_object (&dest);
 
         pps_papers_application_complete_reload (object, invocation);
 
@@ -1041,8 +1040,7 @@ pps_application_command_line (GApplication	     *gapplication,
 		pps_application_open_uri_at_dest (pps_app, uri, display, dest,
 						 mode, find_string);
 
-		if (dest)
-			g_object_unref (dest);
+		g_clear_object (&dest);
 		g_free (uri);
         }
 
