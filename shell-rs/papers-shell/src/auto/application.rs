@@ -66,13 +66,9 @@ impl Application {
     }
 
     #[doc(alias = "pps_application_new_window")]
-    pub fn new_window(&self, display: &gdk::Display, timestamp: u32) {
+    pub fn new_window(&self, display: &gdk::Display) {
         unsafe {
-            ffi::pps_application_new_window(
-                self.to_glib_none().0,
-                display.to_glib_none().0,
-                timestamp,
-            );
+            ffi::pps_application_new_window(self.to_glib_none().0, display.to_glib_none().0);
         }
     }
 
@@ -91,7 +87,6 @@ impl Application {
         dest: &papers_document::LinkDest,
         mode: WindowRunMode,
         search_string: &str,
-        timestamp: u32,
     ) {
         unsafe {
             ffi::pps_application_open_uri_at_dest(
@@ -101,24 +96,17 @@ impl Application {
                 dest.to_glib_none().0,
                 mode.into_glib(),
                 search_string.to_glib_none().0,
-                timestamp,
             );
         }
     }
 
     #[doc(alias = "pps_application_open_uri_list")]
-    pub fn open_uri_list(
-        &self,
-        files: &impl IsA<gio::ListModel>,
-        display: &gdk::Display,
-        timestamp: u32,
-    ) {
+    pub fn open_uri_list(&self, files: &impl IsA<gio::ListModel>, display: &gdk::Display) {
         unsafe {
             ffi::pps_application_open_uri_list(
                 self.to_glib_none().0,
                 files.as_ref().to_glib_none().0,
                 display.to_glib_none().0,
-                timestamp,
             );
         }
     }

@@ -465,7 +465,7 @@ For the time-format used, see pps_document_misc_format_datetime().</doc>
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
                  line="502">a #time_t</doc>
-            <type name="glong" c:type="time_t"/>
+            <type name="gint64" c:type="time_t"/>
           </parameter>
         </parameters>
       </method>

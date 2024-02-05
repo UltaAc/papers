@@ -79,8 +79,17 @@ pub trait JobExt: IsA<Job> + sealed::Sealed + 'static {
     //}
 
     #[doc(alias = "pps_job_is_failed")]
-    fn is_failed(&self) -> bool {
-        unsafe { from_glib(ffi::pps_job_is_failed(self.as_ref().to_glib_none().0)) }
+    fn is_failed(&self) -> Result<(), glib::Error> {
+        unsafe {
+            let mut error = std::ptr::null_mut();
+            let is_ok = ffi::pps_job_is_failed(self.as_ref().to_glib_none().0, &mut error);
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
     }
 
     #[doc(alias = "pps_job_is_finished")]
