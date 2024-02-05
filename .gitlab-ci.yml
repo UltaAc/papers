@@ -108,6 +108,10 @@ flatpak:
         BUNDLE: "org.gnome.Papers.Devel.flatpak"
     retry: 2
 
+nightly:
+  extends: '.publish_nightly'
+  needs: ['flatpak']
+
 pages:
     extends: '.fdo.distribution-image@fedora'
     stage: deploy
