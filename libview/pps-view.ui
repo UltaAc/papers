@@ -25,6 +25,7 @@
     </child>
     <child>
       <object class="GtkEventControllerScroll">
+        <property name="flags">vertical</property>
         <signal name="scroll" handler="pps_view_scroll_event" />
       </object>
     </child>
