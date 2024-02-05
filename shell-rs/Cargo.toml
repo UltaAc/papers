@@ -15,7 +15,6 @@ env_logger = "0.10"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
 log = "0.4"
 lru = "0.12"
-once_cell = "1"
 
 [dependencies.glib]
 package = "glib"

@@ -695,7 +695,6 @@ dependencies = [
  "libadwaita",
  "log",
  "lru",
- "once_cell",
  "papers-document",
  "papers-shell",
  "papers-view",

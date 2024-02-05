@@ -39,9 +39,8 @@ mod imp {
     #[glib::derived_properties]
     impl ObjectImpl for PpsZoomAction {
         fn signals() -> &'static [Signal] {
-            static SIGNALS: Lazy<Vec<Signal>> =
-                Lazy::new(|| vec![Signal::builder("activated").run_last().build()]);
-            SIGNALS.as_ref()
+            static SIGNALS: OnceLock<Vec<Signal>> = OnceLock::new();
+            SIGNALS.get_or_init(|| vec![Signal::builder("activated").run_last().build()])
         }
 
         fn constructed(&self) {

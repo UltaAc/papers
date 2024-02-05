@@ -22,7 +22,7 @@ pub use std::cell::RefCell;
 
 pub use gettextrs::gettext;
 
-pub use once_cell::sync::Lazy;
+pub use std::sync::OnceLock;
 
 pub use log::{debug, error, info, warn};
 
