@@ -159,21 +159,21 @@
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" context="shortcut window">Fit page</property>
-                <property name="action-name">win.sizing-mode::fit-page</property>
+                <property name="accelerator">f</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" context="shortcut window">Fit width</property>
-                <property name="action-name">win.sizing-mode::fit-width</property>
+                <property name="accelerator">w</property>
               </object>
 	          </child>
 	          <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" context="shortcut window">Automatic zoom</property>
-                <property name="action-name">win.sizing-mode::automatic</property>
+                <property name="accelerator">a</property>
               </object>
             </child>
           </object>
@@ -207,14 +207,14 @@
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" context="shortcut window">Go to previous page</property>
-                <property name="action-name">win.go-previous-page</property>
+                <property name="accelerator">p &lt;Ctrl&gt;Page_Up</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" context="shortcut window">Go to next page</property>
-                <property name="action-name">win.go-next-page</property>
+                <property name="accelerator">n &lt;Ctrl&gt;Page_Down</property>
               </object>
             </child>
             <child>
@@ -283,14 +283,14 @@
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" context="shortcut window">Add bookmark</property>
-                <property name="action-name">win.add-bookmark</property>
+                <property name="accelerator">&lt;Ctrl&gt;d</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" context="shortcut window">Remove bookmark</property>
-                <property name="action-name">win.delete-bookmark</property>
+                <property name="accelerator">&lt;Ctrl&gt;&lt;Shift&gt;d</property>
               </object>
             </child>
             <child>
@@ -304,21 +304,21 @@
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" context="shortcut window">Toggle continuous scrolling</property>
-                <property name="action-name">win.continuous</property>
+                <property name="accelerator">c</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" context="shortcut window">Toggle dual page</property>
-                <property name="action-name">win.dual-page</property>
+                <property name="accelerator">d</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" context="shortcut window">Toggle odd pages left</property>
-                <property name="action-name">win.dual-odd-left</property>
+                <property name="accelerator">o</property>
               </object>
             </child>
             <child>
@@ -332,7 +332,7 @@
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" context="shortcut window">Add a post-it like note</property>
-                <property name="action-name">win.add-annotation</property>
+                <property name="accelerator">S</property>
               </object>
             </child>
             <child>
