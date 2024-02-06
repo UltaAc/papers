@@ -6848,11 +6848,8 @@ pps_window_init (PpsWindow *pps_window)
 	sizing_mode_changed_cb (priv->model, NULL, pps_window);
 	pps_window_update_actions_sensitivity (pps_window);
 
-	if (g_strcmp0 (PROFILE, "") != 0) {
-		GtkStyleContext *style_context;
-		style_context = gtk_widget_get_style_context (GTK_WIDGET (pps_window));
-		gtk_style_context_add_class (style_context, "devel");
-	}
+	if (g_strcmp0 (PROFILE, "") != 0)
+		gtk_widget_add_css_class (GTK_WIDGET (pps_window), "devel");
 }
 
 static void
