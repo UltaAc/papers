@@ -6838,9 +6838,6 @@ pps_window_init (PpsWindow *pps_window)
 				  pps_window);
 #endif
 
-	/* Give focus to the document view */
-	gtk_widget_grab_focus (priv->view);
-
 	priv->default_settings = g_settings_new (GS_SCHEMA_NAME".Default");
 	g_settings_delay (priv->default_settings);
 	pps_window_setup_default (pps_window);
