@@ -55,6 +55,5 @@ void              pps_application_clear_uri           (PpsApplication   *applica
 
 const gchar      *pps_application_get_dot_dir         (PpsApplication   *application,
                                                       gboolean         create);
-void              pps_application_new_window          (PpsApplication *application);
 
 G_END_DECLS

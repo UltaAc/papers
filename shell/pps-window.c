@@ -2581,14 +2581,6 @@ file_open_dialog_response_cb (GtkWidget *chooser,
 }
 
 static void
-pps_window_cmd_new_window (GSimpleAction *action,
-			  GVariant      *parameter,
-			  gpointer       user_data)
-{
-	pps_application_new_window (PPS_APP);
-}
-
-static void
 pps_window_cmd_file_open (GSimpleAction *action,
 			 GVariant      *parameter,
 			 gpointer       user_data)
@@ -5656,7 +5648,6 @@ static const GActionEntry actions[] = {
 	{ "open", pps_window_cmd_file_open },
 	{ "continuous", NULL, NULL, "true", pps_window_cmd_continuous },
 	{ "show-properties", pps_window_cmd_file_properties },
-	{ "new", pps_window_cmd_new_window },
 	{ "open-copy", pps_window_cmd_file_open_copy },
 	{ "save-as", pps_window_cmd_save_as },
 	{ "send-to", pps_window_cmd_send_to },

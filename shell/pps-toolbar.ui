@@ -65,7 +65,7 @@
     <section>
       <item>
         <attribute name="label" translatable="yes">New _Window</attribute>
-        <attribute name="action">win.new</attribute>
+        <attribute name="action">app.new</attribute>
       </item>
     </section>
     <section>

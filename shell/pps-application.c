@@ -547,13 +547,6 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 #endif /* ENABLE_DBUS */
 }
 
-void
-pps_application_new_window (PpsApplication *application)
-{
-        /* spawn an empty window */
-	pps_spawn (NULL, NULL, PPS_WINDOW_MODE_NORMAL, NULL);
-}
-
 /**
  * pps_application_open_recent_view:
  * @application: The instance of the application.
@@ -736,11 +729,20 @@ pps_application_quit_activated (GSimpleAction *action,
 }
 
 static void
+pps_application_new_window_activated (GSimpleAction *action,
+				      GVariant      *parameter,
+				      gpointer       app)
+{
+	/* spawn an empty window */
+	pps_spawn (NULL, NULL, PPS_WINDOW_MODE_NORMAL, NULL);
+}
+
+static void
 pps_application_startup (GApplication *gapplication)
 {
         const gchar *action_accels[] = {
           "win.open",                   "<Ctrl>O", NULL,
-          "win.open-copy",              "<Ctrl>N", NULL,
+          "win.open-copy",              "<Ctrl><Shift>N", NULL,
           "win.save-as",                "<Ctrl>S", NULL,
           "win.print",                  "<Ctrl>P", NULL,
           "win.show-properties",        "<alt>Return", NULL,
@@ -766,8 +768,7 @@ pps_application_startup (GApplication *gapplication)
           "win.reload",                 "<Ctrl>R", NULL,
           "win.highlight-annotation",   "<Ctrl>H", NULL,
           "app.help",                   "F1", NULL,
-          "app.about",                  NULL, NULL,
-          "app.quit",                  NULL, NULL,
+          "app.new",                    "<Ctrl>N", NULL,
           NULL
         };
 
@@ -775,6 +776,7 @@ pps_application_startup (GApplication *gapplication)
 		{"about", pps_application_about_activated, NULL, NULL, NULL},
 		{"help", pps_application_help_activated, NULL, NULL, NULL},
 		{"quit", pps_application_quit_activated, NULL, NULL, NULL},
+		{"new", pps_application_new_window_activated, NULL, NULL, NULL},
 	};
 
         PpsApplication *application = PPS_APPLICATION (gapplication);
