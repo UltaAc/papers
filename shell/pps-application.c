@@ -812,8 +812,6 @@ pps_application_startup (GApplication *gapplication)
           "win.show-properties",        "<alt>Return", NULL,
           "win.copy",                   "<Ctrl>C", "<Ctrl>Insert", NULL,
           "win.select-all",             "<Ctrl>A", NULL,
-          "win.add-bookmark",           "<Ctrl>D", NULL,
-          "win.delete-bookmark",        "<Ctrl><Shift>D", NULL,
           "win.close",                  "<Ctrl>W", NULL,
           "win.escape",                 "Escape", NULL,
           "win.find-next",              "<Ctrl>G", "F3", NULL,

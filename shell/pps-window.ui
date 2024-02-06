@@ -301,6 +301,98 @@
                     </property>
                   </object>
                 </property>
+                <child>
+                  <object class="GtkShortcutController">
+                    <property name="propagation-phase">bubble</property>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>&lt;Ctrl&gt;F|slash|KP_Divide</property>
+                        <property name='action'>action(win.find)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>w</property>
+                        <property name='action'>action(win.sizing-mode)</property>
+                        <property name='arguments'>'fit-width'</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>f</property>
+                        <property name='action'>action(win.sizing-mode)</property>
+                        <property name='arguments'>'fit-page'</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>a</property>
+                        <property name='action'>action(win.sizing-mode)</property>
+                        <property name='arguments'>'automatic'</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>s</property>
+                        <property name='action'>action(win.add-annotation)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>c</property>
+                        <property name='action'>action(win.continuous)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>d</property>
+                        <property name='action'>action(win.dual-page)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>o</property>
+                        <property name='action'>action(win.dual-odd-left)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>n|&lt;Ctrl&gt;Page_Down</property>
+                        <property name='action'>action(win.go-next-page)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>p|&lt;Ctrl&gt;Page_Up</property>
+                        <property name='action'>action(win.go-previous-page)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>plus|equal|&lt;Ctrl&gt;plus|KP_Add|&lt;Ctrl&gt;KP_Add|&lt;Ctrl&gt;equal</property>
+                        <property name='action'>action(win.zoom-in)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>minus|&lt;Ctrl&gt;minus|KP_Subtract|&lt;Ctrl&gt;KP_Subtract</property>
+                        <property name='action'>action(win.zoom-out)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>&lt;Ctrl&gt;D</property>
+                        <property name='action'>action(win.add-bookmark)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>&lt;Ctrl&gt;&lt;Shift&gt;D</property>
+                        <property name='action'>action(win.delete-bookmark)</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
             </property>
           </object>
@@ -322,85 +414,6 @@
       <object class="GtkGestureClick">
         <property name="button">0</property>
         <signal name="pressed" handler="pps_window_button_pressed" />
-      </object>
-    </child>
-    <child>
-      <object class="GtkShortcutController">
-        <child>
-          <object class='GtkShortcut'>
-            <property name='trigger'>&lt;Ctrl&gt;F|slash|KP_Divide</property>
-            <property name='action'>action(win.find)</property>
-          </object>
-        </child>
-        <child>
-          <object class='GtkShortcut'>
-            <property name='trigger'>w</property>
-            <property name='action'>action(win.sizing-mode)</property>
-            <property name='arguments'>'fit-width'</property>
-          </object>
-        </child>
-        <child>
-          <object class='GtkShortcut'>
-            <property name='trigger'>f</property>
-            <property name='action'>action(win.sizing-mode)</property>
-            <property name='arguments'>'fit-page'</property>
-          </object>
-        </child>
-        <child>
-          <object class='GtkShortcut'>
-            <property name='trigger'>a</property>
-            <property name='action'>action(win.sizing-mode)</property>
-            <property name='arguments'>'automatic'</property>
-          </object>
-        </child>
-        <child>
-          <object class='GtkShortcut'>
-            <property name='trigger'>s</property>
-            <property name='action'>action(win.add-annotation)</property>
-          </object>
-        </child>
-        <child>
-          <object class='GtkShortcut'>
-            <property name='trigger'>c</property>
-            <property name='action'>action(win.continuous)</property>
-          </object>
-        </child>
-        <child>
-          <object class='GtkShortcut'>
-            <property name='trigger'>d</property>
-            <property name='action'>action(win.dual-page)</property>
-          </object>
-        </child>
-        <child>
-          <object class='GtkShortcut'>
-            <property name='trigger'>o</property>
-            <property name='action'>action(win.dual-odd-left)</property>
-          </object>
-        </child>
-        <child>
-          <object class='GtkShortcut'>
-            <property name='trigger'>n|&lt;Ctrl&gt;Page_Down</property>
-            <property name='action'>action(win.go-next-page)</property>
-          </object>
-        </child>
-        <child>
-          <object class='GtkShortcut'>
-            <property name='trigger'>p|&lt;Ctrl&gt;Page_Up</property>
-            <property name='action'>action(win.go-previous-page)</property>
-          </object>
-        </child>
-        <child>
-          <object class='GtkShortcut'>
-            <property name='trigger'>plus|equal|&lt;Ctrl&gt;plus|KP_Add|&lt;Ctrl&gt;KP_Add|&lt;Ctrl&gt;equal</property>
-            <property name='action'>action(win.zoom-in)</property>
-          </object>
-        </child>
-        <child>
-          <object class='GtkShortcut'>
-            <property name='trigger'>minus|&lt;Ctrl&gt;minus|KP_Subtract|&lt;Ctrl&gt;KP_Subtract</property>
-            <property name='action'>action(win.zoom-out)</property>
-          </object>
-        </child>
       </object>
     </child>
     <child>
