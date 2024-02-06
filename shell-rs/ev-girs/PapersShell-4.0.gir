@@ -34,22 +34,22 @@ and/or use gtk-doc annotations.  -->
       <constructor name="new" c:identifier="pps_application_new">
         <doc xml:space="preserve"
              filename="shell/pps-application.c"
-             line="85">Creates a new #PpsApplication instance.</doc>
+             line="83">Creates a new #PpsApplication instance.</doc>
         <source-position filename="shell/pps-application.h" line="41"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="shell/pps-application.c"
-               line="90">a newly created #PpsApplication</doc>
+               line="88">a newly created #PpsApplication</doc>
           <type name="Application" c:type="PpsApplication*"/>
         </return-value>
       </constructor>
       <method name="clear_uri" c:identifier="pps_application_clear_uri">
         <doc xml:space="preserve"
              filename="shell/pps-application.c"
-             line="1162">This unregisters current uri and clears it so that another document
+             line="1094">This unregisters current uri and clears it so that another document
 can be opened in this instance. E.g. after cancelled password dialog
 in recent view.</doc>
-        <source-position filename="shell/pps-application.h" line="57"/>
+        <source-position filename="shell/pps-application.h" line="54"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -57,13 +57,13 @@ in recent view.</doc>
           <instance-parameter name="application" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-application.c"
-                 line="1164">The instance of the application.</doc>
+                 line="1096">The instance of the application.</doc>
             <type name="Application" c:type="PpsApplication*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="get_dot_dir" c:identifier="pps_application_get_dot_dir">
-        <source-position filename="shell/pps-application.h" line="59"/>
+        <source-position filename="shell/pps-application.h" line="56"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -78,7 +78,7 @@ in recent view.</doc>
       </method>
       <method name="get_n_windows"
               c:identifier="pps_application_get_n_windows">
-        <source-position filename="shell/pps-application.h" line="55"/>
+        <source-position filename="shell/pps-application.h" line="52"/>
         <return-value transfer-ownership="none">
           <type name="guint" c:type="guint"/>
         </return-value>
@@ -89,7 +89,7 @@ in recent view.</doc>
         </parameters>
       </method>
       <method name="get_uri" c:identifier="pps_application_get_uri">
-        <source-position filename="shell/pps-application.h" line="56"/>
+        <source-position filename="shell/pps-application.h" line="53"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -100,7 +100,7 @@ in recent view.</doc>
         </parameters>
       </method>
       <method name="has_window" c:identifier="pps_application_has_window">
-        <source-position filename="shell/pps-application.h" line="54"/>
+        <source-position filename="shell/pps-application.h" line="51"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -108,20 +108,6 @@ in recent view.</doc>
           <instance-parameter name="application" transfer-ownership="none">
             <type name="Application" c:type="PpsApplication*"/>
           </instance-parameter>
-        </parameters>
-      </method>
-      <method name="new_window" c:identifier="pps_application_new_window">
-        <source-position filename="shell/pps-application.h" line="61"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="application" transfer-ownership="none">
-            <type name="Application" c:type="PpsApplication*"/>
-          </instance-parameter>
-          <parameter name="display" transfer-ownership="none">
-            <type name="Gdk.Display" c:type="GdkDisplay*"/>
-          </parameter>
         </parameters>
       </method>
       <method name="open_start_view"
@@ -134,14 +120,11 @@ in recent view.</doc>
           <instance-parameter name="application" transfer-ownership="none">
             <type name="Application" c:type="PpsApplication*"/>
           </instance-parameter>
-          <parameter name="display" transfer-ownership="none">
-            <type name="Gdk.Display" c:type="GdkDisplay*"/>
-          </parameter>
         </parameters>
       </method>
       <method name="open_uri_at_dest"
               c:identifier="pps_application_open_uri_at_dest">
-        <source-position filename="shell/pps-application.h" line="45"/>
+        <source-position filename="shell/pps-application.h" line="44"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -149,44 +132,38 @@ in recent view.</doc>
           <instance-parameter name="application" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-application.c"
-                 line="571">The instance of the application.</doc>
+                 line="517">The instance of the application.</doc>
             <type name="Application" c:type="PpsApplication*"/>
           </instance-parameter>
           <parameter name="uri" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-application.c"
-                 line="572">The uri to be opened.</doc>
+                 line="518">The uri to be opened.</doc>
             <type name="utf8" c:type="const char*"/>
-          </parameter>
-          <parameter name="display" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-application.c"
-                 line="573">The display where the link will be shown.</doc>
-            <type name="Gdk.Display" c:type="GdkDisplay*"/>
           </parameter>
           <parameter name="dest" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-application.c"
-                 line="574">The #PpsLinkDest of the document.</doc>
+                 line="519">The #PpsLinkDest of the document.</doc>
             <type name="PapersDocument.LinkDest" c:type="PpsLinkDest*"/>
           </parameter>
           <parameter name="mode" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-application.c"
-                 line="575">The run mode of the window.</doc>
+                 line="520">The run mode of the window.</doc>
             <type name="WindowRunMode" c:type="PpsWindowRunMode"/>
           </parameter>
           <parameter name="search_string" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-application.c"
-                 line="576">The word or phrase to find in the document.</doc>
+                 line="521">The word or phrase to find in the document.</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
         </parameters>
       </method>
       <method name="open_uri_list"
               c:identifier="pps_application_open_uri_list">
-        <source-position filename="shell/pps-application.h" line="51"/>
+        <source-position filename="shell/pps-application.h" line="49"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -196,9 +173,6 @@ in recent view.</doc>
           </instance-parameter>
           <parameter name="files" transfer-ownership="none">
             <type name="Gio.ListModel" c:type="GListModel*"/>
-          </parameter>
-          <parameter name="display" transfer-ownership="none">
-            <type name="Gdk.Display" c:type="GdkDisplay*"/>
           </parameter>
         </parameters>
       </method>
@@ -3717,12 +3691,12 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
       <constructor name="new" c:identifier="pps_window_new">
         <doc xml:space="preserve"
              filename="shell/pps-window.c"
-             line="6945">Creates a #GtkWidget that represents the window.</doc>
+             line="6921">Creates a #GtkWidget that represents the window.</doc>
         <source-position filename="shell/pps-window.h" line="64"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="6950">the #GtkWidget that represents the window.</doc>
+               line="6926">the #GtkWidget that represents the window.</doc>
           <type name="Window" c:type="PpsWindow*"/>
         </return-value>
       </constructor>
@@ -3754,14 +3728,14 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="7009">the #PpsMetadata of the document shown in the window.</doc>
+               line="6985">the #PpsMetadata of the document shown in the window.</doc>
           <type name="Metadata" c:type="PpsMetadata*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="7007">the #PpsWindow</doc>
+                 line="6983">the #PpsWindow</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
@@ -3771,14 +3745,14 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="6978">the #AdwHeaderBar that represents the toolbar of the window.</doc>
+               line="6954">the #AdwHeaderBar that represents the toolbar of the window.</doc>
           <type name="Adw.HeaderBar" c:type="AdwHeaderBar*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="6976">the #PpsWindow</doc>
+                 line="6952">the #PpsWindow</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
@@ -3928,7 +3902,7 @@ a document.</doc>
               c:identifier="pps_window_start_page_selector_search">
         <doc xml:space="preserve"
              filename="shell/pps-window.c"
-             line="3871">Prepares page_selector text entry for searching the Outline,
+             line="3858">Prepares page_selector text entry for searching the Outline,
 basically this:
    - Gives focus to the page selector entry
    - Clears the text in it.
@@ -3945,7 +3919,7 @@ it's finished by means of the entry focus_out event.</doc>
           <instance-parameter name="window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="3873">The instance of the #PpsWindow.</doc>
+                 line="3860">The instance of the #PpsWindow.</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>

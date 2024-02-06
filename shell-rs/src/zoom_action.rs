@@ -1,6 +1,5 @@
 use crate::deps::*;
 
-use papers_document::widget_dpi;
 use papers_view::SizingMode;
 
 mod imp {
@@ -77,7 +76,9 @@ mod imp {
                 if let Ok(zoom_perc) = zoom_perc {
                     let zoom = zoom_perc / 100.0;
                     model.set_sizing_mode(SizingMode::Free);
-                    model.set_scale(zoom * widget_dpi(&self.obj().clone()) / 72.0);
+                    model.set_scale(
+                        zoom * Document::misc_get_widget_dpi(&self.obj().clone()) / 72.0,
+                    );
                 } else {
                     self.update_zoom_level();
                 }
@@ -89,7 +90,9 @@ mod imp {
         #[template_callback]
         fn update_zoom_level(&self) {
             if let Some(document) = self.model() {
-                self.set_zoom_level(document.scale() * 72.0 / widget_dpi(&self.obj().clone()));
+                self.set_zoom_level(
+                    document.scale() * 72.0 / Document::misc_get_widget_dpi(&self.obj().clone()),
+                );
             }
         }
 

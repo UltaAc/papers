@@ -45,6 +45,7 @@ generate = [
 manual = [
     "GdkPixbuf.Pixbuf",
     "GLib.DateTime",
+    "Gtk.Widget",
 ]
 
 [[object]]

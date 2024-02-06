@@ -65,17 +65,10 @@ impl Application {
         unsafe { from_glib(ffi::pps_application_has_window(self.to_glib_none().0)) }
     }
 
-    #[doc(alias = "pps_application_new_window")]
-    pub fn new_window(&self, display: &gdk::Display) {
-        unsafe {
-            ffi::pps_application_new_window(self.to_glib_none().0, display.to_glib_none().0);
-        }
-    }
-
     #[doc(alias = "pps_application_open_start_view")]
-    pub fn open_start_view(&self, display: &gdk::Display) {
+    pub fn open_start_view(&self) {
         unsafe {
-            ffi::pps_application_open_start_view(self.to_glib_none().0, display.to_glib_none().0);
+            ffi::pps_application_open_start_view(self.to_glib_none().0);
         }
     }
 
@@ -83,7 +76,6 @@ impl Application {
     pub fn open_uri_at_dest(
         &self,
         uri: &str,
-        display: &gdk::Display,
         dest: &papers_document::LinkDest,
         mode: WindowRunMode,
         search_string: &str,
@@ -92,7 +84,6 @@ impl Application {
             ffi::pps_application_open_uri_at_dest(
                 self.to_glib_none().0,
                 uri.to_glib_none().0,
-                display.to_glib_none().0,
                 dest.to_glib_none().0,
                 mode.into_glib(),
                 search_string.to_glib_none().0,
@@ -101,12 +92,11 @@ impl Application {
     }
 
     #[doc(alias = "pps_application_open_uri_list")]
-    pub fn open_uri_list(&self, files: &impl IsA<gio::ListModel>, display: &gdk::Display) {
+    pub fn open_uri_list(&self, files: &impl IsA<gio::ListModel>) {
         unsafe {
             ffi::pps_application_open_uri_list(
                 self.to_glib_none().0,
                 files.as_ref().to_glib_none().0,
-                display.to_glib_none().0,
             );
         }
     }

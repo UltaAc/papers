@@ -95,15 +95,26 @@ impl Document {
         unsafe { from_glib_full(ffi::pps_document_misc_format_datetime(dt.to_glib_none().0)) }
     }
 
-    //#[doc(alias = "pps_document_misc_get_pointer_position")]
-    //pub fn misc_get_pointer_position(widget: /*Ignored*/&gtk::Widget) -> (i32, i32) {
-    //    unsafe { TODO: call ffi:pps_document_misc_get_pointer_position() }
-    //}
+    #[doc(alias = "pps_document_misc_get_pointer_position")]
+    pub fn misc_get_pointer_position(widget: &impl IsA<gtk::Widget>) -> (i32, i32) {
+        assert_initialized_main_thread!();
+        unsafe {
+            let mut x = std::mem::MaybeUninit::uninit();
+            let mut y = std::mem::MaybeUninit::uninit();
+            ffi::pps_document_misc_get_pointer_position(
+                widget.as_ref().to_glib_none().0,
+                x.as_mut_ptr(),
+                y.as_mut_ptr(),
+            );
+            (x.assume_init(), y.assume_init())
+        }
+    }
 
-    //#[doc(alias = "pps_document_misc_get_widget_dpi")]
-    //pub fn misc_get_widget_dpi(widget: /*Ignored*/&gtk::Widget) -> f64 {
-    //    unsafe { TODO: call ffi:pps_document_misc_get_widget_dpi() }
-    //}
+    #[doc(alias = "pps_document_misc_get_widget_dpi")]
+    pub fn misc_get_widget_dpi(widget: &impl IsA<gtk::Widget>) -> f64 {
+        assert_initialized_main_thread!();
+        unsafe { ffi::pps_document_misc_get_widget_dpi(widget.as_ref().to_glib_none().0) }
+    }
 
     //#[doc(alias = "pps_document_misc_invert_surface")]
     //pub fn misc_invert_surface(surface: /*Ignored*/&mut cairo::Surface) {
@@ -116,12 +127,12 @@ impl Document {
     //}
 
     //#[doc(alias = "pps_document_misc_render_loading_thumbnail_surface")]
-    //pub fn misc_render_loading_thumbnail_surface(widget: /*Ignored*/&gtk::Widget, width: i32, height: i32, inverted_colors: bool) -> /*Ignored*/Option<cairo::Surface> {
+    //pub fn misc_render_loading_thumbnail_surface(widget: &impl IsA<gtk::Widget>, width: i32, height: i32, inverted_colors: bool) -> /*Ignored*/Option<cairo::Surface> {
     //    unsafe { TODO: call ffi:pps_document_misc_render_loading_thumbnail_surface() }
     //}
 
     //#[doc(alias = "pps_document_misc_render_thumbnail_surface_with_frame")]
-    //pub fn misc_render_thumbnail_surface_with_frame(widget: /*Ignored*/&gtk::Widget, source_surface: /*Ignored*/&mut cairo::Surface, width: i32, height: i32) -> /*Ignored*/Option<cairo::Surface> {
+    //pub fn misc_render_thumbnail_surface_with_frame(widget: &impl IsA<gtk::Widget>, source_surface: /*Ignored*/&mut cairo::Surface, width: i32, height: i32) -> /*Ignored*/Option<cairo::Surface> {
     //    unsafe { TODO: call ffi:pps_document_misc_render_thumbnail_surface_with_frame() }
     //}
 
