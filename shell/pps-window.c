@@ -42,7 +42,6 @@
 #include <gtk/gtk.h>
 #include <adwaita.h>
 
-#include "dzl-file-manager.h"
 #include "pps-find-sidebar.h"
 #include "pps-annotations-toolbar.h"
 #include "pps-application.h"
@@ -2965,65 +2964,39 @@ pps_window_cmd_send_to (GSimpleAction *action,
 }
 
 static void
-pps_window_cmd_open_containing_folder (GSimpleAction *action,
-				      GVariant      *parameter,
-				      gpointer       user_data)
+open_containing_folder_callback (GtkFileLauncher	*launcher,
+				 GAsyncResult		*result,
+				 gpointer		 data)
 {
-	PpsWindow *window = user_data;
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-	GAppInfo *app = NULL;
-	GdkAppLaunchContext *context;
-	GdkDisplay *display;
-	GFile *file;
-	GList list;
 	GError *error = NULL;
 
-	app =  g_app_info_get_default_for_type ("inode/directory", FALSE);
+	if (!gtk_file_launcher_open_containing_folder_finish (launcher, result, &error)) {
+		g_warning ("Could not show containing folder for \"%s\": %s",
+			   (char *)data, error->message);
+	}
+}
+
+static void
+pps_window_cmd_open_containing_folder (GSimpleAction *action,
+				       GVariant      *parameter,
+				       gpointer       user_data)
+{
+	PpsWindow *window = PPS_WINDOW (user_data);
+	PpsWindowPrivate *priv = GET_PRIVATE (window);
+	g_autoptr (GFile) file;
+
 	file = g_file_new_for_uri (priv->uri);
 	if (!g_file_is_native (file)) {
 		g_object_unref (file);
 		file = g_file_new_for_uri (pps_document_get_uri (priv->document));
 	}
-	if (app == NULL) {
-		dzl_file_manager_show (file, &error);
-		if (error) {
-			gchar *uri;
-			uri = g_file_get_uri (file);
-			g_warning ("Could not show containing folder for \"%s\": %s",
-				   uri, error->message);
 
-			g_error_free (error);
-			g_free (uri);
-		}
-		g_object_unref (file);
-		return;
-	}
+	/* FIXME: It's broken on MacOS due to lack of support in GTK4 */
+	gtk_file_launcher_open_containing_folder (gtk_file_launcher_new (file),
+					GTK_WINDOW (window), NULL,
+					(GAsyncReadyCallback)open_containing_folder_callback,
+					priv->uri);
 
-
-	list.next = list.prev = NULL;
-	list.data = file;
-
-	display = gtk_widget_get_display (GTK_WIDGET (window));
-
-	context = gdk_display_get_app_launch_context (display);
-
-	/* FIXME: Papers will hang forever when we pass the context here */
-	g_app_info_launch (app, &list, NULL, &error);
-
-	if (error != NULL) {
-		gchar *uri;
-
-		uri = g_file_get_uri (file);
-		g_warning ("Could not show containing folder for \"%s\": %s",
-			   uri, error->message);
-
-		g_error_free (error);
-		g_free (uri);
-	}
-
-	g_object_unref (context);
-	g_object_unref (app);
 }
 
 static GKeyFile *
