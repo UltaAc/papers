@@ -2573,8 +2573,7 @@ file_open_dialog_response_cb (GtkWidget *chooser,
 
 		files = gtk_file_chooser_get_files (GTK_FILE_CHOOSER (chooser));
 
-		pps_application_open_uri_list (PPS_APP, files,
-                                                gtk_widget_get_display(GTK_WIDGET (pps_window)));
+		pps_application_open_uri_list (PPS_APP, files);
                 g_object_unref (files);
 	}
 
@@ -2586,11 +2585,7 @@ pps_window_cmd_new_window (GSimpleAction *action,
 			  GVariant      *parameter,
 			  gpointer       user_data)
 {
-
-	PpsWindow  *window = user_data;
-	GdkDisplay *display = gtk_widget_get_display(GTK_WIDGET(window));
-
-	pps_application_new_window (PPS_APP, display);
+	pps_application_new_window (PPS_APP);
 }
 
 static void
@@ -5410,7 +5405,6 @@ pps_window_drag_data_received (GtkDropTarget* self,
 			      gdouble y,
 			      gpointer user_data)
 {
-	PpsWindow  *window = PPS_WINDOW (user_data);
 	GdkFileList *file_list = g_value_get_boxed(value);
 	GSList *list = gdk_file_list_get_files(file_list);
 	GListStore *uri_list = g_list_store_new (G_TYPE_FILE);
@@ -5422,8 +5416,7 @@ pps_window_drag_data_received (GtkDropTarget* self,
 		g_list_store_append (uri_list, file);
 	}
 
-	pps_application_open_uri_list (PPS_APP, G_LIST_MODEL (uri_list),
-					gtk_widget_get_display (GTK_WIDGET (window)));
+	pps_application_open_uri_list (PPS_APP, G_LIST_MODEL (uri_list));
 
 	g_object_unref (uri_list);
 
@@ -5978,7 +5971,6 @@ launch_action (PpsWindow *pps_window, PpsLinkAction *action)
 	/* We are asked to open a PDF file, from a click event, proceed with that - Issue #48
 	 * This spawns new Papers process or if already opened presents its window */
 	pps_application_open_uri_at_dest (PPS_APP, uri,
-					 gtk_widget_get_display (GTK_WIDGET (pps_window)),
 					 pps_link_action_get_dest (action),
 					 priv->window_mode, NULL);
 	g_free (uri);
@@ -6054,7 +6046,6 @@ open_remote_link (PpsWindow *window, PpsLinkAction *action)
 	g_free (dir);
 
 	pps_application_open_uri_at_dest (PPS_APP, uri,
-					 NULL,
 					 pps_link_action_get_dest (action),
 					 0,
 					 NULL);

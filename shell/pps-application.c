@@ -70,14 +70,12 @@ G_DEFINE_TYPE (PpsApplication, pps_application, ADW_TYPE_APPLICATION)
 
 static void _pps_application_open_uri_at_dest (PpsApplication  *application,
 					      const gchar    *uri,
-					      GdkDisplay     *display,
 					      PpsLinkDest     *dest,
 					      PpsWindowRunMode mode,
 					      const gchar    *search_string);
 static void pps_application_open_uri_in_window (PpsApplication  *application,
 					       const char     *uri,
 					       PpsWindow       *pps_window,
-					       GdkDisplay     *display,
 					       PpsLinkDest     *dest,
 					       PpsWindowRunMode mode,
 					       const gchar    *search_string);
@@ -101,46 +99,8 @@ pps_application_new (void)
 			     NULL);
 }
 
-#ifdef ENABLE_DBUS
-/**
- * pps_display_open_if_needed:
- * @name: the name of the display to be open if it's needed.
- *
- * Search among all the open displays if any of them have the same name as the
- * passed name. If the display isn't found it tries the open it.
- *
- * Returns: a #GdkDisplay of the display with the passed name.
- */
-static GdkDisplay *
-pps_display_open_if_needed (const gchar *name)
-{
-	GSList     *displays;
-	GSList     *l;
-	GdkDisplay *display = NULL;
-
-	displays = gdk_display_manager_list_displays (gdk_display_manager_get ());
-
-	for (l = displays; l != NULL; l = l->next) {
-		const gchar *display_name = gdk_display_get_name ((GdkDisplay *) l->data);
-
-                /* The given name might come with the screen number, because GdkAppLaunchContext
-                 * uses gdk_screen_make_display_name().
-                 */
-                if (g_str_has_prefix (name, display_name)) {
-			display = l->data;
-			break;
-		}
-	}
-
-	g_slist_free (displays);
-
-	return display != NULL ? display : gdk_display_open (name);
-}
-#endif
-
 static void
 pps_spawn (const char     *uri,
-	  GdkDisplay     *display,
 	  PpsLinkDest     *dest,
 	  PpsWindowRunMode mode,
 	  const gchar    *search_string)
@@ -218,7 +178,7 @@ pps_spawn (const char     *uri,
                 GList *uris = NULL;
 		GdkAppLaunchContext *ctx;
 
-		ctx = gdk_display_get_app_launch_context (display);
+		ctx = gdk_display_get_app_launch_context (gdk_display_get_default ());
 
                 /* Some URIs can be changed when passed through a GFile
                  * (for instance unsupported uris with strange formats like mailto:),
@@ -246,8 +206,7 @@ pps_spawn (const char     *uri,
 }
 
 static PpsWindow *
-pps_application_get_empty_window (PpsApplication *application,
-				 GdkDisplay    *display)
+pps_application_get_empty_window (PpsApplication *application)
 {
 	PpsWindow *empty_window = NULL;
 	GList    *windows, *l;
@@ -274,7 +233,6 @@ pps_application_get_empty_window (PpsApplication *application,
 #ifdef ENABLE_DBUS
 typedef struct {
 	gchar          *uri;
-	GdkDisplay     *display;
 	PpsLinkDest     *dest;
 	PpsWindowRunMode mode;
 	gchar          *search_string;
@@ -335,7 +293,6 @@ on_register_uri_cb (GObject      *source_object,
 
 		_pps_application_open_uri_at_dest (application,
 						  data->uri,
-						  data->display,
 						  data->dest,
 						  data->mode,
 						  data->search_string);
@@ -356,7 +313,6 @@ on_register_uri_cb (GObject      *source_object,
 
 		_pps_application_open_uri_at_dest (application,
 						  data->uri,
-						  data->display,
 						  data->dest,
 						  data->mode,
 						  data->search_string);
@@ -368,9 +324,7 @@ on_register_uri_cb (GObject      *source_object,
 	/* Already registered */
 	g_variant_builder_init (&builder, G_VARIANT_TYPE ("(a{sv})"));
         g_variant_builder_open (&builder, G_VARIANT_TYPE ("a{sv}"));
-        g_variant_builder_add (&builder, "{sv}",
-                               "display",
-                               g_variant_new_string (gdk_display_get_name (gdk_display_get_default())));
+
 	if (data->dest) {
                 switch (pps_link_dest_get_dest_type (data->dest)) {
                 case PPS_LINK_DEST_TYPE_PAGE_LABEL:
@@ -422,7 +376,6 @@ on_register_uri_cb (GObject      *source_object,
  * pps_application_register_uri:
  * @application: The instance of the application.
  * @uri: The uri to be opened.
- * @screen: The screen where the link will be shown.
  * @dest: The #PpsLinkDest of the document.
  * @mode: The run mode of the window.
  * @search_string: The word or phrase to find in the document.
@@ -433,7 +386,6 @@ on_register_uri_cb (GObject      *source_object,
 static void
 pps_application_register_uri (PpsApplication  *application,
 			     const gchar    *uri,
-                             GdkDisplay     *display,
                              PpsLinkDest     *dest,
                              PpsWindowRunMode mode,
                              const gchar    *search_string)
@@ -442,7 +394,7 @@ pps_application_register_uri (PpsApplication  *application,
 
 	/* If connection hasn't been made fall back to opening without D-BUS features */
 	if (!application->skeleton) {
-		_pps_application_open_uri_at_dest (application, uri, display, dest, mode, search_string);
+		_pps_application_open_uri_at_dest (application, uri, dest, mode, search_string);
 		return;
 	}
 
@@ -457,7 +409,7 @@ pps_application_register_uri (PpsApplication  *application,
 
 			pps_application_open_uri_in_window (application, uri,
                                                            PPS_WINDOW (l->data),
-							   display, dest, mode,
+							   dest, mode,
 							   search_string);
 		}
 
@@ -466,7 +418,6 @@ pps_application_register_uri (PpsApplication  *application,
 
 	data = g_new0 (PpsRegisterDocData, 1);
 	data->uri = g_strdup (uri);
-	data->display = display;
 	data->dest = dest ? g_object_ref (dest) : NULL;
 	data->mode = mode;
 	data->search_string = search_string ? g_strdup (search_string) : NULL;
@@ -526,16 +477,12 @@ static void
 pps_application_open_uri_in_window (PpsApplication  *application,
 				   const char     *uri,
 				   PpsWindow       *pps_window,
-				   GdkDisplay     *display,
 				   PpsLinkDest     *dest,
 				   PpsWindowRunMode mode,
 				   const gchar    *search_string)
 {
         if (uri == NULL)
                 uri = application->uri;
-
-	if (display)
-		gtk_window_set_display (GTK_WINDOW (pps_window), display);
 
 	/* We need to load uri before showing the window, so
 	   we can restore window size without flickering */
@@ -550,19 +497,18 @@ pps_application_open_uri_in_window (PpsApplication  *application,
 static void
 _pps_application_open_uri_at_dest (PpsApplication  *application,
 				  const gchar    *uri,
-				  GdkDisplay     *display,
 				  PpsLinkDest     *dest,
 				  PpsWindowRunMode mode,
 				  const gchar    *search_string)
 {
 	PpsWindow *pps_window;
 
-	pps_window = pps_application_get_empty_window (application, display);
+	pps_window = pps_application_get_empty_window (application);
 	if (!pps_window)
 		pps_window = PPS_WINDOW (pps_window_new ());
 
 	pps_application_open_uri_in_window (application, uri, pps_window,
-					   display, dest, mode,
+					   dest, mode,
 					   search_string);
 }
 
@@ -570,7 +516,6 @@ _pps_application_open_uri_at_dest (PpsApplication  *application,
  * pps_application_open_uri_at_dest:
  * @application: The instance of the application.
  * @uri: The uri to be opened.
- * @display: The display where the link will be shown.
  * @dest: The #PpsLinkDest of the document.
  * @mode: The run mode of the window.
  * @search_string: The word or phrase to find in the document.
@@ -578,7 +523,6 @@ _pps_application_open_uri_at_dest (PpsApplication  *application,
 void
 pps_application_open_uri_at_dest (PpsApplication  *application,
 				 const char     *uri,
-				 GdkDisplay     *display,
 				 PpsLinkDest     *dest,
 				 PpsWindowRunMode mode,
 				 const gchar    *search_string)
@@ -587,7 +531,7 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 
 	if (application->uri && strcmp (application->uri, uri) != 0) {
 		/* spawn a new papers process */
-		pps_spawn (uri, display, dest, mode, search_string);
+		pps_spawn (uri, dest, mode, search_string);
 		return;
 	} else if (!application->uri) {
 		application->uri = g_strdup (uri);
@@ -597,18 +541,17 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 	/* Register the uri or send Reload to
 	 * remote instance if already registered
 	 */
-	pps_application_register_uri (application, uri, display, dest, mode, search_string);
+	pps_application_register_uri (application, uri, dest, mode, search_string);
 #else
-	_pps_application_open_uri_at_dest (application, uri, display, dest, mode, search_string);
+	_pps_application_open_uri_at_dest (application, uri, dest, mode, search_string);
 #endif /* ENABLE_DBUS */
 }
 
 void
-pps_application_new_window (PpsApplication *application,
-			   GdkDisplay    *display)
+pps_application_new_window (PpsApplication *application)
 {
         /* spawn an empty window */
-	pps_spawn (NULL, display, NULL, PPS_WINDOW_MODE_NORMAL, NULL);
+	pps_spawn (NULL, NULL, PPS_WINDOW_MODE_NORMAL, NULL);
 }
 
 /**
@@ -618,14 +561,9 @@ pps_application_new_window (PpsApplication *application,
  * Creates a new window showing the recent view
  */
 void
-pps_application_open_start_view (PpsApplication *application,
-                                 GdkDisplay    *display)
+pps_application_open_start_view (PpsApplication *application)
 {
 	GtkWidget *new_window = GTK_WIDGET (pps_window_new ());
-
-	if (display)
-		gtk_window_set_display (GTK_WINDOW (new_window), display);
-
 
 	if (!gtk_widget_get_realized (new_window))
 		gtk_widget_realize (new_window);
@@ -671,7 +609,6 @@ handle_reload_cb (PpsPapersApplication   *object,
         GVariantIter     iter;
         const gchar     *key;
         GVariant        *value;
-        GdkDisplay      *display = NULL;
         PpsLinkDest      *dest = NULL;
         PpsWindowRunMode  mode = PPS_WINDOW_MODE_NORMAL;
         const gchar     *search_string = NULL;
@@ -679,9 +616,7 @@ handle_reload_cb (PpsPapersApplication   *object,
         g_variant_iter_init (&iter, args);
 
         while (g_variant_iter_loop (&iter, "{&sv}", &key, &value)) {
-                if (strcmp (key, "display") == 0 && g_variant_classify (value) == G_VARIANT_CLASS_STRING) {
-                        display = pps_display_open_if_needed (g_variant_get_string (value, NULL));
-                } else if (strcmp (key, "mode") == 0 && g_variant_classify (value) == G_VARIANT_CLASS_UINT32) {
+                if (strcmp (key, "mode") == 0 && g_variant_classify (value) == G_VARIANT_CLASS_UINT32) {
                         mode = g_variant_get_uint32 (value);
                 } else if (strcmp (key, "page-label") == 0 && g_variant_classify (value) == G_VARIANT_CLASS_STRING) {
                         dest = pps_link_dest_new_page_label (g_variant_get_string (value, NULL));
@@ -701,7 +636,7 @@ handle_reload_cb (PpsPapersApplication   *object,
 
                 pps_application_open_uri_in_window (application, NULL,
                                                    PPS_WINDOW (l->data),
-                                                   display, dest, mode,
+                                                   dest, mode,
                                                    search_string);
         }
 
@@ -715,8 +650,7 @@ handle_reload_cb (PpsPapersApplication   *object,
 
 void
 pps_application_open_uri_list (PpsApplication *application,
-			      GListModel    *files,
-			      GdkDisplay    *display)
+			      GListModel    *files)
 {
 	GFile *file;
 	guint pos = 0;
@@ -728,7 +662,7 @@ pps_application_open_uri_list (PpsApplication *application,
 			continue;
 
 		pps_application_open_uri_at_dest (application, uri,
-						 display, NULL, 0, NULL);
+						 NULL, 0, NULL);
 	}
 }
 
@@ -983,7 +917,6 @@ pps_application_command_line (GApplication	     *gapplication,
 {
 	GVariantDict *options = g_application_command_line_get_options_dict (command_line);
 	PpsApplication *pps_app = PPS_APPLICATION (gapplication);
-	GdkDisplay *display = gdk_display_get_default();
 	PpsWindowRunMode  mode = PPS_WINDOW_MODE_NORMAL;
 	gint             i;
 	PpsLinkDest      *global_dest = NULL;
@@ -1003,7 +936,7 @@ pps_application_command_line (GApplication	     *gapplication,
 	g_variant_dict_lookup (options, G_OPTION_REMAINING, "^a&ay", &files);
 
 	if (!files) {
-		pps_application_open_start_view (pps_app, display);
+		pps_application_open_start_view (pps_app);
 		return 0;
 	}
 
@@ -1035,7 +968,7 @@ pps_application_command_line (GApplication	     *gapplication,
 		uri = g_file_get_uri (file);
 		g_object_unref (file);
 
-		pps_application_open_uri_at_dest (pps_app, uri, display, dest,
+		pps_application_open_uri_at_dest (pps_app, uri, dest,
 						 mode, find_string);
 
 		g_clear_object (&dest);
@@ -1073,7 +1006,7 @@ pps_application_open (GApplication	 *application,
 			continue;
 
 		pps_application_open_uri_at_dest (PPS_APPLICATION (application), uri,
-						 NULL, NULL, 0, NULL);
+						 NULL, 0, NULL);
 	}
 }
 

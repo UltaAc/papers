@@ -40,17 +40,14 @@ G_DECLARE_FINAL_TYPE (PpsApplication, pps_application, PPS, APPLICATION, AdwAppl
 
 PpsApplication    *pps_application_new                 (void);
 
-void              pps_application_open_start_view     (PpsApplication   *application,
-						      GdkDisplay      *display);
+void              pps_application_open_start_view     (PpsApplication   *application);
 void              pps_application_open_uri_at_dest    (PpsApplication   *application,
 						      const char      *uri,
-						      GdkDisplay      *display,
 						      PpsLinkDest      *dest,
 						      PpsWindowRunMode  mode,
 						      const gchar     *search_string);
 void	          pps_application_open_uri_list       (PpsApplication   *application,
-						      GListModel      *files,
-						      GdkDisplay      *display);
+						      GListModel      *files);
 gboolean	  pps_application_has_window	     (PpsApplication   *application);
 guint             pps_application_get_n_windows       (PpsApplication   *application);
 const gchar *     pps_application_get_uri             (PpsApplication   *application);
@@ -58,7 +55,6 @@ void              pps_application_clear_uri           (PpsApplication   *applica
 
 const gchar      *pps_application_get_dot_dir         (PpsApplication   *application,
                                                       gboolean         create);
-void              pps_application_new_window          (PpsApplication *application,
-						      GdkDisplay      *display);
+void              pps_application_new_window          (PpsApplication *application);
 
 G_END_DECLS
