@@ -676,7 +676,7 @@ pps_application_about_activated (GSimpleAction *action,
                 "Wouter Bolsterlee <wbolster@gnome.org>",
                 "Christian Persch <chpe" "\100" "src.gnome.org>",
                 "Germán Poo-Caamaño <gpoo" "\100" "gnome.org>",
-                "Qiu Wenbo <crab2313" "\100" "gmail.com>",
+                "Qiu Wenbo <qiuwenbo" "\100" "gnome.org>",
                 "Pablo Correa Gómez <ablocorrea" "\100" "hotmail.com>",
                 NULL
         };
