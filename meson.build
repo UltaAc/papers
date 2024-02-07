@@ -116,14 +116,15 @@ if pps_debug
   common_flags += ['-DPPS_ENABLE_DEBUG'] + cc.get_supported_arguments([
     '-Wnested-externs',
     '-Wstrict-prototypes',
-    '-Werror=format=2',
-    '-Werror=implicit-function-declaration',
-    '-Werror=init-self',
-    '-Werror=missing-include-dirs',
-    '-Werror=missing-prototypes',
-    '-Werror=pointer-arith',
-    '-Werror=return-type',
+    '-Wformat=2',
+    '-Wimplicit-function-declaration',
+    '-Winit-self',
+    '-Wmissing-include-dirs',
+    '-Wmissing-prototypes',
+    '-Wpointer-arith',
+    '-Wreturn-type',
   ])
+  werror = true
 endif
 
 add_project_arguments(common_flags, language: 'c')
