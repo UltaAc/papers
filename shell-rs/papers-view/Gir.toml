@@ -49,7 +49,6 @@ manual = [
     "GLib.List",
     "Gio.Resource",
     "GObject.Object",
-    "PapersDocument.SourceLink",
     "PapersDocument.Annotation",
     "PapersDocument.AnnotationType",
     "PapersDocument.LinkAction",

@@ -31,7 +31,6 @@ generate = [
     "PapersDocument.Image",
     "PapersDocument.Page",
     #"PapersDocument.BackendPage",
-    "PapersDocument.SourceLink",
     "PapersDocument.LinkAction",
     "PapersDocument.LinkDest",
     "PapersDocument.Link",

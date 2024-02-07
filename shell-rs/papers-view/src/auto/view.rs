@@ -235,16 +235,6 @@ impl View {
         }
     }
 
-    #[doc(alias = "pps_view_highlight_forward_search")]
-    pub fn highlight_forward_search(&self, link: &mut papers_document::SourceLink) {
-        unsafe {
-            ffi::pps_view_highlight_forward_search(
-                self.to_glib_none().0,
-                link.to_glib_none_mut().0,
-            );
-        }
-    }
-
     #[doc(alias = "pps_view_is_caret_navigation_enabled")]
     pub fn is_caret_navigation_enabled(&self) -> bool {
         unsafe {
@@ -731,38 +721,6 @@ impl View {
 
     pub fn emit_selection_changed(&self) {
         self.emit_by_name::<()>("selection-changed", &[]);
-    }
-
-    #[doc(alias = "sync-source")]
-    pub fn connect_sync_source<F: Fn(&Self, &papers_document::SourceLink) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
-        unsafe extern "C" fn sync_source_trampoline<
-            F: Fn(&View, &papers_document::SourceLink) + 'static,
-        >(
-            this: *mut ffi::PpsView,
-            object: *mut papers_document::ffi::PpsSourceLink,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), &from_glib_borrow(object))
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"sync-source\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
-                    sync_source_trampoline::<F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
-        }
-    }
-
-    pub fn emit_sync_source(&self, object: &papers_document::SourceLink) {
-        self.emit_by_name::<()>("sync-source", &[&object]);
     }
 
     #[doc(alias = "can-zoom-in")]

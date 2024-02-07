@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{DocumentInfo, Page, SourceLink};
+use crate::{DocumentInfo, Page};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -264,15 +264,6 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
         unsafe { from_glib_none(ffi::pps_document_get_uri(self.as_ref().to_glib_none().0)) }
     }
 
-    #[doc(alias = "pps_document_has_synctex")]
-    fn has_synctex(&self) -> bool {
-        unsafe {
-            from_glib(ffi::pps_document_has_synctex(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
     #[doc(alias = "pps_document_has_text_page_labels")]
     fn has_text_page_labels(&self) -> bool {
         unsafe {
@@ -324,23 +315,6 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
             ffi::pps_document_set_modified(self.as_ref().to_glib_none().0, modified.into_glib());
         }
     }
-
-    #[doc(alias = "pps_document_synctex_backward_search")]
-    fn synctex_backward_search(&self, page_index: i32, x: f32, y: f32) -> Option<SourceLink> {
-        unsafe {
-            from_glib_full(ffi::pps_document_synctex_backward_search(
-                self.as_ref().to_glib_none().0,
-                page_index,
-                x,
-                y,
-            ))
-        }
-    }
-
-    //#[doc(alias = "pps_document_synctex_forward_search")]
-    //fn synctex_forward_search(&self, source_link: &mut SourceLink) -> /*Ignored*/Option<Mapping> {
-    //    unsafe { TODO: call ffi:pps_document_synctex_forward_search() }
-    //}
 
     #[doc(alias = "modified")]
     fn connect_modified_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

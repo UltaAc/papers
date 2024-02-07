@@ -39,39 +39,6 @@ mod sealed {
 }
 
 pub trait PapersWindowExt: IsA<PapersWindow> + sealed::Sealed + 'static {
-    //#[doc(alias = "pps_papers_window_call_sync_view")]
-    //fn call_sync_view<P: FnOnce(Result<(), /*Ignored*/glib::Error>) + 'static>(&self, arg_source_file: &str, arg_source_point: /*Ignored*/&glib::Variant, arg_timestamp: u32, cancellable: /*Ignored*/Option<&gio::Cancellable>, callback: P) {
-    //    unsafe { TODO: call ffi:pps_papers_window_call_sync_view() }
-    //}
-
-    //
-    //fn call_sync_view_future(&self, arg_source_file: &str, arg_source_point: /*Ignored*/&glib::Variant, arg_timestamp: u32) -> Pin<Box_<dyn std::future::Future<Output = Result<(), /*Ignored*/glib::Error>> + 'static>> {
-
-    //let arg_source_file = String::from(arg_source_file);
-    //let arg_source_point = arg_source_point.clone();
-    //Box_::pin(gio::GioFuture::new(self, move |obj, cancellable, send| {
-    //    obj.call_sync_view(
-    //        &arg_source_file,
-    //        &arg_source_point,
-    //        arg_timestamp,
-    //        Some(cancellable),
-    //        move |res| {
-    //            send.resolve(res);
-    //        },
-    //    );
-    //}))
-    //}
-
-    //#[doc(alias = "pps_papers_window_call_sync_view_sync")]
-    //fn call_sync_view_sync(&self, arg_source_file: &str, arg_source_point: /*Ignored*/&glib::Variant, arg_timestamp: u32, cancellable: /*Ignored*/Option<&gio::Cancellable>, error: /*Ignored*/Option<glib::Error>) -> bool {
-    //    unsafe { TODO: call ffi:pps_papers_window_call_sync_view_sync() }
-    //}
-
-    //#[doc(alias = "pps_papers_window_complete_sync_view")]
-    //fn complete_sync_view(&self, invocation: /*Ignored*/gio::DBusMethodInvocation) {
-    //    unsafe { TODO: call ffi:pps_papers_window_complete_sync_view() }
-    //}
-
     #[doc(alias = "pps_papers_window_emit_closed")]
     fn emit_closed(&self) {
         unsafe {
@@ -88,11 +55,6 @@ pub trait PapersWindowExt: IsA<PapersWindow> + sealed::Sealed + 'static {
             );
         }
     }
-
-    //#[doc(alias = "pps_papers_window_emit_sync_source")]
-    //fn emit_sync_source(&self, arg_source_file: &str, arg_source_point: /*Ignored*/&glib::Variant, arg_timestamp: u32) {
-    //    unsafe { TODO: call ffi:pps_papers_window_emit_sync_source() }
-    //}
 
     #[doc(alias = "closed")]
     fn connect_closed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -144,17 +106,6 @@ pub trait PapersWindowExt: IsA<PapersWindow> + sealed::Sealed + 'static {
             )
         }
     }
-
-    //#[doc(alias = "handle-sync-view")]
-    //fn connect_handle_sync_view<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
-    //    Ignored invocation: Gio.DBusMethodInvocation
-    //    Ignored arg_source_point: GLib.Variant
-    //}
-
-    //#[doc(alias = "sync-source")]
-    //fn connect_sync_source<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
-    //    Ignored arg_source_point: GLib.Variant
-    //}
 }
 
 impl<O: IsA<PapersWindow>> PapersWindowExt for O {}

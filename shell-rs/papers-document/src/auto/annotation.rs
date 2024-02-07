@@ -135,7 +135,7 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "pps_annotation_set_modified_from_time_t")]
-    fn set_modified_from_time_t(&self, utime: libc::c_long) -> bool {
+    fn set_modified_from_time_t(&self, utime: i64) -> bool {
         unsafe {
             from_glib(ffi::pps_annotation_set_modified_from_time_t(
                 self.as_ref().to_glib_none().0,

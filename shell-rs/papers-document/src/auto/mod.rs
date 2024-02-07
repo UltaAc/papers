@@ -42,9 +42,6 @@ pub use self::document_license::DocumentLicense;
 mod rectangle;
 pub use self::rectangle::Rectangle;
 
-mod source_link;
-pub use self::source_link::SourceLink;
-
 mod enums;
 pub use self::enums::AnnotationType;
 pub use self::enums::DocumentContainsJS;
