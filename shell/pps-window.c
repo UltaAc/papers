@@ -6011,7 +6011,7 @@ open_remote_link (PpsWindow *window, PpsLinkAction *action)
 
 	pps_application_open_uri_at_dest (PPS_APP, uri,
 					 pps_link_action_get_dest (action),
-					 0,
+					 PPS_WINDOW_MODE_NORMAL,
 					 NULL);
 
 	g_free (uri);

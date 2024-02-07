@@ -35,6 +35,7 @@
 
 #include "pps-application.h"
 #include "pps-file-helpers.h"
+#include "pps-window.h"
 
 #ifdef ENABLE_DBUS
 #include "pps-gdbus-generated.h"
@@ -655,7 +656,7 @@ pps_application_open_uri_list (PpsApplication *application,
 			continue;
 
 		pps_application_open_uri_at_dest (application, uri,
-						 NULL, 0, NULL);
+						 NULL, PPS_WINDOW_MODE_NORMAL, NULL);
 	}
 }
 
@@ -1008,7 +1009,7 @@ pps_application_open (GApplication	 *application,
 			continue;
 
 		pps_application_open_uri_at_dest (PPS_APPLICATION (application), uri,
-						 NULL, 0, NULL);
+						 NULL, PPS_WINDOW_MODE_NORMAL, NULL);
 	}
 }
 
