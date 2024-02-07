@@ -79,7 +79,7 @@ meson:
         - git submodule update --checkout
         - cargo install --path shell-rs/gir
         - export PATH=$PATH:$HOME/.cargo/bin
-        - meson setup _build
+        - meson setup --werror --fatal-meson-warnings _build
         - meson compile -C _build update-rust-bindings
         - meson compile -C _build
         - meson test -C _build
