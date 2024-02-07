@@ -54,7 +54,6 @@ enum {
 	SIGNAL_EXTERNAL_LINK,
 	SIGNAL_POPUP_MENU,
 	SIGNAL_SELECTION_CHANGED,
-	SIGNAL_SYNC_SOURCE,
 	SIGNAL_ANNOT_ADDED,
 	SIGNAL_ANNOT_CANCEL_ADD,
 	SIGNAL_ANNOT_CHANGED,
@@ -196,9 +195,6 @@ static void       pps_view_remove_all_form_fields             (PpsView          
 
 /*** Drawing ***/
 static void       highlight_find_results                     (PpsView             *view,
-                                                              GtkSnapshot        *snapshot,
-							      int                 page);
-static void       highlight_forward_search_results           (PpsView             *view,
                                                               GtkSnapshot        *snapshot,
 							      int                 page);
 static void       draw_one_page                              (PpsView             *view,
@@ -3842,33 +3838,6 @@ pps_view_remove_annotation (PpsView       *view,
 	g_object_unref (annot);
 }
 
-static gboolean
-pps_view_synctex_backward_search (PpsView *view,
-				 gdouble x,
-				 gdouble y)
-{
-	gint page = -1;
-	gint x_new = 0, y_new = 0;
-	PpsSourceLink *link;
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	if (!pps_document_has_synctex (priv->document))
-		return FALSE;
-
-	if (!get_doc_point_from_location (view, x, y, &page, &x_new, &y_new))
-		return FALSE;
-
-	link = pps_document_synctex_backward_search (priv->document, page, x_new, y_new);
-	if (link) {
-		g_signal_emit (view, signals[SIGNAL_SYNC_SOURCE], 0, link);
-		pps_source_link_free (link);
-
-		return TRUE;
-	}
-
-	return FALSE;
-}
-
 /* Caret navigation */
 #define CURSOR_ON_MULTIPLIER 2
 #define CURSOR_OFF_MULTIPLIER 1
@@ -4910,8 +4879,6 @@ static void pps_view_snapshot(GtkWidget *widget, GtkSnapshot *snapshot)
 			show_annotation_windows (view, i);
 		if (page_ready && priv->focused_element)
 			draw_focus (view, snapshot, i, &clip_rect);
-		if (page_ready && priv->synctex_result)
-			highlight_forward_search_results (view, snapshot, i);
 #ifdef PPS_ENABLE_DEBUG
 		if (page_ready)
 			draw_debug_borders (view, snapshot, i, &clip_rect);
@@ -5474,11 +5441,6 @@ pps_view_button_press_event (GtkGestureClick	*gesture,
 			PpsMedia *media;
 			gint page;
 
-			if (state & GDK_CONTROL_MASK) {
-				pps_view_synctex_backward_search (view, x , y);
-				return;
-			}
-
 			if (PPS_IS_SELECTION (priv->document) && priv->selection_info.selections) {
 				if (n_press == 3) {
 					start_selection_for_event (view, x, y, n_press);
@@ -5555,11 +5517,6 @@ pps_view_button_press_event (GtkGestureClick	*gesture,
 			} else {
 				pps_view_remove_all_form_fields (view);
 				_pps_view_set_focused_element (view, NULL, -1);
-
-				if (priv->synctex_result) {
-					g_clear_pointer (&priv->synctex_result, g_free);
-					gtk_widget_queue_draw (widget);
-				}
 
 				if (PPS_IS_SELECTION (priv->document))
 					start_selection_for_event (view, x, y, n_press);
@@ -5864,7 +5821,6 @@ pps_view_motion_notify_event (GtkEventControllerMotion	*self,
 {
 	PpsView    *view = PPS_VIEW (user_data);
 	GtkWidget *widget = GTK_WIDGET (view);
-	GdkModifierType state = gtk_event_controller_get_current_event_state (GTK_EVENT_CONTROLLER (self));
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (!priv->document)
@@ -6003,10 +5959,6 @@ pps_view_motion_notify_event (GtkEventControllerMotion	*self,
 
 			/* FIXME: reload only annotation area */
 			pps_view_reload_page (view, annot_page, NULL);
-		} else if (pps_document_has_synctex (priv->document) && (state & GDK_CONTROL_MASK)) {
-			/* Ignore spurious motion event triggered by slightly moving mouse
-			 * while clicking for launching synctex. Issue #951 */
-			return;
 		} else {
 			/* Schedule timeout to scroll during selection and additionally
 			 * scroll once to allow arbitrary speed. */
@@ -7178,28 +7130,6 @@ highlight_find_results (PpsView		*view,
 }
 
 static void
-highlight_forward_search_results (PpsView	*view,
-                                  GtkSnapshot	*snapshot,
-                                  int		 page)
-{
-	GdkRectangle rect;
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsMapping   *mapping = priv->synctex_result;
-	GdkRGBA color = { 1.0, 0.0, 0.0, 0.3 };
-
-	if (GPOINTER_TO_INT (mapping->data) != page)
-		return;
-
-	_pps_view_transform_doc_rect_to_view_rect (view, page, &mapping->area, &rect);
-
-	gtk_snapshot_append_color (snapshot, &color,
-			&GRAPHENE_RECT_INIT (
-			 rect.x - priv->scroll_x,
-			 rect.y - priv->scroll_y,
-			 rect.width, rect.height));
-}
-
-static void
 draw_surface (GtkSnapshot     *snapshot,
 	      GdkTexture      *texture,
 	      const graphene_point_t *point,
@@ -7406,8 +7336,6 @@ pps_view_finalize (GObject *object)
 
 	g_list_free_full (g_steal_pointer (&priv->selection_info.selections), (GDestroyNotify)selection_free);
 	g_clear_object (&priv->link_selected);
-
-	g_clear_pointer (&priv->synctex_result, g_free);
 
 	g_clear_object (&priv->image_dnd_info.image);
 	g_clear_pointer (&priv->annot_window_map, g_hash_table_destroy);
@@ -7970,14 +7898,6 @@ pps_view_class_init (PpsViewClass *class)
 			 g_cclosure_marshal_VOID__VOID,
                          G_TYPE_NONE, 0,
                          G_TYPE_NONE);
-	signals[SIGNAL_SYNC_SOURCE] = g_signal_new ("sync-source",
-	  	         G_TYPE_FROM_CLASS (object_class),
-		         G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-		         G_STRUCT_OFFSET (PpsViewClass, sync_source),
-		         NULL, NULL,
-		         g_cclosure_marshal_VOID__BOXED,
-		         G_TYPE_NONE, 1,
-			 PPS_TYPE_SOURCE_LINK | G_SIGNAL_TYPE_STATIC_SCOPE);
 	signals[SIGNAL_ANNOT_ADDED] = g_signal_new ("annot-added",
 	  	         G_TYPE_FROM_CLASS (object_class),
 		         G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
@@ -9347,35 +9267,6 @@ pps_view_find_cancel (PpsView *view)
 
 	g_signal_handlers_disconnect_by_func (priv->find_job, find_job_updated_cb, view);
 	g_clear_object (&priv->find_job);
-}
-
-/*** Synctex ***/
-void
-pps_view_highlight_forward_search (PpsView       *view,
-				  PpsSourceLink *link)
-{
-	PpsMapping   *mapping;
-	gint         page;
-	GdkRectangle view_rect;
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	if (!pps_document_has_synctex (priv->document))
-		return;
-
-	mapping = pps_document_synctex_forward_search (priv->document, link);
-	if (!mapping)
-		return;
-
-	if (priv->synctex_result)
-		g_free (priv->synctex_result);
-	priv->synctex_result = mapping;
-
-	page = GPOINTER_TO_INT (mapping->data);
-	pps_document_model_set_page (priv->model, page);
-
-	_pps_view_transform_doc_rect_to_view_rect (view, page, &mapping->area, &view_rect);
-	_pps_view_ensure_rectangle_is_visible (view, &view_rect);
-	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
 /*** Selections ***/

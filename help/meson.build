@@ -76,12 +76,6 @@ if enable_user_doc
     'singlesided-5-8pages.page',
     'singlesided-9-12pages.page',
     'singlesided-npages.page',
-    'synctex-beamer.page',
-    'synctex-compile.page',
-    'synctex-editors.page',
-    'synctex.page',
-    'synctex-search.page',
-    'synctex-support.page',
     'textselection.page',
     'translate.page',
   ]

@@ -6561,46 +6561,6 @@ pps_window_popup_cmd_save_attachment_as (GSimpleAction *action,
 
 #ifdef ENABLE_DBUS
 static void
-pps_window_sync_source (PpsWindow     *window,
-		       PpsSourceLink *link)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-	gchar		*uri_input;
-	GFile		*input_gfile;
-
-        if (priv->skeleton == NULL)
-		return;
-
-	if (g_path_is_absolute (link->filename)) {
-		input_gfile = g_file_new_for_path (link->filename);
-	} else {
-		GFile *gfile, *parent_gfile;
-
-		gfile = g_file_new_for_uri (priv->uri);
-		parent_gfile = g_file_get_parent (gfile);
-
-		/* parent_gfile should never be NULL */
-		if (parent_gfile == NULL) {
-			g_printerr ("Document URI is '/'\n");
-			return;
-		}
-
-		input_gfile = g_file_get_child (parent_gfile, link->filename);
-		g_object_unref (parent_gfile);
-		g_object_unref (gfile);
-	}
-
-	uri_input = g_file_get_uri (input_gfile);
-	g_object_unref (input_gfile);
-
-        pps_papers_window_emit_sync_source (priv->skeleton,
-                                           uri_input,
-                                           g_variant_new ("(ii)", link->line, link->col),
-                                           GDK_CURRENT_TIME);
-	g_free (uri_input);
-}
-
-static void
 pps_window_emit_closed (PpsWindow *window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
@@ -6626,30 +6586,6 @@ pps_window_emit_doc_loaded (PpsWindow *window)
                 return;
 
         pps_papers_window_emit_document_loaded (priv->skeleton, priv->uri);
-}
-
-static gboolean
-handle_sync_view_cb (PpsPapersWindow        *object,
-		     GDBusMethodInvocation *invocation,
-		     const gchar           *source_file,
-		     GVariant              *source_point,
-		     guint                  timestamp,
-		     PpsWindow              *window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-	if (priv->document && pps_document_has_synctex (priv->document)) {
-		PpsSourceLink link;
-
-		link.filename = (char *) source_file;
-		g_variant_get (source_point, "(ii)", &link.line, &link.col);
-		pps_view_highlight_forward_search (PPS_VIEW (priv->view), &link);
-		gtk_window_present (GTK_WINDOW (window));
-	}
-
-	pps_papers_window_complete_sync_view (object, invocation);
-
-	return TRUE;
 }
 #endif /* ENABLE_DBUS */
 
@@ -6698,9 +6634,6 @@ pps_window_init (PpsWindow *pps_window)
                                                       priv->dbus_object_path,
                                                       &error)) {
                         priv->skeleton = skeleton;
-			g_signal_connect (skeleton, "handle-sync-view",
-					  G_CALLBACK (handle_sync_view_cb),
-					  pps_window);
                 } else {
                         g_printerr ("Failed to register bus object %s: %s\n",
 				    priv->dbus_object_path, error->message);
@@ -6798,11 +6731,6 @@ pps_window_init (PpsWindow *pps_window)
 	g_signal_connect_object (priv->view, "cursor-moved",
 				 G_CALLBACK (view_caret_cursor_moved_cb),
 				 pps_window, 0);
-#ifdef ENABLE_DBUS
-	g_signal_connect_swapped (priv->view, "sync-source",
-				  G_CALLBACK (pps_window_sync_source),
-				  pps_window);
-#endif
 
 	priv->default_settings = g_settings_new (GS_SCHEMA_NAME".Default");
 	g_settings_delay (priv->default_settings);

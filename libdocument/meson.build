@@ -134,7 +134,6 @@ deps = common_deps + [
   gmodule_dep,
   exempi_dep,
   m_dep,
-  synctex_dep,
   zlib_dep,
 ]
 

@@ -101,11 +101,6 @@ void     	pps_view_find_set_highlight_search (PpsView         *view,
 PPS_PUBLIC
 void            pps_view_find_cancel               (PpsView         *view);
 
-/* Synctex */
-PPS_PUBLIC
-void            pps_view_highlight_forward_search (PpsView       *view,
-						  PpsSourceLink *link);
-
 /* Cursor */
 PPS_PUBLIC
 void           pps_view_hide_cursor        (PpsView         *view);

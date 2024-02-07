@@ -29,7 +29,6 @@
 
 #include "pps-document.h"
 #include "pps-document-misc.h"
-#include "synctex_parser.h"
 
 enum {
 	PROP_0,
@@ -64,8 +63,6 @@ struct _PpsDocumentPrivate
 	gchar         **page_labels;
 	PpsPageSize     *page_sizes;
 	PpsDocumentInfo *info;
-
-	synctex_scanner_p synctex_scanner;
 };
 
 static guint64         _pps_document_get_size_gfile  (GFile      *file);
@@ -78,7 +75,6 @@ static void            _pps_document_get_page_size   (PpsDocument *document,
 static gchar          *_pps_document_get_page_label  (PpsDocument *document,
 						     PpsPage     *page);
 static PpsDocumentInfo *_pps_document_get_info        (PpsDocument *document);
-static gboolean        _pps_document_support_synctex (PpsDocument *document);
 
 static GMutex pps_doc_mutex;
 static GMutex pps_fc_mutex;
@@ -122,7 +118,6 @@ pps_document_finalize (GObject *object)
 	g_clear_pointer (&priv->page_sizes, g_free);
 	g_clear_pointer (&priv->page_labels, g_strfreev);
 	g_clear_pointer (&priv->info, pps_document_info_free);
-	g_clear_pointer (&priv->synctex_scanner, synctex_scanner_free);
 
 	G_OBJECT_CLASS (pps_document_parent_class)->finalize (object);
 }
@@ -358,24 +353,6 @@ pps_document_setup_cache (PpsDocument *document)
 		g_clear_pointer (&priv->page_labels, g_strfreev);
 }
 
-static void
-pps_document_initialize_synctex (PpsDocument  *document,
-				const gchar *uri)
-{
-	PpsDocumentPrivate *priv = GET_PRIVATE (document);
-
-	if (_pps_document_support_synctex (document)) {
-		gchar *filename;
-
-		filename = g_filename_from_uri (uri, NULL, NULL);
-		if (filename != NULL) {
-			priv->synctex_scanner =
-				synctex_scanner_new_with_output_file (filename, NULL, 1);
-			g_free (filename);
-		}
-	}
-}
-
 /**
  * pps_document_load_full:
  * @document: a #PpsDocument
@@ -426,7 +403,6 @@ pps_document_load_full (PpsDocument           *document,
 			pps_document_setup_cache (document);
 		priv->uri = g_strdup (uri);
 		priv->file_size = _pps_document_get_size (uri);
-		pps_document_initialize_synctex (document, uri);
         }
 
 	return retval;
@@ -580,128 +556,6 @@ pps_document_get_page (PpsDocument *document,
 	PpsDocumentClass *klass = PPS_DOCUMENT_GET_CLASS (document);
 
 	return klass->get_page (document, index);
-}
-
-static gboolean
-_pps_document_support_synctex (PpsDocument *document)
-{
-	PpsDocumentClass *klass = PPS_DOCUMENT_GET_CLASS (document);
-
-	return klass->support_synctex ? klass->support_synctex (document) : FALSE;
-}
-
-gboolean
-pps_document_has_synctex (PpsDocument *document)
-{
-	g_return_val_if_fail (PPS_IS_DOCUMENT (document), FALSE);
-	PpsDocumentPrivate *priv = GET_PRIVATE (document);
-
-	return priv->synctex_scanner != NULL;
-}
-
-/**
- * pps_document_synctex_backward_search:
- * @document: a #PpsDocument
- * @page_index: the target page
- * @x: X coordinate
- * @y: Y coordinate
- *
- * Peforms a Synctex backward search to obtain the TeX input file, line and
- * (possibly) column  corresponding to the  position (@x,@y) (in 72dpi
- * coordinates) in the  @page of @document.
- *
- * Returns: A pointer to the PpsSourceLink structure that holds the result. @NULL if synctex
- * is not enabled for the document or no result is found.
- * The PpsSourceLink pointer should be freed with g_free after it is used.
- */
-PpsSourceLink *
-pps_document_synctex_backward_search (PpsDocument *document,
-                                     gint        page_index,
-                                     gfloat      x,
-                                     gfloat      y)
-{
-        PpsSourceLink *result = NULL;
-        synctex_scanner_p scanner;
-
-        g_return_val_if_fail (PPS_IS_DOCUMENT (document), NULL);
-	PpsDocumentPrivate *priv = GET_PRIVATE (document);
-
-        scanner = priv->synctex_scanner;
-        if (!scanner)
-                return NULL;
-
-        if (synctex_edit_query (scanner, page_index + 1, x, y) > 0) {
-                synctex_node_p node;
-
-                /* We assume that a backward search returns either zero or one result_node */
-                node = synctex_scanner_next_result (scanner);
-                if (node != NULL) {
-			const gchar *filename;
-
-			filename = synctex_scanner_get_name (scanner, synctex_node_tag (node));
-
-			if (filename) {
-				result = pps_source_link_new (filename,
-							     synctex_node_line (node),
-							     synctex_node_column (node));
-			}
-                }
-        }
-
-        return result;
-}
-
-/**
- * pps_document_synctex_forward_search: (skip)
- * @document: a #PpsDocument
- * @source_link: a #PpsSourceLink
- *
- * Peforms a Synctex forward search to obtain the area in the document
- * corresponding to the position (line and column in @source_link) in
- * the source Tex file.
- *
- * Returns: An PpsMapping with the page number and area corresponding to
- * the given line in the source file. It must be free with g_free when done
- */
-PpsMapping *
-pps_document_synctex_forward_search (PpsDocument   *document,
-				    PpsSourceLink *link)
-{
-        PpsMapping        *result = NULL;
-        synctex_scanner_p scanner;
-
-        g_return_val_if_fail (PPS_IS_DOCUMENT (document), NULL);
-	PpsDocumentPrivate *priv = GET_PRIVATE (document);
-
-        scanner = priv->synctex_scanner;
-        if (!scanner)
-                return NULL;
-
-	/* Since 1.19, synctex_display_query has a fourth parameter,
-	 * page-hint, which we set into a dummy number to not break the
-	 * API. In synctex it is used to set the best results first
-	 * given the page-hint
-	 */
-        if (synctex_display_query (scanner, link->filename, link->line, link->col, 0) > 0) {
-                synctex_node_p node;
-                gint           page;
-
-                if ((node = synctex_scanner_next_result (scanner))) {
-                        result = g_new (PpsMapping, 1);
-
-                        page = synctex_node_page (node) - 1;
-                        result->data = GINT_TO_POINTER (page);
-
-                        result->area.x1 = synctex_node_box_visible_h (node);
-                        result->area.y1 = synctex_node_box_visible_v (node) -
-                                synctex_node_box_visible_height (node);
-                        result->area.x2 = synctex_node_box_visible_width (node) + result->area.x1;
-                        result->area.y2 = synctex_node_box_visible_depth (node) +
-                                synctex_node_box_visible_height (node) + result->area.y1;
-                }
-        }
-
-        return result;
 }
 
 static guint64
@@ -1120,48 +974,6 @@ pps_document_find_page_by_label (PpsDocument  *document,
 	}
 
 	return FALSE;
-}
-
-/* PpsSourceLink */
-G_DEFINE_BOXED_TYPE (PpsSourceLink, pps_source_link, pps_source_link_copy, pps_source_link_free)
-
-PpsSourceLink *
-pps_source_link_new (const gchar *filename,
-		    gint 	 line,
-		    gint 	 col)
-{
-	PpsSourceLink *link = g_slice_new (PpsSourceLink);
-
-	link->filename = g_strdup (filename);
-	link->line = line;
-	link->col = col;
-
-	return link;
-}
-
-PpsSourceLink *
-pps_source_link_copy (PpsSourceLink *link)
-{
-	PpsSourceLink *copy;
-
-	g_return_val_if_fail (link != NULL, NULL);
-
-	copy = g_slice_new (PpsSourceLink);
-
-	*copy = *link;
-	copy->filename = g_strdup (link->filename);
-
-	return copy;
-}
-
-void
-pps_source_link_free (PpsSourceLink *link)
-{
-	if (link == NULL)
-		return;
-
-	g_free (link->filename);
-	g_slice_free (PpsSourceLink, link);
 }
 
 /* PpsRectangle */

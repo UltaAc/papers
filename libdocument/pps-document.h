@@ -60,7 +60,6 @@ typedef enum
 typedef struct _PpsPoint PpsPoint;
 typedef struct _PpsRectangle PpsRectangle;
 typedef struct _PpsMapping PpsMapping;
-typedef struct _PpsSourceLink PpsSourceLink;
 typedef struct _PpsDocumentBackendInfo PpsDocumentBackendInfo;
 
 struct _PpsPoint {
@@ -101,7 +100,6 @@ struct _PpsDocumentClass
         PpsDocumentInfo  * (* get_info)              (PpsDocument          *document);
         gboolean          (* get_backend_info)      (PpsDocument          *document,
 						     PpsDocumentBackendInfo *info);
-        gboolean	  (* support_synctex)       (PpsDocument          *document);
 
         /* GIO streams */
         gboolean          (* load_stream)           (PpsDocument          *document,
@@ -219,20 +217,6 @@ PPS_PUBLIC
 gboolean         pps_document_find_page_by_label   (PpsDocument      *document,
 						   const gchar     *page_label,
 						   gint            *page_index);
-PPS_PUBLIC
-gboolean	 pps_document_has_synctex 	  (PpsDocument      *document);
-
-PPS_PUBLIC
-PpsSourceLink    *pps_document_synctex_backward_search
-                                                  (PpsDocument      *document,
-                                                   gint             page_index,
-                                                   gfloat           x,
-                                                   gfloat           y);
-
-PPS_PUBLIC
-PpsMapping       *pps_document_synctex_forward_search
-                                                  (PpsDocument      *document,
-						   PpsSourceLink    *source_link);
 
 PPS_PUBLIC
 gint             pps_rect_cmp                      (PpsRectangle     *a,
@@ -260,25 +244,6 @@ struct _PpsMapping {
 	PpsRectangle area;
 	gpointer    data;
 };
-
-#define PPS_TYPE_SOURCE_LINK (pps_source_link_get_type ())
-struct _PpsSourceLink
-{
-        gchar *filename;
-        gint   line;
-        gint   col;
-};
-
-PPS_PUBLIC
-GType          pps_source_link_get_type (void) G_GNUC_CONST;
-PPS_PUBLIC
-PpsSourceLink  *pps_source_link_new      (const gchar *filename,
-					gint         line,
-					gint         col);
-PPS_PUBLIC
-PpsSourceLink  *pps_source_link_copy     (PpsSourceLink *link);
-PPS_PUBLIC
-void           pps_source_link_free     (PpsSourceLink *link);
 
 /* backends shall implement this function to be able to be opened by Papers
  */

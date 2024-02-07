@@ -759,12 +759,6 @@ pdf_document_get_backend_info (PpsDocument *document, PpsDocumentBackendInfo *in
 	return TRUE;
 }
 
-static gboolean
-pdf_document_support_synctex (PpsDocument *document)
-{
-	return TRUE;
-}
-
 static void
 pdf_document_class_init (PdfDocumentClass *klass)
 {
@@ -786,7 +780,6 @@ pdf_document_class_init (PdfDocumentClass *klass)
 	pps_document_class->get_thumbnail_surface = pdf_document_get_thumbnail_surface;
 	pps_document_class->get_info = pdf_document_get_info;
 	pps_document_class->get_backend_info = pdf_document_get_backend_info;
-	pps_document_class->support_synctex = pdf_document_support_synctex;
         pps_document_class->load_fd = pdf_document_load_fd;
 }
 

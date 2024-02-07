@@ -43,7 +43,11 @@ backends:
     we don't have the bandwidth or interest to maintain it. DVI documents
     can always be converted to PDF using Evince or other programs. If anybody
     in the community has a strong interest, they could always maintain an
-    OOT backend, or come to us
+    OOT backend, or come to us.
+  * Dropped synctex support. This was planned to work together with gedit,
+    that is no longer a Core App. And modern tex editors all have a PDF
+    previewer built-in. So there's no need to duplicate that work when we
+    cannot maintain a copy of the synctex library internally.
 
 Of course, all this does not come without some issues, so we have likely
 regressed in some aspects. We look forward to testers and gathering feedback.

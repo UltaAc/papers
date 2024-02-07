@@ -234,9 +234,6 @@ typedef struct _PpsViewPrivate {
 	guint focused_element_page;
 	guint child_focus_idle_id;
 
-	/* Synctex */
-	PpsMapping *synctex_result;
-
 	/* Caret navigation */
 	gboolean caret_enabled;
 	gint     cursor_offset;
@@ -274,8 +271,6 @@ struct _PpsViewClass {
         void     (*popup_menu)        (PpsView         *view,
 				       GList          *items);
         void     (*selection_changed) (PpsView         *view);
-        void     (*sync_source)       (PpsView         *view,
-				       PpsSourceLink   *link);
         void     (*annot_added)       (PpsView         *view,
 				       PpsAnnotation   *annot);
         void     (*annot_cancel_add)  (PpsView         *view);
