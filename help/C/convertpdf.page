@@ -29,7 +29,6 @@
 You can convert documents of the following format types into PDF format:
 </p>
 <list>
- <item><p>Device Independent file format (.dvi)</p></item>
  <item><p>PostScript (.ps)</p></item>
 </list>
 <p>
@@ -56,8 +55,8 @@ This works by opening the file in <app>Papers</app> and "printing" the document 
 </steps>
 <note>
 <p>
-You can't select text in PostScript or .dvi files, but you usually can do
-this in PDF files. Converting .dvi or PostScript files to PDF will not make
+You can't select text in PostScript files, but you usually can do
+this in PDF files. Converting PostScript files to PDF will not make
 the text selectable. This is because the text itself isn't stored in the file
 (it's just an image of what the text looks like), so there is no way to recover
 it and put it in the PDF. You can use <em>Optical Character Recognition</em>

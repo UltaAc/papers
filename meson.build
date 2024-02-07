@@ -264,12 +264,6 @@ mime_types_list = {
     'application/x-ext-djvu',
     'image/vnd.djvu',
   ],
-  'dvi': [
-    'application/x-bzdvi',
-    'application/x-dvi',
-    'application/x-ext-dvi',
-    'application/x-gzdvi',
-  ],
   'illustrator': [
     'application/illustrator'
   ],
@@ -303,8 +297,8 @@ backends = {}
 papers_mime_types = []
 
 # *** Spectre ***
-if not get_option('ps').disabled() or not get_option('dvi').disabled()
-  # libspectre (used by ps and dvi backends)
+if not get_option('ps').disabled()
+  # libspectre (used by ps backend)
   libspectre_req_version = '>= 0.2.0'
   libspectre_dep = dependency('libspectre', version: libspectre_req_version, required: false)
   config_h.set('HAVE_SPECTRE', libspectre_dep.found())
@@ -332,34 +326,6 @@ if enable_djvu
   papers_mime_types += mime_types_list.get('djvu')
 elif get_option('djvu').auto()
   warning('Djvu support is disabled since a recent version of the djvulibre library was not found. You need at least djvulibre ' + ddjvuapi_req_version + ' which can be found on http://djvulibre.djvuzone.org')
-endif
-
-# *** DVI ***
-kpathsea_dep = cc.find_library('kpathsea', required: get_option('dvi'))
-enable_dvi = kpathsea_dep.found() and cc.has_function('kpse_init_prog', dependencies: kpathsea_dep)
-if enable_dvi
-  config_h.set10('STDC_HEADERS', true)
-
-  if not cc.has_type('size_t', prefix: '#include<sys/types.h>')
-    config_h.set('size_t', 'unsigned int')
-  endif
-
-  types = [
-    ['short', 'SHORT'],
-    ['int', 'INT'],
-    ['long', 'LONG'],
-    ['long long', 'LONG_LONG'],
-    ['void  *', 'VOID_P'],
-  ]
-
-  foreach type: types
-    config_h.set('SIZEOF_' + type[1], cc.sizeof(type[0]))
-  endforeach
-
-  backends += {'dvi': mime_types_list.get('dvi')}
-  papers_mime_types += mime_types_list.get('dvi')
-elif get_option('dvi').auto()
-  warning('Dvi support is disabled since kpathsea library was not found. Check your installation.')
 endif
 
 # *** PDF ***
@@ -502,7 +468,6 @@ summary({'Viewer.....................': enable_viewer,
         }, section: 'Frontends', bool_yn: true)
 summary({'Comics.....................': enable_comics,
          'DJVU.......................': enable_djvu,
-         'DVI........................': enable_dvi,
          'PDF........................': enable_pdf,
          'PostScript.................': enable_ps,
          'TIFF.......................': enable_tiff,

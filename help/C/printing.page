@@ -46,7 +46,6 @@
  <item>
   <p>Printing is enabled for the following file formats:</p>
    <list>
-    <item><p>Device Independent file format (.dvi)</p></item>
     <item><p>DjVu (.djvu, .djv)</p></item>
     <item><p>Portable Document Format (.pdf)</p></item>
     <item><p>PostScript (.ps)</p></item>

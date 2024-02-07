@@ -21,7 +21,6 @@ This software is licensed under the [GPLv2][license].
 
 * [Spectre for PostScript (PS) viewing][ghostscript]
 * [DjVuLibre for DjVu viewing][djvulibre]
-* [Kpathsea for Device-independent file format (DVI) viewing][dvi]
 * [Archive library for Comic Book Resources (CBR) viewing][comics]
 * [LibTiff for Multipage TIFF viewing][tiff]
 * [LibGXPS for XML Paper Specification (XPS) viewing][xps]
@@ -30,7 +29,6 @@ This software is licensed under the [GPLv2][license].
 [poppler]: https://poppler.freedesktop.org/
 [ghostscript]: https://www.freedesktop.org/wiki/Software/libspectre/
 [djvulibre]: https://djvulibre.djvuzone.org/
-[dvi]: https://tug.org/texinfohtml/kpathsea.html
 [comics]: https://libarchive.org/
 [tiff]: http://libtiff.org/
 [xps]: https://wiki.gnome.org/Projects/libgxps

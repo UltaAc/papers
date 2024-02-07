@@ -6,9 +6,6 @@ backend/comics/papers-comicsdocument.metainfo.xml.in.in
 backend/djvu/djvu-document.c
 backend/djvu/djvudocument.papers-backend.desktop.in.in
 backend/djvu/papers-djvudocument.metainfo.xml.in.in
-backend/dvi/dvi-document.c
-backend/dvi/dvidocument.papers-backend.desktop.in.in
-backend/dvi/papers-dvidocument.metainfo.xml.in.in
 backend/pdf/papers-pdfdocument.metainfo.xml.in.in
 backend/pdf/pps-poppler.c
 backend/pdf/pdfdocument.papers-backend.desktop.in.in

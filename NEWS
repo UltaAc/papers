@@ -37,6 +37,14 @@ shell:
 properties:
   * Can now be used in Nautilus again. Dropped GTK dependency
 
+backends:
+  * Dropped support for DVI file format. This is an old and seldomly used
+    document format. The backend has lived unmaintained for many years, and
+    we don't have the bandwidth or interest to maintain it. DVI documents
+    can always be converted to PDF using Evince or other programs. If anybody
+    in the community has a strong interest, they could always maintain an
+    OOT backend, or come to us
+
 Of course, all this does not come without some issues, so we have likely
 regressed in some aspects. We look forward to testers and gathering feedback.
 
