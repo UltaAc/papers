@@ -13,7 +13,6 @@ papers_sources = files(
   'pps-progress-message-area.c',
   'pps-properties-fonts.c',
   'pps-properties-license.c',
-  'pps-toolbar.c',
   'pps-utils.c',
   'pps-window.c',
   'pps-window-title.c',

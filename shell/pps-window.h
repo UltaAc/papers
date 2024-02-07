@@ -79,7 +79,7 @@ void		pps_window_print_range                    (PpsWindow       *pps_window,
                                                           int		 last_page);
 const gchar    *pps_window_get_dbus_object_path           (PpsWindow       *pps_window);
 void            pps_window_focus_view                     (PpsWindow       *pps_window);
-AdwHeaderBar   *pps_window_get_toolbar                    (PpsWindow       *pps_window);
+AdwHeaderBar   *pps_window_get_header_bar                 (PpsWindow       *pps_window);
 void            pps_window_handle_annot_popup             (PpsWindow       *pps_window,
                                                           PpsAnnotation   *annot);
 PpsMetadata     *pps_window_get_metadata			 (PpsWindow	 *pps_window);

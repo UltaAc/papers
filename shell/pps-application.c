@@ -34,7 +34,6 @@
 #include <unistd.h>
 
 #include "pps-application.h"
-#include "pps-file-helpers.h"
 #include "pps-window.h"
 
 #ifdef ENABLE_DBUS

@@ -82,7 +82,6 @@
 #include "pps-annotation-properties-dialog.h"
 #include "pps-bookmarks.h"
 #include "pps-search-box.h"
-#include "pps-toolbar.h"
 
 #ifdef ENABLE_DBUS
 #include "pps-gdbus-generated.h"
@@ -106,7 +105,6 @@ typedef struct {
 	/* UI */
 	GtkWidget *stack;
 	GtkWidget *toolbar_view;
-	GtkWidget *toolbar;
 	GtkWidget *sidebar;
 	GtkWidget *search_box;
 	GtkWidget *search_bar;
@@ -124,6 +122,8 @@ typedef struct {
 	GtkWidget *annots_toolbar_revealer;
 	GtkWidget *annots_toolbar;
 	GtkWidget *error_page;
+	GtkWidget *page_selector;
+	GtkWidget *header_bar;
 
 	AdwOverlaySplitView *split_view;
 
@@ -3819,13 +3819,11 @@ pps_window_cmd_file_close_window (GSimpleAction *action,
 static void
 pps_window_focus_page_selector (PpsWindow *window)
 {
-	PpsWindowPrivate *priv;
+	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
 	g_return_if_fail (PPS_IS_WINDOW (window));
 
-	priv = GET_PRIVATE (window);
-
-	gtk_widget_grab_focus (pps_toolbar_get_page_selector (PPS_TOOLBAR(priv->toolbar)));
+	gtk_widget_grab_focus (priv->page_selector);
 }
 
 /**
@@ -3846,18 +3844,13 @@ void
 pps_window_start_page_selector_search (PpsWindow *window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
-	PpsPageSelector *page_selector;
 
 	g_return_if_fail (PPS_IS_WINDOW (window));
 
-	page_selector = PPS_PAGE_SELECTOR (pps_toolbar_get_page_selector (PPS_TOOLBAR (priv->toolbar)));
-	if (!page_selector)
-		return;
-
 	pps_window_focus_page_selector (window);
-	pps_page_selector_clear (page_selector);
-	pps_page_selector_set_temporary_entry_width (page_selector, 15);
-	pps_page_selector_enable_completion_search (page_selector, TRUE);
+	pps_page_selector_clear (PPS_PAGE_SELECTOR (priv->page_selector));
+	pps_page_selector_set_temporary_entry_width (PPS_PAGE_SELECTOR (priv->page_selector), 15);
+	pps_page_selector_enable_completion_search (PPS_PAGE_SELECTOR (priv->page_selector), TRUE);
 }
 
 static void
@@ -4169,7 +4162,7 @@ pps_window_run_fullscreen (PpsWindow *window)
 
 	pps_window_update_fullscreen_action (window, TRUE);
 
-	adw_header_bar_set_show_end_title_buttons (pps_toolbar_get_header_bar (PPS_TOOLBAR (priv->toolbar)), FALSE);
+	adw_header_bar_set_show_end_title_buttons (ADW_HEADER_BAR (priv->header_bar), FALSE);
 
 
 	if (fullscreen_window)
@@ -4194,7 +4187,7 @@ pps_window_stop_fullscreen (PpsWindow *window,
 
 	pps_window_update_fullscreen_action (window, FALSE);
 
-	adw_header_bar_set_show_end_title_buttons (pps_toolbar_get_header_bar (PPS_TOOLBAR (priv->toolbar)), TRUE);
+	adw_header_bar_set_show_end_title_buttons (ADW_HEADER_BAR (priv->header_bar), TRUE);
 
 	if (unfullscreen_window)
 		gtk_window_unfullscreen (GTK_WINDOW (window));
@@ -4727,9 +4720,8 @@ pps_window_document_modified_cb (PpsDocument *document,
                                 PpsWindow   *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	AdwHeaderBar *header_bar = pps_toolbar_get_header_bar (PPS_TOOLBAR (priv->toolbar));
 	AdwWindowTitle *window_title = ADW_WINDOW_TITLE (
-		adw_header_bar_get_title_widget (header_bar));
+		adw_header_bar_get_title_widget (ADW_HEADER_BAR (priv->header_bar)));
 	const gchar *title = adw_window_title_get_title (window_title);
 	gchar *new_title;
 
@@ -4943,6 +4935,29 @@ sidebar_visibility_changed_cb (AdwOverlaySplitView *split_view,
 						 visible);
 		if (!visible)
 			gtk_widget_grab_focus (priv->view);
+	}
+}
+
+static void
+zoom_selector_activated (GtkWidget *zoom_action,
+			 PpsWindow *window)
+{
+	pps_window_focus_view (window);
+}
+
+static void
+find_button_sensitive_changed (GtkWidget  *find_button,
+			       GParamSpec *pspec,
+			       PpsWindow  *window)
+{
+        if (gtk_widget_is_sensitive (find_button)) {
+                gtk_widget_set_tooltip_text (find_button,
+                                             _("Find a word or phrase in the document"));
+		gtk_button_set_icon_name (GTK_BUTTON (find_button), "edit-find-symbolic");
+	} else {
+                gtk_widget_set_tooltip_text (find_button,
+                                             _("Search not available for this document"));
+		gtk_button_set_icon_name (GTK_BUTTON (find_button), "find-unsupported-symbolic");
 	}
 }
 
@@ -5801,7 +5816,6 @@ sidebar_links_link_model_changed (PpsSidebarLinks *pps_sidebar_links,
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 	GtkTreeModel *model;
-	GtkWidget *page_selector;
 
 	g_object_get (pps_sidebar_links,
 		      "model", &model,
@@ -5810,11 +5824,10 @@ sidebar_links_link_model_changed (PpsSidebarLinks *pps_sidebar_links,
 	if (!model)
 		return;
 
-	page_selector = pps_toolbar_get_page_selector (PPS_TOOLBAR (priv->toolbar));
-	pps_page_selector_update_links_model (PPS_PAGE_SELECTOR (page_selector), model);
+	pps_page_selector_update_links_model (PPS_PAGE_SELECTOR (priv->page_selector), model);
 	/* Let's disable initially the completion search so it does not misfire when the user
 	 * is entering page numbers. Fixes issue #1759 */
-	pps_page_selector_enable_completion_search (PPS_PAGE_SELECTOR (page_selector), FALSE);
+	pps_page_selector_enable_completion_search (PPS_PAGE_SELECTOR (priv->page_selector), FALSE);
 	g_object_unref (model);
 }
 
@@ -6659,7 +6672,6 @@ pps_window_init (PpsWindow *pps_window)
 	g_type_ensure (GDK_TYPE_FILE_LIST);
 
 	g_type_ensure (PPS_TYPE_VIEW);
-	g_type_ensure (PPS_TYPE_TOOLBAR);
 	g_type_ensure (PPS_TYPE_SIDEBAR);
 	g_type_ensure (PPS_TYPE_SEARCH_BOX);
 	g_type_ensure (PPS_TYPE_FIND_SIDEBAR);
@@ -6718,11 +6730,10 @@ pps_window_init (PpsWindow *pps_window)
 					 actions, G_N_ELEMENTS (actions),
 					 pps_window);
 
-	pps_page_selector_set_model (PPS_PAGE_SELECTOR (
-		pps_toolbar_get_page_selector (PPS_TOOLBAR (priv->toolbar))),
+	pps_page_selector_set_model (PPS_PAGE_SELECTOR (priv->page_selector),
 		priv->model);
 
-	g_signal_connect (pps_toolbar_get_page_selector (PPS_TOOLBAR (priv->toolbar)),
+	g_signal_connect (priv->page_selector,
 			  "activate-link",
 			  G_CALLBACK (activate_link_cb),
 			  pps_window);
@@ -6817,7 +6828,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_set_template_from_resource (widget_class,
 		"/org/gnome/papers/ui/window.ui");
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, toolbar_view);
-	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, toolbar);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, sidebar);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, split_view);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, scrolled_window);
@@ -6833,6 +6843,9 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, view);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, stack);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, error_page);
+
+	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, page_selector);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, header_bar);
 
 	/* sidebar */
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_links);
@@ -6856,6 +6869,8 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, pps_window_button_pressed);
 	gtk_widget_class_bind_template_callback (widget_class, pps_window_drag_data_received);
 	gtk_widget_class_bind_template_callback (widget_class, view_popup_hide_cb);
+	gtk_widget_class_bind_template_callback (widget_class, zoom_selector_activated);
+	gtk_widget_class_bind_template_callback (widget_class, find_button_sensitive_changed);
 
 	/* search box */
 	gtk_widget_class_bind_template_callback (widget_class, search_started_cb);
@@ -6921,21 +6936,19 @@ pps_window_get_dbus_object_path (PpsWindow *pps_window)
 
 
 /**
- * pps_window_get_toolbar:
+ * pps_window_get_header_bar:
  * @pps_window: the #PpsWindow
  *
  * Returns: (transfer none): the #AdwHeaderBar that represents the toolbar of the window.
  */
 AdwHeaderBar *
-pps_window_get_toolbar (PpsWindow *pps_window)
+pps_window_get_header_bar (PpsWindow *pps_window)
 {
-	PpsWindowPrivate *priv;
+	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
 	g_return_val_if_fail (PPS_WINDOW (pps_window), NULL);
 
-	priv = GET_PRIVATE (pps_window);
-
-	return pps_toolbar_get_header_bar (PPS_TOOLBAR (priv->toolbar));
+	return ADW_HEADER_BAR (priv->header_bar);
 }
 
 void

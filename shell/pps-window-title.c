@@ -21,6 +21,7 @@
 #include <config.h>
 #include "pps-window-title.h"
 #include "pps-utils.h"
+#include "pps-window.h"
 
 #include <string.h>
 #include <gio/gio.h>
@@ -96,8 +97,8 @@ static void
 pps_window_title_update (PpsWindowTitle *window_title)
 {
 	GtkWindow *window = GTK_WINDOW (window_title->window);
-	AdwHeaderBar *toolbar = pps_window_get_toolbar (PPS_WINDOW (window));
-	AdwWindowTitle *title_widget = ADW_WINDOW_TITLE (adw_header_bar_get_title_widget (toolbar));
+	AdwHeaderBar *header_bar = pps_window_get_header_bar (PPS_WINDOW (window));
+	AdwWindowTitle *title_widget = ADW_WINDOW_TITLE (adw_header_bar_get_title_widget (header_bar));
 
 	char *title = NULL, *p;
 	char *subtitle = NULL, *title_header = NULL;
@@ -133,7 +134,7 @@ pps_window_title_update (PpsWindowTitle *window_title)
 		adw_window_title_set_title (title_widget, title);
 	}
 	if (window_title->dirname)
-		gtk_widget_set_tooltip_text (GTK_WIDGET (toolbar),
+		gtk_widget_set_tooltip_text (GTK_WIDGET (header_bar),
 					     window_title->dirname);
 
 	g_free (title);
