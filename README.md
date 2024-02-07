@@ -47,3 +47,7 @@ git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
 [license]: COPYING
 [papers-logo]: data/icons/scalable/apps/org.gnome.Papers.svg
 [flatpak]: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Flathub-badge-en.svg/240px-Flathub-badge-en.svg.png
+
+### Code of Conduct
+
+When interacting with the project, the [GNOME Code Of Conduct](https://conduct.gnome.org/) applies.
