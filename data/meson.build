@@ -33,19 +33,30 @@ if enable_dbus
   # The D-Bus interface names are in lowercase, which does not match
   # the application name nor the namespace. However, we keep it in
   # lowercase for backward compatibility.
-  services = [[pps_namespace.to_lower() + '.Daemon.service', dbus_service_dir]]
+  services = [[
+    pps_namespace.to_lower() + '.Daemon.service',
+    pps_namespace + profile + '.Daemon.service',
+    dbus_service_dir,
+  ]]
 
   if install_systemd_user_unit_dir
-    services += [[pps_namespace + '.service', systemd_user_unit_dir]]
+    services += [[
+      pps_namespace + '.service',
+      pps_namespace + profile + '.service',
+      systemd_user_unit_dir,
+    ]]
   endif
 
   foreach service: services
+    service_in = service[0] + '.in'
+    service_out = service[1]
+    service_dir = service[2]
     configure_file(
-      input: service[0] + '.in',
-      output: service[0],
+      input: service_in,
+      output: service_out,
       configuration: service_conf,
       install: true,
-      install_dir: service[1],
+      install_dir: service_dir,
     )
   endforeach
 endif
