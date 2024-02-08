@@ -2,8 +2,11 @@
 
 Papers is a document viewer capable of displaying multiple and single
 page document formats like PDF and Postscript.  For more general
-information about Papers please visit our website at
-https://wiki.gnome.org/Apps/Papers.
+information about Papers and how to get started, please visit
+https://welcome.gnome.org/app/Papers
+
+If you are a developer, make sure to read the [contributing](CONTRIBUTING.md)
+guidelines before starting to work on any changes.
 
 This software is licensed under the [GPLv2][license].
 
@@ -22,19 +25,6 @@ This software is licensed under the [GPLv2][license].
 * [Archive library for Comic Book Resources (CBR) viewing][comics]
 * [LibTiff for Multipage TIFF viewing][tiff]
 * [LibGXPS for XML Paper Specification (XPS) viewing][xps]
-
-## Default branch renamed to `main`
-
-The default development branch of Papers has been renamed to `main`. To update
-your local checkout, use:
-```sh
-git checkout master
-git branch -m master main
-git fetch
-git branch --unset-upstream
-git branch -u origin/main
-git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
-```
 
 [gnome]: https://www.gnome.org/
 [poppler]: https://poppler.freedesktop.org/

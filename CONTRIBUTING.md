@@ -73,71 +73,20 @@ G_MESSAGES_DEBUG=all papers document.pdf
 
 ## Code Style
 
-Papers follows the Linux coding style (K&R), with some mix of GObject
-and Gtk coding style. However, the code has not evolved organically, and
-there is a mix and match of coding style with respect to indentation.
+For C, Papers follows the [Linux](https://welcome.gnome.org/app/Papers/) coding
+style (K&R), with some mix of GObject and Gtk coding style. However, the code
+has not evolved organically, and there is a mix and match of coding style with
+respect to indentation and others.
 
-```c
-static gboolean
-this_is_a_function (GtkWidget    *param,
-                    const gchar  *another_param,
-                    guint         third_param,
-                    GError      **error)
-{
-	g_return_val_if_fail (GTK_IS_WIDGET (param), FALSE);
-	g_return_val_if_fail (third_param > 10, FALSE);
-
-	/*
-	 * This is the preferred style for multi-line
-	 * comments. Please use it consistently, and do not use
-	 * C++ comment style.
-	 */
-	if (!do_some_more_work ()) {
-		g_set_error (error,
-			     G_IO_ERROR,
-			     G_IO_ERROR_FAILED,
-			     "Something failed");
-		return FALSE;
-	}
-
-	if (another_param != NULL)
-		return FALSE;
-	else
-		return TRUE;
-}
-```
-
-```c
-void      do_something_one   (GtkWidget  *widget);
-void      do_something_two   (GtkWidget  *widget,
-                              GError    **error);
-gchar    *do_something_three (GtkWidget  *widget);
-gboolean  do_something_four  (GtkWidget  *widget);
-```
-
- * Notice that we use 8-space indention.
- * We do not use braces for one line blocks. For main blocks, the
-   opening brace is its own line, for other statements, right after
-   the statement.
- * Spaces before braces and parenthesis.
- * Always compare against `NULL` rather than implicit comparisons.
-   This eases ports to other languages and readability.
- * Use #define for constants. Try to avoid “magic constants” or
-   “magic numbers”.
- * Align function parameters.
- * Align blocks of function declarations in the header. This
-   vastly improves readability and scanning to find what you want.
-
-If in doubt, look for examples elsewhere in the codebase, especially
-in the same file you are editing.  Also, the Linux kernel coding style
-in https://www.kernel.org/doc/html/latest/process/coding-style.html
+On the lack of established CI to check code formatting, please always indent
+with tabs and follow the code style of surrounding code.
 
 ### Commit messages
 
 The expected format for git commit messages is as follows:
 
 ```plain
-Short explanation of the commit
+subsection: short explanation of the commit
 
 Longer explanation explaining exactly what's changed, whether any
 external or private interfaces changed, what bugs were fixed (with bug
@@ -146,14 +95,13 @@ brief.
 
 Closes #1234
 ```
-
  - Always add a brief description of the commit to the _first_ line of
  the commit and terminate by two newlines (it will work without the
  second newline, but that is not nice for the interfaces).
 
  - Whenever possible, the first line should include the subsystem of
    the papers the commit belongs: `shell`, `libdocument`, `libview`,
-   `libmisc`, `backends`, `cut-n-paste`, `build`, `doc`, `flatpak`.
+   `libmisc`, `backends`, `build`, `doc`, `flatpak`.
    e.g. “flatpak: bump version of poppler”
 
  - First line (the brief description) must only be one sentence and
