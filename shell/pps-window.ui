@@ -489,15 +489,9 @@
         <attribute name="label" translatable="yes">New _Window</attribute>
         <attribute name="action">app.new</attribute>
       </item>
-    </section>
-    <section>
       <item>
         <attribute name="label" translatable="yes">Open a C_opy</attribute>
         <attribute name="action">win.open-copy</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Open Containing _Folder</attribute>
-        <attribute name="action">win.open-containing-folder</attribute>
       </item>
     </section>
     <section>
@@ -688,10 +682,6 @@
         <attribute name="label" translatable="yes">_Highlight Selected Text</attribute>
         <attribute name="action">win.highlight-annotation</attribute>
         <attribute name="hidden-when">action-disabled</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Open Containing _Folder</attribute>
-        <attribute name="action">win.open-containing-folder</attribute>
       </item>
     </section>
   </menu>
