@@ -33,17 +33,6 @@
 G_BEGIN_DECLS
 
 PPS_PUBLIC
-cairo_surface_t *pps_document_misc_render_loading_thumbnail_surface (GtkWidget *widget,
-								    int        width,
-								    int        height,
-								    gboolean   inverted_colors);
-PPS_PUBLIC
-cairo_surface_t *pps_document_misc_render_thumbnail_surface_with_frame (GtkWidget       *widget,
-								       cairo_surface_t *source_surface,
-								       int              width,
-								       int              height);
-
-PPS_PUBLIC
 cairo_surface_t *pps_document_misc_surface_from_pixbuf (GdkPixbuf *pixbuf);
 PPS_PUBLIC
 GdkPixbuf       *pps_document_misc_pixbuf_from_surface (cairo_surface_t *surface);
@@ -52,8 +41,6 @@ cairo_surface_t *pps_document_misc_surface_rotate_and_scale (cairo_surface_t *su
 							    gint             dest_width,
 							    gint             dest_height,
 							    gint             dest_rotation);
-PPS_PUBLIC
-void             pps_document_misc_invert_surface (cairo_surface_t *surface);
 
 PPS_PUBLIC
 gdouble          pps_document_misc_get_widget_dpi (GtkWidget *widget);

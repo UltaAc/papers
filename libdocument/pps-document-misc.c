@@ -27,115 +27,6 @@
 
 #include "pps-document-misc.h"
 
-static cairo_surface_t *
-pps_document_misc_render_thumbnail_frame (GtkWidget       *widget,
-                                         int              width,
-                                         int              height,
-                                         gboolean         inverted_colors,
-                                         GdkPixbuf       *source_pixbuf,
-                                         cairo_surface_t *source_surface)
-{
-        GtkStyleContext *context = gtk_widget_get_style_context (widget);
-        double           width_r, height_r;
-        double           width_f, height_f;
-        cairo_surface_t *surface;
-        cairo_t         *cr;
-        double           device_scale_x = 1;
-        double           device_scale_y = 1;
-        GtkBorder        border = {0, };
-
-        if (source_surface) {
-                width_r = cairo_image_surface_get_width (source_surface);
-                height_r = cairo_image_surface_get_height (source_surface);
-                cairo_surface_get_device_scale (source_surface, &device_scale_x, &device_scale_y);
-        } else if (source_pixbuf) {
-                g_return_val_if_fail (GDK_IS_PIXBUF (source_pixbuf), NULL);
-
-                width_r = gdk_pixbuf_get_width (source_pixbuf);
-                height_r = gdk_pixbuf_get_height (source_pixbuf);
-                device_scale_x = device_scale_y = gtk_widget_get_scale_factor (widget);
-        } else {
-                width_r = width;
-                height_r = height;
-                device_scale_x = device_scale_y = gtk_widget_get_scale_factor (widget);
-        }
-
-        width_r /= device_scale_x;
-        height_r /= device_scale_y;
-
-        gtk_style_context_save (context);
-
-        gtk_style_context_add_class (context, "page-thumbnail");
-        if (inverted_colors)
-                gtk_style_context_add_class (context, "inverted");
-
-        gtk_style_context_get_border (context, &border);
-        width_f = width_r + border.left + border.right;
-        height_f = height_r + border.top + border.bottom;
-
-        surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
-                                              device_scale_x * width_f,
-                                              device_scale_y * height_f);
-
-        cairo_surface_set_device_scale (surface, device_scale_x, device_scale_y);
-
-        cr = cairo_create (surface);
-        if (source_surface) {
-                cairo_set_source_surface (cr, source_surface, border.left, border.top);
-                cairo_paint (cr);
-        } else if (source_pixbuf) {
-                gdk_cairo_set_source_pixbuf (cr, source_pixbuf, border.left, border.top);
-                cairo_paint (cr);
-        } else {
-                gtk_render_background (context, cr, 0, 0, width_f, height_f);
-        }
-        gtk_render_frame (context, cr, 0, 0, width_f, height_f);
-        cairo_destroy (cr);
-
-        gtk_style_context_restore (context);
-
-        return surface;
-}
-
-/**
- * pps_document_misc_render_loading_thumbnail_surface:
- * @widget: a #GtkWidget to use for style information
- * @width: the desired width
- * @height: the desired height
- * @inverted_colors: whether to invert colors
- *
- * Returns: (transfer full): a #cairo_surface_t
- *
- * Since: 3.14
- */
-cairo_surface_t *
-pps_document_misc_render_loading_thumbnail_surface (GtkWidget *widget,
-                                                   int        width,
-                                                   int        height,
-                                                   gboolean   inverted_colors)
-{
-        return pps_document_misc_render_thumbnail_frame (widget, width, height, inverted_colors, NULL, NULL);
-}
-
-/**
- * pps_document_misc_render_thumbnail_surface_with_frame:
- * @widget: a #GtkWidget to use for style information
- * @source_surface: a #cairo_surface_t
- * @width: the desired width
- * @height: the desired height
- *
- * Returns: (transfer full): a #cairo_surface_t
- *
- * Since: 3.14
- */
-cairo_surface_t *
-pps_document_misc_render_thumbnail_surface_with_frame (GtkWidget       *widget,
-                                                      cairo_surface_t *source_surface,
-                                                      int              width,
-                                                      int              height)
-{
-        return pps_document_misc_render_thumbnail_frame (widget, width, height, FALSE, NULL, source_surface);
-}
 
 cairo_surface_t *
 pps_document_misc_surface_from_pixbuf (GdkPixbuf *pixbuf)
@@ -232,19 +123,6 @@ pps_document_misc_surface_rotate_and_scale (cairo_surface_t *surface,
 	cairo_destroy (cr);
 
 	return new_surface;
-}
-
-void
-pps_document_misc_invert_surface (cairo_surface_t *surface) {
-	cairo_t *cr;
-
-	cr = cairo_create (surface);
-
-	/* white + DIFFERENCE -> invert */
-	cairo_set_operator (cr, CAIRO_OPERATOR_DIFFERENCE);
-	cairo_set_source_rgb (cr, 1., 1., 1.);
-	cairo_paint(cr);
-	cairo_destroy (cr);
 }
 
 /**
