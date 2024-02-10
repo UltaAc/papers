@@ -1,13 +1,13 @@
-# Chinese (China) help translation for papers.
+# Chinese (China) help translation for evince.
 # Copyright (C) 2010 Free Software Foundation, Inc.
-# This file is distributed under the same license as the papers package.
+# This file is distributed under the same license as the evince package.
 # Zhang Chen <zhangchn2004@gmail.com>, 2008.
 # 朱涛 <bill_zt@sina.com>, 2010.
 # 甘露 (Gan Lu) <rhythm.gan@gmail.com>, 2010
 # Xiaoran Zhao <zxrlha@gmail.com>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: papers master\n"
+"Project-Id-Version: evince master\n"
 "POT-Creation-Date: 2011-12-04 12:35+0000\n"
 "PO-Revision-Date: 2011-12-10 00:36+0800\n"
 "Last-Translator: Xiaoran Zhao <zxrlha@gmail.com>\n"
@@ -21,20 +21,20 @@ msgstr ""
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/toolbar.page:30(None)
 msgid ""
-"@@image: 'figures/papers-toolbar-default.png'; "
+"@@image: 'figures/evince-toolbar-default.png'; "
 "md5=2a826732c770c08b11684e28e259bb31"
 msgstr ""
-"@@image: 'figures/papers-toolbar-default.png'; "
+"@@image: 'figures/evince-toolbar-default.png'; "
 "md5=2a826732c770c08b11684e28e259bb31"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/toolbar.page:51(None)
 msgid ""
-"@@image: 'figures/papers-toolbar-editor.png'; "
+"@@image: 'figures/evince-toolbar-editor.png'; "
 "md5=e6c66f764c39ab5ba01441d970425cd9"
 msgstr ""
-"@@image: 'figures/papers-toolbar-editor.png'; "
+"@@image: 'figures/evince-toolbar-editor.png'; "
 "md5=e6c66f764c39ab5ba01441d970425cd9"
 
 #: C/toolbar.page:7(desc)
@@ -485,21 +485,21 @@ msgstr "Vim-latex"
 
 #: C/synctex-editors.page:29(p)
 msgid ""
-"The <app>gedit</app> plugin contains a python script (papers_dbus.py) that "
+"The <app>gedit</app> plugin contains a python script (evince_dbus.py) that "
 "can be used to get SyncTeX working with Vim. In order to use vim-latex "
 "together with the <app>document viewer</app> you need to follow the next "
 "steps:"
 msgstr ""
 "<app>gedit</app> 的插件包含一个可以使 SyncTeX 与 Vim 一起工作的 python 脚本"
-"(papers_dbus.py)。为了同 <app>文档查看器</app> 一起使用 vim-latex，您需要遵循"
+"(evince_dbus.py)。为了同 <app>文档查看器</app> 一起使用 vim-latex，您需要遵循"
 "下列步骤："
 
 #: C/synctex-editors.page:35(p)
 msgid ""
-"Copy the papers_dbus.py to some directory in your path and give it +x "
+"Copy the evince_dbus.py to some directory in your path and give it +x "
 "permissions."
 msgstr ""
-"将 papers_dbus.py 复制到某个在您的可执行文件路径中的目录并给它可执行权限。"
+"将 evince_dbus.py 复制到某个在您的可执行文件路径中的目录并给它可执行权限。"
 
 #: C/synctex-editors.page:41(p)
 msgid "Modify your ~/.vimrc file and add the following lines."
@@ -509,12 +509,12 @@ msgstr "编辑您的 ~/.vimrc 文件并加入以下几行。"
 #, no-wrap
 msgid ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 msgstr ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 
@@ -836,7 +836,7 @@ msgstr "当所有的页都被打印后，将页面翻转然后放回打印机。
 #: C/singlesided-npages.page:104(p) C/singlesided-9-12pages.page:97(p)
 #: C/singlesided-5-8pages.page:97(p) C/singlesided-3-4pages.page:97(p)
 #: C/singlesided-17-20pages.page:98(p) C/singlesided-13-16pages.page:100(p)
-msgid "In the <gui>Only print</gui> menu, select <gui>Ppsen sheets</gui>."
+msgid "In the <gui>Only print</gui> menu, select <gui>Even sheets</gui>."
 msgstr "在 <gui>打印</gui> 菜单中，选择 <gui>偶数页</gui>。"
 
 #: C/singlesided-9-12pages.page:7(title)
@@ -1833,8 +1833,8 @@ msgstr ""
 "编辑器。"
 
 #: C/noprint.page:74(p)
-msgid "Browse to <sys>/org/gnome/papers</sys> using the side pane."
-msgstr "使用侧边栏浏览到 <sys>/org/gnome/papers</sys>。"
+msgid "Browse to <sys>/org/gnome/evince</sys> using the side pane."
+msgstr "使用侧边栏浏览到 <sys>/org/gnome/evince</sys>。"
 
 #: C/noprint.page:76(p)
 msgid "Make sure that the <gui>override_restrictions</gui> option is checked."
@@ -2130,8 +2130,8 @@ msgid ""
 msgstr "这样做可使文本阅读起来更容易，特别是在某些视觉减弱的条件下。"
 
 #: C/introduction.page:7(desc)
-msgid "Introduction to the <em>Papers Document Viewer</em>."
-msgstr "<em>Papers 文档查看器</em> 介绍。"
+msgid "Introduction to the <em>Evince Document Viewer</em>."
+msgstr "<em>Evince 文档查看器</em> 介绍。"
 
 #: C/introduction.page:20(title)
 msgid "Introduction"
@@ -2139,42 +2139,42 @@ msgstr "简介"
 
 #: C/introduction.page:25(p)
 msgid ""
-"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
+"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
-"<app>Papers</app> 是一个文档查看器。您可以查看的文件类型可参见 <link xref="
+"<app>Evince</app> 是一个文档查看器。您可以查看的文件类型可参见 <link xref="
 "\"formats\"/> 列表。"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/index.page:7(None)
 msgid ""
-"@@image: 'figures/papers-trail.png'; md5=a1a70d04c37f05937d0b3e7a0705d2d4"
+"@@image: 'figures/evince-trail.png'; md5=a1a70d04c37f05937d0b3e7a0705d2d4"
 msgstr ""
-"@@image: 'figures/papers-trail.png'; md5=a1a70d04c37f05937d0b3e7a0705d2d4"
+"@@image: 'figures/evince-trail.png'; md5=a1a70d04c37f05937d0b3e7a0705d2d4"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/index.page:20(None)
-msgid "@@image: 'figures/paperslogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
+msgid "@@image: 'figures/evincelogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
 msgstr ""
-"@@image: 'figures/paperslogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
+"@@image: 'figures/evincelogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
 
 #: C/index.page:6(desc)
-msgid "Help for the Papers Document Viewer."
-msgstr "Papers 文档查看器 帮助。"
+msgid "Help for the Evince Document Viewer."
+msgstr "Evince 文档查看器 帮助。"
 
 #: C/index.page:8(title) C/index.page:9(title)
-msgid "Papers Document Viewer"
-msgstr "Papers 文档查看器"
+msgid "Evince Document Viewer"
+msgstr "Evince 文档查看器"
 
 #: C/index.page:20(title)
 msgid ""
-"<media type=\"image\" src=\"figures/paperslogo.png\">Papers logo</media> "
-"Papers document viewer"
+"<media type=\"image\" src=\"figures/evincelogo.png\">Evince logo</media> "
+"Evince document viewer"
 msgstr ""
-"<media type=\"image\" src=\"figures/paperslogo.png\">Papers logo</media> "
-"Papers 文档查看器"
+"<media type=\"image\" src=\"figures/evincelogo.png\">Evince logo</media> "
+"Evince 文档查看器"
 
 #: C/index.page:24(title)
 msgid "Reading documents"
@@ -3089,9 +3089,9 @@ msgstr "命令行"
 
 #: C/commandline.page:8(desc)
 msgid ""
-"The <cmd>papers</cmd> command can open any number of files, at specific "
+"The <cmd>evince</cmd> command can open any number of files, at specific "
 "pages and in various modes."
-msgstr "<cmd>papers</cmd> 命令可以打开任意数量的文件，并处在指定的页面和模式。"
+msgstr "<cmd>evince</cmd> 命令可以打开任意数量的文件，并处在指定的页面和模式。"
 
 #: C/commandline.page:22(title)
 msgid "The command line"
@@ -3099,41 +3099,41 @@ msgstr "命令行"
 
 #: C/commandline.page:24(p)
 msgid ""
-"To start the Document Viewer from the command line, type <cmd>papers</cmd>. "
-"You can open a specific file by typing the filename after the papers command:"
+"To start the Document Viewer from the command line, type <cmd>evince</cmd>. "
+"You can open a specific file by typing the filename after the evince command:"
 msgstr ""
-"要从命令行中启动文档查看器，输入 <cmd>papers</cmd>。您可以通过在 papers 命令"
+"要从命令行中启动文档查看器，输入 <cmd>evince</cmd>。您可以通过在 evince 命令"
 "后输入文件名来打开某个指定的文件："
 
 #: C/commandline.page:29(screen)
 #, no-wrap
-msgid "papers file.pdf"
-msgstr "papers 文件.pdf"
+msgid "evince file.pdf"
+msgstr "evince 文件.pdf"
 
 #: C/commandline.page:30(p)
 msgid ""
-"You can open multiple files by typing the filenames after the papers "
+"You can open multiple files by typing the filenames after the evince "
 "command, separating the filenames by a space:"
-msgstr "您可以通过在 papers 命令后输入以空格分隔的多个文件名来打开多个文件："
+msgstr "您可以通过在 evince 命令后输入以空格分隔的多个文件名来打开多个文件："
 
 #: C/commandline.page:33(screen)
 #, no-wrap
-msgid "papers file1.pdf file2.pdf"
-msgstr "papers 文件1.pdf 文件2.pdf"
+msgid "evince file1.pdf file2.pdf"
+msgstr "evince 文件1.pdf 文件2.pdf"
 
 #: C/commandline.page:34(p)
 msgid ""
 "The <app>document viewer</app> also supports the handling of files on the "
-"web. For example, after the papers command you can give the location of a "
+"web. For example, after the evince command you can give the location of a "
 "file on the web:"
 msgstr ""
-"<app>文档查看器</app> 也支持处理网络上的文件。举个例子，在 papers 命令后您可"
+"<app>文档查看器</app> 也支持处理网络上的文件。举个例子，在 evince 命令后您可"
 "以直接给出文件的网址："
 
 #: C/commandline.page:37(screen)
 #, no-wrap
-msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 
 #: C/commandline.page:39(title)
 msgid "Opening a document at a specific page"
@@ -3149,8 +3149,8 @@ msgstr ""
 
 #: C/commandline.page:44(screen)
 #, no-wrap
-msgid "papers --page-label=3 file.pdf"
-msgstr "papers --page-label=3 文件.pdf"
+msgid "evince --page-label=3 file.pdf"
+msgstr "evince --page-label=3 文件.pdf"
 
 #: C/commandline.page:45(p)
 msgid ""
@@ -3164,8 +3164,8 @@ msgstr "以全屏模式打开某个文档"
 
 #: C/commandline.page:52(screen)
 #, no-wrap
-msgid "papers --fullscreen file.pdf"
-msgstr "papers --fullscreen 文件.pdf"
+msgid "evince --fullscreen file.pdf"
+msgstr "evince --fullscreen 文件.pdf"
 
 #: C/commandline.page:55(title)
 msgid "Opening a document in presentation mode"
@@ -3173,8 +3173,8 @@ msgstr "以放映模式打开文档"
 
 #: C/commandline.page:56(screen)
 #, no-wrap
-msgid "papers --presentation file.pdf"
-msgstr "papers --presentation 文件.pdf"
+msgid "evince --presentation file.pdf"
+msgstr "evince --presentation 文件.pdf"
 
 #: C/commandline.page:59(title)
 msgid "Opening a document in preview mode"
@@ -3182,8 +3182,8 @@ msgstr "以浏览模式打开某个文档"
 
 #: C/commandline.page:60(screen)
 #, no-wrap
-msgid "papers --preview file.pdf"
-msgstr "papers --preview 文件.pdf"
+msgid "evince --preview file.pdf"
+msgstr "evince --preview 文件.pdf"
 
 #: C/bug-filing.page:7(desc)
 msgid "How and where to report problems."
@@ -3226,17 +3226,17 @@ msgstr ""
 #: C/bug-filing.page:29(p)
 msgid ""
 "Once you have an account, log in, click on <guiseq><gui>File a Bug</"
-"gui><gui>Core</gui><gui>papers</gui></guiseq>. Before reporting a bug, "
+"gui><gui>Core</gui><gui>evince</gui></guiseq>. Before reporting a bug, "
 "please read the <link href=\"https://bugzilla.gnome.org/page.cgi?id=bug-"
 "writing.html\">bug writing guidelines</link>, and please <link href="
-"\"https://bugzilla.gnome.org/browse.cgi?product=papers\">browse</link> for "
+"\"https://bugzilla.gnome.org/browse.cgi?product=evince\">browse</link> for "
 "the bug to see if it already exists."
 msgstr ""
 "一旦您拥有了一个帐户，请登录，然后点击 <guiseq><gui>File a Bug</"
-"gui><gui>Core</gui><gui>papers</gui></guiseq>。在汇报漏洞之前，请阅读 <link "
+"gui><gui>Core</gui><gui>evince</gui></guiseq>。在汇报漏洞之前，请阅读 <link "
 "href=\"https://bugzilla.gnome.org/page.cgi?id=bug-writing.html\">漏洞汇报向导"
 "</link>，并请 <link href=\"https://bugzilla.gnome.org/browse.cgi?"
-"product=papers\">浏览</link> 以确定此漏洞是否已存在。"
+"product=evince\">浏览</link> 以确定此漏洞是否已存在。"
 
 #: C/bug-filing.page:33(p)
 msgid ""
@@ -3551,14 +3551,14 @@ msgstr ""
 #~ msgstr ""
 #~ "要打印第 3 页，单击 <guiseq><gui>文件</gui><gui>打印</gui></guiseq>。"
 
-#~ msgid "You can play presentations with <app>Papers</app>."
-#~ msgstr "您可以用 <app>Papers</app> 播放幻灯片。"
+#~ msgid "You can play presentations with <app>Evince</app>."
+#~ msgstr "您可以用 <app>Evince</app> 播放幻灯片。"
 
-#~ msgid "<app>Papers</app> can be used to display presentations."
-#~ msgstr "<app>Papers</app> 可用于显示幻灯片。"
+#~ msgid "<app>Evince</app> can be used to display presentations."
+#~ msgstr "<app>Evince</app> 可用于显示幻灯片。"
 
-#~ msgid "How to open a document using <app>Papers</app>."
-#~ msgstr "如何用 <app>Papers</app> 打开一个文档。"
+#~ msgid "How to open a document using <app>Evince</app>."
+#~ msgstr "如何用 <app>Evince</app> 打开一个文档。"
 
 #~ msgid "PDF Printing Restrictions"
 #~ msgstr "PDF 打印限制"
@@ -3578,10 +3578,10 @@ msgstr ""
 #~ msgstr "选择 <guiseq><gui>系统</gui><gui>管理</gui><gui>打印</gui></guiseq>"
 
 #~ msgid ""
-#~ "To file a bug against <app>Papers</app>, click on the link <link href="
+#~ "To file a bug against <app>Evince</app>, click on the link <link href="
 #~ "\"https://bugzilla.gnome.org/\"/>."
 #~ msgstr ""
-#~ "报告一个 <app>Papers</app> 的臭虫，请点击此链接 <link href=\"https://"
+#~ "报告一个 <app>Evince</app> 的臭虫，请点击此链接 <link href=\"https://"
 #~ "bugzilla.gnome.org/\"/>。"
 
 #~ msgid "<placeholder-1/> keys"
@@ -3701,18 +3701,18 @@ msgstr ""
 #~ "多 PostScript (.ps) 文件是无法进行搜索的。"
 
 #~ msgid ""
-#~ "The Document Viewer can be started with the <cmd>papers</cmd> command."
-#~ msgstr "文档查看器可使用 <cmd>papers</cmd> 命令启动。"
+#~ "The Document Viewer can be started with the <cmd>evince</cmd> command."
+#~ msgstr "文档查看器可使用 <cmd>evince</cmd> 命令启动。"
 
 #~ msgid "Opening The Document Viewer From The Command Line"
 #~ msgstr "从命令行中打开文档查看器"
 
-#~ msgid "Can I create bookmarks in <app>Papers Document Viewer</app>?"
-#~ msgstr "我能在 <app>Papers 文档查看器</app> 中创建书签吗？"
+#~ msgid "Can I create bookmarks in <app>Evince Document Viewer</app>?"
+#~ msgstr "我能在 <app>Evince 文档查看器</app> 中创建书签吗？"
 
-#~| msgid "When You Start Papers Document Viewer"
-#~ msgid "Creating Annotations in <app>Papers Document Viewer</app>."
-#~ msgstr "在 <app>Papers 文档查看器</app> 中创建注释。"
+#~| msgid "When You Start Evince Document Viewer"
+#~ msgid "Creating Annotations in <app>Evince Document Viewer</app>."
+#~ msgstr "在 <app>Evince 文档查看器</app> 中创建注释。"
 
 #~ msgid "Thumbnails"
 #~ msgstr "缩略图"
@@ -3727,31 +3727,31 @@ msgstr ""
 #~ msgstr "层"
 
 #~| msgid ""
-#~| "Below is a list of all shortcuts present in <application>Papers Document "
+#~| "Below is a list of all shortcuts present in <application>Evince Document "
 #~| "Viewer</application>:"
 #~ msgid ""
-#~ "You can not remove an annotation in <app>Papers Document Viewer</app>."
-#~ msgstr "您不能移除 <app>Papers 文档查看器</app> 中的注释。"
+#~ "You can not remove an annotation in <app>Evince Document Viewer</app>."
+#~ msgstr "您不能移除 <app>Evince 文档查看器</app> 中的注释。"
 
 #~ msgid "How can I remove an annotation?"
 #~ msgstr "我如何能移除一个批示呢？"
 
 #~ msgid ""
-#~ "@@image: 'figures/papers_start_window.png'; "
+#~ "@@image: 'figures/evince_start_window.png'; "
 #~ "md5=7f4da5e33bcac35738a268d93d497d47"
 #~ msgstr ""
-#~ "@@image: 'figures/papers_start_window.png'; "
+#~ "@@image: 'figures/evince_start_window.png'; "
 #~ "md5=7f4da5e33bcac35738a268d93d497d47"
 
-#~ msgid "Papers Document Viewer Manual"
-#~ msgstr "Papers 文档查看器手册"
+#~ msgid "Evince Document Viewer Manual"
+#~ msgstr "Evince 文档查看器手册"
 
 #~ msgid ""
-#~ "The Papers Document Viewer application enables you to view documents of "
+#~ "The Evince Document Viewer application enables you to view documents of "
 #~ "various formats like Portable Document Format (PDF) files and PostScript "
 #~ "files"
 #~ msgstr ""
-#~ "Papers 文档查看器可查阅多种不同格式(如 PDF 和 PostScript 等)的文档。"
+#~ "Evince 文档查看器可查阅多种不同格式(如 PDF 和 PostScript 等)的文档。"
 
 #~ msgid "2005"
 #~ msgstr "2005"
@@ -3867,8 +3867,8 @@ msgstr ""
 #~ msgid "nshmyrev@yandex.ru"
 #~ msgstr "nshmyrev@yandex.ru"
 
-#~ msgid "Papers Document Viewer Manual V1.1"
-#~ msgstr "Papers 文档查看器手册 V1.1"
+#~ msgid "Evince Document Viewer Manual V1.1"
+#~ msgstr "Evince 文档查看器手册 V1.1"
 
 #~ msgid "2008-04-05"
 #~ msgstr "2008年4月5日"
@@ -3879,82 +3879,82 @@ msgstr ""
 #~ msgid "Claude Paroz"
 #~ msgstr "Claude Paroz"
 
-#~ msgid "Papers Document Viewer Manual V1.0"
-#~ msgstr "Papers 文档查看器手册 V1.0"
+#~ msgid "Evince Document Viewer Manual V1.0"
+#~ msgstr "Evince 文档查看器手册 V1.0"
 
 #~ msgid "2005-04-06"
 #~ msgstr "2005年4月6日"
 
-#~ msgid "This manual describes version 0.2 of Papers Document Viewer"
-#~ msgstr "此手册描述的是0.2版的 Papers 文档查看器。"
+#~ msgid "This manual describes version 0.2 of Evince Document Viewer"
+#~ msgstr "此手册描述的是0.2版的 Evince 文档查看器。"
 
 #~ msgid "Feedback"
 #~ msgstr "反馈"
 
 #~ msgid ""
-#~ "To report a bug or make a suggestion regarding the Papers Document Viewer "
+#~ "To report a bug or make a suggestion regarding the Evince Document Viewer "
 #~ "application or this manual, follow the directions in the <ulink url="
 #~ "\"ghelp:gnome-feedback\" type=\"help\">GNOME Feedback Page</ulink>."
 #~ msgstr ""
-#~ "欲报告 bug 或提出针对 Papers 文档查看器的程序或手册的建议，请参照 <ulink "
+#~ "欲报告 bug 或提出针对 Evince 文档查看器的程序或手册的建议，请参照 <ulink "
 #~ "url=\"ghelp:gnome-feedback\" type=\"help\">GNOME 反馈页</ulink>的指示。"
 
-#~ msgid "papers"
-#~ msgstr "papers"
+#~ msgid "evince"
+#~ msgstr "evince"
 
 #~ msgid ""
-#~ "The <application>Papers Document Viewer</application> application enables "
+#~ "The <application>Evince Document Viewer</application> application enables "
 #~ "you to view documents of various formats like Portable Document Format "
-#~ "(PDF) files and PostScript files. <application>Papers Document Viewer</"
+#~ "(PDF) files and PostScript files. <application>Evince Document Viewer</"
 #~ "application> follows Freedesktop.org and GNOME standards to provide "
 #~ "integration with Desktop Environment."
 #~ msgstr ""
-#~ "<application>Papers 文档查看器</application>可查阅多种不同格式(如 PDF 和 "
-#~ "PostScript 等)的文档。 <application>Papers 文档查看器</application>遵循 "
+#~ "<application>Evince 文档查看器</application>可查阅多种不同格式(如 PDF 和 "
+#~ "PostScript 等)的文档。 <application>Evince 文档查看器</application>遵循 "
 #~ "Freedesktop.org 与 GNOME 标准，以同“桌面环境”整合。"
 
 #~ msgid "Getting Started"
 #~ msgstr "新手上路"
 
 #~ msgid ""
-#~ "<application>Papers Document Viewer</application> starts when you open a "
+#~ "<application>Evince Document Viewer</application> starts when you open a "
 #~ "document such as a PDF or PostScript file."
 #~ msgstr ""
-#~ "<application>Papers 文档查看器</application>会在您打开一个如 PDF 或 "
+#~ "<application>Evince 文档查看器</application>会在您打开一个如 PDF 或 "
 #~ "PostScript 文件之类的文档时启动。"
 
 #~ msgid ""
-#~ "Alternatively, you can start <application>Papers Document Viewer</"
-#~ "application> from the command line, with the command: <command>papers</"
+#~ "Alternatively, you can start <application>Evince Document Viewer</"
+#~ "application> from the command line, with the command: <command>evince</"
 #~ "command>."
 #~ msgstr ""
-#~ "或者，您可以从命令行里，用命令 <command>papers</command> 启动 "
-#~ "<application>Papers 文档查看器</application>。"
+#~ "或者，您可以从命令行里，用命令 <command>evince</command> 启动 "
+#~ "<application>Evince 文档查看器</application>。"
 
-#~ msgid "Papers Document Viewer Window"
-#~ msgstr "Papers 文档查看器窗口"
+#~ msgid "Evince Document Viewer Window"
+#~ msgstr "Evince 文档查看器窗口"
 
 #~ msgid ""
-#~ "Shows Papers Document Viewer main window. Contains titlebar, menubar, "
+#~ "Shows Evince Document Viewer main window. Contains titlebar, menubar, "
 #~ "toolbar and display area. Menubar contains File, Edit, View, Go and Help "
 #~ "menus."
 #~ msgstr ""
-#~ "此图展示了 Papers 文档查看器窗口。包括标题栏，菜单栏，工具栏和显示区域。菜"
+#~ "此图展示了 Evince 文档查看器窗口。包括标题栏，菜单栏，工具栏和显示区域。菜"
 #~ "单栏包括文件，编辑，查看，转到和帮助等菜单。"
 
 #~ msgid ""
-#~ "The <application>Papers Document Viewer</application> window contains the "
+#~ "The <application>Evince Document Viewer</application> window contains the "
 #~ "following elements:"
-#~ msgstr "Papers 文档查看器窗口包括以下要素："
+#~ msgstr "Evince 文档查看器窗口包括以下要素："
 
 #~ msgid "Menubar"
 #~ msgstr "菜单栏"
 
 #~ msgid ""
 #~ "The menus on the menubar contain all of the commands that you need to "
-#~ "work with documents in <application>Papers Document Viewer</application>."
+#~ "work with documents in <application>Evince Document Viewer</application>."
 #~ msgstr ""
-#~ "菜单栏里的菜单包含了所有您在 <application>Papers 文档查看器</application>"
+#~ "菜单栏里的菜单包含了所有您在 <application>Evince 文档查看器</application>"
 #~ "里查阅文档时所需的所有命令。"
 
 #~ msgid ""
@@ -3978,10 +3978,10 @@ msgstr ""
 #~ msgstr "窗口"
 
 #~ msgid ""
-#~ "Drag a file into the <application>Papers Document Viewer</application> "
+#~ "Drag a file into the <application>Evince Document Viewer</application> "
 #~ "window from another application such as a file manager."
 #~ msgstr ""
-#~ "将文件从另一个程序，如文件管理器，拖动至 <application>Papers 文档查看器</"
+#~ "将文件从另一个程序，如文件管理器，拖动至 <application>Evince 文档查看器</"
 #~ "application>窗口。"
 
 #~ msgid ""
@@ -3998,14 +3998,14 @@ msgstr ""
 #~ msgstr "按 <keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>。"
 
 #~ msgid ""
-#~ "In <application>Papers Document Viewer</application>, you can perform the "
+#~ "In <application>Evince Document Viewer</application>, you can perform the "
 #~ "same action in several ways. For example, you can open a document in the "
 #~ "following ways: <informaltable frame=\"all\"><tgroup cols=\"2\" colsep=\"1"
 #~ "\" rowsep=\"1\"><colspec colname=\"COLSPEC0\" colwidth=\"50*\"/><colspec "
 #~ "colname=\"COLSPEC1\" colwidth=\"50*\"/><placeholder-1/><placeholder-2/></"
 #~ "tgroup></informaltable>"
 #~ msgstr ""
-#~ "在 <application>Papers 文档查看器</application>中，您可以用几种方式做出相"
+#~ "在 <application>Evince 文档查看器</application>中，您可以用几种方式做出相"
 #~ "同动作。例如，您可以用下列方式打开一个文档：<informaltable frame=\"all"
 #~ "\"><tgroup cols=\"2\" colsep=\"1\" rowsep=\"1\"><colspec colname="
 #~ "\"COLSPEC0\" colwidth=\"50*\"/><colspec colname=\"COLSPEC1\" colwidth="
@@ -4023,21 +4023,21 @@ msgstr ""
 #~ msgstr "在 <guilabel>打开文档</guilabel> 对话框里，选择您想要打开的文件。"
 
 #~ msgid ""
-#~ "Click <guibutton>Open</guibutton>. <application>Papers Document Viewer</"
+#~ "Click <guibutton>Open</guibutton>. <application>Evince Document Viewer</"
 #~ "application> displays the name of the document in the titlebar of the "
 #~ "window."
 #~ msgstr ""
-#~ "单击<guibutton>打开</guibutton>。<application>Papers 文档查看器</"
+#~ "单击<guibutton>打开</guibutton>。<application>Evince 文档查看器</"
 #~ "application>在窗口的标题栏上显示出文档的名字"
 
 #~ msgid ""
 #~ "To open another document, choose <menuchoice><guimenu>File</"
 #~ "guimenu><guimenuitem>Open</guimenuitem></menuchoice> again. "
-#~ "<application>Papers Document Viewer</application> opens each file in a "
+#~ "<application>Evince Document Viewer</application> opens each file in a "
 #~ "new window."
 #~ msgstr ""
 #~ "欲打开另一文档，再次选择<menuchoice><guimenu>文件</guimenu><guimenuitem>打"
-#~ "开</guimenuitem></menuchoice>。<application>Papers 文档查看器</"
+#~ "开</guimenuitem></menuchoice>。<application>Evince 文档查看器</"
 #~ "application>会逐一在新窗口中打开每个文件。"
 
 #~ msgid "To Navigate Through a Document"
@@ -4105,35 +4105,35 @@ msgstr ""
 #~ "guimenuitem></menuchoice>。"
 
 #~ msgid ""
-#~ "To resize a page to have the same width as the <application>Papers "
+#~ "To resize a page to have the same width as the <application>Evince "
 #~ "Document Viewer</application> display area, choose "
 #~ "<menuchoice><guimenu>View</guimenu><guimenuitem>Fit page width</"
 #~ "guimenuitem></menuchoice>."
 #~ msgstr ""
-#~ "欲将页面宽度设为 <application>Papers 文档查看器</application>显示区域的相"
+#~ "欲将页面宽度设为 <application>Evince 文档查看器</application>显示区域的相"
 #~ "同宽度，选择<menuchoice><guimenu>查看</guimenu><guimenuitem>适合宽度</"
 #~ "guimenuitem></menuchoice>。"
 
 #~ msgid ""
-#~ "To resize a page to fit within the <application>Papers Document Viewer</"
+#~ "To resize a page to fit within the <application>Evince Document Viewer</"
 #~ "application> display area, choose <menuchoice><guimenu>View</"
 #~ "guimenu><guimenuitem>Best Fit</guimenuitem></menuchoice>."
 #~ msgstr ""
-#~ "欲将页面大小设为与 <application>Papers 文档查看器</application>显示区域一"
+#~ "欲将页面大小设为与 <application>Evince 文档查看器</application>显示区域一"
 #~ "致，选择<menuchoice><guimenu>查看</guimenu><guimenuitem>最适合</"
 #~ "guimenuitem></menuchoice>。"
 
 #~ msgid ""
-#~ "To resize the <application>Papers Document Viewer</application> window to "
+#~ "To resize the <application>Evince Document Viewer</application> window to "
 #~ "have the same width and height as the screen, choose "
 #~ "<menuchoice><guimenu>View</guimenu><guimenuitem>Full Screen</"
-#~ "guimenuitem></menuchoice>. To resize the <application>Papers Document "
+#~ "guimenuitem></menuchoice>. To resize the <application>Evince Document "
 #~ "Viewer</application> window to the original size, click on the "
 #~ "<guibutton>Exit Full Screen</guibutton> button."
 #~ msgstr ""
-#~ "欲将 <application>Papers 文档查看器</application>窗口大小设为屏幕高度和宽"
+#~ "欲将 <application>Evince 文档查看器</application>窗口大小设为屏幕高度和宽"
 #~ "度，选择<menuchoice><guimenu>查看</guimenu><guimenuitem>全屏幕</"
-#~ "guimenuitem></menuchoice>。欲将 <application>Papers 文档查看器</"
+#~ "guimenuitem></menuchoice>。欲将 <application>Evince 文档查看器</"
 #~ "application>窗口大小恢复到原始大小，单击<guibutton>离开全屏</guibutton>按"
 #~ "钮。"
 
@@ -4185,12 +4185,12 @@ msgstr ""
 #~ "If you cannot choose the <guimenuitem>Print</guimenuitem> menu item, the "
 #~ "author of the document has disabled the print option for this document. "
 #~ "To enable the print option, you must enter the master password when you "
-#~ "open the document. See <xref linkend=\"papers-password\"/> for more "
+#~ "open the document. See <xref linkend=\"evince-password\"/> for more "
 #~ "information about password-protected files."
 #~ msgstr ""
 #~ "若您无法选择<guimenuitem>打印</guimenuitem>菜单项，说明此文档作者已禁止打"
 #~ "印此文档。要启用打印的功能，您打开文档时必须键入主密码。参见<xref linkend="
-#~ "\"papers-password\"/>以了解更多关于受秘密保护文件的信息。"
+#~ "\"evince-password\"/>以了解更多关于受秘密保护文件的信息。"
 
 #~ msgid ""
 #~ "The <guilabel>Print</guilabel> dialog has the following tabbed sections:"
@@ -4225,9 +4225,9 @@ msgstr ""
 
 #~ msgid ""
 #~ "The <guilabel>Create a PDF document</guilabel> option is not supported in "
-#~ "this version of <application>Papers Document Viewer</application>."
+#~ "this version of <application>Evince Document Viewer</application>."
 #~ msgstr ""
-#~ "<guilabel>创建PDF文档</guilabel>选项在此版本 <application>Papers 文档查看"
+#~ "<guilabel>创建PDF文档</guilabel>选项在此版本 <application>Evince 文档查看"
 #~ "器</application>中尚未支持。"
 
 #~ msgid "Settings"
@@ -4287,8 +4287,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "This functionality is not supported in this version of "
-#~ "<application>Papers Document Viewer</application>."
-#~ msgstr "此版本 <application>Papers 文档查看器</application>不支持此项功能。"
+#~ "<application>Evince Document Viewer</application>."
+#~ msgstr "此版本 <application>Evince 文档查看器</application>不支持此项功能。"
 
 #~ msgid "Type"
 #~ msgstr "类型"
@@ -4377,13 +4377,13 @@ msgstr ""
 #~ msgstr "令他人可以执行如打印文档等附加动作的主密码。"
 
 #~ msgid ""
-#~ "When you try to open a password-protected document, <application>Papers "
+#~ "When you try to open a password-protected document, <application>Evince "
 #~ "Document Viewer</application> displays a security dialog. Type either the "
 #~ "user password or the master password in the <guilabel>Enter document "
 #~ "password</guilabel> text box, then click <guibutton>Open Document</"
 #~ "guibutton>."
 #~ msgstr ""
-#~ "对您试图打开一个有密码保护的文档时，<application>Papers 文档查看器</"
+#~ "对您试图打开一个有密码保护的文档时，<application>Evince 文档查看器</"
 #~ "application>会显示一个安全对话框。在<guilabel>输入文档密码</guilabel>文本"
 #~ "框中键入用户密码或主密码，然后点击<guibutton>打开文档</guibutton>."
 
@@ -4398,10 +4398,10 @@ msgstr ""
 #~ "guimenuitem></menuchoice>。"
 
 #~ msgid ""
-#~ "If the window is the last <application>Papers Document Viewer</"
+#~ "If the window is the last <application>Evince Document Viewer</"
 #~ "application> window open, the application exits."
 #~ msgstr ""
-#~ "若当前窗口是最后一个打开的 <application>Papers 文档查看器</application>窗"
+#~ "若当前窗口是最后一个打开的 <application>Evince 文档查看器</application>窗"
 #~ "口，本程序会退出。"
 
 #~ msgid "Shortcut"

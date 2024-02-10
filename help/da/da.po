@@ -1,13 +1,13 @@
-# Danish translation for papers.
-# Copyright (C) 2017 papers's COPYRIGHT HOLDER
-# This file is distributed under the same license as the papers package.
+# Danish translation for evince.
+# Copyright (C) 2017 evince's COPYRIGHT HOLDER
+# This file is distributed under the same license as the evince package.
 # Flemming Christensen <fc@stromata.dk>, 2011, 2012, 2013.
 # Joe Hansen <joedalton2@yahoo.dk>, 2017, 2018.
 # scootergrisen, 2020-2021.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: papers master\n"
+"Project-Id-Version: evince master\n"
 "POT-Creation-Date: 2023-08-20 18:21+0000\n"
 "PO-Revision-Date: 2023-09-08 18:44+0200\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
@@ -557,8 +557,8 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/introduction.page:18
-msgid "Introduction to the <em>Papers Document Viewer</em>."
-msgstr "Introduktion til <em>Dokumentfremviseren Papers</em>."
+msgid "Introduction to the <em>Evince Document Viewer</em>."
+msgstr "Introduktion til <em>Dokumentfremviseren Evince</em>."
 
 #. (itstool) path: page/title
 #: C/introduction.page:21
@@ -568,10 +568,10 @@ msgstr "Introduktion"
 #. (itstool) path: page/p
 #: C/introduction.page:23
 msgid ""
-"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
+"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
-"<app>Papers</app> er en dokumentfremviser. Se <link xref=\"formats\"/> for "
+"<app>Evince</app> er en dokumentfremviser. Se <link xref=\"formats\"/> for "
 "at få vist en liste over de filtyper, som kan fremvises."
 
 #. (itstool) path: info/desc
@@ -684,7 +684,7 @@ msgstr ""
 #: C/singlesided-3-4pages.page:97 C/singlesided-17-20pages.page:98
 #: C/singlesided-npages.page:104 C/singlesided-13-16pages.page:100
 #: C/singlesided-9-12pages.page:97 C/singlesided-5-8pages.page:97
-msgid "In the <gui>Only print</gui> menu, select <gui>Ppsen sheets</gui>."
+msgid "In the <gui>Only print</gui> menu, select <gui>Even sheets</gui>."
 msgstr "I menuen <gui>Udskriv kun</gui> skal du vælge <gui>Lige ark</gui>."
 
 #. (itstool) path: info/desc
@@ -840,23 +840,23 @@ msgstr "Vim-latex"
 #. (itstool) path: section/p
 #: C/synctex-editors.page:29
 msgid ""
-"The <app>gedit</app> plugin contains a python script (<file>papers_dbus.py</"
+"The <app>gedit</app> plugin contains a python script (<file>evince_dbus.py</"
 "file>) that can be used to get SyncTeX working with Vim. In order to use vim-"
 "latex together with the <app>document viewer</app> you need to follow the "
 "next steps:"
 msgstr ""
 "Udvidelsesmodulet til <app>gedit</app> indeholder et pythonscript "
-"(<file>papers_dbus.py</file>), som kan bruges til at få Synctex til at virke "
+"(<file>evince_dbus.py</file>), som kan bruges til at få Synctex til at virke "
 "med Vim. For at bruge vim-latex sammen med <app>Dokumentfremviser</app> skal "
 "du gøre som følger:"
 
 #. (itstool) path: item/p
 #: C/synctex-editors.page:35
 msgid ""
-"Copy the <file>papers_dbus.py</file> to some directory in your path and give "
+"Copy the <file>evince_dbus.py</file> to some directory in your path and give "
 "it +x permissions."
 msgstr ""
-"Kopiér <file>papers_dbus.py</file> til en mappe i din sti og giv den +x-"
+"Kopiér <file>evince_dbus.py</file> til en mappe i din sti og giv den +x-"
 "tilladelser."
 
 #. (itstool) path: item/p
@@ -869,12 +869,12 @@ msgstr "Rediger din <file>~/.vimrc</file>-fil og tilføj følgende linjer."
 #, no-wrap
 msgid ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 msgstr ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 
@@ -1145,8 +1145,8 @@ msgstr "Klik på <gui>dconf-redigering</gui>."
 
 #. (itstool) path: item/p
 #: C/noprint.page:100
-msgid "Browse to <sys>/org/gnome/papers</sys>."
-msgstr "Naviger til <sys>/org/gnome/papers</sys>."
+msgid "Browse to <sys>/org/gnome/evince</sys>."
+msgstr "Naviger til <sys>/org/gnome/evince</sys>."
 
 #. (itstool) path: item/p
 #: C/noprint.page:103
@@ -1520,10 +1520,10 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/translate.page:27
 msgid ""
-"There are <link href=\"http://l10n.gnome.org/module/papers/\">many "
+"There are <link href=\"http://l10n.gnome.org/module/evince/\">many "
 "languages</link> for which translations are still needed."
 msgstr ""
-"Der er <link href=\"http://l10n.gnome.org/module/papers/\">mange sprog</"
+"Der er <link href=\"http://l10n.gnome.org/module/evince/\">mange sprog</"
 "link> som stadig har brug for oversættelser."
 
 #. (itstool) path: page/p
@@ -2061,17 +2061,17 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/develop.page:23
 msgid ""
-"If you would like to <link href=\"https://wiki.gnome.org/Apps/Papers\">help "
+"If you would like to <link href=\"https://wiki.gnome.org/Apps/Evince\">help "
 "develop</link> the <app>Document Viewer</app>, you can get in touch with the "
 "developers using <link href=\"https://cbe005.chat.mibbit.com/?"
-"url=irc%3A%2F%2Firc.gnome.org%2Fpapers\">irc</link>, or via <link "
-"href=\"https://discourse.gnome.org/tag/papers\">GNOME Discourse</link>."
+"url=irc%3A%2F%2Firc.gnome.org%2Fevince\">irc</link>, or via <link "
+"href=\"https://discourse.gnome.org/tag/evince\">GNOME Discourse</link>."
 msgstr ""
-"Hvis du gerne vil <link href=\"https://wiki.gnome.org/Apps/Papers\">hjælpe "
+"Hvis du gerne vil <link href=\"https://wiki.gnome.org/Apps/Evince\">hjælpe "
 "med at udvikle</link> <app>Dokumentfremviser</app>, kan du komme i "
 "forbindelse med udviklerne på <link href=\"https://cbe005.chat.mibbit.com/?"
-"url=irc%3A%2F%2Firc.gnome.org%2Fpapers\">irc</link> eller på <link "
-"href=\"https://discourse.gnome.org/tag/papers\">GNOME Discourse</link>."
+"url=irc%3A%2F%2Firc.gnome.org%2Fevince\">irc</link> eller på <link "
+"href=\"https://discourse.gnome.org/tag/evince\">GNOME Discourse</link>."
 
 #. (itstool) path: info/desc
 #: C/printing.page:9
@@ -2729,12 +2729,12 @@ msgid ""
 "The <app>document viewer</app> is maintained by a volunteer community. You "
 "are welcome to participate. If you notice a problem you can file a <em>bug "
 "report</em>. To file a bug, go to <link href=\"https://gitlab.gnome.org/"
-"GNOME/papers/issues/\"/>."
+"GNOME/evince/issues/\"/>."
 msgstr ""
 "<app>Dokumentfremviser</app> vedligeholdes af et fællesskab af frivillige. "
 "Du er velkommen til at være med. Hvis du bemærker et problem, kan du oprette "
 "en <em>fejlrapport</em>. Rapportér en fejl ved at gå til <link "
-"href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues/\"/>."
+"href=\"https://gitlab.gnome.org/GNOME/evince/issues/\"/>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2765,13 +2765,13 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues\">browse</"
+"please <link href=\"https://gitlab.gnome.org/GNOME/evince/issues\">browse</"
 "link> for the bug to see if it already exists."
 msgstr ""
 "Når du har en konto, så log ind og klik på <gui>New issue</gui>. Inden du "
 "rapporterer en fejl, så læs venligst <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">retningslinjer til fejlrapportering</"
-"link> og <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues\">se</"
+"link> og <link href=\"https://gitlab.gnome.org/GNOME/evince/issues\">se</"
 "link> venligst om fejlen allerede er anmeldt."
 
 #. (itstool) path: page/p
@@ -3435,10 +3435,10 @@ msgstr "Kommandolinje"
 #. (itstool) path: info/desc
 #: C/commandline.page:8
 msgid ""
-"The <cmd>papers</cmd> command can open any number of files, at specific "
+"The <cmd>evince</cmd> command can open any number of files, at specific "
 "pages and in various modes."
 msgstr ""
-"Kommandoen <cmd>papers</cmd> kan åbne en lang række filer på forudbestemte "
+"Kommandoen <cmd>evince</cmd> kan åbne en lang række filer på forudbestemte "
 "sider og i forskellige tilstande."
 
 #. (itstool) path: page/title
@@ -3450,50 +3450,50 @@ msgstr "Kommandolinjen"
 #: C/commandline.page:25
 msgid ""
 "To start the <app>Document Viewer</app> from the command line, type "
-"<cmd>papers</cmd>. You can open a specific file by typing the filename after "
-"the papers command:"
+"<cmd>evince</cmd>. You can open a specific file by typing the filename after "
+"the evince command:"
 msgstr ""
 "Start <app>Dokumentfremviser</app> fra kommandolinjen ved at skrive "
-"<cmd>papers</cmd>. Man kan åbne en bestemt fil ved at skrive filnavnet efter "
-"papers-kommandoen:"
+"<cmd>evince</cmd>. Man kan åbne en bestemt fil ved at skrive filnavnet efter "
+"evince-kommandoen:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:30
 #, no-wrap
-msgid "papers file.pdf"
-msgstr "papers fil.pdf"
+msgid "evince file.pdf"
+msgstr "evince fil.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:31
 msgid ""
-"You can open multiple files by typing the filenames after the papers "
+"You can open multiple files by typing the filenames after the evince "
 "command, separating the filenames by a space:"
 msgstr ""
-"Man kan åbne flere filer ved at skrive filnavnene efter kommandoen papers, "
+"Man kan åbne flere filer ved at skrive filnavnene efter kommandoen evince, "
 "idet man adskiller filnavnene med et mellemrum:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:34
 #, no-wrap
-msgid "papers file1.pdf file2.pdf"
-msgstr "papers fil1.pdf fil2.pdf"
+msgid "evince file1.pdf file2.pdf"
+msgstr "evince fil1.pdf fil2.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:35
 msgid ""
 "The <app>document viewer</app> also supports the handling of files on the "
-"web. For example, after the papers command you can give the location of a "
+"web. For example, after the evince command you can give the location of a "
 "file on the web:"
 msgstr ""
 "Med <app>Dokumentfremviser</app> kan man også håndtere filer på internettet. "
-"Man kan for eksempel efter kommandoen papers angive en filplacering på "
+"Man kan for eksempel efter kommandoen evince angive en filplacering på "
 "nettet:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:38
 #, no-wrap
-msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:40
@@ -3512,8 +3512,8 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:45
 #, no-wrap
-msgid "papers --page-label=3 file.pdf"
-msgstr "papers --page-label=3 fil.pdf"
+msgid "evince --page-label=3 file.pdf"
+msgstr "evince --page-label=3 fil.pdf"
 
 #. (itstool) path: section/p
 #: C/commandline.page:46
@@ -3532,8 +3532,8 @@ msgstr "Åbn et dokument i fuldskærmstilstand"
 #. (itstool) path: section/screen
 #: C/commandline.page:53
 #, no-wrap
-msgid "papers --fullscreen file.pdf"
-msgstr "papers --fullscreen fil.pdf"
+msgid "evince --fullscreen file.pdf"
+msgstr "evince --fullscreen fil.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:56
@@ -3543,8 +3543,8 @@ msgstr "Åbn et dokument i præsentationstilstand"
 #. (itstool) path: section/screen
 #: C/commandline.page:57
 #, no-wrap
-msgid "papers --presentation file.pdf"
-msgstr "papers --presentation fil.pdf"
+msgid "evince --presentation file.pdf"
+msgstr "evince --presentation fil.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:60
@@ -3554,8 +3554,8 @@ msgstr "Åbn et dokument i forhåndsvisningstilstand"
 #. (itstool) path: section/screen
 #: C/commandline.page:61
 #, no-wrap
-msgid "papers --preview file.pdf"
-msgstr "papers --preview fil.pdf"
+msgid "evince --preview file.pdf"
+msgstr "evince --preview fil.pdf"
 
 #. (itstool) path: info/desc
 #: C/annotations.page:8
@@ -3717,29 +3717,29 @@ msgstr ""
 #. (itstool) path: info/title
 #: C/index.page:7
 msgctxt "link:trail"
-msgid "Papers Document Viewer"
-msgstr "Dokumentfremviseren Papers"
+msgid "Evince Document Viewer"
+msgstr "Dokumentfremviseren Evince"
 
 #. (itstool) path: info/title
 #: C/index.page:8
 msgctxt "link"
-msgid "Papers Document Viewer"
-msgstr "Dokumentfremviseren Papers"
+msgid "Evince Document Viewer"
+msgstr "Dokumentfremviseren Evince"
 
 #. (itstool) path: info/title
 #: C/index.page:9
 msgctxt "text"
-msgid "Papers Document Viewer"
-msgstr "Dokumentfremviseren Papers"
+msgid "Evince Document Viewer"
+msgstr "Dokumentfremviseren Evince"
 
 #. (itstool) path: info/desc
 #: C/index.page:24
 msgid ""
-"<app>Document Viewer</app>, formally known as <app>Papers</app>, is made for "
+"<app>Document Viewer</app>, formally known as <app>Evince</app>, is made for "
 "viewing PDF documents. Learn how to get started with <app>Document Viewer</"
 "app> and its features."
 msgstr ""
-"<app>Dokumentfremviser</app>, tidligere kendt som <app>Papers</app>, er "
+"<app>Dokumentfremviser</app>, tidligere kendt som <app>Evince</app>, er "
 "lavet til at vise PDF-dokumenter. Lær hvordan du kommer i gang med "
 "<app>Dokumentfremviser</app> og dets funktioner."
 

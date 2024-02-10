@@ -1,15 +1,15 @@
-# Serbian translation of papers
+# Serbian translation of evince
 # Courtesy of Prevod.org team (http://prevod.org/) -- 2005—2017.
-# This file is distributed under the same license as the papers package.
+# This file is distributed under the same license as the evince package.
 # Danilo Šegan <danilo@gnome.org>, 2005.
 # Igor Nestorović <igor@prevod.org>, 2007.
 # Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2011—2017.
 # Miloš Popović <gpopac@gmail.com>, 2010—2015.
 msgid ""
 msgstr ""
-"Project-Id-Version: Papers\n"
+"Project-Id-Version: Evince\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=papers&keywords=I18N+L10N&component=general\n"
+"product=evince&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2018-03-06 02:27+0000\n"
 "PO-Revision-Date: 2017-12-25 21:38+0100\n"
 "Last-Translator: Marko M. Kostić <marko.m.kostic@gmail.com>\n"
@@ -53,12 +53,12 @@ msgstr ""
 msgid "Can not get local path for archive"
 msgstr "Ne mogu da dobavim mesnu putanju za arhivu"
 
-#: ../backend/comics/comicsdocument.papers-backend.in.in.h:1
-#: ../backend/comics/papers-comicsdocument.metainfo.xml.in.in.h:1
+#: ../backend/comics/comicsdocument.evince-backend.in.in.h:1
+#: ../backend/comics/evince-comicsdocument.metainfo.xml.in.in.h:1
 msgid "Comic Books"
 msgstr "Stripovi"
 
-#: ../backend/comics/papers-comicsdocument.metainfo.xml.in.in.h:2
+#: ../backend/comics/evince-comicsdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading comic books"
 msgstr "Dodajte podršku za čitanje stripova"
 
@@ -74,12 +74,12 @@ msgstr ""
 "Dokument je sastavljen iz nekoliko datoteka. Ne mogu da pristupim jednoj ili "
 "više od ovih datoteka."
 
-#: ../backend/djvu/djvudocument.papers-backend.in.in.h:1
-#: ../backend/djvu/papers-djvudocument.metainfo.xml.in.in.h:1
+#: ../backend/djvu/djvudocument.evince-backend.in.in.h:1
+#: ../backend/djvu/evince-djvudocument.metainfo.xml.in.in.h:1
 msgid "DjVu Documents"
 msgstr "DjVu dokumenti"
 
-#: ../backend/djvu/papers-djvudocument.metainfo.xml.in.in.h:2
+#: ../backend/djvu/evince-djvudocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading DjVu documents"
 msgstr "Dodajte podršku za čitanje DjVu dokumenata"
 
@@ -87,62 +87,62 @@ msgstr "Dodajte podršku za čitanje DjVu dokumenata"
 msgid "DVI document has incorrect format"
 msgstr "DVI dokument ima neispravan oblik"
 
-#: ../backend/dvi/dvidocument.papers-backend.in.in.h:1
-#: ../backend/dvi/papers-dvidocument.metainfo.xml.in.in.h:1
+#: ../backend/dvi/dvidocument.evince-backend.in.in.h:1
+#: ../backend/dvi/evince-dvidocument.metainfo.xml.in.in.h:1
 msgid "DVI Documents"
 msgstr "DVI dokumenti"
 
-#: ../backend/dvi/papers-dvidocument.metainfo.xml.in.in.h:2
+#: ../backend/dvi/evince-dvidocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading DVI documents"
 msgstr "Dodajte podršku za čitanje DVI dokumenata"
 
-#: ../backend/pdf/pps-poppler.cc:674
+#: ../backend/pdf/ev-poppler.cc:674
 msgid "This work is in the Public Domain"
 msgstr "Ovaj rad je u javnom domenu"
 
 #. translators: this is the document security state
-#: ../backend/pdf/pps-poppler.cc:930 ../backend/pdf/pps-poppler.cc:936
+#: ../backend/pdf/ev-poppler.cc:930 ../backend/pdf/ev-poppler.cc:936
 msgid "Yes"
 msgstr "Da"
 
 #. translators: this is the document security state
-#: ../backend/pdf/pps-poppler.cc:933 ../backend/pdf/pps-poppler.cc:936
+#: ../backend/pdf/ev-poppler.cc:933 ../backend/pdf/ev-poppler.cc:936
 msgid "No"
 msgstr "Ne"
 
-#: ../backend/pdf/pps-poppler.cc:1067
+#: ../backend/pdf/ev-poppler.cc:1067
 msgid "Type 1"
 msgstr "Type 1"
 
-#: ../backend/pdf/pps-poppler.cc:1069
+#: ../backend/pdf/ev-poppler.cc:1069
 msgid "Type 1C"
 msgstr "Type 1C"
 
-#: ../backend/pdf/pps-poppler.cc:1071
+#: ../backend/pdf/ev-poppler.cc:1071
 msgid "Type 3"
 msgstr "Type 3"
 
-#: ../backend/pdf/pps-poppler.cc:1073
+#: ../backend/pdf/ev-poppler.cc:1073
 msgid "TrueType"
 msgstr "TrueType"
 
-#: ../backend/pdf/pps-poppler.cc:1075
+#: ../backend/pdf/ev-poppler.cc:1075
 msgid "Type 1 (CID)"
 msgstr "Type 1 (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1077
+#: ../backend/pdf/ev-poppler.cc:1077
 msgid "Type 1C (CID)"
 msgstr "Type 1C (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1079
+#: ../backend/pdf/ev-poppler.cc:1079
 msgid "TrueType (CID)"
 msgstr "TrueType (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1081
+#: ../backend/pdf/ev-poppler.cc:1081
 msgid "Unknown font type"
 msgstr "Nepoznata vrsta slovnog lika"
 
-#: ../backend/pdf/pps-poppler.cc:1125
+#: ../backend/pdf/ev-poppler.cc:1125
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
@@ -153,11 +153,11 @@ msgstr ""
 "likova (fontconfig) nisu isti kao slovni likovi koji su korišćeni za "
 "stvaranje PDF-a, ispisivanje može biti pogrešno."
 
-#: ../backend/pdf/pps-poppler.cc:1130
+#: ../backend/pdf/ev-poppler.cc:1130
 msgid "All fonts are either standard or embedded."
 msgstr "Svi slovni likovi su standardni ili ugnježdeni."
 
-#: ../backend/pdf/pps-poppler.cc:1162
+#: ../backend/pdf/ev-poppler.cc:1162
 msgid "No name"
 msgstr "Bez naziva"
 
@@ -171,20 +171,20 @@ msgstr "Bez naziva"
 #. Author: None
 #. Keywords: None
 #.
-#: ../backend/pdf/pps-poppler.cc:1171 ../libview/pps-print-operation.c:1975
-#: ../properties/pps-properties-view.c:231
+#: ../backend/pdf/ev-poppler.cc:1171 ../libview/ev-print-operation.c:1975
+#: ../properties/ev-properties-view.c:231
 msgid "None"
 msgstr "Ništa"
 
-#: ../backend/pdf/pps-poppler.cc:1179
+#: ../backend/pdf/ev-poppler.cc:1179
 msgid "Embedded subset"
 msgstr "Ugnježdeni podskup"
 
-#: ../backend/pdf/pps-poppler.cc:1181
+#: ../backend/pdf/ev-poppler.cc:1181
 msgid "Embedded"
 msgstr "Ugnježden"
 
-#: ../backend/pdf/pps-poppler.cc:1183
+#: ../backend/pdf/ev-poppler.cc:1183
 msgid "Not embedded"
 msgstr "Nije ugnježden"
 
@@ -193,7 +193,7 @@ msgstr "Nije ugnježden"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: ../backend/pdf/pps-poppler.cc:1190
+#: ../backend/pdf/ev-poppler.cc:1190
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (Jedan od slovnih likova Standardni 14)"
 
@@ -202,43 +202,43 @@ msgstr " (Jedan od slovnih likova Standardni 14)"
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: ../backend/pdf/pps-poppler.cc:1197
+#: ../backend/pdf/ev-poppler.cc:1197
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (Ni jedan od slovnih likova Standardni 14)"
 
-#: ../backend/pdf/pps-poppler.cc:1204
+#: ../backend/pdf/ev-poppler.cc:1204
 msgid "Encoding"
 msgstr "Kodiranje"
 
-#: ../backend/pdf/pps-poppler.cc:1205
+#: ../backend/pdf/ev-poppler.cc:1205
 msgid "Substituting with"
 msgstr "Zameniću sa"
 
-#: ../backend/pdf/papers-pdfdocument.metainfo.xml.in.in.h:1
-#: ../backend/pdf/pdfdocument.papers-backend.in.in.h:1
+#: ../backend/pdf/evince-pdfdocument.metainfo.xml.in.in.h:1
+#: ../backend/pdf/pdfdocument.evince-backend.in.in.h:1
 msgid "PDF Documents"
 msgstr "PDF dokumenti"
 
-#: ../backend/pdf/papers-pdfdocument.metainfo.xml.in.in.h:2
+#: ../backend/pdf/evince-pdfdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading PDF Documents"
 msgstr "Dodajte podršku za čitanje PDF dokumenata"
 
-#: ../backend/ps/pps-spectre.c:98
+#: ../backend/ps/ev-spectre.c:98
 #, c-format
 msgid "Failed to load document “%s”"
 msgstr "Ne mogu da otvorim dokument „%s“"
 
-#: ../backend/ps/pps-spectre.c:131
+#: ../backend/ps/ev-spectre.c:131
 #, c-format
 msgid "Failed to save document “%s”"
 msgstr "Ne mogu da sačuvam dokument „%s“"
 
-#: ../backend/ps/papers-psdocument.metainfo.xml.in.in.h:1
-#: ../backend/ps/psdocument.papers-backend.in.in.h:1
+#: ../backend/ps/evince-psdocument.metainfo.xml.in.in.h:1
+#: ../backend/ps/psdocument.evince-backend.in.in.h:1
 msgid "PostScript Documents"
 msgstr "Post skript dokumenti"
 
-#: ../backend/ps/papers-psdocument.metainfo.xml.in.in.h:2
+#: ../backend/ps/evince-psdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading PostScript documents"
 msgstr "Dodajte podršku za čitanje Post skript dokumenata"
 
@@ -246,138 +246,138 @@ msgstr "Dodajte podršku za čitanje Post skript dokumenata"
 msgid "Invalid document"
 msgstr "Neispravan dokument"
 
-#: ../backend/tiff/papers-tiffdocument.metainfo.xml.in.in.h:1
-#: ../backend/tiff/tiffdocument.papers-backend.in.in.h:1
+#: ../backend/tiff/evince-tiffdocument.metainfo.xml.in.in.h:1
+#: ../backend/tiff/tiffdocument.evince-backend.in.in.h:1
 msgid "TIFF Documents"
 msgstr "TIFF dokumenti"
 
-#: ../backend/tiff/papers-tiffdocument.metainfo.xml.in.in.h:2
+#: ../backend/tiff/evince-tiffdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading TIFF documents"
 msgstr "Dodajte podršku za čitanje TIFF dokumenata"
 
-#: ../backend/xps/papers-xpsdocument.metainfo.xml.in.in.h:1
-#: ../backend/xps/xpsdocument.papers-backend.in.in.h:1
+#: ../backend/xps/evince-xpsdocument.metainfo.xml.in.in.h:1
+#: ../backend/xps/xpsdocument.evince-backend.in.in.h:1
 msgid "XPS Documents"
 msgstr "IksPS dokumenti"
 
-#: ../backend/xps/papers-xpsdocument.metainfo.xml.in.in.h:2
+#: ../backend/xps/evince-xpsdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading XPS documents"
 msgstr "Dodajte podršku za čitanje IksPS dokumenata"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:288
-#: ../previewer/pps-previewer-window.c:317 ../shell/papers-menus.ui.h:33
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:288
+#: ../previewer/ev-previewer-window.c:317 ../shell/evince-menus.ui.h:33
 msgid "Fit Pa_ge"
 msgstr "Ispuni _stranicu"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:297
-#: ../previewer/pps-previewer-window.c:320 ../shell/papers-menus.ui.h:34
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:297
+#: ../previewer/ev-previewer-window.c:320 ../shell/evince-menus.ui.h:34
 msgid "Fit _Width"
 msgstr "Uklopi _širinu"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:306
-#: ../shell/papers-menus.ui.h:35
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:306
+#: ../shell/evince-menus.ui.h:35
 msgid "_Automatic"
 msgstr "_Samostalno"
 
 #. Navigation buttons
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:331
-#: ../previewer/pps-previewer-window.c:271
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:331
+#: ../previewer/ev-previewer-window.c:271
 msgid "Go to the previous page"
 msgstr "Idite na prethodnu stranu"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:335
-#: ../previewer/pps-previewer-window.c:274
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:335
+#: ../previewer/ev-previewer-window.c:274
 msgid "Go to the next page"
 msgstr "Idite na sledeću stranu"
 
 #. Search.
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:362 ../shell/pps-toolbar.c:226
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:362 ../shell/ev-toolbar.c:226
 msgid "Find a word or phrase in the document"
 msgstr "Pronađite reč ili izraz u dokumentu"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:381
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:381
 msgid "Show the entire document"
 msgstr "Prikažite čitav dokument"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:389
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:389
 msgid "Show two pages at once"
 msgstr "Prikažite dve stranice odjednom"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:411
-#: ../previewer/pps-previewer-window.c:277
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:411
+#: ../previewer/ev-previewer-window.c:277
 msgid "Enlarge the document"
 msgstr "Uvećajte dokument"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:415
-#: ../previewer/pps-previewer-window.c:280
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:415
+#: ../previewer/ev-previewer-window.c:280
 msgid "Shrink the document"
 msgstr "Umanjite dokument"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:437
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:437
 msgid "Download document"
 msgstr "Preuzmite dokument"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:450
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:450
 msgid "Print document"
 msgstr "Štampajte dokument"
 
 #. Manually set name and icon
-#: ../data/papers.desktop.in.in.h:1 ../shell/pps-application.c:1012
-#: ../shell/pps-window-title.c:139 ../shell/main.c:298
+#: ../data/evince.desktop.in.in.h:1 ../shell/ev-application.c:1012
+#: ../shell/ev-window-title.c:139 ../shell/main.c:298
 msgid "Document Viewer"
 msgstr "Pregledač dokumenata"
 
-#: ../data/papers.desktop.in.in.h:2
+#: ../data/evince.desktop.in.in.h:2
 msgid "View multi-page documents"
 msgstr "Pregledajte višestranične dokumente"
 
-#: ../data/papers.desktop.in.in.h:3
+#: ../data/evince.desktop.in.in.h:3
 msgid "pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;viewer;"
 msgstr ""
 "pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;viewer;pdf;ps;post-"
 "skript;dvi;iksps;dežavi;tiff;dokument;prezentacija;prikazivanje;dokument;"
 "prezentacija;prikazivanje;"
 
-#: ../data/papers-previewer.desktop.in.in.h:1
+#: ../data/evince-previewer.desktop.in.in.h:1
 msgid "Print Preview"
 msgstr "Pretpregled štampe"
 
-#: ../data/papers-previewer.desktop.in.in.h:2
+#: ../data/evince-previewer.desktop.in.in.h:2
 msgid "Preview before printing"
 msgstr "Pregled pre štampanja"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:1
+#: ../data/org.gnome.Evince.gschema.xml.in.h:1
 msgid "Override document restrictions"
 msgstr "Prevazilazi ograničenja dokumenta"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:2
+#: ../data/org.gnome.Evince.gschema.xml.in.h:2
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr ""
 "Prevazilazi ograničenja koja dokument sadrži, kao što je zabrana umnožavanja "
 "ili štampanja."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:3
+#: ../data/org.gnome.Evince.gschema.xml.in.h:3
 msgid "Automatically reload the document"
 msgstr "Sam ponovo učitava dokument"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:4
+#: ../data/org.gnome.Evince.gschema.xml.in.h:4
 msgid "The document is automatically reloaded on file change."
 msgstr "Dokument biva sam ponovo učitan prilikom izmene datoteke."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:5
+#: ../data/org.gnome.Evince.gschema.xml.in.h:5
 msgid "The URI of the directory last used to open or save a document"
 msgstr ""
 "Putanja poslednjeg direktorijuma korišćenog za otvaranje ili čuvanje dokumanta"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:6
+#: ../data/org.gnome.Evince.gschema.xml.in.h:6
 msgid "The URI of the directory last used to save a picture"
 msgstr "Putanja poslednjeg direktorijuma korišćenog za čuvanje slike"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:7
+#: ../data/org.gnome.Evince.gschema.xml.in.h:7
 msgid "Page cache size in MiB"
 msgstr "Veličina ostave stranice u MiB"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:8
+#: ../data/org.gnome.Evince.gschema.xml.in.h:8
 msgid ""
 "The maximum size that will be used to cache rendered pages, limits maximum "
 "zoom level."
@@ -385,7 +385,7 @@ msgstr ""
 "Najveća veličina koja će biti korišćena za smeštaj iscrtanih stranica, "
 "ograničavajući najveći nivo uveličanja."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:9
+#: ../data/org.gnome.Evince.gschema.xml.in.h:9
 msgid ""
 "Show a dialog to confirm that the user wants to activate the caret "
 "navigation."
@@ -393,170 +393,170 @@ msgstr ""
 "Prikazuje prozorče za potvrđivanje da korisnik želi da pokrene kretanje "
 "umetkom."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:10
+#: ../data/org.gnome.Evince.gschema.xml.in.h:10
 msgid "Allow links to change the zoom level."
 msgstr "Omogućava vezama da izmnene nivo uveličanja."
 
-#: ../libdocument/pps-attachment.c:310 ../libdocument/pps-attachment.c:331
+#: ../libdocument/ev-attachment.c:310 ../libdocument/ev-attachment.c:331
 #, c-format
 msgid "Couldn’t save attachment “%s”: %s"
 msgstr "Ne mogu da sačuvam prilog „%s“: %s"
 
-#: ../libdocument/pps-attachment.c:379
+#: ../libdocument/ev-attachment.c:379
 #, c-format
 msgid "Couldn’t open attachment “%s”: %s"
 msgstr "Ne mogu da otvorim prilog „%s“: %s"
 
-#: ../libdocument/pps-attachment.c:414
+#: ../libdocument/ev-attachment.c:414
 #, c-format
 msgid "Couldn’t open attachment “%s”"
 msgstr "Ne mogu da otvorim prilog „%s“"
 
 # Nije sigurno da li se misli na više datoteka u zip arhivi, ili više zip arhiva u prilogu.
-#: ../libdocument/pps-document-factory.c:101
+#: ../libdocument/ev-document-factory.c:101
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "Vrsta datoteke %s (%s) nije podržana"
 
-#: ../libdocument/pps-document-factory.c:368
-#: ../libdocument/pps-file-helpers.c:492 ../libdocument/pps-file-helpers.c:538
-#: ../libdocument/pps-file-helpers.c:557
+#: ../libdocument/ev-document-factory.c:368
+#: ../libdocument/ev-file-helpers.c:492 ../libdocument/ev-file-helpers.c:538
+#: ../libdocument/ev-file-helpers.c:557
 msgid "Unknown MIME Type"
 msgstr "Nepoznata MIME vrsta"
 
-#: ../libdocument/pps-document-factory.c:577
+#: ../libdocument/ev-document-factory.c:577
 msgid "All Documents"
 msgstr "Svi dokumenti"
 
-#: ../libdocument/pps-document-factory.c:604 ../shell/pps-utils.c:309
+#: ../libdocument/ev-document-factory.c:604 ../shell/ev-utils.c:309
 msgid "All Files"
 msgstr "Sve datoteke"
 
-#: ../libdocument/pps-file-helpers.c:147
+#: ../libdocument/ev-file-helpers.c:147
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "Nisam uspeo da napravim privremenu datoteku: %s"
 
-#: ../libdocument/pps-file-helpers.c:309
+#: ../libdocument/ev-file-helpers.c:309
 #, c-format
 msgid "Failed to create a temporary directory: %s"
 msgstr "Nisam uspeo da napravim privremeni direktorijum: %s"
 
-#: ../libmisc/pps-page-action-widget.c:84 ../libmisc/pps-page-action-widget.c:123
+#: ../libmisc/ev-page-action-widget.c:84 ../libmisc/ev-page-action-widget.c:123
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%d od %d)"
 
-#: ../libmisc/pps-page-action-widget.c:86 ../libmisc/pps-page-action-widget.c:127
+#: ../libmisc/ev-page-action-widget.c:86 ../libmisc/ev-page-action-widget.c:127
 #, c-format
 msgid "of %d"
 msgstr "od %d"
 
-#: ../libmisc/pps-page-action-widget.c:185 ../shell/pps-history.c:426
-#: ../shell/pps-sidebar-bookmarks.c:306 ../shell/pps-window.c:910
-#: ../shell/pps-window.c:4709
+#: ../libmisc/ev-page-action-widget.c:185 ../shell/ev-history.c:426
+#: ../shell/ev-sidebar-bookmarks.c:306 ../shell/ev-window.c:910
+#: ../shell/ev-window.c:4709
 #, c-format
 msgid "Page %s"
 msgstr "Stranica %s"
 
-#: ../libmisc/pps-search-box.c:110
+#: ../libmisc/ev-search-box.c:110
 msgid "Not found, click to change search options"
 msgstr "Nije pronađeno, kliknite za više opcija"
 
-#: ../libmisc/pps-search-box.c:180 ../libmisc/pps-search-box.c:236
+#: ../libmisc/ev-search-box.c:180 ../libmisc/ev-search-box.c:236
 msgid "Search options"
 msgstr "Opcije za pretragu"
 
-#: ../libmisc/pps-search-box.c:310
+#: ../libmisc/ev-search-box.c:310
 msgid "_Whole Words Only"
 msgstr "Samo cele _reči"
 
-#: ../libmisc/pps-search-box.c:323
+#: ../libmisc/ev-search-box.c:323
 msgid "C_ase Sensitive"
 msgstr "Razlikuj _veličinu slova"
 
-#: ../libmisc/pps-search-box.c:590
+#: ../libmisc/ev-search-box.c:590
 msgid "Find previous occurrence of the search string"
 msgstr "Pronađite prethodan izraz u nizu za pretraživanje"
 
-#: ../libmisc/pps-search-box.c:597
+#: ../libmisc/ev-search-box.c:597
 msgid "Find next occurrence of the search string"
 msgstr "Pronađite sledeći izraz u nizu za pretraživanje"
 
-#: ../libview/pps-jobs.c:649
+#: ../libview/ev-jobs.c:649
 #, c-format
 msgid "Failed to render page %d"
 msgstr "Nisam uspeo da iscrtam %d. stranicu"
 
-#: ../libview/pps-jobs.c:901
+#: ../libview/ev-jobs.c:901
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "Nisam uspeo da napravim sličicu za %d. stranicu"
 
-#: ../libview/pps-jobs.c:2033
+#: ../libview/ev-jobs.c:2033
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "Nisam uspeo da odštampam stranicu %d: %s"
 
 #. Initial state
-#: ../libview/pps-print-operation.c:350
+#: ../libview/ev-print-operation.c:350
 msgid "Preparing preview…"
 msgstr "Pripremam pregled…"
 
-#: ../libview/pps-print-operation.c:352 ../libview/pps-print-operation.c:362
+#: ../libview/ev-print-operation.c:352 ../libview/ev-print-operation.c:362
 msgid "Finishing…"
 msgstr "Završavam…"
 
-#: ../libview/pps-print-operation.c:354
+#: ../libview/ev-print-operation.c:354
 #, c-format
 msgid "Generating preview: page %d of %d"
 msgstr "Stvaram pregled: stranica br. %d od %d"
 
 #. Initial state
-#: ../libview/pps-print-operation.c:360
+#: ../libview/ev-print-operation.c:360
 msgid "Preparing to print…"
 msgstr "Pripremam za štampu…"
 
-#: ../libview/pps-print-operation.c:364
+#: ../libview/ev-print-operation.c:364
 #, c-format
 msgid "Printing page %d of %d…"
 msgstr "Štampam %d. stranicu od %d…"
 
-#: ../libview/pps-print-operation.c:1214
+#: ../libview/ev-print-operation.c:1214
 msgid "Requested format is not supported by this printer."
 msgstr "Ovaj štampač ne podržava zahtevani zapis."
 
-#: ../libview/pps-print-operation.c:1277
+#: ../libview/ev-print-operation.c:1277
 msgid "Invalid page selection"
 msgstr "Neispravan opseg stranica"
 
-#: ../libview/pps-print-operation.c:1278
+#: ../libview/ev-print-operation.c:1278
 msgid "Warning"
 msgstr "Upozorenje"
 
-#: ../libview/pps-print-operation.c:1280
+#: ../libview/ev-print-operation.c:1280
 msgid "Your print range selection does not include any pages"
 msgstr "Zadati opseg za štampu ne sadrži ni jednu stranicu"
 
 #. translators: Title of the print dialog
 #. translators: Print document currently shown in the Print Preview window
-#: ../libview/pps-print-operation.c:1358 ../previewer/pps-previewer-window.c:284
+#: ../libview/ev-print-operation.c:1358 ../previewer/ev-previewer-window.c:284
 msgid "Print"
 msgstr "Štampaj"
 
-#: ../libview/pps-print-operation.c:1969
+#: ../libview/ev-print-operation.c:1969
 msgid "Page Scaling:"
 msgstr "Razvuci stranicu:"
 
-#: ../libview/pps-print-operation.c:1976
+#: ../libview/ev-print-operation.c:1976
 msgid "Shrink to Printable Area"
 msgstr "Skupi na oblast za štampu"
 
-#: ../libview/pps-print-operation.c:1977
+#: ../libview/ev-print-operation.c:1977
 msgid "Fit to Printable Area"
 msgstr "Uklopi u oblast za štampu"
 
-#: ../libview/pps-print-operation.c:1980
+#: ../libview/ev-print-operation.c:1980
 msgid ""
 "Scale document pages to fit the selected printer page. Select from one of "
 "the following:\n"
@@ -580,11 +580,11 @@ msgstr ""
 "• „Uklopi u oblast za štampu“: Smanjuje ili povećava stranice dokumenta tako "
 "da se uklope na papir štampača.\n"
 
-#: ../libview/pps-print-operation.c:1992
+#: ../libview/ev-print-operation.c:1992
 msgid "Auto Rotate and Center"
 msgstr "Sam rotiraj i centriraj"
 
-#: ../libview/pps-print-operation.c:1995
+#: ../libview/ev-print-operation.c:1995
 msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
@@ -592,208 +592,208 @@ msgstr ""
 "Okrenite svaku stranicu štampača, tako da bude ista onoj unutar dokumenta i "
 "postavlja stranice dokumenta na sredinu papira za štampu."
 
-#: ../libview/pps-print-operation.c:2000
+#: ../libview/ev-print-operation.c:2000
 msgid "Select page size using document page size"
 msgstr "Odredi veličinu stranice na osnovu dokumenta"
 
-#: ../libview/pps-print-operation.c:2002
+#: ../libview/ev-print-operation.c:2002
 msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
 msgstr ""
 "Postavlja veličinu svake odštampane stranice na veličinu stranice u dokumentu."
 
-#: ../libview/pps-print-operation.c:2102
+#: ../libview/ev-print-operation.c:2102
 msgid "Page Handling"
 msgstr "Rad sa stranicama"
 
-#: ../libview/pps-view-accessible.c:43
+#: ../libview/ev-view-accessible.c:43
 msgid "Scroll Up"
 msgstr "Klizaj na gore"
 
-#: ../libview/pps-view-accessible.c:44
+#: ../libview/ev-view-accessible.c:44
 msgid "Scroll Down"
 msgstr "Klizaj na dole"
 
-#: ../libview/pps-view-accessible.c:50
+#: ../libview/ev-view-accessible.c:50
 msgid "Scroll View Up"
 msgstr "Klizaj jedan ekran gore"
 
-#: ../libview/pps-view-accessible.c:51
+#: ../libview/ev-view-accessible.c:51
 msgid "Scroll View Down"
 msgstr "Klizaj jedan ekran dole"
 
-#: ../libview/pps-view-accessible.c:129
+#: ../libview/ev-view-accessible.c:129
 msgid "Document View"
 msgstr "Pregled dokumenta"
 
-#: ../libview/pps-view.c:2035
+#: ../libview/ev-view.c:2035
 msgid "Go to first page"
 msgstr "Idite na prvu stranu"
 
-#: ../libview/pps-view.c:2037
+#: ../libview/ev-view.c:2037
 msgid "Go to previous page"
 msgstr "Idite na prethodnu stranu"
 
-#: ../libview/pps-view.c:2039
+#: ../libview/ev-view.c:2039
 msgid "Go to next page"
 msgstr "Idite na sledeću stranu"
 
-#: ../libview/pps-view.c:2041
+#: ../libview/ev-view.c:2041
 msgid "Go to last page"
 msgstr "Idite na poslednju stranu"
 
-#: ../libview/pps-view.c:2043
+#: ../libview/ev-view.c:2043
 msgid "Go to page"
 msgstr "Idite na stranu"
 
-#: ../libview/pps-view.c:2045
+#: ../libview/ev-view.c:2045
 msgid "Find"
 msgstr "Traži"
 
-#: ../libview/pps-view.c:2073
+#: ../libview/ev-view.c:2073
 #, c-format
 msgid "Go to page %s"
 msgstr "Idi na stranu %s"
 
-#: ../libview/pps-view.c:2079
+#: ../libview/ev-view.c:2079
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Idi na %s datoteke „%s“"
 
-#: ../libview/pps-view.c:2082
+#: ../libview/ev-view.c:2082
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Idi na datoteku „%s“"
 
-#: ../libview/pps-view.c:2090
+#: ../libview/ev-view.c:2090
 #, c-format
 msgid "Launch %s"
 msgstr "Pokreni %s"
 
-#: ../libview/pps-view-presentation.c:752
+#: ../libview/ev-view-presentation.c:752
 msgid "Jump to page:"
 msgstr "Skoči na stranu:"
 
-#: ../libview/pps-view-presentation.c:1055
+#: ../libview/ev-view-presentation.c:1055
 msgid "End of presentation. Click to exit."
 msgstr "Kraj prezentacije. Kliknite za izlazak."
 
-#: ../previewer/pps-previewer.c:45
+#: ../previewer/ev-previewer.c:45
 msgid "Delete the temporary file"
 msgstr "Obriši privremenu datoteku"
 
-#: ../previewer/pps-previewer.c:46
+#: ../previewer/ev-previewer.c:46
 msgid "File specifying print settings"
 msgstr "Datoteka koja navodi podešavanja štampanja"
 
-#: ../previewer/pps-previewer.c:46
+#: ../previewer/ev-previewer.c:46
 msgid "FILE"
 msgstr "DATOTEKA"
 
-#: ../previewer/pps-previewer.c:176 ../previewer/pps-previewer.c:210
+#: ../previewer/ev-previewer.c:176 ../previewer/ev-previewer.c:210
 msgid "GNOME Document Previewer"
 msgstr "Gnomov pregledač dokumenata"
 
-#: ../previewer/pps-previewer-window.c:91 ../shell/pps-window.c:3293
+#: ../previewer/ev-previewer-window.c:91 ../shell/ev-window.c:3293
 msgid "Failed to print document"
 msgstr "Nisam uspeo da odštampam dokument"
 
-#: ../previewer/pps-previewer-window.c:223
+#: ../previewer/ev-previewer-window.c:223
 #, c-format
 msgid "The selected printer “%s” could not be found"
 msgstr "Ne mogu da pronađem štampač „%s“"
 
-#: ../previewer/pps-previewer-window.c:270 ../shell/papers-menus.ui.h:40
+#: ../previewer/ev-previewer-window.c:270 ../shell/evince-menus.ui.h:40
 msgid "_Previous Page"
 msgstr "_Prethodna strana"
 
-#: ../previewer/pps-previewer-window.c:273 ../shell/papers-menus.ui.h:41
+#: ../previewer/ev-previewer-window.c:273 ../shell/evince-menus.ui.h:41
 msgid "_Next Page"
 msgstr "_Sledeća strana"
 
-#: ../previewer/pps-previewer-window.c:285
+#: ../previewer/ev-previewer-window.c:285
 msgid "Print this document"
 msgstr "Odštampajte ovaj dokument"
 
-#: ../previewer/pps-previewer-window.c:318
+#: ../previewer/ev-previewer-window.c:318
 msgid "Make the current document fill the window"
 msgstr "Učinite da tekući dokument ispuni prozor"
 
-#: ../previewer/pps-previewer-window.c:321
+#: ../previewer/ev-previewer-window.c:321
 msgid "Make the current document fill the window width"
 msgstr "Učinite da tekući dokument ispuni širinu prozora"
 
-#: ../previewer/pps-previewer-window.c:552
+#: ../previewer/ev-previewer-window.c:552
 msgid "Page"
 msgstr "Strana"
 
-#: ../previewer/pps-previewer-window.c:553
+#: ../previewer/ev-previewer-window.c:553
 msgid "Select Page"
 msgstr "Izaberite stranu"
 
-#: ../properties/pps-properties-main.c:117
+#: ../properties/ev-properties-main.c:117
 msgid "Document"
 msgstr "Dokument"
 
-#: ../properties/pps-properties-view.c:61
+#: ../properties/ev-properties-view.c:61
 msgid "Title:"
 msgstr "Naslov:"
 
-#: ../properties/pps-properties-view.c:62
+#: ../properties/ev-properties-view.c:62
 msgid "Location:"
 msgstr "Mesto:"
 
-#: ../properties/pps-properties-view.c:63
+#: ../properties/ev-properties-view.c:63
 msgid "Subject:"
 msgstr "Tema:"
 
-#: ../properties/pps-properties-view.c:64
-#: ../shell/pps-annotation-properties-dialog.c:171
+#: ../properties/ev-properties-view.c:64
+#: ../shell/ev-annotation-properties-dialog.c:171
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../properties/pps-properties-view.c:65
+#: ../properties/ev-properties-view.c:65
 msgid "Keywords:"
 msgstr "Ključne reči:"
 
-#: ../properties/pps-properties-view.c:66
+#: ../properties/ev-properties-view.c:66
 msgid "Producer:"
 msgstr "Proizvođač:"
 
-#: ../properties/pps-properties-view.c:67
+#: ../properties/ev-properties-view.c:67
 msgid "Creator:"
 msgstr "Stvaralac:"
 
-#: ../properties/pps-properties-view.c:68
+#: ../properties/ev-properties-view.c:68
 msgid "Created:"
 msgstr "Napravljen:"
 
-#: ../properties/pps-properties-view.c:69
+#: ../properties/ev-properties-view.c:69
 msgid "Modified:"
 msgstr "Izmenjen:"
 
-#: ../properties/pps-properties-view.c:70
+#: ../properties/ev-properties-view.c:70
 msgid "Number of Pages:"
 msgstr "Broj stranica:"
 
-#: ../properties/pps-properties-view.c:71
+#: ../properties/ev-properties-view.c:71
 msgid "Optimized:"
 msgstr "Prilagođen:"
 
-#: ../properties/pps-properties-view.c:72
+#: ../properties/ev-properties-view.c:72
 msgid "Format:"
 msgstr "Oblik:"
 
-#: ../properties/pps-properties-view.c:73
+#: ../properties/ev-properties-view.c:73
 msgid "Security:"
 msgstr "Bezbednost:"
 
-#: ../properties/pps-properties-view.c:74
+#: ../properties/ev-properties-view.c:74
 msgid "Paper Size:"
 msgstr "Veličina papira:"
 
-#: ../properties/pps-properties-view.c:75
+#: ../properties/ev-properties-view.c:75
 msgid "Size:"
 msgstr "Veličina:"
 
@@ -803,139 +803,139 @@ msgstr "Veličina:"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: ../properties/pps-properties-view.c:268
+#: ../properties/ev-properties-view.c:268
 msgid "default:mm"
 msgstr "default:mm"
 
-#: ../properties/pps-properties-view.c:312
+#: ../properties/ev-properties-view.c:312
 #, c-format
 msgid "%.0f × %.0f mm"
 msgstr "%.0f × %.0f mm"
 
-#: ../properties/pps-properties-view.c:316
+#: ../properties/ev-properties-view.c:316
 #, c-format
 msgid "%.2f × %.2f inch"
 msgstr "%.2f × %.2f inča"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/pps-properties-view.c:340
+#: ../properties/ev-properties-view.c:340
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr "%s, Uspravno (%s)"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/pps-properties-view.c:347
+#: ../properties/ev-properties-view.c:347
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr "%s, Položeno (%s)"
 
-#: ../shell/pps-annotation-properties-dialog.c:97
+#: ../shell/ev-annotation-properties-dialog.c:97
 msgid "Icon:"
 msgstr "Ikonica:"
 
-#: ../shell/pps-annotation-properties-dialog.c:103
+#: ../shell/ev-annotation-properties-dialog.c:103
 msgid "Note"
 msgstr "Beleška"
 
-#: ../shell/pps-annotation-properties-dialog.c:104
+#: ../shell/ev-annotation-properties-dialog.c:104
 msgid "Comment"
 msgstr "Napomena"
 
-#: ../shell/pps-annotation-properties-dialog.c:105
+#: ../shell/ev-annotation-properties-dialog.c:105
 msgid "Key"
 msgstr "Ključ"
 
-#: ../shell/pps-annotation-properties-dialog.c:106
+#: ../shell/ev-annotation-properties-dialog.c:106
 msgid "Help"
 msgstr "Pomoć"
 
-#: ../shell/pps-annotation-properties-dialog.c:107
+#: ../shell/ev-annotation-properties-dialog.c:107
 msgid "New Paragraph"
 msgstr "Novi pasus"
 
-#: ../shell/pps-annotation-properties-dialog.c:108
+#: ../shell/ev-annotation-properties-dialog.c:108
 msgid "Paragraph"
 msgstr "Pasus"
 
-#: ../shell/pps-annotation-properties-dialog.c:109
+#: ../shell/ev-annotation-properties-dialog.c:109
 msgid "Insert"
 msgstr "Umetni"
 
-#: ../shell/pps-annotation-properties-dialog.c:110
+#: ../shell/ev-annotation-properties-dialog.c:110
 msgid "Cross"
 msgstr "Krstić"
 
-#: ../shell/pps-annotation-properties-dialog.c:111
+#: ../shell/ev-annotation-properties-dialog.c:111
 msgid "Circle"
 msgstr "Krug"
 
-#: ../shell/pps-annotation-properties-dialog.c:112
+#: ../shell/ev-annotation-properties-dialog.c:112
 msgid "Unknown"
 msgstr "Nepoznato"
 
-#: ../shell/pps-annotation-properties-dialog.c:123
+#: ../shell/ev-annotation-properties-dialog.c:123
 msgid "Markup type:"
 msgstr "Vrsta označavanja:"
 
-#: ../shell/pps-annotation-properties-dialog.c:129
+#: ../shell/ev-annotation-properties-dialog.c:129
 msgid "Highlight"
 msgstr "Istaknuto"
 
-#: ../shell/pps-annotation-properties-dialog.c:130
+#: ../shell/ev-annotation-properties-dialog.c:130
 msgid "Strike out"
 msgstr "Precrtano"
 
-#: ../shell/pps-annotation-properties-dialog.c:131
+#: ../shell/ev-annotation-properties-dialog.c:131
 msgid "Underline"
 msgstr "Podvučeno"
 
-#: ../shell/pps-annotation-properties-dialog.c:132
+#: ../shell/ev-annotation-properties-dialog.c:132
 msgid "Squiggly"
 msgstr "Izobličeno"
 
-#: ../shell/pps-annotation-properties-dialog.c:152
+#: ../shell/ev-annotation-properties-dialog.c:152
 msgid "Annotation Properties"
 msgstr "Osobine zabeleške"
 
-#: ../shell/pps-annotation-properties-dialog.c:182
+#: ../shell/ev-annotation-properties-dialog.c:182
 msgid "Color:"
 msgstr "Boja:"
 
-#: ../shell/pps-annotation-properties-dialog.c:192
+#: ../shell/ev-annotation-properties-dialog.c:192
 msgid "Opacity:"
 msgstr "Neprozirnost:"
 
-#: ../shell/pps-annotation-properties-dialog.c:204
+#: ../shell/ev-annotation-properties-dialog.c:204
 msgid "Initial window state:"
 msgstr "Početno stanje prozora:"
 
-#: ../shell/pps-annotation-properties-dialog.c:210
+#: ../shell/ev-annotation-properties-dialog.c:210
 msgid "Open"
 msgstr "Otvoren"
 
-#: ../shell/pps-annotation-properties-dialog.c:211
+#: ../shell/ev-annotation-properties-dialog.c:211
 msgid "Close"
 msgstr "Zatvoren"
 
-#: ../shell/pps-annotations-toolbar.c:120
+#: ../shell/ev-annotations-toolbar.c:120
 msgid "Add text annotation"
 msgstr "Dodaj zabelešku"
 
-#: ../shell/pps-annotations-toolbar.c:127
+#: ../shell/ev-annotations-toolbar.c:127
 msgid "Add highlight annotation"
 msgstr "Dodaj zabelešku u boji"
 
-#: ../shell/pps-application.c:1007 ../papers.appdata.xml.in.h:1
-msgid "Papers"
-msgstr "Ppsins"
+#: ../shell/ev-application.c:1007 ../evince.appdata.xml.in.h:1
+msgid "Evince"
+msgstr "Evins"
 
-#: ../shell/pps-application.c:1009
-msgid "© 1996–2017 The Papers authors"
-msgstr "© 1996-2017 Autori Ppsinsa"
+#: ../shell/ev-application.c:1009
+msgid "© 1996–2017 The Evince authors"
+msgstr "© 1996-2017 Autori Evinsa"
 
-#: ../shell/pps-application.c:1015
+#: ../shell/ev-application.c:1015
 msgid "translator-credits"
 msgstr ""
 "Danilo Šegan <danilo@gnome.org>\n"
@@ -947,26 +947,26 @@ msgstr ""
 "\n"
 "http://prevod.org — prevod na srpski jezik"
 
-#: ../shell/pps-history-action.c:221
+#: ../shell/ev-history-action.c:221
 msgid "Go to previous history item"
 msgstr "Idite na prethodnu stavku istorijata"
 
-#: ../shell/pps-history-action.c:226
+#: ../shell/ev-history-action.c:226
 msgid "Go to next history item"
 msgstr "Idite na sledeću stavku istorijata"
 
-#: ../shell/pps-keyring.c:86
+#: ../shell/ev-keyring.c:86
 #, c-format
 msgid "Password for document %s"
 msgstr "Lozinka za dokument „%s“"
 
 #. Create tree view
-#: ../shell/pps-loading-message.c:50 ../shell/pps-sidebar-annotations.c:125
-#: ../shell/pps-sidebar-layers.c:125 ../shell/pps-sidebar-links.c:268
+#: ../shell/ev-loading-message.c:50 ../shell/ev-sidebar-annotations.c:125
+#: ../shell/ev-sidebar-layers.c:125 ../shell/ev-sidebar-links.c:268
 msgid "Loading…"
 msgstr "Učitavam…"
 
-#: ../shell/pps-password-view.c:142
+#: ../shell/ev-password-view.c:142
 msgid ""
 "This document is locked and can only be read by entering the correct "
 "password."
@@ -974,15 +974,15 @@ msgstr ""
 "Ovaj dokument je zaključan i može se pročitati jedino uz unos ispravne "
 "lozinke."
 
-#: ../shell/pps-password-view.c:151 ../shell/pps-password-view.c:269
+#: ../shell/ev-password-view.c:151 ../shell/ev-password-view.c:269
 msgid "_Unlock Document"
 msgstr "_Otključaj dokument"
 
-#: ../shell/pps-password-view.c:261
+#: ../shell/ev-password-view.c:261
 msgid "Enter password"
 msgstr "Upišite lozinku"
 
-#: ../shell/pps-password-view.c:300
+#: ../shell/ev-password-view.c:300
 #, c-format
 msgid ""
 "The document “%s” is locked and requires a password before it can be opened."
@@ -990,246 +990,246 @@ msgstr ""
 "Dokument „%s“ je zaključan i neophodna je lozinka da biste mogli da ga "
 "otvorite."
 
-#: ../shell/pps-password-view.c:303
+#: ../shell/ev-password-view.c:303
 msgid "Password required"
 msgstr "Potrebna je lozinka"
 
-#: ../shell/pps-password-view.c:333
+#: ../shell/ev-password-view.c:333
 msgid "_Password:"
 msgstr "_Lozinka:"
 
-#: ../shell/pps-password-view.c:364
+#: ../shell/ev-password-view.c:364
 msgid "Forget password _immediately"
 msgstr "_Odmah zaboravi lozinku"
 
-#: ../shell/pps-password-view.c:376
+#: ../shell/ev-password-view.c:376
 msgid "Remember password until you _log out"
 msgstr "Zapamti lozinku do _odjavljivanja"
 
-#: ../shell/pps-password-view.c:388
+#: ../shell/ev-password-view.c:388
 msgid "Remember _forever"
 msgstr "Zapamti _zauvek"
 
-#: ../shell/pps-properties-dialog.c:63
+#: ../shell/ev-properties-dialog.c:63
 msgid "Properties"
 msgstr "Osobine"
 
-#: ../shell/pps-properties-dialog.c:85
+#: ../shell/ev-properties-dialog.c:85
 msgid "General"
 msgstr "Opšte"
 
-#: ../shell/pps-properties-dialog.c:95
+#: ../shell/ev-properties-dialog.c:95
 msgid "Fonts"
 msgstr "Slovni likovi"
 
-#: ../shell/pps-properties-dialog.c:108
+#: ../shell/ev-properties-dialog.c:108
 msgid "Document License"
 msgstr "Licenca dokumenata"
 
-#: ../shell/pps-properties-fonts.c:142
+#: ../shell/ev-properties-fonts.c:142
 msgid "Font"
 msgstr "Slovni lik"
 
-#: ../shell/pps-properties-fonts.c:169
+#: ../shell/ev-properties-fonts.c:169
 #, c-format
 msgid "Gathering font information… %3d%%"
 msgstr "Prikupljam podatke o slovnom liku… %3d%%"
 
-#: ../shell/pps-properties-license.c:134
+#: ../shell/ev-properties-license.c:134
 msgid "Usage terms"
 msgstr "Uslovi korišćenja"
 
-#: ../shell/pps-properties-license.c:140
+#: ../shell/ev-properties-license.c:140
 msgid "Text License"
 msgstr "Tekst licence"
 
-#: ../shell/pps-properties-license.c:146
+#: ../shell/ev-properties-license.c:146
 msgid "Further Information"
 msgstr "Još podataka"
 
-#: ../shell/pps-sidebar-annotations.c:299
+#: ../shell/ev-sidebar-annotations.c:299
 msgid "Document contains no annotations"
 msgstr "Dokument ne sadrži zabeleške"
 
-#: ../shell/pps-sidebar-annotations.c:335
+#: ../shell/ev-sidebar-annotations.c:335
 #, c-format
 msgid "Page %d"
 msgstr "Stranica %d"
 
-#: ../shell/pps-sidebar-annotations.c:511
+#: ../shell/ev-sidebar-annotations.c:511
 msgid "Annotations"
 msgstr "Zabeleške"
 
-#: ../shell/pps-sidebar-attachments.c:695
+#: ../shell/ev-sidebar-attachments.c:695
 msgid "Attachments"
 msgstr "Prilozi"
 
-#: ../shell/pps-sidebar-bookmarks.c:148
+#: ../shell/ev-sidebar-bookmarks.c:148
 msgid "_Open Bookmark"
 msgstr "_Otvori obeleživač"
 
-#: ../shell/pps-sidebar-bookmarks.c:150
+#: ../shell/ev-sidebar-bookmarks.c:150
 msgid "_Rename Bookmark"
 msgstr "_Preimenuj obeleživač"
 
-#: ../shell/pps-sidebar-bookmarks.c:152
+#: ../shell/ev-sidebar-bookmarks.c:152
 msgid "_Remove Bookmark"
 msgstr "_Ukloni obeleživač"
 
-#: ../shell/pps-sidebar-bookmarks.c:467 ../shell/pps-sidebar-bookmarks.c:468
+#: ../shell/ev-sidebar-bookmarks.c:467 ../shell/ev-sidebar-bookmarks.c:468
 msgid "Add bookmark"
 msgstr "Dodaj obeleživač"
 
-#: ../shell/pps-sidebar-bookmarks.c:476 ../shell/pps-sidebar-bookmarks.c:477
+#: ../shell/ev-sidebar-bookmarks.c:476 ../shell/ev-sidebar-bookmarks.c:477
 msgid "Remove bookmark"
 msgstr "Ukloni obeleživač"
 
-#: ../shell/pps-sidebar-bookmarks.c:593 ../shell/pps-toolbar.c:161
+#: ../shell/ev-sidebar-bookmarks.c:593 ../shell/ev-toolbar.c:161
 msgid "Bookmarks"
 msgstr "Obeleživači"
 
-#: ../shell/pps-sidebar-layers.c:444
+#: ../shell/ev-sidebar-layers.c:444
 msgid "Layers"
 msgstr "Slojevi"
 
-#: ../shell/pps-sidebar-links.c:344
+#: ../shell/ev-sidebar-links.c:344
 msgid "Print…"
 msgstr "Štampaj…"
 
 #. Translators: This is the title for the sidebar pane that
 #. * shows the Outline or Table of Contents of the document.
-#. * Use a short text, otherwise it can make Papers unusable in
+#. * Use a short text, otherwise it can make Evince unusable in
 #. * your language.  The sidebar cannot be shrinked smaller than
 #. * the longest title in there.
 #.
-#: ../shell/pps-sidebar-links.c:751
+#: ../shell/ev-sidebar-links.c:751
 msgid "Outline"
 msgstr "Kontura"
 
-#: ../shell/pps-sidebar-thumbnails.c:1135
+#: ../shell/ev-sidebar-thumbnails.c:1135
 msgid "Thumbnails"
 msgstr "Umanjeni prikazi"
 
-#: ../shell/pps-toolbar.c:202
+#: ../shell/ev-toolbar.c:202
 msgid "Open an existing document"
 msgstr "Otvorite postojeći dokument"
 
-#: ../shell/pps-toolbar.c:210
+#: ../shell/ev-toolbar.c:210
 msgid "Select page or search in the index"
 msgstr "Izaberite stranicu ili potražite u indeksu"
 
-#: ../shell/pps-toolbar.c:211
+#: ../shell/ev-toolbar.c:211
 msgid "Select page"
 msgstr "Izaberi stranicu"
 
-#: ../shell/pps-toolbar.c:234
+#: ../shell/ev-toolbar.c:234
 msgid "Annotate the document"
 msgstr "Dodaj zabeleške u dokument"
 
-#: ../shell/pps-toolbar.c:243 ../shell/pps-toolbar.c:244
+#: ../shell/ev-toolbar.c:243 ../shell/ev-toolbar.c:244
 msgid "File options"
 msgstr "Opcije datoteke"
 
-#: ../shell/pps-toolbar.c:253 ../shell/pps-toolbar.c:254
+#: ../shell/ev-toolbar.c:253 ../shell/ev-toolbar.c:254
 msgid "View options"
 msgstr "Opcije pregleda"
 
-#: ../shell/pps-toolbar.c:262
+#: ../shell/ev-toolbar.c:262
 msgid "Select or set the zoom level of the document"
 msgstr "Izaberite ili podesite nivo uveličanja za dokument"
 
-#: ../shell/pps-toolbar.c:263
+#: ../shell/ev-toolbar.c:263
 msgid "Set zoom level"
 msgstr "Podesi nivo uveličanja"
 
-#: ../shell/pps-utils.c:305
+#: ../shell/ev-utils.c:305
 msgid "Supported Image Files"
 msgstr "Podržane datoteke slika"
 
-#: ../shell/pps-window.c:1544
+#: ../shell/ev-window.c:1544
 msgid "The document contains no pages"
 msgstr "Dokument ne sadrži stranice"
 
-#: ../shell/pps-window.c:1547
+#: ../shell/ev-window.c:1547
 msgid "The document contains only empty pages"
 msgstr "Dokument sadrži samo prazne stranice"
 
-#: ../shell/pps-window.c:1761 ../shell/pps-window.c:1927
+#: ../shell/ev-window.c:1761 ../shell/ev-window.c:1927
 #, c-format
 msgid "Unable to open document “%s”."
 msgstr "Ne mogu da otvorim dokument „%s“."
 
-#: ../shell/pps-window.c:1891
+#: ../shell/ev-window.c:1891
 #, c-format
 msgid "Loading document from “%s”"
 msgstr "Učitavam dokument iz „%s“"
 
-#: ../shell/pps-window.c:2042 ../shell/pps-window.c:2370
+#: ../shell/ev-window.c:2042 ../shell/ev-window.c:2370
 #, c-format
 msgid "Downloading document (%d%%)"
 msgstr "Preuzimam dokument (%d%%)"
 
-#: ../shell/pps-window.c:2075
+#: ../shell/ev-window.c:2075
 msgid "Failed to load remote file."
 msgstr "Ne mogu da učitam udaljenu datoteku."
 
-#: ../shell/pps-window.c:2314
+#: ../shell/ev-window.c:2314
 #, c-format
 msgid "Reloading document from %s"
 msgstr "Iznova učitavam dokument iz %s"
 
-#: ../shell/pps-window.c:2346
+#: ../shell/ev-window.c:2346
 msgid "Failed to reload document."
 msgstr "Ne mogu ponovo da učitam dokument."
 
-#: ../shell/pps-window.c:2562
+#: ../shell/ev-window.c:2562
 msgid "Open Document"
 msgstr "Otvori dokument"
 
-#: ../shell/pps-window.c:2635
+#: ../shell/ev-window.c:2635
 #, c-format
 msgid "Saving document to %s"
 msgstr "Čuvam dokument u %s"
 
-#: ../shell/pps-window.c:2638
+#: ../shell/ev-window.c:2638
 #, c-format
 msgid "Saving attachment to %s"
 msgstr "Čuvam prilog u %s"
 
-#: ../shell/pps-window.c:2641
+#: ../shell/ev-window.c:2641
 #, c-format
 msgid "Saving image to %s"
 msgstr "Čuvam sliku u %s"
 
-#: ../shell/pps-window.c:2685 ../shell/pps-window.c:2785
+#: ../shell/ev-window.c:2685 ../shell/ev-window.c:2785
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Datoteka nije mogla biti sačuvana kao „%s“."
 
-#: ../shell/pps-window.c:2716
+#: ../shell/ev-window.c:2716
 #, c-format
 msgid "Uploading document (%d%%)"
 msgstr "Šaljem dokument (%d%%)"
 
-#: ../shell/pps-window.c:2720
+#: ../shell/ev-window.c:2720
 #, c-format
 msgid "Uploading attachment (%d%%)"
 msgstr "Šaljem prilog (%d%%)"
 
-#: ../shell/pps-window.c:2724
+#: ../shell/ev-window.c:2724
 #, c-format
 msgid "Uploading image (%d%%)"
 msgstr "Šaljem sliku (%d%%)"
 
-#: ../shell/pps-window.c:2837
+#: ../shell/ev-window.c:2837
 msgid "Save As…"
 msgstr "Sačuvaj kao…"
 
-#: ../shell/pps-window.c:2932
+#: ../shell/ev-window.c:2932
 msgid "Could not send current document"
 msgstr "Ne mogu da pošaljem tekući dokument"
 
-#: ../shell/pps-window.c:3237
+#: ../shell/ev-window.c:3237
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
@@ -1238,50 +1238,50 @@ msgstr[1] "%d zaduženja čekaju u zakazanim"
 msgstr[2] "%d zaduženja čekaju u zakazanim"
 msgstr[3] "Jedno zaduženje čeka u zakazanim"
 
-#: ../shell/pps-window.c:3350
+#: ../shell/ev-window.c:3350
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Štampam zaduženje „%s“"
 
-#: ../shell/pps-window.c:3565
+#: ../shell/ev-window.c:3565
 msgid "Document contains form fields that have been filled out. "
 msgstr "Dokument sadrži obrazac sa poljima koja su popunjena. "
 
-#: ../shell/pps-window.c:3568
+#: ../shell/ev-window.c:3568
 msgid "Document contains new or modified annotations. "
 msgstr "Dokument sadrži nove ili izmenjene zabeleške. "
 
-#: ../shell/pps-window.c:3580
+#: ../shell/ev-window.c:3580
 #, c-format
 msgid "Reload document “%s”?"
 msgstr "Da ponovo učitam dokument „%s“?"
 
-#: ../shell/pps-window.c:3582
+#: ../shell/ev-window.c:3582
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "Ako ponovo učitate dokument, izmene će biti trajno izgubljene."
 
-#: ../shell/pps-window.c:3586
+#: ../shell/ev-window.c:3586
 msgid "Reload"
 msgstr "Ponovo učitaj"
 
-#: ../shell/pps-window.c:3593
+#: ../shell/ev-window.c:3593
 #, c-format
 msgid "Save a copy of document “%s” before closing?"
 msgstr "Da sačuvam primerak dokumenta „%s“ pre zatvaranja?"
 
-#: ../shell/pps-window.c:3595
+#: ../shell/ev-window.c:3595
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "Ukoliko ne sačuvate umnožak, izmene će biti trajno izgubljene."
 
-#: ../shell/pps-window.c:3597
+#: ../shell/ev-window.c:3597
 msgid "Close _without Saving"
 msgstr "Zatvori _bez čuvanja"
 
-#: ../shell/pps-window.c:3601
+#: ../shell/ev-window.c:3601
 msgid "Save a _Copy"
 msgstr "_Sačuvaj primerak"
 
-#: ../shell/pps-window.c:3685
+#: ../shell/ev-window.c:3685
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr "Da sačekam dok se ne odštampa zaduženje „%s“ pre zatvaranja?"
@@ -1289,7 +1289,7 @@ msgstr "Da sačekam dok se ne odštampa zaduženje „%s“ pre zatvaranja?"
 #. TRANS: the singular form is not really used as n_print_jobs > 1
 #. but some languages distinguish between different plurals forms,
 #. so the ngettext is needed.
-#: ../shell/pps-window.c:3691
+#: ../shell/ev-window.c:3691
 #, c-format
 msgid "There is %d print job active. Wait until print finishes before closing?"
 msgid_plural ""
@@ -1307,32 +1307,32 @@ msgstr[3] ""
 "Imate jedno aktivno zaduženje za štampu. Da sačekam dok se ne završi štampanje "
 "pre zatvaranja?"
 
-#: ../shell/pps-window.c:3706
+#: ../shell/ev-window.c:3706
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr ""
 "Ukoliko zatvorite prozor, zaduženja koja su na čekanju neće biti odštampana."
 
-#: ../shell/pps-window.c:3710
+#: ../shell/ev-window.c:3710
 msgid "Cancel _print and Close"
 msgstr "Prekini štampanje i _zatvori"
 
-#: ../shell/pps-window.c:3714
+#: ../shell/ev-window.c:3714
 msgid "Close _after Printing"
 msgstr "Zatvori _nakon štampe"
 
-#: ../shell/pps-window.c:4244
+#: ../shell/ev-window.c:4244
 msgid "Running in presentation mode"
 msgstr "Pokretanje u režimu prezentacije"
 
-#: ../shell/pps-window.c:5393
+#: ../shell/ev-window.c:5393
 msgid "Enable caret navigation?"
 msgstr "Da uključim kretanje umetkom?"
 
-#: ../shell/pps-window.c:5395
+#: ../shell/ev-window.c:5395
 msgid "_Enable"
 msgstr "_Uključi"
 
-#: ../shell/pps-window.c:5398
+#: ../shell/ev-window.c:5398
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1342,103 +1342,103 @@ msgstr ""
 "postavlja kursor unutar Internet stranica i omogućava vam da listate sadržaj "
 "pomoću tastature. Da li želite da uključite pregled sa umetkom?"
 
-#: ../shell/pps-window.c:5403
+#: ../shell/ev-window.c:5403
 msgid "Don’t show this message again"
 msgstr "Ne prikazuj više ovu poruku"
 
-#: ../shell/pps-window.c:5942 ../shell/pps-window.c:5958
+#: ../shell/ev-window.c:5942 ../shell/ev-window.c:5958
 msgid "Unable to launch external application."
 msgstr "Ne mogu da pokrenem spoljni program."
 
-#: ../shell/pps-window.c:6019
+#: ../shell/ev-window.c:6019
 msgid "Unable to open external link"
 msgstr "Ne mogu da otvorim spoljnu vezu"
 
-#: ../shell/pps-window.c:6222
+#: ../shell/ev-window.c:6222
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Ne mogu da pronađem prigodan format za čuvanje slike"
 
-#: ../shell/pps-window.c:6254
+#: ../shell/ev-window.c:6254
 msgid "The image could not be saved."
 msgstr "Nisam mogao da sačuvam sliku."
 
-#: ../shell/pps-window.c:6289
+#: ../shell/ev-window.c:6289
 msgid "Save Image"
 msgstr "Sačuvaj sliku"
 
-#: ../shell/pps-window.c:6448
+#: ../shell/ev-window.c:6448
 msgid "Unable to open attachment"
 msgstr "Ne mogu da otvorim prilog"
 
-#: ../shell/pps-window.c:6504
+#: ../shell/ev-window.c:6504
 msgid "The attachment could not be saved."
 msgstr "Ne mogu da sačuvam prilog."
 
-#: ../shell/pps-window.c:6552
+#: ../shell/ev-window.c:6552
 msgid "Save Attachment"
 msgstr "Sačuvaj prilog"
 
-#: ../shell/pps-window-title.c:118
+#: ../shell/ev-window-title.c:118
 msgid "Recent Documents"
 msgstr "Skorašnji dokumenti"
 
-#: ../shell/pps-window-title.c:153 ../shell/pps-window-title.c:157
+#: ../shell/ev-window-title.c:153 ../shell/ev-window-title.c:157
 msgid "Password Required"
 msgstr "Potrebna je lozinka"
 
-#: ../shell/pps-zoom-action.c:48
+#: ../shell/ev-zoom-action.c:48
 msgid "50%"
 msgstr "50%"
 
-#: ../shell/pps-zoom-action.c:49
+#: ../shell/ev-zoom-action.c:49
 msgid "70%"
 msgstr "70%"
 
-#: ../shell/pps-zoom-action.c:50
+#: ../shell/ev-zoom-action.c:50
 msgid "85%"
 msgstr "85%"
 
-#: ../shell/pps-zoom-action.c:51
+#: ../shell/ev-zoom-action.c:51
 msgid "100%"
 msgstr "100%"
 
-#: ../shell/pps-zoom-action.c:52
+#: ../shell/ev-zoom-action.c:52
 msgid "125%"
 msgstr "125%"
 
-#: ../shell/pps-zoom-action.c:53
+#: ../shell/ev-zoom-action.c:53
 msgid "150%"
 msgstr "150%"
 
-#: ../shell/pps-zoom-action.c:54
+#: ../shell/ev-zoom-action.c:54
 msgid "175%"
 msgstr "175%"
 
-#: ../shell/pps-zoom-action.c:55
+#: ../shell/ev-zoom-action.c:55
 msgid "200%"
 msgstr "200%"
 
-#: ../shell/pps-zoom-action.c:56
+#: ../shell/ev-zoom-action.c:56
 msgid "300%"
 msgstr "300%"
 
-#: ../shell/pps-zoom-action.c:57
+#: ../shell/ev-zoom-action.c:57
 msgid "400%"
 msgstr "400%"
 
-#: ../shell/pps-zoom-action.c:58
+#: ../shell/ev-zoom-action.c:58
 msgid "800%"
 msgstr "800%"
 
-#: ../shell/pps-zoom-action.c:59
+#: ../shell/ev-zoom-action.c:59
 msgid "1600%"
 msgstr "1600%"
 
-#: ../shell/pps-zoom-action.c:60
+#: ../shell/ev-zoom-action.c:60
 msgid "3200%"
 msgstr "3200%"
 
-#: ../shell/pps-zoom-action.c:61
+#: ../shell/ev-zoom-action.c:61
 msgid "6400%"
 msgstr "6400%"
 
@@ -1471,16 +1471,16 @@ msgid "DEST"
 msgstr "ODREDIŠTE"
 
 #: ../shell/main.c:74
-msgid "Run papers in fullscreen mode"
-msgstr "Pokreće Ppsins preko celog ekrana"
+msgid "Run evince in fullscreen mode"
+msgstr "Pokreće Evins preko celog ekrana"
 
 #: ../shell/main.c:75
-msgid "Run papers in presentation mode"
-msgstr "Pokreće Ppsins u režimu za prezentaciju"
+msgid "Run evince in presentation mode"
+msgstr "Pokreće Evins u režimu za prezentaciju"
 
 #: ../shell/main.c:76
-msgid "Run papers as a previewer"
-msgstr "Pokreće Ppsins kao pregledač"
+msgid "Run evince as a previewer"
+msgstr "Pokreće Evins kao pregledač"
 
 #: ../shell/main.c:77
 msgid "The word or phrase to find in the document"
@@ -1494,175 +1494,175 @@ msgstr "NISKA"
 msgid "[FILE…]"
 msgstr "[DATOTEKA…]"
 
-#: ../shell/papers-menus.ui.h:1
+#: ../shell/evince-menus.ui.h:1
 msgid "_New Window"
 msgstr "_Novi prozor"
 
-#: ../shell/papers-menus.ui.h:2
+#: ../shell/evince-menus.ui.h:2
 msgid "_Keyboard Shortcuts"
 msgstr "_Prečice tastature"
 
-#: ../shell/papers-menus.ui.h:3
+#: ../shell/evince-menus.ui.h:3
 msgid "_Help"
 msgstr "Po_moć"
 
-#: ../shell/papers-menus.ui.h:4
+#: ../shell/evince-menus.ui.h:4
 msgid "_About"
 msgstr "_O programu"
 
-#: ../shell/papers-menus.ui.h:5
+#: ../shell/evince-menus.ui.h:5
 msgid "_Continuous"
 msgstr "_Neprekidno"
 
-#: ../shell/papers-menus.ui.h:6
+#: ../shell/evince-menus.ui.h:6
 msgid "_Dual"
 msgstr "Po _dve"
 
-#: ../shell/papers-menus.ui.h:7
+#: ../shell/evince-menus.ui.h:7
 msgid "Side _Pane"
 msgstr "Bočna _površ"
 
-#: ../shell/papers-menus.ui.h:8
+#: ../shell/evince-menus.ui.h:8
 msgid "_Fullscreen"
 msgstr "_Ceo ekran"
 
-#: ../shell/papers-menus.ui.h:9
+#: ../shell/evince-menus.ui.h:9
 msgid "Pre_sentation"
 msgstr "Pre_zentacija"
 
-#: ../shell/papers-menus.ui.h:10
+#: ../shell/evince-menus.ui.h:10
 msgid "Rotate _Left"
 msgstr "Okreni na _levo"
 
-#: ../shell/papers-menus.ui.h:11
+#: ../shell/evince-menus.ui.h:11
 msgid "Rotate _Right"
 msgstr "Okreni na _desno"
 
-#: ../shell/papers-menus.ui.h:12
+#: ../shell/evince-menus.ui.h:12
 msgid "First Page"
 msgstr "Prva stranica"
 
-#: ../shell/papers-menus.ui.h:13
+#: ../shell/evince-menus.ui.h:13
 msgid "Previous Page"
 msgstr "Prethodna stranica"
 
-#: ../shell/papers-menus.ui.h:14
+#: ../shell/evince-menus.ui.h:14
 msgid "Next Page"
 msgstr "Sledeća stranica"
 
-#: ../shell/papers-menus.ui.h:15
+#: ../shell/evince-menus.ui.h:15
 msgid "Last Page"
 msgstr "Poslednja stranica"
 
-#: ../shell/papers-menus.ui.h:16
+#: ../shell/evince-menus.ui.h:16
 msgid "Zoom _In"
 msgstr "U_većaj"
 
-#: ../shell/papers-menus.ui.h:17
+#: ../shell/evince-menus.ui.h:17
 msgid "Zoom _Out"
 msgstr "U_manji"
 
-#: ../shell/papers-menus.ui.h:18
+#: ../shell/evince-menus.ui.h:18
 msgid "_Odd Pages Left"
 msgstr "_Neparne stranice s leva"
 
-#: ../shell/papers-menus.ui.h:19
+#: ../shell/evince-menus.ui.h:19
 msgid "_Inverted Colors"
 msgstr "Obrni _boje"
 
-#: ../shell/papers-menus.ui.h:20
+#: ../shell/evince-menus.ui.h:20
 msgid "_Reload"
 msgstr "_Osveži"
 
-#: ../shell/papers-menus.ui.h:21
+#: ../shell/evince-menus.ui.h:21
 msgid "_Open…"
 msgstr "_Otvori…"
 
-#: ../shell/papers-menus.ui.h:22
+#: ../shell/evince-menus.ui.h:22
 msgid "Op_en a Copy"
 msgstr "Otvori _umnožak"
 
-#: ../shell/papers-menus.ui.h:23
+#: ../shell/evince-menus.ui.h:23
 msgid "_Save As…"
 msgstr "_Sačuvaj kao…"
 
-#: ../shell/papers-menus.ui.h:24
+#: ../shell/evince-menus.ui.h:24
 msgid "Send _To…"
 msgstr "Pošalji _za…"
 
-#: ../shell/papers-menus.ui.h:25
+#: ../shell/evince-menus.ui.h:25
 msgid "Open Containing _Folder"
 msgstr "Otvori _sadržajnu fasciklu"
 
-#: ../shell/papers-menus.ui.h:26
+#: ../shell/evince-menus.ui.h:26
 msgid "_Print…"
 msgstr "_Štampaj…"
 
-#: ../shell/papers-menus.ui.h:27
+#: ../shell/evince-menus.ui.h:27
 msgid "P_roperties…"
 msgstr "_Svojstva…"
 
-#: ../shell/papers-menus.ui.h:28
+#: ../shell/evince-menus.ui.h:28
 msgid "_Copy"
 msgstr "_Umnoži"
 
-#: ../shell/papers-menus.ui.h:29
+#: ../shell/evince-menus.ui.h:29
 msgid "Select _All"
 msgstr "Izaberi _sve"
 
-#: ../shell/papers-menus.ui.h:30
+#: ../shell/evince-menus.ui.h:30
 msgid "Save Current Settings as _Default"
 msgstr "Sačuvaj podešavanja kao _osnovna"
 
-#: ../shell/papers-menus.ui.h:31
+#: ../shell/evince-menus.ui.h:31
 msgid "_Add Bookmark"
 msgstr "_Dodaj obeleživač"
 
-#: ../shell/papers-menus.ui.h:32
+#: ../shell/evince-menus.ui.h:32
 msgid "_Close"
 msgstr "_Zatvori"
 
-#: ../shell/papers-menus.ui.h:36
+#: ../shell/evince-menus.ui.h:36
 msgid "_Open Link"
 msgstr "Otvori _vezu"
 
-#: ../shell/papers-menus.ui.h:37
+#: ../shell/evince-menus.ui.h:37
 msgid "_Copy Link Address"
 msgstr "_Umnoži adresu veze"
 
-#: ../shell/papers-menus.ui.h:38
+#: ../shell/evince-menus.ui.h:38
 msgid "_Go To"
 msgstr "_Idi na"
 
-#: ../shell/papers-menus.ui.h:39
+#: ../shell/evince-menus.ui.h:39
 msgid "Open in New _Window"
 msgstr "Otvori u novom _prozoru"
 
-#: ../shell/papers-menus.ui.h:42
+#: ../shell/evince-menus.ui.h:42
 msgid "Auto_scroll"
 msgstr "Samostalno _pomeraj"
 
-#: ../shell/papers-menus.ui.h:43
+#: ../shell/evince-menus.ui.h:43
 msgid "_Save Image As…"
 msgstr "Sačuvaj sliku _kao…"
 
-#: ../shell/papers-menus.ui.h:44
+#: ../shell/evince-menus.ui.h:44
 msgid "Copy _Image"
 msgstr "Umnoži _sliku"
 
-#: ../shell/papers-menus.ui.h:45
+#: ../shell/evince-menus.ui.h:45
 msgid "_Open Attachment"
 msgstr "_Otvori prilog"
 
-#: ../shell/papers-menus.ui.h:46
+#: ../shell/evince-menus.ui.h:46
 msgid "_Save Attachment As…"
 msgstr "_Sačuvaj prilog kao…"
 
-#: ../shell/papers-menus.ui.h:47
+#: ../shell/evince-menus.ui.h:47
 msgid "Annotation Properties…"
 msgstr "Osobine zabeleške…"
 
-#: ../shell/papers-menus.ui.h:48
+#: ../shell/evince-menus.ui.h:48
 msgid "Remove Annotation"
 msgstr "Ukloni zabeleške"
 
@@ -1826,15 +1826,15 @@ msgctxt "shortcut window"
 msgid "Go to previous page"
 msgstr "Ide na prethodnu stranicu"
 
-#: ../papers.appdata.xml.in.h:2
+#: ../evince.appdata.xml.in.h:2
 msgid "Document viewer for popular document formats"
 msgstr "Pregledač dokumenata za popularne zapise dokumenata"
 
-#: ../papers.appdata.xml.in.h:3
+#: ../evince.appdata.xml.in.h:3
 msgid "This is a document viewer for the GNOME desktop."
 msgstr "Ovo je pregledač dokumenata za Gnomovu radnu površ."
 
-#: ../papers.appdata.xml.in.h:4
+#: ../evince.appdata.xml.in.h:4
 msgid ""
 "It supports the following document formats: PDF, PS, EPS, XPS, DjVu, TIFF, "
 "DVI (with SyncTeX), and Comic Books archives (CBR, CBT, CBZ, CB7)."
@@ -1843,33 +1843,33 @@ msgstr ""
 "SinkTeKSom), i arhive stripova (CBR, CBT, CBZ, CB7)."
 
 #~ msgid ""
-#~ "Papers is free software; you can redistribute it and/or modify it under "
+#~ "Evince is free software; you can redistribute it and/or modify it under "
 #~ "the terms of the GNU General Public License as published by the Free "
 #~ "Software Foundation; either version 2 of the License, or (at your option) "
 #~ "any later version.\n"
 #~ msgstr ""
-#~ "Ppsins je slobodan softver; možete ga raspodeljivati i/ili menjati pod "
+#~ "Evins je slobodan softver; možete ga raspodeljivati i/ili menjati pod "
 #~ "uslovima Gnu-ove Opšte javne licence, koju je objavila Zadužbina "
 #~ "slobodnog softvera; bilo verzije 2 te Licence, ili (po vašem mišljenju) "
 #~ "neke novije verzije.\n"
 
 #~ msgid ""
-#~ "Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
+#~ "Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
 #~ "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 #~ "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 #~ "details.\n"
 #~ msgstr ""
-#~ "Ppsins se raspodeljuje u nadi da će biti koristan, ali BEZ IKAKVE "
+#~ "Evins se raspodeljuje u nadi da će biti koristan, ali BEZ IKAKVE "
 #~ "GARANCIJE; čak i bez primenjene garancije TRŽIŠNE VREDNOSTI ili "
 #~ "PRILAGOĐENOSTI ODREĐENOJ NAMENI.  Pogledajte GNU Opštu javnu licencu za "
 #~ "više detalja.\n"
 
 #~ msgid ""
 #~ "You should have received a copy of the GNU General Public License along "
-#~ "with Papers; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "with Evince; if not, write to the Free Software Foundation, Inc., 51 "
 #~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 #~ msgstr ""
-#~ "Trebali ste da dobijete primerak Opšte javne licence uz Ppsins; ako niste, "
+#~ "Trebali ste da dobijete primerak Opšte javne licence uz Evins; ako niste, "
 #~ "pišite Zadužbini slobodnog softvera na adresu: „Free Software Foundation, "
 #~ "Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA“\n"
 

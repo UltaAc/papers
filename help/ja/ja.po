@@ -1,5 +1,5 @@
-# Japanese help translation for papers.
-# Copyright (C) 2012 the Japnese translators of help for papers
+# Japanese help translation for evince.
+# Copyright (C) 2012 the Japnese translators of help for evince
 # This file is distributed under a Creative Commons Attribution-Share Alike
 # 3.0 United States License.
 # Yasumichi Akahoshi <yasumichi@vinelinux.org>, 2012.
@@ -7,7 +7,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: papers/help gnome-3-2\n"
+"Project-Id-Version: evince/help gnome-3-2\n"
 "POT-Creation-Date: 2012-09-12 15:49+0000\n"
 "PO-Revision-Date: 2012-09-13 21:29+0900\n"
 "Last-Translator: Yasumichi Akahoshi <yasumichi@vinelinux.org>\n"
@@ -38,10 +38,10 @@ msgstr ""
 #: C/index.page:6(media)
 msgctxt "_"
 msgid ""
-"external ref='figures/papers-trail.png' "
+"external ref='figures/evince-trail.png' "
 "md5='a1a70d04c37f05937d0b3e7a0705d2d4'"
 msgstr ""
-"external ref='figures/papers-trail.png' "
+"external ref='figures/evince-trail.png' "
 "md5='a1a70d04c37f05937d0b3e7a0705d2d4'"
 
 #. This is a reference to an external file such as an image or video. When
@@ -56,19 +56,19 @@ msgstr ""
 #: C/index.page:23(media)
 msgctxt "_"
 msgid ""
-"external ref='figures/paperslogo.png' md5='a5856135b500d4c4b74a052eef6e09d2'"
+"external ref='figures/evincelogo.png' md5='a5856135b500d4c4b74a052eef6e09d2'"
 msgstr ""
-"external ref='figures/paperslogo.png' md5='a5856135b500d4c4b74a052eef6e09d2'"
+"external ref='figures/evincelogo.png' md5='a5856135b500d4c4b74a052eef6e09d2'"
 
 #: C/index.page:7(info/title)
 msgctxt "link"
-msgid "Papers Document Viewer"
-msgstr "Papers ドキュメントビューアー"
+msgid "Evince Document Viewer"
+msgstr "Evince ドキュメントビューアー"
 
 #: C/index.page:8(info/title)
 msgctxt "text"
-msgid "Papers Document Viewer"
-msgstr "Papers ドキュメントビューアー"
+msgid "Evince Document Viewer"
+msgstr "Evince ドキュメントビューアー"
 
 #: C/index.page:11(credit/name) C/commandline.page:11(credit/name)
 #: C/convertpdf.page:11(credit/name) C/convertPostScript.page:11(credit/name)
@@ -159,11 +159,11 @@ msgstr "Creative Commons Share Alike 3.0"
 
 #: C/index.page:23(page/title)
 msgid ""
-"<media type=\"image\" src=\"figures/paperslogo.png\">Papers logo</"
-"media>Papers document viewer"
+"<media type=\"image\" src=\"figures/evincelogo.png\">Evince logo</"
+"media>Evince document viewer"
 msgstr ""
-"<media type=\"image\" src=\"figures/paperslogo.png\">Papers ロゴ</"
-"media>Papers ドキュメントビューアー"
+"<media type=\"image\" src=\"figures/evincelogo.png\">Evince ロゴ</"
+"media>Evince ドキュメントビューアー"
 
 #: C/index.page:26(section/title)
 msgid "Reading documents"
@@ -558,17 +558,17 @@ msgstr ""
 #: C/bug-filing.page:29(page/p)
 msgid ""
 "Once you have an account, log in, click on <guiseq><gui>File a Bug</"
-"gui><gui>Core</gui><gui>papers</gui></guiseq>. Before reporting a bug, "
+"gui><gui>Core</gui><gui>evince</gui></guiseq>. Before reporting a bug, "
 "please read the <link href=\"https://bugzilla.gnome.org/page.cgi?id=bug-"
 "writing.html\">bug writing guidelines</link>, and please <link href="
-"\"https://bugzilla.gnome.org/browse.cgi?product=papers\">browse</link> for "
+"\"https://bugzilla.gnome.org/browse.cgi?product=evince\">browse</link> for "
 "the bug to see if it already exists."
 msgstr ""
 "アカウントを取得すれば、ログインして、<guiseq><gui>File a Bug</"
-"gui><gui>Core</gui><gui>papers</gui></guiseq> の順にクリックします。バグを報"
+"gui><gui>Core</gui><gui>evince</gui></guiseq> の順にクリックします。バグを報"
 "告する前に <link href=\"https://bugzilla.gnome.org/page.cgi?id=bug-writing."
 "html\">bug writing guidelines</link> を一読いてください。また、<link href="
-"\"https://bugzilla.gnome.org/browse.cgi?product=papers\">browse</link> をク"
+"\"https://bugzilla.gnome.org/browse.cgi?product=evince\">browse</link> をク"
 "リックして、同じバグレポートがすでに存在しないか確認してください。"
 
 #: C/bug-filing.page:33(page/p)
@@ -606,10 +606,10 @@ msgstr "Command line"
 
 #: C/commandline.page:8(info/desc)
 msgid ""
-"The <cmd>papers</cmd> command can open any number of files, at specific "
+"The <cmd>evince</cmd> command can open any number of files, at specific "
 "pages and in various modes."
 msgstr ""
-"<cmd>papers</cmd> コマンドを使えば、任意の複数のファイルを開いたり、指定した"
+"<cmd>evince</cmd> コマンドを使えば、任意の複数のファイルを開いたり、指定した"
 "ページを開いたり、さまざまなモードで開くことができます。"
 
 #: C/commandline.page:23(page/title)
@@ -619,45 +619,45 @@ msgstr "コマンドライン"
 #: C/commandline.page:24(page/p)
 msgid ""
 "To start the <app>Document Viewer</app> from the command line, type "
-"<cmd>papers</cmd>. You can open a specific file by typing the filename after "
-"the papers command:"
+"<cmd>evince</cmd>. You can open a specific file by typing the filename after "
+"the evince command:"
 msgstr ""
 "コマンドラインから<app>ドキュメントビューアー</app>を起動するには、"
-"<cmd>papers</cmd> と入力します。papers コマンドの後ろにファイル名を入力するこ"
+"<cmd>evince</cmd> と入力します。evince コマンドの後ろにファイル名を入力するこ"
 "とにより、指定したファイルを開くことができます。"
 
 #: C/commandline.page:29(page/screen)
 #, no-wrap
-msgid "papers file.pdf"
-msgstr "papers file.pdf"
+msgid "evince file.pdf"
+msgstr "evince file.pdf"
 
 #: C/commandline.page:30(page/p)
 msgid ""
-"You can open multiple files by typing the filenames after the papers "
+"You can open multiple files by typing the filenames after the evince "
 "command, separating the filenames by a space:"
 msgstr ""
-"papers コマンドの後ろに複数のファイル名を空白で区切って入力することにより、複"
+"evince コマンドの後ろに複数のファイル名を空白で区切って入力することにより、複"
 "数のファイルを開くことができます。"
 
 #: C/commandline.page:33(page/screen)
 #, no-wrap
-msgid "papers file1.pdf file2.pdf"
-msgstr "papers file1.pdf file2.pdf"
+msgid "evince file1.pdf file2.pdf"
+msgstr "evince file1.pdf file2.pdf"
 
 #: C/commandline.page:34(page/p)
 msgid ""
 "The <app>document viewer</app> also supports the handling of files on the "
-"web. For example, after the papers command you can give the location of a "
+"web. For example, after the evince command you can give the location of a "
 "file on the web:"
 msgstr ""
 "<app>ドキュメントビューアー</app>は、web 上のファイルの操作もサポートしていま"
-"す。たとえば、papers コマンドの後ろに web 上のファイルの場所を与えることがで"
+"す。たとえば、evince コマンドの後ろに web 上のファイルの場所を与えることがで"
 "きます。"
 
 #: C/commandline.page:37(page/screen)
 #, no-wrap
-msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 
 #: C/commandline.page:39(section/title)
 msgid "Opening a document at a specific page"
@@ -674,8 +674,8 @@ msgstr ""
 
 #: C/commandline.page:44(section/screen)
 #, no-wrap
-msgid "papers --page-label=3 file.pdf"
-msgstr "papers --page-label=3 file.pdf"
+msgid "evince --page-label=3 file.pdf"
+msgstr "evince --page-label=3 file.pdf"
 
 #: C/commandline.page:45(section/p)
 msgid ""
@@ -691,8 +691,8 @@ msgstr "フルスクリーンモードでドキュメントを開く"
 
 #: C/commandline.page:52(section/screen)
 #, no-wrap
-msgid "papers --fullscreen file.pdf"
-msgstr "papers --fullscreen file.pdf"
+msgid "evince --fullscreen file.pdf"
+msgstr "evince --fullscreen file.pdf"
 
 #: C/commandline.page:55(section/title)
 msgid "Opening a document in presentation mode"
@@ -700,8 +700,8 @@ msgstr "プレゼンテーションモードでドキュメントを開く"
 
 #: C/commandline.page:56(section/screen)
 #, no-wrap
-msgid "papers --presentation file.pdf"
-msgstr "papers --presentation file.pdf"
+msgid "evince --presentation file.pdf"
+msgstr "evince --presentation file.pdf"
 
 #: C/commandline.page:59(section/title)
 msgid "Opening a document in preview mode"
@@ -709,8 +709,8 @@ msgstr "プレビューモードでドキュメントを開く"
 
 #: C/commandline.page:60(section/screen)
 #, no-wrap
-msgid "papers --preview file.pdf"
-msgstr "papers --preview file.pdf"
+msgid "evince --preview file.pdf"
+msgstr "evince --preview file.pdf"
 
 #: C/convertpdf.page:7(info/desc)
 msgid "You can convert a document to PDF by \"printing\" it to a file."
@@ -898,16 +898,16 @@ msgstr ""
 
 #: C/develop.page:23(page/p)
 msgid ""
-"If you would like to <link href=\"https://live.gnome.org/Papers\">help "
+"If you would like to <link href=\"https://live.gnome.org/Evince\">help "
 "develop</link> the <app>Document Viewer</app>, you can get in touch with the "
 "developers using <link href=\"https://cbe005.chat.mibbit.com/?url=irc%3A%2F"
-"%2Firc.gnome.org%2Fpapers\">irc</link>, or via our <link href=\"https://mail."
-"gnome.org/mailman/listinfo/papers-list\">mailing list</link>."
+"%2Firc.gnome.org%2Fevince\">irc</link>, or via our <link href=\"https://mail."
+"gnome.org/mailman/listinfo/evince-list\">mailing list</link>."
 msgstr ""
-"<app>ドキュメントビューアー</app>の<link href=\"https://live.gnome.org/Papers"
+"<app>ドキュメントビューアー</app>の<link href=\"https://live.gnome.org/Evince"
 "\">開発を援助</link>したい場合、<link href=\"https://cbe005.chat.mibbit.com/?"
-"url=irc%3A%2F%2Firc.gnome.org%2Fpapers\">irc</link> や<link href=\"https://"
-"mail.gnome.org/mailman/listinfo/papers-list\">メーリングリスト</link>を使って"
+"url=irc%3A%2F%2Firc.gnome.org%2Fevince\">irc</link> や<link href=\"https://"
+"mail.gnome.org/mailman/listinfo/evince-list\">メーリングリスト</link>を使って"
 "開発者に接触することができます。"
 
 #: C/documentation.page:7(info/desc)
@@ -1982,8 +1982,8 @@ msgid "Copies of encrypted files can't be saved or printed."
 msgstr "暗号化されたファイルのコピーは、保存や印刷ができません。"
 
 #: C/introduction.page:7(info/desc)
-msgid "Introduction to the <em>Papers Document Viewer</em>."
-msgstr "<em>Papers ドキュメントビューアー</em>の紹介です。"
+msgid "Introduction to the <em>Evince Document Viewer</em>."
+msgstr "<em>Evince ドキュメントビューアー</em>の紹介です。"
 
 #: C/introduction.page:20(page/title)
 msgid "Introduction"
@@ -1991,10 +1991,10 @@ msgstr "はじめに"
 
 #: C/introduction.page:25(page/p)
 msgid ""
-"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
+"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
-"<app>Papers</app> は、ドキュメントビューアーです。閲覧できるファイルの種類に"
+"<app>Evince</app> は、ドキュメントビューアーです。閲覧できるファイルの種類に"
 "ついては、<link xref=\"formats\"/>を参照してください。"
 
 #: C/invert-colors.page:8(info/desc)
@@ -2509,8 +2509,8 @@ msgstr ""
 "リックします。Configuration Editor が開きます。"
 
 #: C/noprint.page:76(item/p)
-msgid "Browse to <sys>/org/gnome/papers</sys> using the side pane."
-msgstr "サイドペインから <sys>/org/gnome/papers</sys> を表示します。"
+msgid "Browse to <sys>/org/gnome/evince</sys> using the side pane."
+msgstr "サイドペインから <sys>/org/gnome/evince</sys> を表示します。"
 
 #: C/noprint.page:78(item/p)
 msgid "Make sure that the <gui>override_restrictions</gui> option is checked."
@@ -3404,7 +3404,7 @@ msgstr ""
 #: C/singlesided-5-8pages.page:97(item/p)
 #: C/singlesided-9-12pages.page:97(item/p)
 #: C/singlesided-npages.page:104(item/p)
-msgid "In the <gui>Only print</gui> menu, select <gui>Ppsen sheets</gui>."
+msgid "In the <gui>Only print</gui> menu, select <gui>Even sheets</gui>."
 msgstr ""
 "<gui>印刷の対象</gui>というオプションで<gui>偶数ページ</gui>を選択します。"
 
@@ -3659,22 +3659,22 @@ msgstr "Vim-latex"
 
 #: C/synctex-editors.page:29(section/p)
 msgid ""
-"The <app>gedit</app> plugin contains a python script (papers_dbus.py) that "
+"The <app>gedit</app> plugin contains a python script (evince_dbus.py) that "
 "can be used to get SyncTeX working with Vim. In order to use vim-latex "
 "together with the <app>document viewer</app> you need to follow the next "
 "steps:"
 msgstr ""
 "<app>gedit</app> プラグインには、Vim で SyncTeX を機能させるのに利用できる "
-"python スクリプト (papers_dbus.py) が含まれています。vim-latex と<app>ドキュ"
+"python スクリプト (evince_dbus.py) が含まれています。vim-latex と<app>ドキュ"
 "メントビューアー</app>を連携できるようにするには、以下の手順を踏む必要があり"
 "ます。"
 
 #: C/synctex-editors.page:35(item/p)
 msgid ""
-"Copy the papers_dbus.py to some directory in your path and give it +x "
+"Copy the evince_dbus.py to some directory in your path and give it +x "
 "permissions."
 msgstr ""
-"パスが通る任意のフォルダーに papers_dbus.py をコピーし、実行権を与えます。"
+"パスが通る任意のフォルダーに evince_dbus.py をコピーし、実行権を与えます。"
 
 #: C/synctex-editors.page:41(item/p)
 msgid "Modify your ~/.vimrc file and add the following lines."
@@ -3684,12 +3684,12 @@ msgstr "~/.vimrc というファイルを編集し、以下の行を追加しま
 #, no-wrap
 msgid ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 msgstr ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 
@@ -3941,10 +3941,10 @@ msgstr ""
 #: C/toolbar.page:30(media)
 msgctxt "_"
 msgid ""
-"external ref='figures/papers-toolbar-default.png' "
+"external ref='figures/evince-toolbar-default.png' "
 "md5='2a826732c770c08b11684e28e259bb31'"
 msgstr ""
-"external ref='figures/papers-toolbar-default.png' "
+"external ref='figures/evince-toolbar-default.png' "
 "md5='cd4b35783442d4301d601dabd5abbda8'"
 
 #. This is a reference to an external file such as an image or video. When
@@ -3954,10 +3954,10 @@ msgstr ""
 #: C/toolbar.page:51(media)
 msgctxt "_"
 msgid ""
-"external ref='figures/papers-toolbar-editor.png' "
+"external ref='figures/evince-toolbar-editor.png' "
 "md5='e6c66f764c39ab5ba01441d970425cd9'"
 msgstr ""
-"external ref='figures/papers-toolbar-editor.png' "
+"external ref='figures/evince-toolbar-editor.png' "
 "md5='40466bf5e5549bd8918ad15e2239fc42'"
 
 #: C/toolbar.page:7(info/desc)
@@ -4090,10 +4090,10 @@ msgstr ""
 
 #: C/translate.page:27(page/p)
 msgid ""
-"There are <link href=\"http://l10n.gnome.org/module/papers/\">many "
+"There are <link href=\"http://l10n.gnome.org/module/evince/\">many "
 "languages</link> for which translations are still needed."
 msgstr ""
-"まだ翻訳を必要としている<link href=\"http://l10n.gnome.org/module/papers/\">"
+"まだ翻訳を必要としている<link href=\"http://l10n.gnome.org/module/evince/\">"
 "多くの言語</link>があります。"
 
 #: C/translate.page:30(page/p)

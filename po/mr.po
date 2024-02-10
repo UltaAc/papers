@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=papers&keywords=I18N+L10N&component=general\n"
+"product=evince&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2014-09-14 15:41+0000\n"
 "PO-Revision-Date: 2014-09-15 09:19+0530\n"
 "Last-Translator: Sandeep Shedmake <sshedmak@redhat.com>\n"
@@ -71,12 +71,12 @@ msgstr "“%s” नष्ट करतेवेळी त्रुटी आढ
 msgid "Error %s"
 msgstr "त्रुटी %s"
 
-#: ../backend/comics/comicsdocument.papers-backend.in.in.h:1
-#: ../backend/comics/papers-comicsdocument.metainfo.xml.in.in.h:1
+#: ../backend/comics/comicsdocument.evince-backend.in.in.h:1
+#: ../backend/comics/evince-comicsdocument.metainfo.xml.in.in.h:1
 msgid "Comic Books"
 msgstr "चित्राक्षर पुस्तक"
 
-#: ../backend/comics/papers-comicsdocument.metainfo.xml.in.in.h:2
+#: ../backend/comics/evince-comicsdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading comic books"
 msgstr "कॉमिक पुस्तके वाचण्याकरिता समर्थन समाविष्ट करते"
 
@@ -92,12 +92,12 @@ msgstr ""
 "दस्तऐवजात अनेक फाइल्स् समाविष्टीत आहे. एक किंवा त्यापेक्षा जास्त फाइल्स् "
 "करीता प्रवेश अशक्य."
 
-#: ../backend/djvu/djvudocument.papers-backend.in.in.h:1
-#: ../backend/djvu/papers-djvudocument.metainfo.xml.in.in.h:1
+#: ../backend/djvu/djvudocument.evince-backend.in.in.h:1
+#: ../backend/djvu/evince-djvudocument.metainfo.xml.in.in.h:1
 msgid "DjVu Documents"
 msgstr "DjVu दस्तऐवज"
 
-#: ../backend/djvu/papers-djvudocument.metainfo.xml.in.in.h:2
+#: ../backend/djvu/evince-djvudocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading DjVu documents"
 msgstr "DjVu दस्तऐवज वाचण्याकरिता समर्थन समाविष्ट करते"
 
@@ -105,62 +105,62 @@ msgstr "DjVu दस्तऐवज वाचण्याकरिता सम�
 msgid "DVI document has incorrect format"
 msgstr "DVI दस्तऐवजाची रचना चुक आहे"
 
-#: ../backend/dvi/dvidocument.papers-backend.in.in.h:1
-#: ../backend/dvi/papers-dvidocument.metainfo.xml.in.in.h:1
+#: ../backend/dvi/dvidocument.evince-backend.in.in.h:1
+#: ../backend/dvi/evince-dvidocument.metainfo.xml.in.in.h:1
 msgid "DVI Documents"
 msgstr "DVI दस्तऐवज"
 
-#: ../backend/dvi/papers-dvidocument.metainfo.xml.in.in.h:2
+#: ../backend/dvi/evince-dvidocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading DVI documents"
 msgstr "DVI दस्तऐवज वाचण्याकरिता समर्थन समाविष्ट करते"
 
-#: ../backend/pdf/pps-poppler.cc:673
+#: ../backend/pdf/ev-poppler.cc:673
 msgid "This work is in the Public Domain"
 msgstr "हे कार्य पब्लिक डोमैनवर आहे"
 
 #. translators: this is the document security state
-#: ../backend/pdf/pps-poppler.cc:929 ../backend/pdf/pps-poppler.cc:935
+#: ../backend/pdf/ev-poppler.cc:929 ../backend/pdf/ev-poppler.cc:935
 msgid "Yes"
 msgstr "होय"
 
 #. translators: this is the document security state
-#: ../backend/pdf/pps-poppler.cc:932 ../backend/pdf/pps-poppler.cc:935
+#: ../backend/pdf/ev-poppler.cc:932 ../backend/pdf/ev-poppler.cc:935
 msgid "No"
 msgstr "नाही"
 
-#: ../backend/pdf/pps-poppler.cc:1066
+#: ../backend/pdf/ev-poppler.cc:1066
 msgid "Type 1"
 msgstr "प्रकार 1"
 
-#: ../backend/pdf/pps-poppler.cc:1068
+#: ../backend/pdf/ev-poppler.cc:1068
 msgid "Type 1C"
 msgstr "प्रकार 1C"
 
-#: ../backend/pdf/pps-poppler.cc:1070
+#: ../backend/pdf/ev-poppler.cc:1070
 msgid "Type 3"
 msgstr "प्रकार 3"
 
-#: ../backend/pdf/pps-poppler.cc:1072
+#: ../backend/pdf/ev-poppler.cc:1072
 msgid "TrueType"
 msgstr "TrueType"
 
-#: ../backend/pdf/pps-poppler.cc:1074
+#: ../backend/pdf/ev-poppler.cc:1074
 msgid "Type 1 (CID)"
 msgstr "प्रकार 1 (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1076
+#: ../backend/pdf/ev-poppler.cc:1076
 msgid "Type 1C (CID)"
 msgstr "प्रकार 1C (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1078
+#: ../backend/pdf/ev-poppler.cc:1078
 msgid "TrueType (CID)"
 msgstr "TrueType (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1080
+#: ../backend/pdf/ev-poppler.cc:1080
 msgid "Unknown font type"
 msgstr "अपरिचीत फाँटचा प्रकार"
 
-#: ../backend/pdf/pps-poppler.cc:1124
+#: ../backend/pdf/ev-poppler.cc:1124
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
@@ -172,11 +172,11 @@ msgstr ""
 "फाँट्सप्रमाणे नसल्यास, "
 "रेंडरिंग अयोग्य होऊ शकते."
 
-#: ../backend/pdf/pps-poppler.cc:1129
+#: ../backend/pdf/ev-poppler.cc:1129
 msgid "All fonts are either standard or embedded."
 msgstr "सर्व फाँट्स एकतर मानक किंवा एम्बेडेड आहेत."
 
-#: ../backend/pdf/pps-poppler.cc:1161
+#: ../backend/pdf/ev-poppler.cc:1161
 msgid "No name"
 msgstr "नाव नाही"
 
@@ -190,20 +190,20 @@ msgstr "नाव नाही"
 #. Author: None
 #. Keywords: None
 #.
-#: ../backend/pdf/pps-poppler.cc:1170 ../libview/pps-print-operation.c:1967
-#: ../properties/pps-properties-view.c:192
+#: ../backend/pdf/ev-poppler.cc:1170 ../libview/ev-print-operation.c:1967
+#: ../properties/ev-properties-view.c:192
 msgid "None"
 msgstr "काही नाही"
 
-#: ../backend/pdf/pps-poppler.cc:1178
+#: ../backend/pdf/ev-poppler.cc:1178
 msgid "Embedded subset"
 msgstr "एंबेडेड उपसमूह"
 
-#: ../backend/pdf/pps-poppler.cc:1180
+#: ../backend/pdf/ev-poppler.cc:1180
 msgid "Embedded"
 msgstr "एंबेडेड"
 
-#: ../backend/pdf/pps-poppler.cc:1182
+#: ../backend/pdf/ev-poppler.cc:1182
 msgid "Not embedded"
 msgstr "एंबेडेड नसलेले"
 
@@ -212,7 +212,7 @@ msgstr "एंबेडेड नसलेले"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: ../backend/pdf/pps-poppler.cc:1189
+#: ../backend/pdf/ev-poppler.cc:1189
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (मानक १४ फाँट्सपैकी एक)"
 
@@ -221,43 +221,43 @@ msgstr " (मानक १४ फाँट्सपैकी एक)"
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: ../backend/pdf/pps-poppler.cc:1196
+#: ../backend/pdf/ev-poppler.cc:1196
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (मानक १४ फाँट्सप्रमाणे नाही)"
 
-#: ../backend/pdf/pps-poppler.cc:1203
+#: ../backend/pdf/ev-poppler.cc:1203
 msgid "Encoding"
 msgstr "एंकोडिंग"
 
-#: ../backend/pdf/pps-poppler.cc:1204
+#: ../backend/pdf/ev-poppler.cc:1204
 msgid "Substituting with"
 msgstr "यासह अदलाबदल करत आहे"
 
-#: ../backend/pdf/papers-pdfdocument.metainfo.xml.in.in.h:1
-#: ../backend/pdf/pdfdocument.papers-backend.in.in.h:1
+#: ../backend/pdf/evince-pdfdocument.metainfo.xml.in.in.h:1
+#: ../backend/pdf/pdfdocument.evince-backend.in.in.h:1
 msgid "PDF Documents"
 msgstr "PDF दस्तऐवज"
 
-#: ../backend/pdf/papers-pdfdocument.metainfo.xml.in.in.h:2
+#: ../backend/pdf/evince-pdfdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading PDF Documents"
 msgstr "PDF दस्तऐवज वाचण्याकरिता समर्थन समाविष्ट करते"
 
-#: ../backend/ps/pps-spectre.c:98
+#: ../backend/ps/ev-spectre.c:98
 #, c-format
 msgid "Failed to load document “%s”"
 msgstr "“%s” दस्तऐवज वाचण्यास असमर्थ"
 
-#: ../backend/ps/pps-spectre.c:131
+#: ../backend/ps/ev-spectre.c:131
 #, c-format
 msgid "Failed to save document “%s”"
 msgstr "“%s” दस्तऐवज संचयीत करण्यास अपयशी"
 
-#: ../backend/ps/papers-psdocument.metainfo.xml.in.in.h:1
-#: ../backend/ps/psdocument.papers-backend.in.in.h:1
+#: ../backend/ps/evince-psdocument.metainfo.xml.in.in.h:1
+#: ../backend/ps/psdocument.evince-backend.in.in.h:1
 msgid "PostScript Documents"
 msgstr "पोस्टस्क्रिप्ट दस्तऐवज"
 
-#: ../backend/ps/papers-psdocument.metainfo.xml.in.in.h:2
+#: ../backend/ps/evince-psdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading PostScript documents"
 msgstr "PostScript दस्तऐवज वाचण्याकरिता समर्थन समाविष्ट करते"
 
@@ -265,135 +265,135 @@ msgstr "PostScript दस्तऐवज वाचण्याकरिता �
 msgid "Invalid document"
 msgstr "अवैध दस्तऐवज"
 
-#: ../backend/tiff/papers-tiffdocument.metainfo.xml.in.in.h:1
-#: ../backend/tiff/tiffdocument.papers-backend.in.in.h:1
+#: ../backend/tiff/evince-tiffdocument.metainfo.xml.in.in.h:1
+#: ../backend/tiff/tiffdocument.evince-backend.in.in.h:1
 msgid "TIFF Documents"
 msgstr "TIFF दस्तऐवज"
 
-#: ../backend/tiff/papers-tiffdocument.metainfo.xml.in.in.h:2
+#: ../backend/tiff/evince-tiffdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading TIFF documents"
 msgstr "TIFF दस्तऐवज वाचण्याकरिता समर्थन समाविष्ट करते"
 
-#: ../backend/xps/papers-xpsdocument.metainfo.xml.in.in.h:1
-#: ../backend/xps/xpsdocument.papers-backend.in.in.h:1
+#: ../backend/xps/evince-xpsdocument.metainfo.xml.in.in.h:1
+#: ../backend/xps/xpsdocument.evince-backend.in.in.h:1
 msgid "XPS Documents"
 msgstr "XPS दस्तऐवज"
 
-#: ../backend/xps/papers-xpsdocument.metainfo.xml.in.in.h:2
+#: ../backend/xps/evince-xpsdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading XPS documents"
 msgstr "XPS दस्तऐवज वाचण्याकरिता समर्थन समाविष्ट करते"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:230
-#: ../previewer/pps-previewer-window.c:317 ../shell/papers-menus.ui.h:32
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:230
+#: ../previewer/ev-previewer-window.c:317 ../shell/evince-menus.ui.h:32
 msgid "Fit Pa_ge"
 msgstr "पानात बसवा (_g)"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:239
-#: ../previewer/pps-previewer-window.c:320 ../shell/papers-menus.ui.h:33
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:239
+#: ../previewer/ev-previewer-window.c:320 ../shell/evince-menus.ui.h:33
 msgid "Fit _Width"
 msgstr "रुंदीत बसवा (_W)"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:248
-#: ../shell/papers-menus.ui.h:34
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:248
+#: ../shell/evince-menus.ui.h:34
 msgid "_Automatic"
 msgstr "स्व (_A)"
 
 #. Navigation buttons
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:273
-#: ../previewer/pps-previewer-window.c:271
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:273
+#: ../previewer/ev-previewer-window.c:271
 msgid "Go to the previous page"
 msgstr "मागील पानावर जा"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:277
-#: ../previewer/pps-previewer-window.c:274
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:277
+#: ../previewer/ev-previewer-window.c:274
 msgid "Go to the next page"
 msgstr "पुढील पानावर जा"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:312
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:312
 msgid "Show the entire document"
 msgstr "संपूर्ण दस्तऐवज दाखवा"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:320
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:320
 msgid "Show two pages at once"
 msgstr "एकाचवेळी दोन पाने दाखवा"
 
 # msgstr "दस्तावेज मोठे करुन दर्शवा"
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:342
-#: ../previewer/pps-previewer-window.c:277
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:342
+#: ../previewer/ev-previewer-window.c:277
 msgid "Enlarge the document"
 msgstr "दस्तऐवज मोठे करा"
 
 # msgstr "दस्तावेज आखूड करुन दर्शवा"
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:346
-#: ../previewer/pps-previewer-window.c:280
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:346
+#: ../previewer/ev-previewer-window.c:280
 msgid "Shrink the document"
 msgstr "दस्तऐवज आखूड करा"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:368
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:368
 #| msgid "Downloading document (%d%%)"
 msgid "Download document"
 msgstr "दस्तऐवज डाऊनलोड करा"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:381
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:381
 #| msgid "Print this document"
 msgid "Print document"
 msgstr "दस्तऐवजाची छपाई करा"
 
 #. Manually set name and icon
-#: ../data/papers.desktop.in.in.h:1 ../shell/pps-application.c:1029
-#: ../shell/pps-window-title.c:139 ../shell/main.c:298
+#: ../data/evince.desktop.in.in.h:1 ../shell/ev-application.c:1029
+#: ../shell/ev-window-title.c:139 ../shell/main.c:298
 msgid "Document Viewer"
 msgstr "दस्तऐवज दर्शक"
 
-#: ../data/papers.desktop.in.in.h:2
+#: ../data/evince.desktop.in.in.h:2
 msgid "View multi-page documents"
 msgstr "अनेक-पाने दस्तऐवजांचे दृष्य"
 
-#: ../data/papers.desktop.in.in.h:3
+#: ../data/evince.desktop.in.in.h:3
 msgid "pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;"
 msgstr "pdf;ps;पोस्टस्क्रिप्ट;dvi;xps;djvu;tiff;डॉक्युमेंट;प्रेजेंटेशन;"
 
-#: ../data/papers-previewer.desktop.in.in.h:1
+#: ../data/evince-previewer.desktop.in.in.h:1
 msgid "Print Preview"
 msgstr "छपाई पूर्वावलोकन"
 
-#: ../data/papers-previewer.desktop.in.in.h:2
+#: ../data/evince-previewer.desktop.in.in.h:2
 msgid "Preview before printing"
 msgstr "छपाईपूर्वी अवलोकन"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:1
+#: ../data/org.gnome.Evince.gschema.xml.in.h:1
 msgid "Override document restrictions"
 msgstr "दस्तऐवजावरील निर्बंध झुगारुन टाका"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:2
+#: ../data/org.gnome.Evince.gschema.xml.in.h:2
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr ""
 "प्रत तयार करणे अथवा मुद्रण करण्याप्रमाणेच दस्तऐवजावरील निर्बंध झुगारुन टाका."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:3
+#: ../data/org.gnome.Evince.gschema.xml.in.h:3
 msgid "Automatically reload the document"
 msgstr "स्वयंरित्या दस्तऐवज पुनःलोड करा"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:4
+#: ../data/org.gnome.Evince.gschema.xml.in.h:4
 msgid "The document is automatically reloaded on file change."
 msgstr "फाइल बदल झाल्यावर दस्तऐवज स्वयंरित्या पुनःलोड केले जाते."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:5
+#: ../data/org.gnome.Evince.gschema.xml.in.h:5
 msgid "The URI of the directory last used to open or save a document"
 msgstr ""
 "दस्तऐवज उघडणे किंवा साठवण्याकरीता वापरण्याजोगी शेवटच्यावेळी वापरलेल्या "
 "डिरेक्ट्रीचे URI"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:6
+#: ../data/org.gnome.Evince.gschema.xml.in.h:6
 msgid "The URI of the directory last used to save a picture"
 msgstr ""
 "छायाचित्र साठवण्याकरीता वापरण्याजोगी शेवटच्यावेळी वापरलेल्या डिरेक्ट्रीचे URI"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:7
+#: ../data/org.gnome.Evince.gschema.xml.in.h:7
 msgid "Page cache size in MiB"
 msgstr "MiB मधील पेज कॅशे आकार"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:8
+#: ../data/org.gnome.Evince.gschema.xml.in.h:8
 msgid ""
 "The maximum size that will be used to cache rendered pages, limits maximum "
 "zoom level."
@@ -401,148 +401,148 @@ msgstr ""
 "कमाल आकार ज्याचा वापर रेंडर केलेल्या पृष्ठांना कॅशे करण्यासाठी वापरले जाईल, "
 "कमाल मोठे किंवा लहान करा स्तरकरिता मर्यादीत."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:9
+#: ../data/org.gnome.Evince.gschema.xml.in.h:9
 msgid ""
 "Show a dialog to confirm that the user wants to activate the caret "
 "navigation."
 msgstr ""
 "वापकर्त्यांना कॅरेट संरचना सुरू करायचे आहे असे खात्री पुरवणारे एक संवाद दाखवा."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:10
+#: ../data/org.gnome.Evince.gschema.xml.in.h:10
 #| msgid "Adjust the zoom level"
 msgid "Allow links to change the zoom level."
 msgstr "झूम स्तर बदलवण्याकरिता दुवा स्वीकारा."
 
-#: ../libdocument/pps-attachment.c:310 ../libdocument/pps-attachment.c:331
+#: ../libdocument/ev-attachment.c:310 ../libdocument/ev-attachment.c:331
 #, c-format
 msgid "Couldn't save attachment “%s”: %s"
 msgstr "जोडणी “%s” संग्रहीत करु शकत नाही: %s"
 
-#: ../libdocument/pps-attachment.c:379
+#: ../libdocument/ev-attachment.c:379
 #, c-format
 msgid "Couldn't open attachment “%s”: %s"
 msgstr "जोडणी “%s” उघडू शकत नाही: %s"
 
-#: ../libdocument/pps-attachment.c:414
+#: ../libdocument/ev-attachment.c:414
 #, c-format
 msgid "Couldn't open attachment “%s”"
 msgstr "जोडणी “%s” उघडू शकत नाही"
 
-#: ../libdocument/pps-document-factory.c:101
+#: ../libdocument/ev-document-factory.c:101
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "फाइल प्रकार %s (%s) समर्थीत नाही"
 
-#: ../libdocument/pps-document-factory.c:364
-#: ../libdocument/pps-file-helpers.c:491 ../libdocument/pps-file-helpers.c:537
-#: ../libdocument/pps-file-helpers.c:556
+#: ../libdocument/ev-document-factory.c:364
+#: ../libdocument/ev-file-helpers.c:491 ../libdocument/ev-file-helpers.c:537
+#: ../libdocument/ev-file-helpers.c:556
 msgid "Unknown MIME Type"
 msgstr "अपरिचीत MIME प्रकार"
 
-#: ../libdocument/pps-document-factory.c:552
+#: ../libdocument/ev-document-factory.c:552
 msgid "All Documents"
 msgstr "सर्व दस्तऐवज"
 
-#: ../libdocument/pps-document-factory.c:579 ../shell/pps-utils.c:309
+#: ../libdocument/ev-document-factory.c:579 ../shell/ev-utils.c:309
 msgid "All Files"
 msgstr "सर्व फाइल्स"
 
-#: ../libdocument/pps-file-helpers.c:147
+#: ../libdocument/ev-file-helpers.c:147
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "तात्पुर्ती फाइल निर्माण करण्यास अपयशी: %s"
 
-#: ../libdocument/pps-file-helpers.c:309
+#: ../libdocument/ev-file-helpers.c:309
 #, c-format
 msgid "Failed to create a temporary directory: %s"
 msgstr "तात्पुर्ती डिरेक्ट्री निर्माण करण्यास अपयशी: %s"
 
-#: ../libmisc/pps-page-action-widget.c:84
-#: ../libmisc/pps-page-action-widget.c:123
+#: ../libmisc/ev-page-action-widget.c:84
+#: ../libmisc/ev-page-action-widget.c:123
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%d पैकी %d)"
 
-#: ../libmisc/pps-page-action-widget.c:86
-#: ../libmisc/pps-page-action-widget.c:127
+#: ../libmisc/ev-page-action-widget.c:86
+#: ../libmisc/ev-page-action-widget.c:127
 #, c-format
 msgid "of %d"
 msgstr "चा %d"
 
-#: ../libmisc/pps-page-action-widget.c:185 ../shell/pps-history.c:426
-#: ../shell/pps-sidebar-bookmarks.c:295 ../shell/pps-window.c:904
-#: ../shell/pps-window.c:4708
+#: ../libmisc/ev-page-action-widget.c:185 ../shell/ev-history.c:426
+#: ../shell/ev-sidebar-bookmarks.c:295 ../shell/ev-window.c:904
+#: ../shell/ev-window.c:4708
 #, c-format
 msgid "Page %s"
 msgstr "पान %s"
 
-#: ../libview/pps-jobs.c:1997
+#: ../libview/ev-jobs.c:1997
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "पान %d ची छपाई करण्यास अपयशी: %s"
 
 #. Initial state
-#: ../libview/pps-print-operation.c:350
+#: ../libview/ev-print-operation.c:350
 #| msgid "Preparing to print…"
 msgid "Preparing preview…"
 msgstr "पूर्वावलोकन तयार करणे…"
 
-#: ../libview/pps-print-operation.c:352 ../libview/pps-print-operation.c:362
+#: ../libview/ev-print-operation.c:352 ../libview/ev-print-operation.c:362
 msgid "Finishing…"
 msgstr "समाप्त होत आहे…"
 
-#: ../libview/pps-print-operation.c:354
+#: ../libview/ev-print-operation.c:354
 #, c-format
 #| msgid "Printing page %d of %d…"
 msgid "Generating preview: page %d of %d"
 msgstr "पूर्वावलोकनचे निर्माण : पृष्ठ %d पैकी %d"
 
 #. Initial state
-#: ../libview/pps-print-operation.c:360
+#: ../libview/ev-print-operation.c:360
 msgid "Preparing to print…"
 msgstr "छपाईकरीता तयारी करत आहे…"
 
-#: ../libview/pps-print-operation.c:364
+#: ../libview/ev-print-operation.c:364
 #, c-format
 msgid "Printing page %d of %d…"
 msgstr "%d पैकी %d पानांची छपाई करत आहे…"
 
-#: ../libview/pps-print-operation.c:1214
+#: ../libview/ev-print-operation.c:1214
 #| msgid "Postscript is not supported by this printer."
 msgid "Requested format is not supported by this printer."
 msgstr "या छपाईयंत्रतर्फे विनंतीकृत रूपण समर्थीत नाही."
 
-#: ../libview/pps-print-operation.c:1277
+#: ../libview/ev-print-operation.c:1277
 msgid "Invalid page selection"
 msgstr "अवैध पान नीवड"
 
-#: ../libview/pps-print-operation.c:1278
+#: ../libview/ev-print-operation.c:1278
 msgid "Warning"
 msgstr "सावधानता"
 
-#: ../libview/pps-print-operation.c:1280
+#: ../libview/ev-print-operation.c:1280
 msgid "Your print range selection does not include any pages"
 msgstr "तुमच्या छपाई व्याप्ती नीवडमध्ये पाने समाविष्टीत नाही"
 
 #. translators: Title of the print dialog
 #. translators: Print document currently shown in the Print Preview window
-#: ../libview/pps-print-operation.c:1358 ../previewer/pps-previewer-window.c:284
+#: ../libview/ev-print-operation.c:1358 ../previewer/ev-previewer-window.c:284
 msgid "Print"
 msgstr "मुद्रण"
 
-#: ../libview/pps-print-operation.c:1961
+#: ../libview/ev-print-operation.c:1961
 msgid "Page Scaling:"
 msgstr "पानाचे आकार बदल:"
 
-#: ../libview/pps-print-operation.c:1968
+#: ../libview/ev-print-operation.c:1968
 msgid "Shrink to Printable Area"
 msgstr "छपाईजोगी क्षेत्रकरीता संकुचन करा"
 
-#: ../libview/pps-print-operation.c:1969
+#: ../libview/ev-print-operation.c:1969
 msgid "Fit to Printable Area"
 msgstr "छपाईजोगी क्षेत्रात बसवा"
 
-#: ../libview/pps-print-operation.c:1972
+#: ../libview/ev-print-operation.c:1972
 msgid ""
 "Scale document pages to fit the selected printer page. Select from one of "
 "the following:\n"
@@ -567,11 +567,11 @@ msgstr ""
 "• \"Fit to Printable Area\": छपाईयंत्र पानाला छपाईजोगी क्षेत्रात बसवण्याकरीता "
 "दस्तऐवज पानांचे आकार आवश्यकताप्रमाणे मोठे किंवा लहान केले जातात.\n"
 
-#: ../libview/pps-print-operation.c:1984
+#: ../libview/ev-print-operation.c:1984
 msgid "Auto Rotate and Center"
 msgstr "स्वयं फिरवा व मध्यभागी आणा"
 
-#: ../libview/pps-print-operation.c:1987
+#: ../libview/ev-print-operation.c:1987
 msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
@@ -580,11 +580,11 @@ msgstr ""
 "पाने "
 "छपाईयंत्र पानाच्या मध्यभागी स्थीत होतील."
 
-#: ../libview/pps-print-operation.c:1992
+#: ../libview/ev-print-operation.c:1992
 msgid "Select page size using document page size"
 msgstr "दस्तऐवज पान आकाराचा वापर करून पान आकार नीवडा"
 
-#: ../libview/pps-print-operation.c:1994
+#: ../libview/ev-print-operation.c:1994
 msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
@@ -592,193 +592,193 @@ msgstr ""
 "सुरू केल्यावर, प्रत्येक पानाची छपाई दस्तऐवज पानप्रमाणेच समान पेपरचे आकारावर "
 "केले जाईल."
 
-#: ../libview/pps-print-operation.c:2094
+#: ../libview/ev-print-operation.c:2094
 msgid "Page Handling"
 msgstr "पानाची हाताळणी"
 
-#: ../libview/pps-view-accessible.c:43
+#: ../libview/ev-view-accessible.c:43
 msgid "Scroll Up"
 msgstr "वर सरकवा"
 
-#: ../libview/pps-view-accessible.c:44
+#: ../libview/ev-view-accessible.c:44
 msgid "Scroll Down"
 msgstr "खाली सरकवा"
 
-#: ../libview/pps-view-accessible.c:50
+#: ../libview/ev-view-accessible.c:50
 msgid "Scroll View Up"
 msgstr "दृश्य वर सरकवा"
 
-#: ../libview/pps-view-accessible.c:51
+#: ../libview/ev-view-accessible.c:51
 msgid "Scroll View Down"
 msgstr "दृश्य खाली सरकवा"
 
-#: ../libview/pps-view-accessible.c:129
+#: ../libview/ev-view-accessible.c:129
 msgid "Document View"
 msgstr "दस्तऐवज"
 
-#: ../libview/pps-view.c:1994
+#: ../libview/ev-view.c:1994
 msgid "Go to first page"
 msgstr "पहील्या पानावर जा"
 
-#: ../libview/pps-view.c:1996
+#: ../libview/ev-view.c:1996
 msgid "Go to previous page"
 msgstr "मागील पानावर जा"
 
-#: ../libview/pps-view.c:1998
+#: ../libview/ev-view.c:1998
 msgid "Go to next page"
 msgstr "पुढील पानावर जा"
 
-#: ../libview/pps-view.c:2000
+#: ../libview/ev-view.c:2000
 msgid "Go to last page"
 msgstr "शेवटल्या पानावर जा"
 
-#: ../libview/pps-view.c:2002
+#: ../libview/ev-view.c:2002
 msgid "Go to page"
 msgstr "पानावर जा"
 
-#: ../libview/pps-view.c:2004
+#: ../libview/ev-view.c:2004
 msgid "Find"
 msgstr "शोधा"
 
-#: ../libview/pps-view.c:2032
+#: ../libview/ev-view.c:2032
 #, c-format
 msgid "Go to page %s"
 msgstr "%s पानावर जा"
 
-#: ../libview/pps-view.c:2038
+#: ../libview/ev-view.c:2038
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "फाइल “%s” वर स्थीत %s वर जा"
 
-#: ../libview/pps-view.c:2041
+#: ../libview/ev-view.c:2041
 #, c-format
 msgid "Go to file “%s”"
 msgstr "“%s” फाइलकडे जा"
 
-#: ../libview/pps-view.c:2049
+#: ../libview/ev-view.c:2049
 #, c-format
 msgid "Launch %s"
 msgstr "%s सुरू करा"
 
-#: ../libview/pps-view-presentation.c:735
+#: ../libview/ev-view-presentation.c:735
 msgid "Jump to page:"
 msgstr "पानावर जा:"
 
-#: ../libview/pps-view-presentation.c:1038
+#: ../libview/ev-view-presentation.c:1038
 msgid "End of presentation. Click to exit."
 msgstr "प्रस्तुतीकरण समाप्त. बाहेर पडण्याकरीता क्लिक करा."
 
-#: ../previewer/pps-previewer.c:45
+#: ../previewer/ev-previewer.c:45
 msgid "Delete the temporary file"
 msgstr "तात्पुर्ती फाइल नष्ट करा"
 
-#: ../previewer/pps-previewer.c:46
+#: ../previewer/ev-previewer.c:46
 msgid "Print settings file"
 msgstr "संयोजना फाइलची छपाई करत आहे"
 
-#: ../previewer/pps-previewer.c:46
+#: ../previewer/ev-previewer.c:46
 msgid "FILE"
 msgstr "FILE"
 
-#: ../previewer/pps-previewer.c:175 ../previewer/pps-previewer.c:207
+#: ../previewer/ev-previewer.c:175 ../previewer/ev-previewer.c:207
 msgid "GNOME Document Previewer"
 msgstr "GNOME दस्तऐवज पूर्वदर्शक"
 
-#: ../previewer/pps-previewer-window.c:91 ../shell/pps-window.c:3323
+#: ../previewer/ev-previewer-window.c:91 ../shell/ev-window.c:3323
 msgid "Failed to print document"
 msgstr "दस्तऐवज मुद्रित करण्यात अशमर्थ"
 
-#: ../previewer/pps-previewer-window.c:223
+#: ../previewer/ev-previewer-window.c:223
 #, c-format
 msgid "The selected printer '%s' could not be found"
 msgstr "नीवडलेले छपाईयंत्र '%s' आढळले नाही"
 
-#: ../previewer/pps-previewer-window.c:270 ../shell/papers-menus.ui.h:39
+#: ../previewer/ev-previewer-window.c:270 ../shell/evince-menus.ui.h:39
 msgid "_Previous Page"
 msgstr "मागील पान(_P)"
 
-#: ../previewer/pps-previewer-window.c:273 ../shell/papers-menus.ui.h:40
+#: ../previewer/ev-previewer-window.c:273 ../shell/evince-menus.ui.h:40
 msgid "_Next Page"
 msgstr "पुढील पान(_N)"
 
-#: ../previewer/pps-previewer-window.c:285
+#: ../previewer/ev-previewer-window.c:285
 msgid "Print this document"
 msgstr "हा दस्तऐवज मुद्रित करा"
 
-#: ../previewer/pps-previewer-window.c:318
+#: ../previewer/ev-previewer-window.c:318
 msgid "Make the current document fill the window"
 msgstr "चालु दस्तऐवज पटल भरेल असे करा"
 
-#: ../previewer/pps-previewer-window.c:321
+#: ../previewer/ev-previewer-window.c:321
 msgid "Make the current document fill the window width"
 msgstr "चालु दस्तऐवज खिडकीची रुंदी भरेल असे करा"
 
-#: ../previewer/pps-previewer-window.c:536
+#: ../previewer/ev-previewer-window.c:536
 msgid "Page"
 msgstr "पान"
 
-#: ../previewer/pps-previewer-window.c:537
+#: ../previewer/ev-previewer-window.c:537
 msgid "Select Page"
 msgstr "पान निवडा"
 
-#: ../properties/pps-properties-main.c:116
+#: ../properties/ev-properties-main.c:116
 msgid "Document"
 msgstr "दस्तऐवज"
 
-#: ../properties/pps-properties-view.c:60
+#: ../properties/ev-properties-view.c:60
 msgid "Title:"
 msgstr "शिर्षक:"
 
-#: ../properties/pps-properties-view.c:61
+#: ../properties/ev-properties-view.c:61
 msgid "Location:"
 msgstr "ठिकाण:"
 
-#: ../properties/pps-properties-view.c:62
+#: ../properties/ev-properties-view.c:62
 msgid "Subject:"
 msgstr "विषय:"
 
-#: ../properties/pps-properties-view.c:63
-#: ../shell/pps-annotation-properties-dialog.c:154
+#: ../properties/ev-properties-view.c:63
+#: ../shell/ev-annotation-properties-dialog.c:154
 msgid "Author:"
 msgstr "लेखक:"
 
-#: ../properties/pps-properties-view.c:64
+#: ../properties/ev-properties-view.c:64
 msgid "Keywords:"
 msgstr "मुख्यशब्द:"
 
-#: ../properties/pps-properties-view.c:65
+#: ../properties/ev-properties-view.c:65
 msgid "Producer:"
 msgstr "उत्पादक:"
 
-#: ../properties/pps-properties-view.c:66
+#: ../properties/ev-properties-view.c:66
 msgid "Creator:"
 msgstr "निर्माता:"
 
-#: ../properties/pps-properties-view.c:67
+#: ../properties/ev-properties-view.c:67
 msgid "Created:"
 msgstr "निर्माण केलेले:"
 
-#: ../properties/pps-properties-view.c:68
+#: ../properties/ev-properties-view.c:68
 msgid "Modified:"
 msgstr "बदल दिनांक:"
 
-#: ../properties/pps-properties-view.c:69
+#: ../properties/ev-properties-view.c:69
 msgid "Number of Pages:"
 msgstr "पानांची संख्या:"
 
-#: ../properties/pps-properties-view.c:70
+#: ../properties/ev-properties-view.c:70
 msgid "Optimized:"
 msgstr "अनुकूल केलेले:"
 
-#: ../properties/pps-properties-view.c:71
+#: ../properties/ev-properties-view.c:71
 msgid "Format:"
 msgstr "स्वरूप:"
 
-#: ../properties/pps-properties-view.c:72
+#: ../properties/ev-properties-view.c:72
 msgid "Security:"
 msgstr "सुरक्षा:"
 
-#: ../properties/pps-properties-view.c:73
+#: ../properties/ev-properties-view.c:73
 msgid "Paper Size:"
 msgstr "कागदाचा आकार:"
 
@@ -788,30 +788,30 @@ msgstr "कागदाचा आकार:"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: ../properties/pps-properties-view.c:220
+#: ../properties/ev-properties-view.c:220
 msgid "default:mm"
 msgstr "default:mm"
 
-#: ../properties/pps-properties-view.c:264
+#: ../properties/ev-properties-view.c:264
 #, c-format
 msgid "%.0f × %.0f mm"
 msgstr "%.0f × %.0f mm"
 
-#: ../properties/pps-properties-view.c:268
+#: ../properties/ev-properties-view.c:268
 #, c-format
 msgid "%.2f × %.2f inch"
 msgstr "%.2f × %.2f इंच"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/pps-properties-view.c:292
+#: ../properties/ev-properties-view.c:292
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr "%s, उभे (%s)"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/pps-properties-view.c:299
+#: ../properties/ev-properties-view.c:299
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr "%s, आडवे (%s)"
@@ -836,422 +836,422 @@ msgstr "आधी आढळलेल्या शोध अक्षरमाल
 msgid "Find next occurrence of the search string"
 msgstr "पुढली आढळणारी अक्षरमाला शोधा"
 
-#: ../shell/pps-annotation-properties-dialog.c:94
+#: ../shell/ev-annotation-properties-dialog.c:94
 msgid "Icon:"
 msgstr "चिन्ह:"
 
-#: ../shell/pps-annotation-properties-dialog.c:100
+#: ../shell/ev-annotation-properties-dialog.c:100
 msgid "Note"
 msgstr "टिप"
 
-#: ../shell/pps-annotation-properties-dialog.c:101
+#: ../shell/ev-annotation-properties-dialog.c:101
 msgid "Comment"
 msgstr "टिपण्णी"
 
-#: ../shell/pps-annotation-properties-dialog.c:102
+#: ../shell/ev-annotation-properties-dialog.c:102
 msgid "Key"
 msgstr "कि"
 
-#: ../shell/pps-annotation-properties-dialog.c:103
+#: ../shell/ev-annotation-properties-dialog.c:103
 msgid "Help"
 msgstr "मदत"
 
-#: ../shell/pps-annotation-properties-dialog.c:104
+#: ../shell/ev-annotation-properties-dialog.c:104
 msgid "New Paragraph"
 msgstr "नवीन परिच्छेद"
 
-#: ../shell/pps-annotation-properties-dialog.c:105
+#: ../shell/ev-annotation-properties-dialog.c:105
 msgid "Paragraph"
 msgstr "परिच्छेद"
 
-#: ../shell/pps-annotation-properties-dialog.c:106
+#: ../shell/ev-annotation-properties-dialog.c:106
 msgid "Insert"
 msgstr "समाविष्ट करा"
 
-#: ../shell/pps-annotation-properties-dialog.c:107
+#: ../shell/ev-annotation-properties-dialog.c:107
 msgid "Cross"
 msgstr "क्रॉस"
 
-#: ../shell/pps-annotation-properties-dialog.c:108
+#: ../shell/ev-annotation-properties-dialog.c:108
 msgid "Circle"
 msgstr "वर्तुळ"
 
-#: ../shell/pps-annotation-properties-dialog.c:109
+#: ../shell/ev-annotation-properties-dialog.c:109
 msgid "Unknown"
 msgstr "अपरिचीत"
 
-#: ../shell/pps-annotation-properties-dialog.c:134
+#: ../shell/ev-annotation-properties-dialog.c:134
 msgid "Annotation Properties"
 msgstr "टिप्पणी गुणधर्मे"
 
-#: ../shell/pps-annotation-properties-dialog.c:165
+#: ../shell/ev-annotation-properties-dialog.c:165
 msgid "Color:"
 msgstr "रंग:"
 
-#: ../shell/pps-annotation-properties-dialog.c:175
+#: ../shell/ev-annotation-properties-dialog.c:175
 msgid "Style:"
 msgstr "शैली:"
 
-#: ../shell/pps-annotation-properties-dialog.c:190
+#: ../shell/ev-annotation-properties-dialog.c:190
 msgid "Transparent"
 msgstr "पारदर्शक"
 
-#: ../shell/pps-annotation-properties-dialog.c:197
+#: ../shell/ev-annotation-properties-dialog.c:197
 msgid "Opaque"
 msgstr "अपारदर्शक"
 
-#: ../shell/pps-annotation-properties-dialog.c:207
+#: ../shell/ev-annotation-properties-dialog.c:207
 msgid "Initial window state:"
 msgstr "प्रारंभीक पटल स्तर:"
 
-#: ../shell/pps-annotation-properties-dialog.c:213
+#: ../shell/ev-annotation-properties-dialog.c:213
 msgid "Open"
 msgstr "उघडा"
 
-#: ../shell/pps-annotation-properties-dialog.c:214
+#: ../shell/ev-annotation-properties-dialog.c:214
 msgid "Close"
 msgstr "बंद करा"
 
-#: ../shell/pps-application.c:995
+#: ../shell/ev-application.c:995
 msgid ""
-"Papers is free software; you can redistribute it and/or modify it under the "
+"Evince is free software; you can redistribute it and/or modify it under the "
 "terms of the GNU General Public License as published by the Free Software "
 "Foundation; either version 2 of the License, or (at your option) any later "
 "version.\n"
 msgstr ""
-"Papers is free software; you can redistribute it and/or modify it under the "
+"Evince is free software; you can redistribute it and/or modify it under the "
 "terms of the GNU General Public License as published by the Free Software "
 "Foundation; either version 2 of the License, or (at your option) any later "
 "version.\n"
 
-#: ../shell/pps-application.c:999
+#: ../shell/ev-application.c:999
 msgid ""
-"Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
+"Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
 "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 "details.\n"
 msgstr ""
-"Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
+"Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
 "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 "details.\n"
 
-#: ../shell/pps-application.c:1003
+#: ../shell/ev-application.c:1003
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"Papers; if not, write to the Free Software Foundation, Inc., 51 Franklin "
+"Evince; if not, write to the Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 msgstr ""
 "You should have received a copy of the GNU General Public License along with "
-"Papers; if not, write to the Free Software Foundation, Inc., 51 Franklin "
+"Evince; if not, write to the Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 
-#: ../shell/pps-application.c:1024 ../papers.appdata.xml.in.h:1
-msgid "Papers"
+#: ../shell/ev-application.c:1024 ../evince.appdata.xml.in.h:1
+msgid "Evince"
 msgstr "एविंस"
 
-#: ../shell/pps-application.c:1026
-#| msgid "© 1996–2012 The Papers authors"
-msgid "© 1996–2014 The Papers authors"
+#: ../shell/ev-application.c:1026
+#| msgid "© 1996–2012 The Evince authors"
+msgid "© 1996–2014 The Evince authors"
 msgstr "© 1996–2014 एविंस लेखक"
 
-#: ../shell/pps-application.c:1032
+#: ../shell/ev-application.c:1032
 msgid "translator-credits"
 msgstr ""
 "Sameer N. Ingole <strike@proscrutiny.com>, 2006; राहुल भालेराव <b.rahul."
 "pm@gmail.com>, 2006; संदिप शेडमाके <sandeep.shedmake@gmail.com>, 2008, 2009; "
 "संदिप शेडमाके <sshedmak@redhat.com>, 2009, 2010, 2011."
 
-#: ../shell/pps-history-action.c:224
+#: ../shell/ev-history-action.c:224
 msgid "Go to previous history item"
 msgstr "मागील इतिहास घटनावर जा"
 
-#: ../shell/pps-history-action.c:229
+#: ../shell/ev-history-action.c:229
 msgid "Go to next history item"
 msgstr "पुढील इतिहास घटकाकडे जा"
 
-#: ../shell/pps-keyring.c:86
+#: ../shell/ev-keyring.c:86
 #, c-format
 msgid "Password for document %s"
 msgstr "%s दस्तऐवजाकरीता पासवर्ड"
 
 #. Create tree view
-#: ../shell/pps-loading-message.c:50 ../shell/pps-sidebar-annotations.c:131
-#: ../shell/pps-sidebar-layers.c:125 ../shell/pps-sidebar-links.c:261
+#: ../shell/ev-loading-message.c:50 ../shell/ev-sidebar-annotations.c:131
+#: ../shell/ev-sidebar-layers.c:125 ../shell/ev-sidebar-links.c:261
 msgid "Loading…"
 msgstr "लोड करत आहे…"
 
-#: ../shell/pps-password-view.c:142
+#: ../shell/ev-password-view.c:142
 msgid ""
 "This document is locked and can only be read by entering the correct "
 "password."
 msgstr ""
 "हा दस्तऐवज कुलूपबंद आहे आणि फक्त योग्य पासवर्ड दिल्यावरच वाचले जाउ शकते."
 
-#: ../shell/pps-password-view.c:151 ../shell/pps-password-view.c:269
+#: ../shell/ev-password-view.c:151 ../shell/ev-password-view.c:269
 msgid "_Unlock Document"
 msgstr "दस्तऐवजाचे कुलूप उघडा(_U)"
 
-#: ../shell/pps-password-view.c:261
+#: ../shell/ev-password-view.c:261
 msgid "Enter password"
 msgstr "पासवर्ड द्या"
 
-#: ../shell/pps-password-view.c:300
+#: ../shell/ev-password-view.c:300
 #, c-format
 msgid ""
 "The document “%s” is locked and requires a password before it can be opened."
 msgstr "दस्तऐवज “%s” कुलूपबंद आहे आणि ते उघडण्यापूर्वी पासवर्डाची गरज आहे."
 
-#: ../shell/pps-password-view.c:303
+#: ../shell/ev-password-view.c:303
 msgid "Password required"
 msgstr "पासवर्ड आवश्यक"
 
-#: ../shell/pps-password-view.c:333
+#: ../shell/ev-password-view.c:333
 msgid "_Password:"
 msgstr "पासवर्ड(_P):"
 
-#: ../shell/pps-password-view.c:364
+#: ../shell/ev-password-view.c:364
 msgid "Forget password _immediately"
 msgstr "पासवर्ड ताबडतोब विसरा (_i)"
 
-#: ../shell/pps-password-view.c:376
+#: ../shell/ev-password-view.c:376
 msgid "Remember password until you _log out"
 msgstr "बाहेर पडेपर्यंत पासवर्ड लक्षात ठेवा (_R)"
 
-#: ../shell/pps-password-view.c:388
+#: ../shell/ev-password-view.c:388
 msgid "Remember _forever"
 msgstr "नेहमीकरीता लक्षात ठेवा (_f)"
 
-#: ../shell/pps-properties-dialog.c:62
+#: ../shell/ev-properties-dialog.c:62
 msgid "Properties"
 msgstr "वैशिष्ट्ये"
 
-#: ../shell/pps-properties-dialog.c:94
+#: ../shell/ev-properties-dialog.c:94
 msgid "General"
 msgstr "सामान्य"
 
-#: ../shell/pps-properties-dialog.c:104
+#: ../shell/ev-properties-dialog.c:104
 msgid "Fonts"
 msgstr "फाँट्स"
 
-#: ../shell/pps-properties-dialog.c:117
+#: ../shell/ev-properties-dialog.c:117
 msgid "Document License"
 msgstr "दस्तऐवज परवाना"
 
-#: ../shell/pps-properties-fonts.c:142
+#: ../shell/ev-properties-fonts.c:142
 msgid "Font"
 msgstr "फाँट"
 
-#: ../shell/pps-properties-fonts.c:169
+#: ../shell/ev-properties-fonts.c:169
 #, c-format
 msgid "Gathering font information… %3d%%"
 msgstr "फाँट माहिती गोळा करत आहे… %3d%%"
 
-#: ../shell/pps-properties-license.c:134
+#: ../shell/ev-properties-license.c:134
 msgid "Usage terms"
 msgstr "वापर अटी"
 
-#: ../shell/pps-properties-license.c:140
+#: ../shell/ev-properties-license.c:140
 msgid "Text License"
 msgstr "मजकूर परवाना"
 
-#: ../shell/pps-properties-license.c:146
+#: ../shell/ev-properties-license.c:146
 msgid "Further Information"
 msgstr "पुढील माहिती"
 
-#: ../shell/pps-sidebar-annotations.c:159
+#: ../shell/ev-sidebar-annotations.c:159
 msgid "List"
 msgstr "सूची"
 
-#: ../shell/pps-sidebar-annotations.c:199 ../shell/pps-sidebar-annotations.c:535
+#: ../shell/ev-sidebar-annotations.c:199 ../shell/ev-sidebar-annotations.c:535
 msgid "Annotations"
 msgstr "टिप्पणी"
 
-#: ../shell/pps-sidebar-annotations.c:205
+#: ../shell/ev-sidebar-annotations.c:205
 msgid "Text"
 msgstr "मजकूर"
 
-#: ../shell/pps-sidebar-annotations.c:206
+#: ../shell/ev-sidebar-annotations.c:206
 msgid "Add text annotation"
 msgstr "मजकूर टिप्पणी समाविष्ट करा"
 
-#: ../shell/pps-sidebar-annotations.c:217 ../shell/pps-sidebar-bookmarks.c:454
+#: ../shell/ev-sidebar-annotations.c:217 ../shell/ev-sidebar-bookmarks.c:454
 msgid "Add"
 msgstr "समाविष्ट करा"
 
-#: ../shell/pps-sidebar-annotations.c:368
+#: ../shell/ev-sidebar-annotations.c:368
 msgid "Document contains no annotations"
 msgstr "दस्तऐवजात टिप्पणी समाविष्टीत नाही"
 
-#: ../shell/pps-sidebar-annotations.c:400
+#: ../shell/ev-sidebar-annotations.c:400
 #, c-format
 msgid "Page %d"
 msgstr "पान %d"
 
-#: ../shell/pps-sidebar-attachments.c:697
+#: ../shell/ev-sidebar-attachments.c:697
 msgid "Attachments"
 msgstr "जोडण्या"
 
-#: ../shell/pps-sidebar-bookmarks.c:146
+#: ../shell/ev-sidebar-bookmarks.c:146
 msgid "_Open Bookmark"
 msgstr "वाचनखुणा उघडा (_O)"
 
-#: ../shell/pps-sidebar-bookmarks.c:148
+#: ../shell/ev-sidebar-bookmarks.c:148
 msgid "_Rename Bookmark"
 msgstr "पुस्तखुणचे पुनःनामांकन करा (_R)"
 
-#: ../shell/pps-sidebar-bookmarks.c:150
+#: ../shell/ev-sidebar-bookmarks.c:150
 msgid "_Remove Bookmark"
 msgstr "वाचनखूण काढून टाका (_R)"
 
-#: ../shell/pps-sidebar-bookmarks.c:461
+#: ../shell/ev-sidebar-bookmarks.c:461
 msgid "Remove"
 msgstr "काढून टाका"
 
-#: ../shell/pps-sidebar-bookmarks.c:577 ../shell/pps-toolbar.c:160
+#: ../shell/ev-sidebar-bookmarks.c:577 ../shell/ev-toolbar.c:160
 msgid "Bookmarks"
 msgstr "वाचनखूण"
 
-#: ../shell/pps-sidebar-layers.c:446
+#: ../shell/ev-sidebar-layers.c:446
 msgid "Layers"
 msgstr "स्तर"
 
-#: ../shell/pps-sidebar-links.c:337
+#: ../shell/ev-sidebar-links.c:337
 msgid "Print…"
 msgstr "छपाई…"
 
-#: ../shell/pps-sidebar-links.c:725
+#: ../shell/ev-sidebar-links.c:725
 msgid "Index"
 msgstr "निर्देशिका"
 
-#: ../shell/pps-sidebar-thumbnails.c:1082
+#: ../shell/ev-sidebar-thumbnails.c:1082
 msgid "Thumbnails"
 msgstr "छोट्या प्रतीमा"
 
-#: ../shell/pps-toolbar.c:204
+#: ../shell/ev-toolbar.c:204
 msgid "Open an existing document"
 msgstr "अस्तित्वात असलेले दस्तऐवज उघडा"
 
-#: ../shell/pps-toolbar.c:235
+#: ../shell/ev-toolbar.c:235
 msgid "Find a word or phrase in the document"
 msgstr "एखादा शब्द अथवा वाक्य दस्तऐवजात शोधा"
 
-#: ../shell/pps-toolbar.c:247 ../shell/pps-toolbar.c:248
+#: ../shell/ev-toolbar.c:247 ../shell/ev-toolbar.c:248
 #| msgid "Find options"
 msgid "File options"
 msgstr "फाइल पर्याय"
 
-#: ../shell/pps-toolbar.c:257 ../shell/pps-toolbar.c:258
+#: ../shell/ev-toolbar.c:257 ../shell/ev-toolbar.c:258
 #| msgid "Find options"
 msgid "View options"
 msgstr "पर्याय अवलोकन"
 
-#: ../shell/pps-utils.c:305
+#: ../shell/ev-utils.c:305
 msgid "Supported Image Files"
 msgstr "समर्थीत प्रतिमा फाइल्स"
 
-#: ../shell/pps-window.c:1606
+#: ../shell/ev-window.c:1606
 msgid "The document contains no pages"
 msgstr "दस्तऐवजात पान नाही"
 
-#: ../shell/pps-window.c:1609
+#: ../shell/ev-window.c:1609
 msgid "The document contains only empty pages"
 msgstr "दस्तऐवजात फक्त रिकामे पान आढळले"
 
-#: ../shell/pps-window.c:1822 ../shell/pps-window.c:1990
+#: ../shell/ev-window.c:1822 ../shell/ev-window.c:1990
 #, c-format
 #| msgid "Unable to open document"
 msgid "Unable to open document “%s”."
 msgstr "दस्तऐवज “%s” उघडणे अशक्य."
 
-#: ../shell/pps-window.c:1954
+#: ../shell/ev-window.c:1954
 #, c-format
 msgid "Loading document from “%s”"
 msgstr "“%s” पासून दस्तऐवज लोड करत आहे"
 
-#: ../shell/pps-window.c:2105 ../shell/pps-window.c:2432
+#: ../shell/ev-window.c:2105 ../shell/ev-window.c:2432
 #, c-format
 msgid "Downloading document (%d%%)"
 msgstr "दस्तऐवज  (%d%%) डाऊनलोड करत आहे"
 
-#: ../shell/pps-window.c:2138
+#: ../shell/ev-window.c:2138
 msgid "Failed to load remote file."
 msgstr "दूरस्त फाइल लोड करण्यास अपयशी."
 
-#: ../shell/pps-window.c:2376
+#: ../shell/ev-window.c:2376
 #, c-format
 msgid "Reloading document from %s"
 msgstr "%s पासून दस्तऐवज पुन्ह दाखल करत आहे"
 
-#: ../shell/pps-window.c:2408
+#: ../shell/ev-window.c:2408
 msgid "Failed to reload document."
 msgstr "दस्तऐवज पुन्हदाखल करण्यास अशक्य."
 
-#: ../shell/pps-window.c:2624
+#: ../shell/ev-window.c:2624
 msgid "Open Document"
 msgstr "दस्तऐवज उघडा"
 
 # msgstr "दस्तावेज आखूड करुन दर्शवा"
-#: ../shell/pps-window.c:2695
+#: ../shell/ev-window.c:2695
 #, c-format
 msgid "Saving document to %s"
 msgstr "दस्तऐवज %s करीता साठवत आहे"
 
-#: ../shell/pps-window.c:2698
+#: ../shell/ev-window.c:2698
 #, c-format
 msgid "Saving attachment to %s"
 msgstr "%s शी जुळवणी साठवत आहे"
 
-#: ../shell/pps-window.c:2701
+#: ../shell/ev-window.c:2701
 #, c-format
 msgid "Saving image to %s"
 msgstr "प्रतिमा %s करीता साठवत आहे"
 
-#: ../shell/pps-window.c:2745 ../shell/pps-window.c:2845
+#: ../shell/ev-window.c:2745 ../shell/ev-window.c:2845
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "फाइल “%s” नुरूप साठवा."
 
-#: ../shell/pps-window.c:2776
+#: ../shell/ev-window.c:2776
 #, c-format
 msgid "Uploading document (%d%%)"
 msgstr "दस्तऐवज (%d%%) अपलोड करत आहे"
 
-#: ../shell/pps-window.c:2780
+#: ../shell/ev-window.c:2780
 #, c-format
 msgid "Uploading attachment (%d%%)"
 msgstr "जुळवणी (%d%%) अपलोड करत आहे"
 
-#: ../shell/pps-window.c:2784
+#: ../shell/ev-window.c:2784
 #, c-format
 msgid "Uploading image (%d%%)"
 msgstr "प्रतिमा (%d%%) करत आहे"
 
-#: ../shell/pps-window.c:2896
+#: ../shell/ev-window.c:2896
 msgid "Save a Copy"
 msgstr "एक प्रत साठवा"
 
-#: ../shell/pps-window.c:2972
+#: ../shell/ev-window.c:2972
 msgid "Could not send current document"
 msgstr "सध्याचे दस्तऐवज पाठवणे अशक्य"
 
-#: ../shell/pps-window.c:3006
+#: ../shell/ev-window.c:3006
 msgid "Could not open the containing folder"
 msgstr "समाविष्टीत फोल्डर उघडणे अशक्य"
 
-#: ../shell/pps-window.c:3267
+#: ../shell/ev-window.c:3267
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "%d उर्वरीत कार्य रांगेत"
 msgstr[1] "%d उर्वरीत कार्य रांगेत"
 
-#: ../shell/pps-window.c:3380
+#: ../shell/ev-window.c:3380
 #, c-format
 msgid "Printing job “%s”"
 msgstr "कार्य “%s” ची छपाई करा"
 
-#: ../shell/pps-window.c:3583
+#: ../shell/ev-window.c:3583
 msgid ""
 "Document contains form fields that have been filled out. If you don't save a "
 "copy, changes will be permanently lost."
@@ -1259,7 +1259,7 @@ msgstr ""
 "दस्तऐवजात क्षेत्र समाविष्टीत आहे ज्यांस भरले आहे. प्रत न साठवल्यास, बदल "
 "नेहमीकरीता गमवाल."
 
-#: ../shell/pps-window.c:3587
+#: ../shell/ev-window.c:3587
 msgid ""
 "Document contains new or modified annotations. If you don't save a copy, "
 "changes will be permanently lost."
@@ -1267,20 +1267,20 @@ msgstr ""
 "दस्तऐवजात नवीन किंवा संपादित टिप्पणी समाविष्टीत आहे. प्रत साठवत नसल्यास, बदल "
 "नेहमीकरीता गमवाल."
 
-#: ../shell/pps-window.c:3594
+#: ../shell/ev-window.c:3594
 #, c-format
 msgid "Save a copy of document “%s” before closing?"
 msgstr "बंद करण्यापूर्वी “%s” दस्तऐवज साठवायचे?"
 
-#: ../shell/pps-window.c:3613
+#: ../shell/ev-window.c:3613
 msgid "Close _without Saving"
 msgstr "सुरक्षित न करता बंद करा(_w)"
 
-#: ../shell/pps-window.c:3617
+#: ../shell/ev-window.c:3617
 msgid "Save a _Copy"
 msgstr "प्रत साठवा (_C)"
 
-#: ../shell/pps-window.c:3691
+#: ../shell/ev-window.c:3691
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr "छपाई कार्य “%s” पूर्णपणे बंद होण्यापूर्वी समाप्त होईपर्यंत थांबायचे?"
@@ -1288,7 +1288,7 @@ msgstr "छपाई कार्य “%s” पूर्णपणे बंद
 #. TRANS: the singular form is not really used as n_print_jobs > 1
 #. but some languages distinguish between different plurals forms,
 #. so the ngettext is needed.
-#: ../shell/pps-window.c:3697
+#: ../shell/ev-window.c:3697
 #, c-format
 msgid "There is %d print job active. Wait until print finishes before closing?"
 msgid_plural ""
@@ -1298,50 +1298,50 @@ msgstr[0] ""
 msgstr[1] ""
 "%d छपाई क्रिया सुरू आहे. छपाई कार्य पूर्णपणे बंद होईपर्यंत थांबायचे?"
 
-#: ../shell/pps-window.c:3712
+#: ../shell/ev-window.c:3712
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr "खिडकी बंद केल्यास, उर्वरीत छपाई कार्य छपाईकृत होणार नाही."
 
-#: ../shell/pps-window.c:3716
+#: ../shell/ev-window.c:3716
 msgid "Cancel _print and Close"
 msgstr "छपाई व बंद करा रद्द करा (_p)"
 
-#: ../shell/pps-window.c:3720
+#: ../shell/ev-window.c:3720
 msgid "Close _after Printing"
 msgstr "छपाई नंतर बंद करा (_a)"
 
-#: ../shell/pps-window.c:4248
+#: ../shell/ev-window.c:4248
 msgid "Running in presentation mode"
 msgstr "प्रस्तुतीकरण पध्दतीत कार्यरत आहे"
 
 #. TRANS: Sometimes this could be better translated as
 #. "%d hit(s) on this page".  Therefore this string
 #. contains plural cases.
-#: ../shell/pps-window.c:5181
+#: ../shell/ev-window.c:5181
 #, c-format
 msgid "%d found on this page"
 msgid_plural "%d found on this page"
 msgstr[0] "%d या पानावर मिळाले"
 msgstr[1] "%d या पानावर मिळालेत"
 
-#: ../shell/pps-window.c:5186
+#: ../shell/ev-window.c:5186
 msgid "Not found"
 msgstr "आढळले नाही"
 
-#: ../shell/pps-window.c:5192
+#: ../shell/ev-window.c:5192
 #, c-format
 msgid "%3d%% remaining to search"
 msgstr "%3d%% शोधायचे उरलेत"
 
-#: ../shell/pps-window.c:5512
+#: ../shell/ev-window.c:5512
 msgid "Enable caret navigation?"
 msgstr "कॅरेट संरचना सुरू करा?"
 
-#: ../shell/pps-window.c:5514
+#: ../shell/ev-window.c:5514
 msgid "_Enable"
 msgstr "सुरू करा (_E)"
 
-#: ../shell/pps-window.c:5517
+#: ../shell/ev-window.c:5517
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1351,105 +1351,105 @@ msgstr ""
 "मजकूर पृष्ठांमध्ये स्थीत करते, कळफलकद्वारे मजकूर हलवणे आणि पसंत करणे याकरिता "
 "परवानगी देतो. तुम्हाला कॅरेट संचारन सुरू करायचे?"
 
-#: ../shell/pps-window.c:5522
+#: ../shell/ev-window.c:5522
 msgid "Don't show this message again"
 msgstr "या संदेशला पुन्हा दाखवू नका"
 
-#: ../shell/pps-window.c:6038 ../shell/pps-window.c:6054
+#: ../shell/ev-window.c:6038 ../shell/ev-window.c:6054
 msgid "Unable to launch external application."
 msgstr "बाहेरील अनुप्रयोग प्रक्षेपीत करणे अशक्य."
 
-#: ../shell/pps-window.c:6111
+#: ../shell/ev-window.c:6111
 msgid "Unable to open external link"
 msgstr "बाहेरील जोडणी उघडण्यास अपयशी"
 
-#: ../shell/pps-window.c:6314
+#: ../shell/ev-window.c:6314
 msgid "Couldn't find appropriate format to save image"
 msgstr "प्रतिमा संचयीत करण्याकरीता योग्य प्रकार आढळला नाही"
 
-#: ../shell/pps-window.c:6346
+#: ../shell/ev-window.c:6346
 msgid "The image could not be saved."
 msgstr "प्रतिमा संचयीत करु शकत नाही."
 
-#: ../shell/pps-window.c:6381
+#: ../shell/ev-window.c:6381
 msgid "Save Image"
 msgstr "प्रतिमा साठवा"
 
-#: ../shell/pps-window.c:6532
+#: ../shell/ev-window.c:6532
 msgid "Unable to open attachment"
 msgstr "जोडणी उघडण्यास असमर्थ"
 
-#: ../shell/pps-window.c:6588
+#: ../shell/ev-window.c:6588
 msgid "The attachment could not be saved."
 msgstr "जोडणी सुरक्षीत करु शकत नाही."
 
-#: ../shell/pps-window.c:6636
+#: ../shell/ev-window.c:6636
 msgid "Save Attachment"
 msgstr "जोडणी साठवा"
 
-#: ../shell/pps-window-title.c:118
+#: ../shell/ev-window-title.c:118
 #| msgid "Open Document"
 msgid "Recent Documents"
 msgstr "नुकतेच दस्तऐवज"
 
-#: ../shell/pps-window-title.c:153 ../shell/pps-window-title.c:157
+#: ../shell/ev-window-title.c:153 ../shell/ev-window-title.c:157
 #| msgid "Password required"
 msgid "Password Required"
 msgstr "पासवर्ड आवश्यक"
 
-#: ../shell/pps-zoom-action.c:48
+#: ../shell/ev-zoom-action.c:48
 msgid "50%"
 msgstr "50%"
 
-#: ../shell/pps-zoom-action.c:49
+#: ../shell/ev-zoom-action.c:49
 msgid "70%"
 msgstr "70%"
 
-#: ../shell/pps-zoom-action.c:50
+#: ../shell/ev-zoom-action.c:50
 msgid "85%"
 msgstr "85%"
 
-#: ../shell/pps-zoom-action.c:51
+#: ../shell/ev-zoom-action.c:51
 msgid "100%"
 msgstr "100%"
 
-#: ../shell/pps-zoom-action.c:52
+#: ../shell/ev-zoom-action.c:52
 msgid "125%"
 msgstr "125%"
 
-#: ../shell/pps-zoom-action.c:53
+#: ../shell/ev-zoom-action.c:53
 msgid "150%"
 msgstr "150%"
 
-#: ../shell/pps-zoom-action.c:54
+#: ../shell/ev-zoom-action.c:54
 msgid "175%"
 msgstr "175%"
 
-#: ../shell/pps-zoom-action.c:55
+#: ../shell/ev-zoom-action.c:55
 msgid "200%"
 msgstr "200%"
 
-#: ../shell/pps-zoom-action.c:56
+#: ../shell/ev-zoom-action.c:56
 msgid "300%"
 msgstr "300%"
 
-#: ../shell/pps-zoom-action.c:57
+#: ../shell/ev-zoom-action.c:57
 msgid "400%"
 msgstr "400%"
 
-#: ../shell/pps-zoom-action.c:58
+#: ../shell/ev-zoom-action.c:58
 msgid "800%"
 msgstr "800%"
 
-#: ../shell/pps-zoom-action.c:59
+#: ../shell/ev-zoom-action.c:59
 msgid "1600%"
 msgstr "1600%"
 
-#: ../shell/pps-zoom-action.c:60
+#: ../shell/ev-zoom-action.c:60
 msgid "3200%"
 msgstr "3200%"
 
-#: ../shell/pps-zoom-action.c:61
+#: ../shell/ev-zoom-action.c:61
 msgid "6400%"
 msgstr "6400%"
 
@@ -1482,15 +1482,15 @@ msgid "DEST"
 msgstr "DEST"
 
 #: ../shell/main.c:74
-msgid "Run papers in fullscreen mode"
+msgid "Run evince in fullscreen mode"
 msgstr "पुर्णपटल स्थितीत एव्हींस चालवा"
 
 #: ../shell/main.c:75
-msgid "Run papers in presentation mode"
+msgid "Run evince in presentation mode"
 msgstr "प्रस्तुतीकरण स्थितीत एव्हींस चालवा"
 
 #: ../shell/main.c:76
-msgid "Run papers as a previewer"
+msgid "Run evince as a previewer"
 msgstr "एव्हींस पुर्वदर्शक म्हणुन चालवा"
 
 #: ../shell/main.c:77
@@ -1505,195 +1505,195 @@ msgstr "अक्षरमाळा"
 msgid "[FILE…]"
 msgstr "[FILE…]"
 
-#: ../shell/papers-menus.ui.h:1
+#: ../shell/evince-menus.ui.h:1
 #| msgid "Open in New _Window"
 msgid "_New Window"
 msgstr "नवीन पटल (_N)"
 
-#: ../shell/papers-menus.ui.h:2
+#: ../shell/evince-menus.ui.h:2
 msgid "_Help"
 msgstr "मदत (_H)"
 
-#: ../shell/papers-menus.ui.h:3
+#: ../shell/evince-menus.ui.h:3
 msgid "_About"
 msgstr "एव्हींस बद्दल(_A)"
 
-#: ../shell/papers-menus.ui.h:4
+#: ../shell/evince-menus.ui.h:4
 msgid "_Continuous"
 msgstr "सतत (_C)"
 
-#: ../shell/papers-menus.ui.h:5
+#: ../shell/evince-menus.ui.h:5
 msgid "_Dual"
 msgstr "दुहेरी(_D)"
 
-#: ../shell/papers-menus.ui.h:6
+#: ../shell/evince-menus.ui.h:6
 msgid "Side _Pane"
 msgstr "बाजुची फळी(_P)"
 
-#: ../shell/papers-menus.ui.h:7
+#: ../shell/evince-menus.ui.h:7
 msgid "_Fullscreen"
 msgstr "पडदाभर (_F)"
 
-#: ../shell/papers-menus.ui.h:8
+#: ../shell/evince-menus.ui.h:8
 msgid "Pre_sentation"
 msgstr "प्रस्तुतीकरण (_s)"
 
-#: ../shell/papers-menus.ui.h:9
+#: ../shell/evince-menus.ui.h:9
 msgid "Rotate _Left"
 msgstr "डावीकडे फिरवा(_L)"
 
-#: ../shell/papers-menus.ui.h:10
+#: ../shell/evince-menus.ui.h:10
 msgid "Rotate _Right"
 msgstr "उजवीकडे फिरवा(_R)"
 
-#: ../shell/papers-menus.ui.h:11
+#: ../shell/evince-menus.ui.h:11
 #| msgid "_First Page"
 msgid "First Page"
 msgstr "पहिले पृष्ठ"
 
-#: ../shell/papers-menus.ui.h:12
+#: ../shell/evince-menus.ui.h:12
 #| msgid "_Previous Page"
 msgid "Previous Page"
 msgstr "मागील पृष्ठ"
 
-#: ../shell/papers-menus.ui.h:13
+#: ../shell/evince-menus.ui.h:13
 #| msgid "_Next Page"
 msgid "Next Page"
 msgstr "पुढील पृष्ठ"
 
-#: ../shell/papers-menus.ui.h:14
+#: ../shell/evince-menus.ui.h:14
 #| msgid "_Last Page"
 msgid "Last Page"
 msgstr "शेवटचे पृष्ठ"
 
-#: ../shell/papers-menus.ui.h:15
+#: ../shell/evince-menus.ui.h:15
 #| msgid "Zoom In"
 msgid "Zoom _In"
 msgstr "मोठे करा (_I)"
 
-#: ../shell/papers-menus.ui.h:16
+#: ../shell/evince-menus.ui.h:16
 #| msgid "Zoom Out"
 msgid "Zoom _Out"
 msgstr "लहान करा (_O)"
 
-#: ../shell/papers-menus.ui.h:17
+#: ../shell/evince-menus.ui.h:17
 #| msgid "_Odd pages left"
 msgid "_Odd Pages Left"
 msgstr "विषम पृष्ठ उर्वरित (_O)"
 
-#: ../shell/papers-menus.ui.h:18
+#: ../shell/evince-menus.ui.h:18
 msgid "_Inverted Colors"
 msgstr "उलटे रंग (_I)"
 
-#: ../shell/papers-menus.ui.h:19
+#: ../shell/evince-menus.ui.h:19
 msgid "_Reload"
 msgstr "पुन्हा वाचा(_R)"
 
-#: ../shell/papers-menus.ui.h:20
+#: ../shell/evince-menus.ui.h:20
 msgid "_Open…"
 msgstr "उघडा (_O)…"
 
-#: ../shell/papers-menus.ui.h:21
+#: ../shell/evince-menus.ui.h:21
 msgid "Op_en a Copy"
 msgstr "प्रत उघडा (_e)"
 
-#: ../shell/papers-menus.ui.h:22
+#: ../shell/evince-menus.ui.h:22
 msgid "_Save a Copy…"
 msgstr "प्रत साठवा (_S)…"
 
-#: ../shell/papers-menus.ui.h:23
+#: ../shell/evince-menus.ui.h:23
 #| msgid "Send To"
 msgid "Send _To…"
 msgstr "येथे पाठवा (_T)..."
 
-#: ../shell/papers-menus.ui.h:24
+#: ../shell/evince-menus.ui.h:24
 msgid "Open Containing _Folder"
 msgstr "समाविष्टीत फोल्डर उघडा (_F)"
 
-#: ../shell/papers-menus.ui.h:25
+#: ../shell/evince-menus.ui.h:25
 msgid "_Print…"
 msgstr "छपाई (_P)…"
 
-#: ../shell/papers-menus.ui.h:26
+#: ../shell/evince-menus.ui.h:26
 #| msgid "P_roperties"
 msgid "P_roperties…"
 msgstr "गुणधर्म (_r)..."
 
-#: ../shell/papers-menus.ui.h:27
+#: ../shell/evince-menus.ui.h:27
 msgid "_Copy"
 msgstr "प्रत बनवा (_C)"
 
-#: ../shell/papers-menus.ui.h:28
+#: ../shell/evince-menus.ui.h:28
 msgid "Select _All"
 msgstr "सर्व निवडा(_A)"
 
-#: ../shell/papers-menus.ui.h:29
+#: ../shell/evince-menus.ui.h:29
 msgid "Save Current Settings as _Default"
 msgstr "सध्याचे सेटिंग्स् पूर्वनिर्धारित म्हणून साठवा (_D)"
 
-#: ../shell/papers-menus.ui.h:30
+#: ../shell/evince-menus.ui.h:30
 msgid "_Add Bookmark"
 msgstr "पुस्तकखुण जोडा (_A)"
 
-#: ../shell/papers-menus.ui.h:31
+#: ../shell/evince-menus.ui.h:31
 #| msgid "Close"
 msgid "_Close"
 msgstr "बंद करा (_C)"
 
-#: ../shell/papers-menus.ui.h:35
+#: ../shell/evince-menus.ui.h:35
 msgid "_Open Link"
 msgstr "दुवा उघडा(_O)"
 
-#: ../shell/papers-menus.ui.h:36
+#: ../shell/evince-menus.ui.h:36
 msgid "_Copy Link Address"
 msgstr "लिंक पत्ताचे प्रत बनवा (_C)"
 
-#: ../shell/papers-menus.ui.h:37
+#: ../shell/evince-menus.ui.h:37
 msgid "_Go To"
 msgstr "इथे जा(_G)"
 
-#: ../shell/papers-menus.ui.h:38
+#: ../shell/evince-menus.ui.h:38
 msgid "Open in New _Window"
 msgstr "नविन चैकटीत उघडा (_W)"
 
-#: ../shell/papers-menus.ui.h:41
+#: ../shell/evince-menus.ui.h:41
 msgid "Auto_scroll"
 msgstr "आपोआप हलवा (_s)"
 
-#: ../shell/papers-menus.ui.h:42
+#: ../shell/evince-menus.ui.h:42
 msgid "_Save Image As…"
 msgstr "प्रतिमा असे साठवा (_S)…"
 
-#: ../shell/papers-menus.ui.h:43
+#: ../shell/evince-menus.ui.h:43
 msgid "Copy _Image"
 msgstr "प्रतिमा उघडा (_I)"
 
-#: ../shell/papers-menus.ui.h:44
+#: ../shell/evince-menus.ui.h:44
 msgid "_Open Attachment"
 msgstr "जोडणी उघडा (_O)"
 
-#: ../shell/papers-menus.ui.h:45
+#: ../shell/evince-menus.ui.h:45
 msgid "_Save Attachment As…"
 msgstr "जोडणी असे साठवा (_S)…"
 
-#: ../shell/papers-menus.ui.h:46
+#: ../shell/evince-menus.ui.h:46
 msgid "Annotation Properties…"
 msgstr "टिप्पणी गुणधर्मे…"
 
-#: ../shell/papers-menus.ui.h:47
+#: ../shell/evince-menus.ui.h:47
 #| msgid "Annotations"
 msgid "Remove Annotation"
 msgstr "ॲनोटेशन काढून टाका"
 
-#: ../papers.appdata.xml.in.h:2
+#: ../evince.appdata.xml.in.h:2
 msgid "Document viewer for popular document formats"
 msgstr "प्रसिद्ध दस्तऐवज रूपणकरिता दस्तऐवज दर्शक"
 
-#: ../papers.appdata.xml.in.h:3
+#: ../evince.appdata.xml.in.h:3
 msgid "This is a document viewer for the GNOME desktop."
 msgstr "हे दस्तऐवज दर्शक GNOME डेस्कटॉपकरिता आहे."
 
-#: ../papers.appdata.xml.in.h:4
+#: ../evince.appdata.xml.in.h:4
 msgid ""
 "It supports the following document formats: PDF, PS, EPS, XPS, DjVu, TIFF, "
 "DVI (with SyncTeX), and Comic Books archives (CBR, CBT, CBZ, CB7)."
@@ -1926,7 +1926,7 @@ msgstr ""
 #~ msgid "Show or hide the toolbar"
 #~ msgstr "साधनपट्टी दाखवा अथवा लपवा"
 
-#~ msgid "_Dual (Ppsen pages left)"
+#~ msgid "_Dual (Even pages left)"
 #~ msgstr "ड्युअल (_D) (सम पाने डावीकडे)"
 
 #~ msgid "Show two pages at once with even pages on the left"

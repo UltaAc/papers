@@ -1,7 +1,7 @@
-# Vietnamese translation for Papers.
-# Bản dịch tiếng Việt dành cho Papers.
+# Vietnamese translation for Evince.
+# Bản dịch tiếng Việt dành cho Evince.
 # Copyright © 2016 GNOME i18n Project for Vietnamese.
-# This file is distributed under the same license as the papers package.
+# This file is distributed under the same license as the evince package.
 # Clytie Siddall <clytie@riverland.net.au>, 2005-2009.
 # Nguyễn Thái Ngọc Duy <pclouds@gmail.com>, 2008,2012-2013.
 # Nguyễn Đình Trung <nguyendinhtrung141@gmail.com>, 2008.
@@ -9,8 +9,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: papers master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/issues\n"
+"Project-Id-Version: evince master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/evince/issues\n"
 "POT-Creation-Date: 2021-09-27 01:02+0000\n"
 "PO-Revision-Date: 2021-09-27 14:56+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
@@ -55,12 +55,12 @@ msgstr ""
 msgid "Can not get local path for archive"
 msgstr "Không tìm thấy đường dẫn nội bộ cho kho nén"
 
-#: backend/comics/comicsdocument.papers-backend.desktop.in.in:4
-#: backend/comics/papers-comicsdocument.metainfo.xml.in.in:5
+#: backend/comics/comicsdocument.evince-backend.desktop.in.in:4
+#: backend/comics/evince-comicsdocument.metainfo.xml.in.in:5
 msgid "Comic Books"
 msgstr "Truyện tranh vui"
 
-#: backend/comics/papers-comicsdocument.metainfo.xml.in.in:6
+#: backend/comics/evince-comicsdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading comic books"
 msgstr "Thêm hỗ trợ đọc các truyện tranh vui"
 
@@ -76,12 +76,12 @@ msgstr ""
 "Tài liệu bao gồm nhiều tập tin. Một hoặc nhiều trong số những tập tin đó "
 "không truy cập được."
 
-#: backend/djvu/djvudocument.papers-backend.desktop.in.in:4
-#: backend/djvu/papers-djvudocument.metainfo.xml.in.in:5
+#: backend/djvu/djvudocument.evince-backend.desktop.in.in:4
+#: backend/djvu/evince-djvudocument.metainfo.xml.in.in:5
 msgid "DjVu Documents"
 msgstr "Tài liệu dạng DjVu"
 
-#: backend/djvu/papers-djvudocument.metainfo.xml.in.in:6
+#: backend/djvu/evince-djvudocument.metainfo.xml.in.in:6
 msgid "Adds support for reading DjVu documents"
 msgstr "Thêm hỗ trợ đọc các tài liệu DjVu"
 
@@ -89,73 +89,73 @@ msgstr "Thêm hỗ trợ đọc các tài liệu DjVu"
 msgid "DVI document has incorrect format"
 msgstr "Tài liệu DVI có định dạng không đúng"
 
-#: backend/dvi/dvidocument.papers-backend.desktop.in.in:4
-#: backend/dvi/papers-dvidocument.metainfo.xml.in.in:5
+#: backend/dvi/dvidocument.evince-backend.desktop.in.in:4
+#: backend/dvi/evince-dvidocument.metainfo.xml.in.in:5
 msgid "DVI Documents"
 msgstr "Tài liệu DVI"
 
-#: backend/dvi/papers-dvidocument.metainfo.xml.in.in:6
+#: backend/dvi/evince-dvidocument.metainfo.xml.in.in:6
 msgid "Adds support for reading DVI documents"
 msgstr "Thêm hỗ trợ đọc các tài liệu DVI"
 
-#: backend/pdf/papers-pdfdocument.metainfo.xml.in.in:5
-#: backend/pdf/pdfdocument.papers-backend.desktop.in.in:5
+#: backend/pdf/evince-pdfdocument.metainfo.xml.in.in:5
+#: backend/pdf/pdfdocument.evince-backend.desktop.in.in:5
 msgid "PDF Documents"
 msgstr "Tài liệu PDF"
 
-#: backend/pdf/papers-pdfdocument.metainfo.xml.in.in:6
+#: backend/pdf/evince-pdfdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading PDF Documents"
 msgstr "Thêm hỗ trợ đọc các tài liệu PDF"
 
-#: backend/pdf/pps-poppler.c:907
+#: backend/pdf/ev-poppler.c:907
 msgid "This work is in the Public Domain"
 msgstr "Công trình này đã thuộc Lĩnh Vực Công Cộng"
 
 #. translators: this is the document security state
-#: backend/pdf/pps-poppler.c:1179 backend/pdf/pps-poppler.c:1185
-#: properties/pps-properties-view.c:433
+#: backend/pdf/ev-poppler.c:1179 backend/pdf/ev-poppler.c:1185
+#: properties/ev-properties-view.c:433
 msgid "Yes"
 msgstr "Có"
 
 #. translators: this is the document security state
-#: backend/pdf/pps-poppler.c:1182 backend/pdf/pps-poppler.c:1185
-#: properties/pps-properties-view.c:435
+#: backend/pdf/ev-poppler.c:1182 backend/pdf/ev-poppler.c:1185
+#: properties/ev-properties-view.c:435
 msgid "No"
 msgstr "Không"
 
-#: backend/pdf/pps-poppler.c:1323
+#: backend/pdf/ev-poppler.c:1323
 msgid "Type 1"
 msgstr "Kiểu 1"
 
-#: backend/pdf/pps-poppler.c:1325
+#: backend/pdf/ev-poppler.c:1325
 msgid "Type 1C"
 msgstr "Kiểu 1C"
 
-#: backend/pdf/pps-poppler.c:1327
+#: backend/pdf/ev-poppler.c:1327
 msgid "Type 3"
 msgstr "Kiểu 3"
 
-#: backend/pdf/pps-poppler.c:1329
+#: backend/pdf/ev-poppler.c:1329
 msgid "TrueType"
 msgstr "TrueType"
 
-#: backend/pdf/pps-poppler.c:1331
+#: backend/pdf/ev-poppler.c:1331
 msgid "Type 1 (CID)"
 msgstr "Kiểu 1 (CID)"
 
-#: backend/pdf/pps-poppler.c:1333
+#: backend/pdf/ev-poppler.c:1333
 msgid "Type 1C (CID)"
 msgstr "Kiểu 1C (CID)"
 
-#: backend/pdf/pps-poppler.c:1335
+#: backend/pdf/ev-poppler.c:1335
 msgid "TrueType (CID)"
 msgstr "TrueType (CID)"
 
-#: backend/pdf/pps-poppler.c:1337
+#: backend/pdf/ev-poppler.c:1337
 msgid "Unknown font type"
 msgstr "Kiểu phông chữ chưa biết"
 
-#: backend/pdf/pps-poppler.c:1381
+#: backend/pdf/ev-poppler.c:1381
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
@@ -165,11 +165,11 @@ msgstr ""
 "chọn bởi fontconfig không giống phông dùng để tạo PDF, hiển thị có thể không "
 "chính xác."
 
-#: backend/pdf/pps-poppler.c:1386
+#: backend/pdf/ev-poppler.c:1386
 msgid "All fonts are either standard or embedded."
 msgstr "Mọi phông phải hoặc chuẩn hoặc nhúng."
 
-#: backend/pdf/pps-poppler.c:1416
+#: backend/pdf/ev-poppler.c:1416
 msgid "No name"
 msgstr "Không tên"
 
@@ -183,20 +183,20 @@ msgstr "Không tên"
 #. Author: None
 #. Keywords: None
 #.
-#: backend/pdf/pps-poppler.c:1425 libview/pps-print-operation.c:1991
-#: properties/pps-properties-view.c:233
+#: backend/pdf/ev-poppler.c:1425 libview/ev-print-operation.c:1991
+#: properties/ev-properties-view.c:233
 msgid "None"
 msgstr "Không có"
 
-#: backend/pdf/pps-poppler.c:1433
+#: backend/pdf/ev-poppler.c:1433
 msgid "Embedded subset"
 msgstr "Tập con nhúng"
 
-#: backend/pdf/pps-poppler.c:1435
+#: backend/pdf/ev-poppler.c:1435
 msgid "Embedded"
 msgstr "Nhúng"
 
-#: backend/pdf/pps-poppler.c:1437
+#: backend/pdf/ev-poppler.c:1437
 msgid "Not embedded"
 msgstr "Không nhúng"
 
@@ -205,7 +205,7 @@ msgstr "Không nhúng"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: backend/pdf/pps-poppler.c:1444
+#: backend/pdf/ev-poppler.c:1444
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (Một trong những phông chuẩn 14)"
 
@@ -214,7 +214,7 @@ msgstr " (Một trong những phông chuẩn 14)"
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: backend/pdf/pps-poppler.c:1451
+#: backend/pdf/ev-poppler.c:1451
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (Không phải một trong số các phông chuẩn 14)"
 
@@ -228,7 +228,7 @@ msgstr " (Không phải một trong số các phông chuẩn 14)"
 #. * Substituting with TeXGyreTermes-Regular
 #. * (/usr/share/textmf/.../texgyretermes-regular.otf)
 #.
-#: backend/pdf/pps-poppler.c:1470
+#: backend/pdf/ev-poppler.c:1470
 #, c-format
 msgid ""
 "%s%s\n"
@@ -252,7 +252,7 @@ msgstr ""
 #. * Encoding: Custom
 #. * Embedded subset
 #.
-#: backend/pdf/pps-poppler.c:1488
+#: backend/pdf/ev-poppler.c:1488
 #, c-format
 msgid ""
 "%s%s\n"
@@ -263,31 +263,31 @@ msgstr ""
 "Bảng mã: %s\n"
 "%s"
 
-#: backend/ps/papers-psdocument.metainfo.xml.in.in:5
-#: backend/ps/psdocument.papers-backend.desktop.in.in:5
+#: backend/ps/evince-psdocument.metainfo.xml.in.in:5
+#: backend/ps/psdocument.evince-backend.desktop.in.in:5
 msgid "PostScript Documents"
 msgstr "Tài liệu Postscript"
 
-#: backend/ps/papers-psdocument.metainfo.xml.in.in:6
+#: backend/ps/evince-psdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading PostScript documents"
 msgstr "Thêm hỗ trợ đọc các tài liệu dạng PostScript"
 
-#: backend/ps/pps-spectre.c:98
+#: backend/ps/ev-spectre.c:98
 #, c-format
 msgid "Failed to load document “%s”"
 msgstr "Gặp lỗi khi tải tài liệu “%s”"
 
-#: backend/ps/pps-spectre.c:131
+#: backend/ps/ev-spectre.c:131
 #, c-format
 msgid "Failed to save document “%s”"
 msgstr "Gặp lỗi khi lưu tài liệu “%s”"
 
-#: backend/tiff/papers-tiffdocument.metainfo.xml.in.in:5
-#: backend/tiff/tiffdocument.papers-backend.desktop.in.in:4
+#: backend/tiff/evince-tiffdocument.metainfo.xml.in.in:5
+#: backend/tiff/tiffdocument.evince-backend.desktop.in.in:4
 msgid "TIFF Documents"
 msgstr "Tài liệu TIFF"
 
-#: backend/tiff/papers-tiffdocument.metainfo.xml.in.in:6
+#: backend/tiff/evince-tiffdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading TIFF documents"
 msgstr "Thêm hỗ trợ đọc các tài liệu dạng TIFF"
 
@@ -295,66 +295,66 @@ msgstr "Thêm hỗ trợ đọc các tài liệu dạng TIFF"
 msgid "Invalid document"
 msgstr "Tài liệu không hợp lệ"
 
-#: backend/xps/papers-xpsdocument.metainfo.xml.in.in:5
-#: backend/xps/xpsdocument.papers-backend.desktop.in.in:5
+#: backend/xps/evince-xpsdocument.metainfo.xml.in.in:5
+#: backend/xps/xpsdocument.evince-backend.desktop.in.in:5
 msgid "XPS Documents"
 msgstr "Tài liệu XPS"
 
-#: backend/xps/papers-xpsdocument.metainfo.xml.in.in:6
+#: backend/xps/evince-xpsdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading XPS documents"
 msgstr "Thêm hỗ trợ đọc các tài liệu dạng XPS"
 
 #. Manually set name and icon
-#: data/org.gnome.Papers.desktop.in.in:3 shell/pps-window-title.c:133
+#: data/org.gnome.Evince.desktop.in.in:3 shell/ev-window-title.c:133
 #: shell/main.c:300
 msgid "Document Viewer"
 msgstr "Xem tài liệu"
 
-#: data/org.gnome.Papers.desktop.in.in:4
+#: data/org.gnome.Evince.desktop.in.in:4
 msgid "View multi-page documents"
 msgstr "Xem nhiều trang tài liệu"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Papers.desktop.in.in:6
+#: data/org.gnome.Evince.desktop.in.in:6
 msgid ""
-"pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;viewer;papers;"
+"pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;viewer;evince;"
 msgstr ""
 "pdf;ps;postscript;dvi;xps;djvu;tiff;document;tài liệu;tai lieu;presentation;"
-"trình diễn;trinh dien;viewer;xem;papers;"
+"trình diễn;trinh dien;viewer;xem;evince;"
 
-#: data/org.gnome.Papers.desktop.in.in:19
+#: data/org.gnome.Evince.desktop.in.in:19
 msgid "New Window"
 msgstr "Cửa sổ mới"
 
-#: data/org.gnome.Papers.gschema.xml:14
+#: data/org.gnome.Evince.gschema.xml:14
 msgid "Override document restrictions"
 msgstr "Bỏ hạn chế tài liệu"
 
-#: data/org.gnome.Papers.gschema.xml:15
+#: data/org.gnome.Evince.gschema.xml:15
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr "Bỏ qua những hạn chế của tài liệu, như hạn chế sao chép hay in."
 
-#: data/org.gnome.Papers.gschema.xml:19
+#: data/org.gnome.Evince.gschema.xml:19
 msgid "Automatically reload the document"
 msgstr "Cập nhật tài liệu tự động"
 
-#: data/org.gnome.Papers.gschema.xml:20
+#: data/org.gnome.Evince.gschema.xml:20
 msgid "The document is automatically reloaded on file change."
 msgstr "Tài liệu được tự động tải lại nếu có thay đổi."
 
-#: data/org.gnome.Papers.gschema.xml:24
+#: data/org.gnome.Evince.gschema.xml:24
 msgid "The URI of the directory last used to open or save a document"
 msgstr "URI của thư mục dùng lần cuối để mở hoặc lưu tài liệu"
 
-#: data/org.gnome.Papers.gschema.xml:28
+#: data/org.gnome.Evince.gschema.xml:28
 msgid "The URI of the directory last used to save a picture"
 msgstr "URI của thư mục dùng lần cuối để lưu hình"
 
-#: data/org.gnome.Papers.gschema.xml:32
+#: data/org.gnome.Evince.gschema.xml:32
 msgid "Page cache size in MiB"
 msgstr "Kích thước bộ nhớ tạm tính bằng MiB"
 
-#: data/org.gnome.Papers.gschema.xml:33
+#: data/org.gnome.Evince.gschema.xml:33
 msgid ""
 "The maximum size that will be used to cache rendered pages, limits maximum "
 "zoom level."
@@ -362,7 +362,7 @@ msgstr ""
 "Kích thước bộ nhớ đệm tối đa sẽ được dùng để hiển thị trên màn hình, nó sẽ "
 "giới hạn mức phóng to tối đa."
 
-#: data/org.gnome.Papers.gschema.xml:37
+#: data/org.gnome.Evince.gschema.xml:37
 msgid ""
 "Show a dialog to confirm that the user wants to activate the caret "
 "navigation."
@@ -370,175 +370,175 @@ msgstr ""
 "Hiển thị một hộp thoại để xác nhận rằng người dùng muốn kích hoạt tính di "
 "chuyển con nháy."
 
-#: data/org.gnome.Papers.gschema.xml:41
+#: data/org.gnome.Evince.gschema.xml:41
 msgid "Allow links to change the zoom level."
 msgstr "Cho phép các liên kết thay đổi độ đại."
 
-#: data/org.gnome.Papers-previewer.desktop.in.in:3
+#: data/org.gnome.Evince-previewer.desktop.in.in:3
 msgid "Print Preview"
 msgstr "Xem thử bản in"
 
-#: data/org.gnome.Papers-previewer.desktop.in.in:4
+#: data/org.gnome.Evince-previewer.desktop.in.in:4
 msgid "Preview before printing"
 msgstr "Xem thử trước khi in"
 
-#: libdocument/pps-attachment.c:330 libdocument/pps-attachment.c:351
+#: libdocument/ev-attachment.c:330 libdocument/ev-attachment.c:351
 #, c-format
 msgid "Couldn’t save attachment “%s”: %s"
 msgstr "Không thể lưu phần đính kèm “%s”: %s"
 
-#: libdocument/pps-attachment.c:400
+#: libdocument/ev-attachment.c:400
 #, c-format
 msgid "Couldn’t open attachment “%s”: %s"
 msgstr "Không thể mở phần đính kèm “%s”: %s"
 
-#: libdocument/pps-attachment.c:438
+#: libdocument/ev-attachment.c:438
 #, c-format
 msgid "Couldn’t open attachment “%s”"
 msgstr "Không thể mở tập tin đính kèm “%s”"
 
-#: libdocument/pps-document-factory.c:105
+#: libdocument/ev-document-factory.c:105
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "Không hỗ trợ dạng tập tin %s (%s)"
 
-#: libdocument/pps-document-factory.c:373 libdocument/pps-file-helpers.c:418
-#: libdocument/pps-file-helpers.c:464 libdocument/pps-file-helpers.c:483
+#: libdocument/ev-document-factory.c:373 libdocument/ev-file-helpers.c:418
+#: libdocument/ev-file-helpers.c:464 libdocument/ev-file-helpers.c:483
 msgid "Unknown MIME Type"
 msgstr "Không biết kiểu MIME"
 
-#: libdocument/pps-document-factory.c:582
+#: libdocument/ev-document-factory.c:582
 msgid "All Documents"
 msgstr "Mọi tài liệu"
 
-#: libdocument/pps-document-factory.c:609 shell/pps-utils.c:283
+#: libdocument/ev-document-factory.c:609 shell/ev-utils.c:283
 msgid "All Files"
 msgstr "Mọi tập tin"
 
-#: libdocument/pps-file-helpers.c:158
+#: libdocument/ev-file-helpers.c:158
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "Gặp lỗi khi tạo tập tin tạm thời: %s"
 
-#: libdocument/pps-file-helpers.c:235
+#: libdocument/ev-file-helpers.c:235
 #, c-format
 msgid "Failed to create a temporary directory: %s"
 msgstr "Gặp lỗi khi muốn tạo ra thư mục tạm thời: %s"
 
-#: libmisc/pps-page-action-widget.c:86 libmisc/pps-page-action-widget.c:125
+#: libmisc/ev-page-action-widget.c:86 libmisc/ev-page-action-widget.c:125
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%d trên %d)"
 
-#: libmisc/pps-page-action-widget.c:88 libmisc/pps-page-action-widget.c:129
+#: libmisc/ev-page-action-widget.c:88 libmisc/ev-page-action-widget.c:129
 #, c-format
 msgid "of %d"
 msgstr "trên %d"
 
-#: libmisc/pps-page-action-widget.c:187 shell/pps-history.c:455
-#: shell/pps-sidebar-bookmarks.c:343 shell/pps-window.c:966
-#: shell/pps-window.c:5154
+#: libmisc/ev-page-action-widget.c:187 shell/ev-history.c:455
+#: shell/ev-sidebar-bookmarks.c:343 shell/ev-window.c:966
+#: shell/ev-window.c:5154
 #, c-format
 msgid "Page %s"
 msgstr "Trang %s"
 
-#: libmisc/pps-search-box.c:112
+#: libmisc/ev-search-box.c:112
 msgid "Not found, click to change search options"
 msgstr "Không tìm thấy, bấm để thay đổi tùy chọn tìm kiếm"
 
-#: libmisc/pps-search-box.c:186 libmisc/pps-search-box.c:242
+#: libmisc/ev-search-box.c:186 libmisc/ev-search-box.c:242
 msgid "Search options"
 msgstr "Tùy chọn tìm kiếm"
 
-#: libmisc/pps-search-box.c:318
+#: libmisc/ev-search-box.c:318
 msgid "_Whole Words Only"
 msgstr "_Toàn bộ từ"
 
-#: libmisc/pps-search-box.c:331
+#: libmisc/ev-search-box.c:331
 msgid "C_ase Sensitive"
 msgstr "_Phân biệt HOA/thường"
 
-#: libmisc/pps-search-box.c:600
+#: libmisc/ev-search-box.c:600
 msgid "Find previous occurrence of the search string"
 msgstr "Tìm tiếp theo chiều từ dưới lên"
 
-#: libmisc/pps-search-box.c:606
+#: libmisc/ev-search-box.c:606
 msgid "Find next occurrence of the search string"
 msgstr "Tìm tiếp theo chiều từ trên xuống"
 
-#: libview/pps-jobs.c:649
+#: libview/ev-jobs.c:649
 #, c-format
 msgid "Failed to render page %d"
 msgstr "Gặp lỗi khi vẽ trang %d"
 
-#: libview/pps-jobs.c:901
+#: libview/ev-jobs.c:901
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "Gặp lỗi khi tạo ảnh thu nhỏ cho trang %d"
 
-#: libview/pps-jobs.c:2033
+#: libview/ev-jobs.c:2033
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "Gặp lỗi khi in trang %d: %s"
 
 #. Initial state
-#: libview/pps-print-operation.c:350
+#: libview/ev-print-operation.c:350
 msgid "Preparing preview…"
 msgstr "Chuẩn bị xem thử…"
 
-#: libview/pps-print-operation.c:352 libview/pps-print-operation.c:362
+#: libview/ev-print-operation.c:352 libview/ev-print-operation.c:362
 msgid "Finishing…"
 msgstr "Đang hoàn tất…"
 
-#: libview/pps-print-operation.c:354
+#: libview/ev-print-operation.c:354
 #, c-format
 msgid "Generating preview: page %d of %d"
 msgstr "Đang tạo xem thử: trang %d trên %d"
 
 #. Initial state
-#: libview/pps-print-operation.c:360
+#: libview/ev-print-operation.c:360
 msgid "Preparing to print…"
 msgstr "Chuẩn bị in…"
 
-#: libview/pps-print-operation.c:364
+#: libview/ev-print-operation.c:364
 #, c-format
 msgid "Printing page %d of %d…"
 msgstr "Đang in trang %d trên %d…"
 
-#: libview/pps-print-operation.c:1214
+#: libview/ev-print-operation.c:1214
 msgid "Requested format is not supported by this printer."
 msgstr "Định dạng đã yêu cầu không được hỗ trợ bởi máy in này."
 
-#: libview/pps-print-operation.c:1277
+#: libview/ev-print-operation.c:1277
 msgid "Invalid page selection"
 msgstr "Cách chọn các trang không hợp lý"
 
-#: libview/pps-print-operation.c:1278
+#: libview/ev-print-operation.c:1278
 msgid "Warning"
 msgstr "Cảnh báo"
 
-#: libview/pps-print-operation.c:1280
+#: libview/ev-print-operation.c:1280
 msgid "Your print range selection does not include any pages"
 msgstr "Khoảng trang đã chọn để in không có trang nào"
 
 #. translators: Title of the print dialog
-#: libview/pps-print-operation.c:1358
+#: libview/ev-print-operation.c:1358
 msgid "Print"
 msgstr "In"
 
-#: libview/pps-print-operation.c:1985
+#: libview/ev-print-operation.c:1985
 msgid "Page Scaling:"
 msgstr "Co giãn trang:"
 
-#: libview/pps-print-operation.c:1992
+#: libview/ev-print-operation.c:1992
 msgid "Shrink to Printable Area"
 msgstr "Co lại cho vừa vùng in được"
 
-#: libview/pps-print-operation.c:1993
+#: libview/ev-print-operation.c:1993
 msgid "Fit to Printable Area"
 msgstr "Vừa khít vùng in được"
 
-#: libview/pps-print-operation.c:1996
+#: libview/ev-print-operation.c:1996
 msgid ""
 "Scale document pages to fit the selected printer page. Select from one of "
 "the following:\n"
@@ -561,11 +561,11 @@ msgstr ""
 "* “Vừa khít vùng in được”: Những trang tài liệu sẽ được co hoặc giãn lại cho "
 "vừa vùng in của máy in.\n"
 
-#: libview/pps-print-operation.c:2008
+#: libview/ev-print-operation.c:2008
 msgid "Auto Rotate and Center"
 msgstr "Tự xoay và đặt ở giữa"
 
-#: libview/pps-print-operation.c:2011
+#: libview/ev-print-operation.c:2011
 msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
@@ -573,113 +573,113 @@ msgstr ""
 "Xoay hướng của trang máy in để khớp lại với hướng xếp từng trang tài liệu. "
 "Những trang tài liệu sẽ đặt ở giữa của trang máy in."
 
-#: libview/pps-print-operation.c:2016
+#: libview/ev-print-operation.c:2016
 msgid "Select page size using document page size"
 msgstr "Chọn khổ giấy thông qua khổ giấy tài liệu"
 
-#: libview/pps-print-operation.c:2018
+#: libview/ev-print-operation.c:2018
 msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
 msgstr "Khi bật, mỗi trang sẽ được in trên giấy cùng khổ trang tài liệu."
 
-#: libview/pps-print-operation.c:2023
+#: libview/ev-print-operation.c:2023
 msgid "Draw border around pages"
 msgstr "Vẽ đường viền xung quanh các trang"
 
-#: libview/pps-print-operation.c:2025
+#: libview/ev-print-operation.c:2025
 msgid "When enabled, a border will be drawn around each page."
 msgstr "Khi được bật, một đường viền sẽ được vẽ xung quanh mỗi trang."
 
-#: libview/pps-print-operation.c:2127
+#: libview/ev-print-operation.c:2127
 msgid "Page Handling"
 msgstr "Thao tác trên trang"
 
-#: libview/pps-view-accessible.c:43
+#: libview/ev-view-accessible.c:43
 msgid "Scroll Up"
 msgstr "Cuộn lên"
 
-#: libview/pps-view-accessible.c:44
+#: libview/ev-view-accessible.c:44
 msgid "Scroll Down"
 msgstr "Cuộn xuống"
 
-#: libview/pps-view-accessible.c:50
+#: libview/ev-view-accessible.c:50
 msgid "Scroll View Up"
 msgstr "Cuộn khung xem lên"
 
-#: libview/pps-view-accessible.c:51
+#: libview/ev-view-accessible.c:51
 msgid "Scroll View Down"
 msgstr "Cuộn khung xem xuống"
 
-#: libview/pps-view-accessible.c:132
+#: libview/ev-view-accessible.c:132
 msgid "Document View"
 msgstr "Khung xem tài liệu"
 
-#: libview/pps-view.c:2112
+#: libview/ev-view.c:2112
 msgid "Go to first page"
 msgstr "Về trang đầu tiên"
 
-#: libview/pps-view.c:2114
+#: libview/ev-view.c:2114
 msgid "Go to previous page"
 msgstr "Quay về trang kế trước"
 
-#: libview/pps-view.c:2116
+#: libview/ev-view.c:2116
 msgid "Go to next page"
 msgstr "Chuyển đến trang kế tiếp"
 
-#: libview/pps-view.c:2118
+#: libview/ev-view.c:2118
 msgid "Go to last page"
 msgstr "Chuyển đến trang cuối cùng"
 
-#: libview/pps-view.c:2120
+#: libview/ev-view.c:2120
 msgid "Go to page"
 msgstr "Nhảy đến trang"
 
-#: libview/pps-view.c:2122
+#: libview/ev-view.c:2122
 msgid "Find"
 msgstr "Tìm"
 
-#: libview/pps-view.c:2150
+#: libview/ev-view.c:2150
 #, c-format
 msgid "Go to page %s"
 msgstr "Nhảy đến trang %s"
 
-#: libview/pps-view.c:2156
+#: libview/ev-view.c:2156
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Tới %s trên tập tin “%s”"
 
-#: libview/pps-view.c:2159
+#: libview/ev-view.c:2159
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Tới tập tin “%s”"
 
-#: libview/pps-view.c:2167
+#: libview/ev-view.c:2167
 #, c-format
 msgid "Launch %s"
 msgstr "Khởi chạy %s"
 
-#: libview/pps-view.c:2174
+#: libview/ev-view.c:2174
 msgid "Reset form"
 msgstr "Đặt lại form"
 
-#: libview/pps-view-presentation.c:757
+#: libview/ev-view-presentation.c:757
 msgid "Jump to page:"
 msgstr "Nhảy đến trang:"
 
-#: libview/pps-view-presentation.c:1051
+#: libview/ev-view-presentation.c:1051
 msgid "End of presentation. Press Esc or click to exit."
 msgstr "Trình diễn đã hết. Bấm Esc hay bấm chuột để thoát ra."
 
-#: org.gnome.Papers.appdata.xml.in:23 shell/pps-window.c:4210
-msgid "Papers"
-msgstr "Papers"
+#: org.gnome.Evince.appdata.xml.in:23 shell/ev-window.c:4210
+msgid "Evince"
+msgstr "Evince"
 
-#: org.gnome.Papers.appdata.xml.in:24
+#: org.gnome.Evince.appdata.xml.in:24
 msgid "Document viewer for popular document formats"
 msgstr "Ứng dụng xem các tài liệu có định dạng phổ biến"
 
-#: org.gnome.Papers.appdata.xml.in:26
+#: org.gnome.Evince.appdata.xml.in:26
 msgid ""
 "A document viewer for the GNOME desktop. You can view, search or annotate "
 "documents in many different formats."
@@ -687,51 +687,51 @@ msgstr ""
 "Phần mềm đọc tài liệu cho môi trường máy tính để bàn GNOME. Bạn có thể xem, "
 "tìm kiếm hay ghi chú các tài liệu ở nhiều định dạng khác nhau."
 
-#: org.gnome.Papers.appdata.xml.in:27
+#: org.gnome.Evince.appdata.xml.in:27
 msgid ""
-"Papers supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, DVI (with "
+"Evince supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, DVI (with "
 "SyncTeX), and Comic Books archives (CBR, CBT, CBZ, CB7)."
 msgstr ""
-"Papers hỗ trợ những dạng tài liệu sau: PDF, PS, EPS, XPS, DjVu, TIFF, DVI "
+"Evince hỗ trợ những dạng tài liệu sau: PDF, PS, EPS, XPS, DjVu, TIFF, DVI "
 "(với SyncTeX), và kho nén truyện tranh vui (CBR, CBT, CBZ, CB7)."
 
-#: org.gnome.Papers.appdata.xml.in:35
+#: org.gnome.Evince.appdata.xml.in:35
 msgid "A clear, simple UI"
 msgstr "Giao điện người dùng rõ ràng và đơn giản"
 
-#: org.gnome.Papers.appdata.xml.in:39
+#: org.gnome.Evince.appdata.xml.in:39
 msgid "Advanced highlighting and annotation"
 msgstr "Thêm chú thích và tô sáng tiên tiến"
 
-#: previewer/pps-previewer.c:45
+#: previewer/ev-previewer.c:45
 msgid "Delete the temporary file"
 msgstr "Xóa tập tin tạm thời"
 
-#: previewer/pps-previewer.c:46
+#: previewer/ev-previewer.c:46
 msgid "File specifying print settings"
 msgstr "Tập tin chỉ định các cài đặt in"
 
-#: previewer/pps-previewer.c:46
+#: previewer/ev-previewer.c:46
 msgid "FILE"
 msgstr "TẬP_TIN"
 
-#: previewer/pps-previewer.c:188 previewer/pps-previewer.c:222
+#: previewer/ev-previewer.c:188 previewer/ev-previewer.c:222
 msgid "GNOME Document Previewer"
 msgstr "Xem trước tài liệu trong GNOME"
 
-#: previewer/pps-previewer-toolbar.c:112 shell/pps-toolbar.c:218
+#: previewer/ev-previewer-toolbar.c:112 shell/ev-toolbar.c:218
 msgid "Select page or search in the index"
 msgstr "Chọn trang hoặc tìm trong mục lục"
 
-#: previewer/pps-previewer-toolbar.c:114 shell/pps-toolbar.c:219
+#: previewer/ev-previewer-toolbar.c:114 shell/ev-toolbar.c:219
 msgid "Select page"
 msgstr "Chọn trang"
 
-#: previewer/pps-previewer-window.c:79 shell/pps-window.c:3665
+#: previewer/ev-previewer-window.c:79 shell/ev-window.c:3665
 msgid "Failed to print document"
 msgstr "Gặp lỗi khi in tài liệu"
 
-#: previewer/pps-previewer-window.c:220
+#: previewer/ev-previewer-window.c:220
 #, c-format
 msgid "The selected printer “%s” could not be found"
 msgstr "Không tìm được máy in “%s” đã chọn"
@@ -744,11 +744,11 @@ msgstr "_In"
 msgid "Print this document"
 msgstr "In tài liệu này"
 
-#: previewer/previewer.ui:20 shell/papers-menus.ui:254
+#: previewer/previewer.ui:20 shell/evince-menus.ui:254
 msgid "Previous Page"
 msgstr "Trang trước"
 
-#: previewer/previewer.ui:27 shell/papers-menus.ui:258
+#: previewer/previewer.ui:27 shell/evince-menus.ui:258
 msgid "Next Page"
 msgstr "Trang kế"
 
@@ -764,72 +764,72 @@ msgstr "Thu nhỏ tài liệu"
 msgid "Reset zoom and make the page fit in the window"
 msgstr "Đặt lại thu phóng và làm cho trang vừa khít cửa sổ"
 
-#: properties/pps-properties-main.c:116
+#: properties/ev-properties-main.c:116
 msgid "Document"
 msgstr "Tài liệu"
 
-#: properties/pps-properties-view.c:62
+#: properties/ev-properties-view.c:62
 msgid "Title:"
 msgstr "Tựa đề:"
 
-#: properties/pps-properties-view.c:63
+#: properties/ev-properties-view.c:63
 msgid "Location:"
 msgstr "Vị trí:"
 
-#: properties/pps-properties-view.c:64
+#: properties/ev-properties-view.c:64
 msgid "Subject:"
 msgstr "Chủ đề:"
 
-#: properties/pps-properties-view.c:65
-#: shell/pps-annotation-properties-dialog.c:172
+#: properties/ev-properties-view.c:65
+#: shell/ev-annotation-properties-dialog.c:172
 msgid "Author:"
 msgstr "Tác giả:"
 
-#: properties/pps-properties-view.c:66
+#: properties/ev-properties-view.c:66
 msgid "Keywords:"
 msgstr "Từ khóa:"
 
-#: properties/pps-properties-view.c:67
+#: properties/ev-properties-view.c:67
 msgid "Producer:"
 msgstr "Nhà sản xuất:"
 
-#: properties/pps-properties-view.c:68
+#: properties/ev-properties-view.c:68
 msgid "Creator:"
 msgstr "Người tạo:"
 
-#: properties/pps-properties-view.c:69
+#: properties/ev-properties-view.c:69
 msgid "Created:"
 msgstr "Ngày tạo:"
 
-#: properties/pps-properties-view.c:70
+#: properties/ev-properties-view.c:70
 msgid "Modified:"
 msgstr "Sửa đổi:"
 
-#: properties/pps-properties-view.c:71
+#: properties/ev-properties-view.c:71
 msgid "Number of Pages:"
 msgstr "Số trang:"
 
-#: properties/pps-properties-view.c:72
+#: properties/ev-properties-view.c:72
 msgid "Optimized:"
 msgstr "Tối ưu hóa:"
 
-#: properties/pps-properties-view.c:73
+#: properties/ev-properties-view.c:73
 msgid "Format:"
 msgstr "Định dạng:"
 
-#: properties/pps-properties-view.c:74
+#: properties/ev-properties-view.c:74
 msgid "Security:"
 msgstr "Bảo mật:"
 
-#: properties/pps-properties-view.c:75
+#: properties/ev-properties-view.c:75
 msgid "Contains Javascript:"
 msgstr "Chứa Javascript:"
 
-#: properties/pps-properties-view.c:76
+#: properties/ev-properties-view.c:76
 msgid "Paper Size:"
 msgstr "Khổ giấy:"
 
-#: properties/pps-properties-view.c:77
+#: properties/ev-properties-view.c:77
 msgid "Size:"
 msgstr "Kích thước:"
 
@@ -839,706 +839,706 @@ msgstr "Kích thước:"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: properties/pps-properties-view.c:270
+#: properties/ev-properties-view.c:270
 msgid "default:mm"
 msgstr "default:mm"
 
-#: properties/pps-properties-view.c:314
+#: properties/ev-properties-view.c:314
 #, c-format
 msgid "%.0f × %.0f mm"
 msgstr "%.0f × %.0f mm"
 
-#: properties/pps-properties-view.c:318
+#: properties/ev-properties-view.c:318
 #, c-format
 msgid "%.2f × %.2f inch"
 msgstr "%.2f × %.2f inch"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: properties/pps-properties-view.c:342
+#: properties/ev-properties-view.c:342
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr "%s, Dọc (%s)"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: properties/pps-properties-view.c:349
+#: properties/ev-properties-view.c:349
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr "%s, Ngang (%s)"
 
-#: properties/pps-properties-view.c:437
-#: shell/pps-annotation-properties-dialog.c:112
+#: properties/ev-properties-view.c:437
+#: shell/ev-annotation-properties-dialog.c:112
 msgid "Unknown"
 msgstr "Không rõ"
 
-#: shell/pps-annotation-properties-dialog.c:97
+#: shell/ev-annotation-properties-dialog.c:97
 msgid "Icon:"
 msgstr "Biểu tượng:"
 
-#: shell/pps-annotation-properties-dialog.c:103
+#: shell/ev-annotation-properties-dialog.c:103
 msgid "Note"
 msgstr "Ghi chú"
 
-#: shell/pps-annotation-properties-dialog.c:104
+#: shell/ev-annotation-properties-dialog.c:104
 msgid "Comment"
 msgstr "Bình luận"
 
-#: shell/pps-annotation-properties-dialog.c:105
+#: shell/ev-annotation-properties-dialog.c:105
 msgid "Key"
 msgstr "Khóa"
 
-#: shell/pps-annotation-properties-dialog.c:106
+#: shell/ev-annotation-properties-dialog.c:106
 msgid "Help"
 msgstr "Trợ giúp"
 
-#: shell/pps-annotation-properties-dialog.c:107
+#: shell/ev-annotation-properties-dialog.c:107
 msgid "New Paragraph"
 msgstr "Đoạn mới"
 
-#: shell/pps-annotation-properties-dialog.c:108
+#: shell/ev-annotation-properties-dialog.c:108
 msgid "Paragraph"
 msgstr "Đoạn"
 
-#: shell/pps-annotation-properties-dialog.c:109
+#: shell/ev-annotation-properties-dialog.c:109
 msgid "Insert"
 msgstr "Chèn"
 
-#: shell/pps-annotation-properties-dialog.c:110
+#: shell/ev-annotation-properties-dialog.c:110
 msgid "Cross"
 msgstr "Chữ thập"
 
-#: shell/pps-annotation-properties-dialog.c:111
+#: shell/ev-annotation-properties-dialog.c:111
 msgid "Circle"
 msgstr "Vòng tròn"
 
-#: shell/pps-annotation-properties-dialog.c:123
+#: shell/ev-annotation-properties-dialog.c:123
 msgid "Markup type:"
 msgstr "Kiểu đánh dấu:"
 
-#: shell/pps-annotation-properties-dialog.c:129
+#: shell/ev-annotation-properties-dialog.c:129
 msgid "Highlight"
 msgstr "Tô sáng"
 
-#: shell/pps-annotation-properties-dialog.c:130
+#: shell/ev-annotation-properties-dialog.c:130
 msgid "Strike out"
 msgstr "Gạch xóa"
 
-#: shell/pps-annotation-properties-dialog.c:131
+#: shell/ev-annotation-properties-dialog.c:131
 msgid "Underline"
 msgstr "Gạch chân"
 
-#: shell/pps-annotation-properties-dialog.c:132
+#: shell/ev-annotation-properties-dialog.c:132
 msgid "Squiggly"
 msgstr "Viết bằng tay"
 
-#: shell/pps-annotation-properties-dialog.c:153
+#: shell/ev-annotation-properties-dialog.c:153
 msgid "Annotation Properties"
 msgstr "Thuộc tính chú thích"
 
-#: shell/pps-annotation-properties-dialog.c:157
+#: shell/ev-annotation-properties-dialog.c:157
 msgid "_Close"
 msgstr "Đó_ng"
 
-#: shell/pps-annotation-properties-dialog.c:158
+#: shell/ev-annotation-properties-dialog.c:158
 msgid "_Apply"
 msgstr "Á_p dụng"
 
-#: shell/pps-annotation-properties-dialog.c:183
+#: shell/ev-annotation-properties-dialog.c:183
 msgid "Color:"
 msgstr "Màu:"
 
-#: shell/pps-annotation-properties-dialog.c:193
+#: shell/ev-annotation-properties-dialog.c:193
 msgid "Opacity:"
 msgstr "Độ trong suốt:"
 
-#: shell/pps-annotation-properties-dialog.c:205
+#: shell/ev-annotation-properties-dialog.c:205
 msgid "Initial window state:"
 msgstr "Trạng thái cửa sổ ban đầu:"
 
-#: shell/pps-annotation-properties-dialog.c:211
+#: shell/ev-annotation-properties-dialog.c:211
 msgid "Open"
 msgstr "Mở"
 
-#: shell/pps-annotation-properties-dialog.c:212
+#: shell/ev-annotation-properties-dialog.c:212
 msgid "Close"
 msgstr "Đóng"
 
 #. Translators: an annotation that looks like a "sticky note"
-#: shell/pps-annotations-toolbar.c:133
+#: shell/ev-annotations-toolbar.c:133
 msgid "Note text"
 msgstr "Ghi chú bằng chữ"
 
-#: shell/pps-annotations-toolbar.c:135
+#: shell/ev-annotations-toolbar.c:135
 msgid "Add text annotation"
 msgstr "Thêm chú thích bằng chữ"
 
-#: shell/pps-annotations-toolbar.c:140
+#: shell/ev-annotations-toolbar.c:140
 msgid "Highlight text"
 msgstr "Tô sáng chữ"
 
-#: shell/pps-annotations-toolbar.c:142
+#: shell/ev-annotations-toolbar.c:142
 msgid "Add highlight annotation"
 msgstr "Thêm chú thích tô sáng"
 
-#: shell/papers-menus.ui:25 shell/pps-sidebar-links.c:351
+#: shell/evince-menus.ui:25 shell/ev-sidebar-links.c:351
 msgid "Print…"
 msgstr "In…"
 
-#: shell/papers-menus.ui:30
+#: shell/evince-menus.ui:30
 msgid "Fullscreen"
 msgstr "Toàn màn hình"
 
-#: shell/papers-menus.ui:35
+#: shell/evince-menus.ui:35
 msgid "Send To…"
 msgstr "Gửi đến…"
 
-#: shell/papers-menus.ui:42
+#: shell/evince-menus.ui:42
 msgid "New _Window"
 msgstr "Cửa _sổ mới"
 
-#: shell/papers-menus.ui:48
+#: shell/evince-menus.ui:48
 msgid "Open a C_opy"
 msgstr "Mở _bản sao"
 
-#: shell/papers-menus.ui:52 shell/papers-menus.ui:240
+#: shell/evince-menus.ui:52 shell/evince-menus.ui:240
 msgid "Open Containing _Folder"
 msgstr "Mở _thư mục chứa"
 
-#: shell/papers-menus.ui:58
+#: shell/evince-menus.ui:58
 msgid "_Save As…"
 msgstr "_Lưu dạng…"
 
-#: shell/papers-menus.ui:64
+#: shell/evince-menus.ui:64
 msgid "Present as _Slideshow"
 msgstr "Trình diễn dạng T_rượt"
 
-#: shell/papers-menus.ui:70
+#: shell/evince-menus.ui:70
 msgid "_Continuous"
 msgstr "Liên tụ_c"
 
-#: shell/papers-menus.ui:74
+#: shell/evince-menus.ui:74
 msgid "_Dual"
 msgstr "_Phân đôi"
 
-#: shell/papers-menus.ui:78
+#: shell/evince-menus.ui:78
 msgid "_Odd Pages Left"
 msgstr "Trang _lẻ bên trái"
 
-#: shell/papers-menus.ui:82
+#: shell/evince-menus.ui:82
 msgid "Right to Left Document"
 msgstr "Tài liệu từ Phải sang Trái"
 
-#: shell/papers-menus.ui:88
+#: shell/evince-menus.ui:88
 msgid "Ro_tate ⤵"
 msgstr "Xoay _trái ⤵"
 
-#: shell/papers-menus.ui:94
+#: shell/evince-menus.ui:94
 msgid "Ni_ght Mode"
 msgstr "Chế độ Đê_m"
 
-#: shell/papers-menus.ui:100
+#: shell/evince-menus.ui:100
 msgid "Prop_erties"
 msgstr "_Thuộc tính"
 
-#: shell/papers-menus.ui:106
+#: shell/evince-menus.ui:106
 msgid "Save Current Settings as Defa_ult"
 msgstr "Lưu các cài đặt hiện tại làm _mặc định"
 
-#: shell/papers-menus.ui:110
+#: shell/evince-menus.ui:110
 msgid "_Keyboard Shortcuts"
 msgstr "_Phím tắt"
 
-#: shell/papers-menus.ui:114
+#: shell/evince-menus.ui:114
 msgid "_Help"
 msgstr "Trợ _giúp"
 
-#: shell/papers-menus.ui:118
+#: shell/evince-menus.ui:118
 msgid "_About Document Viewer"
 msgstr "_Giới thiệu bộ xem tài liệu"
 
-#: shell/papers-menus.ui:127
+#: shell/evince-menus.ui:127
 msgid "Fit Pa_ge"
 msgstr "Vừa _khít trang"
 
-#: shell/papers-menus.ui:132
+#: shell/evince-menus.ui:132
 msgid "Fit _Width"
 msgstr "Vừa _bề ngang"
 
-#: shell/papers-menus.ui:137
+#: shell/evince-menus.ui:137
 msgid "_Automatic"
 msgstr "_Tự động"
 
-#: shell/papers-menus.ui:149
+#: shell/evince-menus.ui:149
 msgid "_Open Link"
 msgstr "_Mở liên kết"
 
-#: shell/papers-menus.ui:154
+#: shell/evince-menus.ui:154
 msgid "_Copy Link Address"
 msgstr "_Chép địa chỉ liên kết"
 
-#: shell/papers-menus.ui:159
+#: shell/evince-menus.ui:159
 msgid "_Go To"
 msgstr "_Đi tới"
 
-#: shell/papers-menus.ui:164
+#: shell/evince-menus.ui:164
 msgid "Open in New _Window"
 msgstr "Mở trong cửa _sổ mới"
 
-#: shell/papers-menus.ui:171
+#: shell/evince-menus.ui:171
 msgid "_Previous Page"
 msgstr "T_rang trước"
 
-#: shell/papers-menus.ui:175
+#: shell/evince-menus.ui:175
 msgid "_Next Page"
 msgstr "Trang _kế"
 
-#: shell/papers-menus.ui:179 shell/pps-window.c:3964
+#: shell/evince-menus.ui:179 shell/ev-window.c:3964
 msgid "_Reload"
 msgstr "Tải _lại"
 
-#: shell/papers-menus.ui:183
+#: shell/evince-menus.ui:183
 msgid "Auto_scroll"
 msgstr "Tự động _cuộn"
 
-#: shell/papers-menus.ui:189
+#: shell/evince-menus.ui:189
 msgid "_Copy"
 msgstr "Sao _chép"
 
-#: shell/papers-menus.ui:193
+#: shell/evince-menus.ui:193
 msgid "Select _All"
 msgstr "Chọn _hết"
 
-#: shell/papers-menus.ui:199
+#: shell/evince-menus.ui:199
 msgid "_Save Image As…"
 msgstr "_Lưu ảnh dạng…"
 
-#: shell/papers-menus.ui:204
+#: shell/evince-menus.ui:204
 msgid "Copy _Image"
 msgstr "_Sao chép ảnh"
 
-#: shell/papers-menus.ui:211 shell/papers-menus.ui:282
-#: shell/papers-menus.ui:305
+#: shell/evince-menus.ui:211 shell/evince-menus.ui:282
+#: shell/evince-menus.ui:305
 msgid "_Open Attachment"
 msgstr "_Mở tài liệu đính kèm"
 
-#: shell/papers-menus.ui:216 shell/papers-menus.ui:286
-#: shell/papers-menus.ui:310
+#: shell/evince-menus.ui:216 shell/evince-menus.ui:286
+#: shell/evince-menus.ui:310
 msgid "_Save Attachment As…"
 msgstr "_Lưu đính kèm thành…"
 
-#: shell/papers-menus.ui:223
+#: shell/evince-menus.ui:223
 msgid "Annotation _Properties…"
 msgstr "Th_uộc tính ghi chú…"
 
-#: shell/papers-menus.ui:228
+#: shell/evince-menus.ui:228
 msgid "R_emove Annotation"
 msgstr "_Xóa bỏ chú thích"
 
-#: shell/papers-menus.ui:235
+#: shell/evince-menus.ui:235
 msgid "_Highlight Selected Text"
 msgstr "Tô _sáng văn bản được chọn"
 
-#: shell/papers-menus.ui:248
+#: shell/evince-menus.ui:248
 msgid "Navigation"
 msgstr "Duyệt qua"
 
-#: shell/papers-menus.ui:250
+#: shell/evince-menus.ui:250
 msgid "First Page"
 msgstr "Trang đầu"
 
-#: shell/papers-menus.ui:262
+#: shell/evince-menus.ui:262
 msgid "Last Page"
 msgstr "Trang cuối"
 
-#: shell/papers-menus.ui:267
+#: shell/evince-menus.ui:267
 msgid "History"
 msgstr "Lịch sử"
 
-#: shell/papers-menus.ui:269
+#: shell/evince-menus.ui:269
 msgid "Back"
 msgstr "Lùi"
 
-#: shell/papers-menus.ui:273
+#: shell/evince-menus.ui:273
 msgid "Forward"
 msgstr "Kế tiếp"
 
-#: shell/papers-menus.ui:295
+#: shell/evince-menus.ui:295
 msgid "Annotation Properties…"
 msgstr "Thuộc tính ghi chú…"
 
-#: shell/papers-menus.ui:300
+#: shell/evince-menus.ui:300
 msgid "Remove Annotation"
 msgstr "Xóa bỏ chú thích"
 
-#: shell/papers-menus.ui:320
+#: shell/evince-menus.ui:320
 msgid "_Open Bookmark"
 msgstr "_Mở đánh dấu"
 
-#: shell/papers-menus.ui:326
+#: shell/evince-menus.ui:326
 msgid "_Rename Bookmark"
 msgstr "Đổ_i tên đánh dấu"
 
-#: shell/papers-menus.ui:330
+#: shell/evince-menus.ui:330
 msgid "_Delete Bookmark"
 msgstr "_Xóa dấu trang"
 
-#: shell/pps-keyring.c:86
+#: shell/ev-keyring.c:86
 #, c-format
 msgid "Password for document %s"
 msgstr "Mật khẩu cho tài liệu %s"
 
 #. Create tree view
-#: shell/pps-loading-message.c:50 shell/pps-sidebar-annotations.c:139
-#: shell/pps-sidebar-layers.c:123 shell/pps-sidebar-links.c:276
+#: shell/ev-loading-message.c:50 shell/ev-sidebar-annotations.c:139
+#: shell/ev-sidebar-layers.c:123 shell/ev-sidebar-links.c:276
 msgid "Loading…"
 msgstr "Đang tải…"
 
-#: shell/pps-password-view.c:141
+#: shell/ev-password-view.c:141
 msgid ""
 "This document is locked and can only be read by entering the correct "
 "password."
 msgstr "Tài liệu này bị khóa và phải nhập mật khẩu để có thể đọc."
 
-#: shell/pps-password-view.c:152
+#: shell/ev-password-view.c:152
 msgid "_Unlock Document"
 msgstr "_Mở khóa tài liệu"
 
-#: shell/pps-password-view.c:252
+#: shell/ev-password-view.c:252
 #, c-format
 msgid ""
 "The document “%s” is locked and requires a password before it can be opened."
 msgstr "Tài liệu “%s” bị khóa và bạn cần nhập mật khẩu để mở."
 
-#: shell/pps-password-view.c:259
+#: shell/ev-password-view.c:259
 msgid "Password required"
 msgstr "Yêu cầu nhập mật khẩu"
 
-#: shell/pps-password-view.c:266 shell/pps-sidebar-attachments.c:493
-#: shell/pps-window.c:2905 shell/pps-window.c:3203 shell/pps-window.c:4088
-#: shell/pps-window.c:6998 shell/pps-window.c:7224
+#: shell/ev-password-view.c:266 shell/ev-sidebar-attachments.c:493
+#: shell/ev-window.c:2905 shell/ev-window.c:3203 shell/ev-window.c:4088
+#: shell/ev-window.c:6998 shell/ev-window.c:7224
 msgid "_Cancel"
 msgstr "_Thôi"
 
-#: shell/pps-password-view.c:267
+#: shell/ev-password-view.c:267
 msgid "_Unlock"
 msgstr "_Mở khóa"
 
-#: shell/pps-password-view.c:279
+#: shell/ev-password-view.c:279
 msgid "_Password:"
 msgstr "Mật _khẩu:"
 
-#: shell/pps-password-view.c:314
+#: shell/ev-password-view.c:314
 msgid "Forget password _immediately"
 msgstr "_Quên ngay mật khẩu"
 
-#: shell/pps-password-view.c:326
+#: shell/ev-password-view.c:326
 msgid "Remember password until you _log out"
 msgstr "Nhớ mật khẩu cho đến khi đăng _xuất"
 
-#: shell/pps-password-view.c:338
+#: shell/ev-password-view.c:338
 msgid "Remember _forever"
 msgstr "_Nhớ mãi mãi"
 
-#: shell/pps-properties-dialog.c:63
+#: shell/ev-properties-dialog.c:63
 msgid "Properties"
 msgstr "Thuộc tính"
 
-#: shell/pps-properties-dialog.c:85
+#: shell/ev-properties-dialog.c:85
 msgid "General"
 msgstr "Chung"
 
-#: shell/pps-properties-dialog.c:95
+#: shell/ev-properties-dialog.c:95
 msgid "Fonts"
 msgstr "Phông chữ"
 
-#: shell/pps-properties-dialog.c:108
+#: shell/ev-properties-dialog.c:108
 msgid "Document License"
 msgstr "Bản quyền của tài liệu"
 
-#: shell/pps-properties-fonts.c:142
+#: shell/ev-properties-fonts.c:142
 msgid "Font"
 msgstr "Phông chữ"
 
-#: shell/pps-properties-fonts.c:169
+#: shell/ev-properties-fonts.c:169
 #, c-format
 msgid "Gathering font information… %3d%%"
 msgstr "Đang thu tập thông tin về phông chữ… %3d%%"
 
-#: shell/pps-properties-license.c:146
+#: shell/ev-properties-license.c:146
 msgid "Usage terms"
 msgstr "Điều kiện sử dụng"
 
-#: shell/pps-properties-license.c:158
+#: shell/ev-properties-license.c:158
 msgid "Text License"
 msgstr "Giấy phép bằng văn bản"
 
-#: shell/pps-properties-license.c:169
+#: shell/ev-properties-license.c:169
 msgid "Further Information"
 msgstr "Thêm thông tin"
 
-#: shell/pps-sidebar-annotations.c:372
+#: shell/ev-sidebar-annotations.c:372
 msgid "Document contains no annotations"
 msgstr "Tài liệu không có chú thích"
 
-#: shell/pps-sidebar-annotations.c:412
+#: shell/ev-sidebar-annotations.c:412
 #, c-format
 msgid "Page %d"
 msgstr "Trang %d"
 
-#: shell/pps-sidebar-annotations.c:675 shell/pps-window.c:7624
+#: shell/ev-sidebar-annotations.c:675 shell/ev-window.c:7624
 msgid "Annotations"
 msgstr "Chú thích"
 
-#: shell/pps-sidebar-attachments.c:485
+#: shell/ev-sidebar-attachments.c:485
 #, c-format
 msgid "A file named “%s” already exists. Do you want to replace it?"
 msgstr "Một tập tin tên “%s” đã có. Bạn có muốn thay thế nó không?"
 
-#: shell/pps-sidebar-attachments.c:489
+#: shell/ev-sidebar-attachments.c:489
 #, c-format
 msgid "The file “%s” already exists. Replacing it will overwrite its contents."
 msgstr ""
 "Tập tin đã có trong “%s”. Thay thế nó đồng nghĩa với việc ghi đè lên nội "
 "dung cũ."
 
-#: shell/pps-sidebar-attachments.c:494
+#: shell/ev-sidebar-attachments.c:494
 msgid "_Replace"
 msgstr "Tha_y thế"
 
-#: shell/pps-sidebar-attachments.c:899 shell/pps-window.c:7648
+#: shell/ev-sidebar-attachments.c:899 shell/ev-window.c:7648
 msgid "Attachments"
 msgstr "Đính kèm"
 
-#: shell/pps-sidebar-bookmarks.c:493 shell/pps-sidebar-bookmarks.c:494
+#: shell/ev-sidebar-bookmarks.c:493 shell/ev-sidebar-bookmarks.c:494
 msgid "Add bookmark"
 msgstr "Thêm đánh dấu"
 
-#: shell/pps-sidebar-bookmarks.c:502 shell/pps-sidebar-bookmarks.c:503
+#: shell/ev-sidebar-bookmarks.c:502 shell/ev-sidebar-bookmarks.c:503
 msgid "Remove bookmark"
 msgstr "Xóa đánh dấu"
 
-#: shell/pps-sidebar-bookmarks.c:628 shell/pps-window.c:7632
+#: shell/ev-sidebar-bookmarks.c:628 shell/ev-window.c:7632
 msgid "Bookmarks"
 msgstr "Đánh dấu"
 
-#: shell/pps-sidebar-layers.c:444 shell/pps-window.c:7660
+#: shell/ev-sidebar-layers.c:444 shell/ev-window.c:7660
 msgid "Layers"
 msgstr "Lớp"
 
-#: shell/pps-sidebar-links.c:357
+#: shell/ev-sidebar-links.c:357
 msgid "Collapse all tree"
 msgstr "Co toàn bộ cây lại"
 
-#: shell/pps-sidebar-links.c:364
+#: shell/ev-sidebar-links.c:364
 msgid "Expand all tree"
 msgstr "Khai triển toàn bộ cây"
 
-#: shell/pps-sidebar-links.c:371
+#: shell/ev-sidebar-links.c:371
 msgid "Expand all under this element"
 msgstr "Khai triển tất cả phần tử dưới phần tử này"
 
 #. Translators: This is the title for the sidebar pane that
 #. * shows the Outline or Table of Contents of the document.
 #.
-#: shell/pps-sidebar-links.c:1431 shell/pps-window.c:7612
+#: shell/ev-sidebar-links.c:1431 shell/ev-window.c:7612
 msgid "Outline"
 msgstr "Biên dạng"
 
-#: shell/pps-sidebar-thumbnails.c:1047 shell/pps-window.c:7595
+#: shell/ev-sidebar-thumbnails.c:1047 shell/ev-window.c:7595
 msgid "Thumbnails"
 msgstr "Hình thu nhỏ"
 
-#: shell/pps-toolbar.c:173
+#: shell/ev-toolbar.c:173
 msgid "Find a word or phrase in the document"
 msgstr "Tìm một từ hay cụm từ trong tài liệu"
 
-#: shell/pps-toolbar.c:179
+#: shell/ev-toolbar.c:179
 msgid "Search not available for this document"
 msgstr "Tìm kiếm không sẵn dùng với tài liệu này"
 
-#: shell/pps-toolbar.c:203
+#: shell/ev-toolbar.c:203
 msgid "Open…"
 msgstr "Mở…"
 
-#: shell/pps-toolbar.c:204
+#: shell/ev-toolbar.c:204
 msgid "Open an existing document"
 msgstr "Mở tài liệu"
 
-#: shell/pps-toolbar.c:211
+#: shell/ev-toolbar.c:211
 msgid "Side pane"
 msgstr "Khung bên"
 
-#: shell/pps-toolbar.c:227
+#: shell/ev-toolbar.c:227
 msgid "Annotate the document"
 msgstr "Chú thích tài liệu"
 
-#: shell/pps-toolbar.c:228
+#: shell/ev-toolbar.c:228
 msgid "Annotate document"
 msgstr "Chú thích tài liệu"
 
-#: shell/pps-toolbar.c:236 shell/pps-toolbar.c:237
+#: shell/ev-toolbar.c:236 shell/ev-toolbar.c:237
 msgid "File options"
 msgstr "Tùy chọn tập tin"
 
-#: shell/pps-toolbar.c:256
+#: shell/ev-toolbar.c:256
 msgid "Select or set the zoom level of the document"
 msgstr "Chọn hoặc đặt mức phóng to tài liệu"
 
-#: shell/pps-toolbar.c:257
+#: shell/ev-toolbar.c:257
 msgid "Set zoom level"
 msgstr "Đặt mức phóng đại"
 
-#: shell/pps-utils.c:279
+#: shell/ev-utils.c:279
 msgid "Supported Image Files"
 msgstr "Các tập tin ảnh được hỗ trợ"
 
-#: shell/pps-window.c:1756
+#: shell/ev-window.c:1756
 msgid "The document contains no pages"
 msgstr "Tài liệu không có trang nào"
 
-#: shell/pps-window.c:1759
+#: shell/ev-window.c:1759
 msgid "The document contains only empty pages"
 msgstr "Tài liệu chỉ chứa các trang trống rỗng"
 
-#: shell/pps-window.c:2003 shell/pps-window.c:2185
+#: shell/ev-window.c:2003 shell/ev-window.c:2185
 #, c-format
 msgid "Unable to open document “%s”."
 msgstr "Không thể mở tài liệu “%s”."
 
-#: shell/pps-window.c:2150
+#: shell/ev-window.c:2150
 #, c-format
 msgid "Loading document from “%s”"
 msgstr "Tải tài liệu từ “%s”"
 
-#: shell/pps-window.c:2155 shell/pps-window.c:2627 shell/pps-window.c:2993
-#: shell/pps-window.c:3729 shell/pps-window.c:3977
+#: shell/ev-window.c:2155 shell/ev-window.c:2627 shell/ev-window.c:2993
+#: shell/ev-window.c:3729 shell/ev-window.c:3977
 msgid "C_ancel"
 msgstr "T_hôi"
 
-#: shell/pps-window.c:2309 shell/pps-window.c:2678
+#: shell/ev-window.c:2309 shell/ev-window.c:2678
 #, c-format
 msgid "Downloading document (%d%%)"
 msgstr "Đang tải về tài liệu (%d%%)"
 
-#: shell/pps-window.c:2342
+#: shell/ev-window.c:2342
 msgid "Failed to load remote file."
 msgstr "Gặp lỗi khi tải tập tin từ máy chủ."
 
-#: shell/pps-window.c:2623
+#: shell/ev-window.c:2623
 #, c-format
 msgid "Reloading document from %s"
 msgstr "Đang tải lại tài liệu từ %s"
 
-#: shell/pps-window.c:2653
+#: shell/ev-window.c:2653
 msgid "Failed to reload document."
 msgstr "Gặp lỗi khi tải lại tài liệu."
 
-#: shell/pps-window.c:2901
+#: shell/ev-window.c:2901
 msgid "Open Document"
 msgstr "Mở tài liệu"
 
-#: shell/pps-window.c:2904
+#: shell/ev-window.c:2904
 msgid "_Open"
 msgstr "_Mở"
 
-#: shell/pps-window.c:2979
+#: shell/ev-window.c:2979
 #, c-format
 msgid "Saving document to %s"
 msgstr "Đang lưu tài liệu vào %s"
 
-#: shell/pps-window.c:2982
+#: shell/ev-window.c:2982
 #, c-format
 msgid "Saving attachment to %s"
 msgstr "Đang lưu tập tin đính kèm vào %s"
 
-#: shell/pps-window.c:2985
+#: shell/ev-window.c:2985
 #, c-format
 msgid "Saving image to %s"
 msgstr "Đang lưu ảnh vào %s"
 
-#: shell/pps-window.c:3027 shell/pps-window.c:3142
+#: shell/ev-window.c:3027 shell/ev-window.c:3142
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Không thể lưu tập tin này thành “%s”."
 
-#: shell/pps-window.c:3059
+#: shell/ev-window.c:3059
 #, c-format
 msgid "Uploading document (%d%%)"
 msgstr "Đang tải lên tài liệu (%d%%)"
 
-#: shell/pps-window.c:3063
+#: shell/ev-window.c:3063
 #, c-format
 msgid "Uploading attachment (%d%%)"
 msgstr "Đang tải lên tập tin đính kèm (%d%%)"
 
-#: shell/pps-window.c:3067
+#: shell/ev-window.c:3067
 #, c-format
 msgid "Uploading image (%d%%)"
 msgstr "Đang tải lên ảnh (%d%%)"
 
-#: shell/pps-window.c:3200
+#: shell/ev-window.c:3200
 msgid "Save As…"
 msgstr "Lưu dạng…"
 
-#: shell/pps-window.c:3202 shell/pps-window.c:6997 shell/pps-window.c:7223
+#: shell/ev-window.c:3202 shell/ev-window.c:6997 shell/ev-window.c:7223
 msgid "_Save"
 msgstr "_Lưu"
 
-#: shell/pps-window.c:3289
+#: shell/ev-window.c:3289
 msgid "Could not send current document"
 msgstr "Không thể gửi tài liệu hiện tại"
 
-#: shell/pps-window.c:3616
+#: shell/ev-window.c:3616
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "%d công việc bị hoãn trong hàng đợi"
 
-#: shell/pps-window.c:3725
+#: shell/ev-window.c:3725
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Đang in công việc “%s”"
 
-#: shell/pps-window.c:3943
+#: shell/ev-window.c:3943
 msgid "Document contains form fields that have been filled out."
 msgstr "Tài liệu chứa mẫu cần phải điền."
 
-#: shell/pps-window.c:3946
+#: shell/ev-window.c:3946
 msgid "Document contains new or modified annotations."
 msgstr "Tài liệu chứa chú thích mới hoặc bị sửa đổi."
 
-#: shell/pps-window.c:3958
+#: shell/ev-window.c:3958
 #, c-format
 msgid "Reload document “%s”?"
 msgstr "Vẫn tải lại tài liệu “%s” chứ?"
 
-#: shell/pps-window.c:3960
+#: shell/ev-window.c:3960
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "Nếu bạn tải lại tài liệu, các thay đổi sẽ bị mất vĩnh viễn."
 
-#: shell/pps-window.c:3962
+#: shell/ev-window.c:3962
 msgid "_No"
 msgstr "_Không"
 
-#: shell/pps-window.c:3971
+#: shell/ev-window.c:3971
 #, c-format
 msgid "Save a copy of document “%s” before closing?"
 msgstr "Lưu bản sao tài liệu “%s” trước khi đóng?"
 
-#: shell/pps-window.c:3973
+#: shell/ev-window.c:3973
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "Nếu bạn không lưu bản sao, các thay đổi sẽ bị mất vĩnh viễn."
 
-#: shell/pps-window.c:3975
+#: shell/ev-window.c:3975
 msgid "Close _without Saving"
 msgstr "Đóng _không lưu"
 
-#: shell/pps-window.c:3979
+#: shell/ev-window.c:3979
 msgid "Save a _Copy"
 msgstr "_Lưu bản sao"
 
-#: shell/pps-window.c:4061
+#: shell/ev-window.c:4061
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr "Đợi đến khi hoàn tất công việc in “%s” trước khi đóng?"
@@ -1546,7 +1546,7 @@ msgstr "Đợi đến khi hoàn tất công việc in “%s” trước khi đó
 #. TRANS: the singular form is not really used as n_print_jobs > 1
 #. but some languages distinguish between different plurals forms,
 #. so the ngettext is needed.
-#: shell/pps-window.c:4067
+#: shell/ev-window.c:4067
 #, c-format
 msgid "There is %d print job active. Wait until print finishes before closing?"
 msgid_plural ""
@@ -1555,47 +1555,47 @@ msgstr[0] ""
 "Có %d công việc in vẫn hoạt động. Đợi đến khi hoàn tất tiến trình in trước "
 "khi in ?"
 
-#: shell/pps-window.c:4082
+#: shell/ev-window.c:4082
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr "Nếu bạn đóng cửa sổ này thì công việc in nào bị hoãn sẽ không được in."
 
-#: shell/pps-window.c:4086
+#: shell/ev-window.c:4086
 msgid "Cancel _print and Close"
 msgstr "Hủ_y in và đóng lại"
 
-#: shell/pps-window.c:4090
+#: shell/ev-window.c:4090
 msgid "Close _after Printing"
 msgstr "Đóng s_au khi in"
 
-#: shell/pps-window.c:4212
-msgid "© 1996–2020 The Papers authors"
-msgstr "© 1996–2020 Các tác giả của Papers"
+#: shell/ev-window.c:4212
+msgid "© 1996–2020 The Evince authors"
+msgstr "© 1996–2020 Các tác giả của Evince"
 
-#: shell/pps-window.c:4215
-msgid "Papers is a simple document viewer for GNOME"
+#: shell/ev-window.c:4215
+msgid "Evince is a simple document viewer for GNOME"
 msgstr "Đây là phần mềm xem tài liệu đơn giản dành cho môi trường GNOME"
 
-#: shell/pps-window.c:4218
+#: shell/ev-window.c:4218
 msgid "translator-credits"
 msgstr "Nhóm Việt hóa GNOME <gnome-vi-list@gnome.org>"
 
-#: shell/pps-window.c:4648
+#: shell/ev-window.c:4648
 msgid "Running in presentation mode"
 msgstr "Đang chạy trong chế độ trình diễn"
 
-#: shell/pps-window.c:5699
+#: shell/ev-window.c:5699
 msgid "The attachment could not be saved."
 msgstr "Không thể lưu phần đính kèm."
 
-#: shell/pps-window.c:6021
+#: shell/ev-window.c:6021
 msgid "Enable caret navigation?"
 msgstr "Cho di chuyển con nháy?"
 
-#: shell/pps-window.c:6022
+#: shell/ev-window.c:6022
 msgid "_Enable"
 msgstr "_Bật"
 
-#: shell/pps-window.c:6025
+#: shell/ev-window.c:6025
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1605,102 +1605,102 @@ msgstr ""
 "di chuyển được ở trong một trang chữ, cho phép bạn có thể di chuyển và chọn "
 "chữ bằng bàn phím. Bạn có thực sự muốn bật tính năng này không?"
 
-#: shell/pps-window.c:6030
+#: shell/ev-window.c:6030
 msgid "Don’t show this message again"
 msgstr "Đừng hiện lời nhắc này nữa"
 
-#: shell/pps-window.c:6635
+#: shell/ev-window.c:6635
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
 msgstr "Cảnh báo bảo mật: tài liệu này đã bị ngăn không cho mở tệp “%s”"
 
-#: shell/pps-window.c:6689
+#: shell/ev-window.c:6689
 msgid "Unable to open external link"
 msgstr "Không thể mở liên kết bên ngoài"
 
-#: shell/pps-window.c:6926
+#: shell/ev-window.c:6926
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Không thể tìm thấy dạng thức phù hợp để lưu ảnh"
 
-#: shell/pps-window.c:6958
+#: shell/ev-window.c:6958
 msgid "The image could not be saved."
 msgstr "Không thể ghi lại ảnh."
 
-#: shell/pps-window.c:6994
+#: shell/ev-window.c:6994
 msgid "Save Image"
 msgstr "Lưu ảnh"
 
-#: shell/pps-window.c:7152
+#: shell/ev-window.c:7152
 msgid "Unable to open attachment"
 msgstr "Không thể mở phần đính kèm"
 
-#: shell/pps-window.c:7220
+#: shell/ev-window.c:7220
 msgid "Save Attachment"
 msgstr "Lưu phần đính kèm"
 
-#: shell/pps-window-title.c:107
+#: shell/ev-window-title.c:107
 msgid "Recent Documents"
 msgstr "Tài liệu mới dùng"
 
-#: shell/pps-window-title.c:153 shell/pps-window-title.c:155
-#: shell/pps-window-title.c:160
+#: shell/ev-window-title.c:153 shell/ev-window-title.c:155
+#: shell/ev-window-title.c:160
 msgid "Password Required"
 msgstr "Cần mật khẩu"
 
-#: shell/pps-zoom-action.c:49
+#: shell/ev-zoom-action.c:49
 msgid "50%"
 msgstr "50%"
 
-#: shell/pps-zoom-action.c:50
+#: shell/ev-zoom-action.c:50
 msgid "70%"
 msgstr "70%"
 
-#: shell/pps-zoom-action.c:51
+#: shell/ev-zoom-action.c:51
 msgid "85%"
 msgstr "85%"
 
-#: shell/pps-zoom-action.c:52
+#: shell/ev-zoom-action.c:52
 msgid "100%"
 msgstr "100%"
 
-#: shell/pps-zoom-action.c:53
+#: shell/ev-zoom-action.c:53
 msgid "125%"
 msgstr "125%"
 
-#: shell/pps-zoom-action.c:54
+#: shell/ev-zoom-action.c:54
 msgid "150%"
 msgstr "150%"
 
-#: shell/pps-zoom-action.c:55
+#: shell/ev-zoom-action.c:55
 msgid "175%"
 msgstr "175%"
 
-#: shell/pps-zoom-action.c:56
+#: shell/ev-zoom-action.c:56
 msgid "200%"
 msgstr "200%"
 
-#: shell/pps-zoom-action.c:57
+#: shell/ev-zoom-action.c:57
 msgid "300%"
 msgstr "300%"
 
-#: shell/pps-zoom-action.c:58
+#: shell/ev-zoom-action.c:58
 msgid "400%"
 msgstr "400%"
 
-#: shell/pps-zoom-action.c:59
+#: shell/ev-zoom-action.c:59
 msgid "800%"
 msgstr "800%"
 
-#: shell/pps-zoom-action.c:60
+#: shell/ev-zoom-action.c:60
 msgid "1600%"
 msgstr "1600%"
 
-#: shell/pps-zoom-action.c:61
+#: shell/ev-zoom-action.c:61
 msgid "3200%"
 msgstr "3200%"
 
-#: shell/pps-zoom-action.c:62
+#: shell/ev-zoom-action.c:62
 msgid "6400%"
 msgstr "6400%"
 
@@ -2047,16 +2047,16 @@ msgid "DEST"
 msgstr "ĐÍCH"
 
 #: shell/main.c:76
-msgid "Run papers in fullscreen mode"
-msgstr "Chạy Papers ở chế độ toàn màn hình"
+msgid "Run evince in fullscreen mode"
+msgstr "Chạy Evince ở chế độ toàn màn hình"
 
 #: shell/main.c:77
-msgid "Run papers in presentation mode"
-msgstr "Chạy Papers ở chế độ trình diễn"
+msgid "Run evince in presentation mode"
+msgstr "Chạy Evince ở chế độ trình diễn"
 
 #: shell/main.c:78
-msgid "Run papers as a previewer"
-msgstr "Chạy Papers ở chế độ xem thử"
+msgid "Run evince as a previewer"
+msgstr "Chạy Evince ở chế độ xem thử"
 
 #: shell/main.c:79
 msgid "The word or phrase to find in the document"
@@ -2160,29 +2160,29 @@ msgstr "[TẬP TIN …]"
 #~ msgstr "_Thêm đánh dấu"
 
 #~ msgid ""
-#~ "Papers is free software; you can redistribute it and/or modify it under "
+#~ "Evince is free software; you can redistribute it and/or modify it under "
 #~ "the terms of the GNU General Public License as published by the Free "
 #~ "Software Foundation; either version 2 of the License, or (at your option) "
 #~ "any later version.\n"
 #~ msgstr ""
-#~ "Papers là phần mềm tự do; bạn có thể phát hành lại nó và/hoặc sửa đổi nó "
+#~ "Evince là phần mềm tự do; bạn có thể phát hành lại nó và/hoặc sửa đổi nó "
 #~ "theo các điều khoản của Giấy phép Công cộng GNU như được xuất bản bởi Tổ "
 #~ "chức Phần mềm Tự do; hoặc phiên bản 2 của Giấy phép này, hoặc bất kì "
 #~ "phiên bản sau nào (tùy ý).\n"
 
 #~ msgid ""
-#~ "Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
+#~ "Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
 #~ "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 #~ "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 #~ "details.\n"
 #~ msgstr ""
-#~ "Papers được phân phối với mong muốn nó sẽ là một phần mềm có ích, nhưng "
+#~ "Evince được phân phối với mong muốn nó sẽ là một phần mềm có ích, nhưng "
 #~ "KHÔNG PHẢI CHỊU BẤT KÌ TRÁCH NHIỆM NÀO. Xem Giấy phép Công cộng GNU để "
 #~ "biết thêm chi tiết.\n"
 
 #~ msgid ""
 #~ "You should have received a copy of the GNU General Public License along "
-#~ "with Papers; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "with Evince; if not, write to the Free Software Foundation, Inc., 51 "
 #~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 #~ msgstr ""
 #~ "Bạn đã nhận một bản sao của Giấy phép Công cộng GNU cùng với chương trình "
@@ -2462,7 +2462,7 @@ msgstr "[TẬP TIN …]"
 #~ msgid "_Toolbar"
 #~ msgstr "Thanh _công cụ"
 
-#~ msgid "_Dual (Ppsen pages left)"
+#~ msgid "_Dual (Even pages left)"
 #~ msgstr "_Kép (trang chẵn bên trái)"
 
 #~ msgid "Show two pages at once with even pages on the left"

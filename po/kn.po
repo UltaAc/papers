@@ -1,4 +1,4 @@
-# translation of papers.master.kn.po to Kannada
+# translation of evince.master.kn.po to Kannada
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
@@ -6,9 +6,9 @@
 # Shankar <svenkate@redhat.com>, 2014. #zanata.
 msgid ""
 msgstr ""
-"Project-Id-Version: papers.master.kn\n"
+"Project-Id-Version: evince.master.kn\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=papers&keywords=I18N+L10N&component=general\n"
+"product=evince&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2014-09-22 03:42+0000\n"
 "PO-Revision-Date: 2014-09-22 12:20+0530\n"
 "Last-Translator: Shankar Prasad <svenkate AT redhat Dot com>\n"
@@ -71,12 +71,12 @@ msgstr "“%s” ಅನ್ನು ಅಳಿಸುವಲ್ಲಿ ಒಂದು ದ
 msgid "Error %s"
 msgstr "ದೋಷ %s"
 
-#: ../backend/comics/comicsdocument.papers-backend.in.in.h:1
-#: ../backend/comics/papers-comicsdocument.metainfo.xml.in.in.h:1
+#: ../backend/comics/comicsdocument.evince-backend.in.in.h:1
+#: ../backend/comics/evince-comicsdocument.metainfo.xml.in.in.h:1
 msgid "Comic Books"
 msgstr "ಕಾಮಿಕ್ ಪುಸ್ತಕಗಳು"
 
-#: ../backend/comics/papers-comicsdocument.metainfo.xml.in.in.h:2
+#: ../backend/comics/evince-comicsdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading comic books"
 msgstr "ಕಾಮಿಕ್‌ ಪುಸ್ತಕಗಳನ್ನು ಓದಲು ಬೆಂಬಲವನ್ನು ಸೇರಿಸುತ್ತದೆ"
 
@@ -93,12 +93,12 @@ msgstr ""
 "ಕಡತಗಳನ್ನು "
 "ನಿಲುಕಿಸಿಕೊಳ್ಳಲಾಗುತ್ತಿಲ್ಲ."
 
-#: ../backend/djvu/djvudocument.papers-backend.in.in.h:1
-#: ../backend/djvu/papers-djvudocument.metainfo.xml.in.in.h:1
+#: ../backend/djvu/djvudocument.evince-backend.in.in.h:1
+#: ../backend/djvu/evince-djvudocument.metainfo.xml.in.in.h:1
 msgid "DjVu Documents"
 msgstr "Djvu ದಸ್ತಾವೇಜುಗಳು"
 
-#: ../backend/djvu/papers-djvudocument.metainfo.xml.in.in.h:2
+#: ../backend/djvu/evince-djvudocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading DjVu documents"
 msgstr "DjVu ದಸ್ತಾವೇಜುಗಳನ್ನು ಓದಲು ಬೆಂಬಲವನ್ನು ಸೇರಿಸುತ್ತದೆ"
 
@@ -106,62 +106,62 @@ msgstr "DjVu ದಸ್ತಾವೇಜುಗಳನ್ನು ಓದಲು ಬೆ�
 msgid "DVI document has incorrect format"
 msgstr "DVI ದಸ್ತಾವೇಜು ಸರಿಯಲ್ಲದ ವಿನ್ಯಾಸವನ್ನು ಹೊಂದಿದೆ"
 
-#: ../backend/dvi/dvidocument.papers-backend.in.in.h:1
-#: ../backend/dvi/papers-dvidocument.metainfo.xml.in.in.h:1
+#: ../backend/dvi/dvidocument.evince-backend.in.in.h:1
+#: ../backend/dvi/evince-dvidocument.metainfo.xml.in.in.h:1
 msgid "DVI Documents"
 msgstr "DVI ದಸ್ತಾವೇಜುಗಳು"
 
-#: ../backend/dvi/papers-dvidocument.metainfo.xml.in.in.h:2
+#: ../backend/dvi/evince-dvidocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading DVI documents"
 msgstr "DVI ದಸ್ತಾವೇಜುಗಳನ್ನು ಓದಲು ಬೆಂಬಲವನ್ನು ಸೇರಿಸುತ್ತದೆ"
 
-#: ../backend/pdf/pps-poppler.cc:673
+#: ../backend/pdf/ev-poppler.cc:673
 msgid "This work is in the Public Domain"
 msgstr "ಈ ಕೆಲಸವು ಸಾರ್ವಜನಿಕ ಡೊಮೈನಿನಲ್ಲಿದೆ"
 
 #. translators: this is the document security state
-#: ../backend/pdf/pps-poppler.cc:929 ../backend/pdf/pps-poppler.cc:935
+#: ../backend/pdf/ev-poppler.cc:929 ../backend/pdf/ev-poppler.cc:935
 msgid "Yes"
 msgstr "ಹೌದು"
 
 #. translators: this is the document security state
-#: ../backend/pdf/pps-poppler.cc:932 ../backend/pdf/pps-poppler.cc:935
+#: ../backend/pdf/ev-poppler.cc:932 ../backend/pdf/ev-poppler.cc:935
 msgid "No"
 msgstr "ಇಲ್ಲ"
 
-#: ../backend/pdf/pps-poppler.cc:1066
+#: ../backend/pdf/ev-poppler.cc:1066
 msgid "Type 1"
 msgstr "ಬಗೆ 1"
 
-#: ../backend/pdf/pps-poppler.cc:1068
+#: ../backend/pdf/ev-poppler.cc:1068
 msgid "Type 1C"
 msgstr "ಬಗೆ 1C"
 
-#: ../backend/pdf/pps-poppler.cc:1070
+#: ../backend/pdf/ev-poppler.cc:1070
 msgid "Type 3"
 msgstr "ಬಗೆ 3"
 
-#: ../backend/pdf/pps-poppler.cc:1072
+#: ../backend/pdf/ev-poppler.cc:1072
 msgid "TrueType"
 msgstr "ಟ್ರೂಬಗೆಯ"
 
-#: ../backend/pdf/pps-poppler.cc:1074
+#: ../backend/pdf/ev-poppler.cc:1074
 msgid "Type 1 (CID)"
 msgstr "ಬಗೆ 1 (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1076
+#: ../backend/pdf/ev-poppler.cc:1076
 msgid "Type 1C (CID)"
 msgstr "ಬಗೆ 1C (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1078
+#: ../backend/pdf/ev-poppler.cc:1078
 msgid "TrueType (CID)"
 msgstr "ಟ್ರೂಬಗೆಯ (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1080
+#: ../backend/pdf/ev-poppler.cc:1080
 msgid "Unknown font type"
 msgstr "ಗೊತ್ತಿರದ ಅಕ್ಷರಶೈಲಿಯ ಬಗೆ"
 
-#: ../backend/pdf/pps-poppler.cc:1124
+#: ../backend/pdf/ev-poppler.cc:1124
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
@@ -172,11 +172,11 @@ msgstr ""
 "ಅನ್ನು "
 "ರಚಿಸಲು ಬಳಸಲಾದ ಅಕ್ಷರಶೈಲಿಯಂತೆ ಇರದೆ ಇದ್ದಲ್ಲಿ, ರೆಂಡರಿಂಗ್ ಸರಿಯಾಗಿ ಆಗದೆ ಇರಬಹುದು."
 
-#: ../backend/pdf/pps-poppler.cc:1129
+#: ../backend/pdf/ev-poppler.cc:1129
 msgid "All fonts are either standard or embedded."
 msgstr "ಎಲ್ಲಾ ಅಕ್ಷರಶೈಲಿಗಳು ಒಂದೋ ಶಿಷ್ಟವಾಗಿವೆ ಅಥವ ಅಡಕಗೊಂಡಿವೆ."
 
-#: ../backend/pdf/pps-poppler.cc:1161
+#: ../backend/pdf/ev-poppler.cc:1161
 msgid "No name"
 msgstr "ಹೆಸರಿಲ್ಲದ"
 
@@ -190,20 +190,20 @@ msgstr "ಹೆಸರಿಲ್ಲದ"
 #. Author: None
 #. Keywords: None
 #.
-#: ../backend/pdf/pps-poppler.cc:1170 ../libview/pps-print-operation.c:1967
-#: ../properties/pps-properties-view.c:192
+#: ../backend/pdf/ev-poppler.cc:1170 ../libview/ev-print-operation.c:1967
+#: ../properties/ev-properties-view.c:192
 msgid "None"
 msgstr "ಯಾವುದೂ ಇಲ್ಲ"
 
-#: ../backend/pdf/pps-poppler.cc:1178
+#: ../backend/pdf/ev-poppler.cc:1178
 msgid "Embedded subset"
 msgstr "ಅಡಕಗೊಳಿಸಲಾದ ಉಪಸಮೂಹ"
 
-#: ../backend/pdf/pps-poppler.cc:1180
+#: ../backend/pdf/ev-poppler.cc:1180
 msgid "Embedded"
 msgstr "ಅಡಕಗೊಳಿಸಲಾದ"
 
-#: ../backend/pdf/pps-poppler.cc:1182
+#: ../backend/pdf/ev-poppler.cc:1182
 msgid "Not embedded"
 msgstr "ಅಡಕಗೊಳಿಸದೆ ಇರುವ"
 
@@ -212,7 +212,7 @@ msgstr "ಅಡಕಗೊಳಿಸದೆ ಇರುವ"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: ../backend/pdf/pps-poppler.cc:1189
+#: ../backend/pdf/ev-poppler.cc:1189
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (ಶಿಷ್ಟ 14 ಅಕ್ಷರಶೈಲಿಗಳಲ್ಲಿ ಒಂದು)"
 
@@ -221,43 +221,43 @@ msgstr " (ಶಿಷ್ಟ 14 ಅಕ್ಷರಶೈಲಿಗಳಲ್ಲಿ ಒ�
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: ../backend/pdf/pps-poppler.cc:1196
+#: ../backend/pdf/ev-poppler.cc:1196
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (ಶಿಷ್ಟ 14 ಅಕ್ಷರಶೈಲಿಗಳಲ್ಲಿ ಒಂದು ಆಗಿಲ್ಲ)"
 
-#: ../backend/pdf/pps-poppler.cc:1203
+#: ../backend/pdf/ev-poppler.cc:1203
 msgid "Encoding"
 msgstr "ಎನ್ಕೋಡಿಂಗ್"
 
-#: ../backend/pdf/pps-poppler.cc:1204
+#: ../backend/pdf/ev-poppler.cc:1204
 msgid "Substituting with"
 msgstr "ಇದರಿಂದ ಬದಲಾಯಿಸಲಾಗುತ್ತಿದೆ"
 
-#: ../backend/pdf/papers-pdfdocument.metainfo.xml.in.in.h:1
-#: ../backend/pdf/pdfdocument.papers-backend.in.in.h:1
+#: ../backend/pdf/evince-pdfdocument.metainfo.xml.in.in.h:1
+#: ../backend/pdf/pdfdocument.evince-backend.in.in.h:1
 msgid "PDF Documents"
 msgstr "PDF ದಸ್ತಾವೇಜುಗಳು"
 
-#: ../backend/pdf/papers-pdfdocument.metainfo.xml.in.in.h:2
+#: ../backend/pdf/evince-pdfdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading PDF Documents"
 msgstr "PDF ದಸ್ತಾವೇಜುಗಳನ್ನು ಓದುವುದಕ್ಕಾಗಿ ಬೆಂಬಲವನ್ನು ಸೇರಿಸುತ್ತದೆ"
 
-#: ../backend/ps/pps-spectre.c:98
+#: ../backend/ps/ev-spectre.c:98
 #, c-format
 msgid "Failed to load document “%s”"
 msgstr "“%s” ದಸ್ತಾವೇಜನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲಗೊಂಡಿದೆ"
 
-#: ../backend/ps/pps-spectre.c:131
+#: ../backend/ps/ev-spectre.c:131
 #, c-format
 msgid "Failed to save document “%s”"
 msgstr "“%s” ದಸ್ತಾವೇಜನ್ನು ಉಳಿಸಲು ವಿಫಲಗೊಂಡಿದೆ"
 
-#: ../backend/ps/papers-psdocument.metainfo.xml.in.in.h:1
-#: ../backend/ps/psdocument.papers-backend.in.in.h:1
+#: ../backend/ps/evince-psdocument.metainfo.xml.in.in.h:1
+#: ../backend/ps/psdocument.evince-backend.in.in.h:1
 msgid "PostScript Documents"
 msgstr "ಪೋಸ್ಟ್‌ಸ್ಕ್ರಿಪ್ಟ್ ದಸ್ತಾವೇಜುಗಳು"
 
-#: ../backend/ps/papers-psdocument.metainfo.xml.in.in.h:2
+#: ../backend/ps/evince-psdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading PostScript documents"
 msgstr "ಪೋಸ್ಟ್‌ಸ್ಕ್ರಿಪ್ಟ್ ದಸ್ತಾವೇಜುಗಳನ್ನು ಓದುವುದಕ್ಕಾಗಿ ಬೆಂಬಲವನ್ನು ಸೇರಿಸುತ್ತದೆ"
 
@@ -265,127 +265,127 @@ msgstr "ಪೋಸ್ಟ್‌ಸ್ಕ್ರಿಪ್ಟ್ ದಸ್ತಾವ�
 msgid "Invalid document"
 msgstr "ಅಮಾನ್ಯ ದಸ್ತಾವೇಜು"
 
-#: ../backend/tiff/papers-tiffdocument.metainfo.xml.in.in.h:1
-#: ../backend/tiff/tiffdocument.papers-backend.in.in.h:1
+#: ../backend/tiff/evince-tiffdocument.metainfo.xml.in.in.h:1
+#: ../backend/tiff/tiffdocument.evince-backend.in.in.h:1
 msgid "TIFF Documents"
 msgstr "TIFF ದಸ್ತಾವೇಜುಗಳು"
 
-#: ../backend/tiff/papers-tiffdocument.metainfo.xml.in.in.h:2
+#: ../backend/tiff/evince-tiffdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading TIFF documents"
 msgstr "TIFF ದಸ್ತಾವೇಜುಗಳನ್ನು ಓದುವುದಕ್ಕಾಗಿ ಬೆಂಬಲವನ್ನು ಸೇರಿಸುತ್ತದೆ"
 
-#: ../backend/xps/papers-xpsdocument.metainfo.xml.in.in.h:1
-#: ../backend/xps/xpsdocument.papers-backend.in.in.h:1
+#: ../backend/xps/evince-xpsdocument.metainfo.xml.in.in.h:1
+#: ../backend/xps/xpsdocument.evince-backend.in.in.h:1
 msgid "XPS Documents"
 msgstr "XPS ದಸ್ತಾವೇಜುಗಳು"
 
-#: ../backend/xps/papers-xpsdocument.metainfo.xml.in.in.h:2
+#: ../backend/xps/evince-xpsdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading XPS documents"
 msgstr "XPS ದಸ್ತಾವೇಜುಗಳನ್ನು ಓದುವುದಕ್ಕಾಗಿ ಬೆಂಬಲವನ್ನು ಸೇರಿಸುತ್ತದೆ"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:230
-#: ../previewer/pps-previewer-window.c:317 ../shell/papers-menus.ui.h:32
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:230
+#: ../previewer/ev-previewer-window.c:317 ../shell/evince-menus.ui.h:32
 msgid "Fit Pa_ge"
 msgstr "ಪುಟಕ್ಕೆ ಹೊಂದಿಸು (_g)"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:239
-#: ../previewer/pps-previewer-window.c:320 ../shell/papers-menus.ui.h:33
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:239
+#: ../previewer/ev-previewer-window.c:320 ../shell/evince-menus.ui.h:33
 msgid "Fit _Width"
 msgstr "ಅಗಲಕ್ಕೆ ಹೊಂದಿಸು (_W)"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:248
-#: ../shell/papers-menus.ui.h:34
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:248
+#: ../shell/evince-menus.ui.h:34
 msgid "_Automatic"
 msgstr "ಸ್ವಯಂಚಾಲಿತ (_A)"
 
 #. Navigation buttons
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:273
-#: ../previewer/pps-previewer-window.c:271
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:273
+#: ../previewer/ev-previewer-window.c:271
 msgid "Go to the previous page"
 msgstr "ಹಿಂದಿನ ಪುಟಕ್ಕೆ ತೆರಳು"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:277
-#: ../previewer/pps-previewer-window.c:274
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:277
+#: ../previewer/ev-previewer-window.c:274
 msgid "Go to the next page"
 msgstr "ಮುಂದಿನ ಪುಟಕ್ಕೆ ತೆರಳು"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:312
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:312
 msgid "Show the entire document"
 msgstr "ಸಂಪೂರ್ಣ ದಸ್ತಾವೇಜನ್ನು ತೋರಿಸು"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:320
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:320
 msgid "Show two pages at once"
 msgstr "ಎರಡು ಪುಟಗಳನ್ನು ಒಂದೇ ಬಾರಿಗೆ ತೋರಿಸು"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:342
-#: ../previewer/pps-previewer-window.c:277
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:342
+#: ../previewer/ev-previewer-window.c:277
 msgid "Enlarge the document"
 msgstr "ದಸ್ತಾವೇಜನ್ನು ದೊಡ್ಡದಾಗಿಸು"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:346
-#: ../previewer/pps-previewer-window.c:280
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:346
+#: ../previewer/ev-previewer-window.c:280
 msgid "Shrink the document"
 msgstr "ದಸ್ತಾವೇಜನ್ನು ಕಿರಿದಾಗಿಸು"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:368
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:368
 msgid "Download document"
 msgstr "ದಸ್ತಾವೇಜನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡು"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:381
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:381
 msgid "Print document"
 msgstr "ದಸ್ತಾವೇಜನ್ನು ಮುದ್ರಿಸು"
 
 #. Manually set name and icon
-#: ../data/papers.desktop.in.in.h:1 ../shell/pps-application.c:1029
-#: ../shell/pps-window-title.c:139 ../shell/main.c:298
+#: ../data/evince.desktop.in.in.h:1 ../shell/ev-application.c:1029
+#: ../shell/ev-window-title.c:139 ../shell/main.c:298
 msgid "Document Viewer"
 msgstr "ದಸ್ತಾವೇಜು ವೀಕ್ಷಕ"
 
-#: ../data/papers.desktop.in.in.h:2
+#: ../data/evince.desktop.in.in.h:2
 msgid "View multi-page documents"
 msgstr "ಬಹು-ಪುಟದ ದಸ್ತಾವೇಜನ್ನು ವೀಕ್ಷಿಸು"
 
-#: ../data/papers.desktop.in.in.h:3
+#: ../data/evince.desktop.in.in.h:3
 msgid "pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;"
 msgstr "pdf;ps;ಪೋಸ್ಟ್‍ಸ್ಕ್ರಿಪ್ಟ್‍;dvi;xps;djvu;tiff;ದಸ್ತಾವೇಜು;ಪ್ರಸ್ತುತಿ;"
 
-#: ../data/papers-previewer.desktop.in.in.h:1
+#: ../data/evince-previewer.desktop.in.in.h:1
 msgid "Print Preview"
 msgstr "ಮುದ್ರಣ ಮುನ್ನೋಟ"
 
-#: ../data/papers-previewer.desktop.in.in.h:2
+#: ../data/evince-previewer.desktop.in.in.h:2
 msgid "Preview before printing"
 msgstr "ಮುದ್ರಿಸುವ ಮೊದಲು ಅವಲೋಕಿಸಿ"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:1
+#: ../data/org.gnome.Evince.gschema.xml.in.h:1
 msgid "Override document restrictions"
 msgstr "ದಸ್ತಾವೇಜು ನಿರ್ಬಂಧಗಳನ್ನು ಅತಿಕ್ರಮಿಸು"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:2
+#: ../data/org.gnome.Evince.gschema.xml.in.h:2
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr "ಕಾಪಿ ಮಾಡುವ ಅಥವ ಮುದ್ರಿಸುವಂತಹ ದಸ್ತಾವೇಜು ನಿರ್ಬಂಧಗಳನ್ನು ಅತಿಕ್ರಮಿಸು."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:3
+#: ../data/org.gnome.Evince.gschema.xml.in.h:3
 msgid "Automatically reload the document"
 msgstr "ದಸ್ತಾವೇಜನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಪುನಃ ಲೋಡ್ ಮಾಡು"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:4
+#: ../data/org.gnome.Evince.gschema.xml.in.h:4
 msgid "The document is automatically reloaded on file change."
 msgstr "ಕಡತದ ಬದಲಾವಣೆಯಲ್ಲಿ ದಸ್ತಾವೇಜನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಮರಳಿ ಲೋಡ್ ಮಾಡಲಾಗಿದೆ."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:5
+#: ../data/org.gnome.Evince.gschema.xml.in.h:5
 msgid "The URI of the directory last used to open or save a document"
 msgstr "ಒಂದು ದಸ್ತಾವೇಜನ್ನು ತೆರೆಯಲು ಅಥವ ಉಳಿಸಲು ಕೊನೆಯ ಬಾರಿಗೆ ಬಳಸಲಾದ ಕೋಶದ URI"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:6
+#: ../data/org.gnome.Evince.gschema.xml.in.h:6
 msgid "The URI of the directory last used to save a picture"
 msgstr "ಒಂದು ಚಿತ್ರವನ್ನು ಉಳಿಸಲು ಕೊನೆಯ ಬಾರಿಗೆ ಬಳಸಲಾದ ಕೋಶದ URI"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:7
+#: ../data/org.gnome.Evince.gschema.xml.in.h:7
 msgid "Page cache size in MiB"
 msgstr "ಪುಟದ ಕ್ಯಾಶೆಯ ಗಾತ್ರ, MiB ಯಲ್ಲಿ"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:8
+#: ../data/org.gnome.Evince.gschema.xml.in.h:8
 msgid ""
 "The maximum size that will be used to cache rendered pages, limits maximum "
 "zoom level."
@@ -394,7 +394,7 @@ msgstr ""
 "ಬದಲಾವಣೆಯ "
 "ಗಾತ್ರಕ್ಕೆ ಮಿತಿಗೊಳ್ಳುತ್ತದೆ."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:9
+#: ../data/org.gnome.Evince.gschema.xml.in.h:9
 msgid ""
 "Show a dialog to confirm that the user wants to activate the caret "
 "navigation."
@@ -403,138 +403,138 @@ msgstr ""
 "ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಲು ಈ "
 "ಸಂವಾದ ಚೌಕವನ್ನು ತೋರಿಸು."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:10
+#: ../data/org.gnome.Evince.gschema.xml.in.h:10
 #| msgid "Adjust the zoom level"
 msgid "Allow links to change the zoom level."
 msgstr "ಹಿಗ್ಗಿಸುವ ಮಟ್ಟವನ್ನು ಬದಲಾಯಿಸಲು ಕೊಂಡಿಗಳಿಗೆ ಅನುಮತಿಸು."
 
-#: ../libdocument/pps-attachment.c:310 ../libdocument/pps-attachment.c:331
+#: ../libdocument/ev-attachment.c:310 ../libdocument/ev-attachment.c:331
 #, c-format
 msgid "Couldn't save attachment “%s”: %s"
 msgstr "“%s” ಲಗತ್ತನ್ನು ಉಳಿಸಲಾಗಿಲ್ಲ: %s"
 
-#: ../libdocument/pps-attachment.c:379
+#: ../libdocument/ev-attachment.c:379
 #, c-format
 msgid "Couldn't open attachment “%s”: %s"
 msgstr "“%s” ಲಗತ್ತನ್ನು ತೆರೆಯಲಾಗಿಲ್ಲ: %s"
 
-#: ../libdocument/pps-attachment.c:414
+#: ../libdocument/ev-attachment.c:414
 #, c-format
 msgid "Couldn't open attachment “%s”"
 msgstr "“%s” ಲಗತ್ತನ್ನು ತೆರೆಯಲಾಗಿಲ್ಲ"
 
-#: ../libdocument/pps-document-factory.c:101
+#: ../libdocument/ev-document-factory.c:101
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "ಕಡತದ ಬಗೆ %s (%s)ಗೆ ಬೆಂಬಲವಿಲ್ಲ"
 
-#: ../libdocument/pps-document-factory.c:364
-#: ../libdocument/pps-file-helpers.c:491 ../libdocument/pps-file-helpers.c:537
-#: ../libdocument/pps-file-helpers.c:556
+#: ../libdocument/ev-document-factory.c:364
+#: ../libdocument/ev-file-helpers.c:491 ../libdocument/ev-file-helpers.c:537
+#: ../libdocument/ev-file-helpers.c:556
 msgid "Unknown MIME Type"
 msgstr "ಗೊತ್ತಿರದ MIME ಬಗೆ"
 
-#: ../libdocument/pps-document-factory.c:552
+#: ../libdocument/ev-document-factory.c:552
 msgid "All Documents"
 msgstr "ಎಲ್ಲಾ ದಸ್ತಾವೇಜುಗಳು"
 
-#: ../libdocument/pps-document-factory.c:579 ../shell/pps-utils.c:309
+#: ../libdocument/ev-document-factory.c:579 ../shell/ev-utils.c:309
 msgid "All Files"
 msgstr "ಎಲ್ಲಾ ಕಡತಗಳು"
 
-#: ../libdocument/pps-file-helpers.c:147
+#: ../libdocument/ev-file-helpers.c:147
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "ತಾತ್ಕಾಲಿಕ ಕೋಶವನ್ನು ರಚಿಸಲು ವಿಫಲಗೊಂಡಿದೆ: %s"
 
-#: ../libdocument/pps-file-helpers.c:309
+#: ../libdocument/ev-file-helpers.c:309
 #, c-format
 msgid "Failed to create a temporary directory: %s"
 msgstr "ತಾತ್ಕಾಲಿಕ ಕೋಶವನ್ನು ರಚಿಸಲು ವಿಫಲಗೊಂಡಿದೆ: %s"
 
-#: ../libmisc/pps-page-action-widget.c:84
-#: ../libmisc/pps-page-action-widget.c:123
+#: ../libmisc/ev-page-action-widget.c:84
+#: ../libmisc/ev-page-action-widget.c:123
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%d, %d ರಲ್ಲಿ)"
 
-#: ../libmisc/pps-page-action-widget.c:86
-#: ../libmisc/pps-page-action-widget.c:127
+#: ../libmisc/ev-page-action-widget.c:86
+#: ../libmisc/ev-page-action-widget.c:127
 #, c-format
 msgid "of %d"
 msgstr "%d ರಲ್ಲಿ"
 
-#: ../libmisc/pps-page-action-widget.c:185 ../shell/pps-history.c:426
-#: ../shell/pps-sidebar-bookmarks.c:295 ../shell/pps-window.c:904
-#: ../shell/pps-window.c:4708
+#: ../libmisc/ev-page-action-widget.c:185 ../shell/ev-history.c:426
+#: ../shell/ev-sidebar-bookmarks.c:295 ../shell/ev-window.c:904
+#: ../shell/ev-window.c:4708
 #, c-format
 msgid "Page %s"
 msgstr "ಪುಟ %s"
 
-#: ../libview/pps-jobs.c:1997
+#: ../libview/ev-jobs.c:1997
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "%d ಪುಟವನ್ನು ಮುದ್ರಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ: %s"
 
 #. Initial state
-#: ../libview/pps-print-operation.c:350
+#: ../libview/ev-print-operation.c:350
 msgid "Preparing preview…"
 msgstr "ಮುನ್ನೋಟವನ್ನು ಸಿದ್ಧಗೊಳಿಸಲಾಗುತ್ತಿದೆ…"
 
-#: ../libview/pps-print-operation.c:352 ../libview/pps-print-operation.c:362
+#: ../libview/ev-print-operation.c:352 ../libview/ev-print-operation.c:362
 msgid "Finishing…"
 msgstr "ಪೂರ್ಣಗೊಳಿಸಲಾಗುತ್ತಿದೆ…"
 
-#: ../libview/pps-print-operation.c:354
+#: ../libview/ev-print-operation.c:354
 #, c-format
 msgid "Generating preview: page %d of %d"
 msgstr "ಮುನ್ನೋಟವನ್ನು ಉತ್ಪಾದಿಸಲಾಗುತ್ತಿದೆ: ಪುಟ %d (%d ದಲ್ಲಿ)"
 
 #. Initial state
-#: ../libview/pps-print-operation.c:360
+#: ../libview/ev-print-operation.c:360
 msgid "Preparing to print…"
 msgstr "ಮುದ್ರಿಸಲು ತಯಾರಾಗುತ್ತಿದೆ…"
 
-#: ../libview/pps-print-operation.c:364
+#: ../libview/ev-print-operation.c:364
 #, c-format
 msgid "Printing page %d of %d…"
 msgstr "%d ಪುಟವನ್ನು (%d ನಲ್ಲಿ) ಮುದ್ರಿಸಲಾಗುತ್ತಿದೆ…"
 
-#: ../libview/pps-print-operation.c:1214
+#: ../libview/ev-print-operation.c:1214
 msgid "Requested format is not supported by this printer."
 msgstr "ಮನವಿ ಸಲ್ಲಿಸಲಾದ ವಿನ್ಯಾಸವನ್ನು ಈ ಮುದ್ರಕವು ಬೆಂಬಲಿಸುವುದಿಲ್ಲ."
 
-#: ../libview/pps-print-operation.c:1277
+#: ../libview/ev-print-operation.c:1277
 msgid "Invalid page selection"
 msgstr "ಅಮಾನ್ಯ ಪುಟದ ಆಯ್ಕೆ"
 
-#: ../libview/pps-print-operation.c:1278
+#: ../libview/ev-print-operation.c:1278
 msgid "Warning"
 msgstr "ಎಚ್ಚರಿಕೆ"
 
-#: ../libview/pps-print-operation.c:1280
+#: ../libview/ev-print-operation.c:1280
 msgid "Your print range selection does not include any pages"
 msgstr "ನೀವು ಮುದ್ರಿಸಲು ಆಯ್ಕೆ ಮಾಡಿದ ಪುಟಗಳು ವ್ಯಾಪ್ತಿಯಲ್ಲಿ ಯಾವುದೆ ಪುಟಗಳಿಲ್ಲ"
 
 #. translators: Title of the print dialog
 #. translators: Print document currently shown in the Print Preview window
-#: ../libview/pps-print-operation.c:1358 ../previewer/pps-previewer-window.c:284
+#: ../libview/ev-print-operation.c:1358 ../previewer/ev-previewer-window.c:284
 msgid "Print"
 msgstr "ಮುದ್ರಿಸು"
 
-#: ../libview/pps-print-operation.c:1961
+#: ../libview/ev-print-operation.c:1961
 msgid "Page Scaling:"
 msgstr "ಪುಟದಗಾತ್ರಬದಲಾವಣೆ:"
 
-#: ../libview/pps-print-operation.c:1968
+#: ../libview/ev-print-operation.c:1968
 msgid "Shrink to Printable Area"
 msgstr "ಮುದ್ರಿಸಬಹುದಾದ ಜಾಗಕ್ಕೆ ಕುಗ್ಗಿಸು"
 
-#: ../libview/pps-print-operation.c:1969
+#: ../libview/ev-print-operation.c:1969
 msgid "Fit to Printable Area"
 msgstr "ಮುದ್ರಿಸಬಹುದಾದ ಜಾಗಕ್ಕೆ ಸರಿಹೊಂದಿಸು"
 
-#: ../libview/pps-print-operation.c:1972
+#: ../libview/ev-print-operation.c:1972
 msgid ""
 "Scale document pages to fit the selected printer page. Select from one of "
 "the following:\n"
@@ -561,11 +561,11 @@ msgstr ""
 "ದಸ್ತಾವೇಜಿನ ಪುಟಗಳನ್ನು ಮುದ್ರಕ ಪುಟದಲ್ಲಿನ ಮುದ್ರಿಸಬಹುದಾದ ಜಾಗಕ್ಕೆ ಸರಿಹೊಂದುವಂತೆ "
 "ಹಿಗ್ಗಿಸಲಾಗುತ್ತದೆ ಹಾಗು ಕುಗ್ಗಿಸಲಾಗುತ್ತದೆ.\n"
 
-#: ../libview/pps-print-operation.c:1984
+#: ../libview/ev-print-operation.c:1984
 msgid "Auto Rotate and Center"
 msgstr "ಸ್ವಯಂಚಾಲಿತವಾಗಿ ತಿರುಗಿಸು  ಹಾಗು ಮಧ್ಯದಲ್ಲಿ ಇರಿಸು"
 
-#: ../libview/pps-print-operation.c:1987
+#: ../libview/ev-print-operation.c:1987
 msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
@@ -574,11 +574,11 @@ msgstr ""
 "ಹೊಂದಿಕೊಳ್ಳುವಂತೆ "
 "ತಿರುಗಿಸಿ. ದಸ್ತಾವೇಜು ಪುಟಗಳನ್ನು ಮುದ್ರಣದ ಪುಟದ ನಡುವಿನಲ್ಲಿ ಇರಿಸಲಾಗುತ್ತದೆ. "
 
-#: ../libview/pps-print-operation.c:1992
+#: ../libview/ev-print-operation.c:1992
 msgid "Select page size using document page size"
 msgstr "ದಸ್ತಾವೇಜು ಪುಟದ ಗಾತ್ರವನ್ನು ಬಳಸಿಕೊಂಡು ಪುಟದ ಗಾತ್ರವನ್ನು ಆಯ್ಕೆ ಮಾಡಿಕೊಳ್ಳಿ"
 
-#: ../libview/pps-print-operation.c:1994
+#: ../libview/ev-print-operation.c:1994
 msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
@@ -587,193 +587,193 @@ msgstr ""
 "ಹಾಳೆಯಲ್ಲಿ "
 "ಮುದ್ರಿಸಲಾಗುತ್ತದೆ."
 
-#: ../libview/pps-print-operation.c:2094
+#: ../libview/ev-print-operation.c:2094
 msgid "Page Handling"
 msgstr "ಪುಟವನ್ನು ನಿಭಾಯಿಸುವಿಕೆ"
 
-#: ../libview/pps-view-accessible.c:43
+#: ../libview/ev-view-accessible.c:43
 msgid "Scroll Up"
 msgstr "ಮೇಲಕ್ಕೆ ಚಲಿಸು"
 
-#: ../libview/pps-view-accessible.c:44
+#: ../libview/ev-view-accessible.c:44
 msgid "Scroll Down"
 msgstr "ಕೆಳಕ್ಕೆ ಚಲಿಸು"
 
-#: ../libview/pps-view-accessible.c:50
+#: ../libview/ev-view-accessible.c:50
 msgid "Scroll View Up"
 msgstr "ನೋಟವನ್ನು ಮೇಲಕ್ಕೆ ಚಲಿಸು"
 
-#: ../libview/pps-view-accessible.c:51
+#: ../libview/ev-view-accessible.c:51
 msgid "Scroll View Down"
 msgstr "ನೋಟವನ್ನು ಕೆಳಕ್ಕೆ ಚಲಿಸು"
 
-#: ../libview/pps-view-accessible.c:129
+#: ../libview/ev-view-accessible.c:129
 msgid "Document View"
 msgstr "ದಸ್ತಾವೇಜು ನೋಟ"
 
-#: ../libview/pps-view.c:1994
+#: ../libview/ev-view.c:1994
 msgid "Go to first page"
 msgstr "ಮೊದಲ ಪುಟಕ್ಕೆ ತೆರಳು"
 
-#: ../libview/pps-view.c:1996
+#: ../libview/ev-view.c:1996
 msgid "Go to previous page"
 msgstr "ಹಿಂದಿನ ಪುಟಕ್ಕೆ ತೆರಳು"
 
-#: ../libview/pps-view.c:1998
+#: ../libview/ev-view.c:1998
 msgid "Go to next page"
 msgstr "ಮುಂದಿನ ಪುಟಕ್ಕೆ ತೆರಳು"
 
-#: ../libview/pps-view.c:2000
+#: ../libview/ev-view.c:2000
 msgid "Go to last page"
 msgstr "ಕೊನೆಯ ಪುಟಕ್ಕೆ ತೆರಳು"
 
-#: ../libview/pps-view.c:2002
+#: ../libview/ev-view.c:2002
 msgid "Go to page"
 msgstr "ಈ ಪುಟಕ್ಕೆ ತೆರಳು"
 
-#: ../libview/pps-view.c:2004
+#: ../libview/ev-view.c:2004
 msgid "Find"
 msgstr "ಪತ್ತೆ ಹಚ್ಚು"
 
-#: ../libview/pps-view.c:2032
+#: ../libview/ev-view.c:2032
 #, c-format
 msgid "Go to page %s"
 msgstr "%s ಪುಟಕ್ಕೆ ತೆರಳು"
 
-#: ../libview/pps-view.c:2038
+#: ../libview/ev-view.c:2038
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "“%s” ಕಡತದಲ್ಲಿನ %s ಕ್ಕೆ ತೆರಳು"
 
-#: ../libview/pps-view.c:2041
+#: ../libview/ev-view.c:2041
 #, c-format
 msgid "Go to file “%s”"
 msgstr "“%s” ಕಡತಕ್ಕೆ ತೆರಳು"
 
-#: ../libview/pps-view.c:2049
+#: ../libview/ev-view.c:2049
 #, c-format
 msgid "Launch %s"
 msgstr "%s ಅನ್ನು ಆರಂಭಿಸು"
 
-#: ../libview/pps-view-presentation.c:735
+#: ../libview/ev-view-presentation.c:735
 msgid "Jump to page:"
 msgstr "ಈ ಪುಟಕ್ಕೆ ಹೋಗು:"
 
-#: ../libview/pps-view-presentation.c:1038
+#: ../libview/ev-view-presentation.c:1038
 msgid "End of presentation. Click to exit."
 msgstr "ಪ್ರದರ್ಶನದ ಕೊನೆಯನ್ನು ತಲುಪಿದೆ. ನಿರ್ಗಮಿಸು ಅನ್ನು ಕ್ಲಿಕ್ ಮಾಡಿ."
 
-#: ../previewer/pps-previewer.c:45
+#: ../previewer/ev-previewer.c:45
 msgid "Delete the temporary file"
 msgstr "ತಾತ್ಕಾಲಿಕ ಕಡತವನ್ನು ಅಳಿಸು"
 
-#: ../previewer/pps-previewer.c:46
+#: ../previewer/ev-previewer.c:46
 msgid "Print settings file"
 msgstr "ಮುದ್ರಣ ಸಿದ್ಧತೆಗಳ ಕಡತ"
 
-#: ../previewer/pps-previewer.c:46
+#: ../previewer/ev-previewer.c:46
 msgid "FILE"
 msgstr "FILE"
 
-#: ../previewer/pps-previewer.c:175 ../previewer/pps-previewer.c:207
+#: ../previewer/ev-previewer.c:175 ../previewer/ev-previewer.c:207
 msgid "GNOME Document Previewer"
 msgstr "GNOME ದಸ್ತಾವೇಜು ಪೂರ್ವವೀಕ್ಷಕ"
 
-#: ../previewer/pps-previewer-window.c:91 ../shell/pps-window.c:3323
+#: ../previewer/ev-previewer-window.c:91 ../shell/ev-window.c:3323
 msgid "Failed to print document"
 msgstr "ದಸ್ತಾವೇಜನ್ನು ಮುದ್ರಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ"
 
-#: ../previewer/pps-previewer-window.c:223
+#: ../previewer/ev-previewer-window.c:223
 #, c-format
 msgid "The selected printer '%s' could not be found"
 msgstr "ಆಯ್ಕೆ ಮಾಡಲಾದ ಮುದ್ರಕ '%s' ಕಂಡುಬಂದಿಲ್ಲ"
 
-#: ../previewer/pps-previewer-window.c:270 ../shell/papers-menus.ui.h:39
+#: ../previewer/ev-previewer-window.c:270 ../shell/evince-menus.ui.h:39
 msgid "_Previous Page"
 msgstr "ಹಿಂದಿನ ಪುಟ (_P)"
 
-#: ../previewer/pps-previewer-window.c:273 ../shell/papers-menus.ui.h:40
+#: ../previewer/ev-previewer-window.c:273 ../shell/evince-menus.ui.h:40
 msgid "_Next Page"
 msgstr "ಮುಂದಿನ ಪುಟ (_N)"
 
-#: ../previewer/pps-previewer-window.c:285
+#: ../previewer/ev-previewer-window.c:285
 msgid "Print this document"
 msgstr "ಈ ದಸ್ತಾವೇಜನ್ನು ಮುದ್ರಿಸು"
 
-#: ../previewer/pps-previewer-window.c:318
+#: ../previewer/ev-previewer-window.c:318
 msgid "Make the current document fill the window"
 msgstr "ಈಗಿನ ದಸ್ತಾವೇಜನ್ನು ಕಿಟಕಿಗೆ ಹೊಂದಿಕೊಳ್ಳುವಂತೆ ಮಾಡು"
 
-#: ../previewer/pps-previewer-window.c:321
+#: ../previewer/ev-previewer-window.c:321
 msgid "Make the current document fill the window width"
 msgstr "ಈಗಿನ ದಸ್ತಾವೇಜು ಕಿಟಕಿಯ ಅಗಲಕ್ಕೆ ಹೊಂದಿಕೊಳ್ಳುವಂತೆ ಮಾಡು"
 
-#: ../previewer/pps-previewer-window.c:536
+#: ../previewer/ev-previewer-window.c:536
 msgid "Page"
 msgstr "ಪುಟ"
 
-#: ../previewer/pps-previewer-window.c:537
+#: ../previewer/ev-previewer-window.c:537
 msgid "Select Page"
 msgstr "ಪುಟವನ್ನು ಆರಿಸು"
 
-#: ../properties/pps-properties-main.c:116
+#: ../properties/ev-properties-main.c:116
 msgid "Document"
 msgstr "ದಸ್ತಾವೇಜು"
 
-#: ../properties/pps-properties-view.c:60
+#: ../properties/ev-properties-view.c:60
 msgid "Title:"
 msgstr "ಶೀರ್ಷಿಕೆ:"
 
-#: ../properties/pps-properties-view.c:61
+#: ../properties/ev-properties-view.c:61
 msgid "Location:"
 msgstr "ಸ್ಥಳ:"
 
-#: ../properties/pps-properties-view.c:62
+#: ../properties/ev-properties-view.c:62
 msgid "Subject:"
 msgstr "ವಿಷಯ:"
 
-#: ../properties/pps-properties-view.c:63
-#: ../shell/pps-annotation-properties-dialog.c:154
+#: ../properties/ev-properties-view.c:63
+#: ../shell/ev-annotation-properties-dialog.c:154
 msgid "Author:"
 msgstr "ಕತೃ:"
 
-#: ../properties/pps-properties-view.c:64
+#: ../properties/ev-properties-view.c:64
 msgid "Keywords:"
 msgstr "ಮುಖ್ಯಪದಗಳು:"
 
-#: ../properties/pps-properties-view.c:65
+#: ../properties/ev-properties-view.c:65
 msgid "Producer:"
 msgstr "ಉತ್ಪಾದಕರು:"
 
-#: ../properties/pps-properties-view.c:66
+#: ../properties/ev-properties-view.c:66
 msgid "Creator:"
 msgstr "ಸೃಜಿಸಿದವರು:"
 
-#: ../properties/pps-properties-view.c:67
+#: ../properties/ev-properties-view.c:67
 msgid "Created:"
 msgstr "ಸೃಜಿಸಲಾಗಿದ್ದು:"
 
-#: ../properties/pps-properties-view.c:68
+#: ../properties/ev-properties-view.c:68
 msgid "Modified:"
 msgstr "ಮಾರ್ಪಡಿಸಲಾಗಿದ್ದು:"
 
-#: ../properties/pps-properties-view.c:69
+#: ../properties/ev-properties-view.c:69
 msgid "Number of Pages:"
 msgstr "ಪುಟಗಳ ಸಂಖ್ಯೆ:"
 
-#: ../properties/pps-properties-view.c:70
+#: ../properties/ev-properties-view.c:70
 msgid "Optimized:"
 msgstr "ಪ್ರಶಸ್ತಗೊಳಿಸಲಾಗಿದ್ದು:"
 
-#: ../properties/pps-properties-view.c:71
+#: ../properties/ev-properties-view.c:71
 msgid "Format:"
 msgstr "ವಿನ್ಯಾಸ:"
 
-#: ../properties/pps-properties-view.c:72
+#: ../properties/ev-properties-view.c:72
 msgid "Security:"
 msgstr "ಸುರಕ್ಷತೆ:"
 
-#: ../properties/pps-properties-view.c:73
+#: ../properties/ev-properties-view.c:73
 msgid "Paper Size:"
 msgstr "ಕಾಗದದ ಗಾತ್ರ:"
 
@@ -783,30 +783,30 @@ msgstr "ಕಾಗದದ ಗಾತ್ರ:"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: ../properties/pps-properties-view.c:220
+#: ../properties/ev-properties-view.c:220
 msgid "default:mm"
 msgstr "default:mm"
 
-#: ../properties/pps-properties-view.c:264
+#: ../properties/ev-properties-view.c:264
 #, c-format
 msgid "%.0f × %.0f mm"
 msgstr "%.0f × %.0f ಮಿಮಿ"
 
-#: ../properties/pps-properties-view.c:268
+#: ../properties/ev-properties-view.c:268
 #, c-format
 msgid "%.2f × %.2f inch"
 msgstr "%.2f × %.2f ಇಂಚು"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/pps-properties-view.c:292
+#: ../properties/ev-properties-view.c:292
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr "%s, ಭಾವಚಿತ್ರ (%s)"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/pps-properties-view.c:299
+#: ../properties/ev-properties-view.c:299
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr "%s, ಪ್ರಕೃತಿಚಿತ್ರ (%s)"
@@ -831,151 +831,151 @@ msgstr "ಹಿಂದೆ ಕಾಣಿಸುವ ಹುಡುಕು ವಾಕ್ಯ
 msgid "Find next occurrence of the search string"
 msgstr "ಮುಂದೆ ಕಾಣಿಸುವ ಹುಡುಕು ವಾಕ್ಯವನ್ನು ಪತ್ತೆ ಮಾಡು"
 
-#: ../shell/pps-annotation-properties-dialog.c:94
+#: ../shell/ev-annotation-properties-dialog.c:94
 msgid "Icon:"
 msgstr "ಚಿಹ್ನೆ:"
 
-#: ../shell/pps-annotation-properties-dialog.c:100
+#: ../shell/ev-annotation-properties-dialog.c:100
 msgid "Note"
 msgstr "ಸೂಚನೆ"
 
-#: ../shell/pps-annotation-properties-dialog.c:101
+#: ../shell/ev-annotation-properties-dialog.c:101
 msgid "Comment"
 msgstr "ಟಿಪ್ಪಣಿ"
 
-#: ../shell/pps-annotation-properties-dialog.c:102
+#: ../shell/ev-annotation-properties-dialog.c:102
 msgid "Key"
 msgstr "ಕೀಲಿ"
 
-#: ../shell/pps-annotation-properties-dialog.c:103
+#: ../shell/ev-annotation-properties-dialog.c:103
 msgid "Help"
 msgstr "ನೆರವು"
 
-#: ../shell/pps-annotation-properties-dialog.c:104
+#: ../shell/ev-annotation-properties-dialog.c:104
 msgid "New Paragraph"
 msgstr "ಹೊಸ ಪ್ಯಾರಾಗ್ರಾಫ್"
 
-#: ../shell/pps-annotation-properties-dialog.c:105
+#: ../shell/ev-annotation-properties-dialog.c:105
 msgid "Paragraph"
 msgstr "ಪ್ಯಾರಾಗ್ರಾಫ್"
 
-#: ../shell/pps-annotation-properties-dialog.c:106
+#: ../shell/ev-annotation-properties-dialog.c:106
 msgid "Insert"
 msgstr "ಸೇರಿಸಿ"
 
-#: ../shell/pps-annotation-properties-dialog.c:107
+#: ../shell/ev-annotation-properties-dialog.c:107
 msgid "Cross"
 msgstr "ಕ್ರಾಸ್‌"
 
-#: ../shell/pps-annotation-properties-dialog.c:108
+#: ../shell/ev-annotation-properties-dialog.c:108
 msgid "Circle"
 msgstr "ವೃತ್ತ"
 
-#: ../shell/pps-annotation-properties-dialog.c:109
+#: ../shell/ev-annotation-properties-dialog.c:109
 msgid "Unknown"
 msgstr "ಅಜ್ಞಾತ"
 
-#: ../shell/pps-annotation-properties-dialog.c:134
+#: ../shell/ev-annotation-properties-dialog.c:134
 msgid "Annotation Properties"
 msgstr "ಟಿಪ್ಪಣಿಯ ಗುಣಲಕ್ಷಣಗಳು"
 
-#: ../shell/pps-annotation-properties-dialog.c:165
+#: ../shell/ev-annotation-properties-dialog.c:165
 msgid "Color:"
 msgstr "ಬಣ್ಣ:"
 
-#: ../shell/pps-annotation-properties-dialog.c:175
+#: ../shell/ev-annotation-properties-dialog.c:175
 msgid "Style:"
 msgstr "ಶೈಲಿ:"
 
-#: ../shell/pps-annotation-properties-dialog.c:190
+#: ../shell/ev-annotation-properties-dialog.c:190
 msgid "Transparent"
 msgstr "ಪಾರದರ್ಶಕ"
 
-#: ../shell/pps-annotation-properties-dialog.c:197
+#: ../shell/ev-annotation-properties-dialog.c:197
 msgid "Opaque"
 msgstr "ಅಪಾರದರ್ಶಕ"
 
-#: ../shell/pps-annotation-properties-dialog.c:207
+#: ../shell/ev-annotation-properties-dialog.c:207
 msgid "Initial window state:"
 msgstr "ಆರಂಭಿಕ ಕಿಟಕಿಯ ಸ್ಥಿತಿ:"
 
-#: ../shell/pps-annotation-properties-dialog.c:213
+#: ../shell/ev-annotation-properties-dialog.c:213
 msgid "Open"
 msgstr "ತೆರೆ"
 
-#: ../shell/pps-annotation-properties-dialog.c:214
+#: ../shell/ev-annotation-properties-dialog.c:214
 msgid "Close"
 msgstr "ಮುಚ್ಚು"
 
-#: ../shell/pps-application.c:995
+#: ../shell/ev-application.c:995
 msgid ""
-"Papers is free software; you can redistribute it and/or modify it under the "
+"Evince is free software; you can redistribute it and/or modify it under the "
 "terms of the GNU General Public License as published by the Free Software "
 "Foundation; either version 2 of the License, or (at your option) any later "
 "version.\n"
 msgstr ""
-"Papers is free software; you can redistribute it and/or modify it under the "
+"Evince is free software; you can redistribute it and/or modify it under the "
 "terms of the GNU General Public License as published by the Free Software "
 "Foundation; either version 2 of the License, or (at your option) any later "
 "version.\n"
 
-#: ../shell/pps-application.c:999
+#: ../shell/ev-application.c:999
 msgid ""
-"Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
+"Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
 "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 "details.\n"
 msgstr ""
-"Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
+"Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
 "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 "details.\n"
 
-#: ../shell/pps-application.c:1003
+#: ../shell/ev-application.c:1003
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"Papers; if not, write to the Free Software Foundation, Inc., 51 Franklin "
+"Evince; if not, write to the Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 msgstr ""
 "You should have received a copy of the GNU General Public License along with "
-"Papers; if not, write to the Free Software Foundation, Inc., 51 Franklin "
+"Evince; if not, write to the Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 
-#: ../shell/pps-application.c:1024 ../papers.appdata.xml.in.h:1
-msgid "Papers"
+#: ../shell/ev-application.c:1024 ../evince.appdata.xml.in.h:1
+msgid "Evince"
 msgstr "ಎವಿನ್ಸ್‍"
 
-#: ../shell/pps-application.c:1026
-msgid "© 1996–2014 The Papers authors"
-msgstr "© 1996–2014 Papers ಕತೃಗಳು"
+#: ../shell/ev-application.c:1026
+msgid "© 1996–2014 The Evince authors"
+msgstr "© 1996–2014 Evince ಕತೃಗಳು"
 
-#: ../shell/pps-application.c:1032
+#: ../shell/ev-application.c:1032
 msgid "translator-credits"
 msgstr ""
 "ಶಂಕರ್ ಪ್ರಸಾದ್ ಎಂ. ವಿ. <svenkate@redhat.com>, ರೇಣುಕಾ ಪ್ರಸಾದ್ <"
 "rennie606@yahoo.co."
 "in>"
 
-#: ../shell/pps-history-action.c:224
+#: ../shell/ev-history-action.c:224
 msgid "Go to previous history item"
 msgstr "ಹಿಂದಿನ ಇತಿಹಾಸ ಅಂಶಕ್ಕೆ ತೆರಳು"
 
-#: ../shell/pps-history-action.c:229
+#: ../shell/ev-history-action.c:229
 msgid "Go to next history item"
 msgstr "ಮುಂದಿನ ಇತಿಹಾಸದ ಅಂಶಕ್ಕೆ ತೆರಳು"
 
-#: ../shell/pps-keyring.c:86
+#: ../shell/ev-keyring.c:86
 #, c-format
 msgid "Password for document %s"
 msgstr "%s ದಸ್ತಾವೇಜಿಗಾಗಿ ಗುಪ್ತಪದ"
 
 #. Create tree view
-#: ../shell/pps-loading-message.c:50 ../shell/pps-sidebar-annotations.c:131
-#: ../shell/pps-sidebar-layers.c:125 ../shell/pps-sidebar-links.c:261
+#: ../shell/ev-loading-message.c:50 ../shell/ev-sidebar-annotations.c:131
+#: ../shell/ev-sidebar-layers.c:125 ../shell/ev-sidebar-links.c:261
 msgid "Loading…"
 msgstr "ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ…"
 
-#: ../shell/pps-password-view.c:142
+#: ../shell/ev-password-view.c:142
 msgid ""
 "This document is locked and can only be read by entering the correct "
 "password."
@@ -984,266 +984,266 @@ msgstr ""
 "ಇದನ್ನು "
 "ಓದಬಹುದಾಗಿದೆ."
 
-#: ../shell/pps-password-view.c:151 ../shell/pps-password-view.c:269
+#: ../shell/ev-password-view.c:151 ../shell/ev-password-view.c:269
 msgid "_Unlock Document"
 msgstr "ದಸ್ತಾವೇಜಿನ ಲಾಕನ್ನು ತೆಗೆ (_U)"
 
-#: ../shell/pps-password-view.c:261
+#: ../shell/ev-password-view.c:261
 msgid "Enter password"
 msgstr "ಗುಪ್ತಪದವನ್ನು ನಮೂದಿಸು"
 
-#: ../shell/pps-password-view.c:300
+#: ../shell/ev-password-view.c:300
 #, c-format
 msgid ""
 "The document “%s” is locked and requires a password before it can be opened."
 msgstr "“%s” ದಸ್ತಾವೇಜು ಲಾಕ್ ಆಗಿದೆ ಹಾಗು ಅದನ್ನು ತೆರೆಯಲು ಒಂದು ಗುಪ್ತಪದದ ಅಗತ್ಯವಿದೆ."
 
-#: ../shell/pps-password-view.c:303
+#: ../shell/ev-password-view.c:303
 msgid "Password required"
 msgstr "ಗುಪ್ತಪದ ಅಗತ್ಯವಿದೆ"
 
-#: ../shell/pps-password-view.c:333
+#: ../shell/ev-password-view.c:333
 msgid "_Password:"
 msgstr "ಗುಪ್ತಪದ (_P):"
 
-#: ../shell/pps-password-view.c:364
+#: ../shell/ev-password-view.c:364
 msgid "Forget password _immediately"
 msgstr "ಗುಪ್ತಪದವನ್ನು ಈ ಕೂಡಲೆ ಮರೆತು ಬಿಡು (_i)"
 
-#: ../shell/pps-password-view.c:376
+#: ../shell/ev-password-view.c:376
 msgid "Remember password until you _log out"
 msgstr "ನೀವು ನಿರ್ಗಮಿಸುವವರೆಗೂ ಗುಪ್ತಪದವನ್ನು ನೆನಪಿಟ್ಟುಕೊಳ್ಳಿ (_l)"
 
-#: ../shell/pps-password-view.c:388
+#: ../shell/ev-password-view.c:388
 msgid "Remember _forever"
 msgstr "ಯಾವಾಗಲು ನೆನಪಿಡು (_f)"
 
-#: ../shell/pps-properties-dialog.c:62
+#: ../shell/ev-properties-dialog.c:62
 msgid "Properties"
 msgstr "ಗುಣಲಕ್ಷಣಗಳು"
 
-#: ../shell/pps-properties-dialog.c:94
+#: ../shell/ev-properties-dialog.c:94
 msgid "General"
 msgstr "ಸಾಮಾನ್ಯ"
 
-#: ../shell/pps-properties-dialog.c:104
+#: ../shell/ev-properties-dialog.c:104
 msgid "Fonts"
 msgstr "ಅಕ್ಷರ ಶೈಲಿಗಳು"
 
-#: ../shell/pps-properties-dialog.c:117
+#: ../shell/ev-properties-dialog.c:117
 msgid "Document License"
 msgstr "ದಸ್ತಾವೇಜು ಪರವಾನಗಿ"
 
-#: ../shell/pps-properties-fonts.c:142
+#: ../shell/ev-properties-fonts.c:142
 msgid "Font"
 msgstr "ಅಕ್ಷರಶೈಲಿ"
 
-#: ../shell/pps-properties-fonts.c:169
+#: ../shell/ev-properties-fonts.c:169
 #, c-format
 msgid "Gathering font information… %3d%%"
 msgstr "ಅಕ್ಷರಶೈಲಿಯ ಮಾಹಿತಿಯನ್ನು ಕಲೆ ಹಾಕುತ್ತಿದೆ ... %3d%%"
 
-#: ../shell/pps-properties-license.c:134
+#: ../shell/ev-properties-license.c:134
 msgid "Usage terms"
 msgstr "ಬಳಕೆಯ ನಿಯಮಗಳು"
 
-#: ../shell/pps-properties-license.c:140
+#: ../shell/ev-properties-license.c:140
 msgid "Text License"
 msgstr "ಪಠ್ಯ ಪರವಾನಗಿ"
 
-#: ../shell/pps-properties-license.c:146
+#: ../shell/ev-properties-license.c:146
 msgid "Further Information"
 msgstr "ಹೆಚ್ಚಿನ ಮಾಹಿತಿ"
 
-#: ../shell/pps-sidebar-annotations.c:159
+#: ../shell/ev-sidebar-annotations.c:159
 msgid "List"
 msgstr "ಪಟ್ಟಿ"
 
-#: ../shell/pps-sidebar-annotations.c:199 ../shell/pps-sidebar-annotations.c:535
+#: ../shell/ev-sidebar-annotations.c:199 ../shell/ev-sidebar-annotations.c:535
 msgid "Annotations"
 msgstr "ಟಿಪ್ಪಣಿಗಳು"
 
-#: ../shell/pps-sidebar-annotations.c:205
+#: ../shell/ev-sidebar-annotations.c:205
 msgid "Text"
 msgstr "ಪಠ್ಯ"
 
-#: ../shell/pps-sidebar-annotations.c:206
+#: ../shell/ev-sidebar-annotations.c:206
 msgid "Add text annotation"
 msgstr "ಪಠ್ಯ ಟಿಪ್ಪಣಿಯನ್ನು ಸೇರಿಸಿ"
 
-#: ../shell/pps-sidebar-annotations.c:217 ../shell/pps-sidebar-bookmarks.c:454
+#: ../shell/ev-sidebar-annotations.c:217 ../shell/ev-sidebar-bookmarks.c:454
 msgid "Add"
 msgstr "ಸೇರಿಸು"
 
-#: ../shell/pps-sidebar-annotations.c:368
+#: ../shell/ev-sidebar-annotations.c:368
 msgid "Document contains no annotations"
 msgstr "ದಸ್ತಾವೇಜು ಯಾವುದೆ ಟಿಪ್ಪಣಿಗಳನ್ನು ಹೊಂದಿಲ್ಲ"
 
-#: ../shell/pps-sidebar-annotations.c:400
+#: ../shell/ev-sidebar-annotations.c:400
 #, c-format
 msgid "Page %d"
 msgstr "ಪುಟ %d"
 
-#: ../shell/pps-sidebar-attachments.c:697
+#: ../shell/ev-sidebar-attachments.c:697
 msgid "Attachments"
 msgstr "ಲಗತ್ತು‍ಗಳು"
 
-#: ../shell/pps-sidebar-bookmarks.c:146
+#: ../shell/ev-sidebar-bookmarks.c:146
 msgid "_Open Bookmark"
 msgstr "ಬುಕ್‌ಮಾರ್ಕನ್ನು ತೆರೆ (_O)"
 
-#: ../shell/pps-sidebar-bookmarks.c:148
+#: ../shell/ev-sidebar-bookmarks.c:148
 msgid "_Rename Bookmark"
 msgstr "ಬುಕ್‌ಮಾರ್ಕಿನ ಹೆಸರನ್ನು ಬದಲಾಯಿಸು (_R)"
 
-#: ../shell/pps-sidebar-bookmarks.c:150
+#: ../shell/ev-sidebar-bookmarks.c:150
 msgid "_Remove Bookmark"
 msgstr "ಬುಕ್‌ಮಾರ್ಕನ್ನು ತೆಗೆದುಹಾಕು (_R)"
 
-#: ../shell/pps-sidebar-bookmarks.c:461
+#: ../shell/ev-sidebar-bookmarks.c:461
 msgid "Remove"
 msgstr "ತೆಗೆದುಹಾಕು"
 
-#: ../shell/pps-sidebar-bookmarks.c:577 ../shell/pps-toolbar.c:160
+#: ../shell/ev-sidebar-bookmarks.c:577 ../shell/ev-toolbar.c:160
 msgid "Bookmarks"
 msgstr "ಬುಕ್‌ಮಾರ್ಕುಗಳು"
 
-#: ../shell/pps-sidebar-layers.c:446
+#: ../shell/ev-sidebar-layers.c:446
 msgid "Layers"
 msgstr "ಪದರಗಳು"
 
-#: ../shell/pps-sidebar-links.c:337
+#: ../shell/ev-sidebar-links.c:337
 msgid "Print…"
 msgstr "ಮುದ್ರಿಸು"
 
-#: ../shell/pps-sidebar-links.c:725
+#: ../shell/ev-sidebar-links.c:725
 msgid "Index"
 msgstr "ಪರಿವಿಡಿ"
 
-#: ../shell/pps-sidebar-thumbnails.c:1082
+#: ../shell/ev-sidebar-thumbnails.c:1082
 msgid "Thumbnails"
 msgstr "ತಂಬ್‍ನೈಲ್‍ಗಳು"
 
-#: ../shell/pps-toolbar.c:204
+#: ../shell/ev-toolbar.c:204
 msgid "Open an existing document"
 msgstr "ಈಗಿರುವ ಒಂದು ದಸ್ತಾವೇಜನ್ನು ತೆರೆ"
 
-#: ../shell/pps-toolbar.c:235
+#: ../shell/ev-toolbar.c:235
 msgid "Find a word or phrase in the document"
 msgstr "ಈ ದಸ್ತಾವೇಜಿನಲ್ಲಿ ಒಂದು ಪದ ಅಥವ ವಾಕ್ಯವನ್ನು ಪತ್ತೆ ಹಚ್ಚು"
 
-#: ../shell/pps-toolbar.c:247 ../shell/pps-toolbar.c:248
+#: ../shell/ev-toolbar.c:247 ../shell/ev-toolbar.c:248
 msgid "File options"
 msgstr "ಕಡತ ಆಯ್ಕೆಗಳು"
 
-#: ../shell/pps-toolbar.c:257 ../shell/pps-toolbar.c:258
+#: ../shell/ev-toolbar.c:257 ../shell/ev-toolbar.c:258
 msgid "View options"
 msgstr "ನೋಡುವ ಆಯ್ಕೆಗಳು"
 
-#: ../shell/pps-utils.c:305
+#: ../shell/ev-utils.c:305
 msgid "Supported Image Files"
 msgstr "ಬೆಂಬಲಿತ ಚಿತ್ರ ಕಡತಗಳು"
 
-#: ../shell/pps-window.c:1606
+#: ../shell/ev-window.c:1606
 msgid "The document contains no pages"
 msgstr "ದಸ್ತಾವೇಜು ಯಾವುದೆ ಹಾಳೆಗಳನ್ನು ಹೊಂದಿಲ್ಲ"
 
-#: ../shell/pps-window.c:1609
+#: ../shell/ev-window.c:1609
 msgid "The document contains only empty pages"
 msgstr "ದಸ್ತಾವೇಜು ಕೇವಲ ಖಾಲಿ ಹಾಳೆಗಳನ್ನು ಹೊಂದಿದೆ"
 
-#: ../shell/pps-window.c:1822 ../shell/pps-window.c:1990
+#: ../shell/ev-window.c:1822 ../shell/ev-window.c:1990
 #, c-format
 msgid "Unable to open document “%s”."
 msgstr "“%s” ದಸ್ತಾವೇಜನ್ನು ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ."
 
-#: ../shell/pps-window.c:1954
+#: ../shell/ev-window.c:1954
 #, c-format
 msgid "Loading document from “%s”"
 msgstr "“%s” ಇಂದ ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
 
-#: ../shell/pps-window.c:2105 ../shell/pps-window.c:2432
+#: ../shell/ev-window.c:2105 ../shell/ev-window.c:2432
 #, c-format
 msgid "Downloading document (%d%%)"
 msgstr "ದಸ್ತಾವೇಜನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ (%d%%)"
 
-#: ../shell/pps-window.c:2138
+#: ../shell/ev-window.c:2138
 msgid "Failed to load remote file."
 msgstr "ದೂರಸ್ಥ ಕಡತವನ್ನು ಲೋಡ್‌ಮಾಡುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ."
 
-#: ../shell/pps-window.c:2376
+#: ../shell/ev-window.c:2376
 #, c-format
 msgid "Reloading document from %s"
 msgstr "%s ಇಂದ ದಸ್ತಾವೇಜನ್ನು ಪುನಃ ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
 
-#: ../shell/pps-window.c:2408
+#: ../shell/ev-window.c:2408
 msgid "Failed to reload document."
 msgstr "ದಸ್ತಾವೇಜನ್ನು ಮರು ಲೋಡ್‌ಮಾಡುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ."
 
-#: ../shell/pps-window.c:2624
+#: ../shell/ev-window.c:2624
 msgid "Open Document"
 msgstr "ದಸ್ತಾವೇಜನ್ನು ತೆರೆ"
 
-#: ../shell/pps-window.c:2695
+#: ../shell/ev-window.c:2695
 #, c-format
 msgid "Saving document to %s"
 msgstr "ದಸ್ತಾವೇಜನ್ನು %s ಗೆ ಉಳಿಸಲಾಗುತ್ತಿದೆ"
 
-#: ../shell/pps-window.c:2698
+#: ../shell/ev-window.c:2698
 #, c-format
 msgid "Saving attachment to %s"
 msgstr "ಲಗತ್ತನ್ನು %s ಗೆ ಉಳಿಸಲಾಗುತ್ತಿದೆ"
 
-#: ../shell/pps-window.c:2701
+#: ../shell/ev-window.c:2701
 #, c-format
 msgid "Saving image to %s"
 msgstr "ಚಿತ್ರವನ್ನು %s ಗೆ ಉಳಿಸಲಾಗುತ್ತಿದೆ"
 
-#: ../shell/pps-window.c:2745 ../shell/pps-window.c:2845
+#: ../shell/ev-window.c:2745 ../shell/ev-window.c:2845
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "ಕಡತವನ್ನು “%s” ಆಗಿ ಉಳಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ."
 
-#: ../shell/pps-window.c:2776
+#: ../shell/ev-window.c:2776
 #, c-format
 msgid "Uploading document (%d%%)"
 msgstr "ದಸ್ತಾವೇಜನ್ನು ಅಪ್‌ಲೋಡ್‌ ಮಾಡಲಾಗುತ್ತಿದೆ (%d%%)"
 
-#: ../shell/pps-window.c:2780
+#: ../shell/ev-window.c:2780
 #, c-format
 msgid "Uploading attachment (%d%%)"
 msgstr "ಲಗತ್ತನ್ನು ಅಪ್‌ಲೋಡ್‌ ಮಾಡಲಾಗುತ್ತಿದೆ (%d%%)"
 
-#: ../shell/pps-window.c:2784
+#: ../shell/ev-window.c:2784
 #, c-format
 msgid "Uploading image (%d%%)"
 msgstr "ಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್‌ ಮಾಡಲಾಗುತ್ತಿದೆ (%d%%)"
 
-#: ../shell/pps-window.c:2896
+#: ../shell/ev-window.c:2896
 msgid "Save a Copy"
 msgstr "ಒಂದು ಪ್ರತಿಯನ್ನು ಉಳಿಸು"
 
-#: ../shell/pps-window.c:2972
+#: ../shell/ev-window.c:2972
 msgid "Could not send current document"
 msgstr "ಈಗಿರುವ ದಸ್ತಾವೇಜನ್ನು ಕಳುಹಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
-#: ../shell/pps-window.c:3006
+#: ../shell/ev-window.c:3006
 msgid "Could not open the containing folder"
 msgstr "ಇದನ್ನು ಹೊಂದಿರುವ ಕಡತಕೋಶವನ್ನು ತೆರೆಯಲಾಗಲಿಲ್ಲ"
 
-#: ../shell/pps-window.c:3267
+#: ../shell/ev-window.c:3267
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "ಸರತಿಯಲ್ಲಿ %d ಮುದ್ರಣ ಕಾರ್ಯವು ಬಾಕಿ ಇವೆ"
 msgstr[1] "ಸರತಿಯಲ್ಲಿ %d ಮುದ್ರಣ ಕಾರ್ಯಗಳು ಬಾಕಿ ಇವೆ"
 
-#: ../shell/pps-window.c:3380
+#: ../shell/ev-window.c:3380
 #, c-format
 msgid "Printing job “%s”"
 msgstr "ಮುದ್ರಣ ಕಾರ್ಯ “%s”"
 
-#: ../shell/pps-window.c:3583
+#: ../shell/ev-window.c:3583
 msgid ""
 "Document contains form fields that have been filled out. If you don't save a "
 "copy, changes will be permanently lost."
@@ -1252,7 +1252,7 @@ msgstr ""
 "ಉಳಿಸದೆ "
 "ಹೋದಲ್ಲಿ, ಬದಲಾವಣೆಗಳು ಶಾಶ್ವತವಾಗಿ ಇಲ್ಲವಾಗುತ್ತವೆ."
 
-#: ../shell/pps-window.c:3587
+#: ../shell/ev-window.c:3587
 msgid ""
 "Document contains new or modified annotations. If you don't save a copy, "
 "changes will be permanently lost."
@@ -1261,20 +1261,20 @@ msgstr ""
 "ಹೋದಲ್ಲಿ, "
 "ಬದಲಾವಣೆಗಳು ಶಾಶ್ವತವಾಗಿ ಇಲ್ಲವಾಗುತ್ತವೆ."
 
-#: ../shell/pps-window.c:3594
+#: ../shell/ev-window.c:3594
 #, c-format
 msgid "Save a copy of document “%s” before closing?"
 msgstr "ಮುಚ್ಚುವ ಮೊದಲು “%s” ಎಂಬ ದಸ್ತಾವೇಜಿನ ಒಂದು ಪ್ರತಿಯನ್ನು ಉಳಿಸಬೇಕೆ?"
 
-#: ../shell/pps-window.c:3613
+#: ../shell/ev-window.c:3613
 msgid "Close _without Saving"
 msgstr "ಉಳಿಸದೆ ಮುಚ್ಚು (_W)"
 
-#: ../shell/pps-window.c:3617
+#: ../shell/ev-window.c:3617
 msgid "Save a _Copy"
 msgstr "ಒಂದು ಪ್ರತಿಯನ್ನು ಉಳಿಸು (_C)"
 
-#: ../shell/pps-window.c:3691
+#: ../shell/ev-window.c:3691
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr "ಮುಚ್ಚುವ ಮೊದಲು ಮುದ್ರಣ ಕಾರ್ಯ “%s” ವು ಪೂರ್ಣಗೊಳ್ಳುವವರೆಗೂ ಕಾಯಬೇಕೆ?"
@@ -1282,7 +1282,7 @@ msgstr "ಮುಚ್ಚುವ ಮೊದಲು ಮುದ್ರಣ ಕಾರ್ಯ
 #. TRANS: the singular form is not really used as n_print_jobs > 1
 #. but some languages distinguish between different plurals forms,
 #. so the ngettext is needed.
-#: ../shell/pps-window.c:3697
+#: ../shell/ev-window.c:3697
 #, c-format
 msgid "There is %d print job active. Wait until print finishes before closing?"
 msgid_plural ""
@@ -1294,153 +1294,153 @@ msgstr[1] ""
 "%d ಮುದ್ರಣ ಕಾರ್ಯಗಳು ಸಕ್ರಿಯವಾಗಿವೆ. ಮುಚ್ಚುವ ಮೊದಲು ಮುದ್ರಣವು ಪೂರ್ಣಗೊಳ್ಳುವವರೆಗೂ "
 "ಕಾಯಬೇಕೆ?"
 
-#: ../shell/pps-window.c:3712
+#: ../shell/ev-window.c:3712
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr "ಕಿಟಕಿಯನ್ನು ಮುಚ್ಚಿದಲ್ಲಿ, ಬಾಕಿ ಇರುವ ಮುದ್ರಣ ಕಾರ್ಯಗಳು ಮುದ್ರಣಗೊಳ್ಳುವುದಿಲ್ಲ."
 
-#: ../shell/pps-window.c:3716
+#: ../shell/ev-window.c:3716
 msgid "Cancel _print and Close"
 msgstr "ಮುದ್ರಣವನ್ನು ರದ್ದುಗೊಳಿಸು ಹಾಗು ಮುಚ್ಚು (_p)"
 
-#: ../shell/pps-window.c:3720
+#: ../shell/ev-window.c:3720
 msgid "Close _after Printing"
 msgstr "ಮುದ್ರಣದ ನಂತರ ಮುಚ್ಚು (_a)"
 
-#: ../shell/pps-window.c:4248
+#: ../shell/ev-window.c:4248
 msgid "Running in presentation mode"
 msgstr "ಪ್ರದರ್ಶನ ಕ್ರಮದಲ್ಲಿ ಚಲಾಯಿಸಲಾಗುತ್ತಿದೆ"
 
 #. TRANS: Sometimes this could be better translated as
 #. "%d hit(s) on this page".  Therefore this string
 #. contains plural cases.
-#: ../shell/pps-window.c:5181
+#: ../shell/ev-window.c:5181
 #, c-format
 msgid "%d found on this page"
 msgid_plural "%d found on this page"
 msgstr[0] "ಈ ಪುಟದಲ್ಲಿ %d ಕಂಡು ಬಂದಿದೆ"
 msgstr[1] "ಈ ಪುಟದಲ್ಲಿ %d ಕಂಡು ಬಂದಿದೆ"
 
-#: ../shell/pps-window.c:5186
+#: ../shell/ev-window.c:5186
 msgid "Not found"
 msgstr "ಕಂಡು ಬಂದಿಲ್ಲ"
 
-#: ../shell/pps-window.c:5192
+#: ../shell/ev-window.c:5192
 #, c-format
 msgid "%3d%% remaining to search"
 msgstr "ಹುಡುಕಲು %3d%% ಬಾಕಿ ಉಳಿದಿವೆ"
 
-#: ../shell/pps-window.c:5512
+#: ../shell/ev-window.c:5512
 msgid "Enable caret navigation?"
 msgstr "ಕ್ಯಾರಟ್ ನ್ಯಾವಿಗೇಶನ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಬೇಕೆ?"
 
-#: ../shell/pps-window.c:5514
+#: ../shell/ev-window.c:5514
 msgid "_Enable"
 msgstr "ಸಕ್ರಿಯಗೊಳಿಸು (_E)"
 
-#: ../shell/pps-window.c:5517
+#: ../shell/ev-window.c:5517
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
 "with your keyboard. Do you want to enable the caret navigation?"
 msgstr " "
 
-#: ../shell/pps-window.c:5522
+#: ../shell/ev-window.c:5522
 msgid "Don't show this message again"
 msgstr "ಈ ಸಂದೇಶವನ್ನು ಮತ್ತೆ  ತೋರಿಸಬೇಡ"
 
-#: ../shell/pps-window.c:6038 ../shell/pps-window.c:6054
+#: ../shell/ev-window.c:6038 ../shell/ev-window.c:6054
 msgid "Unable to launch external application."
 msgstr "ಹೊರಗಿನ ಅನ್ವಯವನ್ನು ಆರಂಭಿಸಲಾಗಲಿಲ್ಲ."
 
-#: ../shell/pps-window.c:6111
+#: ../shell/ev-window.c:6111
 msgid "Unable to open external link"
 msgstr "ಹೊರಗಿನ ಕೊಂಡಿಯನ್ನು ತೆರೆಯಲಾಗಲಿಲ್ಲ"
 
-#: ../shell/pps-window.c:6314
+#: ../shell/ev-window.c:6314
 msgid "Couldn't find appropriate format to save image"
 msgstr "ಚಿತ್ರವನ್ನು ಉಳಿಸಲು ಸರಿಯಾದ ನಮೂನೆಯು ಕಂಡು ಬಂದಿಲ್ಲ"
 
-#: ../shell/pps-window.c:6346
+#: ../shell/ev-window.c:6346
 msgid "The image could not be saved."
 msgstr "ಚಿತ್ರವನ್ನು ಉಳಿಸಲಾಗಿಲ್ಲ."
 
-#: ../shell/pps-window.c:6381
+#: ../shell/ev-window.c:6381
 msgid "Save Image"
 msgstr "ಚಿತ್ರವನ್ನು ಉಳಿಸು"
 
-#: ../shell/pps-window.c:6532
+#: ../shell/ev-window.c:6532
 msgid "Unable to open attachment"
 msgstr "ಲಗತ್ತನ್ನು ತೆರೆಯಲಾಗಿಲ್ಲ"
 
-#: ../shell/pps-window.c:6588
+#: ../shell/ev-window.c:6588
 msgid "The attachment could not be saved."
 msgstr "ಲಗತ್ತನ್ನು ಉಳಿಸಲಾಗಿಲ್ಲ."
 
-#: ../shell/pps-window.c:6636
+#: ../shell/ev-window.c:6636
 msgid "Save Attachment"
 msgstr "ಲಗತ್ತನ್ನು ಉಳಿಸು"
 
-#: ../shell/pps-window-title.c:118
+#: ../shell/ev-window-title.c:118
 msgid "Recent Documents"
 msgstr "ಇತ್ತೀಚಿನ ದಸ್ತಾವೇಜುಗಳು"
 
-#: ../shell/pps-window-title.c:153 ../shell/pps-window-title.c:157
+#: ../shell/ev-window-title.c:153 ../shell/ev-window-title.c:157
 msgid "Password Required"
 msgstr "ಗುಪ್ತಪದದ ಅಗತ್ಯವಿದೆ"
 
-#: ../shell/pps-zoom-action.c:48
+#: ../shell/ev-zoom-action.c:48
 msgid "50%"
 msgstr "50%"
 
-#: ../shell/pps-zoom-action.c:49
+#: ../shell/ev-zoom-action.c:49
 msgid "70%"
 msgstr "70%"
 
-#: ../shell/pps-zoom-action.c:50
+#: ../shell/ev-zoom-action.c:50
 msgid "85%"
 msgstr "85%"
 
-#: ../shell/pps-zoom-action.c:51
+#: ../shell/ev-zoom-action.c:51
 msgid "100%"
 msgstr "100%"
 
-#: ../shell/pps-zoom-action.c:52
+#: ../shell/ev-zoom-action.c:52
 msgid "125%"
 msgstr "125%"
 
-#: ../shell/pps-zoom-action.c:53
+#: ../shell/ev-zoom-action.c:53
 msgid "150%"
 msgstr "150%"
 
-#: ../shell/pps-zoom-action.c:54
+#: ../shell/ev-zoom-action.c:54
 msgid "175%"
 msgstr "175%"
 
-#: ../shell/pps-zoom-action.c:55
+#: ../shell/ev-zoom-action.c:55
 msgid "200%"
 msgstr "200%"
 
-#: ../shell/pps-zoom-action.c:56
+#: ../shell/ev-zoom-action.c:56
 msgid "300%"
 msgstr "300%"
 
-#: ../shell/pps-zoom-action.c:57
+#: ../shell/ev-zoom-action.c:57
 msgid "400%"
 msgstr "400%"
 
-#: ../shell/pps-zoom-action.c:58
+#: ../shell/ev-zoom-action.c:58
 msgid "800%"
 msgstr "800%"
 
-#: ../shell/pps-zoom-action.c:59
+#: ../shell/ev-zoom-action.c:59
 msgid "1600%"
 msgstr "1600%"
 
-#: ../shell/pps-zoom-action.c:60
+#: ../shell/ev-zoom-action.c:60
 msgid "3200%"
 msgstr "3200%"
 
-#: ../shell/pps-zoom-action.c:61
+#: ../shell/ev-zoom-action.c:61
 msgid "6400%"
 msgstr "6400%"
 
@@ -1473,15 +1473,15 @@ msgid "DEST"
 msgstr "DEST"
 
 #: ../shell/main.c:74
-msgid "Run papers in fullscreen mode"
+msgid "Run evince in fullscreen mode"
 msgstr "ಎವಿನ್ಸನ್ನು ಪೂರ್ಣತೆರೆ ವಿಧಾನದಲ್ಲಿ ಚಲಾಯಿಸು"
 
 #: ../shell/main.c:75
-msgid "Run papers in presentation mode"
+msgid "Run evince in presentation mode"
 msgstr "ಎವಿನ್ಸನ್ನು ಪ್ರದರ್ಶನ ವಿಧಾನದಲ್ಲಿ ಚಲಾಯಿಸು"
 
 #: ../shell/main.c:76
-msgid "Run papers as a previewer"
+msgid "Run evince as a previewer"
 msgstr "ಎವಿನ್ಸನ್ನು ಒಂದು ಪೂರ್ವವೀಕ್ಷಕವಾಗಿ(ಪ್ರಿವೀವರ್) ಚಲಾಯಿಸು"
 
 #: ../shell/main.c:77
@@ -1496,183 +1496,183 @@ msgstr "STRING"
 msgid "[FILE…]"
 msgstr "[FILE…]"
 
-#: ../shell/papers-menus.ui.h:1
+#: ../shell/evince-menus.ui.h:1
 msgid "_New Window"
 msgstr "ಹೊಸ ಕಿಟಕಿಯಲ್ಲಿ ತೆರೆ (_N)"
 
-#: ../shell/papers-menus.ui.h:2
+#: ../shell/evince-menus.ui.h:2
 msgid "_Help"
 msgstr "ಸಹಾಯ (_H)"
 
-#: ../shell/papers-menus.ui.h:3
+#: ../shell/evince-menus.ui.h:3
 msgid "_About"
 msgstr "ಇದರ ಬಗ್ಗೆ (_A)"
 
-#: ../shell/papers-menus.ui.h:4
+#: ../shell/evince-menus.ui.h:4
 msgid "_Continuous"
 msgstr "ನಿರಂತರ (_C)"
 
-#: ../shell/papers-menus.ui.h:5
+#: ../shell/evince-menus.ui.h:5
 msgid "_Dual"
 msgstr "ಇಬ್ಬುಗೆಯ (_D)"
 
-#: ../shell/papers-menus.ui.h:6
+#: ../shell/evince-menus.ui.h:6
 msgid "Side _Pane"
 msgstr "ಬಲಬದಿಯ ಫಲಕ (_P)"
 
-#: ../shell/papers-menus.ui.h:7
+#: ../shell/evince-menus.ui.h:7
 msgid "_Fullscreen"
 msgstr "ಪೂರ್ಣತೆರೆ (_F)"
 
-#: ../shell/papers-menus.ui.h:8
+#: ../shell/evince-menus.ui.h:8
 msgid "Pre_sentation"
 msgstr "ಪ್ರದರ್ಶನ (_s)"
 
-#: ../shell/papers-menus.ui.h:9
+#: ../shell/evince-menus.ui.h:9
 msgid "Rotate _Left"
 msgstr "ಎಡಕ್ಕೆ ತಿರುಗಿಸು (_L)"
 
-#: ../shell/papers-menus.ui.h:10
+#: ../shell/evince-menus.ui.h:10
 msgid "Rotate _Right"
 msgstr "ಬಲಕ್ಕೆ ತಿರುಗಿಸು (_R)"
 
-#: ../shell/papers-menus.ui.h:11
+#: ../shell/evince-menus.ui.h:11
 msgid "First Page"
 msgstr "ಮೊದಲ ಪುಟ"
 
-#: ../shell/papers-menus.ui.h:12
+#: ../shell/evince-menus.ui.h:12
 msgid "Previous Page"
 msgstr "ಹಿಂದಿನ ಪುಟ"
 
-#: ../shell/papers-menus.ui.h:13
+#: ../shell/evince-menus.ui.h:13
 msgid "Next Page"
 msgstr "ಮುಂದಿನ ಪುಟ"
 
-#: ../shell/papers-menus.ui.h:14
+#: ../shell/evince-menus.ui.h:14
 msgid "Last Page"
 msgstr "ಕೊನೆಯ ಪುಟ"
 
-#: ../shell/papers-menus.ui.h:15
+#: ../shell/evince-menus.ui.h:15
 msgid "Zoom _In"
 msgstr "ಹಿಗ್ಗಿಸು (_I)"
 
-#: ../shell/papers-menus.ui.h:16
+#: ../shell/evince-menus.ui.h:16
 msgid "Zoom _Out"
 msgstr "ಕುಗ್ಗಿಸು (_O)"
 
-#: ../shell/papers-menus.ui.h:17
+#: ../shell/evince-menus.ui.h:17
 msgid "_Odd Pages Left"
 msgstr "ಬೆಸಸಂಖ್ಯೆಯ ಪುಟಗಳು ಎಡಕ್ಕೆ (_O)"
 
-#: ../shell/papers-menus.ui.h:18
+#: ../shell/evince-menus.ui.h:18
 msgid "_Inverted Colors"
 msgstr "ಬಣ್ಣಗಳನ್ನು ಹಿಂದು ಮುಂದಾಗಿಸು (_I)"
 
-#: ../shell/papers-menus.ui.h:19
+#: ../shell/evince-menus.ui.h:19
 msgid "_Reload"
 msgstr "ಪುನಃ ಲೋಡ್ ಮಾಡು (_R)"
 
-#: ../shell/papers-menus.ui.h:20
+#: ../shell/evince-menus.ui.h:20
 msgid "_Open…"
 msgstr "ತೆರೆ (_O)..."
 
-#: ../shell/papers-menus.ui.h:21
+#: ../shell/evince-menus.ui.h:21
 msgid "Op_en a Copy"
 msgstr "ಒಂದು ಪ್ರತಿಯನ್ನು ತೆರೆ (_e)"
 
-#: ../shell/papers-menus.ui.h:22
+#: ../shell/evince-menus.ui.h:22
 msgid "_Save a Copy…"
 msgstr "ಒಂದು ಪ್ರತಿಯನ್ನು ಉಳಿಸು (_S)…"
 
-#: ../shell/papers-menus.ui.h:23
+#: ../shell/evince-menus.ui.h:23
 msgid "Send _To…"
 msgstr "ಇಲ್ಲಿಗೆ ಕಳುಹಿಸು (_T)..."
 
-#: ../shell/papers-menus.ui.h:24
+#: ../shell/evince-menus.ui.h:24
 msgid "Open Containing _Folder"
 msgstr "ಇದನ್ನು ಹೊಂದಿರುವ ಕಡತಕೋಶವನ್ನು ತೆರೆ (_F)"
 
-#: ../shell/papers-menus.ui.h:25
+#: ../shell/evince-menus.ui.h:25
 msgid "_Print…"
 msgstr "ಮುದ್ರಿಸು (_P)..."
 
-#: ../shell/papers-menus.ui.h:26
+#: ../shell/evince-menus.ui.h:26
 msgid "P_roperties…"
 msgstr "ಗುಣಲಕ್ಷಣಗಳು (_r)..."
 
-#: ../shell/papers-menus.ui.h:27
+#: ../shell/evince-menus.ui.h:27
 msgid "_Copy"
 msgstr "ಪ್ರತಿ ಮಾಡು (_C)"
 
-#: ../shell/papers-menus.ui.h:28
+#: ../shell/evince-menus.ui.h:28
 msgid "Select _All"
 msgstr "ಎಲ್ಲವನ್ನೂ ಆರಿಸು (_A)"
 
-#: ../shell/papers-menus.ui.h:29
+#: ../shell/evince-menus.ui.h:29
 msgid "Save Current Settings as _Default"
 msgstr "ಈಗಿನ ಸಿದ್ಧತೆಗಳನ್ನು ಪೂರ್ವನಿಯೋಜಿತ ಎಂದಾಗಿ ಉಳಿಸು (_D)"
 
-#: ../shell/papers-menus.ui.h:30
+#: ../shell/evince-menus.ui.h:30
 msgid "_Add Bookmark"
 msgstr "ಬುಕ್‌ಮಾರ್ಕನ್ನು ಸೇರಿಸು (_A)"
 
-#: ../shell/papers-menus.ui.h:31
+#: ../shell/evince-menus.ui.h:31
 msgid "_Close"
 msgstr "ಮುಚ್ಚು (_C)"
 
-#: ../shell/papers-menus.ui.h:35
+#: ../shell/evince-menus.ui.h:35
 msgid "_Open Link"
 msgstr "ಕೊಂಡಿಯನ್ನು ತೆರೆ (_O)"
 
-#: ../shell/papers-menus.ui.h:36
+#: ../shell/evince-menus.ui.h:36
 msgid "_Copy Link Address"
 msgstr "ಕೊಂಡಿ ವಿಳಾಸವನ್ನು ಪ್ರತಿ ಮಾಡು (_C)"
 
-#: ../shell/papers-menus.ui.h:37
+#: ../shell/evince-menus.ui.h:37
 msgid "_Go To"
 msgstr "ಇಲ್ಲಿಗೆ ತೆರಳು (_G)"
 
-#: ../shell/papers-menus.ui.h:38
+#: ../shell/evince-menus.ui.h:38
 msgid "Open in New _Window"
 msgstr "ಹೊಸ ಕಿಟಕಿಗಳಲ್ಲಿ ತೆರೆ (_W)"
 
-#: ../shell/papers-menus.ui.h:41
+#: ../shell/evince-menus.ui.h:41
 msgid "Auto_scroll"
 msgstr "ಸ್ವಯಂ ಸ್ಕ್ರೋಲ್ ಮಾಡು (_s)"
 
-#: ../shell/papers-menus.ui.h:42
+#: ../shell/evince-menus.ui.h:42
 msgid "_Save Image As…"
 msgstr "ಚಿತ್ರವನ್ನು ಹೀಗೆ ಉಳಿಸು (_S)..."
 
-#: ../shell/papers-menus.ui.h:43
+#: ../shell/evince-menus.ui.h:43
 msgid "Copy _Image"
 msgstr "ಚಿತ್ರವನ್ನು ಪ್ರತಿಮಾಡು (_I)"
 
-#: ../shell/papers-menus.ui.h:44
+#: ../shell/evince-menus.ui.h:44
 msgid "_Open Attachment"
 msgstr "ಲಗತ್ತನ್ನು ತೆರೆ (_O)"
 
-#: ../shell/papers-menus.ui.h:45
+#: ../shell/evince-menus.ui.h:45
 msgid "_Save Attachment As…"
 msgstr "ಲಗತ್ತನ್ನು ಹೀಗೆ ಉಳಿಸು (_S)..."
 
-#: ../shell/papers-menus.ui.h:46
+#: ../shell/evince-menus.ui.h:46
 msgid "Annotation Properties…"
 msgstr "ಟಿಪ್ಪಣಿಯ ಗುಣಲಕ್ಷಣಗಳು…"
 
-#: ../shell/papers-menus.ui.h:47
+#: ../shell/evince-menus.ui.h:47
 msgid "Remove Annotation"
 msgstr "ಟಿಪ್ಪಣಿಗಳನ್ನು ತೆಗೆದುಹಾಕು"
 
-#: ../papers.appdata.xml.in.h:2
+#: ../evince.appdata.xml.in.h:2
 msgid "Document viewer for popular document formats"
 msgstr "ಜನಪ್ರಿಯ ದಸ್ತಾವೇಜು ವಿನ್ಯಾಸಗಳಿಗಾಗಿನ ದಸ್ತಾವೇಜು ವೀಕ್ಷಕ"
 
-#: ../papers.appdata.xml.in.h:3
+#: ../evince.appdata.xml.in.h:3
 msgid "This is a document viewer for the GNOME desktop."
 msgstr "ಇದು GNOME ಡೆಸ್ಕ್‌ಟಾಪ್‌ಗಾಗಿನ ಒಂದು ದಸ್ತಾವೇಜು ವೀಕ್ಷಕವಾಗಿದೆ."
 
-#: ../papers.appdata.xml.in.h:4
+#: ../evince.appdata.xml.in.h:4
 msgid ""
 "It supports the following document formats: PDF, PS, EPS, XPS, DjVu, TIFF, "
 "DVI (with SyncTeX), and Comic Books archives (CBR, CBT, CBZ, CB7)."

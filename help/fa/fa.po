@@ -1,11 +1,11 @@
-# Persian translation for papers.
-# Copyright (C) 2023 papers's COPYRIGHT HOLDER
-# This file is distributed under the same license as the papers package.
+# Persian translation for evince.
+# Copyright (C) 2023 evince's COPYRIGHT HOLDER
+# This file is distributed under the same license as the evince package.
 # Danial Behzadi <dani.behzi@ubuntu.com>, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: papers main\n"
+"Project-Id-Version: evince main\n"
 "POT-Creation-Date: 2023-07-28 18:22+0000\n"
 "PO-Revision-Date: 2023-07-29 03:47+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
@@ -492,7 +492,7 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/introduction.page:18
-msgid "Introduction to the <em>Papers Document Viewer</em>."
+msgid "Introduction to the <em>Evince Document Viewer</em>."
 msgstr ""
 
 #. (itstool) path: page/title
@@ -503,7 +503,7 @@ msgstr "دیباچه"
 #. (itstool) path: page/p
 #: C/introduction.page:23
 msgid ""
-"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
+"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
 
@@ -607,7 +607,7 @@ msgstr ""
 #: C/singlesided-3-4pages.page:97 C/singlesided-17-20pages.page:98
 #: C/singlesided-npages.page:104 C/singlesided-13-16pages.page:100
 #: C/singlesided-9-12pages.page:97 C/singlesided-5-8pages.page:97
-msgid "In the <gui>Only print</gui> menu, select <gui>Ppsen sheets</gui>."
+msgid "In the <gui>Only print</gui> menu, select <gui>Even sheets</gui>."
 msgstr ""
 
 #. (itstool) path: info/desc
@@ -739,7 +739,7 @@ msgstr ""
 #. (itstool) path: section/p
 #: C/synctex-editors.page:29
 msgid ""
-"The <app>gedit</app> plugin contains a python script (<file>papers_dbus.py</"
+"The <app>gedit</app> plugin contains a python script (<file>evince_dbus.py</"
 "file>) that can be used to get SyncTeX working with Vim. In order to use vim-"
 "latex together with the <app>document viewer</app> you need to follow the "
 "next steps:"
@@ -748,7 +748,7 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/synctex-editors.page:35
 msgid ""
-"Copy the <file>papers_dbus.py</file> to some directory in your path and give "
+"Copy the <file>evince_dbus.py</file> to some directory in your path and give "
 "it +x permissions."
 msgstr ""
 
@@ -762,7 +762,7 @@ msgstr ""
 #, no-wrap
 msgid ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 msgstr ""
@@ -994,7 +994,7 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/noprint.page:100
-msgid "Browse to <sys>/org/gnome/papers</sys>."
+msgid "Browse to <sys>/org/gnome/evince</sys>."
 msgstr ""
 
 #. (itstool) path: item/p
@@ -1323,7 +1323,7 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/translate.page:27
 msgid ""
-"There are <link href=\"http://l10n.gnome.org/module/papers/\">many "
+"There are <link href=\"http://l10n.gnome.org/module/evince/\">many "
 "languages</link> for which translations are still needed."
 msgstr ""
 
@@ -1772,11 +1772,11 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/develop.page:23
 msgid ""
-"If you would like to <link href=\"https://wiki.gnome.org/Apps/Papers\">help "
+"If you would like to <link href=\"https://wiki.gnome.org/Apps/Evince\">help "
 "develop</link> the <app>Document Viewer</app>, you can get in touch with the "
 "developers using <link href=\"https://cbe005.chat.mibbit.com/?"
-"url=irc%3A%2F%2Firc.gnome.org%2Fpapers\">irc</link>, or via <link "
-"href=\"https://discourse.gnome.org/tag/papers\">GNOME Discourse</link>."
+"url=irc%3A%2F%2Firc.gnome.org%2Fevince\">irc</link>, or via <link "
+"href=\"https://discourse.gnome.org/tag/evince\">GNOME Discourse</link>."
 msgstr ""
 
 #. (itstool) path: info/desc
@@ -2348,7 +2348,7 @@ msgid ""
 "The <app>document viewer</app> is maintained by a volunteer community. You "
 "are welcome to participate. If you notice a problem you can file a <em>bug "
 "report</em>. To file a bug, go to <link href=\"https://gitlab.gnome.org/"
-"GNOME/papers/issues/\"/>."
+"GNOME/evince/issues/\"/>."
 msgstr ""
 
 #. (itstool) path: page/p
@@ -2374,7 +2374,7 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues\">browse</"
+"please <link href=\"https://gitlab.gnome.org/GNOME/evince/issues\">browse</"
 "link> for the bug to see if it already exists."
 msgstr ""
 
@@ -2945,7 +2945,7 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/commandline.page:8
 msgid ""
-"The <cmd>papers</cmd> command can open any number of files, at specific "
+"The <cmd>evince</cmd> command can open any number of files, at specific "
 "pages and in various modes."
 msgstr ""
 
@@ -2958,41 +2958,41 @@ msgstr ""
 #: C/commandline.page:25
 msgid ""
 "To start the <app>Document Viewer</app> from the command line, type "
-"<cmd>papers</cmd>. You can open a specific file by typing the filename after "
-"the papers command:"
+"<cmd>evince</cmd>. You can open a specific file by typing the filename after "
+"the evince command:"
 msgstr ""
 
 #. (itstool) path: page/screen
 #: C/commandline.page:30
 #, no-wrap
-msgid "papers file.pdf"
+msgid "evince file.pdf"
 msgstr ""
 
 #. (itstool) path: page/p
 #: C/commandline.page:31
 msgid ""
-"You can open multiple files by typing the filenames after the papers "
+"You can open multiple files by typing the filenames after the evince "
 "command, separating the filenames by a space:"
 msgstr ""
 
 #. (itstool) path: page/screen
 #: C/commandline.page:34
 #, no-wrap
-msgid "papers file1.pdf file2.pdf"
+msgid "evince file1.pdf file2.pdf"
 msgstr ""
 
 #. (itstool) path: page/p
 #: C/commandline.page:35
 msgid ""
 "The <app>document viewer</app> also supports the handling of files on the "
-"web. For example, after the papers command you can give the location of a "
+"web. For example, after the evince command you can give the location of a "
 "file on the web:"
 msgstr ""
 
 #. (itstool) path: page/screen
 #: C/commandline.page:38
 #, no-wrap
-msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 msgstr ""
 
 #. (itstool) path: section/title
@@ -3010,7 +3010,7 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:45
 #, no-wrap
-msgid "papers --page-label=3 file.pdf"
+msgid "evince --page-label=3 file.pdf"
 msgstr ""
 
 #. (itstool) path: section/p
@@ -3028,7 +3028,7 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:53
 #, no-wrap
-msgid "papers --fullscreen file.pdf"
+msgid "evince --fullscreen file.pdf"
 msgstr ""
 
 #. (itstool) path: section/title
@@ -3039,7 +3039,7 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:57
 #, no-wrap
-msgid "papers --presentation file.pdf"
+msgid "evince --presentation file.pdf"
 msgstr ""
 
 #. (itstool) path: section/title
@@ -3050,7 +3050,7 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:61
 #, no-wrap
-msgid "papers --preview file.pdf"
+msgid "evince --preview file.pdf"
 msgstr ""
 
 #. (itstool) path: info/desc
@@ -3190,25 +3190,25 @@ msgstr ""
 #. (itstool) path: info/title
 #: C/index.page:7
 msgctxt "link:trail"
-msgid "Papers Document Viewer"
+msgid "Evince Document Viewer"
 msgstr ""
 
 #. (itstool) path: info/title
 #: C/index.page:8
 msgctxt "link"
-msgid "Papers Document Viewer"
+msgid "Evince Document Viewer"
 msgstr ""
 
 #. (itstool) path: info/title
 #: C/index.page:9
 msgctxt "text"
-msgid "Papers Document Viewer"
+msgid "Evince Document Viewer"
 msgstr ""
 
 #. (itstool) path: info/desc
 #: C/index.page:24
 msgid ""
-"<app>Document Viewer</app>, formally known as <app>Papers</app>, is made for "
+"<app>Document Viewer</app>, formally known as <app>Evince</app>, is made for "
 "viewing PDF documents. Learn how to get started with <app>Document Viewer</"
 "app> and its features."
 msgstr ""

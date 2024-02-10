@@ -1,11 +1,11 @@
-# Telugu translation for papers.
+# Telugu translation for evince.
 # Copyright (C) 2011, 2012 Swecha Telugu Localisation Team <localization@swecha.net>
-# This file is distributed under the same license as the papers package.
+# This file is distributed under the same license as the evince package.
 # Bhuvan Krishna <bhuvan@swecha.net>, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: papers master\n"
+"Project-Id-Version: evince master\n"
 "POT-Creation-Date: 2012-03-24 16:27+0000\n"
 "PO-Revision-Date: 2012-03-25 15:13+0530\n"
 "Last-Translator: Bhuvan Krishna <bhuvan@swecha.net>\n"
@@ -19,7 +19,7 @@ msgstr ""
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/toolbar.page:30(None)
 msgid ""
-"@@image: 'figures/papers-toolbar-default.png'; "
+"@@image: 'figures/evince-toolbar-default.png'; "
 "md5=2a826732c770c08b11684e28e259bb31"
 msgstr ""
 
@@ -27,7 +27,7 @@ msgstr ""
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/toolbar.page:51(None)
 msgid ""
-"@@image: 'figures/papers-toolbar-editor.png'; "
+"@@image: 'figures/evince-toolbar-editor.png'; "
 "md5=e6c66f764c39ab5ba01441d970425cd9"
 msgstr ""
 
@@ -442,7 +442,7 @@ msgstr ""
 
 #: C/synctex-editors.page:29(p)
 msgid ""
-"The <app>gedit</app> plugin contains a python script (papers_dbus.py) that "
+"The <app>gedit</app> plugin contains a python script (evince_dbus.py) that "
 "can be used to get SyncTeX working with Vim. In order to use vim-latex "
 "together with the <app>document viewer</app> you need to follow the next "
 "steps:"
@@ -450,7 +450,7 @@ msgstr ""
 
 #: C/synctex-editors.page:35(p)
 msgid ""
-"Copy the papers_dbus.py to some directory in your path and give it +x "
+"Copy the evince_dbus.py to some directory in your path and give it +x "
 "permissions."
 msgstr ""
 
@@ -462,7 +462,7 @@ msgstr ""
 #, no-wrap
 msgid ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 msgstr ""
@@ -757,7 +757,7 @@ msgstr ""
 #: C/singlesided-npages.page:104(p) C/singlesided-9-12pages.page:97(p)
 #: C/singlesided-5-8pages.page:97(p) C/singlesided-3-4pages.page:97(p)
 #: C/singlesided-17-20pages.page:98(p) C/singlesided-13-16pages.page:100(p)
-msgid "In the <gui>Only print</gui> menu, select <gui>Ppsen sheets</gui>."
+msgid "In the <gui>Only print</gui> menu, select <gui>Even sheets</gui>."
 msgstr ""
 
 #: C/singlesided-9-12pages.page:7(title)
@@ -1700,7 +1700,7 @@ msgid ""
 msgstr ""
 
 #: C/noprint.page:76(p)
-msgid "Browse to <sys>/org/gnome/papers</sys> using the side pane."
+msgid "Browse to <sys>/org/gnome/evince</sys> using the side pane."
 msgstr ""
 
 #: C/noprint.page:78(p)
@@ -1973,7 +1973,7 @@ msgid ""
 msgstr ""
 
 #: C/introduction.page:7(desc)
-msgid "Introduction to the <em>Papers Document Viewer</em>."
+msgid "Introduction to the <em>Evince Document Viewer</em>."
 msgstr ""
 
 #: C/introduction.page:20(title)
@@ -1982,7 +1982,7 @@ msgstr ""
 
 #: C/introduction.page:25(p)
 msgid ""
-"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
+"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
 
@@ -1990,23 +1990,23 @@ msgstr ""
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/index.page:6(None)
 msgid ""
-"@@image: 'figures/papers-trail.png'; md5=a1a70d04c37f05937d0b3e7a0705d2d4"
+"@@image: 'figures/evince-trail.png'; md5=a1a70d04c37f05937d0b3e7a0705d2d4"
 msgstr ""
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/index.page:23(None)
-msgid "@@image: 'figures/paperslogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
+msgid "@@image: 'figures/evincelogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
 msgstr ""
 
 #: C/index.page:7(title) C/index.page:8(title)
-msgid "Papers Document Viewer"
+msgid "Evince Document Viewer"
 msgstr ""
 
 #: C/index.page:23(title)
 msgid ""
-"<media type=\"image\" src=\"figures/paperslogo.png\">Papers logo</"
-"media>Papers document viewer"
+"<media type=\"image\" src=\"figures/evincelogo.png\">Evince logo</"
+"media>Evince document viewer"
 msgstr ""
 
 #: C/index.page:26(title)
@@ -2835,7 +2835,7 @@ msgstr ""
 
 #: C/commandline.page:8(desc)
 msgid ""
-"The <cmd>papers</cmd> command can open any number of files, at specific "
+"The <cmd>evince</cmd> command can open any number of files, at specific "
 "pages and in various modes."
 msgstr ""
 
@@ -2846,36 +2846,36 @@ msgstr ""
 #: C/commandline.page:24(p)
 msgid ""
 "To start the <app>Document Viewer</app> from the command line, type "
-"<cmd>papers</cmd>. You can open a specific file by typing the filename after "
-"the papers command:"
+"<cmd>evince</cmd>. You can open a specific file by typing the filename after "
+"the evince command:"
 msgstr ""
 
 #: C/commandline.page:29(screen)
 #, no-wrap
-msgid "papers file.pdf"
+msgid "evince file.pdf"
 msgstr ""
 
 #: C/commandline.page:30(p)
 msgid ""
-"You can open multiple files by typing the filenames after the papers "
+"You can open multiple files by typing the filenames after the evince "
 "command, separating the filenames by a space:"
 msgstr ""
 
 #: C/commandline.page:33(screen)
 #, no-wrap
-msgid "papers file1.pdf file2.pdf"
+msgid "evince file1.pdf file2.pdf"
 msgstr ""
 
 #: C/commandline.page:34(p)
 msgid ""
 "The <app>document viewer</app> also supports the handling of files on the "
-"web. For example, after the papers command you can give the location of a "
+"web. For example, after the evince command you can give the location of a "
 "file on the web:"
 msgstr ""
 
 #: C/commandline.page:37(screen)
 #, no-wrap
-msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 msgstr ""
 
 #: C/commandline.page:39(title)
@@ -2890,7 +2890,7 @@ msgstr ""
 
 #: C/commandline.page:44(screen)
 #, no-wrap
-msgid "papers --page-label=3 file.pdf"
+msgid "evince --page-label=3 file.pdf"
 msgstr ""
 
 #: C/commandline.page:45(p)
@@ -2905,7 +2905,7 @@ msgstr ""
 
 #: C/commandline.page:52(screen)
 #, no-wrap
-msgid "papers --fullscreen file.pdf"
+msgid "evince --fullscreen file.pdf"
 msgstr ""
 
 #: C/commandline.page:55(title)
@@ -2914,7 +2914,7 @@ msgstr ""
 
 #: C/commandline.page:56(screen)
 #, no-wrap
-msgid "papers --presentation file.pdf"
+msgid "evince --presentation file.pdf"
 msgstr ""
 
 #: C/commandline.page:59(title)
@@ -2923,7 +2923,7 @@ msgstr ""
 
 #: C/commandline.page:60(screen)
 #, no-wrap
-msgid "papers --preview file.pdf"
+msgid "evince --preview file.pdf"
 msgstr ""
 
 #: C/bug-filing.page:7(desc)
@@ -2959,10 +2959,10 @@ msgstr ""
 #: C/bug-filing.page:29(p)
 msgid ""
 "Once you have an account, log in, click on <guiseq><gui>File a Bug</"
-"gui><gui>Core</gui><gui>papers</gui></guiseq>. Before reporting a bug, "
+"gui><gui>Core</gui><gui>evince</gui></guiseq>. Before reporting a bug, "
 "please read the <link href=\"https://bugzilla.gnome.org/page.cgi?id=bug-"
 "writing.html\">bug writing guidelines</link>, and please <link href="
-"\"https://bugzilla.gnome.org/browse.cgi?product=papers\">browse</link> for "
+"\"https://bugzilla.gnome.org/browse.cgi?product=evince\">browse</link> for "
 "the bug to see if it already exists."
 msgstr ""
 

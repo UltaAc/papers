@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: papers\n"
+"Project-Id-Version: evince\n"
 "POT-Creation-Date: 2023-03-04 13:43+0000\n"
 "PO-Revision-Date: 2023-08-23 17:19+0200\n"
 "Last-Translator: Jordi Mas i Herǹandez <jmas@softcatala.org>\n"
@@ -555,8 +555,8 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/introduction.page:18
-msgid "Introduction to the <em>Papers Document Viewer</em>."
-msgstr "Introducció al <em>Visualitzador de documents Papers</em>."
+msgid "Introduction to the <em>Evince Document Viewer</em>."
+msgstr "Introducció al <em>Visualitzador de documents Evince</em>."
 
 #. (itstool) path: page/title
 #: C/introduction.page:21
@@ -566,10 +566,10 @@ msgstr "Introducció"
 #. (itstool) path: page/p
 #: C/introduction.page:23
 msgid ""
-"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
+"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
-"<app>Papers</app> és un visualitzador de documents. Consulteu <link xref="
+"<app>Evince</app> és un visualitzador de documents. Consulteu <link xref="
 "\"formats\"/> per a veure la llista de tipus de fitxers que podeu "
 "visualitzar."
 
@@ -684,7 +684,7 @@ msgstr ""
 #: C/singlesided-3-4pages.page:97 C/singlesided-17-20pages.page:98
 #: C/singlesided-npages.page:104 C/singlesided-13-16pages.page:100
 #: C/singlesided-9-12pages.page:97 C/singlesided-5-8pages.page:97
-msgid "In the <gui>Only print</gui> menu, select <gui>Ppsen sheets</gui>."
+msgid "In the <gui>Only print</gui> menu, select <gui>Even sheets</gui>."
 msgstr ""
 "Al menú <gui>Només imprimir</gui>, seleccioneu <gui>Fulls parells</gui>."
 
@@ -841,23 +841,23 @@ msgstr "Vim-latex"
 #. (itstool) path: section/p
 #: C/synctex-editors.page:29
 msgid ""
-"The <app>gedit</app> plugin contains a python script (<file>papers_dbus.py</"
+"The <app>gedit</app> plugin contains a python script (<file>evince_dbus.py</"
 "file>) that can be used to get SyncTeX working with Vim. In order to use vim-"
 "latex together with the <app>document viewer</app> you need to follow the "
 "next steps:"
 msgstr ""
 "El connector del <app>gedit</app> conté un script de python "
-"(<file>papers_dbus.py</file>) que es pot fer servir per a fer treballar el "
+"(<file>evince_dbus.py</file>) que es pot fer servir per a fer treballar el "
 "SyncTeX amb el Vim. Per tal de fer servir el vim-latex juntament amb el "
 "<app>Visualitzador de documents</app> us cal seguir els passos següents:"
 
 #. (itstool) path: item/p
 #: C/synctex-editors.page:35
 msgid ""
-"Copy the <file>papers_dbus.py</file> to some directory in your path and give "
+"Copy the <file>evince_dbus.py</file> to some directory in your path and give "
 "it +x permissions."
 msgstr ""
-"Copieu l'<file>script papers_dbus.py</file> a algun directori que estigui al "
+"Copieu l'<file>script evince_dbus.py</file> a algun directori que estigui al "
 "vostre camí i doneu-li permisos +x."
 
 #. (itstool) path: item/p
@@ -872,12 +872,12 @@ msgstr ""
 #, no-wrap
 msgid ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 msgstr ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 
@@ -1152,8 +1152,8 @@ msgstr "Feu clic a <gui>dconf Editor</gui>."
 
 #. (itstool) path: item/p
 #: C/noprint.page:100
-msgid "Browse to <sys>/org/gnome/papers</sys>."
-msgstr "Navegueu fins a <sys>/org/gnome/papers</sys>."
+msgid "Browse to <sys>/org/gnome/evince</sys>."
+msgstr "Navegueu fins a <sys>/org/gnome/evince</sys>."
 
 #. (itstool) path: item/p
 #: C/noprint.page:103
@@ -1530,10 +1530,10 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/translate.page:27
 msgid ""
-"There are <link href=\"http://l10n.gnome.org/module/papers/\">many "
+"There are <link href=\"http://l10n.gnome.org/module/evince/\">many "
 "languages</link> for which translations are still needed."
 msgstr ""
-"Encara hi ha <link href=\"http://l10n.gnome.org/module/papers/\">molts "
+"Encara hi ha <link href=\"http://l10n.gnome.org/module/evince/\">molts "
 "idiomes</link> en els quals no està traduït."
 
 #. (itstool) path: page/p
@@ -2078,17 +2078,17 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/develop.page:23
 msgid ""
-"If you would like to <link href=\"https://wiki.gnome.org/Apps/Papers\">help "
+"If you would like to <link href=\"https://wiki.gnome.org/Apps/Evince\">help "
 "develop</link> the <app>Document Viewer</app>, you can get in touch with the "
 "developers using <link href=\"https://cbe005.chat.mibbit.com/?url=irc%3A%2F"
-"%2Firc.gnome.org%2Fpapers\">irc</link>, or via <link href=\"https://"
-"discourse.gnome.org/tag/papers\">GNOME Discourse</link>."
+"%2Firc.gnome.org%2Fevince\">irc</link>, or via <link href=\"https://"
+"discourse.gnome.org/tag/evince\">GNOME Discourse</link>."
 msgstr ""
-"Si voleu <link href=\"https://wiki.gnome.org/Apps/Papers\">ajudar a "
+"Si voleu <link href=\"https://wiki.gnome.org/Apps/Evince\">ajudar a "
 "desenvolupar</link> el <app>Visualitzador de documents</app>, podeu posar-"
 "vos en contacte amb els desenvolupadors mitjançant <link href=\"https://"
-"cbe005.chat.mibbit.com/?url=irc%3A%2F%2Firc.gnome.org%2Fpapers\">irc</link>, "
-"o utilitzant el <link href=\"https://discourse.gnome.org/tag/papers\">GNOME "
+"cbe005.chat.mibbit.com/?url=irc%3A%2F%2Firc.gnome.org%2Fevince\">irc</link>, "
+"o utilitzant el <link href=\"https://discourse.gnome.org/tag/evince\">GNOME "
 "Discourse</link>."
 
 #. (itstool) path: info/desc
@@ -2758,12 +2758,12 @@ msgid ""
 "The <app>document viewer</app> is maintained by a volunteer community. You "
 "are welcome to participate. If you notice a problem you can file a <em>bug "
 "report</em>. To file a bug, go to <link href=\"https://gitlab.gnome.org/"
-"GNOME/papers/issues/\"/>."
+"GNOME/evince/issues/\"/>."
 msgstr ""
 "El <app>visualitzador de documents</app> el manté una comunitat de "
 "voluntaris. Us convidem a participar-hi. Si robeu algun problema podeu "
 "informar a <em>Informe d'error</em>. Per a informar, aneu a <link href="
-"\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues/\"/>."
+"\"https://gitlab.gnome.org/GNOME/evince/issues/\"/>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2795,13 +2795,13 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues\">browse</"
+"please <link href=\"https://gitlab.gnome.org/GNOME/evince/issues\">browse</"
 "link> for the bug to see if it already exists."
 msgstr ""
 "Quan tingueu un compte, accediu-hi, i feu clic a <gui>New issue</gui>. Abans "
 "d'informar sobre un error, si us plau llegiu <link href=\"https://wiki.gnome."
 "org/GettingInTouch/BugReportingGuidelines\">pautes d'escriptura d'errors</"
-"link>, i si us plau <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues"
+"link>, i si us plau <link href=\"https://gitlab.gnome.org/GNOME/evince/issues"
 "\">navegueu</link> per la llista d'error per a comprovar si ja existeix."
 
 #. (itstool) path: page/p
@@ -3485,10 +3485,10 @@ msgstr "Línia d'ordres"
 #. (itstool) path: info/desc
 #: C/commandline.page:8
 msgid ""
-"The <cmd>papers</cmd> command can open any number of files, at specific "
+"The <cmd>evince</cmd> command can open any number of files, at specific "
 "pages and in various modes."
 msgstr ""
-"La comanda <cmd>papers</cmd> pot obrir un nombre qualsevol de fitxers, en "
+"La comanda <cmd>evince</cmd> pot obrir un nombre qualsevol de fitxers, en "
 "pàgines concretes i en diferents modes."
 
 #. (itstool) path: page/title
@@ -3500,50 +3500,50 @@ msgstr "La línia d'ordres"
 #: C/commandline.page:25
 msgid ""
 "To start the <app>Document Viewer</app> from the command line, type "
-"<cmd>papers</cmd>. You can open a specific file by typing the filename after "
-"the papers command:"
+"<cmd>evince</cmd>. You can open a specific file by typing the filename after "
+"the evince command:"
 msgstr ""
 "Per a iniciar el <app>Visualitzador de documents</app> des de la línia "
-"d'ordres, teclegeu <cmd>papers</cmd>. Podeu obrir un fitxer específic "
+"d'ordres, teclegeu <cmd>evince</cmd>. Podeu obrir un fitxer específic "
 "escrivint el nom de fitxer després de l'ordre:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:30
 #, no-wrap
-msgid "papers file.pdf"
-msgstr "papers fitxer.pdf"
+msgid "evince file.pdf"
+msgstr "evince fitxer.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:31
 msgid ""
-"You can open multiple files by typing the filenames after the papers "
+"You can open multiple files by typing the filenames after the evince "
 "command, separating the filenames by a space:"
 msgstr ""
 "Podeu obrir diversos fitxers escrivint els noms dels fitxers després de "
-"l'ordre papers, separant els noms dels fitxers amb un espai:"
+"l'ordre evince, separant els noms dels fitxers amb un espai:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:34
 #, no-wrap
-msgid "papers file1.pdf file2.pdf"
-msgstr "papers fitxer1.pdf fitxer2.pdf"
+msgid "evince file1.pdf file2.pdf"
+msgstr "evince fitxer1.pdf fitxer2.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:35
 msgid ""
 "The <app>document viewer</app> also supports the handling of files on the "
-"web. For example, after the papers command you can give the location of a "
+"web. For example, after the evince command you can give the location of a "
 "file on the web:"
 msgstr ""
 "El <app>visualitzador de documents</app> també suporta la gestió de fitxers "
-"a la web. Per exemple, després de l'ordre papers, podeu donar la ubicació "
+"a la web. Per exemple, després de l'ordre evince, podeu donar la ubicació "
 "d'un fitxer al web:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:38
 #, no-wrap
-msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:40
@@ -3563,8 +3563,8 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:45
 #, no-wrap
-msgid "papers --page-label=3 file.pdf"
-msgstr "papers --page-label=3 fitxer.pdf"
+msgid "evince --page-label=3 file.pdf"
+msgstr "evince --page-label=3 fitxer.pdf"
 
 #. (itstool) path: section/p
 #: C/commandline.page:46
@@ -3584,8 +3584,8 @@ msgstr "Obertura de documents en mode a pantalla completa"
 #. (itstool) path: section/screen
 #: C/commandline.page:53
 #, no-wrap
-msgid "papers --fullscreen file.pdf"
-msgstr "papers --fullscreen fitxer.pdf"
+msgid "evince --fullscreen file.pdf"
+msgstr "evince --fullscreen fitxer.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:56
@@ -3595,8 +3595,8 @@ msgstr "Obertura de documents en mode de presentació"
 #. (itstool) path: section/screen
 #: C/commandline.page:57
 #, no-wrap
-msgid "papers --presentation file.pdf"
-msgstr "papers --presentation fitxer.pdf"
+msgid "evince --presentation file.pdf"
+msgstr "evince --presentation fitxer.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:60
@@ -3606,8 +3606,8 @@ msgstr "Obertura de documents en mode de previsualització"
 #. (itstool) path: section/screen
 #: C/commandline.page:61
 #, no-wrap
-msgid "papers --preview file.pdf"
-msgstr "papers --preview fitxer.pdf"
+msgid "evince --preview file.pdf"
+msgstr "evince --preview fitxer.pdf"
 
 #. (itstool) path: info/desc
 #: C/annotations.page:8
@@ -3773,29 +3773,29 @@ msgstr ""
 #. (itstool) path: info/title
 #: C/index.page:7
 msgctxt "link:trail"
-msgid "Papers Document Viewer"
-msgstr "Visualitzador de documents Papers"
+msgid "Evince Document Viewer"
+msgstr "Visualitzador de documents Evince"
 
 #. (itstool) path: info/title
 #: C/index.page:8
 msgctxt "link"
-msgid "Papers Document Viewer"
-msgstr "Visualitzador de documents Papers"
+msgid "Evince Document Viewer"
+msgstr "Visualitzador de documents Evince"
 
 #. (itstool) path: info/title
 #: C/index.page:9
 msgctxt "text"
-msgid "Papers Document Viewer"
-msgstr "Visualitzador de documents Papers"
+msgid "Evince Document Viewer"
+msgstr "Visualitzador de documents Evince"
 
 #. (itstool) path: info/desc
 #: C/index.page:24
 msgid ""
-"<app>Document Viewer</app>, formally known as <app>Papers</app>, is made for "
+"<app>Document Viewer</app>, formally known as <app>Evince</app>, is made for "
 "viewing PDF documents. Learn how to get started with <app>Document Viewer</"
 "app> and its features."
 msgstr ""
-"<app>Visualitzador de documents</app>, normalment conegut com a <app>Papers</"
+"<app>Visualitzador de documents</app>, normalment conegut com a <app>Evince</"
 "app>, està fet per a visualitzar documents pdf. Aprèn com començar amb el "
 "<app>Visualitzador de documents</app> i les seves funcionalitats."
 

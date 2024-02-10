@@ -1,12 +1,12 @@
-# Kazakh translation for papers.
-# Copyright (C) 2010 The papers authors.
-# This file is distributed under the same license as the papers package.
+# Kazakh translation for evince.
+# Copyright (C) 2010 The evince authors.
+# This file is distributed under the same license as the evince package.
 # Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2010-2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/issues\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/evince/issues\n"
 "POT-Creation-Date: 2023-06-21 01:14+0000\n"
 "PO-Revision-Date: 2023-08-19 12:36+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
@@ -50,12 +50,12 @@ msgstr ""
 msgid "Can not get local path for archive"
 msgstr "Архив үшін жергілікті орналасуды алу мүмкін емес"
 
-#: backend/comics/comicsdocument.papers-backend.desktop.in.in:4
-#: backend/comics/papers-comicsdocument.metainfo.xml.in.in:5
+#: backend/comics/comicsdocument.evince-backend.desktop.in.in:4
+#: backend/comics/evince-comicsdocument.metainfo.xml.in.in:5
 msgid "Comic Books"
 msgstr "Comic Books"
 
-#: backend/comics/papers-comicsdocument.metainfo.xml.in.in:6
+#: backend/comics/evince-comicsdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading comic books"
 msgstr "Комикс кітаптарын оқу мүмкіндігін қосады"
 
@@ -71,12 +71,12 @@ msgstr ""
 "Бұл құжат бірнеше файлдан жасалған. Осы файлдардың бір не бірнешеуі "
 "қолжетерсіз."
 
-#: backend/djvu/djvudocument.papers-backend.desktop.in.in:4
-#: backend/djvu/papers-djvudocument.metainfo.xml.in.in:5
+#: backend/djvu/djvudocument.evince-backend.desktop.in.in:4
+#: backend/djvu/evince-djvudocument.metainfo.xml.in.in:5
 msgid "DjVu Documents"
 msgstr "DjVu құжаттары"
 
-#: backend/djvu/papers-djvudocument.metainfo.xml.in.in:6
+#: backend/djvu/evince-djvudocument.metainfo.xml.in.in:6
 msgid "Adds support for reading DjVu documents"
 msgstr "DjVu құжаттарын оқу мүмкіндігін қосады"
 
@@ -84,69 +84,69 @@ msgstr "DjVu құжаттарын оқу мүмкіндігін қосады"
 msgid "DVI document has incorrect format"
 msgstr "DVI құжатының пішімі қате"
 
-#: backend/dvi/dvidocument.papers-backend.desktop.in.in:4
-#: backend/dvi/papers-dvidocument.metainfo.xml.in.in:5
+#: backend/dvi/dvidocument.evince-backend.desktop.in.in:4
+#: backend/dvi/evince-dvidocument.metainfo.xml.in.in:5
 msgid "DVI Documents"
 msgstr "DVI құжаттары"
 
-#: backend/dvi/papers-dvidocument.metainfo.xml.in.in:6
+#: backend/dvi/evince-dvidocument.metainfo.xml.in.in:6
 msgid "Adds support for reading DVI documents"
 msgstr "DVI құжаттарын оқу мүмкіндігін қосады"
 
-#: backend/pdf/papers-pdfdocument.metainfo.xml.in.in:5
-#: backend/pdf/pdfdocument.papers-backend.desktop.in.in:5
+#: backend/pdf/evince-pdfdocument.metainfo.xml.in.in:5
+#: backend/pdf/pdfdocument.evince-backend.desktop.in.in:5
 msgid "PDF Documents"
 msgstr "PDF құжаттары"
 
-#: backend/pdf/papers-pdfdocument.metainfo.xml.in.in:6
+#: backend/pdf/evince-pdfdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading PDF Documents"
 msgstr "PDF құжаттарын оқу мүмкіндігін қосады"
 
 #. translators: this is the document security state
-#: backend/pdf/pps-poppler.c:731 backend/pdf/pps-poppler.c:737
-#: properties/pps-properties-view.c:429
+#: backend/pdf/ev-poppler.c:731 backend/pdf/ev-poppler.c:737
+#: properties/ev-properties-view.c:429
 msgid "Yes"
 msgstr "Иә"
 
 #. translators: this is the document security state
-#: backend/pdf/pps-poppler.c:734 backend/pdf/pps-poppler.c:737
-#: properties/pps-properties-view.c:431
+#: backend/pdf/ev-poppler.c:734 backend/pdf/ev-poppler.c:737
+#: properties/ev-properties-view.c:431
 msgid "No"
 msgstr "Жоқ"
 
-#: backend/pdf/pps-poppler.c:879
+#: backend/pdf/ev-poppler.c:879
 msgid "Type 1"
 msgstr "Type 1"
 
-#: backend/pdf/pps-poppler.c:881
+#: backend/pdf/ev-poppler.c:881
 msgid "Type 1C"
 msgstr "Type 1C"
 
-#: backend/pdf/pps-poppler.c:883
+#: backend/pdf/ev-poppler.c:883
 msgid "Type 3"
 msgstr "Type 3"
 
-#: backend/pdf/pps-poppler.c:885
+#: backend/pdf/ev-poppler.c:885
 msgid "TrueType"
 msgstr "TrueType"
 
-#: backend/pdf/pps-poppler.c:887
+#: backend/pdf/ev-poppler.c:887
 msgid "Type 1 (CID)"
 msgstr "Type 1 (CID)"
 
-#: backend/pdf/pps-poppler.c:889
+#: backend/pdf/ev-poppler.c:889
 msgid "Type 1C (CID)"
 msgstr "Type 1C (CID)"
 
-#: backend/pdf/pps-poppler.c:891
+#: backend/pdf/ev-poppler.c:891
 msgid "TrueType (CID)"
 msgstr "TrueType (CID)"
 
-#: backend/pdf/pps-poppler.c:893
+#: backend/pdf/ev-poppler.c:893
 msgid "Unknown font type"
 msgstr "Белгісіз қаріп түрі"
 
-#: backend/pdf/pps-poppler.c:937
+#: backend/pdf/ev-poppler.c:937
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
@@ -157,11 +157,11 @@ msgstr ""
 "қаріптері PDF жасалғанда қолданылған қаріптердің өздері болмаса, құжатты "
 "көрсету үшін өңдеу дұрыс емес болуы мүмкін."
 
-#: backend/pdf/pps-poppler.c:942
+#: backend/pdf/ev-poppler.c:942
 msgid "All fonts are either standard or embedded."
 msgstr "Барлық қаріптер не стандартты, не ендірілген."
 
-#: backend/pdf/pps-poppler.c:972
+#: backend/pdf/ev-poppler.c:972
 msgid "No name"
 msgstr "Аты жоқ"
 
@@ -175,20 +175,20 @@ msgstr "Аты жоқ"
 #. Author: None
 #. Keywords: None
 #.
-#: backend/pdf/pps-poppler.c:981 libview/pps-print-operation.c:2691
-#: properties/pps-properties-view.c:230
+#: backend/pdf/ev-poppler.c:981 libview/ev-print-operation.c:2691
+#: properties/ev-properties-view.c:230
 msgid "None"
 msgstr "Ешнәрсе"
 
-#: backend/pdf/pps-poppler.c:989
+#: backend/pdf/ev-poppler.c:989
 msgid "Embedded subset"
 msgstr "Енгізілген құрама"
 
-#: backend/pdf/pps-poppler.c:991
+#: backend/pdf/ev-poppler.c:991
 msgid "Embedded"
 msgstr "Енгізілген"
 
-#: backend/pdf/pps-poppler.c:993
+#: backend/pdf/ev-poppler.c:993
 msgid "Not embedded"
 msgstr "Енгізілген емес"
 
@@ -197,7 +197,7 @@ msgstr "Енгізілген емес"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: backend/pdf/pps-poppler.c:1000
+#: backend/pdf/ev-poppler.c:1000
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (Стандартты 14 қаріптің біреуі)"
 
@@ -206,7 +206,7 @@ msgstr " (Стандартты 14 қаріптің біреуі)"
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: backend/pdf/pps-poppler.c:1007
+#: backend/pdf/ev-poppler.c:1007
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (Стандартты 14 қаріптің біреуі емес)"
 
@@ -220,7 +220,7 @@ msgstr " (Стандартты 14 қаріптің біреуі емес)"
 #. * Substituting with TeXGyreTermes-Regular
 #. * (/usr/share/textmf/.../texgyretermes-regular.otf)
 #.
-#: backend/pdf/pps-poppler.c:1026
+#: backend/pdf/ev-poppler.c:1026
 #, c-format
 msgid ""
 "%s%s\n"
@@ -244,7 +244,7 @@ msgstr ""
 #. * Encoding: Custom
 #. * Embedded subset
 #.
-#: backend/pdf/pps-poppler.c:1044
+#: backend/pdf/ev-poppler.c:1044
 #, c-format
 msgid ""
 "%s%s\n"
@@ -255,31 +255,31 @@ msgstr ""
 "Кодталуы: %s\n"
 "%s"
 
-#: backend/ps/papers-psdocument.metainfo.xml.in.in:5
-#: backend/ps/psdocument.papers-backend.desktop.in.in:5
+#: backend/ps/evince-psdocument.metainfo.xml.in.in:5
+#: backend/ps/psdocument.evince-backend.desktop.in.in:5
 msgid "PostScript Documents"
 msgstr "PostScript құжаттары"
 
-#: backend/ps/papers-psdocument.metainfo.xml.in.in:6
+#: backend/ps/evince-psdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading PostScript documents"
 msgstr "PostScript құжаттарын оқу мүмкіндігін қосады"
 
-#: backend/ps/pps-spectre.c:98
+#: backend/ps/ev-spectre.c:98
 #, c-format
 msgid "Failed to load document “%s”"
 msgstr "\"%s\" құжатын жүктеу сәтсіз"
 
-#: backend/ps/pps-spectre.c:131
+#: backend/ps/ev-spectre.c:131
 #, c-format
 msgid "Failed to save document “%s”"
 msgstr "\"%s\" құжатын сақтау сәтсіз"
 
-#: backend/tiff/papers-tiffdocument.metainfo.xml.in.in:5
-#: backend/tiff/tiffdocument.papers-backend.desktop.in.in:4
+#: backend/tiff/evince-tiffdocument.metainfo.xml.in.in:5
+#: backend/tiff/tiffdocument.evince-backend.desktop.in.in:4
 msgid "TIFF Documents"
 msgstr "TIFF құжаттары"
 
-#: backend/tiff/papers-tiffdocument.metainfo.xml.in.in:6
+#: backend/tiff/evince-tiffdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading TIFF documents"
 msgstr "TIFF құжаттарын оқу мүмкіндігін қосады"
 
@@ -287,67 +287,67 @@ msgstr "TIFF құжаттарын оқу мүмкіндігін қосады"
 msgid "Invalid document"
 msgstr "Жарамсыз құжат"
 
-#: backend/xps/papers-xpsdocument.metainfo.xml.in.in:5
-#: backend/xps/xpsdocument.papers-backend.desktop.in.in:5
+#: backend/xps/evince-xpsdocument.metainfo.xml.in.in:5
+#: backend/xps/xpsdocument.evince-backend.desktop.in.in:5
 msgid "XPS Documents"
 msgstr "XPS құжаттары"
 
-#: backend/xps/papers-xpsdocument.metainfo.xml.in.in:6
+#: backend/xps/evince-xpsdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading XPS documents"
 msgstr "XPS құжаттарын оқу мүмкіндігін қосады"
 
 #. Manually set name and icon
-#: data/org.gnome.Papers.desktop.in.in:3 org.gnome.Papers.metainfo.xml.in:23
-#: shell/pps-window-title.c:131 shell/main.c:300
+#: data/org.gnome.Evince.desktop.in.in:3 org.gnome.Evince.metainfo.xml.in:23
+#: shell/ev-window-title.c:131 shell/main.c:300
 msgid "Document Viewer"
 msgstr "Құжаттарды көрсету қолданбасы"
 
-#: data/org.gnome.Papers.desktop.in.in:4
+#: data/org.gnome.Evince.desktop.in.in:4
 msgid "View multi-page documents"
 msgstr "Көппарақты құжаттарды қарау"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Papers.desktop.in.in:6
+#: data/org.gnome.Evince.desktop.in.in:6
 msgid ""
-"pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;viewer;papers;"
+"pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;viewer;evince;"
 msgstr ""
-"pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;viewer;papers;"
+"pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;viewer;evince;"
 "құжат;презентация;көрсету;"
 
-#: data/org.gnome.Papers.desktop.in.in:19
+#: data/org.gnome.Evince.desktop.in.in:19
 msgid "New Window"
 msgstr "Жаңа терезе"
 
-#: data/org.gnome.Papers.gschema.xml:14
+#: data/org.gnome.Evince.gschema.xml:14
 msgid "Override document restrictions"
 msgstr "Құжат рұқсаттарын елемеу"
 
-#: data/org.gnome.Papers.gschema.xml:15
+#: data/org.gnome.Evince.gschema.xml:15
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr ""
 "Құжат рұқсаттарын елемеу, көшірме жасау не баспаға шығару рұқсаттары сияқты."
 
-#: data/org.gnome.Papers.gschema.xml:19
+#: data/org.gnome.Evince.gschema.xml:19
 msgid "Automatically reload the document"
 msgstr "Құжатты автоматты түрде қайта жүктеу"
 
-#: data/org.gnome.Papers.gschema.xml:20
+#: data/org.gnome.Evince.gschema.xml:20
 msgid "The document is automatically reloaded on file change."
 msgstr "Құжат файл өзгерісі себебінен қайта жүктелді."
 
-#: data/org.gnome.Papers.gschema.xml:24
+#: data/org.gnome.Evince.gschema.xml:24
 msgid "The URI of the directory last used to open or save a document"
 msgstr "Соңғы рет құжатты ашу не сақтауға қолданылған буманың URI-і"
 
-#: data/org.gnome.Papers.gschema.xml:28
+#: data/org.gnome.Evince.gschema.xml:28
 msgid "The URI of the directory last used to save a picture"
 msgstr "Соңғы рет суретті сақтауға қолданылған буманың URI-і"
 
-#: data/org.gnome.Papers.gschema.xml:32
+#: data/org.gnome.Evince.gschema.xml:32
 msgid "Page cache size in MiB"
 msgstr "Бет үшін кэш өлшемі, МиБ есебімен"
 
-#: data/org.gnome.Papers.gschema.xml:33
+#: data/org.gnome.Evince.gschema.xml:33
 msgid ""
 "The maximum size that will be used to cache rendered pages, limits maximum "
 "zoom level."
@@ -355,7 +355,7 @@ msgstr ""
 "Өнделетін парақтарды кэштеу үшін қолданылатын максималды өлшемі, максималды "
 "масштабты шектейді."
 
-#: data/org.gnome.Papers.gschema.xml:37
+#: data/org.gnome.Evince.gschema.xml:37
 msgid ""
 "Show a dialog to confirm that the user wants to activate the caret "
 "navigation."
@@ -363,215 +363,215 @@ msgstr ""
 "Пайдаланушы мәтіндік курсор навигациясын қалайтынынды растайтын сұхбатты "
 "көрсету."
 
-#: data/org.gnome.Papers.gschema.xml:41
+#: data/org.gnome.Evince.gschema.xml:41
 msgid "Allow links to change the zoom level."
 msgstr "Сілтемелерге масштаб деңгейін өзгертуді рұқсат ету."
 
-#: data/org.gnome.Papers.gschema.xml:49
+#: data/org.gnome.Evince.gschema.xml:49
 msgid "Check spelling when writing annotation notes or filling text forms."
 msgstr "Аңдатпаны жазу немесе мәтін формаларын толтыру кезінде емлені тексеру."
 
-#: data/org.gnome.Papers.gschema.xml:53
+#: data/org.gnome.Evince.gschema.xml:53
 msgid "Show a side bar next to the document to help navigate the document."
 msgstr "Құжатты шолуды жеңілдету үшін құжаттың қасында бүйір панельді көрсету."
 
-#: data/org.gnome.Papers.gschema.xml:63
+#: data/org.gnome.Evince.gschema.xml:63
 msgid "Set the default zoom level to display a document."
 msgstr "Құжатты көрсету үшін бастапқы масштабты таңдаңыз."
 
-#: data/org.gnome.Papers.gschema.xml:70
+#: data/org.gnome.Evince.gschema.xml:70
 msgid ""
 "Display the document as a continuous stream of pages instead of page at a "
 "time."
 msgstr "Құжатты бір уақытта Бір бет емес, үздіксіз бет ағыны ретінде көрсету."
 
-#: data/org.gnome.Papers.gschema.xml:74
+#: data/org.gnome.Evince.gschema.xml:74
 msgid "Show two pages side by side."
 msgstr "Екі парақты қатарынан көрсету."
 
-#: data/org.gnome.Papers.gschema.xml:78
+#: data/org.gnome.Evince.gschema.xml:78
 msgid ""
 "Show the first page (odd page) on the left (when displaying two pages side "
 "by side)"
 msgstr ""
 "Бірінші бетті сол жақта (тақ бетті) көрсету (екі бетті қатар көрсету кезінде)"
 
-#: data/org.gnome.Papers-previewer.desktop.in.in:3
+#: data/org.gnome.Evince-previewer.desktop.in.in:3
 msgid "Print Preview"
 msgstr "Баспа алдында қарау"
 
-#: data/org.gnome.Papers-previewer.desktop.in.in:4
+#: data/org.gnome.Evince-previewer.desktop.in.in:4
 msgid "Preview before printing"
 msgstr "Баспаға шығару алдында қарау"
 
-#: libdocument/pps-attachment.c:310 libdocument/pps-attachment.c:331
+#: libdocument/ev-attachment.c:310 libdocument/ev-attachment.c:331
 #, c-format
 msgid "Couldn’t save attachment “%s”: %s"
 msgstr "\"%s\" салынымын сақтау сәтсіз: %s"
 
-#: libdocument/pps-attachment.c:378
+#: libdocument/ev-attachment.c:378
 #, c-format
 msgid "Couldn’t open attachment “%s”: %s"
 msgstr "\"%s\" салынымын ашу сәтсіз: %s"
 
-#: libdocument/pps-attachment.c:417
+#: libdocument/ev-attachment.c:417
 #, c-format
 msgid "Couldn’t open attachment “%s”"
 msgstr "\"%s\" салынымын ашу сәтсіз"
 
-#: libdocument/pps-document-factory.c:105
+#: libdocument/ev-document-factory.c:105
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "%s (%s) файл пішіміне қолдау жоқ"
 
-#: libdocument/pps-document-factory.c:370 libdocument/pps-file-helpers.c:417
-#: libdocument/pps-file-helpers.c:463 libdocument/pps-file-helpers.c:482
-#: libdocument/pps-file-helpers.c:563 libdocument/pps-file-helpers.c:572
+#: libdocument/ev-document-factory.c:370 libdocument/ev-file-helpers.c:417
+#: libdocument/ev-file-helpers.c:463 libdocument/ev-file-helpers.c:482
+#: libdocument/ev-file-helpers.c:563 libdocument/ev-file-helpers.c:572
 msgid "Unknown MIME Type"
 msgstr "Белгісіз MIME түрі"
 
-#: libdocument/pps-document-factory.c:637
+#: libdocument/ev-document-factory.c:637
 msgid "All Documents"
 msgstr "Барлық құжаттар"
 
-#: libdocument/pps-document-factory.c:664 shell/pps-utils.c:272
+#: libdocument/ev-document-factory.c:664 shell/ev-utils.c:272
 msgid "All Files"
 msgstr "Барлық файлдар"
 
-#: libdocument/pps-file-helpers.c:157
+#: libdocument/ev-file-helpers.c:157
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "Уақытша файлды жасау сәтсіз: %s"
 
-#: libdocument/pps-file-helpers.c:234
+#: libdocument/ev-file-helpers.c:234
 #, c-format
 msgid "Failed to create a temporary directory: %s"
 msgstr "Уақытша буманы жасау қатесі: %s"
 
-#: libdocument/pps-xmp.c:350
+#: libdocument/ev-xmp.c:350
 msgid "This work is in the Public Domain"
 msgstr "Бұл жұмыс еркін (Public Domain)"
 
-#: libmisc/pps-page-action-widget.c:90 libmisc/pps-page-action-widget.c:129
+#: libmisc/ev-page-action-widget.c:90 libmisc/ev-page-action-widget.c:129
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%d, %d ішінен)"
 
-#: libmisc/pps-page-action-widget.c:92 libmisc/pps-page-action-widget.c:133
+#: libmisc/ev-page-action-widget.c:92 libmisc/ev-page-action-widget.c:133
 #, c-format
 msgid "of %d"
 msgstr "%d ішінен"
 
-#: libmisc/pps-page-action-widget.c:201 shell/pps-history.c:454
-#: shell/pps-sidebar-bookmarks.c:343 shell/pps-window.c:954
-#: shell/pps-window.c:5155
+#: libmisc/ev-page-action-widget.c:201 shell/ev-history.c:454
+#: shell/ev-sidebar-bookmarks.c:343 shell/ev-window.c:954
+#: shell/ev-window.c:5155
 #, c-format
 msgid "Page %s"
 msgstr "Парақ %s"
 
-#: libmisc/pps-search-box.c:112
+#: libmisc/ev-search-box.c:112
 msgid "Not found, click to change search options"
 msgstr "Табылмады, іздеу баптауларын өзгерту үшін шертіңіз"
 
-#: libmisc/pps-search-box.c:186 libmisc/pps-search-box.c:242
+#: libmisc/ev-search-box.c:186 libmisc/ev-search-box.c:242
 msgid "Search options"
 msgstr "Іздеу опциялары"
 
-#: libmisc/pps-search-box.c:318
+#: libmisc/ev-search-box.c:318
 msgid "_Whole Words Only"
 msgstr "Тол_ық сөздер ғана"
 
-#: libmisc/pps-search-box.c:331
+#: libmisc/ev-search-box.c:331
 msgid "C_ase Sensitive"
 msgstr "Р_егистрге тәуелді іздеу"
 
-#: libmisc/pps-search-box.c:600
+#: libmisc/ev-search-box.c:600
 msgid "Find previous occurrence of the search string"
 msgstr "Ізделетін мәтіннің алдыңғы кездесуін табу"
 
-#: libmisc/pps-search-box.c:606
+#: libmisc/ev-search-box.c:606
 msgid "Find next occurrence of the search string"
 msgstr "Ізделетін мәтіннің келесі кездесуін табу"
 
-#: libview/pps-jobs.c:625
+#: libview/ev-jobs.c:625
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "%d парағын көрсету сәтсіз аяқталды: %s"
 
-#: libview/pps-jobs.c:632
+#: libview/ev-jobs.c:632
 #, c-format
 msgid "Failed to render page %d"
 msgstr "%d парағын көрсету сәтсіз аяқталды"
 
-#: libview/pps-jobs.c:878
+#: libview/ev-jobs.c:878
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "%d парағының кіші көрінісін жасау сәтсіз аяқталды"
 
-#: libview/pps-jobs.c:2288
+#: libview/ev-jobs.c:2288
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "%d парағын баспаға шығару қатесі: %s"
 
 #. Initial state
-#: libview/pps-print-operation.c:346
+#: libview/ev-print-operation.c:346
 msgid "Preparing preview…"
 msgstr "Алдын-ала қарауды дайындау…"
 
-#: libview/pps-print-operation.c:348 libview/pps-print-operation.c:358
+#: libview/ev-print-operation.c:348 libview/ev-print-operation.c:358
 msgid "Finishing…"
 msgstr "Аяқтау…"
 
-#: libview/pps-print-operation.c:350
+#: libview/ev-print-operation.c:350
 #, c-format
 msgid "Generating preview: page %d of %d"
 msgstr "Алдын-ала қарауды дайындау: бет %d, %d ішінен"
 
 #. Initial state
-#: libview/pps-print-operation.c:356
+#: libview/ev-print-operation.c:356
 msgid "Preparing to print…"
 msgstr "Баспаға шығаруға дайындау…"
 
-#: libview/pps-print-operation.c:360
+#: libview/ev-print-operation.c:360
 #, c-format
 msgid "Printing page %d of %d…"
 msgstr "Басылуда парақ № %d, %d ішінен…"
 
-#: libview/pps-print-operation.c:1561 libview/pps-print-operation.c:2028
+#: libview/ev-print-operation.c:1561 libview/ev-print-operation.c:2028
 msgid "Your print range selection does not include any pages"
 msgstr "Сіздің баспаға шығару парақтар аралығында бірде-бір парақ жоқ"
 
 #. translators: Title of the print dialog
-#: libview/pps-print-operation.c:1702 libview/pps-print-operation.c:1800
-#: libview/pps-print-operation.c:2079
+#: libview/ev-print-operation.c:1702 libview/ev-print-operation.c:1800
+#: libview/ev-print-operation.c:2079
 msgid "Print"
 msgstr "Баспаға шығару"
 
-#: libview/pps-print-operation.c:2002
+#: libview/ev-print-operation.c:2002
 msgid "Requested format is not supported by this printer."
 msgstr "Бұл принтер сұралған пішімді қолдамайды."
 
-#: libview/pps-print-operation.c:2025
+#: libview/ev-print-operation.c:2025
 msgid "Invalid page selection"
 msgstr "Парақтар таңдауы қате"
 
-#: libview/pps-print-operation.c:2026
+#: libview/ev-print-operation.c:2026
 msgid "Warning"
 msgstr "Ескерту"
 
-#: libview/pps-print-operation.c:2685
+#: libview/ev-print-operation.c:2685
 msgid "Page Scaling:"
 msgstr "Парақты масштабы:"
 
-#: libview/pps-print-operation.c:2692
+#: libview/ev-print-operation.c:2692
 msgid "Shrink to Printable Area"
 msgstr "Баспаға шығарылатын аймаққа дейін кішірейту"
 
-#: libview/pps-print-operation.c:2693
+#: libview/ev-print-operation.c:2693
 msgid "Fit to Printable Area"
 msgstr "Баспаға шығарылатын аймаққа сыйдыру"
 
-#: libview/pps-print-operation.c:2696
+#: libview/ev-print-operation.c:2696
 msgid ""
 "Scale document pages to fit the selected printer page. Select from one of "
 "the following:\n"
@@ -595,11 +595,11 @@ msgstr ""
 "• \"Баспаға шығарылатын аймаққа сыйдыру\": Принтер парағына сыю үшін құжат "
 "парақтары үлкейтіледі не кішірейтіледі.\n"
 
-#: libview/pps-print-operation.c:2708
+#: libview/ev-print-operation.c:2708
 msgid "Auto Rotate and Center"
 msgstr "Авто айналдыру мен ортаға туралау"
 
-#: libview/pps-print-operation.c:2711
+#: libview/ev-print-operation.c:2711
 msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
@@ -607,11 +607,11 @@ msgstr ""
 "Принтер мен құжат парақтарының бағдары сәйкес болу үшін әр парақты "
 "айналдыру. Құжат парақтары принтер парағы ортасымен тураланады."
 
-#: libview/pps-print-operation.c:2716
+#: libview/ev-print-operation.c:2716
 msgid "Select page size using document page size"
 msgstr "Құжат парағының өлшемн қолданып, парақ өлшемін таңдау"
 
-#: libview/pps-print-operation.c:2718
+#: libview/ev-print-operation.c:2718
 msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
@@ -619,99 +619,99 @@ msgstr ""
 "Іске қосулы тұрса, әр парақ құжаттағы параққа сәйкес өлшемді қағазға "
 "басылады."
 
-#: libview/pps-print-operation.c:2723
+#: libview/ev-print-operation.c:2723
 msgid "Draw border around pages"
 msgstr "Беттердің айналасына шекара салу"
 
-#: libview/pps-print-operation.c:2725
+#: libview/ev-print-operation.c:2725
 msgid "When enabled, a border will be drawn around each page."
 msgstr "Іске қосылған кезде әр беттің айналасына шекара салынады."
 
-#: libview/pps-print-operation.c:2819
+#: libview/ev-print-operation.c:2819
 msgid "Page Handling"
 msgstr "Парақтарды өндеу"
 
-#: libview/pps-view-accessible.c:43
+#: libview/ev-view-accessible.c:43
 msgid "Scroll Up"
 msgstr "Жоғары айналдыру"
 
-#: libview/pps-view-accessible.c:44
+#: libview/ev-view-accessible.c:44
 msgid "Scroll Down"
 msgstr "Төмен айналдыру"
 
-#: libview/pps-view-accessible.c:50
+#: libview/ev-view-accessible.c:50
 msgid "Scroll View Up"
 msgstr "Көріністі жоғары айналдыру"
 
-#: libview/pps-view-accessible.c:51
+#: libview/ev-view-accessible.c:51
 msgid "Scroll View Down"
 msgstr "Көріністі төмен айналдыру"
 
-#: libview/pps-view-accessible.c:131
+#: libview/ev-view-accessible.c:131
 msgid "Document View"
 msgstr "Құжат көрінісі"
 
-#: libview/pps-view.c:2113
+#: libview/ev-view.c:2113
 msgid "Go to first page"
 msgstr "Бірінші параққа өту"
 
-#: libview/pps-view.c:2115
+#: libview/ev-view.c:2115
 msgid "Go to previous page"
 msgstr "Алдыңғы параққа өту"
 
-#: libview/pps-view.c:2117
+#: libview/ev-view.c:2117
 msgid "Go to next page"
 msgstr "Келесі параққа өту"
 
-#: libview/pps-view.c:2119
+#: libview/ev-view.c:2119
 msgid "Go to last page"
 msgstr "Соңғы параққа өту"
 
-#: libview/pps-view.c:2121
+#: libview/ev-view.c:2121
 msgid "Go to page"
 msgstr "Параққа өту"
 
-#: libview/pps-view.c:2123
+#: libview/ev-view.c:2123
 msgid "Find"
 msgstr "Табу"
 
-#: libview/pps-view.c:2151
+#: libview/ev-view.c:2151
 #, c-format
 msgid "Go to page %s"
 msgstr "%s парағына өту"
 
-#: libview/pps-view.c:2157
+#: libview/ev-view.c:2157
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "%s жеріне өту, \"%s\" файлында"
 
-#: libview/pps-view.c:2160
+#: libview/ev-view.c:2160
 #, c-format
 msgid "Go to file “%s”"
 msgstr "\"%s\" файлына өту"
 
-#: libview/pps-view.c:2168
+#: libview/ev-view.c:2168
 #, c-format
 msgid "Launch %s"
 msgstr "%s жөнелту"
 
-#: libview/pps-view.c:2175
+#: libview/ev-view.c:2175
 msgid "Reset form"
 msgstr "Форманы тастау"
 
-#: libview/pps-view-presentation.c:726
+#: libview/ev-view-presentation.c:726
 msgid "Jump to page:"
 msgstr "Параққа өту:"
 
-#: libview/pps-view-presentation.c:1009
+#: libview/ev-view-presentation.c:1009
 msgid "End of presentation. Press Esc or click to exit."
 msgstr "Презентация соңы. Шығу үшін Esc басыңыз немесе шертіңіз."
 
-#: org.gnome.Papers.metainfo.xml.in:24
+#: org.gnome.Evince.metainfo.xml.in:24
 msgid "Document viewer for popular document formats"
 msgstr "Кеңінен қолданылатын құжаттар пішімдерін қарау қолданбасы"
 
-#: org.gnome.Papers.metainfo.xml.in:26
+#: org.gnome.Evince.metainfo.xml.in:26
 msgid ""
 "A document viewer for the GNOME desktop. You can view, search or annotate "
 "documents in many different formats."
@@ -719,82 +719,82 @@ msgstr ""
 "GNOME жұмыс үстелі үшін құжаттар көрсетушісі. Бірнеше түрдегі құжаттарды "
 "қарау, ішінен іздеу немесе аңдатпаларды қосуға болады."
 
-#: org.gnome.Papers.metainfo.xml.in:27
+#: org.gnome.Evince.metainfo.xml.in:27
 msgid ""
-"Papers supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, DVI (with "
+"Evince supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, DVI (with "
 "SyncTeX), and Comic Books archives (CBR, CBT, CBZ, CB7)."
 msgstr ""
-"Papers келесі құжаттар пішімдерін қолдайды: PDF, PS, EPS, XPS, DjVu, TIFF, "
+"Evince келесі құжаттар пішімдерін қолдайды: PDF, PS, EPS, XPS, DjVu, TIFF, "
 "DVI (SyncTeX), және Comic Books архивтері (CBR, CBT, CBZ, CB7)."
 
-#: org.gnome.Papers.metainfo.xml.in:35
+#: org.gnome.Evince.metainfo.xml.in:35
 msgid "A clear, simple UI"
 msgstr "Таза, қарапайым интерфейс"
 
-#: org.gnome.Papers.metainfo.xml.in:39
+#: org.gnome.Evince.metainfo.xml.in:39
 msgid "Advanced highlighting and annotation"
 msgstr "Кеңейтілген түрде түспен ерекшелеу және аңдатпаларды қосу"
 
-#: previewer/pps-previewer.c:57
+#: previewer/ev-previewer.c:57
 msgid "Delete the temporary file"
 msgstr "Уақытша файлды өшіру"
 
-#: previewer/pps-previewer.c:59
+#: previewer/ev-previewer.c:59
 msgid "File specifying print settings"
 msgstr "Баспаға шығару баптауларын сипаттайтын файл"
 
-#: previewer/pps-previewer.c:59
+#: previewer/ev-previewer.c:59
 msgid "FILE"
 msgstr "ФАЙЛ"
 
-#: previewer/pps-previewer.c:61
+#: previewer/ev-previewer.c:61
 msgid "File descriptor of input file"
 msgstr "Кіріс файлының дескрипторы"
 
-#: previewer/pps-previewer.c:61 previewer/pps-previewer.c:65
+#: previewer/ev-previewer.c:61 previewer/ev-previewer.c:65
 msgid "FD"
 msgstr "ФД"
 
-#: previewer/pps-previewer.c:63
+#: previewer/ev-previewer.c:63
 msgid "MIME type of input file"
 msgstr "Кіріс файлының MIME түрі"
 
-#: previewer/pps-previewer.c:63
+#: previewer/ev-previewer.c:63
 msgid "TYPE"
 msgstr "ТҮРІ"
 
-#: previewer/pps-previewer.c:65
+#: previewer/ev-previewer.c:65
 msgid "File descriptor of print settings file"
 msgstr "Баспаға шығару баптауларының файл дескрипторы"
 
-#: previewer/pps-previewer.c:295 previewer/pps-previewer.c:315
+#: previewer/ev-previewer.c:295 previewer/ev-previewer.c:315
 msgid "GNOME Document Previewer"
 msgstr "GNOME құжаттарды алдын-ала көрсету қолданбасы"
 
-#: previewer/pps-previewer-toolbar.c:112 shell/papers-toolbar.ui:35
+#: previewer/ev-previewer-toolbar.c:112 shell/evince-toolbar.ui:35
 msgid "Select page or search in the outline"
 msgstr "Парақты таңдау немесе құрылымнан іздеу"
 
-#: previewer/pps-previewer-toolbar.c:114 shell/papers-toolbar.ui:38
+#: previewer/ev-previewer-toolbar.c:114 shell/evince-toolbar.ui:38
 msgid "Select page"
 msgstr "Парақты таңдау"
 
-#: previewer/pps-previewer-window.c:78 shell/pps-window.c:3636
+#: previewer/ev-previewer-window.c:78 shell/ev-window.c:3636
 msgid "Failed to print document"
 msgstr "Құжатты баспаға шығару сәтсіз"
 
-#: previewer/pps-previewer-window.c:193 previewer/pps-previewer-window.c:558
-msgid "Papers Document Viewer"
-msgstr "Papers құжаттарды көрсету қолданбасы"
+#: previewer/ev-previewer-window.c:193 previewer/ev-previewer-window.c:558
+msgid "Evince Document Viewer"
+msgstr "Evince құжаттарды көрсету қолданбасы"
 
-#: previewer/pps-previewer-window.c:229
+#: previewer/ev-previewer-window.c:229
 #, c-format
 msgid "The selected printer “%s” could not be found"
 msgstr "Ерекшеленген \"%s\" принтері табылмады"
 
-#: previewer/pps-previewer-window.c:536 shell/pps-window.c:4227
-msgid "Papers"
-msgstr "Papers"
+#: previewer/ev-previewer-window.c:536 shell/ev-window.c:4227
+msgid "Evince"
+msgstr "Evince"
 
 #: previewer/previewer.ui:7
 msgid "_Print"
@@ -804,11 +804,11 @@ msgstr "Бас_паға шығару"
 msgid "Print this document"
 msgstr "Бұл құжатты баспаға шығару"
 
-#: previewer/previewer.ui:20 shell/papers-menus.ui:129
+#: previewer/previewer.ui:20 shell/evince-menus.ui:129
 msgid "Previous Page"
 msgstr "Алдыңғы парақ"
 
-#: previewer/previewer.ui:27 shell/papers-menus.ui:133
+#: previewer/previewer.ui:27 shell/evince-menus.ui:133
 msgid "Next Page"
 msgstr "Келесі парақ"
 
@@ -824,72 +824,72 @@ msgstr "Құжатты кішірейту"
 msgid "Reset zoom and make the page fit in the window"
 msgstr "Масштабты тастау және бетті терезе сыятындай қылу"
 
-#: properties/pps-properties-main.c:116
+#: properties/ev-properties-main.c:116
 msgid "Document"
 msgstr "Құжат"
 
-#: properties/pps-properties-view.c:62
+#: properties/ev-properties-view.c:62
 msgid "Title:"
 msgstr "Атауы:"
 
-#: properties/pps-properties-view.c:63
+#: properties/ev-properties-view.c:63
 msgid "Location:"
 msgstr "Орналасуы:"
 
-#: properties/pps-properties-view.c:64
+#: properties/ev-properties-view.c:64
 msgid "Subject:"
 msgstr "Тақырыбы:"
 
-#: properties/pps-properties-view.c:65
-#: shell/pps-annotation-properties-dialog.c:169
+#: properties/ev-properties-view.c:65
+#: shell/ev-annotation-properties-dialog.c:169
 msgid "Author:"
 msgstr "Авторы:"
 
-#: properties/pps-properties-view.c:66
+#: properties/ev-properties-view.c:66
 msgid "Keywords:"
 msgstr "Кілт сөздер:"
 
-#: properties/pps-properties-view.c:67
+#: properties/ev-properties-view.c:67
 msgid "Producer:"
 msgstr "Өндірген:"
 
-#: properties/pps-properties-view.c:68
+#: properties/ev-properties-view.c:68
 msgid "Creator:"
 msgstr "Жасаған:"
 
-#: properties/pps-properties-view.c:69
+#: properties/ev-properties-view.c:69
 msgid "Created:"
 msgstr "Жасалған:"
 
-#: properties/pps-properties-view.c:70
+#: properties/ev-properties-view.c:70
 msgid "Modified:"
 msgstr "Түзетілген:"
 
-#: properties/pps-properties-view.c:71
+#: properties/ev-properties-view.c:71
 msgid "Number of Pages:"
 msgstr "Парақтар саны:"
 
-#: properties/pps-properties-view.c:72
+#: properties/ev-properties-view.c:72
 msgid "Optimized:"
 msgstr "Ыңғайлатылған:"
 
-#: properties/pps-properties-view.c:73
+#: properties/ev-properties-view.c:73
 msgid "Format:"
 msgstr "Пішімі:"
 
-#: properties/pps-properties-view.c:74
+#: properties/ev-properties-view.c:74
 msgid "Security:"
 msgstr "Қауіпсіздік:"
 
-#: properties/pps-properties-view.c:75
+#: properties/ev-properties-view.c:75
 msgid "Contains Javascript:"
 msgstr "Құрамында Javascript бар:"
 
-#: properties/pps-properties-view.c:76
+#: properties/ev-properties-view.c:76
 msgid "Paper Size:"
 msgstr "Қағаз өлшемі:"
 
-#: properties/pps-properties-view.c:77
+#: properties/ev-properties-view.c:77
 msgid "Size:"
 msgstr "Өлшемі:"
 
@@ -899,707 +899,707 @@ msgstr "Өлшемі:"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: properties/pps-properties-view.c:267
+#: properties/ev-properties-view.c:267
 msgid "default:mm"
 msgstr "default:mm"
 
-#: properties/pps-properties-view.c:311
+#: properties/ev-properties-view.c:311
 #, c-format
 msgid "%.0f × %.0f mm"
 msgstr "%.0f × %.0f мм"
 
-#: properties/pps-properties-view.c:315
+#: properties/ev-properties-view.c:315
 #, c-format
 msgid "%.2f × %.2f inch"
 msgstr "%.2f × %.2f дюйм"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: properties/pps-properties-view.c:339
+#: properties/ev-properties-view.c:339
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr "%s, тік (%s)"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: properties/pps-properties-view.c:346
+#: properties/ev-properties-view.c:346
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr "%s, жатық (%s)"
 
-#: properties/pps-properties-view.c:433
-#: shell/pps-annotation-properties-dialog.c:109
+#: properties/ev-properties-view.c:433
+#: shell/ev-annotation-properties-dialog.c:109
 msgid "Unknown"
 msgstr "Белгісіз"
 
-#: shell/pps-annotation-properties-dialog.c:94
+#: shell/ev-annotation-properties-dialog.c:94
 msgid "Icon:"
 msgstr "Таңбаша:"
 
-#: shell/pps-annotation-properties-dialog.c:100
+#: shell/ev-annotation-properties-dialog.c:100
 msgid "Note"
 msgstr "Мәлімдеме"
 
-#: shell/pps-annotation-properties-dialog.c:101
+#: shell/ev-annotation-properties-dialog.c:101
 msgid "Comment"
 msgstr "Пікір"
 
-#: shell/pps-annotation-properties-dialog.c:102
+#: shell/ev-annotation-properties-dialog.c:102
 msgid "Key"
 msgstr "Кілт"
 
-#: shell/pps-annotation-properties-dialog.c:103
+#: shell/ev-annotation-properties-dialog.c:103
 msgid "Help"
 msgstr "Көмек"
 
-#: shell/pps-annotation-properties-dialog.c:104
+#: shell/ev-annotation-properties-dialog.c:104
 msgid "New Paragraph"
 msgstr "Жаңа абзац"
 
-#: shell/pps-annotation-properties-dialog.c:105
+#: shell/ev-annotation-properties-dialog.c:105
 msgid "Paragraph"
 msgstr "Абзац"
 
-#: shell/pps-annotation-properties-dialog.c:106
+#: shell/ev-annotation-properties-dialog.c:106
 msgid "Insert"
 msgstr "Кірістіру"
 
-#: shell/pps-annotation-properties-dialog.c:107
+#: shell/ev-annotation-properties-dialog.c:107
 msgid "Cross"
 msgstr "Қиылысу"
 
-#: shell/pps-annotation-properties-dialog.c:108
+#: shell/ev-annotation-properties-dialog.c:108
 msgid "Circle"
 msgstr "Шеңбер"
 
-#: shell/pps-annotation-properties-dialog.c:120
+#: shell/ev-annotation-properties-dialog.c:120
 msgid "Markup type:"
 msgstr "Белгілеу түрі:"
 
-#: shell/pps-annotation-properties-dialog.c:126
+#: shell/ev-annotation-properties-dialog.c:126
 msgid "Highlight"
 msgstr "Түспен ерекшелеу"
 
-#: shell/pps-annotation-properties-dialog.c:127
+#: shell/ev-annotation-properties-dialog.c:127
 msgid "Strike out"
 msgstr "Сызып тастау"
 
-#: shell/pps-annotation-properties-dialog.c:128
+#: shell/ev-annotation-properties-dialog.c:128
 msgid "Underline"
 msgstr "Астын сызу"
 
-#: shell/pps-annotation-properties-dialog.c:129
+#: shell/ev-annotation-properties-dialog.c:129
 msgid "Squiggly"
 msgstr "Бұрмалар жіберу"
 
-#: shell/pps-annotation-properties-dialog.c:150 shell/papers-menus.ui:170
+#: shell/ev-annotation-properties-dialog.c:150 shell/evince-menus.ui:170
 msgid "Annotation Properties"
 msgstr "Аңдатпа қасиеттері"
 
-#: shell/pps-annotation-properties-dialog.c:154
+#: shell/ev-annotation-properties-dialog.c:154
 msgid "_Close"
 msgstr "_Жабу"
 
-#: shell/pps-annotation-properties-dialog.c:155
+#: shell/ev-annotation-properties-dialog.c:155
 msgid "_Apply"
 msgstr "Іске _асыру"
 
-#: shell/pps-annotation-properties-dialog.c:180
+#: shell/ev-annotation-properties-dialog.c:180
 msgid "Color:"
 msgstr "Түс:"
 
-#: shell/pps-annotation-properties-dialog.c:190
+#: shell/ev-annotation-properties-dialog.c:190
 msgid "Opacity:"
 msgstr "Мөлдірлілігі:"
 
-#: shell/pps-annotation-properties-dialog.c:202
+#: shell/ev-annotation-properties-dialog.c:202
 msgid "Initial window state:"
 msgstr "Терезенің бастапқы қалпы:"
 
-#: shell/pps-annotation-properties-dialog.c:208
+#: shell/ev-annotation-properties-dialog.c:208
 msgid "Open"
 msgstr "Ашу"
 
-#: shell/pps-annotation-properties-dialog.c:209
+#: shell/ev-annotation-properties-dialog.c:209
 msgid "Close"
 msgstr "Жабу"
 
 #. Translators: an annotation that looks like a "sticky note"
-#: shell/pps-annotations-toolbar.c:132
+#: shell/ev-annotations-toolbar.c:132
 msgid "Note text"
 msgstr "Мәлімдеме мәтіні"
 
-#: shell/pps-annotations-toolbar.c:134
+#: shell/ev-annotations-toolbar.c:134
 msgid "Add text annotation"
 msgstr "Мәтіндік пікірді қосу"
 
-#: shell/pps-annotations-toolbar.c:139
+#: shell/ev-annotations-toolbar.c:139
 msgid "Highlight text"
 msgstr "Мәтінді түспен ерекшелеу"
 
-#: shell/pps-annotations-toolbar.c:141
+#: shell/ev-annotations-toolbar.c:141
 msgid "Add highlight annotation"
 msgstr "Түспен ерекшелеудің аңдатпасын қосу"
 
-#: shell/papers-menus.ui:24
+#: shell/evince-menus.ui:24
 msgid "_Open Link"
 msgstr "Сі_лтемені ашу"
 
-#: shell/papers-menus.ui:29
+#: shell/evince-menus.ui:29
 msgid "_Copy Link Address"
 msgstr "Сілтеме адр_есін көшіру"
 
-#: shell/papers-menus.ui:34
+#: shell/evince-menus.ui:34
 msgid "_Go To"
 msgstr "Ө_ту"
 
-#: shell/papers-menus.ui:39
+#: shell/evince-menus.ui:39
 msgid "Open in New _Window"
 msgstr "Жаңа тере_зеде ашу"
 
-#: shell/papers-menus.ui:46
+#: shell/evince-menus.ui:46
 msgid "_Previous Page"
 msgstr "А_лдыңғы парақ"
 
-#: shell/papers-menus.ui:50
+#: shell/evince-menus.ui:50
 msgid "_Next Page"
 msgstr "К_елесі парақ"
 
-#: shell/papers-menus.ui:54 shell/pps-window.c:3935
+#: shell/evince-menus.ui:54 shell/ev-window.c:3935
 msgid "_Reload"
 msgstr "Қа_йта жүктеу"
 
-#: shell/papers-menus.ui:58
+#: shell/evince-menus.ui:58
 msgid "Auto_scroll"
 msgstr "Автоа_йналдыру"
 
-#: shell/papers-menus.ui:64
+#: shell/evince-menus.ui:64
 msgid "_Copy"
 msgstr "_Көшіру"
 
-#: shell/papers-menus.ui:68
+#: shell/evince-menus.ui:68
 msgid "Select _All"
 msgstr "Б_арлығын таңдау"
 
-#: shell/papers-menus.ui:74
+#: shell/evince-menus.ui:74
 msgid "_Save Image As…"
 msgstr "_Суретті қалайша сақтау…"
 
-#: shell/papers-menus.ui:79
+#: shell/evince-menus.ui:79
 msgid "Copy _Image"
 msgstr "Сурет_ті көшіру"
 
-#: shell/papers-menus.ui:86 shell/papers-menus.ui:157 shell/papers-menus.ui:180
+#: shell/evince-menus.ui:86 shell/evince-menus.ui:157 shell/evince-menus.ui:180
 msgid "_Open Attachment"
 msgstr "Сал_ынымды ашу"
 
-#: shell/papers-menus.ui:91 shell/papers-menus.ui:161 shell/papers-menus.ui:185
+#: shell/evince-menus.ui:91 shell/evince-menus.ui:161 shell/evince-menus.ui:185
 msgid "_Save Attachment As…"
 msgstr "С_алынымды қалайша сақтау…"
 
-#: shell/papers-menus.ui:98
+#: shell/evince-menus.ui:98
 msgid "Annotation _Properties"
 msgstr "Аңдатпа қа_сиеттері"
 
-#: shell/papers-menus.ui:103
+#: shell/evince-menus.ui:103
 msgid "R_emove Annotation"
 msgstr "Аңдатпаны ө_шіру"
 
-#: shell/papers-menus.ui:110
+#: shell/evince-menus.ui:110
 msgid "_Highlight Selected Text"
 msgstr "Таңдалған мәтінді түспен е_рекшелеу"
 
-#: shell/papers-menus.ui:115 shell/papers-toolbar.ui:153
+#: shell/evince-menus.ui:115 shell/evince-toolbar.ui:153
 msgid "Open Containing _Folder"
 msgstr "_Орналасқан бумасын ашу"
 
-#: shell/papers-menus.ui:123
+#: shell/evince-menus.ui:123
 msgid "Navigation"
 msgstr "Навигация"
 
-#: shell/papers-menus.ui:125
+#: shell/evince-menus.ui:125
 msgid "First Page"
 msgstr "Бірінші парақ"
 
-#: shell/papers-menus.ui:137
+#: shell/evince-menus.ui:137
 msgid "Last Page"
 msgstr "Соңғы парақ"
 
-#: shell/papers-menus.ui:142
+#: shell/evince-menus.ui:142
 msgid "History"
 msgstr "Тарихы"
 
-#: shell/papers-menus.ui:144
+#: shell/evince-menus.ui:144
 msgid "Back"
 msgstr "Артқа"
 
-#: shell/papers-menus.ui:148
+#: shell/evince-menus.ui:148
 msgid "Forward"
 msgstr "Алға"
 
-#: shell/papers-menus.ui:175
+#: shell/evince-menus.ui:175
 msgid "Remove Annotation"
 msgstr "Аңдатпаны өшіру"
 
-#: shell/papers-menus.ui:195
+#: shell/evince-menus.ui:195
 msgid "_Open Bookmark"
 msgstr "Бетбе_лгіні ашу"
 
-#: shell/papers-menus.ui:201
+#: shell/evince-menus.ui:201
 msgid "_Rename Bookmark"
 msgstr "Бетбелгі а_тын ауыстыру"
 
-#: shell/papers-menus.ui:205
+#: shell/evince-menus.ui:205
 msgid "_Delete Bookmark"
 msgstr "Бетбелгіні ө_шіру"
 
-#: shell/papers-menus.ui:214
+#: shell/evince-menus.ui:214
 msgid "Search in the outline…"
 msgstr "Құрылымнан іздеу…"
 
-#: shell/papers-menus.ui:218
+#: shell/evince-menus.ui:218
 msgid "Print this section…"
 msgstr "Бұл санатты баспаға шығару…"
 
-#: shell/papers-menus.ui:222
+#: shell/evince-menus.ui:222
 msgid "Collapse all tree"
 msgstr "Барлық ағаштарды жинау"
 
-#: shell/papers-menus.ui:226
+#: shell/evince-menus.ui:226
 msgid "Expand all tree"
 msgstr "Барлық ағаштарды жазық қылу"
 
-#: shell/papers-menus.ui:230
+#: shell/evince-menus.ui:230
 msgid "Expand all under this element"
 msgstr "Бұл элемент астында барлығын жазық қылу"
 
-#: shell/papers-password-view.ui:22
+#: shell/evince-password-view.ui:22
 msgid ""
 "This document is locked and can only be read by entering the correct "
 "password."
 msgstr "Құжатт блокталған, және оны ашу үшін парольді енгізу керек."
 
-#: shell/papers-password-view.ui:37
+#: shell/evince-password-view.ui:37
 msgid "_Unlock Document"
 msgstr "Құжатты б_локтаудан босату"
 
-#: shell/papers-properties-fonts.ui:40
+#: shell/evince-properties-fonts.ui:40
 msgid "Font"
 msgstr "Қаріп"
 
-#: shell/papers-sidebar-bookmarks.ui:55
+#: shell/evince-sidebar-bookmarks.ui:55
 msgid "Add bookmark"
 msgstr "Бетбелгіні қосу"
 
-#: shell/papers-sidebar-bookmarks.ui:64
+#: shell/evince-sidebar-bookmarks.ui:64
 msgid "Remove bookmark"
 msgstr "Бетбелгіні өшіру"
 
-#: shell/papers-toolbar.ui:10
+#: shell/evince-toolbar.ui:10
 msgid "Open…"
 msgstr "Ашу…"
 
-#: shell/papers-toolbar.ui:11
+#: shell/evince-toolbar.ui:11
 msgid "Open an existing document"
 msgstr "Бар болып тұрған құжатты ашу"
 
-#: shell/papers-toolbar.ui:20
+#: shell/evince-toolbar.ui:20
 msgid "Side pane"
 msgstr "Бүйір панелі"
 
-#: shell/papers-toolbar.ui:49
+#: shell/evince-toolbar.ui:49
 msgid "Annotate the document"
 msgstr "Құжатқа аңдатпаны қосу"
 
-#: shell/papers-toolbar.ui:59
+#: shell/evince-toolbar.ui:59
 msgid "Annotate document"
 msgstr "Құжатқа аңдатпаны қосу"
 
-#: shell/papers-toolbar.ui:70 shell/papers-toolbar.ui:81
+#: shell/evince-toolbar.ui:70 shell/evince-toolbar.ui:81
 msgid "File options"
 msgstr "Файл опциялары"
 
-#: shell/papers-toolbar.ui:110
+#: shell/evince-toolbar.ui:110
 msgid "Set zoom level"
 msgstr "Масштабты орнату"
 
-#: shell/papers-toolbar.ui:126
+#: shell/evince-toolbar.ui:126
 msgid "Print…"
 msgstr "Баспаға шығару…"
 
-#: shell/papers-toolbar.ui:131
+#: shell/evince-toolbar.ui:131
 msgid "Fullscreen"
 msgstr "Толық экранға"
 
-#: shell/papers-toolbar.ui:136
+#: shell/evince-toolbar.ui:136
 msgid "Send To…"
 msgstr "Қайда жіберу…"
 
-#: shell/papers-toolbar.ui:143
+#: shell/evince-toolbar.ui:143
 msgid "New _Window"
 msgstr "Жаңа тере_зе"
 
-#: shell/papers-toolbar.ui:149
+#: shell/evince-toolbar.ui:149
 msgid "Open a C_opy"
 msgstr "Кө_шірмесін ашу"
 
-#: shell/papers-toolbar.ui:159
+#: shell/evince-toolbar.ui:159
 msgid "_Save As…"
 msgstr "Қ_алайша сақтау…"
 
-#: shell/papers-toolbar.ui:165
+#: shell/evince-toolbar.ui:165
 msgid "Present as _Slideshow"
 msgstr "_Слайдшоу ретінде көрсету"
 
-#: shell/papers-toolbar.ui:171
+#: shell/evince-toolbar.ui:171
 msgid "_Continuous"
 msgstr "Ү_зіліссіз"
 
-#: shell/papers-toolbar.ui:175
+#: shell/evince-toolbar.ui:175
 msgid "_Dual"
 msgstr "Қ_ос"
 
-#: shell/papers-toolbar.ui:179
+#: shell/evince-toolbar.ui:179
 msgid "_Odd Pages Left"
 msgstr "_Тақ парақтар сол жақта"
 
-#: shell/papers-toolbar.ui:183
+#: shell/evince-toolbar.ui:183
 msgid "Right to Left Document"
 msgstr "Оңнан солға құжат"
 
-#: shell/papers-toolbar.ui:189
+#: shell/evince-toolbar.ui:189
 msgid "Ro_tate ⤵"
 msgstr "Бұ_ру ⤵"
 
-#: shell/papers-toolbar.ui:195
+#: shell/evince-toolbar.ui:195
 msgid "Ni_ght Mode"
 msgstr "Тү_нгі режим"
 
-#: shell/papers-toolbar.ui:201
+#: shell/evince-toolbar.ui:201
 msgid "Prop_erties"
 msgstr "Қаси_еттері"
 
-#: shell/papers-toolbar.ui:207
+#: shell/evince-toolbar.ui:207
 msgid "_Keyboard Shortcuts"
 msgstr "П_ернетақта жарлықтары"
 
-#: shell/papers-toolbar.ui:211
+#: shell/evince-toolbar.ui:211
 msgid "_Help"
 msgstr "_Көмек"
 
-#: shell/papers-toolbar.ui:215
+#: shell/evince-toolbar.ui:215
 msgid "_About Document Viewer"
 msgstr "Құжаттарды көрсету қолданбасы тур_алы"
 
-#: shell/papers-zoom-action.ui:5
+#: shell/evince-zoom-action.ui:5
 msgid "Select or set the zoom level of the document"
 msgstr "Құжаттың масштабын таңдаңыз немесе орнатыңыз"
 
-#: shell/papers-zoom-action.ui:30
+#: shell/evince-zoom-action.ui:30
 msgid "Fit Pa_ge"
 msgstr "_Парақты сыйдыру"
 
-#: shell/papers-zoom-action.ui:35
+#: shell/evince-zoom-action.ui:35
 msgid "Fit _Width"
 msgstr "Е_ніне дейін созу"
 
-#: shell/papers-zoom-action.ui:40
+#: shell/evince-zoom-action.ui:40
 msgid "_Automatic"
 msgstr "_Автоматты түрде"
 
-#: shell/pps-keyring.c:86
+#: shell/ev-keyring.c:86
 #, c-format
 msgid "Password for document %s"
 msgstr "%s құжаты үшін пароль"
 
-#: shell/pps-loading-message.c:50 shell/pps-sidebar-annotations.c:140
-#: shell/pps-sidebar-layers.c:119 shell/pps-sidebar-links.c:274
+#: shell/ev-loading-message.c:50 shell/ev-sidebar-annotations.c:140
+#: shell/ev-sidebar-layers.c:119 shell/ev-sidebar-links.c:274
 msgid "Loading…"
 msgstr "Жүктеу…"
 
-#: shell/pps-password-view.c:224
+#: shell/ev-password-view.c:224
 #, c-format
 msgid ""
 "The document “%s” is locked and requires a password before it can be opened."
 msgstr "\"%s\" құжаты блокталған және оны ашу үшін пароль керек."
 
-#: shell/pps-password-view.c:231
+#: shell/ev-password-view.c:231
 msgid "Password required"
 msgstr "Пароль керек"
 
-#: shell/pps-password-view.c:238 shell/pps-sidebar-attachments.c:493
-#: shell/pps-window.c:2877 shell/pps-window.c:3174 shell/pps-window.c:4059
-#: shell/pps-window.c:6983 shell/pps-window.c:7209
+#: shell/ev-password-view.c:238 shell/ev-sidebar-attachments.c:493
+#: shell/ev-window.c:2877 shell/ev-window.c:3174 shell/ev-window.c:4059
+#: shell/ev-window.c:6983 shell/ev-window.c:7209
 msgid "_Cancel"
 msgstr "_Бас тарту"
 
-#: shell/pps-password-view.c:239
+#: shell/ev-password-view.c:239
 msgid "_Unlock"
 msgstr "Б_локтаудан босату"
 
-#: shell/pps-password-view.c:251
+#: shell/ev-password-view.c:251
 msgid "_Password:"
 msgstr "_Пароль:"
 
-#: shell/pps-password-view.c:285
+#: shell/ev-password-view.c:285
 msgid "Forget password _immediately"
 msgstr "Парольді _көп ұзамай ұмыту"
 
-#: shell/pps-password-view.c:296
+#: shell/ev-password-view.c:296
 msgid "Remember password until you _log out"
 msgstr "Шыққанға дейін сақ_тау"
 
-#: shell/pps-password-view.c:307
+#: shell/ev-password-view.c:307
 msgid "Remember _forever"
 msgstr "Әрқаша_нға есте сақтау"
 
-#: shell/pps-properties-dialog.c:63
+#: shell/ev-properties-dialog.c:63
 msgid "Properties"
 msgstr "Қасиеттері"
 
-#: shell/pps-properties-dialog.c:85
+#: shell/ev-properties-dialog.c:85
 msgid "General"
 msgstr "Жалпы"
 
-#: shell/pps-properties-dialog.c:95
+#: shell/ev-properties-dialog.c:95
 msgid "Fonts"
 msgstr "Қаріптер"
 
-#: shell/pps-properties-dialog.c:108
+#: shell/ev-properties-dialog.c:108
 msgid "Document License"
 msgstr "Құжат лицензиясы"
 
-#: shell/pps-properties-fonts.c:136
+#: shell/ev-properties-fonts.c:136
 #, c-format
 msgid "Gathering font information… %3d%%"
 msgstr "Қаріп ақпаратын жинау… %3d%%"
 
-#: shell/pps-properties-license.c:146
+#: shell/ev-properties-license.c:146
 msgid "Usage terms"
 msgstr "Қолдану шарттары"
 
-#: shell/pps-properties-license.c:158
+#: shell/ev-properties-license.c:158
 msgid "Text License"
 msgstr "Мәтіндік лицензия"
 
-#: shell/pps-properties-license.c:169
+#: shell/ev-properties-license.c:169
 msgid "Further Information"
 msgstr "Кейінгі ақпарат"
 
-#: shell/pps-sidebar-annotations.c:341
+#: shell/ev-sidebar-annotations.c:341
 msgid "Document contains no annotations"
 msgstr "Құжатта аңдатпалар жоқ"
 
-#: shell/pps-sidebar-annotations.c:369
+#: shell/ev-sidebar-annotations.c:369
 #, c-format
 msgid "Page %d"
 msgstr "Парақ %d"
 
-#: shell/pps-sidebar-annotations.c:403
+#: shell/ev-sidebar-annotations.c:403
 msgid "No Comment"
 msgstr "Пікірлер жоқ"
 
-#: shell/pps-sidebar-annotations.c:564 shell/pps-window.c:7592
+#: shell/ev-sidebar-annotations.c:564 shell/ev-window.c:7592
 msgid "Annotations"
 msgstr "Аңдатпалар"
 
-#: shell/pps-sidebar-attachments.c:485
+#: shell/ev-sidebar-attachments.c:485
 #, c-format
 msgid "A file named “%s” already exists. Do you want to replace it?"
 msgstr "\"%s\" файлы бар болып тұр. Оны алмастыруды қалайсыз ба?"
 
-#: shell/pps-sidebar-attachments.c:489
+#: shell/ev-sidebar-attachments.c:489
 #, c-format
 msgid "The file “%s” already exists. Replacing it will overwrite its contents."
 msgstr ""
 "\"%s\" файлы бар болып тұр. Оны алмастыру нәтижесінде құрамасы үстінен "
 "жазылады."
 
-#: shell/pps-sidebar-attachments.c:494
+#: shell/ev-sidebar-attachments.c:494
 msgid "_Replace"
 msgstr "А_лмастыру"
 
-#: shell/pps-sidebar-attachments.c:892 shell/pps-window.c:7616
+#: shell/ev-sidebar-attachments.c:892 shell/ev-window.c:7616
 msgid "Attachments"
 msgstr "Салынымдар"
 
-#: shell/pps-sidebar-bookmarks.c:553 shell/pps-window.c:7600
+#: shell/ev-sidebar-bookmarks.c:553 shell/ev-window.c:7600
 msgid "Bookmarks"
 msgstr "Бетбелгілер"
 
-#: shell/pps-sidebar-layers.c:439 shell/pps-window.c:7628
+#: shell/ev-sidebar-layers.c:439 shell/ev-window.c:7628
 msgid "Layers"
 msgstr "Қабаттар"
 
 #. Translators: This is the title for the sidebar pane that
 #. * shows the Outline or Table of Contents of the document.
 #.
-#: shell/pps-sidebar-links.c:1450 shell/pps-window.c:7580
+#: shell/ev-sidebar-links.c:1450 shell/ev-window.c:7580
 msgid "Outline"
 msgstr "Құрылымы"
 
-#: shell/pps-sidebar-thumbnails.c:1038 shell/pps-window.c:7563
+#: shell/ev-sidebar-thumbnails.c:1038 shell/ev-window.c:7563
 msgid "Thumbnails"
 msgstr "Үлгілер"
 
-#: shell/pps-toolbar.c:98
+#: shell/ev-toolbar.c:98
 msgid "Find a word or phrase in the document"
 msgstr "Құжаттан сөзді не мәтінді табу"
 
-#: shell/pps-toolbar.c:104
+#: shell/ev-toolbar.c:104
 msgid "Search not available for this document"
 msgstr "Іздеу бұл құжат үшін қолжетерсіз"
 
-#: shell/pps-utils.c:268
+#: shell/ev-utils.c:268
 msgid "Supported Image Files"
 msgstr "Қолдауы бар сурет файлдары"
 
-#: shell/pps-window.c:1753
+#: shell/ev-window.c:1753
 msgid "The document contains no pages"
 msgstr "Құжатта парақтар жоқ"
 
-#: shell/pps-window.c:1756
+#: shell/ev-window.c:1756
 msgid "The document contains only empty pages"
 msgstr "Құжатта тек бос парақтар бар"
 
-#: shell/pps-window.c:1997 shell/pps-window.c:2171
+#: shell/ev-window.c:1997 shell/ev-window.c:2171
 #, c-format
 msgid "Unable to open document “%s”."
 msgstr "\"%s\" құжатын ашу мүмкін емес."
 
-#: shell/pps-window.c:2136
+#: shell/ev-window.c:2136
 #, c-format
 msgid "Loading document from “%s”"
 msgstr "Құжатты “%s” ішінен жүктеу"
 
-#: shell/pps-window.c:2141 shell/pps-window.c:2599 shell/pps-window.c:2965
-#: shell/pps-window.c:3700 shell/pps-window.c:3948
+#: shell/ev-window.c:2141 shell/ev-window.c:2599 shell/ev-window.c:2965
+#: shell/ev-window.c:3700 shell/ev-window.c:3948
 msgid "C_ancel"
 msgstr "Б_ас тарту"
 
-#: shell/pps-window.c:2293 shell/pps-window.c:2650
+#: shell/ev-window.c:2293 shell/ev-window.c:2650
 #, c-format
 msgid "Downloading document (%d%%)"
 msgstr "Құжат жүктеліп алынуда (%d%%)"
 
-#: shell/pps-window.c:2326
+#: shell/ev-window.c:2326
 msgid "Failed to load remote file."
 msgstr "Қашықтағы файлды жүктеу сәтсіз."
 
-#: shell/pps-window.c:2595
+#: shell/ev-window.c:2595
 #, c-format
 msgid "Reloading document from %s"
 msgstr "Құжатты %s ішінен қайта жүктеу"
 
-#: shell/pps-window.c:2625
+#: shell/ev-window.c:2625
 msgid "Failed to reload document."
 msgstr "Құжатты қайта жүктеу сәтсіз."
 
-#: shell/pps-window.c:2873
+#: shell/ev-window.c:2873
 msgid "Open Document"
 msgstr "Құжатты ашу"
 
-#: shell/pps-window.c:2876
+#: shell/ev-window.c:2876
 msgid "_Open"
 msgstr "_Ашу"
 
-#: shell/pps-window.c:2951
+#: shell/ev-window.c:2951
 #, c-format
 msgid "Saving document to %s"
 msgstr "Құжатты %s ішіне сақтау"
 
-#: shell/pps-window.c:2954
+#: shell/ev-window.c:2954
 #, c-format
 msgid "Saving attachment to %s"
 msgstr "Салынымды %s ішіне сақтау"
 
-#: shell/pps-window.c:2957
+#: shell/ev-window.c:2957
 #, c-format
 msgid "Saving image to %s"
 msgstr "Суретті %s ішіне сақтау"
 
-#: shell/pps-window.c:2999 shell/pps-window.c:3113
+#: shell/ev-window.c:2999 shell/ev-window.c:3113
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Файлды “%s” етіп сақтау мүмкін емес."
 
-#: shell/pps-window.c:3031
+#: shell/ev-window.c:3031
 #, c-format
 msgid "Uploading document (%d%%)"
 msgstr "Құжатты жүктеу (%d%%)"
 
-#: shell/pps-window.c:3035
+#: shell/ev-window.c:3035
 #, c-format
 msgid "Uploading attachment (%d%%)"
 msgstr "Салынымды жүктеу (%d%%)"
 
-#: shell/pps-window.c:3039
+#: shell/ev-window.c:3039
 #, c-format
 msgid "Uploading image (%d%%)"
 msgstr "Суретті жүктеу (%d%%)"
 
-#: shell/pps-window.c:3171
+#: shell/ev-window.c:3171
 msgid "Save As…"
 msgstr "Қалайша сақтау…"
 
-#: shell/pps-window.c:3173 shell/pps-window.c:6982 shell/pps-window.c:7208
+#: shell/ev-window.c:3173 shell/ev-window.c:6982 shell/ev-window.c:7208
 msgid "_Save"
 msgstr "_Сақтау"
 
-#: shell/pps-window.c:3260
+#: shell/ev-window.c:3260
 msgid "Could not send current document"
 msgstr "Ағымдағы құжатты жіберу мүмкін емес"
 
-#: shell/pps-window.c:3587
+#: shell/ev-window.c:3587
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "Кезекте %d тапсырма бар"
 
-#: shell/pps-window.c:3696
+#: shell/ev-window.c:3696
 #, c-format
 msgid "Printing job “%s”"
 msgstr "\"%s\" тапсырмасын басып шығару"
 
-#: shell/pps-window.c:3914
+#: shell/ev-window.c:3914
 msgid "Document contains form fields that have been filled out."
 msgstr "Құжатта толтырылған форма өрістері бар."
 
-#: shell/pps-window.c:3917
+#: shell/ev-window.c:3917
 msgid "Document contains new or modified annotations."
 msgstr "Құжатта жаңа немесе өзгертілген аңдатпалар бар."
 
-#: shell/pps-window.c:3929
+#: shell/ev-window.c:3929
 #, c-format
 msgid "Reload document “%s”?"
 msgstr "\"%s\" құжатын қайта жүктеу керек пе?"
 
-#: shell/pps-window.c:3931
+#: shell/ev-window.c:3931
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "Құжатты қайта жүктесеңіз, өзгерістер қайтарылмастай жоғалады."
 
-#: shell/pps-window.c:3933
+#: shell/ev-window.c:3933
 msgid "_No"
 msgstr "_Жоқ"
 
-#: shell/pps-window.c:3942
+#: shell/ev-window.c:3942
 #, c-format
 msgid "Save a copy of document “%s” before closing?"
 msgstr "Жабу алдында “%s” құжаттың көшірмесін сақтау керек пе?"
 
-#: shell/pps-window.c:3944
+#: shell/ev-window.c:3944
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "Көшірмесін сақтамасаңыз, өзгерістер жоғалады."
 
-#: shell/pps-window.c:3946
+#: shell/ev-window.c:3946
 msgid "Close _without Saving"
 msgstr "Сақта_май-ақ жабу"
 
-#: shell/pps-window.c:3950
+#: shell/ev-window.c:3950
 msgid "Save a _Copy"
 msgstr "Кө_шірмесін сақтау"
 
-#: shell/pps-window.c:4032
+#: shell/ev-window.c:4032
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr "Жабу алдында “%s” тапсырмасын басып шығарудың аяқталуын күту керек пе?"
@@ -1607,7 +1607,7 @@ msgstr "Жабу алдында “%s” тапсырмасын басып шы�
 #. TRANS: the singular form is not really used as n_print_jobs > 1
 #. but some languages distinguish between different plurals forms,
 #. so the ngettext is needed.
-#: shell/pps-window.c:4038
+#: shell/ev-window.c:4038
 #, c-format
 msgid "There is %d print job active. Wait until print finishes before closing?"
 msgid_plural ""
@@ -1616,47 +1616,47 @@ msgstr[0] ""
 "Қазір %d басып шығару тапсырмасы белсенді. Жабу алдында олардың аяқталуын "
 "күту керек пе?"
 
-#: shell/pps-window.c:4053
+#: shell/ev-window.c:4053
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr "Терезені жапсаңыз, кезектегі тапсырмалар баспаға шығарылмай қалады."
 
-#: shell/pps-window.c:4057
+#: shell/ev-window.c:4057
 msgid "Cancel _print and Close"
 msgstr "_Баспадан бас тарту мен жабу"
 
-#: shell/pps-window.c:4061
+#: shell/ev-window.c:4061
 msgid "Close _after Printing"
 msgstr "Баспаны а_яқтаудан кейін жабу"
 
-#: shell/pps-window.c:4229
-msgid "© 1996–2022 The Papers document viewer authors"
-msgstr "© 1996–2022 Papers құжаттар көрсетушісі авторлары"
+#: shell/ev-window.c:4229
+msgid "© 1996–2022 The Evince document viewer authors"
+msgstr "© 1996–2022 Evince құжаттар көрсетушісі авторлары"
 
-#: shell/pps-window.c:4232
-msgid "Papers is a simple document viewer for GNOME"
-msgstr "Papers - GNOME жұмыс үстелі үшін құжаттарды қарау қарапайым қолданбасы"
+#: shell/ev-window.c:4232
+msgid "Evince is a simple document viewer for GNOME"
+msgstr "Evince - GNOME жұмыс үстелі үшін құжаттарды қарау қарапайым қолданбасы"
 
-#: shell/pps-window.c:4235
+#: shell/ev-window.c:4235
 msgid "translator-credits"
 msgstr "Baurzhan Muftakhidinov <baurthefirst@gmail.com>"
 
-#: shell/pps-window.c:4713
+#: shell/ev-window.c:4713
 msgid "Running in presentation mode"
 msgstr "Презентация режимінде орындалу"
 
-#: shell/pps-window.c:5700
+#: shell/ev-window.c:5700
 msgid "The attachment could not be saved."
 msgstr "Салынымды сақтау мүмкін емес."
 
-#: shell/pps-window.c:6022
+#: shell/ev-window.c:6022
 msgid "Enable caret navigation?"
 msgstr "Мәтіндік курсор навигациясын іске қосу керек пе?"
 
-#: shell/pps-window.c:6023
+#: shell/ev-window.c:6023
 msgid "_Enable"
 msgstr "Іск_е қосу"
 
-#: shell/pps-window.c:6026
+#: shell/ev-window.c:6026
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1667,102 +1667,102 @@ msgstr ""
 "пернетақта көмегімен жылжытып, мәтінді ерекшелеуге болады. Мәтіндік курсор "
 "навигациясын іске қосуды қалайсыз ба?"
 
-#: shell/pps-window.c:6031
+#: shell/ev-window.c:6031
 msgid "Don’t show this message again"
 msgstr "Бұл хабарламаны келесіде көрсетпеу"
 
-#: shell/pps-window.c:6620
+#: shell/ev-window.c:6620
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
 msgstr "Қауіпсіздік ескертуі: бұл құжатқа \"%s\" файлын ашуға жол берілмеді"
 
-#: shell/pps-window.c:6685
+#: shell/ev-window.c:6685
 msgid "Unable to open external link"
 msgstr "Сыртқы сілтемені ашу мүмкін емес"
 
-#: shell/pps-window.c:6911
+#: shell/ev-window.c:6911
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Суретті сақтау үшін сәйкес пішімді табу мүмкін емес"
 
-#: shell/pps-window.c:6943
+#: shell/ev-window.c:6943
 msgid "The image could not be saved."
 msgstr "Суретті сақтау мүмкін емес."
 
-#: shell/pps-window.c:6979
+#: shell/ev-window.c:6979
 msgid "Save Image"
 msgstr "Суретті сақтау"
 
-#: shell/pps-window.c:7137
+#: shell/ev-window.c:7137
 msgid "Unable to open attachment"
 msgstr "Салынымды ашу мүмкін емес"
 
-#: shell/pps-window.c:7205
+#: shell/ev-window.c:7205
 msgid "Save Attachment"
 msgstr "Салынымды сақтау"
 
-#: shell/pps-window-title.c:108
+#: shell/ev-window-title.c:108
 msgid "Recent Documents"
 msgstr "Жуырдағы құжаттар"
 
-#: shell/pps-window-title.c:151 shell/pps-window-title.c:153
-#: shell/pps-window-title.c:158
+#: shell/ev-window-title.c:151 shell/ev-window-title.c:153
+#: shell/ev-window-title.c:158
 msgid "Password Required"
 msgstr "Пароль керек"
 
-#: shell/pps-zoom-action.c:41
+#: shell/ev-zoom-action.c:41
 msgid "50%"
 msgstr "50%"
 
-#: shell/pps-zoom-action.c:42
+#: shell/ev-zoom-action.c:42
 msgid "70%"
 msgstr "70%"
 
-#: shell/pps-zoom-action.c:43
+#: shell/ev-zoom-action.c:43
 msgid "85%"
 msgstr "85%"
 
-#: shell/pps-zoom-action.c:44
+#: shell/ev-zoom-action.c:44
 msgid "100%"
 msgstr "100%"
 
-#: shell/pps-zoom-action.c:45
+#: shell/ev-zoom-action.c:45
 msgid "125%"
 msgstr "125%"
 
-#: shell/pps-zoom-action.c:46
+#: shell/ev-zoom-action.c:46
 msgid "150%"
 msgstr "150%"
 
-#: shell/pps-zoom-action.c:47
+#: shell/ev-zoom-action.c:47
 msgid "175%"
 msgstr "175%"
 
-#: shell/pps-zoom-action.c:48
+#: shell/ev-zoom-action.c:48
 msgid "200%"
 msgstr "200%"
 
-#: shell/pps-zoom-action.c:49
+#: shell/ev-zoom-action.c:49
 msgid "300%"
 msgstr "300%"
 
-#: shell/pps-zoom-action.c:50
+#: shell/ev-zoom-action.c:50
 msgid "400%"
 msgstr "400%"
 
-#: shell/pps-zoom-action.c:51
+#: shell/ev-zoom-action.c:51
 msgid "800%"
 msgstr "800%"
 
-#: shell/pps-zoom-action.c:52
+#: shell/ev-zoom-action.c:52
 msgid "1600%"
 msgstr "1600%"
 
-#: shell/pps-zoom-action.c:53
+#: shell/ev-zoom-action.c:53
 msgid "3200%"
 msgstr "3200%"
 
-#: shell/pps-zoom-action.c:54
+#: shell/ev-zoom-action.c:54
 msgid "6400%"
 msgstr "6400%"
 
@@ -2104,16 +2104,16 @@ msgid "DEST"
 msgstr "МАҚСАТЫ"
 
 #: shell/main.c:76
-msgid "Run papers in fullscreen mode"
-msgstr "Papers толық экран режимінде жөнелту"
+msgid "Run evince in fullscreen mode"
+msgstr "Evince толық экран режимінде жөнелту"
 
 #: shell/main.c:77
-msgid "Run papers in presentation mode"
-msgstr "Papers презентация режимінде жөнелту"
+msgid "Run evince in presentation mode"
+msgstr "Evince презентация режимінде жөнелту"
 
 #: shell/main.c:78
-msgid "Run papers as a previewer"
-msgstr "Papers алдын-ала көрсетушісі режимінде жөнелту"
+msgid "Run evince as a previewer"
+msgstr "Evince алдын-ала көрсетушісі режимінде жөнелту"
 
 #: shell/main.c:79
 msgid "The word or phrase to find in the document"
@@ -2165,8 +2165,8 @@ msgstr "[ФАЙЛ…]"
 #~ msgid "_Remove Bookmark"
 #~ msgstr "Бетбелгіні ө_шіру"
 
-#~ msgid "org.gnome.Papers"
-#~ msgstr "org.gnome.Papers"
+#~ msgid "org.gnome.Evince"
+#~ msgstr "org.gnome.Evince"
 
 #~ msgid "document-print-preview"
 #~ msgstr "document-print-preview"
@@ -2237,31 +2237,31 @@ msgstr "[ФАЙЛ…]"
 #~ msgstr "Бе_тбелгіні қосу"
 
 #~ msgid ""
-#~ "Papers is free software; you can redistribute it and/or modify it under "
+#~ "Evince is free software; you can redistribute it and/or modify it under "
 #~ "the terms of the GNU General Public License as published by the Free "
 #~ "Software Foundation; either version 2 of the License, or (at your option) "
 #~ "any later version.\n"
 #~ msgstr ""
-#~ "Papers еркін бағдарлама; сіз оны Free Software Foundation шығарған GNU "
+#~ "Evince еркін бағдарлама; сіз оны Free Software Foundation шығарған GNU "
 #~ "General Public License аясында еркін тарата не/және өзгерте аласыз; "
 #~ "лицензия нұсқасы 2 не (тандауыңызша) кез-келген кейін шыққан.\n"
 
 #~ msgid ""
-#~ "Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
+#~ "Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
 #~ "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 #~ "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 #~ "details.\n"
 #~ msgstr ""
-#~ "Papers пайдалы болады деген сеніммен таратылады, бірақ ЕШҚАНДАЙ КЕПІЛДЕМЕ "
+#~ "Evince пайдалы болады деген сеніммен таратылады, бірақ ЕШҚАНДАЙ КЕПІЛДЕМЕ "
 #~ "берілмейді; КОММЕРЦИЯЛЫҚ ҚҰНДЫЛЫҚ немесе белгілі бір МАҚСАТТАРҒА СӘЙКЕС "
 #~ "КЕЛЕТІНІ үшін де.  Көбірек білу үшін GNU General Public License қараңыз.\n"
 
 #~ msgid ""
 #~ "You should have received a copy of the GNU General Public License along "
-#~ "with Papers; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "with Evince; if not, write to the Free Software Foundation, Inc., 51 "
 #~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 #~ msgstr ""
-#~ "Сіз осы Papers бағдарласымен бірге GNU General Public License көшірмесін "
+#~ "Сіз осы Evince бағдарласымен бірге GNU General Public License көшірмесін "
 #~ "алуыңыз керек еді; олай болмаса, Free Software Foundation, Inc. ұйымына "
 #~ "хабарласыңыз, 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA\n"
 
@@ -2536,7 +2536,7 @@ msgstr "[ФАЙЛ…]"
 #~ msgid "_Toolbar"
 #~ msgstr "_Панель"
 
-#~ msgid "_Dual (Ppsen pages left)"
+#~ msgid "_Dual (Even pages left)"
 #~ msgstr "Қо_с (Жұп парақтар сол жақта)"
 
 #~ msgid "Show two pages at once with even pages on the left"
@@ -2579,11 +2579,11 @@ msgstr "[ФАЙЛ…]"
 #~ msgstr "Метаақпарат түрлендірілуде"
 
 #~ msgid ""
-#~ "The metadata format used by Papers has changed, and hence it needs to be "
+#~ "The metadata format used by Evince has changed, and hence it needs to be "
 #~ "migrated. If the migration is cancelled the metadata storage will not "
 #~ "work."
 #~ msgstr ""
-#~ "Papers қолданатын метаақпарат пішімі өзгертілген, сол үшін оны түрлендіру "
+#~ "Evince қолданатын метаақпарат пішімі өзгертілген, сол үшін оны түрлендіру "
 #~ "керек. Егер одан бас тартылса, метаақпарат қоры жұмыс істемейді."
 
 #~ msgid "No error"

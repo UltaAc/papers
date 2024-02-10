@@ -1,10 +1,10 @@
-# Russian translation for Papers documentation.
+# Russian translation for Evince documentation.
 #
 # Copyright 2008, Free Software Foundation Inc.
 # Yuri Kozlov <yuray@komyakino.ru>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: papers 0.2\n"
+"Project-Id-Version: evince 0.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-15 00:54+0000\n"
 "PO-Revision-Date: 2023-09-15 22:19+1000\n"
@@ -554,8 +554,8 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/introduction.page:18
-msgid "Introduction to the <em>Papers Document Viewer</em>."
-msgstr "Введение в <em>приложение для просмотра документов Papers</em>."
+msgid "Introduction to the <em>Evince Document Viewer</em>."
+msgstr "Введение в <em>приложение для просмотра документов Evince</em>."
 
 #. (itstool) path: page/title
 #: C/introduction.page:21
@@ -565,10 +565,10 @@ msgstr "Введение"
 #. (itstool) path: page/p
 #: C/introduction.page:23
 msgid ""
-"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
+"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
-"<app>Papers</app> — приложение для просмотра документов. Подробнее о типах "
+"<app>Evince</app> — приложение для просмотра документов. Подробнее о типах "
 "файлов, которые можно открывать см. <link xref=\"formats\"/>."
 
 #. (itstool) path: info/desc
@@ -681,7 +681,7 @@ msgstr ""
 #: C/singlesided-3-4pages.page:97 C/singlesided-17-20pages.page:98
 #: C/singlesided-npages.page:104 C/singlesided-13-16pages.page:100
 #: C/singlesided-9-12pages.page:97 C/singlesided-5-8pages.page:97
-msgid "In the <gui>Only print</gui> menu, select <gui>Ppsen sheets</gui>."
+msgid "In the <gui>Only print</gui> menu, select <gui>Even sheets</gui>."
 msgstr "В меню <gui>Печатать только</gui> выберите <gui>Чётные листы</gui>."
 
 #. (itstool) path: info/desc
@@ -840,12 +840,12 @@ msgstr "Vim-latex"
 #. (itstool) path: section/p
 #: C/synctex-editors.page:29
 msgid ""
-"The <app>gedit</app> plugin contains a python script (<file>papers_dbus.py</"
+"The <app>gedit</app> plugin contains a python script (<file>evince_dbus.py</"
 "file>) that can be used to get SyncTeX working with Vim. In order to use vim-"
 "latex together with the <app>document viewer</app> you need to follow the "
 "next steps:"
 msgstr ""
-"Модуль <app>gedit</app> содержит python-скрипт (<file>papers_dbus.py</"
+"Модуль <app>gedit</app> содержит python-скрипт (<file>evince_dbus.py</"
 "file>), который можно использовать для обеспечения работы SyncTeX с Vim. Для "
 "того чтобы использовать vim-latex вместе с <app>программой просмотра "
 "документов</app>, необходимо выполнить следующие шаги:"
@@ -853,10 +853,10 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/synctex-editors.page:35
 msgid ""
-"Copy the <file>papers_dbus.py</file> to some directory in your path and give "
+"Copy the <file>evince_dbus.py</file> to some directory in your path and give "
 "it +x permissions."
 msgstr ""
-"Скопируйте файл <file>papers_dbus.py</file> в какой-нибудь каталог по вашему "
+"Скопируйте файл <file>evince_dbus.py</file> в какой-нибудь каталог по вашему "
 "пути и дайте ему права +x."
 
 #. (itstool) path: item/p
@@ -869,12 +869,12 @@ msgstr "Измените ваш файл <file>~/.vimrc</file> и добавьт
 #, no-wrap
 msgid ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 msgstr ""
 "\n"
-"let g:Tex_ViewRule_pdf = 'papers_dbus.py'\n"
+"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
 "let g:Tex_DefaultTargetFormat = 'pdf'\n"
 "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
 
@@ -1151,8 +1151,8 @@ msgstr "Нажмите на <gui>dconf Editor</gui> (Редактор dconf)."
 
 #. (itstool) path: item/p
 #: C/noprint.page:100
-msgid "Browse to <sys>/org/gnome/papers</sys>."
-msgstr "Перейдите к <sys>/org/gnome/papers</sys>."
+msgid "Browse to <sys>/org/gnome/evince</sys>."
+msgstr "Перейдите к <sys>/org/gnome/evince</sys>."
 
 #. (itstool) path: item/p
 #: C/noprint.page:103
@@ -1528,10 +1528,10 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/translate.page:27
 msgid ""
-"There are <link href=\"https://l10n.gnome.org/module/papers/\">many "
+"There are <link href=\"https://l10n.gnome.org/module/evince/\">many "
 "languages</link> for which translations are still needed."
 msgstr ""
-"Есть ещё <link href=\"https://l10n.gnome.org/module/papers/\">много языков</"
+"Есть ещё <link href=\"https://l10n.gnome.org/module/evince/\">много языков</"
 "link>, на которые требуется выполнить перевод."
 
 #. (itstool) path: page/p
@@ -2076,21 +2076,21 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/develop.page:23
 msgid ""
-"If you would like to <link href=\"https://wiki.gnome.org/Apps/Papers\">help "
+"If you would like to <link href=\"https://wiki.gnome.org/Apps/Evince\">help "
 "develop</link> the <app>Document Viewer</app>, you can get in touch with the "
-"developers at <link href=\"https://matrix.to/#/#papers:gnome.org\">#papers:"
+"developers at <link href=\"https://matrix.to/#/#evince:gnome.org\">#evince:"
 "gnome.org</link> on <link xref=\"help:gnome-help/help-matrix\">Matrix</link> "
-"or <link href=\"https://web.libera.chat/#gnome-papers\">#gnome-papers</link> "
+"or <link href=\"https://web.libera.chat/#gnome-evince\">#gnome-evince</link> "
 "on irc.libera.chat, or via <link href=\"https://discourse.gnome.org/tag/"
-"papers\">GNOME Discourse</link>."
+"evince\">GNOME Discourse</link>."
 msgstr ""
-"Если вы желаете <link href=\"https://wiki.gnome.org/Apps/Papers\">помочь в "
+"Если вы желаете <link href=\"https://wiki.gnome.org/Apps/Evince\">помочь в "
 "развитии</link> приложения <app>Просмотр документов</app>, то можете "
-"связаться с разработчиками по <link href=\"https://matrix.to/#/#papers:gnome."
-"org\">#papers:gnome.org</link> на <link xref=\"help:gnome-help/help-"
+"связаться с разработчиками по <link href=\"https://matrix.to/#/#evince:gnome."
+"org\">#evince:gnome.org</link> на <link xref=\"help:gnome-help/help-"
 "matrix\">Matrix</link> или <link href=\"https://web.libera.chat/#gnome-"
-"papers\">#gnome-papers</link> на irc.libera.chat, или через <link "
-"href=\"https://discourse.gnome.org/tag/papers\">GNOME Discourse</link>."
+"evince\">#gnome-evince</link> на irc.libera.chat, или через <link "
+"href=\"https://discourse.gnome.org/tag/evince\">GNOME Discourse</link>."
 
 #. (itstool) path: info/desc
 #: C/printing.page:9
@@ -2745,12 +2745,12 @@ msgid ""
 "The <app>document viewer</app> is maintained by a volunteer community. You "
 "are welcome to participate. If you notice a problem you can file a <em>bug "
 "report</em>. To file a bug, go to <link href=\"https://gitlab.gnome.org/"
-"GNOME/papers/issues/\"/>."
+"GNOME/evince/issues/\"/>."
 msgstr ""
 "<app>Просмотр документов</app> поддерживается сообществом добровольцев. Вы "
 "можете принять в нем участие. Если вы заметили проблему, вы можете отправить "
 "<em>сообщение об ошибке</em>. Чтобы сообщить об ошибке, перейдите по адресу "
-"<link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues/\"/>."
+"<link href=\"https://gitlab.gnome.org/GNOME/evince/issues/\"/>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2783,14 +2783,14 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues\">browse</"
+"please <link href=\"https://gitlab.gnome.org/GNOME/evince/issues\">browse</"
 "link> for the bug to see if it already exists."
 msgstr ""
 "После создания учетной записи войдите в систему и нажмите <gui>New issue</"
 "gui>. Прежде чем сообщить об ошибке, пожалуйста, прочитайте <link "
 "href=\"https://wiki.gnome.org/GettingInTouch/"
 "BugReportingGuidelines\">руководство по написанию ошибок</link>, а также "
-"<link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues\">просмотрите</"
+"<link href=\"https://gitlab.gnome.org/GNOME/evince/issues\">просмотрите</"
 "link>, не существует ли уже такая ошибка."
 
 #. (itstool) path: page/p
@@ -3461,10 +3461,10 @@ msgstr "Командная строка"
 #. (itstool) path: info/desc
 #: C/commandline.page:8
 msgid ""
-"The <cmd>papers</cmd> command can open any number of files, at specific "
+"The <cmd>evince</cmd> command can open any number of files, at specific "
 "pages and in various modes."
 msgstr ""
-"С помощью команды <cmd>papers</cmd> можно открыть любое количество файлов на "
+"С помощью команды <cmd>evince</cmd> можно открыть любое количество файлов на "
 "определённых страницах и в различных режимах."
 
 #. (itstool) path: page/title
@@ -3476,50 +3476,50 @@ msgstr "Командная строка"
 #: C/commandline.page:25
 msgid ""
 "To start the <app>Document Viewer</app> from the command line, type "
-"<cmd>papers</cmd>. You can open a specific file by typing the filename after "
-"the papers command:"
+"<cmd>evince</cmd>. You can open a specific file by typing the filename after "
+"the evince command:"
 msgstr ""
 "Чтобы запустить <app>приложение для просмотра документов</app> из командной "
-"строки, введите <cmd>papers</cmd>. Вы можете открыть файл, введя его имя "
-"после команды papers:"
+"строки, введите <cmd>evince</cmd>. Вы можете открыть файл, введя его имя "
+"после команды evince:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:30
 #, no-wrap
-msgid "papers file.pdf"
-msgstr "papers файл.pdf"
+msgid "evince file.pdf"
+msgstr "evince файл.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:31
 msgid ""
-"You can open multiple files by typing the filenames after the papers "
+"You can open multiple files by typing the filenames after the evince "
 "command, separating the filenames by a space:"
 msgstr ""
-"Вы можете открыть несколько файлов, введя их имена после команды papers, "
+"Вы можете открыть несколько файлов, введя их имена после команды evince, "
 "используя пробел в качестве разделителя:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:34
 #, no-wrap
-msgid "papers file1.pdf file2.pdf"
-msgstr "papers файл1.pdf файл2.pdf"
+msgid "evince file1.pdf file2.pdf"
+msgstr "evince файл1.pdf файл2.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:35
 msgid ""
 "The <app>document viewer</app> also supports the handling of files on the "
-"web. For example, after the papers command you can give the location of a "
+"web. For example, after the evince command you can give the location of a "
 "file on the web:"
 msgstr ""
 "<app>Приложение для просмотра документов</app> также поддерживает файлы, "
-"находящиеся в Интернете. Например, после команды papers можно указать веб-"
+"находящиеся в Интернете. Например, после команды evince можно указать веб-"
 "адрес файла:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:38
 #, no-wrap
-msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:40
@@ -3539,8 +3539,8 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:45
 #, no-wrap
-msgid "papers --page-label=3 file.pdf"
-msgstr "papers --page-label=3 файл.pdf"
+msgid "evince --page-label=3 file.pdf"
+msgstr "evince --page-label=3 файл.pdf"
 
 #. (itstool) path: section/p
 #: C/commandline.page:46
@@ -3559,8 +3559,8 @@ msgstr "Открытие документа в полноэкранном реж
 #. (itstool) path: section/screen
 #: C/commandline.page:53
 #, no-wrap
-msgid "papers --fullscreen file.pdf"
-msgstr "papers --fullscreen файл.pdf"
+msgid "evince --fullscreen file.pdf"
+msgstr "evince --fullscreen файл.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:56
@@ -3570,8 +3570,8 @@ msgstr "Открытие документа в режиме презентаци
 #. (itstool) path: section/screen
 #: C/commandline.page:57
 #, no-wrap
-msgid "papers --presentation file.pdf"
-msgstr "papers --presentation файл.pdf"
+msgid "evince --presentation file.pdf"
+msgstr "evince --presentation файл.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:60
@@ -3581,8 +3581,8 @@ msgstr "Открытие документа в режиме предварите
 #. (itstool) path: section/screen
 #: C/commandline.page:61
 #, no-wrap
-msgid "papers --preview file.pdf"
-msgstr "papers --preview файл.pdf"
+msgid "evince --preview file.pdf"
+msgstr "evince --preview файл.pdf"
 
 #. (itstool) path: info/desc
 #: C/annotations.page:8
@@ -3745,36 +3745,36 @@ msgstr ""
 #. (itstool) path: info/title
 #: C/index.page:7
 msgctxt "link:trail"
-msgid "Papers Document Viewer"
-msgstr "Просмотр документов Papers"
+msgid "Evince Document Viewer"
+msgstr "Просмотр документов Evince"
 
 #. (itstool) path: info/title
 #: C/index.page:8
 msgctxt "link"
-msgid "Papers Document Viewer"
-msgstr "Просмотр документов Papers"
+msgid "Evince Document Viewer"
+msgstr "Просмотр документов Evince"
 
 #. (itstool) path: info/title
 #: C/index.page:9
 msgctxt "text"
-msgid "Papers Document Viewer"
-msgstr "Просмотр документов Papers"
+msgid "Evince Document Viewer"
+msgstr "Просмотр документов Evince"
 
 #. (itstool) path: info/desc
 #: C/index.page:24
 msgid ""
-"<app>Document Viewer</app>, formally known as <app>Papers</app>, is made for "
+"<app>Document Viewer</app>, formally known as <app>Evince</app>, is made for "
 "viewing PDF documents. Learn how to get started with <app>Document Viewer</"
 "app> and its features."
 msgstr ""
-"<app>Просмотр документов</app>, официально известный как <app>Papers</app>, "
+"<app>Просмотр документов</app>, официально известный как <app>Evince</app>, "
 "предназначен для просмотра документов PDF. Узнайте, как начать работу с "
 "приложением <app>Просмотр документов</app> и каковы его возможности."
 
 #. (itstool) path: page/title
 #: C/index.page:30
 msgid "<_:media-1/> Document Viewer Help"
-msgstr "Просмотр документов Papers"
+msgstr "Просмотр документов Evince"
 
 #. (itstool) path: section/title
 #: C/index.page:36
@@ -4236,17 +4236,17 @@ msgstr ""
 #~ msgstr "mdhillca@gmail.com"
 
 #~ msgid ""
-#~ "@@image: 'figures/papers-toolbar-default.png'; "
+#~ "@@image: 'figures/evince-toolbar-default.png'; "
 #~ "md5=2a826732c770c08b11684e28e259bb31"
 #~ msgstr ""
-#~ "@@image: 'figures/papers-toolbar-default.png'; "
+#~ "@@image: 'figures/evince-toolbar-default.png'; "
 #~ "md5=2a826732c770c08b11684e28e259bb31"
 
 #~ msgid ""
-#~ "@@image: 'figures/papers-toolbar-editor.png'; "
+#~ "@@image: 'figures/evince-toolbar-editor.png'; "
 #~ "md5=e6c66f764c39ab5ba01441d970425cd9"
 #~ msgstr ""
-#~ "@@image: 'figures/papers-toolbar-editor.png'; "
+#~ "@@image: 'figures/evince-toolbar-editor.png'; "
 #~ "md5=e6c66f764c39ab5ba01441d970425cd9"
 
 #~ msgid ""
@@ -4822,21 +4822,21 @@ msgstr ""
 #~ "gui><gui>Инвертировать цвета</gui></guiseq>."
 
 #~ msgid ""
-#~ "@@image: 'figures/papers-trail.png'; md5=a1a70d04c37f05937d0b3e7a0705d2d4"
+#~ "@@image: 'figures/evince-trail.png'; md5=a1a70d04c37f05937d0b3e7a0705d2d4"
 #~ msgstr ""
-#~ "@@image: 'figures/papers-trail.png'; md5=a1a70d04c37f05937d0b3e7a0705d2d4"
+#~ "@@image: 'figures/evince-trail.png'; md5=a1a70d04c37f05937d0b3e7a0705d2d4"
 
 #~ msgid ""
-#~ "@@image: 'figures/paperslogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
+#~ "@@image: 'figures/evincelogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
 #~ msgstr ""
-#~ "@@image: 'figures/paperslogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
+#~ "@@image: 'figures/evincelogo.png'; md5=a5856135b500d4c4b74a052eef6e09d2"
 
 #~ msgid ""
-#~ "<media type=\"image\" src=\"figures/paperslogo.png\">Papers logo</"
-#~ "media>Papers document viewer"
+#~ "<media type=\"image\" src=\"figures/evincelogo.png\">Evince logo</"
+#~ "media>Evince document viewer"
 #~ msgstr ""
-#~ "<media type=\"image\" src=\"figures/paperslogo.png\">Логотип Papers</"
-#~ "media> Приложения для просмотра документов Papers"
+#~ "<media type=\"image\" src=\"figures/evincelogo.png\">Логотип Evince</"
+#~ "media> Приложения для просмотра документов Evince"
 
 #~ msgid "Save a copy"
 #~ msgstr "Сохранить копию"
@@ -4974,5 +4974,5 @@ msgstr ""
 #~ msgid "You can't remove annotations."
 #~ msgstr "Вы не можете удалять аннотации."
 
-#~ msgid "Help for the Papers Document Viewer."
-#~ msgstr "Справка по приложению для просмотра документов Papers."
+#~ msgid "Help for the Evince Document Viewer."
+#~ msgstr "Справка по приложению для просмотра документов Evince."

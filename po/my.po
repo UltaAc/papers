@@ -1,11 +1,11 @@
-# Burmese translation for papers.
-# Copyright (C) 2011 papers's COPYRIGHT HOLDER
-# This file is distributed under the same license as the papers package.
+# Burmese translation for evince.
+# Copyright (C) 2011 evince's COPYRIGHT HOLDER
+# This file is distributed under the same license as the evince package.
 # KYAW MYAT THU <MYANMARNE0@GMAIL.COM>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: papers master\n"
+"Project-Id-Version: evince master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-11-14 21:58+0100\n"
 "PO-Revision-Date: 2011-09-06 08:54+0000\n"
@@ -43,8 +43,8 @@ msgid "Can't find an appropriate command to decompress this type of comic book"
 msgstr "ဤရုပ်ပြစာအုပ အမျိုးအစားအား ချုံ့သိပ်ရန် ကိုက်ညီသော စေခိုင်းချက် ရှာမတွေ့ပါ။"
 
 #: ../backend/comics/comics-document.c:465
-#: ../libdocument/pps-document-factory.c:143
-#: ../libdocument/pps-document-factory.c:286
+#: ../libdocument/ev-document-factory.c:143
+#: ../libdocument/ev-document-factory.c:286
 msgid "Unknown MIME Type"
 msgstr "MIME အမျိုးအစား မသိပါ"
 
@@ -71,7 +71,7 @@ msgstr "“%s” အား ဖျက်ဆီးရာတွင် မှား�
 msgid "Error %s"
 msgstr "မှားယွင်းမှု %s"
 
-#: ../backend/comics/comicsdocument.papers-backend.in.h:1
+#: ../backend/comics/comicsdocument.evince-backend.in.h:1
 msgid "Comic Books"
 msgstr "ရုပ်ပြစာအုပ်များ"
 
@@ -85,7 +85,7 @@ msgid ""
 "be accessed."
 msgstr "ဝင်ရောက်၍ မရနိုင်ပါ။"
 
-#: ../backend/djvu/djvudocument.papers-backend.in.h:1
+#: ../backend/djvu/djvudocument.evince-backend.in.h:1
 msgid "DjVu Documents"
 msgstr "DjVu ဖိုင်များ"
 
@@ -93,73 +93,73 @@ msgstr "DjVu ဖိုင်များ"
 msgid "DVI document has incorrect format"
 msgstr "မှားယွင်းသော DVI ဖိုင်အမျိုးအစား"
 
-#: ../backend/dvi/dvidocument.papers-backend.in.h:1
+#: ../backend/dvi/dvidocument.evince-backend.in.h:1
 msgid "DVI Documents"
 msgstr "DVI ဖိုင်များ"
 
-#: ../backend/pdf/pps-poppler.cc:526
+#: ../backend/pdf/ev-poppler.cc:526
 msgid "This work is in the Public Domain"
 msgstr ""
 
 #. translators: this is the document security state
-#: ../backend/pdf/pps-poppler.cc:779
+#: ../backend/pdf/ev-poppler.cc:779
 msgid "Yes"
 msgstr "လုပ်မည်"
 
 #. translators: this is the document security state
-#: ../backend/pdf/pps-poppler.cc:782
+#: ../backend/pdf/ev-poppler.cc:782
 msgid "No"
 msgstr "မလုပ်ပါ"
 
-#: ../backend/pdf/pps-poppler.cc:910
+#: ../backend/pdf/ev-poppler.cc:910
 msgid "Type 1"
 msgstr ""
 
-#: ../backend/pdf/pps-poppler.cc:912
+#: ../backend/pdf/ev-poppler.cc:912
 msgid "Type 1C"
 msgstr ""
 
-#: ../backend/pdf/pps-poppler.cc:914
+#: ../backend/pdf/ev-poppler.cc:914
 msgid "Type 3"
 msgstr ""
 
-#: ../backend/pdf/pps-poppler.cc:916
+#: ../backend/pdf/ev-poppler.cc:916
 msgid "TrueType"
 msgstr ""
 
-#: ../backend/pdf/pps-poppler.cc:918
+#: ../backend/pdf/ev-poppler.cc:918
 msgid "Type 1 (CID)"
 msgstr ""
 
-#: ../backend/pdf/pps-poppler.cc:920
+#: ../backend/pdf/ev-poppler.cc:920
 msgid "Type 1C (CID)"
 msgstr ""
 
-#: ../backend/pdf/pps-poppler.cc:922
+#: ../backend/pdf/ev-poppler.cc:922
 msgid "TrueType (CID)"
 msgstr ""
 
-#: ../backend/pdf/pps-poppler.cc:924
+#: ../backend/pdf/ev-poppler.cc:924
 msgid "Unknown font type"
 msgstr "အမည်မသိ ဖောင့်အမျိုးအစား"
 
-#: ../backend/pdf/pps-poppler.cc:950
+#: ../backend/pdf/ev-poppler.cc:950
 msgid "No name"
 msgstr "အမည်မရှိ"
 
-#: ../backend/pdf/pps-poppler.cc:958
+#: ../backend/pdf/ev-poppler.cc:958
 msgid "Embedded subset"
 msgstr ""
 
-#: ../backend/pdf/pps-poppler.cc:960
+#: ../backend/pdf/ev-poppler.cc:960
 msgid "Embedded"
 msgstr "မြှပ်နှံပြီး"
 
-#: ../backend/pdf/pps-poppler.cc:962
+#: ../backend/pdf/ev-poppler.cc:962
 msgid "Not embedded"
 msgstr "မမြှပ်နှံရသေး"
 
-#: ../backend/pdf/pdfdocument.papers-backend.in.h:1
+#: ../backend/pdf/pdfdocument.evince-backend.in.h:1
 msgid "PDF Documents"
 msgstr "PDF ဖိုင်များ"
 
@@ -171,7 +171,7 @@ msgstr "မအောင်မြင်သော ဖိုင်"
 #.
 #. * vim: sw=2 ts=8 cindent noai bs=2
 #.
-#: ../backend/impress/impressdocument.papers-backend.in.h:1
+#: ../backend/impress/impressdocument.evince-backend.in.h:1
 msgid "Impress Slides"
 msgstr ""
 
@@ -214,54 +214,54 @@ msgstr "အထုပ်အတွင်း ဖိုင် မရှိပါ"
 msgid "Unknown error"
 msgstr "မသိ"
 
-#: ../backend/ps/pps-spectre.c:102
+#: ../backend/ps/ev-spectre.c:102
 #, c-format
 msgid "Failed to load document “%s”"
 msgstr "“%s” ဖိုင်ကို တင်သွင်းခြင်း မအောင်မြင်"
 
-#: ../backend/ps/pps-spectre.c:135
+#: ../backend/ps/ev-spectre.c:135
 #, c-format
 msgid "Failed to save document “%s”"
 msgstr "“%s” ဖိုင်ကို သိမ်းဆည်းခြင်း မအောင်မြင်"
 
-#: ../backend/ps/psdocument.papers-backend.in.h:1
+#: ../backend/ps/psdocument.evince-backend.in.h:1
 msgid "PostScript Documents"
 msgstr ""
 
-#: ../libdocument/pps-attachment.c:304 ../libdocument/pps-attachment.c:325
+#: ../libdocument/ev-attachment.c:304 ../libdocument/ev-attachment.c:325
 #, c-format
 msgid "Couldn't save attachment “%s”: %s"
 msgstr ""
 
-#: ../libdocument/pps-attachment.c:372
+#: ../libdocument/ev-attachment.c:372
 #, c-format
 msgid "Couldn't open attachment “%s”: %s"
 msgstr ""
 
-#: ../libdocument/pps-attachment.c:407
+#: ../libdocument/ev-attachment.c:407
 #, c-format
 msgid "Couldn't open attachment “%s”"
 msgstr ""
 
-#: ../libdocument/pps-document-factory.c:168
+#: ../libdocument/ev-document-factory.c:168
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "%s (%s) ဖိုင်အမျိုးအစားအား မထောက်ပံ့ပါ"
 
-#: ../libdocument/pps-document-factory.c:359
+#: ../libdocument/ev-document-factory.c:359
 msgid "All Documents"
 msgstr "ဖိုင်အားလုံး"
 
-#: ../libdocument/pps-document-factory.c:391
+#: ../libdocument/ev-document-factory.c:391
 msgid "All Files"
 msgstr "ဖိုင်တွဲများ အားလုံး"
 
-#: ../libdocument/pps-file-helpers.c:146
+#: ../libdocument/ev-file-helpers.c:146
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "ယာယီဖိုင်- %s အားဖန်တီးမှု မအောင်မြင်ပါ။"
 
-#: ../libdocument/pps-file-helpers.c:308
+#: ../libdocument/ev-file-helpers.c:308
 #, c-format
 msgid "Failed to create a temporary directory: %s"
 msgstr "ယာယီဖိုင်လမ်းကြောင်း- %s အားဖန်တီးမှု မအောင်မြင်ပါ။"
@@ -309,8 +309,8 @@ msgstr "ဆက်ရှင် မန်နေဂျာတွင် ဆက်သ�
 msgid "Specify file containing saved configuration"
 msgstr "သိမ်းဆည်းမှုပုံစံတွင် ပါဝင်သောဖိုင်ကို သတ်မှတ်ပါ"
 
-#: ../cut-n-paste/smclient/eggsmclient.c:228 ../previewer/pps-previewer.c:45
-#: ../previewer/pps-previewer.c:46
+#: ../cut-n-paste/smclient/eggsmclient.c:228 ../previewer/ev-previewer.c:45
+#: ../previewer/ev-previewer.c:46
 msgid "FILE"
 msgstr "ဖိုင်"
 
@@ -371,7 +371,7 @@ msgid "Separator"
 msgstr "ခွဲခြားစရာ"
 
 #. translators: this is the label for toolbar button
-#: ../cut-n-paste/zoom-control/ephy-zoom.h:48 ../shell/pps-window.c:5761
+#: ../cut-n-paste/zoom-control/ephy-zoom.h:48 ../shell/ev-window.c:5761
 msgid "Best Fit"
 msgstr "ကွက်တိ"
 
@@ -436,164 +436,164 @@ msgid "6400%"
 msgstr "၆၄၀၀%"
 
 #. Manually set name and icon
-#: ../data/papers.desktop.in.in.h:1 ../shell/pps-window.c:4554
-#: ../shell/pps-window-title.c:149 ../shell/main.c:310
+#: ../data/evince.desktop.in.in.h:1 ../shell/ev-window.c:4554
+#: ../shell/ev-window-title.c:149 ../shell/main.c:310
 #, c-format
 msgid "Document Viewer"
 msgstr "ဖိုင်မြင်ကွင်း"
 
-#: ../data/papers.desktop.in.in.h:2
+#: ../data/evince.desktop.in.in.h:2
 msgid "View multi-page documents"
 msgstr "စာမျက်နှာစုံ ဖိုင်မြင်ကွင်း"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:1
+#: ../data/org.gnome.Evince.gschema.xml.in.h:1
 msgid "Override document restrictions"
 msgstr "ဖိုင်ကန့်သတ်ချက် ထပ်ရိုက်ရန်"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:2
+#: ../data/org.gnome.Evince.gschema.xml.in.h:2
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr ""
 
-#: ../previewer/pps-previewer.c:44
+#: ../previewer/ev-previewer.c:44
 msgid "Delete the temporary file"
 msgstr "ယာယီဖိုင် ဖျက်သိမ်း"
 
-#: ../previewer/pps-previewer.c:45
+#: ../previewer/ev-previewer.c:45
 msgid "Print settings file"
 msgstr "ပုံနှိပ်ရန် နေရာချထားခြင်း"
 
-#: ../previewer/pps-previewer.c:144 ../previewer/pps-previewer.c:178
+#: ../previewer/ev-previewer.c:144 ../previewer/ev-previewer.c:178
 msgid "GNOME Document Previewer"
 msgstr "GNOME ဖိုင် ကြိုကြည့်ရန်"
 
-#: ../previewer/pps-previewer-window.c:91 ../shell/pps-window.c:3185
+#: ../previewer/ev-previewer-window.c:91 ../shell/ev-window.c:3185
 msgid "Failed to print document"
 msgstr "ပုံနှိပ်မှု မအောင်မြင်"
 
-#: ../previewer/pps-previewer-window.c:237
+#: ../previewer/ev-previewer-window.c:237
 #, c-format
 msgid "The selected printer '%s' could not be found"
 msgstr "ရွေးချယ်ထားသော ပရင်တာ '%s' အားမတွေ့ပါ"
 
 #. Go menu
-#: ../previewer/pps-previewer-window.c:284 ../shell/pps-window.c:5476
+#: ../previewer/ev-previewer-window.c:284 ../shell/ev-window.c:5476
 msgid "_Previous Page"
 msgstr "_P ရှေ့စာမျက်နှာ"
 
-#: ../previewer/pps-previewer-window.c:285 ../shell/pps-window.c:5477
+#: ../previewer/ev-previewer-window.c:285 ../shell/ev-window.c:5477
 msgid "Go to the previous page"
 msgstr "ရှေ့စာမျက်နှာသို့ သွားရန်"
 
-#: ../previewer/pps-previewer-window.c:287 ../shell/pps-window.c:5479
+#: ../previewer/ev-previewer-window.c:287 ../shell/ev-window.c:5479
 msgid "_Next Page"
 msgstr "_N နောက်စာမျက်နှာ"
 
-#: ../previewer/pps-previewer-window.c:288 ../shell/pps-window.c:5480
+#: ../previewer/ev-previewer-window.c:288 ../shell/ev-window.c:5480
 msgid "Go to the next page"
 msgstr "နောက်စာမျက်နှာသို့ သွားရန်"
 
-#: ../previewer/pps-previewer-window.c:291 ../shell/pps-window.c:5463
+#: ../previewer/ev-previewer-window.c:291 ../shell/ev-window.c:5463
 msgid "Enlarge the document"
 msgstr "ဖိုင်ချဲ့ရန်"
 
-#: ../previewer/pps-previewer-window.c:294 ../shell/pps-window.c:5466
+#: ../previewer/ev-previewer-window.c:294 ../shell/ev-window.c:5466
 msgid "Shrink the document"
 msgstr "ဖိုင်ကို ဖြတ်ညှိပါ"
 
-#: ../previewer/pps-previewer-window.c:297 ../libview/pps-print-operation.c:1307
+#: ../previewer/ev-previewer-window.c:297 ../libview/ev-print-operation.c:1307
 msgid "Print"
 msgstr "ပုံနှိပ်"
 
-#: ../previewer/pps-previewer-window.c:298 ../shell/pps-window.c:5432
+#: ../previewer/ev-previewer-window.c:298 ../shell/ev-window.c:5432
 msgid "Print this document"
 msgstr "ဖိုင်ကို ပုံနှိပ်ပါ"
 
-#: ../previewer/pps-previewer-window.c:342 ../shell/pps-window.c:5578
+#: ../previewer/ev-previewer-window.c:342 ../shell/ev-window.c:5578
 msgid "_Best Fit"
 msgstr "_B ကွက်တိ"
 
-#: ../previewer/pps-previewer-window.c:343 ../shell/pps-window.c:5579
+#: ../previewer/ev-previewer-window.c:343 ../shell/ev-window.c:5579
 msgid "Make the current document fill the window"
 msgstr "လက်ရှိဖိုင်ကို ဝင်းဒိုးတွင်ဖြည့်ပါ"
 
-#: ../previewer/pps-previewer-window.c:345 ../shell/pps-window.c:5581
+#: ../previewer/ev-previewer-window.c:345 ../shell/ev-window.c:5581
 msgid "Fit Page _Width"
 msgstr "_W အံကိုက် စာမျက်နှာအကျယ်"
 
-#: ../previewer/pps-previewer-window.c:346 ../shell/pps-window.c:5582
+#: ../previewer/ev-previewer-window.c:346 ../shell/ev-window.c:5582
 msgid "Make the current document fill the window width"
 msgstr "လက်ရှိဖိုင်ကို ဝင်းဒိုးအကျယ်တွင် ဖြည့်ပါ"
 
-#: ../previewer/pps-previewer-window.c:558 ../shell/pps-window.c:5683
+#: ../previewer/ev-previewer-window.c:558 ../shell/ev-window.c:5683
 msgid "Page"
 msgstr "စာမျက်နှာ"
 
-#: ../previewer/pps-previewer-window.c:559 ../shell/pps-window.c:5684
+#: ../previewer/ev-previewer-window.c:559 ../shell/ev-window.c:5684
 msgid "Select Page"
 msgstr "စာမျက်နှာ ရွေး"
 
-#: ../properties/pps-properties-main.c:116
+#: ../properties/ev-properties-main.c:116
 msgid "Document"
 msgstr "ဖိုင်"
 
-#: ../properties/pps-properties-view.c:60
+#: ../properties/ev-properties-view.c:60
 msgid "Title:"
 msgstr "ခေါင်းစဉ်-"
 
-#: ../properties/pps-properties-view.c:61
+#: ../properties/ev-properties-view.c:61
 msgid "Location:"
 msgstr "တည်နေရာ-"
 
-#: ../properties/pps-properties-view.c:62
+#: ../properties/ev-properties-view.c:62
 msgid "Subject:"
 msgstr "အကြောင်းအရာ-"
 
-#: ../properties/pps-properties-view.c:63
-#: ../shell/pps-annotation-properties-dialog.c:160
+#: ../properties/ev-properties-view.c:63
+#: ../shell/ev-annotation-properties-dialog.c:160
 msgid "Author:"
 msgstr "ရေးသူ-"
 
-#: ../properties/pps-properties-view.c:64
+#: ../properties/ev-properties-view.c:64
 msgid "Keywords:"
 msgstr "အဓိကစကားစုများ-"
 
-#: ../properties/pps-properties-view.c:65
+#: ../properties/ev-properties-view.c:65
 msgid "Producer:"
 msgstr "ထုတ်ဝေသူ-"
 
-#: ../properties/pps-properties-view.c:66
+#: ../properties/ev-properties-view.c:66
 msgid "Creator:"
 msgstr "ဖန်တီးသူ-"
 
-#: ../properties/pps-properties-view.c:67
+#: ../properties/ev-properties-view.c:67
 msgid "Created:"
 msgstr "ဖန်တီးခဲ့သည်-"
 
-#: ../properties/pps-properties-view.c:68
+#: ../properties/ev-properties-view.c:68
 msgid "Modified:"
 msgstr "မွမ်းမံခဲ့သည်-"
 
-#: ../properties/pps-properties-view.c:69
+#: ../properties/ev-properties-view.c:69
 msgid "Number of Pages:"
 msgstr "စာမျက်နှာ နံပါတ်"
 
-#: ../properties/pps-properties-view.c:70
+#: ../properties/ev-properties-view.c:70
 msgid "Optimized:"
 msgstr "လျော်ကန်မှု-"
 
-#: ../properties/pps-properties-view.c:71
+#: ../properties/ev-properties-view.c:71
 msgid "Format:"
 msgstr "အချိုးအစား-"
 
-#: ../properties/pps-properties-view.c:72
+#: ../properties/ev-properties-view.c:72
 msgid "Security:"
 msgstr "လုံခြုံရေး"
 
-#: ../properties/pps-properties-view.c:73
+#: ../properties/ev-properties-view.c:73
 msgid "Paper Size:"
 msgstr "စာရွက်ဆိုဇ်"
 
-#: ../properties/pps-properties-view.c:188 ../libview/pps-print-operation.c:1865
+#: ../properties/ev-properties-view.c:188 ../libview/ev-print-operation.c:1865
 msgid "None"
 msgstr "တစ်ခုမျှမဟုတ်"
 
@@ -603,93 +603,93 @@ msgstr "တစ်ခုမျှမဟုတ်"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: ../properties/pps-properties-view.c:217
+#: ../properties/ev-properties-view.c:217
 msgid "default:mm"
 msgstr "default:mm"
 
-#: ../properties/pps-properties-view.c:261
+#: ../properties/ev-properties-view.c:261
 #, c-format
 msgid "%.0f × %.0f mm"
 msgstr "%.0f × %.0f မမ"
 
-#: ../properties/pps-properties-view.c:265
+#: ../properties/ev-properties-view.c:265
 #, c-format
 msgid "%.2f × %.2f inch"
 msgstr "%.2f × %.2f လက်မ"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/pps-properties-view.c:289
+#: ../properties/ev-properties-view.c:289
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr "%s, ပုံတူ (%s)"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/pps-properties-view.c:296
+#: ../properties/ev-properties-view.c:296
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr "%s, ရှုခင်း (%s)"
 
-#: ../libmisc/pps-page-action-widget.c:68
+#: ../libmisc/ev-page-action-widget.c:68
 #, c-format
 msgid "(%d of %d)"
 msgstr ""
 
-#: ../libmisc/pps-page-action-widget.c:70
+#: ../libmisc/ev-page-action-widget.c:70
 #, c-format
 msgid "of %d"
 msgstr ""
 
 #. Create tree view
-#: ../libview/pps-loading-window.c:76 ../shell/pps-sidebar-annotations.c:133
-#: ../shell/pps-sidebar-layers.c:125 ../shell/pps-sidebar-links.c:262
+#: ../libview/ev-loading-window.c:76 ../shell/ev-sidebar-annotations.c:133
+#: ../shell/ev-sidebar-layers.c:125 ../shell/ev-sidebar-links.c:262
 msgid "Loading…"
 msgstr "တင်သွင်းနေသည်…"
 
 #. Initial state
-#: ../libview/pps-print-operation.c:334
+#: ../libview/ev-print-operation.c:334
 msgid "Preparing to print…"
 msgstr "ပုံနှိပ်ရန် ပြင်ဆင်နေသည်…"
 
-#: ../libview/pps-print-operation.c:336
+#: ../libview/ev-print-operation.c:336
 msgid "Finishing…"
 msgstr "အပြီးသတ်နေသည်…"
 
-#: ../libview/pps-print-operation.c:338
+#: ../libview/ev-print-operation.c:338
 #, c-format
 msgid "Printing page %d of %d…"
 msgstr "စာမျက်နှာ %d မှ %d အား ပုံနှိပ်နေသည်…"
 
-#: ../libview/pps-print-operation.c:1161
+#: ../libview/ev-print-operation.c:1161
 msgid "Printing is not supported on this printer."
 msgstr "ဤပရင်တာတွင် ပုံနှိပ်ခြင်းအား မထောက်ပံ့ပါ"
 
-#: ../libview/pps-print-operation.c:1226
+#: ../libview/ev-print-operation.c:1226
 msgid "Invalid page selection"
 msgstr "မအောင်မြင်သော စာမျက်နှာမှတ်သားခြင်း"
 
-#: ../libview/pps-print-operation.c:1227
+#: ../libview/ev-print-operation.c:1227
 msgid "Warning"
 msgstr "သတိပေးချက်"
 
-#: ../libview/pps-print-operation.c:1229
+#: ../libview/ev-print-operation.c:1229
 msgid "Your print range selection does not include any pages"
 msgstr "သင့်ပုံနှိပ်မှု အကွာအဝေးမှတ်သားချက်တွင် မည်သည့်စာမျက်နှာမျှ မပါဝင်ပါ"
 
-#: ../libview/pps-print-operation.c:1860
+#: ../libview/ev-print-operation.c:1860
 msgid "Page Scaling:"
 msgstr "စာရွက်အချိုးအစား-"
 
-#: ../libview/pps-print-operation.c:1866
+#: ../libview/ev-print-operation.c:1866
 msgid "Shrink to Printable Area"
 msgstr "ပုံနှိပ်နိုင်သော ဧရိယာကို ဖြတ်ထုတ်ပါ"
 
-#: ../libview/pps-print-operation.c:1867
+#: ../libview/ev-print-operation.c:1867
 msgid "Fit to Printable Area"
 msgstr "ပုံနှိပ်နိုင်သော ဧရိယာကို အံကိုက်လုပ်ပါ"
 
-#: ../libview/pps-print-operation.c:1870
+#: ../libview/ev-print-operation.c:1870
 msgid ""
 "Scale document pages to fit the selected printer page. Select from one of "
 "the following:\n"
@@ -703,103 +703,103 @@ msgid ""
 "required to fit the printable area of the printer page.\n"
 msgstr ""
 
-#: ../libview/pps-print-operation.c:1882
+#: ../libview/ev-print-operation.c:1882
 msgid "Auto Rotate and Center"
 msgstr "အလိုအလျောက် တည့်မတ်ခြင်းနှင့် ဗဟိုကျစေခြင်း"
 
-#: ../libview/pps-print-operation.c:1885
+#: ../libview/ev-print-operation.c:1885
 msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
 msgstr ""
 
-#: ../libview/pps-print-operation.c:1890
+#: ../libview/ev-print-operation.c:1890
 msgid "Select page size using document page size"
 msgstr ""
 
-#: ../libview/pps-print-operation.c:1892
+#: ../libview/ev-print-operation.c:1892
 msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
 msgstr ""
 
-#: ../libview/pps-print-operation.c:1974
+#: ../libview/ev-print-operation.c:1974
 msgid "Page Handling"
 msgstr "စာမျက်နှာ ကိုင်တွယ်ခြင်း"
 
-#: ../libview/pps-jobs.c:1529
+#: ../libview/ev-jobs.c:1529
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "စာမျက်နှာ %d: %s အားပုံနှိပ်ခြင်း မအောင်မြင်ပါ"
 
-#: ../libview/pps-view-accessible.c:46
+#: ../libview/ev-view-accessible.c:46
 msgid "Scroll Up"
 msgstr "အပေါ်သို့"
 
-#: ../libview/pps-view-accessible.c:47
+#: ../libview/ev-view-accessible.c:47
 msgid "Scroll Down"
 msgstr "အောက်သို့"
 
-#: ../libview/pps-view-accessible.c:53
+#: ../libview/ev-view-accessible.c:53
 msgid "Scroll View Up"
 msgstr "မြင်ကွင်း တင်ရန်"
 
-#: ../libview/pps-view-accessible.c:54
+#: ../libview/ev-view-accessible.c:54
 msgid "Scroll View Down"
 msgstr "မြင်ကွင်း ချရန်"
 
-#: ../libview/pps-view-accessible.c:882
+#: ../libview/ev-view-accessible.c:882
 msgid "Document View"
 msgstr "ဖိုင်မြင်ကွင်း"
 
-#: ../libview/pps-view-presentation.c:672
+#: ../libview/ev-view-presentation.c:672
 msgid "Jump to page:"
 msgstr "စာမျက်နှာသို့ ခုန်ရန်"
 
-#: ../libview/pps-view-presentation.c:968
+#: ../libview/ev-view-presentation.c:968
 msgid "End of presentation. Click to exit."
 msgstr "တင်ပြခြင်း ပြီးဆုံး။ ထွက်ရန် ကလစ်လုပ်ပါ။"
 
-#: ../libview/pps-view.c:1756
+#: ../libview/ev-view.c:1756
 msgid "Go to first page"
 msgstr "ပထမ စာမျက်နှာသို့"
 
-#: ../libview/pps-view.c:1758
+#: ../libview/ev-view.c:1758
 msgid "Go to previous page"
 msgstr "ရှေ့စာမျက်နှာသို့"
 
-#: ../libview/pps-view.c:1760
+#: ../libview/ev-view.c:1760
 msgid "Go to next page"
 msgstr "နောက်စာမျက်နှာသို့"
 
-#: ../libview/pps-view.c:1762
+#: ../libview/ev-view.c:1762
 msgid "Go to last page"
 msgstr "နောက်ဆုံး စာမျက်နှာသို့"
 
-#: ../libview/pps-view.c:1764
+#: ../libview/ev-view.c:1764
 msgid "Go to page"
 msgstr "စာမျက်နှာသို့"
 
-#: ../libview/pps-view.c:1766
+#: ../libview/ev-view.c:1766
 msgid "Find"
 msgstr "ရှာဖွေ"
 
-#: ../libview/pps-view.c:1794
+#: ../libview/ev-view.c:1794
 #, c-format
 msgid "Go to page %s"
 msgstr "စာမျက်နှာ %s သို့"
 
-#: ../libview/pps-view.c:1800
+#: ../libview/ev-view.c:1800
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "“%s” ဖိုင်ရှိ %s သို့သွားရန်"
 
-#: ../libview/pps-view.c:1803
+#: ../libview/ev-view.c:1803
 #, c-format
 msgid "Go to file “%s”"
 msgstr "“%s” ဖိုင်သို့သွားရန်"
 
-#: ../libview/pps-view.c:1811
+#: ../libview/ev-view.c:1811
 #, c-format
 msgid "Launch %s"
 msgstr "%s စရန်"
@@ -808,7 +808,7 @@ msgstr "%s စရန်"
 msgid "Find:"
 msgstr "ရှာဖွေ-"
 
-#: ../shell/eggfindbar.c:329 ../shell/pps-window.c:5449
+#: ../shell/eggfindbar.c:329 ../shell/ev-window.c:5449
 msgid "Find Pre_vious"
 msgstr "_V ရှေ့ပိုင်းကို ရှာပါ"
 
@@ -816,7 +816,7 @@ msgstr "_V ရှေ့ပိုင်းကို ရှာပါ"
 msgid "Find previous occurrence of the search string"
 msgstr "ရှေ့ပိုင်း ရှာဖွေချက်ကို ရှာဖွေပါ"
 
-#: ../shell/eggfindbar.c:337 ../shell/pps-window.c:5447
+#: ../shell/eggfindbar.c:337 ../shell/ev-window.c:5447
 msgid "Find Ne_xt"
 msgstr "_X နောက်ပိုင်းကို ရှာပါ"
 
@@ -832,406 +832,406 @@ msgstr "_A စာလုံးပေါင်း သတိပြုပါ"
 msgid "Toggle case sensitive search"
 msgstr "လွှဲခလုတ် သတိပြုသော ရှာဖွေမှု"
 
-#: ../shell/pps-annotation-properties-dialog.c:97
+#: ../shell/ev-annotation-properties-dialog.c:97
 msgid "Icon:"
 msgstr "အိုင်ကွန်-"
 
-#: ../shell/pps-annotation-properties-dialog.c:104
+#: ../shell/ev-annotation-properties-dialog.c:104
 msgid "Note"
 msgstr "မှတ်စု"
 
-#: ../shell/pps-annotation-properties-dialog.c:105
+#: ../shell/ev-annotation-properties-dialog.c:105
 msgid "Comment"
 msgstr "မှက်ချက်"
 
-#: ../shell/pps-annotation-properties-dialog.c:106
+#: ../shell/ev-annotation-properties-dialog.c:106
 msgid "Key"
 msgstr "ကီး"
 
-#: ../shell/pps-annotation-properties-dialog.c:107
+#: ../shell/ev-annotation-properties-dialog.c:107
 msgid "Help"
 msgstr "အကူအညီ"
 
-#: ../shell/pps-annotation-properties-dialog.c:108
+#: ../shell/ev-annotation-properties-dialog.c:108
 msgid "New Paragraph"
 msgstr "စာပိုဒ်သစ်"
 
-#: ../shell/pps-annotation-properties-dialog.c:109
+#: ../shell/ev-annotation-properties-dialog.c:109
 msgid "Paragraph"
 msgstr "စာပိုဒ်"
 
-#: ../shell/pps-annotation-properties-dialog.c:110
+#: ../shell/ev-annotation-properties-dialog.c:110
 msgid "Insert"
 msgstr "ထည့်သွင်း"
 
-#: ../shell/pps-annotation-properties-dialog.c:111
+#: ../shell/ev-annotation-properties-dialog.c:111
 msgid "Cross"
 msgstr "ကြက်ခြေခတ်"
 
-#: ../shell/pps-annotation-properties-dialog.c:112
+#: ../shell/ev-annotation-properties-dialog.c:112
 msgid "Circle"
 msgstr "စက်ဝိုင်း"
 
-#: ../shell/pps-annotation-properties-dialog.c:113
+#: ../shell/ev-annotation-properties-dialog.c:113
 msgid "Unknown"
 msgstr "မသိ"
 
-#: ../shell/pps-annotation-properties-dialog.c:139
+#: ../shell/ev-annotation-properties-dialog.c:139
 msgid "Annotation Properties"
 msgstr "မှတ်စာ အရည်အသွေး"
 
-#: ../shell/pps-annotation-properties-dialog.c:173
+#: ../shell/ev-annotation-properties-dialog.c:173
 msgid "Color:"
 msgstr "အရောင်-"
 
-#: ../shell/pps-annotation-properties-dialog.c:185
+#: ../shell/ev-annotation-properties-dialog.c:185
 msgid "Style:"
 msgstr "ပုံစံ-"
 
-#: ../shell/pps-annotation-properties-dialog.c:201
+#: ../shell/ev-annotation-properties-dialog.c:201
 msgid "Transparent"
 msgstr "အကြည်"
 
-#: ../shell/pps-annotation-properties-dialog.c:208
+#: ../shell/ev-annotation-properties-dialog.c:208
 msgid "Opaque"
 msgstr "အပိတ်"
 
-#: ../shell/pps-annotation-properties-dialog.c:219
+#: ../shell/ev-annotation-properties-dialog.c:219
 msgid "Initial window state:"
 msgstr "နောက်ဆုံး ဝင်းဒိုးအခြေအနေ"
 
-#: ../shell/pps-annotation-properties-dialog.c:226
+#: ../shell/ev-annotation-properties-dialog.c:226
 msgid "Open"
 msgstr "ဖွင့်"
 
-#: ../shell/pps-annotation-properties-dialog.c:227
+#: ../shell/ev-annotation-properties-dialog.c:227
 msgid "Close"
 msgstr "ပိတ်"
 
-#: ../shell/pps-application.c:1022
+#: ../shell/ev-application.c:1022
 msgid "Running in presentation mode"
 msgstr "တင်ပြချက်ပုံစံဖြင့် အလုပ်လုပ်နေသည်"
 
-#: ../shell/pps-keyring.c:102
+#: ../shell/ev-keyring.c:102
 #, c-format
 msgid "Password for document %s"
 msgstr "%s ဖိုင်အတွက် စကားဝှက်"
 
-#: ../shell/pps-convert-metadata.c:88
+#: ../shell/ev-convert-metadata.c:88
 #, fuzzy, c-format
 msgid "Converting %s"
 msgstr "စတင်နေသည် %s"
 
-#: ../shell/pps-convert-metadata.c:92
+#: ../shell/ev-convert-metadata.c:92
 #, c-format
 msgid "%d of %d documents converted"
 msgstr ""
 
-#: ../shell/pps-convert-metadata.c:165 ../shell/pps-convert-metadata.c:181
+#: ../shell/ev-convert-metadata.c:165 ../shell/ev-convert-metadata.c:181
 msgid "Converting metadata"
 msgstr ""
 
-#: ../shell/pps-convert-metadata.c:187
+#: ../shell/ev-convert-metadata.c:187
 msgid ""
-"The metadata format used by Papers has changed, and hence it needs to be "
+"The metadata format used by Evince has changed, and hence it needs to be "
 "migrated. If the migration is cancelled the metadata storage will not work."
 msgstr ""
 
-#: ../shell/pps-open-recent-action.c:72
+#: ../shell/ev-open-recent-action.c:72
 msgid "Open a recently used document"
 msgstr "မကြာသေးမှီက အသုံးပြုခဲ့သော ဖိုင်ကို ဖွင့်ပါ"
 
-#: ../shell/pps-password-view.c:144
+#: ../shell/ev-password-view.c:144
 msgid ""
 "This document is locked and can only be read by entering the correct "
 "password."
 msgstr "ဖတ်ရှုနိုင်ပါမည်။"
 
-#: ../shell/pps-password-view.c:153 ../shell/pps-password-view.c:272
+#: ../shell/ev-password-view.c:153 ../shell/ev-password-view.c:272
 msgid "_Unlock Document"
 msgstr "_U ဖိုင်ကို သော့ဖွင့်ရန်"
 
-#: ../shell/pps-password-view.c:264
+#: ../shell/ev-password-view.c:264
 msgid "Enter password"
 msgstr "စကားဝှက် ထည့်သွင်းပါ"
 
-#: ../shell/pps-password-view.c:304
+#: ../shell/ev-password-view.c:304
 msgid "Password required"
 msgstr "စကားဝှက်လိုအပ်သည်"
 
-#: ../shell/pps-password-view.c:305
+#: ../shell/ev-password-view.c:305
 #, c-format
 msgid ""
 "The document “%s” is locked and requires a password before it can be opened."
 msgstr ""
 
-#: ../shell/pps-password-view.c:335
+#: ../shell/ev-password-view.c:335
 msgid "_Password:"
 msgstr "_P စကားဝှက်"
 
-#: ../shell/pps-password-view.c:368
+#: ../shell/ev-password-view.c:368
 msgid "Forget password _immediately"
 msgstr "_I စကားဝှက်ရုတ်တရက်မေ့ခြင်း"
 
-#: ../shell/pps-password-view.c:380
+#: ../shell/ev-password-view.c:380
 msgid "Remember password until you _log out"
 msgstr "_L သင်ထွက်ခွာသည့်တိုင်အောင် စကားဝှက်ကို မှတ်ထားပါ"
 
-#: ../shell/pps-password-view.c:392
+#: ../shell/ev-password-view.c:392
 msgid "Remember _forever"
 msgstr "_F စကားဝှက်ကိုအမြဲတမ်း မှတ်ထားပါ"
 
-#: ../shell/pps-properties-dialog.c:62
+#: ../shell/ev-properties-dialog.c:62
 msgid "Properties"
 msgstr "အရည်အသွေး"
 
-#: ../shell/pps-properties-dialog.c:95
+#: ../shell/ev-properties-dialog.c:95
 msgid "General"
 msgstr "အထွေထွေ"
 
-#: ../shell/pps-properties-dialog.c:105
+#: ../shell/ev-properties-dialog.c:105
 msgid "Fonts"
 msgstr "ဖောင့်"
 
-#: ../shell/pps-properties-dialog.c:118
+#: ../shell/ev-properties-dialog.c:118
 msgid "Document License"
 msgstr "ဖိုင်လိုင်စင်"
 
-#: ../shell/pps-properties-fonts.c:135
+#: ../shell/ev-properties-fonts.c:135
 msgid "Font"
 msgstr "ဖောင့်"
 
-#: ../shell/pps-properties-fonts.c:162
+#: ../shell/ev-properties-fonts.c:162
 #, c-format
 msgid "Gathering font information… %3d%%"
 msgstr "ဖောင့်စုစည်းမှု အချက်အလက်… %3d%%"
 
-#: ../shell/pps-properties-license.c:137
+#: ../shell/ev-properties-license.c:137
 msgid "Usage terms"
 msgstr "အသုံးပြုရန် သတ်မှတ်ချက်များ"
 
-#: ../shell/pps-properties-license.c:143
+#: ../shell/ev-properties-license.c:143
 msgid "Text License"
 msgstr "လိုင်စင် စာသား"
 
-#: ../shell/pps-properties-license.c:149
+#: ../shell/ev-properties-license.c:149
 msgid "Further Information"
 msgstr "အခြား အချက်အလက်"
 
-#: ../shell/pps-sidebar-annotations.c:161
+#: ../shell/ev-sidebar-annotations.c:161
 msgid "List"
 msgstr "စာရင်း"
 
-#: ../shell/pps-sidebar-annotations.c:203 ../shell/pps-sidebar-annotations.c:533
+#: ../shell/ev-sidebar-annotations.c:203 ../shell/ev-sidebar-annotations.c:533
 msgid "Annotations"
 msgstr "မှတ်စာများ"
 
-#: ../shell/pps-sidebar-annotations.c:209
+#: ../shell/ev-sidebar-annotations.c:209
 msgid "Text"
 msgstr "စာသား"
 
-#: ../shell/pps-sidebar-annotations.c:210
+#: ../shell/ev-sidebar-annotations.c:210
 msgid "Add text annotation"
 msgstr "စာသားမှတ်စာ ပေါင်းထည့်ရန်"
 
-#: ../shell/pps-sidebar-annotations.c:221
+#: ../shell/ev-sidebar-annotations.c:221
 msgid "Add"
 msgstr "ပေါင်းထည့်"
 
-#: ../shell/pps-sidebar-annotations.c:364
+#: ../shell/ev-sidebar-annotations.c:364
 msgid "Document contains no annotations"
 msgstr "ဖိုင်အတွင်း မှတ်စာမပါရှိပါ"
 
-#: ../shell/pps-sidebar-annotations.c:396
+#: ../shell/ev-sidebar-annotations.c:396
 #, c-format
 msgid "Page %d"
 msgstr "စာမျက်နှာ %d"
 
-#: ../shell/pps-sidebar-attachments.c:697
+#: ../shell/ev-sidebar-attachments.c:697
 msgid "Attachments"
 msgstr "တွဲထားချက်"
 
-#: ../shell/pps-sidebar-layers.c:401
+#: ../shell/ev-sidebar-layers.c:401
 msgid "Layers"
 msgstr "အလွှာ"
 
-#: ../shell/pps-sidebar-links.c:335
+#: ../shell/ev-sidebar-links.c:335
 msgid "Print…"
 msgstr "ပုံနှိပ်…"
 
-#: ../shell/pps-sidebar-links.c:750
+#: ../shell/ev-sidebar-links.c:750
 msgid "Index"
 msgstr "အညွန်း"
 
-#: ../shell/pps-sidebar-thumbnails.c:965
+#: ../shell/ev-sidebar-thumbnails.c:965
 msgid "Thumbnails"
 msgstr "အကျဉ်းချုပ်"
 
-#: ../shell/pps-window.c:875
+#: ../shell/ev-window.c:875
 #, c-format
 msgid "Page %s — %s"
 msgstr "စာမျက်နှာ %s — %s"
 
-#: ../shell/pps-window.c:877
+#: ../shell/ev-window.c:877
 #, c-format
 msgid "Page %s"
 msgstr "စာမျက်နှာ %s"
 
-#: ../shell/pps-window.c:1436
+#: ../shell/ev-window.c:1436
 msgid "The document contains no pages"
 msgstr "ဖိုင်တွင် စာမျက်နှာမပါရှိ"
 
-#: ../shell/pps-window.c:1439
+#: ../shell/ev-window.c:1439
 msgid "The document contains only empty pages"
 msgstr "ဖိုင်တွင် စာမျက်နှာလွတ်များသာ ပါရှိ"
 
-#: ../shell/pps-window.c:1644 ../shell/pps-window.c:1810
+#: ../shell/ev-window.c:1644 ../shell/ev-window.c:1810
 msgid "Unable to open document"
 msgstr "ဖိုင်ကို မဖွင့်နိုင်ပါ"
 
-#: ../shell/pps-window.c:1781
+#: ../shell/ev-window.c:1781
 #, c-format
 msgid "Loading document from “%s”"
 msgstr "ဖိုင်ကို “%s” မှ ထိုးထည့်နေသည်"
 
-#: ../shell/pps-window.c:1923 ../shell/pps-window.c:2202
+#: ../shell/ev-window.c:1923 ../shell/ev-window.c:2202
 #, c-format
 msgid "Downloading document (%d%%)"
 msgstr "ဖိုင်ကို ဆွဲချနေသည် (%d%%)"
 
-#: ../shell/pps-window.c:1956
+#: ../shell/ev-window.c:1956
 msgid "Failed to load remote file."
 msgstr "ထိန်းချုပ်ဖိုင်ကို ထိုးထည့်မှု မအောင်မြင်"
 
-#: ../shell/pps-window.c:2146
+#: ../shell/ev-window.c:2146
 #, c-format
 msgid "Reloading document from %s"
 msgstr "ဖိုင်ကို %s မှပြန်ထိုးထည့်နေသည်"
 
-#: ../shell/pps-window.c:2178
+#: ../shell/ev-window.c:2178
 msgid "Failed to reload document."
 msgstr "ဖိုင်ကို ပြန်ထိုးထည့်မှု မအောင်မြင်"
 
-#: ../shell/pps-window.c:2333
+#: ../shell/ev-window.c:2333
 msgid "Open Document"
 msgstr "ဖိုင်ဖွင့်ပါ"
 
-#: ../shell/pps-window.c:2631
+#: ../shell/ev-window.c:2631
 #, c-format
 msgid "Saving document to %s"
 msgstr "ဖိုင်ကို %s သို့သိမ်းနေသည် "
 
-#: ../shell/pps-window.c:2634
+#: ../shell/ev-window.c:2634
 #, c-format
 msgid "Saving attachment to %s"
 msgstr "တွဲထားချက်ကို %s သို့သိမ်းနေသည်"
 
-#: ../shell/pps-window.c:2637
+#: ../shell/ev-window.c:2637
 #, c-format
 msgid "Saving image to %s"
 msgstr "ပုံရိပ်ကို %s သို့သိမ်းနေသည်"
 
-#: ../shell/pps-window.c:2681 ../shell/pps-window.c:2781
+#: ../shell/ev-window.c:2681 ../shell/ev-window.c:2781
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "ဖိုင်ကို “%s” ကဲ့သို့ မသိမ်းနိုင်ပါ။"
 
-#: ../shell/pps-window.c:2712
+#: ../shell/ev-window.c:2712
 #, c-format
 msgid "Uploading document (%d%%)"
 msgstr "ဖိုင်ကို တင်နေသည် (%d%%)"
 
-#: ../shell/pps-window.c:2716
+#: ../shell/ev-window.c:2716
 #, c-format
 msgid "Uploading attachment (%d%%)"
 msgstr "တွဲထားချက်ကို တင်နေသည် (%d%%)"
 
-#: ../shell/pps-window.c:2720
+#: ../shell/ev-window.c:2720
 #, c-format
 msgid "Uploading image (%d%%)"
 msgstr "ပုံရိပ်ကို တင်နေသည် (%d%%)"
 
-#: ../shell/pps-window.c:2844
+#: ../shell/ev-window.c:2844
 msgid "Save a Copy"
 msgstr "မိတ္တူတစ်စုံ သိမ်းပါ"
 
-#: ../shell/pps-window.c:3129
+#: ../shell/ev-window.c:3129
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] ""
 
-#: ../shell/pps-window.c:3242
+#: ../shell/ev-window.c:3242
 #, c-format
 msgid "Printing job “%s”"
 msgstr "ပုံနှိပ်ခြင်း “%s”"
 
-#: ../shell/pps-window.c:3420
+#: ../shell/ev-window.c:3420
 msgid ""
 "Document contains form fields that have been filled out. If you don't save a "
 "copy, changes will be permanently lost."
 msgstr "မသိမ်းရသေးလျင် ပြောင်းလဲမှုများအားလုံး ထာဝရဆုံးရှုံးမည်"
 
-#: ../shell/pps-window.c:3424
+#: ../shell/ev-window.c:3424
 msgid ""
 "Document contains new or modified annotations. If you don't save a copy, "
 "changes will be permanently lost."
 msgstr "ပြောင်းလဲမှုများအားလုံး ထာဝရဆုံးရှုံးမည်"
 
-#: ../shell/pps-window.c:3431
+#: ../shell/ev-window.c:3431
 #, c-format
 msgid "Save a copy of document “%s” before closing?"
 msgstr "“%s” ဖိုင်ကို မပိတ်မှီ မိတ္တူတစ်စုံ သိမ်းလိုပါသလား?"
 
-#: ../shell/pps-window.c:3450
+#: ../shell/ev-window.c:3450
 msgid "Close _without Saving"
 msgstr "_W သိမ်းဆည်းခြင်းမရှိပဲ ပိတ်ပါ"
 
-#: ../shell/pps-window.c:3454
+#: ../shell/ev-window.c:3454
 msgid "Save a _Copy"
 msgstr "_C မိတ္တူတစ်စုံ သိမ်းပါ"
 
-#: ../shell/pps-window.c:3528
+#: ../shell/ev-window.c:3528
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr "မပိတ်မှီ “%s” ပုံနှိပ်ပြီးသည်အထိ စောင့်ပါ"
 
-#: ../shell/pps-window.c:3531
+#: ../shell/ev-window.c:3531
 #, fuzzy, c-format
 msgid ""
 "There are %d print jobs active. Wait until print finishes before closing?"
 msgstr "မပိတ်မှီ “%s” ပုံနှိပ်ပြီးသည်အထိ စောင့်ပါ"
 
-#: ../shell/pps-window.c:3543
+#: ../shell/ev-window.c:3543
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr "အကယ်၍ ဝင်းဒိုးကို ပိတ်လျင် စောင့်ဆိုင်းနေသော ပုံနှိပ်ခြင်းအလုပ် ပုံနှိပ်မည် မဟုတ်ပါ"
 
-#: ../shell/pps-window.c:3547
+#: ../shell/ev-window.c:3547
 msgid "Cancel _print and Close"
 msgstr "_P ပုံနှိပ်ခြင်းအား ပယ်ဖျက်ပြီး ပိတ်ပါ"
 
-#: ../shell/pps-window.c:3551
+#: ../shell/ev-window.c:3551
 msgid "Close _after Printing"
 msgstr "_A ပုံနှိပ်ပြီးနောက် ပိတ်ပါ"
 
-#: ../shell/pps-window.c:4171
+#: ../shell/ev-window.c:4171
 msgid "Toolbar Editor"
 msgstr "တန်ဆာပလာဘား တည်းဖြတ်ရာ"
 
-#: ../shell/pps-window.c:4338
+#: ../shell/ev-window.c:4338
 msgid "There was an error displaying help"
 msgstr "အကူအညီကို ပြသရန် အမှားအယွင်းဖြစ်နေသည်"
 
-#: ../shell/pps-window.c:4550
+#: ../shell/ev-window.c:4550
 #, c-format
 msgid ""
 "Document Viewer\n"
 "Using %s (%s)"
 msgstr "အသုံးပြုနေသည် %s (%s)"
 
-#: ../shell/pps-window.c:4581
+#: ../shell/ev-window.c:4581
 msgid ""
-"Papers is free software; you can redistribute it and/or modify it under the "
+"Evince is free software; you can redistribute it and/or modify it under the "
 "terms of the GNU General Public License as published by the Free Software "
 "Foundation; either version 2 of the License, or (at your option) any later "
 "version.\n"
@@ -1239,365 +1239,365 @@ msgstr ""
 "အခမဲ့ဆော့ဖ်ဝဲရ်ဆိုင်ရာ အထွေထွေ အများပြည်သူသုံး လိုင်စင်သတ်မှတ်ချက်များ GNU အောက်တွင်လိုင်စင်ဗားရှင်း ၂ အရ "
 "သို့မဟုတ် နောက်ပိုင်းမည်သည့် ဗားရှင်းအရ မဆို ဆောင်ရွက်နိုင်သည်။\n"
 
-#: ../shell/pps-window.c:4585
+#: ../shell/ev-window.c:4585
 msgid ""
-"Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
+"Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
 "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 "details.\n"
 msgstr ""
 
-#: ../shell/pps-window.c:4589
+#: ../shell/ev-window.c:4589
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"Papers; if not, write to the Free Software Foundation, Inc., 51 Franklin "
+"Evince; if not, write to the Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 msgstr ""
 
-#: ../shell/pps-window.c:4614
-msgid "Papers"
+#: ../shell/ev-window.c:4614
+msgid "Evince"
 msgstr "အီးဗင့်စ်"
 
-#: ../shell/pps-window.c:4617
+#: ../shell/ev-window.c:4617
 #, fuzzy
-msgid "© 1996–2009 The Papers authors"
+msgid "© 1996–2009 The Evince authors"
 msgstr "© ၁၉၉၆-၂၀၁၁ အီးဗင့်စ်ကို ရေးသားသူများ"
 
-#: ../shell/pps-window.c:4623
+#: ../shell/ev-window.c:4623
 msgid "translator-credits"
 msgstr "Myanmar L10n Team-<http://goo.gl/1QZLB>"
 
 #. TRANS: Sometimes this could be better translated as
 #. "%d hit(s) on this page".  Therefore this string
 #. contains plural cases.
-#: ../shell/pps-window.c:4889
+#: ../shell/ev-window.c:4889
 #, c-format
 msgid "%d found on this page"
 msgid_plural "%d found on this page"
 msgstr[0] "%d စာမျက်နှာတွင် တွေ့ရှိသည်"
 
-#: ../shell/pps-window.c:4894
+#: ../shell/ev-window.c:4894
 msgid "Not found"
 msgstr "မတွေ့ပါ"
 
-#: ../shell/pps-window.c:4900
+#: ../shell/ev-window.c:4900
 #, c-format
 msgid "%3d%% remaining to search"
 msgstr "%3d%% ရှာရန်ကျန်"
 
-#: ../shell/pps-window.c:5415
+#: ../shell/ev-window.c:5415
 msgid "_File"
 msgstr "_F ဖိုင်"
 
-#: ../shell/pps-window.c:5416
+#: ../shell/ev-window.c:5416
 msgid "_Edit"
 msgstr "_E တည်းဖြတ်"
 
-#: ../shell/pps-window.c:5417
+#: ../shell/ev-window.c:5417
 msgid "_View"
 msgstr "_V မြင်ကွင်း"
 
-#: ../shell/pps-window.c:5418
+#: ../shell/ev-window.c:5418
 msgid "_Go"
 msgstr "_G သွားရန်"
 
-#: ../shell/pps-window.c:5419
+#: ../shell/ev-window.c:5419
 msgid "_Help"
 msgstr "_H အကူအညီ"
 
 #. File menu
-#: ../shell/pps-window.c:5422 ../shell/pps-window.c:5723
+#: ../shell/ev-window.c:5422 ../shell/ev-window.c:5723
 msgid "_Open…"
 msgstr "_O ဖွင့်…"
 
-#: ../shell/pps-window.c:5423 ../shell/pps-window.c:5724
+#: ../shell/ev-window.c:5423 ../shell/ev-window.c:5724
 msgid "Open an existing document"
 msgstr "ရှိပြီးသား ဖိုင်ကို ဖွင့်ပါ"
 
-#: ../shell/pps-window.c:5425
+#: ../shell/ev-window.c:5425
 msgid "Op_en a Copy"
 msgstr "_E မိတ္တူကိုဖွင့်ပါ"
 
-#: ../shell/pps-window.c:5426
+#: ../shell/ev-window.c:5426
 msgid "Open a copy of the current document in a new window"
 msgstr "လက်ရှိ ဖိုင်၏ မိတ္တူတစ်စုံကို ဝင်းဒိုးအသစ်တွင် ဖွင့်ပါ"
 
-#: ../shell/pps-window.c:5428
+#: ../shell/ev-window.c:5428
 msgid "_Save a Copy…"
 msgstr "_S မိတ္တူတစ်စုံ သိမ်းပါ"
 
-#: ../shell/pps-window.c:5429
+#: ../shell/ev-window.c:5429
 msgid "Save a copy of the current document"
 msgstr "လက်ရှိဖိုင်၏ မိတ္တူတစ်စုံကို သိမ်းပါ"
 
-#: ../shell/pps-window.c:5431
+#: ../shell/ev-window.c:5431
 msgid "_Print…"
 msgstr "_P ပုံနှိပ်…"
 
-#: ../shell/pps-window.c:5434
+#: ../shell/ev-window.c:5434
 msgid "P_roperties"
 msgstr "_R အရည်အသွေး"
 
-#: ../shell/pps-window.c:5442
+#: ../shell/ev-window.c:5442
 msgid "Select _All"
 msgstr "_A အားလုံးမှတ်"
 
-#: ../shell/pps-window.c:5444
+#: ../shell/ev-window.c:5444
 msgid "_Find…"
 msgstr "_F ရှာပါ…"
 
-#: ../shell/pps-window.c:5445
+#: ../shell/ev-window.c:5445
 msgid "Find a word or phrase in the document"
 msgstr "ဖိုင်အတွင်း စကားလုံး သို့မဟုတ် စကားစုကို ရှာပါ"
 
-#: ../shell/pps-window.c:5451
+#: ../shell/ev-window.c:5451
 msgid "T_oolbar"
 msgstr "_O  ကိရိယာဘားတန်း"
 
-#: ../shell/pps-window.c:5453
+#: ../shell/ev-window.c:5453
 msgid "Rotate _Left"
 msgstr "_L ဘယ်လှည့်"
 
-#: ../shell/pps-window.c:5455
+#: ../shell/ev-window.c:5455
 msgid "Rotate _Right"
 msgstr "_R ညာလှည့်"
 
-#: ../shell/pps-window.c:5457
+#: ../shell/ev-window.c:5457
 msgid "Save Current Settings as _Default"
 msgstr "_D လက်ရှိ နေရာချထားမှုကိုပုံသေသိမ်းပါ"
 
-#: ../shell/pps-window.c:5468
+#: ../shell/ev-window.c:5468
 msgid "_Reload"
 msgstr "_R ပြန်ထည့်"
 
-#: ../shell/pps-window.c:5469
+#: ../shell/ev-window.c:5469
 msgid "Reload the document"
 msgstr "ဖိုင်ကို ပြန်ထည့်"
 
-#: ../shell/pps-window.c:5472
+#: ../shell/ev-window.c:5472
 msgid "Auto_scroll"
 msgstr "_S အလိုအလျောက်လှိမ့်တင်"
 
-#: ../shell/pps-window.c:5482
+#: ../shell/ev-window.c:5482
 msgid "_First Page"
 msgstr "_F ပထမစာမျက်နှာ"
 
-#: ../shell/pps-window.c:5483
+#: ../shell/ev-window.c:5483
 msgid "Go to the first page"
 msgstr "ပထမစာမျက်နှာသို့သွားရန်"
 
-#: ../shell/pps-window.c:5485
+#: ../shell/ev-window.c:5485
 msgid "_Last Page"
 msgstr "_L နောက်ဆုံးစာမျက်နှာ"
 
-#: ../shell/pps-window.c:5486
+#: ../shell/ev-window.c:5486
 msgid "Go to the last page"
 msgstr "နောက်ဆုံးစာမျက်နှာသို့သွားရန်"
 
 #. Help menu
-#: ../shell/pps-window.c:5490
+#: ../shell/ev-window.c:5490
 msgid "_Contents"
 msgstr "_C မာတိကာ"
 
-#: ../shell/pps-window.c:5493
+#: ../shell/ev-window.c:5493
 msgid "_About"
 msgstr "_A အကြောင်းအရာ"
 
 #. Toolbar-only
-#: ../shell/pps-window.c:5497
+#: ../shell/ev-window.c:5497
 msgid "Leave Fullscreen"
 msgstr "ဖန်သားပြင်ပြည့်မှ ထွက်ရန်"
 
-#: ../shell/pps-window.c:5498
+#: ../shell/ev-window.c:5498
 msgid "Leave fullscreen mode"
 msgstr "ဖန်သားပြင်အပြည့် ပုံစံ"
 
-#: ../shell/pps-window.c:5500
+#: ../shell/ev-window.c:5500
 msgid "Start Presentation"
 msgstr "တင်ပြချက် စရန်"
 
-#: ../shell/pps-window.c:5501
+#: ../shell/ev-window.c:5501
 msgid "Start a presentation"
 msgstr "တင်ပြချက် တစ်ခုစတင်ပါ"
 
 #. View Menu
-#: ../shell/pps-window.c:5560
+#: ../shell/ev-window.c:5560
 msgid "_Toolbar"
 msgstr "_T ကိရိယာဘား"
 
-#: ../shell/pps-window.c:5561
+#: ../shell/ev-window.c:5561
 msgid "Show or hide the toolbar"
 msgstr "ကိရိယာဘားကို ပြရန် သို့ ဖွက်ရန်"
 
-#: ../shell/pps-window.c:5563
+#: ../shell/ev-window.c:5563
 msgid "Side _Pane"
 msgstr "_P ဘေးကွက်လပ်"
 
-#: ../shell/pps-window.c:5564
+#: ../shell/ev-window.c:5564
 msgid "Show or hide the side pane"
 msgstr "ဘေးကွက်လပ်ကို ပြရန် သို့ ဖွက်ရန်"
 
-#: ../shell/pps-window.c:5566
+#: ../shell/ev-window.c:5566
 msgid "_Continuous"
 msgstr "_C ဆက်တိုက်"
 
-#: ../shell/pps-window.c:5567
+#: ../shell/ev-window.c:5567
 msgid "Show the entire document"
 msgstr "ဖိုင်တစ်ခုလုံး ပြပါ"
 
-#: ../shell/pps-window.c:5569
+#: ../shell/ev-window.c:5569
 msgid "_Dual"
 msgstr "_D နှစ်ခုတွဲ"
 
-#: ../shell/pps-window.c:5570
+#: ../shell/ev-window.c:5570
 msgid "Show two pages at once"
 msgstr "နှစ်မျက်နှာ တစ်ပြိုင်နက်ပြပါ"
 
-#: ../shell/pps-window.c:5572
+#: ../shell/ev-window.c:5572
 msgid "_Fullscreen"
 msgstr "_F မျက်နှာပြင်ပြည့်"
 
-#: ../shell/pps-window.c:5573
+#: ../shell/ev-window.c:5573
 msgid "Expand the window to fill the screen"
 msgstr "ဖန်သားပြင်ဖြည့်ရန် ဝင်းဒိုးကို ချဲ့ပါ"
 
-#: ../shell/pps-window.c:5575
+#: ../shell/ev-window.c:5575
 msgid "Pre_sentation"
 msgstr "_S တင်ပြချက်_s"
 
-#: ../shell/pps-window.c:5576
+#: ../shell/ev-window.c:5576
 msgid "Run document as a presentation"
 msgstr "ဖိုင်ကို တင်ပြချက်တစ်ခုအဖြစ် လုပ်ပါ"
 
-#: ../shell/pps-window.c:5584
+#: ../shell/ev-window.c:5584
 msgid "_Inverted Colors"
 msgstr "_I အရောင်ပြောင်း"
 
-#: ../shell/pps-window.c:5585
+#: ../shell/ev-window.c:5585
 msgid "Show page contents with the colors inverted"
 msgstr "စာမျက်နှာရှိ အကြောင်းအရာများကို အရောင်ပြောင်းများဖြင့်ပြပါ"
 
 #. Links
-#: ../shell/pps-window.c:5593
+#: ../shell/ev-window.c:5593
 msgid "_Open Link"
 msgstr "_O ကွင်းဆက် ဖွင့်"
 
-#: ../shell/pps-window.c:5595
+#: ../shell/ev-window.c:5595
 msgid "_Go To"
 msgstr "_G သွားရန်"
 
-#: ../shell/pps-window.c:5597
+#: ../shell/ev-window.c:5597
 msgid "Open in New _Window"
 msgstr "_W ဝင်းဒိုးအသစ်တွင် ဖွင့်"
 
-#: ../shell/pps-window.c:5599
+#: ../shell/ev-window.c:5599
 msgid "_Copy Link Address"
 msgstr "_C ကွင်းဆက်လိပ်စာ မိတ္တူကူး"
 
-#: ../shell/pps-window.c:5601
+#: ../shell/ev-window.c:5601
 msgid "_Save Image As…"
 msgstr "_S ပုံရိပ် သိမ်းရန်…"
 
-#: ../shell/pps-window.c:5603
+#: ../shell/ev-window.c:5603
 msgid "Copy _Image"
 msgstr "_I ပုံရိပ် မိတ္တူပွား"
 
-#: ../shell/pps-window.c:5605
+#: ../shell/ev-window.c:5605
 msgid "Annotation Properties…"
 msgstr "စာမှတ် အရည်အသွေး…"
 
-#: ../shell/pps-window.c:5610
+#: ../shell/ev-window.c:5610
 msgid "_Open Attachment"
 msgstr "_O တွဲထားချက်ဖွင့်"
 
-#: ../shell/pps-window.c:5612
+#: ../shell/ev-window.c:5612
 msgid "_Save Attachment As…"
 msgstr "_S တွဲထားချက်သိမ်း"
 
-#: ../shell/pps-window.c:5697
+#: ../shell/ev-window.c:5697
 msgid "Zoom"
 msgstr "မှန်ဘီလူး"
 
-#: ../shell/pps-window.c:5699
+#: ../shell/ev-window.c:5699
 msgid "Adjust the zoom level"
 msgstr "မှန်ဘီလူး လယ်ဗယ်ညှိ"
 
-#: ../shell/pps-window.c:5709
+#: ../shell/ev-window.c:5709
 msgid "Navigation"
 msgstr "လမ်းညွှန်"
 
-#: ../shell/pps-window.c:5711
+#: ../shell/ev-window.c:5711
 msgid "Back"
 msgstr "နောက်"
 
 #. translators: this is the history action
-#: ../shell/pps-window.c:5714
+#: ../shell/ev-window.c:5714
 msgid "Move across visited pages"
 msgstr "သွားပြီးသော စာမျက်နှာများအား ဖြတ်သန်းရွေ့လျားပါ"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:5744
+#: ../shell/ev-window.c:5744
 msgid "Previous"
 msgstr "ရှေ့သို့"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:5749
+#: ../shell/ev-window.c:5749
 msgid "Next"
 msgstr "နောက်သို့"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:5753
+#: ../shell/ev-window.c:5753
 msgid "Zoom In"
 msgstr "မှန်ဘီလူးချဲ့"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:5757
+#: ../shell/ev-window.c:5757
 msgid "Zoom Out"
 msgstr "မှန်ဘီလူးချုံ့"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:5765
+#: ../shell/ev-window.c:5765
 msgid "Fit Width"
 msgstr "အံကိုက် အကျယ်"
 
-#: ../shell/pps-window.c:5910 ../shell/pps-window.c:5927
+#: ../shell/ev-window.c:5910 ../shell/ev-window.c:5927
 msgid "Unable to launch external application."
 msgstr "ပြင်ပ အက်ပလီကေးရှင်းကို မစနိုင်ပါ"
 
-#: ../shell/pps-window.c:5984
+#: ../shell/ev-window.c:5984
 msgid "Unable to open external link"
 msgstr "ပြင်ပ ကွင်းဆက်ကို မဖွင့်နိုင်ပါ"
 
-#: ../shell/pps-window.c:6151
+#: ../shell/ev-window.c:6151
 msgid "Couldn't find appropriate format to save image"
 msgstr "ပုံရိပ်ကို သိမ်းဆည်းရန် ကိုက်ညီသော အမျိုးအစား ရှာမတွေ့ပါ"
 
-#: ../shell/pps-window.c:6193
+#: ../shell/ev-window.c:6193
 msgid "The image could not be saved."
 msgstr "ပုံရိပ်ကို မသိမ်းနိုင်ပါ"
 
-#: ../shell/pps-window.c:6225
+#: ../shell/ev-window.c:6225
 msgid "Save Image"
 msgstr "ပုံရိပ်သိမ်းရန်"
 
-#: ../shell/pps-window.c:6353
+#: ../shell/ev-window.c:6353
 msgid "Unable to open attachment"
 msgstr "တွဲထားချက်ကို မဖွင့်နိုင်ပါ"
 
-#: ../shell/pps-window.c:6406
+#: ../shell/ev-window.c:6406
 msgid "The attachment could not be saved."
 msgstr "တွဲထားချက်ကို မသိမ်းနိုင်ပါ"
 
-#: ../shell/pps-window.c:6451
+#: ../shell/ev-window.c:6451
 msgid "Save Attachment"
 msgstr "တွဲထားချက်သိမ်းရန်"
 
-#: ../shell/pps-window-title.c:162
+#: ../shell/ev-window-title.c:162
 #, c-format
 msgid "%s — Password Required"
 msgstr "%s —  စကားဝှက်လိုအပ်သည်"
 
-#: ../shell/pps-utils.c:318
+#: ../shell/ev-utils.c:318
 msgid "By extension"
 msgstr "တိုးချဲ့မှုအရ"
 
@@ -1622,15 +1622,15 @@ msgid "NUMBER"
 msgstr "နံပါတ်"
 
 #: ../shell/main.c:79
-msgid "Run papers in fullscreen mode"
+msgid "Run evince in fullscreen mode"
 msgstr "အီးဗင့်စ်ကို ဖန်သားပြင်အပြည့်ပုံစံ ဖွင့်ပါ"
 
 #: ../shell/main.c:80
-msgid "Run papers in presentation mode"
+msgid "Run evince in presentation mode"
 msgstr "အီးဗင့်စ်ကို တင်ပြချက်ပုံစံ ဖွင့်ပါ"
 
 #: ../shell/main.c:81
-msgid "Run papers as a previewer"
+msgid "Run evince as a previewer"
 msgstr "အီးဗင့်စ်ကို ကြိုတင်ကြည့်ပုံစံ ဖွင့်ပါ"
 
 #: ../shell/main.c:82
@@ -1645,21 +1645,21 @@ msgstr "အတွဲ"
 msgid "[FILE…]"
 msgstr "[ဖိုင်…]"
 
-#: ../thumbnailer/papers-thumbnailer.schemas.in.h:1
+#: ../thumbnailer/evince-thumbnailer.schemas.in.h:1
 msgid ""
 "Boolean options available: true enables thumbnailing and false disables the "
 "creation of new thumbnails"
 msgstr ""
 
-#: ../thumbnailer/papers-thumbnailer.schemas.in.h:2
+#: ../thumbnailer/evince-thumbnailer.schemas.in.h:2
 msgid "Enable thumbnailing of PDF Documents"
 msgstr ""
 
-#: ../thumbnailer/papers-thumbnailer.schemas.in.h:3
+#: ../thumbnailer/evince-thumbnailer.schemas.in.h:3
 msgid "Thumbnail command for PDF Documents"
 msgstr ""
 
-#: ../thumbnailer/papers-thumbnailer.schemas.in.h:4
+#: ../thumbnailer/evince-thumbnailer.schemas.in.h:4
 msgid ""
 "Valid command plus arguments for the PDF Document thumbnailer. See Nautilus "
 "thumbnailer documentation for more information."

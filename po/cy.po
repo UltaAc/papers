@@ -1,13 +1,13 @@
-# Cyfieithiad o papers i'r Gymraeg
-# Translation of papers to Welsh
+# Cyfieithiad o evince i'r Gymraeg
+# Translation of evince to Welsh
 # Copyright (C) 2005 Gareth Bowker
-# This file is distributed under the same license as the papers package.
+# This file is distributed under the same license as the evince package.
 # Gareth Bowker <tgb@tgb.org.uk>, 2005.
 # Rhys Jones <rhys@sucs.org>, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: papers\n"
+"Project-Id-Version: evince\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-25 12:29+0000\n"
 "PO-Revision-Date: 2006-02-21 22:22-0000\n"
@@ -37,7 +37,7 @@ msgid "Separator"
 msgstr "Gwahanydd"
 
 #. translators: this is the label for toolbar button
-#: ../cut-n-paste/zoom-control/ephy-zoom.h:48 ../shell/pps-window.c:3066
+#: ../cut-n-paste/zoom-control/ephy-zoom.h:48 ../shell/ev-window.c:3066
 msgid "Best Fit"
 msgstr "Ffit Orau"
 
@@ -81,79 +81,79 @@ msgstr "300%"
 msgid "400%"
 msgstr "400%"
 
-#: ../data/papers.desktop.in.in.h:1 ../shell/pps-window-title.c:126
+#: ../data/evince.desktop.in.in.h:1 ../shell/ev-window-title.c:126
 msgid "Document Viewer"
 msgstr "Gwelydd Dogfennau"
 
-#: ../data/papers.desktop.in.in.h:2
+#: ../data/evince.desktop.in.in.h:2
 msgid "View multipage documents"
 msgstr "Gweld dogfennau aml-dudalen"
 
-#: ../data/papers-password.glade.h:1
+#: ../data/evince-password.glade.h:1
 msgid "Remember password for this session"
 msgstr "Cofio'r cyfrinair ar gyfer y sesiwn hwn"
 
-#: ../data/papers-password.glade.h:2
+#: ../data/evince-password.glade.h:2
 msgid "Save password in keyring"
 msgstr "Cadw cyfrinair yn y cylch allweddi"
 
-#: ../data/papers-password.glade.h:3
+#: ../data/evince-password.glade.h:3
 msgid "_Password:"
 msgstr "_Cyfrinair"
 
-#: ../data/papers-properties.glade.h:1
+#: ../data/evince-properties.glade.h:1
 msgid "<b>Author:</b>"
 msgstr "<b>Awdur:</b>"
 
-#: ../data/papers-properties.glade.h:2
+#: ../data/evince-properties.glade.h:2
 msgid "<b>Created:</b>"
 msgstr "<b>Crëwyd:</b>"
 
-#: ../data/papers-properties.glade.h:3
+#: ../data/evince-properties.glade.h:3
 msgid "<b>Creator:</b>"
 msgstr "<b>Crëwr:</b>"
 
-#: ../data/papers-properties.glade.h:4
+#: ../data/evince-properties.glade.h:4
 msgid "<b>Format:</b>"
 msgstr "<b>Fformat:</b>"
 
-#: ../data/papers-properties.glade.h:5
+#: ../data/evince-properties.glade.h:5
 msgid "<b>Keywords:</b>"
 msgstr "<b>Allweddeiriau:</b>"
 
-#: ../data/papers-properties.glade.h:6
+#: ../data/evince-properties.glade.h:6
 msgid "<b>Modified:</b>"
 msgstr "<b>Newidiwyd:</b>"
 
-#: ../data/papers-properties.glade.h:7
+#: ../data/evince-properties.glade.h:7
 msgid "<b>Number of Pages:</b>"
 msgstr "<b>Nifer o Dudalennau:</b>"
 
-#: ../data/papers-properties.glade.h:8
+#: ../data/evince-properties.glade.h:8
 msgid "<b>Optimized:</b>"
 msgstr "<b>Optimeiddiwyd:</b>"
 
-#: ../data/papers-properties.glade.h:9
+#: ../data/evince-properties.glade.h:9
 msgid "<b>Producer:</b>"
 msgstr "<b>Cynhyrchydd:</b>"
 
-#: ../data/papers-properties.glade.h:10
+#: ../data/evince-properties.glade.h:10
 msgid "<b>Security:</b>"
 msgstr "<b>Diogelwch:</b>"
 
-#: ../data/papers-properties.glade.h:11
+#: ../data/evince-properties.glade.h:11
 msgid "<b>Subject:</b>"
 msgstr "<b>Pwnc:</b>"
 
-#: ../data/papers-properties.glade.h:12
+#: ../data/evince-properties.glade.h:12
 msgid "<b>Title:</b>"
 msgstr "<b>Teitl:</b>"
 
-#: ../data/papers.schemas.in.h:1
+#: ../data/evince.schemas.in.h:1
 msgid "Override document restrictions"
 msgstr "Gwrthwneud cyfyngiadau'r ddogfen"
 
-#: ../data/papers.schemas.in.h:2
+#: ../data/evince.schemas.in.h:2
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr ""
 "Gwrthwneud cyfyngiadau'r ddogfen, er enghraifft, cyfyngiad rhag copïo neu "
@@ -168,68 +168,68 @@ msgid "DVI document has incorrect format"
 msgstr "Mae fformat y ffeil DVI yn anghywir"
 
 #. translators: this is the document security state
-#: ../pdf/pps-poppler.cc:511
+#: ../pdf/ev-poppler.cc:511
 msgid "Yes"
 msgstr "Ie"
 
 #. translators: this is the document security state
-#: ../pdf/pps-poppler.cc:514
+#: ../pdf/ev-poppler.cc:514
 msgid "No"
 msgstr "Na"
 
-#: ../pdf/pps-poppler.cc:614
+#: ../pdf/ev-poppler.cc:614
 msgid "Type 1"
 msgstr "Math 1"
 
-#: ../pdf/pps-poppler.cc:616
+#: ../pdf/ev-poppler.cc:616
 msgid "Type 1C"
 msgstr "Math 1C"
 
-#: ../pdf/pps-poppler.cc:618
+#: ../pdf/ev-poppler.cc:618
 msgid "Type 3"
 msgstr "Math 3"
 
-#: ../pdf/pps-poppler.cc:620
+#: ../pdf/ev-poppler.cc:620
 msgid "TrueType"
 msgstr "TrueType"
 
-#: ../pdf/pps-poppler.cc:622
+#: ../pdf/ev-poppler.cc:622
 msgid "Type 1 (CID)"
 msgstr "Math 1 (CID)"
 
-#: ../pdf/pps-poppler.cc:624
+#: ../pdf/ev-poppler.cc:624
 msgid "Type 1C (CID)"
 msgstr "Math 1C (CID)"
 
-#: ../pdf/pps-poppler.cc:626
+#: ../pdf/ev-poppler.cc:626
 msgid "TrueType (CID)"
 msgstr "TrueType (CID)"
 
-#: ../pdf/pps-poppler.cc:628
+#: ../pdf/ev-poppler.cc:628
 msgid "Unknown font type"
 msgstr "Math ffont anhysbys"
 
-#: ../pdf/pps-poppler.cc:654
+#: ../pdf/ev-poppler.cc:654
 msgid "No name"
 msgstr "Dim enw"
 
-#: ../pdf/pps-poppler.cc:662
+#: ../pdf/ev-poppler.cc:662
 msgid "Embedded subset"
 msgstr "Is-set Ymgorfforol"
 
-#: ../pdf/pps-poppler.cc:664
+#: ../pdf/ev-poppler.cc:664
 msgid "Embedded"
 msgstr "Wedi Ymgorffori"
 
-#: ../pdf/pps-poppler.cc:666
+#: ../pdf/ev-poppler.cc:666
 msgid "Not embedded"
 msgstr "Heb ei Ymgorffori"
 
-#: ../properties/pps-properties-main.c:114
+#: ../properties/ev-properties-main.c:114
 msgid "Document"
 msgstr "Dogfen"
 
-#: ../properties/pps-properties-view.c:173
+#: ../properties/ev-properties-view.c:173
 msgid "None"
 msgstr "Dim"
 
@@ -404,62 +404,62 @@ msgstr "_Nesaf"
 msgid "C_ase Sensitive"
 msgstr "_Prif lythrennau o bwys"
 
-#: ../shell/pps-document-types.c:60
+#: ../shell/ev-document-types.c:60
 msgid "Unknown MIME Type"
 msgstr "Math MIME anhysbys"
 
-#: ../shell/pps-document-types.c:71
+#: ../shell/ev-document-types.c:71
 #, c-format
 msgid "Unhandled MIME type: '%s'"
 msgstr "Math MIME heb ei drin: '%s'"
 
-#: ../shell/pps-document-types.c:133
+#: ../shell/ev-document-types.c:133
 msgid "All Documents"
 msgstr "Pob Dogfen"
 
-#: ../shell/pps-document-types.c:141
+#: ../shell/ev-document-types.c:141
 msgid "PostScript Documents"
 msgstr "Dogfennau PostScript"
 
-#: ../shell/pps-document-types.c:150
+#: ../shell/ev-document-types.c:150
 msgid "PDF Documents"
 msgstr "Dogfennau PDF"
 
-#: ../shell/pps-document-types.c:159
+#: ../shell/ev-document-types.c:159
 msgid "Images"
 msgstr "Delweddau"
 
-#: ../shell/pps-document-types.c:169
+#: ../shell/ev-document-types.c:169
 msgid "DVI Documents"
 msgstr "Dogfennau DVI"
 
-#: ../shell/pps-document-types.c:179
+#: ../shell/ev-document-types.c:179
 msgid "Djvu Documents"
 msgstr "Dogfennau Djvu"
 
-#: ../shell/pps-document-types.c:189
+#: ../shell/ev-document-types.c:189
 msgid "Comic Books"
 msgstr "Llyfrau Comig"
 
-#: ../shell/pps-document-types.c:197
+#: ../shell/ev-document-types.c:197
 msgid "All Files"
 msgstr "Pob Ffeil"
 
-#: ../shell/pps-page-action.c:168
+#: ../shell/ev-page-action.c:168
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%d o %d)"
 
-#: ../shell/pps-page-action.c:170
+#: ../shell/ev-page-action.c:170
 #, c-format
 msgid "of %d"
 msgstr "o %d"
 
-#: ../shell/pps-password.c:83
+#: ../shell/ev-password.c:83
 msgid "Password required"
 msgstr "Rhaid cael cyfrinair"
 
-#: ../shell/pps-password.c:84
+#: ../shell/ev-password.c:84
 #, c-format
 msgid ""
 "The document <i>%s</i> is locked and requires a password before it can be "
@@ -468,20 +468,20 @@ msgstr ""
 "Mae'r ddogfen <i>%s</i> wedi'i gloi a rhaid mewnbynnu cyfrinair cyn y medrir "
 "ei agor."
 
-#: ../shell/pps-password.c:149
+#: ../shell/ev-password.c:149
 msgid "Enter password"
 msgstr "Rhowch y cyfrinair"
 
-#: ../shell/pps-password.c:252
+#: ../shell/ev-password.c:252
 #, c-format
 msgid "Password for document %s"
 msgstr "Cyfrinair ar gyfer y ddogfen %s"
 
-#: ../shell/pps-password.c:334
+#: ../shell/ev-password.c:334
 msgid "Incorrect password"
 msgstr "Cyfrinair anghywir"
 
-#: ../shell/pps-password-view.c:111
+#: ../shell/ev-password-view.c:111
 msgid ""
 "This document is locked and can only be read by entering the correct "
 "password."
@@ -489,68 +489,68 @@ msgstr ""
 "Mae'r ddogfen wedi'i gloi a medrir ei agor ond drwy fewnbynnu cyfrinair "
 "cywir."
 
-#: ../shell/pps-password-view.c:120
+#: ../shell/ev-password-view.c:120
 msgid "_Unlock Document"
 msgstr "_Datgloi Dogfen"
 
-#: ../shell/pps-properties-dialog.c:61
+#: ../shell/ev-properties-dialog.c:61
 msgid "Properties"
 msgstr "Priodweddau"
 
-#: ../shell/pps-properties-dialog.c:94
+#: ../shell/ev-properties-dialog.c:94
 msgid "General"
 msgstr "Cyffredinol"
 
-#: ../shell/pps-properties-dialog.c:104
+#: ../shell/ev-properties-dialog.c:104
 msgid "Fonts"
 msgstr "Ffontiau"
 
-#: ../shell/pps-properties-fonts.c:123
+#: ../shell/ev-properties-fonts.c:123
 msgid "Font"
 msgstr "Ffont"
 
-#: ../shell/pps-properties-fonts.c:134
+#: ../shell/ev-properties-fonts.c:134
 #, c-format
 msgid "Gathering font information... %3d%%"
 msgstr "Casglu gwybodaeth ffontiau... %3d%%"
 
-#: ../shell/pps-sidebar-links.c:254 ../shell/pps-view.c:2080
+#: ../shell/ev-sidebar-links.c:254 ../shell/ev-view.c:2080
 msgid "Loading..."
 msgstr "Llwytho..."
 
-#: ../shell/pps-sidebar-links.c:318
+#: ../shell/ev-sidebar-links.c:318
 msgid "Print..."
 msgstr "Print..."
 
-#: ../shell/pps-sidebar-links.c:686
+#: ../shell/ev-sidebar-links.c:686
 msgid "Index"
 msgstr "Mynegai"
 
-#: ../shell/pps-sidebar-thumbnails.c:669
+#: ../shell/ev-sidebar-thumbnails.c:669
 msgid "Thumbnails"
 msgstr "Rhagolygon"
 
-#: ../shell/pps-view-accessible.c:42
+#: ../shell/ev-view-accessible.c:42
 msgid "Scroll Up"
 msgstr "Sgrolio i Fyny"
 
-#: ../shell/pps-view-accessible.c:43
+#: ../shell/ev-view-accessible.c:43
 msgid "Scroll Down"
 msgstr "Sgrolio i Lawr"
 
-#: ../shell/pps-view-accessible.c:49
+#: ../shell/ev-view-accessible.c:49
 msgid "Scroll View Up"
 msgstr "Sgrolio'r Olwg i Fyny"
 
-#: ../shell/pps-view-accessible.c:50
+#: ../shell/ev-view-accessible.c:50
 msgid "Scroll View Down"
 msgstr "Sgrolio'r Olwg i Lawr"
 
-#: ../shell/pps-view-accessible.c:536
+#: ../shell/ev-view-accessible.c:536
 msgid "Document View"
 msgstr "Golwg Dogfen"
 
-#: ../shell/pps-view.c:1249
+#: ../shell/ev-view.c:1249
 #, c-format
 msgid "Go to page %s"
 msgstr "Mynd i dudalen %s"
@@ -558,45 +558,45 @@ msgstr "Mynd i dudalen %s"
 #. TRANS: Sometimes this could be better translated as
 #. "%d hit(s) on this page".  Therefore this string
 #. contains plural cases.
-#: ../shell/pps-view.c:3282
+#: ../shell/ev-view.c:3282
 #, c-format
 msgid "%d found on this page"
 msgid_plural "%d found on this page"
 msgstr[0] "Darganfyddwyd %d ar y dudalen hon"
 
-#: ../shell/pps-view.c:3291
+#: ../shell/ev-view.c:3291
 #, c-format
 msgid "%3d%% remaining to search"
 msgstr "%3d%% yn dal i chwilio"
 
-#: ../shell/pps-window.c:585
+#: ../shell/ev-window.c:585
 msgid "Unable to open document"
 msgstr "Methwyd agor y ddogfen"
 
-#: ../shell/pps-window.c:1123
+#: ../shell/ev-window.c:1123
 msgid "Open Document"
 msgstr "Agor Dogfen"
 
-#: ../shell/pps-window.c:1202
+#: ../shell/ev-window.c:1202
 #, c-format
 msgid "The file could not be saved as \"%s\"."
 msgstr "Methwyd cadw'r ffeil fel \"%s\"."
 
-#: ../shell/pps-window.c:1246
+#: ../shell/ev-window.c:1246
 msgid "Save a Copy"
 msgstr "Cadw Copi"
 
-#: ../shell/pps-window.c:1311
+#: ../shell/ev-window.c:1311
 msgid "Generating PDF is not supported"
 msgstr "Nid yw allbynnu PDF wedi'i gynorthwyo"
 
 # Pam yn y byd byddai'r neges yma byth yn dod lan?
 # Atebion ar gerdyn post i tgb@tgb.org.uk plîs!
-#: ../shell/pps-window.c:1320
+#: ../shell/ev-window.c:1320
 msgid "Printing is not supported on this printer."
 msgstr "Nid yw argraffu wedi'i gynorthwyo ar yr argraffydd yma."
 
-#: ../shell/pps-window.c:1323
+#: ../shell/ev-window.c:1323
 #, c-format
 msgid ""
 "You were trying to print to a printer using the \"%s\" driver. This program "
@@ -605,32 +605,32 @@ msgstr ""
 "Roeddech yn ceisio argraffu i argraffydd yn defnyddio'r gyrrwr \"%s\". Mae "
 "angen gyrrwr PostScript ar y rhaglen yma i argraffu."
 
-#: ../shell/pps-window.c:1368
+#: ../shell/ev-window.c:1368
 msgid "Print"
 msgstr "Argraffu"
 
-#: ../shell/pps-window.c:1374
+#: ../shell/ev-window.c:1374
 msgid "Pages"
 msgstr "Tudalennau"
 
-#: ../shell/pps-window.c:1435
+#: ../shell/ev-window.c:1435
 msgid "The \"Find\" feature will not work with this document"
 msgstr "Nid yw'r nodwedd \"Chwilio\" yn gweithio gyda'r ddogfen hon"
 
-#: ../shell/pps-window.c:1437
+#: ../shell/ev-window.c:1437
 msgid "Searching for text is only supported for PDF documents."
 msgstr "Mae chwilio am destun ond wedi'i gefnogi ar gyfer dogfennau PDF."
 
 #. Toolbar-only
-#: ../shell/pps-window.c:1668 ../shell/pps-window.c:2870
+#: ../shell/ev-window.c:1668 ../shell/ev-window.c:2870
 msgid "Leave Fullscreen"
 msgstr "Peidio Llenwi'r sgrin"
 
-#: ../shell/pps-window.c:1997
+#: ../shell/ev-window.c:1997
 msgid "Toolbar Editor"
 msgstr "Golygydd Bar Offer"
 
-#: ../shell/pps-window.c:2373
+#: ../shell/ev-window.c:2373
 #, c-format
 msgid ""
 "PostScript and PDF File Viewer.\n"
@@ -639,309 +639,309 @@ msgstr ""
 "Gwelydd ffeiliau PostScript a PDF.\n"
 "Defnyddio poppler %s (%s)"
 
-#: ../shell/pps-window.c:2396
+#: ../shell/ev-window.c:2396
 msgid ""
-"Papers is free software; you can redistribute it and/or modify\n"
+"Evince is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
 "the Free Software Foundation; either version 2 of the License, or\n"
 "(at your option) any later version.\n"
 msgstr ""
-"Mae Papers yn feddalwedd rhydd; gallwch ei hailddosbarthu a/neu ei\n"
+"Mae Evince yn feddalwedd rhydd; gallwch ei hailddosbarthu a/neu ei\n"
 "haddasu dan delerau Trwydded Gyhoeddus Gyffredinol GNU fel y'i\n"
 "cyhoeddwyd gan y Free Software Foundation; naill ai fersiwn 2 y\n"
 "Drwydded, neu (yn ôl eich dewis) unrhyw fersiwn diweddarach.\n"
 
-#: ../shell/pps-window.c:2400
+#: ../shell/ev-window.c:2400
 msgid ""
-"Papers is distributed in the hope that it will be useful,\n"
+"Evince is distributed in the hope that it will be useful,\n"
 "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
 "GNU General Public License for more details.\n"
 msgstr ""
-"Mae Papers yn cael ei dosbarthu yn y gobaith y bydd yn\n"
+"Mae Evince yn cael ei dosbarthu yn y gobaith y bydd yn\n"
 "ddefnyddiol, ond HEB UNRHYW WARANT; heb hyd yn oed y warant\n"
 "oblygedig o FARSIANDÏAETH neu FFITRWYDD AT BWRPAS ARBENNIG.\n"
 "Gweler Trwydded Gyhoeddus Gyffredinol GNU am ragor o fanylion.\n"
 
-#: ../shell/pps-window.c:2404
+#: ../shell/ev-window.c:2404
 msgid ""
 "You should have received a copy of the GNU General Public License\n"
-"along with Papers; if not, write to the Free Software Foundation, Inc.,\n"
+"along with Evince; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA\n"
 msgstr ""
 "Dylech fod wedi derbyn copi o Drwydded Gyhoeddus Gyffredinol GNU ynghyd\n"
 "â'r rhaglen hon; os na, ysgrifennwch at y Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston MA 02110-1301 USA\n"
 
-#: ../shell/pps-window.c:2428 ../shell/main.c:259
-msgid "Papers"
-msgstr "Papers"
+#: ../shell/ev-window.c:2428 ../shell/main.c:259
+msgid "Evince"
+msgstr "Evince"
 
-#: ../shell/pps-window.c:2431
-msgid "© 1996-2005 The Papers authors"
-msgstr "© 1996-2005 Awduron Papers"
+#: ../shell/ev-window.c:2431
+msgid "© 1996-2005 The Evince authors"
+msgstr "© 1996-2005 Awduron Evince"
 
-#: ../shell/pps-window.c:2437
+#: ../shell/ev-window.c:2437
 msgid "translator-credits"
 msgstr ""
 "Gareth Bowker <tgb@tgb.org.uk>\n"
 "Rhys Jones <rhys@sucs.org>"
 
-#: ../shell/pps-window.c:2799
+#: ../shell/ev-window.c:2799
 msgid "_File"
 msgstr "_Ffeil"
 
-#: ../shell/pps-window.c:2800
+#: ../shell/ev-window.c:2800
 msgid "_Edit"
 msgstr "_Golygu"
 
-#: ../shell/pps-window.c:2801
+#: ../shell/ev-window.c:2801
 msgid "_View"
 msgstr "G_olwg"
 
-#: ../shell/pps-window.c:2802
+#: ../shell/ev-window.c:2802
 msgid "_Go"
 msgstr "_Mynd"
 
-#: ../shell/pps-window.c:2803
+#: ../shell/ev-window.c:2803
 msgid "_Help"
 msgstr "_Cymorth"
 
 #. File menu
-#: ../shell/pps-window.c:2806
+#: ../shell/ev-window.c:2806
 msgid "_Open..."
 msgstr "_Agor..."
 
-#: ../shell/pps-window.c:2807
+#: ../shell/ev-window.c:2807
 msgid "Open an existing document"
 msgstr "Agor dogfen sy'n bodoli'n barod"
 
-#: ../shell/pps-window.c:2809
+#: ../shell/ev-window.c:2809
 msgid "_Save a Copy..."
 msgstr "_Cadw copi..."
 
-#: ../shell/pps-window.c:2810
+#: ../shell/ev-window.c:2810
 msgid "Save a copy of the current document"
 msgstr "Cadw copi o'r ddogfen bresennol"
 
-#: ../shell/pps-window.c:2812
+#: ../shell/ev-window.c:2812
 msgid "_Print..."
 msgstr "_Argraffu..."
 
-#: ../shell/pps-window.c:2813
+#: ../shell/ev-window.c:2813
 msgid "Print this document"
 msgstr "Argraffu'r ddogfen hon"
 
-#: ../shell/pps-window.c:2815
+#: ../shell/ev-window.c:2815
 msgid "P_roperties"
 msgstr "P_riodweddau"
 
-#: ../shell/pps-window.c:2823
+#: ../shell/ev-window.c:2823
 msgid "Select _All"
 msgstr "Dewis _Popeth"
 
-#: ../shell/pps-window.c:2826
+#: ../shell/ev-window.c:2826
 msgid "Find a word or phrase in the document"
 msgstr "Chwilio am air neu eiriau yn y ddogfen"
 
-#: ../shell/pps-window.c:2828
+#: ../shell/ev-window.c:2828
 msgid "Find Ne_xt"
 msgstr "Chwilio am y N_esaf"
 
-#: ../shell/pps-window.c:2830
+#: ../shell/ev-window.c:2830
 msgid "T_oolbar"
 msgstr "_Bar Gweithrediadau"
 
-#: ../shell/pps-window.c:2832
+#: ../shell/ev-window.c:2832
 msgid "Rotate _Left"
 msgstr "Troi i'r _Chwith"
 
-#: ../shell/pps-window.c:2834
+#: ../shell/ev-window.c:2834
 msgid "Rotate _Right"
 msgstr "Troi i'r _Dde"
 
-#: ../shell/pps-window.c:2839
+#: ../shell/ev-window.c:2839
 msgid "Enlarge the document"
 msgstr "Chwyddo'r ddogfen"
 
-#: ../shell/pps-window.c:2842
+#: ../shell/ev-window.c:2842
 msgid "Shrink the document"
 msgstr "Lleihau'r ddogfen"
 
-#: ../shell/pps-window.c:2844
+#: ../shell/ev-window.c:2844
 msgid "_Reload"
 msgstr "_Ail-lwytho"
 
-#: ../shell/pps-window.c:2845
+#: ../shell/ev-window.c:2845
 msgid "Reload the document"
 msgstr "Ail-lwytho'r ddogfen"
 
 #. Go menu
-#: ../shell/pps-window.c:2849
+#: ../shell/ev-window.c:2849
 msgid "_Previous Page"
 msgstr "Tudalen _Blaenorol"
 
-#: ../shell/pps-window.c:2850
+#: ../shell/ev-window.c:2850
 msgid "Go to the previous page"
 msgstr "Mynd i'r dudalen flaenorol"
 
-#: ../shell/pps-window.c:2852
+#: ../shell/ev-window.c:2852
 msgid "_Next Page"
 msgstr "Tudalen _Nesaf"
 
-#: ../shell/pps-window.c:2853
+#: ../shell/ev-window.c:2853
 msgid "Go to the next page"
 msgstr "Mynd i'r dudalen nesaf"
 
-#: ../shell/pps-window.c:2855
+#: ../shell/ev-window.c:2855
 msgid "_First Page"
 msgstr "Tudalen _Gyntaf"
 
-#: ../shell/pps-window.c:2856
+#: ../shell/ev-window.c:2856
 msgid "Go to the first page"
 msgstr "Mynd i'r dudalen gyntaf"
 
-#: ../shell/pps-window.c:2858
+#: ../shell/ev-window.c:2858
 msgid "_Last Page"
 msgstr "Tudalen _Olaf"
 
-#: ../shell/pps-window.c:2859
+#: ../shell/ev-window.c:2859
 msgid "Go to the last page"
 msgstr "Mynd i'r dudalen olaf"
 
 #. Help menu
-#: ../shell/pps-window.c:2863
+#: ../shell/ev-window.c:2863
 msgid "_Contents"
 msgstr "_Cynnwys"
 
-#: ../shell/pps-window.c:2866
+#: ../shell/ev-window.c:2866
 msgid "_About"
 msgstr "_Ynghylch"
 
-#: ../shell/pps-window.c:2871
+#: ../shell/ev-window.c:2871
 msgid "Leave fullscreen mode"
 msgstr "Gadael Modd Sgrin Lawn"
 
 #. View Menu
-#: ../shell/pps-window.c:2922
+#: ../shell/ev-window.c:2922
 msgid "_Toolbar"
 msgstr "Bar _Dewis"
 
-#: ../shell/pps-window.c:2923
+#: ../shell/ev-window.c:2923
 msgid "Show or hide the toolbar"
 msgstr "Dangos neu guddio'r bar dewis"
 
-#: ../shell/pps-window.c:2925
+#: ../shell/ev-window.c:2925
 msgid "Side _Pane"
 msgstr "Bar _Ochr"
 
-#: ../shell/pps-window.c:2926
+#: ../shell/ev-window.c:2926
 msgid "Show or hide the side pane"
 msgstr "Dangos neu guddio'r bar ochr"
 
-#: ../shell/pps-window.c:2928
+#: ../shell/ev-window.c:2928
 msgid "_Continuous"
 msgstr "_Parhaol"
 
-#: ../shell/pps-window.c:2929
+#: ../shell/ev-window.c:2929
 msgid "Show the entire document"
 msgstr "Dangos yr holl ddogfen"
 
-#: ../shell/pps-window.c:2931
+#: ../shell/ev-window.c:2931
 msgid "_Dual"
 msgstr "_Deuol"
 
-#: ../shell/pps-window.c:2932
+#: ../shell/ev-window.c:2932
 msgid "Show two pages at once"
 msgstr "Dangos dau dudalen ar unwaith"
 
-#: ../shell/pps-window.c:2934
+#: ../shell/ev-window.c:2934
 msgid "_Fullscreen"
 msgstr "_Modd Sgrin Lawn"
 
-#: ../shell/pps-window.c:2935
+#: ../shell/ev-window.c:2935
 msgid "Expand the window to fill the screen"
 msgstr "Ehangu'r ffenest i lenwi'r sgrin"
 
-#: ../shell/pps-window.c:2937
+#: ../shell/ev-window.c:2937
 msgid "_Presentation"
 msgstr "_Arddangos"
 
-#: ../shell/pps-window.c:2938
+#: ../shell/ev-window.c:2938
 msgid "Run document as a presentation"
 msgstr "Rhedeg y ddogfen fel arddangosfa"
 
-#: ../shell/pps-window.c:2940
+#: ../shell/ev-window.c:2940
 msgid "_Best Fit"
 msgstr "Ffit _Orau"
 
-#: ../shell/pps-window.c:2941
+#: ../shell/ev-window.c:2941
 msgid "Make the current document fill the window"
 msgstr "Achosi i'r ddogfen lenwi'r ffenest"
 
-#: ../shell/pps-window.c:2943
+#: ../shell/ev-window.c:2943
 msgid "Fit Page _Width"
 msgstr "Ffitio _Lled y Dudalen"
 
-#: ../shell/pps-window.c:2944
+#: ../shell/ev-window.c:2944
 msgid "Make the current document fill the window width"
 msgstr "Achosi i'r ddogfen lenwi lled y ffenest"
 
 #. Links
-#: ../shell/pps-window.c:2951
+#: ../shell/ev-window.c:2951
 msgid "_Open Link"
 msgstr "_Agor Cyswllt"
 
-#: ../shell/pps-window.c:2953
+#: ../shell/ev-window.c:2953
 msgid "_Go To"
 msgstr "_Mynd I"
 
-#: ../shell/pps-window.c:2955
+#: ../shell/ev-window.c:2955
 msgid "_Copy Link Address"
 msgstr "_Copïo Cyfeiriad Cyswllt"
 
-#: ../shell/pps-window.c:3015
+#: ../shell/ev-window.c:3015
 msgid "Page"
 msgstr "Tudalen"
 
-#: ../shell/pps-window.c:3016
+#: ../shell/ev-window.c:3016
 msgid "Select Page"
 msgstr "Dewis Tudalen"
 
-#: ../shell/pps-window.c:3028
+#: ../shell/ev-window.c:3028
 msgid "Zoom"
 msgstr "Ehangu"
 
-#: ../shell/pps-window.c:3030
+#: ../shell/ev-window.c:3030
 msgid "Adjust the zoom level"
 msgstr "Newid lefel yr ehangiad"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:3046
+#: ../shell/ev-window.c:3046
 msgid "Previous"
 msgstr "Blaenorol"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:3052
+#: ../shell/ev-window.c:3052
 msgid "Next"
 msgstr "Nesaf"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:3056
+#: ../shell/ev-window.c:3056
 msgid "Zoom In"
 msgstr "Ehangu"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:3061
+#: ../shell/ev-window.c:3061
 msgid "Zoom Out"
 msgstr "Crebachu"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:3071
+#: ../shell/ev-window.c:3071
 msgid "Fit Width"
 msgstr "Ffitio Lled"
 
-#: ../shell/pps-window-title.c:140
+#: ../shell/ev-window-title.c:140
 #, c-format
 msgid "%s - Password Required"
 msgstr "%s - Angen Cyfrinair"
@@ -955,10 +955,10 @@ msgid "PAGE"
 msgstr "TUDALEN"
 
 #: ../shell/main.c:286
-msgid "Papers Document Viewer"
-msgstr "Gwelydd Dogfennau Papers"
+msgid "Evince Document Viewer"
+msgstr "Gwelydd Dogfennau Evince"
 
-#: ../thumbnailer/papers-thumbnailer.schemas.in.h:1
+#: ../thumbnailer/evince-thumbnailer.schemas.in.h:1
 msgid ""
 "Boolean options available, true enables thumbnailing and false disables the "
 "creation of new thumbnails"
@@ -966,15 +966,15 @@ msgstr ""
 "Opsiynau Boole ar gael, gwir yn galluogi creu lluniau cryno a ffug yn "
 "analluogi creu lluniau cryno"
 
-#: ../thumbnailer/papers-thumbnailer.schemas.in.h:2
+#: ../thumbnailer/evince-thumbnailer.schemas.in.h:2
 msgid "Enable thumbnailing of PDF Documents"
 msgstr "Galluogi lluniau cryno o ddogfennau PDF"
 
-#: ../thumbnailer/papers-thumbnailer.schemas.in.h:3
+#: ../thumbnailer/evince-thumbnailer.schemas.in.h:3
 msgid "Thumbnail command for PDF Documents"
 msgstr "Gorchymyn rhaglen creu lluniau cryno i ddogfennau PDF"
 
-#: ../thumbnailer/papers-thumbnailer.schemas.in.h:4
+#: ../thumbnailer/evince-thumbnailer.schemas.in.h:4
 msgid ""
 "Valid command plus arguments for the PDF Document thumbnailer. See nautilus "
 "thumbnailer documentation for more information."

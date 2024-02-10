@@ -1,8 +1,8 @@
 # translation of ml.po to
-# translation of papers.master.ml.po to
-# translation of papers.HEAD.ml.po to
-# This file is distributed under the same license as the papers package.
-# Copyright (C) 2006-2008 papers'S COPYRIGHT HOLDER.
+# translation of evince.master.ml.po to
+# translation of evince.HEAD.ml.po to
+# This file is distributed under the same license as the evince package.
+# Copyright (C) 2006-2008 evince'S COPYRIGHT HOLDER.
 # Ani Peter <apeter@redhat.com>, 2006, 2009, 2013.
 # Santhosh Thottingal <santhosh.thottingal@gmail.com> , 2008.
 # Mohammed Sadiq <sadiqpkp@gmail.com> ,2012.
@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=papers&keywords=I18N+L10N&component=general\n"
+"product=evince&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2013-03-12 15:02+0000\n"
 "PO-Revision-Date: 2013-03-25 11:00+0530\n"
 "Last-Translator: Ani Peter <peter.ani@gmail.com>\n"
@@ -78,7 +78,7 @@ msgstr "“%s” വെട്ടി നീക്കുന്നതില്‍ �
 msgid "Error %s"
 msgstr "പിശക് %s"
 
-#: ../backend/comics/comicsdocument.papers-backend.in.h:1
+#: ../backend/comics/comicsdocument.evince-backend.in.h:1
 msgid "Comic Books"
 msgstr "ഹാസ്യ പുസ്തകങ്ങള്‍"
 
@@ -95,7 +95,7 @@ msgstr ""
 "ഫയലുകളിലേക്ക് "
 "പ്രവേശിക്കുവാന്‍ സാധിക്കുന്നില്ല"
 
-#: ../backend/djvu/djvudocument.papers-backend.in.h:1
+#: ../backend/djvu/djvudocument.evince-backend.in.h:1
 msgid "DjVu Documents"
 msgstr "Djvu രേഖകള്‍"
 
@@ -103,57 +103,57 @@ msgstr "Djvu രേഖകള്‍"
 msgid "DVI document has incorrect format"
 msgstr "DVI രേഖ തെറ്റായ രീതിയിലാണു്"
 
-#: ../backend/dvi/dvidocument.papers-backend.in.h:1
+#: ../backend/dvi/dvidocument.evince-backend.in.h:1
 msgid "DVI Documents"
 msgstr "DVI രേഖകള്‍"
 
-#: ../backend/pdf/pps-poppler.cc:640
+#: ../backend/pdf/ev-poppler.cc:640
 msgid "This work is in the Public Domain"
 msgstr "ഈ കൃതി പബ്ലിക്ക് ടൊമൈനിലാണ്"
 
 #. translators: this is the document security state
-#: ../backend/pdf/pps-poppler.cc:893 ../backend/pdf/pps-poppler.cc:899
+#: ../backend/pdf/ev-poppler.cc:893 ../backend/pdf/ev-poppler.cc:899
 msgid "Yes"
 msgstr "ഉവ്വു്"
 
 #. translators: this is the document security state
-#: ../backend/pdf/pps-poppler.cc:896 ../backend/pdf/pps-poppler.cc:899
+#: ../backend/pdf/ev-poppler.cc:896 ../backend/pdf/ev-poppler.cc:899
 msgid "No"
 msgstr "ഇല്ല"
 
-#: ../backend/pdf/pps-poppler.cc:1033
+#: ../backend/pdf/ev-poppler.cc:1033
 msgid "Type 1"
 msgstr "രീതി 1"
 
-#: ../backend/pdf/pps-poppler.cc:1035
+#: ../backend/pdf/ev-poppler.cc:1035
 msgid "Type 1C"
 msgstr "രീതി 1C"
 
-#: ../backend/pdf/pps-poppler.cc:1037
+#: ../backend/pdf/ev-poppler.cc:1037
 msgid "Type 3"
 msgstr "രീതി 3"
 
-#: ../backend/pdf/pps-poppler.cc:1039
+#: ../backend/pdf/ev-poppler.cc:1039
 msgid "TrueType"
 msgstr "ട്രൂടൈപ്പ്"
 
-#: ../backend/pdf/pps-poppler.cc:1041
+#: ../backend/pdf/ev-poppler.cc:1041
 msgid "Type 1 (CID)"
 msgstr "ടൈപ്പ് 1 (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1043
+#: ../backend/pdf/ev-poppler.cc:1043
 msgid "Type 1C (CID)"
 msgstr "ടൈപ്പ് 1C (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1045
+#: ../backend/pdf/ev-poppler.cc:1045
 msgid "TrueType (CID)"
 msgstr "ട്രൂടൈപ്പ് (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1047
+#: ../backend/pdf/ev-poppler.cc:1047
 msgid "Unknown font type"
 msgstr "അപരിചിതമായ രീതിയിലുളള അക്ഷരസഞ്ചയം"
 
-#: ../backend/pdf/pps-poppler.cc:1091
+#: ../backend/pdf/ev-poppler.cc:1091
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
@@ -165,11 +165,11 @@ msgstr ""
 "അക്ഷരരൂപങ്ങൾ "
 "അല്ലെങ്കിൽ, ദൃശ്യത ശരിയാകണമെന്നില്ല "
 
-#: ../backend/pdf/pps-poppler.cc:1096
+#: ../backend/pdf/ev-poppler.cc:1096
 msgid "All fonts are either standard or embedded."
 msgstr "എല്ലാ അക്ഷരരൂപങ്ങളും സ്വതവേയുള്ളതോ ഉള്‍പ്പെടുത്തിയതോ ആണ്."
 
-#: ../backend/pdf/pps-poppler.cc:1128
+#: ../backend/pdf/ev-poppler.cc:1128
 msgid "No name"
 msgstr "പേരില്ല"
 
@@ -183,20 +183,20 @@ msgstr "പേരില്ല"
 #. Author: None
 #. Keywords: None
 #.
-#: ../backend/pdf/pps-poppler.cc:1137 ../libview/pps-print-operation.c:1907
-#: ../properties/pps-properties-view.c:192
+#: ../backend/pdf/ev-poppler.cc:1137 ../libview/ev-print-operation.c:1907
+#: ../properties/ev-properties-view.c:192
 msgid "None"
 msgstr "ഒന്നുമില്ല"
 
-#: ../backend/pdf/pps-poppler.cc:1145
+#: ../backend/pdf/ev-poppler.cc:1145
 msgid "Embedded subset"
 msgstr "എംബഡ്ഡട് സബ്സെറ്റ്"
 
-#: ../backend/pdf/pps-poppler.cc:1147
+#: ../backend/pdf/ev-poppler.cc:1147
 msgid "Embedded"
 msgstr "എംബഡ്ഡട്"
 
-#: ../backend/pdf/pps-poppler.cc:1149
+#: ../backend/pdf/ev-poppler.cc:1149
 msgid "Not embedded"
 msgstr "എംബഡ്ഡട് അല്ല"
 
@@ -205,7 +205,7 @@ msgstr "എംബഡ്ഡട് അല്ല"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: ../backend/pdf/pps-poppler.cc:1156
+#: ../backend/pdf/ev-poppler.cc:1156
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (14 മാനക ഫോണ്ടുകളിലൊന്ന്)"
 
@@ -214,33 +214,33 @@ msgstr " (14 മാനക ഫോണ്ടുകളിലൊന്ന്)"
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: ../backend/pdf/pps-poppler.cc:1163
+#: ../backend/pdf/ev-poppler.cc:1163
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (14 മാനക ഫോണ്ടുകളിലില്ലാത്തത്)"
 
-#: ../backend/pdf/pps-poppler.cc:1170
+#: ../backend/pdf/ev-poppler.cc:1170
 msgid "Encoding"
 msgstr "എന്‍കോഡിങ്ങ്"
 
-#: ../backend/pdf/pps-poppler.cc:1171
+#: ../backend/pdf/ev-poppler.cc:1171
 msgid "Substituting with"
 msgstr "ഇതിന് പകരം"
 
-#: ../backend/pdf/pdfdocument.papers-backend.in.h:1
+#: ../backend/pdf/pdfdocument.evince-backend.in.h:1
 msgid "PDF Documents"
 msgstr "പി ഡി എഫ് രേഖകള്‍"
 
-#: ../backend/ps/pps-spectre.c:98
+#: ../backend/ps/ev-spectre.c:98
 #, c-format
 msgid "Failed to load document “%s”"
 msgstr "“%s” രേഖ ലോഡ് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടിരിക്കുന്നു"
 
-#: ../backend/ps/pps-spectre.c:131
+#: ../backend/ps/ev-spectre.c:131
 #, c-format
 msgid "Failed to save document “%s”"
 msgstr "“%s” രേഖ സൂക്ഷിക്കുന്നതില്‍ പരാജയപ്പെട്ടിരിക്കുന്നു"
 
-#: ../backend/ps/psdocument.papers-backend.in.h:1
+#: ../backend/ps/psdocument.evince-backend.in.h:1
 msgid "PostScript Documents"
 msgstr "പോസ്റ്റ് സ്ക്രിപ്റ്റ് രേഖകള്‍"
 
@@ -248,11 +248,11 @@ msgstr "പോസ്റ്റ് സ്ക്രിപ്റ്റ് രേഖ�
 msgid "Invalid document"
 msgstr "അസാധുവായ രേഖ"
 
-#: ../backend/tiff/tiffdocument.papers-backend.in.h:1
+#: ../backend/tiff/tiffdocument.evince-backend.in.h:1
 msgid "TIFF Documents"
 msgstr "ടിഫ്ഫ് രേഖകള്‍"
 
-#: ../backend/xps/xpsdocument.papers-backend.in.h:1
+#: ../backend/xps/xpsdocument.evince-backend.in.h:1
 msgid "XPS Documents"
 msgstr "XPS രേഖകള്‍"
 
@@ -304,7 +304,7 @@ msgstr "സെഷന്‍ മാനേജറിലേയ്ക്കുള്�
 msgid "Specify file containing saved configuration"
 msgstr "സജ്ജീകരണങ്ങള്‍ സൂക്ഷിച്ച ഫയല്‍ പറയുക"
 
-#: ../cut-n-paste/smclient/eggsmclient.c:229 ../previewer/pps-previewer.c:46
+#: ../cut-n-paste/smclient/eggsmclient.c:229 ../previewer/ev-previewer.c:46
 msgid "FILE"
 msgstr "FILE"
 
@@ -325,173 +325,173 @@ msgid "Show session management options"
 msgstr "സെഷന്‍ മാനേജ്മെന്റിനുള്ള ഉപാധികള്‍ കാണിയ്ക്കുക"
 
 #. Manually set name and icon
-#: ../data/papers.desktop.in.in.h:1 ../shell/pps-window.c:4870
-#: ../shell/pps-window-title.c:156 ../shell/main.c:312
+#: ../data/evince.desktop.in.in.h:1 ../shell/ev-window.c:4870
+#: ../shell/ev-window-title.c:156 ../shell/main.c:312
 #, c-format
 msgid "Document Viewer"
 msgstr "രേഖാദര്‍ശിനി"
 
-#: ../data/papers.desktop.in.in.h:2
+#: ../data/evince.desktop.in.in.h:2
 msgid "View multi-page documents"
 msgstr "അനവധി പേജുകളുളള രേഖ കാണുക"
 
-#: ../data/papers.desktop.in.in.h:3
+#: ../data/evince.desktop.in.in.h:3
 msgid "pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;"
 msgstr "pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;"
 
-#: ../data/papers-previewer.desktop.in.in.h:1
+#: ../data/evince-previewer.desktop.in.in.h:1
 msgid "Print Preview"
 msgstr "അച്ചടി തിരനോട്ടം"
 
-#: ../data/papers-previewer.desktop.in.in.h:2
+#: ../data/evince-previewer.desktop.in.in.h:2
 msgid "Preview before printing"
 msgstr "അച്ചടിക്കുന്നതിനു മുൻപ് കണ്ടുനോക്കാം"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:1
+#: ../data/org.gnome.Evince.gschema.xml.in.h:1
 msgid "Override document restrictions"
 msgstr "രേഖയിലുള്ള പരിമിതികളെ മാറ്റി എഴുതുക"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:2
+#: ../data/org.gnome.Evince.gschema.xml.in.h:2
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr ""
 "രേഖയിലുള്ള പരിമിതികളെ മാറ്റി എഴുതുക, പകര്‍ത്തുവാനോ പ്രിന്റ് ചെയ്യുവാനോ ഉള്ള "
 "പരിമിതി പോലെ."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:3
+#: ../data/org.gnome.Evince.gschema.xml.in.h:3
 msgid "Automatically reload the document"
 msgstr "സ്വമേധയാ രേഖ വീണ്ടും എടുക്കുക"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:4
+#: ../data/org.gnome.Evince.gschema.xml.in.h:4
 msgid "The document is automatically reloaded on file change."
 msgstr "ഫയലില്‍ മാറ്റം വരുമ്പോള്‍ രേഖ തനിയെ തന്നെ വീണ്ടും ലഭ്യമാക്കും."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:5
+#: ../data/org.gnome.Evince.gschema.xml.in.h:5
 msgid "The URI of the directory last used to open or save a document"
 msgstr "രേഖ തുറക്കാനോ സൂക്ഷിച്ച് വെക്കാനോ അവസാനമായി ഉപയോഗിച്ച ഡയറക്ടറിയുടെ URI"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:6
+#: ../data/org.gnome.Evince.gschema.xml.in.h:6
 msgid "The URI of the directory last used to save a picture"
 msgstr "ചിത്രം സൂക്ഷിച്ച് വെയ്ക്കാന്‍ അവസാനമായി ഉപയോഗിച്ച ഡയറക്ടറിയുടെ URI"
 
-#: ../libdocument/pps-attachment.c:310 ../libdocument/pps-attachment.c:331
+#: ../libdocument/ev-attachment.c:310 ../libdocument/ev-attachment.c:331
 #, c-format
 msgid "Couldn't save attachment “%s”: %s"
 msgstr "അറ്റാച്ച്മെന്റ് “%s” സൂക്ഷിയ്ക്കുവാന്‍ സാധ്യമായില്ല: %s"
 
-#: ../libdocument/pps-attachment.c:379
+#: ../libdocument/ev-attachment.c:379
 #, c-format
 msgid "Couldn't open attachment “%s”: %s"
 msgstr "അറ്റാച്ച്മെന്റ് “%s” തുറക്കുവാന്‍ സാധ്യമായില്ല: %s"
 
-#: ../libdocument/pps-attachment.c:414
+#: ../libdocument/ev-attachment.c:414
 #, c-format
 msgid "Couldn't open attachment “%s”"
 msgstr "അറ്റാച്ച്മെന്റ് “%s” തുറക്കുവാന്‍ സാധ്യമായില്ല"
 
-#: ../libdocument/pps-document-factory.c:101
+#: ../libdocument/ev-document-factory.c:101
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "%s (%s)  തരം ഫയലുകള്‍ പിന്തുണയ്ക്കുന്നില്ല"
 
-#: ../libdocument/pps-document-factory.c:364
-#: ../libdocument/pps-file-helpers.c:490 ../libdocument/pps-file-helpers.c:536
-#: ../libdocument/pps-file-helpers.c:555
+#: ../libdocument/ev-document-factory.c:364
+#: ../libdocument/ev-file-helpers.c:490 ../libdocument/ev-file-helpers.c:536
+#: ../libdocument/ev-file-helpers.c:555
 msgid "Unknown MIME Type"
 msgstr "അപരിചിതമായ MIME രീതി"
 
-#: ../libdocument/pps-document-factory.c:552
+#: ../libdocument/ev-document-factory.c:552
 msgid "All Documents"
 msgstr "എല്ലാ രേഖകളും"
 
-#: ../libdocument/pps-document-factory.c:579
+#: ../libdocument/ev-document-factory.c:579
 msgid "All Files"
 msgstr "എല്ലാ ഫയലുകളും"
 
-#: ../libdocument/pps-file-helpers.c:146
+#: ../libdocument/ev-file-helpers.c:146
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr ""
 "ഒരു താല്‍ക്കാലിക ഡയറക്ടറി ഉണ്ടാക്കുന്നതില്‍ പരാജയപ്പെട്ടിരിക്കുന്നു: %s"
 
-#: ../libdocument/pps-file-helpers.c:308
+#: ../libdocument/ev-file-helpers.c:308
 #, c-format
 msgid "Failed to create a temporary directory: %s"
 msgstr ""
 "ഒരു താല്‍ക്കാലിക ഡയറക്ടറി ഉണ്ടാക്കുന്നതില്‍ പരാജയപ്പെട്ടിരിക്കുന്നു: %s"
 
-#: ../libmisc/pps-page-action-widget.c:85
-#: ../libmisc/pps-page-action-widget.c:124
+#: ../libmisc/ev-page-action-widget.c:85
+#: ../libmisc/ev-page-action-widget.c:124
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%2$d-ന്റെ %1$d)"
 
-#: ../libmisc/pps-page-action-widget.c:87
-#: ../libmisc/pps-page-action-widget.c:126
+#: ../libmisc/ev-page-action-widget.c:87
+#: ../libmisc/ev-page-action-widget.c:126
 #, c-format
 msgid "of %d"
 msgstr "%d-ന്റെ"
 
-#: ../libmisc/pps-page-action-widget.c:182 ../shell/pps-history.c:345
-#: ../shell/pps-sidebar-bookmarks.c:312 ../shell/pps-window.c:888
-#: ../shell/pps-window.c:4605
+#: ../libmisc/ev-page-action-widget.c:182 ../shell/ev-history.c:345
+#: ../shell/ev-sidebar-bookmarks.c:312 ../shell/ev-window.c:888
+#: ../shell/ev-window.c:4605
 #, c-format
 msgid "Page %s"
 msgstr "%s താള്‍"
 
-#: ../libview/pps-jobs.c:1919
+#: ../libview/ev-jobs.c:1919
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "%d താള്‍ പ്രിന്റ് ചെയ്യുന്നതില്‍ പരാജയം: %s"
 
 #. Initial state
-#: ../libview/pps-print-operation.c:347
+#: ../libview/ev-print-operation.c:347
 msgid "Preparing to print…"
 msgstr "പ്രിന്റ് ചെയ്യുന്നതിനായി തയ്യാറെടുക്കുന്നു..."
 
-#: ../libview/pps-print-operation.c:349
+#: ../libview/ev-print-operation.c:349
 msgid "Finishing…"
 msgstr "പൂര്‍ത്തിയാക്കുന്നു..."
 
-#: ../libview/pps-print-operation.c:351
+#: ../libview/ev-print-operation.c:351
 #, c-format
 msgid "Printing page %d of %d…"
 msgstr "താള്‍ %d അച്ചടിക്കുന്നു, മൊത്തം %d..."
 
-#: ../libview/pps-print-operation.c:1175
+#: ../libview/ev-print-operation.c:1175
 msgid "Postscript is not supported by this printer."
 msgstr "ഈ അച്ചടിയന്ത്രത്തില്‍ പോസ്റ്റ്ഫിക്സ് പിന്തുണ ലഭ്യമല്ല."
 
-#: ../libview/pps-print-operation.c:1240
+#: ../libview/ev-print-operation.c:1240
 msgid "Invalid page selection"
 msgstr "തെറ്റായ താള്‍ സജ്ജീകരണം"
 
-#: ../libview/pps-print-operation.c:1241
+#: ../libview/ev-print-operation.c:1241
 msgid "Warning"
 msgstr "മുന്നറിയിപ്പു്"
 
-#: ../libview/pps-print-operation.c:1243
+#: ../libview/ev-print-operation.c:1243
 msgid "Your print range selection does not include any pages"
 msgstr "നിങ്ങള്‍ തെരഞ്ഞെടുത്ത പ്രിന്റ് പരിധിയില്‍ ഒരു താളും ഉള്‍പ്പെടുന്നില്ല"
 
 #. translators: Title of the print dialog
 #. translators: Print document currently shown in the Print Preview window
-#: ../libview/pps-print-operation.c:1322 ../previewer/pps-previewer-window.c:298
+#: ../libview/ev-print-operation.c:1322 ../previewer/ev-previewer-window.c:298
 msgid "Print"
 msgstr "അച്ചടിയ്ക്കുക"
 
-#: ../libview/pps-print-operation.c:1901
+#: ../libview/ev-print-operation.c:1901
 msgid "Page Scaling:"
 msgstr "%systemroot%\\system32\\cmd.exe"
 
-#: ../libview/pps-print-operation.c:1908
+#: ../libview/ev-print-operation.c:1908
 msgid "Shrink to Printable Area"
 msgstr "പ്രിന്റ് ചെയ്യാവുന്ന വിസ്തീര്‍ണ്ണത്തിലേക്കു ചുരിക്കുക"
 
-#: ../libview/pps-print-operation.c:1909
+#: ../libview/ev-print-operation.c:1909
 msgid "Fit to Printable Area"
 msgstr "പ്രിന്റ് ചെയ്യാവുന്ന വിസ്തീര്‍ണ്ണത്തിലേക്കു ഉചിതമാക്കുക"
 
-#: ../libview/pps-print-operation.c:1912
+#: ../libview/ev-print-operation.c:1912
 msgid ""
 "Scale document pages to fit the selected printer page. Select from one of "
 "the following:\n"
@@ -518,11 +518,11 @@ msgstr ""
 "ചെറുതാക്കിയോ "
 "അച്ചടിക്കാനാകുന്ന സ്ഥലത്തേക്ക് കൊള്ളിക്കുന്നു.\n"
 
-#: ../libview/pps-print-operation.c:1924
+#: ../libview/ev-print-operation.c:1924
 msgid "Auto Rotate and Center"
 msgstr "സ്വമേധയാ കറക്കി നടുവിലാക്കുക"
 
-#: ../libview/pps-print-operation.c:1927
+#: ../libview/ev-print-operation.c:1927
 msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
@@ -531,227 +531,227 @@ msgstr ""
 "ഒത്ത നടുക്കായി "
 "ക്രമീകരിക്കും."
 
-#: ../libview/pps-print-operation.c:1932
+#: ../libview/ev-print-operation.c:1932
 msgid "Select page size using document page size"
 msgstr "രേഖയുടെ താളിന്റെ വലിപ്പം അനുസരിച്ച് താളിന്റെ വലിപ്പം ക്രമീകരിക്കുക"
 
-#: ../libview/pps-print-operation.c:1934
+#: ../libview/ev-print-operation.c:1934
 msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
 msgstr ""
 "ഇത് സജ്ജമാക്കിയാല്‍ രേഖയുടെ താളിന്റെ വലിപ്പമനുസരിച്ച് ഓരോ താളും അച്ചടിക്കും."
 
-#: ../libview/pps-print-operation.c:2023
+#: ../libview/ev-print-operation.c:2023
 msgid "Page Handling"
 msgstr "താള്‍ കൈകാര്യം"
 
-#: ../libview/pps-view-accessible.c:45
+#: ../libview/ev-view-accessible.c:45
 msgid "Scroll Up"
 msgstr "കീബോര്‍ഡ് ഉപയോഗിച്ച് മുകളിലേക്ക് പോവുക"
 
-#: ../libview/pps-view-accessible.c:46
+#: ../libview/ev-view-accessible.c:46
 msgid "Scroll Down"
 msgstr "കീബോര്‍ഡ് ഉപയോഗിച്ച് താഴേക്ക് പോവുക"
 
-#: ../libview/pps-view-accessible.c:52
+#: ../libview/ev-view-accessible.c:52
 msgid "Scroll View Up"
 msgstr "കാഴ്ച മുകളിലേക്ക് ആക്കുക"
 
-#: ../libview/pps-view-accessible.c:53
+#: ../libview/ev-view-accessible.c:53
 msgid "Scroll View Down"
 msgstr "കാഴ്ച താഴേക്കാക്കുക"
 
-#: ../libview/pps-view-accessible.c:105
+#: ../libview/ev-view-accessible.c:105
 msgid "Document View"
 msgstr "രേഖാ കാഴ്ച"
 
-#: ../libview/pps-view.c:1873
+#: ../libview/ev-view.c:1873
 msgid "Go to first page"
 msgstr "ആദ്യത്തെ താളിലേയ്ക്കു് പോകുക"
 
-#: ../libview/pps-view.c:1875
+#: ../libview/ev-view.c:1875
 msgid "Go to previous page"
 msgstr "മുമ്പുളള താളിലേയ്ക്കു് പോകുക"
 
-#: ../libview/pps-view.c:1877
+#: ../libview/ev-view.c:1877
 msgid "Go to next page"
 msgstr "അടുത്ത താളിലേയ്ക്കു് പോകുക"
 
-#: ../libview/pps-view.c:1879
+#: ../libview/ev-view.c:1879
 msgid "Go to last page"
 msgstr "അവസാന താളിലേയ്ക്കു് പോകുക"
 
-#: ../libview/pps-view.c:1881
+#: ../libview/ev-view.c:1881
 msgid "Go to page"
 msgstr "പോകേണ്ട താള്‍"
 
-#: ../libview/pps-view.c:1883
+#: ../libview/ev-view.c:1883
 msgid "Find"
 msgstr "കണ്ടുപിടിക്കുക"
 
-#: ../libview/pps-view.c:1911
+#: ../libview/ev-view.c:1911
 #, c-format
 msgid "Go to page %s"
 msgstr "%s താളിലേയ്ക്കു് പോകുക"
 
-#: ../libview/pps-view.c:1917
+#: ../libview/ev-view.c:1917
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "“%s” ഫയലിലുളള %s-ലേക്ക് പോകുക"
 
-#: ../libview/pps-view.c:1920
+#: ../libview/ev-view.c:1920
 #, c-format
 msgid "Go to file “%s”"
 msgstr "“%s” ഫയലിലേക്ക് പോകുക"
 
-#: ../libview/pps-view.c:1928
+#: ../libview/ev-view.c:1928
 #, c-format
 msgid "Launch %s"
 msgstr "%s പ്രദര്‍ശിപ്പിക്കുക"
 
-#: ../libview/pps-view-presentation.c:710
+#: ../libview/ev-view-presentation.c:710
 msgid "Jump to page:"
 msgstr "പോകേണ്ട താള്‍:"
 
-#: ../libview/pps-view-presentation.c:1015
+#: ../libview/ev-view-presentation.c:1015
 msgid "End of presentation. Click to exit."
 msgstr "അവതരണം അവസാനിച്ചിരിക്കുന്നു. പുറത്ത് കടക്കുന്നതിനായി ക്ലിക്ക് ചെയ്യുക."
 
-#: ../previewer/pps-previewer.c:45
+#: ../previewer/ev-previewer.c:45
 msgid "Delete the temporary file"
 msgstr "താല്‍ക്കാലിക ഫയല്‍ വെട്ടി നീക്കുക"
 
-#: ../previewer/pps-previewer.c:46
+#: ../previewer/ev-previewer.c:46
 msgid "Print settings file"
 msgstr "സജ്ജീകരണ ഫയല്‍ പ്രിന്റ് ചെയ്യുക"
 
-#: ../previewer/pps-previewer.c:175 ../previewer/pps-previewer.c:207
+#: ../previewer/ev-previewer.c:175 ../previewer/ev-previewer.c:207
 msgid "GNOME Document Previewer"
 msgstr "ഗ്നോം രേഖാദര്‍ശിനി"
 
-#: ../previewer/pps-previewer-window.c:91 ../shell/pps-window.c:3332
+#: ../previewer/ev-previewer-window.c:91 ../shell/ev-window.c:3332
 msgid "Failed to print document"
 msgstr "രേഖ പ്രിന്‍റ് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു"
 
-#: ../previewer/pps-previewer-window.c:237
+#: ../previewer/ev-previewer-window.c:237
 #, c-format
 msgid "The selected printer '%s' could not be found"
 msgstr "തെരഞ്ഞെടുത്ത പ്രിന്റര്‍ '%s' ലഭ്യമല്ല"
 
 #. Go menu
-#: ../previewer/pps-previewer-window.c:284 ../shell/pps-window.c:5809
+#: ../previewer/ev-previewer-window.c:284 ../shell/ev-window.c:5809
 msgid "_Previous Page"
 msgstr "തൊട്ട് _മുമ്പുളള താള്‍"
 
-#: ../previewer/pps-previewer-window.c:285 ../shell/pps-window.c:5810
+#: ../previewer/ev-previewer-window.c:285 ../shell/ev-window.c:5810
 msgid "Go to the previous page"
 msgstr "മുമ്പുള്ള താളിലേയ്ക്കു് പോകുക"
 
-#: ../previewer/pps-previewer-window.c:287 ../shell/pps-window.c:5812
+#: ../previewer/ev-previewer-window.c:287 ../shell/ev-window.c:5812
 msgid "_Next Page"
 msgstr "_അടുത്ത താള്‍"
 
-#: ../previewer/pps-previewer-window.c:288 ../shell/pps-window.c:5813
+#: ../previewer/ev-previewer-window.c:288 ../shell/ev-window.c:5813
 msgid "Go to the next page"
 msgstr "തൊട്ടടുത്ത താളിലേയ്ക്കു് പോകുക"
 
-#: ../previewer/pps-previewer-window.c:291 ../shell/pps-window.c:5796
+#: ../previewer/ev-previewer-window.c:291 ../shell/ev-window.c:5796
 msgid "Enlarge the document"
 msgstr "രേഖ വലുതാക്കുക"
 
-#: ../previewer/pps-previewer-window.c:294 ../shell/pps-window.c:5799
+#: ../previewer/ev-previewer-window.c:294 ../shell/ev-window.c:5799
 msgid "Shrink the document"
 msgstr "രേഖ ചെറുതാക്കുക"
 
-#: ../previewer/pps-previewer-window.c:299 ../shell/pps-window.c:5774
+#: ../previewer/ev-previewer-window.c:299 ../shell/ev-window.c:5774
 msgid "Print this document"
 msgstr "ഈ രേഖ അച്ചടിക്കുക"
 
-#: ../previewer/pps-previewer-window.c:343 ../shell/pps-window.c:5927
+#: ../previewer/ev-previewer-window.c:343 ../shell/ev-window.c:5927
 msgid "Fit Pa_ge"
 msgstr "താള്‍ _അനുയോജ്യമായ വലിപ്പത്തില്‍"
 
-#: ../previewer/pps-previewer-window.c:344 ../shell/pps-window.c:5928
+#: ../previewer/ev-previewer-window.c:344 ../shell/ev-window.c:5928
 msgid "Make the current document fill the window"
 msgstr "നിലവിലുളള രേഖ സ്ക്രീന്റെ പരാമാവധി വലുപ്പത്തില്‍ ആക്കി ജാലകം നിറയ്ക്കുക"
 
-#: ../previewer/pps-previewer-window.c:346 ../shell/pps-window.c:5930
+#: ../previewer/ev-previewer-window.c:346 ../shell/ev-window.c:5930
 msgid "Fit _Width"
 msgstr "_വീതിയനുസരിച്ച്"
 
-#: ../previewer/pps-previewer-window.c:347 ../shell/pps-window.c:5931
+#: ../previewer/ev-previewer-window.c:347 ../shell/ev-window.c:5931
 msgid "Make the current document fill the window width"
 msgstr ""
 "നിലവിലുളള രേഖയുടെ വീതിയനുസരിച്ച് സ്ക്രീന്റെ പരാമാവധി വലുപ്പത്തില്‍ ആക്കി "
 "ജാലകം നിറയ്ക്കുക"
 
-#: ../previewer/pps-previewer-window.c:540 ../shell/pps-window.c:6042
+#: ../previewer/ev-previewer-window.c:540 ../shell/ev-window.c:6042
 msgid "Page"
 msgstr "താള്‍"
 
-#: ../previewer/pps-previewer-window.c:541 ../shell/pps-window.c:6043
+#: ../previewer/ev-previewer-window.c:541 ../shell/ev-window.c:6043
 msgid "Select Page"
 msgstr "താള്‍ തെരഞ്ഞെടുക്കുക"
 
-#: ../properties/pps-properties-main.c:116
+#: ../properties/ev-properties-main.c:116
 msgid "Document"
 msgstr "രേഖ"
 
-#: ../properties/pps-properties-view.c:60
+#: ../properties/ev-properties-view.c:60
 msgid "Title:"
 msgstr "തലക്കെട്ട്:"
 
-#: ../properties/pps-properties-view.c:61
+#: ../properties/ev-properties-view.c:61
 msgid "Location:"
 msgstr "സ്ഥാനം:"
 
-#: ../properties/pps-properties-view.c:62
+#: ../properties/ev-properties-view.c:62
 msgid "Subject:"
 msgstr "വിഷയം:"
 
-#: ../properties/pps-properties-view.c:63
-#: ../shell/pps-annotation-properties-dialog.c:154
+#: ../properties/ev-properties-view.c:63
+#: ../shell/ev-annotation-properties-dialog.c:154
 msgid "Author:"
 msgstr "രചയിതാവു്:"
 
-#: ../properties/pps-properties-view.c:64
+#: ../properties/ev-properties-view.c:64
 msgid "Keywords:"
 msgstr "കീ വേര്‍ഡുകള്‍:"
 
-#: ../properties/pps-properties-view.c:65
+#: ../properties/ev-properties-view.c:65
 msgid "Producer:"
 msgstr "നിര്‍മ്മാതാവ്:"
 
-#: ../properties/pps-properties-view.c:66
+#: ../properties/ev-properties-view.c:66
 msgid "Creator:"
 msgstr "സൃഷ്ടികര്‍ത്താവ്:"
 
-#: ../properties/pps-properties-view.c:67
+#: ../properties/ev-properties-view.c:67
 msgid "Created:"
 msgstr "സൃഷ്ടിച്ചത്:"
 
-#: ../properties/pps-properties-view.c:68
+#: ../properties/ev-properties-view.c:68
 msgid "Modified:"
 msgstr "മാറ്റം വരുത്തിയത്:"
 
-#: ../properties/pps-properties-view.c:69
+#: ../properties/ev-properties-view.c:69
 msgid "Number of Pages:"
 msgstr "പേജുകളുടെ എണ്ണം:"
 
-#: ../properties/pps-properties-view.c:70
+#: ../properties/ev-properties-view.c:70
 msgid "Optimized:"
 msgstr "ഒപ്റ്റിമൈസ്ഡ്:"
 
-#: ../properties/pps-properties-view.c:71
+#: ../properties/ev-properties-view.c:71
 msgid "Format:"
 msgstr "രീതി:"
 
-#: ../properties/pps-properties-view.c:72
+#: ../properties/ev-properties-view.c:72
 msgid "Security:"
 msgstr "സുരക്ഷിതത്വം:"
 
-#: ../properties/pps-properties-view.c:73
+#: ../properties/ev-properties-view.c:73
 msgid "Paper Size:"
 msgstr "പേപ്പറിന്റെ വ്യാപ്തി:"
 
@@ -761,30 +761,30 @@ msgstr "പേപ്പറിന്റെ വ്യാപ്തി:"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: ../properties/pps-properties-view.c:220
+#: ../properties/ev-properties-view.c:220
 msgid "default:mm"
 msgstr "default:mm"
 
-#: ../properties/pps-properties-view.c:264
+#: ../properties/ev-properties-view.c:264
 #, c-format
 msgid "%.0f × %.0f mm"
 msgstr "%.0f x %.0f mm"
 
-#: ../properties/pps-properties-view.c:268
+#: ../properties/ev-properties-view.c:268
 #, c-format
 msgid "%.2f × %.2f inch"
 msgstr "%.2f x %.2f ഇഞ്ച്"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/pps-properties-view.c:292
+#: ../properties/ev-properties-view.c:292
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr "%s, ചിത്രം (%s)"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/pps-properties-view.c:299
+#: ../properties/ev-properties-view.c:299
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr "%s,  ലാന്‍ഡ്സ്കെയിപ്പ് (%s)"
@@ -812,108 +812,108 @@ msgid "Find next occurrence of the search string"
 msgstr ""
 "തിരച്ചില്‍ നടത്തുന്ന വാചകം ഇതിന് ശേഷം ഏത് വരിയില്‍ ഉളളത് എന്ന് കണ്ടുപിടിക്കുക"
 
-#: ../shell/pps-annotation-properties-dialog.c:94
+#: ../shell/ev-annotation-properties-dialog.c:94
 msgid "Icon:"
 msgstr "ഐക്കണ്‍:"
 
-#: ../shell/pps-annotation-properties-dialog.c:100
+#: ../shell/ev-annotation-properties-dialog.c:100
 msgid "Note"
 msgstr "കുറിപ്പ്"
 
-#: ../shell/pps-annotation-properties-dialog.c:101
+#: ../shell/ev-annotation-properties-dialog.c:101
 msgid "Comment"
 msgstr "അഭിപ്രായപ്രകടനം"
 
-#: ../shell/pps-annotation-properties-dialog.c:102
+#: ../shell/ev-annotation-properties-dialog.c:102
 msgid "Key"
 msgstr "കീ"
 
-#: ../shell/pps-annotation-properties-dialog.c:103
+#: ../shell/ev-annotation-properties-dialog.c:103
 msgid "Help"
 msgstr "സഹായം"
 
-#: ../shell/pps-annotation-properties-dialog.c:104
+#: ../shell/ev-annotation-properties-dialog.c:104
 msgid "New Paragraph"
 msgstr "പുതിയ ഖണ്ടിക"
 
-#: ../shell/pps-annotation-properties-dialog.c:105
+#: ../shell/ev-annotation-properties-dialog.c:105
 msgid "Paragraph"
 msgstr "ഖണ്ടിക"
 
-#: ../shell/pps-annotation-properties-dialog.c:106
+#: ../shell/ev-annotation-properties-dialog.c:106
 msgid "Insert"
 msgstr "ഇടയില്‍ വയ്ക്കുക"
 
-#: ../shell/pps-annotation-properties-dialog.c:107
+#: ../shell/ev-annotation-properties-dialog.c:107
 msgid "Cross"
 msgstr "ഗുണന ചിഹ്നം"
 
-#: ../shell/pps-annotation-properties-dialog.c:108
+#: ../shell/ev-annotation-properties-dialog.c:108
 msgid "Circle"
 msgstr "വൃത്തം"
 
-#: ../shell/pps-annotation-properties-dialog.c:109
+#: ../shell/ev-annotation-properties-dialog.c:109
 msgid "Unknown"
 msgstr "അപരിചിതമായ"
 
-#: ../shell/pps-annotation-properties-dialog.c:134
+#: ../shell/ev-annotation-properties-dialog.c:134
 msgid "Annotation Properties"
 msgstr "കുറിപ്പിന്റെ സ്വഭാവം"
 
-#: ../shell/pps-annotation-properties-dialog.c:165
+#: ../shell/ev-annotation-properties-dialog.c:165
 msgid "Color:"
 msgstr "നിറം:"
 
-#: ../shell/pps-annotation-properties-dialog.c:175
+#: ../shell/ev-annotation-properties-dialog.c:175
 msgid "Style:"
 msgstr "ശൈലി:"
 
-#: ../shell/pps-annotation-properties-dialog.c:190
+#: ../shell/ev-annotation-properties-dialog.c:190
 msgid "Transparent"
 msgstr "സുതാര്യം"
 
-#: ../shell/pps-annotation-properties-dialog.c:197
+#: ../shell/ev-annotation-properties-dialog.c:197
 msgid "Opaque"
 msgstr "അതാര്യം"
 
-#: ../shell/pps-annotation-properties-dialog.c:207
+#: ../shell/ev-annotation-properties-dialog.c:207
 msgid "Initial window state:"
 msgstr "തുടക്കത്തിലെ ജാലകത്തിന്റെ സ്ഥിതി:"
 
-#: ../shell/pps-annotation-properties-dialog.c:213
+#: ../shell/ev-annotation-properties-dialog.c:213
 msgid "Open"
 msgstr "തുറക്കുക..."
 
-#: ../shell/pps-annotation-properties-dialog.c:214
+#: ../shell/ev-annotation-properties-dialog.c:214
 msgid "Close"
 msgstr "ശൈലി"
 
-#: ../shell/pps-history-action-widget.c:223
+#: ../shell/ev-history-action-widget.c:223
 #| msgid "Go to previous page"
 msgid "Go to previous history item"
 msgstr "നാള്‍വഴിയില്‍ മുമ്പുള്ളതിലേക്കു് പോകുക"
 
-#: ../shell/pps-history-action-widget.c:227
+#: ../shell/ev-history-action-widget.c:227
 #| msgid "Go to next page"
 msgid "Go to next history item"
 msgstr "നാള്‍വഴിയില്‍ അടുത്തതിലേക്കു് പോകുക"
 
-#: ../shell/pps-keyring.c:86
+#: ../shell/ev-keyring.c:86
 #, c-format
 msgid "Password for document %s"
 msgstr "%s രേഖയ്ക്കുളള രഹസ്യവാക്ക്"
 
 #. Create tree view
-#: ../shell/pps-loading-message.c:50 ../shell/pps-sidebar-annotations.c:131
-#: ../shell/pps-sidebar-layers.c:125 ../shell/pps-sidebar-links.c:261
+#: ../shell/ev-loading-message.c:50 ../shell/ev-sidebar-annotations.c:131
+#: ../shell/ev-sidebar-layers.c:125 ../shell/ev-sidebar-links.c:261
 msgid "Loading…"
 msgstr "ലഭ്യമാക്കുന്നു..."
 
-#: ../shell/pps-open-recent-action.c:72
+#: ../shell/ev-open-recent-action.c:72
 msgid "Open a recently used document"
 msgstr "ഏറ്റവും ഒടുവില്‍ ഉപയോഗിച്ച ഒരു രേഖ തുറക്കുക"
 
-#: ../shell/pps-password-view.c:142
+#: ../shell/ev-password-view.c:142
 msgid ""
 "This document is locked and can only be read by entering the correct "
 "password."
@@ -921,246 +921,246 @@ msgstr ""
 "രേഖ പൂട്ടിയ അവസ്ഥയിലാണു്. ഇത് ലഭ്യമാക്കുന്നതിനായി ശരിയായ അടയാളവാക്കു് "
 "നല്‍കേണ്ടതാണ്."
 
-#: ../shell/pps-password-view.c:151 ../shell/pps-password-view.c:269
+#: ../shell/ev-password-view.c:151 ../shell/ev-password-view.c:269
 msgid "_Unlock Document"
 msgstr "രേഖയുടെ പൂട്ട് _തുറക്കുക"
 
-#: ../shell/pps-password-view.c:261
+#: ../shell/ev-password-view.c:261
 msgid "Enter password"
 msgstr "രഹസ്യവാക്ക് നല്‍കുക"
 
-#: ../shell/pps-password-view.c:301
+#: ../shell/ev-password-view.c:301
 msgid "Password required"
 msgstr "രഹസ്യവാക്ക് ആവശ്യമുണ്ട്"
 
-#: ../shell/pps-password-view.c:302
+#: ../shell/ev-password-view.c:302
 #, c-format
 msgid ""
 "The document “%s” is locked and requires a password before it can be opened."
 msgstr ""
 "രേഖ “%s” പൂട്ടിയിരിക്കുന്നു, അത് തുറക്കുന്നതിനായി ഒരു രഹസ്യവാക്ക് ആവശ്യമാണ്."
 
-#: ../shell/pps-password-view.c:332
+#: ../shell/ev-password-view.c:332
 msgid "_Password:"
 msgstr "_രഹസ്യവാക്ക്:"
 
-#: ../shell/pps-password-view.c:363
+#: ../shell/ev-password-view.c:363
 msgid "Forget password _immediately"
 msgstr "രഹസ്യവാക്ക് _ഉടന്‍ മറക്കുക"
 
-#: ../shell/pps-password-view.c:375
+#: ../shell/ev-password-view.c:375
 msgid "Remember password until you _log out"
 msgstr "പുറത്തുപോകുന്നതുവരെ രഹസ്യവാക്ക് ഓര്‍ത്തുവെയ്ക്കുക(_l)"
 
-#: ../shell/pps-password-view.c:387
+#: ../shell/ev-password-view.c:387
 msgid "Remember _forever"
 msgstr "_എക്കാലത്തേയ്ക്കുമായി ഓര്‍ത്തുവെയ്ക്കുക"
 
-#: ../shell/pps-properties-dialog.c:62
+#: ../shell/ev-properties-dialog.c:62
 msgid "Properties"
 msgstr "ഗുണഗണങ്ങള്‍"
 
-#: ../shell/pps-properties-dialog.c:94
+#: ../shell/ev-properties-dialog.c:94
 msgid "General"
 msgstr "സാധാരണ"
 
-#: ../shell/pps-properties-dialog.c:104
+#: ../shell/ev-properties-dialog.c:104
 msgid "Fonts"
 msgstr "അക്ഷരസഞ്ചയങ്ങള്‍"
 
-#: ../shell/pps-properties-dialog.c:117
+#: ../shell/ev-properties-dialog.c:117
 msgid "Document License"
 msgstr "രേഖാ അനുമതി"
 
-#: ../shell/pps-properties-fonts.c:142
+#: ../shell/ev-properties-fonts.c:142
 msgid "Font"
 msgstr "അക്ഷരസഞ്ചയം"
 
-#: ../shell/pps-properties-fonts.c:169
+#: ../shell/ev-properties-fonts.c:169
 #, c-format
 msgid "Gathering font information… %3d%%"
 msgstr "അക്ഷരസഞ്ചയം സംബന്ധിച്ചുളള വിവരങ്ങള്‍ ലഭ്യമാക്കുന്നു...%3d%%"
 
-#: ../shell/pps-properties-license.c:134
+#: ../shell/ev-properties-license.c:134
 msgid "Usage terms"
 msgstr "ഉപയോഗിക്കുന്നതിലെ നിബന്ധനകള്‍"
 
-#: ../shell/pps-properties-license.c:140
+#: ../shell/ev-properties-license.c:140
 msgid "Text License"
 msgstr "ടെക്സ്റ്റ് അനുമതിപത്രം"
 
-#: ../shell/pps-properties-license.c:146
+#: ../shell/ev-properties-license.c:146
 msgid "Further Information"
 msgstr "കൂടുതല്‍ വിവരം"
 
-#: ../shell/pps-sidebar-annotations.c:159
+#: ../shell/ev-sidebar-annotations.c:159
 msgid "List"
 msgstr "പട്ടിക"
 
-#: ../shell/pps-sidebar-annotations.c:199 ../shell/pps-sidebar-annotations.c:527
+#: ../shell/ev-sidebar-annotations.c:199 ../shell/ev-sidebar-annotations.c:527
 msgid "Annotations"
 msgstr "കുറിപ്പുകള്‍"
 
-#: ../shell/pps-sidebar-annotations.c:205
+#: ../shell/ev-sidebar-annotations.c:205
 msgid "Text"
 msgstr "വാക്യം"
 
-#: ../shell/pps-sidebar-annotations.c:206
+#: ../shell/ev-sidebar-annotations.c:206
 msgid "Add text annotation"
 msgstr "ഒരു കുറിപ്പ് ചേര്‍ക്കുക"
 
-#: ../shell/pps-sidebar-annotations.c:217
+#: ../shell/ev-sidebar-annotations.c:217
 msgid "Add"
 msgstr "ചേര്‍ക്കുക"
 
-#: ../shell/pps-sidebar-annotations.c:360
+#: ../shell/ev-sidebar-annotations.c:360
 msgid "Document contains no annotations"
 msgstr "ഈ രേഖയില്‍ കുറിപ്പുകളൊന്നും ഇല്ല"
 
-#: ../shell/pps-sidebar-annotations.c:392
+#: ../shell/ev-sidebar-annotations.c:392
 #, c-format
 msgid "Page %d"
 msgstr "%d താള്‍"
 
-#: ../shell/pps-sidebar-attachments.c:696
+#: ../shell/ev-sidebar-attachments.c:696
 msgid "Attachments"
 msgstr "അറ്റാച്ച്മെന്റുകള്‍"
 
-#: ../shell/pps-sidebar-bookmarks.c:153
+#: ../shell/ev-sidebar-bookmarks.c:153
 msgid "_Open Bookmark"
 msgstr "ബുക്മാര്‍ക്ക് _തുറക്കുക"
 
-#: ../shell/pps-sidebar-bookmarks.c:155
+#: ../shell/ev-sidebar-bookmarks.c:155
 msgid "_Rename Bookmark"
 msgstr "ബുക്ക്മാര്‍ക്കിന്റെ പേര് _മാറ്റുക"
 
-#: ../shell/pps-sidebar-bookmarks.c:157
+#: ../shell/ev-sidebar-bookmarks.c:157
 msgid "_Remove Bookmark"
 msgstr "ബുക്മാര്‍ക്ക് _നീക്കം ചെയ്യുക"
 
-#: ../shell/pps-sidebar-bookmarks.c:603
+#: ../shell/ev-sidebar-bookmarks.c:603
 msgid "Bookmarks"
 msgstr "ബുക്മാര്‍ക്കുകള്‍"
 
-#: ../shell/pps-sidebar-layers.c:444
+#: ../shell/ev-sidebar-layers.c:444
 msgid "Layers"
 msgstr "ലേയറുകള്‍"
 
-#: ../shell/pps-sidebar-links.c:337
+#: ../shell/ev-sidebar-links.c:337
 msgid "Print…"
 msgstr "അച്ചടിയ്ക്കുക...."
 
-#: ../shell/pps-sidebar-links.c:723
+#: ../shell/ev-sidebar-links.c:723
 msgid "Index"
 msgstr "സൂചിക"
 
-#: ../shell/pps-sidebar-thumbnails.c:958
+#: ../shell/ev-sidebar-thumbnails.c:958
 msgid "Thumbnails"
 msgstr "നഖചിത്രങ്ങള്‍"
 
-#: ../shell/pps-utils.c:318
+#: ../shell/ev-utils.c:318
 msgid "By extension"
 msgstr "എക്സ്റ്റെന്‍ഷന്‍ അനുസരിച്ച്"
 
-#: ../shell/pps-window.c:1477
+#: ../shell/ev-window.c:1477
 msgid "The document contains no pages"
 msgstr "ഈ രേഖയില്‍ താളുകളൊന്നും ഇല്ല"
 
-#: ../shell/pps-window.c:1480
+#: ../shell/ev-window.c:1480
 msgid "The document contains only empty pages"
 msgstr "ഈ രേഖയില്‍ ശൂന്യമായ താളുകള്‍ മാത്രമേയുള്ളൂ"
 
-#: ../shell/pps-window.c:1691 ../shell/pps-window.c:1853
+#: ../shell/ev-window.c:1691 ../shell/ev-window.c:1853
 msgid "Unable to open document"
 msgstr "രേഖ തുറക്കുവാന്‍ സാധ്യമായില്ല"
 
-#: ../shell/pps-window.c:1824
+#: ../shell/ev-window.c:1824
 #, c-format
 msgid "Loading document from “%s”"
 msgstr "“%s”-ല്‍ നിന്നും രേഖ ലഭ്യമാക്കുന്നു"
 
-#: ../shell/pps-window.c:1966 ../shell/pps-window.c:2257
+#: ../shell/ev-window.c:1966 ../shell/ev-window.c:2257
 #, c-format
 msgid "Downloading document (%d%%)"
 msgstr "രേഖ ഡൌണ്‍ലോട് ചെയ്യുന്നു (%d%%)"
 
-#: ../shell/pps-window.c:1999
+#: ../shell/ev-window.c:1999
 msgid "Failed to load remote file."
 msgstr "വിദൂര രേഖ ലഭ്യമാക്കുന്നതില്‍ പരാജയപ്പെട്ടു."
 
-#: ../shell/pps-window.c:2201
+#: ../shell/ev-window.c:2201
 #, c-format
 msgid "Reloading document from %s"
 msgstr "%s-ല്‍ നിന്നും രേഖ വീണ്ടും എടുക്കുന്നു"
 
-#: ../shell/pps-window.c:2233
+#: ../shell/ev-window.c:2233
 msgid "Failed to reload document."
 msgstr "രേഖ വീണ്ടും ലഭ്യമാക്കുന്നതില്‍ പരാജയപ്പെട്ടു."
 
-#: ../shell/pps-window.c:2446
+#: ../shell/ev-window.c:2446
 msgid "Open Document"
 msgstr "രേഖ തുറക്കുക"
 
-#: ../shell/pps-window.c:2719
+#: ../shell/ev-window.c:2719
 #, c-format
 msgid "Saving document to %s"
 msgstr "%s-ലേക്കു് രേഖ സൂക്ഷിക്കുക"
 
-#: ../shell/pps-window.c:2722
+#: ../shell/ev-window.c:2722
 #, c-format
 msgid "Saving attachment to %s"
 msgstr "%s-ലേക്കു് അറ്റാച്ച്മെന്റ് സൂക്ഷിക്കുക"
 
-#: ../shell/pps-window.c:2725
+#: ../shell/ev-window.c:2725
 #, c-format
 msgid "Saving image to %s"
 msgstr "%s-ലേക്കു് ചിത്രം സൂക്ഷിക്കുന്നു"
 
-#: ../shell/pps-window.c:2769 ../shell/pps-window.c:2869
+#: ../shell/ev-window.c:2769 ../shell/ev-window.c:2869
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "“%s” ആയി ഫയല്‍ സൂക്ഷിയ്ക്കുവാന്‍ സാധ്യമായില്ല."
 
-#: ../shell/pps-window.c:2800
+#: ../shell/ev-window.c:2800
 #, c-format
 msgid "Uploading document (%d%%)"
 msgstr "രേഖ അപ്‌ലോഡ് ചെയ്യുന്നു (%d%%)"
 
-#: ../shell/pps-window.c:2804
+#: ../shell/ev-window.c:2804
 #, c-format
 msgid "Uploading attachment (%d%%)"
 msgstr "അറ്റാച്മെന്റ് അപ്‌ലോഡ് ചെയ്യുന്നു (%d%%)"
 
-#: ../shell/pps-window.c:2808
+#: ../shell/ev-window.c:2808
 #, c-format
 msgid "Uploading image (%d%%)"
 msgstr "ചിത്രം അപ്‌ലോഡ് ചെയ്യുന്നു (%d%%)"
 
-#: ../shell/pps-window.c:2920
+#: ../shell/ev-window.c:2920
 msgid "Save a Copy"
 msgstr "ഒരു പകര്‍പ്പ് സൂക്ഷിയ്ക്കുക"
 
-#: ../shell/pps-window.c:2984
+#: ../shell/ev-window.c:2984
 msgid "Could not send current document"
 msgstr "നിലവിലുളള രേഖ അയയ്ക്കാന്‍ സാധിക്കുന്നില്ല"
 
-#: ../shell/pps-window.c:3015
+#: ../shell/ev-window.c:3015
 msgid "Could not open the containing folder"
 msgstr "അടങ്ങുന്ന ഫോള്‍ഡര്‍ തുറക്കുവാന്‍ സാധ്യമല്ല"
 
-#: ../shell/pps-window.c:3276
+#: ../shell/ev-window.c:3276
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "ക്യൂവില്‍ %d ജോലി ബാക്കിയുണ്ടു്"
 msgstr[1] "ക്യൂവില്‍ %d ജോലികള്‍ ബാക്കിയുണ്ടു്"
 
-#: ../shell/pps-window.c:3389
+#: ../shell/ev-window.c:3389
 #, c-format
 msgid "Printing job “%s”"
 msgstr "“%s” ജോലി അച്ചടിക്കുന്നു"
 
-#: ../shell/pps-window.c:3566
+#: ../shell/ev-window.c:3566
 msgid ""
 "Document contains form fields that have been filled out. If you don't save a "
 "copy, changes will be permanently lost."
@@ -1168,7 +1168,7 @@ msgstr ""
 "ഈ രേഖയില്‍ പൂരിപ്പിച്ച ഫോം ഉണ്ട്. ഒരു പകര്‍പ്പ് സൂക്ഷിച്ചില്ലെങ്കില്‍, "
 "മാറ്റങ്ങള്‍ നഷ്ട്ടപ്പെടും."
 
-#: ../shell/pps-window.c:3570
+#: ../shell/ev-window.c:3570
 msgid ""
 "Document contains new or modified annotations. If you don't save a copy, "
 "changes will be permanently lost."
@@ -1177,20 +1177,20 @@ msgstr ""
 "സൂക്ഷിച്ചില്ലെങ്കില്‍, മാറ്റങ്ങള്‍ "
 "നഷ്ട്ടപ്പെടും."
 
-#: ../shell/pps-window.c:3577
+#: ../shell/ev-window.c:3577
 #, c-format
 msgid "Save a copy of document “%s” before closing?"
 msgstr "അടയ്ക്കുന്നതിനു് മുമ്പായി “%s” രേഖയുടെ പകര്‍പ്പ് സൂക്ഷിക്കേണമോ?"
 
-#: ../shell/pps-window.c:3596
+#: ../shell/ev-window.c:3596
 msgid "Close _without Saving"
 msgstr "_സൂക്ഷിക്കാതെ അടക്കുക"
 
-#: ../shell/pps-window.c:3600
+#: ../shell/ev-window.c:3600
 msgid "Save a _Copy"
 msgstr "ഒരു _പകര്‍പ്പ് സൂക്ഷിയ്ക്കുക"
 
-#: ../shell/pps-window.c:3674
+#: ../shell/ev-window.c:3674
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr ""
@@ -1200,7 +1200,7 @@ msgstr ""
 #. TRANS: the singular form is not really used as n_print_jobs > 1
 #. but some languages distinguish between different plurals forms,
 #. so the ngettext is needed.
-#: ../shell/pps-window.c:3680
+#: ../shell/ev-window.c:3680
 #, c-format
 msgid "There is %d print job active. Wait until print finishes before closing?"
 msgid_plural ""
@@ -1213,25 +1213,25 @@ msgstr[1] ""
 "പൂര്‍ത്തിയാക്കുന്നതിനായി "
 "കാത്തിരിക്കുക?"
 
-#: ../shell/pps-window.c:3695
+#: ../shell/ev-window.c:3695
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr ""
 "നിങ്ങള്‍ ജാലകം അടച്ചാല്‍, ബാക്കിയുള്ള പ്രിന്റ് ചെയ്യുവാനുള്ള ജോലികള്‍ "
 "നടപ്പിലാകുന്നതല്ല."
 
-#: ../shell/pps-window.c:3699
+#: ../shell/ev-window.c:3699
 msgid "Cancel _print and Close"
 msgstr "_അച്ചടിക്കുന്നത് റദ്ദാക്കി അടയ്ക്കുക"
 
-#: ../shell/pps-window.c:3703
+#: ../shell/ev-window.c:3703
 msgid "Close _after Printing"
 msgstr "അച്ചടിച്ചതിന്നു _ശേഷം അടയ്ക്കുക"
 
-#: ../shell/pps-window.c:4158
+#: ../shell/ev-window.c:4158
 msgid "Running in presentation mode"
 msgstr "അവതരണ രീതിയില്‍ പ്രവര്‍ത്തിപ്പിക്കുന്നു"
 
-#: ../shell/pps-window.c:4866
+#: ../shell/ev-window.c:4866
 #, c-format
 msgid ""
 "Document Viewer\n"
@@ -1240,9 +1240,9 @@ msgstr ""
 "രേഖാ ദര്‍ശിനി\n"
 "%s ഉപയോഗിച്ച് (%s)"
 
-#: ../shell/pps-window.c:4899
+#: ../shell/ev-window.c:4899
 msgid ""
-"Papers is free software; you can redistribute it and/or modify it under the "
+"Evince is free software; you can redistribute it and/or modify it under the "
 "terms of the GNU General Public License as published by the Free Software "
 "Foundation; either version 2 of the License, or (at your option) any later "
 "version.\n"
@@ -1255,9 +1255,9 @@ msgstr ""
 "തെരഞ്ഞെടുക്കുന്ന) അതിനു് "
 "ശേഷമുള്ളഏതെങ്കിലും ലക്കമോ ഉപയോഗിക്കാം.\n"
 
-#: ../shell/pps-window.c:4903
+#: ../shell/ev-window.c:4903
 msgid ""
-"Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
+"Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
 "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 "details.\n"
@@ -1269,27 +1269,27 @@ msgstr ""
 "ഉള്‍‌ക്കൊള്ളുന്ന വാറണ്ടി പോലും ഇല്ല. കൂടുതല്‍ വിവരങ്ങള്‍ക്കു്ഗ്നു ജനറല്‍ "
 "പബ്ലിക് ലൈസന്‍സ് കാണുക.\n"
 
-#: ../shell/pps-window.c:4907
+#: ../shell/ev-window.c:4907
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"Papers; if not, write to the Free Software Foundation, Inc., 51 Franklin "
+"Evince; if not, write to the Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 msgstr ""
-"Papers-നോടൊപ്പം നിങ്ങള്‍ക്ക് GNU General Public License-ന്റെ ഒരു പകര്‍പ്പും "
+"Evince-നോടൊപ്പം നിങ്ങള്‍ക്ക് GNU General Public License-ന്റെ ഒരു പകര്‍പ്പും "
 "ലഭിച്ചിട്ടുണ്ടാവണം; ഇല്ലായെങ്കില്‍, ദയവായി താഴെ പറയുന്ന മേല്‍വിലാസത്തിലേക്ക് "
 "എഴുതുക: Free "
 "Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  "
 "02110-1301  USA\n"
 
-#: ../shell/pps-window.c:4932
-msgid "Papers"
+#: ../shell/ev-window.c:4932
+msgid "Evince"
 msgstr "എവിന്‍സ്"
 
-#: ../shell/pps-window.c:4935
-msgid "© 1996–2012 The Papers authors"
+#: ../shell/ev-window.c:4935
+msgid "© 1996–2012 The Evince authors"
 msgstr "© 1996–2012 എവിന്‍സ് രചയിതാക്കള്‍"
 
-#: ../shell/pps-window.c:4941
+#: ../shell/ev-window.c:4941
 msgid "translator-credits"
 msgstr ""
 "അനി പീറ്റര്‍ <peter.ani@gmail.com>\n"
@@ -1301,406 +1301,406 @@ msgstr ""
 #. TRANS: Sometimes this could be better translated as
 #. "%d hit(s) on this page".  Therefore this string
 #. contains plural cases.
-#: ../shell/pps-window.c:5203
+#: ../shell/ev-window.c:5203
 #, c-format
 msgid "%d found on this page"
 msgid_plural "%d found on this page"
 msgstr[0] "%d ഈ താളില്‍ കണ്ടുകിട്ടിയിരിക്കുന്നു"
 msgstr[1] "%d ഈ താളില്‍ കണ്ടുകിട്ടിയിരിക്കുന്നു"
 
-#: ../shell/pps-window.c:5208
+#: ../shell/ev-window.c:5208
 msgid "Not found"
 msgstr "കണ്ടുകിട്ടിയിട്ടില്ല"
 
-#: ../shell/pps-window.c:5214
+#: ../shell/ev-window.c:5214
 #, c-format
 msgid "%3d%% remaining to search"
 msgstr "%3d%% ബാക്കി തെരയുവാനുണ്ട്"
 
-#: ../shell/pps-window.c:5754
+#: ../shell/ev-window.c:5754
 msgid "_Bookmarks"
 msgstr "_ബുക്ക്മാര്‍ക്കുകള്‍"
 
-#: ../shell/pps-window.c:5755
+#: ../shell/ev-window.c:5755
 msgid "_Recent"
 msgstr "ഏറ്റവും _പുതിയതു്"
 
 #. File menu
-#: ../shell/pps-window.c:5758 ../shell/pps-window.c:6078
+#: ../shell/ev-window.c:5758 ../shell/ev-window.c:6078
 msgid "_Open…"
 msgstr "_തുറക്കുക..."
 
-#: ../shell/pps-window.c:5759 ../shell/pps-window.c:6079
+#: ../shell/ev-window.c:5759 ../shell/ev-window.c:6079
 msgid "Open an existing document"
 msgstr "നിലവിലുളള ഒരു രേഖ തുറക്കുക"
 
-#: ../shell/pps-window.c:5761
+#: ../shell/ev-window.c:5761
 msgid "Op_en a Copy"
 msgstr "ഒരു പകര്‍പ്പ് തു_റക്കുക"
 
-#: ../shell/pps-window.c:5762
+#: ../shell/ev-window.c:5762
 msgid "Open a copy of the current document in a new window"
 msgstr "നിലവിലുളള രേഖയുടെ ഒരു പകര്‍പ്പ് പുതിയ ജാലകത്തില്‍ തുറക്കുക"
 
-#: ../shell/pps-window.c:5764
+#: ../shell/ev-window.c:5764
 msgid "_Save a Copy…"
 msgstr "ഒരു പകര്‍പ്പ് _സൂക്ഷിയ്ക്കുക..."
 
-#: ../shell/pps-window.c:5765
+#: ../shell/ev-window.c:5765
 msgid "Save a copy of the current document"
 msgstr "നിലവിലുളള രേഖയുടെ ഒരു പകര്‍പ്പ് സൂക്ഷിയ്ക്കുക"
 
-#: ../shell/pps-window.c:5767
+#: ../shell/ev-window.c:5767
 msgid "Send _To..."
 msgstr "_അയക്കുക..."
 
-#: ../shell/pps-window.c:5768
+#: ../shell/ev-window.c:5768
 msgid "Send current document by mail, instant message..."
 msgstr "ഈ രേഖ ഇമെയിലായോ ചാറ്റായോ അയയ്ക്കുക..."
 
-#: ../shell/pps-window.c:5770
+#: ../shell/ev-window.c:5770
 msgid "Open Containing _Folder"
 msgstr "അടങ്ങിയ ഫോള്‍ഡര്‍ _തുറക്കുക"
 
-#: ../shell/pps-window.c:5771
+#: ../shell/ev-window.c:5771
 msgid "Show the folder which contains this file in the file manager"
 msgstr "ഈ ഫയലിരിയ്ക്കുന്ന അറ ഫയല്‍ മാനേജറില്‍ കാണിയ്ക്കുക"
 
-#: ../shell/pps-window.c:5773
+#: ../shell/ev-window.c:5773
 msgid "_Print…"
 msgstr "അ_ച്ചടിയ്ക്കുക"
 
-#: ../shell/pps-window.c:5776
+#: ../shell/ev-window.c:5776
 msgid "P_roperties"
 msgstr "ഗു_ണഗണങ്ങള്‍"
 
-#: ../shell/pps-window.c:5784
+#: ../shell/ev-window.c:5784
 msgid "Select _All"
 msgstr "_എല്ലാം തെരഞ്ഞെടുക്കുക"
 
-#: ../shell/pps-window.c:5786
+#: ../shell/ev-window.c:5786
 msgid "Rotate _Left"
 msgstr "_ഇടത്തേക്ക് തിരിയ്ക്കുക"
 
-#: ../shell/pps-window.c:5788
+#: ../shell/ev-window.c:5788
 msgid "Rotate _Right"
 msgstr "_വലത്തേയ്ക്ക തിരിയ്ക്കുക"
 
-#: ../shell/pps-window.c:5790
+#: ../shell/ev-window.c:5790
 msgid "Save Current Settings as _Default"
 msgstr "ഇപ്പോഴത്തെ ക്രമീകരണങ്ങള്‍ _സഹജമായി ക്രമീകരിക്കുക"
 
-#: ../shell/pps-window.c:5801
+#: ../shell/ev-window.c:5801
 msgid "_Reload"
 msgstr "വീണ്ടും എ_ടുക്കുക"
 
-#: ../shell/pps-window.c:5802
+#: ../shell/ev-window.c:5802
 msgid "Reload the document"
 msgstr "രേഖ വീണ്ടും എടുക്കുക"
 
-#: ../shell/pps-window.c:5805
+#: ../shell/ev-window.c:5805
 msgid "Auto_scroll"
 msgstr "_ഓട്ടോസ്ക്രോള്‍"
 
-#: ../shell/pps-window.c:5815
+#: ../shell/ev-window.c:5815
 msgid "_First Page"
 msgstr "_ആദ്യത്തെ താള്‍"
 
-#: ../shell/pps-window.c:5816
+#: ../shell/ev-window.c:5816
 msgid "Go to the first page"
 msgstr "ആദ്യത്തെ താളിലേയ്ക്കു് പോകുക"
 
-#: ../shell/pps-window.c:5818
+#: ../shell/ev-window.c:5818
 msgid "_Last Page"
 msgstr "അ_വസാനത്തെ താള്‍"
 
-#: ../shell/pps-window.c:5819
+#: ../shell/ev-window.c:5819
 msgid "Go to the last page"
 msgstr "അവസാനത്തെ താളിലേയ്ക്കു് പോകുക"
 
-#: ../shell/pps-window.c:5821
+#: ../shell/ev-window.c:5821
 msgid "Go to Pa_ge"
 msgstr "_താളിലോട്ടു പോവുക"
 
-#: ../shell/pps-window.c:5822
+#: ../shell/ev-window.c:5822
 msgid "Go to Page"
 msgstr "താളിലോട്ടു പോവുക"
 
 #. Bookmarks menu
-#: ../shell/pps-window.c:5826
+#: ../shell/ev-window.c:5826
 msgid "_Add Bookmark"
 msgstr "ബുക്ക്മാര്‍ക്ക് _ചേര്‍ക്കുക"
 
-#: ../shell/pps-window.c:5827
+#: ../shell/ev-window.c:5827
 msgid "Add a bookmark for the current page"
 msgstr "നിലവിലുള്ള താളിന്ന് ഒരു ബുക്ക്മാര്‍ക്ക് ചേര്‍ക്കുക"
 
-#: ../shell/pps-window.c:5830
+#: ../shell/ev-window.c:5830
 msgid "_About"
 msgstr "_എവിന്‍സിനെപ്പറ്റി"
 
 #. Toolbar-only
-#: ../shell/pps-window.c:5834
+#: ../shell/ev-window.c:5834
 msgid "Leave Fullscreen"
 msgstr "പൂര്‍ണ്ണസ്ക്രീനില്‍ നിന്നും പുറത്ത് കടക്കുക"
 
-#: ../shell/pps-window.c:5835
+#: ../shell/ev-window.c:5835
 msgid "Leave fullscreen mode"
 msgstr "പൂര്‍ണ്ണസ്ക്രീനില്‍ നിന്നും പുറത്ത് കടക്കുക"
 
-#: ../shell/pps-window.c:5837
+#: ../shell/ev-window.c:5837
 msgid "Start Presentation"
 msgstr "അവതരണം ആരംഭിക്കുക"
 
-#: ../shell/pps-window.c:5838
+#: ../shell/ev-window.c:5838
 msgid "Start a presentation"
 msgstr "ഒരു അവതരണം ആരംഭിക്കുക"
 
 #. View Menu
-#: ../shell/pps-window.c:5909
+#: ../shell/ev-window.c:5909
 msgid "Side _Pane"
 msgstr "_പാര്‍ശ്വപട്ട"
 
-#: ../shell/pps-window.c:5910
+#: ../shell/ev-window.c:5910
 msgid "Show or hide the side pane"
 msgstr "പാര്‍ശ്വപട്ട ദൃശ്യമാക്കുകയോ അദൃശ്യമാക്കുകയോ ചെയ്യുക"
 
-#: ../shell/pps-window.c:5912
+#: ../shell/ev-window.c:5912
 msgid "_Continuous"
 msgstr "_തുടരെയുളള"
 
-#: ../shell/pps-window.c:5913
+#: ../shell/ev-window.c:5913
 msgid "Show the entire document"
 msgstr "രേഖ മുഴുവന്‍ കാണിക്കുക"
 
-#: ../shell/pps-window.c:5915
+#: ../shell/ev-window.c:5915
 msgid "_Dual"
 msgstr "_ഇരട്ടയായ"
 
-#: ../shell/pps-window.c:5916
+#: ../shell/ev-window.c:5916
 msgid "Show two pages at once"
 msgstr "രണ്ട് പേജുകള്‍ ഒരേ സ്ക്രീനില്‍ കാണിക്കുക"
 
-#: ../shell/pps-window.c:5918
+#: ../shell/ev-window.c:5918
 msgid "_Odd pages left"
 msgstr "_ഒറ്റസംഖ്യാ പേജുകള്‍ ഇടത്"
 
-#: ../shell/pps-window.c:5919
+#: ../shell/ev-window.c:5919
 msgid "Show odd pages on the left in dual mode"
 msgstr "ഇരട്ട മോഡില്‍ ഒറ്റ സംഖ്യാ പേജുകള്‍ ഇടത്തേ വശത്ത് കാണിക്കുക"
 
-#: ../shell/pps-window.c:5921
+#: ../shell/ev-window.c:5921
 msgid "_Fullscreen"
 msgstr "പ_രമാവധി വലുപ്പത്തിലുളള സ്ക്രീന്‍"
 
-#: ../shell/pps-window.c:5922
+#: ../shell/ev-window.c:5922
 msgid "Expand the window to fill the screen"
 msgstr "സ്ക്രീന്‍ മുഴുവന്‍ നിറയ്ക്കുന്നതിനായി ജാലകം വികസിപ്പിക്കുക"
 
-#: ../shell/pps-window.c:5924
+#: ../shell/ev-window.c:5924
 msgid "Pre_sentation"
 msgstr "_അവതരണം"
 
-#: ../shell/pps-window.c:5925
+#: ../shell/ev-window.c:5925
 msgid "Run document as a presentation"
 msgstr "ഒരു അവതരണം ആയി രേഖ പ്രവര്‍ത്തിപ്പിക്കുക"
 
-#: ../shell/pps-window.c:5933
+#: ../shell/ev-window.c:5933
 msgid "_Inverted Colors"
 msgstr "വിപരീതമായ _നിറങ്ങള്‍"
 
-#: ../shell/pps-window.c:5934
+#: ../shell/ev-window.c:5934
 msgid "Show page contents with the colors inverted"
 msgstr "താളിലെ ഉള്ളടക്കങ്ങള്‍ വിപരീതമായ നിറങ്ങളില്‍ കാണിക്കുക"
 
-#: ../shell/pps-window.c:5937
+#: ../shell/ev-window.c:5937
 msgid "_Find…"
 msgstr "_കണ്ടുപിടിക്കുക..."
 
-#: ../shell/pps-window.c:5938
+#: ../shell/ev-window.c:5938
 msgid "Find a word or phrase in the document"
 msgstr "രേഖയില്‍ ഒരു വാക്ക് ആല്ലങ്കില്‍ വാചകം കണ്ടെത്തുക"
 
 #. Links
-#: ../shell/pps-window.c:5946
+#: ../shell/ev-window.c:5946
 msgid "_Open Link"
 msgstr "കണ്ണി _തുറക്കുക"
 
-#: ../shell/pps-window.c:5948
+#: ../shell/ev-window.c:5948
 msgid "_Go To"
 msgstr "_പോവുക"
 
-#: ../shell/pps-window.c:5950
+#: ../shell/ev-window.c:5950
 msgid "Open in New _Window"
 msgstr "പുതിയ _ജാലകത്തില്‍ തുറക്കുക"
 
-#: ../shell/pps-window.c:5952
+#: ../shell/ev-window.c:5952
 msgid "_Copy Link Address"
 msgstr "കണ്ണി വിലാസം _പകര്‍ത്തുക"
 
-#: ../shell/pps-window.c:5954
+#: ../shell/ev-window.c:5954
 msgid "_Save Image As…"
 msgstr "ചിത്രം പേരു് മാറ്റി _സൂക്ഷിയ്ക്കുക..."
 
-#: ../shell/pps-window.c:5956
+#: ../shell/ev-window.c:5956
 msgid "Copy _Image"
 msgstr "_ചിത്രം പകര്‍ത്തുക"
 
-#: ../shell/pps-window.c:5958
+#: ../shell/ev-window.c:5958
 msgid "Annotation Properties…"
 msgstr "കുറിപ്പുകുളുടെ സ്വഭാവം..."
 
-#: ../shell/pps-window.c:5963
+#: ../shell/ev-window.c:5963
 msgid "_Open Attachment"
 msgstr "അറ്റാച്ച്മെന്റ് _തുറക്കുക"
 
-#: ../shell/pps-window.c:5965
+#: ../shell/ev-window.c:5965
 msgid "_Save Attachment As…"
 msgstr "അറ്റാച്ച്മെന്റ് പേര് മാറ്റി _സൂക്ഷിക്കുക..."
 
-#: ../shell/pps-window.c:6056
+#: ../shell/ev-window.c:6056
 msgid "Zoom"
 msgstr "വലുതാക്കുക"
 
-#: ../shell/pps-window.c:6058
+#: ../shell/ev-window.c:6058
 msgid "Adjust the zoom level"
 msgstr "വലുപ്പം ക്രമീകരിക്കുക"
 
-#: ../shell/pps-window.c:6069
+#: ../shell/ev-window.c:6069
 msgid "History"
 msgstr "നാൾവഴി"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:6098
+#: ../shell/ev-window.c:6098
 msgid "Open Folder"
 msgstr "ഫോള്‍ഡര്‍ തുറക്കുക"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:6102
+#: ../shell/ev-window.c:6102
 msgid "Send To"
 msgstr "അയയ്ക്കുക"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:6108
+#: ../shell/ev-window.c:6108
 msgid "Previous"
 msgstr "മുമ്പുള്ള"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:6113
+#: ../shell/ev-window.c:6113
 msgid "Next"
 msgstr "അടുത്ത"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:6117
+#: ../shell/ev-window.c:6117
 msgid "Zoom In"
 msgstr "വലുതാക്കുക"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:6121
+#: ../shell/ev-window.c:6121
 msgid "Zoom Out"
 msgstr "ചെറുതാക്കുക"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:6125 ../shell/pps-zoom-action-widget.c:42
+#: ../shell/ev-window.c:6125 ../shell/ev-zoom-action-widget.c:42
 #| msgid "_First Page"
 msgid "Fit Page"
 msgstr "താള്‍ അനുയോജ്യമായ വലിപ്പത്തില്‍"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:6129 ../shell/pps-zoom-action-widget.c:43
+#: ../shell/ev-window.c:6129 ../shell/ev-zoom-action-widget.c:43
 msgid "Fit Width"
 msgstr "വീതിയനുസരിച്ച്"
 
-#: ../shell/pps-window.c:6275 ../shell/pps-window.c:6291
+#: ../shell/ev-window.c:6275 ../shell/ev-window.c:6291
 msgid "Unable to launch external application."
 msgstr "പുറത്തുനിന്നുള്ള പ്രയോഗം ലഭ്യമാക്കുവാന്‍ സാധ്യമല്ല."
 
-#: ../shell/pps-window.c:6348
+#: ../shell/ev-window.c:6348
 msgid "Unable to open external link"
 msgstr "പുറത്തേക്കുള്ള ഒരു കണ്ണി തുറക്കുവാന്‍ സാധ്യമല്ല"
 
-#: ../shell/pps-window.c:6541
+#: ../shell/ev-window.c:6541
 msgid "Couldn't find appropriate format to save image"
 msgstr "ഇമേജ് സൂക്ഷിക്കുന്നതിനുള്ള ശരിയായ ഒരു രീതി ലഭ്യമായില്ല"
 
-#: ../shell/pps-window.c:6573
+#: ../shell/ev-window.c:6573
 msgid "The image could not be saved."
 msgstr "ഇമേജ് സൂക്ഷിക്കുവാന്‍ സാധ്യമായില്ല."
 
-#: ../shell/pps-window.c:6605
+#: ../shell/ev-window.c:6605
 msgid "Save Image"
 msgstr "ഇമേജ് സൂക്ഷിക്കുക"
 
-#: ../shell/pps-window.c:6736
+#: ../shell/ev-window.c:6736
 msgid "Unable to open attachment"
 msgstr "അറ്റാച്ച്മെന്റ് തുറക്കുവാന്‍ സാധ്യമല്ല"
 
-#: ../shell/pps-window.c:6792
+#: ../shell/ev-window.c:6792
 msgid "The attachment could not be saved."
 msgstr "അറ്റാച്ച്മെന്റ് സൂക്ഷിയ്ക്കുവാന്‍ സാധ്യമല്ല."
 
-#: ../shell/pps-window.c:6837
+#: ../shell/ev-window.c:6837
 msgid "Save Attachment"
 msgstr "അറ്റാച്ച്മെന്റ് സൂക്ഷിക്കുക"
 
-#: ../shell/pps-window-title.c:169
+#: ../shell/ev-window-title.c:169
 #, c-format
 msgid "%s — Password Required"
 msgstr "%s - രഹസ്യവാക്ക് ആവശ്യമാണ്"
 
-#: ../shell/pps-zoom-action-widget.c:45
+#: ../shell/ev-zoom-action-widget.c:45
 msgid "50%"
 msgstr "50%"
 
-#: ../shell/pps-zoom-action-widget.c:46
+#: ../shell/ev-zoom-action-widget.c:46
 msgid "70%"
 msgstr "70%"
 
-#: ../shell/pps-zoom-action-widget.c:47
+#: ../shell/ev-zoom-action-widget.c:47
 msgid "85%"
 msgstr "85%"
 
-#: ../shell/pps-zoom-action-widget.c:48
+#: ../shell/ev-zoom-action-widget.c:48
 msgid "100%"
 msgstr "100%"
 
-#: ../shell/pps-zoom-action-widget.c:49
+#: ../shell/ev-zoom-action-widget.c:49
 msgid "125%"
 msgstr "125%"
 
-#: ../shell/pps-zoom-action-widget.c:50
+#: ../shell/ev-zoom-action-widget.c:50
 msgid "150%"
 msgstr "150%"
 
-#: ../shell/pps-zoom-action-widget.c:51
+#: ../shell/ev-zoom-action-widget.c:51
 msgid "175%"
 msgstr "175%"
 
-#: ../shell/pps-zoom-action-widget.c:52
+#: ../shell/ev-zoom-action-widget.c:52
 msgid "200%"
 msgstr "200%"
 
-#: ../shell/pps-zoom-action-widget.c:53
+#: ../shell/ev-zoom-action-widget.c:53
 msgid "300%"
 msgstr "300%"
 
-#: ../shell/pps-zoom-action-widget.c:54
+#: ../shell/ev-zoom-action-widget.c:54
 msgid "400%"
 msgstr "400%"
 
-#: ../shell/pps-zoom-action-widget.c:55
+#: ../shell/ev-zoom-action-widget.c:55
 msgid "800%"
 msgstr "800%"
 
-#: ../shell/pps-zoom-action-widget.c:56
+#: ../shell/ev-zoom-action-widget.c:56
 msgid "1600%"
 msgstr "1600%"
 
-#: ../shell/pps-zoom-action-widget.c:57
+#: ../shell/ev-zoom-action-widget.c:57
 msgid "3200%"
 msgstr "3200%"
 
-#: ../shell/pps-zoom-action-widget.c:58
+#: ../shell/ev-zoom-action-widget.c:58
 msgid "6400%"
 msgstr "6400%"
 
@@ -1733,17 +1733,17 @@ msgid "DEST"
 msgstr "DEST"
 
 #: ../shell/main.c:81
-msgid "Run papers in fullscreen mode"
+msgid "Run evince in fullscreen mode"
 msgstr ""
-"സ്ക്രീനിന്റെ പരമാവധി വലിപ്പത്തിലുളള രീതിയില്‍ papers പ്രവര്‍ത്തിപ്പിക്കുക"
+"സ്ക്രീനിന്റെ പരമാവധി വലിപ്പത്തിലുളള രീതിയില്‍ evince പ്രവര്‍ത്തിപ്പിക്കുക"
 
 #: ../shell/main.c:82
-msgid "Run papers in presentation mode"
-msgstr "അവതരണ രീതിയില്‍ papers പ്രവര്‍ത്തിപ്പിക്കുക"
+msgid "Run evince in presentation mode"
+msgstr "അവതരണ രീതിയില്‍ evince പ്രവര്‍ത്തിപ്പിക്കുക"
 
 #: ../shell/main.c:83
-msgid "Run papers as a previewer"
-msgstr "പ്രീവ്യൂവര്‍ രീതിയില്‍ papers പ്രവര്‍ത്തിപ്പിക്കുക"
+msgid "Run evince as a previewer"
+msgstr "പ്രീവ്യൂവര്‍ രീതിയില്‍ evince പ്രവര്‍ത്തിപ്പിക്കുക"
 
 #: ../shell/main.c:84
 msgid "The word or phrase to find in the document"
@@ -1757,7 +1757,7 @@ msgstr "STRING"
 msgid "[FILE…]"
 msgstr "[FILE...]"
 
-#: ../shell/papers-appmenu.ui.h:1
+#: ../shell/evince-appmenu.ui.h:1
 msgid "_Help"
 msgstr "_സഹായം"
 
@@ -1848,7 +1848,7 @@ msgstr "_സഹായം"
 #~ msgid "Show or hide the toolbar"
 #~ msgstr "ടൂള്‍ ബാര്‍ ദൃശ്യമാക്കുകയോ അദൃശ്യമാക്കുകയോ ചെയ്യുക"
 
-#~ msgid "_Dual (Ppsen pages left)"
+#~ msgid "_Dual (Even pages left)"
 #~ msgstr "_രണ്ട് പുറവും ഒരുമിച്ച് (ഇരട്ടസംഖ്യാതാളുകള്‍ ഇടത്)"
 
 #~ msgid "Show two pages at once with even pages on the left"
@@ -1945,7 +1945,7 @@ msgstr "_സഹായം"
 #~ msgstr "മുമ്പുള്ള രേഖകള്‍ വീണ്ടെടുക്കണമോ?"
 
 #~ msgid ""
-#~ "Papers appears to have exited unexpectedly the last time it was run. You "
+#~ "Evince appears to have exited unexpectedly the last time it was run. You "
 #~ "can recover the opened documents."
 #~ msgstr ""
 #~ "അവസാനമായി പ്രവര്‍ത്തിക്കുമ്പോള്‍ എവിന്‍സ് അപ്രതീക്ഷിതമായ പുറത്തു് കടന്നിരിക്കുന്നു. അപ്പോള്‍ "

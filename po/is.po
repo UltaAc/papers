@@ -1,12 +1,12 @@
-# translation of papers.master.po to Icelandic
+# translation of evince.master.po to Icelandic
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Sveinn í Felli <sv1@fellsnet.is>, 2015, 2016, 2017, 2018, 2019, 2021, 2022.
 msgid ""
 msgstr ""
-"Project-Id-Version: papers.master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/issues\n"
+"Project-Id-Version: evince.master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/evince/issues\n"
 "POT-Creation-Date: 2022-04-04 17:26+0000\n"
 "PO-Revision-Date: 2022-04-06 11:25+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
@@ -51,12 +51,12 @@ msgstr ""
 msgid "Can not get local path for archive"
 msgstr "Gat ekki fengið staðværa slóð að safnskrá"
 
-#: backend/comics/comicsdocument.papers-backend.desktop.in.in:4
-#: backend/comics/papers-comicsdocument.metainfo.xml.in.in:5
+#: backend/comics/comicsdocument.evince-backend.desktop.in.in:4
+#: backend/comics/evince-comicsdocument.metainfo.xml.in.in:5
 msgid "Comic Books"
 msgstr "Myndasögur"
 
-#: backend/comics/papers-comicsdocument.metainfo.xml.in.in:6
+#: backend/comics/evince-comicsdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading comic books"
 msgstr "Bætir við stuðningi til lestrar á myndasögum"
 
@@ -72,12 +72,12 @@ msgstr ""
 "Þetta skjal samanstendur af nokkrum skrám. Eina eða fleiri af þessum skrám "
 "er ekki hægt að opna."
 
-#: backend/djvu/djvudocument.papers-backend.desktop.in.in:4
-#: backend/djvu/papers-djvudocument.metainfo.xml.in.in:5
+#: backend/djvu/djvudocument.evince-backend.desktop.in.in:4
+#: backend/djvu/evince-djvudocument.metainfo.xml.in.in:5
 msgid "DjVu Documents"
 msgstr "DjVu skjöl"
 
-#: backend/djvu/papers-djvudocument.metainfo.xml.in.in:6
+#: backend/djvu/evince-djvudocument.metainfo.xml.in.in:6
 msgid "Adds support for reading DjVu documents"
 msgstr "Bætir við stuðningi til lestrar á DjVu skjölum"
 
@@ -85,69 +85,69 @@ msgstr "Bætir við stuðningi til lestrar á DjVu skjölum"
 msgid "DVI document has incorrect format"
 msgstr "DVI-skjal er af röngu sniði"
 
-#: backend/dvi/dvidocument.papers-backend.desktop.in.in:4
-#: backend/dvi/papers-dvidocument.metainfo.xml.in.in:5
+#: backend/dvi/dvidocument.evince-backend.desktop.in.in:4
+#: backend/dvi/evince-dvidocument.metainfo.xml.in.in:5
 msgid "DVI Documents"
 msgstr "DVI skjöl"
 
-#: backend/dvi/papers-dvidocument.metainfo.xml.in.in:6
+#: backend/dvi/evince-dvidocument.metainfo.xml.in.in:6
 msgid "Adds support for reading DVI documents"
 msgstr "Bætir við stuðningi til lestrar á DVI skjölum"
 
-#: backend/pdf/papers-pdfdocument.metainfo.xml.in.in:5
-#: backend/pdf/pdfdocument.papers-backend.desktop.in.in:5
+#: backend/pdf/evince-pdfdocument.metainfo.xml.in.in:5
+#: backend/pdf/pdfdocument.evince-backend.desktop.in.in:5
 msgid "PDF Documents"
 msgstr "PDF skjöl"
 
-#: backend/pdf/papers-pdfdocument.metainfo.xml.in.in:6
+#: backend/pdf/evince-pdfdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading PDF Documents"
 msgstr "Bætir við stuðningi til lestrar á PDF skjölum"
 
 #. translators: this is the document security state
-#: backend/pdf/pps-poppler.c:731 backend/pdf/pps-poppler.c:737
-#: properties/pps-properties-view.c:433
+#: backend/pdf/ev-poppler.c:731 backend/pdf/ev-poppler.c:737
+#: properties/ev-properties-view.c:433
 msgid "Yes"
 msgstr "Já"
 
 #. translators: this is the document security state
-#: backend/pdf/pps-poppler.c:734 backend/pdf/pps-poppler.c:737
-#: properties/pps-properties-view.c:435
+#: backend/pdf/ev-poppler.c:734 backend/pdf/ev-poppler.c:737
+#: properties/ev-properties-view.c:435
 msgid "No"
 msgstr "Nei"
 
-#: backend/pdf/pps-poppler.c:879
+#: backend/pdf/ev-poppler.c:879
 msgid "Type 1"
 msgstr "Gerð 1"
 
-#: backend/pdf/pps-poppler.c:881
+#: backend/pdf/ev-poppler.c:881
 msgid "Type 1C"
 msgstr "Gerð 1C"
 
-#: backend/pdf/pps-poppler.c:883
+#: backend/pdf/ev-poppler.c:883
 msgid "Type 3"
 msgstr "Gerð 3"
 
-#: backend/pdf/pps-poppler.c:885
+#: backend/pdf/ev-poppler.c:885
 msgid "TrueType"
 msgstr "TrueType"
 
-#: backend/pdf/pps-poppler.c:887
+#: backend/pdf/ev-poppler.c:887
 msgid "Type 1 (CID)"
 msgstr "Gerð 1 (CID)"
 
-#: backend/pdf/pps-poppler.c:889
+#: backend/pdf/ev-poppler.c:889
 msgid "Type 1C (CID)"
 msgstr "Gerð 1C (CID)"
 
-#: backend/pdf/pps-poppler.c:891
+#: backend/pdf/ev-poppler.c:891
 msgid "TrueType (CID)"
 msgstr "TrueType (CID)"
 
-#: backend/pdf/pps-poppler.c:893
+#: backend/pdf/ev-poppler.c:893
 msgid "Unknown font type"
 msgstr "Óþekkt stafagerð"
 
-#: backend/pdf/pps-poppler.c:937
+#: backend/pdf/ev-poppler.c:937
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
@@ -158,12 +158,12 @@ msgstr ""
 "útskiptingar eru ekki þær sömu og voru notaðar þegar PDF skjalið var búið "
 "til má vera að það birtist ekki rétt."
 
-#: backend/pdf/pps-poppler.c:942
+#: backend/pdf/ev-poppler.c:942
 msgid "All fonts are either standard or embedded."
 msgstr ""
 "Allar leturgerðir eru annað hvort staðlaðar eða ívafinn hluti af skjalinu"
 
-#: backend/pdf/pps-poppler.c:972
+#: backend/pdf/ev-poppler.c:972
 msgid "No name"
 msgstr "Ekkert heiti"
 
@@ -177,20 +177,20 @@ msgstr "Ekkert heiti"
 #. Author: None
 #. Keywords: None
 #.
-#: backend/pdf/pps-poppler.c:981 libview/pps-print-operation.c:2722
-#: properties/pps-properties-view.c:233
+#: backend/pdf/ev-poppler.c:981 libview/ev-print-operation.c:2722
+#: properties/ev-properties-view.c:233
 msgid "None"
 msgstr "Ekkert"
 
-#: backend/pdf/pps-poppler.c:989
+#: backend/pdf/ev-poppler.c:989
 msgid "Embedded subset"
 msgstr "Ívafið hlutmengi"
 
-#: backend/pdf/pps-poppler.c:991
+#: backend/pdf/ev-poppler.c:991
 msgid "Embedded"
 msgstr "Ívafið"
 
-#: backend/pdf/pps-poppler.c:993
+#: backend/pdf/ev-poppler.c:993
 msgid "Not embedded"
 msgstr "Ekki ívafið"
 
@@ -199,7 +199,7 @@ msgstr "Ekki ívafið"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: backend/pdf/pps-poppler.c:1000
+#: backend/pdf/ev-poppler.c:1000
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (Ein af hinum 14 stöðluðu leturgerðum)"
 
@@ -208,7 +208,7 @@ msgstr " (Ein af hinum 14 stöðluðu leturgerðum)"
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: backend/pdf/pps-poppler.c:1007
+#: backend/pdf/ev-poppler.c:1007
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (Ekki ein af hinum 14 stöðluðu leturgerðum)"
 
@@ -222,7 +222,7 @@ msgstr " (Ekki ein af hinum 14 stöðluðu leturgerðum)"
 #. * Substituting with TeXGyreTermes-Regular
 #. * (/usr/share/textmf/.../texgyretermes-regular.otf)
 #.
-#: backend/pdf/pps-poppler.c:1026
+#: backend/pdf/ev-poppler.c:1026
 #, c-format
 msgid ""
 "%s%s\n"
@@ -246,7 +246,7 @@ msgstr ""
 #. * Encoding: Custom
 #. * Embedded subset
 #.
-#: backend/pdf/pps-poppler.c:1044
+#: backend/pdf/ev-poppler.c:1044
 #, c-format
 msgid ""
 "%s%s\n"
@@ -257,31 +257,31 @@ msgstr ""
 "Stafatafla: %s\n"
 "%s"
 
-#: backend/ps/papers-psdocument.metainfo.xml.in.in:5
-#: backend/ps/psdocument.papers-backend.desktop.in.in:5
+#: backend/ps/evince-psdocument.metainfo.xml.in.in:5
+#: backend/ps/psdocument.evince-backend.desktop.in.in:5
 msgid "PostScript Documents"
 msgstr "PostScript skjöl"
 
-#: backend/ps/papers-psdocument.metainfo.xml.in.in:6
+#: backend/ps/evince-psdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading PostScript documents"
 msgstr "Bætir við stuðningi til lestrar á PostScript skjölum"
 
-#: backend/ps/pps-spectre.c:98
+#: backend/ps/ev-spectre.c:98
 #, c-format
 msgid "Failed to load document “%s”"
 msgstr "Gat ekki hlaðið inn skjalinu \"%s\""
 
-#: backend/ps/pps-spectre.c:131
+#: backend/ps/ev-spectre.c:131
 #, c-format
 msgid "Failed to save document “%s”"
 msgstr "Tókst ekki að vista skjalið \"%s\""
 
-#: backend/tiff/papers-tiffdocument.metainfo.xml.in.in:5
-#: backend/tiff/tiffdocument.papers-backend.desktop.in.in:4
+#: backend/tiff/evince-tiffdocument.metainfo.xml.in.in:5
+#: backend/tiff/tiffdocument.evince-backend.desktop.in.in:4
 msgid "TIFF Documents"
 msgstr "TIFF skjöl"
 
-#: backend/tiff/papers-tiffdocument.metainfo.xml.in.in:6
+#: backend/tiff/evince-tiffdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading TIFF documents"
 msgstr "Bætir við stuðningi til lestrar á TIFF skjölum"
 
@@ -289,64 +289,64 @@ msgstr "Bætir við stuðningi til lestrar á TIFF skjölum"
 msgid "Invalid document"
 msgstr "Ógilt skjal"
 
-#: backend/xps/papers-xpsdocument.metainfo.xml.in.in:5
-#: backend/xps/xpsdocument.papers-backend.desktop.in.in:5
+#: backend/xps/evince-xpsdocument.metainfo.xml.in.in:5
+#: backend/xps/xpsdocument.evince-backend.desktop.in.in:5
 msgid "XPS Documents"
 msgstr "XPS skjöl"
 
-#: backend/xps/papers-xpsdocument.metainfo.xml.in.in:6
+#: backend/xps/evince-xpsdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading XPS documents"
 msgstr "Bætir við stuðningi til lestrar á XPS skjölum"
 
 #. Manually set name and icon
-#: data/org.gnome.Papers.desktop.in.in:3 org.gnome.Papers.appdata.xml.in:23
-#: shell/pps-window-title.c:134 shell/main.c:300
+#: data/org.gnome.Evince.desktop.in.in:3 org.gnome.Evince.appdata.xml.in:23
+#: shell/ev-window-title.c:134 shell/main.c:300
 msgid "Document Viewer"
 msgstr "Skjalaskoðari"
 
-#: data/org.gnome.Papers.desktop.in.in:4
+#: data/org.gnome.Evince.desktop.in.in:4
 msgid "View multi-page documents"
 msgstr "Skoða margsíðna skjöl"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Papers.desktop.in.in:6
+#: data/org.gnome.Evince.desktop.in.in:6
 msgid ""
-"pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;viewer;papers;"
-msgstr "pdf;ps;postscript;dvi;xps;djvu;tiff;skjal;kynning;skoðari;papers;"
+"pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;viewer;evince;"
+msgstr "pdf;ps;postscript;dvi;xps;djvu;tiff;skjal;kynning;skoðari;evince;"
 
-#: data/org.gnome.Papers.desktop.in.in:19
+#: data/org.gnome.Evince.desktop.in.in:19
 msgid "New Window"
 msgstr "Nýr gluggi"
 
-#: data/org.gnome.Papers.gschema.xml:14
+#: data/org.gnome.Evince.gschema.xml:14
 msgid "Override document restrictions"
 msgstr "Hunsa takmarkanir í skjali"
 
-#: data/org.gnome.Papers.gschema.xml:15
+#: data/org.gnome.Evince.gschema.xml:15
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr "Hunsa takmarkanir í skjali, eins og á afritun og prentun."
 
-#: data/org.gnome.Papers.gschema.xml:19
+#: data/org.gnome.Evince.gschema.xml:19
 msgid "Automatically reload the document"
 msgstr "Endurhlaða skjalið sjálfkrafa"
 
-#: data/org.gnome.Papers.gschema.xml:20
+#: data/org.gnome.Evince.gschema.xml:20
 msgid "The document is automatically reloaded on file change."
 msgstr "Skjalið endurhleðst sjálfkrafa þegar því er breytt."
 
-#: data/org.gnome.Papers.gschema.xml:24
+#: data/org.gnome.Evince.gschema.xml:24
 msgid "The URI of the directory last used to open or save a document"
 msgstr "Slóðin á möppuna sem síðast var notuð til að opna eða vista skjal"
 
-#: data/org.gnome.Papers.gschema.xml:28
+#: data/org.gnome.Evince.gschema.xml:28
 msgid "The URI of the directory last used to save a picture"
 msgstr "Slóðin á möppuna sem síðast var notuð til að vista mynd"
 
-#: data/org.gnome.Papers.gschema.xml:32
+#: data/org.gnome.Evince.gschema.xml:32
 msgid "Page cache size in MiB"
 msgstr "Stærð skyndiminnis blaðsíðu í MiB"
 
-#: data/org.gnome.Papers.gschema.xml:33
+#: data/org.gnome.Evince.gschema.xml:33
 msgid ""
 "The maximum size that will be used to cache rendered pages, limits maximum "
 "zoom level."
@@ -354,7 +354,7 @@ msgstr ""
 "Hámarksstærð skyndiminnis sem notað verður til að geyma myndgerðar síður, "
 "þetta takmarkar aðdráttarstig."
 
-#: data/org.gnome.Papers.gschema.xml:37
+#: data/org.gnome.Evince.gschema.xml:37
 msgid ""
 "Show a dialog to confirm that the user wants to activate the caret "
 "navigation."
@@ -362,186 +362,186 @@ msgstr ""
 "Birtir glugga þar sem notandinn staðfestir að hann vilji virkja vafur með "
 "innsláttarmerki (caret navigation)."
 
-#: data/org.gnome.Papers.gschema.xml:41
+#: data/org.gnome.Evince.gschema.xml:41
 msgid "Allow links to change the zoom level."
 msgstr "Leyfa tenglum að breyta aðdrætti."
 
-#: data/org.gnome.Papers-previewer.desktop.in.in:3
+#: data/org.gnome.Evince-previewer.desktop.in.in:3
 msgid "Print Preview"
 msgstr "Forskoðun prentunar"
 
-#: data/org.gnome.Papers-previewer.desktop.in.in:4
+#: data/org.gnome.Evince-previewer.desktop.in.in:4
 msgid "Preview before printing"
 msgstr "Forskoða fyrir prentun"
 
-#: libdocument/pps-attachment.c:330 libdocument/pps-attachment.c:351
+#: libdocument/ev-attachment.c:330 libdocument/ev-attachment.c:351
 #, c-format
 msgid "Couldn’t save attachment “%s”: %s"
 msgstr "Gat ekki vistað viðhengi “%s”: %s"
 
-#: libdocument/pps-attachment.c:398
+#: libdocument/ev-attachment.c:398
 #, c-format
 msgid "Couldn’t open attachment “%s”: %s"
 msgstr "Gat ekki opnað viðhengi “%s”: %s"
 
-#: libdocument/pps-attachment.c:437
+#: libdocument/ev-attachment.c:437
 #, c-format
 msgid "Couldn’t open attachment “%s”"
 msgstr "Gat ekki opnað viðhengi “%s”"
 
-#: libdocument/pps-document-factory.c:105
+#: libdocument/ev-document-factory.c:105
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "Það er enginn stuðningur við skráategundina %s (%s)"
 
-#: libdocument/pps-document-factory.c:373 libdocument/pps-file-helpers.c:418
-#: libdocument/pps-file-helpers.c:464 libdocument/pps-file-helpers.c:483
-#: libdocument/pps-file-helpers.c:564 libdocument/pps-file-helpers.c:573
+#: libdocument/ev-document-factory.c:373 libdocument/ev-file-helpers.c:418
+#: libdocument/ev-file-helpers.c:464 libdocument/ev-file-helpers.c:483
+#: libdocument/ev-file-helpers.c:564 libdocument/ev-file-helpers.c:573
 msgid "Unknown MIME Type"
 msgstr "Óþekkt MIME-tegund"
 
-#: libdocument/pps-document-factory.c:642
+#: libdocument/ev-document-factory.c:642
 msgid "All Documents"
 msgstr "Öll skjöl"
 
-#: libdocument/pps-document-factory.c:669 shell/pps-utils.c:272
+#: libdocument/ev-document-factory.c:669 shell/ev-utils.c:272
 msgid "All Files"
 msgstr "Allar skrár"
 
-#: libdocument/pps-file-helpers.c:158
+#: libdocument/ev-file-helpers.c:158
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "Tókst ekki að búa til bráðabirgðaskrá: %s"
 
-#: libdocument/pps-file-helpers.c:235
+#: libdocument/ev-file-helpers.c:235
 #, c-format
 msgid "Failed to create a temporary directory: %s"
 msgstr "Tókst ekki að búa til bráðabirgðamöppu: %s"
 
-#: libdocument/pps-xmp.c:350
+#: libdocument/ev-xmp.c:350
 msgid "This work is in the Public Domain"
 msgstr "Þetta verk tilheyrir almenningi"
 
-#: libmisc/pps-page-action-widget.c:86 libmisc/pps-page-action-widget.c:125
+#: libmisc/ev-page-action-widget.c:86 libmisc/ev-page-action-widget.c:125
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%d af %d)"
 
-#: libmisc/pps-page-action-widget.c:88 libmisc/pps-page-action-widget.c:129
+#: libmisc/ev-page-action-widget.c:88 libmisc/ev-page-action-widget.c:129
 #, c-format
 msgid "of %d"
 msgstr "af %d"
 
-#: libmisc/pps-page-action-widget.c:187 shell/pps-history.c:455
-#: shell/pps-sidebar-bookmarks.c:343 shell/pps-window.c:966
-#: shell/pps-window.c:5164
+#: libmisc/ev-page-action-widget.c:187 shell/ev-history.c:455
+#: shell/ev-sidebar-bookmarks.c:343 shell/ev-window.c:966
+#: shell/ev-window.c:5164
 #, c-format
 msgid "Page %s"
 msgstr "Síða %s"
 
-#: libmisc/pps-search-box.c:113
+#: libmisc/ev-search-box.c:113
 msgid "Not found, click to change search options"
 msgstr "Fannst ekki, smelltu til að breyta leitarskilyrðum"
 
-#: libmisc/pps-search-box.c:187 libmisc/pps-search-box.c:243
+#: libmisc/ev-search-box.c:187 libmisc/ev-search-box.c:243
 msgid "Search options"
 msgstr "Leitarvalkostir"
 
-#: libmisc/pps-search-box.c:319
+#: libmisc/ev-search-box.c:319
 msgid "_Whole Words Only"
 msgstr "Aðeins _heil orð"
 
-#: libmisc/pps-search-box.c:332
+#: libmisc/ev-search-box.c:332
 msgid "C_ase Sensitive"
 msgstr "_Næmt fyrir há og lágstöfum"
 
-#: libmisc/pps-search-box.c:601
+#: libmisc/ev-search-box.c:601
 msgid "Find previous occurrence of the search string"
 msgstr "Leita afturábak að næsta tilviki leitarstrengs"
 
-#: libmisc/pps-search-box.c:607
+#: libmisc/ev-search-box.c:607
 msgid "Find next occurrence of the search string"
 msgstr "Leita áfram að næsta tilviki leitarstrengs"
 
-#: libview/pps-jobs.c:658
+#: libview/ev-jobs.c:658
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "Mistókst að myndgera síðu %d: %s"
 
-#: libview/pps-jobs.c:665
+#: libview/ev-jobs.c:665
 #, c-format
 msgid "Failed to render page %d"
 msgstr "Mistókst að myndgera síðu %d"
 
-#: libview/pps-jobs.c:918
+#: libview/ev-jobs.c:918
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "Tókst ekki að gera smámynd fyrir %d"
 
-#: libview/pps-jobs.c:2343
+#: libview/ev-jobs.c:2343
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "Það tókst ekki að prenta síðu %d: %s"
 
 #. Initial state
-#: libview/pps-print-operation.c:353
+#: libview/ev-print-operation.c:353
 msgid "Preparing preview…"
 msgstr "Forskoðun undirbúin…"
 
-#: libview/pps-print-operation.c:355 libview/pps-print-operation.c:365
+#: libview/ev-print-operation.c:355 libview/ev-print-operation.c:365
 msgid "Finishing…"
 msgstr "Klára…"
 
-#: libview/pps-print-operation.c:357
+#: libview/ev-print-operation.c:357
 #, c-format
 msgid "Generating preview: page %d of %d"
 msgstr "Bý til forskoðun: síða %d af %d"
 
 #. Initial state
-#: libview/pps-print-operation.c:363
+#: libview/ev-print-operation.c:363
 msgid "Preparing to print…"
 msgstr "Undirbý prentun..."
 
-#: libview/pps-print-operation.c:367
+#: libview/ev-print-operation.c:367
 #, c-format
 msgid "Printing page %d of %d…"
 msgstr "Prenta síðu %d af %d…"
 
-#: libview/pps-print-operation.c:1589 libview/pps-print-operation.c:2056
+#: libview/ev-print-operation.c:1589 libview/ev-print-operation.c:2056
 msgid "Your print range selection does not include any pages"
 msgstr "Prentsviðið sem þú valdir inniheldur engar blaðsíður"
 
 #. translators: Title of the print dialog
-#: libview/pps-print-operation.c:1730 libview/pps-print-operation.c:1828
-#: libview/pps-print-operation.c:2107
+#: libview/ev-print-operation.c:1730 libview/ev-print-operation.c:1828
+#: libview/ev-print-operation.c:2107
 msgid "Print"
 msgstr "Prenta"
 
-#: libview/pps-print-operation.c:2030
+#: libview/ev-print-operation.c:2030
 msgid "Requested format is not supported by this printer."
 msgstr "Umbeðið snið er ekki stutt af þessum prentara."
 
-#: libview/pps-print-operation.c:2053
+#: libview/ev-print-operation.c:2053
 msgid "Invalid page selection"
 msgstr "Ógilt val á blaðsíðum"
 
-#: libview/pps-print-operation.c:2054
+#: libview/ev-print-operation.c:2054
 msgid "Warning"
 msgstr "Aðvörun"
 
-#: libview/pps-print-operation.c:2716
+#: libview/ev-print-operation.c:2716
 msgid "Page Scaling:"
 msgstr "Kvörðun síðu:"
 
-#: libview/pps-print-operation.c:2723
+#: libview/ev-print-operation.c:2723
 msgid "Shrink to Printable Area"
 msgstr "Minnka að prentanlegu svæði"
 
-#: libview/pps-print-operation.c:2724
+#: libview/ev-print-operation.c:2724
 msgid "Fit to Printable Area"
 msgstr "Laga að prentanlegu svæði"
 
-#: libview/pps-print-operation.c:2727
+#: libview/ev-print-operation.c:2727
 msgid ""
 "Scale document pages to fit the selected printer page. Select from one of "
 "the following:\n"
@@ -566,11 +566,11 @@ msgstr ""
 "• \"Laga að prentanlegu svæði\": síður í skjalinu eru minnkaðar eða "
 "stækkaðar þannig að þær passi á útprentaðar síður.\n"
 
-#: libview/pps-print-operation.c:2739
+#: libview/ev-print-operation.c:2739
 msgid "Auto Rotate and Center"
 msgstr "Snúa og miðja sjálfkrafa"
 
-#: libview/pps-print-operation.c:2742
+#: libview/ev-print-operation.c:2742
 msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
@@ -578,11 +578,11 @@ msgstr ""
 "Snúa stefnu prentaðra síðna til samræmis við stefnu síðna í skjalinu. "
 "Síðurnar í skjalinu verða miðjaðar á útprentuðum síðum."
 
-#: libview/pps-print-operation.c:2747
+#: libview/ev-print-operation.c:2747
 msgid "Select page size using document page size"
 msgstr "Nota blaðastærð skjalsins til að velja blaðastærð"
 
-#: libview/pps-print-operation.c:2749
+#: libview/ev-print-operation.c:2749
 msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
@@ -590,99 +590,99 @@ msgstr ""
 "Þegar þetta er virkjað, þá mun hver síða verða prentuð á sömu stærð af "
 "pappír eins og síða skjalsins segir til um."
 
-#: libview/pps-print-operation.c:2754
+#: libview/ev-print-operation.c:2754
 msgid "Draw border around pages"
 msgstr "Teikna jaðar í kringum síður"
 
-#: libview/pps-print-operation.c:2756
+#: libview/ev-print-operation.c:2756
 msgid "When enabled, a border will be drawn around each page."
 msgstr "Þegar þetta er virkt verður rammi teiknaður í kringum hverja síðu."
 
-#: libview/pps-print-operation.c:2858
+#: libview/ev-print-operation.c:2858
 msgid "Page Handling"
 msgstr "Meðhöndlun blaðsíðna"
 
-#: libview/pps-view-accessible.c:43
+#: libview/ev-view-accessible.c:43
 msgid "Scroll Up"
 msgstr "Skruna upp"
 
-#: libview/pps-view-accessible.c:44
+#: libview/ev-view-accessible.c:44
 msgid "Scroll Down"
 msgstr "Skruna niður"
 
-#: libview/pps-view-accessible.c:50
+#: libview/ev-view-accessible.c:50
 msgid "Scroll View Up"
 msgstr "Skruna sýn upp"
 
-#: libview/pps-view-accessible.c:51
+#: libview/ev-view-accessible.c:51
 msgid "Scroll View Down"
 msgstr "Skruna sýn niður"
 
-#: libview/pps-view-accessible.c:132
+#: libview/ev-view-accessible.c:132
 msgid "Document View"
 msgstr "Birta skjal"
 
-#: libview/pps-view.c:2117
+#: libview/ev-view.c:2117
 msgid "Go to first page"
 msgstr "Fara á fyrstu síðu"
 
-#: libview/pps-view.c:2119
+#: libview/ev-view.c:2119
 msgid "Go to previous page"
 msgstr "Fara á fyrri síðu"
 
-#: libview/pps-view.c:2121
+#: libview/ev-view.c:2121
 msgid "Go to next page"
 msgstr "Fara á næstu síðu"
 
-#: libview/pps-view.c:2123
+#: libview/ev-view.c:2123
 msgid "Go to last page"
 msgstr "Fara á öftustu síðu"
 
-#: libview/pps-view.c:2125
+#: libview/ev-view.c:2125
 msgid "Go to page"
 msgstr "Fara á síðu"
 
-#: libview/pps-view.c:2127
+#: libview/ev-view.c:2127
 msgid "Find"
 msgstr "Finna"
 
-#: libview/pps-view.c:2155
+#: libview/ev-view.c:2155
 #, c-format
 msgid "Go to page %s"
 msgstr "Fara á síðu %s"
 
-#: libview/pps-view.c:2161
+#: libview/ev-view.c:2161
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Fara á %s í skrá \"%s\""
 
-#: libview/pps-view.c:2164
+#: libview/ev-view.c:2164
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Fara í skrá \"%s\""
 
-#: libview/pps-view.c:2172
+#: libview/ev-view.c:2172
 #, c-format
 msgid "Launch %s"
 msgstr "Ræsa %s"
 
-#: libview/pps-view.c:2179
+#: libview/ev-view.c:2179
 msgid "Reset form"
 msgstr "Frumstilla innfyllingarform"
 
-#: libview/pps-view-presentation.c:739
+#: libview/ev-view-presentation.c:739
 msgid "Jump to page:"
 msgstr "Fara á síðu:"
 
-#: libview/pps-view-presentation.c:1033
+#: libview/ev-view-presentation.c:1033
 msgid "End of presentation. Press Esc or click to exit."
 msgstr "Endi kynningar. Ýttu á Esc eða smelltu til að hætta."
 
-#: org.gnome.Papers.appdata.xml.in:24
+#: org.gnome.Evince.appdata.xml.in:24
 msgid "Document viewer for popular document formats"
 msgstr "Skjalaskoðari fyrir ýmsar algengar gerðir skjala"
 
-#: org.gnome.Papers.appdata.xml.in:26
+#: org.gnome.Evince.appdata.xml.in:26
 msgid ""
 "A document viewer for the GNOME desktop. You can view, search or annotate "
 "documents in many different formats."
@@ -690,85 +690,85 @@ msgstr ""
 "Skjalaskoðari fyrir GNOME skjáborðsumhverfið. Þú getur skoðað, leitða í eða "
 "glósað við mörg mismunandi skjalasnið."
 
-#: org.gnome.Papers.appdata.xml.in:27
+#: org.gnome.Evince.appdata.xml.in:27
 msgid ""
-"Papers supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, DVI (with "
+"Evince supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, DVI (with "
 "SyncTeX), and Comic Books archives (CBR, CBT, CBZ, CB7)."
 msgstr ""
-"Papers styður eftirfarandi skjalasnið: PDF, PS, EPS, XPS, DjVu, TIFF, DVI "
+"Evince styður eftirfarandi skjalasnið: PDF, PS, EPS, XPS, DjVu, TIFF, DVI "
 "(með SyncTeX), og myndasögusafnskrár (Comicbook) eins og (CBR, CBT, CBZ, "
 "CB7)."
 
-#: org.gnome.Papers.appdata.xml.in:35
+#: org.gnome.Evince.appdata.xml.in:35
 msgid "A clear, simple UI"
 msgstr "Einfalt og hreinlegt viðmót"
 
-#: org.gnome.Papers.appdata.xml.in:39
+#: org.gnome.Evince.appdata.xml.in:39
 msgid "Advanced highlighting and annotation"
 msgstr "Ítarleg áherslulitun og glósur"
 
-#: previewer/pps-previewer.c:57
+#: previewer/ev-previewer.c:57
 msgid "Delete the temporary file"
 msgstr "Eyða bráðabirgðaskránni"
 
-#: previewer/pps-previewer.c:59
+#: previewer/ev-previewer.c:59
 msgid "File specifying print settings"
 msgstr "Skrá tiltekur prentstillingar"
 
-#: previewer/pps-previewer.c:59
+#: previewer/ev-previewer.c:59
 msgid "FILE"
 msgstr "SKRÁ"
 
-#: previewer/pps-previewer.c:61
+#: previewer/ev-previewer.c:61
 msgid "File descriptor of input file"
 msgstr "Skráarlýsir (FD - File Descriptor) fyrir inntaksskrá"
 
-#: previewer/pps-previewer.c:61 previewer/pps-previewer.c:65
+#: previewer/ev-previewer.c:61 previewer/ev-previewer.c:65
 msgid "FD"
 msgstr "FD"
 
-#: previewer/pps-previewer.c:63
+#: previewer/ev-previewer.c:63
 msgid "MIME type of input file"
 msgstr "MIME-tegund inntaksskrár"
 
-#: previewer/pps-previewer.c:63
+#: previewer/ev-previewer.c:63
 msgid "TYPE"
 msgstr "TEGUND"
 
-#: previewer/pps-previewer.c:65
+#: previewer/ev-previewer.c:65
 #| msgid "File specifying print settings"
 msgid "File descriptor of print settings file"
 msgstr "Skráarlýsir (FD - File Descriptor) fyrir prentstillingaskrá"
 
-#: previewer/pps-previewer.c:297 previewer/pps-previewer.c:317
+#: previewer/ev-previewer.c:297 previewer/ev-previewer.c:317
 msgid "GNOME Document Previewer"
 msgstr "GNOME forskoðun skjala"
 
-#: previewer/pps-previewer-toolbar.c:112 shell/pps-toolbar.c:218
+#: previewer/ev-previewer-toolbar.c:112 shell/ev-toolbar.c:218
 msgid "Select page or search in the index"
 msgstr "Veldu blaðsíðu eða leitaðu í atriðaskránni"
 
-#: previewer/pps-previewer-toolbar.c:114 shell/pps-toolbar.c:219
+#: previewer/ev-previewer-toolbar.c:114 shell/ev-toolbar.c:219
 msgid "Select page"
 msgstr "Veldu síðu"
 
-#: previewer/pps-previewer-window.c:78 shell/pps-window.c:3675
+#: previewer/ev-previewer-window.c:78 shell/ev-window.c:3675
 msgid "Failed to print document"
 msgstr "Gat ekki prentað skjalið"
 
-#: previewer/pps-previewer-window.c:193 previewer/pps-previewer-window.c:590
+#: previewer/ev-previewer-window.c:193 previewer/ev-previewer-window.c:590
 #| msgid "Document Viewer"
-msgid "Papers Document Viewer"
-msgstr "Papers skjalaskoðari"
+msgid "Evince Document Viewer"
+msgstr "Evince skjalaskoðari"
 
-#: previewer/pps-previewer-window.c:229
+#: previewer/ev-previewer-window.c:229
 #, c-format
 msgid "The selected printer “%s” could not be found"
 msgstr "Prentarinn '%s' sem þú valdir, fannst ekki"
 
-#: previewer/pps-previewer-window.c:568 shell/pps-window.c:4220
-msgid "Papers"
-msgstr "Papers"
+#: previewer/ev-previewer-window.c:568 shell/ev-window.c:4220
+msgid "Evince"
+msgstr "Evince"
 
 #: previewer/previewer.ui:7
 msgid "_Print"
@@ -778,11 +778,11 @@ msgstr "_Prenta"
 msgid "Print this document"
 msgstr "Prenta þetta skjal"
 
-#: previewer/previewer.ui:20 shell/papers-menus.ui:254
+#: previewer/previewer.ui:20 shell/evince-menus.ui:254
 msgid "Previous Page"
 msgstr "Fyrri síða"
 
-#: previewer/previewer.ui:27 shell/papers-menus.ui:258
+#: previewer/previewer.ui:27 shell/evince-menus.ui:258
 msgid "Next Page"
 msgstr "Næsta síða"
 
@@ -798,72 +798,72 @@ msgstr "Minnka skjalið"
 msgid "Reset zoom and make the page fit in the window"
 msgstr "Frumstilla aðdrátt og laga síðu að glugganum"
 
-#: properties/pps-properties-main.c:116
+#: properties/ev-properties-main.c:116
 msgid "Document"
 msgstr "Skjal"
 
-#: properties/pps-properties-view.c:62
+#: properties/ev-properties-view.c:62
 msgid "Title:"
 msgstr "Titill:"
 
-#: properties/pps-properties-view.c:63
+#: properties/ev-properties-view.c:63
 msgid "Location:"
 msgstr "Staðsetning:"
 
-#: properties/pps-properties-view.c:64
+#: properties/ev-properties-view.c:64
 msgid "Subject:"
 msgstr "Viðfangsefni:"
 
-#: properties/pps-properties-view.c:65
-#: shell/pps-annotation-properties-dialog.c:172
+#: properties/ev-properties-view.c:65
+#: shell/ev-annotation-properties-dialog.c:172
 msgid "Author:"
 msgstr "Höfundur:"
 
-#: properties/pps-properties-view.c:66
+#: properties/ev-properties-view.c:66
 msgid "Keywords:"
 msgstr "Stikkorð:"
 
-#: properties/pps-properties-view.c:67
+#: properties/ev-properties-view.c:67
 msgid "Producer:"
 msgstr "Framleiðandi:"
 
-#: properties/pps-properties-view.c:68
+#: properties/ev-properties-view.c:68
 msgid "Creator:"
 msgstr "Gert af:"
 
-#: properties/pps-properties-view.c:69
+#: properties/ev-properties-view.c:69
 msgid "Created:"
 msgstr "Búið til:"
 
-#: properties/pps-properties-view.c:70
+#: properties/ev-properties-view.c:70
 msgid "Modified:"
 msgstr "Breytt:"
 
-#: properties/pps-properties-view.c:71
+#: properties/ev-properties-view.c:71
 msgid "Number of Pages:"
 msgstr "Fjöldi síðna:"
 
-#: properties/pps-properties-view.c:72
+#: properties/ev-properties-view.c:72
 msgid "Optimized:"
 msgstr "Bestað:"
 
-#: properties/pps-properties-view.c:73
+#: properties/ev-properties-view.c:73
 msgid "Format:"
 msgstr "Snið:"
 
-#: properties/pps-properties-view.c:74
+#: properties/ev-properties-view.c:74
 msgid "Security:"
 msgstr "Öryggi:"
 
-#: properties/pps-properties-view.c:75
+#: properties/ev-properties-view.c:75
 msgid "Contains Javascript:"
 msgstr "Inniheldur JavaScript:"
 
-#: properties/pps-properties-view.c:76
+#: properties/ev-properties-view.c:76
 msgid "Paper Size:"
 msgstr "Pappírsstærð:"
 
-#: properties/pps-properties-view.c:77
+#: properties/ev-properties-view.c:77
 msgid "Size:"
 msgstr "Stærð:"
 
@@ -873,708 +873,708 @@ msgstr "Stærð:"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: properties/pps-properties-view.c:270
+#: properties/ev-properties-view.c:270
 msgid "default:mm"
 msgstr "default:mm"
 
-#: properties/pps-properties-view.c:314
+#: properties/ev-properties-view.c:314
 #, c-format
 msgid "%.0f × %.0f mm"
 msgstr "%.0f × %.0f mm"
 
-#: properties/pps-properties-view.c:318
+#: properties/ev-properties-view.c:318
 #, c-format
 msgid "%.2f × %.2f inch"
 msgstr "%.2f × %.2f tommur"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: properties/pps-properties-view.c:342
+#: properties/ev-properties-view.c:342
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr "%s, lóðrétt (%s)"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: properties/pps-properties-view.c:349
+#: properties/ev-properties-view.c:349
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr "%s, lárétt (%s)"
 
-#: properties/pps-properties-view.c:437
-#: shell/pps-annotation-properties-dialog.c:112
+#: properties/ev-properties-view.c:437
+#: shell/ev-annotation-properties-dialog.c:112
 msgid "Unknown"
 msgstr "Óþekkt"
 
-#: shell/pps-annotation-properties-dialog.c:97
+#: shell/ev-annotation-properties-dialog.c:97
 msgid "Icon:"
 msgstr "Táknmynd:"
 
-#: shell/pps-annotation-properties-dialog.c:103
+#: shell/ev-annotation-properties-dialog.c:103
 msgid "Note"
 msgstr "Minnispunktur"
 
-#: shell/pps-annotation-properties-dialog.c:104
+#: shell/ev-annotation-properties-dialog.c:104
 msgid "Comment"
 msgstr "Athugasemd"
 
-#: shell/pps-annotation-properties-dialog.c:105
+#: shell/ev-annotation-properties-dialog.c:105
 msgid "Key"
 msgstr "Lykill"
 
-#: shell/pps-annotation-properties-dialog.c:106
+#: shell/ev-annotation-properties-dialog.c:106
 msgid "Help"
 msgstr "Hjálp"
 
-#: shell/pps-annotation-properties-dialog.c:107
+#: shell/ev-annotation-properties-dialog.c:107
 msgid "New Paragraph"
 msgstr "Ný málsgrein"
 
-#: shell/pps-annotation-properties-dialog.c:108
+#: shell/ev-annotation-properties-dialog.c:108
 msgid "Paragraph"
 msgstr "Málsgrein"
 
-#: shell/pps-annotation-properties-dialog.c:109
+#: shell/ev-annotation-properties-dialog.c:109
 msgid "Insert"
 msgstr "Setja inn"
 
-#: shell/pps-annotation-properties-dialog.c:110
+#: shell/ev-annotation-properties-dialog.c:110
 msgid "Cross"
 msgstr "Kross"
 
-#: shell/pps-annotation-properties-dialog.c:111
+#: shell/ev-annotation-properties-dialog.c:111
 msgid "Circle"
 msgstr "Hringur"
 
-#: shell/pps-annotation-properties-dialog.c:123
+#: shell/ev-annotation-properties-dialog.c:123
 msgid "Markup type:"
 msgstr "Gerð merkinga:"
 
-#: shell/pps-annotation-properties-dialog.c:129
+#: shell/ev-annotation-properties-dialog.c:129
 msgid "Highlight"
 msgstr "Áherslulitað"
 
-#: shell/pps-annotation-properties-dialog.c:130
+#: shell/ev-annotation-properties-dialog.c:130
 msgid "Strike out"
 msgstr "Yfirstrikað"
 
-#: shell/pps-annotation-properties-dialog.c:131
+#: shell/ev-annotation-properties-dialog.c:131
 msgid "Underline"
 msgstr "Undirstrikað"
 
-#: shell/pps-annotation-properties-dialog.c:132
+#: shell/ev-annotation-properties-dialog.c:132
 msgid "Squiggly"
 msgstr "Beyglað"
 
-#: shell/pps-annotation-properties-dialog.c:153
+#: shell/ev-annotation-properties-dialog.c:153
 msgid "Annotation Properties"
 msgstr "Eiginleikar glósu"
 
-#: shell/pps-annotation-properties-dialog.c:157
+#: shell/ev-annotation-properties-dialog.c:157
 msgid "_Close"
 msgstr "_Loka"
 
-#: shell/pps-annotation-properties-dialog.c:158
+#: shell/ev-annotation-properties-dialog.c:158
 msgid "_Apply"
 msgstr "Virkj_a"
 
-#: shell/pps-annotation-properties-dialog.c:183
+#: shell/ev-annotation-properties-dialog.c:183
 msgid "Color:"
 msgstr "Litur:"
 
-#: shell/pps-annotation-properties-dialog.c:193
+#: shell/ev-annotation-properties-dialog.c:193
 msgid "Opacity:"
 msgstr "Ógegnsæi:"
 
-#: shell/pps-annotation-properties-dialog.c:205
+#: shell/ev-annotation-properties-dialog.c:205
 msgid "Initial window state:"
 msgstr "Upphafleg staða glugga:"
 
-#: shell/pps-annotation-properties-dialog.c:211
+#: shell/ev-annotation-properties-dialog.c:211
 msgid "Open"
 msgstr "Opna"
 
-#: shell/pps-annotation-properties-dialog.c:212
+#: shell/ev-annotation-properties-dialog.c:212
 msgid "Close"
 msgstr "Loka"
 
 #. Translators: an annotation that looks like a "sticky note"
-#: shell/pps-annotations-toolbar.c:133
+#: shell/ev-annotations-toolbar.c:133
 msgid "Note text"
 msgstr "Texti minnispunkts"
 
-#: shell/pps-annotations-toolbar.c:135
+#: shell/ev-annotations-toolbar.c:135
 msgid "Add text annotation"
 msgstr "Bæta við glósu"
 
-#: shell/pps-annotations-toolbar.c:140
+#: shell/ev-annotations-toolbar.c:140
 msgid "Highlight text"
 msgstr "Áherslulita texta"
 
-#: shell/pps-annotations-toolbar.c:142
+#: shell/ev-annotations-toolbar.c:142
 msgid "Add highlight annotation"
 msgstr "Bæta við áherslulitaðri glósu"
 
-#: shell/papers-menus.ui:25 shell/pps-sidebar-links.c:351
+#: shell/evince-menus.ui:25 shell/ev-sidebar-links.c:351
 msgid "Print…"
 msgstr "Prenta…"
 
-#: shell/papers-menus.ui:30
+#: shell/evince-menus.ui:30
 msgid "Fullscreen"
 msgstr "Fylla skjáinn"
 
-#: shell/papers-menus.ui:35
+#: shell/evince-menus.ui:35
 msgid "Send To…"
 msgstr "Senda til..."
 
-#: shell/papers-menus.ui:42
+#: shell/evince-menus.ui:42
 msgid "New _Window"
 msgstr "_Nýr gluggi"
 
-#: shell/papers-menus.ui:48
+#: shell/evince-menus.ui:48
 msgid "Open a C_opy"
 msgstr "_Opna afrit"
 
-#: shell/papers-menus.ui:52 shell/papers-menus.ui:240
+#: shell/evince-menus.ui:52 shell/evince-menus.ui:240
 msgid "Open Containing _Folder"
 msgstr "Birta umlykjandi _möppu"
 
-#: shell/papers-menus.ui:58
+#: shell/evince-menus.ui:58
 msgid "_Save As…"
 msgstr "Vista _sem..."
 
-#: shell/papers-menus.ui:64
+#: shell/evince-menus.ui:64
 msgid "Present as _Slideshow"
 msgstr "_Skoða sem skyggnusýningu"
 
-#: shell/papers-menus.ui:70
+#: shell/evince-menus.ui:70
 msgid "_Continuous"
 msgstr "_Samfellt"
 
-#: shell/papers-menus.ui:74
+#: shell/evince-menus.ui:74
 msgid "_Dual"
 msgstr "_Tvær síður"
 
-#: shell/papers-menus.ui:78
+#: shell/evince-menus.ui:78
 msgid "_Odd Pages Left"
 msgstr "_Oddatölusíður vinstra megin"
 
-#: shell/papers-menus.ui:82
+#: shell/evince-menus.ui:82
 msgid "Right to Left Document"
 msgstr "Hægri til vinstri skjöl"
 
-#: shell/papers-menus.ui:88
+#: shell/evince-menus.ui:88
 msgid "Ro_tate ⤵"
 msgstr "Snú_a ⤵"
 
-#: shell/papers-menus.ui:94
+#: shell/evince-menus.ui:94
 msgid "Ni_ght Mode"
 msgstr "Nætur_hamur"
 
-#: shell/papers-menus.ui:100
+#: shell/evince-menus.ui:100
 msgid "Prop_erties"
 msgstr "_Eiginleikar"
 
-#: shell/papers-menus.ui:106
+#: shell/evince-menus.ui:106
 msgid "Save Current Settings as Defa_ult"
 msgstr "Vista núverandi stillingar sem sjálf_gefnar"
 
-#: shell/papers-menus.ui:110
+#: shell/evince-menus.ui:110
 msgid "_Keyboard Shortcuts"
 msgstr "_Flýtivísanir á lyklaborði"
 
-#: shell/papers-menus.ui:114
+#: shell/evince-menus.ui:114
 msgid "_Help"
 msgstr "_Hjálp"
 
-#: shell/papers-menus.ui:118
+#: shell/evince-menus.ui:118
 msgid "_About Document Viewer"
 msgstr "Um Skj_alaskoðarann"
 
-#: shell/papers-menus.ui:127
+#: shell/evince-menus.ui:127
 msgid "Fit Pa_ge"
 msgstr "_Passa á síðu"
 
-#: shell/papers-menus.ui:132
+#: shell/evince-menus.ui:132
 msgid "Fit _Width"
 msgstr "Passa á _breidd"
 
-#: shell/papers-menus.ui:137
+#: shell/evince-menus.ui:137
 msgid "_Automatic"
 msgstr "Sjálfvir_kt"
 
-#: shell/papers-menus.ui:149
+#: shell/evince-menus.ui:149
 msgid "_Open Link"
 msgstr "_Opna tengil"
 
-#: shell/papers-menus.ui:154
+#: shell/evince-menus.ui:154
 msgid "_Copy Link Address"
 msgstr "A_frita vistfang tengils"
 
-#: shell/papers-menus.ui:159
+#: shell/evince-menus.ui:159
 msgid "_Go To"
 msgstr "_Fara á"
 
-#: shell/papers-menus.ui:164
+#: shell/evince-menus.ui:164
 msgid "Open in New _Window"
 msgstr "Opna í nýjum _glugga"
 
-#: shell/papers-menus.ui:171
+#: shell/evince-menus.ui:171
 msgid "_Previous Page"
 msgstr "F_yrri síða"
 
-#: shell/papers-menus.ui:175
+#: shell/evince-menus.ui:175
 msgid "_Next Page"
 msgstr "_Næsta síða"
 
-#: shell/papers-menus.ui:179 shell/pps-window.c:3974
+#: shell/evince-menus.ui:179 shell/ev-window.c:3974
 msgid "_Reload"
 msgstr "Endu_rhlaða"
 
-#: shell/papers-menus.ui:183
+#: shell/evince-menus.ui:183
 msgid "Auto_scroll"
 msgstr "_Skruna sjálfkrafa"
 
-#: shell/papers-menus.ui:189
+#: shell/evince-menus.ui:189
 msgid "_Copy"
 msgstr "_Afrita"
 
-#: shell/papers-menus.ui:193
+#: shell/evince-menus.ui:193
 msgid "Select _All"
 msgstr "Velja _allt"
 
-#: shell/papers-menus.ui:199
+#: shell/evince-menus.ui:199
 msgid "_Save Image As…"
 msgstr "Vi_sta mynd sem…"
 
-#: shell/papers-menus.ui:204
+#: shell/evince-menus.ui:204
 msgid "Copy _Image"
 msgstr "Afrita _mynd"
 
-#: shell/papers-menus.ui:211 shell/papers-menus.ui:282
-#: shell/papers-menus.ui:305
+#: shell/evince-menus.ui:211 shell/evince-menus.ui:282
+#: shell/evince-menus.ui:305
 msgid "_Open Attachment"
 msgstr "_Opna viðhengi"
 
-#: shell/papers-menus.ui:216 shell/papers-menus.ui:286
-#: shell/papers-menus.ui:310
+#: shell/evince-menus.ui:216 shell/evince-menus.ui:286
+#: shell/evince-menus.ui:310
 msgid "_Save Attachment As…"
 msgstr "Vi_sta viðhengi sem..."
 
-#: shell/papers-menus.ui:223
+#: shell/evince-menus.ui:223
 msgid "Annotation _Properties…"
 msgstr "Eiginlei_kar glósu…"
 
-#: shell/papers-menus.ui:228
+#: shell/evince-menus.ui:228
 msgid "R_emove Annotation"
 msgstr "Fja_rlægja glósu"
 
-#: shell/papers-menus.ui:235
+#: shell/evince-menus.ui:235
 msgid "_Highlight Selected Text"
 msgstr "Á_herslulita valinn texta"
 
-#: shell/papers-menus.ui:248
+#: shell/evince-menus.ui:248
 msgid "Navigation"
 msgstr "Flakk"
 
-#: shell/papers-menus.ui:250
+#: shell/evince-menus.ui:250
 msgid "First Page"
 msgstr "Fyrsta síða"
 
-#: shell/papers-menus.ui:262
+#: shell/evince-menus.ui:262
 msgid "Last Page"
 msgstr "Síðasta síða"
 
-#: shell/papers-menus.ui:267
+#: shell/evince-menus.ui:267
 msgid "History"
 msgstr "Ferill"
 
-#: shell/papers-menus.ui:269
+#: shell/evince-menus.ui:269
 msgid "Back"
 msgstr "Til baka"
 
-#: shell/papers-menus.ui:273
+#: shell/evince-menus.ui:273
 msgid "Forward"
 msgstr "Áfram"
 
-#: shell/papers-menus.ui:295
+#: shell/evince-menus.ui:295
 msgid "Annotation Properties…"
 msgstr "Eiginleikar glósu…"
 
-#: shell/papers-menus.ui:300
+#: shell/evince-menus.ui:300
 msgid "Remove Annotation"
 msgstr "Fjarlægja glósu"
 
-#: shell/papers-menus.ui:320
+#: shell/evince-menus.ui:320
 msgid "_Open Bookmark"
 msgstr "_Opna bókamerki"
 
-#: shell/papers-menus.ui:326
+#: shell/evince-menus.ui:326
 msgid "_Rename Bookmark"
 msgstr "_Endurnefna bókamerki"
 
-#: shell/papers-menus.ui:330
+#: shell/evince-menus.ui:330
 msgid "_Delete Bookmark"
 msgstr "_Eyða bókamerki"
 
-#: shell/pps-keyring.c:86
+#: shell/ev-keyring.c:86
 #, c-format
 msgid "Password for document %s"
 msgstr "Lykilorð fyrir skjalið %s"
 
 #. Create tree view
-#: shell/pps-loading-message.c:50 shell/pps-sidebar-annotations.c:139
-#: shell/pps-sidebar-layers.c:123 shell/pps-sidebar-links.c:276
+#: shell/ev-loading-message.c:50 shell/ev-sidebar-annotations.c:139
+#: shell/ev-sidebar-layers.c:123 shell/ev-sidebar-links.c:276
 msgid "Loading…"
 msgstr "Hleð inn..."
 
-#: shell/pps-password-view.c:141
+#: shell/ev-password-view.c:141
 msgid ""
 "This document is locked and can only be read by entering the correct "
 "password."
 msgstr ""
 "Þetta skjal er læst og er einungis læsilegt ef slegið er inn rétt lykilorð"
 
-#: shell/pps-password-view.c:152
+#: shell/ev-password-view.c:152
 msgid "_Unlock Document"
 msgstr "_Aflæsa skjali"
 
-#: shell/pps-password-view.c:252
+#: shell/ev-password-view.c:252
 #, c-format
 msgid ""
 "The document “%s” is locked and requires a password before it can be opened."
 msgstr "Skjalið \"%s\" er læst.  Til að opna það þarf lykilorð."
 
-#: shell/pps-password-view.c:259
+#: shell/ev-password-view.c:259
 msgid "Password required"
 msgstr "Lykilorðs krafist"
 
-#: shell/pps-password-view.c:266 shell/pps-sidebar-attachments.c:493
-#: shell/pps-window.c:2915 shell/pps-window.c:3213 shell/pps-window.c:4098
-#: shell/pps-window.c:7092 shell/pps-window.c:7318
+#: shell/ev-password-view.c:266 shell/ev-sidebar-attachments.c:493
+#: shell/ev-window.c:2915 shell/ev-window.c:3213 shell/ev-window.c:4098
+#: shell/ev-window.c:7092 shell/ev-window.c:7318
 msgid "_Cancel"
 msgstr "Hætt_a við"
 
-#: shell/pps-password-view.c:267
+#: shell/ev-password-view.c:267
 msgid "_Unlock"
 msgstr "_Aflæsa"
 
-#: shell/pps-password-view.c:279
+#: shell/ev-password-view.c:279
 msgid "_Password:"
 msgstr "_Lykilorð:"
 
-#: shell/pps-password-view.c:314
+#: shell/ev-password-view.c:314
 msgid "Forget password _immediately"
 msgstr "Gleyma lykilorði _strax"
 
-#: shell/pps-password-view.c:326
+#: shell/ev-password-view.c:326
 msgid "Remember password until you _log out"
 msgstr "_Muna lykilorð þangað til þú skráir þig út"
 
-#: shell/pps-password-view.c:338
+#: shell/ev-password-view.c:338
 msgid "Remember _forever"
 msgstr "Muna að _eilífu"
 
-#: shell/pps-properties-dialog.c:63
+#: shell/ev-properties-dialog.c:63
 msgid "Properties"
 msgstr "Eiginleikar"
 
-#: shell/pps-properties-dialog.c:85
+#: shell/ev-properties-dialog.c:85
 msgid "General"
 msgstr "Almennt"
 
-#: shell/pps-properties-dialog.c:95
+#: shell/ev-properties-dialog.c:95
 msgid "Fonts"
 msgstr "Letur"
 
-#: shell/pps-properties-dialog.c:108
+#: shell/ev-properties-dialog.c:108
 msgid "Document License"
 msgstr "Notkunarleyfi skjals"
 
-#: shell/pps-properties-fonts.c:142
+#: shell/ev-properties-fonts.c:142
 msgid "Font"
 msgstr "Letur"
 
-#: shell/pps-properties-fonts.c:169
+#: shell/ev-properties-fonts.c:169
 #, c-format
 msgid "Gathering font information… %3d%%"
 msgstr "Safna upplýsingum um leturgerð... %3d%%"
 
-#: shell/pps-properties-license.c:146
+#: shell/ev-properties-license.c:146
 msgid "Usage terms"
 msgstr "Notkunarskilmálar"
 
-#: shell/pps-properties-license.c:158
+#: shell/ev-properties-license.c:158
 msgid "Text License"
 msgstr "Notkunarleyfi texta"
 
-#: shell/pps-properties-license.c:169
+#: shell/ev-properties-license.c:169
 msgid "Further Information"
 msgstr "Meiri upplýsingar"
 
-#: shell/pps-sidebar-annotations.c:364
+#: shell/ev-sidebar-annotations.c:364
 msgid "Document contains no annotations"
 msgstr "Skjalið inniheldur engar glósur"
 
-#: shell/pps-sidebar-annotations.c:401
+#: shell/ev-sidebar-annotations.c:401
 #, c-format
 msgid "Page %d"
 msgstr "Síða %d"
 
-#: shell/pps-sidebar-annotations.c:613 shell/pps-window.c:7718
+#: shell/ev-sidebar-annotations.c:613 shell/ev-window.c:7718
 msgid "Annotations"
 msgstr "Glósur"
 
-#: shell/pps-sidebar-attachments.c:485
+#: shell/ev-sidebar-attachments.c:485
 #, c-format
 msgid "A file named “%s” already exists. Do you want to replace it?"
 msgstr "Það er þegar til skrá sem heitir '%s'. Viltu skipta henni út?"
 
-#: shell/pps-sidebar-attachments.c:489
+#: shell/ev-sidebar-attachments.c:489
 #, c-format
 msgid "The file “%s” already exists. Replacing it will overwrite its contents."
 msgstr ""
 "Skráin '%s' er þegar til. Verði henni skipt út verður skrifað yfir efni "
 "hennar."
 
-#: shell/pps-sidebar-attachments.c:494
+#: shell/ev-sidebar-attachments.c:494
 msgid "_Replace"
 msgstr "Ski_pta út"
 
-#: shell/pps-sidebar-attachments.c:899 shell/pps-window.c:7742
+#: shell/ev-sidebar-attachments.c:899 shell/ev-window.c:7742
 msgid "Attachments"
 msgstr "Viðhengi"
 
-#: shell/pps-sidebar-bookmarks.c:493 shell/pps-sidebar-bookmarks.c:494
+#: shell/ev-sidebar-bookmarks.c:493 shell/ev-sidebar-bookmarks.c:494
 msgid "Add bookmark"
 msgstr "Bæta við bókamerki"
 
-#: shell/pps-sidebar-bookmarks.c:502 shell/pps-sidebar-bookmarks.c:503
+#: shell/ev-sidebar-bookmarks.c:502 shell/ev-sidebar-bookmarks.c:503
 msgid "Remove bookmark"
 msgstr "Fjarlægja bókamerki"
 
-#: shell/pps-sidebar-bookmarks.c:628 shell/pps-window.c:7726
+#: shell/ev-sidebar-bookmarks.c:628 shell/ev-window.c:7726
 msgid "Bookmarks"
 msgstr "Bókamerki"
 
-#: shell/pps-sidebar-layers.c:444 shell/pps-window.c:7754
+#: shell/ev-sidebar-layers.c:444 shell/ev-window.c:7754
 msgid "Layers"
 msgstr "Lög"
 
-#: shell/pps-sidebar-links.c:357
+#: shell/ev-sidebar-links.c:357
 msgid "Collapse all tree"
 msgstr "Fella allar greinar saman"
 
-#: shell/pps-sidebar-links.c:364
+#: shell/ev-sidebar-links.c:364
 msgid "Expand all tree"
 msgstr "Fletta út öllum greinum"
 
-#: shell/pps-sidebar-links.c:371
+#: shell/ev-sidebar-links.c:371
 msgid "Expand all under this element"
 msgstr "Fletta út öllu undir þessu atriði"
 
 #. Translators: This is the title for the sidebar pane that
 #. * shows the Outline or Table of Contents of the document.
 #.
-#: shell/pps-sidebar-links.c:1431 shell/pps-window.c:7706
+#: shell/ev-sidebar-links.c:1431 shell/ev-window.c:7706
 msgid "Outline"
 msgstr "Outline"
 
-#: shell/pps-sidebar-thumbnails.c:1045 shell/pps-window.c:7689
+#: shell/ev-sidebar-thumbnails.c:1045 shell/ev-window.c:7689
 msgid "Thumbnails"
 msgstr "Smámyndir"
 
-#: shell/pps-toolbar.c:173
+#: shell/ev-toolbar.c:173
 msgid "Find a word or phrase in the document"
 msgstr "Leita að orði eða setningu í þessu skjali"
 
-#: shell/pps-toolbar.c:179
+#: shell/ev-toolbar.c:179
 msgid "Search not available for this document"
 msgstr "Leit er ekki í boði fyrir þetta skjal"
 
-#: shell/pps-toolbar.c:203
+#: shell/ev-toolbar.c:203
 msgid "Open…"
 msgstr "Opna…"
 
-#: shell/pps-toolbar.c:204
+#: shell/ev-toolbar.c:204
 msgid "Open an existing document"
 msgstr "Opna tilbúið skjal"
 
-#: shell/pps-toolbar.c:211
+#: shell/ev-toolbar.c:211
 msgid "Side pane"
 msgstr "Hliðarspjald"
 
-#: shell/pps-toolbar.c:227
+#: shell/ev-toolbar.c:227
 msgid "Annotate the document"
 msgstr "Glósa í skjalið"
 
-#: shell/pps-toolbar.c:228
+#: shell/ev-toolbar.c:228
 msgid "Annotate document"
 msgstr "Glósa í skjal"
 
-#: shell/pps-toolbar.c:236 shell/pps-toolbar.c:237
+#: shell/ev-toolbar.c:236 shell/ev-toolbar.c:237
 msgid "File options"
 msgstr "Valkostir skráa"
 
-#: shell/pps-toolbar.c:256
+#: shell/ev-toolbar.c:256
 msgid "Select or set the zoom level of the document"
 msgstr "Velja eða stilla aðdráttarstig skjalsins"
 
-#: shell/pps-toolbar.c:257
+#: shell/ev-toolbar.c:257
 msgid "Set zoom level"
 msgstr "Setja aðdráttargildi"
 
-#: shell/pps-utils.c:268
+#: shell/ev-utils.c:268
 msgid "Supported Image Files"
 msgstr "Studdar myndaskrár"
 
-#: shell/pps-window.c:1765
+#: shell/ev-window.c:1765
 msgid "The document contains no pages"
 msgstr "Þetta skjal inniheldur engar blaðsíður"
 
-#: shell/pps-window.c:1768
+#: shell/ev-window.c:1768
 msgid "The document contains only empty pages"
 msgstr "Þetta skjal inniheldur eingöngu tómar blaðsíður"
 
-#: shell/pps-window.c:2013 shell/pps-window.c:2195
+#: shell/ev-window.c:2013 shell/ev-window.c:2195
 #, c-format
 msgid "Unable to open document “%s”."
 msgstr "Gat ekki opnað skjalið \"%s\"."
 
-#: shell/pps-window.c:2160
+#: shell/ev-window.c:2160
 #, c-format
 msgid "Loading document from “%s”"
 msgstr "Hleð inn skjali frá \"%s\""
 
-#: shell/pps-window.c:2165 shell/pps-window.c:2637 shell/pps-window.c:3003
-#: shell/pps-window.c:3739 shell/pps-window.c:3987
+#: shell/ev-window.c:2165 shell/ev-window.c:2637 shell/ev-window.c:3003
+#: shell/ev-window.c:3739 shell/ev-window.c:3987
 msgid "C_ancel"
 msgstr "Hætt_a við"
 
-#: shell/pps-window.c:2319 shell/pps-window.c:2688
+#: shell/ev-window.c:2319 shell/ev-window.c:2688
 #, c-format
 msgid "Downloading document (%d%%)"
 msgstr "Sæki skjalið (%d%%)"
 
-#: shell/pps-window.c:2352
+#: shell/ev-window.c:2352
 msgid "Failed to load remote file."
 msgstr "Gat hlaðið inn fjartengdri skrá."
 
-#: shell/pps-window.c:2633
+#: shell/ev-window.c:2633
 #, c-format
 msgid "Reloading document from %s"
 msgstr "Endurlesa skjalið aftur frá %s"
 
-#: shell/pps-window.c:2663
+#: shell/ev-window.c:2663
 msgid "Failed to reload document."
 msgstr "Það tókst ekki að endurhlaða skjalinu inn."
 
-#: shell/pps-window.c:2911
+#: shell/ev-window.c:2911
 msgid "Open Document"
 msgstr "Opna skjal"
 
-#: shell/pps-window.c:2914
+#: shell/ev-window.c:2914
 msgid "_Open"
 msgstr "_Opna"
 
-#: shell/pps-window.c:2989
+#: shell/ev-window.c:2989
 #, c-format
 msgid "Saving document to %s"
 msgstr "Vista skjalinu í %s"
 
-#: shell/pps-window.c:2992
+#: shell/ev-window.c:2992
 #, c-format
 msgid "Saving attachment to %s"
 msgstr "Vista viðhengi í %s"
 
-#: shell/pps-window.c:2995
+#: shell/ev-window.c:2995
 #, c-format
 msgid "Saving image to %s"
 msgstr "Vista mynd í %s"
 
-#: shell/pps-window.c:3037 shell/pps-window.c:3152
+#: shell/ev-window.c:3037 shell/ev-window.c:3152
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Gat ekki vistað skrána sem \"%s\"."
 
-#: shell/pps-window.c:3069
+#: shell/ev-window.c:3069
 #, c-format
 msgid "Uploading document (%d%%)"
 msgstr "Hleð skjalinu upp (%d%%)"
 
-#: shell/pps-window.c:3073
+#: shell/ev-window.c:3073
 #, c-format
 msgid "Uploading attachment (%d%%)"
 msgstr "Hleð viðhengi upp (%d%%)"
 
-#: shell/pps-window.c:3077
+#: shell/ev-window.c:3077
 #, c-format
 msgid "Uploading image (%d%%)"
 msgstr "Hleð mynd upp (%d%%)"
 
-#: shell/pps-window.c:3210
+#: shell/ev-window.c:3210
 msgid "Save As…"
 msgstr "Vista sem…"
 
-#: shell/pps-window.c:3212 shell/pps-window.c:7091 shell/pps-window.c:7317
+#: shell/ev-window.c:3212 shell/ev-window.c:7091 shell/ev-window.c:7317
 msgid "_Save"
 msgstr "Vi_sta"
 
-#: shell/pps-window.c:3299
+#: shell/ev-window.c:3299
 msgid "Could not send current document"
 msgstr "Gat ekki sent þetta skjal"
 
-#: shell/pps-window.c:3626
+#: shell/ev-window.c:3626
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "%d verk sem bíður"
 msgstr[1] "%d verk sem bíða"
 
-#: shell/pps-window.c:3735
+#: shell/ev-window.c:3735
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Prenta verk „%s“"
 
-#: shell/pps-window.c:3953
+#: shell/ev-window.c:3953
 msgid "Document contains form fields that have been filled out."
 msgstr "Skjalið inniheldur reiti sem þú hefur fyllt út."
 
-#: shell/pps-window.c:3956
+#: shell/ev-window.c:3956
 msgid "Document contains new or modified annotations."
 msgstr "Skjalið inniheldur nýjar eða breyttar glósur."
 
-#: shell/pps-window.c:3968
+#: shell/ev-window.c:3968
 #, c-format
 msgid "Reload document “%s”?"
 msgstr "Endurhlaða skjalinu \"%s\"?"
 
-#: shell/pps-window.c:3970
+#: shell/ev-window.c:3970
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "Ef þú endurhleður skjalið, munu breytingar tapast endanlega."
 
-#: shell/pps-window.c:3972
+#: shell/ev-window.c:3972
 msgid "_No"
 msgstr "_Nei"
 
-#: shell/pps-window.c:3981
+#: shell/ev-window.c:3981
 #, c-format
 msgid "Save a copy of document “%s” before closing?"
 msgstr "Viltu vista breytingar á skjalinu „%s“ áður en þú lokar því?"
 
-#: shell/pps-window.c:3983
+#: shell/ev-window.c:3983
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "Ef þú vistar ekki afrit af skjalinu munu breytingarnar tapast."
 
-#: shell/pps-window.c:3985
+#: shell/ev-window.c:3985
 msgid "Close _without Saving"
 msgstr "_Loka án þess að vista"
 
-#: shell/pps-window.c:3989
+#: shell/ev-window.c:3989
 msgid "Save a _Copy"
 msgstr "_Vista afrit"
 
-#: shell/pps-window.c:4071
+#: shell/ev-window.c:4071
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr "Viltu bíða með að loka þangað til búið er að prenta „%s“?"
@@ -1582,7 +1582,7 @@ msgstr "Viltu bíða með að loka þangað til búið er að prenta „%s“?"
 #. TRANS: the singular form is not really used as n_print_jobs > 1
 #. but some languages distinguish between different plurals forms,
 #. so the ngettext is needed.
-#: shell/pps-window.c:4077
+#: shell/ev-window.c:4077
 #, c-format
 msgid "There is %d print job active. Wait until print finishes before closing?"
 msgid_plural ""
@@ -1594,48 +1594,48 @@ msgstr[1] ""
 "Það eru %d verk sem á eftir að prenta. Viltu bíða með að loka þangað til "
 "búið er að prenta þau út?"
 
-#: shell/pps-window.c:4092
+#: shell/ev-window.c:4092
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr "Það sem er á biðlistanum verður ekki prentað ef þú lokar glugganum."
 
-#: shell/pps-window.c:4096
+#: shell/ev-window.c:4096
 msgid "Cancel _print and Close"
 msgstr "Hætta við _prentun og loka"
 
-#: shell/pps-window.c:4100
+#: shell/ev-window.c:4100
 msgid "Close _after Printing"
 msgstr "Loka _eftir prentun"
 
-#: shell/pps-window.c:4222
-#| msgid "© 1996–2020 The Papers authors"
-msgid "© 1996–2022 The Papers document viewer authors"
-msgstr "© 1996–2022 - Höfundar Papers skjalaskoðarans"
+#: shell/ev-window.c:4222
+#| msgid "© 1996–2020 The Evince authors"
+msgid "© 1996–2022 The Evince document viewer authors"
+msgstr "© 1996–2022 - Höfundar Evince skjalaskoðarans"
 
-#: shell/pps-window.c:4225
-msgid "Papers is a simple document viewer for GNOME"
-msgstr "Papers er einfaldur skjalaskoðari fyrir GNOME"
+#: shell/ev-window.c:4225
+msgid "Evince is a simple document viewer for GNOME"
+msgstr "Evince er einfaldur skjalaskoðari fyrir GNOME"
 
-#: shell/pps-window.c:4228
+#: shell/ev-window.c:4228
 msgid "translator-credits"
 msgstr "Sveinn í Felli, sv1@fellsnet.is"
 
-#: shell/pps-window.c:4658
+#: shell/ev-window.c:4658
 msgid "Running in presentation mode"
 msgstr "Keyri í kynningarham"
 
-#: shell/pps-window.c:5709
+#: shell/ev-window.c:5709
 msgid "The attachment could not be saved."
 msgstr "Ekki var hægt að vista viðhengið"
 
-#: shell/pps-window.c:6031
+#: shell/ev-window.c:6031
 msgid "Enable caret navigation?"
 msgstr "Virkja vafur með innsláttarmerki?"
 
-#: shell/pps-window.c:6032
+#: shell/ev-window.c:6032
 msgid "_Enable"
 msgstr "_Virkja"
 
-#: shell/pps-window.c:6035
+#: shell/ev-window.c:6035
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1645,103 +1645,103 @@ msgstr ""
 "birtir færanlegt innsláttarmerki á síðum með texta og leyfir þér að vafra um "
 "og velja texta með lyklaborðinu. Viltu virka vafur með innsláttarmerki?"
 
-#: shell/pps-window.c:6040
+#: shell/ev-window.c:6040
 msgid "Don’t show this message again"
 msgstr "Ekki birta þessi skilaboð aftur"
 
-#: shell/pps-window.c:6718
+#: shell/ev-window.c:6718
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
 msgstr ""
 "Öryggisviðvörun: Komið var í veg fyrir að þessi síða opnaði skrána “%s”"
 
-#: shell/pps-window.c:6783
+#: shell/ev-window.c:6783
 msgid "Unable to open external link"
 msgstr "Gat ekki opnað ytri tengil"
 
-#: shell/pps-window.c:7020
+#: shell/ev-window.c:7020
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Fann ekki viðeigandi snið til að vista myndinni á"
 
-#: shell/pps-window.c:7052
+#: shell/ev-window.c:7052
 msgid "The image could not be saved."
 msgstr "Ekki var hægt að vista myndina"
 
-#: shell/pps-window.c:7088
+#: shell/ev-window.c:7088
 msgid "Save Image"
 msgstr "Vista mynd"
 
-#: shell/pps-window.c:7246
+#: shell/ev-window.c:7246
 msgid "Unable to open attachment"
 msgstr "Gat ekki opnað viðhengi"
 
-#: shell/pps-window.c:7314
+#: shell/ev-window.c:7314
 msgid "Save Attachment"
 msgstr "Vista viðhengi"
 
-#: shell/pps-window-title.c:108
+#: shell/ev-window-title.c:108
 msgid "Recent Documents"
 msgstr "Nýleg skjöl"
 
-#: shell/pps-window-title.c:154 shell/pps-window-title.c:156
-#: shell/pps-window-title.c:161
+#: shell/ev-window-title.c:154 shell/ev-window-title.c:156
+#: shell/ev-window-title.c:161
 msgid "Password Required"
 msgstr "Lykilorð nauðsynlegt"
 
-#: shell/pps-zoom-action.c:49
+#: shell/ev-zoom-action.c:49
 msgid "50%"
 msgstr "50%"
 
-#: shell/pps-zoom-action.c:50
+#: shell/ev-zoom-action.c:50
 msgid "70%"
 msgstr "70%"
 
-#: shell/pps-zoom-action.c:51
+#: shell/ev-zoom-action.c:51
 msgid "85%"
 msgstr "85%"
 
-#: shell/pps-zoom-action.c:52
+#: shell/ev-zoom-action.c:52
 msgid "100%"
 msgstr "100%"
 
-#: shell/pps-zoom-action.c:53
+#: shell/ev-zoom-action.c:53
 msgid "125%"
 msgstr "125%"
 
-#: shell/pps-zoom-action.c:54
+#: shell/ev-zoom-action.c:54
 msgid "150%"
 msgstr "150%"
 
-#: shell/pps-zoom-action.c:55
+#: shell/ev-zoom-action.c:55
 msgid "175%"
 msgstr "175%"
 
-#: shell/pps-zoom-action.c:56
+#: shell/ev-zoom-action.c:56
 msgid "200%"
 msgstr "200%"
 
-#: shell/pps-zoom-action.c:57
+#: shell/ev-zoom-action.c:57
 msgid "300%"
 msgstr "300%"
 
-#: shell/pps-zoom-action.c:58
+#: shell/ev-zoom-action.c:58
 msgid "400%"
 msgstr "400%"
 
-#: shell/pps-zoom-action.c:59
+#: shell/ev-zoom-action.c:59
 msgid "800%"
 msgstr "800%"
 
-#: shell/pps-zoom-action.c:60
+#: shell/ev-zoom-action.c:60
 msgid "1600%"
 msgstr "1600%"
 
-#: shell/pps-zoom-action.c:61
+#: shell/ev-zoom-action.c:61
 msgid "3200%"
 msgstr "3200%"
 
-#: shell/pps-zoom-action.c:62
+#: shell/ev-zoom-action.c:62
 msgid "6400%"
 msgstr "6400%"
 
@@ -2088,16 +2088,16 @@ msgid "DEST"
 msgstr "ÚTTAK"
 
 #: shell/main.c:76
-msgid "Run papers in fullscreen mode"
-msgstr "Keyra papers í heilskjásham"
+msgid "Run evince in fullscreen mode"
+msgstr "Keyra evince í heilskjásham"
 
 #: shell/main.c:77
-msgid "Run papers in presentation mode"
-msgstr "Hefja kynningu í papers"
+msgid "Run evince in presentation mode"
+msgstr "Hefja kynningu í evince"
 
 #: shell/main.c:78
-msgid "Run papers as a previewer"
-msgstr "Keyra papers í forskoðunarham"
+msgid "Run evince as a previewer"
+msgstr "Keyra evince í forskoðunarham"
 
 #: shell/main.c:79
 msgid "The word or phrase to find in the document"
@@ -2214,34 +2214,34 @@ msgstr "[SKRÁ…]"
 #~ msgstr "Fjarlægja"
 
 #~ msgid ""
-#~ "Papers is free software; you can redistribute it and/or modify it under "
+#~ "Evince is free software; you can redistribute it and/or modify it under "
 #~ "the terms of the GNU General Public License as published by the Free "
 #~ "Software Foundation; either version 2 of the License, or (at your option) "
 #~ "any later version.\n"
 #~ msgstr ""
-#~ "Papers er frjáls hugbúnaður; þú mátt dreifa honum og/eða breyta samkvæmt "
+#~ "Evince er frjáls hugbúnaður; þú mátt dreifa honum og/eða breyta samkvæmt "
 #~ "skilmálum í almenna GNU GPL notkunarleyfinu eins og það er gefið út af "
 #~ "Frjálsu hugbúnaðarstofnuninni; annaðhvort útgáfu 2 af GPL-leyfinu, eða "
 #~ "(ef þér sýnist svo) einhverja nýrri útgáfu leyfisins.\n"
 
 #~ msgid ""
-#~ "Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
+#~ "Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
 #~ "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 #~ "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 #~ "details.\n"
 #~ msgstr ""
-#~ "Papers er dreift í þeirri von að hann geti verið gagnlegur, en ÁN ALLRAR "
+#~ "Evince er dreift í þeirri von að hann geti verið gagnlegur, en ÁN ALLRAR "
 #~ "ÁBYRGÐAR; einnig án þeirrar ábyrgðar sem gefin er í skyn með SELJANLEIKA "
 #~ "eða EIGINLEIKUM TIL TILTEKINNA NOTA. Sjá almenna GNU GPL notkunarleyfið "
 #~ "fyrir nánari upplýsingar.\n"
 
 #~ msgid ""
 #~ "You should have received a copy of the GNU General Public License along "
-#~ "with Papers; if not, write to the Free Software Foundation, Inc., 51 "
+#~ "with Evince; if not, write to the Free Software Foundation, Inc., 51 "
 #~ "Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 #~ msgstr ""
 #~ "Það ætti að hafa fylgt afrit af almenna GNU GPL notkunarleyfinu með "
-#~ "Papers; ef ekki skrifið þá Frjálsu hugbúnaðarstofnuninni: Free Software "
+#~ "Evince; ef ekki skrifið þá Frjálsu hugbúnaðarstofnuninni: Free Software "
 #~ "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
 #~ "USA.\n"
 

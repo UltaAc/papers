@@ -1,10 +1,10 @@
-# Dzongkha translation of papers
+# Dzongkha translation of evince
 # Copyright @ 2006 Free Software Foundation,Inc.
 # Mindu Dorji
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: papers.HEAD.dz\n"
+"Project-Id-Version: evince.HEAD.dz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-04-12 03:16+0100\n"
 "PO-Revision-Date: 2008-08-26 11:37+0530\n"
@@ -29,7 +29,7 @@ msgstr "ཡིག་སྣོད་ངན་ཅན་ལུ་གྱུར་ན
 msgid "No images found in archive %s"
 msgstr "ཡིག་མཛོད་%sནང་གཟུགས་བརྙན་མ་མཐོང་།"
 
-#: ../backend/comics/comicsdocument.papers-backend.in.h:1
+#: ../backend/comics/comicsdocument.evince-backend.in.h:1
 msgid "Comic Books"
 msgstr "པར་སྲུང་ཀི་དེབ།"
 
@@ -38,7 +38,7 @@ msgstr "པར་སྲུང་ཀི་དེབ།"
 msgid "The document is composed by several files. One or more of such files cannot be accessed."
 msgstr "ཡིག་ཆ་འདི་ཡིག་སྣོད་ལེ་ཤ་ཅིག་གིས་བརྩམ་ནུག།  གཅིག་ཡང་ན་ལེ་ཤ་ཡོད་པའི་ཡིག་སྣོད་ཚུ་འཛུལ་སྤྱོད་འབད་མི་ཚུགས།"
 
-#: ../backend/djvu/djvudocument.papers-backend.in.h:1
+#: ../backend/djvu/djvudocument.evince-backend.in.h:1
 msgid "Djvu Documents"
 msgstr "ཌིཇི་བུ་ཡིག་ཆ།"
 
@@ -52,69 +52,69 @@ msgstr "ཡིག་སྣོད་འཐོབ་མི་ཚུགས་པས
 msgid "DVI document has incorrect format"
 msgstr "ཌིི་ཝི་ཨའི་ཡིག་ཆ་དེ་ལུ་ བདེན་མེད་རྩ་སྒྲིག་འདུག"
 
-#: ../backend/dvi/dvidocument.papers-backend.in.h:1
+#: ../backend/dvi/dvidocument.evince-backend.in.h:1
 msgid "DVI Documents"
 msgstr "ཌི་ཝི་ཨའི་ཡིག་ཆ་ཚུ།"
 
 #. translators: this is the document security state
-#: ../backend/pdf/pps-poppler.cc:694
+#: ../backend/pdf/ev-poppler.cc:694
 msgid "Yes"
 msgstr "ཨིན།"
 
 #. translators: this is the document security state
-#: ../backend/pdf/pps-poppler.cc:697
+#: ../backend/pdf/ev-poppler.cc:697
 msgid "No"
 msgstr "མེན།"
 
-#: ../backend/pdf/pps-poppler.cc:770
+#: ../backend/pdf/ev-poppler.cc:770
 msgid "Type 1"
 msgstr "དབྱེ་བ་ ༡།"
 
-#: ../backend/pdf/pps-poppler.cc:772
+#: ../backend/pdf/ev-poppler.cc:772
 msgid "Type 1C"
 msgstr "དབྱེ་བ་ ༡སི།"
 
-#: ../backend/pdf/pps-poppler.cc:774
+#: ../backend/pdf/ev-poppler.cc:774
 msgid "Type 3"
 msgstr "དབྱེ་བ་ ༣།"
 
-#: ../backend/pdf/pps-poppler.cc:776
+#: ../backend/pdf/ev-poppler.cc:776
 msgid "TrueType"
 msgstr "ྟཊུ་ཊའིཔ།"
 
-#: ../backend/pdf/pps-poppler.cc:778
+#: ../backend/pdf/ev-poppler.cc:778
 msgid "Type 1 (CID)"
 msgstr "དབྱེ་བ་ ༡ (སི་ཨའི་ཌི)"
 
-#: ../backend/pdf/pps-poppler.cc:780
+#: ../backend/pdf/ev-poppler.cc:780
 msgid "Type 1C (CID)"
 msgstr "དབྱེ་བ་ ༡སི་ (སི་ཨའི་ཌི)"
 
-#: ../backend/pdf/pps-poppler.cc:782
+#: ../backend/pdf/ev-poppler.cc:782
 msgid "TrueType (CID)"
 msgstr "ཊུ་ཊའིཔ་ (སི་ཨའི་ཌི)"
 
-#: ../backend/pdf/pps-poppler.cc:784
+#: ../backend/pdf/ev-poppler.cc:784
 msgid "Unknown font type"
 msgstr "མ་ཤེས་པའི་ཡིག་གཟུགས་དབྱེ་བ།"
 
-#: ../backend/pdf/pps-poppler.cc:810
+#: ../backend/pdf/ev-poppler.cc:810
 msgid "No name"
 msgstr "མིང་མིན་འདུག"
 
-#: ../backend/pdf/pps-poppler.cc:818
+#: ../backend/pdf/ev-poppler.cc:818
 msgid "Embedded subset"
 msgstr "གོམས་འདྲིས་ཚུད་པའི་ ཡན་ལག་ཆ་ཚན།"
 
-#: ../backend/pdf/pps-poppler.cc:820
+#: ../backend/pdf/ev-poppler.cc:820
 msgid "Embedded"
 msgstr "གོམས་འདྲིས་ཚུད་པའི།"
 
-#: ../backend/pdf/pps-poppler.cc:822
+#: ../backend/pdf/ev-poppler.cc:822
 msgid "Not embedded"
 msgstr "གོམས་འདྲིས་མ་ཚུདཔ།"
 
-#: ../backend/pdf/pdfdocument.papers-backend.in.h:1
+#: ../backend/pdf/pdfdocument.evince-backend.in.h:1
 msgid "PDF Documents"
 msgstr "པི་ཌི་ཨེཕ་ ཡིག་ཆ་ཚུ་ "
 
@@ -131,7 +131,7 @@ msgstr "ནུས་ཅན་མེད་པའི་ཡིག་ཆ་"
 #.
 #. * vim: sw=2 ts=8 cindent noai bs=2
 #.
-#: ../backend/impress/impressdocument.papers-backend.in.h:1
+#: ../backend/impress/impressdocument.evince-backend.in.h:1
 msgid "Impress Slides"
 msgstr "ཨིམ་པེརེསི་ བཤུད་བརྙན།"
 
@@ -171,13 +171,13 @@ msgstr "གནས་ཡུལ་དེ་ནང་ལུ་ ཡིག་སྣ�
 msgid "Unknown error"
 msgstr "མ་ཤེས་པའི་འཛོལ་བ་"
 
-#: ../backend/ps/pps-spectre.c:113
+#: ../backend/ps/ev-spectre.c:113
 #: ../backend/ps/ps-document.c:248
 #, c-format
 msgid "Failed to load document “%s”"
 msgstr "ཡིག་ཆ་“%s”མངོན་གསལ་འབད་མ་ཚུགས།"
 
-#: ../backend/ps/pps-spectre.c:146
+#: ../backend/ps/ev-spectre.c:146
 #, c-format
 msgid "Failed to save document “%s”"
 msgstr "ཡིག་ཆ་“%s” སྲུང་མ་ཚུགས་ "
@@ -277,42 +277,42 @@ msgstr "པོསིཊི་སི་ཀོརིཔཊི།"
 msgid "Interpreter failed."
 msgstr "དོ་རོ་ཁ་སྒྱིར་མི་མ་བཏུབ།"
 
-#: ../backend/ps/psdocument.papers-backend.in.h:1
+#: ../backend/ps/psdocument.evince-backend.in.h:1
 msgid "PostScript Documents"
 msgstr "པོསཊི་སི་ཀིརིཔཊི་ཡིག་ཆ་ཚུ།"
 
-#: ../libdocument/pps-attachment.c:303
-#: ../libdocument/pps-attachment.c:324
+#: ../libdocument/ev-attachment.c:303
+#: ../libdocument/ev-attachment.c:324
 #, c-format
 msgid "Couldn't save attachment “%s”: %s"
 msgstr "མཉམ་སྦྲགས་ “%s”: %s བསྲུང་མ་ཚུགས།"
 
-#: ../libdocument/pps-attachment.c:360
+#: ../libdocument/ev-attachment.c:360
 #, c-format
 msgid "Couldn't open attachment “%s”: %s"
 msgstr "མཉམ་སྦྲགས་“%s”: %sཁ་ཕྱེ་མ་ཚུགས།"
 
-#: ../libdocument/pps-attachment.c:393
+#: ../libdocument/ev-attachment.c:393
 #, c-format
 msgid "Couldn't open attachment “%s”"
 msgstr "མཉམ་སྦྲགས་ “%s”ཁ་ཕྱེ་མ་ཚུགས།"
 
-#: ../libdocument/pps-document-factory.c:177
-#: ../libdocument/pps-document-factory.c:295
+#: ../libdocument/ev-document-factory.c:177
+#: ../libdocument/ev-document-factory.c:295
 #, c-format
 msgid "Unknown MIME Type"
 msgstr "མ་ཤེས་པའི་ མ་ཡིམ་དབྱེ་བ།"
 
-#: ../libdocument/pps-document-factory.c:196
+#: ../libdocument/ev-document-factory.c:196
 #, c-format
 msgid "Unhandled MIME type: “%s”"
 msgstr "ལེགས་སྐྱོང་མ་འཐབ་པའི་ མ་ཡིམ་དབྱེ་བ་:“%s”།"
 
-#: ../libdocument/pps-document-factory.c:350
+#: ../libdocument/ev-document-factory.c:350
 msgid "All Documents"
 msgstr "ཡིག་ཆ་ཆ་མཉམ།"
 
-#: ../libdocument/pps-document-factory.c:382
+#: ../libdocument/ev-document-factory.c:382
 msgid "All Files"
 msgstr "ཡིག་སྣོད་ཆ་མཉམ།"
 
@@ -362,7 +362,7 @@ msgstr "གསལ་སྟོན་ཐབས་ལམ་ནང་ལུ་ ག�
 
 #. translators: this is the label for toolbar button
 #: ../cut-n-paste/zoom-control/ephy-zoom.h:48
-#: ../shell/pps-window.c:4447
+#: ../shell/ev-window.c:4447
 msgid "Best Fit"
 msgstr "ལེགས་སྒྲིག"
 
@@ -410,98 +410,98 @@ msgstr "%༣༠༠"
 msgid "400%"
 msgstr "%༤༠༠"
 
-#: ../data/papers.desktop.in.in.h:1
-#: ../shell/pps-window.c:3573
-#: ../shell/pps-window-title.c:132
+#: ../data/evince.desktop.in.in.h:1
+#: ../shell/ev-window.c:3573
+#: ../shell/ev-window-title.c:132
 #, c-format
 msgid "Document Viewer"
 msgstr "ཡིག་ཆ་མཐོང་བྱེད།"
 
-#: ../data/papers.desktop.in.in.h:2
+#: ../data/evince.desktop.in.in.h:2
 msgid "View multipage documents"
 msgstr "སྣ་མང་ཤོག་ལེབ་ཡིག་ཆ་ཚུ་སྟོན།"
 
-#: ../data/papers-password.glade.h:1
+#: ../data/evince-password.glade.h:1
 msgid "Password Entry"
 msgstr "ཆོག་ཡིག་བཙུགས་ནི།"
 
-#: ../data/papers-password.glade.h:2
+#: ../data/evince-password.glade.h:2
 msgid "Remember password for this session"
 msgstr "ལཱ་ཡུན་འདི་གི་དོན་ལུ་ ཆོག་ཡིག་སེམས་ཁར་བཞག"
 
-#: ../data/papers-password.glade.h:3
+#: ../data/evince-password.glade.h:3
 msgid "Save password in keyring"
 msgstr "ལྡེ་འཁོར་ནང་ཆོག་ཡིག་སྲུངས།"
 
-#: ../data/papers-password.glade.h:4
+#: ../data/evince-password.glade.h:4
 msgid "_Password:"
 msgstr "ཆོག་ཡིག་:(_P)"
 
-#: ../data/papers-properties.glade.h:1
+#: ../data/evince-properties.glade.h:1
 msgid "<b>Author:</b>"
 msgstr "<b>རྩོམ་པ་པོ་:</b>"
 
-#: ../data/papers-properties.glade.h:2
+#: ../data/evince-properties.glade.h:2
 msgid "<b>Created:</b>"
 msgstr "<b>གསར་བསྐྲུན་འབད་ཡོདཔ་:</b>"
 
-#: ../data/papers-properties.glade.h:3
+#: ../data/evince-properties.glade.h:3
 msgid "<b>Creator:</b>"
 msgstr "<b>གསར་སྐྲུན་པ་:</b>"
 
-#: ../data/papers-properties.glade.h:4
+#: ../data/evince-properties.glade.h:4
 msgid "<b>Format:</b>"
 msgstr "<b>རྩ་སྒྲིག་:</b>"
 
-#: ../data/papers-properties.glade.h:5
+#: ../data/evince-properties.glade.h:5
 msgid "<b>Keywords:</b>"
 msgstr "<b>གཙོ་ཚིག་:</b>"
 
-#: ../data/papers-properties.glade.h:6
+#: ../data/evince-properties.glade.h:6
 msgid "<b>Modified:</b>"
 msgstr "<b>ལེགས་བཅོས་འབད་ཡོདཔ་:</b>"
 
-#: ../data/papers-properties.glade.h:7
+#: ../data/evince-properties.glade.h:7
 msgid "<b>Number of Pages:</b>"
 msgstr "<b>ཤོག་གྲངས་:</b>"
 
-#: ../data/papers-properties.glade.h:8
+#: ../data/evince-properties.glade.h:8
 msgid "<b>Optimized:</b>"
 msgstr "<b>ལེགས་ལྡན་བཟོས་གྲུབ་པ་:</b>"
 
-#: ../data/papers-properties.glade.h:9
+#: ../data/evince-properties.glade.h:9
 msgid "<b>Paper Size:</b>"
 msgstr "<b>ཤོག་ལེབ་ཀྱི་ཚད་:</b>"
 
-#: ../data/papers-properties.glade.h:10
+#: ../data/evince-properties.glade.h:10
 msgid "<b>Producer:</b>"
 msgstr "<b>བཟོ་སྐྲུན་པ་:</b>"
 
-#: ../data/papers-properties.glade.h:11
+#: ../data/evince-properties.glade.h:11
 msgid "<b>Security:</b>"
 msgstr "<b>སྲུང་སྐྱོབ་:</b>"
 
-#: ../data/papers-properties.glade.h:12
+#: ../data/evince-properties.glade.h:12
 msgid "<b>Subject:</b>"
 msgstr "<b>དོན་ཚན་:</b>"
 
-#: ../data/papers-properties.glade.h:13
+#: ../data/evince-properties.glade.h:13
 msgid "<b>Title:</b>"
 msgstr "<b>མགོ་མིང་་:</b>"
 
-#: ../data/papers.schemas.in.h:1
+#: ../data/evince.schemas.in.h:1
 msgid "Override document restrictions"
 msgstr "ཡིག་ཆའི་དཀག་དམ་ཟུར་ཁར་བཞག"
 
-#: ../data/papers.schemas.in.h:2
+#: ../data/evince.schemas.in.h:2
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr "ཡིག་ཆའི་དཀག་དམ་ དཔེར་ན་འདྲ་བཤུས་བརྐྱབ་ནི་དང་ དཔར་བསྐྲུན་འབད་ནིའི་དཀག་དམ་ཚུ་ ཟུར་ཁར་བཞག"
 
-#: ../properties/pps-properties-main.c:111
+#: ../properties/ev-properties-main.c:111
 msgid "Document"
 msgstr "ཡིག་ཆ།"
 
-#: ../properties/pps-properties-view.c:182
+#: ../properties/ev-properties-view.c:182
 msgid "None"
 msgstr "ཅི་མེད།"
 
@@ -511,41 +511,41 @@ msgstr "ཅི་མེད།"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: ../properties/pps-properties-view.c:207
-#: ../properties/pps-properties-view.c:367
+#: ../properties/ev-properties-view.c:207
+#: ../properties/ev-properties-view.c:367
 msgid "default:mm"
 msgstr "default:mm"
 
 #. Metric measurement (millimeters)
-#: ../properties/pps-properties-view.c:249
-#: ../properties/pps-properties-view.c:404
+#: ../properties/ev-properties-view.c:249
+#: ../properties/ev-properties-view.c:404
 #, c-format
 msgid "%.0f x %.0f mm"
 msgstr "%.0f x %.0f mm"
 
-#: ../properties/pps-properties-view.c:253
+#: ../properties/ev-properties-view.c:253
 #, c-format
 msgid "%.2f x %.2f inch"
 msgstr "%.2f x %.2f inch"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/pps-properties-view.c:277
-#: ../properties/pps-properties-view.c:415
+#: ../properties/ev-properties-view.c:277
+#: ../properties/ev-properties-view.c:415
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr "%s, ཡར་ཕྲང་ (%s)"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/pps-properties-view.c:284
-#: ../properties/pps-properties-view.c:422
+#: ../properties/ev-properties-view.c:284
+#: ../properties/ev-properties-view.c:422
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr "%s, ཀེ་ཀེ་ (%s)"
 
 #. Imperial measurement (inches)
-#: ../properties/pps-properties-view.c:399
+#: ../properties/ev-properties-view.c:399
 #, c-format
 msgid "%.2f x %.2f in"
 msgstr "%.2f x %.2f in"
@@ -613,241 +613,241 @@ msgstr "གནད་དོན་ཉེན་ཅན།(_a)"
 msgid "Toggle case sensitive search"
 msgstr "ཡི་གུ་ཆེ་ཆུང་གི་གདོན་ཉེན་འཚོལ་ཞིབ་ སོར་སྟོན་འབད།"
 
-#: ../shell/pps-jobs.c:650
+#: ../shell/ev-jobs.c:650
 #, c-format
 msgid "Failed to create file “%s”: %s"
 msgstr "ཡིག་སྣོད་“%s”: %s གསར་བསྐྲུན་འབད་ནི་ལུ་འཐུས་ཤོར་བྱུང་ནུག"
 
-#: ../shell/pps-open-recent-action.c:71
+#: ../shell/ev-open-recent-action.c:71
 msgid "Open a recently used document"
 msgstr "འཕྲལ་ཁམས་ཅིག་ཁར་ ལག་ལེན་འཐབ་ཡོད་པའི་་ཡིག་ཆ་ཅིག་ཁ་ཕྱེ་ "
 
-#: ../shell/pps-page-action.c:76
+#: ../shell/ev-page-action.c:76
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%d གི་ %d)"
 
-#: ../shell/pps-page-action.c:78
+#: ../shell/ev-page-action.c:78
 #, c-format
 msgid "of %d"
 msgstr "%d གི།"
 
-#: ../shell/pps-password.c:88
+#: ../shell/ev-password.c:88
 msgid "Password required"
 msgstr "ཆོག་ཡིག་དགོ་པ།"
 
-#: ../shell/pps-password.c:89
+#: ../shell/ev-password.c:89
 #, c-format
 msgid "The document “%s” is locked and requires a password before it can be opened."
 msgstr "ཡིག་ཆ་“%s”དེ་ལྡེ་མིག་བརྐྱབས་ཏེ་ཡོདཔ་ལས་ དེ་ཁ་མ་ཕྱེ་བའི་ཧེ་མར་ ཆོག་ཡིག་ཅིག་དགོ་པས།"
 
-#: ../shell/pps-password.c:154
+#: ../shell/ev-password.c:154
 msgid "Enter password"
 msgstr "ཆོག་ཡིག་བཙུགས།"
 
-#: ../shell/pps-password.c:260
+#: ../shell/ev-password.c:260
 #, c-format
 msgid "Password for document %s"
 msgstr "ཡིག་ཆ་ %s གི་དོན་ལུ་ཆོག་ཡིག"
 
-#: ../shell/pps-password.c:347
+#: ../shell/ev-password.c:347
 msgid "Incorrect password"
 msgstr "ཆོག་ཡིག་ངེས་བདེན་མེན་པས།"
 
-#: ../shell/pps-password-view.c:111
+#: ../shell/ev-password-view.c:111
 msgid "This document is locked and can only be read by entering the correct password."
 msgstr "ཡིག་ཆ་འདི་ ལྡེ་མིག་བརྐྱབས་ཏེ་ཡོདཔ་ལས་ ཆོག་ཡིག་ངེས་བདེན་བཙུགས་ཏེ་མ་གཏོགས་ ལྷག་མི་ཚུགས།"
 
-#: ../shell/pps-password-view.c:120
+#: ../shell/ev-password-view.c:120
 msgid "_Unlock Document"
 msgstr "ཡིག་ཆ་ལྡེ་མིག་ཕྱེ།(_u)"
 
-#: ../shell/pps-properties-dialog.c:61
+#: ../shell/ev-properties-dialog.c:61
 msgid "Properties"
 msgstr "རྒྱུ་དངོས་ཚུ།"
 
-#: ../shell/pps-properties-dialog.c:94
+#: ../shell/ev-properties-dialog.c:94
 msgid "General"
 msgstr "ཡོངས་ཁྱབ།"
 
-#: ../shell/pps-properties-dialog.c:104
+#: ../shell/ev-properties-dialog.c:104
 msgid "Fonts"
 msgstr "ཡིག་གཟུགས་ཚུ།"
 
-#: ../shell/pps-properties-fonts.c:141
+#: ../shell/ev-properties-fonts.c:141
 msgid "Font"
 msgstr "ཡིག་གཟུགས།"
 
-#: ../shell/pps-properties-fonts.c:152
+#: ../shell/ev-properties-fonts.c:152
 #, c-format
 msgid "Gathering font information... %3d%%"
 msgstr "ཡིག་གཟུགས་བརྡ་དོན་...%3d%%བསྡུ་ལེན་འབད་དོ།"
 
-#: ../shell/pps-sidebar-attachments.c:675
+#: ../shell/ev-sidebar-attachments.c:675
 msgid "Attachments"
 msgstr "མཉམ་སྦྲགས།"
 
-#: ../shell/pps-sidebar-links.c:266
-#: ../shell/pps-view.c:3643
+#: ../shell/ev-sidebar-links.c:266
+#: ../shell/ev-view.c:3643
 msgid "Loading..."
 msgstr "མངོན་གསལ་འབད་དོ་..."
 
-#: ../shell/pps-sidebar-links.c:339
+#: ../shell/ev-sidebar-links.c:339
 msgid "Print..."
 msgstr "དཔར་བསྐྲུན་..."
 
-#: ../shell/pps-sidebar-links.c:719
+#: ../shell/ev-sidebar-links.c:719
 msgid "Index"
 msgstr "ཟུར་ཐོ།"
 
-#: ../shell/pps-sidebar-thumbnails.c:728
+#: ../shell/ev-sidebar-thumbnails.c:728
 msgid "Thumbnails"
 msgstr "མཐེ་གཟེར།"
 
-#: ../shell/pps-view-accessible.c:41
+#: ../shell/ev-view-accessible.c:41
 msgid "Scroll Up"
 msgstr "ཡར་སྒྲིལ།"
 
-#: ../shell/pps-view-accessible.c:42
+#: ../shell/ev-view-accessible.c:42
 msgid "Scroll Down"
 msgstr "མར་སྒྲིལ།"
 
-#: ../shell/pps-view-accessible.c:48
+#: ../shell/ev-view-accessible.c:48
 msgid "Scroll View Up"
 msgstr "མཐོང་སྣང་ཡར་སྒྲིལ།"
 
-#: ../shell/pps-view-accessible.c:49
+#: ../shell/ev-view-accessible.c:49
 msgid "Scroll View Down"
 msgstr "མཐོང་སྣང་མར་སྒྲིལ།"
 
-#: ../shell/pps-view-accessible.c:533
+#: ../shell/ev-view-accessible.c:533
 msgid "Document View"
 msgstr "ཡིག་ཆའི་མཐོང་སྣང་།"
 
-#: ../shell/pps-view.c:1442
+#: ../shell/ev-view.c:1442
 msgid "Go to first page"
 msgstr "ཤོག་ལེབ་དང་པ་ལུ་འགྱོ།"
 
-#: ../shell/pps-view.c:1444
+#: ../shell/ev-view.c:1444
 msgid "Go to previous page"
 msgstr "ཤོག་ལེབ་ཧེ་མམ་ལུ་འགྱོ།"
 
-#: ../shell/pps-view.c:1446
+#: ../shell/ev-view.c:1446
 msgid "Go to next page"
 msgstr "ཤོག་ལེབ་ཤུལ་མམ་ལུ་འགྱོ།"
 
-#: ../shell/pps-view.c:1448
+#: ../shell/ev-view.c:1448
 msgid "Go to last page"
 msgstr "ཤོག་ལེབ་མཐའ་མཇུག་ལུ་འགྱོ།"
 
-#: ../shell/pps-view.c:1450
+#: ../shell/ev-view.c:1450
 msgid "Go to page"
 msgstr "ཤོག་ལེབ་ལུ་འགྱོ།"
 
-#: ../shell/pps-view.c:1452
+#: ../shell/ev-view.c:1452
 msgid "Find"
 msgstr "འཚོལ།"
 
-#: ../shell/pps-view.c:1480
+#: ../shell/ev-view.c:1480
 #, c-format
 msgid "Go to page %s"
 msgstr "ཤོག་ལེབ་%sལུ་འགྱོ།"
 
-#: ../shell/pps-view.c:1486
+#: ../shell/ev-view.c:1486
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "%sནང་ཡིག་སྣོད་ “%s”ལུ་འགྱོ།"
 
-#: ../shell/pps-view.c:1489
+#: ../shell/ev-view.c:1489
 #, c-format
 msgid "Go to file “%s”"
 msgstr "ཡིག་སྣོད་“%s”ལུ་འགྱོ།"
 
-#: ../shell/pps-view.c:1497
+#: ../shell/ev-view.c:1497
 #, c-format
 msgid "Launch %s"
 msgstr "%sགསར་བཙུགས་འབད།"
 
-#: ../shell/pps-view.c:2449
+#: ../shell/ev-view.c:2449
 msgid "End of presentation. Press Escape to exit."
 msgstr "གསལ་སྟོན་འབད་ནིའི་མཇུག། ཕྱིར་འཐོན་འབད་ནའི་དོན་ལུ་ ཐར་ལུ་ཨེབ།"
 
-#: ../shell/pps-view.c:3372
+#: ../shell/ev-view.c:3372
 msgid "Jump to page:"
 msgstr "ཤོག་ལེབ་ལུ་འགྱོ:"
 
 #. TRANS: Sometimes this could be better translated as
 #. "%d hit(s) on this page".  Therefore this string
 #. contains plural cases.
-#: ../shell/pps-view.c:5153
+#: ../shell/ev-view.c:5153
 #, c-format
 msgid "%d found on this page"
 msgid_plural "%d found on this page"
 msgstr[0] "%d ཤོག་ལེབ་འདི་གེ་ཐོབ་ཅི།"
 msgstr[1] "%d ཤོག་ལེབ་འདི་གེ་ཐོབ་ཅི།"
 
-#: ../shell/pps-view.c:5162
+#: ../shell/ev-view.c:5162
 #, c-format
 msgid "%3d%% remaining to search"
 msgstr "འཚོལ་ཞིབ་འབད་ནི་ %3d%% ལྷག་ལུས་ཡོད།"
 
-#: ../shell/pps-window.c:752
+#: ../shell/ev-window.c:752
 #, c-format
 msgid "Page %s - %s"
 msgstr "ཤོག་ལེབ་ %s - %s"
 
-#: ../shell/pps-window.c:754
+#: ../shell/ev-window.c:754
 #, c-format
 msgid "Page %s"
 msgstr "ཤོག་ལེབ་%s"
 
-#: ../shell/pps-window.c:1383
-#: ../shell/pps-window.c:1452
+#: ../shell/ev-window.c:1383
+#: ../shell/ev-window.c:1452
 msgid "Unable to open document"
 msgstr "ཡིག་ཆ་ཁ་ཕྱེ་མ་ཚུགས།"
 
-#: ../shell/pps-window.c:1574
+#: ../shell/ev-window.c:1574
 msgid "Open Document"
 msgstr "ཡིག་ཆ་ཁ་ཕྱེ།"
 
-#: ../shell/pps-window.c:1635
+#: ../shell/ev-window.c:1635
 #, c-format
 msgid "Couldn't create symlink “%s”: %s"
 msgstr "སིམ་ལིངཀི་ “%s”: %s གསར་སྐྲུན་འབད་མ་ཚུགས།"
 
-#: ../shell/pps-window.c:1664
+#: ../shell/ev-window.c:1664
 msgid "Cannot open a copy."
 msgstr "འདྲ་དཔར་ཅིག་ཁ་ཕྱེ་མི་ཚུགས།"
 
-#: ../shell/pps-window.c:1908
-#: ../shell/pps-window.c:1958
+#: ../shell/ev-window.c:1908
+#: ../shell/ev-window.c:1958
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "ཡིག་སྣོད་དེ་“%s”སྦེ་བསྲུང་མ་ཚུགས།"
 
-#: ../shell/pps-window.c:2003
+#: ../shell/ev-window.c:2003
 msgid "Save a Copy"
 msgstr "འདྲ་ཅིག་སྲུངས།"
 
-#: ../shell/pps-window.c:2124
-#: ../shell/pps-window.c:3274
+#: ../shell/ev-window.c:2124
+#: ../shell/ev-window.c:3274
 msgid "Failed to print document"
 msgstr "ཡིག་ཆ་དཔར་བསྐྲུན་འབད་མ་ཚུགས།"
 
-#: ../shell/pps-window.c:2289
+#: ../shell/ev-window.c:2289
 msgid "Printing is not supported on this printer."
 msgstr "དཔར་འཕྲུལ་འདི་གུ་ དཔར་བསྐྲུན་ལུ་ རྒྱབ་སྐྱོར་མིན་འདུག"
 
-#: ../shell/pps-window.c:2415
-#: ../shell/pps-window.c:4241
+#: ../shell/ev-window.c:2415
+#: ../shell/ev-window.c:4241
 msgid "Print"
 msgstr "དཔར་བསྐྲུན།"
 
-#: ../shell/pps-window.c:3053
+#: ../shell/ev-window.c:3053
 msgid "Toolbar Editor"
 msgstr "ལག་ཆས་ཕྲ་རིང་ཞུན་དགཔ།"
 
-#: ../shell/pps-window.c:3569
+#: ../shell/ev-window.c:3569
 #, c-format
 msgid ""
 "Document Viewer.\n"
@@ -856,390 +856,390 @@ msgstr ""
 "ཡིག་ཆ་མཐོང་བྱེད།\n"
 "པོཔ་ལར་%s (%s) དེ་ལག་ལེན་འཐབ་དོ།"
 
-#: ../shell/pps-window.c:3597
-msgid "Papers is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.\n"
+#: ../shell/ev-window.c:3597
+msgid "Evince is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.\n"
 msgstr "ཨི་བིནསི་དེ་ སྟོང་མ་ཐོབ་པའི་མཉེན་ཆས་ཅིག་ཨིནམ་ལས་ ཕིརི་སོཕཊི་ཝེར་གཞི་ཚོགས་ཀྱིས་ དཔེ་བསྐྲུན་འབད་མི་ ཇི་ཨེན་ཡུ་ཡོངས་ཁྱབ་མི་མང་ཆོག་ཐམ་གྱི་ཁ་ཚིག་དང་འཁྲིལ་ཏེ་ ཁྱོད་ཀྱིས་ཆོག་ཐམ་ཐོན་རིམ་༢ ཡང་ན་ (ཁྱོད་རའི་གདམ་ཁ་བཞིན) ཤུལ་ལས་ཀྱི་ཐོན་རིམ་གང་རུང་ བསྐྱར་འགྲེམ་འབད་བའམ་ ལེགས་བཅོས་འབད་ཆོག\n"
 
-#: ../shell/pps-window.c:3601
-msgid "Papers is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
+#: ../shell/ev-window.c:3601
+msgid "Evince is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
 msgstr "ཨི་བིནསི་དེ་ ཕན་ཐོགས་པའི་རེ་བ་གིས་ འགྲེམ་སྤེལ་འབད་ཡོད། དེ་འབདཝ་ད་ ཉེན་ལེན་ག་ནི་ཡང་མེད་པའི་ནང་ལས་ ཐ་ན་སྐྱེལ་འདྲེན་དང་ དམིགས་བསལ་དགོས་དོན་ཅིག་གི་དོན་ལུ་ ཚུད་སྒྲིག་ཡོད་མེད་ཀྱི་ཉེན་ལེན་ཙམ་ཡང་མེད། ཁ་གསལ་གྱི་དོན་ལུ་ ཇི་ཨེན་ཡུ་ མི་མང་ཆོག་ཐམ་ལུ་གཟིགས་གནང་།\n"
 
-#: ../shell/pps-window.c:3605
-msgid "You should have received a copy of the GNU General Public License along with Papers; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA\n"
+#: ../shell/ev-window.c:3605
+msgid "You should have received a copy of the GNU General Public License along with Evince; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA\n"
 msgstr "ཁྱོད་ཀྱིས་ཨི་བིནསི་དང་གཅིག་ཁར་ ཇི་ཨེན་ཡུ་ ཡོངས་ཁྱབ་མི་མང་ཆོག་ཐམ་གྱི་འདྲ་ཅིག་ཐོབ་ཐོབ་འོང་། གལ་སྲིད་མ་ཐོབ་པ་ཅིན་ Free Software Foundation, Inc.,51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA ལུ་ཡི་གུ་སྐྱེལ་གནང་།\n"
 
-#: ../shell/pps-window.c:3629
+#: ../shell/ev-window.c:3629
 #: ../shell/main.c:349
-msgid "Papers"
+msgid "Evince"
 msgstr "ཨི་བིནསི།"
 
-#: ../shell/pps-window.c:3632
-msgid "© 1996-2007 The Papers authors"
+#: ../shell/ev-window.c:3632
+msgid "© 1996-2007 The Evince authors"
 msgstr "© ༡༩༩༦-༢༠༠༧ བརྡ་མཚོན་ནིའི་རྩོམ་པ་པོ་"
 
-#: ../shell/pps-window.c:3638
+#: ../shell/ev-window.c:3638
 msgid "translator-credits"
 msgstr "\"ཨའི་ཌི་ཨར་སི་གི་མ་དངུལ་རྒྱབ་སྐྱོར་ཐོག་ལས་ བརྡ་དོན་འཕྲུལ་རིག་ལས་ཁུངས་ནང་ སྐད་བསྒྱུར་འབད་ཡི། ཁ་གསལ་གྱི་དོན་ལུ་ འབྲེལ་བ་འཐབ་ས་: <pema_geyleg@druknet.bt>/<pgeyleg@dit.gov.bt>\"།"
 
-#: ../shell/pps-window.c:4153
+#: ../shell/ev-window.c:4153
 msgid "_File"
 msgstr "ཡིག་སྣོད།(_F)"
 
-#: ../shell/pps-window.c:4154
+#: ../shell/ev-window.c:4154
 msgid "_Edit"
 msgstr "ཞུན་དག(_E)"
 
-#: ../shell/pps-window.c:4155
+#: ../shell/ev-window.c:4155
 msgid "_View"
 msgstr "མཐོང་སྣང་།(_V)"
 
-#: ../shell/pps-window.c:4156
+#: ../shell/ev-window.c:4156
 msgid "_Go"
 msgstr "འགྱོ།(_G)"
 
-#: ../shell/pps-window.c:4157
+#: ../shell/ev-window.c:4157
 msgid "_Help"
 msgstr "གྲོགས་རམ།(_H)"
 
 #. File menu
-#: ../shell/pps-window.c:4160
-#: ../shell/pps-window.c:4337
-#: ../shell/pps-window.c:4409
+#: ../shell/ev-window.c:4160
+#: ../shell/ev-window.c:4337
+#: ../shell/ev-window.c:4409
 msgid "_Open..."
 msgstr "ཁ་ཕྱེ་...(_O)"
 
-#: ../shell/pps-window.c:4161
-#: ../shell/pps-window.c:4410
+#: ../shell/ev-window.c:4161
+#: ../shell/ev-window.c:4410
 msgid "Open an existing document"
 msgstr "གནས་བཞིན་པའི་ཡིག་ཆ་ཅིག་ཁ་ཕྱེ།"
 
-#: ../shell/pps-window.c:4163
+#: ../shell/ev-window.c:4163
 msgid "Op_en a Copy"
 msgstr "འདྲ་དཔར་ཅིག་ཁ་ཕྱེ་(_e)"
 
-#: ../shell/pps-window.c:4164
+#: ../shell/ev-window.c:4164
 msgid "Open a copy of the current document in a new window"
 msgstr "ད་ལྟོའི་ཡིག་ཆ་དེ་གི་འདྲ་དཔར་ཅིག་ སྒོ་སྒྲིག་གསར་པའི་ནང་ལུ་ཁ་ཕྱེ་"
 
-#: ../shell/pps-window.c:4166
-#: ../shell/pps-window.c:4339
+#: ../shell/ev-window.c:4166
+#: ../shell/ev-window.c:4339
 msgid "_Save a Copy..."
 msgstr "འདྲ་བཤུས་ཅིག་སྲུངས་...(_S)"
 
-#: ../shell/pps-window.c:4167
+#: ../shell/ev-window.c:4167
 msgid "Save a copy of the current document"
 msgstr "ད་ལྟོའི་ཡིག་ཆ་འདི་གི་འདྲ་ཅིག་སྲུངས།"
 
-#: ../shell/pps-window.c:4169
+#: ../shell/ev-window.c:4169
 msgid "Print Set_up..."
 msgstr "སྒྲིག་སྟངས་དཔར་བསྐྲུན་འབད་་་(u)"
 
-#: ../shell/pps-window.c:4170
+#: ../shell/ev-window.c:4170
 msgid "Setup the page settings for printing"
 msgstr "དཔར་བསྐྲུན་འབད་ནིའི་དོན་ལུ་ ཤོག་ལེབ་སྒྲིག་སྟངས་དེ་གཞི་སྒྲིག་འབད་"
 
-#: ../shell/pps-window.c:4172
+#: ../shell/ev-window.c:4172
 msgid "_Print..."
 msgstr "དཔར་བསྐྲུན་...(_P)"
 
-#: ../shell/pps-window.c:4173
-#: ../shell/pps-window.c:4242
+#: ../shell/ev-window.c:4173
+#: ../shell/ev-window.c:4242
 msgid "Print this document"
 msgstr "ཡིག་ཆ་འདི་དཔར་བསྐྲུན་འབད།"
 
-#: ../shell/pps-window.c:4175
+#: ../shell/ev-window.c:4175
 msgid "P_roperties"
 msgstr "རྒྱུ་དངོས་ཚུ།(_r)"
 
-#: ../shell/pps-window.c:4183
+#: ../shell/ev-window.c:4183
 msgid "Select _All"
 msgstr "ཆ་མཉམ་སེལ་འཐུ་འབད།(_A)"
 
-#: ../shell/pps-window.c:4185
+#: ../shell/ev-window.c:4185
 msgid "_Find..."
 msgstr "འཚོལ་...(_F)"
 
-#: ../shell/pps-window.c:4186
+#: ../shell/ev-window.c:4186
 msgid "Find a word or phrase in the document"
 msgstr "ཡིག་ཆའི་ནང་ མིང་ཚིག་ཅིག་ ཡང་ན་ ཚིག་ཚན་ཅིག་འཚོལ།"
 
-#: ../shell/pps-window.c:4188
+#: ../shell/ev-window.c:4188
 msgid "Find Ne_xt"
 msgstr "ཤུལ་མམ་འཚོལ།(_x)"
 
-#: ../shell/pps-window.c:4190
+#: ../shell/ev-window.c:4190
 msgid "Find Pre_vious"
 msgstr "ཧེ་མམ་འཚོལ།(_v)"
 
-#: ../shell/pps-window.c:4192
+#: ../shell/ev-window.c:4192
 msgid "T_oolbar"
 msgstr "ལག་ཆས་ཕྲ་རིང་།(_o)"
 
-#: ../shell/pps-window.c:4194
+#: ../shell/ev-window.c:4194
 msgid "Rotate _Left"
 msgstr "གཡོན་ལུ་བསྒྱིར།(_L)"
 
-#: ../shell/pps-window.c:4196
+#: ../shell/ev-window.c:4196
 msgid "Rotate _Right"
 msgstr "གཡས་ལུ་བསྒྱིར།(_R)"
 
-#: ../shell/pps-window.c:4201
+#: ../shell/ev-window.c:4201
 msgid "Enlarge the document"
 msgstr "ཡིག་ཆ་ཆེར་བསྐྱེད།"
 
-#: ../shell/pps-window.c:4204
+#: ../shell/ev-window.c:4204
 msgid "Shrink the document"
 msgstr "ཡིག་ཆ་སྐུམས།"
 
-#: ../shell/pps-window.c:4206
+#: ../shell/ev-window.c:4206
 msgid "_Reload"
 msgstr "སླར་མངོན་གསལ་འབད།(_R)"
 
-#: ../shell/pps-window.c:4207
+#: ../shell/ev-window.c:4207
 msgid "Reload the document"
 msgstr "ཡིག་ཆ་སླར་མངོན་གསལ་འབད།"
 
-#: ../shell/pps-window.c:4210
+#: ../shell/ev-window.c:4210
 msgid "Auto_scroll"
 msgstr "རང་བཞིན་ བཤུད་སྒྲིལ་ (_S)"
 
 #. Go menu
-#: ../shell/pps-window.c:4214
+#: ../shell/ev-window.c:4214
 msgid "_Previous Page"
 msgstr "ཤོག་ལེབ་ཧེ་མམ།(_P)"
 
-#: ../shell/pps-window.c:4215
+#: ../shell/ev-window.c:4215
 msgid "Go to the previous page"
 msgstr "ཤོག་ལེབ་ཧེ་མམ་ལུ་འགྱོ།"
 
-#: ../shell/pps-window.c:4217
+#: ../shell/ev-window.c:4217
 msgid "_Next Page"
 msgstr "ཤོག་ལེབ་ཤུལ་མམ།(_N)"
 
-#: ../shell/pps-window.c:4218
+#: ../shell/ev-window.c:4218
 msgid "Go to the next page"
 msgstr "ཤོག་ལེབ་ཤུལ་མམ་ལུ་འགྱོ།"
 
-#: ../shell/pps-window.c:4220
+#: ../shell/ev-window.c:4220
 msgid "_First Page"
 msgstr "ཤོག་ལེབ་དང་པ།(_F)"
 
-#: ../shell/pps-window.c:4221
+#: ../shell/ev-window.c:4221
 msgid "Go to the first page"
 msgstr "ཤོག་ལེབ་དང་པ་ལུ་འགྱོ།"
 
-#: ../shell/pps-window.c:4223
+#: ../shell/ev-window.c:4223
 msgid "_Last Page"
 msgstr "མཐའ་མཇུག་ཤོག་ལེབ།(_L)"
 
-#: ../shell/pps-window.c:4224
+#: ../shell/ev-window.c:4224
 msgid "Go to the last page"
 msgstr "མཐའ་མཇུག་ཤོག་ལེབ་ལུ་འགྱོ།"
 
 #. Help menu
-#: ../shell/pps-window.c:4228
+#: ../shell/ev-window.c:4228
 msgid "_Contents"
 msgstr "ནང་དོན་ཚུ།(_C)"
 
-#: ../shell/pps-window.c:4231
+#: ../shell/ev-window.c:4231
 msgid "_About"
 msgstr "སྐོར་ལས།(_A)"
 
 #. Toolbar-only
-#: ../shell/pps-window.c:4235
+#: ../shell/ev-window.c:4235
 msgid "Leave Fullscreen"
 msgstr "གསལ་གཞང་གངམ་བཞག"
 
-#: ../shell/pps-window.c:4236
+#: ../shell/ev-window.c:4236
 msgid "Leave fullscreen mode"
 msgstr "གསལ་གཞི་གངམ་གི་ཐབས་ལམ་བཞག"
 
-#: ../shell/pps-window.c:4238
+#: ../shell/ev-window.c:4238
 msgid "Start Presentation"
 msgstr "གསལ་སྟོན་འགོ་བཙུགས"
 
-#: ../shell/pps-window.c:4239
+#: ../shell/ev-window.c:4239
 msgid "Start a presentation"
 msgstr "གསལ་སྟོན་ཅིག་འགོ་བཙུགས"
 
 #. View Menu
-#: ../shell/pps-window.c:4293
+#: ../shell/ev-window.c:4293
 msgid "_Toolbar"
 msgstr "ལག་ཆས་ཕྲ་རིང་།(_T)"
 
-#: ../shell/pps-window.c:4294
+#: ../shell/ev-window.c:4294
 msgid "Show or hide the toolbar"
 msgstr "ལག་ཆས་ཕྲ་རིང་སྟོན་ ཡང་ན་ སྦ་བཞག"
 
-#: ../shell/pps-window.c:4296
+#: ../shell/ev-window.c:4296
 msgid "Side _Pane"
 msgstr "ཟུར་ཁའི་པེན།"
 
-#: ../shell/pps-window.c:4297
+#: ../shell/ev-window.c:4297
 msgid "Show or hide the side pane"
 msgstr "ཟུར་ཁའི་པེན་སྟོན་ ཡང་ན་ སྦ་བཞག"
 
-#: ../shell/pps-window.c:4299
+#: ../shell/ev-window.c:4299
 msgid "_Continuous"
 msgstr "འཕྲོ་མཐུད་ཅན།(_C)"
 
-#: ../shell/pps-window.c:4300
+#: ../shell/ev-window.c:4300
 msgid "Show the entire document"
 msgstr "ཡིག་ཆ་ཧྲིལ་བུ་སྟོན།"
 
-#: ../shell/pps-window.c:4302
+#: ../shell/ev-window.c:4302
 msgid "_Dual"
 msgstr "ྒགཉིས་ལྡན།(_D)"
 
-#: ../shell/pps-window.c:4303
+#: ../shell/ev-window.c:4303
 msgid "Show two pages at once"
 msgstr "ཤོག་ལེབ་གཉིས་སྟབས་གཅིག་ཁར་སྟོན།"
 
-#: ../shell/pps-window.c:4305
+#: ../shell/ev-window.c:4305
 msgid "_Fullscreen"
 msgstr "གསལ་གཞི་གངམ།(_F)"
 
-#: ../shell/pps-window.c:4306
+#: ../shell/ev-window.c:4306
 msgid "Expand the window to fill the screen"
 msgstr "གསལ་གཞི་གང་ནིའི་དོན་ལུ་ སྒོ་སྒྲིག་རྒྱ་འཕར།"
 
-#: ../shell/pps-window.c:4308
+#: ../shell/ev-window.c:4308
 msgid "Pre_sentation"
 msgstr "གསལ་སྟོན་(_S)"
 
-#: ../shell/pps-window.c:4309
+#: ../shell/ev-window.c:4309
 msgid "Run document as a presentation"
 msgstr "ཡིག་ཆ་གསལ་སྟོན་བཟུམ་ཅིག་སྦེ་གཡོག་བཀོལ།"
 
-#: ../shell/pps-window.c:4311
+#: ../shell/ev-window.c:4311
 msgid "_Best Fit"
 msgstr "ལེགས་སྒྲིག(_B)"
 
-#: ../shell/pps-window.c:4312
+#: ../shell/ev-window.c:4312
 msgid "Make the current document fill the window"
 msgstr "ད་ལྟོའང་ཡིག་ཆ་དེ་གིས་ སྒོ་སྒྲིག་བཀང་།"
 
-#: ../shell/pps-window.c:4314
+#: ../shell/ev-window.c:4314
 msgid "Fit Page _Width"
 msgstr "ཤོག་ལེབ་ཀྱི་རྒྱ་ཚད་སྒྲིག(_W)"
 
-#: ../shell/pps-window.c:4315
+#: ../shell/ev-window.c:4315
 msgid "Make the current document fill the window width"
 msgstr "ད་ལྟོའི་ཡིག་ཆ་དེ་གིས་ སྒོ་སྒྲིག་གི་རྒྱ་ཚད་བཀང་།"
 
 #. Links
-#: ../shell/pps-window.c:4322
+#: ../shell/ev-window.c:4322
 msgid "_Open Link"
 msgstr "འབྲེལ་ལམ་ཁ་ཕྱེ།(_O)"
 
-#: ../shell/pps-window.c:4324
+#: ../shell/ev-window.c:4324
 msgid "_Go To"
 msgstr "ལུ་འགྱོ།(_G)"
 
-#: ../shell/pps-window.c:4326
+#: ../shell/ev-window.c:4326
 msgid "Open in New _Window"
 msgstr "སྒོ་སྒྲིག་གསརཔ་ནང་ལུ་ ཁ་ཕྱེ་(_W)"
 
-#: ../shell/pps-window.c:4328
+#: ../shell/ev-window.c:4328
 msgid "_Copy Link Address"
 msgstr "འབྲེལ་ལམ་ཁ་བྱང་འདྲ་བཤུས་རྐྱབས།(_C)"
 
-#: ../shell/pps-window.c:4330
+#: ../shell/ev-window.c:4330
 msgid "_Save Image As..."
 msgstr "གཟུགས་བརྙན་དེ་སྦེ་སྲུངས་་་(_S)"
 
-#: ../shell/pps-window.c:4332
+#: ../shell/ev-window.c:4332
 msgid "Copy _Image"
 msgstr "གཟུགས་བརྙན་འདྲ་བཤུས་རྐྱབས་(_I)"
 
-#: ../shell/pps-window.c:4371
+#: ../shell/ev-window.c:4371
 msgid "Page"
 msgstr "ཤོག་ལེབ།"
 
-#: ../shell/pps-window.c:4372
+#: ../shell/ev-window.c:4372
 msgid "Select Page"
 msgstr "ཤོག་ལེབ་སེལ་འཐུ་འབད།"
 
-#: ../shell/pps-window.c:4383
+#: ../shell/ev-window.c:4383
 msgid "Zoom"
 msgstr "རྒྱས་ཟུམ།"
 
-#: ../shell/pps-window.c:4385
+#: ../shell/ev-window.c:4385
 msgid "Adjust the zoom level"
 msgstr "རྒྱས་ཟུམ་གནས་རིམ་བདེ་སྒྲིག་འབད།"
 
-#: ../shell/pps-window.c:4395
+#: ../shell/ev-window.c:4395
 msgid "Navigation"
 msgstr "འགྲུལ་བསྐྱོདཔ་"
 
-#: ../shell/pps-window.c:4397
+#: ../shell/ev-window.c:4397
 msgid "Back"
 msgstr "རྒྱབ་ཁར་"
 
 #. translators: this is the history action
-#: ../shell/pps-window.c:4400
+#: ../shell/ev-window.c:4400
 msgid "Move across visited pages"
 msgstr "བལྟ་སྐོར་ཡོད་པའི་ཤོག་ལེབ་ཚུ་བསྒྱུད་དེ་ སྤོ་བཤུད་འབད་"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:4430
+#: ../shell/ev-window.c:4430
 msgid "Previous"
 msgstr "ཧེ་མམ།"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:4435
+#: ../shell/ev-window.c:4435
 msgid "Next"
 msgstr "ཤུལ་མམ།"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:4439
+#: ../shell/ev-window.c:4439
 msgid "Zoom In"
 msgstr "ཕྱིར་རྒྱས།"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:4443
+#: ../shell/ev-window.c:4443
 msgid "Zoom Out"
 msgstr "ནང་ན་ཟུམ།"
 
 #. translators: this is the label for toolbar button
-#: ../shell/pps-window.c:4451
+#: ../shell/ev-window.c:4451
 msgid "Fit Width"
 msgstr "རྒྱ་ཚད་སྒྲིགས།"
 
-#: ../shell/pps-window.c:4646
+#: ../shell/ev-window.c:4646
 msgid "Unable to open external link"
 msgstr "ཕྱིའི་འབྲེལ་ལམ་ཁ་ཕྱེ་མ་ཚུགས་"
 
-#: ../shell/pps-window.c:4812
+#: ../shell/ev-window.c:4812
 msgid "Couldn't find appropriate format to save image"
 msgstr "གཟུགས་བརྙན་ སྲུང་བཞག་འབད་ནིའི་དོན་ལུ་ རྩ་སྒྲིག་འོས་ལྡན་ཅིག་འཚོལ་མ་ཐོབ་ "
 
-#: ../shell/pps-window.c:4852
+#: ../shell/ev-window.c:4852
 msgid "The image could not be saved."
 msgstr "གཟུགས་བརྙན་དེ་སྲུང་བཞག་འབད་མི་ཚུགས།"
 
-#: ../shell/pps-window.c:4884
+#: ../shell/ev-window.c:4884
 msgid "Save Image"
 msgstr "གཟུགས་བརྙན་སྲུངས་"
 
-#: ../shell/pps-window.c:4943
+#: ../shell/ev-window.c:4943
 msgid "Unable to open attachment"
 msgstr "མཉམ་སྦྲགས་ཁ་ཕྱེ་མ་ཚུགས།"
 
-#: ../shell/pps-window.c:4995
+#: ../shell/ev-window.c:4995
 msgid "The attachment could not be saved."
 msgstr "མཉམ་སྦྲགས་དེ་ བསྲུང་མ་ཚུགས།"
 
-#: ../shell/pps-window.c:5040
+#: ../shell/ev-window.c:5040
 msgid "Save Attachment"
 msgstr "མཉམ་སྦྲགས་སྲུངས་"
 
-#: ../shell/pps-window-title.c:145
+#: ../shell/ev-window-title.c:145
 #, c-format
 msgid "%s - Password Required"
 msgstr "%s - ལུ་ཆོག་ཡིག་དགོ་པས།"
 
-#: ../shell/pps-utils.c:330
+#: ../shell/ev-utils.c:330
 msgid "By extension"
 msgstr "རྒྱ་བསྐྱེད་ཀྱིས་ "
 
@@ -1252,15 +1252,15 @@ msgid "PAGE"
 msgstr "ཤོག་ལེབ།"
 
 #: ../shell/main.c:59
-msgid "Run papers in fullscreen mode"
+msgid "Run evince in fullscreen mode"
 msgstr "ཨི་བིནསི་ གསལ་གཞི་གངམ་གི་ཐབས་ལམ་ནང་གཡོག་བཀོལ།"
 
 #: ../shell/main.c:60
-msgid "Run papers in presentation mode"
+msgid "Run evince in presentation mode"
 msgstr "ཨི་བིནསི་ གསལ་སྟོན་ཐབས་ལམ་ནང་གཡོག་བཀོལ།"
 
 #: ../shell/main.c:61
-msgid "Run papers as a previewer"
+msgid "Run evince as a previewer"
 msgstr "ཨི་བིནསི་ སྔོན་ལྟ་འབད་མི་བཟུམ་ཅིག་སྦེ་གཡོག་བཀོལ།"
 
 #: ../shell/main.c:62
@@ -1280,22 +1280,22 @@ msgid "GNOME Document Viewer"
 msgstr "ཇི་ནོམ་ཡིག་ཆ་མཐོང་བྱེད།"
 
 #: ../shell/main.c:392
-msgid "Papers Document Viewer"
+msgid "Evince Document Viewer"
 msgstr "ཨི་བིནསི་ཡིག་ཆ་མཐོང་བྱེད།"
 
-#: ../thumbnailer/papers-thumbnailer.schemas.in.h:1
+#: ../thumbnailer/evince-thumbnailer.schemas.in.h:1
 msgid "Boolean options available, true enables thumbnailing and false disables the creation of new thumbnails"
 msgstr "འཐོབ་ཚུགས་པའི་བུ་ལིན་གྱི་གདམ་ཁ། བདེན་པ་གིས་མཐེ་གཟེར་བརྡབ་ཚུགསཔ་བཟོ་ནི་དང་ རྫུན་པ་གིས་མཐེ་གཟེར་གསར་བསྐྲུན་འབད་མ་ཚུགསཔ་བཟོཝ་ཨིན།"
 
-#: ../thumbnailer/papers-thumbnailer.schemas.in.h:2
+#: ../thumbnailer/evince-thumbnailer.schemas.in.h:2
 msgid "Enable thumbnailing of PDF Documents"
 msgstr "པི་ཌི་ཨེཕ་ཡིག་ཆ་ཚུ་ལུ་ མཐེ་གཟེར་བརྡབ་ནི་ལྕོགས་ཅན་བཟོ།"
 
-#: ../thumbnailer/papers-thumbnailer.schemas.in.h:3
+#: ../thumbnailer/evince-thumbnailer.schemas.in.h:3
 msgid "Thumbnail command for PDF Documents"
 msgstr "པི་ཌི་ཨེཕ་ཡིག་ཆ་ཚུ་གི་དོན་ལུ་ མཐེ་གཟེར་གྱི་བརྡ་བཀོད།"
 
-#: ../thumbnailer/papers-thumbnailer.schemas.in.h:4
+#: ../thumbnailer/evince-thumbnailer.schemas.in.h:4
 msgid "Valid command plus arguments for the PDF Document thumbnailer. See nautilus thumbnailer documentation for more information."
 msgstr "པི་ཌི་ཨེཕ་ཡིག་ཆ་ལུ་མཐེ་གཟེར་བརྡབས་མིའི་ ནུས་ཅན་བརྡ་བཀོད་དང་སྒྲུབ་རྟགས་ཚུ། བརྡ་དོན་ཧེང་བཀལ་གྱི་དོན་ལུ་ ནའུ་ཊི་ལཱསི་མཐེ་གཟེར་བརྡབས་མིའི་ཡིག་ཆ་ལུ་བལྟ།"
 

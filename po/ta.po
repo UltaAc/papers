@@ -1,4 +1,4 @@
-# translation of papers.master.ta.po to Tamil
+# translation of evince.master.ta.po to Tamil
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) 2008 THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -11,9 +11,9 @@
 # Shantha kumar <shkumar@redhat.com>, 2013, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: papers.master.ta\n"
+"Project-Id-Version: evince.master.ta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=papers&keywords=I18N+L10N&component=general\n"
+"product=evince&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2014-09-14 15:41+0000\n"
 "PO-Revision-Date: 2014-09-15 02:54+0530\n"
 "Last-Translator: Shantha kumar <shkumar@redhat.com>\n"
@@ -75,12 +75,12 @@ msgstr "“%s” ஐ நீக்குவதில் பிழை."
 msgid "Error %s"
 msgstr "பிழை %s"
 
-#: ../backend/comics/comicsdocument.papers-backend.in.in.h:1
-#: ../backend/comics/papers-comicsdocument.metainfo.xml.in.in.h:1
+#: ../backend/comics/comicsdocument.evince-backend.in.in.h:1
+#: ../backend/comics/evince-comicsdocument.metainfo.xml.in.in.h:1
 msgid "Comic Books"
 msgstr "காமிக் புத்தகங்கள்"
 
-#: ../backend/comics/papers-comicsdocument.metainfo.xml.in.in.h:2
+#: ../backend/comics/evince-comicsdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading comic books"
 msgstr "காமிக் புத்தகங்களைப் படிப்பதற்கான ஆதரவைச் சேர்க்கிறது"
 
@@ -96,12 +96,12 @@ msgstr ""
 "இந்த ஆவணம் பல கோப்புக்களால் உருவானது. அதில் ஒன்றோ பலவோ கோப்புகளை அணுக "
 "இயலவில்லை."
 
-#: ../backend/djvu/djvudocument.papers-backend.in.in.h:1
-#: ../backend/djvu/papers-djvudocument.metainfo.xml.in.in.h:1
+#: ../backend/djvu/djvudocument.evince-backend.in.in.h:1
+#: ../backend/djvu/evince-djvudocument.metainfo.xml.in.in.h:1
 msgid "DjVu Documents"
 msgstr "Djvu ஆவணங்கள்"
 
-#: ../backend/djvu/papers-djvudocument.metainfo.xml.in.in.h:2
+#: ../backend/djvu/evince-djvudocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading DjVu documents"
 msgstr "DjVu ஆவணங்களைப் படிப்பதற்கான ஆதரவைச் சேர்க்கிறது"
 
@@ -109,62 +109,62 @@ msgstr "DjVu ஆவணங்களைப் படிப்பதற்கான
 msgid "DVI document has incorrect format"
 msgstr "DVI ஆவணம் தவறான முறையை கொண்டுள்ளது"
 
-#: ../backend/dvi/dvidocument.papers-backend.in.in.h:1
-#: ../backend/dvi/papers-dvidocument.metainfo.xml.in.in.h:1
+#: ../backend/dvi/dvidocument.evince-backend.in.in.h:1
+#: ../backend/dvi/evince-dvidocument.metainfo.xml.in.in.h:1
 msgid "DVI Documents"
 msgstr "DVI ஆவணங்கள்"
 
-#: ../backend/dvi/papers-dvidocument.metainfo.xml.in.in.h:2
+#: ../backend/dvi/evince-dvidocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading DVI documents"
 msgstr "DVI ஆவணங்களைப் படிப்பதற்கான ஆதரவைச் சேர்க்கிறது"
 
-#: ../backend/pdf/pps-poppler.cc:673
+#: ../backend/pdf/ev-poppler.cc:673
 msgid "This work is in the Public Domain"
 msgstr "இந்த பணி பொது உரிமத்திலுள்ளது"
 
 #. translators: this is the document security state
-#: ../backend/pdf/pps-poppler.cc:929 ../backend/pdf/pps-poppler.cc:935
+#: ../backend/pdf/ev-poppler.cc:929 ../backend/pdf/ev-poppler.cc:935
 msgid "Yes"
 msgstr "ஆம்"
 
 #. translators: this is the document security state
-#: ../backend/pdf/pps-poppler.cc:932 ../backend/pdf/pps-poppler.cc:935
+#: ../backend/pdf/ev-poppler.cc:932 ../backend/pdf/ev-poppler.cc:935
 msgid "No"
 msgstr "இல்லை"
 
-#: ../backend/pdf/pps-poppler.cc:1066
+#: ../backend/pdf/ev-poppler.cc:1066
 msgid "Type 1"
 msgstr "வகை 1"
 
-#: ../backend/pdf/pps-poppler.cc:1068
+#: ../backend/pdf/ev-poppler.cc:1068
 msgid "Type 1C"
 msgstr "வகை 1C"
 
-#: ../backend/pdf/pps-poppler.cc:1070
+#: ../backend/pdf/ev-poppler.cc:1070
 msgid "Type 3"
 msgstr "வகை 3"
 
-#: ../backend/pdf/pps-poppler.cc:1072
+#: ../backend/pdf/ev-poppler.cc:1072
 msgid "TrueType"
 msgstr "மெய்வகை"
 
-#: ../backend/pdf/pps-poppler.cc:1074
+#: ../backend/pdf/ev-poppler.cc:1074
 msgid "Type 1 (CID)"
 msgstr "வகை 1 (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1076
+#: ../backend/pdf/ev-poppler.cc:1076
 msgid "Type 1C (CID)"
 msgstr "வகை 1C (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1078
+#: ../backend/pdf/ev-poppler.cc:1078
 msgid "TrueType (CID)"
 msgstr "மெய்வகை (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1080
+#: ../backend/pdf/ev-poppler.cc:1080
 msgid "Unknown font type"
 msgstr "தெரியாத எழுத்துரு வகை"
 
-#: ../backend/pdf/pps-poppler.cc:1124
+#: ../backend/pdf/ev-poppler.cc:1124
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
@@ -175,11 +175,11 @@ msgstr ""
 "எழுத்துருக்கள் பிடிஎஃப் ஐ "
 "உருவாக்கிய எழுத்துருக்கள் இல்லையெனில் வரைதல் சரியாக இல்லாமல் போகலாம்."
 
-#: ../backend/pdf/pps-poppler.cc:1129
+#: ../backend/pdf/ev-poppler.cc:1129
 msgid "All fonts are either standard or embedded."
 msgstr "எல்லா எழுத்துருக்களும் செந்தரம் அல்லது பொதியப்பட்டவை"
 
-#: ../backend/pdf/pps-poppler.cc:1161
+#: ../backend/pdf/ev-poppler.cc:1161
 msgid "No name"
 msgstr "பெயர் இல்லை"
 
@@ -193,20 +193,20 @@ msgstr "பெயர் இல்லை"
 #. Author: None
 #. Keywords: None
 #.
-#: ../backend/pdf/pps-poppler.cc:1170 ../libview/pps-print-operation.c:1967
-#: ../properties/pps-properties-view.c:192
+#: ../backend/pdf/ev-poppler.cc:1170 ../libview/ev-print-operation.c:1967
+#: ../properties/ev-properties-view.c:192
 msgid "None"
 msgstr "இல்லை"
 
-#: ../backend/pdf/pps-poppler.cc:1178
+#: ../backend/pdf/ev-poppler.cc:1178
 msgid "Embedded subset"
 msgstr "உட்பொதியப்பட்ட துணை கணம்"
 
-#: ../backend/pdf/pps-poppler.cc:1180
+#: ../backend/pdf/ev-poppler.cc:1180
 msgid "Embedded"
 msgstr "உட்பொதியப்பட்டது"
 
-#: ../backend/pdf/pps-poppler.cc:1182
+#: ../backend/pdf/ev-poppler.cc:1182
 msgid "Not embedded"
 msgstr "உட்பொதியப்படவில்லை"
 
@@ -215,7 +215,7 @@ msgstr "உட்பொதியப்படவில்லை"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: ../backend/pdf/pps-poppler.cc:1189
+#: ../backend/pdf/ev-poppler.cc:1189
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (செந்தர 14 எழுத்துருக்களில் ஒன்று )"
 
@@ -224,43 +224,43 @@ msgstr " (செந்தர 14 எழுத்துருக்களில்
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: ../backend/pdf/pps-poppler.cc:1196
+#: ../backend/pdf/ev-poppler.cc:1196
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (செந்தர 14 எழுத்துருக்களில் ஒன்று இல்லை)"
 
-#: ../backend/pdf/pps-poppler.cc:1203
+#: ../backend/pdf/ev-poppler.cc:1203
 msgid "Encoding"
 msgstr "குறியீடாக்கம்"
 
-#: ../backend/pdf/pps-poppler.cc:1204
+#: ../backend/pdf/ev-poppler.cc:1204
 msgid "Substituting with"
 msgstr "இதனைக் கொண்டு பதிலீடு செய்கிறது"
 
-#: ../backend/pdf/papers-pdfdocument.metainfo.xml.in.in.h:1
-#: ../backend/pdf/pdfdocument.papers-backend.in.in.h:1
+#: ../backend/pdf/evince-pdfdocument.metainfo.xml.in.in.h:1
+#: ../backend/pdf/pdfdocument.evince-backend.in.in.h:1
 msgid "PDF Documents"
 msgstr "PDF ஆவணங்கள்"
 
-#: ../backend/pdf/papers-pdfdocument.metainfo.xml.in.in.h:2
+#: ../backend/pdf/evince-pdfdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading PDF Documents"
 msgstr "PDF ஆவணங்களைப் படிப்பதற்கான ஆதரவைச் சேர்க்கிறது"
 
-#: ../backend/ps/pps-spectre.c:98
+#: ../backend/ps/ev-spectre.c:98
 #, c-format
 msgid "Failed to load document “%s”"
 msgstr "ஆவணத்தை ஏற்ற முடியவில்லை “%s”"
 
-#: ../backend/ps/pps-spectre.c:131
+#: ../backend/ps/ev-spectre.c:131
 #, c-format
 msgid "Failed to save document “%s”"
 msgstr "ஆவணத்தை சேமிக்க முடியவில்லை “%s”"
 
-#: ../backend/ps/papers-psdocument.metainfo.xml.in.in.h:1
-#: ../backend/ps/psdocument.papers-backend.in.in.h:1
+#: ../backend/ps/evince-psdocument.metainfo.xml.in.in.h:1
+#: ../backend/ps/psdocument.evince-backend.in.in.h:1
 msgid "PostScript Documents"
 msgstr "பின்னுரை ஆவணங்கள்"
 
-#: ../backend/ps/papers-psdocument.metainfo.xml.in.in.h:2
+#: ../backend/ps/evince-psdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading PostScript documents"
 msgstr "PostScript ஆவணங்களைப் படிப்பதற்கான ஆதரவைச் சேர்க்கிறது"
 
@@ -268,130 +268,130 @@ msgstr "PostScript ஆவணங்களைப் படிப்பதற்க
 msgid "Invalid document"
 msgstr "செல்லுபடியாகாத ஆவணம்"
 
-#: ../backend/tiff/papers-tiffdocument.metainfo.xml.in.in.h:1
-#: ../backend/tiff/tiffdocument.papers-backend.in.in.h:1
+#: ../backend/tiff/evince-tiffdocument.metainfo.xml.in.in.h:1
+#: ../backend/tiff/tiffdocument.evince-backend.in.in.h:1
 msgid "TIFF Documents"
 msgstr "TIFF ஆவணங்கள்"
 
-#: ../backend/tiff/papers-tiffdocument.metainfo.xml.in.in.h:2
+#: ../backend/tiff/evince-tiffdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading TIFF documents"
 msgstr "TIFF ஆவணங்களைப் படிப்பதற்கான ஆதரவைச் சேர்க்கிறது"
 
-#: ../backend/xps/papers-xpsdocument.metainfo.xml.in.in.h:1
-#: ../backend/xps/xpsdocument.papers-backend.in.in.h:1
+#: ../backend/xps/evince-xpsdocument.metainfo.xml.in.in.h:1
+#: ../backend/xps/xpsdocument.evince-backend.in.in.h:1
 msgid "XPS Documents"
 msgstr "XPS ஆவணங்கள்"
 
-#: ../backend/xps/papers-xpsdocument.metainfo.xml.in.in.h:2
+#: ../backend/xps/evince-xpsdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading XPS documents"
 msgstr "XPS ஆவணங்களைப் படிப்பதற்கான ஆதரவைச் சேர்க்கிறது"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:230
-#: ../previewer/pps-previewer-window.c:317 ../shell/papers-menus.ui.h:32
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:230
+#: ../previewer/ev-previewer-window.c:317 ../shell/evince-menus.ui.h:32
 msgid "Fit Pa_ge"
 msgstr "_g பக்கத்துக்கு பொருத்து"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:239
-#: ../previewer/pps-previewer-window.c:320 ../shell/papers-menus.ui.h:33
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:239
+#: ../previewer/ev-previewer-window.c:320 ../shell/evince-menus.ui.h:33
 msgid "Fit _Width"
 msgstr "_W அகலத்தை பொருத்து"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:248
-#: ../shell/papers-menus.ui.h:34
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:248
+#: ../shell/evince-menus.ui.h:34
 msgid "_Automatic"
 msgstr "தானியங்கு (_A)"
 
 #. Navigation buttons
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:273
-#: ../previewer/pps-previewer-window.c:271
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:273
+#: ../previewer/ev-previewer-window.c:271
 msgid "Go to the previous page"
 msgstr "முந்தைய பக்கத்திற்கு செல்லவும்"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:277
-#: ../previewer/pps-previewer-window.c:274
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:277
+#: ../previewer/ev-previewer-window.c:274
 msgid "Go to the next page"
 msgstr "அடுத்த பக்கத்திற்கு செல்லவும்"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:312
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:312
 msgid "Show the entire document"
 msgstr "முழு ஆவணத்தையும் காட்டவும்"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:320
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:320
 msgid "Show two pages at once"
 msgstr "ஒரே நேரத்தில் இரண்டு பக்கங்களை காட்டவும்"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:342
-#: ../previewer/pps-previewer-window.c:277
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:342
+#: ../previewer/ev-previewer-window.c:277
 msgid "Enlarge the document"
 msgstr "ஆவணத்தை பெரிதாக்கவும்"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:346
-#: ../previewer/pps-previewer-window.c:280
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:346
+#: ../previewer/ev-previewer-window.c:280
 msgid "Shrink the document"
 msgstr "ஆவணத்தை சுருக்கவும்"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:368
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:368
 #| msgid "Downloading document (%d%%)"
 msgid "Download document"
 msgstr "ஆவணத்தை பதிவிறக்கு"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:381
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:381
 #| msgid "Print this document"
 msgid "Print document"
 msgstr "ஆவணத்தை அச்சிடு"
 
 #. Manually set name and icon
-#: ../data/papers.desktop.in.in.h:1 ../shell/pps-application.c:1029
-#: ../shell/pps-window-title.c:139 ../shell/main.c:298
+#: ../data/evince.desktop.in.in.h:1 ../shell/ev-application.c:1029
+#: ../shell/ev-window-title.c:139 ../shell/main.c:298
 msgid "Document Viewer"
 msgstr "ஆவண காட்டி"
 
-#: ../data/papers.desktop.in.in.h:2
+#: ../data/evince.desktop.in.in.h:2
 msgid "View multi-page documents"
 msgstr "பல பக்க ஆவணங்களை பார்வையிடு"
 
-#: ../data/papers.desktop.in.in.h:3
+#: ../data/evince.desktop.in.in.h:3
 msgid "pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;"
 msgstr "பிடிஎஃப்;போஸ்ட்ஸ்க்ரிப்ட்;டிவிஐ;எக்ஸ்பிஎஸ்;டிஃப்;ஆவணம்;முன் வைப்பு;"
 
-#: ../data/papers-previewer.desktop.in.in.h:1
+#: ../data/evince-previewer.desktop.in.in.h:1
 msgid "Print Preview"
 msgstr "அச்சு முன்னோட்டம்"
 
-#: ../data/papers-previewer.desktop.in.in.h:2
+#: ../data/evince-previewer.desktop.in.in.h:2
 msgid "Preview before printing"
 msgstr "அச்சிடும் முன் முன் பார்வையிடு"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:1
+#: ../data/org.gnome.Evince.gschema.xml.in.h:1
 msgid "Override document restrictions"
 msgstr "மேலெழுதும் ஆவண தடைகள்"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:2
+#: ../data/org.gnome.Evince.gschema.xml.in.h:2
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr "மேலெழுதும் ஆவண தடைகள், நகலெடுக்க அல்லது அச்சிடுவதற்கான தடை போல."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:3
+#: ../data/org.gnome.Evince.gschema.xml.in.h:3
 msgid "Automatically reload the document"
 msgstr "தானியங்கியாக ஆவணத்தை மீண்டும் ஏற்றவும்"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:4
+#: ../data/org.gnome.Evince.gschema.xml.in.h:4
 msgid "The document is automatically reloaded on file change."
 msgstr "கோப்பு மாறியவுடன் ஆவணம் தானியங்கியாக மறு ஏற்றம் செய்யப்படும்."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:5
+#: ../data/org.gnome.Evince.gschema.xml.in.h:5
 msgid "The URI of the directory last used to open or save a document"
 msgstr ""
 "கடைசியாக ஒரு ஆவணத்தை திறக்க அல்லது சேமிக்க பயன்படுத்திய கோப்புறையின் URI"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:6
+#: ../data/org.gnome.Evince.gschema.xml.in.h:6
 msgid "The URI of the directory last used to save a picture"
 msgstr "கடைசியாக ஒரு படத்தைச் சேமிக்க பயன்படுத்திய கோப்புறையின் URI"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:7
+#: ../data/org.gnome.Evince.gschema.xml.in.h:7
 msgid "Page cache size in MiB"
 msgstr "பக்க தேக்கக அளவு MiB இல்"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:8
+#: ../data/org.gnome.Evince.gschema.xml.in.h:8
 msgid ""
 "The maximum size that will be used to cache rendered pages, limits maximum "
 "zoom level."
@@ -400,7 +400,7 @@ msgstr ""
 "அளவு, அதிகபட்ச ஜூம் "
 "நிலையைக் கட்டுப்படுத்தும்."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:9
+#: ../data/org.gnome.Evince.gschema.xml.in.h:9
 msgid ""
 "Show a dialog to confirm that the user wants to activate the caret "
 "navigation."
@@ -409,141 +409,141 @@ msgstr ""
 "உரையாடலைக் "
 "காட்டு."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:10
+#: ../data/org.gnome.Evince.gschema.xml.in.h:10
 #| msgid "Adjust the zoom level"
 msgid "Allow links to change the zoom level."
 msgstr "பெரிதாக்கல் நிலையை மாற்ற இணைப்புகளை அனுமதி"
 
-#: ../libdocument/pps-attachment.c:310 ../libdocument/pps-attachment.c:331
+#: ../libdocument/ev-attachment.c:310 ../libdocument/ev-attachment.c:331
 #, c-format
 msgid "Couldn't save attachment “%s”: %s"
 msgstr "இணைப்பினை சேமிக்க முடியவில்லை “%s”: %s"
 
-#: ../libdocument/pps-attachment.c:379
+#: ../libdocument/ev-attachment.c:379
 #, c-format
 msgid "Couldn't open attachment “%s”: %s"
 msgstr "இணைப்பினை திறக்க முடியவில்லை “%s”: %s"
 
-#: ../libdocument/pps-attachment.c:414
+#: ../libdocument/ev-attachment.c:414
 #, c-format
 msgid "Couldn't open attachment “%s”"
 msgstr "இணைப்பினை திறக்க முடியவில்லை “%s”"
 
-#: ../libdocument/pps-document-factory.c:101
+#: ../libdocument/ev-document-factory.c:101
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "கோப்பு வகை %s (%s) க்கு ஆதரவு இல்லை"
 
-#: ../libdocument/pps-document-factory.c:364
-#: ../libdocument/pps-file-helpers.c:491 ../libdocument/pps-file-helpers.c:537
-#: ../libdocument/pps-file-helpers.c:556
+#: ../libdocument/ev-document-factory.c:364
+#: ../libdocument/ev-file-helpers.c:491 ../libdocument/ev-file-helpers.c:537
+#: ../libdocument/ev-file-helpers.c:556
 msgid "Unknown MIME Type"
 msgstr "தெரியாத MIME வகை"
 
-#: ../libdocument/pps-document-factory.c:552
+#: ../libdocument/ev-document-factory.c:552
 msgid "All Documents"
 msgstr "அனைத்து ஆவணங்கள்"
 
-#: ../libdocument/pps-document-factory.c:579 ../shell/pps-utils.c:309
+#: ../libdocument/ev-document-factory.c:579 ../shell/ev-utils.c:309
 msgid "All Files"
 msgstr "அனைத்து கோப்புகள்"
 
-#: ../libdocument/pps-file-helpers.c:147
+#: ../libdocument/ev-file-helpers.c:147
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "தற்காலிக கோப்பினை உருவாக்குவதில் தோற்றது: %s"
 
-#: ../libdocument/pps-file-helpers.c:309
+#: ../libdocument/ev-file-helpers.c:309
 #, c-format
 msgid "Failed to create a temporary directory: %s"
 msgstr "தற்காலிக அடைவை உருவாக்குவதில் தோற்றது: %s"
 
-#: ../libmisc/pps-page-action-widget.c:84
-#: ../libmisc/pps-page-action-widget.c:123
+#: ../libmisc/ev-page-action-widget.c:84
+#: ../libmisc/ev-page-action-widget.c:123
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%d of %d)"
 
-#: ../libmisc/pps-page-action-widget.c:86
-#: ../libmisc/pps-page-action-widget.c:127
+#: ../libmisc/ev-page-action-widget.c:86
+#: ../libmisc/ev-page-action-widget.c:127
 #, c-format
 msgid "of %d"
 msgstr "of %d"
 
-#: ../libmisc/pps-page-action-widget.c:185 ../shell/pps-history.c:426
-#: ../shell/pps-sidebar-bookmarks.c:295 ../shell/pps-window.c:904
-#: ../shell/pps-window.c:4708
+#: ../libmisc/ev-page-action-widget.c:185 ../shell/ev-history.c:426
+#: ../shell/ev-sidebar-bookmarks.c:295 ../shell/ev-window.c:904
+#: ../shell/ev-window.c:4708
 #, c-format
 msgid "Page %s"
 msgstr "பக்கம் %s"
 
-#: ../libview/pps-jobs.c:1997
+#: ../libview/ev-jobs.c:1997
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "பக்கத்தை அச்சிட முடியவில்லை%d: %s"
 
 #. Initial state
-#: ../libview/pps-print-operation.c:350
+#: ../libview/ev-print-operation.c:350
 #| msgid "Preparing to print…"
 msgid "Preparing preview…"
 msgstr "முன்னோட்டத்தைத் தயார்செய்கிறது…"
 
-#: ../libview/pps-print-operation.c:352 ../libview/pps-print-operation.c:362
+#: ../libview/ev-print-operation.c:352 ../libview/ev-print-operation.c:362
 msgid "Finishing…"
 msgstr "முடிக்கிறது."
 
-#: ../libview/pps-print-operation.c:354
+#: ../libview/ev-print-operation.c:354
 #, c-format
 #| msgid "Printing page %d of %d…"
 msgid "Generating preview: page %d of %d"
 msgstr "முன்னோட்டத்தை உருவாக்குகிறது: பக்கம் %d / %d"
 
 #. Initial state
-#: ../libview/pps-print-operation.c:360
+#: ../libview/ev-print-operation.c:360
 msgid "Preparing to print…"
 msgstr "அச்சடிக்க தயாராகிறது"
 
-#: ../libview/pps-print-operation.c:364
+#: ../libview/ev-print-operation.c:364
 #, c-format
 msgid "Printing page %d of %d…"
 msgstr "பக்கம் %d இல் %dஐ அச்சிடுகிறது"
 
-#: ../libview/pps-print-operation.c:1214
+#: ../libview/ev-print-operation.c:1214
 #| msgid "PostScript is not supported by this printer."
 msgid "Requested format is not supported by this printer."
 msgstr "கோரிய வடிவமைப்பை இந்த அச்சுப்பொறி ஆதரிக்கவில்லை."
 
-#: ../libview/pps-print-operation.c:1277
+#: ../libview/ev-print-operation.c:1277
 msgid "Invalid page selection"
 msgstr "செல்லுபடியாகாத பக்க தேர்வு"
 
-#: ../libview/pps-print-operation.c:1278
+#: ../libview/ev-print-operation.c:1278
 msgid "Warning"
 msgstr "எச்சரிக்கை"
 
-#: ../libview/pps-print-operation.c:1280
+#: ../libview/ev-print-operation.c:1280
 msgid "Your print range selection does not include any pages"
 msgstr "உங்கள் அச்சு வீச்சு தேர்வு எந்த பக்கங்களையும் உள்ளடக்கவில்லை"
 
 #. translators: Title of the print dialog
 #. translators: Print document currently shown in the Print Preview window
-#: ../libview/pps-print-operation.c:1358 ../previewer/pps-previewer-window.c:284
+#: ../libview/ev-print-operation.c:1358 ../previewer/ev-previewer-window.c:284
 msgid "Print"
 msgstr "அச்சிடு"
 
-#: ../libview/pps-print-operation.c:1961
+#: ../libview/ev-print-operation.c:1961
 msgid "Page Scaling:"
 msgstr "பக்க மறுஅளவீடு"
 
-#: ../libview/pps-print-operation.c:1968
+#: ../libview/ev-print-operation.c:1968
 msgid "Shrink to Printable Area"
 msgstr "அச்சிடக்கூடிய பரப்புக்கு சுருக்கு"
 
-#: ../libview/pps-print-operation.c:1969
+#: ../libview/ev-print-operation.c:1969
 msgid "Fit to Printable Area"
 msgstr "அச்சிடக்கூடிய பரப்புக்கு பொருத்துக"
 
-#: ../libview/pps-print-operation.c:1972
+#: ../libview/ev-print-operation.c:1972
 msgid ""
 "Scale document pages to fit the selected printer page. Select from one of "
 "the following:\n"
@@ -570,11 +570,11 @@ msgstr ""
 "அளவுக்கு   "
 "ஆவண பக்கம் சுருக்கவோ நீட்டவோ செய்யப்படும்.\n"
 
-#: ../libview/pps-print-operation.c:1984
+#: ../libview/ev-print-operation.c:1984
 msgid "Auto Rotate and Center"
 msgstr "தானியங்கி சுழற்சி மற்றும் மையப்படுத்தல்"
 
-#: ../libview/pps-print-operation.c:1987
+#: ../libview/ev-print-operation.c:1987
 msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
@@ -583,204 +583,204 @@ msgstr ""
 "மாற்றுக. "
 "ஆவண பக்கங்கள் அச்சுப்பொறி பக்கத்திற்கு மையப்படுத்தப்படும்."
 
-#: ../libview/pps-print-operation.c:1992
+#: ../libview/ev-print-operation.c:1992
 msgid "Select page size using document page size"
 msgstr "ஆவண பக்க அளவை பயன்படுத்தி பக்க அளவை தேர்வு செய்க."
 
-#: ../libview/pps-print-operation.c:1994
+#: ../libview/ev-print-operation.c:1994
 msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
 msgstr ""
 "இயலுமை செய்யின் ஒவ்வொரு பக்கமும் ஆவண பக்கத்தின் அதே அளவில் அச்சிடப்படும்."
 
-#: ../libview/pps-print-operation.c:2094
+#: ../libview/ev-print-operation.c:2094
 msgid "Page Handling"
 msgstr "பக்க கையாளுமை"
 
-#: ../libview/pps-view-accessible.c:43
+#: ../libview/ev-view-accessible.c:43
 msgid "Scroll Up"
 msgstr "மேலே நகர்த்து"
 
-#: ../libview/pps-view-accessible.c:44
+#: ../libview/ev-view-accessible.c:44
 msgid "Scroll Down"
 msgstr "கீழே நகர்த்து"
 
-#: ../libview/pps-view-accessible.c:50
+#: ../libview/ev-view-accessible.c:50
 msgid "Scroll View Up"
 msgstr "பார்வையை மேலே நகர்த்து"
 
-#: ../libview/pps-view-accessible.c:51
+#: ../libview/ev-view-accessible.c:51
 msgid "Scroll View Down"
 msgstr "பார்வையை கீழே நகர்த்து"
 
-#: ../libview/pps-view-accessible.c:129
+#: ../libview/ev-view-accessible.c:129
 msgid "Document View"
 msgstr "ஆவணப்பார்வை"
 
-#: ../libview/pps-view.c:1994
+#: ../libview/ev-view.c:1994
 msgid "Go to first page"
 msgstr "முதல் பக்கத்திற்கு செல்லவும்"
 
-#: ../libview/pps-view.c:1996
+#: ../libview/ev-view.c:1996
 msgid "Go to previous page"
 msgstr "முந்தைய பக்கத்திற்கு செல்லவும்"
 
-#: ../libview/pps-view.c:1998
+#: ../libview/ev-view.c:1998
 msgid "Go to next page"
 msgstr "அடுத்த பக்கத்திற்கு செல்லவும்"
 
-#: ../libview/pps-view.c:2000
+#: ../libview/ev-view.c:2000
 msgid "Go to last page"
 msgstr "கடைசி பக்கத்திற்கு செல்லவும்"
 
-#: ../libview/pps-view.c:2002
+#: ../libview/ev-view.c:2002
 msgid "Go to page"
 msgstr "பக்கத்திற்கு செல்"
 
-#: ../libview/pps-view.c:2004
+#: ../libview/ev-view.c:2004
 msgid "Find"
 msgstr "தேடு"
 
-#: ../libview/pps-view.c:2032
+#: ../libview/ev-view.c:2032
 #, c-format
 msgid "Go to page %s"
 msgstr "பக்கத்திற்கு செல் %s"
 
-#: ../libview/pps-view.c:2038
+#: ../libview/ev-view.c:2038
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "“%s” கோப்பில் %s க்கு செல்லவும்"
 
-#: ../libview/pps-view.c:2041
+#: ../libview/ev-view.c:2041
 #, c-format
 msgid "Go to file “%s”"
 msgstr "“%s” கோப்பிற்கு செல்"
 
-#: ../libview/pps-view.c:2049
+#: ../libview/ev-view.c:2049
 #, c-format
 msgid "Launch %s"
 msgstr "%sஐ செயல்படுத்து"
 
-#: ../libview/pps-view-presentation.c:735
+#: ../libview/ev-view-presentation.c:735
 msgid "Jump to page:"
 msgstr "பக்கத்திற்கு செல்:"
 
-#: ../libview/pps-view-presentation.c:1038
+#: ../libview/ev-view-presentation.c:1038
 msgid "End of presentation. Click to exit."
 msgstr "முன் வைப்பு முடிந்தது. வெளியேற சொடுக்கவும்"
 
-#: ../previewer/pps-previewer.c:45
+#: ../previewer/ev-previewer.c:45
 msgid "Delete the temporary file"
 msgstr "தற்காலிக கோப்பை நீக்கு"
 
-#: ../previewer/pps-previewer.c:46
+#: ../previewer/ev-previewer.c:46
 msgid "Print settings file"
 msgstr "அச்சு அமைப்பு கோப்பு"
 
-#: ../previewer/pps-previewer.c:46
+#: ../previewer/ev-previewer.c:46
 msgid "FILE"
 msgstr "FILE"
 
-#: ../previewer/pps-previewer.c:175 ../previewer/pps-previewer.c:207
+#: ../previewer/ev-previewer.c:175 ../previewer/ev-previewer.c:207
 msgid "GNOME Document Previewer"
 msgstr "க்னோம் ஆவண முன் பார்வை கருவி"
 
-#: ../previewer/pps-previewer-window.c:91 ../shell/pps-window.c:3323
+#: ../previewer/ev-previewer-window.c:91 ../shell/ev-window.c:3323
 msgid "Failed to print document"
 msgstr "ஆவணத்தை அச்சிட முடியவில்லை"
 
-#: ../previewer/pps-previewer-window.c:223
+#: ../previewer/ev-previewer-window.c:223
 #, c-format
 msgid "The selected printer '%s' could not be found"
 msgstr "தேர்ந்தெடுக்கப்பட்ட அச்சு இயந்திரம் '%s' ஐ கண்டு பிடிக்க முடியவில்லை"
 
-#: ../previewer/pps-previewer-window.c:270 ../shell/papers-menus.ui.h:39
+#: ../previewer/ev-previewer-window.c:270 ../shell/evince-menus.ui.h:39
 msgid "_Previous Page"
 msgstr "முந்தைய பக்கம் (_P)"
 
-#: ../previewer/pps-previewer-window.c:273 ../shell/papers-menus.ui.h:40
+#: ../previewer/ev-previewer-window.c:273 ../shell/evince-menus.ui.h:40
 msgid "_Next Page"
 msgstr "அடுத்த பக்கம் (_N)"
 
-#: ../previewer/pps-previewer-window.c:285
+#: ../previewer/ev-previewer-window.c:285
 msgid "Print this document"
 msgstr "இந்த ஆவணத்தை அச்சிடவும்"
 
-#: ../previewer/pps-previewer-window.c:318
+#: ../previewer/ev-previewer-window.c:318
 msgid "Make the current document fill the window"
 msgstr "நடப்பு ஆவணத்தை சாளர முழுமைக்கும் நிரப்பவும்"
 
-#: ../previewer/pps-previewer-window.c:321
+#: ../previewer/ev-previewer-window.c:321
 msgid "Make the current document fill the window width"
 msgstr "நடப்பு ஆவணத்தை சாளர அகலத்திற்கு நிரப்பவும்"
 
-#: ../previewer/pps-previewer-window.c:536
+#: ../previewer/ev-previewer-window.c:536
 msgid "Page"
 msgstr "பக்கம்"
 
-#: ../previewer/pps-previewer-window.c:537
+#: ../previewer/ev-previewer-window.c:537
 msgid "Select Page"
 msgstr "பக்கத்தை தேரந்தெடு"
 
-#: ../properties/pps-properties-main.c:116
+#: ../properties/ev-properties-main.c:116
 msgid "Document"
 msgstr "ஆவணம்"
 
-#: ../properties/pps-properties-view.c:60
+#: ../properties/ev-properties-view.c:60
 msgid "Title:"
 msgstr "தலைப்பு:"
 
-#: ../properties/pps-properties-view.c:61
+#: ../properties/ev-properties-view.c:61
 msgid "Location:"
 msgstr "இடம்"
 
-#: ../properties/pps-properties-view.c:62
+#: ../properties/ev-properties-view.c:62
 msgid "Subject:"
 msgstr "பொருள்:"
 
-#: ../properties/pps-properties-view.c:63
-#: ../shell/pps-annotation-properties-dialog.c:154
+#: ../properties/ev-properties-view.c:63
+#: ../shell/ev-annotation-properties-dialog.c:154
 msgid "Author:"
 msgstr "ஆசிரியர்:"
 
-#: ../properties/pps-properties-view.c:64
+#: ../properties/ev-properties-view.c:64
 msgid "Keywords:"
 msgstr "முக்கிய சொற்கள்:"
 
-#: ../properties/pps-properties-view.c:65
+#: ../properties/ev-properties-view.c:65
 msgid "Producer:"
 msgstr "தயாரிப்பாளர்:"
 
-#: ../properties/pps-properties-view.c:66
+#: ../properties/ev-properties-view.c:66
 msgid "Creator:"
 msgstr "உருவாக்கியவர்:"
 
-#: ../properties/pps-properties-view.c:67
+#: ../properties/ev-properties-view.c:67
 msgid "Created:"
 msgstr "உருவாக்கப்பட்டது:"
 
-#: ../properties/pps-properties-view.c:68
+#: ../properties/ev-properties-view.c:68
 msgid "Modified:"
 msgstr "மாற்றப்பட்டது:"
 
-#: ../properties/pps-properties-view.c:69
+#: ../properties/ev-properties-view.c:69
 msgid "Number of Pages:"
 msgstr "பக்கங்களின் எண்ணிக்கை:"
 
-#: ../properties/pps-properties-view.c:70
+#: ../properties/ev-properties-view.c:70
 msgid "Optimized:"
 msgstr "ஒருங்கிணைக்கப்பட்டது:"
 
-#: ../properties/pps-properties-view.c:71
+#: ../properties/ev-properties-view.c:71
 msgid "Format:"
 msgstr "வடிவம்:"
 
-#: ../properties/pps-properties-view.c:72
+#: ../properties/ev-properties-view.c:72
 msgid "Security:"
 msgstr "பாதுகாப்பு:"
 
-#: ../properties/pps-properties-view.c:73
+#: ../properties/ev-properties-view.c:73
 msgid "Paper Size:"
 msgstr "காகித அளவு:"
 
@@ -790,30 +790,30 @@ msgstr "காகித அளவு:"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: ../properties/pps-properties-view.c:220
+#: ../properties/ev-properties-view.c:220
 msgid "default:mm"
 msgstr "default:mm"
 
-#: ../properties/pps-properties-view.c:264
+#: ../properties/ev-properties-view.c:264
 #, c-format
 msgid "%.0f × %.0f mm"
 msgstr "%.0f × %.0f  மிமி"
 
-#: ../properties/pps-properties-view.c:268
+#: ../properties/ev-properties-view.c:268
 #, c-format
 msgid "%.2f × %.2f inch"
 msgstr "%.2f × %.2f இன்சு"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/pps-properties-view.c:292
+#: ../properties/ev-properties-view.c:292
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr "%s, நீளவாக்கு (%s)"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/pps-properties-view.c:299
+#: ../properties/ev-properties-view.c:299
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr "%s, அகலவாக்கு (%s)"
@@ -838,85 +838,85 @@ msgstr "வார்த்தை அல்லது சொல் தொடரி
 msgid "Find next occurrence of the search string"
 msgstr "சொல் அல்லது சொற்றொடரின் அடுத்த நிகழ்வை தேடவும்"
 
-#: ../shell/pps-annotation-properties-dialog.c:94
+#: ../shell/ev-annotation-properties-dialog.c:94
 msgid "Icon:"
 msgstr "சின்னம்:"
 
-#: ../shell/pps-annotation-properties-dialog.c:100
+#: ../shell/ev-annotation-properties-dialog.c:100
 msgid "Note"
 msgstr "குறிப்பு"
 
-#: ../shell/pps-annotation-properties-dialog.c:101
+#: ../shell/ev-annotation-properties-dialog.c:101
 msgid "Comment"
 msgstr "விமர்சனம் "
 
-#: ../shell/pps-annotation-properties-dialog.c:102
+#: ../shell/ev-annotation-properties-dialog.c:102
 msgid "Key"
 msgstr "விசை"
 
-#: ../shell/pps-annotation-properties-dialog.c:103
+#: ../shell/ev-annotation-properties-dialog.c:103
 msgid "Help"
 msgstr "உதவி"
 
-#: ../shell/pps-annotation-properties-dialog.c:104
+#: ../shell/ev-annotation-properties-dialog.c:104
 msgid "New Paragraph"
 msgstr "புதிய பத்தி"
 
-#: ../shell/pps-annotation-properties-dialog.c:105
+#: ../shell/ev-annotation-properties-dialog.c:105
 msgid "Paragraph"
 msgstr "பத்தி"
 
-#: ../shell/pps-annotation-properties-dialog.c:106
+#: ../shell/ev-annotation-properties-dialog.c:106
 msgid "Insert"
 msgstr "சொருகு"
 
-#: ../shell/pps-annotation-properties-dialog.c:107
+#: ../shell/ev-annotation-properties-dialog.c:107
 msgid "Cross"
 msgstr "பெருக்கல் குறியிடு"
 
-#: ../shell/pps-annotation-properties-dialog.c:108
+#: ../shell/ev-annotation-properties-dialog.c:108
 msgid "Circle"
 msgstr "வட்டம்"
 
-#: ../shell/pps-annotation-properties-dialog.c:109
+#: ../shell/ev-annotation-properties-dialog.c:109
 msgid "Unknown"
 msgstr "தெரியாத"
 
-#: ../shell/pps-annotation-properties-dialog.c:134
+#: ../shell/ev-annotation-properties-dialog.c:134
 msgid "Annotation Properties"
 msgstr "குறிப்பு பண்புகள்"
 
-#: ../shell/pps-annotation-properties-dialog.c:165
+#: ../shell/ev-annotation-properties-dialog.c:165
 msgid "Color:"
 msgstr "நிறம்:"
 
-#: ../shell/pps-annotation-properties-dialog.c:175
+#: ../shell/ev-annotation-properties-dialog.c:175
 msgid "Style:"
 msgstr "பாணி:"
 
-#: ../shell/pps-annotation-properties-dialog.c:190
+#: ../shell/ev-annotation-properties-dialog.c:190
 msgid "Transparent"
 msgstr "Transparent"
 
-#: ../shell/pps-annotation-properties-dialog.c:197
+#: ../shell/ev-annotation-properties-dialog.c:197
 msgid "Opaque"
 msgstr "Opaque"
 
-#: ../shell/pps-annotation-properties-dialog.c:207
+#: ../shell/ev-annotation-properties-dialog.c:207
 msgid "Initial window state:"
 msgstr "துவக்க சாளர நிலை:"
 
-#: ../shell/pps-annotation-properties-dialog.c:213
+#: ../shell/ev-annotation-properties-dialog.c:213
 msgid "Open"
 msgstr "திற"
 
-#: ../shell/pps-annotation-properties-dialog.c:214
+#: ../shell/ev-annotation-properties-dialog.c:214
 msgid "Close"
 msgstr "மூடு"
 
-#: ../shell/pps-application.c:995
+#: ../shell/ev-application.c:995
 msgid ""
-"Papers is free software; you can redistribute it and/or modify it under the "
+"Evince is free software; you can redistribute it and/or modify it under the "
 "terms of the GNU General Public License as published by the Free Software "
 "Foundation; either version 2 of the License, or (at your option) any later "
 "version.\n"
@@ -929,9 +929,9 @@ msgstr ""
 "பதிப்புகளில் "
 "மாற்றலாம்.\n"
 
-#: ../shell/pps-application.c:999
+#: ../shell/ev-application.c:999
 msgid ""
-"Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
+"Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
 "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 "details.\n"
@@ -942,10 +942,10 @@ msgstr ""
 "செயல்படுத்தப்படவில்லை.  மேலும் "
 "விவரங்களுக்குGNU General Public License ஐ பார்க்கவும்.\n"
 
-#: ../shell/pps-application.c:1003
+#: ../shell/ev-application.c:1003
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"Papers; if not, write to the Free Software Foundation, Inc., 51 Franklin "
+"Evince; if not, write to the Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 msgstr ""
 "நீங்கள் GNU General Public Licenseன் ஒரு நகலை இவின்ஸுடன் பெற்றிருக்க "
@@ -953,39 +953,39 @@ msgstr ""
 "பெறாவிட்டால், Free Software Foundation, Inc.,51 Franklin Street, Fifth Floor, "
 "Boston, MA  02111-1301  USA என்பதற்கு எழுதவும்\n"
 
-#: ../shell/pps-application.c:1024 ../papers.appdata.xml.in.h:1
-msgid "Papers"
+#: ../shell/ev-application.c:1024 ../evince.appdata.xml.in.h:1
+msgid "Evince"
 msgstr "இவின்ஸ்"
 
-#: ../shell/pps-application.c:1026
-#| msgid "© 1996–2012 The Papers authors"
-msgid "© 1996–2014 The Papers authors"
-msgstr "© 1996–2014 The Papers authors"
+#: ../shell/ev-application.c:1026
+#| msgid "© 1996–2012 The Evince authors"
+msgid "© 1996–2014 The Evince authors"
+msgstr "© 1996–2014 The Evince authors"
 
-#: ../shell/pps-application.c:1032
+#: ../shell/ev-application.c:1032
 msgid "translator-credits"
 msgstr "I. Felix <ifelix@redhat.com> Dr. T. Vasudevan <agnihot3@gmail.com>"
 
-#: ../shell/pps-history-action.c:224
+#: ../shell/ev-history-action.c:224
 msgid "Go to previous history item"
 msgstr "முந்தைய சரித்திர உருப்படிக்கு செல்லவும்"
 
-#: ../shell/pps-history-action.c:229
+#: ../shell/ev-history-action.c:229
 msgid "Go to next history item"
 msgstr "அடுத்த சரித்திர உருப்படிக்கு செல்லவும்"
 
-#: ../shell/pps-keyring.c:86
+#: ../shell/ev-keyring.c:86
 #, c-format
 msgid "Password for document %s"
 msgstr "ஆவணத்தின் கடவுச்சொல் %s"
 
 #. Create tree view
-#: ../shell/pps-loading-message.c:50 ../shell/pps-sidebar-annotations.c:131
-#: ../shell/pps-sidebar-layers.c:125 ../shell/pps-sidebar-links.c:261
+#: ../shell/ev-loading-message.c:50 ../shell/ev-sidebar-annotations.c:131
+#: ../shell/ev-sidebar-layers.c:125 ../shell/ev-sidebar-links.c:261
 msgid "Loading…"
 msgstr "ஏற்றுகிறது"
 
-#: ../shell/pps-password-view.c:142
+#: ../shell/ev-password-view.c:142
 msgid ""
 "This document is locked and can only be read by entering the correct "
 "password."
@@ -993,15 +993,15 @@ msgstr ""
 "இந்த ஆவணம் பூட்டப்பட்டுள்ளது மற்றும் சரியான கடவுச்சொல்லை உள்ளிட்டால் தான் "
 "படிக்க முடியும்."
 
-#: ../shell/pps-password-view.c:151 ../shell/pps-password-view.c:269
+#: ../shell/ev-password-view.c:151 ../shell/ev-password-view.c:269
 msgid "_Unlock Document"
 msgstr "ஆவணத்தை பூட்டு நீக்கு (_U)"
 
-#: ../shell/pps-password-view.c:261
+#: ../shell/ev-password-view.c:261
 msgid "Enter password"
 msgstr "கடவுச்சொல்லை உள்ளிடவும்"
 
-#: ../shell/pps-password-view.c:300
+#: ../shell/ev-password-view.c:300
 #, c-format
 msgid ""
 "The document “%s” is locked and requires a password before it can be opened."
@@ -1009,254 +1009,254 @@ msgstr ""
 "ஆவணம் “%s” பூட்டப்பட்டுள்ளது மற்றும் அதனை திறப்பதற்கு முன் கடவுச்சொல் "
 "தேவைப்படுகிறது."
 
-#: ../shell/pps-password-view.c:303
+#: ../shell/ev-password-view.c:303
 msgid "Password required"
 msgstr "கடவுச்சொல் தேவைப்படுகிறது"
 
-#: ../shell/pps-password-view.c:333
+#: ../shell/ev-password-view.c:333
 msgid "_Password:"
 msgstr "கடவுச்சொல்: (_P) "
 
-#: ../shell/pps-password-view.c:364
+#: ../shell/ev-password-view.c:364
 msgid "Forget password _immediately"
 msgstr "உடனே கடவுச்சொல் மறந்தது (_i)"
 
-#: ../shell/pps-password-view.c:376
+#: ../shell/ev-password-view.c:376
 msgid "Remember password until you _log out"
 msgstr "வெளியேறும் வரை கடவுச்சொல்லை நினைவு வை (_l)"
 
-#: ../shell/pps-password-view.c:388
+#: ../shell/ev-password-view.c:388
 msgid "Remember _forever"
 msgstr "எப்போதும் நினைவு வை (_f)"
 
-#: ../shell/pps-properties-dialog.c:62
+#: ../shell/ev-properties-dialog.c:62
 msgid "Properties"
 msgstr "பண்புகள்"
 
-#: ../shell/pps-properties-dialog.c:94
+#: ../shell/ev-properties-dialog.c:94
 msgid "General"
 msgstr "பொது"
 
-#: ../shell/pps-properties-dialog.c:104
+#: ../shell/ev-properties-dialog.c:104
 msgid "Fonts"
 msgstr "எழுத்துருக்கள்"
 
-#: ../shell/pps-properties-dialog.c:117
+#: ../shell/ev-properties-dialog.c:117
 msgid "Document License"
 msgstr "ஆவண உரிமம்"
 
-#: ../shell/pps-properties-fonts.c:142
+#: ../shell/ev-properties-fonts.c:142
 msgid "Font"
 msgstr "எழுத்துரு"
 
-#: ../shell/pps-properties-fonts.c:169
+#: ../shell/ev-properties-fonts.c:169
 #, c-format
 msgid "Gathering font information… %3d%%"
 msgstr "எழுத்துரு விவரங்களை சேகரிக்கிறது %3d%%"
 
-#: ../shell/pps-properties-license.c:134
+#: ../shell/ev-properties-license.c:134
 msgid "Usage terms"
 msgstr "பயன்பாடு விதிகள்"
 
-#: ../shell/pps-properties-license.c:140
+#: ../shell/ev-properties-license.c:140
 msgid "Text License"
 msgstr "உரை உரிமம்"
 
-#: ../shell/pps-properties-license.c:146
+#: ../shell/ev-properties-license.c:146
 msgid "Further Information"
 msgstr "மேலும் விவரங்கள்"
 
-#: ../shell/pps-sidebar-annotations.c:159
+#: ../shell/ev-sidebar-annotations.c:159
 msgid "List"
 msgstr "பட்டியல்"
 
-#: ../shell/pps-sidebar-annotations.c:199 ../shell/pps-sidebar-annotations.c:535
+#: ../shell/ev-sidebar-annotations.c:199 ../shell/ev-sidebar-annotations.c:535
 msgid "Annotations"
 msgstr "வியாக்கியானம்"
 
-#: ../shell/pps-sidebar-annotations.c:205
+#: ../shell/ev-sidebar-annotations.c:205
 msgid "Text"
 msgstr "உரை"
 
-#: ../shell/pps-sidebar-annotations.c:206
+#: ../shell/ev-sidebar-annotations.c:206
 msgid "Add text annotation"
 msgstr "உரை வியாக்கியானத்தை சேர் "
 
-#: ../shell/pps-sidebar-annotations.c:217 ../shell/pps-sidebar-bookmarks.c:454
+#: ../shell/ev-sidebar-annotations.c:217 ../shell/ev-sidebar-bookmarks.c:454
 msgid "Add"
 msgstr "சேர்க்க"
 
-#: ../shell/pps-sidebar-annotations.c:368
+#: ../shell/ev-sidebar-annotations.c:368
 msgid "Document contains no annotations"
 msgstr "ஆவணத்தில் வியாக்கியானம் ஏதும் இல்லை "
 
-#: ../shell/pps-sidebar-annotations.c:400
+#: ../shell/ev-sidebar-annotations.c:400
 #, c-format
 msgid "Page %d"
 msgstr "பக்கம் %d"
 
-#: ../shell/pps-sidebar-attachments.c:697
+#: ../shell/ev-sidebar-attachments.c:697
 msgid "Attachments"
 msgstr "இணைப்புகள்"
 
-#: ../shell/pps-sidebar-bookmarks.c:146
+#: ../shell/ev-sidebar-bookmarks.c:146
 msgid "_Open Bookmark"
 msgstr "புத்தகக்குறியைத் திறத்தல் (_O)"
 
-#: ../shell/pps-sidebar-bookmarks.c:148
+#: ../shell/ev-sidebar-bookmarks.c:148
 msgid "_Rename Bookmark"
 msgstr "_R புத்தகக்குறியை மறுபெயரிடவும்"
 
-#: ../shell/pps-sidebar-bookmarks.c:150
+#: ../shell/ev-sidebar-bookmarks.c:150
 msgid "_Remove Bookmark"
 msgstr "புத்தகக்குறி நீக்கு(_R)"
 
-#: ../shell/pps-sidebar-bookmarks.c:461
+#: ../shell/ev-sidebar-bookmarks.c:461
 msgid "Remove"
 msgstr "நீக்கு"
 
-#: ../shell/pps-sidebar-bookmarks.c:577 ../shell/pps-toolbar.c:160
+#: ../shell/ev-sidebar-bookmarks.c:577 ../shell/ev-toolbar.c:160
 msgid "Bookmarks"
 msgstr "புத்தகக்குறிகள்"
 
-#: ../shell/pps-sidebar-layers.c:446
+#: ../shell/ev-sidebar-layers.c:446
 msgid "Layers"
 msgstr "அடுக்குகள்"
 
-#: ../shell/pps-sidebar-links.c:337
+#: ../shell/ev-sidebar-links.c:337
 msgid "Print…"
 msgstr "அச்சிடு"
 
-#: ../shell/pps-sidebar-links.c:725
+#: ../shell/ev-sidebar-links.c:725
 msgid "Index"
 msgstr "அகரவரிசை"
 
-#: ../shell/pps-sidebar-thumbnails.c:1082
+#: ../shell/ev-sidebar-thumbnails.c:1082
 msgid "Thumbnails"
 msgstr "சிறுபடங்கள்"
 
-#: ../shell/pps-toolbar.c:204
+#: ../shell/ev-toolbar.c:204
 msgid "Open an existing document"
 msgstr "ஏற்கனவே உள்ள ஆவணத்தை திறக்கவும்"
 
-#: ../shell/pps-toolbar.c:235
+#: ../shell/ev-toolbar.c:235
 msgid "Find a word or phrase in the document"
 msgstr "ஆவணத்தில் ஒரு சொல் அல்லது சொற்றொடரை தேடுகிறது"
 
-#: ../shell/pps-toolbar.c:247 ../shell/pps-toolbar.c:248
+#: ../shell/ev-toolbar.c:247 ../shell/ev-toolbar.c:248
 #| msgid "Find options"
 msgid "File options"
 msgstr "கோப்பு விருப்பங்கள்"
 
-#: ../shell/pps-toolbar.c:257 ../shell/pps-toolbar.c:258
+#: ../shell/ev-toolbar.c:257 ../shell/ev-toolbar.c:258
 #| msgid "Find options"
 msgid "View options"
 msgstr "காட்சி விருப்பங்கள்"
 
-#: ../shell/pps-utils.c:305
+#: ../shell/ev-utils.c:305
 msgid "Supported Image Files"
 msgstr "ஆதரிக்கப்படும் படக் கோப்புகள்"
 
-#: ../shell/pps-window.c:1606
+#: ../shell/ev-window.c:1606
 msgid "The document contains no pages"
 msgstr "ஆவணத்தில் பக்கங்கள் ஏதும் இல்லை "
 
-#: ../shell/pps-window.c:1609
+#: ../shell/ev-window.c:1609
 msgid "The document contains only empty pages"
 msgstr "ஆவணத்தில் உள்ளது வெற்று பக்கங்களே"
 
-#: ../shell/pps-window.c:1822 ../shell/pps-window.c:1990
+#: ../shell/ev-window.c:1822 ../shell/ev-window.c:1990
 #, c-format
 msgid "Unable to open document “%s”."
 msgstr "ஆவணம் \"%s\" ஐத் திறக்க முடியவில்லை."
 
-#: ../shell/pps-window.c:1954
+#: ../shell/ev-window.c:1954
 #, c-format
 msgid "Loading document from “%s”"
 msgstr "“%s” இலிருந்து ஆவணத்தை ஏற்றுகிறது"
 
-#: ../shell/pps-window.c:2105 ../shell/pps-window.c:2432
+#: ../shell/ev-window.c:2105 ../shell/ev-window.c:2432
 #, c-format
 msgid "Downloading document (%d%%)"
 msgstr "ஆவணத்தை பதிவிறக்குகிறது (%d%%)"
 
-#: ../shell/pps-window.c:2138
+#: ../shell/ev-window.c:2138
 msgid "Failed to load remote file."
 msgstr "தொலை கோப்பை ஏற்ற முடியவில்லை."
 
-#: ../shell/pps-window.c:2376
+#: ../shell/ev-window.c:2376
 #, c-format
 msgid "Reloading document from %s"
 msgstr "%sஇலிருந்து ஆவணத்தை மீண்டும் ஏற்றுகிறது"
 
-#: ../shell/pps-window.c:2408
+#: ../shell/ev-window.c:2408
 msgid "Failed to reload document."
 msgstr "ஆவணத்தை மீளேற்ற முடியவில்லை."
 
-#: ../shell/pps-window.c:2624
+#: ../shell/ev-window.c:2624
 msgid "Open Document"
 msgstr "ஆவணத்தை திற"
 
-#: ../shell/pps-window.c:2695
+#: ../shell/ev-window.c:2695
 #, c-format
 msgid "Saving document to %s"
 msgstr "%sக்கு ஆவணத்தை சேமிக்கிறது"
 
-#: ../shell/pps-window.c:2698
+#: ../shell/ev-window.c:2698
 #, c-format
 msgid "Saving attachment to %s"
 msgstr "%sக்கு இணைப்பை சேமிக்கிறது"
 
-#: ../shell/pps-window.c:2701
+#: ../shell/ev-window.c:2701
 #, c-format
 msgid "Saving image to %s"
 msgstr "%sக்கு ஆவணத்தை சேமிக்கிறது"
 
-#: ../shell/pps-window.c:2745 ../shell/pps-window.c:2845
+#: ../shell/ev-window.c:2745 ../shell/ev-window.c:2845
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "“%s” ஆக கோப்பினை சேமிக்க முடியவில்லை."
 
-#: ../shell/pps-window.c:2776
+#: ../shell/ev-window.c:2776
 #, c-format
 msgid "Uploading document (%d%%)"
 msgstr "ஆவணத்தை ஏற்றுகிறது (%d%%)"
 
-#: ../shell/pps-window.c:2780
+#: ../shell/ev-window.c:2780
 #, c-format
 msgid "Uploading attachment (%d%%)"
 msgstr "இணைப்பை பதிவேற்றுகிறது (%d%%)"
 
-#: ../shell/pps-window.c:2784
+#: ../shell/ev-window.c:2784
 #, c-format
 msgid "Uploading image (%d%%)"
 msgstr "படத்தை பதிவேற்றுகிறது (%d%%)"
 
-#: ../shell/pps-window.c:2896
+#: ../shell/ev-window.c:2896
 msgid "Save a Copy"
 msgstr "நகலாக சேமி"
 
-#: ../shell/pps-window.c:2972
+#: ../shell/ev-window.c:2972
 msgid "Could not send current document"
 msgstr "நடப்பு ஆவணத்தை அனுப்ப முடியவில்லை"
 
-#: ../shell/pps-window.c:3006
+#: ../shell/ev-window.c:3006
 msgid "Could not open the containing folder"
 msgstr "அடைவை திறக்க இயலவில்லை"
 
-#: ../shell/pps-window.c:3267
+#: ../shell/ev-window.c:3267
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "%d மீதமுள்ள பணி வரிசையில் உள்ளது"
 msgstr[1] "%d மீதமுள்ள பணிகள் வரிசையில் உள்ளன"
 
-#: ../shell/pps-window.c:3380
+#: ../shell/ev-window.c:3380
 #, c-format
 msgid "Printing job “%s”"
 msgstr "அச்சிடும் பணி “%s”"
 
-#: ../shell/pps-window.c:3583
+#: ../shell/ev-window.c:3583
 msgid ""
 "Document contains form fields that have been filled out. If you don't save a "
 "copy, changes will be permanently lost."
@@ -1265,7 +1265,7 @@ msgstr ""
 "சேமிக்காவிட்டால் மாற்றங்கள் "
 "நிரந்தரமாக இழக்கப்படும்."
 
-#: ../shell/pps-window.c:3587
+#: ../shell/ev-window.c:3587
 msgid ""
 "Document contains new or modified annotations. If you don't save a copy, "
 "changes will be permanently lost."
@@ -1274,20 +1274,20 @@ msgstr ""
 "பிரதியை "
 "சேமிக்காவிட்டால் மாற்றங்கள் நிரந்தரமாக இழக்கப்படும்."
 
-#: ../shell/pps-window.c:3594
+#: ../shell/ev-window.c:3594
 #, c-format
 msgid "Save a copy of document “%s” before closing?"
 msgstr "“%s” ஆவணத்தின் ஒரு நகலை சேமிக்கவா?"
 
-#: ../shell/pps-window.c:3613
+#: ../shell/ev-window.c:3613
 msgid "Close _without Saving"
 msgstr "சேமிக்காமல் மூடு (_w)"
 
-#: ../shell/pps-window.c:3617
+#: ../shell/ev-window.c:3617
 msgid "Save a _Copy"
 msgstr "_C ஒரு நகல் சேமி"
 
-#: ../shell/pps-window.c:3691
+#: ../shell/ev-window.c:3691
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr "அச்சு பணி “%s” முடியும் வரை காத்திருக்க வேண்டுமா?"
@@ -1295,7 +1295,7 @@ msgstr "அச்சு பணி “%s” முடியும் வரை �
 #. TRANS: the singular form is not really used as n_print_jobs > 1
 #. but some languages distinguish between different plurals forms,
 #. so the ngettext is needed.
-#: ../shell/pps-window.c:3697
+#: ../shell/ev-window.c:3697
 #, c-format
 msgid "There is %d print job active. Wait until print finishes before closing?"
 msgid_plural ""
@@ -1303,50 +1303,50 @@ msgid_plural ""
 msgstr[0] "%d அச்சு பணி செயலிலுள்ளது. அச்சிட்டு முடியும் வரை காத்திருக்கவா?"
 msgstr[1] "%d அச்சு பணிகள் செயலிலுள்ளன. அச்சிட்டு முடியும் வரை காத்திருக்கவா?"
 
-#: ../shell/pps-window.c:3712
+#: ../shell/ev-window.c:3712
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr "சாளரத்தை மூடினால், மீதமுள்ள அச்சு பணிகள் அச்சிடப்படாது."
 
-#: ../shell/pps-window.c:3716
+#: ../shell/ev-window.c:3716
 msgid "Cancel _print and Close"
 msgstr "அச்சிடுதலை ரத்து செய்து மூடுகிறது (_p)"
 
-#: ../shell/pps-window.c:3720
+#: ../shell/ev-window.c:3720
 msgid "Close _after Printing"
 msgstr "அச்சிட்ட பின் மூடுகிறது (_a)"
 
-#: ../shell/pps-window.c:4248
+#: ../shell/ev-window.c:4248
 msgid "Running in presentation mode"
 msgstr "காட்சி அளிப்பு பாங்கில் இயங்குகிறது"
 
 #. TRANS: Sometimes this could be better translated as
 #. "%d hit(s) on this page".  Therefore this string
 #. contains plural cases.
-#: ../shell/pps-window.c:5181
+#: ../shell/ev-window.c:5181
 #, c-format
 msgid "%d found on this page"
 msgid_plural "%d found on this page"
 msgstr[0] "%d இந்தப் பக்கத்தில் கண்டுபிடிக்கப்பட்டது"
 msgstr[1] "%d இந்தப் பக்கத்தில் கண்டுபிடிக்கப்பட்டது"
 
-#: ../shell/pps-window.c:5186
+#: ../shell/ev-window.c:5186
 msgid "Not found"
 msgstr "காணவில்லை"
 
-#: ../shell/pps-window.c:5192
+#: ../shell/ev-window.c:5192
 #, c-format
 msgid "%3d%% remaining to search"
 msgstr "%3d%% மீதி தேட வேண்டியவை"
 
-#: ../shell/pps-window.c:5512
+#: ../shell/ev-window.c:5512
 msgid "Enable caret navigation?"
 msgstr "சுட்டி வழிசெலுத்தலை செயல்படுத்தவா?"
 
-#: ../shell/pps-window.c:5514
+#: ../shell/ev-window.c:5514
 msgid "_Enable"
 msgstr "செயல்படுத்து (_E)"
 
-#: ../shell/pps-window.c:5517
+#: ../shell/ev-window.c:5517
 #| msgid ""
 #| "Pressing F7 turns the caret navigation on or off. This feature places a "
 #| "moveable cursor in text pages, allowing you to move around and select "
@@ -1363,105 +1363,105 @@ msgstr ""
 "தேர்ந்தெடுத்த உரையில் விசைப்பலகையைப் பயன்படுத்தி நகரலாம். சுட்டி வழிசெலுத்தலை "
 "இயக்க வேண்டுமா?"
 
-#: ../shell/pps-window.c:5522
+#: ../shell/ev-window.c:5522
 msgid "Don't show this message again"
 msgstr "இந்த செய்தியை மீண்டும் காட்டாதே"
 
-#: ../shell/pps-window.c:6038 ../shell/pps-window.c:6054
+#: ../shell/ev-window.c:6038 ../shell/ev-window.c:6054
 msgid "Unable to launch external application."
 msgstr "புற பயன்பாட்டை திறக்க இயலவில்லை"
 
-#: ../shell/pps-window.c:6111
+#: ../shell/ev-window.c:6111
 msgid "Unable to open external link"
 msgstr "புற இணைப்பினை திறக்க இயலவில்லை"
 
-#: ../shell/pps-window.c:6314
+#: ../shell/ev-window.c:6314
 msgid "Couldn't find appropriate format to save image"
 msgstr "சேமிக்க பொருத்தமான ஒழுங்கை காண முடியவில்லை"
 
-#: ../shell/pps-window.c:6346
+#: ../shell/ev-window.c:6346
 msgid "The image could not be saved."
 msgstr "பிம்பத்தை சேமிக்க இயலவில்லை."
 
-#: ../shell/pps-window.c:6381
+#: ../shell/ev-window.c:6381
 msgid "Save Image"
 msgstr "பிம்பத்தை சேமி"
 
-#: ../shell/pps-window.c:6532
+#: ../shell/ev-window.c:6532
 msgid "Unable to open attachment"
 msgstr "இணைப்பினை திறக்க இயலவில்லை"
 
-#: ../shell/pps-window.c:6588
+#: ../shell/ev-window.c:6588
 msgid "The attachment could not be saved."
 msgstr "இணைப்பினை சேமிக்க இயலவில்லை."
 
-#: ../shell/pps-window.c:6636
+#: ../shell/ev-window.c:6636
 msgid "Save Attachment"
 msgstr "இணைப்புகளை சேமி"
 
-#: ../shell/pps-window-title.c:118
+#: ../shell/ev-window-title.c:118
 #| msgid "Open Document"
 msgid "Recent Documents"
 msgstr "சமீபத்திய ஆவணங்கள்"
 
-#: ../shell/pps-window-title.c:153 ../shell/pps-window-title.c:157
+#: ../shell/ev-window-title.c:153 ../shell/ev-window-title.c:157
 #| msgid "Password required"
 msgid "Password Required"
 msgstr "கடவுச்சொல் தேவைப்படுகிறது"
 
-#: ../shell/pps-zoom-action.c:48
+#: ../shell/ev-zoom-action.c:48
 msgid "50%"
 msgstr "50%"
 
-#: ../shell/pps-zoom-action.c:49
+#: ../shell/ev-zoom-action.c:49
 msgid "70%"
 msgstr "70%"
 
-#: ../shell/pps-zoom-action.c:50
+#: ../shell/ev-zoom-action.c:50
 msgid "85%"
 msgstr "85%"
 
-#: ../shell/pps-zoom-action.c:51
+#: ../shell/ev-zoom-action.c:51
 msgid "100%"
 msgstr "100%"
 
-#: ../shell/pps-zoom-action.c:52
+#: ../shell/ev-zoom-action.c:52
 msgid "125%"
 msgstr "125%"
 
-#: ../shell/pps-zoom-action.c:53
+#: ../shell/ev-zoom-action.c:53
 msgid "150%"
 msgstr "150%"
 
-#: ../shell/pps-zoom-action.c:54
+#: ../shell/ev-zoom-action.c:54
 msgid "175%"
 msgstr "175%"
 
-#: ../shell/pps-zoom-action.c:55
+#: ../shell/ev-zoom-action.c:55
 msgid "200%"
 msgstr "200%"
 
-#: ../shell/pps-zoom-action.c:56
+#: ../shell/ev-zoom-action.c:56
 msgid "300%"
 msgstr "300%"
 
-#: ../shell/pps-zoom-action.c:57
+#: ../shell/ev-zoom-action.c:57
 msgid "400%"
 msgstr "400%"
 
-#: ../shell/pps-zoom-action.c:58
+#: ../shell/ev-zoom-action.c:58
 msgid "800%"
 msgstr "800%"
 
-#: ../shell/pps-zoom-action.c:59
+#: ../shell/ev-zoom-action.c:59
 msgid "1600%"
 msgstr "1600%"
 
-#: ../shell/pps-zoom-action.c:60
+#: ../shell/ev-zoom-action.c:60
 msgid "3200%"
 msgstr "3200%"
 
-#: ../shell/pps-zoom-action.c:61
+#: ../shell/ev-zoom-action.c:61
 msgid "6400%"
 msgstr "6400%"
 
@@ -1494,15 +1494,15 @@ msgid "DEST"
 msgstr "DEST"
 
 #: ../shell/main.c:74
-msgid "Run papers in fullscreen mode"
+msgid "Run evince in fullscreen mode"
 msgstr "எவின்ஸ் ஐ முழுத்திரை முறையில் இயக்கவும்"
 
 #: ../shell/main.c:75
-msgid "Run papers in presentation mode"
+msgid "Run evince in presentation mode"
 msgstr "எவின்ஸ் ஐ முழுத்திரை முன் வைப்பு முறையில் இயக்கவும்"
 
 #: ../shell/main.c:76
-msgid "Run papers as a previewer"
+msgid "Run evince as a previewer"
 msgstr "எவின்ஸ் ஐ முன்காட்டியாக இயக்கவும்."
 
 #: ../shell/main.c:77
@@ -1517,193 +1517,193 @@ msgstr "STRING"
 msgid "[FILE…]"
 msgstr "[FILE...]"
 
-#: ../shell/papers-menus.ui.h:1
+#: ../shell/evince-menus.ui.h:1
 #| msgid "Open in New _Window"
 msgid "_New Window"
 msgstr "புதிய சாளரம் (_N)"
 
-#: ../shell/papers-menus.ui.h:2
+#: ../shell/evince-menus.ui.h:2
 msgid "_Help"
 msgstr "உதவி (_H)"
 
-#: ../shell/papers-menus.ui.h:3
+#: ../shell/evince-menus.ui.h:3
 msgid "_About"
 msgstr "இதனை பற்றி (_A)"
 
-#: ../shell/papers-menus.ui.h:4
+#: ../shell/evince-menus.ui.h:4
 msgid "_Continuous"
 msgstr "தொடர்ச்சி (_C)"
 
-#: ../shell/papers-menus.ui.h:5
+#: ../shell/evince-menus.ui.h:5
 msgid "_Dual"
 msgstr "இரட்டை (_D)"
 
-#: ../shell/papers-menus.ui.h:6
+#: ../shell/evince-menus.ui.h:6
 msgid "Side _Pane"
 msgstr "பக்க பலகம் (_P)"
 
-#: ../shell/papers-menus.ui.h:7
+#: ../shell/evince-menus.ui.h:7
 msgid "_Fullscreen"
 msgstr "முழுத்திரை (_F)"
 
-#: ../shell/papers-menus.ui.h:8
+#: ../shell/evince-menus.ui.h:8
 msgid "Pre_sentation"
 msgstr "(_s) காட்சி முன்வைப்பு"
 
-#: ../shell/papers-menus.ui.h:9
+#: ../shell/evince-menus.ui.h:9
 msgid "Rotate _Left"
 msgstr "இடப்பக்கம் சுழற்று (_L)"
 
-#: ../shell/papers-menus.ui.h:10
+#: ../shell/evince-menus.ui.h:10
 msgid "Rotate _Right"
 msgstr "வலப்பக்கம் சுழற்று (_R) "
 
-#: ../shell/papers-menus.ui.h:11
+#: ../shell/evince-menus.ui.h:11
 #| msgid "_First Page"
 msgid "First Page"
 msgstr "முதல் பக்கம்"
 
-#: ../shell/papers-menus.ui.h:12
+#: ../shell/evince-menus.ui.h:12
 #| msgid "_Previous Page"
 msgid "Previous Page"
 msgstr "முந்தைய பக்கம்"
 
-#: ../shell/papers-menus.ui.h:13
+#: ../shell/evince-menus.ui.h:13
 #| msgid "_Next Page"
 msgid "Next Page"
 msgstr "அடுத்த பக்கம்"
 
-#: ../shell/papers-menus.ui.h:14
+#: ../shell/evince-menus.ui.h:14
 #| msgid "_Last Page"
 msgid "Last Page"
 msgstr "கடைசி பக்கம்"
 
-#: ../shell/papers-menus.ui.h:15
+#: ../shell/evince-menus.ui.h:15
 #| msgid "Zoom In"
 msgid "Zoom _In"
 msgstr "பெரிதாக்கு (_I)"
 
-#: ../shell/papers-menus.ui.h:16
+#: ../shell/evince-menus.ui.h:16
 #| msgid "Zoom Out"
 msgid "Zoom _Out"
 msgstr "சிறிதாக்கு (_O)"
 
-#: ../shell/papers-menus.ui.h:17
+#: ../shell/evince-menus.ui.h:17
 msgid "_Odd Pages Left"
 msgstr "ஒற்றைப்படை பக்கம் இடது (_O)"
 
-#: ../shell/papers-menus.ui.h:18
+#: ../shell/evince-menus.ui.h:18
 msgid "_Inverted Colors"
 msgstr "_I தலைகீழ் மாற்றிய நிறங்கள்"
 
-#: ../shell/papers-menus.ui.h:19
+#: ../shell/evince-menus.ui.h:19
 msgid "_Reload"
 msgstr "மீண்டும் ஏற்று (_R)"
 
-#: ../shell/papers-menus.ui.h:20
+#: ../shell/evince-menus.ui.h:20
 msgid "_Open…"
 msgstr "(_O) திற"
 
-#: ../shell/papers-menus.ui.h:21
+#: ../shell/evince-menus.ui.h:21
 msgid "Op_en a Copy"
 msgstr "நகலை திறக்கவும்"
 
-#: ../shell/papers-menus.ui.h:22
+#: ../shell/evince-menus.ui.h:22
 msgid "_Save a Copy…"
 msgstr "ஒரு நகலை சேமி... (_S)"
 
-#: ../shell/papers-menus.ui.h:23
+#: ../shell/evince-menus.ui.h:23
 msgid "Send _To…"
 msgstr "இதற்கு அனுப்பு (_T)…"
 
-#: ../shell/papers-menus.ui.h:24
+#: ../shell/evince-menus.ui.h:24
 msgid "Open Containing _Folder"
 msgstr "_F கோப்புள்ள அடைவை திற"
 
-#: ../shell/papers-menus.ui.h:25
+#: ../shell/evince-menus.ui.h:25
 msgid "_Print…"
 msgstr "_P அச்சிடு."
 
-#: ../shell/papers-menus.ui.h:26
+#: ../shell/evince-menus.ui.h:26
 #| msgid "P_roperties"
 msgid "P_roperties…"
 msgstr "பண்புகள் (_r)…"
 
-#: ../shell/papers-menus.ui.h:27
+#: ../shell/evince-menus.ui.h:27
 msgid "_Copy"
 msgstr "நகலெடு (_C)"
 
-#: ../shell/papers-menus.ui.h:28
+#: ../shell/evince-menus.ui.h:28
 msgid "Select _All"
 msgstr "அனைத்தையும் தேர்ந்தெடு (_A)"
 
-#: ../shell/papers-menus.ui.h:29
+#: ../shell/evince-menus.ui.h:29
 msgid "Save Current Settings as _Default"
 msgstr "_D தற்போதைய அமைப்புகளை முன்னிருப்பாக  வைக்கவும்"
 
-#: ../shell/papers-menus.ui.h:30
+#: ../shell/evince-menus.ui.h:30
 msgid "_Add Bookmark"
 msgstr "_A புத்தகக்குறியை சேர்"
 
-#: ../shell/papers-menus.ui.h:31
+#: ../shell/evince-menus.ui.h:31
 #| msgid "Close"
 msgid "_Close"
 msgstr "மூடு (_C)"
 
-#: ../shell/papers-menus.ui.h:35
+#: ../shell/evince-menus.ui.h:35
 msgid "_Open Link"
 msgstr "இணைப்பினை திற (_O)"
 
-#: ../shell/papers-menus.ui.h:36
+#: ../shell/evince-menus.ui.h:36
 msgid "_Copy Link Address"
 msgstr "இணைப்பு முகவரியை நகலெடு (_C)"
 
-#: ../shell/papers-menus.ui.h:37
+#: ../shell/evince-menus.ui.h:37
 msgid "_Go To"
 msgstr "செல் (_G)"
 
-#: ../shell/papers-menus.ui.h:38
+#: ../shell/evince-menus.ui.h:38
 msgid "Open in New _Window"
 msgstr "புது _சாளரத்தில் திறக்கவும்"
 
-#: ../shell/papers-menus.ui.h:41
+#: ../shell/evince-menus.ui.h:41
 msgid "Auto_scroll"
 msgstr "தானியங்கி உருளல் (_s)"
 
-#: ../shell/papers-menus.ui.h:42
+#: ../shell/evince-menus.ui.h:42
 msgid "_Save Image As…"
 msgstr "(_S) பிம்பத்தை இப்படிச் சேமி"
 
-#: ../shell/papers-menus.ui.h:43
+#: ../shell/evince-menus.ui.h:43
 msgid "Copy _Image"
 msgstr "_ப பிம்பத்தை பிரதி எடுக்கவும்"
 
-#: ../shell/papers-menus.ui.h:44
+#: ../shell/evince-menus.ui.h:44
 msgid "_Open Attachment"
 msgstr "_O இணைப்பை திற"
 
-#: ../shell/papers-menus.ui.h:45
+#: ../shell/evince-menus.ui.h:45
 msgid "_Save Attachment As…"
 msgstr "_S இணைப்புகளை இப்படிச் சேமி"
 
-#: ../shell/papers-menus.ui.h:46
+#: ../shell/evince-menus.ui.h:46
 msgid "Annotation Properties…"
 msgstr "வியாக்கியான பண்புகள்..."
 
-#: ../shell/papers-menus.ui.h:47
+#: ../shell/evince-menus.ui.h:47
 #| msgid "Annotations"
 msgid "Remove Annotation"
 msgstr "வியாக்கியானத்தை நீக்கு"
 
-#: ../papers.appdata.xml.in.h:2
+#: ../evince.appdata.xml.in.h:2
 msgid "Document viewer for popular document formats"
 msgstr "பிரபல ஆவண வடிவமைப்புகளுக்கான ஆவணக் காட்சிக்கருவி"
 
-#: ../papers.appdata.xml.in.h:3
+#: ../evince.appdata.xml.in.h:3
 msgid "This is a document viewer for the GNOME desktop."
 msgstr "இது GNOME பணிமேசைக்கான ஒரு ஆவணக் காட்சிக் கருவி."
 
-#: ../papers.appdata.xml.in.h:4
+#: ../evince.appdata.xml.in.h:4
 msgid ""
 "It supports the following document formats: PDF, PS, EPS, XPS, DjVu, TIFF, "
 "DVI (with SyncTeX), and Comic Books archives (CBR, CBT, CBZ, CB7)."
@@ -1938,7 +1938,7 @@ msgstr ""
 #~ msgid "Show or hide the toolbar"
 #~ msgstr "கருவிப்பட்டையை காட்டு அல்லது மறை"
 
-#~ msgid "_Dual (Ppsen pages left)"
+#~ msgid "_Dual (Even pages left)"
 #~ msgstr "இரட்டை இரட்டைப்படை பக்கம் இடது (_O)"
 
 #~ msgid "Show two pages at once with even pages on the left"
@@ -1966,7 +1966,7 @@ msgstr ""
 #~ msgstr "மெடாதரவை ஐ மாற்றுகிறது"
 
 #~ msgid ""
-#~ "The metadata format used by Papers has changed, and hence it needs to be "
+#~ "The metadata format used by Evince has changed, and hence it needs to be "
 #~ "migrated. If the migration is cancelled the metadata storage will not "
 #~ "work."
 #~ msgstr ""
@@ -2072,7 +2072,7 @@ msgstr ""
 #~ msgstr "முந்தைய ஆவணத்தை மீட்கவா?"
 
 #~ msgid ""
-#~ "Papers appears to have exited unexpectedly the last time it was run. You "
+#~ "Evince appears to have exited unexpectedly the last time it was run. You "
 #~ "can recover the opened documents."
 #~ msgstr ""
 #~ "கடைசியாக இயக்கியபோது எவின்ஸ் எதிர்பாராத விதமாக வெளியேறியது போல் உள்ளது. நீங்கள் "

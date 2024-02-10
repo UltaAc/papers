@@ -1,6 +1,6 @@
-# Papers Document Viewer Telugu Translation.
+# Evince Document Viewer Telugu Translation.
 # Copyright (C) 2012 swecha telugu localisation team.
-# This file is distributed under the same license as the papers package.
+# This file is distributed under the same license as the evince package.
 #
 # Bharat Kumar <jonnalagaddabharat@gmail.com>, 2007.
 # Krishna Babu K <kkrothap@redhat.com>, 2009, 2010, 2012, 2013, 2014.
@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evience.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=papers&keywords=I18N+L10N&component=general\n"
+"product=evince&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2014-09-23 15:45+0000\n"
 "PO-Revision-Date: 2014-09-24 01:23+0530\n"
 "Last-Translator: Krishnababu Krothapalli <kkrothap@redhat.com>\n"
@@ -75,12 +75,12 @@ msgstr "“%s” తొలగించుటలో ఒక దోషమువు�
 msgid "Error %s"
 msgstr "%s దోషము"
 
-#: ../backend/comics/comicsdocument.papers-backend.in.in.h:1
-#: ../backend/comics/papers-comicsdocument.metainfo.xml.in.in.h:1
+#: ../backend/comics/comicsdocument.evince-backend.in.in.h:1
+#: ../backend/comics/evince-comicsdocument.metainfo.xml.in.in.h:1
 msgid "Comic Books"
 msgstr "కామిక్ పుస్తకాలు"
 
-#: ../backend/comics/papers-comicsdocument.metainfo.xml.in.in.h:2
+#: ../backend/comics/evince-comicsdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading comic books"
 msgstr "కామిక్ పుస్తకాలు చదువుటకు తోడ్పాటు జతచేయును"
 
@@ -96,12 +96,12 @@ msgstr ""
 "ఈ పత్రము వివిధ దస్త్రాలచే ఏర్పడినది. ఇలా ఏర్పడిన ఒకటి లేదా కొన్ని దస్త్రాలకు "
 "దర్శనసౌలభ్యత లేదు."
 
-#: ../backend/djvu/djvudocument.papers-backend.in.in.h:1
-#: ../backend/djvu/papers-djvudocument.metainfo.xml.in.in.h:1
+#: ../backend/djvu/djvudocument.evince-backend.in.in.h:1
+#: ../backend/djvu/evince-djvudocument.metainfo.xml.in.in.h:1
 msgid "DjVu Documents"
 msgstr "Djvu పత్రములు"
 
-#: ../backend/djvu/papers-djvudocument.metainfo.xml.in.in.h:2
+#: ../backend/djvu/evince-djvudocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading DjVu documents"
 msgstr "DjVu పత్రములు చదువుటకు తోడ్పాటు జతచేయును"
 
@@ -109,62 +109,62 @@ msgstr "DjVu పత్రములు చదువుటకు తోడ్ప�
 msgid "DVI document has incorrect format"
 msgstr "DVI పత్రము సరియైన ఆకృతిలో లేదు"
 
-#: ../backend/dvi/dvidocument.papers-backend.in.in.h:1
-#: ../backend/dvi/papers-dvidocument.metainfo.xml.in.in.h:1
+#: ../backend/dvi/dvidocument.evince-backend.in.in.h:1
+#: ../backend/dvi/evince-dvidocument.metainfo.xml.in.in.h:1
 msgid "DVI Documents"
 msgstr "DVI పత్రాలు"
 
-#: ../backend/dvi/papers-dvidocument.metainfo.xml.in.in.h:2
+#: ../backend/dvi/evince-dvidocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading DVI documents"
 msgstr "DVI పత్రములు చదువుటకు తోడ్పాటు జతచేయును"
 
-#: ../backend/pdf/pps-poppler.cc:673
+#: ../backend/pdf/ev-poppler.cc:673
 msgid "This work is in the Public Domain"
 msgstr "ఈ పని పబ్లిక్ డొమైన్‌లో ఉంది"
 
 #. translators: this is the document security state
-#: ../backend/pdf/pps-poppler.cc:929 ../backend/pdf/pps-poppler.cc:935
+#: ../backend/pdf/ev-poppler.cc:929 ../backend/pdf/ev-poppler.cc:935
 msgid "Yes"
 msgstr "అవును"
 
 #. translators: this is the document security state
-#: ../backend/pdf/pps-poppler.cc:932 ../backend/pdf/pps-poppler.cc:935
+#: ../backend/pdf/ev-poppler.cc:932 ../backend/pdf/ev-poppler.cc:935
 msgid "No"
 msgstr "లేదు"
 
-#: ../backend/pdf/pps-poppler.cc:1066
+#: ../backend/pdf/ev-poppler.cc:1066
 msgid "Type 1"
 msgstr "రకం 1"
 
-#: ../backend/pdf/pps-poppler.cc:1068
+#: ../backend/pdf/ev-poppler.cc:1068
 msgid "Type 1C"
 msgstr "రకం 1C"
 
-#: ../backend/pdf/pps-poppler.cc:1070
+#: ../backend/pdf/ev-poppler.cc:1070
 msgid "Type 3"
 msgstr "రకం 3"
 
-#: ../backend/pdf/pps-poppler.cc:1072
+#: ../backend/pdf/ev-poppler.cc:1072
 msgid "TrueType"
 msgstr "నిజమైన రకం"
 
-#: ../backend/pdf/pps-poppler.cc:1074
+#: ../backend/pdf/ev-poppler.cc:1074
 msgid "Type 1 (CID)"
 msgstr "రకం 1 (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1076
+#: ../backend/pdf/ev-poppler.cc:1076
 msgid "Type 1C (CID)"
 msgstr "రకం 1C (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1078
+#: ../backend/pdf/ev-poppler.cc:1078
 msgid "TrueType (CID)"
 msgstr "నిజమైన రకం (CID)"
 
-#: ../backend/pdf/pps-poppler.cc:1080
+#: ../backend/pdf/ev-poppler.cc:1080
 msgid "Unknown font type"
 msgstr "తెలియని ఖతి రకము"
 
-#: ../backend/pdf/pps-poppler.cc:1124
+#: ../backend/pdf/ev-poppler.cc:1124
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
@@ -176,11 +176,11 @@ msgstr ""
 "ఫాంట్సుతో సమానం కాకపోతే, "
 "రెండరింగ్ సరిగా వుండకపోవచ్చు."
 
-#: ../backend/pdf/pps-poppler.cc:1129
+#: ../backend/pdf/ev-poppler.cc:1129
 msgid "All fonts are either standard or embedded."
 msgstr "అన్ని ఫాంట్లు ప్రామాణికమైనవి లేదా ఎంబడెడ్."
 
-#: ../backend/pdf/pps-poppler.cc:1161
+#: ../backend/pdf/ev-poppler.cc:1161
 msgid "No name"
 msgstr "పేరు లేదు"
 
@@ -194,20 +194,20 @@ msgstr "పేరు లేదు"
 #. Author: None
 #. Keywords: None
 #.
-#: ../backend/pdf/pps-poppler.cc:1170 ../libview/pps-print-operation.c:1967
-#: ../properties/pps-properties-view.c:192
+#: ../backend/pdf/ev-poppler.cc:1170 ../libview/ev-print-operation.c:1967
+#: ../properties/ev-properties-view.c:192
 msgid "None"
 msgstr "ఏమీలేదు"
 
-#: ../backend/pdf/pps-poppler.cc:1178
+#: ../backend/pdf/ev-poppler.cc:1178
 msgid "Embedded subset"
 msgstr "ఎంబెడెడ్ ఉపసమితి"
 
-#: ../backend/pdf/pps-poppler.cc:1180
+#: ../backend/pdf/ev-poppler.cc:1180
 msgid "Embedded"
 msgstr "ఎంబెడెడ్"
 
-#: ../backend/pdf/pps-poppler.cc:1182
+#: ../backend/pdf/ev-poppler.cc:1182
 msgid "Not embedded"
 msgstr "ఎంబెడెడ్ కాదు"
 
@@ -216,7 +216,7 @@ msgstr "ఎంబెడెడ్ కాదు"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: ../backend/pdf/pps-poppler.cc:1189
+#: ../backend/pdf/ev-poppler.cc:1189
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (ప్రామాణిక 14 ఫాంట్లలో వొకటి)"
 
@@ -225,43 +225,43 @@ msgstr " (ప్రామాణిక 14 ఫాంట్లలో వొకట�
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: ../backend/pdf/pps-poppler.cc:1196
+#: ../backend/pdf/ev-poppler.cc:1196
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (ప్రామాణిక 14 ఫాంట్లలో వొకటి కాదు)"
 
-#: ../backend/pdf/pps-poppler.cc:1203
+#: ../backend/pdf/ev-poppler.cc:1203
 msgid "Encoding"
 msgstr "ఎన్కోడింగు"
 
-#: ../backend/pdf/pps-poppler.cc:1204
+#: ../backend/pdf/ev-poppler.cc:1204
 msgid "Substituting with"
 msgstr "దీనితో ప్రతిస్థాపించుతోంది"
 
-#: ../backend/pdf/papers-pdfdocument.metainfo.xml.in.in.h:1
-#: ../backend/pdf/pdfdocument.papers-backend.in.in.h:1
+#: ../backend/pdf/evince-pdfdocument.metainfo.xml.in.in.h:1
+#: ../backend/pdf/pdfdocument.evince-backend.in.in.h:1
 msgid "PDF Documents"
 msgstr "PDF పత్రములు"
 
-#: ../backend/pdf/papers-pdfdocument.metainfo.xml.in.in.h:2
+#: ../backend/pdf/evince-pdfdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading PDF Documents"
 msgstr "PDF పత్రములు చదువుటకు తోడ్పాటు జతచేయును"
 
-#: ../backend/ps/pps-spectre.c:98
+#: ../backend/ps/ev-spectre.c:98
 #, c-format
 msgid "Failed to load document “%s”"
 msgstr "“%s” పత్రమును లోడుచేయుటలో విఫలమైంది"
 
-#: ../backend/ps/pps-spectre.c:131
+#: ../backend/ps/ev-spectre.c:131
 #, c-format
 msgid "Failed to save document “%s”"
 msgstr "“%s” పత్రమును భద్రపరుచుటలో విఫలమైంది"
 
-#: ../backend/ps/papers-psdocument.metainfo.xml.in.in.h:1
-#: ../backend/ps/psdocument.papers-backend.in.in.h:1
+#: ../backend/ps/evince-psdocument.metainfo.xml.in.in.h:1
+#: ../backend/ps/psdocument.evince-backend.in.in.h:1
 msgid "PostScript Documents"
 msgstr "పోస్ట్‍స్క్రిప్ట్ పత్రములు"
 
-#: ../backend/ps/papers-psdocument.metainfo.xml.in.in.h:2
+#: ../backend/ps/evince-psdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading PostScript documents"
 msgstr "పోస్ట్‌స్క్రిప్ట్ పత్రములు చదువుటకు తోడ్పాటు జతచేయును"
 
@@ -269,130 +269,130 @@ msgstr "పోస్ట్‌స్క్రిప్ట్ పత్రము�
 msgid "Invalid document"
 msgstr "సరియైన పత్రము కాదు"
 
-#: ../backend/tiff/papers-tiffdocument.metainfo.xml.in.in.h:1
-#: ../backend/tiff/tiffdocument.papers-backend.in.in.h:1
+#: ../backend/tiff/evince-tiffdocument.metainfo.xml.in.in.h:1
+#: ../backend/tiff/tiffdocument.evince-backend.in.in.h:1
 msgid "TIFF Documents"
 msgstr "TIFF పత్రములు"
 
-#: ../backend/tiff/papers-tiffdocument.metainfo.xml.in.in.h:2
+#: ../backend/tiff/evince-tiffdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading TIFF documents"
 msgstr "TIFF పత్రములు చదువుటకు తోడ్పాటు జతచేయును"
 
-#: ../backend/xps/papers-xpsdocument.metainfo.xml.in.in.h:1
-#: ../backend/xps/xpsdocument.papers-backend.in.in.h:1
+#: ../backend/xps/evince-xpsdocument.metainfo.xml.in.in.h:1
+#: ../backend/xps/xpsdocument.evince-backend.in.in.h:1
 msgid "XPS Documents"
 msgstr "XPS పత్రములు"
 
-#: ../backend/xps/papers-xpsdocument.metainfo.xml.in.in.h:2
+#: ../backend/xps/evince-xpsdocument.metainfo.xml.in.in.h:2
 msgid "Adds support for reading XPS documents"
 msgstr "XPS పత్రములు చదువుటకు తోడ్పాటు జతచేయును"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:230
-#: ../previewer/pps-previewer-window.c:317 ../shell/papers-menus.ui.h:32
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:230
+#: ../previewer/ev-previewer-window.c:317 ../shell/evince-menus.ui.h:32
 msgid "Fit Pa_ge"
 msgstr "పుటకు అమర్చు (_g)"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:239
-#: ../previewer/pps-previewer-window.c:320 ../shell/papers-menus.ui.h:33
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:239
+#: ../previewer/ev-previewer-window.c:320 ../shell/evince-menus.ui.h:33
 msgid "Fit _Width"
 msgstr "వెడల్పుకు అమర్చు (_W)"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:248
-#: ../shell/papers-menus.ui.h:34
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:248
+#: ../shell/evince-menus.ui.h:34
 msgid "_Automatic"
 msgstr "స్వయంచాలక (_A)"
 
 #. Navigation buttons
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:273
-#: ../previewer/pps-previewer-window.c:271
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:273
+#: ../previewer/ev-previewer-window.c:271
 msgid "Go to the previous page"
 msgstr "మునుపటి పుటకి వెళ్ళు"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:277
-#: ../previewer/pps-previewer-window.c:274
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:277
+#: ../previewer/ev-previewer-window.c:274
 msgid "Go to the next page"
 msgstr "తరువాతి పుటకి వెళ్ళు"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:312
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:312
 msgid "Show the entire document"
 msgstr "పూర్తి పత్రాన్ని చూపించు"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:320
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:320
 msgid "Show two pages at once"
 msgstr "ఒకదాని వద్ద రెండు పేజీలను చూపుము"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:342
-#: ../previewer/pps-previewer-window.c:277
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:342
+#: ../previewer/ev-previewer-window.c:277
 msgid "Enlarge the document"
 msgstr "పత్రమును పెంచు"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:346
-#: ../previewer/pps-previewer-window.c:280
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:346
+#: ../previewer/ev-previewer-window.c:280
 msgid "Shrink the document"
 msgstr "పత్రమును తగ్గించు"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:368
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:368
 #| msgid "Downloading document (%d%%)"
 msgid "Download document"
 msgstr "పత్రమును దించు"
 
-#: ../browser-plugin/PpsBrowserPluginToolbar.cpp:381
+#: ../browser-plugin/EvBrowserPluginToolbar.cpp:381
 #| msgid "Print this document"
 msgid "Print document"
 msgstr "పత్రాన్ని ముద్రించు"
 
 #. Manually set name and icon
-#: ../data/papers.desktop.in.in.h:1 ../shell/pps-application.c:1029
-#: ../shell/pps-window-title.c:139 ../shell/main.c:298
+#: ../data/evince.desktop.in.in.h:1 ../shell/ev-application.c:1029
+#: ../shell/ev-window-title.c:139 ../shell/main.c:298
 msgid "Document Viewer"
 msgstr "పత్ర వీక్షకం"
 
-#: ../data/papers.desktop.in.in.h:2
+#: ../data/evince.desktop.in.in.h:2
 msgid "View multi-page documents"
 msgstr "బహుళ-పుట పత్రాలను వీక్షించు"
 
-#: ../data/papers.desktop.in.in.h:3
+#: ../data/evince.desktop.in.in.h:3
 msgid "pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;"
 msgstr "pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;"
 
-#: ../data/papers-previewer.desktop.in.in.h:1
+#: ../data/evince-previewer.desktop.in.in.h:1
 msgid "Print Preview"
 msgstr "ముద్రణ ముందస్తు దర్శనం"
 
-#: ../data/papers-previewer.desktop.in.in.h:2
+#: ../data/evince-previewer.desktop.in.in.h:2
 msgid "Preview before printing"
 msgstr "ముద్రణకు ముందుగా దర్శనం"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:1
+#: ../data/org.gnome.Evince.gschema.xml.in.h:1
 msgid "Override document restrictions"
 msgstr "పత్ర నిబంధనలను దిద్దివ్రాయుము"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:2
+#: ../data/org.gnome.Evince.gschema.xml.in.h:2
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr ""
 "పత్రము నిబంధనలను దిద్దివ్రాయుము, ఉదాహరణకు నకలుచేయుట లేదా ముద్రణ వంటి నిబంధనలు."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:3
+#: ../data/org.gnome.Evince.gschema.xml.in.h:3
 msgid "Automatically reload the document"
 msgstr "పత్రాన్ని స్వయంచాలకంగా తిరిగిలోడుచేయి"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:4
+#: ../data/org.gnome.Evince.gschema.xml.in.h:4
 msgid "The document is automatically reloaded on file change."
 msgstr "దస్త్ర మార్పువలన పత్రము స్వయంచాలకంగా తిరిగి నింపబడింది."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:5
+#: ../data/org.gnome.Evince.gschema.xml.in.h:5
 msgid "The URI of the directory last used to open or save a document"
 msgstr "పత్రాన్ని తెరుచుటకు లేదా భద్రపరుచుటకు చివరిగా వాడిన సంచయం యొక్క యూఆర్ఐ"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:6
+#: ../data/org.gnome.Evince.gschema.xml.in.h:6
 msgid "The URI of the directory last used to save a picture"
 msgstr "చిత్రాన్ని భద్రపరుచుటకు చివరిగా వాడిన సంచయం యొక్క యూఆర్ఐ"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:7
+#: ../data/org.gnome.Evince.gschema.xml.in.h:7
 msgid "Page cache size in MiB"
 msgstr "పేజీ క్యాషీ పరిమాణం MiB"
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:8
+#: ../data/org.gnome.Evince.gschema.xml.in.h:8
 msgid ""
 "The maximum size that will be used to cache rendered pages, limits maximum "
 "zoom level."
@@ -400,7 +400,7 @@ msgstr ""
 "రెండర్డ్ పేజీలు క్యాషీ చేయుటకు ఉపయోగించు గరిష్ట పరిమాణం, గరిష్ట జూమ్ స్థాయిని "
 "పరిమితం చేయును."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:9
+#: ../data/org.gnome.Evince.gschema.xml.in.h:9
 msgid ""
 "Show a dialog to confirm that the user wants to activate the caret "
 "navigation."
@@ -408,141 +408,141 @@ msgstr ""
 "వాడుకరి కారెట్ నావిగేషన్ క్రియాశీలపరచాలని అనుకుంటున్నారని ఖాయపరచుటకు ఒక "
 "డైలాగ్ చూపుము."
 
-#: ../data/org.gnome.Papers.gschema.xml.in.h:10
+#: ../data/org.gnome.Evince.gschema.xml.in.h:10
 #| msgid "Adjust the zoom level"
 msgid "Allow links to change the zoom level."
 msgstr "జూమ్ స్థాయిని మార్చుటకు లంకెలను అనుమతించు."
 
-#: ../libdocument/pps-attachment.c:310 ../libdocument/pps-attachment.c:331
+#: ../libdocument/ev-attachment.c:310 ../libdocument/ev-attachment.c:331
 #, c-format
 msgid "Couldn't save attachment “%s”: %s"
 msgstr "“%s” అనుబంధపత్రాన్ని భద్రపరచడం వీలుకాదు: %s"
 
-#: ../libdocument/pps-attachment.c:379
+#: ../libdocument/ev-attachment.c:379
 #, c-format
 msgid "Couldn't open attachment “%s”: %s"
 msgstr "“%s” అనుబంధపత్రాన్ని తెరవడం వీలుకాదు: %s"
 
-#: ../libdocument/pps-attachment.c:414
+#: ../libdocument/ev-attachment.c:414
 #, c-format
 msgid "Couldn't open attachment “%s”"
 msgstr "“%s” అనుబంధపత్రాన్ని తెరవడం వీలుకాదు"
 
-#: ../libdocument/pps-document-factory.c:101
+#: ../libdocument/ev-document-factory.c:101
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "దస్త్ర రకము %s (%s) కు సహకారం లేదు"
 
-#: ../libdocument/pps-document-factory.c:364
-#: ../libdocument/pps-file-helpers.c:491 ../libdocument/pps-file-helpers.c:537
-#: ../libdocument/pps-file-helpers.c:556
+#: ../libdocument/ev-document-factory.c:364
+#: ../libdocument/ev-file-helpers.c:491 ../libdocument/ev-file-helpers.c:537
+#: ../libdocument/ev-file-helpers.c:556
 msgid "Unknown MIME Type"
 msgstr "తెలియని MIME రకం"
 
-#: ../libdocument/pps-document-factory.c:552
+#: ../libdocument/ev-document-factory.c:552
 msgid "All Documents"
 msgstr "అన్ని పత్రాలు"
 
-#: ../libdocument/pps-document-factory.c:579 ../shell/pps-utils.c:309
+#: ../libdocument/ev-document-factory.c:579 ../shell/ev-utils.c:309
 msgid "All Files"
 msgstr "అన్ని దస్త్రాలు"
 
-#: ../libdocument/pps-file-helpers.c:147
+#: ../libdocument/ev-file-helpers.c:147
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "తాత్కాలిక సంచయాన్ని సృష్టించుటలో విఫలమైంది: %s"
 
-#: ../libdocument/pps-file-helpers.c:309
+#: ../libdocument/ev-file-helpers.c:309
 #, c-format
 msgid "Failed to create a temporary directory: %s"
 msgstr "తాత్కాలిక సంచయాలను సృష్టించుటలో విఫలమైంది: %s"
 
-#: ../libmisc/pps-page-action-widget.c:84
-#: ../libmisc/pps-page-action-widget.c:123
+#: ../libmisc/ev-page-action-widget.c:84
+#: ../libmisc/ev-page-action-widget.c:123
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%d వది %d కిగాను)"
 
-#: ../libmisc/pps-page-action-widget.c:86
-#: ../libmisc/pps-page-action-widget.c:127
+#: ../libmisc/ev-page-action-widget.c:86
+#: ../libmisc/ev-page-action-widget.c:127
 #, c-format
 msgid "of %d"
 msgstr "%d యొక్క"
 
-#: ../libmisc/pps-page-action-widget.c:185 ../shell/pps-history.c:426
-#: ../shell/pps-sidebar-bookmarks.c:295 ../shell/pps-window.c:904
-#: ../shell/pps-window.c:4708
+#: ../libmisc/ev-page-action-widget.c:185 ../shell/ev-history.c:426
+#: ../shell/ev-sidebar-bookmarks.c:295 ../shell/ev-window.c:904
+#: ../shell/ev-window.c:4708
 #, c-format
 msgid "Page %s"
 msgstr "%s పుట"
 
-#: ../libview/pps-jobs.c:1997
+#: ../libview/ev-jobs.c:1997
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "%d పుట ముద్రించులో విఫలమైంది: %s"
 
 #. Initial state
-#: ../libview/pps-print-operation.c:350
+#: ../libview/ev-print-operation.c:350
 #| msgid "Preparing to print…"
 msgid "Preparing preview…"
 msgstr "మునుజూపు సిద్దంచేస్తోంది..."
 
-#: ../libview/pps-print-operation.c:352 ../libview/pps-print-operation.c:362
+#: ../libview/ev-print-operation.c:352 ../libview/ev-print-operation.c:362
 msgid "Finishing…"
 msgstr "పూర్తిచేస్తున్నది..."
 
-#: ../libview/pps-print-operation.c:354
+#: ../libview/ev-print-operation.c:354
 #, c-format
 #| msgid "Printing page %d of %d…"
 msgid "Generating preview: page %d of %d"
 msgstr "మునుజూపు పుట్టిస్తోంది: పేజీ %d మొత్తం %d కీ గాను"
 
 #. Initial state
-#: ../libview/pps-print-operation.c:360
+#: ../libview/ev-print-operation.c:360
 msgid "Preparing to print…"
 msgstr "ముద్రించుటకు సిద్దంచేస్తోంది ..."
 
-#: ../libview/pps-print-operation.c:364
+#: ../libview/ev-print-operation.c:364
 #, c-format
 msgid "Printing page %d of %d…"
 msgstr "%d పుట ముద్రించుచున్నది %d మొత్తంలో..."
 
-#: ../libview/pps-print-operation.c:1214
+#: ../libview/ev-print-operation.c:1214
 #| msgid "Postscript is not supported by this printer."
 msgid "Requested format is not supported by this printer."
 msgstr "అభ్యర్ధించిన ఫార్మాట్‌కు ఈ ముద్రిక తోడ్పాటునీయదు"
 
-#: ../libview/pps-print-operation.c:1277
+#: ../libview/ev-print-operation.c:1277
 msgid "Invalid page selection"
 msgstr "పుట ఎంపిక సరిగాలేదు"
 
-#: ../libview/pps-print-operation.c:1278
+#: ../libview/ev-print-operation.c:1278
 msgid "Warning"
 msgstr "హెచ్చరిక"
 
-#: ../libview/pps-print-operation.c:1280
+#: ../libview/ev-print-operation.c:1280
 msgid "Your print range selection does not include any pages"
 msgstr "మీ ముద్రణ విస్తృతి ఎంపిక ఏ పుటను చేర్చలేదు"
 
 #. translators: Title of the print dialog
 #. translators: Print document currently shown in the Print Preview window
-#: ../libview/pps-print-operation.c:1358 ../previewer/pps-previewer-window.c:284
+#: ../libview/ev-print-operation.c:1358 ../previewer/ev-previewer-window.c:284
 msgid "Print"
 msgstr "ముద్రించు"
 
-#: ../libview/pps-print-operation.c:1961
+#: ../libview/ev-print-operation.c:1961
 msgid "Page Scaling:"
 msgstr "పుట కొలత:"
 
-#: ../libview/pps-print-operation.c:1968
+#: ../libview/ev-print-operation.c:1968
 msgid "Shrink to Printable Area"
 msgstr "ముద్రించగలిగిన వైశాల్యమునకు కుచింపు"
 
-#: ../libview/pps-print-operation.c:1969
+#: ../libview/ev-print-operation.c:1969
 msgid "Fit to Printable Area"
 msgstr "ముద్రించగలిగిన వైశాల్యమునకు అమర్చు"
 
-#: ../libview/pps-print-operation.c:1972
+#: ../libview/ev-print-operation.c:1972
 msgid ""
 "Scale document pages to fit the selected printer page. Select from one of "
 "the following:\n"
@@ -569,11 +569,11 @@ msgstr ""
 "వైశాల్యమునకు అమరునట్లు "
 "పత్రము పుటలు పెద్దవిచేయబడును లేదా తగ్గించబడును.\n"
 
-#: ../libview/pps-print-operation.c:1984
+#: ../libview/ev-print-operation.c:1984
 msgid "Auto Rotate and Center"
 msgstr "స్వయంచాలకంగా తిప్పి మధ్యనవుంచు"
 
-#: ../libview/pps-print-operation.c:1987
+#: ../libview/ev-print-operation.c:1987
 msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
@@ -582,11 +582,11 @@ msgstr ""
 "తిప్పుము. పత్రము పుటలు "
 "ముద్రణ పుట లోపల మధ్యన వుంచబడుతాయి."
 
-#: ../libview/pps-print-operation.c:1992
+#: ../libview/ev-print-operation.c:1992
 msgid "Select page size using document page size"
 msgstr "పత్రము పుట పరిమాణమును వాడి పుట పరిమాణాన్ని ఎంచుకోండి"
 
-#: ../libview/pps-print-operation.c:1994
+#: ../libview/ev-print-operation.c:1994
 msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
@@ -594,193 +594,193 @@ msgstr ""
 "ఎప్పుడైతే చేతనమైందో, ప్రతీ పుట అదే పరిమాణంలోవున్న పేపరు పై పత్ర పుట వలె "
 "ముద్రించబడుతుంది."
 
-#: ../libview/pps-print-operation.c:2094
+#: ../libview/ev-print-operation.c:2094
 msgid "Page Handling"
 msgstr "పుట సంభాలన"
 
-#: ../libview/pps-view-accessible.c:43
+#: ../libview/ev-view-accessible.c:43
 msgid "Scroll Up"
 msgstr "పైకి జరుపు"
 
-#: ../libview/pps-view-accessible.c:44
+#: ../libview/ev-view-accessible.c:44
 msgid "Scroll Down"
 msgstr "కిందకి జరుపు"
 
-#: ../libview/pps-view-accessible.c:50
+#: ../libview/ev-view-accessible.c:50
 msgid "Scroll View Up"
 msgstr "పైన చూడుటకు జరుగు"
 
-#: ../libview/pps-view-accessible.c:51
+#: ../libview/ev-view-accessible.c:51
 msgid "Scroll View Down"
 msgstr "కింద చూడుటకు జరుగు"
 
-#: ../libview/pps-view-accessible.c:129
+#: ../libview/ev-view-accessible.c:129
 msgid "Document View"
 msgstr "పత్ర వీక్షణం"
 
-#: ../libview/pps-view.c:1994
+#: ../libview/ev-view.c:1994
 msgid "Go to first page"
 msgstr "మొదటి పుటకి వెళ్ళు"
 
-#: ../libview/pps-view.c:1996
+#: ../libview/ev-view.c:1996
 msgid "Go to previous page"
 msgstr "మునుపటి పుటకి వెళ్ళు"
 
-#: ../libview/pps-view.c:1998
+#: ../libview/ev-view.c:1998
 msgid "Go to next page"
 msgstr "తరువాతి పుటకి వెళ్ళు"
 
-#: ../libview/pps-view.c:2000
+#: ../libview/ev-view.c:2000
 msgid "Go to last page"
 msgstr "చివరి పుటకి వెళ్ళు"
 
-#: ../libview/pps-view.c:2002
+#: ../libview/ev-view.c:2002
 msgid "Go to page"
 msgstr "పుటకి వెళ్ళు"
 
-#: ../libview/pps-view.c:2004
+#: ../libview/ev-view.c:2004
 msgid "Find"
 msgstr "కనుగొను"
 
-#: ../libview/pps-view.c:2032
+#: ../libview/ev-view.c:2032
 #, c-format
 msgid "Go to page %s"
 msgstr "%s పుటకి వెళ్ళు"
 
-#: ../libview/pps-view.c:2038
+#: ../libview/ev-view.c:2038
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "%s కి వెళ్ళు “%s” దస్త్రం నందు"
 
-#: ../libview/pps-view.c:2041
+#: ../libview/ev-view.c:2041
 #, c-format
 msgid "Go to file “%s”"
 msgstr "%s దస్త్రానికి వెళ్ళు"
 
-#: ../libview/pps-view.c:2049
+#: ../libview/ev-view.c:2049
 #, c-format
 msgid "Launch %s"
 msgstr "%s ని ప్రారంభించు"
 
-#: ../libview/pps-view-presentation.c:735
+#: ../libview/ev-view-presentation.c:735
 msgid "Jump to page:"
 msgstr "పుటకి దూకండి:"
 
-#: ../libview/pps-view-presentation.c:1038
+#: ../libview/ev-view-presentation.c:1038
 msgid "End of presentation. Click to exit."
 msgstr "సమర్పణ ముగిసినది. నిష్క్రమించుటకు నొక్కండి."
 
-#: ../previewer/pps-previewer.c:45
+#: ../previewer/ev-previewer.c:45
 msgid "Delete the temporary file"
 msgstr "తాత్కాలిక దస్త్రాన్ని తొలగించు"
 
-#: ../previewer/pps-previewer.c:46
+#: ../previewer/ev-previewer.c:46
 msgid "Print settings file"
 msgstr "అమరికల దస్త్రాన్ని ముద్రించు"
 
-#: ../previewer/pps-previewer.c:46
+#: ../previewer/ev-previewer.c:46
 msgid "FILE"
 msgstr "FILE"
 
-#: ../previewer/pps-previewer.c:175 ../previewer/pps-previewer.c:207
+#: ../previewer/ev-previewer.c:175 ../previewer/ev-previewer.c:207
 msgid "GNOME Document Previewer"
 msgstr "గ్నోమ్ పత్ర మునుజూపకం"
 
-#: ../previewer/pps-previewer-window.c:91 ../shell/pps-window.c:3323
+#: ../previewer/ev-previewer-window.c:91 ../shell/ev-window.c:3323
 msgid "Failed to print document"
 msgstr "పత్రమును మద్రించుటలో విఫలమైంది"
 
-#: ../previewer/pps-previewer-window.c:223
+#: ../previewer/ev-previewer-window.c:223
 #, c-format
 msgid "The selected printer '%s' could not be found"
 msgstr "ఎంచుకున్న ముద్రణాయంత్రము '%s' కనుగొనబడలేకపోయింది"
 
-#: ../previewer/pps-previewer-window.c:270 ../shell/papers-menus.ui.h:39
+#: ../previewer/ev-previewer-window.c:270 ../shell/evince-menus.ui.h:39
 msgid "_Previous Page"
 msgstr "మునుపటి పుట (_P)"
 
-#: ../previewer/pps-previewer-window.c:273 ../shell/papers-menus.ui.h:40
+#: ../previewer/ev-previewer-window.c:273 ../shell/evince-menus.ui.h:40
 msgid "_Next Page"
 msgstr "తరువాతి పుట (_N)"
 
-#: ../previewer/pps-previewer-window.c:285
+#: ../previewer/ev-previewer-window.c:285
 msgid "Print this document"
 msgstr "ఈ పత్రాన్ని ముద్రించు"
 
-#: ../previewer/pps-previewer-window.c:318
+#: ../previewer/ev-previewer-window.c:318
 msgid "Make the current document fill the window"
 msgstr " ప్రస్థుత పత్రాన్ని కిటికీకి సరిపోయే విధంగా చేయి"
 
-#: ../previewer/pps-previewer-window.c:321
+#: ../previewer/ev-previewer-window.c:321
 msgid "Make the current document fill the window width"
 msgstr "కిటికీ వెడల్పుకు సరిపోయేవిధముగా పత్రాన్ని నింపు"
 
-#: ../previewer/pps-previewer-window.c:536
+#: ../previewer/ev-previewer-window.c:536
 msgid "Page"
 msgstr "పుట"
 
-#: ../previewer/pps-previewer-window.c:537
+#: ../previewer/ev-previewer-window.c:537
 msgid "Select Page"
 msgstr "పుటని ఎంచుకోండి"
 
-#: ../properties/pps-properties-main.c:116
+#: ../properties/ev-properties-main.c:116
 msgid "Document"
 msgstr "పత్రము"
 
-#: ../properties/pps-properties-view.c:60
+#: ../properties/ev-properties-view.c:60
 msgid "Title:"
 msgstr "శీర్షిక:"
 
-#: ../properties/pps-properties-view.c:61
+#: ../properties/ev-properties-view.c:61
 msgid "Location:"
 msgstr "స్థానము:"
 
-#: ../properties/pps-properties-view.c:62
+#: ../properties/ev-properties-view.c:62
 msgid "Subject:"
 msgstr "విషయం:"
 
-#: ../properties/pps-properties-view.c:63
-#: ../shell/pps-annotation-properties-dialog.c:154
+#: ../properties/ev-properties-view.c:63
+#: ../shell/ev-annotation-properties-dialog.c:154
 msgid "Author:"
 msgstr "మూలకర్త:"
 
-#: ../properties/pps-properties-view.c:64
+#: ../properties/ev-properties-view.c:64
 msgid "Keywords:"
 msgstr "కీలకపదాలు:"
 
-#: ../properties/pps-properties-view.c:65
+#: ../properties/ev-properties-view.c:65
 msgid "Producer:"
 msgstr "ఉత్పాదకుడు:"
 
-#: ../properties/pps-properties-view.c:66
+#: ../properties/ev-properties-view.c:66
 msgid "Creator:"
 msgstr "సృష్టికర్త:"
 
-#: ../properties/pps-properties-view.c:67
+#: ../properties/ev-properties-view.c:67
 msgid "Created:"
 msgstr "సృష్టించబడిన తేదీ:"
 
-#: ../properties/pps-properties-view.c:68
+#: ../properties/ev-properties-view.c:68
 msgid "Modified:"
 msgstr "సవరించబడిన తేదీ:"
 
-#: ../properties/pps-properties-view.c:69
+#: ../properties/ev-properties-view.c:69
 msgid "Number of Pages:"
 msgstr "మొత్తం పుటలు:"
 
-#: ../properties/pps-properties-view.c:70
+#: ../properties/ev-properties-view.c:70
 msgid "Optimized:"
 msgstr "అనుకూలత:"
 
-#: ../properties/pps-properties-view.c:71
+#: ../properties/ev-properties-view.c:71
 msgid "Format:"
 msgstr "ఆకృతి:"
 
-#: ../properties/pps-properties-view.c:72
+#: ../properties/ev-properties-view.c:72
 msgid "Security:"
 msgstr "రక్షణ:"
 
-#: ../properties/pps-properties-view.c:73
+#: ../properties/ev-properties-view.c:73
 msgid "Paper Size:"
 msgstr "కాగిత పరిమాణము:"
 
@@ -790,30 +790,30 @@ msgstr "కాగిత పరిమాణము:"
 #. * Do *not* translate it to "predefinito:mm", if it
 #. * it isn't default:mm or default:inch it will not work
 #.
-#: ../properties/pps-properties-view.c:220
+#: ../properties/ev-properties-view.c:220
 msgid "default:mm"
 msgstr "default:mm"
 
-#: ../properties/pps-properties-view.c:264
+#: ../properties/ev-properties-view.c:264
 #, c-format
 msgid "%.0f × %.0f mm"
 msgstr "%.0f × %.0f mm"
 
-#: ../properties/pps-properties-view.c:268
+#: ../properties/ev-properties-view.c:268
 #, c-format
 msgid "%.2f × %.2f inch"
 msgstr "%.2f × %.2f inch"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/pps-properties-view.c:292
+#: ../properties/ev-properties-view.c:292
 #, c-format
 msgid "%s, Portrait (%s)"
 msgstr "%s, అడ్డచిత్రం (%s)"
 
 #. Note to translators: first placeholder is the paper name (eg.
 #. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: ../properties/pps-properties-view.c:299
+#: ../properties/ev-properties-view.c:299
 #, c-format
 msgid "%s, Landscape (%s)"
 msgstr "%s, నిలువుచిత్రం (%s)"
@@ -838,85 +838,85 @@ msgstr "శోధన పదం యొక్క పూర్వసంభవాన
 msgid "Find next occurrence of the search string"
 msgstr "శోధనపదం యొక్క తదుపరిసంభవాన్ని కనుగొను"
 
-#: ../shell/pps-annotation-properties-dialog.c:94
+#: ../shell/ev-annotation-properties-dialog.c:94
 msgid "Icon:"
 msgstr "ప్రతీక:"
 
-#: ../shell/pps-annotation-properties-dialog.c:100
+#: ../shell/ev-annotation-properties-dialog.c:100
 msgid "Note"
 msgstr "గమనిక"
 
-#: ../shell/pps-annotation-properties-dialog.c:101
+#: ../shell/ev-annotation-properties-dialog.c:101
 msgid "Comment"
 msgstr "వ్యాఖ్య"
 
-#: ../shell/pps-annotation-properties-dialog.c:102
+#: ../shell/ev-annotation-properties-dialog.c:102
 msgid "Key"
 msgstr "కీ"
 
-#: ../shell/pps-annotation-properties-dialog.c:103
+#: ../shell/ev-annotation-properties-dialog.c:103
 msgid "Help"
 msgstr "సహాయం"
 
-#: ../shell/pps-annotation-properties-dialog.c:104
+#: ../shell/ev-annotation-properties-dialog.c:104
 msgid "New Paragraph"
 msgstr "కొత్త పేరా"
 
-#: ../shell/pps-annotation-properties-dialog.c:105
+#: ../shell/ev-annotation-properties-dialog.c:105
 msgid "Paragraph"
 msgstr "పేరా"
 
-#: ../shell/pps-annotation-properties-dialog.c:106
+#: ../shell/ev-annotation-properties-dialog.c:106
 msgid "Insert"
 msgstr "చొప్పించు"
 
-#: ../shell/pps-annotation-properties-dialog.c:107
+#: ../shell/ev-annotation-properties-dialog.c:107
 msgid "Cross"
 msgstr "అడ్డగీత"
 
-#: ../shell/pps-annotation-properties-dialog.c:108
+#: ../shell/ev-annotation-properties-dialog.c:108
 msgid "Circle"
 msgstr "వృత్తం"
 
-#: ../shell/pps-annotation-properties-dialog.c:109
+#: ../shell/ev-annotation-properties-dialog.c:109
 msgid "Unknown"
 msgstr "తెలియదు"
 
-#: ../shell/pps-annotation-properties-dialog.c:134
+#: ../shell/ev-annotation-properties-dialog.c:134
 msgid "Annotation Properties"
 msgstr "వివరణ లక్షణాలు"
 
-#: ../shell/pps-annotation-properties-dialog.c:165
+#: ../shell/ev-annotation-properties-dialog.c:165
 msgid "Color:"
 msgstr "రంగు:"
 
-#: ../shell/pps-annotation-properties-dialog.c:175
+#: ../shell/ev-annotation-properties-dialog.c:175
 msgid "Style:"
 msgstr "శైలి:"
 
-#: ../shell/pps-annotation-properties-dialog.c:190
+#: ../shell/ev-annotation-properties-dialog.c:190
 msgid "Transparent"
 msgstr "పారదర్శకం"
 
-#: ../shell/pps-annotation-properties-dialog.c:197
+#: ../shell/ev-annotation-properties-dialog.c:197
 msgid "Opaque"
 msgstr "అపారదర్శకం"
 
-#: ../shell/pps-annotation-properties-dialog.c:207
+#: ../shell/ev-annotation-properties-dialog.c:207
 msgid "Initial window state:"
 msgstr "ప్రాథమిక కిటికీ స్థితి:"
 
-#: ../shell/pps-annotation-properties-dialog.c:213
+#: ../shell/ev-annotation-properties-dialog.c:213
 msgid "Open"
 msgstr "తెరువు"
 
-#: ../shell/pps-annotation-properties-dialog.c:214
+#: ../shell/ev-annotation-properties-dialog.c:214
 msgid "Close"
 msgstr "మూసివేయి"
 
-#: ../shell/pps-application.c:995
+#: ../shell/ev-application.c:995
 msgid ""
-"Papers is free software; you can redistribute it and/or modify it under the "
+"Evince is free software; you can redistribute it and/or modify it under the "
 "terms of the GNU General Public License as published by the Free Software "
 "Foundation; either version 2 of the License, or (at your option) any later "
 "version.\n"
@@ -927,9 +927,9 @@ msgstr ""
 "వద్ద) వివరణల ప్రకారం "
 "మార్చవచ్చు.\n"
 
-#: ../shell/pps-application.c:999
+#: ../shell/ev-application.c:999
 msgid ""
-"Papers is distributed in the hope that it will be useful, but WITHOUT ANY "
+"Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
 "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
 "FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more "
 "details.\n"
@@ -943,10 +943,10 @@ msgstr ""
 "Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA "
 "02110-1301, USAకు వ్రాయండి.\n"
 
-#: ../shell/pps-application.c:1003
+#: ../shell/ev-application.c:1003
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"Papers; if not, write to the Free Software Foundation, Inc., 51 Franklin "
+"Evince; if not, write to the Free Software Foundation, Inc., 51 Franklin "
 "Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 msgstr ""
 "మీరు ఎవిన్స్ నకలుతోపాటు ఒక గ్నూ జనరల్ పబ్లిక్ లైసెన్స్  నకలుగూడా పొందిఉంటారు; "
@@ -954,42 +954,42 @@ msgstr ""
 "Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  "
 "02110-1301  USAకు వ్రాయండి.\n"
 
-#: ../shell/pps-application.c:1024 ../papers.appdata.xml.in.h:1
-msgid "Papers"
+#: ../shell/ev-application.c:1024 ../evince.appdata.xml.in.h:1
+msgid "Evince"
 msgstr "ఎవిన్స్"
 
-#: ../shell/pps-application.c:1026
-#| msgid "© 1996–2012 The Papers authors"
-msgid "© 1996–2014 The Papers authors"
-msgstr "© 1996–2014 The Papers authors"
+#: ../shell/ev-application.c:1026
+#| msgid "© 1996–2012 The Evince authors"
+msgid "© 1996–2014 The Evince authors"
+msgstr "© 1996–2014 The Evince authors"
 
-#: ../shell/pps-application.c:1032
+#: ../shell/ev-application.c:1032
 msgid "translator-credits"
 msgstr ""
 "Bharat Kumar <jonnalagaddabharat@gmail.com>\n"
 "Krishnababu Krothapalli <kkrothap@redhat.com> 2009-2013\n"
 "Praveen Illa <mail2ipn@gmail.com> 2011-12"
 
-#: ../shell/pps-history-action.c:224
+#: ../shell/ev-history-action.c:224
 msgid "Go to previous history item"
 msgstr "మునుపటి చరిత్ర అంశమునకు వెళ్ళుము"
 
-#: ../shell/pps-history-action.c:229
+#: ../shell/ev-history-action.c:229
 msgid "Go to next history item"
 msgstr "తరువాతి చరిత్ర అంశమునకు వెళ్ళుము"
 
-#: ../shell/pps-keyring.c:86
+#: ../shell/ev-keyring.c:86
 #, c-format
 msgid "Password for document %s"
 msgstr "%s పత్రము కొరకు సంకేతపదం"
 
 #. Create tree view
-#: ../shell/pps-loading-message.c:50 ../shell/pps-sidebar-annotations.c:131
-#: ../shell/pps-sidebar-layers.c:125 ../shell/pps-sidebar-links.c:261
+#: ../shell/ev-loading-message.c:50 ../shell/ev-sidebar-annotations.c:131
+#: ../shell/ev-sidebar-layers.c:125 ../shell/ev-sidebar-links.c:261
 msgid "Loading…"
 msgstr "లోడవుతున్నది..."
 
-#: ../shell/pps-password-view.c:142
+#: ../shell/ev-password-view.c:142
 msgid ""
 "This document is locked and can only be read by entering the correct "
 "password."
@@ -997,270 +997,270 @@ msgstr ""
 "ఈ పత్రము తాళం వేయబడినది కేవలం సంకేతపదం ప్రవేశపెట్టుట ద్వారా మాత్రమే దీనిని "
 "చదువగలరు."
 
-#: ../shell/pps-password-view.c:151 ../shell/pps-password-view.c:269
+#: ../shell/ev-password-view.c:151 ../shell/ev-password-view.c:269
 msgid "_Unlock Document"
 msgstr "పత్రము తాళంతీయి (_U)"
 
-#: ../shell/pps-password-view.c:261
+#: ../shell/ev-password-view.c:261
 msgid "Enter password"
 msgstr "సంకేతపదాన్ని ప్రవేశపెట్టండి"
 
-#: ../shell/pps-password-view.c:300
+#: ../shell/ev-password-view.c:300
 #, c-format
 msgid ""
 "The document “%s” is locked and requires a password before it can be opened."
 msgstr ""
 "%s పత్రము లాక్‌చేయబడినది కాబట్టి దీనిని తెరుచుటకు ముందుగా సంకేతపదం అవసరం."
 
-#: ../shell/pps-password-view.c:303
+#: ../shell/ev-password-view.c:303
 msgid "Password required"
 msgstr "సంకేతపదం అవసరం"
 
-#: ../shell/pps-password-view.c:333
+#: ../shell/ev-password-view.c:333
 msgid "_Password:"
 msgstr "సంకేతపదము (_P):"
 
-#: ../shell/pps-password-view.c:364
+#: ../shell/ev-password-view.c:364
 msgid "Forget password _immediately"
 msgstr "సంకేతపదమును తక్షణమే మర్చిపో (_i)"
 
-#: ../shell/pps-password-view.c:376
+#: ../shell/ev-password-view.c:376
 msgid "Remember password until you _log out"
 msgstr "మీరు నిష్క్రమించే వరకు సంకేతపదమును గుర్తుంచుకొను (_l)"
 
-#: ../shell/pps-password-view.c:388
+#: ../shell/ev-password-view.c:388
 msgid "Remember _forever"
 msgstr "ఎప్పటికి గుర్తుంచుకొను (_f)"
 
-#: ../shell/pps-properties-dialog.c:62
+#: ../shell/ev-properties-dialog.c:62
 msgid "Properties"
 msgstr "లక్షణాలు"
 
-#: ../shell/pps-properties-dialog.c:94
+#: ../shell/ev-properties-dialog.c:94
 msgid "General"
 msgstr "సాధారణం"
 
-#: ../shell/pps-properties-dialog.c:104
+#: ../shell/ev-properties-dialog.c:104
 msgid "Fonts"
 msgstr "ఖతులు"
 
-#: ../shell/pps-properties-dialog.c:117
+#: ../shell/ev-properties-dialog.c:117
 msgid "Document License"
 msgstr "పత్రము లైసెన్సు"
 
-#: ../shell/pps-properties-fonts.c:142
+#: ../shell/ev-properties-fonts.c:142
 msgid "Font"
 msgstr "ఖతి"
 
-#: ../shell/pps-properties-fonts.c:169
+#: ../shell/ev-properties-fonts.c:169
 #, c-format
 msgid "Gathering font information… %3d%%"
 msgstr "ఖతి సమాచారాన్ని సేకరిస్తున్నది... %3d%%"
 
-#: ../shell/pps-properties-license.c:134
+#: ../shell/ev-properties-license.c:134
 msgid "Usage terms"
 msgstr "వాడుక షరతులు"
 
-#: ../shell/pps-properties-license.c:140
+#: ../shell/ev-properties-license.c:140
 msgid "Text License"
 msgstr "పాఠ్య లైసెన్సు"
 
-#: ../shell/pps-properties-license.c:146
+#: ../shell/ev-properties-license.c:146
 msgid "Further Information"
 msgstr "మరింత సమాచారం"
 
-#: ../shell/pps-sidebar-annotations.c:159
+#: ../shell/ev-sidebar-annotations.c:159
 msgid "List"
 msgstr "జాబితా"
 
-#: ../shell/pps-sidebar-annotations.c:199 ../shell/pps-sidebar-annotations.c:535
+#: ../shell/ev-sidebar-annotations.c:199 ../shell/ev-sidebar-annotations.c:535
 msgid "Annotations"
 msgstr "వివరణలు:"
 
-#: ../shell/pps-sidebar-annotations.c:205
+#: ../shell/ev-sidebar-annotations.c:205
 msgid "Text"
 msgstr "పాఠ్యం"
 
-#: ../shell/pps-sidebar-annotations.c:206
+#: ../shell/ev-sidebar-annotations.c:206
 msgid "Add text annotation"
 msgstr "పాఠ్య వివరణను జతచేయి"
 
-#: ../shell/pps-sidebar-annotations.c:217 ../shell/pps-sidebar-bookmarks.c:454
+#: ../shell/ev-sidebar-annotations.c:217 ../shell/ev-sidebar-bookmarks.c:454
 msgid "Add"
 msgstr "జతచేయి"
 
-#: ../shell/pps-sidebar-annotations.c:368
+#: ../shell/ev-sidebar-annotations.c:368
 msgid "Document contains no annotations"
 msgstr "పత్రము ఎటువంటి వివరణలను కలిగిలేదు"
 
-#: ../shell/pps-sidebar-annotations.c:400
+#: ../shell/ev-sidebar-annotations.c:400
 #, c-format
 msgid "Page %d"
 msgstr "పుట %d"
 
-#: ../shell/pps-sidebar-attachments.c:697
+#: ../shell/ev-sidebar-attachments.c:697
 msgid "Attachments"
 msgstr "అనుబంధ పత్రాలు"
 
-#: ../shell/pps-sidebar-bookmarks.c:146
+#: ../shell/ev-sidebar-bookmarks.c:146
 msgid "_Open Bookmark"
 msgstr "ఇష్టాంశమును తెరువు (_O)"
 
-#: ../shell/pps-sidebar-bookmarks.c:148
+#: ../shell/ev-sidebar-bookmarks.c:148
 msgid "_Rename Bookmark"
 msgstr "ఇష్టాంశము పేరుమార్చు (_R)"
 
-#: ../shell/pps-sidebar-bookmarks.c:150
+#: ../shell/ev-sidebar-bookmarks.c:150
 msgid "_Remove Bookmark"
 msgstr "ఇష్టాంశమును తొలగించు (_R)"
 
-#: ../shell/pps-sidebar-bookmarks.c:461
+#: ../shell/ev-sidebar-bookmarks.c:461
 msgid "Remove"
 msgstr "తీసివేయి"
 
-#: ../shell/pps-sidebar-bookmarks.c:577 ../shell/pps-toolbar.c:160
+#: ../shell/ev-sidebar-bookmarks.c:577 ../shell/ev-toolbar.c:160
 msgid "Bookmarks"
 msgstr "ఇష్టాంశాలు"
 
-#: ../shell/pps-sidebar-layers.c:446
+#: ../shell/ev-sidebar-layers.c:446
 msgid "Layers"
 msgstr "పొరలు"
 
-#: ../shell/pps-sidebar-links.c:337
+#: ../shell/ev-sidebar-links.c:337
 msgid "Print…"
 msgstr "ముద్రించు..."
 
-#: ../shell/pps-sidebar-links.c:725
+#: ../shell/ev-sidebar-links.c:725
 msgid "Index"
 msgstr "సూచిక"
 
-#: ../shell/pps-sidebar-thumbnails.c:1082
+#: ../shell/ev-sidebar-thumbnails.c:1082
 msgid "Thumbnails"
 msgstr "చిరుచిత్రాలు"
 
-#: ../shell/pps-toolbar.c:204
+#: ../shell/ev-toolbar.c:204
 msgid "Open an existing document"
 msgstr "ఉనికిలోవున్న పత్రాన్ని తెరువు"
 
-#: ../shell/pps-toolbar.c:235
+#: ../shell/ev-toolbar.c:235
 msgid "Find a word or phrase in the document"
 msgstr "పత్రములో ఒక పదమును లేక పదబంధమును కనుగొను"
 
-#: ../shell/pps-toolbar.c:247 ../shell/pps-toolbar.c:248
+#: ../shell/ev-toolbar.c:247 ../shell/ev-toolbar.c:248
 #| msgid "Find options"
 msgid "File options"
 msgstr "దస్త్ర ఐచ్ఛికాలు"
 
-#: ../shell/pps-toolbar.c:257 ../shell/pps-toolbar.c:258
+#: ../shell/ev-toolbar.c:257 ../shell/ev-toolbar.c:258
 #| msgid "Find options"
 msgid "View options"
 msgstr "దర్శించు ఐచ్ఛికాలు"
 
-#: ../shell/pps-utils.c:305
+#: ../shell/ev-utils.c:305
 msgid "Supported Image Files"
 msgstr "తోడ్పాటునిచ్చు చిత్ర దస్త్రాలు"
 
-#: ../shell/pps-window.c:1606
+#: ../shell/ev-window.c:1606
 msgid "The document contains no pages"
 msgstr "పత్రము ఎటువంటి పుటలను కలిగిలేదు"
 
-#: ../shell/pps-window.c:1609
+#: ../shell/ev-window.c:1609
 msgid "The document contains only empty pages"
 msgstr "పత్రము ఖాళీ పుటలను మాత్రమే కలిగివుంది"
 
-#: ../shell/pps-window.c:1822 ../shell/pps-window.c:1990
+#: ../shell/ev-window.c:1822 ../shell/ev-window.c:1990
 #, c-format
 #| msgid "Unable to open document"
 msgid "Unable to open document “%s”."
 msgstr "పత్రాన్ని తెరవలేకపోతోంది “%s”."
 
-#: ../shell/pps-window.c:1954
+#: ../shell/ev-window.c:1954
 #, c-format
 msgid "Loading document from “%s”"
 msgstr "పత్రమును “%s” నుండి లోడుచేయుచున్నది"
 
-#: ../shell/pps-window.c:2105 ../shell/pps-window.c:2432
+#: ../shell/ev-window.c:2105 ../shell/ev-window.c:2432
 #, c-format
 msgid "Downloading document (%d%%)"
 msgstr "(%d%%) పత్రమును డౌనులోడుచేయుచున్నది"
 
-#: ../shell/pps-window.c:2138
+#: ../shell/ev-window.c:2138
 msgid "Failed to load remote file."
 msgstr "దూరస్థ పత్రమును లోడుచేయుటలో విఫలమైంది."
 
-#: ../shell/pps-window.c:2376
+#: ../shell/ev-window.c:2376
 #, c-format
 msgid "Reloading document from %s"
 msgstr "%s నుండి పత్రమును తిరిగిలోడుచేయుచున్నది"
 
-#: ../shell/pps-window.c:2408
+#: ../shell/ev-window.c:2408
 msgid "Failed to reload document."
 msgstr "పత్రమును తిరిగిలోడుచేయుటలో విఫలమైంది."
 
-#: ../shell/pps-window.c:2624
+#: ../shell/ev-window.c:2624
 msgid "Open Document"
 msgstr "పత్రాన్ని తెరువు"
 
-#: ../shell/pps-window.c:2695
+#: ../shell/ev-window.c:2695
 #, c-format
 msgid "Saving document to %s"
 msgstr "పత్రాన్ని %sకు భద్రపరుస్తున్నది"
 
-#: ../shell/pps-window.c:2698
+#: ../shell/ev-window.c:2698
 #, c-format
 msgid "Saving attachment to %s"
 msgstr "అనుబంధపత్రాన్ని %sకు భద్రపరుస్తున్నది"
 
-#: ../shell/pps-window.c:2701
+#: ../shell/ev-window.c:2701
 #, c-format
 msgid "Saving image to %s"
 msgstr "బొమ్మను %sకు భద్రపరుస్తున్నది"
 
-#: ../shell/pps-window.c:2745 ../shell/pps-window.c:2845
+#: ../shell/ev-window.c:2745 ../shell/ev-window.c:2845
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "ఈ దస్త్రం “%s” గా దాచుట సాధ్యముకాదు"
 
-#: ../shell/pps-window.c:2776
+#: ../shell/ev-window.c:2776
 #, c-format
 msgid "Uploading document (%d%%)"
 msgstr "(%d%%) పత్రమును ఎక్కిస్తున్నది"
 
-#: ../shell/pps-window.c:2780
+#: ../shell/ev-window.c:2780
 #, c-format
 msgid "Uploading attachment (%d%%)"
 msgstr "(%d%%) అనుబంధపత్రాన్ని ఎక్కిస్తున్నది"
 
-#: ../shell/pps-window.c:2784
+#: ../shell/ev-window.c:2784
 #, c-format
 msgid "Uploading image (%d%%)"
 msgstr "(%d%%) బొమ్మను ఎక్కిస్తున్నది"
 
-#: ../shell/pps-window.c:2896
+#: ../shell/ev-window.c:2896
 msgid "Save a Copy"
 msgstr "ఒక నకలును భద్రపరుచు"
 
-#: ../shell/pps-window.c:2972
+#: ../shell/ev-window.c:2972
 msgid "Could not send current document"
 msgstr "ప్రస్థుత పత్రమును పంపుట వీలుకాదు"
 
-#: ../shell/pps-window.c:3006
+#: ../shell/ev-window.c:3006
 msgid "Could not open the containing folder"
 msgstr "కలిగివున్న సంచయమును తెరుచుట వీలుకాదు"
 
-#: ../shell/pps-window.c:3267
+#: ../shell/ev-window.c:3267
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "%d వాయిదా కార్యము వరుసలో ఉన్నది"
 msgstr[1] "%d వాయిదా కార్యములు వరుసలో ఉన్నాయి"
 
-#: ../shell/pps-window.c:3380
+#: ../shell/ev-window.c:3380
 #, c-format
 msgid "Printing job “%s”"
 msgstr "పని “%s” ముద్రించుచున్నది"
 
-#: ../shell/pps-window.c:3583
+#: ../shell/ev-window.c:3583
 msgid ""
 "Document contains form fields that have been filled out. If you don't save a "
 "copy, changes will be permanently lost."
@@ -1269,7 +1269,7 @@ msgstr ""
 "భద్రపరుచకపోతే, "
 "మార్పులను శాశ్వతంగా కోల్పోతారు."
 
-#: ../shell/pps-window.c:3587
+#: ../shell/ev-window.c:3587
 msgid ""
 "Document contains new or modified annotations. If you don't save a copy, "
 "changes will be permanently lost."
@@ -1278,20 +1278,20 @@ msgstr ""
 "భద్రపరుచకపోతే, "
 "మార్పులను శాశ్వతంగా కోల్పోతారు."
 
-#: ../shell/pps-window.c:3594
+#: ../shell/ev-window.c:3594
 #, c-format
 msgid "Save a copy of document “%s” before closing?"
 msgstr "మూసివేయుటకు ముందుగా “%s” పత్రము యొక్క నకలును భద్రపరచాలా?"
 
-#: ../shell/pps-window.c:3613
+#: ../shell/ev-window.c:3613
 msgid "Close _without Saving"
 msgstr "భద్రపరచకుండా మూసివేయి(_w)"
 
-#: ../shell/pps-window.c:3617
+#: ../shell/ev-window.c:3617
 msgid "Save a _Copy"
 msgstr "ఒక నకలును భద్రపరుచు (_C)"
 
-#: ../shell/pps-window.c:3691
+#: ../shell/ev-window.c:3691
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr "మూసివేసే ముందు ముద్రణ కార్యం “%s” పూర్తయ్యే వరకు వేచివుండాలా?"
@@ -1299,7 +1299,7 @@ msgstr "మూసివేసే ముందు ముద్రణ కార్
 #. TRANS: the singular form is not really used as n_print_jobs > 1
 #. but some languages distinguish between different plurals forms,
 #. so the ngettext is needed.
-#: ../shell/pps-window.c:3697
+#: ../shell/ev-window.c:3697
 #, c-format
 msgid "There is %d print job active. Wait until print finishes before closing?"
 msgid_plural ""
@@ -1312,52 +1312,52 @@ msgstr[1] ""
 "పూర్తయ్యేంత వరకు "
 "వేచివుండాలా?"
 
-#: ../shell/pps-window.c:3712
+#: ../shell/ev-window.c:3712
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr ""
 "ఒకవేళ మీరు కిటికీ మూసివేసినట్లైతే, వాయిదాలో వున్న ముద్రణ కార్యములు "
 "ముద్రించబడవు."
 
-#: ../shell/pps-window.c:3716
+#: ../shell/ev-window.c:3716
 msgid "Cancel _print and Close"
 msgstr "ముద్రణను రద్దుచేసి, మూసివేయండి (_p)"
 
-#: ../shell/pps-window.c:3720
+#: ../shell/ev-window.c:3720
 msgid "Close _after Printing"
 msgstr "ముద్రణ తర్వాత మూసివేయి (_a)"
 
-#: ../shell/pps-window.c:4248
+#: ../shell/ev-window.c:4248
 msgid "Running in presentation mode"
 msgstr "సమర్పణ రీతిలో నడుస్తున్నది"
 
 #. TRANS: Sometimes this could be better translated as
 #. "%d hit(s) on this page".  Therefore this string
 #. contains plural cases.
-#: ../shell/pps-window.c:5181
+#: ../shell/ev-window.c:5181
 #, c-format
 msgid "%d found on this page"
 msgid_plural "%d found on this page"
 msgstr[0] "ఈ పుటలో %d కనుగొనబడినది"
 msgstr[1] "ఈ పుటలో %d కనుగొనబడినవి"
 
-#: ../shell/pps-window.c:5186
+#: ../shell/ev-window.c:5186
 msgid "Not found"
 msgstr "కనపడలేదు"
 
-#: ../shell/pps-window.c:5192
+#: ../shell/ev-window.c:5192
 #, c-format
 msgid "%3d%% remaining to search"
 msgstr "వెతుకుటకు %3d%% మిగిలివున్నది"
 
-#: ../shell/pps-window.c:5512
+#: ../shell/ev-window.c:5512
 msgid "Enable caret navigation?"
 msgstr "కారెట్ నేవిగేషన్ చేతనించాలా?"
 
-#: ../shell/pps-window.c:5514
+#: ../shell/ev-window.c:5514
 msgid "_Enable"
 msgstr "చేతనించు (_E)"
 
-#: ../shell/pps-window.c:5517
+#: ../shell/ev-window.c:5517
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1367,105 +1367,105 @@ msgstr ""
 "కర్సర్‌ను పాఠం పేజీలనందు ఉంచును, తద్వారా మీరు పాఠంనందు కదిలి పాఠంను "
 "కీబోర్డుతో ఎంపికచేయవచ్చు. మీరు కారెట్ నావిగేషన్ చేతనించాలని అనుకుంటున్నారా?"
 
-#: ../shell/pps-window.c:5522
+#: ../shell/ev-window.c:5522
 msgid "Don't show this message again"
 msgstr "ఈ సందేశమును మరలా చూపవద్దు"
 
-#: ../shell/pps-window.c:6038 ../shell/pps-window.c:6054
+#: ../shell/ev-window.c:6038 ../shell/ev-window.c:6054
 msgid "Unable to launch external application."
 msgstr "బహిర్గత అనువర్తనమును ప్రారంభించలేకపోతున్నది."
 
-#: ../shell/pps-window.c:6111
+#: ../shell/ev-window.c:6111
 msgid "Unable to open external link"
 msgstr "బాహ్య లంకెను తెరవలేకపోతోంది"
 
-#: ../shell/pps-window.c:6314
+#: ../shell/ev-window.c:6314
 msgid "Couldn't find appropriate format to save image"
 msgstr "బొమ్మను భద్రపరుచుటకు సరిపోయే ఫార్మాట్‌ను కనుగొనలేకపోయింది"
 
-#: ../shell/pps-window.c:6346
+#: ../shell/ev-window.c:6346
 msgid "The image could not be saved."
 msgstr "బొమ్మను భద్రపరుచుట వీలుకాదు."
 
-#: ../shell/pps-window.c:6381
+#: ../shell/ev-window.c:6381
 msgid "Save Image"
 msgstr "బొమ్మను భద్రపరుచు"
 
-#: ../shell/pps-window.c:6532
+#: ../shell/ev-window.c:6532
 msgid "Unable to open attachment"
 msgstr "అనుబంధ పత్రాన్ని తెరవలేకపోయింది"
 
-#: ../shell/pps-window.c:6588
+#: ../shell/ev-window.c:6588
 msgid "The attachment could not be saved."
 msgstr "అనుబంధ పత్రాన్ని భద్రపరుచలేకపోయింది."
 
-#: ../shell/pps-window.c:6636
+#: ../shell/ev-window.c:6636
 msgid "Save Attachment"
 msgstr "అనుబంధ పత్రాన్ని భద్రపరుచు"
 
-#: ../shell/pps-window-title.c:118
+#: ../shell/ev-window-title.c:118
 #| msgid "Open Document"
 msgid "Recent Documents"
 msgstr "ఇటీవలి పత్రములు"
 
-#: ../shell/pps-window-title.c:153 ../shell/pps-window-title.c:157
+#: ../shell/ev-window-title.c:153 ../shell/ev-window-title.c:157
 #| msgid "Password required"
 msgid "Password Required"
 msgstr "సంకేతపదం అవసరమైంది"
 
-#: ../shell/pps-zoom-action.c:48
+#: ../shell/ev-zoom-action.c:48
 msgid "50%"
 msgstr "50%"
 
-#: ../shell/pps-zoom-action.c:49
+#: ../shell/ev-zoom-action.c:49
 msgid "70%"
 msgstr "70%"
 
-#: ../shell/pps-zoom-action.c:50
+#: ../shell/ev-zoom-action.c:50
 msgid "85%"
 msgstr "85%"
 
-#: ../shell/pps-zoom-action.c:51
+#: ../shell/ev-zoom-action.c:51
 msgid "100%"
 msgstr "100%"
 
-#: ../shell/pps-zoom-action.c:52
+#: ../shell/ev-zoom-action.c:52
 msgid "125%"
 msgstr "125%"
 
-#: ../shell/pps-zoom-action.c:53
+#: ../shell/ev-zoom-action.c:53
 msgid "150%"
 msgstr "150%"
 
-#: ../shell/pps-zoom-action.c:54
+#: ../shell/ev-zoom-action.c:54
 msgid "175%"
 msgstr "175%"
 
-#: ../shell/pps-zoom-action.c:55
+#: ../shell/ev-zoom-action.c:55
 msgid "200%"
 msgstr "200%"
 
-#: ../shell/pps-zoom-action.c:56
+#: ../shell/ev-zoom-action.c:56
 msgid "300%"
 msgstr "300%"
 
-#: ../shell/pps-zoom-action.c:57
+#: ../shell/ev-zoom-action.c:57
 msgid "400%"
 msgstr "400%"
 
-#: ../shell/pps-zoom-action.c:58
+#: ../shell/ev-zoom-action.c:58
 msgid "800%"
 msgstr "800%"
 
-#: ../shell/pps-zoom-action.c:59
+#: ../shell/ev-zoom-action.c:59
 msgid "1600%"
 msgstr "1600%"
 
-#: ../shell/pps-zoom-action.c:60
+#: ../shell/ev-zoom-action.c:60
 msgid "3200%"
 msgstr "3200%"
 
-#: ../shell/pps-zoom-action.c:61
+#: ../shell/ev-zoom-action.c:61
 msgid "6400%"
 msgstr "6400%"
 
@@ -1498,15 +1498,15 @@ msgid "DEST"
 msgstr "గమ్యం"
 
 #: ../shell/main.c:74
-msgid "Run papers in fullscreen mode"
+msgid "Run evince in fullscreen mode"
 msgstr "పూర్తితెర విధములో ఎవిన్స్‍ను నడుపు"
 
 #: ../shell/main.c:75
-msgid "Run papers in presentation mode"
+msgid "Run evince in presentation mode"
 msgstr "సమర్పణ రీతిలో ఎవిన్స్‍ను నడుపు"
 
 #: ../shell/main.c:76
-msgid "Run papers as a previewer"
+msgid "Run evince as a previewer"
 msgstr "మునుజూపుదర్శనిగా ఎవిన్స్‍ను నడుపు"
 
 #: ../shell/main.c:77
@@ -1521,195 +1521,195 @@ msgstr "పదబంధం"
 msgid "[FILE…]"
 msgstr "[FILE…]"
 
-#: ../shell/papers-menus.ui.h:1
+#: ../shell/evince-menus.ui.h:1
 #| msgid "Open in New _Window"
 msgid "_New Window"
 msgstr "కొత్త విండో (_N)"
 
-#: ../shell/papers-menus.ui.h:2
+#: ../shell/evince-menus.ui.h:2
 msgid "_Help"
 msgstr "సహాయం (_H)"
 
-#: ../shell/papers-menus.ui.h:3
+#: ../shell/evince-menus.ui.h:3
 msgid "_About"
 msgstr "గురించి (_A)"
 
-#: ../shell/papers-menus.ui.h:4
+#: ../shell/evince-menus.ui.h:4
 msgid "_Continuous"
 msgstr "ఎడతెగని (_C)"
 
-#: ../shell/papers-menus.ui.h:5
+#: ../shell/evince-menus.ui.h:5
 msgid "_Dual"
 msgstr "ద్వయము (_D)"
 
-#: ../shell/papers-menus.ui.h:6
+#: ../shell/evince-menus.ui.h:6
 msgid "Side _Pane"
 msgstr "పక్క పెనం (_P)"
 
-#: ../shell/papers-menus.ui.h:7
+#: ../shell/evince-menus.ui.h:7
 msgid "_Fullscreen"
 msgstr "పూర్తితెర (_F)"
 
-#: ../shell/papers-menus.ui.h:8
+#: ../shell/evince-menus.ui.h:8
 msgid "Pre_sentation"
 msgstr "సమర్పణ (_s)"
 
-#: ../shell/papers-menus.ui.h:9
+#: ../shell/evince-menus.ui.h:9
 msgid "Rotate _Left"
 msgstr "ఎడమవైపు తిప్పు (_L)"
 
-#: ../shell/papers-menus.ui.h:10
+#: ../shell/evince-menus.ui.h:10
 msgid "Rotate _Right"
 msgstr "కుడివైపు తిప్పు (_R)"
 
-#: ../shell/papers-menus.ui.h:11
+#: ../shell/evince-menus.ui.h:11
 #| msgid "_First Page"
 msgid "First Page"
 msgstr "మొదటి పేజీ"
 
-#: ../shell/papers-menus.ui.h:12
+#: ../shell/evince-menus.ui.h:12
 #| msgid "_Previous Page"
 msgid "Previous Page"
 msgstr "మునుపటి పుట"
 
-#: ../shell/papers-menus.ui.h:13
+#: ../shell/evince-menus.ui.h:13
 #| msgid "_Next Page"
 msgid "Next Page"
 msgstr "తరువాతి పేజీ"
 
-#: ../shell/papers-menus.ui.h:14
+#: ../shell/evince-menus.ui.h:14
 #| msgid "_Last Page"
 msgid "Last Page"
 msgstr "చివరి పేజీ"
 
-#: ../shell/papers-menus.ui.h:15
+#: ../shell/evince-menus.ui.h:15
 #| msgid "Zoom In"
 msgid "Zoom _In"
 msgstr "జూమ్ చేయి (_I)"
 
-#: ../shell/papers-menus.ui.h:16
+#: ../shell/evince-menus.ui.h:16
 #| msgid "Zoom Out"
 msgid "Zoom _Out"
 msgstr "జూమ్ తగ్గించు (_O)"
 
-#: ../shell/papers-menus.ui.h:17
+#: ../shell/evince-menus.ui.h:17
 #| msgid "_Odd pages left"
 msgid "_Odd Pages Left"
 msgstr "బేసి పేజీలు ఎడమవైపు (_O)"
 
-#: ../shell/papers-menus.ui.h:18
+#: ../shell/evince-menus.ui.h:18
 msgid "_Inverted Colors"
 msgstr "రంగులను విలోమకరించు (_I)"
 
-#: ../shell/papers-menus.ui.h:19
+#: ../shell/evince-menus.ui.h:19
 msgid "_Reload"
 msgstr "తిరిగిలోడుచేయి (_R)"
 
-#: ../shell/papers-menus.ui.h:20
+#: ../shell/evince-menus.ui.h:20
 msgid "_Open…"
 msgstr "తెరువు...(_O)"
 
-#: ../shell/papers-menus.ui.h:21
+#: ../shell/evince-menus.ui.h:21
 msgid "Op_en a Copy"
 msgstr "ఒక నకలును తెరువు (_e)"
 
-#: ../shell/papers-menus.ui.h:22
+#: ../shell/evince-menus.ui.h:22
 msgid "_Save a Copy…"
 msgstr "ఒక నకలును భద్రపరుచు...(_S)"
 
-#: ../shell/papers-menus.ui.h:23
+#: ../shell/evince-menus.ui.h:23
 #| msgid "Send To"
 msgid "Send _To…"
 msgstr "ఇచటకు పంపు... (_T)"
 
-#: ../shell/papers-menus.ui.h:24
+#: ../shell/evince-menus.ui.h:24
 msgid "Open Containing _Folder"
 msgstr "కలిగివున్న సంచయాన్ని తెరవండి (_F)"
 
-#: ../shell/papers-menus.ui.h:25
+#: ../shell/evince-menus.ui.h:25
 msgid "_Print…"
 msgstr "ముద్రించు...(_P)"
 
-#: ../shell/papers-menus.ui.h:26
+#: ../shell/evince-menus.ui.h:26
 #| msgid "P_roperties"
 msgid "P_roperties…"
 msgstr "లక్షణాలు... (_r)"
 
-#: ../shell/papers-menus.ui.h:27
+#: ../shell/evince-menus.ui.h:27
 msgid "_Copy"
 msgstr "నకలు (_C)"
 
-#: ../shell/papers-menus.ui.h:28
+#: ../shell/evince-menus.ui.h:28
 msgid "Select _All"
 msgstr "అన్నింటిని ఎంచుకోండి (_A)"
 
-#: ../shell/papers-menus.ui.h:29
+#: ../shell/evince-menus.ui.h:29
 msgid "Save Current Settings as _Default"
 msgstr "ప్రస్థుత అమరికలను అప్రమేము వలె భద్రపరుచు (_D)"
 
-#: ../shell/papers-menus.ui.h:30
+#: ../shell/evince-menus.ui.h:30
 msgid "_Add Bookmark"
 msgstr "ఇష్టాంశమును జతచేయి (_A)"
 
-#: ../shell/papers-menus.ui.h:31
+#: ../shell/evince-menus.ui.h:31
 #| msgid "Close"
 msgid "_Close"
 msgstr "మూసివేయి (_C)"
 
-#: ../shell/papers-menus.ui.h:35
+#: ../shell/evince-menus.ui.h:35
 msgid "_Open Link"
 msgstr "లంకెను తెరువు (_O)"
 
-#: ../shell/papers-menus.ui.h:36
+#: ../shell/evince-menus.ui.h:36
 msgid "_Copy Link Address"
 msgstr "లంకె చిరునామాను నకలుచేయి (_C)"
 
-#: ../shell/papers-menus.ui.h:37
+#: ../shell/evince-menus.ui.h:37
 msgid "_Go To"
 msgstr "ఇచటకు వెళ్ళు (_G)"
 
-#: ../shell/papers-menus.ui.h:38
+#: ../shell/evince-menus.ui.h:38
 msgid "Open in New _Window"
 msgstr "కొత్త కిటికీలో తెరువు (_W)"
 
-#: ../shell/papers-menus.ui.h:41
+#: ../shell/evince-menus.ui.h:41
 msgid "Auto_scroll"
 msgstr "స్వయంచాలకంగా జరుపు (_s)"
 
-#: ../shell/papers-menus.ui.h:42
+#: ../shell/evince-menus.ui.h:42
 msgid "_Save Image As…"
 msgstr "బొమ్మను ఇలా భద్రపరుచు...(_S)"
 
-#: ../shell/papers-menus.ui.h:43
+#: ../shell/evince-menus.ui.h:43
 msgid "Copy _Image"
 msgstr "బొమ్మను నకలుచేయి (_I)"
 
-#: ../shell/papers-menus.ui.h:44
+#: ../shell/evince-menus.ui.h:44
 msgid "_Open Attachment"
 msgstr "అనుబంధపత్రాన్ని తెరువు (_O)"
 
-#: ../shell/papers-menus.ui.h:45
+#: ../shell/evince-menus.ui.h:45
 msgid "_Save Attachment As…"
 msgstr "అనుబంధ పత్రాన్ని ఇలా భద్రపరుచు...(_S)"
 
-#: ../shell/papers-menus.ui.h:46
+#: ../shell/evince-menus.ui.h:46
 msgid "Annotation Properties…"
 msgstr "వివరణ లక్షణాలు..."
 
-#: ../shell/papers-menus.ui.h:47
+#: ../shell/evince-menus.ui.h:47
 #| msgid "Annotations"
 msgid "Remove Annotation"
 msgstr "టీకా తీసివేయి"
 
-#: ../papers.appdata.xml.in.h:2
+#: ../evince.appdata.xml.in.h:2
 msgid "Document viewer for popular document formats"
 msgstr "ప్రఖ్యాత పత్ర ఫార్మాట్ల కొరకు పత్ర వీక్షణి"
 
-#: ../papers.appdata.xml.in.h:3
+#: ../evince.appdata.xml.in.h:3
 msgid "This is a document viewer for the GNOME desktop."
 msgstr "ఇది గ్నోమ్ డెస్కుటాప్ కొరకు పత్ర వీక్షణి."
 
-#: ../papers.appdata.xml.in.h:4
+#: ../evince.appdata.xml.in.h:4
 msgid ""
 "It supports the following document formats: PDF, PS, EPS, XPS, DjVu, TIFF, "
 "DVI (with SyncTeX), and Comic Books archives (CBR, CBT, CBZ, CB7)."
@@ -1946,7 +1946,7 @@ msgstr ""
 #~ msgid "Show or hide the toolbar"
 #~ msgstr "పనిముట్లపట్టీని చూపించు లేదా దాయి"
 
-#~ msgid "_Dual (Ppsen pages left)"
+#~ msgid "_Dual (Even pages left)"
 #~ msgstr "ద్వయం (సరిసంఖ్య పుటలు ఎడమవైపు)(_D)"
 
 #~ msgid "Show two pages at once with even pages on the left"
@@ -2057,10 +2057,10 @@ msgstr ""
 #~ msgstr "ముందరి పత్రములను తిరిగిపొందాలా?"
 
 #~ msgid ""
-#~ "Papers appears to have exited unexpectedly the last time it was run. You "
+#~ "Evince appears to have exited unexpectedly the last time it was run. You "
 #~ "can recover the opened documents."
 #~ msgstr ""
-#~ "Papers చివరిసారి అది నడుపబడినప్పుడు అనుకోకుండా నిష్క్రమించినట్లు అనిపిస్తోంది. తెరిచిన పత్రములను "
+#~ "Evince చివరిసారి అది నడుపబడినప్పుడు అనుకోకుండా నిష్క్రమించినట్లు అనిపిస్తోంది. తెరిచిన పత్రములను "
 #~ "మీరు తిరిగిపొందగలరు."
 
 #~ msgid "_Don't Recover"
