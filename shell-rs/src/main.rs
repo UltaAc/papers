@@ -11,6 +11,7 @@ use papers_shell::Application;
 
 mod deps;
 mod properties_general;
+mod properties_license;
 mod properties_window;
 mod sidebar_thumbnails;
 mod thumbnail_item;

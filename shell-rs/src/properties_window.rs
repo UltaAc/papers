@@ -1,7 +1,7 @@
 use crate::deps::*;
 
 use papers_document::DocumentFonts;
-use papers_shell::{PropertiesFonts, PropertiesLicense};
+use papers_shell::PropertiesFonts;
 
 mod imp {
     use super::*;
@@ -15,7 +15,7 @@ mod imp {
         #[template_child]
         pub(super) fonts: TemplateChild<PropertiesFonts>,
         #[template_child]
-        pub(super) license: TemplateChild<PropertiesLicense>,
+        pub(super) license: TemplateChild<crate::properties_license::PpsPropertiesLicense>,
         #[template_child]
         pub(super) fonts_page: TemplateChild<adw::ViewStackPage>,
         #[template_child]
@@ -36,8 +36,8 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             crate::properties_general::PpsPropertiesGeneral::ensure_type();
+            crate::properties_license::PpsPropertiesLicense::ensure_type();
             papers_shell::PropertiesFonts::ensure_type();
-            papers_shell::PropertiesLicense::ensure_type();
 
             klass.bind_template();
         }
@@ -72,7 +72,7 @@ mod imp {
                 }
 
                 if let Some(mut license) = license {
-                    self.license.set_license(&mut license);
+                    self.license.imp().set_license(&mut license);
                 }
 
                 self.fonts_page.set_visible(has_fonts);

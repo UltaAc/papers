@@ -12,7 +12,6 @@ papers_sources = files(
   'pps-password-view.c',
   'pps-progress-message-area.c',
   'pps-properties-fonts.c',
-  'pps-properties-license.c',
   'pps-utils.c',
   'pps-window.c',
   'pps-window-title.c',
@@ -90,7 +89,6 @@ headers = files(
   'pps-application.h',
   'pps-sidebar-page.h',
   'pps-properties-fonts.h',
-  'pps-properties-license.h',
 )
 
 enum_sources = gnome.mkenums_simple(
