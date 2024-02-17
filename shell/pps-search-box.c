@@ -99,14 +99,19 @@ static void
 find_job_finished_cb (PpsJobFind   *job,
                       PpsSearchBox *box)
 {
+        PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
+	gboolean has_results;
+
         g_signal_emit (box, signals[FINISHED], 0);
         pps_search_box_clear_job (box);
-        pps_search_box_update_progress (box);
 
-        if (!pps_job_find_has_results (job)) {
-                PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
+	has_results = pps_job_find_has_results (job);
 
-		gtk_widget_add_css_class (priv->entry, "error");
+        gtk_widget_set_sensitive (priv->next_button, has_results);
+        gtk_widget_set_sensitive (priv->prpps_button, has_results);
+
+        if (!has_results) {
+                gtk_widget_add_css_class (priv->entry, "error");
         }
 }
 
@@ -149,11 +154,7 @@ find_job_updated_cb (PpsJobFind   *job,
          * 100 is enough to update the find bar every 1%.
          */
         if (find_check_refresh_rate (job, FIND_PAGE_RATE_REFRESH)) {
-                gboolean has_results = pps_job_find_has_results (job);
-
                 pps_search_box_update_progress (box);
-                gtk_widget_set_sensitive (priv->next_button, has_results);
-                gtk_widget_set_sensitive (priv->prpps_button, has_results);
                 g_signal_emit (box, signals[UPDATED], 0, page);
         }
 }

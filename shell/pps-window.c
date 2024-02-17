@@ -5142,17 +5142,6 @@ search_started_cb (PpsSearchBox *search_box,
 }
 
 static void
-search_updated_cb (PpsSearchBox *search_box,
-		   gint         page,
-		   PpsWindow    *pps_window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-
-	pps_window_update_actions_sensitivity (pps_window);
-	pps_find_sidebar_update (PPS_FIND_SIDEBAR (priv->find_sidebar));
-}
-
-static void
 search_cleared_cb (PpsSearchBox *search_box,
 		   PpsWindow    *pps_window)
 {
@@ -6649,7 +6638,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 
 	/* search box */
 	gtk_widget_class_bind_template_callback (widget_class, search_started_cb);
-	gtk_widget_class_bind_template_callback (widget_class, search_updated_cb);
 	gtk_widget_class_bind_template_callback (widget_class, search_cleared_cb);
 	gtk_widget_class_bind_template_callback (widget_class, search_previous_cb);
 	gtk_widget_class_bind_template_callback (widget_class, search_next_cb);

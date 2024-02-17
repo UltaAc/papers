@@ -30,15 +30,10 @@ typedef struct {
         GtkWidget *tree_view;
 
         guint selection_id;
-        guint process_matches_idle_id;
 
         GtkTreePath *highlighted_result;
-        gint         first_match_page;
 
         PpsJobFind *job;
-        gint       job_current_page;
-        gint       current_page;
-        gint       insert_position;
 } PpsFindSidebarPrivate;
 
 enum {
@@ -66,7 +61,6 @@ pps_find_sidebar_cancel (PpsFindSidebar *sidebar)
 {
         PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
 
-	g_clear_handle_id (&priv->process_matches_idle_id, g_source_remove);
         g_clear_object (&priv->job);
 }
 
@@ -453,42 +447,40 @@ static void
 process_matches_idle (PpsFindSidebar *sidebar)
 {
         PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
-        GtkTreeModel         *model;
-        gint                  current_page;
+        GtkTreeModel          *model;
         PpsDocument           *document;
+        guint                  insert_position = 0;
+        gint                   first_match_page = -1;
 
-        priv->process_matches_idle_id = 0;
+        g_return_if_fail (PPS_IS_JOB (priv->job));
 
         if (!pps_job_find_has_results (priv->job)) {
                 if (pps_job_is_finished (PPS_JOB (priv->job)))
                         g_clear_object (&priv->job);
-		return;
+                return;
         }
 
-	document = pps_job_get_document (PPS_JOB (priv->job));
+        document = pps_job_get_document (PPS_JOB (priv->job));
         model = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->tree_view));
 
-        do {
+        for (guint current_page = 0; current_page < pps_document_get_n_pages (document); current_page++) {
                 GList        *matches, *l;
-                PpsPage       *page;
+                PpsPage      *page;
                 gint          result;
                 gchar        *page_label;
                 gchar        *page_text;
-                PpsRectangle  *areas = NULL;
+                PpsRectangle *areas = NULL;
                 guint         n_areas;
                 PangoLogAttr *text_log_attrs;
                 gulong        text_log_attrs_length;
                 gint          offset;
-
-                current_page = priv->current_page;
-                priv->current_page = (priv->current_page + 1) % priv->job->n_pages;
 
                 matches = priv->job->pages[current_page];
                 if (!matches)
                         continue;
 
                 page = pps_document_get_page (document, current_page);
-		page_label = pps_document_get_page_label (document, current_page);
+                page_label = pps_document_get_page_label (document, current_page);
                 page_text = get_page_text (document, page, &areas, &n_areas);
                 g_object_unref (page);
                 if (!page_text)
@@ -498,8 +490,8 @@ process_matches_idle (PpsFindSidebar *sidebar)
                 text_log_attrs = g_new0 (PangoLogAttr, text_log_attrs_length + 1);
                 pango_get_log_attrs (page_text, -1, -1, NULL, text_log_attrs, text_log_attrs_length + 1);
 
-                if (priv->first_match_page == -1)
-                        priv->first_match_page = current_page;
+                if (first_match_page == -1 && current_page >= priv->job->start_page)
+                        first_match_page = current_page;
 
                 offset = 0;
 
@@ -524,7 +516,7 @@ process_matches_idle (PpsFindSidebar *sidebar)
                                 offset = new_offset;
                                 markup = get_surrounding_text_markup (page_text,
                                                                       priv->job->text,
-								      priv->job->options & PPS_FIND_CASE_SENSITIVE,
+                                                                      priv->job->options & PPS_FIND_CASE_SENSITIVE,
                                                                       text_log_attrs,
                                                                       text_log_attrs_length,
                                                                       offset,
@@ -536,13 +528,13 @@ process_matches_idle (PpsFindSidebar *sidebar)
                                 gtk_list_store_append (GTK_LIST_STORE (model), &iter);
                         } else {
                                 gtk_list_store_insert (GTK_LIST_STORE (model), &iter,
-                                                       priv->insert_position);
-                                priv->insert_position++;
+                                                       insert_position);
+                                insert_position++;
                         }
 
                         gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                                             TEXT_COLUMN, markup,
-					    PAGE_LABEL_COLUMN, page_label,
+                                            PAGE_LABEL_COLUMN, page_label,
                                             PAGE_COLUMN, current_page + 1,
                                             RESULT_COLUMN, result,
                                             -1);
@@ -553,20 +545,17 @@ process_matches_idle (PpsFindSidebar *sidebar)
                 g_free (page_text);
                 g_free (text_log_attrs);
                 g_free (areas);
-        } while (current_page != priv->job_current_page);
+        }
 
-        if (pps_job_is_finished (PPS_JOB (priv->job)) && priv->current_page == priv->job->start_page)
-                pps_find_sidebar_highlight_first_match_of_page (sidebar, priv->first_match_page);
+        if (first_match_page != -1)
+                pps_find_sidebar_highlight_first_match_of_page (sidebar, first_match_page);
 }
 
 static void
-find_job_updated_cb (PpsJobFind     *job,
-                     gint           page,
-                     PpsFindSidebar *sidebar)
+find_job_finished_cb (PpsJobFind     *job,
+                      PpsFindSidebar *sidebar)
 {
-        PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
-
-        priv->job_current_page = page;
+        g_idle_add_once ((GSourceOnceFunc)process_matches_idle, sidebar);
 }
 
 static void
@@ -587,16 +576,12 @@ pps_find_sidebar_start (PpsFindSidebar *sidebar,
 
         pps_find_sidebar_clear (sidebar);
         priv->job = g_object_ref (job);
-        g_signal_connect_object (job, "updated",
-                                 G_CALLBACK (find_job_updated_cb),
+        g_signal_connect_object (job, "finished",
+                                 G_CALLBACK (find_job_finished_cb),
                                  sidebar, 0);
         g_signal_connect_object (job, "cancelled",
                                  G_CALLBACK (find_job_cancelled_cb),
                                  sidebar, 0);
-        priv->job_current_page = -1;
-        priv->first_match_page = -1;
-        priv->current_page = job->start_page;
-        priv->insert_position = 0;
 }
 
 void
@@ -626,18 +611,6 @@ pps_find_sidebar_restart (PpsFindSidebar *sidebar,
 
         if (first_match_page != -1)
                 pps_find_sidebar_highlight_first_match_of_page (sidebar, first_match_page);
-}
-
-void
-pps_find_sidebar_update (PpsFindSidebar *sidebar)
-{
-        PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
-
-        if (!priv->job)
-                return;
-
-        if (priv->process_matches_idle_id == 0)
-                priv->process_matches_idle_id = g_idle_add_once ((GSourceOnceFunc)process_matches_idle, sidebar);
 }
 
 void
