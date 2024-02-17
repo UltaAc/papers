@@ -25,7 +25,6 @@
 
 enum {
         STARTED,
-        UPDATED,
         FINISHED,
         CLEARED,
 
@@ -155,7 +154,6 @@ find_job_updated_cb (PpsJobFind   *job,
          */
         if (find_check_refresh_rate (job, FIND_PAGE_RATE_REFRESH)) {
                 pps_search_box_update_progress (box);
-                g_signal_emit (box, signals[UPDATED], 0, page);
         }
 }
 
@@ -459,15 +457,6 @@ pps_search_box_class_init (PpsSearchBoxClass *klass)
                               g_cclosure_marshal_VOID__OBJECT,
                               G_TYPE_NONE, 1,
                               PPS_TYPE_JOB_FIND);
-
-        signals[UPDATED] =
-                g_signal_new ("updated",
-                              G_OBJECT_CLASS_TYPE (object_class),
-                              G_SIGNAL_RUN_LAST,
-                              0, NULL, NULL,
-                              g_cclosure_marshal_VOID__INT,
-                              G_TYPE_NONE, 1,
-                              G_TYPE_INT);
         signals[FINISHED] =
                 g_signal_new ("finished",
                               G_OBJECT_CLASS_TYPE (object_class),
