@@ -19,51 +19,47 @@ backend/xps/papers-xpsdocument.metainfo.xml.in.in
 backend/xps/xpsdocument.papers-backend.desktop.in.in
 data/org.gnome.Papers.desktop.in.in
 data/org.gnome.Papers.gschema.xml
-data/org.gnome.Papers.metainfo.xml.in
+data/org.gnome.Papers.metainfo.xml.in.in
 data/org.gnome.Papers-previewer.desktop.in.in
 libdocument/pps-attachment.c
 libdocument/pps-document-factory.c
 libdocument/pps-file-helpers.c
 libdocument/pps-xmp.c
-libmisc/pps-page-action-widget.c
-libmisc/pps-search-box.c
+libmisc/pps-page-selector.c
+libmisc/pps-page-selector.ui
 libview/pps-jobs.c
 libview/pps-print-operation.c
 libview/pps-view-accessible.c
 libview/pps-view.c
 libview/pps-view-presentation.c
 previewer/pps-previewer.c
-previewer/pps-previewer-toolbar.c
 previewer/pps-previewer-window.c
-previewer/previewer.ui
-properties/pps-properties-main.c
-properties/pps-properties-view.c
+previewer/pps-previewer-window.ui
+nautilus/pps-nautilus-extension.c
+shell/help-overlay.ui
 shell/pps-annotation-properties-dialog.c
 shell/pps-annotations-toolbar.c
 shell/pps-application.c
 shell/pps-history.c
-shell/papers-menus.ui
-shell/papers-password-view.ui
-shell/papers-properties-fonts.ui
-shell/papers-sidebar-bookmarks.ui
-shell/papers-toolbar.ui
-shell/papers-zoom-action.ui
 shell/pps-keyring.c
-shell/pps-loading-message.c
 shell/pps-password-view.c
-shell/pps-properties-dialog.c
+shell/pps-password-view.ui
 shell/pps-properties-fonts.c
+shell/pps-properties-fonts.ui
 shell/pps-properties-license.c
 shell/pps-sidebar-annotations.c
 shell/pps-sidebar-attachments.c
 shell/pps-sidebar-bookmarks.c
+shell/pps-sidebar-bookmarks.ui
 shell/pps-sidebar-layers.c
 shell/pps-sidebar-links.c
-shell/pps-sidebar-thumbnails.c
-shell/pps-toolbar.c
 shell/pps-utils.c
 shell/pps-window.c
 shell/pps-window-title.c
-shell/pps-zoom-action.c
-shell/help-overlay.ui
-shell/main.c
+shell/pps-zoom-action.ui
+# shell-rs/src/main.rs
+# shell-rs/src/properties_general.rs
+# shell-rs/src/properties_window.rs
+# shell-rs/src/sidebar_thumbnail.rs
+# shell-rs/src/thumbnail_item.rs
+# shell-rs/src/zoom_action.rs
