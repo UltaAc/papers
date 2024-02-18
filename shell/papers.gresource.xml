@@ -33,6 +33,7 @@
     <file alias="ui/sidebar-thumbnails.ui" compressed="true" preprocess="xml-stripblanks">pps-sidebar-thumbnails.ui</file>
     <file alias="ui/sidebar-attachments.ui" compressed="true" preprocess="xml-stripblanks">pps-sidebar-attachments.ui</file>
     <file alias="ui/properties-window.ui" compressed="true" preprocess="xml-stripblanks">pps-properties-window.ui</file>
+    <file alias="ui/properties-license.ui" compressed="true" preprocess="xml-stripblanks">pps-properties-license.ui</file>
   </gresource>
   <gresource prefix="/org/gnome/papers/icons/scalable/apps">
     <file alias="annotations-squiggly-symbolic.svg" preprocess="xml-stripblanks">icons/annotations-squiggly-symbolic.svg</file>

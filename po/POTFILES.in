@@ -47,6 +47,7 @@ shell/pps-password-view.ui
 shell/pps-properties-fonts.c
 shell/pps-properties-fonts.ui
 shell/pps-properties-license.c
+shell/pps-properties-license.ui
 shell/pps-sidebar-annotations.c
 shell/pps-sidebar-attachments.c
 shell/pps-sidebar-bookmarks.c
