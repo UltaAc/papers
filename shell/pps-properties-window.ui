@@ -50,7 +50,7 @@
               <object class="AdwViewStackPage" id="license_page">
                 <property name="name">license</property>
                 <property name="title" translatable="yes">License</property>
-                <property name="icon-name">document-properties-symbolic</property>
+                <property name="icon-name">dialog-warning-symbolic</property>
                 <property name="child">
                   <object class="PpsPropertiesLicense" id="license" />
                 </property>
