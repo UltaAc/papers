@@ -57,9 +57,9 @@ shell/pps-utils.c
 shell/pps-window.c
 shell/pps-window-title.c
 shell/pps-zoom-action.ui
-# shell-rs/src/main.rs
-# shell-rs/src/properties_general.rs
-# shell-rs/src/properties_window.rs
-# shell-rs/src/sidebar_thumbnail.rs
-# shell-rs/src/thumbnail_item.rs
-# shell-rs/src/zoom_action.rs
+shell-rs/src/main.rs
+shell-rs/src/properties_general.rs
+shell-rs/src/properties_window.rs
+shell-rs/src/sidebar_thumbnails.rs
+shell-rs/src/thumbnail_item.rs
+shell-rs/src/zoom_action.rs
