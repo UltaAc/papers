@@ -202,9 +202,6 @@ typedef struct {
 	/* Caret navigation */
 	GtkWidget *ask_caret_navigation_check;
 
-	/* Send to */
-	gboolean has_mailto_handler;
-
 	gboolean password_view_cancelled;
 } PpsWindowPrivate;
 
@@ -331,8 +328,6 @@ static void     pps_window_cmd_toggle_edit_annots 	(GSimpleAction *action,
 							 GVariant      *state,
 							 gpointer       user_data);
 
-static gchar *nautilus_sendto = NULL;
-
 G_DEFINE_TYPE_WITH_PRIVATE (PpsWindow, pps_window, ADW_TYPE_APPLICATION_WINDOW)
 
 static gboolean
@@ -440,10 +435,6 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 				      !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "open-containing-folder",
 				      has_document && !start_view_mode);
-	pps_window_set_action_enabled (pps_window, "send-to", has_document &&
-				      priv->has_mailto_handler &&
-	                              nautilus_sendto &&
-				      !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "fullscreen",
 				      has_document && !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "presentation",
@@ -2923,44 +2914,6 @@ pps_window_cmd_save_as (GSimpleAction *action,
 	PpsWindow *window = user_data;
 
 	pps_window_save_as (window);
-}
-
-static void
-pps_window_cmd_send_to (GSimpleAction *action,
-		       GVariant      *parameter,
-		       gpointer       user_data)
-{
-	PpsWindow   *pps_window = user_data;
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	GAppInfo   *app_info;
-	gchar      *command;
-	const char *uri;
-	char       *unescaped_uri;
-	GError     *error = NULL;
-
-	uri = priv->local_uri ? priv->local_uri : priv->uri;
-	unescaped_uri = g_uri_unescape_string (uri, NULL);
-	command = g_strdup_printf ("%s \"%s\"", nautilus_sendto, unescaped_uri);
-	g_free (unescaped_uri);
-	app_info = g_app_info_create_from_commandline (command, NULL, 0, &error);
-	if (app_info) {
-		GdkAppLaunchContext *context;
-		GdkDisplay          *display;
-
-		display = gtk_widget_get_display(GTK_WIDGET(pps_window));
-		context = gdk_display_get_app_launch_context (display);
-		g_app_info_launch (app_info, NULL, G_APP_LAUNCH_CONTEXT (context), &error);
-		g_object_unref (context);
-
-		g_object_unref (app_info);
-	}
-	g_free (command);
-
-	if (error) {
-		pps_window_error_message (pps_window, error, "%s",
-					 _("Could not send current document"));
-		g_error_free (error);
-	}
 }
 
 static void
@@ -5638,7 +5591,6 @@ static const GActionEntry actions[] = {
 	{ "show-properties", pps_window_cmd_file_properties },
 	{ "open-copy", pps_window_cmd_file_open_copy },
 	{ "save-as", pps_window_cmd_save_as },
-	{ "send-to", pps_window_cmd_send_to },
 	{ "open-containing-folder", pps_window_cmd_open_containing_folder },
 	{ "print", pps_window_cmd_file_print },
 	{ "copy", pps_window_cmd_edit_copy },
@@ -6602,7 +6554,6 @@ pps_window_init (PpsWindow *pps_window)
 	GDBusConnection *connection;
 	static gint window_id = 0;
 #endif
-	GAppInfo *app_info;
 
 	/* for drop target support */
 	g_type_ensure (GDK_TYPE_FILE_LIST);
@@ -6654,10 +6605,6 @@ pps_window_init (PpsWindow *pps_window)
         g_signal_connect (priv->history, "changed",
                           G_CALLBACK (history_changed_cb),
                           pps_window);
-
-	app_info = g_app_info_get_default_for_uri_scheme ("mailto");
-	priv->has_mailto_handler = app_info != NULL;
-	g_clear_object (&app_info);
 
 	g_action_map_add_action_entries (G_ACTION_MAP (pps_window),
 					 actions, G_N_ELEMENTS (actions),
@@ -6750,8 +6697,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (pps_window_class);
 
 	g_object_class->dispose = pps_window_dispose;
-
-	nautilus_sendto = g_find_program_in_path ("nautilus-sendto");
 
 	gtk_widget_class_set_template_from_resource (widget_class,
 		"/org/gnome/papers/ui/window.ui");

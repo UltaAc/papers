@@ -502,12 +502,6 @@
     </section>
     <section>
       <item>
-        <attribute name="label" translatable="yes">Present as _Slideshow</attribute>
-        <attribute name="action">win.presentation</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
         <attribute name="label" translatable="yes">_Continuous</attribute>
         <attribute name="action">win.continuous</attribute>
       </item>
@@ -581,9 +575,9 @@
         </child>
         <child>
           <object class="GtkButton">
-            <property name="tooltip_text" translatable="yes">Send To…</property>
-            <property name="icon-name">send-to-symbolic</property>
-            <property name="action-name">win.send-to</property>
+            <property name="tooltip_text" translatable="yes">Present as Slideshow</property>
+            <property name="icon-name">display-projector-symbolic</property>
+            <property name="action-name">win.presentation</property>
           </object>
         </child>
       </object>
