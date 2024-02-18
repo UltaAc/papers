@@ -34,11 +34,15 @@ pub trait DocumentFontsExt: IsA<DocumentFonts> + sealed::Sealed + 'static {
         }
     }
 
-    //#[doc(alias = "pps_document_fonts_get_model")]
-    //#[doc(alias = "get_model")]
-    //fn model(&self) -> /*Ignored*/Option<gio::ListModel> {
-    //    unsafe { TODO: call ffi:pps_document_fonts_get_model() }
-    //}
+    #[doc(alias = "pps_document_fonts_get_model")]
+    #[doc(alias = "get_model")]
+    fn model(&self) -> Option<gio::ListModel> {
+        unsafe {
+            from_glib_full(ffi::pps_document_fonts_get_model(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 
     #[doc(alias = "pps_document_fonts_scan")]
     fn scan(&self) {

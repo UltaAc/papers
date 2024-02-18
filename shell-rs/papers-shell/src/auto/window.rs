@@ -424,17 +424,21 @@ pub trait WindowExt: IsA<Window> + sealed::Sealed + 'static {
         }
     }
 
+    #[doc(alias = "pps_window_get_header_bar")]
+    #[doc(alias = "get_header_bar")]
+    fn header_bar(&self) -> Option<adw::HeaderBar> {
+        unsafe {
+            from_glib_none(ffi::pps_window_get_header_bar(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
+
     //#[doc(alias = "pps_window_get_metadata")]
     //#[doc(alias = "get_metadata")]
     //fn metadata(&self) -> /*Ignored*/Option<Metadata> {
     //    unsafe { TODO: call ffi:pps_window_get_metadata() }
     //}
-
-    #[doc(alias = "pps_window_get_toolbar")]
-    #[doc(alias = "get_toolbar")]
-    fn toolbar(&self) -> Option<adw::HeaderBar> {
-        unsafe { from_glib_none(ffi::pps_window_get_toolbar(self.as_ref().to_glib_none().0)) }
-    }
 
     #[doc(alias = "pps_window_get_uri")]
     #[doc(alias = "get_uri")]

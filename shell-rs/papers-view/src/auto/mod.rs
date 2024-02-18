@@ -12,6 +12,9 @@ pub use self::job::Job;
 mod job_find;
 pub use self::job_find::JobFind;
 
+mod job_fonts;
+pub use self::job_fonts::JobFonts;
+
 mod job_load;
 pub use self::job_load::JobLoad;
 

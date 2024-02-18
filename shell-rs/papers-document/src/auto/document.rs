@@ -116,24 +116,9 @@ impl Document {
         unsafe { ffi::pps_document_misc_get_widget_dpi(widget.as_ref().to_glib_none().0) }
     }
 
-    //#[doc(alias = "pps_document_misc_invert_surface")]
-    //pub fn misc_invert_surface(surface: /*Ignored*/&mut cairo::Surface) {
-    //    unsafe { TODO: call ffi:pps_document_misc_invert_surface() }
-    //}
-
     //#[doc(alias = "pps_document_misc_pixbuf_from_surface")]
     //pub fn misc_pixbuf_from_surface(surface: /*Ignored*/&mut cairo::Surface) -> Option<gdk_pixbuf::Pixbuf> {
     //    unsafe { TODO: call ffi:pps_document_misc_pixbuf_from_surface() }
-    //}
-
-    //#[doc(alias = "pps_document_misc_render_loading_thumbnail_surface")]
-    //pub fn misc_render_loading_thumbnail_surface(widget: &impl IsA<gtk::Widget>, width: i32, height: i32, inverted_colors: bool) -> /*Ignored*/Option<cairo::Surface> {
-    //    unsafe { TODO: call ffi:pps_document_misc_render_loading_thumbnail_surface() }
-    //}
-
-    //#[doc(alias = "pps_document_misc_render_thumbnail_surface_with_frame")]
-    //pub fn misc_render_thumbnail_surface_with_frame(widget: &impl IsA<gtk::Widget>, source_surface: /*Ignored*/&mut cairo::Surface, width: i32, height: i32) -> /*Ignored*/Option<cairo::Surface> {
-    //    unsafe { TODO: call ffi:pps_document_misc_render_thumbnail_surface_with_frame() }
     //}
 
     //#[doc(alias = "pps_document_misc_surface_from_pixbuf")]

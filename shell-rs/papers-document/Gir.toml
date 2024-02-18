@@ -45,6 +45,7 @@ manual = [
     "GdkPixbuf.Pixbuf",
     "GLib.DateTime",
     "Gtk.Widget",
+    "Gio.ListModel",
 ]
 
 [[object]]

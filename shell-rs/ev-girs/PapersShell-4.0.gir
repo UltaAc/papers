@@ -347,24 +347,6 @@ in recent view.</doc>
         </parameter>
       </parameters>
     </function-macro>
-    <function-macro name="IS_PROPERTIES_LICENSE"
-                    c:identifier="PPS_IS_PROPERTIES_LICENSE"
-                    introspectable="0">
-      <source-position filename="shell/pps-properties-license.h" line="37"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_PROPERTIES_LICENSE_CLASS"
-                    c:identifier="PPS_IS_PROPERTIES_LICENSE_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-properties-license.h" line="38"/>
-      <parameters>
-        <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
     <function-macro name="METADATA"
                     c:identifier="PPS_METADATA"
                     introspectable="0">
@@ -684,7 +666,7 @@ in recent view.</doc>
               glib:get-property="papers-application">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="2334">Gets the #PpsPapersApplication instance for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-papers-Application.top_of_page"&gt;org.gnome.papers.Application&lt;/link&gt; on @object, if any.</doc>
+             line="2334">Gets the #PpsPapersApplication instance for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt; on @object, if any.</doc>
         <source-position filename="shell/pps-gdbus-generated.h" line="368"/>
         <return-value transfer-ownership="full" nullable="1">
           <doc xml:space="preserve"
@@ -706,7 +688,7 @@ in recent view.</doc>
               glib:get-property="papers-window">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="2351">Gets the #PpsPapersWindow instance for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-papers-Window.top_of_page"&gt;org.gnome.papers.Window&lt;/link&gt; on @object, if any.</doc>
+             line="2351">Gets the #PpsPapersWindow instance for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Window.top_of_page"&gt;org.gnome.Papers.Window&lt;/link&gt; on @object, if any.</doc>
         <source-position filename="shell/pps-gdbus-generated.h" line="369"/>
         <return-value transfer-ownership="full" nullable="1">
           <doc xml:space="preserve"
@@ -777,7 +759,7 @@ It is not safe to use the returned object if you are on another thread than the 
                 getter="get_papers_application">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="2314">The #PpsPapersApplication instance corresponding to the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-papers-Application.top_of_page"&gt;org.gnome.papers.Application&lt;/link&gt;, if any.
+             line="2314">The #PpsPapersApplication instance corresponding to the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt;, if any.
 
 Connect to the #GObject::notify signal to get informed of property changes.</doc>
         <type name="PapersApplication"/>
@@ -788,7 +770,7 @@ Connect to the #GObject::notify signal to get informed of property changes.</doc
                 getter="get_papers_window">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="2323">The #PpsPapersWindow instance corresponding to the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-papers-Window.top_of_page"&gt;org.gnome.papers.Window&lt;/link&gt;, if any.
+             line="2323">The #PpsPapersWindow instance corresponding to the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Window.top_of_page"&gt;org.gnome.Papers.Window&lt;/link&gt;, if any.
 
 Connect to the #GObject::notify signal to get informed of property changes.</doc>
         <type name="PapersWindow"/>
@@ -1300,7 +1282,7 @@ See pps_object_manager_client_new_for_bus_sync() for the synchronous, blocking v
               c:identifier="pps_object_skeleton_set_papers_application">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="2654">Sets the #PpsPapersApplication instance for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-papers-Application.top_of_page"&gt;org.gnome.papers.Application&lt;/link&gt; on @object.</doc>
+             line="2654">Sets the #PpsPapersApplication instance for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt; on @object.</doc>
         <source-position filename="shell/pps-gdbus-generated.h" line="434"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -1327,7 +1309,7 @@ See pps_object_manager_client_new_for_bus_sync() for the synchronous, blocking v
               c:identifier="pps_object_skeleton_set_papers_window">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="2666">Sets the #PpsPapersWindow instance for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-papers-Window.top_of_page"&gt;org.gnome.papers.Window&lt;/link&gt; on @object.</doc>
+             line="2666">Sets the #PpsPapersWindow instance for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Window.top_of_page"&gt;org.gnome.Papers.Window&lt;/link&gt; on @object.</doc>
         <source-position filename="shell/pps-gdbus-generated.h" line="435"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -1522,33 +1504,6 @@ See pps_object_manager_client_new_for_bus_sync() for the synchronous, blocking v
         </parameter>
       </parameters>
     </function-macro>
-    <function-macro name="PROPERTIES_LICENSE"
-                    c:identifier="PPS_PROPERTIES_LICENSE"
-                    introspectable="0">
-      <source-position filename="shell/pps-properties-license.h" line="35"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="PROPERTIES_LICENSE_CLASS"
-                    c:identifier="PPS_PROPERTIES_LICENSE_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-properties-license.h" line="36"/>
-      <parameters>
-        <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="PROPERTIES_LICENSE_GET_CLASS"
-                    c:identifier="PPS_PROPERTIES_LICENSE_GET_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-properties-license.h" line="39"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
     <interface name="PapersApplication"
                c:symbol-prefix="papers_application"
                c:type="PpsPapersApplication"
@@ -1557,13 +1512,13 @@ See pps_object_manager_client_new_for_bus_sync() for the synchronous, blocking v
                glib:type-struct="PapersApplicationIface">
       <doc xml:space="preserve"
            filename="shell/pps-gdbus-generated.c"
-           line="441">Abstract interface type for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-papers-Application.top_of_page"&gt;org.gnome.papers.Application&lt;/link&gt;.</doc>
+           line="441">Abstract interface type for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt;.</doc>
       <source-position filename="shell/pps-gdbus-generated.h" line="42"/>
       <function name="interface_info"
                 c:identifier="pps_papers_application_interface_info">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="384">Gets a machine-readable description of the &lt;link linkend="gdbus-interface-org-gnome-papers-Application.top_of_page"&gt;org.gnome.papers.Application&lt;/link&gt; D-Bus interface.</doc>
+             line="384">Gets a machine-readable description of the &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt; D-Bus interface.</doc>
         <source-position filename="shell/pps-gdbus-generated.h" line="46"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
@@ -1637,7 +1592,7 @@ The properties are overridden in the order they are defined.</doc>
               c:identifier="pps_papers_application_call_get_window_list">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="608">Asynchronously invokes the &lt;link linkend="gdbus-method-org-gnome-papers-Application.GetWindowList"&gt;GetWindowList()&lt;/link&gt; D-Bus method on @proxy.
+             line="608">Asynchronously invokes the &lt;link linkend="gdbus-method-org-gnome-Papers-Application.GetWindowList"&gt;GetWindowList()&lt;/link&gt; D-Bus method on @proxy.
 When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
 You can then call pps_papers_application_call_get_window_list_finish() to get the result of the operation.
 
@@ -1730,7 +1685,7 @@ See pps_papers_application_call_get_window_list_sync() for the synchronous, bloc
               throws="1">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="668">Synchronously invokes the &lt;link linkend="gdbus-method-org-gnome-papers-Application.GetWindowList"&gt;GetWindowList()&lt;/link&gt; D-Bus method on @proxy. The calling thread is blocked until a reply is received.
+             line="668">Synchronously invokes the &lt;link linkend="gdbus-method-org-gnome-Papers-Application.GetWindowList"&gt;GetWindowList()&lt;/link&gt; D-Bus method on @proxy. The calling thread is blocked until a reply is received.
 
 See pps_papers_application_call_get_window_list() for the asynchronous version of this method.</doc>
         <source-position filename="shell/pps-gdbus-generated.h" line="93"/>
@@ -1775,7 +1730,7 @@ See pps_papers_application_call_get_window_list() for the asynchronous version o
               c:identifier="pps_papers_application_call_reload">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="510">Asynchronously invokes the &lt;link linkend="gdbus-method-org-gnome-papers-Application.Reload"&gt;Reload()&lt;/link&gt; D-Bus method on @proxy.
+             line="510">Asynchronously invokes the &lt;link linkend="gdbus-method-org-gnome-Papers-Application.Reload"&gt;Reload()&lt;/link&gt; D-Bus method on @proxy.
 When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
 You can then call pps_papers_application_call_reload_finish() to get the result of the operation.
 
@@ -1861,7 +1816,7 @@ See pps_papers_application_call_reload_sync() for the synchronous, blocking vers
               throws="1">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="570">Synchronously invokes the &lt;link linkend="gdbus-method-org-gnome-papers-Application.Reload"&gt;Reload()&lt;/link&gt; D-Bus method on @proxy. The calling thread is blocked until a reply is received.
+             line="570">Synchronously invokes the &lt;link linkend="gdbus-method-org-gnome-Papers-Application.Reload"&gt;Reload()&lt;/link&gt; D-Bus method on @proxy. The calling thread is blocked until a reply is received.
 
 See pps_papers_application_call_reload() for the asynchronous version of this method.</doc>
         <source-position filename="shell/pps-gdbus-generated.h" line="75"/>
@@ -1899,7 +1854,7 @@ See pps_papers_application_call_reload() for the asynchronous version of this me
               c:identifier="pps_papers_application_complete_get_window_list">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="724">Helper function used in service implementations to finish handling invocations of the &lt;link linkend="gdbus-method-org-gnome-papers-Application.GetWindowList"&gt;GetWindowList()&lt;/link&gt; D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
+             line="724">Helper function used in service implementations to finish handling invocations of the &lt;link linkend="gdbus-method-org-gnome-Papers-Application.GetWindowList"&gt;GetWindowList()&lt;/link&gt; D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
 
 This method will free @invocation, you cannot use it afterwards.</doc>
         <source-position filename="shell/pps-gdbus-generated.h" line="55"/>
@@ -1932,7 +1887,7 @@ This method will free @invocation, you cannot use it afterwards.</doc>
               c:identifier="pps_papers_application_complete_reload">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="706">Helper function used in service implementations to finish handling invocations of the &lt;link linkend="gdbus-method-org-gnome-papers-Application.Reload"&gt;Reload()&lt;/link&gt; D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
+             line="706">Helper function used in service implementations to finish handling invocations of the &lt;link linkend="gdbus-method-org-gnome-Papers-Application.Reload"&gt;Reload()&lt;/link&gt; D-Bus method. If you instead want to finish handling an invocation by returning an error, use g_dbus_method_invocation_return_error() or similar.
 
 This method will free @invocation, you cannot use it afterwards.</doc>
         <source-position filename="shell/pps-gdbus-generated.h" line="51"/>
@@ -1958,7 +1913,7 @@ This method will free @invocation, you cannot use it afterwards.</doc>
       <glib:signal name="handle-get-window-list" when="last">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="486">Signal emitted when a remote caller is invoking the &lt;link linkend="gdbus-method-org-gnome-papers-Application.GetWindowList"&gt;GetWindowList()&lt;/link&gt; D-Bus method.
+             line="486">Signal emitted when a remote caller is invoking the &lt;link linkend="gdbus-method-org-gnome-Papers-Application.GetWindowList"&gt;GetWindowList()&lt;/link&gt; D-Bus method.
 
 If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call pps_papers_application_complete_get_window_list() or e.g. g_dbus_method_invocation_return_error() on it) and no other signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.</doc>
         <return-value transfer-ownership="none">
@@ -1979,7 +1934,7 @@ If a signal handler returns %TRUE, it means the signal handler will handle the i
       <glib:signal name="handle-reload" when="last">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="463">Signal emitted when a remote caller is invoking the &lt;link linkend="gdbus-method-org-gnome-papers-Application.Reload"&gt;Reload()&lt;/link&gt; D-Bus method.
+             line="463">Signal emitted when a remote caller is invoking the &lt;link linkend="gdbus-method-org-gnome-Papers-Application.Reload"&gt;Reload()&lt;/link&gt; D-Bus method.
 
 If a signal handler returns %TRUE, it means the signal handler will handle the invocation (e.g. take a reference to @invocation and eventually call pps_papers_application_complete_reload() or e.g. g_dbus_method_invocation_return_error() on it) and no other signal handlers will run. If no signal handler handles the invocation, the %G_DBUS_ERROR_UNKNOWN_METHOD error is returned.</doc>
         <return-value transfer-ownership="none">
@@ -2009,7 +1964,7 @@ If a signal handler returns %TRUE, it means the signal handler will handle the i
             glib:is-gtype-struct-for="PapersApplication">
       <doc xml:space="preserve"
            filename="shell/pps-gdbus-generated.c"
-           line="447">Virtual table for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-papers-Application.top_of_page"&gt;org.gnome.papers.Application&lt;/link&gt;.</doc>
+           line="447">Virtual table for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt;.</doc>
       <source-position filename="shell/pps-gdbus-generated.h" line="42"/>
       <field name="parent_iface">
         <doc xml:space="preserve"
@@ -2172,7 +2127,7 @@ See pps_papers_application_proxy_new_for_bus() for the asynchronous version of t
                    throws="1">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="963">Synchronously creates a proxy for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-papers-Application.top_of_page"&gt;org.gnome.papers.Application&lt;/link&gt;. See g_dbus_proxy_new_sync() for more details.
+             line="963">Synchronously creates a proxy for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt;. See g_dbus_proxy_new_sync() for more details.
 
 The calling thread is blocked until a reply is received.
 
@@ -2226,7 +2181,7 @@ See pps_papers_application_proxy_new() for the asynchronous version of this cons
       <function name="new" c:identifier="pps_papers_application_proxy_new">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="908">Asynchronously creates a proxy for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-papers-Application.top_of_page"&gt;org.gnome.papers.Application&lt;/link&gt;. See g_dbus_proxy_new() for more details.
+             line="908">Asynchronously creates a proxy for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt;. See g_dbus_proxy_new() for more details.
 
 When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
 You can then call pps_papers_application_proxy_new_finish() to get the result of the operation.
@@ -2410,7 +2365,7 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
                    c:identifier="pps_papers_application_skeleton_new">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="1361">Creates a skeleton object for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-papers-Application.top_of_page"&gt;org.gnome.papers.Application&lt;/link&gt;.</doc>
+             line="1361">Creates a skeleton object for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt;.</doc>
         <source-position filename="shell/pps-gdbus-generated.h" line="202"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
@@ -2458,13 +2413,13 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
                glib:type-struct="PapersWindowIface">
       <doc xml:space="preserve"
            filename="shell/pps-gdbus-generated.c"
-           line="1514">Abstract interface type for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-papers-Window.top_of_page"&gt;org.gnome.papers.Window&lt;/link&gt;.</doc>
+           line="1514">Abstract interface type for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Window.top_of_page"&gt;org.gnome.Papers.Window&lt;/link&gt;.</doc>
       <source-position filename="shell/pps-gdbus-generated.h" line="228"/>
       <function name="interface_info"
                 c:identifier="pps_papers_window_interface_info">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="1457">Gets a machine-readable description of the &lt;link linkend="gdbus-interface-org-gnome-papers-Window.top_of_page"&gt;org.gnome.papers.Window&lt;/link&gt; D-Bus interface.</doc>
+             line="1457">Gets a machine-readable description of the &lt;link linkend="gdbus-interface-org-gnome-Papers-Window.top_of_page"&gt;org.gnome.Papers.Window&lt;/link&gt; D-Bus interface.</doc>
         <source-position filename="shell/pps-gdbus-generated.h" line="232"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
@@ -2529,7 +2484,7 @@ The properties are overridden in the order they are defined.</doc>
       <method name="emit_closed" c:identifier="pps_papers_window_emit_closed">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="1577">Emits the &lt;link linkend="gdbus-signal-org-gnome-papers-Window.Closed"&gt;"Closed"&lt;/link&gt; D-Bus signal.</doc>
+             line="1577">Emits the &lt;link linkend="gdbus-signal-org-gnome-Papers-Window.Closed"&gt;"Closed"&lt;/link&gt; D-Bus signal.</doc>
         <source-position filename="shell/pps-gdbus-generated.h" line="237"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -2547,7 +2502,7 @@ The properties are overridden in the order they are defined.</doc>
               c:identifier="pps_papers_window_emit_document_loaded">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="1590">Emits the &lt;link linkend="gdbus-signal-org-gnome-papers-Window.DocumentLoaded"&gt;"DocumentLoaded"&lt;/link&gt; D-Bus signal.</doc>
+             line="1590">Emits the &lt;link linkend="gdbus-signal-org-gnome-Papers-Window.DocumentLoaded"&gt;"DocumentLoaded"&lt;/link&gt; D-Bus signal.</doc>
         <source-position filename="shell/pps-gdbus-generated.h" line="240"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -2570,7 +2525,7 @@ The properties are overridden in the order they are defined.</doc>
       <glib:signal name="closed" when="last">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="1536">On the client-side, this signal is emitted whenever the D-Bus signal &lt;link linkend="gdbus-signal-org-gnome-papers-Window.Closed"&gt;"Closed"&lt;/link&gt; is received.
+             line="1536">On the client-side, this signal is emitted whenever the D-Bus signal &lt;link linkend="gdbus-signal-org-gnome-Papers-Window.Closed"&gt;"Closed"&lt;/link&gt; is received.
 
 On the service-side, this signal can be used with e.g. g_signal_emit_by_name() to make the object emit the D-Bus signal.</doc>
         <return-value transfer-ownership="none">
@@ -2580,7 +2535,7 @@ On the service-side, this signal can be used with e.g. g_signal_emit_by_name() t
       <glib:signal name="document-loaded" when="last">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="1555">On the client-side, this signal is emitted whenever the D-Bus signal &lt;link linkend="gdbus-signal-org-gnome-papers-Window.DocumentLoaded"&gt;"DocumentLoaded"&lt;/link&gt; is received.
+             line="1555">On the client-side, this signal is emitted whenever the D-Bus signal &lt;link linkend="gdbus-signal-org-gnome-Papers-Window.DocumentLoaded"&gt;"DocumentLoaded"&lt;/link&gt; is received.
 
 On the service-side, this signal can be used with e.g. g_signal_emit_by_name() to make the object emit the D-Bus signal.</doc>
         <return-value transfer-ownership="none">
@@ -2601,7 +2556,7 @@ On the service-side, this signal can be used with e.g. g_signal_emit_by_name() t
             glib:is-gtype-struct-for="PapersWindow">
       <doc xml:space="preserve"
            filename="shell/pps-gdbus-generated.c"
-           line="1520">Virtual table for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-papers-Window.top_of_page"&gt;org.gnome.papers.Window&lt;/link&gt;.</doc>
+           line="1520">Virtual table for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Window.top_of_page"&gt;org.gnome.Papers.Window&lt;/link&gt;.</doc>
       <source-position filename="shell/pps-gdbus-generated.h" line="228"/>
       <field name="parent_iface">
         <doc xml:space="preserve"
@@ -2756,7 +2711,7 @@ See pps_papers_window_proxy_new_for_bus() for the asynchronous version of this c
                    throws="1">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="1823">Synchronously creates a proxy for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-papers-Window.top_of_page"&gt;org.gnome.papers.Window&lt;/link&gt;. See g_dbus_proxy_new_sync() for more details.
+             line="1823">Synchronously creates a proxy for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Window.top_of_page"&gt;org.gnome.Papers.Window&lt;/link&gt;. See g_dbus_proxy_new_sync() for more details.
 
 The calling thread is blocked until a reply is received.
 
@@ -2810,7 +2765,7 @@ See pps_papers_window_proxy_new() for the asynchronous version of this construct
       <function name="new" c:identifier="pps_papers_window_proxy_new">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="1768">Asynchronously creates a proxy for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-papers-Window.top_of_page"&gt;org.gnome.papers.Window&lt;/link&gt;. See g_dbus_proxy_new() for more details.
+             line="1768">Asynchronously creates a proxy for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Window.top_of_page"&gt;org.gnome.Papers.Window&lt;/link&gt;. See g_dbus_proxy_new() for more details.
 
 When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
 You can then call pps_papers_window_proxy_new_finish() to get the result of the operation.
@@ -2993,7 +2948,7 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
       <constructor name="new" c:identifier="pps_papers_window_skeleton_new">
         <doc xml:space="preserve"
              filename="shell/pps-gdbus-generated.c"
-             line="2269">Creates a skeleton object for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-papers-Window.top_of_page"&gt;org.gnome.papers.Window&lt;/link&gt;.</doc>
+             line="2269">Creates a skeleton object for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Window.top_of_page"&gt;org.gnome.Papers.Window&lt;/link&gt;.</doc>
         <source-position filename="shell/pps-gdbus-generated.h" line="347"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
@@ -3045,12 +3000,12 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
     <docsection name="PpsPapersApplication">
       <doc xml:space="preserve"
            filename="shell/pps-gdbus-generated.c"
-           line="293">This section contains code for working with the &lt;link linkend="gdbus-interface-org-gnome-papers-Application.top_of_page"&gt;org.gnome.papers.Application&lt;/link&gt; D-Bus interface in C.</doc>
+           line="293">This section contains code for working with the &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt; D-Bus interface in C.</doc>
     </docsection>
     <docsection name="PpsPapersWindow">
       <doc xml:space="preserve"
            filename="shell/pps-gdbus-generated.c"
-           line="1379">This section contains code for working with the &lt;link linkend="gdbus-interface-org-gnome-papers-Window.top_of_page"&gt;org.gnome.papers.Window&lt;/link&gt; D-Bus interface in C.</doc>
+           line="1379">This section contains code for working with the &lt;link linkend="gdbus-interface-org-gnome-Papers-Window.top_of_page"&gt;org.gnome.Papers.Window&lt;/link&gt; D-Bus interface in C.</doc>
     </docsection>
     <enumeration name="PrintPageSet"
                  glib:type-name="PpsPrintPageSet"
@@ -3083,109 +3038,6 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
       <field name="end" writable="1">
         <type name="gint" c:type="gint"/>
       </field>
-    </record>
-    <class name="PropertiesFonts"
-           c:symbol-prefix="properties_fonts"
-           c:type="PpsPropertiesFonts"
-           parent="Adw.Bin"
-           glib:type-name="PpsPropertiesFonts"
-           glib:get-type="pps_properties_fonts_get_type"
-           glib:type-struct="PropertiesFontsClass">
-      <source-position filename="shell/pps-properties-fonts.h" line="32"/>
-      <implements name="Gtk.Accessible"/>
-      <implements name="Gtk.Buildable"/>
-      <implements name="Gtk.ConstraintTarget"/>
-      <constructor name="new" c:identifier="pps_properties_fonts_new">
-        <source-position filename="shell/pps-properties-fonts.h" line="38"/>
-        <return-value transfer-ownership="none">
-          <type name="Gtk.Widget" c:type="GtkWidget*"/>
-        </return-value>
-      </constructor>
-      <method name="set_document"
-              c:identifier="pps_properties_fonts_set_document">
-        <doc xml:space="preserve"
-             filename="shell/pps-properties-fonts.c"
-             line="128">Sets the document on the properties to the fonts can be scanned.</doc>
-        <source-position filename="shell/pps-properties-fonts.h" line="39"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="properties" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-properties-fonts.c"
-                 line="130">a #PpsPropertiesFonts</doc>
-            <type name="PropertiesFonts" c:type="PpsPropertiesFonts*"/>
-          </instance-parameter>
-          <parameter name="document" transfer-ownership="full">
-            <doc xml:space="preserve"
-                 filename="shell/pps-properties-fonts.c"
-                 line="131">a #PpsDocument which implements the
-#PpsDocumentFonts interface</doc>
-            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <field name="parent">
-        <type name="Adw.Bin" c:type="AdwBin"/>
-      </field>
-    </class>
-    <record name="PropertiesFontsClass"
-            c:type="PpsPropertiesFontsClass"
-            glib:is-gtype-struct-for="PropertiesFonts">
-      <source-position filename="shell/pps-properties-fonts.h" line="32"/>
-      <field name="parent_class">
-        <type name="Adw.BinClass" c:type="AdwBinClass"/>
-      </field>
-    </record>
-    <class name="PropertiesLicense"
-           c:symbol-prefix="properties_license"
-           c:type="PpsPropertiesLicense"
-           parent="Gtk.Box"
-           glib:type-name="PpsPropertiesLicense"
-           glib:get-type="pps_properties_license_get_type"
-           glib:type-struct="PropertiesLicenseClass">
-      <source-position filename="shell/pps-properties-license.h" line="31"/>
-      <implements name="Gtk.Accessible"/>
-      <implements name="Gtk.Buildable"/>
-      <implements name="Gtk.ConstraintTarget"/>
-      <implements name="Gtk.Orientable"/>
-      <constructor name="new" c:identifier="pps_properties_license_new">
-        <source-position filename="shell/pps-properties-license.h" line="43"/>
-        <return-value transfer-ownership="none">
-          <type name="Gtk.Widget" c:type="GtkWidget*"/>
-        </return-value>
-      </constructor>
-      <method name="set_license"
-              c:identifier="pps_properties_license_set_license">
-        <source-position filename="shell/pps-properties-license.h" line="44"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="properties_license"
-                              transfer-ownership="none">
-            <type name="PropertiesLicense" c:type="PpsPropertiesLicense*"/>
-          </instance-parameter>
-          <parameter name="license" transfer-ownership="none">
-            <type name="PapersDocument.DocumentLicense"
-                  c:type="PpsDocumentLicense*"/>
-          </parameter>
-        </parameters>
-      </method>
-    </class>
-    <record name="PropertiesLicenseClass"
-            c:type="PpsPropertiesLicenseClass"
-            disguised="1"
-            opaque="1"
-            glib:is-gtype-struct-for="PropertiesLicense">
-      <source-position filename="shell/pps-properties-license.h" line="31"/>
-    </record>
-    <record name="PropertiesLicensePrivate"
-            c:type="PpsPropertiesLicensePrivate"
-            disguised="1"
-            opaque="1">
-      <source-position filename="shell/pps-properties-license.h" line="32"/>
     </record>
     <interface name="SidebarPage"
                c:symbol-prefix="sidebar_page"
@@ -3319,12 +3171,12 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
       <constructor name="new" c:identifier="pps_window_new">
         <doc xml:space="preserve"
              filename="shell/pps-window.c"
-             line="6849">Creates a #GtkWidget that represents the window.</doc>
+             line="6837">Creates a #GtkWidget that represents the window.</doc>
         <source-position filename="shell/pps-window.h" line="64"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="6854">the #GtkWidget that represents the window.</doc>
+               line="6842">the #GtkWidget that represents the window.</doc>
           <type name="Window" c:type="PpsWindow*"/>
         </return-value>
       </constructor>
@@ -3351,36 +3203,36 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
           </instance-parameter>
         </parameters>
       </method>
-      <method name="get_metadata" c:identifier="pps_window_get_metadata">
-        <source-position filename="shell/pps-window.h" line="85"/>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-window.c"
-               line="6913">the #PpsMetadata of the document shown in the window.</doc>
-          <type name="Metadata" c:type="PpsMetadata*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="pps_window" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-window.c"
-                 line="6911">the #PpsWindow</doc>
-            <type name="Window" c:type="PpsWindow*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="get_toolbar" c:identifier="pps_window_get_toolbar">
+      <method name="get_header_bar" c:identifier="pps_window_get_header_bar">
         <source-position filename="shell/pps-window.h" line="82"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="6882">the #AdwHeaderBar that represents the toolbar of the window.</doc>
+               line="6870">the #AdwHeaderBar that represents the toolbar of the window.</doc>
           <type name="Adw.HeaderBar" c:type="AdwHeaderBar*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="6880">the #PpsWindow</doc>
+                 line="6868">the #PpsWindow</doc>
+            <type name="Window" c:type="PpsWindow*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_metadata" c:identifier="pps_window_get_metadata">
+        <source-position filename="shell/pps-window.h" line="85"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="shell/pps-window.c"
+               line="6899">the #PpsMetadata of the document shown in the window.</doc>
+          <type name="Metadata" c:type="PpsMetadata*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_window" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="shell/pps-window.c"
+                 line="6897">the #PpsWindow</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
@@ -3388,19 +3240,19 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
       <method name="get_uri" c:identifier="pps_window_get_uri">
         <doc xml:space="preserve"
              filename="shell/pps-window.c"
-             line="1789">It returns the uri of the document showed in the #PpsWindow.</doc>
+             line="1788">It returns the uri of the document showed in the #PpsWindow.</doc>
         <source-position filename="shell/pps-window.h" line="65"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="1795">the uri of the document showed in the #PpsWindow.</doc>
+               line="1794">the uri of the document showed in the #PpsWindow.</doc>
           <type name="utf8" c:type="const char*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="1791">The instance of the #PpsWindow.</doc>
+                 line="1790">The instance of the #PpsWindow.</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
@@ -3423,13 +3275,13 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
       <method name="is_empty" c:identifier="pps_window_is_empty">
         <doc xml:space="preserve"
              filename="shell/pps-window.c"
-             line="602">It does look if there is any document loaded or if there is any job to load
+             line="601">It does look if there is any document loaded or if there is any job to load
 a document.</doc>
         <source-position filename="shell/pps-window.h" line="76"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="609">%TRUE if there isn't any document loaded or any any documente to be
+               line="608">%TRUE if there isn't any document loaded or any any documente to be
          loaded, %FALSE in other case.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -3437,7 +3289,7 @@ a document.</doc>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="604">The instance of the #PpsWindow.</doc>
+                 line="603">The instance of the #PpsWindow.</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
@@ -3474,13 +3326,13 @@ a document.</doc>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="2159">a `PpsWindow`</doc>
+                 line="2158">a `PpsWindow`</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
           <parameter name="uri" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="2160">uri to open</doc>
+                 line="2159">uri to open</doc>
             <type name="utf8" c:type="const char*"/>
           </parameter>
           <parameter name="dest"
@@ -3489,13 +3341,13 @@ a document.</doc>
                      allow-none="1">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="2161">destination to point to</doc>
+                 line="2160">destination to point to</doc>
             <type name="PapersDocument.LinkDest" c:type="PpsLinkDest*"/>
           </parameter>
           <parameter name="mode" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="2162">open mode</doc>
+                 line="2161">open mode</doc>
             <type name="WindowRunMode" c:type="PpsWindowRunMode"/>
           </parameter>
           <parameter name="search_string"
@@ -3504,7 +3356,7 @@ a document.</doc>
                      allow-none="1">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="2163">window will search this string if specified</doc>
+                 line="2162">window will search this string if specified</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
         </parameters>
@@ -3530,7 +3382,7 @@ a document.</doc>
               c:identifier="pps_window_start_page_selector_search">
         <doc xml:space="preserve"
              filename="shell/pps-window.c"
-             line="3858">Prepares page_selector text entry for searching the Outline,
+             line="3829">Prepares page_selector text entry for searching the Outline,
 basically this:
    - Gives focus to the page selector entry
    - Clears the text in it.
@@ -3547,7 +3399,7 @@ it's finished by means of the entry focus_out event.</doc>
           <instance-parameter name="window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="3860">The instance of the #PpsWindow.</doc>
+                 line="3831">The instance of the #PpsWindow.</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
@@ -3629,7 +3481,7 @@ it's finished by means of the entry focus_out event.</doc>
               moved-to="PapersApplication.interface_info">
       <doc xml:space="preserve"
            filename="shell/pps-gdbus-generated.c"
-           line="384">Gets a machine-readable description of the &lt;link linkend="gdbus-interface-org-gnome-papers-Application.top_of_page"&gt;org.gnome.papers.Application&lt;/link&gt; D-Bus interface.</doc>
+           line="384">Gets a machine-readable description of the &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt; D-Bus interface.</doc>
       <source-position filename="shell/pps-gdbus-generated.h" line="46"/>
       <return-value transfer-ownership="none">
         <doc xml:space="preserve"
@@ -3672,7 +3524,7 @@ The properties are overridden in the order they are defined.</doc>
               moved-to="PapersWindow.interface_info">
       <doc xml:space="preserve"
            filename="shell/pps-gdbus-generated.c"
-           line="1457">Gets a machine-readable description of the &lt;link linkend="gdbus-interface-org-gnome-papers-Window.top_of_page"&gt;org.gnome.papers.Window&lt;/link&gt; D-Bus interface.</doc>
+           line="1457">Gets a machine-readable description of the &lt;link linkend="gdbus-interface-org-gnome-Papers-Window.top_of_page"&gt;org.gnome.Papers.Window&lt;/link&gt; D-Bus interface.</doc>
       <source-position filename="shell/pps-gdbus-generated.h" line="232"/>
       <return-value transfer-ownership="none">
         <doc xml:space="preserve"

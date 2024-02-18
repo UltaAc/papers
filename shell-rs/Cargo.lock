@@ -707,6 +707,7 @@ dependencies = [
  "bitflags 2.4.2",
  "gdk-pixbuf",
  "gdk4",
+ "gio",
  "glib",
  "gtk4",
  "libc",

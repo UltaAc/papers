@@ -465,7 +465,7 @@ For the time-format used, see pps_document_misc_format_datetime().</doc>
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
                  line="502">a #time_t</doc>
-            <type name="gint64" c:type="time_t"/>
+            <type name="glong" c:type="time_t"/>
           </parameter>
         </parameters>
       </method>
@@ -1770,13 +1770,13 @@ If the document is encrypted, it is returned but also @error is set to
                 version="3.38">
         <doc xml:space="preserve"
              filename="libdocument/pps-document-misc.c"
-             line="298">Determine the preferred date and time representation for the current locale
+             line="176">Determine the preferred date and time representation for the current locale
 for @dt.</doc>
-        <source-position filename="libdocument/pps-document-misc.h" line="62"/>
+        <source-position filename="libdocument/pps-document-misc.h" line="49"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-misc.c"
-               line="305">a new allocated string or NULL in the case
+               line="183">a new allocated string or NULL in the case
 that there was an error (such as a format specifier not being supported
 in the current locale). The string should be freed with g_free().</doc>
           <type name="utf8" c:type="gchar*"/>
@@ -1785,7 +1785,7 @@ in the current locale). The string should be freed with g_free().</doc>
           <parameter name="dt" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-misc.c"
-                 line="300">a #GDateTime</doc>
+                 line="178">a #GDateTime</doc>
             <type name="GLib.DateTime" c:type="GDateTime*"/>
           </parameter>
         </parameters>
@@ -1794,8 +1794,8 @@ in the current locale). The string should be freed with g_free().</doc>
                 c:identifier="pps_document_misc_get_pointer_position">
         <doc xml:space="preserve"
              filename="libdocument/pps-document-misc.c"
-             line="317">Get the pointer's x and y position relative to @widget.</doc>
-        <source-position filename="libdocument/pps-document-misc.h" line="65"/>
+             line="195">Get the pointer's x and y position relative to @widget.</doc>
+        <source-position filename="libdocument/pps-document-misc.h" line="52"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -1803,7 +1803,7 @@ in the current locale). The string should be freed with g_free().</doc>
           <parameter name="widget" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-misc.c"
-                 line="319">a #GtkWidget</doc>
+                 line="197">a #GtkWidget</doc>
             <type name="Gtk.Widget" c:type="GtkWidget*"/>
           </parameter>
           <parameter name="x"
@@ -1812,7 +1812,7 @@ in the current locale). The string should be freed with g_free().</doc>
                      transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-misc.c"
-                 line="320">the pointer's "x" position, or -1 if the position is not
+                 line="198">the pointer's "x" position, or -1 if the position is not
   available</doc>
             <type name="gint" c:type="gint*"/>
           </parameter>
@@ -1822,7 +1822,7 @@ in the current locale). The string should be freed with g_free().</doc>
                      transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-misc.c"
-                 line="322">the pointer's "y" position, or -1 if the position is not
+                 line="200">the pointer's "y" position, or -1 if the position is not
   available</doc>
             <type name="gint" c:type="gint*"/>
           </parameter>
@@ -1832,132 +1832,46 @@ in the current locale). The string should be freed with g_free().</doc>
                 c:identifier="pps_document_misc_get_widget_dpi">
         <doc xml:space="preserve"
              filename="libdocument/pps-document-misc.c"
-             line="250">Returns sensible guess for DPI of monitor on which given widget has been
+             line="128">Returns sensible guess for DPI of monitor on which given widget has been
 realized. If HiDPI display, use 192, else 96.
 Returns 96 as fallback value.</doc>
-        <source-position filename="libdocument/pps-document-misc.h" line="59"/>
+        <source-position filename="libdocument/pps-document-misc.h" line="46"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-misc.c"
-               line="258">DPI as gdouble</doc>
+               line="136">DPI as gdouble</doc>
           <type name="gdouble" c:type="gdouble"/>
         </return-value>
         <parameters>
           <parameter name="widget" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-misc.c"
-                 line="252">a #GtkWidget</doc>
+                 line="130">a #GtkWidget</doc>
             <type name="Gtk.Widget" c:type="GtkWidget*"/>
-          </parameter>
-        </parameters>
-      </function>
-      <function name="misc_invert_surface"
-                c:identifier="pps_document_misc_invert_surface">
-        <source-position filename="libdocument/pps-document-misc.h" line="56"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="surface" transfer-ownership="none">
-            <type name="cairo.Surface" c:type="cairo_surface_t*"/>
           </parameter>
         </parameters>
       </function>
       <function name="misc_pixbuf_from_surface"
                 c:identifier="pps_document_misc_pixbuf_from_surface">
-        <source-position filename="libdocument/pps-document-misc.h" line="49"/>
+        <source-position filename="libdocument/pps-document-misc.h" line="38"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-misc.c"
-               line="164">a #GdkPixbuf</doc>
+               line="55">a #GdkPixbuf</doc>
           <type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
         </return-value>
         <parameters>
           <parameter name="surface" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-misc.c"
-                 line="162">a #cairo_surface_t</doc>
+                 line="53">a #cairo_surface_t</doc>
             <type name="cairo.Surface" c:type="cairo_surface_t*"/>
-          </parameter>
-        </parameters>
-      </function>
-      <function name="misc_render_loading_thumbnail_surface"
-                c:identifier="pps_document_misc_render_loading_thumbnail_surface"
-                version="3.14">
-        <source-position filename="libdocument/pps-document-misc.h" line="36"/>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve"
-               filename="libdocument/pps-document-misc.c"
-               line="107">a #cairo_surface_t</doc>
-          <type name="cairo.Surface" c:type="cairo_surface_t*"/>
-        </return-value>
-        <parameters>
-          <parameter name="widget" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="libdocument/pps-document-misc.c"
-                 line="102">a #GtkWidget to use for style information</doc>
-            <type name="Gtk.Widget" c:type="GtkWidget*"/>
-          </parameter>
-          <parameter name="width" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="libdocument/pps-document-misc.c"
-                 line="103">the desired width</doc>
-            <type name="gint" c:type="int"/>
-          </parameter>
-          <parameter name="height" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="libdocument/pps-document-misc.c"
-                 line="104">the desired height</doc>
-            <type name="gint" c:type="int"/>
-          </parameter>
-          <parameter name="inverted_colors" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="libdocument/pps-document-misc.c"
-                 line="105">whether to invert colors</doc>
-            <type name="gboolean" c:type="gboolean"/>
-          </parameter>
-        </parameters>
-      </function>
-      <function name="misc_render_thumbnail_surface_with_frame"
-                c:identifier="pps_document_misc_render_thumbnail_surface_with_frame"
-                version="3.14">
-        <source-position filename="libdocument/pps-document-misc.h" line="41"/>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve"
-               filename="libdocument/pps-document-misc.c"
-               line="127">a #cairo_surface_t</doc>
-          <type name="cairo.Surface" c:type="cairo_surface_t*"/>
-        </return-value>
-        <parameters>
-          <parameter name="widget" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="libdocument/pps-document-misc.c"
-                 line="122">a #GtkWidget to use for style information</doc>
-            <type name="Gtk.Widget" c:type="GtkWidget*"/>
-          </parameter>
-          <parameter name="source_surface" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="libdocument/pps-document-misc.c"
-                 line="123">a #cairo_surface_t</doc>
-            <type name="cairo.Surface" c:type="cairo_surface_t*"/>
-          </parameter>
-          <parameter name="width" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="libdocument/pps-document-misc.c"
-                 line="124">the desired width</doc>
-            <type name="gint" c:type="int"/>
-          </parameter>
-          <parameter name="height" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="libdocument/pps-document-misc.c"
-                 line="125">the desired height</doc>
-            <type name="gint" c:type="int"/>
           </parameter>
         </parameters>
       </function>
       <function name="misc_surface_from_pixbuf"
                 c:identifier="pps_document_misc_surface_from_pixbuf">
-        <source-position filename="libdocument/pps-document-misc.h" line="47"/>
+        <source-position filename="libdocument/pps-document-misc.h" line="36"/>
         <return-value transfer-ownership="full">
           <type name="cairo.Surface" c:type="cairo_surface_t*"/>
         </return-value>
@@ -1969,7 +1883,7 @@ Returns 96 as fallback value.</doc>
       </function>
       <function name="misc_surface_rotate_and_scale"
                 c:identifier="pps_document_misc_surface_rotate_and_scale">
-        <source-position filename="libdocument/pps-document-misc.h" line="51"/>
+        <source-position filename="libdocument/pps-document-misc.h" line="40"/>
         <return-value transfer-ownership="full">
           <type name="cairo.Surface" c:type="cairo_surface_t*"/>
         </return-value>
