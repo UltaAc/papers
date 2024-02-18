@@ -1,7 +1,6 @@
 use crate::deps::*;
 
 use papers_document::DocumentFonts;
-use papers_shell::PropertiesFonts;
 
 mod imp {
     use super::*;
@@ -13,7 +12,7 @@ mod imp {
         #[template_child]
         pub(super) stack: TemplateChild<adw::ViewStack>,
         #[template_child]
-        pub(super) fonts: TemplateChild<PropertiesFonts>,
+        pub(super) fonts: TemplateChild<crate::properties_fonts::PpsPropertiesFonts>,
         #[template_child]
         pub(super) license: TemplateChild<crate::properties_license::PpsPropertiesLicense>,
         #[template_child]
@@ -35,9 +34,9 @@ mod imp {
         type ParentType = adw::Window;
 
         fn class_init(klass: &mut Self::Class) {
+            crate::properties_fonts::PpsPropertiesFonts::ensure_type();
             crate::properties_general::PpsPropertiesGeneral::ensure_type();
             crate::properties_license::PpsPropertiesLicense::ensure_type();
-            papers_shell::PropertiesFonts::ensure_type();
 
             klass.bind_template();
         }
@@ -68,7 +67,7 @@ mod imp {
                 let has_fonts = document.dynamic_cast_ref::<DocumentFonts>().is_some();
 
                 if has_fonts {
-                    self.fonts.set_document(document.clone());
+                    self.fonts.imp().set_document(document.clone());
                 }
 
                 if let Some(mut license) = license {

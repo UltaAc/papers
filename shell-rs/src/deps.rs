@@ -17,6 +17,7 @@ pub use gtk::TemplateChild;
 pub use glib::subclass::InitializingObject;
 pub use glib::subclass::Signal;
 pub use glib::Properties;
+pub use glib::SignalHandlerId;
 
 pub use std::cell::RefCell;
 

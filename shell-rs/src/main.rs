@@ -10,6 +10,7 @@ use config::GETTEXT_PACKAGE;
 use papers_shell::Application;
 
 mod deps;
+mod properties_fonts;
 mod properties_general;
 mod properties_license;
 mod properties_window;

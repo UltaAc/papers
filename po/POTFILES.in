@@ -44,7 +44,6 @@ shell/pps-history.c
 shell/pps-keyring.c
 shell/pps-password-view.c
 shell/pps-password-view.ui
-shell/pps-properties-fonts.c
 shell/pps-properties-fonts.ui
 shell/pps-properties-license.ui
 shell/pps-sidebar-annotations.c
@@ -58,6 +57,7 @@ shell/pps-window.c
 shell/pps-window-title.c
 shell/pps-zoom-action.ui
 shell-rs/src/main.rs
+shell-rs/src/properties_fonts.rs
 shell-rs/src/properties_general.rs
 shell-rs/src/properties_license.rs
 shell-rs/src/properties_window.rs
