@@ -1041,7 +1041,7 @@ static void
 setup_sidebar_from_metadata (PpsWindow *window)
 {
 	gboolean show_sidebar;
-	gchar *page_id;
+	const gchar *page_id;
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
 	if (!priv->metadata)
@@ -1058,7 +1058,7 @@ static void
 setup_model_from_metadata (PpsWindow *window)
 {
 	gint     page;
-	gchar   *sizing_mode;
+	const gchar   *sizing_mode;
 	gdouble  zoom;
 	gint     rotation;
 	gboolean inverted_colors = FALSE;
@@ -1282,7 +1282,7 @@ setup_view_from_metadata (PpsWindow *window)
 	/* Caret navigation mode */
 	if (pps_view_supports_caret_navigation (PPS_VIEW (priv->view))) {
 		gboolean caret_navigation;
-		gchar   *caret_position;
+		const gchar   *caret_position;
 
 		if (pps_metadata_get_string (priv->metadata, "caret-position", &caret_position)) {
 			GVariant *position;
@@ -3070,7 +3070,7 @@ pps_window_load_print_settings_from_metadata (PpsWindow         *window,
 
 	/* Load print setting that are specific to the document */
 	for (i = 0; i < G_N_ELEMENTS (document_print_settings); i++) {
-		gchar *value = NULL;
+		const gchar *value = NULL;
 
 		pps_metadata_get_string (priv->metadata,
 					document_print_settings[i], &value);

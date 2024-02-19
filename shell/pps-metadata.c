@@ -137,10 +137,18 @@ pps_metadata_is_empty (PpsMetadata *metadata)
 	return g_hash_table_size (metadata->items) == 0;
 }
 
+/**
+ * pps_metadata_get_string:
+ * @metadata: a #PpsMetadata
+ * @key: The keyword of the metadata
+ * @value: (out) (transfer none):  The value of the returned metadata
+ *
+ * Returns: %TRUE on success, or %FALSE on failure.
+ */
 gboolean
 pps_metadata_get_string (PpsMetadata  *metadata,
 			const gchar *key,
-			gchar     **value)
+			const gchar     **value)
 {
 	gchar *v;
 
@@ -201,12 +209,20 @@ pps_metadata_set_string (PpsMetadata  *metadata,
 	return TRUE;
 }
 
+/**
+ * pps_metadata_get_int:
+ * @metadata: a #PpsMetadata
+ * @key: The keyword of the metadata
+ * @value: (out):  The value of the returned metadata
+ *
+ * Returns: %TRUE on success, or %FALSE on failure.
+ */
 gboolean
 pps_metadata_get_int (PpsMetadata  *metadata,
 		     const gchar *key,
 		     gint        *value)
 {
-	gchar *string_value;
+	const gchar *string_value;
 	gchar *endptr;
 	gint   int_value;
 
@@ -233,12 +249,21 @@ pps_metadata_set_int (PpsMetadata  *metadata,
 	return pps_metadata_set_string (metadata, key, string_value);
 }
 
+
+/**
+ * pps_metadata_get_double:
+ * @metadata: a #PpsMetadata
+ * @key: The keyword of the metadata
+ * @value: (out):  The value of the returned metadata
+ *
+ * Returns: %TRUE on success, or %FALSE on failure.
+ */
 gboolean
 pps_metadata_get_double (PpsMetadata  *metadata,
 			const gchar *key,
 			gdouble     *value)
 {
-	gchar  *string_value;
+	const gchar  *string_value;
 	gchar  *endptr;
 	gdouble double_value;
 
@@ -265,6 +290,14 @@ pps_metadata_set_double (PpsMetadata  *metadata,
 	return pps_metadata_set_string (metadata, key, string_value);
 }
 
+/**
+ * pps_metadata_get_boolean:
+ * @metadata: a #PpsMetadata
+ * @key: The keyword of the metadata
+ * @value: (out):  The value of the returned metadata
+ *
+ * Returns: %TRUE on success, or %FALSE on failure.
+ */
 gboolean
 pps_metadata_get_boolean (PpsMetadata  *metadata,
 			 const gchar *key,

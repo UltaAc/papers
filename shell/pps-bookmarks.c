@@ -113,7 +113,7 @@ static void
 pps_bookmarks_constructed (GObject *object)
 {
         PpsBookmarks *bookmarks = PPS_BOOKMARKS (object);
-        gchar       *bm_list_str;
+        const gchar       *bm_list_str;
         GVariant    *bm_list;
         GVariantIter iter;
         GVariant    *child;

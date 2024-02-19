@@ -39,7 +39,7 @@ gboolean    pps_metadata_is_empty              (PpsMetadata  *metadata);
 
 gboolean    pps_metadata_get_string            (PpsMetadata  *metadata,
 					       const gchar *key,
-					       gchar     **value);
+					       const gchar     **value);
 gboolean    pps_metadata_set_string            (PpsMetadata  *metadata,
 					       const gchar *key,
 					       const gchar *value);
