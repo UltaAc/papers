@@ -60,12 +60,12 @@ struct _PpsApplicationClass {
 G_DEFINE_TYPE (PpsApplication, pps_application, ADW_TYPE_APPLICATION)
 
 #ifdef ENABLE_DBUS
-#define APPLICATION_DBUS_OBJECT_PATH "/org/gnome/papers/Papers" OBJECT_PROFILE
-#define APPLICATION_DBUS_INTERFACE   "org.gnome.papers.Application"
+#define APPLICATION_DBUS_OBJECT_PATH "/org/gnome/Papers/Papers" OBJECT_PROFILE
+#define APPLICATION_DBUS_INTERFACE   "org.gnome.Papers.Application"
 
-#define PAPERS_DAEMON_SERVICE        "org.gnome.papers" PROFILE ".Daemon"
-#define PAPERS_DAEMON_OBJECT_PATH    "/org/gnome/papers" OBJECT_PROFILE "/Daemon"
-#define PAPERS_DAEMON_INTERFACE      "org.gnome.papers.Daemon"
+#define PAPERS_DAEMON_SERVICE        "org.gnome.Papers" PROFILE ".Daemon"
+#define PAPERS_DAEMON_OBJECT_PATH    "/org/gnome/Papers" OBJECT_PROFILE "/Daemon"
+#define PAPERS_DAEMON_INTERFACE      "org.gnome.Papers.Daemon"
 #endif
 
 static void _pps_application_open_uri_at_dest (PpsApplication  *application,

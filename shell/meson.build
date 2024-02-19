@@ -116,13 +116,10 @@ if enable_dbus
 
   gdbus = 'pps-daemon-gdbus'
 
-  # The D-Bus interface names are in lowercase, which does not match
-  # the application name nor the namespace. However, we keep the
-  # interface prefix in lowercase for backward compatibility.
   papersd_sources += gnome.gdbus_codegen(
     gdbus + '-generated',
     gdbus + '.xml',
-    interface_prefix: pps_namespace.to_lower(),
+    interface_prefix: pps_namespace,
     namespace: pps_code_prefix,
     object_manager: true,
     autocleanup: 'objects',

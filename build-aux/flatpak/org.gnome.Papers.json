@@ -22,8 +22,8 @@
         "--filesystem=xdg-run/gvfsd",
         "--talk-name=org.gnome.SessionManager",
         "--talk-name=org.freedesktop.FileManager1",
-        "--own-name=org.gnome.papers",
-        "--own-name=org.gnome.papers.Daemon",
+        "--own-name=org.gnome.Papers",
+        "--own-name=org.gnome.Papers.Daemon",
         "--require-version=0.11.6"
     ],
     "build-options" : {

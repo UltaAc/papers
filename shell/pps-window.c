@@ -218,7 +218,7 @@ typedef struct {
 #define GS_LOCKDOWN_PRINT_SETUP  "disable-print-setup"
 
 #ifdef ENABLE_DBUS
-#define PPS_WINDOW_DBUS_OBJECT_PATH "/org/gnome/papers" OBJECT_PROFILE "/Window/%d"
+#define PPS_WINDOW_DBUS_OBJECT_PATH "/org/gnome/Papers" OBJECT_PROFILE "/Window/%d"
 #endif
 
 #define GS_SCHEMA_NAME           "org.gnome.Papers"

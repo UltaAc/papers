@@ -15,4 +15,4 @@ backend/xps/xpsdocument.papers-backend.desktop.in
 cut-n-paste/libdazzle/dzl-file-manager.c
 data/org.gnome.Papers.desktop.in
 data/org.gnome.Papers-previewer.desktop.in
-data/org.gnome.papers.Daemon.service.in
+data/org.gnome.Papers.Daemon.service.in

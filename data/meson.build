@@ -30,27 +30,22 @@ if enable_dbus
   service_conf.set('libexecdir', pps_libexecdir)
   service_conf.set('PROFILE', profile)
 
-  # The D-Bus interface names are in lowercase, which does not match
-  # the application name nor the namespace. However, we keep it in
-  # lowercase for backward compatibility.
   services = [[
-    pps_namespace.to_lower() + '.Daemon.service',
-    pps_namespace + profile + '.Daemon.service',
+    '.Daemon.service',
     dbus_service_dir,
   ]]
 
   if install_systemd_user_unit_dir
     services += [[
-      pps_namespace + '.service',
-      pps_namespace + profile + '.service',
+      '.service',
       systemd_user_unit_dir,
     ]]
   endif
 
   foreach service: services
-    service_in = service[0] + '.in'
-    service_out = service[1]
-    service_dir = service[2]
+    service_in = pps_namespace + service[0] + '.in'
+    service_out = app_id + service[0]
+    service_dir = service[1]
     configure_file(
       input: service_in,
       output: service_out,
