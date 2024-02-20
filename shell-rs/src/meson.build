@@ -80,6 +80,24 @@ test_env = cargo_env
 test_env.set('DYLD_LIBRARY_PATH', pps_library_path)
 test_env.set('LD_LIBRARY_PATH', pps_library_path)
 
+cargo_clippy = find_program('cargo-clippy', required: false)
+if cargo_clippy.found()
+  run_target(
+    'cargo-clippy',
+    command: [
+      cargo,
+      'clippy',
+      cargo_options,
+      '--no-deps',
+      '--',
+      '-D',
+      'warnings',
+    ],
+    depends: cargo_build,
+    env: cargo_env,
+  )
+endif
+
 test(
   'cargo-test',
   cargo,

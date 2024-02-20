@@ -16,7 +16,7 @@ variables:
     # stable branch.
     # Could probably also switch away from rawhide,
     # to stable fedora branch as well.
-    FDO_DISTRIBUTION_TAG: '2024-02-07.0-main'
+    FDO_DISTRIBUTION_TAG: '2024-02-20.0-main'
     FDO_DISTRIBUTION_VERSION: rawhide
 
 editorconfig:
@@ -38,6 +38,7 @@ build.container.fedora:
             meson
             appstream
             cairo-devel
+            clippy
             dbus-devel
             desktop-file-utils
             djvulibre-devel
@@ -82,6 +83,7 @@ meson:
         - meson setup --werror --fatal-meson-warnings _build
         - meson compile -C _build update-rust-bindings
         - meson compile -C _build
+        - meson compile -C _build cargo-clippy
         - meson test -C _build
 
 .flatpak-local:
