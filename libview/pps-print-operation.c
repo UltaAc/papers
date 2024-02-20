@@ -2450,30 +2450,11 @@ print_job_finished (PpsJobPrint            *job,
 	pps_job_print_set_cairo (job, NULL);
 }
 
-static gboolean
-draw_page_finish_idle (PpsPrintOperationPrint *print)
-{
-        if (pps_job_scheduler_get_running_thread_job () == print->job_print)
-		return G_SOURCE_CONTINUE;
-
-        gtk_print_operation_draw_page_finish (print->op);
-
-	return G_SOURCE_REMOVE;
-}
-
 static void
 print_job_cancelled (PpsJobPrint            *job,
                      PpsPrintOperationPrint *print)
 {
-        /* Finish the current page, so that draw-page
-         * is emitted again and it will cancel the
-         * print operation. If the job is still
-         * running, wait until it finishes.
-         */
-        if (pps_job_scheduler_get_running_thread_job () == print->job_print)
-                g_idle_add ((GSourceFunc)draw_page_finish_idle, print);
-        else
-                gtk_print_operation_draw_page_finish (print->op);
+	gtk_print_operation_draw_page_finish (print->op);
 }
 
 static void

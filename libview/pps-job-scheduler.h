@@ -46,9 +46,6 @@ PPS_PUBLIC
 void   pps_job_scheduler_update_job             (PpsJob        *job,
                                                 PpsJobPriority priority);
 PPS_PUBLIC
-PpsJob *pps_job_scheduler_get_running_thread_job (void);
-
-PPS_PUBLIC
 void   pps_job_scheduler_wait                   (void);
 
 G_END_DECLS
