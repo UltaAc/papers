@@ -24,6 +24,4 @@ pub use gettextrs::gettext;
 
 pub use std::sync::OnceLock;
 
-pub use log::{debug, error, info, warn};
-
-pub use crate::config::*;
+pub use log::debug;

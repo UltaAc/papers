@@ -80,7 +80,7 @@ mod imp {
                     .unwrap_or(gettext("None"));
 
                 let row = adw::ActionRow::builder()
-                    .title(&gettext("Folder"))
+                    .title(gettext("Folder"))
                     .css_classes(["property"])
                     .build();
 
