@@ -84,8 +84,7 @@ meson:
         - meson compile -C _build
         - meson test -C _build
 
-flatpak:
-    extends: .flatpak
+.flatpak-local:
     stage: build
     variables:
         MANIFEST_PATH: "build-aux/flatpak/org.gnome.Papers.json"
@@ -95,9 +94,23 @@ flatpak:
         BUNDLE: "org.gnome.Papers.Devel.flatpak"
     retry: 2
 
-nightly:
+flatpak@x86_64:
+    extends:
+        - .flatpak@x86_64
+        - .flatpak-local
+
+flatpak@aarch64:
+    extends:
+        - .flatpak@aarch64
+        - .flatpak-local
+
+nightly@x86_64:
   extends: '.publish_nightly'
-  needs: ['flatpak']
+  needs: ['flatpak@x86_64']
+
+nightly@aarch64:
+  extends: '.publish_nightly'
+  needs: ['flatpak@aarch64']
 
 pages:
     extends: '.fdo.distribution-image@fedora'
