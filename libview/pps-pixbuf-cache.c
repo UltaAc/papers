@@ -57,7 +57,7 @@ struct _PpsPixbufCache
 	int preload_cache_size;
 	guint job_list_len;
 
-	CacheJobInfo *prpps_job;
+	CacheJobInfo *prev_job;
 	CacheJobInfo *job_list;
 	CacheJobInfo *next_job;
 };
@@ -144,10 +144,10 @@ pps_pixbuf_cache_finalize (GObject *object)
 			       pixbuf_cache->job_list);
 		pixbuf_cache->job_list = NULL;
 	}
-	if (pixbuf_cache->prpps_job) {
+	if (pixbuf_cache->prev_job) {
 		g_slice_free1 (sizeof (CacheJobInfo) * pixbuf_cache->preload_cache_size,
-			       pixbuf_cache->prpps_job);
-		pixbuf_cache->prpps_job = NULL;
+			       pixbuf_cache->prev_job);
+		pixbuf_cache->prev_job = NULL;
 	}
 	if (pixbuf_cache->next_job) {
 		g_slice_free1 (sizeof (CacheJobInfo) * pixbuf_cache->preload_cache_size,
@@ -198,7 +198,7 @@ pps_pixbuf_cache_dispose (GObject *object)
 	pixbuf_cache = PPS_PIXBUF_CACHE (object);
 
 	for (i = 0; i < pixbuf_cache->preload_cache_size; i++) {
-		dispose_cache_job_info (pixbuf_cache->prpps_job + i, pixbuf_cache);
+		dispose_cache_job_info (pixbuf_cache->prev_job + i, pixbuf_cache);
 		dispose_cache_job_info (pixbuf_cache->next_job + i, pixbuf_cache);
 	}
 
@@ -375,7 +375,7 @@ move_one_job (CacheJobInfo  *job_info,
 	      PpsPixbufCache *pixbuf_cache,
 	      int            page,
 	      CacheJobInfo  *new_job_list,
-	      CacheJobInfo  *new_prpps_job,
+	      CacheJobInfo  *new_prev_job,
 	      CacheJobInfo  *new_next_job,
 	      int            new_preload_cache_size,
 	      int            start_page,
@@ -398,7 +398,7 @@ move_one_job (CacheJobInfo  *job_info,
 
 		g_assert (page_offset >= 0 &&
 			  page_offset < new_preload_cache_size);
-		target_page = new_prpps_job + page_offset;
+		target_page = new_prev_job + page_offset;
 		new_priority = PPS_JOB_PRIORITY_LOW;
 	} else if (page > end_page) {
 		page_offset = (page - (end_page + 1));
@@ -502,7 +502,7 @@ pps_pixbuf_cache_update_range (PpsPixbufCache *pixbuf_cache,
 			      gdouble        scale)
 {
 	CacheJobInfo *new_job_list;
-	CacheJobInfo *new_prpps_job = NULL;
+	CacheJobInfo *new_prev_job = NULL;
 	CacheJobInfo *new_next_job = NULL;
 	gint          new_preload_cache_size;
 	guint         new_job_list_len;
@@ -521,7 +521,7 @@ pps_pixbuf_cache_update_range (PpsPixbufCache *pixbuf_cache,
 	new_job_list_len = (end_page - start_page) + 1;
 	new_job_list = g_slice_alloc0 (sizeof (CacheJobInfo) * new_job_list_len);
 	if (new_preload_cache_size > 0) {
-		new_prpps_job = g_slice_alloc0 (sizeof (CacheJobInfo) * new_preload_cache_size);
+		new_prev_job = g_slice_alloc0 (sizeof (CacheJobInfo) * new_preload_cache_size);
 		new_next_job = g_slice_alloc0 (sizeof (CacheJobInfo) * new_preload_cache_size);
 	}
 
@@ -532,11 +532,11 @@ pps_pixbuf_cache_update_range (PpsPixbufCache *pixbuf_cache,
 	page = pixbuf_cache->start_page - pixbuf_cache->preload_cache_size;
 	for (i = 0; i < pixbuf_cache->preload_cache_size; i++) {
 		if (page < 0) {
-			dispose_cache_job_info (pixbuf_cache->prpps_job + i, pixbuf_cache);
+			dispose_cache_job_info (pixbuf_cache->prev_job + i, pixbuf_cache);
 		} else {
-			move_one_job (pixbuf_cache->prpps_job + i,
+			move_one_job (pixbuf_cache->prev_job + i,
 				      pixbuf_cache, page,
-				      new_job_list, new_prpps_job, new_next_job,
+				      new_job_list, new_prev_job, new_next_job,
 				      new_preload_cache_size,
 				      start_page, end_page, PPS_JOB_PRIORITY_LOW);
 		}
@@ -547,7 +547,7 @@ pps_pixbuf_cache_update_range (PpsPixbufCache *pixbuf_cache,
 	for (i = 0; i < PAGE_CACHE_LEN (pixbuf_cache) && page >= 0; i++) {
 		move_one_job (pixbuf_cache->job_list + i,
 			      pixbuf_cache, page,
-			      new_job_list, new_prpps_job, new_next_job,
+			      new_job_list, new_prev_job, new_next_job,
 			      new_preload_cache_size,
 			      start_page, end_page, PPS_JOB_PRIORITY_URGENT);
 		page ++;
@@ -559,7 +559,7 @@ pps_pixbuf_cache_update_range (PpsPixbufCache *pixbuf_cache,
 		} else {
 			move_one_job (pixbuf_cache->next_job + i,
 				      pixbuf_cache, page,
-				      new_job_list, new_prpps_job, new_next_job,
+				      new_job_list, new_prev_job, new_next_job,
 				      new_preload_cache_size,
 				      start_page, end_page, PPS_JOB_PRIORITY_LOW);
 		}
@@ -570,9 +570,9 @@ pps_pixbuf_cache_update_range (PpsPixbufCache *pixbuf_cache,
 		g_slice_free1 (sizeof (CacheJobInfo) * pixbuf_cache->job_list_len,
 			       pixbuf_cache->job_list);
 	}
-	if (pixbuf_cache->prpps_job) {
+	if (pixbuf_cache->prev_job) {
 		g_slice_free1 (sizeof (CacheJobInfo) * pixbuf_cache->preload_cache_size,
-			       pixbuf_cache->prpps_job);
+			       pixbuf_cache->prev_job);
 	}
 	if (pixbuf_cache->next_job) {
 		g_slice_free1 (sizeof (CacheJobInfo) * pixbuf_cache->preload_cache_size,
@@ -583,7 +583,7 @@ pps_pixbuf_cache_update_range (PpsPixbufCache *pixbuf_cache,
 	pixbuf_cache->job_list_len = new_job_list_len;
 
 	pixbuf_cache->job_list = new_job_list;
-	pixbuf_cache->prpps_job = new_prpps_job;
+	pixbuf_cache->prev_job = new_prev_job;
 	pixbuf_cache->next_job = new_next_job;
 
 	pixbuf_cache->start_page = start_page;
@@ -605,7 +605,7 @@ find_job_cache (PpsPixbufCache *pixbuf_cache,
 
 		g_assert (page_offset >= 0 &&
 			  page_offset < pixbuf_cache->preload_cache_size);
-		return pixbuf_cache->prpps_job + page_offset;
+		return pixbuf_cache->prev_job + page_offset;
 	}
 
 	if (page > pixbuf_cache->end_page) {
@@ -633,7 +633,7 @@ pps_pixbuf_cache_clear_job_sizes (PpsPixbufCache *pixbuf_cache,
 	}
 
 	for (i = 0; i < pixbuf_cache->preload_cache_size; i++) {
-		check_job_size_and_unref (pixbuf_cache, pixbuf_cache->prpps_job + i, scale);
+		check_job_size_and_unref (pixbuf_cache, pixbuf_cache->prev_job + i, scale);
 		check_job_size_and_unref (pixbuf_cache, pixbuf_cache->next_job + i, scale);
 	}
 }
@@ -717,7 +717,7 @@ add_job_if_needed (PpsPixbufCache *pixbuf_cache,
 }
 
 static void
-add_prpps_jobs_if_needed (PpsPixbufCache *pixbuf_cache,
+add_prev_jobs_if_needed (PpsPixbufCache *pixbuf_cache,
                          gint           rotation,
                          gfloat         scale)
 {
@@ -726,7 +726,7 @@ add_prpps_jobs_if_needed (PpsPixbufCache *pixbuf_cache,
         int i;
 
         for (i = pixbuf_cache->preload_cache_size - 1; i >= FIRST_VISIBLE_PREV(pixbuf_cache); i--) {
-                job_info = (pixbuf_cache->prpps_job + i);
+                job_info = (pixbuf_cache->prev_job + i);
                 page = pixbuf_cache->start_page - pixbuf_cache->preload_cache_size + i;
 
                 add_job_if_needed (pixbuf_cache, job_info,
@@ -773,11 +773,11 @@ pps_pixbuf_cache_add_jobs_if_needed (PpsPixbufCache *pixbuf_cache,
 	}
 
         if (pixbuf_cache->scroll_direction == SCROLL_DIRECTION_UP) {
-                add_prpps_jobs_if_needed (pixbuf_cache, rotation, scale);
+                add_prev_jobs_if_needed (pixbuf_cache, rotation, scale);
                 add_next_jobs_if_needed (pixbuf_cache, rotation, scale);
         } else {
                 add_next_jobs_if_needed (pixbuf_cache, rotation, scale);
-                add_prpps_jobs_if_needed (pixbuf_cache, rotation, scale);
+                add_prev_jobs_if_needed (pixbuf_cache, rotation, scale);
         }
 }
 
@@ -914,7 +914,7 @@ pps_pixbuf_cache_clear (PpsPixbufCache *pixbuf_cache)
 		return;
 
 	for (i = 0; i < pixbuf_cache->preload_cache_size; i++) {
-		dispose_cache_job_info (pixbuf_cache->prpps_job + i, pixbuf_cache);
+		dispose_cache_job_info (pixbuf_cache->prev_job + i, pixbuf_cache);
 		dispose_cache_job_info (pixbuf_cache->next_job + i, pixbuf_cache);
 	}
 
@@ -936,7 +936,7 @@ pps_pixbuf_cache_style_changed (PpsPixbufCache *pixbuf_cache)
 	for (i = 0; i < pixbuf_cache->preload_cache_size; i++) {
 		CacheJobInfo *job_info;
 
-		job_info = pixbuf_cache->prpps_job + i;
+		job_info = pixbuf_cache->prev_job + i;
 		if (job_info->selection_texture) {
 			g_clear_object (&job_info->selection_texture);
 			job_info->selection_points.x1 = -1;
@@ -1165,9 +1165,9 @@ pps_pixbuf_cache_set_selection_list (PpsPixbufCache *pixbuf_cache,
 		}
 
 		if (selection)
-			update_job_selection (pixbuf_cache->prpps_job + i, selection);
+			update_job_selection (pixbuf_cache->prev_job + i, selection);
 		else
-			clear_job_selection (pixbuf_cache->prpps_job + i);
+			clear_job_selection (pixbuf_cache->prev_job + i);
 		page ++;
 	}
 
@@ -1236,12 +1236,12 @@ pps_pixbuf_cache_get_selection_list (PpsPixbufCache *pixbuf_cache)
 			continue;
 		}
 
-		if (pixbuf_cache->prpps_job[i].selection_points.x1 != -1) {
+		if (pixbuf_cache->prev_job[i].selection_points.x1 != -1) {
 			selection = g_slice_new0 (PpsViewSelection);
 			selection->page = page;
-			selection->rect = pixbuf_cache->prpps_job[i].selection_points;
-			if (pixbuf_cache->prpps_job[i].selection_region)
-				selection->covered_region = cairo_region_reference (pixbuf_cache->prpps_job[i].selection_region);
+			selection->rect = pixbuf_cache->prev_job[i].selection_points;
+			if (pixbuf_cache->prev_job[i].selection_region)
+				selection->covered_region = cairo_region_reference (pixbuf_cache->prev_job[i].selection_region);
 			retval = g_list_prepend (retval, selection);
 		}
 
