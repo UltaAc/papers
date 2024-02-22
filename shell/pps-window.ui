@@ -180,6 +180,8 @@
                         <child internal-child="entry">
                           <object class="GtkSearchEntry">
                             <property name="width-chars">32</property>
+                            <property name="input-purpose">free-form</property>
+                            <property name="input-hints">no-spellcheck | word-completion</property>
                             <signal name="stop-search" handler="search_entry_stop_search_cb" />
                           </object>
                         </child>
