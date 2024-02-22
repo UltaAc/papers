@@ -3919,20 +3919,26 @@ pps_window_cmd_find (GSimpleAction *action,
 		    gpointer       user_data)
 {
 	PpsView *view;
-	gchar *selected_text = NULL;
 	PpsWindow *pps_window = user_data;
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	view = PPS_VIEW (priv->view);
+	g_autofree gchar *selected_text = NULL;
+	gboolean is_toggled;
 
+	view = PPS_VIEW (priv->view);
         selected_text = pps_view_get_selected_text (view);
 
-        if (selected_text != NULL) {
+        if (selected_text != NULL && g_strcmp0(selected_text, "") != 0) {
 		GtkSearchEntry *entry = pps_search_box_get_entry (PPS_SEARCH_BOX (priv->search_box));
 		gtk_editable_set_text (GTK_EDITABLE (entry), selected_text);
-		g_free (selected_text);
-	}
+		pps_window_show_find_bar (pps_window, TRUE);
+	} else {
+		is_toggled = g_variant_get_boolean (g_action_group_get_action_state (G_ACTION_GROUP (pps_window),
+										     "toggle-find"));
 
-	pps_window_show_find_bar (pps_window, TRUE);
+		g_action_group_change_action_state (G_ACTION_GROUP (pps_window),
+						    "toggle-find",
+						    g_variant_new_boolean (!is_toggled));
+        }
 }
 
 static void
