@@ -36,7 +36,6 @@
 #include "pps-sidebar.h"
 #include "pps-sidebar-page.h"
 #include "pps-sidebar-links.h"
-#include "pps-stack-switcher.h"
 
 enum
 {
@@ -147,7 +146,6 @@ pps_sidebar_class_init (PpsSidebarClass *pps_sidebar_class)
 	g_object_class->set_property = pps_sidebar_set_property;
 
 	g_type_ensure (PPS_TYPE_SIDEBAR_LINKS);
-	g_type_ensure (PPS_TYPE_STACK_SWITCHER);
 
 	gtk_widget_class_set_template_from_resource (widget_class,
 			"/org/gnome/papers/ui/sidebar.ui");

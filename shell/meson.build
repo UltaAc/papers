@@ -22,7 +22,6 @@ papers_sources = files(
   'pps-sidebar-layers.c',
   'pps-sidebar-links.c',
   'pps-sidebar-page.c',
-  'pps-stack-switcher.c',
 )
 
 papers_sources += gnome.compile_resources(

@@ -15,6 +15,7 @@ mod properties_general;
 mod properties_license;
 mod properties_window;
 mod sidebar_thumbnails;
+mod stack_switcher;
 mod thumbnail_item;
 mod zoom_action;
 
@@ -23,10 +24,11 @@ fn ensure_type() {
     let _ = gtk::init();
 
     // Hack: ensure type here so we don't need to add C interface
-    zoom_action::PpsZoomAction::ensure_type();
-    sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
     properties_general::PpsPropertiesGeneral::ensure_type();
     properties_window::PpsPropertiesWindow::ensure_type();
+    sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
+    stack_switcher::PpsStackSwitcher::ensure_type();
+    zoom_action::PpsZoomAction::ensure_type();
 }
 
 fn main() -> glib::ExitCode {
