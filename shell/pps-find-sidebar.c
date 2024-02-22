@@ -52,7 +52,7 @@ enum {
 
 static guint signals[N_SIGNALS];
 
-G_DEFINE_TYPE_WITH_PRIVATE (PpsFindSidebar, pps_find_sidebar, GTK_TYPE_BOX)
+G_DEFINE_TYPE_WITH_PRIVATE (PpsFindSidebar, pps_find_sidebar, GTK_TYPE_STACK)
 
 #define GET_PRIVATE(o) pps_find_sidebar_get_instance_private (o)
 
@@ -82,6 +82,12 @@ pps_find_sidebar_class_init (PpsFindSidebarClass *find_sidebar_class)
         GObjectClass *g_object_class = G_OBJECT_CLASS (find_sidebar_class);
 
         g_object_class->dispose = pps_find_sidebar_dispose;
+
+        gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (find_sidebar_class),
+                                                     "/org/gnome/papers/ui/find-sidebar.ui");
+
+        gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (find_sidebar_class),
+                                                      PpsFindSidebar, tree_view);
 
         signals[RESULT_ACTIVATED] =
                 g_signal_new ("result-activated",
@@ -175,28 +181,16 @@ static void
 pps_find_sidebar_init (PpsFindSidebar *sidebar)
 {
         PpsFindSidebarPrivate *priv;
-        GtkWidget            *swindow;
-        GtkTreeViewColumn    *column;
-        GtkCellRenderer      *renderer;
-        GtkTreeSelection     *selection;
-	GtkEventController   *controller;
+        GtkTreeViewColumn     *column;
+        GtkCellRenderer       *renderer;
+        GtkTreeSelection      *selection;
+        GtkEventController    *controller;
 
         priv = GET_PRIVATE (sidebar);
 
-        swindow = gtk_scrolled_window_new ();
-        gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swindow),
-                                        GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_widget_init_template (GTK_WIDGET (sidebar));
 
-        priv->tree_view = gtk_tree_view_new ();
-	gtk_widget_add_css_class (priv->tree_view, "navigation-sidebar");
         pps_find_sidebar_reset_model (sidebar);
-
-        gtk_tree_view_set_search_column (GTK_TREE_VIEW (priv->tree_view), -1);
-        gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (priv->tree_view), FALSE);
-	gtk_widget_set_hexpand (priv->tree_view, TRUE);
-        gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (swindow), priv->tree_view);
-
-        gtk_box_prepend (GTK_BOX (sidebar), swindow);
 
         column = gtk_tree_view_column_new ();
         gtk_tree_view_column_set_expand (GTK_TREE_VIEW_COLUMN (column), TRUE);
@@ -228,6 +222,8 @@ pps_find_sidebar_init (PpsFindSidebar *sidebar)
                           G_CALLBACK (sidebar_tree_button_press_cb),
                           sidebar);
 	gtk_widget_add_controller (priv->tree_view, controller);
+
+        gtk_stack_set_visible_child_name (GTK_STACK (sidebar), "initial");
 }
 
 GtkWidget *
@@ -556,6 +552,12 @@ find_job_finished_cb (PpsJobFind     *job,
                       PpsFindSidebar *sidebar)
 {
         g_idle_add_once ((GSourceOnceFunc)process_matches_idle, sidebar);
+
+        if (pps_job_find_has_results (job)) {
+                gtk_stack_set_visible_child_name (GTK_STACK (sidebar), "results");
+	} else {
+                gtk_stack_set_visible_child_name (GTK_STACK (sidebar), "no-results");
+	}
 }
 
 static void
@@ -582,6 +584,8 @@ pps_find_sidebar_start (PpsFindSidebar *sidebar,
         g_signal_connect_object (job, "cancelled",
                                  G_CALLBACK (find_job_cancelled_cb),
                                  sidebar, 0);
+
+        gtk_stack_set_visible_child_name (GTK_STACK (sidebar), "loading");
 }
 
 void
@@ -625,6 +629,8 @@ pps_find_sidebar_clear (PpsFindSidebar *sidebar)
          */
         pps_find_sidebar_reset_model (sidebar);
         g_clear_pointer (&priv->highlighted_result, gtk_tree_path_free);
+
+        gtk_stack_set_visible_child_name (GTK_STACK (sidebar), "initial");
 }
 
 void

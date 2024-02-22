@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="PpsFindSidebar" parent="GtkStack">
+    <child>
+      <object class="GtkStackPage">
+        <property name="name">results</property>
+        <property name="child">
+          <object class="GtkScrolledWindow">
+            <property name="child">
+              <object class="GtkTreeView" id="tree_view">
+                <style>
+                  <class name="navigation-sidebar"/>
+                </style>
+                <property name="hexpand">True</property>
+                <property name="headers-visible">False</property>
+                <property name="search-column">-1</property>
+              </object>
+            </property>
+          </object>
+        </property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkStackPage">
+        <property name="name">loading</property>
+        <property name="child">
+          <object class="GtkSpinner">
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="width-request">32</property>
+            <property name="height-request">32</property>
+            <property name="spinning">True</property>
+          </object>
+        </property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkStackPage">
+        <property name="name">no-results</property>
+        <property name="child">
+          <object class="AdwStatusPage">
+            <style>
+              <class name="compact"/>
+            </style>
+            <property name="icon-name">edit-find-symbolic</property>
+            <property name="title">No Results Found</property>
+            <property name="description">Try a different search</property>
+          </object>
+        </property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkStackPage">
+        <property name="name">initial</property>
+        <property name="child">
+          <object class="AdwStatusPage">
+            <style>
+              <class name="compact"/>
+            </style>
+            <property name="icon-name">edit-find-symbolic</property>
+            <property name="title">Perform A Search</property>
+            <property name="description">The search results will appear here</property>
+          </object>
+        </property>
+      </object>
+    </child>
+  </template>
+</interface>
