@@ -51,7 +51,6 @@ typedef struct {
         GtkWidget       *entry;
         GtkWidget       *next_button;
         GtkWidget       *prpps_button;
-        GtkWidget       *progress;
 
         guint            pages_searched;
 } PpsSearchBoxPrivate;
@@ -68,16 +67,6 @@ G_DEFINE_TYPE_WITH_CODE (PpsSearchBox, pps_search_box, ADW_TYPE_BIN,
 static guint signals[LAST_SIGNAL] = { 0 };
 
 #define FIND_PAGE_RATE_REFRESH 100
-
-static void
-pps_search_box_update_progress (PpsSearchBox *box)
-{
-        PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
-        gdouble fraction;
-
-        fraction = priv->job ? MIN ((gdouble)priv->pages_searched / PPS_JOB_FIND (priv->job)->n_pages, 1.) : 0.;
-        gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (priv->progress), fraction);
-}
 
 static void
 pps_search_box_clear_job (PpsSearchBox *box)
@@ -114,49 +103,6 @@ find_job_finished_cb (PpsJobFind   *job,
         }
 }
 
-/**
- * find_bar_check_refresh_rate:
- *
- * Check whether the current page should trigger an status update in the
- * find bar given its document size and the rate page.
- *
- * For documents with less pages than page_rate, it will return TRUE for
- * every page.  For documents with more pages, it will return TRUE every
- * ((total_pages / page rate) + 1).
- *
- * This slow down the update rate in the GUI, making the search more
- * responsive.
- */
-static inline gboolean
-find_check_refresh_rate (PpsJobFind *job,
-                         gint       page_rate)
-{
-        /* Always update if this is the last page of the search */
-        if ((job->current_page + 1) % job->n_pages == job->start_page)
-                return TRUE;
-
-        return ((job->current_page % (gint)((job->n_pages / page_rate) + 1)) == 0);
-}
-
-static void
-find_job_updated_cb (PpsJobFind   *job,
-                     gint         page,
-                     PpsSearchBox *box)
-{
-        PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
-
-        priv->pages_searched++;
-
-        /* Adjust the status update when searching for a term according
-         * to the document size in pages. For documents smaller (or equal)
-         * than 100 pages, it will be updated in every page. A value of
-         * 100 is enough to update the find bar every 1%.
-         */
-        if (find_check_refresh_rate (job, FIND_PAGE_RATE_REFRESH)) {
-                pps_search_box_update_progress (box);
-        }
-}
-
 static void
 search_changed_cb (GtkSearchEntry *entry,
                    PpsSearchBox    *box)
@@ -166,7 +112,6 @@ search_changed_cb (GtkSearchEntry *entry,
 
         pps_search_box_clear_job (box);
         priv->pages_searched = 0;
-        pps_search_box_update_progress (box);
 
         gtk_widget_set_sensitive (priv->next_button, FALSE);
         gtk_widget_set_sensitive (priv->prpps_button, FALSE);
@@ -185,9 +130,6 @@ search_changed_cb (GtkSearchEntry *entry,
 					     priv->options);
                 g_signal_connect (priv->job, "finished",
                                   G_CALLBACK (find_job_finished_cb),
-                                  box);
-                g_signal_connect (priv->job, "updated",
-                                  G_CALLBACK (find_job_updated_cb),
                                   box);
 
                 g_signal_emit (box, signals[STARTED], 0, priv->job);
@@ -416,7 +358,6 @@ pps_search_box_class_init (PpsSearchBoxClass *klass)
 	gtk_widget_class_set_template_from_resource (widget_class,
 		"/org/gnome/papers/ui/search-box.ui");
 	gtk_widget_class_bind_template_child_private (widget_class, PpsSearchBox, entry);
-	gtk_widget_class_bind_template_child_private (widget_class, PpsSearchBox, progress);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsSearchBox, prpps_button);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsSearchBox, next_button);
 
