@@ -213,7 +213,7 @@ mod imp {
 
             debug!("push render job for page: {doc_page}");
 
-            job.scheduler_push_job(JobPriority::PriorityNone);
+            job.scheduler_push_job(JobPriority::PriorityHigh);
 
             job
         }
