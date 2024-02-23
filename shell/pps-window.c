@@ -3715,8 +3715,9 @@ pps_window_save_settings (PpsWindow *pps_window)
 }
 
 static gboolean
-pps_window_close (PpsWindow *pps_window)
+pps_window_close_handled (GtkWindow *self)
 {
+	PpsWindow *pps_window = PPS_WINDOW (self);
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
 	if (PPS_WINDOW_IS_PRESENTATION (priv)) {
@@ -3732,15 +3733,15 @@ pps_window_close (PpsWindow *pps_window)
 	g_clear_signal_handler (&priv->modified_handler_id, priv->document);
 
 	if (pps_window_check_document_modified (pps_window, PPS_WINDOW_ACTION_CLOSE))
-		return FALSE;
+		return TRUE;
 
 	if (pps_window_check_print_queue (pps_window))
-		return FALSE;
+		return TRUE;
 
 	if (!pps_window_is_start_view (pps_window))
 		pps_window_save_settings (pps_window);
 
-	return TRUE;
+	return FALSE;
 }
 
 static void
@@ -3748,10 +3749,10 @@ pps_window_cmd_file_close_window (GSimpleAction *action,
 				 GVariant      *parameter,
 				 gpointer       user_data)
 {
-	PpsWindow *pps_window = user_data;
+	GtkWindow *window = user_data;
 
-	if (pps_window_close (pps_window))
-		gtk_window_destroy (GTK_WINDOW (pps_window));
+	if (!pps_window_close_handled (window))
+		gtk_window_destroy (window);
 }
 
 static void
@@ -6680,8 +6681,11 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 {
 	GObjectClass *g_object_class = G_OBJECT_CLASS (pps_window_class);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (pps_window_class);
+	GtkWindowClass *window_class = GTK_WINDOW_CLASS (pps_window_class);
 
 	g_object_class->dispose = pps_window_dispose;
+
+	window_class->close_request = pps_window_close_handled;
 
 	gtk_widget_class_set_template_from_resource (widget_class,
 		"/org/gnome/papers/ui/window.ui");
