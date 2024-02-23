@@ -39,7 +39,8 @@ mod imp {
         /// model index between page index due to support of this mode.
         #[property(set, get)]
         pub(super) blank_head: Cell<bool>,
-        pub(super) stop_change_page: Cell<bool>,
+        pub(super) block_page_changed: Cell<bool>,
+        pub(super) block_activate: Cell<bool>,
         pub(super) lru: RefCell<Option<LruCache<u32, PpsThumbnailItem>>>,
     }
 
@@ -83,7 +84,11 @@ mod imp {
             self.grid_view.set_model(Some(&selection_model));
 
             if let Some(model) = self.model() {
-                self.set_current_page(model.page());
+                let page = model.page();
+
+                if page >= 0 {
+                    self.set_current_page(page);
+                }
             }
         }
 
@@ -104,20 +109,26 @@ mod imp {
         fn set_model(&self, model: DocumentModel) {
             let obj = self.obj();
 
+            model.connect_page_changed(glib::clone!(@weak self as obj => move |model, _, new| {
+                if obj.block_page_changed.get() {
+                    return;
+                }
+
+                if model.document().is_none() {
+                    return;
+                }
+
+                debug!("page changed callback {new}");
+
+                obj.set_current_page(new);
+            }));
+
             model.connect_document_notify(glib::clone!(@weak obj => move |model| {
                 if let Some(document) = model.document() {
                     if document.n_pages() > 0 && document.check_dimensions() {
                         obj.imp().reload();
                     }
                 }
-            }));
-
-            model.connect_page_changed(glib::clone!(@weak obj => move |_, _, new| {
-                debug!("page changed callback {new}");
-
-                obj.imp().stop_change_page.set(true);
-                obj.imp().set_current_page(new);
-                obj.imp().stop_change_page.set(false);
             }));
 
             model.connect_inverted_colors_notify(glib::clone!(@weak obj => move |_| {
@@ -175,6 +186,38 @@ mod imp {
             item.set_child(Some(&box_));
         }
 
+        fn render_item(&self, model_index: i32) -> JobThumbnailTexture {
+            let doc_page = self.page_of_document(model_index);
+            let document = self.model().unwrap().document().unwrap();
+            let (width, height) = self.thumbnail_size_for_page(doc_page).unwrap();
+
+            let job = JobThumbnailTexture::with_target_size(
+                &document,
+                doc_page,
+                self.rotation(),
+                width,
+                height,
+            );
+
+            job.connect_finished(glib::clone!(@weak self as obj => move |job| {
+                if let Some(item) = obj.list_store.item(model_index as u32) {
+                    if let Ok(item) = item.downcast::<PpsThumbnailItem>() {
+                        // TODO: Take care of failed job code-path
+                        debug!("load thumbnail of page: {doc_page}");
+
+                        obj.lru.borrow_mut().as_mut().unwrap().put(model_index as u32, item.clone());
+                        item.set_paintable(job.texture());
+                    }
+                }
+            }));
+
+            debug!("push render job for page: {doc_page}");
+
+            job.scheduler_push_job(JobPriority::PriorityNone);
+
+            job
+        }
+
         #[template_callback]
         fn grid_view_factory_bind(
             &self,
@@ -206,35 +249,11 @@ mod imp {
 
             if let Some(paintable) = item.paintable() {
                 item.set_paintable(Some(&paintable));
-            } else {
-                let document = self.model().unwrap().document().unwrap();
-                let doc_page = self.page_of_document(model_index);
-                let (width, height) = self.thumbnail_size_for_page(doc_page).unwrap();
+            } else if item.job().is_none() {
+                let job = self.render_item(model_index);
 
-                let job = JobThumbnailTexture::with_target_size(
-                    &document,
-                    doc_page,
-                    self.rotation(),
-                    width,
-                    height,
-                );
-
-                job.connect_finished(glib::clone!(@weak self as obj => move |job| {
-                    if let Some(item) = obj.list_store.item(model_index as u32) {
-                        if let Ok(item) = item.downcast::<PpsThumbnailItem>() {
-                            // TODO: Take care of failed job code-path
-                            debug!("load thumbnail of page: {doc_page}");
-
-                            obj.lru.borrow_mut().as_mut().unwrap().put(model_index as u32, item.clone());
-                            item.set_paintable(job.texture());
-                        }
-                    }
-                }));
-
-                item.set_job(Some(job.clone()));
-
+                item.set_job(Some(job));
                 image.set_from_icon_name(Some("image-loading-symbolic"));
-                job.scheduler_push_job(JobPriority::PriorityNone);
             }
         }
 
@@ -247,6 +266,7 @@ mod imp {
             {
                 let item = list_item.item().and_downcast::<PpsThumbnailItem>().unwrap();
                 let model_index = list_item.position() as i32;
+                let selected = self.selection_model.selected() as i32;
 
                 if self.blank_head_mode() && model_index == 0 {
                     list_item.set_activatable(true);
@@ -258,9 +278,14 @@ mod imp {
                     item.set_binding(None::<glib::Binding>);
                 }
 
-                if let Some(job) = item.job() {
-                    job.cancel();
-                    item.set_job(None::<JobThumbnailTexture>);
+                // HACK: GtkGridView.scroll_to with SELECT flag set will trigger
+                // an extra unbind/bind cycle. We don't need to remove and cancel
+                // the job in this situation.
+                if model_index != selected {
+                    if let Some(job) = item.job() {
+                        job.cancel();
+                        item.set_job(None::<JobThumbnailTexture>);
+                    }
                 }
 
                 self.lru_evict();
@@ -273,7 +298,7 @@ mod imp {
             _pspec: &glib::ParamSpec,
             selection: &gtk::SingleSelection,
         ) {
-            if self.stop_change_page.get() {
+            if self.block_activate.get() {
                 return;
             }
 
@@ -282,7 +307,9 @@ mod imp {
                 let doc_page = self.page_of_document(store_index);
 
                 if doc_page >= 0 {
+                    self.block_page_changed.set(true);
                     model.set_page(doc_page);
+                    self.block_page_changed.set(false);
                 }
             }
         }
@@ -395,12 +422,16 @@ mod imp {
         }
 
         fn set_current_page(&self, doc_page: i32) {
+            self.block_activate.set(true);
+
             let store_index = self.index_of_store(doc_page);
 
             debug!("set current selected page to {store_index}");
 
             self.grid_view
                 .scroll_to(store_index as u32, gtk::ListScrollFlags::SELECT, None);
+
+            self.block_activate.set(false);
         }
 
         fn model(&self) -> Option<DocumentModel> {
