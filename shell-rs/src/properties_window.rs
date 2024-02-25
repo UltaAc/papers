@@ -39,6 +39,12 @@ mod imp {
             crate::properties_license::PpsPropertiesLicense::ensure_type();
 
             klass.bind_template();
+            klass.add_binding_action(
+                gdk::Key::Escape,
+                gdk::ModifierType::empty(),
+                "window.close",
+                None,
+            );
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {
