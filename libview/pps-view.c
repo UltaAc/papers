@@ -160,37 +160,13 @@ static PpsMedia     *pps_view_get_media_at_location            (PpsView         
 							      gdouble             y);
 static gboolean     pps_view_find_player_for_media            (PpsView             *view,
 							      PpsMedia            *media);
-/*** Annotations ***/
-static GtkWidget    *get_window_for_annot 		     (PpsView 		 *view,
-							      PpsAnnotation	 *annot);
-static void          map_annot_to_window		     (PpsView		 *view,
-							      PpsAnnotation	 *annot,
-							      GtkWidget		 *window);
+
 static PpsAnnotation *pps_view_get_annotation_at_location      (PpsView             *view,
 							      gdouble             x,
 							      gdouble             y);
-static void          show_annotation_windows                 (PpsView             *view,
-							      gint                page);
 static void          hide_annotation_windows                 (PpsView             *view,
 							      gint                page);
-static void	     pps_view_create_annotation_from_selection (PpsView          *view,
-							       PpsViewSelection *selection);
-/*** GtkWidget implementation ***/
-static void       pps_view_size_request_continuous_dual_page  (PpsView             *view,
-							      GtkRequisition     *requisition);
-static void       pps_view_size_request_continuous            (PpsView             *view,
-							      GtkRequisition     *requisition);
-static void       pps_view_size_request_dual_page             (PpsView             *view,
-							      GtkRequisition     *requisition);
-static void       pps_view_size_request_single_page           (PpsView             *view,
-							      GtkRequisition     *requisition);
-static void       pps_view_size_request                       (GtkWidget          *widget,
-							      GtkRequisition     *requisition);
-static void       pps_view_size_allocate                      (GtkWidget          *widget,
-							      int		  width,
-							      int		  height,
-							      int		  baseline);
-static void       pps_view_remove_all                         (PpsView             *view);
+
 static void       pps_view_remove_all_form_fields             (PpsView             *view);
 
 /*** Drawing ***/
@@ -219,11 +195,6 @@ static void       pps_view_page_changed_cb                    (PpsDocumentModel 
 							      PpsView             *view);
 static void       adjustment_value_changed_cb                (GtkAdjustment      *adjustment,
 							      PpsView             *view);
-/*** GObject ***/
-static void       pps_view_finalize                           (GObject            *object);
-static void       pps_view_dispose                            (GObject            *object);
-static void       pps_view_class_init                         (PpsViewClass        *class);
-static void       pps_view_init                               (PpsView             *view);
 
 /*** Zoom and sizing ***/
 static double   zoom_for_size_fit_width	 		     (gdouble doc_width,
