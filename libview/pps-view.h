@@ -101,12 +101,6 @@ void     	pps_view_find_set_highlight_search (PpsView         *view,
 PPS_PUBLIC
 void            pps_view_find_cancel               (PpsView         *view);
 
-/* Cursor */
-PPS_PUBLIC
-void           pps_view_hide_cursor        (PpsView         *view);
-PPS_PUBLIC
-void           pps_view_show_cursor        (PpsView         *view);
-
 /* Navigation */
 PPS_PUBLIC
 void	       pps_view_handle_link        (PpsView         *view,

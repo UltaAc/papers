@@ -9669,18 +9669,6 @@ pps_view_set_cursor (PpsView *view, PpsViewCursor new_cursor)
 			pps_view_cursor_name (new_cursor));
 }
 
-void
-pps_view_hide_cursor (PpsView *view)
-{
-       pps_view_set_cursor (view, PPS_VIEW_CURSOR_HIDDEN);
-}
-
-void
-pps_view_show_cursor (PpsView *view)
-{
-       pps_view_set_cursor (view, PPS_VIEW_CURSOR_NORMAL);
-}
-
 gboolean
 pps_view_next_page (PpsView *view)
 {
