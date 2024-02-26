@@ -253,7 +253,7 @@ mod imp {
                 let job = self.render_item(model_index);
 
                 item.set_job(Some(job));
-                image.set_from_icon_name(Some("image-loading-symbolic"));
+                image.set_from_icon_name(Some("empty-page"));
             }
         }
 
