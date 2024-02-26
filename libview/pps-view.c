@@ -2321,7 +2321,6 @@ pps_view_handle_cursor_over_xy (PpsView *view, gint x, gint y, gboolean from_mot
 		handle_cursor_over_link (view, link, x, y, from_motion);
 	} else {
 		pps_view_link_preview_popover_cleanup (view);
-		priv->link_preview.link = NULL;
 
 		if ((field = pps_view_get_form_field_at_location (view, x, y))) {
 			if (field->is_read_only) {
@@ -5095,6 +5094,8 @@ pps_view_link_preview_popover_cleanup (PpsView *view)
 		gtk_popover_popdown (GTK_POPOVER (priv->link_preview.popover));
 		g_clear_pointer (&priv->link_preview.popover, gtk_widget_unparent);
 	}
+
+	priv->link_preview.link = NULL;
 
 	g_clear_handle_id (&priv->link_preview.delay_timeout_id, g_source_remove);
 }
