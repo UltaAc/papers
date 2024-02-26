@@ -2200,7 +2200,7 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y, gboolean 
 	PpsPoint          link_dest_doc;
 	GdkPoint         link_dest_view;
 	gint             device_scale = 1;
-	GtkEventController * controller;
+	GtkEventController *controller;
 
 	pps_view_set_cursor (view, PPS_VIEW_CURSOR_LINK);
 
@@ -2234,6 +2234,7 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y, gboolean 
 	gtk_widget_set_parent (popover, GTK_WIDGET (view));
 	get_link_area (view, x, y, link, &link_area);
 	gtk_popover_set_pointing_to (GTK_POPOVER (popover), &link_area);
+	gtk_popover_set_autohide (GTK_POPOVER (popover), FALSE);
 
 	controller = GTK_EVENT_CONTROLLER (gtk_event_controller_motion_new ());
 	g_signal_connect (controller, "motion",
@@ -5054,9 +5055,8 @@ static void
 link_preview_delayed_show (PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	GtkWidget *popover = priv->link_preview.popover;
 
-	gtk_popover_popup (GTK_POPOVER (popover));
+	gtk_popover_popup (GTK_POPOVER (priv->link_preview.popover));
 
 	priv->link_preview.delay_timeout_id = 0;
 }
