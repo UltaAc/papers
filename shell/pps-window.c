@@ -3464,9 +3464,7 @@ pps_window_cmd_file_properties (GSimpleAction *action,
 					      GTK_WINDOW (pps_window));
 	}
 
-	pps_document_fc_mutex_lock ();
 	gtk_window_present (GTK_WINDOW (priv->properties));
-	pps_document_fc_mutex_unlock ();
 }
 
 static void
