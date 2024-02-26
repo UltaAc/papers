@@ -5068,17 +5068,14 @@ link_preview_job_finished_cb (PpsJobThumbnailTexture *job,
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	if (pps_job_is_failed (PPS_JOB (job), NULL)) {
-		gtk_widget_unparent (priv->link_preview.popover);
-		priv->link_preview.popover = NULL;
-		g_object_unref (job);
-		priv->link_preview.job = NULL;
+		g_clear_pointer (&priv->link_preview.popover, gtk_widget_unparent);
+		g_clear_object (&priv->link_preview.job);
 		return;
 	}
 
 	link_preview_set_thumbnail (job->thumbnail_texture, view);
 
-	g_object_unref (job);
-	priv->link_preview.job = NULL;
+	g_clear_object (&priv->link_preview.job);
 }
 
 static void
