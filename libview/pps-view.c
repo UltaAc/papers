@@ -5056,7 +5056,6 @@ link_preview_delayed_show (PpsView *view)
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GtkWidget *popover = priv->link_preview.popover;
 
-	gtk_popover_present (GTK_POPOVER (popover));
 	gtk_popover_popup (GTK_POPOVER (popover));
 
 	priv->link_preview.delay_timeout_id = 0;
