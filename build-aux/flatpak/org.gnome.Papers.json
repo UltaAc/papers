@@ -8,7 +8,6 @@
     "tags" : [
         "devel"
     ],
-    "desktop-file-name-prefix" : "(Development) ",
     "copy-icon" : true,
     "finish-args" : [
         "--share=ipc",
