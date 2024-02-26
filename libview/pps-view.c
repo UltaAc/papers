@@ -145,7 +145,7 @@ static void       get_link_area                              (PpsView           
 							      gint                y,
 							      PpsLink             *link,
 							      GdkRectangle       *area);
-static void       link_preview_show_thumbnail                (GdkTexture    *page_surface,
+static void       link_preview_set_thumbnail                 (GdkTexture    *page_surface,
 							      PpsView             *view);
 static void       link_preview_job_finished_cb               (PpsJobThumbnailTexture     *job,
 							      PpsView             *view);
@@ -2293,7 +2293,7 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y, gboolean 
 	page_texture = pps_pixbuf_cache_get_texture (priv->pixbuf_cache, link_dest_page);
 
 	if (page_texture)
-		link_preview_show_thumbnail (page_texture, view);
+		link_preview_set_thumbnail (page_texture, view);
 	else {
 		g_signal_connect (priv->link_preview.job, "finished",
 				  G_CALLBACK (link_preview_job_finished_cb),
@@ -5019,8 +5019,8 @@ get_field_area (PpsView       *view,
 
 
 static void
-link_preview_show_thumbnail (GdkTexture *page_texture,
-			     PpsView *view)
+link_preview_set_thumbnail (GdkTexture *page_texture,
+			    PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GtkWidget       *popover = priv->link_preview.popover;
@@ -5105,7 +5105,7 @@ link_preview_job_finished_cb (PpsJobThumbnailTexture *job,
 		return;
 	}
 
-	link_preview_show_thumbnail (job->thumbnail_texture, view);
+	link_preview_set_thumbnail (job->thumbnail_texture, view);
 
 	g_object_unref (job);
 	priv->link_preview.job = NULL;
