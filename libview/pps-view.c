@@ -7340,10 +7340,7 @@ pps_view_dispose (GObject *object)
 	g_clear_handle_id (&priv->cursor_blink_timeout_id, g_source_remove);
 	g_clear_handle_id (&priv->child_focus_idle_id, g_source_remove);
 
-	if (priv->link_preview.job) {
-		pps_job_cancel (priv->link_preview.job);
-		g_clear_object (&priv->link_preview.job);
-	}
+	pps_view_link_preview_popover_cleanup (view);
 
         gtk_scrollable_set_hadjustment (GTK_SCROLLABLE (view), NULL);
         gtk_scrollable_set_vadjustment (GTK_SCROLLABLE (view), NULL);
