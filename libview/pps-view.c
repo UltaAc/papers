@@ -5067,8 +5067,7 @@ link_preview_job_finished_cb (PpsJobThumbnailTexture *job,
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	if (pps_job_is_failed (PPS_JOB (job), NULL)) {
-		g_clear_pointer (&priv->link_preview.popover, gtk_widget_unparent);
-		g_clear_object (&priv->link_preview.job);
+		pps_view_link_preview_popover_cleanup (view);
 		return;
 	}
 
@@ -5086,14 +5085,14 @@ pps_view_link_preview_popover_cleanup (PpsView *view)
 		g_clear_object (&priv->link_preview.job);
 	}
 
+	g_clear_handle_id (&priv->link_preview.delay_timeout_id, g_source_remove);
+
 	if (priv->link_preview.popover) {
 		gtk_popover_popdown (GTK_POPOVER (priv->link_preview.popover));
 		g_clear_pointer (&priv->link_preview.popover, gtk_widget_unparent);
 	}
 
 	priv->link_preview.link = NULL;
-
-	g_clear_handle_id (&priv->link_preview.delay_timeout_id, g_source_remove);
 }
 
 static gboolean
