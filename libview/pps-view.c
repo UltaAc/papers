@@ -9343,6 +9343,10 @@ compute_new_selection (PpsView          *view,
 	if (!get_selection_page_range (view, style, start, stop, &first, &last))
 		return list;
 
+	/* If everything is equal, then there's nothing to select */
+	if (first == last && gdk_point_equal (start, stop))
+		return list;
+
 	/* Now create a list of PpsViewSelection's for the affected
 	 * pages. This could be an empty list, a list of just one
 	 * page or a number of pages.*/
