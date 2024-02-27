@@ -3,7 +3,6 @@ use papers_document::{Link, Outlines};
 use papers_shell::Metadata;
 use papers_view::JobPriority;
 
-use glib::ControlFlow;
 use glib::SignalHandlerId;
 use std::cell::Cell;
 use std::collections::{BTreeMap, HashMap, HashSet};
@@ -340,7 +339,6 @@ mod imp {
         sig_handlers: RefCell<HashMap<gtk::TreeListRow, SignalHandlerId>>,
         timeout_id: RefCell<Option<glib::SourceId>>,
         update_page_to: Cell<i32>,
-        updated_page: Cell<i32>,
         selected_row: RefCell<Option<gtk::TreeListRow>>,
         pub(super) block_activate: Cell<bool>,
         pub(super) block_page_changed: Cell<bool>,
@@ -410,8 +408,6 @@ mod imp {
 
             self.action_group.add_action_entries(action_entries);
             obj.insert_action_group("links", Some(&self.action_group.clone()));
-
-            self.updated_page.set(-1);
         }
 
         fn signals() -> &'static [Signal] {
@@ -455,23 +451,21 @@ mod imp {
 
                     obj.update_page_to.set(new);
 
-                    if obj.timeout_id.borrow().is_none() {
-
-                        glib::timeout_add_local(
-                            Duration::from_millis(150),
-                            glib::clone!(@weak obj => @default-return ControlFlow::Break, move || {
-                                let page = obj.update_page_to.get();
-
-                                if obj.updated_page.get() != page {
-                                    obj.set_current_page(page);
-                                    obj.updated_page.set(page);
-                                    ControlFlow::Continue
-                                } else {
-                                    obj.timeout_id.take();
-                                    ControlFlow::Break
-                                }
-                        }));
+                    if let Some(source) = obj.timeout_id.take() {
+                        source.remove();
                     }
+
+                    let id = glib::timeout_add_local_once(
+                        Duration::from_millis(200),
+                        glib::clone!(@weak obj => move || {
+                            let page = obj.update_page_to.get();
+
+                            obj.set_current_page(page);
+
+                            obj.timeout_id.take();
+                        }));
+
+                    obj.timeout_id.replace(Some(id));
                 }));
             }
 
@@ -569,8 +563,15 @@ mod imp {
                         self.sidebar_collapse(Some(path));
 
                         if let Some(pos) = path.expand(&tree_model) {
-                            self.list_view
-                                .scroll_to(pos, gtk::ListScrollFlags::SELECT, None);
+                            glib::idle_add_local_once(glib::clone!(@weak self as obj => move || {
+                                obj.block_row_expand.set(true);
+                                obj.block_activate.set(true);
+
+                                obj.list_view.scroll_to(pos, gtk::ListScrollFlags::SELECT, None);
+
+                                obj.block_row_expand.set(false);
+                                obj.block_activate.set(false);
+                            }));
                         }
 
                         self.block_activate.set(false);
