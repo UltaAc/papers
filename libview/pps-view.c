@@ -2955,7 +2955,6 @@ pps_view_form_field_choice_create_widget (PpsView      *view,
 						"text", 0,
 						NULL);
 		gtk_combo_box_set_active (GTK_COMBO_BOX (choice), selected_item);
-		gtk_combo_box_popup (GTK_COMBO_BOX (choice));
 
 		/* See issue #294 for why we use this instead of "changed" signal */
 		g_signal_connect (choice, "notify::popup-shown",
@@ -3014,6 +3013,14 @@ _pps_view_focus_form_field (PpsView      *view,
 	mapping = pps_mapping_list_find (form_field_mapping, field);
 	_pps_view_set_focused_element (view, mapping, field->page->index);
 	pps_view_put_to_doc_rect (view, field_widget, field->page->index, &mapping->area);
+
+	/* gtk_combo_box_popup do nothing if widget is not mapped. It seems that
+	 * the widget only get mapped after adding to PpsView as child in GTK4.
+	 */
+	if (GTK_IS_COMBO_BOX(field_widget)) {
+		gtk_combo_box_popup (GTK_COMBO_BOX (field_widget));
+	}
+
 	gtk_widget_set_visible (field_widget, TRUE);
 	gtk_widget_grab_focus (field_widget);
 }
