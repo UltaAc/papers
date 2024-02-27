@@ -2608,8 +2608,8 @@ pps_view_form_field_text_save (PpsView    *view,
 }
 
 static void
-pps_view_form_field_text_changed (GtkWidget   *widget,
-				 PpsFormField *field)
+pps_view_form_field_text_changed (GObject      *widget,
+				  PpsFormField *field)
 {
 	PpsFormFieldText *field_text = PPS_FORM_FIELD_TEXT (field);
 	gchar           *text = NULL;
@@ -2676,24 +2676,36 @@ pps_view_form_field_text_create_widget (PpsView      *view,
 			gtk_entry_set_max_length (GTK_ENTRY (text), field_text->max_len);
 			gtk_entry_set_visibility (GTK_ENTRY (text), !field_text->is_password);
 
+			if (txt)
+				gtk_editable_set_text (GTK_EDITABLE (text), txt);
+
 			g_signal_connect_after (text, "activate",
 						G_CALLBACK (pps_view_form_field_destroy),
 						view);
+			g_signal_connect (text, "changed",
+					  G_CALLBACK (pps_view_form_field_text_changed),
+					  field);
 			break;
-	        case PPS_FORM_FIELD_TEXT_MULTILINE: {
+	        case PPS_FORM_FIELD_TEXT_MULTILINE:
+			GtkTextBuffer *buffer;
+
 			text = gtk_text_view_new ();
-		}
+			buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
+
+			if (txt) {
+				gtk_text_buffer_set_text (buffer, txt, -1);
+			}
+
+			g_signal_connect (buffer, "changed",
+					  G_CALLBACK (pps_view_form_field_text_changed),
+					  field);
+
 			break;
+		default:
+			g_assert_not_reached ();
 	}
 
-	if (txt) {
-		gtk_editable_set_text (GTK_EDITABLE (text), txt);
-		g_free (txt);
-	}
-
-	g_signal_connect (text, "changed",
-				G_CALLBACK (pps_view_form_field_text_changed),
-				field);
+	g_clear_pointer (&txt, g_free);
 
 	controller = GTK_EVENT_CONTROLLER (gtk_event_controller_focus_new ());
 	g_signal_connect (controller, "leave",
