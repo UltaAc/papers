@@ -21,18 +21,26 @@ libraries (libppsdocument, libppsview):
   * Mark types as derivable or final as need be
   * Rename and deprecate EvJobs that do rendering based on cairo
   * Drop EvJobLoadStream and EvJobLoadGFile. Merge EvJobLoad and EvJobLoadFd
+  * Some work on sanity of PpsJobs API.
   * GPU based transition of presentation mode with additional effects support.
     Transitions will no longer work if HW acceleration is not supported
+  * Use GThreadPool for PpsJobScheduler. Many jobs can now run concurrently, and
+    we no longer leak the thread memory.
 
 shell:
   * Port to GTK4 thanks to the effort of Qiu Wenbo
   * Removed spell-checking feature. Hopefully will come back through libspelling
   * Implemented some new mockups for the first time in years (thanks Chris!)
+  * Lots of small papercuts from the GTK4 migration and other widgets that had
+    not received love in a while.
   * Many internal cleanups to use standard widgets, instead of showing and
     hiding internal widgets as different parts of the application change.
   * Ported many widgets to UI templates
   * Make the main widget of PpsWindow an AdwViewStack
-  * The initial work to rewrite the UI in Rust has started (#21)
+  * Start rewriting the UI in Rust, and port several widgets (#21)
+  * Rework the properties dialog with modern widgetry.
+  * Fix dbus names to fit app id.
+  * Drop the auto-scroll feature for maintainability reasons.
 
 properties:
   * Can now be used in Nautilus again. Dropped GTK dependency
