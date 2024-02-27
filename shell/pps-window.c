@@ -451,8 +451,6 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 				      !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "reload", has_pages &&
 				      !start_view_mode);
-	pps_window_set_action_enabled (pps_window, "auto-scroll", has_pages &&
-				      !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "inverted-colors",
 				      has_pages && !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "enable-spellchecking", FALSE);
@@ -4567,25 +4565,12 @@ pps_window_cmd_view_reload (GSimpleAction *action,
 }
 
 static void
-pps_window_cmd_view_autoscroll (GSimpleAction *action,
-			       GVariant      *parameter,
-			       gpointer       user_data)
-{
-	PpsWindow *pps_window = user_data;
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-
-	pps_view_autoscroll_start (PPS_VIEW (priv->view));
-}
-
-static void
 pps_window_cmd_escape (GSimpleAction *action,
 		      GVariant      *parameter,
 		      gpointer       user_data)
 {
 	PpsWindow *window = user_data;
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-	pps_view_autoscroll_stop (PPS_VIEW (priv->view));
 
 	if (gtk_search_bar_get_search_mode (GTK_SEARCH_BAR (priv->search_bar)))
 		pps_window_close_find_bar (window);
@@ -5588,7 +5573,6 @@ static const GActionEntry actions[] = {
 	{ "zoom-in", pps_window_cmd_view_zoom_in },
 	{ "zoom-out", pps_window_cmd_view_zoom_out },
 	{ "reload", pps_window_cmd_view_reload },
-	{ "auto-scroll", pps_window_cmd_view_autoscroll },
 	{ "add-bookmark", pps_window_cmd_bookmarks_add },
 	{ "delete-bookmark", pps_window_cmd_bookmarks_delete },
 	{ "close", pps_window_cmd_file_close_window },

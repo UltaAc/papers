@@ -620,10 +620,6 @@
         <attribute name="label" translatable="yes">_Reload</attribute>
         <attribute name="action">win.reload</attribute>
       </item>
-      <item>
-        <attribute name="label" translatable="yes">Auto_scroll</attribute>
-        <attribute name="action">win.auto-scroll</attribute>
-      </item>
     </section>
     <section>
       <item>

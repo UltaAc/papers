@@ -111,11 +111,6 @@ PPS_PUBLIC
 gboolean       pps_view_previous_page	  (PpsView         *view);
 
 PPS_PUBLIC
-void	       pps_view_autoscroll_start   (PpsView *view);
-PPS_PUBLIC
-void           pps_view_autoscroll_stop    (PpsView *view);
-
-PPS_PUBLIC
 gboolean       pps_view_get_page_extents   (PpsView       *view,
                                            gint          page,
                                            GdkRectangle *page_area,

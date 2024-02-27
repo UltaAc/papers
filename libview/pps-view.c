@@ -2319,12 +2319,6 @@ pps_view_handle_cursor_over_xy (PpsView *view, gint x, gint y, gboolean from_mot
 		return;
 	}
 
-	if (priv->scroll_info.autoscrolling) {
-		if (priv->cursor != PPS_VIEW_CURSOR_AUTOSCROLL)
-			pps_view_set_cursor (view, PPS_VIEW_CURSOR_AUTOSCROLL);
-		return;
-	}
-
 	link = pps_view_get_link_at_location (view, x, y);
 	if (link) {
 		handle_cursor_over_link (view, link, x, y, from_motion);
@@ -2355,7 +2349,6 @@ pps_view_handle_cursor_over_xy (PpsView *view, gint x, gint y, gboolean from_mot
 			if (priv->cursor == PPS_VIEW_CURSOR_LINK ||
 			    priv->cursor == PPS_VIEW_CURSOR_IBEAM ||
 			    priv->cursor == PPS_VIEW_CURSOR_DRAG ||
-			    priv->cursor == PPS_VIEW_CURSOR_AUTOSCROLL ||
 			    priv->cursor == PPS_VIEW_CURSOR_ADD)
 				pps_view_set_cursor (view, PPS_VIEW_CURSOR_NORMAL);
 		}
@@ -5413,9 +5406,6 @@ pps_view_button_press_event (GtkGestureClick	*gesture,
 	priv->selection_info.in_drag = FALSE;
 	priv->selection_info.in_select = FALSE;
 
-	if (priv->scroll_info.autoscrolling)
-		return;
-
 	if (priv->adding_annot_info.adding_annot && !priv->adding_annot_info.annot) {
 		if (button != GDK_BUTTON_PRIMARY)
 			return;
@@ -5528,7 +5518,6 @@ pps_view_button_press_event (GtkGestureClick	*gesture,
 			pps_view_set_focused_element_at_location (view, x, y);
 			return;
 		case GDK_BUTTON_SECONDARY:
-			priv->scroll_info.start_y = y;
 			pps_view_set_focused_element_at_location (view, x, y);
 			pps_view_do_popup_menu (view, x, y);
 	}
@@ -5825,12 +5814,6 @@ pps_view_motion_notify_event (GtkEventControllerMotion	*self,
 	if (gtk_gesture_is_recognized (priv->zoom_gesture))
 		return;
 
-	if (priv->scroll_info.autoscrolling) {
-		if (y >= 0)
-			priv->scroll_info.last_y = y;
-		return;
-	}
-
 	switch (priv->pressed_button) {
 	case GDK_BUTTON_PRIMARY:
 		/* For the Papers 0.4.x release, we limit selection to un-rotated
@@ -6119,13 +6102,6 @@ pps_view_button_release_event(GtkGestureClick		*self,
 
 	if (gtk_gesture_is_recognized (priv->pan_gesture))
 		return;
-
-	if (priv->scroll_info.autoscrolling) {
-		pps_view_autoscroll_stop (view);
-		priv->pressed_button = -1;
-
-		return;
-	}
 
 	if (priv->pressed_button == GDK_BUTTON_PRIMARY && state & GDK_CONTROL_MASK) {
 		priv->pressed_button = -1;
@@ -6945,64 +6921,6 @@ pps_view_activate (PpsView *view)
 	}
 }
 
-static gboolean
-pps_view_autoscroll_cb (PpsView *view)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	gdouble speed, value;
-
-	/* If the user stops autoscrolling, autoscrolling will be
-	 * set to false but the timeout will continue; stop the timeout: */
-	if (!priv->scroll_info.autoscrolling) {
-		priv->scroll_info.timeout_id = 0;
-		return G_SOURCE_REMOVE;
-	}
-
-	/* Replace 100 with your speed of choice: The lower the faster.
-	 * Replace 3 with another speed of choice: The higher, the faster it accelerated
-	 * 	based on the distance of the starting point from the mouse
-	 * (All also effected by the timeout interval of this callback) */
-
-	if (priv->scroll_info.start_y > priv->scroll_info.last_y)
-		speed = -pow ((((gdouble)priv->scroll_info.start_y - priv->scroll_info.last_y) / 100), 3);
-	else
-		speed = pow ((((gdouble)priv->scroll_info.last_y - priv->scroll_info.start_y) / 100), 3);
-
-	value = gtk_adjustment_get_value (priv->vadjustment);
-	value = CLAMP (value + speed, 0,
-		       gtk_adjustment_get_upper (priv->vadjustment) -
-		       gtk_adjustment_get_page_size (priv->vadjustment));
-	gtk_adjustment_set_value (priv->vadjustment, value);
-
-	return G_SOURCE_CONTINUE;
-
-}
-
-static void
-pps_view_autoscroll_resume (PpsView *view)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	if (!priv->scroll_info.autoscrolling)
-		return;
-
-	if (priv->scroll_info.timeout_id > 0)
-		return;
-
-	priv->scroll_info.timeout_id =
-		g_timeout_add (20, (GSourceFunc)pps_view_autoscroll_cb,
-			       view);
-}
-
-static void
-pps_view_autoscroll_pause (PpsView *view)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	if (!priv->scroll_info.autoscrolling)
-		return;
-
-	g_clear_handle_id (&priv->scroll_info.timeout_id, g_source_remove);
-}
-
 static void
 pps_view_focus_in (GtkEventControllerFocus	*self,
 		  gpointer			 user_data)
@@ -7012,8 +6930,6 @@ pps_view_focus_in (GtkEventControllerFocus	*self,
 
 	if (priv->pixbuf_cache)
 		pps_pixbuf_cache_style_changed (priv->pixbuf_cache);
-
-	pps_view_autoscroll_resume (view);
 
 	pps_view_check_cursor_blink (view);
 	gtk_widget_queue_draw (GTK_WIDGET (view));
@@ -7028,8 +6944,6 @@ pps_view_focus_out (GtkEventControllerFocus	*self,
 
 	if (priv->pixbuf_cache)
 		pps_pixbuf_cache_style_changed (priv->pixbuf_cache);
-
-	pps_view_autoscroll_pause (view);
 
 	pps_view_check_cursor_blink (view);
 	gtk_widget_queue_draw (GTK_WIDGET (view));
@@ -7361,7 +7275,6 @@ pps_view_dispose (GObject *object)
 	g_clear_handle_id (&priv->update_cursor_idle_id, g_source_remove);
 	g_clear_handle_id (&priv->selection_scroll_id, g_source_remove);
 	g_clear_handle_id (&priv->selection_update_id, g_source_remove);
-	g_clear_handle_id (&priv->scroll_info.timeout_id, g_source_remove);
 	g_clear_handle_id (&priv->drag_info.drag_timeout_id, g_source_remove);
 	g_clear_handle_id (&priv->drag_info.release_timeout_id, g_source_remove);
 	g_clear_handle_id (&priv->cursor_blink_timeout_id, g_source_remove);
@@ -8035,7 +7948,6 @@ pps_view_init (PpsView *view)
 	priv->pressed_button = -1;
 	priv->cursor = PPS_VIEW_CURSOR_NORMAL;
 	priv->drag_info.in_drag = FALSE;
-	priv->scroll_info.autoscrolling = FALSE;
 	priv->selection_info.selections = NULL;
 	priv->selection_info.in_drag = FALSE;
 	priv->continuous = TRUE;
@@ -8278,42 +8190,6 @@ pps_view_is_loading (PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	return priv->loading;
-}
-
-void
-pps_view_autoscroll_start (PpsView *view)
-{
-	gint x, y;
-
-	g_return_if_fail (PPS_IS_VIEW (view));
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	if (priv->scroll_info.autoscrolling)
-		return;
-
-	priv->scroll_info.autoscrolling = TRUE;
-	pps_view_autoscroll_resume (view);
-
-	pps_document_misc_get_pointer_position (GTK_WIDGET (view), &x, &y);
-	pps_view_handle_cursor_over_xy (view, x, y, FALSE);
-}
-
-void
-pps_view_autoscroll_stop (PpsView *view)
-{
-	gint x, y;
-
-	g_return_if_fail (PPS_IS_VIEW (view));
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	if (!priv->scroll_info.autoscrolling)
-		return;
-
-	priv->scroll_info.autoscrolling = FALSE;
-	pps_view_autoscroll_pause (view);
-
-	pps_document_misc_get_pointer_position (GTK_WIDGET (view), &x, &y);
-	pps_view_handle_cursor_over_xy (view, x, y, FALSE);
 }
 
 static void

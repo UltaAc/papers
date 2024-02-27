@@ -26,7 +26,6 @@ static const gchar *cursors[] = {
 	[PPS_VIEW_CURSOR_WAIT]		= "wait",
 	[PPS_VIEW_CURSOR_HIDDEN]		= "none",
 	[PPS_VIEW_CURSOR_DRAG]		= "grabbing",
-	[PPS_VIEW_CURSOR_AUTOSCROLL]	= "move",
 	[PPS_VIEW_CURSOR_ADD]		= "crosshair",
 };
 

@@ -56,14 +56,6 @@ typedef struct {
 	gboolean in_notify;
 } DragInfo;
 
-/* Autoscrolling */
-typedef struct {
-	gboolean autoscrolling;
-	guint last_y;
-	guint start_y;
-	guint timeout_id;
-} AutoScrollInfo;
-
 /* Information for handling selection */
 typedef struct {
 	gboolean in_select;
@@ -205,9 +197,6 @@ typedef struct _PpsViewPrivate {
 
 	/* Information for middle clicking and dragging around. */
 	DragInfo drag_info;
-
-	/* Autoscrolling */
-	AutoScrollInfo scroll_info;
 
 	/* Selection */
 	GdkPoint motion;
