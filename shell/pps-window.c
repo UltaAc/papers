@@ -4755,11 +4755,18 @@ inverted_colors_changed_cb (PpsDocumentModel *model,
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 	gboolean inverted_colors = pps_document_model_get_inverted_colors (model);
+	GdkDisplay *display = gtk_widget_get_display (GTK_WIDGET (window));
+	AdwStyleManager *manager = adw_style_manager_get_for_display (display);
 	GAction *action;
 
 	action = g_action_map_lookup_action (G_ACTION_MAP (window), "inverted-colors");
 	g_simple_action_set_state (G_SIMPLE_ACTION (action),
 				   g_variant_new_boolean (inverted_colors));
+
+	if (inverted_colors)
+		adw_style_manager_set_color_scheme (manager, ADW_COLOR_SCHEME_FORCE_DARK);
+	else
+		adw_style_manager_set_color_scheme (manager, ADW_COLOR_SCHEME_DEFAULT);
 
 	if (priv->metadata && !pps_window_is_empty (window))
 		pps_metadata_set_boolean (priv->metadata, "inverted-colors",
