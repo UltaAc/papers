@@ -3003,6 +3003,8 @@ _pps_view_focus_form_field (PpsView      *view,
 		return;
 	}
 
+	gtk_widget_add_css_class (field_widget, "view");
+
 	g_object_set_data_full (G_OBJECT (field_widget), "form-field",
 				g_object_ref (field),
 				(GDestroyNotify)g_object_unref);
