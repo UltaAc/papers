@@ -2658,7 +2658,6 @@ pps_view_form_field_text_create_widget (PpsView      *view,
 	PpsFormFieldText *field_text = PPS_FORM_FIELD_TEXT (field);
 	GtkWidget       *text = NULL;
 	gchar           *txt;
-	GtkStyleContext *context;
 	GtkEventController *controller;
 
 	txt = pps_document_forms_form_field_text_get_text (PPS_DOCUMENT_FORMS (priv->document),
@@ -2673,8 +2672,7 @@ pps_view_form_field_text_create_widget (PpsView      *view,
 			gtk_entry_set_has_frame (GTK_ENTRY (text), FALSE);
 			/* Remove '.flat' style added by previous call
 			 * gtk_entry_set_has_frame(FALSE) which caused bug #687 */
-			context = gtk_widget_get_style_context (text);
-			gtk_style_context_remove_class (context, "flat");
+			gtk_widget_remove_css_class (text, "flat");
 			gtk_entry_set_max_length (GTK_ENTRY (text), field_text->max_len);
 			gtk_entry_set_visibility (GTK_ENTRY (text), !field_text->is_password);
 
