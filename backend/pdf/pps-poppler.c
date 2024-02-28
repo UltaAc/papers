@@ -1190,8 +1190,7 @@ pps_link_from_action (PdfDocument   *pdf_document,
 					PopplerLayer *layer = (PopplerLayer *)m->data;
 					PpsLayer      *pps_layer;
 
-					pps_layer = pps_layer_new (poppler_layer_is_parent (layer),
-								 poppler_layer_get_radio_button_group_id (layer));
+					pps_layer = pps_layer_new (poppler_layer_get_radio_button_group_id (layer));
 					g_object_set_data_full (G_OBJECT (pps_layer),
 								"poppler-layer",
 								g_object_ref (layer),
@@ -3869,16 +3868,14 @@ pdf_document_layers_has_layers (PpsDocumentLayers *document)
 
 static void
 build_layers_tree (PdfDocument       *pdf_document,
-		   GtkTreeModel      *model,
-		   GtkTreeIter       *parent,
+		   GListStore        *model,
 		   PopplerLayersIter *iter)
 {
 	do {
-		GtkTreeIter        tree_iter;
 		PopplerLayersIter *child;
 		PopplerLayer      *layer;
 		PpsLayer           *pps_layer = NULL;
-		gboolean           visible;
+		gboolean           visible, is_title_only = FALSE;
 		gchar             *markup;
 		gint               rb_group = 0;
 
@@ -3887,12 +3884,6 @@ build_layers_tree (PdfDocument       *pdf_document,
 			markup = g_markup_escape_text (poppler_layer_get_title (layer), -1);
 			visible = poppler_layer_is_visible (layer);
 			rb_group = poppler_layer_get_radio_button_group_id (layer);
-			pps_layer = pps_layer_new (poppler_layer_is_parent (layer),
-						 rb_group);
-			g_object_set_data_full (G_OBJECT (pps_layer),
-						"poppler-layer",
-						g_object_ref (layer),
-						(GDestroyNotify) g_object_unref);
 		} else {
 			gchar *title;
 
@@ -3905,49 +3896,51 @@ build_layers_tree (PdfDocument       *pdf_document,
 			g_free (title);
 
 			visible = FALSE;
-			layer = NULL;
+			is_title_only = TRUE;
 		}
 
-		gtk_tree_store_append (GTK_TREE_STORE (model), &tree_iter, parent);
-		gtk_tree_store_set (GTK_TREE_STORE (model), &tree_iter,
-				    PPS_DOCUMENT_LAYERS_COLUMN_TITLE, markup,
-				    PPS_DOCUMENT_LAYERS_COLUMN_VISIBLE, visible,
-				    PPS_DOCUMENT_LAYERS_COLUMN_ENABLED, TRUE, /* FIXME */
-				    PPS_DOCUMENT_LAYERS_COLUMN_SHOWTOGGLE, (layer != NULL),
-				    PPS_DOCUMENT_LAYERS_COLUMN_RBGROUP, rb_group,
-				    PPS_DOCUMENT_LAYERS_COLUMN_LAYER, pps_layer,
-				    -1);
-		if (pps_layer)
-			g_object_unref (pps_layer);
+		pps_layer = pps_layer_new (rb_group);
+
+		g_object_set (pps_layer, "title-only", is_title_only, "enabled", visible, "title", markup, NULL);
+
+		if (layer)
+			g_object_set_data_full (G_OBJECT (pps_layer),
+						"poppler-layer",
+						g_object_ref (layer),
+						(GDestroyNotify) g_object_unref);
+
+		g_list_store_append (model, pps_layer);
+
 		g_free (markup);
 
 		child = poppler_layers_iter_get_child (iter);
-		if (child)
-			build_layers_tree (pdf_document, model, &tree_iter, child);
+
+		if (child) {
+			GListStore *children = g_list_store_new (PPS_TYPE_LAYER);
+			build_layers_tree(pdf_document, children, child);
+			pps_layer_set_children (pps_layer, G_LIST_MODEL (children));
+		}
+
 		poppler_layers_iter_free (child);
 	} while (poppler_layers_iter_next (iter));
 }
 
-static GtkTreeModel *
+static GListModel *
 pdf_document_layers_get_layers (PpsDocumentLayers *document)
 {
-	GtkTreeModel *model = NULL;
+	GListStore *model = NULL;
 	PdfDocument *pdf_document = PDF_DOCUMENT (document);
 	PopplerLayersIter *iter;
 
 	iter = poppler_layers_iter_new (pdf_document->document);
 	if (iter) {
-		model = (GtkTreeModel *) gtk_tree_store_new (PPS_DOCUMENT_LAYERS_N_COLUMNS,
-							     G_TYPE_STRING,  /* TITLE */
-							     G_TYPE_OBJECT,  /* LAYER */
-							     G_TYPE_BOOLEAN, /* VISIBLE */
-							     G_TYPE_BOOLEAN, /* ENABLED */
-							     G_TYPE_BOOLEAN, /* SHOWTOGGLE */
-							     G_TYPE_INT);    /* RBGROUP */
-		build_layers_tree (pdf_document, model, NULL, iter);
+		model = g_list_store_new (PPS_TYPE_LAYER);
+		build_layers_tree (pdf_document, model, iter);
 		poppler_layers_iter_free (iter);
+		return G_LIST_MODEL (model);
 	}
-	return model;
+
+	return NULL;
 }
 
 static void

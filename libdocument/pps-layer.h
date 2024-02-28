@@ -24,6 +24,7 @@
 #endif
 
 #include <glib-object.h>
+#include <gio/gio.h>
 
 #include "pps-macros.h"
 
@@ -39,11 +40,13 @@ struct _PpsLayer {
 };
 
 PPS_PUBLIC
-PpsLayer  *pps_layer_new          (gboolean is_parent,
-				 gint     rb_group);
-PPS_PUBLIC
-gboolean  pps_layer_is_parent    (PpsLayer *layer);
+PpsLayer  *pps_layer_new         (gint     rb_group);
 PPS_PUBLIC
 gint      pps_layer_get_rb_group (PpsLayer *layer);
+PPS_PUBLIC
+void	  pps_layer_set_children (PpsLayer *pps_layer,
+				  GListModel *children);
+PPS_PUBLIC
+GListModel *pps_layer_get_children (PpsLayer *pps_layer);
 
 G_END_DECLS

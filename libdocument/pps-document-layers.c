@@ -42,9 +42,9 @@ pps_document_layers_has_layers (PpsDocumentLayers *document_layers)
  * pps_document_layers_get_layers:
  * @document_layers: an #PpsDocumentLayers
  *
- * Returns: (transfer full): a #GtkTreeModel
+ * Returns: (transfer full): a #GListModel
  */
-GtkTreeModel *
+GListModel *
 pps_document_layers_get_layers (PpsDocumentLayers *document_layers)
 {
 	PpsDocumentLayersInterface *iface = PPS_DOCUMENT_LAYERS_GET_IFACE (document_layers);

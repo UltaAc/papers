@@ -54,7 +54,7 @@ struct _PpsDocumentLayersInterface
 
 	/* Methods  */
 	gboolean      (* has_layers)       (PpsDocumentLayers *document_layers);
-	GtkTreeModel *(* get_layers)       (PpsDocumentLayers *document_layers);
+	GListModel   *(* get_layers)       (PpsDocumentLayers *document_layers);
 
 	void          (* show_layer)       (PpsDocumentLayers *document_layers,
 					    PpsLayer          *layer);
@@ -67,7 +67,7 @@ struct _PpsDocumentLayersInterface
 PPS_PUBLIC
 gboolean      pps_document_layers_has_layers       (PpsDocumentLayers *document_layers);
 PPS_PUBLIC
-GtkTreeModel *pps_document_layers_get_layers       (PpsDocumentLayers *document_layers);
+GListModel   *pps_document_layers_get_layers       (PpsDocumentLayers *document_layers);
 PPS_PUBLIC
 void          pps_document_layers_show_layer       (PpsDocumentLayers *document_layers,
 						   PpsLayer          *layer);

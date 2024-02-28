@@ -1767,6 +1767,18 @@ pps_job_layers_class_init (PpsJobLayersClass *class)
 	job_class->run = pps_job_layers_run;
 }
 
+/**
+ * pps_job_layers_get_model:
+ * @job_layers: a #PpsJobLayers
+ *
+ * Returns: (transfer full): A #GListModel contains the result
+ */
+GListModel *
+pps_job_layers_get_model (PpsJobLayers *job_layers)
+{
+	return g_steal_pointer (&job_layers->model);
+}
+
 PpsJob *
 pps_job_layers_new (PpsDocument *document)
 {

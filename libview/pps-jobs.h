@@ -20,6 +20,7 @@
 
 #pragma once
 
+#include "pps-macros.h"
 #if !defined (__PPS_PAPERS_VIEW_H_INSIDE__) && !defined (PAPERS_COMPILATION)
 #error "Only <papers-view.h> can be included directly."
 #endif
@@ -396,7 +397,7 @@ struct _PpsJobLayers
 {
 	PpsJob parent;
 
-	GtkTreeModel *model;
+	GListModel *model;
 };
 
 struct _PpsJobLayersClass
@@ -587,6 +588,8 @@ PPS_PUBLIC
 GType           pps_job_layers_get_type    (void) G_GNUC_CONST;
 PPS_PUBLIC
 PpsJob          *pps_job_layers_new         (PpsDocument     *document);
+PPS_PUBLIC
+GListModel      *pps_job_layers_get_model   (PpsJobLayers *job_layers);
 
 /* PpsJobExport */
 PPS_PUBLIC
