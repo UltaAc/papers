@@ -15,6 +15,9 @@ pub use self::job_find::JobFind;
 mod job_fonts;
 pub use self::job_fonts::JobFonts;
 
+mod job_layers;
+pub use self::job_layers::JobLayers;
+
 mod job_load;
 pub use self::job_load::JobLoad;
 
@@ -38,6 +41,7 @@ pub use self::enums::SizingMode;
 pub(crate) mod traits {
     pub use super::job::JobExt;
     pub use super::job_find::JobFindExt;
+    pub use super::job_layers::JobLayersExt;
     pub use super::job_load::JobLoadExt;
     pub use super::job_thumbnail_texture::JobThumbnailTextureExt;
 }

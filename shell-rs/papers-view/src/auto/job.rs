@@ -23,12 +23,6 @@ glib::wrapper! {
 impl Job {
     pub const NONE: Option<&'static Job> = None;
 
-    #[doc(alias = "pps_job_scheduler_get_running_thread_job")]
-    pub fn scheduler_get_running_thread_job() -> Option<Job> {
-        assert_initialized_main_thread!();
-        unsafe { from_glib_none(ffi::pps_job_scheduler_get_running_thread_job()) }
-    }
-
     #[doc(alias = "pps_job_scheduler_wait")]
     pub fn scheduler_wait() {
         assert_initialized_main_thread!();

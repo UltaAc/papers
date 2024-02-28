@@ -31,6 +31,7 @@ generate = [
     "PapersView.JobFind",
     "PapersView.JobFonts",
     "PapersView.JobLoad",
+    "PapersView.JobLayers",
     "PapersView.JobThumbnailTexture",
 ]
 
@@ -49,6 +50,7 @@ manual = [
     "GLib.Error",
     "GLib.List",
     "Gio.Resource",
+    "Gio.ListModel",
     "GObject.Object",
     "PapersDocument.Annotation",
     "PapersDocument.AnnotationType",

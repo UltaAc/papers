@@ -12,8 +12,14 @@ pub use self::document::Document;
 mod document_fonts;
 pub use self::document_fonts::DocumentFonts;
 
+mod document_layers;
+pub use self::document_layers::DocumentLayers;
+
 mod image;
 pub use self::image::Image;
+
+mod layer;
+pub use self::layer::Layer;
 
 mod link;
 pub use self::link::Link;
@@ -57,7 +63,9 @@ pub(crate) mod traits {
     pub use super::annotation::AnnotationExt;
     pub use super::document::DocumentExt;
     pub use super::document_fonts::DocumentFontsExt;
+    pub use super::document_layers::DocumentLayersExt;
     pub use super::image::ImageExt;
+    pub use super::layer::LayerExt;
     pub use super::selection::SelectionExt;
     pub use super::transition_effect::TransitionEffectExt;
 }

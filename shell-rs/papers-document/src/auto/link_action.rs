@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::LinkDest;
+use crate::{Layer, LinkDest};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -39,10 +39,21 @@ impl LinkAction {
         }
     }
 
-    //#[doc(alias = "pps_link_action_new_layers_state")]
-    //pub fn new_layers_state(show_list: /*Ignored*/&[Layer], hide_list: /*Ignored*/&[Layer], toggle_list: /*Ignored*/&[Layer]) -> LinkAction {
-    //    unsafe { TODO: call ffi:pps_link_action_new_layers_state() }
-    //}
+    #[doc(alias = "pps_link_action_new_layers_state")]
+    pub fn new_layers_state(
+        show_list: &[Layer],
+        hide_list: &[Layer],
+        toggle_list: &[Layer],
+    ) -> LinkAction {
+        assert_initialized_main_thread!();
+        unsafe {
+            from_glib_full(ffi::pps_link_action_new_layers_state(
+                show_list.to_glib_none().0,
+                hide_list.to_glib_none().0,
+                toggle_list.to_glib_none().0,
+            ))
+        }
+    }
 
     #[doc(alias = "pps_link_action_new_named")]
     pub fn new_named(name: &str) -> LinkAction {
@@ -110,11 +121,15 @@ impl LinkAction {
         unsafe { from_glib_none(ffi::pps_link_action_get_filename(self.to_glib_none().0)) }
     }
 
-    //#[doc(alias = "pps_link_action_get_hide_list")]
-    //#[doc(alias = "get_hide_list")]
-    //pub fn hide_list(&self) -> /*Ignored*/Vec<Layer> {
-    //    unsafe { TODO: call ffi:pps_link_action_get_hide_list() }
-    //}
+    #[doc(alias = "pps_link_action_get_hide_list")]
+    #[doc(alias = "get_hide_list")]
+    pub fn hide_list(&self) -> Vec<Layer> {
+        unsafe {
+            FromGlibPtrContainer::from_glib_none(ffi::pps_link_action_get_hide_list(
+                self.to_glib_none().0,
+            ))
+        }
+    }
 
     #[doc(alias = "pps_link_action_get_name")]
     #[doc(alias = "get_name")]
@@ -138,17 +153,25 @@ impl LinkAction {
         }
     }
 
-    //#[doc(alias = "pps_link_action_get_show_list")]
-    //#[doc(alias = "get_show_list")]
-    //pub fn show_list(&self) -> /*Ignored*/Vec<Layer> {
-    //    unsafe { TODO: call ffi:pps_link_action_get_show_list() }
-    //}
+    #[doc(alias = "pps_link_action_get_show_list")]
+    #[doc(alias = "get_show_list")]
+    pub fn show_list(&self) -> Vec<Layer> {
+        unsafe {
+            FromGlibPtrContainer::from_glib_none(ffi::pps_link_action_get_show_list(
+                self.to_glib_none().0,
+            ))
+        }
+    }
 
-    //#[doc(alias = "pps_link_action_get_toggle_list")]
-    //#[doc(alias = "get_toggle_list")]
-    //pub fn toggle_list(&self) -> /*Ignored*/Vec<Layer> {
-    //    unsafe { TODO: call ffi:pps_link_action_get_toggle_list() }
-    //}
+    #[doc(alias = "pps_link_action_get_toggle_list")]
+    #[doc(alias = "get_toggle_list")]
+    pub fn toggle_list(&self) -> Vec<Layer> {
+        unsafe {
+            FromGlibPtrContainer::from_glib_none(ffi::pps_link_action_get_toggle_list(
+                self.to_glib_none().0,
+            ))
+        }
+    }
 
     #[doc(alias = "pps_link_action_get_uri")]
     #[doc(alias = "get_uri")]

@@ -228,13 +228,6 @@ impl View {
         unsafe { from_glib(ffi::pps_view_has_selection(self.to_glib_none().0)) }
     }
 
-    #[doc(alias = "pps_view_hide_cursor")]
-    pub fn hide_cursor(&self) {
-        unsafe {
-            ffi::pps_view_hide_cursor(self.to_glib_none().0);
-        }
-    }
-
     #[doc(alias = "pps_view_is_caret_navigation_enabled")]
     pub fn is_caret_navigation_enabled(&self) -> bool {
         unsafe {
@@ -319,13 +312,6 @@ impl View {
     pub fn set_page_cache_size(&self, cache_size: usize) {
         unsafe {
             ffi::pps_view_set_page_cache_size(self.to_glib_none().0, cache_size);
-        }
-    }
-
-    #[doc(alias = "pps_view_show_cursor")]
-    pub fn show_cursor(&self) {
-        unsafe {
-            ffi::pps_view_show_cursor(self.to_glib_none().0);
         }
     }
 
