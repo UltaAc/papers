@@ -57,7 +57,6 @@
 #include "pps-sidebar-bookmarks.h"
 #include "pps-sidebar.h"
 #include "pps-sidebar-links.h"
-#include "pps-sidebar-layers.h"
 #include "pps-utils.h"
 #include "pps-keyring.h"
 #include "pps-view-presentation.h"
@@ -918,9 +917,6 @@ static void
 view_layers_changed_cb (PpsView   *view,
 			PpsWindow *window)
 {
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-	pps_sidebar_layers_update_layers_state (PPS_SIDEBAR_LAYERS (priv->sidebar_layers));
 }
 
 static void
@@ -5668,7 +5664,7 @@ history_changed_cb (PpsHistory *history,
 }
 
 static void
-sidebar_layers_visibility_changed (PpsSidebarLayers *layers,
+sidebar_layers_visibility_changed (PpsSidebar       *layers,
 				   PpsWindow        *window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
@@ -6553,7 +6549,6 @@ pps_window_init (PpsWindow *pps_window)
 	g_type_ensure (PPS_TYPE_FIND_SIDEBAR);
 	g_type_ensure (PPS_TYPE_SIDEBAR_LINKS);
 	g_type_ensure (PPS_TYPE_PASSWORD_VIEW);
-	g_type_ensure (PPS_TYPE_SIDEBAR_LAYERS);
 	g_type_ensure (PPS_TYPE_SIDEBAR_BOOKMARKS);
 	g_type_ensure (PPS_TYPE_PAGE_SELECTOR);
 	g_type_ensure (PPS_TYPE_SIDEBAR_ATTACHMENTS);
@@ -6716,7 +6711,7 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_links);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_annots);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_bookmarks);
-	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_layers);
+	// gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_layers);
 
 	/* popup menu */
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, view_popup);
