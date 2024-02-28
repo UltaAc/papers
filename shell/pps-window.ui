@@ -269,7 +269,7 @@
                                 </property>
                               </object>
                             </child>
-                            <!-- <child>
+                            <child>
                               <object class="GtkStackPage">
                                 <property name="name">layers</property>
                                 <property name="title" translatable="yes">Layers</property>
@@ -277,12 +277,12 @@
                                 <property name="child">
                                   <object class="PpsSidebarLayers" id="sidebar_layers">
                                     <property name="document-model">model</property>
-                                    <signal name="layers_visibility_changed"
+                                    <signal name="visibility-changed"
                                       handler="sidebar_layers_visibility_changed" />
                                   </object>
                                 </property>
                               </object>
-                            </child> -->
+                            </child>
                           </object>
                         </child>
                       </object>

@@ -917,6 +917,12 @@ static void
 view_layers_changed_cb (PpsView   *view,
 			PpsWindow *window)
 {
+	PpsWindowPrivate *priv = GET_PRIVATE (window);
+
+	/* FIXME: We use a indirect way to call a method to rust object.
+	 *        We should use a method after rust port of PpsWindow.
+	 */
+	g_signal_emit_by_name (priv->sidebar_layers, "update-visibility", NULL);
 }
 
 static void
@@ -6711,7 +6717,7 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_links);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_annots);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_bookmarks);
-	// gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_layers);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_layers);
 
 	/* popup menu */
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, view_popup);

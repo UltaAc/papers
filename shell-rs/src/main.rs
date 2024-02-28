@@ -14,6 +14,7 @@ mod properties_fonts;
 mod properties_general;
 mod properties_license;
 mod properties_window;
+mod sidebar_layers;
 mod sidebar_thumbnails;
 mod stack_switcher;
 mod thumbnail_item;
@@ -27,6 +28,7 @@ fn ensure_type() {
     properties_general::PpsPropertiesGeneral::ensure_type();
     properties_window::PpsPropertiesWindow::ensure_type();
     sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
+    sidebar_layers::PpsSidebarLayers::ensure_type();
     stack_switcher::PpsStackSwitcher::ensure_type();
     zoom_action::PpsZoomAction::ensure_type();
 }
