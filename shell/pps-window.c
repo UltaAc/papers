@@ -5017,13 +5017,12 @@ view_menu_popup_cb (PpsView   *view,
 
 static gboolean
 attachment_bar_menu_popup_cb (PpsSidebarAttachments *attachbar,
-			      GList                *attach_list,
-			      gdouble               x,
-			      gdouble               y,
+			      graphene_point_t      *point,
+			      GList                 *attach_list,
 			      PpsWindow             *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	gdouble parent_x, parent_y;
+	graphene_point_t new_point;
 
 	g_assert (attach_list != NULL);
 
@@ -5034,12 +5033,14 @@ attachment_bar_menu_popup_cb (PpsSidebarAttachments *attachbar,
 	g_list_free_full (priv->attach_list, g_object_unref);
 	priv->attach_list = attach_list;
 
-	gtk_widget_translate_coordinates (GTK_WIDGET (attachbar),
-				gtk_widget_get_parent (priv->attachment_popup),
-				x, y, &parent_x, &parent_y);
+	if (!gtk_widget_compute_point (GTK_WIDGET (attachbar),
+				       gtk_widget_get_parent (priv->attachment_popup),
+				       point,
+				       &new_point))
+		return FALSE;
 
 	gtk_popover_set_pointing_to (GTK_POPOVER (priv->attachment_popup),
-				&(const GdkRectangle) { parent_x, parent_y, 1, 1 });
+				&(const GdkRectangle) { new_point.x, new_point.y, 1, 1 });
 	gtk_popover_popup (GTK_POPOVER (priv->attachment_popup));
 
 	return TRUE;
