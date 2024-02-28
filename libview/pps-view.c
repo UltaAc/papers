@@ -2665,6 +2665,7 @@ pps_view_form_field_text_create_widget (PpsView      *view,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsFormFieldText *field_text = PPS_FORM_FIELD_TEXT (field);
 	GtkWidget       *text = NULL;
+	GtkTextBuffer   *buffer = NULL;
 	gchar           *txt;
 	GtkEventController *controller;
 
@@ -2695,8 +2696,6 @@ pps_view_form_field_text_create_widget (PpsView      *view,
 					  field);
 			break;
 	        case PPS_FORM_FIELD_TEXT_MULTILINE:
-			GtkTextBuffer *buffer;
-
 			text = gtk_text_view_new ();
 			buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
 
