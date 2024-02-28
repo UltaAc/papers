@@ -2921,9 +2921,7 @@ pps_window_cmd_open_containing_folder (GSimpleAction *action,
 {
 	PpsWindow *window = PPS_WINDOW (user_data);
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
-	g_autoptr (GFile) file;
-
-	file = g_file_new_for_uri (priv->uri);
+	g_autoptr (GFile) file = g_file_new_for_uri (priv->uri);
 	if (!g_file_is_native (file)) {
 		g_object_unref (file);
 		file = g_file_new_for_uri (pps_document_get_uri (priv->document));
