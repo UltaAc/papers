@@ -2224,6 +2224,14 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y, gboolean 
 	if (type == PPS_LINK_DEST_TYPE_NAMED) {
 		dest = pps_document_links_find_link_dest (PPS_DOCUMENT_LINKS (priv->document),
 							 pps_link_dest_get_named_dest (dest));
+
+	}
+
+	/* Handle the case that page doesn't exist */
+	if (pps_link_dest_get_page (dest) == -1) {
+		if (type == PPS_LINK_DEST_TYPE_NAMED)
+			g_object_unref (dest);
+		return;
 	}
 
 	pps_view_link_preview_popover_cleanup (view);
