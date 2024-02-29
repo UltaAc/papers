@@ -53,7 +53,6 @@
 #include "pps-page-selector.h"
 #include "pps-password-view.h"
 #include "pps-sidebar-annotations.h"
-#include "pps-sidebar-attachments.h"
 #include "pps-sidebar-bookmarks.h"
 #include "pps-sidebar.h"
 #include "pps-sidebar-links.h"
@@ -5016,10 +5015,10 @@ view_menu_popup_cb (PpsView   *view,
 }
 
 static gboolean
-attachment_bar_menu_popup_cb (PpsSidebarAttachments *attachbar,
-			      graphene_point_t      *point,
-			      GList                 *attach_list,
-			      PpsWindow             *pps_window)
+attachment_bar_menu_popup_cb (GtkWidget        *attachbar,
+			      graphene_point_t *point,
+			      GList            *attach_list,
+			      PpsWindow        *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 	graphene_point_t new_point;
@@ -5102,10 +5101,10 @@ save_attachment_to_target_file (PpsAttachment *attachment,
 
 
 static gboolean
-attachment_bar_save_attachment_cb (PpsSidebarAttachments  *attachbar,
-                                   PpsAttachment          *attachment,
-                                   const char            *uri,
-                                   PpsWindow              *pps_window)
+attachment_bar_save_attachment_cb (GtkWidget     *attachbar,
+                                   PpsAttachment *attachment,
+                                   const char    *uri,
+                                   PpsWindow     *pps_window)
 {
 	GFile    *target_file;
 	gboolean  is_native;
@@ -6471,7 +6470,6 @@ pps_window_init (PpsWindow *pps_window)
 	g_type_ensure (PPS_TYPE_PASSWORD_VIEW);
 	g_type_ensure (PPS_TYPE_SIDEBAR_BOOKMARKS);
 	g_type_ensure (PPS_TYPE_PAGE_SELECTOR);
-	g_type_ensure (PPS_TYPE_SIDEBAR_ATTACHMENTS);
 	g_type_ensure (PPS_TYPE_SIDEBAR_ANNOTATIONS);
 	g_type_ensure (PPS_TYPE_ANNOTATIONS_TOOLBAR);
 	gtk_widget_init_template (GTK_WIDGET (pps_window));
