@@ -51,12 +51,3 @@ evpresentationview.white-mode {
     padding-left: 2px;
     padding-right: 2px;
 }
-
-.pps-author-label {
-    opacity: 0.55;
-    font-size: 82%;
-}
-
-#pps-recent-view gridview child {
-    margin: 6px;
-}
