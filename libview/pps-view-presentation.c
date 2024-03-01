@@ -1128,42 +1128,39 @@ pps_view_presentation_key_press_event (GtkEventControllerKey *self,
 	return FALSE;
 }
 
-static gboolean
-pps_view_presentation_button_release_event (GtkGestureClick    *self,
-					   gint		       n_press,
-					   gdouble             x,
-					   gdouble             y,
-					   GtkWidget          *widget)
+static void
+pps_view_presentation_primary_button_released (GtkGestureClick    *self,
+					       gint		   n_press,
+					       gdouble             x,
+					       gdouble             y,
+					       GtkWidget          *widget)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (widget);
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
-	GdkEvent *event = gtk_event_controller_get_current_event (GTK_EVENT_CONTROLLER (self));
+	PpsLink *link;
 
-	switch (gdk_button_event_get_button (event)) {
-	case GDK_BUTTON_PRIMARY: {
-		PpsLink *link;
-
-		if (priv->state == PPS_PRESENTATION_END) {
-			g_signal_emit (pview, signals[FINISHED], 0, NULL);
-
-			return FALSE;
-		}
-
-		link = pps_view_presentation_get_link_at_location (pview, x, y);
-		if (link)
-			pps_view_presentation_handle_link (pview, link);
-		else
-			pps_view_presentation_next_page (pview);
-	}
-		break;
-	case GDK_BUTTON_SECONDARY:
-		pps_view_presentation_previous_page (pview);
-		break;
-	default:
-		break;
+	if (priv->state == PPS_PRESENTATION_END) {
+		g_signal_emit (pview, signals[FINISHED], 0, NULL);
+		return;
 	}
 
-	return FALSE;
+	link = pps_view_presentation_get_link_at_location (pview, x, y);
+	if (link)
+		pps_view_presentation_handle_link (pview, link);
+	else
+		pps_view_presentation_next_page (pview);
+}
+
+static void
+pps_view_presentation_secondary_button_released (GtkGestureClick    *self,
+						 gint		     n_press,
+						 gdouble             x,
+						 gdouble             y,
+						 GtkWidget          *widget)
+{
+	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (widget);
+
+	pps_view_presentation_previous_page (pview);
 }
 
 static void
@@ -1431,7 +1428,8 @@ pps_view_presentation_class_init (PpsViewPresentationClass *klass)
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_scroll_event);
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_key_press_event);
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_motion_notify_event);
-	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_button_release_event);
+	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_primary_button_released);
+	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_secondary_button_released);
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_goto_entry_activate);
 
 	add_change_page_binding_keypad (widget_class, GDK_KEY_Left,  0, GTK_SCROLL_PAGE_BACKWARD);

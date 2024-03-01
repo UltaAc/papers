@@ -21,7 +21,16 @@
     </child>
     <child>
       <object class="GtkGestureClick">
-        <signal name="released" handler="pps_view_presentation_button_release_event" />
+        <!-- GDK_BUTTON_PRIMARY -->
+        <property name="button">1</property>
+        <signal name="released" handler="pps_view_presentation_primary_button_released" />
+      </object>
+    </child>
+    <child>
+      <object class="GtkGestureClick">
+        <!-- GDK_BUTTON_SECONDARY -->
+        <property name="button">3</property>
+        <signal name="released" handler="pps_view_presentation_secondary_button_released" />
       </object>
     </child>
     <child>
