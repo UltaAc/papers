@@ -66,12 +66,6 @@ pub trait JobExt: IsA<Job> + sealed::Sealed + 'static {
         unsafe { from_glib_none(ffi::pps_job_get_document(self.as_ref().to_glib_none().0)) }
     }
 
-    //#[doc(alias = "pps_job_get_run_mode")]
-    //#[doc(alias = "get_run_mode")]
-    //fn run_mode(&self) -> /*Ignored*/JobRunMode {
-    //    unsafe { TODO: call ffi:pps_job_get_run_mode() }
-    //}
-
     #[doc(alias = "pps_job_is_failed")]
     fn is_failed(&self) -> Result<(), glib::Error> {
         unsafe {
@@ -109,11 +103,6 @@ pub trait JobExt: IsA<Job> + sealed::Sealed + 'static {
             ffi::pps_job_scheduler_update_job(self.as_ref().to_glib_none().0, priority.into_glib());
         }
     }
-
-    //#[doc(alias = "pps_job_set_run_mode")]
-    //fn set_run_mode(&self, run_mode: /*Ignored*/JobRunMode) {
-    //    unsafe { TODO: call ffi:pps_job_set_run_mode() }
-    //}
 
     #[doc(alias = "pps_job_succeeded")]
     fn succeeded(&self) {

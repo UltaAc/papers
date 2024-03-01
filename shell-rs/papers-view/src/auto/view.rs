@@ -36,20 +36,6 @@ impl View {
         }
     }
 
-    #[doc(alias = "pps_view_autoscroll_start")]
-    pub fn autoscroll_start(&self) {
-        unsafe {
-            ffi::pps_view_autoscroll_start(self.to_glib_none().0);
-        }
-    }
-
-    #[doc(alias = "pps_view_autoscroll_stop")]
-    pub fn autoscroll_stop(&self) {
-        unsafe {
-            ffi::pps_view_autoscroll_stop(self.to_glib_none().0);
-        }
-    }
-
     #[doc(alias = "pps_view_begin_add_annotation")]
     pub fn begin_add_annotation(&self, annot_type: papers_document::AnnotationType) {
         unsafe {
@@ -123,13 +109,6 @@ impl View {
     pub fn find_restart(&self, page: i32) {
         unsafe {
             ffi::pps_view_find_restart(self.to_glib_none().0, page);
-        }
-    }
-
-    #[doc(alias = "pps_view_find_search_changed")]
-    pub fn find_search_changed(&self) {
-        unsafe {
-            ffi::pps_view_find_search_changed(self.to_glib_none().0);
         }
     }
 

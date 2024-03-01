@@ -20,6 +20,8 @@ external_libraries = [
 ]
 
 generate = [
+    "PapersDocument.Attachment",
+    "PapersDocument.DocumentAttachments",
     "PapersDocument.DocumentInfoFields",
     "PapersDocument.DocumentContainsJS",
     "PapersDocument.DocumentFonts",
@@ -48,6 +50,9 @@ manual = [
     "GLib.DateTime",
     "Gtk.Widget",
     "Gio.ListModel",
+    "Gio.AppLaunchContext",
+    "Gio.File",
+    "GLib.Error",
 ]
 
 [[object]]

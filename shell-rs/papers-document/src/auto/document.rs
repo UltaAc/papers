@@ -50,20 +50,29 @@ impl Document {
     //    unsafe { TODO: call ffi:pps_document_factory_add_filters() }
     //}
 
-    //#[doc(alias = "pps_document_factory_get_document")]
-    //pub fn factory_get_document(uri: &str, error: /*Ignored*/Option<glib::Error>) -> Option<Document> {
-    //    unsafe { TODO: call ffi:pps_document_factory_get_document() }
-    //}
+    #[doc(alias = "pps_document_factory_get_document")]
+    pub fn factory_get_document(uri: &str) -> Result<Document, glib::Error> {
+        assert_initialized_main_thread!();
+        unsafe {
+            let mut error = std::ptr::null_mut();
+            let ret = ffi::pps_document_factory_get_document(uri.to_glib_none().0, &mut error);
+            if error.is_null() {
+                Ok(from_glib_full(ret))
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
 
     //#[cfg(feature = "v42")]
     //#[cfg_attr(docsrs, doc(cfg(feature = "v42")))]
     //#[doc(alias = "pps_document_factory_get_document_for_fd")]
-    //pub fn factory_get_document_for_fd(fd: i32, mime_type: &str, flags: /*Ignored*/DocumentLoadFlags, cancellable: /*Ignored*/Option<&gio::Cancellable>, error: /*Ignored*/Option<glib::Error>) -> Option<Document> {
+    //pub fn factory_get_document_for_fd(fd: i32, mime_type: &str, flags: /*Ignored*/DocumentLoadFlags, cancellable: /*Ignored*/Option<&gio::Cancellable>) -> Result<Document, glib::Error> {
     //    unsafe { TODO: call ffi:pps_document_factory_get_document_for_fd() }
     //}
 
     //#[doc(alias = "pps_document_factory_get_document_full")]
-    //pub fn factory_get_document_full(uri: &str, flags: /*Ignored*/DocumentLoadFlags, error: /*Ignored*/Option<glib::Error>) -> Option<Document> {
+    //pub fn factory_get_document_full(uri: &str, flags: /*Ignored*/DocumentLoadFlags) -> Result<Document, glib::Error> {
     //    unsafe { TODO: call ffi:pps_document_factory_get_document_full() }
     //}
 
@@ -267,20 +276,33 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
         }
     }
 
-    //#[doc(alias = "pps_document_load")]
-    //fn load(&self, uri: &str, error: /*Ignored*/Option<glib::Error>) -> bool {
-    //    unsafe { TODO: call ffi:pps_document_load() }
-    //}
+    #[doc(alias = "pps_document_load")]
+    fn load(&self, uri: &str) -> Result<(), glib::Error> {
+        unsafe {
+            let mut error = std::ptr::null_mut();
+            let is_ok = ffi::pps_document_load(
+                self.as_ref().to_glib_none().0,
+                uri.to_glib_none().0,
+                &mut error,
+            );
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
 
     //#[cfg(feature = "v42")]
     //#[cfg_attr(docsrs, doc(cfg(feature = "v42")))]
     //#[doc(alias = "pps_document_load_fd")]
-    //fn load_fd(&self, fd: i32, flags: /*Ignored*/DocumentLoadFlags, cancellable: /*Ignored*/Option<&gio::Cancellable>, error: /*Ignored*/Option<glib::Error>) -> bool {
+    //fn load_fd(&self, fd: i32, flags: /*Ignored*/DocumentLoadFlags, cancellable: /*Ignored*/Option<&gio::Cancellable>) -> Result<(), glib::Error> {
     //    unsafe { TODO: call ffi:pps_document_load_fd() }
     //}
 
     //#[doc(alias = "pps_document_load_full")]
-    //fn load_full(&self, uri: &str, flags: /*Ignored*/DocumentLoadFlags, error: /*Ignored*/Option<glib::Error>) -> bool {
+    //fn load_full(&self, uri: &str, flags: /*Ignored*/DocumentLoadFlags) -> Result<(), glib::Error> {
     //    unsafe { TODO: call ffi:pps_document_load_full() }
     //}
 
@@ -289,10 +311,23 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
     //    unsafe { TODO: call ffi:pps_document_render() }
     //}
 
-    //#[doc(alias = "pps_document_save")]
-    //fn save(&self, uri: &str, error: /*Ignored*/Option<glib::Error>) -> bool {
-    //    unsafe { TODO: call ffi:pps_document_save() }
-    //}
+    #[doc(alias = "pps_document_save")]
+    fn save(&self, uri: &str) -> Result<(), glib::Error> {
+        unsafe {
+            let mut error = std::ptr::null_mut();
+            let is_ok = ffi::pps_document_save(
+                self.as_ref().to_glib_none().0,
+                uri.to_glib_none().0,
+                &mut error,
+            );
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
 
     #[doc(alias = "pps_document_set_modified")]
     fn set_modified(&self, modified: bool) {

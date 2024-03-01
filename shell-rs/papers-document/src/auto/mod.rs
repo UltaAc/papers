@@ -6,8 +6,14 @@
 mod annotation;
 pub use self::annotation::Annotation;
 
+mod attachment;
+pub use self::attachment::Attachment;
+
 mod document;
 pub use self::document::Document;
+
+mod document_attachments;
+pub use self::document_attachments::DocumentAttachments;
 
 mod document_fonts;
 pub use self::document_fonts::DocumentFonts;
@@ -61,7 +67,9 @@ pub use self::flags::DocumentInfoFields;
 
 pub(crate) mod traits {
     pub use super::annotation::AnnotationExt;
+    pub use super::attachment::AttachmentExt;
     pub use super::document::DocumentExt;
+    pub use super::document_attachments::DocumentAttachmentsExt;
     pub use super::document_fonts::DocumentFontsExt;
     pub use super::document_layers::DocumentLayersExt;
     pub use super::image::ImageExt;

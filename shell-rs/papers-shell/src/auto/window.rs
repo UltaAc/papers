@@ -505,13 +505,6 @@ pub trait WindowExt: IsA<Window> + sealed::Sealed + 'static {
             ffi::pps_window_print_range(self.as_ref().to_glib_none().0, first_page, last_page);
         }
     }
-
-    #[doc(alias = "pps_window_start_page_selector_search")]
-    fn start_page_selector_search(&self) {
-        unsafe {
-            ffi::pps_window_start_page_selector_search(self.as_ref().to_glib_none().0);
-        }
-    }
 }
 
 impl<O: IsA<Window>> WindowExt for O {}

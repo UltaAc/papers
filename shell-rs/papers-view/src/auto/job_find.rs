@@ -47,12 +47,6 @@ pub trait JobFindExt: IsA<JobFind> + sealed::Sealed + 'static {
     //    unsafe { TODO: call ffi:pps_job_find_get_options() }
     //}
 
-    #[doc(alias = "pps_job_find_get_progress")]
-    #[doc(alias = "get_progress")]
-    fn progress(&self) -> f64 {
-        unsafe { ffi::pps_job_find_get_progress(self.as_ref().to_glib_none().0) }
-    }
-
     //#[doc(alias = "pps_job_find_get_results")]
     //#[doc(alias = "get_results")]
     //fn results(&self) -> /*Unimplemented*/Vec<Basic: Pointer> {

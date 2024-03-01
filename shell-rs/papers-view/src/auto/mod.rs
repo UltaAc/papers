@@ -9,6 +9,9 @@ pub use self::document_model::DocumentModel;
 mod job;
 pub use self::job::Job;
 
+mod job_attachments;
+pub use self::job_attachments::JobAttachments;
+
 mod job_find;
 pub use self::job_find::JobFind;
 
@@ -40,6 +43,7 @@ pub use self::enums::SizingMode;
 
 pub(crate) mod traits {
     pub use super::job::JobExt;
+    pub use super::job_attachments::JobAttachmentsExt;
     pub use super::job_find::JobFindExt;
     pub use super::job_layers::JobLayersExt;
     pub use super::job_load::JobLoadExt;
