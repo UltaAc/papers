@@ -31,17 +31,9 @@
 G_BEGIN_DECLS
 
 #define PPS_TYPE_VIEW_PRESENTATION            (pps_view_presentation_get_type ())
-#define PPS_VIEW_PRESENTATION(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_VIEW_PRESENTATION, PpsViewPresentation))
-#define PPS_IS_VIEW_PRESENTATION(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PPS_TYPE_VIEW_PRESENTATION))
-#define PPS_VIEW_PRESENTATION_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_VIEW_PRESENTATION, PpsViewPresentationClass))
-#define PPS_IS_VIEW_PRESENTATION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_VIEW_PRESENTATION))
-#define PPS_VIEW_PRESENTATION_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_VIEW_PRESENTATION, PpsViewPresentationClass))
-
-typedef struct _PpsViewPresentation       PpsViewPresentation;
-typedef struct _PpsViewPresentationClass  PpsViewPresentationClass;
-
 PPS_PUBLIC
-GType		pps_view_presentation_get_type	      (void) G_GNUC_CONST;
+G_DECLARE_DERIVABLE_TYPE (PpsViewPresentation, pps_view_presentation, PPS, VIEW_PRESENTATION, GtkWidget)
+
 
 PPS_PUBLIC
 PpsViewPresentation *pps_view_presentation_new	      (PpsDocument         *document,

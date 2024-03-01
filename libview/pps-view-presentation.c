@@ -52,10 +52,8 @@ typedef enum {
 	PPS_PRESENTATION_END
 } PpsPresentationState;
 
-struct _PpsViewPresentation
+struct _PpsViewPresentationPrivate
 {
-	GtkWidget base;
-
         guint                  is_constructing : 1;
 
 	gint64		       start_time;
@@ -90,6 +88,10 @@ struct _PpsViewPresentation
 	PpsJob *next_job;
 };
 
+typedef struct _PpsViewPresentationPrivate PpsViewPresentationPrivate;
+
+#define GET_PRIVATE(o) pps_view_presentation_get_instance_private (o)
+
 struct _PpsViewPresentationClass
 {
 	GtkWidgetClass base_class;
@@ -113,17 +115,19 @@ static void pps_view_presentation_update_current_texture (PpsViewPresentation *p
 
 #define HIDE_CURSOR_TIMEOUT 5000
 
-G_DEFINE_TYPE (PpsViewPresentation, pps_view_presentation, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE_WITH_PRIVATE (PpsViewPresentation, pps_view_presentation, GTK_TYPE_WIDGET)
 
 static void
 pps_view_presentation_set_normal (PpsViewPresentation *pview)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
 	GtkWidget *widget = GTK_WIDGET (pview);
 
-	if (pview->state == PPS_PRESENTATION_NORMAL)
+	if (priv->state == PPS_PRESENTATION_NORMAL)
 		return;
 
-	pview->state = PPS_PRESENTATION_NORMAL;
+	priv->state = PPS_PRESENTATION_NORMAL;
 
 	gtk_widget_remove_css_class(widget, "white-mode");
         gtk_widget_queue_draw (widget);
@@ -132,12 +136,14 @@ pps_view_presentation_set_normal (PpsViewPresentation *pview)
 static void
 pps_view_presentation_set_black (PpsViewPresentation *pview)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
 	GtkWidget *widget = GTK_WIDGET (pview);
 
-	if (pview->state == PPS_PRESENTATION_BLACK)
+	if (priv->state == PPS_PRESENTATION_BLACK)
 		return;
 
-	pview->state = PPS_PRESENTATION_BLACK;
+	priv->state = PPS_PRESENTATION_BLACK;
 
 	gtk_widget_remove_css_class(widget, "white-mode");
 	gtk_widget_queue_draw (widget);
@@ -146,12 +152,14 @@ pps_view_presentation_set_black (PpsViewPresentation *pview)
 static void
 pps_view_presentation_set_white (PpsViewPresentation *pview)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
 	GtkWidget *widget = GTK_WIDGET (pview);
 
-	if (pview->state == PPS_PRESENTATION_WHITE)
+	if (priv->state == PPS_PRESENTATION_WHITE)
 		return;
 
-	pview->state = PPS_PRESENTATION_WHITE;
+	priv->state = PPS_PRESENTATION_WHITE;
 
 	gtk_widget_add_css_class(widget, "white-mode");
 }
@@ -159,12 +167,14 @@ pps_view_presentation_set_white (PpsViewPresentation *pview)
 static void
 pps_view_presentation_set_end (PpsViewPresentation *pview)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
 	GtkWidget *widget = GTK_WIDGET (pview);
 
-	if (pview->state == PPS_PRESENTATION_END)
+	if (priv->state == PPS_PRESENTATION_END)
 		return;
 
-	pview->state = PPS_PRESENTATION_END;
+	priv->state = PPS_PRESENTATION_END;
 	gtk_widget_queue_draw (widget);
 }
 
@@ -174,11 +184,13 @@ pps_view_presentation_get_view_size (PpsViewPresentation *pview,
 				    int                *view_width,
 				    int                *view_height)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
 	gdouble width, height;
 	int widget_width, widget_height;
 
-	pps_document_get_page_size (pview->document, page, &width, &height);
-	if (pview->rotation == 90 || pview->rotation == 270) {
+	pps_document_get_page_size (priv->document, page, &width, &height);
+	if (priv->rotation == 90 || priv->rotation == 270) {
 		gdouble tmp;
 
 		tmp = width;
@@ -202,10 +214,12 @@ static void
 pps_view_presentation_get_page_area (PpsViewPresentation *pview,
 				    GdkRectangle       *area)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
 	GtkWidget    *widget = GTK_WIDGET (pview);
 	gint          view_width, view_height, widget_width, widget_height;
 
-	pps_view_presentation_get_view_size (pview, pview->current_page,
+	pps_view_presentation_get_view_size (pview, priv->current_page,
 					    &view_width, &view_height);
 
 	widget_width = gtk_widget_get_width (widget);
@@ -221,30 +235,34 @@ pps_view_presentation_get_page_area (PpsViewPresentation *pview,
 static void
 transition_next_page (PpsViewPresentation *pview)
 {
-	pview->trans_timeout_id = 0;
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+	priv->trans_timeout_id = 0;
 	pps_view_presentation_next_page (pview);
 }
 
 static void
 pps_view_presentation_transition_stop (PpsViewPresentation *pview)
 {
-	g_clear_handle_id (&pview->trans_timeout_id, g_source_remove);
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+	g_clear_handle_id (&priv->trans_timeout_id, g_source_remove);
 }
 
 static void
 pps_view_presentation_transition_start (PpsViewPresentation *pview)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
 	gdouble duration;
 
-	if (!PPS_IS_DOCUMENT_TRANSITION (pview->document))
+	if (!PPS_IS_DOCUMENT_TRANSITION (priv->document))
 		return;
 
 	pps_view_presentation_transition_stop (pview);
 
-	duration = pps_document_transition_get_page_duration (PPS_DOCUMENT_TRANSITION (pview->document),
-							     pview->current_page);
+	duration = pps_document_transition_get_page_duration (PPS_DOCUMENT_TRANSITION (priv->document),
+							     priv->current_page);
 	if (duration >= 0) {
-		        pview->trans_timeout_id =
+		        priv->trans_timeout_id =
 				g_timeout_add_once (duration * 1000,
 						    (GSourceOnceFunc) transition_next_page,
 						    pview);
@@ -257,26 +275,28 @@ animation_tick_cb (GtkWidget     *widget,
 		   gpointer       unused)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (widget);
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
 	gint64 frame_time = gdk_frame_clock_get_frame_time (clock);
 	PpsTransitionEffect *effect;
 	gdouble duration = 0;
 
-	if (!PPS_IS_DOCUMENT_TRANSITION (pview->document))
+	if (!PPS_IS_DOCUMENT_TRANSITION (priv->document))
 		return G_SOURCE_REMOVE;
 
-	if (pview->start_time == 0)
-		pview->start_time = frame_time;
+	if (priv->start_time == 0)
+		priv->start_time = frame_time;
 
-	pview->transition_time = (frame_time - pview->start_time) / (float)G_USEC_PER_SEC;
+	priv->transition_time = (frame_time - priv->start_time) / (float)G_USEC_PER_SEC;
 
 	gtk_widget_queue_draw (widget);
 
 	effect = pps_document_transition_get_effect (
-			PPS_DOCUMENT_TRANSITION (pview->document),
-			pview->current_page);
+			PPS_DOCUMENT_TRANSITION (priv->document),
+			priv->current_page);
 	g_object_get (effect, "duration-real", &duration, NULL);
 
-	if (pview->transition_time >= duration) {
+	if (priv->transition_time >= duration) {
 		pps_view_presentation_transition_start (pview);
 		return G_SOURCE_REMOVE;
 	}
@@ -288,19 +308,23 @@ animation_tick_cb (GtkWidget     *widget,
 static void
 pps_view_presentation_animation_cancel (PpsViewPresentation *pview)
 {
-	if (pview->animation_tick_id) {
-		gtk_widget_remove_tick_callback (GTK_WIDGET (pview), pview->animation_tick_id);
-		pview->animation_tick_id = 0;
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
+	if (priv->animation_tick_id) {
+		gtk_widget_remove_tick_callback (GTK_WIDGET (pview), priv->animation_tick_id);
+		priv->animation_tick_id = 0;
 	}
 }
 
 static void
 pps_view_presentation_animation_start (PpsViewPresentation *pview)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
 	GtkWidget *widget = GTK_WIDGET (pview);
 
-	pview->start_time = 0;
-	pview->animation_tick_id = gtk_widget_add_tick_callback (widget,
+	priv->start_time = 0;
+	priv->animation_tick_id = gtk_widget_add_tick_callback (widget,
 			animation_tick_cb, pview, NULL);
 	gtk_widget_queue_draw (widget);
 }
@@ -320,7 +344,9 @@ static void
 job_finished_cb (PpsJob              *job,
 		 PpsViewPresentation *pview)
 {
-	if (job != pview->curr_job)
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
+	if (job != priv->curr_job)
 		return;
 
 	pps_view_presentation_update_current_texture (pview,
@@ -334,17 +360,19 @@ pps_view_presentation_schedule_new_job (PpsViewPresentation *pview,
 				       gint                page,
 				       PpsJobPriority       priority)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
 	PpsJob *job;
         int    view_width, view_height;
 
-	if (page < 0 || page >= pps_document_get_n_pages (pview->document))
+	if (page < 0 || page >= pps_document_get_n_pages (priv->document))
 		return NULL;
 
         pps_view_presentation_get_view_size (pview, page, &view_width, &view_height);
 	gint device_scale = gtk_widget_get_scale_factor (GTK_WIDGET (pview));
 	view_width *= device_scale;
 	view_height *= device_scale;
-	job = pps_job_render_texture_new (pview->document, page, pview->rotation, 0.,
+	job = pps_job_render_texture_new (priv->document, page, priv->rotation, 0.,
 				       view_width, view_height);
 	g_signal_connect (job, "finished",
 			  G_CALLBACK (job_finished_cb),
@@ -369,135 +397,141 @@ pps_view_presentation_delete_job (PpsViewPresentation *pview,
 static void
 pps_view_presentation_reset_jobs (PpsViewPresentation *pview)
 {
-	pps_view_presentation_delete_job (pview, pview->curr_job);
-	pps_view_presentation_delete_job (pview, pview->prpps_job);
-	pps_view_presentation_delete_job (pview, pview->next_job);
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
+	pps_view_presentation_delete_job (pview, priv->curr_job);
+	pps_view_presentation_delete_job (pview, priv->prpps_job);
+	pps_view_presentation_delete_job (pview, priv->next_job);
 }
 
 static void
 pps_view_presentation_update_current_texture (PpsViewPresentation *pview,
 					     GdkTexture    *texture)
 {
-	if (!texture || pview->current_texture == texture)
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
+	if (!texture || priv->current_texture == texture)
 		return;
 
 	g_object_ref (texture);
 
-	g_clear_object (&pview->previous_texture);
+	g_clear_object (&priv->previous_texture);
 
-	pview->previous_texture = pview->current_texture;
-	pview->current_texture = texture;
+	priv->previous_texture = priv->current_texture;
+	priv->current_texture = texture;
 }
 
 static void
 pps_view_presentation_update_current_page (PpsViewPresentation *pview,
 					  guint               page)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
 	gint jump;
 
-	if (page < 0 || page >= pps_document_get_n_pages (pview->document))
+	if (page < 0 || page >= pps_document_get_n_pages (priv->document))
 		return;
 
 	pps_view_presentation_animation_cancel (pview);
 	pps_view_presentation_transition_stop (pview);
 
-	jump = page - pview->current_page;
+	jump = page - priv->current_page;
 
 	switch (jump) {
 	case 0:
-		if (!pview->curr_job)
-			pview->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
-		if (!pview->next_job)
-			pview->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_HIGH);
-		if (!pview->prpps_job)
-			pview->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_LOW);
+		if (!priv->curr_job)
+			priv->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
+		if (!priv->next_job)
+			priv->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_HIGH);
+		if (!priv->prpps_job)
+			priv->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_LOW);
 		break;
 	case -1:
-		pps_view_presentation_delete_job (pview, pview->next_job);
-		pview->next_job = pview->curr_job;
-		pview->curr_job = pview->prpps_job;
+		pps_view_presentation_delete_job (pview, priv->next_job);
+		priv->next_job = priv->curr_job;
+		priv->curr_job = priv->prpps_job;
 
-		if (!pview->curr_job)
-			pview->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
+		if (!priv->curr_job)
+			priv->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
 		else
-			pps_job_scheduler_update_job (pview->curr_job, PPS_JOB_PRIORITY_URGENT);
-		pview->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_HIGH);
-		pps_job_scheduler_update_job (pview->next_job, PPS_JOB_PRIORITY_LOW);
+			pps_job_scheduler_update_job (priv->curr_job, PPS_JOB_PRIORITY_URGENT);
+		priv->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_HIGH);
+		pps_job_scheduler_update_job (priv->next_job, PPS_JOB_PRIORITY_LOW);
 
 		break;
 	case 1:
-		pps_view_presentation_delete_job (pview, pview->prpps_job);
-		pview->prpps_job = pview->curr_job;
-		pview->curr_job = pview->next_job;
+		pps_view_presentation_delete_job (pview, priv->prpps_job);
+		priv->prpps_job = priv->curr_job;
+		priv->curr_job = priv->next_job;
 
-		if (!pview->curr_job)
-			pview->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
+		if (!priv->curr_job)
+			priv->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
 		else
-			pps_job_scheduler_update_job (pview->curr_job, PPS_JOB_PRIORITY_URGENT);
-		pview->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_HIGH);
+			pps_job_scheduler_update_job (priv->curr_job, PPS_JOB_PRIORITY_URGENT);
+		priv->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_HIGH);
 
-		if (pview->prpps_job)
-			pps_job_scheduler_update_job (pview->prpps_job, PPS_JOB_PRIORITY_LOW);
+		if (priv->prpps_job)
+			pps_job_scheduler_update_job (priv->prpps_job, PPS_JOB_PRIORITY_LOW);
 
 		break;
 	case -2:
-		pps_view_presentation_delete_job (pview, pview->next_job);
-		pps_view_presentation_delete_job (pview, pview->curr_job);
-		pview->next_job = pview->prpps_job;
+		pps_view_presentation_delete_job (pview, priv->next_job);
+		pps_view_presentation_delete_job (pview, priv->curr_job);
+		priv->next_job = priv->prpps_job;
 
-		pview->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
-		pview->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_HIGH);
-		if (!pview->next_job)
-			pview->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_LOW);
+		priv->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
+		priv->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_HIGH);
+		if (!priv->next_job)
+			priv->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_LOW);
 		else
-			pps_job_scheduler_update_job (pview->next_job, PPS_JOB_PRIORITY_LOW);
+			pps_job_scheduler_update_job (priv->next_job, PPS_JOB_PRIORITY_LOW);
 		break;
 	case 2:
-		pps_view_presentation_delete_job (pview, pview->prpps_job);
-		pps_view_presentation_delete_job (pview, pview->curr_job);
-		pview->prpps_job = pview->next_job;
+		pps_view_presentation_delete_job (pview, priv->prpps_job);
+		pps_view_presentation_delete_job (pview, priv->curr_job);
+		priv->prpps_job = priv->next_job;
 
-		pview->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
-		pview->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_HIGH);
-		if (!pview->prpps_job)
-			pview->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_LOW);
+		priv->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
+		priv->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_HIGH);
+		if (!priv->prpps_job)
+			priv->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_LOW);
 		else
-			pps_job_scheduler_update_job (pview->prpps_job, PPS_JOB_PRIORITY_LOW);
+			pps_job_scheduler_update_job (priv->prpps_job, PPS_JOB_PRIORITY_LOW);
 		break;
 	default:
-		pps_view_presentation_delete_job (pview, pview->prpps_job);
-		pps_view_presentation_delete_job (pview, pview->curr_job);
-		pps_view_presentation_delete_job (pview, pview->next_job);
+		pps_view_presentation_delete_job (pview, priv->prpps_job);
+		pps_view_presentation_delete_job (pview, priv->curr_job);
+		pps_view_presentation_delete_job (pview, priv->next_job);
 
-		pview->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
+		priv->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
 		if (jump > 0) {
-			pview->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_HIGH);
-			pview->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_LOW);
+			priv->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_HIGH);
+			priv->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_LOW);
 		} else {
-			pview->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_HIGH);
-			pview->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_LOW);
+			priv->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_HIGH);
+			priv->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_LOW);
 		}
 	}
 
-	if (pview->current_page != page) {
-		pview->previous_page = pview->current_page;
-		pview->current_page = page;
+	if (priv->current_page != page) {
+		priv->previous_page = priv->current_page;
+		priv->current_page = page;
 		g_object_notify (G_OBJECT (pview), "current-page");
 	}
 
-	if (pview->page_cache)
-		pps_page_cache_set_page_range (pview->page_cache, page, page);
+	if (priv->page_cache)
+		pps_page_cache_set_page_range (priv->page_cache, page, page);
 
-	if (pview->cursor != PPS_VIEW_CURSOR_HIDDEN) {
+	if (priv->cursor != PPS_VIEW_CURSOR_HIDDEN) {
 		gint x, y;
 
 		pps_document_misc_get_pointer_position (GTK_WIDGET (pview), &x, &y);
 		pps_view_presentation_set_cursor_for_location (pview, x, y);
 	}
 
-	if (PPS_JOB_RENDER_TEXTURE (pview->curr_job)->texture) {
+	if (PPS_JOB_RENDER_TEXTURE (priv->curr_job)->texture) {
 		pps_view_presentation_update_current_texture (pview,
-				PPS_JOB_RENDER_TEXTURE (pview->curr_job)->texture);
+				PPS_JOB_RENDER_TEXTURE (priv->curr_job)->texture);
 
 		pps_view_presentation_animation_start (pview);
 	}
@@ -507,11 +541,14 @@ static void
 pps_view_presentation_set_current_page (PpsViewPresentation *pview,
                                        guint               page)
 {
-	if (pview->current_page == page)
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
+
+	if (priv->current_page == page)
 		return;
 
 	if (!gtk_widget_get_realized (GTK_WIDGET (pview))) {
-		pview->current_page = page;
+		priv->current_page = page;
 		g_object_notify (G_OBJECT (pview), "current-page");
 	} else {
 		pps_view_presentation_update_current_page (pview, page);
@@ -521,10 +558,11 @@ pps_view_presentation_set_current_page (PpsViewPresentation *pview,
 void
 pps_view_presentation_next_page (PpsViewPresentation *pview)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	guint n_pages;
 	gint  new_page;
 
-	switch (pview->state) {
+	switch (priv->state) {
 	case PPS_PRESENTATION_BLACK:
 	case PPS_PRESENTATION_WHITE:
 		pps_view_presentation_set_normal (pview);
@@ -534,8 +572,8 @@ pps_view_presentation_next_page (PpsViewPresentation *pview)
 		break;
 	}
 
-	n_pages = pps_document_get_n_pages (pview->document);
-	new_page = pview->current_page + 1;
+	n_pages = pps_document_get_n_pages (priv->document);
+	new_page = priv->current_page + 1;
 
 	if (new_page == n_pages)
 		pps_view_presentation_set_end (pview);
@@ -546,19 +584,20 @@ pps_view_presentation_next_page (PpsViewPresentation *pview)
 void
 pps_view_presentation_previous_page (PpsViewPresentation *pview)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	gint new_page = 0;
 
-	switch (pview->state) {
+	switch (priv->state) {
 	case PPS_PRESENTATION_BLACK:
 	case PPS_PRESENTATION_WHITE:
 		pps_view_presentation_set_normal (pview);
 		return;
 	case PPS_PRESENTATION_END:
-		pview->state = PPS_PRESENTATION_NORMAL;
-		new_page = pview->current_page;
+		priv->state = PPS_PRESENTATION_NORMAL;
+		new_page = priv->current_page;
 		break;
 	case PPS_PRESENTATION_NORMAL:
-		new_page = pview->current_page - 1;
+		new_page = priv->current_page - 1;
 		break;
 	}
 
@@ -588,13 +627,14 @@ static void
 pps_view_presentation_goto_entry_activate (GtkEntry           *entry,
 					  PpsViewPresentation *pview)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	const gchar *text;
 	gint         page;
 
 	text = gtk_editable_get_text (GTK_EDITABLE (entry));
 	page = atoi (text) - 1;
 
-	gtk_popover_popdown (GTK_POPOVER (pview->goto_popup));
+	gtk_popover_popdown (GTK_POPOVER (priv->goto_popup));
 	pps_view_presentation_update_current_page (pview, page);
 }
 
@@ -602,13 +642,14 @@ pps_view_presentation_goto_entry_activate (GtkEntry           *entry,
 static void
 pps_view_presentation_goto_window_create (PpsViewPresentation *pview)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	GtkWidget *hbox, *label;
 
-	pview->goto_popup = gtk_popover_new ();
-	gtk_popover_set_position (GTK_POPOVER (pview->goto_popup), GTK_POS_BOTTOM);
-	gtk_popover_set_has_arrow (GTK_POPOVER (pview->goto_popup), FALSE);
-	gtk_widget_set_halign (pview->goto_popup, GTK_ALIGN_START);
-	gtk_widget_set_parent (pview->goto_popup, GTK_WIDGET (pview));
+	priv->goto_popup = gtk_popover_new ();
+	gtk_popover_set_position (GTK_POPOVER (priv->goto_popup), GTK_POS_BOTTOM);
+	gtk_popover_set_has_arrow (GTK_POPOVER (priv->goto_popup), FALSE);
+	gtk_widget_set_halign (priv->goto_popup, GTK_ALIGN_START);
+	gtk_widget_set_parent (priv->goto_popup, GTK_WIDGET (pview));
 
 	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_box_set_spacing (GTK_BOX (hbox), 3);
@@ -616,16 +657,16 @@ pps_view_presentation_goto_window_create (PpsViewPresentation *pview)
 	gtk_widget_set_margin_bottom (hbox, 3);
 	gtk_widget_set_margin_start (hbox, 3);
 	gtk_widget_set_margin_end (hbox, 3);
-	gtk_popover_set_child (GTK_POPOVER (pview->goto_popup), hbox);
+	gtk_popover_set_child (GTK_POPOVER (priv->goto_popup), hbox);
 
 	label = gtk_label_new (_("Jump to page:"));
 	gtk_box_append (GTK_BOX (hbox), label);
 
-	pview->goto_entry = gtk_entry_new ();
+	priv->goto_entry = gtk_entry_new ();
 
-	gtk_box_append (GTK_BOX (hbox), pview->goto_entry);
+	gtk_box_append (GTK_BOX (hbox), priv->goto_entry);
 
-	g_signal_connect (pview->goto_entry, "activate",
+	g_signal_connect (priv->goto_entry, "activate",
 			  G_CALLBACK (pps_view_presentation_goto_entry_activate),
 			  pview);
 }
@@ -661,20 +702,21 @@ pps_view_presentation_get_link_at_location (PpsViewPresentation *pview,
 					   gdouble             x,
 					   gdouble             y)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	GdkRectangle   page_area;
 	PpsMappingList *link_mapping;
 	PpsLink        *link;
 	gdouble        width, height;
 	gdouble        new_x, new_y;
 
-	if (!pview->page_cache)
+	if (!priv->page_cache)
 		return NULL;
 
-	pps_document_get_page_size (pview->document, pview->current_page, &width, &height);
+	pps_document_get_page_size (priv->document, priv->current_page, &width, &height);
 	pps_view_presentation_get_page_area (pview, &page_area);
 	x = (x - page_area.x) / page_area.width;
 	y = (y - page_area.y) / page_area.height;
-	switch (pview->rotation) {
+	switch (priv->rotation) {
 	case 0:
 	case 360:
 		new_x = width * x;
@@ -696,7 +738,7 @@ pps_view_presentation_get_link_at_location (PpsViewPresentation *pview,
 		g_assert_not_reached ();
 	}
 
-	link_mapping = pps_page_cache_get_link_mapping (pview->page_cache, pview->current_page);
+	link_mapping = pps_page_cache_get_link_mapping (priv->page_cache, priv->current_page);
 
 	link = link_mapping ? pps_mapping_list_get_data (link_mapping, new_x, new_y) : NULL;
 
@@ -707,6 +749,7 @@ static void
 pps_view_presentation_handle_link (PpsViewPresentation *pview,
                                   PpsLink             *link)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	PpsLinkAction *action;
 
 	action = pps_link_get_action (link);
@@ -718,13 +761,13 @@ pps_view_presentation_handle_link (PpsViewPresentation *pview,
 		if (g_ascii_strcasecmp (name, "FirstPage") == 0) {
 			pps_view_presentation_update_current_page (pview, 0);
 		} else if (g_ascii_strcasecmp (name, "PrevPage") == 0) {
-			pps_view_presentation_update_current_page (pview, pview->current_page - 1);
+			pps_view_presentation_update_current_page (pview, priv->current_page - 1);
 		} else if (g_ascii_strcasecmp (name, "NextPage") == 0) {
-			pps_view_presentation_update_current_page (pview, pview->current_page + 1);
+			pps_view_presentation_update_current_page (pview, priv->current_page + 1);
 		} else if (g_ascii_strcasecmp (name, "LastPage") == 0) {
 			gint n_pages;
 
-			n_pages = pps_document_get_n_pages (pview->document);
+			n_pages = pps_document_get_n_pages (priv->document);
 			pps_view_presentation_update_current_page (pview, n_pages - 1);
 		}
         }
@@ -735,7 +778,7 @@ pps_view_presentation_handle_link (PpsViewPresentation *pview,
 		gint        page;
 
 		dest = pps_link_action_get_dest (action);
-		page = pps_document_links_get_dest_page (PPS_DOCUMENT_LINKS (pview->document), dest);
+		page = pps_document_links_get_dest_page (PPS_DOCUMENT_LINKS (priv->document), dest);
 		pps_view_presentation_update_current_page (pview, page);
         }
                 break;
@@ -754,15 +797,16 @@ static void
 pps_view_presentation_set_cursor (PpsViewPresentation *pview,
 				 PpsViewCursor        view_cursor)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	GtkWidget  *widget = GTK_WIDGET (pview);
 
-	if (pview->cursor == view_cursor)
+	if (priv->cursor == view_cursor)
 		return;
 
 	if (!gtk_widget_get_realized (widget))
 		gtk_widget_realize (widget);
 
-	pview->cursor = view_cursor;
+	priv->cursor = view_cursor;
 
 	gtk_widget_set_cursor_from_name (widget,
 			pps_view_cursor_name (view_cursor));
@@ -782,21 +826,24 @@ pps_view_presentation_set_cursor_for_location (PpsViewPresentation *pview,
 static void
 hide_cursor_timeout_cb (PpsViewPresentation *pview)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	pps_view_presentation_set_cursor (pview, PPS_VIEW_CURSOR_HIDDEN);
-	pview->hide_cursor_timeout_id = 0;
+	priv->hide_cursor_timeout_id = 0;
 }
 
 static void
 pps_view_presentation_hide_cursor_timeout_stop (PpsViewPresentation *pview)
 {
-	g_clear_handle_id (&pview->hide_cursor_timeout_id, g_source_remove);
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+	g_clear_handle_id (&priv->hide_cursor_timeout_id, g_source_remove);
 }
 
 static void
 pps_view_presentation_hide_cursor_timeout_start (PpsViewPresentation *pview)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	pps_view_presentation_hide_cursor_timeout_stop (pview);
-	pview->hide_cursor_timeout_id =
+	priv->hide_cursor_timeout_id =
 		g_timeout_add_once (HIDE_CURSOR_TIMEOUT,
 				    (GSourceOnceFunc)hide_cursor_timeout_cb,
 				    pview);
@@ -806,21 +853,22 @@ static void
 pps_view_presentation_dispose (GObject *object)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (object);
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
-	g_clear_object (&pview->document);
+	g_clear_object (&priv->document);
 
 	pps_view_presentation_transition_stop (pview);
 	pps_view_presentation_hide_cursor_timeout_stop (pview);
         pps_view_presentation_reset_jobs (pview);
 
-	g_clear_object (&pview->current_texture);
-	g_clear_object (&pview->page_cache);
-	g_clear_object (&pview->previous_texture);
+	g_clear_object (&priv->current_texture);
+	g_clear_object (&priv->page_cache);
+	g_clear_object (&priv->previous_texture);
 
-	g_clear_pointer (&pview->goto_popup, gtk_widget_unparent);
+	g_clear_pointer (&priv->goto_popup, gtk_widget_unparent);
 
-	g_clear_handle_id (&pview->trans_timeout_id, g_source_remove);
-	g_clear_handle_id (&pview->hide_cursor_timeout_id, g_source_remove);
+	g_clear_handle_id (&priv->trans_timeout_id, g_source_remove);
+	g_clear_handle_id (&priv->hide_cursor_timeout_id, g_source_remove);
 
 	G_OBJECT_CLASS (pps_view_presentation_parent_class)->dispose (object);
 }
@@ -829,13 +877,14 @@ static void
 pps_view_presentation_snapshot_end_page (PpsViewPresentation *pview, GtkSnapshot *snapshot)
 {
 	GtkWidget *widget = GTK_WIDGET (pview);
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	PangoLayout *layout;
 	PangoFontDescription *font_desc;
 	gchar *markup;
 	int text_width, text_height, x_center;
 	const gchar *text = _("End of presentation. Press Esc or click to exit.");
 
-	if (pview->state != PPS_PRESENTATION_END)
+	if (priv->state != PPS_PRESENTATION_END)
 		return;
 
 	layout = gtk_widget_create_pango_layout (widget, NULL);
@@ -945,6 +994,7 @@ pps_view_presentation_animation_snapshot (PpsViewPresentation *pview,
 					 graphene_rect_t *area)
 {
 	GtkNative *native = gtk_widget_get_native (GTK_WIDGET (pview));
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	GskRenderer *renderer = gtk_native_get_renderer (native);
 	GskGLShader *shader;
 	double duration;
@@ -955,27 +1005,27 @@ pps_view_presentation_animation_snapshot (PpsViewPresentation *pview,
 	int height = gtk_widget_get_height (GTK_WIDGET (pview));
 
 	PpsTransitionEffect *effect = pps_document_transition_get_effect (
-					PPS_DOCUMENT_TRANSITION (pview->document),
-					pview->current_page);
+					PPS_DOCUMENT_TRANSITION (priv->document),
+					priv->current_page);
 	g_object_get (effect, "duration-real", &duration, "type", &type, NULL);
 
 	shader = pps_view_presentation_load_shader (type);
 
-	gdouble progress = pview->transition_time / duration;
+	gdouble progress = priv->transition_time / duration;
 
 	if (shader && gsk_gl_shader_compile (shader, renderer, &error)) {
 		gtk_snapshot_push_gl_shader (snapshot, shader, &GRAPHENE_RECT_INIT (0, 0, width, height),
 					pps_view_presentation_build_shader_args (shader, effect, progress));
 
 		// TODO: handle different page size
-		if (pview->previous_texture)
-			gtk_snapshot_append_texture (snapshot, pview->previous_texture, area);
+		if (priv->previous_texture)
+			gtk_snapshot_append_texture (snapshot, priv->previous_texture, area);
 		else
 			gtk_snapshot_append_color (snapshot, &(GdkRGBA){0., 0., 0., 1.}, area);
 
 		gtk_snapshot_gl_shader_pop_texture (snapshot); /* current child */
 
-		gtk_snapshot_append_texture (snapshot, pview->current_texture, area);
+		gtk_snapshot_append_texture (snapshot, priv->current_texture, area);
 		gtk_snapshot_gl_shader_pop_texture (snapshot); /* next child */
 		gtk_snapshot_pop(snapshot);
 	} else {
@@ -984,7 +1034,7 @@ pps_view_presentation_animation_snapshot (PpsViewPresentation *pview,
 		else if (type != PPS_TRANSITION_EFFECT_REPLACE)
 			g_warning ("shader for type %d is not implemented\n", type);
 
-		gtk_snapshot_append_texture (snapshot, pview->current_texture, area);
+		gtk_snapshot_append_texture (snapshot, priv->current_texture, area);
 	}
 
 	g_clear_pointer (&error, g_error_free);
@@ -993,6 +1043,7 @@ pps_view_presentation_animation_snapshot (PpsViewPresentation *pview,
 static void pps_view_presentation_snapshot(GtkWidget *widget, GtkSnapshot *snapshot)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (widget);
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	GtkStyleContext    *context = gtk_widget_get_style_context (widget);
 	GdkRectangle        page_area;
 	graphene_rect_t     area;
@@ -1001,7 +1052,7 @@ static void pps_view_presentation_snapshot(GtkWidget *widget, GtkSnapshot *snaps
                                gtk_widget_get_width (widget),
                                gtk_widget_get_height (widget));
 
-	switch (pview->state) {
+	switch (priv->state) {
 	case PPS_PRESENTATION_END:
 		pps_view_presentation_snapshot_end_page (pview, snapshot);
 		return;
@@ -1012,31 +1063,31 @@ static void pps_view_presentation_snapshot(GtkWidget *widget, GtkSnapshot *snaps
 		break;
 	}
 
-	if (!pview->curr_job) {
-		pps_view_presentation_update_current_page (pview, pview->current_page);
+	if (!priv->curr_job) {
+		pps_view_presentation_update_current_page (pview, priv->current_page);
 		pps_view_presentation_hide_cursor_timeout_start (pview);
 		return;
 	}
 
-	if (!pview->current_texture)
+	if (!priv->current_texture)
 		return;
 
 	pps_view_presentation_get_page_area (pview, &page_area);
 	area = GRAPHENE_RECT_INIT (page_area.x, page_area.y,
 				   page_area.width, page_area.height);
 
-	if (pview->inverted_colors) {
+	if (priv->inverted_colors) {
 		gtk_snapshot_push_blend (snapshot, GSK_BLEND_MODE_DIFFERENCE);
 		gtk_snapshot_append_color (snapshot, &(GdkRGBA) { 1., 1., 1., 1.}, &area);
 		gtk_snapshot_pop (snapshot);
 	}
 
-	if (PPS_IS_DOCUMENT_TRANSITION (pview->document))
+	if (PPS_IS_DOCUMENT_TRANSITION (priv->document))
 		pps_view_presentation_animation_snapshot (pview, snapshot, &area);
 	else
-		gtk_snapshot_append_texture (snapshot, pview->current_texture, &area);
+		gtk_snapshot_append_texture (snapshot, priv->current_texture, &area);
 
-	if (pview->inverted_colors)
+	if (priv->inverted_colors)
 		gtk_snapshot_pop (snapshot);
 }
 
@@ -1048,13 +1099,14 @@ pps_view_presentation_key_press_event (GtkEventControllerKey *self,
 				      GtkWidget *widget)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (widget);
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
 	switch (keyval) {
 	case GDK_KEY_b:
 	case GDK_KEY_B:
 	case GDK_KEY_period:
 	case GDK_KEY_KP_Decimal:
-		if (pview->state == PPS_PRESENTATION_BLACK)
+		if (priv->state == PPS_PRESENTATION_BLACK)
 			pps_view_presentation_set_normal (pview);
 		else
 			pps_view_presentation_set_black (pview);
@@ -1062,23 +1114,23 @@ pps_view_presentation_key_press_event (GtkEventControllerKey *self,
 		return TRUE;
 	case GDK_KEY_w:
 	case GDK_KEY_W:
-		if (pview->state == PPS_PRESENTATION_WHITE)
+		if (priv->state == PPS_PRESENTATION_WHITE)
 			pps_view_presentation_set_normal (pview);
 		else
 			pps_view_presentation_set_white (pview);
 
 		return TRUE;
 	case GDK_KEY_Home:
-		if (pview->state == PPS_PRESENTATION_NORMAL) {
+		if (priv->state == PPS_PRESENTATION_NORMAL) {
 			pps_view_presentation_update_current_page (pview, 0);
 			return TRUE;
 		}
 		break;
 	case GDK_KEY_End:
-		if (pview->state == PPS_PRESENTATION_NORMAL) {
+		if (priv->state == PPS_PRESENTATION_NORMAL) {
 			gint page;
 
-			page = pps_document_get_n_pages (pview->document) - 1;
+			page = pps_document_get_n_pages (priv->document) - 1;
 			pps_view_presentation_update_current_page (pview, page);
 
 			return TRUE;
@@ -1090,18 +1142,18 @@ pps_view_presentation_key_press_event (GtkEventControllerKey *self,
 
 	pps_view_presentation_set_normal (pview);
 
-	if (pps_document_get_n_pages (pview->document) > 1 && key_is_numeric (keyval)) {
+	if (pps_document_get_n_pages (priv->document) > 1 && key_is_numeric (keyval)) {
 		gint x, y;
 		gchar *digit = g_strdup_printf ("%d", key_to_digit (keyval));
 
 		pps_document_misc_get_pointer_position (GTK_WIDGET (pview), &x, &y);
-		gtk_popover_set_pointing_to (GTK_POPOVER (pview->goto_popup),
+		gtk_popover_set_pointing_to (GTK_POPOVER (priv->goto_popup),
 				&(GdkRectangle) {x, y, 1, 1});
 
-		gtk_editable_set_text (GTK_EDITABLE (pview->goto_entry), digit);
-		gtk_editable_set_position (GTK_EDITABLE (pview->goto_entry), -1);
-		gtk_entry_grab_focus_without_selecting (GTK_ENTRY (pview->goto_entry));
-		gtk_popover_popup (GTK_POPOVER (pview->goto_popup));
+		gtk_editable_set_text (GTK_EDITABLE (priv->goto_entry), digit);
+		gtk_editable_set_position (GTK_EDITABLE (priv->goto_entry), -1);
+		gtk_entry_grab_focus_without_selecting (GTK_ENTRY (priv->goto_entry));
+		gtk_popover_popup (GTK_POPOVER (priv->goto_popup));
 		g_free (digit);
 		return TRUE;
 	}
@@ -1117,13 +1169,14 @@ pps_view_presentation_button_release_event (GtkGestureClick    *self,
 					   GtkWidget          *widget)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (widget);
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	GdkEvent *event = gtk_event_controller_get_current_event (GTK_EVENT_CONTROLLER (self));
 
 	switch (gdk_button_event_get_button (event)) {
 	case GDK_BUTTON_PRIMARY: {
 		PpsLink *link;
 
-		if (pview->state == PPS_PRESENTATION_END) {
+		if (priv->state == PPS_PRESENTATION_END) {
 			g_signal_emit (pview, signals[FINISHED], 0, NULL);
 
 			return FALSE;
@@ -1225,10 +1278,11 @@ pps_view_presentation_set_property (GObject      *object,
 				   GParamSpec   *pspec)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (object);
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
 	switch (prop_id) {
 	case PROP_DOCUMENT:
-		pview->document = g_value_dup_object (value);
+		priv->document = g_value_dup_object (value);
 		break;
 	case PROP_CURRENT_PAGE:
 		pps_view_presentation_set_current_page (pview, g_value_get_uint (value));
@@ -1237,7 +1291,7 @@ pps_view_presentation_set_property (GObject      *object,
                 pps_view_presentation_set_rotation (pview, g_value_get_uint (value));
 		break;
 	case PROP_INVERTED_COLORS:
-		pview->inverted_colors = g_value_get_boolean (value);
+		priv->inverted_colors = g_value_get_boolean (value);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1251,10 +1305,11 @@ pps_view_presentation_get_property (GObject    *object,
                                    GParamSpec *pspec)
 {
         PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (object);
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
         switch (prop_id) {
         case PROP_CURRENT_PAGE:
-                g_value_set_uint (value, pview->current_page);
+                g_value_set_uint (value, priv->current_page);
                 break;
         case PROP_ROTATION:
                 g_value_set_uint (value, pps_view_presentation_get_rotation (pview));
@@ -1267,11 +1322,12 @@ pps_view_presentation_get_property (GObject    *object,
 static void
 pps_view_presentation_notify_scale_factor (PpsViewPresentation *pview)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
         if (!gtk_widget_get_realized (GTK_WIDGET (pview)))
                 return;
 
         pps_view_presentation_reset_jobs (pview);
-        pps_view_presentation_update_current_page (pview, pview->current_page);
+        pps_view_presentation_update_current_page (pview, priv->current_page);
 }
 
 static GObject *
@@ -1286,11 +1342,12 @@ pps_view_presentation_constructor (GType                  type,
 										  n_construct_properties,
 										  construct_params);
 	pview = PPS_VIEW_PRESENTATION (object);
-        pview->is_constructing = FALSE;
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+        priv->is_constructing = FALSE;
 
-	if (PPS_IS_DOCUMENT_LINKS (pview->document)) {
-		pview->page_cache = pps_page_cache_new (pview->document);
-		pps_page_cache_set_flags (pview->page_cache, PPS_PAGE_DATA_INCLUDE_LINKS);
+	if (PPS_IS_DOCUMENT_LINKS (priv->document)) {
+		priv->page_cache = pps_page_cache_new (priv->document);
+		pps_page_cache_set_flags (priv->page_cache, PPS_PAGE_DATA_INCLUDE_LINKS);
 	}
 
         g_signal_connect (object, "notify::scale-factor",
@@ -1306,12 +1363,13 @@ pps_view_presentation_size_allocate (GtkWidget	*widget,
 				    int		 baseline)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (widget);
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	GtkWidgetClass *parent_class = GTK_WIDGET_CLASS (
 		pps_view_presentation_parent_class);
 	parent_class->size_allocate (widget, width, height, baseline);
 
-	if (pview->goto_popup)
-		gtk_popover_present (GTK_POPOVER (pview->goto_popup));
+	if (priv->goto_popup)
+		gtk_popover_present (GTK_POPOVER (priv->goto_popup));
 }
 
 static void
@@ -1429,11 +1487,12 @@ static void
 pps_view_presentation_init (PpsViewPresentation *pview)
 {
 	GtkWidget *widget = GTK_WIDGET (pview);
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	GtkEventController *controller;
 
 	gtk_widget_set_can_focus (widget, TRUE);
 	gtk_widget_set_focusable (widget, TRUE);
-	pview->is_constructing = TRUE;
+	priv->is_constructing = TRUE;
 
 	controller = gtk_event_controller_scroll_new (GTK_EVENT_CONTROLLER_SCROLL_VERTICAL);
 	g_signal_connect (G_OBJECT (controller), "scroll",
@@ -1478,32 +1537,38 @@ pps_view_presentation_new (PpsDocument *document,
 guint
 pps_view_presentation_get_current_page (PpsViewPresentation *pview)
 {
-	return pview->current_page;
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
+	return priv->current_page;
 }
 
 void
 pps_view_presentation_set_rotation (PpsViewPresentation *pview,
                                    gint                rotation)
 {
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
         if (rotation >= 360)
                 rotation -= 360;
         else if (rotation < 0)
                 rotation += 360;
 
-        if (pview->rotation == rotation)
+        if (priv->rotation == rotation)
                 return;
 
-        pview->rotation = rotation;
+        priv->rotation = rotation;
         g_object_notify (G_OBJECT (pview), "rotation");
-        if (pview->is_constructing)
+        if (priv->is_constructing)
                 return;
 
         pps_view_presentation_reset_jobs (pview);
-        pps_view_presentation_update_current_page (pview, pview->current_page);
+        pps_view_presentation_update_current_page (pview, priv->current_page);
 }
 
 guint
 pps_view_presentation_get_rotation (PpsViewPresentation *pview)
 {
-        return pview->rotation;
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
+        return priv->rotation;
 }
