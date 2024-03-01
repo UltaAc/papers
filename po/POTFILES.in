@@ -23,6 +23,7 @@ data/org.gnome.Papers.metainfo.xml.in.in
 data/org.gnome.Papers-previewer.desktop.in.in
 libdocument/pps-attachment.c
 libdocument/pps-document-factory.c
+libdocument/pps-document-info.c
 libdocument/pps-file-helpers.c
 libdocument/pps-xmp.c
 libmisc/pps-page-selector.c
@@ -37,6 +38,7 @@ previewer/pps-previewer.c
 previewer/pps-previewer-window.c
 previewer/pps-previewer-window.ui
 nautilus/pps-nautilus-extension.c
+nautilus/pps-nautilus-extension.h
 shell/help-overlay.ui
 shell/pps-annotation-properties-dialog.c
 shell/pps-annotations-toolbar.c
@@ -47,14 +49,19 @@ shell/pps-password-view.c
 shell/pps-password-view.ui
 shell/pps-properties-fonts.ui
 shell/pps-properties-license.ui
+shell/pps-properties-window.ui
+shell/pps-search-box.ui
 shell/pps-sidebar-annotations.c
+shell/pps-sidebar-annotations.ui
 shell/pps-sidebar-attachments.c
 shell/pps-sidebar-bookmarks.c
 shell/pps-sidebar-bookmarks.ui
-shell/pps-sidebar-layers.c
 shell/pps-sidebar-links.c
+shell/pps-sidebar-links.ui
+shell/pps-sidebar-thumbnails.ui
 shell/pps-utils.c
 shell/pps-window.c
+shell/pps-window.ui
 shell/pps-window-title.c
 shell/pps-zoom-action.ui
 shell-rs/src/main.rs
@@ -62,6 +69,7 @@ shell-rs/src/properties_fonts.rs
 shell-rs/src/properties_general.rs
 shell-rs/src/properties_license.rs
 shell-rs/src/properties_window.rs
+shell-rs/src/sidebar_layers.rs
 shell-rs/src/sidebar_thumbnails.rs
 shell-rs/src/thumbnail_item.rs
 shell-rs/src/zoom_action.rs
