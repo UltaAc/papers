@@ -26,4 +26,4 @@ pub use gettextrs::gettext;
 
 pub use std::sync::OnceLock;
 
-pub use log::debug;
+pub use log::{debug, warn};

@@ -39,3 +39,18 @@ pub fn shutdown() {
 }
 
 mod document_info;
+
+pub fn mkdtemp(s: &str) -> Result<std::path::PathBuf, glib::Error> {
+    let mut error = std::ptr::null_mut();
+    let c_str = std::ffi::CString::new(s).unwrap();
+
+    let path = unsafe { crate::ffi::pps_mkdtemp(c_str.as_ptr(), &mut error) };
+
+    debug_assert_eq!(path.is_null(), !error.is_null());
+
+    if error.is_null() {
+        unsafe { Ok(glib::translate::from_glib_full(path)) }
+    } else {
+        unsafe { Err(glib::translate::from_glib_full(error)) }
+    }
+}
