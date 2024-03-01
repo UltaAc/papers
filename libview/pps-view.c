@@ -7621,7 +7621,7 @@ pps_view_focus (GtkWidget        *widget,
 			return pps_view_focus_next (view, direction);
 	}
 
-	return GTK_WIDGET_CLASS (pps_view_parent_class)->focus (widget, direction);
+	return TRUE;
 }
 
 static void
