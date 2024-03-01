@@ -80,7 +80,10 @@ mod imp {
     impl PpsSidebarLayers {
         fn set_model(&self, model: DocumentModel) {
             model.connect_document_notify(glib::clone!(@weak self as obj => move |model| {
-                let document = model.document().unwrap();
+                let Some(document) = model.document().filter(|d| obj.support_document(d)) else {
+                    return;
+                };
+
                 let job = JobLayers::new(&document);
 
                 job.connect_finished(move |job| {
