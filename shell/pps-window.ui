@@ -576,7 +576,7 @@
         <child>
           <object class="GtkButton">
             <property name="tooltip_text" translatable="yes">Present as Slideshow</property>
-            <property name="icon-name">display-projector-symbolic</property>
+            <property name="icon-name">media-playback-start-symbolic</property>
             <property name="action-name">win.presentation</property>
           </object>
         </child>
