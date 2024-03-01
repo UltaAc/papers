@@ -638,39 +638,6 @@ pps_view_presentation_goto_entry_activate (GtkEntry           *entry,
 	pps_view_presentation_update_current_page (pview, page);
 }
 
-
-static void
-pps_view_presentation_goto_window_create (PpsViewPresentation *pview)
-{
-	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
-	GtkWidget *hbox, *label;
-
-	priv->goto_popup = gtk_popover_new ();
-	gtk_popover_set_position (GTK_POPOVER (priv->goto_popup), GTK_POS_BOTTOM);
-	gtk_popover_set_has_arrow (GTK_POPOVER (priv->goto_popup), FALSE);
-	gtk_widget_set_halign (priv->goto_popup, GTK_ALIGN_START);
-	gtk_widget_set_parent (priv->goto_popup, GTK_WIDGET (pview));
-
-	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-	gtk_box_set_spacing (GTK_BOX (hbox), 3);
-	gtk_widget_set_margin_top (hbox, 3);
-	gtk_widget_set_margin_bottom (hbox, 3);
-	gtk_widget_set_margin_start (hbox, 3);
-	gtk_widget_set_margin_end (hbox, 3);
-	gtk_popover_set_child (GTK_POPOVER (priv->goto_popup), hbox);
-
-	label = gtk_label_new (_("Jump to page:"));
-	gtk_box_append (GTK_BOX (hbox), label);
-
-	priv->goto_entry = gtk_entry_new ();
-
-	gtk_box_append (GTK_BOX (hbox), priv->goto_entry);
-
-	g_signal_connect (priv->goto_entry, "activate",
-			  G_CALLBACK (pps_view_presentation_goto_entry_activate),
-			  pview);
-}
-
 /* Links */
 static gboolean
 pps_view_presentation_link_is_supported (PpsViewPresentation *pview,
@@ -1456,6 +1423,17 @@ pps_view_presentation_class_init (PpsViewPresentationClass *klass)
                               G_TYPE_NONE, 1,
                               G_TYPE_OBJECT);
 
+	gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/papers/ui/view-presentation.ui");
+
+	gtk_widget_class_bind_template_child_private (widget_class, PpsViewPresentation, goto_popup);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsViewPresentation, goto_entry);
+
+	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_scroll_event);
+	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_key_press_event);
+	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_motion_notify_event);
+	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_button_release_event);
+	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_goto_entry_activate);
+
 	add_change_page_binding_keypad (widget_class, GDK_KEY_Left,  0, GTK_SCROLL_PAGE_BACKWARD);
 	add_change_page_binding_keypad (widget_class, GDK_KEY_Right, 0, GTK_SCROLL_PAGE_FORWARD);
 	add_change_page_binding_keypad (widget_class, GDK_KEY_Up,    0, GTK_SCROLL_PAGE_BACKWARD);
@@ -1486,35 +1464,11 @@ pps_view_presentation_class_init (PpsViewPresentationClass *klass)
 static void
 pps_view_presentation_init (PpsViewPresentation *pview)
 {
-	GtkWidget *widget = GTK_WIDGET (pview);
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
-	GtkEventController *controller;
 
-	gtk_widget_set_can_focus (widget, TRUE);
-	gtk_widget_set_focusable (widget, TRUE);
 	priv->is_constructing = TRUE;
 
-	controller = gtk_event_controller_scroll_new (GTK_EVENT_CONTROLLER_SCROLL_VERTICAL);
-	g_signal_connect (G_OBJECT (controller), "scroll",
-			G_CALLBACK (pps_view_presentation_scroll_event), widget);
-	gtk_widget_add_controller (widget, controller);
-
-	controller = gtk_event_controller_key_new ();
-	g_signal_connect (G_OBJECT (controller), "key-pressed",
-			G_CALLBACK (pps_view_presentation_key_press_event), widget);
-	gtk_widget_add_controller (widget, controller);
-
-	controller = gtk_event_controller_motion_new ();
-	g_signal_connect (G_OBJECT (controller), "motion",
-			G_CALLBACK (pps_view_presentation_motion_notify_event), widget);
-	gtk_widget_add_controller (widget, controller);
-
-	controller = GTK_EVENT_CONTROLLER (gtk_gesture_click_new ());
-	g_signal_connect (G_OBJECT (controller), "released",
-			G_CALLBACK (pps_view_presentation_button_release_event), widget);
-	gtk_widget_add_controller (widget, controller);
-
-	pps_view_presentation_goto_window_create (pview);
+	gtk_widget_init_template (GTK_WIDGET (pview));
 }
 
 PpsViewPresentation *

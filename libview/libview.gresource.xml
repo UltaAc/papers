@@ -31,5 +31,6 @@
   </gresource>
   <gresource prefix="/org/gnome/papers/ui">
     <file alias="view.ui" compressed="true" preprocess="xml-stripblanks">pps-view.ui</file>
+    <file alias="view-presentation.ui" compressed="true" preprocess="xml-stripblanks">pps-view-presentation.ui</file>
   </gresource>
 </gresources>
