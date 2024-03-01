@@ -5019,7 +5019,7 @@ static void
 link_preview_set_thumbnail (GdkTexture *page_texture,
 			    PpsView *view)
 {
-	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsViewPrivate  *priv = GET_PRIVATE (view);
 	GtkWidget       *popover = priv->link_preview.popover;
 	GtkWidget       *picture;
 	GtkSnapshot	*snapshot;
@@ -5028,12 +5028,15 @@ link_preview_set_thumbnail (GdkTexture *page_texture,
 	gint             vwidth, vheight;  /* dimensions of main view */
 	gint             width, height;    /* dimensions of popup */
 	gint             left, top;
+	gint		 scale;
+
+	scale = gtk_widget_get_scale_factor (GTK_WIDGET (view));
 
 	x = priv->link_preview.left;
 	y = priv->link_preview.top;
 
-	pwidth = gdk_texture_get_width (page_texture);
-	pheight = gdk_texture_get_height (page_texture);
+	pwidth = gdk_texture_get_width (page_texture) / scale;
+	pheight = gdk_texture_get_height (page_texture) / scale;
 
 	vwidth = gtk_widget_get_width (GTK_WIDGET (view));
 	vheight = gtk_widget_get_height (GTK_WIDGET (view));
