@@ -462,12 +462,10 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 				      has_pages && priv->bookmarks &&
 				      !start_view_mode);
 
-	/* Other actions that must be disabled in recent view, in
+	/* Other actions that must be disabled in start view, in
 	 * case they have a shortcut or gesture associated
 	 */
 	pps_window_set_action_enabled (pps_window, "show-side-pane", !start_view_mode);
-	pps_window_set_action_enabled (pps_window, "scroll-forward", !start_view_mode);
-	pps_window_set_action_enabled (pps_window, "scroll-backwards", !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "sizing-mode", !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "zoom", !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "escape", !start_view_mode);
@@ -3799,28 +3797,6 @@ pps_window_cmd_focus_page_selector (GSimpleAction *action,
 }
 
 static void
-pps_window_cmd_scroll_forward (GSimpleAction *action,
-			      GVariant      *parameter,
-			      gpointer       user_data)
-{
-	PpsWindow *window = user_data;
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-	g_signal_emit_by_name (priv->view, "scroll", GTK_SCROLL_PAGE_FORWARD, GTK_ORIENTATION_VERTICAL);
-}
-
-static void
-pps_window_cmd_scroll_backwards (GSimpleAction *action,
-				GVariant      *parameter,
-				gpointer       user_data)
-{
-	PpsWindow *window = user_data;
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-	g_signal_emit_by_name (priv->view, "scroll", GTK_SCROLL_PAGE_BACKWARD, GTK_ORIENTATION_VERTICAL);
-}
-
-static void
 pps_window_cmd_continuous (GSimpleAction *action,
 			  GVariant      *state,
 			  gpointer       user_data)
@@ -5616,8 +5592,6 @@ static const GActionEntry actions[] = {
 	{ "add-bookmark", pps_window_cmd_bookmarks_add },
 	{ "delete-bookmark", pps_window_cmd_bookmarks_delete },
 	{ "close", pps_window_cmd_file_close_window },
-	{ "scroll-forward", pps_window_cmd_scroll_forward },
-	{ "scroll-backwards", pps_window_cmd_scroll_backwards },
 	{ "sizing-mode", NULL, "s", "'free'", pps_window_change_sizing_mode_action_state },
 	{ "zoom", pps_window_cmd_view_zoom, "d" },
 	{ "default-zoom", pps_window_cmd_set_default_zoom },
