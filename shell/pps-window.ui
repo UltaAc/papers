@@ -220,8 +220,6 @@
                                 <property name="child">
                                   <object class="PpsSidebarLinks" id="sidebar_links">
                                     <property name="document-model">model</property>
-                                    <signal name="notify::model"
-                                      handler="sidebar_links_link_model_changed" />
                                     <signal name="link-activated"
                                       handler="sidebar_links_link_activated_cb" />
                                   </object>

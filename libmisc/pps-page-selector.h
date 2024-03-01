@@ -47,8 +47,5 @@ void pps_page_selector_update_links_model (PpsPageSelector *proxy,
 
 void pps_page_selector_set_model          (PpsPageSelector *page_selector,
 					  PpsDocumentModel    *doc_model);
-void pps_page_selector_clear              (PpsPageSelector *proxy);
-void pps_page_selector_set_temporary_entry_width (PpsPageSelector *proxy, gint width);
-void pps_page_selector_enable_completion_search (PpsPageSelector *proxy, gboolean enable);
 
 G_END_DECLS

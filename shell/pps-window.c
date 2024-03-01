@@ -3759,33 +3759,6 @@ pps_window_focus_page_selector (PpsWindow *window)
 	gtk_widget_grab_focus (priv->page_selector);
 }
 
-/**
- * pps_window_start_page_selector_search:
- * @window: The instance of the #PpsWindow.
- *
- * Prepares page_selector text entry for searching the Outline,
- * basically this:
- *    - Gives focus to the page selector entry
- *    - Clears the text in it.
- *    - Makes the text entry wider.
- *    - Enables the completion search.
- *
- * All these changes will be restablished once the search
- * it's finished by means of the entry focus_out event.
- */
-void
-pps_window_start_page_selector_search (PpsWindow *window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-	g_return_if_fail (PPS_IS_WINDOW (window));
-
-	pps_window_focus_page_selector (window);
-	pps_page_selector_clear (PPS_PAGE_SELECTOR (priv->page_selector));
-	pps_page_selector_set_temporary_entry_width (PPS_PAGE_SELECTOR (priv->page_selector), 15);
-	pps_page_selector_enable_completion_search (PPS_PAGE_SELECTOR (priv->page_selector), TRUE);
-}
-
 static void
 pps_window_cmd_focus_page_selector (GSimpleAction *action,
 				   GVariant      *parameter,
@@ -5711,28 +5684,6 @@ pps_window_cancel_add_annot(PpsWindow *window)
 }
 
 static void
-sidebar_links_link_model_changed (PpsSidebarLinks *pps_sidebar_links,
-				  GParamSpec     *pspec,
-				  PpsWindow       *window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-	GtkTreeModel *model;
-
-	g_object_get (pps_sidebar_links,
-		      "model", &model,
-		      NULL);
-
-	if (!model)
-		return;
-
-	pps_page_selector_update_links_model (PPS_PAGE_SELECTOR (priv->page_selector), model);
-	/* Let's disable initially the completion search so it does not misfire when the user
-	 * is entering page numbers. Fixes issue #1759 */
-	pps_page_selector_enable_completion_search (PPS_PAGE_SELECTOR (priv->page_selector), FALSE);
-	g_object_unref (model);
-}
-
-static void
 window_maximized_changed (GObject    *object,
 			    GParamSpec *pspec,
 			    PpsWindow   *pps_window)
@@ -6719,7 +6670,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 
 	/* sidebar */
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_links_link_activated_cb);
-	gtk_widget_class_bind_template_callback (widget_class, sidebar_links_link_model_changed);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_annots_annot_activated_cb);
 	gtk_widget_class_bind_template_callback (widget_class, attachment_bar_menu_popup_cb);
 	gtk_widget_class_bind_template_callback (widget_class, attachment_bar_save_attachment_cb);

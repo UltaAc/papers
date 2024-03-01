@@ -83,6 +83,5 @@ AdwHeaderBar   *pps_window_get_header_bar                 (PpsWindow       *pps_
 void            pps_window_handle_annot_popup             (PpsWindow       *pps_window,
                                                           PpsAnnotation   *annot);
 PpsMetadata     *pps_window_get_metadata			 (PpsWindow	 *pps_window);
-void            pps_window_start_page_selector_search     (PpsWindow       *window);
 
 G_END_DECLS

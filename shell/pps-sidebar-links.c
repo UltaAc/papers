@@ -220,19 +220,6 @@ selection_changed_callback (GtkTreeSelection   *selection,
 }
 
 static void
-pps_links_popup_cmd_search_outline (GSimpleAction *action,
-				   GVariant      *parameter,
-				   gpointer       pps_sidebar_links)
-{
-	GtkNative *window;
-
-	window = gtk_widget_get_native (GTK_WIDGET (pps_sidebar_links));
-	if (PPS_IS_WINDOW (window)) {
-		pps_window_start_page_selector_search (PPS_WINDOW (window));
-	}
-}
-
-static void
 pps_links_popup_cmd_print_section (GSimpleAction *action,
 				  GVariant      *parameter,
 				  gpointer       pps_sidebar_links)
@@ -944,7 +931,6 @@ pps_links_popup_cmd_expand_element (GSimpleAction *action,
 static GActionGroup *
 create_links_action_group (PpsSidebarLinks *pps_sidebar_links) {
 	const GActionEntry popup_entries[] = {
-		{ "search-outline", pps_links_popup_cmd_search_outline },
 		{ "print-section", pps_links_popup_cmd_print_section },
 		{ "collapse-all", pps_links_popup_cmd_collapse_all },
 		{ "expand-all", pps_links_popup_cmd_expand_all },
