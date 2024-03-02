@@ -462,6 +462,8 @@ PPS_PUBLIC
 GType           pps_job_attachments_get_type (void) G_GNUC_CONST;
 PPS_PUBLIC
 PpsJob          *pps_job_attachments_new      (PpsDocument     *document);
+PPS_PUBLIC
+GList           *pps_job_attachments_get_attachments (PpsJobAttachments *job_attachments);
 
 /* PpsJobAnnots */
 PPS_PUBLIC

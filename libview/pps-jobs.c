@@ -491,6 +491,18 @@ pps_job_attachments_run (PpsJob *job)
 	return FALSE;
 }
 
+/**
+ * pps_job_attachments_get_attachments:
+ * @job_attachments: a #PpsJobAttachments
+ *
+ * Returns: (nullable) (transfer none) (element-type PpsAttachment): a list of #PpsAttachment objects
+ */
+GList *
+pps_job_attachments_get_attachments (PpsJobAttachments *job_attachments)
+{
+	return job_attachments->attachments;
+}
+
 static void
 pps_job_attachments_class_init (PpsJobAttachmentsClass *class)
 {
