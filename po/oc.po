@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Evince HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-02-21 08:11+0000\n"
-"PO-Revision-Date: 2024-03-02 09:28+0100\n"
+"POT-Creation-Date: 2024-02-29 17:57+0000\n"
+"PO-Revision-Date: 2024-03-03 00:20+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -134,7 +134,7 @@ msgstr "TrueTipe (CID)"
 
 #: backend/pdf/pps-poppler.c:852
 msgid "Unknown font type"
-msgstr "Tipe de poliça desconegut"
+msgstr "Tipe de polissa desconegut"
 
 #: backend/pdf/pps-poppler.c:896
 msgid ""
@@ -142,14 +142,14 @@ msgid ""
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
 "the fonts used to create the PDF, the rendering may not be correct."
 msgstr ""
-"Aqueste document conten de poliças pas integradas que fan pas partida de las "
-"14 poliças PDF standards. Se las poliças de substitucion seleccionadas per "
-"« fontconfig » son pas las meteissas que las poliças utilizadas per crear lo "
-"PDF, lo rendut risca d'èsser incorrècte."
+"Aqueste document conten de polissas pas integradas que fan pas partida de "
+"las 14 polissas PDF standardas. Se las polissas de substitucion "
+"seleccionadas per « fontconfig » son pas las meteissas que las polissas "
+"utilizadas per crear lo PDF, lo rendut risca d'èsser incorrècte."
 
 #: backend/pdf/pps-poppler.c:901
 msgid "All fonts are either standard or embedded."
-msgstr "Totas las poliças son siá estandards o integradas."
+msgstr "Totas las polissas son siá estandards o integradas."
 
 #: backend/pdf/pps-poppler.c:932
 msgid "No name"
@@ -160,7 +160,7 @@ msgstr "Sens nom"
 #. Encoding: None
 #.
 #. translators: Value for 'Page Scaling:' to not scale the document pages on printing
-#: backend/pdf/pps-poppler.c:941 libview/pps-print-operation.c:2686
+#: backend/pdf/pps-poppler.c:941 libview/pps-print-operation.c:2667
 #: shell-rs/src/properties_general.rs:80 shell-rs/src/properties_general.rs:175
 msgid "None"
 msgstr "Pas cap"
@@ -184,7 +184,7 @@ msgstr "Pas integrat"
 #.
 #: backend/pdf/pps-poppler.c:960
 msgid " (One of the Standard 14 Fonts)"
-msgstr " (una de las 14 poliças estandardas)"
+msgstr " (una de las 14 polissas estandardas)"
 
 #. Translators: string starting with a space
 #. * because it is directly appended to the font
@@ -193,7 +193,7 @@ msgstr " (una de las 14 poliças estandardas)"
 #.
 #: backend/pdf/pps-poppler.c:967
 msgid " (Not one of the Standard 14 Fonts)"
-msgstr " (pas una de las 14 poliças estandardas)"
+msgstr " (pas una de las 14 polissas estandardas)"
 
 #. Translators: string is a concatenation of previous
 #. * translated strings to indicate the fonts properties
@@ -491,7 +491,7 @@ msgstr "sus %d"
 
 #: libmisc/pps-page-selector.c:205 shell/pps-history.c:454
 #: shell/pps-sidebar-bookmarks.c:349 shell/pps-window.c:808
-#: shell/pps-window.c:4559
+#: shell/pps-window.c:4556
 #, c-format
 msgid "Page %s"
 msgstr "Pagina %s"
@@ -566,19 +566,19 @@ msgstr "Seleccion de paginas invalida"
 msgid "Warning"
 msgstr "Avertiment"
 
-#: libview/pps-print-operation.c:2680
+#: libview/pps-print-operation.c:2661
 msgid "Page Scaling:"
 msgstr "Ajustement de las paginas :"
 
-#: libview/pps-print-operation.c:2687
+#: libview/pps-print-operation.c:2668
 msgid "Shrink to Printable Area"
 msgstr "Reduire segon la zòna imprimibla"
 
-#: libview/pps-print-operation.c:2688
+#: libview/pps-print-operation.c:2669
 msgid "Fit to Printable Area"
 msgstr "Ajustar segon la zòna imprimibla"
 
-#: libview/pps-print-operation.c:2691
+#: libview/pps-print-operation.c:2672
 msgid ""
 "Scale document pages to fit the selected printer page. Select from one of "
 "the following:\n"
@@ -603,11 +603,11 @@ msgstr ""
 "• Ajustar segon la zòna imprimibla : las paginas son reduitas o agrandidas "
 "per fin de correspondre al pus juste a la zòna imprimibla de l'imprimenta.\n"
 
-#: libview/pps-print-operation.c:2703
+#: libview/pps-print-operation.c:2684
 msgid "Auto Rotate and Center"
 msgstr "Pivotar e centrar automaticament"
 
-#: libview/pps-print-operation.c:2706
+#: libview/pps-print-operation.c:2687
 msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
@@ -616,12 +616,12 @@ msgstr ""
 "document imprimit. Las paginas son centradas dins la zòna d'impression de "
 "l'imprimenta."
 
-#: libview/pps-print-operation.c:2711
+#: libview/pps-print-operation.c:2692
 msgid "Select page size using document page size"
 msgstr ""
 "Causir la talha del papièr en foncion de la de las paginas del document"
 
-#: libview/pps-print-operation.c:2713
+#: libview/pps-print-operation.c:2694
 msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
@@ -629,15 +629,15 @@ msgstr ""
 "Se activat, cada pagina es imprimida segon la talha de papièr indicada dins "
 "lo document."
 
-#: libview/pps-print-operation.c:2718
+#: libview/pps-print-operation.c:2699
 msgid "Draw border around pages"
 msgstr "Dessenhar una bordadura a l'entorn de las paginas"
 
-#: libview/pps-print-operation.c:2720
+#: libview/pps-print-operation.c:2701
 msgid "When enabled, a border will be drawn around each page."
 msgstr "S'es activat, un contorn serà present al torn de cada pagina."
 
-#: libview/pps-print-operation.c:2814
+#: libview/pps-print-operation.c:2795
 msgid "Page Handling"
 msgstr "Gestion de las paginas"
 
@@ -661,51 +661,51 @@ msgstr "Far desfilar la vista cap aval"
 msgid "Document View"
 msgstr "Vista del document"
 
-#: libview/pps-view.c:2134
+#: libview/pps-view.c:2105
 msgid "Go to first page"
 msgstr "Anar a la primièra pagina"
 
-#: libview/pps-view.c:2136
+#: libview/pps-view.c:2107
 msgid "Go to previous page"
 msgstr "Anar a la pagina precedenta"
 
-#: libview/pps-view.c:2138
+#: libview/pps-view.c:2109
 msgid "Go to next page"
 msgstr "Anar a la pagina seguenta"
 
-#: libview/pps-view.c:2140
+#: libview/pps-view.c:2111
 msgid "Go to last page"
 msgstr "Anar a la darrièra pagina"
 
-#: libview/pps-view.c:2142
+#: libview/pps-view.c:2113
 msgid "Go to page"
 msgstr "Anar a la pagina"
 
-#: libview/pps-view.c:2144
+#: libview/pps-view.c:2115
 msgid "Find"
 msgstr "Recercar"
 
-#: libview/pps-view.c:2173
+#: libview/pps-view.c:2144
 #, c-format
 msgid "Go to page %s"
 msgstr "Anar a la pagina %s"
 
-#: libview/pps-view.c:2179
+#: libview/pps-view.c:2150
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Anar a %s sul fichièr « %s »"
 
-#: libview/pps-view.c:2182
+#: libview/pps-view.c:2153
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Anar a la pagina « %s »"
 
-#: libview/pps-view.c:2190
+#: libview/pps-view.c:2161
 #, c-format
 msgid "Launch %s"
 msgstr "Aviar %s"
 
-#: libview/pps-view.c:2197
+#: libview/pps-view.c:2168
 #, c-format
 msgid "Reset form"
 msgstr "Reïnicializar lo formulari"
@@ -754,7 +754,7 @@ msgstr "Fichièr descriptor indicant los paramètres d’impression"
 msgid "GNOME Document Previewer"
 msgstr "Previsualizador de documents de GNOME"
 
-#: previewer/pps-previewer-window.c:78 shell/pps-window.c:3243
+#: previewer/pps-previewer-window.c:78 shell/pps-window.c:3241
 msgid "Failed to print document"
 msgstr "L'impression del document a fracassat"
 
@@ -1264,11 +1264,11 @@ msgstr "DEST"
 
 #: shell/pps-application.c:1041
 msgid "Run papers in fullscreen mode."
-msgstr "Executar papers en mòde ecran complèt"
+msgstr "Executar papers en mòde ecran complèt."
 
 #: shell/pps-application.c:1042
 msgid "Run papers in presentation mode."
-msgstr "Executar papers en mòde presentacion"
+msgstr "Executar papers en mòde presentacion."
 
 #: shell/pps-application.c:1043
 msgid "The word or phrase to find in the document."
@@ -1296,8 +1296,8 @@ msgstr "Senhal pel document %s"
 msgid ""
 "The document “%s” is locked and requires a password before it can be opened"
 msgstr ""
-"Lo document « %s » es verrolhat e requerís un senhal abans de poder èsser "
-"dobèrt."
+"Lo document « %s » es verrolhat e se requerís un senhal abans de poder lo "
+"dobrir"
 
 #: shell/pps-password-view.c:205 shell/pps-password-view.ui:11
 #: shell/pps-password-view.ui:20
@@ -1305,8 +1305,8 @@ msgid "Password Required"
 msgstr "Senhal requesit"
 
 #: shell/pps-password-view.c:212 shell/pps-sidebar-attachments.c:209
-#: shell/pps-window.c:2570 shell/pps-window.c:2853 shell/pps-window.c:3665
-#: shell/pps-window.c:6241 shell/pps-window.c:6482
+#: shell/pps-window.c:2570 shell/pps-window.c:2853 shell/pps-window.c:3661
+#: shell/pps-window.c:6245 shell/pps-window.c:6486
 msgid "_Cancel"
 msgstr "_Anullar"
 
@@ -1418,7 +1418,7 @@ msgid "Loading document from “%s”"
 msgstr "Cargament del document a partir de « %s »"
 
 #: shell/pps-window.c:1871 shell/pps-window.c:2323 shell/pps-window.c:2652
-#: shell/pps-window.c:3307 shell/pps-window.c:3554
+#: shell/pps-window.c:3305 shell/pps-window.c:3550
 msgid "C_ancel"
 msgstr "An_ullar"
 
@@ -1492,68 +1492,68 @@ msgstr "Mandadís de l'imatge (%d %%)"
 msgid "Save As…"
 msgstr "Enregistrar jos…"
 
-#: shell/pps-window.c:2852 shell/pps-window.c:6240 shell/pps-window.c:6481
+#: shell/pps-window.c:2852 shell/pps-window.c:6244 shell/pps-window.c:6485
 msgid "_Save"
 msgstr "_Enregistrar"
 
-#: shell/pps-window.c:3194
+#: shell/pps-window.c:3192
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "%d prètzfach en espèra dins la fila"
 msgstr[1] "%d prètzfaches en espèra dins la fila"
 
-#: shell/pps-window.c:3303
+#: shell/pps-window.c:3301
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Impression de lo prètzfache « %s »"
 
-#: shell/pps-window.c:3520
+#: shell/pps-window.c:3516
 msgid "Document contains form fields that have been filled out."
 msgstr "Lo document conten de camps de formulari que son estats garnits."
 
-#: shell/pps-window.c:3523
+#: shell/pps-window.c:3519
 msgid "Document contains new or modified annotations."
 msgstr "Lo document conten d'anotacions novèlas o modificadas."
 
-#: shell/pps-window.c:3535
+#: shell/pps-window.c:3531
 #, c-format
 msgid "Reload document “%s”?"
 msgstr "Recargar lo document « %s » ?"
 
-#: shell/pps-window.c:3537
+#: shell/pps-window.c:3533
 msgid "If you reload the document, changes will be permanently lost."
 msgstr ""
 "Se recargatz lo document, las modificacions seràn definitivament perdudas."
 
-#: shell/pps-window.c:3539
+#: shell/pps-window.c:3535
 msgid "_No"
 msgstr "_Non"
 
-#: shell/pps-window.c:3541
+#: shell/pps-window.c:3537
 msgid "_Reload"
 msgstr "_Recargar"
 
-#: shell/pps-window.c:3548
+#: shell/pps-window.c:3544
 #, c-format
 msgid "Save a copy of document “%s” before closing?"
 msgstr "Enregistrar una còpia del document « %s » abans de tampar ?"
 
-#: shell/pps-window.c:3550
+#: shell/pps-window.c:3546
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr ""
 "Se enregistratz pas una còpia, las modificacions seràn perdudas "
 "definitivament."
 
-#: shell/pps-window.c:3552
+#: shell/pps-window.c:3548
 msgid "Close _without Saving"
 msgstr "Tampar _sans enregistrar"
 
-#: shell/pps-window.c:3556
+#: shell/pps-window.c:3552
 msgid "Save a _Copy"
 msgstr "Enregistrar una _còpia"
 
-#: shell/pps-window.c:3638
+#: shell/pps-window.c:3634
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr "Cal esperar la fin de l'impression de « %s » abans de tampar ?"
@@ -1561,7 +1561,7 @@ msgstr "Cal esperar la fin de l'impression de « %s » abans de tampar ?"
 #. TRANS: the singular form is not really used as n_print_jobs > 1
 #. but some languages distinguish between different plurals forms,
 #. so the ngettext is needed.
-#: shell/pps-window.c:3644
+#: shell/pps-window.c:3640
 #, c-format
 msgid "There is %d print job active. Wait until print finishes before closing?"
 msgid_plural ""
@@ -1573,45 +1573,45 @@ msgstr[1] ""
 "%d prètzfaches d'impression son en cors. Cal esperar la fin de l'impression "
 "abans de tampar ?"
 
-#: shell/pps-window.c:3659
+#: shell/pps-window.c:3655
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr ""
 "Se tampatz la fenèstra, los prètzfaches en espèra d'impression seràn pas "
 "imprimidas."
 
-#: shell/pps-window.c:3663
+#: shell/pps-window.c:3659
 msgid "Cancel _print and Close"
 msgstr "Anullar l'_impression e tampar"
 
-#: shell/pps-window.c:3667
+#: shell/pps-window.c:3663
 msgid "Close _after Printing"
 msgstr "Tampar _aprèp l'impression"
 
-#: shell/pps-window.c:4165
+#: shell/pps-window.c:4162
 msgid "Running in presentation mode"
 msgstr "Execucion en mòde presentacion"
 
-#: shell/pps-window.c:4893
+#: shell/pps-window.c:4897
 msgid "Find a word or phrase in the document"
 msgstr "Recèrca un mot o una frasa dins lo document"
 
-#: shell/pps-window.c:4897
+#: shell/pps-window.c:4901
 msgid "Search not available for this document"
 msgstr "Recèrca indisponibla per aqueste document"
 
-#: shell/pps-window.c:5120
+#: shell/pps-window.c:5124
 msgid "The attachment could not be saved."
 msgstr "La pèça junta pòt pas èsser enregistrada."
 
-#: shell/pps-window.c:5407
+#: shell/pps-window.c:5411
 msgid "Enable caret navigation?"
 msgstr "Activar la navegacion al cursor ?"
 
-#: shell/pps-window.c:5408
+#: shell/pps-window.c:5412
 msgid "_Enable"
 msgstr "_Activar"
 
-#: shell/pps-window.c:5411
+#: shell/pps-window.c:5415
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1622,11 +1622,11 @@ msgstr ""
 "permet de se desplaçar e de seleccionar de tèxte amb vòstre clavièr. Volètz "
 "activar la navigacion amb lo cursor ?"
 
-#: shell/pps-window.c:5416
+#: shell/pps-window.c:5420
 msgid "Don’t show this message again"
 msgstr "Mostrar pas mai aqueste messatge"
 
-#: shell/pps-window.c:5881
+#: shell/pps-window.c:5885
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
@@ -1634,27 +1634,27 @@ msgstr ""
 "Alterta de seguretat : avèm empachat aquesta document de dobrir lo fichièr "
 "« %s »"
 
-#: shell/pps-window.c:5942
+#: shell/pps-window.c:5946
 msgid "Unable to open external link"
 msgstr "Impossible de dobrir lo ligam extèrne"
 
-#: shell/pps-window.c:6168
+#: shell/pps-window.c:6172
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Impossible de trobar lo format apropriat per enregistrar l'imatge"
 
-#: shell/pps-window.c:6201
+#: shell/pps-window.c:6205
 msgid "The image could not be saved."
 msgstr "L'imatge pòt pas èsser enregistrada."
 
-#: shell/pps-window.c:6237
+#: shell/pps-window.c:6241
 msgid "Save Image"
 msgstr "Enregistrar l'imatge"
 
-#: shell/pps-window.c:6412
+#: shell/pps-window.c:6416
 msgid "Unable to open attachment"
 msgstr "Impossible de dobrir la pèça junta"
 
-#: shell/pps-window.c:6478
+#: shell/pps-window.c:6482
 msgid "Save Attachment"
 msgstr "Enregistrar la pèça junta"
 
