@@ -21,7 +21,6 @@
         "--talk-name=org.gtk.vfs.*",
         "--filesystem=xdg-run/gvfsd",
         "--talk-name=org.gnome.SessionManager",
-        "--talk-name=org.freedesktop.FileManager1",
         "--own-name=org.gnome.Papers.Daemon"
     ],
     "build-options" : {
