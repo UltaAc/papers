@@ -20,7 +20,6 @@
         "--filesystem=/run/media:ro",
         "--talk-name=org.gtk.vfs.*",
         "--filesystem=xdg-run/gvfsd",
-        "--talk-name=org.gnome.SessionManager",
         "--own-name=org.gnome.Papers.Daemon"
     ],
     "build-options" : {
