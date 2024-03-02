@@ -8058,21 +8058,29 @@ interface</doc>
           </parameter>
         </parameters>
       </constructor>
-      <method name="get_rb_group" c:identifier="pps_layer_get_rb_group">
-        <source-position filename="libdocument/pps-layer.h" line="47"/>
-        <return-value transfer-ownership="none">
-          <type name="gint" c:type="gint"/>
+      <method name="get_children"
+              c:identifier="pps_layer_get_children"
+              glib:get-property="children">
+        <source-position filename="libdocument/pps-layer.h" line="50"/>
+        <return-value transfer-ownership="none" nullable="1">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-layer.c"
+               line="78">The children of the layer</doc>
+          <type name="Gio.ListModel" c:type="GListModel*"/>
         </return-value>
         <parameters>
-          <instance-parameter name="layer" transfer-ownership="none">
+          <instance-parameter name="pps_layer" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-layer.c"
+                 line="76">A #PpsLayer</doc>
             <type name="Layer" c:type="PpsLayer*"/>
           </instance-parameter>
         </parameters>
       </method>
-      <method name="is_parent" c:identifier="pps_layer_is_parent">
+      <method name="get_rb_group" c:identifier="pps_layer_get_rb_group">
         <source-position filename="libdocument/pps-layer.h" line="45"/>
         <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
+          <type name="gint" c:type="gint"/>
         </return-value>
         <parameters>
           <instance-parameter name="layer" transfer-ownership="none">
@@ -8086,7 +8094,7 @@ interface</doc>
         <doc xml:space="preserve"
              filename="libdocument/pps-layer.c"
              line="56">Sets the 'children' property of the layer.</doc>
-        <source-position filename="libdocument/pps-layer.h" line="49"/>
+        <source-position filename="libdocument/pps-layer.h" line="47"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -8108,7 +8116,8 @@ interface</doc>
       <property name="children"
                 writable="1"
                 transfer-ownership="none"
-                setter="set_children">
+                setter="set_children"
+                getter="get_children">
         <type name="Gio.ListModel"/>
       </property>
       <property name="enabled"

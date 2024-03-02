@@ -22,28 +22,37 @@ package = "papers-shell-sys"
 path = "./sys"
 
 [dependencies.glib]
-package = "glib"
 git = "https://github.com/gtk-rs/gtk-rs-core"
+branch = "master"
+version = "0.20"
 
 [dependencies.gio]
-package = "gio"
 git = "https://github.com/gtk-rs/gtk-rs-core"
+branch = "master"
+version = "0.20"
 
-[dependencies.gdk_pixbuf]
-package = "gdk-pixbuf"
+[dependencies.gdk-pixbuf]
 git = "https://github.com/gtk-rs/gtk-rs-core"
+branch = "master"
+version = "0.20"
 
 [dependencies.gtk]
 package = "gtk4"
 git = "https://github.com/gtk-rs/gtk4-rs"
+branch = "master"
+version = "0.9"
 
 [dependencies.gdk]
 package = "gdk4"
 git = "https://github.com/gtk-rs/gtk4-rs"
+branch = "master"
+version = "0.9"
 
 [dependencies.adw]
 package = "libadwaita"
 git = "https://gitlab.gnome.org/World/Rust/libadwaita-rs.git"
+version = "0.7"
+branch = "master"
 
 [dependencies.papers_document]
 package = "papers-document"

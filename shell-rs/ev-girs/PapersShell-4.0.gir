@@ -46,7 +46,7 @@ and/or use gtk-doc annotations.  -->
       <method name="clear_uri" c:identifier="pps_application_clear_uri">
         <doc xml:space="preserve"
              filename="shell/pps-application.c"
-             line="1095">This unregisters current uri and clears it so that another document
+             line="1090">This unregisters current uri and clears it so that another document
 can be opened in this instance. E.g. after cancelled password dialog
 in recent view.</doc>
         <source-position filename="shell/pps-application.h" line="54"/>
@@ -57,7 +57,7 @@ in recent view.</doc>
           <instance-parameter name="application" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-application.c"
-                 line="1097">The instance of the application.</doc>
+                 line="1092">The instance of the application.</doc>
             <type name="Application" c:type="PpsApplication*"/>
           </instance-parameter>
         </parameters>
@@ -3171,12 +3171,12 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
       <constructor name="new" c:identifier="pps_window_new">
         <doc xml:space="preserve"
              filename="shell/pps-window.c"
-             line="6773">Creates a #GtkWidget that represents the window.</doc>
+             line="6749">Creates a #GtkWidget that represents the window.</doc>
         <source-position filename="shell/pps-window.h" line="64"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="6778">the #GtkWidget that represents the window.</doc>
+               line="6754">the #GtkWidget that represents the window.</doc>
           <type name="Window" c:type="PpsWindow*"/>
         </return-value>
       </constructor>
@@ -3208,14 +3208,14 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="6806">the #AdwHeaderBar that represents the toolbar of the window.</doc>
+               line="6782">the #AdwHeaderBar that represents the toolbar of the window.</doc>
           <type name="Adw.HeaderBar" c:type="AdwHeaderBar*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="6804">the #PpsWindow</doc>
+                 line="6780">the #PpsWindow</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
@@ -3225,14 +3225,14 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="6835">the #PpsMetadata of the document shown in the window.</doc>
+               line="6811">the #PpsMetadata of the document shown in the window.</doc>
           <type name="Metadata" c:type="PpsMetadata*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="6833">the #PpsWindow</doc>
+                 line="6809">the #PpsWindow</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
@@ -3275,13 +3275,13 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
       <method name="is_empty" c:identifier="pps_window_is_empty">
         <doc xml:space="preserve"
              filename="shell/pps-window.c"
-             line="577">It does look if there is any document loaded or if there is any job to load
+             line="574">It does look if there is any document loaded or if there is any job to load
 a document.</doc>
         <source-position filename="shell/pps-window.h" line="76"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="584">%TRUE if there isn't any document loaded or any any documente to be
+               line="581">%TRUE if there isn't any document loaded or any any documente to be
          loaded, %FALSE in other case.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -3289,7 +3289,7 @@ a document.</doc>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="579">The instance of the #PpsWindow.</doc>
+                 line="576">The instance of the #PpsWindow.</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>

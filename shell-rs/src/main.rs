@@ -1,5 +1,3 @@
-use gtk::prelude::*;
-
 mod config {
     #![allow(dead_code)]
 
@@ -19,6 +17,8 @@ mod sidebar_thumbnails;
 mod stack_switcher;
 mod thumbnail_item;
 mod zoom_action;
+
+use deps::*;
 
 fn ensure_type() {
     // HACK: don't need gtk4::init after PpsApplicationWindow is port to rust

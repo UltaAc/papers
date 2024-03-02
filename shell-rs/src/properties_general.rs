@@ -156,7 +156,7 @@ mod imp {
 
         fn add_list_box_item(
             &self,
-            group: &impl glib::IsA<adw::PreferencesGroup>,
+            group: &impl IsA<adw::PreferencesGroup>,
             label: &str,
             text: Option<&str>,
         ) {

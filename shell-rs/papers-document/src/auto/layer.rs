@@ -35,15 +35,16 @@ mod sealed {
 }
 
 pub trait LayerExt: IsA<Layer> + sealed::Sealed + 'static {
+    #[doc(alias = "pps_layer_get_children")]
+    #[doc(alias = "get_children")]
+    fn children(&self) -> Option<gio::ListModel> {
+        unsafe { from_glib_none(ffi::pps_layer_get_children(self.as_ref().to_glib_none().0)) }
+    }
+
     #[doc(alias = "pps_layer_get_rb_group")]
     #[doc(alias = "get_rb_group")]
     fn rb_group(&self) -> i32 {
         unsafe { ffi::pps_layer_get_rb_group(self.as_ref().to_glib_none().0) }
-    }
-
-    #[doc(alias = "pps_layer_is_parent")]
-    fn is_parent(&self) -> bool {
-        unsafe { from_glib(ffi::pps_layer_is_parent(self.as_ref().to_glib_none().0)) }
     }
 
     #[doc(alias = "pps_layer_set_children")]
@@ -54,10 +55,6 @@ pub trait LayerExt: IsA<Layer> + sealed::Sealed + 'static {
                 children.upcast().into_glib_ptr(),
             );
         }
-    }
-
-    fn children(&self) -> Option<gio::ListModel> {
-        ObjectExt::property(self.as_ref(), "children")
     }
 
     fn is_enabled(&self) -> bool {

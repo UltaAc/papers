@@ -815,24 +815,6 @@ and/or use gtk-doc annotations.  -->
         </parameter>
       </parameters>
     </function-macro>
-    <function-macro name="IS_VIEW_PRESENTATION"
-                    c:identifier="PPS_IS_VIEW_PRESENTATION"
-                    introspectable="0">
-      <source-position filename="libview/pps-view-presentation.h" line="35"/>
-      <parameters>
-        <parameter name="obj">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_VIEW_PRESENTATION_CLASS"
-                    c:identifier="PPS_IS_VIEW_PRESENTATION_CLASS"
-                    introspectable="0">
-      <source-position filename="libview/pps-view-presentation.h" line="37"/>
-      <parameters>
-        <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
     <function-macro name="JOB" c:identifier="PPS_JOB" introspectable="0">
       <source-position filename="libview/pps-jobs.h" line="79"/>
       <parameters>
@@ -1909,7 +1891,7 @@ care to treat any multi-line matches as being only one result.</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libview/pps-jobs.c"
-               line="1774">whether the job failed</doc>
+               line="1774">A #GListModel contains the result</doc>
           <type name="Gio.ListModel" c:type="GListModel*"/>
         </return-value>
         <parameters>
@@ -3069,33 +3051,6 @@ care to treat any multi-line matches as being only one result.</doc>
              line="41">Since: 3.8</doc>
       </member>
     </enumeration>
-    <function-macro name="VIEW_PRESENTATION"
-                    c:identifier="PPS_VIEW_PRESENTATION"
-                    introspectable="0">
-      <source-position filename="libview/pps-view-presentation.h" line="34"/>
-      <parameters>
-        <parameter name="obj">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="VIEW_PRESENTATION_CLASS"
-                    c:identifier="PPS_VIEW_PRESENTATION_CLASS"
-                    introspectable="0">
-      <source-position filename="libview/pps-view-presentation.h" line="36"/>
-      <parameters>
-        <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="VIEW_PRESENTATION_GET_CLASS"
-                    c:identifier="PPS_VIEW_PRESENTATION_GET_CLASS"
-                    introspectable="0">
-      <source-position filename="libview/pps-view-presentation.h" line="38"/>
-      <parameters>
-        <parameter name="obj">
-        </parameter>
-      </parameters>
-    </function-macro>
     <class name="View"
            c:symbol-prefix="view"
            c:type="PpsView"
@@ -3125,7 +3080,7 @@ care to treat any multi-line matches as being only one result.</doc>
               version="3.30">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="5998">Adds a Text Markup annotation (defaulting to a 'highlight' one) to
+             line="6009">Adds a Text Markup annotation (defaulting to a 'highlight' one) to
 the currently selected text on the document.
 
 When the selected text spans more than one page, it will add a
@@ -3134,14 +3089,14 @@ corresponding annotation for each page that contains selected text.</doc>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/pps-view.c"
-               line="6008">%TRUE if annotations were added successfully, %FALSE otherwise.</doc>
+               line="6019">%TRUE if annotations were added successfully, %FALSE otherwise.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="6000">#PpsView instance</doc>
+                 line="6011">#PpsView instance</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
         </parameters>
@@ -3301,7 +3256,7 @@ corresponding annotation for each page that contains selected text.</doc>
               version="3.12">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="9131">Restart the current search operation from the given @page.</doc>
+             line="9142">Restart the current search operation from the given @page.</doc>
         <source-position filename="libview/pps-view.h" line="86"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -3310,13 +3265,13 @@ corresponding annotation for each page that contains selected text.</doc>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="9133">an #PpsView</doc>
+                 line="9144">an #PpsView</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="page" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="9134">a page index</doc>
+                 line="9145">a page index</doc>
             <type name="gint" c:type="gint"/>
           </parameter>
         </parameters>
@@ -3353,7 +3308,7 @@ corresponding annotation for each page that contains selected text.</doc>
               version="3.10">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="9198">FIXME</doc>
+             line="9209">FIXME</doc>
         <source-position filename="libview/pps-view.h" line="93"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -3362,7 +3317,7 @@ corresponding annotation for each page that contains selected text.</doc>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="9200">a #PpsView</doc>
+                 line="9211">a #PpsView</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="page" transfer-ownership="none">
@@ -3473,7 +3428,7 @@ corresponding annotation for each page that contains selected text.</doc>
               version="3.30">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="5979">Returns a pointer to a constant string containing the selected
+             line="5990">Returns a pointer to a constant string containing the selected
 text in the view.
 
 The value returned may be NULL if there is no selected text.</doc>
@@ -3481,14 +3436,14 @@ The value returned may be NULL if there is no selected text.</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libview/pps-view.c"
-               line="5988">The string representing selected text.</doc>
+               line="5999">The string representing selected text.</doc>
           <type name="utf8" c:type="char*"/>
         </return-value>
         <parameters>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="5981">#PpsView instance</doc>
+                 line="5992">#PpsView instance</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
         </parameters>
@@ -3538,7 +3493,7 @@ The value returned may be NULL if there is no selected text.</doc>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/pps-view.c"
-               line="8261">%TRUE iff the view is currently loading a document</doc>
+               line="8272">%TRUE iff the view is currently loading a document</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
@@ -3632,7 +3587,7 @@ The value returned may be NULL if there is no selected text.</doc>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="4147">a #PpsView</doc>
+                 line="4155">a #PpsView</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="page" transfer-ownership="none">
@@ -3648,7 +3603,7 @@ The value returned may be NULL if there is no selected text.</doc>
               version="3.10">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="4100">Enables or disables caret navigation mode for the document.</doc>
+             line="4108">Enables or disables caret navigation mode for the document.</doc>
         <source-position filename="libview/pps-view.h" line="155"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -3657,13 +3612,13 @@ The value returned may be NULL if there is no selected text.</doc>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="4102">a #PpsView</doc>
+                 line="4110">a #PpsView</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="enabled" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="4103">whether to enable caret navigation mode</doc>
+                 line="4111">whether to enable caret navigation mode</doc>
             <type name="gboolean" c:type="gboolean"/>
           </parameter>
         </parameters>
@@ -3701,7 +3656,7 @@ The value returned may be NULL if there is no selected text.</doc>
               c:identifier="pps_view_set_page_cache_size">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="8229">Sets the maximum size in bytes that will be used to cache
+             line="8240">Sets the maximum size in bytes that will be used to cache
 rendered pages. Use 0 to disable caching rendered pages.
 
 Note that this limit doesn't affect the current visible page range,
@@ -3715,13 +3670,13 @@ you have to use pps_document_model_set_max_scale() too.</doc>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="8231">#PpsView instance</doc>
+                 line="8242">#PpsView instance</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="cache_size" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="8232">size in bytes</doc>
+                 line="8243">size in bytes</doc>
             <type name="gsize" c:type="gsize"/>
           </parameter>
         </parameters>
@@ -3733,14 +3688,14 @@ you have to use pps_document_model_set_max_scale() too.</doc>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/pps-view.c"
-               line="4080">whether the document supports caret navigation</doc>
+               line="4088">whether the document supports caret navigation</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="4078">a #PpsView</doc>
+                 line="4086">a #PpsView</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
         </parameters>
@@ -3788,7 +3743,7 @@ you have to use pps_document_model_set_max_scale() too.</doc>
                 default-value="FALSE">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="7792">Allows to implement a custom notification system.</doc>
+             line="7803">Allows to implement a custom notification system.</doc>
         <type name="gboolean" c:type="gboolean"/>
       </property>
       <field name="parent_instance">
@@ -3943,12 +3898,12 @@ you have to use pps_document_model_set_max_scale() too.</doc>
            glib:type-name="PpsViewPresentation"
            glib:get-type="pps_view_presentation_get_type"
            glib:type-struct="ViewPresentationClass">
-      <source-position filename="libview/pps-view-presentation.h" line="41"/>
+      <source-position filename="libview/pps-view-presentation.h" line="35"/>
       <implements name="Gtk.Accessible"/>
       <implements name="Gtk.Buildable"/>
       <implements name="Gtk.ConstraintTarget"/>
       <constructor name="new" c:identifier="pps_view_presentation_new">
-        <source-position filename="libview/pps-view-presentation.h" line="47"/>
+        <source-position filename="libview/pps-view-presentation.h" line="39"/>
         <return-value transfer-ownership="none">
           <type name="ViewPresentation" c:type="PpsViewPresentation*"/>
         </return-value>
@@ -3970,7 +3925,7 @@ you have to use pps_document_model_set_max_scale() too.</doc>
       <method name="get_current_page"
               c:identifier="pps_view_presentation_get_current_page"
               glib:get-property="current-page">
-        <source-position filename="libview/pps-view-presentation.h" line="52"/>
+        <source-position filename="libview/pps-view-presentation.h" line="44"/>
         <return-value transfer-ownership="none">
           <type name="guint" c:type="guint"/>
         </return-value>
@@ -3983,7 +3938,7 @@ you have to use pps_document_model_set_max_scale() too.</doc>
       <method name="get_rotation"
               c:identifier="pps_view_presentation_get_rotation"
               glib:get-property="rotation">
-        <source-position filename="libview/pps-view-presentation.h" line="61"/>
+        <source-position filename="libview/pps-view-presentation.h" line="53"/>
         <return-value transfer-ownership="none">
           <type name="guint" c:type="guint"/>
         </return-value>
@@ -3994,7 +3949,7 @@ you have to use pps_document_model_set_max_scale() too.</doc>
         </parameters>
       </method>
       <method name="next_page" c:identifier="pps_view_presentation_next_page">
-        <source-position filename="libview/pps-view-presentation.h" line="54"/>
+        <source-position filename="libview/pps-view-presentation.h" line="46"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -4006,7 +3961,7 @@ you have to use pps_document_model_set_max_scale() too.</doc>
       </method>
       <method name="previous_page"
               c:identifier="pps_view_presentation_previous_page">
-        <source-position filename="libview/pps-view-presentation.h" line="56"/>
+        <source-position filename="libview/pps-view-presentation.h" line="48"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -4019,7 +3974,7 @@ you have to use pps_document_model_set_max_scale() too.</doc>
       <method name="set_rotation"
               c:identifier="pps_view_presentation_set_rotation"
               glib:set-property="rotation">
-        <source-position filename="libview/pps-view-presentation.h" line="58"/>
+        <source-position filename="libview/pps-view-presentation.h" line="50"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -4064,6 +4019,9 @@ you have to use pps_document_model_set_max_scale() too.</doc>
                 default-value="0">
         <type name="guint" c:type="guint"/>
       </property>
+      <field name="parent_instance">
+        <type name="Gtk.Widget" c:type="GtkWidget"/>
+      </field>
       <glib:signal name="change-page" when="last" action="1">
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -4095,7 +4053,7 @@ you have to use pps_document_model_set_max_scale() too.</doc>
             disguised="1"
             opaque="1"
             glib:is-gtype-struct-for="ViewPresentation">
-      <source-position filename="libview/pps-view-presentation.h" line="41"/>
+      <source-position filename="libview/pps-view-presentation.h" line="35"/>
     </record>
   </namespace>
 </repository>
