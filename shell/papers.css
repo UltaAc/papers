@@ -9,24 +9,24 @@
     box-shadow: alpha(@card_shade_color, 0.75) 0px 2px 3px 1px, @card_shade_color 0px 1px 3px 1px;
 }
 
-evview:selected {
+pps-view:selected {
     background-color: @theme_selected_bg_color;
 }
 
-evview.find-results:selected {
+pps-view.find-results:selected {
     background-color: alpha(@accent_bg_color, 0.3);
 }
 
-evview.find-results:active {
+pps-view.find-results:active {
     background-color: alpha(@accent_bg_color, 0.6);
 }
 
-evview.document-page {
+pps-view.document-page {
     background-color: white;
     padding: 0;
 }
 
-evview.document-page.inverted {
+pps-view.document-page.inverted {
     background-color: black;
 }
 
@@ -34,11 +34,11 @@ evview.document-page.inverted {
     filter: invert(1);
 }
 
-evpresentationview {
+pps-presentation-view {
     background-color: black;
 }
 
-evpresentationview.white-mode {
+pps-presentation-view.white-mode {
     background-color: white;
 }
 

@@ -1349,7 +1349,7 @@ pps_view_presentation_class_init (PpsViewPresentationClass *klass)
 	widget_class->snapshot = pps_view_presentation_snapshot;
 	widget_class->size_allocate = pps_view_presentation_size_allocate;
 
-	gtk_widget_class_set_css_name (widget_class, "evpresentationview");
+	gtk_widget_class_set_css_name (widget_class, "pps-presentation-view");
 
 	gobject_class->constructor = pps_view_presentation_constructor;
 	gobject_class->set_property = pps_view_presentation_set_property;

@@ -7770,7 +7770,7 @@ pps_view_class_init (PpsViewClass *class)
 	widget_class->query_tooltip = pps_view_query_tooltip;
 	widget_class->focus = pps_view_focus;
 
-	gtk_widget_class_set_css_name (widget_class, "evview");
+	gtk_widget_class_set_css_name (widget_class, "pps-view");
 
 	class->scroll = pps_view_scroll;
 	class->move_cursor = pps_view_move_cursor;
