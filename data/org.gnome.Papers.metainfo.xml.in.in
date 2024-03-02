@@ -45,7 +45,7 @@
   <url type="donation">https://www.gnome.org/donate/</url>
   <url type="vcs-browser">https://gitlab.gnome.org/GNOME/Incubator/papers/</url>
   <project_group>GNOME</project_group>
-  <developer id="gnome.org">
+  <developer id="org.gnome">
     <name>The GNOME Project</name>
   </developer>
   <update_contact>https://discourse.gnome.org/tag/papers</update_contact>
