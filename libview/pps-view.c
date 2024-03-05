@@ -8975,6 +8975,17 @@ jump_to_find_page (PpsView *view, PpsViewFindDirection direction, gint shift)
 }
 
 static void
+find_job_finished_cb (PpsJobFind *job, PpsView *view)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+
+	if (priv->jump_to_find_result == TRUE) {
+		jump_to_find_page (view, PPS_VIEW_FIND_NEXT, 0);
+		jump_to_find_result (view);
+	}
+}
+
+static void
 find_job_updated_cb (PpsJobFind *job, gint page, PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -8982,11 +8993,6 @@ find_job_updated_cb (PpsJobFind *job, gint page, PpsView *view)
 	priv->find_pages = pps_job_find_get_results (job);
 	if (priv->find_page == -1)
 		priv->find_page = priv->current_page;
-
-	if (priv->jump_to_find_result == TRUE) {
-		jump_to_find_page (view, PPS_VIEW_FIND_NEXT, 0);
-		jump_to_find_result (view);
-	}
 
 	if (priv->find_page == page)
 		gtk_widget_queue_draw (GTK_WIDGET (view));
@@ -9013,6 +9019,7 @@ pps_view_find_started (PpsView *view, PpsJobFind *job)
 	priv->find_result = 0;
 
 	g_signal_connect (job, "updated", G_CALLBACK (find_job_updated_cb), view);
+	g_signal_connect (job, "finished", G_CALLBACK (find_job_finished_cb), view);
 }
 
 /**
@@ -9135,6 +9142,7 @@ pps_view_find_cancel (PpsView *view)
 		return;
 
 	g_signal_handlers_disconnect_by_func (priv->find_job, find_job_updated_cb, view);
+	g_signal_handlers_disconnect_by_func (priv->find_job, find_job_finished_cb, view);
 	g_clear_object (&priv->find_job);
 }
 
