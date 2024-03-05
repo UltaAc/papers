@@ -5142,7 +5142,6 @@ search_started_cb (PpsSearchBox *search_box,
 	if (!priv->document || !PPS_IS_DOCUMENT_FIND (priv->document))
 		return;
 
-	pps_view_find_search_changed (PPS_VIEW (priv->view));
 	pps_view_find_started (PPS_VIEW (priv->view), job);
 	pps_find_sidebar_start (PPS_FIND_SIDEBAR (priv->find_sidebar), job);
 }
@@ -5156,7 +5155,7 @@ search_cleared_cb (PpsSearchBox *search_box,
 	pps_window_update_actions_sensitivity (pps_window);
 	pps_find_sidebar_clear (PPS_FIND_SIDEBAR (priv->find_sidebar));
 
-	pps_view_find_search_changed (PPS_VIEW (priv->view));
+	pps_view_find_cancel (PPS_VIEW (priv->view));
 	gtk_widget_queue_draw (GTK_WIDGET (priv->view));
 }
 

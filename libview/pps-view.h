@@ -94,8 +94,6 @@ void            pps_view_find_set_result           (PpsView         *view,
 						   gint            page,
 						   gint            result);
 PPS_PUBLIC
-void            pps_view_find_search_changed       (PpsView         *view);
-PPS_PUBLIC
 void     	pps_view_find_set_highlight_search (PpsView         *view,
 						   gboolean        value);
 PPS_PUBLIC

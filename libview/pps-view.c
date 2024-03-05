@@ -936,8 +936,6 @@ pps_view_scroll (PpsView        *view,
 	if (priv->key_binding_handled || priv->caret_enabled)
 		return;
 
-	priv->jump_to_find_result = FALSE;
-
 	if (pps_view_page_fits (view, orientation)) {
 		switch (scroll) {
 			case GTK_SCROLL_PAGE_BACKWARD:
@@ -4442,8 +4440,6 @@ pps_view_scroll_event (GtkEventControllerScroll *self, gdouble dx, gdouble dy, G
 
 		return TRUE;
 	}
-
-	priv->jump_to_find_result = FALSE;
 
 #if 0
 	/* TODO: implement this in GTK4 */
@@ -7958,7 +7954,6 @@ pps_view_init (PpsView *view)
 	priv->pending_point.x = 0;
 	priv->pending_point.y = 0;
 	priv->find_page = -1;
-	priv->jump_to_find_result = TRUE;
 	priv->highlight_find_results = FALSE;
 	priv->pixbuf_cache_size = DEFAULT_PIXBUF_CACHE_SIZE;
 	priv->caret_enabled = FALSE;
@@ -8925,8 +8920,6 @@ jump_to_find_result (PpsView *view)
 		_pps_view_ensure_rectangle_is_visible (view, &view_rect);
 		if (priv->caret_enabled && priv->rotation == 0)
 			position_caret_cursor_at_doc_point (view, page, find_rect->x1, find_rect->y1);
-
-		priv->jump_to_find_result = FALSE;
 	}
 
 	pps_rectangle_free (rect);
@@ -8977,12 +8970,8 @@ jump_to_find_page (PpsView *view, PpsViewFindDirection direction, gint shift)
 static void
 find_job_finished_cb (PpsJobFind *job, PpsView *view)
 {
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	if (priv->jump_to_find_result == TRUE) {
-		jump_to_find_page (view, PPS_VIEW_FIND_NEXT, 0);
-		jump_to_find_result (view);
-	}
+	jump_to_find_page (view, PPS_VIEW_FIND_NEXT, 0);
+	jump_to_find_result (view);
 }
 
 static void
@@ -9109,16 +9098,6 @@ pps_view_find_set_result (PpsView *view, gint page, gint result)
 	jump_to_find_page (view, PPS_VIEW_FIND_NEXT, 0);
 	jump_to_find_result (view);
 	gtk_widget_queue_draw (GTK_WIDGET (view));
-}
-
-void
-pps_view_find_search_changed (PpsView *view)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	/* search string has changed, focus on new search result */
-	priv->jump_to_find_result = TRUE;
-	pps_view_find_cancel (view);
 }
 
 void
