@@ -1682,25 +1682,6 @@ pps_job_find_get_n_main_results (PpsJobFind *job,
 	return n;
 }
 
-gdouble
-pps_job_find_get_progress (PpsJobFind *job)
-{
-	gint pages_done;
-
-	if (pps_job_is_finished (PPS_JOB (job)))
-		return 1.0;
-
-	if (job->current_page > job->start_page) {
-		pages_done = job->current_page - job->start_page + 1;
-	} else if (job->current_page == job->start_page) {
-		pages_done = job->n_pages;
-	} else {
-		pages_done = job->n_pages - job->start_page + job->current_page;
-	}
-
-	return pages_done / (gdouble) job->n_pages;
-}
-
 gboolean
 pps_job_find_has_results (PpsJobFind *job)
 {

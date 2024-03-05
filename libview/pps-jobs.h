@@ -577,8 +577,6 @@ PPS_PUBLIC
 gint            pps_job_find_get_n_main_results (PpsJobFind  *job,
 						gint        page);
 PPS_PUBLIC
-gdouble         pps_job_find_get_progress  (PpsJobFind       *job);
-PPS_PUBLIC
 gboolean        pps_job_find_has_results   (PpsJobFind       *job);
 PPS_PUBLIC
 GList         **pps_job_find_get_results   (PpsJobFind       *job);
