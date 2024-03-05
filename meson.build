@@ -155,7 +155,17 @@ config_h.set_quoted('EXTRA_GDK_PIXBUF_LOADERS_DIR',
 gio_dep = dependency('gio-2.0', version: glib_req_version)
 glib_dep = dependency('glib-2.0', version: glib_req_version)
 gmodule_dep = dependency('gmodule-2.0')
-gtk_dep = dependency('gtk4', version: gtk_req_version)
+gtk_dep = dependency(
+  'gtk4',
+  version: gtk_req_version,
+  fallback: ['gtk', 'gtk_dep'],
+  default_options: [
+    'introspection=disabled',
+    'demos=false',
+    'build-testsuite=false',
+    'build-tests=false',
+    'build-examples=false',
+  ])
 gthread_dep = dependency('gthread-2.0', version: glib_req_version)
 libaw_dep = dependency('libadwaita-1', version: libaw_req_version)
 exempi_dep = dependency('exempi-2.0', version: exempi_req_version)
