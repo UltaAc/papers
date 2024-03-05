@@ -6,14 +6,30 @@
         <property name="name">results</property>
         <property name="child">
           <object class="GtkScrolledWindow">
+            <property name="hscrollbar-policy">never</property>
             <property name="child">
-              <object class="GtkTreeView" id="tree_view">
+              <object class="GtkListView" id="list_view">
                 <style>
                   <class name="navigation-sidebar"/>
                 </style>
                 <property name="hexpand">True</property>
-                <property name="headers-visible">False</property>
-                <property name="search-column">-1</property>
+                <property name="factory">
+                  <object class="GtkSignalListItemFactory" id="factory">
+                    <signal name="setup" handler="factory_setup_cb" />
+                    <signal name="bind" handler="factory_bind_cb" />
+                    <signal name="unbind" handler="factory_unbind_cb" />
+                  </object>
+                </property>
+                <property name="model">
+                  <object class="GtkSingleSelection" id="selection">
+                    <property name="model">
+                      <object class="GListStore" id="model">
+                        <property name="item-type">PpsSearchResult</property>
+                      </object>
+                    </property>
+                    <signal name="selection-changed" handler="selection_changed_cb" />
+                  </object>
+                </property>
               </object>
             </property>
           </object>
@@ -65,5 +81,6 @@
         </property>
       </object>
     </child>
+    <property name="visible-child-name">initial</property>
   </template>
 </interface>

@@ -1,8 +1,9 @@
 /* pps-find-sidebar.c
  *  this file is part of papers, a gnome document viewer
  *
+ * Copyright (C) 2024 Markus Göllnitz  <camelcasenick@bewares.it>
  * Copyright (C) 2013 Carlos Garcia Campos  <carlosgc@gnome.org>
- * Copyright (C) 2008 Sergey Pushkin  <pushkinsv@gmail.com >
+ * Copyright (C) 2008 Sergey Pushkin  <pushkinsv@gmail.com>
  *
  * Papers is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
@@ -24,22 +25,21 @@
 #endif
 
 #include "pps-find-sidebar.h"
+#include "pps-search-result.h"
 #include "pps-utils.h"
 #include <string.h>
 
 typedef struct {
-        GtkWidget *tree_view;
-
-        guint selection_id;
-
-        GtkTreePath *highlighted_result;
+        GtkWidget *list_view;
+        GtkSingleSelection *selection;
+        GListStore *model;
 
         PpsJobFind *job;
 } PpsFindSidebarPrivate;
 
 enum {
         TEXT_COLUMN,
-	PAGE_LABEL_COLUMN,
+        PAGE_LABEL_COLUMN,
         PAGE_COLUMN,
         RESULT_COLUMN,
 
@@ -69,12 +69,74 @@ static void
 pps_find_sidebar_dispose (GObject *object)
 {
         PpsFindSidebar *sidebar = PPS_FIND_SIDEBAR (object);
-        PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
 
         pps_find_sidebar_cancel (sidebar);
-        g_clear_pointer (&(priv->highlighted_result), gtk_tree_path_free);
 
         G_OBJECT_CLASS (pps_find_sidebar_parent_class)->dispose (object);
+}
+
+static void
+selection_changed_cb (GtkSelectionModel *selection,
+                      guint              position,
+                      guint              n_items,
+                      PpsFindSidebar    *sidebar)
+{
+        PpsSearchResult *selected_result = PPS_SEARCH_RESULT (gtk_single_selection_get_selected_item (GTK_SINGLE_SELECTION (selection)));
+
+        if (selected_result == NULL)
+                return;
+
+        g_signal_emit (sidebar, signals[RESULT_ACTIVATED], 0,
+		       pps_search_result_get_page (selected_result),
+		       pps_search_result_get_index (selected_result));
+}
+
+static void
+factory_setup_cb (GtkSignalListItemFactory *self,
+                  GObject                  *object,
+                  PpsFindSidebar           *sidebar)
+{
+        GtkListItem *item = GTK_LIST_ITEM (object);
+        GtkWidget   *widget;
+
+        widget = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+
+        gtk_list_item_set_child (item, widget);
+}
+
+static void
+factory_bind_cb (GtkSignalListItemFactory *self,
+                 GObject                  *object,
+                 PpsFindSidebar           *sidebar)
+{
+        GtkListItem     *item = GTK_LIST_ITEM (object);
+        GtkWidget       *widget = gtk_list_item_get_child (item);
+        PpsSearchResult *result = PPS_SEARCH_RESULT (gtk_list_item_get_item (item));
+        GtkLabel        *result_label;
+        GtkLabel        *page_label;
+
+        result_label = GTK_LABEL (gtk_label_new (pps_search_result_get_markup (result)));
+        gtk_label_set_use_markup (result_label, TRUE);
+        gtk_label_set_ellipsize (result_label, PANGO_ELLIPSIZE_END);
+        gtk_widget_set_hexpand (GTK_WIDGET (result_label), TRUE);
+        gtk_widget_set_halign (GTK_WIDGET (result_label), GTK_ALIGN_START);
+
+        page_label = GTK_LABEL (gtk_label_new (pps_search_result_get_label (result)));
+
+        gtk_box_append (GTK_BOX (widget), GTK_WIDGET (result_label));
+        gtk_box_append (GTK_BOX (widget), GTK_WIDGET (page_label));
+}
+
+static void
+factory_unbind_cb (GtkSignalListItemFactory *self,
+                   GObject                  *object,
+                   PpsFindSidebar           *sidebar)
+{
+        GtkListItem           *item = GTK_LIST_ITEM (object);
+        GtkWidget             *widget = gtk_list_item_get_child (item);
+
+        while (gtk_widget_get_first_child (widget))
+                gtk_box_remove (GTK_BOX (widget), gtk_widget_get_first_child (widget));
 }
 
 static void
@@ -88,10 +150,22 @@ pps_find_sidebar_class_init (PpsFindSidebarClass *find_sidebar_class)
                                                      "/org/gnome/papers/ui/find-sidebar.ui");
 
         gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (find_sidebar_class),
-                                                      PpsFindSidebar, tree_view);
+                                                      PpsFindSidebar, list_view);
+
+        gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (find_sidebar_class),
+                                                      PpsFindSidebar, selection);
+
+        gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (find_sidebar_class),
+                                                      PpsFindSidebar, model);
 
         gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (find_sidebar_class), pps_spinner_map_cb);
         gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (find_sidebar_class), pps_spinner_unmap_cb);
+
+        gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (find_sidebar_class), factory_setup_cb);
+        gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (find_sidebar_class), factory_bind_cb);
+        gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (find_sidebar_class), factory_unbind_cb);
+
+        gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (find_sidebar_class), selection_changed_cb);
 
         signals[RESULT_ACTIVATED] =
                 g_signal_new ("result-activated",
@@ -105,129 +179,17 @@ pps_find_sidebar_class_init (PpsFindSidebarClass *find_sidebar_class)
 }
 
 static void
-pps_find_sidebar_activate_result_at_iter (PpsFindSidebar *sidebar,
-                                         GtkTreeModel  *model,
-                                         GtkTreeIter   *iter)
-{
-        PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
-        gint                  page;
-        gint                  result;
-
-
-        if (priv->highlighted_result)
-                gtk_tree_path_free (priv->highlighted_result);
-        priv->highlighted_result = gtk_tree_model_get_path (model, iter);
-
-        gtk_tree_model_get (model, iter,
-                            PAGE_COLUMN, &page,
-                            RESULT_COLUMN, &result,
-                            -1);
-        g_signal_emit (sidebar, signals[RESULT_ACTIVATED], 0, page - 1, result);
-}
-
-static void
-selection_changed_callback (GtkTreeSelection *selection,
-                            PpsFindSidebar    *sidebar)
-{
-        GtkTreeModel *model;
-        GtkTreeIter   iter;
-
-        if (gtk_tree_selection_get_selected (selection, &model, &iter))
-                pps_find_sidebar_activate_result_at_iter (sidebar, model, &iter);
-}
-
-static void
-sidebar_tree_button_press_cb (GtkGestureClick	*self,
-			      gint		 n_press,
-			      gdouble		 x,
-			      gdouble		 y,
-                              PpsFindSidebar	*sidebar)
-{
-        PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
-	GtkWidget            *view;
-        GtkTreeModel         *model;
-        GtkTreePath          *path;
-        GtkTreeIter           iter;
-
-	view = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (self));
-
-        gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (view), x, y, &path,
-			NULL, NULL, NULL);
-        if (!path)
-                return;
-
-        if (priv->highlighted_result &&
-            gtk_tree_path_compare (priv->highlighted_result, path) != 0) {
-                gtk_tree_path_free (path);
-                return;
-        }
-
-        model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
-        gtk_tree_model_get_iter (model, &iter, path);
-        gtk_tree_path_free (path);
-
-        pps_find_sidebar_activate_result_at_iter (sidebar, model, &iter);
-}
-
-static void
 pps_find_sidebar_reset_model (PpsFindSidebar *sidebar)
 {
         PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
-        GtkListStore *model;
 
-        model = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT);
-        gtk_tree_view_set_model (GTK_TREE_VIEW (priv->tree_view),
-                                 GTK_TREE_MODEL (model));
-        g_object_unref (model);
+        g_list_store_remove_all (priv->model);
 }
 
 static void
 pps_find_sidebar_init (PpsFindSidebar *sidebar)
 {
-        PpsFindSidebarPrivate *priv;
-        GtkTreeViewColumn     *column;
-        GtkCellRenderer       *renderer;
-        GtkTreeSelection      *selection;
-        GtkEventController    *controller;
-
-        priv = GET_PRIVATE (sidebar);
-
-	gtk_widget_init_template (GTK_WIDGET (sidebar));
-
-        pps_find_sidebar_reset_model (sidebar);
-
-        column = gtk_tree_view_column_new ();
-        gtk_tree_view_column_set_expand (GTK_TREE_VIEW_COLUMN (column), TRUE);
-        gtk_tree_view_append_column (GTK_TREE_VIEW (priv->tree_view), column);
-
-        renderer = (GtkCellRenderer *)g_object_new (GTK_TYPE_CELL_RENDERER_TEXT,
-                                                    "ellipsize",
-                                                    PANGO_ELLIPSIZE_END,
-                                                    NULL);
-        gtk_tree_view_column_pack_start (GTK_TREE_VIEW_COLUMN (column), renderer, TRUE);
-        gtk_tree_view_column_set_attributes (GTK_TREE_VIEW_COLUMN (column), renderer,
-                                             "markup", TEXT_COLUMN,
-                                             NULL);
-
-        renderer = gtk_cell_renderer_text_new ();
-        gtk_tree_view_column_pack_end (GTK_TREE_VIEW_COLUMN (column), renderer, FALSE);
-        gtk_tree_view_column_set_attributes (GTK_TREE_VIEW_COLUMN (column), renderer,
-                                             "text", PAGE_LABEL_COLUMN,
-                                             NULL);
-        g_object_set (G_OBJECT (renderer), "style", PANGO_STYLE_ITALIC, NULL);
-
-        selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
-        priv->selection_id = g_signal_connect (selection, "changed",
-                                               G_CALLBACK (selection_changed_callback),
-                                               sidebar);
-
-	controller = GTK_EVENT_CONTROLLER (gtk_gesture_click_new ());
-        g_signal_connect (controller, "pressed",
-                          G_CALLBACK (sidebar_tree_button_press_cb),
-                          sidebar);
-	gtk_widget_add_controller (priv->tree_view, controller);
-
-        gtk_stack_set_visible_child_name (GTK_STACK (sidebar), "initial");
+        gtk_widget_init_template (GTK_WIDGET (sidebar));
 }
 
 GtkWidget *
@@ -239,25 +201,13 @@ pps_find_sidebar_new (void)
 }
 
 static void
-pps_find_sidebar_select_highlighted_result (PpsFindSidebar *sidebar)
-{
-        PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
-        GtkTreeSelection     *selection;
-
-        selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
-
-        g_signal_handler_block (selection, priv->selection_id);
-        gtk_tree_view_set_cursor (GTK_TREE_VIEW (priv->tree_view), priv->highlighted_result, NULL, FALSE);
-        g_signal_handler_unblock (selection, priv->selection_id);
-}
-
-static void
 pps_find_sidebar_highlight_first_match_of_page (PpsFindSidebar *sidebar,
-                                               gint           page)
+                                                gint            page)
 {
         PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
-        gint                  index = 0;
-        gint                  i;
+        GtkListView           *list_view = GTK_LIST_VIEW (priv->list_view);
+        gint                   index = 0;
+        gint                   i;
 
         if (!priv->job)
                 return;
@@ -265,10 +215,7 @@ pps_find_sidebar_highlight_first_match_of_page (PpsFindSidebar *sidebar,
         for (i = 0; i < page; i++)
                 index += pps_job_find_get_n_main_results (priv->job, i);
 
-        if (priv->highlighted_result)
-                gtk_tree_path_free (priv->highlighted_result);
-        priv->highlighted_result = gtk_tree_path_new_from_indices (index, -1);
-        pps_find_sidebar_select_highlighted_result (sidebar);
+        gtk_list_view_scroll_to (list_view, index, GTK_LIST_SCROLL_SELECT, NULL);
 }
 
 static gchar *
@@ -447,10 +394,11 @@ static void
 process_matches_idle (PpsFindSidebar *sidebar)
 {
         PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
-        GtkTreeModel          *model;
         PpsDocument           *document;
-        guint                  insert_position = 0;
         gint                   first_match_page = -1;
+        g_autoptr (GPtrArray)  results_array = g_ptr_array_new ();
+        PpsSearchResult      **results;
+        gsize                  n_results;
 
         g_return_if_fail (PPS_IS_JOB (priv->job));
 
@@ -461,12 +409,11 @@ process_matches_idle (PpsFindSidebar *sidebar)
         }
 
         document = pps_job_get_document (PPS_JOB (priv->job));
-        model = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->tree_view));
 
         for (guint current_page = 0; current_page < pps_document_get_n_pages (document); current_page++) {
                 GList        *matches, *l;
                 PpsPage      *page;
-                gint          result;
+                guint         index;
                 gchar        *page_label;
                 gchar        *page_text;
                 PpsRectangle *areas = NULL;
@@ -495,11 +442,11 @@ process_matches_idle (PpsFindSidebar *sidebar)
 
                 offset = 0;
 
-                for (l = matches, result = 0; l; l = g_list_next (l), result++) {
+                for (l = matches, index = 0; l; l = g_list_next (l), index++) {
                         PpsFindRectangle *match = (PpsFindRectangle *)l->data;
-                        gchar       *markup;
-                        GtkTreeIter  iter;
-                        gint         new_offset;
+                        PpsSearchResult  *result;
+                        gchar            *markup;
+                        gint              new_offset;
 
                         if (l->prev && ((PpsFindRectangle *)l->prev->data)->next_line)
                                 continue; /* Skip as this is second part of a multi-line match */
@@ -524,20 +471,12 @@ process_matches_idle (PpsFindSidebar *sidebar)
                                                                       match->after_hyphen);
                         }
 
-                        if (current_page >= priv->job->start_page) {
-                                gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-                        } else {
-                                gtk_list_store_insert (GTK_LIST_STORE (model), &iter,
-                                                       insert_position);
-                                insert_position++;
-                        }
+                        result = pps_search_result_new (g_strdup (markup),
+                                                        g_strdup (page_label),
+                                                        current_page,
+                                                        index);
+                        g_ptr_array_add (results_array, result);
 
-                        gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                                            TEXT_COLUMN, markup,
-                                            PAGE_LABEL_COLUMN, page_label,
-                                            PAGE_COLUMN, current_page + 1,
-                                            RESULT_COLUMN, result,
-                                            -1);
                         g_free (markup);
                 }
 
@@ -546,6 +485,10 @@ process_matches_idle (PpsFindSidebar *sidebar)
                 g_free (text_log_attrs);
                 g_free (areas);
         }
+
+        results = (PpsSearchResult**) g_ptr_array_steal (results_array, &n_results);
+        if (n_results > 0)
+                g_list_store_splice (priv->model, 0, 0, (gpointer*) results, (guint) n_results);
 
         if (first_match_page != -1)
                 pps_find_sidebar_highlight_first_match_of_page (sidebar, first_match_page);
@@ -559,9 +502,9 @@ find_job_finished_cb (PpsJobFind     *job,
 
         if (pps_job_find_has_results (job)) {
                 gtk_stack_set_visible_child_name (GTK_STACK (sidebar), "results");
-	} else {
+        } else {
                 gtk_stack_set_visible_child_name (GTK_STACK (sidebar), "no-results");
-	}
+        }
 }
 
 static void
@@ -597,8 +540,8 @@ pps_find_sidebar_restart (PpsFindSidebar *sidebar,
                          gint           page)
 {
         PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
-        gint                  first_match_page = -1;
-        gint                  i;
+        gint                   first_match_page = -1;
+        gint                   i;
 
         if (!priv->job)
                 return;
@@ -624,15 +567,12 @@ pps_find_sidebar_restart (PpsFindSidebar *sidebar,
 void
 pps_find_sidebar_clear (PpsFindSidebar *sidebar)
 {
-        PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
-
         pps_find_sidebar_cancel (sidebar);
 
         /* It seems it's more efficient to set a new model in the tree view instead of
          * clearing the model that would emit row-deleted signal for every row in the model
          */
         pps_find_sidebar_reset_model (sidebar);
-        g_clear_pointer (&priv->highlighted_result, gtk_tree_path_free);
 
         gtk_stack_set_visible_child_name (GTK_STACK (sidebar), "initial");
 }
@@ -641,39 +581,20 @@ void
 pps_find_sidebar_previous (PpsFindSidebar *sidebar)
 {
         PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
+        GtkListView           *list_view = GTK_LIST_VIEW (priv->list_view);
+        guint                  pos;
 
-        if (!priv->highlighted_result)
-                return;
-
-        if (!gtk_tree_path_prev (priv->highlighted_result)) {
-                GtkTreeModel *model;
-                GtkTreeIter   iter;
-
-                model = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->tree_view));
-                gtk_tree_model_get_iter (model, &iter, priv->highlighted_result);
-                while (gtk_tree_model_iter_next (model, &iter))
-                        gtk_tree_path_next (priv->highlighted_result);
-        }
-        pps_find_sidebar_select_highlighted_result (sidebar);
+        pos = gtk_single_selection_get_selected (priv->selection) - 1;
+        gtk_list_view_scroll_to (list_view, pos, GTK_LIST_SCROLL_SELECT, NULL);
 }
 
 void
 pps_find_sidebar_next (PpsFindSidebar *sidebar)
 {
         PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
-        GtkTreeModel         *model;
-        GtkTreeIter           iter;
+        GtkListView           *list_view = GTK_LIST_VIEW (priv->list_view);
+        guint                  pos;
 
-        if (!priv->highlighted_result)
-                return;
-
-        model = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->tree_view));
-        gtk_tree_model_get_iter (model, &iter, priv->highlighted_result);
-        if (gtk_tree_model_iter_next (model, &iter)) {
-                gtk_tree_path_next (priv->highlighted_result);
-        } else {
-                gtk_tree_path_free (priv->highlighted_result);
-                priv->highlighted_result = gtk_tree_path_new_first ();
-        }
-        pps_find_sidebar_select_highlighted_result (sidebar);
+        pos = gtk_single_selection_get_selected (priv->selection) + 1;
+        gtk_list_view_scroll_to (list_view, pos, GTK_LIST_SCROLL_SELECT, NULL);
 }
