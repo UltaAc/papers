@@ -126,12 +126,9 @@
                     <child type="end">
                       <object class="GtkMenuButton" id="action_menu_button">
                         <property name="icon-name">open-menu-symbolic</property>
-                        <property name="tooltip-text" translatable="yes">File options</property>
+                        <property name="tooltip-text" translatable="yes">Main Menu</property>
                         <property name="popover">action_popover</property>
                         <property name="primary">True</property>
-                        <accessibility>
-                          <property name="label" translatable="yes">File options</property>
-                        </accessibility>
                       </object>
                     </child>
                     <child type="end">
