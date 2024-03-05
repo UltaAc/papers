@@ -2871,7 +2871,7 @@ pps_window_save_as (PpsWindow *pps_window)
 	                    !g_str_has_prefix (dir_name, var_tmp_dir) ?
 	                    dir_name : default_dir;
 
-	dest_file = g_file_new_for_uri (dest_dir);
+	dest_file = g_file_new_for_path (dest_dir);
 	gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (fc),
 					     dest_file, NULL);
 
