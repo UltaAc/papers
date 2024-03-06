@@ -13,6 +13,9 @@
             <signal name="activate" handler="entry_activate_cb" />
             <signal name="next-match" handler="entry_next_match_cb" />
             <signal name="previous-match" handler="entry_previous_match_cb" />
+            <accessibility>
+              <relation name="labelled-by">entry</relation>
+            </accessibility>
           </object>
         </child>
         <child>
@@ -36,6 +39,7 @@
             <property name="direction">down</property>
             <property name="icon-name">view-more-symbolic</property>
             <property name="menu-model">search_options</property>
+            <property name="tooltip-text" translatable="yes">Search Options</property>
           </object>
         </child>
       </object>
