@@ -55,12 +55,6 @@ pps_scheduler_job_destroy (PpsSchedulerJob *job)
 {
 	pps_debug_message (DEBUG_JOBS, "%s", PPS_GET_TYPE_NAME (job->job));
 
-	if (pps_job_get_run_mode (job->job) == PPS_JOB_RUN_MAIN_LOOP) {
-		g_signal_handlers_disconnect_by_func (job->job,
-						      G_CALLBACK (pps_scheduler_job_destroy),
-						      job);
-	}
-
 	g_hash_table_remove (pps_jobs_hash (), job);
 	pps_scheduler_job_free (job);
 }
@@ -118,17 +112,6 @@ pps_job_queue_push (PpsSchedulerJob *job)
 	g_thread_pool_push (pps_thread_pool (), job, NULL);
 }
 
-static gboolean
-pps_job_idle (PpsJob *job)
-{
-	pps_debug_message (DEBUG_JOBS, "%s", PPS_GET_TYPE_NAME (job));
-
-	if (g_cancellable_is_cancelled (job->cancellable))
-		return G_SOURCE_REMOVE;
-
-	return pps_job_run (job);
-}
-
 void
 pps_job_scheduler_push_job (PpsJob         *job,
 			   PpsJobPriority  priority)
@@ -141,35 +124,13 @@ pps_job_scheduler_push_job (PpsJob         *job,
 	s_job->job = g_object_ref (job);
 	s_job->priority = priority;
 
-	switch (pps_job_get_run_mode (job)) {
-	case PPS_JOB_RUN_THREAD:
-		pps_job_queue_push (s_job);
-		break;
-	case PPS_JOB_RUN_MAIN_LOOP:
-		g_signal_connect_swapped (job, "finished",
-					  G_CALLBACK (pps_scheduler_job_destroy),
-					  s_job);
-		g_signal_connect_swapped (job, "cancelled",
-					  G_CALLBACK (pps_scheduler_job_destroy),
-					  s_job);
-		g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
-				 (GSourceFunc)pps_job_idle,
-				 g_object_ref (job),
-				 (GDestroyNotify)g_object_unref);
-		break;
-	default:
-		g_assert_not_reached ();
-	}
+	pps_job_queue_push (s_job);
 }
 
 void
 pps_job_scheduler_update_job (PpsJob         *job,
 			     PpsJobPriority  priority)
 {
-	/* Main loop jobs are scheduled immediately */
-	if (pps_job_get_run_mode (job) == PPS_JOB_RUN_MAIN_LOOP)
-		return;
-
 	pps_debug_message (DEBUG_JOBS, "%s priority %d", PPS_GET_TYPE_NAME (job), priority);
 
 	if (priority == PPS_JOB_PRIORITY_URGENT)

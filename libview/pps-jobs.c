@@ -210,16 +210,11 @@ pps_job_emit_finished (PpsJob *job)
 
 	job->finished = TRUE;
 
-	if (job->run_mode == PPS_JOB_RUN_THREAD) {
-		job->idle_finished_id =
-			g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
-					 (GSourceFunc)emit_finished,
-					 g_object_ref (job),
-					 (GDestroyNotify)g_object_unref);
-	} else {
-		pps_profiler_stop (PPS_PROFILE_JOBS, "%s (%p)", PPS_GET_TYPE_NAME (job), job);
-		g_signal_emit (job, job_signals[FINISHED], 0);
-	}
+	job->idle_finished_id =
+		g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
+				 (GSourceFunc)emit_finished,
+				 g_object_ref (job),
+				 (GDestroyNotify)g_object_unref);
 }
 
 gboolean
@@ -333,20 +328,6 @@ pps_job_is_failed (PpsJob   *job,
 	return job->failed;
 }
 
-PpsJobRunMode
-pps_job_get_run_mode (PpsJob *job)
-{
-	return job->run_mode;
-}
-
-void
-pps_job_set_run_mode (PpsJob       *job,
-		     PpsJobRunMode run_mode)
-{
-	job->run_mode = run_mode;
-}
-
-
 /**
  * pps_job_get_document:
  * @job: an #PpsJob
@@ -365,7 +346,6 @@ pps_job_get_document (PpsJob	 *job)
 static void
 pps_job_links_init (PpsJobLinks *job)
 {
-	PPS_JOB (job)->run_mode = PPS_JOB_RUN_THREAD;
 }
 
 static void
@@ -477,7 +457,6 @@ pps_job_links_get_model (PpsJobLinks *job)
 static void
 pps_job_attachments_init (PpsJobAttachments *job)
 {
-	PPS_JOB (job)->run_mode = PPS_JOB_RUN_THREAD;
 }
 
 static void
@@ -540,7 +519,6 @@ pps_job_attachments_new (PpsDocument *document)
 static void
 pps_job_annots_init (PpsJobAnnots *job)
 {
-	PPS_JOB (job)->run_mode = PPS_JOB_RUN_THREAD;
 }
 
 static void
@@ -617,7 +595,6 @@ pps_job_annots_new (PpsDocument *document)
 static void
 pps_job_render_texture_init (PpsJobRenderTexture *job)
 {
-	PPS_JOB (job)->run_mode = PPS_JOB_RUN_THREAD;
 }
 
 static void
@@ -812,7 +789,6 @@ pps_job_render_texture_set_selection_info (PpsJobRenderTexture *job,
 static void
 pps_job_page_data_init (PpsJobPageData *job)
 {
-	PPS_JOB (job)->run_mode = PPS_JOB_RUN_THREAD;
 }
 
 static gboolean
@@ -907,7 +883,6 @@ pps_job_page_data_new (PpsDocument        *document,
 static void
 pps_job_thumbnail_texture_init (PpsJobThumbnailTexture *job)
 {
-	PPS_JOB (job)->run_mode = PPS_JOB_RUN_THREAD;
 }
 
 static void
@@ -1033,7 +1008,6 @@ pps_job_thumbnail_texture_get_texture (PpsJobThumbnailTexture *job)
 static void
 pps_job_fonts_init (PpsJobFonts *job)
 {
-	PPS_JOB (job)->run_mode = PPS_JOB_RUN_THREAD;
 }
 
 static gboolean
@@ -1096,8 +1070,6 @@ pps_job_load_init (PpsJobLoad *job)
 	job->uri = NULL;
 	job->fd = -1;
 	job->mime_type = NULL;
-
-	PPS_JOB (job)->run_mode = PPS_JOB_RUN_THREAD;
 }
 
 static void
@@ -1382,7 +1354,6 @@ pps_job_load_get_loaded_document (PpsJobLoad *job)
 static void
 pps_job_save_init (PpsJobSave *job)
 {
-	PPS_JOB (job)->run_mode = PPS_JOB_RUN_THREAD;
 }
 
 static void
@@ -1529,7 +1500,6 @@ pps_job_save_new (PpsDocument  *document,
 static void
 pps_job_find_init (PpsJobFind *job)
 {
-	PPS_JOB (job)->run_mode = PPS_JOB_RUN_THREAD;
 }
 
 static void
@@ -1695,7 +1665,6 @@ pps_job_find_get_results (PpsJobFind *job)
 static void
 pps_job_layers_init (PpsJobLayers *job)
 {
-	PPS_JOB (job)->run_mode = PPS_JOB_RUN_THREAD;
 }
 
 static void
@@ -1770,7 +1739,6 @@ pps_job_layers_new (PpsDocument *document)
 static void
 pps_job_export_init (PpsJobExport *job)
 {
-	PPS_JOB (job)->run_mode = PPS_JOB_RUN_THREAD;
 	job->page = -1;
 }
 
@@ -1858,7 +1826,6 @@ pps_job_export_set_page (PpsJobExport *job,
 static void
 pps_job_print_init (PpsJobPrint *job)
 {
-	PPS_JOB (job)->run_mode = PPS_JOB_RUN_THREAD;
 	job->page = -1;
 }
 

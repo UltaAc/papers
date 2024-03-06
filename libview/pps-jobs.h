@@ -174,18 +174,11 @@ typedef struct _PpsJobPrintClass PpsJobPrintClass;
 #define PPS_IS_JOB_PRINT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_JOB_PRINT))
 #define PPS_JOB_PRINT_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_JOB_PRINT, PpsJobPrintClass))
 
-typedef enum {
-	PPS_JOB_RUN_THREAD,
-	PPS_JOB_RUN_MAIN_LOOP
-} PpsJobRunMode;
-
 struct _PpsJob
 {
 	GObject parent;
 
 	PpsDocument *document;
-
-	PpsJobRunMode run_mode;
 
 	guint cancelled : 1;
 	guint finished : 1;
@@ -453,11 +446,6 @@ gboolean        pps_job_is_finished        (PpsJob          *job);
 PPS_PUBLIC
 gboolean        pps_job_is_failed          (PpsJob          *job,
 					    GError         **error);
-PPS_PUBLIC
-PpsJobRunMode    pps_job_get_run_mode       (PpsJob          *job);
-PPS_PUBLIC
-void            pps_job_set_run_mode       (PpsJob          *job,
-					   PpsJobRunMode    run_mode);
 PPS_PUBLIC
 PpsDocument     *pps_job_get_document	  (PpsJob	  *job);
 
