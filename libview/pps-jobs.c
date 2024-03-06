@@ -1529,7 +1529,7 @@ pps_job_save_new (PpsDocument  *document,
 static void
 pps_job_find_init (PpsJobFind *job)
 {
-	PPS_JOB (job)->run_mode = PPS_JOB_RUN_MAIN_LOOP;
+	PPS_JOB (job)->run_mode = PPS_JOB_RUN_THREAD;
 }
 
 static void
@@ -1560,41 +1560,33 @@ pps_job_find_run (PpsJob *job)
 	PpsJobFind      *job_find = PPS_JOB_FIND (job);
 	PpsDocumentFind *find = PPS_DOCUMENT_FIND (job->document);
 	PpsPage         *pps_page;
-	GList          *matches;
+	GList           *matches;
 
 	pps_debug_message (DEBUG_JOBS, NULL);
+	pps_profiler_start (PPS_PROFILE_JOBS, "%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
-	/* Do not block the main loop */
-	if (!pps_document_doc_mutex_trylock ())
-		return TRUE;
+	for (gint current_page = job_find->start_page;
+	     (current_page + 1) % job_find->n_pages != job_find->start_page;
+	     current_page = (current_page + 1) % job_find->n_pages) {
+		if (g_cancellable_is_cancelled (job->cancellable))
+			return FALSE;
 
-#ifdef PPS_ENABLE_DEBUG
-	/* We use the #ifdef in this case because of the if */
-	if (job_find->current_page == job_find->start_page)
-		pps_profiler_start (PPS_PROFILE_JOBS, "%s (%p)", PPS_GET_TYPE_NAME (job), job);
-#endif
+		pps_document_doc_mutex_lock ();
+		pps_page = pps_document_get_page (job->document, current_page);
+		matches = pps_document_find_find_text (find, pps_page, job_find->text,
+						       job_find->options);
+		g_object_unref (pps_page);
+		pps_document_doc_mutex_unlock ();
 
-	pps_page = pps_document_get_page (job->document, job_find->current_page);
-	matches = pps_document_find_find_text (find, pps_page, job_find->text,
-					      job_find->options);
-	g_object_unref (pps_page);
+		job_find->has_results |= (matches != NULL);
 
-	pps_document_doc_mutex_unlock ();
-
-	if (!job_find->has_results)
-		job_find->has_results = (matches != NULL);
-
-	job_find->pages[job_find->current_page] = matches;
-	g_signal_emit (job_find, job_find_signals[FIND_UPDATED], 0, job_find->current_page);
-
-	job_find->current_page = (job_find->current_page + 1) % job_find->n_pages;
-	if (job_find->current_page == job_find->start_page) {
-		pps_job_succeeded (job);
-
-		return FALSE;
+		job_find->pages[current_page] = matches;
+		g_signal_emit (job_find, job_find_signals[FIND_UPDATED], 0, current_page);
 	}
 
-	return TRUE;
+	pps_job_succeeded (job);
+
+	return FALSE;
 }
 
 static void
@@ -1633,7 +1625,6 @@ pps_job_find_new (PpsDocument    *document,
 			    NULL);
 
 	job->start_page = start_page;
-	job->current_page = start_page;
 	job->n_pages = n_pages;
 	job->pages = g_new0 (GList *, n_pages);
 	job->text = g_strdup (text);

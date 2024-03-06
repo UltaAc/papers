@@ -376,7 +376,6 @@ struct _PpsJobFind
 	PpsJob parent;
 
 	gint start_page;
-	gint current_page;
 	gint n_pages;
 	GList **pages;
 	gchar *text;
