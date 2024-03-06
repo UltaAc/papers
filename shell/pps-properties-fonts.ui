@@ -2,12 +2,12 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <template class="PpsPropertiesFonts" parent="AdwBin">
-    <child>
+    <property name="child">
       <object class="GtkScrolledWindow">
         <property name="can-focus">False</property>
         <child>
           <object class="AdwClamp">
-            <child>
+            <property name="child">
               <object class="GtkBox">
                 <property name="can-focus">False</property>
                 <property name="margin-start">12</property>
@@ -35,10 +35,10 @@
                   </object>
                 </child>
               </object>
-            </child>
+            </property>
           </object>
         </child>
       </object>
-    </child>
+    </property>
   </template>
 </interface>

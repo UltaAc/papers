@@ -30,7 +30,7 @@
                     <property name="hscrollbar-policy">never</property>
                     <property name="min-content-height">150</property>
                     <property name="has-frame">True</property>
-                    <child>
+                    <property name="child">
                       <object class="GtkLabel" id="license">
                         <property name="wrap">True</property>
                         <property name="wrap-mode">word-char</property>
@@ -42,7 +42,7 @@
                           <class name="link" />
                         </style>
                       </object>
-                    </child>
+                    </property>
                   </object>
                 </child>
               </object>

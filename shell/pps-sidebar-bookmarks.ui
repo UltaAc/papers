@@ -6,7 +6,7 @@
       <object class="GtkScrolledWindow" id="swindow">
         <property name="vexpand">True</property>
         <property name="hexpand">True</property>
-        <child>
+        <property name="child">
           <object class="GtkTreeView" id="tree_view">
             <property name="model">list-model</property>
             <property name="headers-visible">False</property>
@@ -41,7 +41,7 @@
               <class name="navigation-sidebar"/>
             </style>
           </object>
-        </child>
+        </property>
       </object>
     </child>
 

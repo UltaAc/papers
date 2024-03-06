@@ -10,7 +10,7 @@
         <property name="hexpand">True</property>
         <property name="hscrollbar-policy">never</property>
         <property name="vscrollbar-policy">automatic</property>
-        <child>
+        <property name="child">
           <object class="GtkListView" id="list_view">
             <property name="single-click-activate">True</property>
             <property name="model">
@@ -28,7 +28,7 @@
               <class name="navigation-sidebar" />
             </style>
           </object>
-        </child>
+        </property>
       </object>
     </child>
   </template>

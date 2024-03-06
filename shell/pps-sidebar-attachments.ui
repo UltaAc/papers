@@ -11,7 +11,7 @@
         <property name="hscrollbar-policy">never</property>
         <property name="vscrollbar-policy">automatic</property>
 
-        <child>
+        <property name="child">
           <object class="GtkIconView" id="icon_view">
             <property name="model">model</property>
             <property name="selection-mode">multiple</property>
@@ -59,7 +59,7 @@
               <class name="navigation-sidebar"/>
             </style>
           </object>
-        </child>
+        </property>
       </object>
     </child>
   </template>

@@ -2,7 +2,7 @@
 <interface>
   <template class="PpsMessageArea" parent="AdwBin">
     <property name="visible">True</property>
-    <child>
+    <property name="child">
       <object class="GtkInfoBar" id="info_bar">
         <property name="show-close-button">True</property>
         <property name="visible">True</property>
@@ -59,6 +59,6 @@
           </object>
         </child>
       </object>
-    </child>
+    </property>
   </template>
 </interface>

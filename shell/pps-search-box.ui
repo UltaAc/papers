@@ -2,7 +2,7 @@
 <interface>
   <template class="PpsSearchBox" parent="AdwBin">
     <property name="hexpand">True</property>
-    <child>
+    <property name="child">
       <object class="GtkBox">
         <property name="orientation">horizontal</property>
         <property name="halign">center</property>
@@ -43,7 +43,7 @@
           </object>
         </child>
       </object>
-    </child>
+    </property>
   </template>
   <menu id="search_options">
     <section>

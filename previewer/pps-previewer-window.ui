@@ -7,7 +7,7 @@
     <property name="default-height">600</property>
     <property name="title"></property>
 
-    <child>
+    <property name="content">
       <object class="AdwToolbarView">
         <property name="top-bar-style">raised-border</property>
         <child type="top">
@@ -77,6 +77,6 @@
           </object>
         </child>
       </object>
-    </child>
+    </property>
   </template>
 </interface>
