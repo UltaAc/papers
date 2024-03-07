@@ -110,7 +110,7 @@ static void
 pps_password_view_clicked_cb (GtkWidget      *button,
 			     PpsPasswordView *password_view)
 {
-	pps_password_view_ask_password (password_view);
+	pps_password_view_ask_password (password_view, FALSE);
 }
 
 static void
@@ -187,7 +187,7 @@ pps_password_dialog_entry_changed_cb (GtkEditable      *editable,
 }
 
 void
-pps_password_view_ask_password (PpsPasswordView *password_view)
+pps_password_view_ask_password (PpsPasswordView *password_view, gboolean error)
 {
 	AdwMessageDialog *dialog;
 	GtkWidget *message_area;
@@ -231,6 +231,15 @@ pps_password_view_ask_password (PpsPasswordView *password_view)
 			  dialog);
 
 	gtk_box_append (GTK_BOX (message_area), password_entry);
+
+	if (error) {
+		GtkWidget* error_message = gtk_label_new (_("Invalid password"));
+
+		gtk_box_append (GTK_BOX (message_area), error_message);
+
+		gtk_widget_add_css_class (error_message, "error");
+		gtk_widget_add_css_class (password_entry, "error");
+	}
 
 	priv->password_entry = password_entry;
 

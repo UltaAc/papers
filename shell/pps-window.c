@@ -1717,8 +1717,11 @@ pps_window_load_job_cb (PpsJob *job,
 
 		pps_window_set_mode (pps_window, PPS_WINDOW_MODE_PASSWORD_VIEW);
 
+		gboolean wrong_password = job_load->password != NULL;
+
 		pps_job_load_set_password (job_load, NULL);
-		pps_password_view_ask_password (PPS_PASSWORD_VIEW (priv->password_view));
+
+		pps_password_view_ask_password (PPS_PASSWORD_VIEW (priv->password_view), wrong_password);
 	} else {
 		adw_status_page_set_description (ADW_STATUS_PAGE (priv->error_page), error->message);
 		pps_window_set_mode (pps_window, PPS_WINDOW_MODE_ERROR_VIEW);

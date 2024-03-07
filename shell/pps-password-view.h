@@ -35,7 +35,7 @@ struct _PpsPasswordView {
 PpsPasswordView *pps_password_view_new                     (void);
 void            pps_password_view_set_filename            (PpsPasswordView *password_view,
 							  const char     *filename);
-void            pps_password_view_ask_password            (PpsPasswordView *password_view);
+void            pps_password_view_ask_password            (PpsPasswordView *password_view, gboolean error);
 const gchar    *pps_password_view_get_password            (PpsPasswordView *password_view);
 GPasswordSave   pps_password_view_get_password_save_flags (PpsPasswordView *password_view);
 
