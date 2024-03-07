@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Evince HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-02-29 17:57+0000\n"
-"PO-Revision-Date: 2024-03-03 00:20+0100\n"
+"POT-Creation-Date: 2024-03-07 11:42+0000\n"
+"PO-Revision-Date: 2024-03-07 17:31+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -285,8 +285,8 @@ msgstr "Apond la presa en carga de la lectura dels documents XPS"
 #: data/org.gnome.Papers.desktop.in.in:3
 #: data/org.gnome.Papers.metainfo.xml.in.in:23
 #: previewer/pps-previewer-window.c:481 shell/pps-application.c:699
-#: shell/pps-application.c:795 shell/pps-application.c:989
-#: shell/pps-application.c:1052 shell/pps-window-title.c:126
+#: shell/pps-application.c:789 shell/pps-application.c:983
+#: shell/pps-application.c:1046 shell/pps-window-title.c:126
 msgid "Papers"
 msgstr "Papers"
 
@@ -465,6 +465,40 @@ msgstr "Totes los documents"
 msgid "All Files"
 msgstr "Totes los fichièrs"
 
+#. Translate to the default units to use for presenting
+#. * lengths to the user. Translate to default:inch if you
+#. * want inches, otherwise translate to default:mm.
+#. * Do *not* translate it to "predefinito:mm", if it
+#. * it isn't default:mm or default:inch it will not work
+#.
+#: libdocument/pps-document-info.c:212
+msgid "default:mm"
+msgstr "default:mm"
+
+#: libdocument/pps-document-info.c:264
+#, c-format
+msgid "%.0f × %.0f mm"
+msgstr "%.0f × %.0f mm"
+
+#: libdocument/pps-document-info.c:268
+#, c-format
+msgid "%.2f × %.2f inch"
+msgstr "%.2f × %.2f poces"
+
+#. Note to translators: first placeholder is the paper name (eg.
+#. * A4), second placeholder is the paper size (eg. 297x210 mm)
+#: libdocument/pps-document-info.c:292
+#, c-format
+msgid "%s, Portrait (%s)"
+msgstr "%s, retrait (%s)"
+
+#. Note to translators: first placeholder is the paper name (eg.
+#. * A4), second placeholder is the paper size (eg. 297x210 mm)
+#: libdocument/pps-document-info.c:299
+#, c-format
+msgid "%s, Landscape (%s)"
+msgstr "%s, païsatge (%s)"
+
 #: libdocument/pps-file-helpers.c:157
 #, c-format
 msgid "Failed to create a temporary file: %s"
@@ -479,19 +513,19 @@ msgstr "Impossible de crear un repertòri temporari : %s"
 msgid "This work is in the Public Domain"
 msgstr "Aquesta òbra es dins lo domeni public"
 
-#: libmisc/pps-page-selector.c:88 libmisc/pps-page-selector.c:127
+#: libmisc/pps-page-selector.c:85 libmisc/pps-page-selector.c:124
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%d sus %d)"
 
-#: libmisc/pps-page-selector.c:90 libmisc/pps-page-selector.c:131
+#: libmisc/pps-page-selector.c:87 libmisc/pps-page-selector.c:128
 #, c-format
 msgid "of %d"
 msgstr "sus %d"
 
-#: libmisc/pps-page-selector.c:205 shell/pps-history.c:454
-#: shell/pps-sidebar-bookmarks.c:349 shell/pps-window.c:808
-#: shell/pps-window.c:4556
+#: libmisc/pps-page-selector.c:199 shell/pps-history.c:454
+#: shell/pps-sidebar-bookmarks.c:349 shell/pps-window.c:803
+#: shell/pps-window.c:4514
 #, c-format
 msgid "Page %s"
 msgstr "Pagina %s"
@@ -500,22 +534,22 @@ msgstr "Pagina %s"
 msgid "Select page"
 msgstr "Seleccionar la pagina"
 
-#: libview/pps-jobs.c:727
+#: libview/pps-jobs.c:704
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "Fracàs del rendut de la pagina %d : %s"
 
-#: libview/pps-jobs.c:734
+#: libview/pps-jobs.c:711
 #, c-format
 msgid "Failed to render page %d"
 msgstr "Fracàs del rendut de la pagina %d"
 
-#: libview/pps-jobs.c:957
+#: libview/pps-jobs.c:932
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "Impossible de crear una miniatura per la pagina %d"
 
-#: libview/pps-jobs.c:1931
+#: libview/pps-jobs.c:1882
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "Impossible d'imprimir la pagina %d : %s"
@@ -661,62 +695,62 @@ msgstr "Far desfilar la vista cap aval"
 msgid "Document View"
 msgstr "Vista del document"
 
-#: libview/pps-view.c:2105
+#: libview/pps-view.c:2103
 msgid "Go to first page"
 msgstr "Anar a la primièra pagina"
 
-#: libview/pps-view.c:2107
+#: libview/pps-view.c:2105
 msgid "Go to previous page"
 msgstr "Anar a la pagina precedenta"
 
-#: libview/pps-view.c:2109
+#: libview/pps-view.c:2107
 msgid "Go to next page"
 msgstr "Anar a la pagina seguenta"
 
-#: libview/pps-view.c:2111
+#: libview/pps-view.c:2109
 msgid "Go to last page"
 msgstr "Anar a la darrièra pagina"
 
-#: libview/pps-view.c:2113
+#: libview/pps-view.c:2111
 msgid "Go to page"
 msgstr "Anar a la pagina"
 
-#: libview/pps-view.c:2115
+#: libview/pps-view.c:2113
 msgid "Find"
 msgstr "Recercar"
 
-#: libview/pps-view.c:2144
+#: libview/pps-view.c:2142
 #, c-format
 msgid "Go to page %s"
 msgstr "Anar a la pagina %s"
 
-#: libview/pps-view.c:2150
+#: libview/pps-view.c:2148
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Anar a %s sul fichièr « %s »"
 
-#: libview/pps-view.c:2153
+#: libview/pps-view.c:2151
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Anar a la pagina « %s »"
 
-#: libview/pps-view.c:2161
+#: libview/pps-view.c:2159
 #, c-format
 msgid "Launch %s"
 msgstr "Aviar %s"
 
-#: libview/pps-view.c:2168
+#: libview/pps-view.c:2166
 #, c-format
 msgid "Reset form"
 msgstr "Reïnicializar lo formulari"
 
-#: libview/pps-view-presentation.c:621
-msgid "Jump to page:"
-msgstr "Anar a la pagina :"
-
-#: libview/pps-view-presentation.c:836
+#: libview/pps-view-presentation.c:852
 msgid "End of presentation. Press Esc or click to exit."
 msgstr "Fin de la presentacion. Quichat Esc o clicatz per sortir."
+
+#: libview/pps-view-presentation.ui:51
+msgid "Jump to page:"
+msgstr "Anar a la pagina :"
 
 #: previewer/pps-previewer.c:48
 msgid "Delete the temporary file"
@@ -754,7 +788,7 @@ msgstr "Fichièr descriptor indicant los paramètres d’impression"
 msgid "GNOME Document Previewer"
 msgstr "Previsualizador de documents de GNOME"
 
-#: previewer/pps-previewer-window.c:78 shell/pps-window.c:3241
+#: previewer/pps-previewer-window.c:78 shell/pps-window.c:3242
 msgid "Failed to print document"
 msgstr "L'impression del document a fracassat"
 
@@ -808,6 +842,71 @@ msgstr "Desconegut"
 #: nautilus/pps-nautilus-extension.c:170
 msgid "Document Properties"
 msgstr "Proprietats del document"
+
+#: nautilus/pps-nautilus-extension.h:59 shell-rs/src/properties_general.rs:118
+msgid "Title"
+msgstr "Títol"
+
+#: nautilus/pps-nautilus-extension.h:60
+msgid "Location"
+msgstr "Emplaçament"
+
+#: nautilus/pps-nautilus-extension.h:61 shell-rs/src/properties_general.rs:119
+msgid "Subject"
+msgstr "Subjècte"
+
+#: nautilus/pps-nautilus-extension.h:62 shell-rs/src/properties_general.rs:120
+msgid "Author"
+msgstr "Autor"
+
+#: nautilus/pps-nautilus-extension.h:63 shell-rs/src/properties_general.rs:121
+msgid "Keywords"
+msgstr "Mots clau"
+
+#: nautilus/pps-nautilus-extension.h:64 shell-rs/src/properties_general.rs:122
+msgid "Producer"
+msgstr "Productor"
+
+#: nautilus/pps-nautilus-extension.h:65 shell-rs/src/properties_general.rs:123
+msgid "Creator"
+msgstr "Creator"
+
+#: nautilus/pps-nautilus-extension.h:66 shell-rs/src/properties_general.rs:130
+msgid "Created"
+msgstr "Data de creacion"
+
+#: nautilus/pps-nautilus-extension.h:67 shell-rs/src/properties_general.rs:131
+msgid "Modified"
+msgstr "Darrièra modificacion"
+
+#: nautilus/pps-nautilus-extension.h:68 shell-rs/src/properties_general.rs:139
+msgid "Number of Pages"
+msgstr "Nombre de paginas"
+
+#: nautilus/pps-nautilus-extension.h:69 shell-rs/src/properties_general.rs:140
+msgid "Optimized"
+msgstr "Optimizat"
+
+#: nautilus/pps-nautilus-extension.h:70 shell-rs/src/properties_general.rs:136
+#: shell-rs/src/properties_general.rs:138
+msgid "Format"
+msgstr "Format"
+
+#: nautilus/pps-nautilus-extension.h:71 shell-rs/src/properties_general.rs:141
+msgid "Security"
+msgstr "Seguretat"
+
+#: nautilus/pps-nautilus-extension.h:72 shell-rs/src/properties_general.rs:150
+msgid "Contains Javascript"
+msgstr "Conten de Javascript"
+
+#: nautilus/pps-nautilus-extension.h:73 shell-rs/src/properties_general.rs:142
+msgid "Paper Size"
+msgstr "Talha del papièr"
+
+#: nautilus/pps-nautilus-extension.h:74 shell-rs/src/properties_general.rs:108
+msgid "Size"
+msgstr "Talha"
 
 #: shell/help-overlay.ui:11
 msgctxt "shortcut window"
@@ -1180,6 +1279,7 @@ msgid "Squiggly"
 msgstr "Desformat"
 
 #: shell/pps-annotation-properties-dialog.c:148
+#: shell/pps-sidebar-annotations.ui:60
 msgid "Annotation Properties"
 msgstr "Proprietats de las anotacions"
 
@@ -1228,61 +1328,57 @@ msgstr "Suslinhar lo tèxt"
 msgid "© 1996–2024 The Papers authors"
 msgstr "© 1996-2024 Los autors del visionador de documents Papers"
 
-#: shell/pps-application.c:704
-msgid "Papers is a simple document viewer for GNOME"
-msgstr "Papers es un visionador simple de documents per GNOME"
-
-#: shell/pps-application.c:707
+#: shell/pps-application.c:706
 msgid "translator-credits"
 msgstr ""
 "Cédric Valmary <cvalmary@yahoo.fr>\n"
 "Quentin PAGÈS"
 
-#: shell/pps-application.c:1038
+#: shell/pps-application.c:1032
 msgid "The page label of the document to display."
 msgstr "L'etiqueta de la pagina del document d'afichar."
 
-#: shell/pps-application.c:1038
+#: shell/pps-application.c:1032
 msgid "PAGE"
 msgstr "PAGINA"
 
-#: shell/pps-application.c:1039
+#: shell/pps-application.c:1033
 msgid "The page number of the document to display."
 msgstr "Lo numèro de la pagina del document d'afichar."
 
-#: shell/pps-application.c:1039
+#: shell/pps-application.c:1033
 msgid "NUMBER"
 msgstr "NUMÈRO"
 
-#: shell/pps-application.c:1040
+#: shell/pps-application.c:1034
 msgid "Named destination to display."
 msgstr "Destinacion nomenada d'afichar."
 
-#: shell/pps-application.c:1040
+#: shell/pps-application.c:1034
 msgid "DEST"
 msgstr "DEST"
 
-#: shell/pps-application.c:1041
+#: shell/pps-application.c:1035
 msgid "Run papers in fullscreen mode."
 msgstr "Executar papers en mòde ecran complèt."
 
-#: shell/pps-application.c:1042
+#: shell/pps-application.c:1036
 msgid "Run papers in presentation mode."
 msgstr "Executar papers en mòde presentacion."
 
-#: shell/pps-application.c:1043
+#: shell/pps-application.c:1037
 msgid "The word or phrase to find in the document."
 msgstr "Lo mot o la frasa de recercar dins lo document."
 
-#: shell/pps-application.c:1043
+#: shell/pps-application.c:1037
 msgid "STRING"
 msgstr "CADENA"
 
-#: shell/pps-application.c:1044
+#: shell/pps-application.c:1038
 msgid "Show the version of the program."
 msgstr "Afichar la version del programa."
 
-#: shell/pps-application.c:1045
+#: shell/pps-application.c:1039
 msgid "[FILE…]"
 msgstr "[FICHIÈR…]"
 
@@ -1305,8 +1401,8 @@ msgid "Password Required"
 msgstr "Senhal requesit"
 
 #: shell/pps-password-view.c:212 shell/pps-sidebar-attachments.c:209
-#: shell/pps-window.c:2570 shell/pps-window.c:2853 shell/pps-window.c:3661
-#: shell/pps-window.c:6245 shell/pps-window.c:6486
+#: shell/pps-window.c:2571 shell/pps-window.c:2854 shell/pps-window.c:3662
+#: shell/pps-window.c:6153 shell/pps-window.c:6394
 msgid "_Cancel"
 msgstr "_Anullar"
 
@@ -1318,15 +1414,19 @@ msgstr "_Desverrolhar"
 msgid "Password"
 msgstr "Senhal"
 
-#: shell/pps-password-view.c:246
+#: shell/pps-password-view.c:236
+msgid "Invalid password"
+msgstr "Senhal incorrècte"
+
+#: shell/pps-password-view.c:255
 msgid "Forget password _immediately"
 msgstr "D_oblidar lo senhal immediatament"
 
-#: shell/pps-password-view.c:257
+#: shell/pps-password-view.c:266
 msgid "Remember password until you _log out"
 msgstr "Se _remembrar del senhal per aquesta session"
 
-#: shell/pps-password-view.c:269
+#: shell/pps-password-view.c:278
 msgid "Remember _forever"
 msgstr "Se remembrar del senhal _indefinidament"
 
@@ -1353,6 +1453,42 @@ msgstr "Tèxte de la licéncia"
 msgid "Further Information"
 msgstr "Informacions complémentaires"
 
+#: shell/pps-properties-window.ui:7
+msgid "Properties"
+msgstr "Proprietats"
+
+#: shell/pps-properties-window.ui:28
+msgid "Document"
+msgstr "Document"
+
+#: shell/pps-properties-window.ui:42
+msgid "Fonts"
+msgstr "Poliças"
+
+#: shell/pps-properties-window.ui:52
+msgid "License"
+msgstr "Licéncia"
+
+#: shell/pps-search-box.ui:25
+msgid "Find previous occurrence of the search string"
+msgstr "Recèrca l'ocurréncia precedenta de la cadena"
+
+#: shell/pps-search-box.ui:33
+msgid "Find next occurrence of the search string"
+msgstr "Recèrca l'ocurréncia seguenta de la cadena"
+
+#: shell/pps-search-box.ui:42
+msgid "Search Options"
+msgstr "Opcions de recèrca"
+
+#: shell/pps-search-box.ui:51
+msgid "_Whole Words Only"
+msgstr "_Mots entièrs"
+
+#: shell/pps-search-box.ui:55
+msgid "C_ase Sensitive"
+msgstr "Respectar la c_assa"
+
 #: shell/pps-sidebar-annotations.c:248
 #, c-format
 msgid "Page %d"
@@ -1361,6 +1497,24 @@ msgstr "Page %d"
 #: shell/pps-sidebar-annotations.c:285
 msgid "No Comment"
 msgstr "Pas cap de comentari"
+
+#: shell/pps-sidebar-annotations.ui:14
+msgid "No Annotations"
+msgstr "Cap d’annotacion"
+
+#: shell/pps-sidebar-annotations.ui:65
+msgid "Remove Annotation"
+msgstr "Levar las anotacions"
+
+#: shell/pps-sidebar-annotations.ui:70 shell/pps-window.ui:645
+#: shell/pps-window.ui:678
+msgid "_Open Attachment"
+msgstr "_Dobrir la pèça junta"
+
+#: shell/pps-sidebar-annotations.ui:75 shell/pps-window.ui:650
+#: shell/pps-window.ui:682
+msgid "_Save Attachment As…"
+msgstr "_Enregistrar la pèça junta jos…"
 
 #: shell/pps-sidebar-attachments.c:200
 #, c-format
@@ -1396,164 +1550,188 @@ msgstr "_Renomenar lo signet"
 msgid "_Delete Bookmark"
 msgstr "_Suprimir lo signet"
 
-#: shell/pps-sidebar-layers.c:119 shell/pps-sidebar-links.c:982
+#: shell/pps-sidebar-links.c:968 shell/pps-window.ui:324
 msgid "Loading…"
 msgstr "Cargament…"
+
+#: shell/pps-sidebar-links.ui:87
+msgid "Search in the outline…"
+msgstr "Cercar dins l’esquèma…"
+
+#: shell/pps-sidebar-links.ui:91
+msgid "Collapse all tree"
+msgstr "Replegar las arborescéncias"
+
+#: shell/pps-sidebar-links.ui:95
+msgid "Expand all tree"
+msgstr "Desplegar totas las arborescéncias"
+
+#: shell/pps-sidebar-links.ui:99
+msgid "Expand all under this element"
+msgstr "O desplegar tot jos aqueste element"
+
+#: shell/pps-sidebar-links.ui:105
+msgid "Print this section…"
+msgstr "Imprimir aquesta seccion…"
+
+#: shell/pps-sidebar-thumbnails.ui:31
+msgid "Previews"
+msgstr "Apercebuts"
 
 #: shell/pps-utils.c:82
 msgid "Supported Image Files"
 msgstr "Fichièrs imatges preses en carga"
 
-#: shell/pps-window.c:1503
+#: shell/pps-window.c:1501
 msgid "The document contains no pages"
 msgstr "Lo document a pas cap de pagina"
 
-#: shell/pps-window.c:1506
+#: shell/pps-window.c:1504
 msgid "The document contains only empty pages"
 msgstr "Lo document conten pas que de paginas voidas"
 
-#: shell/pps-window.c:1866
+#: shell/pps-window.c:1867
 #, c-format
 msgid "Loading document from “%s”"
 msgstr "Cargament del document a partir de « %s »"
 
-#: shell/pps-window.c:1871 shell/pps-window.c:2323 shell/pps-window.c:2652
-#: shell/pps-window.c:3305 shell/pps-window.c:3550
+#: shell/pps-window.c:1872 shell/pps-window.c:2324 shell/pps-window.c:2653
+#: shell/pps-window.c:3306 shell/pps-window.c:3551
 msgid "C_ancel"
 msgstr "An_ullar"
 
-#: shell/pps-window.c:1901
+#: shell/pps-window.c:1902
 #, c-format
 msgid "Unable to open document “%s”."
 msgstr "Impossible de dobrir lo document « %s »."
 
-#: shell/pps-window.c:2021 shell/pps-window.c:2375
+#: shell/pps-window.c:2022 shell/pps-window.c:2376
 #, c-format
 msgid "Downloading document (%d%%)"
 msgstr "Telecargament del document (%d %%)"
 
-#: shell/pps-window.c:2053
+#: shell/pps-window.c:2054
 msgid "Failed to load remote file."
 msgstr "Impossible de cargar lo fichièr distant."
 
-#: shell/pps-window.c:2318
+#: shell/pps-window.c:2319
 #, c-format
 msgid "Reloading document from %s"
 msgstr "Recargament del document a partir de %s"
 
-#: shell/pps-window.c:2350
+#: shell/pps-window.c:2351
 msgid "Failed to reload document."
 msgstr "Lo recargament del document a fracassat."
 
-#: shell/pps-window.c:2566
+#: shell/pps-window.c:2567
 msgid "Open Document"
 msgstr "Dobrir un document"
 
-#: shell/pps-window.c:2569
+#: shell/pps-window.c:2570
 msgid "_Open"
 msgstr "_Dobrir"
 
-#: shell/pps-window.c:2638
+#: shell/pps-window.c:2639
 #, c-format
 msgid "Saving document to %s"
 msgstr "Enregistrament del document cap a %s"
 
-#: shell/pps-window.c:2641
+#: shell/pps-window.c:2642
 #, c-format
 msgid "Saving attachment to %s"
 msgstr "Enregistrament de la pèça junta cap a %s"
 
-#: shell/pps-window.c:2644
+#: shell/pps-window.c:2645
 #, c-format
 msgid "Saving image to %s"
 msgstr "Enregistrament de l'imatge cap a %s"
 
-#: shell/pps-window.c:2684 shell/pps-window.c:2789
+#: shell/pps-window.c:2685 shell/pps-window.c:2790
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Lo fichièr pòt pas èsser enregistrat sous « %s »."
 
-#: shell/pps-window.c:2716
+#: shell/pps-window.c:2717
 #, c-format
 msgid "Uploading document (%d%%)"
 msgstr "Mandadís del document (%d %%)"
 
-#: shell/pps-window.c:2720
+#: shell/pps-window.c:2721
 #, c-format
 msgid "Uploading attachment (%d%%)"
 msgstr "Mandadís de la pèça junta (%d %%)"
 
-#: shell/pps-window.c:2724
+#: shell/pps-window.c:2725
 #, c-format
 msgid "Uploading image (%d%%)"
 msgstr "Mandadís de l'imatge (%d %%)"
 
-#: shell/pps-window.c:2850
+#: shell/pps-window.c:2851
 msgid "Save As…"
 msgstr "Enregistrar jos…"
 
-#: shell/pps-window.c:2852 shell/pps-window.c:6244 shell/pps-window.c:6485
+#: shell/pps-window.c:2853 shell/pps-window.c:6152 shell/pps-window.c:6393
 msgid "_Save"
 msgstr "_Enregistrar"
 
-#: shell/pps-window.c:3192
+#: shell/pps-window.c:3193
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "%d prètzfach en espèra dins la fila"
 msgstr[1] "%d prètzfaches en espèra dins la fila"
 
-#: shell/pps-window.c:3301
+#: shell/pps-window.c:3302
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Impression de lo prètzfache « %s »"
 
-#: shell/pps-window.c:3516
+#: shell/pps-window.c:3517
 msgid "Document contains form fields that have been filled out."
 msgstr "Lo document conten de camps de formulari que son estats garnits."
 
-#: shell/pps-window.c:3519
+#: shell/pps-window.c:3520
 msgid "Document contains new or modified annotations."
 msgstr "Lo document conten d'anotacions novèlas o modificadas."
 
-#: shell/pps-window.c:3531
+#: shell/pps-window.c:3532
 #, c-format
 msgid "Reload document “%s”?"
 msgstr "Recargar lo document « %s » ?"
 
-#: shell/pps-window.c:3533
+#: shell/pps-window.c:3534
 msgid "If you reload the document, changes will be permanently lost."
 msgstr ""
 "Se recargatz lo document, las modificacions seràn definitivament perdudas."
 
-#: shell/pps-window.c:3535
+#: shell/pps-window.c:3536
 msgid "_No"
 msgstr "_Non"
 
-#: shell/pps-window.c:3537
+#: shell/pps-window.c:3538 shell/pps-window.ui:617
 msgid "_Reload"
 msgstr "_Recargar"
 
-#: shell/pps-window.c:3544
+#: shell/pps-window.c:3545
 #, c-format
 msgid "Save a copy of document “%s” before closing?"
 msgstr "Enregistrar una còpia del document « %s » abans de tampar ?"
 
-#: shell/pps-window.c:3546
+#: shell/pps-window.c:3547
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr ""
 "Se enregistratz pas una còpia, las modificacions seràn perdudas "
 "definitivament."
 
-#: shell/pps-window.c:3548
+#: shell/pps-window.c:3549
 msgid "Close _without Saving"
 msgstr "Tampar _sans enregistrar"
 
-#: shell/pps-window.c:3552
+#: shell/pps-window.c:3553
 msgid "Save a _Copy"
 msgstr "Enregistrar una _còpia"
 
-#: shell/pps-window.c:3634
+#: shell/pps-window.c:3635
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr "Cal esperar la fin de l'impression de « %s » abans de tampar ?"
@@ -1561,7 +1739,7 @@ msgstr "Cal esperar la fin de l'impression de « %s » abans de tampar ?"
 #. TRANS: the singular form is not really used as n_print_jobs > 1
 #. but some languages distinguish between different plurals forms,
 #. so the ngettext is needed.
-#: shell/pps-window.c:3640
+#: shell/pps-window.c:3641
 #, c-format
 msgid "There is %d print job active. Wait until print finishes before closing?"
 msgid_plural ""
@@ -1573,45 +1751,45 @@ msgstr[1] ""
 "%d prètzfaches d'impression son en cors. Cal esperar la fin de l'impression "
 "abans de tampar ?"
 
-#: shell/pps-window.c:3655
+#: shell/pps-window.c:3656
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr ""
 "Se tampatz la fenèstra, los prètzfaches en espèra d'impression seràn pas "
 "imprimidas."
 
-#: shell/pps-window.c:3659
+#: shell/pps-window.c:3660
 msgid "Cancel _print and Close"
 msgstr "Anullar l'_impression e tampar"
 
-#: shell/pps-window.c:3663
+#: shell/pps-window.c:3664
 msgid "Close _after Printing"
 msgstr "Tampar _aprèp l'impression"
 
-#: shell/pps-window.c:4162
+#: shell/pps-window.c:4120
 msgid "Running in presentation mode"
 msgstr "Execucion en mòde presentacion"
 
-#: shell/pps-window.c:4897
+#: shell/pps-window.c:4842
 msgid "Find a word or phrase in the document"
 msgstr "Recèrca un mot o una frasa dins lo document"
 
-#: shell/pps-window.c:4901
+#: shell/pps-window.c:4846
 msgid "Search not available for this document"
 msgstr "Recèrca indisponibla per aqueste document"
 
-#: shell/pps-window.c:5124
+#: shell/pps-window.c:5069
 msgid "The attachment could not be saved."
 msgstr "La pèça junta pòt pas èsser enregistrada."
 
-#: shell/pps-window.c:5411
+#: shell/pps-window.c:5344
 msgid "Enable caret navigation?"
 msgstr "Activar la navegacion al cursor ?"
 
-#: shell/pps-window.c:5412
+#: shell/pps-window.c:5345
 msgid "_Enable"
 msgstr "_Activar"
 
-#: shell/pps-window.c:5415
+#: shell/pps-window.c:5348
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1622,11 +1800,11 @@ msgstr ""
 "permet de se desplaçar e de seleccionar de tèxte amb vòstre clavièr. Volètz "
 "activar la navigacion amb lo cursor ?"
 
-#: shell/pps-window.c:5420
+#: shell/pps-window.c:5353
 msgid "Don’t show this message again"
 msgstr "Mostrar pas mai aqueste messatge"
 
-#: shell/pps-window.c:5885
+#: shell/pps-window.c:5793
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
@@ -1634,29 +1812,213 @@ msgstr ""
 "Alterta de seguretat : avèm empachat aquesta document de dobrir lo fichièr "
 "« %s »"
 
-#: shell/pps-window.c:5946
+#: shell/pps-window.c:5854
 msgid "Unable to open external link"
 msgstr "Impossible de dobrir lo ligam extèrne"
 
-#: shell/pps-window.c:6172
+#: shell/pps-window.c:6080
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Impossible de trobar lo format apropriat per enregistrar l'imatge"
 
-#: shell/pps-window.c:6205
+#: shell/pps-window.c:6113
 msgid "The image could not be saved."
 msgstr "L'imatge pòt pas èsser enregistrada."
 
-#: shell/pps-window.c:6241
+#: shell/pps-window.c:6149
 msgid "Save Image"
 msgstr "Enregistrar l'imatge"
 
-#: shell/pps-window.c:6416
+#: shell/pps-window.c:6324
 msgid "Unable to open attachment"
 msgstr "Impossible de dobrir la pèça junta"
 
-#: shell/pps-window.c:6482
+#: shell/pps-window.c:6390
 msgid "Save Attachment"
 msgstr "Enregistrar la pèça junta"
+
+#: shell/pps-window.ui:41
+msgid "Drag and drop documents here"
+msgstr "Depausatz de documents aquí"
+
+#: shell/pps-window.ui:46
+msgid "_Open…"
+msgstr "_Dobrir…"
+
+#: shell/pps-window.ui:48
+msgid "Open an existing document"
+msgstr "Dobrís un document existent"
+
+#: shell/pps-window.ui:72
+msgid "Unable to Open Document"
+msgstr "Impossible de dobrir lo document"
+
+#: shell/pps-window.ui:77
+msgid "_Open Other File…"
+msgstr "_Dobrir autre fichièr…"
+
+#: shell/pps-window.ui:108
+msgid "Side pane"
+msgstr "Panèl lateral"
+
+#: shell/pps-window.ui:113
+msgid "Select page or search in the outline"
+msgstr "Causir una pagina o cercar dins l’esquèma"
+
+#: shell/pps-window.ui:120
+msgid "Annotate the document"
+msgstr "Anotar lo document"
+
+#: shell/pps-window.ui:122
+msgid "Annotate document"
+msgstr "Anotar lo document"
+
+#: shell/pps-window.ui:129
+msgid "Main Menu"
+msgstr "Menú principal"
+
+#: shell/pps-window.ui:182
+msgid "Search in document"
+msgstr "Recèrca dins lo document"
+
+#: shell/pps-window.ui:205
+msgid "Thumbnails"
+msgstr "Vinhetas"
+
+#: shell/pps-window.ui:217
+msgid "Outline"
+msgstr "Esquèma"
+
+#: shell/pps-window.ui:231
+msgid "Annotations"
+msgstr "Anotacions"
+
+#: shell/pps-window.ui:245
+msgid "Bookmarks"
+msgstr "Signets"
+
+#: shell/pps-window.ui:257
+msgid "Attachments"
+msgstr "Pèças juntas"
+
+#: shell/pps-window.ui:272
+msgid "Layers"
+msgstr "Jaces"
+
+#: shell/pps-window.ui:486
+msgid "New _Window"
+msgstr "_Novèla fenèstra"
+
+#: shell/pps-window.ui:490
+msgid "Open a C_opy"
+msgstr "Dobrir una _còpia"
+
+#: shell/pps-window.ui:496
+msgid "_Save As…"
+msgstr "_Enregistrar jos…"
+
+#: shell/pps-window.ui:502
+msgid "_Continuous"
+msgstr "_Continú"
+
+#: shell/pps-window.ui:506
+msgid "_Dual"
+msgstr "_Doble"
+
+#: shell/pps-window.ui:510
+msgid "_Odd Pages Left"
+msgstr "_Paginas imparas a esquèrra"
+
+#: shell/pps-window.ui:514
+msgid "Right to Left Document"
+msgstr "Document de drecha a esquèrra"
+
+#: shell/pps-window.ui:520
+msgid "Ro_tate ⤵"
+msgstr "Pivo_tar ⤵"
+
+#: shell/pps-window.ui:526
+msgid "Ni_ght Mode"
+msgstr "Mòde n_uèch"
+
+#: shell/pps-window.ui:532
+msgid "Prop_erties"
+msgstr "Propri_etats"
+
+#: shell/pps-window.ui:538
+msgid "_Keyboard Shortcuts"
+msgstr "_Acorchis de clavièr"
+
+#: shell/pps-window.ui:542
+msgid "_Help"
+msgstr "Ajud_a"
+
+#: shell/pps-window.ui:546
+msgid "_About Papers"
+msgstr "_A prepaus de Papers"
+
+#: shell/pps-window.ui:561
+msgid "Print…"
+msgstr "Imprimir…"
+
+#: shell/pps-window.ui:568
+msgid "Fullscreen"
+msgstr "Ecran complet"
+
+#: shell/pps-window.ui:575
+msgid "Present as Slideshow"
+msgstr "Presentar en diaporama"
+
+#: shell/pps-window.ui:587
+msgid "_Open Link"
+msgstr "_Dobrir lo ligam"
+
+#: shell/pps-window.ui:592
+msgid "_Copy Link Address"
+msgstr "_Copiar l'adreça del ligam"
+
+#: shell/pps-window.ui:597
+msgid "_Go To"
+msgstr "A_nar a"
+
+#: shell/pps-window.ui:602
+msgid "Open in New _Window"
+msgstr "Dobrir dins una _novèla fenèstra"
+
+#: shell/pps-window.ui:609
+msgid "_Previous Page"
+msgstr "Pagina _precedenta"
+
+#: shell/pps-window.ui:613
+msgid "_Next Page"
+msgstr "Pagina _seguenta"
+
+#: shell/pps-window.ui:623
+msgid "_Copy"
+msgstr "_Copiar"
+
+#: shell/pps-window.ui:627
+msgid "Select _All"
+msgstr "Seleccionar _tot"
+
+#: shell/pps-window.ui:633
+msgid "_Save Image As…"
+msgstr "_Enregistrar l'imatge jos…"
+
+#: shell/pps-window.ui:638
+msgid "Copy _Image"
+msgstr "Copiar l'_imatge"
+
+#: shell/pps-window.ui:657
+msgid "Annotation _Properties…"
+msgstr "_Proprietats de l'anotacion…"
+
+#: shell/pps-window.ui:662
+msgid "R_emove Annotation"
+msgstr "L_evar las anotacions"
+
+#: shell/pps-window.ui:669
+msgid "_Highlight Selected Text"
+msgstr "_Metre en susbrilhança lo tèxt seleccionat"
 
 #: shell/pps-zoom-action.ui:6
 msgid "Select or set the zoom level of the document"
@@ -1686,74 +2048,16 @@ msgstr "Fichièr"
 msgid "Folder"
 msgstr "Dossièr"
 
-#: shell-rs/src/properties_general.rs:108
-msgid "Size"
-msgstr "Talha"
-
 #: shell-rs/src/properties_general.rs:116
 msgid "Content"
 msgstr "Contengut"
-
-#: shell-rs/src/properties_general.rs:118
-msgid "Title"
-msgstr "Títol"
-
-#: shell-rs/src/properties_general.rs:119
-msgid "Subject"
-msgstr "Subjècte"
-
-#: shell-rs/src/properties_general.rs:120
-msgid "Author"
-msgstr "Autor"
-
-#: shell-rs/src/properties_general.rs:121
-msgid "Keywords"
-msgstr "Mots clau"
-
-#: shell-rs/src/properties_general.rs:122
-msgid "Producer"
-msgstr "Productor"
-
-#: shell-rs/src/properties_general.rs:123
-msgid "Creator"
-msgstr "Creator"
 
 #: shell-rs/src/properties_general.rs:128
 msgid "Date &amp; Time"
 msgstr "Data e ora"
 
-#: shell-rs/src/properties_general.rs:130
-msgid "Created"
-msgstr "Data de creacion"
-
-#: shell-rs/src/properties_general.rs:131
-msgid "Modified"
-msgstr "Darrièra modificacion"
-
-#: shell-rs/src/properties_general.rs:136
-#: shell-rs/src/properties_general.rs:138
-msgid "Format"
-msgstr "Format"
-
-#: shell-rs/src/properties_general.rs:139
-msgid "Number of Pages"
-msgstr "Nombre de paginas"
-
-#: shell-rs/src/properties_general.rs:140
-msgid "Optimized"
-msgstr "Optimizat"
-
-#: shell-rs/src/properties_general.rs:141
-msgid "Security"
-msgstr "Seguretat"
-
-#: shell-rs/src/properties_general.rs:142
-msgid "Paper Size"
-msgstr "Talha del papièr"
-
-#: shell-rs/src/properties_general.rs:150
-msgid "Contains Javascript"
-msgstr "Conten de Javascript"
+#~ msgid "Papers is a simple document viewer for GNOME"
+#~ msgstr "Papers es un visionador simple de documents per GNOME"
 
 #~ msgid "DVI document has incorrect format"
 #~ msgstr "Lo document DVI a un format incorrècte"
@@ -1770,47 +2074,11 @@ msgstr "Conten de Javascript"
 #~ msgid "Not found, click to change search options"
 #~ msgstr "Pas trobat, clicatz per cambiar las opcions de recèrca"
 
-#~ msgid "Search options"
-#~ msgstr "Opcions de recèrca"
-
-#~ msgid "_Whole Words Only"
-#~ msgstr "_Mots entièrs"
-
-#~ msgid "C_ase Sensitive"
-#~ msgstr "Respectar la c_assa"
-
-#~ msgid "Find previous occurrence of the search string"
-#~ msgstr "Recèrca l'ocurréncia precedenta de la cadena"
-
-#~ msgid "Find next occurrence of the search string"
-#~ msgstr "Recèrca l'ocurréncia seguenta de la cadena"
-
 #~ msgid "Evince Document Viewer"
 #~ msgstr "Visionador de documents Evince"
 
 #~ msgid "Evince"
 #~ msgstr "Evince"
-
-#~ msgid "Document"
-#~ msgstr "Document"
-
-#~ msgid "Location:"
-#~ msgstr "Emplaçament :"
-
-#~ msgid "default:mm"
-#~ msgstr "default:mm"
-
-#~ msgid "%.0f × %.0f mm"
-#~ msgstr "%.0f × %.0f mm"
-
-#~ msgid "%.2f × %.2f inch"
-#~ msgstr "%.2f × %.2f poces"
-
-#~ msgid "%s, Portrait (%s)"
-#~ msgstr "%s, retrait (%s)"
-
-#~ msgid "%s, Landscape (%s)"
-#~ msgstr "%s, païsatge (%s)"
 
 #~ msgid "Note text"
 #~ msgstr "Nòta"
@@ -1821,53 +2089,11 @@ msgstr "Conten de Javascript"
 #~ msgid "Add highlight annotation"
 #~ msgstr "Apondre una anotacion en susbrilhança"
 
-#~ msgid "_Open Link"
-#~ msgstr "_Dobrir lo ligam"
-
-#~ msgid "_Copy Link Address"
-#~ msgstr "_Copiar l'adreça del ligam"
-
-#~ msgid "_Go To"
-#~ msgstr "A_nar a"
-
-#~ msgid "Open in New _Window"
-#~ msgstr "Dobrir dins una _novèla fenèstra"
-
-#~ msgid "_Previous Page"
-#~ msgstr "Pagina _precedenta"
-
-#~ msgid "_Next Page"
-#~ msgstr "Pagina _seguenta"
-
 #~ msgid "Auto_scroll"
 #~ msgstr "Des_filament automatic"
 
-#~ msgid "_Copy"
-#~ msgstr "_Copiar"
-
-#~ msgid "Select _All"
-#~ msgstr "Seleccionar _tot"
-
-#~ msgid "_Save Image As…"
-#~ msgstr "_Enregistrar l'imatge jos…"
-
-#~ msgid "Copy _Image"
-#~ msgstr "Copiar l'_imatge"
-
-#~ msgid "_Open Attachment"
-#~ msgstr "_Dobrir la pèça junta"
-
-#~ msgid "_Save Attachment As…"
-#~ msgstr "_Enregistrar la pèça junta jos…"
-
 #~ msgid "Annotation _Properties"
 #~ msgstr "_Proprietats de las anotacions"
-
-#~ msgid "R_emove Annotation"
-#~ msgstr "L_evar las anotacions"
-
-#~ msgid "_Highlight Selected Text"
-#~ msgstr "_Metre en susbrilhança lo tèxt seleccionat"
 
 #~ msgid "Open Containing _Folder"
 #~ msgstr "Dobrir lo dorsièr _parent"
@@ -1890,92 +2116,14 @@ msgstr "Conten de Javascript"
 #~ msgid "Forward"
 #~ msgstr "Seguent"
 
-#~ msgid "Remove Annotation"
-#~ msgstr "Levar las anotacions"
-
-#~ msgid "Search in the outline…"
-#~ msgstr "Cercar dins l’esquèma…"
-
-#~ msgid "Print this section…"
-#~ msgstr "Imprimir aquesta seccion…"
-
-#~ msgid "Collapse all tree"
-#~ msgstr "Replegar las arborescéncias"
-
-#~ msgid "Expand all tree"
-#~ msgstr "Desplegar totas las arborescéncias"
-
-#~ msgid "Expand all under this element"
-#~ msgstr "O desplegar tot jos aqueste element"
-
 #~ msgid "Font"
 #~ msgstr "Poliça"
-
-#~ msgid "Open…"
-#~ msgstr "Dobrir…"
-
-#~ msgid "Open an existing document"
-#~ msgstr "Dobrís un document existent"
-
-#~ msgid "Side pane"
-#~ msgstr "Panèl lateral"
-
-#~ msgid "Annotate the document"
-#~ msgstr "Anotar lo document"
-
-#~ msgid "Annotate document"
-#~ msgstr "Anotar lo document"
 
 #~ msgid "File options"
 #~ msgstr "Opcions dels fichièrs"
 
-#~ msgid "Print…"
-#~ msgstr "Imprimir…"
-
-#~ msgid "Fullscreen"
-#~ msgstr "Ecran complet"
-
 #~ msgid "Send To…"
 #~ msgstr "Mandar a…"
-
-#~ msgid "New _Window"
-#~ msgstr "_Novèla fenèstra"
-
-#~ msgid "Open a C_opy"
-#~ msgstr "Dobrir una _còpia"
-
-#~ msgid "_Save As…"
-#~ msgstr "_Enregistrar jos…"
-
-#~ msgid "Present as _Slideshow"
-#~ msgstr "Presentar en diapora_ma"
-
-#~ msgid "_Continuous"
-#~ msgstr "_Continú"
-
-#~ msgid "_Dual"
-#~ msgstr "_Doble"
-
-#~ msgid "_Odd Pages Left"
-#~ msgstr "_Paginas imparas a esquèrra"
-
-#~ msgid "Right to Left Document"
-#~ msgstr "Document de drecha a esquèrra"
-
-#~ msgid "Ro_tate ⤵"
-#~ msgstr "Pivo_tar ⤵"
-
-#~ msgid "Ni_ght Mode"
-#~ msgstr "Mòde n_uèch"
-
-#~ msgid "Prop_erties"
-#~ msgstr "Propri_etats"
-
-#~ msgid "_Keyboard Shortcuts"
-#~ msgstr "_Acorchis de clavièr"
-
-#~ msgid "_Help"
-#~ msgstr "Ajud_a"
 
 #~ msgid "_About Document Viewer"
 #~ msgstr "_A prepaus del Visionador de documents"
@@ -1983,14 +2131,8 @@ msgstr "Conten de Javascript"
 #~ msgid "Password required"
 #~ msgstr "Senhal requesit"
 
-#~ msgid "Properties"
-#~ msgstr "Proprietats"
-
 #~ msgid "General"
 #~ msgstr "General"
-
-#~ msgid "Fonts"
-#~ msgstr "Poliças"
 
 #~ msgid "Document License"
 #~ msgstr "Licéncia del document"
@@ -2000,24 +2142,6 @@ msgstr "Conten de Javascript"
 
 #~ msgid "Document contains no annotations"
 #~ msgstr "Lo document conten pas cap d'anotacion"
-
-#~ msgid "Annotations"
-#~ msgstr "Anotacions"
-
-#~ msgid "Attachments"
-#~ msgstr "Pèças juntas"
-
-#~ msgid "Bookmarks"
-#~ msgstr "Signets"
-
-#~ msgid "Layers"
-#~ msgstr "Jaces"
-
-#~ msgid "Outline"
-#~ msgstr "Esquèma"
-
-#~ msgid "Thumbnails"
-#~ msgstr "Vinhetas"
 
 #~ msgid "Could not send current document"
 #~ msgstr "Impossible de mandar lo document actual"
@@ -2076,9 +2200,6 @@ msgstr "Conten de Javascript"
 #~ msgid "Save Current Settings as Defa_ult"
 #~ msgstr "Enregistrar los paramètres actuals coma los per defa_ut"
 
-#~ msgid "Annotation _Properties…"
-#~ msgstr "_Proprietats de l'anotacion…"
-
 #~ msgid "Annotation Properties…"
 #~ msgstr "Proprietats de l'anotacion…"
 
@@ -2101,9 +2222,6 @@ msgstr "Conten de Javascript"
 
 #~ msgid "Download document"
 #~ msgstr "Telecargar lo document"
-
-#~ msgid "Print document"
-#~ msgstr "Imprimir lo document"
 
 #~ msgid ""
 #~ "Error launching the command “%s” in order to decompress the comic book: %s"
@@ -2201,9 +2319,6 @@ msgstr "Conten de Javascript"
 
 #~ msgid "Go to next history item"
 #~ msgstr "Anar a l'element seguent de l'istoric"
-
-#~ msgid "Enter password"
-#~ msgstr "Picatz lo senhal"
 
 #~ msgid "Add"
 #~ msgstr "Apondre"
