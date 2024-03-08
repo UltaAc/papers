@@ -380,6 +380,13 @@
                     </child>
                     <child>
                       <object class='GtkShortcut'>
+                        <property name='trigger'>&lt;Ctrl&gt;0</property>
+                        <property name='action'>action(win.zoom)</property>
+                        <property name='arguments'>1.</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
                         <property name='trigger'>s</property>
                         <property name='action'>action(win.add-annotation)</property>
                       </object>
