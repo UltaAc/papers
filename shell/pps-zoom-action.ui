@@ -3,7 +3,7 @@
   <requires lib="gtk" version="4.0" />
   <template class="PpsZoomAction" parent="GtkBox">
     <property name="orientation">vertical</property>
-    <property name="tooltip-text" translatable="yes">Select or set the zoom level of the document</property>
+    <property name="tooltip-text" translatable="yes">Zoom Level</property>
     <child>
       <object class="GtkEntry" id="entry">
         <style>

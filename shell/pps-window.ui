@@ -45,7 +45,7 @@
                         <property name="action-name">win.open</property>
                         <property name="label" translatable="yes">_Open…</property>
                         <property name="use-underline">True</property>
-                        <property name="tooltip-text" translatable="yes">Open an existing document</property>
+                        <property name="tooltip-text" translatable="yes">Open a Document</property>
                         <style>
                           <class name="suggested-action" />
                           <class name="pill" />
@@ -105,19 +105,19 @@
                       <object class="GtkToggleButton" id="sidebar_button">
                         <property name="icon-name">sidebar-show-symbolic</property>
                         <property name="action-name">win.show-side-pane</property>
-                        <property name="tooltip-text" translatable="yes">Side pane</property>
+                        <property name="tooltip-text" translatable="yes">Toggle Sidebar</property>
                       </object>
                     </child>
                     <child type="start">
                       <object class="PpsPageSelector" id="page_selector">
-                        <property name="tooltip-text" translatable="yes">Select page or search in the outline</property>
+                        <property name="tooltip-text" translatable="yes">Page Count</property>
                       </object>
                     </child>
                     <child type="start">
                       <object class="GtkToggleButton" id="annots_button">
                         <property name="icon-name">document-edit-symbolic</property>
                         <property name="action-name">win.toggle-edit-annots</property>
-                        <property name="tooltip-text" translatable="yes">Annotate the document</property>
+                        <property name="tooltip-text" translatable="yes">Annotate</property>
                         <accessibility>
                           <property name="label" translatable="yes">Annotate document</property>
                         </accessibility>

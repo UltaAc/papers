@@ -58,7 +58,7 @@
             <property name="hexpand">True</property>
             <property name="icon-name">list-add-symbolic</property>
             <property name="sensitive">False</property>
-            <property name="tooltip-text" translatable="yes">Add bookmark</property>
+            <property name="tooltip-text" translatable="yes">Add Bookmark</property>
             <property name="action-name">win.add-bookmark</property>
           </object>
         </child>
@@ -67,7 +67,7 @@
             <property name="hexpand">True</property>
             <property name="icon-name">list-remove-symbolic</property>
             <property name="sensitive">False</property>
-            <property name="tooltip-text" translatable="yes">Remove bookmark</property>
+            <property name="tooltip-text" translatable="yes">Remove Bookmark</property>
             <signal name="clicked" handler="pps_sidebar_bookmarks_del_clicked" />
           </object>
         </child>

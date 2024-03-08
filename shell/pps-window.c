@@ -4839,11 +4839,11 @@ find_button_sensitive_changed (GtkWidget  *find_button,
 {
         if (gtk_widget_is_sensitive (find_button)) {
                 gtk_widget_set_tooltip_text (find_button,
-                                             _("Find a word or phrase in the document"));
+                                             _("Search"));
 		gtk_button_set_icon_name (GTK_BUTTON (find_button), "edit-find-symbolic");
 	} else {
                 gtk_widget_set_tooltip_text (find_button,
-                                             _("Search not available for this document"));
+                                             _("Search Unavailable"));
 		gtk_button_set_icon_name (GTK_BUTTON (find_button), "find-unsupported-symbolic");
 	}
 }
