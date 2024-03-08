@@ -172,3 +172,13 @@ pps_str_replace (const char *str, const char *substr, const char *repl)
 
 	return g_string_free (gstr, FALSE);
 }
+
+void
+pps_spinner_map_cb (GtkSpinner *spinner) {
+	gtk_spinner_set_spinning(spinner, TRUE);
+}
+
+void
+pps_spinner_unmap_cb (GtkSpinner *spinner) {
+	gtk_spinner_set_spinning(spinner, FALSE);
+}

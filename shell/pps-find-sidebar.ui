@@ -29,7 +29,8 @@
             <property name="valign">center</property>
             <property name="width-request">32</property>
             <property name="height-request">32</property>
-            <property name="spinning">True</property>
+            <signal name="map" handler="pps_spinner_map_cb" />
+            <signal name="unmap" handler="pps_spinner_unmap_cb" />
           </object>
         </property>
       </object>

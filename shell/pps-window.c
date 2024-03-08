@@ -6643,6 +6643,8 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, view_popup_hide_cb);
 	gtk_widget_class_bind_template_callback (widget_class, zoom_selector_activated);
 	gtk_widget_class_bind_template_callback (widget_class, find_button_sensitive_changed);
+	gtk_widget_class_bind_template_callback (widget_class, pps_spinner_map_cb);
+	gtk_widget_class_bind_template_callback (widget_class, pps_spinner_unmap_cb);
 
 	/* search box */
 	gtk_widget_class_bind_template_callback (widget_class, search_started_cb);

@@ -24,6 +24,7 @@
 #endif
 
 #include "pps-find-sidebar.h"
+#include "pps-utils.h"
 #include <string.h>
 
 typedef struct {
@@ -88,6 +89,9 @@ pps_find_sidebar_class_init (PpsFindSidebarClass *find_sidebar_class)
 
         gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (find_sidebar_class),
                                                       PpsFindSidebar, tree_view);
+
+        gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (find_sidebar_class), pps_spinner_map_cb);
+        gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (find_sidebar_class), pps_spinner_unmap_cb);
 
         signals[RESULT_ACTIVATED] =
                 g_signal_new ("result-activated",

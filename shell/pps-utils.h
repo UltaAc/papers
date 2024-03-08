@@ -31,4 +31,10 @@ void           		file_chooser_dialog_add_writable_pixbuf_formats (GtkFileChooser
 GdkPixbufFormat* 	get_gdk_pixbuf_format_by_extension (const gchar *uri);
 gchar*                  pps_str_replace (const char *str, const char *substr, const char *repl);
 
+/*
+ * Temporary hack around https://gitlab.gnome.org/GNOME/gtk/-/issues/1025
+ */
+void                    pps_spinner_map_cb (GtkSpinner *spinner);
+void                    pps_spinner_unmap_cb (GtkSpinner *spinner);
+
 G_END_DECLS
