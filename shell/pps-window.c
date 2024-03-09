@@ -3933,6 +3933,7 @@ pps_window_cmd_find (GSimpleAction *action,
         if (selected_text != NULL && g_strcmp0(selected_text, "") != 0) {
 		GtkSearchEntry *entry = pps_search_box_get_entry (PPS_SEARCH_BOX (priv->search_box));
 		gtk_editable_set_text (GTK_EDITABLE (entry), selected_text);
+		gtk_editable_select_region (GTK_EDITABLE (entry), 0, -1);
 		pps_window_show_find_bar (pps_window, TRUE);
 	} else {
 		is_toggled = g_variant_get_boolean (g_action_group_get_action_state (G_ACTION_GROUP (pps_window),
