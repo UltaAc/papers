@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Evince HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-03-07 11:42+0000\n"
-"PO-Revision-Date: 2024-03-07 17:31+0100\n"
+"POT-Creation-Date: 2024-03-08 08:27+0000\n"
+"PO-Revision-Date: 2024-03-09 12:30+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -677,19 +677,19 @@ msgstr "Gestion de las paginas"
 
 #: libview/pps-view-accessible.c:43
 msgid "Scroll Up"
-msgstr "Desfilar cap amont"
+msgstr "Defilar cap amont"
 
 #: libview/pps-view-accessible.c:44
 msgid "Scroll Down"
-msgstr "Desfilar cap aval"
+msgstr "Defilar cap aval"
 
 #: libview/pps-view-accessible.c:50
 msgid "Scroll View Up"
-msgstr "Far desfilar la vista cap amont"
+msgstr "Far defilar la vista cap amont"
 
 #: libview/pps-view-accessible.c:51
 msgid "Scroll View Down"
-msgstr "Far desfilar la vista cap aval"
+msgstr "Far defilar la vista cap aval"
 
 #: libview/pps-view-accessible.c:132
 msgid "Document View"
@@ -910,37 +910,37 @@ msgstr "Talha"
 
 #: shell/help-overlay.ui:11
 msgctxt "shortcut window"
-msgid "Opening, closing, saving and printing"
+msgid "Opening, Closing, Saving and Printing"
 msgstr "Dobertura, tampadura, enregistrament e impression"
 
 #: shell/help-overlay.ui:14
 msgctxt "shortcut window"
-msgid "Open a document"
+msgid "Open Document"
 msgstr "Dobrir un document"
 
 #: shell/help-overlay.ui:20
 msgctxt "shortcut window"
-msgid "Open a copy of the current document"
+msgid "Open Copy of Current Document"
 msgstr "Dobrir una còpia del document actual"
 
 #: shell/help-overlay.ui:26
 msgctxt "shortcut window"
-msgid "Save a copy of the current document"
+msgid "Save Copy of Current Document"
 msgstr "Enregistrar una còpia del document actual"
 
 #: shell/help-overlay.ui:32
 msgctxt "shortcut window"
-msgid "Print the current document"
+msgid "Print Current Document"
 msgstr "Imprimir lo document actual"
 
 #: shell/help-overlay.ui:38
 msgctxt "shortcut window"
-msgid "Close the current document window"
+msgid "Close Current Document Window"
 msgstr "Tampar lo document actual de la fenèstra"
 
 #: shell/help-overlay.ui:44
 msgctxt "shortcut window"
-msgid "Reload the document"
+msgid "Reload Document"
 msgstr "Recargar lo document"
 
 #: shell/help-overlay.ui:52
@@ -950,223 +950,225 @@ msgstr "Fenèstra"
 
 #: shell/help-overlay.ui:55
 msgctxt "shortcut window"
-msgid "Toggle fullscreen"
-msgstr "Bascular lo mòde plen ecran"
+msgid "Fullscreen"
+msgstr "Ecran complèt"
 
 #: shell/help-overlay.ui:61
 msgctxt "shortcut window"
-msgid "Enter presentation mode"
-msgstr "Entrar en mòde presentacion"
+msgid "Enter Presentation Mode"
+msgstr "Passar en mòde presentacion"
 
 #: shell/help-overlay.ui:67
 msgctxt "shortcut window"
-msgid "Toggle sidebar"
-msgstr "Afichar o amagar lo panèl lateral"
+msgid "Side Pane"
+msgstr "Panèl lateral"
 
 #: shell/help-overlay.ui:73
+#, fuzzy
+#| msgid "Navigation"
 msgctxt "shortcut window"
-msgid "Toggle caret navigation"
-msgstr "Alternar la navigacion al cursor"
+msgid "Caret Navigation"
+msgstr "Navigacion"
 
 #: shell/help-overlay.ui:81
 msgctxt "shortcut window"
-msgid "Selecting and copying text"
+msgid "Selecting and Copying Text"
 msgstr "Seleccion e còpia del tèxte"
 
 #: shell/help-overlay.ui:84
 msgctxt "shortcut window"
-msgid "Copy highlighted text"
-msgstr "Copiar lo tèxte en susbrilhança"
+msgid "Copy"
+msgstr "Copiar"
 
 #: shell/help-overlay.ui:90
 msgctxt "shortcut window"
-msgid "Select all the text in a document"
-msgstr "Seleccionar tot lo tèxte dins lo document"
+msgid "Select All"
+msgstr "Tot seleccionar"
 
 #: shell/help-overlay.ui:98
 msgctxt "shortcut window"
-msgid "Rotating and zooming"
-msgstr "Rotacion e zoom"
+msgid "Rotating and Zooming"
+msgstr "Rotacion e agrandiment"
 
 #: shell/help-overlay.ui:101
 msgctxt "shortcut window"
-msgid "Rotate the page 90 degrees counter-clockwise"
+msgid "Rotate Page 90 Degrees Counter-Clockwise"
 msgstr "Virar la pagina de 90° dins lo sens anti-orari"
 
 #: shell/help-overlay.ui:107
 msgctxt "shortcut window"
-msgid "Rotate the page 90 degrees clockwise"
+msgid "Rotate Page 90 Degrees Clockwise"
 msgstr "Virar la pagina de 90° dins lo sens orari"
 
 #: shell/help-overlay.ui:113 shell/help-overlay.ui:377
 msgctxt "shortcut window"
-msgid "Zoom in"
+msgid "Zoom In"
 msgstr "Zoom avant"
 
 #: shell/help-overlay.ui:119 shell/help-overlay.ui:383
 msgctxt "shortcut window"
-msgid "Zoom out"
+msgid "Zoom Out"
 msgstr "Zoom arrièr"
 
 #: shell/help-overlay.ui:125
 msgctxt "shortcut window"
-msgid "Zoom 1∶1"
-msgstr "Zoom 1∶1"
+msgid "Normal Size"
+msgstr "Talha normala"
 
 #: shell/help-overlay.ui:131
 msgctxt "shortcut window"
-msgid "Zoom in (alternative)"
+msgid "Zoom In (Alternative)"
 msgstr "Zoom avant (alternativa)"
 
 #: shell/help-overlay.ui:137
 msgctxt "shortcut window"
-msgid "Fit page"
-msgstr "Ajustar a la pagina"
+msgid "Fit Page"
+msgstr "Adaptar a la pagina"
 
 #: shell/help-overlay.ui:143
 msgctxt "shortcut window"
-msgid "Fit width"
-msgstr "Ajustar a la largor"
+msgid "Fit Width"
+msgstr "Adaptar a la longor"
 
 #: shell/help-overlay.ui:149
 msgctxt "shortcut window"
-msgid "Automatic zoom"
+msgid "Automatic Zoom"
 msgstr "Zoom automatic"
 
 #: shell/help-overlay.ui:157
 msgctxt "shortcut window"
-msgid "Moving around the document"
+msgid "Moving Around Document"
 msgstr "Desplaçament dins lo document"
 
 #: shell/help-overlay.ui:160 shell/help-overlay.ui:166
 msgctxt "shortcut window"
-msgid "Move around a page"
+msgid "Move Around Page"
 msgstr "Se desplaçar dins una pagina"
 
 #: shell/help-overlay.ui:172
 msgctxt "shortcut window"
-msgid "Move up/down a page several lines at a time"
+msgid "Move Up/Down Page Several Lines"
 msgstr "Montar / daval dins una pagina mantuna linha a l'encòp"
 
 #: shell/help-overlay.ui:178 shell/help-overlay.ui:395
 msgctxt "shortcut window"
-msgid "Go to previous page"
-msgstr "Anar a la pagina precedenta"
+msgid "Previous Page"
+msgstr "Pagina precedenta"
 
 #: shell/help-overlay.ui:184 shell/help-overlay.ui:389
 msgctxt "shortcut window"
-msgid "Go to next page"
-msgstr "Anar a la pagina seguenta"
+msgid "Next Page"
+msgstr "Pagina seguenta"
 
 #: shell/help-overlay.ui:190
 msgctxt "shortcut window"
-msgid "Go to page number"
+msgid "Go to Page Number"
 msgstr "Anar a la pagina numèro"
 
 #: shell/help-overlay.ui:196
 msgctxt "shortcut window"
-msgid "Go to previous page (fast)"
-msgstr "Anar a la pagina precedenta (rapida)"
+msgid "Previous Page (Fast)"
+msgstr "Pagina precedenta (rapid)"
 
 #: shell/help-overlay.ui:202
 msgctxt "shortcut window"
-msgid "Go to next page (fast)"
-msgstr "Anar a la pagina seguenta (rapida)"
+msgid "Next Page (Fast)"
+msgstr "Pagina seguenta (rapid)"
 
 #: shell/help-overlay.ui:208
 msgctxt "shortcut window"
-msgid "Go to previous page visited"
-msgstr "Anar a la pagina precedenta visitada"
+msgid "Previous Visited Page"
+msgstr "Pagina precedenta visitada"
 
 #: shell/help-overlay.ui:214
 msgctxt "shortcut window"
-msgid "Go to next page visited"
-msgstr "Anar a la pagina seguenta visitada"
+msgid "Next Visited Page"
+msgstr "Pagina seguenta visitada"
 
 #: shell/help-overlay.ui:220
 msgctxt "shortcut window"
-msgid "Go to the beginning/end of a page"
-msgstr "Anar al començament/a la fin de la pagina"
+msgid "Go to Page Beginning/End"
+msgstr "Anar a la debuta/fin de la pagina"
 
 #: shell/help-overlay.ui:226
 msgctxt "shortcut window"
-msgid "Go to the beginning of the document"
-msgstr "Anar al començament de la pagina"
+msgid "Go to Document Start"
+msgstr "Anar a la debuta del document"
 
 #: shell/help-overlay.ui:232
 msgctxt "shortcut window"
-msgid "Go to the end of the document"
-msgstr "Anar a la fin de la pagina"
+msgid "Go to Document End"
+msgstr "Anar a la fin del document"
 
 #: shell/help-overlay.ui:240
 msgctxt "shortcut window"
-msgid "Document view and handling"
+msgid "Document View and Handling"
 msgstr "Vista e gestion del document"
 
 #: shell/help-overlay.ui:243
 msgctxt "shortcut window"
-msgid "Add bookmark"
+msgid "Add Bookmark"
 msgstr "Apondre un signet"
 
 #: shell/help-overlay.ui:249
 msgctxt "shortcut window"
-msgid "Remove bookmark"
+msgid "Remove Bookmark"
 msgstr "Suprimir lo signet"
 
 #: shell/help-overlay.ui:255
 msgctxt "shortcut window"
-msgid "Toggle night mode"
-msgstr "Bascular en mòde nuèch"
+msgid "Night Mode"
+msgstr "Mòde nuèch"
 
 #: shell/help-overlay.ui:261
 msgctxt "shortcut window"
-msgid "Toggle continuous scrolling"
-msgstr "Passar en desfilament continú"
+msgid "Continuous Scrolling"
+msgstr "Defilament continú"
 
 #: shell/help-overlay.ui:267
 msgctxt "shortcut window"
-msgid "Toggle dual page"
-msgstr "Bascular en pagina dobla"
+msgid "Dual Page"
+msgstr "Pagina dobla"
 
 #: shell/help-overlay.ui:273
 msgctxt "shortcut window"
-msgid "Toggle odd pages left"
-msgstr "Bascular pagina imparas a esquèrra"
+msgid "Odd Pages Left"
+msgstr "Paginas imparas"
 
 #: shell/help-overlay.ui:279
 msgctxt "shortcut window"
-msgid "Document properties"
-msgstr "Proprietats del document %s"
+msgid "Document Properties"
+msgstr "Proprietats del document"
 
 #: shell/help-overlay.ui:285
 msgctxt "shortcut window"
-msgid "Add a post-it like note"
-msgstr "Apondre una nòta"
+msgid "Add Note"
+msgstr "Ajustar una nòta"
 
 #: shell/help-overlay.ui:291
 msgctxt "shortcut window"
-msgid "Highlight text"
-msgstr "Suslinhar tèxt"
+msgid "Highlight Text"
+msgstr "Suslinhar lo tèxt"
 
 #: shell/help-overlay.ui:299
 msgctxt "shortcut window"
-msgid "Finding text"
+msgid "Finding Text"
 msgstr "Recèrca de tèxte"
 
 #: shell/help-overlay.ui:302
 msgctxt "shortcut window"
-msgid "Show the search bar"
-msgstr "Afichar la barra de recèrca"
+msgid "Find"
+msgstr "Recercar"
 
 #: shell/help-overlay.ui:308
 msgctxt "shortcut window"
-msgid "Go to the next search result"
-msgstr "Anar al resultat de la recèrca seguent"
+msgid "Find Next"
+msgstr "Recercar lo seguent"
 
 #: shell/help-overlay.ui:314
 msgctxt "shortcut window"
-msgid "Go to the previous search result"
-msgstr "Anar al resultat de la recèrca precedent"
+msgid "Find Previous"
+msgstr "Recercar lo precedent"
 
 #: shell/help-overlay.ui:322
 msgctxt "shortcut window"
@@ -1175,47 +1177,47 @@ msgstr "General"
 
 #: shell/help-overlay.ui:325
 msgctxt "shortcut window"
-msgid "Show help"
-msgstr "Afichar l'ajuda"
+msgid "Help"
+msgstr "Ajuda"
 
 #: shell/help-overlay.ui:331
 msgctxt "shortcut window"
-msgid "Toggle primary menu"
-msgstr "Afichar / Amagar lo menú principal"
+msgid "Menu"
+msgstr "Menú"
 
 #: shell/help-overlay.ui:337
 msgctxt "shortcut window"
-msgid "Keyboard shortcuts"
+msgid "Keyboard Shortcuts"
 msgstr "Acorchis de clavièr"
 
 #: shell/help-overlay.ui:343
 msgctxt "shortcut window"
-msgid "Open new window"
-msgstr "Dobrir una fenèstra novèla"
+msgid "New Window"
+msgstr "Fenèstra novèla"
 
 #: shell/help-overlay.ui:349
 msgctxt "shortcut window"
-msgid "Close window"
+msgid "Close Window"
 msgstr "Tampar la fenèstra"
 
 #: shell/help-overlay.ui:357
 msgctxt "shortcut window"
-msgid "Presentation mode"
+msgid "Presentation Mode"
 msgstr "Mòde presentacion"
 
 #: shell/help-overlay.ui:360
 msgctxt "shortcut window"
-msgid "Toggle black screen"
-msgstr "Bascular a l’ecran negre"
+msgid "Black Screen"
+msgstr "Ecran negre"
 
 #: shell/help-overlay.ui:366
 msgctxt "shortcut window"
-msgid "Toggle white screen"
-msgstr "Bascular a l’ecran blanc"
+msgid "White Screen"
+msgstr "Ecran blanc"
 
 #: shell/help-overlay.ui:374
 msgctxt "shortcut window"
-msgid "Touchpad gestures"
+msgid "Touchpad Gestures"
 msgstr "Gèstes amb lo pavat tactil"
 
 #: shell/pps-annotation-properties-dialog.c:94
@@ -1962,7 +1964,7 @@ msgstr "Imprimir…"
 
 #: shell/pps-window.ui:568
 msgid "Fullscreen"
-msgstr "Ecran complet"
+msgstr "Ecran complèt"
 
 #: shell/pps-window.ui:575
 msgid "Present as Slideshow"
@@ -2056,6 +2058,138 @@ msgstr "Contengut"
 msgid "Date &amp; Time"
 msgstr "Data e ora"
 
+#~ msgctxt "shortcut window"
+#~ msgid "Open a document"
+#~ msgstr "Dobrir un document"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Reload the document"
+#~ msgstr "Recargar lo document"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle fullscreen"
+#~ msgstr "Bascular lo mòde plen ecran"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle sidebar"
+#~ msgstr "Afichar o amagar lo panèl lateral"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle caret navigation"
+#~ msgstr "Alternar la navigacion al cursor"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Copy highlighted text"
+#~ msgstr "Copiar lo tèxte en susbrilhança"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Select all the text in a document"
+#~ msgstr "Seleccionar tot lo tèxte dins lo document"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Zoom in"
+#~ msgstr "Zoom avant"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Zoom out"
+#~ msgstr "Zoom arrièr"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Zoom 1∶1"
+#~ msgstr "Zoom 1∶1"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Fit page"
+#~ msgstr "Ajustar a la pagina"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Fit width"
+#~ msgstr "Ajustar a la largor"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to previous page"
+#~ msgstr "Anar a la pagina precedenta"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to next page"
+#~ msgstr "Anar a la pagina seguenta"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to previous page (fast)"
+#~ msgstr "Anar a la pagina precedenta (rapida)"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to next page (fast)"
+#~ msgstr "Anar a la pagina seguenta (rapida)"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to previous page visited"
+#~ msgstr "Anar a la pagina precedenta visitada"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to next page visited"
+#~ msgstr "Anar a la pagina seguenta visitada"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to the beginning of the document"
+#~ msgstr "Anar al començament de la pagina"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to the end of the document"
+#~ msgstr "Anar a la fin de la pagina"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle night mode"
+#~ msgstr "Bascular en mòde nuèch"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle dual page"
+#~ msgstr "Bascular en pagina dobla"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle odd pages left"
+#~ msgstr "Bascular pagina imparas a esquèrra"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Document properties"
+#~ msgstr "Proprietats del document %s"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Add a post-it like note"
+#~ msgstr "Apondre una nòta"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Highlight text"
+#~ msgstr "Suslinhar tèxt"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Show the search bar"
+#~ msgstr "Afichar la barra de recèrca"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to the next search result"
+#~ msgstr "Anar al resultat de la recèrca seguent"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to the previous search result"
+#~ msgstr "Anar al resultat de la recèrca precedent"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Show help"
+#~ msgstr "Afichar l'ajuda"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle primary menu"
+#~ msgstr "Afichar / Amagar lo menú principal"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Acorchis de clavièr"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Open new window"
+#~ msgstr "Dobrir una fenèstra novèla"
+
 #~ msgid "Papers is a simple document viewer for GNOME"
 #~ msgstr "Papers es un visionador simple de documents per GNOME"
 
@@ -2098,14 +2232,8 @@ msgstr "Data e ora"
 #~ msgid "Open Containing _Folder"
 #~ msgstr "Dobrir lo dorsièr _parent"
 
-#~ msgid "Navigation"
-#~ msgstr "Navigacion"
-
 #~ msgid "First Page"
 #~ msgstr "Primièra pagina"
-
-#~ msgid "Last Page"
-#~ msgstr "Darrièra pagina"
 
 #~ msgid "History"
 #~ msgstr "Istoric"
@@ -2124,9 +2252,6 @@ msgstr "Data e ora"
 
 #~ msgid "Send To…"
 #~ msgstr "Mandar a…"
-
-#~ msgid "_About Document Viewer"
-#~ msgstr "_A prepaus del Visionador de documents"
 
 #~ msgid "Password required"
 #~ msgstr "Senhal requesit"
@@ -2344,12 +2469,6 @@ msgstr "Data e ora"
 #~ msgid "Rotate _Right"
 #~ msgstr "Pivotar cap a _dreita"
 
-#~ msgid "Zoom _In"
-#~ msgstr "_Zoom avant"
-
-#~ msgid "Zoom _Out"
-#~ msgstr "Zoom a_rrièr"
-
 #~ msgid "_Inverted Colors"
 #~ msgstr "Colors _inversadas"
 
@@ -2373,9 +2492,6 @@ msgstr "Data e ora"
 
 #~ msgid "Pagina Handling"
 #~ msgstr "Gestion de las paginas"
-
-#~ msgid "Find options"
-#~ msgstr "Opcions de la recèrca"
 
 #~ msgid "List"
 #~ msgstr "Lista"
