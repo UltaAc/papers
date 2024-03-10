@@ -127,6 +127,9 @@ typedef struct {
 	GtkWindow *properties;
 	GtkWindow *print_dialog;
 
+	/* Menu button */
+	GtkWidget    *action_menu_button;
+
 	/* Popup view */
 	GtkWidget    *view_popup;
 	PpsLink       *link;
@@ -3442,7 +3445,9 @@ pps_window_cmd_file_print (GSimpleAction *action,
 			  gpointer       user_data)
 {
 	PpsWindow *pps_window = user_data;
+	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
+	gtk_menu_button_popdown (GTK_MENU_BUTTON (priv->action_menu_button));
 	pps_window_print (pps_window);
 }
 
@@ -4096,6 +4101,9 @@ pps_window_cmd_view_fullscreen (GSimpleAction *action,
 			       gpointer       user_data)
 {
 	PpsWindow *window = user_data;
+	PpsWindowPrivate *priv = GET_PRIVATE (window);
+
+	gtk_menu_button_popdown (GTK_MENU_BUTTON (priv->action_menu_button));
 
 	if (g_variant_get_boolean (state)) {
 		pps_window_run_fullscreen (window);
@@ -6625,6 +6633,9 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_annots);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_bookmarks);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_layers);
+
+	/* menu button */
+	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, action_menu_button);
 
 	/* popup menu */
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, view_popup);
