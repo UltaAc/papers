@@ -9,6 +9,7 @@
         <property name="spacing">6</property>
         <child>
           <object class="GtkSearchEntry" id="entry">
+            <property name="search-delay">500</property>
             <signal name="search-changed" handler="search_changed_cb" />
             <signal name="activate" handler="entry_activate_cb" />
             <signal name="next-match" handler="entry_next_match_cb" />
