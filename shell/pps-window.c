@@ -1049,11 +1049,8 @@ setup_sidebar_from_metadata (PpsWindow *window)
 	if (!priv->metadata)
 		return;
 
-	adw_overlay_split_view_set_show_sidebar (priv->split_view,
-						 pps_metadata_get_boolean (priv->metadata,
-									  "sidebar_visibility",
-									  &show_sidebar));
-
+	if (pps_metadata_get_boolean (priv->metadata, "sidebar_visibility", &show_sidebar))
+		adw_overlay_split_view_set_show_sidebar (priv->split_view, show_sidebar);
 
 	if (pps_metadata_get_string (priv->metadata, "sidebar_page", &page_id))
 		pps_sidebar_set_visible_child_name (PPS_SIDEBAR (priv->sidebar), page_id);
