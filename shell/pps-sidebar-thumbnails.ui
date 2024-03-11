@@ -42,6 +42,6 @@
       <object class="GListStore" id="list_store">
       </object>
     </property>
-    <signal name="notify::selected" handler="grid_view_selection_changed" swapped="yes" />
+    <signal name="selection-changed" handler="grid_view_selection_changed" swapped="yes" />
   </object>
 </interface>

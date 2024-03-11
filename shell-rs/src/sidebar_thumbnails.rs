@@ -296,18 +296,14 @@ mod imp {
         }
 
         #[template_callback]
-        fn grid_view_selection_changed(
-            &self,
-            _pspec: &glib::ParamSpec,
-            selection: &gtk::SingleSelection,
-        ) {
+        fn grid_view_selection_changed(&self) {
             if self.block_activate.get() {
                 return;
             }
 
             if let Some(model) = self.model() {
-                let store_index = selection.selected() as i32;
-                let doc_page = self.page_of_document(store_index);
+                let selected = self.selection_model.selected();
+                let doc_page = self.page_of_document(selected as i32);
 
                 if doc_page >= 0 {
                     self.block_page_changed.set(true);
