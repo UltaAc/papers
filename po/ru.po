@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: papers\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-02-21 08:11+0000\n"
-"PO-Revision-Date: 2024-02-25 15:10+0300\n"
+"POT-Creation-Date: 2024-03-11 12:16+0000\n"
+"PO-Revision-Date: 2024-03-11 16:33+0300\n"
 "Last-Translator: Artur So <arturios2005@mail.ru>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -166,7 +166,7 @@ msgstr "Без названия"
 #. Encoding: None
 #.
 #. translators: Value for 'Page Scaling:' to not scale the document pages on printing
-#: backend/pdf/pps-poppler.c:941 libview/pps-print-operation.c:2686
+#: backend/pdf/pps-poppler.c:941 libview/pps-print-operation.c:2667
 #: shell-rs/src/properties_general.rs:80 shell-rs/src/properties_general.rs:175
 msgid "None"
 msgstr "Отсутствует"
@@ -291,8 +291,8 @@ msgstr "Добавляет поддержку для чтения докумен
 #: data/org.gnome.Papers.desktop.in.in:3
 #: data/org.gnome.Papers.metainfo.xml.in.in:23
 #: previewer/pps-previewer-window.c:481 shell/pps-application.c:699
-#: shell/pps-application.c:795 shell/pps-application.c:989
-#: shell/pps-application.c:1052 shell/pps-window-title.c:126
+#: shell/pps-application.c:789 shell/pps-application.c:983
+#: shell/pps-application.c:1046 shell/pps-window-title.c:126
 msgid "Papers"
 msgstr "Документы"
 
@@ -303,7 +303,8 @@ msgstr "Просмотр многостраничных документов"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Papers.desktop.in.in:6
 msgid "pdf;ps;postscript;xps;djvu;tiff;document;presentation;viewer;papers;"
-msgstr "pdf;ps;postscript;xps;djvu;tiff;документ;презентация;просмотрщик;документы;"
+msgstr ""
+"pdf;ps;postscript;xps;djvu;tiff;документ;презентация;просмотрщик;документы;"
 
 #: data/org.gnome.Papers.desktop.in.in:19
 msgid "New Window"
@@ -364,7 +365,7 @@ msgstr "Ссылки могут изменять масштаб."
 #: data/org.gnome.Papers.gschema.xml:49
 msgid "Check spelling when writing annotation notes or filling text forms."
 msgstr ""
-"Проверять орфографию при написании аннотаций или заполнении текстовых форм."
+"Проверять орфографию при написании примечаний или заполнении текстовых форм."
 
 #: data/org.gnome.Papers.gschema.xml:53
 msgid "Show a side bar next to the document to help navigate the document."
@@ -414,8 +415,8 @@ msgid ""
 "Papers supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, and Comic Books "
 "archives (CBR, CBT, CBZ, CB7)."
 msgstr ""
-"Приложение поддерживает документы в следующих форматах: PDF, PS, EPS, XPS, DjVu, "
-"TIFF и архивы комиксов (CBR, CBT, CBZ, CB7)."
+"Приложение поддерживает документы в следующих форматах: PDF, PS, EPS, XPS, "
+"DjVu, TIFF и архивы комиксов (CBR, CBT, CBZ, CB7)."
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:35
 msgid "A clear, simple UI"
@@ -423,7 +424,7 @@ msgstr "Простой и понятный интерфейс"
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:39
 msgid "Advanced highlighting and annotation"
-msgstr "Расширенное выделение и аннотация"
+msgstr "Расширенное выделение и добавление примечаний"
 
 #: data/org.gnome.Papers-previewer.desktop.in.in:3
 msgid "Print Preview"
@@ -467,6 +468,40 @@ msgstr "Все документы"
 msgid "All Files"
 msgstr "Все файлы"
 
+#. Translate to the default units to use for presenting
+#. * lengths to the user. Translate to default:inch if you
+#. * want inches, otherwise translate to default:mm.
+#. * Do *not* translate it to "predefinito:mm", if it
+#. * it isn't default:mm or default:inch it will not work
+#.
+#: libdocument/pps-document-info.c:212
+msgid "default:mm"
+msgstr "default:mm"
+
+#: libdocument/pps-document-info.c:264
+#, c-format
+msgid "%.0f × %.0f mm"
+msgstr "%.0f × %.0f мм"
+
+#: libdocument/pps-document-info.c:268
+#, c-format
+msgid "%.2f × %.2f inch"
+msgstr "%.2f × %.2f дюймов"
+
+#. Note to translators: first placeholder is the paper name (eg.
+#. * A4), second placeholder is the paper size (eg. 297x210 mm)
+#: libdocument/pps-document-info.c:292
+#, c-format
+msgid "%s, Portrait (%s)"
+msgstr "%s, прямая (%s)"
+
+#. Note to translators: first placeholder is the paper name (eg.
+#. * A4), second placeholder is the paper size (eg. 297x210 mm)
+#: libdocument/pps-document-info.c:299
+#, c-format
+msgid "%s, Landscape (%s)"
+msgstr "%s, повёрнутая (%s)"
+
 #: libdocument/pps-file-helpers.c:157
 #, c-format
 msgid "Failed to create a temporary file: %s"
@@ -481,19 +516,19 @@ msgstr "Не удалось создать временный каталог: %s
 msgid "This work is in the Public Domain"
 msgstr "Эта работа находится в общественном достоянии"
 
-#: libmisc/pps-page-selector.c:88 libmisc/pps-page-selector.c:127
+#: libmisc/pps-page-selector.c:85 libmisc/pps-page-selector.c:124
 #, c-format
 msgid "(%d of %d)"
 msgstr "(%d из %d)"
 
-#: libmisc/pps-page-selector.c:90 libmisc/pps-page-selector.c:131
+#: libmisc/pps-page-selector.c:87 libmisc/pps-page-selector.c:128
 #, c-format
 msgid "of %d"
 msgstr "из %d"
 
-#: libmisc/pps-page-selector.c:205 shell/pps-history.c:454
-#: shell/pps-sidebar-bookmarks.c:349 shell/pps-window.c:808
-#: shell/pps-window.c:4559
+#: libmisc/pps-page-selector.c:199 shell/pps-history.c:454
+#: shell/pps-sidebar-bookmarks.c:349 shell/pps-window.c:803
+#: shell/pps-window.c:4515
 #, c-format
 msgid "Page %s"
 msgstr "Страница %s"
@@ -502,22 +537,22 @@ msgstr "Страница %s"
 msgid "Select page"
 msgstr "Выбрать страницу"
 
-#: libview/pps-jobs.c:727
+#: libview/pps-jobs.c:704
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "Не удалось отобразить страницу %d: %s"
 
-#: libview/pps-jobs.c:734
+#: libview/pps-jobs.c:711
 #, c-format
 msgid "Failed to render page %d"
 msgstr "Не удалось обработать страницу %d"
 
-#: libview/pps-jobs.c:957
+#: libview/pps-jobs.c:932
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "Не удалось создать эскиз для страницы %d"
 
-#: libview/pps-jobs.c:1931
+#: libview/pps-jobs.c:1882
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "Не удалось напечатать страницу %d: %s"
@@ -568,19 +603,19 @@ msgstr "Выбрана неправильная страница"
 msgid "Warning"
 msgstr "Предупреждение"
 
-#: libview/pps-print-operation.c:2680
+#: libview/pps-print-operation.c:2661
 msgid "Page Scaling:"
 msgstr "Масштабирование страницы:"
 
-#: libview/pps-print-operation.c:2687
+#: libview/pps-print-operation.c:2668
 msgid "Shrink to Printable Area"
 msgstr "Урезать до области печати"
 
-#: libview/pps-print-operation.c:2688
+#: libview/pps-print-operation.c:2669
 msgid "Fit to Printable Area"
 msgstr "Уместить в область печати"
 
-#: libview/pps-print-operation.c:2691
+#: libview/pps-print-operation.c:2672
 msgid ""
 "Scale document pages to fit the selected printer page. Select from one of "
 "the following:\n"
@@ -603,11 +638,11 @@ msgstr ""
 "• «Уместить в область печати»: Страницы документа будут увеличены или "
 "уменьшены в соответствии с областью печати страницы принтера.\n"
 
-#: libview/pps-print-operation.c:2703
+#: libview/pps-print-operation.c:2684
 msgid "Auto Rotate and Center"
 msgstr "Автоматическое вращение и центрирование"
 
-#: libview/pps-print-operation.c:2706
+#: libview/pps-print-operation.c:2687
 msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
@@ -615,11 +650,11 @@ msgstr ""
 "Изменять ориентацию страницы принтера в соответствии с каждой страницей "
 "документа. Страницы документа будут центрированы на странице принтера."
 
-#: libview/pps-print-operation.c:2711
+#: libview/pps-print-operation.c:2692
 msgid "Select page size using document page size"
 msgstr "Выбор размера страницы на основе размера страницы документа"
 
-#: libview/pps-print-operation.c:2713
+#: libview/pps-print-operation.c:2694
 msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
@@ -627,15 +662,15 @@ msgstr ""
 "Если включено, то каждая страница будет напечатана с одним размером бумаги, "
 "как у страницы документа."
 
-#: libview/pps-print-operation.c:2718
+#: libview/pps-print-operation.c:2699
 msgid "Draw border around pages"
 msgstr "Рисовать границы страницы"
 
-#: libview/pps-print-operation.c:2720
+#: libview/pps-print-operation.c:2701
 msgid "When enabled, a border will be drawn around each page."
 msgstr "Если включено, то будут отображаться границы каждой страницы."
 
-#: libview/pps-print-operation.c:2814
+#: libview/pps-print-operation.c:2795
 msgid "Page Handling"
 msgstr "Обработка страницы"
 
@@ -659,62 +694,62 @@ msgstr "Прокрутка документа вниз"
 msgid "Document View"
 msgstr "Отображение документа"
 
-#: libview/pps-view.c:2134
+#: libview/pps-view.c:2103
 msgid "Go to first page"
 msgstr "Перейти к первой странице"
 
-#: libview/pps-view.c:2136
+#: libview/pps-view.c:2105
 msgid "Go to previous page"
 msgstr "Перейти к предыдущей странице"
 
-#: libview/pps-view.c:2138
+#: libview/pps-view.c:2107
 msgid "Go to next page"
 msgstr "Перейти к следующей странице"
 
-#: libview/pps-view.c:2140
+#: libview/pps-view.c:2109
 msgid "Go to last page"
 msgstr "Перейти к последней странице"
 
-#: libview/pps-view.c:2142
+#: libview/pps-view.c:2111
 msgid "Go to page"
 msgstr "Перейти к странице"
 
-#: libview/pps-view.c:2144
+#: libview/pps-view.c:2113
 msgid "Find"
 msgstr "Найти"
 
-#: libview/pps-view.c:2173
+#: libview/pps-view.c:2142
 #, c-format
 msgid "Go to page %s"
 msgstr "Перейти к странице %s"
 
-#: libview/pps-view.c:2179
+#: libview/pps-view.c:2148
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Перейти к %s в файле «%s»"
 
-#: libview/pps-view.c:2182
+#: libview/pps-view.c:2151
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Перейти к файлу «%s»"
 
-#: libview/pps-view.c:2190
+#: libview/pps-view.c:2159
 #, c-format
 msgid "Launch %s"
 msgstr "Запустить %s"
 
-#: libview/pps-view.c:2197
+#: libview/pps-view.c:2166
 #, c-format
 msgid "Reset form"
 msgstr "Очистить форму"
 
-#: libview/pps-view-presentation.c:621
-msgid "Jump to page:"
-msgstr "Перейти к странице:"
-
-#: libview/pps-view-presentation.c:836
+#: libview/pps-view-presentation.c:852
 msgid "End of presentation. Press Esc or click to exit."
 msgstr "Конец презентации. Нажмите мышкой или клавишу Esc для выхода."
+
+#: libview/pps-view-presentation.ui:51
+msgid "Jump to page:"
+msgstr "Перейти к странице:"
 
 #: previewer/pps-previewer.c:48
 msgid "Delete the temporary file"
@@ -752,7 +787,7 @@ msgstr "Дескриптор файла настроек печати"
 msgid "GNOME Document Previewer"
 msgstr "Предпросмотрщик документов GNOME"
 
-#: previewer/pps-previewer-window.c:78 shell/pps-window.c:3243
+#: previewer/pps-previewer-window.c:78 shell/pps-window.c:3242
 msgid "Failed to print document"
 msgstr "Не удалось напечатать документ"
 
@@ -773,29 +808,29 @@ msgstr "Предыдущая страница"
 msgid "Next Page"
 msgstr "Следующая страница"
 
-#: previewer/pps-previewer-window.ui:31
-msgid "Select Page or Search in the Outline"
-msgstr "Выбрать страницу или найти в содержании"
+#: previewer/pps-previewer-window.ui:31 shell/pps-window.ui:113
+msgid "Page Count"
+msgstr "Количество страниц"
 
 #: previewer/pps-previewer-window.ui:37
 msgid "_Print"
 msgstr "_Печать"
 
 #: previewer/pps-previewer-window.ui:38
-msgid "Print this Document"
+msgid "Print This Document"
 msgstr "Распечатать документ"
 
 #: previewer/pps-previewer-window.ui:48
-msgid "Shrink the Document"
-msgstr "Сократить размер страницы"
+msgid "Zoom Out"
+msgstr "Уменьшить"
 
 #: previewer/pps-previewer-window.ui:55
-msgid "Reset Zoom and Make the Page Fit in the Window"
-msgstr "Сбросить масштаб и подогнать страницу под размер окна"
+msgid "Normal Size"
+msgstr "Нормальный размер"
 
 #: previewer/pps-previewer-window.ui:62
-msgid "Enlarge the Document"
-msgstr "Увеличить размер страницы"
+msgid "Zoom In"
+msgstr "Увеличить"
 
 #: nautilus/pps-nautilus-extension.c:125
 #: shell/pps-annotation-properties-dialog.c:108
@@ -807,39 +842,104 @@ msgstr "Неизвестно"
 msgid "Document Properties"
 msgstr "Свойства документа"
 
+#: nautilus/pps-nautilus-extension.h:59 shell-rs/src/properties_general.rs:118
+msgid "Title"
+msgstr "Заголовок"
+
+#: nautilus/pps-nautilus-extension.h:60
+msgid "Location"
+msgstr "Местонахождение"
+
+#: nautilus/pps-nautilus-extension.h:61 shell-rs/src/properties_general.rs:119
+msgid "Subject"
+msgstr "Тема"
+
+#: nautilus/pps-nautilus-extension.h:62 shell-rs/src/properties_general.rs:120
+msgid "Author"
+msgstr "Автор"
+
+#: nautilus/pps-nautilus-extension.h:63 shell-rs/src/properties_general.rs:121
+msgid "Keywords"
+msgstr "Ключевые слова"
+
+#: nautilus/pps-nautilus-extension.h:64 shell-rs/src/properties_general.rs:122
+msgid "Producer"
+msgstr "Производитель"
+
+#: nautilus/pps-nautilus-extension.h:65 shell-rs/src/properties_general.rs:123
+msgid "Creator"
+msgstr "Создатель"
+
+#: nautilus/pps-nautilus-extension.h:66 shell-rs/src/properties_general.rs:130
+msgid "Created"
+msgstr "Создано"
+
+#: nautilus/pps-nautilus-extension.h:67 shell-rs/src/properties_general.rs:131
+msgid "Modified"
+msgstr "Изменено"
+
+#: nautilus/pps-nautilus-extension.h:68 shell-rs/src/properties_general.rs:139
+msgid "Number of Pages"
+msgstr "Число страниц"
+
+#: nautilus/pps-nautilus-extension.h:69 shell-rs/src/properties_general.rs:140
+msgid "Optimized"
+msgstr "Оптимизировано"
+
+#: nautilus/pps-nautilus-extension.h:70 shell-rs/src/properties_general.rs:136
+#: shell-rs/src/properties_general.rs:138
+msgid "Format"
+msgstr "Формат"
+
+#: nautilus/pps-nautilus-extension.h:71 shell-rs/src/properties_general.rs:141
+msgid "Security"
+msgstr "Безопасность"
+
+#: nautilus/pps-nautilus-extension.h:72 shell-rs/src/properties_general.rs:150
+msgid "Contains Javascript"
+msgstr "Содержит Javascript"
+
+#: nautilus/pps-nautilus-extension.h:73 shell-rs/src/properties_general.rs:142
+msgid "Paper Size"
+msgstr "Размер страницы"
+
+#: nautilus/pps-nautilus-extension.h:74 shell-rs/src/properties_general.rs:108
+msgid "Size"
+msgstr "Размер"
+
 #: shell/help-overlay.ui:11
 msgctxt "shortcut window"
-msgid "Opening, closing, saving and printing"
+msgid "Opening, Closing, Saving and Printing"
 msgstr "Открытие, закрытие, сохранение и печать"
 
 #: shell/help-overlay.ui:14
 msgctxt "shortcut window"
-msgid "Open a document"
+msgid "Open Document"
 msgstr "Открыть документ"
 
 #: shell/help-overlay.ui:20
 msgctxt "shortcut window"
-msgid "Open a copy of the current document"
+msgid "Open Copy of Current Document"
 msgstr "Открыть копию текущего документа"
 
 #: shell/help-overlay.ui:26
 msgctxt "shortcut window"
-msgid "Save a copy of the current document"
+msgid "Save Copy of Current Document"
 msgstr "Сохранить копию текущего документа"
 
 #: shell/help-overlay.ui:32
 msgctxt "shortcut window"
-msgid "Print the current document"
+msgid "Print Current Document"
 msgstr "Распечатать текущий документ"
 
 #: shell/help-overlay.ui:38
 msgctxt "shortcut window"
-msgid "Close the current document window"
+msgid "Close Current Document Window"
 msgstr "Закрыть окно текущего документа"
 
 #: shell/help-overlay.ui:44
 msgctxt "shortcut window"
-msgid "Reload the document"
+msgid "Reload Document"
 msgstr "Обновить документ"
 
 #: shell/help-overlay.ui:52
@@ -849,223 +949,223 @@ msgstr "Окно"
 
 #: shell/help-overlay.ui:55
 msgctxt "shortcut window"
-msgid "Toggle fullscreen"
-msgstr "Переключить полноэкранный режим"
+msgid "Fullscreen"
+msgstr "Полноэкранный режим"
 
 #: shell/help-overlay.ui:61
 msgctxt "shortcut window"
-msgid "Enter presentation mode"
+msgid "Enter Presentation Mode"
 msgstr "Войти в режим презентации"
 
 #: shell/help-overlay.ui:67
 msgctxt "shortcut window"
-msgid "Toggle sidebar"
-msgstr "Переключить боковую панель"
+msgid "Side Pane"
+msgstr "Боковая панель"
 
 #: shell/help-overlay.ui:73
 msgctxt "shortcut window"
-msgid "Toggle caret navigation"
-msgstr "Переключить курсорную навигацию"
+msgid "Caret Navigation"
+msgstr "Курсорная навигация"
 
 #: shell/help-overlay.ui:81
 msgctxt "shortcut window"
-msgid "Selecting and copying text"
+msgid "Selecting and Copying Text"
 msgstr "Выделение и копирование текста"
 
 #: shell/help-overlay.ui:84
 msgctxt "shortcut window"
-msgid "Copy highlighted text"
-msgstr "Копировать выделенный текст"
+msgid "Copy"
+msgstr "Копировать"
 
 #: shell/help-overlay.ui:90
 msgctxt "shortcut window"
-msgid "Select all the text in a document"
-msgstr "Выбрать весь текст в документе"
+msgid "Select All"
+msgstr "Выделить всё"
 
 #: shell/help-overlay.ui:98
 msgctxt "shortcut window"
-msgid "Rotating and zooming"
+msgid "Rotating and Zooming"
 msgstr "Поворот и масштабирование"
 
 #: shell/help-overlay.ui:101
 msgctxt "shortcut window"
-msgid "Rotate the page 90 degrees counter-clockwise"
+msgid "Rotate Page 90 Degrees Counter-Clockwise"
 msgstr "Повернуть страницу на 90 градусов против часовой стрелки"
 
 #: shell/help-overlay.ui:107
 msgctxt "shortcut window"
-msgid "Rotate the page 90 degrees clockwise"
+msgid "Rotate Page 90 Degrees Clockwise"
 msgstr "Повернуть страницу на 90 градусов по часовой стрелке"
 
 #: shell/help-overlay.ui:113 shell/help-overlay.ui:377
 msgctxt "shortcut window"
-msgid "Zoom in"
+msgid "Zoom In"
 msgstr "Увеличить"
 
 #: shell/help-overlay.ui:119 shell/help-overlay.ui:383
 msgctxt "shortcut window"
-msgid "Zoom out"
+msgid "Zoom Out"
 msgstr "Уменьшить"
 
 #: shell/help-overlay.ui:125
 msgctxt "shortcut window"
-msgid "Zoom 1∶1"
-msgstr "Масштаб 1:1"
+msgid "Normal Size"
+msgstr "Нормальный размер"
 
 #: shell/help-overlay.ui:131
 msgctxt "shortcut window"
-msgid "Zoom in (alternative)"
+msgid "Zoom In (Alternative)"
 msgstr "Увеличить (альтернативно)"
 
 #: shell/help-overlay.ui:137
 msgctxt "shortcut window"
-msgid "Fit page"
+msgid "Fit Page"
 msgstr "По размеру страницы"
 
 #: shell/help-overlay.ui:143
 msgctxt "shortcut window"
-msgid "Fit width"
+msgid "Fit Width"
 msgstr "По ширине страницы"
 
 #: shell/help-overlay.ui:149
 msgctxt "shortcut window"
-msgid "Automatic zoom"
+msgid "Automatic Zoom"
 msgstr "Автомасштаб"
 
 #: shell/help-overlay.ui:157
 msgctxt "shortcut window"
-msgid "Moving around the document"
+msgid "Moving Around Document"
 msgstr "Перемещение по документу"
 
 #: shell/help-overlay.ui:160 shell/help-overlay.ui:166
 msgctxt "shortcut window"
-msgid "Move around a page"
+msgid "Move Around Page"
 msgstr "Перемещение по странице"
 
 #: shell/help-overlay.ui:172
 msgctxt "shortcut window"
-msgid "Move up/down a page several lines at a time"
+msgid "Move Up/Down Page Several Lines"
 msgstr "Перемещение по странице вверх/вниз на несколько строк за раз"
 
 #: shell/help-overlay.ui:178 shell/help-overlay.ui:395
 msgctxt "shortcut window"
-msgid "Go to previous page"
-msgstr "Перейти к предыдущей странице"
+msgid "Previous Page"
+msgstr "Предыдущая страница"
 
 #: shell/help-overlay.ui:184 shell/help-overlay.ui:389
 msgctxt "shortcut window"
-msgid "Go to next page"
-msgstr "Перейти к следующей странице"
+msgid "Next Page"
+msgstr "Следующая страница"
 
 #: shell/help-overlay.ui:190
 msgctxt "shortcut window"
-msgid "Go to page number"
+msgid "Go to Page Number"
 msgstr "Перейти к определённой странице"
 
 #: shell/help-overlay.ui:196
 msgctxt "shortcut window"
-msgid "Go to previous page (fast)"
-msgstr "Перейти к предыдущей странице (быстро)"
+msgid "Previous Page (Fast)"
+msgstr "Предыдущая страница (Быстро)"
 
 #: shell/help-overlay.ui:202
 msgctxt "shortcut window"
-msgid "Go to next page (fast)"
-msgstr "Перейти к следующей странице (быстро)"
+msgid "Next Page (Fast)"
+msgstr "Следующая страница(Быстро)"
 
 #: shell/help-overlay.ui:208
 msgctxt "shortcut window"
-msgid "Go to previous page visited"
-msgstr "Перейти к предыдущей посещённой странице"
+msgid "Previous Visited Page"
+msgstr "Предыдущая посещенная страница"
 
 #: shell/help-overlay.ui:214
 msgctxt "shortcut window"
-msgid "Go to next page visited"
-msgstr "Перейти к следующей посещённой странице"
+msgid "Next Visited Page"
+msgstr "Следующая посещенная страница"
 
 #: shell/help-overlay.ui:220
 msgctxt "shortcut window"
-msgid "Go to the beginning/end of a page"
+msgid "Go to Page Beginning/End"
 msgstr "Перейти к началу/концу страницы"
 
 #: shell/help-overlay.ui:226
 msgctxt "shortcut window"
-msgid "Go to the beginning of the document"
+msgid "Go to Document Start"
 msgstr "Перейти к началу документа"
 
 #: shell/help-overlay.ui:232
 msgctxt "shortcut window"
-msgid "Go to the end of the document"
-msgstr "Перейти к концу документа"
+msgid "Go to Document End"
+msgstr "Перейти в конец документа"
 
 #: shell/help-overlay.ui:240
 msgctxt "shortcut window"
-msgid "Document view and handling"
+msgid "Document View and Handling"
 msgstr "Просмотр и обработка документов"
 
 #: shell/help-overlay.ui:243
 msgctxt "shortcut window"
-msgid "Add bookmark"
+msgid "Add Bookmark"
 msgstr "Добавить закладку"
 
 #: shell/help-overlay.ui:249
 msgctxt "shortcut window"
-msgid "Remove bookmark"
+msgid "Remove Bookmark"
 msgstr "Удалить закладку"
 
 #: shell/help-overlay.ui:255
 msgctxt "shortcut window"
-msgid "Toggle night mode"
-msgstr "Переключить ночной режим"
+msgid "Night Mode"
+msgstr "Ночной режим"
 
 #: shell/help-overlay.ui:261
 msgctxt "shortcut window"
-msgid "Toggle continuous scrolling"
-msgstr "Переключить непрерывную прокрутку"
+msgid "Continuous Scrolling"
+msgstr "Непрерывная прокрутка"
 
 #: shell/help-overlay.ui:267
 msgctxt "shortcut window"
-msgid "Toggle dual page"
-msgstr "Переключить двойную страницу"
+msgid "Dual Page"
+msgstr "Две страницы"
 
 #: shell/help-overlay.ui:273
 msgctxt "shortcut window"
-msgid "Toggle odd pages left"
-msgstr "Переключить нечетные страницы влево"
+msgid "Odd Pages Left"
+msgstr "Нечётные страницы слева"
 
 #: shell/help-overlay.ui:279
 msgctxt "shortcut window"
-msgid "Document properties"
+msgid "Document Properties"
 msgstr "Свойства документа"
 
 #: shell/help-overlay.ui:285
 msgctxt "shortcut window"
-msgid "Add a post-it like note"
-msgstr "Добавить примечание в виде заметки на стикере"
+msgid "Add Note"
+msgstr "Добавить примечание"
 
 #: shell/help-overlay.ui:291
 msgctxt "shortcut window"
-msgid "Highlight text"
-msgstr "Подсветить текст"
+msgid "Highlight Text"
+msgstr "Выделить текст"
 
 #: shell/help-overlay.ui:299
 msgctxt "shortcut window"
-msgid "Finding text"
+msgid "Finding Text"
 msgstr "Поиск текста"
 
 #: shell/help-overlay.ui:302
 msgctxt "shortcut window"
-msgid "Show the search bar"
-msgstr "Показывать панель поиска"
+msgid "Find"
+msgstr "Найти"
 
 #: shell/help-overlay.ui:308
 msgctxt "shortcut window"
-msgid "Go to the next search result"
-msgstr "Перейти к следующему результату поиска"
+msgid "Find Next"
+msgstr "Найти следующее"
 
 #: shell/help-overlay.ui:314
 msgctxt "shortcut window"
-msgid "Go to the previous search result"
-msgstr "Перейти к предыдущему результату поиска"
+msgid "Find Previous"
+msgstr "Найти предыдущее"
 
 #: shell/help-overlay.ui:322
 msgctxt "shortcut window"
@@ -1074,47 +1174,47 @@ msgstr "Общие"
 
 #: shell/help-overlay.ui:325
 msgctxt "shortcut window"
-msgid "Show help"
-msgstr "Показать справку"
+msgid "Help"
+msgstr "Справка"
 
 #: shell/help-overlay.ui:331
 msgctxt "shortcut window"
-msgid "Toggle primary menu"
-msgstr "Переключить основное меню"
+msgid "Menu"
+msgstr "Меню"
 
 #: shell/help-overlay.ui:337
 msgctxt "shortcut window"
-msgid "Keyboard shortcuts"
+msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
 #: shell/help-overlay.ui:343
 msgctxt "shortcut window"
-msgid "Open new window"
-msgstr "Открыть новое окно."
+msgid "New Window"
+msgstr "Создать окно"
 
 #: shell/help-overlay.ui:349
 msgctxt "shortcut window"
-msgid "Close window"
+msgid "Close Window"
 msgstr "Закрыть окно"
 
 #: shell/help-overlay.ui:357
 msgctxt "shortcut window"
-msgid "Presentation mode"
+msgid "Presentation Mode"
 msgstr "Режим презентации"
 
 #: shell/help-overlay.ui:360
 msgctxt "shortcut window"
-msgid "Toggle black screen"
-msgstr "Переключить чёрный экран"
+msgid "Black Screen"
+msgstr "Чёрный экран"
 
 #: shell/help-overlay.ui:366
 msgctxt "shortcut window"
-msgid "Toggle white screen"
-msgstr "Переключить белый экран"
+msgid "White Screen"
+msgstr "Белый экран"
 
 #: shell/help-overlay.ui:374
 msgctxt "shortcut window"
-msgid "Touchpad gestures"
+msgid "Touchpad Gestures"
 msgstr "Жесты сенсорной панели"
 
 #: shell/pps-annotation-properties-dialog.c:94
@@ -1178,6 +1278,7 @@ msgid "Squiggly"
 msgstr "Исказить"
 
 #: shell/pps-annotation-properties-dialog.c:148
+#: shell/pps-sidebar-annotations.ui:60
 msgid "Annotation Properties"
 msgstr "Свойства примечания"
 
@@ -1226,11 +1327,7 @@ msgstr "Выделить текст"
 msgid "© 1996–2024 The Papers authors"
 msgstr "© 1996-2024 Авторы просмотрщика документов"
 
-#: shell/pps-application.c:704
-msgid "Papers is a simple document viewer for GNOME"
-msgstr "Приложение для просмотра документов для GNOME"
-
-#: shell/pps-application.c:707
+#: shell/pps-application.c:706
 msgid "translator-credits"
 msgstr ""
 "Станислав Соловей <whats_up@tut.by>, 2013-2019.\n"
@@ -1238,51 +1335,51 @@ msgstr ""
 "Alexey Rubtsov <rushills@gmail.com>, 2021\n"
 "Aleksandr Melman"
 
-#: shell/pps-application.c:1038
+#: shell/pps-application.c:1032
 msgid "The page label of the document to display."
 msgstr "Открыть документ на указанном ярлыке."
 
-#: shell/pps-application.c:1038
+#: shell/pps-application.c:1032
 msgid "PAGE"
 msgstr "СТРАНИЦА"
 
-#: shell/pps-application.c:1039
+#: shell/pps-application.c:1033
 msgid "The page number of the document to display."
 msgstr "Открыть документ на указанной странице."
 
-#: shell/pps-application.c:1039
+#: shell/pps-application.c:1033
 msgid "NUMBER"
 msgstr "НОМЕР"
 
-#: shell/pps-application.c:1040
+#: shell/pps-application.c:1034
 msgid "Named destination to display."
 msgstr "Открыть именованное назначение."
 
-#: shell/pps-application.c:1040
+#: shell/pps-application.c:1034
 msgid "DEST"
 msgstr "НАЗНАЧЕНИЕ"
 
-#: shell/pps-application.c:1041
+#: shell/pps-application.c:1035
 msgid "Run papers in fullscreen mode."
 msgstr "Запустить приложение в полноэкранном режиме."
 
-#: shell/pps-application.c:1042
+#: shell/pps-application.c:1036
 msgid "Run papers in presentation mode."
 msgstr "Запустить приложение в режиме презентации."
 
-#: shell/pps-application.c:1043
+#: shell/pps-application.c:1037
 msgid "The word or phrase to find in the document."
 msgstr "Слово или фраза, которые надо найти в документе."
 
-#: shell/pps-application.c:1043
+#: shell/pps-application.c:1037
 msgid "STRING"
 msgstr "СТРОКА"
 
-#: shell/pps-application.c:1044
+#: shell/pps-application.c:1038
 msgid "Show the version of the program."
 msgstr "Показать версию приложения."
 
-#: shell/pps-application.c:1045
+#: shell/pps-application.c:1039
 msgid "[FILE…]"
 msgstr "[ФАЙЛ…]"
 
@@ -1303,8 +1400,8 @@ msgid "Password Required"
 msgstr "Требуется пароль"
 
 #: shell/pps-password-view.c:212 shell/pps-sidebar-attachments.c:209
-#: shell/pps-window.c:2570 shell/pps-window.c:2853 shell/pps-window.c:3665
-#: shell/pps-window.c:6241 shell/pps-window.c:6482
+#: shell/pps-window.c:2571 shell/pps-window.c:2854 shell/pps-window.c:3662
+#: shell/pps-window.c:6154 shell/pps-window.c:6395
 msgid "_Cancel"
 msgstr "_Отменить"
 
@@ -1316,15 +1413,19 @@ msgstr "_Разблокировать"
 msgid "Password"
 msgstr "Пароль"
 
-#: shell/pps-password-view.c:246
+#: shell/pps-password-view.c:236
+msgid "Invalid password"
+msgstr "Неправильный пароль"
+
+#: shell/pps-password-view.c:255
 msgid "Forget password _immediately"
 msgstr "_Немедленно забыть пароль"
 
-#: shell/pps-password-view.c:257
+#: shell/pps-password-view.c:266
 msgid "Remember password until you _log out"
 msgstr "Запомнить пароль для этого _сеанса"
 
-#: shell/pps-password-view.c:269
+#: shell/pps-password-view.c:278
 msgid "Remember _forever"
 msgstr "Запомнить _навсегда"
 
@@ -1350,6 +1451,42 @@ msgstr "Текст лицензии"
 msgid "Further Information"
 msgstr "Дополнительная информация"
 
+#: shell/pps-properties-window.ui:7
+msgid "Properties"
+msgstr "Свойства"
+
+#: shell/pps-properties-window.ui:28
+msgid "Document"
+msgstr "Документ"
+
+#: shell/pps-properties-window.ui:42
+msgid "Fonts"
+msgstr "Шрифты"
+
+#: shell/pps-properties-window.ui:52
+msgid "License"
+msgstr "Лицензия"
+
+#: shell/pps-search-box.ui:25
+msgid "Find Previous"
+msgstr "Найти предыдущее"
+
+#: shell/pps-search-box.ui:33
+msgid "Find Next"
+msgstr "Найти следующее"
+
+#: shell/pps-search-box.ui:42
+msgid "Search Options"
+msgstr "Параметры поиска"
+
+#: shell/pps-search-box.ui:51
+msgid "_Whole Words Only"
+msgstr "Только _целые слова"
+
+#: shell/pps-search-box.ui:55
+msgid "C_ase Sensitive"
+msgstr "Учитывать _регистр"
+
 #: shell/pps-sidebar-annotations.c:248
 #, c-format
 msgid "Page %d"
@@ -1358,6 +1495,24 @@ msgstr "Страница %d"
 #: shell/pps-sidebar-annotations.c:285
 msgid "No Comment"
 msgstr "Нет комментариев"
+
+#: shell/pps-sidebar-annotations.ui:14
+msgid "No Annotations"
+msgstr "Нет примечаний"
+
+#: shell/pps-sidebar-annotations.ui:65
+msgid "Remove Annotation"
+msgstr "Удалить примечание"
+
+#: shell/pps-sidebar-annotations.ui:70 shell/pps-window.ui:646
+#: shell/pps-window.ui:679
+msgid "_Open Attachment"
+msgstr "_Открыть вложение"
+
+#: shell/pps-sidebar-annotations.ui:75 shell/pps-window.ui:651
+#: shell/pps-window.ui:683
+msgid "_Save Attachment As…"
+msgstr "_Сохранить вложение как…"
 
 #: shell/pps-sidebar-attachments.c:200
 #, c-format
@@ -1376,11 +1531,11 @@ msgid "_Replace"
 msgstr "_Заменить"
 
 #: shell/pps-sidebar-bookmarks.ui:61
-msgid "Add bookmark"
+msgid "Add Bookmark"
 msgstr "Добавить закладку"
 
 #: shell/pps-sidebar-bookmarks.ui:70
-msgid "Remove bookmark"
+msgid "Remove Bookmark"
 msgstr "Удалить закладку"
 
 #: shell/pps-sidebar-bookmarks.ui:96
@@ -1395,107 +1550,131 @@ msgstr "Пе_реименовать закладку"
 msgid "_Delete Bookmark"
 msgstr "_Удалить закладку"
 
-#: shell/pps-sidebar-layers.c:119 shell/pps-sidebar-links.c:982
+#: shell/pps-sidebar-links.c:968 shell/pps-window.ui:325
 msgid "Loading…"
 msgstr "Загрузка…"
+
+#: shell/pps-sidebar-links.ui:87
+msgid "Search in the outline…"
+msgstr "Поиск в содержании…"
+
+#: shell/pps-sidebar-links.ui:91
+msgid "Collapse all tree"
+msgstr "Свернуть всё дерево"
+
+#: shell/pps-sidebar-links.ui:95
+msgid "Expand all tree"
+msgstr "Развернуть всё дерево"
+
+#: shell/pps-sidebar-links.ui:99
+msgid "Expand all under this element"
+msgstr "Развернуть всё под этим элементом"
+
+#: shell/pps-sidebar-links.ui:105
+msgid "Print this section…"
+msgstr "Распечатать этот раздел…"
+
+#: shell/pps-sidebar-thumbnails.ui:31
+msgid "Previews"
+msgstr "Предпросмотры"
 
 #: shell/pps-utils.c:82
 msgid "Supported Image Files"
 msgstr "Поддерживаемые файлы изображений"
 
-#: shell/pps-window.c:1503
+#: shell/pps-window.c:1501
 msgid "The document contains no pages"
 msgstr "Документ не содержит страниц"
 
-#: shell/pps-window.c:1506
+#: shell/pps-window.c:1504
 msgid "The document contains only empty pages"
 msgstr "Документ содержит только пустые страницы"
 
-#: shell/pps-window.c:1866
+#: shell/pps-window.c:1867
 #, c-format
 msgid "Loading document from “%s”"
 msgstr "Загрузка документа из «%s»"
 
-#: shell/pps-window.c:1871 shell/pps-window.c:2323 shell/pps-window.c:2652
-#: shell/pps-window.c:3307 shell/pps-window.c:3554
+#: shell/pps-window.c:1872 shell/pps-window.c:2324 shell/pps-window.c:2653
+#: shell/pps-window.c:3306 shell/pps-window.c:3551
 msgid "C_ancel"
 msgstr "О_тменить"
 
-#: shell/pps-window.c:1901
+#: shell/pps-window.c:1902
 #, c-format
 msgid "Unable to open document “%s”."
 msgstr "Не удалось открыть документ «%s»."
 
-#: shell/pps-window.c:2021 shell/pps-window.c:2375
+#: shell/pps-window.c:2022 shell/pps-window.c:2376
 #, c-format
 msgid "Downloading document (%d%%)"
 msgstr "Загрузка документа (%d%%)"
 
-#: shell/pps-window.c:2053
+#: shell/pps-window.c:2054
 msgid "Failed to load remote file."
 msgstr "Не удалось загрузить файл извне."
 
-#: shell/pps-window.c:2318
+#: shell/pps-window.c:2319
 #, c-format
 msgid "Reloading document from %s"
 msgstr "Обновление документа из %s"
 
-#: shell/pps-window.c:2350
+#: shell/pps-window.c:2351
 msgid "Failed to reload document."
 msgstr "Не удалось обновить документ."
 
-#: shell/pps-window.c:2566
+#: shell/pps-window.c:2567
 msgid "Open Document"
 msgstr "Открыть документ"
 
-#: shell/pps-window.c:2569
+#: shell/pps-window.c:2570
 msgid "_Open"
 msgstr "_Открыть"
 
-#: shell/pps-window.c:2638
+#: shell/pps-window.c:2639
 #, c-format
 msgid "Saving document to %s"
 msgstr "Сохранение документа в %s"
 
-#: shell/pps-window.c:2641
+#: shell/pps-window.c:2642
 #, c-format
 msgid "Saving attachment to %s"
 msgstr "Сохранение вложения в %s"
 
-#: shell/pps-window.c:2644
+#: shell/pps-window.c:2645
 #, c-format
 msgid "Saving image to %s"
 msgstr "Сохранение изображения в %s"
 
-#: shell/pps-window.c:2684 shell/pps-window.c:2789
+#: shell/pps-window.c:2685 shell/pps-window.c:2790
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Документ не может быть сохранён в файле «%s»."
 
-#: shell/pps-window.c:2716
+#: shell/pps-window.c:2717
 #, c-format
 msgid "Uploading document (%d%%)"
 msgstr "Сохранение удалённого документа (%d%%)"
 
-#: shell/pps-window.c:2720
+#: shell/pps-window.c:2721
 #, c-format
 msgid "Uploading attachment (%d%%)"
 msgstr "Сохранение удалённого приложения (%d%%)"
 
-#: shell/pps-window.c:2724
+#: shell/pps-window.c:2725
 #, c-format
 msgid "Uploading image (%d%%)"
 msgstr "Сохранение удалённого изображения (%d%%)"
 
-#: shell/pps-window.c:2850
+#: shell/pps-window.c:2851
 msgid "Save As…"
 msgstr "Сохранить как…"
 
-#: shell/pps-window.c:2852 shell/pps-window.c:6240 shell/pps-window.c:6481
+#: shell/pps-window.c:2853 shell/pps-window.c:6153 shell/pps-window.c:6394
 msgid "_Save"
 msgstr "_Сохранить"
 
-#: shell/pps-window.c:3194
+#: shell/pps-window.c:3193
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
@@ -1503,54 +1682,54 @@ msgstr[0] "%d задание ожидает в очереди"
 msgstr[1] "%d задания ожидают в очереди"
 msgstr[2] "%d заданий ожидает в очереди"
 
-#: shell/pps-window.c:3303
+#: shell/pps-window.c:3302
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Печать задания «%s»"
 
-#: shell/pps-window.c:3520
+#: shell/pps-window.c:3517
 msgid "Document contains form fields that have been filled out."
 msgstr "Документ содержит поля форм, которые были заполнены."
 
-#: shell/pps-window.c:3523
+#: shell/pps-window.c:3520
 msgid "Document contains new or modified annotations."
 msgstr "Документ содержит новые или изменённые примечания."
 
-#: shell/pps-window.c:3535
+#: shell/pps-window.c:3532
 #, c-format
 msgid "Reload document “%s”?"
 msgstr "Перезагрузить документ «%s»?"
 
-#: shell/pps-window.c:3537
+#: shell/pps-window.c:3534
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "Если вы перезагрузите документ, изменения будут потеряны."
 
-#: shell/pps-window.c:3539
+#: shell/pps-window.c:3536
 msgid "_No"
 msgstr "_Нет"
 
-#: shell/pps-window.c:3541
+#: shell/pps-window.c:3538 shell/pps-window.ui:618
 msgid "_Reload"
 msgstr "_Обновить"
 
-#: shell/pps-window.c:3548
+#: shell/pps-window.c:3545
 #, c-format
 msgid "Save a copy of document “%s” before closing?"
 msgstr "Сохранить копию документа «%s» перед закрытием?"
 
-#: shell/pps-window.c:3550
+#: shell/pps-window.c:3547
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "Если вы не сохраните копию, изменения будут потеряны."
 
-#: shell/pps-window.c:3552
+#: shell/pps-window.c:3549
 msgid "Close _without Saving"
 msgstr "Закрыть _без сохранения"
 
-#: shell/pps-window.c:3556
+#: shell/pps-window.c:3553
 msgid "Save a _Copy"
 msgstr "Сохранить _копию"
 
-#: shell/pps-window.c:3638
+#: shell/pps-window.c:3635
 #, c-format
 msgid "Wait until print job “%s” finishes before closing?"
 msgstr "Ожидать завершения задания на печать «%s» перед закрытием?"
@@ -1558,7 +1737,7 @@ msgstr "Ожидать завершения задания на печать «%
 #. TRANS: the singular form is not really used as n_print_jobs > 1
 #. but some languages distinguish between different plurals forms,
 #. so the ngettext is needed.
-#: shell/pps-window.c:3644
+#: shell/pps-window.c:3641
 #, c-format
 msgid "There is %d print job active. Wait until print finishes before closing?"
 msgid_plural ""
@@ -1573,45 +1752,45 @@ msgstr[2] ""
 "Имеется %d активных заданий для печати. Подождать их завершения перед "
 "закрытием?"
 
-#: shell/pps-window.c:3659
+#: shell/pps-window.c:3656
 msgid "If you close the window, pending print jobs will not be printed."
 msgstr ""
 "Если вы закроете окно, задания на печать, поставленные в очередь, не будут "
 "выполнены."
 
-#: shell/pps-window.c:3663
+#: shell/pps-window.c:3660
 msgid "Cancel _print and Close"
 msgstr "Отменить _печать и закрыть"
 
-#: shell/pps-window.c:3667
+#: shell/pps-window.c:3664
 msgid "Close _after Printing"
 msgstr "Закрыть п_осле печати"
 
-#: shell/pps-window.c:4165
+#: shell/pps-window.c:4121
 msgid "Running in presentation mode"
 msgstr "Запущен режим презентации"
 
-#: shell/pps-window.c:4893
-msgid "Find a word or phrase in the document"
-msgstr "Найти слово или фразу в документе"
+#: shell/pps-window.c:4843
+msgid "Search"
+msgstr "Поиск"
 
-#: shell/pps-window.c:4897
-msgid "Search not available for this document"
-msgstr "Поиск недоступен для этого документа"
+#: shell/pps-window.c:4847
+msgid "Search Unavailable"
+msgstr "Поиск недоступен"
 
-#: shell/pps-window.c:5120
+#: shell/pps-window.c:5070
 msgid "The attachment could not be saved."
 msgstr "Не удалось сохранить вложение."
 
-#: shell/pps-window.c:5407
+#: shell/pps-window.c:5345
 msgid "Enable caret navigation?"
 msgstr "Включить курсорную навигацию?"
 
-#: shell/pps-window.c:5408
+#: shell/pps-window.c:5346
 msgid "_Enable"
 msgstr "_Включить"
 
-#: shell/pps-window.c:5411
+#: shell/pps-window.c:5349
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1621,47 +1800,227 @@ msgstr ""
 "позволяет перемещать курсор на текстовых страницах и выделять текст с "
 "помощью клавиатуры. Включить курсорную навигацию?"
 
-#: shell/pps-window.c:5416
+#: shell/pps-window.c:5354
 msgid "Don’t show this message again"
 msgstr "Не показывать больше это сообщение"
 
-#: shell/pps-window.c:5881
+#: shell/pps-window.c:5794
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
 msgstr "Оповещение безопасности: остановлено открытие документом файла “%s”"
 
-#: shell/pps-window.c:5942
+#: shell/pps-window.c:5855
 msgid "Unable to open external link"
 msgstr "Не удалось открыть внешнюю ссылку"
 
-#: shell/pps-window.c:6168
+#: shell/pps-window.c:6081
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Не удалось найти подходящий формат для сохранения изображения"
 
-#: shell/pps-window.c:6201
+#: shell/pps-window.c:6114
 msgid "The image could not be saved."
 msgstr "Не удалось сохранить изображение."
 
-#: shell/pps-window.c:6237
+#: shell/pps-window.c:6150
 msgid "Save Image"
 msgstr "Сохранить изображение"
 
-#: shell/pps-window.c:6412
+#: shell/pps-window.c:6325
 msgid "Unable to open attachment"
 msgstr "Не удалось открыть вложение"
 
-#: shell/pps-window.c:6478
+#: shell/pps-window.c:6391
 msgid "Save Attachment"
 msgstr "Сохранить вложение"
 
+#: shell/pps-window.ui:41
+msgid "Drag and drop documents here"
+msgstr "Перетащите документы сюда"
+
+#: shell/pps-window.ui:46
+msgid "_Open…"
+msgstr "_Открыть…"
+
+#: shell/pps-window.ui:48
+msgid "Open a Document"
+msgstr "Открыть документ"
+
+#: shell/pps-window.ui:72
+msgid "Unable to Open Document"
+msgstr "Не удалось открыть документ"
+
+#: shell/pps-window.ui:77
+msgid "_Open Other File…"
+msgstr "_Открыть другой файл…"
+
+#: shell/pps-window.ui:108
+msgid "Toggle Sidebar"
+msgstr "Переключить боковую панель"
+
+#: shell/pps-window.ui:120
+msgid "Annotate"
+msgstr "Добавить примечание"
+
+#: shell/pps-window.ui:122
+msgid "Annotate document"
+msgstr "Добавить примечание к документу"
+
+#: shell/pps-window.ui:129
+msgid "Main Menu"
+msgstr "Главное меню"
+
+#: shell/pps-window.ui:182
+msgid "Search in document"
+msgstr "Поиск в документе"
+
+#: shell/pps-window.ui:205
+msgid "Thumbnails"
+msgstr "Эскизы"
+
+#: shell/pps-window.ui:217
+msgid "Outline"
+msgstr "Схема"
+
+#: shell/pps-window.ui:231
+msgid "Annotations"
+msgstr "Примечания"
+
+#: shell/pps-window.ui:245
+msgid "Bookmarks"
+msgstr "Закладки"
+
+#: shell/pps-window.ui:257
+msgid "Attachments"
+msgstr "Вложения"
+
+#: shell/pps-window.ui:272
+msgid "Layers"
+msgstr "Слои"
+
+#: shell/pps-window.ui:487
+msgid "New _Window"
+msgstr "_Создать окно"
+
+#: shell/pps-window.ui:491
+msgid "Open a C_opy"
+msgstr "Открыть _копию"
+
+#: shell/pps-window.ui:497
+msgid "_Save As…"
+msgstr "Сохранить _как…"
+
+#: shell/pps-window.ui:503
+msgid "_Continuous"
+msgstr "_Непрерывно"
+
+#: shell/pps-window.ui:507
+msgid "_Dual"
+msgstr "_Две страницы"
+
+#: shell/pps-window.ui:511
+msgid "_Odd Pages Left"
+msgstr "_Нечётные страницы слева"
+
+#: shell/pps-window.ui:515
+msgid "Right to Left Document"
+msgstr "Документ справа на лево"
+
+#: shell/pps-window.ui:521
+msgid "Ro_tate ⤵"
+msgstr "Поверн_уть ⤵"
+
+#: shell/pps-window.ui:527
+msgid "Ni_ght Mode"
+msgstr "_Ночной режим"
+
+#: shell/pps-window.ui:533
+msgid "Prop_erties"
+msgstr "_Свойства"
+
+#: shell/pps-window.ui:539
+msgid "_Keyboard Shortcuts"
+msgstr "_Комбинации клавиш"
+
+#: shell/pps-window.ui:543
+msgid "_Help"
+msgstr "_Справка"
+
+#: shell/pps-window.ui:547
+msgid "_About Papers"
+msgstr "_О приложении"
+
+#: shell/pps-window.ui:562
+msgid "Print…"
+msgstr "Печать…"
+
+#: shell/pps-window.ui:569
+msgid "Fullscreen"
+msgstr "Полноэкранный режим"
+
+#: shell/pps-window.ui:576
+msgid "Present as Slideshow"
+msgstr "Показать как слайд-шоу"
+
+#: shell/pps-window.ui:588
+msgid "_Open Link"
+msgstr "_Открыть ссылку"
+
+#: shell/pps-window.ui:593
+msgid "_Copy Link Address"
+msgstr "_Скопировать адрес ссылки"
+
+#: shell/pps-window.ui:598
+msgid "_Go To"
+msgstr "_Перейти"
+
+#: shell/pps-window.ui:603
+msgid "Open in New _Window"
+msgstr "Открыть в _новом окне"
+
+#: shell/pps-window.ui:610
+msgid "_Previous Page"
+msgstr "_Назад"
+
+#: shell/pps-window.ui:614
+msgid "_Next Page"
+msgstr "_Вперёд"
+
+#: shell/pps-window.ui:624
+msgid "_Copy"
+msgstr "_Копировать"
+
+#: shell/pps-window.ui:628
+msgid "Select _All"
+msgstr "Выделить _всё"
+
+#: shell/pps-window.ui:634
+msgid "_Save Image As…"
+msgstr "Сохранить изображение _как…"
+
+#: shell/pps-window.ui:639
+msgid "Copy _Image"
+msgstr "Скопировать _изображение"
+
+#: shell/pps-window.ui:658
+msgid "Annotation _Properties…"
+msgstr "Свойства п_римечания…"
+
+#: shell/pps-window.ui:663
+msgid "R_emove Annotation"
+msgstr "_Удалить примечание"
+
+#: shell/pps-window.ui:670
+msgid "_Highlight Selected Text"
+msgstr "_Подсветить выделенный текст"
+
 #: shell/pps-zoom-action.ui:6
-msgid "Select or set the zoom level of the document"
-msgstr "Выберите или установите масштаб документа"
+msgid "Zoom Level"
+msgstr "Масштаб"
 
 #: shell/pps-zoom-action.ui:24
 msgid "Set zoom level"
-msgstr "Установите масштаб"
+msgstr "Установить масштаб"
 
 #: shell/pps-zoom-action.ui:39
 msgid "Fit Pa_ge"
@@ -1683,74 +2042,174 @@ msgstr "Файл"
 msgid "Folder"
 msgstr "Папка"
 
-#: shell-rs/src/properties_general.rs:108
-msgid "Size"
-msgstr "Размер"
-
 #: shell-rs/src/properties_general.rs:116
 msgid "Content"
 msgstr "Содержимое"
-
-#: shell-rs/src/properties_general.rs:118
-msgid "Title"
-msgstr "Заголовок"
-
-#: shell-rs/src/properties_general.rs:119
-msgid "Subject"
-msgstr "Тема"
-
-#: shell-rs/src/properties_general.rs:120
-msgid "Author"
-msgstr "Автор"
-
-#: shell-rs/src/properties_general.rs:121
-msgid "Keywords"
-msgstr "Ключевые слова"
-
-#: shell-rs/src/properties_general.rs:122
-msgid "Producer"
-msgstr "Производитель"
-
-#: shell-rs/src/properties_general.rs:123
-msgid "Creator"
-msgstr "Создатель"
 
 #: shell-rs/src/properties_general.rs:128
 msgid "Date &amp; Time"
 msgstr "Дата и время"
 
-#: shell-rs/src/properties_general.rs:130
-msgid "Created"
-msgstr "Создано"
+#~ msgid "Select Page or Search in the Outline"
+#~ msgstr "Выбрать страницу или найти в содержании"
 
-#: shell-rs/src/properties_general.rs:131
-msgid "Modified"
-msgstr "Изменено"
+#~ msgid "Shrink the Document"
+#~ msgstr "Сократить размер страницы"
 
-#: shell-rs/src/properties_general.rs:136
-#: shell-rs/src/properties_general.rs:138
-msgid "Format"
-msgstr "Формат"
+#~ msgid "Reset Zoom and Make the Page Fit in the Window"
+#~ msgstr "Сбросить масштаб и подогнать страницу под размер окна"
 
-#: shell-rs/src/properties_general.rs:139
-msgid "Number of Pages"
-msgstr "Число страниц"
+#~ msgid "Enlarge the Document"
+#~ msgstr "Увеличить размер страницы"
 
-#: shell-rs/src/properties_general.rs:140
-msgid "Optimized"
-msgstr "Оптимизировано"
+#~ msgid "Find previous occurrence of the search string"
+#~ msgstr "Найти предыдущее упоминание строки поиска"
 
-#: shell-rs/src/properties_general.rs:141
-msgid "Security"
-msgstr "Безопасность"
+#~ msgid "Find next occurrence of the search string"
+#~ msgstr "Найти следующее упоминание строки поиска"
 
-#: shell-rs/src/properties_general.rs:142
-msgid "Paper Size"
-msgstr "Размер страницы"
+#~ msgid "Add bookmark"
+#~ msgstr "Добавить закладку"
 
-#: shell-rs/src/properties_general.rs:150
-msgid "Contains Javascript"
-msgstr "Содержит Javascript"
+#~ msgid "Remove bookmark"
+#~ msgstr "Удалить закладку"
+
+#~ msgid "Find a word or phrase in the document"
+#~ msgstr "Найти слово или фразу в документе"
+
+#~ msgid "Open an existing document"
+#~ msgstr "Открыть документ"
+
+#~ msgid "Side pane"
+#~ msgstr "Боковая панель"
+
+#~ msgid "Select page or search in the outline"
+#~ msgstr "Выбрать страницу или найти в содержании"
+
+#~ msgid "Annotate the document"
+#~ msgstr "Добавить примечание к документу"
+
+#~ msgid "Select or set the zoom level of the document"
+#~ msgstr "Выберите или установите масштаб документа"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Reload the document"
+#~ msgstr "Обновить документ"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle fullscreen"
+#~ msgstr "Переключить полноэкранный режим"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle caret navigation"
+#~ msgstr "Переключить курсорную навигацию"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Copy highlighted text"
+#~ msgstr "Копировать выделенный текст"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Select all the text in a document"
+#~ msgstr "Выбрать весь текст в документе"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Zoom 1∶1"
+#~ msgstr "Масштаб 1:1"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Fit page"
+#~ msgstr "По размеру страницы"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Fit width"
+#~ msgstr "По ширине страницы"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to previous page"
+#~ msgstr "Перейти к предыдущей странице"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to next page"
+#~ msgstr "Перейти к следующей странице"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to previous page (fast)"
+#~ msgstr "Перейти к предыдущей странице (быстро)"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to next page (fast)"
+#~ msgstr "Перейти к следующей странице (быстро)"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to previous page visited"
+#~ msgstr "Перейти к предыдущей посещённой странице"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to next page visited"
+#~ msgstr "Перейти к следующей посещённой странице"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to the beginning of the document"
+#~ msgstr "Перейти к началу документа"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to the end of the document"
+#~ msgstr "Перейти к концу документа"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle night mode"
+#~ msgstr "Переключить ночной режим"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle dual page"
+#~ msgstr "Переключить двойную страницу"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle odd pages left"
+#~ msgstr "Переключить нечетные страницы влево"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Document properties"
+#~ msgstr "Свойства документа"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Add a post-it like note"
+#~ msgstr "Добавить примечание в виде заметки на стикере"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Highlight text"
+#~ msgstr "Подсветить текст"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Show the search bar"
+#~ msgstr "Показывать панель поиска"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to the next search result"
+#~ msgstr "Перейти к следующему результату поиска"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to the previous search result"
+#~ msgstr "Перейти к предыдущему результату поиска"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Show help"
+#~ msgstr "Показать справку"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle primary menu"
+#~ msgstr "Переключить основное меню"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Комбинации клавиш"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Open new window"
+#~ msgstr "Открыть новое окно."
+
+#~ msgid "Papers is a simple document viewer for GNOME"
+#~ msgstr "Приложение для просмотра документов для GNOME"
 
 #~ msgid "DVI document has incorrect format"
 #~ msgstr "Документ DVI имеет некорректный формат"
@@ -1770,51 +2229,11 @@ msgstr "Содержит Javascript"
 #~ msgid "Not found, click to change search options"
 #~ msgstr "Не найдено, нажмите для изменения параметров поиска"
 
-#~ msgid "Search options"
-#~ msgstr "Параметры поиска"
-
-#~ msgid "_Whole Words Only"
-#~ msgstr "Только _целые слова"
-
-#~ msgid "C_ase Sensitive"
-#~ msgstr "Учитывать _регистр"
-
-#~ msgid "Find previous occurrence of the search string"
-#~ msgstr "Найти предыдущее упоминание строки поиска"
-
-#~ msgid "Find next occurrence of the search string"
-#~ msgstr "Найти следующее упоминание строки поиска"
-
 #~ msgid "Evince Document Viewer"
 #~ msgstr "Просмотрщик документов Evince"
 
 #~ msgid "Evince"
 #~ msgstr "Evince"
-
-#~ msgid "Document"
-#~ msgstr "Документ"
-
-#~ msgid "Location:"
-#~ msgstr "Местонахождение:"
-
-#~ msgid "default:mm"
-#~ msgstr "default:mm"
-
-#, c-format
-#~ msgid "%.0f × %.0f mm"
-#~ msgstr "%.0f × %.0f мм"
-
-#, c-format
-#~ msgid "%.2f × %.2f inch"
-#~ msgstr "%.2f × %.2f дюймов"
-
-#, c-format
-#~ msgid "%s, Portrait (%s)"
-#~ msgstr "%s, прямая (%s)"
-
-#, c-format
-#~ msgid "%s, Landscape (%s)"
-#~ msgstr "%s, повёрнутая (%s)"
 
 #~ msgid "Note text"
 #~ msgstr "Сделать заметку тексту"
@@ -1825,65 +2244,17 @@ msgstr "Содержит Javascript"
 #~ msgid "Add highlight annotation"
 #~ msgstr "Добавить выделенное примечание"
 
-#~ msgid "_Open Link"
-#~ msgstr "_Открыть ссылку"
-
-#~ msgid "_Copy Link Address"
-#~ msgstr "_Скопировать адрес ссылки"
-
-#~ msgid "_Go To"
-#~ msgstr "_Перейти"
-
-#~ msgid "Open in New _Window"
-#~ msgstr "Открыть в _новом окне"
-
-#~ msgid "_Previous Page"
-#~ msgstr "_Назад"
-
-#~ msgid "_Next Page"
-#~ msgstr "_Вперёд"
-
 #~ msgid "Auto_scroll"
 #~ msgstr "Про_кручивать автоматически"
-
-#~ msgid "_Copy"
-#~ msgstr "_Копировать"
-
-#~ msgid "Select _All"
-#~ msgstr "Выделить _всё"
-
-#~ msgid "_Save Image As…"
-#~ msgstr "Сохранить изображение _как…"
-
-#~ msgid "Copy _Image"
-#~ msgstr "Скопировать _изображение"
-
-#~ msgid "_Open Attachment"
-#~ msgstr "_Открыть вложение"
-
-#~ msgid "_Save Attachment As…"
-#~ msgstr "_Сохранить вложение как…"
 
 #~ msgid "Annotation _Properties"
 #~ msgstr "_Свойства примечания"
 
-#~ msgid "R_emove Annotation"
-#~ msgstr "_Удалить примечание"
-
-#~ msgid "_Highlight Selected Text"
-#~ msgstr "_Подсветить выделенный текст"
-
 #~ msgid "Open Containing _Folder"
 #~ msgstr "Открыть _папку с документом"
 
-#~ msgid "Navigation"
-#~ msgstr "Навигация"
-
 #~ msgid "First Page"
 #~ msgstr "Первая страница"
-
-#~ msgid "Last Page"
-#~ msgstr "Последняя страница"
 
 #~ msgid "History"
 #~ msgstr "История"
@@ -1894,107 +2265,20 @@ msgstr "Содержит Javascript"
 #~ msgid "Forward"
 #~ msgstr "Вперёд"
 
-#~ msgid "Remove Annotation"
-#~ msgstr "Удалить примечание"
-
-#~ msgid "Search in the outline…"
-#~ msgstr "Поиск в содержании…"
-
-#~ msgid "Print this section…"
-#~ msgstr "Распечатать этот раздел…"
-
-#~ msgid "Collapse all tree"
-#~ msgstr "Свернуть всё дерево"
-
-#~ msgid "Expand all tree"
-#~ msgstr "Развернуть всё дерево"
-
-#~ msgid "Expand all under this element"
-#~ msgstr "Развернуть всё под этим элементом"
-
 #~ msgid "Font"
 #~ msgstr "Шрифт"
-
-#~ msgid "Open…"
-#~ msgstr "Открыть…"
-
-#~ msgid "Open an existing document"
-#~ msgstr "Открыть документ"
-
-#~ msgid "Side pane"
-#~ msgstr "Боковая панель"
-
-#~ msgid "Annotate the document"
-#~ msgstr "Добавить примечание к документу"
-
-#~ msgid "Annotate document"
-#~ msgstr "Добавить примечание к документу"
 
 #~ msgid "File options"
 #~ msgstr "Параметры файла"
 
-#~ msgid "Print…"
-#~ msgstr "Печать…"
-
-#~ msgid "Fullscreen"
-#~ msgstr "Полноэкранный режим"
-
 #~ msgid "Send To…"
 #~ msgstr "О_тправить…"
-
-#~ msgid "New _Window"
-#~ msgstr "_Создать окно"
-
-#~ msgid "Open a C_opy"
-#~ msgstr "Открыть _копию"
-
-#~ msgid "_Save As…"
-#~ msgstr "Сохранить _как…"
-
-#~ msgid "Present as _Slideshow"
-#~ msgstr "Показать как _слайд-шоу"
-
-#~ msgid "_Continuous"
-#~ msgstr "_Непрерывно"
-
-#~ msgid "_Dual"
-#~ msgstr "_Две страницы"
-
-#~ msgid "_Odd Pages Left"
-#~ msgstr "_Нечётные страницы слева"
-
-#~ msgid "Right to Left Document"
-#~ msgstr "Документ справа на лево"
-
-#~ msgid "Ro_tate ⤵"
-#~ msgstr "Поверн_уть ⤵"
-
-#~ msgid "Ni_ght Mode"
-#~ msgstr "_Ночной режим"
-
-#~ msgid "Prop_erties"
-#~ msgstr "_Свойства"
-
-#~ msgid "_Keyboard Shortcuts"
-#~ msgstr "_Комбинации клавиш"
-
-#~ msgid "_Help"
-#~ msgstr "_Справка"
-
-#~ msgid "_About Document Viewer"
-#~ msgstr "_О приложении"
 
 #~ msgid "Password required"
 #~ msgstr "Требуется пароль"
 
-#~ msgid "Properties"
-#~ msgstr "Свойства"
-
 #~ msgid "General"
 #~ msgstr "Общие"
-
-#~ msgid "Fonts"
-#~ msgstr "Шрифты"
 
 #~ msgid "Document License"
 #~ msgstr "Лицензия документа"
@@ -2005,24 +2289,6 @@ msgstr "Содержит Javascript"
 
 #~ msgid "Document contains no annotations"
 #~ msgstr "Документ не содержит примечаний"
-
-#~ msgid "Annotations"
-#~ msgstr "Примечания"
-
-#~ msgid "Attachments"
-#~ msgstr "Вложения"
-
-#~ msgid "Bookmarks"
-#~ msgstr "Закладки"
-
-#~ msgid "Layers"
-#~ msgstr "Слои"
-
-#~ msgid "Outline"
-#~ msgstr "Схема"
-
-#~ msgid "Thumbnails"
-#~ msgstr "Эскизы"
 
 #~ msgid "Could not send current document"
 #~ msgstr "Не удалось отправить текущий документ"
@@ -2084,9 +2350,6 @@ msgstr "Содержит Javascript"
 #~ msgctxt "shortcut window"
 #~ msgid "Save current settings as default"
 #~ msgstr "Сохранить текущие параметры как параметры по умолчанию"
-
-#~ msgid "Annotation _Properties…"
-#~ msgstr "Свойства п_римечания…"
 
 #~ msgid "Annotation Properties…"
 #~ msgstr "Свойства примечания…"
