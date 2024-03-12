@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Evince HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-03-08 08:27+0000\n"
-"PO-Revision-Date: 2024-03-09 12:30+0100\n"
+"POT-Creation-Date: 2024-03-11 09:21+0000\n"
+"PO-Revision-Date: 2024-03-12 10:07+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -809,29 +809,29 @@ msgstr "Pagina precedenta"
 msgid "Next Page"
 msgstr "Pagina seguenta"
 
-#: previewer/pps-previewer-window.ui:31
-msgid "Select Page or Search in the Outline"
-msgstr "Causir una pagina o cercar dins l’esquèma"
+#: previewer/pps-previewer-window.ui:31 shell/pps-window.ui:113
+msgid "Page Count"
+msgstr "Descompte de las paginas"
 
 #: previewer/pps-previewer-window.ui:37
 msgid "_Print"
 msgstr "_Imprimir"
 
 #: previewer/pps-previewer-window.ui:38
-msgid "Print this Document"
+msgid "Print This Document"
 msgstr "Imprimir aqueste document"
 
 #: previewer/pps-previewer-window.ui:48
-msgid "Shrink the Document"
-msgstr "Reduire lo document"
+msgid "Zoom Out"
+msgstr "Zoom arrièr"
 
 #: previewer/pps-previewer-window.ui:55
-msgid "Reset Zoom and Make the Page Fit in the Window"
-msgstr "Reïnicializar lo zoom e ajustar la pagina a la talha de la fenèstra"
+msgid "Normal Size"
+msgstr "Talha normala"
 
 #: previewer/pps-previewer-window.ui:62
-msgid "Enlarge the Document"
-msgstr "Agrandir lo document"
+msgid "Zoom In"
+msgstr "Zoom avant"
 
 #: nautilus/pps-nautilus-extension.c:125
 #: shell/pps-annotation-properties-dialog.c:108
@@ -964,11 +964,9 @@ msgid "Side Pane"
 msgstr "Panèl lateral"
 
 #: shell/help-overlay.ui:73
-#, fuzzy
-#| msgid "Navigation"
 msgctxt "shortcut window"
 msgid "Caret Navigation"
-msgstr "Navigacion"
+msgstr "Navegacion"
 
 #: shell/help-overlay.ui:81
 msgctxt "shortcut window"
@@ -1472,12 +1470,12 @@ msgid "License"
 msgstr "Licéncia"
 
 #: shell/pps-search-box.ui:25
-msgid "Find previous occurrence of the search string"
-msgstr "Recèrca l'ocurréncia precedenta de la cadena"
+msgid "Find Previous"
+msgstr "Recercar lo precedent"
 
 #: shell/pps-search-box.ui:33
-msgid "Find next occurrence of the search string"
-msgstr "Recèrca l'ocurréncia seguenta de la cadena"
+msgid "Find Next"
+msgstr "Recercar lo seguent"
 
 #: shell/pps-search-box.ui:42
 msgid "Search Options"
@@ -1533,11 +1531,11 @@ msgid "_Replace"
 msgstr "_Remplaçar"
 
 #: shell/pps-sidebar-bookmarks.ui:61
-msgid "Add bookmark"
+msgid "Add Bookmark"
 msgstr "Apondre un signet"
 
 #: shell/pps-sidebar-bookmarks.ui:70
-msgid "Remove bookmark"
+msgid "Remove Bookmark"
 msgstr "Suprimir lo signet"
 
 #: shell/pps-sidebar-bookmarks.ui:96
@@ -1772,12 +1770,12 @@ msgid "Running in presentation mode"
 msgstr "Execucion en mòde presentacion"
 
 #: shell/pps-window.c:4842
-msgid "Find a word or phrase in the document"
-msgstr "Recèrca un mot o una frasa dins lo document"
+msgid "Search"
+msgstr "Recercar"
 
 #: shell/pps-window.c:4846
-msgid "Search not available for this document"
-msgstr "Recèrca indisponibla per aqueste document"
+msgid "Search Unavailable"
+msgstr "Recèrca indisponibla"
 
 #: shell/pps-window.c:5069
 msgid "The attachment could not be saved."
@@ -1847,8 +1845,8 @@ msgid "_Open…"
 msgstr "_Dobrir…"
 
 #: shell/pps-window.ui:48
-msgid "Open an existing document"
-msgstr "Dobrís un document existent"
+msgid "Open a Document"
+msgstr "Dobrir un document"
 
 #: shell/pps-window.ui:72
 msgid "Unable to Open Document"
@@ -1859,16 +1857,12 @@ msgid "_Open Other File…"
 msgstr "_Dobrir autre fichièr…"
 
 #: shell/pps-window.ui:108
-msgid "Side pane"
-msgstr "Panèl lateral"
-
-#: shell/pps-window.ui:113
-msgid "Select page or search in the outline"
-msgstr "Causir una pagina o cercar dins l’esquèma"
+msgid "Toggle Sidebar"
+msgstr "Afichar o amagar lo panèl lateral"
 
 #: shell/pps-window.ui:120
-msgid "Annotate the document"
-msgstr "Anotar lo document"
+msgid "Annotate"
+msgstr "Anotacion"
 
 #: shell/pps-window.ui:122
 msgid "Annotate document"
@@ -2023,8 +2017,8 @@ msgid "_Highlight Selected Text"
 msgstr "_Metre en susbrilhança lo tèxt seleccionat"
 
 #: shell/pps-zoom-action.ui:6
-msgid "Select or set the zoom level of the document"
-msgstr "Causir o definir lo nivèl d’agrandiment del document"
+msgid "Zoom Level"
+msgstr "Nivèl de zoom"
 
 #: shell/pps-zoom-action.ui:24
 msgid "Set zoom level"
@@ -2058,9 +2052,47 @@ msgstr "Contengut"
 msgid "Date &amp; Time"
 msgstr "Data e ora"
 
-#~ msgctxt "shortcut window"
-#~ msgid "Open a document"
-#~ msgstr "Dobrir un document"
+#~ msgid "Select Page or Search in the Outline"
+#~ msgstr "Causir una pagina o cercar dins l’esquèma"
+
+#~ msgid "Shrink the Document"
+#~ msgstr "Reduire lo document"
+
+#~ msgid "Reset Zoom and Make the Page Fit in the Window"
+#~ msgstr "Reïnicializar lo zoom e ajustar la pagina a la talha de la fenèstra"
+
+#~ msgid "Enlarge the Document"
+#~ msgstr "Agrandir lo document"
+
+#~ msgid "Find previous occurrence of the search string"
+#~ msgstr "Recèrca l'ocurréncia precedenta de la cadena"
+
+#~ msgid "Find next occurrence of the search string"
+#~ msgstr "Recèrca l'ocurréncia seguenta de la cadena"
+
+#~ msgid "Add bookmark"
+#~ msgstr "Apondre un signet"
+
+#~ msgid "Remove bookmark"
+#~ msgstr "Suprimir lo signet"
+
+#~ msgid "Find a word or phrase in the document"
+#~ msgstr "Recèrca un mot o una frasa dins lo document"
+
+#~ msgid "Open an existing document"
+#~ msgstr "Dobrís un document existent"
+
+#~ msgid "Side pane"
+#~ msgstr "Panèl lateral"
+
+#~ msgid "Select page or search in the outline"
+#~ msgstr "Causir una pagina o cercar dins l’esquèma"
+
+#~ msgid "Annotate the document"
+#~ msgstr "Anotar lo document"
+
+#~ msgid "Select or set the zoom level of the document"
+#~ msgstr "Causir o definir lo nivèl d’agrandiment del document"
 
 #~ msgctxt "shortcut window"
 #~ msgid "Reload the document"
@@ -2069,10 +2101,6 @@ msgstr "Data e ora"
 #~ msgctxt "shortcut window"
 #~ msgid "Toggle fullscreen"
 #~ msgstr "Bascular lo mòde plen ecran"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Toggle sidebar"
-#~ msgstr "Afichar o amagar lo panèl lateral"
 
 #~ msgctxt "shortcut window"
 #~ msgid "Toggle caret navigation"
