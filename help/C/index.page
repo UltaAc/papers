@@ -21,15 +21,15 @@
 
     <include href="legal-unported.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 
-    <desc><app>Papers</app>, formally known as <app>Papers</app>, is
-    made for viewing PDF documents. Learn how to get started with <app>Document
-    Viewer</app> and its features.</desc>
+    <desc><app>Papers</app> is
+    made for viewing PDF documents. Learn how to get started with
+    <app>Papers</app> and its features.</desc>
 
   </info>
 
   <title>
     <media type="image" its:translate="no" width="48px" height="48px" src="figures/org.gnome.Papers.svg" />
-    Document Viewer Help
+    Papers Help
   </title>
 
 <section id="reading" style="2column">

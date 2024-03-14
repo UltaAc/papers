@@ -23,7 +23,7 @@
 
 <title>The command line</title>
 <p>
-To start the <app>Papers</app> from the command line, type <cmd>papers</cmd>. You
+To start <app>Papers</app> from the command line, type <cmd>papers</cmd>. You
 can open a specific file by typing the filename after the papers command:
 </p>
 
@@ -33,7 +33,7 @@ You can open multiple files by typing the filenames after the papers command, se
 </p>
 <screen>papers file1.pdf file2.pdf</screen>
 <p>
-The <app>Papers</app> also supports the handling of files on the web.  For example, after the papers command you can give the location of a file on the web:
+<app>Papers</app> also supports the handling of files on the web.  For example, after the papers command you can give the location of a file on the web:
 </p>
 <screen>papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf</screen>
 <section id="open">

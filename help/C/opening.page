@@ -40,7 +40,7 @@
     </item>
     <item>
       <p>Right-click on a file icon in <app>Files</app> and click
-      <guiseq><gui>Open With</gui><gui>Document Viewer</gui></guiseq>.</p>
+      <guiseq><gui>Open With</gui><gui>Papers</gui></guiseq>.</p>
     </item>
   </list>
 

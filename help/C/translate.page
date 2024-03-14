@@ -4,7 +4,7 @@
 
   <info>
    <link type="guide" xref="index#getInvolved"/>
-    <desc>Localize the <app>Document Viewer.</app></desc>
+    <desc>Localize <app>Papers</app>.</desc>
     <revision pkgversion="3.4" version="0.1" date="2012-03-08" status="final"/>
     <credit type="author copyright">
       <name>Tiffany Antopolski</name>
