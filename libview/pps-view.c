@@ -9217,7 +9217,7 @@ compute_new_selection (PpsView          *view,
 		return list;
 
 	/* If everything is equal, then there's nothing to select */
-	if (first == last && gdk_point_equal (start, stop))
+	if (first == last && gdk_point_equal (start, stop) && style == PPS_SELECTION_STYLE_GLYPH)
 		return list;
 
 	/* Now create a list of PpsViewSelection's for the affected
