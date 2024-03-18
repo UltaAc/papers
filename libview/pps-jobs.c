@@ -233,7 +233,6 @@ pps_job_cancel (PpsJob *job)
 		return;
 
 	pps_debug_message (DEBUG_JOBS, "job %s (%p) cancelled", PPS_GET_TYPE_NAME (job), job);
-	pps_profiler_stop ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	/* This should never be called from a thread */
 	job->cancelled = TRUE;
