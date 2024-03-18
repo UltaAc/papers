@@ -26,6 +26,9 @@ libraries (libppsdocument, libppsview):
     Transitions will no longer work if HW acceleration is not supported
   * Use GThreadPool for PpsJobScheduler. Many jobs can now run concurrently, and
     we no longer leak the thread memory.
+  * PPS_PROFILE and PPS_PROFILE_JOBS environment variables for profiling are now
+    ignored. Anybody wishing to profile papers can now use sysprof, which
+    provides a far better interface.
 
 shell:
   * Port to GTK4 thanks to the effort of Qiu Wenbo

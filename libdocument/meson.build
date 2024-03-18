@@ -135,6 +135,7 @@ common_deps = [
 deps = common_deps + [
   gmodule_dep,
   exempi_dep,
+  libsysprof_capture_dep,
   m_dep,
   zlib_dep,
 ]

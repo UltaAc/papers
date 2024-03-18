@@ -43,13 +43,10 @@
 
 #ifdef PPS_ENABLE_DEBUG
 static PpsDebugSection pps_debug = PPS_NO_DEBUG;
-static gboolean ev_profile = FALSE;
 static PpsDebugBorders pps_debug_borders = PPS_DEBUG_BORDER_NONE;
 
-static GHashTable *timers = NULL;
-
-static void
-debug_init (void)
+void
+_pps_debug_init (void)
 {
         const GDebugKey keys[] = {
                 { "jobs",    PPS_DEBUG_JOBS         },
@@ -69,33 +66,6 @@ debug_init (void)
         if (pps_debug & PPS_DEBUG_SHOW_BORDERS)
                 pps_debug_borders = g_parse_debug_string (g_getenv ("PPS_DEBUG_SHOW_BORDERS"),
                                                          border_keys, G_N_ELEMENTS (border_keys));
-}
-
-static void
-profile_init (void)
-{
-	if (g_getenv ("PPS_PROFILE") != NULL ||
-	    g_getenv ("PPS_PROFILE_JOBS") != NULL) {
-		pps_profile = TRUE;
-
-		timers = g_hash_table_new_full (g_str_hash,
-						g_str_equal,
-						(GDestroyNotify) g_free,
-						(GDestroyNotify) g_timer_destroy);
-	}
-}
-
-void
-_pps_debug_init (void)
-{
-	debug_init ();
-	profile_init ();
-}
-
-void
-_pps_debug_shutdown (void)
-{
-	g_clear_pointer (&timers, g_hash_table_destroy);
 }
 
 void
@@ -121,58 +91,6 @@ pps_debug_message (PpsDebugSection  section,
 		fflush (stdout);
 
 		g_free (msg);
-	}
-}
-
-void
-pps_profiler_start (const gchar *format, ...)
-{
-	if (G_UNLIKELY (pps_profile)) {
-		GTimer *timer;
-		gchar  *name;
-		va_list args;
-
-		if (!format)
-			return;
-
-		va_start (args, format);
-		name = g_strdup_vprintf (format, args);
-		va_end (args);
-
-		timer = g_hash_table_lookup (timers, name);
-		if (!timer) {
-			timer = g_timer_new ();
-			g_hash_table_insert (timers, g_strdup (name), timer);
-		} else {
-			g_timer_start (timer);
-		}
-	}
-}
-
-void
-pps_profiler_stop (const gchar *format, ...)
-{
-	if (G_UNLIKELY (pps_profile)) {
-		GTimer *timer;
-		gchar  *name;
-		va_list args;
-		gdouble seconds;
-
-		if (!format)
-			return;
-
-		va_start (args, format);
-		name = g_strdup_vprintf (format, args);
-		va_end (args);
-
-		timer = g_hash_table_lookup (timers, name);
-		if (!timer)
-			return;
-
-		g_timer_stop (timer);
-		seconds = g_timer_elapsed (timer, NULL);
-		g_print ("[ %s ] %f s elapsed\n", name, seconds);
-		fflush (stdout);
 	}
 }
 

@@ -1,3 +1,7 @@
+expand_content_md_files = [
+  'profiling.md',
+]
+
 libppsview_toml = configure_file(
   input: 'libppsview.toml.in',
   output: 'libppsview.toml',
@@ -23,6 +27,7 @@ custom_target('libppsview-doc',
   ],
   depends: [ libppsdocument_gir[0] ],
   build_by_default: true,
+  depend_files: [ expand_content_md_files ],
   install: true,
   install_dir: docs_dir,
 )

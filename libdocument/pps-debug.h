@@ -82,7 +82,6 @@ typedef enum {
 #define DEBUG_JOBS      PPS_DEBUG_JOBS,    __FILE__, __LINE__, G_STRFUNC
 
 void _pps_debug_init     (void);
-void _pps_debug_shutdown (void);
 
 PPS_PRIVATE
 void pps_debug_message  (PpsDebugSection   section,
@@ -90,14 +89,32 @@ void pps_debug_message  (PpsDebugSection   section,
 			gint             line,
 			const gchar     *function,
 			const gchar     *format, ...) G_GNUC_PRINTF(5, 6);
-PPS_PRIVATE
-void pps_profiler_start (PpsProfileSection section) G_GNUC_PRINTF(1, 2);
-PPS_PRIVATE
-void pps_profiler_stop  (PpsProfileSection section) G_GNUC_PRINTF(1, 2);
 
 PPS_PRIVATE
 PpsDebugBorders pps_debug_get_debug_borders (void);
 
 #endif /* PPS_ENABLE_DEBUG */
+
+#ifdef HAVE_SYSPROF
+
+#include <sysprof-capture.h>
+
+#define PPS_PROFILER_START(job_type, message)                 \
+	int64_t sysprof_begin = SYSPROF_CAPTURE_CURRENT_TIME; \
+	const char* sysprof_name = job_type;                  \
+	g_autofree const char* sysprof_message = message;
+#define PPS_PROFILER_STOP() \
+	sysprof_collector_mark(sysprof_begin,                                \
+			       SYSPROF_CAPTURE_CURRENT_TIME - sysprof_begin, \
+			       "papers",                                     \
+			       sysprof_name,                                 \
+			       sysprof_message);
+
+#else /* HAVE_SYSPROF */
+
+#define PPS_PROFILER_START(job_type)
+#define PPS_PROFILER_STOP()
+
+#endif /* HAVE_SYSPROF */
 
 G_END_DECLS

@@ -189,12 +189,10 @@ emit_finished (PpsJob *job)
 
 	job->idle_finished_id = 0;
 
-	if (job->cancelled) {
+	if (job->cancelled)
 		pps_debug_message (DEBUG_JOBS, "%s (%p) job was cancelled, do not emit finished", PPS_GET_TYPE_NAME (job), job);
-	} else {
-		pps_profiler_stop ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
+	else
 		g_signal_emit (job, job_signals[FINISHED], 0);
-	}
 
 	return G_SOURCE_REMOVE;
 }
@@ -222,8 +220,12 @@ gboolean
 pps_job_run (PpsJob *job)
 {
 	PpsJobClass *class = PPS_JOB_GET_CLASS (job);
+	gboolean ret;
 
-	return class->run (job);
+	PPS_PROFILER_START (PPS_GET_TYPE_NAME (job), g_strdup("running"));
+	ret = class->run (job);
+	PPS_PROFILER_STOP ();
+	return ret;
 }
 
 void
@@ -403,7 +405,6 @@ pps_job_links_run (PpsJob *job)
 	PpsJobLinks *job_links = PPS_JOB_LINKS (job);
 
 	pps_debug_message (DEBUG_JOBS, NULL);
-	pps_profiler_start ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	pps_document_doc_mutex_lock ();
 	job_links->model = pps_document_links_get_links_model (PPS_DOCUMENT_LINKS (job->document));
@@ -482,7 +483,6 @@ pps_job_attachments_run (PpsJob *job)
 	PpsJobAttachments *job_attachments = PPS_JOB_ATTACHMENTS (job);
 
 	pps_debug_message (DEBUG_JOBS, NULL);
-	pps_profiler_start ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	pps_document_doc_mutex_lock ();
 	job_attachments->attachments =
@@ -557,7 +557,6 @@ pps_job_annots_run (PpsJob *job)
 	gint         i;
 
 	pps_debug_message (DEBUG_JOBS, NULL);
-	pps_profiler_start ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	pps_document_doc_mutex_lock ();
 	for (i = 0; i < pps_document_get_n_pages (job->document); i++) {
@@ -689,10 +688,11 @@ pps_job_render_texture_run (PpsJob *job)
 	cairo_surface_t *surface, *selection = NULL;
 
 	pps_debug_message (DEBUG_JOBS, "page: %d (%p)", job_render->page, job);
-	pps_profiler_start ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	pps_document_doc_mutex_lock ();
 	pps_document_fc_mutex_lock ();
+
+	PPS_PROFILER_START (PPS_GET_TYPE_NAME (job), g_strdup_printf("page: %d", job_render->page));
 
 	pps_page = pps_document_get_page (job->document, job_render->page);
 	rc = pps_render_context_new (pps_page, job_render->rotation, job_render->scale);
@@ -735,10 +735,10 @@ pps_job_render_texture_run (PpsJob *job)
 	 * we return now, so that the thread is finished ASAP
 	 */
 	if (g_cancellable_is_cancelled (job->cancellable)) {
+		PPS_PROFILER_STOP ();
 		pps_document_fc_mutex_unlock ();
 		pps_document_doc_mutex_unlock ();
 		g_object_unref (rc);
-
 		return FALSE;
 	}
 
@@ -764,6 +764,7 @@ pps_job_render_texture_run (PpsJob *job)
 
 	g_object_unref (rc);
 
+	PPS_PROFILER_STOP ();
 	pps_document_fc_mutex_unlock ();
 	pps_document_doc_mutex_unlock ();
 
@@ -810,7 +811,6 @@ pps_job_page_data_run (PpsJob *job)
 	PpsPage        *pps_page;
 
 	pps_debug_message (DEBUG_JOBS, "page: %d (%p)", job_pd->page, job);
-	pps_profiler_start ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	pps_document_doc_mutex_lock ();
 	pps_page = pps_document_get_page (job->document, job_pd->page);
@@ -920,10 +920,10 @@ pps_job_thumbnail_texture_run (PpsJob *job)
 	cairo_surface_t *surface;
 
 	pps_debug_message (DEBUG_JOBS, "%d (%p)", job_thumb->page, job);
-	pps_profiler_start ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	pps_document_doc_mutex_lock ();
 
+	PPS_PROFILER_START (PPS_GET_TYPE_NAME (job), g_strdup_printf("page: %d", job_thumb->page));
 	page = pps_document_get_page (job->document, job_thumb->page);
 	rc = pps_render_context_new (page, job_thumb->rotation, job_thumb->scale);
 	pps_render_context_set_target_size (rc,
@@ -935,6 +935,7 @@ pps_job_thumbnail_texture_run (PpsJob *job)
 	job_thumb->thumbnail_texture = gdk_texture_new_for_surface (surface);
 	cairo_surface_destroy(surface);
 	g_object_unref (rc);
+	PPS_PROFILER_STOP ();
 	pps_document_doc_mutex_unlock ();
 
 	if (job_thumb->thumbnail_texture == NULL) {
@@ -1028,7 +1029,6 @@ pps_job_fonts_run (PpsJob *job)
 	PpsDocument *document = pps_job_get_document (job);
 
 	pps_debug_message (DEBUG_JOBS, NULL);
-	pps_profiler_start ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	pps_document_doc_mutex_lock ();
 	pps_document_fc_mutex_lock ();
@@ -1135,8 +1135,6 @@ pps_job_load_run (PpsJob *job)
 		g_error_free (error);
 		return FALSE;
 	}
-
-	pps_profiler_start ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	pps_document_fc_mutex_lock ();
 
@@ -1391,7 +1389,6 @@ pps_job_save_run (PpsJob *job)
 	GError    *error = NULL;
 
 	pps_debug_message (DEBUG_JOBS, "uri: %s, document_uri: %s", job_save->uri, job_save->document_uri);
-	pps_profiler_start ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
         fd = pps_mkstemp ("saveacopy.XXXXXX", &tmp_filename, &error);
         if (fd == -1) {
@@ -1545,7 +1542,6 @@ pps_job_find_run (PpsJob *job)
 	GList           *matches;
 
 	pps_debug_message (DEBUG_JOBS, NULL);
-	pps_profiler_start ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	for (gint current_page = job_find->start_page;
 	     (current_page + 1) % job_find->n_pages != job_find->start_page;
@@ -1699,7 +1695,6 @@ pps_job_layers_run (PpsJob *job)
 	PpsJobLayers *job_layers = PPS_JOB_LAYERS (job);
 
 	pps_debug_message (DEBUG_JOBS, NULL);
-	pps_profiler_start ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	pps_document_doc_mutex_lock ();
 	job_layers->model = pps_document_layers_get_layers (PPS_DOCUMENT_LAYERS (job->document));
@@ -1777,7 +1772,6 @@ pps_job_export_run (PpsJob *job)
 	g_assert (job_export->page != -1);
 
 	pps_debug_message (DEBUG_JOBS, NULL);
-	pps_profiler_start ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	pps_document_doc_mutex_lock ();
 
@@ -1866,7 +1860,6 @@ pps_job_print_run (PpsJob *job)
 	g_assert (job_print->cr != NULL);
 
 	pps_debug_message (DEBUG_JOBS, NULL);
-	pps_profiler_start ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	job->failed = FALSE;
 	job->finished = FALSE;

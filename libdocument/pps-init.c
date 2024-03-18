@@ -146,7 +146,6 @@ pps_shutdown (void)
 	xmp_terminate ();
         _pps_document_factory_shutdown ();
         _pps_file_helpers_shutdown ();
-        _pps_debug_shutdown ();
 }
 
 /*
