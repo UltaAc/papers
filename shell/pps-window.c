@@ -5232,7 +5232,8 @@ pps_window_show_find_bar (PpsWindow *pps_window,
 	gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (priv->search_bar), TRUE);
 	gtk_widget_grab_focus (priv->search_box);
 	g_action_group_change_action_state (G_ACTION_GROUP (pps_window), "toggle-find", g_variant_new_boolean (TRUE));
-
+	g_action_group_change_action_state (G_ACTION_GROUP (pps_window), "show-side-pane",
+						g_variant_new_boolean (TRUE));
 	if (restart) {
 		GtkSearchEntry *entry = pps_search_box_get_entry (PPS_SEARCH_BOX (priv->search_box));
 		const char     *search_string = gtk_editable_get_text (GTK_EDITABLE (entry));
