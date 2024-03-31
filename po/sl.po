@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: evince master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-03-26 00:06+0000\n"
-"PO-Revision-Date: 2024-03-30 22:31+0100\n"
+"POT-Creation-Date: 2024-03-30 21:31+0000\n"
+"PO-Revision-Date: 2024-04-01 00:02+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -291,7 +291,6 @@ msgstr "Doda podporo za branje datotek XPS"
 #: previewer/pps-previewer-window.c:481 shell/pps-application.c:699
 #: shell/pps-application.c:789 shell/pps-application.c:983
 #: shell/pps-application.c:1046 shell/pps-window-title.c:126
-#, fuzzy
 msgid "Papers"
 msgstr "Članki"
 
@@ -786,7 +785,6 @@ msgid "Failed to print document"
 msgstr "Tiskanje dokumenta ni uspelo"
 
 #: previewer/pps-previewer-window.c:187 previewer/pps-previewer-window.c:503
-#, fuzzy
 msgid "Papers Document Viewer"
 msgstr "Pregledovalnik dokumentov Članki"
 
@@ -858,12 +856,10 @@ msgid "Keywords"
 msgstr "Ključne besede"
 
 #: nautilus/pps-nautilus-extension.h:64 shell-rs/src/properties_general.rs:122
-#, fuzzy
 msgid "Producer"
 msgstr "Programnik"
 
 #: nautilus/pps-nautilus-extension.h:65 shell-rs/src/properties_general.rs:123
-#, fuzzy
 msgid "Creator"
 msgstr "Uporabljen program"
 
@@ -950,9 +946,6 @@ msgid "Fullscreen"
 msgstr "Celozaslonski način"
 
 #: shell/help-overlay.ui:61
-#, fuzzy
-#| msgctxt "shortcut window"
-#| msgid "Enter presentation mode"
 msgctxt "shortcut window"
 msgid "Enter Presentation Mode"
 msgstr "Zagon v predstavitvenem načinu"
@@ -1324,7 +1317,6 @@ msgid "Highlight Text"
 msgstr "Poudari besedilo"
 
 #: shell/pps-application.c:701
-#, fuzzy
 msgid "© 1996–2024 The Papers authors"
 msgstr "© 1996–2024 Avtorji programa Članki/Papers"
 
@@ -1498,7 +1490,6 @@ msgid "No Comment"
 msgstr "Ni opomb"
 
 #: shell/pps-sidebar-annotations.ui:14
-#, fuzzy
 msgid "No Annotations"
 msgstr "Brez opomb"
 
@@ -1848,7 +1839,6 @@ msgid "Toggle Sidebar"
 msgstr "Preklopi stransko okno"
 
 #: shell/pps-window.ui:120
-#, fuzzy
 msgid "Annotate"
 msgstr "Dodaj opombo"
 
@@ -1937,7 +1927,6 @@ msgid "_Help"
 msgstr "Pomo_č"
 
 #: shell/pps-window.ui:554
-#, fuzzy
 msgid "_About Papers"
 msgstr "_O programu Članki"
 
@@ -1950,7 +1939,6 @@ msgid "Fullscreen"
 msgstr "Celozaslonski način"
 
 #: shell/pps-window.ui:583
-#, fuzzy
 msgid "Present as Slideshow"
 msgstr "Prikaži kot diapredstavitev"
 
