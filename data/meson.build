@@ -24,38 +24,6 @@ foreach desktop: desktops
   )
 endforeach
 
-# DBus service file
-if enable_dbus
-  service_conf = configuration_data()
-  service_conf.set('libexecdir', pps_libexecdir)
-  service_conf.set('PROFILE', profile)
-
-  services = [[
-    '.Daemon.service',
-    dbus_service_dir,
-  ]]
-
-  if install_systemd_user_unit_dir
-    services += [[
-      '.service',
-      systemd_user_unit_dir,
-    ]]
-  endif
-
-  foreach service: services
-    service_in = pps_namespace + service[0] + '.in'
-    service_out = app_id + service[0]
-    service_dir = service[1]
-    configure_file(
-      input: service_in,
-      output: service_out,
-      configuration: service_conf,
-      install: true,
-      install_dir: service_dir,
-    )
-  endforeach
-endif
-
 # GSettings schema
 gschema_file = pps_namespace + '.gschema.xml'
 install_data(

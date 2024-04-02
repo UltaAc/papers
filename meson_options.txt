@@ -20,5 +20,3 @@ option('introspection', type: 'boolean', value: true, description: 'whether intr
 option('dbus', type: 'boolean', value: true, description: 'whether DBUS support is requested')
 option('keyring', type: 'feature', value: 'auto', description: 'whether keyring support is requested')
 option('gtk_unix_print', type: 'feature', value: 'auto', description: 'whether gtk+-unix-print support is requested')
-
-option('systemduserunitdir', type: 'string', value: '', description: 'custom directory for systemd user units, or \'no\' to disable')

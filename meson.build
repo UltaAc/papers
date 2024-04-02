@@ -29,7 +29,6 @@ pps_bindir = join_paths(pps_prefix, get_option('bindir'))
 pps_datadir = join_paths(pps_prefix, get_option('datadir'))
 pps_includedir = join_paths(pps_prefix, get_option('includedir'))
 pps_libdir = join_paths(pps_prefix, get_option('libdir'))
-pps_libexecdir = join_paths(pps_prefix, get_option('libexecdir'))
 pps_localedir = join_paths(pps_prefix, get_option('localedir'))
 pps_mandir = join_paths(pps_prefix, get_option('mandir'))
 
@@ -234,14 +233,6 @@ if enable_introspection
 else
   warning('Disable gtk_doc due to introspection is disabled')
   enable_gtk_doc = false
-endif
-
-# *** systemd user unit dir ***
-systemd_user_unit_dir = get_option('systemduserunitdir')
-install_systemd_user_unit_dir = (systemd_user_unit_dir != 'no')
-
-if install_systemd_user_unit_dir and systemd_user_unit_dir == ''
-  systemd_user_unit_dir = join_paths(pps_prefix, 'lib', 'systemd', 'user')
 endif
 
 # *** Check for Desktop Schemas ***
@@ -480,7 +471,6 @@ summary({'tests......................': get_option('tests'),
          'User documentation.........': enable_user_doc,
          'GObject introspection......': enable_introspection,
          'DBus communication.........': enable_dbus,
-         'Systemd units installation.': systemd_user_unit_dir,
          'Keyring integration........': enable_keyring,
          'GTK+ Unix print ...........': enable_gtk_unix_print,
         }, section: 'Features', bool_yn: true)

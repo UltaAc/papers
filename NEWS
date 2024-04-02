@@ -44,6 +44,13 @@ shell:
   * Rework the properties dialog with modern widgetry.
   * Fix dbus names to fit app id.
   * Drop the auto-scroll feature for maintainability reasons.
+  * Drop papersd daemon. This was an optional feature that took care that 
+    would only be an instance of every document opened. So for example, clicking
+    on an already opened document in Nautilus would move focus to the opened document
+    instead of opening a new one. With this change, new documents will be opened 
+    unconditionally. We plan to bring the old feature back by refactoring some of 
+    the code, but it requires better isolation of document rendering, so it will
+    probably not be available in the next release
 
 properties:
   * Can now be used in Nautilus again. Dropped GTK dependency

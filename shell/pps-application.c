@@ -62,17 +62,8 @@ G_DEFINE_TYPE (PpsApplication, pps_application, ADW_TYPE_APPLICATION)
 #ifdef ENABLE_DBUS
 #define APPLICATION_DBUS_OBJECT_PATH "/org/gnome/Papers/Papers" OBJECT_PROFILE
 #define APPLICATION_DBUS_INTERFACE   "org.gnome.Papers.Application"
-
-#define PAPERS_DAEMON_SERVICE        "org.gnome.Papers" PROFILE ".Daemon"
-#define PAPERS_DAEMON_OBJECT_PATH    "/org/gnome/Papers" OBJECT_PROFILE "/Daemon"
-#define PAPERS_DAEMON_INTERFACE      "org.gnome.Papers.Daemon"
 #endif
 
-static void _pps_application_open_uri_at_dest (PpsApplication  *application,
-					      const gchar    *uri,
-					      PpsLinkDest     *dest,
-					      PpsWindowRunMode mode,
-					      const gchar    *search_string);
 static void pps_application_open_uri_in_window (PpsApplication  *application,
 					       const char     *uri,
 					       PpsWindow       *pps_window,
@@ -218,250 +209,6 @@ pps_application_get_empty_window (PpsApplication *application)
 	return empty_window;
 }
 
-
-#ifdef ENABLE_DBUS
-typedef struct {
-	gchar          *uri;
-	PpsLinkDest     *dest;
-	PpsWindowRunMode mode;
-	gchar          *search_string;
-} PpsRegisterDocData;
-
-static void
-pps_register_doc_data_free (PpsRegisterDocData *data)
-{
-	if (!data)
-		return;
-
-	g_clear_pointer (&data->uri, g_free);
-	g_clear_pointer (&data->search_string, g_free);
-	g_clear_object (&data->dest);
-
-	g_clear_pointer (&data, g_free);
-}
-
-static void
-on_reload_cb (GObject      *source_object,
-	      GAsyncResult *res,
-	      gpointer      user_data)
-{
-	GDBusConnection *connection = G_DBUS_CONNECTION (source_object);
-	GVariant        *value;
-	GError          *error = NULL;
-
-        g_application_release (g_application_get_default ());
-
-	value = g_dbus_connection_call_finish (connection, res, &error);
-	if (value != NULL) {
-                g_variant_unref (value);
-        } else {
-		g_printerr ("Failed to Reload: %s\n", error->message);
-		g_error_free (error);
-	}
-}
-
-static void
-on_register_uri_cb (GObject      *source_object,
-		    GAsyncResult *res,
-		    gpointer      user_data)
-{
-	GDBusConnection   *connection = G_DBUS_CONNECTION (source_object);
-	PpsRegisterDocData *data = (PpsRegisterDocData *)user_data;
-	PpsApplication     *application = PPS_APP;
-	GVariant          *value;
-	const gchar       *owner;
-	GVariantBuilder    builder;
-	GError            *error = NULL;
-
-        g_application_release (G_APPLICATION (application));
-
-	value = g_dbus_connection_call_finish (connection, res, &error);
-	if (!value) {
-		g_printerr ("Error registering document: %s\n", error->message);
-		g_error_free (error);
-
-		_pps_application_open_uri_at_dest (application,
-						  data->uri,
-						  data->dest,
-						  data->mode,
-						  data->search_string);
-		pps_register_doc_data_free (g_steal_pointer (&data));
-
-		return;
-	}
-
-	g_variant_get (value, "(&s)", &owner);
-
-	/* This means that the document wasn't already registered; go
-         * ahead with opening it.
-         */
-	if (owner[0] == '\0') {
-                g_variant_unref (value);
-
-		application->doc_registered = TRUE;
-
-		_pps_application_open_uri_at_dest (application,
-						  data->uri,
-						  data->dest,
-						  data->mode,
-						  data->search_string);
-		pps_register_doc_data_free (g_steal_pointer(&data));
-
-                return;
-        }
-
-	/* Already registered */
-	g_variant_builder_init (&builder, G_VARIANT_TYPE ("(a{sv})"));
-        g_variant_builder_open (&builder, G_VARIANT_TYPE ("a{sv}"));
-
-	if (data->dest) {
-                switch (pps_link_dest_get_dest_type (data->dest)) {
-                case PPS_LINK_DEST_TYPE_PAGE_LABEL:
-                        g_variant_builder_add (&builder, "{sv}", "page-label",
-                                               g_variant_new_string (pps_link_dest_get_page_label (data->dest)));
-                        break;
-                case PPS_LINK_DEST_TYPE_PAGE:
-                        g_variant_builder_add (&builder, "{sv}", "page-index",
-                                               g_variant_new_uint32 (pps_link_dest_get_page (data->dest)));
-                        break;
-                case PPS_LINK_DEST_TYPE_NAMED:
-                        g_variant_builder_add (&builder, "{sv}", "named-dest",
-                                               g_variant_new_string (pps_link_dest_get_named_dest (data->dest)));
-                        break;
-                default:
-                        break;
-                }
-	}
-	if (data->search_string) {
-                g_variant_builder_add (&builder, "{sv}",
-                                       "find-string",
-                                       g_variant_new_string (data->search_string));
-	}
-	if (data->mode != PPS_WINDOW_MODE_NORMAL) {
-                g_variant_builder_add (&builder, "{sv}",
-                                       "mode",
-                                       g_variant_new_uint32 (data->mode));
-	}
-        g_variant_builder_close (&builder);
-
-        g_dbus_connection_call (connection,
-				owner,
-				APPLICATION_DBUS_OBJECT_PATH,
-				APPLICATION_DBUS_INTERFACE,
-				"Reload",
-				g_variant_builder_end (&builder),
-				NULL,
-				G_DBUS_CALL_FLAGS_NONE,
-				-1,
-				NULL,
-				on_reload_cb,
-				NULL);
-        g_application_hold (G_APPLICATION (application));
-	g_variant_unref (value);
-	pps_register_doc_data_free (g_steal_pointer (&data));
-}
-
-/*
- * pps_application_register_uri:
- * @application: The instance of the application.
- * @uri: The uri to be opened.
- * @dest: The #PpsLinkDest of the document.
- * @mode: The run mode of the window.
- * @search_string: The word or phrase to find in the document.
- *
- * Registers @uri with papers-daemon.
- *
- */
-static void
-pps_application_register_uri (PpsApplication  *application,
-			     const gchar    *uri,
-                             PpsLinkDest     *dest,
-                             PpsWindowRunMode mode,
-                             const gchar    *search_string)
-{
-	PpsRegisterDocData *data;
-
-	/* If connection hasn't been made fall back to opening without D-BUS features */
-	if (!application->skeleton) {
-		_pps_application_open_uri_at_dest (application, uri, dest, mode, search_string);
-		return;
-	}
-
-	if (application->doc_registered) {
-		/* Already registered, reload */
-		GList *windows, *l;
-
-		windows = gtk_application_get_windows (GTK_APPLICATION (application));
-		for (l = windows; l != NULL; l = g_list_next (l)) {
-                        if (!PPS_IS_WINDOW (l->data))
-                                continue;
-
-			pps_application_open_uri_in_window (application, uri,
-                                                           PPS_WINDOW (l->data),
-							   dest, mode,
-							   search_string);
-		}
-
-		return;
-	}
-
-	data = g_new0 (PpsRegisterDocData, 1);
-	data->uri = g_strdup (uri);
-	data->dest = dest ? g_object_ref (dest) : NULL;
-	data->mode = mode;
-	data->search_string = search_string ? g_strdup (search_string) : NULL;
-
-        g_dbus_connection_call (g_application_get_dbus_connection (G_APPLICATION (application)),
-				PAPERS_DAEMON_SERVICE,
-				PAPERS_DAEMON_OBJECT_PATH,
-				PAPERS_DAEMON_INTERFACE,
-				"RegisterDocument",
-				g_variant_new ("(s)", uri),
-				G_VARIANT_TYPE ("(s)"),
-				G_DBUS_CALL_FLAGS_NONE,
-				-1,
-				NULL,
-				on_register_uri_cb,
-				g_steal_pointer (&data));
-
-        g_application_hold (G_APPLICATION (application));
-}
-
-static void
-pps_application_unregister_uri (PpsApplication *application,
-			       const gchar   *uri)
-{
-        GVariant *value;
-	GError   *error = NULL;
-
-	if (!application->doc_registered)
-		return;
-
-	/* This is called from pps_application_shutdown(),
-	 * so it's safe to use the sync api
-	 */
-        value = g_dbus_connection_call_sync (
-		g_application_get_dbus_connection (G_APPLICATION (application)),
-		PAPERS_DAEMON_SERVICE,
-		PAPERS_DAEMON_OBJECT_PATH,
-		PAPERS_DAEMON_INTERFACE,
-		"UnregisterDocument",
-		g_variant_new ("(s)", uri),
-		NULL,
-		G_DBUS_CALL_FLAGS_NO_AUTO_START,
-		-1,
-		NULL,
-		&error);
-        if (value == NULL) {
-		g_printerr ("Error unregistering document: %s\n", error->message);
-		g_error_free (error);
-	} else {
-                g_variant_unref (value);
-		application->doc_registered = FALSE;
-	}
-}
-#endif /* ENABLE_DBUS */
-
 static void
 pps_application_open_uri_in_window (PpsApplication  *application,
 				   const char     *uri,
@@ -483,24 +230,6 @@ pps_application_open_uri_in_window (PpsApplication  *application,
 	gtk_window_present (GTK_WINDOW (pps_window));
 }
 
-static void
-_pps_application_open_uri_at_dest (PpsApplication  *application,
-				  const gchar    *uri,
-				  PpsLinkDest     *dest,
-				  PpsWindowRunMode mode,
-				  const gchar    *search_string)
-{
-	PpsWindow *pps_window;
-
-	pps_window = pps_application_get_empty_window (application);
-	if (!pps_window)
-		pps_window = PPS_WINDOW (pps_window_new ());
-
-	pps_application_open_uri_in_window (application, uri, pps_window,
-					   dest, mode,
-					   search_string);
-}
-
 /**
  * pps_application_open_uri_at_dest:
  * @application: The instance of the application.
@@ -516,6 +245,8 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 				 PpsWindowRunMode mode,
 				 const gchar    *search_string)
 {
+	PpsWindow *pps_window;
+
 	g_return_if_fail (uri != NULL);
 
 	if (application->uri && strcmp (application->uri, uri) != 0) {
@@ -526,14 +257,13 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 		application->uri = g_strdup (uri);
 	}
 
-#ifdef ENABLE_DBUS
-	/* Register the uri or send Reload to
-	 * remote instance if already registered
-	 */
-	pps_application_register_uri (application, uri, dest, mode, search_string);
-#else
-	_pps_application_open_uri_at_dest (application, uri, dest, mode, search_string);
-#endif /* ENABLE_DBUS */
+	pps_window = pps_application_get_empty_window (application);
+	if (!pps_window)
+		pps_window = PPS_WINDOW (pps_window_new ());
+
+	pps_application_open_uri_in_window (application, uri, pps_window,
+					   dest, mode,
+					   search_string);
 }
 
 /**
@@ -790,13 +520,7 @@ pps_application_shutdown (GApplication *gapplication)
 {
         PpsApplication *application = PPS_APPLICATION (gapplication);
 
-#ifdef ENABLE_DBUS
-	if (application->uri)
-		pps_application_unregister_uri (application,
-					       application->uri);
-#endif
 	g_clear_pointer (&application->uri, g_free);
-
 	g_clear_pointer (&application->dot_dir, g_free);
 
 	pps_shutdown();
@@ -1069,12 +793,6 @@ pps_application_get_n_windows (PpsApplication *application)
 	return retval;
 }
 
-const gchar *
-pps_application_get_uri (PpsApplication *application)
-{
-	return application->uri;
-}
-
 /**
  * pps_application_clear_uri:
  * @application: The instance of the application.
@@ -1086,9 +804,6 @@ pps_application_get_uri (PpsApplication *application)
 void
 pps_application_clear_uri (PpsApplication *application)
 {
-#ifdef ENABLE_DBUS
-	pps_application_unregister_uri (application, application->uri);
-#endif
 	g_clear_pointer (&application->uri, g_free);
 }
 

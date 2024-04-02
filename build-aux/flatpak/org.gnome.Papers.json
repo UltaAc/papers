@@ -19,8 +19,7 @@
         "--filesystem=/media:ro",
         "--filesystem=/run/media:ro",
         "--talk-name=org.gtk.vfs.*",
-        "--filesystem=xdg-run/gvfsd",
-        "--own-name=org.gnome.Papers.Daemon"
+        "--filesystem=xdg-run/gvfsd"
     ],
     "build-options" : {
         "append-path" : "/usr/lib/sdk/rust-stable/bin:",

@@ -103,40 +103,6 @@ libppsshell = shared_library(
   install: true,
 )
 
-if enable_dbus
-  papersd_sources = files('pps-daemon.c')
-
-  gdbus = 'pps-daemon-gdbus'
-
-  papersd_sources += gnome.gdbus_codegen(
-    gdbus + '-generated',
-    gdbus + '.xml',
-    interface_prefix: pps_namespace,
-    namespace: pps_code_prefix,
-    object_manager: true,
-    autocleanup: 'objects',
-  )
-
-  papersd_deps = [
-    gio_dep,
-    gio_unix_dep,
-  ]
-
-  papersd_cflags = [
-    '-DPAPERS_COMPILATION',
-  ]
-
-  papersd = executable(
-    'papersd',
-    papersd_sources,
-    include_directories: top_inc,
-    dependencies: papersd_deps,
-    c_args: papersd_cflags,
-    install: true,
-    install_dir: pps_libexecdir,
-  )
-endif
-
 # GObject Introspection
 if enable_introspection
   incs = [
