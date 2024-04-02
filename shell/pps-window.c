@@ -1037,6 +1037,11 @@ pps_window_init_metadata_with_default_values (PpsWindow *window)
 		pps_metadata_set_boolean (metadata, "fullscreen",
 					 g_settings_get_boolean (settings, "fullscreen"));
 	}
+
+	if (!pps_metadata_has_key (metadata, "window-maximized")) {
+		pps_metadata_set_boolean (metadata, "window-maximized",
+					  g_settings_get_boolean (settings, "window-maximized"));
+	}
 }
 
 static void
@@ -1257,7 +1262,7 @@ setup_size_from_metadata (PpsWindow *window)
 		gtk_window_set_default_size (GTK_WINDOW (window), width, height);
 	}
 
-	if (pps_metadata_get_boolean (priv->metadata, "window_maximized", &maximized)) {
+	if (pps_metadata_get_boolean (priv->metadata, "window-maximized", &maximized)) {
 		if (maximized) {
 			gtk_window_maximize (GTK_WINDOW (window));
 		} else {
@@ -1362,6 +1367,7 @@ pps_window_setup_default (PpsWindow *pps_window)
 		g_settings_get_boolean (settings, "enable-spellchecking"));
 
 	pps_window_set_mode (pps_window, PPS_WINDOW_MODE_START_VIEW);
+
 }
 
 static void
@@ -4051,7 +4057,7 @@ pps_window_run_fullscreen (PpsWindow *window)
 	gtk_widget_grab_focus (priv->view);
 
 	if (priv->metadata && !pps_window_is_empty (window)) {
-		pps_metadata_get_boolean (priv->metadata, "window_maximized", &maximized);
+		pps_metadata_get_boolean (priv->metadata, "window-maximized", &maximized);
 		if (!maximized)
 			pps_metadata_set_boolean (priv->metadata, "fullscreen", TRUE);
 	}
@@ -5685,7 +5691,7 @@ window_maximized_changed (GObject    *object,
 	if (!gtk_window_is_fullscreen (window)
 		&& !pps_window_is_empty (pps_window)
 		&& priv->metadata)
-		pps_metadata_set_boolean (priv->metadata, "window_maximized",
+		pps_metadata_set_boolean (priv->metadata, "window-maximized",
 				gtk_window_is_maximized (window));
 }
 
