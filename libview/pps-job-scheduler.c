@@ -88,7 +88,13 @@ pps_job_scheduler_init (gpointer data)
 	 */
 	GThreadPool *pool = g_thread_pool_new_full ((GFunc)pps_job_thread, NULL,
                        (GDestroyNotify)pps_scheduler_job_destroy,
-                       MIN (8, g_get_num_processors()), TRUE, NULL);
+                       /* MIN (8, g_get_num_processors()),
+                        * Temporary remove multi-threading. See
+                        * https://gitlab.gnome.org/GNOME/Incubator/papers/-/issues/107
+                        * for more context
+                        */
+                       1,
+                       TRUE, NULL);
 
 	g_thread_pool_set_sort_function(pool, (GCompareDataFunc)job_priority_compare, NULL);
 
