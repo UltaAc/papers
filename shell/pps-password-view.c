@@ -41,6 +41,15 @@ enum {
 	CANCELLED,
 	LAST_SIGNAL
 };
+
+enum {
+	PROP_FILENAME = 1,
+	PROP_ASK_PASSWORD,
+	N_PROPERTIES,
+};
+
+static GParamSpec *obj_properties[N_PROPERTIES] = { NULL, };
+
 typedef struct {
 	GtkWidget    *password_entry;
 
@@ -58,6 +67,15 @@ G_DEFINE_TYPE_WITH_PRIVATE (PpsPasswordView, pps_password_view, ADW_TYPE_BIN)
 
 static void pps_password_view_clicked_cb (GtkWidget      *button,
 					 PpsPasswordView *password_view);
+static void
+pps_password_view_set_property (GObject      *object,
+					                      guint         prop_id,
+					                      const GValue *value,
+					                      GParamSpec   *pspec);
+static void
+pps_password_view_set_filename (PpsPasswordView *password_view,
+                                const char     *filename);
+static void pps_password_view_ask_password  (PpsPasswordView *password_view, gboolean error);
 
 static void
 pps_password_view_finalize (GObject *object)
@@ -80,14 +98,33 @@ pps_password_view_class_init (PpsPasswordViewClass *class)
 	g_object_class = G_OBJECT_CLASS (class);
 	widget_class = GTK_WIDGET_CLASS (class);
 
+	g_object_class->set_property = pps_password_view_set_property;
+
+	obj_properties[PROP_FILENAME] =
+		g_param_spec_string ("filename",
+		                     "Filename",
+		                     "Name of the document to unlock.",
+		                     NULL,
+		                     G_PARAM_WRITABLE);
+
+	obj_properties[PROP_ASK_PASSWORD] =
+		g_param_spec_boolean ("ask-password",
+		                      "Ask Password",
+		                      "Triggers a password prompt, optionally erroneous if set",
+		                      FALSE,
+		                      G_PARAM_WRITABLE);
+
+	g_object_class_install_properties (g_object_class, N_PROPERTIES, obj_properties);
+
 	password_view_signals[UNLOCK] =
 		g_signal_new ("unlock",
 			      G_TYPE_FROM_CLASS (g_object_class),
 			      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			      0,
 			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0);
+			      NULL,
+			      G_TYPE_NONE,
+			      2, G_TYPE_STRING, G_TYPE_PASSWORD_SAVE);
 
 	password_view_signals[CANCELLED] =
 		g_signal_new ("cancelled",
@@ -107,6 +144,28 @@ pps_password_view_class_init (PpsPasswordViewClass *class)
 }
 
 static void
+pps_password_view_set_property (GObject      *object,
+					                      guint         prop_id,
+					                      const GValue *value,
+					                      GParamSpec   *pspec)
+{
+	PpsPasswordView *view = PPS_PASSWORD_VIEW (object);
+
+	switch (prop_id) {
+		case PROP_FILENAME:
+			pps_password_view_set_filename (view, g_value_get_string(value));
+			break;
+
+		case PROP_ASK_PASSWORD:
+			pps_password_view_ask_password(view, g_value_get_boolean(value));
+			break;
+
+		default:
+			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+	}
+}
+
+static void
 pps_password_view_clicked_cb (GtkWidget      *button,
 			     PpsPasswordView *password_view)
 {
@@ -123,10 +182,9 @@ pps_password_view_init (PpsPasswordView *password_view)
 	gtk_widget_init_template (GTK_WIDGET (password_view));
 }
 
-/* Public functions */
-void
+static void
 pps_password_view_set_filename (PpsPasswordView *password_view,
-			       const char     *filename)
+                                const char     *filename)
 {
 	PpsPasswordViewPrivate *priv = GET_PRIVATE (password_view);
 
@@ -154,7 +212,7 @@ pps_password_dialog_got_response (AdwMessageDialog *dialog,
 		priv->password =
 			g_strdup (gtk_editable_get_text (GTK_EDITABLE (priv->password_entry)));
 
-		g_signal_emit (password_view, password_view_signals[UNLOCK], 0);
+		g_signal_emit (password_view, password_view_signals[UNLOCK], 0, g_strdup (priv->password), priv->password_save);
 	} else {
 		g_signal_emit (password_view, password_view_signals[CANCELLED], 0);
 	}
@@ -186,7 +244,7 @@ pps_password_dialog_entry_changed_cb (GtkEditable      *editable,
 						 (text != NULL && *text != '\0'));
 }
 
-void
+static void
 pps_password_view_ask_password (PpsPasswordView *password_view, gboolean error)
 {
 	AdwMessageDialog *dialog;
@@ -290,22 +348,6 @@ pps_password_view_ask_password (PpsPasswordView *password_view, gboolean error)
 	adw_message_dialog_choose (dialog, NULL,
 				   (GAsyncReadyCallback) pps_password_dialog_got_response,
 				   password_view);
-}
-
-const gchar *
-pps_password_view_get_password (PpsPasswordView *password_view)
-{
-	PpsPasswordViewPrivate *priv = GET_PRIVATE (password_view);
-
-	return priv->password;
-}
-
-GPasswordSave
-pps_password_view_get_password_save_flags (PpsPasswordView *password_view)
-{
-	PpsPasswordViewPrivate *priv = GET_PRIVATE (password_view);
-
-	return priv->password_save;
 }
 
 PpsPasswordView *

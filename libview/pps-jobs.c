@@ -1016,6 +1016,7 @@ pps_job_load_init (PpsJobLoad *job)
 	job->flags = PPS_DOCUMENT_LOAD_FLAG_NONE;
 	job->uri = NULL;
 	job->fd = -1;
+	job->password_save = G_PASSWORD_SAVE_NEVER;
 	job->mime_type = NULL;
 }
 

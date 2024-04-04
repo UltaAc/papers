@@ -344,6 +344,7 @@ struct _PpsJobLoad
 	int fd;
 	char *mime_type;
 	gchar *password;
+	GPasswordSave password_save;
 	PpsDocumentLoadFlags flags;
 	PpsDocument *loaded_document;
 };

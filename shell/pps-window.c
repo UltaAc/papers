@@ -1525,15 +1525,14 @@ pps_window_file_changed (PpsWindow *pps_window,
 }
 
 static void
-pps_window_password_view_unlock (PpsWindow *pps_window)
+pps_window_password_view_unlock (PpsWindow *pps_window, gchar* password, GPasswordSave flags)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	const gchar *password;
 
 	g_assert (priv->load_job);
 
-	password = pps_password_view_get_password (PPS_PASSWORD_VIEW (priv->password_view));
 	pps_job_load_set_password (PPS_JOB_LOAD (priv->load_job), password);
+	PPS_JOB_LOAD (priv->load_job)->password_save = flags;
 	pps_job_scheduler_push_job (priv->load_job, PPS_JOB_PRIORITY_NONE);
 	priv->password_view_cancelled = FALSE;
 }
@@ -1641,13 +1640,9 @@ pps_window_load_job_cb (PpsJob *job,
 		gtk_recent_manager_add_item (gtk_recent_manager_get_default (), priv->uri);
 
 		if (job_load->password) {
-			GPasswordSave flags;
-
-			flags = pps_password_view_get_password_save_flags (
-				PPS_PASSWORD_VIEW (priv->password_view));
 			pps_keyring_save_password (priv->uri,
 						  job_load->password,
-						  flags);
+						  job_load->password_save);
 		}
 
 		pps_window_handle_link (pps_window, priv->dest);
@@ -1696,16 +1691,14 @@ pps_window_load_job_cb (PpsJob *job,
 		}
 
 		/* We need to ask the user for a password */
-		pps_password_view_set_filename (PPS_PASSWORD_VIEW (priv->password_view),
-					       priv->display_name);
+		gboolean wrong_password = job_load->password != NULL;
+		pps_job_load_set_password (job_load, NULL);
+
+		g_object_set(G_OBJECT (priv->password_view), "filename", priv->display_name, NULL);
 
 		pps_window_set_mode (pps_window, PPS_WINDOW_MODE_PASSWORD_VIEW);
 
-		gboolean wrong_password = job_load->password != NULL;
-
-		pps_job_load_set_password (job_load, NULL);
-
-		pps_password_view_ask_password (PPS_PASSWORD_VIEW (priv->password_view), wrong_password);
+		g_object_set (G_OBJECT (priv->password_view), "ask-password", wrong_password, NULL);
 	} else {
 		adw_status_page_set_description (ADW_STATUS_PAGE (priv->error_page), error->message);
 		pps_window_set_mode (pps_window, PPS_WINDOW_MODE_ERROR_VIEW);
