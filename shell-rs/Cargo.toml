@@ -10,6 +10,9 @@ rust-version = "1.70"
 [profile.release]
 lto = true
 
+[features]
+with-keyring = []
+
 [dependencies]
 env_logger = "0.10"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }

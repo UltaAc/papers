@@ -9,7 +9,6 @@ papers_sources = files(
   'pps-keyring.c',
   'pps-message-area.c',
   'pps-metadata.c',
-  'pps-password-view.c',
   'pps-progress-message-area.c',
   'pps-utils.c',
   'pps-window.c',

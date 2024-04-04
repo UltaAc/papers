@@ -25,7 +25,6 @@
 
 G_BEGIN_DECLS
 
-gboolean pps_keyring_is_available    (void);
 gchar   *pps_keyring_lookup_password (const gchar  *uri);
 gboolean pps_keyring_save_password   (const gchar  *uri,
 				     const gchar  *password,

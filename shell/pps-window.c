@@ -49,7 +49,6 @@
 #include "pps-message-area.h"
 #include "pps-metadata.h"
 #include "pps-page-selector.h"
-#include "pps-password-view.h"
 #include "pps-sidebar-annotations.h"
 #include "pps-sidebar-bookmarks.h"
 #include "pps-sidebar.h"
@@ -6320,7 +6319,6 @@ pps_window_init (PpsWindow *pps_window)
 	g_type_ensure (PPS_TYPE_SIDEBAR);
 	g_type_ensure (PPS_TYPE_SEARCH_BOX);
 	g_type_ensure (PPS_TYPE_FIND_SIDEBAR);
-	g_type_ensure (PPS_TYPE_PASSWORD_VIEW);
 	g_type_ensure (PPS_TYPE_SIDEBAR_BOOKMARKS);
 	g_type_ensure (PPS_TYPE_PAGE_SELECTOR);
 	g_type_ensure (PPS_TYPE_SIDEBAR_ANNOTATIONS);

@@ -19,6 +19,10 @@ else
   rust_target = 'release'
 endif
 
+if enable_keyring
+  cargo_options += [ '--features', 'with-keyring' ]
+endif
+
 cargo_env = environment()
 # it seems that flatpak can't access network during install stage.
 cargo_env.set('CARGO_HOME', build_root / 'cargo-home')

@@ -8,6 +8,7 @@ use config::GETTEXT_PACKAGE;
 use papers_shell::Application;
 
 mod deps;
+mod password_view;
 mod properties_fonts;
 mod properties_general;
 mod properties_license;
@@ -27,12 +28,13 @@ fn ensure_type() {
     let _ = gtk::init();
 
     // Hack: ensure type here so we don't need to add C interface
+    password_view::PpsPasswordView::ensure_type();
     properties_general::PpsPropertiesGeneral::ensure_type();
     properties_window::PpsPropertiesWindow::ensure_type();
     sidebar_attachments::PpsSidebarAttachments::ensure_type();
+    sidebar_layers::PpsSidebarLayers::ensure_type();
     sidebar_links::PpsSidebarLinks::ensure_type();
     sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
-    sidebar_layers::PpsSidebarLayers::ensure_type();
     sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
     stack_switcher::PpsStackSwitcher::ensure_type();
     zoom_action::PpsZoomAction::ensure_type();

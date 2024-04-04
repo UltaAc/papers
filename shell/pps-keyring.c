@@ -39,16 +39,6 @@ static const SecretSchema doc_password_schema = {
 const SecretSchema *PPS_DOCUMENT_PASSWORD_SCHEMA = &doc_password_schema;
 #endif /* WITH_KEYRING */
 
-gboolean
-pps_keyring_is_available (void)
-{
-#ifdef WITH_KEYRING
-	return TRUE;
-#else
-	return FALSE;
-#endif
-}
-
 gchar *
 pps_keyring_lookup_password (const gchar *uri)
 {
