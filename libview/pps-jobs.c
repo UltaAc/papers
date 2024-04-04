@@ -163,7 +163,7 @@ pps_job_class_init (PpsJobClass *klass)
 static gboolean
 emit_finished (PpsJob *job)
 {
-	g_debug ("%s (%p)", PPS_GET_TYPE_NAME (job), job);
+	g_debug ("emit finished for %s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	job->idle_finished_id = 0;
 
@@ -178,8 +178,6 @@ emit_finished (PpsJob *job)
 static void
 pps_job_emit_finished (PpsJob *job)
 {
-	g_debug ("emit finished for %s (%p)", PPS_GET_TYPE_NAME (job), job);
-
 	if (g_cancellable_is_cancelled (job->cancellable)) {
 		g_debug ("%s (%p) job was cancelled, returning", PPS_GET_TYPE_NAME (job), job);
 		return;
