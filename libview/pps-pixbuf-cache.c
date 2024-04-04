@@ -167,7 +167,8 @@ end_job (CacheJobInfo *job_info,
 	g_signal_handlers_disconnect_by_func (job_info->job,
 					      G_CALLBACK (job_finished_cb),
 					      data);
-	pps_job_cancel (job_info->job);
+	if (!pps_job_is_finished (job_info->job))
+		pps_job_cancel (job_info->job);
 	g_clear_object (&job_info->job);
 }
 
