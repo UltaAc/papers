@@ -134,10 +134,13 @@ common_deps = [
 deps = common_deps + [
   gmodule_dep,
   exempi_dep,
-  libsysprof_capture_dep,
   m_dep,
   zlib_dep,
 ]
+
+if pps_debug
+  deps += libsysprof_capture_dep
+endif
 
 cflags = [
   '-DG_LOG_DOMAIN="PapersDocument"',

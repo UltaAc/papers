@@ -80,7 +80,7 @@ PpsDebugBorders pps_debug_get_debug_borders (void);
 
 #else /* HAVE_SYSPROF */
 
-#define PPS_PROFILER_START(job_type)
+#define PPS_PROFILER_START(job_type, message)
 #define PPS_PROFILER_STOP()
 
 #endif /* HAVE_SYSPROF */
