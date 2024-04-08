@@ -63,7 +63,7 @@ build.container.fedora:
             cargo
             git
 
-.run-meson:
+.setup-meson:
     stage: build
     extends: '.fdo.distribution-image@fedora'
     artifacts:
@@ -72,19 +72,29 @@ build.container.fedora:
             - _build/meson-logs/meson-log.txt
             - _build/meson-logs/testlog.txt
         expire_in: 2 days
-
-meson:
-    extends: '.run-meson'
-    script:
+    before_script:
         - git submodule init
         - git submodule update --checkout
         - cargo install --path shell-rs/gir
         - export PATH=$PATH:$HOME/.cargo/bin
-        - meson setup --werror --fatal-meson-warnings _build
+        - meson setup $MESON_SETUP_OPTIONS --werror --fatal-meson-warnings _build
         - meson compile -C _build update-rust-bindings
+
+meson-dev:
+    extends: '.setup-meson'
+    variables:
+        MESON_SETUP_OPTIONS: "-Dbuildtype=debug"
+    script:
         - meson compile -C _build
         - meson compile -C _build cargo-clippy
         - meson test -C _build
+
+meson-rel:
+    extends: '.setup-meson'
+    variables:
+        MESON_SETUP_OPTIONS: "-Dbuildtype=release"
+    script:
+        - meson compile -C _build
 
 .flatpak-local:
     stage: build
