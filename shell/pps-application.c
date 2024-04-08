@@ -43,8 +43,6 @@
 struct _PpsApplication {
 	AdwApplication base_instance;
 
-	gchar *uri;
-
 	gchar *dot_dir;
 
 #ifdef ENABLE_DBUS
@@ -185,30 +183,6 @@ pps_spawn (const char     *uri,
 	g_free (cmdline);
 }
 
-static PpsWindow *
-pps_application_get_empty_window (PpsApplication *application)
-{
-	PpsWindow *empty_window = NULL;
-	GList    *windows, *l;
-
-        windows = gtk_application_get_windows (GTK_APPLICATION (application));
-	for (l = windows; l != NULL; l = l->next) {
-		PpsWindow *window;
-
-                if (!PPS_IS_WINDOW (l->data))
-                          continue;
-
-                window = PPS_WINDOW (l->data);
-
-		if (pps_window_is_empty (window)) {
-			empty_window = window;
-			break;
-		}
-	}
-
-	return empty_window;
-}
-
 static void
 pps_application_open_uri_in_window (PpsApplication  *application,
 				   const char     *uri,
@@ -217,9 +191,6 @@ pps_application_open_uri_in_window (PpsApplication  *application,
 				   PpsWindowRunMode mode,
 				   const gchar    *search_string)
 {
-        if (uri == NULL)
-                uri = application->uri;
-
 	/* We need to load uri before showing the window, so
 	   we can restore window size without flickering */
 	pps_window_open_uri (pps_window, uri, dest, mode, search_string);
@@ -245,19 +216,40 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 				 PpsWindowRunMode mode,
 				 const gchar    *search_string)
 {
-	PpsWindow *pps_window;
+	PpsWindow *pps_window = NULL;
+	GList *l, *windows;
+	guint n_windows;
 
 	g_return_if_fail (uri != NULL);
 
-	if (application->uri && strcmp (application->uri, uri) != 0) {
+
+	windows = gtk_application_get_windows (GTK_APPLICATION (application));
+	for (l = windows; l != NULL; l = l->next) {
+		if (PPS_IS_WINDOW (l->data) &&
+		    !g_strcmp0 (pps_window_get_uri (PPS_WINDOW (l->data)), uri)) {
+			pps_window = PPS_WINDOW (l->data);
+		}
+	}
+
+	windows = gtk_application_get_windows (GTK_APPLICATION (application));
+	for (l = windows; l != NULL; l = l->next) {
+		if (PPS_IS_WINDOW (l->data)) {
+			const gchar *window_uri = pps_window_get_uri (PPS_WINDOW (l->data));
+			if (pps_window_is_empty (PPS_WINDOW (l->data)) || !g_strcmp0 (window_uri, uri)) {
+				pps_window = PPS_WINDOW (l->data);
+				break;
+			}
+		}
+	}
+
+	n_windows = pps_application_get_n_windows (application);
+
+	if (n_windows > 0 && !pps_window) {
 		/* spawn a new papers process */
 		pps_spawn (uri, dest, mode, search_string);
 		return;
-	} else if (!application->uri) {
-		application->uri = g_strdup (uri);
 	}
 
-	pps_window = pps_application_get_empty_window (application);
 	if (!pps_window)
 		pps_window = PPS_WINDOW (pps_window_new ());
 
@@ -520,7 +512,6 @@ pps_application_shutdown (GApplication *gapplication)
 {
         PpsApplication *application = PPS_APPLICATION (gapplication);
 
-	g_clear_pointer (&application->uri, g_free);
 	g_clear_pointer (&application->dot_dir, g_free);
 
 	pps_shutdown();
@@ -791,20 +782,6 @@ pps_application_get_n_windows (PpsApplication *application)
 	}
 
 	return retval;
-}
-
-/**
- * pps_application_clear_uri:
- * @application: The instance of the application.
- *
- * This unregisters current uri and clears it so that another document
- * can be opened in this instance. E.g. after cancelled password dialog
- * in recent view.
- */
-void
-pps_application_clear_uri (PpsApplication *application)
-{
-	g_clear_pointer (&application->uri, g_free);
 }
 
 const gchar *

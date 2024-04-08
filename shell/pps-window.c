@@ -1577,7 +1577,6 @@ pps_window_password_view_cancelled (PpsWindow *pps_window)
 	priv->password_view_cancelled = TRUE;
 	if (pps_window_is_start_view (pps_window)) {
 		pps_window_clear_load_job (pps_window);
-		pps_application_clear_uri (PPS_APP);
 	}
 }
 
@@ -1729,8 +1728,6 @@ pps_window_load_job_cb (PpsJob *job,
 		pps_window_set_mode (pps_window, PPS_WINDOW_MODE_ERROR_VIEW);
 
 		pps_window_clear_local_uri (pps_window);
-		pps_application_clear_uri (PPS_APP);
-
 		pps_window_clear_load_job (pps_window);
 	}
 }

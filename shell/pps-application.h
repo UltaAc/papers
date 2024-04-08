@@ -50,7 +50,6 @@ void	          pps_application_open_uri_list       (PpsApplication   *applicatio
 						      GListModel      *files);
 gboolean	  pps_application_has_window	     (PpsApplication   *application);
 guint             pps_application_get_n_windows       (PpsApplication   *application);
-void              pps_application_clear_uri           (PpsApplication   *application);
 
 const gchar      *pps_application_get_dot_dir         (PpsApplication   *application,
                                                       gboolean         create);
