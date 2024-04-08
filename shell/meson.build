@@ -50,7 +50,6 @@ papers_deps = [
 ]
 
 papers_cflags = [
-  '-DBINDIR="@0@"'.format(pps_bindir),
   '-DPAPERS_COMPILATION',
 ]
 
@@ -123,7 +122,6 @@ if enable_dbus
   ]
 
   papersd_cflags = [
-    '-DBINDIR="@0@"'.format(pps_bindir),
     '-DPAPERS_COMPILATION',
   ]
 

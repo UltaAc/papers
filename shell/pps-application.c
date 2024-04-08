@@ -112,18 +112,7 @@ pps_spawn (const char     *uri,
 
 	cmd = g_string_new (NULL);
 
-#ifdef G_OS_WIN32
-{
-	gchar *dir;
-
-	dir = g_win32_get_package_installation_directory_of_module (NULL);
-	path = g_build_filename (dir, "bin", "papers", NULL);
-
-	g_free (dir);
-}
-#else
-	path = g_build_filename (BINDIR, "papers", NULL);
-#endif
+	path = g_find_program_in_path ("papers");
 
 	g_string_append_printf (cmd, " %s", path);
 	g_free (path);

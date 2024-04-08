@@ -114,7 +114,7 @@ spawn_papers (const gchar *uri)
 	GError  *error = NULL;
 
 	/* TODO Check that the uri exists */
-	argv[0] = g_build_filename (BINDIR, "papers", NULL);
+	argv[0] = g_find_program_in_path ("papers");
 	argv[1] = (gchar *) uri;
 	argv[2] = NULL;
 
