@@ -47,7 +47,6 @@ struct _PpsApplication {
 
 #ifdef ENABLE_DBUS
         PpsPapersApplication *skeleton;
-	gboolean doc_registered;
 #endif
 };
 
@@ -221,15 +220,6 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 	guint n_windows;
 
 	g_return_if_fail (uri != NULL);
-
-
-	windows = gtk_application_get_windows (GTK_APPLICATION (application));
-	for (l = windows; l != NULL; l = l->next) {
-		if (PPS_IS_WINDOW (l->data) &&
-		    !g_strcmp0 (pps_window_get_uri (PPS_WINDOW (l->data)), uri)) {
-			pps_window = PPS_WINDOW (l->data);
-		}
-	}
 
 	windows = gtk_application_get_windows (GTK_APPLICATION (application));
 	for (l = windows; l != NULL; l = l->next) {
