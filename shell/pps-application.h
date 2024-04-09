@@ -48,7 +48,6 @@ void              pps_application_open_uri_at_dest    (PpsApplication   *applica
 						      const gchar     *search_string);
 void	          pps_application_open_uri_list       (PpsApplication   *application,
 						      GListModel      *files);
-gboolean	  pps_application_has_window	     (PpsApplication   *application);
 guint             pps_application_get_n_windows       (PpsApplication   *application);
 
 const gchar      *pps_application_get_dot_dir         (PpsApplication   *application,

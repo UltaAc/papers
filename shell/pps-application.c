@@ -741,22 +741,6 @@ pps_application_init (PpsApplication *pps_application)
 	g_application_add_main_option_entries (G_APPLICATION (pps_application), option_entries);
 }
 
-gboolean
-pps_application_has_window (PpsApplication *application)
-{
-	GList *l, *windows;
-
-	windows = gtk_application_get_windows (GTK_APPLICATION (application));
-	for (l = windows; l != NULL; l = l->next) {
-		if (!PPS_IS_WINDOW (l->data))
-                        continue;
-
-                return TRUE;
-	}
-
-	return FALSE;
-}
-
 guint
 pps_application_get_n_windows (PpsApplication *application)
 {
