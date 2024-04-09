@@ -2968,19 +2968,15 @@ static void
 save_print_setting_file (GKeyFile *key_file)
 {
 	gchar  *filename;
-	gchar  *data;
-	gsize  data_length;
 	GError *error = NULL;
 
 	filename = g_build_filename (pps_application_get_dot_dir (PPS_APP, TRUE),
 				     PPS_PRINT_SETTINGS_FILE, NULL);
-	data = g_key_file_to_data (key_file, &data_length, NULL);
-	g_file_set_contents (filename, data, data_length, &error);
+	g_key_file_save_to_file (key_file, filename, &error);
 	if (error) {
 		g_warning ("Failed to save print settings: %s", error->message);
 		g_error_free (error);
 	}
-	g_free (data);
 	g_free (filename);
 }
 
