@@ -30,39 +30,10 @@ impl Application {
         ApplicationBuilder::new()
     }
 
-    #[doc(alias = "pps_application_clear_uri")]
-    pub fn clear_uri(&self) {
-        unsafe {
-            ffi::pps_application_clear_uri(self.to_glib_none().0);
-        }
-    }
-
-    #[doc(alias = "pps_application_get_dot_dir")]
-    #[doc(alias = "get_dot_dir")]
-    pub fn dot_dir(&self, create: bool) -> Option<glib::GString> {
-        unsafe {
-            from_glib_none(ffi::pps_application_get_dot_dir(
-                self.to_glib_none().0,
-                create.into_glib(),
-            ))
-        }
-    }
-
     #[doc(alias = "pps_application_get_n_windows")]
     #[doc(alias = "get_n_windows")]
     pub fn n_windows(&self) -> u32 {
         unsafe { ffi::pps_application_get_n_windows(self.to_glib_none().0) }
-    }
-
-    #[doc(alias = "pps_application_get_uri")]
-    #[doc(alias = "get_uri")]
-    pub fn uri(&self) -> Option<glib::GString> {
-        unsafe { from_glib_none(ffi::pps_application_get_uri(self.to_glib_none().0)) }
-    }
-
-    #[doc(alias = "pps_application_has_window")]
-    pub fn has_window(&self) -> bool {
-        unsafe { from_glib(ffi::pps_application_has_window(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pps_application_open_start_view")]

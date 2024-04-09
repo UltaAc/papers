@@ -465,7 +465,7 @@ For the time-format used, see pps_document_misc_format_datetime().</doc>
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
                  line="502">a #time_t</doc>
-            <type name="glong" c:type="time_t"/>
+            <type name="time_t" c:type="time_t"/>
           </parameter>
         </parameters>
       </method>
@@ -10700,7 +10700,7 @@ It is the caller's responsibility to unlink the temp file after use.</doc>
     <function name="init" c:identifier="pps_init">
       <doc xml:space="preserve"
            filename="libdocument/pps-init.c"
-           line="96">Initializes the papers document library, and binds the papers
+           line="95">Initializes the papers document library, and binds the papers
 gettext domain.
 
 You must call this before calling any other function in the papers
@@ -10709,7 +10709,7 @@ document library.</doc>
       <return-value transfer-ownership="none">
         <doc xml:space="preserve"
              filename="libdocument/pps-init.c"
-             line="105">%TRUE if any backends were found; %FALSE otherwise</doc>
+             line="104">%TRUE if any backends were found; %FALSE otherwise</doc>
         <type name="gboolean" c:type="gboolean"/>
       </return-value>
     </function>
@@ -10818,7 +10818,7 @@ document library.</doc>
     <function name="shutdown" c:identifier="pps_shutdown">
       <doc xml:space="preserve"
            filename="libdocument/pps-init.c"
-           line="128">Shuts the papers document library down.</doc>
+           line="126">Shuts the papers document library down.</doc>
       <source-position filename="libdocument/pps-init.h" line="39"/>
       <return-value transfer-ownership="none">
         <type name="none" c:type="void"/>

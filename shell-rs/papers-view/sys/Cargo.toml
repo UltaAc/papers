@@ -25,56 +25,52 @@ name = "papers_view_sys"
 [dependencies]
 libc = "0.2"
 
-[dependencies.gio]
-package = "gio-sys"
+[dependencies.gio-sys]
 git = "https://github.com/gtk-rs/gtk-rs-core"
 branch = "master"
 version = "0.20"
 
-[dependencies.glib]
+[dependencies.glib-sys]
 package = "glib-sys"
 git = "https://github.com/gtk-rs/gtk-rs-core"
 branch = "master"
 version = "0.20"
 
-[dependencies.gobject]
-package = "gobject-sys"
+[dependencies.gobject-sys]
 git = "https://github.com/gtk-rs/gtk-rs-core"
 branch = "master"
 version = "0.20"
 
-[dependencies.cairo]
+[dependencies.cairo-sys]
 package = "cairo-sys-rs"
 git = "https://github.com/gtk-rs/gtk-rs-core"
 branch = "master"
 version = "0.20"
 
-[dependencies.gdk-pixbuf]
-package = "gdk-pixbuf-sys"
+[dependencies.gdk-pixbuf-sys]
 git = "https://github.com/gtk-rs/gtk-rs-core"
 branch = "master"
 version = "0.20"
 
-[dependencies.pango]
+[dependencies.pango-sys]
 package = "pango-sys"
 git = "https://github.com/gtk-rs/gtk-rs-core"
 branch = "master"
 version = "0.20"
 
-[dependencies.gdk]
+[dependencies.gdk-sys]
 package = "gdk4-sys"
 git = "https://github.com/gtk-rs/gtk4-rs"
 branch = "master"
 version = "0.9"
 
-[dependencies.gtk]
+[dependencies.gtk-sys]
 package = "gtk4-sys"
 git = "https://github.com/gtk-rs/gtk4-rs"
 branch = "master"
 version = "0.9"
 
-[dependencies.papers_document]
-package = "papers-document-sys"
+[dependencies.papers-document-sys]
 path = "../../papers-document/sys"
 
 [build-dependencies]
