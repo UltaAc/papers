@@ -43,8 +43,6 @@
 struct _PpsApplication {
 	AdwApplication base_instance;
 
-	gchar *dot_dir;
-
 #ifdef ENABLE_DBUS
         PpsPapersApplication *skeleton;
 #endif
@@ -500,10 +498,6 @@ pps_application_startup (GApplication *gapplication)
 static void
 pps_application_shutdown (GApplication *gapplication)
 {
-        PpsApplication *application = PPS_APPLICATION (gapplication);
-
-	g_clear_pointer (&application->dot_dir, g_free);
-
 	pps_shutdown();
 	pps_job_scheduler_wait ();
 
@@ -734,9 +728,6 @@ pps_application_init (PpsApplication *pps_application)
 		{ NULL }
 	};
 
-	pps_application->dot_dir = g_build_filename (g_get_user_config_dir (),
-						    "papers", NULL);
-
 	g_application_set_option_context_parameter_string (G_APPLICATION (pps_application), N_("Papers"));
 	g_application_add_main_option_entries (G_APPLICATION (pps_application), option_entries);
 }
@@ -756,14 +747,4 @@ pps_application_get_n_windows (PpsApplication *application)
 	}
 
 	return retval;
-}
-
-const gchar *
-pps_application_get_dot_dir (PpsApplication *application,
-                            gboolean create)
-{
-        if (create)
-                g_mkdir_with_parents (application->dot_dir, 0700);
-
-	return application->dot_dir;
 }

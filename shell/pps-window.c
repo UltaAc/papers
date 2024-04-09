@@ -2935,6 +2935,17 @@ pps_window_cmd_open_containing_folder (GSimpleAction *action,
 
 }
 
+static gchar *
+print_settings_filename (gboolean create)
+{
+	if (create) {
+		g_autofree gchar *dot_dir = g_build_filename (g_get_user_config_dir (),"papers", NULL);
+		g_mkdir_with_parents (dot_dir, 0700);
+	}
+
+	return g_build_filename (g_get_user_config_dir (), "papers", PPS_PRINT_SETTINGS_FILE, NULL);
+}
+
 static GKeyFile *
 get_print_settings_file (void)
 {
@@ -2944,8 +2955,7 @@ get_print_settings_file (void)
 
 	print_settings_file = g_key_file_new ();
 
-	filename = g_build_filename (pps_application_get_dot_dir (PPS_APP, FALSE),
-                                     PPS_PRINT_SETTINGS_FILE, NULL);
+	filename = print_settings_filename (FALSE);
         if (!g_key_file_load_from_file (print_settings_file,
                                         filename,
                                         G_KEY_FILE_KEEP_COMMENTS |
@@ -2970,8 +2980,7 @@ save_print_setting_file (GKeyFile *key_file)
 	gchar  *filename;
 	GError *error = NULL;
 
-	filename = g_build_filename (pps_application_get_dot_dir (PPS_APP, TRUE),
-				     PPS_PRINT_SETTINGS_FILE, NULL);
+	filename = print_settings_filename (TRUE);
 	g_key_file_save_to_file (key_file, filename, &error);
 	if (error) {
 		g_warning ("Failed to save print settings: %s", error->message);
