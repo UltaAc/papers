@@ -37,6 +37,8 @@ cairo_surface_t *pps_document_misc_surface_from_pixbuf (GdkPixbuf *pixbuf);
 PPS_PUBLIC
 GdkPixbuf       *pps_document_misc_pixbuf_from_surface (cairo_surface_t *surface);
 PPS_PUBLIC
+GdkTexture      *pps_document_misc_texture_from_surface (cairo_surface_t *surface);
+PPS_PUBLIC
 cairo_surface_t *pps_document_misc_surface_rotate_and_scale (cairo_surface_t *surface,
 							    gint             dest_width,
 							    gint             dest_height,

@@ -65,6 +65,33 @@ pps_document_misc_pixbuf_from_surface (cairo_surface_t *surface)
                                             cairo_image_surface_get_height (surface));
 }
 
+GdkTexture *
+pps_document_misc_texture_from_surface (cairo_surface_t *surface)
+{
+	GdkTexture *texture;
+	GBytes *bytes;
+
+	g_return_val_if_fail (surface != NULL, NULL);
+	g_return_val_if_fail (cairo_surface_get_type (surface) == CAIRO_SURFACE_TYPE_IMAGE, NULL);
+	g_return_val_if_fail (cairo_image_surface_get_width (surface) > 0, NULL);
+	g_return_val_if_fail (cairo_image_surface_get_height (surface) > 0, NULL);
+
+	bytes = g_bytes_new_with_free_func (cairo_image_surface_get_data (surface),
+					    cairo_image_surface_get_height (surface) * cairo_image_surface_get_stride (surface),
+					    (GDestroyNotify)cairo_surface_destroy,
+					    cairo_surface_reference (surface));
+
+	texture = gdk_memory_texture_new (cairo_image_surface_get_width (surface),
+					  cairo_image_surface_get_height (surface),
+					  GDK_MEMORY_DEFAULT,
+					  bytes,
+					  cairo_image_surface_get_stride (surface));
+
+	g_bytes_unref (bytes);
+
+	return texture;
+}
+
 cairo_surface_t *
 pps_document_misc_surface_rotate_and_scale (cairo_surface_t *surface,
 					   gint             dest_width,

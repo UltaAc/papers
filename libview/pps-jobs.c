@@ -591,33 +591,6 @@ pps_job_render_texture_dispose (GObject *object)
 	(* G_OBJECT_CLASS (pps_job_render_texture_parent_class)->dispose) (object);
 }
 
-static GdkTexture *
-gdk_texture_new_for_surface (cairo_surface_t *surface)
-{
-	GdkTexture *texture;
-	GBytes *bytes;
-
-	g_return_val_if_fail (surface != NULL, NULL);
-	g_return_val_if_fail (cairo_surface_get_type (surface) == CAIRO_SURFACE_TYPE_IMAGE, NULL);
-	g_return_val_if_fail (cairo_image_surface_get_width (surface) > 0, NULL);
-	g_return_val_if_fail (cairo_image_surface_get_height (surface) > 0, NULL);
-
-	bytes = g_bytes_new_with_free_func (cairo_image_surface_get_data (surface),
-					    cairo_image_surface_get_height (surface) * cairo_image_surface_get_stride (surface),
-					    (GDestroyNotify)cairo_surface_destroy,
-					    cairo_surface_reference (surface));
-
-	texture = gdk_memory_texture_new (cairo_image_surface_get_width (surface),
-					  cairo_image_surface_get_height (surface),
-					  GDK_MEMORY_DEFAULT,
-					  bytes,
-					  cairo_image_surface_get_stride (surface));
-
-	g_bytes_unref (bytes);
-
-	return texture;
-}
-
 PpsJob *
 pps_job_render_texture_new (PpsDocument   *document,
 			 gint          page,
@@ -692,7 +665,7 @@ pps_job_render_texture_run (PpsJob *job)
 		return FALSE;
 	}
 
-	job_render->texture = gdk_texture_new_for_surface (surface);
+	job_render->texture = pps_document_misc_texture_from_surface (surface);
 	cairo_surface_destroy (surface);
 
 	/* If job was cancelled during the page rendering,
@@ -721,7 +694,7 @@ pps_job_render_texture_run (PpsJob *job)
 							   &(job_render->selection_points));
 
 		if (selection != NULL) {
-			job_render->selection = gdk_texture_new_for_surface (selection);
+			job_render->selection = pps_document_misc_texture_from_surface (selection);
 			cairo_surface_destroy (selection);
 		}
 	}
@@ -894,7 +867,7 @@ pps_job_thumbnail_texture_run (PpsJob *job)
 
 	surface = pps_document_get_thumbnail_surface (job->document, rc);
 
-	job_thumb->thumbnail_texture = gdk_texture_new_for_surface (surface);
+	job_thumb->thumbnail_texture = pps_document_misc_texture_from_surface (surface);
 	cairo_surface_destroy(surface);
 	g_object_unref (rc);
 	PPS_PROFILER_STOP ();
