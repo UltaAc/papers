@@ -212,6 +212,7 @@ pps_document_misc_get_pointer_position (GtkWidget *widget,
 	GtkNative  *native;
 	GdkDevice  *device_pointer;
 	GdkSurface *surface;
+	graphene_point_t point;
 
 	if (x)
 		*x = -1;
@@ -242,10 +243,12 @@ pps_document_misc_get_pointer_position (GtkWidget *widget,
 	if (y)
 		*y = dy;
 
-	gtk_widget_translate_coordinates (widget, GTK_WIDGET (native), 0, 0, &dx, &dy);
+	if (!gtk_widget_compute_point (widget, GTK_WIDGET (native),
+				       &GRAPHENE_POINT_INIT(0, 0), &point))
+		g_warn_if_reached ();
 
 	if (x)
-		*x -= dx;
+		*x -= point.x;
 	if (y)
-		*y -= dy;
+		*y -= point.y;
 }

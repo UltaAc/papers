@@ -191,7 +191,7 @@ sidebar_annots_button_press_cb (GtkGestureClick *self,
 	GtkWidget *sidebar_annots = gtk_widget_get_ancestor (row, PPS_TYPE_SIDEBAR_ANNOTATIONS);
 	PpsSidebarAnnotationsPrivate *priv = GET_PRIVATE (PPS_SIDEBAR_ANNOTATIONS (sidebar_annots));
 	GtkWindow *window;
-	double sidebar_annots_x, sidebar_annots_y;
+	graphene_point_t sidebar_annots_point;
 
 	if (!mapping)
 		return;
@@ -208,12 +208,12 @@ sidebar_annots_button_press_cb (GtkGestureClick *self,
 
 			pps_window_handle_annot_popup (PPS_WINDOW (window), PPS_ANNOTATION (mapping->data));
 
-			gtk_widget_translate_coordinates (row,
-				gtk_widget_get_parent (priv->popup),
-				x, y, &sidebar_annots_x, &sidebar_annots_y);
+			if (!gtk_widget_compute_point (row, gtk_widget_get_parent (priv->popup), &GRAPHENE_POINT_INIT(x, y),
+						  &sidebar_annots_point))
+				g_warn_if_reached ();
 
 			gtk_popover_set_pointing_to (GTK_POPOVER (priv->popup),
-				&(const GdkRectangle) { sidebar_annots_x, sidebar_annots_y, 1, 1 });
+				&(const GdkRectangle) { sidebar_annots_point.x, sidebar_annots_point.y, 1, 1 });
 			gtk_popover_popup (GTK_POPOVER (priv->popup));
 			break;
 		default:

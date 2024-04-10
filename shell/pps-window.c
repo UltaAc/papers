@@ -4982,7 +4982,7 @@ view_menu_popup_cb (PpsView   *view,
 	gboolean has_image = FALSE;
 	gboolean has_annot = FALSE;
 	gboolean can_annotate;
-	gdouble window_x, window_y;
+	graphene_point_t window_point;
 
 	for (l = items; l; l = g_list_next (l)) {
 		if (PPS_IS_LINK (l->data)) {
@@ -5010,12 +5010,13 @@ view_menu_popup_cb (PpsView   *view,
 
 	pps_window_set_action_enabled (pps_window, "highlight-annotation", can_annotate);
 
-	gtk_widget_translate_coordinates (GTK_WIDGET (view),
-				gtk_widget_get_parent (priv->view_popup),
-				x, y, &window_x, &window_y);
+	if (!gtk_widget_compute_point (GTK_WIDGET (view),
+				      gtk_widget_get_parent (priv->view_popup),
+				      &GRAPHENE_POINT_INIT(x, y), &window_point))
+		g_warn_if_reached ();
 
 	gtk_popover_set_pointing_to (GTK_POPOVER (priv->view_popup),
-				&(const GdkRectangle) { window_x, window_y, 1, 1 });
+				&(const GdkRectangle) { window_point.x, window_point.y, 1, 1 });
 	gtk_popover_popup (GTK_POPOVER (priv->view_popup));
 }
 
