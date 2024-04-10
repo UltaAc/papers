@@ -100,9 +100,7 @@ config_h.set('HAVE__NL_MEASUREMENT_MEASUREMENT', cc.compiles(langinfo_measuremen
              description: 'Define if _NL_MEASUREMENT_MEASUREMENT is available')
 
 # compiler flags
-common_flags = ['-DHAVE_CONFIG_H'] + cc.get_supported_arguments([
-  '-Wno-deprecated-declarations',
-])
+common_flags = ['-DHAVE_CONFIG_H']
 
 common_ldflags = []
 
