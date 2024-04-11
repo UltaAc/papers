@@ -3864,11 +3864,14 @@ pps_window_cmd_toggle_find (GSimpleAction *action,
 			   gpointer       user_data)
 {
 	PpsWindow *pps_window = user_data;
+	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
+	gboolean show = g_variant_get_boolean (state);
 
-	if (g_variant_get_boolean (state))
+	if (show)
 		pps_window_show_find_bar (pps_window, TRUE);
 	else
 		pps_window_close_find_bar (pps_window);
+	pps_view_find_set_highlight_search (PPS_VIEW (priv->view), show);
 
 	g_simple_action_set_state (action, state);
 }
@@ -5079,23 +5082,6 @@ search_cleared_cb (PpsSearchBox *search_box,
 
 	pps_view_find_cancel (PPS_VIEW (priv->view));
 	gtk_widget_queue_draw (GTK_WIDGET (priv->view));
-}
-
-static void
-search_bar_search_mode_enabled_changed (GtkSearchBar *search_bar,
-					GParamSpec   *param,
-					PpsWindow     *pps_window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	gboolean enabled = gtk_search_bar_get_search_mode (search_bar);
-
-	pps_view_find_set_highlight_search (PPS_VIEW (priv->view), enabled);
-	pps_window_update_actions_sensitivity (pps_window);
-
-	if (!enabled) {
-		/* Handle the case of search bar close button clicked */
-		pps_window_close_find_bar (pps_window);
-	}
 }
 
 void
@@ -6567,7 +6553,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, search_started_cb);
 	gtk_widget_class_bind_template_callback (widget_class, search_cleared_cb);
 	gtk_widget_class_bind_template_callback (widget_class, search_entry_stop_search_cb);
-	gtk_widget_class_bind_template_callback (widget_class, search_bar_search_mode_enabled_changed);
 
 	/* model */
 	gtk_widget_class_bind_template_callback (widget_class, page_changed_cb);

@@ -163,10 +163,6 @@
                     <style>
                       <class name="evsearchbox" />
                     </style>
-                    <!-- We don't use gtk_search_bar_connect_entry, because it clears the
-                      entry when the search is closed, but we want to keep the current search.-->
-                    <signal name="notify::search-mode-enabled"
-                      handler="search_bar_search_mode_enabled_changed" />
                     <property name="child">
                       <object class="PpsSearchBox" id="search_box">
                         <property name="document-model">model</property>
