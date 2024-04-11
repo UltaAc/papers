@@ -22,7 +22,6 @@
 #include "config.h"
 #include "pps-outlines.h"
 
-#include <math.h>
 #include <string.h>
 #ifdef _WIN32
 #include <io.h>

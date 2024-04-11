@@ -21,10 +21,8 @@
 #include <config.h>
 
 #include "pps-utils.h"
-#include "pps-file-helpers.h"
 
 #include <string.h>
-#include <math.h>
 #include <glib/gi18n.h>
 
 /* Simple function to output the contents of a region.  Used solely for testing

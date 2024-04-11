@@ -28,9 +28,8 @@
 #include <adwaita.h>
 
 #include "pps-link.h"
-#include "pps-history.h"
-#include "pps-document-model.h"
 #include "pps-metadata.h"
+#include "pps-annotation.h"
 
 G_BEGIN_DECLS
 

@@ -29,7 +29,6 @@
 #include "pps-jobs.h"
 #include "pps-job-scheduler.h"
 #include "pps-window.h"
-#include "pps-utils.h"
 
 enum {
 	PROP_0,

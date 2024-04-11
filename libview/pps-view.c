@@ -45,7 +45,6 @@
 #include "pps-view-marshal.h"
 #include "pps-document-annotations.h"
 #include "pps-annotation-window.h"
-#include "pps-view-type-builtins.h"
 #include "pps-debug.h"
 
 enum {

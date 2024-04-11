@@ -30,11 +30,9 @@
 #include "config.h"
 #endif
 
-#include <errno.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <math.h>
 
 #include <glib/gstdio.h>
 #include <glib/gi18n.h>

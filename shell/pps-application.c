@@ -35,6 +35,8 @@
 
 #include "pps-application.h"
 #include "pps-window.h"
+#include "pps-init.h"
+#include "pps-job-scheduler.h"
 
 #ifdef ENABLE_DBUS
 #include "pps-gdbus-generated.h"
