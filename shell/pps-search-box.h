@@ -37,7 +37,6 @@ struct _PpsSearchBox {
 
 GtkWidget      *pps_search_box_new         (PpsDocumentModel *model);
 GtkSearchEntry *pps_search_box_get_entry   (PpsSearchBox     *box);
-gboolean        pps_search_box_has_results (PpsSearchBox     *box);
 void            pps_search_box_restart     (PpsSearchBox     *box);
 
 G_END_DECLS

@@ -345,7 +345,6 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 	gboolean override_restrictions = TRUE;
 	gboolean can_get_text = FALSE;
 	gboolean can_find = FALSE;
-	gboolean can_find_in_page;
 	gboolean can_annotate = FALSE;
 	gboolean presentation_mode;
 	gboolean start_view_mode;
@@ -482,16 +481,10 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 		pps_window_set_action_enabled (pps_window, "remove-annot", FALSE);
 	}
 
-	can_find_in_page = pps_search_box_has_results (PPS_SEARCH_BOX (priv->search_box));
-
 	pps_window_set_action_enabled (pps_window, "copy",
 					has_pages &&
 					pps_view_has_selection (view) &&
 					!start_view_mode);
-	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.find-next",
-				      has_pages && can_find_in_page && !start_view_mode);
-	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.find-previous",
-				      has_pages && can_find_in_page && !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "dual-odd-left", dual_mode &&
 				      has_pages && !start_view_mode);
 
@@ -3915,17 +3908,11 @@ pps_window_find_restart (PpsWindow *pps_window)
 }
 
 static void
-pps_window_find_previous (PpsWindow *pps_window)
+pps_window_cmd_find_next (GSimpleAction *action,
+			      GVariant      *parameter,
+			      gpointer       user_data)
 {
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-
-	pps_view_find_previous (PPS_VIEW (priv->view));
-	pps_find_sidebar_previous (PPS_FIND_SIDEBAR (priv->find_sidebar));
-}
-
-static void
-pps_window_find_next (PpsWindow *pps_window)
-{
+	PpsWindow *pps_window = user_data;
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
 	pps_view_find_next (PPS_VIEW (priv->view));
@@ -3933,47 +3920,15 @@ pps_window_find_next (PpsWindow *pps_window)
 }
 
 static void
-pps_window_cmd_edit_find_next (GSimpleAction *action,
-			      GVariant      *parameter,
-			      gpointer       user_data)
-{
-	PpsWindow *pps_window = user_data;
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	gboolean search_mode_enabled;
-
-	if (PPS_WINDOW_IS_PRESENTATION (priv))
-		return;
-
-	search_mode_enabled = gtk_search_bar_get_search_mode (GTK_SEARCH_BAR (priv->search_bar));
-	pps_window_show_find_bar (pps_window, FALSE);
-
-	/* Use idle to make sure view allocation happens before find */
-	if (!search_mode_enabled)
-		g_idle_add_once ((GSourceOnceFunc)pps_window_find_next, pps_window);
-	else
-		pps_window_find_next (pps_window);
-}
-
-static void
-pps_window_cmd_edit_find_previous (GSimpleAction *action,
+pps_window_cmd_find_previous (GSimpleAction *action,
 				  GVariant      *parameter,
 				  gpointer       user_data)
 {
 	PpsWindow *pps_window = user_data;
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	gboolean search_mode_enabled;
 
-	if (PPS_WINDOW_IS_PRESENTATION (priv))
-		return;
-
-	search_mode_enabled = gtk_search_bar_get_search_mode (GTK_SEARCH_BAR (priv->search_bar));
-	pps_window_show_find_bar (pps_window, FALSE);
-
-	/* Use idle to make sure view allocation happens before find */
-	if (!search_mode_enabled)
-		g_idle_add_once ((GSourceOnceFunc)pps_window_find_previous, pps_window);
-	else
-		pps_window_find_previous (pps_window);
+	pps_view_find_previous (PPS_VIEW (priv->view));
+	pps_find_sidebar_previous (PPS_FIND_SIDEBAR (priv->find_sidebar));
 }
 
 static void
@@ -5177,6 +5132,9 @@ pps_window_show_find_bar (PpsWindow *pps_window,
 	gtk_widget_grab_focus (priv->search_box);
 	g_action_group_change_action_state (G_ACTION_GROUP (pps_window), "show-side-pane",
 						g_variant_new_boolean (TRUE));
+	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.find-next", TRUE);
+	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.find-previous", TRUE);
+
 	if (restart) {
 		GtkSearchEntry *entry = pps_search_box_get_entry (PPS_SEARCH_BOX (priv->search_box));
 		const char     *search_string = gtk_editable_get_text (GTK_EDITABLE (entry));
@@ -5198,6 +5156,9 @@ pps_window_close_find_bar (PpsWindow *pps_window)
 
 	gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (priv->search_bar), FALSE);
 	gtk_widget_grab_focus (priv->view);
+
+	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.find-next", FALSE);
+	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.find-previous", FALSE);
 
 	pps_history_thaw (priv->history);
 }
@@ -5513,8 +5474,8 @@ static const GActionEntry doc_actions[] = {
 	{ "go-forward-history", pps_window_cmd_go_forward_history },
 	{ "find", pps_window_cmd_find },
 	{ "toggle-find", NULL, NULL, "false", pps_window_cmd_toggle_find },
-	{ "find-next", pps_window_cmd_edit_find_next },
-	{ "find-previous", pps_window_cmd_edit_find_previous },
+	{ "find-next", pps_window_cmd_find_next },
+	{ "find-previous", pps_window_cmd_find_previous },
 };
 
 static void
@@ -6455,7 +6416,9 @@ pps_window_init (PpsWindow *pps_window)
 					 pps_window);
 	gtk_widget_insert_action_group (GTK_WIDGET (pps_window),
 					"doc", G_ACTION_GROUP (group));
-
+	// These are only enabled once the search has started
+	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.find-next", FALSE);
+	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.find-previous", FALSE);
 
 	pps_page_selector_set_model (PPS_PAGE_SELECTOR (priv->page_selector),
 		priv->model);

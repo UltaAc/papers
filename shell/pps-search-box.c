@@ -436,18 +436,6 @@ pps_search_box_get_entry (PpsSearchBox *box)
         return GTK_SEARCH_ENTRY (priv->entry);
 }
 
-gboolean
-pps_search_box_has_results (PpsSearchBox *box)
-{
-        PpsSearchBoxPrivate *priv;
-
-        g_return_val_if_fail (PPS_IS_SEARCH_BOX (box), FALSE);
-
-	priv = GET_PRIVATE (box);
-
-        return gtk_widget_get_sensitive (priv->next_button);
-}
-
 void
 pps_search_box_restart (PpsSearchBox *box)
 {
