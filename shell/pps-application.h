@@ -44,8 +44,7 @@ void              pps_application_open_start_view     (PpsApplication   *applica
 void              pps_application_open_uri_at_dest    (PpsApplication   *application,
 						      const char      *uri,
 						      PpsLinkDest      *dest,
-						      PpsWindowRunMode  mode,
-						      const gchar     *search_string);
+						      PpsWindowRunMode  mode);
 void	          pps_application_open_uri_list       (PpsApplication   *application,
 						      GListModel      *files);
 guint             pps_application_get_n_windows       (PpsApplication   *application);

@@ -65,8 +65,7 @@ static void pps_application_open_uri_in_window (PpsApplication  *application,
 					       const char     *uri,
 					       PpsWindow       *pps_window,
 					       PpsLinkDest     *dest,
-					       PpsWindowRunMode mode,
-					       const gchar    *search_string);
+					       PpsWindowRunMode mode);
 
 /**
  * pps_application_new:
@@ -90,8 +89,7 @@ pps_application_new (void)
 static void
 pps_spawn (const char     *uri,
 	  PpsLinkDest     *dest,
-	  PpsWindowRunMode mode,
-	  const gchar    *search_string)
+	  PpsWindowRunMode mode)
 {
 	GString *cmd;
 	gchar *path, *cmdline;
@@ -128,11 +126,6 @@ pps_spawn (const char     *uri,
                 default:
                         break;
                 }
-	}
-
-	/* Find string */
-	if (search_string) {
-		g_string_append_printf (cmd, " --find=%s", search_string);
 	}
 
 	/* Mode */
@@ -187,12 +180,11 @@ pps_application_open_uri_in_window (PpsApplication  *application,
 				   const char     *uri,
 				   PpsWindow       *pps_window,
 				   PpsLinkDest     *dest,
-				   PpsWindowRunMode mode,
-				   const gchar    *search_string)
+				   PpsWindowRunMode mode)
 {
 	/* We need to load uri before showing the window, so
 	   we can restore window size without flickering */
-	pps_window_open_uri (pps_window, uri, dest, mode, search_string);
+	pps_window_open_uri (pps_window, uri, dest, mode);
 
 	if (!gtk_widget_get_realized (GTK_WIDGET (pps_window)))
 		gtk_widget_realize (GTK_WIDGET (pps_window));
@@ -206,14 +198,12 @@ pps_application_open_uri_in_window (PpsApplication  *application,
  * @uri: The uri to be opened.
  * @dest: The #PpsLinkDest of the document.
  * @mode: The run mode of the window.
- * @search_string: The word or phrase to find in the document.
  */
 void
 pps_application_open_uri_at_dest (PpsApplication  *application,
 				 const char     *uri,
 				 PpsLinkDest     *dest,
-				 PpsWindowRunMode mode,
-				 const gchar    *search_string)
+				 PpsWindowRunMode mode)
 {
 	PpsWindow *pps_window = NULL;
 	GList *l, *windows;
@@ -236,7 +226,7 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 
 	if (n_windows > 0 && !pps_window) {
 		/* spawn a new papers process */
-		pps_spawn (uri, dest, mode, search_string);
+		pps_spawn (uri, dest, mode);
 		return;
 	}
 
@@ -244,8 +234,7 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 		pps_window = PPS_WINDOW (pps_window_new ());
 
 	pps_application_open_uri_in_window (application, uri, pps_window,
-					   dest, mode,
-					   search_string);
+					   dest, mode);
 }
 
 /**
@@ -305,7 +294,6 @@ handle_reload_cb (PpsPapersApplication   *object,
         GVariant        *value;
         PpsLinkDest      *dest = NULL;
         PpsWindowRunMode  mode = PPS_WINDOW_MODE_NORMAL;
-        const gchar     *search_string = NULL;
 
         g_variant_iter_init (&iter, args);
 
@@ -318,8 +306,6 @@ handle_reload_cb (PpsPapersApplication   *object,
                         dest = pps_link_dest_new_named (g_variant_get_string (value, NULL));
                 } else if (strcmp (key, "page-index") == 0 && g_variant_classify (value) == G_VARIANT_CLASS_UINT32) {
                         dest = pps_link_dest_new_page (g_variant_get_uint32 (value));
-                } else if (strcmp (key, "find-string") == 0 && g_variant_classify (value) == G_VARIANT_CLASS_STRING) {
-                        search_string = g_variant_get_string (value, NULL);
                 }
         }
 
@@ -330,8 +316,7 @@ handle_reload_cb (PpsPapersApplication   *object,
 
                 pps_application_open_uri_in_window (application, NULL,
                                                    PPS_WINDOW (l->data),
-                                                   dest, mode,
-                                                   search_string);
+						    dest, mode);
         }
 
 	g_clear_object (&dest);
@@ -356,7 +341,7 @@ pps_application_open_uri_list (PpsApplication *application,
 			continue;
 
 		pps_application_open_uri_at_dest (application, uri,
-						 NULL, PPS_WINDOW_MODE_NORMAL, NULL);
+						 NULL, PPS_WINDOW_MODE_NORMAL);
 	}
 }
 
@@ -434,7 +419,7 @@ pps_application_new_window_activated (GSimpleAction *action,
 				      gpointer       app)
 {
 	/* spawn an empty window */
-	pps_spawn (NULL, NULL, PPS_WINDOW_MODE_NORMAL, NULL);
+	pps_spawn (NULL, NULL, PPS_WINDOW_MODE_NORMAL);
 }
 
 static void
@@ -601,7 +586,7 @@ pps_application_command_line (GApplication	     *gapplication,
 	gint             i;
 	PpsLinkDest      *global_dest = NULL;
 	gint32 page_index = 0;
-	gchar *named_dest = NULL, *page_label = NULL, *find_string = NULL;
+	gchar *named_dest = NULL, *page_label = NULL;
 	g_autofree const gchar **files = NULL;
 
 	if (g_variant_dict_contains (options, "fullscreen"))
@@ -611,7 +596,6 @@ pps_application_command_line (GApplication	     *gapplication,
 
 	g_variant_dict_lookup (options, "page-label", "s", &page_label);
 	g_variant_dict_lookup (options, "named-dest", "s", &named_dest);
-	g_variant_dict_lookup (options, "find", "s", &find_string);
 	g_variant_dict_lookup (options, "page-index", "i", &page_index);
 	g_variant_dict_lookup (options, G_OPTION_REMAINING, "^a&ay", &files);
 
@@ -649,7 +633,7 @@ pps_application_command_line (GApplication	     *gapplication,
 		g_object_unref (file);
 
 		pps_application_open_uri_at_dest (pps_app, uri, dest,
-						 mode, find_string);
+						 mode);
 
 		g_clear_object (&dest);
 		g_free (uri);
@@ -686,7 +670,7 @@ pps_application_open (GApplication	 *application,
 			continue;
 
 		pps_application_open_uri_at_dest (PPS_APPLICATION (application), uri,
-						 NULL, PPS_WINDOW_MODE_NORMAL, NULL);
+						 NULL, PPS_WINDOW_MODE_NORMAL);
 	}
 }
 

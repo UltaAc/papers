@@ -160,7 +160,6 @@ typedef struct {
 
 	/* Load params */
 	PpsLinkDest       *dest;
-	gchar            *search_string;
 	PpsWindowRunMode   window_mode;
 
 	PpsJob            *load_job;
@@ -1447,19 +1446,9 @@ pps_window_setup_document (PpsWindow *pps_window)
 	info = pps_document_get_info (document);
 	update_document_mode (pps_window, info->mode);
 
-	if (priv->search_string && PPS_IS_DOCUMENT_FIND (document) &&
-	    !PPS_WINDOW_IS_PRESENTATION (priv)) {
-		GtkSearchEntry *entry;
-		pps_window_show_find_bar (pps_window, FALSE);
-		entry = pps_search_box_get_entry (PPS_SEARCH_BOX (priv->search_box));
-		gtk_editable_set_text (GTK_EDITABLE (entry), priv->search_string);
-	}
-
-	g_clear_pointer (&priv->search_string, g_free);
-
 	if (PPS_WINDOW_IS_PRESENTATION (priv))
 		gtk_widget_grab_focus (priv->presentation_view);
-	else if (!gtk_search_bar_get_search_mode (GTK_SEARCH_BAR (priv->search_bar)))
+	else
 		gtk_widget_grab_focus (priv->view);
 }
 
@@ -2137,24 +2126,18 @@ open_uri_check_local_cb (GObject      *object,
  * @uri: uri to open
  * @dest: (nullable): destination to point to
  * @mode: open mode
- * @search_string: (nullable): window will search this string if specified
  */
 void
 pps_window_open_uri (PpsWindow       *pps_window,
 		    const char     *uri,
 		    PpsLinkDest     *dest,
-		    PpsWindowRunMode mode,
-		    const gchar    *search_string)
+		    PpsWindowRunMode mode)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 	GFile *source_file;
 	g_autofree char *path = NULL;
 
 	priv->in_reload = FALSE;
-
-	g_clear_pointer (&priv->search_string, g_free);
-	priv->search_string = search_string ?
-		g_strdup (search_string) : NULL;
 
 	if (priv->uri &&
 	    g_ascii_strcasecmp (priv->uri, uri) == 0 &&
@@ -2227,8 +2210,7 @@ void
 pps_window_open_document (PpsWindow       *pps_window,
 			 PpsDocument     *document,
 			 PpsLinkDest     *dest,
-			 PpsWindowRunMode mode,
-			 const gchar    *search_string)
+			 PpsWindowRunMode mode)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
@@ -2273,15 +2255,6 @@ pps_window_open_document (PpsWindow       *pps_window,
 		break;
 	default:
 		break;
-	}
-
-	if (search_string && PPS_IS_DOCUMENT_FIND (document) &&
-	    mode != PPS_WINDOW_MODE_PRESENTATION) {
-		GtkSearchEntry *entry;
-
-		pps_window_show_find_bar (pps_window, FALSE);
-		entry = pps_search_box_get_entry (PPS_SEARCH_BOX (priv->search_box));
-		gtk_editable_set_text (GTK_EDITABLE (entry), search_string);
 	}
 
 	/* Create a monitor for the document */
@@ -2587,7 +2560,7 @@ pps_window_open_copy_at_dest (PpsWindow   *window,
 	new_priv->edit_name = g_strdup (priv->edit_name);
 	pps_window_open_document (new_window,
 				 priv->document,
-				 dest, 0, NULL);
+				 dest, 0);
 	gtk_widget_set_visible (new_priv->sidebar,
 				gtk_widget_is_visible (priv->sidebar));
 	adw_overlay_split_view_set_show_sidebar (new_priv->split_view,
@@ -5455,8 +5428,6 @@ pps_window_dispose (GObject *object)
 	g_clear_pointer (&priv->display_name, g_free);
 	g_clear_pointer (&priv->edit_name, g_free);
 
-	g_clear_pointer (&priv->search_string, g_free);
-
 	g_clear_object (&priv->dest);
 	g_clear_object (&priv->history);
 
@@ -5791,7 +5762,7 @@ launch_action (PpsWindow *pps_window, PpsLinkAction *action)
 	 * This spawns new Papers process or if already opened presents its window */
 	pps_application_open_uri_at_dest (PPS_APP, uri,
 					 pps_link_action_get_dest (action),
-					 priv->window_mode, NULL);
+					 priv->window_mode);
 	g_free (uri);
 
 }
@@ -5866,8 +5837,7 @@ open_remote_link (PpsWindow *window, PpsLinkAction *action)
 
 	pps_application_open_uri_at_dest (PPS_APP, uri,
 					 pps_link_action_get_dest (action),
-					 PPS_WINDOW_MODE_NORMAL,
-					 NULL);
+					 PPS_WINDOW_MODE_NORMAL);
 
 	g_free (uri);
 }
