@@ -50,7 +50,7 @@ typedef struct {
 
         GtkWidget       *entry;
         GtkWidget       *next_button;
-        GtkWidget       *prpps_button;
+        GtkWidget       *prev_button;
 
         guint            pages_searched;
 } PpsSearchBoxPrivate;
@@ -96,7 +96,7 @@ find_job_finished_cb (PpsJobFind   *job,
 	has_results = pps_job_find_has_results (job);
 
         gtk_widget_set_sensitive (priv->next_button, has_results);
-        gtk_widget_set_sensitive (priv->prpps_button, has_results);
+        gtk_widget_set_sensitive (priv->prev_button, has_results);
 
         if (!has_results) {
                 gtk_widget_add_css_class (priv->entry, "error");
@@ -114,7 +114,7 @@ search_changed_cb (GtkSearchEntry *entry,
         priv->pages_searched = 0;
 
         gtk_widget_set_sensitive (priv->next_button, FALSE);
-        gtk_widget_set_sensitive (priv->prpps_button, FALSE);
+        gtk_widget_set_sensitive (priv->prev_button, FALSE);
 
 	gtk_widget_remove_css_class(priv->entry, "error");
 
@@ -358,7 +358,7 @@ pps_search_box_class_init (PpsSearchBoxClass *klass)
 	gtk_widget_class_set_template_from_resource (widget_class,
 		"/org/gnome/papers/ui/search-box.ui");
 	gtk_widget_class_bind_template_child_private (widget_class, PpsSearchBox, entry);
-	gtk_widget_class_bind_template_child_private (widget_class, PpsSearchBox, prpps_button);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsSearchBox, prev_button);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsSearchBox, next_button);
 
 	gtk_widget_class_bind_template_callback (widget_class, case_sensitive_toggled_cb);
