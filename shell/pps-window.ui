@@ -172,8 +172,6 @@
                         <property name="document-model">model</property>
                         <signal name="started" handler="search_started_cb" />
                         <signal name="cleared" handler="search_cleared_cb" />
-                        <signal name="previous" handler="search_previous_cb" />
-                        <signal name="next" handler="search_next_cb" />
                         <child internal-child="entry">
                           <object class="GtkSearchEntry">
                             <property name="width-chars">32</property>

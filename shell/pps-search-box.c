@@ -28,9 +28,6 @@ enum {
         FINISHED,
         CLEARED,
 
-        NEXT,
-        PREVIOUS,
-
         LAST_SIGNAL
 };
 
@@ -140,20 +137,6 @@ search_changed_cb (GtkSearchEntry *entry,
 }
 
 static void
-previous_clicked_cb (GtkButton   *button,
-                     PpsSearchBox *box)
-{
-        g_signal_emit (box, signals[PREVIOUS], 0);
-}
-
-static void
-next_clicked_cb (GtkButton   *button,
-                 PpsSearchBox *box)
-{
-        g_signal_emit (box, signals[NEXT], 0);
-}
-
-static void
 pps_search_box_set_supported_options (PpsSearchBox  *box,
                                      PpsFindOptions options)
 {
@@ -238,21 +221,21 @@ static void
 entry_activate_cb (GtkEntry    *entry,
                    PpsSearchBox *box)
 {
-        g_signal_emit (box, signals[NEXT], 0);
+	gtk_widget_activate_action (GTK_WIDGET (box), "doc.find-next", NULL);
 }
 
 static void
 entry_next_match_cb (GtkSearchEntry *entry,
                      PpsSearchBox *box)
 {
-        g_signal_emit (box, signals[NEXT], 0);
+	gtk_widget_activate_action (GTK_WIDGET (box), "doc.find-next", NULL);
 }
 
 static void
 entry_previous_match_cb (GtkSearchEntry *entry,
                          PpsSearchBox *box)
 {
-        g_signal_emit (box, signals[PREVIOUS], 0);
+	gtk_widget_activate_action (GTK_WIDGET (box), "doc.find-previous", NULL);
 }
 
 static void
@@ -368,8 +351,6 @@ pps_search_box_class_init (PpsSearchBoxClass *klass)
 	gtk_widget_class_bind_template_callback (widget_class, entry_activate_cb);
 	gtk_widget_class_bind_template_callback (widget_class, entry_next_match_cb);
 	gtk_widget_class_bind_template_callback (widget_class, entry_previous_match_cb);
-	gtk_widget_class_bind_template_callback (widget_class, previous_clicked_cb);
-	gtk_widget_class_bind_template_callback (widget_class, next_clicked_cb);
 
 	g_object_class_install_property (object_class,
                                          PROP_DOCUMENT_MODEL,
@@ -412,32 +393,6 @@ pps_search_box_class_init (PpsSearchBoxClass *klass)
                               0, NULL, NULL,
                               g_cclosure_marshal_VOID__VOID,
                               G_TYPE_NONE, 0);
-        signals[NEXT] =
-                g_signal_new ("next",
-                              G_OBJECT_CLASS_TYPE (object_class),
-                              G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
-                              0, NULL, NULL,
-                              g_cclosure_marshal_VOID__VOID,
-                              G_TYPE_NONE, 0);
-        signals[PREVIOUS] =
-                g_signal_new ("previous",
-                              G_OBJECT_CLASS_TYPE (object_class),
-                              G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
-                              0, NULL, NULL,
-                              g_cclosure_marshal_VOID__VOID,
-                              G_TYPE_NONE, 0);
-
-
-        gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_Return, GDK_SHIFT_MASK,
-                                      "previous", NULL);
-        gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_ISO_Enter, GDK_SHIFT_MASK,
-                                      "previous", NULL);
-        gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_KP_Enter, GDK_SHIFT_MASK,
-                                      "previous", NULL);
-        gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_Up, GDK_CONTROL_MASK,
-                                      "previous", NULL);
-        gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_Down, GDK_CONTROL_MASK,
-                                      "next", NULL);
 }
 
 const GActionEntry actions[] = {

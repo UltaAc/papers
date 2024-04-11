@@ -5127,20 +5127,6 @@ search_cleared_cb (PpsSearchBox *search_box,
 }
 
 static void
-search_previous_cb (PpsSearchBox *search_box,
-		    PpsWindow    *pps_window)
-{
-	pps_window_find_previous (pps_window);
-}
-
-static void
-search_next_cb (PpsSearchBox *search_box,
-		PpsWindow    *pps_window)
-{
-	pps_window_find_next (pps_window);
-}
-
-static void
 search_bar_search_mode_enabled_changed (GtkSearchBar *search_bar,
 					GParamSpec   *param,
 					PpsWindow     *pps_window)
@@ -6617,8 +6603,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	/* search box */
 	gtk_widget_class_bind_template_callback (widget_class, search_started_cb);
 	gtk_widget_class_bind_template_callback (widget_class, search_cleared_cb);
-	gtk_widget_class_bind_template_callback (widget_class, search_previous_cb);
-	gtk_widget_class_bind_template_callback (widget_class, search_next_cb);
 	gtk_widget_class_bind_template_callback (widget_class, search_entry_stop_search_cb);
 	gtk_widget_class_bind_template_callback (widget_class, search_bar_search_mode_enabled_changed);
 
