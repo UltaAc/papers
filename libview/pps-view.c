@@ -8199,10 +8199,7 @@ pps_view_document_changed_cb (PpsDocumentModel *model,
 
 		pps_view_remove_all (view);
 		clear_caches (view);
-
-		if (priv->document) {
-			g_object_unref (priv->document);
-                }
+		g_clear_object (&priv->document);
 
 		priv->document = document ? g_object_ref (document) : NULL;
 		priv->find_page = -1;
