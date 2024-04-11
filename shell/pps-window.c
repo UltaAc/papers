@@ -3868,7 +3868,7 @@ pps_window_cmd_toggle_find (GSimpleAction *action,
 	gboolean show = g_variant_get_boolean (state);
 
 	if (show)
-		pps_window_show_find_bar (pps_window, TRUE);
+		pps_window_show_find_bar (pps_window, FALSE);
 	else
 		pps_window_close_find_bar (pps_window);
 	pps_view_find_set_highlight_search (PPS_VIEW (priv->view), show);
