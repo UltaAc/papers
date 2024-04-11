@@ -42,17 +42,6 @@ typedef enum {
 	PPS_WINDOW_MODE_PASSWORD_VIEW,
 } PpsWindowRunMode;
 
-typedef struct {
-	gint start;
-	gint end;
-} PpsPrintRange;
-
-typedef enum {
-	PPS_PRINT_PAGE_SET_ALL,
-	PPS_PRINT_PAGE_SET_EVEN,
-	PPS_PRINT_PAGE_SET_ODD
-} PpsPrintPageSet;
-
 #define PPS_TYPE_WINDOW			(pps_window_get_type())
 G_DECLARE_FINAL_TYPE (PpsWindow, pps_window, PPS, WINDOW, AdwApplicationWindow)
 
