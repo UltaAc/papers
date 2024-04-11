@@ -134,7 +134,7 @@
                     <child type="end">
                       <object class="GtkToggleButton" id="find_button">
                         <property name="icon-name">edit-find-symbolic</property>
-                        <property name="action-name">win.toggle-find</property>
+                        <property name="action-name">doc.toggle-find</property>
                         <signal name="notify::sensitive" handler="find_button_sensitive_changed" />
                       </object>
                     </child>
@@ -354,7 +354,43 @@
                     <child>
                       <object class='GtkShortcut'>
                         <property name='trigger'>&lt;Ctrl&gt;F|slash|KP_Divide</property>
-                        <property name='action'>action(win.find)</property>
+                        <property name='action'>action(doc.find)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>&lt;Ctrl&gt;G|F3</property>
+                        <property name='action'>action(doc.find-next)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>&lt;Ctrl&gt;&lt;Shift&gt;G|&lt;Shift&gt;F3</property>
+                        <property name='action'>action(doc.find-previous)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>&lt;Shift&gt;Page_Down</property>
+                        <property name='action'>action(doc.go-forward)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>&lt;Shift&gt;Page_Up</property>
+                        <property name='action'>action(doc.go-backwards)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>&lt;alt&gt;N|Forward</property>
+                        <property name='action'>action(doc.go-forward-history)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
+                        <property name='trigger'>&lt;alt&gt;P|Back</property>
+                        <property name='action'>action(doc.go-back-history)</property>
                       </object>
                     </child>
                     <child>

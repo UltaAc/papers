@@ -426,10 +426,10 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
         /* Edit menu */
 	pps_window_set_action_enabled (pps_window, "select-all", has_pages &&
 				      can_get_text && !start_view_mode);
-	pps_window_set_action_enabled (pps_window, "find", can_find &&
-				      !start_view_mode);
-	pps_window_set_action_enabled (pps_window, "toggle-find", can_find &&
-				      !start_view_mode);
+	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.find",
+				       can_find && !start_view_mode);
+	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.toggle-find",
+				       can_find && !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "add-annotation", can_annotate &&
 				      !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "highlight-annotation", can_annotate &&
@@ -489,12 +489,10 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 					has_pages &&
 					pps_view_has_selection (view) &&
 					!start_view_mode);
-	pps_window_set_action_enabled (pps_window, "find-next",
-				      has_pages && can_find_in_page &&
-				      !start_view_mode);
-	pps_window_set_action_enabled (pps_window, "find-previous",
-				      has_pages && can_find_in_page &&
-				      !start_view_mode);
+	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.find-next",
+				      has_pages && can_find_in_page && !start_view_mode);
+	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.find-previous",
+				      has_pages && can_find_in_page && !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "dual-odd-left", dual_mode &&
 				      has_pages && !start_view_mode);
 
@@ -524,11 +522,11 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 		pps_window_set_action_enabled (pps_window, "select-page", FALSE);
 	}
 
-	pps_window_set_action_enabled (pps_window, "go-back-history",
+	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.go-back-history",
 				      !pps_history_is_frozen (priv->history) &&
 				      pps_history_can_go_back (priv->history) &&
 				      !start_view_mode);
-	pps_window_set_action_enabled (pps_window, "go-forward-history",
+	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.go-forward-history",
 				      !pps_history_is_frozen (priv->history) &&
 				      pps_history_can_go_forward (priv->history) &&
 				      !start_view_mode);
@@ -3918,7 +3916,6 @@ pps_window_cmd_find (GSimpleAction *action,
 	PpsWindow *pps_window = user_data;
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 	g_autofree gchar *selected_text = NULL;
-	gboolean is_toggled;
 
 	view = PPS_VIEW (priv->view);
         selected_text = pps_view_get_selected_text (view);
@@ -3929,13 +3926,8 @@ pps_window_cmd_find (GSimpleAction *action,
 		gtk_editable_select_region (GTK_EDITABLE (entry), 0, -1);
 		pps_window_show_find_bar (pps_window, TRUE);
 	} else {
-		is_toggled = g_variant_get_boolean (g_action_group_get_action_state (G_ACTION_GROUP (pps_window),
-										     "toggle-find"));
-
-		g_action_group_change_action_state (G_ACTION_GROUP (pps_window),
-						    "toggle-find",
-						    g_variant_new_boolean (!is_toggled));
-        }
+		gtk_widget_activate_action (GTK_WIDGET (pps_window), "doc.toggle-find", NULL);
+	}
 }
 
 static void
@@ -5224,7 +5216,6 @@ pps_window_show_find_bar (PpsWindow *pps_window,
 
 	gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (priv->search_bar), TRUE);
 	gtk_widget_grab_focus (priv->search_box);
-	g_action_group_change_action_state (G_ACTION_GROUP (pps_window), "toggle-find", g_variant_new_boolean (TRUE));
 	g_action_group_change_action_state (G_ACTION_GROUP (pps_window), "show-side-pane",
 						g_variant_new_boolean (TRUE));
 	if (restart) {
@@ -5248,7 +5239,6 @@ pps_window_close_find_bar (PpsWindow *pps_window)
 
 	gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (priv->search_bar), FALSE);
 	gtk_widget_grab_focus (priv->view);
-	g_action_group_change_action_state (G_ACTION_GROUP (pps_window), "toggle-find", g_variant_new_boolean (FALSE));
 
 	pps_history_thaw (priv->history);
 }
@@ -5521,14 +5511,6 @@ static const GActionEntry actions[] = {
 	{ "go-next-page", pps_window_cmd_go_next_page },
 	{ "go-first-page", pps_window_cmd_go_first_page },
 	{ "go-last-page", pps_window_cmd_go_last_page },
-	{ "go-forward", pps_window_cmd_go_forward },
-	{ "go-backwards", pps_window_cmd_go_backwards },
-	{ "go-back-history", pps_window_cmd_go_back_history },
-	{ "go-forward-history", pps_window_cmd_go_forward_history },
-	{ "find", pps_window_cmd_find },
-	{ "toggle-find", NULL, NULL, "false", pps_window_cmd_toggle_find },
-	{ "find-next", pps_window_cmd_edit_find_next },
-	{ "find-previous", pps_window_cmd_edit_find_previous },
 	{ "select-page", pps_window_cmd_focus_page_selector },
 	{ "dual-page", NULL, NULL, "false", pps_window_cmd_dual },
 	{ "dual-odd-left", NULL, NULL, "false", pps_window_cmd_dual_odd_pages_left },
@@ -5567,6 +5549,17 @@ static const GActionEntry actions[] = {
 	{ "remove-annot", pps_window_popup_cmd_remove_annotation }
 };
 
+static const GActionEntry doc_actions[] = {
+	{ "go-forward", pps_window_cmd_go_forward },
+	{ "go-backwards", pps_window_cmd_go_backwards },
+	{ "go-back-history", pps_window_cmd_go_back_history },
+	{ "go-forward-history", pps_window_cmd_go_forward_history },
+	{ "find", pps_window_cmd_find },
+	{ "toggle-find", NULL, NULL, "false", pps_window_cmd_toggle_find },
+	{ "find-next", pps_window_cmd_edit_find_next },
+	{ "find-previous", pps_window_cmd_edit_find_previous },
+};
+
 static void
 sidebar_links_link_activated_cb (void *sidebar_links, PpsLink *link, PpsWindow *window)
 {
@@ -5591,9 +5584,9 @@ history_changed_cb (PpsHistory *history,
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
-	pps_window_set_action_enabled (window, "go-back-history",
+	gtk_widget_action_set_enabled (GTK_WIDGET (window), "doc.go-back-history",
 				      pps_history_can_go_back (priv->history));
-	pps_window_set_action_enabled (window, "go-forward-history",
+	gtk_widget_action_set_enabled (GTK_WIDGET (window), "doc.go-forward-history",
 				      pps_history_can_go_forward (priv->history));
 }
 
@@ -5895,7 +5888,7 @@ do_action_named (PpsWindow *window, PpsLinkAction *action)
 	} else if (g_ascii_strcasecmp (name, "GoToPage") == 0) {
 		g_action_group_activate_action (G_ACTION_GROUP (window), "select-page", NULL);
 	} else if (g_ascii_strcasecmp (name, "Find") == 0) {
-		g_action_group_activate_action (G_ACTION_GROUP (window), "find", NULL);
+		gtk_widget_activate_action (GTK_WIDGET (window), "doc.find", NULL);
 	} else if (g_ascii_strcasecmp (name, "Close") == 0) {
 		g_action_group_activate_action (G_ACTION_GROUP (window), "close", NULL);
 	} else if (g_ascii_strcasecmp (name, "Print") == 0) {
@@ -6437,6 +6430,7 @@ static void
 pps_window_init (PpsWindow *pps_window)
 {
 	GtkEventController *controller;
+	GSimpleActionGroup *group;
 	guint page_cache_mb;
 	gboolean allow_links_change_zoom;
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
@@ -6498,6 +6492,14 @@ pps_window_init (PpsWindow *pps_window)
 	g_action_map_add_action_entries (G_ACTION_MAP (pps_window),
 					 actions, G_N_ELEMENTS (actions),
 					 pps_window);
+	group = g_simple_action_group_new ();
+	g_action_map_add_action_entries (G_ACTION_MAP (group),
+					 doc_actions,
+					 G_N_ELEMENTS (doc_actions),
+					 pps_window);
+	gtk_widget_insert_action_group (GTK_WIDGET (pps_window),
+					"doc", G_ACTION_GROUP (group));
+
 
 	pps_page_selector_set_model (PPS_PAGE_SELECTOR (priv->page_selector),
 		priv->model);

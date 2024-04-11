@@ -194,25 +194,25 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Previous Page (Fast)</property>
-                <property name="action-name">win.go-backwards</property>
+                <property name="accelerator">&lt;Shift&gt;Page_Up</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Next Page (Fast)</property>
-                <property name="action-name">win.go-forward</property>
+                <property name="accelerator">&lt;Shift&gt;Page_Down</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Previous Visited Page</property>
-                <property name="action-name">win.go-back-history</property>
+                <property name="accelerator">&lt;alt&gt;P Back</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Next Visited Page</property>
-                <property name="action-name">win.go-forward-history</property>
+                <property name="accelerator">&lt;alt&gt;N Forward</property>
               </object>
             </child>
             <child>
@@ -306,13 +306,13 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Find Next</property>
-                <property name="action-name">win.find-next</property>
+                <property name="accelerator">&lt;Ctrl&gt;G F3</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Find Previous</property>
-                <property name="action-name">win.find-previous</property>
+                <property name="accelerator">&lt;Ctrl&gt;&lt;Shift&gt;G &lt;Shift&gt;F3</property>
               </object>
             </child>
           </object>
