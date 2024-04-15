@@ -3704,8 +3704,7 @@ pps_window_cmd_file_close_window (GSimpleAction *action,
 {
 	GtkWindow *window = user_data;
 
-	if (!pps_window_close_handled (window))
-		gtk_window_destroy (window);
+	gtk_window_close (window);
 }
 
 static void
@@ -5770,7 +5769,7 @@ do_action_named (PpsWindow *window, PpsLinkAction *action)
 	} else if (g_ascii_strcasecmp (name, "Find") == 0) {
 		gtk_widget_activate_action (GTK_WIDGET (window), "doc.find", NULL);
 	} else if (g_ascii_strcasecmp (name, "Close") == 0) {
-		g_action_group_activate_action (G_ACTION_GROUP (window), "close", NULL);
+		gtk_window_close (GTK_WINDOW (window));
 	} else if (g_ascii_strcasecmp (name, "Print") == 0) {
 		g_action_group_activate_action (G_ACTION_GROUP (window), "print", NULL);
 	} else if (g_ascii_strcasecmp (name, "SaveAs") == 0) {
