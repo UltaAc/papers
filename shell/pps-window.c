@@ -197,7 +197,6 @@ typedef struct {
 #define GS_SCHEMA_NAME           "org.gnome.Papers"
 #define GS_OVERRIDE_RESTRICTIONS "override-restrictions"
 #define GS_PAGE_CACHE_SIZE       "page-cache-size"
-#define GS_AUTO_RELOAD           "auto-reload"
 #define GS_LAST_DOCUMENT_DIRECTORY "document-directory"
 #define GS_LAST_PICTURES_DIRECTORY "pictures-directory"
 #define GS_ALLOW_LINKS_CHANGE_ZOOM "allow-links-change-zoom"
@@ -1472,12 +1471,9 @@ pps_window_set_document (PpsWindow *pps_window, PpsDocument *document)
 
 
 static void
-pps_window_file_changed (PpsWindow *pps_window,
-			gpointer  user_data)
+pps_window_file_changed (PpsWindow *pps_window)
 {
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-
-	if (g_settings_get_boolean (priv->settings, GS_AUTO_RELOAD))
+	if (!pps_window_check_document_modified (pps_window, PPS_WINDOW_ACTION_RELOAD))
 		pps_window_reload_document (pps_window, NULL);
 }
 
@@ -3384,7 +3380,7 @@ pps_window_check_document_modified (PpsWindow      *pps_window,
 					 NULL);
 
 	if (command == PPS_WINDOW_ACTION_RELOAD) {
-		text = g_markup_printf_escaped (_("Reload document “%s”?"),
+		text = g_markup_printf_escaped (_("File changed outside Papers. Reload document “%s”?"),
 						gtk_window_get_title (GTK_WINDOW (pps_window)));
 		secondary_text_command = _("If you reload the document, changes will be permanently lost.");
 		gtk_dialog_add_buttons (GTK_DIALOG (dialog),
