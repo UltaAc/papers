@@ -142,7 +142,6 @@ typedef struct {
 	char *local_uri;
 	char *display_name;
 	char *edit_name;
-	gboolean in_reload;
 	PpsFileMonitor *monitor;
 	guint setup_document_idle;
 
@@ -1664,7 +1663,6 @@ pps_window_reload_job_cb (PpsJob    *job,
 
 	if (!pps_job_is_succeeded (job, NULL)) {
 		pps_window_clear_reload_job (pps_window);
-		priv->in_reload = FALSE;
 		g_clear_object (&priv->dest);
 
 		return;
@@ -1682,7 +1680,6 @@ pps_window_reload_job_cb (PpsJob    *job,
 		pps_search_box_restart (PPS_SEARCH_BOX (priv->search_box));
 
 	pps_window_clear_reload_job (pps_window);
-	priv->in_reload = FALSE;
 }
 
 /**
@@ -1815,7 +1812,6 @@ pps_window_load_remote_failed (PpsWindow *pps_window,
 	gchar *display_name;
 
 	pps_window_hide_loading_message (pps_window);
-	priv->in_reload = FALSE;
 
 	text = g_uri_unescape_string (priv->local_uri, NULL);
 	display_name = g_markup_escape_text (text, -1);
@@ -2068,8 +2064,6 @@ pps_window_open_uri (PpsWindow       *pps_window,
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 	GFile *source_file;
 	g_autofree char *path = NULL;
-
-	priv->in_reload = FALSE;
 
 	g_clear_object (&priv->monitor);
 
@@ -2361,7 +2355,6 @@ pps_window_reload_document (PpsWindow *pps_window)
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
 	pps_window_clear_reload_job (pps_window);
-	priv->in_reload = TRUE;
 
 	g_clear_object (&priv->dest);
 
