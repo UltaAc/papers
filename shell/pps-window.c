@@ -223,8 +223,7 @@ static void	pps_window_load_job_cb  			(PpsJob            *job,
 							 gpointer          data);
 static gboolean pps_window_check_document_modified 	(PpsWindow         *pps_window,
 							 PpsWindowAction    command);
-static void     pps_window_reload_document               (PpsWindow         *window,
-							 PpsLinkDest *dest);
+static void     pps_window_reload_document               (PpsWindow         *window);
 static void	pps_window_document_modified_cb		(PpsDocument *document,
                                                          GParamSpec *pspec,
                                                          PpsWindow   *pps_window);
@@ -1474,7 +1473,7 @@ static void
 pps_window_file_changed (PpsWindow *pps_window)
 {
 	if (!pps_window_check_document_modified (pps_window, PPS_WINDOW_ACTION_RELOAD))
-		pps_window_reload_document (pps_window, NULL);
+		pps_window_reload_document (pps_window);
 }
 
 static void
@@ -2357,17 +2356,14 @@ pps_window_reload_remote (PpsWindow *pps_window)
 }
 
 static void
-pps_window_reload_document (PpsWindow *pps_window,
-			   PpsLinkDest *dest)
+pps_window_reload_document (PpsWindow *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
 	pps_window_clear_reload_job (pps_window);
 	priv->in_reload = TRUE;
 
-	if (priv->dest)
-		g_object_unref (priv->dest);
-	priv->dest = dest ? g_object_ref (dest) : NULL;
+	g_clear_object (&priv->dest);
 
 	if (priv->local_uri) {
 		pps_window_reload_remote (pps_window);
@@ -3325,7 +3321,7 @@ document_modified_reload_dialog_response (GtkDialog *dialog,
 	gtk_window_destroy (GTK_WINDOW (dialog));
 
 	if (response == GTK_RESPONSE_YES)
-	        pps_window_reload_document (pps_window, NULL);
+	        pps_window_reload_document (pps_window);
 }
 
 static void
