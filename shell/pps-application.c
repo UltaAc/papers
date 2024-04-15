@@ -281,50 +281,6 @@ handle_get_window_list_cb (PpsPapersApplication   *object,
 
         return TRUE;
 }
-
-static gboolean
-handle_reload_cb (PpsPapersApplication   *object,
-                  GDBusMethodInvocation *invocation,
-                  GVariant              *args,
-                  PpsApplication         *application)
-{
-        GList           *windows, *l;
-        GVariantIter     iter;
-        const gchar     *key;
-        GVariant        *value;
-        PpsLinkDest      *dest = NULL;
-        PpsWindowRunMode  mode = PPS_WINDOW_MODE_NORMAL;
-
-        g_variant_iter_init (&iter, args);
-
-        while (g_variant_iter_loop (&iter, "{&sv}", &key, &value)) {
-                if (strcmp (key, "mode") == 0 && g_variant_classify (value) == G_VARIANT_CLASS_UINT32) {
-                        mode = g_variant_get_uint32 (value);
-                } else if (strcmp (key, "page-label") == 0 && g_variant_classify (value) == G_VARIANT_CLASS_STRING) {
-                        dest = pps_link_dest_new_page_label (g_variant_get_string (value, NULL));
-                } else if (strcmp (key, "named-dest") == 0 && g_variant_classify (value) == G_VARIANT_CLASS_STRING) {
-                        dest = pps_link_dest_new_named (g_variant_get_string (value, NULL));
-                } else if (strcmp (key, "page-index") == 0 && g_variant_classify (value) == G_VARIANT_CLASS_UINT32) {
-                        dest = pps_link_dest_new_page (g_variant_get_uint32 (value));
-                }
-        }
-
-        windows = gtk_application_get_windows (GTK_APPLICATION ((application)));
-        for (l = windows; l != NULL; l = g_list_next (l)) {
-                if (!PPS_IS_WINDOW (l->data))
-                        continue;
-
-                pps_application_open_uri_in_window (application, NULL,
-                                                   PPS_WINDOW (l->data),
-						    dest, mode);
-        }
-
-	g_clear_object (&dest);
-
-        pps_papers_application_complete_reload (object, invocation);
-
-        return TRUE;
-}
 #endif /* ENABLE_DBUS */
 
 void
@@ -527,9 +483,6 @@ pps_application_dbus_register (GApplication    *gapplication,
         application->skeleton = skeleton;
         g_signal_connect (skeleton, "handle-get-window-list",
                           G_CALLBACK (handle_get_window_list_cb),
-                          application);
-        g_signal_connect (skeleton, "handle-reload",
-                          G_CALLBACK (handle_reload_cb),
                           application);
         return TRUE;
 }
