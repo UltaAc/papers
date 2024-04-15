@@ -436,7 +436,6 @@ pps_application_startup (GApplication *gapplication)
           "win.close",                  "<Ctrl>W", NULL,
           "win.escape",                 "Escape", NULL,
           "win.select-page",            "<Ctrl>L", NULL,
-          "win.default-zoom",           "<Ctrl>0", "<Ctrl>KP_0", NULL,
           "win.caret-navigation",       "F7", NULL,
           "win.show-side-pane",         "F9", NULL,
           "win.fullscreen",             "F11", NULL,

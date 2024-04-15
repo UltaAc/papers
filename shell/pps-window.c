@@ -3834,19 +3834,6 @@ pps_window_cmd_view_zoom (GSimpleAction *action,
 }
 
 static void
-pps_window_cmd_set_default_zoom (GSimpleAction *action,
-				GVariant      *parameter,
-				gpointer       user_data)
-{
-	PpsWindow *pps_window = user_data;
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-
-	pps_document_model_set_sizing_mode (priv->model, PPS_SIZING_FREE);
-	pps_document_model_set_scale (priv->model,
-				     1. * pps_document_misc_get_widget_dpi (GTK_WIDGET (pps_window)) / 72.0);
-}
-
-static void
 pps_window_cmd_edit_select_all (GSimpleAction *action,
 			       GVariant      *parameter,
 			       gpointer       user_data)
@@ -5425,7 +5412,6 @@ static const GActionEntry actions[] = {
 	{ "close", pps_window_cmd_file_close_window },
 	{ "sizing-mode", NULL, "s", "'free'", pps_window_change_sizing_mode_action_state },
 	{ "zoom", pps_window_cmd_view_zoom, "d" },
-	{ "default-zoom", pps_window_cmd_set_default_zoom },
 	{ "escape", pps_window_cmd_escape },
 	{ "caret-navigation", NULL, NULL, "false", pps_window_cmd_view_toggle_caret_navigation },
 	{ "add-annotation", NULL, NULL, "false", pps_window_cmd_add_annotation },
