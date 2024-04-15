@@ -39,12 +39,6 @@
                 <property name="action-name">win.close</property>
               </object>
             </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut window">Reload Document</property>
-                <property name="action-name">win.reload</property>
-              </object>
-            </child>
           </object>
         </child>
         <child>

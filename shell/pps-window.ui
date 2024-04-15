@@ -662,10 +662,6 @@
         <attribute name="label" translatable="yes">_Next Page</attribute>
         <attribute name="action">win.go-next-page</attribute>
       </item>
-      <item>
-        <attribute name="label" translatable="yes">_Reload</attribute>
-        <attribute name="action">win.reload</attribute>
-      </item>
     </section>
     <section>
       <item>

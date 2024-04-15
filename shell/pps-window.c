@@ -439,8 +439,6 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 				      !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "rtl", has_pages &&
 				      !start_view_mode);
-	pps_window_set_action_enabled (pps_window, "reload", has_pages &&
-				      !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "inverted-colors",
 				      has_pages && !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "enable-spellchecking", FALSE);
@@ -4306,19 +4304,6 @@ pps_window_cmd_bookmarks_delete (GSimpleAction *action,
 }
 
 static void
-pps_window_cmd_view_reload (GSimpleAction *action,
-			   GVariant      *parameter,
-			   gpointer       user_data)
-{
-	PpsWindow *pps_window = user_data;
-
-	if (pps_window_check_document_modified (pps_window, PPS_WINDOW_ACTION_RELOAD))
-		return;
-
-	pps_window_reload_document (pps_window, NULL);
-}
-
-static void
 pps_window_cmd_escape (GSimpleAction *action,
 		      GVariant      *parameter,
 		      gpointer       user_data)
@@ -5266,7 +5251,6 @@ static const GActionEntry actions[] = {
 	{ "rotate-right", pps_window_cmd_edit_rotate_right },
 	{ "zoom-in", pps_window_cmd_view_zoom_in },
 	{ "zoom-out", pps_window_cmd_view_zoom_out },
-	{ "reload", pps_window_cmd_view_reload },
 	{ "add-bookmark", pps_window_cmd_bookmarks_add },
 	{ "delete-bookmark", pps_window_cmd_bookmarks_delete },
 	{ "close", pps_window_cmd_file_close_window },
