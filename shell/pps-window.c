@@ -179,8 +179,6 @@ typedef struct {
 
 	/* Caret navigation */
 	GtkWidget *ask_caret_navigation_check;
-
-	gboolean password_view_cancelled;
 } PpsWindowPrivate;
 
 #define GET_PRIVATE(o) pps_window_get_instance_private (o)
@@ -1493,7 +1491,6 @@ pps_window_password_view_unlock (PpsWindow *pps_window, gchar* password, GPasswo
 	pps_job_load_set_password (PPS_JOB_LOAD (priv->load_job), password);
 	PPS_JOB_LOAD (priv->load_job)->password_save = flags;
 	pps_job_scheduler_push_job (priv->load_job, PPS_JOB_PRIORITY_NONE);
-	priv->password_view_cancelled = FALSE;
 }
 
 static void
@@ -1513,9 +1510,6 @@ pps_window_clear_load_job (PpsWindow *pps_window)
 static void
 pps_window_password_view_cancelled (PpsWindow *pps_window)
 {
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-
-	priv->password_view_cancelled = TRUE;
 	if (pps_window_is_start_view (pps_window)) {
 		pps_window_clear_load_job (pps_window);
 	}
@@ -2081,15 +2075,6 @@ pps_window_open_uri (PpsWindow       *pps_window,
 	g_autofree char *path = NULL;
 
 	priv->in_reload = FALSE;
-
-	if (priv->uri &&
-	    g_ascii_strcasecmp (priv->uri, uri) == 0 &&
-	    !priv->password_view_cancelled) {
-		if (pps_window_check_document_modified (pps_window, PPS_WINDOW_ACTION_RELOAD))
-			return;
-		pps_window_reload_document (pps_window, dest);
-		return;
-	}
 
 	g_clear_object (&priv->monitor);
 
@@ -6244,7 +6229,6 @@ pps_window_init (PpsWindow *pps_window)
 	pps_view_set_model (PPS_VIEW (priv->view), priv->model);
 
 
-	priv->password_view_cancelled = FALSE;
 	g_signal_connect_swapped (priv->view, "external-link",
 				  G_CALLBACK (view_external_link_cb),
 				  pps_window);
