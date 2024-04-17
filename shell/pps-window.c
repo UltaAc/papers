@@ -1605,11 +1605,6 @@ pps_window_load_job_cb (PpsJob *job,
 		        default:
 				break;
 		}
-		/* Create a monitor for the document */
-		priv->monitor = pps_file_monitor_new (priv->uri);
-		g_signal_connect_swapped (priv->monitor, "changed",
-					  G_CALLBACK (pps_window_file_changed),
-					  pps_window);
 		pps_window_clear_load_job (pps_window);
 		return;
 	}
@@ -2065,8 +2060,6 @@ pps_window_open_uri (PpsWindow       *pps_window,
 	GFile *source_file;
 	g_autofree char *path = NULL;
 
-	g_clear_object (&priv->monitor);
-
 	pps_window_close_dialogs (pps_window);
 	pps_window_clear_load_job (pps_window);
 	pps_window_clear_local_uri (pps_window);
@@ -2110,6 +2103,13 @@ pps_window_open_uri (PpsWindow       *pps_window,
 			  "finished",
 			  G_CALLBACK (pps_window_load_job_cb),
 			  pps_window);
+
+	g_clear_object (&priv->monitor);
+	/* Create a monitor for the document */
+	priv->monitor = pps_file_monitor_new (priv->uri);
+	g_signal_connect_swapped (priv->monitor, "changed",
+				  G_CALLBACK (pps_window_file_changed),
+				  pps_window);
 
 	if (path == NULL && !priv->local_uri) {
 		pps_window_load_file_remote (pps_window, source_file);
