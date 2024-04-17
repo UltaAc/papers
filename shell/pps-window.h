@@ -55,10 +55,6 @@ void		pps_window_open_uri	                 (PpsWindow       *pps_window,
                                                           const char     *uri,
                                                           PpsLinkDest     *dest,
 							  PpsWindowRunMode mode);
-void		pps_window_open_document                  (PpsWindow       *pps_window,
-                                                          PpsDocument     *document,
-                                                          PpsLinkDest     *dest,
-							   PpsWindowRunMode mode);
 gboolean	pps_window_is_empty	                 (PpsWindow       *pps_window);
 void		pps_window_print_range                    (PpsWindow       *pps_window,
                                                           int             first_page,

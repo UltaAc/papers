@@ -2123,7 +2123,7 @@ pps_window_open_uri (PpsWindow       *pps_window,
 	}
 }
 
-void
+static void
 pps_window_open_document (PpsWindow       *pps_window,
 			 PpsDocument     *document,
 			 PpsLinkDest     *dest,
