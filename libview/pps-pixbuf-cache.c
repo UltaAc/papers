@@ -1008,6 +1008,9 @@ pps_pixbuf_cache_get_selection_texture (PpsPixbufCache   *pixbuf_cache,
                         set_device_scale_on_surface (selection, job_info->device_scale);
 		job_info->selection_points = job_info->target_points;
 		job_info->selection_scale = scale * job_info->device_scale;
+
+		g_clear_object (&job_info->selection_texture);
+
 		job_info->selection_texture = pps_document_misc_texture_from_surface (selection);
 		cairo_surface_destroy (selection);
 		g_object_unref (rc);

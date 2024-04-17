@@ -9331,6 +9331,9 @@ merge_selection_region (PpsView *view,
 			tmp_region = pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache,
 									   cur_page,
 									   priv->scale);
+
+			g_clear_pointer (&new_sel->covered_region, cairo_region_destroy);
+
 			if (tmp_region)
 				new_sel->covered_region = cairo_region_reference (tmp_region);
 		}
