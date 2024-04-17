@@ -107,7 +107,12 @@
                 {
                     "type": "git",
                     "url": "https://gitlab.freedesktop.org/libopenraw/exempi.git",
-                    "tag": "2.6.4"
+                    "tag": "2.6.5",
+                    "x-checker-data": {
+                        "type": "git",
+                        "tag-pattern": "^([\\d.]+)$"
+                    },
+                    "commit": "01ed352bbf18c2be2bdbd0125c88901b9db0b9c3"
                 }
             ]
         },
