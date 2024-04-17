@@ -2138,8 +2138,6 @@ pps_window_open_document (PpsWindow       *pps_window,
 	pps_window_clear_load_job (pps_window);
 	pps_window_clear_local_uri (pps_window);
 
-	g_clear_object (&priv->monitor);
-
 	if (priv->uri)
 		g_free (priv->uri);
 	priv->uri = g_strdup (pps_document_get_uri (document));
@@ -2174,6 +2172,7 @@ pps_window_open_document (PpsWindow       *pps_window,
 		break;
 	}
 
+	g_clear_object (&priv->monitor);
 	/* Create a monitor for the document */
 	priv->monitor = pps_file_monitor_new (priv->uri);
 	g_signal_connect_swapped (priv->monitor, "changed",
