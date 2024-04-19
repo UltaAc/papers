@@ -59,6 +59,7 @@ struct _PpsViewPresentationPrivate
 	gint64		       start_time;
 	gdouble		       transition_time;
 	gint                   animation_tick_id;
+	gint                   inhibit_id;
 
 	guint                  current_page;
 	guint                  previous_page;
@@ -817,6 +818,34 @@ pps_view_presentation_hide_cursor_timeout_start (PpsViewPresentation *pview)
 }
 
 static void
+pps_view_presentation_inhibit_screenlock (PpsViewPresentation *pview)
+{
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+	GtkWindow *window = GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (pview)));
+
+	if (priv->inhibit_id != 0)
+		return;
+
+        priv->inhibit_id = gtk_application_inhibit (GTK_APPLICATION (g_application_get_default ()),
+						    window,
+						    GTK_APPLICATION_INHIBIT_IDLE,
+						    _("Running in presentation mode"));
+}
+
+static void
+pps_view_presentation_uninhibit_screenlock (PpsViewPresentation *pview)
+{
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
+	if (priv->inhibit_id == 0)
+		return;
+
+	gtk_application_uninhibit (GTK_APPLICATION (g_application_get_default ()),
+				   priv->inhibit_id);
+	priv->inhibit_id = 0;
+}
+
+static void
 pps_view_presentation_dispose (GObject *object)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (object);
@@ -836,6 +865,8 @@ pps_view_presentation_dispose (GObject *object)
 
 	g_clear_handle_id (&priv->trans_timeout_id, g_source_remove);
 	g_clear_handle_id (&priv->hide_cursor_timeout_id, g_source_remove);
+
+	pps_view_presentation_uninhibit_screenlock (pview);
 
 	G_OBJECT_CLASS (pps_view_presentation_parent_class)->dispose (object);
 }
@@ -1431,6 +1462,8 @@ pps_view_presentation_class_init (PpsViewPresentationClass *klass)
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_primary_button_released);
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_secondary_button_released);
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_goto_entry_activate);
+	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_inhibit_screenlock);
+	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_uninhibit_screenlock);
 
 	add_change_page_binding_keypad (widget_class, GDK_KEY_Left,  0, GTK_SCROLL_PAGE_BACKWARD);
 	add_change_page_binding_keypad (widget_class, GDK_KEY_Right, 0, GTK_SCROLL_PAGE_FORWARD);

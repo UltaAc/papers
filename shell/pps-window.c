@@ -178,8 +178,6 @@ typedef struct {
 	gchar          *dbus_object_path;
 #endif
 
-        guint presentation_mode_inhibit_id;
-
 	/* Caret navigation */
 	GtkWidget *ask_caret_navigation_check;
 
@@ -3968,35 +3966,6 @@ pps_window_cmd_view_fullscreen (GSimpleAction *action,
 }
 
 static void
-pps_window_inhibit_screensaver (PpsWindow *window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-        if (priv->presentation_mode_inhibit_id != 0)
-                return;
-
-        priv->presentation_mode_inhibit_id =
-                gtk_application_inhibit (GTK_APPLICATION (g_application_get_default ()),
-                                         GTK_WINDOW (window),
-                                         GTK_APPLICATION_INHIBIT_IDLE,
-                                         _("Running in presentation mode"));
-}
-
-
-static void
-pps_window_uninhibit_screensaver (PpsWindow *window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-        if (priv->presentation_mode_inhibit_id == 0)
-                return;
-
-        gtk_application_uninhibit (GTK_APPLICATION (g_application_get_default ()),
-                                   priv->presentation_mode_inhibit_id);
-        priv->presentation_mode_inhibit_id = 0;
-}
-
-static void
 pps_window_view_presentation_finished (PpsWindow *window)
 {
 	pps_window_stop_presentation (window, TRUE);
@@ -4011,7 +3980,6 @@ pps_window_run_presentation (PpsWindow *window)
 	guint     current_page;
 	guint     rotation;
 	gboolean  inverted_colors;
-	GtkEventController *controller;
 
 	if (PPS_WINDOW_IS_PRESENTATION (priv))
 		return;
@@ -4048,14 +4016,6 @@ pps_window_run_presentation (PpsWindow *window)
 	g_signal_connect_swapped (priv->presentation_view, "external-link",
 				  G_CALLBACK (view_external_link_cb),
 				  window);
-	controller = GTK_EVENT_CONTROLLER (gtk_event_controller_focus_new ());
-	g_signal_connect_swapped (controller, "enter",
-				  G_CALLBACK (pps_window_inhibit_screensaver),
-				  window);
-	g_signal_connect_swapped (controller, "leave",
-				  G_CALLBACK (pps_window_uninhibit_screensaver),
-				  window);
-	gtk_widget_add_controller (priv->presentation_view, controller);
 
 	gtk_widget_set_hexpand (GTK_WIDGET (priv->presentation_view), TRUE);
 	gtk_widget_set_vexpand (GTK_WIDGET (priv->presentation_view), TRUE);
@@ -4064,8 +4024,6 @@ pps_window_run_presentation (PpsWindow *window)
 
 	gtk_widget_grab_focus (priv->presentation_view);
 	gtk_window_fullscreen (GTK_WINDOW (window));
-
-        pps_window_inhibit_screensaver (window);
 
 	if (priv->metadata && !pps_window_is_empty (window))
 		pps_metadata_set_boolean (priv->metadata, "presentation", TRUE);
@@ -4095,8 +4053,6 @@ pps_window_stop_presentation (PpsWindow *window,
 		gtk_window_unfullscreen (GTK_WINDOW (window));
 
 	gtk_widget_grab_focus (priv->view);
-
-        pps_window_uninhibit_screensaver (window);
 
 	if (priv->metadata && !pps_window_is_empty (window))
 		pps_metadata_set_boolean (priv->metadata, "presentation", FALSE);
@@ -6311,7 +6267,6 @@ pps_window_init (PpsWindow *pps_window)
         }
 #endif /* ENABLE_DBUS */
 
-        priv->presentation_mode_inhibit_id = 0;
 	priv->title = pps_window_title_new (pps_window);
 	priv->history = pps_history_new (priv->model);
 

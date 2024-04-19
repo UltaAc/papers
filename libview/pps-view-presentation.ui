@@ -20,6 +20,12 @@
       </object>
     </child>
     <child>
+      <object class="GtkEventControllerFocus">
+        <signal name="enter" handler="pps_view_presentation_inhibit_screenlock" swapped="yes" />
+        <signal name="leave" handler="pps_view_presentation_uninhibit_screenlock" swapped="yes" />
+      </object>
+    </child>
+    <child>
       <object class="GtkGestureClick">
         <!-- GDK_BUTTON_PRIMARY -->
         <property name="button">1</property>
