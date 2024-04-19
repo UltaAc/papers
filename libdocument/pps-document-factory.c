@@ -495,7 +495,7 @@ file_filter_add_mime_types (PpsBackendInfo *info, GtkFileFilter *filter)
 /**
  * pps_document_factory_add_filters:
  * @dialog: a #GtkFileDialog
- * @document: a #PpsDocument, or %NULL
+ * @document: (nullable): a #PpsDocument, or %NULL
  *
  * Adds some file filters to @dialog.
 
