@@ -73,7 +73,9 @@ mod imp {
                 .title(gettext("File"))
                 .build();
 
-            if let Some(parent) = gio::File::for_uri(uri).parent() {
+            let file = gio::File::for_uri(uri);
+
+            if let Some(parent) = file.parent() {
                 let text = parent
                     .basename()
                     .map(|p| p.display().to_string())
@@ -90,10 +92,19 @@ mod imp {
                     .css_classes(["flat"])
                     .build();
 
+                let uri = uri.to_string();
+
                 button.connect_clicked(glib::clone!(@weak self as obj => move |_| {
                     let native = obj.obj().native();
                     let window = native.and_dynamic_cast_ref::<gtk::Window>();
-                    gtk::FileLauncher::new(Some(&parent)).launch(window, gio::Cancellable::NONE, |_| {});
+                    let uri = uri.clone();
+
+                    // FIXME: It's broken on MacOS due to lack of support in GTK4
+                    gtk::FileLauncher::new(Some(&file)).open_containing_folder(window, gio::Cancellable::NONE, move |result| {
+                        if let Err(e) = result {
+                            glib::g_warning!("", "Could not show containing folder for \"{}\": {}", uri, e.message());
+                        }
+                    });
                 }));
 
                 row.set_subtitle(&text);
