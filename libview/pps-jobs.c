@@ -288,22 +288,21 @@ pps_job_is_finished (PpsJob *job)
 }
 
 /**
- * pps_job_is_failed:
+ * pps_job_is_succeeded:
  * @job: a #PpsJob
  * @error (nullable): (transfer none): the error to set if the job failed
  *
- * Returns: whether the job failed
+ * Returns: whether the job succeed
  */
 gboolean
-pps_job_is_failed (PpsJob   *job,
-		  GError **error)
+pps_job_is_succeeded (PpsJob   *job, GError **error)
 {
 	g_return_val_if_fail (job != NULL, FALSE);
 
 	if (job->failed && error)
 		*error = job->error;
 
-	return job->failed;
+	return !job->failed;
 }
 
 /**

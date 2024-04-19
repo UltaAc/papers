@@ -447,7 +447,7 @@ void            pps_job_succeeded          (PpsJob          *job);
 PPS_PUBLIC
 gboolean        pps_job_is_finished        (PpsJob          *job);
 PPS_PUBLIC
-gboolean        pps_job_is_failed          (PpsJob          *job,
+gboolean        pps_job_is_succeeded          (PpsJob          *job,
 					    GError         **error);
 PPS_PUBLIC
 PpsDocument     *pps_job_get_document	  (PpsJob	  *job);

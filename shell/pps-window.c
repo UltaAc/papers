@@ -1625,7 +1625,7 @@ pps_window_load_job_cb (PpsJob *job,
 	pps_window_hide_loading_message (pps_window);
 
 	/* Success! */
-	if (!pps_job_is_failed (job, &error)) {
+	if (pps_job_is_succeeded (job, &error)) {
 		pps_document_model_set_document (priv->model, g_steal_pointer (&document));
 
 #ifdef ENABLE_DBUS
@@ -1711,7 +1711,7 @@ pps_window_reload_job_cb (PpsJob    *job,
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
-	if (pps_job_is_failed (job, NULL)) {
+	if (!pps_job_is_succeeded (job, NULL)) {
 		pps_window_clear_reload_job (pps_window);
 		priv->in_reload = FALSE;
 		g_clear_object (&priv->dest);
@@ -2729,7 +2729,7 @@ pps_window_save_job_cb (PpsJob     *job,
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 	GError *error;
-	if (pps_job_is_failed (job, &error)) {
+	if (!pps_job_is_succeeded (job, &error)) {
 		priv->close_after_save = FALSE;
 		pps_window_error_message (window, error,
 					 _("The file could not be saved as “%s”."),

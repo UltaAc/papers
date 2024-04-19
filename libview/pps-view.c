@@ -5083,7 +5083,7 @@ link_preview_job_finished_cb (PpsJobThumbnailTexture *job,
 			      PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	if (pps_job_is_failed (PPS_JOB (job), NULL)) {
+	if (!pps_job_is_succeeded (PPS_JOB (job), NULL)) {
 		pps_view_link_preview_popover_cleanup (view);
 		return;
 	}
