@@ -119,7 +119,6 @@ typedef struct {
 	guint loading_message_timeout;
 
 	/* Dialogs */
-	GtkWindow *properties;
 	GtkWindow *print_dialog;
 
 	/* Menu button */
@@ -1426,10 +1425,6 @@ pps_window_setup_document (PpsWindow *pps_window)
 
 	pps_window_update_actions_sensitivity (pps_window);
 
-	if (priv->properties) {
-		g_object_set (priv->properties, "document", priv->document, NULL);
-	}
-
 	info = pps_document_get_info (document);
 	update_document_mode (pps_window, info->mode);
 
@@ -1752,7 +1747,7 @@ pps_window_get_uri (PpsWindow *pps_window)
  * pps_window_close_dialogs:
  * @pps_window: The window where dialogs will be closed.
  *
- * It looks for password, print and properties dialogs and closes them and
+ * It looks for print dialogs and closes them and
  * frees them from memory. If there is any print job it does free it too.
  */
 static void
@@ -1761,7 +1756,6 @@ pps_window_close_dialogs (PpsWindow *pps_window)
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
 	g_clear_pointer (&priv->print_dialog, gtk_window_destroy);
-	g_clear_pointer (&priv->properties, gtk_window_destroy);
 }
 
 
@@ -3363,17 +3357,12 @@ pps_window_cmd_file_properties (GSimpleAction *action,
 {
 	PpsWindow *pps_window = user_data;
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
+	GtkWidget *properties;
 
-	if (priv->properties == NULL) {
-		priv->properties = g_object_new (g_type_from_name ("PpsPropertiesWindow"),
-						 "document", priv->document, NULL);
-		g_object_add_weak_pointer (G_OBJECT (priv->properties),
-					   (gpointer) &(priv->properties));
-		gtk_window_set_transient_for (GTK_WINDOW (priv->properties),
-					      GTK_WINDOW (pps_window));
-	}
-
-	gtk_window_present (GTK_WINDOW (priv->properties));
+	properties = g_object_new (g_type_from_name ("PpsPropertiesWindow"),
+				   "document", priv->document, NULL);
+	gtk_window_set_transient_for (GTK_WINDOW (properties), GTK_WINDOW (pps_window));
+	gtk_window_present (GTK_WINDOW (properties));
 }
 
 static void
