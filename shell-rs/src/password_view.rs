@@ -97,6 +97,8 @@ mod imp {
     #[glib::derived_properties]
     impl ObjectImpl for PpsPasswordView {
         fn constructed(&self) {
+            self.parent_constructed();
+
             let preferences_action = gio::SimpleAction::new_stateful(
                 "preference",
                 Some(glib::VariantTy::STRING),
