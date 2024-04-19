@@ -412,8 +412,6 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 	pps_window_set_action_enabled (pps_window, "show-properties",
 				      has_document && has_properties &&
 				      !start_view_mode);
-	pps_window_set_action_enabled (pps_window, "open-containing-folder",
-				      has_document && !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "fullscreen",
 				      has_document && !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "presentation",
@@ -2841,40 +2839,6 @@ pps_window_cmd_save_as (GSimpleAction *action,
 	PpsWindow *window = user_data;
 
 	pps_window_save_as (window);
-}
-
-static void
-open_containing_folder_callback (GtkFileLauncher	*launcher,
-				 GAsyncResult		*result,
-				 gpointer		 data)
-{
-	GError *error = NULL;
-
-	if (!gtk_file_launcher_open_containing_folder_finish (launcher, result, &error)) {
-		g_warning ("Could not show containing folder for \"%s\": %s",
-			   (char *)data, error->message);
-	}
-}
-
-static void
-pps_window_cmd_open_containing_folder (GSimpleAction *action,
-				       GVariant      *parameter,
-				       gpointer       user_data)
-{
-	PpsWindow *window = PPS_WINDOW (user_data);
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-	g_autoptr (GFile) file = g_file_new_for_uri (priv->uri);
-	if (!g_file_is_native (file)) {
-		g_object_unref (file);
-		file = g_file_new_for_uri (pps_document_get_uri (priv->document));
-	}
-
-	/* FIXME: It's broken on MacOS due to lack of support in GTK4 */
-	gtk_file_launcher_open_containing_folder (gtk_file_launcher_new (file),
-					GTK_WINDOW (window), NULL,
-					(GAsyncReadyCallback)open_containing_folder_callback,
-					priv->uri);
-
 }
 
 static gchar *
@@ -5376,7 +5340,6 @@ static const GActionEntry actions[] = {
 	{ "show-properties", pps_window_cmd_file_properties },
 	{ "open-copy", pps_window_cmd_file_open_copy },
 	{ "save-as", pps_window_cmd_save_as },
-	{ "open-containing-folder", pps_window_cmd_open_containing_folder },
 	{ "print", pps_window_cmd_file_print },
 	{ "copy", pps_window_cmd_edit_copy },
 	{ "select-all", pps_window_cmd_edit_select_all },
