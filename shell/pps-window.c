@@ -5199,10 +5199,8 @@ pps_window_dispose (GObject *object)
 	g_clear_object (&priv->attachment_popup_menu);
 
 	g_clear_object (&priv->settings);
-	if (priv->default_settings) {
-		g_settings_apply (priv->default_settings);
-		g_clear_object (&priv->default_settings);
-	}
+
+	g_settings_apply (priv->default_settings);
 
 	/* FIXME: crash when closing papers window */
 	/* g_clear_object (&priv->lockdown_settings); */
@@ -6349,7 +6347,6 @@ pps_window_init (PpsWindow *pps_window)
 				 G_CALLBACK (view_caret_cursor_moved_cb),
 				 pps_window, 0);
 
-	priv->default_settings = g_settings_new (GS_SCHEMA_NAME".Default");
 	g_settings_delay (priv->default_settings);
 	pps_window_setup_default (pps_window);
 
@@ -6392,6 +6389,8 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, page_selector);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, header_bar);
+
+	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, default_settings);
 
 	/* sidebar */
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_links);
