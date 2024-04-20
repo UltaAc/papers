@@ -1371,32 +1371,6 @@ lockdown_changed (GSettings   *lockdown,
 }
 #endif
 
-static GSettings *
-pps_window_ensure_settings (PpsWindow *pps_window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-
-        if (priv->settings != NULL)
-                return priv->settings;
-
-        priv->settings = g_settings_new (GS_SCHEMA_NAME);
-
-        g_signal_connect (priv->settings,
-                          "changed::"GS_OVERRIDE_RESTRICTIONS,
-                          G_CALLBACK (override_restrictions_changed),
-                          pps_window);
-        g_signal_connect (priv->settings,
-			  "changed::"GS_PAGE_CACHE_SIZE,
-			  G_CALLBACK (page_cache_size_changed),
-			  pps_window);
-        g_signal_connect (priv->settings,
-			  "changed::"GS_ALLOW_LINKS_CHANGE_ZOOM,
-			  G_CALLBACK (allow_links_change_zoom_changed),
-			  pps_window);
-
-        return priv->settings;
-}
-
 static void
 pps_window_setup_document (PpsWindow *pps_window)
 {
@@ -1410,8 +1384,6 @@ pps_window_setup_document (PpsWindow *pps_window)
 	pps_window_title_set_document (priv->title, document);
 	pps_window_title_set_filename (priv->title,
 				      priv->display_name);
-
-        pps_window_ensure_settings (pps_window);
 
 #ifdef HAVE_DESKTOP_SCHEMAS
 	if (!priv->lockdown_settings) {
@@ -1509,8 +1481,7 @@ pps_window_file_changed (PpsWindow *pps_window,
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
-	if (priv->settings &&
-	    g_settings_get_boolean (priv->settings, GS_AUTO_RELOAD))
+	if (g_settings_get_boolean (priv->settings, GS_AUTO_RELOAD))
 		pps_window_reload_document (pps_window, NULL);
 }
 
@@ -2446,8 +2417,9 @@ pps_window_file_dialog_restore_folder (PpsWindow       *window,
         const gchar *dir;
         gchar *folder_path;
         GFile *folder;
+	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
-        g_settings_get (pps_window_ensure_settings (window),
+        g_settings_get (priv->settings,
                         get_settings_key_for_directory (directory),
                         "ms", &folder_path);
 
@@ -2468,6 +2440,7 @@ pps_window_file_dialog_save_folder (PpsWindow       *window,
 {
         gchar *path = NULL;
         GFile *folder = NULL;
+	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
 	if (file)
 		folder = g_file_get_parent (file);
@@ -2479,7 +2452,7 @@ pps_window_file_dialog_save_folder (PpsWindow       *window,
 
 	g_clear_object (&folder);
 
-        g_settings_set (pps_window_ensure_settings (window),
+	g_settings_set (priv->settings,
                         get_settings_key_for_directory (directory),
                         "ms", path);
         g_free (path);
@@ -5081,7 +5054,7 @@ pps_window_caret_navigation_message_area_response_cb (PpsMessageArea *area,
 
 	/* Turn the confirmation dialog off if the user has requested not to show it again */
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->ask_caret_navigation_check))) {
-		g_settings_set_boolean (pps_window_ensure_settings (window), "show-caret-navigation-message", FALSE);
+		g_settings_set_boolean (priv->settings, "show-caret-navigation-message", FALSE);
 		g_settings_apply (priv->settings);
 	}
 
@@ -5105,7 +5078,7 @@ pps_window_cmd_view_toggle_caret_navigation (GSimpleAction *action,
 	/* Don't ask for user confirmation to turn the caret navigation off when it is active,
 	 * or to turn it on when the confirmation dialog is not to be shown per settings */
 	enabled = pps_view_is_caret_navigation_enabled (PPS_VIEW (priv->view));
-	if (enabled || !g_settings_get_boolean (pps_window_ensure_settings (window), "show-caret-navigation-message")) {
+	if (enabled || !g_settings_get_boolean (priv->settings, "show-caret-navigation-message")) {
 		pps_window_set_caret_navigation_enabled (window, !enabled);
 		return;
 	}
@@ -5197,8 +5170,6 @@ pps_window_dispose (GObject *object)
 	g_clear_pointer (&priv->title, pps_window_title_free);
 
 	g_clear_object (&priv->attachment_popup_menu);
-
-	g_clear_object (&priv->settings);
 
 	g_settings_apply (priv->default_settings);
 
@@ -6286,11 +6257,11 @@ pps_window_init (PpsWindow *pps_window)
 			  G_CALLBACK (activate_link_cb),
 			  pps_window);
 
-	page_cache_mb = g_settings_get_uint (pps_window_ensure_settings (pps_window),
+	page_cache_mb = g_settings_get_uint (priv->settings,
 					     GS_PAGE_CACHE_SIZE);
 	pps_view_set_page_cache_size (PPS_VIEW (priv->view),
 				     (gsize) page_cache_mb * 1024 * 1024);
-	allow_links_change_zoom = g_settings_get_boolean (pps_window_ensure_settings (pps_window),
+	allow_links_change_zoom = g_settings_get_boolean (priv->settings,
 				     GS_ALLOW_LINKS_CHANGE_ZOOM);
 	pps_view_set_allow_links_change_zoom (PPS_VIEW (priv->view),
 				     allow_links_change_zoom);
@@ -6391,6 +6362,7 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, header_bar);
 
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, default_settings);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, settings);
 
 	/* sidebar */
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_links);
@@ -6449,6 +6421,11 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	/* password view */
 	gtk_widget_class_bind_template_callback (widget_class, pps_window_password_view_unlock);
 	gtk_widget_class_bind_template_callback (widget_class, pps_window_password_view_cancelled);
+
+	/* settings */
+	gtk_widget_class_bind_template_callback (widget_class, override_restrictions_changed);
+	gtk_widget_class_bind_template_callback (widget_class, page_cache_size_changed);
+	gtk_widget_class_bind_template_callback (widget_class, allow_links_change_zoom_changed);
 }
 
 /**
