@@ -86,9 +86,6 @@
     <key name="sidebar-page" type="s">
       <default>'links'</default>
     </key>
-    <key name="sidebar-size" type="i">
-      <default>132</default>
-    </key>
   </schema>
 
 </schemalist>
