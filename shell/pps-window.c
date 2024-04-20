@@ -3624,21 +3624,13 @@ pps_window_cmd_file_close_window (GSimpleAction *action,
 }
 
 static void
-pps_window_focus_page_selector (PpsWindow *window)
+pps_window_cmd_select_page (GSimpleAction *action,
+			    GVariant      *parameter,
+			    gpointer       user_data)
 {
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-	g_return_if_fail (PPS_IS_WINDOW (window));
+	PpsWindowPrivate *priv = GET_PRIVATE (PPS_WINDOW (user_data));
 
 	gtk_widget_grab_focus (priv->page_selector);
-}
-
-static void
-pps_window_cmd_focus_page_selector (GSimpleAction *action,
-				   GVariant      *parameter,
-				   gpointer       user_data)
-{
-	pps_window_focus_page_selector (PPS_WINDOW (user_data));
 }
 
 static void
@@ -5261,7 +5253,7 @@ static const GActionEntry actions[] = {
 	{ "go-next-page", pps_window_cmd_go_next_page },
 	{ "go-first-page", pps_window_cmd_go_first_page },
 	{ "go-last-page", pps_window_cmd_go_last_page },
-	{ "select-page", pps_window_cmd_focus_page_selector },
+	{ "select-page", pps_window_cmd_select_page },
 	{ "dual-page", NULL, NULL, "false", pps_window_cmd_dual },
 	{ "dual-odd-left", NULL, NULL, "false", pps_window_cmd_dual_odd_pages_left },
 	{ "rtl", NULL, NULL, "false", pps_window_cmd_rtl },
