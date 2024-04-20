@@ -3615,7 +3615,7 @@ pps_window_save_settings (PpsWindow *pps_window)
 		g_settings_set_double (settings, "zoom", zoom);
 	}
 	g_settings_set_boolean (settings, "show-sidebar",
-				gtk_widget_get_visible (priv->sidebar));
+				adw_overlay_split_view_get_show_sidebar (ADW_OVERLAY_SPLIT_VIEW (priv->sidebar)));
 	g_settings_set_string (settings, "sidebar-page",
 				pps_sidebar_get_visible_child_name (PPS_SIDEBAR (priv->sidebar)));
 	g_settings_set_boolean (settings, "enable-spellchecking",
