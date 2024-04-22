@@ -42,9 +42,6 @@ struct _PpsPageSelectorClass
 
 GType pps_page_selector_get_type          (void) G_GNUC_CONST;
 
-void pps_page_selector_update_links_model (PpsPageSelector *proxy,
-					  GtkTreeModel       *model);
-
 void pps_page_selector_set_model          (PpsPageSelector *page_selector,
 					  PpsDocumentModel    *doc_model);
 

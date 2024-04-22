@@ -28,8 +28,6 @@
 #include <papers-document.h>
 #include "pps-page-selector.h"
 
-#define COMPLETION_RESULTS_WIDTH 50
-
 enum
 {
 	WIDGET_ACTIVATE_LINK,
@@ -47,9 +45,6 @@ struct _PpsPageSelector
 	GtkWidget *label;
 	gulong signal_id;
 	gulong notify_document_signal_id;
-	GtkTreeModel *filter_model;
-	GtkTreeModel *model;
-	GtkEntryCompletion *completion;
 };
 
 static guint widget_signals[WIDGET_N_SIGNALS] = {0, };
@@ -304,8 +299,6 @@ pps_page_selector_finalize (GObject *object)
 	}
 	pps_page_selector_clear_document (page_selector);
 	g_clear_weak_pointer (&page_selector->doc_model);
-
-	g_clear_object (&page_selector->completion);
 
 	G_OBJECT_CLASS (pps_page_selector_parent_class)->finalize (object);
 }
