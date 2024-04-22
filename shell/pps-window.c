@@ -48,7 +48,6 @@
 #include "pps-history.h"
 #include "pps-message-area.h"
 #include "pps-metadata.h"
-#include "pps-page-selector.h"
 #include "pps-sidebar-annotations.h"
 #include "pps-sidebar-bookmarks.h"
 #include "pps-sidebar.h"
@@ -6142,7 +6141,6 @@ pps_window_init (PpsWindow *pps_window)
 	g_type_ensure (PPS_TYPE_SEARCH_BOX);
 	g_type_ensure (PPS_TYPE_FIND_SIDEBAR);
 	g_type_ensure (PPS_TYPE_SIDEBAR_BOOKMARKS);
-	g_type_ensure (PPS_TYPE_PAGE_SELECTOR);
 	g_type_ensure (PPS_TYPE_SIDEBAR_ANNOTATIONS);
 	g_type_ensure (PPS_TYPE_ANNOTATIONS_TOOLBAR);
 	gtk_widget_init_template (GTK_WIDGET (pps_window));
@@ -6193,9 +6191,6 @@ pps_window_init (PpsWindow *pps_window)
 	// These are only enabled once the search has started
 	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.find-next", FALSE);
 	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.find-previous", FALSE);
-
-	pps_page_selector_set_model (PPS_PAGE_SELECTOR (priv->page_selector),
-		priv->model);
 
 	page_cache_mb = g_settings_get_uint (priv->settings,
 					     GS_PAGE_CACHE_SIZE);

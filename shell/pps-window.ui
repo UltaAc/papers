@@ -121,6 +121,7 @@
                     </child>
                     <child type="start">
                       <object class="PpsPageSelector" id="page_selector">
+                        <property name="model">model</property>
                         <property name="tooltip-text" translatable="yes">Page Count</property>
                         <signal name="activate-link" handler="activate_link_cb" />
                       </object>

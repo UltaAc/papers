@@ -43,7 +43,6 @@ papers_sources += marshal_sources
 papers_deps = [
   gdk_pixbuf_dep,
   libaw_dep,
-  libppsmisc_dep,
   libppsdocument_dep,
   libppsview_dep,
   m_dep,
