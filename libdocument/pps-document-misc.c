@@ -63,6 +63,14 @@ pps_document_misc_pixbuf_from_surface (cairo_surface_t *surface)
                                             cairo_image_surface_get_height (surface));
 }
 
+/**
+ * pps_document_misc_texture_from_surface:
+ * @surface: a #cairo_surface_t
+ *
+ * Convert a cairo_surface_t to #GdkTexture object.
+ *
+ * Returns: (transfer full): The converted #GdkTexture
+ */
 GdkTexture *
 pps_document_misc_texture_from_surface (cairo_surface_t *surface)
 {
