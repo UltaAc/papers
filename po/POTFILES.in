@@ -26,14 +26,14 @@ libdocument/pps-document-factory.c
 libdocument/pps-document-info.c
 libdocument/pps-file-helpers.c
 libdocument/pps-xmp.c
-libmisc/pps-page-selector.c
-libmisc/pps-page-selector.ui
 libview/pps-jobs.c
 libview/pps-print-operation.c
 libview/pps-view-accessible.c
 libview/pps-view.c
 libview/pps-view-presentation.c
 libview/pps-view-presentation.ui
+previewer/pps-page-selector.c
+previewer/pps-page-selector.ui
 previewer/pps-previewer.c
 previewer/pps-previewer-window.c
 previewer/pps-previewer-window.ui
@@ -45,6 +45,7 @@ shell/pps-annotations-toolbar.c
 shell/pps-application.c
 shell/pps-history.c
 shell/pps-keyring.c
+shell/pps-page-selector.ui
 shell/pps-password-dialog.ui
 shell/pps-password-view.ui
 shell/pps-properties-fonts.ui
@@ -63,6 +64,8 @@ shell/pps-window.ui
 shell/pps-window-title.c
 shell/pps-zoom-action.ui
 shell-rs/src/main.rs
+shell-rs/src/page_selector.rs
+shell-rs/src/password_view.rs
 shell-rs/src/properties_fonts.rs
 shell-rs/src/properties_general.rs
 shell-rs/src/properties_license.rs
