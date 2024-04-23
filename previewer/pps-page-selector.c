@@ -319,7 +319,7 @@ pps_page_selector_class_init (PpsPageSelectorClass *klass)
 	widget_class->grab_focus = pps_page_selector_grab_focus;
 
 	gtk_widget_class_set_template_from_resource (widget_class,
-						     "/org/gnome/papers/ui/pps-page-selector.ui");
+						     "/org/gnome/papers/previewer/ui/page-selector.ui");
 	gtk_widget_class_bind_template_child (widget_class, PpsPageSelector, entry);
 	gtk_widget_class_bind_template_child (widget_class, PpsPageSelector, label);
 

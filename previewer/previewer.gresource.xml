@@ -18,6 +18,7 @@
 <gresources>
   <gresource prefix="/org/gnome/papers/previewer">
     <file alias="ui/previewer-window.ui" compressed="true" preprocess="xml-stripblanks">pps-previewer-window.ui</file>
+    <file alias="ui/page-selector.ui" compressed="true" preprocess="xml-stripblanks">pps-page-selector.ui</file>
     <file alias="style.css" compressed="true">papers-previewer.css</file>
   </gresource>
 </gresources>

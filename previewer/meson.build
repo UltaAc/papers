@@ -1,6 +1,8 @@
 previewer_sources = files(
   'pps-previewer-window.c',
   'pps-previewer-window.h',
+  'pps-page-selector.c',
+  'pps-page-selector.h',
   'pps-previewer.c',
 )
 
@@ -13,7 +15,6 @@ previewer_sources += gnome.compile_resources(
 
 previewer_deps = [
   libppsdocument_dep,
-  libppsmisc_dep,
   libppsview_dep,
   libaw_dep
 ]
