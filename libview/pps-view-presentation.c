@@ -119,7 +119,7 @@ static void pps_view_presentation_update_current_texture (PpsViewPresentation *p
 G_DEFINE_TYPE_WITH_PRIVATE (PpsViewPresentation, pps_view_presentation, GTK_TYPE_WIDGET)
 
 static void
-pps_view_presentation_set_normal (PpsViewPresentation *pview)
+pps_view_presentation_set_normal_or_end (PpsViewPresentation *pview)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
@@ -128,7 +128,13 @@ pps_view_presentation_set_normal (PpsViewPresentation *pview)
 	if (priv->state == PPS_PRESENTATION_NORMAL)
 		return;
 
-	priv->state = PPS_PRESENTATION_NORMAL;
+	if (priv->state == PPS_PRESENTATION_END)
+		return;
+
+	if (priv->current_page + 1 == pps_document_get_n_pages (priv->document))
+		priv->state = PPS_PRESENTATION_END;
+	else
+		priv->state = PPS_PRESENTATION_NORMAL;
 
 	gtk_widget_remove_css_class(widget, "white-mode");
         gtk_widget_queue_draw (widget);
@@ -566,7 +572,7 @@ pps_view_presentation_next_page (PpsViewPresentation *pview)
 	switch (priv->state) {
 	case PPS_PRESENTATION_BLACK:
 	case PPS_PRESENTATION_WHITE:
-		pps_view_presentation_set_normal (pview);
+		pps_view_presentation_set_normal_or_end (pview);
 	case PPS_PRESENTATION_END:
 		return;
 	case PPS_PRESENTATION_NORMAL:
@@ -591,7 +597,7 @@ pps_view_presentation_previous_page (PpsViewPresentation *pview)
 	switch (priv->state) {
 	case PPS_PRESENTATION_BLACK:
 	case PPS_PRESENTATION_WHITE:
-		pps_view_presentation_set_normal (pview);
+		pps_view_presentation_set_normal_or_end (pview);
 		return;
 	case PPS_PRESENTATION_END:
 		priv->state = PPS_PRESENTATION_NORMAL;
@@ -1105,7 +1111,7 @@ pps_view_presentation_key_press_event (GtkEventControllerKey *self,
 	case GDK_KEY_period:
 	case GDK_KEY_KP_Decimal:
 		if (priv->state == PPS_PRESENTATION_BLACK)
-			pps_view_presentation_set_normal (pview);
+			pps_view_presentation_set_normal_or_end (pview);
 		else
 			pps_view_presentation_set_black (pview);
 
@@ -1113,7 +1119,7 @@ pps_view_presentation_key_press_event (GtkEventControllerKey *self,
 	case GDK_KEY_w:
 	case GDK_KEY_W:
 		if (priv->state == PPS_PRESENTATION_WHITE)
-			pps_view_presentation_set_normal (pview);
+			pps_view_presentation_set_normal_or_end (pview);
 		else
 			pps_view_presentation_set_white (pview);
 
@@ -1138,7 +1144,7 @@ pps_view_presentation_key_press_event (GtkEventControllerKey *self,
 		break;
 	}
 
-	pps_view_presentation_set_normal (pview);
+	pps_view_presentation_set_normal_or_end (pview);
 
 	if (pps_document_get_n_pages (priv->document) > 1 && key_is_numeric (keyval)) {
 		gint x, y;
