@@ -328,7 +328,7 @@ pps_metadata_has_key (PpsMetadata  *metadata,
 }
 
 gboolean
-pps_is_metadata_supported_for_file (GFile *file)
+pps_metadata_is_file_supported (GFile *file)
 {
 	GFileAttributeInfoList *namespaces;
 	gint i;

@@ -64,6 +64,6 @@ gboolean    pps_metadata_set_boolean           (PpsMetadata  *metadata,
 gboolean    pps_metadata_has_key               (PpsMetadata  *metadata,
                                                const gchar *key);
 
-gboolean    pps_is_metadata_supported_for_file (GFile       *file);
+gboolean    pps_metadata_is_file_supported (GFile       *file);
 
 G_END_DECLS
