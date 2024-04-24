@@ -532,8 +532,8 @@
     </section>
     <section>
       <item>
-        <attribute name="label" translatable="yes">New _Window</attribute>
-        <attribute name="action">app.new</attribute>
+        <attribute name="label" translatable="yes">Open</attribute>
+        <attribute name="action">win.open</attribute>
       </item>
       <item>
         <attribute name="label" translatable="yes">Open a C_opy</attribute>
