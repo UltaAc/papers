@@ -968,10 +968,10 @@ pps_window_init_metadata_with_default_values (PpsWindow *window)
 		pps_metadata_set_boolean (metadata, "show-sidebar",
 					 g_settings_get_boolean (settings, "show-sidebar"));
 	}
-	if (!pps_metadata_has_key (metadata, "sidebar_page")) {
+	if (!pps_metadata_has_key (metadata, "sidebar-page")) {
 		gchar *sidebar_page_id = g_settings_get_string (settings, "sidebar-page");
 
-		pps_metadata_set_string (metadata, "sidebar_page", sidebar_page_id);
+		pps_metadata_set_string (metadata, "sidebar-page", sidebar_page_id);
 		g_free (sidebar_page_id);
 	}
 
@@ -1032,7 +1032,7 @@ setup_sidebar_from_metadata (PpsWindow *window)
 	if (pps_metadata_get_boolean (priv->metadata, "show-sidebar", &show_sidebar))
 		adw_overlay_split_view_set_show_sidebar (priv->split_view, show_sidebar);
 
-	if (pps_metadata_get_string (priv->metadata, "sidebar_page", &page_id))
+	if (pps_metadata_get_string (priv->metadata, "sidebar-page", &page_id))
 		pps_sidebar_set_visible_child_name (PPS_SIDEBAR (priv->sidebar), page_id);
 }
 
@@ -4524,7 +4524,7 @@ sidebar_current_page_changed_cb (PpsSidebar  *pps_sidebar,
 
 	if (priv->metadata && !pps_window_is_empty (pps_window)) {
 		pps_metadata_set_string (priv->metadata,
-					"sidebar_page",
+					"sidebar-page",
 					pps_sidebar_get_visible_child_name (sidebar));
 	}
 }
