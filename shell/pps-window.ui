@@ -115,7 +115,7 @@
                     <child type="start">
                       <object class="GtkToggleButton" id="sidebar_button">
                         <property name="icon-name">sidebar-show-symbolic</property>
-                        <property name="action-name">win.show-side-pane</property>
+                        <property name="action-name">win.show-sidebar</property>
                         <property name="tooltip-text" translatable="yes">Toggle Sidebar</property>
                       </object>
                     </child>

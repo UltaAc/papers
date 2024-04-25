@@ -393,7 +393,7 @@ pps_application_startup (GApplication *gapplication)
           "win.escape",                 "Escape", NULL,
           "win.select-page",            "<Ctrl>L", NULL,
           "win.caret-navigation",       "F7", NULL,
-          "win.show-side-pane",         "F9", NULL,
+          "win.show-sidebar",           "F9", NULL,
           "win.fullscreen",             "F11", NULL,
           "win.presentation",           "F5", "<Shift>F5", NULL,
           "win.rotate-left",            "<Ctrl>Left", NULL,

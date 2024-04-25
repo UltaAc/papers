@@ -445,7 +445,7 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 	/* Other actions that must be disabled in start view, in
 	 * case they have a shortcut or gesture associated
 	 */
-	pps_window_set_action_enabled (pps_window, "show-side-pane", !start_view_mode);
+	pps_window_set_action_enabled (pps_window, "show-sidebar", !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "sizing-mode", !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "zoom", !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "escape", !start_view_mode);
@@ -964,8 +964,8 @@ pps_window_init_metadata_with_default_values (PpsWindow *window)
 	PpsMetadata *metadata = priv->metadata;
 
 	/* Sidebar */
-	if (!pps_metadata_has_key (metadata, "sidebar_visibility")) {
-		pps_metadata_set_boolean (metadata, "sidebar_visibility",
+	if (!pps_metadata_has_key (metadata, "show-sidebar")) {
+		pps_metadata_set_boolean (metadata, "show-sidebar",
 					 g_settings_get_boolean (settings, "show-sidebar"));
 	}
 	if (!pps_metadata_has_key (metadata, "sidebar_page")) {
@@ -1029,7 +1029,7 @@ setup_sidebar_from_metadata (PpsWindow *window)
 	if (!priv->metadata)
 		return;
 
-	if (pps_metadata_get_boolean (priv->metadata, "sidebar_visibility", &show_sidebar))
+	if (pps_metadata_get_boolean (priv->metadata, "show-sidebar", &show_sidebar))
 		adw_overlay_split_view_set_show_sidebar (priv->split_view, show_sidebar);
 
 	if (pps_metadata_get_string (priv->metadata, "sidebar_page", &page_id))
@@ -4539,11 +4539,11 @@ sidebar_visibility_changed_cb (AdwOverlaySplitView *split_view,
 	if (!PPS_WINDOW_IS_PRESENTATION (priv)) {
 		gboolean visible = adw_overlay_split_view_get_show_sidebar (split_view);
 
-		g_action_group_change_action_state (G_ACTION_GROUP (pps_window), "show-side-pane",
+		g_action_group_change_action_state (G_ACTION_GROUP (pps_window), "show-sidebar",
 						    g_variant_new_boolean (visible));
 
 		if (priv->metadata)
-			pps_metadata_set_boolean (priv->metadata, "sidebar_visibility",
+			pps_metadata_set_boolean (priv->metadata, "show-sidebar",
 						 visible);
 		if (!visible)
 			gtk_widget_grab_focus (priv->view);
@@ -4920,7 +4920,7 @@ pps_window_show_find_bar (PpsWindow *pps_window)
 
 	gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (priv->search_bar), TRUE);
 	gtk_widget_grab_focus (priv->search_box);
-	g_action_group_change_action_state (G_ACTION_GROUP (pps_window), "show-side-pane",
+	g_action_group_change_action_state (G_ACTION_GROUP (pps_window), "show-sidebar",
 						g_variant_new_boolean (TRUE));
 	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.find-next", TRUE);
 	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.find-previous", TRUE);
@@ -5210,7 +5210,7 @@ static const GActionEntry actions[] = {
 	{ "dual-page", NULL, NULL, "false", pps_window_cmd_dual },
 	{ "dual-odd-left", NULL, NULL, "false", pps_window_cmd_dual_odd_pages_left },
 	{ "rtl", NULL, NULL, "false", pps_window_cmd_rtl },
-	{ "show-side-pane", NULL, NULL, "false", pps_window_view_cmd_toggle_sidebar },
+	{ "show-sidebar", NULL, NULL, "false", pps_window_view_cmd_toggle_sidebar },
 	{ "inverted-colors", NULL, NULL, "false", pps_window_cmd_view_inverted_colors },
 	{ "enable-spellchecking", NULL, NULL, "false", pps_window_cmd_view_enable_spellchecking },
 	{ "fullscreen", NULL, NULL, "false", pps_window_cmd_view_fullscreen },
