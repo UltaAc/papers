@@ -827,6 +827,13 @@ pps_document_is_page_size_uniform (PpsDocument *document)
 	return priv->uniform;
 }
 
+/**
+ * pps_document_get_max_page_size:
+ * @document: an #PpsDocument
+ * @width: (out): max page width
+ * @height: (out): max page height
+ *
+ */
 void
 pps_document_get_max_page_size (PpsDocument *document,
 			       gdouble    *width,
@@ -847,6 +854,13 @@ pps_document_get_max_page_size (PpsDocument *document,
 		*height = priv->max_height;
 }
 
+/**
+ * pps_document_get_min_page_size:
+ * @document: an #PpsDocument
+ * @width: (out): min page width
+ * @height: (out): min page height
+ *
+ */
 void
 pps_document_get_min_page_size (PpsDocument *document,
 			       gdouble    *width,
