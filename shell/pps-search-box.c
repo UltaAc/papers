@@ -424,6 +424,12 @@ pps_search_box_new (PpsDocumentModel *model)
                                          NULL));
 }
 
+/**
+ * pps_search_box_get_entry:
+ * @box: The instance of the #PpsSearchBox.
+ *
+ * Returns: (not nullable) (transfer none): The internal #GtkSearchEntry.
+ */
 GtkSearchEntry *
 pps_search_box_get_entry (PpsSearchBox *box)
 {
