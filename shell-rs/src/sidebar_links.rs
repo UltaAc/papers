@@ -880,11 +880,11 @@ mod imp {
                             }
 
                             let outlines = row.item().and_downcast::<Outlines>().unwrap();
-                            let path = obj.outlines_to_path(&outlines).unwrap();
 
-                            debug!("click expander: `{}` {}", outlines.markup().unwrap_or_default(), row.is_expanded());
-
-                            obj.path_data.borrow_mut().set_expanded(&path, row.is_expanded());
+                            if let Some(path) = obj.outlines_to_path(&outlines) {
+                                debug!("click expander: `{}` {}", outlines.markup().unwrap_or_default(), row.is_expanded());
+                                obj.path_data.borrow_mut().set_expanded(&path, row.is_expanded());
+                            }
 
                             obj.store_metadata();
                         }),
