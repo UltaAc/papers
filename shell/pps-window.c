@@ -6197,11 +6197,6 @@ pps_window_init (PpsWindow *pps_window)
 	pps_page_selector_set_model (PPS_PAGE_SELECTOR (priv->page_selector),
 		priv->model);
 
-	g_signal_connect (priv->page_selector,
-			  "activate-link",
-			  G_CALLBACK (activate_link_cb),
-			  pps_window);
-
 	page_cache_mb = g_settings_get_uint (priv->settings,
 					     GS_PAGE_CACHE_SIZE);
 	pps_view_set_page_cache_size (PPS_VIEW (priv->view),
