@@ -85,6 +85,12 @@ pps_sidebar_set_property (GObject      *object,
 	}
 }
 
+/**
+ * pps_sidebar_get_current_page:
+ * @pps_sidebar: a #PpsSidebar.
+ *
+ * Returns: (not nullable) (transfer none): The current visible page.
+ */
 GtkWidget *
 pps_sidebar_get_current_page (PpsSidebar *pps_sidebar)
 {
