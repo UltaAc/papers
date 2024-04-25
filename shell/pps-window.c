@@ -996,11 +996,11 @@ pps_window_init_metadata_with_default_values (PpsWindow *window)
 		pps_metadata_set_boolean (metadata, "inverted-colors",
 					 g_settings_get_boolean (settings, "inverted-colors"));
 	}
-	if (!pps_metadata_has_key (metadata, "sizing_mode")) {
+	if (!pps_metadata_has_key (metadata, "sizing-mode")) {
 		PpsSizingMode mode = g_settings_get_enum (settings, "sizing-mode");
 		GEnumValue *enum_value = g_enum_get_value (g_type_class_peek (PPS_TYPE_SIZING_MODE), mode);
 
-		pps_metadata_set_string (metadata, "sizing_mode", enum_value->value_nick);
+		pps_metadata_set_string (metadata, "sizing-mode", enum_value->value_nick);
 	}
 
 	if (!pps_metadata_has_key (metadata, "zoom")) {
@@ -1061,7 +1061,7 @@ setup_model_from_metadata (PpsWindow *window)
 	}
 
 	/* Sizing mode */
-	if (pps_metadata_get_string (priv->metadata, "sizing_mode", &sizing_mode)) {
+	if (pps_metadata_get_string (priv->metadata, "sizing-mode", &sizing_mode)) {
 		GEnumValue *enum_value;
 
 		enum_value = g_enum_get_value_by_nick
@@ -4306,7 +4306,7 @@ save_sizing_mode (PpsWindow *window)
 
 	mode = pps_document_model_get_sizing_mode (priv->model);
 	enum_value = g_enum_get_value (g_type_class_peek (PPS_TYPE_SIZING_MODE), mode);
-	pps_metadata_set_string (priv->metadata, "sizing_mode",
+	pps_metadata_set_string (priv->metadata, "sizing-mode",
 				enum_value->value_nick);
 }
 
