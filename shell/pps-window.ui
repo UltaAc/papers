@@ -305,6 +305,21 @@
                                     <property name="vexpand">True</property>
                                     <property name="halign">fill</property>
                                     <property name="valign">fill</property>
+                                    <signal name="external-link" handler="view_external_link_cb"
+                                      swapped="yes" />
+                                    <signal name="handle-link" handler="view_handle_link_cb" />
+                                    <signal name="popup" handler="view_menu_popup_cb" />
+                                    <signal name="selection-changed"
+                                      handler="view_selection_changed_cb" />
+                                    <signal name="scroll" handler="scroll_history_cb" />
+                                    <signal name="annot-added" handler="view_annot_added" />
+                                    <signal name="annot-cancel-add" handler="view_annot_cancel_add" />
+                                    <signal name="annot-changed" handler="view_annot_changed" />
+                                    <signal name="annot-removed" handler="view_annot_removed" />
+                                    <signal name="layers-changed" handler="view_layers_changed_cb" />
+                                    <signal name="notify::is-loading"
+                                      handler="view_is_loading_changed_cb" />
+                                    <signal name="cursor-moved" handler="view_caret_cursor_moved_cb" />
                                   </object>
                                 </property>
                               </object>

@@ -6202,24 +6202,8 @@ pps_window_init (PpsWindow *pps_window)
 				     allow_links_change_zoom);
 	pps_view_set_model (PPS_VIEW (priv->view), priv->model);
 
-
-	g_signal_connect_swapped (priv->view, "external-link",
-				  G_CALLBACK (view_external_link_cb),
-				  pps_window);
-	g_signal_connect_object (priv->view, "handle-link",
-			         G_CALLBACK (view_handle_link_cb),
-			         pps_window, 0);
-	g_signal_connect_object (priv->view, "popup",
-				 G_CALLBACK (view_menu_popup_cb),
-				 pps_window, 0);
-	g_signal_connect_object (priv->view, "selection-changed",
-				 G_CALLBACK (view_selection_changed_cb),
-				 pps_window, 0);
 	g_signal_connect_object (priv->sidebar_bookmarks, "bookmark-activated",
 				 G_CALLBACK (bookmark_activated_cb),
-				 pps_window, 0);
-	g_signal_connect_object (priv->view, "scroll",
-				 G_CALLBACK (scroll_history_cb),
 				 pps_window, 0);
 	g_signal_connect_object (priv->scrolled_window, "scroll-child",
 				 G_CALLBACK (scroll_child_history_cb),
@@ -6229,28 +6213,6 @@ pps_window_init (PpsWindow *pps_window)
 				 G_CALLBACK (scrolled_window_focus_in_cb),
 				 pps_window, 0);
 	gtk_widget_add_controller (priv->scrolled_window, controller);
-
-	g_signal_connect_object (priv->view, "annot-added",
-				 G_CALLBACK (view_annot_added),
-				 pps_window, 0);
-	g_signal_connect_object (priv->view, "annot-cancel-add",
-				 G_CALLBACK (view_annot_cancel_add),
-				 pps_window, 0);
-	g_signal_connect_object (priv->view, "annot-changed",
-				 G_CALLBACK (view_annot_changed),
-				 pps_window, 0);
-	g_signal_connect_object (priv->view, "annot-removed",
-				 G_CALLBACK (view_annot_removed),
-				 pps_window, 0);
-	g_signal_connect_object (priv->view, "layers-changed",
-				 G_CALLBACK (view_layers_changed_cb),
-				 pps_window, 0);
-	g_signal_connect_object (priv->view, "notify::is-loading",
-				 G_CALLBACK (view_is_loading_changed_cb),
-				 pps_window, 0);
-	g_signal_connect_object (priv->view, "cursor-moved",
-				 G_CALLBACK (view_caret_cursor_moved_cb),
-				 pps_window, 0);
 
 	g_settings_delay (priv->default_settings);
 	pps_window_setup_default (pps_window);
@@ -6332,6 +6294,20 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, search_started_cb);
 	gtk_widget_class_bind_template_callback (widget_class, search_cleared_cb);
 	gtk_widget_class_bind_template_callback (widget_class, search_entry_stop_search_cb);
+
+	/* view */
+	gtk_widget_class_bind_template_callback (widget_class, view_external_link_cb);
+	gtk_widget_class_bind_template_callback (widget_class, view_handle_link_cb);
+	gtk_widget_class_bind_template_callback (widget_class, view_menu_popup_cb);
+	gtk_widget_class_bind_template_callback (widget_class, view_selection_changed_cb);
+	gtk_widget_class_bind_template_callback (widget_class, scroll_history_cb);
+	gtk_widget_class_bind_template_callback (widget_class, view_annot_added);
+	gtk_widget_class_bind_template_callback (widget_class, view_annot_cancel_add);
+	gtk_widget_class_bind_template_callback (widget_class, view_annot_changed);
+	gtk_widget_class_bind_template_callback (widget_class, view_annot_removed);
+	gtk_widget_class_bind_template_callback (widget_class, view_layers_changed_cb);
+	gtk_widget_class_bind_template_callback (widget_class, view_is_loading_changed_cb);
+	gtk_widget_class_bind_template_callback (widget_class, view_caret_cursor_moved_cb);
 
 	/* model */
 	gtk_widget_class_bind_template_callback (widget_class, page_changed_cb);
