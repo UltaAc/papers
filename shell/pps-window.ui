@@ -254,6 +254,7 @@
                                 <property name="child">
                                   <object class="PpsSidebarBookmarks" id="sidebar_bookmarks">
                                     <property name="document-model">model</property>
+                                    <signal name="bookmark-activated" handler="bookmark_activated_cb" />
                                   </object>
                                 </property>
                               </object>
@@ -322,6 +323,12 @@
                                     <signal name="cursor-moved" handler="view_caret_cursor_moved_cb" />
                                   </object>
                                 </property>
+                                <signal name="scroll-child" handler="scroll_child_history_cb" />
+                                <child>
+                                  <object class="GtkEventControllerFocus">
+                                    <signal name="enter" handler="scrolled_window_focus_in_cb" />
+                                  </object>
+                                </child>
                               </object>
                             </property>
                             <child type="overlay">

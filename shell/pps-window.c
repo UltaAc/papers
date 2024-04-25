@@ -6121,7 +6121,6 @@ pps_window_emit_doc_loaded (PpsWindow *window)
 static void
 pps_window_init (PpsWindow *pps_window)
 {
-	GtkEventController *controller;
 	GSimpleActionGroup *group;
 	guint page_cache_mb;
 	gboolean allow_links_change_zoom;
@@ -6202,18 +6201,6 @@ pps_window_init (PpsWindow *pps_window)
 				     allow_links_change_zoom);
 	pps_view_set_model (PPS_VIEW (priv->view), priv->model);
 
-	g_signal_connect_object (priv->sidebar_bookmarks, "bookmark-activated",
-				 G_CALLBACK (bookmark_activated_cb),
-				 pps_window, 0);
-	g_signal_connect_object (priv->scrolled_window, "scroll-child",
-				 G_CALLBACK (scroll_child_history_cb),
-				 pps_window, 0);
-	controller = gtk_event_controller_focus_new ();
-	g_signal_connect_object (controller, "enter",
-				 G_CALLBACK (scrolled_window_focus_in_cb),
-				 pps_window, 0);
-	gtk_widget_add_controller (priv->scrolled_window, controller);
-
 	g_settings_delay (priv->default_settings);
 	pps_window_setup_default (pps_window);
 
@@ -6289,6 +6276,8 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, find_button_sensitive_changed);
 	gtk_widget_class_bind_template_callback (widget_class, pps_spinner_map_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pps_spinner_unmap_cb);
+	gtk_widget_class_bind_template_callback (widget_class, scrolled_window_focus_in_cb);
+	gtk_widget_class_bind_template_callback (widget_class, scroll_child_history_cb);
 
 	/* search box */
 	gtk_widget_class_bind_template_callback (widget_class, search_started_cb);
@@ -6327,6 +6316,7 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, attachment_bar_menu_popup_cb);
 	gtk_widget_class_bind_template_callback (widget_class, attachment_bar_save_attachment_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_layers_visibility_changed);
+	gtk_widget_class_bind_template_callback (widget_class, bookmark_activated_cb);
 
 	/* password view */
 	gtk_widget_class_bind_template_callback (widget_class, pps_window_password_view_unlock);
