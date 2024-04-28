@@ -935,6 +935,16 @@ pps_document_has_text_page_labels (PpsDocument *document)
 	return priv->page_labels != NULL;
 }
 
+
+/**
+ * pps_document_find_page_by_label:
+ * @document: a #PpsDocument
+ * @page_label: the page label
+ * @page_index: (out): the output page index
+ *
+ * Returns: %TRUE iff the page index is found
+ *
+ */
 gboolean
 pps_document_find_page_by_label (PpsDocument  *document,
 				const gchar *page_label,
