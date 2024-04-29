@@ -45,7 +45,7 @@ shell/pps-annotations-toolbar.c
 shell/pps-application.c
 shell/pps-history.c
 shell/pps-keyring.c
-shell/pps-password-view.c
+shell/pps-password-dialog.ui
 shell/pps-password-view.ui
 shell/pps-properties-fonts.ui
 shell/pps-properties-license.ui
@@ -57,7 +57,6 @@ shell/pps-sidebar-bookmarks.c
 shell/pps-sidebar-bookmarks.ui
 shell/pps-sidebar-links.ui
 shell/pps-sidebar-thumbnails.ui
-shell/pps-sidebar-layers.c
 shell/pps-utils.c
 shell/pps-window.c
 shell/pps-window.ui
