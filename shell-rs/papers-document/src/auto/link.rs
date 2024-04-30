@@ -17,7 +17,7 @@ glib::wrapper! {
 
 impl Link {
     #[doc(alias = "pps_link_new")]
-    pub fn new(title: &str, action: &LinkAction) -> Link {
+    pub fn new(title: Option<&str>, action: &LinkAction) -> Link {
         skip_assert_initialized!();
         unsafe {
             from_glib_full(ffi::pps_link_new(

@@ -46,7 +46,7 @@ impl Document {
     }
 
     //#[doc(alias = "pps_document_factory_add_filters")]
-    //pub fn factory_add_filters(chooser: /*Ignored*/&gtk::FileChooser, document: &impl IsA<Document>) {
+    //pub fn factory_add_filters(dialog: /*Ignored*/&gtk::FileDialog, document: Option<&impl IsA<Document>>) {
     //    unsafe { TODO: call ffi:pps_document_factory_add_filters() }
     //}
 
@@ -138,6 +138,11 @@ impl Document {
     //#[doc(alias = "pps_document_misc_surface_rotate_and_scale")]
     //pub fn misc_surface_rotate_and_scale(surface: /*Ignored*/&mut cairo::Surface, dest_width: i32, dest_height: i32, dest_rotation: i32) -> /*Ignored*/Option<cairo::Surface> {
     //    unsafe { TODO: call ffi:pps_document_misc_surface_rotate_and_scale() }
+    //}
+
+    //#[doc(alias = "pps_document_misc_texture_from_surface")]
+    //pub fn misc_texture_from_surface(surface: /*Ignored*/&mut cairo::Surface) -> /*Ignored*/Option<gdk::Texture> {
+    //    unsafe { TODO: call ffi:pps_document_misc_texture_from_surface() }
     //}
 }
 

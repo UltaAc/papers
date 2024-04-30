@@ -461,40 +461,14 @@ pub trait WindowExt: IsA<Window> + sealed::Sealed + 'static {
         unsafe { from_glib(ffi::pps_window_is_empty(self.as_ref().to_glib_none().0)) }
     }
 
-    #[doc(alias = "pps_window_open_document")]
-    fn open_document(
-        &self,
-        document: &impl IsA<papers_document::Document>,
-        dest: &papers_document::LinkDest,
-        mode: WindowRunMode,
-        search_string: &str,
-    ) {
-        unsafe {
-            ffi::pps_window_open_document(
-                self.as_ref().to_glib_none().0,
-                document.as_ref().to_glib_none().0,
-                dest.to_glib_none().0,
-                mode.into_glib(),
-                search_string.to_glib_none().0,
-            );
-        }
-    }
-
     #[doc(alias = "pps_window_open_uri")]
-    fn open_uri(
-        &self,
-        uri: &str,
-        dest: Option<&papers_document::LinkDest>,
-        mode: WindowRunMode,
-        search_string: Option<&str>,
-    ) {
+    fn open_uri(&self, uri: &str, dest: Option<&papers_document::LinkDest>, mode: WindowRunMode) {
         unsafe {
             ffi::pps_window_open_uri(
                 self.as_ref().to_glib_none().0,
                 uri.to_glib_none().0,
                 dest.to_glib_none().0,
                 mode.into_glib(),
-                search_string.to_glib_none().0,
             );
         }
     }

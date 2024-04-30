@@ -150,4 +150,9 @@ impl Metadata {
             ))
         }
     }
+
+    //#[doc(alias = "pps_metadata_is_file_supported")]
+    //pub fn is_file_supported(file: /*Ignored*/&gio::File) -> bool {
+    //    unsafe { TODO: call ffi:pps_metadata_is_file_supported() }
+    //}
 }

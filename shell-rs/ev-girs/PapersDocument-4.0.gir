@@ -1600,7 +1600,7 @@ equal to the required one, and &lt;literal&gt;0&lt;/literal&gt; otherwise.</doc>
                 c:identifier="pps_document_factory_add_filters">
         <doc xml:space="preserve"
              filename="libdocument/pps-document-factory.c"
-             line="495">Adds some file filters to @chooser.
+             line="495">Adds some file filters to @dialog.
 
 Always add a "All documents" format.
 
@@ -1614,13 +1614,16 @@ can handle.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="chooser" transfer-ownership="none">
+          <parameter name="dialog" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-factory.c"
-                 line="497">a #GtkFileChooser</doc>
-            <type name="Gtk.FileChooser" c:type="GtkFileChooser*"/>
+                 line="497">a #GtkFileDialog</doc>
+            <type name="Gtk.FileDialog" c:type="GtkFileDialog*"/>
           </parameter>
-          <parameter name="document" transfer-ownership="none">
+          <parameter name="document"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-factory.c"
                  line="498">a #PpsDocument, or %NULL</doc>
@@ -1770,13 +1773,13 @@ If the document is encrypted, it is returned but also @error is set to
                 version="3.38">
         <doc xml:space="preserve"
              filename="libdocument/pps-document-misc.c"
-             line="176">Determine the preferred date and time representation for the current locale
+             line="209">Determine the preferred date and time representation for the current locale
 for @dt.</doc>
-        <source-position filename="libdocument/pps-document-misc.h" line="49"/>
+        <source-position filename="libdocument/pps-document-misc.h" line="51"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-misc.c"
-               line="183">a new allocated string or NULL in the case
+               line="216">a new allocated string or NULL in the case
 that there was an error (such as a format specifier not being supported
 in the current locale). The string should be freed with g_free().</doc>
           <type name="utf8" c:type="gchar*"/>
@@ -1785,7 +1788,7 @@ in the current locale). The string should be freed with g_free().</doc>
           <parameter name="dt" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-misc.c"
-                 line="178">a #GDateTime</doc>
+                 line="211">a #GDateTime</doc>
             <type name="GLib.DateTime" c:type="GDateTime*"/>
           </parameter>
         </parameters>
@@ -1794,8 +1797,8 @@ in the current locale). The string should be freed with g_free().</doc>
                 c:identifier="pps_document_misc_get_pointer_position">
         <doc xml:space="preserve"
              filename="libdocument/pps-document-misc.c"
-             line="195">Get the pointer's x and y position relative to @widget.</doc>
-        <source-position filename="libdocument/pps-document-misc.h" line="52"/>
+             line="228">Get the pointer's x and y position relative to @widget.</doc>
+        <source-position filename="libdocument/pps-document-misc.h" line="54"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -1803,7 +1806,7 @@ in the current locale). The string should be freed with g_free().</doc>
           <parameter name="widget" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-misc.c"
-                 line="197">a #GtkWidget</doc>
+                 line="230">a #GtkWidget</doc>
             <type name="Gtk.Widget" c:type="GtkWidget*"/>
           </parameter>
           <parameter name="x"
@@ -1812,7 +1815,7 @@ in the current locale). The string should be freed with g_free().</doc>
                      transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-misc.c"
-                 line="198">the pointer's "x" position, or -1 if the position is not
+                 line="231">the pointer's "x" position, or -1 if the position is not
   available</doc>
             <type name="gint" c:type="gint*"/>
           </parameter>
@@ -1822,7 +1825,7 @@ in the current locale). The string should be freed with g_free().</doc>
                      transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-misc.c"
-                 line="200">the pointer's "y" position, or -1 if the position is not
+                 line="233">the pointer's "y" position, or -1 if the position is not
   available</doc>
             <type name="gint" c:type="gint*"/>
           </parameter>
@@ -1832,21 +1835,21 @@ in the current locale). The string should be freed with g_free().</doc>
                 c:identifier="pps_document_misc_get_widget_dpi">
         <doc xml:space="preserve"
              filename="libdocument/pps-document-misc.c"
-             line="128">Returns sensible guess for DPI of monitor on which given widget has been
+             line="161">Returns sensible guess for DPI of monitor on which given widget has been
 realized. If HiDPI display, use 192, else 96.
 Returns 96 as fallback value.</doc>
-        <source-position filename="libdocument/pps-document-misc.h" line="46"/>
+        <source-position filename="libdocument/pps-document-misc.h" line="48"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-misc.c"
-               line="136">DPI as gdouble</doc>
+               line="169">DPI as gdouble</doc>
           <type name="gdouble" c:type="gdouble"/>
         </return-value>
         <parameters>
           <parameter name="widget" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-misc.c"
-                 line="130">a #GtkWidget</doc>
+                 line="163">a #GtkWidget</doc>
             <type name="Gtk.Widget" c:type="GtkWidget*"/>
           </parameter>
         </parameters>
@@ -1857,14 +1860,14 @@ Returns 96 as fallback value.</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-misc.c"
-               line="55">a #GdkPixbuf</doc>
+               line="53">a #GdkPixbuf</doc>
           <type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
         </return-value>
         <parameters>
           <parameter name="surface" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-misc.c"
-                 line="53">a #cairo_surface_t</doc>
+                 line="51">a #cairo_surface_t</doc>
             <type name="cairo.Surface" c:type="cairo_surface_t*"/>
           </parameter>
         </parameters>
@@ -1883,7 +1886,7 @@ Returns 96 as fallback value.</doc>
       </function>
       <function name="misc_surface_rotate_and_scale"
                 c:identifier="pps_document_misc_surface_rotate_and_scale">
-        <source-position filename="libdocument/pps-document-misc.h" line="40"/>
+        <source-position filename="libdocument/pps-document-misc.h" line="42"/>
         <return-value transfer-ownership="full">
           <type name="cairo.Surface" c:type="cairo_surface_t*"/>
         </return-value>
@@ -1899,6 +1902,27 @@ Returns 96 as fallback value.</doc>
           </parameter>
           <parameter name="dest_rotation" transfer-ownership="none">
             <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </function>
+      <function name="misc_texture_from_surface"
+                c:identifier="pps_document_misc_texture_from_surface">
+        <doc xml:space="preserve"
+             filename="libdocument/pps-document-misc.c"
+             line="66">Convert a cairo_surface_t to #GdkTexture object.</doc>
+        <source-position filename="libdocument/pps-document-misc.h" line="40"/>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-misc.c"
+               line="72">The converted #GdkTexture</doc>
+          <type name="Gdk.Texture" c:type="GdkTexture*"/>
+        </return-value>
+        <parameters>
+          <parameter name="surface" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-misc.c"
+                 line="68">a #cairo_surface_t</doc>
+            <type name="cairo.Surface" c:type="cairo_surface_t*"/>
           </parameter>
         </parameters>
       </function>
@@ -2261,16 +2285,31 @@ See pps_document_load() for more information.</doc>
               c:identifier="pps_document_find_page_by_label">
         <source-position filename="libdocument/pps-document.h" line="217"/>
         <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document.c"
+               line="945">%TRUE iff the page index is found</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="document" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document.c"
+                 line="941">a #PpsDocument</doc>
             <type name="Document" c:type="PpsDocument*"/>
           </instance-parameter>
           <parameter name="page_label" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document.c"
+                 line="942">the page label</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="page_index" transfer-ownership="none">
+          <parameter name="page_index"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document.c"
+                 line="943">the output page index</doc>
             <type name="gint" c:type="gint*"/>
           </parameter>
         </parameters>
@@ -2330,12 +2369,27 @@ See pps_document_load() for more information.</doc>
         </return-value>
         <parameters>
           <instance-parameter name="document" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document.c"
+                 line="832">an #PpsDocument</doc>
             <type name="Document" c:type="PpsDocument*"/>
           </instance-parameter>
-          <parameter name="width" transfer-ownership="none">
+          <parameter name="width"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document.c"
+                 line="833">max page width</doc>
             <type name="gdouble" c:type="gdouble*"/>
           </parameter>
-          <parameter name="height" transfer-ownership="none">
+          <parameter name="height"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document.c"
+                 line="834">max page height</doc>
             <type name="gdouble" c:type="gdouble*"/>
           </parameter>
         </parameters>
@@ -2348,12 +2402,27 @@ See pps_document_load() for more information.</doc>
         </return-value>
         <parameters>
           <instance-parameter name="document" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document.c"
+                 line="859">an #PpsDocument</doc>
             <type name="Document" c:type="PpsDocument*"/>
           </instance-parameter>
-          <parameter name="width" transfer-ownership="none">
+          <parameter name="width"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document.c"
+                 line="860">min page width</doc>
             <type name="gdouble" c:type="gdouble*"/>
           </parameter>
-          <parameter name="height" transfer-ownership="none">
+          <parameter name="height"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document.c"
+                 line="861">min page height</doc>
             <type name="gdouble" c:type="gdouble*"/>
           </parameter>
         </parameters>
@@ -8164,10 +8233,19 @@ interface</doc>
           <type name="Link" c:type="PpsLink*"/>
         </return-value>
         <parameters>
-          <parameter name="title" transfer-ownership="none">
+          <parameter name="title"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-link.c"
+                 line="168">the title</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
           <parameter name="action" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-link.c"
+                 line="169">a #PpsLinkAction</doc>
             <type name="LinkAction" c:type="PpsLinkAction*"/>
           </parameter>
         </parameters>

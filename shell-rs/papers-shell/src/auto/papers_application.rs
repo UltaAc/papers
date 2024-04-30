@@ -57,50 +57,14 @@ pub trait PapersApplicationExt: IsA<PapersApplication> + sealed::Sealed + 'stati
     //    unsafe { TODO: call ffi:pps_papers_application_call_get_window_list_sync() }
     //}
 
-    //#[doc(alias = "pps_papers_application_call_reload")]
-    //fn call_reload<P: FnOnce(Result<(), /*Ignored*/glib::Error>) + 'static>(&self, arg_args: /*Ignored*/&glib::Variant, cancellable: /*Ignored*/Option<&gio::Cancellable>, callback: P) {
-    //    unsafe { TODO: call ffi:pps_papers_application_call_reload() }
-    //}
-
-    //
-    //fn call_reload_future(&self, arg_args: /*Ignored*/&glib::Variant) -> Pin<Box_<dyn std::future::Future<Output = Result<(), /*Ignored*/glib::Error>> + 'static>> {
-
-    //let arg_args = arg_args.clone();
-    //Box_::pin(gio::GioFuture::new(self, move |obj, cancellable, send| {
-    //    obj.call_reload(
-    //        &arg_args,
-    //        Some(cancellable),
-    //        move |res| {
-    //            send.resolve(res);
-    //        },
-    //    );
-    //}))
-    //}
-
-    //#[doc(alias = "pps_papers_application_call_reload_sync")]
-    //fn call_reload_sync(&self, arg_args: /*Ignored*/&glib::Variant, cancellable: /*Ignored*/Option<&gio::Cancellable>, error: /*Ignored*/Option<glib::Error>) -> bool {
-    //    unsafe { TODO: call ffi:pps_papers_application_call_reload_sync() }
-    //}
-
     //#[doc(alias = "pps_papers_application_complete_get_window_list")]
     //fn complete_get_window_list(&self, invocation: /*Ignored*/gio::DBusMethodInvocation, window_list: &str) {
     //    unsafe { TODO: call ffi:pps_papers_application_complete_get_window_list() }
     //}
 
-    //#[doc(alias = "pps_papers_application_complete_reload")]
-    //fn complete_reload(&self, invocation: /*Ignored*/gio::DBusMethodInvocation) {
-    //    unsafe { TODO: call ffi:pps_papers_application_complete_reload() }
-    //}
-
     //#[doc(alias = "handle-get-window-list")]
     //fn connect_handle_get_window_list<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Ignored invocation: Gio.DBusMethodInvocation
-    //}
-
-    //#[doc(alias = "handle-reload")]
-    //fn connect_handle_reload<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
-    //    Ignored invocation: Gio.DBusMethodInvocation
-    //    Ignored arg_args: GLib.Variant
     //}
 }
 

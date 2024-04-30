@@ -49,7 +49,6 @@ impl Application {
         uri: &str,
         dest: &papers_document::LinkDest,
         mode: WindowRunMode,
-        search_string: &str,
     ) {
         unsafe {
             ffi::pps_application_open_uri_at_dest(
@@ -57,7 +56,6 @@ impl Application {
                 uri.to_glib_none().0,
                 dest.to_glib_none().0,
                 mode.into_glib(),
-                search_string.to_glib_none().0,
             );
         }
     }
