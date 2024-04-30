@@ -177,6 +177,9 @@ typedef struct {
 
 	/* Caret navigation */
 	GtkWidget *ask_caret_navigation_check;
+
+	/* Misc Runtime State */
+	gboolean sidebar_was_open_before_find;
 } PpsWindowPrivate;
 
 #define GET_PRIVATE(o) pps_window_get_instance_private (o)
@@ -4280,7 +4283,7 @@ pps_window_cmd_escape (GSimpleAction *action,
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
 	if (gtk_search_bar_get_search_mode (GTK_SEARCH_BAR (priv->search_bar)))
-		pps_window_close_find_bar (window);
+		gtk_widget_activate_action (GTK_WIDGET (window), "doc.toggle-find", NULL);
 	else if (PPS_WINDOW_IS_PRESENTATION (priv))
 		pps_window_stop_presentation (window, TRUE);
 	else if (gtk_window_is_fullscreen (GTK_WINDOW (window)))
@@ -4914,6 +4917,10 @@ pps_window_show_find_bar (PpsWindow *pps_window)
 	if (PPS_WINDOW_IS_PRESENTATION (priv))
 		return;
 
+	priv->sidebar_was_open_before_find =
+		g_variant_get_boolean(g_action_group_get_action_state (G_ACTION_GROUP (pps_window),
+									       "show-sidebar"));
+
 	pps_history_freeze (priv->history);
 
 	adw_overlay_split_view_set_sidebar (priv->split_view, priv->find_sidebar);
@@ -4933,6 +4940,9 @@ pps_window_close_find_bar (PpsWindow *pps_window)
 
 	if (adw_overlay_split_view_get_sidebar (priv->split_view) != priv->find_sidebar)
 		return;
+
+	adw_overlay_split_view_set_show_sidebar (priv->split_view,
+						 priv->sidebar_was_open_before_find);
 
 	adw_overlay_split_view_set_sidebar (priv->split_view, priv->sidebar);
 
