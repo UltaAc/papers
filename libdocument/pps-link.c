@@ -163,6 +163,11 @@ pps_link_class_init (PpsLinkClass *pps_window_class)
 							      G_PARAM_STATIC_STRINGS));
 }
 
+/**
+ * pps_link_new:
+ * @title: (nullable): the title
+ * @action: a #PpsLinkAction
+ */
 PpsLink *
 pps_link_new (const char   *title,
 	     PpsLinkAction *action)
