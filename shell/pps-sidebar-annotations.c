@@ -278,8 +278,10 @@ job_finished_callback (PpsJobAnnots          *job,
 			else
 				tooltip = g_strdup_printf ("<span weight=\"bold\">%s</span>", label);
 
-			if (contents && *contents != '\0')
-				markup = g_strstrip (g_strdup_printf ("%s", contents));
+			if (contents && *contents != '\0') {
+				g_autofree gchar *escaped = g_markup_escape_text (contents, -1);
+				markup = g_strstrip (g_strdup_printf ("%s", escaped));
+			}
 			else
 				markup = g_strdup_printf ("<i>%s</i>", _("No Comment"));
 
