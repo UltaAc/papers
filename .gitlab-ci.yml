@@ -96,6 +96,13 @@ meson-rel:
     script:
         - meson compile -C _build
 
+meson-pot:
+    extends: '.setup-meson'
+    variables:
+        MESON_SETUP_OPTIONS: "-Dbuildtype=release"
+    script:
+        - meson compile -C _build papers-pot
+
 .flatpak-local:
     stage: build
     variables:
