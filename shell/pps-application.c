@@ -337,8 +337,8 @@ pps_application_about_activated (GSimpleAction *action,
         for (p = documenters; *p; ++p)
                 *p = _(*p);
 
-        adw_show_about_window (window,
-                               "application-name", _("Papers"),
+        adw_show_about_dialog (GTK_WIDGET (window),
+			       "application-name", _("Papers"),
                                "version", VERSION,
                                "copyright", _("© 1996–2024 The Papers authors"),
                                "license-type", GTK_LICENSE_GPL_2_0,
