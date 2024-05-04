@@ -1221,6 +1221,8 @@ setup_document_from_metadata (PpsWindow *window)
 						     request_width,
 						     request_height);
 		}
+	} else {
+		gtk_window_set_default_size (GTK_WINDOW (window) , 1280, 1280);
 	}
 }
 
