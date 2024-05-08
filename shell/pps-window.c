@@ -2082,7 +2082,7 @@ pps_window_open_uri (PpsWindow       *pps_window,
 	g_clear_object (&priv->metadata);
 	g_clear_object (&priv->bookmarks);
 
-	if (pps_metadata_is_file_supported (source_file)) {
+	if (!g_getenv ("PAPERS_NO_METADATA") && pps_metadata_is_file_supported (source_file)) {
 		priv->metadata = pps_metadata_new (source_file);
 		pps_window_init_metadata_with_default_values (pps_window);
 		if (priv->metadata) {
