@@ -2091,6 +2091,8 @@ pps_window_open_uri (PpsWindow       *pps_window,
 			pps_sidebar_bookmarks_set_bookmarks (PPS_SIDEBAR_BOOKMARKS (priv->sidebar_bookmarks),
 							    priv->bookmarks);
 		}
+	} else {
+		g_warning("Failed to create metadata for document\n");
 	}
 
 	g_clear_object (&priv->dest);
