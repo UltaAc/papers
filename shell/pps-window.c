@@ -1169,9 +1169,6 @@ setup_document_from_metadata (PpsWindow *window)
 	gdouble height_ratio;
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
-	if (!priv->metadata)
-		return;
-
 	setup_sidebar_from_metadata (window);
 
 	/* Make sure to not open a document on the last page,
@@ -1183,7 +1180,9 @@ setup_document_from_metadata (PpsWindow *window)
 	if (page == n_pages - 1)
 		pps_document_model_set_page (priv->model, 0);
 
-	if (pps_metadata_get_int (priv->metadata, "window_width", &width) &&
+	/* We must make sure the window get a proper size without metadata */
+	if (priv->metadata &&
+	    pps_metadata_get_int (priv->metadata, "window_width", &width) &&
 	    pps_metadata_get_int (priv->metadata, "window_height", &height))
 		return; /* size was already set in setup_size_from_metadata */
 
