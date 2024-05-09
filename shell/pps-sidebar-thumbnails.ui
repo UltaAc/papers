@@ -8,8 +8,6 @@
         <signal name="notify::scale-factor" handler="reload" />
         <child>
           <object class="GtkScrolledWindow">
-            <property name="margin-start">6</property>
-            <property name="margin-end">6</property>
             <property name="valign">fill</property>
             <property name="vexpand">True</property>
             <property name="hscrollbar-policy">never</property>
