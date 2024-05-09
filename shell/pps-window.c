@@ -1183,8 +1183,8 @@ setup_document_from_metadata (PpsWindow *window)
 
 	/* We must make sure the window get a proper size without metadata */
 	if (priv->metadata &&
-	    pps_metadata_get_int (priv->metadata, "window_width", &width) &&
-	    pps_metadata_get_int (priv->metadata, "window_height", &height))
+	    pps_metadata_get_int (priv->metadata, "window-width", &width) &&
+	    pps_metadata_get_int (priv->metadata, "window-height", &height))
 		return; /* size was already set in setup_size_from_metadata */
 
 	/* Following code is intended to be executed first time a document is opened
@@ -1236,8 +1236,8 @@ setup_size_from_metadata (PpsWindow *window)
 		return;
 	}
 
-        if (pps_metadata_get_int (priv->metadata, "window_width", &width) &&
-	    pps_metadata_get_int (priv->metadata, "window_height", &height)) {
+        if (pps_metadata_get_int (priv->metadata, "window-width", &width) &&
+	    pps_metadata_get_int (priv->metadata, "window-height", &height)) {
 		gtk_window_set_default_size (GTK_WINDOW (window), width, height);
 	}
 
@@ -5420,8 +5420,8 @@ window_size_changed_cb (GObject		*object,
 					(double)window_width / document_width,
 					(double)window_height / document_height);
 
-			pps_metadata_set_int (priv->metadata, "window_width",window_width);
-			pps_metadata_set_int (priv->metadata, "window_height", window_height);
+			pps_metadata_set_int (priv->metadata, "window-width",window_width);
+			pps_metadata_set_int (priv->metadata, "window-height", window_height);
 		}
 	}
 }
