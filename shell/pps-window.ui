@@ -199,95 +199,105 @@
                     <property name="max-sidebar-width">300</property>
                     <signal name="notify::show-sidebar" handler="sidebar_visibility_changed_cb" />
                     <property name="sidebar">
-                      <object class="PpsSidebar" id="sidebar">
-                        <property name="document-model">model</property>
-                        <signal name="notify::current-page"
-                          handler="sidebar_current_page_changed_cb" />
-                        <child internal-child="stack">
-                          <object class="GtkStack">
-                            <property name="transition-type">crossfade</property>
-                            <child>
-                              <object class="GtkStackPage">
-                                <property name="name">thumbnails</property>
-                                <property name="title" translatable="yes">Thumbnails</property>
-                                <property name="icon-name">view-grid-symbolic</property>
-                                <property name="child">
-                                  <object class="PpsSidebarThumbnails" id="sidebar_thumbs">
-                                    <property name="document-model">model</property>
+                      <object class="GtkStack" id="sidebar_stack">
+                        <property name="transition-type">crossfade</property>
+                        <child>
+                          <object class="PpsSidebar" id="sidebar">
+                            <property name="document-model">model</property>
+                            <signal name="notify::current-page"
+                                    handler="sidebar_current_page_changed_cb" />
+                            <child internal-child="stack">
+                              <object class="GtkStack">
+                                <property name="transition-type">crossfade</property>
+                                <child>
+                                  <object class="GtkStackPage">
+                                    <property name="name">thumbnails</property>
+                                    <property name="title" translatable="yes">Thumbnails</property>
+                                    <property name="icon-name">view-grid-symbolic</property>
+                                    <property name="child">
+                                      <object class="PpsSidebarThumbnails" id="sidebar_thumbs">
+                                        <property name="document-model">model</property>
+                                      </object>
+                                    </property>
                                   </object>
-                                </property>
+                                </child>
+                                <child>
+                                  <object class="GtkStackPage">
+                                    <property name="name">links</property>
+                                    <property name="title" translatable="yes">Outline</property>
+                                    <property name="icon-name">outline-symbolic</property>
+                                    <property name="child">
+                                      <object class="PpsSidebarLinks" id="sidebar_links">
+                                        <property name="document-model">model</property>
+                                        <signal name="link-activated"
+                                                handler="sidebar_links_link_activated_cb" />
+                                      </object>
+                                    </property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkStackPage">
+                                    <property name="name">annotations</property>
+                                    <property name="title" translatable="yes">Annotations</property>
+                                    <property name="icon-name">annotations-text-symbolic</property>
+                                    <property name="child">
+                                      <object class="PpsSidebarAnnotations" id="sidebar_annots">
+                                        <property name="document-model">model</property>
+                                        <signal name="annot-activated"
+                                                handler="sidebar_annots_annot_activated_cb" />
+                                      </object>
+                                    </property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkStackPage">
+                                    <property name="name">bookmarks</property>
+                                    <property name="title" translatable="yes">Bookmarks</property>
+                                    <property name="icon-name">user-bookmarks-symbolic</property>
+                                    <property name="child">
+                                      <object class="PpsSidebarBookmarks" id="sidebar_bookmarks">
+                                        <property name="document-model">model</property>
+                                        <signal name="bookmark-activated" handler="bookmark_activated_cb" />
+                                      </object>
+                                    </property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkStackPage">
+                                    <property name="name">attachments</property>
+                                    <property name="title" translatable="yes">Attachments</property>
+                                    <property name="icon-name">mail-attachment-symbolic</property>
+                                    <property name="child">
+                                      <object class="PpsSidebarAttachments" id="sidebar_attachments">
+                                        <property name="document-model">model</property>
+                                        <signal name="popup" handler="attachment_bar_menu_popup_cb" />
+                                        <signal name="save-attachment"
+                                                handler="attachment_bar_save_attachment_cb" />
+                                      </object>
+                                    </property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkStackPage">
+                                    <property name="name">layers</property>
+                                    <property name="title" translatable="yes">Layers</property>
+                                    <property name="icon-name">view-paged-symbolic</property>
+                                    <property name="child">
+                                      <object class="PpsSidebarLayers" id="sidebar_layers">
+                                        <property name="document-model">model</property>
+                                        <signal name="visibility-changed"
+                                                handler="sidebar_layers_visibility_changed" />
+                                      </object>
+                                    </property>
+                                  </object>
+                                </child>
                               </object>
                             </child>
-                            <child>
-                              <object class="GtkStackPage">
-                                <property name="name">links</property>
-                                <property name="title" translatable="yes">Outline</property>
-                                <property name="icon-name">outline-symbolic</property>
-                                <property name="child">
-                                  <object class="PpsSidebarLinks" id="sidebar_links">
-                                    <property name="document-model">model</property>
-                                    <signal name="link-activated"
-                                      handler="sidebar_links_link_activated_cb" />
-                                  </object>
-                                </property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkStackPage">
-                                <property name="name">annotations</property>
-                                <property name="title" translatable="yes">Annotations</property>
-                                <property name="icon-name">annotations-text-symbolic</property>
-                                <property name="child">
-                                  <object class="PpsSidebarAnnotations" id="sidebar_annots">
-                                    <property name="document-model">model</property>
-                                    <signal name="annot-activated"
-                                      handler="sidebar_annots_annot_activated_cb" />
-                                  </object>
-                                </property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkStackPage">
-                                <property name="name">bookmarks</property>
-                                <property name="title" translatable="yes">Bookmarks</property>
-                                <property name="icon-name">user-bookmarks-symbolic</property>
-                                <property name="child">
-                                  <object class="PpsSidebarBookmarks" id="sidebar_bookmarks">
-                                    <property name="document-model">model</property>
-                                    <signal name="bookmark-activated" handler="bookmark_activated_cb" />
-                                  </object>
-                                </property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkStackPage">
-                                <property name="name">attachments</property>
-                                <property name="title" translatable="yes">Attachments</property>
-                                <property name="icon-name">mail-attachment-symbolic</property>
-                                <property name="child">
-                                  <object class="PpsSidebarAttachments" id="sidebar_attachments">
-                                    <property name="document-model">model</property>
-                                    <signal name="popup" handler="attachment_bar_menu_popup_cb" />
-                                    <signal name="save-attachment"
-                                      handler="attachment_bar_save_attachment_cb" />
-                                  </object>
-                                </property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkStackPage">
-                                <property name="name">layers</property>
-                                <property name="title" translatable="yes">Layers</property>
-                                <property name="icon-name">view-paged-symbolic</property>
-                                <property name="child">
-                                  <object class="PpsSidebarLayers" id="sidebar_layers">
-                                    <property name="document-model">model</property>
-                                    <signal name="visibility-changed"
-                                      handler="sidebar_layers_visibility_changed" />
-                                  </object>
-                                </property>
-                              </object>
-                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="PpsFindSidebar" id="find_sidebar">
+                            <signal name="result-activated" handler="find_sidebar_result_activated_cb" />
                           </object>
                         </child>
                       </object>
@@ -543,10 +553,6 @@
       </object>
     </child>
   </template>
-
-  <object class="PpsFindSidebar" id="find_sidebar">
-    <signal name="result-activated" handler="find_sidebar_result_activated_cb" />
-  </object>
 
   <menu id="action-menu">
     <section>

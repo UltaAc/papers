@@ -83,7 +83,6 @@ typedef struct {
 	/* UI */
 	GtkWidget *stack;
 	GtkWidget *toolbar_view;
-	GtkWidget *sidebar;
 	GtkWidget *search_box;
 	GtkWidget *search_bar;
 	GtkWidget *scrolled_window;
@@ -92,11 +91,13 @@ typedef struct {
 	GtkWidget *presentation_view;
 	GtkWidget *message_area;
 	GtkWidget *password_view;
+	GtkWidget *sidebar_stack;
+	GtkWidget *sidebar;
 	GtkWidget *sidebar_links;
-	GtkWidget *find_sidebar;
 	GtkWidget *sidebar_layers;
 	GtkWidget *sidebar_annots;
 	GtkWidget *sidebar_bookmarks;
+	GtkWidget *find_sidebar;
 	GtkWidget *annots_toolbar_revealer;
 	GtkWidget *annots_toolbar;
 	GtkWidget *error_page;
@@ -4907,7 +4908,8 @@ pps_window_show_find_bar (PpsWindow *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
-	if (adw_overlay_split_view_get_sidebar (priv->split_view) == priv->find_sidebar) {
+	if (gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack))
+	    == priv->find_sidebar) {
 		gtk_widget_grab_focus (priv->search_box);
 		return;
 	}
@@ -4926,7 +4928,8 @@ pps_window_show_find_bar (PpsWindow *pps_window)
 
 	pps_history_freeze (priv->history);
 
-	adw_overlay_split_view_set_sidebar (priv->split_view, priv->find_sidebar);
+	gtk_stack_set_visible_child (GTK_STACK (priv->sidebar_stack),
+				     priv->find_sidebar);
 
 	gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (priv->search_bar), TRUE);
 	gtk_widget_grab_focus (priv->search_box);
@@ -4941,13 +4944,15 @@ pps_window_close_find_bar (PpsWindow *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
-	if (adw_overlay_split_view_get_sidebar (priv->split_view) != priv->find_sidebar)
+	if (gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack))
+	    != priv->find_sidebar)
 		return;
 
 	adw_overlay_split_view_set_show_sidebar (priv->split_view,
 						 priv->sidebar_was_open_before_find);
 
-	adw_overlay_split_view_set_sidebar (priv->split_view, priv->sidebar);
+	gtk_stack_set_visible_child (GTK_STACK (priv->sidebar_stack),
+				     priv->sidebar);
 
 	gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (priv->search_bar), FALSE);
 	gtk_widget_grab_focus (priv->view);
@@ -6238,7 +6243,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_set_template_from_resource (widget_class,
 		"/org/gnome/papers/ui/window.ui");
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, toolbar_view);
-	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, sidebar);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, split_view);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, scrolled_window);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, loading_message);
@@ -6246,7 +6250,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, annots_toolbar_revealer);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, annots_toolbar);
-	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, find_sidebar);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, search_bar);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, search_box);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, model);
@@ -6261,10 +6264,13 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, settings);
 
 	/* sidebar */
+	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_stack);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_links);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_annots);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_bookmarks);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_layers);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, find_sidebar);
 
 	/* menu button */
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, action_menu_button);
