@@ -82,7 +82,7 @@ typedef enum {
 typedef struct {
 	/* UI */
 	GtkWidget *stack;
-	GtkWidget *toolbar_view;
+	GtkWidget *document_toolbar_view;
 	GtkWidget *search_box;
 	GtkWidget *search_bar;
 	GtkWidget *scrolled_window;
@@ -589,13 +589,13 @@ pps_window_set_message_area (PpsWindow  *window,
 		return;
 
 	if (priv->message_area)
-		adw_toolbar_view_remove (ADW_TOOLBAR_VIEW (priv->toolbar_view), priv->message_area);
+		adw_toolbar_view_remove (ADW_TOOLBAR_VIEW (priv->document_toolbar_view), priv->message_area);
 	priv->message_area = area;
 
 	if (!area)
 		return;
 
-	adw_toolbar_view_add_top_bar(ADW_TOOLBAR_VIEW (priv->toolbar_view), priv->message_area);
+	adw_toolbar_view_add_top_bar(ADW_TOOLBAR_VIEW (priv->document_toolbar_view), priv->message_area);
 }
 
 static void
@@ -6039,7 +6039,7 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 
 	gtk_widget_class_set_template_from_resource (widget_class,
 		"/org/gnome/papers/ui/window.ui");
-	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, toolbar_view);
+	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, document_toolbar_view);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, split_view);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, scrolled_window);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, loading_message);
