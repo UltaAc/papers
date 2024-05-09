@@ -1234,8 +1234,11 @@ setup_size_from_metadata (PpsWindow *window)
 	gboolean maximized;
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
-	if (!priv->metadata)
+	if (!priv->metadata) {
+		/* fallback to a proper size rather than 600x600 */
+		gtk_window_set_default_size (GTK_WINDOW (window), 1280, 1280);
 		return;
+	}
 
         if (pps_metadata_get_int (priv->metadata, "window_width", &width) &&
 	    pps_metadata_get_int (priv->metadata, "window_height", &height)) {
