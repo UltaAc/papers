@@ -1166,8 +1166,8 @@ setup_document_from_metadata (PpsWindow *window)
 	gint    page, n_pages;
 	gint    width;
 	gint    height;
-	gdouble width_ratio;
-	gdouble height_ratio;
+	gdouble width_ratio, height_ratio, document_width, document_height;
+	gint    request_width, request_height, monitor_width, monitor_height;
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
 	setup_sidebar_from_metadata (window);
@@ -1196,33 +1196,29 @@ setup_document_from_metadata (PpsWindow *window)
 		pps_document_model_set_dual_page_odd_pages_left (priv->model, TRUE);
 
 	g_settings_get (priv->default_settings, "window-ratio", "(dd)", &width_ratio, &height_ratio);
-	if (width_ratio > 0. && height_ratio > 0.) {
-		gdouble    document_width;
-		gdouble    document_height;
-		gint       request_width;
-		gint       request_height;
-		gint       monitor_width;
-		gint       monitor_height;
 
-		pps_document_get_max_page_size (priv->document,
-					       &document_width, &document_height);
+	if (width_ratio <= 0.)
+		width_ratio = 1.;
 
-		request_width = (gint)(width_ratio * document_width + 0.5);
-		request_height = (gint)(height_ratio * document_height + 0.5);
+	if (height_ratio <= 0.)
+		height_ratio = 1.;
 
-		monitor_get_dimensions (window, &monitor_width, &monitor_height);
-		if (monitor_width > 0 && monitor_height > 0) {
-			request_width = MIN (request_width, monitor_width);
-			request_height = MIN (request_height, monitor_height);
-		}
+	pps_document_get_max_page_size (priv->document,
+					&document_width, &document_height);
 
-		if (request_width > 0 && request_height > 0) {
-			gtk_window_set_default_size (GTK_WINDOW (window),
-						     request_width,
-						     request_height);
-		}
-	} else {
-		gtk_window_set_default_size (GTK_WINDOW (window) , 1280, 1280);
+	request_width = (gint)(width_ratio * document_width + 0.5);
+	request_height = (gint)(height_ratio * document_height + 0.5);
+
+	monitor_get_dimensions (window, &monitor_width, &monitor_height);
+	if (monitor_width > 0 && monitor_height > 0) {
+		request_width = MIN (request_width, monitor_width);
+		request_height = MIN (request_height, monitor_height);
+	}
+
+	if (request_width > 0 && request_height > 0) {
+		gtk_window_set_default_size (GTK_WINDOW (window),
+					     request_width,
+					     request_height);
 	}
 }
 

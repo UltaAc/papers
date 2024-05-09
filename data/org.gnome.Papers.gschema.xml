@@ -48,7 +48,7 @@
       <summary>Show a side bar next to the document to help navigate the document.</summary>
     </key>
     <key name="window-ratio" type="(dd)">
-      <default>(0., 0.)</default>
+      <default>(1., 1.)</default>
     </key>
     <key name="sizing-mode" enum="org.gnome.Papers.SizingMode">
       <default>'automatic'</default>
