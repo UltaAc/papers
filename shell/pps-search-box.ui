@@ -19,22 +19,6 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="prev_button">
-            <property name="icon-name">go-up-symbolic</property>
-            <property name="focus-on-click">False</property>
-            <property name="tooltip-text" translatable="yes">Find Previous</property>
-            <property name="action-name">doc.find-previous</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="next_button">
-            <property name="icon-name">go-down-symbolic</property>
-            <property name="focus-on-click">False</property>
-            <property name="tooltip-text" translatable="yes">Find Next</property>
-            <property name="action-name">doc.find-next</property>
-          </object>
-        </child>
-        <child>
           <object class="GtkMenuButton">
             <property name="direction">down</property>
             <property name="icon-name">view-more-symbolic</property>

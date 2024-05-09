@@ -152,7 +152,7 @@
                       <object class="PpsSearchBox" id="search_box">
                         <child internal-child="entry">
                           <object class="GtkSearchEntry">
-                            <property name="width-chars">32</property>
+                            <property name="max-width-chars">32</property>
                             <property name="input-purpose">free-form</property>
                             <property name="input-hints">no-spellcheck | word-completion</property>
                             <property name="placeholder-text" translatable="yes">Search in document</property>
