@@ -54,8 +54,6 @@ struct _PpsAnnotationWindow {
 	GtkWidget    *title;
 	GtkWidget    *close_button;
 	GtkWidget    *text_view;
-	GtkWidget    *resize_se;
-	GtkWidget    *resize_sw;
 
 	gboolean      is_open;
 	PpsRectangle   rect;
