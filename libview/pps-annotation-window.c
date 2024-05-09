@@ -23,6 +23,7 @@
 
 #include <string.h>
 #include <math.h>
+#include <adwaita.h>
 
 #include "pps-annotation-window.h"
 #include "pps-color-contrast.h"
@@ -39,20 +40,14 @@ enum {
 	PROP_PARENT
 };
 
-enum {
-	CLOSED,
-	N_SIGNALS
-};
-
 struct _PpsAnnotationWindow {
 	GtkWindow     base_instance;
 
 	PpsAnnotation *annotation;
 	GtkWindow    *parent;
 
-	GtkWidget    *titlebar;
-	GtkWidget    *title;
-	GtkWidget    *close_button;
+	GtkWidget    *headerbar;
+	GtkWidget    *title_label;
 	GtkWidget    *text_view;
 
 	gboolean      is_open;
@@ -61,11 +56,7 @@ struct _PpsAnnotationWindow {
 
 struct _PpsAnnotationWindowClass {
 	GtkWindowClass base_class;
-
-	void (* closed) (PpsAnnotationWindow *window);
 };
-
-static guint signals[N_SIGNALS];
 
 G_DEFINE_TYPE (PpsAnnotationWindow, pps_annotation_window, GTK_TYPE_WINDOW)
 
@@ -89,30 +80,27 @@ pps_annotation_window_set_color (PpsAnnotationWindow *window,
 				GdkRGBA            *color)
 {
 	GtkCssProvider     *css_provider = gtk_css_provider_new ();
+	GtkStyleContext    *context = NULL;
 	g_autofree char    *rgba_str = gdk_rgba_to_string (color);
 	g_autofree char    *css_data = NULL;
 	g_autoptr (GdkRGBA) icon_color = pps_color_contrast_get_best_foreground_color (color);
 	g_autofree char    *icon_color_str = gdk_rgba_to_string (icon_color);
-	css_data = g_strdup_printf ("button {border-color: %1$s; color: %2$s; -gtk-icon-shadow:0 0; box-shadow:0 0;}\n"
-				    "button:hover {background: lighter(%1$s); border-color: darker(%1$s);}\n"
-				    "button:active {background: darker(%1$s);}\n"
-				    "evannotationwindow.background { color: %2$s; }\n"
-				    "evannotationwindow.background:backdrop { color: alpha(%2$s, .75); }\n"
-				    "evannotationwindow.background, button {background: %1$s;}\n"
-				    ".titlebar:not(headerbar) {background: %1$s;}\n"
-				    "evannotationwindow {padding-left: 2px; padding-right: 2px;}",
-				    rgba_str, icon_color_str);
-
+	css_data = g_strdup_printf ("window { background-color: %s ; }", rgba_str);
 	gtk_css_provider_load_from_string (css_provider, css_data);
+	context = gtk_widget_get_style_context (GTK_WIDGET (window));
+	gtk_style_context_add_provider (context,
+					GTK_STYLE_PROVIDER (css_provider),
+					GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+	g_free (css_data);
 
-	gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (window)),
-					GTK_STYLE_PROVIDER (css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-	gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (window->titlebar)),
-					GTK_STYLE_PROVIDER (css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-	gtk_style_context_add_provider (gtk_widget_get_style_context (window->close_button),
-					GTK_STYLE_PROVIDER (css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-	gtk_widget_add_css_class(window->close_button, "circular");
+	css_data = g_strdup_printf ("headerbar { background-color: %s ; color: %s; }",
+				    rgba_str, icon_color_str);
+	css_provider = gtk_css_provider_new ();
+	gtk_css_provider_load_from_string (css_provider, css_data);
+	context = gtk_widget_get_style_context (GTK_WIDGET (window->headerbar));
+	gtk_style_context_add_provider (context,
+					GTK_STYLE_PROVIDER (css_provider),
+					GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
 static void
@@ -130,8 +118,7 @@ pps_annotation_window_label_changed (PpsAnnotationMarkup *annot,
 {
 	const gchar *label = pps_annotation_markup_get_label (annot);
 
-	gtk_window_set_title (GTK_WINDOW (window), label);
-	gtk_label_set_text (GTK_LABEL (window->title), label);
+	gtk_label_set_text (GTK_LABEL (window->title_label), label);
 }
 
 static void
@@ -190,31 +177,6 @@ pps_annotation_window_set_property (GObject      *object,
 }
 
 static void
-pps_annotation_window_close (PpsAnnotationWindow *window)
-{
-	gtk_widget_set_visible (GTK_WIDGET (window), FALSE);
-	g_signal_emit (window, signals[CLOSED], 0);
-}
-
-static void
-pps_annotation_window_button_press_event (GtkGestureClick	*self,
-					 gint			 n_press,
-					 gdouble		 x,
-					 gdouble		 y,
-					 gpointer		 user_data)
-{
-	PpsAnnotationWindow *window = PPS_ANNOTATION_WINDOW (user_data);
-	GtkEventController *controller = GTK_EVENT_CONTROLLER (self);
-	GtkNative *native = gtk_widget_get_native (GTK_WIDGET (window));
-	GdkSurface *toplevel = gtk_native_get_surface (native);
-	GdkDevice *device = gtk_event_controller_get_current_event_device (controller);
-	guint32 timestamp = gtk_event_controller_get_current_event_time (controller);
-
-	gdk_toplevel_begin_move (GDK_TOPLEVEL (toplevel), device, GDK_BUTTON_PRIMARY,
-			x, y, timestamp);
-}
-
-static void
 pps_annotation_window_has_focus_changed (GtkTextView        *text_view,
 					GParamSpec         *pspec,
 					PpsAnnotationWindow *window)
@@ -226,35 +188,22 @@ pps_annotation_window_has_focus_changed (GtkTextView        *text_view,
 static void
 pps_annotation_window_init (PpsAnnotationWindow *window)
 {
-	GtkWidget    *vbox;
-	GtkWidget    *swindow;
-	GtkEventController *controller;
+	GtkWidget *vbox;
+	GtkWidget *swindow;
 
 	gtk_widget_set_can_focus (GTK_WIDGET (window), TRUE);
 
 	vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 
 	/* Title bar */
-	window->titlebar = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-	gtk_window_set_titlebar (GTK_WINDOW (window), window->titlebar);
+	window->headerbar = adw_header_bar_new ();
+	gtk_window_set_titlebar (GTK_WINDOW (window), window->headerbar);
 
-	window->title = gtk_label_new (NULL);
-	gtk_widget_set_halign (window->title, GTK_ALIGN_FILL);
-	gtk_widget_set_hexpand (window->title, TRUE);
-
-	controller = GTK_EVENT_CONTROLLER (gtk_gesture_click_new ());
-	g_signal_connect (controller, "pressed",
-			  G_CALLBACK (pps_annotation_window_button_press_event),
-			  window);
-	gtk_widget_add_controller (window->title, controller);
-	gtk_box_append (GTK_BOX (window->titlebar), window->title);
-
-	window->close_button = gtk_button_new_from_icon_name ("window-close-symbolic");
-	g_signal_connect_swapped (window->close_button, "clicked",
-				  G_CALLBACK (pps_annotation_window_close),
-				  window);
-	gtk_widget_set_valign (GTK_WIDGET (window->close_button), GTK_ALIGN_CENTER);
-	gtk_box_append (GTK_BOX (window->titlebar), window->close_button);
+	window->title_label = gtk_label_new (NULL);
+	gtk_widget_set_halign (window->title_label, GTK_ALIGN_FILL);
+	gtk_widget_set_hexpand (window->title_label, TRUE);
+	adw_header_bar_set_title_widget (ADW_HEADER_BAR (window->headerbar),
+					 window->title_label);
 
 	/* Contents */
 	swindow = gtk_scrolled_window_new ();
@@ -288,6 +237,8 @@ pps_annotation_window_init (PpsAnnotationWindow *window)
 
 	gtk_window_set_decorated (GTK_WINDOW (window), TRUE);
 	gtk_window_set_resizable (GTK_WINDOW (window), TRUE);
+	gtk_window_set_hide_on_close (GTK_WINDOW (window), TRUE);
+	gtk_widget_add_css_class (GTK_WIDGET (window), "pps-annotation-window");
 }
 
 static GObject *
@@ -335,8 +286,7 @@ pps_annotation_window_constructor (GType                  type,
 	pps_annotation_window_set_opacity (window, opacity);
 
 	gtk_widget_set_name (GTK_WIDGET (window), pps_annotation_get_name (annot));
-	gtk_window_set_title (GTK_WINDOW (window), label);
-	gtk_label_set_text (GTK_LABEL (window->title), label);
+	gtk_label_set_text (GTK_LABEL (window->title_label), label);
 
 	contents = pps_annotation_get_contents (annot);
 	if (contents) {
@@ -364,7 +314,7 @@ pps_annotation_window_escape_pressed (GtkWidget	*widget,
 				     GVariant	*args,
 				     gpointer	user_data)
 {
-	pps_annotation_window_close (PPS_ANNOTATION_WINDOW (widget));
+	gtk_window_close (GTK_WINDOW (widget));
 	return TRUE;
 }
 
@@ -381,7 +331,6 @@ pps_annotation_window_class_init (PpsAnnotationWindowClass *klass)
 	gtk_widget_class_add_binding (gtk_widget_class, GDK_KEY_Escape, 0,
 				      pps_annotation_window_escape_pressed, NULL);
 
-	gtk_widget_class_set_css_name (gtk_widget_class, "evannotationwindow");
 	g_object_class_install_property (g_object_class,
 					 PROP_ANNOTATION,
 					 g_param_spec_object ("annotation",
@@ -400,14 +349,6 @@ pps_annotation_window_class_init (PpsAnnotationWindowClass *klass)
 							      G_PARAM_WRITABLE |
 							      G_PARAM_CONSTRUCT_ONLY |
                                                               G_PARAM_STATIC_STRINGS));
-	signals[CLOSED] =
-		g_signal_new ("closed",
-			      G_TYPE_FROM_CLASS (g_object_class),
-			      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-			      G_STRUCT_OFFSET (PpsAnnotationWindowClass, closed),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0, G_TYPE_NONE);
 }
 
 /* Public methods */

@@ -3250,7 +3250,7 @@ pps_view_window_children_free (PpsView *view)
 	g_clear_pointer (&priv->window_children, g_list_free);
 }
 
-static void
+static gboolean
 annotation_window_closed (PpsAnnotationWindow *window,
 			  PpsView             *view)
 {
@@ -3258,6 +3258,7 @@ annotation_window_closed (PpsAnnotationWindow *window,
 
 	child = pps_view_get_window_child (view, GTK_WIDGET (window));
 	child->visible = FALSE;
+	return FALSE;
 }
 
 static void
@@ -3285,7 +3286,7 @@ pps_view_create_annotation_window (PpsView       *view,
 	guint        page;
 
 	window = pps_annotation_window_new (annot, parent);
-	g_signal_connect (window, "closed",
+	g_signal_connect (window, "close-request",
 			  G_CALLBACK (annotation_window_closed),
 			  view);
 	g_signal_connect_swapped (annot, "notify::contents",

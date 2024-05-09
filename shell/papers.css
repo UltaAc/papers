@@ -9,6 +9,14 @@
     box-shadow: alpha(@card_shade_color, 0.75) 0px 2px 3px 1px, @card_shade_color 0px 1px 3px 1px;
 }
 
+window.pps-annotation-window {
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-bottom: 2px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
 pps-view:selected {
     background-color: @theme_selected_bg_color;
 }
