@@ -578,6 +578,12 @@ allowing you to move around and select text with your keyboard.
     <signal name="response" handler="caret_navigation_alert_response_cb" />
   </object>
 
+  <object class="AdwAlertDialog" id="error_alert">
+    <responses>
+      <response id="close" translatable="yes">_Close</response>
+    </responses>
+  </object>
+
   <menu id="action-menu">
     <section>
       <item>

@@ -106,6 +106,7 @@ typedef struct {
 
 	AdwToastOverlay *toast_overlay;
 	AdwAlertDialog *caret_mode_alert;
+	AdwAlertDialog *error_alert;
 	AdwOverlaySplitView *split_view;
 
 	/* Settings */
@@ -587,11 +588,11 @@ pps_window_set_message_area (PpsWindow  *window,
 }
 
 static void
-pps_window_message_area_response_cb (PpsMessageArea *area,
-				    gint           response_id,
-				    PpsWindow      *window)
+error_message_detail_cb (AdwToast *toast, PpsWindow *window)
 {
-	pps_window_set_message_area (window, NULL);
+	PpsWindowPrivate *priv = GET_PRIVATE (window);
+
+	adw_dialog_present (ADW_DIALOG (priv->error_alert), GTK_WIDGET (window));
 }
 
 G_GNUC_PRINTF (3, 4) static void
@@ -600,30 +601,28 @@ pps_window_error_message (PpsWindow    *window,
 			 const gchar *format,
 			 ...)
 {
-	GtkWidget *area;
+	AdwToast  *toast;
 	va_list    args;
-	gchar     *msg = NULL;
+	g_autofree gchar *msg = NULL;
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-	if (priv->message_area)
-		return;
 
 	va_start (args, format);
 	msg = g_strdup_vprintf (format, args);
 	va_end (args);
 
-	area = pps_message_area_new (GTK_MESSAGE_ERROR,
-				    msg,
-				    NULL);
-	g_free (msg);
+	toast = adw_toast_new (msg);
+	adw_toast_set_timeout (toast, 20);
 
-	if (error)
-		pps_message_area_set_secondary_text (PPS_MESSAGE_AREA (area), error->message);
-	g_signal_connect (pps_message_area_get_info_bar (PPS_MESSAGE_AREA (area)), "response",
-			  G_CALLBACK (pps_window_message_area_response_cb),
-			  window);
-	gtk_widget_set_visible (area, TRUE);
-	pps_window_set_message_area (window, area);
+	if (error) {
+		adw_toast_set_button_label (toast, _("View Details"));
+		g_signal_connect (toast, "button-clicked",
+			(GCallback)error_message_detail_cb, window);
+
+		adw_alert_dialog_set_heading (priv->error_alert, msg);
+		adw_alert_dialog_set_body (priv->error_alert, error->message);
+	}
+
+	adw_toast_overlay_add_toast (priv->toast_overlay, toast);
 }
 
 G_GNUC_PRINTF (2, 3) static void
@@ -641,6 +640,8 @@ pps_window_warning_message (PpsWindow    *window,
 	va_end (args);
 
 	toast = adw_toast_new (msg);
+	adw_toast_set_timeout (toast, 20);
+
 	g_free (msg);
 
 	adw_toast_overlay_add_toast (priv->toast_overlay, toast);
@@ -6209,6 +6210,7 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, password_view);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, caret_mode_alert);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, toast_overlay);
+	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, error_alert);
 
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, annots_toolbar_revealer);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, annots_toolbar);
