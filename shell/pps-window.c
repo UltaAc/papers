@@ -104,6 +104,7 @@ typedef struct {
 	GtkWidget *page_selector;
 	GtkWidget *header_bar;
 
+	AdwToastOverlay *toast_overlay;
 	AdwAlertDialog *caret_mode_alert;
 	AdwOverlaySplitView *split_view;
 
@@ -630,28 +631,19 @@ pps_window_warning_message (PpsWindow    *window,
 			   const gchar *format,
 			   ...)
 {
-	GtkWidget *area;
+	AdwToast *toast;
 	va_list    args;
 	gchar     *msg = NULL;
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-	if (priv->message_area)
-		return;
 
 	va_start (args, format);
 	msg = g_strdup_vprintf (format, args);
 	va_end (args);
 
-	area = pps_message_area_new (GTK_MESSAGE_WARNING,
-				    msg,
-				    NULL);
+	toast = adw_toast_new (msg);
 	g_free (msg);
 
-	g_signal_connect (pps_message_area_get_info_bar (PPS_MESSAGE_AREA (area)), "response",
-			  G_CALLBACK (pps_window_message_area_response_cb),
-			  window);
-	gtk_widget_set_visible (area, TRUE);
-	pps_window_set_message_area (window, area);
+	adw_toast_overlay_add_toast (priv->toast_overlay, toast);
 }
 
 static gboolean
@@ -6216,6 +6208,7 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, loading_message);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, password_view);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, caret_mode_alert);
+	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, toast_overlay);
 
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, annots_toolbar_revealer);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, annots_toolbar);
