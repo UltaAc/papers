@@ -104,6 +104,7 @@ typedef struct {
 	GtkWidget *page_selector;
 	GtkWidget *header_bar;
 
+	AdwAlertDialog *caret_mode_alert;
 	AdwOverlaySplitView *split_view;
 
 	/* Settings */
@@ -175,9 +176,6 @@ typedef struct {
 	PpsPapersWindow *skeleton;
 	gchar          *dbus_object_path;
 #endif
-
-	/* Caret navigation */
-	GtkWidget *ask_caret_navigation_check;
 
 	/* Misc Runtime State */
 	gboolean sidebar_was_open_before_find;
@@ -5004,24 +5002,22 @@ pps_window_set_caret_navigation_enabled (PpsWindow *window,
 }
 
 static void
-pps_window_caret_navigation_message_area_response_cb (PpsMessageArea *area,
-						     gint           response_id,
-						     PpsWindow      *window)
+caret_navigation_alert_response_cb (AdwAlertDialog *alert,
+				    gchar	   *response,
+				    PpsWindow      *window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
 	/* Turn the caret navigation mode on */
-	if (response_id == GTK_RESPONSE_YES)
+	if (g_str_equal ("enable", response))
 		pps_window_set_caret_navigation_enabled (window, TRUE);
 
 	/* Turn the confirmation dialog off if the user has requested not to show it again */
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->ask_caret_navigation_check))) {
+	if (gtk_check_button_get_active (GTK_CHECK_BUTTON (adw_alert_dialog_get_extra_child (alert)))) {
 		g_settings_set_boolean (priv->settings, "show-caret-navigation-message", FALSE);
 		g_settings_apply (priv->settings);
 	}
 
-	priv->ask_caret_navigation_check = NULL;
-	pps_window_set_message_area (window, NULL);
 	gtk_widget_grab_focus (priv->view);
 }
 
@@ -5032,9 +5028,6 @@ pps_window_cmd_view_toggle_caret_navigation (GSimpleAction *action,
 {
 	PpsWindow  *window = user_data;
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
-	GtkWidget *message_area;
-	GtkWidget *box;
-	GtkWidget *hbox;
 	gboolean   enabled;
 
 	/* Don't ask for user confirmation to turn the caret navigation off when it is active,
@@ -5046,31 +5039,7 @@ pps_window_cmd_view_toggle_caret_navigation (GSimpleAction *action,
 	}
 
 	/* Ask for user confirmation to turn the caret navigation mode on */
-	if (priv->message_area)
-		return;
-
-	message_area = pps_message_area_new (GTK_MESSAGE_QUESTION,
-					    _("Enable caret navigation?"),
-					    _("_Enable"), GTK_RESPONSE_YES,
-					    NULL);
-	pps_message_area_set_secondary_text (PPS_MESSAGE_AREA (message_area),
-					    _("Pressing F7 turns the caret navigation on or off. "
-					      "This feature places a moveable cursor in text pages, "
-					      "allowing you to move around and select text with your keyboard. "
-					      "Do you want to enable the caret navigation?"));
-
-	priv->ask_caret_navigation_check = gtk_check_button_new_with_label (_("Don’t show this message again"));
-	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
-	gtk_box_prepend (GTK_BOX (hbox), priv->ask_caret_navigation_check);
-
-	box = _pps_message_area_get_main_box (PPS_MESSAGE_AREA (message_area));
-	gtk_box_prepend (GTK_BOX (box), hbox);
-	g_signal_connect (pps_message_area_get_info_bar (PPS_MESSAGE_AREA (message_area)), "response",
-			  G_CALLBACK (pps_window_caret_navigation_message_area_response_cb),
-			  window);
-
-	gtk_widget_set_visible (message_area, TRUE);
-	pps_window_set_message_area (window, message_area);
+	adw_dialog_present (ADW_DIALOG (priv->caret_mode_alert), GTK_WIDGET (window));
 }
 
 static void
@@ -6246,6 +6215,7 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, scrolled_window);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, loading_message);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, password_view);
+	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, caret_mode_alert);
 
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, annots_toolbar_revealer);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, annots_toolbar);
@@ -6296,6 +6266,7 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, pps_spinner_unmap_cb);
 	gtk_widget_class_bind_template_callback (widget_class, scrolled_window_focus_in_cb);
 	gtk_widget_class_bind_template_callback (widget_class, scroll_child_history_cb);
+	gtk_widget_class_bind_template_callback (widget_class, caret_navigation_alert_response_cb);
 
 	/* search box */
 	gtk_widget_class_bind_template_callback (widget_class, search_started_cb);
