@@ -1455,7 +1455,7 @@ pps_view_presentation_class_init (PpsViewPresentationClass *klass)
                               NULL, NULL,
                               g_cclosure_marshal_VOID__OBJECT,
                               G_TYPE_NONE, 1,
-                              G_TYPE_OBJECT);
+                              PPS_TYPE_LINK_ACTION);
 
 	gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/papers/ui/view-presentation.ui");
 

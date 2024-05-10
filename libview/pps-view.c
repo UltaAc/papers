@@ -7780,7 +7780,7 @@ pps_view_class_init (PpsViewClass *class)
 		         NULL, NULL,
 		         g_cclosure_marshal_VOID__OBJECT,
 		         G_TYPE_NONE, 1,
-		         G_TYPE_OBJECT);
+		         PPS_TYPE_LINK_ACTION);
 	signals[SIGNAL_POPUP_MENU] = g_signal_new ("popup",
 	  	         G_TYPE_FROM_CLASS (object_class),
 		         G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
