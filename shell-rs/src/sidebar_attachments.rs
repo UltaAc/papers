@@ -205,9 +205,10 @@ mod imp {
                 .compute_point(self.obj().upcast_ref::<gtk::Widget>(), &point)
                 .unwrap_or_default();
 
-            let point = point.as_ptr() as glib::Pointer;
+            let (x, y) = (point.x() as f64, point.y() as f64);
 
-            self.obj().emit_by_name::<()>("popup", &[&point, &attachments]);
+            self.obj()
+                .emit_by_name::<()>("popup", &[&x, &y, &attachments]);
         }
 
         fn selected_attachment(&self) -> glib::List<Attachment> {
@@ -307,7 +308,11 @@ mod imp {
                     Signal::builder("popup")
                         .run_last()
                         .action()
-                        .param_types([glib::Type::POINTER, gio::ListModel::static_type()])
+                        .param_types([
+                            glib::Type::F64,
+                            glib::Type::F64,
+                            gio::ListModel::static_type(),
+                        ])
                         .build(),
                     Signal::builder("save-attachment")
                         .run_last()

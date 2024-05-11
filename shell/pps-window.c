@@ -4735,7 +4735,8 @@ view_menu_popup_cb (PpsView   *view,
 
 static gboolean
 attachment_bar_menu_popup_cb (GtkWidget        *attachbar,
-			      graphene_point_t *point,
+			      gdouble           x,
+			      gdouble           y,
 			      GListModel       *attachments,
 			      PpsWindow        *pps_window)
 {
@@ -4752,7 +4753,7 @@ attachment_bar_menu_popup_cb (GtkWidget        *attachbar,
 
 	if (!gtk_widget_compute_point (GTK_WIDGET (attachbar),
 				       gtk_widget_get_parent (priv->attachment_popup),
-				       point,
+				       &GRAPHENE_POINT_INIT(x, y),
 				       &new_point))
 		return FALSE;
 
