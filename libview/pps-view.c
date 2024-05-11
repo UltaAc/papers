@@ -5947,8 +5947,7 @@ pps_view_add_text_markup_annotation_for_selected_text (PpsView  *view)
 
 		pps_view_create_annotation_from_selection (view, selection);
 
-		if (priv->adding_annot_info.adding_annot)
-			g_signal_emit (view, signals[SIGNAL_ANNOT_ADDED], 0, priv->adding_annot_info.annot);
+		g_signal_emit (view, signals[SIGNAL_ANNOT_ADDED], 0, priv->adding_annot_info.annot);
 	}
 
 	clear_selection (view);
