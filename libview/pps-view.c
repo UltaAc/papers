@@ -5841,12 +5841,6 @@ pps_view_motion_notify_event (GtkEventControllerMotion	*self,
 								    &end.x, &end.y);
 
 			switch (priv->adding_annot_info.type) {
-			case PPS_ANNOTATION_TYPE_TEXT:
-				rect.x1 = end.x;
-				rect.y1 = end.y;
-				rect.x2 = rect.x1 + current_area.x2 - current_area.x1;
-				rect.y2 = rect.y1 + current_area.y2 - current_area.y1;
-				break;
 			case PPS_ANNOTATION_TYPE_TEXT_MARKUP:
 				rect.x1 = start.x;
 				rect.y1 = start.y;
