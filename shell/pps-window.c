@@ -4983,15 +4983,11 @@ pps_window_set_caret_navigation_enabled (PpsWindow *window,
 					gboolean enabled)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
-	GAction *action;
 
 	if (priv->metadata)
 		pps_metadata_set_boolean (priv->metadata, "caret-navigation", enabled);
 
 	pps_view_set_caret_navigation_enabled (PPS_VIEW (priv->view), enabled);
-
-	action = g_action_map_lookup_action (G_ACTION_MAP (window), "caret-navigation");
-	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_boolean (enabled));
 }
 
 static void
@@ -5204,7 +5200,7 @@ static const GActionEntry actions[] = {
 	{ "sizing-mode", NULL, "s", "'free'", pps_window_change_sizing_mode_action_state },
 	{ "zoom", pps_window_cmd_view_zoom, "d" },
 	{ "escape", pps_window_cmd_escape },
-	{ "caret-navigation", NULL, NULL, "false", pps_window_cmd_view_toggle_caret_navigation },
+	{ "caret-navigation", pps_window_cmd_view_toggle_caret_navigation },
 	{ "add-annotation", NULL, NULL, "false", pps_window_cmd_add_annotation },
 	{ "highlight-annotation", pps_window_cmd_add_highlight_annotation },
 	{ "toggle-edit-annots", NULL, NULL, "false", pps_window_cmd_toggle_edit_annots },
