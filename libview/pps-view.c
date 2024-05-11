@@ -236,15 +236,6 @@ static gboolean	pps_view_page_fits			       (PpsView         *view,
 /*** Cursors ***/
 static void       pps_view_set_cursor                         (PpsView             *view,
 							      PpsViewCursor        new_cursor);
-static void       handle_cursor_over_link                    (PpsView *view,
-							      PpsLink *link,
-							      gint x,
-							      gint y,
-							      gboolean from_motion);
-static void       pps_view_handle_cursor_over_xy              (PpsView *view,
-							      gint x,
-							      gint y,
-							      gboolean from_motion);
 
 /*** Find ***/
 static gint         pps_view_find_get_n_results               (PpsView             *view,
