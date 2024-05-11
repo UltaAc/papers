@@ -5014,11 +5014,7 @@ pps_window_cmd_add_highlight_annotation (GSimpleAction *action,
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (PPS_WINDOW (user_data));
 
-	if (pps_view_has_selection (PPS_VIEW (priv->view)))
-		pps_view_add_text_markup_annotation_for_selected_text (PPS_VIEW (priv->view));
-	else
-		pps_view_begin_add_annotation (PPS_VIEW (priv->view),
-					       PPS_ANNOTATION_TYPE_TEXT_MARKUP);
+	pps_view_add_text_markup_annotation_for_selected_text (PPS_VIEW (priv->view));
 }
 
 static void
