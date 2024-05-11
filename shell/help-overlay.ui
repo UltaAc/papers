@@ -276,7 +276,7 @@
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut window">Add Note</property>
+                <property name="title" translatable="yes" context="shortcut window">Add Text Annotation</property>
                 <property name="accelerator">S</property>
               </object>
             </child>

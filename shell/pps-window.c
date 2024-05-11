@@ -5198,7 +5198,7 @@ static const GActionEntry actions[] = {
 	{ "zoom", pps_window_cmd_view_zoom, "d" },
 	{ "escape", pps_window_cmd_escape },
 	{ "caret-navigation", pps_window_cmd_view_toggle_caret_navigation },
-	{ "add-annotation", NULL, NULL, "false", pps_window_cmd_add_annotation },
+	{ "add-annotation", pps_window_cmd_add_annotation },
 	{ "highlight-annotation", pps_window_cmd_add_highlight_annotation },
 	{ "toggle-edit-annots", NULL, NULL, "false", pps_window_cmd_toggle_edit_annots },
 	/* Popups specific items */

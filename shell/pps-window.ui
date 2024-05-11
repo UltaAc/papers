@@ -771,6 +771,11 @@ allowing you to move around and select text with your keyboard.
     </section>
     <section>
       <item>
+        <attribute name="label" translatable="yes">_Add Text Annotation</attribute>
+        <attribute name="action">win.add-annotation</attribute>
+        <attribute name="hidden-when">action-disabled</attribute>
+      </item>
+      <item>
         <attribute name="label" translatable="yes">_Highlight Selected Text</attribute>
         <attribute name="action">win.highlight-annotation</attribute>
         <attribute name="hidden-when">action-disabled</attribute>
