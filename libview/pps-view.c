@@ -2312,36 +2312,37 @@ pps_view_handle_cursor_over_xy (PpsView *view, gint x, gint y, gboolean from_mot
 	link = pps_view_get_link_at_location (view, x, y);
 	if (link) {
 		handle_cursor_over_link (view, link, x, y, from_motion);
-	} else {
-		pps_view_link_preview_popover_cleanup (view);
+		return;
+	}
 
-		if ((field = pps_view_get_form_field_at_location (view, x, y))) {
-			if (field->is_read_only) {
-				if (priv->cursor == PPS_VIEW_CURSOR_LINK ||
-				    priv->cursor == PPS_VIEW_CURSOR_IBEAM ||
-				    priv->cursor == PPS_VIEW_CURSOR_DRAG)
-					pps_view_set_cursor (view, PPS_VIEW_CURSOR_NORMAL);
-			} else if (PPS_IS_FORM_FIELD_TEXT (field)) {
-				pps_view_set_cursor (view, PPS_VIEW_CURSOR_IBEAM);
-			} else {
-				pps_view_set_cursor (view, PPS_VIEW_CURSOR_LINK);
-			}
-		} else if ((media = pps_view_get_media_at_location (view, x, y))) {
-			if (!pps_view_find_player_for_media (view, media))
-				pps_view_set_cursor (view, PPS_VIEW_CURSOR_LINK);
-			else
-				pps_view_set_cursor (view, PPS_VIEW_CURSOR_NORMAL);
-		} else if ((annot = pps_view_get_annotation_at_location (view, x, y))) {
-			pps_view_set_cursor (view, PPS_VIEW_CURSOR_LINK);
-		} else if (location_in_text (view, x + priv->scroll_x, y + priv->scroll_y)) {
-			pps_view_set_cursor (view, PPS_VIEW_CURSOR_IBEAM);
-		} else {
+	pps_view_link_preview_popover_cleanup (view);
+
+	if ((field = pps_view_get_form_field_at_location (view, x, y))) {
+		if (field->is_read_only) {
 			if (priv->cursor == PPS_VIEW_CURSOR_LINK ||
 			    priv->cursor == PPS_VIEW_CURSOR_IBEAM ||
-			    priv->cursor == PPS_VIEW_CURSOR_DRAG ||
-			    priv->cursor == PPS_VIEW_CURSOR_ADD)
+			    priv->cursor == PPS_VIEW_CURSOR_DRAG)
 				pps_view_set_cursor (view, PPS_VIEW_CURSOR_NORMAL);
+		} else if (PPS_IS_FORM_FIELD_TEXT (field)) {
+			pps_view_set_cursor (view, PPS_VIEW_CURSOR_IBEAM);
+		} else {
+			pps_view_set_cursor (view, PPS_VIEW_CURSOR_LINK);
 		}
+	} else if ((media = pps_view_get_media_at_location (view, x, y))) {
+		if (!pps_view_find_player_for_media (view, media))
+			pps_view_set_cursor (view, PPS_VIEW_CURSOR_LINK);
+		else
+			pps_view_set_cursor (view, PPS_VIEW_CURSOR_NORMAL);
+	} else if ((annot = pps_view_get_annotation_at_location (view, x, y))) {
+		pps_view_set_cursor (view, PPS_VIEW_CURSOR_LINK);
+	} else if (location_in_text (view, x + priv->scroll_x, y + priv->scroll_y)) {
+		pps_view_set_cursor (view, PPS_VIEW_CURSOR_IBEAM);
+	} else {
+		if (priv->cursor == PPS_VIEW_CURSOR_LINK ||
+		    priv->cursor == PPS_VIEW_CURSOR_IBEAM ||
+		    priv->cursor == PPS_VIEW_CURSOR_DRAG ||
+		    priv->cursor == PPS_VIEW_CURSOR_ADD)
+			pps_view_set_cursor (view, PPS_VIEW_CURSOR_NORMAL);
 	}
 }
 
