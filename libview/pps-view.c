@@ -2300,11 +2300,8 @@ pps_view_handle_cursor_over_xy (PpsView *view, gint x, gint y, gboolean from_mot
 	if (priv->cursor == PPS_VIEW_CURSOR_HIDDEN)
 		return;
 
-	if (priv->adding_annot_info.adding_annot &&
-	    !priv->adding_annot_info.annot) {
-		pps_view_set_cursor (view, PPS_VIEW_CURSOR_ADD);
+	if (priv->adding_annot_info.adding_annot)
 		return;
-	}
 
 	if (priv->drag_info.in_drag) {
 		if (priv->cursor != PPS_VIEW_CURSOR_DRAG)
