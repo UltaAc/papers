@@ -2300,12 +2300,9 @@ pps_view_handle_cursor_over_xy (PpsView *view, gint x, gint y, gboolean from_mot
 	if (priv->cursor == PPS_VIEW_CURSOR_HIDDEN)
 		return;
 
-	if (priv->adding_annot_info.adding_annot) {
-		if (priv->adding_annot_info.type == PPS_ANNOTATION_TYPE_TEXT_MARKUP) {
-			pps_view_set_cursor (view, PPS_VIEW_CURSOR_IBEAM);
-		} else if (!priv->adding_annot_info.annot) {
-			pps_view_set_cursor (view, PPS_VIEW_CURSOR_ADD);
-		}
+	if (priv->adding_annot_info.adding_annot &&
+	    !priv->adding_annot_info.annot) {
+		pps_view_set_cursor (view, PPS_VIEW_CURSOR_ADD);
 		return;
 	}
 
@@ -3772,20 +3769,7 @@ pps_view_cancel_add_annotation (PpsView *view)
 	if (!priv->adding_annot_info.adding_annot)
 		return;
 
-	if (priv->adding_annot_info.annot && priv->pressed_button == GDK_BUTTON_PRIMARY) {
-		annot_page = pps_annotation_get_page_index (priv->adding_annot_info.annot);
-		pps_document_doc_mutex_lock ();
-		pps_document_annotations_remove_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document),
-							   priv->adding_annot_info.annot);
-		pps_document_doc_mutex_unlock ();
-		pps_page_cache_mark_dirty (priv->page_cache, annot_page, PPS_PAGE_DATA_INCLUDE_ANNOTS);
-		priv->adding_annot_info.annot = NULL;
-		priv->pressed_button = -1;
-		pps_view_reload_page (view, annot_page, NULL);
-	}
-
 	priv->adding_annot_info.adding_annot = FALSE;
-	g_assert(!priv->adding_annot_info.annot);
 	pps_document_misc_get_pointer_position (GTK_WIDGET (view), &x, &y);
 	pps_view_handle_cursor_over_xy (view, x, y, FALSE);
 }
@@ -5817,54 +5801,7 @@ pps_view_motion_notify_event (GtkEventControllerMotion	*self,
 		if (priv->rotation != 0)
 			return;
 
-		if (priv->adding_annot_info.adding_annot) {
-			PpsRectangle  rect;
-			PpsRectangle  current_area;
-			PpsPoint      start;
-			PpsPoint      end;
-			GdkRectangle page_area;
-			GtkBorder    border;
-			guint        annot_page;
-
-			if (!priv->adding_annot_info.annot)
-				return;
-
-			pps_annotation_get_area (priv->adding_annot_info.annot, &current_area);
-
-			priv->adding_annot_info.stop.x = x + priv->scroll_x;
-			priv->adding_annot_info.stop.y = y + priv->scroll_y;
-			annot_page = pps_annotation_get_page_index (priv->adding_annot_info.annot);
-			pps_view_get_page_extents (view, annot_page, &page_area, &border);
-			_pps_view_transform_view_point_to_doc_point (view, &priv->adding_annot_info.start, &page_area, &border,
-								    &start.x, &start.y);
-			_pps_view_transform_view_point_to_doc_point (view, &priv->adding_annot_info.stop, &page_area, &border,
-								    &end.x, &end.y);
-
-			switch (priv->adding_annot_info.type) {
-			case PPS_ANNOTATION_TYPE_TEXT_MARKUP:
-				rect.x1 = start.x;
-				rect.y1 = start.y;
-				rect.x2 = end.x;
-				rect.y2 = end.y;
-				break;
-			default:
-				g_assert_not_reached ();
-			}
-
-			/* Take the mutex before set_area, because the notify signal
-			 * updates the mappings in the backend */
-			pps_document_doc_mutex_lock ();
-			if (pps_annotation_set_area (priv->adding_annot_info.annot, &rect)) {
-				pps_document_annotations_save_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document),
-									 priv->adding_annot_info.annot,
-									 PPS_ANNOTATIONS_SAVE_AREA);
-			}
-			pps_document_doc_mutex_unlock ();
-
-
-			/* FIXME: reload only annotation area */
-			pps_view_reload_page (view, annot_page, NULL);
-		} else if (priv->moving_annot_info.annot_clicked) {
+		if (priv->moving_annot_info.annot_clicked) {
 			PpsRectangle  rect;
 			PpsRectangle  current_area;
 			GdkPoint     view_point;
@@ -6106,55 +6043,14 @@ pps_view_button_release_event(GtkGestureClick		*self,
 	priv->drag_info.in_drag = FALSE;
 
 	if (priv->adding_annot_info.adding_annot && !priv->selection_scroll_id) {
-		gboolean annot_added = TRUE;
-
 		/* We ignore right-click buttons while in annotation add mode */
 		if (priv->pressed_button != GDK_BUTTON_PRIMARY)
 			return;
 		g_assert (priv->adding_annot_info.annot);
+		g_assert (priv->adding_annot_info.type == PPS_ANNOTATION_TYPE_TEXT);
 
-		if (PPS_IS_ANNOTATION_MARKUP (priv->adding_annot_info.annot)) {
-			PpsRectangle area;
-			PpsRectangle popup_rect;
-
-			pps_annotation_get_area (priv->adding_annot_info.annot, &area);
-
-			if (area.x1 == 0 && area.y1 == 0 && area.x2 == 0 && area.y2 == 0) {
-				/* Do not create empty annots */
-				annot_added = FALSE;
-
-				pps_document_doc_mutex_lock ();
-				pps_document_annotations_remove_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document),
-									   priv->adding_annot_info.annot);
-				pps_document_doc_mutex_unlock ();
-
-				pps_page_cache_mark_dirty (priv->page_cache,
-							  pps_annotation_get_page_index (priv->adding_annot_info.annot),
-							  PPS_PAGE_DATA_INCLUDE_ANNOTS);
-			} else {
-				popup_rect.x1 = area.x2;
-				popup_rect.x2 = popup_rect.x1 + ANNOT_POPUP_WINDOW_DEFAULT_WIDTH;
-				popup_rect.y1 = area.y2;
-				popup_rect.y2 = popup_rect.y1 + ANNOT_POPUP_WINDOW_DEFAULT_HEIGHT;
-
-				if (pps_annotation_markup_set_rectangle (PPS_ANNOTATION_MARKUP (priv->adding_annot_info.annot),
-									&popup_rect)) {
-					pps_document_doc_mutex_lock ();
-					pps_document_annotations_save_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document),
-										 priv->adding_annot_info.annot,
-										 PPS_ANNOTATIONS_SAVE_POPUP_RECT);
-					pps_document_doc_mutex_unlock ();
-				}
-			}
-		}
-
-		if (priv->adding_annot_info.type == PPS_ANNOTATION_TYPE_TEXT)
-			pps_view_annotation_create_show_popup_window (view, priv->adding_annot_info.annot);
-
-		priv->adding_annot_info.stop.x = x + priv->scroll_x;
-		priv->adding_annot_info.stop.y = y + priv->scroll_y;
-		if (annot_added)
-			g_signal_emit (view, signals[SIGNAL_ANNOT_ADDED], 0, priv->adding_annot_info.annot);
+		pps_view_annotation_create_show_popup_window (view, priv->adding_annot_info.annot);
+		g_signal_emit (view, signals[SIGNAL_ANNOT_ADDED], 0, priv->adding_annot_info.annot);
 
 		priv->adding_annot_info.adding_annot = FALSE;
 		priv->adding_annot_info.annot = NULL;
