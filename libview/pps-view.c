@@ -54,7 +54,6 @@ enum {
 	SIGNAL_POPUP_MENU,
 	SIGNAL_SELECTION_CHANGED,
 	SIGNAL_ANNOT_ADDED,
-	SIGNAL_ANNOT_CANCEL_ADD,
 	SIGNAL_ANNOT_CHANGED,
 	SIGNAL_ANNOT_REMOVED,
 	SIGNAL_LAYERS_CHANGED,
@@ -6156,8 +6155,6 @@ pps_view_button_release_event(GtkGestureClick		*self,
 		priv->adding_annot_info.stop.y = y + priv->scroll_y;
 		if (annot_added)
 			g_signal_emit (view, signals[SIGNAL_ANNOT_ADDED], 0, priv->adding_annot_info.annot);
-		else
-			g_signal_emit (view, signals[SIGNAL_ANNOT_CANCEL_ADD], 0, NULL);
 
 		priv->adding_annot_info.adding_annot = FALSE;
 		priv->adding_annot_info.annot = NULL;
@@ -7802,14 +7799,6 @@ pps_view_class_init (PpsViewClass *class)
 		         g_cclosure_marshal_VOID__OBJECT,
 		         G_TYPE_NONE, 1,
 			 PPS_TYPE_ANNOTATION);
-	signals[SIGNAL_ANNOT_CANCEL_ADD] = g_signal_new ("annot-cancel-add",
-                         G_TYPE_FROM_CLASS (object_class),
-                         G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-                         G_STRUCT_OFFSET (PpsViewClass, annot_cancel_add),
-                         NULL, NULL,
-			 g_cclosure_marshal_VOID__VOID,
-                         G_TYPE_NONE, 0,
-                         G_TYPE_NONE);
 	signals[SIGNAL_ANNOT_CHANGED] = g_signal_new ("annot-changed",
 		         G_TYPE_FROM_CLASS (object_class),
 		         G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,

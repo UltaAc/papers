@@ -1,6 +1,5 @@
 papers_sources = files(
   'pps-annotation-properties-dialog.c',
-  'pps-annotations-toolbar.c',
   'pps-application.c',
   'pps-bookmarks.c',
   'pps-file-monitor.c',

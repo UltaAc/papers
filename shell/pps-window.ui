@@ -126,16 +126,6 @@
                         <signal name="activate-link" handler="activate_link_cb" />
                       </object>
                     </child>
-                    <child type="start">
-                      <object class="GtkToggleButton" id="annots_button">
-                        <property name="icon-name">document-edit-symbolic</property>
-                        <property name="action-name">win.toggle-edit-annots</property>
-                        <property name="tooltip-text" translatable="yes">Annotate</property>
-                        <accessibility>
-                          <property name="label" translatable="yes">Annotate document</property>
-                        </accessibility>
-                      </object>
-                    </child>
                     <child type="end">
                       <object class="GtkMenuButton" id="action_menu_button">
                         <property name="icon-name">open-menu-symbolic</property>
@@ -157,18 +147,6 @@
                         <signal name="activated" handler="zoom_selector_activated" />
                       </object>
                     </child>
-                  </object>
-                </child>
-                <child type="top">
-                  <object class="GtkRevealer" id="annots_toolbar_revealer">
-                    <property name="child">
-                      <object class="PpsAnnotationsToolbar" id="annots_toolbar">
-                        <signal name="begin-add-annot" handler="pps_window_begin_add_annot"
-                          swapped="yes" />
-                        <signal name="cancel-add-annot" handler="pps_window_cancel_add_annot"
-                          swapped="yes" />
-                      </object>
-                    </property>
                   </object>
                 </child>
                 <child type="top">
@@ -326,7 +304,6 @@
                                           handler="view_selection_changed_cb" />
                                         <signal name="scroll" handler="scroll_history_cb" />
                                         <signal name="annot-added" handler="view_annot_added" />
-                                        <signal name="annot-cancel-add" handler="view_annot_cancel_add" />
                                         <signal name="annot-changed" handler="view_annot_changed" />
                                         <signal name="annot-removed" handler="view_annot_removed" />
                                         <signal name="layers-changed" handler="view_layers_changed_cb" />

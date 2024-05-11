@@ -42,7 +42,6 @@
 
 #include <papers-view.h>
 #include "pps-find-sidebar.h"
-#include "pps-annotations-toolbar.h"
 #include "pps-application.h"
 #include "pps-file-monitor.h"
 #include "pps-history.h"
@@ -98,8 +97,6 @@ typedef struct {
 	GtkWidget *sidebar_annots;
 	GtkWidget *sidebar_bookmarks;
 	GtkWidget *find_sidebar;
-	GtkWidget *annots_toolbar_revealer;
-	GtkWidget *annots_toolbar;
 	GtkWidget *error_page;
 	GtkWidget *page_selector;
 	GtkWidget *header_bar;
@@ -296,12 +293,6 @@ static void 	pps_window_emit_doc_loaded		(PpsWindow	  *window);
 
 static void     pps_window_show_find_bar                 (PpsWindow         *pps_window);
 static void     pps_window_close_find_bar                (PpsWindow         *pps_window);
-static void     pps_window_begin_add_annot               (PpsWindow         *pps_window,
-							 PpsAnnotationType  annot_type);
-static void	pps_window_cancel_add_annot		(PpsWindow *window);
-static void     pps_window_cmd_toggle_edit_annots 	(GSimpleAction *action,
-							 GVariant      *state,
-							 gpointer       user_data);
 
 G_DEFINE_TYPE_WITH_PRIVATE (PpsWindow, pps_window, ADW_TYPE_APPLICATION_WINDOW)
 
@@ -422,8 +413,6 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 	pps_window_set_action_enabled (pps_window, "add-annotation", can_annotate &&
 				      !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "highlight-annotation", can_annotate &&
-				      !start_view_mode);
-	pps_window_set_action_enabled (pps_window, "toggle-edit-annots", can_annotate &&
 				      !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "rotate-left", has_pages &&
 				      !start_view_mode);
@@ -3892,8 +3881,6 @@ static void
 pps_window_run_presentation (PpsWindow *window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
-	GAction  *action;
-	GVariant *annot_state;
 	guint     current_page;
 	guint     rotation;
 	gboolean  inverted_colors;
@@ -3902,17 +3889,6 @@ pps_window_run_presentation (PpsWindow *window)
 		return;
 
 	pps_window_close_find_bar (window);
-
-	/* We do not want to show the annotation toolbar during
-	 * the presentation mode. But we would like to restore it
-	 * afterwards
-	 */
-	action = g_action_map_lookup_action (G_ACTION_MAP (window),
-					     "toggle-edit-annots");
-	annot_state = g_variant_new_boolean (FALSE);
-	pps_window_cmd_toggle_edit_annots (G_SIMPLE_ACTION (action),
-					  annot_state,
-					  window);
 
 	if (gtk_window_is_fullscreen (GTK_WINDOW (window)))
 		pps_window_stop_fullscreen (window, FALSE);
@@ -4285,8 +4261,7 @@ pps_window_cmd_escape (GSimpleAction *action,
 	else {
 		/* Cancel any annotation in progress and untoggle the
 		 * toolbar button. */
-		pps_window_cancel_add_annot (window);
-		pps_annotations_toolbar_add_annot_finished (PPS_ANNOTATIONS_TOOLBAR (priv->annots_toolbar));
+		pps_view_cancel_add_annotation (PPS_VIEW (priv->view));
 		gtk_widget_grab_focus (priv->view);
 	}
 }
@@ -5037,9 +5012,13 @@ pps_window_cmd_add_highlight_annotation (GSimpleAction *action,
                                         GVariant      *state,
                                         gpointer       user_data)
 {
-	PpsWindow *pps_window = user_data;
+	PpsWindowPrivate *priv = GET_PRIVATE (PPS_WINDOW (user_data));
 
-	pps_window_begin_add_annot (pps_window, PPS_ANNOTATION_TYPE_TEXT_MARKUP);
+	if (pps_view_has_selection (PPS_VIEW (priv->view)))
+		pps_view_add_text_markup_annotation_for_selected_text (PPS_VIEW (priv->view));
+	else
+		pps_view_begin_add_annotation (PPS_VIEW (priv->view),
+					       PPS_ANNOTATION_TYPE_TEXT_MARKUP);
 }
 
 static void
@@ -5047,22 +5026,10 @@ pps_window_cmd_add_annotation (GSimpleAction *action,
 			      GVariant      *state,
 			      gpointer       user_data)
 {
-	PpsWindow *pps_window = user_data;
+	PpsWindowPrivate *priv = GET_PRIVATE (PPS_WINDOW (user_data));
 
-	pps_window_begin_add_annot (pps_window, PPS_ANNOTATION_TYPE_TEXT);
-}
-
-static void
-pps_window_cmd_toggle_edit_annots (GSimpleAction *action,
-				  GVariant      *state,
-				  gpointer       user_data)
-{
-	PpsWindow *pps_window = user_data;
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-
-	gtk_revealer_set_reveal_child (GTK_REVEALER (priv->annots_toolbar_revealer),
-				       g_variant_get_boolean (state));
-	g_simple_action_set_state (action, state);
+	pps_view_begin_add_annotation (PPS_VIEW (priv->view),
+				       PPS_ANNOTATION_TYPE_TEXT);
 }
 
 static void
@@ -5200,7 +5167,6 @@ static const GActionEntry actions[] = {
 	{ "caret-navigation", pps_window_cmd_view_toggle_caret_navigation },
 	{ "add-annotation", pps_window_cmd_add_annotation },
 	{ "highlight-annotation", pps_window_cmd_add_highlight_annotation },
-	{ "toggle-edit-annots", NULL, NULL, "false", pps_window_cmd_toggle_edit_annots },
 	/* Popups specific items */
 	{ "open-link", pps_window_popup_cmd_open_link },
 	{ "open-link-new-window", pps_window_popup_cmd_open_link_new_window },
@@ -5275,21 +5241,6 @@ sidebar_annots_annot_activated_cb (PpsSidebarAnnotations *sidebar_annots,
 }
 
 static void
-pps_window_begin_add_annot (PpsWindow        *window,
-			   PpsAnnotationType annot_type)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-	if (annot_type == PPS_ANNOTATION_TYPE_TEXT_MARKUP &&
-	    pps_view_has_selection (PPS_VIEW (priv->view))) {
-		pps_view_add_text_markup_annotation_for_selected_text (PPS_VIEW (priv->view));
-		return;
-	}
-
-	pps_view_begin_add_annotation (PPS_VIEW (priv->view), annot_type);
-}
-
-static void
 view_annot_added (PpsView       *view,
 		  PpsAnnotation *annot,
 		  PpsWindow     *window)
@@ -5298,15 +5249,6 @@ view_annot_added (PpsView       *view,
 
 	pps_sidebar_annotations_annot_added (PPS_SIDEBAR_ANNOTATIONS (priv->sidebar_annots),
 					    annot);
-	pps_annotations_toolbar_add_annot_finished (PPS_ANNOTATIONS_TOOLBAR (priv->annots_toolbar));
-}
-
-static void
-view_annot_cancel_add (PpsView   *view,
-		       PpsWindow *window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-	pps_annotations_toolbar_add_annot_finished (PPS_ANNOTATIONS_TOOLBAR (priv->annots_toolbar));
 }
 
 static void
@@ -5328,14 +5270,6 @@ view_annot_removed (PpsView       *view,
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
 	pps_sidebar_annotations_annot_removed (PPS_SIDEBAR_ANNOTATIONS (priv->sidebar_annots));
-}
-
-static void
-pps_window_cancel_add_annot(PpsWindow *window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-	pps_view_cancel_add_annotation (PPS_VIEW (priv->view));
 }
 
 static void
@@ -6116,7 +6050,6 @@ pps_window_init (PpsWindow *pps_window)
 	g_type_ensure (PPS_TYPE_FIND_SIDEBAR);
 	g_type_ensure (PPS_TYPE_SIDEBAR_BOOKMARKS);
 	g_type_ensure (PPS_TYPE_SIDEBAR_ANNOTATIONS);
-	g_type_ensure (PPS_TYPE_ANNOTATIONS_TOOLBAR);
 	gtk_widget_init_template (GTK_WIDGET (pps_window));
 
 #ifdef ENABLE_DBUS
@@ -6208,8 +6141,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, toast_overlay);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, error_alert);
 
-	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, annots_toolbar_revealer);
-	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, annots_toolbar);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, search_bar);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, search_box);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, model);
@@ -6242,8 +6173,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	/* bind signal callback */
 	gtk_widget_class_bind_template_callback (widget_class, find_sidebar_result_activated_cb);
 	gtk_widget_class_bind_template_callback (widget_class, activate_link_cb);
-	gtk_widget_class_bind_template_callback (widget_class, pps_window_begin_add_annot);
-	gtk_widget_class_bind_template_callback (widget_class, pps_window_cancel_add_annot);
 	gtk_widget_class_bind_template_callback (widget_class, window_maximized_changed);
 	gtk_widget_class_bind_template_callback (widget_class, window_size_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_visibility_changed_cb);
@@ -6271,7 +6200,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, view_selection_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, scroll_history_cb);
 	gtk_widget_class_bind_template_callback (widget_class, view_annot_added);
-	gtk_widget_class_bind_template_callback (widget_class, view_annot_cancel_add);
 	gtk_widget_class_bind_template_callback (widget_class, view_annot_changed);
 	gtk_widget_class_bind_template_callback (widget_class, view_annot_removed);
 	gtk_widget_class_bind_template_callback (widget_class, view_layers_changed_cb);
