@@ -102,8 +102,6 @@ typedef struct _PpsHeightToPageCache {
 
 /* Information for handling annotations */
 typedef struct {
-	GdkPoint         start;
-	GdkPoint         stop;
 	gboolean         adding_annot;
 	PpsAnnotationType type;
 	PpsAnnotation    *annot;

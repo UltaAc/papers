@@ -3569,8 +3569,8 @@ pps_view_handle_annotation (PpsView       *view,
 static void
 pps_view_create_annotation_real (PpsView *view,
 				gint    annot_page,
-				PpsPoint start,
-				PpsPoint end)
+				PpsPoint *start,
+				PpsPoint *end)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsAnnotation   *annot;
@@ -3584,17 +3584,17 @@ pps_view_create_annotation_real (PpsView *view,
 	page = pps_document_get_page (priv->document, annot_page);
         switch (priv->adding_annot_info.type) {
         case PPS_ANNOTATION_TYPE_TEXT:
-                doc_rect.x1 = end.x;
-                doc_rect.y1 = end.y;
+                doc_rect.x1 = start->x;
+                doc_rect.y1 = start->y;
                 doc_rect.x2 = doc_rect.x1 + ANNOTATION_ICON_SIZE;
                 doc_rect.y2 = doc_rect.y1 + ANNOTATION_ICON_SIZE;
                 annot = pps_annotation_text_new (page);
                 break;
 	case PPS_ANNOTATION_TYPE_TEXT_MARKUP:
-		doc_rect.x1 = start.x;
-		doc_rect.y1 = start.y;
-		doc_rect.x2 = end.x;
-		doc_rect.y2 = end.y;
+		doc_rect.x1 = start->x;
+		doc_rect.y1 = start->y;
+		doc_rect.x2 = end->x;
+		doc_rect.y2 = end->y;
 		annot = pps_annotation_text_markup_highlight_new (page);
 		break;
 	case PPS_ANNOTATION_TYPE_ATTACHMENT:
@@ -3645,29 +3645,29 @@ pps_view_create_annotation_real (PpsView *view,
 }
 
 static void
-pps_view_create_annotation (PpsView *view)
+pps_view_create_annotation_at_point (PpsView *view, GdkPoint *point)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsPoint         start;
-	PpsPoint         end;
+	PpsPoint        doc_point;
 	gint            annot_page;
 	gint            offset;
 	GdkRectangle    page_area;
 	GtkBorder       border;
 
-	find_page_at_location (view, priv->adding_annot_info.start.x, priv->adding_annot_info.start.y, &annot_page, &offset, &offset);
+	g_assert (priv->adding_annot_info.type == PPS_ANNOTATION_TYPE_TEXT);
+	find_page_at_location (view, point->x, point->y,
+			       &annot_page, &offset, &offset);
 	if (annot_page == -1) {
 		pps_view_cancel_add_annotation (view);
 		return;
 	}
 
 	pps_view_get_page_extents (view, annot_page, &page_area, &border);
-	_pps_view_transform_view_point_to_doc_point (view, &priv->adding_annot_info.start, &page_area, &border,
-						    &start.x, &start.y);
-	_pps_view_transform_view_point_to_doc_point (view, &priv->adding_annot_info.stop, &page_area, &border,
-						    &end.x, &end.y);
+	_pps_view_transform_view_point_to_doc_point (view, point,
+						     &page_area, &border,
+						     &doc_point.x, &doc_point.y);
 
-	pps_view_create_annotation_real (view, annot_page, start, end);
+	pps_view_create_annotation_real (view, annot_page, &doc_point, NULL);
 }
 
 static gboolean
@@ -3729,7 +3729,7 @@ pps_view_create_annotation_from_selection (PpsView          *view,
 		doc_point_end.y = selection->rect.y2;
 	}
 
-	pps_view_create_annotation_real (view, selection->page, doc_point_start, doc_point_end);
+	pps_view_create_annotation_real (view, selection->page, &doc_point_start, &doc_point_end);
 }
 void
 pps_view_focus_annotation (PpsView    *view,
@@ -5385,17 +5385,8 @@ pps_view_button_press_event (GtkGestureClick	*gesture,
 	priv->selection_info.in_drag = FALSE;
 	priv->selection_info.in_select = FALSE;
 
-	if (priv->adding_annot_info.adding_annot && !priv->adding_annot_info.annot) {
-		if (button != GDK_BUTTON_PRIMARY)
-			return;
-
-		priv->adding_annot_info.start.x = x + priv->scroll_x;
-		priv->adding_annot_info.start.y = y + priv->scroll_y;
-		priv->adding_annot_info.stop = priv->adding_annot_info.start;
-		pps_view_create_annotation (view);
-
+	if (priv->adding_annot_info.adding_annot)
 		return;
-	}
 
 	switch (button) {
 	        case GDK_BUTTON_PRIMARY: {
@@ -6041,13 +6032,17 @@ pps_view_button_release_event(GtkGestureClick		*self,
 
 	priv->drag_info.in_drag = FALSE;
 
-	if (priv->adding_annot_info.adding_annot && !priv->selection_scroll_id) {
+	if (priv->adding_annot_info.adding_annot) {
+		GdkPoint point;
+
 		/* We ignore right-click buttons while in annotation add mode */
 		if (priv->pressed_button != GDK_BUTTON_PRIMARY)
 			return;
-		g_assert (priv->adding_annot_info.annot);
 		g_assert (priv->adding_annot_info.type == PPS_ANNOTATION_TYPE_TEXT);
 
+		point.x = x + priv->scroll_x;
+		point.y = y + priv->scroll_y;
+		pps_view_create_annotation_at_point (view, &point);
 		pps_view_annotation_create_show_popup_window (view, priv->adding_annot_info.annot);
 		g_signal_emit (view, signals[SIGNAL_ANNOT_ADDED], 0, priv->adding_annot_info.annot);
 
@@ -6055,6 +6050,7 @@ pps_view_button_release_event(GtkGestureClick		*self,
 		priv->adding_annot_info.annot = NULL;
 		pps_view_handle_cursor_over_xy (view, x, y, FALSE);
 		priv->pressed_button = -1;
+		g_clear_handle_id (&priv->selection_scroll_id, g_source_remove);
 
 		return;
 	}
