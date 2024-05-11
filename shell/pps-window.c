@@ -136,7 +136,7 @@ typedef struct {
 	/* Popup attachment */
 	GMenuModel   *attachment_popup_menu;
 	GtkWidget    *attachment_popup;
-	GList        *attach_list;
+	GListModel   *attachments;
 
 	/* Document */
 	PpsDocumentModel *model;
@@ -4645,14 +4645,15 @@ view_menu_annot_popup (PpsWindow     *pps_window,
 
 			attachment = pps_annotation_attachment_get_attachment (PPS_ANNOTATION_ATTACHMENT (annot));
 			if (attachment) {
+				GListStore *attachments;
+
 				show_attachment = TRUE;
 
-				g_list_free_full (priv->attach_list,
-						  g_object_unref);
-				priv->attach_list = NULL;
-				priv->attach_list =
-					g_list_prepend (priv->attach_list,
-							g_object_ref (attachment));
+				g_clear_object (&priv->attachments);
+
+				attachments = g_list_store_new (PPS_TYPE_ATTACHMENT);
+				g_list_store_append (attachments, attachment);
+				priv->attachments = G_LIST_MODEL (attachments);
 			}
 		}
 	}
@@ -4735,20 +4736,19 @@ view_menu_popup_cb (PpsView   *view,
 static gboolean
 attachment_bar_menu_popup_cb (GtkWidget        *attachbar,
 			      graphene_point_t *point,
-			      GList            *attach_list,
+			      GListModel       *attachments,
 			      PpsWindow        *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 	graphene_point_t new_point;
 
-	g_assert (attach_list != NULL);
+	g_assert (attachments != NULL);
 
 	pps_window_set_action_enabled (pps_window, "open-attachment", TRUE);
 
 	pps_window_set_action_enabled (pps_window, "save-attachment", TRUE);
 
-	g_list_free_full (priv->attach_list, g_object_unref);
-	priv->attach_list = attach_list;
+	priv->attachments = g_object_ref (attachments);
 
 	if (!gtk_widget_compute_point (GTK_WIDGET (attachbar),
 				       gtk_widget_get_parent (priv->attachment_popup),
@@ -5117,11 +5117,7 @@ pps_window_dispose (GObject *object)
 	g_clear_object (&priv->link);
 	g_clear_object (&priv->image);
 	g_clear_object (&priv->annot);
-
-	if (priv->attach_list) {
-		g_list_free_full (priv->attach_list, g_object_unref);
-		priv->attach_list = NULL;
-	}
+	g_clear_object (&priv->attachments);
 
 	g_clear_pointer (&priv->uri, g_free);
 
@@ -5954,22 +5950,24 @@ pps_window_popup_cmd_open_attachment (GSimpleAction *action,
 				     GVariant      *parameter,
 				     gpointer       user_data)
 {
-	GList     *l;
 	GdkDisplay *display;
+	guint	    n_items, i;
 	PpsWindow  *window = user_data;
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
-	if (!priv->attach_list)
+	if (!priv->attachments)
 		return;
 
 	display = gtk_widget_get_display (GTK_WIDGET (window));
 
-	for (l = priv->attach_list; l && l->data; l = g_list_next (l)) {
+	n_items = g_list_model_get_n_items (priv->attachments);
+
+	for (i = 0; i < n_items; i++) {
 		PpsAttachment *attachment;
 		GError       *error = NULL;
 		GdkAppLaunchContext *context = gdk_display_get_app_launch_context (display);
 
-		attachment = (PpsAttachment *) l->data;
+		attachment = g_list_model_get_item (priv->attachments, i);
 
 		pps_attachment_open (attachment, G_APP_LAUNCH_CONTEXT (context), &error);
 
@@ -5990,11 +5988,12 @@ attachment_save_dialog_response_cb (GtkFileDialog     *dialog,
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 	GFile                *target_file;
-	GList                *l;
+	guint                 n_items, i;
 	gboolean              is_dir;
 	gboolean              is_native;
 
-	is_dir = g_list_length (priv->attach_list) != 1;
+	n_items = g_list_model_get_n_items (priv->attachments);
+	is_dir = n_items != 1;
 
 	if (is_dir) {
 		target_file = gtk_file_dialog_select_folder_finish (dialog, result, NULL);
@@ -6009,10 +6008,10 @@ attachment_save_dialog_response_cb (GtkFileDialog     *dialog,
 
 	is_native = g_file_is_native (target_file);
 
-	for (l = priv->attach_list; l && l->data; l = g_list_next (l)) {
+	for (i = 0; i < n_items; i++) {
 		PpsAttachment *attachment;
 
-		attachment = (PpsAttachment *) l->data;
+		attachment = g_list_model_get_item (priv->attachments, i);
 
 		save_attachment_to_target_file (attachment,
 		                                target_file,
@@ -6034,11 +6033,11 @@ pps_window_popup_cmd_save_attachment_as (GSimpleAction *action,
 	PpsWindow     *window = user_data;
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
-	if (!priv->attach_list)
+	if (!priv->attachments)
 		return;
 
-	if (g_list_length (priv->attach_list) == 1)
-		attachment = (PpsAttachment *) priv->attach_list->data;
+	if (g_list_model_get_n_items (priv->attachments) == 1)
+		attachment = g_list_model_get_item (priv->attachments, 0);
 
 	dialog = gtk_file_dialog_new ();
 

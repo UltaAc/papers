@@ -188,14 +188,14 @@ mod imp {
                 return;
             };
 
-            let mut attachments = glib::List::new();
-            attachments.push_front(attachment);
+            let attachments = gio::ListStore::new::<Attachment>();
+            attachments.append(&attachment);
 
             for attachment in iter
                 .filter_map(|index| selection.item(index))
                 .filter_map(|obj| obj.downcast::<Attachment>().ok())
             {
-                attachments.push_front(attachment);
+                attachments.append(&attachment);
             }
 
             let point = gtk::graphene::Point::new(x as f32, y as f32);
@@ -206,9 +206,8 @@ mod imp {
                 .unwrap_or_default();
 
             let point = point.as_ptr() as glib::Pointer;
-            let list = attachments.into_raw() as glib::Pointer;
 
-            self.obj().emit_by_name::<()>("popup", &[&point, &list]);
+            self.obj().emit_by_name::<()>("popup", &[&point, &attachments]);
         }
 
         fn selected_attachment(&self) -> glib::List<Attachment> {
@@ -308,7 +307,7 @@ mod imp {
                     Signal::builder("popup")
                         .run_last()
                         .action()
-                        .param_types([glib::Type::POINTER, glib::Type::POINTER])
+                        .param_types([glib::Type::POINTER, gio::ListModel::static_type()])
                         .build(),
                     Signal::builder("save-attachment")
                         .run_last()
