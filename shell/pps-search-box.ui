@@ -9,6 +9,10 @@
         <property name="spacing">6</property>
         <child>
           <object class="GtkSearchEntry" id="entry">
+            <property name="max-width-chars">32</property>
+            <property name="input-purpose">free-form</property>
+            <property name="input-hints">no-spellcheck | word-completion</property>
+            <property name="placeholder-text" translatable="yes">Search in document</property>
             <property name="search-delay">500</property>
             <signal name="activate" handler="entry_activate_cb" />
             <signal name="next-match" handler="entry_next_match_cb" />
@@ -20,6 +24,9 @@
         </child>
         <child>
           <object class="GtkMenuButton">
+            <style>
+              <class name="flat"/>
+            </style>
             <property name="direction">down</property>
             <property name="icon-name">view-more-symbolic</property>
             <property name="menu-model">search_options</property>

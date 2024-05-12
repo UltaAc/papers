@@ -24,7 +24,9 @@
 #include "config.h"
 #endif
 
+#include <pps-document.h>
 #include "pps-find-sidebar.h"
+#include "pps-search-box.h"
 #include "pps-search-result.h"
 #include "pps-utils.h"
 #include <string.h>
@@ -32,12 +34,13 @@
 typedef struct {
 	PpsSearchContext *context;
 
+	GtkStack *results_stack;
+	PpsSearchBox *search_box;
         GtkWidget *list_view;
         GtkSingleSelection *selection;
-        GListStore *model;
 } PpsFindSidebarPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (PpsFindSidebar, pps_find_sidebar, GTK_TYPE_STACK)
+G_DEFINE_TYPE_WITH_PRIVATE (PpsFindSidebar, pps_find_sidebar, ADW_TYPE_BIN)
 
 #define GET_PRIVATE(o) pps_find_sidebar_get_instance_private (o)
 
@@ -104,26 +107,45 @@ factory_unbind_cb (GtkSignalListItemFactory *self,
                 gtk_box_remove (GTK_BOX (widget), gtk_widget_get_first_child (widget));
 }
 
+static gboolean
+pps_find_sidebar_grab_focus (GtkWidget *widget)
+{
+        PpsFindSidebar *sidebar = PPS_FIND_SIDEBAR (widget);
+        PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
+
+        return gtk_widget_grab_focus (GTK_WIDGET (priv->search_box));
+}
+
 static void
 pps_find_sidebar_class_init (PpsFindSidebarClass *find_sidebar_class)
 {
-        gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (find_sidebar_class),
+        GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (find_sidebar_class);
+
+        widget_class->grab_focus = pps_find_sidebar_grab_focus;
+
+        gtk_widget_class_set_template_from_resource (widget_class,
                                                      "/org/gnome/papers/ui/find-sidebar.ui");
 
-        gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (find_sidebar_class),
+        gtk_widget_class_bind_template_child_private (widget_class,
+                                                      PpsFindSidebar, results_stack);
+
+        gtk_widget_class_bind_template_child_private (widget_class,
+                                                      PpsFindSidebar, search_box);
+
+        gtk_widget_class_bind_template_child_private (widget_class,
                                                       PpsFindSidebar, list_view);
 
-        gtk_widget_class_bind_template_child_private (GTK_WIDGET_CLASS (find_sidebar_class),
+        gtk_widget_class_bind_template_child_private (widget_class,
                                                       PpsFindSidebar, selection);
 
-        gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (find_sidebar_class), pps_spinner_map_cb);
-        gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (find_sidebar_class), pps_spinner_unmap_cb);
+        gtk_widget_class_bind_template_callback (widget_class, pps_spinner_map_cb);
+        gtk_widget_class_bind_template_callback (widget_class, pps_spinner_unmap_cb);
 
-        gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (find_sidebar_class), factory_setup_cb);
-        gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (find_sidebar_class), factory_bind_cb);
-        gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (find_sidebar_class), factory_unbind_cb);
+        gtk_widget_class_bind_template_callback (widget_class, factory_setup_cb);
+        gtk_widget_class_bind_template_callback (widget_class, factory_bind_cb);
+        gtk_widget_class_bind_template_callback (widget_class, factory_unbind_cb);
 
-        gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (find_sidebar_class), selection_changed_cb);
+        gtk_widget_class_bind_template_callback (widget_class, selection_changed_cb);
 }
 
 static void
@@ -165,10 +187,12 @@ find_job_finished_cb (PpsSearchContext *search_context,
 		      gint              first_match_page,
                       PpsFindSidebar   *sidebar)
 {
+        PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
+
         if (g_list_model_get_n_items (pps_search_context_get_result_model (search_context)) != 0) {
-                gtk_stack_set_visible_child_name (GTK_STACK (sidebar), "results");
+                gtk_stack_set_visible_child_name (GTK_STACK (priv->results_stack), "results");
         } else {
-                gtk_stack_set_visible_child_name (GTK_STACK (sidebar), "no-results");
+                gtk_stack_set_visible_child_name (GTK_STACK (priv->results_stack), "no-results");
         }
 
         if (first_match_page != -1)
@@ -178,7 +202,9 @@ find_job_finished_cb (PpsSearchContext *search_context,
 static void
 pps_find_sidebar_start (PpsFindSidebar *sidebar)
 {
-        gtk_stack_set_visible_child_name (GTK_STACK (sidebar), "loading");
+        PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
+
+        gtk_stack_set_visible_child_name (GTK_STACK (priv->results_stack), "loading");
 }
 
 void
@@ -205,7 +231,9 @@ pps_find_sidebar_restart (PpsFindSidebar *sidebar,
 void
 pps_find_sidebar_clear (PpsFindSidebar *sidebar)
 {
-        gtk_stack_set_visible_child_name (GTK_STACK (sidebar), "initial");
+        PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
+
+        gtk_stack_set_visible_child_name (GTK_STACK (priv->results_stack), "initial");
 }
 
 void
@@ -255,4 +283,6 @@ pps_find_sidebar_set_search_context (PpsFindSidebar   *sidebar,
 	g_signal_connect_object (priv->context, "finished",
 				 G_CALLBACK (find_job_finished_cb),
 				 sidebar, G_CONNECT_DEFAULT);
+
+	pps_search_box_set_search_context (PPS_SEARCH_BOX (priv->search_box), context);
 }

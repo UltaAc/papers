@@ -83,8 +83,6 @@ typedef struct {
 	/* UI */
 	GtkWidget *stack;
 	GtkWidget *document_toolbar_view;
-	GtkWidget *search_box;
-	GtkWidget *search_bar;
 	GtkWidget *scrolled_window;
 	GtkWidget *view;
 	GtkWidget *loading_message;
@@ -1690,7 +1688,8 @@ pps_window_reload_job_cb (PpsJob    *job,
 	}
 
 	/* Restart the search after reloading */
-	if (gtk_search_bar_get_search_mode (GTK_SEARCH_BAR (priv->search_bar)))
+	if (gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack))
+	    == priv->find_sidebar)
 		pps_search_context_restart (priv->search_context);
 
 	pps_window_clear_reload_job (pps_window);
@@ -4211,7 +4210,9 @@ pps_window_cmd_escape (GSimpleAction *action,
 	PpsWindow *window = user_data;
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
-	if (gtk_search_bar_get_search_mode (GTK_SEARCH_BAR (priv->search_bar)))
+	if (gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack))
+	    == priv->find_sidebar
+	    && gtk_widget_get_focus_child (priv->find_sidebar) != NULL)
 		gtk_widget_activate_action (GTK_WIDGET (window), "doc.toggle-find", NULL);
 	else if (PPS_WINDOW_IS_PRESENTATION (priv))
 		pps_window_stop_presentation (window, TRUE);
@@ -4784,13 +4785,6 @@ find_sidebar_result_activated_cb (PpsSearchContext *context,
 }
 
 static void
-search_entry_stop_search_cb (GtkSearchEntry *entry,
-			     PpsWindow       *pps_window)
-{
-	pps_window_close_find_bar (pps_window);
-}
-
-static void
 search_started_cb (PpsSearchContext *search_context,
 		   PpsJobFind       *job,
 		   PpsWindow        *pps_window)
@@ -4829,7 +4823,7 @@ pps_window_show_find_bar (PpsWindow *pps_window)
 
 	if (gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack))
 	    == priv->find_sidebar) {
-		gtk_widget_grab_focus (priv->search_box);
+		gtk_widget_grab_focus (priv->find_sidebar);
 		return;
 	}
 
@@ -4854,8 +4848,7 @@ pps_window_show_find_bar (PpsWindow *pps_window)
 	gtk_stack_set_visible_child (GTK_STACK (priv->sidebar_stack),
 				     priv->find_sidebar);
 
-	gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (priv->search_bar), TRUE);
-	gtk_widget_grab_focus (priv->search_box);
+	gtk_widget_grab_focus (priv->find_sidebar);
 	g_action_group_change_action_state (G_ACTION_GROUP (pps_window), "show-sidebar",
 						g_variant_new_boolean (TRUE));
 	pps_window_set_document_action_enabled (pps_window, "find-next", TRUE);
@@ -4880,7 +4873,6 @@ pps_window_close_find_bar (PpsWindow *pps_window)
 	gtk_stack_set_visible_child (GTK_STACK (priv->sidebar_stack),
 				     priv->sidebar);
 
-	gtk_search_bar_set_search_mode (GTK_SEARCH_BAR (priv->search_bar), FALSE);
 	gtk_widget_grab_focus (priv->view);
 
 	pps_window_set_document_action_enabled (pps_window, "find-next", FALSE);
@@ -6045,12 +6037,11 @@ pps_window_init (PpsWindow *pps_window)
 		gtk_widget_add_css_class (GTK_WIDGET (pps_window), "devel");
 
 	g_object_bind_property (g_action_map_lookup_action (G_ACTION_MAP (priv->document_action_group), "find"), "enabled",
-				priv->search_box, "sensitive",
+				priv->find_sidebar, "visible",
 				G_BINDING_SYNC_CREATE);
 
 	priv->search_context = pps_search_context_new (priv->model);
 
-	pps_search_box_set_search_context (PPS_SEARCH_BOX (priv->search_box), priv->search_context);
 	pps_find_sidebar_set_search_context (PPS_FIND_SIDEBAR (priv->find_sidebar), priv->search_context);
 
 	g_signal_connect_object (priv->search_context, "cleared",
@@ -6087,8 +6078,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, toast_overlay);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, error_alert);
 
-	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, search_bar);
-	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, search_box);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, model);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, view);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, stack);
@@ -6135,9 +6124,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, scroll_child_history_cb);
 	gtk_widget_class_bind_template_callback (widget_class, caret_navigation_alert_response_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pps_window_loader_view_cancelled);
-
-	/* search box */
-	gtk_widget_class_bind_template_callback (widget_class, search_entry_stop_search_cb);
 
 	/* view */
 	gtk_widget_class_bind_template_callback (widget_class, view_external_link_cb);

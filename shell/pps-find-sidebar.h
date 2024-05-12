@@ -22,7 +22,9 @@
 #pragma once
 
 #include <gtk/gtk.h>
+#include <adwaita.h>
 
+#include "pps-document-model.h"
 #include "pps-jobs.h"
 #include "pps-search-context.h"
 
@@ -39,11 +41,11 @@ typedef struct _PpsFindSidebar PpsFindSidebar;
 typedef struct _PpsFindSidebarClass PpsFindSidebarClass;
 
 struct _PpsFindSidebar {
-        GtkBox base_instance;
+        AdwBin base_instance;
 };
 
 struct _PpsFindSidebarClass {
-        GtkBoxClass base_class;
+        AdwBinClass base_class;
 };
 
 GType      pps_find_sidebar_get_type (void);
