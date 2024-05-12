@@ -3264,13 +3264,12 @@ pps_view_annotation_save_contents (PpsView       *view,
 
 static GtkWidget *
 pps_view_create_annotation_window (PpsView       *view,
-				  PpsAnnotation *annot,
-				  GtkWindow    *parent)
+				  PpsAnnotation *annot)
 {
-	GtkWidget   *window;
-	guint        page;
+	GtkWindow  *parent = GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (view)));
+	GtkWidget  *window = pps_annotation_window_new (annot, parent);
+	guint       page;
 
-	window = pps_annotation_window_new (annot, parent);
 	g_signal_connect (window, "close-request",
 			  G_CALLBACK (annotation_window_closed),
 			  view);
@@ -3295,9 +3294,6 @@ show_annotation_windows (PpsView *view,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsMappingList *annots;
 	GList         *l;
-	GtkWindow     *parent;
-
-	parent = GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (view)));
 
 	annots = pps_page_cache_get_annot_mapping (priv->page_cache, page);
 
@@ -3319,7 +3315,7 @@ show_annotation_windows (PpsView *view,
 			child = pps_view_get_window_child (view, window);
 			gtk_widget_set_visible (window, child->visible);
 		} else {
-			pps_view_create_annotation_window (view, annot, parent);
+			pps_view_create_annotation_window (view, annot);
 		}
 	}
 }
@@ -3462,8 +3458,7 @@ static void
 pps_view_annotation_create_show_popup_window (PpsView       *view,
 					     PpsAnnotation *annot)
 {
-	GtkWindow *parent = GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (view)));
-	GtkWidget *window = pps_view_create_annotation_window (view, annot, parent);
+	GtkWidget *window = pps_view_create_annotation_window (view, annot);
 
 	pps_view_annotation_show_popup_window (view, window);
 }
@@ -3482,7 +3477,6 @@ pps_view_handle_annotation (PpsView       *view,
 		window = get_window_for_annot (view, annot);
 		if (!window && pps_annotation_markup_can_have_popup (PPS_ANNOTATION_MARKUP (annot))) {
 			PpsRectangle    popup_rect;
-			GtkWindow     *parent;
 			PpsMappingList *annots;
 			PpsMapping     *mapping;
 
@@ -3500,8 +3494,7 @@ pps_view_handle_annotation (PpsView       *view,
 				      "popup_is_open", TRUE,
 				      NULL);
 
-			parent = GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (view)));
-			window = pps_view_create_annotation_window (view, annot, parent);
+			window = pps_view_create_annotation_window (view, annot);
 		} else if (window && pps_annotation_markup_has_popup (PPS_ANNOTATION_MARKUP (annot))) {
 			PpsMappingList     *annots;
 			PpsRectangle        popup_rect;
