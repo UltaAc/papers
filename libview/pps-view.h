@@ -124,10 +124,9 @@ PPS_PUBLIC
 void           pps_view_focus_annotation      (PpsView          *view,
 					      PpsMapping       *annot_mapping);
 PPS_PUBLIC
-void           pps_view_begin_add_annotation  (PpsView          *view,
-					      PpsAnnotationType annot_type);
+void           pps_view_begin_add_text_annotation  (PpsView *view);
 PPS_PUBLIC
-void           pps_view_cancel_add_annotation (PpsView          *view);
+void           pps_view_cancel_add_text_annotation (PpsView *view);
 PPS_PUBLIC
 void           pps_view_remove_annotation     (PpsView          *view,
 					      PpsAnnotation    *annot);

@@ -4258,12 +4258,8 @@ pps_window_cmd_escape (GSimpleAction *action,
 		pps_window_stop_presentation (window, TRUE);
 	else if (gtk_window_is_fullscreen (GTK_WINDOW (window)))
 		pps_window_stop_fullscreen (window, TRUE);
-	else {
-		/* Cancel any annotation in progress and untoggle the
-		 * toolbar button. */
-		pps_view_cancel_add_annotation (PPS_VIEW (priv->view));
-		gtk_widget_grab_focus (priv->view);
-	}
+	else
+		pps_view_cancel_add_text_annotation (PPS_VIEW (priv->view));
 }
 
 static void
@@ -5024,8 +5020,7 @@ pps_window_cmd_add_annotation (GSimpleAction *action,
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (PPS_WINDOW (user_data));
 
-	pps_view_begin_add_annotation (PPS_VIEW (priv->view),
-				       PPS_ANNOTATION_TYPE_TEXT);
+	pps_view_begin_add_text_annotation (PPS_VIEW (priv->view));
 }
 
 static void

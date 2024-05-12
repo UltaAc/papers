@@ -102,12 +102,6 @@ typedef struct _PpsHeightToPageCache {
 
 /* Information for handling annotations */
 typedef struct {
-	gboolean         adding_annot;
-	PpsAnnotationType type;
-	PpsAnnotation    *annot;
-} AddingAnnotInfo;
-
-typedef struct {
 	GdkPoint      start;
 	PpsPoint       cursor_offset;
 	gboolean      annot_clicked;
@@ -210,7 +204,7 @@ typedef struct _PpsViewPrivate {
 
 	/* Annotations */
 	GList             *window_children;
-	AddingAnnotInfo    adding_annot_info;
+	gboolean           adding_text_annot;
 	MovingAnnotInfo    moving_annot_info;
 	GHashTable        *annot_window_map;
 	gboolean           enable_spellchecking;
