@@ -6798,26 +6798,6 @@ pps_view_focus_out (GtkEventControllerFocus	*self,
 	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
-static void
-pps_view_leave_notify_event (GtkEventControllerMotion	*self,
-			    gpointer			 user_data)
-{
-	PpsView *view = PPS_VIEW (user_data);
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	if (priv->cursor != PPS_VIEW_CURSOR_NORMAL)
-		pps_view_set_cursor (view, PPS_VIEW_CURSOR_NORMAL);
-}
-
-static void
-pps_view_enter_notify_event (GtkEventControllerMotion	*self,
-			    gdouble			 x,
-			    gdouble			 y,
-			    gpointer			 user_data)
-{
-	pps_view_handle_cursor_over_xy (PPS_VIEW (user_data), x, y, FALSE);
-}
-
 /*** Drawing ***/
 
 static void
@@ -7547,8 +7527,6 @@ pps_view_class_init (PpsViewClass *class)
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_button_press_event);
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_button_release_event);
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_motion_notify_event);
-	gtk_widget_class_bind_template_callback (widget_class, pps_view_enter_notify_event);
-	gtk_widget_class_bind_template_callback (widget_class, pps_view_leave_notify_event);
 	gtk_widget_class_bind_template_callback (widget_class, zoom_gesture_begin_cb);
 	gtk_widget_class_bind_template_callback (widget_class, zoom_gesture_scale_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, notify_scale_factor_cb);

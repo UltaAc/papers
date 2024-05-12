@@ -19,8 +19,6 @@
     <child>
       <object class="GtkEventControllerMotion">
         <signal name="motion" handler="pps_view_motion_notify_event" />
-        <signal name="enter" handler="pps_view_enter_notify_event" />
-        <signal name="leave" handler="pps_view_leave_notify_event" />
       </object>
     </child>
     <child>
