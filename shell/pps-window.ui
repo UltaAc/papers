@@ -354,7 +354,6 @@
                             <property name="has-arrow">False</property>
                             <property name="menu-model">view-popup-menu</property>
                             <property name="halign">start</property>
-                            <signal name="hide" handler="view_popup_hide_cb" />
                           </object>
                         </child>
                         <child>
@@ -765,7 +764,6 @@ allowing you to move around and select text with your keyboard.
       <item>
         <attribute name="label" translatable="yes">_Highlight Selected Text</attribute>
         <attribute name="action">win.highlight-annotation</attribute>
-        <attribute name="hidden-when">action-disabled</attribute>
       </item>
     </section>
   </menu>

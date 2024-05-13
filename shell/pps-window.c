@@ -413,8 +413,6 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 				       can_find && !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "add-annotation", can_annotate &&
 				      !start_view_mode);
-	pps_window_set_action_enabled (pps_window, "highlight-annotation", can_annotate &&
-				      !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "rotate-left", has_pages &&
 				      !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "rotate-right", has_pages &&
@@ -458,6 +456,8 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 		pps_window_set_action_enabled (pps_window, "save-attachment", FALSE);
 		pps_window_set_action_enabled (pps_window, "annot-properties", FALSE);
 		pps_window_set_action_enabled (pps_window, "remove-annot", FALSE);
+		pps_window_set_action_enabled (pps_window, "highlight-annotation",
+					      FALSE);
 	}
 
 	pps_window_set_action_enabled (pps_window, "copy",
@@ -868,8 +868,18 @@ static void
 view_selection_changed_cb (PpsView   *view,
 			   PpsWindow *window)
 {
-	pps_window_set_action_enabled (window, "copy",
-					pps_view_has_selection (view));
+	PpsWindowPrivate *priv = GET_PRIVATE (window);
+	PpsDocument *document = priv->document;
+	gboolean has_selection = pps_view_has_selection (view);
+	gboolean can_annotate;
+
+	pps_window_set_action_enabled (window, "copy", has_selection);
+
+	can_annotate = PPS_IS_DOCUMENT_ANNOTATIONS (document) &&
+		pps_document_annotations_can_add_annotation (PPS_DOCUMENT_ANNOTATIONS (document));
+
+	pps_window_set_action_enabled (window, "highlight-annotation",
+				       can_annotate && has_selection);
 }
 
 static void
@@ -4608,20 +4618,6 @@ view_menu_annot_popup (PpsWindow     *pps_window,
 }
 
 static void
-view_popup_hide_cb (GtkWidget *popup,
-		    PpsWindow *pps_window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	PpsDocument *document = priv->document;
-	gboolean can_annotate;
-
-	can_annotate = PPS_IS_DOCUMENT_ANNOTATIONS (document) &&
-		pps_document_annotations_can_add_annotation (PPS_DOCUMENT_ANNOTATIONS (document));
-
-	pps_window_set_action_enabled (pps_window, "highlight-annotation", can_annotate);
-}
-
-static void
 view_menu_popup_cb (PpsView   *view,
 		    GList    *items,
 		    double    x,
@@ -4629,12 +4625,10 @@ view_menu_popup_cb (PpsView   *view,
 		    PpsWindow *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	PpsDocument *document = priv->document;
 	GList   *l;
 	gboolean has_link = FALSE;
 	gboolean has_image = FALSE;
 	gboolean has_annot = FALSE;
-	gboolean can_annotate;
 	graphene_point_t window_point;
 
 	for (l = items; l; l = g_list_next (l)) {
@@ -4656,12 +4650,6 @@ view_menu_popup_cb (PpsView   *view,
 		view_menu_image_popup (pps_window, NULL);
 	if (!has_annot)
 		view_menu_annot_popup (pps_window, NULL);
-
-	can_annotate = PPS_IS_DOCUMENT_ANNOTATIONS (document) &&
-		pps_document_annotations_can_add_annotation (PPS_DOCUMENT_ANNOTATIONS (document)) &&
-		!has_annot && pps_view_has_selection (view);
-
-	pps_window_set_action_enabled (pps_window, "highlight-annotation", can_annotate);
 
 	if (!gtk_widget_compute_point (GTK_WIDGET (view),
 				      gtk_widget_get_parent (priv->view_popup),
@@ -6140,7 +6128,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_current_page_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pps_window_button_pressed);
 	gtk_widget_class_bind_template_callback (widget_class, pps_window_drag_data_received);
-	gtk_widget_class_bind_template_callback (widget_class, view_popup_hide_cb);
 	gtk_widget_class_bind_template_callback (widget_class, zoom_selector_activated);
 	gtk_widget_class_bind_template_callback (widget_class, find_button_sensitive_changed);
 	gtk_widget_class_bind_template_callback (widget_class, pps_spinner_map_cb);
