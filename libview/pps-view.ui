@@ -58,11 +58,5 @@
         <signal name="end" handler="pan_gesture_end_cb" />
       </object>
     </child>
-    <child>
-      <!-- DnD for text selection and image -->
-      <object class="GtkDragSource">
-        <signal name="prepare" handler="drag_prepare_cb" />
-      </object>
-    </child>
   </template>
 </interface>

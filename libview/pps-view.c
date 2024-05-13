@@ -1552,29 +1552,6 @@ location_in_text (PpsView  *view,
 }
 
 static gboolean
-location_in_selected_text (PpsView  *view,
-			   gdouble  x,
-			   gdouble  y)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	cairo_region_t *region;
-	gint page = -1;
-	gint x_offset = 0, y_offset = 0;
-
-	find_page_at_location (view, x, y, &page, &x_offset, &y_offset);
-
-	if (page == -1)
-		return FALSE;
-
-	region = pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache, page, priv->scale);
-
-	if (region)
-		return cairo_region_contains_point (region, x_offset, y_offset);
-	else
-		return FALSE;
-}
-
-static gboolean
 get_doc_point_from_offset (PpsView *view,
 			   gint    page,
 			   gint    x_offset,
@@ -5358,7 +5335,6 @@ pps_view_button_press_event (GtkGestureClick	*gesture,
 	button = gdk_button_event_get_button (event);
 
 	priv->pressed_button = button;
-	priv->selection_info.in_drag = FALSE;
 	priv->selection_info.in_select = FALSE;
 
 	/* Handled in release! */
@@ -5383,10 +5359,6 @@ pps_view_button_press_event (GtkGestureClick	*gesture,
 					end_point.x = x + priv->scroll_x;
 					end_point.y = y + priv->scroll_y;
 					extend_selection (view, &priv->selection_info.start, &end_point);
-				} else if (location_in_selected_text (view,
-							       x + priv->scroll_x,
-							       y + priv->scroll_y)) {
-					priv->selection_info.in_drag = TRUE;
 				} else {
 					start_selection_for_event (view, x, y, n_press);
 					if (position_caret_cursor_for_event (view, x, y, TRUE)) {
@@ -5650,48 +5622,6 @@ pps_view_remove_all (PpsView *view)
 
 		child = next;
 	}
-}
-
-/*** Drag and Drop ***/
-static GdkContentProvider *
-drag_prepare_cb (GtkDragSource	*self,
-		 gdouble	 x,
-		 gdouble	 y,
-		 PpsView		*view)
-{
-	PpsImage *image;
-	GdkPixbuf *pixbuf;
-	const char *tmp_uri;
-	GFile *file;
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	if (priv->selection_info.in_select)
-		return NULL;
-
-	if (PPS_IS_SELECTION (priv->document) && priv->selection_info.in_drag &&
-	    location_in_selected_text (view, x + priv->scroll_x, y + priv->scroll_y)) {
-		gchar *text = get_selected_text (view);
-
-		return gdk_content_provider_new_for_bytes ("text/plain",
-				g_bytes_new_take (text, strlen (text)));
-	}
-
-	if (!location_in_text (view, x + priv->scroll_x, y + priv->scroll_y) &&
-				   (image = pps_view_get_image_at_location (view, x, y))) {
-		pps_document_doc_mutex_lock ();
-		pixbuf = pps_document_images_get_image (PPS_DOCUMENT_IMAGES (priv->document), image);
-		pps_document_doc_mutex_unlock ();
-
-		tmp_uri = pps_image_save_tmp (image, pixbuf);
-		file = g_file_new_for_uri (tmp_uri);
-
-		return gdk_content_provider_new_union ((GdkContentProvider *[2]) {
-				gdk_content_provider_new_typed (G_TYPE_FILE, file),
-				gdk_content_provider_new_typed (GDK_TYPE_PIXBUF, pixbuf),
-				}, 2);
-	}
-
-	return NULL;
 }
 
 static void
@@ -6053,10 +5983,6 @@ pps_view_button_release_event(GtkGestureClick		*self,
 		g_clear_object (&priv->link_selected);
 
 		position_caret_cursor_for_event (view, x, y, FALSE);
-
-		if (priv->selection_info.in_drag)
-			clear_selection (view);
-		priv->selection_info.in_drag = FALSE;
 	} else if (link) {
 		if (gdk_button_event_get_button (event) == GDK_BUTTON_MIDDLE) {
 			PpsLinkAction    *action;
@@ -7529,7 +7455,6 @@ pps_view_class_init (PpsViewClass *class)
 	gtk_widget_class_bind_template_callback (widget_class, middle_clicked_drag_end_cb);
 	gtk_widget_class_bind_template_callback (widget_class, middle_clicked_drag_update_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_scroll_event);
-	gtk_widget_class_bind_template_callback (widget_class, drag_prepare_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pan_gesture_pan_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pan_gesture_end_cb);
 
@@ -7761,7 +7686,6 @@ pps_view_init (PpsView *view)
 	priv->cursor = PPS_VIEW_CURSOR_NORMAL;
 	priv->drag_info.in_drag = FALSE;
 	priv->selection_info.selections = NULL;
-	priv->selection_info.in_drag = FALSE;
 	priv->continuous = TRUE;
 	priv->dual_even_left = TRUE;
 	priv->sizing_mode = PPS_SIZING_FIT_WIDTH;

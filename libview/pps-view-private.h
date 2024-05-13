@@ -59,7 +59,6 @@ typedef struct {
 /* Information for handling selection */
 typedef struct {
 	gboolean in_select;
-	gboolean in_drag;
 	GdkPoint start;
 	GList *selections;
 	PpsSelectionStyle style;
