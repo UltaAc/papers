@@ -411,8 +411,8 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 				       can_find && !start_view_mode);
 	gtk_widget_action_set_enabled (GTK_WIDGET (pps_window), "doc.toggle-find",
 				       can_find && !start_view_mode);
-	pps_window_set_action_enabled (pps_window, "add-annotation", can_annotate &&
-				      !start_view_mode);
+	pps_window_set_action_enabled (pps_window, "add-text-annotation",
+				       can_annotate && !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "rotate-left", has_pages &&
 				      !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "rotate-right", has_pages &&
@@ -456,8 +456,9 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 		pps_window_set_action_enabled (pps_window, "save-attachment", FALSE);
 		pps_window_set_action_enabled (pps_window, "annot-properties", FALSE);
 		pps_window_set_action_enabled (pps_window, "remove-annot", FALSE);
-		pps_window_set_action_enabled (pps_window, "highlight-annotation",
-					      FALSE);
+		pps_window_set_action_enabled (pps_window,
+					       "add-highlight-annotation",
+					       FALSE);
 	}
 
 	pps_window_set_action_enabled (pps_window, "copy",
@@ -878,7 +879,7 @@ view_selection_changed_cb (PpsView   *view,
 	can_annotate = PPS_IS_DOCUMENT_ANNOTATIONS (document) &&
 		pps_document_annotations_can_add_annotation (PPS_DOCUMENT_ANNOTATIONS (document));
 
-	pps_window_set_action_enabled (window, "highlight-annotation",
+	pps_window_set_action_enabled (window, "add-highlight-annotation",
 				       can_annotate && has_selection);
 }
 
@@ -4971,9 +4972,9 @@ pps_window_cmd_add_highlight_annotation (GSimpleAction *action,
 }
 
 static void
-pps_window_cmd_add_annotation (GSimpleAction *action,
-			      GVariant      *state,
-			      gpointer       user_data)
+pps_window_cmd_add_text_annotation (GSimpleAction *action,
+				    GVariant      *state,
+				    gpointer       user_data)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (PPS_WINDOW (user_data));
 
@@ -5113,8 +5114,8 @@ static const GActionEntry actions[] = {
 	{ "zoom", pps_window_cmd_view_zoom, "d" },
 	{ "escape", pps_window_cmd_escape },
 	{ "caret-navigation", pps_window_cmd_view_toggle_caret_navigation },
-	{ "add-annotation", pps_window_cmd_add_annotation },
-	{ "highlight-annotation", pps_window_cmd_add_highlight_annotation },
+	{ "add-text-annotation", pps_window_cmd_add_text_annotation },
+	{ "add-highlight-annotation", pps_window_cmd_add_highlight_annotation },
 	/* Popups specific items */
 	{ "open-link", pps_window_popup_cmd_open_link },
 	{ "open-link-new-window", pps_window_popup_cmd_open_link_new_window },

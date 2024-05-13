@@ -399,7 +399,7 @@ pps_application_startup (GApplication *gapplication)
           "win.rotate-left",            "<Ctrl>Left", NULL,
           "win.rotate-right",           "<Ctrl>Right", NULL,
           "win.inverted-colors",        "<Ctrl>I", NULL,
-          "win.highlight-annotation",   "<Ctrl>H", NULL,
+          "win.add-highlight-annotation", "<Ctrl>H", NULL,
           "app.help",                   "F1", NULL,
           "app.new",                    "<Ctrl>N", NULL,
           NULL

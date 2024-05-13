@@ -443,7 +443,7 @@
                     <child>
                       <object class='GtkShortcut'>
                         <property name='trigger'>s</property>
-                        <property name='action'>action(win.add-annotation)</property>
+                        <property name='action'>action(win.add-text-annotation)</property>
                       </object>
                     </child>
                     <child>
@@ -758,12 +758,12 @@ allowing you to move around and select text with your keyboard.
     <section>
       <item>
         <attribute name="label" translatable="yes">_Add Text Annotation</attribute>
-        <attribute name="action">win.add-annotation</attribute>
+        <attribute name="action">win.add-text-annotation</attribute>
         <attribute name="hidden-when">action-disabled</attribute>
       </item>
       <item>
         <attribute name="label" translatable="yes">_Highlight Selected Text</attribute>
-        <attribute name="action">win.highlight-annotation</attribute>
+        <attribute name="action">win.add-highlight-annotation</attribute>
       </item>
     </section>
   </menu>

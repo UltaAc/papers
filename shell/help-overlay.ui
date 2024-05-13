@@ -283,7 +283,7 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Highlight Text</property>
-                <property name="action-name">win.highlight-annotation</property>
+                <property name="action-name">win.add-highlight-annotation</property>
               </object>
             </child>
           </object>
