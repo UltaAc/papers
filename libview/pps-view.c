@@ -2140,16 +2140,6 @@ tip_from_link (PpsView *view, PpsLink *link)
 	return msg;
 }
 
-static gboolean
-link_preview_popover_motion_notify (GtkEventControllerMotion	*self,
-				    gdouble			 x,
-				    gdouble			 y,
-				    PpsView			*view)
-{
-	pps_view_link_preview_popover_cleanup (view);
-	return TRUE;
-}
-
 static void
 handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y, gboolean from_motion)
 {
@@ -2164,7 +2154,6 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y, gboolean 
 	PpsPoint          link_dest_doc;
 	GdkPoint         link_dest_view;
 	gint             device_scale = 1;
-	GtkEventController *controller;
 
 	pps_view_set_cursor (view, PPS_VIEW_CURSOR_LINK);
 
@@ -2207,12 +2196,6 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y, gboolean 
 	get_link_area (view, x, y, link, &link_area);
 	gtk_popover_set_pointing_to (GTK_POPOVER (popover), &link_area);
 	gtk_popover_set_autohide (GTK_POPOVER (popover), FALSE);
-
-	controller = GTK_EVENT_CONTROLLER (gtk_event_controller_motion_new ());
-	g_signal_connect (controller, "motion",
-				  G_CALLBACK (link_preview_popover_motion_notify),
-				  view);
-	gtk_widget_add_controller (popover, controller);
 
 	spinner = gtk_spinner_new ();
 	gtk_spinner_start (GTK_SPINNER (spinner));
