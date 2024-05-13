@@ -5946,10 +5946,6 @@ pps_view_button_release_event(GtkGestureClick		*self,
 			pps_view_handle_annotation (view, annot, x, y, time);
 	}
 
-	if (priv->pressed_button == GDK_BUTTON_MIDDLE) {
-		pps_view_handle_cursor_over_xy (view, x, y, FALSE);
-	}
-
 	priv->pressed_button = -1;
 
 	g_clear_handle_id (&priv->selection_scroll_id, g_source_remove);
