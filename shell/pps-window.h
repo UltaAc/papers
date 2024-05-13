@@ -40,6 +40,7 @@ typedef enum {
 	PPS_WINDOW_MODE_START_VIEW,
 	PPS_WINDOW_MODE_ERROR_VIEW,
 	PPS_WINDOW_MODE_PASSWORD_VIEW,
+	PPS_WINDOW_MODE_LOADER_VIEW,
 } PpsWindowRunMode;
 
 #define PPS_TYPE_WINDOW			(pps_window_get_type())

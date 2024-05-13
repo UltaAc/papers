@@ -90,6 +90,7 @@ typedef struct {
 	GtkWidget *presentation_view;
 	GtkWidget *message_area;
 	GtkWidget *password_view;
+	GtkWidget *loader_view;
 	GtkWidget *sidebar_stack;
 	GtkWidget *sidebar;
 	GtkWidget *sidebar_links;
@@ -1747,38 +1748,13 @@ pps_window_progress_response_cb (PpsProgressMessageArea *area,
 	pps_window_set_message_area (pps_window, NULL);
 }
 
-static gboolean
-show_loading_progress (PpsWindow *pps_window)
+static void
+pps_window_loader_view_cancelled (PpsWindow *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	GtkWidget *area;
-	gchar     *text;
-	gchar     *display_name;
 
-	if (priv->message_area)
-		return G_SOURCE_REMOVE;
-
-	text = g_uri_unescape_string (priv->uri, NULL);
-	display_name = g_markup_escape_text (text, -1);
-	g_free (text);
-	text = g_strdup_printf (_("Loading document from “%s”"),
-				display_name);
-
-	area = pps_progress_message_area_new ("document-open-symbolic",
-					     text,
-					     _("C_ancel"),
-					     GTK_RESPONSE_CANCEL,
-					     NULL);
-	g_signal_connect (pps_message_area_get_info_bar (PPS_MESSAGE_AREA (area)), "response",
-			  G_CALLBACK (pps_window_progress_response_cb),
-			  pps_window);
-
-	pps_window_set_message_area (pps_window, area);
-
-	g_free (text);
-	g_free (display_name);
-
-	return G_SOURCE_REMOVE;
+	g_cancellable_cancel (priv->progress_cancellable);
+	pps_window_set_mode (pps_window, PPS_WINDOW_MODE_START_VIEW);
 }
 
 static void
@@ -1905,24 +1881,14 @@ window_open_file_copy_progress_cb (goffset   n_bytes,
 				   PpsWindow *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	gchar *status;
 	gdouble fraction;
-
-	if (!priv->message_area)
-		return;
 
 	if (total_bytes <= 0)
 		return;
 
 	fraction = n_bytes / (gdouble)total_bytes;
-	status = g_strdup_printf (_("Downloading document (%d%%)"),
-				  (gint)(fraction * 100));
 
-	pps_progress_message_area_set_status (PPS_PROGRESS_MESSAGE_AREA (priv->message_area),
-					     status);
-	pps_progress_message_area_set_fraction (PPS_PROGRESS_MESSAGE_AREA (priv->message_area),
-					       fraction);
-	g_free (status);
+	g_object_set (priv->loader_view, "fraction", fraction, NULL);
 }
 
 static void
@@ -1972,8 +1938,8 @@ pps_window_load_file_remote (PpsWindow *pps_window,
 			   pps_window);
 	g_object_unref (target_file);
 
-	pps_window_show_progress_message (pps_window, 1,
-					 (GSourceFunc)show_loading_progress);
+	g_object_set (priv->loader_view, "uri", priv->uri, NULL);
+	pps_window_set_mode (pps_window, PPS_WINDOW_MODE_LOADER_VIEW);
 }
 
 static void
@@ -3994,6 +3960,9 @@ pps_window_set_mode (PpsWindow         *window,
 		case PPS_WINDOW_MODE_PRESENTATION:
 			g_return_if_fail (priv->presentation_view != NULL);
 			adw_view_stack_set_visible_child (ADW_VIEW_STACK (priv->stack), priv->presentation_view);
+			break;
+		case PPS_WINDOW_MODE_LOADER_VIEW:
+			adw_view_stack_set_visible_child_name (ADW_VIEW_STACK (priv->stack), "loader");
 			break;
 	        default:
 			g_assert_not_reached ();
@@ -6128,6 +6097,7 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, scrolled_window);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, loading_message);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, password_view);
+	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, loader_view);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, caret_mode_alert);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, toast_overlay);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, error_alert);
@@ -6178,6 +6148,7 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, scrolled_window_focus_in_cb);
 	gtk_widget_class_bind_template_callback (widget_class, scroll_child_history_cb);
 	gtk_widget_class_bind_template_callback (widget_class, caret_navigation_alert_response_cb);
+	gtk_widget_class_bind_template_callback (widget_class, pps_window_loader_view_cancelled);
 
 	/* search box */
 	gtk_widget_class_bind_template_callback (widget_class, search_started_cb);

@@ -518,6 +518,16 @@
             </property>
           </object>
         </child>
+        <child>
+          <object class="AdwViewStackPage">
+            <property name="name">loader</property>
+            <property name="child">
+              <object class="PpsLoaderView" id="loader_view">
+                <signal name="cancel" handler="pps_window_loader_view_cancelled" swapped="yes" />
+              </object>
+            </property>
+          </object>
+        </child>
       </object>
     </property>
     <child>
