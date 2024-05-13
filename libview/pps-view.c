@@ -252,9 +252,6 @@ static void       compute_selections                         (PpsView           
 							      PpsSelectionStyle    style,
 							      GdkPoint           *start,
 							      GdkPoint           *stop);
-static void       extend_selection                           (PpsView             *view,
-							      GdkPoint           *start,
-							      GdkPoint           *stop);
 static void       clear_selection                            (PpsView             *view);
 static void       selection_free                             (PpsViewSelection    *selection);
 static char*      get_selected_text                          (PpsView             *pps_view);
@@ -5103,29 +5100,22 @@ start_selection_for_event (PpsView	*view,
 			   gint		 n_press)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	clear_selection (view);
 
 	priv->selection_info.in_select = TRUE;
 	priv->selection_info.start.x = x + priv->scroll_x;
 	priv->selection_info.start.y = y + priv->scroll_y;
 
-	switch (n_press) {
-	        case 2:
-			priv->selection_info.style = PPS_SELECTION_STYLE_WORD;
-			break;
-	        case 3:
-			priv->selection_info.style = PPS_SELECTION_STYLE_LINE;
-			break;
-	        default:
-			priv->selection_info.style = PPS_SELECTION_STYLE_GLYPH;
-			return;
+	switch (n_press % 3) {
+	case 0:
+		priv->selection_info.style = PPS_SELECTION_STYLE_LINE;
+		break;
+	case 1:
+		priv->selection_info.style = PPS_SELECTION_STYLE_GLYPH;
+		break;
+	case 2:
+		priv->selection_info.style = PPS_SELECTION_STYLE_WORD;
+		break;
 	}
-
-	/* In case of WORD or LINE, compute selections now */
-	compute_selections (view,
-			    priv->selection_info.style,
-			    &(priv->selection_info.start),
-			    &(priv->selection_info.start));
 }
 
 gint
@@ -5333,23 +5323,29 @@ pps_view_button_press_event (GtkGestureClick	*gesture,
 			PpsMedia *media;
 			gint page;
 
-			if (PPS_IS_SELECTION (priv->document) && priv->selection_info.selections) {
-				if (n_press == 3) {
-					start_selection_for_event (view, x, y, n_press);
-				} else if (state & GDK_SHIFT_MASK) {
+			if (PPS_IS_SELECTION (priv->document)) {
+				if (state & GDK_SHIFT_MASK) {
 					GdkPoint end_point;
-
 					end_point.x = x + priv->scroll_x;
 					end_point.y = y + priv->scroll_y;
-					extend_selection (view, &priv->selection_info.start, &end_point);
-				} else {
+					compute_selections (view,
+							    PPS_SELECTION_STYLE_GLYPH,
+							    &(priv->selection_info.start),
+							    &end_point);
+				} else if (n_press > 1) {
 					start_selection_for_event (view, x, y, n_press);
-					if (position_caret_cursor_for_event (view, x, y, TRUE)) {
-						priv->cursor_blink_time = 0;
-						pps_view_pend_cursor_blink (view);
-					}
+					/* In case of WORD or LINE, compute selections */
+					compute_selections (view,
+							    priv->selection_info.style,
+							    &(priv->selection_info.start),
+							    &(priv->selection_info.start));
+				} else {
+					clear_selection (view);
+					start_selection_for_event (view, x, y, 1);
 				}
-			} else if ((media = pps_view_get_media_at_location (view, x, y))) {
+			}
+
+			if ((media = pps_view_get_media_at_location (view, x, y))) {
 				pps_view_handle_media (view, media);
 			} else if ((annot = pps_view_get_annotation_at_location (view, x, y))) {
 				if (PPS_IS_ANNOTATION_TEXT (annot)) {
@@ -5405,9 +5401,6 @@ pps_view_button_press_event (GtkGestureClick	*gesture,
 			} else {
 				pps_view_remove_all_form_fields (view);
 				_pps_view_set_focused_element (view, NULL, -1);
-
-				if (PPS_IS_SELECTION (priv->document))
-					start_selection_for_event (view, x, y, n_press);
 
 				if (position_caret_cursor_for_event (view, x, y, TRUE)) {
 					priv->cursor_blink_time = 0;
