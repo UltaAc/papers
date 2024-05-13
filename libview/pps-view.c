@@ -6305,23 +6305,6 @@ cursor_forward_line (PpsView *view)
 	return TRUE;
 }
 
-static void
-extend_selection (PpsView *view,
-		  GdkPoint *start_point,
-		  GdkPoint *end_point)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	if (!priv->selection_info.selections) {
-		priv->selection_info.start.x = start_point->x;
-		priv->selection_info.start.y = start_point->y;
-	}
-
-	compute_selections (view,
-			    PPS_SELECTION_STYLE_GLYPH,
-			    &(priv->selection_info.start),
-			    end_point);
-}
-
 static gboolean
 cursor_clear_selection (PpsView  *view,
 			gboolean forward)
@@ -6579,7 +6562,10 @@ pps_view_move_cursor (PpsView         *view,
 		end_point.x = rect.x;
 		end_point.y = rect.y + rect.height / 2;
 
-		extend_selection (view, &start_point, &end_point);
+		compute_selections (view,
+				    PPS_SELECTION_STYLE_GLYPH,
+				    &start_point,
+				    &end_point);
 	} else if (clear_selections)
 		clear_selection (view);
 
