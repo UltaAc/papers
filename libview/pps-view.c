@@ -5261,11 +5261,11 @@ position_caret_cursor_for_event (PpsView         *view,
 				 gboolean        redraw)
 {
 	GdkRectangle area;
-	GdkRectangle prpps_area = { 0, 0, 0, 0 };
+	GdkRectangle prev_area = { 0, 0, 0, 0 };
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (redraw)
-		get_caret_cursor_area (view, priv->cursor_page, priv->cursor_offset, &prpps_area);
+		get_caret_cursor_area (view, priv->cursor_page, priv->cursor_offset, &prev_area);
 
 	if (!position_caret_cursor_at_location (view, x, y))
 		return FALSE;
@@ -6408,9 +6408,9 @@ pps_view_move_cursor (PpsView         *view,
 		     gboolean        extend_selections)
 {
 	GdkRectangle    rect;
-	GdkRectangle    prpps_rect;
-	gint            prpps_offset;
-	gint            prpps_page;
+	GdkRectangle    prev_rect;
+	gint            prev_offset;
+	gint            prev_page;
 	GdkRectangle    select_start_rect;
 	gint            select_start_offset = 0;
 	gint            select_start_page = 0;
@@ -6425,8 +6425,8 @@ pps_view_move_cursor (PpsView         *view,
 	priv->key_binding_handled = TRUE;
 	priv->cursor_blink_time = 0;
 
-	prpps_offset = priv->cursor_offset;
-	prpps_page = priv->cursor_page;
+	prev_offset = priv->cursor_offset;
+	prev_page = priv->cursor_page;
 
 	if (extend_selections) {
 		select_start_offset = priv->cursor_offset;
@@ -6504,7 +6504,7 @@ pps_view_move_cursor (PpsView         *view,
 
 	/* Notify the user that it was not possible to move the caret cursor */
 	if (!clear_selections &&
-	    prpps_offset == priv->cursor_offset && prpps_page == priv->cursor_page) {
+	    prev_offset == priv->cursor_offset && prev_page == priv->cursor_page) {
 		gtk_widget_error_bell (GTK_WIDGET (view));
 		return TRUE;
 	}
@@ -6515,11 +6515,11 @@ pps_view_move_cursor (PpsView         *view,
 
 	if (!priv->continuous) {
 		changed_page = FALSE;
-		if (prpps_page < priv->cursor_page) {
+		if (prev_page < priv->cursor_page) {
 			pps_view_next_page (view);
 			cursor_go_to_page_start (view);
 			changed_page = TRUE;
-		} else if (prpps_page > priv->cursor_page) {
+		} else if (prev_page > priv->cursor_page) {
 			pps_view_previous_page (view);
 			cursor_go_to_page_end (view);
 			_pps_view_ensure_rectangle_is_visible (view, &rect);
@@ -6537,7 +6537,7 @@ pps_view_move_cursor (PpsView         *view,
 	}
 
 	if (step == GTK_MOVEMENT_DISPLAY_LINES) {
-		const gint prpps_cursor_offset = priv->cursor_offset;
+		const gint prev_cursor_offset = priv->cursor_offset;
 
 		position_caret_cursor_at_location (view,
 						   MAX (rect.x, priv->cursor_line_offset),
@@ -6545,12 +6545,12 @@ pps_view_move_cursor (PpsView         *view,
 		/* Make sure we didn't move the cursor in the wrong direction
 		 * in case the visual order isn't the same as the logical one,
 		 * in order to avoid cursor movement loops */
-		if ((forward && prpps_cursor_offset > priv->cursor_offset) ||
-		    (!forward && prpps_cursor_offset < priv->cursor_offset)) {
-			priv->cursor_offset = prpps_cursor_offset;
+		if ((forward && prev_cursor_offset > priv->cursor_offset) ||
+		    (!forward && prev_cursor_offset < priv->cursor_offset)) {
+			priv->cursor_offset = prev_cursor_offset;
 		}
 		if (!clear_selections &&
-		    prpps_offset == priv->cursor_offset && prpps_page == priv->cursor_page) {
+		    prev_offset == priv->cursor_offset && prev_page == priv->cursor_page) {
 			gtk_widget_error_bell (GTK_WIDGET (view));
 			return TRUE;
 		}
@@ -6561,7 +6561,7 @@ pps_view_move_cursor (PpsView         *view,
 		priv->cursor_line_offset = rect.x;
 	}
 
-	get_caret_cursor_area (view, prpps_page, prpps_offset, &prpps_rect);
+	get_caret_cursor_area (view, prev_page, prev_offset, &prev_rect);
 
 	rect.x += priv->scroll_x;
 	rect.y += priv->scroll_y;
@@ -7372,7 +7372,7 @@ zoom_gesture_begin_cb (GtkGesture       *gesture,
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	priv->prpps_zoom_gesture_scale = 1;
+	priv->prev_zoom_gesture_scale = 1;
 }
 
 static void
@@ -7386,8 +7386,8 @@ zoom_gesture_scale_changed_cb (GtkGestureZoom *gesture,
 	priv->drag_info.in_drag = FALSE;
 	priv->image_dnd_info.in_drag = FALSE;
 
-	factor = scale - priv->prpps_zoom_gesture_scale + 1;
-	priv->prpps_zoom_gesture_scale = scale;
+	factor = scale - priv->prev_zoom_gesture_scale + 1;
+	priv->prev_zoom_gesture_scale = scale;
 	pps_document_model_set_sizing_mode (priv->model, PPS_SIZING_FREE);
 
 	gtk_gesture_get_bounding_box_center (GTK_GESTURE (gesture), &priv->zoom_center_x, &priv->zoom_center_y);
@@ -9272,16 +9272,16 @@ pps_view_next_page (PpsView *view)
 gboolean
 pps_view_previous_page (PpsView *view)
 {
-	gint prpps_page;
+	gint prev_page;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	g_return_val_if_fail (PPS_IS_VIEW (view), FALSE);
 
-	prpps_page = go_to_previous_page (view, priv->current_page);
-	if (prpps_page == -1)
+	prev_page = go_to_previous_page (view, priv->current_page);
+	if (prev_page == -1)
 		return FALSE;
 
-	pps_document_model_set_page (priv->model, prpps_page);
+	pps_document_model_set_page (priv->model, prev_page);
 
 	return TRUE;
 }

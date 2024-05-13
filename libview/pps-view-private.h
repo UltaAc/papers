@@ -225,7 +225,7 @@ typedef struct _PpsViewPrivate {
 	/* Gestures */
 	GtkGesture *pan_gesture;
 	GtkGesture *zoom_gesture;
-	gdouble prpps_zoom_gesture_scale;
+	gdouble prev_zoom_gesture_scale;
 	PpsPanAction pan_action;
 
 	/* Current zoom center */
