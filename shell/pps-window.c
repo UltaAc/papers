@@ -4744,10 +4744,10 @@ attachment_bar_save_attachment_cb (GtkWidget     *attachbar,
 }
 
 static void
-find_sidebar_result_activated_cb (PpsFindSidebar *find_sidebar,
-				  gint           page,
-				  gint           result,
-				  PpsWindow      *window)
+find_sidebar_result_activated_cb (PpsSearchContext *context,
+				  gint              page,
+				  gint              result,
+				  PpsWindow        *window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
@@ -4772,7 +4772,6 @@ search_started_cb (PpsSearchContext *search_context,
 		return;
 
 	pps_view_find_started (PPS_VIEW (priv->view), job);
-	pps_find_sidebar_start (PPS_FIND_SIDEBAR (priv->find_sidebar), job);
 }
 
 static void
@@ -4782,7 +4781,6 @@ search_cleared_cb (PpsSearchContext *search_context,
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
 	pps_window_update_actions_sensitivity (pps_window);
-	pps_find_sidebar_clear (PPS_FIND_SIDEBAR (priv->find_sidebar));
 
 	pps_view_find_cancel (PPS_VIEW (priv->view));
 	gtk_widget_queue_draw (GTK_WIDGET (priv->view));
@@ -6047,6 +6045,7 @@ pps_window_init (PpsWindow *pps_window)
 	priv->search_context = pps_search_context_new (priv->model);
 
 	pps_search_box_set_search_context (PPS_SEARCH_BOX (priv->search_box), priv->search_context);
+	pps_find_sidebar_set_search_context (PPS_FIND_SIDEBAR (priv->find_sidebar), priv->search_context);
 
 	g_signal_connect_object (priv->search_context, "cleared",
 				 G_CALLBACK (search_cleared_cb),
@@ -6112,7 +6111,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, attachment_popup);
 
 	/* bind signal callback */
-	gtk_widget_class_bind_template_callback (widget_class, find_sidebar_result_activated_cb);
 	gtk_widget_class_bind_template_callback (widget_class, activate_link_cb);
 	gtk_widget_class_bind_template_callback (widget_class, window_maximized_changed);
 	gtk_widget_class_bind_template_callback (widget_class, window_size_changed_cb);

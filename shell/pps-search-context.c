@@ -39,6 +39,8 @@ enum {
 };
 
 enum {
+        RESULT_ACTIVATED,
+
         STARTED,
 	FINISHED,
         CLEARED,
@@ -245,6 +247,15 @@ pps_search_context_class_init (PpsSearchContextClass *klass)
 	g_object_class_install_properties (gobject_class, NUM_PROPERTIES, props);
 
         /* Signals */
+        signals[RESULT_ACTIVATED] =
+                g_signal_new ("result-activated",
+                              G_TYPE_FROM_CLASS (gobject_class),
+                              G_SIGNAL_RUN_LAST,
+                              0, NULL, NULL,
+                              g_cclosure_marshal_generic,
+                              G_TYPE_NONE, 2,
+                              G_TYPE_INT,
+                              G_TYPE_INT);
         signals[STARTED] =
                 g_signal_new ("started",
                               G_OBJECT_CLASS_TYPE (gobject_class),
@@ -326,4 +337,13 @@ void
 pps_search_context_restart (PpsSearchContext *context)
 {
         search_changed_cb (context);
+}
+
+void
+pps_search_context_select_result (PpsSearchContext *context,
+				  PpsSearchResult  *result)
+{
+	g_signal_emit (context, signals[RESULT_ACTIVATED], 0,
+		       pps_search_result_get_page (result),
+		       pps_search_result_get_index (result));
 }

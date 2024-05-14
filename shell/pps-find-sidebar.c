@@ -30,6 +30,8 @@
 #include <string.h>
 
 typedef struct {
+	PpsSearchContext *context;
+
         GtkWidget *list_view;
         GtkSingleSelection *selection;
         GListStore *model;
@@ -45,13 +47,6 @@ enum {
 
         N_COLUMNS
 };
-
-enum {
-        RESULT_ACTIVATED,
-        N_SIGNALS
-};
-
-static guint signals[N_SIGNALS];
 
 G_DEFINE_TYPE_WITH_PRIVATE (PpsFindSidebar, pps_find_sidebar, GTK_TYPE_STACK)
 
@@ -81,14 +76,13 @@ selection_changed_cb (GtkSelectionModel *selection,
                       guint              n_items,
                       PpsFindSidebar    *sidebar)
 {
+        PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
         PpsSearchResult *selected_result = PPS_SEARCH_RESULT (gtk_single_selection_get_selected_item (GTK_SINGLE_SELECTION (selection)));
 
-        if (selected_result == NULL)
-                return;
+	g_return_if_fail (priv->context != NULL);
+	g_return_if_fail (selected_result != NULL);
 
-        g_signal_emit (sidebar, signals[RESULT_ACTIVATED], 0,
-		       pps_search_result_get_page (selected_result),
-		       pps_search_result_get_index (selected_result));
+	pps_search_context_select_result (priv->context, selected_result);
 }
 
 static void
@@ -166,16 +160,6 @@ pps_find_sidebar_class_init (PpsFindSidebarClass *find_sidebar_class)
         gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (find_sidebar_class), factory_unbind_cb);
 
         gtk_widget_class_bind_template_callback (GTK_WIDGET_CLASS (find_sidebar_class), selection_changed_cb);
-
-        signals[RESULT_ACTIVATED] =
-                g_signal_new ("result-activated",
-                              G_TYPE_FROM_CLASS (g_object_class),
-                              G_SIGNAL_RUN_LAST,
-                              0, NULL, NULL,
-                              g_cclosure_marshal_generic,
-                              G_TYPE_NONE, 2,
-                              G_TYPE_INT,
-                              G_TYPE_INT);
 }
 
 static void
@@ -597,4 +581,27 @@ pps_find_sidebar_next (PpsFindSidebar *sidebar)
 
         pos = gtk_single_selection_get_selected (priv->selection) + 1;
         gtk_list_view_scroll_to (list_view, pos, GTK_LIST_SCROLL_SELECT, NULL);
+}
+
+void
+pps_find_sidebar_set_search_context (PpsFindSidebar   *sidebar,
+				     PpsSearchContext *context)
+{
+        PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
+
+	g_return_if_fail (PPS_IS_SEARCH_CONTEXT (context));
+
+	if (priv->context != NULL) {
+		g_signal_handlers_disconnect_by_func (priv->context, pps_find_sidebar_start, sidebar);
+		g_signal_handlers_disconnect_by_func (priv->context, pps_find_sidebar_clear, sidebar);
+	}
+
+	priv->context = context;
+
+	g_signal_connect_object (priv->context, "started",
+				 G_CALLBACK (pps_find_sidebar_start),
+				 sidebar, G_CONNECT_SWAPPED);
+	g_signal_connect_object (priv->context, "cleared",
+				 G_CALLBACK (pps_find_sidebar_clear),
+				 sidebar, G_CONNECT_SWAPPED);
 }

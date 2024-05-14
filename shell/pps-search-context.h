@@ -25,6 +25,7 @@
 
 #include "pps-document-model.h"
 #include "pps-metadata.h"
+#include "pps-search-result.h"
 
 G_BEGIN_DECLS
 
@@ -48,5 +49,7 @@ PpsFindOptions    pps_search_context_get_options (PpsSearchContext *context);
 void              pps_search_context_set_options (PpsSearchContext *context,
 					          PpsFindOptions    options);
 void              pps_search_context_restart     (PpsSearchContext *context);
+void              pps_search_context_select_result (PpsSearchContext *context,
+						    PpsSearchResult  *result);
 
 G_END_DECLS

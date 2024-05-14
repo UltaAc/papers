@@ -24,6 +24,7 @@
 #include <gtk/gtk.h>
 
 #include "pps-jobs.h"
+#include "pps-search-context.h"
 
 G_BEGIN_DECLS
 
@@ -55,5 +56,7 @@ void       pps_find_sidebar_update   (PpsFindSidebar *find_sidebar);
 void       pps_find_sidebar_clear    (PpsFindSidebar *find_sidebar);
 void       pps_find_sidebar_previous (PpsFindSidebar *find_sidebar);
 void       pps_find_sidebar_next     (PpsFindSidebar *find_sidebar);
+void       pps_find_sidebar_set_search_context (PpsFindSidebar   *find_sidebar,
+				                PpsSearchContext *context);
 
 G_END_DECLS
