@@ -48,8 +48,6 @@ struct _PpsFindSidebarClass {
 
 GType      pps_find_sidebar_get_type (void);
 GtkWidget *pps_find_sidebar_new      (void);
-void       pps_find_sidebar_start    (PpsFindSidebar *find_sidebar,
-                                     PpsJobFind     *job);
 void       pps_find_sidebar_restart  (PpsFindSidebar *find_sidebar,
                                      gint           page);
 void       pps_find_sidebar_update   (PpsFindSidebar *find_sidebar);

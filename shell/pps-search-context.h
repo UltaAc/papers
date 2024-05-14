@@ -48,6 +48,7 @@ void              pps_search_context_set_search_term (PpsSearchContext *context,
 PpsFindOptions    pps_search_context_get_options (PpsSearchContext *context);
 void              pps_search_context_set_options (PpsSearchContext *context,
 					          PpsFindOptions    options);
+GListModel*       pps_search_context_get_result_model (PpsSearchContext *context);
 void              pps_search_context_restart     (PpsSearchContext *context);
 void              pps_search_context_select_result (PpsSearchContext *context,
 						    PpsSearchResult  *result);

@@ -47,6 +47,7 @@ G_DEFINE_TYPE_WITH_CODE (PpsSearchBox, pps_search_box, ADW_TYPE_BIN,
 static void
 find_job_finished_cb (PpsSearchContext *search_context,
 		      PpsJobFind       *job,
+		      gint             first_match_page,
                       PpsSearchBox     *box)
 {
         PpsSearchBoxPrivate *priv = GET_PRIVATE (box);

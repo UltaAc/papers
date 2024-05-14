@@ -22,11 +22,6 @@
                 </property>
                 <property name="model">
                   <object class="GtkSingleSelection" id="selection">
-                    <property name="model">
-                      <object class="GListStore" id="model">
-                        <property name="item-type">PpsSearchResult</property>
-                      </object>
-                    </property>
                     <signal name="selection-changed" handler="selection_changed_cb" />
                   </object>
                 </property>
