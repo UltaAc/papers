@@ -6035,6 +6035,10 @@ pps_window_init (PpsWindow *pps_window)
 
 	if (g_strcmp0 (PROFILE, "") != 0)
 		gtk_widget_add_css_class (GTK_WIDGET (pps_window), "devel");
+
+	g_object_bind_property (g_action_map_lookup_action (G_ACTION_MAP (priv->document_action_group), "find"), "enabled",
+				priv->search_box, "sensitive",
+				G_BINDING_SYNC_CREATE);
 }
 
 static void

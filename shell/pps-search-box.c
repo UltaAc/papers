@@ -151,12 +151,10 @@ pps_search_box_setup_document (PpsSearchBox *box,
 {
         if (!document || !PPS_IS_DOCUMENT_FIND (document)) {
                 pps_search_box_set_supported_options (box, PPS_FIND_DEFAULT);
-                gtk_widget_set_sensitive (GTK_WIDGET (box), FALSE);
                 return;
         }
 
         pps_search_box_set_supported_options (box, pps_document_find_get_supported_options (PPS_DOCUMENT_FIND (document)));
-        gtk_widget_set_sensitive (GTK_WIDGET (box), pps_document_get_n_pages (document) > 0);
 }
 
 static void
