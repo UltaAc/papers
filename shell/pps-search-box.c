@@ -23,33 +23,14 @@
 
 #include <glib/gi18n.h>
 
-enum {
-        STARTED,
-        FINISHED,
-        CLEARED,
-
-        LAST_SIGNAL
-};
-
-enum
-{
-        PROP_0,
-
-        PROP_DOCUMENT_MODEL,
-        PROP_OPTIONS
-};
-
 typedef struct {
-        PpsDocumentModel *model;
-        PpsJob           *job;
-        PpsFindOptions    options;
-        PpsFindOptions    supported_options;
+	PpsSearchContext *context;
 
         GtkWidget       *entry;
         GtkWidget       *next_button;
         GtkWidget       *prev_button;
 
-        guint            pages_searched;
+	gulong search_term_signal;
 } PpsSearchBoxPrivate;
 
 static void pps_search_box_buildable_iface_init (GtkBuildableIface *iface);
@@ -61,36 +42,17 @@ G_DEFINE_TYPE_WITH_CODE (PpsSearchBox, pps_search_box, ADW_TYPE_BIN,
 
 #define GET_PRIVATE(o) pps_search_box_get_instance_private(o)
 
-static guint signals[LAST_SIGNAL] = { 0 };
-
 #define FIND_PAGE_RATE_REFRESH 100
 
 static void
-pps_search_box_clear_job (PpsSearchBox *box)
-{
-        PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
-
-        if (!priv->job)
-                return;
-
-        if (!pps_job_is_finished (priv->job))
-                pps_job_cancel (priv->job);
-
-        g_signal_handlers_disconnect_matched (priv->job, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, box);
-	g_clear_object (&priv->job);
-}
-
-static void
-find_job_finished_cb (PpsJobFind   *job,
-                      PpsSearchBox *box)
+find_job_finished_cb (PpsSearchContext *search_context,
+		      PpsJobFind       *job,
+                      PpsSearchBox     *box)
 {
         PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
 	gboolean has_results;
 
-        g_signal_emit (box, signals[FINISHED], 0);
-        pps_search_box_clear_job (box);
-
-	has_results = pps_job_find_has_results (job);
+	has_results = g_list_model_get_n_items (pps_search_context_get_result_model (search_context)) != 0;
 
         gtk_widget_set_sensitive (priv->next_button, has_results);
         gtk_widget_set_sensitive (priv->prev_button, has_results);
@@ -101,81 +63,35 @@ find_job_finished_cb (PpsJobFind   *job,
 }
 
 static void
-search_changed_cb (GtkSearchEntry *entry,
-                   PpsSearchBox    *box)
+search_changed_cb (PpsSearchBox    *box)
 {
-        const char *search_string;
         PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
-
-        pps_search_box_clear_job (box);
-        priv->pages_searched = 0;
+	const gchar *search_term;
 
         gtk_widget_set_sensitive (priv->next_button, FALSE);
         gtk_widget_set_sensitive (priv->prev_button, FALSE);
 
 	gtk_widget_remove_css_class(priv->entry, "error");
 
-        search_string = gtk_editable_get_text (GTK_EDITABLE (entry));
+	g_return_if_fail (priv->context != NULL);
 
-        if (search_string && search_string[0]) {
-                PpsDocument *doc = pps_document_model_get_document (priv->model);
+	search_term = pps_search_context_get_search_term (priv->context);
 
-                priv->job = pps_job_find_new (doc,
-                                             pps_document_model_get_page (priv->model),
-                                             pps_document_get_n_pages (doc),
-                                             search_string,
-					     priv->options);
-                g_signal_connect (priv->job, "finished",
-                                  G_CALLBACK (find_job_finished_cb),
-                                  box);
-
-                g_signal_emit (box, signals[STARTED], 0, priv->job);
-                pps_job_scheduler_push_job (priv->job, PPS_JOB_PRIORITY_NONE);
-        } else {
-                g_signal_emit (box, signals[CLEARED], 0);
-        }
+	g_signal_handler_block (priv->entry, priv->search_term_signal);
+	if (!g_str_equal (gtk_editable_get_text (GTK_EDITABLE (priv->entry)), search_term))
+		gtk_editable_set_text (GTK_EDITABLE (priv->entry), search_term);
+	g_signal_handler_unblock (priv->entry, priv->search_term_signal);
 }
 
 static void
-pps_search_box_set_supported_options (PpsSearchBox  *box,
-                                     PpsFindOptions options)
+search_term_changed_cb (GtkSearchEntry *entry,
+			PpsSearchBox   *box)
 {
         PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
 
-        priv->supported_options = options;
-}
+	g_return_if_fail (priv->context != NULL);
 
-static void
-pps_search_box_setup_document (PpsSearchBox *box,
-                              PpsDocument  *document)
-{
-        if (!document || !PPS_IS_DOCUMENT_FIND (document)) {
-                pps_search_box_set_supported_options (box, PPS_FIND_DEFAULT);
-                return;
-        }
-
-        pps_search_box_set_supported_options (box, pps_document_find_get_supported_options (PPS_DOCUMENT_FIND (document)));
-}
-
-static void
-document_changed_cb (PpsDocumentModel *model,
-                     GParamSpec      *pspec,
-                     PpsSearchBox     *box)
-{
-        pps_search_box_setup_document (box, pps_document_model_get_document (model));
-}
-
-static void
-pps_search_box_set_options (PpsSearchBox  *box,
-                           PpsFindOptions options)
-{
-        PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
-
-        if (priv->options == options)
-                return;
-
-        priv->options = options;
-        search_changed_cb (GTK_SEARCH_ENTRY (priv->entry), box);
+	pps_search_context_set_search_term (priv->context, gtk_editable_get_text (GTK_EDITABLE (entry)));
 }
 
 
@@ -186,7 +102,7 @@ whole_words_only_toggled_cb (GSimpleAction *action,
 {
 	PpsSearchBox *box = PPS_SEARCH_BOX (user_data);
         PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
-        PpsFindOptions options = priv->options;
+        PpsFindOptions options = pps_search_context_get_options (priv->context);
 	gboolean active = g_variant_get_boolean (state);
 	g_simple_action_set_state (action, state);
 
@@ -194,7 +110,7 @@ whole_words_only_toggled_cb (GSimpleAction *action,
                 options |= PPS_FIND_WHOLE_WORDS_ONLY;
         else
                 options &= ~PPS_FIND_WHOLE_WORDS_ONLY;
-        pps_search_box_set_options (box, options);
+        pps_search_context_set_options (priv->context, options);
 }
 
 static void
@@ -204,7 +120,7 @@ case_sensitive_toggled_cb (GSimpleAction *action,
 {
 	PpsSearchBox *box = PPS_SEARCH_BOX (user_data);
         PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
-        PpsFindOptions options = priv->options;
+        PpsFindOptions options = pps_search_context_get_options (priv->context);
 	gboolean active = g_variant_get_boolean (state);
 	g_simple_action_set_state (action, state);
 
@@ -212,7 +128,7 @@ case_sensitive_toggled_cb (GSimpleAction *action,
                 options |= PPS_FIND_CASE_SENSITIVE;
         else
                 options &= ~PPS_FIND_CASE_SENSITIVE;
-        pps_search_box_set_options (box, options);
+        pps_search_context_set_options (priv->context, options);
 }
 
 static void
@@ -236,83 +152,6 @@ entry_previous_match_cb (GtkSearchEntry *entry,
 	gtk_widget_activate_action (GTK_WIDGET (box), "doc.find-previous", NULL);
 }
 
-static void
-pps_search_box_finalize (GObject *object)
-{
-        PpsSearchBox *box = PPS_SEARCH_BOX (object);
-        PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
-
-        if (priv->model) {
-                g_object_remove_weak_pointer (G_OBJECT (priv->model),
-                                              (gpointer)&priv->model);
-        }
-
-        G_OBJECT_CLASS (pps_search_box_parent_class)->finalize (object);
-}
-
-static void
-pps_search_box_dispose (GObject *object)
-{
-        PpsSearchBox *box = PPS_SEARCH_BOX (object);
-
-        pps_search_box_clear_job (box);
-
-        G_OBJECT_CLASS (pps_search_box_parent_class)->dispose (object);
-}
-
-static void
-pps_search_box_set_property (GObject      *object,
-                             guint         prop_id,
-                             const GValue *value,
-                             GParamSpec   *pspec)
-{
-        PpsSearchBox *box = PPS_SEARCH_BOX (object);
-        PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
-
-        switch (prop_id) {
-        case PROP_DOCUMENT_MODEL:
-                priv->model = g_value_get_object (value);
-                break;
-        default:
-                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-        }
-}
-
-static void
-pps_search_box_get_property (GObject    *object,
-                            guint       prop_id,
-                            GValue     *value,
-                            GParamSpec *pspec)
-{
-        PpsSearchBox *box = PPS_SEARCH_BOX (object);
-        PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
-
-        switch (prop_id) {
-        case PROP_OPTIONS:
-                g_value_set_flags (value, priv->options);
-                break;
-        default:
-                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-        }
-}
-
-static void
-pps_search_box_constructed (GObject *object)
-{
-        PpsSearchBox *box = PPS_SEARCH_BOX (object);
-        PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
-
-        G_OBJECT_CLASS (pps_search_box_parent_class)->constructed (object);
-
-        g_object_add_weak_pointer (G_OBJECT (priv->model),
-                                   (gpointer)&priv->model);
-
-        pps_search_box_setup_document (box, pps_document_model_get_document (priv->model));
-        g_signal_connect_object (priv->model, "notify::document",
-                                 G_CALLBACK (document_changed_cb),
-                                 box, 0);
-}
-
 static gboolean
 pps_search_box_grab_focus (GtkWidget *widget)
 {
@@ -325,14 +164,7 @@ pps_search_box_grab_focus (GtkWidget *widget)
 static void
 pps_search_box_class_init (PpsSearchBoxClass *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
         GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-        object_class->finalize = pps_search_box_finalize;
-        object_class->dispose = pps_search_box_dispose;
-        object_class->constructed = pps_search_box_constructed;
-        object_class->set_property = pps_search_box_set_property;
-        object_class->get_property = pps_search_box_get_property;
 
         widget_class->grab_focus = pps_search_box_grab_focus;
 
@@ -345,52 +177,9 @@ pps_search_box_class_init (PpsSearchBoxClass *klass)
 	gtk_widget_class_bind_template_callback (widget_class, case_sensitive_toggled_cb);
 	gtk_widget_class_bind_template_callback (widget_class, whole_words_only_toggled_cb);
 
-	gtk_widget_class_bind_template_callback (widget_class, search_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, entry_activate_cb);
 	gtk_widget_class_bind_template_callback (widget_class, entry_next_match_cb);
 	gtk_widget_class_bind_template_callback (widget_class, entry_previous_match_cb);
-
-	g_object_class_install_property (object_class,
-                                         PROP_DOCUMENT_MODEL,
-                                         g_param_spec_object ("document-model",
-                                                              "DocumentModel",
-                                                              "The document model",
-                                                              PPS_TYPE_DOCUMENT_MODEL,
-                                                              G_PARAM_WRITABLE |
-                                                              G_PARAM_CONSTRUCT_ONLY |
-                                                              G_PARAM_STATIC_STRINGS));
-        g_object_class_install_property (object_class,
-                                         PROP_OPTIONS,
-                                         g_param_spec_flags ("options",
-                                                             "Search options",
-                                                             "The search options",
-                                                             PPS_TYPE_FIND_OPTIONS,
-                                                             PPS_FIND_DEFAULT,
-                                                             G_PARAM_READABLE |
-                                                             G_PARAM_STATIC_STRINGS));
-
-        signals[STARTED] =
-                g_signal_new ("started",
-                              G_OBJECT_CLASS_TYPE (object_class),
-                              G_SIGNAL_RUN_LAST,
-                              0, NULL, NULL,
-                              g_cclosure_marshal_VOID__OBJECT,
-                              G_TYPE_NONE, 1,
-                              PPS_TYPE_JOB_FIND);
-        signals[FINISHED] =
-                g_signal_new ("finished",
-                              G_OBJECT_CLASS_TYPE (object_class),
-                              G_SIGNAL_RUN_LAST,
-                              0, NULL, NULL,
-                              g_cclosure_marshal_VOID__VOID,
-                              G_TYPE_NONE, 0);
-        signals[CLEARED] =
-                g_signal_new ("cleared",
-                              G_OBJECT_CLASS_TYPE (object_class),
-                              G_SIGNAL_RUN_LAST,
-                              0, NULL, NULL,
-                              g_cclosure_marshal_VOID__VOID,
-                              G_TYPE_NONE, 0);
 }
 
 const GActionEntry actions[] = {
@@ -401,6 +190,8 @@ const GActionEntry actions[] = {
 static void
 pps_search_box_init (PpsSearchBox *box)
 {
+        PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
+
 	GSimpleActionGroup *group;
 
 	gtk_widget_init_template (GTK_WIDGET (box));
@@ -410,16 +201,16 @@ pps_search_box_init (PpsSearchBox *box)
 					 G_N_ELEMENTS (actions), box);
 
 	gtk_widget_insert_action_group (GTK_WIDGET (box), "search", G_ACTION_GROUP (group));
+
+	priv->search_term_signal = g_signal_connect_object (priv->entry, "search-changed",
+							    G_CALLBACK (search_term_changed_cb),
+							    box, G_CONNECT_DEFAULT);
 }
 
 GtkWidget *
-pps_search_box_new (PpsDocumentModel *model)
+pps_search_box_new ()
 {
-        g_return_val_if_fail (PPS_IS_DOCUMENT_MODEL (model), NULL);
-
-        return GTK_WIDGET (g_object_new (PPS_TYPE_SEARCH_BOX,
-                                         "document-model", model,
-                                         NULL));
+        return GTK_WIDGET (g_object_new (PPS_TYPE_SEARCH_BOX, NULL));
 }
 
 /**
@@ -441,15 +232,34 @@ pps_search_box_get_entry (PpsSearchBox *box)
 }
 
 void
-pps_search_box_restart (PpsSearchBox *box)
+pps_search_box_set_search_context (PpsSearchBox     *box,
+				   PpsSearchContext *context)
 {
-        PpsSearchBoxPrivate *priv;
+        PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
 
         g_return_if_fail (PPS_IS_SEARCH_BOX (box));
+	g_return_if_fail (PPS_IS_SEARCH_CONTEXT (context));
 
-	priv = GET_PRIVATE (box);
+	if (priv->context != NULL) {
+		g_signal_handlers_disconnect_by_func (priv->context, search_changed_cb, box);
+		g_signal_handlers_disconnect_by_func (priv->context, find_job_finished_cb, box);
+	}
 
-        search_changed_cb (GTK_SEARCH_ENTRY (priv->entry), box);
+	priv->context = context;
+
+	g_signal_connect_object (priv->context, "started",
+				 G_CALLBACK (search_changed_cb),
+				 box, G_CONNECT_SWAPPED);
+	g_signal_connect_object (priv->context, "cleared",
+				 G_CALLBACK (search_changed_cb),
+				 box, G_CONNECT_SWAPPED);
+	g_signal_connect_object (priv->context, "notify::search-term",
+				 G_CALLBACK (search_changed_cb),
+				 box, G_CONNECT_SWAPPED);
+
+	g_signal_connect_object (priv->context, "finished",
+				 G_CALLBACK (find_job_finished_cb),
+				 box, G_CONNECT_DEFAULT);
 }
 
 

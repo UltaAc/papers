@@ -156,9 +156,6 @@
                     </style>
                     <property name="child">
                       <object class="PpsSearchBox" id="search_box">
-                        <property name="document-model">model</property>
-                        <signal name="started" handler="search_started_cb" />
-                        <signal name="cleared" handler="search_cleared_cb" />
                         <child internal-child="entry">
                           <object class="GtkSearchEntry">
                             <property name="width-chars">32</property>

@@ -58,6 +58,7 @@
 #include "pps-progress-message-area.h"
 #include "pps-annotation-properties-dialog.h"
 #include "pps-bookmarks.h"
+#include "pps-search-context.h"
 #include "pps-search-box.h"
 
 #ifdef ENABLE_DBUS
@@ -151,6 +152,7 @@ typedef struct {
 	PpsWindowTitle *title;
 	PpsMetadata *metadata;
 	PpsBookmarks *bookmarks;
+	PpsSearchContext *search_context;
 
 	GSimpleActionGroup *document_action_group;
 
@@ -1681,7 +1683,7 @@ pps_window_reload_job_cb (PpsJob    *job,
 
 	/* Restart the search after reloading */
 	if (gtk_search_bar_get_search_mode (GTK_SEARCH_BAR (priv->search_bar)))
-		pps_search_box_restart (PPS_SEARCH_BOX (priv->search_box));
+		pps_search_context_restart (priv->search_context);
 
 	pps_window_clear_reload_job (pps_window);
 }
@@ -4760,9 +4762,9 @@ search_entry_stop_search_cb (GtkSearchEntry *entry,
 }
 
 static void
-search_started_cb (PpsSearchBox *search_box,
-		   PpsJobFind   *job,
-		   PpsWindow    *pps_window)
+search_started_cb (PpsSearchContext *search_context,
+		   PpsJobFind       *job,
+		   PpsWindow        *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
@@ -4774,8 +4776,8 @@ search_started_cb (PpsSearchBox *search_box,
 }
 
 static void
-search_cleared_cb (PpsSearchBox *search_box,
-		   PpsWindow    *pps_window)
+search_cleared_cb (PpsSearchContext *search_context,
+		   PpsWindow        *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
@@ -4966,6 +4968,8 @@ pps_window_dispose (GObject *object)
 		g_clear_pointer (&priv->dbus_object_path, g_free);
 	}
 #endif /* ENABLE_DBUS */
+
+	g_clear_object (&priv->search_context);
 
 	g_clear_object (&priv->bookmarks);
 	g_clear_object (&priv->metadata);
@@ -6039,6 +6043,20 @@ pps_window_init (PpsWindow *pps_window)
 	g_object_bind_property (g_action_map_lookup_action (G_ACTION_MAP (priv->document_action_group), "find"), "enabled",
 				priv->search_box, "sensitive",
 				G_BINDING_SYNC_CREATE);
+
+	priv->search_context = pps_search_context_new (priv->model);
+
+	pps_search_box_set_search_context (PPS_SEARCH_BOX (priv->search_box), priv->search_context);
+
+	g_signal_connect_object (priv->search_context, "cleared",
+				 G_CALLBACK (search_cleared_cb),
+				 pps_window, G_CONNECT_DEFAULT);
+	g_signal_connect_object (priv->search_context, "started",
+				 G_CALLBACK (search_started_cb),
+				 pps_window, G_CONNECT_DEFAULT);
+	g_signal_connect_object (priv->search_context, "result-activated",
+				 G_CALLBACK (find_sidebar_result_activated_cb),
+				 pps_window, G_CONNECT_DEFAULT);
 }
 
 static void
@@ -6112,8 +6130,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, pps_window_loader_view_cancelled);
 
 	/* search box */
-	gtk_widget_class_bind_template_callback (widget_class, search_started_cb);
-	gtk_widget_class_bind_template_callback (widget_class, search_cleared_cb);
 	gtk_widget_class_bind_template_callback (widget_class, search_entry_stop_search_cb);
 
 	/* view */

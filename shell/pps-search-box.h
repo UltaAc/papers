@@ -22,8 +22,9 @@
 
 #include <gtk/gtk.h>
 #include <adwaita.h>
-#include <papers-document.h>
 #include <papers-view.h>
+
+#include "pps-search-context.h"
 
 G_BEGIN_DECLS
 
@@ -35,8 +36,9 @@ struct _PpsSearchBox {
         AdwBin parent;
 };
 
-GtkWidget      *pps_search_box_new         (PpsDocumentModel *model);
+GtkWidget      *pps_search_box_new         (void);
 GtkSearchEntry *pps_search_box_get_entry   (PpsSearchBox     *box);
-void            pps_search_box_restart     (PpsSearchBox     *box);
+void            pps_search_box_set_search_context (PpsSearchBox     *box,
+				                   PpsSearchContext *context);
 
 G_END_DECLS
