@@ -127,7 +127,7 @@ _pps_file_helpers_shutdown (void)
 /**
  * pps_mkstemp:
  * @tmpl: a template string; must contain 'XXXXXX', but not necessarily as a suffix
- * @file_name: a location to store the filename of the temp file
+ * @file_name: (out) (type filename): a location to store the filename of the temp file
  * @error: a location to store a #GError
  *
  * Creates a temp file in the papers temp directory.
@@ -213,7 +213,7 @@ pps_mkstemp_file (const char        *tmpl,
  *
  * Creates a temp directory in the papers temp directory.
  *
- * Returns: a newly allocated string with the temp directory name, or %NULL
+ * Returns: (type filename): a newly allocated string with the temp directory name, or %NULL
  *   on error with @error filled in
  */
 gchar *
