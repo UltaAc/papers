@@ -54,7 +54,7 @@ fn main() -> glib::ExitCode {
 
     log_builder.init();
 
-    gettextrs::bindtextdomain(GETTEXT_PACKAGE, papers_document::locale_dir())
+    gettextrs::bindtextdomain(GETTEXT_PACKAGE, papers_document::locale_dir().unwrap())
         .expect("Unable to bind the text domain");
     gettextrs::bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8")
         .expect("Unable to bind the text domain codeset");
