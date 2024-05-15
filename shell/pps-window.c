@@ -3735,6 +3735,7 @@ pps_window_cmd_find (GSimpleAction *action,
 	PpsWindow *pps_window = user_data;
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 	g_autofree gchar *selected_text = NULL;
+	GSimpleAction *toggle_find_action = G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (priv->document_action_group), "toggle-find"));
 
 	view = PPS_VIEW (priv->view);
         selected_text = pps_view_get_selected_text (view);
@@ -3743,11 +3744,11 @@ pps_window_cmd_find (GSimpleAction *action,
 		GtkSearchEntry *entry = pps_search_box_get_entry (PPS_SEARCH_BOX (priv->search_box));
 		gtk_editable_set_text (GTK_EDITABLE (entry), selected_text);
 		gtk_editable_select_region (GTK_EDITABLE (entry), 0, -1);
-		pps_window_show_find_bar (pps_window);
+		g_simple_action_set_state (toggle_find_action, g_variant_new_boolean (FALSE));
 		pps_window_find_restart (pps_window);
-	} else {
-		gtk_widget_activate_action (GTK_WIDGET (pps_window), "doc.toggle-find", NULL);
 	}
+
+	g_action_activate (G_ACTION (toggle_find_action), NULL);
 }
 
 static void
