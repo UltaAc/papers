@@ -1,18 +1,18 @@
 # List of source files that should *not* be translated.
 # Please keep this file sorted alphabetically.
-backend/comics/comicsdocument.papers-backend.desktop.in
-backend/comics/papers-comicsdocument.metainfo.xml.in
-backend/djvu/djvudocument.papers-backend.desktop.in
-backend/djvu/papers-djvudocument.metainfo.xml.in
-backend/pdf/papers-pdfdocument.metainfo.xml.in
-backend/pdf/pdfdocument.papers-backend.desktop.in
-backend/ps/papers-psdocument.metainfo.xml.in
-backend/ps/psdocument.papers-backend.desktop.in
-backend/tiff/papers-tiffdocument.metainfo.xml.in
-backend/tiff/tiffdocument.papers-backend.desktop.in
-backend/xps/papers-xpsdocument.metainfo.xml.in
-backend/xps/xpsdocument.papers-backend.desktop.in
 cut-n-paste/libdazzle/dzl-file-manager.c
 data/org.gnome.Papers.desktop.in
 data/org.gnome.Papers-previewer.desktop.in
 data/org.gnome.Papers.Daemon.service.in
+libdocument/backend/comics/comicsdocument.papers-backend.desktop.in
+libdocument/backend/comics/papers-comicsdocument.metainfo.xml.in
+libdocument/backend/djvu/djvudocument.papers-backend.desktop.in
+libdocument/backend/djvu/papers-djvudocument.metainfo.xml.in
+libdocument/backend/pdf/papers-pdfdocument.metainfo.xml.in
+libdocument/backend/pdf/pdfdocument.papers-backend.desktop.in
+libdocument/backend/ps/papers-psdocument.metainfo.xml.in
+libdocument/backend/ps/psdocument.papers-backend.desktop.in
+libdocument/backend/tiff/papers-tiffdocument.metainfo.xml.in
+libdocument/backend/tiff/tiffdocument.papers-backend.desktop.in
+libdocument/backend/xps/papers-xpsdocument.metainfo.xml.in
+libdocument/backend/xps/xpsdocument.papers-backend.desktop.in

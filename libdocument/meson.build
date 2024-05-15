@@ -212,3 +212,5 @@ if enable_introspection
     install: true,
   )
 endif
+
+subdir('backend')

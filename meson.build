@@ -392,7 +392,6 @@ mime_types_conf.set('PAPERS_MIME_TYPES', ';'.join(papers_mime_types))
 mime_types_conf.set('PACKAGE_ICON_NAME', app_id)
 
 subdir('libdocument')
-subdir('backend')
 subdir('libview')
 subdir('nautilus')
 
