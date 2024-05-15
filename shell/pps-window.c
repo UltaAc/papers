@@ -3695,9 +3695,7 @@ pps_window_cmd_find (GSimpleAction *action,
         selected_text = pps_view_get_selected_text (view);
 
         if (selected_text != NULL && g_strcmp0(selected_text, "") != 0) {
-		GtkSearchEntry *entry = pps_search_box_get_entry (PPS_SEARCH_BOX (priv->search_box));
-		gtk_editable_set_text (GTK_EDITABLE (entry), selected_text);
-		gtk_editable_select_region (GTK_EDITABLE (entry), 0, -1);
+		pps_search_context_set_search_term (priv->search_context, selected_text);
 		g_simple_action_set_state (toggle_find_action, g_variant_new_boolean (FALSE));
 		pps_window_find_restart (pps_window);
 	}
