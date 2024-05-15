@@ -2073,7 +2073,7 @@ pps_window_open_uri (PpsWindow       *pps_window,
 				  G_CALLBACK (pps_window_file_changed),
 				  pps_window);
 
-	if (path == NULL && !priv->local_uri) {
+	if (path == NULL) {
 		pps_window_load_file_remote (pps_window, source_file);
 	} else {
 		/* source_file is probably local, but make sure it's seekable
