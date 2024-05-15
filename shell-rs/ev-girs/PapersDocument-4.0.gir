@@ -10772,13 +10772,16 @@ It is the caller's responsibility to unlink the temp file after use.</doc>
     <function name="get_locale_dir" c:identifier="pps_get_locale_dir">
       <source-position filename="libdocument/pps-init.h" line="33"/>
       <return-value transfer-ownership="none">
-        <type name="utf8" c:type="const gchar*"/>
+        <doc xml:space="preserve"
+             filename="libdocument/pps-init.c"
+             line="88">The locale directory.</doc>
+        <type name="filename" c:type="const gchar*"/>
       </return-value>
     </function>
     <function name="init" c:identifier="pps_init">
       <doc xml:space="preserve"
            filename="libdocument/pps-init.c"
-           line="95">Initializes the papers document library, and binds the papers
+           line="100">Initializes the papers document library, and binds the papers
 gettext domain.
 
 You must call this before calling any other function in the papers
@@ -10787,7 +10790,7 @@ document library.</doc>
       <return-value transfer-ownership="none">
         <doc xml:space="preserve"
              filename="libdocument/pps-init.c"
-             line="104">%TRUE if any backends were found; %FALSE otherwise</doc>
+             line="109">%TRUE if any backends were found; %FALSE otherwise</doc>
         <type name="gboolean" c:type="gboolean"/>
       </return-value>
     </function>
@@ -10801,7 +10804,7 @@ document library.</doc>
              filename="libdocument/pps-file-helpers.c"
              line="216">a newly allocated string with the temp directory name, or %NULL
   on error with @error filled in</doc>
-        <type name="utf8" c:type="gchar*"/>
+        <type name="filename" c:type="gchar*"/>
       </return-value>
       <parameters>
         <parameter name="tmpl" transfer-ownership="none">
@@ -10831,11 +10834,14 @@ document library.</doc>
                line="129">a template string; must contain 'XXXXXX', but not necessarily as a suffix</doc>
           <type name="utf8" c:type="const char*"/>
         </parameter>
-        <parameter name="file_name" transfer-ownership="none">
+        <parameter name="file_name"
+                   direction="out"
+                   caller-allocates="0"
+                   transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-file-helpers.c"
                line="130">a location to store the filename of the temp file</doc>
-          <type name="utf8" c:type="char**"/>
+          <type name="filename" c:type="char**"/>
         </parameter>
       </parameters>
     </function>
@@ -10896,7 +10902,7 @@ document library.</doc>
     <function name="shutdown" c:identifier="pps_shutdown">
       <doc xml:space="preserve"
            filename="libdocument/pps-init.c"
-           line="126">Shuts the papers document library down.</doc>
+           line="131">Shuts the papers document library down.</doc>
       <source-position filename="libdocument/pps-init.h" line="39"/>
       <return-value transfer-ownership="none">
         <type name="none" c:type="void"/>

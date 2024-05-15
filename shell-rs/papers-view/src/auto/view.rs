@@ -36,10 +36,10 @@ impl View {
         }
     }
 
-    #[doc(alias = "pps_view_begin_add_annotation")]
-    pub fn begin_add_annotation(&self, annot_type: papers_document::AnnotationType) {
+    #[doc(alias = "pps_view_begin_add_text_annotation")]
+    pub fn begin_add_text_annotation(&self) {
         unsafe {
-            ffi::pps_view_begin_add_annotation(self.to_glib_none().0, annot_type.into_glib());
+            ffi::pps_view_begin_add_text_annotation(self.to_glib_none().0);
         }
     }
 
@@ -53,10 +53,10 @@ impl View {
         unsafe { from_glib(ffi::pps_view_can_zoom_out(self.to_glib_none().0)) }
     }
 
-    #[doc(alias = "pps_view_cancel_add_annotation")]
-    pub fn cancel_add_annotation(&self) {
+    #[doc(alias = "pps_view_cancel_add_text_annotation")]
+    pub fn cancel_add_text_annotation(&self) {
         unsafe {
-            ffi::pps_view_cancel_add_annotation(self.to_glib_none().0);
+            ffi::pps_view_cancel_add_text_annotation(self.to_glib_none().0);
         }
     }
 
@@ -382,32 +382,6 @@ impl View {
         self.emit_by_name::<()>("annot-added", &[&object]);
     }
 
-    #[doc(alias = "annot-cancel-add")]
-    pub fn connect_annot_cancel_add<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn annot_cancel_add_trampoline<F: Fn(&View) + 'static>(
-            this: *mut ffi::PpsView,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"annot-cancel-add\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
-                    annot_cancel_add_trampoline::<F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
-        }
-    }
-
-    pub fn emit_annot_cancel_add(&self) {
-        self.emit_by_name::<()>("annot-cancel-add", &[]);
-    }
-
     #[doc(alias = "annot-changed")]
     pub fn connect_annot_changed<F: Fn(&Self, &papers_document::Annotation) + 'static>(
         &self,
@@ -497,13 +471,15 @@ impl View {
     }
 
     #[doc(alias = "external-link")]
-    pub fn connect_external_link<F: Fn(&Self, &glib::Object) + 'static>(
+    pub fn connect_external_link<F: Fn(&Self, &papers_document::LinkAction) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
-        unsafe extern "C" fn external_link_trampoline<F: Fn(&View, &glib::Object) + 'static>(
+        unsafe extern "C" fn external_link_trampoline<
+            F: Fn(&View, &papers_document::LinkAction) + 'static,
+        >(
             this: *mut ffi::PpsView,
-            object: *mut glib::gobject_ffi::GObject,
+            object: *mut papers_document::ffi::PpsLinkAction,
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
@@ -522,7 +498,7 @@ impl View {
         }
     }
 
-    pub fn emit_external_link(&self, object: &glib::Object) {
+    pub fn emit_external_link(&self, object: &papers_document::LinkAction) {
         self.emit_by_name::<()>("external-link", &[&object]);
     }
 

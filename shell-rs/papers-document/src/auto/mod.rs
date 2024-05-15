@@ -62,6 +62,7 @@ pub use self::rectangle::Rectangle;
 
 mod enums;
 pub use self::enums::AnnotationType;
+pub use self::enums::CompressionType;
 pub use self::enums::DocumentContainsJS;
 pub use self::enums::SelectionStyle;
 pub use self::enums::TransitionEffectAlignment;
@@ -70,6 +71,8 @@ pub use self::enums::TransitionEffectType;
 
 mod flags;
 pub use self::flags::DocumentInfoFields;
+
+pub(crate) mod functions;
 
 pub(crate) mod traits {
     pub use super::annotation::AnnotationExt;

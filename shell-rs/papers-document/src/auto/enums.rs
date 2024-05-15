@@ -111,6 +111,110 @@ impl From<AnnotationType> for glib::Value {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PpsCompressionType")]
+pub enum CompressionType {
+    #[doc(alias = "PPS_COMPRESSION_NONE")]
+    None,
+    #[doc(alias = "PPS_COMPRESSION_BZIP2")]
+    Bzip2,
+    #[doc(alias = "PPS_COMPRESSION_GZIP")]
+    Gzip,
+    #[doc(alias = "PPS_COMPRESSION_LZMA")]
+    Lzma,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl IntoGlib for CompressionType {
+    type GlibType = ffi::PpsCompressionType;
+
+    #[inline]
+    fn into_glib(self) -> ffi::PpsCompressionType {
+        match self {
+            Self::None => ffi::PPS_COMPRESSION_NONE,
+            Self::Bzip2 => ffi::PPS_COMPRESSION_BZIP2,
+            Self::Gzip => ffi::PPS_COMPRESSION_GZIP,
+            Self::Lzma => ffi::PPS_COMPRESSION_LZMA,
+            Self::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::PpsCompressionType> for CompressionType {
+    #[inline]
+    unsafe fn from_glib(value: ffi::PpsCompressionType) -> Self {
+        skip_assert_initialized!();
+
+        match value {
+            ffi::PPS_COMPRESSION_NONE => Self::None,
+            ffi::PPS_COMPRESSION_BZIP2 => Self::Bzip2,
+            ffi::PPS_COMPRESSION_GZIP => Self::Gzip,
+            ffi::PPS_COMPRESSION_LZMA => Self::Lzma,
+            value => Self::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for CompressionType {
+    #[inline]
+    #[doc(alias = "pps_compression_type_get_type")]
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::pps_compression_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for CompressionType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
+    }
+}
+
+impl glib::value::ValueType for CompressionType {
+    type Type = Self;
+}
+
+unsafe impl<'a> glib::value::FromValue<'a> for CompressionType {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    #[inline]
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        skip_assert_initialized!();
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for CompressionType {
+    #[inline]
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    #[inline]
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+impl From<CompressionType> for glib::Value {
+    #[inline]
+    fn from(v: CompressionType) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 #[doc(alias = "PpsDocumentContainsJS")]
 pub enum DocumentContainsJS {
     #[doc(alias = "PPS_DOCUMENT_CONTAINS_JS_UNKNOWN")]

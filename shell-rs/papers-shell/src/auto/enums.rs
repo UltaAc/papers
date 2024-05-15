@@ -21,6 +21,8 @@ pub enum WindowRunMode {
     ErrorView,
     #[doc(alias = "PPS_WINDOW_MODE_PASSWORD_VIEW")]
     PasswordView,
+    #[doc(alias = "PPS_WINDOW_MODE_LOADER_VIEW")]
+    LoaderView,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -38,6 +40,7 @@ impl IntoGlib for WindowRunMode {
             Self::StartView => ffi::PPS_WINDOW_MODE_START_VIEW,
             Self::ErrorView => ffi::PPS_WINDOW_MODE_ERROR_VIEW,
             Self::PasswordView => ffi::PPS_WINDOW_MODE_PASSWORD_VIEW,
+            Self::LoaderView => ffi::PPS_WINDOW_MODE_LOADER_VIEW,
             Self::__Unknown(value) => value,
         }
     }
@@ -56,6 +59,7 @@ impl FromGlib<ffi::PpsWindowRunMode> for WindowRunMode {
             ffi::PPS_WINDOW_MODE_START_VIEW => Self::StartView,
             ffi::PPS_WINDOW_MODE_ERROR_VIEW => Self::ErrorView,
             ffi::PPS_WINDOW_MODE_PASSWORD_VIEW => Self::PasswordView,
+            ffi::PPS_WINDOW_MODE_LOADER_VIEW => Self::LoaderView,
             value => Self::__Unknown(value),
         }
     }

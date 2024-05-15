@@ -2952,7 +2952,7 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
            glib:type-name="PpsWindow"
            glib:get-type="pps_window_get_type"
            glib:type-struct="WindowClass">
-      <source-position filename="shell/pps-window.h" line="46"/>
+      <source-position filename="shell/pps-window.h" line="47"/>
       <implements name="Gio.ActionGroup"/>
       <implements name="Gio.ActionMap"/>
       <implements name="Gtk.Accessible"/>
@@ -2964,17 +2964,17 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
       <constructor name="new" c:identifier="pps_window_new">
         <doc xml:space="preserve"
              filename="shell/pps-window.c"
-             line="6370">Creates a #GtkWidget that represents the window.</doc>
-        <source-position filename="shell/pps-window.h" line="52"/>
+             line="6201">Creates a #GtkWidget that represents the window.</doc>
+        <source-position filename="shell/pps-window.h" line="53"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="6375">the #GtkWidget that represents the window.</doc>
+               line="6206">the #GtkWidget that represents the window.</doc>
           <type name="Window" c:type="PpsWindow*"/>
         </return-value>
       </constructor>
       <method name="focus_view" c:identifier="pps_window_focus_view">
-        <source-position filename="shell/pps-window.h" line="63"/>
+        <source-position filename="shell/pps-window.h" line="64"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -2986,7 +2986,7 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
       </method>
       <method name="get_dbus_object_path"
               c:identifier="pps_window_get_dbus_object_path">
-        <source-position filename="shell/pps-window.h" line="62"/>
+        <source-position filename="shell/pps-window.h" line="63"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -2997,35 +2997,35 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
         </parameters>
       </method>
       <method name="get_header_bar" c:identifier="pps_window_get_header_bar">
-        <source-position filename="shell/pps-window.h" line="64"/>
+        <source-position filename="shell/pps-window.h" line="65"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="6403">the #AdwHeaderBar that represents the toolbar of the window.</doc>
+               line="6234">the #AdwHeaderBar that represents the toolbar of the window.</doc>
           <type name="Adw.HeaderBar" c:type="AdwHeaderBar*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="6401">the #PpsWindow</doc>
+                 line="6232">the #PpsWindow</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="get_metadata" c:identifier="pps_window_get_metadata">
-        <source-position filename="shell/pps-window.h" line="67"/>
+        <source-position filename="shell/pps-window.h" line="68"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="6432">the #PpsMetadata of the document shown in the window.</doc>
+               line="6263">the #PpsMetadata of the document shown in the window.</doc>
           <type name="Metadata" c:type="PpsMetadata*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="6430">the #PpsWindow</doc>
+                 line="6261">the #PpsWindow</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
@@ -3033,26 +3033,26 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
       <method name="get_uri" c:identifier="pps_window_get_uri">
         <doc xml:space="preserve"
              filename="shell/pps-window.c"
-             line="1680">It returns the uri of the document showed in the #PpsWindow.</doc>
-        <source-position filename="shell/pps-window.h" line="53"/>
+             line="1664">It returns the uri of the document showed in the #PpsWindow.</doc>
+        <source-position filename="shell/pps-window.h" line="54"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="1686">the uri of the document showed in the #PpsWindow.</doc>
+               line="1670">the uri of the document showed in the #PpsWindow.</doc>
           <type name="utf8" c:type="const char*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="1682">The instance of the #PpsWindow.</doc>
+                 line="1666">The instance of the #PpsWindow.</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="handle_annot_popup"
               c:identifier="pps_window_handle_annot_popup">
-        <source-position filename="shell/pps-window.h" line="65"/>
+        <source-position filename="shell/pps-window.h" line="66"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -3068,13 +3068,13 @@ See pps_papers_window_proxy_new_for_bus_sync() for the synchronous, blocking ver
       <method name="is_empty" c:identifier="pps_window_is_empty">
         <doc xml:space="preserve"
              filename="shell/pps-window.c"
-             line="547">It does look if there is any document loaded or if there is any job to load
+             line="540">It does look if there is any document loaded or if there is any job to load
 a document.</doc>
-        <source-position filename="shell/pps-window.h" line="58"/>
+        <source-position filename="shell/pps-window.h" line="59"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="554">%TRUE if there isn't any document loaded or any any documente to be
+               line="547">%TRUE if there isn't any document loaded or any any documente to be
          loaded, %FALSE in other case.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -3082,13 +3082,13 @@ a document.</doc>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="549">The instance of the #PpsWindow.</doc>
+                 line="542">The instance of the #PpsWindow.</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="open_uri" c:identifier="pps_window_open_uri">
-        <source-position filename="shell/pps-window.h" line="54"/>
+        <source-position filename="shell/pps-window.h" line="55"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -3096,13 +3096,13 @@ a document.</doc>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="2048">a `PpsWindow`</doc>
+                 line="1997">a `PpsWindow`</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
           <parameter name="uri" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="2049">uri to open</doc>
+                 line="1998">uri to open</doc>
             <type name="utf8" c:type="const char*"/>
           </parameter>
           <parameter name="dest"
@@ -3111,19 +3111,19 @@ a document.</doc>
                      allow-none="1">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="2050">destination to point to</doc>
+                 line="1999">destination to point to</doc>
             <type name="PapersDocument.LinkDest" c:type="PpsLinkDest*"/>
           </parameter>
           <parameter name="mode" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="2051">open mode</doc>
+                 line="2000">open mode</doc>
             <type name="WindowRunMode" c:type="PpsWindowRunMode"/>
           </parameter>
         </parameters>
       </method>
       <method name="print_range" c:identifier="pps_window_print_range">
-        <source-position filename="shell/pps-window.h" line="59"/>
+        <source-position filename="shell/pps-window.h" line="60"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -3146,7 +3146,7 @@ a document.</doc>
     <record name="WindowClass"
             c:type="PpsWindowClass"
             glib:is-gtype-struct-for="Window">
-      <source-position filename="shell/pps-window.h" line="46"/>
+      <source-position filename="shell/pps-window.h" line="47"/>
       <field name="parent_class">
         <type name="Adw.ApplicationWindowClass"
               c:type="AdwApplicationWindowClass"/>
@@ -3191,6 +3191,12 @@ a document.</doc>
               c:identifier="PPS_WINDOW_MODE_PASSWORD_VIEW"
               glib:nick="password-view"
               glib:name="PPS_WINDOW_MODE_PASSWORD_VIEW">
+      </member>
+      <member name="loader_view"
+              value="6"
+              c:identifier="PPS_WINDOW_MODE_LOADER_VIEW"
+              glib:nick="loader-view"
+              glib:name="PPS_WINDOW_MODE_LOADER_VIEW">
       </member>
     </enumeration>
     <function name="get_resource" c:identifier="pps_get_resource">

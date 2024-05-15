@@ -32,8 +32,6 @@ generate = [
     "PapersShell.WindowRunMode",
     "PapersShell.Window",
     "PapersShell.SidebarPage",
-    "PapersShell.PropertiesFonts",
-    "PapersShell.PropertiesLicense",
     "PapersShell.Metadata",
 ]
 

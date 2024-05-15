@@ -28,6 +28,7 @@ generate = [
     "PapersDocument.DocumentFonts",
     "PapersDocument.DocumentLicense",
     "PapersDocument.DocumentLayers",
+    "PapersDocument.CompressionType",
     #"PapersDocument.RenderContext",
     "PapersDocument.Selection",
     "PapersDocument.Annotation",
@@ -45,6 +46,7 @@ generate = [
     "PapersDocument.TransitionEffectType",
     "PapersDocument.TransitionEffectAlignment",
     "PapersDocument.TransitionEffectDirection",
+    "PapersDocument.*",
 ]
 
 manual = [

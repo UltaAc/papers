@@ -109,15 +109,15 @@ impl ViewPresentation {
     }
 
     #[doc(alias = "external-link")]
-    pub fn connect_external_link<F: Fn(&Self, &glib::Object) + 'static>(
+    pub fn connect_external_link<F: Fn(&Self, &papers_document::LinkAction) + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn external_link_trampoline<
-            F: Fn(&ViewPresentation, &glib::Object) + 'static,
+            F: Fn(&ViewPresentation, &papers_document::LinkAction) + 'static,
         >(
             this: *mut ffi::PpsViewPresentation,
-            object: *mut glib::gobject_ffi::GObject,
+            object: *mut papers_document::ffi::PpsLinkAction,
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
@@ -136,7 +136,7 @@ impl ViewPresentation {
         }
     }
 
-    pub fn emit_external_link(&self, object: &glib::Object) {
+    pub fn emit_external_link(&self, object: &papers_document::LinkAction) {
         self.emit_by_name::<()>("external-link", &[&object]);
     }
 
