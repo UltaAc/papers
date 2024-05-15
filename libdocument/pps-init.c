@@ -82,6 +82,11 @@ _pps_win32_get_locale_dir (HMODULE module)
 
 #endif
 
+/**
+ * pps_get_locale_dir:
+ *
+ * Returns: (type filename): The locale directory.
+ */
 const gchar *
 pps_get_locale_dir (void)
 {
