@@ -2394,14 +2394,17 @@ file_open_dialog_response_cb (GtkFileDialog	*dialog,
 {
 	GListModel *files = gtk_file_dialog_open_multiple_finish (dialog, result, NULL);
 
-	if (files) {
-		pps_application_open_uri_list (PPS_APP, files);
-	}
+	if (!files)
+		return;
+
+	pps_application_open_uri_list (PPS_APP, files);
 
 	if (g_list_model_get_n_items (files))
 		pps_window_file_dialog_save_folder (pps_window,
 						     g_list_model_get_item (files, 0),
 						     G_USER_DIRECTORY_DOCUMENTS);
+
+	g_clear_object (&files);
 }
 
 static void
