@@ -3689,18 +3689,19 @@ pps_window_cmd_find (GSimpleAction *action,
 	PpsWindow *pps_window = user_data;
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 	g_autofree gchar *selected_text = NULL;
-	GSimpleAction *toggle_find_action = G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (priv->document_action_group), "toggle-find"));
 
 	view = PPS_VIEW (priv->view);
         selected_text = pps_view_get_selected_text (view);
 
         if (selected_text != NULL && g_strcmp0(selected_text, "") != 0) {
 		pps_search_context_set_search_term (priv->search_context, selected_text);
-		g_simple_action_set_state (toggle_find_action, g_variant_new_boolean (FALSE));
+		g_action_group_change_action_state (G_ACTION_GROUP (priv->document_action_group),
+						    "toggle-find", g_variant_new_boolean (TRUE));
 		pps_window_find_restart (pps_window);
+	} else {
+		gtk_widget_activate_action (GTK_WIDGET (pps_window), "doc.toggle-find", NULL);
 	}
 
-	g_action_activate (G_ACTION (toggle_find_action), NULL);
 }
 
 static void
