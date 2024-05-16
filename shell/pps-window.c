@@ -3285,34 +3285,27 @@ pps_window_cmd_file_properties (GSimpleAction *action,
 }
 
 static void
-document_modified_reload_dialog_response (GtkDialog *dialog,
-					  gint	     response,
-					  PpsWindow  *pps_window)
+document_modified_reload_dialog_response (AdwAlertDialog  *dialog,
+					  gchar 	  *response,
+					  PpsWindow       *pps_window)
 {
-	gtk_window_destroy (GTK_WINDOW (dialog));
-
-	if (response == GTK_RESPONSE_YES)
+	if (g_str_equal (response, "yes"))
 	        pps_window_reload_document (pps_window);
 }
 
 static void
-document_modified_confirmation_dialog_response (GtkDialog *dialog,
-						gint       response,
-						PpsWindow  *pps_window)
+document_modified_confirmation_dialog_response (AdwAlertDialog *dialog,
+						gchar          *response,
+						PpsWindow      *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	gtk_window_destroy (GTK_WINDOW (dialog));
 
-	switch (response) {
-	case GTK_RESPONSE_YES:
+	if (g_str_equal (response, "yes")) {
 		priv->close_after_save = TRUE;
 		pps_window_save_as (pps_window);
-		break;
-	case GTK_RESPONSE_NO:
+	} else if (g_str_equal (response, "no")) {
 		gtk_window_destroy (GTK_WINDOW (pps_window));
-		break;
-	case GTK_RESPONSE_CANCEL:
-	default:
+	} else if (g_str_equal (response, "cancel")) {
 		priv->close_after_save = FALSE;
 	}
 }
@@ -3323,9 +3316,8 @@ pps_window_check_document_modified (PpsWindow      *pps_window,
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 	PpsDocument  *document = priv->document;
-	GtkWidget   *dialog;
-	gchar       *text, *markup;
-	const gchar *secondary_text, *secondary_text_command;
+	AdwAlertDialog *dialog;
+	const gchar *text, *secondary_text, *secondary_text_command;
 
 	if (!document)
 		return FALSE;
@@ -3340,53 +3332,44 @@ pps_window_check_document_modified (PpsWindow      *pps_window,
 		return FALSE;
 	}
 
-	dialog = gtk_message_dialog_new (GTK_WINDOW (pps_window),
-					 GTK_DIALOG_MODAL,
-					 GTK_MESSAGE_QUESTION,
-					 GTK_BUTTONS_NONE,
-					 NULL);
+	dialog = ADW_ALERT_DIALOG (adw_alert_dialog_new (NULL, NULL));
 
 	if (command == PPS_WINDOW_ACTION_RELOAD) {
-		text = g_markup_printf_escaped (_("File changed outside Papers. Reload document “%s”?"),
-						gtk_window_get_title (GTK_WINDOW (pps_window)));
+		text = _("File changed outside Papers. Reload document?");
 		secondary_text_command = _("If you reload the document, changes will be permanently lost.");
-		gtk_dialog_add_buttons (GTK_DIALOG (dialog),
-					_("_No"),
-					GTK_RESPONSE_NO,
-					_("_Reload"),
-					GTK_RESPONSE_YES,
-					NULL);
+
+		adw_alert_dialog_add_responses (dialog,
+						"no", _("_No"),
+						"yes", _("_Reload"),
+						NULL);
+		adw_alert_dialog_set_response_appearance (dialog, "yes", ADW_RESPONSE_DESTRUCTIVE);
+
 		g_signal_connect (dialog, "response",
 				  G_CALLBACK (document_modified_reload_dialog_response),
 				  pps_window);
 	} else {
-		text = g_markup_printf_escaped (_("Save a copy of document “%s” before closing?"),
-                                                gtk_window_get_title (GTK_WINDOW (pps_window)));
+		text = _("Save a copy of the document before closing?");
 		secondary_text_command = _("If you don’t save a copy, changes will be permanently lost.");
-		gtk_dialog_add_buttons (GTK_DIALOG (dialog),
-				_("Close _without Saving"),
-				GTK_RESPONSE_NO,
-				_("C_ancel"),
-				GTK_RESPONSE_CANCEL,
-				_("Save a _Copy"),
-				GTK_RESPONSE_YES,
-				NULL);
+
+		adw_alert_dialog_add_responses (dialog,
+						"no", _("Close _without Saving"),
+						"cancel", _("C_ancel"),
+						"yes", _("Save a _Copy"),
+						NULL);
+		adw_alert_dialog_set_response_appearance (dialog, "no", ADW_RESPONSE_DESTRUCTIVE);
+		adw_alert_dialog_set_response_appearance (dialog, "yes", ADW_RESPONSE_SUGGESTED);
+
 		g_signal_connect (dialog, "response",
 			  G_CALLBACK (document_modified_confirmation_dialog_response),
 			  pps_window);
 
 	}
-	markup = g_strdup_printf ("<b>%s</b>", text);
-	g_free (text);
 
-	gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (dialog), markup);
-	g_free (markup);
+	adw_alert_dialog_set_heading (dialog, text);
+	adw_alert_dialog_format_body (dialog, "%s %s", secondary_text, secondary_text_command);
+	adw_alert_dialog_set_default_response (dialog, "yes");
 
-	gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-						  "%s %s", secondary_text, secondary_text_command);
-	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
-
-	gtk_widget_set_visible (dialog, TRUE);
+	adw_dialog_present (ADW_DIALOG (dialog), GTK_WIDGET (pps_window));
 
 	return TRUE;
 }
