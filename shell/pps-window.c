@@ -3359,23 +3359,19 @@ pps_window_check_document_modified (PpsWindow      *pps_window,
 }
 
 static void
-print_jobs_confirmation_dialog_response (GtkDialog *dialog,
-					 gint       response,
-					 PpsWindow  *pps_window)
+print_jobs_confirmation_dialog_response (AdwAlertDialog *dialog,
+					 gchar          *response,
+					 PpsWindow      *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
-	gtk_window_destroy (GTK_WINDOW (dialog));
-
-	switch (response) {
-	case GTK_RESPONSE_YES:
+	if (g_str_equal (response, "yes")) {
 		if (!priv->print_queue ||
 		    g_queue_is_empty (priv->print_queue))
 			gtk_window_destroy (GTK_WINDOW (pps_window));
 		else
 			priv->close_after_print = TRUE;
-		break;
-	case GTK_RESPONSE_NO:
+	} else if (g_str_equal(response, "no")) {
 		priv->close_after_print = TRUE;
 		if (priv->print_queue &&
 		    !g_queue_is_empty (priv->print_queue)) {
@@ -3384,9 +3380,7 @@ print_jobs_confirmation_dialog_response (GtkDialog *dialog,
 		} else {
 			gtk_window_destroy (GTK_WINDOW (pps_window));
 		}
-		break;
-	case GTK_RESPONSE_CANCEL:
-	default:
+	} else {
 		priv->close_after_print = FALSE;
 	}
 }
@@ -3395,8 +3389,8 @@ static gboolean
 pps_window_check_print_queue (PpsWindow *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	GtkWidget *dialog;
-	gchar     *text, *markup;
+	AdwAlertDialog *dialog;
+	g_autofree gchar *text = NULL;
 	gint       n_print_jobs;
 
 	n_print_jobs = priv->print_queue ?
@@ -3405,11 +3399,6 @@ pps_window_check_print_queue (PpsWindow *pps_window)
 	if (n_print_jobs == 0)
 		return FALSE;
 
-	dialog = gtk_message_dialog_new (GTK_WINDOW (pps_window),
-					 GTK_DIALOG_MODAL,
-					 GTK_MESSAGE_QUESTION,
-					 GTK_BUTTONS_NONE,
-					 NULL);
 	if (n_print_jobs == 1) {
 		PpsPrintOperation *op;
 		const gchar      *job_name;
@@ -3431,30 +3420,26 @@ pps_window_check_print_queue (PpsWindow *pps_window)
 					n_print_jobs);
 	}
 
-	markup = g_strdup_printf ("<b>%s</b>", text);
-	g_free (text);
+	dialog = ADW_ALERT_DIALOG (adw_alert_dialog_new (text,
+						_("If you close the window, pending print "
+						  "jobs will not be printed.")));
 
-	gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (dialog), markup);
-	g_free (markup);
+	adw_alert_dialog_add_responses (dialog,
+					"no", _("Cancel _print and Close"),
+					"cancel", _("_Cancel"),
+					"yes", _("Close _after Printing"),
+					NULL);
 
-	gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), "%s",
-						  _("If you close the window, pending print "
-						    "jobs will not be printed."));
+	adw_alert_dialog_set_response_appearance (dialog, "no", ADW_RESPONSE_DESTRUCTIVE);
+	adw_alert_dialog_set_response_appearance (dialog, "yes", ADW_RESPONSE_SUGGESTED);
 
-	gtk_dialog_add_buttons (GTK_DIALOG (dialog),
-				_("Cancel _print and Close"),
-				GTK_RESPONSE_NO,
-				_("_Cancel"),
-				GTK_RESPONSE_CANCEL,
-				_("Close _after Printing"),
-				GTK_RESPONSE_YES,
-				NULL);
-	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
+	adw_alert_dialog_set_default_response (dialog, "yes");
 
 	g_signal_connect (dialog, "response",
 			  G_CALLBACK (print_jobs_confirmation_dialog_response),
 			  pps_window);
-	gtk_widget_set_visible (dialog, TRUE);
+
+	adw_dialog_present (ADW_DIALOG (dialog), GTK_WIDGET (pps_window));
 
 	return TRUE;
 }
