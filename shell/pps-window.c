@@ -3046,27 +3046,11 @@ pps_window_print_operation_done (PpsPrintOperation       *op,
 
 		break;
 	case GTK_PRINT_OPERATION_RESULT_ERROR: {
-		GtkWidget *dialog;
 		GError    *error = NULL;
-
 
 		pps_print_operation_get_error (op, &error);
 
-		/* The message area is already used by
-		 * the printing progress, so it's better to
-		 * use a popup dialog in this case
-		 */
-		dialog = gtk_message_dialog_new (GTK_WINDOW (pps_window),
-						 GTK_DIALOG_DESTROY_WITH_PARENT,
-						 GTK_MESSAGE_ERROR,
-						 GTK_BUTTONS_CLOSE,
-						 "%s", _("Failed to print document"));
-		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-							  "%s", error->message);
-		g_signal_connect (dialog, "response",
-				  G_CALLBACK (gtk_window_destroy),
-				  NULL);
-		gtk_widget_set_visible (dialog, TRUE);
+		pps_window_error_message (pps_window, error, _("Failed to Print Document"));
 
 		g_error_free (error);
 	}
