@@ -27,6 +27,8 @@
 #include <glib/gstdio.h>
 #include <unistd.h>
 
+#include <adwaita.h>
+
 #include "pps-jobs.h"
 #include "pps-job-scheduler.h"
 
@@ -2009,20 +2011,12 @@ export_unix_print_dialog_response_cb (GtkDialog              *dialog,
 	export->current_page = gtk_print_unix_dialog_get_current_page (GTK_PRINT_UNIX_DIALOG (dialog));
 
         if (!pps_print_operation_export_update_ranges (export)) {
-		GtkWidget *message_dialog;
+		AdwAlertDialog *alert_dialog;
 
-		message_dialog = gtk_message_dialog_new (GTK_WINDOW (dialog),
-						 GTK_DIALOG_MODAL,
-						 GTK_MESSAGE_WARNING,
-						 GTK_BUTTONS_CLOSE,
-						 "%s", _("Invalid page selection"));
-		gtk_window_set_title (GTK_WINDOW (message_dialog), _("Warning"));
-		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (message_dialog),
-							  "%s", _("Your print range selection does not include any pages"));
-		g_signal_connect (message_dialog, "response",
-				  G_CALLBACK (gtk_window_destroy),
-				  NULL);
-		gtk_widget_set_visible (message_dialog, TRUE);
+		alert_dialog = ADW_ALERT_DIALOG (adw_alert_dialog_new (_("Invalid page selection"),
+					_("Your print range selection does not include any pages")));
+		adw_alert_dialog_add_response (alert_dialog, "close", _("_Close"));
+		adw_dialog_present (ADW_DIALOG (alert_dialog), GTK_WIDGET (dialog));
 
 		return;
 	}
