@@ -86,7 +86,7 @@ mod imp {
             if let Some(model) = self.model() {
                 let page = model.page();
 
-                if page >= 0 {
+                if page >= 0 && model.document().is_some() {
                     self.set_current_page(page);
                 }
             }
