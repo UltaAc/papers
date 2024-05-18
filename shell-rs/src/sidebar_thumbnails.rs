@@ -55,6 +55,8 @@ mod imp {
 
             klass.bind_template();
             klass.bind_template_callbacks();
+
+            klass.set_css_name("pps-sidebar-thumbnails");
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {
@@ -144,7 +146,7 @@ mod imp {
         ) {
             let box_ = gtk::Box::builder()
                 .orientation(gtk::Orientation::Vertical)
-                .margin_top(6)
+                .spacing(6)
                 .build();
 
             let mut css_classes = vec!["icon-dropshadow"];
@@ -155,16 +157,14 @@ mod imp {
 
             let image = gtk::Picture::builder()
                 .width_request(60)
-                .margin_bottom(6)
-                .margin_start(6)
-                .margin_end(6)
-                .margin_top(6)
                 .content_fit(gtk::ContentFit::Contain)
                 .css_classes(css_classes)
                 .accessible_role(gtk::AccessibleRole::Presentation)
                 .build();
 
             let label = gtk::Label::builder()
+                .vexpand(true)
+                .valign(gtk::Align::End)
                 .attributes(&AttrList::from_string("0 -1 style italic").unwrap())
                 .wrap_mode(WrapMode::WordChar)
                 .wrap(true)
@@ -238,10 +238,12 @@ mod imp {
             if let Some(paintable) = item.paintable() {
                 item.set_paintable(Some(&paintable));
             } else if item.job().is_none() {
-                let job = self.render_item(model_index);
+                item.set_job(Some(self.render_item(model_index)));
 
-                item.set_job(Some(job));
-                image.set_resource(Some("/org/gnome/papers/icons/scalable/apps/empty-page.svg"));
+                let (width, height) = self
+                    .thumbnail_size_for_page(self.page_of_document(model_index))
+                    .unwrap_or((210, 297));
+                image.set_paintable(Some(&gdk::Paintable::new_empty(width, height)));
             }
         }
 
@@ -407,6 +409,10 @@ mod imp {
 
             self.clamp.set_maximum_size(210 * columns as i32);
             self.clamp.set_tightening_threshold(150 * columns as i32);
+
+            self.obj().remove_css_class("columns-1");
+            self.obj().remove_css_class("columns-2");
+            self.obj().add_css_class(&format!("columns-{}", columns));
         }
 
         fn set_current_page(&self, doc_page: i32) {

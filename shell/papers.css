@@ -63,3 +63,22 @@ pps-presentation-view.white-mode {
     padding-left: 2px;
     padding-right: 2px;
 }
+
+pps-sidebar-thumbnails child.activatable picture {
+    border: 1px solid var(--border-color);
+    background-color: #ffffff;
+}
+
+pps-sidebar-thumbnails picture {
+    border-radius: 6px;
+}
+
+pps-sidebar-thumbnails.columns-1 gridview > child {
+    padding: 12px 12px 6px;
+    border-radius: 12px;
+}
+
+pps-sidebar-thumbnails.columns-2 gridview > child {
+    padding: 8px 8px 6px;
+    border-radius: 6px;
+}
