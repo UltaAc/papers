@@ -1,13 +1,13 @@
 .content-view.document-page {
-    box-shadow: alpha(@card_shade_color, 0.75) 0px 2px 3px 1px, @card_shade_color 0px 1px 3px 1px;
+    box-shadow: color-mix(in srgb, var(--card-shade-color) 75%, transparent) 0px 2px 3px 1px, var(--card-shade-color) 0px 1px 3px 1px;
 }
 
 PpsView {
-    background-color: @theme_bg_color;
+    background-color: var(--window-bg-color);
 }
 
 PpsView:selected {
-    background-color: @theme_selected_bg_color;
+    background-color: var(--accent-bg-color);
 }
 
 PpsView.document-page {

@@ -1,12 +1,12 @@
 #pps-loading-message {
-    background-color: @theme_bg_color;
-    color: @theme_fg_color;
+    background-color: var(--window-bg-color);
+    color: var(--window-fg-color);
     border-radius: 10px;
     padding: 10px;
 }
 
 .content-view.document-page {
-    box-shadow: alpha(@card_shade_color, 0.75) 0px 2px 3px 1px, @card_shade_color 0px 1px 3px 1px;
+    box-shadow: color-mix(in srgb, var(--card-shade-color) 75%, transparent) 0px 2px 3px 1px, var(--card-shade-color) 0px 1px 3px 1px;
 }
 
 window.pps-annotation-window {
@@ -22,15 +22,15 @@ window.pps-annotation-window {
 }
 
 pps-view:selected {
-    background-color: @theme_selected_bg_color;
+    background-color: var(--accent-bg-color);
 }
 
 pps-view.find-results:selected {
-    background-color: alpha(@accent_bg_color, 0.3);
+    background-color: color-mix(in srgb, var(--accent-bg-color) 30%, transparent);
 }
 
 pps-view.find-results:active {
-    background-color: alpha(@accent_bg_color, 0.6);
+    background-color:color-mix(in srgb, var(--accent-bg-color) 60%, transparent);
 }
 
 pps-view.document-page {

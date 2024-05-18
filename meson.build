@@ -147,8 +147,8 @@ po_dir = join_paths(source_root, 'po')
 top_inc = include_directories('.')
 
 glib_req_version = '>= 2.75.0'
-gtk_req_version = '>= 4.15.1'
-libaw_req_version = '>= 1.5.0'
+gtk_req_version = '>= 4.15.2'
+libaw_req_version = '>= 1.6'
 exempi_req_version = '>= 2.0'
 
 gdk_pixbuf_dep = dependency('gdk-pixbuf-2.0', version: '>= 2.40.0')
