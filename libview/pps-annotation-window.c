@@ -68,6 +68,9 @@ pps_annotation_window_sync_contents (PpsAnnotationWindow *window)
 	GtkTextBuffer *buffer;
 	PpsAnnotation  *annot = window->annotation;
 
+	if (!window->annotation)
+		return;
+
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (window->text_view));
 	gtk_text_buffer_get_bounds (buffer, &start, &end);
 	contents = gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
@@ -164,15 +167,6 @@ pps_annotation_window_set_property (GObject      *object,
 }
 
 static void
-pps_annotation_window_has_focus_changed (GtkTextView        *text_view,
-					GParamSpec         *pspec,
-					PpsAnnotationWindow *window)
-{
-	if (!gtk_widget_has_focus (GTK_WIDGET (text_view)) && window->annotation)
-		pps_annotation_window_sync_contents (window);
-}
-
-static void
 pps_annotation_window_init (PpsAnnotationWindow *window)
 {
 	GtkWidget *vbox;
@@ -202,9 +196,9 @@ pps_annotation_window_init (PpsAnnotationWindow *window)
 	gtk_widget_set_valign (swindow, GTK_ALIGN_FILL);
 	gtk_widget_set_vexpand (swindow, TRUE);
 	gtk_window_set_focus (GTK_WINDOW (window), window->text_view);
-	g_signal_connect (window->text_view, "notify::has-focus",
-			  G_CALLBACK (pps_annotation_window_has_focus_changed),
-			  window);
+	g_signal_connect_swapped (window->text_view, "notify::has-focus",
+				  G_CALLBACK (pps_annotation_window_sync_contents),
+				  window);
 
 	gtk_box_append (GTK_BOX (vbox), swindow);
 
