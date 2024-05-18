@@ -144,19 +144,6 @@ pps_annotation_window_opacity_changed (PpsAnnotation       *annot,
 }
 
 static void
-pps_annotation_window_dispose (GObject *object)
-{
-	PpsAnnotationWindow *window = PPS_ANNOTATION_WINDOW (object);
-
-	if (window->annotation) {
-		pps_annotation_window_sync_contents (window);
-		g_clear_object (&window->annotation);
-	}
-
-	(* G_OBJECT_CLASS (pps_annotation_window_parent_class)->dispose) (object);
-}
-
-static void
 pps_annotation_window_set_property (GObject      *object,
 				   guint         prop_id,
 				   const GValue *value,
@@ -239,6 +226,9 @@ pps_annotation_window_init (PpsAnnotationWindow *window)
 	gtk_window_set_resizable (GTK_WINDOW (window), TRUE);
 	gtk_window_set_hide_on_close (GTK_WINDOW (window), TRUE);
 	gtk_widget_add_css_class (GTK_WIDGET (window), "pps-annotation-window");
+	g_signal_connect_swapped (window, "close-request",
+				  G_CALLBACK (pps_annotation_window_sync_contents),
+				  window);
 }
 
 static GObject *
@@ -326,7 +316,6 @@ pps_annotation_window_class_init (PpsAnnotationWindowClass *klass)
 
 	g_object_class->constructor = pps_annotation_window_constructor;
 	g_object_class->set_property = pps_annotation_window_set_property;
-	g_object_class->dispose = pps_annotation_window_dispose;
 
 	gtk_widget_class_add_binding (gtk_widget_class, GDK_KEY_Escape, 0,
 				      pps_annotation_window_escape_pressed, NULL);
