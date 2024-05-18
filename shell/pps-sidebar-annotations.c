@@ -26,6 +26,7 @@
 #include "pps-document-annotations.h"
 #include "pps-sidebar-page.h"
 #include "pps-sidebar-annotations.h"
+#include "pps-sidebar-annotations-row.h"
 #include "pps-jobs.h"
 #include "pps-job-scheduler.h"
 #include "pps-window.h"
@@ -256,12 +257,6 @@ job_finished_callback (PpsJobAnnots          *job,
 
 		for (ll = pps_mapping_list_get_list (mapping_list); ll; ll = g_list_next (ll)) {
 			PpsAnnotation *annot;
-			const gchar  *label;
-			const gchar  *modified;
-			const gchar  *contents;
-			gchar        *markup = NULL;
-			gchar        *tooltip = NULL;
-			const gchar  *icon_name = NULL;
 			GtkWidget    *row;
 			GtkEventController *controller;
 
@@ -269,47 +264,10 @@ job_finished_callback (PpsJobAnnots          *job,
 			if (!PPS_IS_ANNOTATION_MARKUP (annot))
 				continue;
 
-			label = pps_annotation_markup_get_label (PPS_ANNOTATION_MARKUP (annot));
-			modified = pps_annotation_get_modified (annot);
-			contents = pps_annotation_get_contents (annot);
+			row = GTK_WIDGET (g_object_new (PPS_TYPE_SIDEBAR_ANNOTATIONS_ROW,
+							"annotation", annot,
+							NULL));
 
-			if (modified)
-				tooltip = g_strdup_printf ("<span weight=\"bold\">%s</span>\n%s", label, modified);
-			else
-				tooltip = g_strdup_printf ("<span weight=\"bold\">%s</span>", label);
-
-			if (contents && *contents != '\0') {
-				g_autofree gchar *escaped = g_markup_escape_text (contents, -1);
-				markup = g_strstrip (g_strdup_printf ("%s", escaped));
-			}
-			else
-				markup = g_strdup_printf ("<i>%s</i>", _("No Comment"));
-
-			if (PPS_IS_ANNOTATION_TEXT (annot)) {
-				icon_name = "annotations-text-symbolic";
-			} else if (PPS_IS_ANNOTATION_ATTACHMENT (annot)) {
-				icon_name = "mail-attachment-symbolic";
-			} else if (PPS_IS_ANNOTATION_TEXT_MARKUP (annot)) {
-                                switch (pps_annotation_text_markup_get_markup_type (PPS_ANNOTATION_TEXT_MARKUP (annot))) {
-                                case PPS_ANNOTATION_TEXT_MARKUP_HIGHLIGHT:
-                                        icon_name = "format-justify-left-symbolic";
-                                        break;
-                                case PPS_ANNOTATION_TEXT_MARKUP_STRIKE_OUT:
-                                        icon_name = "format-text-strikethrough-symbolic";
-                                        break;
-                                case PPS_ANNOTATION_TEXT_MARKUP_UNDERLINE:
-                                        icon_name = "format-text-underline-symbolic";
-                                        break;
-                                case PPS_ANNOTATION_TEXT_MARKUP_SQUIGGLY:
-                                        icon_name = "annotations-squiggly-symbolic";
-                                        break;
-                                }
-                        }
-
-			row = adw_action_row_new ();
-			adw_action_row_add_prefix(ADW_ACTION_ROW (row), gtk_image_new_from_icon_name (icon_name));
-			adw_preferences_row_set_title (ADW_PREFERENCES_ROW (row), markup);
-			gtk_widget_set_tooltip_markup (row, tooltip);
 			adw_expander_row_add_row (ADW_EXPANDER_ROW (expander), row);
 
 			controller = GTK_EVENT_CONTROLLER (gtk_gesture_click_new ());
@@ -319,8 +277,6 @@ job_finished_callback (PpsJobAnnots          *job,
 			g_signal_connect (G_OBJECT (controller), "pressed",
 					  (GCallback)sidebar_annots_button_press_cb, ll->data);
 
-			g_free (markup);
-			g_free (tooltip);
 			found = TRUE;
 		}
 

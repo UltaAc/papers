@@ -14,6 +14,7 @@ papers_sources = files(
   'pps-search-context.c',
   'pps-search-result.c',
   'pps-sidebar-annotations.c',
+  'pps-sidebar-annotations-row.c',
   'pps-sidebar-bookmarks.c',
   'pps-sidebar-page.c',
 )
