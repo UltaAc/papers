@@ -44,6 +44,7 @@ shell/pps-annotation-properties-dialog.c
 shell/pps-application.c
 shell/pps-history.c
 shell/pps-keyring.c
+shell/pps-loader-view.ui
 shell/pps-page-selector.ui
 shell/pps-password-dialog.ui
 shell/pps-password-view.ui
