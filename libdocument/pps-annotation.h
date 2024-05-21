@@ -36,53 +36,33 @@ G_BEGIN_DECLS
 
 /* PpsAnnotation */
 #define PPS_TYPE_ANNOTATION                      (pps_annotation_get_type())
-#define PPS_ANNOTATION(object)                   (G_TYPE_CHECK_INSTANCE_CAST((object), PPS_TYPE_ANNOTATION, PpsAnnotation))
-#define PPS_ANNOTATION_CLASS(klass)              (G_TYPE_CHECK_CLASS_CAST((klass), PPS_TYPE_ANNOTATION, PpsAnnotationClass))
-#define PPS_IS_ANNOTATION(object)                (G_TYPE_CHECK_INSTANCE_TYPE((object), PPS_TYPE_ANNOTATION))
-#define PPS_IS_ANNOTATION_CLASS(klass)           (G_TYPE_CHECK_CLASS_TYPE((klass), PPS_TYPE_ANNOTATION))
-#define PPS_ANNOTATION_GET_CLASS(object)         (G_TYPE_INSTANCE_GET_CLASS((object), PPS_TYPE_ANNOTATION, PpsAnnotationClass))
+PPS_PUBLIC
+G_DECLARE_DERIVABLE_TYPE (PpsAnnotation, pps_annotation, PPS, ANNOTATION, GObject);
+
+struct _PpsAnnotationClass {
+	GObjectClass parent_class;
+};
 
 /* PpsAnnotationMarkup */
 #define PPS_TYPE_ANNOTATION_MARKUP               (pps_annotation_markup_get_type ())
 
 PPS_PUBLIC
-G_DECLARE_INTERFACE (PpsAnnotationMarkup, pps_annotation_markup, PPS, ANNOTATION_MARKUP, GObject)
+G_DECLARE_INTERFACE (PpsAnnotationMarkup, pps_annotation_markup, PPS, ANNOTATION_MARKUP, GObject);
 
 /* PpsAnnotationText */
 #define PPS_TYPE_ANNOTATION_TEXT                 (pps_annotation_text_get_type())
-#define PPS_ANNOTATION_TEXT(object)              (G_TYPE_CHECK_INSTANCE_CAST((object), PPS_TYPE_ANNOTATION_TEXT, PpsAnnotationText))
-#define PPS_ANNOTATION_TEXT_CLASS(klass)         (G_TYPE_CHECK_CLASS_CAST((klass), PPS_TYPE_ANNOTATION_TEXT, PpsAnnotationTextClass))
-#define PPS_IS_ANNOTATION_TEXT(object)           (G_TYPE_CHECK_INSTANCE_TYPE((object), PPS_TYPE_ANNOTATION_TEXT))
-#define PPS_IS_ANNOTATION_TEXT_CLASS(klass)      (G_TYPE_CHECK_CLASS_TYPE((klass), PPS_TYPE_ANNOTATION_TEXT))
-#define PPS_ANNOTATION_TEXT_GET_CLASS(object)    (G_TYPE_INSTANCE_GET_CLASS((object), PPS_TYPE_ANNOTATION_TEXT, PpsAnnotationTextClass))
+PPS_PUBLIC
+G_DECLARE_FINAL_TYPE (PpsAnnotationText, pps_annotation_text, PPS, ANNOTATION_TEXT, PpsAnnotation);
 
 /* PpsAnnotationAttachment */
-#define PPS_TYPE_ANNOTATION_ATTACHMENT              (pps_annotation_attachment_get_type())
-#define PPS_ANNOTATION_ATTACHMENT(object)           (G_TYPE_CHECK_INSTANCE_CAST((object), PPS_TYPE_ANNOTATION_ATTACHMENT, PpsAnnotationAttachment))
-#define PPS_ANNOTATION_ATTACHMENT_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), PPS_TYPE_ANNOTATION_ATTACHMENT, PpsAnnotationAttachmentClass))
-#define PPS_IS_ANNOTATION_ATTACHMENT(object)        (G_TYPE_CHECK_INSTANCE_TYPE((object), PPS_TYPE_ANNOTATION_ATTACHMENT))
-#define PPS_IS_ANNOTATION_ATTACHMENT_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass), PPS_TYPE_ANNOTATION_ATTACHMENT))
-#define PPS_ANNOTATION_ATTACHMENT_GET_CLASS(object) (G_TYPE_INSTANCE_GET_CLASS((object), PPS_TYPE_ANNOTATION_ATTACHMENT, PpsAnnotationAttachmentClass))
+#define PPS_TYPE_ANNOTATION_ATTACHMENT (pps_annotation_attachment_get_type())
+PPS_PUBLIC
+G_DECLARE_FINAL_TYPE (PpsAnnotationAttachment, pps_annotation_attachment, PPS, ANNOTATION_ATTACHMENT, PpsAnnotation);
 
 /* PpsAnnotationTextMarkup */
 #define PPS_TYPE_ANNOTATION_TEXT_MARKUP              (pps_annotation_text_markup_get_type ())
-#define PPS_ANNOTATION_TEXT_MARKUP(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), PPS_TYPE_ANNOTATION_TEXT_MARKUP, PpsAnnotationTextMarkup))
-#define PPS_ANNOTATION_TEXT_MARKUP_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_ANNOTATION_TEXT_MARKUP, PpsAnnotationTextMarkupClass))
-#define PPS_IS_ANNOTATION_TEXT_MARKUP(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), PPS_TYPE_ANNOTATION_TEXT_MARKUP))
-#define PPS_IS_ANNOTATION_TEXT_MARKUP_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_ANNOTATION_TEXT_MARKUP))
-#define PPS_ANNOTATION_TEXT_MARKUP_GET_CLASS(object) (G_TYPE_INSTANCE_GET_CLASS ((object), PPS_TYPE_ANNOTATION_TEXT_MARKUP, PpsAnnotationTextMarkupClass))
-
-typedef struct _PpsAnnotation                PpsAnnotation;
-typedef struct _PpsAnnotationClass           PpsAnnotationClass;
-
-typedef struct _PpsAnnotationText            PpsAnnotationText;
-typedef struct _PpsAnnotationTextClass       PpsAnnotationTextClass;
-
-typedef struct _PpsAnnotationAttachment      PpsAnnotationAttachment;
-typedef struct _PpsAnnotationAttachmentClass PpsAnnotationAttachmentClass;
-
-typedef struct _PpsAnnotationTextMarkup      PpsAnnotationTextMarkup;
-typedef struct _PpsAnnotationTextMarkupClass PpsAnnotationTextMarkupClass;
+PPS_PUBLIC
+G_DECLARE_FINAL_TYPE (PpsAnnotationTextMarkup, pps_annotation_text_markup, PPS, ANNOTATION_TEXT_MARKUP, PpsAnnotation);
 
 typedef enum {
 	PPS_ANNOTATION_TYPE_UNKNOWN,
@@ -114,8 +94,6 @@ typedef enum {
 #define PPS_ANNOTATION_DEFAULT_COLOR ((const GdkRGBA) { 1., 1., 0, 1.});
 
 /* PpsAnnotation */
-PPS_PUBLIC
-GType                pps_annotation_get_type                  (void) G_GNUC_CONST;
 PPS_PUBLIC
 PpsAnnotationType     pps_annotation_get_annotation_type       (PpsAnnotation           *annot);
 PPS_PUBLIC
@@ -188,8 +166,6 @@ gboolean             pps_annotation_markup_set_popup_is_open  (PpsAnnotationMark
 
 /* PpsAnnotationText */
 PPS_PUBLIC
-GType                pps_annotation_text_get_type             (void) G_GNUC_CONST;
-PPS_PUBLIC
 PpsAnnotation        *pps_annotation_text_new                  (PpsPage                 *page);
 PPS_PUBLIC
 PpsAnnotationTextIcon pps_annotation_text_get_icon             (PpsAnnotationText       *text);
@@ -204,8 +180,6 @@ gboolean             pps_annotation_text_set_is_open          (PpsAnnotationText
 
 /* PpsAnnotationAttachment */
 PPS_PUBLIC
-GType                pps_annotation_attachment_get_type       (void) G_GNUC_CONST;
-PPS_PUBLIC
 PpsAnnotation        *pps_annotation_attachment_new            (PpsPage                 *page,
 							      PpsAttachment           *attachment);
 PPS_PUBLIC
@@ -215,8 +189,6 @@ gboolean             pps_annotation_attachment_set_attachment (PpsAnnotationAtta
 							      PpsAttachment           *attachment);
 
 /* PpsAnnotationTextMarkup */
-PPS_PUBLIC
-GType                      pps_annotation_text_markup_get_type        (void) G_GNUC_CONST;
 PPS_PUBLIC
 PpsAnnotation              *pps_annotation_text_markup_highlight_new   (PpsPage                    *page);
 PPS_PUBLIC

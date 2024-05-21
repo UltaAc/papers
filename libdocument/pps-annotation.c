@@ -25,9 +25,8 @@
 #include "pps-document-misc.h"
 #include "pps-document-type-builtins.h"
 
-struct _PpsAnnotation {
-	GObject          parent;
-
+/* PpsAnnotation*/
+typedef struct {
 	PpsAnnotationType type;
 	PpsPage          *page;
 
@@ -35,52 +34,76 @@ struct _PpsAnnotation {
 	gchar           *name;
 	gchar           *modified;
 	GdkRGBA          rgba;
-        PpsRectangle      area;
-};
+	PpsRectangle      area;
+} PpsAnnotationPrivate;
 
-struct _PpsAnnotationClass {
-	GObjectClass parent_class;
-};
+G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (PpsAnnotation, pps_annotation, G_TYPE_OBJECT);
+#define GET_ANNOT_PRIVATE(o) pps_annotation_get_instance_private (o)
 
+/* PpsAnnotationMarkup*/
 struct _PpsAnnotationMarkupInterface {
 	GTypeInterface base_iface;
 };
 
-struct _PpsAnnotationText {
-	PpsAnnotation parent;
+G_DEFINE_INTERFACE (PpsAnnotationMarkup, pps_annotation_markup, PPS_TYPE_ANNOTATION);
 
+/* PpsAnnotationText*/
+typedef struct {
 	gboolean             is_open : 1;
 	PpsAnnotationTextIcon icon;
+} PpsAnnotationTextPrivate;
+
+struct _PpsAnnotationText {
+	PpsAnnotation parent;
 };
 
-struct _PpsAnnotationTextClass {
-	PpsAnnotationClass parent_class;
-};
+static void pps_annotation_text_markup_iface_init        (PpsAnnotationMarkupInterface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (PpsAnnotationText,
+			 pps_annotation_text,
+			 PPS_TYPE_ANNOTATION,
+			 G_IMPLEMENT_INTERFACE (PPS_TYPE_ANNOTATION_MARKUP,
+						pps_annotation_text_markup_iface_init)
+			 G_ADD_PRIVATE (PpsAnnotationText));
+#define GET_ANNOT_TEXT_PRIVATE(o) pps_annotation_text_get_instance_private (o)
+
+/* PpsAnnotationAttachment */
+typedef struct {
+	PpsAttachment *attachment;
+} PpsAnnotationAttachmentPrivate;
 
 struct _PpsAnnotationAttachment {
 	PpsAnnotation parent;
-
-	PpsAttachment *attachment;
 };
 
-struct _PpsAnnotationAttachmentClass {
-	PpsAnnotationClass parent_class;
-};
+static void pps_annotation_attachment_markup_iface_init  (PpsAnnotationMarkupInterface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (PpsAnnotationAttachment,
+			 pps_annotation_attachment,
+			 PPS_TYPE_ANNOTATION,
+			 G_IMPLEMENT_INTERFACE (PPS_TYPE_ANNOTATION_MARKUP,
+						pps_annotation_attachment_markup_iface_init)
+			 G_ADD_PRIVATE (PpsAnnotationAttachment));
+#define GET_ANNOT_ATTACH_PRIVATE(o) pps_annotation_attachment_get_instance_private (o)
+
+/* PpsAnnotationTextMarkup */
+typedef struct {
+	PpsAnnotationTextMarkupType type;
+} PpsAnnotationTextMarkupPrivate;
 
 struct _PpsAnnotationTextMarkup {
 	PpsAnnotation parent;
-
-        PpsAnnotationTextMarkupType type;
 };
 
-struct _PpsAnnotationTextMarkupClass {
-	PpsAnnotationClass parent_class;
-};
-
-static void pps_annotation_markup_default_init           (PpsAnnotationMarkupInterface *iface);
-static void pps_annotation_text_markup_iface_init        (PpsAnnotationMarkupInterface *iface);
-static void pps_annotation_attachment_markup_iface_init  (PpsAnnotationMarkupInterface *iface);
 static void pps_annotation_text_markup_markup_iface_init (PpsAnnotationMarkupInterface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (PpsAnnotationTextMarkup,
+			 pps_annotation_text_markup,
+			 PPS_TYPE_ANNOTATION,
+			 G_IMPLEMENT_INTERFACE (PPS_TYPE_ANNOTATION_MARKUP,
+						pps_annotation_text_markup_markup_iface_init)
+			 G_ADD_PRIVATE (PpsAnnotationTextMarkup));
+#define GET_ANNOT_TEXT_MARKUP_PRIVATE(o) pps_annotation_text_markup_get_instance_private (o)
 
 /* PpsAnnotation */
 enum {
@@ -117,37 +140,19 @@ enum {
 
 /* PpsAnnotationTextMarkup */
 enum {
-        PROP_TEXT_MARKUP_TYPE = PROP_MARKUP_POPUP_IS_OPEN + 1
+	PROP_TEXT_MARKUP_TYPE = PROP_MARKUP_POPUP_IS_OPEN + 1
 };
-
-G_DEFINE_ABSTRACT_TYPE (PpsAnnotation, pps_annotation, G_TYPE_OBJECT)
-G_DEFINE_INTERFACE (PpsAnnotationMarkup, pps_annotation_markup, PPS_TYPE_ANNOTATION)
-G_DEFINE_TYPE_WITH_CODE (PpsAnnotationText, pps_annotation_text, PPS_TYPE_ANNOTATION,
-	 {
-		 G_IMPLEMENT_INTERFACE (PPS_TYPE_ANNOTATION_MARKUP,
-					pps_annotation_text_markup_iface_init);
-	 });
-G_DEFINE_TYPE_WITH_CODE (PpsAnnotationAttachment, pps_annotation_attachment, PPS_TYPE_ANNOTATION,
-	 {
-		 G_IMPLEMENT_INTERFACE (PPS_TYPE_ANNOTATION_MARKUP,
-					pps_annotation_attachment_markup_iface_init);
-	 });
-G_DEFINE_TYPE_WITH_CODE (PpsAnnotationTextMarkup, pps_annotation_text_markup, PPS_TYPE_ANNOTATION,
-	 {
-		 G_IMPLEMENT_INTERFACE (PPS_TYPE_ANNOTATION_MARKUP,
-					pps_annotation_text_markup_markup_iface_init);
-	 });
 
 /* PpsAnnotation */
 static void
 pps_annotation_finalize (GObject *object)
 {
-        PpsAnnotation *annot = PPS_ANNOTATION (object);
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (PPS_ANNOTATION (object));
 
-	g_clear_object (&annot->page);
-	g_clear_pointer (&annot->contents, g_free);
-	g_clear_pointer (&annot->name, g_free);
-	g_clear_pointer (&annot->modified, g_free);
+	g_clear_object (&priv->page);
+	g_clear_pointer (&priv->contents, g_free);
+	g_clear_pointer (&priv->name, g_free);
+	g_clear_pointer (&priv->modified, g_free);
 
         G_OBJECT_CLASS (pps_annotation_parent_class)->finalize (object);
 }
@@ -155,12 +160,14 @@ pps_annotation_finalize (GObject *object)
 static void
 pps_annotation_init (PpsAnnotation *annot)
 {
-	annot->type = PPS_ANNOTATION_TYPE_UNKNOWN;
-	annot->contents = g_strdup("");
-        annot->area.x1 = -1;
-        annot->area.y1 = -1;
-        annot->area.x2 = -1;
-        annot->area.y2 = -1;
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+
+	priv->type = PPS_ANNOTATION_TYPE_UNKNOWN;
+	priv->contents = g_strdup("");
+	priv->area.x1 = -1;
+	priv->area.y1 = -1;
+	priv->area.x2 = -1;
+	priv->area.y2 = -1;
 }
 
 static void
@@ -170,10 +177,11 @@ pps_annotation_set_property (GObject      *object,
 			    GParamSpec   *pspec)
 {
 	PpsAnnotation *annot = PPS_ANNOTATION (object);
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
 
 	switch (prop_id) {
 	case PROP_ANNOT_PAGE:
-		annot->page = g_value_dup_object (value);
+		priv->page = g_value_dup_object (value);
 		break;
 	case PROP_ANNOT_CONTENTS:
 		pps_annotation_set_contents (annot, g_value_get_string (value));
@@ -202,6 +210,7 @@ pps_annotation_get_property (GObject    *object,
 			    GParamSpec *pspec)
 {
 	PpsAnnotation *annot = PPS_ANNOTATION (object);
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
 
 	switch (prop_id) {
 	case PROP_ANNOT_CONTENTS:
@@ -213,12 +222,12 @@ pps_annotation_get_property (GObject    *object,
 	case PROP_ANNOT_MODIFIED:
 		g_value_set_string (value, pps_annotation_get_modified (annot));
 		break;
-        case PROP_ANNOT_RGBA:
-                g_value_set_boxed (value, &annot->rgba);
-                break;
-        case PROP_ANNOT_AREA:
-                g_value_set_boxed (value, &annot->area);
-                break;
+	case PROP_ANNOT_RGBA:
+		g_value_set_boxed (value, &priv->rgba);
+		break;
+	case PROP_ANNOT_AREA:
+		g_value_set_boxed (value, &priv->area);
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 	}
@@ -300,9 +309,11 @@ pps_annotation_class_init (PpsAnnotationClass *klass)
 PpsAnnotationType
 pps_annotation_get_annotation_type (PpsAnnotation *annot)
 {
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+
 	g_return_val_if_fail (PPS_IS_ANNOTATION (annot), 0);
 
-	return annot->type;
+	return priv->type;
 }
 
 /**
@@ -316,9 +327,11 @@ pps_annotation_get_annotation_type (PpsAnnotation *annot)
 PpsPage *
 pps_annotation_get_page (PpsAnnotation *annot)
 {
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+
 	g_return_val_if_fail (PPS_IS_ANNOTATION (annot), NULL);
 
-	return annot->page;
+	return priv->page;
 }
 
 /**
@@ -333,9 +346,11 @@ pps_annotation_get_page (PpsAnnotation *annot)
 guint
 pps_annotation_get_page_index (PpsAnnotation *annot)
 {
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+
 	g_return_val_if_fail (PPS_IS_ANNOTATION (annot), 0);
 
-	return annot->page->index;
+	return priv->page->index;
 }
 
 /**
@@ -351,10 +366,13 @@ gboolean
 pps_annotation_equal (PpsAnnotation *annot,
 		     PpsAnnotation *other)
 {
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+
 	g_return_val_if_fail (PPS_IS_ANNOTATION (annot), FALSE);
 	g_return_val_if_fail (PPS_IS_ANNOTATION (other), FALSE);
 
-	return (annot == other || g_strcmp0 (annot->name, other->name) == 0);
+	return (annot == other ||
+		g_strcmp0 (priv->name, pps_annotation_get_name (other)) == 0);
 }
 
 /**
@@ -371,9 +389,11 @@ pps_annotation_equal (PpsAnnotation *annot,
 const gchar *
 pps_annotation_get_contents (PpsAnnotation *annot)
 {
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+
 	g_return_val_if_fail (PPS_IS_ANNOTATION (annot), NULL);
 
-	return annot->contents;
+	return priv->contents;
 }
 
 /**
@@ -390,14 +410,16 @@ gboolean
 pps_annotation_set_contents (PpsAnnotation *annot,
 			    const gchar  *contents)
 {
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+
 	g_return_val_if_fail (PPS_IS_ANNOTATION (annot), FALSE);
 
-	if (g_strcmp0 (annot->contents, contents) == 0)
+	if (g_strcmp0 (priv->contents, contents) == 0)
 		return FALSE;
 
-	if (annot->contents)
-		g_free (annot->contents);
-	annot->contents = contents ? g_strdup (contents) : NULL;
+	if (priv->contents)
+		g_free (priv->contents);
+	priv->contents = contents ? g_strdup (contents) : NULL;
 
 	g_object_notify (G_OBJECT (annot), "contents");
 
@@ -417,9 +439,11 @@ pps_annotation_set_contents (PpsAnnotation *annot,
 const gchar *
 pps_annotation_get_name (PpsAnnotation *annot)
 {
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+
 	g_return_val_if_fail (PPS_IS_ANNOTATION (annot), NULL);
 
-	return annot->name;
+	return priv->name;
 }
 
 /**
@@ -436,14 +460,16 @@ gboolean
 pps_annotation_set_name (PpsAnnotation *annot,
 			const gchar  *name)
 {
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+
 	g_return_val_if_fail (PPS_IS_ANNOTATION (annot), FALSE);
 
-	if (g_strcmp0 (annot->name, name) == 0)
+	if (g_strcmp0 (priv->name, name) == 0)
 		return FALSE;
 
-	if (annot->name)
-		g_free (annot->name);
-	annot->name = name ? g_strdup (name) : NULL;
+	if (priv->name)
+		g_free (priv->name);
+	priv->name = name ? g_strdup (name) : NULL;
 
 	g_object_notify (G_OBJECT (annot), "name");
 
@@ -461,9 +487,11 @@ pps_annotation_set_name (PpsAnnotation *annot,
 const gchar *
 pps_annotation_get_modified (PpsAnnotation *annot)
 {
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+
 	g_return_val_if_fail (PPS_IS_ANNOTATION (annot), NULL);
 
-	return annot->modified;
+	return priv->modified;
 }
 
 /**
@@ -483,14 +511,16 @@ gboolean
 pps_annotation_set_modified (PpsAnnotation *annot,
 			    const gchar  *modified)
 {
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+
 	g_return_val_if_fail (PPS_IS_ANNOTATION (annot), FALSE);
 
-	if (g_strcmp0 (annot->modified, modified) == 0)
+	if (g_strcmp0 (priv->modified, modified) == 0)
 		return FALSE;
 
-	if (annot->modified)
-		g_free (annot->modified);
-	annot->modified = modified ? g_strdup (modified) : NULL;
+	if (priv->modified)
+		g_free (priv->modified);
+	priv->modified = modified ? g_strdup (modified) : NULL;
 
 	g_object_notify (G_OBJECT (annot), "modified");
 
@@ -513,6 +543,7 @@ gboolean
 pps_annotation_set_modified_from_time_t (PpsAnnotation *annot,
 				        time_t        utime)
 {
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
 	gchar *modified;
 	g_autoptr (GDateTime) dt = g_date_time_new_from_unix_utc ((gint64)utime);
 
@@ -520,15 +551,15 @@ pps_annotation_set_modified_from_time_t (PpsAnnotation *annot,
 
 	modified = pps_document_misc_format_datetime (dt);
 
-	if (g_strcmp0 (annot->modified, modified) == 0) {
+	if (g_strcmp0 (priv->modified, modified) == 0) {
 		g_free (modified);
 		return FALSE;
 	}
 
-	if (annot->modified)
-		g_free (annot->modified);
+	if (priv->modified)
+		g_free (priv->modified);
 
-	annot->modified = modified;
+	priv->modified = modified;
 	g_object_notify (G_OBJECT (annot), "modified");
 
 	return TRUE;
@@ -547,10 +578,12 @@ void
 pps_annotation_get_rgba (PpsAnnotation *annot,
                         GdkRGBA      *rgba)
 {
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+
         g_return_if_fail (PPS_IS_ANNOTATION (annot));
         g_return_if_fail (rgba != NULL);
 
-        *rgba = annot->rgba;
+	*rgba = priv->rgba;
 }
 
 /**
@@ -568,13 +601,15 @@ gboolean
 pps_annotation_set_rgba (PpsAnnotation  *annot,
                         const GdkRGBA *rgba)
 {
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+
         g_return_val_if_fail (PPS_IS_ANNOTATION (annot), FALSE);
         g_return_val_if_fail (rgba != NULL, FALSE);
 
-        if (gdk_rgba_equal (rgba, &annot->rgba))
+	if (gdk_rgba_equal (rgba, &priv->rgba))
                 return FALSE;
 
-        annot->rgba = *rgba;
+	priv->rgba = *rgba;
         g_object_notify (G_OBJECT (annot), "rgba");
 
         return TRUE;
@@ -593,10 +628,12 @@ void
 pps_annotation_get_area (PpsAnnotation *annot,
                         PpsRectangle  *area)
 {
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+
         g_return_if_fail (PPS_IS_ANNOTATION (annot));
         g_return_if_fail (area != NULL);
 
-        *area = annot->area;
+	*area = priv->area;
 }
 
 /**
@@ -614,17 +651,18 @@ gboolean
 pps_annotation_set_area (PpsAnnotation      *annot,
                         const PpsRectangle *area)
 {
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
         gboolean was_initial;
 
         g_return_val_if_fail (PPS_IS_ANNOTATION (annot), FALSE);
         g_return_val_if_fail (area != NULL, FALSE);
 
-        if (pps_rect_cmp ((PpsRectangle *)area, &annot->area) == 0)
+        if (pps_rect_cmp ((PpsRectangle *)area, &priv->area) == 0)
                 return FALSE;
 
-        was_initial = annot->area.x1 == -1 && annot->area.x2 == -1
-                && annot->area.y1 == -1 && annot->area.y2 == -1;
-        annot->area = *area;
+        was_initial = priv->area.x1 == -1 && priv->area.x2 == -1
+                && priv->area.y1 == -1 && priv->area.y2 == -1;
+        priv->area = *area;
         if (!was_initial)
                 g_object_notify (G_OBJECT (annot), "area");
 
@@ -984,7 +1022,9 @@ pps_annotation_markup_set_popup_is_open (PpsAnnotationMarkup *markup,
 static void
 pps_annotation_text_init (PpsAnnotationText *annot)
 {
-	PPS_ANNOTATION (annot)->type = PPS_ANNOTATION_TYPE_TEXT;
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (PPS_ANNOTATION (annot));
+
+	priv->type = PPS_ANNOTATION_TYPE_TEXT;
 }
 
 static void
@@ -1019,6 +1059,7 @@ pps_annotation_text_get_property (GObject    *object,
 				 GParamSpec *pspec)
 {
 	PpsAnnotationText *annot = PPS_ANNOTATION_TEXT (object);
+	PpsAnnotationTextPrivate *priv = GET_ANNOT_TEXT_PRIVATE (annot);
 
 	if (prop_id < PROP_ATTACHMENT_ATTACHMENT) {
 		pps_annotation_markup_get_property (object, prop_id, value, pspec);
@@ -1027,10 +1068,10 @@ pps_annotation_text_get_property (GObject    *object,
 
 	switch (prop_id) {
 	case PROP_TEXT_ICON:
-		g_value_set_enum (value, annot->icon);
+		g_value_set_enum (value, priv->icon);
 		break;
 	case PROP_TEXT_IS_OPEN:
-		g_value_set_boolean (value, annot->is_open);
+		g_value_set_boolean (value, priv->is_open);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1082,21 +1123,25 @@ pps_annotation_text_new (PpsPage *page)
 PpsAnnotationTextIcon
 pps_annotation_text_get_icon (PpsAnnotationText *text)
 {
+	PpsAnnotationTextPrivate *priv = GET_ANNOT_TEXT_PRIVATE (text);
+
 	g_return_val_if_fail (PPS_IS_ANNOTATION_TEXT (text), 0);
 
-	return text->icon;
+	return priv->icon;
 }
 
 gboolean
 pps_annotation_text_set_icon (PpsAnnotationText    *text,
 			     PpsAnnotationTextIcon icon)
 {
+	PpsAnnotationTextPrivate *priv = GET_ANNOT_TEXT_PRIVATE (text);
+
 	g_return_val_if_fail (PPS_IS_ANNOTATION_TEXT (text), FALSE);
 
-	if (text->icon == icon)
+	if (priv->icon == icon)
 		return FALSE;
 
-	text->icon = icon;
+	priv->icon = icon;
 
 	g_object_notify (G_OBJECT (text), "icon");
 
@@ -1106,21 +1151,25 @@ pps_annotation_text_set_icon (PpsAnnotationText    *text,
 gboolean
 pps_annotation_text_get_is_open (PpsAnnotationText *text)
 {
+	PpsAnnotationTextPrivate *priv = GET_ANNOT_TEXT_PRIVATE (text);
+
 	g_return_val_if_fail (PPS_IS_ANNOTATION_TEXT (text), FALSE);
 
-	return text->is_open;
+	return priv->is_open;
 }
 
 gboolean
 pps_annotation_text_set_is_open (PpsAnnotationText *text,
 				gboolean          is_open)
 {
+	PpsAnnotationTextPrivate *priv = GET_ANNOT_TEXT_PRIVATE (text);
+
 	g_return_val_if_fail (PPS_IS_ANNOTATION_TEXT (text), FALSE);
 
-	if (text->is_open == is_open)
+	if (priv->is_open == is_open)
 		return FALSE;
 
-	text->is_open = is_open;
+	priv->is_open = is_open;
 
 	g_object_notify (G_OBJECT (text), "is_open");
 
@@ -1132,8 +1181,9 @@ static void
 pps_annotation_attachment_finalize (GObject *object)
 {
 	PpsAnnotationAttachment *annot = PPS_ANNOTATION_ATTACHMENT (object);
+	PpsAnnotationAttachmentPrivate *priv = GET_ANNOT_ATTACH_PRIVATE (annot);
 
-	g_clear_object (&annot->attachment);
+	g_clear_object (&priv->attachment);
 
 	G_OBJECT_CLASS (pps_annotation_attachment_parent_class)->finalize (object);
 }
@@ -1141,7 +1191,9 @@ pps_annotation_attachment_finalize (GObject *object)
 static void
 pps_annotation_attachment_init (PpsAnnotationAttachment *annot)
 {
-	PPS_ANNOTATION (annot)->type = PPS_ANNOTATION_TYPE_ATTACHMENT;
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (PPS_ANNOTATION (annot));
+
+	priv->type = PPS_ANNOTATION_TYPE_ATTACHMENT;
 }
 
 static void
@@ -1173,6 +1225,7 @@ pps_annotation_attachment_get_property (GObject    *object,
 				       GParamSpec *pspec)
 {
 	PpsAnnotationAttachment *annot = PPS_ANNOTATION_ATTACHMENT (object);
+	PpsAnnotationAttachmentPrivate *priv = GET_ANNOT_ATTACH_PRIVATE (annot);
 
 	if (prop_id < PROP_ATTACHMENT_ATTACHMENT) {
 		pps_annotation_markup_get_property (object, prop_id, value, pspec);
@@ -1181,7 +1234,7 @@ pps_annotation_attachment_get_property (GObject    *object,
 
 	switch (prop_id) {
 	case PROP_ATTACHMENT_ATTACHMENT:
-		g_value_set_object (value, annot->attachment);
+		g_value_set_object (value, priv->attachment);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1236,23 +1289,27 @@ pps_annotation_attachment_new (PpsPage       *page,
 PpsAttachment *
 pps_annotation_attachment_get_attachment (PpsAnnotationAttachment *annot)
 {
+	PpsAnnotationAttachmentPrivate *priv = GET_ANNOT_ATTACH_PRIVATE (annot);
+
 	g_return_val_if_fail (PPS_IS_ANNOTATION_ATTACHMENT (annot), NULL);
 
-	return annot->attachment;
+	return priv->attachment;
 }
 
 gboolean
 pps_annotation_attachment_set_attachment (PpsAnnotationAttachment *annot,
 					 PpsAttachment           *attachment)
 {
+	PpsAnnotationAttachmentPrivate *priv = GET_ANNOT_ATTACH_PRIVATE (annot);
+
 	g_return_val_if_fail (PPS_IS_ANNOTATION_ATTACHMENT (annot), FALSE);
 
-	if (annot->attachment == attachment)
+	if (priv->attachment == attachment)
 		return FALSE;
 
-	if (annot->attachment)
-		g_object_unref (annot->attachment);
-	annot->attachment = attachment ? g_object_ref (attachment) : NULL;
+	if (priv->attachment)
+		g_object_unref (priv->attachment);
+	priv->attachment = attachment ? g_object_ref (attachment) : NULL;
 
 	g_object_notify (G_OBJECT (annot), "attachment");
 
@@ -1267,6 +1324,8 @@ pps_annotation_text_markup_get_property (GObject    *object,
                                         GParamSpec *pspec)
 {
 	PpsAnnotationTextMarkup *annot = PPS_ANNOTATION_TEXT_MARKUP (object);
+	PpsAnnotationTextMarkupPrivate *priv = GET_ANNOT_TEXT_MARKUP_PRIVATE (annot);
+
 
 	if (prop_id < PROP_TEXT_MARKUP_TYPE) {
 		pps_annotation_markup_get_property (object, prop_id, value, pspec);
@@ -1275,7 +1334,7 @@ pps_annotation_text_markup_get_property (GObject    *object,
 
 	switch (prop_id) {
 	case PROP_TEXT_MARKUP_TYPE:
-		g_value_set_enum (value, annot->type);
+		g_value_set_enum (value, priv->type);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1289,6 +1348,7 @@ pps_annotation_text_markup_set_property (GObject      *object,
                                         GParamSpec   *pspec)
 {
 	PpsAnnotationTextMarkup *annot = PPS_ANNOTATION_TEXT_MARKUP (object);
+	PpsAnnotationTextMarkupPrivate *priv = GET_ANNOT_TEXT_MARKUP_PRIVATE (annot);
 
 	if (prop_id < PROP_TEXT_MARKUP_TYPE) {
 		pps_annotation_markup_set_property (object, prop_id, value, pspec);
@@ -1297,7 +1357,7 @@ pps_annotation_text_markup_set_property (GObject      *object,
 
 	switch (prop_id) {
 	case PROP_TEXT_MARKUP_TYPE:
-                annot->type = g_value_get_enum (value);
+                priv->type = g_value_get_enum (value);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1307,7 +1367,9 @@ pps_annotation_text_markup_set_property (GObject      *object,
 static void
 pps_annotation_text_markup_init (PpsAnnotationTextMarkup *annot)
 {
-        PPS_ANNOTATION (annot)->type = PPS_ANNOTATION_TYPE_TEXT_MARKUP;
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (PPS_ANNOTATION (annot));
+
+	priv->type = PPS_ANNOTATION_TYPE_TEXT_MARKUP;
 }
 
 static void
@@ -1380,21 +1442,26 @@ pps_annotation_text_markup_squiggly_new (PpsPage *page)
 PpsAnnotationTextMarkupType
 pps_annotation_text_markup_get_markup_type (PpsAnnotationTextMarkup *annot)
 {
-        g_return_val_if_fail (PPS_IS_ANNOTATION_TEXT_MARKUP (annot), PPS_ANNOTATION_TEXT_MARKUP_HIGHLIGHT);
+	PpsAnnotationTextMarkupPrivate *priv = GET_ANNOT_TEXT_MARKUP_PRIVATE (annot);
 
-        return annot->type;
+	g_return_val_if_fail (PPS_IS_ANNOTATION_TEXT_MARKUP (annot),
+			      PPS_ANNOTATION_TEXT_MARKUP_HIGHLIGHT);
+
+	return priv->type;
 }
 
 gboolean
 pps_annotation_text_markup_set_markup_type (PpsAnnotationTextMarkup    *annot,
                                            PpsAnnotationTextMarkupType markup_type)
 {
+	PpsAnnotationTextMarkupPrivate *priv = GET_ANNOT_TEXT_MARKUP_PRIVATE (annot);
+
         g_return_val_if_fail (PPS_IS_ANNOTATION_TEXT_MARKUP (annot), FALSE);
 
-        if (annot->type == markup_type)
+	if (priv->type == markup_type)
                 return FALSE;
 
-        annot->type = markup_type;
+	priv->type = markup_type;
         g_object_notify (G_OBJECT (annot), "type");
 
         return TRUE;
