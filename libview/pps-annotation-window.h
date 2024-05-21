@@ -27,6 +27,8 @@
 
 #include <gtk/gtk.h>
 
+#include <pps-document.h>
+
 #include "pps-annotation.h"
 
 G_BEGIN_DECLS
@@ -43,7 +45,8 @@ typedef struct _PpsAnnotationWindowClass PpsAnnotationWindowClass;
 
 GType         pps_annotation_window_get_type       (void) G_GNUC_CONST;
 GtkWidget    *pps_annotation_window_new            (PpsAnnotation       *annot,
-						   GtkWindow          *parent);
+						    GtkWindow           *parent,
+						    PpsDocument         *document);
 PpsAnnotation *pps_annotation_window_get_annotation (PpsAnnotationWindow *window);
 gboolean      pps_annotation_window_is_open        (PpsAnnotationWindow *window);
 void          pps_annotation_window_get_rectangle  (PpsAnnotationWindow *window,

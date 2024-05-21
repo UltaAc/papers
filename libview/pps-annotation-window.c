@@ -25,6 +25,8 @@
 #include <math.h>
 #include <adwaita.h>
 
+#include <pps-document-annotations.h>
+
 #include "pps-annotation-window.h"
 #include "pps-color-contrast.h"
 #include "pps-view-marshal.h"
@@ -37,14 +39,16 @@
 enum {
 	PROP_0,
 	PROP_ANNOTATION,
-	PROP_PARENT
+	PROP_PARENT,
+	PROP_DOCUMENT,
 };
 
 struct _PpsAnnotationWindow {
 	GtkWindow     base_instance;
 
 	PpsAnnotation *annotation;
-	GtkWindow    *parent;
+	GtkWindow     *parent;
+	PpsDocument   *document;
 
 	GtkWidget    *headerbar;
 	GtkWidget    *title_label;
@@ -74,7 +78,14 @@ pps_annotation_window_sync_contents (PpsAnnotationWindow *window)
 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (window->text_view));
 	gtk_text_buffer_get_bounds (buffer, &start, &end);
 	contents = gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
-	pps_annotation_set_contents (annot, contents);
+	if (pps_annotation_set_contents (annot, contents)) {
+		pps_document_doc_mutex_lock ();
+		pps_document_annotations_save_annotation (PPS_DOCUMENT_ANNOTATIONS (window->document),
+							  annot,
+							  PPS_ANNOTATIONS_SAVE_CONTENTS);
+		pps_document_doc_mutex_unlock ();
+	}
+
 	g_free (contents);
 }
 
@@ -160,6 +171,9 @@ pps_annotation_window_set_property (GObject      *object,
 		break;
 	case PROP_PARENT:
 		window->parent = g_value_get_object (value);
+		break;
+	case PROP_DOCUMENT:
+		window->document = g_value_dup_object (value);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -303,6 +317,16 @@ pps_annotation_window_escape_pressed (GtkWidget	*widget,
 }
 
 static void
+pps_annotation_window_dispose (GObject *object)
+{
+	PpsAnnotationWindow *window = PPS_ANNOTATION_WINDOW (object);
+
+	g_clear_object (&window->document);
+
+	G_OBJECT_CLASS (pps_annotation_window_parent_class)->dispose (object);
+}
+
+static void
 pps_annotation_window_class_init (PpsAnnotationWindowClass *klass)
 {
 	GObjectClass   *g_object_class = G_OBJECT_CLASS (klass);
@@ -310,6 +334,7 @@ pps_annotation_window_class_init (PpsAnnotationWindowClass *klass)
 
 	g_object_class->constructor = pps_annotation_window_constructor;
 	g_object_class->set_property = pps_annotation_window_set_property;
+	g_object_class->dispose = pps_annotation_window_dispose;
 
 	gtk_widget_class_add_binding (gtk_widget_class, GDK_KEY_Escape, 0,
 				      pps_annotation_window_escape_pressed, NULL);
@@ -332,12 +357,21 @@ pps_annotation_window_class_init (PpsAnnotationWindowClass *klass)
 							      G_PARAM_WRITABLE |
 							      G_PARAM_CONSTRUCT_ONLY |
                                                               G_PARAM_STATIC_STRINGS));
+	g_object_class_install_property (g_object_class,
+					 PROP_DOCUMENT,
+					 g_param_spec_object ("document",
+							      NULL, NULL,
+							      PPS_TYPE_DOCUMENT,
+							      G_PARAM_WRITABLE |
+							      G_PARAM_CONSTRUCT_ONLY |
+							      G_PARAM_STATIC_STRINGS));
 }
 
 /* Public methods */
 GtkWidget *
 pps_annotation_window_new (PpsAnnotation *annot,
-			  GtkWindow    *parent)
+			   GtkWindow     *parent,
+			   PpsDocument   *document)
 {
 	GtkWidget *window;
 
@@ -347,6 +381,7 @@ pps_annotation_window_new (PpsAnnotation *annot,
 	window = g_object_new (PPS_TYPE_ANNOTATION_WINDOW,
 			       "annotation", annot,
 			       "parent", parent,
+			       "document", document,
 			       NULL);
 	return window;
 }

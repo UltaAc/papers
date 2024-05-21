@@ -3202,35 +3202,19 @@ annotation_window_closed (PpsAnnotationWindow *window,
 	return FALSE;
 }
 
-static void
-pps_view_annotation_save_contents (PpsView       *view,
-				  GParamSpec   *pspec,
-				  PpsAnnotation *annot)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	if (!priv->document)
-		return;
-
-	pps_document_doc_mutex_lock ();
-	pps_document_annotations_save_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document),
-						 annot, PPS_ANNOTATIONS_SAVE_CONTENTS);
-	pps_document_doc_mutex_unlock ();
-}
-
 static GtkWidget *
 pps_view_create_annotation_window (PpsView       *view,
 				  PpsAnnotation *annot)
 {
+	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GtkWindow  *parent = GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (view)));
-	GtkWidget  *window = pps_annotation_window_new (annot, parent);
+	GtkWidget  *window = pps_annotation_window_new (annot, parent,
+							priv->document);
 	guint       page;
 
 	g_signal_connect (window, "close-request",
 			  G_CALLBACK (annotation_window_closed),
 			  view);
-	g_signal_connect_swapped (annot, "notify::contents",
-				  G_CALLBACK (pps_view_annotation_save_contents),
-				  view);
 	map_annot_to_window (view, annot, window);
 
 	page = pps_annotation_get_page_index (annot);
