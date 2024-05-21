@@ -156,6 +156,7 @@ static void
 pps_annotation_init (PpsAnnotation *annot)
 {
 	annot->type = PPS_ANNOTATION_TYPE_UNKNOWN;
+	annot->contents = g_strdup("");
         annot->area.x1 = -1;
         annot->area.y1 = -1;
         annot->area.x2 = -1;
