@@ -54,7 +54,6 @@ enum {
 	SIGNAL_POPUP_MENU,
 	SIGNAL_SELECTION_CHANGED,
 	SIGNAL_ANNOT_ADDED,
-	SIGNAL_ANNOT_CHANGED,
 	SIGNAL_ANNOT_REMOVED,
 	SIGNAL_LAYERS_CHANGED,
 	SIGNAL_MOVE_CURSOR,
@@ -3216,7 +3215,6 @@ pps_view_annotation_save_contents (PpsView       *view,
 	pps_document_annotations_save_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document),
 						 annot, PPS_ANNOTATIONS_SAVE_CONTENTS);
 	pps_document_doc_mutex_unlock ();
-	g_signal_emit (view, signals[SIGNAL_ANNOT_CHANGED], 0, annot);
 }
 
 static GtkWidget *
@@ -7515,14 +7513,6 @@ pps_view_class_init (PpsViewClass *class)
 		         g_cclosure_marshal_VOID__OBJECT,
 		         G_TYPE_NONE, 1,
 			 PPS_TYPE_ANNOTATION);
-	signals[SIGNAL_ANNOT_CHANGED] = g_signal_new ("annot-changed",
-		         G_TYPE_FROM_CLASS (object_class),
-		         G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-		         G_STRUCT_OFFSET (PpsViewClass, annot_changed),
-		         NULL, NULL,
-		         g_cclosure_marshal_VOID__OBJECT,
-		         G_TYPE_NONE, 1,
-		         PPS_TYPE_ANNOTATION);
 	signals[SIGNAL_ANNOT_REMOVED] = g_signal_new ("annot-removed",
 	  	         G_TYPE_FROM_CLASS (object_class),
 		         G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,

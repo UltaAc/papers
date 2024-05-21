@@ -165,13 +165,6 @@ pps_sidebar_annotations_annot_added (PpsSidebarAnnotations *sidebar_annots,
 }
 
 void
-pps_sidebar_annotations_annot_changed (PpsSidebarAnnotations *sidebar_annots,
-				      PpsAnnotation         *annot)
-{
-	pps_sidebar_annotations_load (sidebar_annots);
-}
-
-void
 pps_sidebar_annotations_annot_removed (PpsSidebarAnnotations *sidebar_annots)
 {
 	pps_sidebar_annotations_load (sidebar_annots);

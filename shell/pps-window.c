@@ -5145,17 +5145,6 @@ view_annot_added (PpsView       *view,
 }
 
 static void
-view_annot_changed (PpsView       *view,
-		    PpsAnnotation *annot,
-		    PpsWindow     *window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-	pps_sidebar_annotations_annot_changed (PPS_SIDEBAR_ANNOTATIONS (priv->sidebar_annots),
-					      annot);
-}
-
-static void
 view_annot_removed (PpsView       *view,
 		    PpsAnnotation *annot,
 		    PpsWindow     *window)
@@ -5736,8 +5725,6 @@ pps_window_popup_cmd_annot_properties_response_cb (GtkDialog	*self,
 
 		/* FIXME: update annot region only */
 		pps_view_reload (PPS_VIEW (priv->view));
-
-		pps_sidebar_annotations_annot_changed (PPS_SIDEBAR_ANNOTATIONS (priv->sidebar_annots), annot);
 	}
 
 	gtk_window_destroy (GTK_WINDOW (dialog));
@@ -6048,7 +6035,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, view_selection_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, scroll_history_cb);
 	gtk_widget_class_bind_template_callback (widget_class, view_annot_added);
-	gtk_widget_class_bind_template_callback (widget_class, view_annot_changed);
 	gtk_widget_class_bind_template_callback (widget_class, view_annot_removed);
 	gtk_widget_class_bind_template_callback (widget_class, view_layers_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, view_is_loading_changed_cb);

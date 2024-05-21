@@ -382,7 +382,6 @@
                                               handler="view_selection_changed_cb" />
                                             <signal name="scroll" handler="scroll_history_cb" />
                                             <signal name="annot-added" handler="view_annot_added" />
-                                            <signal name="annot-changed" handler="view_annot_changed" />
                                             <signal name="annot-removed" handler="view_annot_removed" />
                                             <signal name="layers-changed" handler="view_layers_changed_cb" />
                                             <signal name="notify::is-loading"

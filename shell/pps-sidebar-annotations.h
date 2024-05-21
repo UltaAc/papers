@@ -40,8 +40,6 @@ struct _PpsSidebarAnnotationsClass {
 GtkWidget *pps_sidebar_annotations_new           (void);
 void       pps_sidebar_annotations_annot_added   (PpsSidebarAnnotations *sidebar_annots,
 					         PpsAnnotation         *annot);
-void       pps_sidebar_annotations_annot_changed (PpsSidebarAnnotations *sidebar_annots,
-					         PpsAnnotation         *annot);
 void       pps_sidebar_annotations_annot_removed (PpsSidebarAnnotations *sidebar_annots);
 
 G_END_DECLS
