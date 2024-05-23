@@ -25,114 +25,6 @@ and/or use gtk-doc annotations.  -->
       <source-position filename="libdocument/pps-page.h" line="39"/>
       <type name="GLib.DestroyNotify" c:type="GDestroyNotify"/>
     </alias>
-    <function-macro name="ANNOTATION"
-                    c:identifier="PPS_ANNOTATION"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="39"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="ANNOTATION_ATTACHMENT"
-                    c:identifier="PPS_ANNOTATION_ATTACHMENT"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="61"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="ANNOTATION_ATTACHMENT_CLASS"
-                    c:identifier="PPS_ANNOTATION_ATTACHMENT_CLASS"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="62"/>
-      <parameters>
-        <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="ANNOTATION_ATTACHMENT_GET_CLASS"
-                    c:identifier="PPS_ANNOTATION_ATTACHMENT_GET_CLASS"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="65"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="ANNOTATION_CLASS"
-                    c:identifier="PPS_ANNOTATION_CLASS"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="40"/>
-      <parameters>
-        <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="ANNOTATION_GET_CLASS"
-                    c:identifier="PPS_ANNOTATION_GET_CLASS"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="43"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="ANNOTATION_TEXT"
-                    c:identifier="PPS_ANNOTATION_TEXT"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="53"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="ANNOTATION_TEXT_CLASS"
-                    c:identifier="PPS_ANNOTATION_TEXT_CLASS"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="54"/>
-      <parameters>
-        <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="ANNOTATION_TEXT_GET_CLASS"
-                    c:identifier="PPS_ANNOTATION_TEXT_GET_CLASS"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="57"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="ANNOTATION_TEXT_MARKUP"
-                    c:identifier="PPS_ANNOTATION_TEXT_MARKUP"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="69"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="ANNOTATION_TEXT_MARKUP_CLASS"
-                    c:identifier="PPS_ANNOTATION_TEXT_MARKUP_CLASS"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="70"/>
-      <parameters>
-        <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="ANNOTATION_TEXT_MARKUP_GET_CLASS"
-                    c:identifier="PPS_ANNOTATION_TEXT_MARKUP_GET_CLASS"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="73"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
     <class name="Annotation"
            c:symbol-prefix="annotation"
            c:type="PpsAnnotation"
@@ -141,36 +33,36 @@ and/or use gtk-doc annotations.  -->
            glib:type-name="PpsAnnotation"
            glib:get-type="pps_annotation_get_type"
            glib:type-struct="AnnotationClass">
-      <source-position filename="libdocument/pps-annotation.h" line="76"/>
+      <source-position filename="libdocument/pps-annotation.h" line="44"/>
       <method name="equal" c:identifier="pps_annotation_equal">
         <doc xml:space="preserve"
              filename="libdocument/pps-annotation.c"
-             line="340">Compare @annot and @other.</doc>
-        <source-position filename="libdocument/pps-annotation.h" line="126"/>
+             line="356">Compare @annot and @other.</doc>
+        <source-position filename="libdocument/pps-annotation.h" line="104"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-annotation.c"
-               line="347">%TRUE if @annot is equal to @other, %FALSE otherwise</doc>
+               line="363">%TRUE if @annot is equal to @other, %FALSE otherwise</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="annot" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="342">an #PpsAnnotation</doc>
+                 line="358">an #PpsAnnotation</doc>
             <type name="Annotation" c:type="PpsAnnotation*"/>
           </instance-parameter>
           <parameter name="other" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="343">another #PpsAnnotation</doc>
+                 line="359">another #PpsAnnotation</doc>
             <type name="Annotation" c:type="PpsAnnotation*"/>
           </parameter>
         </parameters>
       </method>
       <method name="get_annotation_type"
               c:identifier="pps_annotation_get_annotation_type">
-        <source-position filename="libdocument/pps-annotation.h" line="120"/>
+        <source-position filename="libdocument/pps-annotation.h" line="98"/>
         <return-value transfer-ownership="none">
           <type name="AnnotationType" c:type="PpsAnnotationType"/>
         </return-value>
@@ -186,8 +78,8 @@ and/or use gtk-doc annotations.  -->
               version="3.18">
         <doc xml:space="preserve"
              filename="libdocument/pps-annotation.c"
-             line="582">Gets the area of @annot.</doc>
-        <source-position filename="libdocument/pps-annotation.h" line="153"/>
+             line="618">Gets the area of @annot.</doc>
+        <source-position filename="libdocument/pps-annotation.h" line="131"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -195,7 +87,7 @@ and/or use gtk-doc annotations.  -->
           <instance-parameter name="annot" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="584">an #PpsAnnotation</doc>
+                 line="620">an #PpsAnnotation</doc>
             <type name="Annotation" c:type="PpsAnnotation*"/>
           </instance-parameter>
           <parameter name="area"
@@ -204,7 +96,7 @@ and/or use gtk-doc annotations.  -->
                      transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="585">a #PpsRectangle to be filled with the annotation area</doc>
+                 line="621">a #PpsRectangle to be filled with the annotation area</doc>
             <type name="Rectangle" c:type="PpsRectangle*"/>
           </parameter>
         </parameters>
@@ -214,14 +106,14 @@ and/or use gtk-doc annotations.  -->
               glib:get-property="contents">
         <doc xml:space="preserve"
              filename="libdocument/pps-annotation.c"
-             line="359">Get the contents of @annot. The contents of
+             line="378">Get the contents of @annot. The contents of
 @annot is the text that is displayed in the annotation, or an
 alternate description of the annotation's content for non-text annotations</doc>
-        <source-position filename="libdocument/pps-annotation.h" line="129"/>
+        <source-position filename="libdocument/pps-annotation.h" line="107"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-annotation.c"
-               line="367">a string with the contents of the annotation or
+               line="386">a string with the contents of the annotation or
 %NULL if @annot has no contents.</doc>
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -229,7 +121,7 @@ alternate description of the annotation's content for non-text annotations</doc>
           <instance-parameter name="annot" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="361">an #PpsAnnotation</doc>
+                 line="380">an #PpsAnnotation</doc>
             <type name="Annotation" c:type="PpsAnnotation*"/>
           </instance-parameter>
         </parameters>
@@ -239,19 +131,19 @@ alternate description of the annotation's content for non-text annotations</doc>
               glib:get-property="modified">
         <doc xml:space="preserve"
              filename="libdocument/pps-annotation.c"
-             line="452">Get the last modification date of @annot.</doc>
-        <source-position filename="libdocument/pps-annotation.h" line="139"/>
+             line="479">Get the last modification date of @annot.</doc>
+        <source-position filename="libdocument/pps-annotation.h" line="117"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-annotation.c"
-               line="458">A string containing the last modification date.</doc>
+               line="485">A string containing the last modification date.</doc>
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
         <parameters>
           <instance-parameter name="annot" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="454">an #PpsAnnotation</doc>
+                 line="481">an #PpsAnnotation</doc>
             <type name="Annotation" c:type="PpsAnnotation*"/>
           </instance-parameter>
         </parameters>
@@ -261,21 +153,21 @@ alternate description of the annotation's content for non-text annotations</doc>
               glib:get-property="name">
         <doc xml:space="preserve"
              filename="libdocument/pps-annotation.c"
-             line="406">Get the name of @annot. The name of the annotation is a string
+             line="429">Get the name of @annot. The name of the annotation is a string
 that uniquely indenftifies @annot amongs all the annotations
 in the same page.</doc>
-        <source-position filename="libdocument/pps-annotation.h" line="134"/>
+        <source-position filename="libdocument/pps-annotation.h" line="112"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-annotation.c"
-               line="414">the string with the annotation's name.</doc>
+               line="437">the string with the annotation's name.</doc>
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
         <parameters>
           <instance-parameter name="annot" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="408">an #PpsAnnotation</doc>
+                 line="431">an #PpsAnnotation</doc>
             <type name="Annotation" c:type="PpsAnnotation*"/>
           </instance-parameter>
         </parameters>
@@ -283,19 +175,19 @@ in the same page.</doc>
       <method name="get_page" c:identifier="pps_annotation_get_page">
         <doc xml:space="preserve"
              filename="libdocument/pps-annotation.c"
-             line="307">Get the page where @annot appears.</doc>
-        <source-position filename="libdocument/pps-annotation.h" line="122"/>
+             line="319">Get the page where @annot appears.</doc>
+        <source-position filename="libdocument/pps-annotation.h" line="100"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-annotation.c"
-               line="313">the #PpsPage where @annot appears</doc>
+               line="325">the #PpsPage where @annot appears</doc>
           <type name="Page" c:type="PpsPage*"/>
         </return-value>
         <parameters>
           <instance-parameter name="annot" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="309">an #PpsAnnotation</doc>
+                 line="321">an #PpsAnnotation</doc>
             <type name="Annotation" c:type="PpsAnnotation*"/>
           </instance-parameter>
         </parameters>
@@ -304,20 +196,20 @@ in the same page.</doc>
               c:identifier="pps_annotation_get_page_index">
         <doc xml:space="preserve"
              filename="libdocument/pps-annotation.c"
-             line="323">Get the index of the page where @annot appears. Note that the index
+             line="337">Get the index of the page where @annot appears. Note that the index
 is 0 based.</doc>
-        <source-position filename="libdocument/pps-annotation.h" line="124"/>
+        <source-position filename="libdocument/pps-annotation.h" line="102"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-annotation.c"
-               line="330">the page index.</doc>
+               line="344">the page index.</doc>
           <type name="guint" c:type="guint"/>
         </return-value>
         <parameters>
           <instance-parameter name="annot" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="325">an #PpsAnnotation</doc>
+                 line="339">an #PpsAnnotation</doc>
             <type name="Annotation" c:type="PpsAnnotation*"/>
           </instance-parameter>
         </parameters>
@@ -328,8 +220,8 @@ is 0 based.</doc>
               version="3.6">
         <doc xml:space="preserve"
              filename="libdocument/pps-annotation.c"
-             line="536">Gets the color of @annot.</doc>
-        <source-position filename="libdocument/pps-annotation.h" line="147"/>
+             line="568">Gets the color of @annot.</doc>
+        <source-position filename="libdocument/pps-annotation.h" line="125"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -337,7 +229,7 @@ is 0 based.</doc>
           <instance-parameter name="annot" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="538">an #PpsAnnotation</doc>
+                 line="570">an #PpsAnnotation</doc>
             <type name="Annotation" c:type="PpsAnnotation*"/>
           </instance-parameter>
           <parameter name="rgba"
@@ -346,7 +238,7 @@ is 0 based.</doc>
                      transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="539">a #GdkRGBA to be filled with the annotation color</doc>
+                 line="571">a #GdkRGBA to be filled with the annotation color</doc>
             <type name="Gdk.RGBA" c:type="GdkRGBA*"/>
           </parameter>
         </parameters>
@@ -357,25 +249,25 @@ is 0 based.</doc>
               version="3.18">
         <doc xml:space="preserve"
              filename="libdocument/pps-annotation.c"
-             line="601">Set the area of the annotation to @area.</doc>
-        <source-position filename="libdocument/pps-annotation.h" line="156"/>
+             line="639">Set the area of the annotation to @area.</doc>
+        <source-position filename="libdocument/pps-annotation.h" line="134"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-annotation.c"
-               line="608">%TRUE if the area has been changed, %FALSE otherwise</doc>
+               line="646">%TRUE if the area has been changed, %FALSE otherwise</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="annot" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="603">an #Ppsannotation</doc>
+                 line="641">an #Ppsannotation</doc>
             <type name="Annotation" c:type="PpsAnnotation*"/>
           </instance-parameter>
           <parameter name="area" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="604">a #PpsRectangle</doc>
+                 line="642">a #PpsRectangle</doc>
             <type name="Rectangle" c:type="const PpsRectangle*"/>
           </parameter>
         </parameters>
@@ -385,21 +277,21 @@ is 0 based.</doc>
               glib:set-property="contents">
         <doc xml:space="preserve"
              filename="libdocument/pps-annotation.c"
-             line="378">Set the contents of @annot. You can monitor
+             line="399">Set the contents of @annot. You can monitor
 changes in the annotation's  contents by connecting to
 notify::contents signal of @annot.</doc>
-        <source-position filename="libdocument/pps-annotation.h" line="131"/>
+        <source-position filename="libdocument/pps-annotation.h" line="109"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-annotation.c"
-               line="386">%TRUE if the contents have been changed, %FALSE otherwise.</doc>
+               line="407">%TRUE if the contents have been changed, %FALSE otherwise.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="annot" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="380">an #PpsAnnotation</doc>
+                 line="401">an #PpsAnnotation</doc>
             <type name="Annotation" c:type="PpsAnnotation*"/>
           </instance-parameter>
           <parameter name="contents" transfer-ownership="none">
@@ -412,29 +304,29 @@ notify::contents signal of @annot.</doc>
               glib:set-property="modified">
         <doc xml:space="preserve"
              filename="libdocument/pps-annotation.c"
-             line="468">Set the last modification date of @annot to @modified. To
+             line="497">Set the last modification date of @annot to @modified. To
 set the last modification date using a #time_t, use
 pps_annotation_set_modified_from_time_t() instead. You can monitor
 changes to the last modification date by connecting to the
 notify::modified signal on @annot.</doc>
-        <source-position filename="libdocument/pps-annotation.h" line="141"/>
+        <source-position filename="libdocument/pps-annotation.h" line="119"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-annotation.c"
-               line="479">%TRUE if the last modification date has been updated, %FALSE otherwise.</doc>
+               line="508">%TRUE if the last modification date has been updated, %FALSE otherwise.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="annot" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="470">an #PpsAnnotation</doc>
+                 line="499">an #PpsAnnotation</doc>
             <type name="Annotation" c:type="PpsAnnotation*"/>
           </instance-parameter>
           <parameter name="modified" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="471">string with the last modification date.</doc>
+                 line="500">string with the last modification date.</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
         </parameters>
@@ -443,28 +335,28 @@ notify::modified signal on @annot.</doc>
               c:identifier="pps_annotation_set_modified_from_time_t">
         <doc xml:space="preserve"
              filename="libdocument/pps-annotation.c"
-             line="499">Set the last modification date of @annot to @utime.  You can
+             line="530">Set the last modification date of @annot to @utime.  You can
 monitor changes to the last modification date by connecting to the
 notify::modified sinal on @annot.
 For the time-format used, see pps_document_misc_format_datetime().</doc>
-        <source-position filename="libdocument/pps-annotation.h" line="144"/>
+        <source-position filename="libdocument/pps-annotation.h" line="122"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-annotation.c"
-               line="509">%TRUE if the last modified date has been updated, %FALSE otherwise.</doc>
+               line="540">%TRUE if the last modified date has been updated, %FALSE otherwise.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="annot" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="501">an #PpsAnnotation</doc>
+                 line="532">an #PpsAnnotation</doc>
             <type name="Annotation" c:type="PpsAnnotation*"/>
           </instance-parameter>
           <parameter name="utime" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="502">a #time_t</doc>
+                 line="533">a #time_t</doc>
             <type name="time_t" c:type="time_t"/>
           </parameter>
         </parameters>
@@ -474,21 +366,21 @@ For the time-format used, see pps_document_misc_format_datetime().</doc>
               glib:set-property="name">
         <doc xml:space="preserve"
              filename="libdocument/pps-annotation.c"
-             line="424">Set the name of @annot.
+             line="449">Set the name of @annot.
 You can monitor changes of the annotation name by connecting
 to the notify::name signal on @annot.</doc>
-        <source-position filename="libdocument/pps-annotation.h" line="136"/>
+        <source-position filename="libdocument/pps-annotation.h" line="114"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-annotation.c"
-               line="432">%TRUE when the name has been changed, %FALSE otherwise.</doc>
+               line="457">%TRUE when the name has been changed, %FALSE otherwise.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="annot" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="426">an #PpsAnnotation</doc>
+                 line="451">an #PpsAnnotation</doc>
             <type name="Annotation" c:type="PpsAnnotation*"/>
           </instance-parameter>
           <parameter name="name" transfer-ownership="none">
@@ -502,25 +394,25 @@ to the notify::name signal on @annot.</doc>
               version="3.6">
         <doc xml:space="preserve"
              filename="libdocument/pps-annotation.c"
-             line="555">Set the color of the annotation to @rgba.</doc>
-        <source-position filename="libdocument/pps-annotation.h" line="150"/>
+             line="589">Set the color of the annotation to @rgba.</doc>
+        <source-position filename="libdocument/pps-annotation.h" line="128"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-annotation.c"
-               line="562">%TRUE if the color has been changed, %FALSE otherwise</doc>
+               line="596">%TRUE if the color has been changed, %FALSE otherwise</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="annot" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="557">an #Ppsannotation</doc>
+                 line="591">an #Ppsannotation</doc>
             <type name="Annotation" c:type="PpsAnnotation*"/>
           </instance-parameter>
           <parameter name="rgba" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="558">a #GdkRGBA</doc>
+                 line="592">a #GdkRGBA</doc>
             <type name="Gdk.RGBA" c:type="const GdkRGBA*"/>
           </parameter>
         </parameters>
@@ -532,7 +424,7 @@ to the notify::name signal on @annot.</doc>
                 getter="get_area">
         <doc xml:space="preserve"
              filename="libdocument/pps-annotation.c"
-             line="282">The area of the page where the annotation is placed.
+             line="292">The area of the page where the annotation is placed.
 
 Since 3.18</doc>
         <type name="Rectangle"/>
@@ -576,9 +468,12 @@ Since 3.18</doc>
                 getter="get_rgba">
         <doc xml:space="preserve"
              filename="libdocument/pps-annotation.c"
-             line="268">The colour of the annotation as a #GdkRGBA.</doc>
+             line="278">The colour of the annotation as a #GdkRGBA.</doc>
         <type name="Gdk.RGBA"/>
       </property>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
     </class>
     <class name="AnnotationAttachment"
            c:symbol-prefix="annotation_attachment"
@@ -587,10 +482,10 @@ Since 3.18</doc>
            glib:type-name="PpsAnnotationAttachment"
            glib:get-type="pps_annotation_attachment_get_type"
            glib:type-struct="AnnotationAttachmentClass">
-      <source-position filename="libdocument/pps-annotation.h" line="82"/>
+      <source-position filename="libdocument/pps-annotation.h" line="60"/>
       <implements name="AnnotationMarkup"/>
       <constructor name="new" c:identifier="pps_annotation_attachment_new">
-        <source-position filename="libdocument/pps-annotation.h" line="209"/>
+        <source-position filename="libdocument/pps-annotation.h" line="183"/>
         <return-value transfer-ownership="full">
           <type name="Annotation" c:type="PpsAnnotation*"/>
         </return-value>
@@ -606,18 +501,18 @@ Since 3.18</doc>
       <method name="get_attachment"
               c:identifier="pps_annotation_attachment_get_attachment"
               glib:get-property="attachment">
-        <source-position filename="libdocument/pps-annotation.h" line="212"/>
+        <source-position filename="libdocument/pps-annotation.h" line="186"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-annotation.c"
-               line="1233">an #PpsAttachment</doc>
+               line="1287">an #PpsAttachment</doc>
           <type name="Attachment" c:type="PpsAttachment*"/>
         </return-value>
         <parameters>
           <instance-parameter name="annot" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-annotation.c"
-                 line="1231">an #PpsAnnotationAttachment</doc>
+                 line="1285">an #PpsAnnotationAttachment</doc>
             <type name="AnnotationAttachment"
                   c:type="PpsAnnotationAttachment*"/>
           </instance-parameter>
@@ -626,7 +521,7 @@ Since 3.18</doc>
       <method name="set_attachment"
               c:identifier="pps_annotation_attachment_set_attachment"
               glib:set-property="attachment">
-        <source-position filename="libdocument/pps-annotation.h" line="214"/>
+        <source-position filename="libdocument/pps-annotation.h" line="188"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -651,17 +546,19 @@ Since 3.18</doc>
     </class>
     <record name="AnnotationAttachmentClass"
             c:type="PpsAnnotationAttachmentClass"
-            disguised="1"
-            opaque="1"
             glib:is-gtype-struct-for="AnnotationAttachment">
-      <source-position filename="libdocument/pps-annotation.h" line="82"/>
+      <source-position filename="libdocument/pps-annotation.h" line="60"/>
+      <field name="parent_class">
+        <type name="AnnotationClass" c:type="PpsAnnotationClass"/>
+      </field>
     </record>
     <record name="AnnotationClass"
             c:type="PpsAnnotationClass"
-            disguised="1"
-            opaque="1"
             glib:is-gtype-struct-for="Annotation">
-      <source-position filename="libdocument/pps-annotation.h" line="76"/>
+      <source-position filename="libdocument/pps-annotation.h" line="44"/>
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
     </record>
     <interface name="AnnotationMarkup"
                c:symbol-prefix="annotation_markup"
@@ -669,11 +566,11 @@ Since 3.18</doc>
                glib:type-name="PpsAnnotationMarkup"
                glib:get-type="pps_annotation_markup_get_type"
                glib:type-struct="AnnotationMarkupInterface">
-      <source-position filename="libdocument/pps-annotation.h" line="49"/>
+      <source-position filename="libdocument/pps-annotation.h" line="50"/>
       <prerequisite name="Annotation"/>
       <method name="can_have_popup"
               c:identifier="pps_annotation_markup_can_have_popup">
-        <source-position filename="libdocument/pps-annotation.h" line="171"/>
+        <source-position filename="libdocument/pps-annotation.h" line="149"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -686,7 +583,7 @@ Since 3.18</doc>
       <method name="get_label"
               c:identifier="pps_annotation_markup_get_label"
               glib:get-property="label">
-        <source-position filename="libdocument/pps-annotation.h" line="161"/>
+        <source-position filename="libdocument/pps-annotation.h" line="139"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -699,7 +596,7 @@ Since 3.18</doc>
       <method name="get_opacity"
               c:identifier="pps_annotation_markup_get_opacity"
               glib:get-property="opacity">
-        <source-position filename="libdocument/pps-annotation.h" line="166"/>
+        <source-position filename="libdocument/pps-annotation.h" line="144"/>
         <return-value transfer-ownership="none">
           <type name="gdouble" c:type="gdouble"/>
         </return-value>
@@ -712,7 +609,7 @@ Since 3.18</doc>
       <method name="get_popup_is_open"
               c:identifier="pps_annotation_markup_get_popup_is_open"
               glib:get-property="popup-is-open">
-        <source-position filename="libdocument/pps-annotation.h" line="184"/>
+        <source-position filename="libdocument/pps-annotation.h" line="162"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -725,7 +622,7 @@ Since 3.18</doc>
       <method name="get_rectangle"
               c:identifier="pps_annotation_markup_get_rectangle"
               glib:get-property="rectangle">
-        <source-position filename="libdocument/pps-annotation.h" line="178"/>
+        <source-position filename="libdocument/pps-annotation.h" line="156"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -739,7 +636,7 @@ Since 3.18</doc>
         </parameters>
       </method>
       <method name="has_popup" c:identifier="pps_annotation_markup_has_popup">
-        <source-position filename="libdocument/pps-annotation.h" line="173"/>
+        <source-position filename="libdocument/pps-annotation.h" line="151"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -752,7 +649,7 @@ Since 3.18</doc>
       <method name="set_has_popup"
               c:identifier="pps_annotation_markup_set_has_popup"
               glib:set-property="has-popup">
-        <source-position filename="libdocument/pps-annotation.h" line="175"/>
+        <source-position filename="libdocument/pps-annotation.h" line="153"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -768,7 +665,7 @@ Since 3.18</doc>
       <method name="set_label"
               c:identifier="pps_annotation_markup_set_label"
               glib:set-property="label">
-        <source-position filename="libdocument/pps-annotation.h" line="163"/>
+        <source-position filename="libdocument/pps-annotation.h" line="141"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -784,7 +681,7 @@ Since 3.18</doc>
       <method name="set_opacity"
               c:identifier="pps_annotation_markup_set_opacity"
               glib:set-property="opacity">
-        <source-position filename="libdocument/pps-annotation.h" line="168"/>
+        <source-position filename="libdocument/pps-annotation.h" line="146"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -800,7 +697,7 @@ Since 3.18</doc>
       <method name="set_popup_is_open"
               c:identifier="pps_annotation_markup_set_popup_is_open"
               glib:set-property="popup-is-open">
-        <source-position filename="libdocument/pps-annotation.h" line="186"/>
+        <source-position filename="libdocument/pps-annotation.h" line="164"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -816,7 +713,7 @@ Since 3.18</doc>
       <method name="set_rectangle"
               c:identifier="pps_annotation_markup_set_rectangle"
               glib:set-property="rectangle">
-        <source-position filename="libdocument/pps-annotation.h" line="181"/>
+        <source-position filename="libdocument/pps-annotation.h" line="159"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -879,7 +776,7 @@ Since 3.18</doc>
             disguised="1"
             opaque="1"
             glib:is-gtype-struct-for="AnnotationMarkup">
-      <source-position filename="libdocument/pps-annotation.h" line="49"/>
+      <source-position filename="libdocument/pps-annotation.h" line="50"/>
     </record>
     <class name="AnnotationText"
            c:symbol-prefix="annotation_text"
@@ -888,10 +785,10 @@ Since 3.18</doc>
            glib:type-name="PpsAnnotationText"
            glib:get-type="pps_annotation_text_get_type"
            glib:type-struct="AnnotationTextClass">
-      <source-position filename="libdocument/pps-annotation.h" line="79"/>
+      <source-position filename="libdocument/pps-annotation.h" line="55"/>
       <implements name="AnnotationMarkup"/>
       <constructor name="new" c:identifier="pps_annotation_text_new">
-        <source-position filename="libdocument/pps-annotation.h" line="193"/>
+        <source-position filename="libdocument/pps-annotation.h" line="169"/>
         <return-value transfer-ownership="full">
           <type name="Annotation" c:type="PpsAnnotation*"/>
         </return-value>
@@ -904,7 +801,7 @@ Since 3.18</doc>
       <method name="get_icon"
               c:identifier="pps_annotation_text_get_icon"
               glib:get-property="icon">
-        <source-position filename="libdocument/pps-annotation.h" line="195"/>
+        <source-position filename="libdocument/pps-annotation.h" line="171"/>
         <return-value transfer-ownership="none">
           <type name="AnnotationTextIcon" c:type="PpsAnnotationTextIcon"/>
         </return-value>
@@ -917,7 +814,7 @@ Since 3.18</doc>
       <method name="get_is_open"
               c:identifier="pps_annotation_text_get_is_open"
               glib:get-property="is-open">
-        <source-position filename="libdocument/pps-annotation.h" line="200"/>
+        <source-position filename="libdocument/pps-annotation.h" line="176"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -930,7 +827,7 @@ Since 3.18</doc>
       <method name="set_icon"
               c:identifier="pps_annotation_text_set_icon"
               glib:set-property="icon">
-        <source-position filename="libdocument/pps-annotation.h" line="197"/>
+        <source-position filename="libdocument/pps-annotation.h" line="173"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -946,7 +843,7 @@ Since 3.18</doc>
       <method name="set_is_open"
               c:identifier="pps_annotation_text_set_is_open"
               glib:set-property="is-open">
-        <source-position filename="libdocument/pps-annotation.h" line="202"/>
+        <source-position filename="libdocument/pps-annotation.h" line="178"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -978,10 +875,11 @@ Since 3.18</doc>
     </class>
     <record name="AnnotationTextClass"
             c:type="PpsAnnotationTextClass"
-            disguised="1"
-            opaque="1"
             glib:is-gtype-struct-for="AnnotationText">
-      <source-position filename="libdocument/pps-annotation.h" line="79"/>
+      <source-position filename="libdocument/pps-annotation.h" line="55"/>
+      <field name="parent_class">
+        <type name="AnnotationClass" c:type="PpsAnnotationClass"/>
+      </field>
     </record>
     <enumeration name="AnnotationTextIcon"
                  glib:type-name="PpsAnnotationTextIcon"
@@ -1055,11 +953,11 @@ Since 3.18</doc>
            glib:type-name="PpsAnnotationTextMarkup"
            glib:get-type="pps_annotation_text_markup_get_type"
            glib:type-struct="AnnotationTextMarkupClass">
-      <source-position filename="libdocument/pps-annotation.h" line="85"/>
+      <source-position filename="libdocument/pps-annotation.h" line="65"/>
       <implements name="AnnotationMarkup"/>
       <constructor name="highlight_new"
                    c:identifier="pps_annotation_text_markup_highlight_new">
-        <source-position filename="libdocument/pps-annotation.h" line="221"/>
+        <source-position filename="libdocument/pps-annotation.h" line="193"/>
         <return-value transfer-ownership="full">
           <type name="Annotation" c:type="PpsAnnotation*"/>
         </return-value>
@@ -1071,7 +969,7 @@ Since 3.18</doc>
       </constructor>
       <constructor name="squiggly_new"
                    c:identifier="pps_annotation_text_markup_squiggly_new">
-        <source-position filename="libdocument/pps-annotation.h" line="227"/>
+        <source-position filename="libdocument/pps-annotation.h" line="199"/>
         <return-value transfer-ownership="full">
           <type name="Annotation" c:type="PpsAnnotation*"/>
         </return-value>
@@ -1083,7 +981,7 @@ Since 3.18</doc>
       </constructor>
       <constructor name="strike_out_new"
                    c:identifier="pps_annotation_text_markup_strike_out_new">
-        <source-position filename="libdocument/pps-annotation.h" line="223"/>
+        <source-position filename="libdocument/pps-annotation.h" line="195"/>
         <return-value transfer-ownership="full">
           <type name="Annotation" c:type="PpsAnnotation*"/>
         </return-value>
@@ -1095,7 +993,7 @@ Since 3.18</doc>
       </constructor>
       <constructor name="underline_new"
                    c:identifier="pps_annotation_text_markup_underline_new">
-        <source-position filename="libdocument/pps-annotation.h" line="225"/>
+        <source-position filename="libdocument/pps-annotation.h" line="197"/>
         <return-value transfer-ownership="full">
           <type name="Annotation" c:type="PpsAnnotation*"/>
         </return-value>
@@ -1107,7 +1005,7 @@ Since 3.18</doc>
       </constructor>
       <method name="get_markup_type"
               c:identifier="pps_annotation_text_markup_get_markup_type">
-        <source-position filename="libdocument/pps-annotation.h" line="229"/>
+        <source-position filename="libdocument/pps-annotation.h" line="201"/>
         <return-value transfer-ownership="none">
           <type name="AnnotationTextMarkupType"
                 c:type="PpsAnnotationTextMarkupType"/>
@@ -1121,7 +1019,7 @@ Since 3.18</doc>
       </method>
       <method name="set_markup_type"
               c:identifier="pps_annotation_text_markup_set_markup_type">
-        <source-position filename="libdocument/pps-annotation.h" line="231"/>
+        <source-position filename="libdocument/pps-annotation.h" line="203"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -1146,10 +1044,11 @@ Since 3.18</doc>
     </class>
     <record name="AnnotationTextMarkupClass"
             c:type="PpsAnnotationTextMarkupClass"
-            disguised="1"
-            opaque="1"
             glib:is-gtype-struct-for="AnnotationTextMarkup">
-      <source-position filename="libdocument/pps-annotation.h" line="85"/>
+      <source-position filename="libdocument/pps-annotation.h" line="65"/>
+      <field name="parent_class">
+        <type name="AnnotationClass" c:type="PpsAnnotationClass"/>
+      </field>
     </record>
     <enumeration name="AnnotationTextMarkupType"
                  glib:type-name="PpsAnnotationTextMarkupType"
@@ -7836,78 +7735,6 @@ interface</doc>
               glib:name="PPS_FORM_FIELD_TEXT_FILE_SELECT">
       </member>
     </enumeration>
-    <function-macro name="IS_ANNOTATION"
-                    c:identifier="PPS_IS_ANNOTATION"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="41"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_ANNOTATION_ATTACHMENT"
-                    c:identifier="PPS_IS_ANNOTATION_ATTACHMENT"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="63"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_ANNOTATION_ATTACHMENT_CLASS"
-                    c:identifier="PPS_IS_ANNOTATION_ATTACHMENT_CLASS"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="64"/>
-      <parameters>
-        <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_ANNOTATION_CLASS"
-                    c:identifier="PPS_IS_ANNOTATION_CLASS"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="42"/>
-      <parameters>
-        <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_ANNOTATION_TEXT"
-                    c:identifier="PPS_IS_ANNOTATION_TEXT"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="55"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_ANNOTATION_TEXT_CLASS"
-                    c:identifier="PPS_IS_ANNOTATION_TEXT_CLASS"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="56"/>
-      <parameters>
-        <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_ANNOTATION_TEXT_MARKUP"
-                    c:identifier="PPS_IS_ANNOTATION_TEXT_MARKUP"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="71"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_ANNOTATION_TEXT_MARKUP_CLASS"
-                    c:identifier="PPS_IS_ANNOTATION_TEXT_MARKUP_CLASS"
-                    introspectable="0">
-      <source-position filename="libdocument/pps-annotation.h" line="72"/>
-      <parameters>
-        <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
     <function-macro name="IS_FORM_FIELD"
                     c:identifier="PPS_IS_FORM_FIELD"
                     introspectable="0">

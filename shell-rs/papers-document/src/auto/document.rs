@@ -3,13 +3,9 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{DocumentInfo, Page};
-use glib::{
-    prelude::*,
-    signal::{connect_raw, SignalHandlerId},
-    translate::*,
-};
-use std::boxed::Box as Box_;
+use crate::{DocumentInfo,Page};
+use glib::{prelude::*,signal::{connect_raw, SignalHandlerId},translate::*};
+use std::{boxed::Box as Box_};
 
 glib::wrapper! {
     #[doc(alias = "PpsDocument")]
@@ -21,7 +17,8 @@ glib::wrapper! {
 }
 
 impl Document {
-    pub const NONE: Option<&'static Document> = None;
+        pub const NONE: Option<&'static Document> = None;
+    
 
     #[doc(alias = "pps_document_doc_mutex_lock")]
     pub fn doc_mutex_lock() {
@@ -34,7 +31,9 @@ impl Document {
     #[doc(alias = "pps_document_doc_mutex_trylock")]
     pub fn doc_mutex_trylock() -> bool {
         assert_initialized_main_thread!();
-        unsafe { from_glib(ffi::pps_document_doc_mutex_trylock()) }
+        unsafe {
+            from_glib(ffi::pps_document_doc_mutex_trylock())
+        }
     }
 
     #[doc(alias = "pps_document_doc_mutex_unlock")]
@@ -56,11 +55,7 @@ impl Document {
         unsafe {
             let mut error = std::ptr::null_mut();
             let ret = ffi::pps_document_factory_get_document(uri.to_glib_none().0, &mut error);
-            if error.is_null() {
-                Ok(from_glib_full(ret))
-            } else {
-                Err(from_glib_full(error))
-            }
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
 
@@ -87,7 +82,9 @@ impl Document {
     #[doc(alias = "pps_document_fc_mutex_trylock")]
     pub fn fc_mutex_trylock() -> bool {
         assert_initialized_main_thread!();
-        unsafe { from_glib(ffi::pps_document_fc_mutex_trylock()) }
+        unsafe {
+            from_glib(ffi::pps_document_fc_mutex_trylock())
+        }
     }
 
     #[doc(alias = "pps_document_fc_mutex_unlock")]
@@ -101,7 +98,9 @@ impl Document {
     #[doc(alias = "pps_document_misc_format_datetime")]
     pub fn misc_format_datetime(dt: &glib::DateTime) -> Option<glib::GString> {
         assert_initialized_main_thread!();
-        unsafe { from_glib_full(ffi::pps_document_misc_format_datetime(dt.to_glib_none().0)) }
+        unsafe {
+            from_glib_full(ffi::pps_document_misc_format_datetime(dt.to_glib_none().0))
+        }
     }
 
     #[doc(alias = "pps_document_misc_get_pointer_position")]
@@ -110,11 +109,7 @@ impl Document {
         unsafe {
             let mut x = std::mem::MaybeUninit::uninit();
             let mut y = std::mem::MaybeUninit::uninit();
-            ffi::pps_document_misc_get_pointer_position(
-                widget.as_ref().to_glib_none().0,
-                x.as_mut_ptr(),
-                y.as_mut_ptr(),
-            );
+            ffi::pps_document_misc_get_pointer_position(widget.as_ref().to_glib_none().0, x.as_mut_ptr(), y.as_mut_ptr());
             (x.assume_init(), y.assume_init())
         }
     }
@@ -122,7 +117,9 @@ impl Document {
     #[doc(alias = "pps_document_misc_get_widget_dpi")]
     pub fn misc_get_widget_dpi(widget: &impl IsA<gtk::Widget>) -> f64 {
         assert_initialized_main_thread!();
-        unsafe { ffi::pps_document_misc_get_widget_dpi(widget.as_ref().to_glib_none().0) }
+        unsafe {
+            ffi::pps_document_misc_get_widget_dpi(widget.as_ref().to_glib_none().0)
+        }
     }
 
     //#[doc(alias = "pps_document_misc_pixbuf_from_surface")]
@@ -155,9 +152,7 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
     #[doc(alias = "pps_document_check_dimensions")]
     fn check_dimensions(&self) -> bool {
         unsafe {
-            from_glib(ffi::pps_document_check_dimensions(
-                self.as_ref().to_glib_none().0,
-            ))
+            from_glib(ffi::pps_document_check_dimensions(self.as_ref().to_glib_none().0))
         }
     }
 
@@ -170,39 +165,40 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
     #[doc(alias = "pps_document_get_info")]
     #[doc(alias = "get_info")]
     fn info(&self) -> Option<DocumentInfo> {
-        unsafe { from_glib_none(ffi::pps_document_get_info(self.as_ref().to_glib_none().0)) }
+        unsafe {
+            from_glib_none(ffi::pps_document_get_info(self.as_ref().to_glib_none().0))
+        }
     }
 
     #[doc(alias = "pps_document_get_max_label_len")]
     #[doc(alias = "get_max_label_len")]
     fn max_label_len(&self) -> i32 {
-        unsafe { ffi::pps_document_get_max_label_len(self.as_ref().to_glib_none().0) }
+        unsafe {
+            ffi::pps_document_get_max_label_len(self.as_ref().to_glib_none().0)
+        }
     }
 
     #[doc(alias = "pps_document_get_modified")]
     #[doc(alias = "get_modified")]
     fn is_modified(&self) -> bool {
         unsafe {
-            from_glib(ffi::pps_document_get_modified(
-                self.as_ref().to_glib_none().0,
-            ))
+            from_glib(ffi::pps_document_get_modified(self.as_ref().to_glib_none().0))
         }
     }
 
     #[doc(alias = "pps_document_get_n_pages")]
     #[doc(alias = "get_n_pages")]
     fn n_pages(&self) -> i32 {
-        unsafe { ffi::pps_document_get_n_pages(self.as_ref().to_glib_none().0) }
+        unsafe {
+            ffi::pps_document_get_n_pages(self.as_ref().to_glib_none().0)
+        }
     }
 
     #[doc(alias = "pps_document_get_page")]
     #[doc(alias = "get_page")]
     fn page(&self, index: i32) -> Option<Page> {
         unsafe {
-            from_glib_full(ffi::pps_document_get_page(
-                self.as_ref().to_glib_none().0,
-                index,
-            ))
+            from_glib_full(ffi::pps_document_get_page(self.as_ref().to_glib_none().0, index))
         }
     }
 
@@ -210,10 +206,7 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
     #[doc(alias = "get_page_label")]
     fn page_label(&self, page_index: i32) -> Option<glib::GString> {
         unsafe {
-            from_glib_full(ffi::pps_document_get_page_label(
-                self.as_ref().to_glib_none().0,
-                page_index,
-            ))
+            from_glib_full(ffi::pps_document_get_page_label(self.as_ref().to_glib_none().0, page_index))
         }
     }
 
@@ -223,12 +216,7 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
         unsafe {
             let mut width = std::mem::MaybeUninit::uninit();
             let mut height = std::mem::MaybeUninit::uninit();
-            ffi::pps_document_get_page_size(
-                self.as_ref().to_glib_none().0,
-                page_index,
-                width.as_mut_ptr(),
-                height.as_mut_ptr(),
-            );
+            ffi::pps_document_get_page_size(self.as_ref().to_glib_none().0, page_index, width.as_mut_ptr(), height.as_mut_ptr());
             (width.assume_init(), height.assume_init())
         }
     }
@@ -236,7 +224,9 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
     #[doc(alias = "pps_document_get_size")]
     #[doc(alias = "get_size")]
     fn size(&self) -> u64 {
-        unsafe { ffi::pps_document_get_size(self.as_ref().to_glib_none().0) }
+        unsafe {
+            ffi::pps_document_get_size(self.as_ref().to_glib_none().0)
+        }
     }
 
     //#[doc(alias = "pps_document_get_thumbnail")]
@@ -254,30 +244,30 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
     #[doc(alias = "pps_document_get_title")]
     #[doc(alias = "get_title")]
     fn title(&self) -> Option<glib::GString> {
-        unsafe { from_glib_none(ffi::pps_document_get_title(self.as_ref().to_glib_none().0)) }
+        unsafe {
+            from_glib_none(ffi::pps_document_get_title(self.as_ref().to_glib_none().0))
+        }
     }
 
     #[doc(alias = "pps_document_get_uri")]
     #[doc(alias = "get_uri")]
     fn uri(&self) -> Option<glib::GString> {
-        unsafe { from_glib_none(ffi::pps_document_get_uri(self.as_ref().to_glib_none().0)) }
+        unsafe {
+            from_glib_none(ffi::pps_document_get_uri(self.as_ref().to_glib_none().0))
+        }
     }
 
     #[doc(alias = "pps_document_has_text_page_labels")]
     fn has_text_page_labels(&self) -> bool {
         unsafe {
-            from_glib(ffi::pps_document_has_text_page_labels(
-                self.as_ref().to_glib_none().0,
-            ))
+            from_glib(ffi::pps_document_has_text_page_labels(self.as_ref().to_glib_none().0))
         }
     }
 
     #[doc(alias = "pps_document_is_page_size_uniform")]
     fn is_page_size_uniform(&self) -> bool {
         unsafe {
-            from_glib(ffi::pps_document_is_page_size_uniform(
-                self.as_ref().to_glib_none().0,
-            ))
+            from_glib(ffi::pps_document_is_page_size_uniform(self.as_ref().to_glib_none().0))
         }
     }
 
@@ -285,17 +275,9 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
     fn load(&self, uri: &str) -> Result<(), glib::Error> {
         unsafe {
             let mut error = std::ptr::null_mut();
-            let is_ok = ffi::pps_document_load(
-                self.as_ref().to_glib_none().0,
-                uri.to_glib_none().0,
-                &mut error,
-            );
+            let is_ok = ffi::pps_document_load(self.as_ref().to_glib_none().0, uri.to_glib_none().0, &mut error);
             debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
-            if error.is_null() {
-                Ok(())
-            } else {
-                Err(from_glib_full(error))
-            }
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
@@ -320,17 +302,9 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
     fn save(&self, uri: &str) -> Result<(), glib::Error> {
         unsafe {
             let mut error = std::ptr::null_mut();
-            let is_ok = ffi::pps_document_save(
-                self.as_ref().to_glib_none().0,
-                uri.to_glib_none().0,
-                &mut error,
-            );
+            let is_ok = ffi::pps_document_save(self.as_ref().to_glib_none().0, uri.to_glib_none().0, &mut error);
             debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
-            if error.is_null() {
-                Ok(())
-            } else {
-                Err(from_glib_full(error))
-            }
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
@@ -343,24 +317,14 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
 
     #[doc(alias = "modified")]
     fn connect_modified_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_modified_trampoline<P: IsA<Document>, F: Fn(&P) + 'static>(
-            this: *mut ffi::PpsDocument,
-            _param_spec: glib::ffi::gpointer,
-            f: glib::ffi::gpointer,
-        ) {
+        unsafe extern "C" fn notify_modified_trampoline<P: IsA<Document>, F: Fn(&P) + 'static>(this: *mut ffi::PpsDocument, _param_spec: glib::ffi::gpointer, f: glib::ffi::gpointer) {
             let f: &F = &*(f as *const F);
             f(Document::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"notify::modified\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
-                    notify_modified_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
+            connect_raw(self.as_ptr() as *mut _, b"notify::modified\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(notify_modified_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
         }
     }
 }

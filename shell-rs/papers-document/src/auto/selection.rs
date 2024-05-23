@@ -3,8 +3,8 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Page, Rectangle, SelectionStyle};
-use glib::{prelude::*, translate::*};
+use crate::{Page,Rectangle,SelectionStyle};
+use glib::{prelude::*,translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsSelection")]
@@ -16,7 +16,8 @@ glib::wrapper! {
 }
 
 impl Selection {
-    pub const NONE: Option<&'static Selection> = None;
+        pub const NONE: Option<&'static Selection> = None;
+    
 }
 
 mod sealed {
@@ -27,19 +28,9 @@ mod sealed {
 pub trait SelectionExt: IsA<Selection> + sealed::Sealed + 'static {
     #[doc(alias = "pps_selection_get_selected_text")]
     #[doc(alias = "get_selected_text")]
-    fn selected_text(
-        &self,
-        page: &impl IsA<Page>,
-        style: SelectionStyle,
-        points: &mut Rectangle,
-    ) -> Option<glib::GString> {
+    fn selected_text(&self, page: &impl IsA<Page>, style: SelectionStyle, points: &mut Rectangle) -> Option<glib::GString> {
         unsafe {
-            from_glib_full(ffi::pps_selection_get_selected_text(
-                self.as_ref().to_glib_none().0,
-                page.as_ref().to_glib_none().0,
-                style.into_glib(),
-                points.to_glib_none_mut().0,
-            ))
+            from_glib_full(ffi::pps_selection_get_selected_text(self.as_ref().to_glib_none().0, page.as_ref().to_glib_none().0, style.into_glib(), points.to_glib_none_mut().0))
         }
     }
 

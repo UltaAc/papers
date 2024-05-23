@@ -3,12 +3,8 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{
-    prelude::*,
-    signal::{connect_raw, SignalHandlerId},
-    translate::*,
-};
-use std::boxed::Box as Box_;
+use glib::{prelude::*,signal::{connect_raw, SignalHandlerId},translate::*};
+use std::{boxed::Box as Box_};
 
 glib::wrapper! {
     #[doc(alias = "PpsPrintOperation")]
@@ -24,9 +20,7 @@ impl PrintOperation {
     pub fn new(document: &impl IsA<papers_document::Document>) -> PrintOperation {
         assert_initialized_main_thread!();
         unsafe {
-            from_glib_full(ffi::pps_print_operation_new(
-                document.as_ref().to_glib_none().0,
-            ))
+            from_glib_full(ffi::pps_print_operation_new(document.as_ref().to_glib_none().0))
         }
     }
 
@@ -47,9 +41,7 @@ impl PrintOperation {
     #[doc(alias = "get_embed_page_setup")]
     pub fn embeds_page_setup(&self) -> bool {
         unsafe {
-            from_glib(ffi::pps_print_operation_get_embed_page_setup(
-                self.to_glib_none().0,
-            ))
+            from_glib(ffi::pps_print_operation_get_embed_page_setup(self.to_glib_none().0))
         }
     }
 
@@ -59,40 +51,40 @@ impl PrintOperation {
         unsafe {
             let mut error = std::ptr::null_mut();
             let _ = ffi::pps_print_operation_get_error(self.to_glib_none().0, &mut error);
-            if error.is_null() {
-                Ok(())
-            } else {
-                Err(from_glib_full(error))
-            }
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
     #[doc(alias = "pps_print_operation_get_job_name")]
     #[doc(alias = "get_job_name")]
     pub fn job_name(&self) -> Option<glib::GString> {
-        unsafe { from_glib_none(ffi::pps_print_operation_get_job_name(self.to_glib_none().0)) }
+        unsafe {
+            from_glib_none(ffi::pps_print_operation_get_job_name(self.to_glib_none().0))
+        }
     }
 
     #[doc(alias = "pps_print_operation_get_print_settings")]
     #[doc(alias = "get_print_settings")]
     pub fn print_settings(&self) -> Option<gtk::PrintSettings> {
         unsafe {
-            from_glib_none(ffi::pps_print_operation_get_print_settings(
-                self.to_glib_none().0,
-            ))
+            from_glib_none(ffi::pps_print_operation_get_print_settings(self.to_glib_none().0))
         }
     }
 
     #[doc(alias = "pps_print_operation_get_progress")]
     #[doc(alias = "get_progress")]
     pub fn progress(&self) -> f64 {
-        unsafe { ffi::pps_print_operation_get_progress(self.to_glib_none().0) }
+        unsafe {
+            ffi::pps_print_operation_get_progress(self.to_glib_none().0)
+        }
     }
 
     #[doc(alias = "pps_print_operation_get_status")]
     #[doc(alias = "get_status")]
     pub fn status(&self) -> Option<glib::GString> {
-        unsafe { from_glib_none(ffi::pps_print_operation_get_status(self.to_glib_none().0)) }
+        unsafe {
+            from_glib_none(ffi::pps_print_operation_get_status(self.to_glib_none().0))
+        }
     }
 
     //#[doc(alias = "pps_print_operation_run")]
@@ -129,10 +121,7 @@ impl PrintOperation {
     #[doc(alias = "pps_print_operation_set_print_settings")]
     pub fn set_print_settings(&self, print_settings: &gtk::PrintSettings) {
         unsafe {
-            ffi::pps_print_operation_set_print_settings(
-                self.to_glib_none().0,
-                print_settings.to_glib_none().0,
-            );
+            ffi::pps_print_operation_set_print_settings(self.to_glib_none().0, print_settings.to_glib_none().0);
         }
     }
 
@@ -140,81 +129,46 @@ impl PrintOperation {
     pub fn exists_for_document(document: &impl IsA<papers_document::Document>) -> bool {
         assert_initialized_main_thread!();
         unsafe {
-            from_glib(ffi::pps_print_operation_exists_for_document(
-                document.as_ref().to_glib_none().0,
-            ))
+            from_glib(ffi::pps_print_operation_exists_for_document(document.as_ref().to_glib_none().0))
         }
     }
 
     #[doc(alias = "begin-print")]
     pub fn connect_begin_print<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn begin_print_trampoline<F: Fn(&PrintOperation) + 'static>(
-            this: *mut ffi::PpsPrintOperation,
-            f: glib::ffi::gpointer,
-        ) {
+        unsafe extern "C" fn begin_print_trampoline<F: Fn(&PrintOperation) + 'static>(this: *mut ffi::PpsPrintOperation, f: glib::ffi::gpointer) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"begin-print\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
-                    begin_print_trampoline::<F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
+            connect_raw(self.as_ptr() as *mut _, b"begin-print\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(begin_print_trampoline::<F> as *const ())), Box_::into_raw(f))
         }
     }
 
     #[doc(alias = "done")]
-    pub fn connect_done<F: Fn(&Self, gtk::PrintOperationResult) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
-        unsafe extern "C" fn done_trampoline<
-            F: Fn(&PrintOperation, gtk::PrintOperationResult) + 'static,
-        >(
-            this: *mut ffi::PpsPrintOperation,
-            object: gtk::ffi::GtkPrintOperationResult,
-            f: glib::ffi::gpointer,
-        ) {
+    pub fn connect_done<F: Fn(&Self, gtk::PrintOperationResult) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn done_trampoline<F: Fn(&PrintOperation, gtk::PrintOperationResult) + 'static>(this: *mut ffi::PpsPrintOperation, object: gtk::ffi::GtkPrintOperationResult, f: glib::ffi::gpointer) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this), from_glib(object))
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"done\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
-                    done_trampoline::<F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
+            connect_raw(self.as_ptr() as *mut _, b"done\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(done_trampoline::<F> as *const ())), Box_::into_raw(f))
         }
     }
 
     #[doc(alias = "status-changed")]
     pub fn connect_status_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn status_changed_trampoline<F: Fn(&PrintOperation) + 'static>(
-            this: *mut ffi::PpsPrintOperation,
-            f: glib::ffi::gpointer,
-        ) {
+        unsafe extern "C" fn status_changed_trampoline<F: Fn(&PrintOperation) + 'static>(this: *mut ffi::PpsPrintOperation, f: glib::ffi::gpointer) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"status-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
-                    status_changed_trampoline::<F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
+            connect_raw(self.as_ptr() as *mut _, b"status-changed\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(status_changed_trampoline::<F> as *const ())), Box_::into_raw(f))
         }
     }
 }

@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{prelude::*, translate::*};
+use glib::{prelude::*,translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsSidebarPage")]
@@ -15,7 +15,8 @@ glib::wrapper! {
 }
 
 impl SidebarPage {
-    pub const NONE: Option<&'static SidebarPage> = None;
+        pub const NONE: Option<&'static SidebarPage> = None;
+    
 }
 
 mod sealed {
@@ -34,10 +35,7 @@ pub trait SidebarPageExt: IsA<SidebarPage> + sealed::Sealed + 'static {
     #[doc(alias = "pps_sidebar_page_support_document")]
     fn support_document(&self, document: &impl IsA<papers_document::Document>) -> bool {
         unsafe {
-            from_glib(ffi::pps_sidebar_page_support_document(
-                self.as_ref().to_glib_none().0,
-                document.as_ref().to_glib_none().0,
-            ))
+            from_glib(ffi::pps_sidebar_page_support_document(self.as_ref().to_glib_none().0, document.as_ref().to_glib_none().0))
         }
     }
 }

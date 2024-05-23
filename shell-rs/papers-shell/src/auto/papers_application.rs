@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{prelude::*, translate::*};
+use glib::{prelude::*,translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsPapersApplication")]
@@ -15,7 +15,8 @@ glib::wrapper! {
 }
 
 impl PapersApplication {
-    pub const NONE: Option<&'static PapersApplication> = None;
+        pub const NONE: Option<&'static PapersApplication> = None;
+    
 
     //#[doc(alias = "pps_papers_application_interface_info")]
     //pub fn interface_info() -> /*Ignored*/Option<gio::DBusInterfaceInfo> {
@@ -42,14 +43,14 @@ pub trait PapersApplicationExt: IsA<PapersApplication> + sealed::Sealed + 'stati
     //
     //fn call_get_window_list_future(&self) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<glib::GString>, /*Ignored*/glib::Error>> + 'static>> {
 
-    //Box_::pin(gio::GioFuture::new(self, move |obj, cancellable, send| {
-    //    obj.call_get_window_list(
-    //        Some(cancellable),
-    //        move |res| {
-    //            send.resolve(res);
-    //        },
-    //    );
-    //}))
+        //Box_::pin(gio::GioFuture::new(self, move |obj, cancellable, send| {
+        //    obj.call_get_window_list(
+        //        Some(cancellable),
+        //        move |res| {
+        //            send.resolve(res);
+        //        },
+        //    );
+        //}))
     //}
 
     //#[doc(alias = "pps_papers_application_call_get_window_list_sync")]

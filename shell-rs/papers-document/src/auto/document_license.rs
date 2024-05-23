@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::translate::*;
+use glib::{translate::*};
 
 glib::wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -20,34 +20,38 @@ impl DocumentLicense {
     #[doc(alias = "pps_document_license_new")]
     pub fn new() -> DocumentLicense {
         assert_initialized_main_thread!();
-        unsafe { from_glib_full(ffi::pps_document_license_new()) }
+        unsafe {
+            from_glib_full(ffi::pps_document_license_new())
+        }
     }
 
     #[doc(alias = "pps_document_license_get_text")]
     #[doc(alias = "get_text")]
     pub fn text(self) -> Option<glib::GString> {
-        unsafe { from_glib_none(ffi::pps_document_license_get_text(self.into_glib_ptr())) }
+        unsafe {
+            from_glib_none(ffi::pps_document_license_get_text(self.into_glib_ptr()))
+        }
     }
 
     #[doc(alias = "pps_document_license_get_uri")]
     #[doc(alias = "get_uri")]
     pub fn uri(self) -> Option<glib::GString> {
-        unsafe { from_glib_none(ffi::pps_document_license_get_uri(self.into_glib_ptr())) }
+        unsafe {
+            from_glib_none(ffi::pps_document_license_get_uri(self.into_glib_ptr()))
+        }
     }
 
     #[doc(alias = "pps_document_license_get_web_statement")]
     #[doc(alias = "get_web_statement")]
     pub fn web_statement(self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(ffi::pps_document_license_get_web_statement(
-                self.into_glib_ptr(),
-            ))
+            from_glib_none(ffi::pps_document_license_get_web_statement(self.into_glib_ptr()))
         }
     }
 }
 
 impl Default for DocumentLicense {
-    fn default() -> Self {
-        Self::new()
-    }
-}
+                     fn default() -> Self {
+                         Self::new()
+                     }
+                 }

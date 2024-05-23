@@ -3,13 +3,9 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::Link;
-use glib::{
-    prelude::*,
-    signal::{connect_raw, SignalHandlerId},
-    translate::*,
-};
-use std::boxed::Box as Box_;
+use crate::{Link};
+use glib::{prelude::*,signal::{connect_raw, SignalHandlerId},translate::*};
+use std::{boxed::Box as Box_};
 
 glib::wrapper! {
     #[doc(alias = "PpsOutlines")]
@@ -21,20 +17,23 @@ glib::wrapper! {
 }
 
 impl Outlines {
-    pub const NONE: Option<&'static Outlines> = None;
+        pub const NONE: Option<&'static Outlines> = None;
+    
 
     #[doc(alias = "pps_outlines_new")]
     pub fn new() -> Outlines {
         assert_initialized_main_thread!();
-        unsafe { from_glib_full(ffi::pps_outlines_new()) }
+        unsafe {
+            from_glib_full(ffi::pps_outlines_new())
+        }
     }
 }
 
 impl Default for Outlines {
-    fn default() -> Self {
-        Self::new()
-    }
-}
+                     fn default() -> Self {
+                         Self::new()
+                     }
+                 }
 
 mod sealed {
     pub trait Sealed {}
@@ -46,31 +45,30 @@ pub trait OutlinesExt: IsA<Outlines> + sealed::Sealed + 'static {
     #[doc(alias = "get_children")]
     fn children(&self) -> Option<gio::ListModel> {
         unsafe {
-            from_glib_none(ffi::pps_outlines_get_children(
-                self.as_ref().to_glib_none().0,
-            ))
+            from_glib_none(ffi::pps_outlines_get_children(self.as_ref().to_glib_none().0))
         }
     }
 
     #[doc(alias = "pps_outlines_get_expand")]
     #[doc(alias = "get_expand")]
     fn expands(&self) -> bool {
-        unsafe { from_glib(ffi::pps_outlines_get_expand(self.as_ref().to_glib_none().0)) }
+        unsafe {
+            from_glib(ffi::pps_outlines_get_expand(self.as_ref().to_glib_none().0))
+        }
     }
 
     #[doc(alias = "pps_outlines_get_link")]
     #[doc(alias = "get_link")]
     fn link(&self) -> Option<Link> {
-        unsafe { from_glib_none(ffi::pps_outlines_get_link(self.as_ref().to_glib_none().0)) }
+        unsafe {
+            from_glib_none(ffi::pps_outlines_get_link(self.as_ref().to_glib_none().0))
+        }
     }
 
     #[doc(alias = "pps_outlines_set_children")]
     fn set_children(&self, children: impl IsA<gio::ListModel>) {
         unsafe {
-            ffi::pps_outlines_set_children(
-                self.as_ref().to_glib_none().0,
-                children.upcast().into_glib_ptr(),
-            );
+            ffi::pps_outlines_set_children(self.as_ref().to_glib_none().0, children.upcast().into_glib_ptr());
         }
     }
 
@@ -112,116 +110,66 @@ pub trait OutlinesExt: IsA<Outlines> + sealed::Sealed + 'static {
 
     #[doc(alias = "children")]
     fn connect_children_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_children_trampoline<P: IsA<Outlines>, F: Fn(&P) + 'static>(
-            this: *mut ffi::PpsOutlines,
-            _param_spec: glib::ffi::gpointer,
-            f: glib::ffi::gpointer,
-        ) {
+        unsafe extern "C" fn notify_children_trampoline<P: IsA<Outlines>, F: Fn(&P) + 'static>(this: *mut ffi::PpsOutlines, _param_spec: glib::ffi::gpointer, f: glib::ffi::gpointer) {
             let f: &F = &*(f as *const F);
             f(Outlines::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"notify::children\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
-                    notify_children_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
+            connect_raw(self.as_ptr() as *mut _, b"notify::children\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(notify_children_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
         }
     }
 
     #[doc(alias = "expand")]
     fn connect_expand_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_expand_trampoline<P: IsA<Outlines>, F: Fn(&P) + 'static>(
-            this: *mut ffi::PpsOutlines,
-            _param_spec: glib::ffi::gpointer,
-            f: glib::ffi::gpointer,
-        ) {
+        unsafe extern "C" fn notify_expand_trampoline<P: IsA<Outlines>, F: Fn(&P) + 'static>(this: *mut ffi::PpsOutlines, _param_spec: glib::ffi::gpointer, f: glib::ffi::gpointer) {
             let f: &F = &*(f as *const F);
             f(Outlines::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"notify::expand\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
-                    notify_expand_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
+            connect_raw(self.as_ptr() as *mut _, b"notify::expand\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(notify_expand_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
         }
     }
 
     #[doc(alias = "label")]
     fn connect_label_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_label_trampoline<P: IsA<Outlines>, F: Fn(&P) + 'static>(
-            this: *mut ffi::PpsOutlines,
-            _param_spec: glib::ffi::gpointer,
-            f: glib::ffi::gpointer,
-        ) {
+        unsafe extern "C" fn notify_label_trampoline<P: IsA<Outlines>, F: Fn(&P) + 'static>(this: *mut ffi::PpsOutlines, _param_spec: glib::ffi::gpointer, f: glib::ffi::gpointer) {
             let f: &F = &*(f as *const F);
             f(Outlines::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"notify::label\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
-                    notify_label_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
+            connect_raw(self.as_ptr() as *mut _, b"notify::label\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(notify_label_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
         }
     }
 
     #[doc(alias = "link")]
     fn connect_link_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_link_trampoline<P: IsA<Outlines>, F: Fn(&P) + 'static>(
-            this: *mut ffi::PpsOutlines,
-            _param_spec: glib::ffi::gpointer,
-            f: glib::ffi::gpointer,
-        ) {
+        unsafe extern "C" fn notify_link_trampoline<P: IsA<Outlines>, F: Fn(&P) + 'static>(this: *mut ffi::PpsOutlines, _param_spec: glib::ffi::gpointer, f: glib::ffi::gpointer) {
             let f: &F = &*(f as *const F);
             f(Outlines::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"notify::link\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
-                    notify_link_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
+            connect_raw(self.as_ptr() as *mut _, b"notify::link\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(notify_link_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
         }
     }
 
     #[doc(alias = "markup")]
     fn connect_markup_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_markup_trampoline<P: IsA<Outlines>, F: Fn(&P) + 'static>(
-            this: *mut ffi::PpsOutlines,
-            _param_spec: glib::ffi::gpointer,
-            f: glib::ffi::gpointer,
-        ) {
+        unsafe extern "C" fn notify_markup_trampoline<P: IsA<Outlines>, F: Fn(&P) + 'static>(this: *mut ffi::PpsOutlines, _param_spec: glib::ffi::gpointer, f: glib::ffi::gpointer) {
             let f: &F = &*(f as *const F);
             f(Outlines::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"notify::markup\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
-                    notify_markup_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
+            connect_raw(self.as_ptr() as *mut _, b"notify::markup\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(notify_markup_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
         }
     }
 }

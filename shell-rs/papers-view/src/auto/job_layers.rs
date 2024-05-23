@@ -3,8 +3,8 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::Job;
-use glib::{prelude::*, translate::*};
+use crate::{Job};
+use glib::{prelude::*,translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsJobLayers")]
@@ -16,14 +16,14 @@ glib::wrapper! {
 }
 
 impl JobLayers {
-    pub const NONE: Option<&'static JobLayers> = None;
+        pub const NONE: Option<&'static JobLayers> = None;
+    
 
     #[doc(alias = "pps_job_layers_new")]
     pub fn new(document: &impl IsA<papers_document::Document>) -> JobLayers {
         assert_initialized_main_thread!();
         unsafe {
-            Job::from_glib_full(ffi::pps_job_layers_new(document.as_ref().to_glib_none().0))
-                .unsafe_cast()
+            Job::from_glib_full(ffi::pps_job_layers_new(document.as_ref().to_glib_none().0)).unsafe_cast()
         }
     }
 }
@@ -38,9 +38,7 @@ pub trait JobLayersExt: IsA<JobLayers> + sealed::Sealed + 'static {
     #[doc(alias = "get_model")]
     fn model(&self) -> Option<gio::ListModel> {
         unsafe {
-            from_glib_full(ffi::pps_job_layers_get_model(
-                self.as_ref().to_glib_none().0,
-            ))
+            from_glib_full(ffi::pps_job_layers_get_model(self.as_ref().to_glib_none().0))
         }
     }
 }

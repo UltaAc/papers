@@ -3,8 +3,8 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Link, LinkDest};
-use glib::{prelude::*, translate::*};
+use crate::{Link,LinkDest};
+use glib::{prelude::*,translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsDocumentLinks")]
@@ -16,7 +16,8 @@ glib::wrapper! {
 }
 
 impl DocumentLinks {
-    pub const NONE: Option<&'static DocumentLinks> = None;
+        pub const NONE: Option<&'static DocumentLinks> = None;
+    
 }
 
 mod sealed {
@@ -28,20 +29,14 @@ pub trait DocumentLinksExt: IsA<DocumentLinks> + sealed::Sealed + 'static {
     #[doc(alias = "pps_document_links_find_link_dest")]
     fn find_link_dest(&self, link_name: &str) -> Option<LinkDest> {
         unsafe {
-            from_glib_full(ffi::pps_document_links_find_link_dest(
-                self.as_ref().to_glib_none().0,
-                link_name.to_glib_none().0,
-            ))
+            from_glib_full(ffi::pps_document_links_find_link_dest(self.as_ref().to_glib_none().0, link_name.to_glib_none().0))
         }
     }
 
     #[doc(alias = "pps_document_links_find_link_page")]
     fn find_link_page(&self, link_name: &str) -> i32 {
         unsafe {
-            ffi::pps_document_links_find_link_page(
-                self.as_ref().to_glib_none().0,
-                link_name.to_glib_none().0,
-            )
+            ffi::pps_document_links_find_link_page(self.as_ref().to_glib_none().0, link_name.to_glib_none().0)
         }
     }
 
@@ -49,10 +44,7 @@ pub trait DocumentLinksExt: IsA<DocumentLinks> + sealed::Sealed + 'static {
     #[doc(alias = "get_dest_page")]
     fn dest_page(&self, dest: &LinkDest) -> i32 {
         unsafe {
-            ffi::pps_document_links_get_dest_page(
-                self.as_ref().to_glib_none().0,
-                dest.to_glib_none().0,
-            )
+            ffi::pps_document_links_get_dest_page(self.as_ref().to_glib_none().0, dest.to_glib_none().0)
         }
     }
 
@@ -60,10 +52,7 @@ pub trait DocumentLinksExt: IsA<DocumentLinks> + sealed::Sealed + 'static {
     #[doc(alias = "get_dest_page_label")]
     fn dest_page_label(&self, dest: &LinkDest) -> Option<glib::GString> {
         unsafe {
-            from_glib_full(ffi::pps_document_links_get_dest_page_label(
-                self.as_ref().to_glib_none().0,
-                dest.to_glib_none().0,
-            ))
+            from_glib_full(ffi::pps_document_links_get_dest_page_label(self.as_ref().to_glib_none().0, dest.to_glib_none().0))
         }
     }
 
@@ -71,10 +60,7 @@ pub trait DocumentLinksExt: IsA<DocumentLinks> + sealed::Sealed + 'static {
     #[doc(alias = "get_link_page")]
     fn link_page(&self, link: &Link) -> i32 {
         unsafe {
-            ffi::pps_document_links_get_link_page(
-                self.as_ref().to_glib_none().0,
-                link.to_glib_none().0,
-            )
+            ffi::pps_document_links_get_link_page(self.as_ref().to_glib_none().0, link.to_glib_none().0)
         }
     }
 
@@ -82,10 +68,7 @@ pub trait DocumentLinksExt: IsA<DocumentLinks> + sealed::Sealed + 'static {
     #[doc(alias = "get_link_page_label")]
     fn link_page_label(&self, link: &Link) -> Option<glib::GString> {
         unsafe {
-            from_glib_full(ffi::pps_document_links_get_link_page_label(
-                self.as_ref().to_glib_none().0,
-                link.to_glib_none().0,
-            ))
+            from_glib_full(ffi::pps_document_links_get_link_page_label(self.as_ref().to_glib_none().0, link.to_glib_none().0))
         }
     }
 
@@ -99,18 +82,14 @@ pub trait DocumentLinksExt: IsA<DocumentLinks> + sealed::Sealed + 'static {
     #[doc(alias = "get_links_model")]
     fn links_model(&self) -> Option<gio::ListModel> {
         unsafe {
-            from_glib_full(ffi::pps_document_links_get_links_model(
-                self.as_ref().to_glib_none().0,
-            ))
+            from_glib_full(ffi::pps_document_links_get_links_model(self.as_ref().to_glib_none().0))
         }
     }
 
     #[doc(alias = "pps_document_links_has_document_links")]
     fn has_document_links(&self) -> bool {
         unsafe {
-            from_glib(ffi::pps_document_links_has_document_links(
-                self.as_ref().to_glib_none().0,
-            ))
+            from_glib(ffi::pps_document_links_has_document_links(self.as_ref().to_glib_none().0))
         }
     }
 }

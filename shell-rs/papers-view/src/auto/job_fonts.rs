@@ -3,8 +3,8 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::Job;
-use glib::{prelude::*, translate::*};
+use crate::{Job};
+use glib::{prelude::*,translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsJobFonts")]
@@ -16,14 +16,14 @@ glib::wrapper! {
 }
 
 impl JobFonts {
-    pub const NONE: Option<&'static JobFonts> = None;
+        pub const NONE: Option<&'static JobFonts> = None;
+    
 
     #[doc(alias = "pps_job_fonts_new")]
     pub fn new(document: &impl IsA<papers_document::Document>) -> JobFonts {
         assert_initialized_main_thread!();
         unsafe {
-            Job::from_glib_full(ffi::pps_job_fonts_new(document.as_ref().to_glib_none().0))
-                .unsafe_cast()
+            Job::from_glib_full(ffi::pps_job_fonts_new(document.as_ref().to_glib_none().0)).unsafe_cast()
         }
     }
 }

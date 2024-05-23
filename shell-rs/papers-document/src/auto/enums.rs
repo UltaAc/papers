@@ -3,9 +3,10 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{prelude::*, translate::*};
+use glib::{prelude::*,translate::*};
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "PpsAnnotationType")]
 pub enum AnnotationType {
@@ -17,7 +18,7 @@ pub enum AnnotationType {
     Attachment,
     #[doc(alias = "PPS_ANNOTATION_TYPE_TEXT_MARKUP")]
     TextMarkup,
-    #[doc(hidden)]
+#[doc(hidden)]
     __Unknown(i32),
 }
 
@@ -26,49 +27,49 @@ impl IntoGlib for AnnotationType {
     type GlibType = ffi::PpsAnnotationType;
 
     #[inline]
-    fn into_glib(self) -> ffi::PpsAnnotationType {
-        match self {
+fn into_glib(self) -> ffi::PpsAnnotationType {
+match self {
             Self::Unknown => ffi::PPS_ANNOTATION_TYPE_UNKNOWN,
             Self::Text => ffi::PPS_ANNOTATION_TYPE_TEXT,
             Self::Attachment => ffi::PPS_ANNOTATION_TYPE_ATTACHMENT,
             Self::TextMarkup => ffi::PPS_ANNOTATION_TYPE_TEXT_MARKUP,
             Self::__Unknown(value) => value,
-        }
-    }
+}
+}
 }
 
 #[doc(hidden)]
 impl FromGlib<ffi::PpsAnnotationType> for AnnotationType {
     #[inline]
-    unsafe fn from_glib(value: ffi::PpsAnnotationType) -> Self {
+unsafe fn from_glib(value: ffi::PpsAnnotationType) -> Self {
         skip_assert_initialized!();
-
-        match value {
+        
+match value {
             ffi::PPS_ANNOTATION_TYPE_UNKNOWN => Self::Unknown,
             ffi::PPS_ANNOTATION_TYPE_TEXT => Self::Text,
             ffi::PPS_ANNOTATION_TYPE_ATTACHMENT => Self::Attachment,
             ffi::PPS_ANNOTATION_TYPE_TEXT_MARKUP => Self::TextMarkup,
             value => Self::__Unknown(value),
-        }
-    }
+}
+}
 }
 
 impl StaticType for AnnotationType {
-    #[inline]
+                #[inline]
     #[doc(alias = "pps_annotation_type_get_type")]
-    fn static_type() -> glib::Type {
-        unsafe { from_glib(ffi::pps_annotation_type_get_type()) }
-    }
-}
+   fn static_type() -> glib::Type {
+                    unsafe { from_glib(ffi::pps_annotation_type_get_type()) }
+                }
+            }
 
 impl glib::HasParamSpec for AnnotationType {
-    type ParamSpec = glib::ParamSpecEnum;
-    type SetValue = Self;
-    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
-
-    fn param_spec_builder() -> Self::BuilderFn {
-        Self::ParamSpec::builder_with_default
-    }
+                type ParamSpec = glib::ParamSpecEnum;
+                type SetValue = Self;
+                type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+    
+                fn param_spec_builder() -> Self::BuilderFn {
+                    Self::ParamSpec::builder_with_default
+                }
 }
 
 impl glib::value::ValueType for AnnotationType {
@@ -109,7 +110,8 @@ impl From<AnnotationType> for glib::Value {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "PpsCompressionType")]
 pub enum CompressionType {
@@ -121,7 +123,7 @@ pub enum CompressionType {
     Gzip,
     #[doc(alias = "PPS_COMPRESSION_LZMA")]
     Lzma,
-    #[doc(hidden)]
+#[doc(hidden)]
     __Unknown(i32),
 }
 
@@ -130,49 +132,49 @@ impl IntoGlib for CompressionType {
     type GlibType = ffi::PpsCompressionType;
 
     #[inline]
-    fn into_glib(self) -> ffi::PpsCompressionType {
-        match self {
+fn into_glib(self) -> ffi::PpsCompressionType {
+match self {
             Self::None => ffi::PPS_COMPRESSION_NONE,
             Self::Bzip2 => ffi::PPS_COMPRESSION_BZIP2,
             Self::Gzip => ffi::PPS_COMPRESSION_GZIP,
             Self::Lzma => ffi::PPS_COMPRESSION_LZMA,
             Self::__Unknown(value) => value,
-        }
-    }
+}
+}
 }
 
 #[doc(hidden)]
 impl FromGlib<ffi::PpsCompressionType> for CompressionType {
     #[inline]
-    unsafe fn from_glib(value: ffi::PpsCompressionType) -> Self {
+unsafe fn from_glib(value: ffi::PpsCompressionType) -> Self {
         skip_assert_initialized!();
-
-        match value {
+        
+match value {
             ffi::PPS_COMPRESSION_NONE => Self::None,
             ffi::PPS_COMPRESSION_BZIP2 => Self::Bzip2,
             ffi::PPS_COMPRESSION_GZIP => Self::Gzip,
             ffi::PPS_COMPRESSION_LZMA => Self::Lzma,
             value => Self::__Unknown(value),
-        }
-    }
+}
+}
 }
 
 impl StaticType for CompressionType {
-    #[inline]
+                #[inline]
     #[doc(alias = "pps_compression_type_get_type")]
-    fn static_type() -> glib::Type {
-        unsafe { from_glib(ffi::pps_compression_type_get_type()) }
-    }
-}
+   fn static_type() -> glib::Type {
+                    unsafe { from_glib(ffi::pps_compression_type_get_type()) }
+                }
+            }
 
 impl glib::HasParamSpec for CompressionType {
-    type ParamSpec = glib::ParamSpecEnum;
-    type SetValue = Self;
-    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
-
-    fn param_spec_builder() -> Self::BuilderFn {
-        Self::ParamSpec::builder_with_default
-    }
+                type ParamSpec = glib::ParamSpecEnum;
+                type SetValue = Self;
+                type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+    
+                fn param_spec_builder() -> Self::BuilderFn {
+                    Self::ParamSpec::builder_with_default
+                }
 }
 
 impl glib::value::ValueType for CompressionType {
@@ -213,7 +215,8 @@ impl From<CompressionType> for glib::Value {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "PpsDocumentContainsJS")]
 pub enum DocumentContainsJS {
@@ -223,7 +226,7 @@ pub enum DocumentContainsJS {
     No,
     #[doc(alias = "PPS_DOCUMENT_CONTAINS_JS_YES")]
     Yes,
-    #[doc(hidden)]
+#[doc(hidden)]
     __Unknown(i32),
 }
 
@@ -232,47 +235,47 @@ impl IntoGlib for DocumentContainsJS {
     type GlibType = ffi::PpsDocumentContainsJS;
 
     #[inline]
-    fn into_glib(self) -> ffi::PpsDocumentContainsJS {
-        match self {
+fn into_glib(self) -> ffi::PpsDocumentContainsJS {
+match self {
             Self::Unknown => ffi::PPS_DOCUMENT_CONTAINS_JS_UNKNOWN,
             Self::No => ffi::PPS_DOCUMENT_CONTAINS_JS_NO,
             Self::Yes => ffi::PPS_DOCUMENT_CONTAINS_JS_YES,
             Self::__Unknown(value) => value,
-        }
-    }
+}
+}
 }
 
 #[doc(hidden)]
 impl FromGlib<ffi::PpsDocumentContainsJS> for DocumentContainsJS {
     #[inline]
-    unsafe fn from_glib(value: ffi::PpsDocumentContainsJS) -> Self {
+unsafe fn from_glib(value: ffi::PpsDocumentContainsJS) -> Self {
         skip_assert_initialized!();
-
-        match value {
+        
+match value {
             ffi::PPS_DOCUMENT_CONTAINS_JS_UNKNOWN => Self::Unknown,
             ffi::PPS_DOCUMENT_CONTAINS_JS_NO => Self::No,
             ffi::PPS_DOCUMENT_CONTAINS_JS_YES => Self::Yes,
             value => Self::__Unknown(value),
-        }
-    }
+}
+}
 }
 
 impl StaticType for DocumentContainsJS {
-    #[inline]
+                #[inline]
     #[doc(alias = "pps_document_contains_js_get_type")]
-    fn static_type() -> glib::Type {
-        unsafe { from_glib(ffi::pps_document_contains_js_get_type()) }
-    }
-}
+   fn static_type() -> glib::Type {
+                    unsafe { from_glib(ffi::pps_document_contains_js_get_type()) }
+                }
+            }
 
 impl glib::HasParamSpec for DocumentContainsJS {
-    type ParamSpec = glib::ParamSpecEnum;
-    type SetValue = Self;
-    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
-
-    fn param_spec_builder() -> Self::BuilderFn {
-        Self::ParamSpec::builder_with_default
-    }
+                type ParamSpec = glib::ParamSpecEnum;
+                type SetValue = Self;
+                type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+    
+                fn param_spec_builder() -> Self::BuilderFn {
+                    Self::ParamSpec::builder_with_default
+                }
 }
 
 impl glib::value::ValueType for DocumentContainsJS {
@@ -313,7 +316,8 @@ impl From<DocumentContainsJS> for glib::Value {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "PpsSelectionStyle")]
 pub enum SelectionStyle {
@@ -323,7 +327,7 @@ pub enum SelectionStyle {
     Word,
     #[doc(alias = "PPS_SELECTION_STYLE_LINE")]
     Line,
-    #[doc(hidden)]
+#[doc(hidden)]
     __Unknown(i32),
 }
 
@@ -332,47 +336,47 @@ impl IntoGlib for SelectionStyle {
     type GlibType = ffi::PpsSelectionStyle;
 
     #[inline]
-    fn into_glib(self) -> ffi::PpsSelectionStyle {
-        match self {
+fn into_glib(self) -> ffi::PpsSelectionStyle {
+match self {
             Self::Glyph => ffi::PPS_SELECTION_STYLE_GLYPH,
             Self::Word => ffi::PPS_SELECTION_STYLE_WORD,
             Self::Line => ffi::PPS_SELECTION_STYLE_LINE,
             Self::__Unknown(value) => value,
-        }
-    }
+}
+}
 }
 
 #[doc(hidden)]
 impl FromGlib<ffi::PpsSelectionStyle> for SelectionStyle {
     #[inline]
-    unsafe fn from_glib(value: ffi::PpsSelectionStyle) -> Self {
+unsafe fn from_glib(value: ffi::PpsSelectionStyle) -> Self {
         skip_assert_initialized!();
-
-        match value {
+        
+match value {
             ffi::PPS_SELECTION_STYLE_GLYPH => Self::Glyph,
             ffi::PPS_SELECTION_STYLE_WORD => Self::Word,
             ffi::PPS_SELECTION_STYLE_LINE => Self::Line,
             value => Self::__Unknown(value),
-        }
-    }
+}
+}
 }
 
 impl StaticType for SelectionStyle {
-    #[inline]
+                #[inline]
     #[doc(alias = "pps_selection_style_get_type")]
-    fn static_type() -> glib::Type {
-        unsafe { from_glib(ffi::pps_selection_style_get_type()) }
-    }
-}
+   fn static_type() -> glib::Type {
+                    unsafe { from_glib(ffi::pps_selection_style_get_type()) }
+                }
+            }
 
 impl glib::HasParamSpec for SelectionStyle {
-    type ParamSpec = glib::ParamSpecEnum;
-    type SetValue = Self;
-    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
-
-    fn param_spec_builder() -> Self::BuilderFn {
-        Self::ParamSpec::builder_with_default
-    }
+                type ParamSpec = glib::ParamSpecEnum;
+                type SetValue = Self;
+                type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+    
+                fn param_spec_builder() -> Self::BuilderFn {
+                    Self::ParamSpec::builder_with_default
+                }
 }
 
 impl glib::value::ValueType for SelectionStyle {
@@ -413,7 +417,8 @@ impl From<SelectionStyle> for glib::Value {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "PpsTransitionEffectAlignment")]
 pub enum TransitionEffectAlignment {
@@ -421,7 +426,7 @@ pub enum TransitionEffectAlignment {
     Horizontal,
     #[doc(alias = "PPS_TRANSITION_ALIGNMENT_VERTICAL")]
     Vertical,
-    #[doc(hidden)]
+#[doc(hidden)]
     __Unknown(i32),
 }
 
@@ -430,45 +435,45 @@ impl IntoGlib for TransitionEffectAlignment {
     type GlibType = ffi::PpsTransitionEffectAlignment;
 
     #[inline]
-    fn into_glib(self) -> ffi::PpsTransitionEffectAlignment {
-        match self {
+fn into_glib(self) -> ffi::PpsTransitionEffectAlignment {
+match self {
             Self::Horizontal => ffi::PPS_TRANSITION_ALIGNMENT_HORIZONTAL,
             Self::Vertical => ffi::PPS_TRANSITION_ALIGNMENT_VERTICAL,
             Self::__Unknown(value) => value,
-        }
-    }
+}
+}
 }
 
 #[doc(hidden)]
 impl FromGlib<ffi::PpsTransitionEffectAlignment> for TransitionEffectAlignment {
     #[inline]
-    unsafe fn from_glib(value: ffi::PpsTransitionEffectAlignment) -> Self {
+unsafe fn from_glib(value: ffi::PpsTransitionEffectAlignment) -> Self {
         skip_assert_initialized!();
-
-        match value {
+        
+match value {
             ffi::PPS_TRANSITION_ALIGNMENT_HORIZONTAL => Self::Horizontal,
             ffi::PPS_TRANSITION_ALIGNMENT_VERTICAL => Self::Vertical,
             value => Self::__Unknown(value),
-        }
-    }
+}
+}
 }
 
 impl StaticType for TransitionEffectAlignment {
-    #[inline]
+                #[inline]
     #[doc(alias = "pps_transition_effect_alignment_get_type")]
-    fn static_type() -> glib::Type {
-        unsafe { from_glib(ffi::pps_transition_effect_alignment_get_type()) }
-    }
-}
+   fn static_type() -> glib::Type {
+                    unsafe { from_glib(ffi::pps_transition_effect_alignment_get_type()) }
+                }
+            }
 
 impl glib::HasParamSpec for TransitionEffectAlignment {
-    type ParamSpec = glib::ParamSpecEnum;
-    type SetValue = Self;
-    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
-
-    fn param_spec_builder() -> Self::BuilderFn {
-        Self::ParamSpec::builder_with_default
-    }
+                type ParamSpec = glib::ParamSpecEnum;
+                type SetValue = Self;
+                type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+    
+                fn param_spec_builder() -> Self::BuilderFn {
+                    Self::ParamSpec::builder_with_default
+                }
 }
 
 impl glib::value::ValueType for TransitionEffectAlignment {
@@ -509,7 +514,8 @@ impl From<TransitionEffectAlignment> for glib::Value {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "PpsTransitionEffectDirection")]
 pub enum TransitionEffectDirection {
@@ -517,7 +523,7 @@ pub enum TransitionEffectDirection {
     Inward,
     #[doc(alias = "PPS_TRANSITION_DIRECTION_OUTWARD")]
     Outward,
-    #[doc(hidden)]
+#[doc(hidden)]
     __Unknown(i32),
 }
 
@@ -526,45 +532,45 @@ impl IntoGlib for TransitionEffectDirection {
     type GlibType = ffi::PpsTransitionEffectDirection;
 
     #[inline]
-    fn into_glib(self) -> ffi::PpsTransitionEffectDirection {
-        match self {
+fn into_glib(self) -> ffi::PpsTransitionEffectDirection {
+match self {
             Self::Inward => ffi::PPS_TRANSITION_DIRECTION_INWARD,
             Self::Outward => ffi::PPS_TRANSITION_DIRECTION_OUTWARD,
             Self::__Unknown(value) => value,
-        }
-    }
+}
+}
 }
 
 #[doc(hidden)]
 impl FromGlib<ffi::PpsTransitionEffectDirection> for TransitionEffectDirection {
     #[inline]
-    unsafe fn from_glib(value: ffi::PpsTransitionEffectDirection) -> Self {
+unsafe fn from_glib(value: ffi::PpsTransitionEffectDirection) -> Self {
         skip_assert_initialized!();
-
-        match value {
+        
+match value {
             ffi::PPS_TRANSITION_DIRECTION_INWARD => Self::Inward,
             ffi::PPS_TRANSITION_DIRECTION_OUTWARD => Self::Outward,
             value => Self::__Unknown(value),
-        }
-    }
+}
+}
 }
 
 impl StaticType for TransitionEffectDirection {
-    #[inline]
+                #[inline]
     #[doc(alias = "pps_transition_effect_direction_get_type")]
-    fn static_type() -> glib::Type {
-        unsafe { from_glib(ffi::pps_transition_effect_direction_get_type()) }
-    }
-}
+   fn static_type() -> glib::Type {
+                    unsafe { from_glib(ffi::pps_transition_effect_direction_get_type()) }
+                }
+            }
 
 impl glib::HasParamSpec for TransitionEffectDirection {
-    type ParamSpec = glib::ParamSpecEnum;
-    type SetValue = Self;
-    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
-
-    fn param_spec_builder() -> Self::BuilderFn {
-        Self::ParamSpec::builder_with_default
-    }
+                type ParamSpec = glib::ParamSpecEnum;
+                type SetValue = Self;
+                type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+    
+                fn param_spec_builder() -> Self::BuilderFn {
+                    Self::ParamSpec::builder_with_default
+                }
 }
 
 impl glib::value::ValueType for TransitionEffectDirection {
@@ -605,7 +611,8 @@ impl From<TransitionEffectDirection> for glib::Value {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "PpsTransitionEffectType")]
 pub enum TransitionEffectType {
@@ -633,7 +640,7 @@ pub enum TransitionEffectType {
     Uncover,
     #[doc(alias = "PPS_TRANSITION_EFFECT_FADE")]
     Fade,
-    #[doc(hidden)]
+#[doc(hidden)]
     __Unknown(i32),
 }
 
@@ -642,8 +649,8 @@ impl IntoGlib for TransitionEffectType {
     type GlibType = ffi::PpsTransitionEffectType;
 
     #[inline]
-    fn into_glib(self) -> ffi::PpsTransitionEffectType {
-        match self {
+fn into_glib(self) -> ffi::PpsTransitionEffectType {
+match self {
             Self::Replace => ffi::PPS_TRANSITION_EFFECT_REPLACE,
             Self::Split => ffi::PPS_TRANSITION_EFFECT_SPLIT,
             Self::Blinds => ffi::PPS_TRANSITION_EFFECT_BLINDS,
@@ -657,17 +664,17 @@ impl IntoGlib for TransitionEffectType {
             Self::Uncover => ffi::PPS_TRANSITION_EFFECT_UNCOVER,
             Self::Fade => ffi::PPS_TRANSITION_EFFECT_FADE,
             Self::__Unknown(value) => value,
-        }
-    }
+}
+}
 }
 
 #[doc(hidden)]
 impl FromGlib<ffi::PpsTransitionEffectType> for TransitionEffectType {
     #[inline]
-    unsafe fn from_glib(value: ffi::PpsTransitionEffectType) -> Self {
+unsafe fn from_glib(value: ffi::PpsTransitionEffectType) -> Self {
         skip_assert_initialized!();
-
-        match value {
+        
+match value {
             ffi::PPS_TRANSITION_EFFECT_REPLACE => Self::Replace,
             ffi::PPS_TRANSITION_EFFECT_SPLIT => Self::Split,
             ffi::PPS_TRANSITION_EFFECT_BLINDS => Self::Blinds,
@@ -681,26 +688,26 @@ impl FromGlib<ffi::PpsTransitionEffectType> for TransitionEffectType {
             ffi::PPS_TRANSITION_EFFECT_UNCOVER => Self::Uncover,
             ffi::PPS_TRANSITION_EFFECT_FADE => Self::Fade,
             value => Self::__Unknown(value),
-        }
-    }
+}
+}
 }
 
 impl StaticType for TransitionEffectType {
-    #[inline]
+                #[inline]
     #[doc(alias = "pps_transition_effect_type_get_type")]
-    fn static_type() -> glib::Type {
-        unsafe { from_glib(ffi::pps_transition_effect_type_get_type()) }
-    }
-}
+   fn static_type() -> glib::Type {
+                    unsafe { from_glib(ffi::pps_transition_effect_type_get_type()) }
+                }
+            }
 
 impl glib::HasParamSpec for TransitionEffectType {
-    type ParamSpec = glib::ParamSpecEnum;
-    type SetValue = Self;
-    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
-
-    fn param_spec_builder() -> Self::BuilderFn {
-        Self::ParamSpec::builder_with_default
-    }
+                type ParamSpec = glib::ParamSpecEnum;
+                type SetValue = Self;
+                type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+    
+                fn param_spec_builder() -> Self::BuilderFn {
+                    Self::ParamSpec::builder_with_default
+                }
 }
 
 impl glib::value::ValueType for TransitionEffectType {
@@ -740,3 +747,4 @@ impl From<TransitionEffectType> for glib::Value {
         ToValue::to_value(&v)
     }
 }
+

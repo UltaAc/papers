@@ -3,8 +3,8 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::Job;
-use glib::{prelude::*, translate::*};
+use crate::{Job};
+use glib::{prelude::*,translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsJobAttachments")]
@@ -16,16 +16,14 @@ glib::wrapper! {
 }
 
 impl JobAttachments {
-    pub const NONE: Option<&'static JobAttachments> = None;
+        pub const NONE: Option<&'static JobAttachments> = None;
+    
 
     #[doc(alias = "pps_job_attachments_new")]
     pub fn new(document: &impl IsA<papers_document::Document>) -> JobAttachments {
         assert_initialized_main_thread!();
         unsafe {
-            Job::from_glib_full(ffi::pps_job_attachments_new(
-                document.as_ref().to_glib_none().0,
-            ))
-            .unsafe_cast()
+            Job::from_glib_full(ffi::pps_job_attachments_new(document.as_ref().to_glib_none().0)).unsafe_cast()
         }
     }
 }
@@ -40,9 +38,7 @@ pub trait JobAttachmentsExt: IsA<JobAttachments> + sealed::Sealed + 'static {
     #[doc(alias = "get_attachments")]
     fn attachments(&self) -> Vec<papers_document::Attachment> {
         unsafe {
-            FromGlibPtrContainer::from_glib_none(ffi::pps_job_attachments_get_attachments(
-                self.as_ref().to_glib_none().0,
-            ))
+            FromGlibPtrContainer::from_glib_none(ffi::pps_job_attachments_get_attachments(self.as_ref().to_glib_none().0))
         }
     }
 }

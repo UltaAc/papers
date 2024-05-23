@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::translate::*;
+use glib::{translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsPage")]
@@ -15,11 +15,14 @@ glib::wrapper! {
 }
 
 impl Page {
-    pub const NONE: Option<&'static Page> = None;
+        pub const NONE: Option<&'static Page> = None;
+    
 
     #[doc(alias = "pps_page_new")]
     pub fn new(index: i32) -> Page {
         assert_initialized_main_thread!();
-        unsafe { from_glib_full(ffi::pps_page_new(index)) }
+        unsafe {
+            from_glib_full(ffi::pps_page_new(index))
+        }
     }
 }

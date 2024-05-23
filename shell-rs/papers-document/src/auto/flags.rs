@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{bitflags::bitflags, prelude::*, translate::*};
+use glib::{bitflags::bitflags,prelude::*,translate::*};
 
 bitflags! {
     #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -70,21 +70,21 @@ impl FromGlib<ffi::PpsDocumentInfoFields> for DocumentInfoFields {
 }
 
 impl StaticType for DocumentInfoFields {
-    #[inline]
+                #[inline]
     #[doc(alias = "pps_document_info_fields_get_type")]
-    fn static_type() -> glib::Type {
-        unsafe { from_glib(ffi::pps_document_info_fields_get_type()) }
-    }
-}
+   fn static_type() -> glib::Type {
+                    unsafe { from_glib(ffi::pps_document_info_fields_get_type()) }
+                }
+            }
 
 impl glib::HasParamSpec for DocumentInfoFields {
-    type ParamSpec = glib::ParamSpecFlags;
-    type SetValue = Self;
-    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
-
-    fn param_spec_builder() -> Self::BuilderFn {
-        Self::ParamSpec::builder
-    }
+                type ParamSpec = glib::ParamSpecFlags;
+                type SetValue = Self;
+                type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+    
+                fn param_spec_builder() -> Self::BuilderFn {
+                    Self::ParamSpec::builder
+                }
 }
 
 impl glib::value::ValueType for DocumentInfoFields {
@@ -124,3 +124,4 @@ impl From<DocumentInfoFields> for glib::Value {
         ToValue::to_value(&v)
     }
 }
+

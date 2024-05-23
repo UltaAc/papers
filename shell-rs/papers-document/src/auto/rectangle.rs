@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::translate::*;
+use glib::{translate::*};
 
 glib::wrapper! {
     pub struct Rectangle(BoxedInline<ffi::PpsRectangle>);
@@ -19,12 +19,14 @@ impl Rectangle {
     #[doc(alias = "pps_rectangle_new")]
     pub fn new() -> Rectangle {
         assert_initialized_main_thread!();
-        unsafe { from_glib_full(ffi::pps_rectangle_new()) }
+        unsafe {
+            from_glib_full(ffi::pps_rectangle_new())
+        }
     }
 }
 
 impl Default for Rectangle {
-    fn default() -> Self {
-        Self::new()
-    }
-}
+                     fn default() -> Self {
+                         Self::new()
+                     }
+                 }

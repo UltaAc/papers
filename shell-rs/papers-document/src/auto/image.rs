@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{prelude::*, translate::*};
+use glib::{prelude::*,translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsImage")]
@@ -15,19 +15,24 @@ glib::wrapper! {
 }
 
 impl Image {
-    pub const NONE: Option<&'static Image> = None;
+        pub const NONE: Option<&'static Image> = None;
+    
 
     #[doc(alias = "pps_image_new")]
     pub fn new(page: i32, img_id: i32) -> Image {
         assert_initialized_main_thread!();
-        unsafe { from_glib_full(ffi::pps_image_new(page, img_id)) }
+        unsafe {
+            from_glib_full(ffi::pps_image_new(page, img_id))
+        }
     }
 
     #[doc(alias = "pps_image_new_from_pixbuf")]
     #[doc(alias = "new_from_pixbuf")]
     pub fn from_pixbuf(pixbuf: &gdk_pixbuf::Pixbuf) -> Image {
         assert_initialized_main_thread!();
-        unsafe { from_glib_full(ffi::pps_image_new_from_pixbuf(pixbuf.to_glib_none().0)) }
+        unsafe {
+            from_glib_full(ffi::pps_image_new_from_pixbuf(pixbuf.to_glib_none().0))
+        }
     }
 }
 
@@ -40,34 +45,39 @@ pub trait ImageExt: IsA<Image> + sealed::Sealed + 'static {
     #[doc(alias = "pps_image_get_id")]
     #[doc(alias = "get_id")]
     fn id(&self) -> i32 {
-        unsafe { ffi::pps_image_get_id(self.as_ref().to_glib_none().0) }
+        unsafe {
+            ffi::pps_image_get_id(self.as_ref().to_glib_none().0)
+        }
     }
 
     #[doc(alias = "pps_image_get_page")]
     #[doc(alias = "get_page")]
     fn page(&self) -> i32 {
-        unsafe { ffi::pps_image_get_page(self.as_ref().to_glib_none().0) }
+        unsafe {
+            ffi::pps_image_get_page(self.as_ref().to_glib_none().0)
+        }
     }
 
     #[doc(alias = "pps_image_get_pixbuf")]
     #[doc(alias = "get_pixbuf")]
     fn pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {
-        unsafe { from_glib_none(ffi::pps_image_get_pixbuf(self.as_ref().to_glib_none().0)) }
+        unsafe {
+            from_glib_none(ffi::pps_image_get_pixbuf(self.as_ref().to_glib_none().0))
+        }
     }
 
     #[doc(alias = "pps_image_get_tmp_uri")]
     #[doc(alias = "get_tmp_uri")]
     fn tmp_uri(&self) -> Option<glib::GString> {
-        unsafe { from_glib_none(ffi::pps_image_get_tmp_uri(self.as_ref().to_glib_none().0)) }
+        unsafe {
+            from_glib_none(ffi::pps_image_get_tmp_uri(self.as_ref().to_glib_none().0))
+        }
     }
 
     #[doc(alias = "pps_image_save_tmp")]
     fn save_tmp(&self, pixbuf: &gdk_pixbuf::Pixbuf) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(ffi::pps_image_save_tmp(
-                self.as_ref().to_glib_none().0,
-                pixbuf.to_glib_none().0,
-            ))
+            from_glib_none(ffi::pps_image_save_tmp(self.as_ref().to_glib_none().0, pixbuf.to_glib_none().0))
         }
     }
 }
