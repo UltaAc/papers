@@ -178,6 +178,10 @@ comics_document_list (ComicsDocument  *comics_document,
 	gboolean has_encrypted_files, has_unsupported_images, has_archive_errors;
 	GHashTable *supported_extensions = NULL;
 
+	has_encrypted_files = FALSE;
+	has_unsupported_images = FALSE;
+	has_archive_errors = FALSE;
+
 	if (!pps_archive_open_filename (comics_document->archive, comics_document->archive_path, error)) {
 		if (*error != NULL) {
 			g_warning ("Fatal error handling archive (%s): %s", G_STRFUNC, (*error)->message);
@@ -193,9 +197,6 @@ comics_document_list (ComicsDocument  *comics_document,
 
 	supported_extensions = get_image_extensions ();
 
-	has_encrypted_files = FALSE;
-	has_unsupported_images = FALSE;
-	has_archive_errors = FALSE;
 	array = g_ptr_array_sized_new (64);
 	g_ptr_array_set_free_func (array, g_free);
 
