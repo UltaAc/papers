@@ -107,7 +107,7 @@ meson-pot:
 .flatpak-local:
     stage: build
     variables:
-        MANIFEST_PATH: "build-aux/flatpak/org.gnome.Papers.json"
+        MANIFEST_PATH: "build-aux/flatpak/org.gnome.Papers.Devel.json"
         RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
         FLATPAK_MODULE: "papers"
         APP_ID: "org.gnome.Papers.Devel"
