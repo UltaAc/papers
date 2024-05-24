@@ -1,12 +1,17 @@
-=================
-Papers unreleased
-=================
+Papers 46.0
+---------------
 
 Papers has been forked from Evince, including the whole history of the
 evince-next branch to which the authors of the fork contributed extensively.
 Papers has landed the GTK4 port from Qiu Wenbo, many (breaking) cleanups to
 both libraries, and a bunch of cleanups, modernizations and improvements to
-the application itself. Among the changes, we can highlight:
+the application itself. For packagers:
+
+* The build now requires rust
+* synctex support has been dropped (possibly temporarily)
+* DVI backend has been removed
+
+As of the changes in general, we can highlight:
 
 libraries (libppsdocument, libppsview):
   * Due to the of modernization of these, all deprecated API has been removed.
@@ -24,11 +29,17 @@ libraries (libppsdocument, libppsview):
   * Some work on sanity of PpsJobs API.
   * GPU based transition of presentation mode with additional effects support.
     Transitions will no longer work if HW acceleration is not supported
-  * Use GThreadPool for PpsJobScheduler. Many jobs can now run concurrently, and
+  * Use GThreadPool for PpsJobScheduler. Many jobs could now run concurrently
+    (even though they don't yet do to locking issues (see #107) ), and
     we no longer leak the thread memory.
   * PPS_PROFILE and PPS_PROFILE_JOBS environment variables for profiling are now
     ignored. Anybody wishing to profile papers can now use sysprof, which
     provides a far better interface.
+  * Use new GtkFileDialog API. As a future goal it is considered to drop the GTK
+    dependency of libppsdocument
+  * Rename pps_job_is_failed to pps_job_is_succeeded
+  * PpsAnnotation fields are now private and not part of the API. Please use
+    getters and setters to interact with them.
 
 shell:
   * Port to GTK4 thanks to the effort of Qiu Wenbo
@@ -41,16 +52,29 @@ shell:
   * Ported many widgets to UI templates
   * Make the main widget of PpsWindow an AdwViewStack
   * Start rewriting the UI in Rust, and port several widgets (#21)
-  * Rework the properties dialog with modern widgetry.
+  * Rework a big part of the shell with modern widgetry.
   * Fix dbus names to fit app id.
   * Drop the auto-scroll feature for maintainability reasons.
-  * Drop papersd daemon. This was an optional feature that took care that 
+  * Drop papersd daemon. This was an optional feature that took care that
     would only be an instance of every document opened. So for example, clicking
     on an already opened document in Nautilus would move focus to the opened document
-    instead of opening a new one. With this change, new documents will be opened 
-    unconditionally. We plan to bring the old feature back by refactoring some of 
+    instead of opening a new one. With this change, new documents will be opened
+    unconditionally. We plan to bring the old feature back by refactoring some of
     the code, but it requires better isolation of document rendering, so it will
     probably not be available in the next release
+  * Remove lots of actions on PpsWindow, and start splitting some of them up
+    into a new "doc" action group. Ideally, in the future those will be used
+    for a new PpsDocumentView widget.
+  * Remove user reload action, documents will be reloaded automatically if
+    changes are detected.
+  * Warn users about broken metadata
+  * Remove annotation toolbar, and only allow creating annotations through
+    shortcuts and the context menu.
+  * Show a loading view when the document takes long to load, which greatly
+    improves the UX.
+  * Introduce PpsSearchContext to hold the search, splitting the logic from
+    PpsWindow, and getting another step closer to having the logic ready for a
+    tabbed window.
 
 properties:
   * Can now be used in Nautilus again. Dropped GTK dependency
@@ -66,10 +90,12 @@ backends:
     that is no longer a Core App. And modern tex editors all have a PDF
     previewer built-in. So there's no need to duplicate that work when we
     cannot maintain a copy of the synctex library internally.
+  * Moved under libdocument
 
 Of course, all this does not come without some issues, so we have likely
 regressed in some aspects. We look forward to testers and gathering feedback.
 
 As of the writing, the total diff lays at:
 
-340 files changed, 13598 insertions(+), 29659 deletions(-)
+git diff -M -B --stat  fea2b4a8f HEAD -- . ':(exclude)shell-rs/ev-girs/*.gir' ':(exclude)po'
+781 files changed, 73778 insertions(+), 107599 deletions(-)
