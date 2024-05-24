@@ -17,6 +17,10 @@ window.pps-annotation-window {
     border-bottom-right-radius: 0px;
 }
 
+.zoom-overlay button.circular {
+    padding: 3px;
+}
+
 pps-view:selected {
     background-color: @theme_selected_bg_color;
 }

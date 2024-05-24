@@ -103,6 +103,8 @@ typedef struct {
 	GtkWidget *page_selector;
 	GtkWidget *header_bar;
 
+	GtkRevealer *zoom_fit_best_revealer;
+
 	AdwToastOverlay *toast_overlay;
 	AdwAlertDialog *caret_mode_alert;
 	AdwAlertDialog *error_alert;
@@ -550,6 +552,9 @@ update_sizing_buttons (PpsWindow *window)
 		mode = "free";
 		break;
 	}
+
+	gtk_revealer_set_reveal_child (priv->zoom_fit_best_revealer,
+				       pps_document_model_get_sizing_mode (priv->model) != PPS_SIZING_AUTOMATIC);
 
 	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_string (mode));
 }
@@ -6092,6 +6097,8 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, default_settings);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, settings);
+
+	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, zoom_fit_best_revealer);
 
 	/* sidebar */
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, sidebar_stack);
