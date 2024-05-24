@@ -17,9 +17,6 @@
         "--device=dri",
         "--socket=wayland",
         "--socket=pulseaudio",
-        "--filesystem=home:ro",
-        "--filesystem=/media:ro",
-        "--filesystem=/run/media:ro",
         "--talk-name=org.gtk.vfs.*",
         "--filesystem=xdg-run/gvfsd"
     ],
