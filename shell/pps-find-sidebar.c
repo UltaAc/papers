@@ -177,14 +177,32 @@ pps_find_sidebar_highlight_first_match_of_page (PpsFindSidebar *sidebar,
         PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
         GtkListView           *list_view = GTK_LIST_VIEW (priv->list_view);
 	GListModel            *result_model = pps_search_context_get_result_model (priv->context);
-        guint                  index;
+	PpsSearchResult       *result;
+	guint                  current_page, current_index_in_page;
+	guint                  lower_bound = 0;
+	guint                  index = 0;
+	guint                  upper_bound = g_list_model_get_n_items (result_model) - 1;
 
-        for (index = 0; index < g_list_model_get_n_items (result_model); index++) {
-                PpsSearchResult *result = g_list_model_get_item (result_model, index);
+	/*
+	 * Binary search is a fast algorithm, here. However, in the future
+	 * the search context should deal with this, and ideally handle this
+	 * with a map. Just, that would need to a few more changes on its end.
+	 */
+	while (lower_bound < upper_bound) {
+		index = (upper_bound - lower_bound) / 2;
 
-		if (pps_search_result_get_page (result) == page)
+                result = g_list_model_get_item (result_model, index);
+		current_page = pps_search_result_get_page (result);
+		current_index_in_page = pps_search_result_get_index (result);
+
+		if (current_page == page && current_index_in_page == 0) {
 			break;
-        }
+		} else if (current_page >= page) {
+			lower_bound = index + 1;
+		} else {
+			upper_bound = index - 1;
+		}
+	}
 
         gtk_list_view_scroll_to (list_view, index, GTK_LIST_SCROLL_SELECT, NULL);
 }
