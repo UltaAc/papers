@@ -164,13 +164,23 @@ gtk_dep = dependency(
   fallback: ['gtk', 'gtk_dep'],
   default_options: [
     'introspection=disabled',
-    'demos=false',
+    'build-demos=false',
     'build-testsuite=false',
     'build-tests=false',
     'build-examples=false',
   ])
 gthread_dep = dependency('gthread-2.0', version: glib_req_version)
-libaw_dep = dependency('libadwaita-1', version: libaw_req_version)
+libaw_dep = dependency(
+  'libadwaita-1',
+  version: libaw_req_version,
+  fallback: ['adwaita', 'libadwaita_dep'],
+  default_options: [
+    'introspection=disabled',
+    'vapi=false',
+    'gtk_doc=false',
+    'tests=false',
+    'examples=false',
+  ])
 exempi_dep = dependency('exempi-2.0', version: exempi_req_version)
 
 m_dep = cc.find_library('m')

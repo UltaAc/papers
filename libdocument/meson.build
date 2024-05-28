@@ -176,7 +176,7 @@ pkg.generate(
   subdirs: pps_include_subdir,
   requires: [
     gio_dep,
-    gtk_dep,
+    '@0@ >= @1@'.format(gtk_dep.name(), gtk_req_version),
   ],
   variables: [
     'exec_prefix=${prefix}',
