@@ -4,7 +4,7 @@ use gdk::pango::{AttrList, WrapMode};
 use papers_view::{JobPriority, PageLayout};
 
 /// The size used as pixel size of [gtk::Image]
-const THUMBNAIL_WIDTH: f64 = 128.0;
+const THUMBNAIL_WIDTH: f64 = 180.0;
 
 /// Maximum LRU cache size without eviction
 ///
@@ -24,6 +24,8 @@ mod imp {
     #[properties(wrapper_type = super::PpsSidebarThumbnails)]
     #[template(resource = "/org/gnome/papers/ui/sidebar-thumbnails.ui")]
     pub struct PpsSidebarThumbnails {
+        #[template_child]
+        pub(super) clamp: TemplateChild<adw::ClampScrollable>,
         #[template_child]
         pub(super) grid_view: TemplateChild<gtk::GridView>,
         #[template_child]
@@ -143,7 +145,6 @@ mod imp {
             let box_ = gtk::Box::builder()
                 .orientation(gtk::Orientation::Vertical)
                 .margin_top(6)
-                .halign(gtk::Align::Center)
                 .build();
 
             let mut css_classes = vec!["icon-dropshadow"];
@@ -152,13 +153,13 @@ mod imp {
                 css_classes.push("inverted-color");
             }
 
-            let image = gtk::Image::builder()
-                .pixel_size(128)
+            let image = gtk::Picture::builder()
+                .width_request(60)
                 .margin_bottom(6)
                 .margin_start(6)
                 .margin_end(6)
                 .margin_top(6)
-                .halign(gtk::Align::Center)
+                .content_fit(gtk::ContentFit::Contain)
                 .css_classes(css_classes)
                 .accessible_role(gtk::AccessibleRole::Presentation)
                 .build();
@@ -214,7 +215,7 @@ mod imp {
             let item = list_item.item().and_downcast::<PpsThumbnailItem>().unwrap();
             let model_index = list_item.position() as i32;
             let box_ = list_item.child().unwrap();
-            let image = box_.first_child().and_downcast::<gtk::Image>().unwrap();
+            let image = box_.first_child().and_downcast::<gtk::Picture>().unwrap();
             let label = box_.last_child().and_downcast::<gtk::Label>().unwrap();
             let blank_head_mode = self.blank_head_mode();
 
@@ -224,7 +225,7 @@ mod imp {
 
             if blank_head_mode && model_index == 0 {
                 debug!("blank_head_mode and skip first page");
-                image.set_from_icon_name(None);
+                image.set_paintable(None::<gdk::Paintable>.as_ref());
                 list_item.set_selectable(false);
                 list_item.set_activatable(false);
                 return;
@@ -240,7 +241,7 @@ mod imp {
                 let job = self.render_item(model_index);
 
                 item.set_job(Some(job));
-                image.set_from_icon_name(Some("empty-page"));
+                image.set_resource(Some("/org/gnome/papers/icons/scalable/apps/empty-page.svg"));
             }
         }
 
@@ -318,7 +319,7 @@ mod imp {
                         let (key, item) = (*key, item.clone());
 
                         if item.binding().is_none() {
-                            item.set_paintable(gdk::Paintable::NONE);
+                            item.set_paintable(None::<gdk::Paintable>);
                             lru.pop_entry(&key);
                             drop += 1;
 
@@ -403,6 +404,9 @@ mod imp {
             let columns = if self.dual_page() { 2 } else { 1 };
             self.grid_view.set_max_columns(columns);
             self.grid_view.set_min_columns(columns);
+
+            self.clamp.set_maximum_size(210 * columns as i32);
+            self.clamp.set_tightening_threshold(150 * columns as i32);
         }
 
         fn set_current_page(&self, doc_page: i32) {
