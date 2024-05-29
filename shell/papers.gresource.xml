@@ -30,7 +30,6 @@
     <file alias="ui/sidebar-annotations.ui" compressed="true" preprocess="xml-stripblanks">pps-sidebar-annotations.ui</file>
     <file alias="ui/sidebar-bookmarks.ui" compressed="true" preprocess="xml-stripblanks">pps-sidebar-bookmarks.ui</file>
     <file alias="ui/window.ui" compressed="true" preprocess="xml-stripblanks">pps-window.ui</file>
-    <file alias="ui/zoom-action.ui" compressed="true" preprocess="xml-stripblanks">pps-zoom-action.ui</file>
     <file alias="ui/sidebar-links.ui" compressed="true" preprocess="xml-stripblanks">pps-sidebar-links.ui</file>
     <file alias="ui/sidebar-thumbnails.ui" compressed="true" preprocess="xml-stripblanks">pps-sidebar-thumbnails.ui</file>
     <file alias="ui/sidebar-layers.ui" compressed="true" preprocess="xml-stripblanks">pps-sidebar-layers.ui</file>

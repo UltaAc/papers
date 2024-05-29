@@ -62,7 +62,6 @@ shell/pps-utils.c
 shell/pps-window.c
 shell/pps-window.ui
 shell/pps-window-title.c
-shell/pps-zoom-action.ui
 shell-rs/src/main.rs
 shell-rs/src/page_selector.rs
 shell-rs/src/password_view.rs
@@ -75,4 +74,3 @@ shell-rs/src/sidebar_layers.rs
 shell-rs/src/sidebar_thumbnails.rs
 shell-rs/src/sidebar_links.rs
 shell-rs/src/thumbnail_item.rs
-shell-rs/src/zoom_action.rs

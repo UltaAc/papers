@@ -21,7 +21,6 @@ mod sidebar_links;
 mod sidebar_thumbnails;
 mod stack_switcher;
 mod thumbnail_item;
-mod zoom_action;
 
 use deps::*;
 
@@ -41,7 +40,6 @@ fn ensure_type() {
     sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
     sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
     stack_switcher::PpsStackSwitcher::ensure_type();
-    zoom_action::PpsZoomAction::ensure_type();
 }
 
 fn main() -> glib::ExitCode {
