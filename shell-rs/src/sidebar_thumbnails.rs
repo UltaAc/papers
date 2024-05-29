@@ -441,16 +441,20 @@ mod imp {
             self.list_store.remove_all();
             if let Some(model) = self.obj().document_model() {
                 if let Some(document) = model.document() {
+                    let mut thumbnails = Vec::new();
+
                     if self.blank_head_mode() {
-                        self.list_store.append(&PpsThumbnailItem::default());
+                        thumbnails.push(PpsThumbnailItem::default());
                     }
 
                     for i in 0..document.n_pages() {
                         let label = document.page_label(i);
                         let item = PpsThumbnailItem::default();
                         item.set_text(label);
-                        self.list_store.append(&item);
+                        thumbnails.push(item);
                     }
+
+                    self.list_store.splice(0, 0, &thumbnails);
                 }
             }
         }
