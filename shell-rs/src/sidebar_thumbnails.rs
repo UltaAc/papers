@@ -114,13 +114,7 @@ mod imp {
 
     impl WidgetImpl for PpsSidebarThumbnails {
         fn map(&self) {
-            let selection_model = self.selection_model.clone();
-
-            // We use an empty list model to prevent thumbnail job pushing
-            // This also optimize the launch time when the thumbnail sidebar is
-            // not showed by default.
             self.parent_map();
-            self.grid_view.set_model(Some(&selection_model));
 
             if let Some(model) = self.obj().document_model() {
                 let page = model.page();
@@ -129,11 +123,6 @@ mod imp {
                     self.set_current_page(page);
                 }
             }
-        }
-
-        fn unmap(&self) {
-            self.grid_view.set_model(gtk::SelectionModel::NONE);
-            self.parent_unmap();
         }
     }
 

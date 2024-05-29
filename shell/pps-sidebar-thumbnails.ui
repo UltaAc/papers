@@ -29,6 +29,16 @@
                 <style>
                   <class name="navigation-sidebar" />
                 </style>
+                <property name="model">
+                  <object class="GtkSingleSelection" id="selection_model">
+                    <property name="autoselect">False</property>
+                    <property name="model">
+                      <object class="GListStore" id="list_store">
+                      </object>
+                    </property>
+                    <signal name="selection-changed" handler="grid_view_selection_changed" swapped="yes" />
+                  </object>
+                </property>
                 <accessibility>
                   <property name="label" translatable="yes">Previews</property>
                 </accessibility>
@@ -39,13 +49,4 @@
       </object>
     </property>
   </template>
-
-  <object class="GtkSingleSelection" id="selection_model">
-    <property name="autoselect">False</property>
-    <property name="model">
-      <object class="GListStore" id="list_store">
-      </object>
-    </property>
-    <signal name="selection-changed" handler="grid_view_selection_changed" swapped="yes" />
-  </object>
 </interface>
