@@ -163,6 +163,7 @@ gtk_dep = dependency(
   version: gtk_req_version,
   fallback: ['gtk', 'gtk_dep'],
   default_options: [
+    'werror=false',
     'introspection=disabled',
     'build-demos=false',
     'build-testsuite=false',
@@ -175,6 +176,7 @@ libaw_dep = dependency(
   version: libaw_req_version,
   fallback: ['adwaita', 'libadwaita_dep'],
   default_options: [
+    'werror=false',
     'introspection=disabled',
     'vapi=false',
     'gtk_doc=false',
