@@ -450,7 +450,7 @@ if is_stable
     find_program('check-news.sh').full_path(),
     '@0@'.format(meson.project_version()),
     'NEWS',
-    join_paths('data', 'org.gnome.Papers.metainfo.xml.in')
+    join_paths('data', 'org.gnome.Papers.metainfo.xml.in.in')
   )
 else
   meson.add_dist_script(
