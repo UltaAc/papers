@@ -188,6 +188,7 @@ typedef struct {
 
 	/* Misc Runtime State */
 	gboolean sidebar_was_open_before_find;
+	gboolean sidebar_was_open_before_collapsed;
 } PpsWindowPrivate;
 
 #define GET_PRIVATE(o) pps_window_get_instance_private (o)
@@ -1045,8 +1046,14 @@ setup_sidebar_from_metadata (PpsWindow *window)
 	if (!priv->metadata)
 		return;
 
-	if (pps_metadata_get_boolean (priv->metadata, "show-sidebar", &show_sidebar))
-		adw_overlay_split_view_set_show_sidebar (priv->split_view, show_sidebar);
+	if (pps_metadata_get_boolean (priv->metadata, "show-sidebar", &show_sidebar)) {
+		if (adw_overlay_split_view_get_collapsed (priv->split_view)) {
+			priv->sidebar_was_open_before_collapsed = show_sidebar;
+			adw_overlay_split_view_set_show_sidebar (priv->split_view, FALSE);
+		} else {
+			adw_overlay_split_view_set_show_sidebar (priv->split_view, show_sidebar);
+		}
+	}
 
 	if (pps_metadata_get_string (priv->metadata, "sidebar-page", &page_id))
 		pps_sidebar_set_visible_child_name (PPS_SIDEBAR (priv->sidebar), page_id);
@@ -4462,12 +4469,34 @@ sidebar_visibility_changed_cb (AdwOverlaySplitView *split_view,
 		g_action_group_change_action_state (G_ACTION_GROUP (pps_window), "show-sidebar",
 						    g_variant_new_boolean (visible));
 
-		if (priv->metadata)
+		if (priv->metadata
+		    && gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack)) != priv->find_sidebar
+		    && !adw_overlay_split_view_get_collapsed (priv->split_view))
 			pps_metadata_set_boolean (priv->metadata, "show-sidebar",
 						 visible);
 		if (!visible)
 			gtk_widget_grab_focus (priv->view);
 	}
+}
+
+static void
+sidebar_collapsed_changed_cb (AdwOverlaySplitView *split_view,
+                              GParamSpec          *pspec,
+                              PpsWindow           *pps_window)
+{
+	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
+
+	gboolean collapsed = adw_overlay_split_view_get_collapsed (split_view);
+
+	if (collapsed) {
+		priv->sidebar_was_open_before_collapsed =
+			adw_overlay_split_view_get_show_sidebar (split_view) && priv->sidebar_was_open_before_find;
+		adw_overlay_split_view_set_show_sidebar (split_view, FALSE);
+	} else {
+		adw_overlay_split_view_set_show_sidebar (split_view,
+							 priv->sidebar_was_open_before_collapsed);
+	}
+
 }
 
 static void
@@ -4812,9 +4841,13 @@ pps_window_show_find_bar (PpsWindow *pps_window)
 	if (PPS_WINDOW_IS_PRESENTATION (priv))
 		return;
 
-	priv->sidebar_was_open_before_find =
-		g_variant_get_boolean(g_action_group_get_action_state (G_ACTION_GROUP (pps_window),
+	if (!adw_overlay_split_view_get_collapsed (priv->split_view)) {
+		priv->sidebar_was_open_before_find =
+			g_variant_get_boolean(g_action_group_get_action_state (G_ACTION_GROUP (pps_window),
 									       "show-sidebar"));
+	} else {
+		priv->sidebar_was_open_before_find = priv->sidebar_was_open_before_collapsed;
+	}
 
 	pps_history_freeze (priv->history);
 
@@ -4838,8 +4871,11 @@ pps_window_close_find_bar (PpsWindow *pps_window)
 	    != priv->find_sidebar)
 		return;
 
-	adw_overlay_split_view_set_show_sidebar (priv->split_view,
-						 priv->sidebar_was_open_before_find);
+	if (!adw_overlay_split_view_get_collapsed (priv->split_view))
+		adw_overlay_split_view_set_show_sidebar (priv->split_view,
+							 priv->sidebar_was_open_before_find);
+
+	priv->sidebar_was_open_before_find = TRUE;
 
 	gtk_stack_set_visible_child (GTK_STACK (priv->sidebar_stack),
 				     priv->sidebar);
@@ -5963,6 +5999,8 @@ pps_window_init (PpsWindow *pps_window)
         }
 #endif /* ENABLE_DBUS */
 
+	priv->sidebar_was_open_before_find = TRUE;
+
 	priv->title = pps_window_title_new (pps_window);
 	priv->history = pps_history_new (priv->model);
 
@@ -6085,6 +6123,7 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, window_maximized_changed);
 	gtk_widget_class_bind_template_callback (widget_class, window_size_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_visibility_changed_cb);
+	gtk_widget_class_bind_template_callback (widget_class, sidebar_collapsed_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_current_page_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pps_window_button_pressed);
 	gtk_widget_class_bind_template_callback (widget_class, pps_window_drag_data_received);
