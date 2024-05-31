@@ -3785,9 +3785,6 @@ pps_window_run_fullscreen (PpsWindow *window)
 
 	pps_window_update_fullscreen_action (window, TRUE);
 
-	adw_header_bar_set_show_end_title_buttons (ADW_HEADER_BAR (priv->header_bar), FALSE);
-
-
 	if (fullscreen_window)
 		gtk_window_fullscreen (GTK_WINDOW (window));
 	gtk_widget_grab_focus (priv->view);
@@ -3809,8 +3806,6 @@ pps_window_stop_fullscreen (PpsWindow *window,
 		return;
 
 	pps_window_update_fullscreen_action (window, FALSE);
-
-	adw_header_bar_set_show_end_title_buttons (ADW_HEADER_BAR (priv->header_bar), TRUE);
 
 	if (unfullscreen_window)
 		gtk_window_unfullscreen (GTK_WINDOW (window));

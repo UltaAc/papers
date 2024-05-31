@@ -264,6 +264,10 @@
                   <object class="AdwToolbarView" id="document_toolbar_view">
                     <child type="top">
                       <object class="AdwHeaderBar" id="header_bar">
+                        <property name="show-end-title-buttons"
+                                  bind-source="PpsWindow"
+                                  bind-property="fullscreened"
+                                  bind-flags="sync-create|invert-boolean" />
                         <child type="title">
                           <object class="AdwWindowTitle">
                           </object>
