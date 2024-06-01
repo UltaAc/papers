@@ -163,9 +163,23 @@ pps_search_box_grab_focus (GtkWidget *widget)
 }
 
 static void
+pps_search_box_dispose (GObject *object)
+{
+	PpsSearchBox *box = PPS_SEARCH_BOX (object);
+	PpsSearchBoxPrivate *priv = GET_PRIVATE (box);
+
+	g_clear_object (&priv->context);
+
+	G_OBJECT_CLASS (pps_search_box_parent_class)->dispose (object);
+}
+
+static void
 pps_search_box_class_init (PpsSearchBoxClass *klass)
 {
-        GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+	GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+
+	object_class->dispose = pps_search_box_dispose;
 
         widget_class->grab_focus = pps_search_box_grab_focus;
 
@@ -246,7 +260,7 @@ pps_search_box_set_search_context (PpsSearchBox     *box,
 		g_signal_handlers_disconnect_by_func (priv->context, find_job_finished_cb, box);
 	}
 
-	priv->context = context;
+	priv->context = g_object_ref (context);
 
 	g_signal_connect_object (priv->context, "started",
 				 G_CALLBACK (search_changed_cb),
