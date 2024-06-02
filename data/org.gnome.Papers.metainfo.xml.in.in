@@ -52,6 +52,26 @@
   <translation type="gettext">papers</translation>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="46.1" type="stable" date="2024-05-23">
+      <description>
+        <p>This is the first Papers release! Papers is a fork of Evince ported to GTK4 and with a refreshed UI and a new group of maintainers. There has been several some other changes compared to Evince:</p>
+        <ul>
+          <li>DVI files are no longer supported.</li>
+          <li>synctex support has been temporarily dropped (see !90).</li>
+          <li>Drop the button and the toolbar to create annotations. Note annotations can be created from an option in the menu, and highlight annotations can be created upon selection of the desired text.</li>
+          <li>Papers no longer tracks every opened document. Clicking on an already opened document from Nautilus will open a new window with a copy of the document, instead of bringing the already opened one into the background. This is a necessary change to bring a tabbed view at some point in the future.</li>
+          <li>Drop the ability for users reload documents. Documents will be automatically reloaded if a change in the file is detected.</li>
+          <li>Drop the auto-scrolling feature. This was done due to the possibly low amount of users and as to improve maintainability. Could be considered in the future if there are enough interested users.</li>
+          <li>Text selection with tripple button now works if clicked multiple times.</li>
+          <li>Drag and drop text and images has been removed as a necessary cleanup of the internals. It might be reconsidered in the future where more modernizations of the application have finished.</li>
+        </ul>
+        <p>Known problems:</p>
+        <ul>
+          <li>Some people are experiencing problems with printing through flatpak.</li>
+          <li>There might be some performance issues on big documents or in documents with images, when having the sidebar opened showing the thumbnails. They are currently under investigation.</li>
+        </ul>
+      </description>
+    </release>
     <release version="46.0" type="stable" date="2024-05-23">
       <description>
         <p>This is the first Papers release! Papers is a fork of Evince ported to GTK4 and with a refreshed UI and a new group of maintainers. There has been several some other changes compared to Evince:</p>
