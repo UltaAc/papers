@@ -1064,6 +1064,7 @@ compute_border (PpsView *view, GtkBorder *border)
 
 	gtk_style_context_save (context);
 	gtk_style_context_add_class (context, PPS_STYLE_CLASS_DOCUMENT_PAGE);
+	gtk_style_context_add_class (context, "card");
 	gtk_style_context_get_border (context, border);
 	gtk_style_context_restore (context);
 }
@@ -6794,6 +6795,7 @@ draw_one_page (PpsView       *view,
 
 	gtk_style_context_save (context);
 	gtk_style_context_add_class (context, PPS_STYLE_CLASS_DOCUMENT_PAGE);
+	gtk_style_context_add_class (context, "card");
 	if (pps_document_model_get_inverted_colors (priv->model))
 		gtk_style_context_add_class (context, PPS_STYLE_CLASS_INVERTED);
 

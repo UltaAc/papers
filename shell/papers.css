@@ -6,7 +6,7 @@
 }
 
 .content-view.document-page {
-    box-shadow: color-mix(in srgb, var(--card-shade-color) 75%, transparent) 0px 2px 3px 1px, var(--card-shade-color) 0px 1px 3px 1px;
+    border-radius: 0;
 }
 
 window.pps-annotation-window {
