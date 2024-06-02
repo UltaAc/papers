@@ -390,15 +390,15 @@ pps_view_presentation_schedule_new_job (PpsViewPresentation *pview,
 }
 
 static void
-pps_view_presentation_delete_job (PpsViewPresentation *pview,
-				 PpsJob              *job)
+pps_view_presentation_clear_job (PpsViewPresentation  *pview,
+				 PpsJob              **job)
 {
-	if (!job)
+	if (!*job)
 		return;
 
-	g_signal_handlers_disconnect_by_func (job, job_finished_cb, pview);
-	pps_job_cancel (job);
-	g_object_unref (job);
+	g_signal_handlers_disconnect_by_func (*job, job_finished_cb, pview);
+	pps_job_cancel (*job);
+	g_clear_object (job);
 }
 
 static void
@@ -406,9 +406,9 @@ pps_view_presentation_reset_jobs (PpsViewPresentation *pview)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
-	pps_view_presentation_delete_job (pview, priv->curr_job);
-	pps_view_presentation_delete_job (pview, priv->prev_job);
-	pps_view_presentation_delete_job (pview, priv->next_job);
+	pps_view_presentation_clear_job (pview, &priv->curr_job);
+	pps_view_presentation_clear_job (pview, &priv->prev_job);
+	pps_view_presentation_clear_job (pview, &priv->next_job);
 }
 
 static void
@@ -453,7 +453,7 @@ pps_view_presentation_update_current_page (PpsViewPresentation *pview,
 			priv->prev_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_LOW);
 		break;
 	case -1:
-		pps_view_presentation_delete_job (pview, priv->next_job);
+		pps_view_presentation_clear_job (pview, &priv->next_job);
 		priv->next_job = priv->curr_job;
 		priv->curr_job = priv->prev_job;
 
@@ -466,7 +466,7 @@ pps_view_presentation_update_current_page (PpsViewPresentation *pview,
 
 		break;
 	case 1:
-		pps_view_presentation_delete_job (pview, priv->prev_job);
+		pps_view_presentation_clear_job (pview, &priv->prev_job);
 		priv->prev_job = priv->curr_job;
 		priv->curr_job = priv->next_job;
 
@@ -481,8 +481,8 @@ pps_view_presentation_update_current_page (PpsViewPresentation *pview,
 
 		break;
 	case -2:
-		pps_view_presentation_delete_job (pview, priv->next_job);
-		pps_view_presentation_delete_job (pview, priv->curr_job);
+		pps_view_presentation_clear_job (pview, &priv->next_job);
+		pps_view_presentation_clear_job (pview, &priv->curr_job);
 		priv->next_job = priv->prev_job;
 
 		priv->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
@@ -493,8 +493,8 @@ pps_view_presentation_update_current_page (PpsViewPresentation *pview,
 			pps_job_scheduler_update_job (priv->next_job, PPS_JOB_PRIORITY_LOW);
 		break;
 	case 2:
-		pps_view_presentation_delete_job (pview, priv->prev_job);
-		pps_view_presentation_delete_job (pview, priv->curr_job);
+		pps_view_presentation_clear_job (pview, &priv->prev_job);
+		pps_view_presentation_clear_job (pview, &priv->curr_job);
 		priv->prev_job = priv->next_job;
 
 		priv->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
@@ -505,9 +505,9 @@ pps_view_presentation_update_current_page (PpsViewPresentation *pview,
 			pps_job_scheduler_update_job (priv->prev_job, PPS_JOB_PRIORITY_LOW);
 		break;
 	default:
-		pps_view_presentation_delete_job (pview, priv->prev_job);
-		pps_view_presentation_delete_job (pview, priv->curr_job);
-		pps_view_presentation_delete_job (pview, priv->next_job);
+		pps_view_presentation_clear_job (pview, &priv->prev_job);
+		pps_view_presentation_clear_job (pview, &priv->curr_job);
+		pps_view_presentation_clear_job (pview, &priv->next_job);
 
 		priv->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
 		if (jump > 0) {
