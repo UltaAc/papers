@@ -84,7 +84,7 @@ struct _PpsViewPresentationPrivate
 	/* Links */
 	PpsPageCache           *page_cache;
 
-	PpsJob *prpps_job;
+	PpsJob *prev_job;
 	PpsJob *curr_job;
 	PpsJob *next_job;
 };
@@ -407,7 +407,7 @@ pps_view_presentation_reset_jobs (PpsViewPresentation *pview)
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
 	pps_view_presentation_delete_job (pview, priv->curr_job);
-	pps_view_presentation_delete_job (pview, priv->prpps_job);
+	pps_view_presentation_delete_job (pview, priv->prev_job);
 	pps_view_presentation_delete_job (pview, priv->next_job);
 }
 
@@ -449,25 +449,25 @@ pps_view_presentation_update_current_page (PpsViewPresentation *pview,
 			priv->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
 		if (!priv->next_job)
 			priv->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_HIGH);
-		if (!priv->prpps_job)
-			priv->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_LOW);
+		if (!priv->prev_job)
+			priv->prev_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_LOW);
 		break;
 	case -1:
 		pps_view_presentation_delete_job (pview, priv->next_job);
 		priv->next_job = priv->curr_job;
-		priv->curr_job = priv->prpps_job;
+		priv->curr_job = priv->prev_job;
 
 		if (!priv->curr_job)
 			priv->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
 		else
 			pps_job_scheduler_update_job (priv->curr_job, PPS_JOB_PRIORITY_URGENT);
-		priv->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_HIGH);
+		priv->prev_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_HIGH);
 		pps_job_scheduler_update_job (priv->next_job, PPS_JOB_PRIORITY_LOW);
 
 		break;
 	case 1:
-		pps_view_presentation_delete_job (pview, priv->prpps_job);
-		priv->prpps_job = priv->curr_job;
+		pps_view_presentation_delete_job (pview, priv->prev_job);
+		priv->prev_job = priv->curr_job;
 		priv->curr_job = priv->next_job;
 
 		if (!priv->curr_job)
@@ -476,45 +476,45 @@ pps_view_presentation_update_current_page (PpsViewPresentation *pview,
 			pps_job_scheduler_update_job (priv->curr_job, PPS_JOB_PRIORITY_URGENT);
 		priv->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_HIGH);
 
-		if (priv->prpps_job)
-			pps_job_scheduler_update_job (priv->prpps_job, PPS_JOB_PRIORITY_LOW);
+		if (priv->prev_job)
+			pps_job_scheduler_update_job (priv->prev_job, PPS_JOB_PRIORITY_LOW);
 
 		break;
 	case -2:
 		pps_view_presentation_delete_job (pview, priv->next_job);
 		pps_view_presentation_delete_job (pview, priv->curr_job);
-		priv->next_job = priv->prpps_job;
+		priv->next_job = priv->prev_job;
 
 		priv->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
-		priv->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_HIGH);
+		priv->prev_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_HIGH);
 		if (!priv->next_job)
 			priv->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_LOW);
 		else
 			pps_job_scheduler_update_job (priv->next_job, PPS_JOB_PRIORITY_LOW);
 		break;
 	case 2:
-		pps_view_presentation_delete_job (pview, priv->prpps_job);
+		pps_view_presentation_delete_job (pview, priv->prev_job);
 		pps_view_presentation_delete_job (pview, priv->curr_job);
-		priv->prpps_job = priv->next_job;
+		priv->prev_job = priv->next_job;
 
 		priv->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
 		priv->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_HIGH);
-		if (!priv->prpps_job)
-			priv->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_LOW);
+		if (!priv->prev_job)
+			priv->prev_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_LOW);
 		else
-			pps_job_scheduler_update_job (priv->prpps_job, PPS_JOB_PRIORITY_LOW);
+			pps_job_scheduler_update_job (priv->prev_job, PPS_JOB_PRIORITY_LOW);
 		break;
 	default:
-		pps_view_presentation_delete_job (pview, priv->prpps_job);
+		pps_view_presentation_delete_job (pview, priv->prev_job);
 		pps_view_presentation_delete_job (pview, priv->curr_job);
 		pps_view_presentation_delete_job (pview, priv->next_job);
 
 		priv->curr_job = pps_view_presentation_schedule_new_job (pview, page, PPS_JOB_PRIORITY_URGENT);
 		if (jump > 0) {
 			priv->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_HIGH);
-			priv->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_LOW);
+			priv->prev_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_LOW);
 		} else {
-			priv->prpps_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_HIGH);
+			priv->prev_job = pps_view_presentation_schedule_new_job (pview, page - 1, PPS_JOB_PRIORITY_HIGH);
 			priv->next_job = pps_view_presentation_schedule_new_job (pview, page + 1, PPS_JOB_PRIORITY_LOW);
 		}
 	}
