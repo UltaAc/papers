@@ -241,13 +241,7 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 					   dest, mode);
 }
 
-/**
- * pps_application_open_recent_view:
- * @application: The instance of the application.
- *
- * Creates a new window showing the recent view
- */
-void
+static void
 pps_application_open_start_view (PpsApplication *application)
 {
 	GtkWidget *new_window = GTK_WIDGET (pps_window_new ());

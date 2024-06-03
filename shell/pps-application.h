@@ -40,7 +40,6 @@ G_DECLARE_FINAL_TYPE (PpsApplication, pps_application, PPS, APPLICATION, AdwAppl
 
 PpsApplication    *pps_application_new                 (void);
 
-void              pps_application_open_start_view     (PpsApplication   *application);
 void              pps_application_open_uri_at_dest    (PpsApplication   *application,
 						      const char      *uri,
 						      PpsLinkDest      *dest,
