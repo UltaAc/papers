@@ -250,6 +250,7 @@ pps_search_box_set_search_context (PpsSearchBox     *box,
 		g_signal_handlers_disconnect_by_func (priv->context, find_job_finished_cb, box);
 	}
 
+	g_clear_object (&priv->context);
 	priv->context = g_object_ref (context);
 
 	g_signal_connect_object (priv->context, "started",

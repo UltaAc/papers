@@ -117,11 +117,23 @@ pps_find_sidebar_grab_focus (GtkWidget *widget)
 }
 
 static void
+pps_find_sidebar_dispose (GObject *object)
+{
+        PpsFindSidebar *sidebar = PPS_FIND_SIDEBAR (object);
+        PpsFindSidebarPrivate *priv = GET_PRIVATE (sidebar);
+
+	g_clear_object (&priv->context);
+
+        G_OBJECT_CLASS (pps_find_sidebar_parent_class)->dispose (object);
+}
+
+static void
 pps_find_sidebar_class_init (PpsFindSidebarClass *find_sidebar_class)
 {
         GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (find_sidebar_class);
 
         widget_class->grab_focus = pps_find_sidebar_grab_focus;
+	G_OBJECT_CLASS (find_sidebar_class)->dispose = pps_find_sidebar_dispose;
 
         gtk_widget_class_set_template_from_resource (widget_class,
                                                      "/org/gnome/papers/ui/find-sidebar.ui");
@@ -271,7 +283,8 @@ pps_find_sidebar_set_search_context (PpsFindSidebar   *sidebar,
 		g_signal_handlers_disconnect_by_func (priv->context, pps_find_sidebar_clear, sidebar);
 	}
 
-	priv->context = context;
+	g_clear_object (&priv->context);
+	priv->context = g_object_ref (context);
 
 	gtk_single_selection_set_model (priv->selection, pps_search_context_get_result_model (priv->context));
 	g_signal_connect_object (priv->context, "started",
