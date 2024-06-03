@@ -178,7 +178,10 @@ typedef struct {
 	gboolean          close_after_print;
 
 #ifdef ENABLE_DBUS
-	/* DBus */
+	/* Kept to simplify bringing back synctex support
+	 * https://gitlab.gnome.org/GNOME/Incubator/papers/-/merge_requests/90
+	 * Should be removed if that is not brought back.
+	 */
 	PpsPapersWindow *skeleton;
 	gchar          *dbus_object_path;
 #endif
@@ -293,9 +296,6 @@ static void     view_external_link_cb                   (PpsWindow         *wind
 							 PpsLinkAction     *action);
 static void     pps_window_load_file_remote              (PpsWindow         *pps_window,
 							 GFile            *source_file);
-#ifdef ENABLE_DBUS
-static void	pps_window_emit_closed			(PpsWindow         *window);
-#endif
 
 static void     pps_window_show_find_bar                 (PpsWindow         *pps_window);
 static void     pps_window_close_find_bar                (PpsWindow         *pps_window);
@@ -4959,8 +4959,6 @@ pps_window_dispose (GObject *object)
 
 #ifdef ENABLE_DBUS
 	if (priv->skeleton != NULL) {
-                pps_window_emit_closed (window);
-
                 g_dbus_interface_skeleton_unexport (G_DBUS_INTERFACE_SKELETON (priv->skeleton));
 		g_clear_object (&priv->skeleton);
 		g_clear_pointer (&priv->dbus_object_path, g_free);
@@ -5917,25 +5915,6 @@ pps_window_popup_cmd_save_attachment_as (GSimpleAction *action,
 			      window);
 	}
 }
-
-#ifdef ENABLE_DBUS
-static void
-pps_window_emit_closed (PpsWindow *window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-	if (priv->skeleton == NULL)
-		return;
-
-        pps_papers_window_emit_closed (priv->skeleton);
-
-	/* If this is the last window call g_dbus_connection_flush_sync()
-	 * to make sure the signal is emitted.
-	 */
-	if (pps_application_get_n_windows (PPS_APP) == 1)
-		g_dbus_connection_flush_sync (g_application_get_dbus_connection (g_application_get_default ()), NULL, NULL);
-}
-#endif /* ENABLE_DBUS */
 
 static void
 pps_window_init (PpsWindow *pps_window)

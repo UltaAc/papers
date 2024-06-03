@@ -207,7 +207,7 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 {
 	PpsWindow *pps_window = NULL;
 	GList *l, *windows;
-	guint n_windows;
+	guint n_windows = 0;
 
 	g_return_if_fail (uri != NULL);
 
@@ -219,10 +219,9 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 				pps_window = PPS_WINDOW (l->data);
 				break;
 			}
+			n_windows++;
 		}
 	}
-
-	n_windows = pps_application_get_n_windows (application);
 
 	if (n_windows > 0 && !pps_window) {
 		/* spawn a new papers process */
@@ -661,21 +660,4 @@ pps_application_init (PpsApplication *pps_application)
 
 	g_application_set_option_context_parameter_string (G_APPLICATION (pps_application), N_("Papers"));
 	g_application_add_main_option_entries (G_APPLICATION (pps_application), option_entries);
-}
-
-guint
-pps_application_get_n_windows (PpsApplication *application)
-{
-        GList *l, *windows;
-        guint retval = 0;
-
-        windows = gtk_application_get_windows (GTK_APPLICATION (application));
-        for (l = windows; l != NULL && !retval; l = l->next) {
-                if (!PPS_IS_WINDOW (l->data))
-                        continue;
-
-                retval++;
-	}
-
-	return retval;
 }

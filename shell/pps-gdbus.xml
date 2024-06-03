@@ -10,6 +10,5 @@
   </interface>
   <interface name='org.gnome.Papers.Window'>
     <annotation name="org.gtk.GDBus.C.Name" value="PapersWindow" />
-    <signal name='Closed'/>
   </interface>
 </node>

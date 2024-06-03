@@ -47,6 +47,5 @@ void              pps_application_open_uri_at_dest    (PpsApplication   *applica
 						      PpsWindowRunMode  mode);
 void	          pps_application_open_uri_list       (PpsApplication   *application,
 						      GListModel      *files);
-guint             pps_application_get_n_windows       (PpsApplication   *application);
 
 G_END_DECLS
