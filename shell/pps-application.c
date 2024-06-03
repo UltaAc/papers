@@ -34,6 +34,7 @@
 #include <unistd.h>
 
 #include "pps-application.h"
+#include "pps-utils.h"
 #include "pps-window.h"
 #include "pps-init.h"
 #include "pps-job-scheduler.h"
@@ -84,95 +85,6 @@ pps_application_new (void)
 			     "flags", flags,
 			     "resource-base-path", "/org/gnome/papers",
 			     NULL);
-}
-
-static void
-pps_spawn (const char     *uri,
-	  PpsLinkDest     *dest,
-	  PpsWindowRunMode mode)
-{
-	GString *cmd;
-	gchar *path, *cmdline;
-	GAppInfo *app;
-	GError  *error = NULL;
-
-	cmd = g_string_new (NULL);
-
-	path = g_find_program_in_path ("papers");
-
-	g_string_append_printf (cmd, " %s", path);
-	g_free (path);
-
-	/* Page label */
-	if (dest) {
-                switch (pps_link_dest_get_dest_type (dest)) {
-                case PPS_LINK_DEST_TYPE_PAGE_LABEL:
-                        g_string_append_printf (cmd, " --page-label=%s",
-                                                pps_link_dest_get_page_label (dest));
-                        break;
-                case PPS_LINK_DEST_TYPE_PAGE:
-                case PPS_LINK_DEST_TYPE_XYZ:
-                case PPS_LINK_DEST_TYPE_FIT:
-                case PPS_LINK_DEST_TYPE_FITH:
-                case PPS_LINK_DEST_TYPE_FITV:
-                case PPS_LINK_DEST_TYPE_FITR:
-                        g_string_append_printf (cmd, " --page-index=%d",
-                                                pps_link_dest_get_page (dest) + 1);
-                        break;
-                case PPS_LINK_DEST_TYPE_NAMED:
-                        g_string_append_printf (cmd, " --named-dest=%s",
-                                                pps_link_dest_get_named_dest (dest));
-                        break;
-                default:
-                        break;
-                }
-	}
-
-	/* Mode */
-	switch (mode) {
-	case PPS_WINDOW_MODE_FULLSCREEN:
-		g_string_append (cmd, " -f");
-		break;
-	case PPS_WINDOW_MODE_PRESENTATION:
-		g_string_append (cmd, " -s");
-		break;
-	default:
-		break;
-	}
-
-	cmdline = g_string_free (cmd, FALSE);
-	app = g_app_info_create_from_commandline (cmdline, NULL, G_APP_INFO_CREATE_SUPPORTS_URIS, &error);
-
-	if (app != NULL) {
-                GList uri_list;
-                GList *uris = NULL;
-		GdkAppLaunchContext *ctx;
-
-		ctx = gdk_display_get_app_launch_context (gdk_display_get_default ());
-
-                /* Some URIs can be changed when passed through a GFile
-                 * (for instance unsupported uris with strange formats like mailto:),
-                 * so if you have a textual uri you want to pass in as argument,
-                 * consider using g_app_info_launch_uris() instead.
-                 * See https://bugzilla.gnome.org/show_bug.cgi?id=644604
-                 */
-                if (uri) {
-                        uri_list.data = (gchar *)uri;
-                        uri_list.prev = uri_list.next = NULL;
-                        uris = &uri_list;
-                }
-		g_app_info_launch_uris (app, uris, G_APP_LAUNCH_CONTEXT (ctx), &error);
-
-		g_object_unref (app);
-		g_object_unref (ctx);
-	}
-
-	if (error != NULL) {
-		g_printerr ("Error launching papers %s: %s\n", uri, error->message);
-		g_error_free (error);
-	}
-
-	g_free (cmdline);
 }
 
 static void

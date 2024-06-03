@@ -22,6 +22,9 @@
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
+#include <pps-document.h>
+
+#include "pps-window.h"
 
 G_BEGIN_DECLS
 
@@ -29,6 +32,10 @@ void			pps_print_region_contents (cairo_region_t *region);
 
 GdkPixbufFormat* 	get_gdk_pixbuf_format_by_extension (const gchar *uri);
 gchar*                  pps_str_replace (const char *str, const char *substr, const char *repl);
+void                    pps_spawn (const char      *uri,
+				   PpsLinkDest     *dest,
+				   PpsWindowRunMode mode);
+
 
 /*
  * Temporary hack around https://gitlab.gnome.org/GNOME/gtk/-/issues/1025
