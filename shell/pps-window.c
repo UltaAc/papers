@@ -295,7 +295,6 @@ static void     pps_window_load_file_remote              (PpsWindow         *pps
 							 GFile            *source_file);
 #ifdef ENABLE_DBUS
 static void	pps_window_emit_closed			(PpsWindow         *window);
-static void 	pps_window_emit_doc_loaded		(PpsWindow	  *window);
 #endif
 
 static void     pps_window_show_find_bar                 (PpsWindow         *pps_window);
@@ -1594,9 +1593,6 @@ pps_window_load_job_cb (PpsJob *job,
 	if (pps_job_is_succeeded (job, &error)) {
 		pps_document_model_set_document (priv->model, g_steal_pointer (&document));
 
-#ifdef ENABLE_DBUS
-		pps_window_emit_doc_loaded (pps_window);
-#endif
 		setup_document_from_metadata (pps_window);
 		setup_view_from_metadata (pps_window);
 
@@ -5938,17 +5934,6 @@ pps_window_emit_closed (PpsWindow *window)
 	 */
 	if (pps_application_get_n_windows (PPS_APP) == 1)
 		g_dbus_connection_flush_sync (g_application_get_dbus_connection (g_application_get_default ()), NULL, NULL);
-}
-
-static void
-pps_window_emit_doc_loaded (PpsWindow *window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (window);
-
-        if (priv->skeleton == NULL)
-                return;
-
-        pps_papers_window_emit_document_loaded (priv->skeleton, priv->uri);
 }
 #endif /* ENABLE_DBUS */
 

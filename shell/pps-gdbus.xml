@@ -11,8 +11,5 @@
   <interface name='org.gnome.Papers.Window'>
     <annotation name="org.gtk.GDBus.C.Name" value="PapersWindow" />
     <signal name='Closed'/>
-    <signal name='DocumentLoaded'>
-      <arg type='s' name='uri' direction='out'/>
-    </signal>
   </interface>
 </node>
