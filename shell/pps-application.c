@@ -223,14 +223,19 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 		}
 	}
 
-	if (n_windows > 0 && !pps_window) {
-		/* spawn a new papers process */
-		pps_spawn (uri, dest, mode);
-		return;
+	if (!pps_window) {
+		if (n_windows == 0) {
+			pps_window = PPS_WINDOW (pps_window_new ());
+		} else {
+			/* There are windows, but they hold a different document.
+			 * Since we don't have security between documents, then
+			 * spawn a new process! See:
+			 * https://gitlab.gnome.org/GNOME/Incubator/papers/-/issues/104
+			 */
+			pps_spawn (uri, dest, mode);
+			return;
+		}
 	}
-
-	if (!pps_window)
-		pps_window = PPS_WINDOW (pps_window_new ());
 
 	pps_application_open_uri_in_window (application, uri, pps_window,
 					   dest, mode);
