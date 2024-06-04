@@ -60,6 +60,7 @@ manual = [
     "PapersDocument.LinkAction",
     "PapersDocument.Link",
     "PapersDocument.Document",
+    "PapersDocument.FindOptions",
 ]
 
 [[object]]

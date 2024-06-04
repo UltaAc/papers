@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{prelude::*,translate::*};
+use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsAttachment")]
@@ -15,8 +15,7 @@ glib::wrapper! {
 }
 
 impl Attachment {
-        pub const NONE: Option<&'static Attachment> = None;
-    
+    pub const NONE: Option<&'static Attachment> = None;
 
     //#[doc(alias = "pps_attachment_new")]
     //pub fn new(name: &str, description: &str, mtime: &glib::DateTime, ctime: &glib::DateTime, size: usize, data: /*Unimplemented*/Option<Basic: Pointer>) -> Attachment {
@@ -39,7 +38,9 @@ pub trait AttachmentExt: IsA<Attachment> + sealed::Sealed + 'static {
     #[doc(alias = "get_creation_datetime")]
     fn creation_datetime(&self) -> Option<glib::DateTime> {
         unsafe {
-            from_glib_full(ffi::pps_attachment_get_creation_datetime(self.as_ref().to_glib_none().0))
+            from_glib_full(ffi::pps_attachment_get_creation_datetime(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
@@ -47,7 +48,9 @@ pub trait AttachmentExt: IsA<Attachment> + sealed::Sealed + 'static {
     #[doc(alias = "get_description")]
     fn description(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(ffi::pps_attachment_get_description(self.as_ref().to_glib_none().0))
+            from_glib_none(ffi::pps_attachment_get_description(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
@@ -55,7 +58,9 @@ pub trait AttachmentExt: IsA<Attachment> + sealed::Sealed + 'static {
     #[doc(alias = "get_mime_type")]
     fn mime_type(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(ffi::pps_attachment_get_mime_type(self.as_ref().to_glib_none().0))
+            from_glib_none(ffi::pps_attachment_get_mime_type(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
@@ -63,25 +68,33 @@ pub trait AttachmentExt: IsA<Attachment> + sealed::Sealed + 'static {
     #[doc(alias = "get_modification_datetime")]
     fn modification_datetime(&self) -> Option<glib::DateTime> {
         unsafe {
-            from_glib_full(ffi::pps_attachment_get_modification_datetime(self.as_ref().to_glib_none().0))
+            from_glib_full(ffi::pps_attachment_get_modification_datetime(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     #[doc(alias = "pps_attachment_get_name")]
     #[doc(alias = "get_name")]
     fn name(&self) -> Option<glib::GString> {
-        unsafe {
-            from_glib_none(ffi::pps_attachment_get_name(self.as_ref().to_glib_none().0))
-        }
+        unsafe { from_glib_none(ffi::pps_attachment_get_name(self.as_ref().to_glib_none().0)) }
     }
 
     #[doc(alias = "pps_attachment_open")]
     fn open(&self, context: &impl IsA<gio::AppLaunchContext>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = std::ptr::null_mut();
-            let is_ok = ffi::pps_attachment_open(self.as_ref().to_glib_none().0, context.as_ref().to_glib_none().0, &mut error);
+            let is_ok = ffi::pps_attachment_open(
+                self.as_ref().to_glib_none().0,
+                context.as_ref().to_glib_none().0,
+                &mut error,
+            );
             debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
@@ -89,9 +102,17 @@ pub trait AttachmentExt: IsA<Attachment> + sealed::Sealed + 'static {
     fn save(&self, file: &impl IsA<gio::File>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = std::ptr::null_mut();
-            let is_ok = ffi::pps_attachment_save(self.as_ref().to_glib_none().0, file.as_ref().to_glib_none().0, &mut error);
+            let is_ok = ffi::pps_attachment_save(
+                self.as_ref().to_glib_none().0,
+                file.as_ref().to_glib_none().0,
+                &mut error,
+            );
             debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 }

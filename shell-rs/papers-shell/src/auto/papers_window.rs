@@ -3,8 +3,12 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{prelude::*,signal::{connect_raw, SignalHandlerId},translate::*};
-use std::{boxed::Box as Box_};
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "PpsPapersWindow")]
@@ -16,8 +20,7 @@ glib::wrapper! {
 }
 
 impl PapersWindow {
-        pub const NONE: Option<&'static PapersWindow> = None;
-    
+    pub const NONE: Option<&'static PapersWindow> = None;
 
     //#[doc(alias = "pps_papers_window_interface_info")]
     //pub fn interface_info() -> /*Ignored*/Option<gio::DBusInterfaceInfo> {
@@ -46,33 +49,61 @@ pub trait PapersWindowExt: IsA<PapersWindow> + sealed::Sealed + 'static {
     #[doc(alias = "pps_papers_window_emit_document_loaded")]
     fn emit_document_loaded(&self, arg_uri: &str) {
         unsafe {
-            ffi::pps_papers_window_emit_document_loaded(self.as_ref().to_glib_none().0, arg_uri.to_glib_none().0);
+            ffi::pps_papers_window_emit_document_loaded(
+                self.as_ref().to_glib_none().0,
+                arg_uri.to_glib_none().0,
+            );
         }
     }
 
     #[doc(alias = "closed")]
     fn connect_closed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn closed_trampoline<P: IsA<PapersWindow>, F: Fn(&P) + 'static>(this: *mut ffi::PpsPapersWindow, f: glib::ffi::gpointer) {
+        unsafe extern "C" fn closed_trampoline<P: IsA<PapersWindow>, F: Fn(&P) + 'static>(
+            this: *mut ffi::PpsPapersWindow,
+            f: glib::ffi::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(PapersWindow::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"closed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(closed_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"closed\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                    closed_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
         }
     }
 
     #[doc(alias = "document-loaded")]
     fn connect_document_loaded<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn document_loaded_trampoline<P: IsA<PapersWindow>, F: Fn(&P, &str) + 'static>(this: *mut ffi::PpsPapersWindow, arg_uri: *mut libc::c_char, f: glib::ffi::gpointer) {
+        unsafe extern "C" fn document_loaded_trampoline<
+            P: IsA<PapersWindow>,
+            F: Fn(&P, &str) + 'static,
+        >(
+            this: *mut ffi::PpsPapersWindow,
+            arg_uri: *mut libc::c_char,
+            f: glib::ffi::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
-            f(PapersWindow::from_glib_borrow(this).unsafe_cast_ref(), &glib::GString::from_glib_borrow(arg_uri))
+            f(
+                PapersWindow::from_glib_borrow(this).unsafe_cast_ref(),
+                &glib::GString::from_glib_borrow(arg_uri),
+            )
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"document-loaded\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(document_loaded_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"document-loaded\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                    document_loaded_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
         }
     }
 }

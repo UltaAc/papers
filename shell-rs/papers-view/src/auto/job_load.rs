@@ -3,8 +3,8 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Job};
-use glib::{prelude::*,translate::*};
+use crate::Job;
+use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsJobLoad")]
@@ -16,23 +16,20 @@ glib::wrapper! {
 }
 
 impl JobLoad {
-        pub const NONE: Option<&'static JobLoad> = None;
-    
+    pub const NONE: Option<&'static JobLoad> = None;
 
     #[doc(alias = "pps_job_load_new")]
     pub fn new() -> JobLoad {
         assert_initialized_main_thread!();
-        unsafe {
-            Job::from_glib_full(ffi::pps_job_load_new()).unsafe_cast()
-        }
+        unsafe { Job::from_glib_full(ffi::pps_job_load_new()).unsafe_cast() }
     }
 }
 
 impl Default for JobLoad {
-                     fn default() -> Self {
-                         Self::new()
-                     }
-                 }
+    fn default() -> Self {
+        Self::new()
+    }
+}
 
 mod sealed {
     pub trait Sealed {}
@@ -46,7 +43,9 @@ pub trait JobLoadExt: IsA<JobLoad> + sealed::Sealed + 'static {
     #[doc(alias = "get_loaded_document")]
     fn loaded_document(&self) -> Option<papers_document::Document> {
         unsafe {
-            from_glib_full(ffi::pps_job_load_get_loaded_document(self.as_ref().to_glib_none().0))
+            from_glib_full(ffi::pps_job_load_get_loaded_document(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
@@ -56,9 +55,18 @@ pub trait JobLoadExt: IsA<JobLoad> + sealed::Sealed + 'static {
     fn set_fd(&self, fd: i32, mime_type: &str) -> Result<(), glib::Error> {
         unsafe {
             let mut error = std::ptr::null_mut();
-            let is_ok = ffi::pps_job_load_set_fd(self.as_ref().to_glib_none().0, fd, mime_type.to_glib_none().0, &mut error);
+            let is_ok = ffi::pps_job_load_set_fd(
+                self.as_ref().to_glib_none().0,
+                fd,
+                mime_type.to_glib_none().0,
+                &mut error,
+            );
             debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
@@ -70,7 +78,10 @@ pub trait JobLoadExt: IsA<JobLoad> + sealed::Sealed + 'static {
     #[doc(alias = "pps_job_load_set_password")]
     fn set_password(&self, password: &str) {
         unsafe {
-            ffi::pps_job_load_set_password(self.as_ref().to_glib_none().0, password.to_glib_none().0);
+            ffi::pps_job_load_set_password(
+                self.as_ref().to_glib_none().0,
+                password.to_glib_none().0,
+            );
         }
     }
 
@@ -86,7 +97,11 @@ pub trait JobLoadExt: IsA<JobLoad> + sealed::Sealed + 'static {
     #[doc(alias = "pps_job_load_take_fd")]
     fn take_fd(&self, fd: i32, mime_type: &str) {
         unsafe {
-            ffi::pps_job_load_take_fd(self.as_ref().to_glib_none().0, fd, mime_type.to_glib_none().0);
+            ffi::pps_job_load_take_fd(
+                self.as_ref().to_glib_none().0,
+                fd,
+                mime_type.to_glib_none().0,
+            );
         }
     }
 }

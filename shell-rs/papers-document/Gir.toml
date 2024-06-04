@@ -46,6 +46,7 @@ generate = [
     "PapersDocument.TransitionEffectType",
     "PapersDocument.TransitionEffectAlignment",
     "PapersDocument.TransitionEffectDirection",
+    "PapersDocument.FindOptions",
     "PapersDocument.*",
 ]
 

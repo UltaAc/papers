@@ -9083,6 +9083,14 @@ interface</doc>
       <source-position filename="libdocument/pps-version.h" line="35"/>
       <type name="gint" c:type="gint"/>
     </constant>
+    <constant name="MINOR_VERSION" value="1" c:type="PPS_MINOR_VERSION">
+      <doc xml:space="preserve"
+           filename="libdocument/pps-version.h"
+           line="37">The minor version number of the EV library
+(e.g. in version 3.1.4 this is 1).</doc>
+      <source-position filename="libdocument/pps-version.h" line="43"/>
+      <type name="gint" c:type="gint"/>
+    </constant>
     <record name="Mapping" c:type="PpsMapping">
       <source-position filename="libdocument/pps-document.h" line="246"/>
       <field name="area" writable="1">

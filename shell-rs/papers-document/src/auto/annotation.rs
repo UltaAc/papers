@@ -3,9 +3,13 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{AnnotationType,Page,Rectangle};
-use glib::{prelude::*,signal::{connect_raw, SignalHandlerId},translate::*};
-use std::{boxed::Box as Box_};
+use crate::{AnnotationType, Page, Rectangle};
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "PpsAnnotation")]
@@ -17,8 +21,7 @@ glib::wrapper! {
 }
 
 impl Annotation {
-        pub const NONE: Option<&'static Annotation> = None;
-    
+    pub const NONE: Option<&'static Annotation> = None;
 }
 
 mod sealed {
@@ -30,7 +33,10 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
     #[doc(alias = "pps_annotation_equal")]
     fn equal(&self, other: &impl IsA<Annotation>) -> bool {
         unsafe {
-            from_glib(ffi::pps_annotation_equal(self.as_ref().to_glib_none().0, other.as_ref().to_glib_none().0))
+            from_glib(ffi::pps_annotation_equal(
+                self.as_ref().to_glib_none().0,
+                other.as_ref().to_glib_none().0,
+            ))
         }
     }
 
@@ -38,7 +44,9 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
     #[doc(alias = "get_annotation_type")]
     fn annotation_type(&self) -> AnnotationType {
         unsafe {
-            from_glib(ffi::pps_annotation_get_annotation_type(self.as_ref().to_glib_none().0))
+            from_glib(ffi::pps_annotation_get_annotation_type(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
@@ -56,7 +64,9 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
     #[doc(alias = "get_contents")]
     fn contents(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(ffi::pps_annotation_get_contents(self.as_ref().to_glib_none().0))
+            from_glib_none(ffi::pps_annotation_get_contents(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
@@ -64,32 +74,28 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
     #[doc(alias = "get_modified")]
     fn modified(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(ffi::pps_annotation_get_modified(self.as_ref().to_glib_none().0))
+            from_glib_none(ffi::pps_annotation_get_modified(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     #[doc(alias = "pps_annotation_get_name")]
     #[doc(alias = "get_name")]
     fn name(&self) -> Option<glib::GString> {
-        unsafe {
-            from_glib_none(ffi::pps_annotation_get_name(self.as_ref().to_glib_none().0))
-        }
+        unsafe { from_glib_none(ffi::pps_annotation_get_name(self.as_ref().to_glib_none().0)) }
     }
 
     #[doc(alias = "pps_annotation_get_page")]
     #[doc(alias = "get_page")]
     fn page(&self) -> Option<Page> {
-        unsafe {
-            from_glib_none(ffi::pps_annotation_get_page(self.as_ref().to_glib_none().0))
-        }
+        unsafe { from_glib_none(ffi::pps_annotation_get_page(self.as_ref().to_glib_none().0)) }
     }
 
     #[doc(alias = "pps_annotation_get_page_index")]
     #[doc(alias = "get_page_index")]
     fn page_index(&self) -> u32 {
-        unsafe {
-            ffi::pps_annotation_get_page_index(self.as_ref().to_glib_none().0)
-        }
+        unsafe { ffi::pps_annotation_get_page_index(self.as_ref().to_glib_none().0) }
     }
 
     //#[doc(alias = "pps_annotation_get_rgba")]
@@ -101,21 +107,30 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
     #[doc(alias = "pps_annotation_set_area")]
     fn set_area(&self, area: &Rectangle) -> bool {
         unsafe {
-            from_glib(ffi::pps_annotation_set_area(self.as_ref().to_glib_none().0, area.to_glib_none().0))
+            from_glib(ffi::pps_annotation_set_area(
+                self.as_ref().to_glib_none().0,
+                area.to_glib_none().0,
+            ))
         }
     }
 
     #[doc(alias = "pps_annotation_set_contents")]
     fn set_contents(&self, contents: &str) -> bool {
         unsafe {
-            from_glib(ffi::pps_annotation_set_contents(self.as_ref().to_glib_none().0, contents.to_glib_none().0))
+            from_glib(ffi::pps_annotation_set_contents(
+                self.as_ref().to_glib_none().0,
+                contents.to_glib_none().0,
+            ))
         }
     }
 
     #[doc(alias = "pps_annotation_set_modified")]
     fn set_modified(&self, modified: &str) -> bool {
         unsafe {
-            from_glib(ffi::pps_annotation_set_modified(self.as_ref().to_glib_none().0, modified.to_glib_none().0))
+            from_glib(ffi::pps_annotation_set_modified(
+                self.as_ref().to_glib_none().0,
+                modified.to_glib_none().0,
+            ))
         }
     }
 
@@ -127,7 +142,10 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
     #[doc(alias = "pps_annotation_set_name")]
     fn set_name(&self, name: &str) -> bool {
         unsafe {
-            from_glib(ffi::pps_annotation_set_name(self.as_ref().to_glib_none().0, name.to_glib_none().0))
+            from_glib(ffi::pps_annotation_set_name(
+                self.as_ref().to_glib_none().0,
+                name.to_glib_none().0,
+            ))
         }
     }
 
@@ -138,66 +156,116 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
 
     #[doc(alias = "area")]
     fn connect_area_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_area_trampoline<P: IsA<Annotation>, F: Fn(&P) + 'static>(this: *mut ffi::PpsAnnotation, _param_spec: glib::ffi::gpointer, f: glib::ffi::gpointer) {
+        unsafe extern "C" fn notify_area_trampoline<P: IsA<Annotation>, F: Fn(&P) + 'static>(
+            this: *mut ffi::PpsAnnotation,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(Annotation::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::area\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(notify_area_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::area\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                    notify_area_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
         }
     }
 
     #[doc(alias = "contents")]
     fn connect_contents_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_contents_trampoline<P: IsA<Annotation>, F: Fn(&P) + 'static>(this: *mut ffi::PpsAnnotation, _param_spec: glib::ffi::gpointer, f: glib::ffi::gpointer) {
+        unsafe extern "C" fn notify_contents_trampoline<P: IsA<Annotation>, F: Fn(&P) + 'static>(
+            this: *mut ffi::PpsAnnotation,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(Annotation::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::contents\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(notify_contents_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::contents\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                    notify_contents_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
         }
     }
 
     #[doc(alias = "modified")]
     fn connect_modified_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_modified_trampoline<P: IsA<Annotation>, F: Fn(&P) + 'static>(this: *mut ffi::PpsAnnotation, _param_spec: glib::ffi::gpointer, f: glib::ffi::gpointer) {
+        unsafe extern "C" fn notify_modified_trampoline<P: IsA<Annotation>, F: Fn(&P) + 'static>(
+            this: *mut ffi::PpsAnnotation,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(Annotation::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::modified\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(notify_modified_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::modified\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                    notify_modified_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
         }
     }
 
     #[doc(alias = "name")]
     fn connect_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_name_trampoline<P: IsA<Annotation>, F: Fn(&P) + 'static>(this: *mut ffi::PpsAnnotation, _param_spec: glib::ffi::gpointer, f: glib::ffi::gpointer) {
+        unsafe extern "C" fn notify_name_trampoline<P: IsA<Annotation>, F: Fn(&P) + 'static>(
+            this: *mut ffi::PpsAnnotation,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(Annotation::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::name\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(notify_name_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::name\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                    notify_name_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
         }
     }
 
     #[doc(alias = "rgba")]
     fn connect_rgba_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_rgba_trampoline<P: IsA<Annotation>, F: Fn(&P) + 'static>(this: *mut ffi::PpsAnnotation, _param_spec: glib::ffi::gpointer, f: glib::ffi::gpointer) {
+        unsafe extern "C" fn notify_rgba_trampoline<P: IsA<Annotation>, F: Fn(&P) + 'static>(
+            this: *mut ffi::PpsAnnotation,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(Annotation::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::rgba\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(notify_rgba_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::rgba\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                    notify_rgba_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
         }
     }
 }

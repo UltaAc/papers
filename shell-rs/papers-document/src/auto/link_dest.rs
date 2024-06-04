@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{prelude::*,translate::*};
+use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsLinkDest")]
@@ -18,80 +18,99 @@ impl LinkDest {
     #[doc(alias = "pps_link_dest_new_fit")]
     pub fn new_fit(page: i32) -> LinkDest {
         assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::pps_link_dest_new_fit(page))
-        }
+        unsafe { from_glib_full(ffi::pps_link_dest_new_fit(page)) }
     }
 
     #[doc(alias = "pps_link_dest_new_fith")]
     pub fn new_fith(page: i32, top: f64, change_top: bool) -> LinkDest {
         assert_initialized_main_thread!();
         unsafe {
-            from_glib_full(ffi::pps_link_dest_new_fith(page, top, change_top.into_glib()))
+            from_glib_full(ffi::pps_link_dest_new_fith(
+                page,
+                top,
+                change_top.into_glib(),
+            ))
         }
     }
 
     #[doc(alias = "pps_link_dest_new_fitr")]
     pub fn new_fitr(page: i32, left: f64, bottom: f64, right: f64, top: f64) -> LinkDest {
         assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::pps_link_dest_new_fitr(page, left, bottom, right, top))
-        }
+        unsafe { from_glib_full(ffi::pps_link_dest_new_fitr(page, left, bottom, right, top)) }
     }
 
     #[doc(alias = "pps_link_dest_new_fitv")]
     pub fn new_fitv(page: i32, left: f64, change_left: bool) -> LinkDest {
         assert_initialized_main_thread!();
         unsafe {
-            from_glib_full(ffi::pps_link_dest_new_fitv(page, left, change_left.into_glib()))
+            from_glib_full(ffi::pps_link_dest_new_fitv(
+                page,
+                left,
+                change_left.into_glib(),
+            ))
         }
     }
 
     #[doc(alias = "pps_link_dest_new_named")]
     pub fn new_named(named_dest: &str) -> LinkDest {
         assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::pps_link_dest_new_named(named_dest.to_glib_none().0))
-        }
+        unsafe { from_glib_full(ffi::pps_link_dest_new_named(named_dest.to_glib_none().0)) }
     }
 
     #[doc(alias = "pps_link_dest_new_page")]
     pub fn new_page(page: i32) -> LinkDest {
         assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::pps_link_dest_new_page(page))
-        }
+        unsafe { from_glib_full(ffi::pps_link_dest_new_page(page)) }
     }
 
     #[doc(alias = "pps_link_dest_new_page_label")]
     pub fn new_page_label(page_label: &str) -> LinkDest {
         assert_initialized_main_thread!();
         unsafe {
-            from_glib_full(ffi::pps_link_dest_new_page_label(page_label.to_glib_none().0))
+            from_glib_full(ffi::pps_link_dest_new_page_label(
+                page_label.to_glib_none().0,
+            ))
         }
     }
 
     #[doc(alias = "pps_link_dest_new_xyz")]
-    pub fn new_xyz(page: i32, left: f64, top: f64, zoom: f64, change_left: bool, change_top: bool, change_zoom: bool) -> LinkDest {
+    pub fn new_xyz(
+        page: i32,
+        left: f64,
+        top: f64,
+        zoom: f64,
+        change_left: bool,
+        change_top: bool,
+        change_zoom: bool,
+    ) -> LinkDest {
         assert_initialized_main_thread!();
         unsafe {
-            from_glib_full(ffi::pps_link_dest_new_xyz(page, left, top, zoom, change_left.into_glib(), change_top.into_glib(), change_zoom.into_glib()))
+            from_glib_full(ffi::pps_link_dest_new_xyz(
+                page,
+                left,
+                top,
+                zoom,
+                change_left.into_glib(),
+                change_top.into_glib(),
+                change_zoom.into_glib(),
+            ))
         }
     }
 
     #[doc(alias = "pps_link_dest_equal")]
     pub fn equal(&self, b: &LinkDest) -> bool {
         unsafe {
-            from_glib(ffi::pps_link_dest_equal(self.to_glib_none().0, b.to_glib_none().0))
+            from_glib(ffi::pps_link_dest_equal(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+            ))
         }
     }
 
     #[doc(alias = "pps_link_dest_get_bottom")]
     #[doc(alias = "get_bottom")]
     pub fn bottom(&self) -> f64 {
-        unsafe {
-            ffi::pps_link_dest_get_bottom(self.to_glib_none().0)
-        }
+        unsafe { ffi::pps_link_dest_get_bottom(self.to_glib_none().0) }
     }
 
     //#[doc(alias = "pps_link_dest_get_dest_type")]
@@ -113,33 +132,25 @@ impl LinkDest {
     #[doc(alias = "pps_link_dest_get_named_dest")]
     #[doc(alias = "get_named_dest")]
     pub fn named_dest(&self) -> Option<glib::GString> {
-        unsafe {
-            from_glib_none(ffi::pps_link_dest_get_named_dest(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(ffi::pps_link_dest_get_named_dest(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pps_link_dest_get_page")]
     #[doc(alias = "get_page")]
     pub fn page(&self) -> i32 {
-        unsafe {
-            ffi::pps_link_dest_get_page(self.to_glib_none().0)
-        }
+        unsafe { ffi::pps_link_dest_get_page(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pps_link_dest_get_page_label")]
     #[doc(alias = "get_page_label")]
     pub fn page_label(&self) -> Option<glib::GString> {
-        unsafe {
-            from_glib_none(ffi::pps_link_dest_get_page_label(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(ffi::pps_link_dest_get_page_label(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pps_link_dest_get_right")]
     #[doc(alias = "get_right")]
     pub fn right(&self) -> f64 {
-        unsafe {
-            ffi::pps_link_dest_get_right(self.to_glib_none().0)
-        }
+        unsafe { ffi::pps_link_dest_get_right(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pps_link_dest_get_top")]

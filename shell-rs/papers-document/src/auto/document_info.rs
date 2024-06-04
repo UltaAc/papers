@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{translate::*};
+use glib::translate::*;
 
 glib::wrapper! {
     pub struct DocumentInfo(BoxedInline<ffi::PpsDocumentInfo>);
@@ -19,16 +19,16 @@ impl DocumentInfo {
     #[doc(alias = "pps_document_info_new")]
     pub fn new() -> DocumentInfo {
         assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::pps_document_info_new())
-        }
+        unsafe { from_glib_full(ffi::pps_document_info_new()) }
     }
 
     #[doc(alias = "pps_document_info_get_created_datetime")]
     #[doc(alias = "get_created_datetime")]
     pub fn created_datetime(&self) -> Option<glib::DateTime> {
         unsafe {
-            from_glib_none(ffi::pps_document_info_get_created_datetime(self.to_glib_none().0))
+            from_glib_none(ffi::pps_document_info_get_created_datetime(
+                self.to_glib_none().0,
+            ))
         }
     }
 
@@ -36,41 +36,55 @@ impl DocumentInfo {
     #[doc(alias = "get_modified_datetime")]
     pub fn modified_datetime(&self) -> Option<glib::DateTime> {
         unsafe {
-            from_glib_none(ffi::pps_document_info_get_modified_datetime(self.to_glib_none().0))
+            from_glib_none(ffi::pps_document_info_get_modified_datetime(
+                self.to_glib_none().0,
+            ))
         }
     }
 
     #[doc(alias = "pps_document_info_regular_paper_size")]
     pub fn regular_paper_size(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_full(ffi::pps_document_info_regular_paper_size(self.to_glib_none().0))
+            from_glib_full(ffi::pps_document_info_regular_paper_size(
+                self.to_glib_none().0,
+            ))
         }
     }
 
     #[doc(alias = "pps_document_info_set_from_xmp")]
     pub fn set_from_xmp(&mut self, xmp: &str, size: isize) -> bool {
         unsafe {
-            from_glib(ffi::pps_document_info_set_from_xmp(self.to_glib_none_mut().0, xmp.to_glib_none().0, size))
+            from_glib(ffi::pps_document_info_set_from_xmp(
+                self.to_glib_none_mut().0,
+                xmp.to_glib_none().0,
+                size,
+            ))
         }
     }
 
     #[doc(alias = "pps_document_info_take_created_datetime")]
     pub fn take_created_datetime(&mut self, datetime: &glib::DateTime) {
         unsafe {
-            ffi::pps_document_info_take_created_datetime(self.to_glib_none_mut().0, datetime.to_glib_none().0);
+            ffi::pps_document_info_take_created_datetime(
+                self.to_glib_none_mut().0,
+                datetime.to_glib_none().0,
+            );
         }
     }
 
     #[doc(alias = "pps_document_info_take_modified_datetime")]
     pub fn take_modified_datetime(&mut self, datetime: &glib::DateTime) {
         unsafe {
-            ffi::pps_document_info_take_modified_datetime(self.to_glib_none_mut().0, datetime.to_glib_none().0);
+            ffi::pps_document_info_take_modified_datetime(
+                self.to_glib_none_mut().0,
+                datetime.to_glib_none().0,
+            );
         }
     }
 }
 
 impl Default for DocumentInfo {
-                     fn default() -> Self {
-                         Self::new()
-                     }
-                 }
+    fn default() -> Self {
+        Self::new()
+    }
+}

@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{translate::*};
+use glib::translate::*;
 
 glib::wrapper! {
     #[doc(alias = "PpsMetadata")]
@@ -25,8 +25,16 @@ impl Metadata {
     pub fn boolean(&self, key: &str) -> Option<bool> {
         unsafe {
             let mut value = std::mem::MaybeUninit::uninit();
-            let ret = from_glib(ffi::pps_metadata_get_boolean(self.to_glib_none().0, key.to_glib_none().0, value.as_mut_ptr()));
-            if ret { Some(from_glib(value.assume_init())) } else { None }
+            let ret = from_glib(ffi::pps_metadata_get_boolean(
+                self.to_glib_none().0,
+                key.to_glib_none().0,
+                value.as_mut_ptr(),
+            ));
+            if ret {
+                Some(from_glib(value.assume_init()))
+            } else {
+                None
+            }
         }
     }
 
@@ -35,8 +43,16 @@ impl Metadata {
     pub fn double(&self, key: &str) -> Option<f64> {
         unsafe {
             let mut value = std::mem::MaybeUninit::uninit();
-            let ret = from_glib(ffi::pps_metadata_get_double(self.to_glib_none().0, key.to_glib_none().0, value.as_mut_ptr()));
-            if ret { Some(value.assume_init()) } else { None }
+            let ret = from_glib(ffi::pps_metadata_get_double(
+                self.to_glib_none().0,
+                key.to_glib_none().0,
+                value.as_mut_ptr(),
+            ));
+            if ret {
+                Some(value.assume_init())
+            } else {
+                None
+            }
         }
     }
 
@@ -45,8 +61,16 @@ impl Metadata {
     pub fn int(&self, key: &str) -> Option<i32> {
         unsafe {
             let mut value = std::mem::MaybeUninit::uninit();
-            let ret = from_glib(ffi::pps_metadata_get_int(self.to_glib_none().0, key.to_glib_none().0, value.as_mut_ptr()));
-            if ret { Some(value.assume_init()) } else { None }
+            let ret = from_glib(ffi::pps_metadata_get_int(
+                self.to_glib_none().0,
+                key.to_glib_none().0,
+                value.as_mut_ptr(),
+            ));
+            if ret {
+                Some(value.assume_init())
+            } else {
+                None
+            }
         }
     }
 
@@ -55,50 +79,75 @@ impl Metadata {
     pub fn string(&self, key: &str) -> Option<glib::GString> {
         unsafe {
             let mut value = std::ptr::null();
-            let ret = from_glib(ffi::pps_metadata_get_string(self.to_glib_none().0, key.to_glib_none().0, &mut value));
-            if ret { Some(from_glib_none(value)) } else { None }
+            let ret = from_glib(ffi::pps_metadata_get_string(
+                self.to_glib_none().0,
+                key.to_glib_none().0,
+                &mut value,
+            ));
+            if ret {
+                Some(from_glib_none(value))
+            } else {
+                None
+            }
         }
     }
 
     #[doc(alias = "pps_metadata_has_key")]
     pub fn has_key(&self, key: &str) -> bool {
         unsafe {
-            from_glib(ffi::pps_metadata_has_key(self.to_glib_none().0, key.to_glib_none().0))
+            from_glib(ffi::pps_metadata_has_key(
+                self.to_glib_none().0,
+                key.to_glib_none().0,
+            ))
         }
     }
 
     #[doc(alias = "pps_metadata_is_empty")]
     pub fn is_empty(&self) -> bool {
-        unsafe {
-            from_glib(ffi::pps_metadata_is_empty(self.to_glib_none().0))
-        }
+        unsafe { from_glib(ffi::pps_metadata_is_empty(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pps_metadata_set_boolean")]
     pub fn set_boolean(&self, key: &str, value: bool) -> bool {
         unsafe {
-            from_glib(ffi::pps_metadata_set_boolean(self.to_glib_none().0, key.to_glib_none().0, value.into_glib()))
+            from_glib(ffi::pps_metadata_set_boolean(
+                self.to_glib_none().0,
+                key.to_glib_none().0,
+                value.into_glib(),
+            ))
         }
     }
 
     #[doc(alias = "pps_metadata_set_double")]
     pub fn set_double(&self, key: &str, value: f64) -> bool {
         unsafe {
-            from_glib(ffi::pps_metadata_set_double(self.to_glib_none().0, key.to_glib_none().0, value))
+            from_glib(ffi::pps_metadata_set_double(
+                self.to_glib_none().0,
+                key.to_glib_none().0,
+                value,
+            ))
         }
     }
 
     #[doc(alias = "pps_metadata_set_int")]
     pub fn set_int(&self, key: &str, value: i32) -> bool {
         unsafe {
-            from_glib(ffi::pps_metadata_set_int(self.to_glib_none().0, key.to_glib_none().0, value))
+            from_glib(ffi::pps_metadata_set_int(
+                self.to_glib_none().0,
+                key.to_glib_none().0,
+                value,
+            ))
         }
     }
 
     #[doc(alias = "pps_metadata_set_string")]
     pub fn set_string(&self, key: &str, value: &str) -> bool {
         unsafe {
-            from_glib(ffi::pps_metadata_set_string(self.to_glib_none().0, key.to_glib_none().0, value.to_glib_none().0))
+            from_glib(ffi::pps_metadata_set_string(
+                self.to_glib_none().0,
+                key.to_glib_none().0,
+                value.to_glib_none().0,
+            ))
         }
     }
 

@@ -3,8 +3,8 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Layer};
-use glib::{prelude::*,translate::*};
+use crate::Layer;
+use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsDocumentLayers")]
@@ -16,8 +16,7 @@ glib::wrapper! {
 }
 
 impl DocumentLayers {
-        pub const NONE: Option<&'static DocumentLayers> = None;
-    
+    pub const NONE: Option<&'static DocumentLayers> = None;
 }
 
 mod sealed {
@@ -30,35 +29,48 @@ pub trait DocumentLayersExt: IsA<DocumentLayers> + sealed::Sealed + 'static {
     #[doc(alias = "get_layers")]
     fn layers(&self) -> Option<gio::ListModel> {
         unsafe {
-            from_glib_full(ffi::pps_document_layers_get_layers(self.as_ref().to_glib_none().0))
+            from_glib_full(ffi::pps_document_layers_get_layers(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     #[doc(alias = "pps_document_layers_has_layers")]
     fn has_layers(&self) -> bool {
         unsafe {
-            from_glib(ffi::pps_document_layers_has_layers(self.as_ref().to_glib_none().0))
+            from_glib(ffi::pps_document_layers_has_layers(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     #[doc(alias = "pps_document_layers_hide_layer")]
     fn hide_layer(&self, layer: &impl IsA<Layer>) {
         unsafe {
-            ffi::pps_document_layers_hide_layer(self.as_ref().to_glib_none().0, layer.as_ref().to_glib_none().0);
+            ffi::pps_document_layers_hide_layer(
+                self.as_ref().to_glib_none().0,
+                layer.as_ref().to_glib_none().0,
+            );
         }
     }
 
     #[doc(alias = "pps_document_layers_layer_is_visible")]
     fn layer_is_visible(&self, layer: &impl IsA<Layer>) -> bool {
         unsafe {
-            from_glib(ffi::pps_document_layers_layer_is_visible(self.as_ref().to_glib_none().0, layer.as_ref().to_glib_none().0))
+            from_glib(ffi::pps_document_layers_layer_is_visible(
+                self.as_ref().to_glib_none().0,
+                layer.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     #[doc(alias = "pps_document_layers_show_layer")]
     fn show_layer(&self, layer: &impl IsA<Layer>) {
         unsafe {
-            ffi::pps_document_layers_show_layer(self.as_ref().to_glib_none().0, layer.as_ref().to_glib_none().0);
+            ffi::pps_document_layers_show_layer(
+                self.as_ref().to_glib_none().0,
+                layer.as_ref().to_glib_none().0,
+            );
         }
     }
 }

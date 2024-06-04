@@ -31,6 +31,8 @@ generate = [
     "PapersShell.PapersWindow",
     "PapersShell.WindowRunMode",
     "PapersShell.Window",
+    "PapersShell.SearchContext",
+    "PapersShell.SearchResult",
     "PapersShell.SidebarPage",
     "PapersShell.Metadata",
 ]
@@ -49,6 +51,8 @@ manual = [
     "PapersDocument.Document",
     "PapersDocument.Annotation",
     "PapersDocument.DocumentLicense",
+    "PapersDocument.FindOptions",
+    "PapersView.JobFind",
     "PapersView.DocumentModel",
     "Adw.HeaderBar",
     "Adw.Application",

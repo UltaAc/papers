@@ -3,10 +3,9 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{prelude::*,translate::*};
+use glib::{prelude::*, translate::*};
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "PpsJobPriority")]
 pub enum JobPriority {
@@ -20,7 +19,7 @@ pub enum JobPriority {
     PriorityNone,
     #[doc(alias = "PPS_JOB_N_PRIORITIES")]
     NPriorities,
-#[doc(hidden)]
+    #[doc(hidden)]
     __Unknown(i32),
 }
 
@@ -29,51 +28,51 @@ impl IntoGlib for JobPriority {
     type GlibType = ffi::PpsJobPriority;
 
     #[inline]
-fn into_glib(self) -> ffi::PpsJobPriority {
-match self {
+    fn into_glib(self) -> ffi::PpsJobPriority {
+        match self {
             Self::PriorityUrgent => ffi::PPS_JOB_PRIORITY_URGENT,
             Self::PriorityHigh => ffi::PPS_JOB_PRIORITY_HIGH,
             Self::PriorityLow => ffi::PPS_JOB_PRIORITY_LOW,
             Self::PriorityNone => ffi::PPS_JOB_PRIORITY_NONE,
             Self::NPriorities => ffi::PPS_JOB_N_PRIORITIES,
             Self::__Unknown(value) => value,
-}
-}
+        }
+    }
 }
 
 #[doc(hidden)]
 impl FromGlib<ffi::PpsJobPriority> for JobPriority {
     #[inline]
-unsafe fn from_glib(value: ffi::PpsJobPriority) -> Self {
+    unsafe fn from_glib(value: ffi::PpsJobPriority) -> Self {
         skip_assert_initialized!();
-        
-match value {
+
+        match value {
             ffi::PPS_JOB_PRIORITY_URGENT => Self::PriorityUrgent,
             ffi::PPS_JOB_PRIORITY_HIGH => Self::PriorityHigh,
             ffi::PPS_JOB_PRIORITY_LOW => Self::PriorityLow,
             ffi::PPS_JOB_PRIORITY_NONE => Self::PriorityNone,
             ffi::PPS_JOB_N_PRIORITIES => Self::NPriorities,
             value => Self::__Unknown(value),
-}
-}
+        }
+    }
 }
 
 impl StaticType for JobPriority {
-                #[inline]
+    #[inline]
     #[doc(alias = "pps_job_priority_get_type")]
-   fn static_type() -> glib::Type {
-                    unsafe { from_glib(ffi::pps_job_priority_get_type()) }
-                }
-            }
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::pps_job_priority_get_type()) }
+    }
+}
 
 impl glib::HasParamSpec for JobPriority {
-                type ParamSpec = glib::ParamSpecEnum;
-                type SetValue = Self;
-                type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
-    
-                fn param_spec_builder() -> Self::BuilderFn {
-                    Self::ParamSpec::builder_with_default
-                }
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
+    }
 }
 
 impl glib::value::ValueType for JobPriority {
@@ -114,8 +113,7 @@ impl From<JobPriority> for glib::Value {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "PpsPageLayout")]
 pub enum PageLayout {
@@ -125,7 +123,7 @@ pub enum PageLayout {
     Dual,
     #[doc(alias = "PPS_PAGE_LAYOUT_AUTOMATIC")]
     Automatic,
-#[doc(hidden)]
+    #[doc(hidden)]
     __Unknown(i32),
 }
 
@@ -134,47 +132,47 @@ impl IntoGlib for PageLayout {
     type GlibType = ffi::PpsPageLayout;
 
     #[inline]
-fn into_glib(self) -> ffi::PpsPageLayout {
-match self {
+    fn into_glib(self) -> ffi::PpsPageLayout {
+        match self {
             Self::Single => ffi::PPS_PAGE_LAYOUT_SINGLE,
             Self::Dual => ffi::PPS_PAGE_LAYOUT_DUAL,
             Self::Automatic => ffi::PPS_PAGE_LAYOUT_AUTOMATIC,
             Self::__Unknown(value) => value,
-}
-}
+        }
+    }
 }
 
 #[doc(hidden)]
 impl FromGlib<ffi::PpsPageLayout> for PageLayout {
     #[inline]
-unsafe fn from_glib(value: ffi::PpsPageLayout) -> Self {
+    unsafe fn from_glib(value: ffi::PpsPageLayout) -> Self {
         skip_assert_initialized!();
-        
-match value {
+
+        match value {
             ffi::PPS_PAGE_LAYOUT_SINGLE => Self::Single,
             ffi::PPS_PAGE_LAYOUT_DUAL => Self::Dual,
             ffi::PPS_PAGE_LAYOUT_AUTOMATIC => Self::Automatic,
             value => Self::__Unknown(value),
-}
-}
+        }
+    }
 }
 
 impl StaticType for PageLayout {
-                #[inline]
+    #[inline]
     #[doc(alias = "pps_page_layout_get_type")]
-   fn static_type() -> glib::Type {
-                    unsafe { from_glib(ffi::pps_page_layout_get_type()) }
-                }
-            }
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::pps_page_layout_get_type()) }
+    }
+}
 
 impl glib::HasParamSpec for PageLayout {
-                type ParamSpec = glib::ParamSpecEnum;
-                type SetValue = Self;
-                type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
-    
-                fn param_spec_builder() -> Self::BuilderFn {
-                    Self::ParamSpec::builder_with_default
-                }
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
+    }
 }
 
 impl glib::value::ValueType for PageLayout {
@@ -215,8 +213,7 @@ impl From<PageLayout> for glib::Value {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "PpsSizingMode")]
 pub enum SizingMode {
@@ -228,7 +225,7 @@ pub enum SizingMode {
     Free,
     #[doc(alias = "PPS_SIZING_AUTOMATIC")]
     Automatic,
-#[doc(hidden)]
+    #[doc(hidden)]
     __Unknown(i32),
 }
 
@@ -237,49 +234,49 @@ impl IntoGlib for SizingMode {
     type GlibType = ffi::PpsSizingMode;
 
     #[inline]
-fn into_glib(self) -> ffi::PpsSizingMode {
-match self {
+    fn into_glib(self) -> ffi::PpsSizingMode {
+        match self {
             Self::FitPage => ffi::PPS_SIZING_FIT_PAGE,
             Self::FitWidth => ffi::PPS_SIZING_FIT_WIDTH,
             Self::Free => ffi::PPS_SIZING_FREE,
             Self::Automatic => ffi::PPS_SIZING_AUTOMATIC,
             Self::__Unknown(value) => value,
-}
-}
+        }
+    }
 }
 
 #[doc(hidden)]
 impl FromGlib<ffi::PpsSizingMode> for SizingMode {
     #[inline]
-unsafe fn from_glib(value: ffi::PpsSizingMode) -> Self {
+    unsafe fn from_glib(value: ffi::PpsSizingMode) -> Self {
         skip_assert_initialized!();
-        
-match value {
+
+        match value {
             ffi::PPS_SIZING_FIT_PAGE => Self::FitPage,
             ffi::PPS_SIZING_FIT_WIDTH => Self::FitWidth,
             ffi::PPS_SIZING_FREE => Self::Free,
             ffi::PPS_SIZING_AUTOMATIC => Self::Automatic,
             value => Self::__Unknown(value),
-}
-}
+        }
+    }
 }
 
 impl StaticType for SizingMode {
-                #[inline]
+    #[inline]
     #[doc(alias = "pps_sizing_mode_get_type")]
-   fn static_type() -> glib::Type {
-                    unsafe { from_glib(ffi::pps_sizing_mode_get_type()) }
-                }
-            }
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::pps_sizing_mode_get_type()) }
+    }
+}
 
 impl glib::HasParamSpec for SizingMode {
-                type ParamSpec = glib::ParamSpecEnum;
-                type SetValue = Self;
-                type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
-    
-                fn param_spec_builder() -> Self::BuilderFn {
-                    Self::ParamSpec::builder_with_default
-                }
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
+    }
 }
 
 impl glib::value::ValueType for SizingMode {
@@ -319,4 +316,3 @@ impl From<SizingMode> for glib::Value {
         ToValue::to_value(&v)
     }
 }
-

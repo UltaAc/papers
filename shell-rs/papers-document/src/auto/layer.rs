@@ -3,8 +3,12 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{prelude::*,signal::{connect_raw, SignalHandlerId},translate::*};
-use std::{boxed::Box as Box_};
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "PpsLayer")]
@@ -16,15 +20,12 @@ glib::wrapper! {
 }
 
 impl Layer {
-        pub const NONE: Option<&'static Layer> = None;
-    
+    pub const NONE: Option<&'static Layer> = None;
 
     #[doc(alias = "pps_layer_new")]
     pub fn new(rb_group: i32) -> Layer {
         assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::pps_layer_new(rb_group))
-        }
+        unsafe { from_glib_full(ffi::pps_layer_new(rb_group)) }
     }
 }
 
@@ -37,23 +38,22 @@ pub trait LayerExt: IsA<Layer> + sealed::Sealed + 'static {
     #[doc(alias = "pps_layer_get_children")]
     #[doc(alias = "get_children")]
     fn children(&self) -> Option<gio::ListModel> {
-        unsafe {
-            from_glib_none(ffi::pps_layer_get_children(self.as_ref().to_glib_none().0))
-        }
+        unsafe { from_glib_none(ffi::pps_layer_get_children(self.as_ref().to_glib_none().0)) }
     }
 
     #[doc(alias = "pps_layer_get_rb_group")]
     #[doc(alias = "get_rb_group")]
     fn rb_group(&self) -> i32 {
-        unsafe {
-            ffi::pps_layer_get_rb_group(self.as_ref().to_glib_none().0)
-        }
+        unsafe { ffi::pps_layer_get_rb_group(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "pps_layer_set_children")]
     fn set_children(&self, children: impl IsA<gio::ListModel>) {
         unsafe {
-            ffi::pps_layer_set_children(self.as_ref().to_glib_none().0, children.upcast().into_glib_ptr());
+            ffi::pps_layer_set_children(
+                self.as_ref().to_glib_none().0,
+                children.upcast().into_glib_ptr(),
+            );
         }
     }
 
@@ -62,7 +62,7 @@ pub trait LayerExt: IsA<Layer> + sealed::Sealed + 'static {
     }
 
     fn set_enabled(&self, enabled: bool) {
-        ObjectExt::set_property(self.as_ref(),"enabled", enabled)
+        ObjectExt::set_property(self.as_ref(), "enabled", enabled)
     }
 
     fn title(&self) -> Option<glib::GString> {
@@ -70,7 +70,7 @@ pub trait LayerExt: IsA<Layer> + sealed::Sealed + 'static {
     }
 
     fn set_title(&self, title: Option<&str>) {
-        ObjectExt::set_property(self.as_ref(),"title", title)
+        ObjectExt::set_property(self.as_ref(), "title", title)
     }
 
     #[doc(alias = "title-only")]
@@ -80,58 +80,98 @@ pub trait LayerExt: IsA<Layer> + sealed::Sealed + 'static {
 
     #[doc(alias = "title-only")]
     fn set_title_only(&self, title_only: bool) {
-        ObjectExt::set_property(self.as_ref(),"title-only", title_only)
+        ObjectExt::set_property(self.as_ref(), "title-only", title_only)
     }
 
     #[doc(alias = "children")]
     fn connect_children_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_children_trampoline<P: IsA<Layer>, F: Fn(&P) + 'static>(this: *mut ffi::PpsLayer, _param_spec: glib::ffi::gpointer, f: glib::ffi::gpointer) {
+        unsafe extern "C" fn notify_children_trampoline<P: IsA<Layer>, F: Fn(&P) + 'static>(
+            this: *mut ffi::PpsLayer,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(Layer::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::children\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(notify_children_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::children\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                    notify_children_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
         }
     }
 
     #[doc(alias = "enabled")]
     fn connect_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_enabled_trampoline<P: IsA<Layer>, F: Fn(&P) + 'static>(this: *mut ffi::PpsLayer, _param_spec: glib::ffi::gpointer, f: glib::ffi::gpointer) {
+        unsafe extern "C" fn notify_enabled_trampoline<P: IsA<Layer>, F: Fn(&P) + 'static>(
+            this: *mut ffi::PpsLayer,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(Layer::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::enabled\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(notify_enabled_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::enabled\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                    notify_enabled_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
         }
     }
 
     #[doc(alias = "title")]
     fn connect_title_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_title_trampoline<P: IsA<Layer>, F: Fn(&P) + 'static>(this: *mut ffi::PpsLayer, _param_spec: glib::ffi::gpointer, f: glib::ffi::gpointer) {
+        unsafe extern "C" fn notify_title_trampoline<P: IsA<Layer>, F: Fn(&P) + 'static>(
+            this: *mut ffi::PpsLayer,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(Layer::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::title\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(notify_title_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::title\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                    notify_title_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
         }
     }
 
     #[doc(alias = "title-only")]
     fn connect_title_only_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_title_only_trampoline<P: IsA<Layer>, F: Fn(&P) + 'static>(this: *mut ffi::PpsLayer, _param_spec: glib::ffi::gpointer, f: glib::ffi::gpointer) {
+        unsafe extern "C" fn notify_title_only_trampoline<P: IsA<Layer>, F: Fn(&P) + 'static>(
+            this: *mut ffi::PpsLayer,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(Layer::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::title-only\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(notify_title_only_trampoline::<Self, F> as *const ())), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::title-only\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                    notify_title_only_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
         }
     }
 }

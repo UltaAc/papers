@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{prelude::*,translate::*};
+use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsDocumentFonts")]
@@ -15,8 +15,7 @@ glib::wrapper! {
 }
 
 impl DocumentFonts {
-        pub const NONE: Option<&'static DocumentFonts> = None;
-    
+    pub const NONE: Option<&'static DocumentFonts> = None;
 }
 
 mod sealed {
@@ -29,7 +28,9 @@ pub trait DocumentFontsExt: IsA<DocumentFonts> + sealed::Sealed + 'static {
     #[doc(alias = "get_fonts_summary")]
     fn fonts_summary(&self) -> Option<glib::GString> {
         unsafe {
-            from_glib_none(ffi::pps_document_fonts_get_fonts_summary(self.as_ref().to_glib_none().0))
+            from_glib_none(ffi::pps_document_fonts_get_fonts_summary(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
@@ -37,7 +38,9 @@ pub trait DocumentFontsExt: IsA<DocumentFonts> + sealed::Sealed + 'static {
     #[doc(alias = "get_model")]
     fn model(&self) -> Option<gio::ListModel> {
         unsafe {
-            from_glib_full(ffi::pps_document_fonts_get_model(self.as_ref().to_glib_none().0))
+            from_glib_full(ffi::pps_document_fonts_get_model(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 

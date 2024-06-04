@@ -3,8 +3,8 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Job};
-use glib::{prelude::*,translate::*};
+use crate::Job;
+use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsJobLinks")]
@@ -16,14 +16,14 @@ glib::wrapper! {
 }
 
 impl JobLinks {
-        pub const NONE: Option<&'static JobLinks> = None;
-    
+    pub const NONE: Option<&'static JobLinks> = None;
 
     #[doc(alias = "pps_job_links_new")]
     pub fn new(document: &impl IsA<papers_document::Document>) -> JobLinks {
         assert_initialized_main_thread!();
         unsafe {
-            Job::from_glib_full(ffi::pps_job_links_new(document.as_ref().to_glib_none().0)).unsafe_cast()
+            Job::from_glib_full(ffi::pps_job_links_new(document.as_ref().to_glib_none().0))
+                .unsafe_cast()
         }
     }
 }
@@ -37,9 +37,7 @@ pub trait JobLinksExt: IsA<JobLinks> + sealed::Sealed + 'static {
     #[doc(alias = "pps_job_links_get_model")]
     #[doc(alias = "get_model")]
     fn model(&self) -> Option<gio::ListModel> {
-        unsafe {
-            from_glib_none(ffi::pps_job_links_get_model(self.as_ref().to_glib_none().0))
-        }
+        unsafe { from_glib_none(ffi::pps_job_links_get_model(self.as_ref().to_glib_none().0)) }
     }
 }
 

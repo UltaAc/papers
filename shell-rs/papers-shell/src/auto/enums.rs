@@ -3,10 +3,9 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{prelude::*,translate::*};
+use glib::{prelude::*, translate::*};
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "PpsWindowRunMode")]
 pub enum WindowRunMode {
@@ -24,7 +23,7 @@ pub enum WindowRunMode {
     PasswordView,
     #[doc(alias = "PPS_WINDOW_MODE_LOADER_VIEW")]
     LoaderView,
-#[doc(hidden)]
+    #[doc(hidden)]
     __Unknown(i32),
 }
 
@@ -33,8 +32,8 @@ impl IntoGlib for WindowRunMode {
     type GlibType = ffi::PpsWindowRunMode;
 
     #[inline]
-fn into_glib(self) -> ffi::PpsWindowRunMode {
-match self {
+    fn into_glib(self) -> ffi::PpsWindowRunMode {
+        match self {
             Self::Normal => ffi::PPS_WINDOW_MODE_NORMAL,
             Self::Fullscreen => ffi::PPS_WINDOW_MODE_FULLSCREEN,
             Self::Presentation => ffi::PPS_WINDOW_MODE_PRESENTATION,
@@ -43,17 +42,17 @@ match self {
             Self::PasswordView => ffi::PPS_WINDOW_MODE_PASSWORD_VIEW,
             Self::LoaderView => ffi::PPS_WINDOW_MODE_LOADER_VIEW,
             Self::__Unknown(value) => value,
-}
-}
+        }
+    }
 }
 
 #[doc(hidden)]
 impl FromGlib<ffi::PpsWindowRunMode> for WindowRunMode {
     #[inline]
-unsafe fn from_glib(value: ffi::PpsWindowRunMode) -> Self {
+    unsafe fn from_glib(value: ffi::PpsWindowRunMode) -> Self {
         skip_assert_initialized!();
-        
-match value {
+
+        match value {
             ffi::PPS_WINDOW_MODE_NORMAL => Self::Normal,
             ffi::PPS_WINDOW_MODE_FULLSCREEN => Self::Fullscreen,
             ffi::PPS_WINDOW_MODE_PRESENTATION => Self::Presentation,
@@ -62,26 +61,26 @@ match value {
             ffi::PPS_WINDOW_MODE_PASSWORD_VIEW => Self::PasswordView,
             ffi::PPS_WINDOW_MODE_LOADER_VIEW => Self::LoaderView,
             value => Self::__Unknown(value),
-}
-}
+        }
+    }
 }
 
 impl StaticType for WindowRunMode {
-                #[inline]
+    #[inline]
     #[doc(alias = "pps_window_run_mode_get_type")]
-   fn static_type() -> glib::Type {
-                    unsafe { from_glib(ffi::pps_window_run_mode_get_type()) }
-                }
-            }
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::pps_window_run_mode_get_type()) }
+    }
+}
 
 impl glib::HasParamSpec for WindowRunMode {
-                type ParamSpec = glib::ParamSpecEnum;
-                type SetValue = Self;
-                type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
-    
-                fn param_spec_builder() -> Self::BuilderFn {
-                    Self::ParamSpec::builder_with_default
-                }
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
+    }
 }
 
 impl glib::value::ValueType for WindowRunMode {
@@ -121,4 +120,3 @@ impl From<WindowRunMode> for glib::Value {
         ToValue::to_value(&v)
     }
 }
-

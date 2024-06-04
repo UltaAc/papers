@@ -3,8 +3,8 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{LinkAction};
-use glib::{translate::*};
+use crate::LinkAction;
+use glib::translate::*;
 
 glib::wrapper! {
     #[doc(alias = "PpsLink")]
@@ -20,23 +20,22 @@ impl Link {
     pub fn new(title: Option<&str>, action: &LinkAction) -> Link {
         skip_assert_initialized!();
         unsafe {
-            from_glib_full(ffi::pps_link_new(title.to_glib_none().0, action.to_glib_none().0))
+            from_glib_full(ffi::pps_link_new(
+                title.to_glib_none().0,
+                action.to_glib_none().0,
+            ))
         }
     }
 
     #[doc(alias = "pps_link_get_action")]
     #[doc(alias = "get_action")]
     pub fn action(&self) -> Option<LinkAction> {
-        unsafe {
-            from_glib_none(ffi::pps_link_get_action(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(ffi::pps_link_get_action(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pps_link_get_title")]
     #[doc(alias = "get_title")]
     pub fn title(&self) -> Option<glib::GString> {
-        unsafe {
-            from_glib_none(ffi::pps_link_get_title(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(ffi::pps_link_get_title(self.to_glib_none().0)) }
     }
 }

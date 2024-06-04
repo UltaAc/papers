@@ -3,16 +3,13 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{CompressionType,DocumentInfo,Rectangle};
-use glib::{prelude::*,translate::*};
-
+use crate::{CompressionType, DocumentInfo, Rectangle};
+use glib::{prelude::*, translate::*};
 
 #[doc(alias = "pps_backend_query_type")]
 pub fn backend_query_type() -> glib::types::Type {
     assert_initialized_main_thread!();
-    unsafe {
-        from_glib(ffi::pps_backend_query_type())
-    }
+    unsafe { from_glib(ffi::pps_backend_query_type()) }
 }
 
 #[doc(alias = "pps_file_compress")]
@@ -21,7 +18,11 @@ pub fn file_compress(uri: &str, type_: CompressionType) -> Result<glib::GString,
     unsafe {
         let mut error = std::ptr::null_mut();
         let ret = ffi::pps_file_compress(uri.to_glib_none().0, type_.into_glib(), &mut error);
-        if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        if error.is_null() {
+            Ok(from_glib_full(ret))
+        } else {
+            Err(from_glib_full(error))
+        }
     }
 }
 
@@ -30,9 +31,14 @@ pub fn file_copy_metadata(from: &str, to: &str) -> Result<(), glib::Error> {
     assert_initialized_main_thread!();
     unsafe {
         let mut error = std::ptr::null_mut();
-        let is_ok = ffi::pps_file_copy_metadata(from.to_glib_none().0, to.to_glib_none().0, &mut error);
+        let is_ok =
+            ffi::pps_file_copy_metadata(from.to_glib_none().0, to.to_glib_none().0, &mut error);
         debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
-        if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        if error.is_null() {
+            Ok(())
+        } else {
+            Err(from_glib_full(error))
+        }
     }
 }
 
@@ -42,7 +48,11 @@ pub fn file_get_mime_type(uri: &str, fast: bool) -> Result<glib::GString, glib::
     unsafe {
         let mut error = std::ptr::null_mut();
         let ret = ffi::pps_file_get_mime_type(uri.to_glib_none().0, fast.into_glib(), &mut error);
-        if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        if error.is_null() {
+            Ok(from_glib_full(ret))
+        } else {
+            Err(from_glib_full(error))
+        }
     }
 }
 
@@ -52,16 +62,18 @@ pub fn file_get_mime_type_from_fd(fd: i32) -> Result<glib::GString, glib::Error>
     unsafe {
         let mut error = std::ptr::null_mut();
         let ret = ffi::pps_file_get_mime_type_from_fd(fd, &mut error);
-        if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        if error.is_null() {
+            Ok(from_glib_full(ret))
+        } else {
+            Err(from_glib_full(error))
+        }
     }
 }
 
 #[doc(alias = "pps_file_is_temp")]
 pub fn file_is_temp(file: &impl IsA<gio::File>) -> bool {
     assert_initialized_main_thread!();
-    unsafe {
-        from_glib(ffi::pps_file_is_temp(file.as_ref().to_glib_none().0))
-    }
+    unsafe { from_glib(ffi::pps_file_is_temp(file.as_ref().to_glib_none().0)) }
 }
 
 #[doc(alias = "pps_file_uncompress")]
@@ -70,7 +82,11 @@ pub fn file_uncompress(uri: &str, type_: CompressionType) -> Result<glib::GStrin
     unsafe {
         let mut error = std::ptr::null_mut();
         let ret = ffi::pps_file_uncompress(uri.to_glib_none().0, type_.into_glib(), &mut error);
-        if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        if error.is_null() {
+            Ok(from_glib_full(ret))
+        } else {
+            Err(from_glib_full(error))
+        }
     }
 }
 
@@ -78,17 +94,13 @@ pub fn file_uncompress(uri: &str, type_: CompressionType) -> Result<glib::GStrin
 #[doc(alias = "get_locale_dir")]
 pub fn locale_dir() -> Option<std::path::PathBuf> {
     assert_initialized_main_thread!();
-    unsafe {
-        from_glib_none(ffi::pps_get_locale_dir())
-    }
+    unsafe { from_glib_none(ffi::pps_get_locale_dir()) }
 }
 
 #[doc(alias = "pps_init")]
 pub fn init() -> bool {
     assert_initialized_main_thread!();
-    unsafe {
-        from_glib(ffi::pps_init())
-    }
+    unsafe { from_glib(ffi::pps_init()) }
 }
 
 #[doc(alias = "pps_mkdtemp")]
@@ -97,7 +109,11 @@ pub fn mkdtemp(tmpl: &str) -> Result<std::path::PathBuf, glib::Error> {
     unsafe {
         let mut error = std::ptr::null_mut();
         let ret = ffi::pps_mkdtemp(tmpl.to_glib_none().0, &mut error);
-        if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        if error.is_null() {
+            Ok(from_glib_full(ret))
+        } else {
+            Err(from_glib_full(error))
+        }
     }
 }
 
@@ -108,7 +124,11 @@ pub fn mkstemp(tmpl: &str) -> Result<(i32, std::path::PathBuf), glib::Error> {
         let mut file_name = std::ptr::null_mut();
         let mut error = std::ptr::null_mut();
         let ret = ffi::pps_mkstemp(tmpl.to_glib_none().0, &mut file_name, &mut error);
-        if error.is_null() { Ok((ret, from_glib_full(file_name))) } else { Err(from_glib_full(error)) }
+        if error.is_null() {
+            Ok((ret, from_glib_full(file_name)))
+        } else {
+            Err(from_glib_full(error))
+        }
     }
 }
 
@@ -118,24 +138,24 @@ pub fn mkstemp_file(tmpl: &str) -> Result<gio::File, glib::Error> {
     unsafe {
         let mut error = std::ptr::null_mut();
         let ret = ffi::pps_mkstemp_file(tmpl.to_glib_none().0, &mut error);
-        if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        if error.is_null() {
+            Ok(from_glib_full(ret))
+        } else {
+            Err(from_glib_full(error))
+        }
     }
 }
 
 #[doc(alias = "pps_rect_cmp")]
 pub fn rect_cmp(a: &mut Rectangle, b: &mut Rectangle) -> i32 {
     assert_initialized_main_thread!();
-    unsafe {
-        ffi::pps_rect_cmp(a.to_glib_none_mut().0, b.to_glib_none_mut().0)
-    }
+    unsafe { ffi::pps_rect_cmp(a.to_glib_none_mut().0, b.to_glib_none_mut().0) }
 }
 
 #[doc(alias = "pps_should_use_portal")]
 pub fn should_use_portal() -> bool {
     assert_initialized_main_thread!();
-    unsafe {
-        from_glib(ffi::pps_should_use_portal())
-    }
+    unsafe { from_glib(ffi::pps_should_use_portal()) }
 }
 
 #[doc(alias = "pps_shutdown")]
@@ -175,9 +195,14 @@ pub fn xfer_uri_simple(from: &str, to: &str) -> Result<(), glib::Error> {
     assert_initialized_main_thread!();
     unsafe {
         let mut error = std::ptr::null_mut();
-        let is_ok = ffi::pps_xfer_uri_simple(from.to_glib_none().0, to.to_glib_none().0, &mut error);
+        let is_ok =
+            ffi::pps_xfer_uri_simple(from.to_glib_none().0, to.to_glib_none().0, &mut error);
         debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
-        if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        if error.is_null() {
+            Ok(())
+        } else {
+            Err(from_glib_full(error))
+        }
     }
 }
 
@@ -185,6 +210,10 @@ pub fn xfer_uri_simple(from: &str, to: &str) -> Result<(), glib::Error> {
 pub fn xmp_parse(xmp: &str, size: usize, info: &mut DocumentInfo) -> bool {
     assert_initialized_main_thread!();
     unsafe {
-        from_glib(ffi::pps_xmp_parse(xmp.to_glib_none().0, size, info.to_glib_none_mut().0))
+        from_glib(ffi::pps_xmp_parse(
+            xmp.to_glib_none().0,
+            size,
+            info.to_glib_none_mut().0,
+        ))
     }
 }

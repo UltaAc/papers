@@ -3,8 +3,8 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Attachment};
-use glib::{prelude::*,translate::*};
+use crate::Attachment;
+use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsDocumentAttachments")]
@@ -16,8 +16,7 @@ glib::wrapper! {
 }
 
 impl DocumentAttachments {
-        pub const NONE: Option<&'static DocumentAttachments> = None;
-    
+    pub const NONE: Option<&'static DocumentAttachments> = None;
 }
 
 mod sealed {
@@ -30,14 +29,18 @@ pub trait DocumentAttachmentsExt: IsA<DocumentAttachments> + sealed::Sealed + 's
     #[doc(alias = "get_attachments")]
     fn attachments(&self) -> Vec<Attachment> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::pps_document_attachments_get_attachments(self.as_ref().to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(ffi::pps_document_attachments_get_attachments(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     #[doc(alias = "pps_document_attachments_has_attachments")]
     fn has_attachments(&self) -> bool {
         unsafe {
-            from_glib(ffi::pps_document_attachments_has_attachments(self.as_ref().to_glib_none().0))
+            from_glib(ffi::pps_document_attachments_has_attachments(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 }

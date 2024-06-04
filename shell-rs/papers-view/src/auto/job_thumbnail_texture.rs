@@ -3,8 +3,8 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Job};
-use glib::{prelude::*,translate::*};
+use crate::Job;
+use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsJobThumbnailTexture")]
@@ -16,23 +16,46 @@ glib::wrapper! {
 }
 
 impl JobThumbnailTexture {
-        pub const NONE: Option<&'static JobThumbnailTexture> = None;
-    
+    pub const NONE: Option<&'static JobThumbnailTexture> = None;
 
     #[doc(alias = "pps_job_thumbnail_texture_new")]
-    pub fn new(document: &impl IsA<papers_document::Document>, page: i32, rotation: i32, scale: f64) -> JobThumbnailTexture {
+    pub fn new(
+        document: &impl IsA<papers_document::Document>,
+        page: i32,
+        rotation: i32,
+        scale: f64,
+    ) -> JobThumbnailTexture {
         assert_initialized_main_thread!();
         unsafe {
-            Job::from_glib_full(ffi::pps_job_thumbnail_texture_new(document.as_ref().to_glib_none().0, page, rotation, scale)).unsafe_cast()
+            Job::from_glib_full(ffi::pps_job_thumbnail_texture_new(
+                document.as_ref().to_glib_none().0,
+                page,
+                rotation,
+                scale,
+            ))
+            .unsafe_cast()
         }
     }
 
     #[doc(alias = "pps_job_thumbnail_texture_new_with_target_size")]
     #[doc(alias = "new_with_target_size")]
-    pub fn with_target_size(document: &impl IsA<papers_document::Document>, page: i32, rotation: i32, target_width: i32, target_height: i32) -> JobThumbnailTexture {
+    pub fn with_target_size(
+        document: &impl IsA<papers_document::Document>,
+        page: i32,
+        rotation: i32,
+        target_width: i32,
+        target_height: i32,
+    ) -> JobThumbnailTexture {
         assert_initialized_main_thread!();
         unsafe {
-            Job::from_glib_full(ffi::pps_job_thumbnail_texture_new_with_target_size(document.as_ref().to_glib_none().0, page, rotation, target_width, target_height)).unsafe_cast()
+            Job::from_glib_full(ffi::pps_job_thumbnail_texture_new_with_target_size(
+                document.as_ref().to_glib_none().0,
+                page,
+                rotation,
+                target_width,
+                target_height,
+            ))
+            .unsafe_cast()
         }
     }
 }
@@ -47,7 +70,9 @@ pub trait JobThumbnailTextureExt: IsA<JobThumbnailTexture> + sealed::Sealed + 's
     #[doc(alias = "get_texture")]
     fn texture(&self) -> Option<gdk::Texture> {
         unsafe {
-            from_glib_none(ffi::pps_job_thumbnail_texture_get_texture(self.as_ref().to_glib_none().0))
+            from_glib_none(ffi::pps_job_thumbnail_texture_get_texture(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 }
