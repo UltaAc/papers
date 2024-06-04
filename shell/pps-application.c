@@ -111,7 +111,7 @@ pps_application_open_uri_in_window (PpsApplication  *application,
  * @dest: The #PpsLinkDest of the document.
  * @mode: The run mode of the window.
  */
-void
+static void
 pps_application_open_uri_at_dest (PpsApplication  *application,
 				 const char     *uri,
 				 PpsLinkDest     *dest,

@@ -5333,13 +5333,14 @@ launch_action (PpsWindow *pps_window, PpsLinkAction *action)
 			filename);
 		return;
 	}
-	/* We are asked to open a PDF file, from a click event, proceed with that - Issue #48
-	 * This spawns new Papers process or if already opened presents its window */
-	pps_application_open_uri_at_dest (PPS_APP, uri,
-					 pps_link_action_get_dest (action),
-					 priv->window_mode);
-	g_free (uri);
 
+	// The launch action should not reference the file itself. If it
+	// does, simply ignore it
+	if (g_strcmp0 (priv->uri, uri) != 0)
+		pps_spawn (uri, pps_link_action_get_dest (action),
+			   priv->window_mode);
+
+	g_free (uri);
 }
 
 static void
@@ -5410,9 +5411,13 @@ open_remote_link (PpsWindow *window, PpsLinkAction *action)
 				NULL);
 	g_free (dir);
 
-	pps_application_open_uri_at_dest (PPS_APP, uri,
-					 pps_link_action_get_dest (action),
-					 PPS_WINDOW_MODE_NORMAL);
+	// The goto-remote action should not reference the file itself. If it
+	// does, simply ignore it. Ideally, we would not launch a new instance
+	// but open a new tab or a new window, but that's not possible until
+	// https://gitlab.gnome.org/GNOME/Incubator/papers/-/issues/104 is fixed
+	if (g_strcmp0 (priv->uri, uri) != 0)
+		pps_spawn (uri, pps_link_action_get_dest (action),
+			   PPS_WINDOW_MODE_NORMAL);
 
 	g_free (uri);
 }
