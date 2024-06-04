@@ -2106,10 +2106,9 @@ pps_window_open_uri (PpsWindow       *pps_window,
 }
 
 static void
-pps_window_open_document (PpsWindow       *pps_window,
-			 PpsDocument     *document,
-			 PpsLinkDest     *dest,
-			 PpsWindowRunMode mode)
+pps_window_open_document (PpsWindow  *pps_window,
+			  PpsDocument *document,
+			  PpsLinkDest *dest)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
@@ -2120,8 +2119,9 @@ pps_window_open_document (PpsWindow       *pps_window,
 	pps_window_clear_load_job (pps_window);
 	pps_window_clear_local_uri (pps_window);
 
-	if (priv->uri)
-		g_free (priv->uri);
+	pps_window_set_mode (pps_window, PPS_WINDOW_MODE_NORMAL);
+
+	g_clear_pointer (&priv->uri, g_free);
 	priv->uri = g_strdup (pps_document_get_uri (document));
 
 	setup_size_from_metadata (pps_window);
@@ -2132,18 +2132,9 @@ pps_window_open_document (PpsWindow       *pps_window,
 	setup_document_from_metadata (pps_window);
 	setup_view_from_metadata (pps_window);
 
-	if (dest) {
-		PpsLink *link;
-		PpsLinkAction *link_action;
+	pps_window_handle_link (pps_window, dest);
 
-		link_action = pps_link_action_new_dest (dest);
-		link = pps_link_new (NULL, link_action);
-		pps_view_handle_link (PPS_VIEW (priv->view), link);
-		g_object_unref (link_action);
-		g_object_unref (link);
-	}
-
-	switch (mode) {
+	switch (priv->window_mode) {
 	case PPS_WINDOW_MODE_FULLSCREEN:
 		pps_window_run_fullscreen (pps_window);
 		break;
@@ -2471,8 +2462,7 @@ pps_window_open_copy_at_dest (PpsWindow   *window,
 	new_priv->edit_name = g_strdup (priv->edit_name);
 	pps_window_open_document (new_window,
 				 priv->document,
-				 dest, PPS_WINDOW_MODE_NORMAL);
-
+				 dest);
 	adw_overlay_split_view_set_show_sidebar (new_priv->split_view,
 						 adw_overlay_split_view_get_show_sidebar (priv->split_view));
 
