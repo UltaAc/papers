@@ -62,12 +62,6 @@ G_DEFINE_TYPE (PpsApplication, pps_application, ADW_TYPE_APPLICATION)
 #define APPLICATION_DBUS_INTERFACE   "org.gnome.Papers.Application"
 #endif
 
-static void pps_application_open_uri_in_window (PpsApplication  *application,
-					       const char     *uri,
-					       PpsWindow       *pps_window,
-					       PpsLinkDest     *dest,
-					       PpsWindowRunMode mode);
-
 /**
  * pps_application_new:
  *
@@ -85,23 +79,6 @@ pps_application_new (void)
 			     "flags", flags,
 			     "resource-base-path", "/org/gnome/papers",
 			     NULL);
-}
-
-static void
-pps_application_open_uri_in_window (PpsApplication  *application,
-				   const char     *uri,
-				   PpsWindow       *pps_window,
-				   PpsLinkDest     *dest,
-				   PpsWindowRunMode mode)
-{
-	/* We need to load uri before showing the window, so
-	   we can restore window size without flickering */
-	pps_window_open_uri (pps_window, uri, dest, mode);
-
-	if (!gtk_widget_get_realized (GTK_WIDGET (pps_window)))
-		gtk_widget_realize (GTK_WIDGET (pps_window));
-
-	gtk_window_present (GTK_WINDOW (pps_window));
 }
 
 /**
@@ -149,8 +126,14 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 		}
 	}
 
-	pps_application_open_uri_in_window (application, uri, pps_window,
-					   dest, mode);
+	/* We need to load uri before showing the window, so
+	   we can restore window size without flickering */
+	pps_window_open_uri (pps_window, uri, dest, mode);
+
+	if (!gtk_widget_get_realized (GTK_WIDGET (pps_window)))
+		gtk_widget_realize (GTK_WIDGET (pps_window));
+
+	gtk_window_present (GTK_WINDOW (pps_window));
 }
 
 static void
