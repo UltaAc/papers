@@ -40,7 +40,6 @@ struct _PpsSearchContextClass {
 	GObjectClass parent_class;
 };
 
-GType             pps_search_context_get_type    (void);
 PpsSearchContext *pps_search_context_new         (PpsDocumentModel *model);
 const gchar*      pps_search_context_get_search_term (PpsSearchContext *context);
 void              pps_search_context_set_search_term (PpsSearchContext *context,

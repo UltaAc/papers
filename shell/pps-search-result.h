@@ -35,7 +35,6 @@ struct _PpsSearchResultClass {
 	GObjectClass parent_class;
 };
 
-GType            pps_search_result_get_type (void);
 PpsSearchResult *pps_search_result_new      (gchar* markup,
 					     gchar* label,
 					     guint  page,
