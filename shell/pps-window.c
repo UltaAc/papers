@@ -59,7 +59,6 @@
 #include "pps-annotation-properties-dialog.h"
 #include "pps-bookmarks.h"
 #include "pps-search-context.h"
-#include "pps-search-box.h"
 
 #ifdef ENABLE_DBUS
 #include "pps-gdbus-generated.h"
@@ -5987,7 +5986,6 @@ pps_window_init (PpsWindow *pps_window)
 
 	g_type_ensure (PPS_TYPE_VIEW);
 	g_type_ensure (PPS_TYPE_SIDEBAR);
-	g_type_ensure (PPS_TYPE_SEARCH_BOX);
 	g_type_ensure (PPS_TYPE_FIND_SIDEBAR);
 	g_type_ensure (PPS_TYPE_SIDEBAR_BOOKMARKS);
 	g_type_ensure (PPS_TYPE_SIDEBAR_ANNOTATIONS);

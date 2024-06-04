@@ -26,7 +26,6 @@
 
 #include <pps-document.h>
 #include "pps-find-sidebar.h"
-#include "pps-search-box.h"
 #include "pps-search-result.h"
 #include "pps-utils.h"
 #include <string.h>
@@ -35,7 +34,7 @@ typedef struct {
 	PpsSearchContext *context;
 
 	GtkStack *results_stack;
-	PpsSearchBox *search_box;
+	GtkWidget *search_box;
         GtkWidget *list_view;
         GtkSingleSelection *selection;
 } PpsFindSidebarPrivate;
@@ -297,5 +296,5 @@ pps_find_sidebar_set_search_context (PpsFindSidebar   *sidebar,
 				 G_CALLBACK (find_job_finished_cb),
 				 sidebar, G_CONNECT_DEFAULT);
 
-	pps_search_box_set_search_context (PPS_SEARCH_BOX (priv->search_box), context);
+	g_object_set (priv->search_box, "context", priv->context, NULL);
 }

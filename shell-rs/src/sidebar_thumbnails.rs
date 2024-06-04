@@ -427,7 +427,6 @@ mod imp {
 
             debug!("set current selected page to {store_index}");
 
-
             if self.obj().is_mapped() {
                 self.grid_view
                     .scroll_to(store_index as u32, gtk::ListScrollFlags::SELECT, None);

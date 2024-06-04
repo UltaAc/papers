@@ -15,6 +15,7 @@ mod properties_fonts;
 mod properties_general;
 mod properties_license;
 mod properties_window;
+mod search_box;
 mod sidebar_attachments;
 mod sidebar_layers;
 mod sidebar_links;
@@ -34,6 +35,7 @@ fn ensure_type() {
     password_view::PpsPasswordView::ensure_type();
     properties_general::PpsPropertiesGeneral::ensure_type();
     properties_window::PpsPropertiesWindow::ensure_type();
+    search_box::PpsSearchBox::ensure_type();
     sidebar_attachments::PpsSidebarAttachments::ensure_type();
     sidebar_layers::PpsSidebarLayers::ensure_type();
     sidebar_links::PpsSidebarLinks::ensure_type();

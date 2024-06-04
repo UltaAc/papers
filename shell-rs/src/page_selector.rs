@@ -242,9 +242,7 @@ mod imp {
 
             self.label.set_width_chars(max_label_len);
 
-            let max_label_len = document
-                .max_label_len()
-                .clamp(max_page_numeric_label, 12);
+            let max_label_len = document.max_label_len().clamp(max_page_numeric_label, 12);
             self.entry.set_width_chars(max_label_len);
         }
     }

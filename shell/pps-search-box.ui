@@ -14,9 +14,9 @@
             <property name="input-hints">no-spellcheck | word-completion</property>
             <property name="placeholder-text" translatable="yes">Search in document</property>
             <property name="search-delay">500</property>
-            <signal name="activate" handler="entry_activate_cb" />
-            <signal name="next-match" handler="entry_next_match_cb" />
-            <signal name="previous-match" handler="entry_previous_match_cb" />
+            <signal name="activate" handler="entry_activated" swapped="yes" />
+            <signal name="next-match" handler="entry_next_matched" swapped="yes" />
+            <signal name="previous-match" handler="entry_previous_matched" swapped="yes" />
             <accessibility>
               <relation name="labelled-by">entry</relation>
             </accessibility>
