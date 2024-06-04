@@ -1130,40 +1130,13 @@ setup_model_from_metadata (PpsWindow *window)
 }
 
 static void
-monitor_get_dimensions (PpsWindow *pps_window,
-                       gint     *width,
-                       gint     *height)
-{
-	GdkDisplay  *display;
-	GtkNative   *native;
-	GdkSurface  *surface;
-	GdkMonitor  *monitor;
-	GdkRectangle geometry;
-
-	*width = 0;
-	*height = 0;
-
-	display = gtk_widget_get_display (GTK_WIDGET (pps_window));
-	native = gtk_widget_get_native (GTK_WIDGET (pps_window));
-
-	if (native) {
-		surface = gtk_native_get_surface (native);
-		monitor = gdk_display_get_monitor_at_surface (display,
-							     surface);
-		gdk_monitor_get_geometry (monitor, &geometry);
-		*width = geometry.width;
-		*height = geometry.height;
-	}
-}
-
-static void
 setup_document_from_metadata (PpsWindow *window)
 {
 	gint    page, n_pages;
 	gint    width;
 	gint    height;
 	gdouble width_ratio, height_ratio, document_width, document_height;
-	gint    request_width, request_height, monitor_width, monitor_height;
+	gint    request_width, request_height;
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
 	setup_sidebar_from_metadata (window);
@@ -1204,12 +1177,6 @@ setup_document_from_metadata (PpsWindow *window)
 
 	request_width = (gint)(width_ratio * document_width + 0.5);
 	request_height = (gint)(height_ratio * document_height + 0.5);
-
-	monitor_get_dimensions (window, &monitor_width, &monitor_height);
-	if (monitor_width > 0 && monitor_height > 0) {
-		request_width = MIN (request_width, monitor_width);
-		request_height = MIN (request_height, monitor_height);
-	}
 
 	if (request_width > 0 && request_height > 0) {
 		gtk_window_set_default_size (GTK_WINDOW (window),
