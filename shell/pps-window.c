@@ -2056,6 +2056,13 @@ pps_window_open_uri (PpsWindow       *pps_window,
 	else
 		priv->uri = g_strdup (uri);
 
+	g_clear_object (&priv->monitor);
+	/* Create a monitor for the document */
+	priv->monitor = pps_file_monitor_new (priv->uri);
+	g_signal_connect_swapped (priv->monitor, "changed",
+				  G_CALLBACK (pps_window_file_changed),
+				  pps_window);
+
 	g_clear_object (&priv->metadata);
 	g_clear_object (&priv->bookmarks);
 
@@ -2085,13 +2092,6 @@ pps_window_open_uri (PpsWindow       *pps_window,
 			  "finished",
 			  G_CALLBACK (pps_window_load_job_cb),
 			  pps_window);
-
-	g_clear_object (&priv->monitor);
-	/* Create a monitor for the document */
-	priv->monitor = pps_file_monitor_new (priv->uri);
-	g_signal_connect_swapped (priv->monitor, "changed",
-				  G_CALLBACK (pps_window_file_changed),
-				  pps_window);
 
 	if (path == NULL) {
 		pps_window_load_file_remote (pps_window, source_file);
@@ -2124,6 +2124,13 @@ pps_window_open_document (PpsWindow  *pps_window,
 	g_clear_pointer (&priv->uri, g_free);
 	priv->uri = g_strdup (pps_document_get_uri (document));
 
+	g_clear_object (&priv->monitor);
+	/* Create a monitor for the document */
+	priv->monitor = pps_file_monitor_new (priv->uri);
+	g_signal_connect_swapped (priv->monitor, "changed",
+				  G_CALLBACK (pps_window_file_changed),
+				  pps_window);
+
 	setup_size_from_metadata (pps_window);
 	setup_model_from_metadata (pps_window);
 
@@ -2144,13 +2151,6 @@ pps_window_open_document (PpsWindow  *pps_window,
 	default:
 		break;
 	}
-
-	g_clear_object (&priv->monitor);
-	/* Create a monitor for the document */
-	priv->monitor = pps_file_monitor_new (priv->uri);
-	g_signal_connect_swapped (priv->monitor, "changed",
-				  G_CALLBACK (pps_window_file_changed),
-				  pps_window);
 }
 
 static void
