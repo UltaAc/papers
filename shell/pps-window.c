@@ -2411,21 +2411,34 @@ pps_window_file_dialog_save_folder (PpsWindow       *window,
 }
 
 static void
-file_open_dialog_response_cb (GtkFileDialog	*dialog,
-			      GAsyncResult	*result,
-			      PpsWindow		*pps_window)
+file_open_dialog_response_cb (GtkFileDialog *dialog,
+			      GAsyncResult  *result,
+			      PpsWindow     *window)
 {
 	GListModel *files = gtk_file_dialog_open_multiple_finish (dialog, result, NULL);
+	GFile *file;
+	guint pos = 0;
+	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
 	if (!files)
 		return;
 
-	pps_application_open_uri_list (PPS_APP, files);
+	while ((file = g_list_model_get_item (files, pos++)) != NULL) {
+		const char *uri = g_file_get_uri(file);
+		if (!uri)
+			continue;
+
+		if (!priv->uri || g_strcmp0 (priv->uri, uri) == 0)
+			pps_window_open_uri (window, uri, NULL,
+					     PPS_WINDOW_MODE_NORMAL);
+		else
+			pps_spawn (uri, NULL, PPS_WINDOW_MODE_NORMAL);
+	}
 
 	if (g_list_model_get_n_items (files))
-		pps_window_file_dialog_save_folder (pps_window,
-						     g_list_model_get_item (files, 0),
-						     G_USER_DIRECTORY_DOCUMENTS);
+		pps_window_file_dialog_save_folder (window,
+						    g_list_model_get_item (files, 0),
+						    G_USER_DIRECTORY_DOCUMENTS);
 
 	g_clear_object (&files);
 }
@@ -4888,20 +4901,27 @@ pps_window_drag_data_received (GtkDropTarget* self,
 			      gdouble y,
 			      gpointer user_data)
 {
+	PpsWindow *window = PPS_WINDOW (user_data);
+	PpsWindowPrivate *priv = GET_PRIVATE (window);
 	GdkFileList *file_list = g_value_get_boxed(value);
 	GSList *list = gdk_file_list_get_files(file_list);
-	GListStore *uri_list = g_list_store_new (G_TYPE_FILE);
 
 	for (GSList *l = list; l != NULL; l = l->next)
 	{
 		GFile *file = l->data;
+		const char *uri = g_file_get_uri(file);;
+		if (!uri)
+			continue;
 
-		g_list_store_append (uri_list, file);
+		// Only open the file if we don't have an uri, or if it's
+		// different to our current one. Don't reload the current open
+		// document!
+		if (!priv->uri)
+			pps_window_open_uri (window, uri, NULL,
+					     PPS_WINDOW_MODE_NORMAL);
+		else if (g_strcmp0 (priv->uri, uri) != 0)
+			pps_spawn (uri, NULL, PPS_WINDOW_MODE_NORMAL);
 	}
-
-	pps_application_open_uri_list (PPS_APP, G_LIST_MODEL (uri_list));
-
-	g_object_unref (uri_list);
 
 	return TRUE;
 }

@@ -40,7 +40,4 @@ G_DECLARE_FINAL_TYPE (PpsApplication, pps_application, PPS, APPLICATION, AdwAppl
 
 PpsApplication    *pps_application_new                 (void);
 
-void	          pps_application_open_uri_list       (PpsApplication   *application,
-						      GListModel      *files);
-
 G_END_DECLS

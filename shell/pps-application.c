@@ -193,24 +193,6 @@ handle_get_window_list_cb (PpsPapersApplication   *object,
 }
 #endif /* ENABLE_DBUS */
 
-void
-pps_application_open_uri_list (PpsApplication *application,
-			      GListModel    *files)
-{
-	GFile *file;
-	guint pos = 0;
-	const char *uri;
-
-	while ((file = g_list_model_get_item (files, pos++)) != NULL) {
-		uri = g_file_get_uri(file);
-		if (!uri)
-			continue;
-
-		pps_application_open_uri_at_dest (application, uri,
-						 NULL, PPS_WINDOW_MODE_NORMAL);
-	}
-}
-
 static void
 pps_application_about_activated (GSimpleAction *action,
 				 GVariant      *parameter,
