@@ -298,8 +298,8 @@ process_matches_idle (PpsSearchContext *context)
         g_return_if_fail (PPS_IS_JOB (priv->job));
 
         if (!pps_job_find_has_results (priv->job)) {
-                pps_search_context_clear_job (context);
 	        g_signal_emit (context, signals[FINISHED], 0, priv->job, first_match_page);
+                pps_search_context_clear_job (context);
                 return;
         }
 
