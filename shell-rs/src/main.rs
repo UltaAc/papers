@@ -4,9 +4,10 @@ mod config {
     include!(concat!(env!("CODEGEN_BUILD_DIR"), "/config.rs"));
 }
 
+use application::PpsApplication;
 use config::GETTEXT_PACKAGE;
-use papers_shell::Application;
 
+mod application;
 mod deps;
 mod loader_view;
 mod page_selector;
@@ -61,5 +62,5 @@ fn main() -> glib::ExitCode {
     gettextrs::textdomain(GETTEXT_PACKAGE).expect("Unable to switch to the text domain");
 
     ensure_type();
-    Application::new().run()
+    PpsApplication::new().run()
 }

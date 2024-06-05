@@ -18,6 +18,7 @@ env_logger = "0.10"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
 log = "0.4"
 lru = "0.12"
+zbus = "4"
 
 [dependencies.glib]
 git = "https://github.com/gtk-rs/gtk-rs-core"

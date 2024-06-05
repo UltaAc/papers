@@ -42,7 +42,6 @@
 
 #include <papers-view.h>
 #include "pps-find-sidebar.h"
-#include "pps-application.h"
 #include "pps-file-monitor.h"
 #include "pps-history.h"
 #include "pps-message-area.h"

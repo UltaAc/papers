@@ -41,7 +41,6 @@ nautilus/pps-nautilus-extension.c
 nautilus/pps-nautilus-extension.h
 shell/help-overlay.ui
 shell/pps-annotation-properties-dialog.c
-shell/pps-application.c
 shell/pps-history.c
 shell/pps-keyring.c
 shell/pps-loader-view.ui
@@ -62,6 +61,7 @@ shell/pps-utils.c
 shell/pps-window.c
 shell/pps-window.ui
 shell/pps-window-title.c
+shell-rs/src/application.rs
 shell-rs/src/main.rs
 shell-rs/src/page_selector.rs
 shell-rs/src/password_view.rs

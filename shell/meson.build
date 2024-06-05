@@ -1,6 +1,5 @@
 papers_sources = files(
   'pps-annotation-properties-dialog.c',
-  'pps-application.c',
   'pps-bookmarks.c',
   'pps-file-monitor.c',
   'pps-find-sidebar.c',
@@ -78,7 +77,6 @@ enum_header_prefix = '''
 headers = files(
   'pps-window.h',
   'pps-metadata.h',
-  'pps-application.h',
   'pps-sidebar-page.h',
   'pps-search-context.h',
   'pps-search-result.h',
