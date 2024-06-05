@@ -53,7 +53,7 @@ package = "libadwaita"
 git = "https://gitlab.gnome.org/World/Rust/libadwaita-rs.git"
 version = "0.7"
 branch = "master"
-features = ["v1_4"]
+features = ["v1_5"]
 
 [dependencies.papers_shell]
 package = "papers-shell"
