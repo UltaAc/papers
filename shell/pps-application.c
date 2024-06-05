@@ -528,7 +528,6 @@ pps_application_init (PpsApplication *pps_application)
 		{ "named-dest", 'n', 0, G_OPTION_ARG_STRING, NULL, N_("Named destination to display."), N_("DEST")},
 		{ "fullscreen", 'f', 0, G_OPTION_ARG_NONE, NULL, N_("Run papers in fullscreen mode."), NULL },
 		{ "presentation", 's', 0, G_OPTION_ARG_NONE, NULL, N_("Run papers in presentation mode."), NULL },
-		{ "find", 'l', 0, G_OPTION_ARG_STRING, NULL, N_("The word or phrase to find in the document."), N_("STRING")},
 		{ "version", 0, 0, G_OPTION_ARG_NONE, NULL, N_("Show the version of the program."), NULL },
 		{ G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, NULL, NULL, N_("[FILE…]") },
 		{ NULL }
