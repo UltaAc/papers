@@ -69,6 +69,7 @@ shell-rs/src/properties_fonts.rs
 shell-rs/src/properties_general.rs
 shell-rs/src/properties_license.rs
 shell-rs/src/properties_window.rs
+shell-rs/src/sidebar_annotations_row.rs
 shell-rs/src/sidebar_attachments.rs
 shell-rs/src/sidebar_layers.rs
 shell-rs/src/sidebar_thumbnails.rs

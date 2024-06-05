@@ -26,7 +26,6 @@
 #include "pps-document-annotations.h"
 #include "pps-sidebar-page.h"
 #include "pps-sidebar-annotations.h"
-#include "pps-sidebar-annotations-row.h"
 #include "pps-jobs.h"
 #include "pps-job-scheduler.h"
 #include "pps-window.h"
@@ -257,8 +256,9 @@ job_finished_callback (PpsJobAnnots          *job,
 			if (!PPS_IS_ANNOTATION_MARKUP (annot))
 				continue;
 
-			row = GTK_WIDGET (g_object_new (PPS_TYPE_SIDEBAR_ANNOTATIONS_ROW,
-							"annotation", annot,
+			row = GTK_WIDGET (g_object_new (g_type_from_name ("PpsSidebarAnnotationsRow"),
+							"annotation",
+							PPS_ANNOTATION_MARKUP (annot),
 							NULL));
 
 			adw_expander_row_add_row (ADW_EXPANDER_ROW (expander), row);
