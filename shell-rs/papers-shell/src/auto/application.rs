@@ -3,7 +3,6 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::WindowRunMode;
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -28,46 +27,6 @@ impl Application {
     /// This method returns an instance of [`ApplicationBuilder`](crate::builders::ApplicationBuilder) which can be used to create [`Application`] objects.
     pub fn builder() -> ApplicationBuilder {
         ApplicationBuilder::new()
-    }
-
-    #[doc(alias = "pps_application_get_n_windows")]
-    #[doc(alias = "get_n_windows")]
-    pub fn n_windows(&self) -> u32 {
-        unsafe { ffi::pps_application_get_n_windows(self.to_glib_none().0) }
-    }
-
-    #[doc(alias = "pps_application_open_start_view")]
-    pub fn open_start_view(&self) {
-        unsafe {
-            ffi::pps_application_open_start_view(self.to_glib_none().0);
-        }
-    }
-
-    #[doc(alias = "pps_application_open_uri_at_dest")]
-    pub fn open_uri_at_dest(
-        &self,
-        uri: &str,
-        dest: &papers_document::LinkDest,
-        mode: WindowRunMode,
-    ) {
-        unsafe {
-            ffi::pps_application_open_uri_at_dest(
-                self.to_glib_none().0,
-                uri.to_glib_none().0,
-                dest.to_glib_none().0,
-                mode.into_glib(),
-            );
-        }
-    }
-
-    #[doc(alias = "pps_application_open_uri_list")]
-    pub fn open_uri_list(&self, files: &impl IsA<gio::ListModel>) {
-        unsafe {
-            ffi::pps_application_open_uri_list(
-                self.to_glib_none().0,
-                files.as_ref().to_glib_none().0,
-            );
-        }
     }
 }
 

@@ -10,6 +10,7 @@ macro_rules! assert_initialized_main_thread {
     () => {};
 }
 
+pub use auto::functions::*;
 pub use auto::*;
 #[allow(unused_imports)]
 mod auto;

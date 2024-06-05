@@ -27,14 +27,13 @@ external_libraries = [
 
 generate = [
     "PapersShell.Application",
-    "PapersShell.PapersApplication",
-    "PapersShell.PapersWindow",
     "PapersShell.WindowRunMode",
     "PapersShell.Window",
     "PapersShell.SearchContext",
     "PapersShell.SearchResult",
     "PapersShell.SidebarPage",
     "PapersShell.Metadata",
+    "PapersShell.*",
 ]
 
 manual = [

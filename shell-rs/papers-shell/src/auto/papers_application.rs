@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{prelude::*, translate::*};
+use glib::prelude::*;
 
 glib::wrapper! {
     #[doc(alias = "PpsPapersApplication")]
@@ -33,39 +33,6 @@ mod sealed {
     impl<T: super::IsA<super::PapersApplication>> Sealed for T {}
 }
 
-pub trait PapersApplicationExt: IsA<PapersApplication> + sealed::Sealed + 'static {
-    //#[doc(alias = "pps_papers_application_call_get_window_list")]
-    //fn call_get_window_list<P: FnOnce(Result<Vec<glib::GString>, /*Ignored*/glib::Error>) + 'static>(&self, cancellable: /*Ignored*/Option<&gio::Cancellable>, callback: P) {
-    //    unsafe { TODO: call ffi:pps_papers_application_call_get_window_list() }
-    //}
-
-    //
-    //fn call_get_window_list_future(&self) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<glib::GString>, /*Ignored*/glib::Error>> + 'static>> {
-
-    //Box_::pin(gio::GioFuture::new(self, move |obj, cancellable, send| {
-    //    obj.call_get_window_list(
-    //        Some(cancellable),
-    //        move |res| {
-    //            send.resolve(res);
-    //        },
-    //    );
-    //}))
-    //}
-
-    //#[doc(alias = "pps_papers_application_call_get_window_list_sync")]
-    //fn call_get_window_list_sync(&self, cancellable: /*Ignored*/Option<&gio::Cancellable>, error: /*Ignored*/Option<glib::Error>) -> Result<(Vec<glib::GString>), glib::Error> {
-    //    unsafe { TODO: call ffi:pps_papers_application_call_get_window_list_sync() }
-    //}
-
-    //#[doc(alias = "pps_papers_application_complete_get_window_list")]
-    //fn complete_get_window_list(&self, invocation: /*Ignored*/gio::DBusMethodInvocation, window_list: &str) {
-    //    unsafe { TODO: call ffi:pps_papers_application_complete_get_window_list() }
-    //}
-
-    //#[doc(alias = "handle-get-window-list")]
-    //fn connect_handle_get_window_list<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
-    //    Ignored invocation: Gio.DBusMethodInvocation
-    //}
-}
+pub trait PapersApplicationExt: IsA<PapersApplication> + sealed::Sealed + 'static {}
 
 impl<O: IsA<PapersApplication>> PapersApplicationExt for O {}

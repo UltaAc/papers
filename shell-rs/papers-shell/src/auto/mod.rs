@@ -12,9 +12,6 @@ pub use self::metadata::Metadata;
 mod papers_application;
 pub use self::papers_application::PapersApplication;
 
-mod papers_window;
-pub use self::papers_window::PapersWindow;
-
 mod search_context;
 pub use self::search_context::SearchContext;
 
@@ -30,9 +27,10 @@ pub use self::window::Window;
 mod enums;
 pub use self::enums::WindowRunMode;
 
+pub(crate) mod functions;
+
 pub(crate) mod traits {
     pub use super::papers_application::PapersApplicationExt;
-    pub use super::papers_window::PapersWindowExt;
     pub use super::search_context::SearchContextExt;
     pub use super::search_result::SearchResultExt;
     pub use super::sidebar_page::SidebarPageExt;
