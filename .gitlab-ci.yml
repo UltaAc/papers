@@ -16,7 +16,7 @@ variables:
     # stable branch.
     # Could probably also switch away from rawhide,
     # to stable fedora branch as well.
-    FDO_DISTRIBUTION_TAG: '2024-05-29.1-main'
+    FDO_DISTRIBUTION_TAG: '2024-06-05.0-main'
     FDO_DISTRIBUTION_VERSION: rawhide
 
 editorconfig:
@@ -61,6 +61,7 @@ build.container.fedora:
             yelp-tools
             zlib-devel
             rust
+            rustfmt
             cargo
             git
 
