@@ -128,6 +128,13 @@ pps_spinner_unmap_cb (GtkSpinner *spinner) {
 	gtk_spinner_set_spinning(spinner, FALSE);
 }
 
+
+/**
+ * pps_spawn:
+ * @uri: (nullable): The uri to be opened.
+ * @dest: (nullable): The #PpsLinkDest of the document.
+ * @mode: The run mode of the window.
+ */
 void
 pps_spawn (const char	  *uri,
 	   PpsLinkDest	   *dest,
