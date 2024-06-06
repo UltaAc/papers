@@ -5,11 +5,12 @@
       <object class="AdwToolbarView">
         <property name="content">
           <object class="GtkStack" id="stack">
-            <signal name="notify::visible-child" handler="pps_sidebar_child_change_cb" />
+            <signal name="notify::visible-child"
+                    handler="visible_child_changed" swapped="yes" />
           </object>
         </property>
         <child type="bottom">
-          <object class="PpsStackSwitcher" id="switcher">
+          <object class="PpsStackSwitcher">
             <property name="stack">stack</property>
           </object>
         </child>

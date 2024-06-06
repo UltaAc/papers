@@ -48,7 +48,6 @@
 #include "pps-metadata.h"
 #include "pps-sidebar-annotations.h"
 #include "pps-sidebar-bookmarks.h"
-#include "pps-sidebar.h"
 #include "pps-utils.h"
 #include "pps-keyring.h"
 #include "pps-view-presentation.h"
@@ -1035,7 +1034,7 @@ setup_sidebar_from_metadata (PpsWindow *window)
 	}
 
 	if (pps_metadata_get_string (priv->metadata, "sidebar-page", &page_id))
-		pps_sidebar_set_visible_child_name (PPS_SIDEBAR (priv->sidebar), page_id);
+		g_object_set (priv->sidebar, "visible-child-name", page_id, NULL);
 }
 
 static void
@@ -3421,6 +3420,7 @@ pps_window_save_settings (PpsWindow *pps_window)
 	PpsDocumentModel *model = priv->model;
 	GSettings       *settings = priv->default_settings;
 	PpsSizingMode     sizing_mode;
+	g_autofree gchar *visible_child_name = NULL;
 
 	g_settings_set_boolean (settings, "continuous",
 				pps_document_model_get_continuous (model));
@@ -3443,8 +3443,9 @@ pps_window_save_settings (PpsWindow *pps_window)
 	}
 	g_settings_set_boolean (settings, "show-sidebar",
 				adw_overlay_split_view_get_show_sidebar (ADW_OVERLAY_SPLIT_VIEW (priv->split_view)));
-	g_settings_set_string (settings, "sidebar-page",
-				pps_sidebar_get_visible_child_name (PPS_SIDEBAR (priv->sidebar)));
+
+	g_object_get (priv->sidebar, "visible-child-name", &visible_child_name, NULL);
+	g_settings_set_string (settings, "sidebar-page", visible_child_name);
 	g_settings_set_boolean (settings, "enable-spellchecking",
 				pps_view_get_enable_spellchecking (pps_view));
 	g_settings_apply (settings);
@@ -4398,17 +4399,19 @@ pps_window_view_cmd_toggle_sidebar (GSimpleAction *action,
 }
 
 static void
-sidebar_current_page_changed_cb (PpsSidebar  *pps_sidebar,
-					   GParamSpec *pspec,
-					   PpsWindow   *pps_window)
+sidebar_current_page_changed_cb (GObject  *pps_sidebar,
+				 GParamSpec *pspec,
+				 PpsWindow   *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	PpsSidebar *sidebar = PPS_SIDEBAR (priv->sidebar);
+	g_autofree gchar *visible_child_name = NULL;
 
 	if (priv->metadata && !pps_window_is_empty (pps_window)) {
+		g_object_get (pps_sidebar, "visible-child-name", &visible_child_name, NULL);
+
 		pps_metadata_set_string (priv->metadata,
 					"sidebar-page",
-					pps_sidebar_get_visible_child_name (sidebar));
+					visible_child_name);
 	}
 }
 
@@ -5112,7 +5115,7 @@ history_changed_cb (PpsHistory *history,
 }
 
 static void
-sidebar_layers_visibility_changed (PpsSidebar       *layers,
+sidebar_layers_visibility_changed (GObject          *layers,
 				   PpsWindow        *window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
@@ -5898,7 +5901,6 @@ pps_window_init (PpsWindow *pps_window)
 	g_type_ensure (GDK_TYPE_FILE_LIST);
 
 	g_type_ensure (PPS_TYPE_VIEW);
-	g_type_ensure (PPS_TYPE_SIDEBAR);
 	g_type_ensure (PPS_TYPE_FIND_SIDEBAR);
 	g_type_ensure (PPS_TYPE_SIDEBAR_BOOKMARKS);
 	g_type_ensure (PPS_TYPE_SIDEBAR_ANNOTATIONS);
