@@ -87,37 +87,6 @@ pps_gdk_pixbuf_format_by_extension (const gchar *uri)
 	return NULL;
 }
 
-/*
- * Replace all occurrences of substr in str with repl
- *
- * @param str a string
- * @param substr some string to replace
- * @param repl a replacement string
- *
- * @return a newly allocated string with the substr replaced by repl; free with g_free
- */
-gchar*
-pps_str_replace (const char *str, const char *substr, const char *repl)
-{
-	GString		*gstr;
-	const char	*cur;
-
-	if (str == NULL || substr == NULL || repl == NULL)
-		return NULL;
-
-	gstr = g_string_sized_new (2 * strlen (str));
-
-	for (cur = str; *cur; ++cur) {
-		if (g_str_has_prefix (cur, substr)) {
-			g_string_append (gstr, repl);
-			cur += strlen (substr) - 1;
-		} else
-			g_string_append_c (gstr, *cur);
-	}
-
-	return g_string_free (gstr, FALSE);
-}
-
 void
 pps_spinner_map_cb (GtkSpinner *spinner) {
 	gtk_spinner_set_spinning(spinner, TRUE);
