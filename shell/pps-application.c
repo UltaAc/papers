@@ -130,9 +130,6 @@ pps_application_open_uri_at_dest (PpsApplication  *application,
 	   we can restore window size without flickering */
 	pps_window_open_uri (pps_window, uri, dest, mode);
 
-	if (!gtk_widget_get_realized (GTK_WIDGET (pps_window)))
-		gtk_widget_realize (GTK_WIDGET (pps_window));
-
 	gtk_window_present (GTK_WINDOW (pps_window));
 }
 
@@ -140,9 +137,6 @@ static void
 pps_application_open_start_view (PpsApplication *application)
 {
 	GtkWidget *new_window = GTK_WIDGET (pps_window_new ());
-
-	if (!gtk_widget_get_realized (new_window))
-		gtk_widget_realize (new_window);
 
 	gtk_window_present (GTK_WINDOW (new_window));
 }
