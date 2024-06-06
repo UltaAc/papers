@@ -50,6 +50,8 @@ typedef struct {
 	PpsDocumentModel *model;
 } PpsSidebarPrivate;
 
+static void pps_sidebar_set_page  (PpsSidebar       *pps_sidebar,
+                                   GtkWidget        *main_widget);
 static void pps_sidebar_child_change_cb (GObject    *gobject,
 					GParamSpec *pspec,
 					PpsSidebar  *pps_sidebar);

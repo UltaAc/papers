@@ -39,8 +39,6 @@ struct _PpsSidebar {
 };
 
 GtkWidget *pps_sidebar_new       (void);
-void       pps_sidebar_set_page  (PpsSidebar       *pps_sidebar,
-                                 GtkWidget       *main_widget);
 void       pps_sidebar_set_model (PpsSidebar       *pps_sidebar,
                                  PpsDocumentModel *model);
 GtkWidget *pps_sidebar_get_current_page (PpsSidebar *pps_sidebar);
