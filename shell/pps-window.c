@@ -60,10 +60,6 @@
 #include "pps-bookmarks.h"
 #include "pps-search-context.h"
 
-#ifdef ENABLE_DBUS
-#include "pps-gdbus-generated.h"
-#endif /* ENABLE_DBUS */
-
 #define MOUSE_BACK_BUTTON 8
 #define MOUSE_FORWARD_BUTTON 9
 
@@ -174,15 +170,6 @@ typedef struct {
 	GtkPageSetup     *print_page_setup;
 	gboolean          close_after_print;
 
-#ifdef ENABLE_DBUS
-	/* Kept to simplify bringing back synctex support
-	 * https://gitlab.gnome.org/GNOME/Incubator/papers/-/merge_requests/90
-	 * Should be removed if that is not brought back.
-	 */
-	PpsPapersWindow *skeleton;
-	gchar          *dbus_object_path;
-#endif
-
 	/* Misc Runtime State */
 	gboolean sidebar_was_open_before_find;
 	gboolean sidebar_was_open_before_collapsed;
@@ -196,10 +183,6 @@ typedef struct {
 #define GS_LOCKDOWN_SAVE         "disable-save-to-disk"
 #define GS_LOCKDOWN_PRINT        "disable-printing"
 #define GS_LOCKDOWN_PRINT_SETUP  "disable-print-setup"
-
-#ifdef ENABLE_DBUS
-#define PPS_WINDOW_DBUS_OBJECT_PATH "/org/gnome/Papers" OBJECT_PROFILE "/Window/%d"
-#endif
 
 #define GS_SCHEMA_NAME           "org.gnome.Papers"
 #define GS_OVERRIDE_RESTRICTIONS "override-restrictions"
@@ -4999,14 +4982,6 @@ pps_window_dispose (GObject *object)
 	PpsWindow *window = PPS_WINDOW (object);
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
-#ifdef ENABLE_DBUS
-	if (priv->skeleton != NULL) {
-                g_dbus_interface_skeleton_unexport (G_DBUS_INTERFACE_SKELETON (priv->skeleton));
-		g_clear_object (&priv->skeleton);
-		g_clear_pointer (&priv->dbus_object_path, g_free);
-	}
-#endif /* ENABLE_DBUS */
-
 	g_clear_object (&priv->search_context);
 
 	g_clear_object (&priv->bookmarks);
@@ -5963,12 +5938,6 @@ pps_window_init (PpsWindow *pps_window)
 	gboolean allow_links_change_zoom;
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
-#ifdef ENABLE_DBUS
-	GError *error = NULL;
-	GDBusConnection *connection;
-	static gint window_id = 0;
-#endif
-
 	/* for drop target support */
 	g_type_ensure (GDK_TYPE_FILE_LIST);
 
@@ -5978,29 +5947,6 @@ pps_window_init (PpsWindow *pps_window)
 	g_type_ensure (PPS_TYPE_SIDEBAR_BOOKMARKS);
 	g_type_ensure (PPS_TYPE_SIDEBAR_ANNOTATIONS);
 	gtk_widget_init_template (GTK_WIDGET (pps_window));
-
-#ifdef ENABLE_DBUS
-	connection = g_application_get_dbus_connection (g_application_get_default ());
-        if (connection) {
-                PpsPapersWindow *skeleton;
-
-		priv->dbus_object_path = g_strdup_printf (PPS_WINDOW_DBUS_OBJECT_PATH, window_id++);
-
-                skeleton = pps_papers_window_skeleton_new ();
-                if (g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON (skeleton),
-                                                      connection,
-                                                      priv->dbus_object_path,
-                                                      &error)) {
-                        priv->skeleton = skeleton;
-                } else {
-                        g_printerr ("Failed to register bus object %s: %s\n",
-				    priv->dbus_object_path, error->message);
-			g_clear_pointer (&error, g_error_free);
-			g_clear_pointer (&priv->dbus_object_path, g_free);
-			g_clear_object (&priv->skeleton);
-                }
-        }
-#endif /* ENABLE_DBUS */
 
 	priv->sidebar_was_open_before_find = TRUE;
 
@@ -6194,19 +6140,6 @@ pps_window_new (void)
 			     "show-menubar", FALSE,
 			     NULL);
 }
-
-const gchar *
-pps_window_get_dbus_object_path (PpsWindow *pps_window)
-{
-#ifdef ENABLE_DBUS
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-
-	return priv->dbus_object_path;
-#else
-	return NULL;
-#endif
-}
-
 
 /**
  * pps_window_get_header_bar:

@@ -141,35 +141,6 @@ pps_application_open_start_view (PpsApplication *application)
 	gtk_window_present (GTK_WINDOW (new_window));
 }
 
-#ifdef ENABLE_DBUS
-static gboolean
-handle_get_window_list_cb (PpsPapersApplication   *object,
-                           GDBusMethodInvocation *invocation,
-                           PpsApplication         *application)
-{
-        GList     *windows, *l;
-        GPtrArray *paths;
-
-        paths = g_ptr_array_new ();
-
-        windows = gtk_application_get_windows (GTK_APPLICATION (application));
-        for (l = windows; l; l = g_list_next (l)) {
-                if (!PPS_IS_WINDOW (l->data))
-                        continue;
-
-                g_ptr_array_add (paths, (gpointer) pps_window_get_dbus_object_path (PPS_WINDOW (l->data)));
-        }
-
-        g_ptr_array_add (paths, NULL);
-        pps_papers_application_complete_get_window_list (object, invocation,
-                                                        (const char * const *) paths->pdata);
-
-        g_ptr_array_free (paths, TRUE);
-
-        return TRUE;
-}
-#endif /* ENABLE_DBUS */
-
 static void
 pps_application_about_activated (GSimpleAction *action,
 				 GVariant      *parameter,
@@ -350,9 +321,6 @@ pps_application_dbus_register (GApplication    *gapplication,
         }
 
         application->skeleton = skeleton;
-        g_signal_connect (skeleton, "handle-get-window-list",
-                          G_CALLBACK (handle_get_window_list_cb),
-                          application);
         return TRUE;
 }
 

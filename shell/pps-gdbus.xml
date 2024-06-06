@@ -4,11 +4,5 @@
 <node>
   <interface name='org.gnome.Papers.Application'>
     <annotation name="org.gtk.GDBus.C.Name" value="PapersApplication" />
-    <method name='GetWindowList'>
-      <arg type='ao' name='window_list' direction='out'/>
-    </method>
-  </interface>
-  <interface name='org.gnome.Papers.Window'>
-    <annotation name="org.gtk.GDBus.C.Name" value="PapersWindow" />
   </interface>
 </node>
