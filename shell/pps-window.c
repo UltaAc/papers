@@ -5025,13 +5025,6 @@ pps_window_dispose (GObject *object)
 	/* FIXME: crash when closing papers window */
 	/* g_clear_object (&priv->lockdown_settings); */
 
-	if (priv->model) {
-		g_signal_handlers_disconnect_by_func (priv->model,
-						      page_changed_cb,
-						      window);
-		g_clear_object (&priv->model);
-	}
-
 	g_clear_object (&priv->document);
 
 	pps_window_clear_load_job (window);
