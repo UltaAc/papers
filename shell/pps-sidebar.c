@@ -144,6 +144,16 @@ pps_sidebar_get_property (GObject *object,
 }
 
 static void
+pps_sidebar_dispose (GObject *object)
+{
+	PpsSidebarPrivate *priv = GET_PRIVATE (PPS_SIDEBAR (object));
+
+	g_clear_object (&priv->model);
+
+	G_OBJECT_CLASS (pps_sidebar_parent_class)->dispose (object);
+}
+
+static void
 pps_sidebar_class_init (PpsSidebarClass *pps_sidebar_class)
 {
         GObjectClass *g_object_class = G_OBJECT_CLASS (pps_sidebar_class);
@@ -151,6 +161,7 @@ pps_sidebar_class_init (PpsSidebarClass *pps_sidebar_class)
 
 	g_object_class->get_property = pps_sidebar_get_property;
 	g_object_class->set_property = pps_sidebar_set_property;
+	g_object_class->dispose = pps_sidebar_dispose;
 
 	gtk_widget_class_set_template_from_resource (widget_class,
 			"/org/gnome/papers/ui/sidebar.ui");
