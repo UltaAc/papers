@@ -65,6 +65,12 @@ build.container.fedora:
             cargo
             git
 
+cargo-format:
+    stage: lint
+    extends: '.fdo.distribution-image@fedora'
+    script:
+        - cd shell-rs && cargo fmt --check
+
 .setup-meson:
     stage: build
     extends: '.fdo.distribution-image@fedora'
