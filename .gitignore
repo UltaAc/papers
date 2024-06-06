@@ -1,3 +1,4 @@
 /subprojects/*/
 _build/
 .flatpak-builder
+po/papers.pot
