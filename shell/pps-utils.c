@@ -55,7 +55,7 @@ pps_print_region_contents (cairo_region_t *region)
 }
 
 GdkPixbufFormat*
-get_gdk_pixbuf_format_by_extension (const gchar *uri)
+pps_gdk_pixbuf_format_by_extension (const gchar *uri)
 {
 	GSList *pixbuf_formats = NULL;
 	GSList *iter;

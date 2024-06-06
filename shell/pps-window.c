@@ -5583,14 +5583,14 @@ image_save_dialog_response_cb (GtkFileDialog     *dialog,
 	uri = g_file_get_uri (file);
 	g_clear_object (&file);
 
-	format = get_gdk_pixbuf_format_by_extension (uri);
+	format = pps_gdk_pixbuf_format_by_extension (uri);
 
 	if (format == NULL && g_strrstr (uri, ".") == NULL) {
 		/* no extension found and no extension provided within uri */
-		format = get_gdk_pixbuf_format_by_extension (".png");
+		format = pps_gdk_pixbuf_format_by_extension (".png");
 		if (format == NULL) {
 			/* no .png support, try .jpeg */
-			format = get_gdk_pixbuf_format_by_extension (".jpeg");
+			format = pps_gdk_pixbuf_format_by_extension (".jpeg");
 		}
 	}
 
