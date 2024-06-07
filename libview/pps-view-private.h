@@ -59,6 +59,7 @@ typedef struct {
 /* Information for handling selection */
 typedef struct {
 	GdkPoint start;
+	GdkPoint drag_start;
 	GdkPoint start_scroll;
 	GList *selections;
 	PpsSelectionStyle style;
@@ -103,7 +104,6 @@ typedef struct _PpsHeightToPageCache {
 typedef struct {
 	GdkPoint       start;
 	PpsPoint       cursor_offset;
-	gboolean       moved;
 	PpsAnnotation *annot;
 } MovingAnnotInfo;
 
@@ -219,7 +219,6 @@ typedef struct _PpsViewPrivate {
 	guint    cursor_blink_time;
 
 	/* Gestures */
-	GtkGesture *drag_primary_gesture;
 	GtkGesture *pan_gesture;
 	GtkGesture *zoom_gesture;
 	gdouble prev_zoom_gesture_scale;
