@@ -210,33 +210,31 @@ mod imp {
         }
 
         fn show_about(&self) {
-            let about = adw::AboutDialog::builder()
-                .application_name(gettext("Papers"))
-                .application_icon(APP_ID)
-                .version(VERSION)
-                .copyright(gettext("© 1996–2024 The Papers authors"))
-                .license_type(gtk::License::Gpl20)
-                .translator_credits(gettext("translator-credits"))
-                .website("https://apps.gnome.org/Papers/")
-                .developers([
-                    "Martin Kretzschmar <m_kretzschmar@gmx.net>",
-                    "Jonathan Blandford <jrb@gnome.org>",
-                    "Marco Pesenti Gritti <marco@gnome.org>",
-                    "Nickolay V. Shmyrev <nshmyrev@yandex.ru>",
-                    "Bryan Clark <clarkbw@gnome.org>",
-                    "Carlos Garcia Campos <carlosgc@gnome.org>",
-                    "Wouter Bolsterlee <wbolster@gnome.org>",
-                    "Christian Persch <chpe\u{0040}src.gnome.org>",
-                    "Germán Poo-Caamaño <gpoo\u{0040}gnome.org>",
-                    "Qiu Wenbo <qiuwenbo\u{0040}gnome.org>",
-                    "Pablo Correa Gómez <ablocorrea\u{0040}hotmail.com>",
-                ])
-                .documenters([
-                    "Nickolay V. Shmyrev <nshmyrev@yandex.ru>",
-                    "Phil Bull <philbull@gmail.com>",
-                    "Tiffany Antpolski <tiffany.antopolski@gmail.com>",
-                ])
-                .build();
+            let about =
+                adw::AboutDialog::from_appdata("/org/gnome/papers/metainfo.xml", Some(VERSION));
+
+            about.set_copyright(&gettext("© 1996–2024 The Papers authors"));
+            about.set_translator_credits(&gettext("translator-credits"));
+
+            about.set_developers(&[
+                "Martin Kretzschmar <m_kretzschmar@gmx.net>",
+                "Jonathan Blandford <jrb@gnome.org>",
+                "Marco Pesenti Gritti <marco@gnome.org>",
+                "Nickolay V. Shmyrev <nshmyrev@yandex.ru>",
+                "Bryan Clark <clarkbw@gnome.org>",
+                "Carlos Garcia Campos <carlosgc@gnome.org>",
+                "Wouter Bolsterlee <wbolster@gnome.org>",
+                "Christian Persch <chpe\u{0040}src.gnome.org>",
+                "Germán Poo-Caamaño <gpoo\u{0040}gnome.org>",
+                "Qiu Wenbo <qiuwenbo\u{0040}gnome.org>",
+                "Pablo Correa Gómez <ablocorrea\u{0040}hotmail.com>",
+            ]);
+
+            about.set_documenters(&[
+                "Nickolay V. Shmyrev <nshmyrev@yandex.ru>",
+                "Phil Bull <philbull@gmail.com>",
+                "Tiffany Antpolski <tiffany.antopolski@gmail.com>",
+            ]);
 
             about.present(self.obj().active_window().as_ref().unwrap());
         }

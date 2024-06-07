@@ -19,10 +19,18 @@ papers_sources = files(
   'pps-sidebar-page.c',
 )
 
+resources_conf = configuration_data()
+resources_conf.set('APP_ID', app_id)
+
 papers_sources += gnome.compile_resources(
   'pps-resources',
-  'papers.gresource.xml',
-  source_dir: data_dir,
+  configure_file(
+    input: 'papers.gresource.xml.in',
+    output: 'papers.gresource.xml',
+    configuration: resources_conf,
+  ),
+  source_dir: [data_dir, data_build_dir],
+  dependencies: metainfo_file,
   c_name: pps_code_prefix.to_lower(),
 )
 

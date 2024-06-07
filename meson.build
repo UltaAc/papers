@@ -141,6 +141,7 @@ pkg = import('pkgconfig')
 source_root = meson.current_source_dir()
 
 data_dir = join_paths(source_root, 'data')
+data_build_dir = join_paths(meson.project_build_root(), 'data')
 po_dir = join_paths(source_root, 'po')
 
 top_inc = include_directories('.')
@@ -407,6 +408,14 @@ subdir('libdocument')
 subdir('libview')
 subdir('nautilus')
 
+# Print Previewer
+enable_previewer = get_option('previewer')
+if enable_previewer
+  subdir('previewer')
+endif
+
+subdir('data')
+
 # *** Papers ***
 enable_viewer = get_option('viewer')
 if enable_viewer
@@ -422,14 +431,6 @@ enable_thumbnailer = get_option('thumbnailer')
 if enable_thumbnailer
   subdir('thumbnailer')
 endif
-
-# Print Previewer
-enable_previewer = get_option('previewer')
-if enable_previewer
-  subdir('previewer')
-endif
-
-subdir('data')
 
 configure_file(
   output: 'config.h',
