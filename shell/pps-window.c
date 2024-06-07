@@ -64,7 +64,6 @@
 #define MOUSE_FORWARD_BUTTON 9
 
 typedef enum {
-	PPS_SAVE_DOCUMENT,
 	PPS_SAVE_ATTACHMENT,
 	PPS_SAVE_IMAGE
 } PpsSaveType;
@@ -2493,9 +2492,6 @@ show_saving_progress (GFile *dst)
 	save_type = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (dst), "save-type"));
 	uri = g_file_get_uri (dst);
 	switch (save_type) {
-	case PPS_SAVE_DOCUMENT:
-		text = g_strdup_printf (_("Saving document to %s"), uri);
-		break;
 	case PPS_SAVE_ATTACHMENT:
 		text = g_strdup_printf (_("Saving attachment to %s"), uri);
 		break;
@@ -2570,10 +2566,6 @@ window_save_file_copy_progress_cb (goffset n_bytes,
 	save_type = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (dst), "save-type"));
 
 	switch (save_type) {
-	case PPS_SAVE_DOCUMENT:
-		status = g_strdup_printf (_("Uploading document (%d%%)"),
-					  (gint)(fraction * 100));
-		break;
 	case PPS_SAVE_ATTACHMENT:
 		status = g_strdup_printf (_("Uploading attachment (%d%%)"),
 					  (gint)(fraction * 100));
