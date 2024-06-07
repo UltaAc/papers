@@ -2185,7 +2185,6 @@ show_reloading_progress (PpsWindow *pps_window)
 			  G_CALLBACK (pps_window_progress_response_cb),
 			  pps_window);
 
-	gtk_widget_set_visible (area, TRUE);
 	pps_window_set_message_area (pps_window, area);
 	g_free (text);
 
@@ -2458,8 +2457,7 @@ pps_window_open_copy_at_dest (PpsWindow   *window,
 	pps_window_open_document (new_window,
 				 priv->document,
 				 dest, 0);
-	gtk_widget_set_visible (new_priv->sidebar,
-				gtk_widget_is_visible (priv->sidebar));
+
 	adw_overlay_split_view_set_show_sidebar (new_priv->split_view,
 						 adw_overlay_split_view_get_show_sidebar (priv->split_view));
 
@@ -2516,7 +2514,6 @@ show_saving_progress (GFile *dst)
 	g_signal_connect (pps_message_area_get_info_bar (PPS_MESSAGE_AREA (area)), "response",
 			  G_CALLBACK (pps_window_progress_response_cb),
 			  pps_window);
-	gtk_widget_set_visible (area, TRUE);
 	pps_window_set_message_area (pps_window, area);
 	g_free (text);
 }
@@ -3120,7 +3117,6 @@ pps_window_print_operation_status_changed (PpsPrintOperation *op,
 				  G_CALLBACK (pps_window_print_progress_response_cb),
 				  pps_window);
 
-		gtk_widget_set_visible (area, TRUE);
 		pps_window_set_message_area (pps_window, area);
 		g_free (text);
 	}
@@ -5799,7 +5795,6 @@ pps_window_popup_cmd_annot_properties (GSimpleAction *action,
 	g_signal_connect (dialog, "response",
 				G_CALLBACK (pps_window_popup_cmd_annot_properties_response_cb),
 				window);
-	gtk_widget_set_visible (GTK_WIDGET (dialog), TRUE);
 }
 
 static void
