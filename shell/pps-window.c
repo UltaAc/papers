@@ -2456,7 +2456,7 @@ pps_window_open_copy_at_dest (PpsWindow   *window,
 	new_priv->edit_name = g_strdup (priv->edit_name);
 	pps_window_open_document (new_window,
 				 priv->document,
-				 dest, 0);
+				 dest, PPS_WINDOW_MODE_NORMAL);
 
 	adw_overlay_split_view_set_show_sidebar (new_priv->split_view,
 						 adw_overlay_split_view_get_show_sidebar (priv->split_view));
