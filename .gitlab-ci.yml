@@ -4,8 +4,8 @@ include:
     - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/f9171e21724bc4e2abeabad5f2d7e2e5cc10cbe3/templates/fedora.yml'
 
 stages:
-    - lint
     - prepare
+    - lint
     - build
     - deploy
 
