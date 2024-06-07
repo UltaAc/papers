@@ -98,11 +98,15 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
         unsafe { ffi::pps_annotation_get_page_index(self.as_ref().to_glib_none().0) }
     }
 
-    //#[doc(alias = "pps_annotation_get_rgba")]
-    //#[doc(alias = "get_rgba")]
-    //fn rgba(&self, rgba: /*Ignored*/gdk::RGBA) {
-    //    unsafe { TODO: call ffi:pps_annotation_get_rgba() }
-    //}
+    #[doc(alias = "pps_annotation_get_rgba")]
+    #[doc(alias = "get_rgba")]
+    fn rgba(&self) -> gdk::RGBA {
+        unsafe {
+            let mut rgba = gdk::RGBA::uninitialized();
+            ffi::pps_annotation_get_rgba(self.as_ref().to_glib_none().0, rgba.to_glib_none_mut().0);
+            rgba
+        }
+    }
 
     #[doc(alias = "pps_annotation_set_area")]
     fn set_area(&self, area: &Rectangle) -> bool {
@@ -149,10 +153,15 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
         }
     }
 
-    //#[doc(alias = "pps_annotation_set_rgba")]
-    //fn set_rgba(&self, rgba: /*Ignored*/&gdk::RGBA) -> bool {
-    //    unsafe { TODO: call ffi:pps_annotation_set_rgba() }
-    //}
+    #[doc(alias = "pps_annotation_set_rgba")]
+    fn set_rgba(&self, rgba: &gdk::RGBA) -> bool {
+        unsafe {
+            from_glib(ffi::pps_annotation_set_rgba(
+                self.as_ref().to_glib_none().0,
+                rgba.to_glib_none().0,
+            ))
+        }
+    }
 
     #[doc(alias = "area")]
     fn connect_area_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {

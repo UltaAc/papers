@@ -89,6 +89,12 @@ headers = files(
   'pps-search-context.h',
   'pps-search-result.h',
   'pps-utils.h',
+  'pps-find-sidebar.h',
+  'pps-sidebar.h',
+  'pps-sidebar-annotations.h',
+  'pps-file-monitor.h',
+  'pps-progress-message-area.h',
+  'pps-message-area.h',
 )
 
 enum_sources = gnome.mkenums_simple(

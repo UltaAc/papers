@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::translate::*;
+use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsMetadata")]
@@ -15,10 +15,11 @@ glib::wrapper! {
 }
 
 impl Metadata {
-    //#[doc(alias = "pps_metadata_new")]
-    //pub fn new(file: /*Ignored*/&gio::File) -> Metadata {
-    //    unsafe { TODO: call ffi:pps_metadata_new() }
-    //}
+    #[doc(alias = "pps_metadata_new")]
+    pub fn new(file: &impl IsA<gio::File>) -> Metadata {
+        assert_initialized_main_thread!();
+        unsafe { from_glib_full(ffi::pps_metadata_new(file.as_ref().to_glib_none().0)) }
+    }
 
     #[doc(alias = "pps_metadata_get_boolean")]
     #[doc(alias = "get_boolean")]
@@ -151,8 +152,13 @@ impl Metadata {
         }
     }
 
-    //#[doc(alias = "pps_metadata_is_file_supported")]
-    //pub fn is_file_supported(file: /*Ignored*/&gio::File) -> bool {
-    //    unsafe { TODO: call ffi:pps_metadata_is_file_supported() }
-    //}
+    #[doc(alias = "pps_metadata_is_file_supported")]
+    pub fn is_file_supported(file: &impl IsA<gio::File>) -> bool {
+        assert_initialized_main_thread!();
+        unsafe {
+            from_glib(ffi::pps_metadata_is_file_supported(
+                file.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 }

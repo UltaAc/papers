@@ -3,20 +3,29 @@
 // from ../gir-files
 // DO NOT EDIT
 
-mod application;
-pub use self::application::Application;
+mod annotation_properties_dialog;
+pub use self::annotation_properties_dialog::AnnotationPropertiesDialog;
+
+mod find_sidebar;
+pub use self::find_sidebar::FindSidebar;
 
 mod metadata;
 pub use self::metadata::Metadata;
 
-mod papers_application;
-pub use self::papers_application::PapersApplication;
+mod progress_message_area;
+pub use self::progress_message_area::ProgressMessageArea;
 
 mod search_context;
 pub use self::search_context::SearchContext;
 
 mod search_result;
 pub use self::search_result::SearchResult;
+
+mod sidebar;
+pub use self::sidebar::Sidebar;
+
+mod sidebar_annotations;
+pub use self::sidebar_annotations::SidebarAnnotations;
 
 mod sidebar_page;
 pub use self::sidebar_page::SidebarPage;
@@ -30,14 +39,21 @@ pub use self::enums::WindowRunMode;
 pub(crate) mod functions;
 
 pub(crate) mod traits {
-    pub use super::papers_application::PapersApplicationExt;
+    pub use super::find_sidebar::FindSidebarExt;
+    pub use super::progress_message_area::ProgressMessageAreaExt;
     pub use super::search_context::SearchContextExt;
     pub use super::search_result::SearchResultExt;
+    pub use super::sidebar::SidebarExt;
+    pub use super::sidebar_annotations::SidebarAnnotationsExt;
     pub use super::sidebar_page::SidebarPageExt;
     pub use super::window::WindowExt;
 }
 pub(crate) mod builders {
-    pub use super::application::ApplicationBuilder;
+    pub use super::annotation_properties_dialog::AnnotationPropertiesDialogBuilder;
+    pub use super::find_sidebar::FindSidebarBuilder;
+    pub use super::progress_message_area::ProgressMessageAreaBuilder;
     pub use super::search_context::SearchContextBuilder;
+    pub use super::sidebar::SidebarBuilder;
+    pub use super::sidebar_annotations::SidebarAnnotationsBuilder;
     pub use super::window::WindowBuilder;
 }

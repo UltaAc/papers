@@ -50,7 +50,7 @@ pub trait SelectionExt: IsA<Selection> + sealed::Sealed + 'static {
     //}
 
     //#[doc(alias = "pps_selection_render_selection")]
-    //fn render_selection(&self, rc: /*Ignored*/&RenderContext, surface: /*Ignored*/&mut cairo::Surface, points: &mut Rectangle, old_points: &mut Rectangle, style: SelectionStyle, text: /*Ignored*/&mut gdk::RGBA, base: /*Ignored*/&mut gdk::RGBA) {
+    //fn render_selection(&self, rc: /*Ignored*/&RenderContext, surface: /*Ignored*/&mut cairo::Surface, points: &mut Rectangle, old_points: &mut Rectangle, style: SelectionStyle, text: &mut gdk::RGBA, base: &mut gdk::RGBA) {
     //    unsafe { TODO: call ffi:pps_selection_render_selection() }
     //}
 }

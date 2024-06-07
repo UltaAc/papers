@@ -3,6 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
+use crate::LinkDestType;
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -113,11 +114,11 @@ impl LinkDest {
         unsafe { ffi::pps_link_dest_get_bottom(self.to_glib_none().0) }
     }
 
-    //#[doc(alias = "pps_link_dest_get_dest_type")]
-    //#[doc(alias = "get_dest_type")]
-    //pub fn dest_type(&self) -> /*Ignored*/LinkDestType {
-    //    unsafe { TODO: call ffi:pps_link_dest_get_dest_type() }
-    //}
+    #[doc(alias = "pps_link_dest_get_dest_type")]
+    #[doc(alias = "get_dest_type")]
+    pub fn dest_type(&self) -> LinkDestType {
+        unsafe { from_glib(ffi::pps_link_dest_get_dest_type(self.to_glib_none().0)) }
+    }
 
     #[doc(alias = "pps_link_dest_get_left")]
     #[doc(alias = "get_left")]
@@ -181,8 +182,8 @@ impl LinkDest {
         ObjectExt::property(self, "named")
     }
 
-    //#[doc(alias = "type")]
-    //pub fn type_(&self) -> /*Ignored*/LinkDestType {
-    //    ObjectExt::property(self, "type")
-    //}
+    #[doc(alias = "type")]
+    pub fn type_(&self) -> LinkDestType {
+        ObjectExt::property(self, "type")
+    }
 }

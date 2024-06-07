@@ -11,9 +11,10 @@ external_libraries = [
     "Gio",
     "GLib",
     "Cairo",
-    "Gtk",
     "GdkPixbuf",
     "GObject",
+    "Gtk",
+    "Gdk",
     "PapersDocument",
     "PapersView",
 ]

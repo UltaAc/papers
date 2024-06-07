@@ -37,11 +37,15 @@ impl PrintOperation {
         }
     }
 
-    //#[doc(alias = "pps_print_operation_get_default_page_setup")]
-    //#[doc(alias = "get_default_page_setup")]
-    //pub fn default_page_setup(&self) -> /*Ignored*/Option<gtk::PageSetup> {
-    //    unsafe { TODO: call ffi:pps_print_operation_get_default_page_setup() }
-    //}
+    #[doc(alias = "pps_print_operation_get_default_page_setup")]
+    #[doc(alias = "get_default_page_setup")]
+    pub fn default_page_setup(&self) -> Option<gtk::PageSetup> {
+        unsafe {
+            from_glib_none(ffi::pps_print_operation_get_default_page_setup(
+                self.to_glib_none().0,
+            ))
+        }
+    }
 
     #[doc(alias = "pps_print_operation_get_embed_page_setup")]
     #[doc(alias = "get_embed_page_setup")]
@@ -95,10 +99,12 @@ impl PrintOperation {
         unsafe { from_glib_none(ffi::pps_print_operation_get_status(self.to_glib_none().0)) }
     }
 
-    //#[doc(alias = "pps_print_operation_run")]
-    //pub fn run(&self, parent: /*Ignored*/&gtk::Window) {
-    //    unsafe { TODO: call ffi:pps_print_operation_run() }
-    //}
+    #[doc(alias = "pps_print_operation_run")]
+    pub fn run(&self, parent: &impl IsA<gtk::Window>) {
+        unsafe {
+            ffi::pps_print_operation_run(self.to_glib_none().0, parent.as_ref().to_glib_none().0);
+        }
+    }
 
     #[doc(alias = "pps_print_operation_set_current_page")]
     pub fn set_current_page(&self, current_page: i32) {
@@ -107,10 +113,15 @@ impl PrintOperation {
         }
     }
 
-    //#[doc(alias = "pps_print_operation_set_default_page_setup")]
-    //pub fn set_default_page_setup(&self, page_setup: /*Ignored*/&gtk::PageSetup) {
-    //    unsafe { TODO: call ffi:pps_print_operation_set_default_page_setup() }
-    //}
+    #[doc(alias = "pps_print_operation_set_default_page_setup")]
+    pub fn set_default_page_setup(&self, page_setup: &gtk::PageSetup) {
+        unsafe {
+            ffi::pps_print_operation_set_default_page_setup(
+                self.to_glib_none().0,
+                page_setup.to_glib_none().0,
+            );
+        }
+    }
 
     #[doc(alias = "pps_print_operation_set_embed_page_setup")]
     pub fn set_embed_page_setup(&self, embed: bool) {

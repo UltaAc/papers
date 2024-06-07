@@ -3,67 +3,121 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Metadata, WindowRunMode};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
-    #[doc(alias = "PpsWindow")]
-    pub struct Window(Object<ffi::PpsWindow, ffi::PpsWindowClass>) @extends adw::ApplicationWindow, gtk::ApplicationWindow, gtk::Window, gtk::Widget, @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::Native, gtk::Root, gtk::ShortcutManager, gio::ActionGroup, gio::ActionMap;
+    #[doc(alias = "PpsAnnotationPropertiesDialog")]
+    pub struct AnnotationPropertiesDialog(Object<ffi::PpsAnnotationPropertiesDialog, ffi::PpsAnnotationPropertiesDialogClass>) @extends gtk::Window, gtk::Widget, @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::Native, gtk::Root, gtk::ShortcutManager;
 
     match fn {
-        type_ => || ffi::pps_window_get_type(),
+        type_ => || ffi::pps_annotation_properties_dialog_get_type(),
     }
 }
 
-impl Window {
-    pub const NONE: Option<&'static Window> = None;
-
-    #[doc(alias = "pps_window_new")]
-    pub fn new() -> Window {
+impl AnnotationPropertiesDialog {
+    #[doc(alias = "pps_annotation_properties_dialog_new")]
+    pub fn new(annot_type: papers_document::AnnotationType) -> AnnotationPropertiesDialog {
         assert_initialized_main_thread!();
-        unsafe { from_glib_none(ffi::pps_window_new()) }
+        unsafe {
+            gtk::Widget::from_glib_none(ffi::pps_annotation_properties_dialog_new(
+                annot_type.into_glib(),
+            ))
+            .unsafe_cast()
+        }
+    }
+
+    #[doc(alias = "pps_annotation_properties_dialog_new_with_annotation")]
+    #[doc(alias = "new_with_annotation")]
+    pub fn with_annotation(
+        annot: &impl IsA<papers_document::Annotation>,
+    ) -> AnnotationPropertiesDialog {
+        assert_initialized_main_thread!();
+        unsafe {
+            gtk::Widget::from_glib_none(ffi::pps_annotation_properties_dialog_new_with_annotation(
+                annot.as_ref().to_glib_none().0,
+            ))
+            .unsafe_cast()
+        }
     }
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-pattern struct instance to construct [`Window`] objects.
+    /// Creates a new builder-pattern struct instance to construct [`AnnotationPropertiesDialog`] objects.
     ///
-    /// This method returns an instance of [`WindowBuilder`](crate::builders::WindowBuilder) which can be used to create [`Window`] objects.
-    pub fn builder() -> WindowBuilder {
-        WindowBuilder::new()
+    /// This method returns an instance of [`AnnotationPropertiesDialogBuilder`](crate::builders::AnnotationPropertiesDialogBuilder) which can be used to create [`AnnotationPropertiesDialog`] objects.
+    pub fn builder() -> AnnotationPropertiesDialogBuilder {
+        AnnotationPropertiesDialogBuilder::new()
     }
+
+    #[doc(alias = "pps_annotation_properties_dialog_get_author")]
+    #[doc(alias = "get_author")]
+    pub fn author(&self) -> Option<glib::GString> {
+        unsafe {
+            from_glib_none(ffi::pps_annotation_properties_dialog_get_author(
+                self.to_glib_none().0,
+            ))
+        }
+    }
+
+    #[doc(alias = "pps_annotation_properties_dialog_get_opacity")]
+    #[doc(alias = "get_opacity")]
+    pub fn opacity(&self) -> f64 {
+        unsafe { ffi::pps_annotation_properties_dialog_get_opacity(self.to_glib_none().0) }
+    }
+
+    #[doc(alias = "pps_annotation_properties_dialog_get_popup_is_open")]
+    #[doc(alias = "get_popup_is_open")]
+    pub fn is_popup_is_open(&self) -> bool {
+        unsafe {
+            from_glib(ffi::pps_annotation_properties_dialog_get_popup_is_open(
+                self.to_glib_none().0,
+            ))
+        }
+    }
+
+    //#[doc(alias = "pps_annotation_properties_dialog_get_rgba")]
+    //#[doc(alias = "get_rgba")]
+    //pub fn rgba(&self, rgba: /*Ignored*/&mut gdk::RGBA) {
+    //    unsafe { TODO: call ffi:pps_annotation_properties_dialog_get_rgba() }
+    //}
+
+    //#[doc(alias = "pps_annotation_properties_dialog_get_text_icon")]
+    //#[doc(alias = "get_text_icon")]
+    //pub fn text_icon(&self) -> /*Ignored*/papers_document::AnnotationTextIcon {
+    //    unsafe { TODO: call ffi:pps_annotation_properties_dialog_get_text_icon() }
+    //}
+
+    //#[doc(alias = "pps_annotation_properties_dialog_get_text_markup_type")]
+    //#[doc(alias = "get_text_markup_type")]
+    //pub fn text_markup_type(&self) -> /*Ignored*/papers_document::AnnotationTextMarkupType {
+    //    unsafe { TODO: call ffi:pps_annotation_properties_dialog_get_text_markup_type() }
+    //}
 }
 
-impl Default for Window {
+impl Default for AnnotationPropertiesDialog {
     fn default() -> Self {
-        Self::new()
+        glib::object::Object::new::<Self>()
     }
 }
 
 // rustdoc-stripper-ignore-next
-/// A [builder-pattern] type to construct [`Window`] objects.
+/// A [builder-pattern] type to construct [`AnnotationPropertiesDialog`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
-pub struct WindowBuilder {
-    builder: glib::object::ObjectBuilder<'static, Window>,
+pub struct AnnotationPropertiesDialogBuilder {
+    builder: glib::object::ObjectBuilder<'static, AnnotationPropertiesDialog>,
 }
 
-impl WindowBuilder {
+impl AnnotationPropertiesDialogBuilder {
     fn new() -> Self {
         Self {
             builder: glib::object::Object::builder(),
         }
     }
 
-    pub fn content(self, content: &impl IsA<gtk::Widget>) -> Self {
+    pub fn annot_type(self, annot_type: papers_document::AnnotationType) -> Self {
         Self {
-            builder: self.builder.property("content", content.clone().upcast()),
-        }
-    }
-
-    pub fn show_menubar(self, show_menubar: bool) -> Self {
-        Self {
-            builder: self.builder.property("show-menubar", show_menubar),
+            builder: self.builder.property("annot-type", annot_type),
         }
     }
 
@@ -398,91 +452,9 @@ impl WindowBuilder {
     //}
 
     // rustdoc-stripper-ignore-next
-    /// Build the [`Window`].
+    /// Build the [`AnnotationPropertiesDialog`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
-    pub fn build(self) -> Window {
+    pub fn build(self) -> AnnotationPropertiesDialog {
         self.builder.build()
     }
 }
-
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Window>> Sealed for T {}
-}
-
-pub trait WindowExt: IsA<Window> + sealed::Sealed + 'static {
-    #[doc(alias = "pps_window_focus_view")]
-    fn focus_view(&self) {
-        unsafe {
-            ffi::pps_window_focus_view(self.as_ref().to_glib_none().0);
-        }
-    }
-
-    #[doc(alias = "pps_window_get_dbus_object_path")]
-    #[doc(alias = "get_dbus_object_path")]
-    fn dbus_object_path(&self) -> Option<glib::GString> {
-        unsafe {
-            from_glib_none(ffi::pps_window_get_dbus_object_path(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
-    #[doc(alias = "pps_window_get_header_bar")]
-    #[doc(alias = "get_header_bar")]
-    fn header_bar(&self) -> Option<adw::HeaderBar> {
-        unsafe {
-            from_glib_none(ffi::pps_window_get_header_bar(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
-    #[doc(alias = "pps_window_get_metadata")]
-    #[doc(alias = "get_metadata")]
-    fn metadata(&self) -> Option<Metadata> {
-        unsafe { from_glib_none(ffi::pps_window_get_metadata(self.as_ref().to_glib_none().0)) }
-    }
-
-    #[doc(alias = "pps_window_get_uri")]
-    #[doc(alias = "get_uri")]
-    fn uri(&self) -> Option<glib::GString> {
-        unsafe { from_glib_none(ffi::pps_window_get_uri(self.as_ref().to_glib_none().0)) }
-    }
-
-    #[doc(alias = "pps_window_handle_annot_popup")]
-    fn handle_annot_popup(&self, annot: &impl IsA<papers_document::Annotation>) {
-        unsafe {
-            ffi::pps_window_handle_annot_popup(
-                self.as_ref().to_glib_none().0,
-                annot.as_ref().to_glib_none().0,
-            );
-        }
-    }
-
-    #[doc(alias = "pps_window_is_empty")]
-    fn is_empty(&self) -> bool {
-        unsafe { from_glib(ffi::pps_window_is_empty(self.as_ref().to_glib_none().0)) }
-    }
-
-    #[doc(alias = "pps_window_open_uri")]
-    fn open_uri(&self, uri: &str, dest: Option<&papers_document::LinkDest>, mode: WindowRunMode) {
-        unsafe {
-            ffi::pps_window_open_uri(
-                self.as_ref().to_glib_none().0,
-                uri.to_glib_none().0,
-                dest.to_glib_none().0,
-                mode.into_glib(),
-            );
-        }
-    }
-
-    #[doc(alias = "pps_window_print_range")]
-    fn print_range(&self, first_page: i32, last_page: i32) {
-        unsafe {
-            ffi::pps_window_print_range(self.as_ref().to_glib_none().0, first_page, last_page);
-        }
-    }
-}
-
-impl<O: IsA<Window>> WindowExt for O {}

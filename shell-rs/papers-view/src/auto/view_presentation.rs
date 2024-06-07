@@ -12,7 +12,7 @@ use std::boxed::Box as Box_;
 
 glib::wrapper! {
     #[doc(alias = "PpsViewPresentation")]
-    pub struct ViewPresentation(Object<ffi::PpsViewPresentation, ffi::PpsViewPresentationClass>);
+    pub struct ViewPresentation(Object<ffi::PpsViewPresentation, ffi::PpsViewPresentationClass>) @extends gtk::Widget;
 
     match fn {
         type_ => || ffi::pps_view_presentation_get_type(),

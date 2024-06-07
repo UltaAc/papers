@@ -1,4 +1,4 @@
-use crate::{DocumentContainsJS, DocumentInfo, DocumentInfoFields, DocumentLicense};
+use crate::{DocumentContainsJS, DocumentInfo, DocumentInfoFields, DocumentLicense, DocumentMode};
 
 use glib::translate::*;
 
@@ -55,5 +55,9 @@ impl DocumentInfo {
         } else {
             None
         }
+    }
+
+    pub fn mode(&self) -> DocumentMode {
+        unsafe { from_glib(self.inner.mode) }
     }
 }

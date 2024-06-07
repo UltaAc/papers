@@ -7,6 +7,238 @@ use glib::{prelude::*, translate::*};
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PpsAnnotationTextIcon")]
+pub enum AnnotationTextIcon {
+    #[doc(alias = "PPS_ANNOTATION_TEXT_ICON_NOTE")]
+    Note,
+    #[doc(alias = "PPS_ANNOTATION_TEXT_ICON_COMMENT")]
+    Comment,
+    #[doc(alias = "PPS_ANNOTATION_TEXT_ICON_KEY")]
+    Key,
+    #[doc(alias = "PPS_ANNOTATION_TEXT_ICON_HELP")]
+    Help,
+    #[doc(alias = "PPS_ANNOTATION_TEXT_ICON_NEW_PARAGRAPH")]
+    NewParagraph,
+    #[doc(alias = "PPS_ANNOTATION_TEXT_ICON_PARAGRAPH")]
+    Paragraph,
+    #[doc(alias = "PPS_ANNOTATION_TEXT_ICON_INSERT")]
+    Insert,
+    #[doc(alias = "PPS_ANNOTATION_TEXT_ICON_CROSS")]
+    Cross,
+    #[doc(alias = "PPS_ANNOTATION_TEXT_ICON_CIRCLE")]
+    Circle,
+    #[doc(alias = "PPS_ANNOTATION_TEXT_ICON_UNKNOWN")]
+    Unknown,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl IntoGlib for AnnotationTextIcon {
+    type GlibType = ffi::PpsAnnotationTextIcon;
+
+    #[inline]
+    fn into_glib(self) -> ffi::PpsAnnotationTextIcon {
+        match self {
+            Self::Note => ffi::PPS_ANNOTATION_TEXT_ICON_NOTE,
+            Self::Comment => ffi::PPS_ANNOTATION_TEXT_ICON_COMMENT,
+            Self::Key => ffi::PPS_ANNOTATION_TEXT_ICON_KEY,
+            Self::Help => ffi::PPS_ANNOTATION_TEXT_ICON_HELP,
+            Self::NewParagraph => ffi::PPS_ANNOTATION_TEXT_ICON_NEW_PARAGRAPH,
+            Self::Paragraph => ffi::PPS_ANNOTATION_TEXT_ICON_PARAGRAPH,
+            Self::Insert => ffi::PPS_ANNOTATION_TEXT_ICON_INSERT,
+            Self::Cross => ffi::PPS_ANNOTATION_TEXT_ICON_CROSS,
+            Self::Circle => ffi::PPS_ANNOTATION_TEXT_ICON_CIRCLE,
+            Self::Unknown => ffi::PPS_ANNOTATION_TEXT_ICON_UNKNOWN,
+            Self::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::PpsAnnotationTextIcon> for AnnotationTextIcon {
+    #[inline]
+    unsafe fn from_glib(value: ffi::PpsAnnotationTextIcon) -> Self {
+        skip_assert_initialized!();
+
+        match value {
+            ffi::PPS_ANNOTATION_TEXT_ICON_NOTE => Self::Note,
+            ffi::PPS_ANNOTATION_TEXT_ICON_COMMENT => Self::Comment,
+            ffi::PPS_ANNOTATION_TEXT_ICON_KEY => Self::Key,
+            ffi::PPS_ANNOTATION_TEXT_ICON_HELP => Self::Help,
+            ffi::PPS_ANNOTATION_TEXT_ICON_NEW_PARAGRAPH => Self::NewParagraph,
+            ffi::PPS_ANNOTATION_TEXT_ICON_PARAGRAPH => Self::Paragraph,
+            ffi::PPS_ANNOTATION_TEXT_ICON_INSERT => Self::Insert,
+            ffi::PPS_ANNOTATION_TEXT_ICON_CROSS => Self::Cross,
+            ffi::PPS_ANNOTATION_TEXT_ICON_CIRCLE => Self::Circle,
+            ffi::PPS_ANNOTATION_TEXT_ICON_UNKNOWN => Self::Unknown,
+            value => Self::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for AnnotationTextIcon {
+    #[inline]
+    #[doc(alias = "pps_annotation_text_icon_get_type")]
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::pps_annotation_text_icon_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for AnnotationTextIcon {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
+    }
+}
+
+impl glib::value::ValueType for AnnotationTextIcon {
+    type Type = Self;
+}
+
+unsafe impl<'a> glib::value::FromValue<'a> for AnnotationTextIcon {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    #[inline]
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        skip_assert_initialized!();
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for AnnotationTextIcon {
+    #[inline]
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    #[inline]
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+impl From<AnnotationTextIcon> for glib::Value {
+    #[inline]
+    fn from(v: AnnotationTextIcon) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "PpsAnnotationTextMarkupType")]
+pub enum AnnotationTextMarkupType {
+    #[doc(alias = "PPS_ANNOTATION_TEXT_MARKUP_HIGHLIGHT")]
+    Highlight,
+    #[doc(alias = "PPS_ANNOTATION_TEXT_MARKUP_STRIKE_OUT")]
+    StrikeOut,
+    #[doc(alias = "PPS_ANNOTATION_TEXT_MARKUP_UNDERLINE")]
+    Underline,
+    #[doc(alias = "PPS_ANNOTATION_TEXT_MARKUP_SQUIGGLY")]
+    Squiggly,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl IntoGlib for AnnotationTextMarkupType {
+    type GlibType = ffi::PpsAnnotationTextMarkupType;
+
+    #[inline]
+    fn into_glib(self) -> ffi::PpsAnnotationTextMarkupType {
+        match self {
+            Self::Highlight => ffi::PPS_ANNOTATION_TEXT_MARKUP_HIGHLIGHT,
+            Self::StrikeOut => ffi::PPS_ANNOTATION_TEXT_MARKUP_STRIKE_OUT,
+            Self::Underline => ffi::PPS_ANNOTATION_TEXT_MARKUP_UNDERLINE,
+            Self::Squiggly => ffi::PPS_ANNOTATION_TEXT_MARKUP_SQUIGGLY,
+            Self::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::PpsAnnotationTextMarkupType> for AnnotationTextMarkupType {
+    #[inline]
+    unsafe fn from_glib(value: ffi::PpsAnnotationTextMarkupType) -> Self {
+        skip_assert_initialized!();
+
+        match value {
+            ffi::PPS_ANNOTATION_TEXT_MARKUP_HIGHLIGHT => Self::Highlight,
+            ffi::PPS_ANNOTATION_TEXT_MARKUP_STRIKE_OUT => Self::StrikeOut,
+            ffi::PPS_ANNOTATION_TEXT_MARKUP_UNDERLINE => Self::Underline,
+            ffi::PPS_ANNOTATION_TEXT_MARKUP_SQUIGGLY => Self::Squiggly,
+            value => Self::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for AnnotationTextMarkupType {
+    #[inline]
+    #[doc(alias = "pps_annotation_text_markup_type_get_type")]
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::pps_annotation_text_markup_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for AnnotationTextMarkupType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
+    }
+}
+
+impl glib::value::ValueType for AnnotationTextMarkupType {
+    type Type = Self;
+}
+
+unsafe impl<'a> glib::value::FromValue<'a> for AnnotationTextMarkupType {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    #[inline]
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        skip_assert_initialized!();
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for AnnotationTextMarkupType {
+    #[inline]
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    #[inline]
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+impl From<AnnotationTextMarkupType> for glib::Value {
+    #[inline]
+    fn from(v: AnnotationTextMarkupType) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 #[doc(alias = "PpsAnnotationType")]
 pub enum AnnotationType {
     #[doc(alias = "PPS_ANNOTATION_TYPE_UNKNOWN")]
@@ -308,6 +540,477 @@ impl ToValue for DocumentContainsJS {
 impl From<DocumentContainsJS> for glib::Value {
     #[inline]
     fn from(v: DocumentContainsJS) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "PpsDocumentError")]
+pub enum DocumentError {
+    #[doc(alias = "PPS_DOCUMENT_ERROR_INVALID")]
+    Invalid,
+    #[doc(alias = "PPS_DOCUMENT_ERROR_UNSUPPORTED_CONTENT")]
+    UnsupportedContent,
+    #[doc(alias = "PPS_DOCUMENT_ERROR_ENCRYPTED")]
+    Encrypted,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl IntoGlib for DocumentError {
+    type GlibType = ffi::PpsDocumentError;
+
+    #[inline]
+    fn into_glib(self) -> ffi::PpsDocumentError {
+        match self {
+            Self::Invalid => ffi::PPS_DOCUMENT_ERROR_INVALID,
+            Self::UnsupportedContent => ffi::PPS_DOCUMENT_ERROR_UNSUPPORTED_CONTENT,
+            Self::Encrypted => ffi::PPS_DOCUMENT_ERROR_ENCRYPTED,
+            Self::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::PpsDocumentError> for DocumentError {
+    #[inline]
+    unsafe fn from_glib(value: ffi::PpsDocumentError) -> Self {
+        skip_assert_initialized!();
+
+        match value {
+            ffi::PPS_DOCUMENT_ERROR_INVALID => Self::Invalid,
+            ffi::PPS_DOCUMENT_ERROR_UNSUPPORTED_CONTENT => Self::UnsupportedContent,
+            ffi::PPS_DOCUMENT_ERROR_ENCRYPTED => Self::Encrypted,
+            value => Self::__Unknown(value),
+        }
+    }
+}
+
+impl glib::error::ErrorDomain for DocumentError {
+    #[inline]
+    fn domain() -> glib::Quark {
+        skip_assert_initialized!();
+
+        unsafe { from_glib(ffi::pps_document_error_quark()) }
+    }
+
+    #[inline]
+    fn code(self) -> i32 {
+        self.into_glib()
+    }
+
+    #[inline]
+    #[allow(clippy::match_single_binding)]
+    fn from(code: i32) -> Option<Self> {
+        skip_assert_initialized!();
+        match unsafe { from_glib(code) } {
+            value => Some(value),
+        }
+    }
+}
+
+impl StaticType for DocumentError {
+    #[inline]
+    #[doc(alias = "pps_document_error_get_type")]
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::pps_document_error_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for DocumentError {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
+    }
+}
+
+impl glib::value::ValueType for DocumentError {
+    type Type = Self;
+}
+
+unsafe impl<'a> glib::value::FromValue<'a> for DocumentError {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    #[inline]
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        skip_assert_initialized!();
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for DocumentError {
+    #[inline]
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    #[inline]
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+impl From<DocumentError> for glib::Value {
+    #[inline]
+    fn from(v: DocumentError) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "PpsDocumentMode")]
+pub enum DocumentMode {
+    #[doc(alias = "PPS_DOCUMENT_MODE_NONE")]
+    None,
+    #[doc(alias = "PPS_DOCUMENT_MODE_USE_OC")]
+    UseOc,
+    #[doc(alias = "PPS_DOCUMENT_MODE_USE_THUMBS")]
+    UseThumbs,
+    #[doc(alias = "PPS_DOCUMENT_MODE_FULL_SCREEN")]
+    FullScreen,
+    #[doc(alias = "PPS_DOCUMENT_MODE_USE_ATTACHMENTS")]
+    UseAttachments,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl IntoGlib for DocumentMode {
+    type GlibType = ffi::PpsDocumentMode;
+
+    #[inline]
+    fn into_glib(self) -> ffi::PpsDocumentMode {
+        match self {
+            Self::None => ffi::PPS_DOCUMENT_MODE_NONE,
+            Self::UseOc => ffi::PPS_DOCUMENT_MODE_USE_OC,
+            Self::UseThumbs => ffi::PPS_DOCUMENT_MODE_USE_THUMBS,
+            Self::FullScreen => ffi::PPS_DOCUMENT_MODE_FULL_SCREEN,
+            Self::UseAttachments => ffi::PPS_DOCUMENT_MODE_USE_ATTACHMENTS,
+            Self::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::PpsDocumentMode> for DocumentMode {
+    #[inline]
+    unsafe fn from_glib(value: ffi::PpsDocumentMode) -> Self {
+        skip_assert_initialized!();
+
+        match value {
+            ffi::PPS_DOCUMENT_MODE_NONE => Self::None,
+            ffi::PPS_DOCUMENT_MODE_USE_OC => Self::UseOc,
+            ffi::PPS_DOCUMENT_MODE_USE_THUMBS => Self::UseThumbs,
+            ffi::PPS_DOCUMENT_MODE_FULL_SCREEN => Self::FullScreen,
+            ffi::PPS_DOCUMENT_MODE_USE_ATTACHMENTS => Self::UseAttachments,
+            value => Self::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for DocumentMode {
+    #[inline]
+    #[doc(alias = "pps_document_mode_get_type")]
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::pps_document_mode_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for DocumentMode {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
+    }
+}
+
+impl glib::value::ValueType for DocumentMode {
+    type Type = Self;
+}
+
+unsafe impl<'a> glib::value::FromValue<'a> for DocumentMode {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    #[inline]
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        skip_assert_initialized!();
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for DocumentMode {
+    #[inline]
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    #[inline]
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+impl From<DocumentMode> for glib::Value {
+    #[inline]
+    fn from(v: DocumentMode) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "PpsLinkActionType")]
+pub enum LinkActionType {
+    #[doc(alias = "PPS_LINK_ACTION_TYPE_GOTO_DEST")]
+    GotoDest,
+    #[doc(alias = "PPS_LINK_ACTION_TYPE_GOTO_REMOTE")]
+    GotoRemote,
+    #[doc(alias = "PPS_LINK_ACTION_TYPE_EXTERNAL_URI")]
+    ExternalUri,
+    #[doc(alias = "PPS_LINK_ACTION_TYPE_LAUNCH")]
+    Launch,
+    #[doc(alias = "PPS_LINK_ACTION_TYPE_NAMED")]
+    Named,
+    #[doc(alias = "PPS_LINK_ACTION_TYPE_LAYERS_STATE")]
+    LayersState,
+    #[doc(alias = "PPS_LINK_ACTION_TYPE_RESET_FORM")]
+    ResetForm,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl IntoGlib for LinkActionType {
+    type GlibType = ffi::PpsLinkActionType;
+
+    #[inline]
+    fn into_glib(self) -> ffi::PpsLinkActionType {
+        match self {
+            Self::GotoDest => ffi::PPS_LINK_ACTION_TYPE_GOTO_DEST,
+            Self::GotoRemote => ffi::PPS_LINK_ACTION_TYPE_GOTO_REMOTE,
+            Self::ExternalUri => ffi::PPS_LINK_ACTION_TYPE_EXTERNAL_URI,
+            Self::Launch => ffi::PPS_LINK_ACTION_TYPE_LAUNCH,
+            Self::Named => ffi::PPS_LINK_ACTION_TYPE_NAMED,
+            Self::LayersState => ffi::PPS_LINK_ACTION_TYPE_LAYERS_STATE,
+            Self::ResetForm => ffi::PPS_LINK_ACTION_TYPE_RESET_FORM,
+            Self::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::PpsLinkActionType> for LinkActionType {
+    #[inline]
+    unsafe fn from_glib(value: ffi::PpsLinkActionType) -> Self {
+        skip_assert_initialized!();
+
+        match value {
+            ffi::PPS_LINK_ACTION_TYPE_GOTO_DEST => Self::GotoDest,
+            ffi::PPS_LINK_ACTION_TYPE_GOTO_REMOTE => Self::GotoRemote,
+            ffi::PPS_LINK_ACTION_TYPE_EXTERNAL_URI => Self::ExternalUri,
+            ffi::PPS_LINK_ACTION_TYPE_LAUNCH => Self::Launch,
+            ffi::PPS_LINK_ACTION_TYPE_NAMED => Self::Named,
+            ffi::PPS_LINK_ACTION_TYPE_LAYERS_STATE => Self::LayersState,
+            ffi::PPS_LINK_ACTION_TYPE_RESET_FORM => Self::ResetForm,
+            value => Self::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for LinkActionType {
+    #[inline]
+    #[doc(alias = "pps_link_action_type_get_type")]
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::pps_link_action_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for LinkActionType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
+    }
+}
+
+impl glib::value::ValueType for LinkActionType {
+    type Type = Self;
+}
+
+unsafe impl<'a> glib::value::FromValue<'a> for LinkActionType {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    #[inline]
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        skip_assert_initialized!();
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for LinkActionType {
+    #[inline]
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    #[inline]
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+impl From<LinkActionType> for glib::Value {
+    #[inline]
+    fn from(v: LinkActionType) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "PpsLinkDestType")]
+pub enum LinkDestType {
+    #[doc(alias = "PPS_LINK_DEST_TYPE_PAGE")]
+    Page,
+    #[doc(alias = "PPS_LINK_DEST_TYPE_XYZ")]
+    Xyz,
+    #[doc(alias = "PPS_LINK_DEST_TYPE_FIT")]
+    Fit,
+    #[doc(alias = "PPS_LINK_DEST_TYPE_FITH")]
+    Fith,
+    #[doc(alias = "PPS_LINK_DEST_TYPE_FITV")]
+    Fitv,
+    #[doc(alias = "PPS_LINK_DEST_TYPE_FITR")]
+    Fitr,
+    #[doc(alias = "PPS_LINK_DEST_TYPE_NAMED")]
+    Named,
+    #[doc(alias = "PPS_LINK_DEST_TYPE_PAGE_LABEL")]
+    PageLabel,
+    #[doc(alias = "PPS_LINK_DEST_TYPE_UNKNOWN")]
+    Unknown,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl IntoGlib for LinkDestType {
+    type GlibType = ffi::PpsLinkDestType;
+
+    #[inline]
+    fn into_glib(self) -> ffi::PpsLinkDestType {
+        match self {
+            Self::Page => ffi::PPS_LINK_DEST_TYPE_PAGE,
+            Self::Xyz => ffi::PPS_LINK_DEST_TYPE_XYZ,
+            Self::Fit => ffi::PPS_LINK_DEST_TYPE_FIT,
+            Self::Fith => ffi::PPS_LINK_DEST_TYPE_FITH,
+            Self::Fitv => ffi::PPS_LINK_DEST_TYPE_FITV,
+            Self::Fitr => ffi::PPS_LINK_DEST_TYPE_FITR,
+            Self::Named => ffi::PPS_LINK_DEST_TYPE_NAMED,
+            Self::PageLabel => ffi::PPS_LINK_DEST_TYPE_PAGE_LABEL,
+            Self::Unknown => ffi::PPS_LINK_DEST_TYPE_UNKNOWN,
+            Self::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::PpsLinkDestType> for LinkDestType {
+    #[inline]
+    unsafe fn from_glib(value: ffi::PpsLinkDestType) -> Self {
+        skip_assert_initialized!();
+
+        match value {
+            ffi::PPS_LINK_DEST_TYPE_PAGE => Self::Page,
+            ffi::PPS_LINK_DEST_TYPE_XYZ => Self::Xyz,
+            ffi::PPS_LINK_DEST_TYPE_FIT => Self::Fit,
+            ffi::PPS_LINK_DEST_TYPE_FITH => Self::Fith,
+            ffi::PPS_LINK_DEST_TYPE_FITV => Self::Fitv,
+            ffi::PPS_LINK_DEST_TYPE_FITR => Self::Fitr,
+            ffi::PPS_LINK_DEST_TYPE_NAMED => Self::Named,
+            ffi::PPS_LINK_DEST_TYPE_PAGE_LABEL => Self::PageLabel,
+            ffi::PPS_LINK_DEST_TYPE_UNKNOWN => Self::Unknown,
+            value => Self::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for LinkDestType {
+    #[inline]
+    #[doc(alias = "pps_link_dest_type_get_type")]
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::pps_link_dest_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for LinkDestType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
+    }
+}
+
+impl glib::value::ValueType for LinkDestType {
+    type Type = Self;
+}
+
+unsafe impl<'a> glib::value::FromValue<'a> for LinkDestType {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    #[inline]
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        skip_assert_initialized!();
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for LinkDestType {
+    #[inline]
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    #[inline]
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+impl From<LinkDestType> for glib::Value {
+    #[inline]
+    fn from(v: LinkDestType) -> Self {
         skip_assert_initialized!();
         ToValue::to_value(&v)
     }

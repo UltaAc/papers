@@ -45,10 +45,16 @@ impl Document {
         }
     }
 
-    //#[doc(alias = "pps_document_factory_add_filters")]
-    //pub fn factory_add_filters(dialog: /*Ignored*/&gtk::FileDialog, document: Option<&impl IsA<Document>>) {
-    //    unsafe { TODO: call ffi:pps_document_factory_add_filters() }
-    //}
+    #[doc(alias = "pps_document_factory_add_filters")]
+    pub fn factory_add_filters(dialog: &gtk::FileDialog, document: Option<&impl IsA<Document>>) {
+        assert_initialized_main_thread!();
+        unsafe {
+            ffi::pps_document_factory_add_filters(
+                dialog.to_glib_none().0,
+                document.map(|p| p.as_ref()).to_glib_none().0,
+            );
+        }
+    }
 
     #[doc(alias = "pps_document_factory_get_document")]
     pub fn factory_get_document(uri: &str) -> Result<Document, glib::Error> {
@@ -161,6 +167,23 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
         }
     }
 
+    #[doc(alias = "pps_document_find_page_by_label")]
+    fn find_page_by_label(&self, page_label: &str) -> Option<i32> {
+        unsafe {
+            let mut page_index = std::mem::MaybeUninit::uninit();
+            let ret = from_glib(ffi::pps_document_find_page_by_label(
+                self.as_ref().to_glib_none().0,
+                page_label.to_glib_none().0,
+                page_index.as_mut_ptr(),
+            ));
+            if ret {
+                Some(page_index.assume_init())
+            } else {
+                None
+            }
+        }
+    }
+
     //#[doc(alias = "pps_document_get_backend_info")]
     //#[doc(alias = "get_backend_info")]
     //fn is_backend_info(&self, info: /*Ignored*/&mut DocumentBackendInfo) -> bool {
@@ -177,6 +200,36 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
     #[doc(alias = "get_max_label_len")]
     fn max_label_len(&self) -> i32 {
         unsafe { ffi::pps_document_get_max_label_len(self.as_ref().to_glib_none().0) }
+    }
+
+    #[doc(alias = "pps_document_get_max_page_size")]
+    #[doc(alias = "get_max_page_size")]
+    fn max_page_size(&self) -> (f64, f64) {
+        unsafe {
+            let mut width = std::mem::MaybeUninit::uninit();
+            let mut height = std::mem::MaybeUninit::uninit();
+            ffi::pps_document_get_max_page_size(
+                self.as_ref().to_glib_none().0,
+                width.as_mut_ptr(),
+                height.as_mut_ptr(),
+            );
+            (width.assume_init(), height.assume_init())
+        }
+    }
+
+    #[doc(alias = "pps_document_get_min_page_size")]
+    #[doc(alias = "get_min_page_size")]
+    fn min_page_size(&self) -> (f64, f64) {
+        unsafe {
+            let mut width = std::mem::MaybeUninit::uninit();
+            let mut height = std::mem::MaybeUninit::uninit();
+            ffi::pps_document_get_min_page_size(
+                self.as_ref().to_glib_none().0,
+                width.as_mut_ptr(),
+                height.as_mut_ptr(),
+            );
+            (width.assume_init(), height.assume_init())
+        }
     }
 
     #[doc(alias = "pps_document_get_modified")]

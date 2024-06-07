@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Layer, LinkDest};
+use crate::{Layer, LinkActionType, LinkDest};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -93,11 +93,11 @@ impl LinkAction {
         }
     }
 
-    //#[doc(alias = "pps_link_action_get_action_type")]
-    //#[doc(alias = "get_action_type")]
-    //pub fn action_type(&self) -> /*Ignored*/LinkActionType {
-    //    unsafe { TODO: call ffi:pps_link_action_get_action_type() }
-    //}
+    #[doc(alias = "pps_link_action_get_action_type")]
+    #[doc(alias = "get_action_type")]
+    pub fn action_type(&self) -> LinkActionType {
+        unsafe { from_glib(ffi::pps_link_action_get_action_type(self.to_glib_none().0)) }
+    }
 
     #[doc(alias = "pps_link_action_get_dest")]
     #[doc(alias = "get_dest")]
@@ -179,8 +179,8 @@ impl LinkAction {
         unsafe { from_glib_none(ffi::pps_link_action_get_uri(self.to_glib_none().0)) }
     }
 
-    //#[doc(alias = "type")]
-    //pub fn type_(&self) -> /*Ignored*/LinkActionType {
-    //    ObjectExt::property(self, "type")
-    //}
+    #[doc(alias = "type")]
+    pub fn type_(&self) -> LinkActionType {
+        ObjectExt::property(self, "type")
+    }
 }
