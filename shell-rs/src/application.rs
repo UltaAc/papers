@@ -1,11 +1,12 @@
 use crate::deps::*;
 
-use papers_document::LinkDest;
+use papers_document::{LinkDest, LinkDestType};
 use papers_view::Job;
 
 use std::ffi::OsString;
 
 mod imp {
+
     use super::*;
 
     #[derive(Default)]
@@ -197,7 +198,7 @@ mod imp {
                 // Since we don't have security between documents, then
                 // spawn a new process! See:
                 // https://gitlab.gnome.org/GNOME/Incubator/papers/-/issues/104
-                papers_shell::spawn(Some(uri), dest, mode);
+                spawn(Some(uri), dest, mode);
                 return;
             }
 
@@ -263,7 +264,7 @@ mod imp {
                 gio::ActionEntryBuilder::new("new")
                     .activate(glib::clone!(@weak self as obj => move |_ , _, _| {
                         // spawn an empty window
-                        papers_shell::spawn(None, None, WindowRunMode::Normal);
+                        spawn(None, None, WindowRunMode::Normal);
                     }))
                     .build(),
             ];
@@ -389,5 +390,67 @@ impl PpsApplication {
             .property("flags", flags)
             .property("resource-base-path", "/org/gnome/papers")
             .build()
+    }
+}
+
+pub fn spawn(uri: Option<&str>, dest: Option<&LinkDest>, mode: WindowRunMode) {
+    let mut cmd = String::new();
+
+    // safe to unwrap since we are finding ourselves
+    let path = glib::find_program_in_path("papers").unwrap();
+
+    cmd.push_str(&format!(" {}", &path.to_string_lossy()));
+
+    // Page label
+    if let Some(dest) = dest {
+        match dest.dest_type() {
+            LinkDestType::PageLabel => {
+                cmd.push_str(" --page-label=");
+                cmd.push_str(&dest.page_label().unwrap_or_default());
+            }
+            LinkDestType::Page
+            | LinkDestType::Xyz
+            | LinkDestType::Fit
+            | LinkDestType::Fith
+            | LinkDestType::Fitv
+            | LinkDestType::Fitr => cmd.push_str(&format!(" --page-index={}", dest.page() + 1)),
+            LinkDestType::Named => {
+                cmd.push_str(" --named-dest=");
+                cmd.push_str(&dest.named_dest().unwrap_or_default())
+            }
+            _ => (),
+        }
+    }
+
+    // Mode
+    match mode {
+        WindowRunMode::Fullscreen => cmd.push_str(" -f"),
+        WindowRunMode::Presentation => cmd.push_str(" -s"),
+        _ => (),
+    }
+
+    let app =
+        gio::AppInfo::create_from_commandline(cmd, None, gio::AppInfoCreateFlags::SUPPORTS_URIS);
+
+    if let Err(e) = app.and_then(|app| {
+        let ctx = gdk::Display::default().map(|display| display.app_launch_context());
+        // Some URIs can be changed when passed through a GFile
+        // (for instance unsupported uris with strange formats like mailto:),
+        // so if you have a textual uri you want to pass in as argument,
+        // consider using g_app_info_launch_uris() instead.
+        // See https://bugzilla.gnome.org/show_bug.cgi?id=644604
+        let mut uris = vec![];
+
+        if let Some(uri) = uri {
+            uris.push(uri);
+        }
+
+        app.launch_uris(&uris, ctx.as_ref())
+    }) {
+        glib::g_printerr!(
+            "Error launching papers {}: {}\n",
+            uri.unwrap_or_default(),
+            e.message()
+        );
     }
 }
