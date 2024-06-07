@@ -4677,11 +4677,11 @@ static gboolean
 save_attachment_to_target_file (PpsAttachment *attachment,
                                 GFile        *target_file,
                                 gboolean      is_dir,
-                                gboolean      is_native,
                                 PpsWindow     *pps_window)
 {
 	GFile  *save_to = NULL;
 	GError *error = NULL;
+	gboolean is_native = g_file_is_native (target_file);
 
 	if (is_native) {
 		if (is_dir) {
@@ -4735,16 +4735,13 @@ attachment_bar_save_attachment_cb (GtkWidget     *attachbar,
                                    PpsWindow     *pps_window)
 {
 	GFile    *target_file;
-	gboolean  is_native;
 	gboolean  success;
 
 	target_file = g_file_new_for_uri (uri);
-	is_native = g_file_is_native (target_file);
 
 	success = save_attachment_to_target_file (attachment,
 	                                          target_file,
 	                                          FALSE,
-	                                          is_native,
 	                                          pps_window);
 
 	g_object_unref (target_file);
@@ -5846,7 +5843,6 @@ attachment_save_dialog_response_cb (GtkFileDialog     *dialog,
 	GFile                *target_file;
 	guint                 n_items, i;
 	gboolean              is_dir;
-	gboolean              is_native;
 
 	n_items = g_list_model_get_n_items (priv->attachments);
 	is_dir = n_items != 1;
@@ -5862,8 +5858,6 @@ attachment_save_dialog_response_cb (GtkFileDialog     *dialog,
 
 	pps_window_file_dialog_save_folder (pps_window, target_file, G_USER_DIRECTORY_DOCUMENTS);
 
-	is_native = g_file_is_native (target_file);
-
 	for (i = 0; i < n_items; i++) {
 		PpsAttachment *attachment;
 
@@ -5872,7 +5866,6 @@ attachment_save_dialog_response_cb (GtkFileDialog     *dialog,
 		save_attachment_to_target_file (attachment,
 		                                target_file,
 		                                is_dir,
-		                                is_native,
 		                                pps_window);
 	}
 
