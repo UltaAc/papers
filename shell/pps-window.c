@@ -5663,12 +5663,11 @@ pps_window_popup_cmd_copy_image (GSimpleAction *action,
 }
 
 static void
-pps_window_popup_cmd_annot_properties_response_cb (GtkDialog	*self,
-						  gint		 response_id,
-						  gpointer	 user_data)
+pps_window_popup_cmd_annot_properties_response_cb (AdwAlertDialog *self,
+						   gchar 	  *response,
+						   PpsWindow      *window)
 {
 	PpsAnnotationPropertiesDialog *dialog = PPS_ANNOTATION_PROPERTIES_DIALOG (self);
-	PpsWindow                     *window = user_data;
 	PpsWindowPrivate              *priv = GET_PRIVATE (window);
 
 	GdkRGBA                       rgba;
@@ -5678,8 +5677,7 @@ pps_window_popup_cmd_annot_properties_response_cb (GtkDialog	*self,
 	PpsAnnotation                 *annot = priv->annot;
 	PpsAnnotationsSaveMask         mask = PPS_ANNOTATIONS_SAVE_NONE;
 
-	if (response_id != GTK_RESPONSE_APPLY) {
-		gtk_window_destroy (GTK_WINDOW (dialog));
+	if (!g_str_equal (response, "apply")) {
 		return;
 	}
 
@@ -5726,8 +5724,6 @@ pps_window_popup_cmd_annot_properties_response_cb (GtkDialog	*self,
 		/* FIXME: update annot region only */
 		pps_view_reload (PPS_VIEW (priv->view));
 	}
-
-	gtk_window_destroy (GTK_WINDOW (dialog));
 }
 
 static void
@@ -5744,12 +5740,11 @@ pps_window_popup_cmd_annot_properties (GSimpleAction *action,
 		return;
 
 	dialog = PPS_ANNOTATION_PROPERTIES_DIALOG (pps_annotation_properties_dialog_new_with_annotation (priv->annot));
-	gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (window));
-	gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
 
 	g_signal_connect (dialog, "response",
 				G_CALLBACK (pps_window_popup_cmd_annot_properties_response_cb),
 				window);
+	adw_dialog_present (ADW_DIALOG (dialog), GTK_WIDGET (window));
 }
 
 static void

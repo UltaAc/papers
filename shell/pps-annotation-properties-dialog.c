@@ -23,6 +23,7 @@
 #include <glib/gi18n.h>
 
 #include "pps-annotation-properties-dialog.h"
+#include <adwaita.h>
 
 enum {
 	PROP_0,
@@ -30,30 +31,30 @@ enum {
 };
 
 struct _PpsAnnotationPropertiesDialog {
-	GtkDialog        base_instance;
+	AdwAlertDialog        base_instance;
 
 	PpsAnnotationType annot_type;
 	PpsAnnotation    *annot;
 
-	GtkWidget       *grid;
+	AdwPreferencesGroup *group;
 
-	GtkWidget       *author;
-	GtkWidget       *color;
-	GtkWidget       *opacity;
-	GtkWidget       *popup_state;
+	AdwEntryRow      *author;
+	GtkColorDialogButton     *color;
+	AdwSpinRow       *opacity;
+	AdwSwitchRow     *popup_state;
 
 	/* Text Annotations */
-	GtkWidget       *icon;
+	AdwComboRow     *icon;
 
         /* Text Markup Annotations */
-        GtkWidget       *text_markup_type;
+        AdwComboRow     *markup_type;
 };
 
 struct _PpsAnnotationPropertiesDialogClass {
-	GtkDialogClass base_class;
+	AdwAlertDialogClass base_class;
 };
 
-G_DEFINE_TYPE (PpsAnnotationPropertiesDialog, pps_annotation_properties_dialog, GTK_TYPE_DIALOG)
+G_DEFINE_TYPE (PpsAnnotationPropertiesDialog, pps_annotation_properties_dialog, ADW_TYPE_ALERT_DIALOG)
 
 static void
 pps_annotation_properties_dialog_dispose (GObject *object)
@@ -86,49 +87,16 @@ static void
 pps_annotation_properties_dialog_constructed (GObject *object)
 {
 	PpsAnnotationPropertiesDialog *dialog = PPS_ANNOTATION_PROPERTIES_DIALOG (object);
-	GtkWidget *grid = dialog->grid;
-	GtkWidget *label;
 
 	switch (dialog->annot_type) {
 	case PPS_ANNOTATION_TYPE_TEXT:
-		label = gtk_label_new (_("Icon:"));
-		g_object_set (G_OBJECT (label), "xalign", 0., "yalign", 0.5, NULL);
-		gtk_grid_attach (GTK_GRID (grid), label, 0, 4, 1, 1);
-
-		dialog->icon = gtk_drop_down_new_from_strings ((const char *[]) {
-								_("Note"),
-								_("Comment"),
-								_("Key"),
-								_("Help"),
-								_("New Paragraph"),
-								_("Paragraph"),
-								_("Insert"),
-								_("Cross"),
-								_("Circle"),
-								_("Unknown"),
-								NULL });
-		gtk_drop_down_set_selected (GTK_DROP_DOWN (dialog->icon), 0);
-		gtk_grid_attach (GTK_GRID (grid), dialog->icon, 1, 4, 1, 1);
-                gtk_widget_set_hexpand (dialog->icon, TRUE);
-
+		gtk_widget_set_visible (GTK_WIDGET (dialog->icon), TRUE);
 		break;
 	case PPS_ANNOTATION_TYPE_ATTACHMENT:
 		/* TODO */
                 break;
         case PPS_ANNOTATION_TYPE_TEXT_MARKUP:
-                label = gtk_label_new (_("Markup type:"));
-                g_object_set (G_OBJECT (label), "xalign", 0., "yalign", 0.5, NULL);
-                gtk_grid_attach (GTK_GRID (grid), label, 0, 5, 1, 1);
-
-		dialog->text_markup_type = gtk_drop_down_new_from_strings ((const char *[]) {
-								_("Highlight"),
-								_("Strike out"),
-								_("Underline"),
-								_("Squiggly"),
-								NULL });
-		gtk_drop_down_set_selected (GTK_DROP_DOWN (dialog->text_markup_type), 0);
-                gtk_grid_attach (GTK_GRID (grid), dialog->text_markup_type, 1, 5, 1, 1);
-                gtk_widget_set_hexpand (dialog->text_markup_type, TRUE);
+		gtk_widget_set_visible (GTK_WIDGET (dialog->markup_type), TRUE);
                 break;
 	default:
 		break;
@@ -139,84 +107,32 @@ pps_annotation_properties_dialog_constructed (GObject *object)
 static void
 pps_annotation_properties_dialog_init (PpsAnnotationPropertiesDialog *annot_dialog)
 {
-	GtkDialog *dialog = GTK_DIALOG (annot_dialog);
-	GtkWidget *content_area;
-	GtkWidget *label;
-	GtkWidget *grid;
-        const GdkRGBA yellow = { 1., 1., 0., 1. };
+	gtk_widget_init_template (GTK_WIDGET (annot_dialog));
 
-	gtk_window_set_title (GTK_WINDOW (annot_dialog), _("Annotation Properties"));
-	gtk_window_set_destroy_with_parent (GTK_WINDOW (annot_dialog), TRUE);
-	gtk_dialog_add_buttons (dialog,
-				_("_Close"), GTK_RESPONSE_CANCEL,
-				_("_Apply"), GTK_RESPONSE_APPLY,
-				NULL);
-	gtk_dialog_set_default_response (dialog, GTK_RESPONSE_APPLY);
-
-	content_area = gtk_dialog_get_content_area (dialog);
-	gtk_box_set_spacing (GTK_BOX (content_area), 12);
-
-	gtk_widget_set_margin_start (content_area, 6);
-	gtk_widget_set_margin_end (content_area, 6);
-	gtk_widget_set_margin_top (content_area, 6);
-	gtk_widget_set_margin_bottom (content_area, 6);
-
-	grid = gtk_grid_new ();
-	annot_dialog->grid = grid;
-	gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
-	gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
-	gtk_box_prepend (GTK_BOX (content_area), grid);
-
-	label = gtk_label_new (_("Author:"));
-	g_object_set (G_OBJECT (label), "xalign", 0., "yalign", 0.5, NULL);
-	gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
-
-	annot_dialog->author = gtk_entry_new ();
-	gtk_editable_set_text (GTK_EDITABLE (annot_dialog->author), g_get_real_name ());
-	gtk_grid_attach (GTK_GRID (grid), annot_dialog->author, 1, 0, 1, 1);
-        gtk_widget_set_hexpand (annot_dialog->author, TRUE);
-
-	label = gtk_label_new (_("Color:"));
-	g_object_set (G_OBJECT (label), "xalign", 0., "yalign", 0.5, NULL);
-	gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
-
-	annot_dialog->color = gtk_color_dialog_button_new (gtk_color_dialog_new ());
-	gtk_color_dialog_button_set_rgba (GTK_COLOR_DIALOG_BUTTON (annot_dialog->color), &yellow);
-
-	gtk_grid_attach (GTK_GRID (grid), annot_dialog->color, 1, 1, 1, 1);
-        gtk_widget_set_hexpand (annot_dialog->color, TRUE);
-
-	label = gtk_label_new (_("Opacity:"));
-	g_object_set (G_OBJECT (label), "xalign", 0., "yalign", 0.5, NULL);
-	gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
-
-	annot_dialog->opacity = gtk_scale_new_with_range (GTK_ORIENTATION_HORIZONTAL,
-                                                          0, 100, 5);
-	gtk_range_set_value (GTK_RANGE (annot_dialog->opacity), 100);
-	gtk_grid_attach (GTK_GRID (grid), annot_dialog->opacity, 1, 2, 1, 1);
-        gtk_widget_set_hexpand (annot_dialog->opacity, TRUE);
-
-	label = gtk_label_new (_("Initial window state:"));
-	g_object_set (G_OBJECT (label), "xalign", 0., "yalign", 0.5, NULL);
-	gtk_grid_attach (GTK_GRID (grid), label, 0, 3, 1, 1);
-
-	annot_dialog->popup_state = gtk_drop_down_new_from_strings ((const char *[]) {
-									_("Open"),
-									_("Close"),
-									NULL });
-	gtk_drop_down_set_selected (GTK_DROP_DOWN (annot_dialog->popup_state), 1);
-	gtk_grid_attach (GTK_GRID (grid), annot_dialog->popup_state, 1, 3, 1, 1);
-        gtk_widget_set_hexpand (annot_dialog->popup_state, TRUE);
+	gtk_editable_set_text (GTK_EDITABLE (annot_dialog->author), g_get_real_name());
 }
 
 static void
 pps_annotation_properties_dialog_class_init (PpsAnnotationPropertiesDialogClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
 	object_class->dispose = pps_annotation_properties_dialog_dispose;
 	object_class->constructed = pps_annotation_properties_dialog_constructed;
 	object_class->set_property = pps_annotation_properties_dialog_set_property;
+
+	gtk_widget_class_set_template_from_resource (widget_class,
+                                                     "/org/gnome/papers/ui/annotation-properties-dialog.ui");
+
+
+	gtk_widget_class_bind_template_child (widget_class, PpsAnnotationPropertiesDialog, group);
+	gtk_widget_class_bind_template_child (widget_class, PpsAnnotationPropertiesDialog, author);
+	gtk_widget_class_bind_template_child (widget_class, PpsAnnotationPropertiesDialog, color);
+	gtk_widget_class_bind_template_child (widget_class, PpsAnnotationPropertiesDialog, opacity);
+	gtk_widget_class_bind_template_child (widget_class, PpsAnnotationPropertiesDialog, popup_state);
+	gtk_widget_class_bind_template_child (widget_class, PpsAnnotationPropertiesDialog, icon);
+	gtk_widget_class_bind_template_child (widget_class, PpsAnnotationPropertiesDialog, markup_type);
 
 	g_object_class_install_property (object_class,
 					 PROP_ANNOT_TYPE,
@@ -234,7 +150,6 @@ pps_annotation_properties_dialog_new (PpsAnnotationType annot_type)
 {
 	return GTK_WIDGET (g_object_new (PPS_TYPE_ANNOTATION_PROPERTIES_DIALOG,
 					 "annot-type", annot_type,
-					 "use-header-bar", TRUE,
 					 NULL));
 }
 
@@ -255,23 +170,23 @@ pps_annotation_properties_dialog_new_with_annotation (PpsAnnotation *annot)
 		gtk_editable_set_text (GTK_EDITABLE (dialog->author), label);
 
 	pps_annotation_get_rgba (annot, &rgba);
-	gtk_color_dialog_button_set_rgba (GTK_COLOR_DIALOG_BUTTON (dialog->color), &rgba);
+	gtk_color_dialog_button_set_rgba (dialog->color, &rgba);
 
 	opacity = pps_annotation_markup_get_opacity (PPS_ANNOTATION_MARKUP (annot));
-	gtk_range_set_value (GTK_RANGE (dialog->opacity), opacity * 100);
+	adw_spin_row_set_value (dialog->opacity, opacity * 100);
 
 	is_open = pps_annotation_markup_get_popup_is_open (PPS_ANNOTATION_MARKUP (annot));
-	gtk_drop_down_set_selected (GTK_DROP_DOWN (dialog->popup_state), is_open ? 0 : 1);
+	adw_switch_row_set_active (dialog->popup_state, is_open);
 
 	if (PPS_IS_ANNOTATION_TEXT (annot)) {
 		PpsAnnotationText *annot_text = PPS_ANNOTATION_TEXT (annot);
 
-		gtk_drop_down_set_selected (GTK_DROP_DOWN (dialog->icon),
+		adw_combo_row_set_selected (dialog->icon,
 					    pps_annotation_text_get_icon (annot_text));
 	} else if (PPS_IS_ANNOTATION_TEXT_MARKUP (annot)) {
                 PpsAnnotationTextMarkup *annot_markup = PPS_ANNOTATION_TEXT_MARKUP (annot);
 
-		gtk_drop_down_set_selected (GTK_DROP_DOWN (dialog->text_markup_type),
+		adw_combo_row_set_selected (dialog->markup_type,
 					    pps_annotation_text_markup_get_markup_type (annot_markup));
         }
 
@@ -294,23 +209,23 @@ pps_annotation_properties_dialog_get_rgba (PpsAnnotationPropertiesDialog *dialog
 gdouble
 pps_annotation_properties_dialog_get_opacity (PpsAnnotationPropertiesDialog *dialog)
 {
-	return gtk_range_get_value (GTK_RANGE (dialog->opacity)) / 100;
+	return adw_spin_row_get_value (dialog->opacity) / 100;
 }
 
 gboolean
 pps_annotation_properties_dialog_get_popup_is_open (PpsAnnotationPropertiesDialog *dialog)
 {
-	return gtk_drop_down_get_selected (GTK_DROP_DOWN (dialog->popup_state)) == 0;
+	return adw_switch_row_get_active (dialog->popup_state);
 }
 
 PpsAnnotationTextIcon
 pps_annotation_properties_dialog_get_text_icon (PpsAnnotationPropertiesDialog *dialog)
 {
-	return gtk_drop_down_get_selected (GTK_DROP_DOWN (dialog->icon));
+	return adw_combo_row_get_selected (dialog->icon);
 }
 
 PpsAnnotationTextMarkupType
 pps_annotation_properties_dialog_get_text_markup_type (PpsAnnotationPropertiesDialog *dialog)
 {
-	return gtk_drop_down_get_selected (GTK_DROP_DOWN (dialog->text_markup_type));
+	return adw_combo_row_get_selected (dialog->markup_type);
 }
