@@ -622,7 +622,7 @@
   </template>
 
   <object class="AdwAlertDialog" id="caret_mode_alert">
-    <property name="heading" translatable="yes">Enable caret navigation?</property>
+    <property name="heading" translatable="yes">Enable Caret Navigation?</property>
     <property name="body" translatable="yes">
 Pressing F7 turns the caret navigation on or off.
 This feature places a moveable cursor in text pages,
