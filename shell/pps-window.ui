@@ -637,6 +637,18 @@
     <signal name="response" handler="caret_navigation_alert_response_cb" />
   </object>
 
+  <object class="AdwAlertDialog" id="print_cancel_alert">
+    <property name="heading" translatable="yes">Abort Printing?</property>
+    <property name="body" translatable="yes">There is one or more active print jobs. If the window is closed, pending print jobs will not be printed.</property>
+    <property name="follows-content-size">True</property>
+    <responses>
+      <response id="force-close" appearance="destructive" translatable="yes">Abort _Print and Close</response>
+      <response id="cancel" translatable="yes">_Cancel</response>
+      <response id="close-later" appearance="suggested"  translatable="yes">Close _After Printing</response>
+    </responses>
+    <signal name="response" handler="print_jobs_confirmation_dialog_response" />
+  </object>
+
   <object class="AdwAlertDialog" id="error_alert">
     <responses>
       <response id="close" translatable="yes">_Close</response>

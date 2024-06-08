@@ -99,6 +99,7 @@ typedef struct {
 	AdwToastOverlay *toast_overlay;
 	AdwAlertDialog *caret_mode_alert;
 	AdwAlertDialog *error_alert;
+	AdwAlertDialog *print_cancel_alert;
 	AdwOverlaySplitView *split_view;
 
 	/* Settings */
@@ -3356,13 +3357,13 @@ print_jobs_confirmation_dialog_response (AdwAlertDialog *dialog,
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 
-	if (g_str_equal (response, "yes")) {
+	if (g_str_equal (response, "close-later")) {
 		if (!priv->print_queue ||
 		    g_queue_is_empty (priv->print_queue))
 			gtk_window_destroy (GTK_WINDOW (pps_window));
 		else
 			priv->close_after_print = TRUE;
-	} else if (g_str_equal(response, "no")) {
+	} else if (g_str_equal(response, "force-close")) {
 		priv->close_after_print = TRUE;
 		if (priv->print_queue &&
 		    !g_queue_is_empty (priv->print_queue)) {
@@ -3380,7 +3381,6 @@ static gboolean
 pps_window_check_print_queue (PpsWindow *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	AdwAlertDialog *dialog;
 	g_autofree gchar *text = NULL;
 	gint       n_print_jobs;
 
@@ -3390,47 +3390,7 @@ pps_window_check_print_queue (PpsWindow *pps_window)
 	if (n_print_jobs == 0)
 		return FALSE;
 
-	if (n_print_jobs == 1) {
-		PpsPrintOperation *op;
-		const gchar      *job_name;
-
-		op = g_queue_peek_tail (priv->print_queue);
-		job_name = pps_print_operation_get_job_name (op);
-
-		text = g_strdup_printf (_("Wait until print job “%s” finishes before closing?"),
-					job_name);
-	} else {
-		/* TRANS: the singular form is not really used as n_print_jobs > 1
- 			  but some languages distinguish between different plurals forms,
-			  so the ngettext is needed. */
-		text = g_strdup_printf (ngettext("There is %d print job active. "
-						 "Wait until print finishes before closing?",
-						 "There are %d print jobs active. "
-						 "Wait until print finishes before closing?",
-						 n_print_jobs),
-					n_print_jobs);
-	}
-
-	dialog = ADW_ALERT_DIALOG (adw_alert_dialog_new (text,
-						_("If you close the window, pending print "
-						  "jobs will not be printed.")));
-
-	adw_alert_dialog_add_responses (dialog,
-					"no", _("Cancel _print and Close"),
-					"cancel", _("_Cancel"),
-					"yes", _("Close _after Printing"),
-					NULL);
-
-	adw_alert_dialog_set_response_appearance (dialog, "no", ADW_RESPONSE_DESTRUCTIVE);
-	adw_alert_dialog_set_response_appearance (dialog, "yes", ADW_RESPONSE_SUGGESTED);
-
-	adw_alert_dialog_set_default_response (dialog, "yes");
-
-	g_signal_connect (dialog, "response",
-			  G_CALLBACK (print_jobs_confirmation_dialog_response),
-			  pps_window);
-
-	adw_dialog_present (ADW_DIALOG (dialog), GTK_WIDGET (pps_window));
+	adw_dialog_present (ADW_DIALOG (priv->print_cancel_alert), GTK_WIDGET (pps_window));
 
 	return TRUE;
 }
@@ -6013,6 +5973,7 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, caret_mode_alert);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, toast_overlay);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, error_alert);
+	gtk_widget_class_bind_template_child_private(widget_class, PpsWindow, print_cancel_alert);
 
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, model);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsWindow, view);
@@ -6060,8 +6021,8 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, scroll_child_history_cb);
 	gtk_widget_class_bind_template_callback (widget_class, caret_navigation_alert_response_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pps_window_loader_view_cancelled);
+	gtk_widget_class_bind_template_callback (widget_class, print_jobs_confirmation_dialog_response);
 
-	/* view */
 	gtk_widget_class_bind_template_callback (widget_class, view_external_link_cb);
 	gtk_widget_class_bind_template_callback (widget_class, view_handle_link_cb);
 	gtk_widget_class_bind_template_callback (widget_class, view_menu_popup_cb);
