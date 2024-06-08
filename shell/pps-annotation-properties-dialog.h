@@ -38,8 +38,7 @@ typedef struct _PpsAnnotationPropertiesDialog      PpsAnnotationPropertiesDialog
 typedef struct _PpsAnnotationPropertiesDialogClass PpsAnnotationPropertiesDialogClass;
 
 GType                      pps_annotation_properties_dialog_get_type             (void) G_GNUC_CONST;
-GtkWidget                 *pps_annotation_properties_dialog_new                  (PpsAnnotationType              annot_type);
-GtkWidget                 *pps_annotation_properties_dialog_new_with_annotation  (PpsAnnotation                 *annot);
+GtkWidget                 *pps_annotation_properties_dialog_new                  (PpsAnnotation                 *annot);
 
 const gchar               *pps_annotation_properties_dialog_get_author           (PpsAnnotationPropertiesDialog *dialog);
 void                       pps_annotation_properties_dialog_get_rgba             (PpsAnnotationPropertiesDialog *dialog,

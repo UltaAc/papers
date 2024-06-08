@@ -146,15 +146,7 @@ pps_annotation_properties_dialog_class_init (PpsAnnotationPropertiesDialogClass 
 }
 
 GtkWidget *
-pps_annotation_properties_dialog_new (PpsAnnotationType annot_type)
-{
-	return GTK_WIDGET (g_object_new (PPS_TYPE_ANNOTATION_PROPERTIES_DIALOG,
-					 "annot-type", annot_type,
-					 NULL));
-}
-
-GtkWidget *
-pps_annotation_properties_dialog_new_with_annotation (PpsAnnotation *annot)
+pps_annotation_properties_dialog_new (PpsAnnotation *annot)
 {
 	PpsAnnotationPropertiesDialog *dialog;
 	const gchar                  *label;
@@ -162,7 +154,9 @@ pps_annotation_properties_dialog_new_with_annotation (PpsAnnotation *annot)
 	gboolean                      is_open;
 	GdkRGBA                       rgba;
 
-	dialog = (PpsAnnotationPropertiesDialog *)pps_annotation_properties_dialog_new (pps_annotation_get_annotation_type (annot));
+	dialog = g_object_new (PPS_TYPE_ANNOTATION_PROPERTIES_DIALOG,
+			       "annot-type", pps_annotation_get_annotation_type (annot),
+			       NULL);
 	dialog->annot = g_object_ref (annot);
 
 	label = pps_annotation_markup_get_label (PPS_ANNOTATION_MARKUP (annot));

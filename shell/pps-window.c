@@ -5739,7 +5739,7 @@ pps_window_popup_cmd_annot_properties (GSimpleAction *action,
 	if (!annot)
 		return;
 
-	dialog = PPS_ANNOTATION_PROPERTIES_DIALOG (pps_annotation_properties_dialog_new_with_annotation (priv->annot));
+	dialog = PPS_ANNOTATION_PROPERTIES_DIALOG (pps_annotation_properties_dialog_new (priv->annot));
 
 	g_signal_connect (dialog, "response",
 				G_CALLBACK (pps_window_popup_cmd_annot_properties_response_cb),
