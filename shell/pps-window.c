@@ -54,7 +54,6 @@
 #include "pps-window.h"
 #include "pps-window-title.h"
 #include "pps-progress-message-area.h"
-#include "pps-annotation-properties-dialog.h"
 #include "pps-bookmarks.h"
 #include "pps-search-context.h"
 
@@ -5663,16 +5662,15 @@ pps_window_popup_cmd_copy_image (GSimpleAction *action,
 }
 
 static void
-pps_window_popup_cmd_annot_properties_response_cb (AdwAlertDialog *self,
+pps_window_popup_cmd_annot_properties_response_cb (AdwAlertDialog *dialog,
 						   gchar 	  *response,
 						   PpsWindow      *window)
 {
-	PpsAnnotationPropertiesDialog *dialog = PPS_ANNOTATION_PROPERTIES_DIALOG (self);
 	PpsWindowPrivate              *priv = GET_PRIVATE (window);
 
-	GdkRGBA                       rgba;
+	g_autoptr(GdkRGBA)            rgba = NULL;
 	gdouble                       opacity;
-	const gchar                  *author;
+	g_autofree gchar              *author = NULL;
 	gboolean                      popup_is_open;
 	PpsAnnotation                 *annot = priv->annot;
 	PpsAnnotationsSaveMask         mask = PPS_ANNOTATIONS_SAVE_NONE;
@@ -5681,27 +5679,28 @@ pps_window_popup_cmd_annot_properties_response_cb (AdwAlertDialog *self,
 		return;
 	}
 
+	g_object_get (dialog, "author", &author,
+			      "rgba", &rgba,
+			      "opacity", &opacity,
+			      "popup-open", &popup_is_open,
+			      NULL);
 	/* Set annotations changes */
-	author = pps_annotation_properties_dialog_get_author (dialog);
 	if (pps_annotation_markup_set_label (PPS_ANNOTATION_MARKUP (annot), author))
 		mask |= PPS_ANNOTATIONS_SAVE_LABEL;
 
-	pps_annotation_properties_dialog_get_rgba (dialog, &rgba);
-	if (pps_annotation_set_rgba (annot, &rgba))
+	if (pps_annotation_set_rgba (annot, rgba))
 		mask |= PPS_ANNOTATIONS_SAVE_COLOR;
 
-	opacity = pps_annotation_properties_dialog_get_opacity (dialog);
 	if (pps_annotation_markup_set_opacity (PPS_ANNOTATION_MARKUP (annot), opacity))
 		mask |= PPS_ANNOTATIONS_SAVE_OPACITY;
 
-	popup_is_open = pps_annotation_properties_dialog_get_popup_is_open (dialog);
 	if (pps_annotation_markup_set_popup_is_open (PPS_ANNOTATION_MARKUP (annot), popup_is_open))
 		mask |= PPS_ANNOTATIONS_SAVE_POPUP_IS_OPEN;
 
 	if (PPS_IS_ANNOTATION_TEXT (annot)) {
 		PpsAnnotationTextIcon icon;
 
-		icon = pps_annotation_properties_dialog_get_text_icon (dialog);
+		g_object_get (dialog, "text-icon", &icon, NULL);
 		if (pps_annotation_text_set_icon (PPS_ANNOTATION_TEXT (annot), icon))
 			mask |= PPS_ANNOTATIONS_SAVE_TEXT_ICON;
 	}
@@ -5709,7 +5708,7 @@ pps_window_popup_cmd_annot_properties_response_cb (AdwAlertDialog *self,
 	if (PPS_IS_ANNOTATION_TEXT_MARKUP (annot)) {
 		PpsAnnotationTextMarkupType markup_type;
 
-		markup_type = pps_annotation_properties_dialog_get_text_markup_type (dialog);
+		g_object_get (dialog, "markup-type", &markup_type, NULL);
 		if (pps_annotation_text_markup_set_markup_type (PPS_ANNOTATION_TEXT_MARKUP (annot), markup_type))
 			mask |= PPS_ANNOTATIONS_SAVE_TEXT_MARKUP_TYPE;
 	}
@@ -5733,13 +5732,14 @@ pps_window_popup_cmd_annot_properties (GSimpleAction *action,
 {
 	PpsWindow                     *window = user_data;
 	PpsWindowPrivate              *priv = GET_PRIVATE (window);
-	PpsAnnotationPropertiesDialog *dialog;
+	AdwAlertDialog                *dialog;
 	PpsAnnotation                 *annot = priv->annot;
 
 	if (!annot)
 		return;
 
-	dialog = PPS_ANNOTATION_PROPERTIES_DIALOG (pps_annotation_properties_dialog_new (priv->annot));
+	dialog = g_object_new (g_type_from_name ("PpsAnnotationPropertiesDialog"),
+			"annotation", priv->annot, NULL);
 
 	g_signal_connect (dialog, "response",
 				G_CALLBACK (pps_window_popup_cmd_annot_properties_response_cb),

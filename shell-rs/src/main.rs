@@ -7,6 +7,7 @@ mod config {
 use application::PpsApplication;
 use config::GETTEXT_PACKAGE;
 
+mod annotation_properties_dialog;
 mod application;
 mod deps;
 mod loader_view;
@@ -33,6 +34,7 @@ fn ensure_type() {
     let _ = gtk::init();
 
     // Hack: ensure type here so we don't need to add C interface
+    annotation_properties_dialog::PpsAnnotationPropertiesDialog::ensure_type();
     loader_view::PpsLoaderView::ensure_type();
     page_selector::PpsPageSelector::ensure_type();
     password_view::PpsPasswordView::ensure_type();
