@@ -397,6 +397,8 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 				      has_document && !start_view_mode);
 	pps_window_set_action_enabled (pps_window, "presentation",
 				      has_document && !start_view_mode);
+	pps_window_set_document_action_enabled (pps_window, "open-with",
+						has_document);
 
         /* Edit menu */
 	pps_window_set_action_enabled (pps_window, "select-all", has_pages &&
@@ -2429,6 +2431,24 @@ pps_window_cmd_file_open_copy (GSimpleAction *action,
 	PpsWindow *window = user_data;
 
 	pps_window_open_copy_at_dest (window, NULL);
+}
+
+static void
+pps_window_cmd_file_open_with (GSimpleAction *action,
+                               GVariant      *parameter,
+                               gpointer       user_data)
+{
+	PpsWindow *window = user_data;
+	const char *uri;
+	g_autoptr (GFile) file;
+	g_autoptr (GtkFileLauncher) launcher;
+
+	uri = pps_window_get_uri (window);
+	file = g_file_new_for_uri (uri);
+	launcher = gtk_file_launcher_new (file);
+	gtk_file_launcher_launch (launcher,
+				  GTK_WINDOW (window),
+				  NULL, NULL, NULL);
 }
 
 static void
@@ -5005,6 +5025,7 @@ static const GActionEntry actions[] = {
 };
 
 static const GActionEntry doc_actions[] = {
+	{ "open-with", pps_window_cmd_file_open_with },
 	{ "go-forward", pps_window_cmd_go_forward },
 	{ "go-backwards", pps_window_cmd_go_backwards },
 	{ "go-back-history", pps_window_cmd_go_back_history },

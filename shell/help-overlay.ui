@@ -23,6 +23,12 @@
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut window">Open With…</property>
+                <property name="accelerator">&lt;Ctrl&gt;&lt;Shift&gt;O</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Save Copy of Current Document</property>
                 <property name="action-name">win.save-as</property>
               </object>

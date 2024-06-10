@@ -450,6 +450,12 @@
                     <property name="propagation-phase">bubble</property>
                     <child>
                       <object class='GtkShortcut'>
+                        <property name='trigger'>&lt;Ctrl&gt;&lt;Shift&gt;O</property>
+                        <property name='action'>action(doc.open-with)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
                         <property name='trigger'>&lt;Ctrl&gt;F|slash|KP_Divide</property>
                         <property name='action'>action(doc.find)</property>
                       </object>
@@ -703,6 +709,10 @@
       <item>
         <attribute name="label" translatable="yes">Open a C_opy</attribute>
         <attribute name="action">win.open-copy</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Open With…</attribute>
+        <attribute name="action">doc.open-with</attribute>
       </item>
       <item>
         <attribute name="label" translatable="yes">_Save As…</attribute>
