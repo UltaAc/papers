@@ -24,6 +24,7 @@
 #include <gtk/gtk.h>
 
 #include "pps-progress-message-area.h"
+#include "pps-message-area.h"
 
 typedef struct {
 	GtkWidget *label;
@@ -134,9 +135,7 @@ pps_progress_message_area_get_property (GObject    *object,
 
 GtkWidget *
 pps_progress_message_area_new (const gchar *icon_name,
-			      const gchar *text,
-			      const gchar *first_button_text,
-			      ...)
+			       const gchar *text)
 {
 	GtkWidget  *widget;
 	GtkInfoBar *info_bar;
@@ -146,17 +145,6 @@ pps_progress_message_area_new (const gchar *icon_name,
 			       NULL);
 	info_bar = pps_message_area_get_info_bar (PPS_MESSAGE_AREA (widget));
 	gtk_info_bar_set_message_type (info_bar, GTK_MESSAGE_OTHER);
-
-
-	if (first_button_text) {
-		va_list args;
-
-		va_start (args, first_button_text);
-		_pps_message_area_add_buttons_valist (PPS_MESSAGE_AREA (widget),
-						     first_button_text,
-						     args);
-		va_end (args);
-	}
 
 	pps_message_area_set_image_from_icon_name (PPS_MESSAGE_AREA (widget),
 						  icon_name);

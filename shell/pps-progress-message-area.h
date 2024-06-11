@@ -47,9 +47,7 @@ struct _PpsProgressMessageAreaClass {
 
 GType      pps_progress_message_area_get_type        (void) G_GNUC_CONST;
 GtkWidget *pps_progress_message_area_new             (const gchar           *icon_name,
-						     const gchar           *text,
-						     const gchar           *first_button_text,
-						     ...);
+						     const gchar           *text);
 void       pps_progress_message_area_set_status      (PpsProgressMessageArea *area,
 						     const gchar           *str);
 void       pps_progress_message_area_set_fraction    (PpsProgressMessageArea *area,

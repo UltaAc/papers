@@ -2883,11 +2883,8 @@ pps_window_print_operation_status_changed (PpsPrintOperation *op,
 		job_name = pps_print_operation_get_job_name (op);
 		text = g_strdup_printf (_("Printing job “%s”"), job_name);
 
-		area = pps_progress_message_area_new ("document-print-symbolic",
-						     text,
-						     _("C_ancel"),
-						     GTK_RESPONSE_CANCEL,
-						     NULL);
+		area = pps_progress_message_area_new ("document-print-symbolic", text);
+		pps_message_area_add_button (PPS_MESSAGE_AREA (area), _("C_ancel"), GTK_RESPONSE_CANCEL);
 		pps_window_print_update_pending_jobs_message (pps_window, 1);
 		g_signal_connect (pps_message_area_get_info_bar (PPS_MESSAGE_AREA (area)), "response",
 				  G_CALLBACK (pps_window_print_progress_response_cb),

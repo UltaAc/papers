@@ -24,7 +24,7 @@
 #include "pps-message-area.h"
 
 typedef struct {
-	GtkWidget *info_bar;
+	GtkInfoBar *info_bar;
 	GtkWidget *main_box;
 	GtkWidget *image;
 	GtkWidget *label;
@@ -108,42 +108,6 @@ pps_message_area_init (PpsMessageArea *area)
 }
 
 static void
-pps_message_area_set_image_for_type (PpsMessageArea *area,
-				    GtkMessageType type)
-{
-	const gchar *icon_name = NULL;
-	PpsMessageAreaPrivate *priv = GET_PRIVATE (area);
-
-	switch (type) {
-	case GTK_MESSAGE_INFO:
-		icon_name = "dialog-information-symbolic";
-		break;
-	case GTK_MESSAGE_QUESTION:
-		icon_name = "dialog-question-symbolic";
-		break;
-	case GTK_MESSAGE_WARNING:
-		icon_name = "dialog-warning-symbolic";
-		break;
-	case GTK_MESSAGE_ERROR:
-		icon_name = "dialog-error-symbolic";
-		break;
-	case GTK_MESSAGE_OTHER:
-		break;
-	default:
-		g_warning ("Unknown GtkMessageType %u", type);
-		break;
-	}
-
-	if (icon_name)
-		gtk_image_set_from_icon_name (GTK_IMAGE (priv->image),
-					      icon_name);
-
-	if (icon_name)
-		gtk_accessible_update_property (GTK_ACCESSIBLE (area),
-			GTK_ACCESSIBLE_PROPERTY_LABEL, icon_name, -1);
-}
-
-static void
 pps_message_area_set_property (GObject      *object,
 			      guint         prop_id,
 			      const GValue *value,
@@ -216,29 +180,16 @@ pps_message_area_buildable_iface_init (GtkBuildableIface *iface)
 }
 
 void
-_pps_message_area_add_buttons_valist (PpsMessageArea *area,
-				     const gchar   *first_button_text,
-				     va_list        args)
+pps_message_area_add_button (PpsMessageArea    *area,
+			     const gchar       *button_text,
+			     gint 		response_id)
 {
 	PpsMessageAreaPrivate *priv = GET_PRIVATE (area);
-	const gchar* text;
-	gint response_id;
 
-	if (first_button_text == NULL)
+	if (button_text == NULL)
 		return;
 
-	text = first_button_text;
-	response_id = va_arg (args, gint);
-
-	while (text != NULL) {
-		gtk_info_bar_add_button (GTK_INFO_BAR (priv->info_bar), text, response_id);
-
-		text = va_arg (args, gchar*);
-		if (text == NULL)
-			break;
-
-		response_id = va_arg (args, int);
-	}
+	gtk_info_bar_add_button (priv->info_bar, button_text, response_id);
 }
 
 GtkWidget *
@@ -261,29 +212,7 @@ pps_message_area_get_info_bar (PpsMessageArea *area)
 {
 	PpsMessageAreaPrivate *priv = GET_PRIVATE (area);
 
-	return GTK_INFO_BAR (priv->info_bar);
-}
-
-GtkWidget *
-pps_message_area_new (GtkMessageType type,
-		     const gchar   *text,
-		     const gchar   *first_button_text,
-		     ...)
-{
-	GtkWidget  *widget = g_object_new (PPS_TYPE_MESSAGE_AREA, "text", text, NULL);
-	GtkInfoBar *info_bar = pps_message_area_get_info_bar (PPS_MESSAGE_AREA (widget));
-	gtk_info_bar_set_message_type (info_bar, type);
-	pps_message_area_set_image_for_type (PPS_MESSAGE_AREA (widget), type);
-	if (first_button_text) {
-		va_list args;
-
-		va_start (args, first_button_text);
-		_pps_message_area_add_buttons_valist (PPS_MESSAGE_AREA (widget),
-						     first_button_text, args);
-		va_end (args);
-	}
-
-	return widget;
+	return priv->info_bar;
 }
 
 void

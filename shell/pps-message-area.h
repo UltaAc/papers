@@ -58,9 +58,9 @@ void       pps_message_area_set_text                 (PpsMessageArea *area,
 void       pps_message_area_set_secondary_text       (PpsMessageArea *area,
 						     const gchar   *str);
 
-void      _pps_message_area_add_buttons_valist       (PpsMessageArea *area,
-						     const gchar   *first_button_text,
-						     va_list        args);
+void       pps_message_area_add_button               (PpsMessageArea *area,
+						     const gchar     *first_button_text,
+						     gint             response_id);
 GtkWidget *_pps_message_area_get_main_box            (PpsMessageArea *area);
 GtkInfoBar *pps_message_area_get_info_bar            (PpsMessageArea *area);
 
