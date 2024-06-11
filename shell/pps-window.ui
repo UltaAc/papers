@@ -330,6 +330,7 @@
                                                 <property name="icon-name">zoom-fit-best-symbolic</property>
                                                 <property name="action-name">win.sizing-mode</property>
                                                 <property name="action-target">'automatic'</property>
+                                                <property name="tooltip-text" translatable="yes">Set Automatic Sizing Mode</property>
                                               </object>
                                             </property>
                                           </object>
@@ -349,6 +350,7 @@
                                             </style>
                                             <property name="icon-name">zoom-in-symbolic</property>
                                             <property name="action-name">win.zoom-in</property>
+                                            <property name="tooltip-text" translatable="yes">Zoom In</property>
                                           </object>
                                         </child>
                                         <child>
@@ -359,6 +361,7 @@
                                             </style>
                                             <property name="icon-name">zoom-out-symbolic</property>
                                             <property name="action-name">win.zoom-out</property>
+                                            <property name="tooltip-text" translatable="yes">Zoom Out</property>
                                           </object>
                                         </child>
                                       </object>
