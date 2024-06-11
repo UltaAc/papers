@@ -147,11 +147,11 @@ impl DocumentModel {
 
     #[doc(alias = "pps_document_model_set_document")]
     #[doc(alias = "document")]
-    pub fn set_document(&self, document: &impl IsA<papers_document::Document>) {
+    pub fn set_document(&self, document: Option<&impl IsA<papers_document::Document>>) {
         unsafe {
             ffi::pps_document_model_set_document(
                 self.to_glib_none().0,
-                document.as_ref().to_glib_none().0,
+                document.map(|p| p.as_ref()).to_glib_none().0,
             );
         }
     }

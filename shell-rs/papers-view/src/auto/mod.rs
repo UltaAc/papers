@@ -9,6 +9,9 @@ pub use self::attachment_context::AttachmentContext;
 mod document_model;
 pub use self::document_model::DocumentModel;
 
+mod history;
+pub use self::history::History;
+
 mod job;
 pub use self::job::Job;
 
@@ -32,6 +35,9 @@ pub use self::job_links::JobLinks;
 
 mod job_load;
 pub use self::job_load::JobLoad;
+
+mod job_save;
+pub use self::job_save::JobSave;
 
 mod job_signatures;
 pub use self::job_signatures::JobSignatures;
@@ -64,6 +70,7 @@ pub use self::enums::SizingMode;
 
 pub(crate) mod traits {
     pub use super::attachment_context::AttachmentContextExt;
+    pub use super::history::HistoryExt;
     pub use super::job::JobExt;
     pub use super::job_annots::JobAnnotsExt;
     pub use super::job_attachments::JobAttachmentsExt;
@@ -71,6 +78,7 @@ pub(crate) mod traits {
     pub use super::job_layers::JobLayersExt;
     pub use super::job_links::JobLinksExt;
     pub use super::job_load::JobLoadExt;
+    pub use super::job_save::JobSaveExt;
     pub use super::job_thumbnail_texture::JobThumbnailTextureExt;
     pub use super::search_context::SearchContextExt;
     pub use super::search_result::SearchResultExt;

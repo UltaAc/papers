@@ -17,6 +17,17 @@ glib::wrapper! {
 
 impl Signature {
     pub const NONE: Option<&'static Signature> = None;
+
+    #[doc(alias = "pps_signature_new")]
+    pub fn new(status: SignatureStatus, info: &impl IsA<CertificateInfo>) -> Signature {
+        skip_assert_initialized!();
+        unsafe {
+            from_glib_full(ffi::pps_signature_new(
+                status.into_glib(),
+                info.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 }
 
 mod sealed {

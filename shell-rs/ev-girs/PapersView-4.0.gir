@@ -242,20 +242,20 @@ The @callback will be called when the dialog is dismissed.</doc>
               glib:get-property="document">
         <doc xml:space="preserve"
              filename="libview/context/pps-document-model.c"
-             line="349">Returns the #PpsDocument referenced by the model.</doc>
+             line="355">Returns the #PpsDocument referenced by the model.</doc>
         <source-position filename="libview/context/pps-document-model.h"
                          line="65"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/context/pps-document-model.c"
-               line="355">a #PpsDocument</doc>
+               line="361">a #PpsDocument</doc>
           <type name="PapersDocument.Document" c:type="PpsDocument*"/>
         </return-value>
         <parameters>
           <instance-parameter name="model" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/context/pps-document-model.c"
-                 line="351">a #PpsDocumentModel</doc>
+                 line="357">a #PpsDocumentModel</doc>
             <type name="DocumentModel" c:type="PpsDocumentModel*"/>
           </instance-parameter>
         </parameters>
@@ -338,14 +338,14 @@ The @callback will be called when the dialog is dismissed.</doc>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/context/pps-document-model.c"
-               line="530">the document model's page layout</doc>
+               line="536">the document model's page layout</doc>
           <type name="PageLayout" c:type="PpsPageLayout"/>
         </return-value>
         <parameters>
           <instance-parameter name="model" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/context/pps-document-model.c"
-                 line="528">a #PpsDocumentModel</doc>
+                 line="534">a #PpsDocumentModel</doc>
             <type name="DocumentModel" c:type="PpsDocumentModel*"/>
           </instance-parameter>
         </parameters>
@@ -426,6 +426,9 @@ The @callback will be called when the dialog is dismissed.</doc>
       <method name="set_document"
               c:identifier="pps_document_model_set_document"
               glib:set-property="document">
+        <doc xml:space="preserve"
+             filename="libview/context/pps-document-model.c"
+             line="332">Set the document.</doc>
         <source-position filename="libview/context/pps-document-model.h"
                          line="62"/>
         <return-value transfer-ownership="none">
@@ -433,9 +436,18 @@ The @callback will be called when the dialog is dismissed.</doc>
         </return-value>
         <parameters>
           <instance-parameter name="model" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/context/pps-document-model.c"
+                 line="334">a #PpsDocumentModel</doc>
             <type name="DocumentModel" c:type="PpsDocumentModel*"/>
           </instance-parameter>
-          <parameter name="document" transfer-ownership="none">
+          <parameter name="document"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve"
+                 filename="libview/context/pps-document-model.c"
+                 line="335">a #PpsDocumentModel</doc>
             <type name="PapersDocument.Document" c:type="PpsDocument*"/>
           </parameter>
         </parameters>
@@ -546,7 +558,7 @@ The @callback will be called when the dialog is dismissed.</doc>
               version="3.8">
         <doc xml:space="preserve"
              filename="libview/context/pps-document-model.c"
-             line="503">Sets the document model's page layout to @layout.</doc>
+             line="509">Sets the document model's page layout to @layout.</doc>
         <source-position filename="libview/context/pps-document-model.h"
                          line="95"/>
         <return-value transfer-ownership="none">
@@ -556,13 +568,13 @@ The @callback will be called when the dialog is dismissed.</doc>
           <instance-parameter name="model" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/context/pps-document-model.c"
-                 line="505">a #PpsDocumentModel</doc>
+                 line="511">a #PpsDocumentModel</doc>
             <type name="DocumentModel" c:type="PpsDocumentModel*"/>
           </instance-parameter>
           <parameter name="layout" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/context/pps-document-model.c"
-                 line="506">a #PpsPageLayout</doc>
+                 line="512">a #PpsPageLayout</doc>
             <type name="PageLayout" c:type="PpsPageLayout"/>
           </parameter>
         </parameters>
@@ -3334,12 +3346,21 @@ care to treat any multi-line matches as being only one result.</doc>
            glib:type-struct="PrintOperationClass">
       <source-position filename="libview/pps-print-operation.h" line="34"/>
       <constructor name="new" c:identifier="pps_print_operation_new">
+        <doc xml:space="preserve"
+             filename="libview/pps-print-operation.c"
+             line="2080">Factory method to construct #PpsPrintOperation</doc>
         <source-position filename="libview/pps-print-operation.h" line="49"/>
-        <return-value transfer-ownership="full">
+        <return-value transfer-ownership="full" nullable="1">
+          <doc xml:space="preserve"
+               filename="libview/pps-print-operation.c"
+               line="2086">a #PpsPrintOperation</doc>
           <type name="PrintOperation" c:type="PpsPrintOperation*"/>
         </return-value>
         <parameters>
           <parameter name="document" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libview/pps-print-operation.c"
+                 line="2082">a #PpsDocument</doc>
             <type name="PapersDocument.Document" c:type="PpsDocument*"/>
           </parameter>
         </parameters>

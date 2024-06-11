@@ -12011,9 +12011,23 @@ so set a helper function to actually allow the user to enter his password.</doc>
            glib:get-type="pps_signature_get_type"
            glib:type-struct="SignatureClass">
       <source-position filename="libdocument/pps-signature.h" line="37"/>
+      <constructor name="new" c:identifier="pps_signature_new">
+        <source-position filename="libdocument/pps-signature.h" line="55"/>
+        <return-value transfer-ownership="full">
+          <type name="Signature" c:type="PpsSignature*"/>
+        </return-value>
+        <parameters>
+          <parameter name="status" transfer-ownership="none">
+            <type name="SignatureStatus" c:type="PpsSignatureStatus"/>
+          </parameter>
+          <parameter name="info" transfer-ownership="none">
+            <type name="CertificateInfo" c:type="PpsCertificateInfo*"/>
+          </parameter>
+        </parameters>
+      </constructor>
       <method name="get_background_color"
               c:identifier="pps_signature_get_background_color">
-        <source-position filename="libdocument/pps-signature.h" line="142"/>
+        <source-position filename="libdocument/pps-signature.h" line="147"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12028,7 +12042,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="get_border_color"
               c:identifier="pps_signature_get_border_color">
-        <source-position filename="libdocument/pps-signature.h" line="134"/>
+        <source-position filename="libdocument/pps-signature.h" line="139"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12043,7 +12057,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="get_border_width"
               c:identifier="pps_signature_get_border_width">
-        <source-position filename="libdocument/pps-signature.h" line="111"/>
+        <source-position filename="libdocument/pps-signature.h" line="116"/>
         <return-value transfer-ownership="none">
           <type name="gint" c:type="gint"/>
         </return-value>
@@ -12055,7 +12069,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="get_destination_file"
               c:identifier="pps_signature_get_destination_file">
-        <source-position filename="libdocument/pps-signature.h" line="59"/>
+        <source-position filename="libdocument/pps-signature.h" line="64"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const char*"/>
         </return-value>
@@ -12067,7 +12081,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="get_font_color"
               c:identifier="pps_signature_get_font_color">
-        <source-position filename="libdocument/pps-signature.h" line="126"/>
+        <source-position filename="libdocument/pps-signature.h" line="131"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12081,7 +12095,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="get_font_size" c:identifier="pps_signature_get_font_size">
-        <source-position filename="libdocument/pps-signature.h" line="97"/>
+        <source-position filename="libdocument/pps-signature.h" line="102"/>
         <return-value transfer-ownership="none">
           <type name="gint" c:type="gint"/>
         </return-value>
@@ -12093,7 +12107,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="get_left_font_size"
               c:identifier="pps_signature_get_left_font_size">
-        <source-position filename="libdocument/pps-signature.h" line="104"/>
+        <source-position filename="libdocument/pps-signature.h" line="109"/>
         <return-value transfer-ownership="none">
           <type name="gint" c:type="gint"/>
         </return-value>
@@ -12105,7 +12119,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="get_owner_password"
               c:identifier="pps_signature_get_owner_password">
-        <source-position filename="libdocument/pps-signature.h" line="151"/>
+        <source-position filename="libdocument/pps-signature.h" line="156"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const char*"/>
         </return-value>
@@ -12116,7 +12130,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="get_page" c:identifier="pps_signature_get_page">
-        <source-position filename="libdocument/pps-signature.h" line="66"/>
+        <source-position filename="libdocument/pps-signature.h" line="71"/>
         <return-value transfer-ownership="none">
           <type name="gint" c:type="gint"/>
         </return-value>
@@ -12127,7 +12141,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="get_password" c:identifier="pps_signature_get_password">
-        <source-position filename="libdocument/pps-signature.h" line="119"/>
+        <source-position filename="libdocument/pps-signature.h" line="124"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const char*"/>
         </return-value>
@@ -12138,7 +12152,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="get_rect" c:identifier="pps_signature_get_rect">
-        <source-position filename="libdocument/pps-signature.h" line="74"/>
+        <source-position filename="libdocument/pps-signature.h" line="79"/>
         <return-value transfer-ownership="full">
           <type name="Rectangle" c:type="PpsRectangle*"/>
         </return-value>
@@ -12149,7 +12163,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="get_signature" c:identifier="pps_signature_get_signature">
-        <source-position filename="libdocument/pps-signature.h" line="82"/>
+        <source-position filename="libdocument/pps-signature.h" line="87"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const char*"/>
         </return-value>
@@ -12161,7 +12175,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="get_signature_left"
               c:identifier="pps_signature_get_signature_left">
-        <source-position filename="libdocument/pps-signature.h" line="90"/>
+        <source-position filename="libdocument/pps-signature.h" line="95"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const char*"/>
         </return-value>
@@ -12173,7 +12187,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="get_user_password"
               c:identifier="pps_signature_get_user_password">
-        <source-position filename="libdocument/pps-signature.h" line="159"/>
+        <source-position filename="libdocument/pps-signature.h" line="164"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const char*"/>
         </return-value>
@@ -12187,7 +12201,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         <doc xml:space="preserve"
              filename="libdocument/pps-signature.c"
              line="460">Checks whether signature is valid</doc>
-        <source-position filename="libdocument/pps-signature.h" line="163"/>
+        <source-position filename="libdocument/pps-signature.h" line="168"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-signature.c"
@@ -12205,7 +12219,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="set_background_color"
               c:identifier="pps_signature_set_background_color">
-        <source-position filename="libdocument/pps-signature.h" line="138"/>
+        <source-position filename="libdocument/pps-signature.h" line="143"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12220,7 +12234,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="set_border_color"
               c:identifier="pps_signature_set_border_color">
-        <source-position filename="libdocument/pps-signature.h" line="130"/>
+        <source-position filename="libdocument/pps-signature.h" line="135"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12235,7 +12249,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="set_border_width"
               c:identifier="pps_signature_set_border_width">
-        <source-position filename="libdocument/pps-signature.h" line="107"/>
+        <source-position filename="libdocument/pps-signature.h" line="112"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12250,7 +12264,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="set_destination_file"
               c:identifier="pps_signature_set_destination_file">
-        <source-position filename="libdocument/pps-signature.h" line="54"/>
+        <source-position filename="libdocument/pps-signature.h" line="59"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12265,7 +12279,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="set_font_color"
               c:identifier="pps_signature_set_font_color">
-        <source-position filename="libdocument/pps-signature.h" line="122"/>
+        <source-position filename="libdocument/pps-signature.h" line="127"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12279,7 +12293,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="set_font_size" c:identifier="pps_signature_set_font_size">
-        <source-position filename="libdocument/pps-signature.h" line="93"/>
+        <source-position filename="libdocument/pps-signature.h" line="98"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12294,7 +12308,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="set_left_font_size"
               c:identifier="pps_signature_set_left_font_size">
-        <source-position filename="libdocument/pps-signature.h" line="100"/>
+        <source-position filename="libdocument/pps-signature.h" line="105"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12309,7 +12323,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="set_owner_password"
               c:identifier="pps_signature_set_owner_password">
-        <source-position filename="libdocument/pps-signature.h" line="146"/>
+        <source-position filename="libdocument/pps-signature.h" line="151"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12323,7 +12337,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="set_page" c:identifier="pps_signature_set_page">
-        <source-position filename="libdocument/pps-signature.h" line="62"/>
+        <source-position filename="libdocument/pps-signature.h" line="67"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12337,7 +12351,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="set_password" c:identifier="pps_signature_set_password">
-        <source-position filename="libdocument/pps-signature.h" line="114"/>
+        <source-position filename="libdocument/pps-signature.h" line="119"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12351,7 +12365,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="set_rect" c:identifier="pps_signature_set_rect">
-        <source-position filename="libdocument/pps-signature.h" line="69"/>
+        <source-position filename="libdocument/pps-signature.h" line="74"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12365,7 +12379,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="set_signature" c:identifier="pps_signature_set_signature">
-        <source-position filename="libdocument/pps-signature.h" line="77"/>
+        <source-position filename="libdocument/pps-signature.h" line="82"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12380,7 +12394,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="set_signature_left"
               c:identifier="pps_signature_set_signature_left">
-        <source-position filename="libdocument/pps-signature.h" line="85"/>
+        <source-position filename="libdocument/pps-signature.h" line="90"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12395,7 +12409,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="set_user_password"
               c:identifier="pps_signature_set_user_password">
-        <source-position filename="libdocument/pps-signature.h" line="154"/>
+        <source-position filename="libdocument/pps-signature.h" line="159"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>

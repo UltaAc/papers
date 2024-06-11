@@ -2866,6 +2866,10 @@ extern "C" {
     // PpsSignature
     //=========================================================================
     pub fn pps_signature_get_type() -> GType;
+    pub fn pps_signature_new(
+        status: PpsSignatureStatus,
+        info: *mut PpsCertificateInfo,
+    ) -> *mut PpsSignature;
     pub fn pps_signature_get_background_color(self_: *mut PpsSignature, color: *mut gdk::GdkRGBA);
     pub fn pps_signature_get_border_color(self_: *mut PpsSignature, color: *mut gdk::GdkRGBA);
     pub fn pps_signature_get_border_width(self_: *mut PpsSignature) -> c_int;

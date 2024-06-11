@@ -22,7 +22,7 @@ glib::wrapper! {
 
 impl PrintOperation {
     #[doc(alias = "pps_print_operation_new")]
-    pub fn new(document: &impl IsA<papers_document::Document>) -> PrintOperation {
+    pub fn new(document: &impl IsA<papers_document::Document>) -> Option<PrintOperation> {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_full(ffi::pps_print_operation_new(

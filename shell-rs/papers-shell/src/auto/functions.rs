@@ -6,10 +6,15 @@
 use crate::ffi;
 use glib::translate::*;
 
-//#[doc(alias = "pps_gdk_pixbuf_format_by_extension")]
-//pub fn gdk_pixbuf_format_by_extension(uri: &str) -> /*Ignored*/Option<gdk_pixbuf::PixbufFormat> {
-//    unsafe { TODO: call ffi:pps_gdk_pixbuf_format_by_extension() }
-//}
+#[doc(alias = "pps_gdk_pixbuf_format_by_extension")]
+pub fn gdk_pixbuf_format_by_extension(uri: &str) -> Option<gdk_pixbuf::PixbufFormat> {
+    assert_initialized_main_thread!();
+    unsafe {
+        from_glib_full(ffi::pps_gdk_pixbuf_format_by_extension(
+            uri.to_glib_none().0,
+        ))
+    }
+}
 
 //#[doc(alias = "pps_get_resource")]
 //#[doc(alias = "get_resource")]

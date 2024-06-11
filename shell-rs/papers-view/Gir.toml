@@ -23,6 +23,7 @@ external_libraries = [
 generate = [
     "PapersView.AttachmentContext",
     "PapersView.DocumentModel",
+    "PapersView.History",
     "PapersView.Metadata",
     "PapersView.SearchContext",
     "PapersView.SearchResult",
@@ -36,6 +37,7 @@ generate = [
     "PapersView.JobLinks",
     "PapersView.JobLoad",
     "PapersView.JobPriority",
+    "PapersView.JobSave",
     "PapersView.JobSignatures",
     "PapersView.JobThumbnailTexture",
     "PapersView.PageLayout",
@@ -47,6 +49,7 @@ generate = [
 manual = [
     "Gdk.EventType",
     "Gdk.Rectangle",
+    "Gdk.RGBA",
     "Gdk.Texture",
     "GdkPixbuf.Pixbuf",
     "GLib.DateTime",
@@ -73,7 +76,9 @@ manual = [
     "PapersDocument.FindOptions",
     "PapersDocument.Link",
     "PapersDocument.LinkAction",
+    "PapersDocument.Mapping",
     "PapersDocument.MappingList",
+    "PapersDocument.Signature",
 ]
 
 [[object]]
@@ -81,7 +86,4 @@ name = "PapersView.View"
 status = "generate"
     [[object.signal]]
     name = "popup"
-    manual = true
-    [[object.function]]
-    name = "focus_annotation"
     manual = true

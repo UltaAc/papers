@@ -5,6 +5,7 @@
 
 use crate::{ffi, CertificateInfo, Signature};
 use glib::{prelude::*, translate::*};
+use std::{boxed::Box as Box_, pin::Pin};
 
 glib::wrapper! {
     #[doc(alias = "PpsDocumentSignatures")]
@@ -98,25 +99,66 @@ pub trait DocumentSignaturesExt: IsA<DocumentSignatures> + sealed::Sealed + 'sta
         }
     }
 
-    //#[doc(alias = "pps_document_signatures_sign")]
-    //fn sign<P: FnOnce(Result<(), glib::Error>) + 'static>(&self, signature: &impl IsA<Signature>, cancellable: /*Ignored*/Option<&gio::Cancellable>, callback: P) -> bool {
-    //    unsafe { TODO: call ffi:pps_document_signatures_sign() }
-    //}
+    #[doc(alias = "pps_document_signatures_sign")]
+    fn sign<P: FnOnce(Result<(), glib::Error>) + 'static>(
+        &self,
+        signature: &impl IsA<Signature>,
+        cancellable: Option<&impl IsA<gio::Cancellable>>,
+        callback: P,
+    ) -> bool {
+        let main_context = glib::MainContext::ref_thread_default();
+        let is_main_context_owner = main_context.is_owner();
+        let has_acquired_main_context = (!is_main_context_owner)
+            .then(|| main_context.acquire().ok())
+            .flatten();
+        assert!(
+            is_main_context_owner || has_acquired_main_context.is_some(),
+            "Async operations only allowed if the thread is owning the MainContext"
+        );
 
-    //
-    //fn sign_future(&self, signature: &(impl IsA<Signature> + Clone + 'static)) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
+        let user_data: Box_<glib::thread_guard::ThreadGuard<P>> =
+            Box_::new(glib::thread_guard::ThreadGuard::new(callback));
+        unsafe extern "C" fn sign_trampoline<P: FnOnce(Result<(), glib::Error>) + 'static>(
+            _source_object: *mut glib::gobject_ffi::GObject,
+            res: *mut gio::ffi::GAsyncResult,
+            user_data: glib::ffi::gpointer,
+        ) {
+            let mut error = std::ptr::null_mut();
+            let _ =
+                ffi::pps_document_signatures_sign_finish(_source_object as *mut _, res, &mut error);
+            let result = if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            };
+            let callback: Box_<glib::thread_guard::ThreadGuard<P>> =
+                Box_::from_raw(user_data as *mut _);
+            let callback: P = callback.into_inner();
+            callback(result);
+        }
+        let callback = sign_trampoline::<P>;
+        unsafe {
+            from_glib(ffi::pps_document_signatures_sign(
+                self.as_ref().to_glib_none().0,
+                signature.as_ref().to_glib_none().0,
+                cancellable.map(|p| p.as_ref()).to_glib_none().0,
+                Some(callback),
+                Box_::into_raw(user_data) as *mut _,
+            ))
+        }
+    }
 
-    //let signature = signature.clone();
-    //Box_::pin(gio::GioFuture::new(self, move |obj, cancellable, send| {
-    //    obj.sign(
-    //        &signature,
-    //        Some(cancellable),
-    //        move |res| {
-    //            send.resolve(res);
-    //        },
-    //    );
-    //}))
-    //}
+    fn sign_future(
+        &self,
+        signature: &(impl IsA<Signature> + Clone + 'static),
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
+        let signature = signature.clone();
+        Box_::pin(gio::GioFuture::new(self, move |obj, cancellable, send| {
+            obj.sign(&signature, Some(cancellable), move |res| {
+                send.resolve(res);
+            });
+        }))
+    }
 }
 
 impl<O: IsA<DocumentSignatures>> DocumentSignaturesExt for O {}

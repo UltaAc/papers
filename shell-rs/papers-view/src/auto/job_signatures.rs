@@ -27,9 +27,13 @@ impl JobSignatures {
         }
     }
 
-    //#[doc(alias = "pps_job_signatures_get_signatures")]
-    //#[doc(alias = "get_signatures")]
-    //pub fn signatures(&self) -> /*Ignored*/Vec<papers_document::Signature> {
-    //    unsafe { TODO: call ffi:pps_job_signatures_get_signatures() }
-    //}
+    #[doc(alias = "pps_job_signatures_get_signatures")]
+    #[doc(alias = "get_signatures")]
+    pub fn signatures(&self) -> Vec<papers_document::Signature> {
+        unsafe {
+            FromGlibPtrContainer::from_glib_none(ffi::pps_job_signatures_get_signatures(
+                self.to_glib_none().0,
+            ))
+        }
+    }
 }

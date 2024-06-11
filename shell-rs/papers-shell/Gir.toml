@@ -27,6 +27,7 @@ external_libraries = [
 
 generate = [
     "PapersShell.FindSidebar",
+    "PapersShell.MessageArea",
     "PapersShell.ProgressMessageArea",
     "PapersShell.DocumentView",
     "PapersShell.*",
@@ -37,6 +38,7 @@ manual = [
     "Adw.ApplicationWindow",
     "Adw.HeaderBar",
     "Gdk.Display",
+    "GdkPixbuf.PixbufFormat",
     "Gio.ActionGroup",
     "Gio.ActionMap",
     "Gio.Application",
@@ -60,6 +62,7 @@ manual = [
     "Gtk.ApplicationWindow",
     "Gtk.Buildable",
     "Gtk.ConstraintTarget",
+    "Gtk.InfoBar",
     "Gtk.Native",
     "Gtk.PrintOperation",
     "Gtk.Root",
@@ -74,6 +77,7 @@ manual = [
     "PapersDocument.FindOptions",
     "PapersDocument.LinkDest",
     "PapersShell.Object",
+    "PapersView.Bookmarks",
     "PapersView.DocumentModel",
     "PapersView.JobFind",
     "PapersView.Metadata",

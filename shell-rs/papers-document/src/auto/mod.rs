@@ -132,6 +132,7 @@ pub use self::enums::TransitionEffectDirection;
 pub use self::enums::TransitionEffectType;
 
 mod flags;
+pub use self::flags::AnnotationsSaveMask;
 pub use self::flags::DocumentInfoFields;
 pub use self::flags::DocumentPermissions;
 pub use self::flags::FindOptions;

@@ -99,6 +99,13 @@ impl View {
         }
     }
 
+    #[doc(alias = "pps_view_focus_annotation")]
+    pub fn focus_annotation(&self, annot_mapping: &papers_document::Mapping) {
+        unsafe {
+            ffi::pps_view_focus_annotation(self.to_glib_none().0, annot_mapping.to_glib_none().0);
+        }
+    }
+
     #[doc(alias = "pps_view_get_allow_links_change_zoom")]
     #[doc(alias = "get_allow_links_change_zoom")]
     pub fn allows_links_change_zoom(&self) -> bool {
@@ -225,10 +232,12 @@ impl View {
         }
     }
 
-    //#[doc(alias = "pps_view_set_annotation_color")]
-    //pub fn set_annotation_color(&self, color: /*Ignored*/&mut gdk::RGBA) {
-    //    unsafe { TODO: call ffi:pps_view_set_annotation_color() }
-    //}
+    #[doc(alias = "pps_view_set_annotation_color")]
+    pub fn set_annotation_color(&self, color: &mut gdk::RGBA) {
+        unsafe {
+            ffi::pps_view_set_annotation_color(self.to_glib_none().0, color.to_glib_none_mut().0);
+        }
+    }
 
     #[doc(alias = "pps_view_set_caret_cursor_position")]
     pub fn set_caret_cursor_position(&self, page: u32, offset: u32) {

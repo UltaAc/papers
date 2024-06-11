@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{ffi, MessageArea};
+use crate::ffi;
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -12,69 +12,50 @@ use glib::{
 use std::boxed::Box as Box_;
 
 glib::wrapper! {
-    #[doc(alias = "PpsProgressMessageArea")]
-    pub struct ProgressMessageArea(Object<ffi::PpsProgressMessageArea, ffi::PpsProgressMessageAreaClass>) @extends MessageArea, gtk::Widget, @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
+    #[doc(alias = "PpsMessageArea")]
+    pub struct MessageArea(Object<ffi::PpsMessageArea, ffi::PpsMessageAreaClass>) @extends gtk::Widget, @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 
     match fn {
-        type_ => || ffi::pps_progress_message_area_get_type(),
+        type_ => || ffi::pps_message_area_get_type(),
     }
 }
 
-impl ProgressMessageArea {
-    pub const NONE: Option<&'static ProgressMessageArea> = None;
+impl MessageArea {
+    pub const NONE: Option<&'static MessageArea> = None;
 
-    #[doc(alias = "pps_progress_message_area_new")]
-    pub fn new(icon_name: &str, text: &str) -> ProgressMessageArea {
-        assert_initialized_main_thread!();
-        unsafe {
-            gtk::Widget::from_glib_none(ffi::pps_progress_message_area_new(
-                icon_name.to_glib_none().0,
-                text.to_glib_none().0,
-            ))
-            .unsafe_cast()
-        }
-    }
+    //#[doc(alias = "pps_message_area_new")]
+    //pub fn new(type_: /*Ignored*/gtk::MessageType, text: &str, first_button_text: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> MessageArea {
+    //    unsafe { TODO: call ffi:pps_message_area_new() }
+    //}
 
     // rustdoc-stripper-ignore-next
-    /// Creates a new builder-pattern struct instance to construct [`ProgressMessageArea`] objects.
+    /// Creates a new builder-pattern struct instance to construct [`MessageArea`] objects.
     ///
-    /// This method returns an instance of [`ProgressMessageAreaBuilder`](crate::builders::ProgressMessageAreaBuilder) which can be used to create [`ProgressMessageArea`] objects.
-    pub fn builder() -> ProgressMessageAreaBuilder {
-        ProgressMessageAreaBuilder::new()
+    /// This method returns an instance of [`MessageAreaBuilder`](crate::builders::MessageAreaBuilder) which can be used to create [`MessageArea`] objects.
+    pub fn builder() -> MessageAreaBuilder {
+        MessageAreaBuilder::new()
     }
 }
 
-impl Default for ProgressMessageArea {
+impl Default for MessageArea {
     fn default() -> Self {
         glib::object::Object::new::<Self>()
     }
 }
 
 // rustdoc-stripper-ignore-next
-/// A [builder-pattern] type to construct [`ProgressMessageArea`] objects.
+/// A [builder-pattern] type to construct [`MessageArea`] objects.
 ///
 /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
-pub struct ProgressMessageAreaBuilder {
-    builder: glib::object::ObjectBuilder<'static, ProgressMessageArea>,
+pub struct MessageAreaBuilder {
+    builder: glib::object::ObjectBuilder<'static, MessageArea>,
 }
 
-impl ProgressMessageAreaBuilder {
+impl MessageAreaBuilder {
     fn new() -> Self {
         Self {
             builder: glib::object::Object::builder(),
-        }
-    }
-
-    pub fn fraction(self, fraction: f64) -> Self {
-        Self {
-            builder: self.builder.property("fraction", fraction),
-        }
-    }
-
-    pub fn status(self, status: impl Into<glib::GString>) -> Self {
-        Self {
-            builder: self.builder.property("status", status.into()),
         }
     }
 
@@ -273,92 +254,159 @@ impl ProgressMessageAreaBuilder {
     //}
 
     // rustdoc-stripper-ignore-next
-    /// Build the [`ProgressMessageArea`].
+    /// Build the [`MessageArea`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
-    pub fn build(self) -> ProgressMessageArea {
+    pub fn build(self) -> MessageArea {
         self.builder.build()
     }
 }
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: super::IsA<super::ProgressMessageArea>> Sealed for T {}
+    impl<T: super::IsA<super::MessageArea>> Sealed for T {}
 }
 
-pub trait ProgressMessageAreaExt: IsA<ProgressMessageArea> + sealed::Sealed + 'static {
-    #[doc(alias = "pps_progress_message_area_set_fraction")]
-    #[doc(alias = "fraction")]
-    fn set_fraction(&self, fraction: f64) {
+pub trait MessageAreaExt: IsA<MessageArea> + sealed::Sealed + 'static {
+    #[doc(alias = "pps_message_area_add_button")]
+    fn add_button(&self, first_button_text: &str, response_id: i32) {
         unsafe {
-            ffi::pps_progress_message_area_set_fraction(self.as_ref().to_glib_none().0, fraction);
+            ffi::pps_message_area_add_button(
+                self.as_ref().to_glib_none().0,
+                first_button_text.to_glib_none().0,
+                response_id,
+            );
         }
     }
 
-    #[doc(alias = "pps_progress_message_area_set_status")]
-    #[doc(alias = "status")]
-    fn set_status(&self, str: &str) {
+    #[doc(alias = "pps_message_area_get_info_bar")]
+    #[doc(alias = "get_info_bar")]
+    fn info_bar(&self) -> Option<gtk::InfoBar> {
         unsafe {
-            ffi::pps_progress_message_area_set_status(
+            from_glib_none(ffi::pps_message_area_get_info_bar(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
+
+    #[doc(alias = "pps_message_area_set_image")]
+    #[doc(alias = "image")]
+    fn set_image(&self, image: &impl IsA<gtk::Widget>) {
+        unsafe {
+            ffi::pps_message_area_set_image(
+                self.as_ref().to_glib_none().0,
+                image.as_ref().to_glib_none().0,
+            );
+        }
+    }
+
+    #[doc(alias = "pps_message_area_set_image_from_icon_name")]
+    fn set_image_from_icon_name(&self, icon_name: &str) {
+        unsafe {
+            ffi::pps_message_area_set_image_from_icon_name(
+                self.as_ref().to_glib_none().0,
+                icon_name.to_glib_none().0,
+            );
+        }
+    }
+
+    #[doc(alias = "pps_message_area_set_secondary_text")]
+    #[doc(alias = "secondary-text")]
+    fn set_secondary_text(&self, str: &str) {
+        unsafe {
+            ffi::pps_message_area_set_secondary_text(
                 self.as_ref().to_glib_none().0,
                 str.to_glib_none().0,
             );
         }
     }
 
-    fn fraction(&self) -> f64 {
-        ObjectExt::property(self.as_ref(), "fraction")
+    #[doc(alias = "pps_message_area_set_text")]
+    #[doc(alias = "text")]
+    fn set_text(&self, str: &str) {
+        unsafe {
+            ffi::pps_message_area_set_text(self.as_ref().to_glib_none().0, str.to_glib_none().0);
+        }
     }
 
-    fn status(&self) -> Option<glib::GString> {
-        ObjectExt::property(self.as_ref(), "status")
+    fn image(&self) -> Option<gtk::Widget> {
+        ObjectExt::property(self.as_ref(), "image")
     }
 
-    #[doc(alias = "fraction")]
-    fn connect_fraction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_fraction_trampoline<
-            P: IsA<ProgressMessageArea>,
-            F: Fn(&P) + 'static,
-        >(
-            this: *mut ffi::PpsProgressMessageArea,
+    #[doc(alias = "secondary-text")]
+    fn secondary_text(&self) -> Option<glib::GString> {
+        ObjectExt::property(self.as_ref(), "secondary-text")
+    }
+
+    fn text(&self) -> Option<glib::GString> {
+        ObjectExt::property(self.as_ref(), "text")
+    }
+
+    #[doc(alias = "image")]
+    fn connect_image_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_image_trampoline<P: IsA<MessageArea>, F: Fn(&P) + 'static>(
+            this: *mut ffi::PpsMessageArea,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(ProgressMessageArea::from_glib_borrow(this).unsafe_cast_ref())
+            f(MessageArea::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::fraction\0".as_ptr() as *const _,
+                b"notify::image\0".as_ptr() as *const _,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
-                    notify_fraction_trampoline::<Self, F> as *const (),
+                    notify_image_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
             )
         }
     }
 
-    #[doc(alias = "status")]
-    fn connect_status_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_status_trampoline<
-            P: IsA<ProgressMessageArea>,
+    #[doc(alias = "secondary-text")]
+    fn connect_secondary_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_secondary_text_trampoline<
+            P: IsA<MessageArea>,
             F: Fn(&P) + 'static,
         >(
-            this: *mut ffi::PpsProgressMessageArea,
+            this: *mut ffi::PpsMessageArea,
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(ProgressMessageArea::from_glib_borrow(this).unsafe_cast_ref())
+            f(MessageArea::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::status\0".as_ptr() as *const _,
+                b"notify::secondary-text\0".as_ptr() as *const _,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
-                    notify_status_trampoline::<Self, F> as *const (),
+                    notify_secondary_text_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
+    #[doc(alias = "text")]
+    fn connect_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_text_trampoline<P: IsA<MessageArea>, F: Fn(&P) + 'static>(
+            this: *mut ffi::PpsMessageArea,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
+            let f: &F = &*(f as *const F);
+            f(MessageArea::from_glib_borrow(this).unsafe_cast_ref())
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::text\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
+                    notify_text_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
             )
@@ -366,4 +414,4 @@ pub trait ProgressMessageAreaExt: IsA<ProgressMessageArea> + sealed::Sealed + 's
     }
 }
 
-impl<O: IsA<ProgressMessageArea>> ProgressMessageAreaExt for O {}
+impl<O: IsA<MessageArea>> MessageAreaExt for O {}
