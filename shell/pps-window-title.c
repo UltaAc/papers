@@ -45,7 +45,6 @@ struct _PpsWindowTitle
 	PpsDocument *document;
 	char *filename;
 	char *doc_title;
-	char *dirname;
 };
 
 static const BadTitleEntry bad_extensions[] = {
@@ -133,9 +132,6 @@ pps_window_title_update (PpsWindowTitle *window_title)
 	} else if (title) {
 		adw_window_title_set_title (title_widget, title);
 	}
-	if (window_title->dirname)
-		gtk_widget_set_tooltip_text (GTK_WIDGET (header_bar),
-					     window_title->dirname);
 
 	g_free (title);
 }
@@ -159,7 +155,6 @@ document_destroyed_cb (PpsWindowTitle *window_title,
 {
         window_title->document = NULL;
         g_clear_pointer (&window_title->doc_title, g_free);
-        g_clear_pointer (&window_title->dirname, g_free);
 }
 
 void
@@ -174,12 +169,9 @@ pps_window_title_set_document (PpsWindowTitle *window_title,
 	window_title->document = document;
         g_object_weak_ref (G_OBJECT (window_title->document), (GWeakNotify)document_destroyed_cb, window_title);
         g_clear_pointer (&window_title->doc_title, g_free);
-        g_clear_pointer (&window_title->dirname, g_free);
 
 	if (window_title->document != NULL) {
 		gchar *doc_title;
-		gchar *filepath;
-		gchar *dirname;
 
 		doc_title = g_strdup (pps_document_get_title (window_title->document));
 
@@ -196,14 +188,6 @@ pps_window_title_set_document (PpsWindowTitle *window_title,
                                 g_free (doc_title);
                         }
 		}
-
-		filepath = g_filename_from_uri (pps_document_get_uri (window_title->document),
-						NULL, NULL);
-		dirname = g_path_get_dirname (filepath);
-		g_free (filepath);
-
-		if (dirname)
-			window_title->dirname = dirname;
 	}
 
 	pps_window_title_update (window_title);
@@ -229,6 +213,5 @@ pps_window_title_free (PpsWindowTitle *window_title)
                 g_object_weak_unref (G_OBJECT (window_title->document), (GWeakNotify)document_destroyed_cb, window_title);
         g_free (window_title->doc_title);
 	g_free (window_title->filename);
-	g_free (window_title->dirname);
 	g_free (window_title);
 }
