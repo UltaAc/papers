@@ -6,7 +6,6 @@
   <object class="PpsDocumentModel" id="model">
     <!-- This object should be constructed before it can be used as construct-only properties. -->
     <signal name="page-changed" handler="page_changed_cb" swapped="yes" />
-    <signal name="notify::document" handler="document_changed_cb" />
     <signal name="notify::scale" handler="zoom_changed_cb" />
     <signal name="notify::sizing-mode" handler="sizing_mode_changed_cb" />
     <signal name="notify::rotation" handler="rotation_changed_cb" />

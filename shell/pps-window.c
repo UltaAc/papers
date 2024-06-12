@@ -1388,6 +1388,7 @@ pps_window_set_document (PpsWindow *pps_window, PpsDocument *document)
 	if (priv->document)
 		g_object_unref (priv->document);
 	priv->document = g_object_ref (document);
+	pps_document_model_set_document (priv->model, document);
 
 	pps_window_set_message_area (pps_window, NULL);
 
@@ -1543,7 +1544,8 @@ pps_window_load_job_cb (PpsJob *job,
 
 	/* Success! */
 	if (pps_job_is_succeeded (job, &error)) {
-		pps_document_model_set_document (priv->model, g_steal_pointer (&document));
+		pps_window_set_document (pps_window,
+					 g_steal_pointer (&document));
 
 		setup_document_from_metadata (pps_window);
 		setup_view_from_metadata (pps_window);
@@ -1627,8 +1629,8 @@ pps_window_reload_job_cb (PpsJob    *job,
 		return;
 	}
 
-	pps_document_model_set_document (priv->model,
-					pps_job_load_get_loaded_document (PPS_JOB_LOAD (job)));
+	pps_window_set_document (pps_window,
+				 pps_job_load_get_loaded_document (PPS_JOB_LOAD (job)));
 	if (priv->dest) {
 		pps_window_handle_link (pps_window, priv->dest);
 		g_clear_object (&priv->dest);
@@ -2084,7 +2086,7 @@ pps_window_open_document (PpsWindow  *pps_window,
 	setup_size_from_metadata (pps_window);
 	setup_model_from_metadata (pps_window);
 
-	pps_document_model_set_document (priv->model, document);
+	pps_window_set_document (pps_window, document);
 
 	setup_document_from_metadata (pps_window);
 	setup_view_from_metadata (pps_window);
@@ -4134,15 +4136,6 @@ save_sizing_mode (PpsWindow *window)
 }
 
 static void
-document_changed_cb (PpsDocumentModel *model,
-			       GParamSpec      *pspec,
-			       PpsWindow        *pps_window)
-{
-	pps_window_set_document (pps_window,
-				pps_document_model_get_document (model));
-}
-
-static void
 pps_window_document_modified_cb (PpsDocument *document,
                                 GParamSpec *pspec,
                                 PpsWindow   *pps_window)
@@ -5976,7 +5969,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 
 	/* model */
 	gtk_widget_class_bind_template_callback (widget_class, page_changed_cb);
-	gtk_widget_class_bind_template_callback (widget_class, document_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, zoom_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sizing_mode_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, rotation_changed_cb);
