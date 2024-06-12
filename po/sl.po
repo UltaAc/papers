@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: evince master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-06-10 08:48+0000\n"
-"PO-Revision-Date: 2024-06-11 17:23+0200\n"
+"POT-Creation-Date: 2024-06-12 11:03+0000\n"
+"PO-Revision-Date: 2024-06-12 17:24+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -29,7 +29,7 @@ msgstr ""
 #: data/org.gnome.Papers.desktop.in.in:3
 #: data/org.gnome.Papers.metainfo.xml.in.in:23
 #: previewer/pps-previewer-window.c:481 shell/pps-loader-view.ui:10
-#: shell/pps-window.ui:145 shell/pps-window-title.c:126
+#: shell/pps-window.ui:145 shell/pps-window-title.c:125
 #: shell-rs/src/application.rs:38 shell-rs/src/application.rs:68
 #: shell-rs/src/application.rs:303
 msgid "Papers"
@@ -567,7 +567,7 @@ msgid "Invalid page selection"
 msgstr "Neveljaven izbor strani"
 
 #: libview/pps-print-operation.c:2018
-#: shell/pps-annotation-properties-dialog.c:151 shell/pps-window.ui:654
+#: shell/pps-annotation-properties-dialog.c:151 shell/pps-window.ui:657
 msgid "_Close"
 msgstr "_Zapri"
 
@@ -814,7 +814,7 @@ msgstr "_Natisni"
 msgid "Print This Document"
 msgstr "Natisnite ta dokument"
 
-#: previewer/pps-previewer-window.ui:48
+#: previewer/pps-previewer-window.ui:48 shell/pps-window.ui:364
 msgid "Zoom Out"
 msgstr "Oddalji"
 
@@ -822,7 +822,7 @@ msgstr "Oddalji"
 msgid "Normal Size"
 msgstr "Navadna velikost"
 
-#: previewer/pps-previewer-window.ui:62
+#: previewer/pps-previewer-window.ui:62 shell/pps-window.ui:353
 msgid "Zoom In"
 msgstr "Približaj"
 
@@ -1291,7 +1291,7 @@ msgstr "Prosojnost:"
 msgid "Initial window state:"
 msgstr "Začetno stanje okna:"
 
-#: shell/pps-annotation-properties-dialog.c:204 shell/pps-window.ui:661
+#: shell/pps-annotation-properties-dialog.c:204 shell/pps-window.ui:664
 msgid "Open"
 msgstr "Odpri"
 
@@ -1402,13 +1402,13 @@ msgstr "Brez opomb"
 msgid "Remove Annotation"
 msgstr "Odstrani pripombe"
 
-#: shell/pps-sidebar-annotations.ui:71 shell/pps-window.ui:800
-#: shell/pps-window.ui:837
+#: shell/pps-sidebar-annotations.ui:71 shell/pps-window.ui:803
+#: shell/pps-window.ui:840
 msgid "_Open Attachment"
 msgstr "_Odpri prilogo"
 
-#: shell/pps-sidebar-annotations.ui:76 shell/pps-window.ui:805
-#: shell/pps-window.ui:841
+#: shell/pps-sidebar-annotations.ui:76 shell/pps-window.ui:808
+#: shell/pps-window.ui:844
 msgid "_Save Attachment As…"
 msgstr "Shrani prilogo _kot …"
 
@@ -1675,15 +1675,19 @@ msgstr "Preklopi stransko okno"
 msgid "Document Menu"
 msgstr "Meni Dokument"
 
-#: shell/pps-window.ui:422
+#: shell/pps-window.ui:333
+msgid "Set Automatic Sizing Mode"
+msgstr "Nastavi način samodejnega določanja velikosti"
+
+#: shell/pps-window.ui:425
 msgid "Loading…"
 msgstr "Poteka nalaganje …"
 
-#: shell/pps-window.ui:625
+#: shell/pps-window.ui:628
 msgid "Enable Caret Navigation?"
 msgstr "Ali naj bo omogočeno krmarjenje kazalke?"
 
-#: shell/pps-window.ui:626
+#: shell/pps-window.ui:629
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1693,23 +1697,23 @@ msgstr ""
 "Možnost postavi kazalko na strani besedila in omogoča pomikanje med "
 "besedilom in izbiranje besedila s tipkovnico."
 
-#: shell/pps-window.ui:629
+#: shell/pps-window.ui:632
 msgid "Don’t show this message again"
 msgstr "Sporočila ne pokaži več"
 
-#: shell/pps-window.ui:634 shell/pps-window.ui:646
+#: shell/pps-window.ui:637 shell/pps-window.ui:649
 msgid "_Cancel"
 msgstr "_Prekliči"
 
-#: shell/pps-window.ui:635
+#: shell/pps-window.ui:638
 msgid "_Enable"
 msgstr "_Omogoči"
 
-#: shell/pps-window.ui:641
+#: shell/pps-window.ui:644
 msgid "Abort Printing?"
 msgstr "Prekinitev tiskanja?"
 
-#: shell/pps-window.ui:642
+#: shell/pps-window.ui:645
 msgid ""
 "There is one or more active print jobs. If the window is closed, pending "
 "print jobs will not be printed."
@@ -1717,127 +1721,127 @@ msgstr ""
 "Obstaja eno ali več dejavnih opravil tiskanja. V primeru, da zaprete okno, "
 "čakajoči posli tiskanja ne bodo izvršeni."
 
-#: shell/pps-window.ui:645
+#: shell/pps-window.ui:648
 msgid "Abort _Print and Close"
 msgstr "Prekini _tiskanje in zapri okno"
 
-#: shell/pps-window.ui:647
+#: shell/pps-window.ui:650
 msgid "Close _After Printing"
 msgstr "Zapri _po tiskanju"
 
-#: shell/pps-window.ui:667
+#: shell/pps-window.ui:670
 msgid "Ni_ght Mode"
 msgstr "_Nočni način prikaza"
 
-#: shell/pps-window.ui:673
+#: shell/pps-window.ui:676
 msgid "_Keyboard Shortcuts"
 msgstr "_Tipkovne bližnjice‫"
 
-#: shell/pps-window.ui:677
+#: shell/pps-window.ui:680
 msgid "_Help"
 msgstr "Pomo_č"
 
-#: shell/pps-window.ui:681
+#: shell/pps-window.ui:684
 msgid "_About Papers"
 msgstr "_O programu Članki"
 
-#: shell/pps-window.ui:689
+#: shell/pps-window.ui:692
 msgid "_Print…"
 msgstr "Na_tisni …"
 
-#: shell/pps-window.ui:693
+#: shell/pps-window.ui:696
 msgid "Fullscreen"
 msgstr "Celozaslonski način"
 
-#: shell/pps-window.ui:697
+#: shell/pps-window.ui:700
 msgid "Present as Slideshow"
 msgstr "Prikaži kot diapredstavitev"
 
-#: shell/pps-window.ui:703
+#: shell/pps-window.ui:706
 msgid "Open a C_opy"
 msgstr "Odpri kopijo"
 
-#: shell/pps-window.ui:707
+#: shell/pps-window.ui:710
 msgid "_Save As…"
 msgstr "S_hrani kot …"
 
-#: shell/pps-window.ui:713
+#: shell/pps-window.ui:716
 msgid "_Continuous"
 msgstr "N_eprekinjeno premikanje"
 
-#: shell/pps-window.ui:717
+#: shell/pps-window.ui:720
 msgid "_Dual"
 msgstr "_Dvojni pogled strani"
 
-#: shell/pps-window.ui:721
+#: shell/pps-window.ui:724
 msgid "_Odd Pages Left"
 msgstr "_Preostale lihe strani"
 
-#: shell/pps-window.ui:725
+#: shell/pps-window.ui:728
 msgid "Right to Left Document"
 msgstr "Dokument z zapisom z desne proti levi"
 
-#: shell/pps-window.ui:731
+#: shell/pps-window.ui:734
 msgid "Ro_tate ⤵"
 msgstr "Zavrti _levo ⤵"
 
-#: shell/pps-window.ui:737
+#: shell/pps-window.ui:740
 msgid "Document Prop_erties"
 msgstr "Lastnosti do_kumenta"
 
-#: shell/pps-window.ui:746
+#: shell/pps-window.ui:749
 msgid "_Open Link"
 msgstr "_Odpri povezavo"
 
-#: shell/pps-window.ui:751
+#: shell/pps-window.ui:754
 msgid "_Copy Link Address"
 msgstr "_Kopiraj naslov povezave"
 
-#: shell/pps-window.ui:756
+#: shell/pps-window.ui:759
 msgid "_Go To"
 msgstr "Sk_oči na"
 
-#: shell/pps-window.ui:761
+#: shell/pps-window.ui:764
 msgid "Open in New _Window"
 msgstr "Odpri v _novem oknu"
 
-#: shell/pps-window.ui:768
+#: shell/pps-window.ui:771
 msgid "_Previous Page"
 msgstr "P_redhodna stran"
 
-#: shell/pps-window.ui:772
+#: shell/pps-window.ui:775
 msgid "_Next Page"
 msgstr "_Naslednja stran"
 
-#: shell/pps-window.ui:778
+#: shell/pps-window.ui:781
 msgid "_Copy"
 msgstr "_Kopiraj"
 
-#: shell/pps-window.ui:782
+#: shell/pps-window.ui:785
 msgid "Select _All"
 msgstr "Izberi _vse"
 
-#: shell/pps-window.ui:788
+#: shell/pps-window.ui:791
 msgid "_Save Image As…"
 msgstr "S_hrani sliko kot …"
 
-#: shell/pps-window.ui:793
+#: shell/pps-window.ui:796
 msgid "Copy _Image"
 msgstr "Kopiraj _sliko"
 
-#: shell/pps-window.ui:812
+#: shell/pps-window.ui:815
 msgid "Annotation _Properties…"
 msgstr "Lastnosti _pripombe …"
 
-#: shell/pps-window.ui:817
+#: shell/pps-window.ui:820
 msgid "R_emove Annotation"
 msgstr "_Odstrani pripombo"
 
-#: shell/pps-window.ui:824
+#: shell/pps-window.ui:827
 msgid "_Add Text Annotation"
 msgstr "_Dodaj besedilno pripombo"
 
-#: shell/pps-window.ui:829
+#: shell/pps-window.ui:832
 msgid "_Highlight Selected Text"
 msgstr "_Poudari izbrano besedilo"
 
