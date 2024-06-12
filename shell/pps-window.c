@@ -137,7 +137,6 @@ typedef struct {
 	char *display_name;
 	char *edit_name;
 	PpsFileMonitor *monitor;
-	guint setup_document_idle;
 
 	PpsDocument *document;
 	PpsHistory *history;
@@ -1357,33 +1356,6 @@ pps_window_setup_lockdown (PpsWindow *pps_window)
 }
 
 static void
-pps_window_setup_document (PpsWindow *pps_window)
-{
-	const PpsDocumentInfo *info;
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	PpsDocument *document = priv->document;
-
-	priv->setup_document_idle = 0;
-
-	pps_window_set_mode (pps_window, PPS_WINDOW_MODE_NORMAL);
-	pps_window_title_set_document (priv->title, document);
-	pps_window_title_set_filename (priv->title,
-				      priv->display_name);
-
-	pps_window_setup_lockdown (pps_window);
-
-	pps_window_update_actions_sensitivity (pps_window);
-
-	info = pps_document_get_info (document);
-	update_document_mode (pps_window, info->mode);
-
-	if (PPS_WINDOW_IS_PRESENTATION (priv))
-		gtk_widget_grab_focus (priv->presentation_view);
-	else
-		gtk_widget_grab_focus (priv->view);
-}
-
-static void
 pps_window_set_document_metadata (PpsWindow *window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
@@ -1408,6 +1380,7 @@ static void
 pps_window_set_document (PpsWindow *pps_window, PpsDocument *document)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
+	const PpsDocumentInfo *info;
 
 	if (priv->document == document)
 		return;
@@ -1428,7 +1401,7 @@ pps_window_set_document (PpsWindow *pps_window, PpsDocument *document)
 					   _("The document contains only empty pages"));
 	}
 
-	pps_window_set_mode(pps_window, PPS_WINDOW_MODE_NORMAL);
+	pps_window_set_mode (pps_window, PPS_WINDOW_MODE_NORMAL);
 
 	pps_window_update_actions_sensitivity (pps_window);
 
@@ -1446,9 +1419,19 @@ pps_window_set_document (PpsWindow *pps_window, PpsDocument *document)
 	priv->is_modified = FALSE;
 	priv->modified_handler_id = g_signal_connect (document, "notify::modified", G_CALLBACK (pps_window_document_modified_cb), pps_window);
 
-	g_clear_handle_id (&priv->setup_document_idle, g_source_remove);
+	pps_window_title_set_document (priv->title, document);
+	pps_window_title_set_filename (priv->title,
+				      priv->display_name);
 
-	priv->setup_document_idle = g_idle_add_once ((GSourceOnceFunc)pps_window_setup_document, pps_window);
+	pps_window_setup_lockdown (pps_window);
+
+	info = pps_document_get_info (priv->document);
+	update_document_mode (pps_window, info->mode);
+
+	if (PPS_WINDOW_IS_PRESENTATION (priv))
+		gtk_widget_grab_focus (priv->presentation_view);
+	else
+		gtk_widget_grab_focus (priv->view);
 }
 
 
@@ -4908,7 +4891,6 @@ pps_window_dispose (GObject *object)
 	g_clear_object (&priv->bookmarks);
 	g_clear_object (&priv->metadata);
 
-	g_clear_handle_id (&priv->setup_document_idle, g_source_remove);
 	g_clear_handle_id (&priv->loading_message_timeout, g_source_remove);
 
 	g_clear_object (&priv->monitor);
