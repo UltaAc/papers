@@ -4941,8 +4941,7 @@ pps_window_dispose (GObject *object)
 
 	g_settings_apply (priv->default_settings);
 
-	/* FIXME: crash when closing papers window */
-	/* g_clear_object (&priv->lockdown_settings); */
+	g_clear_object (&priv->lockdown_settings);
 
 	g_clear_object (&priv->document);
 
