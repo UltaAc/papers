@@ -1355,7 +1355,6 @@ override_restrictions_changed (GSettings *settings,
 	pps_window_update_actions_sensitivity (pps_window);
 }
 
-#ifdef HAVE_DESKTOP_SCHEMAS
 static void
 lockdown_changed (GSettings   *lockdown,
 		  const gchar *key,
@@ -1363,7 +1362,34 @@ lockdown_changed (GSettings   *lockdown,
 {
 	pps_window_update_actions_sensitivity (pps_window);
 }
-#endif
+
+/* This function detects the schema dynamically, since not only
+ * linux installations have the schemas available
+ */
+static void
+pps_window_setup_lockdown (PpsWindow *pps_window)
+{
+	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
+	GSettingsSchemaSource *source;
+	g_autoptr(GSettingsSchema) schema = NULL;
+	static gboolean probed = FALSE;
+
+	if (priv->lockdown_settings || probed)
+		return;
+
+	probed = TRUE;
+
+	source = g_settings_schema_source_get_default ();
+	schema = g_settings_schema_source_lookup (source, GS_LOCKDOWN_SCHEMA_NAME, TRUE);
+
+	if (!schema)
+		return;
+
+	priv->lockdown_settings = g_settings_new_full (schema, NULL, NULL);
+
+	g_signal_connect (priv->lockdown_settings, "changed",
+			  G_CALLBACK (lockdown_changed), pps_window);
+}
 
 static void
 pps_window_setup_document (PpsWindow *pps_window)
@@ -1379,15 +1405,7 @@ pps_window_setup_document (PpsWindow *pps_window)
 	pps_window_title_set_filename (priv->title,
 				      priv->display_name);
 
-#ifdef HAVE_DESKTOP_SCHEMAS
-	if (!priv->lockdown_settings) {
-		priv->lockdown_settings = g_settings_new (GS_LOCKDOWN_SCHEMA_NAME);
-		g_signal_connect (priv->lockdown_settings,
-				  "changed",
-				  G_CALLBACK (lockdown_changed),
-				  pps_window);
-	}
-#endif
+	pps_window_setup_lockdown (pps_window);
 
 	pps_window_update_actions_sensitivity (pps_window);
 

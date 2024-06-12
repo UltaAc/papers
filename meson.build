@@ -248,10 +248,6 @@ else
   enable_gtk_doc = false
 endif
 
-# *** Check for Desktop Schemas ***
-gsettings_desktop_schemas_dep = dependency('gsettings-desktop-schemas', required: false)
-config_h.set('HAVE_DESKTOP_SCHEMAS', gsettings_desktop_schemas_dep.found())
-
 # *** Mime types list ***
 mime_types_list = {
   'comics': [
