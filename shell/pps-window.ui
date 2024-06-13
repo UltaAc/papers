@@ -416,8 +416,6 @@
                                 <property name="visible">True</property>
                                 <child>
                                   <object class="GtkSpinner">
-                                    <signal name="map" handler="pps_spinner_map_cb" />
-                                    <signal name="unmap" handler="pps_spinner_unmap_cb" />
                                   </object>
                                 </child>
                                 <child>

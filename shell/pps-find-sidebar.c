@@ -149,9 +149,6 @@ pps_find_sidebar_class_init (PpsFindSidebarClass *find_sidebar_class)
         gtk_widget_class_bind_template_child_private (widget_class,
                                                       PpsFindSidebar, selection);
 
-        gtk_widget_class_bind_template_callback (widget_class, pps_spinner_map_cb);
-        gtk_widget_class_bind_template_callback (widget_class, pps_spinner_unmap_cb);
-
         gtk_widget_class_bind_template_callback (widget_class, factory_setup_cb);
         gtk_widget_class_bind_template_callback (widget_class, factory_bind_cb);
         gtk_widget_class_bind_template_callback (widget_class, factory_unbind_cb);

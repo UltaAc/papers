@@ -35,11 +35,4 @@ void                    pps_spawn (const char      *uri,
 				   PpsLinkDest     *dest,
 				   PpsWindowRunMode mode);
 
-
-/*
- * Temporary hack around https://gitlab.gnome.org/GNOME/gtk/-/issues/1025
- */
-void                    pps_spinner_map_cb (GtkSpinner *spinner);
-void                    pps_spinner_unmap_cb (GtkSpinner *spinner);
-
 G_END_DECLS

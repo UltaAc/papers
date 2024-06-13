@@ -87,17 +87,6 @@ pps_gdk_pixbuf_format_by_extension (const gchar *uri)
 	return NULL;
 }
 
-void
-pps_spinner_map_cb (GtkSpinner *spinner) {
-	gtk_spinner_set_spinning(spinner, TRUE);
-}
-
-void
-pps_spinner_unmap_cb (GtkSpinner *spinner) {
-	gtk_spinner_set_spinning(spinner, FALSE);
-}
-
-
 /**
  * pps_spawn:
  * @uri: (nullable): The uri to be opened.

@@ -5775,8 +5775,6 @@ pps_window_class_init (PpsWindowClass *pps_window_class)
 	gtk_widget_class_bind_template_callback (widget_class, pps_window_drag_data_received);
 	gtk_widget_class_bind_template_callback (widget_class, zoom_selector_activated);
 	gtk_widget_class_bind_template_callback (widget_class, find_button_sensitive_changed);
-	gtk_widget_class_bind_template_callback (widget_class, pps_spinner_map_cb);
-	gtk_widget_class_bind_template_callback (widget_class, pps_spinner_unmap_cb);
 	gtk_widget_class_bind_template_callback (widget_class, scrolled_window_focus_in_cb);
 	gtk_widget_class_bind_template_callback (widget_class, scroll_child_history_cb);
 	gtk_widget_class_bind_template_callback (widget_class, caret_navigation_alert_response_cb);
