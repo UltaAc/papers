@@ -26,6 +26,7 @@ mod sidebar_links;
 mod sidebar_thumbnails;
 mod stack_switcher;
 mod thumbnail_item;
+mod window;
 
 use deps::*;
 
@@ -49,6 +50,7 @@ fn ensure_type() {
     sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
     sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
     stack_switcher::PpsStackSwitcher::ensure_type();
+    window::file_monitor::PpsFileMonitor::ensure_type();
 }
 
 fn main() -> glib::ExitCode {

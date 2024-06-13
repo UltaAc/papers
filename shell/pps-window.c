@@ -42,7 +42,6 @@
 
 #include <papers-view.h>
 #include "pps-find-sidebar.h"
-#include "pps-file-monitor.h"
 #include "pps-history.h"
 #include "pps-message-area.h"
 #include "pps-metadata.h"
@@ -135,7 +134,7 @@ typedef struct {
 	char *local_uri;
 	char *display_name;
 	char *edit_name;
-	PpsFileMonitor *monitor;
+	GObject *monitor;
 
 	PpsDocument *document;
 	PpsHistory *history;
@@ -1964,7 +1963,8 @@ pps_window_open_uri (PpsWindow       *pps_window,
 
 	g_clear_object (&priv->monitor);
 	/* Create a monitor for the document */
-	priv->monitor = pps_file_monitor_new (priv->uri);
+	priv->monitor = g_object_new (g_type_from_name ("PpsFileMonitor"),
+				      "uri", priv->uri, NULL);
 	g_signal_connect_swapped (priv->monitor, "changed",
 				  G_CALLBACK (pps_window_file_changed),
 				  pps_window);
@@ -2031,7 +2031,8 @@ pps_window_open_document (PpsWindow  *pps_window,
 
 	g_clear_object (&priv->monitor);
 	/* Create a monitor for the document */
-	priv->monitor = pps_file_monitor_new (priv->uri);
+	priv->monitor = g_object_new (g_type_from_name ("PpsFileMonitor"),
+				      "uri", priv->uri, NULL);
 	g_signal_connect_swapped (priv->monitor, "changed",
 				  G_CALLBACK (pps_window_file_changed),
 				  pps_window);

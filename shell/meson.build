@@ -1,6 +1,5 @@
 papers_sources = files(
   'pps-bookmarks.c',
-  'pps-file-monitor.c',
   'pps-find-sidebar.c',
   'pps-history.c',
   'pps-keyring.c',
@@ -89,7 +88,6 @@ headers = files(
   'pps-utils.h',
   'pps-find-sidebar.h',
   'pps-sidebar-annotations.h',
-  'pps-file-monitor.h',
   'pps-progress-message-area.h',
   'pps-message-area.h',
 )
