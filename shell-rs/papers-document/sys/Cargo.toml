@@ -24,49 +24,33 @@ name = "papers_document_sys"
 libc = "0.2"
 
 [dependencies.gio-sys]
-git = "https://github.com/gtk-rs/gtk-rs-core"
-branch = "master"
-version = "0.20"
+version = "0.19"
 
 [dependencies.glib-sys]
 package = "glib-sys"
-git = "https://github.com/gtk-rs/gtk-rs-core"
-branch = "master"
-version = "0.20"
+version = "0.19"
 
 [dependencies.gobject-sys]
-git = "https://github.com/gtk-rs/gtk-rs-core"
-branch = "master"
-version = "0.20"
+version = "0.19"
 
 [dependencies.cairo-sys]
 package = "cairo-sys-rs"
-git = "https://github.com/gtk-rs/gtk-rs-core"
-branch = "master"
-version = "0.20"
+version = "0.19"
 
 [dependencies.gdk-pixbuf-sys]
-git = "https://github.com/gtk-rs/gtk-rs-core"
-branch = "master"
-version = "0.20"
+version = "0.19"
 
 [dependencies.pango-sys]
 package = "pango-sys"
-git = "https://github.com/gtk-rs/gtk-rs-core"
-branch = "master"
-version = "0.20"
+version = "0.19"
 
 [dependencies.gdk-sys]
 package = "gdk4-sys"
-git = "https://github.com/gtk-rs/gtk4-rs"
-branch = "master"
-version = "0.9"
+version = "0.8"
 
 [dependencies.gtk-sys]
 package = "gtk4-sys"
-git = "https://github.com/gtk-rs/gtk4-rs"
-branch = "master"
-version = "0.9"
+version = "0.8"
 
 [build-dependencies]
 system-deps = "6"
