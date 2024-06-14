@@ -430,9 +430,9 @@ pub fn spawn(uri: Option<&str>, dest: Option<&LinkDest>, mode: WindowRunMode) {
     }
 
     let app =
-        gio::AppInfo::create_from_commandline(cmd, None, gio::AppInfoCreateFlags::SUPPORTS_URIS);
+        gio::AppInfo::create_from_commandline(&cmd, None, gio::AppInfoCreateFlags::SUPPORTS_URIS);
 
-    if let Err(e) = app.and_then(|app| {
+    let result = app.and_then(|app| {
         let ctx = gdk::Display::default().map(|display| display.app_launch_context());
         // Some URIs can be changed when passed through a GFile
         // (for instance unsupported uris with strange formats like mailto:),
@@ -446,11 +446,24 @@ pub fn spawn(uri: Option<&str>, dest: Option<&LinkDest>, mode: WindowRunMode) {
         }
 
         app.launch_uris(&uris, ctx.as_ref())
-    }) {
-        glib::g_printerr!(
-            "Error launching papers {}: {}\n",
-            uri.unwrap_or_default(),
-            e.message()
-        );
+    });
+
+    if let Err(e) = result {
+        debug!("fallback to plain spawn: {}", e.message());
+
+        if let Some(uri) = uri {
+            cmd.push(' ');
+            cmd.push_str(uri);
+        }
+
+        // MacOS take this path since GAppInfo doesn't support created by
+        // command line on MacOS.
+        if let Err(e) = glib::spawn_command_line_async(cmd) {
+            glib::g_printerr!(
+                "Error launching papers {}: {}\n",
+                uri.unwrap_or_default(),
+                e.message()
+            );
+        }
     }
 }

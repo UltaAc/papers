@@ -186,8 +186,25 @@ pps_spawn (const char	  *uri,
 	}
 
 	if (error != NULL) {
-		g_printerr ("Error launching papers %s: %s\n", uri, error->message);
-		g_error_free (error);
+		g_debug ("fallback to plain process spawn: %s", error->message);
+		g_clear_pointer (&error, g_error_free);
+
+		cmd = g_string_new (cmdline);
+		g_free (cmdline);
+
+		g_string_append_printf (cmd, " %s", uri);
+
+		cmdline = g_string_free (cmd, FALSE);
+
+		/* MacOS take this path since GAppInfo doesn't support created by
+		 * command line on MacOS.
+		 */
+		g_spawn_command_line_async (cmdline, &error);
+
+		if (error != NULL) {
+			g_printerr ("Error launching papers %s: %s\n", uri, error->message);
+			g_error_free (error);
+		}
 	}
 
 	g_free (cmdline);
