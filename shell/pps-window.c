@@ -106,7 +106,6 @@ typedef struct {
 	GSettings *lockdown_settings;
 
 	/* Progress Messages */
-	guint progress_idle;
 	GCancellable *progress_cancellable;
 
 	/* Loading message */
@@ -1679,38 +1678,6 @@ pps_window_close_dialogs (PpsWindow *pps_window)
 
 
 static void
-pps_window_clear_progress_idle (PpsWindow *pps_window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-
-	g_clear_handle_id (&priv->progress_idle, g_source_remove);
-}
-
-static void
-reset_progress_idle (PpsWindow *pps_window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-
-	priv->progress_idle = 0;
-}
-
-static void
-pps_window_show_progress_message (PpsWindow   *pps_window,
-				 guint       interval,
-				 GSourceFunc function)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-
-	g_clear_handle_id (&priv->progress_idle, g_source_remove);
-
-	priv->progress_idle =
-		g_timeout_add_seconds_full (G_PRIORITY_DEFAULT,
-					    interval, function,
-					    pps_window,
-					    (GDestroyNotify)reset_progress_idle);
-}
-
-static void
 pps_window_reset_progress_cancellable (PpsWindow *pps_window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
@@ -1719,18 +1686,6 @@ pps_window_reset_progress_cancellable (PpsWindow *pps_window)
 		g_cancellable_reset (priv->progress_cancellable);
 	else
 		priv->progress_cancellable = g_cancellable_new ();
-}
-
-static void
-pps_window_progress_response_cb (PpsProgressMessageArea *area,
-				gint                   response,
-				PpsWindow              *pps_window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-
-	if (response == GTK_RESPONSE_CANCEL)
-		g_cancellable_cancel (priv->progress_cancellable);
-	pps_window_set_message_area (pps_window, NULL);
 }
 
 static void
@@ -1818,7 +1773,6 @@ window_open_file_copy_ready_cb (GFile        *source,
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 	GError *error = NULL;
 
-	pps_window_clear_progress_idle (pps_window);
 	pps_window_set_message_area (pps_window, NULL);
 
 	g_file_copy_finish (source, async_result, &error);
@@ -2123,42 +2077,12 @@ pps_window_reload_local (PpsWindow *pps_window)
 	pps_job_scheduler_push_job (priv->reload_job, PPS_JOB_PRIORITY_NONE);
 }
 
-static gboolean
-show_reloading_progress (PpsWindow *pps_window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	GtkWidget *area;
-	gchar     *text;
-
-	if (priv->message_area)
-		return G_SOURCE_REMOVE;
-
-	text = g_strdup_printf (_("Reloading document from %s"),
-				priv->uri);
-
-	area = pps_progress_message_area_new ("view-refresh-symbolic",
-					     text,
-					     _("C_ancel"),
-					     GTK_RESPONSE_CANCEL,
-					     NULL);
-	g_signal_connect (pps_message_area_get_info_bar (PPS_MESSAGE_AREA (area)), "response",
-			  G_CALLBACK (pps_window_progress_response_cb),
-			  pps_window);
-
-	pps_window_set_message_area (pps_window, area);
-	g_free (text);
-
-	return G_SOURCE_REMOVE;
-}
-
 static void
 reload_remote_copy_ready_cb (GFile        *remote,
 			     GAsyncResult *async_result,
 			     PpsWindow     *pps_window)
 {
 	GError *error = NULL;
-
-	pps_window_clear_progress_idle (pps_window);
 
 	g_file_copy_finish (remote, async_result, &error);
 	if (error) {
@@ -2171,32 +2095,6 @@ reload_remote_copy_ready_cb (GFile        *remote,
 	}
 
 	g_object_unref (remote);
-}
-
-static void
-reload_remote_copy_progress_cb (goffset   n_bytes,
-				goffset   total_bytes,
-				PpsWindow *pps_window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	gchar *status;
-	gdouble fraction;
-
-	if (!priv->message_area)
-		return;
-
-	if (total_bytes <= 0)
-		return;
-
-	fraction = n_bytes / (gdouble)total_bytes;
-	status = g_strdup_printf (_("Downloading document (%d%%)"),
-				  (gint)(fraction * 100));
-
-	pps_progress_message_area_set_status (PPS_PROGRESS_MESSAGE_AREA (priv->message_area),
-					     status);
-	pps_progress_message_area_set_fraction (PPS_PROGRESS_MESSAGE_AREA (priv->message_area),
-					       fraction);
-	g_free (status);
 }
 
 static void
@@ -2243,13 +2141,11 @@ query_remote_uri_mtime_cb (GFile        *remote,
 				   G_FILE_COPY_OVERWRITE,
 				   G_PRIORITY_DEFAULT,
 				   priv->progress_cancellable,
-				   (GFileProgressCallback)reload_remote_copy_progress_cb,
+				   NULL,
 				   pps_window,
 				   (GAsyncReadyCallback)reload_remote_copy_ready_cb,
 				   pps_window);
 		g_object_unref (target_file);
-		pps_window_show_progress_message (pps_window, 1,
-						 (GSourceFunc)show_reloading_progress);
 	} else {
 		g_object_unref (remote);
 		pps_window_reload_local (pps_window);
@@ -2452,47 +2348,6 @@ pps_window_cmd_file_open_with (GSimpleAction *action,
 }
 
 static void
-show_saving_progress (GFile *dst)
-{
-	PpsWindow  *pps_window;
-	GtkWidget *area;
-	gchar     *text;
-	gchar     *uri;
-	PpsSaveType save_type;
-
-	pps_window = PPS_WINDOW (g_object_get_data (G_OBJECT (dst), "pps-window"));
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	priv->progress_idle = 0;
-
-	if (priv->message_area)
-		return;
-
-	save_type = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (dst), "save-type"));
-	uri = g_file_get_uri (dst);
-	switch (save_type) {
-	case PPS_SAVE_ATTACHMENT:
-		text = g_strdup_printf (_("Saving attachment to %s"), uri);
-		break;
-	case PPS_SAVE_IMAGE:
-		text = g_strdup_printf (_("Saving image to %s"), uri);
-		break;
-	default:
-		g_assert_not_reached ();
-	}
-	g_free (uri);
-	area = pps_progress_message_area_new ("document-save-symbolic",
-					     text,
-					     _("C_ancel"),
-					     GTK_RESPONSE_CANCEL,
-					     NULL);
-	g_signal_connect (pps_message_area_get_info_bar (PPS_MESSAGE_AREA (area)), "response",
-			  G_CALLBACK (pps_window_progress_response_cb),
-			  pps_window);
-	pps_window_set_message_area (pps_window, area);
-	g_free (text);
-}
-
-static void
 window_save_file_copy_ready_cb (GFile        *src,
 				GAsyncResult *async_result,
 				GFile        *dst)
@@ -2501,9 +2356,9 @@ window_save_file_copy_ready_cb (GFile        *src,
 	GError   *error = NULL;
 
 	pps_window = PPS_WINDOW (g_object_get_data (G_OBJECT (dst), "pps-window"));
-	pps_window_clear_progress_idle (pps_window);
 
 	if (g_file_copy_finish (src, async_result, &error)) {
+		pps_window_warning_message (pps_window, _("File Saved"));
 		pps_tmp_file_unlink (src);
 		return;
 	}
@@ -2522,49 +2377,6 @@ window_save_file_copy_ready_cb (GFile        *src,
 }
 
 static void
-window_save_file_copy_progress_cb (goffset n_bytes,
-				   goffset total_bytes,
-				   GFile  *dst)
-{
-	PpsWindow  *pps_window;
-	PpsSaveType save_type;
-	gchar     *status;
-	gdouble    fraction;
-
-	pps_window = PPS_WINDOW (g_object_get_data (G_OBJECT (dst), "pps-window"));
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-
-	if (!priv->message_area)
-		return;
-
-	if (total_bytes <= 0)
-		return;
-
-	fraction = n_bytes / (gdouble)total_bytes;
-	save_type = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (dst), "save-type"));
-
-	switch (save_type) {
-	case PPS_SAVE_ATTACHMENT:
-		status = g_strdup_printf (_("Uploading attachment (%d%%)"),
-					  (gint)(fraction * 100));
-		break;
-	case PPS_SAVE_IMAGE:
-		status = g_strdup_printf (_("Uploading image (%d%%)"),
-					  (gint)(fraction * 100));
-		break;
-	default:
-		g_assert_not_reached ();
-	}
-
-	pps_progress_message_area_set_status (PPS_PROGRESS_MESSAGE_AREA (priv->message_area),
-					     status);
-	pps_progress_message_area_set_fraction (PPS_PROGRESS_MESSAGE_AREA (priv->message_area),
-					       fraction);
-
-	g_free (status);
-}
-
-static void
 pps_window_save_remote (PpsWindow  *pps_window,
 		       PpsSaveType save_type,
 		       GFile     *src,
@@ -2579,14 +2391,10 @@ pps_window_save_remote (PpsWindow  *pps_window,
 			   G_FILE_COPY_OVERWRITE,
 			   G_PRIORITY_DEFAULT,
 			   priv->progress_cancellable,
-			   (GFileProgressCallback)window_save_file_copy_progress_cb,
+			   NULL,
 			   dst,
 			   (GAsyncReadyCallback)window_save_file_copy_ready_cb,
 			   dst);
-	priv->progress_idle =
-		g_timeout_add_once (1000,
-				    (GSourceOnceFunc)show_saving_progress,
-				    dst);
 }
 
 static void
@@ -4920,7 +4728,6 @@ pps_window_dispose (GObject *object)
 	pps_window_clear_reload_job (window);
 	pps_window_clear_save_job (window);
 	pps_window_clear_local_uri (window);
-	pps_window_clear_progress_idle (window);
 	g_clear_object (&priv->progress_cancellable);
 
 	pps_window_close_dialogs (window);
