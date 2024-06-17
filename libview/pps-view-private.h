@@ -57,12 +57,6 @@ typedef struct {
 	PpsSelectionStyle style;
 } SelectionInfo;
 
-typedef enum {
-	PPS_PAN_ACTION_NONE,
-	PPS_PAN_ACTION_NEXT,
-	PPS_PAN_ACTION_PREV
-} PpsPanAction;
-
 /* Annotation popup windows */
 typedef struct {
 	GtkWidget *window;
@@ -203,11 +197,9 @@ typedef struct _PpsViewPrivate {
 	guint    cursor_blink_time;
 
 	/* Gestures */
-	GtkGesture *pan_gesture;
 	GtkGesture *middle_clicked_drag_gesture;
 	GtkGesture *middle_clicked_drag_swipe_gesture;
 	gdouble prev_zoom_gesture_scale;
-	PpsPanAction pan_action;
 
 	/* Current zoom center */
 	gdouble zoom_center_x;

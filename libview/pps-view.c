@@ -5210,7 +5210,6 @@ pps_view_button_press_event (GtkGestureClick *self,
 	GtkEventController *controller = GTK_EVENT_CONTROLLER (self);
 	GtkWidget *widget = gtk_event_controller_get_widget (controller);
 	guint button;
-	GdkModifierType state = gtk_event_controller_get_current_event_state (controller);
 
 	PpsView *view = PPS_VIEW (widget);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -5218,9 +5217,6 @@ pps_view_button_press_event (GtkGestureClick *self,
 	pps_view_link_preview_popover_cleanup (view);
 
 	if (!priv->document || pps_document_get_n_pages (priv->document) <= 0)
-		return;
-
-	if (gtk_gesture_is_recognized (priv->pan_gesture))
 		return;
 
 	if (!gtk_widget_has_focus (widget)) {
@@ -5834,9 +5830,7 @@ pps_view_button_release_event (GtkGestureClick *self,
 	PpsLink *link = NULL;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	guint button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (self));
-
-	if (gtk_gesture_is_recognized (priv->pan_gesture))
-		return;
+	GdkModifierType state = gtk_event_controller_get_current_event_state (controller);
 
 	if (priv->document &&
 	    (button == GDK_BUTTON_PRIMARY ||
@@ -7008,51 +7002,34 @@ view_update_scale_limits (PpsView *view)
 }
 
 static void
-pan_gesture_pan_cb (GtkGesturePan   *gesture,
-		    GtkPanDirection  direction,
-		    gdouble          offset,
-		    PpsView          *view)
+page_swipe_cb (GtkGestureSwipe *gesture,
+	       gdouble          velocity_x,
+	       gdouble          velocity_y,
+	       PpsView         *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	if (priv->continuous ||
-	    gtk_widget_get_width (GTK_WIDGET (view)) < priv->requisition.width) {
+	if (priv->continuous)
+		return;
+
+	GtkTextDirection direction = gtk_widget_get_direction (GTK_WIDGET (view))
+				     || gtk_widget_get_default_direction ();
+	gdouble angle = atan2 (velocity_x, velocity_y);
+	gdouble speed = sqrt(pow (velocity_x, 2) + pow (velocity_y, 2));
+
+	if (speed > 30) {
 		gtk_gesture_set_state (GTK_GESTURE (gesture),
-				       GTK_EVENT_SEQUENCE_DENIED);
-		return;
-	}
+				       GTK_EVENT_SEQUENCE_CLAIMED);
+		if ((G_PI_4 < angle && angle <= 3 * G_PI_4) ||
+		    (direction == GTK_TEXT_DIR_LTR
+		     && (-G_PI_4 < angle && angle <= G_PI_4)) ||
+		    (direction == GTK_TEXT_DIR_RTL
+		     && !(-3 * G_PI_4 < angle && angle <= 3 * G_PI_4)))
 
-#define PAN_ACTION_DISTANCE 200
-
-	priv->pan_action = PPS_PAN_ACTION_NONE;
-	gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_CLAIMED);
-
-	if (offset > PAN_ACTION_DISTANCE) {
-		if (direction == GTK_PAN_DIRECTION_LEFT ||
-		    gtk_widget_get_direction (GTK_WIDGET (view)) == GTK_TEXT_DIR_RTL)
-			priv->pan_action = PPS_PAN_ACTION_NEXT;
+			pps_view_previous_page (view);
 		else
-			priv->pan_action = PPS_PAN_ACTION_PREV;
+			pps_view_next_page (view);
 	}
-#undef PAN_ACTION_DISTANCE
-}
-
-static void
-pan_gesture_end_cb (GtkGesture       *gesture,
-		    GdkEventSequence *sequence,
-		    PpsView           *view)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	if (!gtk_gesture_handles_sequence (gesture, sequence))
-		return;
-
-	if (priv->pan_action == PPS_PAN_ACTION_PREV)
-		pps_view_previous_page (view);
-	else if (priv->pan_action == PPS_PAN_ACTION_NEXT)
-		pps_view_next_page (view);
-
-	priv->pan_action = PPS_PAN_ACTION_NONE;
 }
 
 static void
@@ -7312,7 +7289,6 @@ pps_view_class_init (PpsViewClass *class)
 	gtk_widget_class_set_template_from_resource (widget_class,
 			"/org/gnome/papers/ui/view.ui");
 
-	gtk_widget_class_bind_template_child_private (widget_class, PpsView, pan_gesture);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsView,
 						      middle_clicked_drag_gesture);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsView,
@@ -7345,8 +7321,7 @@ pps_view_class_init (PpsViewClass *class)
 	gtk_widget_class_bind_template_callback (widget_class,
 						 middle_clicked_end_swipe_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_scroll_event);
-	gtk_widget_class_bind_template_callback (widget_class, pan_gesture_pan_cb);
-	gtk_widget_class_bind_template_callback (widget_class, pan_gesture_end_cb);
+	gtk_widget_class_bind_template_callback (widget_class, page_swipe_cb);
 
 	/**
 	 * PpsView:is-loading:

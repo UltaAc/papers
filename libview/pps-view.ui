@@ -76,12 +76,11 @@
         <signal name="swipe" handler="middle_clicked_end_swipe_cb" />
       </object>
     </child>
-      <object class="GtkGesturePan" id="pan_gesture">
-        <property name="orientation">horizontal</property>
+    <child>
+      <object class="GtkGestureSwipe">
         <property name="propagation-phase">capture</property>
         <property name="touch-only">True</property>
-        <signal name="pan" handler="pan_gesture_pan_cb" />
-        <signal name="end" handler="pan_gesture_end_cb" />
+        <signal name="swipe" handler="page_swipe_cb" />
       </object>
     </child>
   </template>
