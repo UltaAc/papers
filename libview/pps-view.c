@@ -5263,8 +5263,6 @@ pps_view_button_press_event (GtkGestureClick *self,
 							    priv->selection_info.style,
 							    &point,
 							    &point);
-				} else if (!(state & GDK_SHIFT_MASK)) {
-					clear_selection (view);
 				}
 			}
 
@@ -5832,6 +5830,10 @@ pps_view_button_release_event (GtkGestureClick *self,
 	guint button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (self));
 	GdkModifierType state = gtk_event_controller_get_current_event_state (controller);
 
+	if (button == GDK_BUTTON_PRIMARY && !(state & GDK_SHIFT_MASK) && n_press == 1) {
+		clear_selection (view);
+	}
+
 	if (priv->document &&
 	    (button == GDK_BUTTON_PRIMARY ||
 	     button == GDK_BUTTON_MIDDLE)) {
@@ -5884,6 +5886,16 @@ pps_view_button_release_event (GtkGestureClick *self,
 			pps_view_handle_link (view, link);
 		}
 	}
+}
+
+static void
+context_longpress_gesture_pressed_cb (GtkGestureLongPress *gesture,
+				      gdouble		   x,
+				      gdouble		   y,
+				      PpsView		  *view)
+{
+	pps_view_set_focused_element_at_location (view, x, y);
+	pps_view_do_popup_menu (view, x, y);
 }
 
 static gint
@@ -7322,6 +7334,8 @@ pps_view_class_init (PpsViewClass *class)
 						 middle_clicked_end_swipe_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_scroll_event);
 	gtk_widget_class_bind_template_callback (widget_class, page_swipe_cb);
+	gtk_widget_class_bind_template_callback (widget_class,
+						 context_longpress_gesture_pressed_cb);
 
 	/**
 	 * PpsView:is-loading:

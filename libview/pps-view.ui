@@ -83,5 +83,12 @@
         <signal name="swipe" handler="page_swipe_cb" />
       </object>
     </child>
+     <child>
+      <object class="GtkGestureLongPress">
+        <property name="touch-only">True</property>
+        <property name="exclusive">True</property>
+        <signal name="pressed" handler="context_longpress_gesture_pressed_cb" />
+      </object>
+    </child>
   </template>
 </interface>
