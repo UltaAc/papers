@@ -5239,6 +5239,12 @@ pps_view_button_press_event (GtkGestureClick *self,
 	if (priv->adding_text_annot)
 		return;
 
+	if (gdk_event_triggers_context_menu (gtk_event_controller_get_current_event (controller))) {
+		pps_view_do_popup_menu (view, x, y);
+		pps_view_set_focused_element_at_location (view, x, y);
+		return;
+	}
+
 	switch (button) {
 	        case GDK_BUTTON_PRIMARY: {
 			PpsImage *image;
@@ -5301,9 +5307,6 @@ pps_view_button_press_event (GtkGestureClick *self,
 		case GDK_BUTTON_MIDDLE:
 			pps_view_set_focused_element_at_location (view, x, y);
 			return;
-		case GDK_BUTTON_SECONDARY:
-			pps_view_set_focused_element_at_location (view, x, y);
-			pps_view_do_popup_menu (view, x, y);
 	}
 }
 
