@@ -11,8 +11,8 @@ mod imp {
     pub struct PpsPropertiesFonts {
         #[template_child(id = "list_box")]
         list_box: TemplateChild<gtk::ListBox>,
-        #[template_child(id = "fonts_summary")]
-        fonts_summary: TemplateChild<gtk::Label>,
+        #[template_child(id = "fonts_page")]
+        fonts_page: TemplateChild<adw::PreferencesPage>,
         fonts_job: RefCell<Option<JobFonts>>,
         document: RefCell<Option<Document>>,
         job_handler_id: RefCell<Option<SignalHandlerId>>,
@@ -50,7 +50,7 @@ mod imp {
                         });
 
                         let fonts_summary = doc_fonts.fonts_summary().unwrap_or_default();
-                        obj.fonts_summary.set_text(fonts_summary.as_str());
+                        obj.fonts_page.set_description(fonts_summary.as_str());
                     }
                 }));
 
