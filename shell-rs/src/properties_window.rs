@@ -31,7 +31,7 @@ mod imp {
     impl ObjectSubclass for PpsPropertiesWindow {
         const NAME: &'static str = "PpsPropertiesWindow";
         type Type = super::PpsPropertiesWindow;
-        type ParentType = adw::Window;
+        type ParentType = adw::Dialog;
 
         fn class_init(klass: &mut Self::Class) {
             crate::properties_fonts::PpsPropertiesFonts::ensure_type();
@@ -39,7 +39,6 @@ mod imp {
             crate::properties_license::PpsPropertiesLicense::ensure_type();
 
             klass.bind_template();
-            klass.add_binding_action(gdk::Key::Escape, gdk::ModifierType::empty(), "window.close");
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {
@@ -50,7 +49,7 @@ mod imp {
     #[glib::derived_properties]
     impl ObjectImpl for PpsPropertiesWindow {}
 
-    impl AdwWindowImpl for PpsPropertiesWindow {}
+    impl AdwDialogImpl for PpsPropertiesWindow {}
 
     impl WindowImpl for PpsPropertiesWindow {}
 

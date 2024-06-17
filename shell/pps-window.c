@@ -3234,8 +3234,7 @@ pps_window_cmd_file_properties (GSimpleAction *action,
 
 	properties = g_object_new (g_type_from_name ("PpsPropertiesWindow"),
 				   "document", priv->document, NULL);
-	gtk_window_set_transient_for (GTK_WINDOW (properties), GTK_WINDOW (pps_window));
-	gtk_window_present (GTK_WINDOW (properties));
+	adw_dialog_present (ADW_DIALOG (properties), GTK_WIDGET (pps_window));
 }
 
 static void
