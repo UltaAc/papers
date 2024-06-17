@@ -87,6 +87,7 @@ mod imp {
                     .build();
 
                 let button = gtk::Button::builder()
+                    .tooltip_text("Open File Location")
                     .icon_name("folder-open-symbolic")
                     .valign(gtk::Align::Center)
                     .css_classes(["flat"])
@@ -109,7 +110,6 @@ mod imp {
 
                 row.set_subtitle(&text);
                 row.add_suffix(&button);
-                row.set_activatable_widget(Some(&button));
                 group.add(&row);
             }
 
