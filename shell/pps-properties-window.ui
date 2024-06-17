@@ -22,7 +22,8 @@
             <child>
               <object class="AdwViewStackPage">
                 <property name="name">general</property>
-                <property name="title" translatable="yes">Document</property>
+                <property name="title" translatable="yes">_Document</property>
+                <property name="use-underline">True</property>
                 <property name="icon-name">document-properties-symbolic</property>
                 <property name="child">
                   <object class="PpsPropertiesGeneral">
@@ -36,7 +37,8 @@
             <child>
               <object class="AdwViewStackPage" id="fonts_page">
                 <property name="name">fonts</property>
-                <property name="title" translatable="yes">Fonts</property>
+                <property name="title" translatable="yes">_Fonts</property>
+                <property name="use-underline">True</property>
                 <property name="icon-name">font-x-generic-symbolic</property>
                 <property name="child">
                   <object class="PpsPropertiesFonts" id="fonts" />
