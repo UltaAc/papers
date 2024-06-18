@@ -2241,12 +2241,6 @@ pps_view_handle_cursor_over_xy (PpsView *view, gint x, gint y)
 	if (priv->adding_text_annot)
 		return;
 
-	if (priv->drag_info.in_drag) {
-		if (priv->cursor != PPS_VIEW_CURSOR_DRAG)
-			pps_view_set_cursor (view, PPS_VIEW_CURSOR_DRAG);
-		return;
-	}
-
 	link = pps_view_get_link_at_location (view, x, y);
 	if (link) {
 		handle_cursor_over_link (view, link, x, y);
@@ -5303,29 +5297,6 @@ pps_view_button_press_event (GtkGestureClick *self,
 }
 
 static gboolean
-pps_view_drag_update_momentum (PpsView *view)
-{
-	int i;
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	if (!priv->drag_info.in_drag)
-		return G_SOURCE_REMOVE;
-
-	for (i = DRAG_HISTORY - 1; i > 0; i--) {
-		priv->drag_info.buffer[i].x = priv->drag_info.buffer[i-1].x;
-		priv->drag_info.buffer[i].y = priv->drag_info.buffer[i-1].y;
-	}
-
-	/* Momentum is a moving average of 10ms granularity over
-	 * the last 100ms with each 10ms stored in buffer.
-	 */
-
-	priv->drag_info.momentum.x = (priv->drag_info.buffer[DRAG_HISTORY - 1].x - priv->drag_info.buffer[0].x);
-	priv->drag_info.momentum.y = (priv->drag_info.buffer[DRAG_HISTORY - 1].y - priv->drag_info.buffer[0].y);
-
-	return G_SOURCE_CONTINUE;
-}
-
-static gboolean
 pps_view_scroll_drag_release (PpsView *view)
 {
 	gdouble dhadj_value, dvadj_value;
@@ -5387,32 +5358,6 @@ middle_clicked_drag_begin_cb (GtkGestureDrag	*self,
 	priv->drag_info.vadj = gtk_adjustment_get_value (priv->vadjustment);
 
 	pps_view_set_cursor (view, PPS_VIEW_CURSOR_DRAG);
-
-	priv->drag_info.drag_timeout_id = g_timeout_add (10,
-				(GSourceFunc)pps_view_drag_update_momentum, view);
-	/* Set 100 to choose how long it takes to build up momentum */
-	/* Clear out previous momentum info: */
-	for (int i = 0; i < DRAG_HISTORY; i++) {
-		priv->drag_info.buffer[i].x = start_x;
-		priv->drag_info.buffer[i].y = start_y;
-	}
-	priv->drag_info.momentum.x = 0;
-	priv->drag_info.momentum.y = 0;
-
-	priv->drag_info.in_drag = TRUE;
-}
-
-static void
-middle_clicked_drag_end_cb (GtkGestureDrag	*self,
-			    gdouble		 offset_x,
-			    gdouble		 offset_y,
-			    PpsView		*view)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	priv->drag_info.release_timeout_id =
-			g_timeout_add (20, (GSourceFunc)pps_view_scroll_drag_release, view);
-
-	priv->drag_info.in_drag = FALSE;
 }
 
 static void
@@ -5424,6 +5369,8 @@ middle_clicked_drag_update_cb (GtkGestureDrag	*self,
 	GdkEvent *event = gtk_event_controller_get_current_event (GTK_EVENT_CONTROLLER (self));
 	gdouble dhadj_value, dvadj_value;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+
+	gtk_gesture_set_state (GTK_GESTURE (self), GTK_EVENT_SEQUENCE_CLAIMED);
 
 	dhadj_value = gtk_adjustment_get_page_size (priv->hadjustment) *
 				      offset_x / gtk_widget_get_width (GTK_WIDGET (view));
@@ -5450,9 +5397,21 @@ middle_clicked_drag_update_cb (GtkGestureDrag	*self,
 
 	gdk_event_get_axis (event, GDK_AXIS_X, &x);
 	gdk_event_get_axis (event, GDK_AXIS_Y, &y);
+}
 
-	priv->drag_info.buffer[0].x = x;
-	priv->drag_info.buffer[0].y = y;
+static void
+middle_clicked_end_swipe_cb (GtkGestureSwipe *gesture,
+			     gdouble          velocity_x,
+			     gdouble          velocity_y,
+			     PpsView         *view)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+
+	priv->drag_info.momentum.x = -velocity_x / 100;
+	priv->drag_info.momentum.y = -velocity_y / 100;
+
+	priv->drag_info.release_timeout_id =
+			g_timeout_add (20, (GSourceFunc)pps_view_scroll_drag_release, view);
 }
 
 static void
@@ -5879,13 +5838,11 @@ pps_view_button_release_event (GtkGestureClick *self,
 	if (gtk_gesture_is_recognized (priv->pan_gesture))
 		return;
 
-	if (priv->document && !priv->drag_info.in_drag &&
+	if (priv->document &&
 	    (button == GDK_BUTTON_PRIMARY ||
 	     button == GDK_BUTTON_MIDDLE)) {
 		link = pps_view_get_link_at_location (view, x, y);
 	}
-
-	priv->drag_info.in_drag = FALSE;
 
 	if (priv->adding_text_annot) {
 		GdkPoint point;
@@ -6940,7 +6897,6 @@ pps_view_dispose (GObject *object)
 	g_clear_handle_id (&priv->update_cursor_idle_id, g_source_remove);
 	g_clear_handle_id (&priv->selection_scroll_id, g_source_remove);
 	g_clear_handle_id (&priv->selection_update_id, g_source_remove);
-	g_clear_handle_id (&priv->drag_info.drag_timeout_id, g_source_remove);
 	g_clear_handle_id (&priv->drag_info.release_timeout_id, g_source_remove);
 	g_clear_handle_id (&priv->cursor_blink_timeout_id, g_source_remove);
 	g_clear_handle_id (&priv->child_focus_idle_id, g_source_remove);
@@ -7357,6 +7313,10 @@ pps_view_class_init (PpsViewClass *class)
 			"/org/gnome/papers/ui/view.ui");
 
 	gtk_widget_class_bind_template_child_private (widget_class, PpsView, pan_gesture);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsView,
+						      middle_clicked_drag_gesture);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsView,
+						      middle_clicked_drag_swipe_gesture);
 
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_button_press_event);
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_button_release_event);
@@ -7381,9 +7341,9 @@ pps_view_class_init (PpsViewClass *class)
 	gtk_widget_class_bind_template_callback (widget_class,
 						 middle_clicked_drag_begin_cb);
 	gtk_widget_class_bind_template_callback (widget_class,
-						 middle_clicked_drag_end_cb);
-	gtk_widget_class_bind_template_callback (widget_class,
 						 middle_clicked_drag_update_cb);
+	gtk_widget_class_bind_template_callback (widget_class,
+						 middle_clicked_end_swipe_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_scroll_event);
 	gtk_widget_class_bind_template_callback (widget_class, pan_gesture_pan_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pan_gesture_end_cb);
@@ -7605,7 +7565,6 @@ pps_view_init (PpsView *view)
 	priv->scale = 1.0;
 	priv->current_page = -1;
 	priv->cursor = PPS_VIEW_CURSOR_NORMAL;
-	priv->drag_info.in_drag = FALSE;
 	priv->selection_info.selections = NULL;
 	priv->continuous = TRUE;
 	priv->dual_even_left = TRUE;
@@ -7625,6 +7584,9 @@ pps_view_init (PpsView *view)
 	priv->zoom_center_y = -1;
 
 	gtk_widget_init_template (GTK_WIDGET (view));
+
+	gtk_gesture_group (priv->middle_clicked_drag_gesture,
+			   priv->middle_clicked_drag_swipe_gesture);
 }
 
 /*** Callbacks ***/
@@ -7713,7 +7675,7 @@ adjustment_value_changed_cb (GtkAdjustment *adjustment,
 
 	/* If the adjustment value is set during a drag event, update the drag
 	 * start position so it can continue from the new location. */
-	if (priv->drag_info.in_drag && !priv->drag_info.in_notify) {
+	if (!priv->drag_info.in_notify) {
 		priv->drag_info.hadj += gtk_adjustment_get_value (priv->hadjustment) - priv->scroll_x;
 		priv->drag_info.vadj += gtk_adjustment_get_value (priv->vadjustment) - priv->scroll_y;
 	}

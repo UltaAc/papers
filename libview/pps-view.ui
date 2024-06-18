@@ -62,15 +62,20 @@
       </object>
     </child>
     <child>
-      <object class="GtkGestureDrag">
-        <!-- GTK_BUTTON_MIDDLE -->
-        <property name="button">2</property>
+      <object class="GtkGestureDrag" id="middle_clicked_drag_gesture">
+        <property name="button">2</property> <!-- GTK_BUTTON_MIDDLE -->
+        <property name="exclusive">True</property>
         <signal name="drag-begin" handler="middle_clicked_drag_begin_cb" />
-        <signal name="drag-end" handler="middle_clicked_drag_end_cb" />
         <signal name="drag-update" handler="middle_clicked_drag_update_cb" />
       </object>
     </child>
     <child>
+      <object class="GtkGestureSwipe" id="middle_clicked_drag_swipe_gesture">
+        <property name="button">2</property> <!-- GTK_BUTTON_MIDDLE -->
+        <property name="exclusive">True</property>
+        <signal name="swipe" handler="middle_clicked_end_swipe_cb" />
+      </object>
+    </child>
       <object class="GtkGesturePan" id="pan_gesture">
         <property name="orientation">horizontal</property>
         <property name="propagation-phase">capture</property>

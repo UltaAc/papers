@@ -34,8 +34,6 @@
 #include "pps-selection.h"
 #include "pps-view-cursor.h"
 
-#define DRAG_HISTORY 10
-
 struct GdkPoint {
 	gint x;
 	gint y;
@@ -45,12 +43,9 @@ typedef struct GdkPoint GdkPoint;
 
 /* Information for middle clicking and moving around the doc */
 typedef struct {
-        gboolean in_drag;
 	gdouble hadj;
 	gdouble vadj;
-	guint drag_timeout_id;
 	guint release_timeout_id;
-	GdkPoint buffer[DRAG_HISTORY];
 	GdkPoint momentum;
 	gboolean in_notify;
 } DragInfo;
@@ -209,6 +204,8 @@ typedef struct _PpsViewPrivate {
 
 	/* Gestures */
 	GtkGesture *pan_gesture;
+	GtkGesture *middle_clicked_drag_gesture;
+	GtkGesture *middle_clicked_drag_swipe_gesture;
 	gdouble prev_zoom_gesture_scale;
 	PpsPanAction pan_action;
 
