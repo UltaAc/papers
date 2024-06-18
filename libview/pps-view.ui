@@ -35,7 +35,7 @@
       </object>
     </child>
     <child>
-      <object class="GtkGestureZoom" id="zoom_gesture">
+      <object class="GtkGestureZoom">
         <property name="propagation-phase">capture</property>
         <signal name="begin" handler="zoom_gesture_begin_cb" />
         <signal name="scale-changed" handler="zoom_gesture_scale_changed_cb" />

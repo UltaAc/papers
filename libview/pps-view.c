@@ -5883,9 +5883,6 @@ pps_view_button_release_event (GtkGestureClick *self,
 
 	priv->image_dnd_info.in_drag = FALSE;
 
-	if (gtk_gesture_is_recognized (priv->zoom_gesture))
-		return;
-
 	if (gtk_gesture_is_recognized (priv->pan_gesture))
 		return;
 
@@ -7327,7 +7324,8 @@ zoom_gesture_scale_changed_cb (GtkGestureZoom *gesture,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	gdouble factor;
 
-	priv->drag_info.in_drag = FALSE;
+	gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_CLAIMED);
+
 	priv->image_dnd_info.in_drag = FALSE;
 
 	factor = scale - priv->prev_zoom_gesture_scale + 1;
@@ -7367,7 +7365,6 @@ pps_view_class_init (PpsViewClass *class)
 	gtk_widget_class_set_template_from_resource (widget_class,
 			"/org/gnome/papers/ui/view.ui");
 
-	gtk_widget_class_bind_template_child_private (widget_class, PpsView, zoom_gesture);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsView, pan_gesture);
 
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_button_press_event);
