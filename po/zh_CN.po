@@ -25,8 +25,8 @@ msgstr ""
 "Project-Id-Version: evince master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-06-18 06:28+0000\n"
-"PO-Revision-Date: 2024-06-18 19:59+0800\n"
+"POT-Creation-Date: 2024-06-19 10:52+0000\n"
+"PO-Revision-Date: 2024-06-19 19:37+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -727,8 +727,8 @@ msgid "of %d"
 msgstr "共 %d 页"
 
 #: previewer/pps-page-selector.c:194 shell/pps-history.c:454
-#: shell/pps-sidebar-bookmarks.c:349 shell/pps-window.c:766
-#: shell/pps-window.c:4099
+#: shell/pps-sidebar-bookmarks.c:349 shell/pps-window.c:765
+#: shell/pps-window.c:3907
 #, c-format
 msgid "Page %s"
 msgstr "第 %s 页"
@@ -1286,6 +1286,22 @@ msgstr "弯曲线"
 msgid "_Apply"
 msgstr "应用(_A)"
 
+#: shell/pps-find-sidebar.ui:71
+msgid "No Results Found"
+msgstr "未找到结果"
+
+#: shell/pps-find-sidebar.ui:72
+msgid "Try a different search"
+msgstr "尝试不同的搜索"
+
+#: shell/pps-find-sidebar.ui:86
+msgid "Perform a Search"
+msgstr "执行搜索"
+
+#: shell/pps-find-sidebar.ui:87
+msgid "The search results will appear here"
+msgstr "搜索结果将显示在这里"
+
 #: shell/pps-keyring.c:76
 #, c-format
 msgid "Password for document %s"
@@ -1295,8 +1311,7 @@ msgstr "文档 %s 的密码"
 msgid "Loading Document"
 msgstr "正在加载文档"
 
-#: shell/pps-loader-view.ui:45 shell/pps-window.c:2141 shell/pps-window.c:2485
-#: shell/pps-window.c:3082 shell/pps-window.c:3309
+#: shell/pps-loader-view.ui:45 shell/pps-window.c:2890 shell/pps-window.c:3117
 msgid "C_ancel"
 msgstr "取消(_A)"
 
@@ -1316,6 +1331,22 @@ msgstr "解锁"
 #: shell/pps-password-dialog.ui:18
 msgid "Password"
 msgstr "密码"
+
+#: shell/pps-password-dialog.ui:33
+msgid "Invalid password"
+msgstr "无效密码"
+
+#: shell/pps-password-dialog.ui:49
+msgid "Forget password _immediately"
+msgstr "立即忘记密码(_I)"
+
+#: shell/pps-password-dialog.ui:57
+msgid "Remember password until you _log out"
+msgstr "记住密码直到注销(_L)"
+
+#: shell/pps-password-dialog.ui:65
+msgid "Remember _forever"
+msgstr "永远记住(_F)"
 
 #: shell/pps-password-view.ui:20
 msgid ""
@@ -1433,166 +1464,144 @@ msgstr "打印此章节…"
 msgid "Previews"
 msgstr "预览"
 
-#: shell/pps-window.c:607
+#: shell/pps-window.c:606
 msgid "View Details"
 msgstr "查看详情"
 
-#: shell/pps-window.c:1401
+#: shell/pps-window.c:1400
 msgid "The document contains no pages"
 msgstr "此文档不含页面"
 
-#: shell/pps-window.c:1404
+#: shell/pps-window.c:1403
 msgid "The document contains only empty pages"
 msgstr "这个文档只包含空页面"
 
-#: shell/pps-window.c:1759
+#: shell/pps-window.c:1714
 #, c-format
 msgid "Unable to open document “%s”."
 msgstr "无法打开文档“%s”。"
 
-#: shell/pps-window.c:1901
+#: shell/pps-window.c:1855
 msgid "Failed to load remote file."
 msgstr "载入远程文档失败。"
 
-#: shell/pps-window.c:2136
-#, c-format
-msgid "Reloading document from %s"
-msgstr "正在从 %s 重新载入文档"
-
-#: shell/pps-window.c:2167
+#: shell/pps-window.c:2091
 msgid "Failed to reload document."
 msgstr "重新载入文档失败。"
 
-#: shell/pps-window.c:2192
-#, c-format
-msgid "Downloading document (%d%%)"
-msgstr "正在下载文档 (%d%%)"
+#: shell/pps-window.c:2361
+msgid "File Saved"
+msgstr "文件已保存"
 
-#: shell/pps-window.c:2474
-#, c-format
-msgid "Saving attachment to %s"
-msgstr "正在保存附件到 %s"
-
-#: shell/pps-window.c:2477
-#, c-format
-msgid "Saving image to %s"
-msgstr "正在保存图片到 %s"
-
-#: shell/pps-window.c:2516 shell/pps-window.c:2617
+#: shell/pps-window.c:2371 shell/pps-window.c:2425
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "该文件无法另存为“%s”。"
 
-#: shell/pps-window.c:2548
-#, c-format
-msgid "Uploading attachment (%d%%)"
-msgstr "正在上传附件 (%d%%)"
-
-#: shell/pps-window.c:2552
-#, c-format
-msgid "Uploading image (%d%%)"
-msgstr "正在上传图片 (%d%%)"
-
-#: shell/pps-window.c:2679
+#: shell/pps-window.c:2487
 msgid "Save As…"
 msgstr "另存为…"
 
-#: shell/pps-window.c:2985
+#: shell/pps-window.c:2793
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "队列中有 %d 个待执行任务"
 
-#: shell/pps-window.c:3024
+#: shell/pps-window.c:2832
 msgid "Failed to Print Document"
 msgstr "打印文档失败"
 
-#: shell/pps-window.c:3078
+#: shell/pps-window.c:2886
 #, c-format
 msgid "Printing job “%s”"
 msgstr "打印任务“%s”"
 
-#: shell/pps-window.c:3280
+#: shell/pps-window.c:3088
 msgid "Document contains form fields that have been filled out."
 msgstr "文档含已填写表单。"
 
-#: shell/pps-window.c:3283
+#: shell/pps-window.c:3091
 msgid "Document contains new or modified annotations."
 msgstr "文档含新的或修改过的批注。"
 
-#: shell/pps-window.c:3291
+#: shell/pps-window.c:3099
 msgid "File changed outside Papers. Reload document?"
 msgstr "文件已被外部程序修改。重新加载文档吗？"
 
-#: shell/pps-window.c:3292
+#: shell/pps-window.c:3100
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "如果重新载入文档，修改将会永久丢失。"
 
-#: shell/pps-window.c:3295
+#: shell/pps-window.c:3103
 msgid "_No"
 msgstr "否(_N)"
 
-#: shell/pps-window.c:3296
+#: shell/pps-window.c:3104
 msgid "_Reload"
 msgstr "重新载入(_R)"
 
-#: shell/pps-window.c:3304
+#: shell/pps-window.c:3112
 msgid "Save a copy of the document before closing?"
 msgstr "关闭前保存一份该文档的副本吗？"
 
-#: shell/pps-window.c:3305
+#: shell/pps-window.c:3113
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "如果您不保存副本，修改将会永久丢失。"
 
-#: shell/pps-window.c:3308
+#: shell/pps-window.c:3116
 msgid "Close _without Saving"
 msgstr "关闭且不保存(_W)"
 
-#: shell/pps-window.c:3310
+#: shell/pps-window.c:3118
 msgid "Save a _Copy"
 msgstr "保存副本(_C)"
 
-#: shell/pps-window.c:4426
+#: shell/pps-window.c:4234
 msgid "Search"
 msgstr "搜索"
 
-#: shell/pps-window.c:4430
+#: shell/pps-window.c:4238
 msgid "Search Unavailable"
 msgstr "搜索不可用"
 
-#: shell/pps-window.c:4634
+#: shell/pps-window.c:4442
 msgid "The attachment could not be saved."
 msgstr "无法保存附件。"
 
-#: shell/pps-window.c:5218
+#: shell/pps-window.c:5025
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
 msgstr "安全提示：已禁止文档打开文件 “%s”"
 
-#: shell/pps-window.c:5280
+#: shell/pps-window.c:5087
 msgid "Unable to open external link"
 msgstr "无法打开外部链接"
 
-#: shell/pps-window.c:5504
+#: shell/pps-window.c:5311
 msgid "Couldn’t find appropriate format to save image"
 msgstr "无法找到合适的格式来保存图像"
 
-#: shell/pps-window.c:5534
+#: shell/pps-window.c:5341
 msgid "The image could not be saved."
 msgstr "无法保存图像。"
 
-#: shell/pps-window.c:5571
+#: shell/pps-window.c:5378
 msgid "Save Image"
 msgstr "保存图像"
 
-#: shell/pps-window.c:5742
+#: shell/pps-window.c:5549
 msgid "Unable to open attachment"
 msgstr "无法打开附件"
 
-#: shell/pps-window.c:5806
+#: shell/pps-window.c:5613
 msgid "Save Attachment"
 msgstr "保存附件"
+
+#: shell/pps-window.ui:69 shell/pps-window.ui:77
+msgid "Open a Document"
+msgstr "打开文档"
 
 #: shell/pps-window.ui:70
 msgid "Drag and drop documents here"
@@ -1602,10 +1611,6 @@ msgstr "拖放文档到这里"
 msgid "_Open…"
 msgstr "打开(_O)…"
 
-#: shell/pps-window.ui:77
-msgid "Open a Document"
-msgstr "打开文档"
-
 #: shell/pps-window.ui:101
 msgid "Unable to Open Document"
 msgstr "无法打开文档"
@@ -1613,6 +1618,10 @@ msgstr "无法打开文档"
 #: shell/pps-window.ui:106
 msgid "_Open Other File…"
 msgstr "打开其它文件(_O)…"
+
+#: shell/pps-window.ui:123
+msgid "Document"
+msgstr "文档"
 
 #: shell/pps-window.ui:150
 msgid "Main Menu"
@@ -1920,6 +1929,30 @@ msgstr "日期和时间"
 msgid "No Comment"
 msgstr "无注释"
 
+#, c-format
+#~ msgid "Reloading document from %s"
+#~ msgstr "正在从 %s 重新载入文档"
+
+#, c-format
+#~ msgid "Downloading document (%d%%)"
+#~ msgstr "正在下载文档 (%d%%)"
+
+#, c-format
+#~ msgid "Saving attachment to %s"
+#~ msgstr "正在保存附件到 %s"
+
+#, c-format
+#~ msgid "Saving image to %s"
+#~ msgstr "正在保存图片到 %s"
+
+#, c-format
+#~ msgid "Uploading attachment (%d%%)"
+#~ msgstr "正在上传附件 (%d%%)"
+
+#, c-format
+#~ msgid "Uploading image (%d%%)"
+#~ msgstr "正在上传图片 (%d%%)"
+
 #~ msgid "DVI document has incorrect format"
 #~ msgstr "DVI 文档的格式错误"
 
@@ -2054,15 +2087,6 @@ msgstr "无注释"
 
 #~ msgid "Password required"
 #~ msgstr "需要密码"
-
-#~ msgid "Forget password _immediately"
-#~ msgstr "立即忘记密码(_I)"
-
-#~ msgid "Remember password until you _log out"
-#~ msgstr "记住密码直到注销(_L)"
-
-#~ msgid "Remember _forever"
-#~ msgstr "永远记住(_F)"
 
 #~ msgid "General"
 #~ msgstr "常规"
@@ -2372,9 +2396,6 @@ msgstr "无注释"
 #~ msgid "Select Page"
 #~ msgstr "选择页面"
 
-#~ msgid "Enter password"
-#~ msgstr "输入密码"
-
 #~ msgid "Reload"
 #~ msgstr "重新载入"
 
@@ -2492,9 +2513,6 @@ msgstr "无注释"
 #~ msgid "%d found on this page"
 #~ msgid_plural "%d found on this page"
 #~ msgstr[0] "本页上找到 %d 次"
-
-#~ msgid "Not found"
-#~ msgstr "未找到"
 
 #~ msgid "%3d%% remaining to search"
 #~ msgstr "搜索还剩 %3d%%"
