@@ -83,8 +83,8 @@
                       <class name="compact"/>
                     </style>
                     <property name="icon-name">edit-find-symbolic</property>
-                    <property name="title">Perform A Search</property>
-                    <property name="description">The search results will appear here</property>
+                    <property name="title" translatable="yes">Perform a Search</property>
+                    <property name="description" translatable="yes">The search results will appear here</property>
                   </object>
                 </property>
               </object>
