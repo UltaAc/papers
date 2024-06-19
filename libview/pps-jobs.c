@@ -1472,12 +1472,14 @@ pps_job_find_run (PpsJob *job)
 	PpsDocumentFind *find = PPS_DOCUMENT_FIND (job->document);
 	PpsPage         *pps_page;
 	GList           *matches;
+	gint             n_pages, current_page;
 
 	g_debug ("running find job");
 
-	for (gint current_page = job_find->start_page;
-	     (current_page + 1) % job_find->n_pages != job_find->start_page;
-	     current_page = (current_page + 1) % job_find->n_pages) {
+	n_pages = job_find->n_pages;
+	current_page = job_find->start_page;
+
+	while (n_pages-- > 0) {
 		if (g_cancellable_is_cancelled (job->cancellable))
 			return FALSE;
 
@@ -1492,6 +1494,8 @@ pps_job_find_run (PpsJob *job)
 
 		job_find->pages[current_page] = matches;
 		g_signal_emit (job_find, job_find_signals[FIND_UPDATED], 0, current_page);
+
+		current_page = (current_page + 1) % job_find->n_pages;
 	}
 
 	pps_job_succeeded (job);
