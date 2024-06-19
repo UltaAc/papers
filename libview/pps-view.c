@@ -4298,7 +4298,7 @@ pps_view_scroll_event (GtkEventControllerScroll *self, gdouble dx, gdouble dy, G
 	GdkEvent *event;
 	guint state;
 	GdkScrollDirection direction;
-	double x, y;
+	gint x, y;
 
 	pps_view_link_preview_popover_cleanup (view);
 
@@ -4306,12 +4306,12 @@ pps_view_scroll_event (GtkEventControllerScroll *self, gdouble dx, gdouble dy, G
 	state = gtk_event_controller_get_current_event_state (GTK_EVENT_CONTROLLER (self))
 			 & gtk_accelerator_get_default_mod_mask ();
 	direction = gdk_scroll_event_get_direction (event);
-	gdk_event_get_axis (GDK_EVENT (event), GDK_AXIS_X, &x);
-	gdk_event_get_axis (GDK_EVENT (event), GDK_AXIS_Y, &y);
-
 
 	if (state == GDK_CONTROL_MASK) {
 		pps_document_model_set_sizing_mode (priv->model, PPS_SIZING_FREE);
+
+		pps_document_misc_get_pointer_position (widget, &x, &y);
+
 		priv->zoom_center_x = x;
 		priv->zoom_center_y = y;
 
