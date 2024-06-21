@@ -46,7 +46,6 @@ typedef struct GdkPoint GdkPoint;
 /* Information for middle clicking and moving around the doc */
 typedef struct {
         gboolean in_drag;
-	GdkPoint start;
 	gdouble hadj;
 	gdouble vadj;
 	guint drag_timeout_id;
@@ -59,8 +58,6 @@ typedef struct {
 /* Information for handling selection */
 typedef struct {
 	GdkPoint start;
-	GdkPoint drag_start;
-	GdkPoint start_scroll;
 	GList *selections;
 	PpsSelectionStyle style;
 } SelectionInfo;
@@ -102,7 +99,6 @@ typedef struct _PpsHeightToPageCache {
 
 /* Information for handling annotations */
 typedef struct {
-	GdkPoint       start;
 	PpsPoint       cursor_offset;
 	PpsAnnotation *annot;
 } MovingAnnotInfo;

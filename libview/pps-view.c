@@ -5599,6 +5599,7 @@ selection_update_cb (GtkGestureDrag *selection_gesture,
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GdkEventSequence *sequence = gtk_gesture_single_get_current_sequence (GTK_GESTURE_SINGLE (selection_gesture));
+	gdouble x, y;
 
 	if (!gtk_drag_check_threshold (GTK_WIDGET (view), 0, 0, offset_x, offset_y)
 	    && gtk_gesture_get_sequence_state (GTK_GESTURE (selection_gesture), sequence) != GTK_EVENT_SEQUENCE_CLAIMED)
@@ -5617,11 +5618,10 @@ selection_update_cb (GtkGestureDrag *selection_gesture,
 	else
 		selection_scroll_timeout_cb (view);
 
-	priv->motion.x = priv->selection_info.drag_start.x + offset_x;
-	priv->motion.y = priv->selection_info.drag_start.y + offset_y;
-	/* Adjust scrolling position */
-	priv->motion.x += priv->scroll_x - priv->selection_info.start_scroll.x;
-	priv->motion.y += priv->scroll_y - priv->selection_info.start_scroll.y;
+	gtk_gesture_drag_get_start_point (selection_gesture, &x, &y);
+
+	priv->motion.x = x + offset_x + priv->scroll_x;
+	priv->motion.y = y + offset_y + priv->scroll_y;
 
 	/* Queue an idle to handle the motion.  We do this because
 	 * handling any selection events in the motion could be slower
@@ -5651,18 +5651,14 @@ selection_begin_cb (GtkGestureDrag *selection_gesture,
 		return;
 	}
 
-	priv->selection_info.drag_start.x = x + priv->scroll_x;
-	priv->selection_info.drag_start.y = y + priv->scroll_y;
-	priv->selection_info.start_scroll.x = priv->scroll_x;
-	priv->selection_info.start_scroll.y = priv->scroll_y;
-
 	if (state & GDK_SHIFT_MASK) {
 		gtk_gesture_set_state (GTK_GESTURE (selection_gesture),
 				       GTK_EVENT_SEQUENCE_CLAIMED);
 
 		selection_update_cb (selection_gesture, 0, 0, view);
 	} else {
-		priv->selection_info.start = priv->selection_info.drag_start;
+		priv->selection_info.start.x = x + priv->scroll_x;
+		priv->selection_info.start.y = y + priv->scroll_y;
 	}
 }
 
@@ -5691,17 +5687,16 @@ annotation_drag_update_cb (GtkGestureDrag *annotation_drag_gesture,
 	if (!priv->moving_annot_info.annot)
 		g_assert_not_reached ();
 
-	x = priv->moving_annot_info.start.x;
-	y = priv->moving_annot_info.start.y;
-
-	if (gtk_drag_check_threshold (GTK_WIDGET (view), x, y,
-					 x + offset_x, y + offset_y))
+	if (gtk_drag_check_threshold (GTK_WIDGET (view), 0, 0,
+					 offset_x, offset_y))
 		gtk_gesture_set_state (GTK_GESTURE (annotation_drag_gesture),
 				       GTK_EVENT_SEQUENCE_CLAIMED);
 
 	if (gtk_gesture_get_sequence_state (GTK_GESTURE (annotation_drag_gesture), sequence)
 	    != GTK_EVENT_SEQUENCE_CLAIMED)
 		return;
+
+	gtk_gesture_drag_get_start_point (annotation_drag_gesture, &x, &y);
 
 	GdkPoint view_point;
 	view_point.x = x + offset_x + priv->scroll_x;
@@ -5732,10 +5727,6 @@ annotation_drag_begin_cb (GtkGestureDrag *annotation_drag_gesture,
 
 	priv->moving_annot_info.annot = annot;
 	pps_annotation_get_area (annot, &current_area);
-
-	/* Save the starting point, so we can later calculate offsets! */
-	priv->moving_annot_info.start.x = x;
-	priv->moving_annot_info.start.y = y;
 
 	/* Remember the offset of the cursor with respect to
 	 * the annotation area in order to prevent the annotation from
