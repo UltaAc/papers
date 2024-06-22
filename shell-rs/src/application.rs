@@ -5,6 +5,8 @@ use papers_view::Job;
 
 use std::ffi::OsString;
 
+use std::env;
+
 mod imp {
 
     use super::*;
@@ -396,30 +398,34 @@ impl PpsApplication {
 pub fn spawn(uri: Option<&str>, dest: Option<&LinkDest>, mode: WindowRunMode) {
     let mut cmd = String::new();
 
-    // safe to unwrap since we are finding ourselves
-    let path = glib::find_program_in_path("papers").unwrap();
+    match env::current_exe() {
+        Ok(path) => {
+            cmd.push_str(&format!(" {}", &path.to_string_lossy()));
 
-    cmd.push_str(&format!(" {}", &path.to_string_lossy()));
-
-    // Page label
-    if let Some(dest) = dest {
-        match dest.dest_type() {
-            LinkDestType::PageLabel => {
-                cmd.push_str(" --page-label=");
-                cmd.push_str(&dest.page_label().unwrap_or_default());
+            // Page label
+            if let Some(dest) = dest {
+                match dest.dest_type() {
+                    LinkDestType::PageLabel => {
+                        cmd.push_str(" --page-label=");
+                        cmd.push_str(&dest.page_label().unwrap_or_default());
+                    }
+                    LinkDestType::Page
+                    | LinkDestType::Xyz
+                    | LinkDestType::Fit
+                    | LinkDestType::Fith
+                    | LinkDestType::Fitv
+                    | LinkDestType::Fitr => {
+                        cmd.push_str(&format!(" --page-index={}", dest.page() + 1))
+                    }
+                    LinkDestType::Named => {
+                        cmd.push_str(" --named-dest=");
+                        cmd.push_str(&dest.named_dest().unwrap_or_default())
+                    }
+                    _ => (),
+                }
             }
-            LinkDestType::Page
-            | LinkDestType::Xyz
-            | LinkDestType::Fit
-            | LinkDestType::Fith
-            | LinkDestType::Fitv
-            | LinkDestType::Fitr => cmd.push_str(&format!(" --page-index={}", dest.page() + 1)),
-            LinkDestType::Named => {
-                cmd.push_str(" --named-dest=");
-                cmd.push_str(&dest.named_dest().unwrap_or_default())
-            }
-            _ => (),
         }
+        Err(e) => glib::g_critical!("", "Failed to find current executable: {}", e),
     }
 
     // Mode
