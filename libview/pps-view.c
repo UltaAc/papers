@@ -5247,7 +5247,6 @@ pps_view_button_press_event (GtkGestureClick *self,
 
 	switch (button) {
 	        case GDK_BUTTON_PRIMARY: {
-			PpsImage *image;
 			PpsFormField *field;
 			PpsMapping *link;
 			PpsMedia *media;
@@ -5286,13 +5285,6 @@ pps_view_button_press_event (GtkGestureClick *self,
 				pps_view_handle_form_field (view, field);
 			} else if ((link = get_link_mapping_at_location (view, x, y, &page))){
 				_pps_view_set_focused_element (view, link, page);
-			} else if (!location_in_text (view, x + priv->scroll_x, y + priv->scroll_y) &&
-				   (image = pps_view_get_image_at_location (view, x, y))) {
-				g_set_object (&priv->image_dnd_info.image, image);
-				priv->image_dnd_info.in_drag = TRUE;
-
-				priv->image_dnd_info.start.x = x + priv->scroll_x;
-				priv->image_dnd_info.start.y = y + priv->scroll_y;
 			} else {
 				pps_view_remove_all_form_fields (view);
 				_pps_view_set_focused_element (view, NULL, -1);
@@ -5883,8 +5875,6 @@ pps_view_button_release_event (GtkGestureClick *self,
 	PpsLink *link = NULL;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	guint button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (self));
-
-	priv->image_dnd_info.in_drag = FALSE;
 
 	if (gtk_gesture_is_recognized (priv->pan_gesture))
 		return;
@@ -6922,7 +6912,7 @@ pps_view_finalize (GObject *object)
 	g_list_free_full (g_steal_pointer (&priv->selection_info.selections), (GDestroyNotify)selection_free);
 	g_clear_object (&priv->link_selected);
 
-	g_clear_object (&priv->image_dnd_info.image);
+	g_clear_object (&priv->dnd_image);
 	g_clear_pointer (&priv->annot_window_map, g_hash_table_destroy);
 
 	G_OBJECT_CLASS (pps_view_parent_class)->finalize (object);
@@ -7328,8 +7318,6 @@ zoom_gesture_scale_changed_cb (GtkGestureZoom *gesture,
 	gdouble factor;
 
 	gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_CLAIMED);
-
-	priv->image_dnd_info.in_drag = FALSE;
 
 	factor = scale - priv->prev_zoom_gesture_scale + 1;
 	priv->prev_zoom_gesture_scale = scale;

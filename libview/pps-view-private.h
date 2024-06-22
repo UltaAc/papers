@@ -62,13 +62,6 @@ typedef struct {
 	PpsSelectionStyle style;
 } SelectionInfo;
 
-/* Information for handling images DND */
-typedef struct {
-	gboolean in_drag;
-	GdkPoint start;
-	PpsImage *image;
-} ImageDNDInfo;
-
 typedef enum {
 	PPS_PAN_ACTION_NONE,
 	PPS_PAN_ACTION_NEXT,
@@ -191,7 +184,7 @@ typedef struct _PpsViewPrivate {
 	PpsLinkAction *link_selected;
 
 	/* Image DND */
-	ImageDNDInfo image_dnd_info;
+	PpsImage *dnd_image;
 
 	/* Annotations */
 	GList             *window_children;
