@@ -103,6 +103,10 @@ static void
 pps_sidebar_annotations_init (PpsSidebarAnnotations *pps_annots)
 {
 	gtk_widget_init_template (GTK_WIDGET (pps_annots));
+
+	g_signal_connect_object (pps_annots, "annot-activated",
+				 G_CALLBACK (pps_sidebar_page_navigate_to_view),
+				 pps_annots, G_CONNECT_SWAPPED);
 }
 
 static void

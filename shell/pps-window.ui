@@ -173,6 +173,7 @@
                                     <property name="child">
                                       <object class="PpsSidebarThumbnails" id="sidebar_thumbs">
                                         <property name="document-model">model</property>
+                                        <property name="sidebar">sidebar</property>
                                       </object>
                                     </property>
                                   </object>
@@ -185,6 +186,7 @@
                                     <property name="child">
                                       <object class="PpsSidebarLinks" id="sidebar_links">
                                         <property name="document-model">model</property>
+                                        <property name="sidebar">sidebar</property>
                                         <signal name="link-activated"
                                                 handler="sidebar_links_link_activated_cb" />
                                       </object>
@@ -199,6 +201,7 @@
                                     <property name="child">
                                       <object class="PpsSidebarAnnotations" id="sidebar_annots">
                                         <property name="document-model">model</property>
+                                        <property name="sidebar">sidebar</property>
                                         <signal name="annot-activated"
                                                 handler="sidebar_annots_annot_activated_cb" />
                                       </object>
@@ -213,6 +216,7 @@
                                     <property name="child">
                                       <object class="PpsSidebarBookmarks" id="sidebar_bookmarks">
                                         <property name="document-model">model</property>
+                                        <property name="sidebar">sidebar</property>
                                         <signal name="bookmark-activated" handler="bookmark_activated_cb" />
                                       </object>
                                     </property>
@@ -226,6 +230,7 @@
                                     <property name="child">
                                       <object class="PpsSidebarAttachments" id="sidebar_attachments">
                                         <property name="document-model">model</property>
+                                        <property name="sidebar">sidebar</property>
                                         <signal name="popup" handler="attachment_bar_menu_popup_cb" />
                                         <signal name="save-attachment"
                                                 handler="attachment_bar_save_attachment_cb" />
@@ -241,6 +246,7 @@
                                     <property name="child">
                                       <object class="PpsSidebarLayers" id="sidebar_layers">
                                         <property name="document-model">model</property>
+                                        <property name="sidebar">sidebar</property>
                                         <signal name="visibility-changed"
                                                 handler="sidebar_layers_visibility_changed" />
                                       </object>

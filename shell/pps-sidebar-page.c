@@ -29,10 +29,12 @@
 enum {
 	PROP_0,
 	PROP_DOCUMENT_MODEL,
+	PROP_SIDEBAR,
 };
 
 typedef struct {
         PpsDocumentModel *model;
+	GObject *sidebar; // PpsSidebar *sidebar;
 } PpsSidebarPagePrivate;
 
 G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (PpsSidebarPage, pps_sidebar_page, ADW_TYPE_BIN)
@@ -66,6 +68,19 @@ pps_sidebar_page_set_document_model (PpsSidebarPage   *sidebar_page,
 	priv->model = g_object_ref (model);
 }
 
+static void
+pps_sidebar_page_set_sidebar (PpsSidebarPage *sidebar_page,
+			      GObject        *sidebar) // PpsSidebar
+{
+	PpsSidebarPagePrivate *priv = GET_PRIVATE (sidebar_page);
+
+	if (priv->sidebar == sidebar)
+		return;
+
+	g_clear_object (&priv->sidebar);
+	priv->sidebar = g_object_ref (sidebar);
+}
+
 PpsDocumentModel*
 pps_sidebar_page_get_document_model (PpsSidebarPage *sidebar_page)
 {
@@ -85,6 +100,9 @@ pps_sidebar_page_set_property (GObject      *object,
 	case PROP_DOCUMENT_MODEL:
 		pps_sidebar_page_set_document_model (sidebar_page, g_value_get_object (value));
 		break;
+	case PROP_SIDEBAR:
+		pps_sidebar_page_set_sidebar (sidebar_page, g_value_get_object (value));
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 	}
@@ -102,6 +120,7 @@ pps_sidebar_page_dispose (GObject *object)
         PpsSidebarPagePrivate *priv = GET_PRIVATE (sidebar_page);
 
 	g_clear_object (&priv->model);
+	g_clear_object (&priv->sidebar);
 
         G_OBJECT_CLASS (pps_sidebar_page_parent_class)->dispose (object);
 }
@@ -123,4 +142,22 @@ pps_sidebar_page_class_init (PpsSidebarPageClass *class)
 							      G_PARAM_WRITABLE |
 							      G_PARAM_CONSTRUCT_ONLY |
 							      G_PARAM_STATIC_STRINGS));
+
+	g_object_class_install_property (object_class,
+					 PROP_SIDEBAR,
+					 g_param_spec_object ("sidebar",
+							      "Sidebar",
+							      "The sidebar containing this page",
+							      G_TYPE_OBJECT, // PPS_TYPE_SIDEBAR
+							      G_PARAM_WRITABLE |
+							      G_PARAM_CONSTRUCT_ONLY |
+							      G_PARAM_STATIC_STRINGS));
+}
+
+void
+pps_sidebar_page_navigate_to_view (PpsSidebarPage *sidebar_page)
+{
+	PpsSidebarPagePrivate *priv = GET_PRIVATE (sidebar_page);
+
+	g_signal_emit_by_name (priv->sidebar, "navigated-to-view", NULL);
 }

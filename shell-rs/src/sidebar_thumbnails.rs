@@ -303,6 +303,7 @@ mod imp {
                 if doc_page >= 0 {
                     self.block_page_changed.set(true);
                     model.set_page(doc_page);
+                    self.obj().navigate_to_view();
                     self.block_page_changed.set(false);
                 }
             }

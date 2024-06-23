@@ -33,7 +33,12 @@ mod imp {
     }
 
     #[glib::derived_properties]
-    impl ObjectImpl for PpsSidebar {}
+    impl ObjectImpl for PpsSidebar {
+        fn signals() -> &'static [Signal] {
+            static SIGNALS: OnceLock<Vec<Signal>> = OnceLock::new();
+            SIGNALS.get_or_init(|| vec![Signal::builder("navigated-to-view").run_last().build()])
+        }
+    }
 
     impl BinImpl for PpsSidebar {}
 

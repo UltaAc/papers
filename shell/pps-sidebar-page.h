@@ -44,6 +44,7 @@ struct _PpsSidebarPageClass
 gboolean          pps_sidebar_page_support_document   (PpsSidebarPage *sidebar_page,
 						       PpsDocument    *document);
 PpsDocumentModel *pps_sidebar_page_get_document_model (PpsSidebarPage *sidebar_page);
+void              pps_sidebar_page_navigate_to_view   (PpsSidebarPage    *sidebar_page);
 
 
 G_END_DECLS

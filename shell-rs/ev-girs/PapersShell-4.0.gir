@@ -2680,6 +2680,18 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
           </instance-parameter>
         </parameters>
       </method>
+      <method name="navigate_to_view"
+              c:identifier="pps_sidebar_page_navigate_to_view">
+        <source-position filename="shell/pps-sidebar-page.h" line="47"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="sidebar_page" transfer-ownership="none">
+            <type name="SidebarPage" c:type="PpsSidebarPage*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
       <method name="support_document"
               c:identifier="pps_sidebar_page_support_document">
         <source-position filename="shell/pps-sidebar-page.h" line="44"/>
@@ -2705,6 +2717,11 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
       <field name="parent_instance">
         <type name="Adw.Bin" c:type="AdwBin"/>
       </field>
+      <glib:signal name="navigated-to-view" when="last">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+      </glib:signal>
     </class>
     <record name="SidebarPageClass"
             c:type="PpsSidebarPageClass"
@@ -2749,12 +2766,12 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
       <constructor name="new" c:identifier="pps_window_new">
         <doc xml:space="preserve"
              filename="shell/pps-window.c"
-             line="5826">Creates a #GtkWidget that represents the window.</doc>
+             line="5849">Creates a #GtkWidget that represents the window.</doc>
         <source-position filename="shell/pps-window.h" line="53"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="5831">the #GtkWidget that represents the window.</doc>
+               line="5854">the #GtkWidget that represents the window.</doc>
           <type name="Window" c:type="PpsWindow*"/>
         </return-value>
       </constructor>
@@ -2786,14 +2803,14 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="5846">the #AdwHeaderBar that represents the toolbar of the window.</doc>
+               line="5869">the #AdwHeaderBar that represents the toolbar of the window.</doc>
           <type name="Adw.HeaderBar" c:type="AdwHeaderBar*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="5844">the #PpsWindow</doc>
+                 line="5867">the #PpsWindow</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
@@ -2803,14 +2820,14 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="5875">the #PpsMetadata of the document shown in the window.</doc>
+               line="5898">the #PpsMetadata of the document shown in the window.</doc>
           <type name="Metadata" c:type="PpsMetadata*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="5873">the #PpsWindow</doc>
+                 line="5896">the #PpsWindow</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>

@@ -4241,6 +4241,16 @@ find_button_sensitive_changed (GtkWidget  *find_button,
 }
 
 static void
+sidebar_navigate_to_view (PpsWindow *window)
+{
+	PpsWindowPrivate *priv = GET_PRIVATE (window);
+
+	if (adw_overlay_split_view_get_collapsed (priv->split_view))
+		adw_overlay_split_view_set_show_sidebar (priv->split_view, FALSE);
+	pps_window_focus_view (window);
+}
+
+static void
 view_menu_link_popup (PpsWindow *pps_window,
 		      PpsLink   *link)
 {
@@ -4496,6 +4506,7 @@ find_sidebar_result_activated_cb (PpsSearchContext *context,
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
 	pps_view_find_set_result (PPS_VIEW (priv->view), page, result);
+	sidebar_navigate_to_view (window);
 }
 
 static void
@@ -5709,6 +5720,10 @@ pps_window_init (PpsWindow *pps_window)
 	g_signal_connect_object (priv->search_context, "result-activated",
 				 G_CALLBACK (find_sidebar_result_activated_cb),
 				 pps_window, G_CONNECT_DEFAULT);
+
+	g_signal_connect_object (priv->sidebar, "navigated-to-view",
+				 G_CALLBACK (sidebar_navigate_to_view),
+				 pps_window, G_CONNECT_SWAPPED);
 }
 
 static void

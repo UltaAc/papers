@@ -98,6 +98,7 @@ pps_bookmarks_popup_cmd_open_bookmark (GSimpleAction *action,
         page = pps_sidebar_bookmarks_get_selected_page (sidebar_bookmarks, selection);
         g_signal_emit (sidebar_bookmarks, signals[ACTIVATED], 0, old_page, page);
         pps_document_model_set_page (model, page);
+	pps_sidebar_page_navigate_to_view (PPS_SIDEBAR_PAGE (sidebar_bookmarks));
 }
 
 static void
@@ -232,6 +233,7 @@ pps_sidebar_bookmarks_selection_changed (GtkTreeSelection   *selection,
                 gint old_page = pps_document_model_get_page (model);
                 g_signal_emit (sidebar_bookmarks, signals[ACTIVATED], 0, old_page, page);
                 pps_document_model_set_page (model, page);
+		pps_sidebar_page_navigate_to_view (PPS_SIDEBAR_PAGE (sidebar_bookmarks));
                 gtk_widget_set_sensitive (priv->del_button, TRUE);
         } else {
                 gtk_widget_set_sensitive (priv->del_button, FALSE);

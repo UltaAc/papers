@@ -732,6 +732,7 @@ mod imp {
 
                     self.block_page_changed.set(true);
                     self.obj().emit_by_name::<()>("link-activated", &[&link]);
+                    self.obj().navigate_to_view();
                     self.block_page_changed.set(false);
                 }
             }
