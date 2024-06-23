@@ -27,13 +27,7 @@
 
 #include "pps-document.h"
 #include "pps-document-misc.h"
-#include "pps-sidebar-page.h"
 #include "pps-utils.h"
-
-enum {
-	PROP_0,
-	PROP_DOCUMENT_MODEL
-};
 
 enum {
         COLUMN_MARKUP,
@@ -49,7 +43,6 @@ enum {
 static guint signals[N_SIGNALS] = { 0 };
 
 struct _PpsSidebarBookmarksPrivate {
-        PpsDocumentModel *model;
         PpsBookmarks     *bookmarks;
 
         GtkWidget       *tree_view;
@@ -62,23 +55,14 @@ struct _PpsSidebarBookmarksPrivate {
 
 #define GET_PRIVATE(o) pps_sidebar_bookmarks_get_instance_private (o);
 
-static void pps_sidebar_bookmarks_page_iface_init (PpsSidebarPageInterface *iface);
 static void pps_sidebar_bookmarks_page_changed (PpsSidebarBookmarks *sidebar_bookmarks,
                                                gint                old_page,
                                                gint                new_page);
-static void pps_sidebar_bookmarks_set_model (PpsSidebarPage   *sidebar_page,
-					    PpsDocumentModel *model);
 static void pps_sidebar_bookmarks_selection_changed (GtkTreeSelection   *selection,
                                 		    PpsSidebarBookmarks *sidebar_bookmarks);
 
 
-G_DEFINE_TYPE_EXTENDED (PpsSidebarBookmarks,
-                        pps_sidebar_bookmarks,
-                        GTK_TYPE_BOX,
-                        0,
-                        G_ADD_PRIVATE (PpsSidebarBookmarks)
-                        G_IMPLEMENT_INTERFACE (PPS_TYPE_SIDEBAR_PAGE,
-                                               pps_sidebar_bookmarks_page_iface_init))
+G_DEFINE_TYPE_WITH_PRIVATE (PpsSidebarBookmarks, pps_sidebar_bookmarks, PPS_TYPE_SIDEBAR_PAGE)
 
 static gint
 pps_sidebar_bookmarks_get_selected_page (PpsSidebarBookmarks *sidebar_bookmarks,
@@ -105,14 +89,15 @@ pps_bookmarks_popup_cmd_open_bookmark (GSimpleAction *action,
                                       gpointer       sidebar_bookmarks)
 {
         PpsSidebarBookmarksPrivate *priv = GET_PRIVATE (sidebar_bookmarks);
+	PpsDocumentModel          *model = pps_sidebar_page_get_document_model (PPS_SIDEBAR_PAGE (sidebar_bookmarks));
         GtkTreeSelection          *selection;
         gint                       page;
-        gint old_page = pps_document_model_get_page (priv->model);
+        gint old_page = pps_document_model_get_page (model);
 
         selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree_view));
         page = pps_sidebar_bookmarks_get_selected_page (sidebar_bookmarks, selection);
         g_signal_emit (sidebar_bookmarks, signals[ACTIVATED], 0, old_page, page);
-        pps_document_model_set_page (priv->model, page);
+        pps_document_model_set_page (model, page);
 }
 
 static void
@@ -239,13 +224,14 @@ pps_sidebar_bookmarks_selection_changed (GtkTreeSelection   *selection,
                                         PpsSidebarBookmarks *sidebar_bookmarks)
 {
         PpsSidebarBookmarksPrivate *priv = GET_PRIVATE (sidebar_bookmarks);
-        gint                       page;
+	PpsDocumentModel           *model = pps_sidebar_page_get_document_model (PPS_SIDEBAR_PAGE (sidebar_bookmarks));
+        gint                        page;
 
         page = pps_sidebar_bookmarks_get_selected_page (sidebar_bookmarks, selection);
         if (page >= 0) {
-                gint old_page = pps_document_model_get_page (priv->model);
+                gint old_page = pps_document_model_get_page (model);
                 g_signal_emit (sidebar_bookmarks, signals[ACTIVATED], 0, old_page, page);
-                pps_document_model_set_page (priv->model, page);
+                pps_document_model_set_page (model, page);
                 gtk_widget_set_sensitive (priv->del_button, TRUE);
         } else {
                 gtk_widget_set_sensitive (priv->del_button, FALSE);
@@ -326,6 +312,7 @@ pps_sidebar_bookmarks_query_tooltip (GtkWidget          *widget,
 {
 
         PpsSidebarBookmarksPrivate *priv = GET_PRIVATE (sidebar_bookmarks);
+	PpsDocumentModel          *document_model;
         GtkTreeModel              *model;
         GtkTreeIter                iter;
         GtkTreePath               *path = NULL;
@@ -344,7 +331,8 @@ pps_sidebar_bookmarks_query_tooltip (GtkWidget          *widget,
                             COLUMN_PAGE, &page,
                             -1);
 
-        document = pps_document_model_get_document (priv->model);
+	document_model = pps_sidebar_page_get_document_model (PPS_SIDEBAR_PAGE (sidebar_bookmarks));
+	document = pps_document_model_get_document (document_model);
         page_label = pps_document_get_page_label (document, page);
         text = g_strdup_printf (_("Page %s"), page_label);
         gtk_tooltip_set_text (tooltip, text);
@@ -394,16 +382,31 @@ pps_sidebar_bookmarks_button_press_cb (GtkGestureClick    *self,
         gtk_popover_popup (GTK_POPOVER (priv->popup));
 }
 
+static gboolean
+pps_sidebar_bookmarks_support_document (PpsSidebarPage *sidebar_page,
+					PpsDocument    *document)
+{
+        return TRUE;
+}
+
 static void
 pps_sidebar_bookmarks_dispose (GObject *object)
 {
         PpsSidebarBookmarks *sidebar_bookmarks = PPS_SIDEBAR_BOOKMARKS (object);
         PpsSidebarBookmarksPrivate *priv = GET_PRIVATE (sidebar_bookmarks);
 
-	g_clear_object (&priv->model);
 	g_clear_object (&priv->bookmarks);
 
         G_OBJECT_CLASS (pps_sidebar_bookmarks_parent_class)->dispose (object);
+}
+
+static void
+pps_sidebar_bookmarks_constructed (GObject *object)
+{
+	g_signal_connect_swapped (pps_sidebar_page_get_document_model (PPS_SIDEBAR_PAGE (object)),
+				  "page-changed",
+				  G_CALLBACK (pps_sidebar_bookmarks_page_changed),
+				  PPS_SIDEBAR_BOOKMARKS (object));
 }
 
 static void
@@ -419,33 +422,16 @@ pps_sidebar_bookmarks_init (PpsSidebarBookmarks *sidebar_bookmarks)
 }
 
 static void
-pps_sidebar_bookmarks_set_property (GObject      *object,
-				   guint         prop_id,
-				   const GValue *value,
-				   GParamSpec   *pspec)
-{
-	PpsSidebarBookmarks *sidebar_bookmarks = PPS_SIDEBAR_BOOKMARKS (object);
-
-	switch (prop_id)
-	{
-	case PROP_DOCUMENT_MODEL:
-		pps_sidebar_bookmarks_set_model (PPS_SIDEBAR_PAGE (sidebar_bookmarks),
-			PPS_DOCUMENT_MODEL (g_value_get_object (value)));
-		break;
-	default:
-		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-		break;
-	}
-}
-
-static void
 pps_sidebar_bookmarks_class_init (PpsSidebarBookmarksClass *klass)
 {
         GObjectClass   *g_object_class = G_OBJECT_CLASS (klass);
         GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+        PpsSidebarPageClass *sidebar_page_class = PPS_SIDEBAR_PAGE_CLASS (klass);
 
-        g_object_class->set_property = pps_sidebar_bookmarks_set_property;
+	g_object_class->constructed = pps_sidebar_bookmarks_constructed;
         g_object_class->dispose = pps_sidebar_bookmarks_dispose;
+
+        sidebar_page_class->support_document = pps_sidebar_bookmarks_support_document;
 
 	gtk_widget_class_set_template_from_resource (widget_class,
 			"/org/gnome/papers/ui/sidebar-bookmarks.ui");
@@ -460,8 +446,6 @@ pps_sidebar_bookmarks_class_init (PpsSidebarBookmarksClass *klass)
 	gtk_widget_class_bind_template_callback (widget_class, pps_sidebar_bookmarks_selection_changed);
 	gtk_widget_class_bind_template_callback (widget_class, pps_sidebar_bookmarks_query_tooltip);
 	gtk_widget_class_bind_template_callback (widget_class, pps_sidebar_bookmarks_button_press_cb);
-
-	g_object_class_override_property (g_object_class, PROP_DOCUMENT_MODEL, "document-model");
 
 	/* Signals */
         signals[ACTIVATED] =
@@ -500,37 +484,4 @@ pps_sidebar_bookmarks_set_bookmarks (PpsSidebarBookmarks *sidebar_bookmarks,
 
         gtk_widget_set_sensitive (priv->add_button, TRUE);
         pps_sidebar_bookmarks_update (sidebar_bookmarks);
-}
-
-/* PpsSidebarPageIface */
-static void
-pps_sidebar_bookmarks_set_model (PpsSidebarPage   *sidebar_page,
-                                PpsDocumentModel *model)
-{
-        PpsSidebarBookmarks *sidebar_bookmarks = PPS_SIDEBAR_BOOKMARKS (sidebar_page);
-        PpsSidebarBookmarksPrivate *priv = GET_PRIVATE (sidebar_bookmarks);
-
-        if (priv->model == model)
-                return;
-
-        if (priv->model)
-                g_object_unref (priv->model);
-        priv->model = g_object_ref (model);
-        g_signal_connect_swapped (model, "page-changed",
-                                  G_CALLBACK (pps_sidebar_bookmarks_page_changed),
-                                  sidebar_page);
-}
-
-static gboolean
-pps_sidebar_bookmarks_support_document (PpsSidebarPage *sidebar_page,
-                                       PpsDocument    *document)
-{
-        return TRUE;
-}
-
-static void
-pps_sidebar_bookmarks_page_iface_init (PpsSidebarPageInterface *iface)
-{
-        iface->support_document = pps_sidebar_bookmarks_support_document;
-        iface->set_model = pps_sidebar_bookmarks_set_model;
 }

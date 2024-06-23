@@ -24,24 +24,10 @@
 #include <adwaita.h>
 
 #include "pps-document-annotations.h"
-#include "pps-sidebar-page.h"
 #include "pps-sidebar-annotations.h"
 #include "pps-jobs.h"
 #include "pps-job-scheduler.h"
 #include "pps-window.h"
-
-enum {
-	PROP_0,
-	PROP_DOCUMENT_MODEL
-};
-
-enum {
-	COLUMN_MARKUP,
-	COLUMN_ICON,
-	COLUMN_ANNOT_MAPPING,
-	COLUMN_TOOLTIP,
-	N_COLUMNS
-};
 
 enum {
 	ANNOT_ACTIVATED,
@@ -49,8 +35,6 @@ enum {
 };
 
 struct _PpsSidebarAnnotationsPrivate {
-	PpsDocumentModel  *model;
-
 	GtkWidget   *list_box;
 	GtkWidget   *stack;
 
@@ -59,21 +43,12 @@ struct _PpsSidebarAnnotationsPrivate {
 	PpsJob       *job;
 };
 
-static void pps_sidebar_annotations_page_iface_init (PpsSidebarPageInterface *iface);
 static void pps_sidebar_annotations_load            (PpsSidebarAnnotations   *sidebar_annots);
 static void job_finished_callback (PpsJobAnnots          *job,
 				   PpsSidebarAnnotations *sidebar_annots);
-static void pps_sidebar_annotations_set_model (PpsSidebarPage   *sidebar_page,
-					      PpsDocumentModel *model);
 static guint signals[N_SIGNALS];
 
-G_DEFINE_TYPE_EXTENDED (PpsSidebarAnnotations,
-                        pps_sidebar_annotations,
-                        GTK_TYPE_BOX,
-                        0,
-                        G_ADD_PRIVATE (PpsSidebarAnnotations)
-                        G_IMPLEMENT_INTERFACE (PPS_TYPE_SIDEBAR_PAGE,
-					       pps_sidebar_annotations_page_iface_init))
+G_DEFINE_TYPE_WITH_PRIVATE (PpsSidebarAnnotations, pps_sidebar_annotations, PPS_TYPE_SIDEBAR_PAGE)
 
 #define GET_PRIVATE(t) (pps_sidebar_annotations_get_instance_private (t))
 
@@ -92,8 +67,36 @@ pps_sidebar_annotations_dispose (GObject *object)
 		g_clear_object (&priv->job);
 	}
 
-	g_clear_object (&priv->model);
 	G_OBJECT_CLASS (pps_sidebar_annotations_parent_class)->dispose (object);
+}
+
+static void
+pps_sidebar_annotations_document_changed_cb (PpsDocumentModel      *model,
+					    GParamSpec           *pspec,
+					    PpsSidebarAnnotations *sidebar_annots)
+{
+	PpsDocument *document = pps_document_model_get_document (model);
+
+	if (!PPS_IS_DOCUMENT_ANNOTATIONS (document))
+		return;
+
+	pps_sidebar_annotations_load (sidebar_annots);
+}
+
+static gboolean
+pps_sidebar_annotations_support_document (PpsSidebarPage *sidebar_page,
+					  PpsDocument    *document)
+{
+	return (PPS_IS_DOCUMENT_ANNOTATIONS (document));
+}
+
+static void
+pps_sidebar_annotations_constructed (GObject *object)
+{
+	g_signal_connect (pps_sidebar_page_get_document_model (PPS_SIDEBAR_PAGE (object)),
+			  "notify::document",
+			  G_CALLBACK (pps_sidebar_annotations_document_changed_cb),
+			  PPS_SIDEBAR_ANNOTATIONS (object));
 }
 
 static void
@@ -103,41 +106,22 @@ pps_sidebar_annotations_init (PpsSidebarAnnotations *pps_annots)
 }
 
 static void
-pps_sidebar_annotations_set_property (GObject      *object,
-			       guint         prop_id,
-			       const GValue *value,
-			       GParamSpec   *pspec)
-{
-	PpsSidebarAnnotations *sidebar_annots = PPS_SIDEBAR_ANNOTATIONS (object);
-
-	switch (prop_id)
-	{
-	case PROP_DOCUMENT_MODEL:
-		pps_sidebar_annotations_set_model (PPS_SIDEBAR_PAGE (sidebar_annots),
-			PPS_DOCUMENT_MODEL (g_value_get_object (value)));
-		break;
-	default:
-		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-		break;
-	}
-}
-
-static void
 pps_sidebar_annotations_class_init (PpsSidebarAnnotationsClass *klass)
 {
 	GObjectClass *g_object_class = G_OBJECT_CLASS (klass);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+        PpsSidebarPageClass *sidebar_page_class = PPS_SIDEBAR_PAGE_CLASS (klass);
 
-	g_object_class->set_property = pps_sidebar_annotations_set_property;
+	g_object_class->constructed = pps_sidebar_annotations_constructed;
 	g_object_class->dispose = pps_sidebar_annotations_dispose;
+
+	sidebar_page_class->support_document = pps_sidebar_annotations_support_document;
 
 	gtk_widget_class_set_template_from_resource (widget_class,
 			"/org/gnome/papers/ui/sidebar-annotations.ui");
 	gtk_widget_class_bind_template_child_private (widget_class, PpsSidebarAnnotations, list_box);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsSidebarAnnotations, stack);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsSidebarAnnotations, popup);
-
-	g_object_class_override_property (g_object_class, PROP_DOCUMENT_MODEL, "document-model");
 
 	signals[ANNOT_ACTIVATED] =
 		g_signal_new ("annot-activated",
@@ -287,7 +271,8 @@ static void
 pps_sidebar_annotations_load (PpsSidebarAnnotations *sidebar_annots)
 {
 	PpsSidebarAnnotationsPrivate *priv = GET_PRIVATE (sidebar_annots);
-	PpsDocument *document = pps_document_model_get_document (priv->model);
+	PpsDocumentModel *model = pps_sidebar_page_get_document_model (PPS_SIDEBAR_PAGE (sidebar_annots));
+	PpsDocument *document = pps_document_model_get_document (model);
 
 	if (priv->job) {
 		g_signal_handlers_disconnect_by_func (priv->job,
@@ -302,56 +287,4 @@ pps_sidebar_annotations_load (PpsSidebarAnnotations *sidebar_annots)
 			  sidebar_annots);
 	/* The priority doesn't matter for this job */
 	pps_job_scheduler_push_job (priv->job, PPS_JOB_PRIORITY_NONE);
-}
-
-static void
-pps_sidebar_annotations_document_changed_cb (PpsDocumentModel      *model,
-					    GParamSpec           *pspec,
-					    PpsSidebarAnnotations *sidebar_annots)
-{
-	PpsDocument *document = pps_document_model_get_document (model);
-
-	if (!PPS_IS_DOCUMENT_ANNOTATIONS (document))
-		return;
-
-	pps_sidebar_annotations_load (sidebar_annots);
-}
-
-/* PpsSidebarPageIface */
-static void
-pps_sidebar_annotations_set_model (PpsSidebarPage   *sidebar_page,
-				  PpsDocumentModel *model)
-{
-	g_return_if_fail (PPS_IS_SIDEBAR_ANNOTATIONS (sidebar_page));
-	g_return_if_fail (PPS_IS_DOCUMENT_MODEL (model));
-	PpsSidebarAnnotationsPrivate *priv = GET_PRIVATE (PPS_SIDEBAR_ANNOTATIONS (sidebar_page));
-
-	if (priv->model == model)
-		return;
-
-	if (priv->model) {
-		g_signal_handlers_disconnect_by_func (priv->model,
-			G_CALLBACK (pps_sidebar_annotations_document_changed_cb), sidebar_page);
-		g_object_unref (priv->model);
-	}
-
-	priv->model = g_object_ref (model);
-
-	g_signal_connect (model, "notify::document",
-			  G_CALLBACK (pps_sidebar_annotations_document_changed_cb),
-			  sidebar_page);
-}
-
-static gboolean
-pps_sidebar_annotations_support_document (PpsSidebarPage *sidebar_page,
-					 PpsDocument    *document)
-{
-	return (PPS_IS_DOCUMENT_ANNOTATIONS (document));
-}
-
-static void
-pps_sidebar_annotations_page_iface_init (PpsSidebarPageInterface *iface)
-{
-	iface->support_document = pps_sidebar_annotations_support_document;
-	iface->set_model = pps_sidebar_annotations_set_model;
 }

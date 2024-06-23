@@ -6,16 +6,13 @@ use papers_view::{JobAttachments, JobPriority};
 mod imp {
     use super::*;
 
-    #[derive(CompositeTemplate, Debug, Default, Properties)]
-    #[properties(wrapper_type = super::PpsSidebarAttachments)]
+    #[derive(CompositeTemplate, Debug, Default)]
     #[template(resource = "/org/gnome/papers/ui/sidebar-attachments.ui")]
     pub struct PpsSidebarAttachments {
         #[template_child]
         grid_view: TemplateChild<gtk::GridView>,
         #[template_child]
         model: TemplateChild<gio::ListStore>,
-        #[property(name = "document-model", nullable, set = Self::set_model)]
-        doc_model: RefCell<Option<DocumentModel>>,
     }
 
     #[gtk::template_callbacks]
@@ -93,14 +90,6 @@ mod imp {
             if let Some(name) = attachment.name() {
                 label.set_text(name.as_str());
             }
-        }
-
-        fn set_model(&self, model: DocumentModel) {
-            model.connect_document_notify(glib::clone!(@weak self as obj => move |model| {
-                obj.document_changed_cb(model);
-            }));
-
-            self.doc_model.replace(Some(model));
         }
 
         fn document_changed_cb(&self, model: &DocumentModel) {
@@ -286,8 +275,7 @@ mod imp {
     impl ObjectSubclass for PpsSidebarAttachments {
         const NAME: &'static str = "PpsSidebarAttachments";
         type Type = super::PpsSidebarAttachments;
-        type ParentType = gtk::Box;
-        type Interfaces = (SidebarPage,);
+        type ParentType = SidebarPage;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -299,7 +287,6 @@ mod imp {
         }
     }
 
-    #[glib::derived_properties]
     impl ObjectImpl for PpsSidebarAttachments {
         fn signals() -> &'static [Signal] {
             static SIGNALS: OnceLock<Vec<Signal>> = OnceLock::new();
@@ -323,11 +310,17 @@ mod imp {
                 ]
             })
         }
+
+        fn constructed(&self) {
+            if let Some(model) = self.obj().document_model() {
+                model.connect_document_notify(glib::clone!(@weak self as obj => move |model| {
+                    obj.document_changed_cb(model);
+                }));
+            }
+        }
     }
 
     impl WidgetImpl for PpsSidebarAttachments {}
-
-    impl BoxImpl for PpsSidebarAttachments {}
 
     impl SidebarPageImpl for PpsSidebarAttachments {
         fn support_document(&self, document: &Document) -> bool {
@@ -341,7 +334,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct PpsSidebarAttachments(ObjectSubclass<imp::PpsSidebarAttachments>)
-    @extends gtk::Widget, gtk::Box;
+    @extends gtk::Widget, adw::Bin, SidebarPage;
 }
 
 impl Default for PpsSidebarAttachments {

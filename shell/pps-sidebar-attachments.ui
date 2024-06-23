@@ -1,44 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0" />
-  <template class="PpsSidebarAttachments" parent="GtkBox">
-    <property name="name">pps-sidebar-attachments</property>
-    <property name="orientation">vertical</property>
-    <child type="start">
-      <object class="GtkScrolledWindow" id="swindow">
-        <property name="valign">fill</property>
-        <property name="vexpand">True</property>
-        <property name="hscrollbar-policy">never</property>
-        <property name="vscrollbar-policy">automatic</property>
+  <template class="PpsSidebarAttachments" parent="PpsSidebarPage">
+    <property name="child">
+      <object class="GtkBox">
+        <property name="name">pps-sidebar-attachments</property>
+        <property name="orientation">vertical</property>
+        <child type="start">
+          <object class="GtkScrolledWindow" id="swindow">
+            <property name="valign">fill</property>
+            <property name="vexpand">True</property>
+            <property name="hscrollbar-policy">never</property>
+            <property name="vscrollbar-policy">automatic</property>
 
-        <child>
-          <object class="GtkGestureClick">
-            <property name="button">0</property>
-            <signal name="pressed" handler="button_clicked" swapped="yes" />
-          </object>
-        </child>
+            <child>
+              <object class="GtkGestureClick">
+                <property name="button">0</property>
+                <signal name="pressed" handler="button_clicked" swapped="yes" />
+              </object>
+            </child>
 
-        <property name="child">
-          <object class="GtkGridView" id="grid_view">
-            <property name="factory">
-              <object class="GtkSignalListItemFactory" id="factory">
-                <signal name="setup" handler="grid_view_factory_setup" swapped="yes" />
-                <signal name="bind" handler="grid_view_factory_bind" swapped="yes" />
+            <property name="child">
+              <object class="GtkGridView" id="grid_view">
+                <property name="factory">
+                  <object class="GtkSignalListItemFactory" id="factory">
+                    <signal name="setup" handler="grid_view_factory_setup" swapped="yes" />
+                    <signal name="bind" handler="grid_view_factory_bind" swapped="yes" />
+                  </object>
+                </property>
+                <property name="enable-rubberband">True</property>
+                <property name="halign">center</property>
+                <property name="max-columns">1</property>
+                <property name="model">selection-model</property>
+                <property name="tab-behavior">item</property>
+                <signal name="activate" handler="grid_view_item_activated" swapped="yes" />
+                <style>
+                  <class name="navigation-sidebar" />
+                </style>
               </object>
             </property>
-            <property name="enable-rubberband">True</property>
-            <property name="halign">center</property>
-            <property name="max-columns">1</property>
-            <property name="model">selection-model</property>
-            <property name="tab-behavior">item</property>
-            <signal name="activate" handler="grid_view_item_activated" swapped="yes" />
-            <style>
-              <class name="navigation-sidebar" />
-            </style>
           </object>
-        </property>
+        </child>
       </object>
-    </child>
+    </property>
   </template>
 
   <object class="GtkMultiSelection" id="selection-model">

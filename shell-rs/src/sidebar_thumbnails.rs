@@ -32,8 +32,6 @@ mod imp {
         pub(super) selection_model: TemplateChild<gtk::SingleSelection>,
         #[template_child]
         pub(super) factory: TemplateChild<gtk::SignalListItemFactory>,
-        #[property(name = "document-model", nullable, set = Self::set_model)]
-        pub(super) model: RefCell<Option<DocumentModel>>,
         /// Switch of blank_head mode. When this mode is enabled. A blank page is
         /// inserted into the start of thumbnail list. We explicitly distinguish
         /// model index between page index due to support of this mode.
@@ -48,8 +46,7 @@ mod imp {
     impl ObjectSubclass for PpsSidebarThumbnails {
         const NAME: &'static str = "PpsSidebarThumbnails";
         type Type = super::PpsSidebarThumbnails;
-        type ParentType = gtk::Box;
-        type Interfaces = (papers_shell::SidebarPage,);
+        type ParentType = papers_shell::SidebarPage;
 
         fn class_init(klass: &mut Self::Class) {
             PpsThumbnailItem::ensure_type();
@@ -68,6 +65,48 @@ mod imp {
         fn constructed(&self) {
             self.blank_head.set(false);
             self.lru.replace(Some(LruCache::unbounded()));
+
+            if let Some(model) = self.obj().document_model() {
+                model.connect_page_changed(
+                    glib::clone!(@weak self as obj => move |model, _, new| {
+                        if obj.block_page_changed.get() {
+                            return;
+                        }
+
+                        if model.document().is_none() {
+                            return;
+                        }
+
+                        debug!("page changed callback {new}");
+
+                        obj.set_current_page(new);
+                    }),
+                );
+
+                model.connect_document_notify(glib::clone!(@weak self as obj => move |model| {
+                    if let Some(document) = model.document() {
+                        if document.n_pages() > 0 && document.check_dimensions() {
+                            obj.reload();
+                        }
+                    }
+                }));
+
+                model.connect_inverted_colors_notify(glib::clone!(@weak self as obj => move |_| {
+                    obj.reload();
+                }));
+
+                model.connect_rotation_notify(glib::clone!(@weak self as obj => move |_| {
+                    obj.reload();
+                }));
+
+                model.connect_page_layout_notify(glib::clone!(@weak self as obj => move |_| {
+                    obj.relayout();
+                }));
+
+                model.connect_dual_odd_left_notify(glib::clone!(@weak self as obj => move |_| {
+                    obj.relayout();
+                }));
+            }
         }
     }
 
@@ -83,7 +122,7 @@ mod imp {
             self.parent_map();
             self.grid_view.set_model(Some(&selection_model));
 
-            if let Some(model) = self.model() {
+            if let Some(model) = self.obj().document_model() {
                 let page = model.page();
 
                 if page >= 0 && model.document().is_some() {
@@ -106,50 +145,6 @@ mod imp {
 
     #[gtk::template_callbacks]
     impl PpsSidebarThumbnails {
-        fn set_model(&self, model: DocumentModel) {
-            let obj = self.obj();
-
-            model.connect_page_changed(glib::clone!(@weak self as obj => move |model, _, new| {
-                if obj.block_page_changed.get() {
-                    return;
-                }
-
-                if model.document().is_none() {
-                    return;
-                }
-
-                debug!("page changed callback {new}");
-
-                obj.set_current_page(new);
-            }));
-
-            model.connect_document_notify(glib::clone!(@weak obj => move |model| {
-                if let Some(document) = model.document() {
-                    if document.n_pages() > 0 && document.check_dimensions() {
-                        obj.imp().reload();
-                    }
-                }
-            }));
-
-            model.connect_inverted_colors_notify(glib::clone!(@weak obj => move |_| {
-                obj.imp().reload();
-            }));
-
-            model.connect_rotation_notify(glib::clone!(@weak obj => move |_| {
-                obj.imp().reload();
-            }));
-
-            model.connect_page_layout_notify(glib::clone!(@weak obj => move |_| {
-                obj.imp().relayout();
-            }));
-
-            model.connect_dual_odd_left_notify(glib::clone!(@weak obj => move |_| {
-                obj.imp().relayout();
-            }));
-
-            self.model.replace(Some(model));
-        }
-
         #[template_callback]
         fn grid_view_factory_setup(
             &self,
@@ -191,7 +186,7 @@ mod imp {
 
         fn render_item(&self, model_index: i32) -> JobThumbnailTexture {
             let doc_page = self.page_of_document(model_index);
-            let document = self.model().unwrap().document().unwrap();
+            let document = self.obj().document_model().unwrap().document().unwrap();
             let (width, height) = self.thumbnail_size_for_page(doc_page).unwrap();
 
             let job = JobThumbnailTexture::with_target_size(
@@ -301,7 +296,7 @@ mod imp {
                 return;
             }
 
-            if let Some(model) = self.model() {
+            if let Some(model) = self.obj().document_model() {
                 let selected = self.selection_model.selected();
                 let doc_page = self.page_of_document(selected as i32);
 
@@ -357,7 +352,7 @@ mod imp {
             self.fill_list_store();
             self.lru.borrow_mut().as_mut().unwrap().clear();
 
-            if let Some(model) = self.model() {
+            if let Some(model) = self.obj().document_model() {
                 if let Some(document) = model.document() {
                     if document.n_pages() > 0 && document.check_dimensions() {
                         self.set_current_page(model.page());
@@ -367,7 +362,7 @@ mod imp {
         }
 
         fn inverted_color(&self) -> bool {
-            if let Some(model) = self.model() {
+            if let Some(model) = self.obj().document_model() {
                 model.is_inverted_colors()
             } else {
                 false
@@ -375,7 +370,7 @@ mod imp {
         }
 
         fn rotation(&self) -> i32 {
-            if let Some(model) = self.model() {
+            if let Some(model) = self.obj().document_model() {
                 model.rotation()
             } else {
                 0
@@ -383,7 +378,7 @@ mod imp {
         }
 
         fn dual_page(&self) -> bool {
-            if let Some(model) = self.model() {
+            if let Some(model) = self.obj().document_model() {
                 model.page_layout() == PageLayout::Dual
             } else {
                 false
@@ -391,7 +386,7 @@ mod imp {
         }
 
         fn dual_page_odd_pages_left(&self) -> bool {
-            if let Some(model) = self.model() {
+            if let Some(model) = self.obj().document_model() {
                 model.is_dual_page_odd_pages_left()
             } else {
                 false
@@ -435,10 +430,6 @@ mod imp {
             self.block_activate.set(false);
         }
 
-        fn model(&self) -> Option<DocumentModel> {
-            self.model.borrow().clone()
-        }
-
         /// This is a special mode that a blank page is inserted into the start
         /// of thumbnails.
         fn blank_head_mode(&self) -> bool {
@@ -447,7 +438,7 @@ mod imp {
 
         fn fill_list_store(&self) {
             self.list_store.remove_all();
-            if let Some(model) = self.model() {
+            if let Some(model) = self.obj().document_model() {
                 if let Some(document) = model.document() {
                     if self.blank_head_mode() {
                         self.list_store.append(&PpsThumbnailItem::default());
@@ -481,7 +472,7 @@ mod imp {
 
         fn thumbnail_size_for_page(&self, doc_page: i32) -> Option<(i32, i32)> {
             let scale = self.obj().scale_factor() as f64;
-            let model = self.model()?;
+            let model = self.obj().document_model()?;
             let document = model.document()?;
             let (mut width, mut height) = document.page_size(doc_page);
             let rotation = self.rotation();
@@ -503,8 +494,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct PpsSidebarThumbnails(ObjectSubclass<imp::PpsSidebarThumbnails>)
-        @extends gtk::Box, gtk::Widget,
-        @implements papers_shell::SidebarPage;
+        @extends papers_shell::SidebarPage, adw::Bin, gtk::Widget;
 }
 
 impl PpsSidebarThumbnails {

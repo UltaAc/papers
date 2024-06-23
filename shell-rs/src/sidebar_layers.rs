@@ -7,16 +7,13 @@ use std::collections::HashMap;
 mod imp {
     use super::*;
 
-    #[derive(Properties, Default, Debug, CompositeTemplate)]
-    #[properties(wrapper_type = super::PpsSidebarLayers)]
+    #[derive(Default, Debug, CompositeTemplate)]
     #[template(resource = "/org/gnome/papers/ui/sidebar-layers.ui")]
     pub struct PpsSidebarLayers {
         #[template_child]
         pub(super) list_view: TemplateChild<gtk::ListView>,
         #[template_child]
         pub(super) selection_model: TemplateChild<gtk::NoSelection>,
-        #[property(name = "document-model", nullable, set = Self::set_model)]
-        pub(super) model: RefCell<Option<DocumentModel>>,
         pub(super) sig_handlers: RefCell<HashMap<Layer, SignalHandlerId>>,
         pub(super) groups: RefCell<HashMap<usize, Vec<Layer>>>,
     }
@@ -25,8 +22,7 @@ mod imp {
     impl ObjectSubclass for PpsSidebarLayers {
         const NAME: &'static str = "PpsSidebarLayers";
         type Type = super::PpsSidebarLayers;
-        type ParentType = gtk::Box;
-        type Interfaces = (papers_shell::SidebarPage,);
+        type ParentType = papers_shell::SidebarPage;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -38,7 +34,6 @@ mod imp {
         }
     }
 
-    #[glib::derived_properties]
     impl ObjectImpl for PpsSidebarLayers {
         fn signals() -> &'static [Signal] {
             static SIGNALS: OnceLock<Vec<Signal>> = OnceLock::new();
@@ -60,6 +55,41 @@ mod imp {
                     }
                 }),
             );
+
+            if let Some(model) = self.obj().document_model() {
+                model.connect_document_notify(glib::clone!(@weak self as obj => move |model| {
+                    let Some(document) = model.document().filter(|d| obj.support_document(d)) else {
+                        return;
+                    };
+
+                    let job = JobLayers::new(&document);
+
+                    job.connect_finished(move |job| {
+                        let model = job.model().unwrap();
+
+                        for o in &model {
+                            let layer = o.ok().and_downcast::<Layer>().unwrap();
+                            let rb_group = layer.rb_group() as usize;
+
+                            if rb_group > 0 {
+                                let mut groups = obj.groups.borrow_mut();
+
+                                if let Some(v) = groups.get_mut(&rb_group) {
+                                    v.push(layer);
+                                } else {
+                                    groups.insert(rb_group, vec![layer]);
+                                }
+                            }
+                        }
+
+                        let tree_model = gtk::TreeListModel::new(model, false, false, |l| l.downcast_ref::<Layer>().unwrap().children());
+
+                        obj.selection_model.set_model(Some(&tree_model));
+                    });
+
+                    job.scheduler_push_job(JobPriority::PriorityNone);
+                }));
+            }
         }
     }
 
@@ -78,43 +108,6 @@ mod imp {
 
     #[gtk::template_callbacks]
     impl PpsSidebarLayers {
-        fn set_model(&self, model: DocumentModel) {
-            model.connect_document_notify(glib::clone!(@weak self as obj => move |model| {
-                let Some(document) = model.document().filter(|d| obj.support_document(d)) else {
-                    return;
-                };
-
-                let job = JobLayers::new(&document);
-
-                job.connect_finished(move |job| {
-                    let model = job.model().unwrap();
-
-                    for o in &model {
-                        let layer = o.ok().and_downcast::<Layer>().unwrap();
-                        let rb_group = layer.rb_group() as usize;
-
-                        if rb_group > 0 {
-                            let mut groups = obj.groups.borrow_mut();
-
-                            if let Some(v) = groups.get_mut(&rb_group) {
-                                v.push(layer);
-                            } else {
-                                groups.insert(rb_group, vec![layer]);
-                            }
-                        }
-                    }
-
-                    let tree_model = gtk::TreeListModel::new(model, false, false, |l| l.downcast_ref::<Layer>().unwrap().children());
-
-                    obj.selection_model.set_model(Some(&tree_model));
-                });
-
-                job.scheduler_push_job(JobPriority::PriorityNone);
-            }));
-
-            self.model.replace(Some(model));
-        }
-
         #[template_callback]
         fn list_view_factory_setup(
             &self,
@@ -206,9 +199,8 @@ mod imp {
         }
 
         fn document_layers(&self) -> Option<DocumentLayers> {
-            self.model
-                .borrow()
-                .clone()
+            self.obj()
+                .document_model()
                 .and_then(|m| m.document())
                 .and_dynamic_cast::<DocumentLayers>()
                 .ok()
@@ -284,8 +276,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct PpsSidebarLayers(ObjectSubclass<imp::PpsSidebarLayers>)
-        @extends gtk::Box, gtk::Widget,
-        @implements papers_shell::SidebarPage;
+        @extends papers_shell::SidebarPage, adw::Bin, gtk::Widget;
 }
 
 impl PpsSidebarLayers {

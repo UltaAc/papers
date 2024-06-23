@@ -8,7 +8,7 @@ use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsSidebarAnnotations")]
-    pub struct SidebarAnnotations(Object<ffi::PpsSidebarAnnotations, ffi::PpsSidebarAnnotationsClass>) @extends gtk::Widget, @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, SidebarPage;
+    pub struct SidebarAnnotations(Object<ffi::PpsSidebarAnnotations, ffi::PpsSidebarAnnotationsClass>) @extends SidebarPage, gtk::Widget, @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 
     match fn {
         type_ => || ffi::pps_sidebar_annotations_get_type(),
@@ -52,6 +52,14 @@ impl SidebarAnnotationsBuilder {
     fn new() -> Self {
         Self {
             builder: glib::object::Object::builder(),
+        }
+    }
+
+    pub fn document_model(self, document_model: &papers_view::DocumentModel) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("document-model", document_model.clone()),
         }
     }
 
@@ -229,14 +237,6 @@ impl SidebarAnnotationsBuilder {
     //    Self { builder: self.builder.property("accessible-role", accessible_role), }
     //}
 
-    pub fn document_model(self, document_model: &papers_view::DocumentModel) -> Self {
-        Self {
-            builder: self
-                .builder
-                .property("document-model", document_model.clone()),
-        }
-    }
-
     // rustdoc-stripper-ignore-next
     /// Build the [`SidebarAnnotations`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
@@ -255,16 +255,6 @@ pub trait SidebarAnnotationsExt: IsA<SidebarAnnotations> + sealed::Sealed + 'sta
     fn annot_added(&self, annot: &impl IsA<papers_document::Annotation>) {
         unsafe {
             ffi::pps_sidebar_annotations_annot_added(
-                self.as_ref().to_glib_none().0,
-                annot.as_ref().to_glib_none().0,
-            );
-        }
-    }
-
-    #[doc(alias = "pps_sidebar_annotations_annot_changed")]
-    fn annot_changed(&self, annot: &impl IsA<papers_document::Annotation>) {
-        unsafe {
-            ffi::pps_sidebar_annotations_annot_changed(
                 self.as_ref().to_glib_none().0,
                 annot.as_ref().to_glib_none().0,
             );

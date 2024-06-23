@@ -382,38 +382,6 @@ impl View {
         self.emit_by_name::<()>("annot-added", &[&object]);
     }
 
-    #[doc(alias = "annot-changed")]
-    pub fn connect_annot_changed<F: Fn(&Self, &papers_document::Annotation) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
-        unsafe extern "C" fn annot_changed_trampoline<
-            F: Fn(&View, &papers_document::Annotation) + 'static,
-        >(
-            this: *mut ffi::PpsView,
-            object: *mut papers_document::ffi::PpsAnnotation,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), &from_glib_borrow(object))
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"annot-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
-                    annot_changed_trampoline::<F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
-        }
-    }
-
-    pub fn emit_annot_changed(&self, object: &papers_document::Annotation) {
-        self.emit_by_name::<()>("annot-changed", &[&object]);
-    }
-
     #[doc(alias = "annot-removed")]
     pub fn connect_annot_removed<F: Fn(&Self, &papers_document::Annotation) + 'static>(
         &self,

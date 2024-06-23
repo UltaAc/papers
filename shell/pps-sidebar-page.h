@@ -22,6 +22,7 @@
 
 #include <glib-object.h>
 #include <glib.h>
+#include <adwaita.h>
 
 #include "pps-document.h"
 #include "pps-document-model.h"
@@ -29,23 +30,20 @@
 G_BEGIN_DECLS
 
 #define PPS_TYPE_SIDEBAR_PAGE	    	(pps_sidebar_page_get_type ())
-G_DECLARE_INTERFACE (PpsSidebarPage, pps_sidebar_page, PPS, SIDEBAR_PAGE, GObject)
+G_DECLARE_DERIVABLE_TYPE (PpsSidebarPage, pps_sidebar_page, PPS, SIDEBAR_PAGE, AdwBin)
 
-struct _PpsSidebarPageInterface
+struct _PpsSidebarPageClass
 {
-	GTypeInterface base_iface;
+	AdwBinClass parent_class;
 
 	/* Methods  */
-	gboolean    (* support_document)  (PpsSidebarPage   *sidebar_page,
-				           PpsDocument *document);
-	void 	    (* set_model)	  (PpsSidebarPage   *sidebar_page,
-					   PpsDocumentModel *model);
+	gboolean    (* support_document)  (PpsSidebarPage *sidebar_page,
+				           PpsDocument    *document);
 };
 
-gboolean      pps_sidebar_page_support_document  (PpsSidebarPage    *sidebar_page,
-	 			                 PpsDocument *document);
-void          pps_sidebar_page_set_model         (PpsSidebarPage    *sidebar_page,
-				                 PpsDocumentModel *model);
+gboolean          pps_sidebar_page_support_document   (PpsSidebarPage *sidebar_page,
+						       PpsDocument    *document);
+PpsDocumentModel *pps_sidebar_page_get_document_model (PpsSidebarPage *sidebar_page);
 
 
 G_END_DECLS

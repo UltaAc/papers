@@ -23,6 +23,7 @@
 #include <gtk/gtk.h>
 #include <glib-object.h>
 
+#include "pps-sidebar-page.h"
 #include "pps-bookmarks.h"
 
 G_BEGIN_DECLS
@@ -39,11 +40,11 @@ typedef struct _PpsSidebarBookmarksPrivate PpsSidebarBookmarksPrivate;
 #define PPS_SIDEBAR_BOOKMARKS_GET_CLASS(object) (G_TYPE_INSTANCE_GET_CLASS((object), PPS_TYPE_SIDEBAR_BOOKMARKS, PpsSidebarBookmarksClass))
 
 struct _PpsSidebarBookmarks {
-	GtkBox base_instance;
+	PpsSidebarPage base_instance;
 };
 
 struct _PpsSidebarBookmarksClass {
-	GtkBoxClass base_class;
+	PpsSidebarPageClass base_class;
 
         void (*add_bookmark) (PpsSidebarBookmarks *sidebar_bookmarks);
         void (*activated)    (PpsSidebarBookmarks *sidebar_bookmarks,

@@ -7,7 +7,7 @@ use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsSidebarPage")]
-    pub struct SidebarPage(Interface<ffi::PpsSidebarPage, ffi::PpsSidebarPageInterface>);
+    pub struct SidebarPage(Object<ffi::PpsSidebarPage, ffi::PpsSidebarPageClass>) @extends gtk::Widget, @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 
     match fn {
         type_ => || ffi::pps_sidebar_page_get_type(),
@@ -24,10 +24,13 @@ mod sealed {
 }
 
 pub trait SidebarPageExt: IsA<SidebarPage> + sealed::Sealed + 'static {
-    #[doc(alias = "pps_sidebar_page_set_model")]
-    fn set_model(&self, model: &papers_view::DocumentModel) {
+    #[doc(alias = "pps_sidebar_page_get_document_model")]
+    #[doc(alias = "get_document_model")]
+    fn document_model(&self) -> Option<papers_view::DocumentModel> {
         unsafe {
-            ffi::pps_sidebar_page_set_model(self.as_ref().to_glib_none().0, model.to_glib_none().0);
+            from_glib_none(ffi::pps_sidebar_page_get_document_model(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 

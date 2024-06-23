@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="PpsSidebarThumbnails" parent="GtkBox">
-    <property name="orientation">vertical</property>
-    <signal name="notify::scale-factor" handler="reload" />
-    <child>
-      <object class="GtkScrolledWindow">
-        <property name="margin-start">6</property>
-        <property name="margin-end">6</property>
-        <property name="valign">fill</property>
-        <property name="vexpand">True</property>
-        <property name="hscrollbar-policy">never</property>
-        <property name="vscrollbar-policy">automatic</property>
-        <property name="child">
-          <object class="GtkGridView" id="grid_view">
-            <property name="max-columns">1</property>
-            <property name="min-columns">1</property>
-            <property name="halign">center</property>
-            <property name="factory">
-              <object class="GtkSignalListItemFactory" id="factory">
-                <signal name="setup" handler="grid_view_factory_setup" swapped="yes" />
-                <signal name="bind" handler="grid_view_factory_bind" swapped="yes" />
-                <signal name="unbind" handler="grid_view_factory_unbind" swapped="yes" />
+  <template class="PpsSidebarThumbnails" parent="PpsSidebarPage">
+    <property name="child">
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <signal name="notify::scale-factor" handler="reload" />
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="margin-start">6</property>
+            <property name="margin-end">6</property>
+            <property name="valign">fill</property>
+            <property name="vexpand">True</property>
+            <property name="hscrollbar-policy">never</property>
+            <property name="vscrollbar-policy">automatic</property>
+            <property name="child">
+              <object class="GtkGridView" id="grid_view">
+                <property name="max-columns">1</property>
+                <property name="min-columns">1</property>
+                <property name="halign">center</property>
+                <property name="factory">
+                  <object class="GtkSignalListItemFactory" id="factory">
+                    <signal name="setup" handler="grid_view_factory_setup" swapped="yes" />
+                    <signal name="bind" handler="grid_view_factory_bind" swapped="yes" />
+                    <signal name="unbind" handler="grid_view_factory_unbind" swapped="yes" />
+                  </object>
+                </property>
+                <style>
+                  <class name="navigation-sidebar" />
+                </style>
+                <accessibility>
+                  <property name="label" translatable="yes">Previews</property>
+                </accessibility>
               </object>
             </property>
-            <style>
-              <class name="navigation-sidebar" />
-            </style>
-            <accessibility>
-              <property name="label" translatable="yes">Previews</property>
-            </accessibility>
           </object>
-        </property>
+        </child>
       </object>
-    </child>
+    </property>
   </template>
 
   <object class="GtkSingleSelection" id="selection_model">

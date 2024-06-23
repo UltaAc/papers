@@ -1,4 +1,5 @@
 use glib::translate::*;
+use gtk::subclass::prelude::WidgetImpl;
 use papers_document::Document;
 
 use crate::{prelude::*, subclass::prelude::*, SidebarPage};
@@ -18,10 +19,9 @@ pub trait SidebarPageImplExt: sealed::Sealed + ObjectSubclass {
     fn parent_support_document(&self, document: &Document) -> bool {
         unsafe {
             let type_data = Self::type_data();
-            let parent_iface = type_data.as_ref().parent_interface::<SidebarPage>()
-                as *const ffi::PpsSidebarPageInterface;
+            let parent_class = type_data.as_ref().parent_class() as *const ffi::PpsSidebarPageClass;
 
-            if let Some(func) = (*parent_iface).support_document {
+            if let Some(func) = (*parent_class).support_document {
                 return from_glib(func(
                     self.obj().unsafe_cast_ref::<SidebarPage>().to_glib_none().0,
                     document.to_glib_none().0,
@@ -34,11 +34,12 @@ pub trait SidebarPageImplExt: sealed::Sealed + ObjectSubclass {
 
 impl<T: SidebarPageImpl> SidebarPageImplExt for T {}
 
-unsafe impl<T: SidebarPageImpl> IsImplementable<T> for SidebarPage {
-    fn interface_init(iface: &mut glib::Interface<Self>) {
-        let iface = iface.as_mut();
+unsafe impl<T: SidebarPageImpl + WidgetImpl> IsSubclassable<T> for SidebarPage {
+    fn class_init(class: &mut glib::Class<Self>) {
+        Self::parent_class_init::<T>(class);
 
-        iface.support_document = Some(sidebar_page_support_document::<T>);
+        let klass = class.as_mut();
+        klass.support_document = Some(sidebar_page_support_document::<T>);
     }
 }
 

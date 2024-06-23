@@ -26,54 +26,101 @@
 
 #include "pps-sidebar-page.h"
 
-G_DEFINE_INTERFACE (PpsSidebarPage, pps_sidebar_page, 0)
+enum {
+	PROP_0,
+	PROP_DOCUMENT_MODEL,
+};
+
+typedef struct {
+        PpsDocumentModel *model;
+} PpsSidebarPagePrivate;
+
+G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (PpsSidebarPage, pps_sidebar_page, ADW_TYPE_BIN)
+
+#define GET_PRIVATE(o) pps_sidebar_page_get_instance_private (o)
 
 gboolean
 pps_sidebar_page_support_document (PpsSidebarPage *sidebar_page,
-				  PpsDocument    *document)
+				   PpsDocument    *document)
 {
-        PpsSidebarPageInterface *iface;
+	PpsSidebarPageClass *class = PPS_SIDEBAR_PAGE_GET_CLASS (sidebar_page);
 
 	g_return_val_if_fail (PPS_IS_SIDEBAR_PAGE (sidebar_page), FALSE);
         g_return_val_if_fail (PPS_IS_DOCUMENT (document), FALSE);
 
-	iface = PPS_SIDEBAR_PAGE_GET_IFACE (sidebar_page);
+        g_return_val_if_fail (class->support_document, FALSE);
 
-        g_return_val_if_fail (iface->support_document, FALSE);
-
-        return iface->support_document (sidebar_page, document);
-}
-
-void
-pps_sidebar_page_set_model (PpsSidebarPage   *sidebar_page,
-			   PpsDocumentModel *model)
-{
-	PpsSidebarPageInterface *iface;
-
-        g_return_if_fail (PPS_IS_SIDEBAR_PAGE (sidebar_page));
-	g_return_if_fail (PPS_IS_DOCUMENT_MODEL (model));
-
-	iface = PPS_SIDEBAR_PAGE_GET_IFACE (sidebar_page);
-
-	g_assert (iface->set_model);
-
-	iface->set_model (sidebar_page, model);
+        return class->support_document (sidebar_page, document);
 }
 
 static void
-pps_sidebar_page_default_init (PpsSidebarPageInterface *iface)
+pps_sidebar_page_set_document_model (PpsSidebarPage   *sidebar_page,
+				     PpsDocumentModel *model)
 {
-	static gboolean initialized = FALSE;
+	PpsSidebarPagePrivate *priv = GET_PRIVATE (sidebar_page);
 
-	if (!initialized) {
-		g_object_interface_install_property (iface,
-						     g_param_spec_object ("document-model",
-									  "DocumentModel",
-									  "The document model",
-									  PPS_TYPE_DOCUMENT_MODEL,
-									  G_PARAM_WRITABLE |
-									  G_PARAM_CONSTRUCT_ONLY |
-									  G_PARAM_STATIC_STRINGS));
-		initialized = TRUE;
+	if (priv->model == model)
+		return;
+
+	g_clear_object (&priv->model);
+	priv->model = g_object_ref (model);
+}
+
+PpsDocumentModel*
+pps_sidebar_page_get_document_model (PpsSidebarPage *sidebar_page)
+{
+	PpsSidebarPagePrivate *priv = GET_PRIVATE (sidebar_page);
+	return priv->model;
+}
+
+static void
+pps_sidebar_page_set_property (GObject      *object,
+			       guint         prop_id,
+			       const GValue *value,
+			       GParamSpec   *pspec)
+{
+	PpsSidebarPage *sidebar_page = PPS_SIDEBAR_PAGE (object);
+
+	switch (prop_id) {
+	case PROP_DOCUMENT_MODEL:
+		pps_sidebar_page_set_document_model (sidebar_page, g_value_get_object (value));
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 	}
+}
+
+static void
+pps_sidebar_page_init (PpsSidebarPage *self)
+{
+}
+
+static void
+pps_sidebar_page_dispose (GObject *object)
+{
+        PpsSidebarPage *sidebar_page = PPS_SIDEBAR_PAGE (object);
+        PpsSidebarPagePrivate *priv = GET_PRIVATE (sidebar_page);
+
+	g_clear_object (&priv->model);
+
+        G_OBJECT_CLASS (pps_sidebar_page_parent_class)->dispose (object);
+}
+
+static void
+pps_sidebar_page_class_init (PpsSidebarPageClass *class)
+{
+	GObjectClass *object_class = G_OBJECT_CLASS (class);
+
+	object_class->dispose = pps_sidebar_page_dispose;
+	object_class->set_property = pps_sidebar_page_set_property;
+
+	g_object_class_install_property (object_class,
+					 PROP_DOCUMENT_MODEL,
+					 g_param_spec_object ("document-model",
+							      "DocumentModel",
+							      "The document model",
+							      PPS_TYPE_DOCUMENT_MODEL,
+							      G_PARAM_WRITABLE |
+							      G_PARAM_CONSTRUCT_ONLY |
+							      G_PARAM_STATIC_STRINGS));
 }

@@ -2,58 +2,62 @@
 <interface>
   <requires lib="gtk" version="4.0" />
   <requires lib="libadwaita" version="1.0" />
-  <template class="PpsSidebarAnnotations" parent="GtkBox">
-    <property name="orientation">vertical</property>
-    <child type="start">
-      <object class="AdwViewStack" id="stack">
+  <template class="PpsSidebarAnnotations" parent="PpsSidebarPage">
+    <property name="child">
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
         <child>
-          <object class="AdwViewStackPage">
-            <property name="name">empty</property>
-            <property name="child">
-              <object class="AdwStatusPage">
-                <property name="title" translatable="yes">No Annotations</property>
-                <property name="icon-name">x-office-document-symbolic</property>
-                <style>
-                  <class name="compact" />
-                </style>
-              </object>
-            </property>
-          </object>
-        </child>
-        <child>
-          <object class="AdwViewStackPage">
-            <property name="name">annot</property>
-            <property name="child">
-              <object class="GtkScrolledWindow">
-                <property name="halign">fill</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
+          <object class="AdwViewStack" id="stack">
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="name">empty</property>
                 <property name="child">
-                  <object class="GtkListBox" id="list_box">
-                    <property name="selection-mode">none</property>
-                    <property name="margin-start">6</property>
-                    <property name="margin-end">6</property>
-                    <property name="margin-top">6</property>
-                    <property name="margin-bottom">6</property>
-                    <property name="valign">start</property>
+                  <object class="AdwStatusPage">
+                    <property name="title" translatable="yes">No Annotations</property>
+                    <property name="icon-name">x-office-document-symbolic</property>
                     <style>
-                      <class name="boxed-list" />
+                      <class name="compact" />
                     </style>
                   </object>
                 </property>
               </object>
-            </property>
+            </child>
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="name">annot</property>
+                <property name="child">
+                  <object class="GtkScrolledWindow">
+                    <property name="halign">fill</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <property name="child">
+                      <object class="GtkListBox" id="list_box">
+                        <property name="selection-mode">none</property>
+                        <property name="margin-start">6</property>
+                        <property name="margin-end">6</property>
+                        <property name="margin-top">6</property>
+                        <property name="margin-bottom">6</property>
+                        <property name="valign">start</property>
+                        <style>
+                          <class name="boxed-list" />
+                        </style>
+                      </object>
+                    </property>
+                  </object>
+                </property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkPopoverMenu" id="popup">
+            <property name="has-arrow">False</property>
+            <property name="halign">start</property>
+            <property name="menu-model">annotation-popup</property>
           </object>
         </child>
       </object>
-    </child>
-    <child>
-      <object class="GtkPopoverMenu" id="popup">
-        <property name="has-arrow">False</property>
-        <property name="halign">start</property>
-        <property name="menu-model">annotation-popup</property>
-      </object>
-    </child>
+    </property>
   </template>
   <menu id="annotation-popup">
     <section>

@@ -329,8 +329,6 @@ mod imp {
         pub(super) popup: TemplateChild<gtk::PopoverMenu>,
         #[template_child]
         pub(super) action_group: TemplateChild<gio::SimpleActionGroup>,
-        #[property(name = "document-model", nullable, set = Self::set_model)]
-        pub(super) model: RefCell<Option<DocumentModel>>,
         #[property(name = "model", nullable, get)]
         pub(super) outlines: RefCell<Option<gio::ListModel>>,
         /// A cache maps from page number to the corresponding path
@@ -349,8 +347,7 @@ mod imp {
     impl ObjectSubclass for PpsSidebarLinks {
         const NAME: &'static str = "PpsSidebarLinks";
         type Type = super::PpsSidebarLinks;
-        type ParentType = gtk::Box;
-        type Interfaces = (papers_shell::SidebarPage,);
+        type ParentType = papers_shell::SidebarPage;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -408,38 +405,8 @@ mod imp {
 
             self.action_group.add_action_entries(action_entries);
             obj.insert_action_group("links", Some(&self.action_group.clone()));
-        }
 
-        fn signals() -> &'static [Signal] {
-            static SIGNALS: OnceLock<Vec<Signal>> = OnceLock::new();
-            SIGNALS.get_or_init(|| {
-                vec![Signal::builder("link-activated")
-                    .run_last()
-                    .param_types([Link::static_type()])
-                    .build()]
-            })
-        }
-    }
-
-    impl BoxImpl for PpsSidebarLinks {}
-
-    impl WidgetImpl for PpsSidebarLinks {}
-
-    impl SidebarPageImpl for PpsSidebarLinks {
-        fn support_document(&self, document: &Document) -> bool {
-            document
-                .dynamic_cast_ref::<DocumentLinks>()
-                .map(|d| d.has_document_links())
-                .unwrap_or(false)
-        }
-    }
-
-    #[gtk::template_callbacks]
-    impl PpsSidebarLinks {
-        fn set_model(&self, model: Option<DocumentModel>) {
-            let obj = self.obj();
-
-            if let Some(ref model) = model {
+            if let Some(model) = self.obj().document_model() {
                 model.connect_document_notify(glib::clone!(@weak obj => move |_| {
                     obj.imp().document_changed();
                 }));
@@ -468,10 +435,32 @@ mod imp {
                     obj.timeout_id.replace(Some(id));
                 }));
             }
-
-            self.model.replace(model);
         }
 
+        fn signals() -> &'static [Signal] {
+            static SIGNALS: OnceLock<Vec<Signal>> = OnceLock::new();
+            SIGNALS.get_or_init(|| {
+                vec![Signal::builder("link-activated")
+                    .run_last()
+                    .param_types([Link::static_type()])
+                    .build()]
+            })
+        }
+    }
+
+    impl WidgetImpl for PpsSidebarLinks {}
+
+    impl SidebarPageImpl for PpsSidebarLinks {
+        fn support_document(&self, document: &Document) -> bool {
+            document
+                .dynamic_cast_ref::<DocumentLinks>()
+                .map(|d| d.has_document_links())
+                .unwrap_or(false)
+        }
+    }
+
+    #[gtk::template_callbacks]
+    impl PpsSidebarLinks {
         fn set_action_enabled(&self, name: &str, enabled: bool) {
             if let Some(action) = self
                 .action_group
@@ -511,17 +500,13 @@ mod imp {
 
                     obj.expand_open_links();
 
-                    if let Some(model) = obj.model() {
+                    if let Some(model) = obj.obj().document_model() {
                         obj.set_current_page(model.page());
                     }
                 }));
 
                 job.scheduler_push_job(JobPriority::PriorityNone);
             }
-        }
-
-        fn model(&self) -> Option<DocumentModel> {
-            self.model.borrow().clone()
         }
 
         fn outlines_to_page(&self, outlines: &Outlines) -> usize {
@@ -694,9 +679,8 @@ mod imp {
         }
 
         fn document(&self) -> Option<Document> {
-            self.model
-                .borrow()
-                .as_ref()
+            self.obj()
+                .document_model()
                 .and_then(|model| model.document())
         }
 
@@ -928,8 +912,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct PpsSidebarLinks(ObjectSubclass<imp::PpsSidebarLinks>)
-        @extends gtk::Box, gtk::Widget,
-        @implements papers_shell::SidebarPage;
+        @extends papers_shell::SidebarPage, adw::Bin, gtk::Widget;
 }
 
 impl PpsSidebarLinks {

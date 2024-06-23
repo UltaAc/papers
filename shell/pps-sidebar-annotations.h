@@ -23,15 +23,17 @@
 #include <gtk/gtk.h>
 #include <glib-object.h>
 
+#include "pps-sidebar-page.h"
+
 G_BEGIN_DECLS
 
 typedef struct _PpsSidebarAnnotationsPrivate PpsSidebarAnnotationsPrivate;
 
 #define PPS_TYPE_SIDEBAR_ANNOTATIONS              (pps_sidebar_annotations_get_type())
-G_DECLARE_DERIVABLE_TYPE (PpsSidebarAnnotations, pps_sidebar_annotations, PPS, SIDEBAR_ANNOTATIONS, GtkBox);
+G_DECLARE_DERIVABLE_TYPE (PpsSidebarAnnotations, pps_sidebar_annotations, PPS, SIDEBAR_ANNOTATIONS, PpsSidebarPage);
 
 struct _PpsSidebarAnnotationsClass {
-	GtkBoxClass base_class;
+	PpsSidebarPageClass base_class;
 
 	void    (* annot_activated)     (PpsSidebarAnnotations *sidebar_annots,
 					 PpsMapping            *mapping);
