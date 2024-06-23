@@ -24,6 +24,7 @@
 #include <math.h>
 #include <string.h>
 
+#include <adwaita.h>
 #include <glib/gi18n-lib.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
@@ -6624,6 +6625,16 @@ draw_rubberband (PpsView             *view,
 	gtk_style_context_restore (context);
 }
 
+static void
+accent_changed_cb (PpsView *view)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+
+	if (priv->pixbuf_cache)
+		pps_pixbuf_cache_style_changed (priv->pixbuf_cache);
+
+	gtk_widget_queue_draw (GTK_WIDGET (view));
+}
 
 static void
 highlight_find_results (PpsView		*view,
@@ -6697,26 +6708,13 @@ _pps_view_get_selection_colors (PpsView  *view,
 			       GdkRGBA *bg_color,
 			       GdkRGBA *fg_color)
 {
-	GtkWidget       *widget = GTK_WIDGET (view);
-	GtkStyleContext *context = gtk_widget_get_style_context (widget);
-
-	if (bg_color &&
-	    !gtk_style_context_lookup_color (context, "accent_bg_color", bg_color) &&
-	    !gtk_style_context_lookup_color (context, "theme_selected_bg_color", bg_color)) {
-		bg_color->red = 0;
-		bg_color->green = 0.623;
-		bg_color->blue = 1.;
-		bg_color->alpha = 1.;
+	if (bg_color) {
+		AdwStyleManager *style_manager = adw_style_manager_get_default ();
+		AdwAccentColor accent = adw_style_manager_get_accent_color (style_manager);
+		adw_accent_color_to_rgba (accent, bg_color);
 	}
 
-	if (gtk_widget_has_focus (widget))
-		bg_color->alpha = 0.3;
-	else
-		bg_color->alpha = 0.6;
-
-	if (fg_color &&
-	    !gtk_style_context_lookup_color (context, "accent_fg_color", fg_color) &&
-	    !gtk_style_context_lookup_color (context, "theme_selected_fg_color", fg_color)) {
+	if (fg_color) {
 		fg_color->red = 1.;
 		fg_color->green = 1.;
 		fg_color->blue = 1.;
@@ -7578,6 +7576,12 @@ pps_view_init (PpsView *view)
 
 	gtk_gesture_group (priv->middle_clicked_drag_gesture,
 			   priv->middle_clicked_drag_swipe_gesture);
+
+	g_signal_connect_object (adw_style_manager_get_default (),
+				 "notify::accent-color",
+				 G_CALLBACK (accent_changed_cb),
+				 view,
+				 G_CONNECT_SWAPPED);
 }
 
 /*** Callbacks ***/
