@@ -7959,7 +7959,7 @@ update_can_zoom (PpsView *view)
 	min_scale = pps_document_model_get_min_scale (priv->model);
 	max_scale = pps_document_model_get_max_scale (priv->model);
 
-	can_zoom_in = priv->scale <= max_scale;
+	can_zoom_in = priv->scale < max_scale;
 	can_zoom_out = priv->scale > min_scale;
 
 	if (can_zoom_in != priv->can_zoom_in) {
