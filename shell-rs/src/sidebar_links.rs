@@ -810,6 +810,10 @@ mod imp {
                 .xalign(0.0)
                 .ellipsize(gtk::pango::EllipsizeMode::End)
                 .hexpand(true)
+                .wrap(true)
+                .lines(3)
+                .margin_top(6)
+                .margin_bottom(6)
                 .has_tooltip(true)
                 .build();
 
@@ -822,6 +826,7 @@ mod imp {
 
             let box_ = gtk::Box::builder()
                 .orientation(gtk::Orientation::Horizontal)
+                .spacing(6)
                 .build();
 
             box_.append(&outline);
