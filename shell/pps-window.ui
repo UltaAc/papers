@@ -350,6 +350,7 @@
                                             <property name="icon-name">zoom-in-symbolic</property>
                                             <property name="action-name">win.zoom-in</property>
                                             <property name="tooltip-text" translatable="yes">Zoom In</property>
+                                            <property name="sensitive" bind-source="view" bind-property="can-zoom-in" bind-flags="sync-create" />
                                           </object>
                                         </child>
                                         <child>
@@ -361,6 +362,7 @@
                                             <property name="icon-name">zoom-out-symbolic</property>
                                             <property name="action-name">win.zoom-out</property>
                                             <property name="tooltip-text" translatable="yes">Zoom Out</property>
+                                            <property name="sensitive" bind-source="view" bind-property="can-zoom-out" bind-flags="sync-create" />
                                           </object>
                                         </child>
                                       </object>
