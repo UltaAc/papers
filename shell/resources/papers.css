@@ -107,10 +107,12 @@ pps-sidebar-thumbnails.columns-2 gridview > child {
     border-radius: 6px;
 }
 
-pps-sidebar-annotations-row {
+window.pps-annotation-window, pps-sidebar-annotations-row {
     --annotation-color: var(--yellow-4);
     --annotation-fg-color: oklab(from var(--annotation-color) round(1 - l, 1) 0 0);
+}
 
+pps-sidebar-annotations-row {
     padding: 8px 0;
 }
 
@@ -125,6 +127,15 @@ pps-sidebar-annotations-row .reference-bar {
     padding: 0 3px;
     border-radius: 3px;
     background-color: var(--annotation-color);
+}
+
+window.pps-annotation-window {
+    background-color: var(--annotation-color);
+}
+
+window.pps-annotation-window headerbar {
+    background-color: var(--annotation-color);
+    color: var(--annotation-fg-color);
 }
 
 .color-button {

@@ -131,15 +131,32 @@ mod imp {
                 .map(|annot| annot.rgba().to_str())
                 .map(|gstr| gstr.to_string())
                 .unwrap_or("rgb(100 0 0 / 100%)".to_string());
-            let css = format!("* {{ --annotation-color: {}; }}", color);
+            let name = annot
+                .and_then(|annot| annot.name())
+                .map(|gstr| gstr.as_str().to_string())
+                .unwrap_or("default".to_string());
+            let page_index = annot.map(|annot| annot.page_index() as i32).unwrap_or(-1);
+            let annotation_id_class = format!("annotation-{}-{}", page_index, name);
+            let css = format!(
+                "pps-sidebar-annotations-row.{} {{ --annotation-color: {}; }}",
+                annotation_id_class, color
+            );
             let provider = gtk::CssProvider::new();
+
+            self.obj().add_css_class(annotation_id_class.as_str());
 
             provider.load_from_string(&css);
 
-            #[allow(deprecated)]
-            self.obj()
-                .style_context()
-                .add_provider(&provider, gtk::STYLE_PROVIDER_PRIORITY_APPLICATION);
+            match gdk::Display::default() {
+                Some(display) => {
+                    gtk::style_context_add_provider_for_display(
+                        &display,
+                        &provider,
+                        gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
+                    );
+                }
+                _ => glib::g_critical!("", "Could not find a display"),
+            }
         }
 
         fn document(&self) -> Option<Document> {

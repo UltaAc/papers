@@ -29,7 +29,6 @@
 #include <pps-document-annotations.h>
 
 #include "pps-annotation-window.h"
-#include "pps-color-contrast.h"
 #include "pps-document-misc.h"
 #include "pps-view-marshal.h"
 
@@ -105,40 +104,28 @@ pps_annotation_window_set_color (PpsAnnotationWindow *window,
                                  GdkRGBA *color)
 {
 	GtkCssProvider *css_provider = gtk_css_provider_new ();
-	GtkStyleContext *context = NULL;
 	g_autofree char *rgba_str = gdk_rgba_to_string (color);
 	g_autofree char *css_data = NULL;
-	g_autoptr (GdkRGBA) icon_color = pps_color_contrast_get_best_foreground_color (color);
-	g_autofree char *icon_color_str = gdk_rgba_to_string (icon_color);
-	css_data = g_strdup_printf ("window { background-color: %s ; }", rgba_str);
+	g_autofree char *annotation_id_class = NULL;
+	GdkDisplay *display = gdk_display_get_default ();
+
+	if (display == NULL)
+		return;
+
+	annotation_id_class = g_strdup_printf ("annotation-%i-%s",
+	                                       pps_annotation_get_page_index (window->annotation),
+	                                       pps_annotation_get_name (window->annotation));
+
+	css_data = g_strdup_printf (".%s { --annotation-color: %s; }",
+	                            annotation_id_class,
+	                            rgba_str);
+
+	gtk_widget_add_css_class (GTK_WIDGET (window), annotation_id_class);
+
 	gtk_css_provider_load_from_string (css_provider, css_data);
-	context = gtk_widget_get_style_context (GTK_WIDGET (window));
-	gtk_style_context_add_provider (context,
-	                                GTK_STYLE_PROVIDER (css_provider),
-	                                GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-	g_free (css_data);
-
-	css_data = g_strdup_printf ("headerbar { background-color: %s ; color: %s; }",
-	                            rgba_str, icon_color_str);
-	css_provider = gtk_css_provider_new ();
-	gtk_css_provider_load_from_string (css_provider, css_data);
-	context = gtk_widget_get_style_context (GTK_WIDGET (window->headerbar));
-
-	gtk_style_context_add_provider (context,
-	                                GTK_STYLE_PROVIDER (css_provider),
-	                                GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-	css_data = g_strdup_printf ("textview { background-color: %s ; color: %s; } "
-	                            "text { background-color: %s ; color: %s; }",
-	                            rgba_str, icon_color_str,
-	                            rgba_str, icon_color_str);
-	css_provider = gtk_css_provider_new ();
-	gtk_css_provider_load_from_string (css_provider, css_data);
-	context = gtk_widget_get_style_context (GTK_WIDGET (window->text_view));
-
-	gtk_style_context_add_provider (context,
-	                                GTK_STYLE_PROVIDER (css_provider),
-	                                GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+	gtk_style_context_add_provider_for_display (display,
+	                                            GTK_STYLE_PROVIDER (css_provider),
+	                                            GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
 G_GNUC_END_IGNORE_DEPRECATIONS
@@ -192,6 +179,8 @@ pps_annotation_window_init (PpsAnnotationWindow *window)
 {
 	GtkWidget *vbox;
 	GtkWidget *swindow;
+
+	gtk_widget_add_css_class (GTK_WIDGET (window), "pps-annotation-window");
 
 	gtk_widget_set_can_focus (GTK_WIDGET (window), TRUE);
 
