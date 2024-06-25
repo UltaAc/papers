@@ -11,7 +11,7 @@ mod imp {
     #[derive(Properties, Default, Debug)]
     #[properties(wrapper_type = super::PpsSidebarAnnotationsRow)]
     pub struct PpsSidebarAnnotationsRow {
-        #[property(set = Self::set_annotation, construct_only)]
+        #[property(set = Self::set_annotation)]
         pub(super) annotation: RefCell<Option<AnnotationMarkup>>,
         label_notify_id: RefCell<Option<SignalHandlerId>>,
         modified_notify_id: RefCell<Option<SignalHandlerId>>,

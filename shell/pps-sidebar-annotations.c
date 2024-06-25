@@ -23,6 +23,7 @@
 #include <glib/gi18n.h>
 #include <adwaita.h>
 
+#include <pps-document.h>
 #include "pps-document-annotations.h"
 #include "pps-sidebar-annotations.h"
 #include "pps-jobs.h"
@@ -35,12 +36,14 @@ enum {
 };
 
 struct _PpsSidebarAnnotationsPrivate {
-	GtkWidget   *list_box;
+	GtkWidget   *list_view;
 	GtkWidget   *stack;
 
 	GtkWidget   *popup;
 
-	PpsJob       *job;
+	GListStore  *model;
+
+	PpsJob      *job;
 };
 
 static void pps_sidebar_annotations_load            (PpsSidebarAnnotations   *sidebar_annots);
@@ -53,6 +56,149 @@ G_DEFINE_TYPE_WITH_PRIVATE (PpsSidebarAnnotations, pps_sidebar_annotations, PPS_
 #define GET_PRIVATE(t) (pps_sidebar_annotations_get_instance_private (t))
 
 #define ANNOT_ICON_SIZE 16
+
+static void
+sidebar_annots_button_press_cb (GtkGestureClick *gesture,
+				gint		 n_press,
+				gdouble		 x,
+				gdouble		 y,
+				GtkListItem     *item)
+{
+	GtkWidget *row = gtk_list_item_get_child (item);
+	GtkWidget *sidebar_annots = gtk_widget_get_ancestor (row, PPS_TYPE_SIDEBAR_ANNOTATIONS);
+	PpsSidebarAnnotationsPrivate *priv = GET_PRIVATE (PPS_SIDEBAR_ANNOTATIONS (sidebar_annots));
+	PpsAnnotation *annotation = PPS_ANNOTATION (gtk_list_item_get_item (item));
+	guint button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
+	PpsMapping *mapping = g_new (PpsMapping, 1);
+	GtkWindow *window;
+	graphene_point_t sidebar_annots_point;
+
+	g_return_if_fail (annotation);
+
+	mapping->data = annotation;
+	pps_annotation_get_area (annotation, &mapping->area);
+
+	switch (button) {
+		case GDK_BUTTON_PRIMARY:
+			g_signal_emit (sidebar_annots, signals[ANNOT_ACTIVATED], 0, mapping);
+			break;
+		case GDK_BUTTON_SECONDARY:
+			window = GTK_WINDOW (gtk_widget_get_native (sidebar_annots));
+
+			pps_window_handle_annot_popup (PPS_WINDOW (window), annotation);
+
+			if (!gtk_widget_compute_point (row, gtk_widget_get_parent (priv->popup),
+						       &GRAPHENE_POINT_INIT(x, y),
+						       &sidebar_annots_point))
+				g_warn_if_reached ();
+
+			gtk_popover_set_pointing_to (GTK_POPOVER (priv->popup),
+				&(const GdkRectangle) { sidebar_annots_point.x, sidebar_annots_point.y, 1, 1 });
+			gtk_popover_popup (GTK_POPOVER (priv->popup));
+			break;
+		default:
+			break;
+	}
+}
+
+static void
+job_finished_callback (PpsJobAnnots          *job,
+		       PpsSidebarAnnotations *sidebar_annots)
+{
+	PpsSidebarAnnotationsPrivate *priv = GET_PRIVATE (sidebar_annots);
+	GList *l;
+
+	if (!job->annots) {
+		adw_view_stack_set_visible_child_name (ADW_VIEW_STACK (priv->stack),
+						       "empty");
+		g_clear_object (&priv->job);
+		return;
+	}
+
+	g_list_store_remove_all (priv->model);
+
+	for (l = job->annots; l; l = g_list_next (l)) {
+		PpsMappingList *mapping_list;
+		GList *ll;
+
+		mapping_list = (PpsMappingList *)l->data;
+
+		for (ll = pps_mapping_list_get_list (mapping_list); ll; ll = g_list_next (ll)) {
+			PpsMapping *mapping;
+			PpsAnnotation *annotation;
+
+			mapping = ll->data;
+			annotation = mapping->data;
+			if (!PPS_IS_ANNOTATION_MARKUP (annotation))
+				continue;
+
+			g_list_store_append (priv->model, annotation);
+		}
+	}
+
+	adw_view_stack_set_visible_child_name (ADW_VIEW_STACK (priv->stack),
+					       "annot");
+
+	g_clear_object (&priv->job);
+}
+
+static void
+pps_sidebar_annotations_load (PpsSidebarAnnotations *sidebar_annots)
+{
+	PpsSidebarAnnotationsPrivate *priv = GET_PRIVATE (sidebar_annots);
+	PpsDocumentModel *model = pps_sidebar_page_get_document_model (PPS_SIDEBAR_PAGE (sidebar_annots));
+	PpsDocument *document = pps_document_model_get_document (model);
+
+	if (priv->job) {
+		g_signal_handlers_disconnect_by_func (priv->job,
+						      job_finished_callback,
+						      sidebar_annots);
+		g_object_unref (priv->job);
+	}
+
+	priv->job = pps_job_annots_new (document);
+	g_signal_connect (priv->job, "finished",
+			  G_CALLBACK (job_finished_callback),
+			  sidebar_annots);
+	/* The priority doesn't matter for this job */
+	pps_job_scheduler_push_job (priv->job, PPS_JOB_PRIORITY_NONE);
+}
+
+static void
+factory_setup_cb (GtkSignalListItemFactory *self,
+                  GObject                  *object,
+                  PpsSidebarAnnotations    *sidebar)
+{
+        GtkListItem *item = GTK_LIST_ITEM (object);
+        GtkWidget *widget;
+	GtkGesture *gesture;
+
+	widget = GTK_WIDGET (g_object_new (g_type_from_name ("PpsSidebarAnnotationsRow"),
+					   NULL));
+
+	gesture = gtk_gesture_click_new ();
+	gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (gesture), 0);
+	gtk_widget_add_controller (widget, GTK_EVENT_CONTROLLER (gesture));
+
+	g_signal_connect_object (G_OBJECT (gesture), "pressed",
+				 (GCallback)sidebar_annots_button_press_cb,
+				 item, G_CONNECT_DEFAULT);
+
+        gtk_list_item_set_child (item, widget);
+}
+
+static void
+factory_bind_cb (GtkSignalListItemFactory *self,
+                 GObject                  *object,
+                 PpsSidebarAnnotations    *sidebar)
+{
+        GtkListItem *item = GTK_LIST_ITEM (object);
+        GtkWidget *widget = gtk_list_item_get_child (item);
+        PpsAnnotation *annotation = PPS_ANNOTATION (gtk_list_item_get_item (item));
+
+	g_object_set (widget, "annotation",
+		      PPS_ANNOTATION_MARKUP (annotation), NULL);
+}
 
 static void
 pps_sidebar_annotations_dispose (GObject *object)
@@ -123,9 +269,13 @@ pps_sidebar_annotations_class_init (PpsSidebarAnnotationsClass *klass)
 
 	gtk_widget_class_set_template_from_resource (widget_class,
 			"/org/gnome/papers/ui/sidebar-annotations.ui");
-	gtk_widget_class_bind_template_child_private (widget_class, PpsSidebarAnnotations, list_box);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsSidebarAnnotations, list_view);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsSidebarAnnotations, model);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsSidebarAnnotations, stack);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsSidebarAnnotations, popup);
+
+        gtk_widget_class_bind_template_callback (widget_class, factory_setup_cb);
+        gtk_widget_class_bind_template_callback (widget_class, factory_bind_cb);
 
 	signals[ANNOT_ACTIVATED] =
 		g_signal_new ("annot-activated",
@@ -155,140 +305,4 @@ void
 pps_sidebar_annotations_annot_removed (PpsSidebarAnnotations *sidebar_annots)
 {
 	pps_sidebar_annotations_load (sidebar_annots);
-}
-
-static void
-sidebar_annots_button_press_cb (GtkGestureClick *self,
-				gint		 n_press,
-				gdouble		 x,
-				gdouble		 y,
-				PpsMapping	*mapping)
-{
-	GtkEventController *controller = GTK_EVENT_CONTROLLER (self);
-	GdkEvent *event = gtk_event_controller_get_current_event (controller);
-	guint button = gdk_button_event_get_button (event);
-	GtkWidget *row = gtk_event_controller_get_widget (controller);
-	GtkWidget *sidebar_annots = gtk_widget_get_ancestor (row, PPS_TYPE_SIDEBAR_ANNOTATIONS);
-	PpsSidebarAnnotationsPrivate *priv = GET_PRIVATE (PPS_SIDEBAR_ANNOTATIONS (sidebar_annots));
-	GtkWindow *window;
-	graphene_point_t sidebar_annots_point;
-
-	if (!mapping)
-		return;
-
-	switch (button) {
-		case GDK_BUTTON_PRIMARY:
-			g_signal_emit (sidebar_annots, signals[ANNOT_ACTIVATED], 0, mapping);
-			break;
-		case GDK_BUTTON_SECONDARY:
-			if (!PPS_IS_ANNOTATION (mapping->data))
-				return;
-
-			window = GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (sidebar_annots)));
-
-			pps_window_handle_annot_popup (PPS_WINDOW (window), PPS_ANNOTATION (mapping->data));
-
-			if (!gtk_widget_compute_point (row, gtk_widget_get_parent (priv->popup), &GRAPHENE_POINT_INIT(x, y),
-						  &sidebar_annots_point))
-				g_warn_if_reached ();
-
-			gtk_popover_set_pointing_to (GTK_POPOVER (priv->popup),
-				&(const GdkRectangle) { sidebar_annots_point.x, sidebar_annots_point.y, 1, 1 });
-			gtk_popover_popup (GTK_POPOVER (priv->popup));
-			break;
-		default:
-			break;
-	}
-}
-
-static void
-job_finished_callback (PpsJobAnnots          *job,
-		       PpsSidebarAnnotations *sidebar_annots)
-{
-	PpsSidebarAnnotationsPrivate *priv = GET_PRIVATE (sidebar_annots);
-	GList *l;
-
-	if (!job->annots) {
-		adw_view_stack_set_visible_child_name (ADW_VIEW_STACK (priv->stack),
-						       "empty");
-		g_clear_object (&priv->job);
-		return;
-	}
-
-	gtk_list_box_remove_all (GTK_LIST_BOX (priv->list_box));
-
-	for (l = job->annots; l; l = g_list_next (l)) {
-		PpsMappingList *mapping_list;
-		GList         *ll;
-		gchar         *page_label;
-		gboolean       found = FALSE;
-		GtkWidget     *expander;
-
-		mapping_list = (PpsMappingList *)l->data;
-		page_label = g_strdup_printf (_("Page %d"),
-					      pps_mapping_list_get_page (mapping_list) + 1);
-
-		expander = adw_expander_row_new ();
-		adw_preferences_row_set_title (ADW_PREFERENCES_ROW (expander), page_label);
-		adw_expander_row_set_expanded (ADW_EXPANDER_ROW (expander), TRUE);
-		gtk_list_box_append (GTK_LIST_BOX (priv->list_box), expander);
-
-		g_free (page_label);
-
-		for (ll = pps_mapping_list_get_list (mapping_list); ll; ll = g_list_next (ll)) {
-			PpsAnnotation *annot;
-			GtkWidget    *row;
-			GtkEventController *controller;
-
-			annot = ((PpsMapping *)(ll->data))->data;
-			if (!PPS_IS_ANNOTATION_MARKUP (annot))
-				continue;
-
-			row = GTK_WIDGET (g_object_new (g_type_from_name ("PpsSidebarAnnotationsRow"),
-							"annotation",
-							PPS_ANNOTATION_MARKUP (annot),
-							NULL));
-
-			adw_expander_row_add_row (ADW_EXPANDER_ROW (expander), row);
-
-			controller = GTK_EVENT_CONTROLLER (gtk_gesture_click_new ());
-			gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (controller), 0);
-			gtk_widget_add_controller (row, controller);
-
-			g_signal_connect (G_OBJECT (controller), "pressed",
-					  (GCallback)sidebar_annots_button_press_cb, ll->data);
-
-			found = TRUE;
-		}
-
-		if (!found)
-			gtk_list_box_remove (GTK_LIST_BOX (priv->list_box), expander);
-	}
-
-	adw_view_stack_set_visible_child_name (ADW_VIEW_STACK (priv->stack),
-					       "annot");
-
-	g_clear_object (&priv->job);
-}
-
-static void
-pps_sidebar_annotations_load (PpsSidebarAnnotations *sidebar_annots)
-{
-	PpsSidebarAnnotationsPrivate *priv = GET_PRIVATE (sidebar_annots);
-	PpsDocumentModel *model = pps_sidebar_page_get_document_model (PPS_SIDEBAR_PAGE (sidebar_annots));
-	PpsDocument *document = pps_document_model_get_document (model);
-
-	if (priv->job) {
-		g_signal_handlers_disconnect_by_func (priv->job,
-						      job_finished_callback,
-						      sidebar_annots);
-		g_object_unref (priv->job);
-	}
-
-	priv->job = pps_job_annots_new (document);
-	g_signal_connect (priv->job, "finished",
-			  G_CALLBACK (job_finished_callback),
-			  sidebar_annots);
-	/* The priority doesn't matter for this job */
-	pps_job_scheduler_push_job (priv->job, PPS_JOB_PRIORITY_NONE);
 }

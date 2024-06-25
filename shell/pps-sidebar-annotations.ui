@@ -31,16 +31,26 @@
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
                     <property name="child">
-                      <object class="GtkListBox" id="list_box">
-                        <property name="selection-mode">none</property>
-                        <property name="margin-start">6</property>
-                        <property name="margin-end">6</property>
-                        <property name="margin-top">6</property>
-                        <property name="margin-bottom">6</property>
-                        <property name="valign">start</property>
+                      <object class="GtkListView" id="list_view">
                         <style>
-                          <class name="boxed-list" />
+                          <class name="navigation-sidebar"/>
                         </style>
+                        <property name="hexpand">True</property>
+                        <property name="factory">
+                          <object class="GtkSignalListItemFactory" id="factory">
+                            <signal name="setup" handler="factory_setup_cb" />
+                            <signal name="bind" handler="factory_bind_cb" />
+                          </object>
+                        </property>
+                        <property name="model">
+                          <object class="GtkSingleSelection" id="selection">
+                            <property name="model">
+                              <object class="GListStore" id="model">
+                                <property name="item-type">PpsAnnotation</property>
+                              </object>
+                            </property>
+                          </object>
+                        </property>
                       </object>
                     </property>
                   </object>
