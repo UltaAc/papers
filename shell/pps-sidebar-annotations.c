@@ -196,8 +196,10 @@ factory_bind_cb (GtkSignalListItemFactory *self,
         GtkWidget *widget = gtk_list_item_get_child (item);
         PpsAnnotation *annotation = PPS_ANNOTATION (gtk_list_item_get_item (item));
 
-	g_object_set (widget, "annotation",
-		      PPS_ANNOTATION_MARKUP (annotation), NULL);
+	g_object_set (widget,
+		      "document", pps_document_model_get_document (pps_sidebar_page_get_document_model (PPS_SIDEBAR_PAGE (sidebar))),
+		      "annotation", PPS_ANNOTATION_MARKUP (annotation),
+		      NULL);
 }
 
 static void

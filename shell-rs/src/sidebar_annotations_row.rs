@@ -8,38 +8,55 @@ use papers_document::AnnotationType;
 mod imp {
     use super::*;
 
-    #[derive(Properties, Default, Debug)]
+    #[derive(Properties, CompositeTemplate, Default, Debug)]
     #[properties(wrapper_type = super::PpsSidebarAnnotationsRow)]
+    #[template(resource = "/org/gnome/papers/ui/sidebar-annotations-row.ui")]
     pub struct PpsSidebarAnnotationsRow {
         #[property(set = Self::set_annotation)]
         pub(super) annotation: RefCell<Option<AnnotationMarkup>>,
-        label_notify_id: RefCell<Option<SignalHandlerId>>,
-        modified_notify_id: RefCell<Option<SignalHandlerId>>,
-        contents_notify_id: RefCell<Option<SignalHandlerId>>,
-        image: gtk::Image,
+        #[property(set)]
+        pub(super) document: RefCell<Option<Document>>,
+
+        pub(super) annot_signal_handlers: RefCell<Vec<SignalHandlerId>>,
+
+        #[template_child]
+        image: TemplateChild<gtk::Image>,
+        #[template_child]
+        page_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        author_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        reference_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        content_label: TemplateChild<gtk::Label>,
     }
 
     #[glib::object_subclass]
     impl ObjectSubclass for PpsSidebarAnnotationsRow {
         const NAME: &'static str = "PpsSidebarAnnotationsRow";
         type Type = super::PpsSidebarAnnotationsRow;
-        type ParentType = adw::ActionRow;
+        type ParentType = gtk::Box;
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.bind_template();
+            klass.set_css_name("pps-sidebar-annotations-row")
+        }
+
+        fn instance_init(obj: &InitializingObject<Self>) {
+            obj.init_template();
+        }
     }
 
     #[glib::derived_properties]
     impl ObjectImpl for PpsSidebarAnnotationsRow {
-        fn constructed(&self) {
-            self.obj().add_prefix(&self.image);
+        fn dispose(&self) {
+            self.clear_annotation()
         }
     }
 
     impl WidgetImpl for PpsSidebarAnnotationsRow {}
 
-    impl ListBoxRowImpl for PpsSidebarAnnotationsRow {}
-
-    impl PreferencesRowImpl for PpsSidebarAnnotationsRow {}
-
-    impl ActionRowImpl for PpsSidebarAnnotationsRow {}
+    impl BoxImpl for PpsSidebarAnnotationsRow {}
 
     impl PpsSidebarAnnotationsRow {
         fn set_row_tooltip(&self, annot: Option<&AnnotationMarkup>) {
@@ -53,21 +70,92 @@ mod imp {
             self.obj().set_tooltip_markup(tooltip.as_deref());
         }
 
-        fn set_row_title(&self, annot: Option<&AnnotationMarkup>) {
-            let default = format!("<i>{}</i>", gettext("No Comment"));
-            let markup = annot.map_or(default.clone(), |annot| {
-                annot
-                    .contents()
-                    .filter(|s| !s.is_empty())
-                    .map(|content| glib::markup_escape_text(&content).trim().to_string())
-                    .unwrap_or_else(|| default.clone())
-            });
+        fn set_page_label(&self, annot: Option<&AnnotationMarkup>) {
+            let author = annot
+                .map(|annot| {
+                    let page = annot.page_index();
+                    let page_label = self
+                        .document()
+                        .and_then(|document| document.page_label(page as i32))
+                        .map(|gstr| gstr.to_string())
+                        .unwrap_or(page.to_string());
+                    gettext_f("Page {}", [page_label])
+                })
+                .unwrap_or_default();
+            self.page_label.set_label(&author);
+        }
 
-            self.obj().set_title(&markup);
+        fn set_author_label(&self, annot: Option<&AnnotationMarkup>) {
+            let author = annot
+                .and_then(|annot| annot.label())
+                .map(|gstr| gstr.to_string())
+                .unwrap_or_default();
+            self.author_label.set_label(&author);
+        }
+
+        fn set_content_label(&self, annot: Option<&AnnotationMarkup>) {
+            self.content_label.set_visible(false);
+            if let Some(markup) = annot
+                .and_then(|annot| annot.contents())
+                .filter(|s| !s.is_empty())
+                .map(|content| glib::markup_escape_text(&content).trim().to_string())
+            {
+                self.content_label.set_label(&markup);
+                self.content_label.set_visible(true);
+            }
+        }
+
+        fn set_reference_label(&self, annot: Option<&AnnotationMarkup>) {
+            let reference_text = annot
+                .map(|annot| (annot.page_index(), annot.area()))
+                .and_then(|(page_index, mut area)| {
+                    self.document().and_then(|document| {
+                        let page = document.page(page_index as i32);
+                        document
+                            .dynamic_cast_ref::<DocumentText>()
+                            .and_then(|document_text| {
+                                page.and_then(|page| document_text.text_in_area(&page, &mut area))
+                            })
+                            .map(|gstr| gstr.to_string())
+                    })
+                });
+
+            if let Some(label) = &reference_text {
+                self.reference_label.set_label(label);
+            }
+            self.reference_label.set_visible(reference_text.is_some());
+        }
+
+        fn set_color(&self, annot: Option<&AnnotationMarkup>) {
+            let color = annot
+                .map(|annot| annot.rgba().to_str())
+                .map(|gstr| gstr.to_string())
+                .unwrap_or("rgb(100 0 0 / 100%)".to_string());
+            let css = format!("* {{ --annotation-color: {}; }}", color);
+            let provider = gtk::CssProvider::new();
+
+            provider.load_from_string(&css);
+
+            #[allow(deprecated)]
+            self.obj()
+                .style_context()
+                .add_provider(&provider, gtk::STYLE_PROVIDER_PRIORITY_APPLICATION);
+        }
+
+        fn document(&self) -> Option<Document> {
+            self.document.borrow().clone()
         }
 
         fn annot(&self) -> Option<AnnotationMarkup> {
             self.annotation.borrow().clone()
+        }
+
+        fn clear_annotation(&self) {
+            if let Some(annot) = self.annotation.take() {
+                for id in self.annot_signal_handlers.take() {
+                    annot.disconnect(id);
+                }
+            }
         }
 
         fn set_annotation(&self, annot: Option<&AnnotationMarkup>) {
@@ -75,67 +163,65 @@ mod imp {
                 return;
             }
 
-            // clear the old
-            if let Some(annot) = self.annotation.take() {
-                if let Some(id) = self.label_notify_id.take() {
-                    annot.disconnect(id);
-                }
-
-                if let Some(id) = self.modified_notify_id.take() {
-                    annot.disconnect(id);
-                }
-
-                if let Some(id) = self.contents_notify_id.take() {
-                    annot.disconnect(id);
-                }
-
-                // If there is too many handlers, simply use an Vec<SignalHandlerId> to hold them
-                // For example, search_box.rs - set_context
-            }
+            self.clear_annotation();
 
             // setup the new one
             self.set_row_tooltip(annot);
-            self.set_row_title(annot);
+            self.set_page_label(annot);
+            self.set_author_label(annot);
+            self.set_content_label(annot);
+            self.set_reference_label(annot);
+            self.set_color(annot);
 
-            let label_notify_id = annot.map(|annot| {
-                annot.connect_label_notify(glib::clone!(@weak self as obj => move |annot| {
-                    obj.set_row_tooltip(Some(annot));
-                }))
-            });
+            if let Some(annot) = annot {
+                let mut handlers = self.annot_signal_handlers.borrow_mut();
 
-            let modified_notify_id = annot.map(|annot| {
-                annot.connect_modified_notify(glib::clone!(@weak self as obj => move |annot| {
-                    obj.set_row_tooltip(Some(annot));
-                }))
-            });
+                handlers.push(annot.connect_label_notify(
+                    glib::clone!(@weak self as obj => move |annot| {
+                        obj.set_row_tooltip(Some(annot));
+                        obj.set_author_label(Some(annot));
+                    }),
+                ));
 
-            let contents_notify_id = annot.map(|annot| {
-                annot.connect_contents_notify(glib::clone!(@weak self as obj => move |annot| {
-                    obj.set_row_title(Some(annot));
-                }))
-            });
+                handlers.push(annot.connect_modified_notify(
+                    glib::clone!(@weak self as obj => move |annot| {
+                        obj.set_row_tooltip(Some(annot));
+                    }),
+                ));
 
-            let icon_name = annot.map(|annot| match annot.annotation_type() {
-                AnnotationType::Attachment => "mail-attachment-symbolic",
+                handlers.push(annot.connect_contents_notify(
+                    glib::clone!(@weak self as obj => move |annot| {
+                        obj.set_content_label(Some(annot));
+                    }),
+                ));
+
+                handlers.push(annot.connect_rgba_notify(
+                    glib::clone!(@weak self as obj => move |annot| {
+                        obj.set_color(Some(annot));
+                    }),
+                ));
+            }
+
+            let icon_name = annot.and_then(|annot| match annot.annotation_type() {
+                AnnotationType::Attachment => Some("mail-attachment-symbolic"),
                 AnnotationType::TextMarkup => match annot
                     .dynamic_cast_ref::<AnnotationTextMarkup>()
                     .unwrap()
                     .markup_type()
                 {
-                    AnnotationTextMarkupType::StrikeOut => "format-text-strikethrough-symbolic",
-                    AnnotationTextMarkupType::Underline => "format-text-underline-symbolic",
-                    AnnotationTextMarkupType::Squiggly => "annotations-squiggly-symbolic",
-                    AnnotationTextMarkupType::Highlight => "format-justify-left-symbolic",
+                    AnnotationTextMarkupType::StrikeOut => {
+                        Some("format-text-strikethrough-symbolic")
+                    }
+                    AnnotationTextMarkupType::Underline
+                    | AnnotationTextMarkupType::Squiggly
+                    | AnnotationTextMarkupType::Highlight => None,
                     _ => unimplemented!(),
                 },
-                AnnotationType::Text => "annotations-text-symbolic",
+                AnnotationType::Text => None,
                 _ => unimplemented!(),
             });
             self.image.set_from_icon_name(icon_name);
-
-            self.label_notify_id.replace(label_notify_id);
-            self.modified_notify_id.replace(modified_notify_id);
-            self.contents_notify_id.replace(contents_notify_id);
+            self.image.set_visible(icon_name.is_some());
 
             self.annotation.replace(annot.cloned());
         }
@@ -144,5 +230,17 @@ mod imp {
 
 glib::wrapper! {
     pub struct PpsSidebarAnnotationsRow(ObjectSubclass<imp::PpsSidebarAnnotationsRow>)
-        @extends adw::ActionRow, adw::PreferencesRow, gtk::ListBoxRow, gtk::Widget;
+        @extends gtk::Box, gtk::Widget;
+}
+
+impl PpsSidebarAnnotationsRow {
+    fn new() -> Self {
+        glib::Object::builder().build()
+    }
+}
+
+impl Default for PpsSidebarAnnotationsRow {
+    fn default() -> Self {
+        Self::new()
+    }
 }
