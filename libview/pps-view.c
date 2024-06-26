@@ -4082,22 +4082,13 @@ pps_view_size_request_continuous_dual_page (PpsView         *view,
 	compute_border (view, &border);
 	get_page_y_offset (view, n_pages, &requisition->height, &border);
 
-	switch (priv->sizing_mode) {
-	        case PPS_SIZING_FIT_WIDTH:
-	        case PPS_SIZING_FIT_PAGE:
-	        case PPS_SIZING_AUTOMATIC:
-			requisition->width = 1;
+	if (priv->sizing_mode == PPS_SIZING_FREE) {
+		gint max_width;
 
-			break;
-	        case PPS_SIZING_FREE: {
-			gint max_width;
-
-			pps_view_get_max_page_size (view, &max_width, NULL);
-			requisition->width = (max_width + border.left + border.right) * 2 + (priv->spacing * 3);
-		}
-			break;
-	        default:
-			g_assert_not_reached ();
+		pps_view_get_max_page_size (view, &max_width, NULL);
+		requisition->width = (max_width + border.left + border.right) * 2 + (priv->spacing * 3);
+	} else {
+		requisition->width = 1;
 	}
 }
 
@@ -4113,22 +4104,13 @@ pps_view_size_request_continuous (PpsView         *view,
 	compute_border (view, &border);
 	get_page_y_offset (view, n_pages, &requisition->height, &border);
 
-	switch (priv->sizing_mode) {
-	        case PPS_SIZING_FIT_WIDTH:
-	        case PPS_SIZING_FIT_PAGE:
-	        case PPS_SIZING_AUTOMATIC:
-			requisition->width = 1;
+	if (priv->sizing_mode == PPS_SIZING_FREE) {
+		gint max_width;
 
-			break;
-	        case PPS_SIZING_FREE: {
-			gint max_width;
-
-			pps_view_get_max_page_size (view, &max_width, NULL);
-			requisition->width = max_width + (priv->spacing * 2) + border.left + border.right;
-		}
-			break;
-	        default:
-			g_assert_not_reached ();
+		pps_view_get_max_page_size (view, &max_width, NULL);
+		requisition->width = max_width + (priv->spacing * 2) + border.left + border.right;
+	} else {
+		requisition->width = 1;
 	}
 }
 
@@ -4139,13 +4121,6 @@ pps_view_size_request_dual_page (PpsView         *view,
 	GtkBorder border;
 	gint width, height;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	if (priv->sizing_mode == PPS_SIZING_FIT_PAGE) {
-		requisition->width = 1;
-		requisition->height = 1;
-
-		return;
-	}
 
 	/* Find the largest of the two. */
 	pps_view_get_page_size (view,
@@ -4163,9 +4138,17 @@ pps_view_size_request_dual_page (PpsView         *view,
 	}
 	compute_border (view, &border);
 
-	requisition->width = priv->sizing_mode == PPS_SIZING_FIT_WIDTH ? 1 :
-		((width + border.left + border.right) * 2) + (priv->spacing * 3);
-	requisition->height = (height + border.top + border.bottom) + (priv->spacing * 2);
+	if (priv->sizing_mode == PPS_SIZING_FIT_PAGE) {
+		requisition->height = 1;
+	} else {
+		requisition->height = (height + border.top + border.bottom) + (priv->spacing * 2);
+	}
+
+	if (priv->sizing_mode == PPS_SIZING_FREE) {
+		requisition->width = ((width + border.left + border.right) * 2) + (priv->spacing * 3);
+	} else {
+		requisition->width = 1;
+	}
 }
 
 static void
@@ -4176,19 +4159,20 @@ pps_view_size_request_single_page (PpsView         *view,
 	gint width, height;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	if (priv->sizing_mode == PPS_SIZING_FIT_PAGE) {
-		requisition->width = 1;
-		requisition->height = 1;
-
-		return;
-	}
-
 	pps_view_get_page_size (view, priv->current_page, &width, &height);
 	compute_border (view, &border);
 
-	requisition->width = priv->sizing_mode == PPS_SIZING_FIT_WIDTH ? 1 :
-		width + border.left + border.right + (2 * priv->spacing);
-	requisition->height = height + border.top + border.bottom + (2 * priv->spacing);
+	if (priv->sizing_mode == PPS_SIZING_FIT_PAGE) {
+		requisition->height = 1;
+	} else {
+		requisition->height = height + border.top + border.bottom + (2 * priv->spacing);
+	}
+
+	if (priv->sizing_mode == PPS_SIZING_FREE) {
+		requisition->width = width + border.left + border.right + (2 * priv->spacing);
+	} else {
+		requisition->width = 1;
+	}
 }
 
 static void
