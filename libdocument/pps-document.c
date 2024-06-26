@@ -607,7 +607,7 @@ pps_document_get_page_size (PpsDocument *document,
 
 	g_return_if_fail (PPS_IS_DOCUMENT (document));
 	priv = GET_PRIVATE (document);
-	g_return_if_fail (page_index >= 0 || page_index < pps_document_get_n_pages (document));
+	g_return_if_fail (0 <= page_index && page_index < pps_document_get_n_pages (document));
 
 	if (priv->cache_loaded) {
 		if (width)
@@ -646,7 +646,7 @@ pps_document_get_page_label (PpsDocument *document,
 	PpsDocumentPrivate *priv;
 	g_return_val_if_fail (PPS_IS_DOCUMENT (document), NULL);
 	priv = GET_PRIVATE (document);
-	g_return_val_if_fail (page_index >= 0 || page_index < pps_document_get_n_pages (document), NULL);
+	g_return_val_if_fail (0 <= page_index && page_index < pps_document_get_n_pages (document), NULL);
 
 	if (!priv->cache_loaded) {
 		PpsPage *page;
