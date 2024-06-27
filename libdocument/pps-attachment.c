@@ -425,9 +425,7 @@ pps_attachment_open (PpsAttachment	 *attachment,
                 g_free (basename);
 
 		if (file != NULL && pps_attachment_save (attachment, file, error)) {
-			if (priv->tmp_file)
-				g_object_unref (priv->tmp_file);
-			priv->tmp_file = g_object_ref (file);
+			g_set_object (&priv->tmp_file, file);
 
 			retval = pps_attachment_launch_app (attachment, context, error);
 		}

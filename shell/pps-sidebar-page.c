@@ -64,8 +64,7 @@ pps_sidebar_page_set_document_model (PpsSidebarPage   *sidebar_page,
 	if (priv->model == model)
 		return;
 
-	g_clear_object (&priv->model);
-	priv->model = g_object_ref (model);
+	g_set_object (&priv->model, model);
 }
 
 static void
@@ -77,8 +76,7 @@ pps_sidebar_page_set_sidebar (PpsSidebarPage *sidebar_page,
 	if (priv->sidebar == sidebar)
 		return;
 
-	g_clear_object (&priv->sidebar);
-	priv->sidebar = g_object_ref (sidebar);
+	g_set_object (&priv->sidebar, sidebar);
 }
 
 PpsDocumentModel*

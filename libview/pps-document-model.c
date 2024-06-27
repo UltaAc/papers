@@ -338,12 +338,8 @@ pps_document_model_set_document (PpsDocumentModel *model,
 	g_return_if_fail (PPS_IS_DOCUMENT_MODEL (model));
 	g_return_if_fail (PPS_IS_DOCUMENT (document));
 
-	if (document == model->document)
+	if (!g_set_object (&model->document, document))
 		return;
-
-	if (model->document)
-		g_object_unref (model->document);
-	model->document = g_object_ref (document);
 
 	model->n_pages = pps_document_get_n_pages (document);
 	pps_document_model_set_page (model, CLAMP (model->page, 0,

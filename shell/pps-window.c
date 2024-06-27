@@ -1386,9 +1386,7 @@ pps_window_set_document (PpsWindow *pps_window, PpsDocument *document)
 	if (priv->document == document)
 		return;
 
-	if (priv->document)
-		g_object_unref (priv->document);
-	priv->document = g_object_ref (document);
+	g_set_object (&priv->document, document);
 	pps_document_model_set_document (priv->model, document);
 
 	pps_window_set_message_area (pps_window, NULL);
@@ -1986,8 +1984,7 @@ pps_window_open_uri (PpsWindow       *pps_window,
 		g_warning("Failed to create metadata for document\n");
 	}
 
-	g_clear_object (&priv->dest);
-	priv->dest = dest ? g_object_ref (dest) : NULL;
+	g_set_object (&priv->dest, dest);
 
 	set_filenames (pps_window, source_file);
 	setup_size_from_metadata (pps_window);
@@ -2306,8 +2303,8 @@ pps_window_open_copy_at_dest (PpsWindow   *window,
 	PpsWindow *new_window = PPS_WINDOW (pps_window_new ());
 	PpsWindowPrivate *new_priv = GET_PRIVATE (new_window);
 
-	if (priv->metadata)
-		new_priv->metadata = g_object_ref (priv->metadata);
+	g_set_object (&new_priv->metadata, priv->metadata);
+
 	new_priv->display_name = g_strdup (priv->display_name);
 	new_priv->edit_name = g_strdup (priv->edit_name);
 	pps_window_open_document (new_window,
@@ -4258,11 +4255,10 @@ view_menu_link_popup (PpsWindow *pps_window,
 	gboolean  show_external = FALSE;
 	gboolean  show_internal = FALSE;
 
-	g_clear_object (&priv->link);
+	g_set_object (&priv->link, link);
+
 	if (link) {
 		PpsLinkAction *pps_action;
-
-		priv->link = g_object_ref (link);
 
 		pps_action = pps_link_get_action (link);
 		if (pps_action) {
@@ -4293,13 +4289,9 @@ view_menu_image_popup (PpsWindow  *pps_window,
 		       PpsImage   *image)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	gboolean show_image = FALSE;
+	gboolean show_image = !!image;
 
-	g_clear_object (&priv->image);
-	if (image) {
-		priv->image = g_object_ref (image);
-		show_image = TRUE;
-	}
+	g_set_object (&priv->image, image);
 
 	pps_window_set_action_enabled (pps_window, "save-image", show_image);
 	pps_window_set_action_enabled (pps_window, "copy-image", show_image);
@@ -4314,10 +4306,9 @@ view_menu_annot_popup (PpsWindow     *pps_window,
 	gboolean show_attachment = FALSE;
 	gboolean can_remove_annots = FALSE;
 
-	g_clear_object (&priv->annot);
-	if (annot) {
-		priv->annot = g_object_ref (annot);
+	g_set_object (&priv->annot, annot);
 
+	if (annot) {
 		show_annot_props = PPS_IS_ANNOTATION_MARKUP (annot);
 
 		if (PPS_IS_ANNOTATION_ATTACHMENT (annot)) {

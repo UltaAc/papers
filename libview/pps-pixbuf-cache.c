@@ -258,13 +258,10 @@ copy_job_to_job_info (PpsJobRenderTexture *job_render,
 		      CacheJobInfo     *job_info,
 		      PpsPixbufCache    *pixbuf_cache)
 {
-	g_clear_object (&job_info->texture);
-
-	job_info->texture = g_object_ref (job_render->texture);
+	g_set_object (&job_info->texture, job_render->texture);
 
 	job_info->points_set = FALSE;
 	if (job_render->include_selection) {
-		g_clear_object (&job_info->selection_texture);
 		g_clear_pointer (&job_info->selection_region, cairo_region_destroy);
 
 		job_info->selection_points = job_render->selection_points;
@@ -275,7 +272,7 @@ copy_job_to_job_info (PpsJobRenderTexture *job_render,
 		job_info->selection_region = cairo_region_reference (job_render->selection_region);
 		job_info->selection_region_scale = job_render->scale;
 
-		job_info->selection_texture = g_object_ref (job_render->selection);
+		g_set_object (&job_info->selection_texture, job_render->selection);
 		job_info->points_set = TRUE;
 	}
 

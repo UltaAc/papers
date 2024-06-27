@@ -238,9 +238,7 @@ pps_previewer_window_enumerate_printers (GtkPrinter        *printer,
 	if ((printer_name
 	     && strcmp (printer_name, gtk_printer_get_name (printer)) == 0) ||
 	    (!printer_name && gtk_printer_is_default (printer))) {
-		if (window->printer)
-			g_object_unref (window->printer);
-		window->printer = g_object_ref (printer);
+		g_set_object (&window->printer, printer);
 
 		return TRUE; /* we're done */
 	}
@@ -444,8 +442,7 @@ pps_previewer_window_set_job (PpsPreviewerWindow *window,
         g_return_if_fail (PPS_IS_PREVIEWER_WINDOW (window));
         g_return_if_fail (PPS_IS_JOB (job));
 
-        g_clear_object (&window->job);
-        window->job = g_object_ref (job);
+        g_set_object (&window->job, job);
 
         g_signal_connect_object (window->job, "finished",
                                  G_CALLBACK (load_job_finished_cb),

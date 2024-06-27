@@ -420,12 +420,8 @@ pps_view_presentation_update_current_texture (PpsViewPresentation *pview,
 	if (!texture || priv->current_texture == texture)
 		return;
 
-	g_object_ref (texture);
-
-	g_clear_object (&priv->previous_texture);
-
-	priv->previous_texture = priv->current_texture;
-	priv->current_texture = texture;
+	g_set_object (&priv->previous_texture, priv->current_texture);
+	g_set_object (&priv->current_texture, texture);
 }
 
 static void

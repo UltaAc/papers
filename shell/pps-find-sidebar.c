@@ -279,8 +279,7 @@ pps_find_sidebar_set_search_context (PpsFindSidebar   *sidebar,
 		g_signal_handlers_disconnect_by_func (priv->context, pps_find_sidebar_clear, sidebar);
 	}
 
-	g_clear_object (&priv->context);
-	priv->context = g_object_ref (context);
+	g_set_object (&priv->context, context);
 
 	gtk_single_selection_set_model (priv->selection, pps_search_context_get_result_model (priv->context));
 	g_signal_connect_object (priv->context, "started",

@@ -63,12 +63,11 @@ pps_layer_get_rb_group (PpsLayer *layer)
 void
 pps_layer_set_children (PpsLayer *pps_layer, GListModel *children)
 {
-    PpsLayerPrivate *priv = GET_PRIVATE (pps_layer);
-    g_return_if_fail (PPS_IS_LAYER (pps_layer));
+	PpsLayerPrivate *priv = GET_PRIVATE (pps_layer);
+	g_return_if_fail (PPS_IS_LAYER (pps_layer));
 
-    g_clear_object (&priv->children);
-    priv->children = g_object_ref (children);
-    g_object_notify (G_OBJECT (pps_layer), "children");
+	if (g_set_object (&priv->children, children))
+		g_object_notify (G_OBJECT (pps_layer), "children");
 }
 
 /**

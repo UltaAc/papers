@@ -152,12 +152,11 @@ pps_outlines_get_expand (PpsOutlines *pps_outlines)
 void
 pps_outlines_set_children (PpsOutlines *pps_outlines, GListModel *children)
 {
-    PpsOutlinesPrivate *priv = GET_PRIVATE (pps_outlines);
-    g_return_if_fail (PPS_IS_OUTLINES (pps_outlines));
+	PpsOutlinesPrivate *priv = GET_PRIVATE (pps_outlines);
+	g_return_if_fail (PPS_IS_OUTLINES (pps_outlines));
 
-    g_clear_object (&priv->children);
-    priv->children = g_object_ref (children);
-    g_object_notify (G_OBJECT (pps_outlines), "children");
+	if (g_set_object (&priv->children, children))
+		g_object_notify (G_OBJECT (pps_outlines), "children");
 }
 
 /**

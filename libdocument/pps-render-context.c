@@ -76,9 +76,7 @@ pps_render_context_set_page (PpsRenderContext *rc,
 	g_return_if_fail (rc != NULL);
 	g_return_if_fail (PPS_IS_PAGE (page));
 
-	if (rc->page)
-		g_object_unref (rc->page);
-	rc->page = g_object_ref (page);
+	g_set_object (&rc->page, page);
 }
 
 void

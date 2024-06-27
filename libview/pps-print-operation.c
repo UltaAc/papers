@@ -562,13 +562,7 @@ pps_print_operation_export_set_print_settings (PpsPrintOperation *op,
 {
 	PpsPrintOperationExport *export = PPS_PRINT_OPERATION_EXPORT (op);
 
-	if (print_settings == export->print_settings)
-		return;
-
-	g_object_ref (print_settings);
-	if (export->print_settings)
-		g_object_unref (export->print_settings);
-	export->print_settings = print_settings;
+	g_set_object (&export->print_settings, print_settings);
 }
 
 static GtkPrintSettings *
@@ -585,13 +579,7 @@ pps_print_operation_export_set_default_page_setup (PpsPrintOperation *op,
 {
 	PpsPrintOperationExport *export = PPS_PRINT_OPERATION_EXPORT (op);
 
-	if (page_setup == export->page_setup)
-		return;
-
-	g_object_ref (page_setup);
-	if (export->page_setup)
-		g_object_unref (export->page_setup);
-	export->page_setup = page_setup;
+	g_set_object (&export->page_setup, page_setup);
 }
 
 static GtkPageSetup *
@@ -1944,13 +1932,7 @@ static void
 pps_print_operation_export_unix_set_printer (PpsPrintOperationExportUnix *export,
                                             GtkPrinter                 *printer)
 {
-	if (printer == export->printer)
-		return;
-
-	g_object_ref (printer);
-	if (export->printer)
-		g_object_unref (export->printer);
-	export->printer = printer;
+	g_set_object (&export->printer, printer);
 }
 
 static void

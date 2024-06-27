@@ -478,9 +478,9 @@ pps_sidebar_bookmarks_set_bookmarks (PpsSidebarBookmarks *sidebar_bookmarks,
         if (priv->bookmarks == bookmarks)
                 return;
 
-	g_clear_object (&priv->bookmarks);
-        priv->bookmarks = g_object_ref (bookmarks);
-        g_signal_connect (priv->bookmarks, "changed",
+	g_set_object (&priv->bookmarks, bookmarks);
+
+	g_signal_connect (priv->bookmarks, "changed",
                           G_CALLBACK (pps_sidebar_bookmarks_changed),
                           sidebar_bookmarks);
 

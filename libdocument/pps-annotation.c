@@ -1304,16 +1304,12 @@ pps_annotation_attachment_set_attachment (PpsAnnotationAttachment *annot,
 
 	g_return_val_if_fail (PPS_IS_ANNOTATION_ATTACHMENT (annot), FALSE);
 
-	if (priv->attachment == attachment)
-		return FALSE;
+	if (g_set_object (&priv->attachment, attachment)) {
+		g_object_notify (G_OBJECT (annot), "attachment");
+		return TRUE;
+	}
 
-	if (priv->attachment)
-		g_object_unref (priv->attachment);
-	priv->attachment = attachment ? g_object_ref (attachment) : NULL;
-
-	g_object_notify (G_OBJECT (annot), "attachment");
-
-	return TRUE;
+	return FALSE;
 }
 
 /* PpsAnnotationTextMarkup */

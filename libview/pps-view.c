@@ -5350,9 +5350,7 @@ pps_view_button_press_event (GtkGestureClick	*gesture,
 				_pps_view_set_focused_element (view, link, page);
 			} else if (!location_in_text (view, x + priv->scroll_x, y + priv->scroll_y) &&
 				   (image = pps_view_get_image_at_location (view, x, y))) {
-				if (priv->image_dnd_info.image)
-					g_object_unref (priv->image_dnd_info.image);
-				priv->image_dnd_info.image = g_object_ref (image);
+				g_set_object (&priv->image_dnd_info.image, image);
 				priv->image_dnd_info.in_drag = TRUE;
 
 				priv->image_dnd_info.start.x = x + priv->scroll_x;
@@ -7849,9 +7847,9 @@ pps_view_document_changed_cb (PpsDocumentModel *model,
 
 		pps_view_remove_all (view);
 		clear_caches (view);
-		g_clear_object (&priv->document);
 
-		priv->document = document ? g_object_ref (document) : NULL;
+		g_set_object (&priv->document, document);
+
 		priv->find_page = -1;
 		priv->find_result = 0;
 
@@ -8070,9 +8068,9 @@ pps_view_set_model (PpsView          *view,
 
 	if (priv->model) {
 		g_signal_handlers_disconnect_by_data (priv->model, view);
-		g_object_unref (priv->model);
 	}
-	priv->model = g_object_ref (model);
+
+	g_set_object (&priv->model, model);
 
 	/* Initialize view from model */
 	priv->rotation = pps_document_model_get_rotation (priv->model);
@@ -8649,7 +8647,7 @@ pps_view_find_started (PpsView *view, PpsJobFind *job)
 		return;
 
 	pps_view_find_cancel (view);
-	priv->find_job = g_object_ref (job);
+	g_set_object (&priv->find_job, job);
 	priv->find_page = priv->current_page;
 	priv->find_result = 0;
 
@@ -9155,11 +9153,9 @@ pps_view_copy_link_address (PpsView       *view,
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	g_clear_object (&priv->link_selected);
+	g_set_object (&priv->link_selected, action);
 
 	pps_view_clipboard_copy (view, pps_link_action_get_uri (action));
-
-	priv->link_selected = g_object_ref (action);
 }
 
 /*** Cursor operations ***/
