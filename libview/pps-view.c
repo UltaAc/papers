@@ -518,15 +518,8 @@ pps_view_scroll_to_page_position (PpsView *view, GtkOrientation orientation)
 		GtkBorder    border;
 
 		pps_view_get_page_extents (view, priv->current_page, &page_area, &border);
-		x = page_area.x;
-		y = page_area.y;
-
-		if (priv->continuous && priv->sizing_mode == PPS_SIZING_FIT_PAGE) {
-			y -= priv->spacing + (border.top / 2);
-		}
-
-		if (priv->current_page == 0)
-			y = 0.;
+		x = MAX (0, page_area.x - priv->spacing);
+		y = MAX (0, page_area.y - priv->spacing);
 	} else {
 		GdkPoint view_point;
 
