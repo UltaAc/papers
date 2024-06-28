@@ -26,13 +26,11 @@ external_libraries = [
 ]
 
 generate = [
-    "PapersShell.AnnotationPropertiesDialog",
     "PapersShell.FindSidebar",
     "PapersShell.Metadata",
     "PapersShell.ProgressMessageArea",
     "PapersShell.SearchContext",
     "PapersShell.SearchResult",
-    "PapersShell.Sidebar",
     "PapersShell.SidebarAnnotations",
     "PapersShell.SidebarPage",
     "PapersShell.Window",
