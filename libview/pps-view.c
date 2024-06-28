@@ -7552,7 +7552,7 @@ pps_view_init (PpsView *view)
 
 	priv->start_page = -1;
 	priv->end_page = -1;
-	priv->spacing = 14;
+	priv->spacing = 12;
 	priv->scale = 1.0;
 	priv->current_page = -1;
 	priv->cursor = PPS_VIEW_CURSOR_NORMAL;
