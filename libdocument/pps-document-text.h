@@ -49,7 +49,10 @@ struct _PpsDocumentTextInterface
         gboolean        (* get_text_layout)  (PpsDocumentText   *document_text,
 					      PpsPage           *page,
 					      PpsRectangle     **areas,
-					      guint            *n_areas);
+					      guint             *n_areas);
+	gchar          *(* get_text_in_area) (PpsDocumentText   *document_text,
+					      PpsPage           *page,
+					      PpsRectangle      *area);
 	PangoAttrList  *(* get_text_attrs)   (PpsDocumentText   *document_text,
 					      PpsPage           *page);
 };
@@ -62,6 +65,10 @@ gboolean        pps_document_text_get_text_layout  (PpsDocumentText  *document_t
 						   PpsPage          *page,
 						   PpsRectangle    **areas,
 						   guint           *n_areas);
+PPS_PUBLIC
+gchar*          pps_document_text_get_text_in_area (PpsDocumentText  *document_text,
+						    PpsPage          *page,
+						    PpsRectangle     *area);
 PPS_PUBLIC
 cairo_region_t *pps_document_text_get_text_mapping (PpsDocumentText  *document_text,
 						   PpsPage          *page);

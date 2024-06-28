@@ -57,6 +57,29 @@ pps_document_text_get_text_layout (PpsDocumentText   *document_text,
 	return iface->get_text_layout (document_text, page, areas, n_areas);
 }
 
+/**
+ * pps_document_text_get_text_in_area:
+ * @document_text: a #PpsDocumentText
+ * @page: a #PpsPage of that document
+ * @area: a #PpsRectangle on that page
+ *
+ * Returns: (transfer full) (nullable): the text inside the area of the specified page or %NULL
+ *
+ * Since: 47
+ */
+gchar*
+pps_document_text_get_text_in_area (PpsDocumentText *document_text,
+				    PpsPage         *page,
+				    PpsRectangle    *area)
+{
+	PpsDocumentTextInterface *iface = PPS_DOCUMENT_TEXT_GET_IFACE (document_text);
+
+	if (!iface->get_text_in_area)
+		return NULL;
+
+	return iface->get_text_in_area (document_text, page, area);
+}
+
 cairo_region_t *
 pps_document_text_get_text_mapping (PpsDocumentText *document_text,
 				   PpsPage         *page)

@@ -2015,6 +2015,17 @@ pdf_document_text_get_text_layout (PpsDocumentText  *selection,
 					     (PopplerRectangle **)areas, n_areas);
 }
 
+static gchar*
+pdf_document_text_get_text_in_area (PpsDocumentText *document_text,
+				    PpsPage         *page,
+				    PpsRectangle    *area)
+{
+	g_return_val_if_fail (POPPLER_IS_PAGE (page->backend_page), NULL);
+
+	return poppler_page_get_text_for_area (POPPLER_PAGE (page->backend_page),
+					       (PopplerRectangle *)area);
+}
+
 static PangoAttrList *
 pdf_document_text_get_text_attrs (PpsDocumentText *document_text,
 				  PpsPage         *page)
@@ -2073,6 +2084,7 @@ pdf_document_text_iface_init (PpsDocumentTextInterface *iface)
         iface->get_text_mapping = pdf_document_text_get_text_mapping;
         iface->get_text = pdf_document_text_get_text;
         iface->get_text_layout = pdf_document_text_get_text_layout;
+        iface->get_text_in_area = pdf_document_text_get_text_in_area;
 	iface->get_text_attrs = pdf_document_text_get_text_attrs;
 }
 
