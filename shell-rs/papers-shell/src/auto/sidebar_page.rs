@@ -3,12 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::{
-    prelude::*,
-    signal::{connect_raw, SignalHandlerId},
-    translate::*,
-};
-use std::boxed::Box as Box_;
+use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
     #[doc(alias = "PpsSidebarPage")]
@@ -53,31 +48,6 @@ pub trait SidebarPageExt: IsA<SidebarPage> + sealed::Sealed + 'static {
                 self.as_ref().to_glib_none().0,
                 document.as_ref().to_glib_none().0,
             ))
-        }
-    }
-
-    #[doc(alias = "navigated-to-view")]
-    fn connect_navigated_to_view<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn navigated_to_view_trampoline<
-            P: IsA<SidebarPage>,
-            F: Fn(&P) + 'static,
-        >(
-            this: *mut ffi::PpsSidebarPage,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(SidebarPage::from_glib_borrow(this).unsafe_cast_ref())
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"navigated-to-view\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
-                    navigated_to_view_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
         }
     }
 }

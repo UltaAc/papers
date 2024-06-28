@@ -11,6 +11,7 @@ pub use papers_document::Document;
 pub use papers_document::DocumentInfo;
 pub use papers_document::DocumentLayers;
 pub use papers_document::DocumentLinks;
+pub use papers_document::DocumentText;
 pub use papers_view::DocumentModel;
 pub use papers_view::JobLinks;
 pub use papers_view::JobThumbnailTexture;

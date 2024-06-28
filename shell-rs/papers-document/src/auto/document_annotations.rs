@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Annotation, Rectangle};
+use crate::Annotation;
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -26,12 +26,11 @@ mod sealed {
 
 pub trait DocumentAnnotationsExt: IsA<DocumentAnnotations> + sealed::Sealed + 'static {
     #[doc(alias = "pps_document_annotations_add_annotation")]
-    fn add_annotation(&self, annot: &impl IsA<Annotation>, rect: &mut Rectangle) {
+    fn add_annotation(&self, annot: &impl IsA<Annotation>) {
         unsafe {
             ffi::pps_document_annotations_add_annotation(
                 self.as_ref().to_glib_none().0,
                 annot.as_ref().to_glib_none().0,
-                rect.to_glib_none_mut().0,
             );
         }
     }

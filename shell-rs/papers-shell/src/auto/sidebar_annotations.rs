@@ -63,6 +63,12 @@ impl SidebarAnnotationsBuilder {
         }
     }
 
+    pub fn sidebar(self, sidebar: &impl IsA<glib::Object>) -> Self {
+        Self {
+            builder: self.builder.property("sidebar", sidebar.clone().upcast()),
+        }
+    }
+
     pub fn can_focus(self, can_focus: bool) -> Self {
         Self {
             builder: self.builder.property("can-focus", can_focus),

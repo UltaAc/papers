@@ -21,33 +21,6 @@ and/or use gtk-doc annotations.  -->
              shared-library="libppsshell-4.0.so.4,libppsview-4.0.so.4,libppsdocument-4.0.so.5"
              c:identifier-prefixes="Pps"
              c:symbol-prefixes="pps">
-    <function-macro name="FILE_MONITOR"
-                    c:identifier="PPS_FILE_MONITOR"
-                    introspectable="0">
-      <source-position filename="shell/pps-file-monitor.h" line="31"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="FILE_MONITOR_CLASS"
-                    c:identifier="PPS_FILE_MONITOR_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-file-monitor.h" line="32"/>
-      <parameters>
-        <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="FILE_MONITOR_GET_CLASS"
-                    c:identifier="PPS_FILE_MONITOR_GET_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-file-monitor.h" line="35"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
     <function-macro name="FIND_SIDEBAR"
                     c:identifier="PPS_FIND_SIDEBAR"
                     introspectable="0">
@@ -75,66 +48,6 @@ and/or use gtk-doc annotations.  -->
         </parameter>
       </parameters>
     </function-macro>
-    <class name="FileMonitor"
-           c:symbol-prefix="file_monitor"
-           c:type="PpsFileMonitor"
-           parent="GObject.Object"
-           glib:type-name="PpsFileMonitor"
-           glib:get-type="pps_file_monitor_get_type"
-           glib:type-struct="FileMonitorClass">
-      <source-position filename="shell/pps-file-monitor.h" line="46"/>
-      <constructor name="new" c:identifier="pps_file_monitor_new">
-        <source-position filename="shell/pps-file-monitor.h" line="49"/>
-        <return-value transfer-ownership="full">
-          <type name="FileMonitor" c:type="PpsFileMonitor*"/>
-        </return-value>
-        <parameters>
-          <parameter name="uri" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <virtual-method name="changed">
-        <source-position filename="shell/pps-file-monitor.h" line="45"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="pps_monitor" transfer-ownership="none">
-            <type name="FileMonitor" c:type="PpsFileMonitor*"/>
-          </instance-parameter>
-        </parameters>
-      </virtual-method>
-      <field name="base_instance">
-        <type name="GObject.Object" c:type="GObject"/>
-      </field>
-      <glib:signal name="changed" when="last">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-      </glib:signal>
-    </class>
-    <record name="FileMonitorClass"
-            c:type="PpsFileMonitorClass"
-            glib:is-gtype-struct-for="FileMonitor">
-      <source-position filename="shell/pps-file-monitor.h" line="46"/>
-      <field name="base_class">
-        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
-      </field>
-      <field name="changed">
-        <callback name="changed">
-          <source-position filename="shell/pps-file-monitor.h" line="45"/>
-          <return-value transfer-ownership="none">
-            <type name="none" c:type="void"/>
-          </return-value>
-          <parameters>
-            <parameter name="pps_monitor" transfer-ownership="none">
-              <type name="FileMonitor" c:type="PpsFileMonitor*"/>
-            </parameter>
-          </parameters>
-        </callback>
-      </field>
-    </record>
     <class name="FindSidebar"
            c:symbol-prefix="find_sidebar"
            c:type="PpsFindSidebar"
@@ -237,24 +150,6 @@ and/or use gtk-doc annotations.  -->
         <type name="Adw.BinClass" c:type="AdwBinClass"/>
       </field>
     </record>
-    <function-macro name="IS_FILE_MONITOR"
-                    c:identifier="PPS_IS_FILE_MONITOR"
-                    introspectable="0">
-      <source-position filename="shell/pps-file-monitor.h" line="33"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_FILE_MONITOR_CLASS"
-                    c:identifier="PPS_IS_FILE_MONITOR_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-file-monitor.h" line="34"/>
-      <parameters>
-        <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
     <function-macro name="IS_FIND_SIDEBAR"
                     c:identifier="PPS_IS_FIND_SIDEBAR"
                     introspectable="0">
@@ -504,15 +399,36 @@ and/or use gtk-doc annotations.  -->
           </parameter>
         </parameters>
       </constructor>
-      <method name="get_info_bar"
-              c:identifier="pps_message_area_get_info_bar"
-              introspectable="0">
-        <source-position filename="shell/pps-message-area.h" line="65"/>
-        <return-value>
-          <type name="Gtk.Widget" c:type="GtkWidget*"/>
+      <method name="add_button" c:identifier="pps_message_area_add_button">
+        <source-position filename="shell/pps-message-area.h" line="61"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
         </return-value>
         <parameters>
           <instance-parameter name="area" transfer-ownership="none">
+            <type name="MessageArea" c:type="PpsMessageArea*"/>
+          </instance-parameter>
+          <parameter name="first_button_text" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="response_id" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_info_bar" c:identifier="pps_message_area_get_info_bar">
+        <source-position filename="shell/pps-message-area.h" line="65"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="shell/pps-message-area.c"
+               line="208">The #GtkInfoBar</doc>
+          <type name="Gtk.InfoBar" c:type="GtkInfoBar*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="area" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="shell/pps-message-area.c"
+                 line="206">A #PpsMessageArea</doc>
             <type name="MessageArea" c:type="PpsMessageArea*"/>
           </instance-parameter>
         </parameters>
@@ -2187,9 +2103,7 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
       <implements name="Gtk.Accessible"/>
       <implements name="Gtk.Buildable"/>
       <implements name="Gtk.ConstraintTarget"/>
-      <constructor name="new"
-                   c:identifier="pps_progress_message_area_new"
-                   introspectable="0">
+      <constructor name="new" c:identifier="pps_progress_message_area_new">
         <source-position filename="shell/pps-progress-message-area.h"
                          line="49"/>
         <return-value transfer-ownership="none">
@@ -2202,19 +2116,13 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
           <parameter name="text" transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
-          <parameter name="first_button_text" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="..." transfer-ownership="none">
-            <varargs/>
-          </parameter>
         </parameters>
       </constructor>
       <method name="set_fraction"
               c:identifier="pps_progress_message_area_set_fraction"
               glib:set-property="fraction">
         <source-position filename="shell/pps-progress-message-area.h"
-                         line="55"/>
+                         line="53"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -2231,7 +2139,7 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
               c:identifier="pps_progress_message_area_set_status"
               glib:set-property="status">
         <source-position filename="shell/pps-progress-message-area.h"
-                         line="53"/>
+                         line="51"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -2668,14 +2576,19 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
         </parameters>
       </virtual-method>
       <method name="get_document_model"
-              c:identifier="pps_sidebar_page_get_document_model"
-              introspectable="0">
+              c:identifier="pps_sidebar_page_get_document_model">
         <source-position filename="shell/pps-sidebar-page.h" line="46"/>
-        <return-value>
+        <return-value transfer-ownership="none" nullable="1">
+          <doc xml:space="preserve"
+               filename="shell/pps-sidebar-page.c"
+               line="86">The #PpsDocumentModel</doc>
           <type name="PapersView.DocumentModel" c:type="PpsDocumentModel*"/>
         </return-value>
         <parameters>
           <instance-parameter name="sidebar_page" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="shell/pps-sidebar-page.c"
+                 line="84">A #PpsSidebarPage</doc>
             <type name="SidebarPage" c:type="PpsSidebarPage*"/>
           </instance-parameter>
         </parameters>
@@ -2714,14 +2627,16 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
                 transfer-ownership="none">
         <type name="PapersView.DocumentModel"/>
       </property>
+      <property name="sidebar"
+                readable="0"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="GObject.Object"/>
+      </property>
       <field name="parent_instance">
         <type name="Adw.Bin" c:type="AdwBin"/>
       </field>
-      <glib:signal name="navigated-to-view" when="last">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-      </glib:signal>
     </class>
     <record name="SidebarPageClass"
             c:type="PpsSidebarPageClass"
@@ -2766,12 +2681,12 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
       <constructor name="new" c:identifier="pps_window_new">
         <doc xml:space="preserve"
              filename="shell/pps-window.c"
-             line="5849">Creates a #GtkWidget that represents the window.</doc>
+             line="5828">Creates a #GtkWidget that represents the window.</doc>
         <source-position filename="shell/pps-window.h" line="53"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="5854">the #GtkWidget that represents the window.</doc>
+               line="5833">the #GtkWidget that represents the window.</doc>
           <type name="Window" c:type="PpsWindow*"/>
         </return-value>
       </constructor>
@@ -2803,14 +2718,14 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="5869">the #AdwHeaderBar that represents the toolbar of the window.</doc>
+               line="5848">the #AdwHeaderBar that represents the toolbar of the window.</doc>
           <type name="Adw.HeaderBar" c:type="AdwHeaderBar*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="5867">the #PpsWindow</doc>
+                 line="5846">the #PpsWindow</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
@@ -2820,14 +2735,14 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="5898">the #PpsMetadata of the document shown in the window.</doc>
+               line="5877">the #PpsMetadata of the document shown in the window.</doc>
           <type name="Metadata" c:type="PpsMetadata*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="5896">the #PpsWindow</doc>
+                 line="5875">the #PpsWindow</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
@@ -2835,19 +2750,19 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
       <method name="get_uri" c:identifier="pps_window_get_uri">
         <doc xml:space="preserve"
              filename="shell/pps-window.c"
-             line="1648">It returns the uri of the document showed in the #PpsWindow.</doc>
+             line="1645">It returns the uri of the document showed in the #PpsWindow.</doc>
         <source-position filename="shell/pps-window.h" line="54"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="1654">the uri of the document showed in the #PpsWindow.</doc>
+               line="1651">the uri of the document showed in the #PpsWindow.</doc>
           <type name="utf8" c:type="const char*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="1650">The instance of the #PpsWindow.</doc>
+                 line="1647">The instance of the #PpsWindow.</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
@@ -2870,13 +2785,13 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
       <method name="is_empty" c:identifier="pps_window_is_empty">
         <doc xml:space="preserve"
              filename="shell/pps-window.c"
-             line="539">It does look if there is any document loaded or if there is any job to load
+             line="538">It does look if there is any document loaded or if there is any job to load
 a document.</doc>
         <source-position filename="shell/pps-window.h" line="59"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-window.c"
-               line="546">%TRUE if there isn't any document loaded or any any documente to be
+               line="545">%TRUE if there isn't any document loaded or any any documente to be
          loaded, %FALSE in other case.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -2884,7 +2799,7 @@ a document.</doc>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="541">The instance of the #PpsWindow.</doc>
+                 line="540">The instance of the #PpsWindow.</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
         </parameters>
@@ -2898,13 +2813,13 @@ a document.</doc>
           <instance-parameter name="pps_window" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="1936">a `PpsWindow`</doc>
+                 line="1933">a `PpsWindow`</doc>
             <type name="Window" c:type="PpsWindow*"/>
           </instance-parameter>
           <parameter name="uri" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="1937">uri to open</doc>
+                 line="1934">uri to open</doc>
             <type name="utf8" c:type="const char*"/>
           </parameter>
           <parameter name="dest"
@@ -2913,13 +2828,13 @@ a document.</doc>
                      allow-none="1">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="1938">destination to point to</doc>
+                 line="1935">destination to point to</doc>
             <type name="PapersDocument.LinkDest" c:type="PpsLinkDest*"/>
           </parameter>
           <parameter name="mode" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-window.c"
-                 line="1939">open mode</doc>
+                 line="1936">open mode</doc>
             <type name="WindowRunMode" c:type="PpsWindowRunMode"/>
           </parameter>
         </parameters>
@@ -3098,7 +3013,7 @@ The properties are overridden in the order they are defined.</doc>
                    allow-none="1">
           <doc xml:space="preserve"
                filename="shell/pps-utils.c"
-               line="103">The uri to be opened.</doc>
+               line="92">The uri to be opened.</doc>
           <type name="utf8" c:type="const char*"/>
         </parameter>
         <parameter name="dest"
@@ -3107,36 +3022,14 @@ The properties are overridden in the order they are defined.</doc>
                    allow-none="1">
           <doc xml:space="preserve"
                filename="shell/pps-utils.c"
-               line="104">The #PpsLinkDest of the document.</doc>
+               line="93">The #PpsLinkDest of the document.</doc>
           <type name="PapersDocument.LinkDest" c:type="PpsLinkDest*"/>
         </parameter>
         <parameter name="mode" transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-utils.c"
-               line="105">The run mode of the window.</doc>
+               line="94">The run mode of the window.</doc>
           <type name="WindowRunMode" c:type="PpsWindowRunMode"/>
-        </parameter>
-      </parameters>
-    </function>
-    <function name="spinner_map_cb" c:identifier="pps_spinner_map_cb">
-      <source-position filename="shell/pps-utils.h" line="42"/>
-      <return-value transfer-ownership="none">
-        <type name="none" c:type="void"/>
-      </return-value>
-      <parameters>
-        <parameter name="spinner" transfer-ownership="none">
-          <type name="Gtk.Spinner" c:type="GtkSpinner*"/>
-        </parameter>
-      </parameters>
-    </function>
-    <function name="spinner_unmap_cb" c:identifier="pps_spinner_unmap_cb">
-      <source-position filename="shell/pps-utils.h" line="43"/>
-      <return-value transfer-ownership="none">
-        <type name="none" c:type="void"/>
-      </return-value>
-      <parameters>
-        <parameter name="spinner" transfer-ownership="none">
-          <type name="Gtk.Spinner" c:type="GtkSpinner*"/>
         </parameter>
       </parameters>
     </function>

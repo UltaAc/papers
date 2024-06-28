@@ -45,6 +45,7 @@ generate = [
     "PapersDocument.DocumentLinks",
     "PapersDocument.DocumentMode",
     "PapersDocument.DocumentSecurity",
+    "PapersDocument.DocumentText",
     "PapersDocument.FindOptions",
     "PapersDocument.FindRectangle",
     "PapersDocument.Image",

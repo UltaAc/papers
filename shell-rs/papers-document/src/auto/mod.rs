@@ -51,6 +51,9 @@ pub use self::document_links::DocumentLinks;
 mod document_security;
 pub use self::document_security::DocumentSecurity;
 
+mod document_text;
+pub use self::document_text::DocumentText;
+
 mod image;
 pub use self::image::Image;
 
@@ -125,6 +128,7 @@ pub(crate) mod traits {
     pub use super::document_layers::DocumentLayersExt;
     pub use super::document_links::DocumentLinksExt;
     pub use super::document_security::DocumentSecurityExt;
+    pub use super::document_text::DocumentTextExt;
     pub use super::image::ImageExt;
     pub use super::layer::LayerExt;
     pub use super::outlines::OutlinesExt;

@@ -33,13 +33,3 @@ pub fn spawn(uri: Option<&str>, dest: Option<&papers_document::LinkDest>, mode: 
         );
     }
 }
-
-//#[doc(alias = "pps_spinner_map_cb")]
-//pub fn spinner_map_cb(spinner: /*Ignored*/&gtk::Spinner) {
-//    unsafe { TODO: call ffi:pps_spinner_map_cb() }
-//}
-
-//#[doc(alias = "pps_spinner_unmap_cb")]
-//pub fn spinner_unmap_cb(spinner: /*Ignored*/&gtk::Spinner) {
-//    unsafe { TODO: call ffi:pps_spinner_unmap_cb() }
-//}

@@ -22,10 +22,17 @@ glib::wrapper! {
 impl ProgressMessageArea {
     pub const NONE: Option<&'static ProgressMessageArea> = None;
 
-    //#[doc(alias = "pps_progress_message_area_new")]
-    //pub fn new(icon_name: &str, text: &str, first_button_text: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> ProgressMessageArea {
-    //    unsafe { TODO: call ffi:pps_progress_message_area_new() }
-    //}
+    #[doc(alias = "pps_progress_message_area_new")]
+    pub fn new(icon_name: &str, text: &str) -> ProgressMessageArea {
+        assert_initialized_main_thread!();
+        unsafe {
+            gtk::Widget::from_glib_none(ffi::pps_progress_message_area_new(
+                icon_name.to_glib_none().0,
+                text.to_glib_none().0,
+            ))
+            .unsafe_cast()
+        }
+    }
 
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`ProgressMessageArea`] objects.
