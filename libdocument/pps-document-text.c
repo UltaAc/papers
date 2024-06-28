@@ -42,12 +42,20 @@ pps_document_text_get_text (PpsDocumentText   *document_text,
 	return iface->get_text (document_text, page);
 }
 
-
+/**
+ * pps_document_text_get_text_layout:
+ * @document_text: a #PpsDocumentText
+ * @page: a #PpsPage
+ * @areas: (optional) (out) (array length=n_areas) (transfer container): the text areas of the layout
+ * @n_areas: (out): the number of text areas in the layout
+ *
+ * Returns: whether the text layout is empty, i.e. there is text on the page
+ */
 gboolean
-pps_document_text_get_text_layout (PpsDocumentText   *document_text,
-				  PpsPage           *page,
-				  PpsRectangle     **areas,
-				  guint            *n_areas)
+pps_document_text_get_text_layout (PpsDocumentText *document_text,
+				   PpsPage         *page,
+				   PpsRectangle   **areas,
+				   guint           *n_areas)
 {
 	PpsDocumentTextInterface *iface = PPS_DOCUMENT_TEXT_GET_IFACE (document_text);
 
