@@ -138,14 +138,14 @@ pps_progress_message_area_new (const gchar *icon_name,
 			      const gchar *first_button_text,
 			      ...)
 {
-	GtkWidget *widget;
-	GtkWidget *info_bar;
+	GtkWidget  *widget;
+	GtkInfoBar *info_bar;
 
 	widget = g_object_new (PPS_TYPE_PROGRESS_MESSAGE_AREA,
 			       "text", text,
 			       NULL);
 	info_bar = pps_message_area_get_info_bar (PPS_MESSAGE_AREA (widget));
-	gtk_info_bar_set_message_type (GTK_INFO_BAR (info_bar), GTK_MESSAGE_OTHER);
+	gtk_info_bar_set_message_type (info_bar, GTK_MESSAGE_OTHER);
 
 
 	if (first_button_text) {

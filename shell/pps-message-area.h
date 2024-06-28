@@ -62,6 +62,6 @@ void      _pps_message_area_add_buttons_valist       (PpsMessageArea *area,
 						     const gchar   *first_button_text,
 						     va_list        args);
 GtkWidget *_pps_message_area_get_main_box            (PpsMessageArea *area);
-GtkWidget *pps_message_area_get_info_bar             (PpsMessageArea *area);
+GtkInfoBar *pps_message_area_get_info_bar            (PpsMessageArea *area);
 
 G_END_DECLS

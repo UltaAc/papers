@@ -250,12 +250,18 @@ _pps_message_area_get_main_box (PpsMessageArea *area)
 	return priv->main_box;
 }
 
-GtkWidget *
+/**
+ * pps_message_area_get_info_bar
+ * @area: A #PpsMessageArea
+ *
+ * Returns: (transfer none) (not nullable): The #GtkInfoBar
+ */
+GtkInfoBar *
 pps_message_area_get_info_bar (PpsMessageArea *area)
 {
 	PpsMessageAreaPrivate *priv = GET_PRIVATE (area);
 
-	return priv->info_bar;
+	return GTK_INFO_BAR (priv->info_bar);
 }
 
 GtkWidget *
@@ -264,9 +270,9 @@ pps_message_area_new (GtkMessageType type,
 		     const gchar   *first_button_text,
 		     ...)
 {
-	GtkWidget *widget = g_object_new (PPS_TYPE_MESSAGE_AREA, "text", text, NULL);
-	GtkWidget *info_bar = pps_message_area_get_info_bar (PPS_MESSAGE_AREA (widget));
-	gtk_info_bar_set_message_type (GTK_INFO_BAR (info_bar), type);
+	GtkWidget  *widget = g_object_new (PPS_TYPE_MESSAGE_AREA, "text", text, NULL);
+	GtkInfoBar *info_bar = pps_message_area_get_info_bar (PPS_MESSAGE_AREA (widget));
+	gtk_info_bar_set_message_type (info_bar, type);
 	pps_message_area_set_image_for_type (PPS_MESSAGE_AREA (widget), type);
 	if (first_button_text) {
 		va_list args;
