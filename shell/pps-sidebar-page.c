@@ -79,6 +79,12 @@ pps_sidebar_page_set_sidebar (PpsSidebarPage *sidebar_page,
 	g_set_object (&priv->sidebar, sidebar);
 }
 
+/**
+ * pps_sidebar_page_get_document_model
+ * @sidebar_page: A #PpsSidebarPage
+ *
+ * Returns: (transfer none) (nullable): The #PpsDocumentModel
+ */
 PpsDocumentModel*
 pps_sidebar_page_get_document_model (PpsSidebarPage *sidebar_page)
 {
