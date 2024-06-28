@@ -1,3 +1,32 @@
+Papers 47.alpha
+---------------
+
+Papers has continued with a strong development pace. Most remarkable changes
+since the previous release is that the UI now fits on narrow screens! For
+packagers:
+
+* We now require libadwaita 1.5.0 and GTK 4.15.1
+
+In addition to a multitude of bug fixes and refactors, we can highlight:
+
+libppsview:
+* PpsView does no longer send a signal on annotation change. Instead consumers
+  are expected to use the properties of the annotation itself
+
+shell:
+* Split the header bar in two according to mockups
+* Place the search locally into the sidebar instead of having a specific
+  toolbar
+* Remove the zoom selector and add instead zoom overlay buttons
+* Remove dbus interface for PpsWindow, since we have no use for it anymore.
+  There is now only the interface for PpsApplication, as we are looking into
+  a future with a single application instance
+* Ported several widgets to Rust
+* Use AppStream data to build the about dialog
+* Add "Open With" action to open the document with an alternative application
+* Port multiple dialogs to AdwDialog
+
+
 Papers 46.1
 --------------
 * Update flatpak dependencies and manifest name
