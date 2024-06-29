@@ -1,4 +1,7 @@
-use crate::{DocumentContainsJS, DocumentInfo, DocumentInfoFields, DocumentLicense, DocumentMode};
+use crate::{
+    DocumentContainsJS, DocumentInfo, DocumentInfoFields, DocumentLicense, DocumentMode,
+    DocumentPermissions,
+};
 
 use glib::translate::*;
 
@@ -59,5 +62,15 @@ impl DocumentInfo {
 
     pub fn mode(&self) -> DocumentMode {
         unsafe { from_glib(self.inner.mode) }
+    }
+
+    pub fn permissions(&self) -> Option<DocumentPermissions> {
+        if DocumentInfoFields::from_bits_truncate(self.inner.fields_mask)
+            .intersects(DocumentInfoFields::PERMISSIONS)
+        {
+            Some(unsafe { from_glib(self.inner.permissions) })
+        } else {
+            None
+        }
     }
 }
