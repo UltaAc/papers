@@ -14,7 +14,6 @@ external_libraries = [
     "GdkPixbuf",
     "GObject",
     "Gtk",
-    "Gdk",
     "PapersDocument",
     "PapersView",
 ]
