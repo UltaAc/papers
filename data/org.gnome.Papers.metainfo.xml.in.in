@@ -29,6 +29,14 @@
   <provides>
     <id>papers.desktop</id>
   </provides>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+  <supports>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </supports>
   <screenshots>
     <screenshot type="default">
     <image>https://gitlab.gnome.org/GNOME/Incubator/papers/raw/main/data/screenshots/papers-1.png</image>
