@@ -16,7 +16,7 @@ option('xps', type: 'feature', value: 'auto', description: 'whether XPS support 
 option('tests', type: 'boolean', value: true, description: 'whether to build tests')
 option('gtk_doc', type: 'boolean', value: true, description: 'whether GTK Doc reference is requested')
 option('user_doc', type: 'boolean', value: true, description: 'whether User documentation is requested')
-option('introspection', type: 'boolean', value: true, description: 'whether introspection support is requested')
+option('introspection', type: 'feature', value: 'auto', description : 'Build introspection data (requires gobject-introspection)')
 option('dbus', type: 'boolean', value: true, description: 'whether DBUS support is requested')
 option('keyring', type: 'feature', value: 'auto', description: 'whether keyring support is requested')
 option('gtk_unix_print', type: 'feature', value: 'auto', description: 'whether gtk+-unix-print support is requested')

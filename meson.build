@@ -237,12 +237,14 @@ else
 endif
 
 # *** GObject Introspection ***
-enable_introspection = get_option('introspection')
 enable_user_doc = get_option('user_doc')
 enable_gtk_doc = get_option('gtk_doc')
-if enable_introspection
-  dependency('gobject-introspection-1.0', version: '>= 1.0')
-else
+gobject_introspection_dep = dependency(
+  'gobject-introspection-1.0',
+  version: '>= 1.0',
+  required: get_option('introspection'),
+)
+if not gobject_introspection_dep.found()
   warning('Disable gtk_doc due to introspection is disabled')
   enable_gtk_doc = false
 endif
@@ -475,7 +477,7 @@ summary({'Comics.....................': enable_comics,
 summary({'tests......................': get_option('tests'),
          'Gtk-doc reference..........': enable_gtk_doc,
          'User documentation.........': enable_user_doc,
-         'GObject introspection......': enable_introspection,
+         'GObject introspection......': gobject_introspection_dep.found(),
          'DBus communication.........': enable_dbus,
          'Keyring integration........': enable_keyring,
          'GTK+ Unix print ...........': enable_gtk_unix_print,

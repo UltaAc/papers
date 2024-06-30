@@ -111,7 +111,7 @@ libppsshell = shared_library(
 )
 
 # GObject Introspection
-if enable_introspection
+if gobject_introspection_dep.found()
   incs = [
     'Gdk-4.0',
     'GdkPixbuf-2.0',

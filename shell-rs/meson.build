@@ -1,6 +1,6 @@
 shell_rs_root = meson.current_source_dir()
 
-if enable_introspection
+if gobject_introspection_dep.found()
   gir_dir = shell_rs_root / 'gir-files'
 
   # required to make sure the bindings have stable formatting
