@@ -161,7 +161,7 @@ gmodule_dep = dependency('gmodule-2.0')
 gtk_dep = dependency(
   'gtk4',
   version: gtk_req_version,
-  fallback: ['gtk', 'gtk_dep'],
+  fallback: ['gtk', 'libgtk_dep'],
   default_options: [
     'werror=false',
     'introspection=disabled',
