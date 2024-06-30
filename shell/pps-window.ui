@@ -335,7 +335,7 @@
                                                 <property name="icon-name">zoom-fit-best-symbolic</property>
                                                 <property name="action-name">win.sizing-mode</property>
                                                 <property name="action-target">'automatic'</property>
-                                                <property name="tooltip-text" translatable="yes">Set Automatic Sizing Mode</property>
+                                                <property name="tooltip-text" translatable="yes">Fit Automatically</property>
                                               </object>
                                             </property>
                                           </object>
