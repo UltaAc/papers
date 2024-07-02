@@ -192,31 +192,6 @@ impl imp::PpsDocumentView {
         self.view.focus_annotation(annot_mapping)
     }
 
-    #[template_callback]
-    fn attachment_bar_menu_popup(&self, x: f64, y: f64, attachments: &gio::ListModel) -> bool {
-        self.set_action_enabled("open-attachment", true);
-        self.set_action_enabled("save-attachment", true);
-
-        self.attachments.replace(Some(attachments.clone()));
-
-        if let Some(new_point) = self.sidebar_attachments.compute_point(
-            &self.attachment_popup.parent().unwrap(),
-            &Point::new(x as f32, y as f32),
-        ) {
-            self.attachment_popup
-                .set_pointing_to(Some(&gdk::Rectangle::new(
-                    new_point.x() as i32,
-                    new_point.y() as i32,
-                    1,
-                    1,
-                )));
-            self.attachment_popup.popup();
-            true
-        } else {
-            false
-        }
-    }
-
     // view
     fn launch_external_uri(&self, action: &LinkAction) {
         let context = self.obj().display().app_launch_context();
@@ -497,16 +472,13 @@ impl imp::PpsDocumentView {
         if let Some(ref annot) = annot {
             show_annot_props = annot.is::<papers_document::AnnotationMarkup>();
 
-            if let Some(annot) = annot.dynamic_cast_ref::<papers_document::AnnotationAttachment>() {
-                if let Some(attachment) = annot.attachment() {
-                    show_attachment = true;
+            let attachment = annot
+                .dynamic_cast_ref::<papers_document::AnnotationAttachment>()
+                .and_then(|annot| annot.attachment());
 
-                    let attachments = gio::ListStore::new::<Attachment>();
-                    attachments.append(&attachment);
+            show_attachment = attachment.is_some();
 
-                    self.attachments.replace(Some(attachments.into()));
-                }
-            }
+            self.attachment.replace(attachment);
         }
 
         let can_remove_annots = self

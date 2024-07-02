@@ -6,7 +6,6 @@ use std::path::PathBuf;
 
 use glib::translate::{FromGlib, IntoGlib};
 use glib::{UserDirectory, Variant, VariantTy};
-use graphene::Point;
 use gtk::{PrintOperationResult, TextDirection};
 
 use papers_document::{
@@ -80,8 +79,6 @@ mod imp {
         pub(super) sidebar_attachments: TemplateChild<PpsSidebarAttachments>,
         #[template_child]
         pub(super) attachment_context: TemplateChild<papers_view::AttachmentContext>,
-        #[template_child]
-        pub(super) attachment_popup: TemplateChild<gtk::PopoverMenu>,
 
         #[template_child]
         pub(super) header_bar: TemplateChild<adw::HeaderBar>,
@@ -129,7 +126,7 @@ mod imp {
         pub(super) link: RefCell<Option<papers_document::Link>>,
         pub(super) image: RefCell<Option<papers_document::Image>>,
         pub(super) annot: RefCell<Option<papers_document::Annotation>>,
-        pub(super) attachments: RefCell<Option<gio::ListModel>>,
+        pub(super) attachment: RefCell<Option<papers_document::Attachment>>,
 
         // Misc Runtime State
         pub(super) sidebar_was_open_before_find: Cell<bool>,

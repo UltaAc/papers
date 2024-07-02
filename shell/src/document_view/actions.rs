@@ -938,24 +938,23 @@ impl imp::PpsDocumentView {
     }
 
     fn cmd_open_attachment(&self) {
-        let Some(attachments) = self.attachments.take() else {
+        let Some(attachment) = self.attachment.take() else {
             return;
         };
         let context = self.obj().display().app_launch_context();
 
-        for attachment in &attachments {
-            let attachment = attachment.ok().and_downcast::<Attachment>().unwrap();
-
-            if let Err(e) = attachment.open(&context) {
-                self.error_message(Some(&e), &gettext("Unable to Open Attachment"));
-            }
+        if let Err(e) = attachment.open(&context) {
+            self.error_message(Some(&e), &gettext("Unable to Open Attachment"));
         }
     }
 
     fn cmd_save_attachment_as(&self) {
-        let Some(attachments) = self.attachments.borrow().clone() else {
+        let Some(attachment) = self.attachment.borrow().clone() else {
             return;
         };
+        let attachments = gio::ListStore::new::<Attachment>();
+
+        attachments.append(&attachment);
 
         self.reset_progress_cancellable();
 

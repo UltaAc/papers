@@ -97,22 +97,6 @@ mod imp {
 
             box_.add_controller(drag);
 
-            let secondary_click = gtk::GestureClick::builder()
-                .button(gdk::BUTTON_SECONDARY)
-                .build();
-
-            secondary_click.connect_pressed(glib::clone!(
-                #[weak(rename_to = obj)]
-                self,
-                #[weak]
-                item,
-                move |click, _n_press, x, y| {
-                    obj.secondary_button_clicked(x, y, &item, click);
-                }
-            ));
-
-            box_.add_controller(secondary_click);
-
             item.set_child(Some(&box_));
         }
 
@@ -181,51 +165,6 @@ mod imp {
             {
                 selection.unselect_all();
             }
-        }
-
-        fn secondary_button_clicked(
-            &self,
-            x: f64,
-            y: f64,
-            item: &gtk::ListItem,
-            click: &gtk::GestureClick,
-        ) {
-            let Some(selection) = self.list_view.model() else {
-                return;
-            };
-
-            selection.select_item(item.position(), false);
-
-            let bitset = selection.selection();
-            let Some((iter, index)) = gtk::BitsetIter::init_first(&bitset) else {
-                return;
-            };
-
-            let Some(attachment) = selection.item(index).and_downcast::<Attachment>() else {
-                return;
-            };
-
-            let attachments = gio::ListStore::new::<Attachment>();
-            attachments.append(&attachment);
-
-            for attachment in iter
-                .filter_map(|index| selection.item(index))
-                .filter_map(|obj| obj.downcast::<Attachment>().ok())
-            {
-                attachments.append(&attachment);
-            }
-
-            let point = gtk::graphene::Point::new(x as f32, y as f32);
-
-            let point = click
-                .widget()
-                .and_then(|w| w.compute_point(self.obj().upcast_ref::<gtk::Widget>(), &point))
-                .unwrap_or_default();
-
-            let (x, y) = (point.x() as f64, point.y() as f64);
-
-            self.obj()
-                .emit_by_name::<()>("popup", &[&x, &y, &attachments]);
         }
 
         fn selected_attachment(&self) -> glib::List<Attachment> {
@@ -371,22 +310,7 @@ mod imp {
     }
 
     #[glib::derived_properties]
-    impl ObjectImpl for PpsSidebarAttachments {
-        fn signals() -> &'static [Signal] {
-            static SIGNALS: OnceLock<Vec<Signal>> = OnceLock::new();
-            SIGNALS.get_or_init(|| {
-                vec![Signal::builder("popup")
-                    .run_last()
-                    .action()
-                    .param_types([
-                        glib::Type::F64,
-                        glib::Type::F64,
-                        gio::ListModel::static_type(),
-                    ])
-                    .build()]
-            })
-        }
-    }
+    impl ObjectImpl for PpsSidebarAttachments {}
 
     impl WidgetImpl for PpsSidebarAttachments {}
 

@@ -156,7 +156,6 @@
                                   </object>
                                 </property>
                                 <property name="sidebar">sidebar</property>
-                                <signal name="popup" handler="attachment_bar_menu_popup" swapped="yes" />
                               </object>
                             </property>
                           </object>
@@ -339,13 +338,6 @@
                   <object class="GtkPopoverMenu" id="view_popup">
                     <property name="has-arrow">False</property>
                     <property name="menu-model">view-popup-menu</property>
-                    <property name="halign">start</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkPopoverMenu" id="attachment_popup">
-                    <property name="has-arrow">False</property>
-                    <property name="menu-model">attachments-popup</property>
                     <property name="halign">start</property>
                   </object>
                 </child>
@@ -865,18 +857,6 @@
       <item>
         <attribute name="label" translatable="yes">_Highlight Selected Text</attribute>
         <attribute name="action">doc.add-highlight-annotation</attribute>
-      </item>
-    </section>
-  </menu>
-  <menu id="attachments-popup">
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">_Open Attachment</attribute>
-        <attribute name="action">doc.open-attachment</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">_Save Attachment As…</attribute>
-        <attribute name="action">doc.save-attachment</attribute>
       </item>
     </section>
   </menu>
