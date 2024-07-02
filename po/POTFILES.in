@@ -26,6 +26,7 @@ libdocument/pps-document-factory.c
 libdocument/pps-document-info.c
 libdocument/pps-file-helpers.c
 libdocument/pps-xmp.c
+libview/context/pps-attachment-context.c
 libview/context/pps-history.c
 libview/pps-jobs.c
 libview/pps-print-operation.c

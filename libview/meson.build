@@ -3,6 +3,7 @@ libview_inc = include_directories('.')
 include_subdir = join_paths(pps_include_subdir, 'libview')
 
 headers = files(
+  'context/pps-attachment-context.h',
   'context/pps-bookmarks.h',
   'context/pps-document-model.h',
   'context/pps-history.h',
@@ -23,6 +24,7 @@ install_headers(
 )
 
 sources = files(
+  'context/pps-attachment-context.c',
   'context/pps-bookmarks.c',
   'context/pps-document-model.c',
   'context/pps-history.c',
