@@ -1,7 +1,7 @@
 use crate::deps::*;
 use papers_document::{Link, Outlines};
-use papers_shell::Metadata;
 use papers_view::JobPriority;
+use papers_view::Metadata;
 
 use glib::SignalHandlerId;
 use std::cell::Cell;

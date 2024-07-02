@@ -21,7 +21,12 @@ external_libraries = [
 ]
 
 generate = [
+    "PapersView.AttachmentContext",
     "PapersView.DocumentModel",
+    "PapersView.Metadata",
+    "PapersView.SearchContext",
+    "PapersView.SearchResult",
+
     "PapersView.Job",
     "PapersView.JobAttachments",
     "PapersView.JobFind",
@@ -46,6 +51,7 @@ manual = [
     "GLib.Error",
     "GLib.List",
     "GObject.Object",
+    "Gio.File",
     "Gio.ListModel",
     "Gio.PasswordSave",
     "Gio.Resource",

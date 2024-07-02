@@ -28,25 +28,25 @@ and/or use gtk-doc annotations.  -->
            glib:type-name="PpsDocumentView"
            glib:get-type="pps_document_view_get_type"
            glib:type-struct="DocumentViewClass">
-      <source-position filename="shell/pps-document-view.h" line="38"/>
+      <source-position filename="shell/pps-document-view.h" line="36"/>
       <implements name="Gtk.Accessible"/>
       <implements name="Gtk.Buildable"/>
       <implements name="Gtk.ConstraintTarget"/>
       <constructor name="new" c:identifier="pps_document_view_new">
         <doc xml:space="preserve"
              filename="shell/pps-document-view.c"
-             line="4365">Creates a #GtkWidget that represents the window.</doc>
-        <source-position filename="shell/pps-document-view.h" line="44"/>
+             line="4361">Creates a #GtkWidget that represents the window.</doc>
+        <source-position filename="shell/pps-document-view.h" line="42"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="4370">the #GtkWidget that represents the window.</doc>
+               line="4366">the #GtkWidget that represents the window.</doc>
           <type name="DocumentView" c:type="PpsDocumentView*"/>
         </return-value>
       </constructor>
       <method name="close_handled"
               c:identifier="pps_document_view_close_handled">
-        <source-position filename="shell/pps-document-view.h" line="64"/>
+        <source-position filename="shell/pps-document-view.h" line="62"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -57,7 +57,7 @@ and/or use gtk-doc annotations.  -->
         </parameters>
       </method>
       <method name="focus_view" c:identifier="pps_document_view_focus_view">
-        <source-position filename="shell/pps-document-view.h" line="55"/>
+        <source-position filename="shell/pps-document-view.h" line="53"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -69,7 +69,7 @@ and/or use gtk-doc annotations.  -->
       </method>
       <method name="get_dbus_object_path"
               c:identifier="pps_document_view_get_dbus_object_path">
-        <source-position filename="shell/pps-document-view.h" line="54"/>
+        <source-position filename="shell/pps-document-view.h" line="52"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -81,53 +81,53 @@ and/or use gtk-doc annotations.  -->
       </method>
       <method name="get_header_bar"
               c:identifier="pps_document_view_get_header_bar">
-        <source-position filename="shell/pps-document-view.h" line="56"/>
+        <source-position filename="shell/pps-document-view.h" line="54"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="4382">the #AdwHeaderBar that represents the toolbar of the window.</doc>
+               line="4378">the #AdwHeaderBar that represents the toolbar of the window.</doc>
           <type name="Adw.HeaderBar" c:type="AdwHeaderBar*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="4380">the #PpsDocumentView</doc>
+                 line="4376">the #PpsDocumentView</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="get_metadata"
               c:identifier="pps_document_view_get_metadata">
-        <source-position filename="shell/pps-document-view.h" line="59"/>
+        <source-position filename="shell/pps-document-view.h" line="57"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="4411">the #PpsMetadata of the document shown in the window.</doc>
-          <type name="Metadata" c:type="PpsMetadata*"/>
+               line="4407">the #PpsMetadata of the document shown in the window.</doc>
+          <type name="PapersView.Metadata" c:type="PpsMetadata*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="4409">the #PpsDocumentView</doc>
+                 line="4405">the #PpsDocumentView</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="get_model" c:identifier="pps_document_view_get_model">
-        <source-position filename="shell/pps-document-view.h" line="68"/>
+        <source-position filename="shell/pps-document-view.h" line="66"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="4473">the #PpsDocumentModel</doc>
+               line="4469">the #PpsDocumentModel</doc>
           <type name="PapersView.DocumentModel" c:type="PpsDocumentModel*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="4471">the #PpsDocumentView</doc>
+                 line="4467">the #PpsDocumentView</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
@@ -135,26 +135,26 @@ and/or use gtk-doc annotations.  -->
       <method name="get_uri" c:identifier="pps_document_view_get_uri">
         <doc xml:space="preserve"
              filename="shell/pps-document-view.c"
-             line="1176">It returns the uri of the document showed in the #PpsDocumentView.</doc>
-        <source-position filename="shell/pps-document-view.h" line="45"/>
+             line="1172">It returns the uri of the document showed in the #PpsDocumentView.</doc>
+        <source-position filename="shell/pps-document-view.h" line="43"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="1182">the uri of the document showed in the #PpsDocumentView.</doc>
+               line="1178">the uri of the document showed in the #PpsDocumentView.</doc>
           <type name="utf8" c:type="const char*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1178">The instance of the #PpsDocumentView.</doc>
+                 line="1174">The instance of the #PpsDocumentView.</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="handle_annot_popup"
               c:identifier="pps_document_view_handle_annot_popup">
-        <source-position filename="shell/pps-document-view.h" line="57"/>
+        <source-position filename="shell/pps-document-view.h" line="55"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -170,13 +170,13 @@ and/or use gtk-doc annotations.  -->
       <method name="is_empty" c:identifier="pps_document_view_is_empty">
         <doc xml:space="preserve"
              filename="shell/pps-document-view.c"
-             line="424">It does look if there is any document loaded or if there is any job to load
+             line="419">It does look if there is any document loaded or if there is any job to load
 a document.</doc>
-        <source-position filename="shell/pps-document-view.h" line="50"/>
+        <source-position filename="shell/pps-document-view.h" line="48"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="431">%TRUE if there isn't any document loaded or any any documente to be
+               line="426">%TRUE if there isn't any document loaded or any any documente to be
          loaded, %FALSE in other case.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -184,14 +184,14 @@ a document.</doc>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="426">The instance of the #PpsDocumentView.</doc>
+                 line="421">The instance of the #PpsDocumentView.</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="open_document"
               c:identifier="pps_document_view_open_document">
-        <source-position filename="shell/pps-document-view.h" line="46"/>
+        <source-position filename="shell/pps-document-view.h" line="44"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -199,20 +199,20 @@ a document.</doc>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1205">A #PpsDocumentView</doc>
+                 line="1201">A #PpsDocumentView</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
           <parameter name="document" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1206">A #PpsDocument to open in the document view</doc>
+                 line="1202">A #PpsDocument to open in the document view</doc>
             <type name="PapersDocument.Document" c:type="PpsDocument*"/>
           </parameter>
           <parameter name="metadata" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1207">A #PpsMetadata if the documents supports it</doc>
-            <type name="Metadata" c:type="PpsMetadata*"/>
+                 line="1203">A #PpsMetadata if the documents supports it</doc>
+            <type name="PapersView.Metadata" c:type="PpsMetadata*"/>
           </parameter>
           <parameter name="dest"
                      transfer-ownership="none"
@@ -220,13 +220,13 @@ a document.</doc>
                      allow-none="1">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1208">A #PpsLinkDest</doc>
+                 line="1204">A #PpsLinkDest</doc>
             <type name="PapersDocument.LinkDest" c:type="PpsLinkDest*"/>
           </parameter>
         </parameters>
       </method>
       <method name="print_range" c:identifier="pps_document_view_print_range">
-        <source-position filename="shell/pps-document-view.h" line="51"/>
+        <source-position filename="shell/pps-document-view.h" line="49"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -244,7 +244,7 @@ a document.</doc>
       </method>
       <method name="reload_document"
               c:identifier="pps_document_view_reload_document">
-        <source-position filename="shell/pps-document-view.h" line="62"/>
+        <source-position filename="shell/pps-document-view.h" line="60"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -259,7 +259,7 @@ a document.</doc>
       </method>
       <method name="set_document"
               c:identifier="pps_document_view_set_document">
-        <source-position filename="shell/pps-document-view.h" line="60"/>
+        <source-position filename="shell/pps-document-view.h" line="58"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -274,7 +274,7 @@ a document.</doc>
       </method>
       <method name="set_filenames"
               c:identifier="pps_document_view_set_filenames">
-        <source-position filename="shell/pps-document-view.h" line="65"/>
+        <source-position filename="shell/pps-document-view.h" line="63"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -292,7 +292,7 @@ a document.</doc>
       </method>
       <method name="set_fullscreen_mode"
               c:identifier="pps_document_view_set_fullscreen_mode">
-        <source-position filename="shell/pps-document-view.h" line="69"/>
+        <source-position filename="shell/pps-document-view.h" line="67"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -307,7 +307,7 @@ a document.</doc>
       </method>
       <method name="set_inverted_colors"
               c:identifier="pps_document_view_set_inverted_colors">
-        <source-position filename="shell/pps-document-view.h" line="71"/>
+        <source-position filename="shell/pps-document-view.h" line="69"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -327,7 +327,7 @@ a document.</doc>
     <record name="DocumentViewClass"
             c:type="PpsDocumentViewClass"
             glib:is-gtype-struct-for="DocumentView">
-      <source-position filename="shell/pps-document-view.h" line="38"/>
+      <source-position filename="shell/pps-document-view.h" line="36"/>
       <field name="parent_class">
         <type name="Adw.BreakpointBinClass" c:type="AdwBreakpointBinClass"/>
       </field>
@@ -335,7 +335,7 @@ a document.</doc>
     <function-macro name="FIND_SIDEBAR"
                     c:identifier="PPS_FIND_SIDEBAR"
                     introspectable="0">
-      <source-position filename="shell/pps-find-sidebar.h" line="34"/>
+      <source-position filename="shell/pps-find-sidebar.h" line="33"/>
       <parameters>
         <parameter name="object">
         </parameter>
@@ -344,7 +344,7 @@ a document.</doc>
     <function-macro name="FIND_SIDEBAR_CLASS"
                     c:identifier="PPS_FIND_SIDEBAR_CLASS"
                     introspectable="0">
-      <source-position filename="shell/pps-find-sidebar.h" line="36"/>
+      <source-position filename="shell/pps-find-sidebar.h" line="35"/>
       <parameters>
         <parameter name="klass">
         </parameter>
@@ -353,7 +353,7 @@ a document.</doc>
     <function-macro name="FIND_SIDEBAR_GET_CLASS"
                     c:identifier="PPS_FIND_SIDEBAR_GET_CLASS"
                     introspectable="0">
-      <source-position filename="shell/pps-find-sidebar.h" line="38"/>
+      <source-position filename="shell/pps-find-sidebar.h" line="37"/>
       <parameters>
         <parameter name="object">
         </parameter>
@@ -366,18 +366,18 @@ a document.</doc>
            glib:type-name="PpsFindSidebar"
            glib:get-type="pps_find_sidebar_get_type"
            glib:type-struct="FindSidebarClass">
-      <source-position filename="shell/pps-find-sidebar.h" line="49"/>
+      <source-position filename="shell/pps-find-sidebar.h" line="48"/>
       <implements name="Gtk.Accessible"/>
       <implements name="Gtk.Buildable"/>
       <implements name="Gtk.ConstraintTarget"/>
       <constructor name="new" c:identifier="pps_find_sidebar_new">
-        <source-position filename="shell/pps-find-sidebar.h" line="52"/>
+        <source-position filename="shell/pps-find-sidebar.h" line="51"/>
         <return-value transfer-ownership="none">
           <type name="Gtk.Widget" c:type="GtkWidget*"/>
         </return-value>
       </constructor>
       <method name="clear" c:identifier="pps_find_sidebar_clear">
-        <source-position filename="shell/pps-find-sidebar.h" line="56"/>
+        <source-position filename="shell/pps-find-sidebar.h" line="55"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -388,17 +388,6 @@ a document.</doc>
         </parameters>
       </method>
       <method name="next" c:identifier="pps_find_sidebar_next">
-        <source-position filename="shell/pps-find-sidebar.h" line="58"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="find_sidebar" transfer-ownership="none">
-            <type name="FindSidebar" c:type="PpsFindSidebar*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="previous" c:identifier="pps_find_sidebar_previous">
         <source-position filename="shell/pps-find-sidebar.h" line="57"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -409,8 +398,19 @@ a document.</doc>
           </instance-parameter>
         </parameters>
       </method>
+      <method name="previous" c:identifier="pps_find_sidebar_previous">
+        <source-position filename="shell/pps-find-sidebar.h" line="56"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="find_sidebar" transfer-ownership="none">
+            <type name="FindSidebar" c:type="PpsFindSidebar*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
       <method name="restart" c:identifier="pps_find_sidebar_restart">
-        <source-position filename="shell/pps-find-sidebar.h" line="53"/>
+        <source-position filename="shell/pps-find-sidebar.h" line="52"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -425,7 +425,7 @@ a document.</doc>
       </method>
       <method name="set_search_context"
               c:identifier="pps_find_sidebar_set_search_context">
-        <source-position filename="shell/pps-find-sidebar.h" line="59"/>
+        <source-position filename="shell/pps-find-sidebar.h" line="58"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -434,12 +434,12 @@ a document.</doc>
             <type name="FindSidebar" c:type="PpsFindSidebar*"/>
           </instance-parameter>
           <parameter name="context" transfer-ownership="none">
-            <type name="SearchContext" c:type="PpsSearchContext*"/>
+            <type name="PapersView.SearchContext" c:type="PpsSearchContext*"/>
           </parameter>
         </parameters>
       </method>
       <method name="update" c:identifier="pps_find_sidebar_update">
-        <source-position filename="shell/pps-find-sidebar.h" line="55"/>
+        <source-position filename="shell/pps-find-sidebar.h" line="54"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -456,7 +456,7 @@ a document.</doc>
     <record name="FindSidebarClass"
             c:type="PpsFindSidebarClass"
             glib:is-gtype-struct-for="FindSidebar">
-      <source-position filename="shell/pps-find-sidebar.h" line="49"/>
+      <source-position filename="shell/pps-find-sidebar.h" line="48"/>
       <field name="base_class">
         <type name="Adw.BinClass" c:type="AdwBinClass"/>
       </field>
@@ -464,7 +464,7 @@ a document.</doc>
     <function-macro name="IS_FIND_SIDEBAR"
                     c:identifier="PPS_IS_FIND_SIDEBAR"
                     introspectable="0">
-      <source-position filename="shell/pps-find-sidebar.h" line="35"/>
+      <source-position filename="shell/pps-find-sidebar.h" line="34"/>
       <parameters>
         <parameter name="object">
         </parameter>
@@ -473,7 +473,7 @@ a document.</doc>
     <function-macro name="IS_FIND_SIDEBAR_CLASS"
                     c:identifier="PPS_IS_FIND_SIDEBAR_CLASS"
                     introspectable="0">
-      <source-position filename="shell/pps-find-sidebar.h" line="37"/>
+      <source-position filename="shell/pps-find-sidebar.h" line="36"/>
       <parameters>
         <parameter name="klass">
         </parameter>
@@ -494,15 +494,6 @@ a document.</doc>
       <source-position filename="shell/pps-message-area.h" line="33"/>
       <parameters>
         <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_METADATA"
-                    c:identifier="PPS_IS_METADATA"
-                    introspectable="0">
-      <source-position filename="shell/pps-metadata.h" line="31"/>
-      <parameters>
-        <parameter name="object">
         </parameter>
       </parameters>
     </function-macro>
@@ -656,24 +647,6 @@ a document.</doc>
       <source-position filename="shell/pps-message-area.h" line="34"/>
       <parameters>
         <parameter name="obj">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="METADATA"
-                    c:identifier="PPS_METADATA"
-                    introspectable="0">
-      <source-position filename="shell/pps-metadata.h" line="29"/>
-      <parameters>
-        <parameter name="object">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="METADATA_CLASS"
-                    c:identifier="PPS_METADATA_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-metadata.h" line="30"/>
-      <parameters>
-        <parameter name="klass">
         </parameter>
       </parameters>
     </function-macro>
@@ -838,266 +811,6 @@ a document.</doc>
       <field name="parent_class">
         <type name="Adw.BinClass" c:type="AdwBinClass"/>
       </field>
-    </record>
-    <class name="Metadata"
-           c:symbol-prefix="metadata"
-           c:type="PpsMetadata"
-           parent="GObject.Object"
-           glib:type-name="PpsMetadata"
-           glib:get-type="pps_metadata_get_type"
-           glib:type-struct="MetadataClass">
-      <source-position filename="shell/pps-metadata.h" line="34"/>
-      <constructor name="new" c:identifier="pps_metadata_new">
-        <source-position filename="shell/pps-metadata.h" line="37"/>
-        <return-value transfer-ownership="full">
-          <type name="Metadata" c:type="PpsMetadata*"/>
-        </return-value>
-        <parameters>
-          <parameter name="file" transfer-ownership="none">
-            <type name="Gio.File" c:type="GFile*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <function name="is_file_supported"
-                c:identifier="pps_metadata_is_file_supported">
-        <source-position filename="shell/pps-metadata.h" line="67"/>
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <parameter name="file" transfer-ownership="none">
-            <type name="Gio.File" c:type="GFile*"/>
-          </parameter>
-        </parameters>
-      </function>
-      <method name="get_boolean" c:identifier="pps_metadata_get_boolean">
-        <source-position filename="shell/pps-metadata.h" line="58"/>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-metadata.c"
-               line="299">%TRUE on success, or %FALSE on failure.</doc>
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="metadata" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-metadata.c"
-                 line="295">a #PpsMetadata</doc>
-            <type name="Metadata" c:type="PpsMetadata*"/>
-          </instance-parameter>
-          <parameter name="key" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-metadata.c"
-                 line="296">The keyword of the metadata</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="value"
-                     direction="out"
-                     caller-allocates="0"
-                     transfer-ownership="full">
-            <doc xml:space="preserve"
-                 filename="shell/pps-metadata.c"
-                 line="297">The value of the returned metadata</doc>
-            <type name="gboolean" c:type="gboolean*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="get_double" c:identifier="pps_metadata_get_double">
-        <source-position filename="shell/pps-metadata.h" line="52"/>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-metadata.c"
-               line="259">%TRUE on success, or %FALSE on failure.</doc>
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="metadata" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-metadata.c"
-                 line="255">a #PpsMetadata</doc>
-            <type name="Metadata" c:type="PpsMetadata*"/>
-          </instance-parameter>
-          <parameter name="key" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-metadata.c"
-                 line="256">The keyword of the metadata</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="value"
-                     direction="out"
-                     caller-allocates="0"
-                     transfer-ownership="full">
-            <doc xml:space="preserve"
-                 filename="shell/pps-metadata.c"
-                 line="257">The value of the returned metadata</doc>
-            <type name="gdouble" c:type="gdouble*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="get_int" c:identifier="pps_metadata_get_int">
-        <source-position filename="shell/pps-metadata.h" line="46"/>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-metadata.c"
-               line="218">%TRUE on success, or %FALSE on failure.</doc>
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="metadata" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-metadata.c"
-                 line="214">a #PpsMetadata</doc>
-            <type name="Metadata" c:type="PpsMetadata*"/>
-          </instance-parameter>
-          <parameter name="key" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-metadata.c"
-                 line="215">The keyword of the metadata</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="value"
-                     direction="out"
-                     caller-allocates="0"
-                     transfer-ownership="full">
-            <doc xml:space="preserve"
-                 filename="shell/pps-metadata.c"
-                 line="216">The value of the returned metadata</doc>
-            <type name="gint" c:type="gint*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="get_string" c:identifier="pps_metadata_get_string">
-        <source-position filename="shell/pps-metadata.h" line="40"/>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-metadata.c"
-               line="146">%TRUE on success, or %FALSE on failure.</doc>
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="metadata" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-metadata.c"
-                 line="142">a #PpsMetadata</doc>
-            <type name="Metadata" c:type="PpsMetadata*"/>
-          </instance-parameter>
-          <parameter name="key" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-metadata.c"
-                 line="143">The keyword of the metadata</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="value"
-                     direction="out"
-                     caller-allocates="0"
-                     transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-metadata.c"
-                 line="144">The value of the returned metadata</doc>
-            <type name="utf8" c:type="const gchar**"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="has_key" c:identifier="pps_metadata_has_key">
-        <source-position filename="shell/pps-metadata.h" line="64"/>
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="metadata" transfer-ownership="none">
-            <type name="Metadata" c:type="PpsMetadata*"/>
-          </instance-parameter>
-          <parameter name="key" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="is_empty" c:identifier="pps_metadata_is_empty">
-        <source-position filename="shell/pps-metadata.h" line="38"/>
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="metadata" transfer-ownership="none">
-            <type name="Metadata" c:type="PpsMetadata*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="set_boolean" c:identifier="pps_metadata_set_boolean">
-        <source-position filename="shell/pps-metadata.h" line="61"/>
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="metadata" transfer-ownership="none">
-            <type name="Metadata" c:type="PpsMetadata*"/>
-          </instance-parameter>
-          <parameter name="key" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="value" transfer-ownership="none">
-            <type name="gboolean" c:type="gboolean"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="set_double" c:identifier="pps_metadata_set_double">
-        <source-position filename="shell/pps-metadata.h" line="55"/>
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="metadata" transfer-ownership="none">
-            <type name="Metadata" c:type="PpsMetadata*"/>
-          </instance-parameter>
-          <parameter name="key" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="value" transfer-ownership="none">
-            <type name="gdouble" c:type="gdouble"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="set_int" c:identifier="pps_metadata_set_int">
-        <source-position filename="shell/pps-metadata.h" line="49"/>
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="metadata" transfer-ownership="none">
-            <type name="Metadata" c:type="PpsMetadata*"/>
-          </instance-parameter>
-          <parameter name="key" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="value" transfer-ownership="none">
-            <type name="gint" c:type="gint"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="set_string" c:identifier="pps_metadata_set_string">
-        <source-position filename="shell/pps-metadata.h" line="43"/>
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="metadata" transfer-ownership="none">
-            <type name="Metadata" c:type="PpsMetadata*"/>
-          </instance-parameter>
-          <parameter name="key" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="value" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-        </parameters>
-      </method>
-    </class>
-    <record name="MetadataClass"
-            c:type="PpsMetadataClass"
-            disguised="1"
-            opaque="1"
-            glib:is-gtype-struct-for="Metadata">
-      <source-position filename="shell/pps-metadata.h" line="34"/>
     </record>
     <function-macro name="OBJECT" c:identifier="PPS_OBJECT" introspectable="0">
       <source-position filename="shell/pps-gdbus-generated.h" line="147"/>
@@ -2489,271 +2202,6 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
         <type name="MessageAreaClass" c:type="PpsMessageAreaClass"/>
       </field>
     </record>
-    <class name="SearchContext"
-           c:symbol-prefix="search_context"
-           c:type="PpsSearchContext"
-           parent="GObject.Object"
-           glib:type-name="PpsSearchContext"
-           glib:get-type="pps_search_context_get_type"
-           glib:type-struct="SearchContextClass">
-      <source-position filename="shell/pps-search-context.h" line="33"/>
-      <constructor name="new" c:identifier="pps_search_context_new">
-        <source-position filename="shell/pps-search-context.h" line="43"/>
-        <return-value transfer-ownership="full">
-          <type name="SearchContext" c:type="PpsSearchContext*"/>
-        </return-value>
-        <parameters>
-          <parameter name="model" transfer-ownership="none">
-            <type name="PapersView.DocumentModel" c:type="PpsDocumentModel*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <method name="get_options" c:identifier="pps_search_context_get_options">
-        <source-position filename="shell/pps-search-context.h" line="47"/>
-        <return-value transfer-ownership="none">
-          <type name="PapersDocument.FindOptions" c:type="PpsFindOptions"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="context" transfer-ownership="none">
-            <type name="SearchContext" c:type="PpsSearchContext*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="get_result_model"
-              c:identifier="pps_search_context_get_result_model">
-        <source-position filename="shell/pps-search-context.h" line="50"/>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-search-context.c"
-               line="618">the returned #GListModel</doc>
-          <type name="Gio.ListModel" c:type="GListModel*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="context" transfer-ownership="none">
-            <type name="SearchContext" c:type="PpsSearchContext*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="get_search_term"
-              c:identifier="pps_search_context_get_search_term"
-              glib:get-property="search-term">
-        <source-position filename="shell/pps-search-context.h" line="44"/>
-        <return-value transfer-ownership="none">
-          <type name="utf8" c:type="const gchar*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="context" transfer-ownership="none">
-            <type name="SearchContext" c:type="PpsSearchContext*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="restart" c:identifier="pps_search_context_restart">
-        <source-position filename="shell/pps-search-context.h" line="51"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="context" transfer-ownership="none">
-            <type name="SearchContext" c:type="PpsSearchContext*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="select_result"
-              c:identifier="pps_search_context_select_result">
-        <source-position filename="shell/pps-search-context.h" line="52"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="context" transfer-ownership="none">
-            <type name="SearchContext" c:type="PpsSearchContext*"/>
-          </instance-parameter>
-          <parameter name="result" transfer-ownership="none">
-            <type name="SearchResult" c:type="PpsSearchResult*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="set_options" c:identifier="pps_search_context_set_options">
-        <source-position filename="shell/pps-search-context.h" line="48"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="context" transfer-ownership="none">
-            <type name="SearchContext" c:type="PpsSearchContext*"/>
-          </instance-parameter>
-          <parameter name="options" transfer-ownership="none">
-            <type name="PapersDocument.FindOptions" c:type="PpsFindOptions"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="set_search_term"
-              c:identifier="pps_search_context_set_search_term"
-              glib:set-property="search-term">
-        <source-position filename="shell/pps-search-context.h" line="45"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="context" transfer-ownership="none">
-            <type name="SearchContext" c:type="PpsSearchContext*"/>
-          </instance-parameter>
-          <parameter name="search_term" transfer-ownership="none">
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <property name="document-model"
-                readable="0"
-                writable="1"
-                construct-only="1"
-                transfer-ownership="none">
-        <type name="PapersView.DocumentModel"/>
-      </property>
-      <property name="search-term"
-                writable="1"
-                transfer-ownership="none"
-                setter="set_search_term"
-                getter="get_search_term">
-        <type name="utf8" c:type="gchar*"/>
-      </property>
-      <field name="parent_instance">
-        <type name="GObject.Object" c:type="GObject"/>
-      </field>
-      <glib:signal name="cleared" when="last">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-      </glib:signal>
-      <glib:signal name="finished" when="last">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="object" transfer-ownership="none">
-            <type name="PapersView.JobFind"/>
-          </parameter>
-          <parameter name="p0" transfer-ownership="none">
-            <type name="gint" c:type="gint"/>
-          </parameter>
-        </parameters>
-      </glib:signal>
-      <glib:signal name="result-activated" when="last">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="object" transfer-ownership="none">
-            <type name="gint" c:type="gint"/>
-          </parameter>
-          <parameter name="p0" transfer-ownership="none">
-            <type name="gint" c:type="gint"/>
-          </parameter>
-        </parameters>
-      </glib:signal>
-      <glib:signal name="started" when="last">
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="object" transfer-ownership="none">
-            <type name="PapersView.JobFind"/>
-          </parameter>
-        </parameters>
-      </glib:signal>
-    </class>
-    <record name="SearchContextClass"
-            c:type="PpsSearchContextClass"
-            glib:is-gtype-struct-for="SearchContext">
-      <source-position filename="shell/pps-search-context.h" line="33"/>
-      <field name="parent_class">
-        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
-      </field>
-    </record>
-    <class name="SearchResult"
-           c:symbol-prefix="search_result"
-           c:type="PpsSearchResult"
-           parent="GObject.Object"
-           glib:type-name="PpsSearchResult"
-           glib:get-type="pps_search_result_get_type"
-           glib:type-struct="SearchResultClass">
-      <source-position filename="shell/pps-search-result.h" line="28"/>
-      <constructor name="new" c:identifier="pps_search_result_new">
-        <source-position filename="shell/pps-search-result.h" line="38"/>
-        <return-value transfer-ownership="full">
-          <type name="SearchResult" c:type="PpsSearchResult*"/>
-        </return-value>
-        <parameters>
-          <parameter name="markup" transfer-ownership="none">
-            <type name="utf8" c:type="gchar*"/>
-          </parameter>
-          <parameter name="label" transfer-ownership="none">
-            <type name="utf8" c:type="gchar*"/>
-          </parameter>
-          <parameter name="page" transfer-ownership="none">
-            <type name="guint" c:type="guint"/>
-          </parameter>
-          <parameter name="index" transfer-ownership="none">
-            <type name="guint" c:type="guint"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <method name="get_index" c:identifier="pps_search_result_get_index">
-        <source-position filename="shell/pps-search-result.h" line="46"/>
-        <return-value transfer-ownership="none">
-          <type name="guint" c:type="guint"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="self" transfer-ownership="none">
-            <type name="SearchResult" c:type="PpsSearchResult*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="get_label" c:identifier="pps_search_result_get_label">
-        <source-position filename="shell/pps-search-result.h" line="44"/>
-        <return-value transfer-ownership="none">
-          <type name="utf8" c:type="const gchar*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="self" transfer-ownership="none">
-            <type name="SearchResult" c:type="PpsSearchResult*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="get_markup" c:identifier="pps_search_result_get_markup">
-        <source-position filename="shell/pps-search-result.h" line="43"/>
-        <return-value transfer-ownership="none">
-          <type name="utf8" c:type="const gchar*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="self" transfer-ownership="none">
-            <type name="SearchResult" c:type="PpsSearchResult*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="get_page" c:identifier="pps_search_result_get_page">
-        <source-position filename="shell/pps-search-result.h" line="45"/>
-        <return-value transfer-ownership="none">
-          <type name="guint" c:type="guint"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="self" transfer-ownership="none">
-            <type name="SearchResult" c:type="PpsSearchResult*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <field name="parent_instance">
-        <type name="GObject.Object" c:type="GObject"/>
-      </field>
-    </class>
-    <record name="SearchResultClass"
-            c:type="PpsSearchResultClass"
-            glib:is-gtype-struct-for="SearchResult">
-      <source-position filename="shell/pps-search-result.h" line="28"/>
-      <field name="parent_class">
-        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
-      </field>
-    </record>
     <class name="SidebarAnnotations"
            c:symbol-prefix="sidebar_annotations"
            c:type="PpsSidebarAnnotations"
@@ -2971,18 +2419,6 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
             </parameter>
           </parameters>
         </callback>
-      </field>
-    </record>
-    <record name="_SearchContextClass" c:type="_PpsSearchContextClass">
-      <source-position filename="shell/pps-search-context.h" line="41"/>
-      <field name="parent_class" writable="1">
-        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
-      </field>
-    </record>
-    <record name="_SearchResultClass" c:type="_PpsSearchResultClass">
-      <source-position filename="shell/pps-search-result.h" line="36"/>
-      <field name="parent_class" writable="1">
-        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
       </field>
     </record>
     <function name="gdk_pixbuf_format_by_extension"

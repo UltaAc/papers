@@ -81,4 +81,6 @@ manual = [
     "PapersShell.Object",
     "PapersView.DocumentModel",
     "PapersView.JobFind",
+    "PapersView.Metadata",
+    "PapersView.SearchContext"
 ]

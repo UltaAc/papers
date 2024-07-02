@@ -9,17 +9,8 @@ pub use self::document_view::DocumentView;
 mod find_sidebar;
 pub use self::find_sidebar::FindSidebar;
 
-mod metadata;
-pub use self::metadata::Metadata;
-
 mod progress_message_area;
 pub use self::progress_message_area::ProgressMessageArea;
-
-mod search_context;
-pub use self::search_context::SearchContext;
-
-mod search_result;
-pub use self::search_result::SearchResult;
 
 mod sidebar_annotations;
 pub use self::sidebar_annotations::SidebarAnnotations;
@@ -33,8 +24,6 @@ pub(crate) mod traits {
     pub use super::document_view::DocumentViewExt;
     pub use super::find_sidebar::FindSidebarExt;
     pub use super::progress_message_area::ProgressMessageAreaExt;
-    pub use super::search_context::SearchContextExt;
-    pub use super::search_result::SearchResultExt;
     pub use super::sidebar_annotations::SidebarAnnotationsExt;
     pub use super::sidebar_page::SidebarPageExt;
 }
@@ -42,6 +31,5 @@ pub(crate) mod builders {
     pub use super::document_view::DocumentViewBuilder;
     pub use super::find_sidebar::FindSidebarBuilder;
     pub use super::progress_message_area::ProgressMessageAreaBuilder;
-    pub use super::search_context::SearchContextBuilder;
     pub use super::sidebar_annotations::SidebarAnnotationsBuilder;
 }

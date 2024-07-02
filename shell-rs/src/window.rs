@@ -65,7 +65,7 @@ mod imp {
 
         pub(super) display_name: RefCell<String>,
         pub(super) edit_name: RefCell<String>,
-        pub(super) metadata: RefCell<Option<papers_shell::Metadata>>,
+        pub(super) metadata: RefCell<Option<papers_view::Metadata>>,
 
         pub(super) dest: RefCell<Option<papers_document::LinkDest>>,
 
@@ -113,7 +113,7 @@ mod imp {
             SIGNALS.get_or_init(|| {
                 vec![Signal::builder("open-copy")
                     .param_types([
-                        papers_shell::Metadata::static_type(),
+                        papers_view::Metadata::static_type(),
                         LinkDest::static_type(),
                         glib::GString::static_type(),
                         glib::GString::static_type(),
@@ -137,7 +137,7 @@ mod imp {
                 "open-copy",
                 true,
                 glib::closure_local!(move |obj: super::PpsWindow,
-                                           metadata: &papers_shell::Metadata,
+                                           metadata: &papers_view::Metadata,
                                            dest: Option<&LinkDest>,
                                            display_name: &str,
                                            edit_name: &str| {
@@ -229,7 +229,7 @@ mod imp {
 
         fn open_copy(
             &self,
-            metadata: &papers_shell::Metadata,
+            metadata: &papers_view::Metadata,
             dest: Option<&LinkDest>,
             display_name: &str,
             edit_name: &str,
@@ -639,11 +639,11 @@ mod imp {
         }
 
         pub(super) fn init_metadata_with_default_values(&self, file: &gio::File) {
-            if !papers_shell::Metadata::is_file_supported(file) {
+            if !papers_view::Metadata::is_file_supported(file) {
                 return;
             }
 
-            let metadata = papers_shell::Metadata::new(file);
+            let metadata = papers_view::Metadata::new(file);
 
             let boolean_properties = [
                 "continuous",
@@ -1153,7 +1153,7 @@ impl PpsWindow {
         self.imp().document_view.is_empty() && self.imp().load_job.borrow().is_none()
     }
 
-    pub fn metadata(&self) -> Option<papers_shell::Metadata> {
+    pub fn metadata(&self) -> Option<papers_view::Metadata> {
         self.imp().metadata.borrow().clone()
     }
 

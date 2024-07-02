@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{ffi, Metadata};
+use crate::ffi;
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -281,7 +281,7 @@ pub trait DocumentViewExt: IsA<DocumentView> + sealed::Sealed + 'static {
 
     #[doc(alias = "pps_document_view_get_metadata")]
     #[doc(alias = "get_metadata")]
-    fn metadata(&self) -> Option<Metadata> {
+    fn metadata(&self) -> Option<papers_view::Metadata> {
         unsafe {
             from_glib_none(ffi::pps_document_view_get_metadata(
                 self.as_ref().to_glib_none().0,
@@ -332,7 +332,7 @@ pub trait DocumentViewExt: IsA<DocumentView> + sealed::Sealed + 'static {
     fn open_document(
         &self,
         document: &impl IsA<papers_document::Document>,
-        metadata: &Metadata,
+        metadata: &papers_view::Metadata,
         dest: Option<&papers_document::LinkDest>,
     ) {
         unsafe {

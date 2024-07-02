@@ -1,7 +1,7 @@
 use crate::deps::*;
 
 use papers_document::FindOptions;
-use papers_shell::SearchContext;
+use papers_view::SearchContext;
 
 mod imp {
     use super::*;

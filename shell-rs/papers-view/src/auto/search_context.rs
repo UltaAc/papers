@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{ffi, SearchResult};
+use crate::{ffi, DocumentModel, JobFind, SearchResult};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -24,61 +24,9 @@ impl SearchContext {
     pub const NONE: Option<&'static SearchContext> = None;
 
     #[doc(alias = "pps_search_context_new")]
-    pub fn new(model: &papers_view::DocumentModel) -> SearchContext {
-        assert_initialized_main_thread!();
+    pub fn new(model: &DocumentModel) -> SearchContext {
+        skip_assert_initialized!();
         unsafe { from_glib_full(ffi::pps_search_context_new(model.to_glib_none().0)) }
-    }
-
-    // rustdoc-stripper-ignore-next
-    /// Creates a new builder-pattern struct instance to construct [`SearchContext`] objects.
-    ///
-    /// This method returns an instance of [`SearchContextBuilder`](crate::builders::SearchContextBuilder) which can be used to create [`SearchContext`] objects.
-    pub fn builder() -> SearchContextBuilder {
-        SearchContextBuilder::new()
-    }
-}
-
-impl Default for SearchContext {
-    fn default() -> Self {
-        glib::object::Object::new::<Self>()
-    }
-}
-
-// rustdoc-stripper-ignore-next
-/// A [builder-pattern] type to construct [`SearchContext`] objects.
-///
-/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
-#[must_use = "The builder must be built to be used"]
-pub struct SearchContextBuilder {
-    builder: glib::object::ObjectBuilder<'static, SearchContext>,
-}
-
-impl SearchContextBuilder {
-    fn new() -> Self {
-        Self {
-            builder: glib::object::Object::builder(),
-        }
-    }
-
-    pub fn document_model(self, document_model: &papers_view::DocumentModel) -> Self {
-        Self {
-            builder: self
-                .builder
-                .property("document-model", document_model.clone()),
-        }
-    }
-
-    pub fn search_term(self, search_term: impl Into<glib::GString>) -> Self {
-        Self {
-            builder: self.builder.property("search-term", search_term.into()),
-        }
-    }
-
-    // rustdoc-stripper-ignore-next
-    /// Build the [`SearchContext`].
-    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
-    pub fn build(self) -> SearchContext {
-        self.builder.build()
     }
 }
 
@@ -180,16 +128,13 @@ pub trait SearchContextExt: IsA<SearchContext> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "finished")]
-    fn connect_finished<F: Fn(&Self, &papers_view::JobFind, i32) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    fn connect_finished<F: Fn(&Self, &JobFind, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn finished_trampoline<
             P: IsA<SearchContext>,
-            F: Fn(&P, &papers_view::JobFind, i32) + 'static,
+            F: Fn(&P, &JobFind, i32) + 'static,
         >(
             this: *mut ffi::PpsSearchContext,
-            object: *mut papers_view::ffi::PpsJobFind,
+            object: *mut ffi::PpsJobFind,
             p0: libc::c_int,
             f: glib::ffi::gpointer,
         ) {
@@ -245,16 +190,13 @@ pub trait SearchContextExt: IsA<SearchContext> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "started")]
-    fn connect_started<F: Fn(&Self, &papers_view::JobFind) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
+    fn connect_started<F: Fn(&Self, &JobFind) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn started_trampoline<
             P: IsA<SearchContext>,
-            F: Fn(&P, &papers_view::JobFind) + 'static,
+            F: Fn(&P, &JobFind) + 'static,
         >(
             this: *mut ffi::PpsSearchContext,
-            object: *mut papers_view::ffi::PpsJobFind,
+            object: *mut ffi::PpsJobFind,
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);

@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{ffi, SearchContext};
+use crate::ffi;
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -272,7 +272,7 @@ pub trait FindSidebarExt: IsA<FindSidebar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "pps_find_sidebar_set_search_context")]
-    fn set_search_context(&self, context: &impl IsA<SearchContext>) {
+    fn set_search_context(&self, context: &impl IsA<papers_view::SearchContext>) {
         unsafe {
             ffi::pps_find_sidebar_set_search_context(
                 self.as_ref().to_glib_none().0,
