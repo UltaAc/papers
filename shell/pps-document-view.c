@@ -3071,43 +3071,6 @@ attachment_bar_menu_popup_cb (GtkWidget        *attachbar,
 	return TRUE;
 }
 
-static void
-find_sidebar_result_activated_cb (PpsSearchContext *context,
-				  gint              page,
-				  gint              result,
-				  PpsDocumentView        *window)
-{
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
-
-	pps_view_find_set_result (PPS_VIEW (priv->view), page, result);
-	sidebar_navigate_to_view (window);
-}
-
-static void
-search_started_cb (PpsSearchContext *search_context,
-		   PpsJobFind       *job,
-		   PpsDocumentView        *pps_doc_view)
-{
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
-
-	if (!priv->document || !PPS_IS_DOCUMENT_FIND (priv->document))
-		return;
-
-	pps_view_find_started (PPS_VIEW (priv->view), job);
-}
-
-static void
-search_cleared_cb (PpsSearchContext *search_context,
-		   PpsDocumentView        *pps_doc_view)
-{
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
-
-	pps_document_view_update_actions_sensitivity (pps_doc_view);
-
-	pps_view_find_cancel (PPS_VIEW (priv->view));
-	gtk_widget_queue_draw (GTK_WIDGET (priv->view));
-}
-
 void
 pps_document_view_handle_annot_popup (PpsDocumentView     *pps_doc_view,
 			      PpsAnnotation *annot)
@@ -4138,17 +4101,15 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 	priv->search_context = g_object_ref_sink (pps_search_context_new (priv->model));
 
 	pps_find_sidebar_set_search_context (PPS_FIND_SIDEBAR (priv->find_sidebar), priv->search_context);
+	pps_view_set_search_context (PPS_VIEW (priv->view), priv->search_context);
 
 	g_signal_connect_object (priv->search_context, "cleared",
-				 G_CALLBACK (search_cleared_cb),
-				 pps_doc_view, G_CONNECT_DEFAULT);
-	g_signal_connect_object (priv->search_context, "started",
-				 G_CALLBACK (search_started_cb),
-				 pps_doc_view, G_CONNECT_DEFAULT);
-	g_signal_connect_object (priv->search_context, "result-activated",
-				 G_CALLBACK (find_sidebar_result_activated_cb),
+				 G_CALLBACK (pps_document_view_update_actions_sensitivity),
 				 pps_doc_view, G_CONNECT_DEFAULT);
 
+	g_signal_connect_object (priv->search_context, "result-activated",
+				 G_CALLBACK (sidebar_navigate_to_view),
+				 pps_doc_view, G_CONNECT_SWAPPED);
 	g_signal_connect_object (priv->sidebar, "navigated-to-view",
 				 G_CALLBACK (sidebar_navigate_to_view),
 				 pps_doc_view, G_CONNECT_SWAPPED);

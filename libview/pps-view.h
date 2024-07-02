@@ -28,6 +28,7 @@
 #include <papers-document.h>
 
 #include "context/pps-document-model.h"
+#include "context/pps-search-context.h"
 #include "pps-jobs.h"
 
 G_BEGIN_DECLS
@@ -80,8 +81,8 @@ void		pps_view_zoom_out	  (PpsView         *view);
 
 /* Find */
 PPS_PUBLIC
-void            pps_view_find_started              (PpsView         *view,
-						   PpsJobFind      *job);
+void            pps_view_set_search_context        (PpsView   *view,
+						    PpsSearchContext *context);
 PPS_PUBLIC
 void            pps_view_find_restart              (PpsView         *view,
                                                    gint            page);
@@ -96,8 +97,6 @@ void            pps_view_find_set_result           (PpsView         *view,
 PPS_PUBLIC
 void     	pps_view_find_set_highlight_search (PpsView         *view,
 						   gboolean        value);
-PPS_PUBLIC
-void            pps_view_find_cancel               (PpsView         *view);
 
 /* Navigation */
 PPS_PUBLIC

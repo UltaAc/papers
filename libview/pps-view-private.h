@@ -99,6 +99,7 @@ typedef struct _PpsViewPrivate {
 	PpsDocument *document;
 
 	/* Find */
+	PpsSearchContext *search_context;
 	PpsJobFind *find_job;
 	GList **find_pages; /* Backwards compatibility. Contains PpsFindRectangles's elements per page */
 	gint find_page;     /* Page of active find result */

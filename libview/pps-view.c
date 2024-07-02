@@ -255,6 +255,8 @@ static void       jump_to_find_result                        (PpsView           
 static void       jump_to_find_page                          (PpsView             *view,
 							      PpsViewFindDirection direction,
 							      gint                shift);
+static void       pps_view_find_cancel                       (PpsView         *view);
+
 /*** Selection ***/
 static void       compute_selections                         (PpsView             *view,
 							      PpsSelectionStyle    style,
@@ -8658,7 +8660,7 @@ jump_to_find_page (PpsView *view, PpsViewFindDirection direction, gint shift)
 }
 
 static void
-find_job_finished_cb (PpsJobFind *job, PpsView *view)
+find_job_finished_cb (PpsView *view)
 {
 	jump_to_find_page (view, PPS_VIEW_FIND_NEXT, 0);
 	jump_to_find_result (view);
@@ -8677,14 +8679,7 @@ find_job_updated_cb (PpsJobFind *job, gint page, PpsView *view)
 		gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
-/**
- * pps_view_find_started:
- * @view:
- * @job:
- *
- * Since: 3.6
- */
-void
+static void
 pps_view_find_started (PpsView *view, PpsJobFind *job)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -8698,7 +8693,37 @@ pps_view_find_started (PpsView *view, PpsJobFind *job)
 	priv->find_result = 0;
 
 	g_signal_connect (job, "updated", G_CALLBACK (find_job_updated_cb), view);
-	g_signal_connect (job, "finished", G_CALLBACK (find_job_finished_cb), view);
+}
+
+void
+pps_view_set_search_context (PpsView          *view,
+			     PpsSearchContext *context)
+{
+        PpsViewPrivate *priv = GET_PRIVATE (view);
+
+	g_return_if_fail (PPS_IS_SEARCH_CONTEXT (context));
+
+	if (priv->search_context != NULL) {
+		g_signal_handlers_disconnect_by_func (priv->search_context, pps_view_find_started, view);
+		g_signal_handlers_disconnect_by_func (priv->search_context, pps_view_find_cancel, view);
+		g_signal_handlers_disconnect_by_func (priv->search_context, find_job_finished_cb, view);
+		g_signal_handlers_disconnect_by_func (priv->search_context, pps_view_find_set_result, view);
+	}
+
+	g_set_object (&priv->search_context, context);
+
+	g_signal_connect_object (priv->search_context, "started",
+				 G_CALLBACK (pps_view_find_started),
+				 view, G_CONNECT_SWAPPED);
+	g_signal_connect_object (priv->search_context, "cleared",
+				 G_CALLBACK (pps_view_find_cancel),
+				 view, G_CONNECT_SWAPPED);
+	g_signal_connect_object (priv->search_context, "finished",
+				 G_CALLBACK (find_job_finished_cb),
+				 view, G_CONNECT_SWAPPED);
+	g_signal_connect_object (priv->search_context, "result-activated",
+				 G_CALLBACK (pps_view_find_set_result),
+				 view, G_CONNECT_SWAPPED);
 }
 
 /**
@@ -8799,7 +8824,7 @@ pps_view_find_set_highlight_search (PpsView *view, gboolean value)
 	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
-void
+static void
 pps_view_find_cancel (PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -8811,8 +8836,9 @@ pps_view_find_cancel (PpsView *view)
 		return;
 
 	g_signal_handlers_disconnect_by_func (priv->find_job, find_job_updated_cb, view);
-	g_signal_handlers_disconnect_by_func (priv->find_job, find_job_finished_cb, view);
 	g_clear_object (&priv->find_job);
+
+	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
 /*** Selections ***/
