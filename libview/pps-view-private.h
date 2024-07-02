@@ -25,7 +25,6 @@
 #endif
 
 #include "pps-view.h"
-#include "pps-document-model.h"
 #include "pps-pixbuf-cache.h"
 #include "pps-page-cache.h"
 #include "pps-jobs.h"

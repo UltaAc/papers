@@ -19,26 +19,21 @@
 
 #pragma once
 
+#include "pps-macros.h"
+#if !defined (__PPS_PAPERS_VIEW_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#error "Only <papers-view.h> can be included directly."
+#endif
+
 #include <glib-object.h>
 #include <papers-document.h>
-#include <papers-view.h>
+#include "pps-document-model.h"
 
 G_BEGIN_DECLS
 
+PPS_PUBLIC
 #define PPS_TYPE_HISTORY            (pps_history_get_type ())
-#define PPS_HISTORY(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_HISTORY, PpsHistory))
-#define PPS_HISTORY_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_HISTORY, PpsHistoryClass))
-#define PPS_IS_HISTORY(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PPS_TYPE_HISTORY))
-#define PPS_IS_HISTORY_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((obj), PPS_TYPE_HISTORY))
-#define PPS_HISTORY_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), PPS_TYPE_HISTORY, PpsHistoryClass))
 
-typedef struct _PpsHistory		PpsHistory;
-typedef struct _PpsHistoryClass		PpsHistoryClass;
-
-struct _PpsHistory
-{
-	GObject parent;
-};
+G_DECLARE_DERIVABLE_TYPE (PpsHistory, pps_history, PPS, HISTORY, GObject)
 
 struct _PpsHistoryClass
 {
@@ -49,23 +44,34 @@ struct _PpsHistoryClass
                                 PpsLink    *link);
 };
 
-GType           pps_history_get_type         (void);
+PPS_PUBLIC
 PpsHistory      *pps_history_new              (PpsDocumentModel *model);
+PPS_PUBLIC
 void            pps_history_add_link         (PpsHistory       *history,
                                              PpsLink          *link);
+PPS_PUBLIC
 void            pps_history_add_page         (PpsHistory       *history,
                                              gint            page);
+PPS_PUBLIC
 gboolean        pps_history_can_go_back      (PpsHistory       *history);
+PPS_PUBLIC
 void            pps_history_go_back          (PpsHistory       *history);
+PPS_PUBLIC
 gboolean        pps_history_can_go_forward   (PpsHistory       *history);
+PPS_PUBLIC
 void            pps_history_go_forward       (PpsHistory       *history);
+PPS_PUBLIC
 gboolean        pps_history_go_to_link       (PpsHistory       *history,
                                              PpsLink          *link);
 GList          *pps_history_get_back_list    (PpsHistory       *history);
+PPS_PUBLIC
 GList          *pps_history_get_forward_list (PpsHistory       *history);
 
+PPS_PUBLIC
 void            pps_history_freeze           (PpsHistory       *history);
+PPS_PUBLIC
 void            pps_history_thaw             (PpsHistory       *history);
+PPS_PUBLIC
 gboolean        pps_history_is_frozen        (PpsHistory       *history);
 
 G_END_DECLS

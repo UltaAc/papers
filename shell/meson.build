@@ -1,16 +1,11 @@
 papers_sources = files(
-  'pps-bookmarks.c',
   'pps-find-sidebar.c',
-  'pps-history.c',
   'pps-keyring.c',
   'pps-message-area.c',
-  'pps-metadata.c',
   'pps-progress-message-area.c',
   'pps-utils.c',
   'pps-document-view.c',
   'pps-window-title.c',
-  'pps-search-context.c',
-  'pps-search-result.c',
   'pps-sidebar-annotations.c',
   'pps-sidebar-bookmarks.c',
   'pps-sidebar-page.c',
@@ -81,10 +76,7 @@ enum_header_prefix = '''
 
 headers = files(
   'pps-document-view.h',
-  'pps-metadata.h',
   'pps-sidebar-page.h',
-  'pps-search-context.h',
-  'pps-search-result.h',
   'pps-utils.h',
   'pps-find-sidebar.h',
   'pps-sidebar-annotations.h',

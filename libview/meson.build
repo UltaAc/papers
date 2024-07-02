@@ -3,7 +3,12 @@ libview_inc = include_directories('.')
 include_subdir = join_paths(pps_include_subdir, 'libview')
 
 headers = files(
-  'pps-document-model.h',
+  'context/pps-bookmarks.h',
+  'context/pps-document-model.h',
+  'context/pps-history.h',
+  'context/pps-metadata.h',
+  'context/pps-search-context.h',
+  'context/pps-search-result.h',
   'pps-job-scheduler.h',
   'pps-job.h',
   'pps-jobs.h',
@@ -18,10 +23,15 @@ install_headers(
 )
 
 sources = files(
+  'context/pps-bookmarks.c',
+  'context/pps-document-model.c',
+  'context/pps-history.c',
+  'context/pps-metadata.c',
+  'context/pps-search-context.c',
+  'context/pps-search-result.c',
   'pps-annotation-window.c',
   'pps-color-contrast.c',
   'pps-debug.c',
-  'pps-document-model.c',
   #'pps-form-field-accessible.c',
   #'pps-image-accessible.c',
   'pps-job.c',

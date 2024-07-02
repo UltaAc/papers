@@ -25,7 +25,7 @@
 #include <adwaita.h>
 
 #include "pps-document.h"
-#include "pps-document-model.h"
+#include <papers-view.h>
 
 G_BEGIN_DECLS
 

@@ -620,6 +620,8 @@ pps_search_context_get_options (PpsSearchContext *context)
 GListModel*
 pps_search_context_get_result_model (PpsSearchContext *context)
 {
+	g_return_val_if_fail (PPS_IS_SEARCH_CONTEXT (context), 0);
+
         PpsSearchContextPrivate *priv = GET_PRIVATE (context);
 
 	if (priv->result_model == NULL) {

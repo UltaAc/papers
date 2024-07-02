@@ -28,9 +28,9 @@
 
 G_BEGIN_DECLS
 
+PPS_PUBLIC
 #define PPS_TYPE_DOCUMENT_MODEL (pps_document_model_get_type ())
 
-PPS_PUBLIC
 G_DECLARE_FINAL_TYPE(PpsDocumentModel, pps_document_model, PPS, DOCUMENT_MODEL, GObject)
 
 /**

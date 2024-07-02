@@ -24,7 +24,7 @@
 #include <glib-object.h>
 
 #include "pps-sidebar-page.h"
-#include "pps-bookmarks.h"
+#include <papers-view.h>
 
 G_BEGIN_DECLS
 

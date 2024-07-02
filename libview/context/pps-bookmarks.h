@@ -20,9 +20,14 @@
 
 #pragma once
 
+#include "pps-macros.h"
+#if !defined (__PPS_PAPERS_VIEW_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#error "Only <papers-view.h> can be included directly."
+#endif
+
 #include <glib-object.h>
 
-#include "pps-metadata.h"
+#include "context/pps-metadata.h"
 
 G_BEGIN_DECLS
 
@@ -39,14 +44,21 @@ typedef struct _PpsBookmark {
         gchar *title;
 } PpsBookmark;
 
+PPS_PUBLIC
 GType        pps_bookmarks_get_type      (void) G_GNUC_CONST;
+PPS_PUBLIC
 PpsBookmarks *pps_bookmarks_new           (PpsMetadata *metadata);
+PPS_PUBLIC
 GList       *pps_bookmarks_get_bookmarks (PpsBookmarks *bookmarks);
+PPS_PUBLIC
 gboolean     pps_bookmarks_has_bookmarks (PpsBookmarks *bookmarks);
+PPS_PUBLIC
 void         pps_bookmarks_add           (PpsBookmarks *bookmarks,
                                          PpsBookmark  *bookmark);
+PPS_PUBLIC
 void         pps_bookmarks_delete        (PpsBookmarks *bookmarks,
                                          PpsBookmark  *bookmark);
+PPS_PUBLIC
 void         pps_bookmarks_update        (PpsBookmarks *bookmarks,
                                          PpsBookmark  *bookmark);
 

@@ -21,15 +21,22 @@
 
 #pragma once
 
+#include "pps-macros.h"
+#if !defined (__PPS_PAPERS_VIEW_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#error "Only <papers-view.h> can be included directly."
+#endif
+
 #include <glib-object.h>
 
-#include "pps-document-model.h"
-#include "pps-metadata.h"
-#include "pps-search-result.h"
+#include "context/pps-document-model.h"
+#include "context/pps-metadata.h"
+#include "context/pps-search-result.h"
 
 G_BEGIN_DECLS
 
 #define PPS_TYPE_SEARCH_CONTEXT    (pps_search_context_get_type())
+
+PPS_PUBLIC
 G_DECLARE_FINAL_TYPE (PpsSearchContext, pps_search_context, PPS, SEARCH_CONTEXT, GObject)
 
 struct _PpsSearchContext {
@@ -40,15 +47,23 @@ struct _PpsSearchContextClass {
 	GObjectClass parent_class;
 };
 
+PPS_PUBLIC
 PpsSearchContext *pps_search_context_new         (PpsDocumentModel *model);
+PPS_PUBLIC
 const gchar*      pps_search_context_get_search_term (PpsSearchContext *context);
+PPS_PUBLIC
 void              pps_search_context_set_search_term (PpsSearchContext *context,
 						      const gchar      *search_term);
+PPS_PUBLIC
 PpsFindOptions    pps_search_context_get_options (PpsSearchContext *context);
+PPS_PUBLIC
 void              pps_search_context_set_options (PpsSearchContext *context,
 					          PpsFindOptions    options);
+PPS_PUBLIC
 GListModel*       pps_search_context_get_result_model (PpsSearchContext *context);
+PPS_PUBLIC
 void              pps_search_context_restart     (PpsSearchContext *context);
+PPS_PUBLIC
 void              pps_search_context_select_result (PpsSearchContext *context,
 						    PpsSearchResult  *result);
 

@@ -26,6 +26,7 @@ libdocument/pps-document-factory.c
 libdocument/pps-document-info.c
 libdocument/pps-file-helpers.c
 libdocument/pps-xmp.c
+libview/context/pps-history.c
 libview/pps-jobs.c
 libview/pps-print-operation.c
 libview/pps-view-accessible.c
@@ -44,7 +45,6 @@ shell/pps-annotation-properties-dialog.ui
 shell/pps-document-view.c
 shell/pps-document-view.ui
 shell/pps-find-sidebar.ui
-shell/pps-history.c
 shell/pps-keyring.c
 shell/pps-loader-view.ui
 shell/pps-page-selector.ui

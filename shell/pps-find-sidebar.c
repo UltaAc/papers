@@ -26,7 +26,6 @@
 
 #include <pps-document.h>
 #include "pps-find-sidebar.h"
-#include "pps-search-result.h"
 #include "pps-utils.h"
 #include <string.h>
 

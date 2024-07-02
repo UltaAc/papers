@@ -20,50 +20,63 @@
 
 #pragma once
 
+#include "pps-macros.h"
+#if !defined (__PPS_PAPERS_VIEW_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#error "Only <papers-view.h> can be included directly."
+#endif
+
 #include <glib-object.h>
 #include <gio/gio.h>
 
 G_BEGIN_DECLS
 
+PPS_PUBLIC
 #define PPS_TYPE_METADATA         (pps_metadata_get_type())
-#define PPS_METADATA(object)      (G_TYPE_CHECK_INSTANCE_CAST((object), PPS_TYPE_METADATA, PpsMetadata))
-#define PPS_METADATA_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST((klass), PPS_TYPE_METADATA, PpsMetadataClass))
-#define PPS_IS_METADATA(object)   (G_TYPE_CHECK_INSTANCE_TYPE((object), PPS_TYPE_METADATA))
 
-typedef struct _PpsMetadata      PpsMetadata;
-typedef struct _PpsMetadataClass PpsMetadataClass;
+G_DECLARE_FINAL_TYPE(PpsMetadata, pps_metadata, PPS, METADATA, GObject)
 
-GType       pps_metadata_get_type              (void) G_GNUC_CONST;
+PPS_PUBLIC
 PpsMetadata *pps_metadata_new                   (GFile       *file);
+PPS_PUBLIC
 gboolean    pps_metadata_is_empty              (PpsMetadata  *metadata);
 
+PPS_PUBLIC
 gboolean    pps_metadata_get_string            (PpsMetadata  *metadata,
 					       const gchar *key,
 					       const gchar     **value);
+PPS_PUBLIC
 gboolean    pps_metadata_set_string            (PpsMetadata  *metadata,
 					       const gchar *key,
 					       const gchar *value);
+PPS_PUBLIC
 gboolean    pps_metadata_get_int               (PpsMetadata  *metadata,
 					       const gchar *key,
 					       gint        *value);
+PPS_PUBLIC
 gboolean    pps_metadata_set_int               (PpsMetadata  *metadata,
 					       const gchar *key,
 					       gint         value);
+PPS_PUBLIC
 gboolean    pps_metadata_get_double            (PpsMetadata  *metadata,
 					       const gchar *key,
 					       gdouble     *value);
+PPS_PUBLIC
 gboolean    pps_metadata_set_double            (PpsMetadata  *metadata,
 					       const gchar *key,
 					       gdouble      value);
+PPS_PUBLIC
 gboolean    pps_metadata_get_boolean           (PpsMetadata  *metadata,
 					       const gchar *key,
 					       gboolean    *value);
+PPS_PUBLIC
 gboolean    pps_metadata_set_boolean           (PpsMetadata  *metadata,
 					       const gchar *key,
 					       gboolean     value);
+PPS_PUBLIC
 gboolean    pps_metadata_has_key               (PpsMetadata  *metadata,
                                                const gchar *key);
 
+PPS_PUBLIC
 gboolean    pps_metadata_is_file_supported (GFile       *file);
 
 G_END_DECLS

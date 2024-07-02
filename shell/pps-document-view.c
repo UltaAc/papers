@@ -41,11 +41,8 @@
 #include <gtk/gtk.h>
 #include <adwaita.h>
 
-#include <papers-view.h>
 #include "pps-find-sidebar.h"
-#include "pps-history.h"
 #include "pps-message-area.h"
-#include "pps-metadata.h"
 #include "pps-sidebar-annotations.h"
 #include "pps-sidebar-bookmarks.h"
 #include "pps-utils.h"
@@ -53,8 +50,6 @@
 #include "pps-document-view.h"
 #include "pps-window-title.h"
 #include "pps-progress-message-area.h"
-#include "pps-bookmarks.h"
-#include "pps-search-context.h"
 
 #define MOUSE_BACK_BUTTON 8
 #define MOUSE_FORWARD_BUTTON 9

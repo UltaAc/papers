@@ -27,7 +27,7 @@
 
 #include <papers-document.h>
 
-#include "pps-document-model.h"
+#include "context/pps-document-model.h"
 #include "pps-jobs.h"
 
 G_BEGIN_DECLS

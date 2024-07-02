@@ -24,9 +24,8 @@
 #include <gtk/gtk.h>
 #include <adwaita.h>
 
-#include "pps-document-model.h"
+#include <papers-view.h>
 #include "pps-jobs.h"
-#include "pps-search-context.h"
 
 G_BEGIN_DECLS
 
