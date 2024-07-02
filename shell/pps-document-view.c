@@ -67,6 +67,7 @@ typedef struct {
 	GtkWidget *sidebar_links;
 	GtkWidget *sidebar_layers;
 	GtkWidget *sidebar_annots;
+	GtkWidget *sidebar_attachments;
 	GtkWidget *sidebar_bookmarks;
 	GtkWidget *find_sidebar;
 	GtkWidget *page_selector;
@@ -117,6 +118,7 @@ typedef struct {
 	PpsHistory *history;
 	PpsDocumentViewTitle *title;
 	PpsMetadata *metadata;
+	PpsAttachmentContext *attachment_context;
 	PpsBookmarks *bookmarks;
 	PpsSearchContext *search_context;
 
@@ -3069,81 +3071,6 @@ attachment_bar_menu_popup_cb (GtkWidget        *attachbar,
 	return TRUE;
 }
 
-static gboolean
-save_attachment_to_target_file (PpsAttachment *attachment,
-                                GFile        *target_file,
-                                gboolean      is_dir,
-                                PpsDocumentView     *pps_doc_view)
-{
-	GFile  *save_to = NULL;
-	GError *error = NULL;
-	gboolean is_native = g_file_is_native (target_file);
-
-	if (is_native) {
-		if (is_dir) {
-			save_to = g_file_get_child (target_file,
-                            /* FIXMEchpe: file name encoding! */
-						    pps_attachment_get_name (attachment));
-		} else {
-			save_to = g_object_ref (target_file);
-		}
-	} else {
-		save_to = pps_mkstemp_file ("saveattachment.XXXXXX", &error);
-	}
-
-        if (save_to)
-                pps_attachment_save (attachment, save_to, &error);
-
-	if (error) {
-		pps_document_view_error_message (pps_doc_view, error,
-					 "%s", _("The attachment could not be saved."));
-		g_error_free (error);
-		g_object_unref (save_to);
-
-		return FALSE;
-	}
-
-	if (!is_native) {
-		GFile *dest_file;
-
-		if (is_dir) {
-			dest_file = g_file_get_child (target_file,
-						      pps_attachment_get_name (attachment));
-		} else {
-			dest_file = g_object_ref (target_file);
-		}
-
-		pps_document_view_save_remote (pps_doc_view,
-				       save_to, dest_file);
-
-		g_object_unref (dest_file);
-	}
-
-	g_object_unref (save_to);
-	return TRUE;
-}
-
-
-static gboolean
-attachment_bar_save_attachment_cb (GtkWidget     *attachbar,
-                                   PpsAttachment *attachment,
-                                   const char    *uri,
-                                   PpsDocumentView     *pps_doc_view)
-{
-	GFile    *target_file;
-	gboolean  success;
-
-	target_file = g_file_new_for_uri (uri);
-
-	success = save_attachment_to_target_file (attachment,
-	                                          target_file,
-	                                          FALSE,
-	                                          pps_doc_view);
-
-	g_object_unref (target_file);
-	return success;
-}
-
 static void
 find_sidebar_result_activated_cb (PpsSearchContext *context,
 				  gint              page,
@@ -3329,8 +3256,8 @@ pps_document_view_dispose (GObject *object)
 	PpsDocumentView *window = PPS_DOCUMENT_VIEW (object);
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
+	g_clear_object (&priv->attachment_context);
 	g_clear_object (&priv->search_context);
-
 	g_clear_object (&priv->bookmarks);
 	g_clear_object (&priv->metadata);
 
@@ -4106,81 +4033,38 @@ pps_document_view_popup_cmd_open_attachment (GSimpleAction *action,
 }
 
 static void
-attachment_save_dialog_response_cb (GtkFileDialog     *dialog,
-				    GAsyncResult      *result,
-				    PpsDocumentView         *pps_doc_view)
+attachments_save_response_cb (PpsAttachmentContext *attachment_context,
+			      GAsyncResult         *result,
+			      PpsDocumentView      *document_view)
 {
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
-	GFile                *target_file;
-	guint                 n_items, i;
-	gboolean              is_dir;
+	g_autoptr (GError) error = NULL;
 
-	n_items = g_list_model_get_n_items (priv->attachments);
-	is_dir = n_items != 1;
+	pps_attachment_context_save_attachments_finish (attachment_context, result, &error);
 
-	if (is_dir) {
-		target_file = gtk_file_dialog_select_folder_finish (dialog, result, NULL);
-	} else {
-		target_file = gtk_file_dialog_save_finish (dialog, result, NULL);
-	}
-
-	if (!target_file)
-		return;
-
-	pps_document_view_file_dialog_save_folder (pps_doc_view, target_file, G_USER_DIRECTORY_DOCUMENTS);
-
-	for (i = 0; i < n_items; i++) {
-		PpsAttachment *attachment;
-
-		attachment = g_list_model_get_item (priv->attachments, i);
-
-		save_attachment_to_target_file (attachment,
-		                                target_file,
-		                                is_dir,
-		                                pps_doc_view);
-	}
-
-	g_object_unref (target_file);
+	if (error)
+		pps_document_view_error_message (document_view, error,
+						 "%s", _("The attachment could not be saved."));
 }
 
 static void
 pps_document_view_popup_cmd_save_attachment_as (GSimpleAction *action,
-					GVariant      *parameter,
-					gpointer       user_data)
+						GVariant      *parameter,
+						gpointer       document_view_pointer)
 {
-	GtkFileDialog *dialog;
-	PpsAttachment *attachment = NULL;
-	PpsDocumentView     *window = user_data;
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
-	GtkNative *native = gtk_widget_get_native (GTK_WIDGET (window));
+	PpsDocumentView        *document_view = PPS_DOCUMENT_VIEW (document_view_pointer);
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (document_view);
 
 	if (!priv->attachments)
 		return;
 
-	if (g_list_model_get_n_items (priv->attachments) == 1)
-		attachment = g_list_model_get_item (priv->attachments, 0);
+	pps_document_view_reset_progress_cancellable (document_view);
 
-	dialog = gtk_file_dialog_new ();
-
-	gtk_file_dialog_set_title (dialog, _("Save Attachment"));
-	gtk_file_dialog_set_modal (dialog, TRUE);
-
-	if (attachment)
-		gtk_file_dialog_set_initial_name (dialog, pps_attachment_get_name (attachment));
-
-        pps_document_view_file_dialog_restore_folder (window, dialog,
-                                               G_USER_DIRECTORY_DOCUMENTS);
-
-
-	if (attachment) {
-		gtk_file_dialog_save (dialog, GTK_WINDOW (native), NULL,
-			      (GAsyncReadyCallback)attachment_save_dialog_response_cb,
-			      window);
-	} else {
-		gtk_file_dialog_select_folder (dialog, GTK_WINDOW (native), NULL,
-			      (GAsyncReadyCallback)attachment_save_dialog_response_cb,
-			      window);
-	}
+	pps_attachment_context_save_attachments_async (priv->attachment_context,
+						       g_object_ref (priv->attachments),
+						       GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (document_view))),
+						       priv->progress_cancellable,
+						       (GAsyncReadyCallback)attachments_save_response_cb,
+						       document_view);
 }
 
 static void
@@ -4245,6 +4129,12 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 				priv->find_sidebar, "visible",
 				G_BINDING_SYNC_CREATE);
 
+	priv->attachment_context = g_object_ref_sink (pps_attachment_context_new (priv->model));
+
+	g_object_set (priv->sidebar_attachments,
+		      "attachment-context", priv->attachment_context,
+		      NULL);
+
 	priv->search_context = g_object_ref_sink (pps_search_context_new (priv->model));
 
 	pps_find_sidebar_set_search_context (PPS_FIND_SIDEBAR (priv->find_sidebar), priv->search_context);
@@ -4299,6 +4189,7 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, sidebar);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, sidebar_links);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, sidebar_annots);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, sidebar_attachments);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, sidebar_bookmarks);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, sidebar_layers);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, find_sidebar);
@@ -4348,7 +4239,6 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_links_link_activated_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_annots_annot_activated_cb);
 	gtk_widget_class_bind_template_callback (widget_class, attachment_bar_menu_popup_cb);
-	gtk_widget_class_bind_template_callback (widget_class, attachment_bar_save_attachment_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_layers_visibility_changed);
 	gtk_widget_class_bind_template_callback (widget_class, bookmark_activated_cb);
 

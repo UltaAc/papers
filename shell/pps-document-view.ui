@@ -154,8 +154,6 @@
                                 <property name="document-model">model</property>
                                 <property name="sidebar">sidebar</property>
                                 <signal name="popup" handler="attachment_bar_menu_popup_cb" />
-                                <signal name="save-attachment"
-                                  handler="attachment_bar_save_attachment_cb" />
                               </object>
                             </property>
                           </object>

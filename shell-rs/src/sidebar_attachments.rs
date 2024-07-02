@@ -1,22 +1,45 @@
 use crate::deps::*;
 use papers_document::{Attachment, DocumentAttachments};
 use papers_shell::SidebarPage;
-use papers_view::{JobAttachments, JobPriority};
+use papers_view::AttachmentContext;
 
 mod imp {
     use super::*;
 
-    #[derive(CompositeTemplate, Debug, Default)]
+    #[derive(CompositeTemplate, Debug, Default, Properties)]
+    #[properties(wrapper_type = super::PpsSidebarAttachments)]
     #[template(resource = "/org/gnome/papers/ui/sidebar-attachments.ui")]
     pub struct PpsSidebarAttachments {
+        #[property(set = Self::set_attachment_context, get)]
+        attachment_context: RefCell<Option<AttachmentContext>>,
+
         #[template_child]
         grid_view: TemplateChild<gtk::GridView>,
         #[template_child]
-        model: TemplateChild<gio::ListStore>,
+        selection_model: TemplateChild<gtk::MultiSelection>,
     }
 
     #[gtk::template_callbacks]
     impl PpsSidebarAttachments {
+        fn attachment_context(&self) -> Option<AttachmentContext> {
+            self.attachment_context.borrow().clone()
+        }
+
+        fn set_attachment_context(&self, context: Option<AttachmentContext>) {
+            if self.attachment_context() == context {
+                return;
+            }
+
+            self.selection_model.set_model(
+                context
+                    .as_ref()
+                    .and_then(|context| context.model())
+                    .as_ref(),
+            );
+
+            self.attachment_context.replace(context);
+        }
+
         #[template_callback]
         fn grid_view_factory_setup(&self, item: &gtk::ListItem, _factory: &gtk::ListItemFactory) {
             let box_ = gtk::Box::builder()
@@ -98,32 +121,6 @@ mod imp {
             if let Some(name) = attachment.name() {
                 label.set_text(name.as_str());
             }
-        }
-
-        fn document_changed_cb(&self, model: &DocumentModel) {
-            let Some(doc) = model.document() else {
-                return;
-            };
-
-            self.model.remove_all();
-
-            if !self.support_document(&doc) {
-                return;
-            }
-
-            let job_attachments = JobAttachments::new(&doc);
-
-            job_attachments.connect_finished(glib::clone!(
-                #[weak(rename_to = obj)]
-                self,
-                move |job_attachments| {
-                    for attachment in job_attachments.attachments().iter() {
-                        obj.model.append(attachment);
-                    }
-                }
-            ));
-
-            job_attachments.scheduler_push_job(JobPriority::PriorityNone);
         }
 
         #[template_callback]
@@ -297,40 +294,21 @@ mod imp {
         }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for PpsSidebarAttachments {
         fn signals() -> &'static [Signal] {
             static SIGNALS: OnceLock<Vec<Signal>> = OnceLock::new();
             SIGNALS.get_or_init(|| {
-                vec![
-                    Signal::builder("popup")
-                        .run_last()
-                        .action()
-                        .param_types([
-                            glib::Type::F64,
-                            glib::Type::F64,
-                            gio::ListModel::static_type(),
-                        ])
-                        .build(),
-                    Signal::builder("save-attachment")
-                        .run_last()
-                        .action()
-                        .return_type::<bool>()
-                        .param_types([glib::Type::OBJECT, glib::Type::STRING])
-                        .build(),
-                ]
+                vec![Signal::builder("popup")
+                    .run_last()
+                    .action()
+                    .param_types([
+                        glib::Type::F64,
+                        glib::Type::F64,
+                        gio::ListModel::static_type(),
+                    ])
+                    .build()]
             })
-        }
-
-        fn constructed(&self) {
-            if let Some(model) = self.obj().document_model() {
-                model.connect_document_notify(glib::clone!(
-                    #[weak(rename_to = obj)]
-                    self,
-                    move |model| {
-                        obj.document_changed_cb(model);
-                    }
-                ));
-            }
         }
     }
 

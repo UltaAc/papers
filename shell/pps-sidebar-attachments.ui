@@ -31,7 +31,9 @@
                 <property name="enable-rubberband">True</property>
                 <property name="halign">center</property>
                 <property name="max-columns">1</property>
-                <property name="model">selection-model</property>
+                <property name="model">
+                  <object class="GtkMultiSelection" id="selection_model" />
+                </property>
                 <property name="tab-behavior">item</property>
                 <signal name="activate" handler="grid_view_item_activated" swapped="yes" />
                 <style>
@@ -44,11 +46,4 @@
       </object>
     </property>
   </template>
-
-  <object class="GtkMultiSelection" id="selection-model">
-    <property name="model">
-      <object class="GListStore" id="model">
-      </object>
-    </property>
-  </object>
 </interface>
