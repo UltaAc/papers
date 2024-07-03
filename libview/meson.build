@@ -5,6 +5,7 @@ include_subdir = join_paths(pps_include_subdir, 'libview')
 headers = files(
   'pps-document-model.h',
   'pps-job-scheduler.h',
+  'pps-job.h',
   'pps-jobs.h',
   'pps-print-operation.h',
   'pps-view-presentation.h',
@@ -23,6 +24,7 @@ sources = files(
   'pps-document-model.c',
   #'pps-form-field-accessible.c',
   #'pps-image-accessible.c',
+  'pps-job.c',
   'pps-jobs.c',
   'pps-job-scheduler.c',
   #'pps-link-accessible.c',

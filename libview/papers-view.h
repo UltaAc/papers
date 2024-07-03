@@ -25,6 +25,7 @@
 #endif
 
 #include <libview/pps-job-scheduler.h>
+#include <libview/pps-job.h>
 #include <libview/pps-jobs.h>
 #include <libview/pps-document-model.h>
 #include <libview/pps-print-operation.h>

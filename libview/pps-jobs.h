@@ -31,12 +31,11 @@
 
 #include <papers-document.h>
 
+#include "pps-job.h"
+
 #define PPS_GET_TYPE_NAME(instance) g_type_name_from_instance ((gpointer)instance)
 
 G_BEGIN_DECLS
-
-typedef struct _PpsJob PpsJob;
-typedef struct _PpsJobClass PpsJobClass;
 
 typedef struct _PpsJobRenderTexture PpsJobRenderTexture;
 typedef struct _PpsJobRenderTextureClass PpsJobRenderTextureClass;
@@ -76,13 +75,6 @@ typedef struct _PpsJobExportClass PpsJobExportClass;
 
 typedef struct _PpsJobPrint PpsJobPrint;
 typedef struct _PpsJobPrintClass PpsJobPrintClass;
-
-#define PPS_TYPE_JOB            (pps_job_get_type())
-#define PPS_JOB(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_JOB, PpsJob))
-#define PPS_IS_JOB(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PPS_TYPE_JOB))
-#define PPS_JOB_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_JOB, PpsJobClass))
-#define PPS_IS_JOB_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_JOB))
-#define PPS_JOB_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_JOB, PpsJobClass))
 
 #define PPS_TYPE_JOB_LINKS            (pps_job_links_get_type())
 #define PPS_JOB_LINKS(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_JOB_LINKS, PpsJobLinks))
@@ -175,34 +167,6 @@ typedef struct _PpsJobPrintClass PpsJobPrintClass;
 #define PPS_JOB_PRINT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_JOB_PRINT, PpsJobPrintClass))
 #define PPS_IS_JOB_PRINT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_JOB_PRINT))
 #define PPS_JOB_PRINT_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_JOB_PRINT, PpsJobPrintClass))
-
-struct _PpsJob
-{
-	GObject parent;
-
-	PpsDocument *document;
-
-	guint cancelled : 1;
-	guint finished : 1;
-	guint failed : 1;
-
-	GError *error;
-	GCancellable *cancellable;
-
-	guint idle_finished_id;
-	guint idle_cancelled_id;
-};
-
-struct _PpsJobClass
-{
-	GObjectClass parent_class;
-
-	gboolean (*run)         (PpsJob *job);
-
-	/* Signals */
-	void     (* cancelled)  (PpsJob *job);
-	void     (* finished)   (PpsJob *job);
-};
 
 struct _PpsJobLinks
 {
@@ -425,32 +389,6 @@ struct _PpsJobPrintClass
 {
 	PpsJobClass parent_class;
 };
-
-/* Base job class */
-PPS_PUBLIC
-GType           pps_job_get_type           (void) G_GNUC_CONST;
-PPS_PUBLIC
-gboolean        pps_job_run                (PpsJob          *job);
-PPS_PUBLIC
-void            pps_job_cancel             (PpsJob          *job);
-PPS_PUBLIC
-void            pps_job_failed             (PpsJob          *job,
-					   GQuark          domain,
-					   gint            code,
-					   const gchar    *format,
-					   ...) G_GNUC_PRINTF (4, 5);
-PPS_PUBLIC
-void            pps_job_failed_from_error  (PpsJob          *job,
-					   GError         *error);
-PPS_PUBLIC
-void            pps_job_succeeded          (PpsJob          *job);
-PPS_PUBLIC
-gboolean        pps_job_is_finished        (PpsJob          *job);
-PPS_PUBLIC
-gboolean        pps_job_is_succeeded          (PpsJob          *job,
-					    GError         **error);
-PPS_PUBLIC
-PpsDocument     *pps_job_get_document	  (PpsJob	  *job);
 
 /* PpsJobLinks */
 PPS_PUBLIC
