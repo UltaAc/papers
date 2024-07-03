@@ -60,11 +60,6 @@
 #define MOUSE_FORWARD_BUTTON 9
 
 typedef enum {
-	PPS_SAVE_ATTACHMENT,
-	PPS_SAVE_IMAGE
-} PpsSaveType;
-
-typedef enum {
 	PPS_WINDOW_ACTION_RELOAD,
 	PPS_WINDOW_ACTION_CLOSE
 } PpsWindowAction;
@@ -2355,7 +2350,6 @@ window_save_file_copy_ready_cb (GFile        *src,
 
 static void
 pps_window_save_remote (PpsWindow  *pps_window,
-		       PpsSaveType save_type,
 		       GFile     *src,
 		       GFile     *dst)
 {
@@ -2363,7 +2357,6 @@ pps_window_save_remote (PpsWindow  *pps_window,
 
 	pps_window_reset_progress_cancellable (pps_window);
 	g_object_set_data (G_OBJECT (dst), "pps-window", pps_window);
-	g_object_set_data (G_OBJECT (dst), "save-type", GINT_TO_POINTER (save_type));
 	g_file_copy_async (src, dst,
 			   G_FILE_COPY_OVERWRITE,
 			   G_PRIORITY_DEFAULT,
@@ -4433,8 +4426,7 @@ save_attachment_to_target_file (PpsAttachment *attachment,
 			dest_file = g_object_ref (target_file);
 		}
 
-		pps_window_save_remote (pps_window, PPS_SAVE_ATTACHMENT,
-				       save_to, dest_file);
+		pps_window_save_remote (pps_window, save_to, dest_file);
 
 		g_object_unref (dest_file);
 	}
@@ -5327,8 +5319,7 @@ image_save_dialog_response_cb (GtkFileDialog     *dialog,
 
 		source_file = g_file_new_for_path (filename);
 
-		pps_window_save_remote (pps_window, PPS_SAVE_IMAGE,
-				       source_file, target_file);
+		pps_window_save_remote (pps_window, source_file, target_file);
 		g_object_unref (source_file);
 	}
 
