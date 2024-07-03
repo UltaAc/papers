@@ -14,5 +14,6 @@ external_libraries = [
     "Cairo",
     "Gdk",
     "Gtk",
+    "Pango",
     "PapersDocument"
 ]

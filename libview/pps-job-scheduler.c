@@ -70,7 +70,7 @@ pps_job_thread (PpsSchedulerJob *scheduler_job, gpointer data)
 
 	g_debug ("running thread for job: %s", PPS_GET_TYPE_NAME (job));
 
-	if (!g_cancellable_is_cancelled (job->cancellable))
+	if (!g_cancellable_is_cancelled (pps_job_get_cancellable (job)))
 		pps_job_run (job);
 
 	pps_scheduler_job_destroy (scheduler_job);

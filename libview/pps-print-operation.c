@@ -2530,7 +2530,7 @@ pps_print_operation_print_draw_page (PpsPrintOperationPrint *print,
                 g_signal_connect (G_OBJECT (print->job_print), "cancelled",
                                   G_CALLBACK (print_job_cancelled),
                                   (gpointer)print);
-	} else if (g_cancellable_is_cancelled (print->job_print->cancellable)) {
+	} else if (pps_job_get_cancellable (print->job_print)) {
                 gtk_print_operation_cancel (print->op);
                 pps_job_print_set_cairo (PPS_JOB_PRINT (print->job_print), NULL);
                 return;
