@@ -37,25 +37,10 @@ mod imp {
     impl ObjectImpl for PpsSidebarLayers {
         fn signals() -> &'static [Signal] {
             static SIGNALS: OnceLock<Vec<Signal>> = OnceLock::new();
-            SIGNALS.get_or_init(|| {
-                vec![
-                    Signal::builder("visibility-changed").run_last().build(),
-                    Signal::builder("update-visibility").run_last().build(),
-                ]
-            })
+            SIGNALS.get_or_init(|| vec![Signal::builder("visibility-changed").run_last().build()])
         }
 
         fn constructed(&self) {
-            self.obj().connect_closure(
-                "update-visibility",
-                true,
-                glib::closure_local!(move |obj: glib::Object| {
-                    if let Ok(obj) = obj.downcast::<super::PpsSidebarLayers>() {
-                        obj.imp().update_layers_visibility();
-                    }
-                }),
-            );
-
             if let Some(model) = self.obj().document_model() {
                 model.connect_document_notify(glib::clone!(
                     #[weak(rename_to = obj)]
@@ -267,7 +252,7 @@ mod imp {
             }
         }
 
-        fn update_layers_visibility(&self) {
+        pub(super) fn update_layers_visibility(&self) {
             let tree_model = self
                 .selection_model
                 .model()
@@ -289,6 +274,10 @@ glib::wrapper! {
 impl PpsSidebarLayers {
     pub fn new() -> Self {
         glib::Object::builder().build()
+    }
+
+    pub fn update_visibility(&self) {
+        self.imp().update_layers_visibility();
     }
 }
 
