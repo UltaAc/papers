@@ -45,6 +45,8 @@
     <file alias="annotations-squiggly-symbolic.svg" preprocess="xml-stripblanks">icons/annotations-squiggly-symbolic.svg</file>
     <file alias="annotations-text-symbolic.svg" preprocess="xml-stripblanks">icons/annotations-text-symbolic.svg</file>
     <file alias="find-unsupported-symbolic.svg" preprocess="xml-stripblanks">icons/find-unsupported-symbolic.svg</file>
+    <file alias="grid-large-symbolic.svg" preprocess="xml-stripblanks">icons/grid-large-symbolic.svg</file>
+    <file alias="chat-bubble-text-symbolic.svg" preprocess="xml-stripblanks">icons/chat-bubble-text-symbolic.svg</file>
     <file alias="license-symbolic.svg" preprocess="xml-stripblanks">icons/license-symbolic.svg</file>
     <file alias="marker-symbolic.svg" preprocess="xml-stripblanks">icons/marker-symbolic.svg</file>
     <file alias="outline-symbolic.svg" preprocess="xml-stripblanks">icons/outline-symbolic.svg</file>
