@@ -4930,20 +4930,20 @@ get_uri (const char *filename, PpsWindow *window)
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 	gchar *ret;
 
-	if (g_path_is_absolute (filename)) {
-		ret =  g_strdup (filename);
+	/* The filename can be a valid URI (file:///) or a path in filesystem */
+	if (g_uri_is_valid (filename, G_URI_FLAGS_NONE, NULL))
+		ret = g_strdup (filename);
+	else if (g_path_is_absolute (filename)) {
+		ret =  g_strdup_printf ("file://%s", filename);
 	} else {
-		GFile *base_file, *file;
-		gchar *dir;
+		g_autoptr(GFile) base_file = NULL;
+		g_autoptr(GFile) file = NULL;
+		g_autofree gchar *dir = NULL;
 
 		dir = g_path_get_dirname (priv->uri);
 		base_file = g_file_new_for_uri (dir);
 		file = g_file_resolve_relative_path (base_file, filename);
 		ret = g_file_get_uri (file);
-
-		g_free (dir);
-		g_object_unref (base_file);
-		g_object_unref (file);
 	}
 
 	return ret;
@@ -4952,29 +4952,14 @@ get_uri (const char *filename, PpsWindow *window)
 static gboolean
 file_is_pdf (const char *uri)
 {
-	GFile *file;
-	GFileInfo *file_info;
-	gboolean ret = FALSE;
+	g_autofree gchar *content_type = NULL;
 
-	file = g_file_new_for_uri (uri);
-	file_info = g_file_query_info (file,
-				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-				       G_FILE_QUERY_INFO_NONE, NULL, NULL);
-	if (file_info != NULL) {
-		const gchar *content_type;
-		content_type = g_file_info_get_content_type (file_info);
-		if (content_type) {
-			gchar *mime_type;
-			mime_type = g_content_type_get_mime_type (content_type);
-			if (g_ascii_strcasecmp (mime_type, "application/pdf") == 0)
-				ret = TRUE;
-			g_free (mime_type);
-		}
-		g_object_unref (file_info);
-	}
-	g_object_unref (file);
+	content_type = pps_file_get_mime_type (uri, FALSE, NULL);
 
-	return ret;
+	if (content_type && g_ascii_strcasecmp (content_type, "application/pdf") == 0)
+		return true;
+
+	return false;
 }
 
 static void
