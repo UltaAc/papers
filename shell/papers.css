@@ -65,8 +65,14 @@ pps-presentation-view.white-mode {
 }
 
 pps-sidebar-thumbnails child.activatable picture {
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--shade-color);
+    background-clip: content-box;
     background-color: #ffffff;
+}
+
+pps-sidebar-thumbnails child.activatable picture.inverted-color {
+    /* The border gets inverted too and becomes light otherwise */
+    border: 1px solid white;
 }
 
 pps-sidebar-thumbnails picture {
