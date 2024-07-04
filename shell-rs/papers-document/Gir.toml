@@ -44,6 +44,7 @@ generate = [
     "PapersDocument.DocumentLicense",
     "PapersDocument.DocumentLinks",
     "PapersDocument.DocumentMode",
+    "PapersDocument.DocumentPermissions",
     "PapersDocument.DocumentSecurity",
     "PapersDocument.DocumentText",
     "PapersDocument.FindOptions",

@@ -127,6 +127,98 @@ impl From<DocumentInfoFields> for glib::Value {
 
 bitflags! {
     #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+    #[doc(alias = "PpsDocumentPermissions")]
+    pub struct DocumentPermissions: u32 {
+        #[doc(alias = "PPS_DOCUMENT_PERMISSIONS_OK_TO_PRINT")]
+        const OK_TO_PRINT = ffi::PPS_DOCUMENT_PERMISSIONS_OK_TO_PRINT as _;
+        #[doc(alias = "PPS_DOCUMENT_PERMISSIONS_OK_TO_MODIFY")]
+        const OK_TO_MODIFY = ffi::PPS_DOCUMENT_PERMISSIONS_OK_TO_MODIFY as _;
+        #[doc(alias = "PPS_DOCUMENT_PERMISSIONS_OK_TO_COPY")]
+        const OK_TO_COPY = ffi::PPS_DOCUMENT_PERMISSIONS_OK_TO_COPY as _;
+        #[doc(alias = "PPS_DOCUMENT_PERMISSIONS_OK_TO_ADD_NOTES")]
+        const OK_TO_ADD_NOTES = ffi::PPS_DOCUMENT_PERMISSIONS_OK_TO_ADD_NOTES as _;
+        #[doc(alias = "PPS_DOCUMENT_PERMISSIONS_FULL")]
+        const FULL = ffi::PPS_DOCUMENT_PERMISSIONS_FULL as _;
+    }
+}
+
+#[doc(hidden)]
+impl IntoGlib for DocumentPermissions {
+    type GlibType = ffi::PpsDocumentPermissions;
+
+    #[inline]
+    fn into_glib(self) -> ffi::PpsDocumentPermissions {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::PpsDocumentPermissions> for DocumentPermissions {
+    #[inline]
+    unsafe fn from_glib(value: ffi::PpsDocumentPermissions) -> Self {
+        skip_assert_initialized!();
+        Self::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for DocumentPermissions {
+    #[inline]
+    #[doc(alias = "pps_document_permissions_get_type")]
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::pps_document_permissions_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for DocumentPermissions {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder
+    }
+}
+
+impl glib::value::ValueType for DocumentPermissions {
+    type Type = Self;
+}
+
+unsafe impl<'a> glib::value::FromValue<'a> for DocumentPermissions {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    #[inline]
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        skip_assert_initialized!();
+        from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for DocumentPermissions {
+    #[inline]
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    #[inline]
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+impl From<DocumentPermissions> for glib::Value {
+    #[inline]
+    fn from(v: DocumentPermissions) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
+bitflags! {
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = "PpsFindOptions")]
     pub struct FindOptions: u32 {
         #[doc(alias = "PPS_FIND_DEFAULT")]
