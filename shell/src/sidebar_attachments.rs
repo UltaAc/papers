@@ -17,7 +17,7 @@ mod imp {
         attachment_context: RefCell<Option<AttachmentContext>>,
 
         #[template_child]
-        grid_view: TemplateChild<gtk::GridView>,
+        list_view: TemplateChild<gtk::ListView>,
         #[template_child]
         selection_model: TemplateChild<gtk::MultiSelection>,
     }
@@ -44,27 +44,45 @@ mod imp {
         }
 
         #[template_callback]
-        fn grid_view_factory_setup(&self, item: &gtk::ListItem, _factory: &gtk::ListItemFactory) {
+        fn list_view_factory_setup(&self, item: &gtk::ListItem, _factory: &gtk::ListItemFactory) {
             let box_ = gtk::Box::builder()
-                .orientation(gtk::Orientation::Vertical)
-                .spacing(12)
+                .orientation(gtk::Orientation::Horizontal)
+                .spacing(6)
+                .margin_top(8)
+                .margin_bottom(8)
                 .build();
 
             let image = gtk::Image::builder()
-                .pixel_size(60)
-                .margin_bottom(6)
-                .margin_top(6)
-                .margin_start(6)
-                .margin_end(6)
+                .icon_size(gtk::IconSize::Normal)
+                .css_classes(["symbolic-circular"])
                 .build();
 
             let label = gtk::Label::builder()
-                .wrap_mode(gtk::pango::WrapMode::WordChar)
-                .wrap(true)
+                .ellipsize(gtk::pango::EllipsizeMode::Middle)
+                .xalign(0.0)
                 .build();
+
+            let save_button = gtk::Button::builder()
+                .icon_name("document-save-symbolic")
+                .css_classes(["circular", "flat"])
+                .tooltip_text("Save As…")
+                .hexpand(true)
+                .halign(gtk::Align::End)
+                .build();
+
+            save_button.connect_clicked(glib::clone!(
+                #[weak(rename_to = obj)]
+                self,
+                #[weak]
+                item,
+                move |_| {
+                    obj.save_attachment(&item);
+                }
+            ));
 
             box_.append(&image);
             box_.append(&label);
+            box_.append(&save_button);
 
             let drag = gtk::DragSource::new();
 
@@ -99,10 +117,10 @@ mod imp {
         }
 
         #[template_callback]
-        fn grid_view_factory_bind(&self, item: &gtk::ListItem, _factory: &gtk::ListItemFactory) {
+        fn list_view_factory_bind(&self, item: &gtk::ListItem, _factory: &gtk::ListItemFactory) {
             let box_ = item.child().and_downcast::<gtk::Box>().unwrap();
             let image = box_.first_child().and_downcast::<gtk::Image>().unwrap();
-            let label = box_.last_child().and_downcast::<gtk::Label>().unwrap();
+            let label = image.next_sibling().and_downcast::<gtk::Label>().unwrap();
             let attachment = item.item().and_downcast::<Attachment>().unwrap();
 
             if let Some(description) = attachment
@@ -127,9 +145,9 @@ mod imp {
         }
 
         #[template_callback]
-        fn grid_view_item_activated(&self, position: u32, _grid_view: &gtk::GridView) {
+        fn list_view_item_activated(&self, position: u32, _list_view: &gtk::ListView) {
             let Some(attachment) = self
-                .grid_view
+                .list_view
                 .model()
                 .and_then(|model| model.item(position))
                 .and_downcast::<Attachment>()
@@ -146,7 +164,7 @@ mod imp {
 
         #[template_callback]
         fn button_clicked(&self, _n_press: i32, x: f64, y: f64, click: &gtk::GestureClick) {
-            let Some(selection) = self.grid_view.model() else {
+            let Some(selection) = self.list_view.model() else {
                 return;
             };
 
@@ -154,9 +172,9 @@ mod imp {
 
             if click
                 .widget()
-                .and_then(|w| w.compute_point(self.grid_view.upcast_ref::<gtk::Widget>(), &point))
+                .and_then(|w| w.compute_point(self.list_view.upcast_ref::<gtk::Widget>(), &point))
                 .and_then(|point| {
-                    self.grid_view
+                    self.list_view
                         .pick(point.x() as f64, point.y() as f64, gtk::PickFlags::DEFAULT)
                 })
                 .is_none()
@@ -172,7 +190,7 @@ mod imp {
             item: &gtk::ListItem,
             click: &gtk::GestureClick,
         ) {
-            let Some(selection) = self.grid_view.model() else {
+            let Some(selection) = self.list_view.model() else {
                 return;
             };
 
@@ -213,7 +231,7 @@ mod imp {
         fn selected_attachment(&self) -> glib::List<Attachment> {
             let mut attachments = glib::List::new();
 
-            let Some(selection) = &self.grid_view.model() else {
+            let Some(selection) = &self.list_view.model() else {
                 return attachments;
             };
 
@@ -239,7 +257,7 @@ mod imp {
         }
 
         fn attachments_drag_prepare(&self, item: &gtk::ListItem) -> Option<gdk::ContentProvider> {
-            let selection = self.grid_view.model()?;
+            let selection = self.list_view.model()?;
 
             if !selection.is_selected(item.position()) {
                 return None;
@@ -296,6 +314,43 @@ mod imp {
             let file_list = gdk::FileList::from_array(&files);
 
             Some(gdk::ContentProvider::for_value(&file_list.to_value()))
+        }
+
+        fn save_attachment(&self, item: &gtk::ListItem) {
+            if let Some(attachment) = item.item().and_downcast::<Attachment>() {
+                let attachment_singleton = gio::ListStore::new::<Attachment>();
+                attachment_singleton.append(&attachment);
+
+                if let Some(attachment_context) = self.attachment_context() {
+                    let window = self
+                        .obj()
+                        .root()
+                        .and_then(|root| root.downcast::<gtk::Window>().ok());
+                    attachment_context.save_attachments_async(
+                        attachment_singleton,
+                        window.as_ref(),
+                        gio::Cancellable::NONE,
+                        glib::clone!(
+                            #[weak(rename_to = obj)]
+                            self,
+                            move |result| {
+                                if let Err(error) = result {
+                                    let document_view = obj
+                                        .obj()
+                                        .ancestor(PpsDocumentView::static_type())
+                                        .and_downcast::<PpsDocumentView>()
+                                        .unwrap();
+
+                                    document_view.error_message(
+                                        Some(&error),
+                                        &gettext("Unable to Open Attachment"),
+                                    );
+                                }
+                            }
+                        ),
+                    );
+                }
+            }
         }
     }
 

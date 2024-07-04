@@ -1,3 +1,11 @@
+image.symbolic-circular {
+  background-color: color-mix(in srgb, currentColor 8%, transparent);
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 50%;
+  -gtk-icon-style: symbolic;
+}
+
 #pps-loading-message {
     background-color: var(--window-bg-color);
     color: var(--window-fg-color);

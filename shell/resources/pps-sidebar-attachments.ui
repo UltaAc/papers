@@ -21,21 +21,19 @@
             </child>
 
             <property name="child">
-              <object class="GtkGridView" id="grid_view">
+              <object class="GtkListView" id="list_view">
                 <property name="factory">
                   <object class="GtkSignalListItemFactory" id="factory">
-                    <signal name="setup" handler="grid_view_factory_setup" swapped="yes" />
-                    <signal name="bind" handler="grid_view_factory_bind" swapped="yes" />
+                    <signal name="setup" handler="list_view_factory_setup" swapped="yes" />
+                    <signal name="bind" handler="list_view_factory_bind" swapped="yes" />
                   </object>
                 </property>
                 <property name="enable-rubberband">True</property>
-                <property name="halign">center</property>
-                <property name="max-columns">1</property>
                 <property name="model">
                   <object class="GtkMultiSelection" id="selection_model" />
                 </property>
                 <property name="tab-behavior">item</property>
-                <signal name="activate" handler="grid_view_item_activated" swapped="yes" />
+                <signal name="activate" handler="list_view_item_activated" swapped="yes" />
                 <style>
                   <class name="navigation-sidebar" />
                 </style>
