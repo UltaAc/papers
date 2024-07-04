@@ -239,6 +239,9 @@ mod imp {
                 "Tiffany Antpolski <tiffany.antopolski@gmail.com>",
             ]);
 
+            // Force set the version for the development release
+            about.set_version(VERSION);
+
             about.present(self.obj().active_window().as_ref().unwrap());
         }
 
