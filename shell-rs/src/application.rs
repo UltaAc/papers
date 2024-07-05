@@ -388,7 +388,9 @@ impl Default for PpsApplication {
 
 impl PpsApplication {
     pub fn new() -> Self {
-        let flags = gio::ApplicationFlags::HANDLES_COMMAND_LINE | gio::ApplicationFlags::NON_UNIQUE;
+        let flags = gio::ApplicationFlags::HANDLES_COMMAND_LINE
+            | gio::ApplicationFlags::NON_UNIQUE
+            | gio::ApplicationFlags::HANDLES_OPEN;
 
         glib::Object::builder()
             .property("application-id", APP_ID)
