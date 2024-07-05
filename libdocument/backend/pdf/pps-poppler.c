@@ -1886,6 +1886,7 @@ pdf_selection_render_selection (PpsSelection      *selection,
 	memset (cairo_image_surface_get_data (*surface), 0x00,
 		cairo_image_surface_get_height (*surface) *
 		cairo_image_surface_get_stride (*surface));
+
 	poppler_page_render_selection (poppler_page,
 				       cr,
 				       (PopplerRectangle *)points,
@@ -3009,18 +3010,18 @@ pdf_document_annotations_remove_annotation (PpsDocumentAnnotations *document_ann
 	pps_document_set_modified (PPS_DOCUMENT (document_annotations), TRUE);
 }
 
-/* FIXME: this could be moved to poppler */
 static GArray *
 get_quads_for_area (PopplerPage      *page,
-		    PpsRectangle      *area,
+		    PopplerRectangle *area,
 		    PopplerRectangle *bbox)
 {
-	cairo_region_t *region;
 	guint   n_rects;
-	guint   i;
+	guint   i, lines = 0;
 	GArray *quads;
 	gdouble height;
-	gdouble max_x, max_y, min_x, min_y;
+	PopplerRectangle *rects = NULL, *r= NULL;
+	GList *l_rects = NULL, *list;
+	PopplerRectangle doc_area;
 
 	if (bbox) {
 		bbox->x1 = G_MAXDOUBLE;
@@ -3031,55 +3032,72 @@ get_quads_for_area (PopplerPage      *page,
 
 	poppler_page_get_size (page, NULL, &height);
 
-	region = poppler_page_get_selected_region (page, 1.0, POPPLER_SELECTION_GLYPH,
-						   (PopplerRectangle *)area);
-	n_rects = cairo_region_num_rectangles (region);
-	g_debug ("Number rects: %d", n_rects);
+	doc_area.x1 = area->x1;
+	doc_area.x2 = area->x2;
+	doc_area.y1 = height - area->y2;
+	doc_area.y2 = height - area->y1;
 
-	quads = g_array_sized_new (TRUE, TRUE,
-				   sizeof (PopplerQuadrilateral),
-				   n_rects);
-	g_array_set_size (quads, MAX (1, n_rects));
+	if (!poppler_page_get_text_layout_for_area (page, &doc_area, &rects, &n_rects))
+		return NULL;
 
-	for (i = 0; i < n_rects; i++) {
-		cairo_rectangle_int_t r;
-		PopplerQuadrilateral *quad = &g_array_index (quads, PopplerQuadrilateral, i);
-		cairo_region_get_rectangle (region, i, &r);
+	r = g_slice_new (PopplerRectangle);
+	r->x1 = G_MAXDOUBLE;
+	r->y1 = G_MAXDOUBLE;
+	r->x2 = G_MINDOUBLE;
+	r->y2 = G_MINDOUBLE;
 
-		quad->p1.x = r.x;
-		quad->p1.y = height - r.y;
-		quad->p2.x = r.x + r.width;
-		quad->p2.y = height - r.y;
-		quad->p3.x = r.x;
-		quad->p3.y = height - (r.y + r.height);
-		quad->p4.x = r.x + r.width;
-		quad->p4.y = height - (r.y + r.height);
+        for (i = 0; i < n_rects; i++) {
+		if (ABS (r->y2 - rects[i].y2) > 0.0001) {
+			if (i > 0)
+				l_rects = g_list_append (l_rects, r);
 
-		if (!bbox)
-			continue;
+			r = g_slice_new (PopplerRectangle);
+			r->x1 = rects[i].x1;
+			r->y1 = rects[i].y1;
+			r->x2 = rects[i].x2;
+			r->y2 = rects[i].y2;
+			lines++;
+		} else {
+			r->x1 = MIN (r->x1, rects[i].x1);
+			r->y1 = MIN (r->y1, rects[i].y1);
+			r->x2 = MAX (r->x2, rects[i].x2);
+			r->y2 = MAX (r->y2, rects[i].y2);
+		}
+        }
 
-		max_x = MAX (quad->p1.x, MAX (quad->p2.x, MAX (quad->p3.x, quad->p4.x)));
-		max_y = MAX (quad->p1.y, MAX (quad->p2.y, MAX (quad->p3.y, quad->p4.y)));
-		min_x = MIN (quad->p1.x, MIN (quad->p2.x, MIN (quad->p3.x, quad->p4.x)));
-		min_y = MIN (quad->p1.y, MIN (quad->p2.y, MIN (quad->p3.y, quad->p4.y)));
+        l_rects = g_list_append (l_rects, r);
+        l_rects = g_list_reverse (l_rects);
 
-		if (min_x < bbox->x1)
-			bbox->x1 = min_x;
-		if (min_y < bbox->y1)
-			bbox->y1 = min_y;
-		if (max_x > bbox->x2)
-			bbox->x2 = max_x;
-		if (max_y > bbox->y2)
-			bbox->y2 = max_y;
-	}
-	cairo_region_destroy (region);
+        quads = g_array_sized_new (TRUE, TRUE, sizeof(PopplerQuadrilateral), lines);
+        g_array_set_size (quads, lines);
 
-	if (n_rects == 0 && bbox) {
-		bbox->x1 = 0;
-		bbox->y1 = 0;
-		bbox->x2 = 0;
-		bbox->y2 = 0;
-	}
+        for (list = l_rects, i = 0; list; list = list->next, i++) {
+		PopplerQuadrilateral *quad;
+
+		quad = &g_array_index(quads, PopplerQuadrilateral, i);
+		r = (PopplerRectangle *)list->data;
+
+		quad->p1.x = r->x1;
+		quad->p1.y = height - r->y1;
+		quad->p2.x = r->x2;
+		quad->p2.y = height - r->y1;
+		quad->p3.x = r->x1;
+		quad->p3.y = height - r->y2;
+		quad->p4.x = r->x2;
+		quad->p4.y = height - r->y2;
+
+		if (bbox) {
+			bbox->x2 = MAX (bbox->x2, MAX (quad->p1.x, MAX (quad->p2.x, MAX (quad->p3.x, quad->p4.x))));
+			bbox->y2 = MAX (bbox->y2, MAX (quad->p1.y, MAX (quad->p2.y, MAX (quad->p3.y, quad->p4.y))));
+			bbox->x1 = MIN (bbox->x1, MIN (quad->p1.x, MIN (quad->p2.x, MIN (quad->p3.x, quad->p4.x))));
+			bbox->y1 = MIN (bbox->y1, MIN (quad->p1.y, MIN (quad->p2.y, MIN (quad->p3.y, quad->p4.y))));
+		}
+
+		g_slice_free (PopplerRectangle, r);
+        }
+
+	g_free (rects);
+	g_list_free (l_rects);
 
 	return quads;
 }
@@ -3130,18 +3148,19 @@ pdf_document_annotations_add_annotation (PpsDocumentAnnotations *document_annota
 			GArray *quads;
 			PopplerRectangle bbox;
 
-			quads = get_quads_for_area (poppler_page, &rect, &bbox);
+			quads = get_quads_for_area (poppler_page, &poppler_rect, &bbox);
 
-			if (bbox.x1 != 0 && bbox.y1 != 0 && bbox.x2 != 0 && bbox.y2 != 0) {
-				poppler_rect.x1 = rect.x1 = bbox.x1;
-				poppler_rect.x2 = rect.x2 = bbox.x2;
-				rect.y1 = height - bbox.y2;
-				rect.y2 = height - bbox.y1;
-				poppler_rect.y1 = bbox.y1;
-				poppler_rect.y2 = bbox.y2;
+			if (!quads)
+				return;
 
-				pps_annotation_set_area (annot, &rect);
-			}
+			poppler_rect.x1 = rect.x1 = bbox.x1;
+			poppler_rect.x2 = rect.x2 = bbox.x2;
+			rect.y1 = height - bbox.y2;
+			rect.y2 = height - bbox.y1;
+			poppler_rect.y1 = bbox.y1;
+			poppler_rect.y2 = bbox.y2;
+
+			pps_annotation_set_area (annot, &rect);
 
 			switch (pps_annotation_text_markup_get_markup_type (PPS_ANNOTATION_TEXT_MARKUP (annot))) {
 				case PPS_ANNOTATION_TEXT_MARKUP_HIGHLIGHT:
@@ -3408,36 +3427,44 @@ pdf_document_annotations_save_annotation (PpsDocumentAnnotations *document_annot
 		}
 
 		if (mask & PPS_ANNOTATIONS_SAVE_AREA) {
-			PpsRectangle       area;
+			PpsRectangle       rect;
 			GArray           *quads;
-			PopplerRectangle  bbox;
 			PpsPage           *page;
 			PopplerPage      *poppler_page;
+			PopplerRectangle poppler_rect, bbox;
+			gdouble          height;
 
 			page = pps_annotation_get_page (annot);
 			poppler_page = POPPLER_PAGE (page->backend_page);
 
-			pps_annotation_get_area (annot, &area);
-			quads = get_quads_for_area (poppler_page, &area, &bbox);
+			pps_annotation_get_area (annot, &rect);
+
+			poppler_page_get_size (POPPLER_PAGE (page->backend_page), NULL, &height);
+
+			poppler_rect.x1 = rect.x1;
+			poppler_rect.x2 = rect.x2;
+			poppler_rect.y1 = height - rect.y2;
+			poppler_rect.y2 = height - rect.y1;
+
+			quads = get_quads_for_area (poppler_page, &poppler_rect, &bbox);
+
+			if (!quads)
+				return;
+
+			poppler_rect.x1 = rect.x1 = bbox.x1;
+			poppler_rect.x2 = rect.x2 = bbox.x2;
+			rect.y1 = height - bbox.y2;
+			rect.y2 = height - bbox.y1;
+			poppler_rect.y1 = bbox.y1;
+			poppler_rect.y2 = bbox.y2;
+
+			pps_annotation_set_area (annot, &rect);
+
 			poppler_annot_text_markup_set_quadrilaterals (text_markup, quads);
-			poppler_annot_set_rectangle (poppler_annot, &bbox);
+			poppler_annot_set_rectangle (poppler_annot, &poppler_rect);
 			g_array_unref (quads);
 
-			if (bbox.x1 != 0 && bbox.y1 != 0 && bbox.x2 != 0 && bbox.y2 != 0) {
-				gdouble height;
-
-				poppler_page_get_size (poppler_page, NULL, &height);
-				area.x1 = bbox.x1;
-				area.x2 = bbox.x2;
-				area.y1 = height - bbox.y2;
-				area.y2 = height - bbox.y1;
-			} else {
-				area.x1 = 0;
-				area.x2 = 0;
-				area.y1 = 0;
-				area.y2 = 0;
-			}
-			pps_annotation_set_area (annot, &area);
+			pps_annotation_set_area (annot, &rect);
 		}
 	}
 
