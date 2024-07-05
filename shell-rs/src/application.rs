@@ -394,6 +394,7 @@ impl PpsApplication {
             .property("application-id", APP_ID)
             .property("flags", flags)
             .property("resource-base-path", "/org/gnome/papers")
+            .property("register-session", true)
             .build()
     }
 }
