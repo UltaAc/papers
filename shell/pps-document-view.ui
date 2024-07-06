@@ -56,13 +56,18 @@
           <object class="AdwToolbarView" id="sidebar_toolbar_view">
             <child type="top">
               <object class="AdwHeaderBar">
-                <child type="start">
-                  <object class="GtkToggleButton" id="find_button">
-                    <property name="icon-name">edit-find-symbolic</property>
-                    <property name="action-name">doc.toggle-find</property>
-                    <signal name="notify::sensitive" handler="find_button_sensitive_changed" />
-                  </object>
-                </child>
+                 <child type="start">
+                   <object class="GtkRevealer">
+                     <property name="child">
+                       <object class="GtkToggleButton" id="find_button">
+                         <property name="icon-name">edit-find-symbolic</property>
+                         <property name="tooltip-text" translatable="yes">Search</property>
+                         <property name="action-name">doc.toggle-find</property>
+                       </object>
+                     </property>
+                     <property name="reveal-child" bind-source="find_button" bind-property="sensitive" bind-flags="sync-create" />
+                   </object>
+                 </child>
                 <child type="title">
                   <object class="AdwWindowTitle">
                     <property name="title" translatable="yes">Papers</property>

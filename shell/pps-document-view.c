@@ -2880,22 +2880,6 @@ zoom_selector_activated (GtkWidget *zoom_action,
 }
 
 static void
-find_button_sensitive_changed (GtkWidget  *find_button,
-			       GParamSpec *pspec,
-			       PpsDocumentView  *window)
-{
-        if (gtk_widget_is_sensitive (find_button)) {
-                gtk_widget_set_tooltip_text (find_button,
-                                             _("Search"));
-		gtk_button_set_icon_name (GTK_BUTTON (find_button), "edit-find-symbolic");
-	} else {
-                gtk_widget_set_tooltip_text (find_button,
-                                             _("Search Unavailable"));
-		gtk_button_set_icon_name (GTK_BUTTON (find_button), "find-unsupported-symbolic");
-	}
-}
-
-static void
 sidebar_navigate_to_view (PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
@@ -4168,7 +4152,6 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_collapsed_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pps_document_view_button_pressed);
 	gtk_widget_class_bind_template_callback (widget_class, zoom_selector_activated);
-	gtk_widget_class_bind_template_callback (widget_class, find_button_sensitive_changed);
 	gtk_widget_class_bind_template_callback (widget_class, scrolled_window_focus_in_cb);
 	gtk_widget_class_bind_template_callback (widget_class, scroll_child_history_cb);
 	gtk_widget_class_bind_template_callback (widget_class, caret_navigation_alert_response_cb);
