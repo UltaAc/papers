@@ -2617,7 +2617,10 @@ pps_document_view_cmd_escape (GSimpleAction *action,
 		gtk_widget_activate_action (GTK_WIDGET (window), "doc.toggle-find", NULL);
 	else if (gtk_window_is_fullscreen (GTK_WINDOW (native))) {
 		g_action_group_change_action_state (G_ACTION_GROUP (native), "fullscreen", g_variant_new_boolean (FALSE));
-	} else
+	} else if (adw_overlay_split_view_get_collapsed (priv->split_view) &&
+		   adw_overlay_split_view_get_show_sidebar (priv->split_view))
+		adw_overlay_split_view_set_show_sidebar (priv->split_view, FALSE);
+	else
 		pps_view_cancel_add_text_annotation (PPS_VIEW (priv->view));
 }
 
