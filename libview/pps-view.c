@@ -3527,8 +3527,7 @@ pps_view_create_annotation_real (PpsView           *view,
 			      "opacity", 1.0,
 			      NULL);
 	}
-	pps_document_annotations_add_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document),
-						annot, &doc_rect);
+	pps_document_annotations_add_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document), annot);
 	/* Re-fetch area as eg. adding Text Markup annots updates area for its bounding box */
 	pps_annotation_get_area (annot, &doc_rect);
 	pps_document_doc_mutex_unlock ();

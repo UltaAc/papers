@@ -80,8 +80,7 @@ struct _PpsDocumentAnnotationsInterface
 						 PpsPage                *page);
 	gboolean       (* document_is_modified) (PpsDocumentAnnotations *document_annots);
 	void           (* add_annotation)       (PpsDocumentAnnotations *document_annots,
-						 PpsAnnotation          *annot,
-						 PpsRectangle           *rect);
+						 PpsAnnotation          *annot);
 	void           (* save_annotation)      (PpsDocumentAnnotations *document_annots,
 						 PpsAnnotation          *annot,
 						 PpsAnnotationsSaveMask  mask);
@@ -100,8 +99,7 @@ PPS_PUBLIC
 gboolean       pps_document_annotations_document_is_modified (PpsDocumentAnnotations *document_annots);
 PPS_PUBLIC
 void           pps_document_annotations_add_annotation       (PpsDocumentAnnotations *document_annots,
-							     PpsAnnotation          *annot,
-							     PpsRectangle           *rect);
+							     PpsAnnotation          *annot);
 PPS_PUBLIC
 void           pps_document_annotations_remove_annotation    (PpsDocumentAnnotations *document_annots,
                                                              PpsAnnotation          *annot);

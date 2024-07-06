@@ -57,13 +57,12 @@ pps_document_annotations_save_annotation (PpsDocumentAnnotations *document_annot
 
 void
 pps_document_annotations_add_annotation (PpsDocumentAnnotations *document_annots,
-					PpsAnnotation          *annot,
-					PpsRectangle           *rect)
+					 PpsAnnotation          *annot)
 {
 	PpsDocumentAnnotationsInterface *iface = PPS_DOCUMENT_ANNOTATIONS_GET_IFACE (document_annots);
 
 	if (iface->add_annotation)
-		iface->add_annotation (document_annots, annot, rect);
+		iface->add_annotation (document_annots, annot);
 }
 
 gboolean

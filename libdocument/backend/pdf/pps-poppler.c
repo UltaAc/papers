@@ -3104,8 +3104,7 @@ get_quads_for_area (PopplerPage      *page,
 
 static void
 pdf_document_annotations_add_annotation (PpsDocumentAnnotations *document_annotations,
-					 PpsAnnotation          *annot,
-					 PpsRectangle           *rect_deprecated)
+					 PpsAnnotation          *annot)
 {
 	PopplerAnnot    *poppler_annot;
 	PdfDocument     *pdf_document;
