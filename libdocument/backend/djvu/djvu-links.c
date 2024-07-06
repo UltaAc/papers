@@ -216,7 +216,7 @@ build_tree (const DjvuDocument *djvu_document,
 			pps_link = pps_link_new (utf8_title ? utf8_title : title, pps_action);
 		}
 
-		outlines = g_object_new (PPS_TYPE_OUTLINES, "markup", title_markup, "expand", FALSE, "link", link, NULL);
+		outlines = g_object_new (PPS_TYPE_OUTLINES, "markup", title_markup, "expand", FALSE, "link", pps_link, NULL);
 		g_list_store_append(model, outlines);
 
 		g_clear_object (&pps_action);
