@@ -3091,7 +3091,7 @@ pps_window_check_document_modified (PpsWindow      *pps_window,
 	dialog = ADW_ALERT_DIALOG (adw_alert_dialog_new (NULL, NULL));
 
 	if (command == PPS_WINDOW_ACTION_RELOAD) {
-		text = _("File changed outside Papers. Reload document?");
+		text = _("File Changed Outside Papers. Reload document?");
 		secondary_text_command = _("If you reload the document, changes will be permanently lost.");
 
 		adw_alert_dialog_add_responses (dialog,
@@ -3104,7 +3104,7 @@ pps_window_check_document_modified (PpsWindow      *pps_window,
 				  G_CALLBACK (document_modified_reload_dialog_response),
 				  pps_window);
 	} else {
-		text = _("Save a copy of the document before closing?");
+		text = _("Save Changes to a Copy?");
 		secondary_text_command = _("If you don’t save a copy, changes will be permanently lost.");
 
 		adw_alert_dialog_add_responses (dialog,
