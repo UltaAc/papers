@@ -152,9 +152,9 @@ mod imp {
                 .main
                 .insert_action_group("password", Some(&self.action_group.clone()));
 
-            let body = gettext!(
+            let body = gettext_f(
                 "The document “{}” is locked and requires a password before it can be opened",
-                self.filename.borrow()
+                [self.filename.borrow().clone()],
             );
 
             dialog.main.set_body(&body);

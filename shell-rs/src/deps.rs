@@ -32,3 +32,4 @@ pub use std::sync::OnceLock;
 pub use log::{debug, warn};
 
 pub use crate::config::*;
+pub use crate::i18n::gettext_f;

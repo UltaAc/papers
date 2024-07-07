@@ -74,7 +74,7 @@ mod imp {
 
             let link_dest = papers_document::LinkDest::new_page_label(text.as_str());
             let link_action = papers_document::LinkAction::new_dest(&link_dest);
-            let link_text = gettext!("Page {}", text);
+            let link_text = gettext_f("Page {}", [text]);
             let link = papers_document::Link::new(Some(&link_text), &link_action);
 
             self.obj().emit_by_name::<()>("activate-link", &[&link]);
@@ -217,9 +217,9 @@ mod imp {
                 let n_pages = document.n_pages();
 
                 let label_text = if self.show_page_number_in_pages_label(page) {
-                    gettext!("({} of {})", page + 1, n_pages)
+                    gettext_f("({} of {})", [(page + 1).to_string(), n_pages.to_string()])
                 } else {
-                    gettext!("of {}", n_pages)
+                    gettext_f("of {}", [n_pages.to_string()])
                 };
 
                 self.label.set_text(&label_text);
@@ -235,9 +235,9 @@ mod imp {
             let max_page_numeric_label = format!("{n_pages}").len() as i32;
 
             let max_label_len = if document.has_text_page_labels() {
-                gettext!("({} of {})", n_pages, n_pages).len() - 2
+                gettext_f("({} of {})", [n_pages.to_string(), n_pages.to_string()]).len() - 2
             } else {
-                gettext!("of {}", n_pages).len()
+                gettext_f("of {}", [n_pages.to_string()]).len()
             } as i32;
 
             self.label.set_width_chars(max_label_len);

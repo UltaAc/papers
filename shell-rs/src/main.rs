@@ -10,6 +10,7 @@ use config::GETTEXT_PACKAGE;
 mod annotation_properties_dialog;
 mod application;
 mod deps;
+mod i18n;
 mod loader_view;
 mod page_selector;
 mod password_view;
