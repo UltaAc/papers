@@ -3108,9 +3108,9 @@ pps_window_check_document_modified (PpsWindow      *pps_window,
 		secondary_text_command = _("If you don’t save a copy, changes will be permanently lost.");
 
 		adw_alert_dialog_add_responses (dialog,
-						"no", _("Close _without Saving"),
-						"cancel", _("C_ancel"),
-						"yes", _("Save a _Copy"),
+						"no", _("Close _Without Saving"),
+						"cancel", _("_Cancel"),
+						"yes", _("_Save a Copy"),
 						NULL);
 		adw_alert_dialog_set_response_appearance (dialog, "no", ADW_RESPONSE_DESTRUCTIVE);
 		adw_alert_dialog_set_response_appearance (dialog, "yes", ADW_RESPONSE_SUGGESTED);
