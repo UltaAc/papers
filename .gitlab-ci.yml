@@ -110,6 +110,7 @@ meson-pot:
         MESON_SETUP_OPTIONS: "-Dbuildtype=release"
     script:
         - meson compile -C _build papers-pot
+        - if [ "$(grep 'gettext!' -R shell-rs)" != "" ]; then exit 1; fi
 
 .flatpak-local:
     stage: build
