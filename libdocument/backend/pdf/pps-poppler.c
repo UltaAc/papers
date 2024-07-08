@@ -3018,7 +3018,7 @@ get_quads_for_area (PopplerPage      *page,
 	guint   n_rects;
 	guint   i, lines = 0;
 	GArray *quads;
-	gdouble height;
+	gdouble width, height;
 	PopplerRectangle *rects = NULL, *r= NULL;
 	GList *l_rects = NULL, *list;
 	PopplerRectangle doc_area;
@@ -3030,7 +3030,7 @@ get_quads_for_area (PopplerPage      *page,
 		bbox->y2 = G_MINDOUBLE;
 	}
 
-	poppler_page_get_size (page, NULL, &height);
+	poppler_page_get_size (page, &width, &height);
 
 	doc_area.x1 = area->x1;
 	doc_area.x2 = area->x2;
@@ -3047,7 +3047,7 @@ get_quads_for_area (PopplerPage      *page,
 	r->y2 = G_MINDOUBLE;
 
         for (i = 0; i < n_rects; i++) {
-		if (ABS (r->y2 - rects[i].y2) > 0.0001) {
+		if (ABS (r->y2 - rects[i].y2) > 0.0001 || ABS (r->x2 - rects[i].x1) > 0.01 * width) {
 			if (i > 0)
 				l_rects = g_list_append (l_rects, r);
 
