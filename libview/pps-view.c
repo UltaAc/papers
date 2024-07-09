@@ -7540,6 +7540,11 @@ pps_view_class_init (PpsViewClass *class)
 				      "(ii)", GTK_SCROLL_PAGE_BACKWARD, GTK_ORIENTATION_VERTICAL);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_BackSpace, GDK_SHIFT_MASK, "scroll",
 				      "(ii)",  GTK_SCROLL_PAGE_FORWARD, GTK_ORIENTATION_VERTICAL);
+
+	gtk_widget_class_add_binding (widget_class,
+				      GDK_KEY_a, GDK_CONTROL_MASK,
+				      (GtkShortcutFunc) pps_view_select_all,
+				      NULL);
 }
 
 static void

@@ -287,7 +287,6 @@ mod imp {
             obj.set_accels_for_action("win.print", &["<Ctrl>P"]);
             obj.set_accels_for_action("win.show-properties", &["<alt>Return"]);
             obj.set_accels_for_action("win.copy", &["<Ctrl>C", "<Ctrl>Insert"]);
-            obj.set_accels_for_action("win.select-all", &["<Ctrl>A"]);
             obj.set_accels_for_action("win.close", &["<Ctrl>W"]);
             obj.set_accels_for_action("win.escape", &["Escape"]);
             obj.set_accels_for_action("win.select-page", &["<Ctrl>L"]);
