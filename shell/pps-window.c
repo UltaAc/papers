@@ -110,9 +110,6 @@ typedef struct {
 	/* Loading message */
 	guint loading_message_timeout;
 
-	/* Dialogs */
-	GtkWindow *print_dialog;
-
 	/* Menu button */
 	GtkWidget    *action_menu_button;
 
@@ -1658,22 +1655,6 @@ pps_window_get_uri (PpsWindow *pps_window)
 	return priv->uri;
 }
 
-/**
- * pps_window_close_dialogs:
- * @pps_window: The window where dialogs will be closed.
- *
- * It looks for print dialogs and closes them and
- * frees them from memory. If there is any print job it does free it too.
- */
-static void
-pps_window_close_dialogs (PpsWindow *pps_window)
-{
-	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-
-	g_clear_pointer (&priv->print_dialog, gtk_window_destroy);
-}
-
-
 static void
 pps_window_reset_progress_cancellable (PpsWindow *pps_window)
 {
@@ -1945,7 +1926,6 @@ pps_window_open_uri (PpsWindow       *pps_window,
 	GFile *source_file;
 	g_autofree char *path = NULL;
 
-	pps_window_close_dialogs (pps_window);
 	pps_window_clear_load_job (pps_window);
 	pps_window_clear_local_uri (pps_window);
 
@@ -2020,7 +2000,6 @@ pps_window_open_document (PpsWindow  *pps_window,
 	if (document == priv->document)
 		return;
 
-	pps_window_close_dialogs (pps_window);
 	pps_window_clear_load_job (pps_window);
 	pps_window_clear_local_uri (pps_window);
 
@@ -4728,8 +4707,6 @@ pps_window_dispose (GObject *object)
 	pps_window_clear_save_job (window);
 	pps_window_clear_local_uri (window);
 	g_clear_object (&priv->progress_cancellable);
-
-	pps_window_close_dialogs (window);
 
 	g_clear_object (&priv->link);
 	g_clear_object (&priv->image);
