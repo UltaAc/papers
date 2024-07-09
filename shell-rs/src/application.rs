@@ -282,21 +282,23 @@ mod imp {
             obj.set_accels_for_action("app.new", &["<Ctrl>N"]);
 
             obj.set_accels_for_action("win.open", &["<Ctrl>O"]);
+            obj.set_accels_for_action("win.close", &["<Ctrl>W"]);
+            obj.set_accels_for_action("win.fullscreen", &["F11"]);
+            obj.set_accels_for_action("win.escape", &["Escape"]);
+            obj.set_accels_for_action("win.show-sidebar", &["F9"]);
+            obj.set_accels_for_action("win.inverted-colors", &["<Ctrl>I"]);
+
+            // TODO: move to doc group
             obj.set_accels_for_action("win.open-copy", &["<Ctrl><Shift>N"]);
             obj.set_accels_for_action("win.save-as", &["<Ctrl>S"]);
             obj.set_accels_for_action("win.print", &["<Ctrl>P"]);
             obj.set_accels_for_action("win.show-properties", &["<alt>Return"]);
             obj.set_accels_for_action("win.copy", &["<Ctrl>C", "<Ctrl>Insert"]);
-            obj.set_accels_for_action("win.close", &["<Ctrl>W"]);
-            obj.set_accels_for_action("win.escape", &["Escape"]);
             obj.set_accels_for_action("win.select-page", &["<Ctrl>L"]);
             obj.set_accels_for_action("win.caret-navigation", &["F7"]);
-            obj.set_accels_for_action("win.show-sidebar", &["F9"]);
-            obj.set_accels_for_action("win.fullscreen", &["F11"]);
             obj.set_accels_for_action("win.presentation", &["F5", "<Shift>F5"]);
             obj.set_accels_for_action("win.rotate-left", &["<Ctrl>Left"]);
             obj.set_accels_for_action("win.rotate-right", &["<Ctrl>Right"]);
-            obj.set_accels_for_action("win.inverted-colors", &["<Ctrl>I"]);
             obj.set_accels_for_action("win.add-highlight-annotation", &["<Ctrl>H"]);
         }
 
