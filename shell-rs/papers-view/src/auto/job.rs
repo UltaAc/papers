@@ -60,6 +60,12 @@ pub trait JobExt: IsA<Job> + sealed::Sealed + 'static {
         }
     }
 
+    //#[doc(alias = "pps_job_get_cancellable")]
+    //#[doc(alias = "get_cancellable")]
+    //fn cancellable(&self) -> /*Ignored*/Option<gio::Cancellable> {
+    //    unsafe { TODO: call ffi:pps_job_get_cancellable() }
+    //}
+
     #[doc(alias = "pps_job_get_document")]
     #[doc(alias = "get_document")]
     fn document(&self) -> Option<papers_document::Document> {
@@ -82,6 +88,13 @@ pub trait JobExt: IsA<Job> + sealed::Sealed + 'static {
             } else {
                 Err(from_glib_full(error))
             }
+        }
+    }
+
+    #[doc(alias = "pps_job_reset")]
+    fn reset(&self) {
+        unsafe {
+            ffi::pps_job_reset(self.as_ref().to_glib_none().0);
         }
     }
 

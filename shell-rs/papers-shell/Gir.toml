@@ -33,8 +33,7 @@ generate = [
     "PapersShell.SearchResult",
     "PapersShell.SidebarAnnotations",
     "PapersShell.SidebarPage",
-    "PapersShell.Window",
-    "PapersShell.WindowRunMode",
+    "PapersShell.DocumentView",
     "PapersShell.*",
 ]
 
@@ -58,6 +57,7 @@ manual = [
     "Gio.File",
     "Gio.Initable",
     "Gio.ListModel",
+    "Gio.PasswordSave",
     "GObject.Object",
     "Gtk.Accessible",
     "Gtk.Align",

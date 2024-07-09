@@ -23,28 +23,6 @@ glib::wrapper! {
 impl Document {
     pub const NONE: Option<&'static Document> = None;
 
-    #[doc(alias = "pps_document_doc_mutex_lock")]
-    pub fn doc_mutex_lock() {
-        assert_initialized_main_thread!();
-        unsafe {
-            ffi::pps_document_doc_mutex_lock();
-        }
-    }
-
-    #[doc(alias = "pps_document_doc_mutex_trylock")]
-    pub fn doc_mutex_trylock() -> bool {
-        assert_initialized_main_thread!();
-        unsafe { from_glib(ffi::pps_document_doc_mutex_trylock()) }
-    }
-
-    #[doc(alias = "pps_document_doc_mutex_unlock")]
-    pub fn doc_mutex_unlock() {
-        assert_initialized_main_thread!();
-        unsafe {
-            ffi::pps_document_doc_mutex_unlock();
-        }
-    }
-
     #[doc(alias = "pps_document_factory_add_filters")]
     pub fn factory_add_filters(dialog: &gtk::FileDialog, document: Option<&impl IsA<Document>>) {
         assert_initialized_main_thread!();
@@ -81,28 +59,6 @@ impl Document {
     //pub fn factory_get_document_full(uri: &str, flags: /*Ignored*/DocumentLoadFlags) -> Result<Document, glib::Error> {
     //    unsafe { TODO: call ffi:pps_document_factory_get_document_full() }
     //}
-
-    #[doc(alias = "pps_document_fc_mutex_lock")]
-    pub fn fc_mutex_lock() {
-        assert_initialized_main_thread!();
-        unsafe {
-            ffi::pps_document_fc_mutex_lock();
-        }
-    }
-
-    #[doc(alias = "pps_document_fc_mutex_trylock")]
-    pub fn fc_mutex_trylock() -> bool {
-        assert_initialized_main_thread!();
-        unsafe { from_glib(ffi::pps_document_fc_mutex_trylock()) }
-    }
-
-    #[doc(alias = "pps_document_fc_mutex_unlock")]
-    pub fn fc_mutex_unlock() {
-        assert_initialized_main_thread!();
-        unsafe {
-            ffi::pps_document_fc_mutex_unlock();
-        }
-    }
 
     #[doc(alias = "pps_document_misc_format_datetime")]
     pub fn misc_format_datetime(dt: &glib::DateTime) -> Option<glib::GString> {
@@ -164,6 +120,29 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
             from_glib(ffi::pps_document_check_dimensions(
                 self.as_ref().to_glib_none().0,
             ))
+        }
+    }
+
+    #[doc(alias = "pps_document_doc_mutex_lock")]
+    fn doc_mutex_lock(&self) {
+        unsafe {
+            ffi::pps_document_doc_mutex_lock(self.as_ref().to_glib_none().0);
+        }
+    }
+
+    #[doc(alias = "pps_document_doc_mutex_trylock")]
+    fn doc_mutex_trylock(&self) -> bool {
+        unsafe {
+            from_glib(ffi::pps_document_doc_mutex_trylock(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
+
+    #[doc(alias = "pps_document_doc_mutex_unlock")]
+    fn doc_mutex_unlock(&self) {
+        unsafe {
+            ffi::pps_document_doc_mutex_unlock(self.as_ref().to_glib_none().0);
         }
     }
 

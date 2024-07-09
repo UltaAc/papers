@@ -49,6 +49,26 @@ pub trait JobLoadExt: IsA<JobLoad> + sealed::Sealed + 'static {
         }
     }
 
+    #[doc(alias = "pps_job_load_get_password")]
+    #[doc(alias = "get_password")]
+    fn password(&self) -> Option<glib::GString> {
+        unsafe {
+            from_glib_none(ffi::pps_job_load_get_password(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
+
+    #[doc(alias = "pps_job_load_get_password_save")]
+    #[doc(alias = "get_password_save")]
+    fn password_save(&self) -> gio::PasswordSave {
+        unsafe {
+            from_glib(ffi::pps_job_load_get_password_save(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
+
     #[cfg(feature = "v46")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v46")))]
     #[doc(alias = "pps_job_load_set_fd")]
@@ -76,12 +96,19 @@ pub trait JobLoadExt: IsA<JobLoad> + sealed::Sealed + 'static {
     //}
 
     #[doc(alias = "pps_job_load_set_password")]
-    fn set_password(&self, password: &str) {
+    fn set_password(&self, password: Option<&str>) {
         unsafe {
             ffi::pps_job_load_set_password(
                 self.as_ref().to_glib_none().0,
                 password.to_glib_none().0,
             );
+        }
+    }
+
+    #[doc(alias = "pps_job_load_set_password_save")]
+    fn set_password_save(&self, save: gio::PasswordSave) {
+        unsafe {
+            ffi::pps_job_load_set_password_save(self.as_ref().to_glib_none().0, save.into_glib());
         }
     }
 

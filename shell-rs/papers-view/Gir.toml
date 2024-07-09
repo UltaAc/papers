@@ -47,6 +47,7 @@ manual = [
     "GLib.List",
     "GObject.Object",
     "Gio.ListModel",
+    "Gio.PasswordSave",
     "Gio.Resource",
     "Gtk.Border",
     "Gtk.MovementStep",

@@ -90,6 +90,7 @@ headers = files(
   'pps-sidebar-annotations.h',
   'pps-progress-message-area.h',
   'pps-message-area.h',
+  'pps-keyring.h',
 )
 
 enum_sources = gnome.mkenums_simple(

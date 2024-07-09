@@ -79,6 +79,15 @@ impl ViewPresentation {
         ObjectExt::set_property(self, "current-page", current_page)
     }
 
+    pub fn set_document<P: IsA<papers_document::Document>>(&self, document: Option<&P>) {
+        ObjectExt::set_property(self, "document", document)
+    }
+
+    #[doc(alias = "inverted-colors")]
+    pub fn set_inverted_colors(&self, inverted_colors: bool) {
+        ObjectExt::set_property(self, "inverted-colors", inverted_colors)
+    }
+
     #[doc(alias = "change-page")]
     pub fn connect_change_page<F: Fn(&Self, gtk::ScrollType) + 'static>(
         &self,
@@ -186,6 +195,54 @@ impl ViewPresentation {
                 b"notify::current-page\0".as_ptr() as *const _,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_current_page_trampoline::<F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
+    #[doc(alias = "document")]
+    pub fn connect_document_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_document_trampoline<F: Fn(&ViewPresentation) + 'static>(
+            this: *mut ffi::PpsViewPresentation,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::document\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
+                    notify_document_trampoline::<F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
+    #[doc(alias = "inverted-colors")]
+    pub fn connect_inverted_colors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_inverted_colors_trampoline<
+            F: Fn(&ViewPresentation) + 'static,
+        >(
+            this: *mut ffi::PpsViewPresentation,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::inverted-colors\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
+                    notify_inverted_colors_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
             )

@@ -21,6 +21,311 @@ and/or use gtk-doc annotations.  -->
              shared-library="libppsshell-4.0.so.4,libppsview-4.0.so.4,libppsdocument-4.0.so.5"
              c:identifier-prefixes="Pps"
              c:symbol-prefixes="pps">
+    <class name="DocumentView"
+           c:symbol-prefix="document_view"
+           c:type="PpsDocumentView"
+           parent="Adw.BreakpointBin"
+           glib:type-name="PpsDocumentView"
+           glib:get-type="pps_document_view_get_type"
+           glib:type-struct="DocumentViewClass">
+      <source-position filename="shell/pps-document-view.h" line="38"/>
+      <implements name="Gtk.Accessible"/>
+      <implements name="Gtk.Buildable"/>
+      <implements name="Gtk.ConstraintTarget"/>
+      <constructor name="new" c:identifier="pps_document_view_new">
+        <doc xml:space="preserve"
+             filename="shell/pps-document-view.c"
+             line="4389">Creates a #GtkWidget that represents the window.</doc>
+        <source-position filename="shell/pps-document-view.h" line="44"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="shell/pps-document-view.c"
+               line="4394">the #GtkWidget that represents the window.</doc>
+          <type name="DocumentView" c:type="PpsDocumentView*"/>
+        </return-value>
+      </constructor>
+      <method name="close_handled"
+              c:identifier="pps_document_view_close_handled">
+        <source-position filename="shell/pps-document-view.h" line="64"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_doc_view" transfer-ownership="none">
+            <type name="DocumentView" c:type="PpsDocumentView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="focus_view" c:identifier="pps_document_view_focus_view">
+        <source-position filename="shell/pps-document-view.h" line="55"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_doc_view" transfer-ownership="none">
+            <type name="DocumentView" c:type="PpsDocumentView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_dbus_object_path"
+              c:identifier="pps_document_view_get_dbus_object_path">
+        <source-position filename="shell/pps-document-view.h" line="54"/>
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_doc_view" transfer-ownership="none">
+            <type name="DocumentView" c:type="PpsDocumentView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_header_bar"
+              c:identifier="pps_document_view_get_header_bar">
+        <source-position filename="shell/pps-document-view.h" line="56"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="shell/pps-document-view.c"
+               line="4406">the #AdwHeaderBar that represents the toolbar of the window.</doc>
+          <type name="Adw.HeaderBar" c:type="AdwHeaderBar*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_doc_view" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="shell/pps-document-view.c"
+                 line="4404">the #PpsDocumentView</doc>
+            <type name="DocumentView" c:type="PpsDocumentView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_metadata"
+              c:identifier="pps_document_view_get_metadata">
+        <source-position filename="shell/pps-document-view.h" line="59"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="shell/pps-document-view.c"
+               line="4435">the #PpsMetadata of the document shown in the window.</doc>
+          <type name="Metadata" c:type="PpsMetadata*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_doc_view" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="shell/pps-document-view.c"
+                 line="4433">the #PpsDocumentView</doc>
+            <type name="DocumentView" c:type="PpsDocumentView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_model" c:identifier="pps_document_view_get_model">
+        <source-position filename="shell/pps-document-view.h" line="68"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="shell/pps-document-view.c"
+               line="4497">the #PpsDocumentModel</doc>
+          <type name="PapersView.DocumentModel" c:type="PpsDocumentModel*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_doc_view" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="shell/pps-document-view.c"
+                 line="4495">the #PpsDocumentView</doc>
+            <type name="DocumentView" c:type="PpsDocumentView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_uri" c:identifier="pps_document_view_get_uri">
+        <doc xml:space="preserve"
+             filename="shell/pps-document-view.c"
+             line="1179">It returns the uri of the document showed in the #PpsDocumentView.</doc>
+        <source-position filename="shell/pps-document-view.h" line="45"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="shell/pps-document-view.c"
+               line="1185">the uri of the document showed in the #PpsDocumentView.</doc>
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_doc_view" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="shell/pps-document-view.c"
+                 line="1181">The instance of the #PpsDocumentView.</doc>
+            <type name="DocumentView" c:type="PpsDocumentView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="handle_annot_popup"
+              c:identifier="pps_document_view_handle_annot_popup">
+        <source-position filename="shell/pps-document-view.h" line="57"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_doc_view" transfer-ownership="none">
+            <type name="DocumentView" c:type="PpsDocumentView*"/>
+          </instance-parameter>
+          <parameter name="annot" transfer-ownership="none">
+            <type name="PapersDocument.Annotation" c:type="PpsAnnotation*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="is_empty" c:identifier="pps_document_view_is_empty">
+        <doc xml:space="preserve"
+             filename="shell/pps-document-view.c"
+             line="424">It does look if there is any document loaded or if there is any job to load
+a document.</doc>
+        <source-position filename="shell/pps-document-view.h" line="50"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="shell/pps-document-view.c"
+               line="431">%TRUE if there isn't any document loaded or any any documente to be
+         loaded, %FALSE in other case.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_doc_view" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="shell/pps-document-view.c"
+                 line="426">The instance of the #PpsDocumentView.</doc>
+            <type name="DocumentView" c:type="PpsDocumentView*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="open_document"
+              c:identifier="pps_document_view_open_document">
+        <source-position filename="shell/pps-document-view.h" line="46"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_doc_view" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="shell/pps-document-view.c"
+                 line="1208">a #PpsDocumentView</doc>
+            <type name="DocumentView" c:type="PpsDocumentView*"/>
+          </instance-parameter>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+          <parameter name="metadata" transfer-ownership="none">
+            <type name="Metadata" c:type="PpsMetadata*"/>
+          </parameter>
+          <parameter name="dest"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve"
+                 filename="shell/pps-document-view.c"
+                 line="1210">A #PpsLinkDest</doc>
+            <type name="PapersDocument.LinkDest" c:type="PpsLinkDest*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="print_range" c:identifier="pps_document_view_print_range">
+        <source-position filename="shell/pps-document-view.h" line="51"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_doc_view" transfer-ownership="none">
+            <type name="DocumentView" c:type="PpsDocumentView*"/>
+          </instance-parameter>
+          <parameter name="first_page" transfer-ownership="none">
+            <type name="gint" c:type="int"/>
+          </parameter>
+          <parameter name="last_page" transfer-ownership="none">
+            <type name="gint" c:type="int"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="reload_document"
+              c:identifier="pps_document_view_reload_document">
+        <source-position filename="shell/pps-document-view.h" line="62"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_doc_view" transfer-ownership="none">
+            <type name="DocumentView" c:type="PpsDocumentView*"/>
+          </instance-parameter>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_document"
+              c:identifier="pps_document_view_set_document">
+        <source-position filename="shell/pps-document-view.h" line="60"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_doc_view" transfer-ownership="none">
+            <type name="DocumentView" c:type="PpsDocumentView*"/>
+          </instance-parameter>
+          <parameter name="document" transfer-ownership="none">
+            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_filenames"
+              c:identifier="pps_document_view_set_filenames">
+        <source-position filename="shell/pps-document-view.h" line="65"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_doc_view" transfer-ownership="none">
+            <type name="DocumentView" c:type="PpsDocumentView*"/>
+          </instance-parameter>
+          <parameter name="display_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="edit_name" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_fullscreen_mode"
+              c:identifier="pps_document_view_set_fullscreen_mode">
+        <source-position filename="shell/pps-document-view.h" line="69"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_doc_view" transfer-ownership="none">
+            <type name="DocumentView" c:type="PpsDocumentView*"/>
+          </instance-parameter>
+          <parameter name="fullscreened" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_inverted_colors"
+              c:identifier="pps_document_view_set_inverted_colors">
+        <source-position filename="shell/pps-document-view.h" line="71"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_doc_view" transfer-ownership="none">
+            <type name="DocumentView" c:type="PpsDocumentView*"/>
+          </instance-parameter>
+          <parameter name="inverted" transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="base_instance">
+        <type name="Adw.BreakpointBin" c:type="AdwBreakpointBin"/>
+      </field>
+    </class>
+    <record name="DocumentViewClass"
+            c:type="PpsDocumentViewClass"
+            glib:is-gtype-struct-for="DocumentView">
+      <source-position filename="shell/pps-document-view.h" line="38"/>
+      <field name="parent_class">
+        <type name="Adw.BreakpointBinClass" c:type="AdwBreakpointBinClass"/>
+      </field>
+    </record>
     <function-macro name="FIND_SIDEBAR"
                     c:identifier="PPS_FIND_SIDEBAR"
                     introspectable="0">
@@ -2662,260 +2967,6 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
         </callback>
       </field>
     </record>
-    <class name="Window"
-           c:symbol-prefix="window"
-           c:type="PpsWindow"
-           parent="Adw.ApplicationWindow"
-           glib:type-name="PpsWindow"
-           glib:get-type="pps_window_get_type"
-           glib:type-struct="WindowClass">
-      <source-position filename="shell/pps-window.h" line="47"/>
-      <implements name="Gio.ActionGroup"/>
-      <implements name="Gio.ActionMap"/>
-      <implements name="Gtk.Accessible"/>
-      <implements name="Gtk.Buildable"/>
-      <implements name="Gtk.ConstraintTarget"/>
-      <implements name="Gtk.Native"/>
-      <implements name="Gtk.Root"/>
-      <implements name="Gtk.ShortcutManager"/>
-      <constructor name="new" c:identifier="pps_window_new">
-        <doc xml:space="preserve"
-             filename="shell/pps-window.c"
-             line="5796">Creates a #GtkWidget that represents the window.</doc>
-        <source-position filename="shell/pps-window.h" line="53"/>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-window.c"
-               line="5801">the #GtkWidget that represents the window.</doc>
-          <type name="Window" c:type="PpsWindow*"/>
-        </return-value>
-      </constructor>
-      <method name="focus_view" c:identifier="pps_window_focus_view">
-        <source-position filename="shell/pps-window.h" line="64"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="pps_window" transfer-ownership="none">
-            <type name="Window" c:type="PpsWindow*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="get_dbus_object_path"
-              c:identifier="pps_window_get_dbus_object_path">
-        <source-position filename="shell/pps-window.h" line="63"/>
-        <return-value transfer-ownership="none">
-          <type name="utf8" c:type="const gchar*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="pps_window" transfer-ownership="none">
-            <type name="Window" c:type="PpsWindow*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="get_header_bar" c:identifier="pps_window_get_header_bar">
-        <source-position filename="shell/pps-window.h" line="65"/>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-window.c"
-               line="5816">the #AdwHeaderBar that represents the toolbar of the window.</doc>
-          <type name="Adw.HeaderBar" c:type="AdwHeaderBar*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="pps_window" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-window.c"
-                 line="5814">the #PpsWindow</doc>
-            <type name="Window" c:type="PpsWindow*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="get_metadata" c:identifier="pps_window_get_metadata">
-        <source-position filename="shell/pps-window.h" line="68"/>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-window.c"
-               line="5845">the #PpsMetadata of the document shown in the window.</doc>
-          <type name="Metadata" c:type="PpsMetadata*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="pps_window" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-window.c"
-                 line="5843">the #PpsWindow</doc>
-            <type name="Window" c:type="PpsWindow*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="get_uri" c:identifier="pps_window_get_uri">
-        <doc xml:space="preserve"
-             filename="shell/pps-window.c"
-             line="1637">It returns the uri of the document showed in the #PpsWindow.</doc>
-        <source-position filename="shell/pps-window.h" line="54"/>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-window.c"
-               line="1643">the uri of the document showed in the #PpsWindow.</doc>
-          <type name="utf8" c:type="const char*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="pps_window" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-window.c"
-                 line="1639">The instance of the #PpsWindow.</doc>
-            <type name="Window" c:type="PpsWindow*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="handle_annot_popup"
-              c:identifier="pps_window_handle_annot_popup">
-        <source-position filename="shell/pps-window.h" line="66"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="pps_window" transfer-ownership="none">
-            <type name="Window" c:type="PpsWindow*"/>
-          </instance-parameter>
-          <parameter name="annot" transfer-ownership="none">
-            <type name="PapersDocument.Annotation" c:type="PpsAnnotation*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="is_empty" c:identifier="pps_window_is_empty">
-        <doc xml:space="preserve"
-             filename="shell/pps-window.c"
-             line="530">It does look if there is any document loaded or if there is any job to load
-a document.</doc>
-        <source-position filename="shell/pps-window.h" line="59"/>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-window.c"
-               line="537">%TRUE if there isn't any document loaded or any any documente to be
-         loaded, %FALSE in other case.</doc>
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="pps_window" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-window.c"
-                 line="532">The instance of the #PpsWindow.</doc>
-            <type name="Window" c:type="PpsWindow*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="open_uri" c:identifier="pps_window_open_uri">
-        <source-position filename="shell/pps-window.h" line="55"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="pps_window" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-window.c"
-                 line="1909">a `PpsWindow`</doc>
-            <type name="Window" c:type="PpsWindow*"/>
-          </instance-parameter>
-          <parameter name="uri" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-window.c"
-                 line="1910">uri to open</doc>
-            <type name="utf8" c:type="const char*"/>
-          </parameter>
-          <parameter name="dest"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-window.c"
-                 line="1911">destination to point to</doc>
-            <type name="PapersDocument.LinkDest" c:type="PpsLinkDest*"/>
-          </parameter>
-          <parameter name="mode" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-window.c"
-                 line="1912">open mode</doc>
-            <type name="WindowRunMode" c:type="PpsWindowRunMode"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="print_range" c:identifier="pps_window_print_range">
-        <source-position filename="shell/pps-window.h" line="60"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="pps_window" transfer-ownership="none">
-            <type name="Window" c:type="PpsWindow*"/>
-          </instance-parameter>
-          <parameter name="first_page" transfer-ownership="none">
-            <type name="gint" c:type="int"/>
-          </parameter>
-          <parameter name="last_page" transfer-ownership="none">
-            <type name="gint" c:type="int"/>
-          </parameter>
-        </parameters>
-      </method>
-      <field name="base_instance">
-        <type name="Adw.ApplicationWindow" c:type="AdwApplicationWindow"/>
-      </field>
-    </class>
-    <record name="WindowClass"
-            c:type="PpsWindowClass"
-            glib:is-gtype-struct-for="Window">
-      <source-position filename="shell/pps-window.h" line="47"/>
-      <field name="parent_class">
-        <type name="Adw.ApplicationWindowClass"
-              c:type="AdwApplicationWindowClass"/>
-      </field>
-    </record>
-    <enumeration name="WindowRunMode"
-                 glib:type-name="PpsWindowRunMode"
-                 glib:get-type="pps_window_run_mode_get_type"
-                 c:type="PpsWindowRunMode">
-      <member name="normal"
-              value="0"
-              c:identifier="PPS_WINDOW_MODE_NORMAL"
-              glib:nick="normal"
-              glib:name="PPS_WINDOW_MODE_NORMAL">
-      </member>
-      <member name="fullscreen"
-              value="1"
-              c:identifier="PPS_WINDOW_MODE_FULLSCREEN"
-              glib:nick="fullscreen"
-              glib:name="PPS_WINDOW_MODE_FULLSCREEN">
-      </member>
-      <member name="presentation"
-              value="2"
-              c:identifier="PPS_WINDOW_MODE_PRESENTATION"
-              glib:nick="presentation"
-              glib:name="PPS_WINDOW_MODE_PRESENTATION">
-      </member>
-      <member name="start_view"
-              value="3"
-              c:identifier="PPS_WINDOW_MODE_START_VIEW"
-              glib:nick="start-view"
-              glib:name="PPS_WINDOW_MODE_START_VIEW">
-      </member>
-      <member name="error_view"
-              value="4"
-              c:identifier="PPS_WINDOW_MODE_ERROR_VIEW"
-              glib:nick="error-view"
-              glib:name="PPS_WINDOW_MODE_ERROR_VIEW">
-      </member>
-      <member name="password_view"
-              value="5"
-              c:identifier="PPS_WINDOW_MODE_PASSWORD_VIEW"
-              glib:nick="password-view"
-              glib:name="PPS_WINDOW_MODE_PASSWORD_VIEW">
-      </member>
-      <member name="loader_view"
-              value="6"
-              c:identifier="PPS_WINDOW_MODE_LOADER_VIEW"
-              glib:nick="loader-view"
-              glib:name="PPS_WINDOW_MODE_LOADER_VIEW">
-      </member>
-    </enumeration>
     <record name="_SearchContextClass" c:type="_PpsSearchContextClass">
       <source-position filename="shell/pps-search-context.h" line="41"/>
       <field name="parent_class" writable="1">
@@ -2945,6 +2996,36 @@ a document.</doc>
       <return-value transfer-ownership="full">
         <type name="Gio.Resource" c:type="GResource*"/>
       </return-value>
+    </function>
+    <function name="keyring_lookup_password"
+              c:identifier="pps_keyring_lookup_password">
+      <source-position filename="shell/pps-keyring.h" line="28"/>
+      <return-value transfer-ownership="full">
+        <type name="utf8" c:type="gchar*"/>
+      </return-value>
+      <parameters>
+        <parameter name="uri" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="keyring_save_password"
+              c:identifier="pps_keyring_save_password">
+      <source-position filename="shell/pps-keyring.h" line="29"/>
+      <return-value transfer-ownership="none">
+        <type name="gboolean" c:type="gboolean"/>
+      </return-value>
+      <parameters>
+        <parameter name="uri" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="password" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="flags" transfer-ownership="none">
+          <type name="Gio.PasswordSave" c:type="GPasswordSave"/>
+        </parameter>
+      </parameters>
     </function>
     <function name="papers_application_interface_info"
               c:identifier="pps_papers_application_interface_info"
@@ -3024,12 +3105,6 @@ The properties are overridden in the order they are defined.</doc>
                filename="shell/pps-utils.c"
                line="93">The #PpsLinkDest of the document.</doc>
           <type name="PapersDocument.LinkDest" c:type="PpsLinkDest*"/>
-        </parameter>
-        <parameter name="mode" transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-utils.c"
-               line="94">The run mode of the window.</doc>
-          <type name="WindowRunMode" c:type="PpsWindowRunMode"/>
         </parameter>
       </parameters>
     </function>
