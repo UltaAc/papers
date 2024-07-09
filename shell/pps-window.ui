@@ -505,6 +505,12 @@
                     </child>
                     <child>
                       <object class='GtkShortcut'>
+                        <property name='trigger'>Escape</property>
+                        <property name='action'>action(win.escape)</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class='GtkShortcut'>
                         <property name='trigger'>w</property>
                         <property name='action'>action(win.sizing-mode)</property>
                         <property name='arguments'>'fit-width'</property>

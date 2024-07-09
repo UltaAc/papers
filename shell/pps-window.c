@@ -3930,8 +3930,7 @@ pps_window_cmd_escape (GSimpleAction *action,
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
 
 	if (gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack))
-	    == priv->find_sidebar
-	    && gtk_widget_get_focus_child (priv->find_sidebar) != NULL)
+	    == priv->find_sidebar)
 		gtk_widget_activate_action (GTK_WIDGET (window), "doc.toggle-find", NULL);
 	else if (PPS_WINDOW_IS_PRESENTATION (priv))
 		pps_window_stop_presentation (window, TRUE);

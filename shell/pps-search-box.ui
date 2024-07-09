@@ -17,6 +17,7 @@
             <signal name="activate" handler="entry_activated" swapped="yes" />
             <signal name="next-match" handler="entry_next_matched" swapped="yes" />
             <signal name="previous-match" handler="entry_previous_matched" swapped="yes" />
+            <signal name="stop-search" handler="stopped_search" swapped="yes" />
             <accessibility>
               <relation name="labelled-by">entry</relation>
             </accessibility>

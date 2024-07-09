@@ -206,6 +206,11 @@ mod imp {
                 .activate_action("doc.find-previous", None)
                 .unwrap();
         }
+
+        #[template_callback]
+        fn stopped_search(&self) {
+            self.obj().activate_action("doc.toggle-find", None).unwrap();
+        }
     }
 }
 
