@@ -3,28 +3,12 @@
   <requires lib="gtk" version="4.0" />
   <requires lib="libadwaita" version="1.0" />
 
-  <object class="PpsDocumentModel" id="model">
-    <!-- This object should be constructed before it can be used as construct-only properties. -->
-    <signal name="page-changed" handler="page_changed_cb" swapped="yes" />
-    <signal name="notify::scale" handler="zoom_changed_cb" />
-    <signal name="notify::sizing-mode" handler="sizing_mode_changed_cb" />
-    <signal name="notify::rotation" handler="rotation_changed_cb" />
-    <signal name="notify::continuous" handler="continuous_changed_cb" />
-    <signal name="notify::page-layout" handler="page_layout_changed_cb" />
-    <signal name="notify::dual-odd-left" handler="dual_mode_odd_pages_left_changed_cb" />
-    <signal name="notify::rtl" handler="direction_changed_cb" />
-    <signal name="notify::inverted-colors" handler="inverted_colors_changed_cb" />
+  <object class="GSettings" id="settings">
+    <property name="schema-id">org.gnome.Papers</property>
   </object>
 
   <object class="GSettings" id="default_settings">
     <property name="schema-id">org.gnome.Papers.Default</property>
-  </object>
-
-  <object class="GSettings" id="settings">
-    <property name="schema-id">org.gnome.Papers</property>
-    <signal name="changed::override-restrictions" handler="override_restrictions_changed" />
-    <signal name="changed::page-cache-size" handler="page_cache_size_changed" />
-    <signal name="changed::allow-links-change-zoom" handler="allow_links_change_zoom_changed" />
   </object>
 
   <template class="PpsWindow" parent="AdwApplicationWindow">
@@ -32,640 +16,139 @@
     <property name="default-height">600</property>
     <property name="width-request">360</property>
     <property name="height-request">360</property>
-    <signal name="notify::maximized" handler="window_maximized_changed" />
-    <signal name="notify::default-width" handler="window_size_changed_cb" />
-    <signal name="notify::default-height" handler="window_size_changed_cb" />
-
-    <child>
-      <object class="AdwBreakpoint">
-        <condition>max-width: 720sp</condition>
-        <setter object="split_view" property="collapsed">True</setter>
-      </object>
-    </child>
-    <child>
-      <object class="AdwBreakpoint">
-        <condition>max-width: 540sp</condition>
-        <setter object="split_view" property="collapsed">True</setter>
-        <setter object="page_selector" property="visible">False</setter>
-      </object>
-    </child>
 
     <property name="content">
-      <object class="AdwViewStack" id="stack">
-        <property name="hhomogeneous">False</property>
-        <property name="vhomogeneous">False</property>
-        <child>
-          <object class="AdwViewStackPage">
-            <property name="name">start</property>
-            <property name="child">
-              <object class="AdwToolbarView">
-                <child type="top">
-                  <object class="AdwHeaderBar">
-                  </object>
-                </child>
-                <property name="content">
-                  <object class="AdwStatusPage">
-                    <property name="icon-name">x-office-document-symbolic</property>
-                    <property name="title" translatable="yes">Open a Document</property>
-                    <property name="description" translatable="yes">Drag and drop documents here</property>
-                    <property name="child">
-                      <object class="GtkButton" id="open_button">
-                        <property name="halign">center</property>
-                        <property name="action-name">win.open</property>
-                        <property name="label" translatable="yes">_Open…</property>
-                        <property name="use-underline">True</property>
-                        <property name="tooltip-text" translatable="yes">Open a Document</property>
-                        <style>
-                          <class name="suggested-action" />
-                          <class name="pill" />
-                        </style>
-                      </object>
-                    </property>
-                  </object>
-                </property>
-              </object>
-            </property>
-          </object>
-        </child>
-        <child>
-          <object class="AdwViewStackPage">
-            <property name="name">error</property>
-            <property name="child">
-              <object class="AdwToolbarView">
-                <child type="top">
-                  <object class="AdwHeaderBar" />
-                </child>
-                <property name="content">
-                  <object class="AdwStatusPage" id="error_page">
-                    <property name="icon-name">dialog-error-symbolic</property>
-                    <property name="title" translatable="yes">Unable to Open Document</property>
-                    <property name="child">
-                      <object class="GtkButton">
-                        <property name="halign">center</property>
-                        <property name="action-name">win.open</property>
-                        <property name="label" translatable="yes">_Open Other File…</property>
-                        <property name="use-underline">True</property>
-                        <style>
-                          <class name="suggested-action" />
-                          <class name="pill" />
-                        </style>
-                      </object>
-                    </property>
-                  </object>
-                </property>
-              </object>
-            </property>
-          </object>
-        </child>
-        <child>
-          <object class="AdwViewStackPage">
-            <property name="name">document</property>
-            <property name="title" translatable="yes">Document</property>
-            <property name="child">
-              <object class="AdwOverlaySplitView" id="split_view">
-                <property name="min-sidebar-width">210</property>
-                <property name="max-sidebar-width">300</property>
-                <property name="pin-sidebar">True</property>
-                <signal name="notify::show-sidebar" handler="sidebar_visibility_changed_cb" />
-                <signal name="notify::collapsed" handler="sidebar_collapsed_changed_cb" />
-                <property name="sidebar">
-                  <object class="AdwToolbarView" id="sidebar_toolbar_view">
+      <object class="AdwToastOverlay" id="toast_overlay">
+        <property name="child">
+          <object class="AdwViewStack" id="stack">
+            <property name="hhomogeneous">False</property>
+            <property name="vhomogeneous">False</property>
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="name">start</property>
+                <property name="child">
+                  <object class="AdwToolbarView">
                     <child type="top">
                       <object class="AdwHeaderBar">
-                        <child type="start">
-                          <object class="GtkToggleButton" id="find_button">
-                            <property name="icon-name">edit-find-symbolic</property>
-                            <property name="action-name">doc.toggle-find</property>
-                            <signal name="notify::sensitive" handler="find_button_sensitive_changed" />
-                          </object>
-                        </child>
-                        <child type="title">
-                          <object class="AdwWindowTitle">
-                            <property name="title" translatable="yes">Papers</property>
-                          </object>
-                        </child>
-                        <child type="end">
-                          <object class="GtkMenuButton" id="action_menu_button">
-                            <property name="icon-name">open-menu-symbolic</property>
-                            <property name="tooltip-text" translatable="yes">Main Menu</property>
-                            <property name="menu-model">sidebar_menu</property>
-                            <property name="primary">True</property>
-                          </object>
-                        </child>
                       </object>
                     </child>
                     <property name="content">
-                      <object class="GtkStack" id="sidebar_stack">
-                        <property name="transition-type">crossfade</property>
-                        <child>
-                          <object class="PpsSidebar" id="sidebar">
-                            <property name="document-model">model</property>
-                            <signal name="notify::visible-child-name"
-                                    handler="sidebar_current_page_changed_cb" />
-                            <child internal-child="stack">
-                              <object class="GtkStack">
-                                <property name="transition-type">crossfade</property>
-                                <child>
-                                  <object class="GtkStackPage">
-                                    <property name="name">thumbnails</property>
-                                    <property name="title" translatable="yes">Thumbnails</property>
-                                    <property name="icon-name">grid-large-symbolic</property>
-                                    <property name="child">
-                                      <object class="PpsSidebarThumbnails" id="sidebar_thumbs">
-                                        <property name="document-model">model</property>
-                                        <property name="sidebar">sidebar</property>
-                                      </object>
-                                    </property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkStackPage">
-                                    <property name="name">links</property>
-                                    <property name="title" translatable="yes">Outline</property>
-                                    <property name="icon-name">outline-symbolic</property>
-                                    <property name="child">
-                                      <object class="PpsSidebarLinks" id="sidebar_links">
-                                        <property name="document-model">model</property>
-                                        <property name="sidebar">sidebar</property>
-                                        <signal name="link-activated"
-                                                handler="sidebar_links_link_activated_cb" />
-                                      </object>
-                                    </property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkStackPage">
-                                    <property name="name">annotations</property>
-                                    <property name="title" translatable="yes">Annotations</property>
-                                    <property name="icon-name">chat-bubble-text-symbolic</property>
-                                    <property name="child">
-                                      <object class="PpsSidebarAnnotations" id="sidebar_annots">
-                                        <property name="document-model">model</property>
-                                        <property name="sidebar">sidebar</property>
-                                        <signal name="annot-activated"
-                                                handler="sidebar_annots_annot_activated_cb" />
-                                      </object>
-                                    </property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkStackPage">
-                                    <property name="name">bookmarks</property>
-                                    <property name="title" translatable="yes">Bookmarks</property>
-                                    <property name="icon-name">user-bookmarks-symbolic</property>
-                                    <property name="child">
-                                      <object class="PpsSidebarBookmarks" id="sidebar_bookmarks">
-                                        <property name="document-model">model</property>
-                                        <property name="sidebar">sidebar</property>
-                                        <signal name="bookmark-activated" handler="bookmark_activated_cb" />
-                                      </object>
-                                    </property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkStackPage">
-                                    <property name="name">attachments</property>
-                                    <property name="title" translatable="yes">Attachments</property>
-                                    <property name="icon-name">mail-attachment-symbolic</property>
-                                    <property name="child">
-                                      <object class="PpsSidebarAttachments" id="sidebar_attachments">
-                                        <property name="document-model">model</property>
-                                        <property name="sidebar">sidebar</property>
-                                        <signal name="popup" handler="attachment_bar_menu_popup_cb" />
-                                        <signal name="save-attachment"
-                                                handler="attachment_bar_save_attachment_cb" />
-                                      </object>
-                                    </property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkStackPage">
-                                    <property name="name">layers</property>
-                                    <property name="title" translatable="yes">Layers</property>
-                                    <property name="icon-name">view-paged-symbolic</property>
-                                    <property name="child">
-                                      <object class="PpsSidebarLayers" id="sidebar_layers">
-                                        <property name="document-model">model</property>
-                                        <property name="sidebar">sidebar</property>
-                                        <signal name="visibility-changed"
-                                                handler="sidebar_layers_visibility_changed" />
-                                      </object>
-                                    </property>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
+                      <object class="AdwStatusPage">
+                        <property name="icon-name">x-office-document-symbolic</property>
+                        <property name="title" translatable="yes">Open a Document</property>
+                        <property name="description" translatable="yes">Drag and drop documents here</property>
+                        <property name="child">
+                          <object class="GtkButton" id="open_button">
+                            <property name="halign">center</property>
+                            <property name="action-name">win.open</property>
+                            <property name="label" translatable="yes">_Open…</property>
+                            <property name="use-underline">True</property>
+                            <property name="tooltip-text" translatable="yes">Open a Document</property>
+                            <style>
+                              <class name="suggested-action" />
+                              <class name="pill" />
+                            </style>
                           </object>
-                        </child>
-                        <child>
-                          <object class="PpsFindSidebar" id="find_sidebar">
-                          </object>
-                        </child>
+                        </property>
                       </object>
                     </property>
                   </object>
                 </property>
-                <property name="content">
-                  <object class="AdwToolbarView" id="document_toolbar_view">
+              </object>
+            </child>
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="name">error</property>
+                <property name="child">
+                  <object class="AdwToolbarView">
                     <child type="top">
-                      <object class="AdwHeaderBar" id="header_bar">
-                        <property name="show-end-title-buttons"
-                                  bind-source="PpsWindow"
-                                  bind-property="fullscreened"
-                                  bind-flags="sync-create|invert-boolean" />
-                        <child type="title">
-                          <object class="AdwWindowTitle">
-                          </object>
-                        </child>
-                        <child type="start">
-                          <object class="GtkToggleButton" id="sidebar_button">
-                            <property name="icon-name">sidebar-show-symbolic</property>
-                            <property name="action-name">win.show-sidebar</property>
-                            <property name="tooltip-text" translatable="yes">Toggle Sidebar</property>
-                          </object>
-                        </child>
-                        <child type="end">
-                          <object class="GtkMenuButton" id="document_menu_button">
-                            <property name="icon-name">view-more-symbolic</property>
-                            <property name="tooltip-text" translatable="yes">Document Menu</property>
-                            <property name="menu-model">document_menu</property>
-                          </object>
-                        </child>
-                        <child type="end">
-                          <object class="PpsPageSelector" id="page_selector">
-                            <property name="model">model</property>
-                            <property name="tooltip-text" translatable="yes">Page Count</property>
-                            <signal name="activate-link" handler="activate_link_cb" />
-                          </object>
-                        </child>
-                      </object>
+                      <object class="AdwHeaderBar" />
                     </child>
                     <property name="content">
-                      <object class="GtkBox" id="view_box">
-                        <child>
-                          <object class="GtkOverlay">
-                            <property name="valign">fill</property>
-                            <property name="vexpand">True</property>
-                            <property name="child">
-                              <object class="AdwToastOverlay" id="toast_overlay">
-                                <property name="child">
-                                  <object class="GtkOverlay">
-                                    <child type="overlay">
-                                      <object class="GtkBox">
-                                        <style>
-                                          <class name="zoom-overlay"/>
-                                        </style>
-                                        <property name="orientation">vertical</property>
-                                        <property name="spacing">9</property>
-                                        <property name="margin-top">18</property>
-                                        <property name="margin-bottom">18</property>
-                                        <property name="margin-start">18</property>
-                                        <property name="margin-end">18</property>
-                                        <property name="halign">end</property>
-                                        <property name="valign">end</property>
-                                        <child>
-                                          <object class="GtkRevealer" id="zoom_fit_best_revealer">
-                                            <property name="transition-type">crossfade</property>
-                                            <property name="child">
-                                              <object class="GtkButton">
-                                                <style>
-                                                  <class name="circular"/>
-                                                  <class name="osd"/>
-                                                </style>
-                                                <property name="icon-name">zoom-fit-best-symbolic</property>
-                                                <property name="action-name">win.sizing-mode</property>
-                                                <property name="action-target">'automatic'</property>
-                                                <property name="tooltip-text" translatable="yes">Fit Automatically</property>
-                                              </object>
-                                            </property>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="GtkSeparator">
-                                            <style>
-                                              <class name="spacer"/>
-                                            </style>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="GtkButton">
-                                            <style>
-                                              <class name="circular"/>
-                                              <class name="osd"/>
-                                            </style>
-                                            <property name="icon-name">zoom-in-symbolic</property>
-                                            <property name="action-name">win.zoom-in</property>
-                                            <property name="tooltip-text" translatable="yes">Zoom In</property>
-                                            <property name="sensitive" bind-source="view" bind-property="can-zoom-in" bind-flags="sync-create" />
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="GtkButton">
-                                            <style>
-                                              <class name="circular"/>
-                                              <class name="osd"/>
-                                            </style>
-                                            <property name="icon-name">zoom-out-symbolic</property>
-                                            <property name="action-name">win.zoom-out</property>
-                                            <property name="tooltip-text" translatable="yes">Zoom Out</property>
-                                            <property name="sensitive" bind-source="view" bind-property="can-zoom-out" bind-flags="sync-create" />
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <property name="child">
-                                      <object class="GtkScrolledWindow" id="scrolled_window">
-                                        <property name="child">
-                                          <object class="PpsView" id="view">
-                                            <property name="hexpand">True</property>
-                                            <property name="vexpand">True</property>
-                                            <property name="halign">fill</property>
-                                            <property name="valign">fill</property>
-                                            <signal name="external-link" handler="view_external_link_cb"
-                                              swapped="yes" />
-                                            <signal name="handle-link" handler="view_handle_link_cb" />
-                                            <signal name="popup" handler="view_menu_popup_cb" />
-                                            <signal name="selection-changed"
-                                              handler="view_selection_changed_cb" />
-                                            <signal name="scroll" handler="scroll_history_cb" />
-                                            <signal name="annot-added" handler="view_annot_added" />
-                                            <signal name="annot-removed" handler="view_annot_removed" />
-                                            <signal name="layers-changed" handler="view_layers_changed_cb" />
-                                            <signal name="notify::is-loading"
-                                              handler="view_is_loading_changed_cb" />
-                                            <signal name="cursor-moved" handler="view_caret_cursor_moved_cb" />
-                                          </object>
-                                        </property>
-                                        <signal name="scroll-child" handler="scroll_child_history_cb" />
-                                        <child>
-                                          <object class="GtkEventControllerFocus">
-                                            <signal name="enter" handler="scrolled_window_focus_in_cb" />
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </property>
-                                  </object>
-                                </property>
-                              </object>
-                            </property>
-                            <child type="overlay">
-                              <object class="GtkBox" id="loading_message">
-                                <property name="name">pps-loading-message</property>
-                                <property name="orientation">horizontal</property>
-                                <property name="spacing">12</property>
-                                <property name="margin-start">10</property>
-                                <property name="margin-end">10</property>
-                                <property name="margin-top">10</property>
-                                <property name="margin-bottom">10</property>
-                                <property name="halign">end</property>
-                                <property name="valign">start</property>
-                                <property name="visible">True</property>
-                                <child>
-                                  <object class="AdwSpinner" />
-                                </child>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="label" translatable="yes">Loading…</property>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
+                      <object class="AdwStatusPage" id="error_page">
+                        <property name="icon-name">dialog-error-symbolic</property>
+                        <property name="title" translatable="yes">Unable to Open Document</property>
+                        <property name="child">
+                          <object class="GtkButton">
+                            <property name="halign">center</property>
+                            <property name="action-name">win.open</property>
+                            <property name="label" translatable="yes">_Open Other File…</property>
+                            <property name="use-underline">True</property>
+                            <style>
+                              <class name="suggested-action" />
+                              <class name="pill" />
+                            </style>
                           </object>
-                        </child>
-                        <child>
-                          <object class="GtkPopoverMenu" id="view_popup">
-                            <property name="has-arrow">False</property>
-                            <property name="menu-model">view-popup-menu</property>
-                            <property name="halign">start</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkPopoverMenu" id="attachment_popup">
-                            <property name="has-arrow">False</property>
-                            <property name="menu-model">attachments-popup</property>
-                            <property name="halign">start</property>
-                          </object>
-                        </child>
+                        </property>
                       </object>
                     </property>
                   </object>
                 </property>
-                <child>
-                  <object class="GtkShortcutController">
-                    <property name="propagation-phase">bubble</property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="name">password</property>
+                <property name="child">
+                  <object class="PpsPasswordView" id="password_view">
+                    <signal name="unlock" handler="password_view_unlock" swapped="yes" />
+                    <signal name="cancelled" handler="password_view_cancelled" swapped="yes" />
+                  </object>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="name">loader</property>
+                <property name="child">
+                  <object class="PpsLoaderView" id="loader_view">
+                    <signal name="cancel" handler="loader_view_cancelled" swapped="yes" />
+                  </object>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="name">document</property>
+                <property name="child">
+                  <object class="PpsDocumentView" id="document_view">
+                  </object>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="name">presentation</property>
+                <property name="child">
+                  <object class="PpsViewPresentation" id="presentation">
+                    <signal name="finished" handler="presentation_finished" swapped="yes" />
+                    <signal name="external-link" handler="external_link_clicked" swapped="yes" />
                     <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>&lt;Ctrl&gt;&lt;Shift&gt;O</property>
-                        <property name='action'>action(doc.open-with)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>&lt;Ctrl&gt;F|slash|KP_Divide</property>
-                        <property name='action'>action(doc.find)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>&lt;Ctrl&gt;G|F3</property>
-                        <property name='action'>action(doc.find-next)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>&lt;Ctrl&gt;&lt;Shift&gt;G|&lt;Shift&gt;F3</property>
-                        <property name='action'>action(doc.find-previous)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>&lt;Shift&gt;Page_Down</property>
-                        <property name='action'>action(doc.go-forward)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>&lt;Shift&gt;Page_Up</property>
-                        <property name='action'>action(doc.go-backwards)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>&lt;alt&gt;N|Forward</property>
-                        <property name='action'>action(doc.go-forward-history)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>&lt;alt&gt;P|Back</property>
-                        <property name='action'>action(doc.go-back-history)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>Escape</property>
-                        <property name='action'>action(win.escape)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>w</property>
-                        <property name='action'>action(win.sizing-mode)</property>
-                        <property name='arguments'>'fit-width'</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>f</property>
-                        <property name='action'>action(win.sizing-mode)</property>
-                        <property name='arguments'>'fit-page'</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>a</property>
-                        <property name='action'>action(win.sizing-mode)</property>
-                        <property name='arguments'>'automatic'</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>&lt;Ctrl&gt;0|&lt;Ctrl&gt;KP_0</property>
-                        <property name='action'>action(win.zoom)</property>
-                        <property name='arguments'>1.</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>s</property>
-                        <property name='action'>action(win.add-text-annotation)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>c</property>
-                        <property name='action'>action(win.continuous)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>d</property>
-                        <property name='action'>action(win.dual-page)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>o</property>
-                        <property name='action'>action(win.dual-odd-left)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>n|&lt;Ctrl&gt;Page_Down</property>
-                        <property name='action'>action(win.go-next-page)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>p|&lt;Ctrl&gt;Page_Up</property>
-                        <property name='action'>action(win.go-previous-page)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>plus|equal|&lt;Ctrl&gt;plus|KP_Add|&lt;Ctrl&gt;KP_Add|&lt;Ctrl&gt;equal</property>
-                        <property name='action'>action(win.zoom-in)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>minus|&lt;Ctrl&gt;minus|KP_Subtract|&lt;Ctrl&gt;KP_Subtract</property>
-                        <property name='action'>action(win.zoom-out)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>&lt;Ctrl&gt;D</property>
-                        <property name='action'>action(win.add-bookmark)</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class='GtkShortcut'>
-                        <property name='trigger'>&lt;Ctrl&gt;&lt;Shift&gt;D</property>
-                        <property name='action'>action(win.delete-bookmark)</property>
+                      <object class="GtkShortcutController">
+                        <child>
+                          <object class='GtkShortcut'>
+                            <property name='trigger'>Escape</property>
+                            <property name='action'>action(win.escape)</property>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
-                </child>
+                </property>
               </object>
-            </property>
+            </child>
           </object>
-        </child>
-        <child>
-          <object class="AdwViewStackPage">
-            <property name="name">password</property>
-            <property name="child">
-              <object class="PpsPasswordView" id="password_view">
-                <signal name="unlock" handler="pps_window_password_view_unlock" swapped="yes" />
-                <signal name="cancelled" handler="pps_window_password_view_cancelled" swapped="yes" />
-              </object>
-            </property>
-          </object>
-        </child>
-        <child>
-          <object class="AdwViewStackPage">
-            <property name="name">loader</property>
-            <property name="child">
-              <object class="PpsLoaderView" id="loader_view">
-                <signal name="cancel" handler="pps_window_loader_view_cancelled" swapped="yes" />
-              </object>
-            </property>
-          </object>
-        </child>
+        </property>
       </object>
     </property>
-    <child>
-      <object class="GtkGestureClick">
-        <property name="button">0</property>
-        <signal name="pressed" handler="pps_window_button_pressed" />
-      </object>
-    </child>
     <child>
       <object class="GtkDropTarget">
         <property name="formats">GdkFileList</property>
         <property name="actions">copy</property>
-        <signal name="drop" handler="pps_window_drag_data_received" />
+        <signal name="drop" handler="drag_data_received" swapped="yes" />
       </object>
     </child>
   </template>
-
-  <object class="AdwAlertDialog" id="caret_mode_alert">
-    <property name="heading" translatable="yes">Enable Caret Navigation?</property>
-    <property name="body" translatable="yes">Pressing F7 turns the caret navigation on or off. This feature places a moveable cursor in text pages, allowing you to move around and select text with your keyboard.</property>
-    <property name="extra-child">
-      <object class="GtkCheckButton">
-        <property name="label" translatable="yes">Don’t show this message again</property>
-      </object>
-    </property>
-    <property name="follows-content-size">True</property>
-    <responses>
-      <response id="cancel" translatable="yes">_Cancel</response>
-      <response id="enable" appearance="destructive" translatable="yes">_Enable</response>
-    </responses>
-    <signal name="response" handler="caret_navigation_alert_response_cb" />
-  </object>
-
-  <object class="AdwAlertDialog" id="print_cancel_alert">
-    <property name="heading" translatable="yes">Abort Printing?</property>
-    <property name="body" translatable="yes">There is one or more active print jobs. If the window is closed, pending print jobs will not be printed.</property>
-    <property name="follows-content-size">True</property>
-    <responses>
-      <response id="force-close" appearance="destructive" translatable="yes">Abort _Print and Close</response>
-      <response id="cancel" translatable="yes">_Cancel</response>
-      <response id="close-later" appearance="suggested"  translatable="yes">Close _After Printing</response>
-    </responses>
-    <signal name="response" handler="print_jobs_confirmation_dialog_response" />
-  </object>
 
   <object class="AdwAlertDialog" id="error_alert">
     <responses>
@@ -673,196 +156,4 @@
     </responses>
   </object>
 
-  <menu id="sidebar_menu">
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">Open</attribute>
-        <attribute name="action">win.open</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">Ni_ght Mode</attribute>
-        <attribute name="action">win.inverted-colors</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">_Keyboard Shortcuts</attribute>
-        <attribute name="action">win.show-help-overlay</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">_Help</attribute>
-        <attribute name="action">app.help</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">_About Papers</attribute>
-        <attribute name="action">app.about</attribute>
-      </item>
-    </section>
-  </menu>
-  <menu id="document_menu">
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">_Print…</attribute>
-        <attribute name="action">win.print</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Fullscreen</attribute>
-        <attribute name="action">win.fullscreen</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Present as Slideshow</attribute>
-        <attribute name="action">win.presentation</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">Open a C_opy</attribute>
-        <attribute name="action">win.open-copy</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Open With…</attribute>
-        <attribute name="action">doc.open-with</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">_Save As…</attribute>
-        <attribute name="action">win.save-as</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">_Continuous</attribute>
-        <attribute name="action">win.continuous</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">_Dual</attribute>
-        <attribute name="action">win.dual-page</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">_Odd Pages Left</attribute>
-        <attribute name="action">win.dual-odd-left</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Right to Left Document</attribute>
-        <attribute name="action">win.rtl</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">Ro_tate ⤵</attribute>
-        <attribute name="action">win.rotate-right</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">Document Prop_erties</attribute>
-        <attribute name="action">win.show-properties</attribute>
-      </item>
-    </section>
-  </menu>
-
-  <menu id="view-popup-menu">
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">_Open Link</attribute>
-        <attribute name="action">win.open-link</attribute>
-        <attribute name="hidden-when">action-disabled</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">_Copy Link Address</attribute>
-        <attribute name="action">win.copy-link-address</attribute>
-        <attribute name="hidden-when">action-disabled</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">_Go To</attribute>
-        <attribute name="action">win.go-to-link</attribute>
-        <attribute name="hidden-when">action-disabled</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Open in New _Window</attribute>
-        <attribute name="action">win.open-link-new-window</attribute>
-        <attribute name="hidden-when">action-disabled</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">_Previous Page</attribute>
-        <attribute name="action">win.go-previous-page</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">_Next Page</attribute>
-        <attribute name="action">win.go-next-page</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">_Copy</attribute>
-        <attribute name="action">win.copy</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Select _All</attribute>
-        <attribute name="action">win.select-all</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">_Save Image As…</attribute>
-        <attribute name="action">win.save-image</attribute>
-        <attribute name="hidden-when">action-disabled</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">Copy _Image</attribute>
-        <attribute name="action">win.copy-image</attribute>
-        <attribute name="hidden-when">action-disabled</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">_Open Attachment</attribute>
-        <attribute name="action">win.open-attachment</attribute>
-        <attribute name="hidden-when">action-disabled</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">_Save Attachment As…</attribute>
-        <attribute name="action">win.save-attachment</attribute>
-        <attribute name="hidden-when">action-disabled</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">Annotation _Properties…</attribute>
-        <attribute name="action">win.annot-properties</attribute>
-        <attribute name="hidden-when">action-disabled</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">R_emove Annotation</attribute>
-        <attribute name="action">win.remove-annot</attribute>
-        <attribute name="hidden-when">action-disabled</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">_Add Text Annotation</attribute>
-        <attribute name="action">win.add-text-annotation</attribute>
-        <attribute name="hidden-when">action-disabled</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">_Highlight Selected Text</attribute>
-        <attribute name="action">win.add-highlight-annotation</attribute>
-      </item>
-    </section>
-  </menu>
-  <menu id="attachments-popup">
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">_Open Attachment</attribute>
-        <attribute name="action">win.open-attachment</attribute>
-      </item>
-      <item>
-        <attribute name="label" translatable="yes">_Save Attachment As…</attribute>
-        <attribute name="action">win.save-attachment</attribute>
-      </item>
-    </section>
-  </menu>
 </interface>

@@ -3,6 +3,7 @@ use crate::deps::*;
 use papers_document::{LinkDest, LinkDestType};
 use papers_view::Job;
 
+use crate::window::PpsWindow;
 use std::ffi::OsString;
 
 use std::env;
@@ -63,7 +64,7 @@ mod imp {
 
         fn activate(&self) {
             for window in self.obj().windows() {
-                if let Ok(window) = window.downcast::<papers_shell::Window>() {
+                if let Ok(window) = window.downcast::<PpsWindow>() {
                     window.present();
                 }
             }
@@ -174,7 +175,7 @@ mod imp {
         }
 
         fn open_start_view(&self) {
-            papers_shell::Window::default().present();
+            PpsWindow::default().present();
         }
 
         fn open_uri_at_dest(
@@ -190,9 +191,9 @@ mod imp {
             for w in obj
                 .windows()
                 .into_iter()
-                .filter_map(|w| w.downcast::<papers_shell::Window>().ok())
+                .filter_map(|w| w.downcast::<PpsWindow>().ok())
             {
-                if w.is_empty() || w.uri().map(|gs| gs.as_str() == uri).unwrap_or_default() {
+                if w.is_empty() || w.uri().is_some_and(|u| u == uri) {
                     window = Some(w.clone());
                 }
 
@@ -300,21 +301,8 @@ mod imp {
             obj.set_accels_for_action("win.open", &["<Ctrl>O"]);
             obj.set_accels_for_action("win.close", &["<Ctrl>W"]);
             obj.set_accels_for_action("win.fullscreen", &["F11"]);
-            obj.set_accels_for_action("win.show-sidebar", &["F9"]);
             obj.set_accels_for_action("win.inverted-colors", &["<Ctrl>I"]);
-
-            // TODO: move to doc group
-            obj.set_accels_for_action("win.open-copy", &["<Ctrl><Shift>N"]);
-            obj.set_accels_for_action("win.save-as", &["<Ctrl>S"]);
-            obj.set_accels_for_action("win.print", &["<Ctrl>P"]);
-            obj.set_accels_for_action("win.show-properties", &["<alt>Return"]);
-            obj.set_accels_for_action("win.copy", &["<Ctrl>C", "<Ctrl>Insert"]);
-            obj.set_accels_for_action("win.select-page", &["<Ctrl>L"]);
-            obj.set_accels_for_action("win.caret-navigation", &["F7"]);
             obj.set_accels_for_action("win.presentation", &["F5", "<Shift>F5"]);
-            obj.set_accels_for_action("win.rotate-left", &["<Ctrl>Left"]);
-            obj.set_accels_for_action("win.rotate-right", &["<Ctrl>Right"]);
-            obj.set_accels_for_action("win.add-highlight-annotation", &["<Ctrl>H"]);
         }
 
         fn setup_command_line(&self) {

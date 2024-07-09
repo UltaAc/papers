@@ -19,6 +19,7 @@ gettext-rs = { version = "0.7", features = ["gettext-system"] }
 log = "0.4"
 lru = "0.12"
 zbus = "4"
+futures = "0.3"
 
 [dependencies.glib]
 version = "0.20"

@@ -77,3 +77,4 @@ shell-rs/src/sidebar_layers.rs
 shell-rs/src/sidebar_thumbnails.rs
 shell-rs/src/sidebar_links.rs
 shell-rs/src/thumbnail_item.rs
+shell-rs/src/window.rs
