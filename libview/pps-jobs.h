@@ -542,6 +542,13 @@ PPS_PUBLIC
 void            pps_job_load_set_password  (PpsJobLoad       *job,
 					   const gchar     *password);
 PPS_PUBLIC
+const gchar *   pps_job_load_get_password  (PpsJobLoad *job);
+PPS_PUBLIC
+void		pps_job_load_set_password_save (PpsJobLoad *job,
+						GPasswordSave save);
+PPS_PUBLIC
+GPasswordSave	pps_job_load_get_password_save (PpsJobLoad *job);
+PPS_PUBLIC
 void           pps_job_load_set_load_flags (PpsJobLoad           *job,
 					   PpsDocumentLoadFlags  flags);
 PPS_PUBLIC

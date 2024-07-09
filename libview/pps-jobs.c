@@ -1254,6 +1254,12 @@ pps_job_load_take_fd (PpsJobLoad  *job,
 	job->fd = fd;
 }
 
+/**
+ * pps_job_load_set_password:
+ * @job: an #PpsJobLoad
+ * @password: (nullable): the password
+ *
+ */
 void
 pps_job_load_set_password (PpsJobLoad *job, const gchar *password)
 {
@@ -1263,6 +1269,32 @@ pps_job_load_set_password (PpsJobLoad *job, const gchar *password)
 
 	g_free (job->password);
 	job->password = g_strdup (password);
+}
+
+const gchar *
+pps_job_load_get_password (PpsJobLoad *job)
+{
+	g_return_val_if_fail (PPS_IS_JOB_LOAD (job), NULL);
+
+	return job->password;
+}
+
+void
+pps_job_load_set_password_save (PpsJobLoad *job, GPasswordSave save)
+{
+	g_return_if_fail (PPS_IS_JOB_LOAD (job));
+
+	g_debug ("load job setting password save");
+
+	job->password_save = save;
+}
+
+GPasswordSave
+pps_job_load_get_password_save (PpsJobLoad *job)
+{
+	g_return_val_if_fail (PPS_IS_JOB_LOAD (job), G_PASSWORD_SAVE_NEVER);
+
+	return job->password_save;
 }
 
 void
