@@ -322,12 +322,11 @@ load_job_finished_cb (PpsJob             *job,
                       PpsPreviewerWindow *window)
 {
         g_assert (job == window->job);
-	GError *error;
+	g_autoptr (GError) error = NULL;
 
 	if (!pps_job_is_succeeded (job, &error)) {
 		pps_previewer_window_error_dialog_run (window, error);
 		g_clear_object (&window->job);
-
                 return;
         }
 

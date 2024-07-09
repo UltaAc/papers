@@ -290,7 +290,7 @@ pps_job_is_finished (PpsJob *job)
 /**
  * pps_job_is_succeeded:
  * @job: a #PpsJob
- * @error (nullable): (transfer none): the error to set if the job failed
+ * @error: (nullable): (transfer full): the error to set if the job failed
  *
  * Returns: whether the job succeed
  */
@@ -300,7 +300,7 @@ pps_job_is_succeeded (PpsJob   *job, GError **error)
 	g_return_val_if_fail (job != NULL, FALSE);
 
 	if (job->failed && error)
-		*error = job->error;
+		*error = g_error_copy (job->error);
 
 	return !job->failed;
 }

@@ -1526,7 +1526,7 @@ pps_window_load_job_cb (PpsJob *job,
 	PpsJobLoad *job_load = PPS_JOB_LOAD (job);
 	g_autoptr (PpsDocument) document = pps_job_load_get_loaded_document (job_load);
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	GError *error = NULL;
+	g_autoptr (GError) error = NULL;
 
 	g_assert (job_load->uri);
 
@@ -2388,7 +2388,7 @@ pps_window_save_job_cb (PpsJob     *job,
 		       PpsWindow  *window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
-	GError *error;
+	g_autoptr (GError) error = NULL;
 	if (!pps_job_is_succeeded (job, &error)) {
 		priv->close_after_save = FALSE;
 		pps_window_error_message (window, error,
