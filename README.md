@@ -34,7 +34,7 @@ This software is licensed under the [GPLv2][license].
 [xps]: https://wiki.gnome.org/Projects/libgxps
 [license]: COPYING
 [papers-logo]: data/icons/scalable/apps/org.gnome.Papers.svg
-[flatpak]: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Flathub-badge-en.svg/240px-Flathub-badge-en.svg.png
+[flatpak]: https://flathub.org/api/badge?svg&locale=en
 
 ### Code of Conduct
 
