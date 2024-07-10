@@ -1395,7 +1395,7 @@ pps_view_presentation_class_init (PpsViewPresentationClass *klass)
 							      "Document",
 							      PPS_TYPE_DOCUMENT,
 							      G_PARAM_WRITABLE |
-							      G_PARAM_CONSTRUCT_ONLY |
+							      G_PARAM_CONSTRUCT |
                                                               G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (gobject_class,
 					 PROP_CURRENT_PAGE,
@@ -1422,7 +1422,7 @@ pps_view_presentation_class_init (PpsViewPresentationClass *klass)
 							       "Whether presentation is displayed with inverted colors",
 							       FALSE,
 							       G_PARAM_WRITABLE |
-							       G_PARAM_CONSTRUCT_ONLY |
+							       G_PARAM_CONSTRUCT |
                                                                G_PARAM_STATIC_STRINGS));
 
 	signals[CHANGE_PAGE] =
