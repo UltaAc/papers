@@ -1995,7 +1995,7 @@ export_unix_print_dialog_response_cb (GtkDialog              *dialog,
         if (!pps_print_operation_export_update_ranges (export)) {
 		AdwAlertDialog *alert_dialog;
 
-		alert_dialog = ADW_ALERT_DIALOG (adw_alert_dialog_new (_("Invalid page selection"),
+		alert_dialog = ADW_ALERT_DIALOG (adw_alert_dialog_new (_("Invalid Page Selection"),
 					_("Your print range selection does not include any pages")));
 		adw_alert_dialog_add_response (alert_dialog, "close", _("_Close"));
 		adw_dialog_present (ADW_DIALOG (alert_dialog), GTK_WIDGET (dialog));
