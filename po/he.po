@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: evince.HEAD.he\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-07-09 01:39+0000\n"
-"PO-Revision-Date: 2024-07-09 18:00+0300\n"
+"POT-Creation-Date: 2024-07-10 18:02+0000\n"
+"PO-Revision-Date: 2024-07-10 22:25+0300\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: Hebrew\n"
 "Language: he\n"
@@ -556,11 +556,11 @@ msgid "Requested format is not supported by this printer."
 msgstr "התבנית הדרושה אינה נתמכת על ידי מדפסת זו."
 
 #: libview/pps-print-operation.c:1998
-msgid "Invalid page selection"
-msgstr "בחירת העמודים שגויה"
+msgid "Invalid Page Selection"
+msgstr "בחירת עמוד שגויה"
 
 #: libview/pps-print-operation.c:2000
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-window.ui:668
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-window.ui:674
 msgid "_Close"
 msgstr "_סגירה"
 
@@ -725,8 +725,8 @@ msgid "of %d"
 msgstr "מתוך %d"
 
 #: previewer/pps-page-selector.c:194 shell/pps-history.c:454
-#: shell/pps-sidebar-bookmarks.c:339 shell/pps-window.c:764
-#: shell/pps-window.c:3902
+#: shell/pps-sidebar-bookmarks.c:339 shell/pps-window.c:756
+#: shell/pps-window.c:3874
 #, c-format
 msgid "Page %s"
 msgstr "עמוד %s"
@@ -1204,7 +1204,7 @@ msgid "Touchpad Gestures"
 msgstr "מחוות משטח מגע"
 
 #: shell/pps-annotation-properties-dialog.ui:4
-#: shell/pps-sidebar-annotations.ui:65
+#: shell/pps-sidebar-annotations.ui:75
 msgid "Annotation Properties"
 msgstr "מאפייני הפרשנות"
 
@@ -1310,7 +1310,7 @@ msgstr "ססמת המסמך %s"
 msgid "Loading Document"
 msgstr "המסמך בטעינה"
 
-#: shell/pps-loader-view.ui:45 shell/pps-window.c:2887
+#: shell/pps-loader-view.ui:45 shell/pps-window.c:2859
 msgid "C_ancel"
 msgstr "_ביטול"
 
@@ -1388,38 +1388,33 @@ msgstr "רישיון"
 msgid "Search in document"
 msgstr "חיפוש במסמך"
 
-#: shell/pps-search-box.ui:33
+#: shell/pps-search-box.ui:34
 msgid "Search Options"
 msgstr "אפשרויות חיפוש"
 
-#: shell/pps-search-box.ui:42
+#: shell/pps-search-box.ui:43
 msgid "_Whole Words Only"
 msgstr "מילים _שלמות בלבד"
 
-#: shell/pps-search-box.ui:46
+#: shell/pps-search-box.ui:47
 msgid "C_ase Sensitive"
 msgstr "_תלוי רישיות"
-
-#: shell/pps-sidebar-annotations.c:228
-#, c-format
-msgid "Page %d"
-msgstr "עמוד %d"
 
 #: shell/pps-sidebar-annotations.ui:16
 msgid "No Annotations"
 msgstr "אין הערות"
 
-#: shell/pps-sidebar-annotations.ui:70
+#: shell/pps-sidebar-annotations.ui:80
 msgid "Remove Annotation"
 msgstr "מחיקת הערה"
 
-#: shell/pps-sidebar-annotations.ui:75 shell/pps-window.ui:818
-#: shell/pps-window.ui:855
+#: shell/pps-sidebar-annotations.ui:85 shell/pps-window.ui:824
+#: shell/pps-window.ui:861
 msgid "_Open Attachment"
 msgstr "_פתיחת צרופה"
 
-#: shell/pps-sidebar-annotations.ui:80 shell/pps-window.ui:823
-#: shell/pps-window.ui:859
+#: shell/pps-sidebar-annotations.ui:90 shell/pps-window.ui:829
+#: shell/pps-window.ui:865
 msgid "_Save Attachment As…"
 msgstr "_שמירת הקובץ המצורף בשם…"
 
@@ -1463,45 +1458,45 @@ msgstr "הדפסת קטע זה…"
 msgid "Previews"
 msgstr "תצוגה מקדימה"
 
-#: shell/pps-window.c:605
+#: shell/pps-window.c:597
 msgid "View Details"
 msgstr "הצגת פרטים"
 
-#: shell/pps-window.c:1397
+#: shell/pps-window.c:1389
 msgid "The document contains no pages"
 msgstr "המסמך אינו מכיל עמודים"
 
-#: shell/pps-window.c:1400
+#: shell/pps-window.c:1392
 msgid "The document contains only empty pages"
 msgstr "המסמך מכיל עמודים ריקים בלבד"
 
-#: shell/pps-window.c:1711
+#: shell/pps-window.c:1687
 #, c-format
 msgid "Unable to open document “%s”."
 msgstr "לא ניתן לפתוח את המסמך „%s“."
 
-#: shell/pps-window.c:1852
+#: shell/pps-window.c:1828
 msgid "Failed to load remote file."
 msgstr "טעינת הקובץ המרוחק נכשלה."
 
-#: shell/pps-window.c:2089
+#: shell/pps-window.c:2063
 msgid "Failed to reload document."
 msgstr "טעינת המסמך מחדש נכשלה."
 
-#: shell/pps-window.c:2359
+#: shell/pps-window.c:2333
 msgid "File Saved"
 msgstr "הקובץ נשמר"
 
-#: shell/pps-window.c:2369 shell/pps-window.c:2423
+#: shell/pps-window.c:2343 shell/pps-window.c:2395
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "לא ניתן לשמור את הקובץ בשם „%s“."
 
-#: shell/pps-window.c:2485
+#: shell/pps-window.c:2457
 msgid "Save As…"
 msgstr "שמירה בשם…"
 
-#: shell/pps-window.c:2791
+#: shell/pps-window.c:2763
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
@@ -1510,98 +1505,98 @@ msgstr[1] "שתי משימות ממתינות בתור"
 msgstr[2] "‫%d משימות ממתינות בתור"
 msgstr[3] "‫%d משימות ממתינות בתור"
 
-#: shell/pps-window.c:2830
+#: shell/pps-window.c:2802
 msgid "Failed to Print Document"
 msgstr "הדפסת המסמך נכשלה"
 
-#: shell/pps-window.c:2884
+#: shell/pps-window.c:2856
 #, c-format
 msgid "Printing job “%s”"
 msgstr "המשימה „%s“ מודפסת"
 
-#: shell/pps-window.c:3083
+#: shell/pps-window.c:3055
 msgid "Document contains form fields that have been filled out."
 msgstr "המסמך מכיל שדות טופס שמולאו."
 
-#: shell/pps-window.c:3086
+#: shell/pps-window.c:3058
 msgid "Document contains new or modified annotations."
 msgstr "המסמך מכיל פרשנויות חדשות או כאלה ששונו."
 
-#: shell/pps-window.c:3094
-msgid "File Changed Outside Papers. Reload document?"
+#: shell/pps-window.c:3066
+msgid "File Changed Outside Papers. Reload Document?"
 msgstr "הקובץ שונה מחוץ ליישום. לטעון את המסמך מחדש?"
 
-#: shell/pps-window.c:3095
+#: shell/pps-window.c:3067
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "טעינה מחדש של המסמך תגרום לשינויים לאבד לצמיתות."
 
-#: shell/pps-window.c:3098
+#: shell/pps-window.c:3070
 msgid "_No"
 msgstr "_לא"
 
-#: shell/pps-window.c:3099
+#: shell/pps-window.c:3071
 msgid "_Reload"
 msgstr "_טעינה מחדש"
 
-#: shell/pps-window.c:3107
+#: shell/pps-window.c:3079
 msgid "Save Changes to a Copy?"
 msgstr "שמירת השינויים לעותק?"
 
-#: shell/pps-window.c:3108
+#: shell/pps-window.c:3080
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "ללא שמירת עותק למסמך, כלל השינויים יאבדו לצמיתות."
 
-#: shell/pps-window.c:3111
+#: shell/pps-window.c:3083
 msgid "Close _Without Saving"
 msgstr "סגירה _ללא שמירה"
 
-#: shell/pps-window.c:3112 shell/pps-window.ui:648 shell/pps-window.ui:660
+#: shell/pps-window.c:3084 shell/pps-window.ui:654 shell/pps-window.ui:666
 msgid "_Cancel"
 msgstr "_ביטול"
 
-#: shell/pps-window.c:3113
+#: shell/pps-window.c:3085
 msgid "_Save a Copy"
 msgstr "שמירת _עותק"
 
-#: shell/pps-window.c:4229
+#: shell/pps-window.c:4200
 msgid "Search"
 msgstr "חיפוש"
 
-#: shell/pps-window.c:4233
+#: shell/pps-window.c:4204
 msgid "Search Unavailable"
 msgstr "החיפוש לא זמין"
 
-#: shell/pps-window.c:4441
+#: shell/pps-window.c:4412
 msgid "The attachment could not be saved."
 msgstr "לא ניתן לשמור את הצרופה."
 
-#: shell/pps-window.c:5025
+#: shell/pps-window.c:4994
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
 msgstr "התרעת אבטחה: מסמך זה נמנע מפתיחת הקובץ „%s”"
 
-#: shell/pps-window.c:5087
+#: shell/pps-window.c:5056
 msgid "Unable to open external link"
 msgstr "לא ניתן לפתוח קישור חיצוני"
 
-#: shell/pps-window.c:5311
+#: shell/pps-window.c:5280
 msgid "Couldn’t find appropriate format to save image"
 msgstr "לא נמצאה התבנית המתאימה לשמירת התמונה"
 
-#: shell/pps-window.c:5341
+#: shell/pps-window.c:5310
 msgid "The image could not be saved."
 msgstr "לא ניתן לשמור את התמונה."
 
-#: shell/pps-window.c:5378
+#: shell/pps-window.c:5346
 msgid "Save Image"
 msgstr "שמירת התמונה"
 
-#: shell/pps-window.c:5549
+#: shell/pps-window.c:5517
 msgid "Unable to open attachment"
 msgstr "לא ניתן לפתוח את הצרופה"
 
-#: shell/pps-window.c:5613
+#: shell/pps-window.c:5581
 msgid "Save Attachment"
 msgstr "שמירת צרופה"
 
@@ -1673,11 +1668,11 @@ msgstr "התאמה אוטומטית"
 msgid "Loading…"
 msgstr "בטעינה…"
 
-#: shell/pps-window.ui:639
+#: shell/pps-window.ui:645
 msgid "Enable Caret Navigation?"
 msgstr "לאפשר ניווט בעזרת הסמן?"
 
-#: shell/pps-window.ui:640
+#: shell/pps-window.ui:646
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1686,19 +1681,19 @@ msgstr ""
 "לחיצה על F7 מפעילה או מכבה את האפשרות לנווט בעזרת הסמן. תכונה זו מציבה סמן "
 "הניתן להזזה בדפי טקסט, המאפשר לך לנוע מסביב ולבחור טקסט בעזרת המקלדת שלך."
 
-#: shell/pps-window.ui:643
+#: shell/pps-window.ui:649
 msgid "Don’t show this message again"
 msgstr "לא להציג הודעה זו שוב"
 
-#: shell/pps-window.ui:649
+#: shell/pps-window.ui:655
 msgid "_Enable"
 msgstr "_אפשור"
 
-#: shell/pps-window.ui:655
+#: shell/pps-window.ui:661
 msgid "Abort Printing?"
 msgstr "לבטל את ההדפסה?"
 
-#: shell/pps-window.ui:656
+#: shell/pps-window.ui:662
 msgid ""
 "There is one or more active print jobs. If the window is closed, pending "
 "print jobs will not be printed."
@@ -1706,135 +1701,135 @@ msgstr ""
 "יש לפחות משימת הדפסה אחת פעילה. אם החלון ייסגר, משימות ההדפסה הממתינות לא "
 "יודפסו."
 
-#: shell/pps-window.ui:659
+#: shell/pps-window.ui:665
 msgid "Abort _Print and Close"
 msgstr "ביטול הה_דפסה וסגירה"
 
-#: shell/pps-window.ui:661
+#: shell/pps-window.ui:667
 msgid "Close _After Printing"
 msgstr "סגירה לא_חר ההדפסה"
 
-#: shell/pps-window.ui:675
+#: shell/pps-window.ui:681
 msgid "Open"
 msgstr "פתיחה"
 
-#: shell/pps-window.ui:681
+#: shell/pps-window.ui:687
 msgid "Ni_ght Mode"
 msgstr "מצב _לילה"
 
-#: shell/pps-window.ui:687
+#: shell/pps-window.ui:693
 msgid "_Keyboard Shortcuts"
 msgstr "_צירופי מקשים"
 
-#: shell/pps-window.ui:691
+#: shell/pps-window.ui:697
 msgid "_Help"
 msgstr "ע_זרה"
 
-#: shell/pps-window.ui:695
+#: shell/pps-window.ui:701
 msgid "_About Papers"
 msgstr "על _אודות מסמכים"
 
-#: shell/pps-window.ui:703
+#: shell/pps-window.ui:709
 msgid "_Print…"
 msgstr "ה_דפסה…"
 
-#: shell/pps-window.ui:707
+#: shell/pps-window.ui:713
 msgid "Fullscreen"
 msgstr "מסך מלא"
 
-#: shell/pps-window.ui:711
+#: shell/pps-window.ui:717
 msgid "Present as Slideshow"
 msgstr "הצגה כמצגת"
 
-#: shell/pps-window.ui:717
+#: shell/pps-window.ui:723
 msgid "Open a C_opy"
 msgstr "_פתיחת העתק"
 
-#: shell/pps-window.ui:721
+#: shell/pps-window.ui:727
 msgid "Open With…"
 msgstr "פתיחה באמצעות…"
 
-#: shell/pps-window.ui:725
+#: shell/pps-window.ui:731
 msgid "_Save As…"
 msgstr "שמירה _בשם…"
 
-#: shell/pps-window.ui:731
+#: shell/pps-window.ui:737
 msgid "_Continuous"
 msgstr "_רציף"
 
-#: shell/pps-window.ui:735
+#: shell/pps-window.ui:741
 msgid "_Dual"
 msgstr "_זוגי"
 
-#: shell/pps-window.ui:739
+#: shell/pps-window.ui:745
 msgid "_Odd Pages Left"
 msgstr "אי־זוגיים מ_שמאל"
 
-#: shell/pps-window.ui:743
+#: shell/pps-window.ui:749
 msgid "Right to Left Document"
 msgstr "סידור מימין לשמאל"
 
-#: shell/pps-window.ui:749
+#: shell/pps-window.ui:755
 msgid "Ro_tate ⤵"
 msgstr "_סיבוב ⤵"
 
-#: shell/pps-window.ui:755
+#: shell/pps-window.ui:761
 msgid "Document Prop_erties"
 msgstr "_מאפייני מסמך"
 
-#: shell/pps-window.ui:764
+#: shell/pps-window.ui:770
 msgid "_Open Link"
 msgstr "פתיחת _קישור"
 
-#: shell/pps-window.ui:769
+#: shell/pps-window.ui:775
 msgid "_Copy Link Address"
 msgstr "העתקת מיקום ה_קישור"
 
-#: shell/pps-window.ui:774
+#: shell/pps-window.ui:780
 msgid "_Go To"
 msgstr "מ_עבר"
 
-#: shell/pps-window.ui:779
+#: shell/pps-window.ui:785
 msgid "Open in New _Window"
 msgstr "פתיחה ב_חלון חדש"
 
-#: shell/pps-window.ui:786
+#: shell/pps-window.ui:792
 msgid "_Previous Page"
 msgstr "העמוד ה_קודם"
 
-#: shell/pps-window.ui:790
+#: shell/pps-window.ui:796
 msgid "_Next Page"
 msgstr "העמוד ה_בא"
 
-#: shell/pps-window.ui:796
+#: shell/pps-window.ui:802
 msgid "_Copy"
 msgstr "ה_עתקה"
 
-#: shell/pps-window.ui:800
+#: shell/pps-window.ui:806
 msgid "Select _All"
 msgstr "_בחירת הכול"
 
-#: shell/pps-window.ui:806
+#: shell/pps-window.ui:812
 msgid "_Save Image As…"
 msgstr "שמירת תמונה _בשם…"
 
-#: shell/pps-window.ui:811
+#: shell/pps-window.ui:817
 msgid "Copy _Image"
 msgstr "העתקת ת_מונה"
 
-#: shell/pps-window.ui:830
+#: shell/pps-window.ui:836
 msgid "Annotation _Properties…"
 msgstr "מאפייני ה_ערות…"
 
-#: shell/pps-window.ui:835
+#: shell/pps-window.ui:841
 msgid "R_emove Annotation"
 msgstr "ה_סרת הערה"
 
-#: shell/pps-window.ui:842
+#: shell/pps-window.ui:848
 msgid "_Add Text Annotation"
 msgstr "הו_ספת הערה לטקסט"
 
-#: shell/pps-window.ui:847
+#: shell/pps-window.ui:853
 msgid "_Highlight Selected Text"
 msgstr "ה_דגשת הטקסט הנבחר"
 
@@ -1891,7 +1886,7 @@ msgstr "Show the version of the program."
 msgid "[FILE…]"
 msgstr "[FILE…]"
 
-#: shell-rs/src/page_selector.rs:77
+#: shell-rs/src/page_selector.rs:77 shell-rs/src/sidebar_annotations_row.rs:82
 msgid "Page {}"
 msgstr "עמוד {}"
 
@@ -1924,9 +1919,12 @@ msgstr "תוכן"
 msgid "Date &amp; Time"
 msgstr "תאריך ושעה"
 
-#: shell-rs/src/sidebar_annotations_row.rs:57
-msgid "No Comment"
-msgstr "אין הערה"
+#, c-format
+#~ msgid "Page %d"
+#~ msgstr "עמוד %d"
+
+#~ msgid "No Comment"
+#~ msgstr "אין הערה"
 
 #~ msgid "Save a copy of the document before closing?"
 #~ msgstr "האם לשמור עותק של המסמך לפני הסגירה?"
