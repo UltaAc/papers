@@ -9,10 +9,10 @@ msgstr ""
 "Project-Id-Version: evince\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/issues/"
 "\n"
-"POT-Creation-Date: 2024-07-09 01:39+0000\n"
-"PO-Revision-Date: 2024-07-09 12:43+0300\n"
-"Last-Translator: Fracture dept <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
+"POT-Creation-Date: 2024-07-10 18:02+0000\n"
+"PO-Revision-Date: 2024-07-11 13:12+0300\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,12 +38,10 @@ msgstr "Перегляд багатосторінкових документів
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Papers.desktop.in.in:6
-#| msgid ""
-#| "pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;viewer;evince;"
 msgid "pdf;ps;postscript;xps;djvu;tiff;document;presentation;viewer;papers;"
 msgstr ""
-"pdf;ps;postscript;xps;djvu;tiff;document;presentation;viewer;evince;"
-"документ;презентація;перегляд;папери;"
+"pdf;ps;postscript;xps;djvu;tiff;document;presentation;viewer;evince;документ;"
+"презентація;перегляд;папери;"
 
 #: data/org.gnome.Papers.desktop.in.in:21
 msgid "New Window"
@@ -128,8 +126,6 @@ msgstr ""
 "сторінок обабіч)"
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:24
-#| msgctxt "shortcut window"
-#| msgid "Reload the document"
 msgid "Read documents"
 msgstr "Читання документів"
 
@@ -143,16 +139,12 @@ msgstr ""
 "анотувати ці документи."
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:27
-#| msgid ""
-#| "Evince supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, DVI (with "
-#| "SyncTeX), and Comic Books archives (CBR, CBT, CBZ, CB7)."
 msgid ""
 "Papers supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, and Comic Books "
 "archives (CBR, CBT, CBZ, CB7)."
 msgstr ""
 "У «Паперах» передбачено підтримку документів у таких форматах: PDF, PS, EPS, "
-"XPS, DjVu, TIFF, а також архіви коміксів (CBR, CBT, CBZ, "
-"CB7)."
+"XPS, DjVu, TIFF, а також архіви коміксів (CBR, CBT, CBZ, CB7)."
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:43
 msgid "A clear, simple UI"
@@ -575,11 +567,12 @@ msgid "Requested format is not supported by this printer."
 msgstr "Цей формат не підтримується цим принтером."
 
 #: libview/pps-print-operation.c:1998
-msgid "Invalid page selection"
-msgstr "Некоректний файл формату zip"
+#| msgid "Invalid page selection"
+msgid "Invalid Page Selection"
+msgstr "Некоректний вибір сторінок"
 
 #: libview/pps-print-operation.c:2000
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-window.ui:668
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-window.ui:674
 msgid "_Close"
 msgstr "_Закрити"
 
@@ -747,8 +740,8 @@ msgid "of %d"
 msgstr "з %d"
 
 #: previewer/pps-page-selector.c:194 shell/pps-history.c:454
-#: shell/pps-sidebar-bookmarks.c:339 shell/pps-window.c:764
-#: shell/pps-window.c:3902
+#: shell/pps-sidebar-bookmarks.c:339 shell/pps-window.c:756
+#: shell/pps-window.c:3874
 #, c-format
 msgid "Page %s"
 msgstr "Сторінка %s"
@@ -798,7 +791,6 @@ msgid "Failed to print document"
 msgstr "Не вдалось надрукувати документ"
 
 #: previewer/pps-previewer-window.c:187 previewer/pps-previewer-window.c:500
-#| msgid "Document Viewer"
 msgid "Papers Document Viewer"
 msgstr "Переглядач документів «Папери»"
 
@@ -824,13 +816,10 @@ msgid "_Print"
 msgstr "_Надрукувати"
 
 #: previewer/pps-previewer-window.ui:38
-#| msgid "Print this document"
 msgid "Print This Document"
 msgstr "Надрукувати цей документ"
 
 #: previewer/pps-previewer-window.ui:48 shell/pps-window.ui:370
-#| msgctxt "shortcut window"
-#| msgid "Zoom out"
 msgid "Zoom Out"
 msgstr "Зменшити"
 
@@ -839,8 +828,6 @@ msgid "Normal Size"
 msgstr "Звичайний розмір"
 
 #: previewer/pps-previewer-window.ui:62 shell/pps-window.ui:358
-#| msgctxt "shortcut window"
-#| msgid "Zoom in"
 msgid "Zoom In"
 msgstr "Збільшити"
 
@@ -851,137 +838,107 @@ msgid "Unknown"
 msgstr "Невідомо"
 
 #: nautilus/pps-nautilus-extension.c:170
-#| msgctxt "shortcut window"
-#| msgid "Document properties"
 msgid "Document Properties"
 msgstr "Властивості документа"
 
 #: nautilus/pps-nautilus-extension.h:59 shell-rs/src/properties_general.rs:129
-#| msgid "Title:"
 msgid "Title"
 msgstr "Заголовок"
 
 #: nautilus/pps-nautilus-extension.h:60
-#| msgid "Location:"
 msgid "Location"
 msgstr "Адреса"
 
 #: nautilus/pps-nautilus-extension.h:61 shell-rs/src/properties_general.rs:130
-#| msgid "Subject:"
 msgid "Subject"
 msgstr "Тема"
 
 #: nautilus/pps-nautilus-extension.h:62
 #: shell/pps-annotation-properties-dialog.ui:9
 #: shell-rs/src/properties_general.rs:131
-#| msgid "Author:"
 msgid "Author"
 msgstr "Автор"
 
 #: nautilus/pps-nautilus-extension.h:63 shell-rs/src/properties_general.rs:132
-#| msgid "Keywords:"
 msgid "Keywords"
 msgstr "Ключові слова"
 
 #: nautilus/pps-nautilus-extension.h:64 shell-rs/src/properties_general.rs:133
-#| msgid "Producer:"
 msgid "Producer"
 msgstr "Виготовлено"
 
 #: nautilus/pps-nautilus-extension.h:65 shell-rs/src/properties_general.rs:134
-#| msgid "Creator:"
 msgid "Creator"
 msgstr "Автор"
 
 #: nautilus/pps-nautilus-extension.h:66 shell-rs/src/properties_general.rs:141
-#| msgid "Created:"
 msgid "Created"
 msgstr "Створено"
 
 #: nautilus/pps-nautilus-extension.h:67 shell-rs/src/properties_general.rs:142
-#| msgid "Modified:"
 msgid "Modified"
 msgstr "Змінено"
 
 #: nautilus/pps-nautilus-extension.h:68 shell-rs/src/properties_general.rs:150
-#| msgid "Number of Pages:"
 msgid "Number of Pages"
 msgstr "Кількість сторінок"
 
 #: nautilus/pps-nautilus-extension.h:69 shell-rs/src/properties_general.rs:151
-#| msgid "Optimized:"
 msgid "Optimized"
 msgstr "З оптимізацією"
 
 #: nautilus/pps-nautilus-extension.h:70 shell-rs/src/properties_general.rs:147
 #: shell-rs/src/properties_general.rs:149
-#| msgid "Format:"
 msgid "Format"
 msgstr "Формат"
 
 #: nautilus/pps-nautilus-extension.h:71 shell-rs/src/properties_general.rs:152
-#| msgid "Security:"
 msgid "Security"
 msgstr "Безпека"
 
 #: nautilus/pps-nautilus-extension.h:72 shell-rs/src/properties_general.rs:161
-#| msgid "Contains Javascript:"
 msgid "Contains Javascript"
 msgstr "Містить Javascript"
 
 #: nautilus/pps-nautilus-extension.h:73 shell-rs/src/properties_general.rs:153
-#| msgid "Paper Size:"
 msgid "Paper Size"
 msgstr "Розмір паперу"
 
 #: nautilus/pps-nautilus-extension.h:74 shell-rs/src/properties_general.rs:119
-#| msgid "Size:"
 msgid "Size"
 msgstr "Розмір"
 
 #: shell/help-overlay.ui:11
-#| msgctxt "shortcut window"
-#| msgid "Opening, closing, saving and printing"
 msgctxt "shortcut window"
 msgid "Opening, Closing, Saving and Printing"
 msgstr "Відкриття, закриття, збереження і друк"
 
 #: shell/help-overlay.ui:14
-#| msgid "Open Document"
 msgctxt "shortcut window"
 msgid "Open Document"
 msgstr "Відкрити документ"
 
 #: shell/help-overlay.ui:20
-#| msgctxt "shortcut window"
-#| msgid "Open a copy of the current document"
 msgctxt "shortcut window"
 msgid "Open Copy of Current Document"
 msgstr "Відкрити копію поточного документа"
 
 #: shell/help-overlay.ui:26
-#| msgid "Open…"
 msgctxt "shortcut window"
 msgid "Open With…"
 msgstr "Відкрити за допомогою…"
 
 #: shell/help-overlay.ui:32
-#| msgctxt "shortcut window"
-#| msgid "Save a copy of the current document"
 msgctxt "shortcut window"
 msgid "Save Copy of Current Document"
 msgstr "Зберегти копію поточного документа"
 
 #: shell/help-overlay.ui:38
-#| msgctxt "shortcut window"
-#| msgid "Print the current document"
 msgctxt "shortcut window"
 msgid "Print Current Document"
 msgstr "Надрукувати поточний документ"
 
 #: shell/help-overlay.ui:44
-#| msgctxt "shortcut window"
-#| msgid "Close the current document window"
 msgctxt "shortcut window"
 msgid "Close Current Document Window"
 msgstr "Закрити вікно поточного документа"
@@ -992,80 +949,61 @@ msgid "Window"
 msgstr "Вікно"
 
 #: shell/help-overlay.ui:55
-#| msgid "Fullscreen"
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "Повноекранний режим"
 
 #: shell/help-overlay.ui:61
-#| msgctxt "shortcut window"
-#| msgid "Enter presentation mode"
 msgctxt "shortcut window"
 msgid "Enter Presentation Mode"
 msgstr "Перейти до режиму презентації"
 
 #: shell/help-overlay.ui:67
-#| msgid "Side pane"
 msgctxt "shortcut window"
 msgid "Side Pane"
 msgstr "Бічна панель"
 
 #: shell/help-overlay.ui:73
-#| msgid "Navigation"
 msgctxt "shortcut window"
 msgid "Caret Navigation"
 msgstr "Навігація з курсором"
 
 #: shell/help-overlay.ui:81
-#| msgctxt "shortcut window"
-#| msgid "Selecting and copying text"
 msgctxt "shortcut window"
 msgid "Selecting and Copying Text"
 msgstr "Позначення і копіювання тексту"
 
 #: shell/help-overlay.ui:84
-#| msgid "_Copy"
 msgctxt "shortcut window"
 msgid "Copy"
 msgstr "Копіювати"
 
 #: shell/help-overlay.ui:90
-#| msgid "Select _All"
 msgctxt "shortcut window"
 msgid "Select All"
 msgstr "Позначити все"
 
 #: shell/help-overlay.ui:98
-#| msgctxt "shortcut window"
-#| msgid "Rotating and zooming"
 msgctxt "shortcut window"
 msgid "Rotating and Zooming"
 msgstr "Показування"
 
 #: shell/help-overlay.ui:101
-#| msgctxt "shortcut window"
-#| msgid "Rotate the page 90 degrees counter-clockwise"
 msgctxt "shortcut window"
 msgid "Rotate Page 90 Degrees Counter-Clockwise"
 msgstr "Обернути сторінку проти годинникової стрілки на 90 градусів"
 
 #: shell/help-overlay.ui:107
-#| msgctxt "shortcut window"
-#| msgid "Rotate the page 90 degrees clockwise"
 msgctxt "shortcut window"
 msgid "Rotate Page 90 Degrees Clockwise"
 msgstr "Обернути сторінку за годинникової стрілки на 90 градусів"
 
 #: shell/help-overlay.ui:113 shell/help-overlay.ui:377
-#| msgctxt "shortcut window"
-#| msgid "Zoom in"
 msgctxt "shortcut window"
 msgid "Zoom In"
 msgstr "Збільшити"
 
 #: shell/help-overlay.ui:119 shell/help-overlay.ui:383
-#| msgctxt "shortcut window"
-#| msgid "Zoom out"
 msgctxt "shortcut window"
 msgid "Zoom Out"
 msgstr "Зменшити"
@@ -1076,199 +1014,156 @@ msgid "Normal Size"
 msgstr "Звичайний розмір"
 
 #: shell/help-overlay.ui:131
-#| msgctxt "shortcut window"
-#| msgid "Zoom in (alternative)"
 msgctxt "shortcut window"
 msgid "Zoom In (Alternative)"
 msgstr "Збільшити (альтернатива)"
 
 #: shell/help-overlay.ui:137
-#| msgid "Fit Pa_ge"
 msgctxt "shortcut window"
 msgid "Fit Page"
 msgstr "Влаштувати сторінку"
 
 #: shell/help-overlay.ui:143
-#| msgid "Fit _Width"
 msgctxt "shortcut window"
 msgid "Fit Width"
 msgstr "Вмістити за шириною"
 
 #: shell/help-overlay.ui:149
-#| msgctxt "shortcut window"
-#| msgid "Automatic zoom"
 msgctxt "shortcut window"
 msgid "Automatic Zoom"
 msgstr "Автоматичне масштабування"
 
 #: shell/help-overlay.ui:157
-#| msgctxt "shortcut window"
-#| msgid "Moving around the document"
 msgctxt "shortcut window"
 msgid "Moving Around Document"
 msgstr "Пересуватися документом"
 
 #: shell/help-overlay.ui:160 shell/help-overlay.ui:166
-#| msgctxt "shortcut window"
-#| msgid "Move around a page"
 msgctxt "shortcut window"
 msgid "Move Around Page"
 msgstr "Пересуватись сторінкою"
 
 #: shell/help-overlay.ui:172
-#| msgctxt "shortcut window"
-#| msgid "Move up/down a page several lines at a time"
 msgctxt "shortcut window"
 msgid "Move Up/Down Page Several Lines"
 msgstr "Перейти по сторінці вище/нижче на кілька рядків"
 
 #: shell/help-overlay.ui:178 shell/help-overlay.ui:395
-#| msgid "Previous Page"
 msgctxt "shortcut window"
 msgid "Previous Page"
 msgstr "Попередня сторінка"
 
 #: shell/help-overlay.ui:184 shell/help-overlay.ui:389
-#| msgid "Next Page"
 msgctxt "shortcut window"
 msgid "Next Page"
 msgstr "Наступна сторінка"
 
 #: shell/help-overlay.ui:190
-#| msgctxt "shortcut window"
-#| msgid "Go to page number"
 msgctxt "shortcut window"
 msgid "Go to Page Number"
 msgstr "Перейти до певної сторінки"
 
 #: shell/help-overlay.ui:196
-#| msgid "Previous Page"
 msgctxt "shortcut window"
 msgid "Previous Page (Fast)"
 msgstr "Попередня сторінка (швидко)"
 
 #: shell/help-overlay.ui:202
-#| msgid "Next Page"
 msgctxt "shortcut window"
 msgid "Next Page (Fast)"
 msgstr "Наступна сторінка (швидко)"
 
 #: shell/help-overlay.ui:208
-#| msgid "Previous Page"
 msgctxt "shortcut window"
 msgid "Previous Visited Page"
 msgstr "Попередня відвідана сторінка"
 
 #: shell/help-overlay.ui:214
-#| msgid "Next Page"
 msgctxt "shortcut window"
 msgid "Next Visited Page"
 msgstr "Наступна відвідана сторінка"
 
 #: shell/help-overlay.ui:220
-#| msgctxt "shortcut window"
-#| msgid "Go to the beginning/end of a page"
 msgctxt "shortcut window"
 msgid "Go to Page Beginning/End"
 msgstr "Перейти до початку/кінця сторінки"
 
 #: shell/help-overlay.ui:226
-#| msgid "_About Document Viewer"
 msgctxt "shortcut window"
 msgid "Go to Document Start"
 msgstr "Перейти до початку документа"
 
 #: shell/help-overlay.ui:232
-#| msgid "Document"
 msgctxt "shortcut window"
 msgid "Go to Document End"
 msgstr "Перейти до кінця документа"
 
 #: shell/help-overlay.ui:240
-#| msgctxt "shortcut window"
-#| msgid "Document view and handling"
 msgctxt "shortcut window"
 msgid "Document View and Handling"
 msgstr "Перегляд і робота з документом"
 
 #: shell/help-overlay.ui:243
-#| msgid "Add bookmark"
 msgctxt "shortcut window"
 msgid "Add Bookmark"
 msgstr "Додати закладку"
 
 #: shell/help-overlay.ui:249
-#| msgid "Remove bookmark"
 msgctxt "shortcut window"
 msgid "Remove Bookmark"
 msgstr "Вилучити закладку"
 
 #: shell/help-overlay.ui:255
-#| msgid "Ni_ght Mode"
 msgctxt "shortcut window"
 msgid "Night Mode"
 msgstr "Нічний режим"
 
 #: shell/help-overlay.ui:261
-#| msgctxt "shortcut window"
-#| msgid "Toggle continuous scrolling"
 msgctxt "shortcut window"
 msgid "Continuous Scrolling"
 msgstr "Неперервне гортання"
 
 #: shell/help-overlay.ui:267
-#| msgid "Last Page"
 msgctxt "shortcut window"
 msgid "Dual Page"
 msgstr "Дві сторінки"
 
 #: shell/help-overlay.ui:273
-#| msgid "_Odd Pages Left"
 msgctxt "shortcut window"
 msgid "Odd Pages Left"
 msgstr "Непарні сторінки зліва"
 
 #: shell/help-overlay.ui:279
-#| msgctxt "shortcut window"
-#| msgid "Document properties"
 msgctxt "shortcut window"
 msgid "Document Properties"
 msgstr "Властивості документа"
 
 #: shell/help-overlay.ui:285
-#| msgid "Add text annotation"
 msgctxt "shortcut window"
 msgid "Add Text Annotation"
 msgstr "Додати текстову анотацію"
 
 #: shell/help-overlay.ui:291
-#| msgid "Highlight text"
 msgctxt "shortcut window"
 msgid "Highlight Text"
 msgstr "Підсвітити текст"
 
 #: shell/help-overlay.ui:299
-#| msgctxt "shortcut window"
-#| msgid "Finding text"
 msgctxt "shortcut window"
 msgid "Finding Text"
 msgstr "Пошук тексту"
 
 #: shell/help-overlay.ui:302
-#| msgid "Find"
 msgctxt "shortcut window"
 msgid "Find"
 msgstr "Знайти"
 
 #: shell/help-overlay.ui:308
-#| msgctxt "shortcut window"
-#| msgid "Finding text"
 msgctxt "shortcut window"
 msgid "Find Next"
 msgstr "Знайти далі"
 
 #: shell/help-overlay.ui:314
-#| msgid "Previous Page"
 msgctxt "shortcut window"
 msgid "Find Previous"
 msgstr "Знайти позаду"
@@ -1279,7 +1174,6 @@ msgid "General"
 msgstr "Загальні"
 
 #: shell/help-overlay.ui:325
-#| msgid "Help"
 msgctxt "shortcut window"
 msgid "Help"
 msgstr "Показати довідку"
@@ -1290,64 +1184,50 @@ msgid "Menu"
 msgstr "Меню"
 
 #: shell/help-overlay.ui:337
-#| msgid "_Keyboard Shortcuts"
 msgctxt "shortcut window"
 msgid "Keyboard Shortcuts"
 msgstr "Показати клавіатурні скорочення"
 
 #: shell/help-overlay.ui:343
-#| msgid "New Window"
 msgctxt "shortcut window"
 msgid "New Window"
 msgstr "Нове вікно"
 
 #: shell/help-overlay.ui:349
-#| msgctxt "shortcut window"
-#| msgid "Close window"
 msgctxt "shortcut window"
 msgid "Close Window"
 msgstr "Закрити вікно"
 
 #: shell/help-overlay.ui:357
-#| msgctxt "shortcut window"
-#| msgid "Presentation mode"
 msgctxt "shortcut window"
 msgid "Presentation Mode"
 msgstr "Режим презентації"
 
 #: shell/help-overlay.ui:360
-#| msgctxt "shortcut window"
-#| msgid "Toggle black screen"
 msgctxt "shortcut window"
 msgid "Black Screen"
 msgstr "Чорний екран"
 
 #: shell/help-overlay.ui:366
-#| msgctxt "shortcut window"
-#| msgid "Toggle white screen"
 msgctxt "shortcut window"
 msgid "White Screen"
 msgstr "Білий екран"
 
 #: shell/help-overlay.ui:374
-#| msgctxt "shortcut window"
-#| msgid "Touchpad gestures"
 msgctxt "shortcut window"
 msgid "Touchpad Gestures"
 msgstr "Жести сенсорної панелі"
 
 #: shell/pps-annotation-properties-dialog.ui:4
-#: shell/pps-sidebar-annotations.ui:65
+#: shell/pps-sidebar-annotations.ui:75
 msgid "Annotation Properties"
 msgstr "Властивості примітки"
 
 #: shell/pps-annotation-properties-dialog.ui:14
-#| msgid "Color:"
 msgid "Color"
 msgstr "Колір"
 
 #: shell/pps-annotation-properties-dialog.ui:26
-#| msgid "Opacity:"
 msgid "Opacity"
 msgstr "Непрозорість"
 
@@ -1356,7 +1236,6 @@ msgid "Initially Opened"
 msgstr "Відкрите на початку"
 
 #: shell/pps-annotation-properties-dialog.ui:46
-#| msgid "Icon:"
 msgid "Icon"
 msgstr "Піктограма"
 
@@ -1397,7 +1276,6 @@ msgid "Circle"
 msgstr "Коло"
 
 #: shell/pps-annotation-properties-dialog.ui:69
-#| msgid "Markup type:"
 msgid "Markup Type"
 msgstr "Тип розмітки"
 
@@ -1443,11 +1321,10 @@ msgid "Password for document %s"
 msgstr "Пароль для документа %s"
 
 #: shell/pps-loader-view.ui:18
-#| msgid "Open Document"
 msgid "Loading Document"
 msgstr "Завантажуємо документ"
 
-#: shell/pps-loader-view.ui:45 shell/pps-window.c:2887
+#: shell/pps-loader-view.ui:45 shell/pps-window.c:2859
 msgid "C_ancel"
 msgstr "_Скасувати"
 
@@ -1457,22 +1334,18 @@ msgid "Password Required"
 msgstr "Потрібно пароль"
 
 #: shell/pps-password-dialog.ui:8
-#| msgid "_Cancel"
 msgid "Cancel"
 msgstr "Скасувати"
 
 #: shell/pps-password-dialog.ui:9
-#| msgid "_Unlock"
 msgid "Unlock"
 msgstr "Розблокувати"
 
 #: shell/pps-password-dialog.ui:18
-#| msgid "_Password:"
 msgid "Password"
 msgstr "Пароль"
 
 #: shell/pps-password-dialog.ui:33
-#| msgid "Invalid page selection"
 msgid "Invalid password"
 msgstr "Некоректний пароль"
 
@@ -1489,9 +1362,6 @@ msgid "Remember _forever"
 msgstr "Запам'ятати назав_жди"
 
 #: shell/pps-password-view.ui:20
-#| msgid ""
-#| "This document is locked and can only be read by entering the correct "
-#| "password."
 msgid ""
 "This document is locked and can only be read by entering the correct password"
 msgstr ""
@@ -1502,7 +1372,6 @@ msgid "_Unlock Document"
 msgstr "_Розблокувати документ"
 
 #: shell/pps-properties-license.ui:21
-#| msgid "Usage terms"
 msgid "Usage Terms"
 msgstr "Умови використання"
 
@@ -1519,69 +1388,56 @@ msgid "Properties"
 msgstr "Властивості"
 
 #: shell/pps-properties-window.ui:25
-#| msgid "Document"
 msgid "_Document"
 msgstr "_Документ"
 
 #: shell/pps-properties-window.ui:40
-#| msgid "Fonts"
 msgid "_Fonts"
 msgstr "Ш_рифти"
 
 #: shell/pps-properties-window.ui:51
-#| msgid "Text License"
 msgid "License"
 msgstr "Ліцензування"
 
 #: shell/pps-search-box.ui:15
-#| msgid "Print document"
 msgid "Search in document"
 msgstr "Пошук у документі"
 
-#: shell/pps-search-box.ui:33
-#| msgid "Search options"
+#: shell/pps-search-box.ui:34
 msgid "Search Options"
 msgstr "Параметри пошуку"
 
-#: shell/pps-search-box.ui:42
+#: shell/pps-search-box.ui:43
 msgid "_Whole Words Only"
 msgstr "Тільки _цілі слова"
 
-#: shell/pps-search-box.ui:46
+#: shell/pps-search-box.ui:47
 msgid "C_ase Sensitive"
 msgstr "З урахуванням _регістру"
 
-#: shell/pps-sidebar-annotations.c:228
-#, c-format
-msgid "Page %d"
-msgstr "Сторінка %d"
-
 #: shell/pps-sidebar-annotations.ui:16
-#| msgid "Annotations"
 msgid "No Annotations"
 msgstr "Немає анотацій"
 
-#: shell/pps-sidebar-annotations.ui:70
+#: shell/pps-sidebar-annotations.ui:80
 msgid "Remove Annotation"
 msgstr "Вилучити примітку"
 
-#: shell/pps-sidebar-annotations.ui:75 shell/pps-window.ui:818
-#: shell/pps-window.ui:855
+#: shell/pps-sidebar-annotations.ui:85 shell/pps-window.ui:824
+#: shell/pps-window.ui:861
 msgid "_Open Attachment"
 msgstr "_Відкрити долучення"
 
-#: shell/pps-sidebar-annotations.ui:80 shell/pps-window.ui:823
-#: shell/pps-window.ui:859
+#: shell/pps-sidebar-annotations.ui:90 shell/pps-window.ui:829
+#: shell/pps-window.ui:865
 msgid "_Save Attachment As…"
 msgstr "З_берегти долучення як…"
 
 #: shell/pps-sidebar-bookmarks.ui:63
-#| msgid "Add bookmark"
 msgid "Add Bookmark"
 msgstr "Додати закладку"
 
 #: shell/pps-sidebar-bookmarks.ui:72
-#| msgid "Remove bookmark"
 msgid "Remove Bookmark"
 msgstr "Вилучити закладку"
 
@@ -1614,49 +1470,48 @@ msgid "Print this section…"
 msgstr "Надрукувати цей розділ…"
 
 #: shell/pps-sidebar-thumbnails.ui:46
-#| msgid "Print Preview"
 msgid "Previews"
 msgstr "Попередній перегляд"
 
-#: shell/pps-window.c:605
+#: shell/pps-window.c:597
 msgid "View Details"
 msgstr "Переглянути подробиці"
 
-#: shell/pps-window.c:1397
+#: shell/pps-window.c:1389
 msgid "The document contains no pages"
 msgstr "Документ не містить сторінок"
 
-#: shell/pps-window.c:1400
+#: shell/pps-window.c:1392
 msgid "The document contains only empty pages"
 msgstr "Документ містить лише порожні сторінки"
 
-#: shell/pps-window.c:1711
+#: shell/pps-window.c:1687
 #, c-format
 msgid "Unable to open document “%s”."
 msgstr "Неможливо відкрити документ «%s»."
 
-#: shell/pps-window.c:1852
+#: shell/pps-window.c:1828
 msgid "Failed to load remote file."
 msgstr "Не вдалось завантажити віддалений файл."
 
-#: shell/pps-window.c:2089
+#: shell/pps-window.c:2063
 msgid "Failed to reload document."
 msgstr "Не вдалось оновити документ."
 
-#: shell/pps-window.c:2359
+#: shell/pps-window.c:2333
 msgid "File Saved"
 msgstr "Файл збережено"
 
-#: shell/pps-window.c:2369 shell/pps-window.c:2423
+#: shell/pps-window.c:2343 shell/pps-window.c:2395
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Документ неможливо зберегти як «%s»."
 
-#: shell/pps-window.c:2485
+#: shell/pps-window.c:2457
 msgid "Save As…"
 msgstr "Зберегти як…"
 
-#: shell/pps-window.c:2791
+#: shell/pps-window.c:2763
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
@@ -1664,79 +1519,73 @@ msgstr[0] "%d завдання у черзі"
 msgstr[1] "%d завдання у черзі"
 msgstr[2] "%d завдань у черзі"
 
-#: shell/pps-window.c:2830
-#| msgid "Failed to print document"
+#: shell/pps-window.c:2802
 msgid "Failed to Print Document"
 msgstr "Не вдалося надрукувати документ"
 
-#: shell/pps-window.c:2884
+#: shell/pps-window.c:2856
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Друкування завдання «%s»"
 
-#: shell/pps-window.c:3083
+#: shell/pps-window.c:3055
 msgid "Document contains form fields that have been filled out."
 msgstr "Документ містить поля форми, які заповнено."
 
-#: shell/pps-window.c:3086
+#: shell/pps-window.c:3058
 msgid "Document contains new or modified annotations."
 msgstr "Документ містить нові або змінені примітки."
 
-#: shell/pps-window.c:3094
-#| msgid "Failed to reload document."
-msgid "File Changed Outside Papers. Reload document?"
+#: shell/pps-window.c:3066
+#| msgid "File Changed Outside Papers. Reload document?"
+msgid "File Changed Outside Papers. Reload Document?"
 msgstr "До файла внесено зміни поза «Паперами». Перезавантажити документ?"
 
-#: shell/pps-window.c:3095
+#: shell/pps-window.c:3067
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "Якщо перезапустити документ, зміни буде остаточно втрачено."
 
-#: shell/pps-window.c:3098
+#: shell/pps-window.c:3070
 msgid "_No"
 msgstr "_Ні"
 
-#: shell/pps-window.c:3099
+#: shell/pps-window.c:3071
 msgid "_Reload"
 msgstr "_Оновити"
 
-#: shell/pps-window.c:3107
-#| msgid "Save a _Copy"
+#: shell/pps-window.c:3079
 msgid "Save Changes to a Copy?"
 msgstr "Зберегти зміни до копії?"
 
-#: shell/pps-window.c:3108
+#: shell/pps-window.c:3080
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "Якщо копію не збережено, зміни буде остаточно втрачено."
 
-#: shell/pps-window.c:3111
-#| msgid "Close _without Saving"
+#: shell/pps-window.c:3083
 msgid "Close _Without Saving"
 msgstr "Закрити б_ез збереження"
 
-#: shell/pps-window.c:3112 shell/pps-window.ui:648 shell/pps-window.ui:660
+#: shell/pps-window.c:3084 shell/pps-window.ui:654 shell/pps-window.ui:666
 msgid "_Cancel"
 msgstr "_Скасувати"
 
-#: shell/pps-window.c:3113
-#| msgid "Save a _Copy"
+#: shell/pps-window.c:3085
 msgid "_Save a Copy"
 msgstr "_Зберегти копію"
 
-#: shell/pps-window.c:4229
-#| msgid "Search options"
+#: shell/pps-window.c:4200
 msgid "Search"
 msgstr "Пошук"
 
-#: shell/pps-window.c:4233
-#| msgid "Search not available for this document"
+#: shell/pps-window.c:4204
 msgid "Search Unavailable"
 msgstr "Пошук недоступний"
 
-#: shell/pps-window.c:4441
+#: shell/pps-window.c:4412
 msgid "The attachment could not be saved."
 msgstr "Долучення зберегти неможливо."
 
-#: shell/pps-window.c:5025
+#: shell/pps-window.c:4994
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
@@ -1744,33 +1593,31 @@ msgstr ""
 "Попередження безпеки: програма запобігла відкриттю файла «%s» з цього "
 "документа"
 
-#: shell/pps-window.c:5087
+#: shell/pps-window.c:5056
 msgid "Unable to open external link"
 msgstr "Не вдалось відкрити зовнішнє посилання"
 
-#: shell/pps-window.c:5311
+#: shell/pps-window.c:5280
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Неможливо знайти відповідний формат для збереження зображення"
 
-#: shell/pps-window.c:5341
+#: shell/pps-window.c:5310
 msgid "The image could not be saved."
 msgstr "Не вдалось зберегти зображення."
 
-#: shell/pps-window.c:5378
+#: shell/pps-window.c:5346
 msgid "Save Image"
 msgstr "Зберегти зображення"
 
-#: shell/pps-window.c:5549
+#: shell/pps-window.c:5517
 msgid "Unable to open attachment"
 msgstr "Не вдалось відкрити долучення"
 
-#: shell/pps-window.c:5613
+#: shell/pps-window.c:5581
 msgid "Save Attachment"
 msgstr "Зберегти долучення"
 
 #: shell/pps-window.ui:69 shell/pps-window.ui:77
-#| msgctxt "shortcut window"
-#| msgid "Open a document"
 msgid "Open a Document"
 msgstr "Відкрити документ"
 
@@ -1779,12 +1626,10 @@ msgid "Drag and drop documents here"
 msgstr "Перетягніть сюди документи і скиньте їх"
 
 #: shell/pps-window.ui:75
-#| msgid "Open…"
 msgid "_Open…"
 msgstr "_Відкрити…"
 
 #: shell/pps-window.ui:101
-#| msgid "Unable to open attachment"
 msgid "Unable to Open Document"
 msgstr "Не вдалося відкрити документ"
 
@@ -1825,18 +1670,14 @@ msgid "Layers"
 msgstr "Шари"
 
 #: shell/pps-window.ui:284
-#| msgctxt "shortcut window"
-#| msgid "Toggle sidebar"
 msgid "Toggle Sidebar"
 msgstr "Увімкнути або вимкнути бічну панель"
 
 #: shell/pps-window.ui:290
-#| msgid "Document View"
 msgid "Document Menu"
 msgstr "Меню документа"
 
 #: shell/pps-window.ui:338
-#| msgid "_Automatic"
 msgid "Fit Automatically"
 msgstr "Автоматичний розмір"
 
@@ -1844,191 +1685,173 @@ msgstr "Автоматичний розмір"
 msgid "Loading…"
 msgstr "Завантаження…"
 
-#: shell/pps-window.ui:639
-#| msgid "Enable caret navigation?"
+#: shell/pps-window.ui:645
 msgid "Enable Caret Navigation?"
 msgstr "Увімкнути навігацію з курсором?"
 
-#: shell/pps-window.ui:640
-#| msgid ""
-#| "Pressing F7 turns the caret navigation on or off. This feature places a "
-#| "moveable cursor in text pages, allowing you to move around and select "
-#| "text with your keyboard. Do you want to enable the caret navigation?"
+#: shell/pps-window.ui:646
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
 "with your keyboard."
 msgstr ""
-"Натиснення F7 вмикає та вимикає переміщення з курсором. Ця можливість"
-" реалізує рухомий курсор у текстових сторінках, який надає змогу пересувати"
-" і "
+"Натиснення F7 вмикає та вимикає переміщення з курсором. Ця можливість "
+"реалізує рухомий курсор у текстових сторінках, який надає змогу пересувати і "
 "вибирати текст клавіатурою."
 
-#: shell/pps-window.ui:643
+#: shell/pps-window.ui:649
 msgid "Don’t show this message again"
 msgstr "Не показувати це повідомлення надалі"
 
-#: shell/pps-window.ui:649
+#: shell/pps-window.ui:655
 msgid "_Enable"
 msgstr "_Увімкнути"
 
-#: shell/pps-window.ui:655
-#| msgid "Close _after Printing"
+#: shell/pps-window.ui:661
 msgid "Abort Printing?"
 msgstr "Скасувати друкування?"
 
-#: shell/pps-window.ui:656
-#| msgid "If you close the window, pending print jobs will not be printed."
+#: shell/pps-window.ui:662
 msgid ""
 "There is one or more active print jobs. If the window is closed, pending "
 "print jobs will not be printed."
 msgstr ""
-"Не завершено одне або декілька завдань з друку. Якщо ви закриєте вікно,"
-" завдання з черги друку не буде "
-"виконано."
+"Не завершено одне або декілька завдань з друку. Якщо ви закриєте вікно, "
+"завдання з черги друку не буде виконано."
 
-#: shell/pps-window.ui:659
-#| msgid "Cancel _print and Close"
+#: shell/pps-window.ui:665
 msgid "Abort _Print and Close"
 msgstr "Скасувати др_ук та закрити"
 
-#: shell/pps-window.ui:661
-#| msgid "Close _after Printing"
+#: shell/pps-window.ui:667
 msgid "Close _After Printing"
 msgstr "Закрити п_ісля друкування"
 
-#: shell/pps-window.ui:675
+#: shell/pps-window.ui:681
 msgid "Open"
 msgstr "Відкрити"
 
-#: shell/pps-window.ui:681
+#: shell/pps-window.ui:687
 msgid "Ni_ght Mode"
 msgstr "_Нічний режим"
 
-#: shell/pps-window.ui:687
+#: shell/pps-window.ui:693
 msgid "_Keyboard Shortcuts"
 msgstr "_Клавіатурні скорочення"
 
-#: shell/pps-window.ui:691
+#: shell/pps-window.ui:697
 msgid "_Help"
 msgstr "_Довідка"
 
-#: shell/pps-window.ui:695
+#: shell/pps-window.ui:701
 msgid "_About Papers"
 msgstr "_Про «Папери»"
 
-#: shell/pps-window.ui:703
-#| msgid "Print…"
+#: shell/pps-window.ui:709
 msgid "_Print…"
 msgstr "Над_рукувати…"
 
-#: shell/pps-window.ui:707
+#: shell/pps-window.ui:713
 msgid "Fullscreen"
 msgstr "На весь екран"
 
-#: shell/pps-window.ui:711
-#| msgid "Present as _Slideshow"
+#: shell/pps-window.ui:717
 msgid "Present as Slideshow"
 msgstr "Презентація у форматі слайдів"
 
-#: shell/pps-window.ui:717
+#: shell/pps-window.ui:723
 msgid "Open a C_opy"
 msgstr "Відкрити _копію"
 
-#: shell/pps-window.ui:721
-#| msgid "Open…"
+#: shell/pps-window.ui:727
 msgid "Open With…"
 msgstr "Відкрити за допомогою…"
 
-#: shell/pps-window.ui:725
+#: shell/pps-window.ui:731
 msgid "_Save As…"
 msgstr "Зберегти _як…"
 
-#: shell/pps-window.ui:731
+#: shell/pps-window.ui:737
 msgid "_Continuous"
 msgstr "Б_езперервно"
 
-#: shell/pps-window.ui:735
+#: shell/pps-window.ui:741
 msgid "_Dual"
 msgstr "_Дві сторінки"
 
-#: shell/pps-window.ui:739
+#: shell/pps-window.ui:745
 msgid "_Odd Pages Left"
 msgstr "_Непарні сторінки зліва"
 
-#: shell/pps-window.ui:743
+#: shell/pps-window.ui:749
 msgid "Right to Left Document"
 msgstr "Документ із писемністю справа ліворуч"
 
-#: shell/pps-window.ui:749
+#: shell/pps-window.ui:755
 msgid "Ro_tate ⤵"
 msgstr "По_вернути ⤵"
 
-#: shell/pps-window.ui:755
-#| msgctxt "shortcut window"
-#| msgid "Document properties"
+#: shell/pps-window.ui:761
 msgid "Document Prop_erties"
 msgstr "В_ластивості документа"
 
-#: shell/pps-window.ui:764
+#: shell/pps-window.ui:770
 msgid "_Open Link"
 msgstr "_Відкрити посилання"
 
-#: shell/pps-window.ui:769
+#: shell/pps-window.ui:775
 msgid "_Copy Link Address"
 msgstr "_Копіювати адресу посилання"
 
-#: shell/pps-window.ui:774
+#: shell/pps-window.ui:780
 msgid "_Go To"
 msgstr "Пере_йти до"
 
-#: shell/pps-window.ui:779
+#: shell/pps-window.ui:785
 msgid "Open in New _Window"
 msgstr "Відкрити у новому _вікні"
 
-#: shell/pps-window.ui:786
+#: shell/pps-window.ui:792
 msgid "_Previous Page"
 msgstr "_Назад"
 
-#: shell/pps-window.ui:790
+#: shell/pps-window.ui:796
 msgid "_Next Page"
 msgstr "_Далі"
 
-#: shell/pps-window.ui:796
+#: shell/pps-window.ui:802
 msgid "_Copy"
 msgstr "_Копіювати"
 
-#: shell/pps-window.ui:800
+#: shell/pps-window.ui:806
 msgid "Select _All"
 msgstr "Виді_лити все"
 
-#: shell/pps-window.ui:806
+#: shell/pps-window.ui:812
 msgid "_Save Image As…"
 msgstr "Зберегти зображення _як…"
 
-#: shell/pps-window.ui:811
+#: shell/pps-window.ui:817
 msgid "Copy _Image"
 msgstr "Копіювати _зображення"
 
-#: shell/pps-window.ui:830
+#: shell/pps-window.ui:836
 msgid "Annotation _Properties…"
 msgstr "Властивості при_мітки…"
 
-#: shell/pps-window.ui:835
+#: shell/pps-window.ui:841
 msgid "R_emove Annotation"
 msgstr "Ви_лучити примітку"
 
-#: shell/pps-window.ui:842
-#| msgid "Add text annotation"
+#: shell/pps-window.ui:848
 msgid "_Add Text Annotation"
 msgstr "_Додати текстову анотацію"
 
-#: shell/pps-window.ui:847
+#: shell/pps-window.ui:853
 msgid "_Highlight Selected Text"
 msgstr "_Підсвітити вибраний текст"
 
 #: shell-rs/src/application.rs:219
-#| msgid "© 1996–2023 The Evince document viewer authors"
 msgid "© 1996–2024 The Papers authors"
 msgstr "© Автори «Паперів», 1996–2024"
 
@@ -2063,12 +1886,10 @@ msgid "DEST"
 msgstr "МІСЦЕ"
 
 #: shell-rs/src/application.rs:343
-#| msgid "Run evince in fullscreen mode"
 msgid "Run papers in fullscreen mode."
 msgstr "Запустити «Папери» у повноекранного режимі."
 
 #: shell-rs/src/application.rs:352
-#| msgid "Run evince in presentation mode"
 msgid "Run papers in presentation mode."
 msgstr "Запустити «Папери» у режимі презентації."
 
@@ -2080,13 +1901,11 @@ msgstr "Показати версію програми."
 msgid "[FILE…]"
 msgstr "[ФАЙЛ…]"
 
-#: shell-rs/src/page_selector.rs:77
-#| msgid "Page %s"
+#: shell-rs/src/page_selector.rs:77 shell-rs/src/sidebar_annotations_row.rs:82
 msgid "Page {}"
 msgstr "Сторінка {}"
 
 #: shell-rs/src/page_selector.rs:220 shell-rs/src/page_selector.rs:238
-#| msgid "(%d of %d)"
 msgid "({} of {})"
 msgstr "({} з {})"
 
@@ -2095,17 +1914,12 @@ msgid "of {}"
 msgstr "з {}"
 
 #: shell-rs/src/password_view.rs:156
-#| msgid ""
-#| "The document “%s” is locked and requires a password before it can be "
-#| "opened."
 msgid ""
 "The document “{}” is locked and requires a password before it can be opened"
 msgstr ""
-"Документ «{}» заблокований, треба вказати пароль перш ніж його можна "
-"відкрити"
+"Документ «{}» заблокований, треба вказати пароль перш ніж його можна відкрити"
 
 #: shell-rs/src/properties_general.rs:73
-#| msgid "All Files"
 msgid "File"
 msgstr "Файл"
 
@@ -2121,9 +1935,12 @@ msgstr "Вміст"
 msgid "Date &amp; Time"
 msgstr "Дата та час"
 
-#: shell-rs/src/sidebar_annotations_row.rs:57
-msgid "No Comment"
-msgstr "Немає коментарів"
+#, c-format
+#~ msgid "Page %d"
+#~ msgstr "Сторінка %d"
+
+#~ msgid "No Comment"
+#~ msgstr "Немає коментарів"
 
 #~ msgid "DVI document has incorrect format"
 #~ msgstr "Документ DVI має некоректний формат"
