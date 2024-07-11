@@ -2,10 +2,10 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <template class="PpsSidebarThumbnails" parent="PpsSidebarPage">
+    <signal name="notify::scale-factor" handler="reload" swapped="yes" />
     <property name="child">
       <object class="GtkBox">
         <property name="orientation">vertical</property>
-        <signal name="notify::scale-factor" handler="reload" />
         <child>
           <object class="GtkScrolledWindow">
             <property name="valign">fill</property>
