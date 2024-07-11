@@ -14,34 +14,34 @@ lto = true
 with-keyring = []
 
 [dependencies]
-env_logger = "0.10"
+env_logger = "0.11"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
 log = "0.4"
 lru = "0.12"
 zbus = "4"
 
 [dependencies.glib]
-version = "0.19"
+version = "0.20"
 features = ["v2_68"]
 
 [dependencies.gio]
-version = "0.19"
+version = "0.20"
 
 [dependencies.gdk-pixbuf]
-version = "0.19"
+version = "0.20"
 
 [dependencies.gtk]
 package = "gtk4"
-version = "0.8"
+version = "0.9"
 features = ["v4_12"]
 
 [dependencies.gdk]
 package = "gdk4"
-version = "0.8"
+version = "0.9"
 
 [dependencies.adw]
 package = "libadwaita"
-version = "0.6"
+version = "0.7"
 features = ["v1_5"]
 
 [dependencies.papers_shell]

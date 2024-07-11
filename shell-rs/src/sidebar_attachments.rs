@@ -84,7 +84,7 @@ mod imp {
                 .mime_type()
                 .map(|mime| gio::content_type_get_symbolic_icon(mime.as_str()))
             {
-                image.set_gicon(Some(&icon));
+                image.set_from_gicon(&icon);
             }
 
             if let Some(name) = attachment.name() {
@@ -144,7 +144,7 @@ mod imp {
 
             if click
                 .widget()
-                .compute_point(self.grid_view.upcast_ref::<gtk::Widget>(), &point)
+                .and_then(|w| w.compute_point(self.grid_view.upcast_ref::<gtk::Widget>(), &point))
                 .and_then(|point| {
                     self.grid_view
                         .pick(point.x() as f64, point.y() as f64, gtk::PickFlags::DEFAULT)
@@ -191,7 +191,7 @@ mod imp {
 
             let point = click
                 .widget()
-                .compute_point(self.obj().upcast_ref::<gtk::Widget>(), &point)
+                .and_then(|w| w.compute_point(self.obj().upcast_ref::<gtk::Widget>(), &point))
                 .unwrap_or_default();
 
             let (x, y) = (point.x() as f64, point.y() as f64);

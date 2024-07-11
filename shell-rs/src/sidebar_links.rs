@@ -828,7 +828,9 @@ mod imp {
 
             gesture_click.connect_pressed(glib::clone!(@weak self as obj, @weak box_ => move |gesture_click, _, x, y| {
                 // FIXME: check menu availability first
-                let row = gesture_click.widget().parent().and_downcast::<gtk::TreeExpander>().unwrap().list_row().unwrap();
+                let row = gesture_click.widget()
+                    .and_then(|w| w.parent())
+                    .and_downcast::<gtk::TreeExpander>().unwrap().list_row().unwrap();
 
                 obj.selected_row.replace(Some(row));
 

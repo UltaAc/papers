@@ -22,21 +22,21 @@ package = "papers-view-sys"
 path = "./sys"
 
 [dependencies.glib]
-version = "0.19"
+version = "0.20"
 
 [dependencies.gio]
-version = "0.19"
+version = "0.20"
 
 [dependencies.gdk-pixbuf]
-version = "0.19"
+version = "0.20"
 
 [dependencies.gtk]
 package = "gtk4"
-version = "0.8"
+version = "0.9"
 
 [dependencies.gdk]
 package = "gdk4"
-version = "0.8"
+version = "0.9"
 
 [dependencies.papers_document]
 package = "papers-document"

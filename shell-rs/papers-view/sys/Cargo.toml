@@ -26,33 +26,33 @@ name = "papers_view_sys"
 libc = "0.2"
 
 [dependencies.gio-sys]
-version = "0.19"
+version = "0.20"
 
 [dependencies.glib-sys]
 package = "glib-sys"
-version = "0.19"
+version = "0.20"
 
 [dependencies.gobject-sys]
-version = "0.19"
+version = "0.20"
 
 [dependencies.cairo-sys]
 package = "cairo-sys-rs"
-version = "0.19"
+version = "0.20"
 
 [dependencies.gdk-pixbuf-sys]
-version = "0.19"
+version = "0.20"
 
 [dependencies.pango-sys]
 package = "pango-sys"
-version = "0.19"
+version = "0.20"
 
 [dependencies.gdk-sys]
 package = "gdk4-sys"
-version = "0.8"
+version = "0.9"
 
 [dependencies.gtk-sys]
 package = "gtk4-sys"
-version = "0.8"
+version = "0.9"
 
 [dependencies.papers-document-sys]
 path = "../../papers-document/sys"

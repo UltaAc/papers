@@ -242,7 +242,7 @@ mod imp {
             // Force set the version for the development release
             about.set_version(VERSION);
 
-            about.present(self.obj().active_window().as_ref().unwrap());
+            about.present(self.obj().active_window().as_ref());
         }
 
         fn show_help(&self) {

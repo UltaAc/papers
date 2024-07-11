@@ -123,7 +123,7 @@ mod imp {
                 self.set_current_page(model.page());
             }
 
-            self.entry.set_xalign(1.);
+            EntryExt::set_alignment(&self.entry.clone(), 1.);
             self.update_max_width();
         }
     }

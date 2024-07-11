@@ -220,7 +220,7 @@ mod imp {
                 AnnotationType::Text => None,
                 _ => unimplemented!(),
             });
-            self.image.set_from_icon_name(icon_name);
+            self.image.set_icon_name(icon_name);
             self.image.set_visible(icon_name.is_some());
 
             self.annotation.replace(annot.cloned());
