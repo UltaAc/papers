@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::SidebarPage;
+use crate::{ffi, SidebarPage};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {

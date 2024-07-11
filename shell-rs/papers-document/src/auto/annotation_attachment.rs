@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Annotation, AnnotationMarkup, Attachment, Page};
+use crate::{ffi, Annotation, AnnotationMarkup, Attachment, Page};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -44,6 +44,7 @@ impl AnnotationAttachment {
     }
 
     #[doc(alias = "pps_annotation_attachment_set_attachment")]
+    #[doc(alias = "attachment")]
     pub fn set_attachment(&self, attachment: &impl IsA<Attachment>) -> bool {
         unsafe {
             from_glib(ffi::pps_annotation_attachment_set_attachment(
@@ -70,7 +71,7 @@ impl AnnotationAttachment {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::attachment\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_attachment_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),

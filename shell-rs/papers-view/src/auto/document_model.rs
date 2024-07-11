@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{PageLayout, SizingMode};
+use crate::{ffi, PageLayout, SizingMode};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -40,6 +40,7 @@ impl DocumentModel {
 
     #[doc(alias = "pps_document_model_get_continuous")]
     #[doc(alias = "get_continuous")]
+    #[doc(alias = "continuous")]
     pub fn is_continuous(&self) -> bool {
         unsafe {
             from_glib(ffi::pps_document_model_get_continuous(
@@ -66,6 +67,7 @@ impl DocumentModel {
 
     #[doc(alias = "pps_document_model_get_inverted_colors")]
     #[doc(alias = "get_inverted_colors")]
+    #[doc(alias = "inverted-colors")]
     pub fn is_inverted_colors(&self) -> bool {
         unsafe {
             from_glib(ffi::pps_document_model_get_inverted_colors(
@@ -76,12 +78,14 @@ impl DocumentModel {
 
     #[doc(alias = "pps_document_model_get_max_scale")]
     #[doc(alias = "get_max_scale")]
+    #[doc(alias = "max-scale")]
     pub fn max_scale(&self) -> f64 {
         unsafe { ffi::pps_document_model_get_max_scale(self.to_glib_none().0) }
     }
 
     #[doc(alias = "pps_document_model_get_min_scale")]
     #[doc(alias = "get_min_scale")]
+    #[doc(alias = "min-scale")]
     pub fn min_scale(&self) -> f64 {
         unsafe { ffi::pps_document_model_get_min_scale(self.to_glib_none().0) }
     }
@@ -94,6 +98,7 @@ impl DocumentModel {
 
     #[doc(alias = "pps_document_model_get_page_layout")]
     #[doc(alias = "get_page_layout")]
+    #[doc(alias = "page-layout")]
     pub fn page_layout(&self) -> PageLayout {
         unsafe {
             from_glib(ffi::pps_document_model_get_page_layout(
@@ -110,6 +115,7 @@ impl DocumentModel {
 
     #[doc(alias = "pps_document_model_get_rtl")]
     #[doc(alias = "get_rtl")]
+    #[doc(alias = "rtl")]
     pub fn is_rtl(&self) -> bool {
         unsafe { from_glib(ffi::pps_document_model_get_rtl(self.to_glib_none().0)) }
     }
@@ -122,6 +128,7 @@ impl DocumentModel {
 
     #[doc(alias = "pps_document_model_get_sizing_mode")]
     #[doc(alias = "get_sizing_mode")]
+    #[doc(alias = "sizing-mode")]
     pub fn sizing_mode(&self) -> SizingMode {
         unsafe {
             from_glib(ffi::pps_document_model_get_sizing_mode(
@@ -131,6 +138,7 @@ impl DocumentModel {
     }
 
     #[doc(alias = "pps_document_model_set_continuous")]
+    #[doc(alias = "continuous")]
     pub fn set_continuous(&self, continuous: bool) {
         unsafe {
             ffi::pps_document_model_set_continuous(self.to_glib_none().0, continuous.into_glib());
@@ -138,6 +146,7 @@ impl DocumentModel {
     }
 
     #[doc(alias = "pps_document_model_set_document")]
+    #[doc(alias = "document")]
     pub fn set_document(&self, document: &impl IsA<papers_document::Document>) {
         unsafe {
             ffi::pps_document_model_set_document(
@@ -158,6 +167,7 @@ impl DocumentModel {
     }
 
     #[doc(alias = "pps_document_model_set_inverted_colors")]
+    #[doc(alias = "inverted-colors")]
     pub fn set_inverted_colors(&self, inverted_colors: bool) {
         unsafe {
             ffi::pps_document_model_set_inverted_colors(
@@ -168,6 +178,7 @@ impl DocumentModel {
     }
 
     #[doc(alias = "pps_document_model_set_max_scale")]
+    #[doc(alias = "max-scale")]
     pub fn set_max_scale(&self, max_scale: f64) {
         unsafe {
             ffi::pps_document_model_set_max_scale(self.to_glib_none().0, max_scale);
@@ -175,6 +186,7 @@ impl DocumentModel {
     }
 
     #[doc(alias = "pps_document_model_set_min_scale")]
+    #[doc(alias = "min-scale")]
     pub fn set_min_scale(&self, min_scale: f64) {
         unsafe {
             ffi::pps_document_model_set_min_scale(self.to_glib_none().0, min_scale);
@@ -182,6 +194,7 @@ impl DocumentModel {
     }
 
     #[doc(alias = "pps_document_model_set_page")]
+    #[doc(alias = "page")]
     pub fn set_page(&self, page: i32) {
         unsafe {
             ffi::pps_document_model_set_page(self.to_glib_none().0, page);
@@ -199,6 +212,7 @@ impl DocumentModel {
     }
 
     #[doc(alias = "pps_document_model_set_page_layout")]
+    #[doc(alias = "page-layout")]
     pub fn set_page_layout(&self, layout: PageLayout) {
         unsafe {
             ffi::pps_document_model_set_page_layout(self.to_glib_none().0, layout.into_glib());
@@ -206,6 +220,7 @@ impl DocumentModel {
     }
 
     #[doc(alias = "pps_document_model_set_rotation")]
+    #[doc(alias = "rotation")]
     pub fn set_rotation(&self, rotation: i32) {
         unsafe {
             ffi::pps_document_model_set_rotation(self.to_glib_none().0, rotation);
@@ -213,6 +228,7 @@ impl DocumentModel {
     }
 
     #[doc(alias = "pps_document_model_set_rtl")]
+    #[doc(alias = "rtl")]
     pub fn set_rtl(&self, rtl: bool) {
         unsafe {
             ffi::pps_document_model_set_rtl(self.to_glib_none().0, rtl.into_glib());
@@ -220,6 +236,7 @@ impl DocumentModel {
     }
 
     #[doc(alias = "pps_document_model_set_scale")]
+    #[doc(alias = "scale")]
     pub fn set_scale(&self, scale: f64) {
         unsafe {
             ffi::pps_document_model_set_scale(self.to_glib_none().0, scale);
@@ -227,6 +244,7 @@ impl DocumentModel {
     }
 
     #[doc(alias = "pps_document_model_set_sizing_mode")]
+    #[doc(alias = "sizing-mode")]
     pub fn set_sizing_mode(&self, mode: SizingMode) {
         unsafe {
             ffi::pps_document_model_set_sizing_mode(self.to_glib_none().0, mode.into_glib());
@@ -259,7 +277,7 @@ impl DocumentModel {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"page-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     page_changed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -282,7 +300,7 @@ impl DocumentModel {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::continuous\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_continuous_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -305,7 +323,7 @@ impl DocumentModel {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::document\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_document_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -328,7 +346,7 @@ impl DocumentModel {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::dual-odd-left\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_dual_odd_left_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -351,7 +369,7 @@ impl DocumentModel {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::inverted-colors\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_inverted_colors_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -374,7 +392,7 @@ impl DocumentModel {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::max-scale\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_max_scale_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -397,7 +415,7 @@ impl DocumentModel {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::min-scale\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_min_scale_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -420,7 +438,7 @@ impl DocumentModel {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::page\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_page_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -443,7 +461,7 @@ impl DocumentModel {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::page-layout\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_page_layout_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -466,7 +484,7 @@ impl DocumentModel {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::rotation\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_rotation_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -489,7 +507,7 @@ impl DocumentModel {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::rtl\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_rtl_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -512,7 +530,7 @@ impl DocumentModel {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::scale\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_scale_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -535,7 +553,7 @@ impl DocumentModel {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::sizing-mode\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_sizing_mode_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),

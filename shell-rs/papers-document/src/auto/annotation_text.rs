@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Annotation, AnnotationMarkup, AnnotationTextIcon, Page};
+use crate::{ffi, Annotation, AnnotationMarkup, AnnotationTextIcon, Page};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -38,11 +38,13 @@ impl AnnotationText {
 
     #[doc(alias = "pps_annotation_text_get_is_open")]
     #[doc(alias = "get_is_open")]
+    #[doc(alias = "is-open")]
     pub fn is_open(&self) -> bool {
         unsafe { from_glib(ffi::pps_annotation_text_get_is_open(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pps_annotation_text_set_icon")]
+    #[doc(alias = "icon")]
     pub fn set_icon(&self, icon: AnnotationTextIcon) -> bool {
         unsafe {
             from_glib(ffi::pps_annotation_text_set_icon(
@@ -53,6 +55,7 @@ impl AnnotationText {
     }
 
     #[doc(alias = "pps_annotation_text_set_is_open")]
+    #[doc(alias = "is-open")]
     pub fn set_is_open(&self, is_open: bool) -> bool {
         unsafe {
             from_glib(ffi::pps_annotation_text_set_is_open(
@@ -77,7 +80,7 @@ impl AnnotationText {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::icon\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_icon_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -100,7 +103,7 @@ impl AnnotationText {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::is-open\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_is_open_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),

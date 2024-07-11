@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::Layer;
+use crate::{ffi, Layer};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {

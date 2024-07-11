@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Metadata, WindowRunMode};
+use crate::{ffi, Metadata, WindowRunMode};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {

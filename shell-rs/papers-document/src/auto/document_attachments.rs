@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::Attachment;
+use crate::{ffi, Attachment};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {

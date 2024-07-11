@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{DocumentInfo, Page};
+use crate::{ffi, DocumentInfo, Page};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -234,6 +234,7 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
 
     #[doc(alias = "pps_document_get_modified")]
     #[doc(alias = "get_modified")]
+    #[doc(alias = "modified")]
     fn is_modified(&self) -> bool {
         unsafe {
             from_glib(ffi::pps_document_get_modified(
@@ -388,6 +389,7 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "pps_document_set_modified")]
+    #[doc(alias = "modified")]
     fn set_modified(&self, modified: bool) {
         unsafe {
             ffi::pps_document_set_modified(self.as_ref().to_glib_none().0, modified.into_glib());
@@ -409,7 +411,7 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::modified\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_modified_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

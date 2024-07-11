@@ -3,6 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -40,6 +41,7 @@ impl ViewPresentation {
 
     #[doc(alias = "pps_view_presentation_get_current_page")]
     #[doc(alias = "get_current_page")]
+    #[doc(alias = "current-page")]
     pub fn current_page(&self) -> u32 {
         unsafe { ffi::pps_view_presentation_get_current_page(self.to_glib_none().0) }
     }
@@ -65,6 +67,7 @@ impl ViewPresentation {
     }
 
     #[doc(alias = "pps_view_presentation_set_rotation")]
+    #[doc(alias = "rotation")]
     pub fn set_rotation(&self, rotation: i32) {
         unsafe {
             ffi::pps_view_presentation_set_rotation(self.to_glib_none().0, rotation);
@@ -96,7 +99,7 @@ impl ViewPresentation {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"change-page\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     change_page_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -128,7 +131,7 @@ impl ViewPresentation {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"external-link\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     external_link_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -154,7 +157,7 @@ impl ViewPresentation {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"finished\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     finished_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -181,7 +184,7 @@ impl ViewPresentation {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::current-page\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_current_page_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -204,7 +207,7 @@ impl ViewPresentation {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::rotation\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_rotation_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),

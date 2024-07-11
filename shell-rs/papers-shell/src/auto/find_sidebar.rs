@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::SearchContext;
+use crate::{ffi, SearchContext};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {

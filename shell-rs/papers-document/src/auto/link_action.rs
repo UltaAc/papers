@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Layer, LinkActionType, LinkDest};
+use crate::{ffi, Layer, LinkActionType, LinkDest};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -107,6 +107,7 @@ impl LinkAction {
 
     #[doc(alias = "pps_link_action_get_exclude_reset_fields")]
     #[doc(alias = "get_exclude_reset_fields")]
+    #[doc(alias = "exclude-reset-fields")]
     pub fn is_exclude_reset_fields(&self) -> bool {
         unsafe {
             from_glib(ffi::pps_link_action_get_exclude_reset_fields(
@@ -123,6 +124,7 @@ impl LinkAction {
 
     #[doc(alias = "pps_link_action_get_hide_list")]
     #[doc(alias = "get_hide_list")]
+    #[doc(alias = "hide-list")]
     pub fn hide_list(&self) -> Vec<Layer> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::pps_link_action_get_hide_list(
@@ -145,6 +147,7 @@ impl LinkAction {
 
     #[doc(alias = "pps_link_action_get_reset_fields")]
     #[doc(alias = "get_reset_fields")]
+    #[doc(alias = "reset-fields")]
     pub fn reset_fields(&self) -> Vec<glib::GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::pps_link_action_get_reset_fields(
@@ -155,6 +158,7 @@ impl LinkAction {
 
     #[doc(alias = "pps_link_action_get_show_list")]
     #[doc(alias = "get_show_list")]
+    #[doc(alias = "show-list")]
     pub fn show_list(&self) -> Vec<Layer> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::pps_link_action_get_show_list(
@@ -165,6 +169,7 @@ impl LinkAction {
 
     #[doc(alias = "pps_link_action_get_toggle_list")]
     #[doc(alias = "get_toggle_list")]
+    #[doc(alias = "toggle-list")]
     pub fn toggle_list(&self) -> Vec<Layer> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::pps_link_action_get_toggle_list(

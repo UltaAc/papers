@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{AnnotationType, Page, Rectangle};
+use crate::{ffi, AnnotationType, Page, Rectangle};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -109,6 +109,7 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "pps_annotation_set_area")]
+    #[doc(alias = "area")]
     fn set_area(&self, area: &Rectangle) -> bool {
         unsafe {
             from_glib(ffi::pps_annotation_set_area(
@@ -119,6 +120,7 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "pps_annotation_set_contents")]
+    #[doc(alias = "contents")]
     fn set_contents(&self, contents: &str) -> bool {
         unsafe {
             from_glib(ffi::pps_annotation_set_contents(
@@ -129,6 +131,7 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "pps_annotation_set_modified")]
+    #[doc(alias = "modified")]
     fn set_modified(&self, modified: &str) -> bool {
         unsafe {
             from_glib(ffi::pps_annotation_set_modified(
@@ -144,6 +147,7 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
     //}
 
     #[doc(alias = "pps_annotation_set_name")]
+    #[doc(alias = "name")]
     fn set_name(&self, name: &str) -> bool {
         unsafe {
             from_glib(ffi::pps_annotation_set_name(
@@ -154,6 +158,7 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "pps_annotation_set_rgba")]
+    #[doc(alias = "rgba")]
     fn set_rgba(&self, rgba: &gdk::RGBA) -> bool {
         unsafe {
             from_glib(ffi::pps_annotation_set_rgba(
@@ -178,7 +183,7 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::area\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_area_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -201,7 +206,7 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::contents\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_contents_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -224,7 +229,7 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::modified\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_modified_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -247,7 +252,7 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::name\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_name_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -270,7 +275,7 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::rgba\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_rgba_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

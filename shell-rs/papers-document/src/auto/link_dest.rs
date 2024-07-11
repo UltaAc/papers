@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::LinkDestType;
+use crate::{ffi, LinkDestType};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -144,6 +144,7 @@ impl LinkDest {
 
     #[doc(alias = "pps_link_dest_get_page_label")]
     #[doc(alias = "get_page_label")]
+    #[doc(alias = "page-label")]
     pub fn page_label(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::pps_link_dest_get_page_label(self.to_glib_none().0)) }
     }

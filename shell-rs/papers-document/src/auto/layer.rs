@@ -3,6 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -48,6 +49,7 @@ pub trait LayerExt: IsA<Layer> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "pps_layer_set_children")]
+    #[doc(alias = "children")]
     fn set_children(&self, children: impl IsA<gio::ListModel>) {
         unsafe {
             ffi::pps_layer_set_children(
@@ -98,7 +100,7 @@ pub trait LayerExt: IsA<Layer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::children\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_children_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -121,7 +123,7 @@ pub trait LayerExt: IsA<Layer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::enabled\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_enabled_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -144,7 +146,7 @@ pub trait LayerExt: IsA<Layer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::title\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_title_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -167,7 +169,7 @@ pub trait LayerExt: IsA<Layer> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::title-only\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_title_only_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

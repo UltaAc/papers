@@ -3,6 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -266,6 +267,7 @@ mod sealed {
 
 pub trait ProgressMessageAreaExt: IsA<ProgressMessageArea> + sealed::Sealed + 'static {
     #[doc(alias = "pps_progress_message_area_set_fraction")]
+    #[doc(alias = "fraction")]
     fn set_fraction(&self, fraction: f64) {
         unsafe {
             ffi::pps_progress_message_area_set_fraction(self.as_ref().to_glib_none().0, fraction);
@@ -273,6 +275,7 @@ pub trait ProgressMessageAreaExt: IsA<ProgressMessageArea> + sealed::Sealed + 's
     }
 
     #[doc(alias = "pps_progress_message_area_set_status")]
+    #[doc(alias = "status")]
     fn set_status(&self, str: &str) {
         unsafe {
             ffi::pps_progress_message_area_set_status(
@@ -308,7 +311,7 @@ pub trait ProgressMessageAreaExt: IsA<ProgressMessageArea> + sealed::Sealed + 's
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::fraction\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_fraction_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -334,7 +337,7 @@ pub trait ProgressMessageAreaExt: IsA<ProgressMessageArea> + sealed::Sealed + 's
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::status\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_status_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

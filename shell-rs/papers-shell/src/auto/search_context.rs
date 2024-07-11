@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::SearchResult;
+use crate::{ffi, SearchResult};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -110,6 +110,7 @@ pub trait SearchContextExt: IsA<SearchContext> + sealed::Sealed + 'static {
 
     #[doc(alias = "pps_search_context_get_search_term")]
     #[doc(alias = "get_search_term")]
+    #[doc(alias = "search-term")]
     fn search_term(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::pps_search_context_get_search_term(
@@ -146,6 +147,7 @@ pub trait SearchContextExt: IsA<SearchContext> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "pps_search_context_set_search_term")]
+    #[doc(alias = "search-term")]
     fn set_search_term(&self, search_term: &str) {
         unsafe {
             ffi::pps_search_context_set_search_term(
@@ -169,7 +171,7 @@ pub trait SearchContextExt: IsA<SearchContext> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"cleared\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     cleared_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -203,7 +205,7 @@ pub trait SearchContextExt: IsA<SearchContext> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"finished\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     finished_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -234,7 +236,7 @@ pub trait SearchContextExt: IsA<SearchContext> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"result-activated\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     result_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -266,7 +268,7 @@ pub trait SearchContextExt: IsA<SearchContext> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"started\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     started_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -292,7 +294,7 @@ pub trait SearchContextExt: IsA<SearchContext> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::search-term\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_search_term_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

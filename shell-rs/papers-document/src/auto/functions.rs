@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{CompressionType, DocumentInfo, Rectangle};
+use crate::{ffi, CompressionType, DocumentInfo, Rectangle};
 use glib::{prelude::*, translate::*};
 
 #[doc(alias = "pps_backend_query_type")]

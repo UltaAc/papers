@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::Job;
+use crate::{ffi, Job};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {

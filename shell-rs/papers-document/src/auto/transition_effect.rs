@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{TransitionEffectAlignment, TransitionEffectDirection, TransitionEffectType};
+use crate::{ffi, TransitionEffectAlignment, TransitionEffectDirection, TransitionEffectType};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -121,7 +121,7 @@ pub trait TransitionEffectExt: IsA<TransitionEffect> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::alignment\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_alignment_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -147,7 +147,7 @@ pub trait TransitionEffectExt: IsA<TransitionEffect> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::angle\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_angle_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -173,7 +173,7 @@ pub trait TransitionEffectExt: IsA<TransitionEffect> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::direction\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_direction_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -199,7 +199,7 @@ pub trait TransitionEffectExt: IsA<TransitionEffect> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::duration\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_duration_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -225,7 +225,7 @@ pub trait TransitionEffectExt: IsA<TransitionEffect> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::duration-real\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_duration_real_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -251,7 +251,7 @@ pub trait TransitionEffectExt: IsA<TransitionEffect> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::rectangular\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_rectangular_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -277,7 +277,7 @@ pub trait TransitionEffectExt: IsA<TransitionEffect> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::scale\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_scale_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -303,7 +303,7 @@ pub trait TransitionEffectExt: IsA<TransitionEffect> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::type\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

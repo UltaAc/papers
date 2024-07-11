@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::LinkAction;
+use crate::{ffi, LinkAction};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {

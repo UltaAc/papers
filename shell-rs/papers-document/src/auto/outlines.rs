@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::Link;
+use crate::{ffi, Link};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -54,6 +54,7 @@ pub trait OutlinesExt: IsA<Outlines> + sealed::Sealed + 'static {
 
     #[doc(alias = "pps_outlines_get_expand")]
     #[doc(alias = "get_expand")]
+    #[doc(alias = "expand")]
     fn expands(&self) -> bool {
         unsafe { from_glib(ffi::pps_outlines_get_expand(self.as_ref().to_glib_none().0)) }
     }
@@ -65,6 +66,7 @@ pub trait OutlinesExt: IsA<Outlines> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "pps_outlines_set_children")]
+    #[doc(alias = "children")]
     fn set_children(&self, children: impl IsA<gio::ListModel>) {
         unsafe {
             ffi::pps_outlines_set_children(
@@ -75,6 +77,7 @@ pub trait OutlinesExt: IsA<Outlines> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "pps_outlines_set_expand")]
+    #[doc(alias = "expand")]
     fn set_expand(&self, expand: bool) {
         unsafe {
             ffi::pps_outlines_set_expand(self.as_ref().to_glib_none().0, expand.into_glib());
@@ -82,6 +85,7 @@ pub trait OutlinesExt: IsA<Outlines> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "pps_outlines_set_label")]
+    #[doc(alias = "label")]
     fn set_label(&self, label: &str) {
         unsafe {
             ffi::pps_outlines_set_label(self.as_ref().to_glib_none().0, label.to_glib_none().0);
@@ -89,6 +93,7 @@ pub trait OutlinesExt: IsA<Outlines> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "pps_outlines_set_link")]
+    #[doc(alias = "link")]
     fn set_link(&self, link: &Link) {
         unsafe {
             ffi::pps_outlines_set_link(self.as_ref().to_glib_none().0, link.to_glib_none().0);
@@ -96,6 +101,7 @@ pub trait OutlinesExt: IsA<Outlines> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "pps_outlines_set_markup")]
+    #[doc(alias = "markup")]
     fn set_markup(&self, markup: &str) {
         unsafe {
             ffi::pps_outlines_set_markup(self.as_ref().to_glib_none().0, markup.to_glib_none().0);
@@ -125,7 +131,7 @@ pub trait OutlinesExt: IsA<Outlines> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::children\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_children_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -148,7 +154,7 @@ pub trait OutlinesExt: IsA<Outlines> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::expand\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_expand_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -171,7 +177,7 @@ pub trait OutlinesExt: IsA<Outlines> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::label\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_label_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -194,7 +200,7 @@ pub trait OutlinesExt: IsA<Outlines> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::link\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_link_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -217,7 +223,7 @@ pub trait OutlinesExt: IsA<Outlines> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::markup\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_markup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

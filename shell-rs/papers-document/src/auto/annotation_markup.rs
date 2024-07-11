@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Annotation, Rectangle};
+use crate::{ffi, Annotation, Rectangle};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -57,6 +57,7 @@ pub trait AnnotationMarkupExt: IsA<AnnotationMarkup> + sealed::Sealed + 'static 
 
     #[doc(alias = "pps_annotation_markup_get_popup_is_open")]
     #[doc(alias = "get_popup_is_open")]
+    #[doc(alias = "popup-is-open")]
     fn is_popup_is_open(&self) -> bool {
         unsafe {
             from_glib(ffi::pps_annotation_markup_get_popup_is_open(
@@ -86,6 +87,7 @@ pub trait AnnotationMarkupExt: IsA<AnnotationMarkup> + sealed::Sealed + 'static 
     }
 
     #[doc(alias = "pps_annotation_markup_set_has_popup")]
+    #[doc(alias = "has-popup")]
     fn set_has_popup(&self, has_popup: bool) -> bool {
         unsafe {
             from_glib(ffi::pps_annotation_markup_set_has_popup(
@@ -96,6 +98,7 @@ pub trait AnnotationMarkupExt: IsA<AnnotationMarkup> + sealed::Sealed + 'static 
     }
 
     #[doc(alias = "pps_annotation_markup_set_label")]
+    #[doc(alias = "label")]
     fn set_label(&self, label: &str) -> bool {
         unsafe {
             from_glib(ffi::pps_annotation_markup_set_label(
@@ -106,6 +109,7 @@ pub trait AnnotationMarkupExt: IsA<AnnotationMarkup> + sealed::Sealed + 'static 
     }
 
     #[doc(alias = "pps_annotation_markup_set_opacity")]
+    #[doc(alias = "opacity")]
     fn set_opacity(&self, opacity: f64) -> bool {
         unsafe {
             from_glib(ffi::pps_annotation_markup_set_opacity(
@@ -116,6 +120,7 @@ pub trait AnnotationMarkupExt: IsA<AnnotationMarkup> + sealed::Sealed + 'static 
     }
 
     #[doc(alias = "pps_annotation_markup_set_popup_is_open")]
+    #[doc(alias = "popup-is-open")]
     fn set_popup_is_open(&self, is_open: bool) -> bool {
         unsafe {
             from_glib(ffi::pps_annotation_markup_set_popup_is_open(
@@ -126,6 +131,7 @@ pub trait AnnotationMarkupExt: IsA<AnnotationMarkup> + sealed::Sealed + 'static 
     }
 
     #[doc(alias = "pps_annotation_markup_set_rectangle")]
+    #[doc(alias = "rectangle")]
     fn set_rectangle(&self, pps_rect: &Rectangle) -> bool {
         unsafe {
             from_glib(ffi::pps_annotation_markup_set_rectangle(
@@ -158,7 +164,7 @@ pub trait AnnotationMarkupExt: IsA<AnnotationMarkup> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::can-have-popup\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_can_have_popup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -184,7 +190,7 @@ pub trait AnnotationMarkupExt: IsA<AnnotationMarkup> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::has-popup\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_has_popup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -210,7 +216,7 @@ pub trait AnnotationMarkupExt: IsA<AnnotationMarkup> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::label\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_label_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -236,7 +242,7 @@ pub trait AnnotationMarkupExt: IsA<AnnotationMarkup> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::opacity\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_opacity_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -262,7 +268,7 @@ pub trait AnnotationMarkupExt: IsA<AnnotationMarkup> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::popup-is-open\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_popup_is_open_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -288,7 +294,7 @@ pub trait AnnotationMarkupExt: IsA<AnnotationMarkup> + sealed::Sealed + 'static 
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::rectangle\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_rectangle_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

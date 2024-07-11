@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::WindowRunMode;
+use crate::{ffi, WindowRunMode};
 use glib::translate::*;
 
 //#[doc(alias = "pps_gdk_pixbuf_format_by_extension")]

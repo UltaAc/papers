@@ -19,7 +19,8 @@ pub trait SidebarPageImplExt: sealed::Sealed + ObjectSubclass {
     fn parent_support_document(&self, document: &Document) -> bool {
         unsafe {
             let type_data = Self::type_data();
-            let parent_class = type_data.as_ref().parent_class() as *const ffi::PpsSidebarPageClass;
+            let parent_class =
+                type_data.as_ref().parent_class() as *const crate::ffi::PpsSidebarPageClass;
 
             if let Some(func) = (*parent_class).support_document {
                 return from_glib(func(
@@ -44,7 +45,7 @@ unsafe impl<T: SidebarPageImpl + WidgetImpl> IsSubclassable<T> for SidebarPage {
 }
 
 unsafe extern "C" fn sidebar_page_support_document<T: SidebarPageImpl>(
-    sidebar_page: *mut ffi::PpsSidebarPage,
+    sidebar_page: *mut crate::ffi::PpsSidebarPage,
     document: *mut papers_document::ffi::PpsDocument,
 ) -> glib::ffi::gboolean {
     let instance = &*(sidebar_page as *mut T::Instance);

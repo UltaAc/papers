@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{DocumentModel, JobFind};
+use crate::{ffi, DocumentModel, JobFind};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -44,11 +44,13 @@ impl View {
     }
 
     #[doc(alias = "pps_view_can_zoom_in")]
+    #[doc(alias = "can-zoom-in")]
     pub fn can_zoom_in(&self) -> bool {
         unsafe { from_glib(ffi::pps_view_can_zoom_in(self.to_glib_none().0)) }
     }
 
     #[doc(alias = "pps_view_can_zoom_out")]
+    #[doc(alias = "can-zoom-out")]
     pub fn can_zoom_out(&self) -> bool {
         unsafe { from_glib(ffi::pps_view_can_zoom_out(self.to_glib_none().0)) }
     }
@@ -217,6 +219,7 @@ impl View {
     }
 
     #[doc(alias = "pps_view_is_loading")]
+    #[doc(alias = "is-loading")]
     pub fn is_loading(&self) -> bool {
         unsafe { from_glib(ffi::pps_view_is_loading(self.to_glib_none().0)) }
     }
@@ -338,7 +341,7 @@ impl View {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"activate\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     activate_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -370,7 +373,7 @@ impl View {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"annot-added\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     annot_added_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -402,7 +405,7 @@ impl View {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"annot-removed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     annot_removed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -430,7 +433,7 @@ impl View {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"cursor-moved\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     cursor_moved_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -458,7 +461,7 @@ impl View {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"external-link\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     external_link_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -495,7 +498,7 @@ impl View {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"handle-link\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     handle_link_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -521,7 +524,7 @@ impl View {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"layers-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     layers_changed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -561,7 +564,7 @@ impl View {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"move-cursor\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     move_cursor_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -594,7 +597,7 @@ impl View {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"scroll\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     scroll_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -620,7 +623,7 @@ impl View {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"selection-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     selection_changed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -647,7 +650,7 @@ impl View {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::can-zoom-in\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_can_zoom_in_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -670,7 +673,7 @@ impl View {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::can-zoom-out\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_can_zoom_out_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -693,7 +696,7 @@ impl View {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::is-loading\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_is_loading_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),

@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Page, Rectangle};
+use crate::{ffi, Page, Rectangle};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {

@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{FindOptions, FindRectangle, Page};
+use crate::{ffi, FindOptions, FindRectangle, Page};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {

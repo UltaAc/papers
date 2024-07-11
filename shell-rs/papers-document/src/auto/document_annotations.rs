@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::Annotation;
+use crate::{ffi, Annotation};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
