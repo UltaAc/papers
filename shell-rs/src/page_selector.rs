@@ -152,17 +152,23 @@ mod imp {
         fn set_model(&self, model: DocumentModel) {
             self.clear_model();
 
-            let id = model.connect_document_notify(glib::clone!(@weak self as obj => move |_| {
-                obj.update_document();
-            }));
+            let id = model.connect_document_notify(glib::clone!(
+                #[weak(rename_to = obj)]
+                self,
+                move |_| {
+                    obj.update_document();
+                }
+            ));
 
             self.document_notify_handler.replace(Some(id));
 
-            let id = model.connect_page_changed(
-                glib::clone!(@weak self as obj => move |_, _, new_page| {
+            let id = model.connect_page_changed(glib::clone!(
+                #[weak(rename_to = obj)]
+                self,
+                move |_, _, new_page| {
                     obj.set_current_page(new_page);
-                }),
-            );
+                }
+            ));
 
             self.page_changed_handler.replace(Some(id));
 

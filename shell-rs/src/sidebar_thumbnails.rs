@@ -71,8 +71,10 @@ mod imp {
             self.lru.replace(Some(LruCache::unbounded()));
 
             if let Some(model) = self.obj().document_model() {
-                model.connect_page_changed(
-                    glib::clone!(@weak self as obj => move |model, _, new| {
+                model.connect_page_changed(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |model, _, new| {
                         if obj.block_page_changed.get() {
                             return;
                         }
@@ -84,32 +86,52 @@ mod imp {
                         debug!("page changed callback {new}");
 
                         obj.set_current_page(new);
-                    }),
-                );
+                    }
+                ));
 
-                model.connect_document_notify(glib::clone!(@weak self as obj => move |model| {
-                    if let Some(document) = model.document() {
-                        if document.n_pages() > 0 && document.check_dimensions() {
-                            obj.reload();
+                model.connect_document_notify(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |model| {
+                        if let Some(document) = model.document() {
+                            if document.n_pages() > 0 && document.check_dimensions() {
+                                obj.reload();
+                            }
                         }
                     }
-                }));
+                ));
 
-                model.connect_inverted_colors_notify(glib::clone!(@weak self as obj => move |_| {
-                    obj.reload();
-                }));
+                model.connect_inverted_colors_notify(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |_| {
+                        obj.reload();
+                    }
+                ));
 
-                model.connect_rotation_notify(glib::clone!(@weak self as obj => move |_| {
-                    obj.reload();
-                }));
+                model.connect_rotation_notify(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |_| {
+                        obj.reload();
+                    }
+                ));
 
-                model.connect_page_layout_notify(glib::clone!(@weak self as obj => move |_| {
-                    obj.relayout();
-                }));
+                model.connect_page_layout_notify(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |_| {
+                        obj.relayout();
+                    }
+                ));
 
-                model.connect_dual_odd_left_notify(glib::clone!(@weak self as obj => move |_| {
-                    obj.relayout();
-                }));
+                model.connect_dual_odd_left_notify(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |_| {
+                        obj.relayout();
+                    }
+                ));
             }
         }
     }
@@ -187,17 +209,25 @@ mod imp {
                 height,
             );
 
-            job.connect_finished(glib::clone!(@weak self as obj => move |job| {
-                if let Some(item) = obj.list_store.item(model_index as u32) {
-                    if let Ok(item) = item.downcast::<PpsThumbnailItem>() {
-                        // TODO: Take care of failed job code-path
-                        debug!("load thumbnail of page: {doc_page}");
+            job.connect_finished(glib::clone!(
+                #[weak(rename_to = obj)]
+                self,
+                move |job| {
+                    if let Some(item) = obj.list_store.item(model_index as u32) {
+                        if let Ok(item) = item.downcast::<PpsThumbnailItem>() {
+                            // TODO: Take care of failed job code-path
+                            debug!("load thumbnail of page: {doc_page}");
 
-                        obj.lru.borrow_mut().as_mut().unwrap().put(model_index as u32, item.clone());
-                        item.set_paintable(job.texture());
+                            obj.lru
+                                .borrow_mut()
+                                .as_mut()
+                                .unwrap()
+                                .put(model_index as u32, item.clone());
+                            item.set_paintable(job.texture());
+                        }
                     }
                 }
-            }));
+            ));
 
             debug!("push render job for page: {doc_page}");
 

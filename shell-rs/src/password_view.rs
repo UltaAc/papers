@@ -165,9 +165,13 @@ mod imp {
 
             main.choose(
                 gio::Cancellable::NONE,
-                glib::clone![@weak self as this => move |response| {
-                    this.handle_response(&response);
-                }],
+                glib::clone![
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |response| {
+                        obj.handle_response(&response);
+                    }
+                ],
             );
         }
 

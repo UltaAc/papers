@@ -30,13 +30,16 @@ mod imp {
 
             let job = JobFonts::new(&document);
 
-            let job_handler_id =
-                job.connect_finished(glib::clone!(@weak self as obj => move |job| {
+            let job_handler_id = job.connect_finished(glib::clone!(
+                #[weak(rename_to = obj)]
+                self,
+                move |job| {
                     if let Some(id) = obj.job_handler_id.take() {
                         job.disconnect(id);
                     }
 
-                    if let Some(doc_fonts) = job.document().and_dynamic_cast_ref::<DocumentFonts>() {
+                    if let Some(doc_fonts) = job.document().and_dynamic_cast_ref::<DocumentFonts>()
+                    {
                         obj.list_box.bind_model(doc_fonts.model().as_ref(), |obj| {
                             let row = adw::ActionRow::new();
 
@@ -52,7 +55,8 @@ mod imp {
                         let fonts_summary = doc_fonts.fonts_summary().unwrap_or_default();
                         obj.fonts_page.set_description(fonts_summary.as_str());
                     }
-                }));
+                }
+            ));
 
             job.scheduler_push_job(JobPriority::PriorityNone);
 

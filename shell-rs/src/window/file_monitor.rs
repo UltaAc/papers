@@ -30,8 +30,10 @@ mod imp {
             let file = gio::File::for_uri(self.uri.borrow().as_ref());
             match file.monitor_file(gio::FileMonitorFlags::NONE, gio::Cancellable::NONE) {
                 Ok(monitor) => {
-                    monitor.connect_changed(
-                        glib::clone!(@weak self as obj => move |_, _, _, event| {
+                    monitor.connect_changed(glib::clone!(
+                        #[weak(rename_to = obj)]
+                        self,
+                        move |_, _, _, event| {
                             match event {
                                 gio::FileMonitorEvent::ChangesDoneHint => {
                                     obj.timeout_stop();
@@ -40,8 +42,8 @@ mod imp {
                                 gio::FileMonitorEvent::Changed => obj.timeout_start(),
                                 _ => (),
                             }
-                        }),
-                    );
+                        }
+                    ));
 
                     self.monitor.set(monitor).unwrap();
                 }
@@ -62,10 +64,14 @@ mod imp {
 
             let id = glib::timeout_add_seconds_local_once(
                 5,
-                glib::clone!(@weak self as obj => move || {
-                    obj.timeout_id.take();
-                    obj.obj().emit_by_name::<()>("changed", &[]);
-                }),
+                glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move || {
+                        obj.timeout_id.take();
+                        obj.obj().emit_by_name::<()>("changed", &[]);
+                    }
+                ),
             );
 
             self.timeout_id.replace(Some(id));

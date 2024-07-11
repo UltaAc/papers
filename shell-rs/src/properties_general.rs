@@ -95,18 +95,31 @@ mod imp {
 
                 let uri = uri.to_string();
 
-                button.connect_clicked(glib::clone!(@weak self as obj => move |_| {
-                    let native = obj.obj().native();
-                    let window = native.and_dynamic_cast_ref::<gtk::Window>();
-                    let uri = uri.clone();
+                button.connect_clicked(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |_| {
+                        let native = obj.obj().native();
+                        let window = native.and_dynamic_cast_ref::<gtk::Window>();
+                        let uri = uri.clone();
 
-                    // FIXME: It's broken on MacOS due to lack of support in GTK4
-                    gtk::FileLauncher::new(Some(&file)).open_containing_folder(window, gio::Cancellable::NONE, move |result| {
-                        if let Err(e) = result {
-                            glib::g_warning!("", "Could not show containing folder for \"{}\": {}", uri, e.message());
-                        }
-                    });
-                }));
+                        // FIXME: It's broken on MacOS due to lack of support in GTK4
+                        gtk::FileLauncher::new(Some(&file)).open_containing_folder(
+                            window,
+                            gio::Cancellable::NONE,
+                            move |result| {
+                                if let Err(e) = result {
+                                    glib::g_warning!(
+                                        "",
+                                        "Could not show containing folder for \"{}\": {}",
+                                        uri,
+                                        e.message()
+                                    );
+                                }
+                            },
+                        );
+                    }
+                ));
 
                 row.set_subtitle(&text);
                 row.add_suffix(&button);

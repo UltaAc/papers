@@ -44,11 +44,15 @@ mod imp {
             self.setup_actions();
 
             // Listen to the dbus interface
-            glib::spawn_future_local(glib::clone!(@weak self as obj => async move {
-                if let Err(e) = obj.dbus_service().await {
-                    glib::g_warning!("", "Failed to launch the dbus service: {}", e);
+            glib::spawn_future_local(glib::clone!(
+                #[weak(rename_to = obj)]
+                self,
+                async move {
+                    if let Err(e) = obj.dbus_service().await {
+                        glib::g_warning!("", "Failed to launch the dbus service: {}", e);
+                    }
                 }
-            }));
+            ));
         }
 
         fn shutdown(&self) {
@@ -256,21 +260,33 @@ mod imp {
         fn setup_actions(&self) {
             let actions = [
                 gio::ActionEntryBuilder::new("about")
-                    .activate(glib::clone!(@weak self as obj => move |_, _, _| {
-                        obj.show_about();
-                    }))
+                    .activate(glib::clone!(
+                        #[weak(rename_to = obj)]
+                        self,
+                        move |_, _, _| {
+                            obj.show_about();
+                        }
+                    ))
                     .build(),
                 gio::ActionEntryBuilder::new("help")
-                    .activate(glib::clone!(@weak self as obj => move |_, _, _| obj.show_help()))
+                    .activate(glib::clone!(
+                        #[weak(rename_to = obj)]
+                        self,
+                        move |_, _, _| obj.show_help()
+                    ))
                     .build(),
                 gio::ActionEntryBuilder::new("quit")
-                    .activate(glib::clone!(@weak self as obj => move |_, _, _| obj.obj().quit()))
+                    .activate(glib::clone!(
+                        #[weak(rename_to = obj)]
+                        self,
+                        move |_, _, _| obj.obj().quit()
+                    ))
                     .build(),
                 gio::ActionEntryBuilder::new("new")
-                    .activate(glib::clone!(@weak self as obj => move |_ , _, _| {
+                    .activate(|_, _, _| {
                         // spawn an empty window
                         spawn(None, None, WindowRunMode::Normal);
-                    }))
+                    })
                     .build(),
             ];
 

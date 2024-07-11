@@ -47,24 +47,32 @@ mod imp {
                 return;
             };
 
-            let items_sig =
-                pages.connect_items_changed(glib::clone!(@weak self as obj => move |_, _, _, _| {
+            let items_sig = pages.connect_items_changed(glib::clone!(
+                #[weak(rename_to = obj)]
+                self,
+                move |_, _, _, _| {
                     obj.clear_switcher();
                     obj.populate_switcher();
-                }));
+                }
+            ));
 
-            let selection_sig = pages.connect_selection_changed(
-                glib::clone!(@weak self as obj => move |pages, position, n_items| {
+            let selection_sig = pages.connect_selection_changed(glib::clone!(
+                #[weak(rename_to = obj)]
+                self,
+                move |pages, position, n_items| {
                     for i in position..position + n_items {
-                        if let Some(button) = pages.item(i).and_then(|page| obj.buttons.borrow().get(&page).cloned()) {
+                        if let Some(button) = pages
+                            .item(i)
+                            .and_then(|page| obj.buttons.borrow().get(&page).cloned())
+                        {
                             let selected = pages.is_selected(i);
 
                             button.set_active(selected);
                             button.update_state(&[State::Selected(Some(selected))]);
                         }
                     }
-                }),
-            );
+                }
+            ));
 
             let mut sigs = self.sig_handlers.borrow_mut();
             sigs.push(items_sig);

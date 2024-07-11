@@ -93,9 +93,13 @@ mod imp {
         }
 
         fn set_model(&self, model: DocumentModel) {
-            model.connect_document_notify(glib::clone!(@weak self as obj => move |_| {
-                obj.document_changed();
-            }));
+            model.connect_document_notify(glib::clone!(
+                #[weak(rename_to = obj)]
+                self,
+                move |_| {
+                    obj.document_changed();
+                }
+            ));
 
             self.model.set(Some(model));
         }

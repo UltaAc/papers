@@ -176,30 +176,38 @@ mod imp {
             if let Some(annot) = annot {
                 let mut handlers = self.annot_signal_handlers.borrow_mut();
 
-                handlers.push(annot.connect_label_notify(
-                    glib::clone!(@weak self as obj => move |annot| {
+                handlers.push(annot.connect_label_notify(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |annot| {
                         obj.set_row_tooltip(Some(annot));
                         obj.set_author_label(Some(annot));
-                    }),
-                ));
+                    }
+                )));
 
-                handlers.push(annot.connect_modified_notify(
-                    glib::clone!(@weak self as obj => move |annot| {
+                handlers.push(annot.connect_modified_notify(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |annot| {
                         obj.set_row_tooltip(Some(annot));
-                    }),
-                ));
+                    }
+                )));
 
-                handlers.push(annot.connect_contents_notify(
-                    glib::clone!(@weak self as obj => move |annot| {
+                handlers.push(annot.connect_contents_notify(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |annot| {
                         obj.set_content_label(Some(annot));
-                    }),
-                ));
+                    }
+                )));
 
-                handlers.push(annot.connect_rgba_notify(
-                    glib::clone!(@weak self as obj => move |annot| {
+                handlers.push(annot.connect_rgba_notify(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |annot| {
                         obj.set_color(Some(annot));
-                    }),
-                ));
+                    }
+                )));
             }
 
             let icon_name = annot.and_then(|annot| match annot.annotation_type() {

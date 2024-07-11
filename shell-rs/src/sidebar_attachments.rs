@@ -42,22 +42,30 @@ mod imp {
 
             let drag = gtk::DragSource::new();
 
-            drag.connect_prepare(
-                glib::clone!(@weak self as obj, @weak item => @default-return None, move |_drag, _x, _y| {
-                    obj.attachments_drag_prepare(&item)
-                }),
-            );
+            drag.connect_prepare(glib::clone!(
+                #[weak(rename_to = obj)]
+                self,
+                #[weak]
+                item,
+                #[upgrade_or_default]
+                move |_drag, _x, _y| obj.attachments_drag_prepare(&item)
+            ));
+
             box_.add_controller(drag);
 
             let secondary_click = gtk::GestureClick::builder()
                 .button(gdk::BUTTON_SECONDARY)
                 .build();
 
-            secondary_click.connect_pressed(
-                glib::clone!(@weak self as obj, @weak item => move |click, _n_press, x, y| {
+            secondary_click.connect_pressed(glib::clone!(
+                #[weak(rename_to = obj)]
+                self,
+                #[weak]
+                item,
+                move |click, _n_press, x, y| {
                     obj.secondary_button_clicked(x, y, &item, click);
-                }),
-            );
+                }
+            ));
 
             box_.add_controller(secondary_click);
 
@@ -105,13 +113,15 @@ mod imp {
 
             let job_attachments = JobAttachments::new(&doc);
 
-            job_attachments.connect_finished(
-                glib::clone!(@weak self as obj => move |job_attachments| {
+            job_attachments.connect_finished(glib::clone!(
+                #[weak(rename_to = obj)]
+                self,
+                move |job_attachments| {
                     for attachment in job_attachments.attachments().iter() {
                         obj.model.append(attachment);
                     }
-                }),
-            );
+                }
+            ));
 
             job_attachments.scheduler_push_job(JobPriority::PriorityNone);
         }
@@ -313,9 +323,13 @@ mod imp {
 
         fn constructed(&self) {
             if let Some(model) = self.obj().document_model() {
-                model.connect_document_notify(glib::clone!(@weak self as obj => move |model| {
-                    obj.document_changed_cb(model);
-                }));
+                model.connect_document_notify(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |model| {
+                        obj.document_changed_cb(model);
+                    }
+                ));
             }
         }
     }

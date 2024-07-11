@@ -57,38 +57,45 @@ mod imp {
             );
 
             if let Some(model) = self.obj().document_model() {
-                model.connect_document_notify(glib::clone!(@weak self as obj => move |model| {
-                    let Some(document) = model.document().filter(|d| obj.support_document(d)) else {
-                        return;
-                    };
+                model.connect_document_notify(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |model| {
+                        let Some(document) = model.document().filter(|d| obj.support_document(d))
+                        else {
+                            return;
+                        };
 
-                    let job = JobLayers::new(&document);
+                        let job = JobLayers::new(&document);
 
-                    job.connect_finished(move |job| {
-                        let model = job.model().unwrap();
+                        job.connect_finished(move |job| {
+                            let model = job.model().unwrap();
 
-                        for o in &model {
-                            let layer = o.ok().and_downcast::<Layer>().unwrap();
-                            let rb_group = layer.rb_group() as usize;
+                            for o in &model {
+                                let layer = o.ok().and_downcast::<Layer>().unwrap();
+                                let rb_group = layer.rb_group() as usize;
 
-                            if rb_group > 0 {
-                                let mut groups = obj.groups.borrow_mut();
+                                if rb_group > 0 {
+                                    let mut groups = obj.groups.borrow_mut();
 
-                                if let Some(v) = groups.get_mut(&rb_group) {
-                                    v.push(layer);
-                                } else {
-                                    groups.insert(rb_group, vec![layer]);
+                                    if let Some(v) = groups.get_mut(&rb_group) {
+                                        v.push(layer);
+                                    } else {
+                                        groups.insert(rb_group, vec![layer]);
+                                    }
                                 }
                             }
-                        }
 
-                        let tree_model = gtk::TreeListModel::new(model, false, false, |l| l.downcast_ref::<Layer>().unwrap().children());
+                            let tree_model = gtk::TreeListModel::new(model, false, false, |l| {
+                                l.downcast_ref::<Layer>().unwrap().children()
+                            });
 
-                        obj.selection_model.set_model(Some(&tree_model));
-                    });
+                            obj.selection_model.set_model(Some(&tree_model));
+                        });
 
-                    job.scheduler_push_job(JobPriority::PriorityNone);
-                }));
+                        job.scheduler_push_job(JobPriority::PriorityNone);
+                    }
+                ));
             }
         }
     }

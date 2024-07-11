@@ -365,41 +365,49 @@ mod imp {
             let obj = self.obj();
             let action_entries = [
                 gio::ActionEntry::builder("collapse-all")
-                    .activate(
-                        glib::clone!(@weak self as obj => move |_: &gio::SimpleActionGroup, _, _| {
+                    .activate(glib::clone!(
+                        #[weak(rename_to = obj)]
+                        self,
+                        move |_: &gio::SimpleActionGroup, _, _| {
                             obj.block_row_expand.set(true);
                             obj.collapse_all();
                             obj.block_row_expand.set(false);
 
                             obj.path_data.borrow_mut().collapse_all();
                             obj.store_metadata();
-                        }),
-                    )
+                        }
+                    ))
                     .build(),
                 gio::ActionEntry::builder("expand-all")
-                    .activate(
-                        glib::clone!(@weak self as obj => move |_: &gio::SimpleActionGroup, _, _| {
+                    .activate(glib::clone!(
+                        #[weak(rename_to = obj)]
+                        self,
+                        move |_: &gio::SimpleActionGroup, _, _| {
                             obj.block_row_expand.set(true);
                             obj.expand_all();
                             obj.block_row_expand.set(false);
-                        }),
-                    )
+                        }
+                    ))
                     .build(),
                 gio::ActionEntry::builder("expand-all-under")
-                    .activate(
-                        glib::clone!(@weak self as obj => move |_: &gio::SimpleActionGroup, _, _| {
+                    .activate(glib::clone!(
+                        #[weak(rename_to = obj)]
+                        self,
+                        move |_: &gio::SimpleActionGroup, _, _| {
                             obj.block_row_expand.set(true);
                             obj.expand_all_under();
                             obj.block_row_expand.set(false);
-                        }),
-                    )
+                        }
+                    ))
                     .build(),
                 gio::ActionEntry::builder("print-section")
-                    .activate(
-                        glib::clone!(@weak self as obj => move |_: &gio::SimpleActionGroup, _, _| {
+                    .activate(glib::clone!(
+                        #[weak(rename_to = obj)]
+                        self,
+                        move |_: &gio::SimpleActionGroup, _, _| {
                             obj.print_section();
-                        }),
-                    )
+                        }
+                    ))
                     .build(),
             ];
 
@@ -407,33 +415,46 @@ mod imp {
             obj.insert_action_group("links", Some(&self.action_group.clone()));
 
             if let Some(model) = self.obj().document_model() {
-                model.connect_document_notify(glib::clone!(@weak obj => move |_| {
-                    obj.imp().document_changed();
-                }));
-
-                model.connect_page_changed(glib::clone!(@weak self as obj => move |_, _, new| {
-                    if obj.block_page_changed.get() {
-                        return;
+                model.connect_document_notify(glib::clone!(
+                    #[weak]
+                    obj,
+                    move |_| {
+                        obj.imp().document_changed();
                     }
+                ));
 
-                    obj.update_page_to.set(new);
+                model.connect_page_changed(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |_, _, new| {
+                        if obj.block_page_changed.get() {
+                            return;
+                        }
 
-                    if let Some(source) = obj.timeout_id.take() {
-                        source.remove();
+                        obj.update_page_to.set(new);
+
+                        if let Some(source) = obj.timeout_id.take() {
+                            source.remove();
+                        }
+
+                        let id = glib::timeout_add_local_once(
+                            Duration::from_millis(200),
+                            glib::clone!(
+                                #[weak]
+                                obj,
+                                move || {
+                                    let page = obj.update_page_to.get();
+
+                                    obj.set_current_page(page);
+
+                                    obj.timeout_id.take();
+                                }
+                            ),
+                        );
+
+                        obj.timeout_id.replace(Some(id));
                     }
-
-                    let id = glib::timeout_add_local_once(
-                        Duration::from_millis(200),
-                        glib::clone!(@weak obj => move || {
-                            let page = obj.update_page_to.get();
-
-                            obj.set_current_page(page);
-
-                            obj.timeout_id.take();
-                        }));
-
-                    obj.timeout_id.replace(Some(id));
-                }));
+                ));
             }
         }
 
@@ -479,31 +500,41 @@ mod imp {
 
                 let job = JobLinks::new(&document);
 
-                job.connect_finished(glib::clone!(@weak self as obj => move |job| {
-                    let model = job.model().unwrap();
+                job.connect_finished(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |job| {
+                        let model = job.model().unwrap();
 
-                    obj.clear_path_cache();
-                    obj.build_path_cache(&model);
+                        obj.clear_path_cache();
+                        obj.build_path_cache(&model);
 
-                    // Update action sensitivity
-                    let is_flat = model.iter::<Outlines>().map(|o| o.unwrap()).all(|o| o.children().is_none());
-                    obj.set_action_enabled("collapse-all", !is_flat);
-                    obj.set_action_enabled("expand-all", !is_flat);
-                    obj.set_action_enabled("expand-all-under", !is_flat);
+                        // Update action sensitivity
+                        let is_flat = model
+                            .iter::<Outlines>()
+                            .map(|o| o.unwrap())
+                            .all(|o| o.children().is_none());
+                        obj.set_action_enabled("collapse-all", !is_flat);
+                        obj.set_action_enabled("expand-all", !is_flat);
+                        obj.set_action_enabled("expand-all-under", !is_flat);
 
-                    obj.outlines.replace(Some(model.clone()));
+                        obj.outlines.replace(Some(model.clone()));
 
-                    let tree_model = gtk::TreeListModel::new(model, false, false,
-                        |o| o.dynamic_cast_ref::<papers_document::Outlines>().unwrap().children());
+                        let tree_model = gtk::TreeListModel::new(model, false, false, |o| {
+                            o.dynamic_cast_ref::<papers_document::Outlines>()
+                                .unwrap()
+                                .children()
+                        });
 
-                    obj.selection_model.set_model(Some(&tree_model));
+                        obj.selection_model.set_model(Some(&tree_model));
 
-                    obj.expand_open_links();
+                        obj.expand_open_links();
 
-                    if let Some(model) = obj.obj().document_model() {
-                        obj.set_current_page(model.page());
+                        if let Some(model) = obj.obj().document_model() {
+                            obj.set_current_page(model.page());
+                        }
                     }
-                }));
+                ));
 
                 job.scheduler_push_job(JobPriority::PriorityNone);
             }
@@ -548,15 +579,23 @@ mod imp {
                         self.sidebar_collapse(Some(path));
 
                         if let Some(pos) = path.expand(&tree_model) {
-                            glib::idle_add_local_once(glib::clone!(@weak self as obj => move || {
-                                obj.block_row_expand.set(true);
-                                obj.block_activate.set(true);
+                            glib::idle_add_local_once(glib::clone!(
+                                #[weak(rename_to = obj)]
+                                self,
+                                move || {
+                                    obj.block_row_expand.set(true);
+                                    obj.block_activate.set(true);
 
-                                obj.list_view.scroll_to(pos, gtk::ListScrollFlags::SELECT, None);
+                                    obj.list_view.scroll_to(
+                                        pos,
+                                        gtk::ListScrollFlags::SELECT,
+                                        None,
+                                    );
 
-                                obj.block_row_expand.set(false);
-                                obj.block_activate.set(false);
-                            }));
+                                    obj.block_row_expand.set(false);
+                                    obj.block_activate.set(false);
+                                }
+                            ));
                         }
 
                         self.block_activate.set(false);
@@ -826,20 +865,35 @@ mod imp {
                 .button(gdk::BUTTON_SECONDARY)
                 .build();
 
-            gesture_click.connect_pressed(glib::clone!(@weak self as obj, @weak box_ => move |gesture_click, _, x, y| {
-                // FIXME: check menu availability first
-                let row = gesture_click.widget()
-                    .and_then(|w| w.parent())
-                    .and_downcast::<gtk::TreeExpander>().unwrap().list_row().unwrap();
+            gesture_click.connect_pressed(glib::clone!(
+                #[weak(rename_to = obj)]
+                self,
+                #[weak]
+                box_,
+                move |gesture_click, _, x, y| {
+                    // FIXME: check menu availability first
+                    let row = gesture_click
+                        .widget()
+                        .and_then(|w| w.parent())
+                        .and_downcast::<gtk::TreeExpander>()
+                        .unwrap()
+                        .list_row()
+                        .unwrap();
 
-                obj.selected_row.replace(Some(row));
+                    obj.selected_row.replace(Some(row));
 
-                let point = box_.compute_point(&obj.obj().clone(), &gtk::graphene::Point::new(x as f32, y as f32)).unwrap();
-                let rect = gdk::Rectangle::new(point.x() as i32, point.y() as i32, 0, 0);
+                    let point = box_
+                        .compute_point(
+                            &obj.obj().clone(),
+                            &gtk::graphene::Point::new(x as f32, y as f32),
+                        )
+                        .unwrap();
+                    let rect = gdk::Rectangle::new(point.x() as i32, point.y() as i32, 0, 0);
 
-                obj.popup.set_pointing_to(Some(&rect));
-                obj.popup.popup();
-            }));
+                    obj.popup.set_pointing_to(Some(&rect));
+                    obj.popup.popup();
+                }
+            ));
 
             box_.add_controller(gesture_click);
         }
@@ -865,8 +919,10 @@ mod imp {
             if tree_item.is_expandable() {
                 self.sig_handlers.borrow_mut().insert(
                     tree_item.clone(),
-                    tree_item.connect_expanded_notify(
-                        glib::clone!(@weak self as obj => move |row| {
+                    tree_item.connect_expanded_notify(glib::clone!(
+                        #[weak(rename_to = obj)]
+                        self,
+                        move |row| {
                             if obj.block_row_expand.get() {
                                 return;
                             }
@@ -874,13 +930,19 @@ mod imp {
                             let outlines = row.item().and_downcast::<Outlines>().unwrap();
 
                             if let Some(path) = obj.outlines_to_path(&outlines) {
-                                debug!("click expander: `{}` {}", outlines.markup().unwrap_or_default(), row.is_expanded());
-                                obj.path_data.borrow_mut().set_expanded(&path, row.is_expanded());
+                                debug!(
+                                    "click expander: `{}` {}",
+                                    outlines.markup().unwrap_or_default(),
+                                    row.is_expanded()
+                                );
+                                obj.path_data
+                                    .borrow_mut()
+                                    .set_expanded(&path, row.is_expanded());
                             }
 
                             obj.store_metadata();
-                        }),
-                    ),
+                        }
+                    )),
                 );
             }
 

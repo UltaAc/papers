@@ -40,45 +40,53 @@ mod imp {
             let actions = [
                 gio::ActionEntryBuilder::new("whole-words-only")
                     .state(false.into())
-                    .change_state(glib::clone!(@weak self as obj => move |_, action, state| {
-                        let state = state.unwrap();
-                        let active = state.get::<bool>().unwrap();
+                    .change_state(glib::clone!(
+                        #[weak(rename_to = obj)]
+                        self,
+                        move |_, action, state| {
+                            let state = state.unwrap();
+                            let active = state.get::<bool>().unwrap();
 
-                        action.set_state(state);
+                            action.set_state(state);
 
-                        if let Some(context) = obj.context() {
-                            let mut options = context.options();
+                            if let Some(context) = obj.context() {
+                                let mut options = context.options();
 
-                            if active {
-                                options.insert(FindOptions::WHOLE_WORDS_ONLY);
-                            } else {
-                                options.remove(FindOptions::WHOLE_WORDS_ONLY);
+                                if active {
+                                    options.insert(FindOptions::WHOLE_WORDS_ONLY);
+                                } else {
+                                    options.remove(FindOptions::WHOLE_WORDS_ONLY);
+                                }
+
+                                context.set_options(options);
                             }
-
-                            context.set_options(options);
                         }
-                    }))
+                    ))
                     .build(),
                 gio::ActionEntryBuilder::new("case-sensitive")
                     .state(false.into())
-                    .change_state(glib::clone!(@weak self as obj => move |_, action, state| {
-                        let state = state.unwrap();
-                        let active = state.get::<bool>().unwrap();
+                    .change_state(glib::clone!(
+                        #[weak(rename_to = obj)]
+                        self,
+                        move |_, action, state| {
+                            let state = state.unwrap();
+                            let active = state.get::<bool>().unwrap();
 
-                        action.set_state(state);
+                            action.set_state(state);
 
-                        if let Some(context) = obj.context() {
-                            let mut options = context.options();
+                            if let Some(context) = obj.context() {
+                                let mut options = context.options();
 
-                            if active {
-                                options.insert(FindOptions::CASE_SENSITIVE);
-                            } else {
-                                options.remove(FindOptions::CASE_SENSITIVE);
+                                if active {
+                                    options.insert(FindOptions::CASE_SENSITIVE);
+                                } else {
+                                    options.remove(FindOptions::CASE_SENSITIVE);
+                                }
+
+                                context.set_options(options);
                             }
-
-                            context.set_options(options);
                         }
-                    }))
+                    ))
                     .build(),
             ];
 
@@ -87,13 +95,15 @@ mod imp {
 
             self.obj().insert_action_group("search", Some(&group));
 
-            let id =
-                self.entry
-                    .connect_search_changed(glib::clone!(@weak self as obj => move |_| {
-                        if let Some(context) = obj.context.borrow().clone() {
-                            context.set_search_term(obj.entry.text().as_str());
-                        };
-                    }));
+            let id = self.entry.connect_search_changed(glib::clone!(
+                #[weak(rename_to = obj)]
+                self,
+                move |_| {
+                    if let Some(context) = obj.context.borrow().clone() {
+                        context.set_search_term(obj.entry.text().as_str());
+                    };
+                }
+            ));
 
             self.search_term_handler.replace(Some(id));
         }
@@ -134,33 +144,44 @@ mod imp {
             if let Some(ref context) = context {
                 let mut handlers = self.context_signal_handlers.borrow_mut();
 
-                handlers.push(context.connect_started(
-                    glib::clone!(@weak self as obj => move |_, _| {
+                handlers.push(context.connect_started(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |_, _| {
                         obj.search_changed();
-                    }),
-                ));
+                    }
+                )));
 
-                handlers.push(context.connect_cleared(
-                    glib::clone!(@weak self as obj => move |_| {
+                handlers.push(context.connect_cleared(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |_| {
                         obj.search_changed();
-                    }),
-                ));
+                    }
+                )));
 
-                handlers.push(context.connect_search_term_notify(
-                    glib::clone!(@weak self as obj => move |_| {
+                handlers.push(context.connect_search_term_notify(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |_| {
                         obj.search_changed();
-                    }),
-                ));
+                    }
+                )));
 
-                handlers.push(context.connect_finished(
-                    glib::clone!(@weak self as obj => move |context, _, _| {
-                        let has_result = context.result_model().map(|m| m.n_items() != 0).unwrap_or_default();
+                handlers.push(context.connect_finished(glib::clone!(
+                    #[weak(rename_to = obj)]
+                    self,
+                    move |context, _, _| {
+                        let has_result = context
+                            .result_model()
+                            .map(|m| m.n_items() != 0)
+                            .unwrap_or_default();
 
                         if !has_result {
                             obj.entry.add_css_class("error");
                         }
-                    }),
-                ));
+                    }
+                )));
             }
 
             self.context.replace(context);
