@@ -25,8 +25,8 @@ msgstr ""
 "Project-Id-Version: evince master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-07-05 05:49+0000\n"
-"PO-Revision-Date: 2024-07-06 19:10+0800\n"
+"POT-Creation-Date: 2024-07-10 18:02+0000\n"
+"PO-Revision-Date: 2024-07-11 19:12+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -559,11 +559,11 @@ msgid "Requested format is not supported by this printer."
 msgstr "该打印机不支持此要求的格式。"
 
 #: libview/pps-print-operation.c:1998
-msgid "Invalid page selection"
+msgid "Invalid Page Selection"
 msgstr "无效的页面选择"
 
 #: libview/pps-print-operation.c:2000
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-window.ui:668
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-window.ui:674
 msgid "_Close"
 msgstr "关闭(_C)"
 
@@ -655,51 +655,51 @@ msgstr "向下滚动视图"
 msgid "Document View"
 msgstr "文档视图"
 
-#: libview/pps-view.c:2061
+#: libview/pps-view.c:2062
 msgid "Go to first page"
 msgstr "转到第一页"
 
-#: libview/pps-view.c:2063
+#: libview/pps-view.c:2064
 msgid "Go to previous page"
 msgstr "转到上一页"
 
-#: libview/pps-view.c:2065
+#: libview/pps-view.c:2066
 msgid "Go to next page"
 msgstr "转到下一页"
 
-#: libview/pps-view.c:2067
+#: libview/pps-view.c:2068
 msgid "Go to last page"
 msgstr "转到最后一页"
 
-#: libview/pps-view.c:2069
+#: libview/pps-view.c:2070
 msgid "Go to page"
 msgstr "转到指定页"
 
-#: libview/pps-view.c:2071
+#: libview/pps-view.c:2072
 msgid "Find"
 msgstr "查找"
 
-#: libview/pps-view.c:2100
+#: libview/pps-view.c:2101
 #, c-format
 msgid "Go to page %s"
 msgstr "转到第 %s 页"
 
-#: libview/pps-view.c:2106
+#: libview/pps-view.c:2107
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "转到文件“%2$s”的 %1$s"
 
-#: libview/pps-view.c:2109
+#: libview/pps-view.c:2110
 #, c-format
 msgid "Go to file “%s”"
 msgstr "转到文件“%s”"
 
-#: libview/pps-view.c:2117
+#: libview/pps-view.c:2118
 #, c-format
 msgid "Launch %s"
 msgstr "调用 %s"
 
-#: libview/pps-view.c:2124
+#: libview/pps-view.c:2125
 #, c-format
 msgid "Reset form"
 msgstr "重置表单"
@@ -727,8 +727,8 @@ msgid "of %d"
 msgstr "共 %d 页"
 
 #: previewer/pps-page-selector.c:194 shell/pps-history.c:454
-#: shell/pps-sidebar-bookmarks.c:339 shell/pps-window.c:764
-#: shell/pps-window.c:3902
+#: shell/pps-sidebar-bookmarks.c:339 shell/pps-window.c:756
+#: shell/pps-window.c:3874
 #, c-format
 msgid "Page %s"
 msgstr "第 %s 页"
@@ -1206,7 +1206,7 @@ msgid "Touchpad Gestures"
 msgstr "触摸板手势"
 
 #: shell/pps-annotation-properties-dialog.ui:4
-#: shell/pps-sidebar-annotations.ui:65
+#: shell/pps-sidebar-annotations.ui:75
 msgid "Annotation Properties"
 msgstr "批注属性"
 
@@ -1311,7 +1311,7 @@ msgstr "文档 %s 的密码"
 msgid "Loading Document"
 msgstr "正在加载文档"
 
-#: shell/pps-loader-view.ui:45 shell/pps-window.c:2887 shell/pps-window.c:3112
+#: shell/pps-loader-view.ui:45 shell/pps-window.c:2859
 msgid "C_ancel"
 msgstr "取消(_A)"
 
@@ -1389,38 +1389,33 @@ msgstr "许可证"
 msgid "Search in document"
 msgstr "在文档中搜索"
 
-#: shell/pps-search-box.ui:33
+#: shell/pps-search-box.ui:34
 msgid "Search Options"
 msgstr "搜索选项"
 
-#: shell/pps-search-box.ui:42
+#: shell/pps-search-box.ui:43
 msgid "_Whole Words Only"
 msgstr "全字匹配(_W)"
 
-#: shell/pps-search-box.ui:46
+#: shell/pps-search-box.ui:47
 msgid "C_ase Sensitive"
 msgstr "区分大小写(_A)"
-
-#: shell/pps-sidebar-annotations.c:228
-#, c-format
-msgid "Page %d"
-msgstr "第 %d 页"
 
 #: shell/pps-sidebar-annotations.ui:16
 msgid "No Annotations"
 msgstr "无批注"
 
-#: shell/pps-sidebar-annotations.ui:70
+#: shell/pps-sidebar-annotations.ui:80
 msgid "Remove Annotation"
 msgstr "移除批注"
 
-#: shell/pps-sidebar-annotations.ui:75 shell/pps-window.ui:818
-#: shell/pps-window.ui:855
+#: shell/pps-sidebar-annotations.ui:85 shell/pps-window.ui:824
+#: shell/pps-window.ui:861
 msgid "_Open Attachment"
 msgstr "打开附件(_O)"
 
-#: shell/pps-sidebar-annotations.ui:80 shell/pps-window.ui:823
-#: shell/pps-window.ui:859
+#: shell/pps-sidebar-annotations.ui:90 shell/pps-window.ui:829
+#: shell/pps-window.ui:865
 msgid "_Save Attachment As…"
 msgstr "另存附件为(_S)…"
 
@@ -1464,138 +1459,142 @@ msgstr "打印此章节…"
 msgid "Previews"
 msgstr "预览"
 
-#: shell/pps-window.c:605
+#: shell/pps-window.c:597
 msgid "View Details"
 msgstr "查看详情"
 
-#: shell/pps-window.c:1397
+#: shell/pps-window.c:1389
 msgid "The document contains no pages"
 msgstr "此文档不含页面"
 
-#: shell/pps-window.c:1400
+#: shell/pps-window.c:1392
 msgid "The document contains only empty pages"
 msgstr "这个文档只包含空页面"
 
-#: shell/pps-window.c:1711
+#: shell/pps-window.c:1687
 #, c-format
 msgid "Unable to open document “%s”."
 msgstr "无法打开文档“%s”。"
 
-#: shell/pps-window.c:1852
+#: shell/pps-window.c:1828
 msgid "Failed to load remote file."
 msgstr "载入远程文档失败。"
 
-#: shell/pps-window.c:2089
+#: shell/pps-window.c:2063
 msgid "Failed to reload document."
 msgstr "重新载入文档失败。"
 
-#: shell/pps-window.c:2359
+#: shell/pps-window.c:2333
 msgid "File Saved"
 msgstr "文件已保存"
 
-#: shell/pps-window.c:2369 shell/pps-window.c:2423
+#: shell/pps-window.c:2343 shell/pps-window.c:2395
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "该文件无法另存为“%s”。"
 
-#: shell/pps-window.c:2485
+#: shell/pps-window.c:2457
 msgid "Save As…"
 msgstr "另存为…"
 
-#: shell/pps-window.c:2791
+#: shell/pps-window.c:2763
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "队列中有 %d 个待执行任务"
 
-#: shell/pps-window.c:2830
+#: shell/pps-window.c:2802
 msgid "Failed to Print Document"
 msgstr "打印文档失败"
 
-#: shell/pps-window.c:2884
+#: shell/pps-window.c:2856
 #, c-format
 msgid "Printing job “%s”"
 msgstr "打印任务“%s”"
 
-#: shell/pps-window.c:3083
+#: shell/pps-window.c:3055
 msgid "Document contains form fields that have been filled out."
 msgstr "文档含已填写表单。"
 
-#: shell/pps-window.c:3086
+#: shell/pps-window.c:3058
 msgid "Document contains new or modified annotations."
 msgstr "文档含新的或修改过的批注。"
 
-#: shell/pps-window.c:3094
-msgid "File changed outside Papers. Reload document?"
+#: shell/pps-window.c:3066
+msgid "File Changed Outside Papers. Reload Document?"
 msgstr "文件已被外部程序修改。重新加载文档吗？"
 
-#: shell/pps-window.c:3095
+#: shell/pps-window.c:3067
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "如果重新载入文档，修改将会永久丢失。"
 
-#: shell/pps-window.c:3098
+#: shell/pps-window.c:3070
 msgid "_No"
 msgstr "否(_N)"
 
-#: shell/pps-window.c:3099
+#: shell/pps-window.c:3071
 msgid "_Reload"
 msgstr "重新载入(_R)"
 
-#: shell/pps-window.c:3107
-msgid "Save a copy of the document before closing?"
-msgstr "关闭前保存一份该文档的副本吗？"
+#: shell/pps-window.c:3079
+msgid "Save Changes to a Copy?"
+msgstr "将修改保存为副本吗？"
 
-#: shell/pps-window.c:3108
+#: shell/pps-window.c:3080
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "如果您不保存副本，修改将会永久丢失。"
 
-#: shell/pps-window.c:3111
-msgid "Close _without Saving"
-msgstr "关闭且不保存(_W)"
+#: shell/pps-window.c:3083
+msgid "Close _Without Saving"
+msgstr "不保存关闭(_W)"
 
-#: shell/pps-window.c:3113
-msgid "Save a _Copy"
-msgstr "保存副本(_C)"
+#: shell/pps-window.c:3084 shell/pps-window.ui:654 shell/pps-window.ui:666
+msgid "_Cancel"
+msgstr "取消(_C)"
 
-#: shell/pps-window.c:4229
+#: shell/pps-window.c:3085
+msgid "_Save a Copy"
+msgstr "保存副本(_S)"
+
+#: shell/pps-window.c:4200
 msgid "Search"
 msgstr "搜索"
 
-#: shell/pps-window.c:4233
+#: shell/pps-window.c:4204
 msgid "Search Unavailable"
 msgstr "搜索不可用"
 
-#: shell/pps-window.c:4441
+#: shell/pps-window.c:4412
 msgid "The attachment could not be saved."
 msgstr "无法保存附件。"
 
-#: shell/pps-window.c:5025
+#: shell/pps-window.c:4994
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
 msgstr "安全提示：已禁止文档打开文件 “%s”"
 
-#: shell/pps-window.c:5087
+#: shell/pps-window.c:5056
 msgid "Unable to open external link"
 msgstr "无法打开外部链接"
 
-#: shell/pps-window.c:5311
+#: shell/pps-window.c:5280
 msgid "Couldn’t find appropriate format to save image"
 msgstr "无法找到合适的格式来保存图像"
 
-#: shell/pps-window.c:5341
+#: shell/pps-window.c:5310
 msgid "The image could not be saved."
 msgstr "无法保存图像。"
 
-#: shell/pps-window.c:5378
+#: shell/pps-window.c:5346
 msgid "Save Image"
 msgstr "保存图像"
 
-#: shell/pps-window.c:5549
+#: shell/pps-window.c:5517
 msgid "Unable to open attachment"
 msgstr "无法打开附件"
 
-#: shell/pps-window.c:5613
+#: shell/pps-window.c:5581
 msgid "Save Attachment"
 msgstr "保存附件"
 
@@ -1667,11 +1666,11 @@ msgstr "自动适配"
 msgid "Loading…"
 msgstr "正在载入…"
 
-#: shell/pps-window.ui:639
+#: shell/pps-window.ui:645
 msgid "Enable Caret Navigation?"
 msgstr "启用脱字符导航吗？"
 
-#: shell/pps-window.ui:640
+#: shell/pps-window.ui:646
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1680,158 +1679,154 @@ msgstr ""
 "按下 F7 可以打开或关闭脱字符导航。该功能会在文本页面中显示一个可移动光标，允"
 "许您用键盘浏览并选择文本。"
 
-#: shell/pps-window.ui:643
+#: shell/pps-window.ui:649
 msgid "Don’t show this message again"
 msgstr "不再显示这条信息"
 
-#: shell/pps-window.ui:648 shell/pps-window.ui:660
-msgid "_Cancel"
-msgstr "取消(_C)"
-
-#: shell/pps-window.ui:649
+#: shell/pps-window.ui:655
 msgid "_Enable"
 msgstr "启用(_E)"
 
-#: shell/pps-window.ui:655
+#: shell/pps-window.ui:661
 msgid "Abort Printing?"
 msgstr "中止打印吗？"
 
-#: shell/pps-window.ui:656
+#: shell/pps-window.ui:662
 msgid ""
 "There is one or more active print jobs. If the window is closed, pending "
 "print jobs will not be printed."
 msgstr ""
 "有一个或更多激活的打印任务。如果关闭该窗口，则等待中的打印任务将不会执行。"
 
-#: shell/pps-window.ui:659
+#: shell/pps-window.ui:665
 msgid "Abort _Print and Close"
 msgstr "中止打印并关闭(_P)"
 
-#: shell/pps-window.ui:661
+#: shell/pps-window.ui:667
 msgid "Close _After Printing"
 msgstr "打印后关闭(_A)"
 
-#: shell/pps-window.ui:675
+#: shell/pps-window.ui:681
 msgid "Open"
 msgstr "打开"
 
-#: shell/pps-window.ui:681
+#: shell/pps-window.ui:687
 msgid "Ni_ght Mode"
 msgstr "夜间模式(_G)"
 
-#: shell/pps-window.ui:687
+#: shell/pps-window.ui:693
 msgid "_Keyboard Shortcuts"
 msgstr "键盘快捷键(_K)"
 
-#: shell/pps-window.ui:691
+#: shell/pps-window.ui:697
 msgid "_Help"
 msgstr "帮助(_H)"
 
-#: shell/pps-window.ui:695
+#: shell/pps-window.ui:701
 msgid "_About Papers"
 msgstr "关于 Papers(_A)"
 
-#: shell/pps-window.ui:703
+#: shell/pps-window.ui:709
 msgid "_Print…"
 msgstr "打印(_P)…"
 
-#: shell/pps-window.ui:707
+#: shell/pps-window.ui:713
 msgid "Fullscreen"
 msgstr "全屏"
 
-#: shell/pps-window.ui:711
+#: shell/pps-window.ui:717
 msgid "Present as Slideshow"
 msgstr "以幻灯片呈现"
 
-#: shell/pps-window.ui:717
+#: shell/pps-window.ui:723
 msgid "Open a C_opy"
 msgstr "打开副本(_O)"
 
-#: shell/pps-window.ui:721
+#: shell/pps-window.ui:727
 msgid "Open With…"
 msgstr "打开方式…"
 
-#: shell/pps-window.ui:725
+#: shell/pps-window.ui:731
 msgid "_Save As…"
 msgstr "另存为(_S)…"
 
-#: shell/pps-window.ui:731
+#: shell/pps-window.ui:737
 msgid "_Continuous"
 msgstr "连续(_C)"
 
-#: shell/pps-window.ui:735
+#: shell/pps-window.ui:741
 msgid "_Dual"
 msgstr "双页(_D)"
 
-#: shell/pps-window.ui:739
+#: shell/pps-window.ui:745
 msgid "_Odd Pages Left"
 msgstr "奇数页在左侧(_O)"
 
-#: shell/pps-window.ui:743
+#: shell/pps-window.ui:749
 msgid "Right to Left Document"
 msgstr "右至左文档"
 
-#: shell/pps-window.ui:749
+#: shell/pps-window.ui:755
 msgid "Ro_tate ⤵"
 msgstr "旋转 ⤵(_T)"
 
-#: shell/pps-window.ui:755
+#: shell/pps-window.ui:761
 msgid "Document Prop_erties"
 msgstr "文档属性(_E)"
 
-#: shell/pps-window.ui:764
+#: shell/pps-window.ui:770
 msgid "_Open Link"
 msgstr "打开链接(_O)"
 
-#: shell/pps-window.ui:769
+#: shell/pps-window.ui:775
 msgid "_Copy Link Address"
 msgstr "复制链接地址(_C)"
 
-#: shell/pps-window.ui:774
+#: shell/pps-window.ui:780
 msgid "_Go To"
 msgstr "转到(_G)"
 
-#: shell/pps-window.ui:779
+#: shell/pps-window.ui:785
 msgid "Open in New _Window"
 msgstr "在新窗口中打开(_W)"
 
-#: shell/pps-window.ui:786
+#: shell/pps-window.ui:792
 msgid "_Previous Page"
 msgstr "上一页(_P)"
 
-#: shell/pps-window.ui:790
+#: shell/pps-window.ui:796
 msgid "_Next Page"
 msgstr "下一页(_N)"
 
-#: shell/pps-window.ui:796
+#: shell/pps-window.ui:802
 msgid "_Copy"
 msgstr "复制(_C)"
 
-#: shell/pps-window.ui:800
+#: shell/pps-window.ui:806
 msgid "Select _All"
 msgstr "全选(_A)"
 
-#: shell/pps-window.ui:806
+#: shell/pps-window.ui:812
 msgid "_Save Image As…"
 msgstr "图像另存为(_S)…"
 
-#: shell/pps-window.ui:811
+#: shell/pps-window.ui:817
 msgid "Copy _Image"
 msgstr "复制图像(_I)"
 
-#: shell/pps-window.ui:830
+#: shell/pps-window.ui:836
 msgid "Annotation _Properties…"
 msgstr "批注属性(_P)…"
 
-#: shell/pps-window.ui:835
+#: shell/pps-window.ui:841
 msgid "R_emove Annotation"
 msgstr "移除批注(_E)"
 
-#: shell/pps-window.ui:842
+#: shell/pps-window.ui:848
 msgid "_Add Text Annotation"
 msgstr "添加文本批注(_A)"
 
-#: shell/pps-window.ui:847
+#: shell/pps-window.ui:853
 msgid "_Highlight Selected Text"
 msgstr "高亮选中文本(_H)"
 
@@ -1909,6 +1904,23 @@ msgstr "显示程序的版本。"
 msgid "[FILE…]"
 msgstr "[文件…]"
 
+#: shell-rs/src/page_selector.rs:77 shell-rs/src/sidebar_annotations_row.rs:82
+msgid "Page {}"
+msgstr "第 {} 页"
+
+#: shell-rs/src/page_selector.rs:220 shell-rs/src/page_selector.rs:238
+msgid "({} of {})"
+msgstr "（{} 共 {}）"
+
+#: shell-rs/src/page_selector.rs:222 shell-rs/src/page_selector.rs:240
+msgid "of {}"
+msgstr "共 {} 页"
+
+#: shell-rs/src/password_view.rs:156
+msgid ""
+"The document “{}” is locked and requires a password before it can be opened"
+msgstr "文档“{}”已锁定且需要密码才能打开它"
+
 #: shell-rs/src/properties_general.rs:73
 msgid "File"
 msgstr "文件"
@@ -1925,9 +1937,18 @@ msgstr "目录"
 msgid "Date &amp; Time"
 msgstr "日期和时间"
 
-#: shell-rs/src/sidebar_annotations_row.rs:57
-msgid "No Comment"
-msgstr "无注释"
+#, c-format
+#~ msgid "Page %d"
+#~ msgstr "第 %d 页"
+
+#~ msgid "Save a copy of the document before closing?"
+#~ msgstr "关闭前保存一份该文档的副本吗？"
+
+#~ msgid "Save a _Copy"
+#~ msgstr "保存副本(_C)"
+
+#~ msgid "No Comment"
+#~ msgstr "无注释"
 
 #~ msgid "Set Automatic Sizing Mode"
 #~ msgstr "设置自动大小模式"
@@ -2078,12 +2099,6 @@ msgstr "无注释"
 
 #~ msgid "Select or set the zoom level of the document"
 #~ msgstr "选择或设置文档的缩放级别"
-
-#, c-format
-#~ msgid ""
-#~ "The document “%s” is locked and requires a password before it can be "
-#~ "opened."
-#~ msgstr "文档“%s”已载入，但在打开之前需要密码。"
 
 #~ msgid "Password required"
 #~ msgstr "需要密码"
@@ -2390,9 +2405,6 @@ msgstr "无注释"
 #~ msgid "Make the current document fill the window width"
 #~ msgstr "让当前文档适合窗口宽度"
 
-#~ msgid "Page"
-#~ msgstr "页面"
-
 #~ msgid "Select Page"
 #~ msgstr "选择页面"
 
@@ -2453,9 +2465,6 @@ msgstr "无注释"
 
 #~ msgid "Remove"
 #~ msgstr "移除"
-
-#~ msgid "Save a Copy"
-#~ msgstr "保存副本"
 
 #~ msgid "_Save a Copy…"
 #~ msgstr "保存副本(_S)…"
