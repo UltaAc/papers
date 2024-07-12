@@ -91,7 +91,8 @@ typedef enum {
         PPS_ANNOTATION_TEXT_MARKUP_SQUIGGLY
 } PpsAnnotationTextMarkupType;
 
-#define PPS_ANNOTATION_DEFAULT_COLOR ((const GdkRGBA) { 1., 1., 0, 1.});
+/* yellow-4 (#f5c211) from libadwaita */
+#define PPS_ANNOTATION_DEFAULT_COLOR ((const GdkRGBA) { 0.960784, 0.760784, 0.066666, 1.});
 
 /* PpsAnnotation */
 PPS_PUBLIC
