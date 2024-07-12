@@ -124,6 +124,11 @@ typedef struct {
 	PpsAttachmentContext *attachment_context;
 	PpsBookmarks *bookmarks;
 	PpsSearchContext *search_context;
+	GdkRGBA annot_color;
+
+	GMenu *annot_menu;
+	GtkWidget *annot_menu_child;
+	gboolean annot_menu_child_added;
 
 	GSimpleActionGroup *document_action_group;
 
@@ -737,6 +742,25 @@ view_selection_changed_cb (PpsView   *view,
 
 	pps_document_view_set_action_enabled (window, "add-highlight-annotation",
 				       can_annotate && has_selection);
+
+	if (can_annotate && has_selection && !priv->annot_menu_child_added) {
+		g_autoptr (GMenuItem) item = g_menu_item_new (NULL, NULL);
+
+		g_menu_item_set_attribute (item, "custom", "s", "palette");
+
+		g_menu_insert_item (priv->annot_menu, 0, item);
+
+		gtk_popover_menu_add_child (GTK_POPOVER_MENU (priv->view_popup),
+					    priv->annot_menu_child, "palette");
+
+		priv->annot_menu_child_added = TRUE;
+	}
+
+	if (!(can_annotate && has_selection) && priv->annot_menu_child_added) {
+		g_menu_remove_all (priv->annot_menu);
+
+		priv->annot_menu_child_added = FALSE;
+	}
 }
 
 static void
@@ -2408,6 +2432,38 @@ pps_document_view_change_sizing_mode_action_state (GSimpleAction *action,
 }
 
 static void
+pps_document_view_cmd_annotation_color_action_state (GSimpleAction *action,
+					   GVariant      *state,
+					   gpointer       user_data)
+{
+	PpsDocumentView *window = user_data;
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
+	const gchar *color;
+
+	color = g_variant_get_string (state, NULL);
+
+	if (g_str_equal (color, "yellow"))
+		gdk_rgba_parse (&priv->annot_color, "#f5c211");
+	else if (g_str_equal (color, "orange"))
+		gdk_rgba_parse (&priv->annot_color, "#ff7800");
+	else if (g_str_equal (color, "red"))
+		gdk_rgba_parse (&priv->annot_color, "#ed333b");
+	else if (g_str_equal (color, "purple"))
+		gdk_rgba_parse (&priv->annot_color, "#c061cb");
+	else if (g_str_equal (color, "blue"))
+		gdk_rgba_parse (&priv->annot_color, "#3584e4");
+	else if (g_str_equal (color, "green"))
+		gdk_rgba_parse (&priv->annot_color, "#33d17a");
+	else
+		g_assert_not_reached();
+
+	if (priv->view)
+		pps_view_set_annotation_color (PPS_VIEW (priv->view), &priv->annot_color);
+
+	g_simple_action_set_state (action, state);
+}
+
+static void
 pps_document_view_cmd_view_zoom (GSimpleAction *action,
 			 GVariant      *parameter,
 			 gpointer       user_data)
@@ -3839,6 +3895,7 @@ static const GActionEntry actions[] = {
 	{ "caret-navigation", pps_document_view_cmd_view_toggle_caret_navigation },
 	{ "add-text-annotation", pps_document_view_cmd_add_text_annotation },
 	{ "add-highlight-annotation", pps_document_view_cmd_add_highlight_annotation },
+	{ "annot-color", NULL, "s", "'yellow'", pps_document_view_cmd_annotation_color_action_state },
 	/* Popups specific items */
 	{ "open-link", pps_document_view_popup_cmd_open_link },
 	{ "open-link-new-window", pps_document_view_popup_cmd_open_link_new_window },
@@ -4595,6 +4652,8 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 	pps_document_view_set_action_enabled (pps_doc_view, "find-next", FALSE);
 	pps_document_view_set_action_enabled (pps_doc_view, "find-previous", FALSE);
 
+	g_action_group_change_action_state (G_ACTION_GROUP (priv->document_action_group), "annot-color", g_variant_new_string("yellow"));
+
 	page_cache_mb = g_settings_get_uint (priv->settings,
 					     GS_PAGE_CACHE_SIZE);
 	pps_view_set_page_cache_size (PPS_VIEW (priv->view),
@@ -4673,6 +4732,8 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	/* popup menu */
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, view_popup);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, attachment_popup);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, annot_menu);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, annot_menu_child);
 
 	/* bind signal callback */
 	gtk_widget_class_bind_template_callback (widget_class, activate_link_cb);

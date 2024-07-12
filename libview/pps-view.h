@@ -132,6 +132,8 @@ void           pps_view_remove_annotation     (PpsView          *view,
 PPS_PUBLIC
 gboolean       pps_view_add_text_markup_annotation_for_selected_text (PpsView  *view);
 PPS_PUBLIC
+void           pps_view_set_annotation_color (PpsView  *view, GdkRGBA *color);
+PPS_PUBLIC
 void           pps_view_set_enable_spellchecking (PpsView *view,
                                                  gboolean spellcheck);
 PPS_PUBLIC

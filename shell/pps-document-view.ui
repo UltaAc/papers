@@ -728,6 +728,102 @@
     </section>
   </menu>
 
+  <object class="GtkBox" id="annot_menu_child">
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">horizontal</property>
+        <property name="halign">center</property>
+        <property name="margin-start">6</property>
+        <property name="margin-end">6</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">horizontal</property>
+        <property name="halign">center</property>
+        <property name="margin-start">6</property>
+        <property name="margin-end">6</property>
+        <property name="margin-top">6</property>
+        <property name="margin-bottom">6</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkToggleButton">
+            <property name="name">color-button-yellow</property>
+            <property name="action-name">doc.annot-color</property>
+            <property name="action-target">'yellow'</property>
+            <style>
+              <class name="circular" />
+              <class name="suggested-action" />
+              <class name="color-button" />
+              <class name="selected-color-button" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleButton">
+            <property name="name">color-button-orange</property>
+            <property name="action-name">doc.annot-color</property>
+            <property name="action-target">'orange'</property>
+            <style>
+              <class name="circular" />
+              <class name="suggested-action" />
+              <class name="color-button" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleButton">
+            <property name="name">color-button-red</property>
+            <property name="action-name">doc.annot-color</property>
+            <property name="action-target">'red'</property>
+            <style>
+              <class name="circular" />
+              <class name="suggested-action" />
+              <class name="color-button" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleButton">
+            <property name="name">color-button-purple</property>
+            <property name="action-name">doc.annot-color</property>
+            <property name="action-target">'purple'</property>
+            <style>
+              <class name="circular" />
+              <class name="suggested-action" />
+              <class name="color-button" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleButton">
+            <property name="name">color-button-blue</property>
+            <property name="action-name">doc.annot-color</property>
+            <property name="action-target">'blue'</property>
+            <style>
+              <class name="circular" />
+              <class name="suggested-action" />
+              <class name="color-button" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleButton">
+            <property name="name">color-button-green</property>
+            <property name="action-name">doc.annot-color</property>
+            <property name="action-target">'green'</property>
+            <style>
+              <class name="circular" />
+              <class name="suggested-action" />
+              <class name="color-button" />
+            </style>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
   <menu id="view-popup-menu">
     <section>
       <item>
@@ -795,6 +891,7 @@
         <attribute name="hidden-when">action-disabled</attribute>
       </item>
     </section>
+    <section id="annot_menu" />
     <section>
       <item>
         <attribute name="label" translatable="yes">Annotation _Properties…</attribute>

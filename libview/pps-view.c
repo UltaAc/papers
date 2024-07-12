@@ -3531,7 +3531,6 @@ pps_view_create_annotation_real (PpsView           *view,
 	PpsAnnotation   *annot;
 	PpsRectangle     doc_rect, popup_rect;
 	PpsPage         *page;
-	GdkRGBA         color = PPS_ANNOTATION_DEFAULT_COLOR;
 	GdkRectangle    view_rect;
 	cairo_region_t *region;
 
@@ -3563,7 +3562,7 @@ pps_view_create_annotation_real (PpsView           *view,
 	g_object_unref (page);
 
 	pps_annotation_set_area (annot, &doc_rect);
-	pps_annotation_set_rgba (annot, &color);
+	pps_annotation_set_rgba (annot, &priv->annot_color);
 
 	if (PPS_IS_ANNOTATION_MARKUP (annot)) {
 		popup_rect.x1 = doc_rect.x2;
@@ -5819,6 +5818,16 @@ pps_view_add_text_markup_annotation_for_selected_text (PpsView  *view)
 	clear_selection (view);
 
 	return TRUE;
+}
+
+void
+pps_view_set_annotation_color (PpsView  *view, GdkRGBA *color)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+
+	g_return_if_fail (PPS_IS_VIEW (view));
+
+	priv->annot_color = *color;
 }
 
 void
