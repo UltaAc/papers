@@ -14,7 +14,7 @@
                 <property name="child">
                   <object class="AdwStatusPage">
                     <property name="title" translatable="yes">No Annotations</property>
-                    <property name="icon-name">x-office-document-symbolic</property>
+                    <property name="icon-name">chat-bubble-text-symbolic</property>
                     <style>
                       <class name="compact" />
                     </style>
