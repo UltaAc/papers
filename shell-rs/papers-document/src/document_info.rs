@@ -60,8 +60,14 @@ impl DocumentInfo {
         }
     }
 
-    pub fn mode(&self) -> DocumentMode {
-        unsafe { from_glib(self.inner.mode) }
+    pub fn mode(&self) -> Option<DocumentMode> {
+        if DocumentInfoFields::from_bits_truncate(self.inner.fields_mask)
+            .intersects(DocumentInfoFields::START_MODE)
+        {
+            Some(unsafe { from_glib(self.inner.mode) })
+        } else {
+            None
+        }
     }
 
     pub fn permissions(&self) -> Option<DocumentPermissions> {
