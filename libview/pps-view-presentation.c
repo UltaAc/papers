@@ -432,6 +432,9 @@ pps_view_presentation_update_current_page (PpsViewPresentation *pview,
 
 	gint jump;
 
+	if (!priv->document)
+		return;
+
 	if (page < 0 || page >= pps_document_get_n_pages (priv->document))
 		return;
 
