@@ -960,6 +960,86 @@ pps_rectangle_free (PpsRectangle *rectangle)
 	g_free (rectangle);
 }
 
+/* PpsMapping */
+G_DEFINE_BOXED_TYPE (PpsMapping, pps_mapping, pps_mapping_copy, pps_mapping_free)
+
+PpsMapping *
+pps_mapping_new (void)
+{
+	return g_new0 (PpsMapping, 1);
+}
+
+PpsMapping *
+pps_mapping_copy (PpsMapping *mapping)
+{
+	PpsMapping *new_mapping;
+
+	g_return_val_if_fail (mapping != NULL, NULL);
+
+	new_mapping = g_new (PpsMapping, 1);
+	new_mapping->area = mapping->area;
+
+	if (mapping->data)
+		new_mapping->data = g_object_ref (mapping->data);
+
+	return new_mapping;
+}
+
+void
+pps_mapping_free (PpsMapping *mapping)
+{
+	g_clear_object (&mapping->data);
+	g_free (mapping);
+}
+
+/**
+ * pps_mapping_set_area:
+ * @pps_mapping:
+ * @area: (transfer full):
+ *
+ */
+void
+pps_mapping_set_area (PpsMapping *pps_mapping, PpsRectangle *area)
+{
+	pps_mapping->area = *area;
+}
+
+/**
+ * pps_mapping_get_area:
+ * @pps_mapping:
+ *
+ * Returns: (transfer none):
+ */
+PpsRectangle *
+pps_mapping_get_area (PpsMapping *pps_mapping)
+{
+	return &pps_mapping->area;
+}
+
+/**
+ * pps_mapping_set_data:
+ * @pps_mapping:
+ * @data: (transfer full):
+ *
+ */
+void
+pps_mapping_set_data (PpsMapping *pps_mapping, GObject *data)
+{
+	pps_mapping->data = data;
+}
+
+/**
+ * pps_mapping_get_data:
+ * @pps_mapping:
+ *
+ * Returns: (transfer none) (nullable):
+ */
+GObject *
+pps_mapping_get_data (const PpsMapping *pps_mapping)
+{
+	return pps_mapping->data;
+}
+
 /* Compares two rects.  returns 0 if they're equal */
 #define EPSILON 0.0000001
 

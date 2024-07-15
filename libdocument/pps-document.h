@@ -235,6 +235,24 @@ struct _PpsMapping {
 	gpointer    data;
 };
 
+PPS_PUBLIC
+GType        pps_mapping_get_type (void) G_GNUC_CONST;
+PPS_PUBLIC
+PpsMapping  *pps_mapping_new      (void);
+PPS_PUBLIC
+PpsMapping  *pps_mapping_copy     (PpsMapping *pps_mapping);
+PPS_PUBLIC
+void         pps_mapping_free     (PpsMapping *pps_mapping);
+PPS_PUBLIC
+void         pps_mapping_set_area (PpsMapping *pps_mapping, PpsRectangle *area);
+PPS_PUBLIC
+PpsRectangle*pps_mapping_get_area (PpsMapping *pps_mapping);
+PPS_PUBLIC
+void         pps_mapping_set_data (PpsMapping *pps_mapping, GObject *data);
+PPS_PUBLIC
+GObject     *pps_mapping_get_data (const PpsMapping *pps_mapping);
+
+
 /* backends shall implement this function to be able to be opened by Papers
  */
 PPS_PUBLIC
