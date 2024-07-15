@@ -162,12 +162,12 @@ mod imp {
 
     impl PpsApplication {
         fn split_label(arg: &str) -> (&str, Option<&str>) {
-            if let Some((arg, label)) = arg.rsplit_once('#') {
+            if let Some((filename, label)) = arg.rsplit_once('#') {
                 // Filename contains a #, check whether it's part of the path
                 // or a label.
                 let file = gio::File::for_commandline_arg(arg);
                 if !file.query_exists(gio::Cancellable::NONE) {
-                    return (arg, Some(label));
+                    return (filename, Some(label));
                 }
             }
             (arg, None)
