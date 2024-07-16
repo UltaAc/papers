@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{ffi, Link, LinkDest};
+use crate::{ffi, Link, LinkDest, MappingList, Page};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -89,11 +89,16 @@ pub trait DocumentLinksExt: IsA<DocumentLinks> + sealed::Sealed + 'static {
         }
     }
 
-    //#[doc(alias = "pps_document_links_get_links")]
-    //#[doc(alias = "get_links")]
-    //fn links(&self, page: &impl IsA<Page>) -> /*Ignored*/Option<MappingList> {
-    //    unsafe { TODO: call ffi:pps_document_links_get_links() }
-    //}
+    #[doc(alias = "pps_document_links_get_links")]
+    #[doc(alias = "get_links")]
+    fn links(&self, page: &impl IsA<Page>) -> Option<MappingList> {
+        unsafe {
+            from_glib_full(ffi::pps_document_links_get_links(
+                self.as_ref().to_glib_none().0,
+                page.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 
     #[doc(alias = "pps_document_links_get_links_model")]
     #[doc(alias = "get_links_model")]

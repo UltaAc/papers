@@ -327,6 +327,18 @@ pps_job_annots_new (PpsDocument *document)
 	return job;
 }
 
+/**
+ * pps_job_annots_get_annots:
+ * @job: an #PpsJobAnnots
+ *
+ * Returns: (transfer none) (element-type PpsMappingList):
+ */
+GList *
+pps_job_annots_get_annots (PpsJobAnnots *job)
+{
+	return job->annots;
+}
+
 /* PpsJobRenderTexture */
 static void
 pps_job_render_texture_init (PpsJobRenderTexture *job)

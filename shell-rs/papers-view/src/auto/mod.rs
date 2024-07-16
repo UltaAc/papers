@@ -6,11 +6,17 @@
 mod attachment_context;
 pub use self::attachment_context::AttachmentContext;
 
+mod bookmarks;
+pub use self::bookmarks::Bookmarks;
+
 mod document_model;
 pub use self::document_model::DocumentModel;
 
 mod job;
 pub use self::job::Job;
+
+mod job_annots;
+pub use self::job_annots::JobAnnots;
 
 mod job_attachments;
 pub use self::job_attachments::JobAttachments;
@@ -51,6 +57,9 @@ pub use self::view::View;
 mod view_presentation;
 pub use self::view_presentation::ViewPresentation;
 
+mod bookmark;
+pub use self::bookmark::Bookmark;
+
 mod enums;
 pub use self::enums::JobPriority;
 pub use self::enums::PageLayout;
@@ -59,6 +68,7 @@ pub use self::enums::SizingMode;
 pub(crate) mod traits {
     pub use super::attachment_context::AttachmentContextExt;
     pub use super::job::JobExt;
+    pub use super::job_annots::JobAnnotsExt;
     pub use super::job_attachments::JobAttachmentsExt;
     pub use super::job_find::JobFindExt;
     pub use super::job_layers::JobLayersExt;

@@ -90,6 +90,12 @@ pub use self::document_license::DocumentLicense;
 mod find_rectangle;
 pub use self::find_rectangle::FindRectangle;
 
+mod mapping;
+pub use self::mapping::Mapping;
+
+mod mapping_list;
+pub use self::mapping_list::MappingList;
+
 mod rectangle;
 pub use self::rectangle::Rectangle;
 

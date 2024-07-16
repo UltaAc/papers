@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{ffi, Image};
+use crate::{ffi, Image, MappingList, Page};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -36,11 +36,16 @@ pub trait DocumentImagesExt: IsA<DocumentImages> + sealed::Sealed + 'static {
         }
     }
 
-    //#[doc(alias = "pps_document_images_get_image_mapping")]
-    //#[doc(alias = "get_image_mapping")]
-    //fn image_mapping(&self, page: &impl IsA<Page>) -> /*Ignored*/Option<MappingList> {
-    //    unsafe { TODO: call ffi:pps_document_images_get_image_mapping() }
-    //}
+    #[doc(alias = "pps_document_images_get_image_mapping")]
+    #[doc(alias = "get_image_mapping")]
+    fn image_mapping(&self, page: &impl IsA<Page>) -> Option<MappingList> {
+        unsafe {
+            from_glib_full(ffi::pps_document_images_get_image_mapping(
+                self.as_ref().to_glib_none().0,
+                page.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 }
 
 impl<O: IsA<DocumentImages>> DocumentImagesExt for O {}

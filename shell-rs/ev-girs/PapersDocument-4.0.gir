@@ -9601,7 +9601,11 @@ interface</doc>
       <source-position filename="libdocument/pps-version.h" line="35"/>
       <type name="gint" c:type="gint"/>
     </constant>
-    <record name="Mapping" c:type="PpsMapping">
+    <record name="Mapping"
+            c:type="PpsMapping"
+            glib:type-name="PpsMapping"
+            glib:get-type="pps_mapping_get_type"
+            c:symbol-prefix="mapping">
       <source-position filename="libdocument/pps-document.h" line="236"/>
       <field name="area" writable="1">
         <type name="Rectangle" c:type="PpsRectangle"/>
@@ -9609,6 +9613,84 @@ interface</doc>
       <field name="data" writable="1">
         <type name="gpointer" c:type="gpointer"/>
       </field>
+      <constructor name="new" c:identifier="pps_mapping_new">
+        <source-position filename="libdocument/pps-document.h" line="241"/>
+        <return-value transfer-ownership="full">
+          <type name="Mapping" c:type="PpsMapping*"/>
+        </return-value>
+      </constructor>
+      <method name="copy" c:identifier="pps_mapping_copy">
+        <source-position filename="libdocument/pps-document.h" line="243"/>
+        <return-value transfer-ownership="full">
+          <type name="Mapping" c:type="PpsMapping*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_mapping" transfer-ownership="none">
+            <type name="Mapping" c:type="PpsMapping*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="free" c:identifier="pps_mapping_free">
+        <source-position filename="libdocument/pps-document.h" line="245"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_mapping" transfer-ownership="none">
+            <type name="Mapping" c:type="PpsMapping*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_area" c:identifier="pps_mapping_get_area">
+        <source-position filename="libdocument/pps-document.h" line="249"/>
+        <return-value transfer-ownership="none">
+          <type name="Rectangle" c:type="PpsRectangle*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_mapping" transfer-ownership="none">
+            <type name="Mapping" c:type="PpsMapping*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_data" c:identifier="pps_mapping_get_data">
+        <source-position filename="libdocument/pps-document.h" line="253"/>
+        <return-value transfer-ownership="none" nullable="1">
+          <type name="GObject.Object" c:type="GObject*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_mapping" transfer-ownership="none">
+            <type name="Mapping" c:type="const PpsMapping*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="set_area" c:identifier="pps_mapping_set_area">
+        <source-position filename="libdocument/pps-document.h" line="247"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_mapping" transfer-ownership="none">
+            <type name="Mapping" c:type="PpsMapping*"/>
+          </instance-parameter>
+          <parameter name="area" transfer-ownership="full">
+            <type name="Rectangle" c:type="PpsRectangle*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_data" c:identifier="pps_mapping_set_data">
+        <source-position filename="libdocument/pps-document.h" line="251"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pps_mapping" transfer-ownership="none">
+            <type name="Mapping" c:type="PpsMapping*"/>
+          </instance-parameter>
+          <parameter name="data" transfer-ownership="full">
+            <type name="GObject.Object" c:type="GObject*"/>
+          </parameter>
+        </parameters>
+      </method>
     </record>
     <record name="MappingList"
             c:type="PpsMappingList"
@@ -10944,7 +11026,7 @@ interface</doc>
       </parameters>
     </function-macro>
     <function name="backend_query_type" c:identifier="pps_backend_query_type">
-      <source-position filename="libdocument/pps-document.h" line="241"/>
+      <source-position filename="libdocument/pps-document.h" line="259"/>
       <return-value transfer-ownership="none">
         <type name="GType" c:type="GType"/>
       </return-value>

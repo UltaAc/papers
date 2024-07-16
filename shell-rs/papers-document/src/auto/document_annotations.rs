@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{ffi, Annotation};
+use crate::{ffi, Annotation, MappingList, Page};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -62,11 +62,16 @@ pub trait DocumentAnnotationsExt: IsA<DocumentAnnotations> + sealed::Sealed + 's
         }
     }
 
-    //#[doc(alias = "pps_document_annotations_get_annotations")]
-    //#[doc(alias = "get_annotations")]
-    //fn annotations(&self, page: &impl IsA<Page>) -> /*Ignored*/Option<MappingList> {
-    //    unsafe { TODO: call ffi:pps_document_annotations_get_annotations() }
-    //}
+    #[doc(alias = "pps_document_annotations_get_annotations")]
+    #[doc(alias = "get_annotations")]
+    fn annotations(&self, page: &impl IsA<Page>) -> Option<MappingList> {
+        unsafe {
+            from_glib_full(ffi::pps_document_annotations_get_annotations(
+                self.as_ref().to_glib_none().0,
+                page.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 
     //#[doc(alias = "pps_document_annotations_over_markup")]
     //fn over_markup(&self, annot: &impl IsA<Annotation>, x: f64, y: f64) -> /*Ignored*/AnnotationsOverMarkup {

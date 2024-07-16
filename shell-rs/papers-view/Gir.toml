@@ -22,12 +22,15 @@ external_libraries = [
 
 generate = [
     "PapersView.AttachmentContext",
+    "PapersView.Bookmark",
+    "PapersView.Bookmarks",
     "PapersView.DocumentModel",
     "PapersView.Metadata",
     "PapersView.SearchContext",
     "PapersView.SearchResult",
 
     "PapersView.Job",
+    "PapersView.JobAnnots",
     "PapersView.JobAttachments",
     "PapersView.JobFind",
     "PapersView.JobFonts",
@@ -71,6 +74,7 @@ manual = [
     "PapersDocument.FindOptions",
     "PapersDocument.Link",
     "PapersDocument.LinkAction",
+    "PapersDocument.MappingList",
 ]
 
 [[object]]

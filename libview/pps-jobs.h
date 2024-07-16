@@ -411,6 +411,8 @@ PPS_PUBLIC
 GType           pps_job_annots_get_type      (void) G_GNUC_CONST;
 PPS_PUBLIC
 PpsJob          *pps_job_annots_new           (PpsDocument     *document);
+PPS_PUBLIC
+GList           *pps_job_annots_get_annots    (PpsJobAnnots    *job);
 
 /* PpsJobRenderTexture */
 PPS_PUBLIC

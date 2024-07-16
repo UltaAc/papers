@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{ffi, LinkAction};
+use crate::{ffi, LinkAction, MappingList, Page};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -94,11 +94,16 @@ pub trait DocumentFormsExt: IsA<DocumentForms> + sealed::Sealed + 'static {
     //    unsafe { TODO: call ffi:pps_document_forms_form_field_text_set_text() }
     //}
 
-    //#[doc(alias = "pps_document_forms_get_form_fields")]
-    //#[doc(alias = "get_form_fields")]
-    //fn form_fields(&self, page: &impl IsA<Page>) -> /*Ignored*/Option<MappingList> {
-    //    unsafe { TODO: call ffi:pps_document_forms_get_form_fields() }
-    //}
+    #[doc(alias = "pps_document_forms_get_form_fields")]
+    #[doc(alias = "get_form_fields")]
+    fn form_fields(&self, page: &impl IsA<Page>) -> Option<MappingList> {
+        unsafe {
+            from_glib_full(ffi::pps_document_forms_get_form_fields(
+                self.as_ref().to_glib_none().0,
+                page.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 
     #[doc(alias = "pps_document_forms_reset_form")]
     fn reset_form(&self, action: &LinkAction) {

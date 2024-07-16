@@ -57,6 +57,7 @@ generate = [
     "PapersDocument.LinkActionType",
     "PapersDocument.LinkDest",
     "PapersDocument.LinkDestType",
+    "PapersDocument.MappingList",
     "PapersDocument.Outlines",
     "PapersDocument.Page",
     "PapersDocument.Selection",
@@ -76,11 +77,17 @@ manual = [
     "Gio.AppLaunchContext",
     "Gio.File",
     "Gio.ListModel",
+    "GObject.Object",
     "Gtk.FileDialog",
     "Gtk.Widget",
 ]
 
 [[object]]
 name = "PapersDocument.Rectangle"
+status = "generate"
+boxed_inline = true
+
+[[object]]
+name = "PapersDocument.Mapping"
 status = "generate"
 boxed_inline = true
