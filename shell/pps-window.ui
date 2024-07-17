@@ -421,9 +421,7 @@
                                 <property name="valign">start</property>
                                 <property name="visible">True</property>
                                 <child>
-                                  <object class="GtkSpinner">
-                                    <property name="spinning">True</property>
-                                  </object>
+                                  <object class="AdwSpinner" />
                                 </child>
                                 <child>
                                   <object class="GtkLabel">

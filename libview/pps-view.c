@@ -2186,8 +2186,7 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y)
 	gtk_popover_set_pointing_to (GTK_POPOVER (popover), &link_area);
 	gtk_popover_set_autohide (GTK_POPOVER (popover), FALSE);
 
-	spinner = gtk_spinner_new ();
-	gtk_spinner_start (GTK_SPINNER (spinner));
+	spinner = adw_spinner_new ();
 	gtk_popover_set_child (GTK_POPOVER (popover) , spinner);
 
 	/* Start thumbnailing job async */
