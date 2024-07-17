@@ -234,9 +234,6 @@ pps_annotation_window_init (PpsAnnotationWindow *window)
 	gtk_window_set_resizable (GTK_WINDOW (window), TRUE);
 	gtk_window_set_hide_on_close (GTK_WINDOW (window), TRUE);
 	gtk_widget_add_css_class (GTK_WIDGET (window), "pps-annotation-window");
-	g_signal_connect_swapped (window, "close-request",
-				  G_CALLBACK (pps_annotation_window_sync_contents),
-				  window);
 }
 
 static GObject *
@@ -326,15 +323,25 @@ pps_annotation_window_dispose (GObject *object)
 	G_OBJECT_CLASS (pps_annotation_window_parent_class)->dispose (object);
 }
 
+static gboolean
+pps_annotation_window_close_request (GtkWindow *window)
+{
+	pps_annotation_window_sync_contents (PPS_ANNOTATION_WINDOW (window));
+
+	return GTK_WINDOW_CLASS (pps_annotation_window_parent_class)->close_request (window);
+}
+
 static void
 pps_annotation_window_class_init (PpsAnnotationWindowClass *klass)
 {
 	GObjectClass   *g_object_class = G_OBJECT_CLASS (klass);
 	GtkWidgetClass *gtk_widget_class = GTK_WIDGET_CLASS (klass);
+	GtkWindowClass *gtk_window_class = GTK_WINDOW_CLASS (klass);
 
 	g_object_class->constructor = pps_annotation_window_constructor;
 	g_object_class->set_property = pps_annotation_window_set_property;
 	g_object_class->dispose = pps_annotation_window_dispose;
+	gtk_window_class->close_request = pps_annotation_window_close_request;
 
 	gtk_widget_class_add_binding (gtk_widget_class, GDK_KEY_Escape, 0,
 				      pps_annotation_window_escape_pressed, NULL);
