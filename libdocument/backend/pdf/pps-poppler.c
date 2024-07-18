@@ -3058,8 +3058,8 @@ get_quads_for_area (PopplerPage      *page,
 		gdouble max_height = MAX (rects[i].y2 - rects[i].y1, r->y2 - r->y1);
 		gdouble threshhold = max_height * 0.33;
 
-		gboolean aligned = ABS (rects[i].y2 - r->y2) < threshhold &&
-				   ABS (rects[i].y1 - r->y1) < threshhold;
+		gboolean aligned = rects[i].y2 < r->y2 + threshhold &&
+				   rects[i].y1 > r->y1 - threshhold;
 
 		if (!aligned || ABS (r->x2 - rects[i].x1) > 0.01 * width) {
 			if (i > 0)
