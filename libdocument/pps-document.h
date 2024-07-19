@@ -42,8 +42,6 @@ PPS_PUBLIC
 G_DECLARE_DERIVABLE_TYPE (PpsDocument, pps_document, PPS, DOCUMENT, GObject)
 
 #define PPS_DOCUMENT_ERROR pps_document_error_quark ()
-#define PPS_DOC_MUTEX_LOCK (pps_document_doc_mutex_lock ())
-#define PPS_DOC_MUTEX_UNLOCK (pps_document_doc_mutex_unlock ())
 
 typedef enum /*< flags >*/ {
         PPS_DOCUMENT_LOAD_FLAG_NONE = 0,
