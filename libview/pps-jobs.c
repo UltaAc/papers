@@ -136,9 +136,9 @@ pps_job_links_run (PpsJob *job)
 
 	g_debug ("running links job");
 
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (pps_job_get_document (job));
 	job_links->model = pps_document_links_get_links_model (PPS_DOCUMENT_LINKS (pps_job_get_document (job)));
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (pps_job_get_document (job));
 
 	fill_page_labels (job_links->model, job);
 
@@ -210,10 +210,10 @@ pps_job_attachments_run (PpsJob *job)
 
 	g_debug ("running attachments job");
 
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (pps_job_get_document (job));
 	job_attachments->attachments =
 		pps_document_attachments_get_attachments (PPS_DOCUMENT_ATTACHMENTS (pps_job_get_document (job)));
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (pps_job_get_document (job));
 
 	pps_job_succeeded (job);
 
@@ -280,7 +280,7 @@ pps_job_annots_run (PpsJob *job)
 
 	g_debug ("running annots job");
 
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (pps_job_get_document (job));
 	for (i = 0; i < pps_document_get_n_pages (pps_job_get_document (job)); i++) {
 		PpsMappingList *mapping_list;
 		PpsPage        *page;
@@ -293,7 +293,7 @@ pps_job_annots_run (PpsJob *job)
 		if (mapping_list)
 			job_annots->annots = g_list_prepend (job_annots->annots, mapping_list);
 	}
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (pps_job_get_document (job));
 
 	job_annots->annots = g_list_reverse (job_annots->annots);
 
@@ -382,7 +382,7 @@ pps_job_render_texture_run (PpsJob *job)
 
 	g_debug ("running render job: page: %d (%p)", job_render->page, job);
 
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (pps_job_get_document (job));
 
 	PPS_PROFILER_START (PPS_GET_TYPE_NAME (job), g_strdup_printf("page: %d", job_render->page));
 
@@ -396,7 +396,7 @@ pps_job_render_texture_run (PpsJob *job)
 
 	if (surface == NULL ||
 	    cairo_surface_status (surface) != CAIRO_STATUS_SUCCESS) {
-		pps_document_doc_mutex_unlock ();
+		pps_document_doc_mutex_unlock (pps_job_get_document (job));
 		g_object_unref (rc);
 
                 if (surface != NULL) {
@@ -427,7 +427,7 @@ pps_job_render_texture_run (PpsJob *job)
 	 */
 	if (g_cancellable_is_cancelled (pps_job_get_cancellable (job))) {
 		PPS_PROFILER_STOP ();
-		pps_document_doc_mutex_unlock ();
+		pps_document_doc_mutex_unlock (pps_job_get_document (job));
 		g_object_unref (rc);
 		return FALSE;
 	}
@@ -455,7 +455,7 @@ pps_job_render_texture_run (PpsJob *job)
 	g_object_unref (rc);
 
 	PPS_PROFILER_STOP ();
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (pps_job_get_document (job));
 
 	pps_job_succeeded (job);
 
@@ -501,7 +501,7 @@ pps_job_page_data_run (PpsJob *job)
 
 	g_debug ("running page data job: page: %d (%p)", job_pd->page, job);
 
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (pps_job_get_document (job));
 	pps_page = pps_document_get_page (pps_job_get_document (job), job_pd->page);
 
 	if ((job_pd->flags & PPS_PAGE_DATA_INCLUDE_TEXT_MAPPING) && PPS_IS_DOCUMENT_TEXT (pps_job_get_document (job)))
@@ -546,7 +546,7 @@ pps_job_page_data_run (PpsJob *job)
                         pps_document_media_get_media_mapping (PPS_DOCUMENT_MEDIA (pps_job_get_document (job)),
                                                              pps_page);
 	g_object_unref (pps_page);
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (pps_job_get_document (job));
 
 	pps_job_succeeded (job);
 
@@ -608,7 +608,7 @@ pps_job_thumbnail_texture_run (PpsJob *job)
 
 	g_debug ("running thumbnail job: page: %d (%p)", job_thumb->page, job);
 
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (pps_job_get_document (job));
 
 	PPS_PROFILER_START (PPS_GET_TYPE_NAME (job), g_strdup_printf("page: %d", job_thumb->page));
 	page = pps_document_get_page (pps_job_get_document (job), job_thumb->page);
@@ -623,7 +623,7 @@ pps_job_thumbnail_texture_run (PpsJob *job)
 	cairo_surface_destroy(surface);
 	g_object_unref (rc);
 	PPS_PROFILER_STOP ();
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (pps_job_get_document (job));
 
 	if (job_thumb->thumbnail_texture == NULL) {
 		pps_job_failed (job,
@@ -717,11 +717,11 @@ pps_job_fonts_run (PpsJob *job)
 
 	g_debug ("running fonts job");
 
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (pps_job_get_document (job));
 
 	pps_document_fonts_scan (PPS_DOCUMENT_FONTS (document));
 
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (pps_job_get_document (job));
 
 	pps_job_succeeded (job);
 
@@ -1110,7 +1110,7 @@ pps_job_save_run (PpsJob *job)
 	}
 	close (fd);
 
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (pps_job_get_document (job));
 
 	/* Save document to temp filename */
 	local_uri = g_filename_to_uri (tmp_filename, NULL, &error);
@@ -1118,7 +1118,7 @@ pps_job_save_run (PpsJob *job)
                 pps_document_save (pps_job_get_document (job), local_uri, &error);
         }
 
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (pps_job_get_document (job));
 
 	if (error) {
 		g_free (local_uri);
@@ -1260,12 +1260,12 @@ pps_job_find_run (PpsJob *job)
 		if (g_cancellable_is_cancelled (pps_job_get_cancellable (job)))
 			return FALSE;
 
-		pps_document_doc_mutex_lock ();
+		pps_document_doc_mutex_lock (pps_job_get_document (job));
 		pps_page = pps_document_get_page (pps_job_get_document (job), current_page);
 		matches = pps_document_find_find_text (find, pps_page, job_find->text,
 						       job_find->options);
 		g_object_unref (pps_page);
-		pps_document_doc_mutex_unlock ();
+		pps_document_doc_mutex_unlock (pps_job_get_document (job));
 
 		job_find->has_results |= (matches != NULL);
 
@@ -1405,9 +1405,9 @@ pps_job_layers_run (PpsJob *job)
 
 	g_debug ("running layers job");
 
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (pps_job_get_document (job));
 	job_layers->model = pps_document_layers_get_layers (PPS_DOCUMENT_LAYERS (pps_job_get_document (job)));
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (pps_job_get_document (job));
 
 	pps_job_succeeded (job);
 
@@ -1478,7 +1478,7 @@ pps_job_export_run (PpsJob *job)
 
 	g_debug ("running export job");
 
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (pps_job_get_document (job));
 
 	pps_page = pps_document_get_page (pps_job_get_document (job), job_export->page);
 	if (job_export->rc) {
@@ -1492,7 +1492,7 @@ pps_job_export_run (PpsJob *job)
 
 	pps_file_exporter_do_page (PPS_FILE_EXPORTER (pps_job_get_document (job)), job_export->rc);
 
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (pps_job_get_document (job));
 
 	pps_job_succeeded (job);
 
@@ -1562,14 +1562,14 @@ pps_job_print_run (PpsJob *job)
 
 	pps_job_reset (job);
 
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (pps_job_get_document (job));
 
 	pps_page = pps_document_get_page (pps_job_get_document (job), job_print->page);
 	pps_document_print_print_page (PPS_DOCUMENT_PRINT (pps_job_get_document (job)),
 				      pps_page, job_print->cr);
 	g_object_unref (pps_page);
 
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (pps_job_get_document (job));
 
         if (g_cancellable_is_cancelled (pps_job_get_cancellable (job)))
                 return FALSE;

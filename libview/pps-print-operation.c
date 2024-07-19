@@ -736,7 +736,7 @@ export_print_inc_page (PpsPrintOperationExport *export)
 				    (export->page_count - 1) % export->pages_per_sheet != 0) {
 
 					PpsPrintOperation *op = PPS_PRINT_OPERATION (export);
-					pps_document_doc_mutex_lock ();
+					pps_document_doc_mutex_lock (op->document);
 
 					/* keep track of all blanks but only actualise those
 					 * which are in the current odd / even sheet set */
@@ -747,7 +747,7 @@ export_print_inc_page (PpsPrintOperationExport *export)
 						(export->page_set == GTK_PAGE_SET_ODD && export->sheet % 2 == 1) ) {
 						pps_file_exporter_end_page (PPS_FILE_EXPORTER (op->document));
 					}
-					pps_document_doc_mutex_unlock ();
+					pps_document_doc_mutex_unlock (op->document);
 					export->sheet = 1 + (export->page_count - 1) / export->pages_per_sheet;
 				}
 
@@ -869,9 +869,9 @@ export_job_finished (PpsJobExport            *job,
 	   ( export->page_set == GTK_PAGE_SET_EVEN && export->sheet % 2 == 0 ) ||
 	   ( export->page_set == GTK_PAGE_SET_ODD && export->sheet % 2 == 1 ) ) ) ) {
 
-		pps_document_doc_mutex_lock ();
+		pps_document_doc_mutex_lock (op->document);
 		pps_file_exporter_end_page (PPS_FILE_EXPORTER (op->document));
-		pps_document_doc_mutex_unlock ();
+		pps_document_doc_mutex_unlock (op->document);
 	}
 
 	/* Reschedule */
@@ -947,9 +947,9 @@ export_print_page (PpsPrintOperationExport *export)
 	if (export->collated == export->collated_copies) {
 		export->collated = 0;
 		if (!export_print_inc_page (export)) {
-			pps_document_doc_mutex_lock ();
+			pps_document_doc_mutex_lock (op->document);
 			pps_file_exporter_end (PPS_FILE_EXPORTER (op->document));
-			pps_document_doc_mutex_unlock ();
+			pps_document_doc_mutex_unlock (op->document);
 
 			update_progress (export);
 			export_print_done (export);
@@ -972,9 +972,9 @@ export_print_page (PpsPrintOperationExport *export)
 				export->collated = 0;
 
 				if (!export_print_inc_page (export)) {
-					pps_document_doc_mutex_lock ();
+					pps_document_doc_mutex_lock (op->document);
 					pps_file_exporter_end (PPS_FILE_EXPORTER (op->document));
-					pps_document_doc_mutex_unlock ();
+					pps_document_doc_mutex_unlock (op->document);
 
 					update_progress (export);
 
@@ -993,9 +993,9 @@ export_print_page (PpsPrintOperationExport *export)
 	    (export->page_set == GTK_PAGE_SET_ALL ||
 	    (export->page_set == GTK_PAGE_SET_EVEN && export->sheet % 2 == 0) ||
 	    (export->page_set == GTK_PAGE_SET_ODD && export->sheet % 2 == 1)))) {
-		pps_document_doc_mutex_lock ();
+		pps_document_doc_mutex_lock (op->document);
 		pps_file_exporter_begin_page (PPS_FILE_EXPORTER (op->document));
-		pps_document_doc_mutex_unlock ();
+		pps_document_doc_mutex_unlock (op->document);
 	}
 
 	if (!export->job_export) {
@@ -1024,9 +1024,9 @@ pps_print_operation_export_begin (PpsPrintOperationExport *export)
 	if (!export->temp_file)
 		return; /* cancelled */
 
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (op->document);
 	pps_file_exporter_begin (PPS_FILE_EXPORTER (op->document), &export->fc);
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (op->document);
 
 	export->idle_id = g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
 					   (GSourceFunc)export_print_page,

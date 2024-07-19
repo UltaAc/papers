@@ -124,11 +124,11 @@ GQuark           pps_document_error_quark          (void);
 
 /* Document mutex */
 PPS_PUBLIC
-void             pps_document_doc_mutex_lock       (void);
+void             pps_document_doc_mutex_lock       (PpsDocument      *document);
 PPS_PUBLIC
-void             pps_document_doc_mutex_unlock     (void);
+void             pps_document_doc_mutex_unlock     (PpsDocument      *document);
 PPS_PUBLIC
-gboolean         pps_document_doc_mutex_trylock    (void);
+gboolean         pps_document_doc_mutex_trylock    (PpsDocument      *document);
 
 PPS_PUBLIC
 PpsDocumentInfo  *pps_document_get_info             (PpsDocument      *document);

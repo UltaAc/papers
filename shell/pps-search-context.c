@@ -240,10 +240,10 @@ get_page_text (PpsDocument   *document,
         gchar   *text;
         gboolean success;
 
-        pps_document_doc_mutex_lock ();
+        pps_document_doc_mutex_lock (document);
         text = pps_document_text_get_text (PPS_DOCUMENT_TEXT (document), page);
         success = pps_document_text_get_text_layout (PPS_DOCUMENT_TEXT (document), page, areas, n_areas);
-        pps_document_doc_mutex_unlock ();
+        pps_document_doc_mutex_unlock (document);
 
         if (!success) {
                 g_free (text);

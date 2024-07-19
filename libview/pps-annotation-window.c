@@ -79,11 +79,11 @@ pps_annotation_window_sync_contents (PpsAnnotationWindow *window)
 	gtk_text_buffer_get_bounds (buffer, &start, &end);
 	contents = gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
 	if (pps_annotation_set_contents (annot, contents)) {
-		pps_document_doc_mutex_lock ();
+		pps_document_doc_mutex_lock (window->document);
 		pps_document_annotations_save_annotation (PPS_DOCUMENT_ANNOTATIONS (window->document),
 							  annot,
 							  PPS_ANNOTATIONS_SAVE_CONTENTS);
-		pps_document_doc_mutex_unlock ();
+		pps_document_doc_mutex_unlock (window->document);
 	}
 
 	g_free (contents);

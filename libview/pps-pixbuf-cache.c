@@ -976,7 +976,7 @@ pps_pixbuf_cache_get_selection_texture (PpsPixbufCache   *pixbuf_cache,
 		cairo_surface_t *selection = NULL;
 
 		/* we need to get a new selection pixbuf */
-		pps_document_doc_mutex_lock ();
+		pps_document_doc_mutex_lock (pixbuf_cache->document);
 		if (job_info->selection_points.x1 < 0) {
 			g_assert (job_info->selection_texture == NULL);
 			old_points = NULL;
@@ -1011,7 +1011,7 @@ pps_pixbuf_cache_get_selection_texture (PpsPixbufCache   *pixbuf_cache,
 		job_info->selection_texture = pps_document_misc_texture_from_surface (selection);
 		cairo_surface_destroy (selection);
 		g_object_unref (rc);
-		pps_document_doc_mutex_unlock ();
+		pps_document_doc_mutex_unlock (pixbuf_cache->document);
 	}
 	return job_info->selection_texture;
 }
@@ -1054,7 +1054,7 @@ pps_pixbuf_cache_get_selection_region (PpsPixbufCache *pixbuf_cache,
 		PpsPage *pps_page;
 		gint width, height;
 
-		pps_document_doc_mutex_lock ();
+		pps_document_doc_mutex_lock (pixbuf_cache->document);
 		pps_page = pps_document_get_page (pixbuf_cache->document, page);
 
 		_get_page_size_for_scale_and_rotation (pixbuf_cache->document,
@@ -1074,7 +1074,7 @@ pps_pixbuf_cache_get_selection_region (PpsPixbufCache *pixbuf_cache,
 		job_info->selection_region_points = job_info->target_points;
 		job_info->selection_region_scale = scale;
 		g_object_unref (rc);
-		pps_document_doc_mutex_unlock ();
+		pps_document_doc_mutex_unlock (pixbuf_cache->document);
 	}
 	return job_info->selection_region && !cairo_region_is_empty(job_info->selection_region) ?
                 job_info->selection_region : NULL;

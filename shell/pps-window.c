@@ -5294,10 +5294,10 @@ image_save_dialog_response_cb (GtkFileDialog     *dialog,
                         goto has_error;
 	}
 
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (priv->document);
 	pixbuf = pps_document_images_get_image (PPS_DOCUMENT_IMAGES (priv->document),
 					       priv->image);
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (priv->document);
 
 	file_format = gdk_pixbuf_format_get_name (format);
 	gdk_pixbuf_save (pixbuf, filename, file_format, &error, NULL);
@@ -5378,10 +5378,10 @@ pps_window_popup_cmd_copy_image (GSimpleAction *action,
 		return;
 
 	clipboard = gtk_widget_get_clipboard (GTK_WIDGET (window));
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (priv->document);
 	pixbuf = pps_document_images_get_image (PPS_DOCUMENT_IMAGES (priv->document),
 					       priv->image);
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (priv->document);
 
 	gdk_clipboard_set_texture (clipboard,
 			gdk_texture_new_for_pixbuf (pixbuf));
@@ -5441,11 +5441,11 @@ pps_window_popup_cmd_annot_properties_response_cb (AdwAlertDialog *dialog,
 	}
 
 	if (mask != PPS_ANNOTATIONS_SAVE_NONE) {
-		pps_document_doc_mutex_lock ();
+		pps_document_doc_mutex_lock (priv->document);
 		pps_document_annotations_save_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document),
 							 priv->annot,
 							 mask);
-		pps_document_doc_mutex_unlock ();
+		pps_document_doc_mutex_unlock (priv->document);
 
 		/* FIXME: update annot region only */
 		pps_view_reload (PPS_VIEW (priv->view));

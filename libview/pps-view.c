@@ -857,11 +857,11 @@ compute_scroll_increment (PpsView        *view,
 		doc_rect.x1 = doc_rect.x2 = rect.x + 0.5;
 		doc_rect.y1 = doc_rect.y2 = rect.y + 0.5;
 
-		pps_document_doc_mutex_lock ();
+		pps_document_doc_mutex_lock (priv->document);
 		sel_region = pps_selection_get_selection_region (PPS_SELECTION (priv->document),
 								rc, PPS_SELECTION_STYLE_LINE,
 								&doc_rect);
-		pps_document_doc_mutex_unlock ();
+		pps_document_doc_mutex_unlock (priv->document);
 
 		g_object_unref (rc);
 
@@ -3483,7 +3483,7 @@ pps_view_create_annotation_real (PpsView           *view,
 	GdkRectangle    view_rect;
 	cairo_region_t *region;
 
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (priv->document);
 	page = pps_document_get_page (priv->document, annot_page);
         switch (type) {
         case PPS_ANNOTATION_TYPE_TEXT:
@@ -3503,7 +3503,7 @@ pps_view_create_annotation_real (PpsView           *view,
 	case PPS_ANNOTATION_TYPE_ATTACHMENT:
 		/* TODO */
 		g_object_unref (page);
-		pps_document_doc_mutex_unlock ();
+		pps_document_doc_mutex_unlock (priv->document);
 		return NULL;
 	default:
 		g_assert_not_reached ();
@@ -3530,7 +3530,7 @@ pps_view_create_annotation_real (PpsView           *view,
 	pps_document_annotations_add_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document), annot);
 	/* Re-fetch area as eg. adding Text Markup annots updates area for its bounding box */
 	pps_annotation_get_area (annot, &doc_rect);
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (priv->document);
 
 	/* If the page didn't have annots, mark the cache as dirty */
 	if (!pps_page_cache_get_annot_mapping (priv->page_cache, annot_page))
@@ -3696,10 +3696,10 @@ pps_view_remove_annotation (PpsView       *view,
 
         _pps_view_set_focused_element (view, NULL, -1);
 
-        pps_document_doc_mutex_lock ();
+        pps_document_doc_mutex_lock (priv->document);
         pps_document_annotations_remove_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document),
                                                    annot);
-        pps_document_doc_mutex_unlock ();
+        pps_document_doc_mutex_unlock (priv->document);
 
         pps_page_cache_mark_dirty (priv->page_cache, page, PPS_PAGE_DATA_INCLUDE_ANNOTS);
 
@@ -5528,13 +5528,13 @@ pps_view_move_annot_to_point (PpsView  *view,
 
 	/* Take the mutex before set_area, because the notify signal
 	 * updates the mappings in the backend */
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (priv->document);
 	if (pps_annotation_set_area (priv->moving_annot_info.annot, &rect)) {
 		pps_document_annotations_save_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document),
 							  priv->moving_annot_info.annot,
 							  PPS_ANNOTATIONS_SAVE_AREA);
 	}
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (priv->document);
 
 	/* FIXME: reload only annotation area */
 	pps_view_reload_page (view, annot_page, NULL);
@@ -6252,7 +6252,7 @@ cursor_clear_selection (PpsView  *view,
 		PpsRenderContext *rc;
 		PpsPage          *page;
 
-		pps_document_doc_mutex_lock ();
+		pps_document_doc_mutex_lock (priv->document);
 
 		page = pps_document_get_page (priv->document, selection->page);
 		rc = pps_render_context_new (page, priv->rotation, priv->scale);
@@ -6264,7 +6264,7 @@ cursor_clear_selection (PpsView  *view,
 								&(selection->rect));
 		g_object_unref (rc);
 
-		pps_document_doc_mutex_unlock();
+		pps_document_doc_mutex_unlock (priv->document);
 
 		if (!tmp_region || cairo_region_is_empty (tmp_region)) {
 			cairo_region_destroy (tmp_region);
@@ -9072,7 +9072,7 @@ get_selected_text (PpsView *view)
 
 	text = g_string_new (NULL);
 
-	pps_document_doc_mutex_lock ();
+	pps_document_doc_mutex_lock (priv->document);
 
 	for (l = priv->selection_info.selections; l != NULL; l = l->next) {
 		PpsViewSelection *selection = (PpsViewSelection *)l->data;
@@ -9088,7 +9088,7 @@ get_selected_text (PpsView *view)
 		g_free (tmp);
 	}
 
-	pps_document_doc_mutex_unlock ();
+	pps_document_doc_mutex_unlock (priv->document);
 
 	/* For copying text from the document to the clipboard, we want a normalization
 	 * that preserves 'canonical equivalence' i.e. that text after normalization
