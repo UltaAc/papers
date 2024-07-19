@@ -660,7 +660,7 @@ pps_document_get_page_label (PpsDocument *document,
  *
  * Returns the #PpsDocumentInfo for the document.
  *
- * Returns: (transfer none): a #PpsDocumentInfo
+ * Returns: (transfer full): a #PpsDocumentInfo
  */
 PpsDocumentInfo *
 pps_document_get_info (PpsDocument *document)
@@ -764,7 +764,7 @@ const gchar *
 pps_document_get_title (PpsDocument *document)
 {
 	g_return_val_if_fail (PPS_IS_DOCUMENT (document), NULL);
-	PpsDocumentInfo *info = pps_document_get_info (document);
+	g_autofree PpsDocumentInfo *info = pps_document_get_info (document);
 
 	return (info->fields_mask & PPS_DOCUMENT_INFO_TITLE) ?
 		info->title : NULL;

@@ -306,7 +306,7 @@ pps_window_update_actions_sensitivity (PpsWindow *pps_window)
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
 	PpsDocument *document = priv->document;
 	PpsView     *view = PPS_VIEW (priv->view);
-	const PpsDocumentInfo *info = NULL;
+	g_autofree PpsDocumentInfo *info = NULL;
 	gboolean has_document = FALSE;
 	gboolean ok_to_print = TRUE;
 	gboolean ok_to_copy = TRUE;
@@ -1351,7 +1351,7 @@ static void
 pps_window_set_document_metadata (PpsWindow *window)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (window);
-	const PpsDocumentInfo *info;
+	g_autofree PpsDocumentInfo *info = NULL;
 
 	if (!priv->metadata)
 		return;
@@ -1372,7 +1372,7 @@ static void
 pps_window_set_document (PpsWindow *pps_window, PpsDocument *document)
 {
 	PpsWindowPrivate *priv = GET_PRIVATE (pps_window);
-	const PpsDocumentInfo *info;
+	g_autofree PpsDocumentInfo *info = NULL;
 
 	if (priv->document == document)
 		return;
