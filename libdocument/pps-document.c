@@ -68,7 +68,6 @@ static gchar          *_pps_document_get_page_label  (PpsDocument *document,
 						     PpsPage     *page);
 
 static GMutex pps_doc_mutex;
-static GMutex pps_fc_mutex;
 
 typedef struct _PpsDocumentPrivate PpsDocumentPrivate;
 
@@ -238,24 +237,6 @@ gboolean
 pps_document_doc_mutex_trylock (void)
 {
 	return g_mutex_trylock (&pps_doc_mutex);
-}
-
-void
-pps_document_fc_mutex_lock (void)
-{
-	g_mutex_lock (&pps_fc_mutex);
-}
-
-void
-pps_document_fc_mutex_unlock (void)
-{
-	g_mutex_unlock (&pps_fc_mutex);
-}
-
-gboolean
-pps_document_fc_mutex_trylock (void)
-{
-	return g_mutex_trylock (&pps_fc_mutex);
 }
 
 static void

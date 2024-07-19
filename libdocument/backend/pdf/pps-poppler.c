@@ -459,9 +459,7 @@ make_thumbnail_for_page (PopplerPage     *poppler_page,
 	GdkPixbuf *pixbuf;
 	cairo_surface_t *surface;
 
-	pps_document_fc_mutex_lock ();
 	surface = pdf_page_render (poppler_page, width, height, rc);
-	pps_document_fc_mutex_unlock ();
 
 	pixbuf = pps_document_misc_pixbuf_from_surface (surface);
 	cairo_surface_destroy (surface);
@@ -554,9 +552,7 @@ pdf_document_get_thumbnail_surface (PpsDocument      *document,
 		}
 	}
 
-	pps_document_fc_mutex_lock ();
 	surface = pdf_page_render (poppler_page, width, height, rc);
-	pps_document_fc_mutex_unlock ();
 
 	return surface;
 }

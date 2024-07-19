@@ -383,7 +383,6 @@ pps_job_render_texture_run (PpsJob *job)
 	g_debug ("running render job: page: %d (%p)", job_render->page, job);
 
 	pps_document_doc_mutex_lock ();
-	pps_document_fc_mutex_lock ();
 
 	PPS_PROFILER_START (PPS_GET_TYPE_NAME (job), g_strdup_printf("page: %d", job_render->page));
 
@@ -397,7 +396,6 @@ pps_job_render_texture_run (PpsJob *job)
 
 	if (surface == NULL ||
 	    cairo_surface_status (surface) != CAIRO_STATUS_SUCCESS) {
-		pps_document_fc_mutex_unlock ();
 		pps_document_doc_mutex_unlock ();
 		g_object_unref (rc);
 
@@ -429,7 +427,6 @@ pps_job_render_texture_run (PpsJob *job)
 	 */
 	if (g_cancellable_is_cancelled (pps_job_get_cancellable (job))) {
 		PPS_PROFILER_STOP ();
-		pps_document_fc_mutex_unlock ();
 		pps_document_doc_mutex_unlock ();
 		g_object_unref (rc);
 		return FALSE;
@@ -458,7 +455,6 @@ pps_job_render_texture_run (PpsJob *job)
 	g_object_unref (rc);
 
 	PPS_PROFILER_STOP ();
-	pps_document_fc_mutex_unlock ();
 	pps_document_doc_mutex_unlock ();
 
 	pps_job_succeeded (job);
@@ -722,11 +718,9 @@ pps_job_fonts_run (PpsJob *job)
 	g_debug ("running fonts job");
 
 	pps_document_doc_mutex_lock ();
-	pps_document_fc_mutex_lock ();
 
 	pps_document_fonts_scan (PPS_DOCUMENT_FONTS (document));
 
-	pps_document_fc_mutex_unlock ();
 	pps_document_doc_mutex_unlock ();
 
 	pps_job_succeeded (job);
@@ -826,8 +820,6 @@ pps_job_load_run (PpsJob *job)
 		return FALSE;
 	}
 
-	pps_document_fc_mutex_lock ();
-
 	/* This job may already have a document even if the job didn't complete
 	   because, e.g., a password is required - if so, just reload rather than
 	   creating a new instance */
@@ -883,8 +875,6 @@ pps_job_load_run (PpsJob *job)
 										 &error);
 		}
 	}
-
-	pps_document_fc_mutex_unlock ();
 
 	if (error) {
 		pps_job_failed_from_error (job, error);

@@ -132,14 +132,6 @@ void             pps_document_doc_mutex_unlock     (void);
 PPS_PUBLIC
 gboolean         pps_document_doc_mutex_trylock    (void);
 
-/* FontConfig mutex */
-PPS_PUBLIC
-void             pps_document_fc_mutex_lock        (void);
-PPS_PUBLIC
-void             pps_document_fc_mutex_unlock      (void);
-PPS_PUBLIC
-gboolean         pps_document_fc_mutex_trylock     (void);
-
 PPS_PUBLIC
 PpsDocumentInfo  *pps_document_get_info             (PpsDocument      *document);
 PPS_PUBLIC
