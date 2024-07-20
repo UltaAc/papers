@@ -16,3 +16,4 @@ option('user_doc', type: 'boolean', value: true, description: 'whether User docu
 option('introspection', type: 'feature', value: 'auto', description : 'Build introspection data (requires gobject-introspection)')
 option('keyring', type: 'feature', value: 'enabled', description: 'whether keyring support is requested')
 option('gtk_unix_print', type: 'feature', value: 'auto', description: 'whether gtk+-unix-print support is requested')
+option('spell_check', type: 'feature', value: 'auto', description: 'whether spell check support is requested')

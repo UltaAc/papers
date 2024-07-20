@@ -223,6 +223,11 @@ if not gobject_introspection_dep.found()
   enable_docs = false
 endif
 
+# *** Libspelling ***
+libspelling_dep = dependency('libspelling-1', version: '>= 0.2', required: get_option('spell_check'))
+enable_spellcheck = libspelling_dep.found()
+config_h.set10('HAVE_LIBSPELLING', enable_spellcheck)
+
 # *** Mime types list ***
 mime_types_list = {
   'comics': [
@@ -384,4 +389,5 @@ summary({'tests......................': get_option('tests'),
          'GObject introspection......': gobject_introspection_dep.found(),
          'Keyring integration........': enable_keyring,
          'GTK+ Unix print ...........': enable_gtk_unix_print,
+         'Spell checker .............': enable_spellcheck,
         }, section: 'Features', bool_yn: true)

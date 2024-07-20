@@ -5825,9 +5825,15 @@ pps_view_set_enable_spellchecking (PpsView *view,
 gboolean
 pps_view_get_enable_spellchecking (PpsView *view)
 {
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+
 	g_return_val_if_fail (PPS_IS_VIEW (view), FALSE);
 
+#ifdef HAVE_LIBSPELLING
+	return priv->enable_spellchecking;
+#else
 	return FALSE;
+#endif
 }
 
 static void

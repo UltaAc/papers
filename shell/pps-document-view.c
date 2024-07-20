@@ -289,10 +289,6 @@ pps_document_view_set_default_actions (PpsDocumentView *pps_doc_view)
 		                                      pps_document_signatures_can_sign (PPS_DOCUMENT_SIGNATURES (document)));
 	}
 
-	/* View menu */
-	pps_document_view_set_action_enabled (pps_doc_view, "enable-spellchecking",
-	                                      FALSE);
-
 	pps_document_view_set_action_enabled (pps_doc_view, "dual-odd-left", dual_mode);
 
 	pps_document_view_set_action_enabled (pps_doc_view, "zoom-in",
@@ -847,7 +843,7 @@ pps_document_view_setup_default (PpsDocumentView *pps_doc_view)
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	PpsDocumentModel *model = priv->model;
 	GSettings *settings = priv->default_settings;
-	gboolean show_sidebar;
+	gboolean show_sidebar, spellchecking = FALSE;
 	g_autofree gchar *annot_color = NULL;
 
 	/* Sidebar */
@@ -873,12 +869,12 @@ pps_document_view_setup_default (PpsDocumentView *pps_doc_view)
 	if (pps_document_model_get_sizing_mode (model) == PPS_SIZING_FREE)
 		pps_document_model_set_scale (model, g_settings_get_double (settings, "zoom"));
 
-	g_simple_action_set_state (
-	    G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (priv->document_action_group),
-	                                                 "enable-spellchecking")),
-	    g_variant_new_boolean (FALSE));
-	pps_view_set_enable_spellchecking (PPS_VIEW (priv->view),
-	                                   g_settings_get_boolean (settings, "enable-spellchecking"));
+#ifdef HAVE_LIBSPELLING
+	spellchecking = g_settings_get_boolean (settings, "enable-spellchecking");
+#endif
+	g_action_group_change_action_state (G_ACTION_GROUP (priv->document_action_group),
+	                                    "enable-spellchecking",
+	                                    g_variant_new_boolean (spellchecking));
 }
 
 static void

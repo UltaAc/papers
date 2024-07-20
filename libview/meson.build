@@ -95,6 +95,7 @@ deps = [
   gthread_dep,
   libppsdocument_dep,
   libaw_dep,
+  libspelling_dep,
   m_dep,
 ]
 

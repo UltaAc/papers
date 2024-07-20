@@ -37,6 +37,10 @@
 #include <gdk/x11/gdkx.h>
 #endif
 
+#if HAVE_LIBSPELLING
+#include <libspelling.h>
+#endif
+
 enum {
 	PROP_0,
 	PROP_ANNOTATION,
@@ -56,6 +60,11 @@ struct _PpsAnnotationWindow {
 	GtkWidget *text_view;
 
 	gboolean is_open;
+
+#if HAVE_LIBSPELLING
+	SpellingTextBufferAdapter *adapter;
+	gboolean enable_spellchecking;
+#endif
 };
 
 struct _PpsAnnotationWindowClass {
@@ -194,7 +203,19 @@ pps_annotation_window_init (PpsAnnotationWindow *window)
 
 	/* Contents */
 	swindow = gtk_scrolled_window_new ();
+
+#if HAVE_LIBSPELLING
+	window->text_view = gtk_source_view_new ();
+	window->adapter = spelling_text_buffer_adapter_new (
+	    GTK_SOURCE_BUFFER (gtk_text_view_get_buffer (GTK_TEXT_VIEW (window->text_view))),
+	    spelling_checker_get_default ());
+	gtk_text_view_set_extra_menu (GTK_TEXT_VIEW (window->text_view),
+	                              spelling_text_buffer_adapter_get_menu_model (window->adapter));
+	gtk_widget_insert_action_group (window->text_view, "spelling", G_ACTION_GROUP (window->adapter));
+	spelling_text_buffer_adapter_set_enabled (window->adapter, TRUE);
+#else
 	window->text_view = gtk_text_view_new ();
+#endif
 
 	gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (window->text_view), TRUE);
 	gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (window->text_view), GTK_WRAP_WORD);
@@ -395,11 +416,24 @@ pps_annotation_window_set_enable_spellchecking (PpsAnnotationWindow *window,
                                                 gboolean enable_spellchecking)
 {
 	g_return_if_fail (PPS_IS_ANNOTATION_WINDOW (window));
+
+#if HAVE_LIBSPELLING
+	if (enable_spellchecking == pps_annotation_window_get_enable_spellchecking (window))
+		return;
+
+	window->enable_spellchecking = enable_spellchecking;
+	spelling_text_buffer_adapter_set_enabled (window->adapter, enable_spellchecking);
+#endif
 }
 
 gboolean
 pps_annotation_window_get_enable_spellchecking (PpsAnnotationWindow *window)
 {
 	g_return_val_if_fail (PPS_IS_ANNOTATION_WINDOW (window), FALSE);
+
+#if HAVE_LIBSPELLING
+	return window->enable_spellchecking;
+#else
 	return FALSE;
+#endif
 }
