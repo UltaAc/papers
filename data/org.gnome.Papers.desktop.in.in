@@ -12,10 +12,5 @@ Type=Application
 Icon=@PACKAGE_ICON_NAME@
 Categories=GNOME;GTK;Office;Viewer;Graphics;2DGraphics;VectorGraphics;
 MimeType=@PAPERS_MIME_TYPES@;
-Actions=new-window;
 # Translators: Do NOT translate or transliterate this text (these are enum types)!
 X-Purism-FormFactor=Workstation;Mobile;
-
-[Desktop Action new-window]
-Name=New Window
-Exec=papers --new-window
