@@ -37,9 +37,13 @@ cargo_env.set('SYSTEM_DEPS_PAPERS_VIEW_4_0_LIB', 'ppsview-4.0')
 cargo_env.set('SYSTEM_DEPS_PAPERS_DOCUMENT_4_0_NO_PKG_CONFIG', '1')
 cargo_env.set('SYSTEM_DEPS_PAPERS_DOCUMENT_4_0_SEARCH_NATIVE', build_root / 'libdocument')
 cargo_env.set('SYSTEM_DEPS_PAPERS_DOCUMENT_4_0_LIB', 'ppsdocument-4.0')
-cargo_env.set('SYSTEM_DEPS_LIBADWAITA_1_NO_PKG_CONFIG', '1')
-cargo_env.set('SYSTEM_DEPS_LIBADWAITA_1_SEARCH_NATIVE', build_root / 'subprojects/adwaita/src')
-cargo_env.set('SYSTEM_DEPS_LIBADWAITA_1_LIB', 'adwaita-1')
+
+# If the typename is internal, then we have built libadwaita from the subproject and we nee to tell cargo to look into that
+if libaw_dep.type_name() == 'internal'
+  cargo_env.set('SYSTEM_DEPS_LIBADWAITA_1_NO_PKG_CONFIG', '1')
+  cargo_env.set('SYSTEM_DEPS_LIBADWAITA_1_SEARCH_NATIVE', build_root / 'subprojects/adwaita/src')
+  cargo_env.set('SYSTEM_DEPS_LIBADWAITA_1_LIB', 'adwaita-1')
+endif
 
 cargo_build = custom_target(
   'cargo-build',
