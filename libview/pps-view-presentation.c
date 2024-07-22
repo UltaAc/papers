@@ -1272,6 +1272,24 @@ add_change_page_binding_keypad (GtkWidgetClass *widget_class,
 }
 
 static void
+pps_view_presentation_set_document (PpsViewPresentation *pview,
+				    PpsDocument 	*document)
+{
+	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
+
+	if (g_set_object (&priv->document, document)) {
+		g_clear_object (&priv->page_cache);
+
+		if (priv->document && PPS_IS_DOCUMENT_LINKS (priv->document)) {
+			priv->page_cache = pps_page_cache_new (priv->document);
+			pps_page_cache_set_flags (priv->page_cache, PPS_PAGE_DATA_INCLUDE_LINKS);
+		}
+
+		g_object_notify (G_OBJECT (pview), "document");
+	}
+}
+
+static void
 pps_view_presentation_set_property (GObject      *object,
 				   guint         prop_id,
 				   const GValue *value,
@@ -1282,7 +1300,7 @@ pps_view_presentation_set_property (GObject      *object,
 
 	switch (prop_id) {
 	case PROP_DOCUMENT:
-		priv->document = g_value_dup_object (value);
+		pps_view_presentation_set_document (pview, PPS_DOCUMENT (g_value_get_object (value)));
 		break;
 	case PROP_CURRENT_PAGE:
 		pps_view_presentation_set_current_page (pview, g_value_get_uint (value));
@@ -1344,11 +1362,6 @@ pps_view_presentation_constructor (GType                  type,
 	pview = PPS_VIEW_PRESENTATION (object);
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
         priv->is_constructing = FALSE;
-
-	if (PPS_IS_DOCUMENT_LINKS (priv->document)) {
-		priv->page_cache = pps_page_cache_new (priv->document);
-		pps_page_cache_set_flags (priv->page_cache, PPS_PAGE_DATA_INCLUDE_LINKS);
-	}
 
         g_signal_connect (object, "notify::scale-factor",
                           G_CALLBACK (pps_view_presentation_notify_scale_factor), NULL);
