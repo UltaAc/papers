@@ -12,5 +12,6 @@ macro_rules! assert_initialized_main_thread {
 
 pub use auto::*;
 pub use ffi;
+mod attachment_context;
 mod auto;
 pub mod prelude;
