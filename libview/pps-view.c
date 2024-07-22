@@ -195,7 +195,8 @@ static void       pps_view_page_changed_cb                    (PpsDocumentModel 
 							      PpsView             *view);
 static void       adjustment_value_changed_cb                (GtkAdjustment      *adjustment,
 							      PpsView             *view);
-
+static void       pps_interrupt_scroll_animation_cb	     (GtkAdjustment      *adjustment,
+							      PpsView             *view);
 /*** Zoom and sizing ***/
 static double   zoom_for_size_fit_width	 		     (gdouble doc_width,
 							      gdouble doc_height,
@@ -783,6 +784,9 @@ pps_view_set_scroll_adjustment (PpsView         *view,
 	g_signal_connect (adjustment, "value-changed",
 			  G_CALLBACK (adjustment_value_changed_cb),
 			  view);
+	g_signal_connect (adjustment, "value-changed",
+			  G_CALLBACK (pps_interrupt_scroll_animation_cb),
+			  view);
 	*to_set = g_object_ref_sink (adjustment);
 
 	g_object_notify (G_OBJECT (view), prop_name);
@@ -905,13 +909,43 @@ pps_view_last_page (PpsView *view)
 }
 
 static void
+pps_scroll_vertical_animation_cb (gdouble progress, PpsView *view)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+	priv->pending_scroll_animation = TRUE;
+	gtk_adjustment_set_value (priv->vadjustment, progress);
+	priv->pending_scroll_animation = FALSE;
+}
+
+static void
+pps_scroll_horizontal_animation_cb (gdouble progress, PpsView *view)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+	priv->pending_scroll_animation = TRUE;
+	gtk_adjustment_set_value (priv->hadjustment, progress);
+	priv->pending_scroll_animation = FALSE;
+}
+
+static void
+pps_interrupt_scroll_animation_cb (GtkAdjustment *adjustment, PpsView *view)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+	if(!priv->pending_scroll_animation){
+		adw_animation_pause (priv->scroll_animation_vertical);
+		adw_animation_pause (priv->scroll_animation_horizontal);
+	}
+}
+
+static void
 pps_view_scroll (PpsView        *view,
 		GtkScrollType  scroll,
 		GtkOrientation orientation)
 {
 	GtkAdjustment *adjustment;
-	gdouble value, increment, upper, lower, page_size, step_increment;
+	gdouble value, increment, upper, lower, page_size, step_increment, prev_value;
 	gboolean first_page = FALSE, last_page = FALSE;
+	AdwAnimation *animation;
+
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (priv->key_binding_handled || priv->caret_enabled)
@@ -927,10 +961,10 @@ pps_view_scroll (PpsView        *view,
 			case GTK_SCROLL_STEP_FORWARD:
 				pps_view_next_page (view);
 				break;
-		        case GTK_SCROLL_START:
+			case GTK_SCROLL_START:
 				pps_view_first_page (view);
 				break;
-		        case GTK_SCROLL_END:
+			case GTK_SCROLL_END:
 				pps_view_last_page (view);
 				break;
 			default:
@@ -942,7 +976,10 @@ pps_view_scroll (PpsView        *view,
 	/* Assign values for increment and vertical adjustment */
 	adjustment = orientation == GTK_ORIENTATION_HORIZONTAL ?
 			priv->hadjustment : priv->vadjustment;
+	animation = orientation == GTK_ORIENTATION_HORIZONTAL ?
+			priv->scroll_animation_horizontal : priv->scroll_animation_vertical;
 	value = gtk_adjustment_get_value (adjustment);
+	prev_value = value;
 	upper = gtk_adjustment_get_upper (adjustment);
 	lower = gtk_adjustment_get_lower (adjustment);
 	page_size = gtk_adjustment_get_page_size (adjustment);
@@ -1013,7 +1050,25 @@ pps_view_scroll (PpsView        *view,
 
 	value = CLAMP (value, lower, upper - page_size);
 
-	gtk_adjustment_set_value (adjustment, value);
+	GtkWidget *parent_window = gtk_widget_get_parent (GTK_WIDGET (view));
+
+	if (GTK_IS_SCROLLED_WINDOW (parent_window)) {
+		gtk_scrolled_window_set_kinetic_scrolling (GTK_SCROLLED_WINDOW (parent_window), FALSE);
+		gtk_scrolled_window_set_kinetic_scrolling (GTK_SCROLLED_WINDOW (parent_window), TRUE);
+	}
+
+	if (adw_animation_get_state (animation) != ADW_ANIMATION_PLAYING) {
+		adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (animation), value);
+		adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (animation), prev_value);
+		adw_animation_play (animation);
+	} else {
+		adw_animation_pause (animation);
+		adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (animation), prev_value);
+		gdouble end_value = adw_timed_animation_get_value_to (ADW_TIMED_ANIMATION (animation));
+		adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (animation), end_value + (value-prev_value));
+		adw_animation_reset (animation);
+		adw_animation_play (animation);
+	}
 }
 
 #define MARGIN 5
@@ -6893,6 +6948,8 @@ pps_view_dispose (GObject *object)
 	g_clear_object (&priv->pixbuf_cache);
 	g_clear_object (&priv->document);
 	g_clear_object (&priv->page_cache);
+	g_clear_object (&priv->scroll_animation_vertical);
+	g_clear_object (&priv->scroll_animation_horizontal);
 
 	pps_view_find_cancel (view);
 
@@ -7574,6 +7631,13 @@ pps_view_init (PpsView *view)
 	priv->window_children = NULL;
 	priv->zoom_center_x = -1;
 	priv->zoom_center_y = -1;
+	priv->scroll_animation_vertical = adw_timed_animation_new (GTK_WIDGET (view), 0, 0, 200, adw_callback_animation_target_new
+							   ((AdwAnimationTargetFunc) pps_scroll_vertical_animation_cb, view, NULL));
+	priv->scroll_animation_horizontal = adw_timed_animation_new (GTK_WIDGET (view), 0, 0, 200, adw_callback_animation_target_new
+							   ((AdwAnimationTargetFunc) pps_scroll_horizontal_animation_cb, view, NULL));
+
+	adw_animation_pause (priv->scroll_animation_vertical);
+	adw_animation_pause (priv->scroll_animation_horizontal);
 
 	gtk_widget_init_template (GTK_WIDGET (view));
 

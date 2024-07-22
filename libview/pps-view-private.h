@@ -33,6 +33,7 @@
 #include "pps-form-field.h"
 #include "pps-selection.h"
 #include "pps-view-cursor.h"
+#include "adwaita.h"
 
 struct GdkPoint {
 	gint x;
@@ -134,6 +135,11 @@ typedef struct _PpsViewPrivate {
 	PendingScroll pending_scroll;
 	gboolean      pending_resize;
 	PpsPoint       pending_point;
+
+	/* Animation for scrolling with keys */
+	AdwAnimation	*scroll_animation_vertical;
+	AdwAnimation	*scroll_animation_horizontal;
+	gboolean	pending_scroll_animation;
 
 	/* Current geometry */
 
