@@ -1,4 +1,4 @@
-if enable_gtk_doc
+if enable_docs
   glib_prefix = glib_dep.get_variable(pkgconfig: 'prefix')
   gtk_prefix = gtk_dep.get_variable(pkgconfig: 'prefix')
 
@@ -6,7 +6,7 @@ if enable_gtk_doc
 
   toml_conf = configuration_data()
   toml_conf.set('version', meson.project_version())
-  gidocgen = find_program('gi-docgen', required: get_option('gtk_doc'))
+  gidocgen = find_program('gi-docgen', required: true)
 
   subdir('reference/libdocument')
   subdir('reference/libview')

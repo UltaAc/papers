@@ -238,15 +238,15 @@ endif
 
 # *** GObject Introspection ***
 enable_user_doc = get_option('user_doc')
-enable_gtk_doc = get_option('gtk_doc')
+enable_docs = get_option('documentation')
 gobject_introspection_dep = dependency(
   'gobject-introspection-1.0',
   version: '>= 1.0',
   required: get_option('introspection'),
 )
 if not gobject_introspection_dep.found()
-  warning('Disable gtk_doc due to introspection is disabled')
-  enable_gtk_doc = false
+  warning('Disable documentation due to introspection is disabled')
+  enable_docs = false
 endif
 
 # *** Mime types list ***
@@ -475,7 +475,7 @@ summary({'Comics.....................': enable_comics,
          'XPS........................': enable_xps,
         }, section: 'Backends', bool_yn: true)
 summary({'tests......................': get_option('tests'),
-         'Gtk-doc reference..........': enable_gtk_doc,
+         'Developer documentation....': enable_docs,
          'User documentation.........': enable_user_doc,
          'GObject introspection......': gobject_introspection_dep.found(),
          'DBus communication.........': enable_dbus,

@@ -14,7 +14,7 @@ option('tiff', type: 'feature', value: 'auto', description: 'whether TIFF suppor
 option('xps', type: 'feature', value: 'auto', description: 'whether XPS support is requested')
 
 option('tests', type: 'boolean', value: true, description: 'whether to build tests')
-option('gtk_doc', type: 'boolean', value: true, description: 'whether GTK Doc reference is requested')
+option('documentation', type: 'boolean', value: true, description: 'whether developer documentation reference is requested. Requires gi-docgen')
 option('user_doc', type: 'boolean', value: true, description: 'whether User documentation is requested')
 option('introspection', type: 'feature', value: 'auto', description : 'Build introspection data (requires gobject-introspection)')
 option('dbus', type: 'boolean', value: true, description: 'whether DBUS support is requested')
