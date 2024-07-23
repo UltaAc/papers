@@ -115,6 +115,9 @@ pkg.generate(
     'papers-document-@0@ = @1@'.format(pps_api_version, pps_version),
     gthread_dep,
   ],
+  requires_private: [
+    '@0@ @1@'.format(libaw_dep.name(), libaw_req_version),
+  ],
   variables: 'exec_prefix=${prefix}',
 )
 
