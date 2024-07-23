@@ -24,7 +24,7 @@
 #include <gtk/gtk.h>
 #include <pps-document.h>
 
-#include "pps-window.h"
+#include "pps-document-view.h"
 
 G_BEGIN_DECLS
 
@@ -32,7 +32,6 @@ void			pps_print_region_contents (cairo_region_t *region);
 
 GdkPixbufFormat* 	pps_gdk_pixbuf_format_by_extension (const gchar *uri);
 void                    pps_spawn (const char      *uri,
-				   PpsLinkDest     *dest,
-				   PpsWindowRunMode mode);
+				   PpsLinkDest     *dest);
 
 G_END_DECLS

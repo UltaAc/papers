@@ -28,7 +28,7 @@
 #include "pps-sidebar-annotations.h"
 #include "pps-jobs.h"
 #include "pps-job-scheduler.h"
-#include "pps-window.h"
+#include "pps-document-view.h"
 
 enum {
 	ANNOT_ACTIVATED,
@@ -70,7 +70,7 @@ sidebar_annots_button_press_cb (GtkGestureClick *gesture,
 	PpsAnnotation *annotation = PPS_ANNOTATION (gtk_list_item_get_item (item));
 	guint button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
 	PpsMapping *mapping = g_new (PpsMapping, 1);
-	GtkWindow *window;
+	PpsDocumentView *window;
 	graphene_point_t sidebar_annots_point;
 
 	g_return_if_fail (annotation);
@@ -83,9 +83,12 @@ sidebar_annots_button_press_cb (GtkGestureClick *gesture,
 			g_signal_emit (sidebar_annots, signals[ANNOT_ACTIVATED], 0, mapping);
 			break;
 		case GDK_BUTTON_SECONDARY:
-			window = GTK_WINDOW (gtk_widget_get_native (sidebar_annots));
+			window = PPS_DOCUMENT_VIEW (gtk_widget_get_ancestor (sidebar_annots, PPS_TYPE_DOCUMENT_VIEW));
 
-			pps_window_handle_annot_popup (PPS_WINDOW (window), annotation);
+			if (window)
+				pps_document_view_handle_annot_popup (window, annotation);
+			else
+				g_warn_if_reached();
 
 			if (!gtk_widget_compute_point (row, gtk_widget_get_parent (priv->popup),
 						       &GRAPHENE_POINT_INIT(x, y),

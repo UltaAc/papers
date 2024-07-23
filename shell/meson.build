@@ -7,7 +7,7 @@ papers_sources = files(
   'pps-metadata.c',
   'pps-progress-message-area.c',
   'pps-utils.c',
-  'pps-window.c',
+  'pps-document-view.c',
   'pps-window-title.c',
   'pps-search-context.c',
   'pps-search-result.c',
@@ -80,7 +80,7 @@ enum_header_prefix = '''
 '''
 
 headers = files(
-  'pps-window.h',
+  'pps-document-view.h',
   'pps-metadata.h',
   'pps-sidebar-page.h',
   'pps-search-context.h',

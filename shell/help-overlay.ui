@@ -18,7 +18,7 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Open Copy of Current Document</property>
-                <property name="action-name">win.open-copy</property>
+                <property name="accelerator">&lt;Ctrl&gt;&lt;Shift&gt;N</property>
               </object>
             </child>
             <child>
@@ -30,13 +30,13 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Save Copy of Current Document</property>
-                <property name="action-name">win.save-as</property>
+                <property name="accelerator">&lt;Ctrl&gt;S</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Print Current Document</property>
-                <property name="action-name">win.print</property>
+                <property name="accelerator">&lt;Ctrl&gt;P</property>
               </object>
             </child>
             <child>
@@ -65,13 +65,13 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Side Pane</property>
-                <property name="action-name">win.show-sidebar</property>
+                <property name="accelerator">F9</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Caret Navigation</property>
-                <property name="action-name">win.caret-navigation</property>
+                <property name="accelerator">F7</property>
               </object>
             </child>
           </object>
@@ -82,13 +82,13 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Copy</property>
-                <property name="action-name">win.copy</property>
+                <property name="accelerator">&lt;Ctrl&gt;C &lt;Ctrl&gt;Insert</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Select All</property>
-                <property name="action-name">win.select-all</property>
+                <property name="accelerator">&lt;Ctrl&gt;A</property>
               </object>
             </child>
           </object>
@@ -99,13 +99,13 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Rotate Page 90 Degrees Counter-Clockwise</property>
-                <property name="action-name">win.rotate-left</property>
+                <property name="accelerator">&lt;Ctrl&gt;Left</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Rotate Page 90 Degrees Clockwise</property>
-                <property name="action-name">win.rotate-right</property>
+                <property name="accelerator">&lt;Ctrl&gt;Right</property>
               </object>
             </child>
             <child>
@@ -188,7 +188,7 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Go to Page Number</property>
-                <property name="action-name">win.select-page</property>
+                <property name="accelerator">&lt;Ctrl&gt;L</property>
               </object>
             </child>
             <child>
@@ -277,7 +277,7 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Document Properties</property>
-                <property name="action-name">win.show-properties</property>
+                <property name="accelerator">&lt;Alt&gt;Return</property>
               </object>
             </child>
             <child>
@@ -289,7 +289,7 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Highlight Text</property>
-                <property name="action-name">win.add-highlight-annotation</property>
+                <property name="accelerator">&lt;Ctrl&gt;H</property>
               </object>
             </child>
           </object>

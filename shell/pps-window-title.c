@@ -21,7 +21,7 @@
 #include <config.h>
 #include "pps-window-title.h"
 #include "pps-utils.h"
-#include "pps-window.h"
+#include "pps-document-view.h"
 
 #include <string.h>
 #include <gio/gio.h>
@@ -39,9 +39,9 @@ typedef struct
 	const gchar *text;
 } BadTitleEntry;
 
-struct _PpsWindowTitle
+struct _PpsDocumentViewTitle
 {
-	PpsWindow *window;
+	PpsDocumentView *window;
 	PpsDocument *document;
 	char *filename;
 	char *doc_title;
@@ -63,7 +63,7 @@ static const BadTitleEntry bad_prefixes[] = {
 /* Some docs report titles with confusing extensions (ex. .doc for pdf).
 	   Erase the confusing extension of the title */
 static void
-pps_window_title_sanitize_title (PpsWindowTitle *window_title, char **title) {
+pps_document_view_title_sanitize_title (PpsDocumentViewTitle *window_title, char **title) {
 	const gchar *backend;
 	int i;
 
@@ -93,11 +93,12 @@ pps_window_title_sanitize_title (PpsWindowTitle *window_title, char **title) {
 }
 
 static void
-pps_window_title_update (PpsWindowTitle *window_title)
+pps_document_view_title_update (PpsDocumentViewTitle *window_title)
 {
-	GtkWindow *window = GTK_WINDOW (window_title->window);
-	AdwHeaderBar *header_bar = pps_window_get_header_bar (PPS_WINDOW (window));
+	GtkWidget *window = GTK_WIDGET (window_title->window);
+	AdwHeaderBar *header_bar = pps_document_view_get_header_bar (PPS_DOCUMENT_VIEW (window));
 	AdwWindowTitle *title_widget = ADW_WINDOW_TITLE (adw_header_bar_get_title_widget (header_bar));
+	GtkNative *native;
 
 	char *title = NULL, *p;
 	char *subtitle = NULL, *title_header = NULL;
@@ -125,7 +126,11 @@ pps_window_title_update (PpsWindowTitle *window_title)
 		title = g_strdup (_("Papers"));
 	}
 
-	gtk_window_set_title (window, title);
+	native = gtk_widget_get_native (window);
+
+	if (native)
+		gtk_window_set_title (GTK_WINDOW (native), title);
+
 	if (title_header && subtitle) {
 		adw_window_title_set_title (title_widget, title_header);
 		adw_window_title_set_subtitle (title_widget, subtitle);
@@ -136,21 +141,21 @@ pps_window_title_update (PpsWindowTitle *window_title)
 	g_free (title);
 }
 
-PpsWindowTitle *
-pps_window_title_new (PpsWindow *window)
+PpsDocumentViewTitle *
+pps_document_view_title_new (PpsDocumentView *window)
 {
-	PpsWindowTitle *window_title;
+	PpsDocumentViewTitle *window_title;
 
-	window_title = g_new0 (PpsWindowTitle, 1);
+	window_title = g_new0 (PpsDocumentViewTitle, 1);
 	window_title->window = window;
 
-        pps_window_title_update (window_title);
+        pps_document_view_title_update (window_title);
 
 	return window_title;
 }
 
 static void
-document_destroyed_cb (PpsWindowTitle *window_title,
+document_destroyed_cb (PpsDocumentViewTitle *window_title,
                        GObject       *document)
 {
         window_title->document = NULL;
@@ -158,7 +163,7 @@ document_destroyed_cb (PpsWindowTitle *window_title,
 }
 
 void
-pps_window_title_set_document (PpsWindowTitle *window_title,
+pps_document_view_title_set_document (PpsDocumentViewTitle *window_title,
 			      PpsDocument    *document)
 {
         if (window_title->document == document)
@@ -181,7 +186,7 @@ pps_window_title_set_document (PpsWindowTitle *window_title,
 
 			if (doc_title[0] != '\0' &&
 			    g_utf8_validate (doc_title, -1, NULL)) {
-				pps_window_title_sanitize_title (window_title,
+				pps_document_view_title_sanitize_title (window_title,
 								&doc_title);
 				window_title->doc_title = doc_title;
 			} else {
@@ -190,11 +195,11 @@ pps_window_title_set_document (PpsWindowTitle *window_title,
 		}
 	}
 
-	pps_window_title_update (window_title);
+	pps_document_view_title_update (window_title);
 }
 
 void
-pps_window_title_set_filename (PpsWindowTitle *window_title,
+pps_document_view_title_set_filename (PpsDocumentViewTitle *window_title,
 			      const char    *filename)
 {
         if (g_strcmp0 (filename, window_title->filename) == 0)
@@ -203,11 +208,11 @@ pps_window_title_set_filename (PpsWindowTitle *window_title,
 	g_free (window_title->filename);
 	window_title->filename = g_strdup (filename);
 
-	pps_window_title_update (window_title);
+	pps_document_view_title_update (window_title);
 }
 
 void
-pps_window_title_free (PpsWindowTitle *window_title)
+pps_document_view_title_free (PpsDocumentViewTitle *window_title)
 {
         if (window_title->document)
                 g_object_weak_unref (G_OBJECT (window_title->document), (GWeakNotify)document_destroyed_cb, window_title);

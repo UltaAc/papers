@@ -61,7 +61,7 @@
                 <property name="icon-name">list-add-symbolic</property>
                 <property name="sensitive">False</property>
                 <property name="tooltip-text" translatable="yes">Add Bookmark</property>
-                <property name="action-name">win.add-bookmark</property>
+                <property name="action-name">doc.add-bookmark</property>
               </object>
             </child>
             <child>

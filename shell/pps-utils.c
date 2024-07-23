@@ -91,12 +91,10 @@ pps_gdk_pixbuf_format_by_extension (const gchar *uri)
  * pps_spawn:
  * @uri: (nullable): The uri to be opened.
  * @dest: (nullable): The #PpsLinkDest of the document.
- * @mode: The run mode of the window.
  */
 void
 pps_spawn (const char	  *uri,
-	   PpsLinkDest	   *dest,
-	   PpsWindowRunMode mode)
+	   PpsLinkDest	   *dest)
 {
 	GString *cmd;
 	gchar *path, *cmdline;
@@ -133,18 +131,6 @@ pps_spawn (const char	  *uri,
 		default:
 			break;
 		}
-	}
-
-	/* Mode */
-	switch (mode) {
-	case PPS_WINDOW_MODE_FULLSCREEN:
-		g_string_append (cmd, " -f");
-		break;
-	case PPS_WINDOW_MODE_PRESENTATION:
-		g_string_append (cmd, " -s");
-		break;
-	default:
-		break;
 	}
 
 	cmdline = g_string_free (cmd, FALSE);

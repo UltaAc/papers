@@ -19,18 +19,18 @@
 
 #pragma once
 
-#include "pps-window.h"
+#include "pps-document-view.h"
 #include "pps-document.h"
 
 G_BEGIN_DECLS
 
-typedef struct _PpsWindowTitle PpsWindowTitle;
+typedef struct _PpsDocumentViewTitle PpsDocumentViewTitle;
 
-PpsWindowTitle *pps_window_title_new	    (PpsWindow *window);
-void           pps_window_title_set_document (PpsWindowTitle     *window_title,
+PpsDocumentViewTitle *pps_document_view_title_new	    (PpsDocumentView *window);
+void           pps_document_view_title_set_document (PpsDocumentViewTitle     *window_title,
 					     PpsDocument        *document);
-void	       pps_window_title_set_filename (PpsWindowTitle     *window_title,
+void	       pps_document_view_title_set_filename (PpsDocumentViewTitle     *window_title,
 					     const char        *filename);
-void	       pps_window_title_free         (PpsWindowTitle     *window_title);
+void	       pps_document_view_title_free         (PpsDocumentViewTitle     *window_title);
 
 G_END_DECLS
