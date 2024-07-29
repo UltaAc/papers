@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: papers-main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-07-05 05:49+0000\n"
-"PO-Revision-Date: 2024-07-05 22:06+0530\n"
+"POT-Creation-Date: 2024-07-13 12:52+0000\n"
+"PO-Revision-Date: 2024-07-13 19:32+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
 "Language: hi\n"
@@ -27,10 +27,10 @@ msgstr ""
 #. Manually set name and icon
 #: data/org.gnome.Papers.desktop.in.in:3
 #: data/org.gnome.Papers.metainfo.xml.in.in:23
-#: previewer/pps-previewer-window.c:478 shell/pps-loader-view.ui:10
+#: previewer/pps-previewer-window.c:477 shell/pps-loader-view.ui:10
 #: shell/pps-window.ui:144 shell/pps-window-title.c:125
-#: shell-rs/src/application.rs:41 shell-rs/src/application.rs:71
-#: shell-rs/src/application.rs:309
+#: shell-rs/src/application.rs:41 shell-rs/src/application.rs:75
+#: shell-rs/src/application.rs:325
 msgid "Papers"
 msgstr "पेपर्स"
 
@@ -45,7 +45,7 @@ msgstr "pdf;ps;पोस्टस्क्रिप्ट;dvi;xps;djvu;tiff;द�
 
 #: data/org.gnome.Papers.desktop.in.in:21
 msgid "New Window"
-msgstr "नई खिड़की"
+msgstr "नई विंडो"
 
 #: data/org.gnome.Papers.gschema.xml:14
 msgid "Override document restrictions"
@@ -223,14 +223,14 @@ msgstr "PDF दस्तावेजों को पढ़ने के लि�
 #. translators: this is the document security state
 #: libdocument/backend/pdf/pps-poppler.c:724
 #: libdocument/backend/pdf/pps-poppler.c:730
-#: nautilus/pps-nautilus-extension.c:121 shell-rs/src/properties_general.rs:157
+#: nautilus/pps-nautilus-extension.c:121 shell-rs/src/properties_general.rs:170
 msgid "Yes"
 msgstr "हां"
 
 #. translators: this is the document security state
 #: libdocument/backend/pdf/pps-poppler.c:727
 #: libdocument/backend/pdf/pps-poppler.c:730
-#: nautilus/pps-nautilus-extension.c:123 shell-rs/src/properties_general.rs:158
+#: nautilus/pps-nautilus-extension.c:123 shell-rs/src/properties_general.rs:171
 msgid "No"
 msgstr "नहीं"
 
@@ -290,7 +290,7 @@ msgstr "कोई नाम नहीं"
 #.
 #. translators: Value for 'Page Scaling:' to not scale the document pages on printing
 #: libdocument/backend/pdf/pps-poppler.c:941 libview/pps-print-operation.c:2643
-#: shell-rs/src/properties_general.rs:82 shell-rs/src/properties_general.rs:186
+#: shell-rs/src/properties_general.rs:82 shell-rs/src/properties_general.rs:199
 msgid "None"
 msgstr "कुछ नहीं"
 
@@ -492,22 +492,22 @@ msgstr "अस्थायी निर्देशिका बनाने म
 msgid "This work is in the Public Domain"
 msgstr "यह कार्य सार्वजनिक डोमेन में है"
 
-#: libview/pps-jobs.c:652
+#: libview/pps-jobs.c:409
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "पृष्ठ %d प्रस्तुत करने में विफल: %s"
 
-#: libview/pps-jobs.c:659
+#: libview/pps-jobs.c:416
 #, c-format
 msgid "Failed to render page %d"
 msgstr "पृष्ठ %d प्रस्तुत करने में विफल"
 
-#: libview/pps-jobs.c:879
+#: libview/pps-jobs.c:636
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "पृष्ठ %d के लिए थंबनेल बनाने में विफल"
 
-#: libview/pps-jobs.c:1811
+#: libview/pps-jobs.c:1594
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "पृष्ठ %d की छपाई करने में विफल: %s"
@@ -551,11 +551,11 @@ msgid "Requested format is not supported by this printer."
 msgstr "इस मुद्रक द्वारा निवेदित प्रारूप समर्थित नहीं है।"
 
 #: libview/pps-print-operation.c:1998
-msgid "Invalid page selection"
-msgstr "अवैध पृष्ठ चयन"
+msgid "Invalid Page Selection"
+msgstr "अमान्य पृष्ठ चयन"
 
 #: libview/pps-print-operation.c:2000
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-window.ui:668
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-window.ui:674
 msgid "_Close"
 msgstr "बंद करें (_C)"
 
@@ -651,51 +651,51 @@ msgstr "दृश्य नीचे स्क्रॉल करें"
 msgid "Document View"
 msgstr "दस्तावेज प्रदर्शक"
 
-#: libview/pps-view.c:2061
+#: libview/pps-view.c:2062
 msgid "Go to first page"
 msgstr "प्रथम पृष्ठ पर जाएं"
 
-#: libview/pps-view.c:2063
+#: libview/pps-view.c:2064
 msgid "Go to previous page"
 msgstr "पिछले पृष्ठ पर जाएं"
 
-#: libview/pps-view.c:2065
+#: libview/pps-view.c:2066
 msgid "Go to next page"
 msgstr "अगले पृष्ठ में जाएं"
 
-#: libview/pps-view.c:2067
+#: libview/pps-view.c:2068
 msgid "Go to last page"
 msgstr "अंतिम पृष्ठ पर जाएं"
 
-#: libview/pps-view.c:2069
+#: libview/pps-view.c:2070
 msgid "Go to page"
 msgstr "पृष्ठ पर जायें"
 
-#: libview/pps-view.c:2071
+#: libview/pps-view.c:2072
 msgid "Find"
 msgstr "खोजें"
 
-#: libview/pps-view.c:2100
+#: libview/pps-view.c:2101
 #, c-format
 msgid "Go to page %s"
 msgstr "पृष्ठ %s पर जायें"
 
-#: libview/pps-view.c:2106
+#: libview/pps-view.c:2107
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "%s में “%s” फाइल पर जाएं"
 
-#: libview/pps-view.c:2109
+#: libview/pps-view.c:2110
 #, c-format
 msgid "Go to file “%s”"
 msgstr "“%s” फाइल पर जायें"
 
-#: libview/pps-view.c:2117
+#: libview/pps-view.c:2118
 #, c-format
 msgid "Launch %s"
 msgstr "%s शुरू करें"
 
-#: libview/pps-view.c:2124
+#: libview/pps-view.c:2125
 #, c-format
 msgid "Reset form"
 msgstr "प्रपत्र रीसेट करें"
@@ -723,8 +723,8 @@ msgid "of %d"
 msgstr "%d का"
 
 #: previewer/pps-page-selector.c:194 shell/pps-history.c:454
-#: shell/pps-sidebar-bookmarks.c:339 shell/pps-window.c:764
-#: shell/pps-window.c:3902
+#: shell/pps-sidebar-bookmarks.c:339 shell/pps-window.c:756
+#: shell/pps-window.c:3874
 #, c-format
 msgid "Page %s"
 msgstr "पृष्ठ %s"
@@ -773,7 +773,7 @@ msgstr "गनोम दस्तावेज़ पूर्वावलोक�
 msgid "Failed to print document"
 msgstr "दस्तावेज छापने में विफल"
 
-#: previewer/pps-previewer-window.c:187 previewer/pps-previewer-window.c:500
+#: previewer/pps-previewer-window.c:187 previewer/pps-previewer-window.c:499
 msgid "Papers Document Viewer"
 msgstr "पेपर्स दस्तावेज़ दर्शक"
 
@@ -816,7 +816,7 @@ msgstr "बड़ा करें"
 
 #: nautilus/pps-nautilus-extension.c:125
 #: shell/pps-annotation-properties-dialog.ui:59
-#: shell-rs/src/properties_general.rs:159
+#: shell-rs/src/properties_general.rs:172
 msgid "Unknown"
 msgstr "अज्ञात"
 
@@ -824,7 +824,7 @@ msgstr "अज्ञात"
 msgid "Document Properties"
 msgstr "दस्तावेज गुण"
 
-#: nautilus/pps-nautilus-extension.h:59 shell-rs/src/properties_general.rs:129
+#: nautilus/pps-nautilus-extension.h:59 shell-rs/src/properties_general.rs:142
 msgid "Title"
 msgstr "शीर्षक"
 
@@ -832,62 +832,62 @@ msgstr "शीर्षक"
 msgid "Location"
 msgstr "स्थान"
 
-#: nautilus/pps-nautilus-extension.h:61 shell-rs/src/properties_general.rs:130
+#: nautilus/pps-nautilus-extension.h:61 shell-rs/src/properties_general.rs:143
 msgid "Subject"
 msgstr "विषय"
 
 #: nautilus/pps-nautilus-extension.h:62
 #: shell/pps-annotation-properties-dialog.ui:9
-#: shell-rs/src/properties_general.rs:131
+#: shell-rs/src/properties_general.rs:144
 msgid "Author"
 msgstr "लेखक"
 
-#: nautilus/pps-nautilus-extension.h:63 shell-rs/src/properties_general.rs:132
+#: nautilus/pps-nautilus-extension.h:63 shell-rs/src/properties_general.rs:145
 msgid "Keywords"
 msgstr "खोजशब्द"
 
-#: nautilus/pps-nautilus-extension.h:64 shell-rs/src/properties_general.rs:133
+#: nautilus/pps-nautilus-extension.h:64 shell-rs/src/properties_general.rs:146
 msgid "Producer"
 msgstr "निर्माता"
 
-#: nautilus/pps-nautilus-extension.h:65 shell-rs/src/properties_general.rs:134
+#: nautilus/pps-nautilus-extension.h:65 shell-rs/src/properties_general.rs:147
 msgid "Creator"
 msgstr "निर्माता"
 
-#: nautilus/pps-nautilus-extension.h:66 shell-rs/src/properties_general.rs:141
+#: nautilus/pps-nautilus-extension.h:66 shell-rs/src/properties_general.rs:154
 msgid "Created"
 msgstr "निर्मित"
 
-#: nautilus/pps-nautilus-extension.h:67 shell-rs/src/properties_general.rs:142
+#: nautilus/pps-nautilus-extension.h:67 shell-rs/src/properties_general.rs:155
 msgid "Modified"
 msgstr "संशोधित"
 
-#: nautilus/pps-nautilus-extension.h:68 shell-rs/src/properties_general.rs:150
+#: nautilus/pps-nautilus-extension.h:68 shell-rs/src/properties_general.rs:163
 msgid "Number of Pages"
 msgstr "पृष्ठों की संख्या"
 
-#: nautilus/pps-nautilus-extension.h:69 shell-rs/src/properties_general.rs:151
+#: nautilus/pps-nautilus-extension.h:69 shell-rs/src/properties_general.rs:164
 msgid "Optimized"
 msgstr "अनुकूलित"
 
-#: nautilus/pps-nautilus-extension.h:70 shell-rs/src/properties_general.rs:147
-#: shell-rs/src/properties_general.rs:149
+#: nautilus/pps-nautilus-extension.h:70 shell-rs/src/properties_general.rs:160
+#: shell-rs/src/properties_general.rs:162
 msgid "Format"
 msgstr "प्रारूप"
 
-#: nautilus/pps-nautilus-extension.h:71 shell-rs/src/properties_general.rs:152
+#: nautilus/pps-nautilus-extension.h:71 shell-rs/src/properties_general.rs:165
 msgid "Security"
 msgstr "सुरक्षा"
 
-#: nautilus/pps-nautilus-extension.h:72 shell-rs/src/properties_general.rs:161
+#: nautilus/pps-nautilus-extension.h:72 shell-rs/src/properties_general.rs:174
 msgid "Contains Javascript"
 msgstr "जावास्क्रिप्ट सम्मिलित है"
 
-#: nautilus/pps-nautilus-extension.h:73 shell-rs/src/properties_general.rs:153
+#: nautilus/pps-nautilus-extension.h:73 shell-rs/src/properties_general.rs:166
 msgid "Paper Size"
 msgstr "कागज आकार"
 
-#: nautilus/pps-nautilus-extension.h:74 shell-rs/src/properties_general.rs:119
+#: nautilus/pps-nautilus-extension.h:74 shell-rs/src/properties_general.rs:132
 msgid "Size"
 msgstr "आकार"
 
@@ -924,12 +924,12 @@ msgstr "वर्तमान दस्तावेज़ छापें"
 #: shell/help-overlay.ui:44
 msgctxt "shortcut window"
 msgid "Close Current Document Window"
-msgstr "वर्तमान दस्तावेज़ खिड़की बंद करें"
+msgstr "वर्तमान दस्तावेज़ विंडो बंद करें"
 
 #: shell/help-overlay.ui:52
 msgctxt "shortcut window"
 msgid "Window"
-msgstr "खिड़की"
+msgstr "विंडो"
 
 #: shell/help-overlay.ui:55
 msgctxt "shortcut window"
@@ -1174,12 +1174,12 @@ msgstr "कीबोर्ड शॉर्टकट"
 #: shell/help-overlay.ui:343
 msgctxt "shortcut window"
 msgid "New Window"
-msgstr "नई खिड़की"
+msgstr "नई विंडो"
 
 #: shell/help-overlay.ui:349
 msgctxt "shortcut window"
 msgid "Close Window"
-msgstr "खिड़की बंद करें"
+msgstr "विंडो बंद करें"
 
 #: shell/help-overlay.ui:357
 msgctxt "shortcut window"
@@ -1202,7 +1202,7 @@ msgid "Touchpad Gestures"
 msgstr "टचपैड जेस्चर"
 
 #: shell/pps-annotation-properties-dialog.ui:4
-#: shell/pps-sidebar-annotations.ui:65
+#: shell/pps-sidebar-annotations.ui:75
 msgid "Annotation Properties"
 msgstr "व्याख्या विशेषताएं"
 
@@ -1307,7 +1307,7 @@ msgstr "दस्तावेज़ %s के लिए पासवर्ड"
 msgid "Loading Document"
 msgstr "दस्तावेज खोलें"
 
-#: shell/pps-loader-view.ui:45 shell/pps-window.c:2887 shell/pps-window.c:3112
+#: shell/pps-loader-view.ui:45 shell/pps-window.c:2859
 msgid "C_ancel"
 msgstr "रद्द करें (_a)"
 
@@ -1385,38 +1385,33 @@ msgstr "लाइसेंस"
 msgid "Search in document"
 msgstr "दस्तावेज़ में खोजें"
 
-#: shell/pps-search-box.ui:33
+#: shell/pps-search-box.ui:34
 msgid "Search Options"
 msgstr "खोज विकल्प"
 
-#: shell/pps-search-box.ui:42
+#: shell/pps-search-box.ui:43
 msgid "_Whole Words Only"
 msgstr "सिर्फ संपूर्ण शब्द (_W)"
 
-#: shell/pps-search-box.ui:46
+#: shell/pps-search-box.ui:47
 msgid "C_ase Sensitive"
 msgstr "अक्षर संवेदनशील (_a)"
-
-#: shell/pps-sidebar-annotations.c:228
-#, c-format
-msgid "Page %d"
-msgstr "पृष्ठ %d"
 
 #: shell/pps-sidebar-annotations.ui:16
 msgid "No Annotations"
 msgstr "कोई व्याख्याएं नहीं"
 
-#: shell/pps-sidebar-annotations.ui:70
+#: shell/pps-sidebar-annotations.ui:80
 msgid "Remove Annotation"
 msgstr "व्याख्या हटाएं"
 
-#: shell/pps-sidebar-annotations.ui:75 shell/pps-window.ui:818
-#: shell/pps-window.ui:855
+#: shell/pps-sidebar-annotations.ui:85 shell/pps-window.ui:824
+#: shell/pps-window.ui:861
 msgid "_Open Attachment"
 msgstr "अनुलग्नक खोले (_O)"
 
-#: shell/pps-sidebar-annotations.ui:80 shell/pps-window.ui:823
-#: shell/pps-window.ui:859
+#: shell/pps-sidebar-annotations.ui:90 shell/pps-window.ui:829
+#: shell/pps-window.ui:865
 msgid "_Save Attachment As…"
 msgstr "अनुलग्नक ऐसे सहेजें (_S)…"
 
@@ -1460,139 +1455,143 @@ msgstr "इस दस्तावेज को छापें…"
 msgid "Previews"
 msgstr "पूर्वावलोकन"
 
-#: shell/pps-window.c:605
+#: shell/pps-window.c:597
 msgid "View Details"
 msgstr "विवरण देखें"
 
-#: shell/pps-window.c:1397
+#: shell/pps-window.c:1389
 msgid "The document contains no pages"
 msgstr "दस्तावेज़ में कोई पृष्ठ नहीं है"
 
-#: shell/pps-window.c:1400
+#: shell/pps-window.c:1392
 msgid "The document contains only empty pages"
 msgstr "दस्तावेज़ में केवल रिक्त पृष्ठ हैं"
 
-#: shell/pps-window.c:1711
+#: shell/pps-window.c:1687
 #, c-format
 msgid "Unable to open document “%s”."
 msgstr "“%s” दस्तावेज खोलने में असमर्थ।"
 
-#: shell/pps-window.c:1852
+#: shell/pps-window.c:1828
 msgid "Failed to load remote file."
 msgstr "दूरस्थ फाइल लोड करने में विफल।"
 
-#: shell/pps-window.c:2089
+#: shell/pps-window.c:2063
 msgid "Failed to reload document."
 msgstr "दस्तावेज़ पुनः लोड करने में विफल।"
 
-#: shell/pps-window.c:2359
+#: shell/pps-window.c:2333
 msgid "File Saved"
 msgstr "फाइल सहेजी गई"
 
-#: shell/pps-window.c:2369 shell/pps-window.c:2423
+#: shell/pps-window.c:2343 shell/pps-window.c:2395
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "फाइल को “%s” के रूप में सहेजा नहीं जा सका।"
 
-#: shell/pps-window.c:2485
+#: shell/pps-window.c:2457
 msgid "Save As…"
 msgstr "ऐसे सहेजें…"
 
-#: shell/pps-window.c:2791
+#: shell/pps-window.c:2763
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "कतार में %d लंबित कार्य"
 msgstr[1] "कतार में %d लंबित कार्य"
 
-#: shell/pps-window.c:2830
+#: shell/pps-window.c:2802
 msgid "Failed to Print Document"
 msgstr "दस्तावेज छापने में विफल"
 
-#: shell/pps-window.c:2884
+#: shell/pps-window.c:2856
 #, c-format
 msgid "Printing job “%s”"
 msgstr "“%s” छपाई कार्य"
 
-#: shell/pps-window.c:3083
+#: shell/pps-window.c:3055
 msgid "Document contains form fields that have been filled out."
 msgstr "दस्तावेज़ में प्रपत्र क्षेत्र हैं जिन्हें भर दिया गया है।"
 
-#: shell/pps-window.c:3086
+#: shell/pps-window.c:3058
 msgid "Document contains new or modified annotations."
 msgstr "दस्तावेज़ में नए या संशोधित व्याख्याएं शामिल हैं।"
 
-#: shell/pps-window.c:3094
-msgid "File changed outside Papers. Reload document?"
+#: shell/pps-window.c:3066
+msgid "File Changed Outside Papers. Reload Document?"
 msgstr "फाइल को पेपर्स के बाहर बदला गया। दस्तावेज़ पुनः लोड करें?"
 
-#: shell/pps-window.c:3095
+#: shell/pps-window.c:3067
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "यदि आप दस्तावेज़ को पुनः लोड करते हैं, तो परिवर्तन स्थायी रूप से खो जाएंगे।"
 
-#: shell/pps-window.c:3098
+#: shell/pps-window.c:3070
 msgid "_No"
 msgstr "नहीं (_N)"
 
-#: shell/pps-window.c:3099
+#: shell/pps-window.c:3071
 msgid "_Reload"
 msgstr "पुनः लोड करें (_R)"
 
-#: shell/pps-window.c:3107
-msgid "Save a copy of the document before closing?"
-msgstr "बंद करने से पहले दस्तावेज़ की एक प्रति सहेजें?"
+#: shell/pps-window.c:3079
+msgid "Save Changes to a Copy?"
+msgstr "परिवर्तनों को प्रति में सहेजें?"
 
-#: shell/pps-window.c:3108
+#: shell/pps-window.c:3080
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "यदि आप एक प्रति सहेजते नहीं हैं, तो परिवर्तन स्थायी रूप से खो जाएंगे।"
 
-#: shell/pps-window.c:3111
-msgid "Close _without Saving"
-msgstr "बिना सहेजे बंद करें (_w)"
+#: shell/pps-window.c:3083
+msgid "Close _Without Saving"
+msgstr "बिना सहेजे बंद करें (_W)"
 
-#: shell/pps-window.c:3113
-msgid "Save a _Copy"
-msgstr "प्रति सहेजें (_C)"
+#: shell/pps-window.c:3084 shell/pps-window.ui:654 shell/pps-window.ui:666
+msgid "_Cancel"
+msgstr "रद्द करें (_C)"
 
-#: shell/pps-window.c:4229
+#: shell/pps-window.c:3085
+msgid "_Save a Copy"
+msgstr "प्रति सहेजें (_S)"
+
+#: shell/pps-window.c:4200
 msgid "Search"
 msgstr "खोजें"
 
-#: shell/pps-window.c:4233
+#: shell/pps-window.c:4204
 msgid "Search Unavailable"
 msgstr "खोज अनुपलब्ध"
 
-#: shell/pps-window.c:4441
+#: shell/pps-window.c:4412
 msgid "The attachment could not be saved."
 msgstr "अनुलग्नक सहेजा नहीं जा सका।"
 
-#: shell/pps-window.c:5025
+#: shell/pps-window.c:4994
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
 msgstr "सुरक्षा चेतावनी: इस दस्तावेज़ को “%s” फाइल खोलने से रोक दिया गया है"
 
-#: shell/pps-window.c:5087
+#: shell/pps-window.c:5056
 msgid "Unable to open external link"
 msgstr "बाहरी कड़ी खोलने में असमर्थ"
 
-#: shell/pps-window.c:5311
+#: shell/pps-window.c:5280
 msgid "Couldn’t find appropriate format to save image"
 msgstr "छवि को सहेजने के लिए उपयुक्त प्रारूप नहीं मिल सका"
 
-#: shell/pps-window.c:5341
+#: shell/pps-window.c:5310
 msgid "The image could not be saved."
 msgstr "यह छवि सहेजी नहीं जा सकी।"
 
-#: shell/pps-window.c:5378
+#: shell/pps-window.c:5346
 msgid "Save Image"
 msgstr "छवि सहेजें"
 
-#: shell/pps-window.c:5549
+#: shell/pps-window.c:5517
 msgid "Unable to open attachment"
 msgstr "अनुलग्नक खोलने में असमर्थ"
 
-#: shell/pps-window.c:5613
+#: shell/pps-window.c:5581
 msgid "Save Attachment"
 msgstr "अनुलग्नक सहेजें"
 
@@ -1664,11 +1663,11 @@ msgstr "स्वचालित रूप से अनुरूप"
 msgid "Loading…"
 msgstr "लोड हो रहा है…"
 
-#: shell/pps-window.ui:639
+#: shell/pps-window.ui:645
 msgid "Enable Caret Navigation?"
 msgstr "कैरेट नेविगेशन सक्षम करें?"
 
-#: shell/pps-window.ui:640
+#: shell/pps-window.ui:646
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1677,210 +1676,223 @@ msgstr ""
 "F7 दबाने से कैरेट नेविगेशन चालू या बंद हो जाता है। यह सुविधा पाठ पृष्ठों में एक चलायमान "
 "कर्सर रखती है, जिससे आप अपने कीबोर्ड से इधर-उधर घूम सकते हैं और पाठ का चयन कर सकते हैं।"
 
-#: shell/pps-window.ui:643
+#: shell/pps-window.ui:649
 msgid "Don’t show this message again"
 msgstr "यह संदेश दोबारा न दिखाएं"
 
-#: shell/pps-window.ui:648 shell/pps-window.ui:660
-msgid "_Cancel"
-msgstr "रद्द करें (_C)"
-
-#: shell/pps-window.ui:649
+#: shell/pps-window.ui:655
 msgid "_Enable"
 msgstr "सक्रिय करें (_E)"
 
-#: shell/pps-window.ui:655
+#: shell/pps-window.ui:661
 msgid "Abort Printing?"
 msgstr "छपाई निरस्त करें?"
 
-#: shell/pps-window.ui:656
+#: shell/pps-window.ui:662
 msgid ""
 "There is one or more active print jobs. If the window is closed, pending "
 "print jobs will not be printed."
 msgstr ""
-"एक या अधिक सक्रिय छपाई कार्य हैं। यदि खिड़की बंद है, तो लंबित छपाई कार्य छापे नहीं जाएंगे।"
+"एक या अधिक सक्रिय छपाई कार्य हैं। यदि विंडो बंद है, तो लंबित छपाई कार्य छापे नहीं जाएंगे।"
 
-#: shell/pps-window.ui:659
+#: shell/pps-window.ui:665
 msgid "Abort _Print and Close"
 msgstr "छपाई निरस्त करें और बंद करें (_P)"
 
-#: shell/pps-window.ui:661
+#: shell/pps-window.ui:667
 msgid "Close _After Printing"
 msgstr "छपाई के बाद बंद करें (_A)"
 
-#: shell/pps-window.ui:675
+#: shell/pps-window.ui:681
 msgid "Open"
 msgstr "खोलें"
 
-#: shell/pps-window.ui:681
+#: shell/pps-window.ui:687
 msgid "Ni_ght Mode"
 msgstr "रात्रि विधा (_g)"
 
-#: shell/pps-window.ui:687
+#: shell/pps-window.ui:693
 msgid "_Keyboard Shortcuts"
 msgstr "कीबोर्ड शॉर्टकट (_K)"
 
-#: shell/pps-window.ui:691
+#: shell/pps-window.ui:697
 msgid "_Help"
 msgstr "सहायता (_H)"
 
-#: shell/pps-window.ui:695
+#: shell/pps-window.ui:701
 msgid "_About Papers"
 msgstr "पेपर्स के बारे में (_A)"
 
-#: shell/pps-window.ui:703
+#: shell/pps-window.ui:709
 msgid "_Print…"
 msgstr "छापें (_P)…"
 
-#: shell/pps-window.ui:707
+#: shell/pps-window.ui:713
 msgid "Fullscreen"
 msgstr "पूर्णस्क्रीन"
 
-#: shell/pps-window.ui:711
+#: shell/pps-window.ui:717
 msgid "Present as Slideshow"
 msgstr "स्लाइड शो के रूप में प्रस्तुत करें"
 
-#: shell/pps-window.ui:717
+#: shell/pps-window.ui:723
 msgid "Open a C_opy"
 msgstr "प्रति खोलें"
 
-#: shell/pps-window.ui:721
+#: shell/pps-window.ui:727
 msgid "Open With…"
 msgstr "इससे खोलें…"
 
-#: shell/pps-window.ui:725
+#: shell/pps-window.ui:731
 msgid "_Save As…"
 msgstr "ऐसे सहेजें (_S)…"
 
-#: shell/pps-window.ui:731
+#: shell/pps-window.ui:737
 msgid "_Continuous"
 msgstr "निरन्तर (_C)"
 
-#: shell/pps-window.ui:735
+#: shell/pps-window.ui:741
 msgid "_Dual"
 msgstr "दोहरा (_D)"
 
-#: shell/pps-window.ui:739
+#: shell/pps-window.ui:745
 msgid "_Odd Pages Left"
 msgstr "बायीं ओर विषम पृष्ठ (_O)"
 
-#: shell/pps-window.ui:743
+#: shell/pps-window.ui:749
 msgid "Right to Left Document"
 msgstr "दाएं से बाएं दस्तावेज़"
 
-#: shell/pps-window.ui:749
+#: shell/pps-window.ui:755
 msgid "Ro_tate ⤵"
 msgstr "घुमाएं ⤵ (_t)"
 
-#: shell/pps-window.ui:755
+#: shell/pps-window.ui:761
 msgid "Document Prop_erties"
 msgstr "दस्तावेज गुण (_e)"
 
-#: shell/pps-window.ui:764
+#: shell/pps-window.ui:770
 msgid "_Open Link"
 msgstr "लिंक खोलें (_O)"
 
-#: shell/pps-window.ui:769
+#: shell/pps-window.ui:775
 msgid "_Copy Link Address"
 msgstr "लिंक पता कॉपी करें (_C)"
 
-#: shell/pps-window.ui:774
+#: shell/pps-window.ui:780
 msgid "_Go To"
 msgstr "यहां जाएं (_G)"
 
-#: shell/pps-window.ui:779
+#: shell/pps-window.ui:785
 msgid "Open in New _Window"
-msgstr "नए खिड़की में खोलें (_W)"
+msgstr "नए विंडो में खोलें (_W)"
 
-#: shell/pps-window.ui:786
+#: shell/pps-window.ui:792
 msgid "_Previous Page"
 msgstr "पिछला पृष्ठ (_P)"
 
-#: shell/pps-window.ui:790
+#: shell/pps-window.ui:796
 msgid "_Next Page"
 msgstr "अगला पृष्ठ (_N)"
 
-#: shell/pps-window.ui:796
+#: shell/pps-window.ui:802
 msgid "_Copy"
 msgstr "कॉपी करें (_C)"
 
-#: shell/pps-window.ui:800
+#: shell/pps-window.ui:806
 msgid "Select _All"
 msgstr "सभी चुनें (_A)"
 
-#: shell/pps-window.ui:806
+#: shell/pps-window.ui:812
 msgid "_Save Image As…"
 msgstr "छवि ऐसे सहेजें (_S)…"
 
-#: shell/pps-window.ui:811
+#: shell/pps-window.ui:817
 msgid "Copy _Image"
 msgstr "छवि कॉपी करें (_I)"
 
-#: shell/pps-window.ui:830
+#: shell/pps-window.ui:836
 msgid "Annotation _Properties…"
 msgstr "व्याख्या विशेषताएं (_P)…"
 
-#: shell/pps-window.ui:835
+#: shell/pps-window.ui:841
 msgid "R_emove Annotation"
 msgstr "व्याख्या हटाएं (_e)"
 
-#: shell/pps-window.ui:842
+#: shell/pps-window.ui:848
 msgid "_Add Text Annotation"
 msgstr "पाठ व्याख्या जोड़ें (_A)"
 
-#: shell/pps-window.ui:847
+#: shell/pps-window.ui:853
 msgid "_Highlight Selected Text"
 msgstr "चयनित पाठ चिन्हांकित करें (_H)"
 
-#: shell-rs/src/application.rs:219
+#: shell-rs/src/application.rs:223
 msgid "© 1996–2024 The Papers authors"
 msgstr "© 1996–2024 पेपर्स के लेखक"
 
-#: shell-rs/src/application.rs:220
+#: shell-rs/src/application.rs:224
 msgid "translator-credits"
 msgstr ""
 "राजेश रंजन (rajeshkajha@yahoo.com, rranjan@redhat.com)\n"
 "Scrambled777 <weblate.scrambled777@simplelogin.com>"
 
-#: shell-rs/src/application.rs:316
+#: shell-rs/src/application.rs:332
 msgid "The page label of the document to display."
 msgstr "दिखाने के लिये दस्तावेज का पृष्ठ लेबल।"
 
-#: shell-rs/src/application.rs:317
+#: shell-rs/src/application.rs:333
 msgid "PAGE"
 msgstr "पृष्ठ"
 
-#: shell-rs/src/application.rs:325
+#: shell-rs/src/application.rs:341
 msgid "The page number of the document to display."
 msgstr "दिखाने के लिये दस्तावेज का पृष्ठ की संख्या।"
 
-#: shell-rs/src/application.rs:326
+#: shell-rs/src/application.rs:342
 msgid "NUMBER"
 msgstr "संख्या"
 
-#: shell-rs/src/application.rs:334
+#: shell-rs/src/application.rs:350
 msgid "Named destination to display."
 msgstr "प्रदर्शित करने के लिए नामांकित गंतव्य।"
 
-#: shell-rs/src/application.rs:335
+#: shell-rs/src/application.rs:351
 msgid "DEST"
 msgstr "गंतव्य"
 
-#: shell-rs/src/application.rs:343
+#: shell-rs/src/application.rs:359
 msgid "Run papers in fullscreen mode."
 msgstr "पेपर्स को पूर्णस्क्रीन मोड में चलाएं।"
 
-#: shell-rs/src/application.rs:352
+#: shell-rs/src/application.rs:368
 msgid "Run papers in presentation mode."
 msgstr "पेपर्स को प्रस्तुतीकरण मोड में चलाएं।"
 
-#: shell-rs/src/application.rs:361
+#: shell-rs/src/application.rs:377
 msgid "Show the version of the program."
 msgstr "प्रोग्राम संस्करण दिखाएं।"
 
-#: shell-rs/src/application.rs:371
+#: shell-rs/src/application.rs:387
 msgid "[FILE…]"
 msgstr "[फाइल…]"
+
+#: shell-rs/src/page_selector.rs:77 shell-rs/src/sidebar_annotations_row.rs:82
+msgid "Page {}"
+msgstr "पृष्ठ {}"
+
+#: shell-rs/src/page_selector.rs:226 shell-rs/src/page_selector.rs:244
+msgid "({} of {})"
+msgstr "({} का {})"
+
+#: shell-rs/src/page_selector.rs:228 shell-rs/src/page_selector.rs:246
+msgid "of {}"
+msgstr "{} का"
+
+#: shell-rs/src/password_view.rs:156
+msgid ""
+"The document “{}” is locked and requires a password before it can be opened"
+msgstr "दस्तावेज़ “{}” लॉक है और इसे खोलने हेतु पासवर्ड आवश्यक है"
 
 #: shell-rs/src/properties_general.rs:73
 msgid "File"
@@ -1890,14 +1902,20 @@ msgstr "फाइल"
 msgid "Folder"
 msgstr "फोल्डर"
 
-#: shell-rs/src/properties_general.rs:127
+#: shell-rs/src/properties_general.rs:140
 msgid "Content"
 msgstr "अंतर्वस्तु"
 
-#: shell-rs/src/properties_general.rs:139
+#: shell-rs/src/properties_general.rs:152
 msgid "Date &amp; Time"
 msgstr "तिथि &amp; समय"
 
-#: shell-rs/src/sidebar_annotations_row.rs:57
-msgid "No Comment"
-msgstr "कोई टिप्पणी नहीं"
+#, c-format
+#~ msgid "Page %d"
+#~ msgstr "पृष्ठ %d"
+
+#~ msgid "Save a copy of the document before closing?"
+#~ msgstr "बंद करने से पहले दस्तावेज़ की एक प्रति सहेजें?"
+
+#~ msgid "No Comment"
+#~ msgstr "कोई टिप्पणी नहीं"
