@@ -19,7 +19,7 @@ cargo install --path .
 There is a meson run target named `update-rust-bindings` to update the bindings. The run target depends on the gobject introspection feature and    can be invoked by:
 
 ```
-meson setup _build -Dintrospection=true
+meson setup _build -Dintrospection=enabled
 meson compile -C _build update-rust-bindings
 ```
 
