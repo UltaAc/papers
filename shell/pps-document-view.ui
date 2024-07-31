@@ -229,6 +229,11 @@
             </child>
             <property name="content">
               <object class="GtkBox" id="view_box">
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="AdwBanner" id="banner">
+                  </object>
+                </child>
                 <child>
                   <object class="GtkOverlay">
                     <property name="valign">fill</property>
@@ -677,6 +682,12 @@
       <item>
         <attribute name="label" translatable="yes">Present as Slideshow</attribute>
         <attribute name="action">win.presentation</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Sign D_igitally…</attribute>
+        <attribute name="action">doc.digital-signing</attribute>
       </item>
     </section>
     <section>

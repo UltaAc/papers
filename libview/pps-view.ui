@@ -70,6 +70,16 @@
       </object>
     </child>
     <child>
+      <object class="GtkGestureDrag">
+        <property name="button">1</property> <!-- GTK_BUTTON_PRIMARY -->
+        <property name="propagation-phase">capture</property>
+        <property name="exclusive">True</property>
+        <signal name="drag-begin" handler="signing_begin_cb" />
+        <signal name="drag-end" handler="signing_end_cb" />
+        <signal name="drag-update" handler="signing_update_cb" />
+      </object>
+    </child>
+    <child>
       <object class="GtkGestureSwipe" id="middle_clicked_drag_swipe_gesture">
         <property name="button">2</property> <!-- GTK_BUTTON_MIDDLE -->
         <property name="exclusive">True</property>

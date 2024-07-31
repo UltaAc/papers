@@ -26,7 +26,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include "glib-object.h"
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -48,6 +47,7 @@
 #include "pps-view-presentation.h"
 #include "pps-document-view.h"
 #include "pps-progress-message-area.h"
+#include "pps-document-signatures.h"
 
 #define MOUSE_BACK_BUTTON 8
 #define MOUSE_FORWARD_BUTTON 9
@@ -60,6 +60,7 @@ typedef struct {
 	GtkWidget *view;
 	GtkWidget *loading_message;
 	GtkWidget *message_area;
+	GtkWidget *banner;
 	GtkWidget *sidebar_stack;
 	GtkWidget *sidebar;
 	GtkWidget *sidebar_links;
@@ -102,6 +103,13 @@ typedef struct {
 	GMenuModel   *attachment_popup_menu;
 	GtkWidget    *attachment_popup;
 	GListModel   *attachments;
+
+	/* Digital signing */
+	GtkWidget *certificate_listbox;
+	guint signature_page;
+	PpsRectangle *signature_bounding_box;
+	PpsCertificateInfo *signature_certificate_info;
+	PpsSignature *signature;
 
 	/* Document */
 	PpsDocumentModel *model;
@@ -225,6 +233,8 @@ static void     view_external_link_cb                   (PpsDocumentView        
 static void     pps_document_view_show_find_bar                 (PpsDocumentView         *pps_doc_view);
 static void     pps_document_view_close_find_bar                (PpsDocumentView         *pps_doc_view);
 
+static char    *pps_window_signature_password_callback   (const char *text);
+
 G_DEFINE_TYPE_WITH_PRIVATE (PpsDocumentView, pps_document_view, ADW_TYPE_BREAKPOINT_BIN)
 
 static void
@@ -256,6 +266,7 @@ pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
 	gboolean can_annotate = FALSE;
 	gboolean dual_mode = FALSE;
 	gboolean has_pages = FALSE;
+	gboolean can_sign = FALSE;
 	int      n_pages = 0, page = -1;
 
 	if (document) {
@@ -281,6 +292,10 @@ pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
 
 	if (has_document && PPS_IS_DOCUMENT_ANNOTATIONS (document)) {
 		can_annotate = pps_document_annotations_can_add_annotation (PPS_DOCUMENT_ANNOTATIONS (document));
+	}
+
+	if (has_document && PPS_IS_DOCUMENT_SIGNATURES (document)) {
+		can_sign = pps_document_signatures_can_sign (PPS_DOCUMENT_SIGNATURES (document));
 	}
 
 	if (has_document && priv->settings) {
@@ -329,6 +344,8 @@ pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
 				       can_annotate);
 	pps_document_view_set_action_enabled (pps_doc_view, "rotate-left", has_pages);
 	pps_document_view_set_action_enabled (pps_doc_view, "rotate-right", has_pages);
+
+	pps_document_view_set_action_enabled (pps_doc_view, "digital-signing", can_sign);
 
         /* View menu */
 	pps_document_view_set_action_enabled (pps_doc_view, "continuous", has_pages);
@@ -1249,6 +1266,11 @@ pps_document_view_set_document (PpsDocumentView *pps_doc_view, PpsDocument *docu
 	// This cannot be done in pps_document_view_setup_default because before
 	// having a document, we don't know which sidebars are supported
 	pps_document_view_setup_sidebar (pps_doc_view);
+
+	/* Set password callback */
+	if (PPS_IS_DOCUMENT_SIGNATURES (priv->document)) {
+		pps_document_signatures_set_password_callback (PPS_DOCUMENT_SIGNATURES (priv->document), pps_window_signature_password_callback);
+	}
 
 	gtk_widget_grab_focus (priv->view);
 
@@ -3387,6 +3409,412 @@ pps_document_view_button_pressed (GtkGestureClick* self,
 	}
 }
 
+struct PasswordData {
+	GMainLoop *loop;
+	GtkWidget *entry;
+	char *password;
+};
+
+static void
+on_password (AdwMessageDialog *self,
+             char             *response,
+             gpointer          user_data)
+{
+	struct PasswordData *data = user_data;
+
+	if (g_strcmp0 (response, "login") == 0)
+		data->password = g_strdup (gtk_editable_get_text (GTK_EDITABLE (data->entry)));
+	else
+		data->password = NULL;
+
+	g_main_loop_quit (data->loop);
+}
+
+static char *
+pps_window_signature_password_callback (const char *text)
+{
+	AdwDialog *dialog;
+	GtkWindow *parent = NULL;
+	g_autofree char *body = NULL;
+	struct PasswordData data;
+
+	parent = gtk_application_get_active_window (GTK_APPLICATION (g_application_get_default()));
+	body = g_strdup_printf (_("Please enter password for %s"), text);
+
+	dialog = adw_alert_dialog_new (_("Password Required"), body);
+	adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "cancel", _("_Cancel"));
+	adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "login", _("_Login"));
+	adw_alert_dialog_set_response_appearance (ADW_ALERT_DIALOG (dialog), "login", ADW_RESPONSE_SUGGESTED);
+	adw_alert_dialog_set_default_response (ADW_ALERT_DIALOG (dialog), "login");
+
+	data.entry = gtk_entry_new ();
+	gtk_entry_set_activates_default (GTK_ENTRY (data.entry), TRUE);
+	gtk_entry_set_visibility (GTK_ENTRY (data.entry), FALSE);
+
+	adw_alert_dialog_set_extra_child (ADW_ALERT_DIALOG (dialog), data.entry);
+
+	/* Note: Poppler (NSS) requires this function to return the requested value sync.
+	 * There is no async API so we need a nested loop here -.-
+	 */
+	data.loop = g_main_loop_new (NULL, FALSE);
+
+	g_signal_connect (G_OBJECT (dialog), "response", G_CALLBACK (on_password), &data);
+	adw_dialog_present (dialog, GTK_WIDGET (parent));
+	gtk_widget_grab_focus (data.entry);
+	g_main_loop_run (data.loop);
+
+	return data.password;
+}
+
+static void
+load_signed_document (gpointer user_data)
+{
+	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+
+	g_autofree char *uri = g_strdup_printf ("file://%s", pps_signature_get_destination_file (priv->signature));
+
+	pps_spawn (uri, NULL);
+	g_clear_object (&priv->signature);
+}
+
+static void
+on_document_signed (GObject      *source_object,
+                    GAsyncResult *result,
+                    gpointer      user_data)
+{
+	g_autoptr (GError) error = NULL;
+	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+	gboolean ret;
+
+	ret = pps_document_signatures_sign_finish (PPS_DOCUMENT_SIGNATURES (priv->document), result, &error);
+	if (!ret) {
+		g_warning ("Could not sign document: %s", error->message);
+		g_clear_object (&priv->signature);
+	} else {
+		g_idle_add_once (load_signed_document, pps_doc_view);
+	}
+}
+
+static void
+pps_document_view_certificate_save_file (PpsDocumentView   	  *pps_doc_view,
+					 const PpsCertificateInfo *certificate_info,
+					 const char               *filename)
+{
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+
+	pps_signature_set_destination_file (priv->signature, filename);
+	pps_signature_set_page (priv->signature, pps_document_model_get_page (priv->model));
+	pps_document_signatures_sign (PPS_DOCUMENT_SIGNATURES (priv->document), priv->signature, NULL, on_document_signed, pps_doc_view);
+}
+
+static void
+on_signed_save (GObject      *source_object,
+                GAsyncResult *res,
+                gpointer      user_data)
+{
+	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+	g_autoptr (GError) error = NULL;
+	GFile *file = gtk_file_dialog_save_finish (GTK_FILE_DIALOG (source_object), res, &error);
+	g_autofree char *filename = NULL;
+
+	if (error) {
+		if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
+			g_warning ("Could not save signed file: %s", error->message);
+
+		g_clear_pointer (&priv->signature_certificate_info, pps_certificate_info_free);
+    		return;
+	}
+
+	filename = g_file_get_path (file);
+	pps_document_view_certificate_save_file (pps_doc_view, priv->signature_certificate_info, filename);
+}
+
+static void
+pps_document_view_certificate_save_as_dialog (PpsDocumentView *pps_doc_view)
+{
+	GtkFileDialog *dialog;
+	GtkWindow *parent_window = GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (pps_doc_view)));
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+	g_autofree char *tmp = NULL;
+	char *last_dot = NULL;
+
+	dialog = gtk_file_dialog_new ();
+	gtk_file_dialog_set_title (dialog, _("Save Signed File"));
+
+	last_dot = strrchr (priv->edit_name, '.');
+	if (last_dot) {
+		g_autofree char *prefix = g_strdup (priv->edit_name);
+		prefix[last_dot - priv->edit_name] = '\0';
+
+		tmp = g_strdup_printf ("%s-signed.%s", prefix, last_dot + 1);
+	} else {
+		tmp = g_strdup_printf ("%s-signed", priv->edit_name);
+	}
+	gtk_file_dialog_set_initial_name (dialog, tmp);
+
+	gtk_file_dialog_save (dialog, parent_window, NULL, on_signed_save, pps_doc_view);
+}
+
+static void
+pps_document_view_banner_cancel_cb (AdwBanner *self,
+				    gpointer   user_data)
+{
+	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+	PpsView *view = PPS_VIEW (priv->view);
+
+	pps_view_cancel_signature_rect (view);
+	adw_banner_set_title (ADW_BANNER (priv->banner), "");
+	adw_banner_set_revealed (ADW_BANNER (priv->banner), FALSE);
+}
+
+static void
+pps_document_view_draw_rect_action (PpsDocumentView *pps_doc_view)
+{
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+	PpsView *view = PPS_VIEW (priv->view);
+
+	adw_banner_set_title (ADW_BANNER (priv->banner), _("Draw a rectangle to insert a signature field"));
+	adw_banner_set_button_label (ADW_BANNER (priv->banner), _("_Cancel"));
+	g_signal_connect_object (G_OBJECT (priv->banner), "button-clicked", G_CALLBACK (pps_document_view_banner_cancel_cb),  pps_doc_view, 0);
+	adw_banner_set_revealed (ADW_BANNER (priv->banner), TRUE);
+
+	pps_view_start_signature_rect (view);
+}
+
+static void
+pps_window_certificate_selection_response (GtkWidget *dialog,
+                                           char      *response,
+                                           gpointer   user_data)
+{
+	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+	g_autofree char *tmp = NULL;
+	time_t t;
+
+	if (!priv->signature_certificate_info)
+		return;
+
+	priv->signature = pps_signature_new ();
+	pps_signature_set_certificate_info (priv->signature, priv->signature_certificate_info);
+
+	time (&t);
+	tmp = g_strdup_printf (_("Digitally signed by %s\nDate: %s"),
+			       pps_certificate_info_get_subject_common_name (priv->signature_certificate_info),
+			       ctime (&t));
+	pps_signature_set_signature (priv->signature, tmp);
+	pps_signature_set_signature_left (priv->signature, pps_certificate_info_get_subject_common_name (priv->signature_certificate_info));
+
+	pps_document_view_draw_rect_action (pps_doc_view);
+}
+
+static void
+on_radio_button_toggled (GtkWidget *button,
+                         gpointer   user_data)
+{
+	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
+
+	if (gtk_check_button_get_active (GTK_CHECK_BUTTON (button))) {
+		PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+		GtkWidget *row = gtk_widget_get_ancestor (GTK_WIDGET (button), ADW_TYPE_ACTION_ROW);
+		const char *nick = adw_preferences_row_get_title (ADW_PREFERENCES_ROW (row));
+
+		g_clear_pointer (&priv->signature_certificate_info, pps_certificate_info_free);
+
+		priv->signature_certificate_info = pps_document_signature_get_certificate_info (PPS_DOCUMENT_SIGNATURES (priv->document), (const char *)nick);
+	}
+}
+
+static void
+pps_document_view_create_certificate_selection (PpsDocumentView *pps_doc_view)
+{
+	AdwDialog *dialog;
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+	GList *certificates;
+	GList *list;
+
+	certificates = pps_document_signatures_get_available_signing_certificates (PPS_DOCUMENT_SIGNATURES (priv->document));
+
+	dialog = adw_alert_dialog_new (_("Certificate Required"), NULL);
+	adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "cancel", _("Cancel"));
+	adw_alert_dialog_set_close_response (ADW_ALERT_DIALOG (dialog), "cancel");
+
+	if (certificates != NULL) {
+		GtkWidget *check_button_group = NULL;
+
+		adw_alert_dialog_set_body (ADW_ALERT_DIALOG (dialog), _("Select signing certificate"));
+		adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "select", _("Select"));
+		adw_alert_dialog_set_response_appearance (ADW_ALERT_DIALOG (dialog), "select", ADW_RESPONSE_SUGGESTED);
+
+		adw_alert_dialog_set_default_response (ADW_ALERT_DIALOG (dialog), "select");
+
+		priv->certificate_listbox = gtk_list_box_new ();
+		gtk_list_box_set_selection_mode (GTK_LIST_BOX (priv->certificate_listbox), GTK_SELECTION_NONE);
+		gtk_widget_add_css_class (priv->certificate_listbox, "content");
+
+		for (list = certificates; list && list->data; list = list->next) {
+			PpsCertificateInfo *certificate_info = list->data;
+			GtkWidget *row = adw_action_row_new ();
+			GtkWidget *check_button;
+
+			adw_preferences_row_set_title (ADW_PREFERENCES_ROW (row), pps_certificate_info_get_id (certificate_info));
+
+			check_button = gtk_check_button_new ();
+			gtk_widget_set_valign (check_button, GTK_ALIGN_CENTER);
+			g_signal_connect_object (G_OBJECT (check_button), "toggled", G_CALLBACK (on_radio_button_toggled), pps_doc_view, 0);
+			adw_action_row_add_prefix (ADW_ACTION_ROW (row), GTK_WIDGET (check_button));
+			adw_action_row_set_activatable_widget (ADW_ACTION_ROW (row), check_button);
+			gtk_check_button_set_group (GTK_CHECK_BUTTON (check_button), GTK_CHECK_BUTTON (check_button_group));
+
+			if (!check_button_group) {
+				check_button_group = check_button;
+				gtk_check_button_set_active (GTK_CHECK_BUTTON (check_button), TRUE);
+			}
+
+			adw_action_row_set_subtitle (ADW_ACTION_ROW (row), pps_certificate_info_get_subject_common_name (certificate_info));
+			gtk_list_box_insert (GTK_LIST_BOX (priv->certificate_listbox), row, -1);
+		}
+
+		gtk_list_box_select_row (GTK_LIST_BOX (priv->certificate_listbox), gtk_list_box_get_row_at_index (GTK_LIST_BOX (priv->certificate_listbox), 0));
+		adw_alert_dialog_set_extra_child (ADW_ALERT_DIALOG (dialog), priv->certificate_listbox);
+		g_list_free_full (certificates, (GDestroyNotify) pps_certificate_info_free);
+		g_signal_connect (dialog, "response::select", G_CALLBACK (pps_window_certificate_selection_response), pps_doc_view);
+	} else {
+		adw_alert_dialog_set_body (ADW_ALERT_DIALOG (dialog), _("No certificates found!"));
+		adw_alert_dialog_set_default_response (ADW_ALERT_DIALOG (dialog), "cancel");
+	}
+
+	adw_dialog_present (dialog, GTK_WIDGET (pps_doc_view));
+}
+
+static void
+pps_window_on_signature_rect_too_small_response (AdwAlertDialog *self,
+                                                 gchar          *response,
+                                                 gpointer        user_data)
+{
+	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+
+	if (g_strcmp0 (response, "sign") == 0) {
+		pps_document_view_create_certificate_selection (pps_doc_view);
+		return;
+	}
+
+	g_action_group_activate_action(G_ACTION_GROUP (priv->document_action_group), "digital-signing", NULL);
+}
+
+static void
+pps_document_view_show_signature_rect_too_small_warning (PpsDocumentView *pps_doc_view)
+{
+	AdwDialog *dialog;
+
+	dialog = adw_alert_dialog_new (_("Selection too small"), NULL);
+	adw_alert_dialog_format_body (ADW_ALERT_DIALOG (dialog), _("A signature of this size may be too small to read. If you would like to create a potentially more readable signature, press `Start over` and draw a bigger rectangle."));
+
+	adw_alert_dialog_add_responses (ADW_ALERT_DIALOG (dialog), "cancel", _("Start _Over"), "sign", _("_Sign"), NULL);
+	adw_alert_dialog_set_default_response (ADW_ALERT_DIALOG (dialog), "cancel");
+	adw_alert_dialog_set_close_response (ADW_ALERT_DIALOG (dialog), "cancel");
+
+	g_signal_connect (dialog, "response", G_CALLBACK (pps_window_on_signature_rect_too_small_response), pps_doc_view);
+	adw_dialog_present (dialog, GTK_WIDGET (pps_doc_view));
+}
+
+static gboolean
+calculate_font_size (PpsRectangle *rect,
+                     const char   *text,
+                     int           border_size,
+                     unsigned int *font_size)
+{
+	double width;
+	double height;
+	int chars;
+	unsigned int current_size;
+
+	width = (rect->x2 - rect->x1) / 2 - 2 * border_size;
+	// Y is starting from bottom
+	height = rect->y2 - rect->y1 - 2 * border_size;
+	chars = strlen (text);
+	current_size = 1;
+
+	/* Try to find the biggest font size that will fit in the rect */
+	do {
+		int chars_per_line = floor (width / current_size);
+		int lines = height / current_size;
+
+		if (chars_per_line * lines < chars)
+			break;
+	} while (current_size++);
+
+	if (current_size != 1) {
+		if (font_size)
+			*font_size = current_size - 1;
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+static void
+pps_document_view_on_signature_rect (PpsView      	*view,
+				     guint         	 page,
+				     PpsRectangle 	*rect,
+				     PpsDocumentView 	*pps_doc_view)
+{
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+	gdouble width, height;
+	unsigned int font_size;
+
+	adw_banner_set_revealed (ADW_BANNER (priv->banner), FALSE);
+
+	if (!rect)
+		return;
+
+	pps_document_get_page_size (priv->document, page, &width, &height);
+
+	priv->signature_page = page;
+	g_clear_pointer (&priv->signature_bounding_box, pps_rectangle_free);
+	priv->signature_bounding_box = pps_rectangle_copy (rect);
+
+	/* Calculate font size for main (right) signature text */
+	if (!calculate_font_size (rect,
+				  pps_signature_get_signature (priv->signature),
+				  pps_signature_get_border_width (priv->signature),
+				  &font_size)) {
+		pps_document_view_show_signature_rect_too_small_warning (pps_doc_view);
+		return;
+	}
+
+	pps_signature_set_font_size (priv->signature, font_size);
+
+	/* Calculate font size for left signature text */
+	if (!calculate_font_size (rect,
+				  pps_signature_get_signature_left (priv->signature),
+				  pps_signature_get_border_width (priv->signature),
+				  &font_size)) {
+		pps_document_view_show_signature_rect_too_small_warning (pps_doc_view);
+		return;
+	}
+
+	pps_signature_set_left_font_size (priv->signature, font_size);
+	pps_signature_set_rect (priv->signature, rect);
+
+	pps_document_view_certificate_save_as_dialog (pps_doc_view);
+}
+
+static void
+pps_document_view_cmd_digital_signing (GSimpleAction *action,
+				       GVariant      *parameter,
+				       gpointer       user_data)
+{
+	PpsDocumentView *pps_doc_view = user_data;
+
+	pps_document_view_create_certificate_selection (pps_doc_view);
+}
+
 static const GActionEntry actions[] = {
 	{ "open-with", pps_document_view_cmd_file_open_with },
 	{ "escape", pps_document_view_cmd_escape },
@@ -3436,7 +3864,10 @@ static const GActionEntry actions[] = {
 	{ "open-attachment", pps_document_view_popup_cmd_open_attachment },
 	{ "save-attachment", pps_document_view_popup_cmd_save_attachment_as },
 	{ "annot-properties", pps_document_view_popup_cmd_annot_properties },
-	{ "remove-annot", pps_document_view_popup_cmd_remove_annotation }
+	{ "remove-annot", pps_document_view_popup_cmd_remove_annotation },
+	{ "remove-annot", pps_document_view_popup_cmd_remove_annotation },
+	{ "digital-signing", pps_document_view_cmd_digital_signing }
+
 };
 
 static void
@@ -4200,6 +4631,11 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 	g_signal_connect_object (priv->sidebar, "navigated-to-view",
 				 G_CALLBACK (sidebar_navigate_to_view),
 				 pps_doc_view, G_CONNECT_SWAPPED);
+
+	g_signal_connect_object (G_OBJECT (priv->view), "signature-rect",
+				 G_CALLBACK (pps_document_view_on_signature_rect),
+				 pps_doc_view,
+				 G_CONNECT_DEFAULT);
 }
 
 static void
@@ -4220,6 +4656,7 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, toast_overlay);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, error_alert);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, print_cancel_alert);
+	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, banner);
 
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, model);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, view);

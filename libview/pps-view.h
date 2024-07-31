@@ -152,4 +152,13 @@ void           pps_view_set_caret_cursor_position    (PpsView  *view,
 PPS_PUBLIC
 gboolean       pps_view_current_event_is_type        (PpsView *view,
 						     GdkEventType type);
+
+typedef void (*PpsUserRectangleCallback)(PpsRectangle *rect);
+
+PPS_PUBLIC
+void           pps_view_start_signature_rect     (PpsView *view);
+
+PPS_PUBLIC
+void           pps_view_cancel_signature_rect    (PpsView *view);
+
 G_END_DECLS

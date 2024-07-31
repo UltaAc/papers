@@ -19,6 +19,7 @@ headers = files(
   'pps-document-misc.h',
   'pps-document-print.h',
   'pps-document-security.h',
+  'pps-document-signatures.h',
   'pps-document-text.h',
   'pps-document-transition.h',
   'pps-document.h',
@@ -40,6 +41,7 @@ headers = files(
   'pps-portal.h',
   'pps-render-context.h',
   'pps-selection.h',
+  'pps-signature.h',
   'pps-transition-effect.h',
 )
 
@@ -67,6 +69,7 @@ sources = files(
   'pps-document-misc.c',
   'pps-document-print.c',
   'pps-document-security.c',
+  'pps-document-signatures.c',
   'pps-document-text.c',
   'pps-document-transition.c',
   'pps-file-exporter.c',
@@ -86,6 +89,7 @@ sources = files(
   'pps-portal.c',
   'pps-render-context.c',
   'pps-selection.c',
+  'pps-signature.c',
   'pps-transition-effect.c',
   'pps-xmp.c',
   'pps-xmp.h',

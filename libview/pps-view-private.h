@@ -95,6 +95,13 @@ typedef struct {
 	guint      delay_timeout_id;
 } PpsLinkPreview;
 
+typedef struct {
+	gboolean active;
+	gboolean in_selection;
+	GdkPoint start;
+	GdkPoint stop;
+} SigningInfo;
+
 typedef struct _PpsViewPrivate {
 	PpsDocument *document;
 
@@ -213,6 +220,9 @@ typedef struct _PpsViewPrivate {
 
 	/* Link preview */
 	PpsLinkPreview link_preview;
+
+	/* Signing Info */
+	SigningInfo signing_info;
 } PpsViewPrivate;
 
 struct _PpsViewClass {
@@ -242,6 +252,9 @@ struct _PpsViewClass {
 				       gint            count,
 				       gboolean        extend_selection);
 	void     (*activate)          (PpsView         *view);
+	void     (*signature_rect)    (PpsView         *view,
+				       guint            page,
+				       PpsRectangle    *rectangle);
 };
 
 void _get_page_size_for_scale_and_rotation (PpsDocument *document,

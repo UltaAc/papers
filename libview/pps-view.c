@@ -60,6 +60,7 @@ enum {
 	SIGNAL_MOVE_CURSOR,
 	SIGNAL_CURSOR_MOVED,
 	SIGNAL_ACTIVATE,
+	SIGNAL_SIGNATURE_RECT,
 	N_SIGNALS
 };
 
@@ -269,6 +270,7 @@ static char*      get_selected_text                          (PpsView           
 /*** Caret navigation ***/
 static void       pps_view_check_cursor_blink                 (PpsView             *pps_view);
 
+void              pps_view_stop_signature_rect                (PpsView *view);
 
 G_DEFINE_TYPE_WITH_CODE (PpsView, pps_view, GTK_TYPE_WIDGET,
 			 G_ADD_PRIVATE (PpsView)
@@ -2299,6 +2301,9 @@ pps_view_handle_cursor_over_xy (PpsView *view, gint x, gint y)
 	PpsMedia      *media;
 
 	if (priv->cursor == PPS_VIEW_CURSOR_HIDDEN)
+		return;
+
+	if (priv->signing_info.active)
 		return;
 
 	if (priv->adding_text_annot)
@@ -4751,6 +4756,49 @@ draw_debug_borders (PpsView       *view,
 }
 #endif
 
+static void
+draw_selection_rect (PpsView     *view,
+                     GtkSnapshot *snapshot,
+                     gint         page)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+	GskRoundedRect outline;
+	gint pos_x1, pos_x2, pos_y1, pos_y2;
+	gint x, y, w, h;
+	GdkRGBA fg_color;
+	GdkRGBA bg_color;
+
+	if (!priv->signing_info.in_selection)
+		return;
+
+	pos_x1 = priv->signing_info.start.x - priv->scroll_x;
+	pos_y1 = priv->signing_info.start.y - priv->scroll_y;
+	pos_x2 = priv->signing_info.stop.x - priv->scroll_x;
+	pos_y2 = priv->signing_info.stop.y - priv->scroll_y;
+
+	x = MIN (pos_x1, pos_x2);
+	y = MIN (pos_y1, pos_y2);
+	w = ABS (pos_x1 - pos_x2);
+	h = ABS (pos_y1 - pos_y2);
+
+	if (w <= 0 || h <= 0)
+		return;
+
+	_pps_view_get_selection_colors (view, &bg_color, NULL);
+	bg_color.alpha = 0.35;
+
+	fg_color.red = bg_color.red;
+	fg_color.green = bg_color.green;
+	fg_color.blue = bg_color.blue;
+	fg_color.alpha = 0.2;
+
+	gtk_snapshot_save (snapshot);
+	gsk_rounded_rect_init_from_rect (&outline, &GRAPHENE_RECT_INIT(x, y, w, h), 1);
+	gtk_snapshot_append_color (snapshot, &fg_color, &GRAPHENE_RECT_INIT(x, y, w, h));
+	gtk_snapshot_append_border (snapshot, &outline, (float[4]) {1, 1, 1, 1}, (GdkRGBA [4]) { bg_color, bg_color, bg_color, bg_color });
+	gtk_snapshot_restore (snapshot);
+}
+
 static void pps_view_snapshot(GtkWidget *widget, GtkSnapshot *snapshot)
 {
 	int width, height;
@@ -4797,6 +4845,8 @@ static void pps_view_snapshot(GtkWidget *widget, GtkSnapshot *snapshot)
 			show_annotation_windows (view, i);
 		if (page_ready && priv->focused_element)
 			draw_focus (view, snapshot, i, &clip_rect);
+		if (page_ready && priv->signing_info.active)
+			draw_selection_rect (view, snapshot, i);
 #ifdef PPS_ENABLE_DEBUG
 		if (page_ready)
 			draw_debug_borders (view, snapshot, i, &clip_rect);
@@ -5688,6 +5738,56 @@ selection_end_cb (GtkGestureDrag *selection_gesture,
 
 	g_clear_handle_id (&priv->selection_scroll_id, g_source_remove);
 	g_clear_handle_id (&priv->selection_update_id, g_source_remove);
+}
+
+static void
+signing_update_cb (GtkGestureDrag *signing_gesture,
+                   gdouble         offset_x,
+                   gdouble         offset_y,
+                   PpsView        *view)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+
+	if (!priv->signing_info.active)
+		return;
+
+	priv->signing_info.stop.x = priv->signing_info.start.x + offset_x;
+	priv->signing_info.stop.y = priv->signing_info.start.y + offset_y;
+	gtk_widget_queue_draw (GTK_WIDGET (view));
+}
+
+static void
+signing_begin_cb (GtkGestureDrag *signing_gesture,
+                  gdouble         x,
+                  gdouble         y,
+                  PpsView        *view)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+
+	if (!priv->signing_info.active)
+		return;
+
+	gtk_gesture_set_state (GTK_GESTURE (signing_gesture), GTK_EVENT_SEQUENCE_CLAIMED);
+
+	priv->signing_info.start.x = x + priv->scroll_x;
+	priv->signing_info.start.y = y + priv->scroll_y;
+	priv->signing_info.stop = priv->signing_info.start;
+	priv->signing_info.in_selection = TRUE;
+}
+
+static void
+signing_end_cb (GtkGestureDrag *selection_gesture,
+                gdouble         x,
+                gdouble         y,
+                PpsView        *view)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+
+	if (!priv->signing_info.active)
+		return;
+
+	priv->signing_info.in_selection = FALSE;
+	pps_view_stop_signature_rect (view);
 }
 
 static void
@@ -7395,6 +7495,12 @@ pps_view_class_init (PpsViewClass *class)
 	gtk_widget_class_bind_template_callback (widget_class,
 						 annotation_drag_update_cb);
 	gtk_widget_class_bind_template_callback (widget_class,
+						 signing_begin_cb);
+	gtk_widget_class_bind_template_callback (widget_class,
+						 signing_end_cb);
+	gtk_widget_class_bind_template_callback (widget_class,
+						 signing_update_cb);
+	gtk_widget_class_bind_template_callback (widget_class,
 						 middle_clicked_drag_begin_cb);
 	gtk_widget_class_bind_template_callback (widget_class,
 						 middle_clicked_drag_update_cb);
@@ -7547,6 +7653,15 @@ pps_view_class_init (PpsViewClass *class)
 			 g_cclosure_marshal_VOID__VOID,
 			 G_TYPE_NONE, 0,
 			 G_TYPE_NONE);
+	signals[SIGNAL_SIGNATURE_RECT] = g_signal_new ("signature-rect",
+			G_TYPE_FROM_CLASS (object_class),
+			G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+			G_STRUCT_OFFSET (PpsViewClass, signature_rect),
+			NULL, NULL,
+			g_cclosure_marshal_VOID__UINT_POINTER,
+			G_TYPE_NONE, 2,
+			G_TYPE_UINT,
+			G_TYPE_POINTER);
 
 
 	gtk_widget_class_set_activate_signal (widget_class, signals[SIGNAL_ACTIVATE]);
@@ -9300,3 +9415,76 @@ pps_view_get_allow_links_change_zoom (PpsView *view)
 
 	return priv->allow_links_change_zoom;
 }
+
+void
+pps_view_start_signature_rect (PpsView *view)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+
+	pps_view_set_cursor (view, PPS_VIEW_CURSOR_ADD);
+	priv->signing_info.active = TRUE;
+}
+
+void
+pps_view_cancel_signature_rect (PpsView *view)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+
+	pps_view_set_cursor (view, PPS_VIEW_CURSOR_IBEAM);
+	priv->signing_info.in_selection = FALSE;
+	priv->signing_info.active = FALSE;
+}
+
+void
+pps_view_stop_signature_rect (PpsView *view)
+{
+	PpsRectangle *rect = pps_rectangle_new ();
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsPoint         start;
+	PpsPoint         end;
+	gint            signature_page;
+	gint            offset;
+	GdkRectangle    page_area;
+	GtkBorder       border;
+
+	pps_view_set_cursor (view, PPS_VIEW_CURSOR_IBEAM);
+
+	find_page_at_location (view, priv->signing_info.start.x, priv->signing_info.start.y, &signature_page, &offset, &offset);
+	if (signature_page == -1) {
+		g_warning ("%s: Invalid signature page", __FUNCTION__);
+		return;
+	}
+
+	pps_view_get_page_extents (view, signature_page, &page_area, &border);
+	_pps_view_transform_view_point_to_doc_point (view,
+						     &priv->signing_info.start,
+						     &page_area,
+						     &border,
+						     &start.x,
+						     &start.y);
+	_pps_view_transform_view_point_to_doc_point (view,
+						     &priv->signing_info.stop,
+						     &page_area,
+						     &border,
+						     &end.x,
+						     &end.y);
+
+	rect->x1 = MIN (priv->signing_info.start.x, priv->signing_info.stop.x);
+	rect->y1 = MIN (priv->signing_info.start.y, priv->signing_info.stop.y);
+	rect->x2 = MAX (priv->signing_info.start.x, priv->signing_info.stop.x);
+	rect->y2 = MAX (priv->signing_info.start.y, priv->signing_info.stop.y);
+
+	rect->x1 = MIN (start.x, end.x);
+	rect->y1 = MIN (start.y, end.y);
+	rect->x2 = MAX (start.x, end.x);
+	rect->y2 = MAX (start.y, end.y);
+
+	priv->signing_info.in_selection = FALSE;
+	priv->signing_info.active = FALSE;
+
+	g_signal_emit (view, signals[SIGNAL_SIGNATURE_RECT], 0, signature_page, rect);
+	pps_rectangle_free (rect);
+	gtk_widget_queue_draw (GTK_WIDGET (view));
+}
+
+
