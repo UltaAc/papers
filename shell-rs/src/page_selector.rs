@@ -67,7 +67,7 @@ mod imp {
             let current_page = model.page();
 
             // Convert utf8 fullwidth numbers (eg. japanese) to halfwidth - fixes #1518
-            let text = glib::normalize(&self.entry.text(), glib::NormalizeMode::All);
+            let text = glib::normalize(self.entry.text(), glib::NormalizeMode::All);
             self.entry.set_text(text.as_str());
 
             let text = self.entry.text();
