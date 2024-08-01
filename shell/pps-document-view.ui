@@ -255,8 +255,7 @@
                                         <property name="icon-name">zoom-fit-best-symbolic</property>
                                         <property name="action-name">doc.sizing-mode</property>
                                         <property name="action-target">'automatic'</property>
-                                        <property name="tooltip-text" translatable="yes">Fit
-                                          Automatically</property>
+                                        <property name="tooltip-text" translatable="yes">Fit Automatically</property>
                                       </object>
                                     </property>
                                   </object>
