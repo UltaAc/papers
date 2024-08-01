@@ -660,7 +660,7 @@ pps_document_get_page_label (PpsDocument *document,
  *
  * Returns the #PpsDocumentInfo for the document.
  *
- * Returns: (transfer full): a #PpsDocumentInfo
+ * Returns: (transfer none): a #PpsDocumentInfo
  */
 PpsDocumentInfo *
 pps_document_get_info (PpsDocument *document)
@@ -668,6 +668,7 @@ pps_document_get_info (PpsDocument *document)
 	g_return_val_if_fail (PPS_IS_DOCUMENT (document), NULL);
 	PpsDocumentClass *klass = PPS_DOCUMENT_GET_CLASS (document);
 
+	/* FIXME: transfer full */
 	return klass->get_info (document);
 }
 
