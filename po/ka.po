@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Papers\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-07-10 18:02+0000\n"
-"PO-Revision-Date: 2024-07-15 05:37+0200\n"
+"POT-Creation-Date: 2024-08-01 19:42+0000\n"
+"PO-Revision-Date: 2024-08-03 06:31+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -23,10 +23,10 @@ msgstr ""
 #. Manually set name and icon
 #: data/org.gnome.Papers.desktop.in.in:3
 #: data/org.gnome.Papers.metainfo.xml.in.in:23
-#: previewer/pps-previewer-window.c:478 shell/pps-loader-view.ui:10
-#: shell/pps-window.ui:144 shell/pps-window-title.c:125
-#: shell-rs/src/application.rs:41 shell-rs/src/application.rs:71
-#: shell-rs/src/application.rs:309
+#: previewer/pps-previewer-window.c:477 shell/pps-document-view.ui:68
+#: shell/pps-loader-view.ui:10 shell/pps-window-title.c:126
+#: shell-rs/src/application.rs:42 shell-rs/src/application.rs:76
+#: shell-rs/src/application.rs:313
 msgid "Papers"
 msgstr "Papers"
 
@@ -94,21 +94,21 @@ msgstr ""
 msgid "Show a side bar next to the document to help navigate the document."
 msgstr "დოკუმენტში ნავიგაციაში დამხმარე გვერდითი პანელის ჩვენება."
 
-#: data/org.gnome.Papers.gschema.xml:58
+#: data/org.gnome.Papers.gschema.xml:61
 msgid "Set the default zoom level to display a document."
 msgstr "დააყენეთ დოკუმენტის საჩვენებელი ნაგულისხმევი გადიდების დონე."
 
-#: data/org.gnome.Papers.gschema.xml:65
+#: data/org.gnome.Papers.gschema.xml:68
 msgid ""
 "Display the document as a continuous stream of pages instead of page at a "
 "time."
 msgstr "ერთი გვერდის მაგიერ დოკუმენტის გვერდების უწყვეტ ნაკადად ჩვენება."
 
-#: data/org.gnome.Papers.gschema.xml:69
+#: data/org.gnome.Papers.gschema.xml:72
 msgid "Show two pages side by side."
 msgstr "ორი გვერდის გვერდიგვერდ ჩვენება."
 
-#: data/org.gnome.Papers.gschema.xml:73
+#: data/org.gnome.Papers.gschema.xml:76
 msgid ""
 "Show the first page (odd page) on the left (when displaying two pages side "
 "by side)"
@@ -226,52 +226,52 @@ msgid "Adds support for reading PDF Documents"
 msgstr "PDF დოკუმენტების კითხვის მხარდაჭერის დამატება"
 
 #. translators: this is the document security state
-#: libdocument/backend/pdf/pps-poppler.c:724
-#: libdocument/backend/pdf/pps-poppler.c:730
-#: nautilus/pps-nautilus-extension.c:121 shell-rs/src/properties_general.rs:157
+#: libdocument/backend/pdf/pps-poppler.c:720
+#: libdocument/backend/pdf/pps-poppler.c:726
+#: nautilus/pps-nautilus-extension.c:121 shell-rs/src/properties_general.rs:170
 msgid "Yes"
 msgstr "დიახ"
 
 #. translators: this is the document security state
-#: libdocument/backend/pdf/pps-poppler.c:727
-#: libdocument/backend/pdf/pps-poppler.c:730
-#: nautilus/pps-nautilus-extension.c:123 shell-rs/src/properties_general.rs:158
+#: libdocument/backend/pdf/pps-poppler.c:723
+#: libdocument/backend/pdf/pps-poppler.c:726
+#: nautilus/pps-nautilus-extension.c:123 shell-rs/src/properties_general.rs:171
 msgid "No"
 msgstr "არა"
 
-#: libdocument/backend/pdf/pps-poppler.c:838
+#: libdocument/backend/pdf/pps-poppler.c:834
 msgid "Type 1"
 msgstr "ტიპი 1"
 
-#: libdocument/backend/pdf/pps-poppler.c:840
+#: libdocument/backend/pdf/pps-poppler.c:836
 msgid "Type 1C"
 msgstr "ტიპი 1C"
 
-#: libdocument/backend/pdf/pps-poppler.c:842
+#: libdocument/backend/pdf/pps-poppler.c:838
 msgid "Type 3"
 msgstr "ტიპი 3"
 
-#: libdocument/backend/pdf/pps-poppler.c:844
+#: libdocument/backend/pdf/pps-poppler.c:840
 msgid "TrueType"
 msgstr "TrueType"
 
-#: libdocument/backend/pdf/pps-poppler.c:846
+#: libdocument/backend/pdf/pps-poppler.c:842
 msgid "Type 1 (CID)"
 msgstr "ტიპი 1·(CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:848
+#: libdocument/backend/pdf/pps-poppler.c:844
 msgid "Type 1C (CID)"
 msgstr "ტიპი 1C·(CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:850
+#: libdocument/backend/pdf/pps-poppler.c:846
 msgid "TrueType (CID)"
 msgstr "TrueType (CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:852
+#: libdocument/backend/pdf/pps-poppler.c:848
 msgid "Unknown font type"
 msgstr "უცნობი შრიფტის ტიპი"
 
-#: libdocument/backend/pdf/pps-poppler.c:896
+#: libdocument/backend/pdf/pps-poppler.c:892
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
@@ -282,11 +282,11 @@ msgstr ""
 "იგივე არაა, რაც PDF-ის შექმნის დროს გამოიყურებოდა, რენდერი შეიძლება "
 "არასწორად მოხდეს."
 
-#: libdocument/backend/pdf/pps-poppler.c:901
+#: libdocument/backend/pdf/pps-poppler.c:897
 msgid "All fonts are either standard or embedded."
 msgstr "ყველა ფონტი ან სტანდარტულია, ან ჩაშენებული."
 
-#: libdocument/backend/pdf/pps-poppler.c:932
+#: libdocument/backend/pdf/pps-poppler.c:928
 msgid "No name"
 msgstr "უსახელო"
 
@@ -295,20 +295,20 @@ msgstr "უსახელო"
 #. Encoding: None
 #.
 #. translators: Value for 'Page Scaling:' to not scale the document pages on printing
-#: libdocument/backend/pdf/pps-poppler.c:941 libview/pps-print-operation.c:2643
-#: shell-rs/src/properties_general.rs:82 shell-rs/src/properties_general.rs:186
+#: libdocument/backend/pdf/pps-poppler.c:937 libview/pps-print-operation.c:2643
+#: shell-rs/src/properties_general.rs:82 shell-rs/src/properties_general.rs:199
 msgid "None"
 msgstr "არა"
 
-#: libdocument/backend/pdf/pps-poppler.c:949
+#: libdocument/backend/pdf/pps-poppler.c:945
 msgid "Embedded subset"
 msgstr "ჩაკერებული ქვესიმრავლე"
 
-#: libdocument/backend/pdf/pps-poppler.c:951
+#: libdocument/backend/pdf/pps-poppler.c:947
 msgid "Embedded"
 msgstr "ჩაკერებული"
 
-#: libdocument/backend/pdf/pps-poppler.c:953
+#: libdocument/backend/pdf/pps-poppler.c:949
 msgid "Not embedded"
 msgstr "არ არის ჩაშენებული"
 
@@ -317,7 +317,7 @@ msgstr "არ არის ჩაშენებული"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: libdocument/backend/pdf/pps-poppler.c:960
+#: libdocument/backend/pdf/pps-poppler.c:956
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (ერთერთი სტანდარტული 14 ფონტიდან)"
 
@@ -326,7 +326,7 @@ msgstr " (ერთერთი სტანდარტული 14 ფონ�
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: libdocument/backend/pdf/pps-poppler.c:967
+#: libdocument/backend/pdf/pps-poppler.c:963
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (არცერთი სტანდარტული 14 ფონტიდან)"
 
@@ -340,7 +340,7 @@ msgstr " (არცერთი სტანდარტული 14 ფონ�
 #. * Substituting with TeXGyreTermes-Regular
 #. * (/usr/share/textmf/.../texgyretermes-regular.otf)
 #.
-#: libdocument/backend/pdf/pps-poppler.c:986
+#: libdocument/backend/pdf/pps-poppler.c:982
 #, c-format
 msgid ""
 "%s%s\n"
@@ -364,7 +364,7 @@ msgstr ""
 #. * Encoding: Custom
 #. * Embedded subset
 #.
-#: libdocument/backend/pdf/pps-poppler.c:1004
+#: libdocument/backend/pdf/pps-poppler.c:1000
 #, c-format
 msgid ""
 "%s%s\n"
@@ -498,22 +498,22 @@ msgstr "დროებითი საქაღალდის შექმნ�
 msgid "This work is in the Public Domain"
 msgstr "ეს ნამუშევარი საჯაროა"
 
-#: libview/pps-jobs.c:652
+#: libview/pps-jobs.c:407
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "%d-ე გვერდის რენდერის შეცდომა: %s"
 
-#: libview/pps-jobs.c:659
+#: libview/pps-jobs.c:414
 #, c-format
 msgid "Failed to render page %d"
 msgstr "%d-ე გვერდის რენდერის შეცდომა"
 
-#: libview/pps-jobs.c:879
+#: libview/pps-jobs.c:632
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "%d-ე გვერდის მინიატურის შექმნის შეცდომა"
 
-#: libview/pps-jobs.c:1811
+#: libview/pps-jobs.c:1584
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "%d-ე გვერდის დაბეჭდვის შეცდომა: %s"
@@ -561,7 +561,8 @@ msgid "Invalid Page Selection"
 msgstr "არასწორი გვერდის არჩევანი"
 
 #: libview/pps-print-operation.c:2000
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-window.ui:674
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.ui:628
+#: shell/pps-window.ui:155
 msgid "_Close"
 msgstr "_დახურვა"
 
@@ -658,60 +659,60 @@ msgstr "ჩვენება ქვემოთ"
 msgid "Document View"
 msgstr "დოკუმენტის ნახვა"
 
-#: libview/pps-view.c:2062
+#: libview/pps-view.c:2117
 msgid "Go to first page"
 msgstr "პირველ გვერდზე"
 
-#: libview/pps-view.c:2064
+#: libview/pps-view.c:2119
 msgid "Go to previous page"
 msgstr "წინა გვერდზე"
 
-#: libview/pps-view.c:2066
+#: libview/pps-view.c:2121
 msgid "Go to next page"
 msgstr "შემდეგ გვერდზე გადასვლა"
 
-#: libview/pps-view.c:2068
+#: libview/pps-view.c:2123
 msgid "Go to last page"
 msgstr "ბოლო გვერდზე"
 
-#: libview/pps-view.c:2070
+#: libview/pps-view.c:2125
 msgid "Go to page"
 msgstr "გვერდზე გადასვლა"
 
-#: libview/pps-view.c:2072
+#: libview/pps-view.c:2127
 msgid "Find"
 msgstr "ძებნა"
 
-#: libview/pps-view.c:2101
+#: libview/pps-view.c:2156
 #, c-format
 msgid "Go to page %s"
 msgstr "%s გვერდზე"
 
-#: libview/pps-view.c:2107
+#: libview/pps-view.c:2162
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "%s-ზე გადასვლა “%s” ფაილში"
 
-#: libview/pps-view.c:2110
+#: libview/pps-view.c:2165
 #, c-format
 msgid "Go to file “%s”"
 msgstr "გადასვლა ფაილზე “%s”"
 
-#: libview/pps-view.c:2118
+#: libview/pps-view.c:2173
 #, c-format
 msgid "Launch %s"
 msgstr "%s-ის გაშვება"
 
-#: libview/pps-view.c:2125
+#: libview/pps-view.c:2180
 #, c-format
 msgid "Reset form"
 msgstr "ფორმის საწყის მდგომარეობაში დაბრუნება"
 
-#: libview/pps-view-presentation.c:834
+#: libview/pps-view-presentation.c:837
 msgid "Running in presentation mode"
 msgstr "პრეზენტაციის რეჟიმი ჩართულია"
 
-#: libview/pps-view-presentation.c:885
+#: libview/pps-view-presentation.c:888
 msgid "End of presentation. Press Esc or click to exit."
 msgstr "პრეზენტაციის დასასრული. გამოსასვლელად დააჭირეთ Esc-ს ან დააწკაპუნეთ."
 
@@ -730,9 +731,9 @@ msgstr "(%d-დან %d)"
 msgid "of %d"
 msgstr "%d-დან"
 
-#: previewer/pps-page-selector.c:194 shell/pps-history.c:454
-#: shell/pps-sidebar-bookmarks.c:339 shell/pps-window.c:756
-#: shell/pps-window.c:3874
+#: previewer/pps-page-selector.c:194 shell/pps-document-view.c:649
+#: shell/pps-document-view.c:2591 shell/pps-history.c:454
+#: shell/pps-sidebar-bookmarks.c:339
 #, c-format
 msgid "Page %s"
 msgstr "გვერდი: %s"
@@ -781,7 +782,7 @@ msgstr "GNOME-ის დოკუმენტების დამთვალ�
 msgid "Failed to print document"
 msgstr "შეცდომა ბეჭდვისას"
 
-#: previewer/pps-previewer-window.c:187 previewer/pps-previewer-window.c:500
+#: previewer/pps-previewer-window.c:187 previewer/pps-previewer-window.c:499
 msgid "Papers Document Viewer"
 msgstr "დოკუმენტების მნახველი Papers"
 
@@ -798,7 +799,7 @@ msgstr "წინა გვერდი"
 msgid "Next Page"
 msgstr "შემდეგი გვერდი"
 
-#: previewer/pps-previewer-window.ui:31 shell/pps-window.ui:297
+#: previewer/pps-previewer-window.ui:31 shell/pps-document-view.ui:217
 msgid "Page Count"
 msgstr "გვერდის რაოდენობა"
 
@@ -810,7 +811,7 @@ msgstr "_ბეჭდვა"
 msgid "Print This Document"
 msgstr "ამ დოკუმენტის დაბეჭდვა"
 
-#: previewer/pps-previewer-window.ui:48 shell/pps-window.ui:370
+#: previewer/pps-previewer-window.ui:48 shell/pps-document-view.ui:291
 msgid "Zoom Out"
 msgstr "დაპატარავება"
 
@@ -818,13 +819,13 @@ msgstr "დაპატარავება"
 msgid "Normal Size"
 msgstr "ნორმალური ზომა"
 
-#: previewer/pps-previewer-window.ui:62 shell/pps-window.ui:358
+#: previewer/pps-previewer-window.ui:62 shell/pps-document-view.ui:278
 msgid "Zoom In"
 msgstr "გადიდება"
 
 #: nautilus/pps-nautilus-extension.c:125
 #: shell/pps-annotation-properties-dialog.ui:59
-#: shell-rs/src/properties_general.rs:159
+#: shell-rs/src/properties_general.rs:172
 msgid "Unknown"
 msgstr "უცნობი"
 
@@ -832,7 +833,7 @@ msgstr "უცნობი"
 msgid "Document Properties"
 msgstr "დოკუმენტის თვისებები"
 
-#: nautilus/pps-nautilus-extension.h:59 shell-rs/src/properties_general.rs:129
+#: nautilus/pps-nautilus-extension.h:59 shell-rs/src/properties_general.rs:142
 msgid "Title"
 msgstr "სათაური"
 
@@ -840,62 +841,62 @@ msgstr "სათაური"
 msgid "Location"
 msgstr "მდებარეობა"
 
-#: nautilus/pps-nautilus-extension.h:61 shell-rs/src/properties_general.rs:130
+#: nautilus/pps-nautilus-extension.h:61 shell-rs/src/properties_general.rs:143
 msgid "Subject"
 msgstr "თემა"
 
 #: nautilus/pps-nautilus-extension.h:62
 #: shell/pps-annotation-properties-dialog.ui:9
-#: shell-rs/src/properties_general.rs:131
+#: shell-rs/src/properties_general.rs:144
 msgid "Author"
 msgstr "ავტორი"
 
-#: nautilus/pps-nautilus-extension.h:63 shell-rs/src/properties_general.rs:132
+#: nautilus/pps-nautilus-extension.h:63 shell-rs/src/properties_general.rs:145
 msgid "Keywords"
 msgstr "საკვანძო სიტყვები"
 
-#: nautilus/pps-nautilus-extension.h:64 shell-rs/src/properties_general.rs:133
+#: nautilus/pps-nautilus-extension.h:64 shell-rs/src/properties_general.rs:146
 msgid "Producer"
 msgstr "პროდიუსერი"
 
-#: nautilus/pps-nautilus-extension.h:65 shell-rs/src/properties_general.rs:134
+#: nautilus/pps-nautilus-extension.h:65 shell-rs/src/properties_general.rs:147
 msgid "Creator"
 msgstr "შემქმნელი"
 
-#: nautilus/pps-nautilus-extension.h:66 shell-rs/src/properties_general.rs:141
+#: nautilus/pps-nautilus-extension.h:66 shell-rs/src/properties_general.rs:154
 msgid "Created"
 msgstr "შექმნილია"
 
-#: nautilus/pps-nautilus-extension.h:67 shell-rs/src/properties_general.rs:142
+#: nautilus/pps-nautilus-extension.h:67 shell-rs/src/properties_general.rs:155
 msgid "Modified"
 msgstr "შეცვლილია"
 
-#: nautilus/pps-nautilus-extension.h:68 shell-rs/src/properties_general.rs:150
+#: nautilus/pps-nautilus-extension.h:68 shell-rs/src/properties_general.rs:163
 msgid "Number of Pages"
 msgstr "გვერდების რაოდენობა"
 
-#: nautilus/pps-nautilus-extension.h:69 shell-rs/src/properties_general.rs:151
+#: nautilus/pps-nautilus-extension.h:69 shell-rs/src/properties_general.rs:164
 msgid "Optimized"
 msgstr "ოპტიმიზებული"
 
-#: nautilus/pps-nautilus-extension.h:70 shell-rs/src/properties_general.rs:147
-#: shell-rs/src/properties_general.rs:149
+#: nautilus/pps-nautilus-extension.h:70 shell-rs/src/properties_general.rs:160
+#: shell-rs/src/properties_general.rs:162
 msgid "Format"
 msgstr "ფორმატი"
 
-#: nautilus/pps-nautilus-extension.h:71 shell-rs/src/properties_general.rs:152
+#: nautilus/pps-nautilus-extension.h:71 shell-rs/src/properties_general.rs:165
 msgid "Security"
 msgstr "უსაფრთხოება"
 
-#: nautilus/pps-nautilus-extension.h:72 shell-rs/src/properties_general.rs:161
+#: nautilus/pps-nautilus-extension.h:72 shell-rs/src/properties_general.rs:174
 msgid "Contains Javascript"
 msgstr "შეიცავს Javascript-ს"
 
-#: nautilus/pps-nautilus-extension.h:73 shell-rs/src/properties_general.rs:153
+#: nautilus/pps-nautilus-extension.h:73 shell-rs/src/properties_general.rs:166
 msgid "Paper Size"
 msgstr "ფურცლის ზომა"
 
-#: nautilus/pps-nautilus-extension.h:74 shell-rs/src/properties_general.rs:119
+#: nautilus/pps-nautilus-extension.h:74 shell-rs/src/properties_general.rs:132
 msgid "Size"
 msgstr "ზომა"
 
@@ -1290,19 +1291,354 @@ msgstr "ტალღებიანი"
 msgid "_Apply"
 msgstr "_გადატარება"
 
-#: shell/pps-find-sidebar.ui:70
+#: shell/pps-document-view.c:490 shell-rs/src/window.rs:465
+msgid "View Details"
+msgstr "დეტალების ნახვა"
+
+#: shell/pps-document-view.c:1132
+msgid "The document contains no pages"
+msgstr "დოკუმენტი გვერდებს არ შეიცავს"
+
+#: shell/pps-document-view.c:1135
+msgid "The document contains only empty pages"
+msgstr "დოკუმენტი მხოლოდ ცარიელ გვერდებს შეიცავს"
+
+#: shell/pps-document-view.c:1358
+msgid "File Saved"
+msgstr "ფაილი შენახულია"
+
+#: shell/pps-document-view.c:1368 shell/pps-document-view.c:1421
+#, c-format
+msgid "The file could not be saved as “%s”."
+msgstr "ფაილი ვერ ინახება სახელით “%s”."
+
+#: shell/pps-document-view.c:1483
+msgid "Save As…"
+msgstr "შენახვა, როგორც…"
+
+#: shell/pps-document-view.c:1789
+#, c-format
+msgid "%d pending job in queue"
+msgid_plural "%d pending jobs in queue"
+msgstr[0] "რიგში დარჩენილია %d ამოცანა"
+
+#: shell/pps-document-view.c:1828
+msgid "Failed to Print Document"
+msgstr "დოკუმენტის დაბეჭდვა ჩავარდა"
+
+#: shell/pps-document-view.c:1882
+#, c-format
+msgid "Printing job “%s”"
+msgstr "ამოცანის დაბეჭდვა (%s)"
+
+#: shell/pps-document-view.c:1885 shell/pps-loader-view.ui:45
+msgid "C_ancel"
+msgstr "_გაუქმება"
+
+#: shell/pps-document-view.c:2074 shell-rs/src/window.rs:267
+msgid "Document contains form fields that have been filled out."
+msgstr "დოკუმენტი შეიცავს შევსებულ ფორმის ველებს."
+
+#: shell/pps-document-view.c:2077 shell-rs/src/window.rs:268
+msgid "Document contains new or modified annotations."
+msgstr "დოკუმენტი ახალ ან შეცვლილ ანოტაციებს შეიცავს."
+
+#: shell/pps-document-view.c:2084
+msgid "Save Changes to a Copy?"
+msgstr "შევინახო ცვლილებები ასლში?"
+
+#: shell/pps-document-view.c:2085
+msgid "If you don’t save a copy, changes will be permanently lost."
+msgstr "თუ ასლს არ შეინახავთ, ცვლილებები სამუდამოდ დაიკარგება."
+
+#: shell/pps-document-view.c:2088
+msgid "Close _Without Saving"
+msgstr "დახურვა _შენახვის გარეშე"
+
+#: shell/pps-document-view.c:2089 shell/pps-document-view.ui:608
+#: shell/pps-document-view.ui:620
+msgid "_Cancel"
+msgstr "_გაუქმება"
+
+#: shell/pps-document-view.c:2090
+msgid "_Save a Copy"
+msgstr "ა_სლის შენახვა"
+
+#: shell/pps-document-view.c:2914
+msgid "Search"
+msgstr "ძებნა"
+
+#: shell/pps-document-view.c:2918
+msgid "Search Unavailable"
+msgstr "ძებნა ხელმიუწვდომელია"
+
+#: shell/pps-document-view.c:3126
+msgid "The attachment could not be saved."
+msgstr "შეუძლებელია დანართის დამახსოვრება."
+
+#: shell/pps-document-view.c:3604
+#, c-format
+msgid ""
+"Security alert: this document has been prevented from opening the file “%s”"
+msgstr "უსაფრთხოების გაფრთხილება: ამ დოკუმენტს აეკრძალა, გაეხსნა ფაილი \"%s\""
+
+#: shell/pps-document-view.c:3665
+msgid "Unable to open external link"
+msgstr "გარე ბმულის გახსნის შეცდომა"
+
+#: shell/pps-document-view.c:3890
+msgid "Couldn’t find appropriate format to save image"
+msgstr "გამოსახულების შესანახად შესაბამისი ფორმატის პოვნა შეუძლებელია"
+
+#: shell/pps-document-view.c:3920
+msgid "The image could not be saved."
+msgstr "გამოსახულების შენახვის შეცდომა."
+
+#: shell/pps-document-view.c:3956
+msgid "Save Image"
+msgstr "გამოსახულების შენახვა"
+
+#: shell/pps-document-view.c:4127
+msgid "Unable to open attachment"
+msgstr "შეუძლებელია დანართის გახსნა"
+
+#: shell/pps-document-view.c:4192
+msgid "Save Attachment"
+msgstr "მიმაგრებული ფაილის შენახვა"
+
+#: shell/pps-document-view.ui:74
+msgid "Main Menu"
+msgstr "მთავარი მენიუ"
+
+#: shell/pps-document-view.ui:95
+msgid "Thumbnails"
+msgstr "ესკიზები"
+
+#: shell/pps-document-view.ui:108
+msgid "Outline"
+msgstr "კონტური"
+
+#: shell/pps-document-view.ui:123
+msgid "Annotations"
+msgstr "ანოტაციები"
+
+#: shell/pps-document-view.ui:138
+msgid "Bookmarks"
+msgstr "სანიშნები"
+
+#: shell/pps-document-view.ui:152
+msgid "Attachments"
+msgstr "დანართი"
+
+#: shell/pps-document-view.ui:168
+msgid "Layers"
+msgstr "ფენები"
+
+#: shell/pps-document-view.ui:204
+msgid "Toggle Sidebar"
+msgstr "გვერდითი პანელის ჩვენების ჩართ/გამორთ"
+
+#: shell/pps-document-view.ui:210
+msgid "Document Menu"
+msgstr "დოკუმენტის მენიუ"
+
+#: shell/pps-document-view.ui:258
+msgid "Fit Automatically"
+msgstr "ავტომატური ჩატევა"
+
+#: shell/pps-document-view.ui:350
+msgid "Loading…"
+msgstr "ჩატვირთვა…"
+
+#: shell/pps-document-view.ui:599
+msgid "Enable Caret Navigation?"
+msgstr "ჩავრთო კარეტით ნავიგაცია?"
+
+#: shell/pps-document-view.ui:600
+msgid ""
+"Pressing F7 turns the caret navigation on or off. This feature places a "
+"moveable cursor in text pages, allowing you to move around and select text "
+"with your keyboard."
+msgstr ""
+"F7-ის დაწოლა ჩართავს ან გამორთავს კარეტით ნავიგაციას. ეს ფუნქცია ტექსტურ "
+"გვერდებზე მოძრავ კურსორს სვამს, რითიც საშუალებას გაძლევთ, ვებგვერდზე "
+"კლავიატურით იმოძრაოთ და ტექსტი მონიშნოთ."
+
+#: shell/pps-document-view.ui:603
+msgid "Don’t show this message again"
+msgstr "მეტჯერ აღარ მაჩვენო ეს გაფრთხილება"
+
+#: shell/pps-document-view.ui:609
+msgid "_Enable"
+msgstr "_ჩართვა"
+
+#: shell/pps-document-view.ui:615
+msgid "Abort Printing?"
+msgstr "გავაუქმო ბეჭდვა?"
+
+#: shell/pps-document-view.ui:616
+msgid ""
+"There is one or more active print jobs. If the window is closed, pending "
+"print jobs will not be printed."
+msgstr ""
+"აღმოჩენილია ერთი ან მეტი აქტიური ბეჭდვის დავალება. თუ ფანჯარას დახურავთ, "
+"რიგში მყოფი ბეჭდვის დავალებები არ შესრულდება."
+
+#: shell/pps-document-view.ui:619
+msgid "Abort _Print and Close"
+msgstr "_დაბეჭდვის გაუქმება და დახურვა"
+
+#: shell/pps-document-view.ui:621
+msgid "Close _After Printing"
+msgstr "_დახურვა დაბეჭდვის შემდეგ"
+
+#: shell/pps-document-view.ui:635
+msgid "Open"
+msgstr "გახსნა"
+
+#: shell/pps-document-view.ui:641
+msgid "Ni_ght Mode"
+msgstr "_ღამის რეჟიმი"
+
+#: shell/pps-document-view.ui:647
+msgid "_Keyboard Shortcuts"
+msgstr "_კლავიატურის მალსახმობები"
+
+#: shell/pps-document-view.ui:651
+msgid "_Help"
+msgstr "_დახმარება"
+
+#: shell/pps-document-view.ui:655
+msgid "_About Papers"
+msgstr "Papers-ის _შესახებ"
+
+#: shell/pps-document-view.ui:663
+msgid "_Print…"
+msgstr "ბეჭდვა…"
+
+#: shell/pps-document-view.ui:667
+msgid "Fullscreen"
+msgstr "მთელს ეკრანზე"
+
+#: shell/pps-document-view.ui:671
+msgid "Present as Slideshow"
+msgstr "სლაიდშოუს სახით ჩვენება"
+
+#: shell/pps-document-view.ui:677
+msgid "Open a C_opy"
+msgstr "_ასლის გახსნა"
+
+#: shell/pps-document-view.ui:681
+msgid "Open With…"
+msgstr "გამხსნელი პროგრამა…"
+
+#: shell/pps-document-view.ui:685
+msgid "_Save As…"
+msgstr "_შენახვა, როგორც…"
+
+#: shell/pps-document-view.ui:691
+msgid "_Continuous"
+msgstr "უწყვეტი"
+
+#: shell/pps-document-view.ui:695
+msgid "_Dual"
+msgstr "_ორმაგი"
+
+#: shell/pps-document-view.ui:699
+msgid "_Odd Pages Left"
+msgstr "_კენტი გვერდები მარცხნივ"
+
+#: shell/pps-document-view.ui:703
+msgid "Right to Left Document"
+msgstr "დოკუმენტი იწერება მარჯვნიდან მარცხნივ"
+
+#: shell/pps-document-view.ui:709
+msgid "Ro_tate ⤵"
+msgstr "_მობრუნება ⤵"
+
+#: shell/pps-document-view.ui:715
+msgid "Document Prop_erties"
+msgstr "_დოკუმენტის თვისებები"
+
+#: shell/pps-document-view.ui:724
+msgid "_Open Link"
+msgstr "_ბმულის გახსნა"
+
+#: shell/pps-document-view.ui:729
+msgid "_Copy Link Address"
+msgstr "დაა_კოპირე ბმულის მისამართი"
+
+#: shell/pps-document-view.ui:734
+msgid "_Go To"
+msgstr "_გადასვლა"
+
+#: shell/pps-document-view.ui:739
+msgid "Open in New _Window"
+msgstr "ახალ ფან_ჯარაში გახსნა"
+
+#: shell/pps-document-view.ui:746
+msgid "_Previous Page"
+msgstr "_წინა გვერდი"
+
+#: shell/pps-document-view.ui:750
+msgid "_Next Page"
+msgstr "_შემდეგი გვერდი"
+
+#: shell/pps-document-view.ui:756
+msgid "_Copy"
+msgstr "_კოპირება"
+
+#: shell/pps-document-view.ui:760
+msgid "Select _All"
+msgstr "მონიშნე _ყველა"
+
+#: shell/pps-document-view.ui:766
+msgid "_Save Image As…"
+msgstr "_გამოსახულების შენახვა, როგორც…"
+
+#: shell/pps-document-view.ui:771
+msgid "Copy _Image"
+msgstr "გამოსახულების _კოპირება"
+
+#: shell/pps-document-view.ui:778 shell/pps-document-view.ui:815
+#: shell/pps-sidebar-annotations.ui:85
+msgid "_Open Attachment"
+msgstr "_მიმაგრებული ფაილის გახსნა"
+
+#: shell/pps-document-view.ui:783 shell/pps-document-view.ui:819
+#: shell/pps-sidebar-annotations.ui:90
+msgid "_Save Attachment As…"
+msgstr "_მიმაგრებული ფაილის გახსნა, როგორც…"
+
+#: shell/pps-document-view.ui:790
+msgid "Annotation _Properties…"
+msgstr "ანოტაციის _თვისებები…"
+
+#: shell/pps-document-view.ui:795
+msgid "R_emove Annotation"
+msgstr "_ანოტაციის წაშლა"
+
+#: shell/pps-document-view.ui:802
+msgid "_Add Text Annotation"
+msgstr "_ტექსტის ანოტაციის დამატება"
+
+#: shell/pps-document-view.ui:807
+msgid "_Highlight Selected Text"
+msgstr "_მონიშნული ტექსტის გამოკვეთა"
+
+#: shell/pps-find-sidebar.ui:69
 msgid "No Results Found"
 msgstr "შედეგების გარეშე"
 
-#: shell/pps-find-sidebar.ui:71
+#: shell/pps-find-sidebar.ui:70
 msgid "Try a different search"
 msgstr "სცადეთ, სხვანაირად მოძებნოთ"
 
-#: shell/pps-find-sidebar.ui:85
+#: shell/pps-find-sidebar.ui:84
 msgid "Perform a Search"
 msgstr "ძებნის შესრულება"
 
-#: shell/pps-find-sidebar.ui:86
+#: shell/pps-find-sidebar.ui:85
 msgid "The search results will appear here"
 msgstr "ძებნის შედეგები აქ გამოჩნდება"
 
@@ -1314,10 +1650,6 @@ msgstr "“%s” დოკუმენტის პაროლი"
 #: shell/pps-loader-view.ui:18
 msgid "Loading Document"
 msgstr "დოკუმენტის ჩატვირთვა"
-
-#: shell/pps-loader-view.ui:45 shell/pps-window.c:2859
-msgid "C_ancel"
-msgstr "_გაუქმება"
 
 #: shell/pps-password-dialog.ui:4 shell/pps-password-view.ui:10
 #: shell/pps-password-view.ui:19
@@ -1413,16 +1745,6 @@ msgstr "ანოტაციების გარეშე"
 msgid "Remove Annotation"
 msgstr "ანოტაციის წაშლა"
 
-#: shell/pps-sidebar-annotations.ui:85 shell/pps-window.ui:824
-#: shell/pps-window.ui:861
-msgid "_Open Attachment"
-msgstr "_მიმაგრებული ფაილის გახსნა"
-
-#: shell/pps-sidebar-annotations.ui:90 shell/pps-window.ui:829
-#: shell/pps-window.ui:865
-msgid "_Save Attachment As…"
-msgstr "_მიმაგრებული ფაილის გახსნა, როგორც…"
-
 #: shell/pps-sidebar-bookmarks.ui:63
 msgid "Add Bookmark"
 msgstr "სანიშნეს დამატება"
@@ -1463,424 +1785,71 @@ msgstr "ამ სექციის დაბეჭდვა…"
 msgid "Previews"
 msgstr "მინიატურები"
 
-#: shell/pps-window.c:597
-msgid "View Details"
-msgstr "დეტალების ნახვა"
-
-#: shell/pps-window.c:1389
-msgid "The document contains no pages"
-msgstr "დოკუმენტი გვერდებს არ შეიცავს"
-
-#: shell/pps-window.c:1392
-msgid "The document contains only empty pages"
-msgstr "დოკუმენტი მხოლოდ ცარიელ გვერდებს შეიცავს"
-
-#: shell/pps-window.c:1687
-#, c-format
-msgid "Unable to open document “%s”."
-msgstr "დოკუჯმენტის გახსნის შეცდომა: %s."
-
-#: shell/pps-window.c:1828
-msgid "Failed to load remote file."
-msgstr "დაშორებული ფაილის ჩატვირთვის შეცდომა."
-
-#: shell/pps-window.c:2063
-msgid "Failed to reload document."
-msgstr "დოკუმენტის თავიდან ჩატვირთვის შეცდომა."
-
-#: shell/pps-window.c:2333
-msgid "File Saved"
-msgstr "ფაილი შენახულია"
-
-#: shell/pps-window.c:2343 shell/pps-window.c:2395
-#, c-format
-msgid "The file could not be saved as “%s”."
-msgstr "ფაილი ვერ ინახება სახელით “%s”."
-
-#: shell/pps-window.c:2457
-msgid "Save As…"
-msgstr "შენახვა, როგორც…"
-
-#: shell/pps-window.c:2763
-#, c-format
-msgid "%d pending job in queue"
-msgid_plural "%d pending jobs in queue"
-msgstr[0] "რიგში დარჩენილია %d ამოცანა"
-
-#: shell/pps-window.c:2802
-msgid "Failed to Print Document"
-msgstr "დოკუმენტის დაბეჭდვა ჩავარდა"
-
-#: shell/pps-window.c:2856
-#, c-format
-msgid "Printing job “%s”"
-msgstr "ამოცანის დაბეჭდვა (%s)"
-
-#: shell/pps-window.c:3055
-msgid "Document contains form fields that have been filled out."
-msgstr "დოკუმენტი შეიცავს შევსებულ ფორმის ველებს."
-
-#: shell/pps-window.c:3058
-msgid "Document contains new or modified annotations."
-msgstr "დოკუმენტი ახალ ან შეცვლილ ანოტაციებს შეიცავს."
-
-#: shell/pps-window.c:3066
-msgid "File Changed Outside Papers. Reload Document?"
-msgstr "ფაილი Papers-ის გარეთ შეიცვალა. ჩავტვირთო დოკუმენტი თავიდან?"
-
-#: shell/pps-window.c:3067
-msgid "If you reload the document, changes will be permanently lost."
-msgstr "თუ დოკუმენტს თავიდან ჩატვირთავთ, ცვლილებები სამუდამოდ დაიკარგება."
-
-#: shell/pps-window.c:3070
-msgid "_No"
-msgstr "არა"
-
-#: shell/pps-window.c:3071
-msgid "_Reload"
-msgstr "_გადატვირთვა"
-
-#: shell/pps-window.c:3079
-msgid "Save Changes to a Copy?"
-msgstr "შევინახო ცვლილებები ასლში?"
-
-#: shell/pps-window.c:3080
-msgid "If you don’t save a copy, changes will be permanently lost."
-msgstr "თუ ასლს არ შეინახავთ, ცვლილებები სამუდამოდ დაიკარგება."
-
-#: shell/pps-window.c:3083
-msgid "Close _Without Saving"
-msgstr "დახურვა _შენახვის გარეშე"
-
-#: shell/pps-window.c:3084 shell/pps-window.ui:654 shell/pps-window.ui:666
-msgid "_Cancel"
-msgstr "_გაუქმება"
-
-#: shell/pps-window.c:3085
-msgid "_Save a Copy"
-msgstr "ა_სლის შენახვა"
-
-#: shell/pps-window.c:4200
-msgid "Search"
-msgstr "ძებნა"
-
-#: shell/pps-window.c:4204
-msgid "Search Unavailable"
-msgstr "ძებნა ხელმიუწვდომელია"
-
-#: shell/pps-window.c:4412
-msgid "The attachment could not be saved."
-msgstr "შეუძლებელია დანართის დამახსოვრება."
-
-#: shell/pps-window.c:4994
-#, c-format
-msgid ""
-"Security alert: this document has been prevented from opening the file “%s”"
-msgstr "უსაფრთხოების გაფრთხილება: ამ დოკუმენტს აეკრძალა, გაეხსნა ფაილი \"%s\""
-
-#: shell/pps-window.c:5056
-msgid "Unable to open external link"
-msgstr "გარე ბმულის გახსნის შეცდომა"
-
-#: shell/pps-window.c:5280
-msgid "Couldn’t find appropriate format to save image"
-msgstr "გამოსახულების შესანახად შესაბამისი ფორმატის პოვნა შეუძლებელია"
-
-#: shell/pps-window.c:5310
-msgid "The image could not be saved."
-msgstr "გამოსახულების შენახვის შეცდომა."
-
-#: shell/pps-window.c:5346
-msgid "Save Image"
-msgstr "გამოსახულების შენახვა"
-
-#: shell/pps-window.c:5517
-msgid "Unable to open attachment"
-msgstr "შეუძლებელია დანართის გახსნა"
-
-#: shell/pps-window.c:5581
-msgid "Save Attachment"
-msgstr "მიმაგრებული ფაილის შენახვა"
-
-#: shell/pps-window.ui:69 shell/pps-window.ui:77
+#: shell/pps-window.ui:38 shell/pps-window.ui:46
 msgid "Open a Document"
 msgstr "დოკუმენტის გახსნა"
 
-#: shell/pps-window.ui:70
+#: shell/pps-window.ui:39
 msgid "Drag and drop documents here"
 msgstr "გადმოათრიეთ და დაყარეთ დოკუმენტები აქ"
 
-#: shell/pps-window.ui:75
+#: shell/pps-window.ui:44
 msgid "_Open…"
 msgstr "გახსნა…"
 
-#: shell/pps-window.ui:101
+#: shell/pps-window.ui:70
 msgid "Unable to Open Document"
 msgstr "დოკუმენტის გახსნა შეუძლებელია"
 
-#: shell/pps-window.ui:106
+#: shell/pps-window.ui:75
 msgid "_Open Other File…"
 msgstr "_სხვა ფაილის გახსნა…"
 
-#: shell/pps-window.ui:123
-msgid "Document"
-msgstr "დოკუმენტი"
-
-#: shell/pps-window.ui:150
-msgid "Main Menu"
-msgstr "მთავარი მენიუ"
-
-#: shell/pps-window.ui:171
-msgid "Thumbnails"
-msgstr "ესკიზები"
-
-#: shell/pps-window.ui:184
-msgid "Outline"
-msgstr "კონტური"
-
-#: shell/pps-window.ui:199
-msgid "Annotations"
-msgstr "ანოტაციები"
-
-#: shell/pps-window.ui:214
-msgid "Bookmarks"
-msgstr "სანიშნები"
-
-#: shell/pps-window.ui:228
-msgid "Attachments"
-msgstr "დანართი"
-
-#: shell/pps-window.ui:244
-msgid "Layers"
-msgstr "ფენები"
-
-#: shell/pps-window.ui:284
-msgid "Toggle Sidebar"
-msgstr "გვერდითი პანელის ჩვენების ჩართ/გამორთ"
-
-#: shell/pps-window.ui:290
-msgid "Document Menu"
-msgstr "დოკუმენტის მენიუ"
-
-#: shell/pps-window.ui:338
-msgid "Fit Automatically"
-msgstr "ავტომატური ჩატევა"
-
-#: shell/pps-window.ui:430
-msgid "Loading…"
-msgstr "ჩატვირთვა…"
-
-#: shell/pps-window.ui:645
-msgid "Enable Caret Navigation?"
-msgstr "ჩავრთო კარეტით ნავიგაცია?"
-
-#: shell/pps-window.ui:646
-msgid ""
-"Pressing F7 turns the caret navigation on or off. This feature places a "
-"moveable cursor in text pages, allowing you to move around and select text "
-"with your keyboard."
-msgstr ""
-"F7-ის დაწოლა ჩართავს ან გამორთავს კარეტით ნავიგაციას. ეს ფუნქცია ტექსტურ "
-"გვერდებზე მოძრავ კურსორს სვამს, რითიც საშუალებას გაძლევთ, ვებგვერდზე "
-"კლავიატურით იმოძრაოთ და ტექსტი მონიშნოთ."
-
-#: shell/pps-window.ui:649
-msgid "Don’t show this message again"
-msgstr "მეტჯერ აღარ მაჩვენო ეს გაფრთხილება"
-
-#: shell/pps-window.ui:655
-msgid "_Enable"
-msgstr "_ჩართვა"
-
-#: shell/pps-window.ui:661
-msgid "Abort Printing?"
-msgstr "გავაუქმო ბეჭდვა?"
-
-#: shell/pps-window.ui:662
-msgid ""
-"There is one or more active print jobs. If the window is closed, pending "
-"print jobs will not be printed."
-msgstr ""
-"აღმოჩენილია ერთი ან მეტი აქტიური ბეჭდვის დავალება. თუ ფანჯარას დახურავთ, "
-"რიგში მყოფი ბეჭდვის დავალებები არ შესრულდება."
-
-#: shell/pps-window.ui:665
-msgid "Abort _Print and Close"
-msgstr "_დაბეჭდვის გაუქმება და დახურვა"
-
-#: shell/pps-window.ui:667
-msgid "Close _After Printing"
-msgstr "_დახურვა დაბეჭდვის შემდეგ"
-
-#: shell/pps-window.ui:681
-msgid "Open"
-msgstr "გახსნა"
-
-#: shell/pps-window.ui:687
-msgid "Ni_ght Mode"
-msgstr "_ღამის რეჟიმი"
-
-#: shell/pps-window.ui:693
-msgid "_Keyboard Shortcuts"
-msgstr "_კლავიატურის მალსახმობები"
-
-#: shell/pps-window.ui:697
-msgid "_Help"
-msgstr "_დახმარება"
-
-#: shell/pps-window.ui:701
-msgid "_About Papers"
-msgstr "Papers-ის _შესახებ"
-
-#: shell/pps-window.ui:709
-msgid "_Print…"
-msgstr "ბეჭდვა…"
-
-#: shell/pps-window.ui:713
-msgid "Fullscreen"
-msgstr "მთელს ეკრანზე"
-
-#: shell/pps-window.ui:717
-msgid "Present as Slideshow"
-msgstr "სლაიდშოუს სახით ჩვენება"
-
-#: shell/pps-window.ui:723
-msgid "Open a C_opy"
-msgstr "_ასლის გახსნა"
-
-#: shell/pps-window.ui:727
-msgid "Open With…"
-msgstr "გამხსნელი პროგრამა…"
-
-#: shell/pps-window.ui:731
-msgid "_Save As…"
-msgstr "_შენახვა, როგორც…"
-
-#: shell/pps-window.ui:737
-msgid "_Continuous"
-msgstr "უწყვეტი"
-
-#: shell/pps-window.ui:741
-msgid "_Dual"
-msgstr "_ორმაგი"
-
-#: shell/pps-window.ui:745
-msgid "_Odd Pages Left"
-msgstr "_კენტი გვერდები მარცხნივ"
-
-#: shell/pps-window.ui:749
-msgid "Right to Left Document"
-msgstr "დოკუმენტი იწერება მარჯვნიდან მარცხნივ"
-
-#: shell/pps-window.ui:755
-msgid "Ro_tate ⤵"
-msgstr "_მობრუნება ⤵"
-
-#: shell/pps-window.ui:761
-msgid "Document Prop_erties"
-msgstr "_დოკუმენტის თვისებები"
-
-#: shell/pps-window.ui:770
-msgid "_Open Link"
-msgstr "_ბმულის გახსნა"
-
-#: shell/pps-window.ui:775
-msgid "_Copy Link Address"
-msgstr "დაა_კოპირე ბმულის მისამართი"
-
-#: shell/pps-window.ui:780
-msgid "_Go To"
-msgstr "_გადასვლა"
-
-#: shell/pps-window.ui:785
-msgid "Open in New _Window"
-msgstr "ახალ ფან_ჯარაში გახსნა"
-
-#: shell/pps-window.ui:792
-msgid "_Previous Page"
-msgstr "_წინა გვერდი"
-
-#: shell/pps-window.ui:796
-msgid "_Next Page"
-msgstr "_შემდეგი გვერდი"
-
-#: shell/pps-window.ui:802
-msgid "_Copy"
-msgstr "_კოპირება"
-
-#: shell/pps-window.ui:806
-msgid "Select _All"
-msgstr "მონიშნე _ყველა"
-
-#: shell/pps-window.ui:812
-msgid "_Save Image As…"
-msgstr "_გამოსახულების შენახვა, როგორც…"
-
-#: shell/pps-window.ui:817
-msgid "Copy _Image"
-msgstr "გამოსახულების _კოპირება"
-
-#: shell/pps-window.ui:836
-msgid "Annotation _Properties…"
-msgstr "ანოტაციის _თვისებები…"
-
-#: shell/pps-window.ui:841
-msgid "R_emove Annotation"
-msgstr "_ანოტაციის წაშლა"
-
-#: shell/pps-window.ui:848
-msgid "_Add Text Annotation"
-msgstr "_ტექსტის ანოტაციის დამატება"
-
-#: shell/pps-window.ui:853
-msgid "_Highlight Selected Text"
-msgstr "_მონიშნული ტექსტის გამოკვეთა"
-
-#: shell-rs/src/application.rs:219
+#: shell-rs/src/application.rs:224
 msgid "© 1996–2024 The Papers authors"
 msgstr "© 1996–2024 Paper-ის ავტორები"
 
-#: shell-rs/src/application.rs:220
+#: shell-rs/src/application.rs:225
 msgid "translator-credits"
 msgstr "თემური დოღონაძე"
 
-#: shell-rs/src/application.rs:316
+#: shell-rs/src/application.rs:320
 msgid "The page label of the document to display."
 msgstr "საჩვენებელი დოკუმენტის გვერდის ჭდე."
 
-#: shell-rs/src/application.rs:317
+#: shell-rs/src/application.rs:321
 msgid "PAGE"
 msgstr "გვერდი"
 
-#: shell-rs/src/application.rs:325
+#: shell-rs/src/application.rs:329
 msgid "The page number of the document to display."
 msgstr "საჩვენებელი დოკუმენტის გვერდის ნომერი."
 
-#: shell-rs/src/application.rs:326
+#: shell-rs/src/application.rs:330
 msgid "NUMBER"
 msgstr "რიცხვი"
 
-#: shell-rs/src/application.rs:334
+#: shell-rs/src/application.rs:338
 msgid "Named destination to display."
 msgstr "საჩვენებელი სამიზნე."
 
-#: shell-rs/src/application.rs:335
+#: shell-rs/src/application.rs:339
 msgid "DEST"
 msgstr "DEST"
 
-#: shell-rs/src/application.rs:343
+#: shell-rs/src/application.rs:347
 msgid "Run papers in fullscreen mode."
 msgstr "Papers-ის გაშვება სრულეკრანიან რეჟიმში."
 
-#: shell-rs/src/application.rs:352
+#: shell-rs/src/application.rs:356
 msgid "Run papers in presentation mode."
 msgstr "Papers-ის გაშვება პრეზენტაციის რეჟიმში."
 
-#: shell-rs/src/application.rs:361
+#: shell-rs/src/application.rs:365
 msgid "Show the version of the program."
 msgstr "პროგრამის ვერსიის ჩვენება."
 
-#: shell-rs/src/application.rs:371
+#: shell-rs/src/application.rs:375
 msgid "[FILE…]"
 msgstr "[ფაილი...]"
 
@@ -1889,11 +1858,11 @@ msgid "Page {}"
 msgstr "გვერდი {}"
 
 #  (%d %d-დან)
-#: shell-rs/src/page_selector.rs:220 shell-rs/src/page_selector.rs:238
+#: shell-rs/src/page_selector.rs:226 shell-rs/src/page_selector.rs:244
 msgid "({} of {})"
 msgstr "({} / {}-დან)"
 
-#: shell-rs/src/page_selector.rs:222 shell-rs/src/page_selector.rs:240
+#: shell-rs/src/page_selector.rs:228 shell-rs/src/page_selector.rs:246
 msgid "of {}"
 msgstr "{}-დან"
 
@@ -1910,13 +1879,52 @@ msgstr "ფაილი"
 msgid "Folder"
 msgstr "საქაღალდე"
 
-#: shell-rs/src/properties_general.rs:127
+#: shell-rs/src/properties_general.rs:140
 msgid "Content"
 msgstr "შემცველობა"
 
-#: shell-rs/src/properties_general.rs:139
+#: shell-rs/src/properties_general.rs:152
 msgid "Date &amp; Time"
 msgstr "თარიღი &amp; დრო"
+
+#: shell-rs/src/window.rs:266
+msgid ""
+"Document contains new or modified annotations and form fields that have been "
+"filled out."
+msgstr ""
+"დოკუმენტი შეიცავს ახალ ან შეცვლილ ანოტაციებს და ფორმის ველებს, რომლებიც "
+"შევსებულია."
+
+#: shell-rs/src/window.rs:278
+msgid "If you reload the document, changes will be permanently lost."
+msgstr "თუ დოკუმენტს თავიდან ჩატვირთავთ, ცვლილებები სამუდამოდ დაიკარგება."
+
+#: shell-rs/src/window.rs:279
+msgid "File changed outside Papers. Reload document?"
+msgstr "ფაილი Papers-ის გარეთ შეიცვალა. ჩავტვირთო დოკუმენტი თავიდან?"
+
+#: shell-rs/src/window.rs:287
+msgid "_No"
+msgstr "არა"
+
+#: shell-rs/src/window.rs:287
+msgid "_Reload"
+msgstr "_გადატვირთვა"
+
+#: shell-rs/src/window.rs:570
+msgid "Failed to Load Remote File."
+msgstr "დაშორებული ფაილის ჩატვირთვის შეცდომა."
+
+#: shell-rs/src/window.rs:741
+msgid "Failed to Reload Document."
+msgstr "დოკუმენტის თავიდან ჩატვირთვის შეცდომა."
+
+#, c-format
+#~ msgid "Unable to open document “%s”."
+#~ msgstr "დოკუჯმენტის გახსნის შეცდომა: %s."
+
+#~ msgid "Document"
+#~ msgstr "დოკუმენტი"
 
 #, c-format
 #~ msgid "Page %d"
