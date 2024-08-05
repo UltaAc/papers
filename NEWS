@@ -1,3 +1,32 @@
+Papers 47.beta
+---------------
+
+Papers has seem mostly changes in the libraries and refactorings since 47.alpha
+For packagers:
+
+* We now require libadwaita 1.6.beta and GTK 4.15.2
+* We have changed the flatpak permissions to read local files. This is necessary
+to reload the document on changes regardless of the sandbox type in use
+* The "introspection" configure option is now a feature instead of a boolean
+* The "gtk_doc" configure option has been renamed to "documentation"
+
+Other changes we can highlight:
+
+libppsview:
+* The gesture management of the document view has been heavily refactored.
+Previously, the gesture tracking was done manually, while we are now heavily
+relying on GTK4's gesture handling. This makes the experience on touchscreens
+a lot more polished
+* Drag and dropping into the view is no longer supported
+
+shell:
+* The Escape key now works with most dialogs
+* Implement modern mockups for the annotations sidebar
+* Implement changing color of highlight annotation on creation
+* Modify default yellow color for annotations
+* Use AdwSpinner instead of GtkSpinner where appropriate
+
+
 Papers 47.alpha
 ---------------
 
