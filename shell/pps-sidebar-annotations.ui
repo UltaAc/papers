@@ -38,8 +38,8 @@
                         <property name="hexpand">True</property>
                         <property name="factory">
                           <object class="GtkSignalListItemFactory" id="factory">
-                            <signal name="setup" handler="factory_setup_cb" />
-                            <signal name="bind" handler="factory_bind_cb" />
+                            <signal name="setup" handler="list_view_factory_setup" swapped="yes" />
+                            <signal name="bind" handler="list_view_factory_bind" swapped="yes" />
                           </object>
                         </property>
                         <property name="model">

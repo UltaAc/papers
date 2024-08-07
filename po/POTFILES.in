@@ -55,7 +55,6 @@ shell/pps-properties-fonts.ui
 shell/pps-properties-license.ui
 shell/pps-properties-window.ui
 shell/pps-search-box.ui
-shell/pps-sidebar-annotations.c
 shell/pps-sidebar-annotations.ui
 shell/pps-sidebar-bookmarks.c
 shell/pps-sidebar-bookmarks.ui
@@ -73,6 +72,7 @@ shell-rs/src/properties_fonts.rs
 shell-rs/src/properties_general.rs
 shell-rs/src/properties_license.rs
 shell-rs/src/properties_window.rs
+shell-rs/src/sidebar_annotations.rs
 shell-rs/src/sidebar_annotations_row.rs
 shell-rs/src/sidebar_attachments.rs
 shell-rs/src/sidebar_layers.rs

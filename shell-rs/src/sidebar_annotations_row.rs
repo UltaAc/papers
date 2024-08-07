@@ -242,7 +242,7 @@ glib::wrapper! {
 }
 
 impl PpsSidebarAnnotationsRow {
-    fn new() -> Self {
+    pub fn new() -> Self {
         glib::Object::builder().build()
     }
 }

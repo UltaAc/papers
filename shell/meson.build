@@ -6,7 +6,6 @@ papers_sources = files(
   'pps-utils.c',
   'pps-document-view.c',
   'pps-window-title.c',
-  'pps-sidebar-annotations.c',
   'pps-sidebar-bookmarks.c',
   'pps-sidebar-page.c',
 )
@@ -79,7 +78,6 @@ headers = files(
   'pps-sidebar-page.h',
   'pps-utils.h',
   'pps-find-sidebar.h',
-  'pps-sidebar-annotations.h',
   'pps-progress-message-area.h',
   'pps-message-area.h',
   'pps-keyring.h',

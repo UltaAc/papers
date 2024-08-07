@@ -20,6 +20,7 @@ mod properties_license;
 mod properties_window;
 mod search_box;
 mod sidebar;
+mod sidebar_annotations;
 mod sidebar_annotations_row;
 mod sidebar_attachments;
 mod sidebar_layers;
@@ -45,6 +46,7 @@ fn ensure_type() {
     search_box::PpsSearchBox::ensure_type();
     sidebar::PpsSidebar::ensure_type();
     sidebar_attachments::PpsSidebarAttachments::ensure_type();
+    sidebar_annotations::PpsSidebarAnnotations::ensure_type();
     sidebar_annotations_row::PpsSidebarAnnotationsRow::ensure_type();
     sidebar_layers::PpsSidebarLayers::ensure_type();
     sidebar_links::PpsSidebarLinks::ensure_type();

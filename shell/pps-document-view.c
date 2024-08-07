@@ -43,7 +43,6 @@
 
 #include "pps-find-sidebar.h"
 #include "pps-message-area.h"
-#include "pps-sidebar-annotations.h"
 #include "pps-sidebar-bookmarks.h"
 #include "pps-utils.h"
 #include "pps-view-presentation.h"
@@ -3369,7 +3368,7 @@ sidebar_layers_visibility_changed (GObject          *layers,
 }
 
 static void
-sidebar_annots_annot_activated_cb (PpsSidebarAnnotations *sidebar_annots,
+sidebar_annots_annot_activated_cb (GObject               *sidebar_annots,
 				   PpsMapping            *annot_mapping,
 				   PpsDocumentView             *window)
 {
@@ -3385,8 +3384,10 @@ view_annot_added (PpsView       *view,
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
-	pps_sidebar_annotations_annot_added (PPS_SIDEBAR_ANNOTATIONS (priv->sidebar_annots),
-					    annot);
+	/* FIXME: We use a indirect way to call a method to rust object.
+	 *        We should use a method after rust port of PpsWindow.
+	 */
+	g_signal_emit_by_name (priv->sidebar_annots, "annot-added", NULL);
 }
 
 static void
@@ -3396,7 +3397,10 @@ view_annot_removed (PpsView       *view,
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
-	pps_sidebar_annotations_annot_removed (PPS_SIDEBAR_ANNOTATIONS (priv->sidebar_annots));
+	/* FIXME: We use a indirect way to call a method to rust object.
+	 *        We should use a method after rust port of PpsWindow.
+	 */
+	g_signal_emit_by_name (priv->sidebar_annots, "annot-removed", NULL);
 }
 
 static gchar *
@@ -4030,7 +4034,6 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 	g_type_ensure (PPS_TYPE_VIEW);
 	g_type_ensure (PPS_TYPE_FIND_SIDEBAR);
 	g_type_ensure (PPS_TYPE_SIDEBAR_BOOKMARKS);
-	g_type_ensure (PPS_TYPE_SIDEBAR_ANNOTATIONS);
 	gtk_widget_init_template (GTK_WIDGET (pps_doc_view));
 
 	priv->sidebar_was_open_before_find = TRUE;
