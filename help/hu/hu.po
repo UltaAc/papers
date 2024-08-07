@@ -1,23 +1,23 @@
-# Hungarian translation for evince_help.
-# Copyright (C) 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023 Free Software Foundation, Inc.
-# This file is distributed under the same license as the evince help.
+# Hungarian translation for papers_help.
+# Copyright (C) 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023, 2024 Free Software Foundation, Inc.
+# This file is distributed under the same license as the papers help.
 #
 # Attila Hammer <hammera at pickup dot hu>, 2014.
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2019.
-# Balázs Úr <ur.balazs at fsf dot hu>, 2014, 2018, 2019, 2021, 2022, 2023.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2014, 2018, 2019, 2021, 2022, 2023, 2024.
 # Balázs Meskó <mesko.balazs at fsf dot hu>, 2021.
 msgid ""
 msgstr ""
-"Project-Id-Version: evince master\n"
-"POT-Creation-Date: 2023-09-15 00:54+0000\n"
-"PO-Revision-Date: 2023-09-19 20:56+0200\n"
+"Project-Id-Version: papers master\n"
+"POT-Creation-Date: 2024-07-26 12:01+0000\n"
+"PO-Revision-Date: 2024-08-07 23:18+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 23.08.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
@@ -26,21 +26,20 @@ msgid "translator-credits"
 msgstr ""
 "Hammer Attila <hammera at pickup dot hu>, 2014.\n"
 "Kelemen Gábor <kelemeng at gnome dot hu>, 2011, 2012, 2013, 2014, 2015.\n"
-"Úr Balázs <ur.balazs at fsf dot hu>, 2019, 2021, 2022, 2023."
+"Úr Balázs <ur.balazs at fsf dot hu>, 2019, 2021, 2022, 2023, 2024."
 
 #. (itstool) path: info/desc
-#: C/synctex-beamer.page:7
-msgid "Using SyncTeX with the LaTeX Beamer class."
-msgstr "A SyncTeX használata a LaTeX Beamer osztállyal."
+#: C/openerror.page:7
+msgid "Error When Opening A File."
+msgstr "Hiba fájl megnyitásakor."
 
 #. (itstool) path: credit/name
-#: C/synctex-beamer.page:11 C/openerror.page:13 C/duplex-7pages.page:12
-#: C/duplex-4pages.page:12 C/introduction.page:12 C/duplex-12pages.page:12
-#: C/singlesided-3-4pages.page:12 C/synctex.page:12 C/annotations-save.page:12
-#: C/documentation.page:9 C/synctex-editors.page:11 C/opening.page:15
-#: C/singlesided-17-20pages.page:12 C/singlesided-npages.page:12
-#: C/synctex-support.page:12 C/duplex-npages.page:12 C/duplex-16pages.page:12
-#: C/translate.page:10 C/synctex-compile.page:11 C/duplex-5pages.page:12
+#: C/openerror.page:13 C/duplex-7pages.page:12 C/duplex-4pages.page:12
+#: C/introduction.page:12 C/duplex-12pages.page:12
+#: C/singlesided-3-4pages.page:12 C/annotations-save.page:12
+#: C/documentation.page:9 C/opening.page:15 C/singlesided-17-20pages.page:12
+#: C/singlesided-npages.page:12 C/duplex-npages.page:12
+#: C/duplex-16pages.page:12 C/translate.page:10 C/duplex-5pages.page:12
 #: C/duplex-15pages.page:12 C/singlesided-13-16pages.page:12 C/develop.page:10
 #: C/singlesided-9-12pages.page:12 C/duplex-14pages.page:12
 #: C/duplex-13pages.page:12 C/headerbar.page:14 C/annotations-navigate.page:12
@@ -50,22 +49,19 @@ msgstr "A SyncTeX használata a LaTeX Beamer osztállyal."
 #: C/annotation-properties.page:11 C/duplex-11pages.page:12
 #: C/commandline.page:16 C/annotations.page:13 C/annotations-disabled.page:11
 #: C/duplex-3pages.page:12 C/index.page:18 C/bookmarks.page:14 C/forms.page:11
-#: C/synctex-search.page:11
 msgid "Tiffany Antopolski"
 msgstr "Tiffany Antopolski"
 
 #. (itstool) path: license/p
-#: C/synctex-beamer.page:15 C/openerror.page:17 C/duplex-7pages.page:16
-#: C/convertSVG.page:20 C/convertPostScript.page:21 C/duplex-4pages.page:16
-#: C/duplex-12pages.page:16 C/singlesided-3-4pages.page:16 C/synctex.page:16
-#: C/annotations-save.page:20 C/documentation.page:14 C/synctex-editors.page:15
-#: C/noprint.page:18 C/singlesided-17-20pages.page:16
-#: C/singlesided-npages.page:16 C/synctex-support.page:20
-#: C/duplex-npages.page:16 C/duplex-16pages.page:16 C/translate.page:19
-#: C/default-settings.page:16 C/textselection.page:15 C/synctex-compile.page:15
-#: C/duplex-5pages.page:16 C/formats.page:22 C/duplex-15pages.page:16
-#: C/singlesided-13-16pages.page:16 C/develop.page:15 C/printing.page:22
-#: C/singlesided-9-12pages.page:16 C/duplex-14pages.page:16
+#: C/openerror.page:17 C/duplex-7pages.page:16 C/convertSVG.page:20
+#: C/convertPostScript.page:21 C/duplex-4pages.page:16 C/duplex-12pages.page:16
+#: C/singlesided-3-4pages.page:16 C/annotations-save.page:20
+#: C/documentation.page:14 C/noprint.page:18 C/singlesided-17-20pages.page:16
+#: C/singlesided-npages.page:16 C/duplex-npages.page:16
+#: C/duplex-16pages.page:16 C/translate.page:19 C/default-settings.page:16
+#: C/textselection.page:15 C/duplex-5pages.page:16 C/formats.page:22
+#: C/duplex-15pages.page:16 C/singlesided-13-16pages.page:16 C/develop.page:15
+#: C/printing.page:22 C/singlesided-9-12pages.page:16 C/duplex-14pages.page:16
 #: C/duplex-13pages.page:16 C/headerbar.page:18 C/annotations-navigate.page:16
 #: C/duplex-10pages.page:16 C/duplex-6pages.page:16 C/print-order.page:16
 #: C/duplex-9pages.page:16 C/singlesided-5-8pages.page:16
@@ -75,94 +71,9 @@ msgstr "Tiffany Antopolski"
 #: C/duplex-11pages.page:16 C/commandline.page:20 C/annotations.page:21
 #: C/annotations-disabled.page:15 C/duplex-3pages.page:16 C/bookmarks.page:23
 #: C/print-2sided.page:16 C/convertpdf.page:21 C/invert-colors.page:24
-#: C/forms.page:15 C/synctex-search.page:15
+#: C/forms.page:15
 msgid "Creative Commons Share Alike 3.0"
 msgstr "Creative Commons – Így add tovább! 3.0"
-
-#. (itstool) path: page/title
-#: C/synctex-beamer.page:19
-msgid "Beamer with SyncTeX"
-msgstr "Beamer és SyncTeX"
-
-#. (itstool) path: page/p
-#: C/synctex-beamer.page:20
-msgid "Beamer is a LaTeX class for creating slides for presentations."
-msgstr "A Beamer egy LaTeX osztály diák készítéséhez bemutatókhoz."
-
-#. (itstool) path: page/p
-#: C/synctex-beamer.page:23
-msgid ""
-"You can perform forward and backward search in a <em>Beamer-LaTeX</em> "
-"presentation in a similar fashion to <link xref=\"synctex-"
-"search\">searching</link> through other TeX files compiled with SyncTeX. "
-"However the search brings you to the corresponding frame (slide), not "
-"necessarily the associated line of text. This difference is outlined in "
-"detail below."
-msgstr ""
-"Az előre és hátra keresést a <em>Beamer-LaTeX</em> prezentációban a SyncTeX-"
-"hel fordított más TeX fájlokban való <link xref=\"synctex-"
-"search\">kereséshez</link> hasonlóan végezheti el. A keresés azonban a "
-"megfelelő diához, és nem feltétlenül a megfelelő szövegsorhoz viszi. A "
-"különbség részletesen alább látható."
-
-#. (itstool) path: section/title
-#: C/synctex-beamer.page:27
-msgid ""
-"Forward search: from Beamer-LaTeX source to PDF (<app>gedit</app> to the "
-"<app>document viewer</app>)"
-msgstr ""
-"Előre keresés: Beamer-LaTeX forrásból PDF-be (<app>geditből</app> a "
-"<app>dokumentummegjelenítőbe</app>)"
-
-#. (itstool) path: section/p
-#: C/synctex-beamer.page:28
-msgid ""
-"With <link xref=\"synctex-search#forward-search\">forward search</link>, you "
-"can click on a specific line of Beamer-LaTeX source code. The <em>top</em> "
-"of the corresponding slide in the PDF will be outlined in red. This will "
-"often be the <em>frametitle</em>."
-msgstr ""
-"Az <link xref=\"synctex-search#forward-search\">előre kereséskor</link> a "
-"Beamer-LaTeX forráskód egy adott sorára kattinthat. A PDF-ben a megfelelő "
-"dia <em>teteje</em> vörössel kerül kiemelésre. Ez gyakran a <em>frametitle</"
-"em> elem."
-
-#. (itstool) path: section/title
-#: C/synctex-beamer.page:35
-msgid ""
-"Backward search: from PDF to Beamer-LaTeX source (from the <app>document "
-"viewer</app> to <app>gedit</app>)"
-msgstr ""
-"Hátra keresés: PDF-ből Beamer-LaTeX forrásba (<app>dokumentummegjelenítőből</"
-"app> a <app>geditbe</app>)"
-
-#. (itstool) path: section/p
-#: C/synctex-beamer.page:36
-msgid ""
-"With <link xref=\"synctex-search#backward-search\">backward search</link>, "
-"you click on some text in a frame, and the corresponding line of LaTex code "
-"that ends that particular frame is highlighted. This will usually be the "
-"line:"
-msgstr ""
-"A <link xref=\"synctex-search#backward-search\">hátra kereséskor</link> a "
-"dia szövegére kattint, és az adott diát befejező LaTeX kód megfelelő sora "
-"kiemelésre kerül. Ez általában a következő sor lesz:"
-
-#. (itstool) path: section/code
-#: C/synctex-beamer.page:39
-#, no-wrap
-msgid "\\end{frame}"
-msgstr "\\end{frame}"
-
-#. (itstool) path: section/p
-#: C/synctex-beamer.page:40
-msgid "corresponding to the frame you clicked on."
-msgstr "amely megfelel annak a diának, amelyre kattintott."
-
-#. (itstool) path: info/desc
-#: C/openerror.page:7
-msgid "Error When Opening A File."
-msgstr "Hiba fájl megnyitásakor."
 
 #. (itstool) path: page/title
 #: C/openerror.page:22
@@ -171,16 +82,20 @@ msgstr "Miért nem tudom megnyitni a fájlt?"
 
 #. (itstool) path: page/p
 #: C/openerror.page:24
+#| msgid ""
+#| "If you try to open a document of a format that the <app>document viewer</"
+#| "app> does not recognize, you will get an \"Unable to open document\" "
+#| "error message. Click <gui>Close</gui> to return to the <app>Document "
+#| "Viewer</app> window."
 msgid ""
-"If you try to open a document of a format that the <app>document viewer</"
-"app> does not recognize, you will get an \"Unable to open document\" error "
-"message. Click <gui>Close</gui> to return to the <app>Document Viewer</app> "
-"window."
+"If you try to open a document of a format that <app>Papers</app> does not "
+"recognize, you will get an \"Unable to open document\" error message. Click "
+"<gui>Close</gui> to return to the <app>Papers</app> window."
 msgstr ""
-"Ha olyan formátumú dokumentumot próbál megnyitni, amelyet a "
-"<app>Dokumentummegjelenítő</app> nem ismer fel, akkor a „Nem lehet megnyitni "
-"a dokumentumot” üzenetet kapja. Nyomja meg a <gui>Bezárás</gui> gombot a "
-"<app>Dokumentummegjelenítő</app> ablakba való visszatéréshez."
+"Ha olyan formátumú dokumentumot próbál megnyitni, amelyet a <app>Papírok</app"
+"> nem ismer fel, akkor a „Nem lehet megnyitni a dokumentumot” üzenetet kapja."
+" Nyomja meg a <gui>Bezárás</gui> gombot a <app>Papírok</app> ablakba való"
+" visszatéréshez."
 
 #. (itstool) path: info/title
 #: C/duplex-7pages.page:7
@@ -416,19 +331,22 @@ msgid "You can convert documents of the following format types to SVG files:"
 msgstr "A következő formátumú dokumentumokat konvertálhatja SVG-fájlokká:"
 
 #. (itstool) path: item/p
-#: C/convertSVG.page:30 C/convertPostScript.page:33 C/formats.page:37
-#: C/printing.page:51 C/presentations.page:81
+#: C/convertSVG.page:30 C/convertPostScript.page:33 C/formats.page:36
+#: C/printing.page:50 C/presentations.page:80
 msgid "Portable Document Format (.pdf)"
 msgstr "Portable Document Format (.pdf)"
 
 #. (itstool) path: page/p
 #: C/convertSVG.page:32
+#| msgid ""
+#| "This works by opening the file in <app>Document Viewer</app> and "
+#| "\"printing\" the document as an SVG file."
 msgid ""
-"This works by opening the file in <app>Document Viewer</app> and "
-"\"printing\" the document as an SVG file."
+"This works by opening the file in <app>Papers</app> and \"printing\" the "
+"document as an SVG file."
 msgstr ""
-"Ez a fájl <app>Dokumentummegjelenítőben</app> való megnyitásával, és SVG-"
-"fájlként való „kinyomtatásával” működik."
+"Ez a fájl <app>Papírokban</app> való megnyitásával, és SVG-fájlként való"
+" „kinyomtatásával” működik."
 
 #. (itstool) path: item/p
 #: C/convertSVG.page:37 C/printing.page:33
@@ -479,24 +397,27 @@ msgstr ""
 "A következő formátumú dokumentumokat konvertálhatja PostScript-fájlokká:"
 
 #. (itstool) path: item/p
-#: C/convertPostScript.page:32 C/formats.page:35 C/printing.page:50
-#: C/presentations.page:79
+#: C/convertPostScript.page:32 C/formats.page:34 C/printing.page:49
+#: C/presentations.page:78
 msgid "DjVu (.djvu, .djv)"
 msgstr "DjVu (.djvu, .djv)"
 
 #. (itstool) path: item/p
-#: C/convertPostScript.page:34 C/printing.page:53
+#: C/convertPostScript.page:34 C/printing.page:52
 msgid "Tagged Image File Format (.tiff, .tif)"
 msgstr "Tagged Image File Format (.tiff, .tif)"
 
 #. (itstool) path: page/p
 #: C/convertPostScript.page:36
+#| msgid ""
+#| "This works by opening the file in <app>Document Viewer</app> and "
+#| "\"printing\" the document as a PostScript file."
 msgid ""
-"This works by opening the file in <app>Document Viewer</app> and "
-"\"printing\" the document as a PostScript file."
+"This works by opening the file in <app>Papers</app> and \"printing\" the "
+"document as a PostScript file."
 msgstr ""
-"Ez a fájl <app>Dokumentummegjelenítőben</app> való megnyitásával, és "
-"PostScript-fájlként való „kinyomtatásával” működik."
+"Ez a fájl <app>Papírokban</app> való megnyitásával, és PostScript-fájlként"
+" való „kinyomtatásával” működik."
 
 #. (itstool) path: item/p
 #: C/convertPostScript.page:41
@@ -563,8 +484,9 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/introduction.page:18
-msgid "Introduction to the <em>Evince Document Viewer</em>."
-msgstr "Az <em>Evince dokumentummegjelenítő</em> bemutatása."
+#| msgid "Introduction to the <em>Evince Document Viewer</em>."
+msgid "Introduction to the <em>Papers Document Viewer</em>."
+msgstr "A <em>Papírok dokumentummegjelenítő</em> bemutatása."
 
 #. (itstool) path: page/title
 #: C/introduction.page:21
@@ -573,12 +495,15 @@ msgstr "Bevezetés"
 
 #. (itstool) path: page/p
 #: C/introduction.page:23
+#| msgid ""
+#| "<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for "
+#| "a list of file types you can view."
 msgid ""
-"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a "
+"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
-"Az <app>Evince</app> egy dokumentummegjelenítő. A megjeleníthető fájltípusok "
-"listájáért nézze meg a <link xref=\"formats\"/> szakaszt."
+"A <app>Papírok</app> egy dokumentummegjelenítő. A megjeleníthető fájltípusok"
+" listájáért nézze meg a <link xref=\"formats\"/> szakaszt."
 
 #. (itstool) path: info/desc
 #: C/duplex-12pages.page:8
@@ -699,25 +624,6 @@ msgstr ""
 "lehetőséget."
 
 #. (itstool) path: info/desc
-#: C/synctex.page:7
-msgid "SyncTeX support is available."
-msgstr "A SyncTeX támogatás rendelkezésre áll."
-
-#. (itstool) path: page/title
-#: C/synctex.page:20
-msgid "What is SyncTeX?"
-msgstr "Mi az a SyncTeX?"
-
-#. (itstool) path: page/p
-#: C/synctex.page:21
-msgid ""
-"SyncTeX is a method that enables synchronization between a TeX source file "
-"and the resulting PDF output."
-msgstr ""
-"A SyncTeX egy olyan módszer, amely lehetővé teszi a szinkronizálást egy TeX "
-"forrásfájl és az eredményül kapott PDF-kimenet között."
-
-#. (itstool) path: info/desc
 #: C/annotations-save.page:7
 msgid "How to save your annotations."
 msgstr "Hogyan mentheti jegyzeteit."
@@ -734,14 +640,17 @@ msgstr "Jegyzeteket tartalmazó PDF másolatának mentése"
 
 #. (itstool) path: page/p
 #: C/annotations-save.page:24
+#| msgid ""
+#| "To save a copy of your annotated PDF for future viewing using the "
+#| "<app>document viewer</app> or any other PDF viewer <em>that supports "
+#| "annotations</em>:"
 msgid ""
 "To save a copy of your annotated PDF for future viewing using the "
-"<app>document viewer</app> or any other PDF viewer <em>that supports "
-"annotations</em>:"
+"<app>Papers</app> or any other PDF viewer <em>that supports annotations</em>:"
 msgstr ""
-"A jegyzeteket tartalmazó PDF mentése a <app>dokumentummegjelenítő</app> vagy "
-"bármely más, <em>jegyzeteket támogató</em> PDF-megjelenítővel történő "
-"későbbi megjelenítéshez:"
+"A jegyzeteket tartalmazó PDF mentése a <app>Papírok</app> vagy bármely más, <"
+"em>jegyzeteket támogató</em> PDF-megjelenítővel történő későbbi"
+" megjelenítéshez:"
 
 #. (itstool) path: item/p
 #: C/annotations-save.page:31
@@ -785,21 +694,18 @@ msgstr "Segítsen dokumentációt írni"
 
 #. (itstool) path: page/p
 #: C/documentation.page:20
+#| msgid ""
+#| "The <app>Document Viewer</app> documentation is maintained by a volunteer "
+#| "community. You are welcome to participate."
 msgid ""
-"The <app>Document Viewer</app> documentation is maintained by a volunteer "
-"community. You are welcome to participate."
+"The <app>Papers</app> documentation is maintained by a volunteer community. "
+"You are welcome to participate."
 msgstr ""
-"A <app>Dokumentummegjelenítő</app> dokumentációját egy önkéntes közösség "
-"tartja karban. Közreműködését szívesen fogadjuk!"
+"A <app>Papírok</app> dokumentációját egy önkéntes közösség tartja karban."
+" Közreműködését szívesen fogadjuk!"
 
 #. (itstool) path: page/p
 #: C/documentation.page:23
-#| msgid ""
-#| "To contribute to the Documentation Project, feel free to get in touch "
-#| "with us using <link href=\"https://cbe003.chat.mibbit.com/?"
-#| "url=irc%3A%2F%2Firc.gnome.org%2Fdocs\">irc</link>, or via <link "
-#| "href=\"https://discourse.gnome.org/tag/documentation\">GNOME Discourse</"
-#| "link>."
 msgid ""
 "To contribute to the Documentation Project, feel free to get in touch with "
 "us in <link href=\"https://matrix.to/#/#docs:gnome.org\">#docs:gnome.org</"
@@ -823,91 +729,6 @@ msgid ""
 msgstr ""
 "A projekt <link href=\"https://live.gnome.org/DocumentationProject/"
 "Contributing\">wiki</link> oldala tartalmazza a legfontosabb információkat."
-
-#. (itstool) path: info/desc
-#: C/synctex-editors.page:7
-msgid "Which editor can you use to edit your TEX file?"
-msgstr "Melyik szerkesztővel szerkesztheti a TeX fájljait?"
-
-#. (itstool) path: page/title
-#: C/synctex-editors.page:20
-msgid "Supported editors"
-msgstr "Támogatott szerkesztők"
-
-#. (itstool) path: section/title
-#: C/synctex-editors.page:22
-msgid "<app>gedit</app>"
-msgstr "<app>gedit</app>"
-
-#. (itstool) path: section/p
-#: C/synctex-editors.page:23
-msgid ""
-"<link xref=\"synctex-search#forward-search\">Forward Search</link> (from "
-"<app>gedit</app> to the <app>document viewer</app>) and <link xref=\"synctex-"
-"search#backward-search\">Backward search</link> (from the <app>document "
-"viewer</app> to <app>gedit</app>) are both supported."
-msgstr ""
-"Az <link xref=\"synctex-search#forward-search\">előre keresés</link> "
-"(<app>geditből</app> a <app>dokumentummegjelenítőbe</app>) és a <link "
-"xref=\"synctex-search#backward-search\">hátra keresés</link> (a "
-"<app>dokumentummegjelenítőből</app> a <app>geditbe</app>) egyaránt "
-"támogatott."
-
-#. (itstool) path: section/title
-#: C/synctex-editors.page:28
-msgid "Vim-latex"
-msgstr "Vim-latex"
-
-#. (itstool) path: section/p
-#: C/synctex-editors.page:29
-msgid ""
-"The <app>gedit</app> plugin contains a python script (<file>evince_dbus.py</"
-"file>) that can be used to get SyncTeX working with Vim. In order to use vim-"
-"latex together with the <app>document viewer</app> you need to follow the "
-"next steps:"
-msgstr ""
-"A <app>gedit</app> bővítmény tartalmaz egy Python parancsfájlt "
-"(<file>evince_dbus.py</file>), amelynek segítségével a SyncTeX használható "
-"Vimből. A vim-latex és a <app>dokumentummegjelenítő</app> együttes "
-"használatához tegye a következőket:"
-
-#. (itstool) path: item/p
-#: C/synctex-editors.page:35
-msgid ""
-"Copy the <file>evince_dbus.py</file> to some directory in your path and give "
-"it +x permissions."
-msgstr ""
-"Másolja az <file>evince_dbus.py</file> fájlt a keresési útvonalon lévő "
-"valamelyik könyvtárba, és adjon rá +x (futtatható) jogosultságot."
-
-#. (itstool) path: item/p
-#: C/synctex-editors.page:41
-msgid "Modify your <file>~/.vimrc</file> file and add the following lines."
-msgstr ""
-"Módosítsa a <file>~/.vimrc</file> fájlt, és adja hozzá a következő sorokat."
-
-#. (itstool) path: item/code
-#: C/synctex-editors.page:44
-#, no-wrap
-msgid ""
-"\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
-"let g:Tex_DefaultTargetFormat = 'pdf'\n"
-"let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
-msgstr ""
-"\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
-"let g:Tex_DefaultTargetFormat = 'pdf'\n"
-"let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
-
-#. (itstool) path: item/p
-#: C/synctex-editors.page:52
-msgid ""
-"Now you can use Forward search from vim-latex by typing \\ls. Backward "
-"search is not yet supported."
-msgstr ""
-"Ezután használhatja az előre keresést a vim-latex-ből a \\ls beírásával. A "
-"hátra keresés még nem támogatott."
 
 #. (itstool) path: credit/name
 #: C/opening.page:19 C/print-differentsize.page:17 C/finding.page:23
@@ -941,27 +762,35 @@ msgstr ""
 
 #. (itstool) path: note/p
 #: C/opening.page:37
+#| msgid ""
+#| "Double clicking PDF, PostScript, .djvu, .dvi and Comic Book Archive files "
+#| "opens them in <app>Document Viewer</app> by default."
 msgid ""
-"Double clicking PDF, PostScript, .djvu, .dvi and Comic Book Archive files "
-"opens them in <app>Document Viewer</app> by default."
+"Double clicking PDF, PostScript, .djvu, and Comic Book Archive files opens "
+"them in <app>Papers</app> by default."
 msgstr ""
-"A dupla kattintásra alapesetben a PDF, PostScript, .djvu, .dvi és Comic Book "
-"Archive fájlok nyílnak meg a <app>Dokumentummegjelenítőben</app>."
+"A dupla kattintásra alapesetben a PDF, PostScript, .djvu és képregény"
+" archívumfájlok nyílnak meg a <app>Papírokban</app>."
 
 #. (itstool) path: item/p
 #: C/opening.page:42
+#| msgid ""
+#| "Right-click on a file icon in <app>Files</app> and click "
+#| "<guiseq><gui>Open With</gui><gui>Document Viewer</gui></guiseq>."
 msgid ""
 "Right-click on a file icon in <app>Files</app> and click <guiseq><gui>Open "
-"With</gui><gui>Document Viewer</gui></guiseq>."
+"With</gui><gui>Papers</gui></guiseq>."
 msgstr ""
-"A <app>Fájlok</app> alkalmazásban kattintson a jobb egérgombbal egy fájl "
-"ikonjára, és válassza a <guiseq><gui>Megnyitás ezzel</"
-"gui><gui>Dokumentummegjelenítő</gui></guiseq> menüpontot."
+"A <app>Fájlok</app> alkalmazásban kattintson a jobb egérgombbal egy fájl"
+" ikonjára, és kattintson a <guiseq><gui>Megnyitás ezzel</gui><gui>Papírok<"
+"/gui></guiseq> menüpontra."
 
 #. (itstool) path: page/p
 #: C/opening.page:47
-msgid "If an empty <app>Document Viewer</app> window is already open you can:"
-msgstr "Ha már nyitva van egy üres <app>Dokumentummegjelenítő</app> ablak:"
+#| msgid ""
+#| "If an empty <app>Document Viewer</app> window is already open you can:"
+msgid "If an empty <app>Papers</app> window is already open you can:"
+msgstr "Ha már nyitva van egy üres <app>Papírok</app> ablak:"
 
 #. (itstool) path: item/p
 #: C/opening.page:51
@@ -986,12 +815,11 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/opening.page:62
-msgid ""
-"If a document is already opened in a <app>Document Viewer</app> window you "
-"can:"
-msgstr ""
-"Ha egy dokumentum már meg van nyitva egy <app>Dokumentummegjelenítő</app> "
-"ablakban:"
+#| msgid ""
+#| "If a document is already opened in a <app>Document Viewer</app> window "
+#| "you can:"
+msgid "If a document is already opened in a <app>Papers</app> window you can:"
+msgstr "Ha egy dokumentum már meg van nyitva egy <app>Papírok</app> ablakban:"
 
 #. (itstool) path: item/p
 #: C/opening.page:66
@@ -1125,16 +953,21 @@ msgstr "PDF-nyomtatási korlátozások"
 
 #. (itstool) path: section/p
 #: C/noprint.page:75
+#| msgid ""
+#| "Some PDF documents have a setting which prevents you from printing them. "
+#| "Authors can set this printing restriction when they write a document. The "
+#| "<app>document viewer</app> overrides this restriction by default, but you "
+#| "may want to check that it hasn't been disabled:"
 msgid ""
 "Some PDF documents have a setting which prevents you from printing them. "
-"Authors can set this printing restriction when they write a document. The "
-"<app>document viewer</app> overrides this restriction by default, but you "
-"may want to check that it hasn't been disabled:"
+"Authors can set this printing restriction when they write a document. "
+"<app>Papers</app> overrides this restriction by default, but you may want to "
+"check that it hasn't been disabled:"
 msgstr ""
-"Egyes PDF-dokumentumok rendelkeznek egy, a nyomtatásukat megakadályozó "
-"beállítással. A szerzők beállíthatják ezt a nyomtatási korlátozást a "
-"dokumentum elkészítésekor. A <app>dokumentummegjelenítő</app> alapesetben "
-"felülbírálja ezt a korlátozást, de ellenőrizheti, hogy nincs-e kikapcsolva."
+"Egyes PDF-dokumentumok rendelkeznek egy, a nyomtatásukat megakadályozó"
+" beállítással. A szerzők beállíthatják ezt a nyomtatási korlátozást a"
+" dokumentum elkészítésekor. A <app>Papírok</app> alapesetben felülbírálja ezt"
+" a korlátozást, de ellenőrizheti, hogy nincs-e kikapcsolva."
 
 #. (itstool) path: note/p
 #: C/noprint.page:83
@@ -1172,8 +1005,9 @@ msgstr "Kattintson a <gui>dconf szerkesztő</gui> gombra."
 
 #. (itstool) path: item/p
 #: C/noprint.page:100
-msgid "Browse to <sys>/org/gnome/evince</sys>."
-msgstr "Tallózzon rá az <sys>/org/gnome/evince</sys> helyre."
+#| msgid "Browse to <sys>/org/gnome/evince</sys>."
+msgid "Browse to <sys>/org/gnome/papers</sys>."
+msgstr "Tallózzon rá az <sys>/org/gnome/papers</sys> helyre."
 
 #. (itstool) path: item/p
 #: C/noprint.page:103
@@ -1184,12 +1018,13 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/noprint.page:108
-msgid ""
-"Go back to the <app>Document Viewer</app> and try to print the document "
-"again."
+#| msgid ""
+#| "Go back to the <app>Document Viewer</app> and try to print the document "
+#| "again."
+msgid "Go back to <app>Papers</app> and try to print the document again."
 msgstr ""
-"Térjen vissza a <app>Dokumentummegjelenítőhöz</app>, és próbálja meg újra "
-"kinyomtatni a dokumentumot."
+"Térjen vissza a <app>Papírokhoz</app>, és próbálja meg újra kinyomtatni a"
+" dokumentumot."
 
 #. (itstool) path: info/desc
 #: C/singlesided-17-20pages.page:8
@@ -1353,67 +1188,6 @@ msgstr ""
 "Írja be az oldalak számait a következő sorrendben: <_:item-1/> <_:item-2/>"
 
 #. (itstool) path: info/desc
-#: C/synctex-support.page:7
-msgid "How to add support for SyncTeX."
-msgstr "SyncTeX támogatás hozzáadása."
-
-#. (itstool) path: credit/name
-#: C/synctex-support.page:16
-msgid "Germán Poo-Caamaño"
-msgstr "Germán Poo-Caamaño"
-
-#. (itstool) path: page/title
-#: C/synctex-support.page:25
-msgid "Set-up SyncTeX"
-msgstr "SyncTeX beállítása"
-
-#. (itstool) path: page/p
-#: C/synctex-support.page:26
-msgid ""
-"The following packages need to be installed in order to add support for "
-"SyncTeX:"
-msgstr ""
-"A következő csomagokat kell telepíteni a SyncTeX támogatás biztosításához:"
-
-#. (itstool) path: item/p
-#: C/synctex-support.page:31
-msgid "A LaTeX engine with SyncTeX support, such as <app>pdflatex</app>."
-msgstr "LaTeX motor SyncTeX támogatással, mint például <app>pdflatex</app>."
-
-#. (itstool) path: item/p
-#: C/synctex-support.page:36
-msgid ""
-"A text editor with SyncTeX support, such as <app>gedit</app> with gedit-"
-"plugins installed."
-msgstr ""
-"Szövegszerkesztő SyncTeX támogatással, mint például a <app>gedit</app> a "
-"telepített gedit-plugins bővítményekkel."
-
-#. (itstool) path: page/p
-#: C/synctex-support.page:42
-msgid "In <app>gedit</app>, enable the SyncTeX Plugin:"
-msgstr "A <app>geditben</app> engedélyezze a SyncTeX bővítményt:"
-
-#. (itstool) path: item/p
-#: C/synctex-support.page:47
-msgid ""
-"Press the menu button in the top-right corner of the window and select <gui "
-"style=\"menuitem\">Preferences</gui>."
-msgstr ""
-"Nyomja meg az ablak jobb felső sarkában lévő menügombot, és válassza a <gui "
-"style=\"menuitem\">Beállítások</gui> menüpontot."
-
-#. (itstool) path: item/p
-#: C/synctex-support.page:50
-msgid "Select the <gui>Plugins</gui> tab."
-msgstr "Válassza a <gui>Bővítmények</gui> lapot."
-
-#. (itstool) path: item/p
-#: C/synctex-support.page:55
-msgid "Check <gui>SyncTeX</gui>."
-msgstr "Jelölje be a <gui>SyncTeX</gui> bővítményt."
-
-#. (itstool) path: info/desc
 #: C/duplex-npages.page:8
 msgid "Print a booklet over 16 pages."
 msgstr "16 oldalnál hosszabb füzet nyomtatása."
@@ -1522,8 +1296,9 @@ msgstr "16, 1, 2, 15, 14, 3, 4, 13, 12, 5, 6, 11, 10, 7, 8, 9"
 
 #. (itstool) path: info/desc
 #: C/translate.page:7
-msgid "Localize the <app>Document Viewer.</app>"
-msgstr "Honosítsa a <app>Dokumentummegjelenítőt</app>."
+#| msgid "Localize the <app>Document Viewer.</app>"
+msgid "Localize <app>Papers</app>."
+msgstr "Honosítsa a <app>Papírokat</app>."
 
 #. (itstool) path: credit/name
 #: C/translate.page:15
@@ -1537,33 +1312,31 @@ msgstr "Segítsen a fordításban"
 
 #. (itstool) path: page/p
 #: C/translate.page:24
+#| msgid ""
+#| "The <app>Document Viewer</app> user interface and documentation is being "
+#| "translated by a world-wide volunteer community. You are welcome to "
+#| "participate."
 msgid ""
-"The <app>Document Viewer</app> user interface and documentation is being "
-"translated by a world-wide volunteer community. You are welcome to "
-"participate."
+"The <app>Papers</app> user interface and documentation is being translated "
+"by a world-wide volunteer community. You are welcome to participate."
 msgstr ""
-"A <app>Dokumentummegjelenítő</app> felhasználói felületét és súgóját egy "
-"világszintű önkéntes közösség fordítja. Közreműködését szívesen fogadjuk."
+"A <app>Papírok</app> felhasználói felületét és súgóját egy világszintű"
+" önkéntes közösség fordítja. Közreműködését szívesen fogadjuk."
 
 #. (itstool) path: page/p
 #: C/translate.page:27
 #| msgid ""
-#| "There are <link href=\"http://l10n.gnome.org/module/evince/\">many "
+#| "There are <link href=\"https://l10n.gnome.org/module/evince/\">many "
 #| "languages</link> for which translations are still needed."
 msgid ""
-"There are <link href=\"https://l10n.gnome.org/module/evince/\">many "
+"There are <link href=\"https://l10n.gnome.org/module/papers/\">many "
 "languages</link> for which translations are still needed."
 msgstr ""
-"<link href=\"https://l10n.gnome.org/module/evince/\">Számos nyelv van</"
-"link>, amelyhez még szükség van fordításokra."
+"<link href=\"https://l10n.gnome.org/module/papers/\">Számos nyelv van</link>,"
+" amelyhez még szükség van fordításokra."
 
 #. (itstool) path: page/p
 #: C/translate.page:30
-#| msgid ""
-#| "To start translating you will need to <link href=\"http://l10n.gnome."
-#| "org\">create an account</link> and join the <link href=\"http://l10n."
-#| "gnome.org/teams/\">translation team</link> for your language. This will "
-#| "give you the ability to upload new translations."
 msgid ""
 "To start translating you will need to <link href=\"https://l10n.gnome."
 "org\">create an account</link> and join the <link href=\"https://l10n.gnome."
@@ -1577,11 +1350,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/translate.page:34
-#| msgid ""
-#| "You can chat with GNOME translators using <link href=\"https://cbe003."
-#| "chat.mibbit.com/?url=irc%3A%2F%2Firc.gnome.org%2Fi18n\">irc</link>. "
-#| "People on the channel are located worldwide, so you may not get an "
-#| "immediate response as a result of timezone differences."
 msgid ""
 "You can chat with GNOME translators in <link href=\"https://matrix.to/#/"
 "#i18n:gnome.org\">#i18n:gnome.org</link> on <link xref=\"help:gnome-help/"
@@ -1674,18 +1442,23 @@ msgstr "Miért nem másolódik át a kijelölt szöveg?"
 
 #. (itstool) path: page/p
 #: C/textselection.page:23
+#| msgid ""
+#| "If you highlight and copy text from a document using the <app>document "
+#| "viewer</app> and then paste it into another application, the formatting "
+#| "may alter. It may also contain different characters than the original "
+#| "selection. This often happens when copying text from a PDF document with "
+#| "multiple columns."
 msgid ""
-"If you highlight and copy text from a document using the <app>document "
-"viewer</app> and then paste it into another application, the formatting may "
-"alter. It may also contain different characters than the original selection. "
-"This often happens when copying text from a PDF document with multiple "
-"columns."
+"If you highlight and copy text from a document using <app>Papers</app> and "
+"then paste it into another application, the formatting may alter. It may "
+"also contain different characters than the original selection. This often "
+"happens when copying text from a PDF document with multiple columns."
 msgstr ""
-"Ha a <app>dokumentummegjelenítő</app> használatával egy dokumentumban "
-"kijelöl és másol egy szöveget, majd azt beilleszti egy másik alkalmazásba, "
-"akkor a formázás megváltozhat. A beillesztett szöveg az eredeti kijelöléstől "
-"eltérő karaktereket is tartalmazhat. Ez gyakran előfordul, ha több oszlopot "
-"tartalmazó PDF-dokumentumból másol szöveget."
+"Ha a <app>Papírok</app> használatával egy dokumentumban kijelöl és másol egy"
+" szöveget, majd azt beilleszti egy másik alkalmazásba, akkor a formázás"
+" megváltozhat. A beillesztett szöveg az eredeti kijelöléstől eltérő"
+" karaktereket is tartalmazhat. Ez gyakran előfordul, ha több oszlopot"
+" tartalmazó PDF-dokumentumból másol szöveget."
 
 #. (itstool) path: page/p
 #: C/textselection.page:29
@@ -1708,60 +1481,6 @@ msgstr ""
 "Ezt a problémát sajnos nem igazán lehet megoldani. Egyszerre kevesebb szöveg "
 "másolása, vagy egyszerű szövegszerkesztőbe (mint a <app>gedit</app>) való "
 "másolás csökkentheti a problémát."
-
-#. (itstool) path: info/desc
-#: C/synctex-compile.page:7
-msgid "How to compile your TeX document with SyncTeX"
-msgstr "Hogyan fordítsa le TeX dokumentumát SyncTeX-hel"
-
-#. (itstool) path: page/title
-#: C/synctex-compile.page:19
-msgid "Compile TeX with SyncTeX"
-msgstr "TeX fordítása SyncTeX-hel"
-
-#. (itstool) path: page/p
-#: C/synctex-compile.page:20
-msgid ""
-"Adding the line <em>\\synctex=1</em> in the preamble of your TeX file will "
-"trigger synchronization with SyncTeX."
-msgstr ""
-"A <em>\\synctex=1</em> sor hozzáadása a TeX fájl elejéhez kiváltja a "
-"szinkronizálást a SyncTeX-hel."
-
-#. (itstool) path: page/code
-#: C/synctex-compile.page:23
-#, no-wrap
-msgid ""
-"\n"
-"\\documentclass{article}\n"
-"\\synctex=1\n"
-"\\usepackage{fullpage}\n"
-"\\begin{document}\n"
-"...\n"
-"\\end{document}\n"
-msgstr ""
-"\n"
-"\\documentclass{article}\n"
-"\\synctex=1\n"
-"\\usepackage{fullpage}\n"
-"\\begin{document}\n"
-"...\n"
-"\\end{document}\n"
-
-#. (itstool) path: page/p
-#: C/synctex-compile.page:31
-msgid ""
-"Alternatively, you can run the pdflatex command with the <em>-synctex=1</em> "
-"option:"
-msgstr ""
-"Ennek alternatívájaként futtathatja a pdflatex parancsot a <em>-synctex=1</"
-"em> kapcsolóval:"
-
-#. (itstool) path: page/screen
-#: C/synctex-compile.page:34
-#, no-wrap
-msgid "pdflatex -synctex=1 yourFile.tex"
-msgstr "pdflatex -synctex=1 sajátfájl.tex"
 
 #. (itstool) path: info/title
 #: C/duplex-5pages.page:7
@@ -1880,8 +1599,9 @@ msgstr "Támogatott formátumok"
 
 #. (itstool) path: page/p
 #: C/formats.page:29
-msgid "The <app>document viewer</app> supports the following formats:"
-msgstr "A <app>dokumentummegjelenítő</app> a következő formátumokat támogatja:"
+#| msgid "The <app>document viewer</app> supports the following formats:"
+msgid "<app>Papers</app> supports the following formats:"
+msgstr "A <app>Papírok</app> a következő formátumokat támogatja:"
 
 #. (itstool) path: item/p
 #: C/formats.page:33
@@ -1889,24 +1609,18 @@ msgid "Comic Book Archive (.cb7, .cbr, .cbt, and .cbz)"
 msgstr "Comic Book Archive (.cb7, .cbr, .cbt és .cbz)"
 
 #. (itstool) path: item/p
-#: C/formats.page:34 C/printing.page:49 C/presentations.page:78
-#: C/convertpdf.page:32
-msgid "Device Independent file format (.dvi)"
-msgstr "Device Independent file format (.dvi)"
-
-#. (itstool) path: item/p
-#: C/formats.page:36
+#: C/formats.page:35
 msgid "Open XML Paper Specification (.oxps, .xps)"
 msgstr "Open XML Paper Specification (.oxps, .xps)"
 
 #. (itstool) path: item/p
-#: C/formats.page:38 C/printing.page:52 C/presentations.page:82
-#: C/convertpdf.page:33
+#: C/formats.page:37 C/printing.page:51 C/presentations.page:81
+#: C/convertpdf.page:32
 msgid "PostScript (.ps)"
 msgstr "PostScript (.ps)"
 
 #. (itstool) path: note/p
-#: C/formats.page:41
+#: C/formats.page:40
 msgid ""
 "In some Linux distributions, not all formats are supported by default, so "
 "you might not be able to view all the formats listed above."
@@ -1915,7 +1629,7 @@ msgstr ""
 "így lehet, hogy nem lesz képes az összes fenti formátumot megjeleníteni."
 
 #. (itstool) path: note/p
-#: C/formats.page:44
+#: C/formats.page:43
 msgid ""
 "Support for a format is called a <em>backend</em>. If you get the error "
 "\"Unable to Open Document\", you may wish to check whether the backend "
@@ -2093,8 +1807,9 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/develop.page:7
-msgid "Improve the <app>Document Viewer</app>."
-msgstr "Fejlessze a <app>Dokumentummegjelenítőt</app>."
+#| msgid "Improve the <app>Document Viewer</app>."
+msgid "Improve <app>Papers</app>."
+msgstr "Fejlessze a <app>Papírokat</app>."
 
 #. (itstool) path: page/title
 #: C/develop.page:19
@@ -2103,39 +1818,43 @@ msgstr "Segítsen a fejlesztésben"
 
 #. (itstool) path: page/p
 #: C/develop.page:20
+#| msgid ""
+#| "The <app>Document Viewer</app> is developed and maintained by a volunteer "
+#| "community. You are welcome to participate."
 msgid ""
-"The <app>Document Viewer</app> is developed and maintained by a volunteer "
-"community. You are welcome to participate."
+"<app>Papers</app> is developed and maintained by a volunteer community. You "
+"are welcome to participate."
 msgstr ""
-"A <app>Dokumentummegjelenítőt</app> egy önkéntes közösség fejleszti és "
-"tartja karban. Közreműködését szívesen fogadjuk!"
+"A <app>Papírokat</app> egy önkéntes közösség fejleszti és tartja karban."
+" Közreműködését szívesen fogadjuk!"
 
 #. (itstool) path: page/p
 #: C/develop.page:23
 #| msgid ""
 #| "If you would like to <link href=\"https://wiki.gnome.org/Apps/"
 #| "Evince\">help develop</link> the <app>Document Viewer</app>, you can get "
-#| "in touch with the developers using <link href=\"https://cbe005.chat."
-#| "mibbit.com/?url=irc%3A%2F%2Firc.gnome.org%2Fevince\">irc</link>, or via "
-#| "<link href=\"https://discourse.gnome.org/tag/evince\">GNOME Discourse</"
-#| "link>."
+#| "in touch with the developers at <link href=\"https://matrix.to/#/#evince:"
+#| "gnome.org\">#evince:gnome.org</link> on <link xref=\"help:gnome-help/help-"
+#| "matrix\">Matrix</link> or <link href=\"https://web.libera.chat/#gnome-"
+#| "evince\">#gnome-evince</link> on irc.libera.chat, or via <link "
+#| "href=\"https://discourse.gnome.org/tag/evince\">GNOME Discourse</link>."
 msgid ""
-"If you would like to <link href=\"https://wiki.gnome.org/Apps/Evince\">help "
-"develop</link> the <app>Document Viewer</app>, you can get in touch with the "
-"developers at <link href=\"https://matrix.to/#/#evince:gnome.org\">#evince:"
-"gnome.org</link> on <link xref=\"help:gnome-help/help-matrix\">Matrix</link> "
-"or <link href=\"https://web.libera.chat/#gnome-evince\">#gnome-evince</link> "
-"on irc.libera.chat, or via <link href=\"https://discourse.gnome.org/tag/"
-"evince\">GNOME Discourse</link>."
+"If you would like to <link href=\"https://wiki.gnome.org/Apps/Papers\">help "
+"develop</link> <app>Papers</app>, you can get in touch with the developers "
+"at <link href=\"https://matrix.to/#/#papers:gnome.org\">#papers:gnome.org</"
+"link> on <link xref=\"help:gnome-help/help-matrix\">Matrix</link> or <link "
+"href=\"https://web.libera.chat/#gnome-papers\">#gnome-papers</link> on irc."
+"libera.chat, or via <link href=\"https://discourse.gnome.org/tag/"
+"papers\">GNOME Discourse</link>."
 msgstr ""
-"Ha szeretne <link href=\"https://wiki.gnome.org/Apps/Evince\">közreműködni a "
-"<app>Dokumentummegjelenítő</app> fejlesztésében</link>, akkor a fejlesztőkkel a "
-"kapcsolatot az <link href=\"https://matrix.to/#/#evince:gnome.org\">#evince:"
-"gnome.org</link> szobában <link xref=\"help:gnome-help/help-"
-"matrix\">Matrixon</link> vagy a <link href=\"https://web.libera.chat/#gnome-"
-"evince\">#gnome-evince</link> csatornán az irc.libera.chat oldalon, illetve "
-"a <link href=\"https://discourse.gnome.org/tag/evince\">GNOME Discourse</"
-"link> fórumon veheti fel."
+"Ha szeretne <link href=\"https://wiki.gnome.org/Apps/Papers\">közreműködni a"
+" <app>Papírok</app> fejlesztésében</link>, akkor a fejlesztőkkel a"
+" kapcsolatot az <link href=\"https://matrix.to/#/#papers:gnome.org\""
+">#papers:gnome.org</link> szobában <link xref=\"help:gnome-help/help-matrix\""
+">Matrixon</link> vagy a <link href=\"https://web.libera.chat/#gnome-papers\""
+">#gnome-papers</link> csatornán az irc.libera.chat oldalon, illetve a <link"
+" href=\"https://discourse.gnome.org/tag/papers\">GNOME Discourse</link>"
+" fórumon veheti fel."
 
 #. (itstool) path: info/desc
 #: C/printing.page:9
@@ -2441,17 +2160,22 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/annotations-navigate.page:25
+#| msgid ""
+#| "To quickly navigate to the location of a particular annotation, click on "
+#| "the arrow to the left of the page number. You will see a list of "
+#| "annotations on that page. Click on the annotation you are interested in, "
+#| "and the <app>document viewer</app> will navigate to the location of the "
+#| "annotation in the document."
 msgid ""
 "To quickly navigate to the location of a particular annotation, click on the "
 "arrow to the left of the page number. You will see a list of annotations on "
-"that page. Click on the annotation you are interested in, and the "
-"<app>document viewer</app> will navigate to the location of the annotation "
-"in the document."
+"that page. Click on the annotation you are interested in, and <app>Papers</"
+"app> will navigate to the location of the annotation in the document."
 msgstr ""
-"Adott jegyzet helyének gyors megnyitásához kattintson az oldalszám melletti "
-"nyílra. Megjelenik az adott oldalon található jegyzetek listája. Kattintson "
-"a keresett jegyzetre, és a <app>dokumentummegjelenítő</app> az adott jegyzet "
-"helyére ugrik a dokumentumban."
+"Adott jegyzet helyének gyors megnyitásához kattintson az oldalszám melletti"
+" nyílra. Megjelenik az adott oldalon található jegyzetek listája. Kattintson"
+" a keresett jegyzetre, és a <app>Papírok</app> az adott jegyzet helyére ugrik"
+" a dokumentumban."
 
 #. (itstool) path: page/media
 #. This is a reference to an external file such as an image or video. When
@@ -2680,7 +2404,7 @@ msgstr ""
 "vagy online benyújtáshoz):"
 
 #. (itstool) path: item/p
-#: C/forms-saving.page:56 C/convertpdf.page:40
+#: C/forms-saving.page:56 C/convertpdf.page:39
 msgid ""
 "Click the <gui>File options</gui> menu in the top right corner and select "
 "<gui>Print</gui> or press <keyseq><key>Ctrl</key><key>P</key></keyseq> on "
@@ -2691,7 +2415,7 @@ msgstr ""
 "key><key>P</key></keyseq> billentyűkombinációt is."
 
 #. (itstool) path: item/p
-#: C/forms-saving.page:61 C/convertpdf.page:45
+#: C/forms-saving.page:61 C/convertpdf.page:44
 msgid ""
 "Select <gui>Print to File</gui> and choose PDF as the <gui>Output format</"
 "gui>."
@@ -2790,21 +2514,27 @@ msgstr "Hogyan és hol jelentheti a problémákat."
 
 #. (itstool) path: page/title
 #: C/bug-filing.page:19
-msgid "File a bug against the <app>document viewer</app>"
-msgstr "Hibajelentés küldése a <app>dokumentummegjelenítőről</app>"
+#| msgid "File a bug against the <app>document viewer</app>"
+msgid "File a bug against <app>Papers</app>"
+msgstr "Hibajelentés küldése a <app>Papírokról</app>"
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:20
+#| msgid ""
+#| "The <app>document viewer</app> is maintained by a volunteer community. "
+#| "You are welcome to participate. If you notice a problem you can file a "
+#| "<em>bug report</em>. To file a bug, go to <link href=\"https://gitlab."
+#| "gnome.org/GNOME/evince/issues/\"/>."
 msgid ""
-"The <app>document viewer</app> is maintained by a volunteer community. You "
-"are welcome to participate. If you notice a problem you can file a <em>bug "
-"report</em>. To file a bug, go to <link href=\"https://gitlab.gnome.org/"
-"GNOME/evince/issues/\"/>."
+"<app>Papers</app> is maintained by a volunteer community. You are welcome to "
+"participate. If you notice a problem you can file a <em>bug report</em>. To "
+"file a bug, go to <link href=\"https://gitlab.gnome.org/GNOME/Incubator/"
+"papers/issues/\"/>."
 msgstr ""
-"A <app>dokumentummegjelenítőt</app> egy önkéntes közösség készíti. "
-"Közreműködését szívesen fogadjuk. Ha hibát észlelt, beküldhet egy "
-"<em>hibajelentést</em>. Ehhez keresse fel a <link href=\"https://gitlab."
-"gnome.org/GNOME/evince/issues/\"/> oldalt."
+"A <app>Papírokat</app> egy önkéntes közösség készíti. Közreműködését szívesen"
+" fogadjuk. Ha hibát észlelt, beküldhet egy <em>hibajelentést</em>. Ehhez"
+" keresse fel a <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/is"
+"sues/\"/> oldalt."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2833,18 +2563,25 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:29
+#| msgid ""
+#| "Once you have an account, log in, and click on <gui>New issue</gui>. "
+#| "Before reporting a bug, please read the <link href=\"https://wiki.gnome."
+#| "org/GettingInTouch/BugReportingGuidelines\">bug writing guidelines</"
+#| "link>, and please <link href=\"https://gitlab.gnome.org/GNOME/evince/"
+#| "issues\">browse</link> for the bug to see if it already exists."
 msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/GNOME/evince/issues\">browse</"
-"link> for the bug to see if it already exists."
+"please <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/"
+"issues\">browse</link> for the bug to see if it already exists."
 msgstr ""
-"Ha létrehozta fiókját, jelentkezzen be és kattintson a <gui>New issue</gui> "
-"gombra. Hiba jelentése előtt olvassa el a <link href=\"https://wiki.gnome."
-"org/GettingInTouch/BugReportingGuidelines\">hibajelentés-írási irányelveket</"
-"link>, és <link href=\"https://gitlab.gnome.org/GNOME/evince/"
-"issues\">ellenőrizze</link>, hogy nincs-e már a hiba bejelentve."
+"Ha létrehozta fiókját, jelentkezzen be és kattintson a <gui>New issue</gui>"
+" gombra. Hiba jelentése előtt olvassa el a <link"
+" href=\"https://wiki.gnome.org/GettingInTouch/BugReportingGuidelines\""
+">hibajelentés-írási irányelveket</link>, és <link"
+" href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues\">ellenőrizze<"
+"/link>, hogy nincs-e már a hiba bejelentve."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:33
@@ -3242,16 +2979,19 @@ msgstr "Miért töltődik újra folyamatosan a dokumentum?"
 
 #. (itstool) path: page/p
 #: C/reload.page:25
+#| msgid ""
+#| "If the <app>Document Viewer</app> detects that the document you have open "
+#| "has changed (perhaps because another program has modified it), it will "
+#| "automatically reload the document and display the most recent version for "
+#| "you."
 msgid ""
-"If the <app>Document Viewer</app> detects that the document you have open "
-"has changed (perhaps because another program has modified it), it will "
-"automatically reload the document and display the most recent version for "
-"you."
+"If <app>Papers</app> detects that the document you have open has changed "
+"(perhaps because another program has modified it), it will automatically "
+"reload the document and display the most recent version for you."
 msgstr ""
-"Ha a <app>Dokumentummegjelenítő</app> észleli, hogy a megnyitott dokumentum "
-"megváltozott (például mert egy másik program módosította), akkor "
-"automatikusan újratölti a dokumentumot, és a legutóbbi változatot jeleníti "
-"meg."
+"Ha a <app>Papírok</app> észleli, hogy a megnyitott dokumentum megváltozott"
+" (például mert egy másik program módosította), akkor automatikusan újratölti"
+" a dokumentumot, és a legutóbbi változatot jeleníti meg."
 
 #. (itstool) path: page/p
 #: C/reload.page:29
@@ -3378,30 +3118,36 @@ msgid "Comic Book Archive (.cbr and .cbz)"
 msgstr "Comic Book Archive (.cbr és .cbz)"
 
 #. (itstool) path: item/p
-#: C/presentations.page:80
+#: C/presentations.page:79
 msgid "Open Document Presentation (.odp)"
 msgstr "Open Document bemutató (.odp)"
 
 #. (itstool) path: info/desc
 #: C/editing.page:7
-msgid "You can't use the <app>document viewer</app> to edit files."
-msgstr "A <app>dokumentummegjelenítővel</app> nem szerkeszthet fájlokat."
+#| msgid "You can't use the <app>document viewer</app> to edit files."
+msgid "You can't use <app>Papers</app> to edit files."
+msgstr "A <app>Papírokkal</app> nem szerkeszthet fájlokat."
 
 #. (itstool) path: page/title
 #: C/editing.page:21
-msgid "Can I edit documents in the document viewer?"
-msgstr "A dokumentumok szerkeszthetők a dokumentummegjelenítőben?"
+#| msgid "Can I edit documents in the document viewer?"
+msgid "Can I edit documents in Papers?"
+msgstr "A dokumentumok szerkeszthetők a Papírokban?"
 
 #. (itstool) path: page/p
 #: C/editing.page:24
+#| msgid ""
+#| "The <app>document viewer</app> can't be used to make changes to "
+#| "documents. You need to use the appropriate editing application for the "
+#| "type of file you want to change."
 msgid ""
-"The <app>document viewer</app> can't be used to make changes to documents. "
-"You need to use the appropriate editing application for the type of file you "
-"want to change."
+"<app>Papers</app> can't be used to make changes to documents. You need to "
+"use the appropriate editing application for the type of file you want to "
+"change."
 msgstr ""
-"A <app>dokumentummegjelenítő</app> segítségével nem módosíthatja a "
-"dokumentumokat. A módosítani kívánt fájltípushoz megfelelő "
-"szerkesztőalkalmazást kell használnia."
+"A <app>Papírok</app> segítségével nem módosíthatja a dokumentumokat. A"
+" módosítani kívánt fájltípushoz megfelelő szerkesztőalkalmazást kell"
+" használnia."
 
 #. (itstool) path: note/p
 #: C/editing.page:30
@@ -3518,12 +3264,15 @@ msgstr "Parancssor"
 
 #. (itstool) path: info/desc
 #: C/commandline.page:8
+#| msgid ""
+#| "The <cmd>evince</cmd> command can open any number of files, at specific "
+#| "pages and in various modes."
 msgid ""
-"The <cmd>evince</cmd> command can open any number of files, at specific "
+"The <cmd>papers</cmd> command can open any number of files, at specific "
 "pages and in various modes."
 msgstr ""
-"Az <cmd>evince</cmd> paranccsal tetszőleges számú fájlt nyithat meg "
-"különböző oldalakon és módokban."
+"A <cmd>papers</cmd> paranccsal tetszőleges számú fájlt nyithat meg különböző"
+" oldalakon és módokban."
 
 #. (itstool) path: page/title
 #: C/commandline.page:24
@@ -3532,51 +3281,64 @@ msgstr "A parancssor"
 
 #. (itstool) path: page/p
 #: C/commandline.page:25
+#| msgid ""
+#| "To start the <app>Document Viewer</app> from the command line, type "
+#| "<cmd>evince</cmd>. You can open a specific file by typing the filename "
+#| "after the evince command:"
 msgid ""
-"To start the <app>Document Viewer</app> from the command line, type "
-"<cmd>evince</cmd>. You can open a specific file by typing the filename after "
-"the evince command:"
+"To start <app>Papers</app> from the command line, type <cmd>papers</cmd>. "
+"You can open a specific file by typing the filename after the papers command:"
 msgstr ""
-"A <app>Dokumentummegjelenítő</app> parancssorból való elindításához írja be "
-"az <cmd>evince</cmd> parancsot. Egy adott fájl megnyitásához írja be a "
-"fájlnevet az evince parancs után:"
+"A <app>Papírok</app> parancssorból való elindításához írja be a <cmd>papers<"
+"/cmd> parancsot. Egy adott fájl megnyitásához írja be a fájlnevet a papers"
+" parancs után:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:30
 #, no-wrap
-msgid "evince file.pdf"
-msgstr "evince fájl.pdf"
+#| msgid "evince file.pdf"
+msgid "papers file.pdf"
+msgstr "papers fájl.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:31
+#| msgid ""
+#| "You can open multiple files by typing the filenames after the evince "
+#| "command, separating the filenames by a space:"
 msgid ""
-"You can open multiple files by typing the filenames after the evince "
+"You can open multiple files by typing the filenames after the papers "
 "command, separating the filenames by a space:"
 msgstr ""
-"Több fájlt is megnyithat a szóközzel elválasztott fájlnevek beírásával az "
-"evince parancs után:"
+"Több fájlt is megnyithat a szóközzel elválasztott fájlnevek beírásával a"
+" papers parancs után:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:34
 #, no-wrap
-msgid "evince file1.pdf file2.pdf"
-msgstr "evince fájl1.pdf fájl2.pdf"
+#| msgid "evince file1.pdf file2.pdf"
+msgid "papers file1.pdf file2.pdf"
+msgstr "papers fájl1.pdf fájl2.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:35
+#| msgid ""
+#| "The <app>document viewer</app> also supports the handling of files on the "
+#| "web. For example, after the evince command you can give the location of a "
+#| "file on the web:"
 msgid ""
-"The <app>document viewer</app> also supports the handling of files on the "
-"web. For example, after the evince command you can give the location of a "
-"file on the web:"
+"<app>Papers</app> also supports the handling of files on the web. For "
+"example, after the papers command you can give the location of a file on the "
+"web:"
 msgstr ""
-"A <app>dokumentummegjelenítő</app> támogatja a weben található fájlok "
-"kezelését. Az evince parancs után például megadhatja egy fájl helyét a weben:"
+"A <app>Papírok</app> támogatja a weben található fájlok kezelését. A papers"
+" parancs után például megadhatja egy fájl helyét a weben:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:38
 #, no-wrap
-msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+#| msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:40
@@ -3596,17 +3358,21 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:45
 #, no-wrap
-msgid "evince --page-label=3 file.pdf"
-msgstr "evince --page-label=3 fájl.pdf"
+#| msgid "evince --page-label=3 file.pdf"
+msgid "papers --page-label=3 file.pdf"
+msgstr "papers --page-label=3 fájl.pdf"
 
 #. (itstool) path: section/p
 #: C/commandline.page:46
+#| msgid ""
+#| "The page label should be in the same format as the page number displayed "
+#| "in the <app>Document Viewer</app> header bar."
 msgid ""
 "The page label should be in the same format as the page number displayed in "
-"the <app>Document Viewer</app> header bar."
+"the <app>Papers</app> header bar."
 msgstr ""
-"Az oldalcímkének azonos formátumúnak kell lennie, mint a "
-"<app>Dokumentummegjelenítő</app> fejlécsávján megjelenő oldalszámnak."
+"Az oldalcímkének azonos formátumúnak kell lennie, mint a <app>Papírok</app>"
+" fejlécsávján megjelenő oldalszámnak."
 
 #. (itstool) path: section/title
 #: C/commandline.page:52
@@ -3616,8 +3382,9 @@ msgstr "Dokumentum megnyitása teljes képernyős módban"
 #. (itstool) path: section/screen
 #: C/commandline.page:53
 #, no-wrap
-msgid "evince --fullscreen file.pdf"
-msgstr "evince --fullscreen fájl.pdf"
+#| msgid "evince --fullscreen file.pdf"
+msgid "papers --fullscreen file.pdf"
+msgstr "papers --fullscreen fájl.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:56
@@ -3627,8 +3394,9 @@ msgstr "Dokumentum megnyitása bemutató módban"
 #. (itstool) path: section/screen
 #: C/commandline.page:57
 #, no-wrap
-msgid "evince --presentation file.pdf"
-msgstr "evince --presentation fájl.pdf"
+#| msgid "evince --presentation file.pdf"
+msgid "papers --presentation file.pdf"
+msgstr "papers --presentation fájl.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:60
@@ -3638,8 +3406,9 @@ msgstr "Dokumentum megnyitása előnézet módban"
 #. (itstool) path: section/screen
 #: C/commandline.page:61
 #, no-wrap
-msgid "evince --preview file.pdf"
-msgstr "evince --preview fájl.pdf"
+#| msgid "evince --preview file.pdf"
+msgid "papers --preview file.pdf"
+msgstr "papers --preview fájl.pdf"
 
 #. (itstool) path: info/desc
 #: C/annotations.page:8
@@ -3658,13 +3427,15 @@ msgstr "Jegyzetek hozzáadása"
 
 #. (itstool) path: page/p
 #: C/annotations.page:27
+#| msgid ""
+#| "An annotation is a note or comment added to a PDF document. You can add "
+#| "annotations using the <app>document viewer</app>."
 msgid ""
 "An annotation is a note or comment added to a PDF document. You can add "
-"annotations using the <app>document viewer</app>."
+"annotations using <app>Papers</app>."
 msgstr ""
-"A jegyzet egy, a PDF-dokumentumhoz adott megjegyzés. A "
-"<app>dokumentummegjelenítő</app> használatával jegyzeteket adhat a PDF-"
-"dokumentumaihoz."
+"A jegyzet egy, a PDF-dokumentumhoz adott megjegyzés. A <app>Papírok</app>"
+" használatával jegyzeteket adhat a PDF-dokumentumaihoz."
 
 #. (itstool) path: page/p
 #: C/annotations.page:36
@@ -3802,38 +3573,47 @@ msgstr ""
 
 #. (itstool) path: info/title
 #: C/index.page:7
+#| msgctxt "link:trail"
+#| msgid "Evince Document Viewer"
 msgctxt "link:trail"
-msgid "Evince Document Viewer"
-msgstr "Evince dokumentummegjelenítő"
+msgid "Papers Document Viewer"
+msgstr "Papírok dokumentummegjelenítő"
 
 #. (itstool) path: info/title
 #: C/index.page:8
+#| msgctxt "link"
+#| msgid "Evince Document Viewer"
 msgctxt "link"
-msgid "Evince Document Viewer"
-msgstr "Evince dokumentummegjelenítő"
+msgid "Papers Document Viewer"
+msgstr "Papírok dokumentummegjelenítő"
 
 #. (itstool) path: info/title
 #: C/index.page:9
+#| msgctxt "text"
+#| msgid "Evince Document Viewer"
 msgctxt "text"
-msgid "Evince Document Viewer"
-msgstr "Evince dokumentummegjelenítő"
+msgid "Papers Document Viewer"
+msgstr "Papírok dokumentummegjelenítő"
 
 #. (itstool) path: info/desc
 #: C/index.page:24
+#| msgid ""
+#| "<app>Document Viewer</app>, formally known as <app>Evince</app>, is made "
+#| "for viewing PDF documents. Learn how to get started with <app>Document "
+#| "Viewer</app> and its features."
 msgid ""
-"<app>Document Viewer</app>, formally known as <app>Evince</app>, is made for "
-"viewing PDF documents. Learn how to get started with <app>Document Viewer</"
-"app> and its features."
+"<app>Papers</app> is made for viewing PDF documents. Learn how to get "
+"started with <app>Papers</app> and its features."
 msgstr ""
-"A <app>Dokumentummegjelenítő</app>, más néven <app>Evince</app> "
-"alkalmazással PDF dokumentumokat jeleníthet meg. A súgóból megtanulhatja, "
-"hogyan kezdheti el használni a <app>Dokumentummegjelenítőt</app> és a "
-"különböző funkcióit."
+"A <app>Papírok</app> PDF-dokumentumok megtekintéséhez készült. A súgóból"
+" megtanulhatja, hogyan kezdheti el használni a <app>Papírokat</app> és a"
+" különböző funkcióit."
 
 #. (itstool) path: page/title
 #: C/index.page:30
-msgid "<_:media-1/> Document Viewer Help"
-msgstr "<_:media-1/> Dokumentummegjelenítő súgója"
+#| msgid "<_:media-1/> Document Viewer Help"
+msgid "<_:media-1/> Papers Help"
+msgstr "<_:media-1/> Papírok súgója"
 
 #. (itstool) path: section/title
 #: C/index.page:36
@@ -3877,11 +3657,6 @@ msgstr "Tippek–trükkök"
 
 #. (itstool) path: section/title
 #: C/index.page:68
-msgid "SyncTeX"
-msgstr "SyncTeX"
-
-#. (itstool) path: section/title
-#: C/index.page:73
 msgid "Get involved"
 msgstr "Közreműködés"
 
@@ -3897,12 +3672,13 @@ msgstr "Könyvjelzők"
 
 #. (itstool) path: page/p
 #: C/bookmarks.page:31
-msgid ""
-"You can add, rename and delete bookmarks using the <app>Document Viewer</"
-"app>."
+#| msgid ""
+#| "You can add, rename and delete bookmarks using the <app>Document Viewer</"
+#| "app>."
+msgid "You can add, rename and delete bookmarks using <app>Papers</app>."
 msgstr ""
-"A <app>Dokumentummegjelenítő</app> alkalmazás lehetővé teszi a könyvjelzők "
-"hozzáadását, átnevezését vagy törlését."
+"A <app>Papírok</app> alkalmazás lehetővé teszi a könyvjelzők hozzáadását,"
+" átnevezését vagy törlését."
 
 #. (itstool) path: page/p
 #: C/bookmarks.page:38
@@ -4038,16 +3814,19 @@ msgid ""
 msgstr "A következő formátumú dokumentumokat konvertálhatja PDF-fájlokká:"
 
 #. (itstool) path: page/p
-#: C/convertpdf.page:35
+#: C/convertpdf.page:34
+#| msgid ""
+#| "This works by opening the file in <app>Document Viewer</app> and "
+#| "\"printing\" the document as a PDF file."
 msgid ""
-"This works by opening the file in <app>Document Viewer</app> and "
-"\"printing\" the document as a PDF file."
+"This works by opening the file in <app>Papers</app> and \"printing\" the "
+"document as a PDF file."
 msgstr ""
-"Ez a fájl <app>Dokumentummegjelenítőben</app> való megnyitásával, és PDF-"
-"fájlként való „kinyomtatásával” működik."
+"Ez a fájl <app>Papírokban</app> való megnyitásával, és PDF-fájlként való"
+" „kinyomtatásával” működik."
 
 #. (itstool) path: item/p
-#: C/convertpdf.page:51
+#: C/convertpdf.page:50
 msgid ""
 "Choose a name and folder in which to save the file, then click <gui>Print</"
 "gui>. The PDF will be saved in the folder you chose."
@@ -4056,23 +3835,30 @@ msgstr ""
 "<gui>Nyomtatás</gui> gombot. A PDF a kiválasztott mappába kerül elmentésre."
 
 #. (itstool) path: note/p
-#: C/convertpdf.page:58
+#: C/convertpdf.page:57
+#| msgid ""
+#| "You can't select text in PostScript or .dvi files, but you usually can do "
+#| "this in PDF files. Converting .dvi or PostScript files to PDF will not "
+#| "make the text selectable. This is because the text itself isn't stored in "
+#| "the file (it's just an image of what the text looks like), so there is no "
+#| "way to recover it and put it in the PDF. You can use <em>Optical "
+#| "Character Recognition</em> (OCR) software to extract the text from files "
+#| "if you need to."
 msgid ""
-"You can't select text in PostScript or .dvi files, but you usually can do "
-"this in PDF files. Converting .dvi or PostScript files to PDF will not make "
-"the text selectable. This is because the text itself isn't stored in the "
-"file (it's just an image of what the text looks like), so there is no way to "
-"recover it and put it in the PDF. You can use <em>Optical Character "
-"Recognition</em> (OCR) software to extract the text from files if you need "
-"to."
+"You can't select text in PostScript files, but you usually can do this in "
+"PDF files. Converting PostScript files to PDF will not make the text "
+"selectable. This is because the text itself isn't stored in the file (it's "
+"just an image of what the text looks like), so there is no way to recover it "
+"and put it in the PDF. You can use <em>Optical Character Recognition</em> "
+"(OCR) software to extract the text from files if you need to."
 msgstr ""
-"PostScript vagy .dvi fájlokban nem jelölhet ki szöveget, de ezt általában "
-"megteheti PDF-fájlokban. A .dvi vagy PostScript fájlok PDF-formátumba "
-"konvertálása nem teszi a szöveget kijelölhetővé. Ennek oka, hogy maga a "
-"szöveg nincs tárolva a fájlban (csak a szöveg képe), így nincs lehetőség a "
-"visszanyerésére és PDF-be mentésére. Ha szüksége van rá, megpróbálhatja "
-"<em>optikai karakterfelismerő</em> (OCR) programokkal kinyerni a szöveget az "
-"ilyen fájlokból."
+"PostScript-fájlokban nem jelölhet ki szöveget, de ezt általában megteheti"
+" PDF-fájlokban. A PostScript-fájlok PDF-formátumba konvertálása nem teszi a"
+" szöveget kijelölhetővé. Ennek oka, hogy maga a szöveg nincs tárolva a"
+" fájlban (csak a szöveg képe), így nincs lehetőség a visszanyerésére és"
+" PDF-be mentésére. Ha szüksége van rá, megpróbálhatja <em>optikai"
+" karakterfelismerő</em> (OCR) programokkal kinyerni a szöveget az ilyen"
+" fájlokból."
 
 #. (itstool) path: info/desc
 #: C/invert-colors.page:8
@@ -4150,129 +3936,3 @@ msgstr ""
 "szeretné elvégezni, próbálja ki a <link href=\"http://www.g-loaded."
 "eu/2008/05/03/how-to-annotate-pdf-files-in-linux-using-xournal/\">Xournal</"
 "link> programot."
-
-#. (itstool) path: info/desc
-#: C/synctex-search.page:7
-msgid "Flip between the <app>document viewer</app> and <app>gedit</app>."
-msgstr "Váltás az <app>dokumentummegjelenítő</app> és <app>gedit</app> között."
-
-#. (itstool) path: page/title
-#: C/synctex-search.page:20
-msgid "Search with SyncTeX"
-msgstr "Keresés a SyncTeX-hel"
-
-#. (itstool) path: page/p
-#: C/synctex-search.page:21
-msgid ""
-"After you <link xref=\"synctex-compile\">compile your TeX file with SyncTeX</"
-"link>, you will be able to search. SyncTeX even supports forward and "
-"backward search from an included file."
-msgstr ""
-"Miután <link xref=\"synctex-compile\">lefordította a TeX fájlját a SyncTeX-"
-"hel</link>, kereshet benne. A SyncTeX még a beágyazott fájlban való előre és "
-"hátra keresést is támogatja."
-
-#. (itstool) path: section/title
-#: C/synctex-search.page:26
-msgid ""
-"Forward search: from TeX to PDF (from <app>gedit</app> to the <app>document "
-"viewer</app>)"
-msgstr ""
-"Előre keresés: TeX-ből PDF-be (<app>geditből</app> a "
-"<app>dokumentummegjelenítőbe</app>)"
-
-#. (itstool) path: section/p
-#: C/synctex-search.page:27
-msgid ""
-"Forward search allows you to click on a specific section of TeX source code, "
-"and jump to the associated position in the PDF. To perform forward search:"
-msgstr ""
-"Az előre keresés lehetővé teszi a TeX forráskód egy adott szakaszára "
-"kattintást, majd az ahhoz tartozó pozícióra ugrást a PDF-ben. Előre keresés "
-"végrehajtásához:"
-
-#. (itstool) path: item/p
-#: C/synctex-search.page:32
-msgid "Click on a line in the TeX file."
-msgstr "Kattintson egy sorra a TeX fájlban."
-
-#. (itstool) path: item/p
-#: C/synctex-search.page:37
-msgid ""
-"In <app>gedit</app>, click <guiseq><gui>Tools</gui> <gui>Forward Search</"
-"gui></guiseq>. The corresponding line in the PDF will be outlined in red."
-msgstr ""
-"A <app>geditben</app> válassza az <guiseq><gui>Eszközök</gui><gui>Keresés "
-"előre</gui></guiseq> menüpontot. A PDF-ben megfelelő sor vörös színnel kerül "
-"kiemelésre."
-
-#. (itstool) path: item/p
-#: C/synctex-search.page:40
-msgid ""
-"Alternatively, you can press <keyseq><key>Ctrl</key><key>Alt</key><key>F</"
-"key></keyseq>, or <keyseq><key>Ctrl</key>left click</keyseq>. The "
-"corresponding line in the PDF will be outlined in red."
-msgstr ""
-"Ennek alternatívájaként megnyomhatja a <keyseq><key>Ctrl</key><key>Alt</"
-"key><key>F</key></keyseq> kombinációt, vagy a <keyseq><key>Ctrl</key>bal "
-"kattintást</keyseq>. A PDF-ben megfelelő sor vörös színnel kerül kiemelésre."
-
-#. (itstool) path: note/p
-#: C/synctex-search.page:46
-msgid ""
-"If the corresponding PDF file is not open, performing a forward search will "
-"open the PDF in the <app>document viewer</app>."
-msgstr ""
-"Ha a megfelelő PDF-fájl nincs megnyitva, akkor a keresés előre megnyitja a "
-"PDF-fájlt a <app>dokumentummegjelenítőben</app>."
-
-#. (itstool) path: section/p
-#: C/synctex-search.page:50
-msgid "If you have a complex project with several TeX files you can put"
-msgstr "Ha a projekt összetett és több TeX-fájlból áll, akkor a"
-
-#. (itstool) path: section/code
-#: C/synctex-search.page:53
-#, no-wrap
-msgid "% mainfile: mainfile.tex"
-msgstr "% mainfile: főfájl.tex"
-
-#. (itstool) path: section/p
-#: C/synctex-search.page:54
-msgid ""
-"either in the first or last three lines of each included TeX file, and "
-"forward search will work. Backward search should always work, even if you "
-"don't add the modeline."
-msgstr ""
-"sor elhelyezésével az egyes beágyazott TeX-fájlok első vagy utolsó három "
-"sorában az előre keresés működése biztosítható. A hátra keresés mindig "
-"működik, még ha ezt a sort nem is veszi fel."
-
-#. (itstool) path: section/title
-#: C/synctex-search.page:61
-msgid ""
-"Backward search: from PDF to TeX (from the <app>document viewer</app> to "
-"<app>gedit</app>)"
-msgstr ""
-"Hátra keresés: PDF-ből TeX-be (<app>dokumentummegjelenítőből</app> a "
-"<app>geditbe</app>)"
-
-#. (itstool) path: section/p
-#: C/synctex-search.page:62
-msgid ""
-"Backward search allows you to click on a specific line in the PDF file, and "
-"jump to the associated line in the TeX source code."
-msgstr ""
-"A hátra keresés lehetővé teszi a PDF-fájl adott sorára kattintást, és az "
-"ahhoz tartozó sorra ugrást a TeX forráskódban."
-
-#. (itstool) path: section/p
-#: C/synctex-search.page:65
-msgid ""
-"You can perform a backward search by pressing <keyseq><key>Ctrl</key>left "
-"click</keyseq> in the <app>document viewer</app>. The corresponding line in "
-"the TeX source code will be highlighted."
-msgstr ""
-"Hátra keresést a <keyseq><key>Ctrl</key>bal kattintással</keyseq> végezhet a "
-"<app>dokumentummegjelenítőben</app>. A megfelelő sor a TeX forráskódban "
-"kiemelésre kerül."
