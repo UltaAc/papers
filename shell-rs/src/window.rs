@@ -661,13 +661,6 @@ mod imp {
                 }
             }
 
-            if !metadata.has_key("sidebar-page") {
-                metadata.set_string(
-                    "sidebar-page",
-                    self.default_settings.string("sidebar-page").as_str(),
-                );
-            }
-
             if !metadata.has_key("rtl") {
                 metadata.set_boolean(
                     "rtl",

@@ -841,9 +841,6 @@ setup_sidebar_from_metadata (PpsDocumentView *window)
 			adw_overlay_split_view_set_show_sidebar (priv->split_view, show_sidebar);
 		}
 	}
-
-	if (pps_metadata_get_string (priv->metadata, "sidebar-page", &page_id))
-		g_object_set (priv->sidebar, "visible-child-name", page_id, NULL);
 }
 
 static void
@@ -1112,6 +1109,20 @@ pps_document_view_set_document_metadata (PpsDocumentView *window)
 		pps_metadata_set_string (priv->metadata, "author", "");
 }
 
+static void
+pps_document_view_setup_sidebar (PpsDocumentView *pps_doc_view)
+{
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+	GSettings       *settings = priv->default_settings;
+
+	// Use BIND_GET_NO_CHANGES so that when we have several DocumentViews
+	// One instance sidebar does not get updated when the other one applies
+	// the settings
+	g_settings_bind (settings, "sidebar-page",
+			 priv->sidebar, "visible-child-name",
+			 G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_GET_NO_CHANGES);
+}
+
 void
 pps_document_view_set_document (PpsDocumentView *pps_doc_view, PpsDocument *document)
 {
@@ -1143,6 +1154,10 @@ pps_document_view_set_document (PpsDocumentView *pps_doc_view, PpsDocument *docu
 	pps_document_view_title_set_document (priv->title, document);
 
 	pps_document_view_setup_lockdown (pps_doc_view);
+
+	// This cannot be done in pps_document_view_setup_default because before
+	// having a document, we don't know which sidebars are supported
+	pps_document_view_setup_sidebar (pps_doc_view);
 
 	gtk_widget_grab_focus (priv->view);
 }
@@ -2159,7 +2174,6 @@ pps_document_view_save_settings (PpsDocumentView *pps_doc_view)
 	PpsDocumentModel *model = priv->model;
 	GSettings       *settings = priv->default_settings;
 	PpsSizingMode     sizing_mode;
-	g_autofree gchar *visible_child_name = NULL;
 
 	g_settings_set_boolean (settings, "continuous",
 				pps_document_model_get_continuous (model));
@@ -2180,8 +2194,6 @@ pps_document_view_save_settings (PpsDocumentView *pps_doc_view)
 	g_settings_set_boolean (settings, "show-sidebar",
 				adw_overlay_split_view_get_show_sidebar (ADW_OVERLAY_SPLIT_VIEW (priv->split_view)));
 
-	g_object_get (priv->sidebar, "visible-child-name", &visible_child_name, NULL);
-	g_settings_set_string (settings, "sidebar-page", visible_child_name);
 	g_settings_set_boolean (settings, "enable-spellchecking",
 				pps_view_get_enable_spellchecking (pps_view));
 	g_settings_apply (settings);
@@ -2838,23 +2850,6 @@ pps_document_view_view_cmd_toggle_sidebar (GSimpleAction *action,
 	show_side_pane = g_variant_get_boolean (state);
 	g_simple_action_set_state (action, g_variant_new_boolean (show_side_pane));
 	adw_overlay_split_view_set_show_sidebar (priv->split_view, show_side_pane);
-}
-
-static void
-sidebar_current_page_changed_cb (GObject  *pps_sidebar,
-				 GParamSpec *pspec,
-				 PpsDocumentView   *pps_doc_view)
-{
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
-	g_autofree gchar *visible_child_name = NULL;
-
-	if (priv->metadata && !pps_document_view_is_empty (pps_doc_view)) {
-		g_object_get (pps_sidebar, "visible-child-name", &visible_child_name, NULL);
-
-		pps_metadata_set_string (priv->metadata,
-					"sidebar-page",
-					visible_child_name);
-	}
 }
 
 static void
@@ -4342,7 +4337,6 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_callback (widget_class, activate_link_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_visibility_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_collapsed_changed_cb);
-	gtk_widget_class_bind_template_callback (widget_class, sidebar_current_page_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pps_document_view_button_pressed);
 	gtk_widget_class_bind_template_callback (widget_class, zoom_selector_activated);
 	gtk_widget_class_bind_template_callback (widget_class, find_button_sensitive_changed);

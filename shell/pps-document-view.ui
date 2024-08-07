@@ -84,8 +84,6 @@
                 <child>
                   <object class="PpsSidebar" id="sidebar">
                     <property name="document-model">model</property>
-                    <signal name="notify::visible-child-name"
-                      handler="sidebar_current_page_changed_cb" />
                     <child internal-child="stack">
                       <object class="GtkStack">
                         <property name="transition-type">crossfade</property>
