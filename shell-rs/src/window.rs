@@ -646,7 +646,6 @@ mod imp {
             let metadata = papers_shell::Metadata::new(file);
 
             let boolean_properties = [
-                "show-sidebar",
                 "continuous",
                 "dual-page",
                 "dual-page-odd-left",

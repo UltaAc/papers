@@ -824,26 +824,6 @@ page_changed_cb (PpsDocumentView        *pps_doc_view,
 }
 
 static void
-setup_sidebar_from_metadata (PpsDocumentView *window)
-{
-	gboolean show_sidebar;
-	const gchar *page_id;
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
-
-	if (!priv->metadata)
-		return;
-
-	if (pps_metadata_get_boolean (priv->metadata, "show-sidebar", &show_sidebar)) {
-		if (adw_overlay_split_view_get_collapsed (priv->split_view)) {
-			priv->sidebar_was_open_before_collapsed = show_sidebar;
-			adw_overlay_split_view_set_show_sidebar (priv->split_view, FALSE);
-		} else {
-			adw_overlay_split_view_set_show_sidebar (priv->split_view, show_sidebar);
-		}
-	}
-}
-
-static void
 setup_model_from_metadata (PpsDocumentView *window)
 {
 	gint     page;
@@ -935,8 +915,6 @@ setup_document_from_metadata (PpsDocumentView *window)
 	gint    page, n_pages;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
-	setup_sidebar_from_metadata (window);
-
 	/* Make sure to not open a document on the last page,
 	 * since closing it on the last page most likely means the
 	 * user was finished reading the document. In that case, reopening should
@@ -1018,11 +996,16 @@ pps_document_view_setup_default (PpsDocumentView *pps_doc_view)
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	PpsDocumentModel *model = priv->model;
 	GSettings       *settings = priv->default_settings;
+	gboolean show_sidebar;
 
 	/* Sidebar */
-	adw_overlay_split_view_set_show_sidebar (priv->split_view,
-						 g_settings_get_boolean (settings, "show-sidebar"));
-	g_signal_emit_by_name (priv->split_view, "notify::show-sidebar", NULL);
+	show_sidebar = g_settings_get_boolean (settings, "show-sidebar");
+	if (adw_overlay_split_view_get_collapsed (priv->split_view)) {
+		priv->sidebar_was_open_before_collapsed = show_sidebar;
+		adw_overlay_split_view_set_show_sidebar (priv->split_view, FALSE);
+	} else {
+		adw_overlay_split_view_set_show_sidebar (priv->split_view, show_sidebar);
+	}
 
 	/* Document model */
 	pps_document_model_set_continuous (model, g_settings_get_boolean (settings, "continuous"));
@@ -2858,7 +2841,7 @@ sidebar_visibility_changed_cb (AdwOverlaySplitView *split_view,
                                PpsDocumentView            *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
-
+	GSettings *settings = priv->default_settings;
 	gboolean visible = adw_overlay_split_view_get_show_sidebar (split_view);
 
 	g_action_group_change_action_state (G_ACTION_GROUP (priv->document_action_group), "show-sidebar",
@@ -2867,8 +2850,7 @@ sidebar_visibility_changed_cb (AdwOverlaySplitView *split_view,
 	if (priv->metadata
 		&& gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack)) != priv->find_sidebar
 		&& !adw_overlay_split_view_get_collapsed (priv->split_view))
-		pps_metadata_set_boolean (priv->metadata, "show-sidebar",
-						visible);
+		g_settings_set_boolean (settings, "show-sidebar", visible);
 	if (!visible)
 		gtk_widget_grab_focus (priv->view);
 }
