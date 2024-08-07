@@ -1205,16 +1205,17 @@ pps_document_view_reset_progress_cancellable (PpsDocumentView *pps_doc_view)
 
 /**
  * pps_document_view_open_document:
- * @pps_doc_view: a #PpsDocumentView
- * @document:
+ * @pps_doc_view: A #PpsDocumentView
+ * @document: A #PpsDocument to open in the document view
+ * @metadata: A #PpsMetadata if the documents supports it
  * @dest: (nullable): A #PpsLinkDest
  *
  */
 void
 pps_document_view_open_document (PpsDocumentView  *pps_doc_view,
-			  PpsDocument *document,
-			  PpsMetadata *metadata,
-			  PpsLinkDest *dest)
+				 PpsDocument *document,
+				 PpsMetadata *metadata,
+				 PpsLinkDest *dest)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
