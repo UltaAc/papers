@@ -180,6 +180,11 @@ static void       draw_one_page                              (PpsView           
 							      GtkBorder          *border,
 							      GdkRectangle       *expose_area,
 							      gboolean		 *page_ready);
+static void      draw_surface                                (GtkSnapshot            *snapshot,
+							      GdkTexture             *texture,
+							      const graphene_point_t *point,
+							      const graphene_rect_t  *area,
+							      gboolean                inverted);
 static void       pps_view_reload_page                        (PpsView             *view,
 							      gint                page,
 							      cairo_region_t     *region);
@@ -4982,8 +4987,11 @@ link_preview_set_thumbnail (GdkTexture *page_texture,
 
 	snapshot = gtk_snapshot_new ();
 	gtk_snapshot_push_clip (snapshot, &GRAPHENE_RECT_INIT (0, 0, width, height));
-	gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (-left, -top));
-	gtk_snapshot_append_texture (snapshot, page_texture, &GRAPHENE_RECT_INIT (0, 0, pwidth, pheight));
+	draw_surface (snapshot,
+		      page_texture,
+		      &GRAPHENE_POINT_INIT (-left, -top),
+		      &GRAPHENE_RECT_INIT (0, 0, pwidth, pheight),
+		      pps_document_model_get_inverted_colors (priv->model));
 	gtk_snapshot_pop (snapshot);
 
 	picture = gtk_picture_new_for_paintable (gtk_snapshot_free_to_paintable (snapshot, NULL));
