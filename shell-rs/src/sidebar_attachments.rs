@@ -1,6 +1,5 @@
 use crate::deps::*;
 use papers_document::{Attachment, DocumentAttachments};
-use papers_shell::SidebarPage;
 use papers_view::AttachmentContext;
 use std::env;
 use std::fs;
@@ -304,7 +303,7 @@ mod imp {
     impl ObjectSubclass for PpsSidebarAttachments {
         const NAME: &'static str = "PpsSidebarAttachments";
         type Type = super::PpsSidebarAttachments;
-        type ParentType = SidebarPage;
+        type ParentType = PpsSidebarPage;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -336,7 +335,9 @@ mod imp {
 
     impl WidgetImpl for PpsSidebarAttachments {}
 
-    impl SidebarPageImpl for PpsSidebarAttachments {
+    impl BinImpl for PpsSidebarAttachments {}
+
+    impl PpsSidebarPageImpl for PpsSidebarAttachments {
         fn support_document(&self, document: &Document) -> bool {
             document
                 .dynamic_cast_ref::<DocumentAttachments>()
@@ -348,7 +349,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct PpsSidebarAttachments(ObjectSubclass<imp::PpsSidebarAttachments>)
-    @extends gtk::Widget, adw::Bin, SidebarPage;
+    @extends gtk::Widget, adw::Bin, PpsSidebarPage;
 }
 
 impl Default for PpsSidebarAttachments {

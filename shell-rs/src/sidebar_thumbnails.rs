@@ -48,7 +48,7 @@ mod imp {
     impl ObjectSubclass for PpsSidebarThumbnails {
         const NAME: &'static str = "PpsSidebarThumbnails";
         type Type = super::PpsSidebarThumbnails;
-        type ParentType = papers_shell::SidebarPage;
+        type ParentType = PpsSidebarPage;
 
         fn class_init(klass: &mut Self::Class) {
             PpsThumbnailItem::ensure_type();
@@ -136,7 +136,7 @@ mod imp {
         }
     }
 
-    impl BoxImpl for PpsSidebarThumbnails {}
+    impl BinImpl for PpsSidebarThumbnails {}
 
     impl WidgetImpl for PpsSidebarThumbnails {
         fn map(&self) {
@@ -152,7 +152,7 @@ mod imp {
         }
     }
 
-    impl SidebarPageImpl for PpsSidebarThumbnails {
+    impl PpsSidebarPageImpl for PpsSidebarThumbnails {
         fn support_document(&self, _document: &Document) -> bool {
             true
         }
@@ -528,7 +528,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct PpsSidebarThumbnails(ObjectSubclass<imp::PpsSidebarThumbnails>)
-        @extends papers_shell::SidebarPage, adw::Bin, gtk::Widget;
+        @extends PpsSidebarPage, adw::Bin, gtk::Widget;
 }
 
 impl PpsSidebarThumbnails {

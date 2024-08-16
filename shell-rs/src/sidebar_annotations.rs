@@ -1,7 +1,6 @@
 use crate::deps::*;
 use crate::sidebar_annotations_row::PpsSidebarAnnotationsRow;
 use papers_document::{AnnotationMarkup, DocumentAnnotations, Mapping};
-use papers_shell::SidebarPage;
 use papers_view::{JobAnnots, JobPriority};
 
 use gtk::graphene;
@@ -29,7 +28,7 @@ mod imp {
     impl ObjectSubclass for PpsSidebarAnnotations {
         const NAME: &'static str = "PpsSidebarAnnotations";
         type Type = super::PpsSidebarAnnotations;
-        type ParentType = SidebarPage;
+        type ParentType = PpsSidebarPage;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -110,7 +109,9 @@ mod imp {
 
     impl WidgetImpl for PpsSidebarAnnotations {}
 
-    impl SidebarPageImpl for PpsSidebarAnnotations {
+    impl BinImpl for PpsSidebarAnnotations {}
+
+    impl PpsSidebarPageImpl for PpsSidebarAnnotations {
         fn support_document(&self, document: &Document) -> bool {
             document.is::<DocumentAnnotations>()
         }
@@ -248,7 +249,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct PpsSidebarAnnotations(ObjectSubclass<imp::PpsSidebarAnnotations>)
-    @extends gtk::Widget, adw::Bin, SidebarPage;
+    @extends gtk::Widget, adw::Bin, PpsSidebarPage;
 }
 
 impl Default for PpsSidebarAnnotations {

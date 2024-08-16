@@ -347,7 +347,7 @@ mod imp {
     impl ObjectSubclass for PpsSidebarLinks {
         const NAME: &'static str = "PpsSidebarLinks";
         type Type = super::PpsSidebarLinks;
-        type ParentType = papers_shell::SidebarPage;
+        type ParentType = PpsSidebarPage;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -471,7 +471,9 @@ mod imp {
 
     impl WidgetImpl for PpsSidebarLinks {}
 
-    impl SidebarPageImpl for PpsSidebarLinks {
+    impl BinImpl for PpsSidebarLinks {}
+
+    impl PpsSidebarPageImpl for PpsSidebarLinks {
         fn support_document(&self, document: &Document) -> bool {
             document
                 .dynamic_cast_ref::<DocumentLinks>()
@@ -983,7 +985,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct PpsSidebarLinks(ObjectSubclass<imp::PpsSidebarLinks>)
-        @extends papers_shell::SidebarPage, adw::Bin, gtk::Widget;
+        @extends PpsSidebarPage, adw::Bin, gtk::Widget;
 }
 
 impl PpsSidebarLinks {

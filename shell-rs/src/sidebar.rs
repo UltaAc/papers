@@ -66,7 +66,7 @@ mod imp {
                 let page = page.unwrap();
                 let sidebar_page = page.child();
                 let supported = sidebar_page
-                    .dynamic_cast_ref::<papers_shell::SidebarPage>()
+                    .dynamic_cast_ref::<PpsSidebarPage>()
                     .unwrap()
                     .support_document(&document);
 
@@ -81,7 +81,7 @@ mod imp {
                 if !self
                     .stack
                     .visible_child()
-                    .and_dynamic_cast::<papers_shell::SidebarPage>()
+                    .and_dynamic_cast::<PpsSidebarPage>()
                     .map(|p| p.support_document(&document))
                     .unwrap_or_default()
                 {
@@ -121,7 +121,7 @@ mod imp {
                     .stack
                     .child_by_name("links")
                     .unwrap()
-                    .dynamic_cast_ref::<papers_shell::SidebarPage>()
+                    .dynamic_cast_ref::<crate::sidebar_page::PpsSidebarPage>()
                     .unwrap()
                     .support_document(&document)
                 {
@@ -134,7 +134,7 @@ mod imp {
             let page = self.stack.child_by_name(&name).unwrap();
 
             if page
-                .dynamic_cast_ref::<papers_shell::SidebarPage>()
+                .dynamic_cast_ref::<PpsSidebarPage>()
                 .unwrap()
                 .support_document(&document)
             {
@@ -143,7 +143,7 @@ mod imp {
                 .stack
                 .child_by_name("links")
                 .unwrap()
-                .dynamic_cast_ref::<papers_shell::SidebarPage>()
+                .dynamic_cast_ref::<crate::sidebar_page::PpsSidebarPage>()
                 .unwrap()
                 .support_document(&document)
             {

@@ -22,7 +22,7 @@ mod imp {
     impl ObjectSubclass for PpsSidebarLayers {
         const NAME: &'static str = "PpsSidebarLayers";
         type Type = super::PpsSidebarLayers;
-        type ParentType = papers_shell::SidebarPage;
+        type ParentType = PpsSidebarPage;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -100,11 +100,11 @@ mod imp {
         }
     }
 
-    impl BoxImpl for PpsSidebarLayers {}
+    impl BinImpl for PpsSidebarLayers {}
 
     impl WidgetImpl for PpsSidebarLayers {}
 
-    impl SidebarPageImpl for PpsSidebarLayers {
+    impl PpsSidebarPageImpl for PpsSidebarLayers {
         fn support_document(&self, document: &Document) -> bool {
             document
                 .dynamic_cast_ref::<DocumentLayers>()
@@ -283,7 +283,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct PpsSidebarLayers(ObjectSubclass<imp::PpsSidebarLayers>)
-        @extends papers_shell::SidebarPage, adw::Bin, gtk::Widget;
+        @extends PpsSidebarPage, adw::Bin, gtk::Widget;
 }
 
 impl PpsSidebarLayers {

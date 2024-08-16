@@ -3,7 +3,6 @@ pub use adw::subclass::prelude::*;
 
 pub use papers_document::prelude::*;
 pub use papers_shell::prelude::*;
-pub use papers_shell::subclass::prelude::*;
 pub use papers_view::prelude::*;
 
 pub use papers_document::Document;
@@ -35,3 +34,5 @@ pub use log::{debug, warn};
 pub use crate::config::*;
 pub use crate::i18n::gettext_f;
 pub use crate::window::WindowRunMode;
+
+pub use crate::sidebar_page::{PpsSidebarPage, PpsSidebarPageExt, PpsSidebarPageImpl};
