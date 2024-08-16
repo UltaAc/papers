@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: evince\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-08-11 13:30+0000\n"
-"PO-Revision-Date: 2024-08-12 14:16+0300\n"
+"POT-Creation-Date: 2024-08-16 10:29+0000\n"
+"PO-Revision-Date: 2024-08-16 13:39+0300\n"
 "Last-Translator: Florentina Mușat <florentina [dot] musat [dot] 28 [at] "
 "gmail [dot] com>\n"
 "Language-Team: Gnome Romanian Translation Team\n"
@@ -28,7 +28,7 @@ msgstr ""
 #. Manually set name and icon
 #: data/org.gnome.Papers.desktop.in.in:3
 #: data/org.gnome.Papers.metainfo.xml.in.in:23
-#: previewer/pps-previewer-window.c:477 shell/pps-document-view.ui:68
+#: previewer/pps-previewer-window.c:477 shell/pps-document-view.ui:73
 #: shell/pps-loader-view.ui:10 shell/pps-window-title.c:126
 #: shell-rs/src/application.rs:42 shell-rs/src/application.rs:76
 #: shell-rs/src/application.rs:313
@@ -511,6 +511,20 @@ msgstr "Crearea dosarului temporar a eșuat: %s"
 msgid "This work is in the Public Domain"
 msgstr "Această lucrare este în Domeniul public"
 
+#: libview/context/pps-attachment-context.c:345
+msgid "Save Attachment"
+msgid_plural "Save Attachments"
+msgstr[0] "Salvează atașamentul"
+msgstr[1] "Salvează atașamentele"
+msgstr[2] "Salvează atașamentele"
+
+#: libview/context/pps-history.c:454 previewer/pps-page-selector.c:194
+#: shell/pps-document-view.c:646 shell/pps-document-view.c:2584
+#: shell/pps-sidebar-bookmarks.c:339
+#, c-format
+msgid "Page %s"
+msgstr "Pagina %s"
+
 #: libview/pps-jobs.c:407
 #, c-format
 msgid "Failed to render page %d: %s"
@@ -574,7 +588,7 @@ msgid "Invalid Page Selection"
 msgstr "Selectare nevalidă de pagini"
 
 #: libview/pps-print-operation.c:2000
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.ui:628
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.ui:629
 #: shell/pps-window.ui:155
 msgid "_Close"
 msgstr "În_chide"
@@ -674,51 +688,51 @@ msgstr "Defilare descendentă a vizualizării"
 msgid "Document View"
 msgstr "Vizualizare document"
 
-#: libview/pps-view.c:2117
+#: libview/pps-view.c:2124
 msgid "Go to first page"
 msgstr "Du-te la prima pagină"
 
-#: libview/pps-view.c:2119
+#: libview/pps-view.c:2126
 msgid "Go to previous page"
 msgstr "Du-te la pagina precedentă"
 
-#: libview/pps-view.c:2121
+#: libview/pps-view.c:2128
 msgid "Go to next page"
 msgstr "Du-te la pagina următoare"
 
-#: libview/pps-view.c:2123
+#: libview/pps-view.c:2130
 msgid "Go to last page"
 msgstr "Du-te la ultima pagină"
 
-#: libview/pps-view.c:2125
+#: libview/pps-view.c:2132
 msgid "Go to page"
 msgstr "Du-te la pagina"
 
-#: libview/pps-view.c:2127
+#: libview/pps-view.c:2134
 msgid "Find"
 msgstr "Caută"
 
-#: libview/pps-view.c:2156
+#: libview/pps-view.c:2163
 #, c-format
 msgid "Go to page %s"
 msgstr "Du-te la pagina %s"
 
-#: libview/pps-view.c:2162
+#: libview/pps-view.c:2169
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Du-te la %s în fișierul „%s”"
 
-#: libview/pps-view.c:2165
+#: libview/pps-view.c:2172
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Du-te în fișierul „%s”"
 
-#: libview/pps-view.c:2173
+#: libview/pps-view.c:2180
 #, c-format
 msgid "Launch %s"
 msgstr "Pornește %s"
 
-#: libview/pps-view.c:2180
+#: libview/pps-view.c:2187
 #, c-format
 msgid "Reset form"
 msgstr "Restabilește formularul"
@@ -744,13 +758,6 @@ msgstr "(%d din %d)"
 #, c-format
 msgid "of %d"
 msgstr "din %d"
-
-#: previewer/pps-page-selector.c:194 shell/pps-document-view.c:649
-#: shell/pps-document-view.c:2591 shell/pps-history.c:454
-#: shell/pps-sidebar-bookmarks.c:339
-#, c-format
-msgid "Page %s"
-msgstr "Pagina %s"
 
 #: previewer/pps-page-selector.ui:12 shell/pps-page-selector.ui:12
 msgid "Select page"
@@ -813,7 +820,7 @@ msgstr "Pagina precedentă"
 msgid "Next Page"
 msgstr "Pagina următoare"
 
-#: previewer/pps-previewer-window.ui:31 shell/pps-document-view.ui:217
+#: previewer/pps-previewer-window.ui:31 shell/pps-document-view.ui:218
 msgid "Page Count"
 msgstr "Număr pagini"
 
@@ -825,7 +832,7 @@ msgstr "_Tipărește"
 msgid "Print This Document"
 msgstr "Tipărește acest document"
 
-#: previewer/pps-previewer-window.ui:48 shell/pps-document-view.ui:291
+#: previewer/pps-previewer-window.ui:48 shell/pps-document-view.ui:292
 msgid "Zoom Out"
 msgstr "Micșorează"
 
@@ -833,7 +840,7 @@ msgstr "Micșorează"
 msgid "Normal Size"
 msgstr "Dimensiune normală"
 
-#: previewer/pps-previewer-window.ui:62 shell/pps-document-view.ui:278
+#: previewer/pps-previewer-window.ui:62 shell/pps-document-view.ui:279
 msgid "Zoom In"
 msgstr "Mărește"
 
@@ -1316,32 +1323,32 @@ msgstr "Curbat"
 msgid "_Apply"
 msgstr "_Aplică"
 
-#: shell/pps-document-view.c:490 shell-rs/src/window.rs:465
+#: shell/pps-document-view.c:487 shell-rs/src/window.rs:465
 msgid "View Details"
 msgstr "Vezi detaliile"
 
-#: shell/pps-document-view.c:1132
+#: shell/pps-document-view.c:1123
 msgid "The document contains no pages"
 msgstr "Documentul nu conține nicio pagină"
 
-#: shell/pps-document-view.c:1135
+#: shell/pps-document-view.c:1126
 msgid "The document contains only empty pages"
 msgstr "Acest document conține doar pagini goale"
 
-#: shell/pps-document-view.c:1358
+#: shell/pps-document-view.c:1354
 msgid "File Saved"
 msgstr "Fișier salvat"
 
-#: shell/pps-document-view.c:1368 shell/pps-document-view.c:1421
+#: shell/pps-document-view.c:1364 shell/pps-document-view.c:1417
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Fișierul nu a putut fi salvat ca „%s”."
 
-#: shell/pps-document-view.c:1483
+#: shell/pps-document-view.c:1479
 msgid "Save As…"
 msgstr "Salvează ca…"
 
-#: shell/pps-document-view.c:1789
+#: shell/pps-document-view.c:1785
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
@@ -1349,61 +1356,49 @@ msgstr[0] "o sarcină în așteptare în coadă"
 msgstr[1] "%d sarcini în așteptare în coadă"
 msgstr[2] "%d de sarcini în așteptare în coadă"
 
-#: shell/pps-document-view.c:1828
+#: shell/pps-document-view.c:1824
 msgid "Failed to Print Document"
 msgstr "Tipărirea documentului a eșuat"
 
-#: shell/pps-document-view.c:1882
+#: shell/pps-document-view.c:1878
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Se tipărește sarcina „%s”"
 
-#: shell/pps-document-view.c:1885 shell/pps-loader-view.ui:45
+#: shell/pps-document-view.c:1881 shell/pps-loader-view.ui:45
 msgid "C_ancel"
 msgstr "_Anulează"
 
-#: shell/pps-document-view.c:2074 shell-rs/src/window.rs:267
+#: shell/pps-document-view.c:2070 shell-rs/src/window.rs:267
 msgid "Document contains form fields that have been filled out."
 msgstr "Documentul conține câmpuri de formular care trebuie să fie completate."
 
-#: shell/pps-document-view.c:2077 shell-rs/src/window.rs:268
+#: shell/pps-document-view.c:2073 shell-rs/src/window.rs:268
 msgid "Document contains new or modified annotations."
 msgstr "Documentul conține adnotări noi sau modificate."
 
-#: shell/pps-document-view.c:2084
+#: shell/pps-document-view.c:2080
 msgid "Save Changes to a Copy?"
 msgstr "Salvați modificările la o copie?"
 
-#: shell/pps-document-view.c:2085
+#: shell/pps-document-view.c:2081
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "Dacă nu salvați o copie, modificările vor fi pierdute definitiv."
 
-#: shell/pps-document-view.c:2088
+#: shell/pps-document-view.c:2084
 msgid "Close _Without Saving"
 msgstr "Închide _fără a salva"
 
-#: shell/pps-document-view.c:2089 shell/pps-document-view.ui:608
-#: shell/pps-document-view.ui:620
+#: shell/pps-document-view.c:2085 shell/pps-document-view.ui:609
+#: shell/pps-document-view.ui:621
 msgid "_Cancel"
 msgstr "An_ulează"
 
-#: shell/pps-document-view.c:2090
+#: shell/pps-document-view.c:2086
 msgid "_Save a Copy"
 msgstr "_Salvează o copie"
 
-#: shell/pps-document-view.c:2914
-msgid "Search"
-msgstr "Căutare"
-
-#: shell/pps-document-view.c:2918
-msgid "Search Unavailable"
-msgstr "Căutarea nu este disponibilă"
-
-#: shell/pps-document-view.c:3126
-msgid "The attachment could not be saved."
-msgstr "Atașamentul nu a putut fi salvat."
-
-#: shell/pps-document-view.c:3604
+#: shell/pps-document-view.c:3451
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
@@ -1411,79 +1406,83 @@ msgstr ""
 "Alertă de securitate: acest document a fost împiedicat de la deschiderea "
 "fișierului „%s”"
 
-#: shell/pps-document-view.c:3665
+#: shell/pps-document-view.c:3512
 msgid "Unable to open external link"
 msgstr "Adresa externă nu a putut fi deschisă"
 
-#: shell/pps-document-view.c:3890
+#: shell/pps-document-view.c:3737
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Nu s-a găsit un format potrivit pentru salvarea imaginii"
 
-#: shell/pps-document-view.c:3920
+#: shell/pps-document-view.c:3767
 msgid "The image could not be saved."
 msgstr "Imaginea nu a putut fi salvată."
 
-#: shell/pps-document-view.c:3956
+#: shell/pps-document-view.c:3803
 msgid "Save Image"
 msgstr "Salvează imaginea"
 
-#: shell/pps-document-view.c:4127
+#: shell/pps-document-view.c:3974
 msgid "Unable to open attachment"
 msgstr "Atașamentul nu a putut fi deschis"
 
-#: shell/pps-document-view.c:4192
-msgid "Save Attachment"
-msgstr "Salvează atașamentul"
+#: shell/pps-document-view.c:3993
+msgid "The attachment could not be saved."
+msgstr "Atașamentul nu a putut fi salvat."
 
-#: shell/pps-document-view.ui:74
+#: shell/pps-document-view.ui:64
+msgid "Search"
+msgstr "Căutare"
+
+#: shell/pps-document-view.ui:79
 msgid "Main Menu"
 msgstr "Meniu principal"
 
-#: shell/pps-document-view.ui:95
+#: shell/pps-document-view.ui:98
 msgid "Thumbnails"
 msgstr "Miniaturi"
 
-#: shell/pps-document-view.ui:108
+#: shell/pps-document-view.ui:111
 msgid "Outline"
 msgstr "Contur"
 
-#: shell/pps-document-view.ui:123
+#: shell/pps-document-view.ui:126
 msgid "Annotations"
 msgstr "Adnotări"
 
-#: shell/pps-document-view.ui:138
+#: shell/pps-document-view.ui:141
 msgid "Bookmarks"
 msgstr "Semne de carte"
 
-#: shell/pps-document-view.ui:152
+#: shell/pps-document-view.ui:155
 msgid "Attachments"
 msgstr "Atașamente"
 
-#: shell/pps-document-view.ui:168
+#: shell/pps-document-view.ui:169
 msgid "Layers"
 msgstr "Straturi"
 
-#: shell/pps-document-view.ui:204
+#: shell/pps-document-view.ui:205
 msgid "Toggle Sidebar"
 msgstr "Comută bara laterală"
 
-#: shell/pps-document-view.ui:210
+#: shell/pps-document-view.ui:211
 msgid "Document Menu"
 msgstr "Meniu document"
 
-#: shell/pps-document-view.ui:258
+#: shell/pps-document-view.ui:259
 msgid "Fit Automatically"
 msgstr "Potrivește automat"
 
-#: shell/pps-document-view.ui:350
+#: shell/pps-document-view.ui:351
 msgid "Loading…"
 msgstr "Se încarcă…"
 
-#: shell/pps-document-view.ui:599
+#: shell/pps-document-view.ui:600
 msgid "Enable Caret Navigation?"
 msgstr "Activează navigarea caret?"
 
-#: shell/pps-document-view.ui:600
+#: shell/pps-document-view.ui:601
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1493,19 +1492,19 @@ msgstr ""
 "funcționalitate plasează un cursor mobil în paginile de text, permițându-vă "
 "să vă deplasați și să selectați text cu tastatura."
 
-#: shell/pps-document-view.ui:603
+#: shell/pps-document-view.ui:604
 msgid "Don’t show this message again"
 msgstr "Nu arăta din nou acest mesaj"
 
-#: shell/pps-document-view.ui:609
+#: shell/pps-document-view.ui:610
 msgid "_Enable"
 msgstr "Activ_ează"
 
-#: shell/pps-document-view.ui:615
+#: shell/pps-document-view.ui:616
 msgid "Abort Printing?"
 msgstr "Întrerupeți tipărirea?"
 
-#: shell/pps-document-view.ui:616
+#: shell/pps-document-view.ui:617
 msgid ""
 "There is one or more active print jobs. If the window is closed, pending "
 "print jobs will not be printed."
@@ -1513,145 +1512,145 @@ msgstr ""
 "Există una sau mai multe sarcini de tipărire active. Dacă fereastra este "
 "închisă, sarcinile de tipărire în așteptare nu vor fi tipărite."
 
-#: shell/pps-document-view.ui:619
+#: shell/pps-document-view.ui:620
 msgid "Abort _Print and Close"
 msgstr "Întrerupe _tipărirea și închide"
 
-#: shell/pps-document-view.ui:621
+#: shell/pps-document-view.ui:622
 msgid "Close _After Printing"
 msgstr "Ieși _după tipărire"
 
-#: shell/pps-document-view.ui:635
+#: shell/pps-document-view.ui:636
 msgid "Open"
 msgstr "Deschide"
 
-#: shell/pps-document-view.ui:641
+#: shell/pps-document-view.ui:642
 msgid "Ni_ght Mode"
 msgstr "Mod no_cturn"
 
-#: shell/pps-document-view.ui:647
+#: shell/pps-document-view.ui:648
 msgid "_Keyboard Shortcuts"
 msgstr "Scurtături de _tastatură"
 
-#: shell/pps-document-view.ui:651
+#: shell/pps-document-view.ui:652
 msgid "_Help"
 msgstr "_Ajutor"
 
-#: shell/pps-document-view.ui:655
+#: shell/pps-document-view.ui:656
 msgid "_About Papers"
 msgstr "_Despre Hârtii"
 
-#: shell/pps-document-view.ui:663
+#: shell/pps-document-view.ui:664
 msgid "_Print…"
 msgstr "Ti_părește…"
 
-#: shell/pps-document-view.ui:667
+#: shell/pps-document-view.ui:668
 msgid "Fullscreen"
 msgstr "Ecran complet"
 
-#: shell/pps-document-view.ui:671
+#: shell/pps-document-view.ui:672
 msgid "Present as Slideshow"
 msgstr "Prezintă ca succesiune de diapozitive"
 
-#: shell/pps-document-view.ui:677
+#: shell/pps-document-view.ui:678
 msgid "Open a C_opy"
 msgstr "Deschide o c_opie"
 
-#: shell/pps-document-view.ui:681
+#: shell/pps-document-view.ui:682
 msgid "Open With…"
 msgstr "Deschide cu…"
 
-#: shell/pps-document-view.ui:685
+#: shell/pps-document-view.ui:686
 msgid "_Save As…"
 msgstr "_Salvează ca…"
 
-#: shell/pps-document-view.ui:691
+#: shell/pps-document-view.ui:692
 msgid "_Continuous"
 msgstr "C_ontinuu"
 
-#: shell/pps-document-view.ui:695
+#: shell/pps-document-view.ui:696
 msgid "_Dual"
 msgstr "_Dual"
 
-#: shell/pps-document-view.ui:699
+#: shell/pps-document-view.ui:700
 msgid "_Odd Pages Left"
 msgstr "_Paginile impare la stânga"
 
-#: shell/pps-document-view.ui:703
+#: shell/pps-document-view.ui:704
 msgid "Right to Left Document"
 msgstr "Documente dreapta spre stânga"
 
-#: shell/pps-document-view.ui:709
+#: shell/pps-document-view.ui:710
 msgid "Ro_tate ⤵"
 msgstr "Ro_tește ⤵"
 
-#: shell/pps-document-view.ui:715
+#: shell/pps-document-view.ui:716
 msgid "Document Prop_erties"
 msgstr "Propri_etăți document"
 
-#: shell/pps-document-view.ui:724
+#: shell/pps-document-view.ui:725
 msgid "_Open Link"
 msgstr "_Deschide adresa"
 
-#: shell/pps-document-view.ui:729
+#: shell/pps-document-view.ui:730
 msgid "_Copy Link Address"
 msgstr "_Copiază adresa"
 
-#: shell/pps-document-view.ui:734
+#: shell/pps-document-view.ui:735
 msgid "_Go To"
 msgstr "_Navigare"
 
-#: shell/pps-document-view.ui:739
+#: shell/pps-document-view.ui:740
 msgid "Open in New _Window"
 msgstr "Deschide într-o nouă _fereastră"
 
-#: shell/pps-document-view.ui:746
+#: shell/pps-document-view.ui:747
 msgid "_Previous Page"
 msgstr "Pagina pr_ecedentă"
 
-#: shell/pps-document-view.ui:750
+#: shell/pps-document-view.ui:751
 msgid "_Next Page"
 msgstr "Pagina ur_mătoare"
 
-#: shell/pps-document-view.ui:756
+#: shell/pps-document-view.ui:757
 msgid "_Copy"
 msgstr "_Copiază"
 
-#: shell/pps-document-view.ui:760
+#: shell/pps-document-view.ui:761
 msgid "Select _All"
 msgstr "Selectează t_ot"
 
-#: shell/pps-document-view.ui:766
+#: shell/pps-document-view.ui:767
 msgid "_Save Image As…"
 msgstr "_Salvează imaginea ca…"
 
-#: shell/pps-document-view.ui:771
+#: shell/pps-document-view.ui:772
 msgid "Copy _Image"
 msgstr "Copiază _imaginea"
 
-#: shell/pps-document-view.ui:778 shell/pps-document-view.ui:815
+#: shell/pps-document-view.ui:779 shell/pps-document-view.ui:816
 #: shell/pps-sidebar-annotations.ui:85
 msgid "_Open Attachment"
 msgstr "_Deschide atașament"
 
-#: shell/pps-document-view.ui:783 shell/pps-document-view.ui:819
+#: shell/pps-document-view.ui:784 shell/pps-document-view.ui:820
 #: shell/pps-sidebar-annotations.ui:90
 msgid "_Save Attachment As…"
 msgstr "_Salvează atașamentul ca…"
 
-#: shell/pps-document-view.ui:790
+#: shell/pps-document-view.ui:791
 msgid "Annotation _Properties…"
 msgstr "Proprietăți adnotare…"
 
-#: shell/pps-document-view.ui:795
+#: shell/pps-document-view.ui:796
 msgid "R_emove Annotation"
 msgstr "_Elimină adnotarea"
 
-#: shell/pps-document-view.ui:802
+#: shell/pps-document-view.ui:803
 msgid "_Add Text Annotation"
 msgstr "_Adăugă adnotare de text"
 
-#: shell/pps-document-view.ui:807
+#: shell/pps-document-view.ui:808
 msgid "_Highlight Selected Text"
 msgstr "Evi_dențiază textul selectat"
 
@@ -1956,9 +1955,12 @@ msgstr "_Reîncarcă"
 msgid "Failed to Load Remote File."
 msgstr "Nu s-a putut încărca fișierul de la distanță."
 
-#: shell-rs/src/window.rs:741
+#: shell-rs/src/window.rs:733
 msgid "Failed to Reload Document."
 msgstr "Nu s-a putut reîncărca documentul."
+
+#~ msgid "Search Unavailable"
+#~ msgstr "Căutarea nu este disponibilă"
 
 #~ msgid "DVI document has incorrect format"
 #~ msgstr "Documentul DVI are un format nevalid"
