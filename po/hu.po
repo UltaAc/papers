@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: papers master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/issues/"
 "\n"
-"POT-Creation-Date: 2024-08-01 19:42+0000\n"
-"PO-Revision-Date: 2024-08-07 22:54+0200\n"
+"POT-Creation-Date: 2024-08-16 10:29+0000\n"
+"PO-Revision-Date: 2024-08-16 21:58+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -24,7 +24,7 @@ msgstr ""
 #. Manually set name and icon
 #: data/org.gnome.Papers.desktop.in.in:3
 #: data/org.gnome.Papers.metainfo.xml.in.in:23
-#: previewer/pps-previewer-window.c:477 shell/pps-document-view.ui:68
+#: previewer/pps-previewer-window.c:477 shell/pps-document-view.ui:73
 #: shell/pps-loader-view.ui:10 shell/pps-window-title.c:126
 #: shell-rs/src/application.rs:42 shell-rs/src/application.rs:76
 #: shell-rs/src/application.rs:313
@@ -37,8 +37,6 @@ msgstr "Többoldalas dokumentumok megtekintése"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Papers.desktop.in.in:6
-#| msgid ""
-#| "pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;viewer;evince;"
 msgid "pdf;ps;postscript;xps;djvu;tiff;document;presentation;viewer;papers;"
 msgstr ""
 "pdf;ps;postscript;xps;djvu;tiff;dokumentum;prezentáció;nézegető;papírok;"
@@ -54,8 +52,8 @@ msgstr "Dokumentum korlátozásainak felülbírálása"
 #: data/org.gnome.Papers.gschema.xml:15
 msgid "Override document restrictions, like restriction to copy or to print."
 msgstr ""
-"A dokumentum korlátozásainak felülbírálása, például a másolásra vagy"
-" nyomtatásra vonatkozóan."
+"A dokumentum korlátozásainak felülbírálása, például a másolásra vagy "
+"nyomtatásra vonatkozóan."
 
 #: data/org.gnome.Papers.gschema.xml:19
 msgid "The URI of the directory last used to open or save a document"
@@ -75,22 +73,22 @@ msgid ""
 "The maximum size that will be used to cache rendered pages, limits maximum "
 "zoom level."
 msgstr ""
-"A megjelenített oldalak gyorsítótárazásához használandó legnagyobb méret, a"
-" legnagyobb nagyítást korlátozza."
+"A megjelenített oldalak gyorsítótárazásához használandó legnagyobb méret, a "
+"legnagyobb nagyítást korlátozza."
 
 #: data/org.gnome.Papers.gschema.xml:32
 msgid ""
 "Show a dialog to confirm that the user wants to activate the caret "
 "navigation."
 msgstr ""
-"Párbeszédablak megjelenítése annak megerősítéséhez, hogy a felhasználó"
-" aktiválni szeretné a kurzoros navigációt."
+"Párbeszédablak megjelenítése annak megerősítéséhez, hogy a felhasználó "
+"aktiválni szeretné a kurzoros navigációt."
 
 #: data/org.gnome.Papers.gschema.xml:36
 msgid "Allow links to change the zoom level."
 msgstr ""
-"Annak lehetővé tétele, hogy a hivatkozások megváltoztassák a nagyítási"
-" szintet."
+"Annak lehetővé tétele, hogy a hivatkozások megváltoztassák a nagyítási "
+"szintet."
 
 #: data/org.gnome.Papers.gschema.xml:44
 msgid "Check spelling when writing annotation notes or filling text forms."
@@ -130,8 +128,6 @@ msgstr ""
 "melletti megjelenítésekor)"
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:24
-#| msgctxt "shortcut window"
-#| msgid "Reload the document"
 msgid "Read documents"
 msgstr "Dokumentumok olvasása"
 
@@ -144,15 +140,12 @@ msgstr ""
 "és jegyzetekkel láthatja el a dokumentumokat számos formátumban."
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:27
-#| msgid ""
-#| "Evince supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, DVI (with "
-#| "SyncTeX), and Comic Books archives (CBR, CBT, CBZ, CB7)."
 msgid ""
 "Papers supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, and Comic Books "
 "archives (CBR, CBT, CBZ, CB7)."
 msgstr ""
-"A Papírok a következő dokumentumformátumokat támogatja: PDF, PS, EPS, XPS,"
-" DjVu, TIFF, valamint képregény-archívumok (CBR, CBT, CBZ, CB7)."
+"A Papírok a következő dokumentumformátumokat támogatja: PDF, PS, EPS, XPS, "
+"DjVu, TIFF, valamint képregény-archívumok (CBR, CBT, CBZ, CB7)."
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:43
 msgid "A clear, simple UI"
@@ -514,6 +507,20 @@ msgstr "Nem sikerült létrehozni egy átmeneti könyvtárat: %s"
 msgid "This work is in the Public Domain"
 msgstr "Ez a munka közkincs"
 
+#: libview/context/pps-attachment-context.c:345
+#| msgid "Save Attachment"
+msgid "Save Attachment"
+msgid_plural "Save Attachments"
+msgstr[0] "Melléklet mentése"
+msgstr[1] "Mellékletek mentése"
+
+#: libview/context/pps-history.c:454 previewer/pps-page-selector.c:194
+#: shell/pps-document-view.c:646 shell/pps-document-view.c:2584
+#: shell/pps-sidebar-bookmarks.c:339
+#, c-format
+msgid "Page %s"
+msgstr "Oldal: %s"
+
 #: libview/pps-jobs.c:407
 #, c-format
 msgid "Failed to render page %d: %s"
@@ -573,12 +580,11 @@ msgid "Requested format is not supported by this printer."
 msgstr "A kért formátumot nem támogatja ez a nyomtató."
 
 #: libview/pps-print-operation.c:1998
-#| msgid "Invalid page selection"
 msgid "Invalid Page Selection"
 msgstr "Érvénytelen oldalválasztás"
 
 #: libview/pps-print-operation.c:2000
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.ui:628
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.ui:629
 #: shell/pps-window.ui:155
 msgid "_Close"
 msgstr "_Bezárás"
@@ -608,18 +614,18 @@ msgid ""
 "• “Fit to Printable Area”: Document pages are enlarged or reduced as "
 "required to fit the printable area of the printer page.\n"
 msgstr ""
-"Dokumentumoldalak átméretezése, hogy illeszkedjenek a kijelölt"
-" nyomtatóoldalhoz. Válasszon az alábbiak közül:\n"
+"Dokumentumoldalak átméretezése, hogy illeszkedjenek a kijelölt "
+"nyomtatóoldalhoz. Válasszon az alábbiak közül:\n"
 "\n"
 "• „Nincs”: az oldal nem lesz átméretezve.\n"
 "\n"
-"• „Zsugorítás a nyomtatható területre”: a nyomtatható területnél nagyobb"
-" dokumentumoldalak kicsinyítésre kerülnek, hogy a nyomtatóoldal nyomtatható"
-" területére illeszkedjenek.\n"
+"• „Zsugorítás a nyomtatható területre”: a nyomtatható területnél nagyobb "
+"dokumentumoldalak kicsinyítésre kerülnek, hogy a nyomtatóoldal nyomtatható "
+"területére illeszkedjenek.\n"
 "\n"
-"• „Illesztés a nyomtatható területhez”: a dokumentumoldalak szükség szerint"
-" nagyításra vagy kicsinyítésre kerülnek, hogy illeszkedjenek a nyomtatóoldal"
-" nyomtatható területéhez.\n"
+"• „Illesztés a nyomtatható területhez”: a dokumentumoldalak szükség szerint "
+"nagyításra vagy kicsinyítésre kerülnek, hogy illeszkedjenek a nyomtatóoldal "
+"nyomtatható területéhez.\n"
 
 #: libview/pps-print-operation.c:2660
 msgid "Auto Rotate and Center"
@@ -630,9 +636,9 @@ msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
 msgstr ""
-"Minden oldal nyomtatóoldal-tájolásának elforgatása az egyes dokumentumoldalak"
-" tájolásának megfelelően. A dokumentumoldalak a nyomtatóoldalon belül középre"
-" lesznek igazítva."
+"Minden oldal nyomtatóoldal-tájolásának elforgatása az egyes "
+"dokumentumoldalak tájolásának megfelelően. A dokumentumoldalak a "
+"nyomtatóoldalon belül középre lesznek igazítva."
 
 #: libview/pps-print-operation.c:2668
 msgid "Select page size using document page size"
@@ -643,8 +649,8 @@ msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
 msgstr ""
-"Ha engedélyezve van, akkor minden oldal a dokumentumoldallal megegyező méretű"
-" papírra lesz nyomtatva."
+"Ha engedélyezve van, akkor minden oldal a dokumentumoldallal megegyező "
+"méretű papírra lesz nyomtatva."
 
 #: libview/pps-print-operation.c:2675
 msgid "Draw border around pages"
@@ -678,51 +684,51 @@ msgstr "Nézet görgetése lefelé"
 msgid "Document View"
 msgstr "Dokumentumnézet"
 
-#: libview/pps-view.c:2117
+#: libview/pps-view.c:2124
 msgid "Go to first page"
 msgstr "Ugrás az első oldalra"
 
-#: libview/pps-view.c:2119
+#: libview/pps-view.c:2126
 msgid "Go to previous page"
 msgstr "Ugrás az előző oldalra"
 
-#: libview/pps-view.c:2121
+#: libview/pps-view.c:2128
 msgid "Go to next page"
 msgstr "Ugrás a következő oldalra"
 
-#: libview/pps-view.c:2123
+#: libview/pps-view.c:2130
 msgid "Go to last page"
 msgstr "Ugrás az utolsó oldalra"
 
-#: libview/pps-view.c:2125
+#: libview/pps-view.c:2132
 msgid "Go to page"
 msgstr "Ugrás az oldalra"
 
-#: libview/pps-view.c:2127
+#: libview/pps-view.c:2134
 msgid "Find"
 msgstr "Keresés"
 
-#: libview/pps-view.c:2156
+#: libview/pps-view.c:2163
 #, c-format
 msgid "Go to page %s"
 msgstr "Ugrás a(z) %s oldalra"
 
-#: libview/pps-view.c:2162
+#: libview/pps-view.c:2169
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Ugrás erre: %s a következő fájlban: „%s”"
 
-#: libview/pps-view.c:2165
+#: libview/pps-view.c:2172
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Ugrás a(z) „%s” fájlra"
 
-#: libview/pps-view.c:2173
+#: libview/pps-view.c:2180
 #, c-format
 msgid "Launch %s"
 msgstr "%s indítása"
 
-#: libview/pps-view.c:2180
+#: libview/pps-view.c:2187
 #, c-format
 msgid "Reset form"
 msgstr "Űrlap visszaállítása"
@@ -734,7 +740,8 @@ msgstr "Futtatás bemutató módban"
 #: libview/pps-view-presentation.c:888
 msgid "End of presentation. Press Esc or click to exit."
 msgstr ""
-"Vége a bemutatónak. Nyomja meg az Esc billentyűt vagy kattintson a kilépéshez."
+"Vége a bemutatónak. Nyomja meg az Esc billentyűt vagy kattintson a "
+"kilépéshez."
 
 #: libview/pps-view-presentation.ui:57
 msgid "Jump to page:"
@@ -749,13 +756,6 @@ msgstr "(%d / %d)"
 #, c-format
 msgid "of %d"
 msgstr "/ %d"
-
-#: previewer/pps-page-selector.c:194 shell/pps-document-view.c:649
-#: shell/pps-document-view.c:2591 shell/pps-history.c:454
-#: shell/pps-sidebar-bookmarks.c:339
-#, c-format
-msgid "Page %s"
-msgstr "Oldal: %s"
 
 #: previewer/pps-page-selector.ui:12 shell/pps-page-selector.ui:12
 msgid "Select page"
@@ -802,7 +802,6 @@ msgid "Failed to print document"
 msgstr "Nem sikerült kinyomtatni a dokumentumot"
 
 #: previewer/pps-previewer-window.c:187 previewer/pps-previewer-window.c:499
-#| msgid "Document Viewer"
 msgid "Papers Document Viewer"
 msgstr "Papírok dokumentummegjelenítő"
 
@@ -819,7 +818,7 @@ msgstr "Előző oldal"
 msgid "Next Page"
 msgstr "Következő oldal"
 
-#: previewer/pps-previewer-window.ui:31 shell/pps-document-view.ui:217
+#: previewer/pps-previewer-window.ui:31 shell/pps-document-view.ui:218
 msgid "Page Count"
 msgstr "Oldalak száma"
 
@@ -828,13 +827,10 @@ msgid "_Print"
 msgstr "_Nyomtatás"
 
 #: previewer/pps-previewer-window.ui:38
-#| msgid "Print this document"
 msgid "Print This Document"
 msgstr "A dokumentum nyomtatása"
 
-#: previewer/pps-previewer-window.ui:48 shell/pps-document-view.ui:291
-#| msgctxt "shortcut window"
-#| msgid "Zoom out"
+#: previewer/pps-previewer-window.ui:48 shell/pps-document-view.ui:292
 msgid "Zoom Out"
 msgstr "Kicsinyítés"
 
@@ -842,9 +838,7 @@ msgstr "Kicsinyítés"
 msgid "Normal Size"
 msgstr "Normál méret"
 
-#: previewer/pps-previewer-window.ui:62 shell/pps-document-view.ui:278
-#| msgctxt "shortcut window"
-#| msgid "Zoom in"
+#: previewer/pps-previewer-window.ui:62 shell/pps-document-view.ui:279
 msgid "Zoom In"
 msgstr "Nagyítás"
 
@@ -855,137 +849,107 @@ msgid "Unknown"
 msgstr "Ismeretlen"
 
 #: nautilus/pps-nautilus-extension.c:170
-#| msgctxt "shortcut window"
-#| msgid "Document properties"
 msgid "Document Properties"
 msgstr "Dokumentumtulajdonságok"
 
 #: nautilus/pps-nautilus-extension.h:59 shell-rs/src/properties_general.rs:142
-#| msgid "Title:"
 msgid "Title"
 msgstr "Cím"
 
 #: nautilus/pps-nautilus-extension.h:60
-#| msgid "Location:"
 msgid "Location"
 msgstr "Hely"
 
 #: nautilus/pps-nautilus-extension.h:61 shell-rs/src/properties_general.rs:143
-#| msgid "Subject:"
 msgid "Subject"
 msgstr "Tárgy"
 
 #: nautilus/pps-nautilus-extension.h:62
 #: shell/pps-annotation-properties-dialog.ui:9
 #: shell-rs/src/properties_general.rs:144
-#| msgid "Author:"
 msgid "Author"
 msgstr "Szerző"
 
 #: nautilus/pps-nautilus-extension.h:63 shell-rs/src/properties_general.rs:145
-#| msgid "Keywords:"
 msgid "Keywords"
 msgstr "Kulcsszavak"
 
 #: nautilus/pps-nautilus-extension.h:64 shell-rs/src/properties_general.rs:146
-#| msgid "Producer:"
 msgid "Producer"
 msgstr "Készítő"
 
 #: nautilus/pps-nautilus-extension.h:65 shell-rs/src/properties_general.rs:147
-#| msgid "Creator:"
 msgid "Creator"
 msgstr "Létrehozó"
 
 #: nautilus/pps-nautilus-extension.h:66 shell-rs/src/properties_general.rs:154
-#| msgid "Created:"
 msgid "Created"
 msgstr "Létrehozva"
 
 #: nautilus/pps-nautilus-extension.h:67 shell-rs/src/properties_general.rs:155
-#| msgid "Modified:"
 msgid "Modified"
 msgstr "Módosítva"
 
 #: nautilus/pps-nautilus-extension.h:68 shell-rs/src/properties_general.rs:163
-#| msgid "Number of Pages:"
 msgid "Number of Pages"
 msgstr "Oldalak száma"
 
 #: nautilus/pps-nautilus-extension.h:69 shell-rs/src/properties_general.rs:164
-#| msgid "Optimized:"
 msgid "Optimized"
 msgstr "Optimalizált"
 
 #: nautilus/pps-nautilus-extension.h:70 shell-rs/src/properties_general.rs:160
 #: shell-rs/src/properties_general.rs:162
-#| msgid "Format:"
 msgid "Format"
 msgstr "Formátum"
 
 #: nautilus/pps-nautilus-extension.h:71 shell-rs/src/properties_general.rs:165
-#| msgid "Security:"
 msgid "Security"
 msgstr "Biztonság"
 
 #: nautilus/pps-nautilus-extension.h:72 shell-rs/src/properties_general.rs:174
-#| msgid "Contains Javascript:"
 msgid "Contains Javascript"
 msgstr "JavaScriptet tartalmaz"
 
 #: nautilus/pps-nautilus-extension.h:73 shell-rs/src/properties_general.rs:166
-#| msgid "Paper Size:"
 msgid "Paper Size"
 msgstr "Papírméret"
 
 #: nautilus/pps-nautilus-extension.h:74 shell-rs/src/properties_general.rs:132
-#| msgid "Size:"
 msgid "Size"
 msgstr "Méret"
 
 #: shell/help-overlay.ui:11
-#| msgctxt "shortcut window"
-#| msgid "Opening, closing, saving and printing"
 msgctxt "shortcut window"
 msgid "Opening, Closing, Saving and Printing"
 msgstr "Megnyitás, bezárás, mentés és nyomtatás"
 
 #: shell/help-overlay.ui:14
-#| msgid "Open Document"
 msgctxt "shortcut window"
 msgid "Open Document"
 msgstr "Dokumentum megnyitása"
 
 #: shell/help-overlay.ui:20
-#| msgctxt "shortcut window"
-#| msgid "Open a copy of the current document"
 msgctxt "shortcut window"
 msgid "Open Copy of Current Document"
 msgstr "Aktuális dokumentum másolatának megnyitása"
 
 #: shell/help-overlay.ui:26
-#| msgid "Open…"
 msgctxt "shortcut window"
 msgid "Open With…"
 msgstr "Megnyitás ezzel…"
 
 #: shell/help-overlay.ui:32
-#| msgctxt "shortcut window"
-#| msgid "Save a copy of the current document"
 msgctxt "shortcut window"
 msgid "Save Copy of Current Document"
 msgstr "Aktuális dokumentum másolatának mentése"
 
 #: shell/help-overlay.ui:38
-#| msgctxt "shortcut window"
-#| msgid "Print the current document"
 msgctxt "shortcut window"
 msgid "Print Current Document"
 msgstr "Aktuális dokumentum nyomtatása"
 
 #: shell/help-overlay.ui:44
-#| msgctxt "shortcut window"
-#| msgid "Close the current document window"
 msgctxt "shortcut window"
 msgid "Close Current Document Window"
 msgstr "Aktuális dokumentumablak bezárása"
@@ -996,80 +960,61 @@ msgid "Window"
 msgstr "Ablak"
 
 #: shell/help-overlay.ui:55
-#| msgid "Fullscreen"
 msgctxt "shortcut window"
 msgid "Fullscreen"
 msgstr "Teljes képernyő"
 
 #: shell/help-overlay.ui:61
-#| msgctxt "shortcut window"
-#| msgid "Enter presentation mode"
 msgctxt "shortcut window"
 msgid "Enter Presentation Mode"
 msgstr "Belépés bemutató módba"
 
 #: shell/help-overlay.ui:67
-#| msgid "Side pane"
 msgctxt "shortcut window"
 msgid "Side Pane"
 msgstr "Oldaltábla"
 
 #: shell/help-overlay.ui:73
-#| msgid "Navigation"
 msgctxt "shortcut window"
 msgid "Caret Navigation"
 msgstr "Kurzoros navigáció"
 
 #: shell/help-overlay.ui:81
-#| msgctxt "shortcut window"
-#| msgid "Selecting and copying text"
 msgctxt "shortcut window"
 msgid "Selecting and Copying Text"
 msgstr "Szöveg kijelölése és másolása"
 
 #: shell/help-overlay.ui:84
-#| msgid "_Copy"
 msgctxt "shortcut window"
 msgid "Copy"
 msgstr "Másolás"
 
 #: shell/help-overlay.ui:90
-#| msgid "Select _All"
 msgctxt "shortcut window"
 msgid "Select All"
 msgstr "Összes kijelölése"
 
 #: shell/help-overlay.ui:98
-#| msgctxt "shortcut window"
-#| msgid "Rotating and zooming"
 msgctxt "shortcut window"
 msgid "Rotating and Zooming"
 msgstr "Forgatás és nagyítás"
 
 #: shell/help-overlay.ui:101
-#| msgctxt "shortcut window"
-#| msgid "Rotate the page 90 degrees counter-clockwise"
 msgctxt "shortcut window"
 msgid "Rotate Page 90 Degrees Counter-Clockwise"
 msgstr "Oldal forgatása 90 fokkal az óramutató járásával ellentétesen"
 
 #: shell/help-overlay.ui:107
-#| msgctxt "shortcut window"
-#| msgid "Rotate the page 90 degrees clockwise"
 msgctxt "shortcut window"
 msgid "Rotate Page 90 Degrees Clockwise"
 msgstr "Oldal forgatása 90 fokkal az óramutató járása szerint"
 
 #: shell/help-overlay.ui:113 shell/help-overlay.ui:377
-#| msgctxt "shortcut window"
-#| msgid "Zoom in"
 msgctxt "shortcut window"
 msgid "Zoom In"
 msgstr "Nagyítás"
 
 #: shell/help-overlay.ui:119 shell/help-overlay.ui:383
-#| msgctxt "shortcut window"
-#| msgid "Zoom out"
 msgctxt "shortcut window"
 msgid "Zoom Out"
 msgstr "Kicsinyítés"
@@ -1080,199 +1025,156 @@ msgid "Normal Size"
 msgstr "Normál méret"
 
 #: shell/help-overlay.ui:131
-#| msgctxt "shortcut window"
-#| msgid "Zoom in (alternative)"
 msgctxt "shortcut window"
 msgid "Zoom In (Alternative)"
 msgstr "Nagyítás (alternatíva)"
 
 #: shell/help-overlay.ui:137
-#| msgid "Fit Pa_ge"
 msgctxt "shortcut window"
 msgid "Fit Page"
 msgstr "Teljes oldal"
 
 #: shell/help-overlay.ui:143
-#| msgid "Fit _Width"
 msgctxt "shortcut window"
 msgid "Fit Width"
 msgstr "Teljes szélesség"
 
 #: shell/help-overlay.ui:149
-#| msgctxt "shortcut window"
-#| msgid "Automatic zoom"
 msgctxt "shortcut window"
 msgid "Automatic Zoom"
 msgstr "Automatikus nagyítás"
 
 #: shell/help-overlay.ui:157
-#| msgctxt "shortcut window"
-#| msgid "Moving around the document"
 msgctxt "shortcut window"
 msgid "Moving Around Document"
 msgstr "Mozgás a dokumentumban"
 
 #: shell/help-overlay.ui:160 shell/help-overlay.ui:166
-#| msgctxt "shortcut window"
-#| msgid "Move around a page"
 msgctxt "shortcut window"
 msgid "Move Around Page"
 msgstr "Mozgás az oldalon"
 
 #: shell/help-overlay.ui:172
-#| msgctxt "shortcut window"
-#| msgid "Move up/down a page several lines at a time"
 msgctxt "shortcut window"
 msgid "Move Up/Down Page Several Lines"
 msgstr "Mozgás az oldalon fel/le néhány soronként"
 
 #: shell/help-overlay.ui:178 shell/help-overlay.ui:395
-#| msgid "Previous Page"
 msgctxt "shortcut window"
 msgid "Previous Page"
 msgstr "Előző oldal"
 
 #: shell/help-overlay.ui:184 shell/help-overlay.ui:389
-#| msgid "Next Page"
 msgctxt "shortcut window"
 msgid "Next Page"
 msgstr "Következő oldal"
 
 #: shell/help-overlay.ui:190
-#| msgctxt "shortcut window"
-#| msgid "Go to page number"
 msgctxt "shortcut window"
 msgid "Go to Page Number"
 msgstr "Ugrás oldalszámra"
 
 #: shell/help-overlay.ui:196
-#| msgid "Previous Page"
 msgctxt "shortcut window"
 msgid "Previous Page (Fast)"
 msgstr "Előző oldal (gyors)"
 
 #: shell/help-overlay.ui:202
-#| msgid "Next Page"
 msgctxt "shortcut window"
 msgid "Next Page (Fast)"
 msgstr "Következő oldal (gyors)"
 
 #: shell/help-overlay.ui:208
-#| msgid "Previous Page"
 msgctxt "shortcut window"
 msgid "Previous Visited Page"
 msgstr "Előző meglátogatott oldal"
 
 #: shell/help-overlay.ui:214
-#| msgid "Next Page"
 msgctxt "shortcut window"
 msgid "Next Visited Page"
 msgstr "Következő meglátogatott oldal"
 
 #: shell/help-overlay.ui:220
-#| msgctxt "shortcut window"
-#| msgid "Go to the beginning/end of a page"
 msgctxt "shortcut window"
 msgid "Go to Page Beginning/End"
 msgstr "Ugrás az oldal kezdetére/végére"
 
 #: shell/help-overlay.ui:226
-#| msgid "_About Document Viewer"
 msgctxt "shortcut window"
 msgid "Go to Document Start"
 msgstr "Ugrás a dokumentum elejére"
 
 #: shell/help-overlay.ui:232
-#| msgid "Document"
 msgctxt "shortcut window"
 msgid "Go to Document End"
 msgstr "Ugrás a dokumentum végére"
 
 #: shell/help-overlay.ui:240
-#| msgctxt "shortcut window"
-#| msgid "Document view and handling"
 msgctxt "shortcut window"
 msgid "Document View and Handling"
 msgstr "Dokumentumnézet és -kezelés"
 
 #: shell/help-overlay.ui:243
-#| msgid "Add bookmark"
 msgctxt "shortcut window"
 msgid "Add Bookmark"
 msgstr "Könyvjelző hozzáadása"
 
 #: shell/help-overlay.ui:249
-#| msgid "Remove bookmark"
 msgctxt "shortcut window"
 msgid "Remove Bookmark"
 msgstr "Könyvjelző eltávolítása"
 
 #: shell/help-overlay.ui:255
-#| msgid "Ni_ght Mode"
 msgctxt "shortcut window"
 msgid "Night Mode"
 msgstr "Éjszakai mód"
 
 #: shell/help-overlay.ui:261
-#| msgctxt "shortcut window"
-#| msgid "Toggle continuous scrolling"
 msgctxt "shortcut window"
 msgid "Continuous Scrolling"
 msgstr "Folyamatos görgetés"
 
 #: shell/help-overlay.ui:267
-#| msgid "Last Page"
 msgctxt "shortcut window"
 msgid "Dual Page"
 msgstr "Kétoldalas"
 
 #: shell/help-overlay.ui:273
-#| msgid "_Odd Pages Left"
 msgctxt "shortcut window"
 msgid "Odd Pages Left"
 msgstr "Páratlan oldalak balra"
 
 #: shell/help-overlay.ui:279
-#| msgctxt "shortcut window"
-#| msgid "Document properties"
 msgctxt "shortcut window"
 msgid "Document Properties"
 msgstr "Dokumentumtulajdonságok"
 
 #: shell/help-overlay.ui:285
-#| msgid "Add text annotation"
 msgctxt "shortcut window"
 msgid "Add Text Annotation"
 msgstr "Szöveges jegyzet hozzáadása"
 
 #: shell/help-overlay.ui:291
-#| msgid "Highlight text"
 msgctxt "shortcut window"
 msgid "Highlight Text"
 msgstr "Szöveg kiemelése"
 
 #: shell/help-overlay.ui:299
-#| msgctxt "shortcut window"
-#| msgid "Finding text"
 msgctxt "shortcut window"
 msgid "Finding Text"
 msgstr "Szöveg keresése"
 
 #: shell/help-overlay.ui:302
-#| msgid "Find"
 msgctxt "shortcut window"
 msgid "Find"
 msgstr "Keresés"
 
 #: shell/help-overlay.ui:308
-#| msgctxt "shortcut window"
-#| msgid "Finding text"
 msgctxt "shortcut window"
 msgid "Find Next"
 msgstr "Következő keresése"
 
 #: shell/help-overlay.ui:314
-#| msgid "Previous Page"
 msgctxt "shortcut window"
 msgid "Find Previous"
 msgstr "Előző keresése"
@@ -1283,7 +1185,6 @@ msgid "General"
 msgstr "Általános"
 
 #: shell/help-overlay.ui:325
-#| msgid "Help"
 msgctxt "shortcut window"
 msgid "Help"
 msgstr "Súgó"
@@ -1294,48 +1195,36 @@ msgid "Menu"
 msgstr "Menü"
 
 #: shell/help-overlay.ui:337
-#| msgid "_Keyboard Shortcuts"
 msgctxt "shortcut window"
 msgid "Keyboard Shortcuts"
 msgstr "Gyorsbillentyűk"
 
 #: shell/help-overlay.ui:343
-#| msgid "New Window"
 msgctxt "shortcut window"
 msgid "New Window"
 msgstr "Új ablak"
 
 #: shell/help-overlay.ui:349
-#| msgctxt "shortcut window"
-#| msgid "Close window"
 msgctxt "shortcut window"
 msgid "Close Window"
 msgstr "Ablak bezárása"
 
 #: shell/help-overlay.ui:357
-#| msgctxt "shortcut window"
-#| msgid "Presentation mode"
 msgctxt "shortcut window"
 msgid "Presentation Mode"
 msgstr "Bemutató mód"
 
 #: shell/help-overlay.ui:360
-#| msgctxt "shortcut window"
-#| msgid "Toggle black screen"
 msgctxt "shortcut window"
 msgid "Black Screen"
 msgstr "Fekete képernyő"
 
 #: shell/help-overlay.ui:366
-#| msgctxt "shortcut window"
-#| msgid "Toggle white screen"
 msgctxt "shortcut window"
 msgid "White Screen"
 msgstr "Fehér képernyő"
 
 #: shell/help-overlay.ui:374
-#| msgctxt "shortcut window"
-#| msgid "Touchpad gestures"
 msgctxt "shortcut window"
 msgid "Touchpad Gestures"
 msgstr "Érintőtábla-mozdulatok"
@@ -1346,12 +1235,10 @@ msgid "Annotation Properties"
 msgstr "Jegyzettulajdonságok"
 
 #: shell/pps-annotation-properties-dialog.ui:14
-#| msgid "Color:"
 msgid "Color"
 msgstr "Szín"
 
 #: shell/pps-annotation-properties-dialog.ui:26
-#| msgid "Opacity:"
 msgid "Opacity"
 msgstr "Átlátszatlanság"
 
@@ -1360,7 +1247,6 @@ msgid "Initially Opened"
 msgstr "Kezdetben megnyitva"
 
 #: shell/pps-annotation-properties-dialog.ui:46
-#| msgid "Icon:"
 msgid "Icon"
 msgstr "Ikon"
 
@@ -1401,7 +1287,6 @@ msgid "Circle"
 msgstr "Kör"
 
 #: shell/pps-annotation-properties-dialog.ui:69
-#| msgid "Markup type:"
 msgid "Markup Type"
 msgstr "Jelölőkód típusa"
 
@@ -1425,99 +1310,81 @@ msgstr "Hullámos"
 msgid "_Apply"
 msgstr "_Alkalmaz"
 
-#: shell/pps-document-view.c:490 shell-rs/src/window.rs:465
+#: shell/pps-document-view.c:487 shell-rs/src/window.rs:465
 msgid "View Details"
 msgstr "Részletek megtekintése"
 
-#: shell/pps-document-view.c:1132
+#: shell/pps-document-view.c:1123
 msgid "The document contains no pages"
 msgstr "A dokumentum nem tartalmaz oldalakat"
 
-#: shell/pps-document-view.c:1135
+#: shell/pps-document-view.c:1126
 msgid "The document contains only empty pages"
 msgstr "A dokumentum csak üres oldalakat tartalmaz"
 
-#: shell/pps-document-view.c:1358
+#: shell/pps-document-view.c:1354
 msgid "File Saved"
 msgstr "A fájl elmentve"
 
-#: shell/pps-document-view.c:1368 shell/pps-document-view.c:1421
+#: shell/pps-document-view.c:1364 shell/pps-document-view.c:1417
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "A fájlt nem sikerült elmenteni „%s” néven."
 
-#: shell/pps-document-view.c:1483
+#: shell/pps-document-view.c:1479
 msgid "Save As…"
 msgstr "Mentés másként…"
 
-#: shell/pps-document-view.c:1789
+#: shell/pps-document-view.c:1785
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "%d várakozó feladat a sorban"
 msgstr[1] "%d várakozó feladat a sorban"
 
-#: shell/pps-document-view.c:1828
-#| msgid "Failed to print document"
+#: shell/pps-document-view.c:1824
 msgid "Failed to Print Document"
 msgstr "Nem sikerült kinyomtatni a dokumentumot"
 
-#: shell/pps-document-view.c:1882
+#: shell/pps-document-view.c:1878
 #, c-format
 msgid "Printing job “%s”"
 msgstr "A(z) „%s” feladat nyomtatása"
 
-#: shell/pps-document-view.c:1885 shell/pps-loader-view.ui:45
+#: shell/pps-document-view.c:1881 shell/pps-loader-view.ui:45
 msgid "C_ancel"
 msgstr "Mé_gse"
 
-#: shell/pps-document-view.c:2074 shell-rs/src/window.rs:267
+#: shell/pps-document-view.c:2070 shell-rs/src/window.rs:267
 msgid "Document contains form fields that have been filled out."
 msgstr "A dokumentum olyan űrlapmezőket tartalmaz, amelyek ki lettek töltve."
 
-#: shell/pps-document-view.c:2077 shell-rs/src/window.rs:268
+#: shell/pps-document-view.c:2073 shell-rs/src/window.rs:268
 msgid "Document contains new or modified annotations."
 msgstr "A dokumentum új vagy módosított jegyzeteket tartalmaz."
 
-#: shell/pps-document-view.c:2084
-#| msgid "Save a _Copy"
+#: shell/pps-document-view.c:2080
 msgid "Save Changes to a Copy?"
 msgstr "Elmenti a változtatásokat egy másolatba?"
 
-#: shell/pps-document-view.c:2085
+#: shell/pps-document-view.c:2081
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "Ha nem ment másolatot, akkor a változtatások véglegesen elvesznek."
 
-#: shell/pps-document-view.c:2088
-#| msgid "Close _without Saving"
+#: shell/pps-document-view.c:2084
 msgid "Close _Without Saving"
 msgstr "Bezárás mentés _nélkül"
 
-#: shell/pps-document-view.c:2089 shell/pps-document-view.ui:608
-#: shell/pps-document-view.ui:620
+#: shell/pps-document-view.c:2085 shell/pps-document-view.ui:609
+#: shell/pps-document-view.ui:621
 msgid "_Cancel"
 msgstr "_Mégse"
 
-#: shell/pps-document-view.c:2090
-#| msgid "Save a _Copy"
+#: shell/pps-document-view.c:2086
 msgid "_Save a Copy"
 msgstr "_Másolat mentése"
 
-#: shell/pps-document-view.c:2914
-#| msgid "Search options"
-msgid "Search"
-msgstr "Keresés"
-
-#: shell/pps-document-view.c:2918
-#| msgid "Search not available for this document"
-msgid "Search Unavailable"
-msgstr "A keresés nem érhető el"
-
-#: shell/pps-document-view.c:3126
-msgid "The attachment could not be saved."
-msgstr "A mellékletet nem sikerült elmenteni."
-
-#: shell/pps-document-view.c:3604
+#: shell/pps-document-view.c:3451
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
@@ -1525,88 +1392,83 @@ msgstr ""
 "Biztonsági riasztás: megakadályozásra került, hogy ez a dokumentum megnyissa "
 "a(z) „%s” fájlt"
 
-#: shell/pps-document-view.c:3665
+#: shell/pps-document-view.c:3512
 msgid "Unable to open external link"
 msgstr "Nem lehet megnyitni a külső hivatkozást"
 
-#: shell/pps-document-view.c:3890
+#: shell/pps-document-view.c:3737
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Nem található megfelelő formátum a kép mentéséhez"
 
-#: shell/pps-document-view.c:3920
+#: shell/pps-document-view.c:3767
 msgid "The image could not be saved."
 msgstr "A képet nem sikerült elmenteni."
 
-#: shell/pps-document-view.c:3956
+#: shell/pps-document-view.c:3803
 msgid "Save Image"
 msgstr "Kép mentése"
 
-#: shell/pps-document-view.c:4127
+#: shell/pps-document-view.c:3974
 msgid "Unable to open attachment"
 msgstr "Nem lehet megnyitni a mellékletet"
 
-#: shell/pps-document-view.c:4192
-msgid "Save Attachment"
-msgstr "Melléklet mentése"
+#: shell/pps-document-view.c:3993
+msgid "The attachment could not be saved."
+msgstr "A mellékletet nem sikerült elmenteni."
 
-#: shell/pps-document-view.ui:74
+#: shell/pps-document-view.ui:64
+msgid "Search"
+msgstr "Keresés"
+
+#: shell/pps-document-view.ui:79
 msgid "Main Menu"
 msgstr "Főmenü"
 
-#: shell/pps-document-view.ui:95
+#: shell/pps-document-view.ui:98
 msgid "Thumbnails"
 msgstr "Bélyegképek"
 
-#: shell/pps-document-view.ui:108
+#: shell/pps-document-view.ui:111
 msgid "Outline"
 msgstr "Vázlat"
 
-#: shell/pps-document-view.ui:123
+#: shell/pps-document-view.ui:126
 msgid "Annotations"
 msgstr "Jegyzetek"
 
-#: shell/pps-document-view.ui:138
+#: shell/pps-document-view.ui:141
 msgid "Bookmarks"
 msgstr "Könyvjelzők"
 
-#: shell/pps-document-view.ui:152
+#: shell/pps-document-view.ui:155
 msgid "Attachments"
 msgstr "Mellékletek"
 
-#: shell/pps-document-view.ui:168
+#: shell/pps-document-view.ui:169
 msgid "Layers"
 msgstr "Rétegek"
 
-#: shell/pps-document-view.ui:204
-#| msgctxt "shortcut window"
-#| msgid "Toggle sidebar"
+#: shell/pps-document-view.ui:205
 msgid "Toggle Sidebar"
 msgstr "Oldalsáv be- vagy kikapcsolása"
 
-#: shell/pps-document-view.ui:210
-#| msgid "Document View"
+#: shell/pps-document-view.ui:211
 msgid "Document Menu"
 msgstr "Dokumentum menü"
 
-#: shell/pps-document-view.ui:258
-#| msgid "_Automatic"
+#: shell/pps-document-view.ui:259
 msgid "Fit Automatically"
 msgstr "Automatikus kitöltés"
 
-#: shell/pps-document-view.ui:350
+#: shell/pps-document-view.ui:351
 msgid "Loading…"
 msgstr "Betöltés…"
 
-#: shell/pps-document-view.ui:599
-#| msgid "Enable caret navigation?"
+#: shell/pps-document-view.ui:600
 msgid "Enable Caret Navigation?"
 msgstr "Engedélyezi a kurzoros navigációt?"
 
-#: shell/pps-document-view.ui:600
-#| msgid ""
-#| "Pressing F7 turns the caret navigation on or off. This feature places a "
-#| "moveable cursor in text pages, allowing you to move around and select "
-#| "text with your keyboard. Do you want to enable the caret navigation?"
+#: shell/pps-document-view.ui:601
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1616,176 +1478,165 @@ msgstr ""
 "szolgáltatás egy mozgatható kurzort helyez el a szöveges oldalakon, lehetővé "
 "téve a billentyűzettel való mozgást és szövegkijelölést."
 
-#: shell/pps-document-view.ui:603
+#: shell/pps-document-view.ui:604
 msgid "Don’t show this message again"
 msgstr "Ne jelenjen meg többé ez az üzenet"
 
-#: shell/pps-document-view.ui:609
+#: shell/pps-document-view.ui:610
 msgid "_Enable"
 msgstr "_Engedélyezés"
 
-#: shell/pps-document-view.ui:615
-#| msgid "Close _after Printing"
+#: shell/pps-document-view.ui:616
 msgid "Abort Printing?"
 msgstr "Megszakítja a nyomtatást?"
 
-#: shell/pps-document-view.ui:616
-#| msgid "If you close the window, pending print jobs will not be printed."
+#: shell/pps-document-view.ui:617
 msgid ""
 "There is one or more active print jobs. If the window is closed, pending "
 "print jobs will not be printed."
 msgstr ""
-"Egy vagy több aktív nyomtatási feladat van. Ha az ablak bezárásra kerül, a"
-" függőben lévő nyomtatási feladatok nem lesznek kinyomtatva."
+"Egy vagy több aktív nyomtatási feladat van. Ha az ablak bezárásra kerül, a "
+"függőben lévő nyomtatási feladatok nem lesznek kinyomtatva."
 
-#: shell/pps-document-view.ui:619
-#| msgid "Cancel _print and Close"
+#: shell/pps-document-view.ui:620
 msgid "Abort _Print and Close"
 msgstr "_Nyomtatás megszakítása és bezárás"
 
-#: shell/pps-document-view.ui:621
-#| msgid "Close _after Printing"
+#: shell/pps-document-view.ui:622
 msgid "Close _After Printing"
 msgstr "Bezárás nyomtatás _után"
 
-#: shell/pps-document-view.ui:635
+#: shell/pps-document-view.ui:636
 msgid "Open"
 msgstr "Nyitott"
 
-#: shell/pps-document-view.ui:641
+#: shell/pps-document-view.ui:642
 msgid "Ni_ght Mode"
 msgstr "É_jszakai mód"
 
-#: shell/pps-document-view.ui:647
+#: shell/pps-document-view.ui:648
 msgid "_Keyboard Shortcuts"
 msgstr "_Gyorsbillentyűk"
 
-#: shell/pps-document-view.ui:651
+#: shell/pps-document-view.ui:652
 msgid "_Help"
 msgstr "_Súgó"
 
-#: shell/pps-document-view.ui:655
+#: shell/pps-document-view.ui:656
 msgid "_About Papers"
 msgstr "A Papírok _névjegye"
 
-#: shell/pps-document-view.ui:663
-#| msgid "Print…"
+#: shell/pps-document-view.ui:664
 msgid "_Print…"
 msgstr "_Nyomtatás…"
 
-#: shell/pps-document-view.ui:667
+#: shell/pps-document-view.ui:668
 msgid "Fullscreen"
 msgstr "Teljes képernyő"
 
-#: shell/pps-document-view.ui:671
-#| msgid "Present as _Slideshow"
+#: shell/pps-document-view.ui:672
 msgid "Present as Slideshow"
 msgstr "Megjelenítés diavetítésként"
 
-#: shell/pps-document-view.ui:677
+#: shell/pps-document-view.ui:678
 msgid "Open a C_opy"
 msgstr "Más_olat megnyitása"
 
-#: shell/pps-document-view.ui:681
-#| msgid "Open…"
+#: shell/pps-document-view.ui:682
 msgid "Open With…"
 msgstr "Megnyitás ezzel…"
 
-#: shell/pps-document-view.ui:685
+#: shell/pps-document-view.ui:686
 msgid "_Save As…"
 msgstr "M_entés másként…"
 
-#: shell/pps-document-view.ui:691
+#: shell/pps-document-view.ui:692
 msgid "_Continuous"
 msgstr "_Folyamatos"
 
-#: shell/pps-document-view.ui:695
+#: shell/pps-document-view.ui:696
 msgid "_Dual"
 msgstr "_Kétoldalas"
 
-#: shell/pps-document-view.ui:699
+#: shell/pps-document-view.ui:700
 msgid "_Odd Pages Left"
 msgstr "Páratlan oldalak _balra"
 
-#: shell/pps-document-view.ui:703
+#: shell/pps-document-view.ui:704
 msgid "Right to Left Document"
 msgstr "Jobbról balra dokumentum"
 
-#: shell/pps-document-view.ui:709
+#: shell/pps-document-view.ui:710
 msgid "Ro_tate ⤵"
 msgstr "_Forgatás ⤵"
 
-#: shell/pps-document-view.ui:715
-#| msgctxt "shortcut window"
-#| msgid "Document properties"
+#: shell/pps-document-view.ui:716
 msgid "Document Prop_erties"
 msgstr "Dokum_entumtulajdonságok"
 
-#: shell/pps-document-view.ui:724
+#: shell/pps-document-view.ui:725
 msgid "_Open Link"
 msgstr "_Hivatkozás megnyitása"
 
-#: shell/pps-document-view.ui:729
+#: shell/pps-document-view.ui:730
 msgid "_Copy Link Address"
 msgstr "Hivatkozás cí_mének másolása"
 
-#: shell/pps-document-view.ui:734
+#: shell/pps-document-view.ui:735
 msgid "_Go To"
 msgstr "_Ugrás"
 
-#: shell/pps-document-view.ui:739
+#: shell/pps-document-view.ui:740
 msgid "Open in New _Window"
 msgstr "Megnyitás új _ablakban"
 
-#: shell/pps-document-view.ui:746
+#: shell/pps-document-view.ui:747
 msgid "_Previous Page"
 msgstr "Elő_ző oldal"
 
-#: shell/pps-document-view.ui:750
+#: shell/pps-document-view.ui:751
 msgid "_Next Page"
 msgstr "_Következő oldal"
 
-#: shell/pps-document-view.ui:756
+#: shell/pps-document-view.ui:757
 msgid "_Copy"
 msgstr "_Másolás"
 
-#: shell/pps-document-view.ui:760
+#: shell/pps-document-view.ui:761
 msgid "Select _All"
 msgstr "Ö_sszes kijelölése"
 
-#: shell/pps-document-view.ui:766
+#: shell/pps-document-view.ui:767
 msgid "_Save Image As…"
 msgstr "Ké_p mentése másként…"
 
-#: shell/pps-document-view.ui:771
+#: shell/pps-document-view.ui:772
 msgid "Copy _Image"
 msgstr "Ké_p másolása"
 
-#: shell/pps-document-view.ui:778 shell/pps-document-view.ui:815
+#: shell/pps-document-view.ui:779 shell/pps-document-view.ui:816
 #: shell/pps-sidebar-annotations.ui:85
 msgid "_Open Attachment"
 msgstr "_Melléklet megnyitása"
 
-#: shell/pps-document-view.ui:783 shell/pps-document-view.ui:819
+#: shell/pps-document-view.ui:784 shell/pps-document-view.ui:820
 #: shell/pps-sidebar-annotations.ui:90
 msgid "_Save Attachment As…"
 msgstr "Melléklet m_entése másként…"
 
-#: shell/pps-document-view.ui:790
-#| msgid "Annotation _Properties"
+#: shell/pps-document-view.ui:791
 msgid "Annotation _Properties…"
 msgstr "Jegyzet _tulajdonságai…"
 
-#: shell/pps-document-view.ui:795
+#: shell/pps-document-view.ui:796
 msgid "R_emove Annotation"
 msgstr "Jegyzet _eltávolítása"
 
-#: shell/pps-document-view.ui:802
-#| msgid "Add text annotation"
+#: shell/pps-document-view.ui:803
 msgid "_Add Text Annotation"
 msgstr "Szöveges jegyzet _hozzáadása"
 
-#: shell/pps-document-view.ui:807
+#: shell/pps-document-view.ui:808
 msgid "_Highlight Selected Text"
 msgstr "_Kijelölt szöveg kiemelése"
 
@@ -1811,7 +1662,6 @@ msgid "Password for document %s"
 msgstr "A(z) %s dokumentum jelszava"
 
 #: shell/pps-loader-view.ui:18
-#| msgid "Open Document"
 msgid "Loading Document"
 msgstr "Dokumentum betöltése"
 
@@ -1821,22 +1671,18 @@ msgid "Password Required"
 msgstr "Jelszó szükséges"
 
 #: shell/pps-password-dialog.ui:8
-#| msgid "_Cancel"
 msgid "Cancel"
 msgstr "Mégse"
 
 #: shell/pps-password-dialog.ui:9
-#| msgid "_Unlock"
 msgid "Unlock"
 msgstr "Feloldás"
 
 #: shell/pps-password-dialog.ui:18
-#| msgid "_Password:"
 msgid "Password"
 msgstr "Jelszó"
 
 #: shell/pps-password-dialog.ui:33
-#| msgid "Invalid page selection"
 msgid "Invalid password"
 msgstr "Érvénytelen jelszó"
 
@@ -1853,21 +1699,17 @@ msgid "Remember _forever"
 msgstr "_Megjegyzés örökre"
 
 #: shell/pps-password-view.ui:20
-#| msgid ""
-#| "This document is locked and can only be read by entering the correct "
-#| "password."
 msgid ""
 "This document is locked and can only be read by entering the correct password"
 msgstr ""
-"Ez a dokumentum zárolva van, és csak a megfelelő jelszó megadásával lehet"
-" elolvasni"
+"Ez a dokumentum zárolva van, és csak a megfelelő jelszó megadásával lehet "
+"elolvasni"
 
 #: shell/pps-password-view.ui:25
 msgid "_Unlock Document"
 msgstr "Dokumentum _feloldása"
 
 #: shell/pps-properties-license.ui:21
-#| msgid "Usage terms"
 msgid "Usage Terms"
 msgstr "Felhasználási feltételek"
 
@@ -1884,27 +1726,22 @@ msgid "Properties"
 msgstr "Tulajdonságok"
 
 #: shell/pps-properties-window.ui:25
-#| msgid "Document"
 msgid "_Document"
 msgstr "_Dokumentum"
 
 #: shell/pps-properties-window.ui:40
-#| msgid "Fonts"
 msgid "_Fonts"
 msgstr "_Betűkészletek"
 
 #: shell/pps-properties-window.ui:51
-#| msgid "Text License"
 msgid "License"
 msgstr "Licenc"
 
 #: shell/pps-search-box.ui:15
-#| msgid "Shrink the document"
 msgid "Search in document"
 msgstr "Keresés a dokumentumban"
 
 #: shell/pps-search-box.ui:34
-#| msgid "Search options"
 msgid "Search Options"
 msgstr "Keresési beállítások"
 
@@ -1917,7 +1754,6 @@ msgid "C_ase Sensitive"
 msgstr "_Kis- és nagybetűk megkülönböztetése"
 
 #: shell/pps-sidebar-annotations.ui:16
-#| msgid "Annotations"
 msgid "No Annotations"
 msgstr "Nincsenek jegyzetek"
 
@@ -1926,12 +1762,10 @@ msgid "Remove Annotation"
 msgstr "Jegyzet eltávolítása"
 
 #: shell/pps-sidebar-bookmarks.ui:63
-#| msgid "Add bookmark"
 msgid "Add Bookmark"
 msgstr "Könyvjelző hozzáadása"
 
 #: shell/pps-sidebar-bookmarks.ui:72
-#| msgid "Remove bookmark"
 msgid "Remove Bookmark"
 msgstr "Könyvjelző eltávolítása"
 
@@ -1964,13 +1798,10 @@ msgid "Print this section…"
 msgstr "A szakasz nyomtatása…"
 
 #: shell/pps-sidebar-thumbnails.ui:46
-#| msgid "Print Preview"
 msgid "Previews"
 msgstr "Előnézetek"
 
 #: shell/pps-window.ui:38 shell/pps-window.ui:46
-#| msgctxt "shortcut window"
-#| msgid "Open a document"
 msgid "Open a Document"
 msgstr "Dokumentum megnyitása"
 
@@ -1979,12 +1810,10 @@ msgid "Drag and drop documents here"
 msgstr "Fogjon meg és ejtsen ide dokumentumokat"
 
 #: shell/pps-window.ui:44
-#| msgid "Open…"
 msgid "_Open…"
 msgstr "_Megnyitás…"
 
 #: shell/pps-window.ui:70
-#| msgid "Unable to open attachment"
 msgid "Unable to Open Document"
 msgstr "Nem lehet megnyitni a dokumentumot"
 
@@ -1993,7 +1822,6 @@ msgid "_Open Other File…"
 msgstr "_Másik fájl megnyitása…"
 
 #: shell-rs/src/application.rs:224
-#| msgid "© 1996–2023 The Evince document viewer authors"
 msgid "© 1996–2024 The Papers authors"
 msgstr "© 1996–2024 A Papírok szerzői"
 
@@ -2029,12 +1857,10 @@ msgid "DEST"
 msgstr "CÉL"
 
 #: shell-rs/src/application.rs:347
-#| msgid "Run evince in fullscreen mode"
 msgid "Run papers in fullscreen mode."
 msgstr "A Papírok futtatása teljes képernyős módban."
 
 #: shell-rs/src/application.rs:356
-#| msgid "Run evince in presentation mode"
 msgid "Run papers in presentation mode."
 msgstr "A Papírok futtatása bemutató módban."
 
@@ -2047,12 +1873,10 @@ msgid "[FILE…]"
 msgstr "[FÁJL…]"
 
 #: shell-rs/src/page_selector.rs:77 shell-rs/src/sidebar_annotations_row.rs:82
-#| msgid "Page %s"
 msgid "Page {}"
 msgstr "Oldal: {}"
 
 #: shell-rs/src/page_selector.rs:226 shell-rs/src/page_selector.rs:244
-#| msgid "(%d of %d)"
 msgid "({} of {})"
 msgstr "({} / {})"
 
@@ -2061,17 +1885,13 @@ msgid "of {}"
 msgstr "/ {}"
 
 #: shell-rs/src/password_view.rs:156
-#| msgid ""
-#| "The document “%s” is locked and requires a password before it can be "
-#| "opened."
 msgid ""
 "The document “{}” is locked and requires a password before it can be opened"
 msgstr ""
-"A(z) „{}” dokumentum zárolva van, és jelszót igényel, mielőtt megnyitható"
-" lenne"
+"A(z) „{}” dokumentum zárolva van, és jelszót igényel, mielőtt megnyitható "
+"lenne"
 
 #: shell-rs/src/properties_general.rs:73
-#| msgid "All Files"
 msgid "File"
 msgstr "Fájl"
 
@@ -2088,13 +1908,12 @@ msgid "Date &amp; Time"
 msgstr "Dátum és idő"
 
 #: shell-rs/src/window.rs:266
-#| msgid "Document contains form fields that have been filled out."
 msgid ""
 "Document contains new or modified annotations and form fields that have been "
 "filled out."
 msgstr ""
-"A dokumentum új vagy módosított jegyzeteket és olyan űrlapmezőket tartalmaz,"
-" amelyek ki lettek töltve."
+"A dokumentum új vagy módosított jegyzeteket és olyan űrlapmezőket tartalmaz, "
+"amelyek ki lettek töltve."
 
 #: shell-rs/src/window.rs:278
 msgid "If you reload the document, changes will be permanently lost."
@@ -2102,7 +1921,6 @@ msgstr ""
 "Ha újratölti a dokumentumot, akkor a változtatások véglegesen elvesznek."
 
 #: shell-rs/src/window.rs:279
-#| msgid "Failed to reload document."
 msgid "File changed outside Papers. Reload document?"
 msgstr "A fájl megváltozott a Papírokon kívül. Újratölti a dokumentumot?"
 
@@ -2115,11 +1933,9 @@ msgid "_Reload"
 msgstr "Új_ratöltés"
 
 #: shell-rs/src/window.rs:570
-#| msgid "Failed to load remote file."
 msgid "Failed to Load Remote File."
 msgstr "Nem sikerült betölteni a távoli fájlt."
 
-#: shell-rs/src/window.rs:741
-#| msgid "Failed to reload document."
+#: shell-rs/src/window.rs:733
 msgid "Failed to Reload Document."
 msgstr "Nem sikerült újratölteni a dokumentumot."
