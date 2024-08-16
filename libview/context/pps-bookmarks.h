@@ -31,14 +31,31 @@
 
 G_BEGIN_DECLS
 
-PPS_PUBLIC
-G_DECLARE_FINAL_TYPE (PpsBookmarks, pps_bookmarks, PPS, BOOKMARKS, GObject)
-#define PPS_TYPE_BOOKMARKS         (pps_bookmarks_get_type())
-
+#define PPS_TYPE_BOOKMARK	   (pps_bookmark_get_type())
 typedef struct _PpsBookmark {
         guint  page;
         gchar *title;
 } PpsBookmark;
+
+PPS_PUBLIC
+GType pps_bookmark_get_type (void);
+
+PPS_PUBLIC
+PpsBookmark *pps_bookmark_copy (const PpsBookmark *bookmark);
+
+PPS_PUBLIC
+void         pps_bookmark_free (PpsBookmark *bookmark);
+
+PPS_PUBLIC
+guint	     pps_bookmark_get_page (const PpsBookmark *bookmark);
+
+PPS_PUBLIC
+const gchar *pps_bookmark_get_title (const PpsBookmark *bookmark);
+
+
+PPS_PUBLIC
+G_DECLARE_FINAL_TYPE (PpsBookmarks, pps_bookmarks, PPS, BOOKMARKS, GObject)
+#define PPS_TYPE_BOOKMARKS         (pps_bookmarks_get_type())
 
 PPS_PUBLIC
 PpsBookmarks *pps_bookmarks_new           (PpsMetadata *metadata);

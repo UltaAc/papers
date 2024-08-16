@@ -56,7 +56,27 @@ pps_bookmark_compare (PpsBookmark *a,
         return 0;
 }
 
-static void
+G_DEFINE_BOXED_TYPE (PpsBookmark, pps_bookmark, pps_bookmark_copy, pps_bookmark_free)
+
+PpsBookmark *
+pps_bookmark_copy (const PpsBookmark *bm)
+{
+	PpsBookmark *new_bm;
+
+	if (G_UNLIKELY(!bm))
+                return NULL;
+
+	new_bm = g_slice_new (PpsBookmark);
+
+	g_assert (new_bm != NULL);
+
+	new_bm->page = bm->page;
+	new_bm->title = g_strdup (bm->title);
+
+	return new_bm;
+}
+
+void
 pps_bookmark_free (PpsBookmark *bm)
 {
         if (G_UNLIKELY(!bm))
@@ -64,6 +84,18 @@ pps_bookmark_free (PpsBookmark *bm)
 
         g_free (bm->title);
         g_slice_free (PpsBookmark, bm);
+}
+
+guint
+pps_bookmark_get_page (const PpsBookmark *bm)
+{
+	return bm->page;
+}
+
+const gchar *
+pps_bookmark_get_title (const PpsBookmark *bm)
+{
+	return bm->title;
 }
 
 static void
