@@ -41,12 +41,6 @@ struct _PpsBookmarks {
         GList *items;
 };
 
-struct _PpsBookmarksClass {
-        GObjectClass base_class;
-
-        void (*changed) (PpsBookmarks *bookmarks);
-};
-
 G_DEFINE_TYPE (PpsBookmarks, pps_bookmarks, G_TYPE_OBJECT)
 
 static guint signals[N_SIGNALS];
@@ -171,7 +165,7 @@ pps_bookmarks_class_init (PpsBookmarksClass *klass)
                 g_signal_new ("changed",
                               PPS_TYPE_BOOKMARKS,
                               G_SIGNAL_RUN_LAST,
-                              G_STRUCT_OFFSET (PpsBookmarksClass, changed),
+			      0,
                               NULL, NULL,
                               g_cclosure_marshal_VOID__VOID,
                               G_TYPE_NONE, 0);
