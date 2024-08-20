@@ -313,7 +313,7 @@ pps_history_go_to_link (PpsHistory *history,
  * pps_history_get_back_list:
  * @history: a #PpsHistory
  *
- * Returns: (transfer container): the back history
+ * Returns: (transfer container) (element-type PpsLink): the back history
  */
 GList *
 pps_history_get_back_list (PpsHistory *history)
@@ -339,7 +339,7 @@ pps_history_get_back_list (PpsHistory *history)
  * pps_history_get_forward_list:
  * @history: a #PpsHistory
  *
- * Returns: (transfer container): the forward history
+ * Returns: (transfer container) (element-type PpsLink): the forward history
  */
 GList *
 pps_history_get_forward_list (PpsHistory *history)

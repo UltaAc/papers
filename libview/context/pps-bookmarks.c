@@ -213,6 +213,12 @@ pps_bookmarks_save (PpsBookmarks *bookmarks)
         g_free (bm_list_str);
 }
 
+/**
+ * pps_bookmarks_get_bookmarks:
+ * @bookmarks: A #PpsBookmarks
+ *
+ * Returns: (transfer container) (element-type PpsBookmark): List of #PpsBookmark
+ */
 GList *
 pps_bookmarks_get_bookmarks (PpsBookmarks *bookmarks)
 {
