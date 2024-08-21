@@ -3039,7 +3039,7 @@ sidebar_navigate_to_view (PpsDocumentView *window)
 
 	if (adw_overlay_split_view_get_collapsed (priv->split_view)) {
 		adw_overlay_split_view_set_show_sidebar (priv->split_view, FALSE);
-		pps_document_view_focus_view (window);
+		gtk_widget_grab_focus (priv->view);
 	}
 }
 
@@ -4729,18 +4729,6 @@ PpsDocumentView *
 pps_document_view_new (void)
 {
 	return g_object_new (PPS_TYPE_DOCUMENT_VIEW, NULL);
-}
-
-void
-pps_document_view_focus_view (PpsDocumentView *pps_doc_view)
-{
-	PpsDocumentViewPrivate *priv;
-
-	g_return_if_fail (PPS_DOCUMENT_VIEW (pps_doc_view));
-
-	priv = GET_PRIVATE (pps_doc_view);
-
-	gtk_widget_grab_focus (priv->view);
 }
 
 /**
