@@ -333,11 +333,6 @@
                               </object>
                             </property>
                             <signal name="scroll-child" handler="scroll_child_history_cb" />
-                            <child>
-                              <object class="GtkEventControllerFocus">
-                                <signal name="enter" handler="scrolled_window_focus_in_cb" />
-                              </object>
-                            </child>
                           </object>
                         </property>
                       </object>

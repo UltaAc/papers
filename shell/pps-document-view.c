@@ -712,14 +712,6 @@ scroll_child_history_cb (GtkScrolledWindow *scrolled_window,
 	}
 }
 
-static gboolean
-scrolled_window_focus_in_cb (GtkEventControllerFocus *self,
-                             PpsDocumentView *window)
-{
-	pps_document_view_focus_view (window);
-	return GDK_EVENT_STOP;
-}
-
 static void
 view_selection_changed_cb (PpsView *view,
                            PpsDocumentView *window)
@@ -4699,7 +4691,6 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_visibility_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_collapsed_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pps_document_view_button_pressed);
-	gtk_widget_class_bind_template_callback (widget_class, scrolled_window_focus_in_cb);
 	gtk_widget_class_bind_template_callback (widget_class, scroll_child_history_cb);
 	gtk_widget_class_bind_template_callback (widget_class, print_jobs_confirmation_dialog_response);
 	gtk_widget_class_bind_template_callback (widget_class, view_details_cb);
