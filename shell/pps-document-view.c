@@ -3043,13 +3043,6 @@ sidebar_collapsed_changed_cb (AdwOverlaySplitView *split_view,
 }
 
 static void
-zoom_selector_activated (GtkWidget *zoom_action,
-                         PpsDocumentView *window)
-{
-	pps_document_view_focus_view (window);
-}
-
-static void
 sidebar_navigate_to_view (PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
@@ -4706,7 +4699,6 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_visibility_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_collapsed_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pps_document_view_button_pressed);
-	gtk_widget_class_bind_template_callback (widget_class, zoom_selector_activated);
 	gtk_widget_class_bind_template_callback (widget_class, scrolled_window_focus_in_cb);
 	gtk_widget_class_bind_template_callback (widget_class, scroll_child_history_cb);
 	gtk_widget_class_bind_template_callback (widget_class, print_jobs_confirmation_dialog_response);
