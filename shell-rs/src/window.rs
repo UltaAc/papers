@@ -217,7 +217,7 @@ mod imp {
 
             match mode {
                 WindowRunMode::Normal => stack.set_visible_child_name("document"),
-                WindowRunMode::PasswordView => stack.set_visible_child_name("document"),
+                WindowRunMode::PasswordView => stack.set_visible_child_name("password"),
                 WindowRunMode::StartView => stack.set_visible_child_name("start"),
                 WindowRunMode::LoaderView => stack.set_visible_child_name("loader"),
                 WindowRunMode::ErrorView => stack.set_visible_child_name("error"),
@@ -895,55 +895,78 @@ mod imp {
                                     )
                                     .unwrap();
                                 }
-                                _ => (),
+                                _ => obj.set_mode(pending_mode),
                             }
 
                             gtk::RecentManager::default().add_item(&uri);
 
+                            #[cfg(feature = "with-keyring")]
                             if let Some(password) = job.password() {
-                                papers_shell::keyring_save_password(
-                                    &uri,
-                                    &password,
-                                    job.password_save(),
-                                );
+                                let flags = job.password_save();
+                                glib::spawn_future_local(async move {
+                                    if let Err(e) =
+                                        crate::keyring::save_password(&uri, &password, flags).await
+                                    {
+                                        glib::g_warning!("", "Failed to save password: {e}");
+                                    }
+                                });
                             }
 
                             obj.clear_load_job();
                         }
                         Err(e) => {
-                            if e.matches(papers_document::DocumentError::Encrypted)
-                                && job
-                                    .loaded_document()
-                                    .and_dynamic_cast::<papers_document::DocumentSecurity>()
-                                    .is_ok()
-                            {
-                                // First look whether password is in keyring
-                                if let Some(password) = papers_shell::keyring_lookup_password(&uri)
-                                {
-                                    if job.password().is_some_and(|p| p == password) {
-                                        // Password in keyring is wrong
+                            glib::spawn_future_local(glib::clone!(
+                                #[weak]
+                                job,
+                                async move {
+                                    if e.matches(papers_document::DocumentError::Encrypted)
+                                        && job
+                                            .loaded_document()
+                                            .and_dynamic_cast::<papers_document::DocumentSecurity>()
+                                            .is_ok()
+                                    {
+                                        obj.set_mode(WindowRunMode::PasswordView);
+
+                                        // First look whether password is in keyring
+                                        #[cfg(feature = "with-keyring")]
+                                        match crate::keyring::lookup_password(&uri).await {
+                                            Ok(Some(password)) => {
+                                                if job.password().is_some_and(|p| p == password) {
+                                                    // Password in keyring is wrong
+                                                    job.set_password(None);
+                                                } else {
+                                                    job.set_password(Some(&password));
+                                                    job.scheduler_push_job(
+                                                        JobPriority::PriorityNone,
+                                                    );
+                                                    return;
+                                                }
+                                            }
+                                            Ok(None) => {}
+                                            Err(e) => {
+                                                glib::g_warning!(
+                                                    "",
+                                                    "Failed to lookup password: {e}"
+                                                );
+                                            }
+                                        }
+
+                                        // We need to ask the user for a password
+                                        let wrong_password = job.password().is_some();
+
                                         job.set_password(None);
+                                        obj.password_view
+                                            .set_filename(obj.display_name.borrow().as_str());
+                                        obj.password_view.ask_password(wrong_password);
+                                        obj.set_mode(WindowRunMode::PasswordView)
                                     } else {
-                                        job.set_password(Some(&password));
-                                        job.scheduler_push_job(JobPriority::PriorityNone);
-                                        return;
+                                        obj.show_error(Some(&e));
+
+                                        obj.clear_load_job();
+                                        obj.clear_local_uri();
                                     }
                                 }
-
-                                // We need to ask the user for a password
-                                let wrong_password = job.password().is_some();
-
-                                job.set_password(None);
-                                obj.password_view
-                                    .set_filename(obj.display_name.borrow().as_str());
-                                obj.password_view.ask_password(wrong_password);
-                                obj.set_mode(WindowRunMode::PasswordView)
-                            } else {
-                                obj.show_error(Some(&e));
-
-                                obj.clear_load_job();
-                                obj.clear_local_uri();
-                            }
+                            ));
                         }
                     }
                 }

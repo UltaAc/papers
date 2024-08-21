@@ -1,6 +1,5 @@
 papers_sources = files(
   'pps-find-sidebar.c',
-  'pps-keyring.c',
   'pps-message-area.c',
   'pps-progress-message-area.c',
   'pps-utils.c',
@@ -63,10 +62,6 @@ if enable_dbus
   )
 endif
 
-if enable_keyring
-  papers_deps += libsecret_dep
-endif
-
 enum_types = 'ev-shell-type-builtins'
 enum_header_prefix = '''
 #include <papers-document.h>
@@ -79,7 +74,6 @@ headers = files(
   'pps-find-sidebar.h',
   'pps-progress-message-area.h',
   'pps-message-area.h',
-  'pps-keyring.h',
 )
 
 enum_sources = gnome.mkenums_simple(

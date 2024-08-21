@@ -18,5 +18,5 @@ option('documentation', type: 'boolean', value: true, description: 'whether deve
 option('user_doc', type: 'boolean', value: true, description: 'whether User documentation is requested')
 option('introspection', type: 'feature', value: 'auto', description : 'Build introspection data (requires gobject-introspection)')
 option('dbus', type: 'boolean', value: true, description: 'whether DBUS support is requested')
-option('keyring', type: 'feature', value: 'auto', description: 'whether keyring support is requested')
+option('keyring', type: 'feature', value: 'enabled', description: 'whether keyring support is requested')
 option('gtk_unix_print', type: 'feature', value: 'auto', description: 'whether gtk+-unix-print support is requested')

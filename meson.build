@@ -212,9 +212,7 @@ if pps_platform == 'gnome'
   config_h.set('ENABLE_DBUS', enable_dbus)
 
   # *** GNOME Keyring support ***
-  libsecret_dep = dependency('libsecret-1', version: '>= 0.5', required: get_option('keyring'))
-  enable_keyring = libsecret_dep.found()
-  config_h.set('WITH_KEYRING', enable_keyring)
+  enable_keyring = get_option('keyring').enabled()
 
   # GKT+ Unix Printing
   gtk_unix_print_dep = dependency('gtk4-unix-print', version: gtk_req_version, required: get_option('gtk_unix_print'))

@@ -12,6 +12,8 @@ mod application;
 mod deps;
 mod file_monitor;
 mod i18n;
+#[cfg(feature = "with-keyring")]
+mod keyring;
 mod loader_view;
 mod page_selector;
 mod password_view;

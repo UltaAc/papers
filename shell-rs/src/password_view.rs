@@ -5,7 +5,6 @@ use gio::PasswordSave;
 const CAN_SAVE_PASSWORD: bool = cfg!(feature = "with-keyring");
 
 const PASSWORD_PREFERENCE_NEVER: &str = "never";
-const PASSWORD_PREFERENCE_SESSION: &str = "for-session";
 const PASSWORD_PREFERENCE_PERMANENTLY: &str = "permanently";
 
 const RESPONSE_UNLOCK: &str = "unlock";
@@ -218,7 +217,6 @@ mod imp {
     fn preference_choice_to_password_save(choice: &str) -> PasswordSave {
         match choice {
             PASSWORD_PREFERENCE_NEVER => PasswordSave::Never,
-            PASSWORD_PREFERENCE_SESSION => PasswordSave::ForSession,
             PASSWORD_PREFERENCE_PERMANENTLY => PasswordSave::Permanently,
             _ => unreachable!(),
         }

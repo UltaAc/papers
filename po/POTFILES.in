@@ -46,7 +46,6 @@ shell/pps-annotation-properties-dialog.ui
 shell/pps-document-view.c
 shell/pps-document-view.ui
 shell/pps-find-sidebar.ui
-shell/pps-keyring.c
 shell/pps-loader-view.ui
 shell/pps-page-selector.ui
 shell/pps-password-dialog.ui
@@ -64,6 +63,7 @@ shell/pps-utils.c
 shell/pps-window.ui
 shell-rs/src/annotation_properties_dialog.rs
 shell-rs/src/application.rs
+shell-rs/src/keyring.rs
 shell-rs/src/main.rs
 shell-rs/src/page_selector.rs
 shell-rs/src/password_view.rs
