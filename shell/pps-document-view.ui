@@ -115,8 +115,7 @@
                               <object class="PpsSidebarLinks" id="sidebar_links">
                                 <property name="document-model">model</property>
                                 <property name="sidebar">sidebar</property>
-                                <signal name="link-activated"
-                                  handler="sidebar_links_link_activated_cb" />
+                                <signal name="link-activated" handler="activate_link_cb" />
                               </object>
                             </property>
                           </object>

@@ -3881,20 +3881,11 @@ static const GActionEntry actions[] = {
 };
 
 static void
-sidebar_links_link_activated_cb (void *sidebar_links, PpsLink *link, PpsDocumentView *window)
-{
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
-
-	pps_view_handle_link (PPS_VIEW (priv->view), link);
-}
-
-static void
 activate_link_cb (GObject *object, PpsLink *link, PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
 	pps_view_handle_link (PPS_VIEW (priv->view), link);
-	gtk_widget_grab_focus (priv->view);
 }
 
 static void
@@ -4718,7 +4709,6 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_callback (widget_class, inverted_colors_changed_cb);
 
 	/* sidebar */
-	gtk_widget_class_bind_template_callback (widget_class, sidebar_links_link_activated_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_annots_annot_activated_cb);
 	gtk_widget_class_bind_template_callback (widget_class, attachment_bar_menu_popup_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_layers_visibility_changed);
