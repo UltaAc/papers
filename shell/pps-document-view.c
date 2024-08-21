@@ -3011,8 +3011,6 @@ sidebar_visibility_changed_cb (AdwOverlaySplitView *split_view,
 
 	if (priv->metadata && gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack)) != priv->find_sidebar && !adw_overlay_split_view_get_collapsed (priv->split_view))
 		g_settings_set_boolean (settings, "show-sidebar", visible);
-	if (!visible)
-		gtk_widget_grab_focus (priv->view);
 }
 
 static void
@@ -3039,9 +3037,10 @@ sidebar_navigate_to_view (PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
-	if (adw_overlay_split_view_get_collapsed (priv->split_view))
+	if (adw_overlay_split_view_get_collapsed (priv->split_view)) {
 		adw_overlay_split_view_set_show_sidebar (priv->split_view, FALSE);
-	pps_document_view_focus_view (window);
+		pps_document_view_focus_view (window);
+	}
 }
 
 static void
@@ -3268,8 +3267,6 @@ pps_document_view_close_find_bar (PpsDocumentView *pps_doc_view)
 
 	gtk_stack_set_visible_child (GTK_STACK (priv->sidebar_stack),
 	                             priv->sidebar);
-
-	gtk_widget_grab_focus (priv->view);
 
 	pps_document_view_set_action_enabled (pps_doc_view, "find-next", FALSE);
 	pps_document_view_set_action_enabled (pps_doc_view, "find-previous", FALSE);
