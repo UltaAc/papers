@@ -878,7 +878,7 @@ mod imp {
                             // Handle PDF page mode feature
                             let mut pending_mode = WindowRunMode::Normal;
                             if let Some(info) = document.info() {
-                                if let Some(page_mode) = info.mode() {
+                                if let Some(page_mode) = info.start_mode() {
                                     if page_mode == DocumentMode::FullScreen {
                                         pending_mode = WindowRunMode::Presentation;
                                     }

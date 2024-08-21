@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{ffi, DocumentModel, JobFind};
+use crate::{ffi, DocumentModel, SearchContext};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -86,13 +86,6 @@ impl View {
         }
     }
 
-    #[doc(alias = "pps_view_find_cancel")]
-    pub fn find_cancel(&self) {
-        unsafe {
-            ffi::pps_view_find_cancel(self.to_glib_none().0);
-        }
-    }
-
     #[doc(alias = "pps_view_find_next")]
     pub fn find_next(&self) {
         unsafe {
@@ -125,13 +118,6 @@ impl View {
     pub fn find_set_result(&self, page: i32, result: i32) {
         unsafe {
             ffi::pps_view_find_set_result(self.to_glib_none().0, page, result);
-        }
-    }
-
-    #[doc(alias = "pps_view_find_started")]
-    pub fn find_started(&self, job: &impl IsA<JobFind>) {
-        unsafe {
-            ffi::pps_view_find_started(self.to_glib_none().0, job.as_ref().to_glib_none().0);
         }
     }
 
@@ -294,6 +280,16 @@ impl View {
     pub fn set_page_cache_size(&self, cache_size: usize) {
         unsafe {
             ffi::pps_view_set_page_cache_size(self.to_glib_none().0, cache_size);
+        }
+    }
+
+    #[doc(alias = "pps_view_set_search_context")]
+    pub fn set_search_context(&self, context: &impl IsA<SearchContext>) {
+        unsafe {
+            ffi::pps_view_set_search_context(
+                self.to_glib_none().0,
+                context.as_ref().to_glib_none().0,
+            );
         }
     }
 

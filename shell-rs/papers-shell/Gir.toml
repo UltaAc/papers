@@ -27,10 +27,7 @@ external_libraries = [
 
 generate = [
     "PapersShell.FindSidebar",
-    "PapersShell.Metadata",
     "PapersShell.ProgressMessageArea",
-    "PapersShell.SearchContext",
-    "PapersShell.SearchResult",
     "PapersShell.SidebarAnnotations",
     "PapersShell.SidebarPage",
     "PapersShell.DocumentView",

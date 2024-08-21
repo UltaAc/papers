@@ -172,7 +172,7 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
     #[doc(alias = "pps_document_get_info")]
     #[doc(alias = "get_info")]
     fn info(&self) -> Option<DocumentInfo> {
-        unsafe { from_glib_none(ffi::pps_document_get_info(self.as_ref().to_glib_none().0)) }
+        unsafe { from_glib_full(ffi::pps_document_get_info(self.as_ref().to_glib_none().0)) }
     }
 
     #[doc(alias = "pps_document_get_max_label_len")]

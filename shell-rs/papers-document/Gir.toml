@@ -39,6 +39,7 @@ generate = [
     "PapersDocument.DocumentFonts",
     "PapersDocument.DocumentForms",
     "PapersDocument.DocumentImages",
+    "PapersDocument.DocumentInfo",
     "PapersDocument.DocumentInfoFields",
     "PapersDocument.DocumentLayers",
     "PapersDocument.DocumentLicense",
@@ -81,10 +82,5 @@ manual = [
 
 [[object]]
 name = "PapersDocument.Rectangle"
-status = "generate"
-boxed_inline = true
-
-[[object]]
-name = "PapersDocument.DocumentInfo"
 status = "generate"
 boxed_inline = true

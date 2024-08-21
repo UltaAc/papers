@@ -14,7 +14,6 @@ pub mod prelude;
 
 #[allow(unused_imports)]
 mod auto;
-mod document_info;
 
 pub use auto::functions::*;
 pub use auto::*;

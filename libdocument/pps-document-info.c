@@ -54,7 +54,7 @@ pps_document_info_new (void)
  * Returns: (transfer full): a copy of @info
  */
 PpsDocumentInfo *
-pps_document_info_copy (PpsDocumentInfo *info)
+pps_document_info_copy (const PpsDocumentInfo *info)
 {
         PpsDocumentInfo *copy;
 
@@ -242,7 +242,7 @@ get_tolerance (gdouble size)
 		return 3.0f;
 }
 
-/*
+/**
  * pps_document_info_regular_pager_size:
  * @info: a #PpsDocumentInfo
  *
@@ -310,6 +310,258 @@ pps_document_info_regular_paper_size (const PpsDocumentInfo *info)
 	}
 
 	return exact_size;
+}
+
+/**
+ * pps_document_info_pages:
+ * @info: a #PpsDocumentInfo
+ * @pages: (out) (optional):
+ *
+ * Returns: %TRUE iff info has this field
+ */
+gboolean
+pps_document_info_pages (const PpsDocumentInfo *info, gint *pages)
+{
+	gboolean has_value = info->fields_mask & PPS_DOCUMENT_INFO_PAPER_SIZE;
+
+	if (has_value && pages)
+		*pages = info->n_pages;
+
+	return has_value;
+}
+
+/**
+ * pps_document_info_permissions:
+ * @info: a #PpsDocumentInfo
+ * @permissions: (out) (optional):
+ *
+ * Returns: %TRUE iff info has this field
+ */
+gboolean
+pps_document_info_permissions (const PpsDocumentInfo *info, PpsDocumentPermissions *permissions)
+{
+	gboolean has_value = info->fields_mask & PPS_DOCUMENT_INFO_PERMISSIONS;
+
+	if (has_value && permissions)
+		*permissions = info->permissions;
+
+	return has_value;
+}
+
+/**
+ * pps_document_info_start_mode:
+ * @info: a #PpsDocumentInfo
+ * @mode: (out) (optional):
+ *
+ * Returns: %TRUE iff info has this field
+ */
+gboolean
+pps_document_info_start_mode (const PpsDocumentInfo *info, PpsDocumentMode *mode)
+{
+	gboolean has_value = info->fields_mask & PPS_DOCUMENT_INFO_START_MODE;
+
+	if (has_value && mode)
+		*mode = info->mode;
+
+	return has_value;
+}
+
+/**
+ * pps_document_info_license:
+ * @info: a #PpsDocumentInfo
+ * @license: (out) (optional):
+ *
+ * Returns: %TRUE iff info has this field
+ */
+gboolean
+pps_document_info_license (const PpsDocumentInfo *info, PpsDocumentLicense **license)
+{
+	gboolean has_value = info->fields_mask & PPS_DOCUMENT_INFO_LICENSE;
+
+	if (has_value && license)
+		*license = pps_document_license_copy (info->license);
+
+	return has_value;
+}
+
+/**
+ * pps_document_info_contains_js:
+ * @info: a #PpsDocumentInfo
+ * @contains_js: (out) (optional):
+ *
+ * Returns: %TRUE iff info has this field
+ */
+gboolean
+pps_document_info_contains_js (const PpsDocumentInfo *info, PpsDocumentContainsJS *contains_js)
+{
+	gboolean has_value = info->fields_mask & PPS_DOCUMENT_INFO_CONTAINS_JS;
+
+	if (has_value && contains_js)
+		*contains_js = info->contains_js;
+
+	return has_value;
+}
+
+/**
+ * pps_document_info_title:
+ * @info: a #PpsDocumentInfo
+ * @title: (out) (optional) (transfer full):
+ *
+ * Returns: %TRUE iff info has this field
+ */
+gboolean
+pps_document_info_title (const PpsDocumentInfo *info, gchar **title)
+{
+	gboolean has_value = info->fields_mask & PPS_DOCUMENT_INFO_TITLE;
+
+	if (has_value && title)
+		*title = g_strdup (info->title);
+
+	return has_value;
+}
+
+/**
+ * pps_document_info_format:
+ * @info: a #PpsDocumentInfo
+ * @format: (out) (optional) (transfer full):
+ *
+ * Returns: %TRUE iff info has this field
+ */
+gboolean
+pps_document_info_format (const PpsDocumentInfo *info, gchar **format)
+{
+	gboolean has_value = info->fields_mask & PPS_DOCUMENT_INFO_FORMAT;
+
+	if (has_value && format)
+		*format = g_strdup (info->format);
+
+	return has_value;
+}
+
+/**
+ * pps_document_info_author:
+ * @info: a #PpsDocumentInfo
+ * @author: (out) (optional) (transfer full):
+ *
+ * Returns: %TRUE iff info has this field
+ */
+gboolean
+pps_document_info_author (const PpsDocumentInfo *info, gchar **author)
+{
+	gboolean has_value = info->fields_mask & PPS_DOCUMENT_INFO_AUTHOR;
+
+	if (has_value && author)
+		*author = g_strdup (info->author);
+
+	return has_value;
+}
+
+/**
+ * pps_document_info_subject:
+ * @info: a #PpsDocumentInfo
+ * @subject: (out) (optional) (transfer full):
+ *
+ * Returns: %TRUE iff info has this field
+ */
+gboolean
+pps_document_info_subject (const PpsDocumentInfo *info, gchar **subject)
+{
+	gboolean has_value = info->fields_mask & PPS_DOCUMENT_INFO_SUBJECT;
+
+	if (has_value && subject)
+		*subject = g_strdup (info->subject);
+
+	return has_value;
+}
+
+/**
+ * pps_document_info_keywords:
+ * @info: a #PpsDocumentInfo
+ * @keywords: (out) (optional) (transfer full):
+ *
+ * Returns: %TRUE iff info has this field
+ */
+gboolean
+pps_document_info_keywords (const PpsDocumentInfo *info, gchar **keywords)
+{
+	gboolean has_value = info->fields_mask & PPS_DOCUMENT_INFO_KEYWORDS;
+
+	if (has_value && keywords)
+		*keywords = g_strdup (info->keywords);
+
+	return has_value;
+}
+
+/**
+ * pps_document_info_creator:
+ * @info: a #PpsDocumentInfo
+ * @creator: (out) (optional) (transfer full):
+ *
+ * Returns: %TRUE iff info has this field
+ */
+gboolean
+pps_document_info_creator (const PpsDocumentInfo *info, gchar **creator)
+{
+	gboolean has_value = info->fields_mask & PPS_DOCUMENT_INFO_CREATOR;
+
+	if (has_value && creator)
+		*creator = g_strdup (info->creator);
+
+	return has_value;
+}
+
+/**
+ * pps_document_info_producer:
+ * @info: a #PpsDocumentInfo
+ * @producer: (out) (optional) (transfer full):
+ *
+ * Returns: %TRUE iff info has this field
+ */
+gboolean
+pps_document_info_producer (const PpsDocumentInfo *info, gchar **producer)
+{
+	gboolean has_value = info->fields_mask & PPS_DOCUMENT_INFO_PRODUCER;
+
+	if (has_value && producer)
+		*producer = g_strdup (info->producer);
+
+	return has_value;
+}
+
+/**
+ * pps_document_info_linearized:
+ * @info: a #PpsDocumentInfo
+ * @linearized: (out) (optional) (transfer full):
+ *
+ * Returns: %TRUE iff info has this field
+ */
+gboolean
+pps_document_info_linearized (const PpsDocumentInfo *info, gchar **linearized)
+{
+	gboolean has_value = info->fields_mask & PPS_DOCUMENT_INFO_LINEARIZED;
+
+	if (has_value && linearized)
+		*linearized = g_strdup (info->linearized);
+
+	return has_value;
+}
+
+/**
+ * pps_document_info_security:
+ * @info: a #PpsDocumentInfo
+ * @security: (out) (optional) (transfer full):
+ *
+ * Returns: %TRUE iff info has this field
+ */
+gboolean
+pps_document_info_security (const PpsDocumentInfo *info, gchar **security)
+{
+	gboolean has_value = info->fields_mask & PPS_DOCUMENT_INFO_SECURITY;
+
+	if (has_value && security)
+		*security = g_strdup (info->security);
+
+	return has_value;
 }
 
 /* PpsDocumentLicense */

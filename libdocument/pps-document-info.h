@@ -144,7 +144,7 @@ GType           pps_document_info_get_type (void) G_GNUC_CONST;
 PPS_PUBLIC
 PpsDocumentInfo* pps_document_info_new      (void);
 PPS_PUBLIC
-PpsDocumentInfo *pps_document_info_copy     (PpsDocumentInfo *info);
+PpsDocumentInfo *pps_document_info_copy     (const PpsDocumentInfo *info);
 PPS_PUBLIC
 void            pps_document_info_free     (PpsDocumentInfo *info);
 PPS_PUBLIC
@@ -153,6 +153,35 @@ PPS_PUBLIC
 GDateTime      *pps_document_info_get_modified_datetime  (const PpsDocumentInfo *info);
 PPS_PUBLIC
 char           *pps_document_info_regular_paper_size     (const PpsDocumentInfo *info);
+PPS_PUBLIC
+gboolean 	pps_document_info_pages 		 (const PpsDocumentInfo *info, gint *pages);
+PPS_PUBLIC
+gboolean 	pps_document_info_contains_js 		 (const PpsDocumentInfo *info, PpsDocumentContainsJS *contains_js);
+PPS_PUBLIC
+gboolean        pps_document_info_permissions 		 (const PpsDocumentInfo *info, PpsDocumentPermissions *permissions);
+PPS_PUBLIC
+gboolean        pps_document_info_start_mode 		 (const PpsDocumentInfo *info, PpsDocumentMode *mode);
+PPS_PUBLIC
+gboolean        pps_document_info_license 		 (const PpsDocumentInfo *info, PpsDocumentLicense **license);
+PPS_PUBLIC
+gboolean        pps_document_info_title 		 (const PpsDocumentInfo *info, gchar **title);
+PPS_PUBLIC
+gboolean 	pps_document_info_format		 (const PpsDocumentInfo *info, gchar **format);
+PPS_PUBLIC
+gboolean 	pps_document_info_author		 (const PpsDocumentInfo *info, gchar **author);
+PPS_PUBLIC
+gboolean 	pps_document_info_subject		 (const PpsDocumentInfo *info, gchar **subject);
+PPS_PUBLIC
+gboolean 	pps_document_info_keywords		 (const PpsDocumentInfo *info, gchar **keywords);
+PPS_PUBLIC
+gboolean 	pps_document_info_creator		 (const PpsDocumentInfo *info, gchar **creator);
+PPS_PUBLIC
+gboolean 	pps_document_info_producer		 (const PpsDocumentInfo *info, gchar **producer);
+PPS_PUBLIC
+gboolean 	pps_document_info_linearized		 (const PpsDocumentInfo *info, gchar **linearized);
+PPS_PUBLIC
+gboolean 	pps_document_info_security		 (const PpsDocumentInfo *info, gchar **security);
+
 
 PPS_PRIVATE
 void            pps_document_info_take_created_datetime  (PpsDocumentInfo *info,

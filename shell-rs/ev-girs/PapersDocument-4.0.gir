@@ -1803,7 +1803,7 @@ Returns 96 as fallback value.</doc>
              filename="libdocument/pps-document.c"
              line="657">Returns the #PpsDocumentInfo for the document.</doc>
         <source-position filename="libdocument/pps-document.h" line="98"/>
-        <return-value transfer-ownership="none">
+        <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
                line="663">a #PpsDocumentInfo</doc>
@@ -1913,20 +1913,20 @@ Returns 96 as fallback value.</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
-               line="719">a #GdkPixbuf</doc>
+               line="718">a #GdkPixbuf</doc>
           <type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
         </return-value>
         <parameters>
           <instance-parameter name="document" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="716">an #PpsDocument</doc>
+                 line="715">an #PpsDocument</doc>
             <type name="Document" c:type="PpsDocument*"/>
           </instance-parameter>
           <parameter name="rc" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="717">an #PpsRenderContext</doc>
+                 line="716">an #PpsRenderContext</doc>
             <type name="RenderContext" c:type="PpsRenderContext*"/>
           </parameter>
         </parameters>
@@ -1938,20 +1938,20 @@ Returns 96 as fallback value.</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
-               line="738">a #cairo_surface_t</doc>
+               line="737">a #cairo_surface_t</doc>
           <type name="cairo.Surface" c:type="cairo_surface_t*"/>
         </return-value>
         <parameters>
           <instance-parameter name="document" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="735">an #PpsDocument</doc>
+                 line="734">an #PpsDocument</doc>
             <type name="Document" c:type="PpsDocument*"/>
           </instance-parameter>
           <parameter name="rc" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="736">an #PpsRenderContext</doc>
+                 line="735">an #PpsRenderContext</doc>
             <type name="RenderContext" c:type="PpsRenderContext*"/>
           </parameter>
         </parameters>
@@ -2180,20 +2180,20 @@ See pps_document_load() for more information.</doc>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
-               line="880">%TRUE iff the page index is found</doc>
+               line="879">%TRUE iff the page index is found</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="document" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="876">a #PpsDocument</doc>
+                 line="875">a #PpsDocument</doc>
             <type name="Document" c:type="PpsDocument*"/>
           </instance-parameter>
           <parameter name="page_label" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="877">the page label</doc>
+                 line="876">the page label</doc>
             <type name="utf8" c:type="const gchar*"/>
           </parameter>
           <parameter name="page_index"
@@ -2202,7 +2202,7 @@ See pps_document_load() for more information.</doc>
                      transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="878">the output page index</doc>
+                 line="877">the output page index</doc>
             <type name="gint" c:type="gint*"/>
           </parameter>
         </parameters>
@@ -2227,7 +2227,7 @@ See pps_document_load() for more information.</doc>
              filename="libdocument/pps-document.c"
              line="657">Returns the #PpsDocumentInfo for the document.</doc>
         <source-position filename="libdocument/pps-document.h" line="134"/>
-        <return-value transfer-ownership="none">
+        <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
                line="663">a #PpsDocumentInfo</doc>
@@ -2264,7 +2264,7 @@ See pps_document_load() for more information.</doc>
           <instance-parameter name="document" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="787">an #PpsDocument</doc>
+                 line="786">an #PpsDocument</doc>
             <type name="Document" c:type="PpsDocument*"/>
           </instance-parameter>
           <parameter name="width"
@@ -2273,7 +2273,7 @@ See pps_document_load() for more information.</doc>
                      transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="788">max page width</doc>
+                 line="787">max page width</doc>
             <type name="gdouble" c:type="gdouble*"/>
           </parameter>
           <parameter name="height"
@@ -2282,7 +2282,7 @@ See pps_document_load() for more information.</doc>
                      transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="789">max page height</doc>
+                 line="788">max page height</doc>
             <type name="gdouble" c:type="gdouble*"/>
           </parameter>
         </parameters>
@@ -2297,7 +2297,7 @@ See pps_document_load() for more information.</doc>
           <instance-parameter name="document" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="810">an #PpsDocument</doc>
+                 line="809">an #PpsDocument</doc>
             <type name="Document" c:type="PpsDocument*"/>
           </instance-parameter>
           <parameter name="width"
@@ -2306,7 +2306,7 @@ See pps_document_load() for more information.</doc>
                      transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="811">min page width</doc>
+                 line="810">min page width</doc>
             <type name="gdouble" c:type="gdouble*"/>
           </parameter>
           <parameter name="height"
@@ -2315,7 +2315,7 @@ See pps_document_load() for more information.</doc>
                      transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="812">min page height</doc>
+                 line="811">min page height</doc>
             <type name="gdouble" c:type="gdouble*"/>
           </parameter>
         </parameters>
@@ -2449,20 +2449,20 @@ notify::modified signal on @document.</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
-               line="719">a #GdkPixbuf</doc>
+               line="718">a #GdkPixbuf</doc>
           <type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
         </return-value>
         <parameters>
           <instance-parameter name="document" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="716">an #PpsDocument</doc>
+                 line="715">an #PpsDocument</doc>
             <type name="Document" c:type="PpsDocument*"/>
           </instance-parameter>
           <parameter name="rc" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="717">an #PpsRenderContext</doc>
+                 line="716">an #PpsRenderContext</doc>
             <type name="RenderContext" c:type="PpsRenderContext*"/>
           </parameter>
         </parameters>
@@ -2474,20 +2474,20 @@ notify::modified signal on @document.</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
-               line="738">a #cairo_surface_t</doc>
+               line="737">a #cairo_surface_t</doc>
           <type name="cairo.Surface" c:type="cairo_surface_t*"/>
         </return-value>
         <parameters>
           <instance-parameter name="document" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="735">an #PpsDocument</doc>
+                 line="734">an #PpsDocument</doc>
             <type name="Document" c:type="PpsDocument*"/>
           </instance-parameter>
           <parameter name="rc" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="736">an #PpsRenderContext</doc>
+                 line="735">an #PpsRenderContext</doc>
             <type name="RenderContext" c:type="PpsRenderContext*"/>
           </parameter>
         </parameters>
@@ -3415,20 +3415,20 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
           <return-value transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="719">a #GdkPixbuf</doc>
+                 line="718">a #GdkPixbuf</doc>
             <type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
           </return-value>
           <parameters>
             <parameter name="document" transfer-ownership="none">
               <doc xml:space="preserve"
                    filename="libdocument/pps-document.c"
-                   line="716">an #PpsDocument</doc>
+                   line="715">an #PpsDocument</doc>
               <type name="Document" c:type="PpsDocument*"/>
             </parameter>
             <parameter name="rc" transfer-ownership="none">
               <doc xml:space="preserve"
                    filename="libdocument/pps-document.c"
-                   line="717">an #PpsRenderContext</doc>
+                   line="716">an #PpsRenderContext</doc>
               <type name="RenderContext" c:type="PpsRenderContext*"/>
             </parameter>
           </parameters>
@@ -3437,7 +3437,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       <field name="get_info">
         <callback name="get_info">
           <source-position filename="libdocument/pps-document.h" line="98"/>
-          <return-value transfer-ownership="none">
+          <return-value transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
                  line="663">a #PpsDocumentInfo</doc>
@@ -3526,20 +3526,20 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
           <return-value transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
-                 line="738">a #cairo_surface_t</doc>
+                 line="737">a #cairo_surface_t</doc>
             <type name="cairo.Surface" c:type="cairo_surface_t*"/>
           </return-value>
           <parameters>
             <parameter name="document" transfer-ownership="none">
               <doc xml:space="preserve"
                    filename="libdocument/pps-document.c"
-                   line="735">an #PpsDocument</doc>
+                   line="734">an #PpsDocument</doc>
               <type name="Document" c:type="PpsDocument*"/>
             </parameter>
             <parameter name="rc" transfer-ownership="none">
               <doc xml:space="preserve"
                    filename="libdocument/pps-document.c"
-                   line="736">an #PpsRenderContext</doc>
+                   line="735">an #PpsRenderContext</doc>
               <type name="RenderContext" c:type="PpsRenderContext*"/>
             </parameter>
           </parameters>
@@ -4999,6 +4999,58 @@ interface</doc>
           <type name="DocumentInfo" c:type="PpsDocumentInfo*"/>
         </return-value>
       </constructor>
+      <method name="author" c:identifier="pps_document_info_author">
+        <source-position filename="libdocument/pps-document-info.h"
+                         line="171"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-info.c"
+               line="446">%TRUE iff info has this field</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="info" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-info.c"
+                 line="443">a #PpsDocumentInfo</doc>
+            <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
+          </instance-parameter>
+          <parameter name="author"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     optional="1"
+                     allow-none="1">
+            <type name="utf8" c:type="gchar**"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="contains_js" c:identifier="pps_document_info_contains_js">
+        <source-position filename="libdocument/pps-document-info.h"
+                         line="159"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-info.c"
+               line="392">%TRUE iff info has this field</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="info" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-info.c"
+                 line="389">a #PpsDocumentInfo</doc>
+            <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
+          </instance-parameter>
+          <parameter name="contains_js"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     optional="1"
+                     allow-none="1">
+            <type name="DocumentContainsJS" c:type="PpsDocumentContainsJS*"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="copy" c:identifier="pps_document_info_copy">
         <source-position filename="libdocument/pps-document-info.h"
                          line="147"/>
@@ -5013,8 +5065,60 @@ interface</doc>
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-info.c"
                  line="52">a #PpsDocumentInfo</doc>
-            <type name="DocumentInfo" c:type="PpsDocumentInfo*"/>
+            <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
           </instance-parameter>
+        </parameters>
+      </method>
+      <method name="creator" c:identifier="pps_document_info_creator">
+        <source-position filename="libdocument/pps-document-info.h"
+                         line="177"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-info.c"
+               line="500">%TRUE iff info has this field</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="info" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-info.c"
+                 line="497">a #PpsDocumentInfo</doc>
+            <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
+          </instance-parameter>
+          <parameter name="creator"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     optional="1"
+                     allow-none="1">
+            <type name="utf8" c:type="gchar**"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="format" c:identifier="pps_document_info_format">
+        <source-position filename="libdocument/pps-document-info.h"
+                         line="169"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-info.c"
+               line="428">%TRUE iff info has this field</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="info" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-info.c"
+                 line="425">a #PpsDocumentInfo</doc>
+            <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
+          </instance-parameter>
+          <parameter name="format"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     optional="1"
+                     allow-none="1">
+            <type name="utf8" c:type="gchar**"/>
+          </parameter>
         </parameters>
       </method>
       <method name="free" c:identifier="pps_document_info_free">
@@ -5073,6 +5177,162 @@ interface</doc>
           </instance-parameter>
         </parameters>
       </method>
+      <method name="keywords" c:identifier="pps_document_info_keywords">
+        <source-position filename="libdocument/pps-document-info.h"
+                         line="175"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-info.c"
+               line="482">%TRUE iff info has this field</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="info" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-info.c"
+                 line="479">a #PpsDocumentInfo</doc>
+            <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
+          </instance-parameter>
+          <parameter name="keywords"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     optional="1"
+                     allow-none="1">
+            <type name="utf8" c:type="gchar**"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="license" c:identifier="pps_document_info_license">
+        <source-position filename="libdocument/pps-document-info.h"
+                         line="165"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-info.c"
+               line="374">%TRUE iff info has this field</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="info" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-info.c"
+                 line="371">a #PpsDocumentInfo</doc>
+            <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
+          </instance-parameter>
+          <parameter name="license"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     optional="1"
+                     allow-none="1">
+            <type name="DocumentLicense" c:type="PpsDocumentLicense**"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="linearized" c:identifier="pps_document_info_linearized">
+        <source-position filename="libdocument/pps-document-info.h"
+                         line="181"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-info.c"
+               line="536">%TRUE iff info has this field</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="info" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-info.c"
+                 line="533">a #PpsDocumentInfo</doc>
+            <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
+          </instance-parameter>
+          <parameter name="linearized"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     optional="1"
+                     allow-none="1">
+            <type name="utf8" c:type="gchar**"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="pages" c:identifier="pps_document_info_pages">
+        <source-position filename="libdocument/pps-document-info.h"
+                         line="157"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-info.c"
+               line="320">%TRUE iff info has this field</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="info" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-info.c"
+                 line="317">a #PpsDocumentInfo</doc>
+            <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
+          </instance-parameter>
+          <parameter name="pages"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     optional="1"
+                     allow-none="1">
+            <type name="gint" c:type="gint*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="permissions" c:identifier="pps_document_info_permissions">
+        <source-position filename="libdocument/pps-document-info.h"
+                         line="161"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-info.c"
+               line="338">%TRUE iff info has this field</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="info" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-info.c"
+                 line="335">a #PpsDocumentInfo</doc>
+            <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
+          </instance-parameter>
+          <parameter name="permissions"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     optional="1"
+                     allow-none="1">
+            <type name="DocumentPermissions" c:type="PpsDocumentPermissions*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="producer" c:identifier="pps_document_info_producer">
+        <source-position filename="libdocument/pps-document-info.h"
+                         line="179"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-info.c"
+               line="518">%TRUE iff info has this field</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="info" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-info.c"
+                 line="515">a #PpsDocumentInfo</doc>
+            <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
+          </instance-parameter>
+          <parameter name="producer"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     optional="1"
+                     allow-none="1">
+            <type name="utf8" c:type="gchar**"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="regular_paper_size"
               c:identifier="pps_document_info_regular_paper_size">
         <source-position filename="libdocument/pps-document-info.h"
@@ -5086,10 +5346,36 @@ interface</doc>
           </instance-parameter>
         </parameters>
       </method>
+      <method name="security" c:identifier="pps_document_info_security">
+        <source-position filename="libdocument/pps-document-info.h"
+                         line="183"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-info.c"
+               line="554">%TRUE iff info has this field</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="info" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-info.c"
+                 line="551">a #PpsDocumentInfo</doc>
+            <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
+          </instance-parameter>
+          <parameter name="security"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     optional="1"
+                     allow-none="1">
+            <type name="utf8" c:type="gchar**"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="set_from_xmp"
               c:identifier="pps_document_info_set_from_xmp">
         <source-position filename="libdocument/pps-document-info.h"
-                         line="164"/>
+                         line="193"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -5105,10 +5391,62 @@ interface</doc>
           </parameter>
         </parameters>
       </method>
+      <method name="start_mode" c:identifier="pps_document_info_start_mode">
+        <source-position filename="libdocument/pps-document-info.h"
+                         line="163"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-info.c"
+               line="356">%TRUE iff info has this field</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="info" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-info.c"
+                 line="353">a #PpsDocumentInfo</doc>
+            <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
+          </instance-parameter>
+          <parameter name="mode"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     optional="1"
+                     allow-none="1">
+            <type name="DocumentMode" c:type="PpsDocumentMode*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="subject" c:identifier="pps_document_info_subject">
+        <source-position filename="libdocument/pps-document-info.h"
+                         line="173"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-info.c"
+               line="464">%TRUE iff info has this field</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="info" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-info.c"
+                 line="461">a #PpsDocumentInfo</doc>
+            <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
+          </instance-parameter>
+          <parameter name="subject"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     optional="1"
+                     allow-none="1">
+            <type name="utf8" c:type="gchar**"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="take_created_datetime"
               c:identifier="pps_document_info_take_created_datetime">
         <source-position filename="libdocument/pps-document-info.h"
-                         line="158"/>
+                         line="187"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -5124,7 +5462,7 @@ interface</doc>
       <method name="take_modified_datetime"
               c:identifier="pps_document_info_take_modified_datetime">
         <source-position filename="libdocument/pps-document-info.h"
-                         line="161"/>
+                         line="190"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -5134,6 +5472,32 @@ interface</doc>
           </instance-parameter>
           <parameter name="datetime" transfer-ownership="none">
             <type name="GLib.DateTime" c:type="GDateTime*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="title" c:identifier="pps_document_info_title">
+        <source-position filename="libdocument/pps-document-info.h"
+                         line="167"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-info.c"
+               line="410">%TRUE iff info has this field</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="info" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-info.c"
+                 line="407">a #PpsDocumentInfo</doc>
+            <type name="DocumentInfo" c:type="const PpsDocumentInfo*"/>
+          </instance-parameter>
+          <parameter name="title"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     optional="1"
+                     allow-none="1">
+            <type name="utf8" c:type="gchar**"/>
           </parameter>
         </parameters>
       </method>
@@ -5555,7 +5919,7 @@ interface</doc>
             glib:type-name="PpsDocumentLicense"
             glib:get-type="pps_document_license_get_type"
             c:symbol-prefix="document_license">
-      <source-position filename="libdocument/pps-document-info.h" line="174"/>
+      <source-position filename="libdocument/pps-document-info.h" line="203"/>
       <field name="text" writable="1">
         <type name="utf8" c:type="gchar*"/>
       </field>
@@ -5567,21 +5931,21 @@ interface</doc>
       </field>
       <constructor name="new" c:identifier="pps_document_license_new">
         <source-position filename="libdocument/pps-document-info.h"
-                         line="178"/>
+                         line="207"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-info.c"
-               line="321">a new, empty #PpsDocumentLicense</doc>
+               line="573">a new, empty #PpsDocumentLicense</doc>
           <type name="DocumentLicense" c:type="PpsDocumentLicense*"/>
         </return-value>
       </constructor>
       <method name="copy" c:identifier="pps_document_license_copy">
         <source-position filename="libdocument/pps-document-info.h"
-                         line="180"/>
+                         line="209"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-info.c"
-               line="333">a copy of @license, or %NULL</doc>
+               line="585">a copy of @license, or %NULL</doc>
           <type name="DocumentLicense" c:type="PpsDocumentLicense*"/>
         </return-value>
         <parameters>
@@ -5591,7 +5955,7 @@ interface</doc>
                               allow-none="1">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-info.c"
-                 line="331">a #PpsDocumentLicense</doc>
+                 line="583">a #PpsDocumentLicense</doc>
             <type name="DocumentLicense" c:type="PpsDocumentLicense*"/>
           </instance-parameter>
         </parameters>
@@ -5599,9 +5963,9 @@ interface</doc>
       <method name="free" c:identifier="pps_document_license_free">
         <doc xml:space="preserve"
              filename="libdocument/pps-document-info.c"
-             line="355">Frees @license.</doc>
+             line="607">Frees @license.</doc>
         <source-position filename="libdocument/pps-document-info.h"
-                         line="182"/>
+                         line="211"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -5609,43 +5973,43 @@ interface</doc>
           <instance-parameter name="license" transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-info.c"
-                 line="357">a #PpsDocumentLicense</doc>
+                 line="609">a #PpsDocumentLicense</doc>
             <type name="DocumentLicense" c:type="PpsDocumentLicense*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="get_text" c:identifier="pps_document_license_get_text">
         <source-position filename="libdocument/pps-document-info.h"
-                         line="184"/>
+                         line="213"/>
         <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-info.c"
-               line="378">the license text</doc>
+               line="630">the license text</doc>
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
         <parameters>
           <instance-parameter name="license" transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-info.c"
-                 line="376">a #PpsDocumentLicense</doc>
+                 line="628">a #PpsDocumentLicense</doc>
             <type name="DocumentLicense" c:type="PpsDocumentLicense*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="get_uri" c:identifier="pps_document_license_get_uri">
         <source-position filename="libdocument/pps-document-info.h"
-                         line="186"/>
+                         line="215"/>
         <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-info.c"
-               line="390">the license URI</doc>
+               line="642">the license URI</doc>
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
         <parameters>
           <instance-parameter name="license" transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-info.c"
-                 line="388">a #PpsDocumentLicense</doc>
+                 line="640">a #PpsDocumentLicense</doc>
             <type name="DocumentLicense" c:type="PpsDocumentLicense*"/>
           </instance-parameter>
         </parameters>
@@ -5653,18 +6017,18 @@ interface</doc>
       <method name="get_web_statement"
               c:identifier="pps_document_license_get_web_statement">
         <source-position filename="libdocument/pps-document-info.h"
-                         line="188"/>
+                         line="217"/>
         <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-info.c"
-               line="402">the license web statement</doc>
+               line="654">the license web statement</doc>
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
         <parameters>
           <instance-parameter name="license" transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-info.c"
-                 line="400">a #PpsDocumentLicense</doc>
+                 line="652">a #PpsDocumentLicense</doc>
             <type name="DocumentLicense" c:type="PpsDocumentLicense*"/>
           </instance-parameter>
         </parameters>

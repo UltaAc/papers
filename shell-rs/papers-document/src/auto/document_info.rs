@@ -3,14 +3,15 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::ffi;
+use crate::{ffi, DocumentContainsJS, DocumentLicense, DocumentMode, DocumentPermissions};
 use glib::translate::*;
 
 glib::wrapper! {
-    pub struct DocumentInfo(BoxedInline<ffi::PpsDocumentInfo>);
+    #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    pub struct DocumentInfo(Boxed<ffi::PpsDocumentInfo>);
 
     match fn {
-        copy => |ptr| ffi::pps_document_info_copy(mut_override(ptr)),
+        copy => |ptr| ffi::pps_document_info_copy(ptr),
         free => |ptr| ffi::pps_document_info_free(ptr),
         type_ => || ffi::pps_document_info_get_type(),
     }
@@ -21,6 +22,70 @@ impl DocumentInfo {
     pub fn new() -> DocumentInfo {
         assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::pps_document_info_new()) }
+    }
+
+    #[doc(alias = "pps_document_info_author")]
+    pub fn author(&self) -> Option<glib::GString> {
+        unsafe {
+            let mut author = std::ptr::null_mut();
+            let ret = from_glib(ffi::pps_document_info_author(
+                self.to_glib_none().0,
+                &mut author,
+            ));
+            if ret {
+                Some(from_glib_full(author))
+            } else {
+                None
+            }
+        }
+    }
+
+    #[doc(alias = "pps_document_info_contains_js")]
+    pub fn contains_js(&self) -> Option<DocumentContainsJS> {
+        unsafe {
+            let mut contains_js = std::mem::MaybeUninit::uninit();
+            let ret = from_glib(ffi::pps_document_info_contains_js(
+                self.to_glib_none().0,
+                contains_js.as_mut_ptr(),
+            ));
+            if ret {
+                Some(from_glib(contains_js.assume_init()))
+            } else {
+                None
+            }
+        }
+    }
+
+    #[doc(alias = "pps_document_info_creator")]
+    pub fn creator(&self) -> Option<glib::GString> {
+        unsafe {
+            let mut creator = std::ptr::null_mut();
+            let ret = from_glib(ffi::pps_document_info_creator(
+                self.to_glib_none().0,
+                &mut creator,
+            ));
+            if ret {
+                Some(from_glib_full(creator))
+            } else {
+                None
+            }
+        }
+    }
+
+    #[doc(alias = "pps_document_info_format")]
+    pub fn format(&self) -> Option<glib::GString> {
+        unsafe {
+            let mut format = std::ptr::null_mut();
+            let ret = from_glib(ffi::pps_document_info_format(
+                self.to_glib_none().0,
+                &mut format,
+            ));
+            if ret {
+                Some(from_glib_full(format))
+            } else {
+                None
+            }
+        }
     }
 
     #[doc(alias = "pps_document_info_get_created_datetime")]
@@ -43,12 +108,124 @@ impl DocumentInfo {
         }
     }
 
+    #[doc(alias = "pps_document_info_keywords")]
+    pub fn keywords(&self) -> Option<glib::GString> {
+        unsafe {
+            let mut keywords = std::ptr::null_mut();
+            let ret = from_glib(ffi::pps_document_info_keywords(
+                self.to_glib_none().0,
+                &mut keywords,
+            ));
+            if ret {
+                Some(from_glib_full(keywords))
+            } else {
+                None
+            }
+        }
+    }
+
+    #[doc(alias = "pps_document_info_license")]
+    pub fn license(&self) -> Option<DocumentLicense> {
+        unsafe {
+            let mut license = std::ptr::null_mut();
+            let ret = from_glib(ffi::pps_document_info_license(
+                self.to_glib_none().0,
+                &mut license,
+            ));
+            if ret {
+                Some(from_glib_full(license))
+            } else {
+                None
+            }
+        }
+    }
+
+    #[doc(alias = "pps_document_info_linearized")]
+    pub fn linearized(&self) -> Option<glib::GString> {
+        unsafe {
+            let mut linearized = std::ptr::null_mut();
+            let ret = from_glib(ffi::pps_document_info_linearized(
+                self.to_glib_none().0,
+                &mut linearized,
+            ));
+            if ret {
+                Some(from_glib_full(linearized))
+            } else {
+                None
+            }
+        }
+    }
+
+    #[doc(alias = "pps_document_info_pages")]
+    pub fn pages(&self) -> Option<i32> {
+        unsafe {
+            let mut pages = std::mem::MaybeUninit::uninit();
+            let ret = from_glib(ffi::pps_document_info_pages(
+                self.to_glib_none().0,
+                pages.as_mut_ptr(),
+            ));
+            if ret {
+                Some(pages.assume_init())
+            } else {
+                None
+            }
+        }
+    }
+
+    #[doc(alias = "pps_document_info_permissions")]
+    pub fn permissions(&self) -> Option<DocumentPermissions> {
+        unsafe {
+            let mut permissions = std::mem::MaybeUninit::uninit();
+            let ret = from_glib(ffi::pps_document_info_permissions(
+                self.to_glib_none().0,
+                permissions.as_mut_ptr(),
+            ));
+            if ret {
+                Some(from_glib(permissions.assume_init()))
+            } else {
+                None
+            }
+        }
+    }
+
+    #[doc(alias = "pps_document_info_producer")]
+    pub fn producer(&self) -> Option<glib::GString> {
+        unsafe {
+            let mut producer = std::ptr::null_mut();
+            let ret = from_glib(ffi::pps_document_info_producer(
+                self.to_glib_none().0,
+                &mut producer,
+            ));
+            if ret {
+                Some(from_glib_full(producer))
+            } else {
+                None
+            }
+        }
+    }
+
     #[doc(alias = "pps_document_info_regular_paper_size")]
     pub fn regular_paper_size(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_full(ffi::pps_document_info_regular_paper_size(
                 self.to_glib_none().0,
             ))
+        }
+    }
+
+    #[doc(alias = "pps_document_info_security")]
+    pub fn security(&self) -> Option<glib::GString> {
+        unsafe {
+            let mut security = std::ptr::null_mut();
+            let ret = from_glib(ffi::pps_document_info_security(
+                self.to_glib_none().0,
+                &mut security,
+            ));
+            if ret {
+                Some(from_glib_full(security))
+            } else {
+                None
+            }
         }
     }
 
@@ -60,6 +237,38 @@ impl DocumentInfo {
                 xmp.to_glib_none().0,
                 size,
             ))
+        }
+    }
+
+    #[doc(alias = "pps_document_info_start_mode")]
+    pub fn start_mode(&self) -> Option<DocumentMode> {
+        unsafe {
+            let mut mode = std::mem::MaybeUninit::uninit();
+            let ret = from_glib(ffi::pps_document_info_start_mode(
+                self.to_glib_none().0,
+                mode.as_mut_ptr(),
+            ));
+            if ret {
+                Some(from_glib(mode.assume_init()))
+            } else {
+                None
+            }
+        }
+    }
+
+    #[doc(alias = "pps_document_info_subject")]
+    pub fn subject(&self) -> Option<glib::GString> {
+        unsafe {
+            let mut subject = std::ptr::null_mut();
+            let ret = from_glib(ffi::pps_document_info_subject(
+                self.to_glib_none().0,
+                &mut subject,
+            ));
+            if ret {
+                Some(from_glib_full(subject))
+            } else {
+                None
+            }
         }
     }
 
@@ -80,6 +289,22 @@ impl DocumentInfo {
                 self.to_glib_none_mut().0,
                 datetime.to_glib_none().0,
             );
+        }
+    }
+
+    #[doc(alias = "pps_document_info_title")]
+    pub fn title(&self) -> Option<glib::GString> {
+        unsafe {
+            let mut title = std::ptr::null_mut();
+            let ret = from_glib(ffi::pps_document_info_title(
+                self.to_glib_none().0,
+                &mut title,
+            ));
+            if ret {
+                Some(from_glib_full(title))
+            } else {
+                None
+            }
         }
     }
 }
