@@ -72,7 +72,7 @@ mod imp {
         #[template_child]
         pub(super) sidebar_stack: TemplateChild<gtk::Stack>,
         #[template_child]
-        pub(super) find_sidebar: TemplateChild<papers_shell::FindSidebar>,
+        pub(super) find_sidebar: TemplateChild<crate::find_sidebar::PpsFindSidebar>,
         #[template_child]
         pub(super) sidebar_layers: TemplateChild<crate::sidebar_layers::PpsSidebarLayers>,
         #[template_child]
@@ -182,7 +182,7 @@ mod imp {
 
             papers_view::View::ensure_type();
             papers_view::ViewPresentation::ensure_type();
-            papers_shell::FindSidebar::ensure_type();
+            crate::find_sidebar::PpsFindSidebar::ensure_type();
             crate::page_selector::PpsPageSelector::ensure_type();
             crate::sidebar_annotations::PpsSidebarAnnotations::ensure_type();
 
@@ -262,7 +262,7 @@ mod imp {
 
             self.setup_lockdown();
 
-            self.find_sidebar.set_search_context(&search_context);
+            self.find_sidebar.set_search_context(Some(&search_context));
             self.view.set_search_context(&search_context);
             self.search_context.replace(Some(search_context));
         }
@@ -566,7 +566,7 @@ mod imp {
         pub(super) fn find_restart(&self) {
             let page = self.model.page();
 
-            self.find_sidebar.restart(page);
+            self.find_sidebar.restart(page as u32);
         }
 
         pub(super) fn close_find_bar(&self) {

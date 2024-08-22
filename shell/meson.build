@@ -1,5 +1,4 @@
 papers_sources = files(
-  'pps-find-sidebar.c',
   'pps-message-area.c',
   'pps-progress-message-area.c',
   'pps-utils.c',
@@ -53,7 +52,6 @@ enum_header_prefix = '''
 
 headers = files(
   'pps-utils.h',
-  'pps-find-sidebar.h',
   'pps-progress-message-area.h',
   'pps-message-area.h',
 )
