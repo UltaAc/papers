@@ -33,9 +33,16 @@ enum {
 	N_SIGNALS
 };
 
+enum {
+        PROP_0,
+        PROP_DOCUMENT_MODEL,
+	NUM_PROPERTIES
+};
+
 #define PPS_HISTORY_MAX_LENGTH (32)
 
 static guint signals[N_SIGNALS] = {0, };
+static GParamSpec *props[NUM_PROPERTIES] = { NULL, };
 
 typedef struct {
 	GList           *list;
@@ -108,11 +115,29 @@ pps_history_finalize (GObject *object)
 }
 
 static void
+pps_history_set_property (GObject      *object,
+				     guint         prop_id,
+				     const GValue *value,
+				     GParamSpec   *pspec)
+{
+        PpsHistory *history = PPS_HISTORY (object);
+
+        switch (prop_id) {
+        case PROP_DOCUMENT_MODEL:
+                pps_history_set_model (history, g_value_get_object (value));
+                break;
+        default:
+                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+        }
+}
+
+static void
 pps_history_class_init (PpsHistoryClass *class)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (class);
 
 	object_class->finalize = pps_history_finalize;
+	object_class->set_property = pps_history_set_property;
 
 	signals[CHANGED] =
                 g_signal_new ("changed",
@@ -132,6 +157,15 @@ pps_history_class_init (PpsHistoryClass *class)
                               g_cclosure_marshal_VOID__OBJECT,
                               G_TYPE_NONE, 1,
                               G_TYPE_OBJECT);
+
+	props[PROP_DOCUMENT_MODEL] =
+        	g_param_spec_object ("document-model",
+				     "DocumentModel",
+				     "The document model",
+				     PPS_TYPE_DOCUMENT_MODEL,
+				     G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+
+	g_object_class_install_properties (object_class, NUM_PROPERTIES, props);
 }
 
 static void
