@@ -47,7 +47,6 @@
 #include "pps-utils.h"
 #include "pps-view-presentation.h"
 #include "pps-document-view.h"
-#include "pps-window-title.h"
 #include "pps-progress-message-area.h"
 
 #define MOUSE_BACK_BUTTON 8
@@ -114,7 +113,6 @@ typedef struct {
 
 	PpsDocument *document;
 	PpsHistory *history;
-	PpsDocumentViewTitle *title;
 	PpsMetadata *metadata;
 	PpsAttachmentContext *attachment_context;
 	PpsBookmarks *bookmarks;
@@ -1098,6 +1096,130 @@ pps_document_view_setup_sidebar (PpsDocumentView *pps_doc_view)
 			 G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_GET_NO_CHANGES);
 }
 
+/* Known backends (for bad extensions fix) */
+#define PPS_BACKEND_PS  "PSDocument"
+#define PPS_BACKEND_PDF "PdfDocument"
+
+typedef struct
+{
+	const gchar *backend;
+	const gchar *text;
+} BadTitleEntry;
+
+/* Some docs report titles with confusing extensions (ex. .doc for pdf).
+	   Erase the confusing extension of the title */
+static void
+pps_document_view_sanitize_title (PpsDocumentView *pps_doc_view, char **title)
+{
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+	const gchar *backend;
+	int i;
+
+	static const BadTitleEntry bad_extensions[] = {
+		{ PPS_BACKEND_PS, ".dvi" },
+		{ PPS_BACKEND_PDF, ".doc" },
+		{ PPS_BACKEND_PDF, ".dvi" },
+		{ PPS_BACKEND_PDF, ".indd" },
+		{ PPS_BACKEND_PDF, ".rtf" }
+	};
+
+	static const BadTitleEntry bad_prefixes[] = {
+		{ PPS_BACKEND_PDF, "Microsoft Word - " },
+		{ PPS_BACKEND_PDF, "Microsoft PowerPoint - " }
+	};
+
+	backend = G_OBJECT_TYPE_NAME (priv->document);
+
+	for (i = 0; i < G_N_ELEMENTS (bad_extensions); i++) {
+		if (g_ascii_strcasecmp (bad_extensions[i].backend, backend) == 0 &&
+		    g_str_has_suffix (*title, bad_extensions[i].text)) {
+			char *new_title;
+
+			new_title = g_strndup (*title, strlen(*title) - strlen(bad_extensions[i].text));
+			g_free (*title);
+			*title = new_title;
+		}
+	}
+
+	for (i = 0; i < G_N_ELEMENTS (bad_prefixes); i++) {
+		if (g_ascii_strcasecmp (bad_prefixes[i].backend, backend) == 0 &&
+		    g_str_has_prefix (*title, bad_prefixes[i].text)) {
+			char *new_title;
+			int len = strlen(bad_prefixes[i].text);
+
+			new_title = g_strdup_printf ("%s", (*title) + len);
+			g_free (*title);
+			*title = new_title;
+		}
+	}
+}
+
+static void
+pps_document_view_update_title (PpsDocumentView *pps_doc_view)
+{
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+	AdwHeaderBar *header_bar = ADW_HEADER_BAR (priv->header_bar);
+	AdwWindowTitle *title_widget = ADW_WINDOW_TITLE (adw_header_bar_get_title_widget (header_bar));
+	GtkNative *native;
+	char *title = NULL, *p;
+	char *subtitle = NULL, *title_header = NULL;
+	gchar *doc_title;
+	gboolean ltr;
+
+	if (!priv->document)
+		return;
+
+	doc_title = g_strdup (pps_document_get_title (priv->document));
+
+	/* Make sure we get a valid title back */
+	if (doc_title != NULL) {
+		doc_title = g_strstrip (doc_title);
+
+		if (doc_title[0] != '\0' &&
+			g_utf8_validate (doc_title, -1, NULL)) {
+			pps_document_view_sanitize_title (pps_doc_view, &doc_title);
+		} else {
+			g_clear_pointer (&doc_title, g_free);
+                }
+	}
+
+	ltr = gtk_widget_get_direction (GTK_WIDGET (pps_doc_view)) == GTK_TEXT_DIR_LTR;
+
+	if (doc_title && priv->display_name) {
+		title_header = doc_title;
+		subtitle = priv->display_name;
+
+		if (ltr)
+			title = g_strdup_printf ("%s — %s", subtitle, title_header);
+		else
+			title = g_strdup_printf ("%s — %s", title_header, subtitle);
+
+                for (p = title; *p; ++p) {
+                        /* an '\n' byte is always ASCII, no need for UTF-8 special casing */
+                        if (*p == '\n')
+                                *p = ' ';
+                }
+	} else if (priv->display_name) {
+		title = g_strdup (priv->display_name);
+	} else {
+		title = g_strdup (_("Papers"));
+	}
+
+	native = gtk_widget_get_native (GTK_WIDGET (pps_doc_view));
+
+	if (native)
+		gtk_window_set_title (GTK_WINDOW (native), title);
+
+	if (title_header && subtitle) {
+		adw_window_title_set_title (title_widget, title_header);
+		adw_window_title_set_subtitle (title_widget, subtitle);
+	} else if (title) {
+		adw_window_title_set_title (title_widget, title);
+	}
+
+	g_free (title);
+}
+
 void
 pps_document_view_set_document (PpsDocumentView *pps_doc_view, PpsDocument *document)
 {
@@ -1126,8 +1248,6 @@ pps_document_view_set_document (PpsDocumentView *pps_doc_view, PpsDocument *docu
 	priv->is_modified = FALSE;
 	priv->modified_handler_id = g_signal_connect (document, "notify::modified", G_CALLBACK (pps_document_view_document_modified_cb), pps_doc_view);
 
-	pps_document_view_title_set_document (priv->title, document);
-
 	pps_document_view_setup_lockdown (pps_doc_view);
 
 	// This cannot be done in pps_document_view_setup_default because before
@@ -1135,6 +1255,8 @@ pps_document_view_set_document (PpsDocumentView *pps_doc_view, PpsDocument *docu
 	pps_document_view_setup_sidebar (pps_doc_view);
 
 	gtk_widget_grab_focus (priv->view);
+
+	pps_document_view_update_title (pps_doc_view);
 }
 
 static void
@@ -3208,8 +3330,6 @@ pps_document_view_dispose (GObject *object)
 
 	g_clear_handle_id (&priv->loading_message_timeout, g_source_remove);
 
-	g_clear_pointer (&priv->title, pps_document_view_title_free);
-
 	g_clear_object (&priv->attachment_popup_menu);
 
 	g_settings_apply (priv->default_settings);
@@ -4034,7 +4154,6 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 
 	priv->sidebar_was_open_before_find = TRUE;
 
-	priv->title = pps_document_view_title_new (pps_doc_view);
 	priv->history = pps_history_new (priv->model);
 
 	g_signal_connect (priv->history, "activate-link",
@@ -4289,7 +4408,7 @@ pps_document_view_set_filenames (PpsDocumentView *pps_doc_view,
 	priv->display_name = g_strdup (display_name);
 	priv->edit_name = g_strdup (edit_name);
 
-	pps_document_view_title_set_filename (priv->title, priv->display_name);
+	pps_document_view_update_title (pps_doc_view);
 }
 
 /**

@@ -62,7 +62,6 @@ shell/pps-sidebar-links.ui
 shell/pps-sidebar-thumbnails.ui
 shell/pps-utils.c
 shell/pps-window.ui
-shell/pps-window-title.c
 shell-rs/src/annotation_properties_dialog.rs
 shell-rs/src/application.rs
 shell-rs/src/main.rs
