@@ -917,6 +917,8 @@ mod imp {
                                     job.password_save(),
                                 );
                             }
+
+                            obj.clear_load_job();
                         }
                         Err(e) => {
                             if e.matches(papers_document::DocumentError::Encrypted)
@@ -949,12 +951,11 @@ mod imp {
                             } else {
                                 obj.show_error(Some(&e));
 
+                                obj.clear_load_job();
                                 obj.clear_local_uri();
                             }
                         }
                     }
-
-                    obj.clear_load_job();
                 }
             ));
 
