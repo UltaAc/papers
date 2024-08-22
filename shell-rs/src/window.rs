@@ -348,7 +348,6 @@ mod imp {
             self.presentation
                 .set_document(papers_document::Document::NONE);
             self.set_mode(WindowRunMode::Normal);
-            self.document_view.focus_view();
             self.obj().unfullscreen();
         }
 
