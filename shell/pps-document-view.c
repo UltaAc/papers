@@ -66,7 +66,6 @@ typedef struct {
 	GtkWidget *sidebar_links;
 	GtkWidget *sidebar_layers;
 	GtkWidget *sidebar_annots;
-	GtkWidget *sidebar_attachments;
 	GtkWidget *sidebar_bookmarks;
 	GtkWidget *find_sidebar;
 	GtkWidget *page_selector;
@@ -4079,12 +4078,6 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 				priv->find_sidebar, "visible",
 				G_BINDING_SYNC_CREATE);
 
-	priv->attachment_context = g_object_ref_sink (pps_attachment_context_new (priv->model));
-
-	g_object_set (priv->sidebar_attachments,
-		      "attachment-context", priv->attachment_context,
-		      NULL);
-
 	priv->search_context = g_object_ref_sink (pps_search_context_new (priv->model));
 
 	pps_find_sidebar_set_search_context (PPS_FIND_SIDEBAR (priv->find_sidebar), priv->search_context);
@@ -4137,7 +4130,7 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, sidebar);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, sidebar_links);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, sidebar_annots);
-	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, sidebar_attachments);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, attachment_context);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, sidebar_bookmarks);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, sidebar_layers);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, find_sidebar);

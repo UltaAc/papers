@@ -157,6 +157,11 @@
                             <property name="child">
                               <object class="PpsSidebarAttachments" id="sidebar_attachments">
                                 <property name="document-model">model</property>
+                                <property name="attachment-context">
+                                  <object class="PpsAttachmentContext" id="attachment_context">
+                                    <property name="document-model">model</property>
+                                  </object>
+                                </property>
                                 <property name="sidebar">sidebar</property>
                                 <signal name="popup" handler="attachment_bar_menu_popup_cb" />
                               </object>
