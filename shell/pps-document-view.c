@@ -906,7 +906,7 @@ setup_model_from_metadata (PpsDocumentView *window)
 }
 
 static void
-setup_document_from_metadata (PpsDocumentView *window)
+setup_document (PpsDocumentView *window)
 {
 	gint    page, n_pages;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
@@ -920,9 +920,6 @@ setup_document_from_metadata (PpsDocumentView *window)
 	if (page == n_pages - 1)
 		pps_document_model_set_page (priv->model, 0);
 
-	/* Following code is intended to be executed first time a document is opened
-	 * in Papers, that's why is located *after* the previous return that exits
-	 * when papers metadata for window_width{height} already exists. */
 	if (n_pages == 1)
 		pps_document_model_set_page_layout (priv->model, PPS_PAGE_LAYOUT_SINGLE);
 	else if (n_pages == 2)
@@ -1232,7 +1229,7 @@ pps_document_view_open_document (PpsDocumentView  *pps_doc_view,
 		pps_sidebar_bookmarks_set_bookmarks (PPS_SIDEBAR_BOOKMARKS (priv->sidebar_bookmarks), priv->bookmarks);
 	}
 
-	setup_document_from_metadata (pps_doc_view);
+	setup_document (pps_doc_view);
 	setup_view_from_metadata (pps_doc_view);
 
 	pps_document_view_handle_link (pps_doc_view, dest);
