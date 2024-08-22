@@ -188,7 +188,7 @@ pps_find_sidebar_highlight_first_match_of_page (PpsFindSidebar *sidebar,
 	 * with a map. Just, that would need to a few more changes on its end.
 	 */
 	while (lower_bound < upper_bound) {
-		index = (upper_bound - lower_bound) / 2;
+		index = (lower_bound + upper_bound) / 2;
 
                 result = g_list_model_get_item (result_model, index);
 		current_page = pps_search_result_get_page (result);
