@@ -252,13 +252,6 @@ pub trait DocumentViewExt: IsA<DocumentView> + sealed::Sealed + 'static {
         }
     }
 
-    #[doc(alias = "pps_document_view_focus_view")]
-    fn focus_view(&self) {
-        unsafe {
-            ffi::pps_document_view_focus_view(self.as_ref().to_glib_none().0);
-        }
-    }
-
     #[doc(alias = "pps_document_view_get_metadata")]
     #[doc(alias = "get_metadata")]
     fn metadata(&self) -> Option<papers_view::Metadata> {

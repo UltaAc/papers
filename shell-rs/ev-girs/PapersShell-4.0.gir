@@ -35,18 +35,18 @@ and/or use gtk-doc annotations.  -->
       <constructor name="new" c:identifier="pps_document_view_new">
         <doc xml:space="preserve"
              filename="shell/pps-document-view.c"
-             line="4735">Creates a #GtkWidget that represents the window.</doc>
+             line="4773">Creates a #GtkWidget that represents the window.</doc>
         <source-position filename="shell/pps-document-view.h" line="42"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="4740">the #GtkWidget that represents the window.</doc>
+               line="4778">the #GtkWidget that represents the window.</doc>
           <type name="DocumentView" c:type="PpsDocumentView*"/>
         </return-value>
       </constructor>
       <method name="close_handled"
               c:identifier="pps_document_view_close_handled">
-        <source-position filename="shell/pps-document-view.h" line="60"/>
+        <source-position filename="shell/pps-document-view.h" line="59"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -56,48 +56,37 @@ and/or use gtk-doc annotations.  -->
           </instance-parameter>
         </parameters>
       </method>
-      <method name="focus_view" c:identifier="pps_document_view_focus_view">
-        <source-position filename="shell/pps-document-view.h" line="52"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="pps_doc_view" transfer-ownership="none">
-            <type name="DocumentView" c:type="PpsDocumentView*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
       <method name="get_metadata"
               c:identifier="pps_document_view_get_metadata">
-        <source-position filename="shell/pps-document-view.h" line="55"/>
+        <source-position filename="shell/pps-document-view.h" line="54"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="4765">the #PpsMetadata of the document shown in the window.</doc>
+               line="4790">the #PpsMetadata of the document shown in the window.</doc>
           <type name="PapersView.Metadata" c:type="PpsMetadata*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="4763">the #PpsDocumentView</doc>
+                 line="4788">the #PpsDocumentView</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="get_model" c:identifier="pps_document_view_get_model">
-        <source-position filename="shell/pps-document-view.h" line="64"/>
+        <source-position filename="shell/pps-document-view.h" line="63"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="4827">the #PpsDocumentModel</doc>
+               line="4852">the #PpsDocumentModel</doc>
           <type name="PapersView.DocumentModel" c:type="PpsDocumentModel*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="4825">the #PpsDocumentView</doc>
+                 line="4850">the #PpsDocumentView</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
@@ -105,26 +94,26 @@ and/or use gtk-doc annotations.  -->
       <method name="get_uri" c:identifier="pps_document_view_get_uri">
         <doc xml:space="preserve"
              filename="shell/pps-document-view.c"
-             line="1309">It returns the uri of the document showed in the #PpsDocumentView.</doc>
+             line="1322">It returns the uri of the document showed in the #PpsDocumentView.</doc>
         <source-position filename="shell/pps-document-view.h" line="43"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="1315">the uri of the document showed in the #PpsDocumentView.</doc>
+               line="1328">the uri of the document showed in the #PpsDocumentView.</doc>
           <type name="utf8" c:type="const char*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1311">The instance of the #PpsDocumentView.</doc>
+                 line="1324">The instance of the #PpsDocumentView.</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="handle_annot_popup"
               c:identifier="pps_document_view_handle_annot_popup">
-        <source-position filename="shell/pps-document-view.h" line="53"/>
+        <source-position filename="shell/pps-document-view.h" line="52"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -140,13 +129,13 @@ and/or use gtk-doc annotations.  -->
       <method name="is_empty" c:identifier="pps_document_view_is_empty">
         <doc xml:space="preserve"
              filename="shell/pps-document-view.c"
-             line="431">It does look if there is any document loaded or if there is any job to load
+             line="435">It does look if there is any document loaded or if there is any job to load
 a document.</doc>
         <source-position filename="shell/pps-document-view.h" line="48"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="438">%TRUE if there isn't any document loaded or any any documente to be
+               line="442">%TRUE if there isn't any document loaded or any any documente to be
          loaded, %FALSE in other case.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -154,7 +143,7 @@ a document.</doc>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="433">The instance of the #PpsDocumentView.</doc>
+                 line="437">The instance of the #PpsDocumentView.</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
@@ -169,13 +158,13 @@ a document.</doc>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1338">A #PpsDocumentView</doc>
+                 line="1351">A #PpsDocumentView</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
           <parameter name="document" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1339">A #PpsDocument to open in the document view</doc>
+                 line="1352">A #PpsDocument to open in the document view</doc>
             <type name="PapersDocument.Document" c:type="PpsDocument*"/>
           </parameter>
           <parameter name="metadata"
@@ -184,7 +173,7 @@ a document.</doc>
                      allow-none="1">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1340">A #PpsMetadata if the document supports it</doc>
+                 line="1353">A #PpsMetadata if the document supports it</doc>
             <type name="PapersView.Metadata" c:type="PpsMetadata*"/>
           </parameter>
           <parameter name="dest"
@@ -193,7 +182,7 @@ a document.</doc>
                      allow-none="1">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1341">A #PpsLinkDest</doc>
+                 line="1354">A #PpsLinkDest</doc>
             <type name="PapersDocument.LinkDest" c:type="PpsLinkDest*"/>
           </parameter>
         </parameters>
@@ -217,7 +206,7 @@ a document.</doc>
       </method>
       <method name="reload_document"
               c:identifier="pps_document_view_reload_document">
-        <source-position filename="shell/pps-document-view.h" line="58"/>
+        <source-position filename="shell/pps-document-view.h" line="57"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -232,7 +221,7 @@ a document.</doc>
       </method>
       <method name="set_document"
               c:identifier="pps_document_view_set_document">
-        <source-position filename="shell/pps-document-view.h" line="56"/>
+        <source-position filename="shell/pps-document-view.h" line="55"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -247,7 +236,7 @@ a document.</doc>
       </method>
       <method name="set_filenames"
               c:identifier="pps_document_view_set_filenames">
-        <source-position filename="shell/pps-document-view.h" line="61"/>
+        <source-position filename="shell/pps-document-view.h" line="60"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -265,7 +254,7 @@ a document.</doc>
       </method>
       <method name="set_fullscreen_mode"
               c:identifier="pps_document_view_set_fullscreen_mode">
-        <source-position filename="shell/pps-document-view.h" line="65"/>
+        <source-position filename="shell/pps-document-view.h" line="64"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -280,7 +269,7 @@ a document.</doc>
       </method>
       <method name="set_inverted_colors"
               c:identifier="pps_document_view_set_inverted_colors">
-        <source-position filename="shell/pps-document-view.h" line="67"/>
+        <source-position filename="shell/pps-document-view.h" line="66"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>

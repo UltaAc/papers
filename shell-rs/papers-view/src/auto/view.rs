@@ -212,7 +212,6 @@ impl View {
     }
 
     #[doc(alias = "pps_view_is_loading")]
-    #[doc(alias = "is-loading")]
     pub fn is_loading(&self) -> bool {
         unsafe { from_glib(ffi::pps_view_is_loading(self.to_glib_none().0)) }
     }
@@ -254,6 +253,11 @@ impl View {
             ffi::pps_view_set_allow_links_change_zoom(self.to_glib_none().0, allowed.into_glib());
         }
     }
+
+    //#[doc(alias = "pps_view_set_annotation_color")]
+    //pub fn set_annotation_color(&self, color: /*Ignored*/&mut gdk::RGBA) {
+    //    unsafe { TODO: call ffi:pps_view_set_annotation_color() }
+    //}
 
     #[doc(alias = "pps_view_set_caret_cursor_position")]
     pub fn set_caret_cursor_position(&self, page: u32, offset: u32) {
@@ -690,29 +694,6 @@ impl View {
                 b"notify::can-zoom-out\0".as_ptr() as *const _,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_can_zoom_out_trampoline::<F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
-        }
-    }
-
-    #[doc(alias = "is-loading")]
-    pub fn connect_is_loading_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_is_loading_trampoline<F: Fn(&View) + 'static>(
-            this: *mut ffi::PpsView,
-            _param_spec: glib::ffi::gpointer,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"notify::is-loading\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
-                    notify_is_loading_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
             )

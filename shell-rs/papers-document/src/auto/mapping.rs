@@ -10,7 +10,7 @@ glib::wrapper! {
     pub struct Mapping(BoxedInline<ffi::PpsMapping>);
 
     match fn {
-        copy => |ptr| ffi::pps_mapping_copy(mut_override(ptr)),
+        copy => |ptr| ffi::pps_mapping_copy(ptr),
         free => |ptr| ffi::pps_mapping_free(ptr),
         type_ => || ffi::pps_mapping_get_type(),
     }
