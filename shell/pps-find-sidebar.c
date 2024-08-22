@@ -187,7 +187,7 @@ pps_find_sidebar_highlight_first_match_of_page (PpsFindSidebar *sidebar,
 	 * the search context should deal with this, and ideally handle this
 	 * with a map. Just, that would need to a few more changes on its end.
 	 */
-	while (lower_bound < upper_bound) {
+	while (lower_bound <= upper_bound) {
 		index = (lower_bound + upper_bound) / 2;
 
                 result = g_list_model_get_item (result_model, index);
@@ -196,7 +196,7 @@ pps_find_sidebar_highlight_first_match_of_page (PpsFindSidebar *sidebar,
 
 		if (current_page == page && current_index_in_page == 0) {
 			break;
-		} else if (current_page >= page) {
+		} else if (current_page < page) {
 			lower_bound = index + 1;
 		} else {
 			upper_bound = index - 1;
