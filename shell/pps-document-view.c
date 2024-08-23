@@ -4197,7 +4197,7 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 				priv->find_sidebar, "visible",
 				G_BINDING_SYNC_CREATE);
 
-	priv->search_context = g_object_ref_sink (pps_search_context_new (priv->model));
+	priv->search_context = pps_search_context_new (priv->model);
 
 	pps_find_sidebar_set_search_context (PPS_FIND_SIDEBAR (priv->find_sidebar), priv->search_context);
 	pps_view_set_search_context (PPS_VIEW (priv->view), priv->search_context);
