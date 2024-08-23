@@ -124,9 +124,6 @@ typedef struct {
 	gboolean is_modified;
 	gulong   modified_handler_id;
 
-	/* Load params */
-	PpsLinkDest       *dest;
-
 	PpsJob            *save_job;
 	gboolean          close_after_save;
 
@@ -834,8 +831,7 @@ setup_model_from_metadata (PpsDocumentView *window)
 		return;
 
 	/* Current page */
-	if (!priv->dest &&
-	    pps_metadata_get_int (priv->metadata, "page", &page)) {
+	if (pps_metadata_get_int (priv->metadata, "page", &page)) {
 		pps_document_model_set_page (priv->model, page);
 	}
 
@@ -3352,7 +3348,6 @@ pps_document_view_dispose (GObject *object)
 	g_clear_pointer (&priv->display_name, g_free);
 	g_clear_pointer (&priv->edit_name, g_free);
 
-	g_clear_object (&priv->dest);
 	g_clear_object (&priv->history);
 
 	g_clear_pointer (&priv->print_queue, g_queue_free);
