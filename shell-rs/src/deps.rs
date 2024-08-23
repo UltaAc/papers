@@ -31,6 +31,8 @@ pub use std::sync::OnceLock;
 
 pub use log::{debug, warn};
 
+pub use gtk::graphene;
+
 pub use crate::config::*;
 pub use crate::i18n::gettext_f;
 pub use crate::window::WindowRunMode;

@@ -3,7 +3,6 @@ papers_sources = files(
   'pps-message-area.c',
   'pps-progress-message-area.c',
   'pps-utils.c',
-  'pps-document-view.c',
 )
 
 resources_conf = configuration_data()
@@ -53,7 +52,6 @@ enum_header_prefix = '''
 '''
 
 headers = files(
-  'pps-document-view.h',
   'pps-utils.h',
   'pps-find-sidebar.h',
   'pps-progress-message-area.h',

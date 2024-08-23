@@ -12,6 +12,7 @@ lto = true
 
 [features]
 with-keyring = ["dep:oo7"]
+spell-check = []
 
 [dependencies]
 env_logger = "0.11"

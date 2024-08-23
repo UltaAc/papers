@@ -40,7 +40,6 @@ nautilus/pps-nautilus-extension.c
 nautilus/pps-nautilus-extension.h
 shell/help-overlay.ui
 shell/pps-annotation-properties-dialog.ui
-shell/pps-document-view.c
 shell/pps-document-view.ui
 shell/pps-find-sidebar.ui
 shell/pps-loader-view.ui
@@ -59,6 +58,11 @@ shell/pps-utils.c
 shell/pps-window.ui
 shell-rs/src/annotation_properties_dialog.rs
 shell-rs/src/application.rs
+shell-rs/src/document_view.rs
+shell-rs/src/document_view/actions.rs
+shell-rs/src/document_view/io.rs
+shell-rs/src/document_view/print.rs
+shell-rs/src/document_view/signals.rs
 shell-rs/src/keyring.rs
 shell-rs/src/main.rs
 shell-rs/src/page_selector.rs
@@ -75,4 +79,3 @@ shell-rs/src/sidebar_layers.rs
 shell-rs/src/sidebar_thumbnails.rs
 shell-rs/src/sidebar_links.rs
 shell-rs/src/thumbnail_item.rs
-shell-rs/src/window.rs

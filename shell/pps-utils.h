@@ -24,7 +24,7 @@
 #include <gtk/gtk.h>
 #include <pps-document.h>
 
-#include "pps-document-view.h"
+#include "pps-link-dest.h"
 
 G_BEGIN_DECLS
 

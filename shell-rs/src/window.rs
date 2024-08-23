@@ -8,13 +8,14 @@ use glib::UserDirectory;
 use gtk::TextDirection;
 
 use futures::{future::LocalBoxFuture, FutureExt};
-use papers_document::{DocumentAnnotations, DocumentMode, LinkAction, LinkActionType};
+use papers_document::{DocumentAnnotations, DocumentMode, LinkAction, LinkActionType, LinkDest};
 use papers_view::JobLoad;
 use papers_view::JobPriority;
 use papers_view::SizingMode;
 
 use crate::application::spawn;
 use crate::config::PROFILE;
+use crate::document_view::PpsDocumentView;
 use crate::file_monitor::PpsFileMonitor;
 
 #[derive(Debug, Clone, Copy, Default, PartialEq)]
@@ -30,8 +31,6 @@ pub enum WindowRunMode {
 }
 
 mod imp {
-    use papers_document::LinkDest;
-
     use super::*;
 
     #[derive(Default, Debug, CompositeTemplate)]
@@ -47,7 +46,7 @@ mod imp {
         #[template_child]
         pub(super) password_view: TemplateChild<crate::password_view::PpsPasswordView>,
         #[template_child]
-        pub(super) document_view: TemplateChild<papers_shell::DocumentView>,
+        pub(super) document_view: TemplateChild<PpsDocumentView>,
         #[template_child]
         pub(super) presentation: TemplateChild<papers_view::ViewPresentation>,
         #[template_child]
@@ -93,7 +92,6 @@ mod imp {
             // for drop target support
             gdk::FileList::ensure_type();
 
-            papers_shell::DocumentView::ensure_type();
             papers_view::ViewPresentation::ensure_type();
             crate::password_view::PpsPasswordView::ensure_type();
             crate::loader_view::PpsLoaderView::ensure_type();
@@ -108,21 +106,6 @@ mod imp {
     }
 
     impl ObjectImpl for PpsWindow {
-        fn signals() -> &'static [Signal] {
-            static SIGNALS: OnceLock<Vec<Signal>> = OnceLock::new();
-            SIGNALS.get_or_init(|| {
-                vec![Signal::builder("open-copy")
-                    .param_types([
-                        papers_view::Metadata::static_type(),
-                        LinkDest::static_type(),
-                        glib::GString::static_type(),
-                        glib::GString::static_type(),
-                    ])
-                    .run_last()
-                    .build()]
-            })
-        }
-
         fn constructed(&self) {
             self.parent_constructed();
 
@@ -132,18 +115,6 @@ mod imp {
             }
 
             self.setup_actions();
-
-            self.obj().connect_closure(
-                "open-copy",
-                true,
-                glib::closure_local!(move |obj: super::PpsWindow,
-                                           metadata: Option<&papers_view::Metadata>,
-                                           dest: Option<&LinkDest>,
-                                           display_name: &str,
-                                           edit_name: &str| {
-                    obj.imp().open_copy(metadata, dest, display_name, edit_name);
-                }),
-            );
         }
 
         fn dispose(&self) {
@@ -155,7 +126,7 @@ mod imp {
 
     impl WindowImpl for PpsWindow {
         fn close_request(&self) -> glib::Propagation {
-            if self.document_view.close_handled() {
+            if self.document_view.close_handled() == glib::Propagation::Stop {
                 return glib::Propagation::Stop;
             }
 
@@ -227,7 +198,7 @@ mod imp {
             }
         }
 
-        fn open_copy(
+        pub(super) fn open_copy(
             &self,
             metadata: Option<&papers_view::Metadata>,
             dest: Option<&LinkDest>,
@@ -236,11 +207,7 @@ mod imp {
         ) {
             let win = super::PpsWindow::new();
             let imp = win.imp();
-            let document = self
-                .document_view
-                .model()
-                .and_then(|m| m.document())
-                .unwrap();
+            let document = self.document_view.model().document().unwrap();
 
             imp.document_view.set_filenames(display_name, edit_name);
             imp.document_view.open_document(&document, metadata, dest);
@@ -251,7 +218,7 @@ mod imp {
         }
 
         fn check_document_modified(&self) -> Option<String> {
-            let document = self.document_view.model()?.document()?;
+            let document = self.document_view.model().document()?;
 
             let forms_modified = document
                 .dynamic_cast_ref::<papers_document::DocumentForms>()
@@ -309,9 +276,7 @@ mod imp {
         }
 
         fn run_presentation(&self) {
-            let Some(model) = self.document_view.model() else {
-                return;
-            };
+            let model = self.document_view.model();
 
             let Some(document) = model.document() else {
                 return;
@@ -340,10 +305,10 @@ mod imp {
             let page = self.presentation.current_page();
             let rotation = self.presentation.rotation();
 
-            if let Some(model) = self.document_view.model() {
-                model.set_page(page as i32);
-                model.set_rotation(rotation as i32);
-            }
+            let model = self.document_view.model();
+
+            model.set_page(page as i32);
+            model.set_rotation(rotation as i32);
 
             self.presentation
                 .set_document(papers_document::Document::NONE);
@@ -708,7 +673,7 @@ mod imp {
 
                     let document = job.loaded_document();
 
-                    obj.document_view.reload_document(&document.unwrap());
+                    obj.document_view.reload_document(document.as_ref());
 
                     obj.clear_reload_job();
                 }
@@ -1218,6 +1183,17 @@ impl PpsWindow {
 
     pub fn print_range(&self, first_page: i32, last_page: i32) {
         self.imp().document_view.print_range(first_page, last_page);
+    }
+
+    pub fn open_copy(
+        &self,
+        metadata: Option<&papers_view::Metadata>,
+        dest: Option<&LinkDest>,
+        display_name: &str,
+        edit_name: &str,
+    ) {
+        self.imp()
+            .open_copy(metadata, dest, display_name, edit_name);
     }
 }
 

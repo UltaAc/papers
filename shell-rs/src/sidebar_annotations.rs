@@ -44,15 +44,11 @@ mod imp {
         fn signals() -> &'static [Signal] {
             static SIGNALS: OnceLock<Vec<Signal>> = OnceLock::new();
             SIGNALS.get_or_init(|| {
-                vec![
-                    Signal::builder("annot-activated")
-                        .run_last()
-                        .action()
-                        .param_types([Mapping::static_type()])
-                        .build(),
-                    Signal::builder("annot-removed").run_last().action().build(),
-                    Signal::builder("annot-added").run_last().action().build(),
-                ]
+                vec![Signal::builder("annot-activated")
+                    .run_last()
+                    .action()
+                    .param_types([Mapping::static_type()])
+                    .build()]
             })
         }
 
@@ -72,26 +68,6 @@ mod imp {
                     }
                 ));
             }
-
-            self.obj().connect_closure(
-                "annot-added",
-                true,
-                glib::closure_local!(move |obj: glib::Object| {
-                    if let Ok(obj) = obj.downcast::<super::PpsSidebarAnnotations>() {
-                        obj.imp().load();
-                    }
-                }),
-            );
-
-            self.obj().connect_closure(
-                "annot-removed",
-                true,
-                glib::closure_local!(move |obj: glib::Object| {
-                    if let Ok(obj) = obj.downcast::<super::PpsSidebarAnnotations>() {
-                        obj.imp().load();
-                    }
-                }),
-            );
 
             self.obj().connect_closure(
                 "annot-activated",
@@ -142,10 +118,12 @@ mod imp {
                             obj.obj().emit_by_name::<()>("annot-activated", &[&mapping])
                         }
                         gdk::BUTTON_SECONDARY => {
+                            use crate::document_view::PpsDocumentView;
+
                             let document_view = obj
                                 .obj()
-                                .ancestor(papers_shell::DocumentView::static_type())
-                                .and_downcast::<papers_shell::DocumentView>()
+                                .ancestor(PpsDocumentView::static_type())
+                                .and_downcast::<PpsDocumentView>()
                                 .unwrap();
                             let row = item.child().unwrap();
 
@@ -202,7 +180,7 @@ mod imp {
             }
         }
 
-        fn load(&self) {
+        pub(super) fn load(&self) {
             self.clear_job();
 
             let Some(document) = self.obj().document_model().and_then(|m| m.document()) else {
@@ -261,5 +239,13 @@ impl Default for PpsSidebarAnnotations {
 impl PpsSidebarAnnotations {
     pub fn new() -> Self {
         glib::Object::builder().build()
+    }
+
+    pub fn annot_added(&self) {
+        self.imp().load();
+    }
+
+    pub fn annot_removed(&self) {
+        self.imp().load();
     }
 }

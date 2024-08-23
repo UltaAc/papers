@@ -10,6 +10,7 @@ use config::GETTEXT_PACKAGE;
 mod annotation_properties_dialog;
 mod application;
 mod deps;
+mod document_view;
 mod file_monitor;
 mod i18n;
 #[cfg(feature = "with-keyring")]

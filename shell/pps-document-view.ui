@@ -5,15 +5,23 @@
 
   <object class="PpsDocumentModel" id="model">
     <!-- This object should be constructed before it can be used as construct-only properties. -->
-    <signal name="page-changed" handler="page_changed_cb" swapped="yes" />
-    <signal name="notify::scale" handler="zoom_changed_cb" />
-    <signal name="notify::sizing-mode" handler="sizing_mode_changed_cb" />
-    <signal name="notify::rotation" handler="rotation_changed_cb" />
-    <signal name="notify::continuous" handler="continuous_changed_cb" />
-    <signal name="notify::page-layout" handler="page_layout_changed_cb" />
-    <signal name="notify::dual-odd-left" handler="dual_mode_odd_pages_left_changed_cb" />
-    <signal name="notify::rtl" handler="direction_changed_cb" />
-    <signal name="notify::inverted-colors" handler="inverted_colors_changed_cb" />
+    <signal name="page-changed" handler="page_changed" swapped="yes" />
+    <signal name="notify::scale" handler="zoom_changed" swapped="yes" />
+    <signal name="notify::sizing-mode" handler="sizing_mode_changed" swapped="yes" />
+    <signal name="notify::rotation" handler="rotation_changed" swapped="yes" />
+    <signal name="notify::continuous" handler="continuous_changed" swapped="yes" />
+    <signal name="notify::page-layout" handler="page_layout_changed" swapped="yes" />
+    <signal name="notify::dual-odd-left" handler="dual_mode_odd_pages_left_changed" swapped="yes" />
+    <signal name="notify::rtl" handler="direction_changed" swapped="yes" />
+    <signal name="notify::inverted-colors" handler="inverted_colors_changed" swapped="yes" />
+  </object>
+
+  <object class="GSimpleActionGroup" id="document_action_group" />
+
+  <object class="PpsHistory" id="history">
+    <property name="document-model">model</property>
+    <signal name="activate-link" handler="link_activated" swapped="yes" />
+    <signal name="changed" handler="history_changed" swapped="yes" />
   </object>
 
   <object class="GSettings" id="default_settings">
@@ -50,8 +58,8 @@
         <property name="min-sidebar-width">210</property>
         <property name="max-sidebar-width">300</property>
         <property name="pin-sidebar">True</property>
-        <signal name="notify::show-sidebar" handler="sidebar_visibility_changed_cb" />
-        <signal name="notify::collapsed" handler="sidebar_collapsed_changed_cb" />
+        <signal name="notify::show-sidebar" handler="sidebar_visibility_changed" swapped="yes" />
+        <signal name="notify::collapsed" handler="sidebar_collapsed_changed" swapped="yes" />
         <property name="sidebar">
           <object class="AdwToolbarView" id="sidebar_toolbar_view">
             <child type="top">
@@ -115,7 +123,7 @@
                               <object class="PpsSidebarLinks" id="sidebar_links">
                                 <property name="document-model">model</property>
                                 <property name="sidebar">sidebar</property>
-                                <signal name="link-activated" handler="activate_link_cb" />
+                                <signal name="link-activated" handler="link_activated" swapped="yes" />
                               </object>
                             </property>
                           </object>
@@ -130,7 +138,7 @@
                                 <property name="document-model">model</property>
                                 <property name="sidebar">sidebar</property>
                                 <signal name="annot-activated"
-                                  handler="sidebar_annots_annot_activated_cb" />
+                                  handler="sidebar_annots_annot_activated" swapped="yes" />
                               </object>
                             </property>
                           </object>
@@ -149,7 +157,7 @@
                                   </object>
                                 </property>
                                 <property name="sidebar">sidebar</property>
-                                <signal name="popup" handler="attachment_bar_menu_popup_cb" />
+                                <signal name="popup" handler="attachment_bar_menu_popup" swapped="yes" />
                               </object>
                             </property>
                           </object>
@@ -164,7 +172,7 @@
                                 <property name="document-model">model</property>
                                 <property name="sidebar">sidebar</property>
                                 <signal name="visibility-changed"
-                                  handler="sidebar_layers_visibility_changed" />
+                                  handler="sidebar_layers_visibility_changed" swapped="yes" />
                               </object>
                             </property>
                           </object>
@@ -208,7 +216,7 @@
                   <object class="PpsPageSelector" id="page_selector">
                     <property name="model">model</property>
                     <property name="tooltip-text" translatable="yes">Page Count</property>
-                    <signal name="activate-link" handler="activate_link_cb" />
+                    <signal name="activate-link" handler="link_activated" swapped="yes" />
                   </object>
                 </child>
               </object>
@@ -218,13 +226,14 @@
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="AdwBanner" id="banner">
+                    <signal name="button-clicked" handler="view_banner_cancelled" swapped="yes" />
                   </object>
                 </child>
                 <child>
                   <object class="AdwBanner" id="signature_banner">
                     <property name="title" translatable="yes">Document has been digitally signed.</property>
                     <property name="button-label" translatable="yes">View Signature…</property>
-                    <signal name="button-clicked" handler="view_details_cb"/>
+                    <signal name="button-clicked" handler="view_signature_details" swapped="yes" />
                   </object>
                 </child>
                 <child>
@@ -304,20 +313,23 @@
                                 <property name="vexpand">True</property>
                                 <property name="halign">fill</property>
                                 <property name="valign">fill</property>
-                                <signal name="external-link" handler="view_external_link_cb"
-					swapped="yes" />
-                                <signal name="handle-link" handler="view_handle_link_cb" />
-                                <signal name="popup" handler="view_menu_popup_cb" />
+                                <signal name="external-link" handler="view_external_link"
+                                  swapped="yes" />
+                                <signal name="handle-link" handler="view_handle_link" swapped="yes" />
+                                <signal name="popup" handler="view_menu_popup" swapped="yes" />
                                 <signal name="selection-changed"
-					handler="view_selection_changed_cb" />
-                                <signal name="scroll" handler="scroll_history_cb" />
-                                <signal name="annot-removed" handler="view_annot_removed" />
-                                <signal name="layers-changed" handler="view_layers_changed_cb" />
-                                <signal name="cursor-moved" handler="view_caret_cursor_moved_cb" />
-                                <signal name="signature-rect" handler="pps_document_view_on_signature_rect" />
+                                  handler="view_selection_changed" swapped="yes" />
+                                <signal name="scroll" handler="scroll_history" swapped="yes" />
+                                <signal name="annot-removed" handler="view_annot_removed"
+                                  swapped="yes" />
+                                <signal name="layers-changed" handler="view_layers_changed"
+                                  swapped="yes" />
+                                <signal name="cursor-moved" handler="view_caret_cursor_moved"
+                                  swapped="yes" />
+				<signal name="signature-rect" handler="on_signature_rect" swapped="yes" />
                               </object>
                             </property>
-                            <signal name="scroll-child" handler="scroll_child_history_cb" />
+                            <signal name="scroll-child" handler="scroll_child_history" swapped="yes" />
                           </object>
                         </property>
                       </object>
@@ -345,7 +357,7 @@
         <child>
           <object class="GtkGestureClick">
             <property name="button">0</property>
-            <signal name="pressed" handler="pps_document_view_button_pressed" />
+            <signal name="pressed" handler="button_pressed" swapped="yes" />
           </object>
         </child>
         <child>
@@ -563,7 +575,7 @@
       <response id="cancel" translatable="yes">Start _Over</response>
       <response id="sign" appearance="destructive" translatable="yes">_Sign</response>
     </responses>
-    <signal name="response" handler="pps_document_view_on_signature_rect_too_small_response" swapped="yes" />
+    <signal name="response" handler="signature_rect_too_small" swapped="yes" />
   </object>
 
   <object class="AdwAlertDialog" id="print_cancel_alert">
@@ -575,7 +587,7 @@
       <response id="cancel" translatable="yes">_Cancel</response>
       <response id="close-later" appearance="suggested"  translatable="yes">Close _After Printing</response>
     </responses>
-    <signal name="response" handler="print_jobs_confirmation_dialog_response" />
+    <signal name="response" handler="print_cancel_alert_response" swapped="yes" />
   </object>
 
   <object class="AdwAlertDialog" id="error_alert">
