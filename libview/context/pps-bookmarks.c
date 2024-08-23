@@ -59,6 +59,19 @@ pps_bookmark_compare (PpsBookmark *a,
 G_DEFINE_BOXED_TYPE (PpsBookmark, pps_bookmark, pps_bookmark_copy, pps_bookmark_free)
 
 PpsBookmark *
+pps_bookmark_new (gint page, const gchar *title)
+{
+	PpsBookmark *bm = g_slice_new0 (PpsBookmark);
+
+	g_assert (bm != NULL);
+
+	bm->page = page;
+	bm->title = g_strdup (title);
+
+	return bm;
+}
+
+PpsBookmark *
 pps_bookmark_copy (const PpsBookmark *bm)
 {
 	PpsBookmark *new_bm;

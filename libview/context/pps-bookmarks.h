@@ -41,6 +41,9 @@ PPS_PUBLIC
 GType pps_bookmark_get_type (void);
 
 PPS_PUBLIC
+PpsBookmark *pps_bookmark_new  (gint page, const gchar *title);
+
+PPS_PUBLIC
 PpsBookmark *pps_bookmark_copy (const PpsBookmark *bookmark);
 
 PPS_PUBLIC
