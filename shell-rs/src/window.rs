@@ -449,10 +449,6 @@ mod imp {
             self.obj().add_action_entries(actions);
         }
 
-        fn show_loading_message(&self) {}
-
-        fn hide_loading_message(&self) {}
-
         fn show_error(&self, error: Option<&glib::Error>) {
             self.error_page.set_description(error.map(|e| e.message()));
             self.set_mode(WindowRunMode::ErrorView);
@@ -478,8 +474,6 @@ mod imp {
         }
 
         fn load_remote_failed(&self, error: &glib::Error) {
-            self.hide_loading_message();
-
             self.error_message(
                 Some(error),
                 &self
@@ -541,7 +535,6 @@ mod imp {
             } else if e.matches(gio::IOErrorEnum::Cancelled) {
                 self.clear_load_job();
                 self.clear_local_uri();
-                self.hide_loading_message();
             } else {
                 self.load_remote_failed(&e);
             }
@@ -867,8 +860,6 @@ mod imp {
                 #[strong]
                 mode,
                 move |job| {
-                    obj.hide_loading_message();
-
                     let uri = obj.obj().uri().unwrap();
 
                     match job.is_succeeded() {
@@ -981,7 +972,6 @@ mod imp {
                             }
                         }
 
-                        obj.show_loading_message();
                         load_job.scheduler_push_job(papers_view::JobPriority::PriorityNone);
                     }
                 }
