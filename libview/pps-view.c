@@ -4359,6 +4359,9 @@ pps_view_scroll_event (GtkEventControllerScroll *self, gdouble dx, gdouble dy, G
 			break;
 		case GDK_SCROLL_SMOOTH: {
 			gdouble delta = dx + dy;
+			if (gtk_event_controller_scroll_get_unit (self) == GDK_SCROLL_UNIT_SURFACE) {
+				delta = delta/20.;
+			}
 			gdouble factor = pow (delta < 0 ? ZOOM_IN_FACTOR : ZOOM_OUT_FACTOR, fabs (delta));
 
 			if (pps_view_can_zoom (view, factor))
