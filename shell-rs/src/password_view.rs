@@ -63,10 +63,6 @@ mod imp {
     #[properties(wrapper_type = super::PpsPasswordView)]
     #[template(resource = "/org/gnome/papers/ui/password-view.ui")]
     pub struct PpsPasswordView {
-        // FIXME: replace with a proper method once everything is full Rust
-        #[property(type = bool, set = Self::ask_password, name = "ask-password")]
-        #[allow(unused)]
-        active: (),
         #[property(get, set)]
         filename: RefCell<String>,
         dialog: RefCell<Option<PasswordDialog>>,
@@ -125,7 +121,7 @@ mod imp {
 
     #[gtk::template_callbacks]
     impl PpsPasswordView {
-        fn ask_password(&self, error: bool) {
+        pub(super) fn ask_password(&self, error: bool) {
             if self.dialog.borrow().is_none() {
                 self.create_dialog(error);
             }
@@ -232,4 +228,10 @@ mod imp {
 glib::wrapper! {
     pub struct PpsPasswordView(ObjectSubclass<imp::PpsPasswordView>)
         @extends gtk::Widget, adw::Bin;
+}
+
+impl PpsPasswordView {
+    pub fn ask_password(&self, error: bool) {
+        self.imp().ask_password(error);
+    }
 }

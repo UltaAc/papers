@@ -936,7 +936,7 @@ mod imp {
                                 job.set_password(None);
                                 obj.password_view
                                     .set_filename(obj.display_name.borrow().as_str());
-                                obj.password_view.set_ask_password(wrong_password);
+                                obj.password_view.ask_password(wrong_password);
                                 obj.set_mode(WindowRunMode::PasswordView)
                             } else {
                                 obj.show_error(Some(&e));
