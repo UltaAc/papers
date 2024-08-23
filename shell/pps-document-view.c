@@ -4308,22 +4308,6 @@ pps_document_view_new (void)
 	return g_object_new (PPS_TYPE_DOCUMENT_VIEW, NULL);
 }
 
-/**
- * pps_document_view_get_header_bar:
- * @pps_doc_view: the #PpsDocumentView
- *
- * Returns: (transfer none): the #AdwHeaderBar that represents the toolbar of the window.
- */
-AdwHeaderBar *
-pps_document_view_get_header_bar (PpsDocumentView *pps_doc_view)
-{
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
-
-	g_return_val_if_fail (PPS_DOCUMENT_VIEW (pps_doc_view), NULL);
-
-	return ADW_HEADER_BAR (priv->header_bar);
-}
-
 void
 pps_document_view_focus_view (PpsDocumentView *pps_doc_view)
 {
