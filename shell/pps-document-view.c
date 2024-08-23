@@ -4202,10 +4202,6 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 	pps_find_sidebar_set_search_context (PPS_FIND_SIDEBAR (priv->find_sidebar), priv->search_context);
 	pps_view_set_search_context (PPS_VIEW (priv->view), priv->search_context);
 
-	g_signal_connect_object (priv->search_context, "cleared",
-				 G_CALLBACK (pps_document_view_update_actions_sensitivity),
-				 pps_doc_view, G_CONNECT_DEFAULT);
-
 	g_signal_connect_object (priv->search_context, "result-activated",
 				 G_CALLBACK (sidebar_navigate_to_view),
 				 pps_doc_view, G_CONNECT_SWAPPED);
