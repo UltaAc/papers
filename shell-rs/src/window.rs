@@ -14,10 +14,9 @@ use papers_view::JobLoad;
 use papers_view::JobPriority;
 use papers_view::SizingMode;
 
-pub mod file_monitor;
-
 use crate::application::spawn;
 use crate::config::PROFILE;
+use crate::file_monitor::PpsFileMonitor;
 
 #[derive(Debug, Clone, Copy, Default, PartialEq)]
 pub enum WindowRunMode {
@@ -69,7 +68,7 @@ mod imp {
 
         pub(super) dest: RefCell<Option<papers_document::LinkDest>>,
 
-        pub(super) monitor: RefCell<Option<file_monitor::PpsFileMonitor>>,
+        pub(super) monitor: RefCell<Option<PpsFileMonitor>>,
 
         // Loaders
         pub(super) local_path: RefCell<Option<PathBuf>>,
@@ -820,7 +819,7 @@ mod imp {
             self.dest.replace(dest.cloned());
 
             // Create a monitor for the document
-            let monitor = super::file_monitor::PpsFileMonitor::new(uri);
+            let monitor = PpsFileMonitor::new(uri);
             monitor.connect_closure(
                 "changed",
                 false,

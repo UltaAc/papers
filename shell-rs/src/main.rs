@@ -10,6 +10,7 @@ use config::GETTEXT_PACKAGE;
 mod annotation_properties_dialog;
 mod application;
 mod deps;
+mod file_monitor;
 mod i18n;
 mod loader_view;
 mod page_selector;
@@ -53,7 +54,7 @@ fn ensure_type() {
     sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
     sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
     stack_switcher::PpsStackSwitcher::ensure_type();
-    window::file_monitor::PpsFileMonitor::ensure_type();
+    file_monitor::PpsFileMonitor::ensure_type();
 }
 
 fn main() -> glib::ExitCode {
