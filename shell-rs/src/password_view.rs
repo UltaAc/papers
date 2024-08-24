@@ -195,8 +195,6 @@ mod imp {
                 .and_downcast::<gio::SimpleAction>()
                 .unwrap();
 
-            preferences_action.set_state(&glib::Variant::from(PASSWORD_PREFERENCE_NEVER));
-
             match response {
                 RESPONSE_UNLOCK => {
                     let password = dialog.password_entry.text();
