@@ -15,7 +15,7 @@ mod imp {
 
     #[derive(Debug, Clone)]
     struct PasswordDialog {
-        main: adw::MessageDialog,
+        main: adw::AlertDialog,
         password_entry: gtk::PasswordEntry,
     }
 
@@ -134,12 +134,6 @@ mod imp {
         fn create_dialog(&self, error: bool) {
             let dialog = PasswordDialog::new(&self.obj(), error);
 
-            let window = self
-                .obj()
-                .root()
-                .and_then(|root| root.downcast::<gtk::Window>().ok());
-            dialog.main.set_transient_for(window.as_ref());
-
             dialog.main.set_close_response(RESPONSE_CANCELLED);
             dialog.main.set_default_response(Some(RESPONSE_UNLOCK));
 
@@ -159,6 +153,7 @@ mod imp {
             self.dialog.replace(Some(dialog));
 
             main.choose(
+                &self.obj().clone(),
                 gio::Cancellable::NONE,
                 glib::clone![
                     #[weak(rename_to = obj)]
