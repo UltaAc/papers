@@ -310,8 +310,14 @@ mod imp {
         }
 
         fn run_presentation(&self) {
-            let model = self.document_view.model().unwrap();
-            let document = model.document().unwrap();
+            let Some(model) = self.document_view.model() else {
+                return;
+            };
+
+            let Some(document) = model.document() else {
+                return;
+            };
+
             let page = model.page();
             let rotation = model.rotation();
             let inverted_colors = model.is_inverted_colors();
