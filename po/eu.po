@@ -5,13 +5,13 @@
 # Mikel Olasagasti <hey_neken@mundurat.net>, 2005.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2005, 2006, 2007, 2008, 2009, 2010.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2011, 2012, 2013, 2014, 2015, 2016, 2017.
-# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2019, 2020, 2021, 2022, 2023.
+# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2019, 2020, 2021, 2022, 2023, 2024.
 #
 msgid ""
 msgstr "Project-Id-Version: evince master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/evince/issues\n"
-"POT-Creation-Date: 2023-10-23 19:15+0000\n"
-"PO-Revision-Date: 2023-10-27 10:00+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/issues/\n"
+"POT-Creation-Date: 2024-08-26 16:10+0000\n"
+"PO-Revision-Date: 2024-08-26 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -20,143 +20,252 @@ msgstr "Project-Id-Version: evince master\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: backend/comics/comics-document.c:190 backend/comics/comics-document.c:261
+#. Manually set name and icon
+#: data/org.gnome.Papers.desktop.in.in:3
+#: data/org.gnome.Papers.metainfo.xml.in.in:23
+#: previewer/pps-previewer-window.c:477 shell/pps-document-view.c:1201
+#: shell/pps-document-view.ui:73 shell/pps-loader-view.ui:10
+#: shell-rs/src/application.rs:42 shell-rs/src/application.rs:76
+#: shell-rs/src/application.rs:313
+msgid "Papers"
+msgstr "Paperak"
+
+#: data/org.gnome.Papers.desktop.in.in:4
+msgid "View multi-page documents"
+msgstr "Ikusi orrialde anitzeko dokumentuak"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.Papers.desktop.in.in:6
+msgid "pdf;ps;postscript;xps;djvu;tiff;document;presentation;viewer;papers;"
+msgstr "pdf;ps;postscript;xps;djvu;tiff;dokumentua;aurkezpena;ikustailea;paperak;"
+
+#: data/org.gnome.Papers.desktop.in.in:21
+msgid "New Window"
+msgstr "Leiho berria"
+
+#: data/org.gnome.Papers.gschema.xml:14
+msgid "Override document restrictions"
+msgstr "Jaramonik ez egin dokumentuaren murriztapenei"
+
+#: data/org.gnome.Papers.gschema.xml:15
+msgid "Override document restrictions, like restriction to copy or to print."
+msgstr "Jaramonik ez egin dokumentuaren kopiatzeko edo inprimatzeko bezalako murriztapenei"
+
+#: data/org.gnome.Papers.gschema.xml:19
+msgid "The URI of the directory last used to open or save a document"
+msgstr "Dokumentu bat ireki edo gordetzeko erabilitako azken direktorioaren URLa."
+
+#: data/org.gnome.Papers.gschema.xml:23
+msgid "The URI of the directory last used to save a picture"
+msgstr "Irudi bat gordetzeko erabilitako azken direktorioaren URLa."
+
+#: data/org.gnome.Papers.gschema.xml:27
+msgid "Page cache size in MiB"
+msgstr "Orrialdearen cachearen tamaina (MiBtan)"
+
+#: data/org.gnome.Papers.gschema.xml:28
+msgid ""
+"The maximum size that will be used to cache rendered pages, limits maximum "
+"zoom level."
+msgstr "Gehieneko tamaina errendatutako orrialdeak cachean gordetzeko, honek zoomaren gehieneko maila mugatzen du."
+
+#: data/org.gnome.Papers.gschema.xml:32
+msgid ""
+"Show a dialog to confirm that the user wants to activate the caret "
+"navigation."
+msgstr "Erakutsi elkarrizketa-koadro bat erabiltzaileak kurtsorearen nabigazioa aktibatzea nahi duela berresteko."
+
+#: data/org.gnome.Papers.gschema.xml:36
+msgid "Allow links to change the zoom level."
+msgstr "Baimendu estekei zoom-aren maila aldatzea."
+
+#: data/org.gnome.Papers.gschema.xml:44
+msgid "Check spelling when writing annotation notes or filling text forms."
+msgstr "Ortografia-egiaztatzea oharrak idaztean edo testu-inprimakiak betetzean."
+
+#: data/org.gnome.Papers.gschema.xml:48
+msgid "Show a side bar next to the document to help navigate the document."
+msgstr "Erakutsi alboko barra bat dokumentuarenn alboan, nabigazioa errazteko."
+
+#: data/org.gnome.Papers.gschema.xml:61
+msgid "Set the default zoom level to display a document."
+msgstr "Ezarri dokumentuak bistaratzeko zoom-maila lehenetsia."
+
+#: data/org.gnome.Papers.gschema.xml:68
+msgid ""
+"Display the document as a continuous stream of pages instead of page at a "
+"time."
+msgstr "Bistaratu dokumentua orrialdeen korronte jarrai gisa, aldi bakoitzean orrialde bakarra erakutsi ordez."
+
+#: data/org.gnome.Papers.gschema.xml:72
+msgid "Show two pages side by side."
+msgstr "Erakutsi bi orrialde elkarren alboan."
+
+#: data/org.gnome.Papers.gschema.xml:76
+msgid ""
+"Show the first page (odd page) on the left (when displaying two pages side "
+"by side)"
+msgstr "Erakutsi lehen orrialdea (bakoitia) ezkerrean (elkarren alboko bi orrialdBeste ekuazio guztietan ezkerraldeko digituak eskuinaldean ere agertzen dira.eren bistan)"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:24
+msgid "Read documents"
+msgstr "Irakurri dokumentuak"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:26
+msgid ""
+"A document viewer for the GNOME desktop. You can view, search or annotate "
+"documents in many different formats."
+msgstr "GNOME mahaigainerako dokumentu-ikustailea. Formatu mota askotako dokumentuak ikusi, haiek arakatu eta haietan oharrak idatzi ahal dituzu."
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:27
+msgid ""
+"Papers supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, and Comic Books "
+"archives (CBR, CBT, CBZ, CB7)."
+msgstr "Paperak aplikazioak honako dokumentu-formatuak onartzen ditu: PDF, PS, EPS, XPS, DjVu, TIFF eta komikien artxiboak (CBR, CBT, CBZ, CB7)."
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:43
+msgid "A clear, simple UI"
+msgstr "Interfaze argi eta sinplea"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:47
+msgid "Advanced highlighting and annotation"
+msgstr "Nabarmentze eta oharren sortze aurreratua"
+
+#: data/org.gnome.Papers-previewer.desktop.in.in:3
+msgid "Print Preview"
+msgstr "Inprimatzeko aurrebista"
+
+#: data/org.gnome.Papers-previewer.desktop.in.in:4
+msgid "Preview before printing"
+msgstr "Aurreikusi inprimatu aurretik"
+
+#: libdocument/backend/comics/comics-document.c:194
+#: libdocument/backend/comics/comics-document.c:263
 msgid "File is corrupted"
 msgstr "Fitxategia hondatuta dago"
 
-#: backend/comics/comics-document.c:251
+#: libdocument/backend/comics/comics-document.c:253
 msgid "Archive is encrypted"
 msgstr "Artxiboa zifratuta dago"
 
-#: backend/comics/comics-document.c:256
+#: libdocument/backend/comics/comics-document.c:258
 msgid "No supported images in archive"
 msgstr "Onartzen ez diren irudiak fitxategian"
 
-#: backend/comics/comics-document.c:266
+#: libdocument/backend/comics/comics-document.c:268
 msgid "No files in archive"
 msgstr "Ez dago fitxategirik artxiboan"
 
-#: backend/comics/comics-document.c:315
+#: libdocument/backend/comics/comics-document.c:317
 #, c-format
 msgid "Not a comic book MIME type: %s"
 msgstr "Ez da komikien MIME mota: %s"
 
-#: backend/comics/comics-document.c:322
+#: libdocument/backend/comics/comics-document.c:324
 msgid ""
 "libarchive lacks support for this comic book’s compression, please contact "
 "your distributor"
 msgstr "libarchive liburutegiak ez dauka komikiaren konpresioarentzako euskarririk. Jar zaitez banatzailearekin harremanetan."
 
-#: backend/comics/comics-document.c:362
+#: libdocument/backend/comics/comics-document.c:364
 msgid "Can not get local path for archive"
 msgstr "Ezin du artxiboaren bide-izen lokala eskuratu"
 
-#: backend/comics/comicsdocument.evince-backend.desktop.in.in:4
-#: backend/comics/evince-comicsdocument.metainfo.xml.in.in:5
+#: libdocument/backend/comics/comicsdocument.papers-backend.desktop.in.in:4
+#: libdocument/backend/comics/papers-comicsdocument.metainfo.xml.in.in:5
 msgid "Comic Books"
 msgstr "Komikiak"
 
-#: backend/comics/evince-comicsdocument.metainfo.xml.in.in:6
+#: libdocument/backend/comics/papers-comicsdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading comic books"
 msgstr "Komikiak irakurtzeko euskarria gehitzen du"
 
-#: backend/djvu/djvu-document.c:179
+#: libdocument/backend/djvu/djvu-document.c:184
 msgid "DjVu document has incorrect format"
 msgstr "DjVu dokumentuak okerreko formatua du"
 
-#: backend/djvu/djvu-document.c:266
+#: libdocument/backend/djvu/djvu-document.c:271
 msgid ""
 "The document is composed of several files. One or more of these files cannot "
 "be accessed."
 msgstr "Dokumentua hainbat fitxategirekin osatua dago. Fitxategi bat edo gehiago ezin da atzitu."
 
-#: backend/djvu/djvudocument.evince-backend.desktop.in.in:4
-#: backend/djvu/evince-djvudocument.metainfo.xml.in.in:5
+#: libdocument/backend/djvu/djvudocument.papers-backend.desktop.in.in:4
+#: libdocument/backend/djvu/papers-djvudocument.metainfo.xml.in.in:5
 msgid "DjVu Documents"
 msgstr "DjVu dokumentuak"
 
-#: backend/djvu/evince-djvudocument.metainfo.xml.in.in:6
+#: libdocument/backend/djvu/papers-djvudocument.metainfo.xml.in.in:6
 msgid "Adds support for reading DjVu documents"
 msgstr "DjVu dokumentuak irakurtzeko euskarria gehitzen du"
 
-#: backend/dvi/dvi-document.c:110
-msgid "DVI document has incorrect format"
-msgstr "DVI dokumentuak okerreko formatua du"
-
-#: backend/dvi/dvidocument.evince-backend.desktop.in.in:4
-#: backend/dvi/evince-dvidocument.metainfo.xml.in.in:5
-msgid "DVI Documents"
-msgstr "DVI dokumentuak"
-
-#: backend/dvi/evince-dvidocument.metainfo.xml.in.in:6
-msgid "Adds support for reading DVI documents"
-msgstr "DVI dokumentuak irakurtzeko euskarria gehitzen du"
-
-#: backend/pdf/evince-pdfdocument.metainfo.xml.in.in:5
-#: backend/pdf/pdfdocument.evince-backend.desktop.in.in:5
+#: libdocument/backend/pdf/papers-pdfdocument.metainfo.xml.in.in:5
+#: libdocument/backend/pdf/pdfdocument.papers-backend.desktop.in.in:5
 msgid "PDF Documents"
 msgstr "PDF dokumentuak"
 
-#: backend/pdf/evince-pdfdocument.metainfo.xml.in.in:6
+#: libdocument/backend/pdf/papers-pdfdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading PDF Documents"
 msgstr "PDF dokumentuak irakurtzeko euskarria gehitzen du"
 
 #. translators: this is the document security state
-#: backend/pdf/ev-poppler.c:726 backend/pdf/ev-poppler.c:732
-#: properties/ev-properties-view.c:429
+#: libdocument/backend/pdf/pps-poppler.c:720
+#: libdocument/backend/pdf/pps-poppler.c:726
+#: nautilus/pps-nautilus-extension.c:121 shell-rs/src/properties_general.rs:170
 msgid "Yes"
 msgstr "Bai"
 
 #. translators: this is the document security state
-#: backend/pdf/ev-poppler.c:729 backend/pdf/ev-poppler.c:732
-#: properties/ev-properties-view.c:431
+#: libdocument/backend/pdf/pps-poppler.c:723
+#: libdocument/backend/pdf/pps-poppler.c:726
+#: nautilus/pps-nautilus-extension.c:123 shell-rs/src/properties_general.rs:171
 msgid "No"
 msgstr "Ez"
 
-#: backend/pdf/ev-poppler.c:868
+#: libdocument/backend/pdf/pps-poppler.c:834
 msgid "Type 1"
 msgstr "1 mota"
 
-#: backend/pdf/ev-poppler.c:870
+#: libdocument/backend/pdf/pps-poppler.c:836
 msgid "Type 1C"
 msgstr "1C mota"
 
-#: backend/pdf/ev-poppler.c:872
+#: libdocument/backend/pdf/pps-poppler.c:838
 msgid "Type 3"
 msgstr "3 mota"
 
-#: backend/pdf/ev-poppler.c:874
+#: libdocument/backend/pdf/pps-poppler.c:840
 msgid "TrueType"
 msgstr "TrueType"
 
-#: backend/pdf/ev-poppler.c:876
+#: libdocument/backend/pdf/pps-poppler.c:842
 msgid "Type 1 (CID)"
 msgstr "1 mota (CID)"
 
-#: backend/pdf/ev-poppler.c:878
+#: libdocument/backend/pdf/pps-poppler.c:844
 msgid "Type 1C (CID)"
 msgstr "1C mota (CID)"
 
-#: backend/pdf/ev-poppler.c:880
+#: libdocument/backend/pdf/pps-poppler.c:846
 msgid "TrueType (CID)"
 msgstr "TrueType (CID)"
 
-#: backend/pdf/ev-poppler.c:882
+#: libdocument/backend/pdf/pps-poppler.c:848
 msgid "Unknown font type"
 msgstr "Letra-tipo mota ezezaguna"
 
-#: backend/pdf/ev-poppler.c:926
+#: libdocument/backend/pdf/pps-poppler.c:892
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
 "the fonts used to create the PDF, the rendering may not be correct."
 msgstr "Dokumentu honek kapsulatu gabeko letra-tipoak ditu (PDFren 14 letra-tipo estandarrekoak ez direnak). Letra-tipoen konfigurazioan hautatutako ordezko letra-tipoak PDFa sortzeko erabilitako letra-tipoen berdinak ez badira, baliteke errendaketa zuzena ez izatea."
 
-#: backend/pdf/ev-poppler.c:931
+#: libdocument/backend/pdf/pps-poppler.c:897
 msgid "All fonts are either standard or embedded."
 msgstr "Letra-tipo guztiak estandarrak edo kapsulatutakoak dira."
 
-#: backend/pdf/ev-poppler.c:961
+#: libdocument/backend/pdf/pps-poppler.c:928
 msgid "No name"
 msgstr "Izenik gabe"
 
@@ -165,25 +274,20 @@ msgstr "Izenik gabe"
 #. Encoding: None
 #.
 #. translators: Value for 'Page Scaling:' to not scale the document pages on printing
-#. translators: This is used when a document property does
-#. not have a value.  Examples:
-#. Author: None
-#. Keywords: None
-#.
-#: backend/pdf/ev-poppler.c:970 libview/ev-print-operation.c:2691
-#: properties/ev-properties-view.c:230
+#: libdocument/backend/pdf/pps-poppler.c:937 libview/pps-print-operation.c:2643
+#: shell-rs/src/properties_general.rs:82 shell-rs/src/properties_general.rs:199
 msgid "None"
 msgstr "Bat ere ez"
 
-#: backend/pdf/ev-poppler.c:978
+#: libdocument/backend/pdf/pps-poppler.c:945
 msgid "Embedded subset"
 msgstr "Kapsulatutako azpimultzoa"
 
-#: backend/pdf/ev-poppler.c:980
+#: libdocument/backend/pdf/pps-poppler.c:947
 msgid "Embedded"
 msgstr "Kapsulatua"
 
-#: backend/pdf/ev-poppler.c:982
+#: libdocument/backend/pdf/pps-poppler.c:949
 msgid "Not embedded"
 msgstr "Kapsulatu gabea"
 
@@ -192,7 +296,7 @@ msgstr "Kapsulatu gabea"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: backend/pdf/ev-poppler.c:989
+#: libdocument/backend/pdf/pps-poppler.c:956
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (14 letra-tipo estandarretariko bat)"
 
@@ -201,7 +305,7 @@ msgstr " (14 letra-tipo estandarretariko bat)"
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: backend/pdf/ev-poppler.c:996
+#: libdocument/backend/pdf/pps-poppler.c:963
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (14 letra-tipo estandarretarikoetatik  bat bera ere ez)"
 
@@ -215,7 +319,7 @@ msgstr " (14 letra-tipo estandarretarikoetatik  bat bera ere ez)"
 #. * Substituting with TeXGyreTermes-Regular
 #. * (/usr/share/textmf/.../texgyretermes-regular.otf)
 #.
-#: backend/pdf/ev-poppler.c:1015
+#: libdocument/backend/pdf/pps-poppler.c:982
 #, c-format
 msgid ""
 "%s%s\n"
@@ -238,7 +342,7 @@ msgstr "%s%s\n"
 #. * Encoding: Custom
 #. * Embedded subset
 #.
-#: backend/pdf/ev-poppler.c:1033
+#: libdocument/backend/pdf/pps-poppler.c:1000
 #, c-format
 msgid ""
 "%s%s\n"
@@ -248,340 +352,223 @@ msgstr "%s%s\n"
 "Kodeketa: %s\n"
 "%s"
 
-#: backend/ps/evince-psdocument.metainfo.xml.in.in:5
-#: backend/ps/psdocument.evince-backend.desktop.in.in:5
+#: libdocument/backend/ps/papers-psdocument.metainfo.xml.in.in:5
+#: libdocument/backend/ps/psdocument.papers-backend.desktop.in.in:5
 msgid "PostScript Documents"
 msgstr "PostScript dokumentuak"
 
-#: backend/ps/evince-psdocument.metainfo.xml.in.in:6
+#: libdocument/backend/ps/papers-psdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading PostScript documents"
 msgstr "PostScript dokumentuak irakurtzeko euskarria gehitzen du"
 
-#: backend/ps/ev-spectre.c:98
+#: libdocument/backend/ps/pps-spectre.c:96
 #, c-format
 msgid "Failed to load document “%s”"
 msgstr "Huts egin du '%s' dokumentua kargatzean"
 
-#: backend/ps/ev-spectre.c:131
+#: libdocument/backend/ps/pps-spectre.c:129
 #, c-format
 msgid "Failed to save document “%s”"
 msgstr "Huts egin du '%s' dokumentua gordetzean"
 
-#: backend/tiff/evince-tiffdocument.metainfo.xml.in.in:5
-#: backend/tiff/tiffdocument.evince-backend.desktop.in.in:4
+#: libdocument/backend/tiff/papers-tiffdocument.metainfo.xml.in.in:5
+#: libdocument/backend/tiff/tiffdocument.papers-backend.desktop.in.in:4
 msgid "TIFF Documents"
 msgstr "TIFF dokumentuak"
 
-#: backend/tiff/evince-tiffdocument.metainfo.xml.in.in:6
+#: libdocument/backend/tiff/papers-tiffdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading TIFF documents"
 msgstr "TIFF dokumentuak irakurtzeko euskarria gehitzen du"
 
-#: backend/tiff/tiff-document.c:124
+#: libdocument/backend/tiff/tiff-document.c:122
 msgid "Invalid document"
 msgstr "Dokumentu baliogabea"
 
-#: backend/xps/evince-xpsdocument.metainfo.xml.in.in:5
-#: backend/xps/xpsdocument.evince-backend.desktop.in.in:5
+#: libdocument/backend/xps/papers-xpsdocument.metainfo.xml.in.in:5
+#: libdocument/backend/xps/xpsdocument.papers-backend.desktop.in.in:5
 msgid "XPS Documents"
 msgstr "XPS dokumentuak"
 
-#: backend/xps/evince-xpsdocument.metainfo.xml.in.in:6
+#: libdocument/backend/xps/papers-xpsdocument.metainfo.xml.in.in:6
 msgid "Adds support for reading XPS documents"
 msgstr "XPS dokumentuak irakurtzeko euskarria gehitzen du"
 
-#. Manually set name and icon
-#: data/org.gnome.Evince.desktop.in.in:3
-#: data/org.gnome.Evince.metainfo.xml.in:23 shell/ev-window-title.c:131
-#: shell/main.c:300
-msgid "Document Viewer"
-msgstr "Dokumentu-ikustailea"
-
-#: data/org.gnome.Evince.desktop.in.in:4
-msgid "View multi-page documents"
-msgstr "Ikusi orrialde anitzeko dokumentuak"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Evince.desktop.in.in:6
-msgid ""
-"pdf;ps;postscript;dvi;xps;djvu;tiff;document;presentation;viewer;evince;"
-msgstr "pdf;ps;postscript;dvi;xps;djvu;tiff;dokumentua;aurkezpena;ikustailea;evince;"
-
-#: data/org.gnome.Evince.desktop.in.in:19
-msgid "New Window"
-msgstr "Leiho berria"
-
-#: data/org.gnome.Evince.gschema.xml:14
-msgid "Override document restrictions"
-msgstr "Jaramonik ez egin dokumentuaren murriztapenei"
-
-#: data/org.gnome.Evince.gschema.xml:15
-msgid "Override document restrictions, like restriction to copy or to print."
-msgstr "Jaramonik ez egin dokumentuaren kopiatzeko edo inprimatzeko bezalako murriztapenei"
-
-#: data/org.gnome.Evince.gschema.xml:19
-msgid "Automatically reload the document"
-msgstr "Birkargatu dokumentua automatikoki"
-
-#: data/org.gnome.Evince.gschema.xml:20
-msgid "The document is automatically reloaded on file change."
-msgstr "Dokumentua automatikoki birkargatuko da fitxategia aldatzean."
-
-#: data/org.gnome.Evince.gschema.xml:24
-msgid "The URI of the directory last used to open or save a document"
-msgstr "Dokumentu bat ireki edo gordetzeko erabilitako azken direktorioaren URLa."
-
-#: data/org.gnome.Evince.gschema.xml:28
-msgid "The URI of the directory last used to save a picture"
-msgstr "Irudi bat gordetzeko erabilitako azken direktorioaren URLa."
-
-#: data/org.gnome.Evince.gschema.xml:32
-msgid "Page cache size in MiB"
-msgstr "Orrialdearen cachearen tamaina (MiBtan)"
-
-#: data/org.gnome.Evince.gschema.xml:33
-msgid ""
-"The maximum size that will be used to cache rendered pages, limits maximum "
-"zoom level."
-msgstr "Gehieneko tamaina errendatutako orrialdeak cachean gordetzeko, honek zoomaren gehieneko maila mugatzen du."
-
-#: data/org.gnome.Evince.gschema.xml:37
-msgid ""
-"Show a dialog to confirm that the user wants to activate the caret "
-"navigation."
-msgstr "Erakutsi elkarrizketa-koadro bat erabiltzaileak kurtsorearen nabigazioa aktibatzea nahi duela berresteko."
-
-#: data/org.gnome.Evince.gschema.xml:41
-msgid "Allow links to change the zoom level."
-msgstr "Baimendu estekei zoom-aren maila aldatzea."
-
-#: data/org.gnome.Evince.gschema.xml:49
-msgid "Check spelling when writing annotation notes or filling text forms."
-msgstr "Ortografia-egiaztatzea oharrak idaztean edo testu-inprimakiak betetzean."
-
-#: data/org.gnome.Evince.gschema.xml:53
-msgid "Show a side bar next to the document to help navigate the document."
-msgstr "Erakutsi alboko barra bat dokumentuarenn alboan, nabigazioa errazteko."
-
-#: data/org.gnome.Evince.gschema.xml:63
-msgid "Set the default zoom level to display a document."
-msgstr "Ezarri dokumentuak bistaratzeko zoom-maila lehenetsia."
-
-#: data/org.gnome.Evince.gschema.xml:70
-msgid ""
-"Display the document as a continuous stream of pages instead of page at a "
-"time."
-msgstr "Bistaratu dokumentua orrialdeen korronte jarrai gisa, aldi bakoitzean orrialde bakarra erakutsi ordez."
-
-#: data/org.gnome.Evince.gschema.xml:74
-msgid "Show two pages side by side."
-msgstr "Erakutsi bi orrialde elkarren alboan."
-
-#: data/org.gnome.Evince.gschema.xml:78
-msgid ""
-"Show the first page (odd page) on the left (when displaying two pages side "
-"by side)"
-msgstr "Erakutsi lehen orrialdea (bakoitia) ezkerrean (elkarren alboko bi orrialdBeste ekuazio guztietan ezkerraldeko digituak eskuinaldean ere agertzen dira.eren bistan)"
-
-#: data/org.gnome.Evince.metainfo.xml.in:24
-msgid "Document viewer for popular document formats"
-msgstr "Dokumentuen formatu ospetsuen ikustailea"
-
-#: data/org.gnome.Evince.metainfo.xml.in:26
-msgid ""
-"A document viewer for the GNOME desktop. You can view, search or annotate "
-"documents in many different formats."
-msgstr "GNOME mahaigainerako dokumentu-ikustailea. Formatu mota askotako dokumentuak ikusi, haiek arakatu eta haietan oharrak idatzi ahal dituzu."
-
-#: data/org.gnome.Evince.metainfo.xml.in:27
-msgid ""
-"Evince supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, DVI (with "
-"SyncTeX), and Comic Books archives (CBR, CBT, CBZ, CB7)."
-msgstr "Honako dokumentu-formatuak onartzen ditu: PDF, PS, EPS, XPS, DjVu, TIFF, DVI (SyncTeX-ekin), eta komikien artxiboak (CBR, CBT, CBZ, CB7)."
-
-#: data/org.gnome.Evince.metainfo.xml.in:35
-msgid "A clear, simple UI"
-msgstr "Interfaze argi eta sinplea"
-
-#: data/org.gnome.Evince.metainfo.xml.in:39
-msgid "Advanced highlighting and annotation"
-msgstr "Nabarmentze eta oharren sortze aurreratua"
-
-#: data/org.gnome.Evince-previewer.desktop.in.in:3
-msgid "Print Preview"
-msgstr "Inprimatzeko aurrebista"
-
-#: data/org.gnome.Evince-previewer.desktop.in.in:4
-msgid "Preview before printing"
-msgstr "Aurreikusi inprimatu aurretik"
-
-#: libdocument/ev-attachment.c:310 libdocument/ev-attachment.c:331
+#: libdocument/pps-attachment.c:304 libdocument/pps-attachment.c:325
 #, c-format
 msgid "Couldn’t save attachment “%s”: %s"
 msgstr "Ezin izan da “%s” eranskina gorde: %s"
 
-#: libdocument/ev-attachment.c:378
+#: libdocument/pps-attachment.c:363
 #, c-format
 msgid "Couldn’t open attachment “%s”: %s"
 msgstr "Ezin izan da “%s” eranskina ireki: %s"
 
-#: libdocument/ev-attachment.c:417
+#: libdocument/pps-attachment.c:400
 #, c-format
 msgid "Couldn’t open attachment “%s”"
 msgstr "Ezin izan da “%s” eranskina ireki"
 
-#: libdocument/ev-document-factory.c:105
+#: libdocument/pps-document-factory.c:104
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "%s (%s) fitxategi mota ez dago onartuta"
 
-#: libdocument/ev-document-factory.c:370 libdocument/ev-file-helpers.c:417
-#: libdocument/ev-file-helpers.c:463 libdocument/ev-file-helpers.c:482
-#: libdocument/ev-file-helpers.c:563 libdocument/ev-file-helpers.c:572
+#: libdocument/pps-document-factory.c:387 libdocument/pps-file-helpers.c:417
+#: libdocument/pps-file-helpers.c:463 libdocument/pps-file-helpers.c:482
+#: libdocument/pps-file-helpers.c:563 libdocument/pps-file-helpers.c:572
 msgid "Unknown MIME Type"
 msgstr "MIME mota ezezaguna"
 
-#: libdocument/ev-document-factory.c:637
+#: libdocument/pps-document-factory.c:519
 msgid "All Documents"
 msgstr "Dokumentu guztiak"
 
-#: libdocument/ev-document-factory.c:664 shell/ev-utils.c:272
+#: libdocument/pps-document-factory.c:547
 msgid "All Files"
 msgstr "Fitxategi guztiak"
 
-#: libdocument/ev-file-helpers.c:157
+#. Translate to the default units to use for presenting
+#. * lengths to the user. Translate to default:inch if you
+#. * want inches, otherwise translate to default:mm.
+#. * Do *not* translate it to "predefinito:mm", if it
+#. * it isn't default:mm or default:inch it will not work
+#.
+#: libdocument/pps-document-info.c:212
+msgid "default:mm"
+msgstr "default:mm"
+
+#: libdocument/pps-document-info.c:264
+#, c-format
+msgid "%.0f × %.0f mm"
+msgstr "%.0f × %.0f mm"
+
+#: libdocument/pps-document-info.c:268
+#, c-format
+msgid "%.2f × %.2f inch"
+msgstr "%.2f × %.2f hazbete"
+
+#. Note to translators: first placeholder is the paper name (eg.
+#. * A4), second placeholder is the paper size (eg. 297x210 mm)
+#: libdocument/pps-document-info.c:292
+#, c-format
+msgid "%s, Portrait (%s)"
+msgstr "%s, bertikala (%s)"
+
+#. Note to translators: first placeholder is the paper name (eg.
+#. * A4), second placeholder is the paper size (eg. 297x210 mm)
+#: libdocument/pps-document-info.c:299
+#, c-format
+msgid "%s, Landscape (%s)"
+msgstr "%s, horizontala (%s)"
+
+#: libdocument/pps-file-helpers.c:157
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "Huts egin du aldi baterako fitxategiaren sorrerak: %s"
 
-#: libdocument/ev-file-helpers.c:234
+#: libdocument/pps-file-helpers.c:234
 #, c-format
 msgid "Failed to create a temporary directory: %s"
 msgstr "Huts egin du aldi baterako direktorioaren sorrerak: %s"
 
-#: libdocument/ev-xmp.c:350
+#: libdocument/pps-xmp.c:202
 msgid "This work is in the Public Domain"
 msgstr "Lan hau Domeinu Publikoan dago"
 
-#: libmisc/ev-page-action-widget.c:90 libmisc/ev-page-action-widget.c:129
-#, c-format
-msgid "(%d of %d)"
-msgstr "(%d / %d)"
+#: libview/context/pps-attachment-context.c:345
+msgid "Save Attachment"
+msgid_plural "Save Attachments"
+msgstr[0] "Gorde eranskina"
+msgstr[1] "Gorde eranskinak"
 
-#: libmisc/ev-page-action-widget.c:92 libmisc/ev-page-action-widget.c:133
-#, c-format
-msgid "of %d"
-msgstr "/ %d"
-
-#: libmisc/ev-page-action-widget.c:201 shell/ev-history.c:454
-#: shell/ev-sidebar-bookmarks.c:343 shell/ev-window.c:954
-#: shell/ev-window.c:5155
+#: libview/context/pps-history.c:488 previewer/pps-page-selector.c:194
+#: shell/pps-document-view.c:639 shell/pps-document-view.c:2697
+#: shell/pps-sidebar-bookmarks.c:339
 #, c-format
 msgid "Page %s"
 msgstr "%s orrialdea"
 
-#: libmisc/ev-search-box.c:112
-msgid "Not found, click to change search options"
-msgstr "Ez da aurkitu. Egin klik bilaketaren aukerak aldatzeko"
-
-#: libmisc/ev-search-box.c:186 libmisc/ev-search-box.c:242
-msgid "Search options"
-msgstr "Bilaketaren aukerak"
-
-#: libmisc/ev-search-box.c:318
-msgid "_Whole Words Only"
-msgstr "Hitz _osoak soilik"
-
-#: libmisc/ev-search-box.c:331
-msgid "C_ase Sensitive"
-msgstr "M_aiuskulak/minuskulak"
-
-#: libmisc/ev-search-box.c:600
-msgid "Find previous occurrence of the search string"
-msgstr "Hitzaren aurreko agerraldia bilatzen du"
-
-#: libmisc/ev-search-box.c:607
-msgid "Find next occurrence of the search string"
-msgstr "Hitzaren hurrengo agerraldia bilatzen du"
-
-#: libview/ev-jobs.c:625
+#: libview/pps-jobs.c:419
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "Huts egin du %d orrialdearen errendatzeak: %s"
 
-#: libview/ev-jobs.c:632
+#: libview/pps-jobs.c:426
 #, c-format
 msgid "Failed to render page %d"
 msgstr "Huts egin du %d orrialdearen errendatzeak"
 
-#: libview/ev-jobs.c:878
+#: libview/pps-jobs.c:644
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "Huts egin du %d orrialdearen koadro txikiaren sorrerak"
 
-#: libview/ev-jobs.c:2288
+#: libview/pps-jobs.c:1596
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "Huts egin du %d orrialdearen inprimatzeak: %s"
 
 #. Initial state
-#: libview/ev-print-operation.c:346
+#: libview/pps-print-operation.c:348
 msgid "Preparing preview…"
 msgstr "Aurrebista prestatzen…"
 
-#: libview/ev-print-operation.c:348 libview/ev-print-operation.c:358
+#: libview/pps-print-operation.c:350 libview/pps-print-operation.c:360
 msgid "Finishing…"
 msgstr "Amaitzen…"
 
-#: libview/ev-print-operation.c:350
+#: libview/pps-print-operation.c:352
 #, c-format
 msgid "Generating preview: page %d of %d"
 msgstr "Aurrebista sortzen: %d / %d orrialdea"
 
 #. Initial state
-#: libview/ev-print-operation.c:356
+#: libview/pps-print-operation.c:358
 msgid "Preparing to print…"
 msgstr "Inprimatzeko prestatzen…"
 
-#: libview/ev-print-operation.c:360
+#: libview/pps-print-operation.c:362
 #, c-format
 msgid "Printing page %d of %d…"
 msgstr "Orrialdea inprimatzen: %d / %d …"
 
-#: libview/ev-print-operation.c:1561 libview/ev-print-operation.c:2028
+#: libview/pps-print-operation.c:1544 libview/pps-print-operation.c:1999
 msgid "Your print range selection does not include any pages"
 msgstr "Inprimatzeko hautatutako barrutiak ez du inolako orrialderik"
 
 #. translators: Title of the print dialog
-#: libview/ev-print-operation.c:1702 libview/ev-print-operation.c:1800
-#: libview/ev-print-operation.c:2079
+#: libview/pps-print-operation.c:1685 libview/pps-print-operation.c:1783
+#: libview/pps-print-operation.c:2048
 msgid "Print"
 msgstr "Inprimatu"
 
-#: libview/ev-print-operation.c:2002
+#: libview/pps-print-operation.c:1979
 msgid "Requested format is not supported by this printer."
 msgstr "Inprimagailu honek ez du eskatutako formatua onartzen."
 
-#: libview/ev-print-operation.c:2025
-msgid "Invalid page selection"
+#: libview/pps-print-operation.c:1998
+msgid "Invalid Page Selection"
 msgstr "Baliogabeko orrialde hautapena"
 
-#: libview/ev-print-operation.c:2026
-msgid "Warning"
-msgstr "Abisua"
+#: libview/pps-print-operation.c:2000
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.ui:634
+#: shell/pps-window.ui:155
+msgid "_Close"
+msgstr "It_xi"
 
-#: libview/ev-print-operation.c:2685
+#: libview/pps-print-operation.c:2637
 msgid "Page Scaling:"
 msgstr "Orrialdea eskalatzea:"
 
-#: libview/ev-print-operation.c:2692
+#: libview/pps-print-operation.c:2644
 msgid "Shrink to Printable Area"
 msgstr "Uzkurtu area inprimagarrira"
 
-#: libview/ev-print-operation.c:2693
+#: libview/pps-print-operation.c:2645
 msgid "Fit to Printable Area"
 msgstr "Doitu area inprimagarrira"
 
-#: libview/ev-print-operation.c:2696
+#: libview/pps-print-operation.c:2648
 msgid ""
 "Scale document pages to fit the selected printer page. Select from one of "
 "the following:\n"
@@ -600,1505 +587,1707 @@ msgstr "Eskalatu dokumentuko orrialdeak hautatutako inprimagailuaren orrialdera 
 "\n"
 "• “Doitu area inprimagarrira“: dokumentuko orrialdeak behar haina bezain handitu edo txikitu egingo dira inprimagailuaren orrialdeko areara doitzeko.\n"
 
-#: libview/ev-print-operation.c:2708
+#: libview/pps-print-operation.c:2660
 msgid "Auto Rotate and Center"
 msgstr "Biratu eta zentratu automatikoki"
 
-#: libview/ev-print-operation.c:2711
+#: libview/pps-print-operation.c:2663
 msgid ""
 "Rotate printer page orientation of each page to match orientation of each "
 "document page. Document pages will be centered within the printer page."
 msgstr "Biratu inprimagailuaren orrialdearen orrialde bakoitza orientazioa dokumentuko orrialde bakoitzaren orientazioarekin bat etortzeko. Dokumentuko orrialdeak zentratu egingo dira inprimagailuaren orrialdean."
 
-#: libview/ev-print-operation.c:2716
+#: libview/pps-print-operation.c:2668
 msgid "Select page size using document page size"
 msgstr "Hautatu orrialdearen tamaina dokumentuko orrialdearen tamaina erabiliz"
 
-#: libview/ev-print-operation.c:2718
+#: libview/pps-print-operation.c:2670
 msgid ""
 "When enabled, each page will be printed on the same size paper as the "
 "document page."
 msgstr "Gaitutakoan, dokumentuko orrialdearen paperaren tamaina berdinarekin inprimatuko da orrialde bakoitza."
 
-#: libview/ev-print-operation.c:2723
+#: libview/pps-print-operation.c:2675
 msgid "Draw border around pages"
 msgstr "Marraztu ertza orrialdeen inguruan"
 
-#: libview/ev-print-operation.c:2725
+#: libview/pps-print-operation.c:2677
 msgid "When enabled, a border will be drawn around each page."
 msgstr "Gaituta dagoenean, ertz bat marraztuko da orrialde bakoitzaren inguruan."
 
-#: libview/ev-print-operation.c:2819
+#: libview/pps-print-operation.c:2771
 msgid "Page Handling"
 msgstr "Orrialdeen kudeaketa"
 
-#: libview/ev-view-accessible.c:43
+#: libview/pps-view-accessible.c:43
 msgid "Scroll Up"
 msgstr "Korritu gora"
 
-#: libview/ev-view-accessible.c:44
+#: libview/pps-view-accessible.c:44
 msgid "Scroll Down"
 msgstr "Korritu behera"
 
-#: libview/ev-view-accessible.c:50
+#: libview/pps-view-accessible.c:50
 msgid "Scroll View Up"
 msgstr "Korritu ikuspegia gora"
 
-#: libview/ev-view-accessible.c:51
+#: libview/pps-view-accessible.c:51
 msgid "Scroll View Down"
 msgstr "Korritu ikuspegia behera"
 
-#: libview/ev-view-accessible.c:131
+#: libview/pps-view-accessible.c:132
 msgid "Document View"
 msgstr "Dokumentuaren ikuspegia"
 
-#: libview/ev-view.c:2138
+#: libview/pps-view.c:2124
 msgid "Go to first page"
 msgstr "Joan lehen orrialdera"
 
-#: libview/ev-view.c:2140
+#: libview/pps-view.c:2126
 msgid "Go to previous page"
 msgstr "Joan aurreko orrira"
 
-#: libview/ev-view.c:2142
+#: libview/pps-view.c:2128
 msgid "Go to next page"
 msgstr "Joan hurrengo orrira"
 
-#: libview/ev-view.c:2144
+#: libview/pps-view.c:2130
 msgid "Go to last page"
 msgstr "Joan azken orrialdera"
 
-#: libview/ev-view.c:2146
+#: libview/pps-view.c:2132
 msgid "Go to page"
 msgstr "Joan orrira:"
 
-#: libview/ev-view.c:2148
+#: libview/pps-view.c:2134
 msgid "Find"
-msgstr "Bilatu"
+msgstr "Aurkitu"
 
-#: libview/ev-view.c:2176
+#: libview/pps-view.c:2163
 #, c-format
 msgid "Go to page %s"
 msgstr "Joan %s orrira"
 
-#: libview/ev-view.c:2182
+#: libview/pps-view.c:2169
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Joan hona: %s ('%s' fitxategian)"
 
-#: libview/ev-view.c:2185
+#: libview/pps-view.c:2172
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Joan '%s' fitxategira"
 
-#: libview/ev-view.c:2193
+#: libview/pps-view.c:2180
 #, c-format
 msgid "Launch %s"
 msgstr "Abiarazi %s"
 
-#: libview/ev-view.c:2200
+#: libview/pps-view.c:2187
+#, c-format
 msgid "Reset form"
 msgstr "Leheneratu inprimakia"
 
-#: libview/ev-view-presentation.c:726
-msgid "Jump to page:"
-msgstr "Joan orrira:"
+#: libview/pps-view-presentation.c:837
+msgid "Running in presentation mode"
+msgstr "Exekutatu aurkezpen moduan"
 
-#: libview/ev-view-presentation.c:1010
+#: libview/pps-view-presentation.c:888
 msgid "End of presentation. Press Esc or click to exit."
 msgstr "Aurkezpenaren amaiera. Sakatu Esc edo egin klik irteteko."
 
-#: previewer/ev-previewer.c:57
-msgid "Delete the temporary file"
-msgstr "Ezabatu aldi baterako fitxategia"
+#: libview/pps-view-presentation.ui:57
+msgid "Jump to page:"
+msgstr "Joan orrira:"
 
-#: previewer/ev-previewer.c:59
-msgid "File specifying print settings"
-msgstr "Inprimatze-ezarpenak adierazten duen fitxategia"
+#: previewer/pps-page-selector.c:80 previewer/pps-page-selector.c:119
+#, c-format
+msgid "(%d of %d)"
+msgstr "(%d / %d)"
 
-#: previewer/ev-previewer.c:59
-msgid "FILE"
-msgstr "FITXATEGIA"
+#: previewer/pps-page-selector.c:82 previewer/pps-page-selector.c:123
+#, c-format
+msgid "of %d"
+msgstr "/ %d"
 
-#: previewer/ev-previewer.c:61
-msgid "File descriptor of input file"
-msgstr "Sarrerako fitxategiaren deskriptorea"
-
-#: previewer/ev-previewer.c:61 previewer/ev-previewer.c:65
-msgid "FD"
-msgstr "FD"
-
-#: previewer/ev-previewer.c:63
-msgid "MIME type of input file"
-msgstr "Sarrerako fitxategiaren MIME mota"
-
-#: previewer/ev-previewer.c:63
-msgid "TYPE"
-msgstr "MOTA"
-
-#: previewer/ev-previewer.c:65
-msgid "File descriptor of print settings file"
-msgstr "Inprimatze-ezarpenen fitxategiaren deskriptorea"
-
-#: previewer/ev-previewer.c:295 previewer/ev-previewer.c:315
-msgid "GNOME Document Previewer"
-msgstr "GNOMEko dokumentu aurre-ikustailea"
-
-#: previewer/ev-previewer-toolbar.c:112 shell/evince-toolbar.ui:35
-msgid "Select page or search in the outline"
-msgstr "Hautatu orrialdea edo bilatu eskeman"
-
-#: previewer/ev-previewer-toolbar.c:114 shell/evince-toolbar.ui:38
+#: previewer/pps-page-selector.ui:12 shell/pps-page-selector.ui:12
 msgid "Select page"
 msgstr "Hautatu orrialdea"
 
-#: previewer/ev-previewer-window.c:78 shell/ev-window.c:3636
+#: previewer/pps-previewer.c:48
+msgid "Delete the temporary file"
+msgstr "Ezabatu aldi baterako fitxategia"
+
+#: previewer/pps-previewer.c:50
+msgid "File specifying print settings"
+msgstr "Inprimatze-ezarpenak adierazten duen fitxategia"
+
+#: previewer/pps-previewer.c:50
+msgid "FILE"
+msgstr "FITXATEGIA"
+
+#: previewer/pps-previewer.c:52
+msgid "File descriptor of input file"
+msgstr "Sarrerako fitxategiaren deskriptorea"
+
+#: previewer/pps-previewer.c:52 previewer/pps-previewer.c:56
+msgid "FD"
+msgstr "FD"
+
+#: previewer/pps-previewer.c:54
+msgid "MIME type of input file"
+msgstr "Sarrerako fitxategiaren MIME mota"
+
+#: previewer/pps-previewer.c:54
+msgid "TYPE"
+msgstr "MOTA"
+
+#: previewer/pps-previewer.c:56
+msgid "File descriptor of print settings file"
+msgstr "Inprimatze-ezarpenen fitxategiaren deskriptorea"
+
+#: previewer/pps-previewer.c:257 previewer/pps-previewer.c:273
+msgid "GNOME Document Previewer"
+msgstr "GNOMEko dokumentu aurre-ikustailea"
+
+#: previewer/pps-previewer-window.c:78
 msgid "Failed to print document"
 msgstr "Huts egin du dokumentua inprimatzean"
 
-#: previewer/ev-previewer-window.c:193 previewer/ev-previewer-window.c:558
-msgid "Evince Document Viewer"
-msgstr "Evince dokumentu-ikustailea"
+#: previewer/pps-previewer-window.c:187 previewer/pps-previewer-window.c:499
+msgid "Papers Document Viewer"
+msgstr "Paperak dokumentu-ikustailea"
 
-#: previewer/ev-previewer-window.c:229
+#: previewer/pps-previewer-window.c:223
 #, c-format
 msgid "The selected printer “%s” could not be found"
 msgstr "Ezin izan da hautatutako “%s” inprimagailua aurkitu"
 
-#: previewer/ev-previewer-window.c:536 shell/ev-window.c:4227
-msgid "Evince"
-msgstr "Evince"
-
-#: previewer/previewer.ui:7
-msgid "_Print"
-msgstr "I_nprimatu"
-
-#: previewer/previewer.ui:10
-msgid "Print this document"
-msgstr "Inprimatu dokumentu hau"
-
-#: previewer/previewer.ui:20 shell/evince-menus.ui:129
+#: previewer/pps-previewer-window.ui:17
 msgid "Previous Page"
 msgstr "Aurreko orrialdea"
 
-#: previewer/previewer.ui:27 shell/evince-menus.ui:133
+#: previewer/pps-previewer-window.ui:24
 msgid "Next Page"
 msgstr "Hurrengo orrialdea"
 
-#: previewer/previewer.ui:34
-msgid "Enlarge the document"
-msgstr "Handiagotu dokumentua"
+#: previewer/pps-previewer-window.ui:31 shell/pps-document-view.ui:223
+msgid "Page Count"
+msgstr "Orrialde kopurua"
 
-#: previewer/previewer.ui:42
-msgid "Shrink the document"
-msgstr "Uzkurtu dokumentua"
+#: previewer/pps-previewer-window.ui:37
+msgid "_Print"
+msgstr "I_nprimatu"
 
-#: previewer/previewer.ui:49
-msgid "Reset zoom and make the page fit in the window"
-msgstr "Berrezarri zooma eta egin orriak leihoa bete dezan"
+#: previewer/pps-previewer-window.ui:38
+msgid "Print This Document"
+msgstr "Inprimatu dokumentu hau"
 
-#: properties/ev-properties-main.c:116
-msgid "Document"
-msgstr "Dokumentua"
+#: previewer/pps-previewer-window.ui:48 shell/pps-document-view.ui:297
+msgid "Zoom Out"
+msgstr "Txikiagotu"
 
-#: properties/ev-properties-view.c:62
-msgid "Title:"
-msgstr "Titulua:"
+#: previewer/pps-previewer-window.ui:55
+msgid "Normal Size"
+msgstr "Tamaina normala"
 
-#: properties/ev-properties-view.c:63
-msgid "Location:"
-msgstr "Kokalekua:"
+#: previewer/pps-previewer-window.ui:62 shell/pps-document-view.ui:284
+msgid "Zoom In"
+msgstr "Handiagotu"
 
-#: properties/ev-properties-view.c:64
-msgid "Subject:"
-msgstr "Gaia:"
-
-#: properties/ev-properties-view.c:65
-#: shell/ev-annotation-properties-dialog.c:169
-msgid "Author:"
-msgstr "Egilea:"
-
-#: properties/ev-properties-view.c:66
-msgid "Keywords:"
-msgstr "Gako-hitzak:"
-
-#: properties/ev-properties-view.c:67
-msgid "Producer:"
-msgstr "Ekoizlea:"
-
-#: properties/ev-properties-view.c:68
-msgid "Creator:"
-msgstr "Sortzailea:"
-
-#: properties/ev-properties-view.c:69
-msgid "Created:"
-msgstr "Sortua:"
-
-#: properties/ev-properties-view.c:70
-msgid "Modified:"
-msgstr "Aldatze-data:"
-
-#: properties/ev-properties-view.c:71
-msgid "Number of Pages:"
-msgstr "Orri kopurua:"
-
-#: properties/ev-properties-view.c:72
-msgid "Optimized:"
-msgstr "Optimizatua:"
-
-#: properties/ev-properties-view.c:73
-msgid "Format:"
-msgstr "Formatua:"
-
-#: properties/ev-properties-view.c:74
-msgid "Security:"
-msgstr "Segurtasuna:"
-
-#: properties/ev-properties-view.c:75
-msgid "Contains Javascript:"
-msgstr "Javascript dauka:"
-
-#: properties/ev-properties-view.c:76
-msgid "Paper Size:"
-msgstr "Paper-tamaina:"
-
-#: properties/ev-properties-view.c:77
-msgid "Size:"
-msgstr "Tamaina:"
-
-#. Translate to the default units to use for presenting
-#. * lengths to the user. Translate to default:inch if you
-#. * want inches, otherwise translate to default:mm.
-#. * Do *not* translate it to "predefinito:mm", if it
-#. * it isn't default:mm or default:inch it will not work
-#.
-#: properties/ev-properties-view.c:267
-msgid "default:mm"
-msgstr "default:mm"
-
-#: properties/ev-properties-view.c:311
-#, c-format
-msgid "%.0f × %.0f mm"
-msgstr "%.0f × %.0f mm"
-
-#: properties/ev-properties-view.c:315
-#, c-format
-msgid "%.2f × %.2f inch"
-msgstr "%.2f × %.2f hazbete"
-
-#. Note to translators: first placeholder is the paper name (eg.
-#. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: properties/ev-properties-view.c:339
-#, c-format
-msgid "%s, Portrait (%s)"
-msgstr "%s, bertikala (%s)"
-
-#. Note to translators: first placeholder is the paper name (eg.
-#. * A4), second placeholder is the paper size (eg. 297x210 mm)
-#: properties/ev-properties-view.c:346
-#, c-format
-msgid "%s, Landscape (%s)"
-msgstr "%s, horizontala (%s)"
-
-#: properties/ev-properties-view.c:433
-#: shell/ev-annotation-properties-dialog.c:109
+#: nautilus/pps-nautilus-extension.c:125
+#: shell/pps-annotation-properties-dialog.ui:59
+#: shell-rs/src/properties_general.rs:172
 msgid "Unknown"
 msgstr "Ezezaguna"
 
-#: shell/ev-annotation-properties-dialog.c:94
-msgid "Icon:"
-msgstr "Ikonoa:"
-
-#: shell/ev-annotation-properties-dialog.c:100
-msgid "Note"
-msgstr "Oharra"
-
-#: shell/ev-annotation-properties-dialog.c:101
-msgid "Comment"
-msgstr "Iruzkina"
-
-#: shell/ev-annotation-properties-dialog.c:102
-msgid "Key"
-msgstr "Gakoa"
-
-#: shell/ev-annotation-properties-dialog.c:103
-msgid "Help"
-msgstr "Laguntza"
-
-#: shell/ev-annotation-properties-dialog.c:104
-msgid "New Paragraph"
-msgstr "Paragrafo berria"
-
-#: shell/ev-annotation-properties-dialog.c:105
-msgid "Paragraph"
-msgstr "Paragrafoa"
-
-#: shell/ev-annotation-properties-dialog.c:106
-msgid "Insert"
-msgstr "Txertatu"
-
-#: shell/ev-annotation-properties-dialog.c:107
-msgid "Cross"
-msgstr "Gurutzea"
-
-#: shell/ev-annotation-properties-dialog.c:108
-msgid "Circle"
-msgstr "Zirkulua"
-
-#: shell/ev-annotation-properties-dialog.c:120
-msgid "Markup type:"
-msgstr "Markaketa mota:"
-
-#: shell/ev-annotation-properties-dialog.c:126
-msgid "Highlight"
-msgstr "Nabarmendu"
-
-#: shell/ev-annotation-properties-dialog.c:127
-msgid "Strike out"
-msgstr "Marratu"
-
-#: shell/ev-annotation-properties-dialog.c:128
-msgid "Underline"
-msgstr "Azpimarratua"
-
-#: shell/ev-annotation-properties-dialog.c:129
-msgid "Squiggly"
-msgstr "Zirriborroa"
-
-#: shell/ev-annotation-properties-dialog.c:150 shell/evince-menus.ui:170
-msgid "Annotation Properties"
-msgstr "Oharpenaren propietateak"
-
-#: shell/ev-annotation-properties-dialog.c:154
-msgid "_Close"
-msgstr "It_xi"
-
-#: shell/ev-annotation-properties-dialog.c:155
-msgid "_Apply"
-msgstr "_Aplikatu"
-
-#: shell/ev-annotation-properties-dialog.c:180
-msgid "Color:"
-msgstr "Kolorea:"
-
-#: shell/ev-annotation-properties-dialog.c:190
-msgid "Opacity:"
-msgstr "Opakutasuna:"
-
-#: shell/ev-annotation-properties-dialog.c:202
-msgid "Initial window state:"
-msgstr "Hasierako leihoaren egoera:"
-
-#: shell/ev-annotation-properties-dialog.c:208
-msgid "Open"
-msgstr "Ireki"
-
-#: shell/ev-annotation-properties-dialog.c:209
-msgid "Close"
-msgstr "Itxi"
-
-#. Translators: an annotation that looks like a "sticky note"
-#: shell/ev-annotations-toolbar.c:132
-msgid "Note text"
-msgstr "Ohar-testua"
-
-#: shell/ev-annotations-toolbar.c:134
-msgid "Add text annotation"
-msgstr "Gehitu testu-oharpena"
-
-#: shell/ev-annotations-toolbar.c:139
-msgid "Highlight text"
-msgstr "Nabarmendu testua"
-
-#: shell/ev-annotations-toolbar.c:141
-msgid "Add highlight annotation"
-msgstr "Gehitu ohar nabarmendua"
-
-#: shell/evince-menus.ui:24
-msgid "_Open Link"
-msgstr "_Ireki esteka"
-
-#: shell/evince-menus.ui:29
-msgid "_Copy Link Address"
-msgstr "_Kopiatu estekaren helbidea"
-
-#: shell/evince-menus.ui:34
-msgid "_Go To"
-msgstr "_Joan hona"
-
-#: shell/evince-menus.ui:39
-msgid "Open in New _Window"
-msgstr "Ireki _leiho berrian"
-
-#: shell/evince-menus.ui:46
-msgid "_Previous Page"
-msgstr "_Aurreko orrialdea"
-
-#: shell/evince-menus.ui:50
-msgid "_Next Page"
-msgstr "_Hurrengo orrialdea"
-
-#: shell/evince-menus.ui:54 shell/ev-window.c:3935
-msgid "_Reload"
-msgstr "Bir_kargatu"
-
-#: shell/evince-menus.ui:58
-msgid "Auto_scroll"
-msgstr "Korritze automatikoa"
-
-#: shell/evince-menus.ui:64
-msgid "_Copy"
-msgstr "_Kopiatu"
-
-#: shell/evince-menus.ui:68
-msgid "Select _All"
-msgstr "Hautatu _dena"
-
-#: shell/evince-menus.ui:74
-msgid "_Save Image As…"
-msgstr "Gorde _irudia honela…"
-
-#: shell/evince-menus.ui:79
-msgid "Copy _Image"
-msgstr "Kopiatu _irudia"
-
-#: shell/evince-menus.ui:86 shell/evince-menus.ui:157 shell/evince-menus.ui:180
-msgid "_Open Attachment"
-msgstr "_Ireki eranskina"
-
-#: shell/evince-menus.ui:91 shell/evince-menus.ui:161 shell/evince-menus.ui:185
-msgid "_Save Attachment As…"
-msgstr "_Gorde eranskina honela…"
-
-#: shell/evince-menus.ui:98
-msgid "Annotation _Properties"
-msgstr "O_harpenen propietateak"
-
-#: shell/evince-menus.ui:103
-msgid "R_emove Annotation"
-msgstr "K_endu oharpena"
-
-#: shell/evince-menus.ui:110
-msgid "_Highlight Selected Text"
-msgstr "Nabarmendu hautatutako _testua"
-
-#: shell/evince-menus.ui:115 shell/evince-toolbar.ui:153
-msgid "Open Containing _Folder"
-msgstr "Ireki karpeta _edukitzailea"
-
-#: shell/evince-menus.ui:123
-msgid "Navigation"
-msgstr "Nabigazioa"
-
-#: shell/evince-menus.ui:125
-msgid "First Page"
-msgstr "Aurreneko orrialdea"
-
-#: shell/evince-menus.ui:137
-msgid "Last Page"
-msgstr "Azken orrialdea"
-
-#: shell/evince-menus.ui:142
-msgid "History"
-msgstr "Historia"
-
-#: shell/evince-menus.ui:144
-msgid "Back"
-msgstr "Atzera"
-
-#: shell/evince-menus.ui:148
-msgid "Forward"
-msgstr "Aurrera"
-
-#: shell/evince-menus.ui:175
-msgid "Remove Annotation"
-msgstr "Kendu oharpena"
-
-#: shell/evince-menus.ui:195
-msgid "_Open Bookmark"
-msgstr "_Ireki laster-marka"
-
-#: shell/evince-menus.ui:201
-msgid "_Rename Bookmark"
-msgstr "_Aldatu laster-markaren izena"
-
-#: shell/evince-menus.ui:205
-msgid "_Delete Bookmark"
-msgstr "_Ezabatu laster-marka"
-
-#: shell/evince-menus.ui:214
-msgid "Search in the outline…"
-msgstr "Bilatu eskeman…"
-
-#: shell/evince-menus.ui:218
-msgid "Print this section…"
-msgstr "Inprimatu sekzio hau…"
-
-#: shell/evince-menus.ui:222
-msgid "Collapse all tree"
-msgstr "Tolestu zuhaitz osoa"
-
-#: shell/evince-menus.ui:226
-msgid "Expand all tree"
-msgstr "Zabaldu zuhaitz osoa"
-
-#: shell/evince-menus.ui:230
-msgid "Expand all under this element"
-msgstr "Zabaldu elementu honen azpiko guztia"
-
-#: shell/evince-password-view.ui:22
-msgid ""
-"This document is locked and can only be read by entering the correct "
-"password."
-msgstr "Dokumentu hau blokeatuta dago, pasahitz egokia sartuz irakur daiteke soilik."
-
-#: shell/evince-password-view.ui:37
-msgid "_Unlock Document"
-msgstr "_Desblokeatu dokumentua"
-
-#: shell/evince-properties-fonts.ui:40
-msgid "Font"
-msgstr "Letra-tipoa"
-
-#: shell/evince-sidebar-bookmarks.ui:55
-msgid "Add bookmark"
-msgstr "Gehitu laster-marka"
-
-#: shell/evince-sidebar-bookmarks.ui:64
-msgid "Remove bookmark"
-msgstr "Kendu laster-marka"
-
-#: shell/evince-toolbar.ui:10
-msgid "Open…"
-msgstr "Ireki…"
-
-#: shell/evince-toolbar.ui:11
-msgid "Open an existing document"
-msgstr "Ireki existitzen den dokumentua"
-
-#: shell/evince-toolbar.ui:20
-msgid "Side pane"
-msgstr "Alboko panela"
-
-#: shell/evince-toolbar.ui:49
-msgid "Annotate the document"
-msgstr "Jarri oharra dokumentuan"
-
-#: shell/evince-toolbar.ui:59
-msgid "Annotate document"
-msgstr "Jarri oharra dokumentuetan"
-
-#: shell/evince-toolbar.ui:70 shell/evince-toolbar.ui:81
-msgid "File options"
-msgstr "Fitxategiaren aukerak"
-
-#: shell/evince-toolbar.ui:110
-msgid "Set zoom level"
-msgstr "Ezarri zoomaren maila"
-
-#: shell/evince-toolbar.ui:126
-msgid "Print…"
-msgstr "Inprimatu…"
-
-#: shell/evince-toolbar.ui:131
-msgid "Fullscreen"
-msgstr "Pantaila osoa"
-
-#: shell/evince-toolbar.ui:136
-msgid "Send To…"
-msgstr "Bidali hona…"
-
-#: shell/evince-toolbar.ui:143
-msgid "New _Window"
-msgstr "Leiho _berria"
-
-#: shell/evince-toolbar.ui:149
-msgid "Open a C_opy"
-msgstr "Ireki k_opia bat"
-
-#: shell/evince-toolbar.ui:159
-msgid "_Save As…"
-msgstr "Gorde _honela…"
-
-#: shell/evince-toolbar.ui:165
-msgid "Present as _Slideshow"
-msgstr "Au_rkeztu diapositiba gisa"
-
-#: shell/evince-toolbar.ui:171
-msgid "_Continuous"
-msgstr "_Etengabea"
-
-#: shell/evince-toolbar.ui:175
-msgid "_Dual"
-msgstr "_Duala"
-
-#: shell/evince-toolbar.ui:179
-msgid "_Odd Pages Left"
-msgstr "Orrialde b_akoitiak ezkerrean"
-
-#: shell/evince-toolbar.ui:183
-msgid "Right to Left Document"
-msgstr "Eskuinetik ezkerrerako dokumentua"
-
-#: shell/evince-toolbar.ui:189
-msgid "Ro_tate ⤵"
-msgstr "Bira_tu ⤵"
-
-#: shell/evince-toolbar.ui:195
-msgid "Ni_ght Mode"
-msgstr "Ga_ueko modua"
-
-#: shell/evince-toolbar.ui:201
-msgid "Prop_erties"
-msgstr "Propi_etateak…"
-
-#: shell/evince-toolbar.ui:207
-msgid "_Keyboard Shortcuts"
-msgstr "Las_ter-teklak"
-
-#: shell/evince-toolbar.ui:211
-msgid "_Help"
-msgstr "_Laguntza"
-
-#: shell/evince-toolbar.ui:215
-msgid "_About Document Viewer"
-msgstr "Dokumentu-ikustaileari _buruz"
-
-#: shell/evince-zoom-action.ui:5
-msgid "Select or set the zoom level of the document"
-msgstr "Hautatu edo ezarri dokumentuaren zoomaren maila"
-
-#: shell/evince-zoom-action.ui:30
-msgid "Fit Pa_ge"
-msgstr "Doitu _orrialdea"
-
-#: shell/evince-zoom-action.ui:35
-msgid "Fit _Width"
-msgstr "Doitu _zabalera"
-
-#: shell/evince-zoom-action.ui:40
-msgid "_Automatic"
-msgstr "_Automatikoa"
-
-#: shell/ev-keyring.c:86
-#, c-format
-msgid "Password for document %s"
-msgstr "'%s' dokumentuaren pasahitza"
-
-#: shell/ev-loading-message.c:50 shell/ev-sidebar-annotations.c:140
-#: shell/ev-sidebar-layers.c:119 shell/ev-sidebar-links.c:274
-msgid "Loading…"
-msgstr "Kargatzen…"
-
-#: shell/ev-password-view.c:224
-#, c-format
-msgid ""
-"The document “%s” is locked and requires a password before it can be opened."
-msgstr "'%s' dokumentua blokeatuta dago, pasahitza behar da irekitzeko."
-
-#: shell/ev-password-view.c:231
-msgid "Password required"
-msgstr "Pasahitza behar da"
-
-#: shell/ev-password-view.c:238 shell/ev-sidebar-attachments.c:493
-#: shell/ev-window.c:2877 shell/ev-window.c:3174 shell/ev-window.c:4059
-#: shell/ev-window.c:6983 shell/ev-window.c:7209
-msgid "_Cancel"
-msgstr "_Utzi"
-
-#: shell/ev-password-view.c:239
-msgid "_Unlock"
-msgstr "_Desblokeatu"
-
-#: shell/ev-password-view.c:251
-msgid "_Password:"
-msgstr "_Pasahitza:"
-
-#: shell/ev-password-view.c:285
-msgid "Forget password _immediately"
-msgstr "Ahaztu pasahitza _berehala"
-
-#: shell/ev-password-view.c:296
-msgid "Remember password until you _log out"
-msgstr "Gogoratu pasahitza saio _amaitu arte"
-
-#: shell/ev-password-view.c:307
-msgid "Remember _forever"
-msgstr "_Gogoratu beti"
-
-#: shell/ev-properties-dialog.c:63
-msgid "Properties"
-msgstr "Propietateak"
-
-#: shell/ev-properties-dialog.c:85
-msgid "General"
-msgstr "Orokorra"
-
-#: shell/ev-properties-dialog.c:95
-msgid "Fonts"
-msgstr "Letra-tipoak"
-
-#: shell/ev-properties-dialog.c:108
-msgid "Document License"
-msgstr "Dokumentuaren lizentzia"
-
-#: shell/ev-properties-fonts.c:136
-#, c-format
-msgid "Gathering font information… %3d%%"
-msgstr "Letra-tipoaren informazioa biltzen… %%%3d"
-
-#: shell/ev-properties-license.c:146
-msgid "Usage terms"
-msgstr "Erabilpenaren baldintzak"
-
-#: shell/ev-properties-license.c:158
-msgid "Text License"
-msgstr "Testuaren lizentzia"
-
-#: shell/ev-properties-license.c:169
-msgid "Further Information"
-msgstr "Informazio gehiago"
-
-#: shell/ev-sidebar-annotations.c:341
-msgid "Document contains no annotations"
-msgstr "Dokumentuak ez du oharpenik"
-
-#: shell/ev-sidebar-annotations.c:369
-#, c-format
-msgid "Page %d"
-msgstr "%d. orria"
-
-#: shell/ev-sidebar-annotations.c:403
-msgid "No Comment"
-msgstr "Iruzkinik ez"
-
-#: shell/ev-sidebar-annotations.c:564 shell/ev-window.c:7592
-msgid "Annotations"
-msgstr "Oharpenak"
-
-#: shell/ev-sidebar-attachments.c:485
-#, c-format
-msgid "A file named “%s” already exists. Do you want to replace it?"
-msgstr "“%s” izeneko fitxategia badago lehendik ere. Hura ordeztu nahi duzu?"
-
-#: shell/ev-sidebar-attachments.c:489
-#, c-format
-msgid "The file “%s” already exists. Replacing it will overwrite its contents."
-msgstr "“%s” fitxategia badago lehendik ere. Hura ordeztean bere edukia gainidazten da."
-
-#: shell/ev-sidebar-attachments.c:494
-msgid "_Replace"
-msgstr "_Ordeztu"
-
-#: shell/ev-sidebar-attachments.c:892 shell/ev-window.c:7616
-msgid "Attachments"
-msgstr "Eranskinak"
-
-#: shell/ev-sidebar-bookmarks.c:553 shell/ev-window.c:7600
-msgid "Bookmarks"
-msgstr "Laster-markak"
-
-#: shell/ev-sidebar-layers.c:439 shell/ev-window.c:7628
-msgid "Layers"
-msgstr "Geruzak"
-
-#. Translators: This is the title for the sidebar pane that
-#. * shows the Outline or Table of Contents of the document.
-#.
-#: shell/ev-sidebar-links.c:1450 shell/ev-window.c:7580
-msgid "Outline"
-msgstr "Eskema"
-
-#: shell/ev-sidebar-thumbnails.c:1038 shell/ev-window.c:7563
-msgid "Thumbnails"
-msgstr "Koadro txikiak"
-
-#: shell/ev-toolbar.c:98
-msgid "Find a word or phrase in the document"
-msgstr "Bilatu hitz bat edo esaldi bat dokumentuan"
-
-#: shell/ev-toolbar.c:104
-msgid "Search not available for this document"
-msgstr "Bilaketa ez dago erabilgarri dokumentu honetarako"
-
-#: shell/ev-utils.c:268
-msgid "Supported Image Files"
-msgstr "Onartutako irudi-fitxategiak"
-
-#: shell/ev-window.c:1753
-msgid "The document contains no pages"
-msgstr "Dokumentuak ez du orrialderik"
-
-#: shell/ev-window.c:1756
-msgid "The document contains only empty pages"
-msgstr "Dokumentuak orrialde hutsak soilik ditu"
-
-#: shell/ev-window.c:1997 shell/ev-window.c:2171
-#, c-format
-msgid "Unable to open document “%s”."
-msgstr "Ezin da '%s' dokumentua ireki."
-
-#: shell/ev-window.c:2136
-#, c-format
-msgid "Loading document from “%s”"
-msgstr "%s(e)tik dokumentua kargatzen"
-
-#: shell/ev-window.c:2141 shell/ev-window.c:2599 shell/ev-window.c:2965
-#: shell/ev-window.c:3700 shell/ev-window.c:3948
-msgid "C_ancel"
-msgstr "_Utzi"
-
-#: shell/ev-window.c:2293 shell/ev-window.c:2650
-#, c-format
-msgid "Downloading document (%d%%)"
-msgstr "Dokumentua deskargatzen (%% %d)"
-
-#: shell/ev-window.c:2326
-msgid "Failed to load remote file."
-msgstr "Huts egin du urruneko fitxategia kargatzean."
-
-#: shell/ev-window.c:2595
-#, c-format
-msgid "Reloading document from %s"
-msgstr "%s(e)ndik dokumentua birkargatzen"
-
-#: shell/ev-window.c:2625
-msgid "Failed to reload document."
-msgstr "Huts egin du dokumentua birkargatzean."
-
-#: shell/ev-window.c:2873
+#: nautilus/pps-nautilus-extension.c:170
+msgid "Document Properties"
+msgstr "Dokumentuaren propietateak"
+
+#: nautilus/pps-nautilus-extension.h:59 shell-rs/src/properties_general.rs:142
+msgid "Title"
+msgstr "Titulua"
+
+#: nautilus/pps-nautilus-extension.h:60
+msgid "Location"
+msgstr "Kokalekua"
+
+#: nautilus/pps-nautilus-extension.h:61 shell-rs/src/properties_general.rs:143
+msgid "Subject"
+msgstr "Gaia"
+
+#: nautilus/pps-nautilus-extension.h:62
+#: shell/pps-annotation-properties-dialog.ui:9
+#: shell-rs/src/properties_general.rs:144
+msgid "Author"
+msgstr "Egilea"
+
+#: nautilus/pps-nautilus-extension.h:63 shell-rs/src/properties_general.rs:145
+msgid "Keywords"
+msgstr "Gako-hitzak"
+
+#: nautilus/pps-nautilus-extension.h:64 shell-rs/src/properties_general.rs:146
+msgid "Producer"
+msgstr "Ekoizlea"
+
+#: nautilus/pps-nautilus-extension.h:65 shell-rs/src/properties_general.rs:147
+msgid "Creator"
+msgstr "Sortzailea"
+
+#: nautilus/pps-nautilus-extension.h:66 shell-rs/src/properties_general.rs:154
+msgid "Created"
+msgstr "Sortze-data"
+
+#: nautilus/pps-nautilus-extension.h:67 shell-rs/src/properties_general.rs:155
+msgid "Modified"
+msgstr "Aldatze-data"
+
+#: nautilus/pps-nautilus-extension.h:68 shell-rs/src/properties_general.rs:163
+msgid "Number of Pages"
+msgstr "Orrialde kopurua"
+
+#: nautilus/pps-nautilus-extension.h:69 shell-rs/src/properties_general.rs:164
+msgid "Optimized"
+msgstr "Optimizatua"
+
+#: nautilus/pps-nautilus-extension.h:70 shell-rs/src/properties_general.rs:160
+#: shell-rs/src/properties_general.rs:162
+msgid "Format"
+msgstr "Formateatu"
+
+#: nautilus/pps-nautilus-extension.h:71 shell-rs/src/properties_general.rs:165
+msgid "Security"
+msgstr "Segurtasuna"
+
+#: nautilus/pps-nautilus-extension.h:72 shell-rs/src/properties_general.rs:174
+msgid "Contains Javascript"
+msgstr "Javascript dauka"
+
+#: nautilus/pps-nautilus-extension.h:73 shell-rs/src/properties_general.rs:166
+msgid "Paper Size"
+msgstr "Paper-tamaina"
+
+#: nautilus/pps-nautilus-extension.h:74 shell-rs/src/properties_general.rs:132
+msgid "Size"
+msgstr "Tamaina"
+
+#: shell/help-overlay.ui:11
+msgctxt "shortcut window"
+msgid "Opening, Closing, Saving and Printing"
+msgstr "Irekitzea, ixtea, gordetzea eta inprimatzea"
+
+#: shell/help-overlay.ui:14
+msgctxt "shortcut window"
 msgid "Open Document"
 msgstr "Ireki dokumentua"
 
-#: shell/ev-window.c:2876
-msgid "_Open"
-msgstr "_Ireki"
+#: shell/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Open Copy of Current Document"
+msgstr "Ireki uneko dokumentuaren kopia"
 
-#: shell/ev-window.c:2951
-#, c-format
-msgid "Saving document to %s"
-msgstr "Dokumentua %s(e)n gordetzen"
+#: shell/help-overlay.ui:26
+msgctxt "shortcut window"
+msgid "Open With…"
+msgstr "Ireki honekin…"
 
-#: shell/ev-window.c:2954
-#, c-format
-msgid "Saving attachment to %s"
-msgstr "Eranskina %s(e)n gordetzen"
+#: shell/help-overlay.ui:32
+msgctxt "shortcut window"
+msgid "Save Copy of Current Document"
+msgstr "Gorde uneko dokumentuaren kopia"
 
-#: shell/ev-window.c:2957
-#, c-format
-msgid "Saving image to %s"
-msgstr "Irudia %s(e)n gordetzen"
+#: shell/help-overlay.ui:38
+msgctxt "shortcut window"
+msgid "Print Current Document"
+msgstr "Inprimatu uneko dokumentua"
 
-#: shell/ev-window.c:2999 shell/ev-window.c:3113
+#: shell/help-overlay.ui:44
+msgctxt "shortcut window"
+msgid "Close Current Document Window"
+msgstr "Itxi uneko dokumentuaren leihoa"
+
+#: shell/help-overlay.ui:52
+msgctxt "shortcut window"
+msgid "Window"
+msgstr "Leihoa"
+
+#: shell/help-overlay.ui:55
+msgctxt "shortcut window"
+msgid "Fullscreen"
+msgstr "Pantaila osoa"
+
+#: shell/help-overlay.ui:61
+msgctxt "shortcut window"
+msgid "Enter Presentation Mode"
+msgstr "Sartu aurkezpen moduan"
+
+#: shell/help-overlay.ui:67
+msgctxt "shortcut window"
+msgid "Side Pane"
+msgstr "Alboko panela"
+
+#: shell/help-overlay.ui:73
+msgctxt "shortcut window"
+msgid "Caret Navigation"
+msgstr "Kurtsore-nabigazioa"
+
+#: shell/help-overlay.ui:81
+msgctxt "shortcut window"
+msgid "Selecting and Copying Text"
+msgstr "Testua hautatzea eta kopiatzea"
+
+#: shell/help-overlay.ui:84
+msgctxt "shortcut window"
+msgid "Copy"
+msgstr "Kopiatu"
+
+#: shell/help-overlay.ui:90
+msgctxt "shortcut window"
+msgid "Select All"
+msgstr "Hautatu dena"
+
+#: shell/help-overlay.ui:98
+msgctxt "shortcut window"
+msgid "Rotating and Zooming"
+msgstr "Biratzea eta zoom egitea"
+
+#: shell/help-overlay.ui:101
+msgctxt "shortcut window"
+msgid "Rotate Page 90 Degrees Counter-Clockwise"
+msgstr "Biratu 90 gradu erlojuaren noranzkoaren aurka"
+
+#: shell/help-overlay.ui:107
+msgctxt "shortcut window"
+msgid "Rotate Page 90 Degrees Clockwise"
+msgstr "Biratu 90 gradu erlojuaren noranzkoan"
+
+#: shell/help-overlay.ui:113 shell/help-overlay.ui:377
+msgctxt "shortcut window"
+msgid "Zoom In"
+msgstr "Handiagotu"
+
+#: shell/help-overlay.ui:119 shell/help-overlay.ui:383
+msgctxt "shortcut window"
+msgid "Zoom Out"
+msgstr "Txikiagotu"
+
+#: shell/help-overlay.ui:125
+msgctxt "shortcut window"
+msgid "Normal Size"
+msgstr "Tamaina normala"
+
+#: shell/help-overlay.ui:131
+msgctxt "shortcut window"
+msgid "Zoom In (Alternative)"
+msgstr "Handiagotu (ordezkoa)"
+
+#: shell/help-overlay.ui:137
+msgctxt "shortcut window"
+msgid "Fit Page"
+msgstr "Doitu orrialdea"
+
+#: shell/help-overlay.ui:143
+msgctxt "shortcut window"
+msgid "Fit Width"
+msgstr "Doitu zabalera"
+
+#: shell/help-overlay.ui:149
+msgctxt "shortcut window"
+msgid "Automatic Zoom"
+msgstr "Zoom automatikoa"
+
+#: shell/help-overlay.ui:157
+msgctxt "shortcut window"
+msgid "Moving Around Document"
+msgstr "Dokumentuan zehar kokatzea"
+
+#: shell/help-overlay.ui:160 shell/help-overlay.ui:166
+msgctxt "shortcut window"
+msgid "Move Around Page"
+msgstr "Orri batean kokatzea"
+
+#: shell/help-overlay.ui:172
+msgctxt "shortcut window"
+msgid "Move Up/Down Page Several Lines"
+msgstr "Joan orrialde bat gora/behera hainbat lerro"
+
+#: shell/help-overlay.ui:178 shell/help-overlay.ui:395
+msgctxt "shortcut window"
+msgid "Previous Page"
+msgstr "Aurreko orrialdea"
+
+#: shell/help-overlay.ui:184 shell/help-overlay.ui:389
+msgctxt "shortcut window"
+msgid "Next Page"
+msgstr "Hurrengo orrialdea"
+
+#: shell/help-overlay.ui:190
+msgctxt "shortcut window"
+msgid "Go to Page Number"
+msgstr "Joan orrialdera:"
+
+#: shell/help-overlay.ui:196
+msgctxt "shortcut window"
+msgid "Previous Page (Fast)"
+msgstr "Aurreko orrialdea (azkarra)"
+
+#: shell/help-overlay.ui:202
+msgctxt "shortcut window"
+msgid "Next Page (Fast)"
+msgstr "Hurrengo orrialdea (azkarra)"
+
+#: shell/help-overlay.ui:208
+msgctxt "shortcut window"
+msgid "Previous Visited Page"
+msgstr "Ikusitako aurreko orrialdea"
+
+#: shell/help-overlay.ui:214
+msgctxt "shortcut window"
+msgid "Next Visited Page"
+msgstr "Ikusitako hurrengo orrialdea"
+
+#: shell/help-overlay.ui:220
+msgctxt "shortcut window"
+msgid "Go to Page Beginning/End"
+msgstr "Joan orrialdearen hasierara/amaierara"
+
+#: shell/help-overlay.ui:226
+msgctxt "shortcut window"
+msgid "Go to Document Start"
+msgstr "Joan dokumentuaren hasierara"
+
+#: shell/help-overlay.ui:232
+msgctxt "shortcut window"
+msgid "Go to Document End"
+msgstr "Joan dokumentuaren amaierara"
+
+#: shell/help-overlay.ui:240
+msgctxt "shortcut window"
+msgid "Document View and Handling"
+msgstr "Dokumentua ikustea eta maneiatzea"
+
+#: shell/help-overlay.ui:243
+msgctxt "shortcut window"
+msgid "Add Bookmark"
+msgstr "Gehitu laster-marka"
+
+#: shell/help-overlay.ui:249
+msgctxt "shortcut window"
+msgid "Remove Bookmark"
+msgstr "Kendu laster-marka"
+
+#: shell/help-overlay.ui:255
+msgctxt "shortcut window"
+msgid "Night Mode"
+msgstr "Gaueko modua"
+
+#: shell/help-overlay.ui:261
+msgctxt "shortcut window"
+msgid "Continuous Scrolling"
+msgstr "Korritze jarraia"
+
+#: shell/help-overlay.ui:267
+msgctxt "shortcut window"
+msgid "Dual Page"
+msgstr "Bi orrialde"
+
+#: shell/help-overlay.ui:273
+msgctxt "shortcut window"
+msgid "Odd Pages Left"
+msgstr "Orrialde bakoitiak ezkerrean"
+
+#: shell/help-overlay.ui:279
+msgctxt "shortcut window"
+msgid "Document Properties"
+msgstr "Dokumentuaren propietateak"
+
+#: shell/help-overlay.ui:285
+msgctxt "shortcut window"
+msgid "Add Text Annotation"
+msgstr "Gehitu testu-oharpena"
+
+#: shell/help-overlay.ui:291
+msgctxt "shortcut window"
+msgid "Highlight Text"
+msgstr "Nabarmendu testua"
+
+#: shell/help-overlay.ui:299
+msgctxt "shortcut window"
+msgid "Finding Text"
+msgstr "Testua aurkitzea"
+
+#: shell/help-overlay.ui:302
+msgctxt "shortcut window"
+msgid "Find"
+msgstr "Aurkitu"
+
+#: shell/help-overlay.ui:308
+msgctxt "shortcut window"
+msgid "Find Next"
+msgstr "Aurkitu hurrengoa"
+
+#: shell/help-overlay.ui:314
+msgctxt "shortcut window"
+msgid "Find Previous"
+msgstr "Aurkitu aurrekoa"
+
+#: shell/help-overlay.ui:322
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Orokorra"
+
+#: shell/help-overlay.ui:325
+msgctxt "shortcut window"
+msgid "Help"
+msgstr "Laguntza"
+
+#: shell/help-overlay.ui:331
+msgctxt "shortcut window"
+msgid "Menu"
+msgstr "Menua"
+
+#: shell/help-overlay.ui:337
+msgctxt "shortcut window"
+msgid "Keyboard Shortcuts"
+msgstr "Laster-teklak"
+
+#: shell/help-overlay.ui:343
+msgctxt "shortcut window"
+msgid "New Window"
+msgstr "Leiho berria"
+
+#: shell/help-overlay.ui:349
+msgctxt "shortcut window"
+msgid "Close Window"
+msgstr "Itxi leihoa"
+
+#: shell/help-overlay.ui:357
+msgctxt "shortcut window"
+msgid "Presentation Mode"
+msgstr "Aurkezpen modua"
+
+#: shell/help-overlay.ui:360
+msgctxt "shortcut window"
+msgid "Black Screen"
+msgstr "Pantaila beltza"
+
+#: shell/help-overlay.ui:366
+msgctxt "shortcut window"
+msgid "White Screen"
+msgstr "Pantaila zuria"
+
+#: shell/help-overlay.ui:374
+msgctxt "shortcut window"
+msgid "Touchpad Gestures"
+msgstr "Ukipen-teklatuaren keinuak"
+
+#: shell/pps-annotation-properties-dialog.ui:4
+#: shell/pps-sidebar-annotations.ui:75
+msgid "Annotation Properties"
+msgstr "Oharpenaren propietateak"
+
+#: shell/pps-annotation-properties-dialog.ui:14
+msgid "Color"
+msgstr "Kolorea"
+
+#: shell/pps-annotation-properties-dialog.ui:26
+msgid "Opacity"
+msgstr "Opakutasuna"
+
+#: shell/pps-annotation-properties-dialog.ui:40
+msgid "Initially Opened"
+msgstr "Hasieran irekita"
+
+#: shell/pps-annotation-properties-dialog.ui:46
+msgid "Icon"
+msgstr "Ikonoa"
+
+#: shell/pps-annotation-properties-dialog.ui:50
+msgid "Note"
+msgstr "Oharra"
+
+#: shell/pps-annotation-properties-dialog.ui:51
+msgid "Comment"
+msgstr "Iruzkina"
+
+#: shell/pps-annotation-properties-dialog.ui:52
+msgid "Key"
+msgstr "Gakoa"
+
+#: shell/pps-annotation-properties-dialog.ui:53
+msgid "Help"
+msgstr "Laguntza"
+
+#: shell/pps-annotation-properties-dialog.ui:54
+msgid "New Paragraph"
+msgstr "Paragrafo berria"
+
+#: shell/pps-annotation-properties-dialog.ui:55
+msgid "Paragraph"
+msgstr "Paragrafoa"
+
+#: shell/pps-annotation-properties-dialog.ui:56
+msgid "Insert"
+msgstr "Txertatu"
+
+#: shell/pps-annotation-properties-dialog.ui:57
+msgid "Cross"
+msgstr "Gurutzea"
+
+#: shell/pps-annotation-properties-dialog.ui:58
+msgid "Circle"
+msgstr "Zirkulua"
+
+#: shell/pps-annotation-properties-dialog.ui:69
+msgid "Markup Type"
+msgstr "Markaketa mota"
+
+#: shell/pps-annotation-properties-dialog.ui:73
+msgid "Highlight"
+msgstr "Nabarmendu"
+
+#: shell/pps-annotation-properties-dialog.ui:74
+msgid "Strike out"
+msgstr "Marratu"
+
+#: shell/pps-annotation-properties-dialog.ui:75
+msgid "Underline"
+msgstr "Azpimarratua"
+
+#: shell/pps-annotation-properties-dialog.ui:76
+msgid "Squiggly"
+msgstr "Zirriborroa"
+
+#: shell/pps-annotation-properties-dialog.ui:88
+msgid "_Apply"
+msgstr "_Aplikatu"
+
+#: shell/pps-document-view.c:480 shell-rs/src/window.rs:460
+msgid "View Details"
+msgstr "Ikusi xehetasunak"
+
+#: shell/pps-document-view.c:1236
+msgid "The document contains no pages"
+msgstr "Dokumentuak ez du orrialderik"
+
+#: shell/pps-document-view.c:1239
+msgid "The document contains only empty pages"
+msgstr "Dokumentuak orrialde hutsak soilik ditu"
+
+#: shell/pps-document-view.c:1467
+msgid "File Saved"
+msgstr "Fitxategia gorde da"
+
+#: shell/pps-document-view.c:1477 shell/pps-document-view.c:1530
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Fitxategia ezin izan da '%s' bezala gorde."
 
-#: shell/ev-window.c:3031
-#, c-format
-msgid "Uploading document (%d%%)"
-msgstr "Dokumentua igotzen (%% %d)"
-
-#: shell/ev-window.c:3035
-#, c-format
-msgid "Uploading attachment (%d%%)"
-msgstr "Eranskina igotzen (%% %d)"
-
-#: shell/ev-window.c:3039
-#, c-format
-msgid "Uploading image (%d%%)"
-msgstr "Irudia igotzen (%% %d)"
-
-#: shell/ev-window.c:3171
+#: shell/pps-document-view.c:1592
 msgid "Save As…"
 msgstr "Gorde honela…"
 
-#: shell/ev-window.c:3173 shell/ev-window.c:6982 shell/ev-window.c:7208
-msgid "_Save"
-msgstr "_Gorde"
-
-#: shell/ev-window.c:3260
-msgid "Could not send current document"
-msgstr "Ezin izan da uneko dokumentua bidali"
-
-#: shell/ev-window.c:3587
+#: shell/pps-document-view.c:1898
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "Lan %d ilaran zain"
 msgstr[1] "%d lan ilaran zain"
 
-#: shell/ev-window.c:3696
+#: shell/pps-document-view.c:1937
+msgid "Failed to Print Document"
+msgstr "Huts egin du dokumentua inprimatzeak"
+
+#: shell/pps-document-view.c:1991
 #, c-format
 msgid "Printing job “%s”"
 msgstr "'%s' lana inprimatzen"
 
-#: shell/ev-window.c:3914
+#: shell/pps-document-view.c:1994 shell/pps-loader-view.ui:45
+msgid "C_ancel"
+msgstr "_Utzi"
+
+#: shell/pps-document-view.c:2183 shell-rs/src/window.rs:266
 msgid "Document contains form fields that have been filled out."
 msgstr "Dokumentuak bete beharreko inprimaki-eremuak ditu."
 
-#: shell/ev-window.c:3917
+#: shell/pps-document-view.c:2186 shell-rs/src/window.rs:267
 msgid "Document contains new or modified annotations."
 msgstr "Dokumentuak oharpen berriak edo aldatutakoak ditu."
 
-#: shell/ev-window.c:3929
-#, c-format
-msgid "Reload document “%s”?"
-msgstr "Kargatu “%s” dokumentua berriro?"
+#: shell/pps-document-view.c:2193
+msgid "Save Changes to a Copy?"
+msgstr "Gorde aldaketak kopia batean?"
 
-#: shell/ev-window.c:3931
-msgid "If you reload the document, changes will be permanently lost."
-msgstr "Dokumentua berriro kargatzen baduzu, aldaketak betirako galduko dira."
-
-#: shell/ev-window.c:3933
-msgid "_No"
-msgstr "_Ez"
-
-#: shell/ev-window.c:3942
-#, c-format
-msgid "Save a copy of document “%s” before closing?"
-msgstr "Gorde '%s' dokumentuaren kopia itxi aurretik?"
-
-#: shell/ev-window.c:3944
+#: shell/pps-document-view.c:2194
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "Ez baduzu kopia bat gordetzen, aldaketak betirako galduko dira."
 
-#: shell/ev-window.c:3946
-msgid "Close _without Saving"
+#: shell/pps-document-view.c:2197
+msgid "Close _Without Saving"
 msgstr "Itxi gorde _gabe"
 
-#: shell/ev-window.c:3950
-msgid "Save a _Copy"
+#: shell/pps-document-view.c:2198 shell/pps-document-view.ui:614
+#: shell/pps-document-view.ui:626
+msgid "_Cancel"
+msgstr "_Utzi"
+
+#: shell/pps-document-view.c:2199
+msgid "_Save a Copy"
 msgstr "Gorde _kopia bat"
 
-#: shell/ev-window.c:4032
-#, c-format
-msgid "Wait until print job “%s” finishes before closing?"
-msgstr "Itxi aurretik, zain egon '%s' lana inprimatu arte?"
-
-#. TRANS: the singular form is not really used as n_print_jobs > 1
-#. but some languages distinguish between different plurals forms,
-#. so the ngettext is needed.
-#: shell/ev-window.c:4038
-#, c-format
-msgid "There is %d print job active. Wait until print finishes before closing?"
-msgid_plural ""
-"There are %d print jobs active. Wait until print finishes before closing?"
-msgstr[0] "Inprimatzeko lan %d dago aktibo. Itxi aurretik, zain egon inprimatzea amaitu arte?"
-msgstr[1] "Inprimatzeko %d lan daude aktibo. Itxi aurretik, zain egon inprimatzea amaitu arte?"
-
-#: shell/ev-window.c:4053
-msgid "If you close the window, pending print jobs will not be printed."
-msgstr "Leihoa ixten baduzu, falta diren inprimatze-lanak ez dira inprimatuko."
-
-#: shell/ev-window.c:4057
-msgid "Cancel _print and Close"
-msgstr "_Utzi inprimatzea eta irten"
-
-#: shell/ev-window.c:4061
-msgid "Close _after Printing"
-msgstr "Itxi inprimatu _ondoren"
-
-#: shell/ev-window.c:4229
-msgid "© 1996–2023 The Evince document viewer authors"
-msgstr "© 1996–2023 Evince dokumentu-ikustailearen egileak"
-
-#: shell/ev-window.c:4232
-msgid "Evince is a simple document viewer for GNOME"
-msgstr "Evince GNOMErako dokumentu-ikustaile sinplea da"
-
-#: shell/ev-window.c:4235
-msgid "translator-credits"
-msgstr "translator-credits"
-
-#: shell/ev-window.c:4713
-msgid "Running in presentation mode"
-msgstr "Exekutatu aurkezpen moduan"
-
-#: shell/ev-window.c:5700
-msgid "The attachment could not be saved."
-msgstr "Eranskina ezin izan da gorde."
-
-#: shell/ev-window.c:6022
-msgid "Enable caret navigation?"
-msgstr "Gaitu kurtsorearen bidezko nabigazioa?"
-
-#: shell/ev-window.c:6023
-msgid "_Enable"
-msgstr "_Gaitu"
-
-#: shell/ev-window.c:6026
-msgid ""
-"Pressing F7 turns the caret navigation on or off. This feature places a "
-"moveable cursor in text pages, allowing you to move around and select text "
-"with your keyboard. Do you want to enable the caret navigation?"
-msgstr "F7 sakatzeak kurtsorearen bidezko nabigazioa aktibatzen eta desaktibatzen du. Eginbide honek kurtsore mugikor bat kokatzen du testu-orrialdeetan, haren inguruan mugitu eta teklatuarekin testua hautatzeko aukera eskainiz. Kurtsorearen bidezko nabigazioa aktibatu nahi duzu?"
-
-#: shell/ev-window.c:6031
-msgid "Don’t show this message again"
-msgstr "Ez erakutsi mezu hau berriro"
-
-#: shell/ev-window.c:6620
+#: shell/pps-document-view.c:3569
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
 msgstr "Segurtasun-alerta: dokumentu honek “%s” fitxategia ireki dezan eragotzi da"
 
-#: shell/ev-window.c:6685
+#: shell/pps-document-view.c:3630
 msgid "Unable to open external link"
 msgstr "Ezin da kanpoko esteka ireki"
 
-#: shell/ev-window.c:6911
+#: shell/pps-document-view.c:3855
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Ezin izan da formatu egokirik aurkitu irudia gordetzeko"
 
-#: shell/ev-window.c:6943
+#: shell/pps-document-view.c:3885
 msgid "The image could not be saved."
 msgstr "Irudia ezin izan da gorde."
 
-#: shell/ev-window.c:6979
+#: shell/pps-document-view.c:3921
 msgid "Save Image"
 msgstr "Gorde irudia"
 
-#: shell/ev-window.c:7137
+#: shell/pps-document-view.c:4092
 msgid "Unable to open attachment"
 msgstr "Ezin da eranskina ireki"
 
-#: shell/ev-window.c:7205
-msgid "Save Attachment"
-msgstr "Gorde eranskina"
+#: shell/pps-document-view.c:4111
+msgid "The attachment could not be saved."
+msgstr "Eranskina ezin izan da gorde."
 
-#: shell/ev-window-title.c:108
-msgid "Recent Documents"
-msgstr "Azken aldiko dokumentuak"
+#: shell/pps-document-view.ui:64
+msgid "Search"
+msgstr "Bilatu"
 
-#: shell/ev-window-title.c:151 shell/ev-window-title.c:153
-#: shell/ev-window-title.c:158
+#: shell/pps-document-view.ui:79
+msgid "Main Menu"
+msgstr "Menu nagusia"
+
+#: shell/pps-document-view.ui:98
+msgid "Thumbnails"
+msgstr "Koadro txikiak"
+
+#: shell/pps-document-view.ui:111
+msgid "Outline"
+msgstr "Eskema"
+
+#: shell/pps-document-view.ui:126
+msgid "Annotations"
+msgstr "Oharpenak"
+
+#: shell/pps-document-view.ui:141
+msgid "Bookmarks"
+msgstr "Laster-markak"
+
+#: shell/pps-document-view.ui:155
+msgid "Attachments"
+msgstr "Eranskinak"
+
+#: shell/pps-document-view.ui:174
+msgid "Layers"
+msgstr "Geruzak"
+
+#: shell/pps-document-view.ui:210
+msgid "Toggle Sidebar"
+msgstr "Txandakatu alboko barra"
+
+#: shell/pps-document-view.ui:216
+msgid "Document Menu"
+msgstr "Dokumentu-menua"
+
+#: shell/pps-document-view.ui:264
+msgid "Fit Automatically"
+msgstr "Doitu automatikoki"
+
+#: shell/pps-document-view.ui:356
+msgid "Loading…"
+msgstr "Kargatzen…"
+
+#: shell/pps-document-view.ui:605
+msgid "Enable Caret Navigation?"
+msgstr "Gaitu kurtsore-nabigazioa?"
+
+#: shell/pps-document-view.ui:606
+msgid ""
+"Pressing F7 turns the caret navigation on or off. This feature places a "
+"moveable cursor in text pages, allowing you to move around and select text "
+"with your keyboard."
+msgstr "F7 sakatzeak kurtsorearen bidezko nabigazioa aktibatzen eta desaktibatzen du. Eginbide honek kurtsore mugikor bat kokatzen du testu-orrialdeetan, haren inguruan mugitu eta teklatuarekin testua hautatzeko aukera eskainiz."
+
+#: shell/pps-document-view.ui:609
+msgid "Don’t show this message again"
+msgstr "Ez erakutsi mezu hau berriro"
+
+#: shell/pps-document-view.ui:615
+msgid "_Enable"
+msgstr "_Gaitu"
+
+#: shell/pps-document-view.ui:621
+msgid "Abort Printing?"
+msgstr "Abortatu inprimatzea?"
+
+#: shell/pps-document-view.ui:622
+msgid ""
+"There is one or more active print jobs. If the window is closed, pending "
+"print jobs will not be printed."
+msgstr "Inprimatze-lan aktibo bat edo gehiago dago. Leihoa ixten baduzu, falta diren inprimatze-lanak ez dira inprimatuko."
+
+#: shell/pps-document-view.ui:625
+msgid "Abort _Print and Close"
+msgstr "A_bortatu inprimatzea eta irten"
+
+#: shell/pps-document-view.ui:627
+msgid "Close _After Printing"
+msgstr "Itxi inprimatu _ondoren"
+
+#: shell/pps-document-view.ui:641
+msgid "Open"
+msgstr "Ireki"
+
+#: shell/pps-document-view.ui:647
+msgid "Ni_ght Mode"
+msgstr "Ga_ueko modua"
+
+#: shell/pps-document-view.ui:653
+msgid "_Keyboard Shortcuts"
+msgstr "Las_ter-teklak"
+
+#: shell/pps-document-view.ui:657
+msgid "_Help"
+msgstr "_Laguntza"
+
+#: shell/pps-document-view.ui:661
+msgid "_About Papers"
+msgstr "Paperak aplikazioari _buruz"
+
+#: shell/pps-document-view.ui:669
+msgid "_Print…"
+msgstr "_Inprimatu…"
+
+#: shell/pps-document-view.ui:673
+msgid "Fullscreen"
+msgstr "Pantaila osoa"
+
+#: shell/pps-document-view.ui:677
+msgid "Present as Slideshow"
+msgstr "Aurkeztu diapositiba gisa"
+
+#: shell/pps-document-view.ui:683
+msgid "Open a C_opy"
+msgstr "Ireki k_opia bat"
+
+#: shell/pps-document-view.ui:687
+msgid "Open With…"
+msgstr "Ireki honekin…"
+
+#: shell/pps-document-view.ui:691
+msgid "_Save As…"
+msgstr "Gorde _honela…"
+
+#: shell/pps-document-view.ui:697
+msgid "_Continuous"
+msgstr "_Etengabea"
+
+#: shell/pps-document-view.ui:701
+msgid "_Dual"
+msgstr "_Duala"
+
+#: shell/pps-document-view.ui:705
+msgid "_Odd Pages Left"
+msgstr "Orrialde b_akoitiak ezkerrean"
+
+#: shell/pps-document-view.ui:709
+msgid "Right to Left Document"
+msgstr "Eskuinetik ezkerrerako dokumentua"
+
+#: shell/pps-document-view.ui:715
+msgid "Ro_tate ⤵"
+msgstr "Bira_tu ⤵"
+
+#: shell/pps-document-view.ui:721
+msgid "Document Prop_erties"
+msgstr "Dokumentuaren _propietateak"
+
+#: shell/pps-document-view.ui:730
+msgid "_Open Link"
+msgstr "_Ireki esteka"
+
+#: shell/pps-document-view.ui:735
+msgid "_Copy Link Address"
+msgstr "_Kopiatu estekaren helbidea"
+
+#: shell/pps-document-view.ui:740
+msgid "_Go To"
+msgstr "_Joan hona"
+
+#: shell/pps-document-view.ui:745
+msgid "Open in New _Window"
+msgstr "Ireki _leiho berrian"
+
+#: shell/pps-document-view.ui:752
+msgid "_Previous Page"
+msgstr "_Aurreko orrialdea"
+
+#: shell/pps-document-view.ui:756
+msgid "_Next Page"
+msgstr "_Hurrengo orrialdea"
+
+#: shell/pps-document-view.ui:762
+msgid "_Copy"
+msgstr "_Kopiatu"
+
+#: shell/pps-document-view.ui:766
+msgid "Select _All"
+msgstr "Hautatu _dena"
+
+#: shell/pps-document-view.ui:772
+msgid "_Save Image As…"
+msgstr "Gorde _irudia honela…"
+
+#: shell/pps-document-view.ui:777
+msgid "Copy _Image"
+msgstr "Kopiatu _irudia"
+
+#: shell/pps-document-view.ui:784 shell/pps-document-view.ui:821
+#: shell/pps-sidebar-annotations.ui:85
+msgid "_Open Attachment"
+msgstr "_Ireki eranskina"
+
+#: shell/pps-document-view.ui:789 shell/pps-document-view.ui:825
+#: shell/pps-sidebar-annotations.ui:90
+msgid "_Save Attachment As…"
+msgstr "_Gorde eranskina honela…"
+
+#: shell/pps-document-view.ui:796
+msgid "Annotation _Properties…"
+msgstr "O_harpenaren propietateak…"
+
+#: shell/pps-document-view.ui:801
+msgid "R_emove Annotation"
+msgstr "K_endu oharpena"
+
+#: shell/pps-document-view.ui:808
+msgid "_Add Text Annotation"
+msgstr "Gehitu te_stu-oharpena"
+
+#: shell/pps-document-view.ui:813
+msgid "_Highlight Selected Text"
+msgstr "Nabarmendu hautatutako _testua"
+
+#: shell/pps-find-sidebar.ui:69
+msgid "No Results Found"
+msgstr "Ez da emaitzarik aurkitu"
+
+#: shell/pps-find-sidebar.ui:70
+msgid "Try a different search"
+msgstr "Saiatu bestelako bilaketa bat"
+
+#: shell/pps-find-sidebar.ui:84
+msgid "Perform a Search"
+msgstr "Bilatu"
+
+#: shell/pps-find-sidebar.ui:85
+msgid "The search results will appear here"
+msgstr "Bilaketaren emaitzak hemen agertuko dira"
+
+#: shell/pps-loader-view.ui:18
+msgid "Loading Document"
+msgstr "Dokumentua kargatzen"
+
+#: shell/pps-password-dialog.ui:4 shell/pps-password-view.ui:10
+#: shell/pps-password-view.ui:19
 msgid "Password Required"
 msgstr "Pasahitza behar da"
 
-#: shell/ev-zoom-action.c:41
-msgid "50%"
-msgstr "%50"
+#: shell/pps-password-dialog.ui:7
+msgid "Cancel"
+msgstr "Utzi"
 
-#: shell/ev-zoom-action.c:42
-msgid "70%"
-msgstr "%70"
+#: shell/pps-password-dialog.ui:8
+msgid "Unlock"
+msgstr "Desblokeatu"
 
-#: shell/ev-zoom-action.c:43
-msgid "85%"
-msgstr "%85"
+#: shell/pps-password-dialog.ui:17
+msgid "Password"
+msgstr "Pasahitza"
 
-#: shell/ev-zoom-action.c:44
-msgid "100%"
-msgstr "% 100"
+#: shell/pps-password-dialog.ui:32
+msgid "Invalid password"
+msgstr "Pasahitz baliogabea"
 
-#: shell/ev-zoom-action.c:45
-msgid "125%"
-msgstr "%125"
+#: shell/pps-password-dialog.ui:48
+msgid "Forget password _immediately"
+msgstr "Ahaztu pasahitza _berehala"
 
-#: shell/ev-zoom-action.c:46
-msgid "150%"
-msgstr "%150"
+#: shell/pps-password-dialog.ui:56
+msgid "Remember _forever"
+msgstr "_Gogoratu beti"
 
-#: shell/ev-zoom-action.c:47
-msgid "175%"
-msgstr "%175"
+#: shell/pps-password-view.ui:20
+msgid ""
+"This document is locked and can only be read by entering the correct password"
+msgstr "Dokumentu hau blokeatuta dago, pasahitz egokia sartuz irakur daiteke soilik"
 
-#: shell/ev-zoom-action.c:48
-msgid "200%"
-msgstr "%200"
+#: shell/pps-password-view.ui:25
+msgid "_Unlock Document"
+msgstr "_Desblokeatu dokumentua"
 
-#: shell/ev-zoom-action.c:49
-msgid "300%"
-msgstr "%300"
+#: shell/pps-properties-license.ui:21
+msgid "Usage Terms"
+msgstr "Erabilera-baldintzak"
 
-#: shell/ev-zoom-action.c:50
-msgid "400%"
-msgstr "%400"
+#: shell/pps-properties-license.ui:56
+msgid "Text License"
+msgstr "Testuaren lizentzia"
 
-#: shell/ev-zoom-action.c:51
-msgid "800%"
-msgstr "%800"
+#: shell/pps-properties-license.ui:84
+msgid "Further Information"
+msgstr "Informazio gehiago"
 
-#: shell/ev-zoom-action.c:52
-msgid "1600%"
-msgstr "%1600"
+#: shell/pps-properties-window.ui:4
+msgid "Properties"
+msgstr "Propietateak"
 
-#: shell/ev-zoom-action.c:53
-msgid "3200%"
-msgstr "%3200"
+#: shell/pps-properties-window.ui:25
+msgid "_Document"
+msgstr "_Dokumentua"
 
-#: shell/ev-zoom-action.c:54
-msgid "6400%"
-msgstr "%6400"
+#: shell/pps-properties-window.ui:40
+msgid "_Fonts"
+msgstr "_Letra-tipoak"
 
-#: shell/help-overlay.ui:13
-msgctxt "shortcut window"
-msgid "Opening, closing, saving and printing"
-msgstr "Irekitzea, ixtea, gordetzea eta inprimatzea"
+#: shell/pps-properties-window.ui:51
+msgid "License"
+msgstr "Lizentzia"
 
-#: shell/help-overlay.ui:17
-msgctxt "shortcut window"
-msgid "Open a document"
-msgstr "Ireki dokumentua"
+#: shell/pps-search-box.ui:15
+msgid "Search in document"
+msgstr "Bilatu dokumentuan"
 
-#: shell/help-overlay.ui:24
-msgctxt "shortcut window"
-msgid "Open a copy of the current document"
-msgstr "Ireki uneko dokumentuaren kopia"
+#: shell/pps-search-box.ui:34
+msgid "Search Options"
+msgstr "Bilaketaren aukerak"
 
-#: shell/help-overlay.ui:31
-msgctxt "shortcut window"
-msgid "Save a copy of the current document"
-msgstr "Gorde uneko dokumentuaren kopia"
+#: shell/pps-search-box.ui:43
+msgid "_Whole Words Only"
+msgstr "Hitz _osoak soilik"
 
-#: shell/help-overlay.ui:38
-msgctxt "shortcut window"
-msgid "Print the current document"
-msgstr "Inprimatu uneko dokumentua"
+#: shell/pps-search-box.ui:47
+msgid "C_ase Sensitive"
+msgstr "M_aiuskulak/minuskulak"
 
-#: shell/help-overlay.ui:45
-msgctxt "shortcut window"
-msgid "Close the current document window"
-msgstr "Itxi uneko dokumentuaren leihoa"
+#: shell/pps-sidebar-annotations.ui:16
+msgid "No Annotations"
+msgstr "Oharpenik ez"
 
-#: shell/help-overlay.ui:52
-msgctxt "shortcut window"
-msgid "Reload the document"
-msgstr "Birkargatu dokumentua"
+#: shell/pps-sidebar-annotations.ui:80
+msgid "Remove Annotation"
+msgstr "Kendu oharpena"
 
-#: shell/help-overlay.ui:61
-msgctxt "shortcut window"
-msgid "Window"
-msgstr "Leihoa"
-
-#: shell/help-overlay.ui:65
-msgctxt "shortcut window"
-msgid "Toggle fullscreen"
-msgstr "Txandakatu pantaila osoa"
-
-#: shell/help-overlay.ui:72
-msgctxt "shortcut window"
-msgid "Enter presentation mode"
-msgstr "Sartu aurkezpen moduan"
-
-#: shell/help-overlay.ui:79
-msgctxt "shortcut window"
-msgid "Toggle sidebar"
-msgstr "Txandakatu alboko barra"
-
-#: shell/help-overlay.ui:86
-msgctxt "shortcut window"
-msgid "Toggle caret navigation"
-msgstr "Txandakatu kurtsore-nabigazioa"
-
-#: shell/help-overlay.ui:95
-msgctxt "shortcut window"
-msgid "Selecting and copying text"
-msgstr "Testua hautatzea eta kopiatzea"
-
-#: shell/help-overlay.ui:99
-msgctxt "shortcut window"
-msgid "Copy highlighted text"
-msgstr "Kopiatu nabarmendutako testua"
-
-#: shell/help-overlay.ui:106
-msgctxt "shortcut window"
-msgid "Select all the text in a document"
-msgstr "Hautatu dokumentuaren testu guztia"
-
-#: shell/help-overlay.ui:115
-msgctxt "shortcut window"
-msgid "Rotating and zooming"
-msgstr "Biratzea eta zoom egitea"
-
-#: shell/help-overlay.ui:119
-msgctxt "shortcut window"
-msgid "Rotate the page 90 degrees counter-clockwise"
-msgstr "Biratu 90 gradu erlojuaren noranzkoaren aurka"
-
-#: shell/help-overlay.ui:126
-msgctxt "shortcut window"
-msgid "Rotate the page 90 degrees clockwise"
-msgstr "Biratu 90 gradu erlojuaren noranzkoan"
-
-#: shell/help-overlay.ui:133 shell/help-overlay.ui:435
-msgctxt "shortcut window"
-msgid "Zoom in"
-msgstr "Handiagotu"
-
-#: shell/help-overlay.ui:140 shell/help-overlay.ui:442
-msgctxt "shortcut window"
-msgid "Zoom out"
-msgstr "Txikiagotu"
-
-#: shell/help-overlay.ui:147
-msgctxt "shortcut window"
-msgid "Zoom 1∶1"
-msgstr "Zooma 1:1"
-
-#: shell/help-overlay.ui:154
-msgctxt "shortcut window"
-msgid "Zoom in (alternative)"
-msgstr "Handiagotu (ordezkoa)"
-
-#: shell/help-overlay.ui:161
-msgctxt "shortcut window"
-msgid "Fit page"
-msgstr "Doitu orrialdea"
-
-#: shell/help-overlay.ui:168
-msgctxt "shortcut window"
-msgid "Fit width"
-msgstr "Doitu zabalera"
-
-#: shell/help-overlay.ui:175
-msgctxt "shortcut window"
-msgid "Automatic zoom"
-msgstr "Zoom automatikoa"
-
-#: shell/help-overlay.ui:184
-msgctxt "shortcut window"
-msgid "Moving around the document"
-msgstr "Dokumentuan zehar kokatzea"
-
-#: shell/help-overlay.ui:188 shell/help-overlay.ui:195
-msgctxt "shortcut window"
-msgid "Move around a page"
-msgstr "Orri batean kokatzea"
-
-#: shell/help-overlay.ui:202
-msgctxt "shortcut window"
-msgid "Move up/down a page several lines at a time"
-msgstr "Joan orrialde bat gora/behera hainbat lerro aldiko"
-
-#: shell/help-overlay.ui:209 shell/help-overlay.ui:456
-msgctxt "shortcut window"
-msgid "Go to previous page"
-msgstr "Joan aurreko orrialdera"
-
-#: shell/help-overlay.ui:216 shell/help-overlay.ui:449
-msgctxt "shortcut window"
-msgid "Go to next page"
-msgstr "Joan hurrengo orrialdera"
-
-#: shell/help-overlay.ui:223
-msgctxt "shortcut window"
-msgid "Go to page number"
-msgstr "Joan orrialdera:"
-
-#: shell/help-overlay.ui:230
-msgctxt "shortcut window"
-msgid "Go to previous page (fast)"
-msgstr "Joan aurreko orrialdera (azkarra)"
-
-#: shell/help-overlay.ui:237
-msgctxt "shortcut window"
-msgid "Go to next page (fast)"
-msgstr "Joan hurrengo orrialdera (azkarra)"
-
-#: shell/help-overlay.ui:244
-msgctxt "shortcut window"
-msgid "Go to previous page visited"
-msgstr "Joan bisitatutako aurreko orrialdera"
-
-#: shell/help-overlay.ui:251
-msgctxt "shortcut window"
-msgid "Go to next page visited"
-msgstr "Joan bisitatutako hurrengo orrialdera"
-
-#: shell/help-overlay.ui:258
-msgctxt "shortcut window"
-msgid "Go to the beginning/end of a page"
-msgstr "Joan orrialdearen hasierara/amaierara"
-
-#: shell/help-overlay.ui:265
-msgctxt "shortcut window"
-msgid "Go to the beginning of the document"
-msgstr "Joan dokumentuaren hasierara"
-
-#: shell/help-overlay.ui:272
-msgctxt "shortcut window"
-msgid "Go to the end of the document"
-msgstr "Joan dokumentuaren amaierara"
-
-#: shell/help-overlay.ui:281
-msgctxt "shortcut window"
-msgid "Document view and handling"
-msgstr "Dokumentua ikustea eta maneiatzea"
-
-#: shell/help-overlay.ui:285
-msgctxt "shortcut window"
-msgid "Add bookmark"
+#: shell/pps-sidebar-bookmarks.ui:63
+msgid "Add Bookmark"
 msgstr "Gehitu laster-marka"
 
-#: shell/help-overlay.ui:292
-msgctxt "shortcut window"
-msgid "Remove bookmark"
+#: shell/pps-sidebar-bookmarks.ui:72
+msgid "Remove Bookmark"
 msgstr "Kendu laster-marka"
 
-#: shell/help-overlay.ui:299
-msgctxt "shortcut window"
-msgid "Toggle night mode"
-msgstr "Txandakatu gaueko modua"
+#: shell/pps-sidebar-bookmarks.ui:100
+msgid "_Open Bookmark"
+msgstr "_Ireki laster-marka"
 
-#: shell/help-overlay.ui:306
-msgctxt "shortcut window"
-msgid "Toggle continuous scrolling"
-msgstr "Txandakatu korritze jarraia"
+#: shell/pps-sidebar-bookmarks.ui:106
+msgid "_Rename Bookmark"
+msgstr "_Aldatu laster-markaren izena"
 
-#: shell/help-overlay.ui:313
-msgctxt "shortcut window"
-msgid "Toggle dual page"
-msgstr "Txandakatu orrialde duala"
+#: shell/pps-sidebar-bookmarks.ui:110
+msgid "_Delete Bookmark"
+msgstr "_Ezabatu laster-marka"
 
-#: shell/help-overlay.ui:320
-msgctxt "shortcut window"
-msgid "Toggle odd pages left"
-msgstr "Txandakatu orrialde bakoitiak ezkerrean"
+#: shell/pps-sidebar-links.ui:52
+msgid "Collapse all tree"
+msgstr "Tolestu zuhaitz osoa"
 
-#: shell/help-overlay.ui:327
-msgctxt "shortcut window"
-msgid "Document properties"
-msgstr "Dokumentuaren propietateak"
+#: shell/pps-sidebar-links.ui:56
+msgid "Expand all tree"
+msgstr "Zabaldu zuhaitz osoa"
 
-#: shell/help-overlay.ui:334
-msgctxt "shortcut window"
-msgid "Add a post-it like note"
-msgstr "Gehitu post-it motako oharra"
+#: shell/pps-sidebar-links.ui:60
+msgid "Expand all under this element"
+msgstr "Zabaldu elementu honen azpiko guztia"
 
-#: shell/help-overlay.ui:341
-msgctxt "shortcut window"
-msgid "Highlight text"
-msgstr "Nabarmendu testua"
+#: shell/pps-sidebar-links.ui:66
+msgid "Print this section…"
+msgstr "Inprimatu sekzio hau…"
 
-#: shell/help-overlay.ui:350
-msgctxt "shortcut window"
-msgid "Finding text"
-msgstr "Testua bilatzea"
+#: shell/pps-sidebar-thumbnails.ui:46
+msgid "Previews"
+msgstr "Aurrebistak"
 
-#: shell/help-overlay.ui:354
-msgctxt "shortcut window"
-msgid "Show the search bar"
-msgstr "Erakutsi bilaketa-barra"
+#: shell/pps-window.ui:38 shell/pps-window.ui:46
+msgid "Open a Document"
+msgstr "Ireki dokumentua"
 
-#: shell/help-overlay.ui:361
-msgctxt "shortcut window"
-msgid "Go to the next search result"
-msgstr "Joan bilaketaren hurrengo emaitzara"
+#: shell/pps-window.ui:39
+msgid "Drag and drop documents here"
+msgstr "Arrastatu eta jaregin dokumentuak hemen"
 
-#: shell/help-overlay.ui:368
-msgctxt "shortcut window"
-msgid "Go to the previous search result"
-msgstr "Joan bilaketaren aurreko emaitzara"
+#: shell/pps-window.ui:44
+msgid "_Open…"
+msgstr "_Ireki..."
 
-#: shell/help-overlay.ui:377
-msgctxt "shortcut window"
-msgid "General"
-msgstr "Orokorra"
+#: shell/pps-window.ui:70
+msgid "Unable to Open Document"
+msgstr "Ezin izan da ireki dokumentua"
 
-#: shell/help-overlay.ui:381
-msgctxt "shortcut window"
-msgid "Show help"
-msgstr "Erakutsi laguntza"
+#: shell/pps-window.ui:75
+msgid "_Open Other File…"
+msgstr "Ireki beste _fitxategia…"
 
-#: shell/help-overlay.ui:388
-msgctxt "shortcut window"
-msgid "Toggle primary menu"
-msgstr "Aktibatu/desaktibatu menu nagusia"
+#: shell-rs/src/application.rs:224
+msgid "© 1996–2024 The Papers authors"
+msgstr "© 1996–2024 Paperak aplikazioaren authors"
 
-#: shell/help-overlay.ui:395
-msgctxt "shortcut window"
-msgid "Keyboard shortcuts"
-msgstr "Laster-teklak"
+#: shell-rs/src/application.rs:225
+msgid "translator-credits"
+msgstr "translator-credits"
 
-#: shell/help-overlay.ui:402
-msgctxt "shortcut window"
-msgid "Close window"
-msgstr "Itxi leihoa"
-
-#: shell/help-overlay.ui:411
-msgctxt "shortcut window"
-msgid "Presentation mode"
-msgstr "Aurkezpen modua"
-
-#: shell/help-overlay.ui:415
-msgctxt "shortcut window"
-msgid "Toggle black screen"
-msgstr "Txandakatu pantaila beltza"
-
-#: shell/help-overlay.ui:422
-msgctxt "shortcut window"
-msgid "Toggle white screen"
-msgstr "Txandakatu pantaila zuria"
-
-#: shell/help-overlay.ui:431
-msgctxt "shortcut window"
-msgid "Touchpad gestures"
-msgstr "Ukipen-teklatuaren keinuak"
-
-#: shell/main.c:64 shell/main.c:271
-msgid "GNOME Document Viewer"
-msgstr "GNOMEren dokumentu-ikustailea"
-
-#: shell/main.c:72
-msgid "Open a new window."
-msgstr "Ireki leiho berria."
-
-#: shell/main.c:73
+#: shell-rs/src/application.rs:320
 msgid "The page label of the document to display."
 msgstr "Dokumentuaren orrialdearen etiketa bistaratzeko."
 
-#: shell/main.c:73
+#: shell-rs/src/application.rs:321
 msgid "PAGE"
 msgstr "ORRIALDEA"
 
-#: shell/main.c:74
+#: shell-rs/src/application.rs:329
 msgid "The page number of the document to display."
 msgstr "Dokumentuaren orrialdearen zenbakia bistaratzeko."
 
-#: shell/main.c:74
+#: shell-rs/src/application.rs:330
 msgid "NUMBER"
 msgstr "ZENBAKIA"
 
-#: shell/main.c:75
+#: shell-rs/src/application.rs:338
 msgid "Named destination to display."
 msgstr "Izendatutako helburua bistaratzeko."
 
-#: shell/main.c:75
+#: shell-rs/src/application.rs:339
 msgid "DEST"
 msgstr "HELBURUA"
 
-#: shell/main.c:76
-msgid "Run evince in fullscreen mode"
-msgstr "Exekutatu evince pantaila osoko moduan"
+#: shell-rs/src/application.rs:347
+msgid "Run papers in fullscreen mode."
+msgstr "Exekutatu Paperak pantaila osoko moduan."
 
-#: shell/main.c:77
-msgid "Run evince in presentation mode"
-msgstr "Exekutatu evince aurkezpen moduan"
+#: shell-rs/src/application.rs:356
+msgid "Run papers in presentation mode."
+msgstr "Exekutatu Paperak aurkezpen moduan."
 
-#: shell/main.c:78
-msgid "Run evince as a previewer"
-msgstr "Exekutatu evince aurrebista gisa"
+#: shell-rs/src/application.rs:365
+msgid "Show the version of the program."
+msgstr "Erakutsi programaren bertsioa."
 
-#: shell/main.c:79
-msgid "The word or phrase to find in the document"
-msgstr "Hitz edo esaldi bat bilatzen du dokumentuan"
-
-#: shell/main.c:79
-msgid "STRING"
-msgstr "KATEA"
-
-#: shell/main.c:83
+#: shell-rs/src/application.rs:375
 msgid "[FILE…]"
 msgstr "[FITXATEGIA…]"
 
+#: shell-rs/src/page_selector.rs:77 shell-rs/src/sidebar_annotations_row.rs:82
+msgid "Page {}"
+msgstr "{}. orrialdea"
+
+#: shell-rs/src/page_selector.rs:226 shell-rs/src/page_selector.rs:244
+msgid "({} of {})"
+msgstr "({} / {})"
+
+#: shell-rs/src/page_selector.rs:228 shell-rs/src/page_selector.rs:246
+msgid "of {}"
+msgstr "/ {}"
+
+#: shell-rs/src/password_view.rs:145
+msgid ""
+"The document “{}” is locked and requires a password before it can be opened"
+msgstr "“{}” dokumentua blokeatuta dago, pasahitza behar da irekitzeko."
+
+#: shell-rs/src/properties_general.rs:73
+msgid "File"
+msgstr "Fitxategia"
+
+#: shell-rs/src/properties_general.rs:85
+msgid "Folder"
+msgstr "Karpeta"
+
+#: shell-rs/src/properties_general.rs:140
+msgid "Content"
+msgstr "Edukia"
+
+#: shell-rs/src/properties_general.rs:152
+msgid "Date &amp; Time"
+msgstr "Data eta ordua"
+
+#: shell-rs/src/window.rs:265
+msgid ""
+"Document contains new or modified annotations and form fields that have been "
+"filled out."
+msgstr "Dokumentuak jadanik bete diren oharpen eta inprimaki-eremu berriak edo aldatuak ditu."
+
+#: shell-rs/src/window.rs:277
+msgid "If you reload the document, changes will be permanently lost."
+msgstr "Dokumentua berriro kargatzen baduzu, aldaketak betirako galduko dira."
+
+#: shell-rs/src/window.rs:278
+msgid "File changed outside Papers. Reload document?"
+msgstr "Fitxategia Paperak aplikaziotik kanpo aldatu da. Birkargatu dokumentua?"
+
+#: shell-rs/src/window.rs:286
+msgid "_No"
+msgstr "_Ez"
+
+#: shell-rs/src/window.rs:286
+msgid "_Reload"
+msgstr "Bir_kargatu"
+
+#: shell-rs/src/window.rs:562
+msgid "Failed to Load Remote File."
+msgstr "Huts egin du urruneko fitxategia kargatzeak."
+
+#: shell-rs/src/window.rs:725
+msgid "Failed to Reload Document."
+msgstr "Huts egin du dokumentua birkargatzeak."
+
+#~ msgid "DVI document has incorrect format"
+#~ msgstr "DVI dokumentuak okerreko formatua du"
+
+#~ msgid "DVI Documents"
+#~ msgstr "DVI dokumentuak"
+
+#~ msgid "Adds support for reading DVI documents"
+#~ msgstr "DVI dokumentuak irakurtzeko euskarria gehitzen du"
+
+#~ msgid "Automatically reload the document"
+#~ msgstr "Birkargatu dokumentua automatikoki"
+
+#~ msgid "The document is automatically reloaded on file change."
+#~ msgstr "Dokumentua automatikoki birkargatuko da fitxategia aldatzean."
+
+#~ msgid "Document viewer for popular document formats"
+#~ msgstr "Dokumentuen formatu ospetsuen ikustailea"
+
+#~ msgid "Not found, click to change search options"
+#~ msgstr "Ez da aurkitu. Egin klik bilaketaren aukerak aldatzeko"
+
+#~ msgid "Find previous occurrence of the search string"
+#~ msgstr "Hitzaren aurreko agerraldia bilatzen du"
+
+#~ msgid "Find next occurrence of the search string"
+#~ msgstr "Hitzaren hurrengo agerraldia bilatzen du"
+
+#~ msgid "Warning"
+#~ msgstr "Abisua"
+
+#~ msgid "Select page or search in the outline"
+#~ msgstr "Hautatu orrialdea edo bilatu eskeman"
+
+#~ msgid "Evince Document Viewer"
+#~ msgstr "Evince dokumentu-ikustailea"
+
+#~ msgid "Evince"
+#~ msgstr "Evince"
+
+#~ msgid "Enlarge the document"
+#~ msgstr "Handiagotu dokumentua"
+
+#~ msgid "Shrink the document"
+#~ msgstr "Uzkurtu dokumentua"
+
+#~ msgid "Reset zoom and make the page fit in the window"
+#~ msgstr "Berrezarri zooma eta egin orriak leihoa bete dezan"
+
+#~ msgid "Initial window state:"
+#~ msgstr "Hasierako leihoaren egoera:"
+
+#~ msgid "Close"
+#~ msgstr "Itxi"
+
+#~ msgid "Note text"
+#~ msgstr "Ohar-testua"
+
+#~ msgid "Add highlight annotation"
+#~ msgstr "Gehitu ohar nabarmendua"
+
+#~ msgid "Auto_scroll"
+#~ msgstr "Korritze automatikoa"
+
+#~ msgid "Annotation _Properties"
+#~ msgstr "O_harpenen propietateak"
+
+#~ msgid "Open Containing _Folder"
+#~ msgstr "Ireki karpeta _edukitzailea"
+
+#~ msgid "First Page"
+#~ msgstr "Aurreneko orrialdea"
+
+#~ msgid "History"
+#~ msgstr "Historia"
+
+#~ msgid "Back"
+#~ msgstr "Atzera"
+
+#~ msgid "Forward"
+#~ msgstr "Aurrera"
+
+#~ msgid "Search in the outline…"
+#~ msgstr "Bilatu eskeman…"
+
+#~ msgid "Font"
+#~ msgstr "Letra-tipoa"
+
+#~ msgid "Remove bookmark"
+#~ msgstr "Kendu laster-marka"
+
+#~ msgid "Open an existing document"
+#~ msgstr "Ireki existitzen den dokumentua"
+
+#~ msgid "Annotate the document"
+#~ msgstr "Jarri oharra dokumentuan"
+
+#~ msgid "Annotate document"
+#~ msgstr "Jarri oharra dokumentuetan"
+
+#~ msgid "File options"
+#~ msgstr "Fitxategiaren aukerak"
+
+#~ msgid "Set zoom level"
+#~ msgstr "Ezarri zoomaren maila"
+
+#~ msgid "Send To…"
+#~ msgstr "Bidali hona…"
+
+#~ msgid "New _Window"
+#~ msgstr "Leiho _berria"
+
+#~ msgid "Prop_erties"
+#~ msgstr "Propi_etateak…"
+
+#~ msgid "Select or set the zoom level of the document"
+#~ msgstr "Hautatu edo ezarri dokumentuaren zoomaren maila"
+
+#, c-format
+#~ msgid "Password for document %s"
+#~ msgstr "'%s' dokumentuaren pasahitza"
+
+#~ msgid "Password required"
+#~ msgstr "Pasahitza behar da"
+
+#~ msgid "Remember password until you _log out"
+#~ msgstr "Gogoratu pasahitza saio _amaitu arte"
+
+#~ msgid "General"
+#~ msgstr "Orokorra"
+
+#~ msgid "Document License"
+#~ msgstr "Dokumentuaren lizentzia"
+
+#, c-format
+#~ msgid "Gathering font information… %3d%%"
+#~ msgstr "Letra-tipoaren informazioa biltzen… %%%3d"
+
+#~ msgid "Document contains no annotations"
+#~ msgstr "Dokumentuak ez du oharpenik"
+
+#, c-format
+#~ msgid "Page %d"
+#~ msgstr "%d. orria"
+
+#~ msgid "No Comment"
+#~ msgstr "Iruzkinik ez"
+
+#, c-format
+#~ msgid "A file named “%s” already exists. Do you want to replace it?"
+#~ msgstr ""
+#~ "“%s” izeneko fitxategia badago lehendik ere. Hura ordeztu nahi duzu?"
+
+#, c-format
+#~ msgid ""
+#~ "The file “%s” already exists. Replacing it will overwrite its contents."
+#~ msgstr ""
+#~ "“%s” fitxategia badago lehendik ere. Hura ordeztean bere edukia "
+#~ "gainidazten da."
+
+#~ msgid "_Replace"
+#~ msgstr "_Ordeztu"
+
+#~ msgid "Find a word or phrase in the document"
+#~ msgstr "Bilatu hitz bat edo esaldi bat dokumentuan"
+
+#~ msgid "Search not available for this document"
+#~ msgstr "Bilaketa ez dago erabilgarri dokumentu honetarako"
+
+#~ msgid "Supported Image Files"
+#~ msgstr "Onartutako irudi-fitxategiak"
+
+#, c-format
+#~ msgid "Unable to open document “%s”."
+#~ msgstr "Ezin da '%s' dokumentua ireki."
+
+#, c-format
+#~ msgid "Loading document from “%s”"
+#~ msgstr "%s(e)tik dokumentua kargatzen"
+
+#, c-format
+#~ msgid "Downloading document (%d%%)"
+#~ msgstr "Dokumentua deskargatzen (%% %d)"
+
+#, c-format
+#~ msgid "Reloading document from %s"
+#~ msgstr "%s(e)ndik dokumentua birkargatzen"
+
+#~ msgid "_Open"
+#~ msgstr "_Ireki"
+
+#, c-format
+#~ msgid "Saving document to %s"
+#~ msgstr "Dokumentua %s(e)n gordetzen"
+
+#, c-format
+#~ msgid "Saving attachment to %s"
+#~ msgstr "Eranskina %s(e)n gordetzen"
+
+#, c-format
+#~ msgid "Saving image to %s"
+#~ msgstr "Irudia %s(e)n gordetzen"
+
+#, c-format
+#~ msgid "Uploading document (%d%%)"
+#~ msgstr "Dokumentua igotzen (%% %d)"
+
+#, c-format
+#~ msgid "Uploading attachment (%d%%)"
+#~ msgstr "Eranskina igotzen (%% %d)"
+
+#, c-format
+#~ msgid "Uploading image (%d%%)"
+#~ msgstr "Irudia igotzen (%% %d)"
+
+#~ msgid "_Save"
+#~ msgstr "_Gorde"
+
+#~ msgid "Could not send current document"
+#~ msgstr "Ezin izan da uneko dokumentua bidali"
+
+#, c-format
+#~ msgid "Reload document “%s”?"
+#~ msgstr "Kargatu “%s” dokumentua berriro?"
+
+#, c-format
+#~ msgid "Save a copy of document “%s” before closing?"
+#~ msgstr "Gorde '%s' dokumentuaren kopia itxi aurretik?"
+
+#, c-format
+#~ msgid "Wait until print job “%s” finishes before closing?"
+#~ msgstr "Itxi aurretik, zain egon '%s' lana inprimatu arte?"
+
+#, c-format
+#~ msgid ""
+#~ "There is %d print job active. Wait until print finishes before closing?"
+#~ msgid_plural ""
+#~ "There are %d print jobs active. Wait until print finishes before closing?"
+#~ msgstr[0] ""
+#~ "Inprimatzeko lan %d dago aktibo. Itxi aurretik, zain egon inprimatzea "
+#~ "amaitu arte?"
+#~ msgstr[1] ""
+#~ "Inprimatzeko %d lan daude aktibo. Itxi aurretik, zain egon inprimatzea "
+#~ "amaitu arte?"
+
+#~ msgid "Evince is a simple document viewer for GNOME"
+#~ msgstr "Evince GNOMErako dokumentu-ikustaile sinplea da"
+
+#~ msgid "Recent Documents"
+#~ msgstr "Azken aldiko dokumentuak"
+
+#~ msgid "50%"
+#~ msgstr "%50"
+
+#~ msgid "70%"
+#~ msgstr "%70"
+
+#~ msgid "85%"
+#~ msgstr "%85"
+
+#~ msgid "100%"
+#~ msgstr "% 100"
+
+#~ msgid "125%"
+#~ msgstr "%125"
+
+#~ msgid "150%"
+#~ msgstr "%150"
+
+#~ msgid "175%"
+#~ msgstr "%175"
+
+#~ msgid "200%"
+#~ msgstr "%200"
+
+#~ msgid "300%"
+#~ msgstr "%300"
+
+#~ msgid "400%"
+#~ msgstr "%400"
+
+#~ msgid "800%"
+#~ msgstr "%800"
+
+#~ msgid "1600%"
+#~ msgstr "%1600"
+
+#~ msgid "3200%"
+#~ msgstr "%3200"
+
+#~ msgid "6400%"
+#~ msgstr "%6400"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle fullscreen"
+#~ msgstr "Txandakatu pantaila osoa"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle caret navigation"
+#~ msgstr "Txandakatu kurtsore-nabigazioa"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Copy highlighted text"
+#~ msgstr "Kopiatu nabarmendutako testua"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Select all the text in a document"
+#~ msgstr "Hautatu dokumentuaren testu guztia"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Zoom 1∶1"
+#~ msgstr "Zooma 1:1"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Fit page"
+#~ msgstr "Doitu orrialdea"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Fit width"
+#~ msgstr "Doitu zabalera"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to previous page"
+#~ msgstr "Joan aurreko orrialdera"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to next page"
+#~ msgstr "Joan hurrengo orrialdera"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to previous page (fast)"
+#~ msgstr "Joan aurreko orrialdera (azkarra)"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to next page (fast)"
+#~ msgstr "Joan hurrengo orrialdera (azkarra)"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to previous page visited"
+#~ msgstr "Joan bisitatutako aurreko orrialdera"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to next page visited"
+#~ msgstr "Joan bisitatutako hurrengo orrialdera"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to the beginning of the document"
+#~ msgstr "Joan dokumentuaren hasierara"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to the end of the document"
+#~ msgstr "Joan dokumentuaren amaierara"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Add bookmark"
+#~ msgstr "Gehitu laster-marka"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Remove bookmark"
+#~ msgstr "Kendu laster-marka"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle night mode"
+#~ msgstr "Txandakatu gaueko modua"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle dual page"
+#~ msgstr "Txandakatu orrialde duala"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle odd pages left"
+#~ msgstr "Txandakatu orrialde bakoitiak ezkerrean"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Add a post-it like note"
+#~ msgstr "Gehitu post-it motako oharra"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Highlight text"
+#~ msgstr "Nabarmendu testua"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Show the search bar"
+#~ msgstr "Erakutsi bilaketa-barra"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to the next search result"
+#~ msgstr "Joan bilaketaren hurrengo emaitzara"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Go to the previous search result"
+#~ msgstr "Joan bilaketaren aurreko emaitzara"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Show help"
+#~ msgstr "Erakutsi laguntza"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Toggle primary menu"
+#~ msgstr "Aktibatu/desaktibatu menu nagusia"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Laster-teklak"
+
+#~ msgid "GNOME Document Viewer"
+#~ msgstr "GNOMEren dokumentu-ikustailea"
+
+#~ msgid "Open a new window."
+#~ msgstr "Ireki leiho berria."
+
+#~ msgid "Run evince as a previewer"
+#~ msgstr "Exekutatu evince aurrebista gisa"
+
+#~ msgid "The word or phrase to find in the document"
+#~ msgstr "Hitz edo esaldi bat bilatzen du dokumentuan"
+
+#~ msgid "STRING"
+#~ msgstr "KATEA"
+
 #~ msgid "Save Current Settings as Defa_ult"
 #~ msgstr "Gorde uneko ezarpenak le_henetsi gisa"
-
-#~ msgid "Annotation _Properties…"
-#~ msgstr "O_harpenaren propietateak…"
 
 #~ msgid "Annotation Properties…"
 #~ msgstr "Oharpenaren propietateak…"
@@ -2123,14 +2312,8 @@ msgstr "[FITXATEGIA…]"
 #~ msgid "Download document"
 #~ msgstr "Deskargatu dokumentua"
 
-#~ msgid "Print document"
-#~ msgstr "Inprimatu dokumentua"
-
 #~ msgid "Unable to launch external application."
 #~ msgstr "Ezin da kanpoko aplikazioa abiarazi."
-
-#~ msgid "_Remove Bookmark"
-#~ msgstr "_Kendu laster-markak"
 
 #~ msgctxt "shortcut window"
 #~ msgid "Go to previous/next page"
