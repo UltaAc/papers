@@ -194,44 +194,33 @@ zlib_dep = cc.find_library('z', required: false)
 assert(zlib_dep.found() and cc.has_function('inflate', dependencies: zlib_dep) and cc.has_function('crc32', dependencies: zlib_dep),
       'No sufficient zlib library found on your system')
 
-pps_platform = get_option('platform')
-if pps_platform == 'gnome'
-  # *** Nautilus property page build ***
-  enable_nautilus = get_option('nautilus')
-  if enable_nautilus
-    libnautilus_extension_dep = dependency('libnautilus-extension-4', version: ['>= 43'])
-    nautilus_extension_dir = libnautilus_extension_dep.get_variable(pkgconfig: 'extensiondir', pkgconfig_define: ['libdir', pps_libdir])
-  endif
+# *** Nautilus property page build ***
+enable_nautilus = get_option('nautilus')
+if enable_nautilus
+  libnautilus_extension_dep = dependency('libnautilus-extension-4', version: ['>= 43'])
+  nautilus_extension_dir = libnautilus_extension_dep.get_variable(pkgconfig: 'extensiondir', pkgconfig_define: ['libdir', pps_libdir])
+endif
 
-  # *** DBUS ***
-  enable_dbus = get_option('dbus')
-  if enable_dbus
-    # Check for dbus service dir
-    dbus_service_dir = dependency('dbus-1').get_variable(pkgconfig: 'session_bus_services_dir', pkgconfig_define: ['datadir', pps_datadir])
-  endif
-  config_h.set('ENABLE_DBUS', enable_dbus)
+# *** DBUS ***
+enable_dbus = get_option('dbus')
+if enable_dbus
+  # Check for dbus service dir
+  dbus_service_dir = dependency('dbus-1').get_variable(pkgconfig: 'session_bus_services_dir', pkgconfig_define: ['datadir', pps_datadir])
+endif
+config_h.set('ENABLE_DBUS', enable_dbus)
 
-  # *** GNOME Keyring support ***
-  enable_keyring = get_option('keyring').enabled()
+# *** GNOME Keyring support ***
+enable_keyring = get_option('keyring').enabled()
 
-  # GKT+ Unix Printing
-  gtk_unix_print_dep = dependency('gtk4-unix-print', version: gtk_req_version, required: get_option('gtk_unix_print'))
-  enable_gtk_unix_print = gtk_unix_print_dep.found()
-  config_h.set10('GTKUNIXPRINT_ENABLED', enable_gtk_unix_print)
+# GKT+ Unix Printing
+gtk_unix_print_dep = dependency('gtk4-unix-print', version: gtk_req_version, required: get_option('gtk_unix_print'))
+enable_gtk_unix_print = gtk_unix_print_dep.found()
+config_h.set10('GTKUNIXPRINT_ENABLED', enable_gtk_unix_print)
 
-  if enable_dbus or enable_gtk_unix_print
-    gio_unix_dep = dependency('gio-unix-2.0', version: glib_req_version)
-  else
-    gio_unix_dep = dependency('', required: false)
-  endif
-
+if enable_dbus or enable_gtk_unix_print
+  gio_unix_dep = dependency('gio-unix-2.0', version: glib_req_version)
 else
-  enable_nautilus = false
-  enable_dbus = false
-  enable_keyring = false
-  enable_gtk_unix_print = false
   gio_unix_dep = dependency('', required: false)
-  gtk_unix_print_dep = dependency('', required: false)
 endif
 
 # *** GObject Introspection ***
@@ -456,8 +445,7 @@ else
   )
 endif
 
-summary({'Platform...................': pps_platform,
-         'Debug mode.................': pps_debug,
+summary({'Debug mode.................': pps_debug,
          'Rust build mode............': rust_target,
         }, section: 'General', bool_yn: true)
 summary({'Viewer.....................': enable_viewer,

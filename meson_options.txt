@@ -1,5 +1,4 @@
 option('profile', type: 'combo', choices: ['default', 'devel'], value: 'default', description: 'whether this is a development build')
-option('platform', type: 'combo', choices: ['gnome', 'win32'], value: 'gnome', description: 'for which platform to build')
 
 option('viewer', type: 'boolean', value: true, description: 'whether Viewer support is requested')
 option('previewer', type: 'boolean', value: true, description: 'whether Previewer support is requested')
