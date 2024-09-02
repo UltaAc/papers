@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<!--*- mode: nxml; indent-tabs-mode: nil -*-->
+<!DOCTYPE moduleset SYSTEM "moduleset.dtd">
+<?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
+<moduleset>
+  <!--
+    Please format this file using https://github.com/htacg/tidy-html5
+
+        tidy -config ../tidy.conf -m gtk-osx.modules
+  -->
+  <repository name="download.gnome.org"
+              default="yes"
+              href="https://download.gnome.org/sources/"
+              type="tarball" />
+  <repository name="libarchive"
+              href="https://www.libarchive.org/downloads/"
+              type="tarball" />
+  <repository name="sourceforge"
+              href="https://downloads.sourceforge.net/"
+              type="tarball" />
+  <repository name="github"
+              href="https://github.com/"
+              type="git" />
+  <repository name="gnome-gitlab"
+              href="https://gitlab.gnome.org/"
+              type="git" />
+  <repository name="github-tarball"
+              href="https://github.com/"
+              type="tarball" />
+  <repository name="poppler"
+              href="https://poppler.freedesktop.org/"
+              type="tarball" />
+  <repository name="libspectre"
+              href="https://libspectre.freedesktop.org/releases/"
+              type="tarball" />
+  <repository name="desktop-file-utils"
+              href="https://www.freedesktop.org/software/desktop-file-utils/releases/"
+              type="tarball" />
+  <repository name="appstream"
+              href="https://www.freedesktop.org/software/appstream/releases/"
+              type="tarball" />
+  <repository name="curl"
+              href="https://curl.se/download/"
+              type="tarball" />
+  <repository name="yaml"
+              href="http://pyyaml.org/download/libyaml/"
+              type="tarball" />
+  <repository name="exempi"
+              href="https://libopenraw.freedesktop.org/download/"
+              type="tarball" />
+  <repository name="system"
+              type="system" />
+
+  <include href="https://gitlab.gnome.org/GNOME/gtk-osx/-/raw/650c743624426000a01b42d67a2449b058bea899/modulesets-stable/gtk-osx.modules" />
+
+  <cmake id="poppler" cmakeargs="-DCMAKE_MACOSX_RPATH=OFF -DENABLE_UNSTABLE_API_ABI_HEADERS=ON -DENABLE_BOOST=OFF -DENABLE_NSS3=OFF -DENABLE_QT5=OFF -DENABLE_QT6=OFF -DENABLE_GOBJECT_INTROSPECTION=OFF">
+    <branch module="poppler-24.08.0.tar.xz" version="24.08.0"
+            repo="poppler" />
+    <pkg-config>poppler-glib.pc</pkg-config>
+    <dependencies>
+      <dep package="poppler-data" />
+      <dep package="glib" />
+      <dep package="cairo" />
+      <dep package="lcms2" />
+    </dependencies>
+  </cmake>
+  <cmake id="poppler-data">
+    <branch module="poppler-data-0.4.11.tar.gz" version="0.4.11"
+            repo="poppler" />
+  </cmake>
+
+  <meson id="papers" mesonargs="-Ddocumentation=false
+                                -Ddbus=false
+                                -Dintrospection=disabled
+                                -Duser_doc=false
+                                -Dcomics=enabled
+                                -Dxps=enabled
+                                -Dps=enabled
+                                -Ddjvu=enabled
+                                -Dnautilus=false">
+    <branch repo="gnome-gitlab" module="GNOME/Incubator/papers.git"
+            revision="main" />
+    <dependencies>
+      <dep package="poppler" />
+      <dep package="gtk-4" />
+      <dep package="libadwaita" />
+      <dep package="desktop-file-utils" />
+      <dep package="exempi" />
+      <dep package="libarchive" />
+      <dep package="djvu" />
+      <dep package="libgxps" />
+      <dep package="libspectre" />
+      <dep package="shared-mime-info" />
+    </dependencies>
+  </meson>
+
+  <cmake id="libarchive">
+    <branch repo="libarchive" module="libarchive-3.7.1.tar.xz"
+            version="3.7.1" />
+  </cmake>
+
+  <autotools id="djvu" autogen-sh="autoreconf">
+    <branch repo="sourceforge" module="djvu/djvulibre-3.5.28.tar.gz"
+            version="3.5.28" />
+  </autotools>
+
+  <meson id="libgxps" mesonargs="-Denable-test=false">
+    <branch module="libgxps/0.3/libgxps-0.3.2.tar.xz" version="0.3.2" />
+    <dependencies>
+      <dep package="lcms2" />
+    </dependencies>
+  </meson>
+
+  <autotools id="lcms2">
+    <branch repo="github-tarball" version="2.15"
+            module="mm2/Little-CMS/releases/download/lcms2.15/lcms2-2.15.tar.gz" />
+  </autotools>
+
+  <autotools id="libspectre" supports-non-srcdir-builds="no">
+    <branch repo="libspectre" version="0.2.12"
+            module="libspectre-0.2.12.tar.gz" />
+    <dependencies>
+      <dep package="ghostscript" />
+    </dependencies>
+  </autotools>
+
+  <autotools id="ghostscript"
+             autogenargs="--disable-cups
+                          --disable-gtk
+                          --disable-compile-inits
+                          --without-x"
+             autogen-template="%(srcdir)s/%(autogen-sh)s
+                               --prefix %(prefix)s
+                               %(autogenargs)s
+                               DARWIN_LDFLAGS_SO_PREFIX=%(prefix)s/lib/"
+             supports-non-srcdir-builds="no"
+             makeargs="so"
+             makeinstallargs="install-so">
+    <branch repo="github-tarball" version="10.01.2"
+            module="ArtifexSoftware/ghostpdl-downloads/releases/download/gs10012/ghostpdl-10.01.2.tar.xz">
+      <patch file="ghostscript-fix-naming.patch" strip="1" />
+    </branch>
+  </autotools>
+
+  <meson id="xmlb">
+    <branch repo="github-tarball"
+            module="hughsie/libxmlb/releases/download/0.3.19/libxmlb-0.3.19.tar.xz"
+            version="0.3.19" />
+  </meson>
+
+  <cmake id="curl">
+    <branch repo="curl" module="curl-8.8.0.tar.bz2"
+            version="8.8.0" />
+    <dependencies>
+      <dep package="openssl" />
+    </dependencies>
+  </cmake>
+
+  <autotools id="yaml" autogen-sh="autoreconf">
+    <branch repo="yaml" module="yaml-0.2.5.tar.gz"
+            version="0.2.5" />
+  </autotools>
+
+  <meson id="appstream" mesonargs="-Dvapi=false -Dzstd-support=false -Dsystemd=false -Dstemming=false -Dapidocs=false">
+    <branch repo="appstream"
+            module="AppStream-1.0.3.tar.xz"
+            version="1.0.3" />
+    <dependencies>
+      <dep package="curl" />
+      <dep package="yaml" />
+      <dep package="libxml2" />
+      <dep package="xmlb" />
+      <dep package="itstool" />
+    </dependencies>
+  </meson>
+
+  <meson id="libadwaita" mesonargs="-Dvapi=false -Dintrospection=disabled">
+    <branch module="libadwaita/1.6/libadwaita-1.6.beta.tar.xz"
+            version="1.6.beta" />
+    <dependencies>
+      <dep package="gtk-4" />
+      <dep package="adwaita-icon-theme" />
+      <dep package="appstream" />
+    </dependencies>
+  </meson>
+
+  <meson id="gtk-4"
+         mesonargs="-Dx11-backend=false -Dmedia-gstreamer=disabled">
+
+    <branch module="gtk/4.16/gtk-4.16.0.tar.xz"
+            version="4.16.0">
+    </branch>
+
+    <dependencies>
+      <dep package="pango" />
+      <dep package="atk" />
+      <dep package="gdk-pixbuf" />
+      <dep package="graphene" />
+      <dep package="libsass" />
+      <dep package="libepoxy" />
+      <dep package="hicolor-icon-theme" />
+    </dependencies>
+  </meson>
+
+  <meson id="desktop-file-utils">
+    <branch repo="desktop-file-utils"
+            module="desktop-file-utils-0.26.tar.xz"
+            version="0.26" />
+  </meson>
+
+  <autotools id="exempi" autogen-sh="autoreconf" autogenargs="--enable-unittest=no">
+    <branch repo="exempi" module="exempi-2.6.5.tar.xz"
+            version="2.6.5" />
+  </autotools>
+
+</moduleset>
