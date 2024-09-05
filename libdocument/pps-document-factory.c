@@ -254,19 +254,7 @@ _pps_document_factory_init (void)
                 pps_backends_dir = g_strdup (g_getenv ("PPS_BACKENDS_DIR"));
 
 	if (!pps_backends_dir) {
-#ifdef G_OS_WIN32
-{
-        gchar *dir;
-
-        dir = g_win32_get_package_installation_directory_of_module (NULL);
-        pps_backends_dir = g_build_filename (dir, "lib", "papers",
-                                        PPS_BACKENDSBINARYVERSION,
-                                        "backends", NULL);
-        g_free (dir);
-}
-#else
         pps_backends_dir = g_strdup (PPS_BACKENDSDIR);
-#endif
 	}
 
         pps_backends_list = _pps_backend_info_load_from_dir (pps_backends_dir);

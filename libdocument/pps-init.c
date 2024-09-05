@@ -21,9 +21,6 @@
 
 #include <glib.h>
 #include <glib/gi18n-lib.h>
-#ifdef G_OS_WIN32
-#include <windows.h>
-#endif
 
 #include <exempi/xmp.h>
 
@@ -33,55 +30,6 @@
 
 static int pps_init_count;
 
-#ifdef G_OS_WIN32
-
-static HMODULE evdocument_dll = NULL;
-static gchar *locale_dir = NULL;
-
-#ifdef DLL_EXPORT
-BOOL WINAPI DllMain (HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved);
-BOOL WINAPI
-DllMain (HINSTANCE hinstDLL,
-	 DWORD     fdwReason,
-	 LPVOID    lpvReserved)
-{
-	if (fdwReason == DLL_PROCESS_ATTACH)
-		evdocument_dll = hinstDLL;
-
-	return TRUE;
-}
-#endif
-
-static const gchar *
-_pps_win32_get_locale_dir (HMODULE module)
-{
-	if (locale_dir)
-		return locale_dir;
-
-	gchar *install_dir = NULL, *utf8_locale_dir;
-
-	if (evdocument_dll != NULL)
-		install_dir =
-		g_win32_get_package_installation_directory_of_module (module);
-
-	if (install_dir) {
-		utf8_locale_dir = g_build_filename (install_dir,
-			"share", "locale", NULL);
-
-		locale_dir = g_win32_locale_filename_from_utf8 (utf8_locale_dir);
-
-		g_free (install_dir);
-		g_free (utf8_locale_dir);
-	}
-
-	if (!locale_dir)
-		locale_dir = g_strdup ("");
-
-	return locale_dir;
-}
-
-#endif
-
 /**
  * pps_get_locale_dir:
  *
@@ -90,11 +38,7 @@ _pps_win32_get_locale_dir (HMODULE module)
 const gchar *
 pps_get_locale_dir (void)
 {
-#ifdef G_OS_WIN32
-	return _pps_win32_get_locale_dir (evdocument_dll);
-#else
 	return PPS_LOCALEDIR;
-#endif
 }
 
 /**
@@ -140,11 +84,6 @@ pps_shutdown (void)
 
         if (--pps_init_count > 0)
                 return;
-
-#ifdef G_OS_WIN32
-	if (locale_dir != NULL)
-		g_free(locale_dir);
-#endif
 
 	xmp_terminate ();
         _pps_document_factory_shutdown ();

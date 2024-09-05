@@ -23,9 +23,6 @@
 #include "pps-outlines.h"
 
 #include <string.h>
-#ifdef _WIN32
-#include <io.h>
-#endif
 #include <gtk/gtk.h>
 #include <poppler.h>
 #include <poppler-document.h>

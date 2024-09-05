@@ -35,15 +35,6 @@
 
 static gchar *tmp_dir = NULL;
 
-#ifndef O_BINARY
-#define O_BINARY 0
-#endif
-
-/* On Windows, O_CLOEXEC does not exist */
-#ifndef O_CLOEXEC
-#define O_CLOEXEC 0
-#endif
-
 /*
  * pps_dir_ensure_exists:
  * @dir: the directory name
@@ -148,7 +139,7 @@ pps_mkstemp (const char  *tmpl,
               return -1;
 
         name = g_build_filename (tmp, tmpl, NULL);
-        fd = g_mkstemp_full (name, O_RDWR | O_BINARY | O_CLOEXEC, 0600);
+        fd = g_mkstemp_full (name, O_RDWR | O_CLOEXEC, 0600);
 
         if (fd == -1) {
 		int errsv = errno;
@@ -464,16 +455,6 @@ get_mime_type_from_data (const gchar *uri, GError **error)
                 return NULL;
         }
 
-#ifdef G_OS_WIN32
-       /* On Windows, the implementation of g_content_type_guess() is
-        * sometimes too limited, so we do use get_mime_type_from_uri()
-        * as a fallback */
-       if (strcmp (content_type, "*") == 0) {
-               g_free (content_type);
-               return get_mime_type_from_uri (uri, error);
-       }
-#endif /* G_OS_WIN32 */
-
         mime_type = g_content_type_get_mime_type (content_type);
         g_free (content_type);
 
@@ -591,10 +572,6 @@ static const char *compressor_cmds[] = {
 static void
 compression_child_setup_cb (gpointer fd_ptr)
 {
-#ifdef _WIN32
-        /* On Windows, processes are not inherited by default */
-        (void)fd_ptr;
-#else
         int fd = GPOINTER_TO_INT (fd_ptr);
         int flags;
 
@@ -603,7 +580,6 @@ compression_child_setup_cb (gpointer fd_ptr)
                 flags &= ~FD_CLOEXEC;
                 fcntl (fd, F_SETFD, flags);
         }
-#endif
 }
 
 static gchar *
