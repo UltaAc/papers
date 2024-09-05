@@ -1,7 +1,6 @@
 backends_common_incs = [top_inc]
 backends_common_deps = [libppsdocument_dep]
 backends_common_cflags = [
-  '-DPPS_LOCALEDIR="@0@"'.format(pps_localedir),
   '-DPAPERS_COMPILATION',
 ]
 
