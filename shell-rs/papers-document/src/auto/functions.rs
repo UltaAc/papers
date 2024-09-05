@@ -90,13 +90,6 @@ pub fn file_uncompress(uri: &str, type_: CompressionType) -> Result<glib::GStrin
     }
 }
 
-#[doc(alias = "pps_get_locale_dir")]
-#[doc(alias = "get_locale_dir")]
-pub fn locale_dir() -> Option<std::path::PathBuf> {
-    assert_initialized_main_thread!();
-    unsafe { from_glib_none(ffi::pps_get_locale_dir()) }
-}
-
 #[doc(alias = "pps_init")]
 pub fn init() -> bool {
     assert_initialized_main_thread!();

@@ -206,8 +206,22 @@ The @callback will be called when the dialog is dismissed.</doc>
       <field name="title" writable="1">
         <type name="utf8" c:type="gchar*"/>
       </field>
-      <method name="copy" c:identifier="pps_bookmark_copy">
+      <constructor name="new" c:identifier="pps_bookmark_new">
         <source-position filename="libview/context/pps-bookmarks.h" line="44"/>
+        <return-value transfer-ownership="full">
+          <type name="Bookmark" c:type="PpsBookmark*"/>
+        </return-value>
+        <parameters>
+          <parameter name="page" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+          <parameter name="title" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="copy" c:identifier="pps_bookmark_copy">
+        <source-position filename="libview/context/pps-bookmarks.h" line="47"/>
         <return-value transfer-ownership="full">
           <type name="Bookmark" c:type="PpsBookmark*"/>
         </return-value>
@@ -218,7 +232,7 @@ The @callback will be called when the dialog is dismissed.</doc>
         </parameters>
       </method>
       <method name="free" c:identifier="pps_bookmark_free">
-        <source-position filename="libview/context/pps-bookmarks.h" line="47"/>
+        <source-position filename="libview/context/pps-bookmarks.h" line="50"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -229,7 +243,7 @@ The @callback will be called when the dialog is dismissed.</doc>
         </parameters>
       </method>
       <method name="get_page" c:identifier="pps_bookmark_get_page">
-        <source-position filename="libview/context/pps-bookmarks.h" line="50"/>
+        <source-position filename="libview/context/pps-bookmarks.h" line="53"/>
         <return-value transfer-ownership="none">
           <type name="guint" c:type="guint"/>
         </return-value>
@@ -240,7 +254,7 @@ The @callback will be called when the dialog is dismissed.</doc>
         </parameters>
       </method>
       <method name="get_title" c:identifier="pps_bookmark_get_title">
-        <source-position filename="libview/context/pps-bookmarks.h" line="53"/>
+        <source-position filename="libview/context/pps-bookmarks.h" line="56"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -258,9 +272,9 @@ The @callback will be called when the dialog is dismissed.</doc>
            glib:type-name="PpsBookmarks"
            glib:get-type="pps_bookmarks_get_type"
            glib:type-struct="BookmarksClass">
-      <source-position filename="libview/context/pps-bookmarks.h" line="57"/>
+      <source-position filename="libview/context/pps-bookmarks.h" line="60"/>
       <constructor name="new" c:identifier="pps_bookmarks_new">
-        <source-position filename="libview/context/pps-bookmarks.h" line="61"/>
+        <source-position filename="libview/context/pps-bookmarks.h" line="64"/>
         <return-value transfer-ownership="full">
           <type name="Bookmarks" c:type="PpsBookmarks*"/>
         </return-value>
@@ -271,20 +285,6 @@ The @callback will be called when the dialog is dismissed.</doc>
         </parameters>
       </constructor>
       <method name="add" c:identifier="pps_bookmarks_add">
-        <source-position filename="libview/context/pps-bookmarks.h" line="67"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="bookmarks" transfer-ownership="none">
-            <type name="Bookmarks" c:type="PpsBookmarks*"/>
-          </instance-parameter>
-          <parameter name="bookmark" transfer-ownership="none">
-            <type name="Bookmark" c:type="PpsBookmark*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <method name="delete" c:identifier="pps_bookmarks_delete">
         <source-position filename="libview/context/pps-bookmarks.h" line="70"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -298,12 +298,26 @@ The @callback will be called when the dialog is dismissed.</doc>
           </parameter>
         </parameters>
       </method>
+      <method name="delete" c:identifier="pps_bookmarks_delete">
+        <source-position filename="libview/context/pps-bookmarks.h" line="73"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="bookmarks" transfer-ownership="none">
+            <type name="Bookmarks" c:type="PpsBookmarks*"/>
+          </instance-parameter>
+          <parameter name="bookmark" transfer-ownership="none">
+            <type name="Bookmark" c:type="PpsBookmark*"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="get_bookmarks" c:identifier="pps_bookmarks_get_bookmarks">
-        <source-position filename="libview/context/pps-bookmarks.h" line="63"/>
+        <source-position filename="libview/context/pps-bookmarks.h" line="66"/>
         <return-value transfer-ownership="container">
           <doc xml:space="preserve"
                filename="libview/context/pps-bookmarks.c"
-               line="246">List of #PpsBookmark</doc>
+               line="259">List of #PpsBookmark</doc>
           <type name="GLib.List" c:type="GList*">
             <type name="Bookmark"/>
           </type>
@@ -312,13 +326,13 @@ The @callback will be called when the dialog is dismissed.</doc>
           <instance-parameter name="bookmarks" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/context/pps-bookmarks.c"
-                 line="244">A #PpsBookmarks</doc>
+                 line="257">A #PpsBookmarks</doc>
             <type name="Bookmarks" c:type="PpsBookmarks*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="has_bookmarks" c:identifier="pps_bookmarks_has_bookmarks">
-        <source-position filename="libview/context/pps-bookmarks.h" line="65"/>
+        <source-position filename="libview/context/pps-bookmarks.h" line="68"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -329,7 +343,7 @@ The @callback will be called when the dialog is dismissed.</doc>
         </parameters>
       </method>
       <method name="update" c:identifier="pps_bookmarks_update">
-        <source-position filename="libview/context/pps-bookmarks.h" line="73"/>
+        <source-position filename="libview/context/pps-bookmarks.h" line="76"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -358,7 +372,7 @@ The @callback will be called when the dialog is dismissed.</doc>
     <record name="BookmarksClass"
             c:type="PpsBookmarksClass"
             glib:is-gtype-struct-for="Bookmarks">
-      <source-position filename="libview/context/pps-bookmarks.h" line="57"/>
+      <source-position filename="libview/context/pps-bookmarks.h" line="60"/>
       <field name="parent_class">
         <type name="GObject.ObjectClass" c:type="GObjectClass"/>
       </field>
@@ -1039,7 +1053,7 @@ The @callback will be called when the dialog is dismissed.</doc>
         <return-value transfer-ownership="container">
           <doc xml:space="preserve"
                filename="libview/context/pps-history.c"
-               line="316">the back history</doc>
+               line="350">the back history</doc>
           <type name="GLib.List" c:type="GList*">
             <type name="PapersDocument.Link"/>
           </type>
@@ -1048,7 +1062,7 @@ The @callback will be called when the dialog is dismissed.</doc>
           <instance-parameter name="history" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/context/pps-history.c"
-                 line="314">a #PpsHistory</doc>
+                 line="348">a #PpsHistory</doc>
             <type name="History" c:type="PpsHistory*"/>
           </instance-parameter>
         </parameters>
@@ -1059,7 +1073,7 @@ The @callback will be called when the dialog is dismissed.</doc>
         <return-value transfer-ownership="container">
           <doc xml:space="preserve"
                filename="libview/context/pps-history.c"
-               line="342">the forward history</doc>
+               line="376">the forward history</doc>
           <type name="GLib.List" c:type="GList*">
             <type name="PapersDocument.Link"/>
           </type>
@@ -1068,7 +1082,7 @@ The @callback will be called when the dialog is dismissed.</doc>
           <instance-parameter name="history" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/context/pps-history.c"
-                 line="340">a #PpsHistory</doc>
+                 line="374">a #PpsHistory</doc>
             <type name="History" c:type="PpsHistory*"/>
           </instance-parameter>
         </parameters>
@@ -1131,6 +1145,13 @@ The @callback will be called when the dialog is dismissed.</doc>
           </instance-parameter>
         </parameters>
       </method>
+      <property name="document-model"
+                readable="0"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="DocumentModel"/>
+      </property>
       <field name="parent_instance">
         <type name="GObject.Object" c:type="GObject"/>
       </field>
@@ -4254,7 +4275,7 @@ care to treat any multi-line matches as being only one result.</doc>
               version="3.30">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="5804">Adds a Text Markup annotation (defaulting to a 'highlight' one) to
+             line="5807">Adds a Text Markup annotation (defaulting to a 'highlight' one) to
 the currently selected text on the document.
 
 When the selected text spans more than one page, it will add a
@@ -4263,14 +4284,14 @@ corresponding annotation for each page that contains selected text.</doc>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/pps-view.c"
-               line="5814">%TRUE if annotations were added successfully, %FALSE otherwise.</doc>
+               line="5817">%TRUE if annotations were added successfully, %FALSE otherwise.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="5806">#PpsView instance</doc>
+                 line="5809">#PpsView instance</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
         </parameters>
@@ -4393,7 +4414,7 @@ corresponding annotation for each page that contains selected text.</doc>
               version="3.12">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="8729">Restart the current search operation from the given @page.</doc>
+             line="8732">Restart the current search operation from the given @page.</doc>
         <source-position filename="libview/pps-view.h" line="87"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -4402,13 +4423,13 @@ corresponding annotation for each page that contains selected text.</doc>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="8731">an #PpsView</doc>
+                 line="8734">an #PpsView</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="page" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="8732">a page index</doc>
+                 line="8735">a page index</doc>
             <type name="gint" c:type="gint"/>
           </parameter>
         </parameters>
@@ -4433,7 +4454,7 @@ corresponding annotation for each page that contains selected text.</doc>
               version="3.10">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="8796">FIXME</doc>
+             line="8799">FIXME</doc>
         <source-position filename="libview/pps-view.h" line="94"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -4442,7 +4463,7 @@ corresponding annotation for each page that contains selected text.</doc>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="8798">a #PpsView</doc>
+                 line="8801">a #PpsView</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="page" transfer-ownership="none">
@@ -4537,7 +4558,7 @@ corresponding annotation for each page that contains selected text.</doc>
               version="3.30">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="5785">Returns a pointer to a constant string containing the selected
+             line="5788">Returns a pointer to a constant string containing the selected
 text in the view.
 
 The value returned may be NULL if there is no selected text.</doc>
@@ -4545,14 +4566,14 @@ The value returned may be NULL if there is no selected text.</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libview/pps-view.c"
-               line="5794">The string representing selected text.</doc>
+               line="5797">The string representing selected text.</doc>
           <type name="utf8" c:type="char*"/>
         </return-value>
         <parameters>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="5787">#PpsView instance</doc>
+                 line="5790">#PpsView instance</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
         </parameters>
@@ -4602,7 +4623,7 @@ The value returned may be NULL if there is no selected text.</doc>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/pps-view.c"
-               line="7874">%TRUE iff the view is currently loading a document</doc>
+               line="7877">%TRUE iff the view is currently loading a document</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
@@ -4765,7 +4786,7 @@ The value returned may be NULL if there is no selected text.</doc>
               c:identifier="pps_view_set_page_cache_size">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="7842">Sets the maximum size in bytes that will be used to cache
+             line="7845">Sets the maximum size in bytes that will be used to cache
 rendered pages. Use 0 to disable caching rendered pages.
 
 Note that this limit doesn't affect the current visible page range,
@@ -4779,13 +4800,13 @@ you have to use pps_document_model_set_max_scale() too.</doc>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="7844">#PpsView instance</doc>
+                 line="7847">#PpsView instance</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="cache_size" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="7845">size in bytes</doc>
+                 line="7848">size in bytes</doc>
             <type name="gsize" c:type="gsize"/>
           </parameter>
         </parameters>
@@ -4867,7 +4888,7 @@ you have to use pps_document_model_set_max_scale() too.</doc>
                 default-value="FALSE">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="7405">Allows to implement a custom notification system.</doc>
+             line="7408">Allows to implement a custom notification system.</doc>
         <type name="gboolean" c:type="gboolean"/>
       </property>
       <field name="parent_instance">

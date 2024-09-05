@@ -136,7 +136,7 @@ mod imp {
                 "open-copy",
                 true,
                 glib::closure_local!(move |obj: super::PpsWindow,
-                                           metadata: &papers_view::Metadata,
+                                           metadata: Option<&papers_view::Metadata>,
                                            dest: Option<&LinkDest>,
                                            display_name: &str,
                                            edit_name: &str| {
@@ -228,7 +228,7 @@ mod imp {
 
         fn open_copy(
             &self,
-            metadata: &papers_view::Metadata,
+            metadata: Option<&papers_view::Metadata>,
             dest: Option<&LinkDest>,
             display_name: &str,
             edit_name: &str,
@@ -881,7 +881,7 @@ mod imp {
 
                             obj.document_view.open_document(
                                 &document,
-                                &obj.metadata.borrow().clone().unwrap(),
+                                obj.metadata.borrow().clone().as_ref(),
                                 dest.as_ref(),
                             );
 

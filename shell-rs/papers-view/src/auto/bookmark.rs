@@ -18,6 +18,12 @@ glib::wrapper! {
 }
 
 impl Bookmark {
+    #[doc(alias = "pps_bookmark_new")]
+    pub fn new(page: i32, title: &str) -> Bookmark {
+        assert_initialized_main_thread!();
+        unsafe { from_glib_full(ffi::pps_bookmark_new(page, title.to_glib_none().0)) }
+    }
+
     #[doc(alias = "pps_bookmark_get_page")]
     #[doc(alias = "get_page")]
     pub fn page(&self) -> u32 {

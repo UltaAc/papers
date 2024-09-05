@@ -269,16 +269,6 @@ pub trait DocumentViewExt: IsA<DocumentView> + sealed::Sealed + 'static {
         }
     }
 
-    #[doc(alias = "pps_document_view_get_header_bar")]
-    #[doc(alias = "get_header_bar")]
-    fn header_bar(&self) -> Option<adw::HeaderBar> {
-        unsafe {
-            from_glib_none(ffi::pps_document_view_get_header_bar(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
     #[doc(alias = "pps_document_view_get_metadata")]
     #[doc(alias = "get_metadata")]
     fn metadata(&self) -> Option<papers_view::Metadata> {
@@ -332,7 +322,7 @@ pub trait DocumentViewExt: IsA<DocumentView> + sealed::Sealed + 'static {
     fn open_document(
         &self,
         document: &impl IsA<papers_document::Document>,
-        metadata: &papers_view::Metadata,
+        metadata: Option<&papers_view::Metadata>,
         dest: Option<&papers_document::LinkDest>,
     ) {
         unsafe {

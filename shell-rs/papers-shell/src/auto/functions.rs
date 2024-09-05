@@ -17,24 +17,6 @@ use glib::translate::*;
 //    unsafe { TODO: call ffi:pps_get_resource() }
 //}
 
-#[doc(alias = "pps_keyring_lookup_password")]
-pub fn keyring_lookup_password(uri: &str) -> Option<glib::GString> {
-    assert_initialized_main_thread!();
-    unsafe { from_glib_full(ffi::pps_keyring_lookup_password(uri.to_glib_none().0)) }
-}
-
-#[doc(alias = "pps_keyring_save_password")]
-pub fn keyring_save_password(uri: &str, password: &str, flags: gio::PasswordSave) -> bool {
-    assert_initialized_main_thread!();
-    unsafe {
-        from_glib(ffi::pps_keyring_save_password(
-            uri.to_glib_none().0,
-            password.to_glib_none().0,
-            flags.into_glib(),
-        ))
-    }
-}
-
 //#[doc(alias = "pps_print_region_contents")]
 //pub fn print_region_contents(region: /*Ignored*/&mut cairo::Region) {
 //    unsafe { TODO: call ffi:pps_print_region_contents() }
