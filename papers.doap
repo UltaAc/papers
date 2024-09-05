@@ -27,4 +27,11 @@
       <gnome:userid>qiuwenbo</gnome:userid>
     </foaf:Person>
   </maintainer>
+  <maintainer>
+    <foaf:Person rdf:about="https://bewares.it/#camelCaseNick">
+      <foaf:name>Markus Göllnitz</foaf:name>
+      <foaf:mbox rdf:resource="mailto:camelcasenick@bewares.it" />
+      <gnome:userid>mgoellnitz</gnome:userid>
+    </foaf:Person>
+  </maintainer>
 </Project>
