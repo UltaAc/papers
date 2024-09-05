@@ -1315,7 +1315,7 @@ pps_document_view_reset_progress_cancellable (PpsDocumentView *pps_doc_view)
  * pps_document_view_open_document:
  * @pps_doc_view: A #PpsDocumentView
  * @document: A #PpsDocument to open in the document view
- * @metadata: A #PpsMetadata if the documents supports it
+ * @metadata: (nullable): A #PpsMetadata if the document supports it
  * @dest: (nullable): A #PpsLinkDest
  *
  */
