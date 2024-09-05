@@ -113,11 +113,22 @@ mod imp {
         }
 
         fn set_visible_child_name(&self, name: Option<String>) {
-            let Some(name) = name else {
-                self.stack.set_visible_child_name("thumbnails");
+            let Some(document) = self.document() else {
                 return;
             };
-            let Some(document) = self.document() else {
+            let Some(name) = name else {
+                if self
+                    .stack
+                    .child_by_name("links")
+                    .unwrap()
+                    .dynamic_cast_ref::<papers_shell::SidebarPage>()
+                    .unwrap()
+                    .support_document(&document)
+                {
+                    self.stack.set_visible_child_name("links");
+                } else {
+                    self.stack.set_visible_child_name("thumbnails");
+                }
                 return;
             };
             let page = self.stack.child_by_name(&name).unwrap();
@@ -128,6 +139,15 @@ mod imp {
                 .support_document(&document)
             {
                 self.stack.set_visible_child(&page);
+            } else if self
+                .stack
+                .child_by_name("links")
+                .unwrap()
+                .dynamic_cast_ref::<papers_shell::SidebarPage>()
+                .unwrap()
+                .support_document(&document)
+            {
+                self.stack.set_visible_child_name("links");
             } else {
                 self.stack.set_visible_child_name("thumbnails");
             }
