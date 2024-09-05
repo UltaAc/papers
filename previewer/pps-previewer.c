@@ -248,7 +248,7 @@ main (gint argc, gchar **argv)
         const char **it;
 
 	/* Initialize the i18n stuff */
-	bindtextdomain (GETTEXT_PACKAGE, pps_get_locale_dir());
+	bindtextdomain (GETTEXT_PACKAGE, PPS_LOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 

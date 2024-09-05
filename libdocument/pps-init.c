@@ -31,17 +31,6 @@
 static int pps_init_count;
 
 /**
- * pps_get_locale_dir:
- *
- * Returns: (type filename): The locale directory.
- */
-const gchar *
-pps_get_locale_dir (void)
-{
-	return PPS_LOCALEDIR;
-}
-
-/**
  * pps_init:
  *
  * Initializes the papers document library, and binds the papers
@@ -61,7 +50,7 @@ pps_init (void)
                 return have_backends;
 
 	/* set up translation catalog */
-	bindtextdomain (GETTEXT_PACKAGE, pps_get_locale_dir ());
+	bindtextdomain (GETTEXT_PACKAGE, PPS_LOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 
 	xmp_init ();

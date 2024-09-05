@@ -83,6 +83,7 @@ config_h.set_quoted('PROFILE', profile)
 config_h.set_quoted('OBJECT_PROFILE', object_profile)
 config_h.set_quoted('PACKAGE_VERSION', pps_version)
 config_h.set_quoted('VERSION', pps_version)
+config_h.set_quoted('PPS_LOCALEDIR', pps_localedir)
 
 # i18n
 config_h.set_quoted('GETTEXT_PACKAGE', pps_name)

@@ -30,9 +30,6 @@
 G_BEGIN_DECLS
 
 PPS_PUBLIC
-const gchar* pps_get_locale_dir (void);
-
-PPS_PUBLIC
 gboolean    pps_init           (void);
 
 PPS_PUBLIC

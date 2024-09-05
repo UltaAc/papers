@@ -144,7 +144,6 @@ endif
 
 cflags = [
   '-DG_LOG_DOMAIN="PapersDocument"',
-  '-DPPS_LOCALEDIR="@0@"'.format(pps_localedir),
   '-DPPS_BACKENDSDIR="@0@"'.format(pps_backendsdir),
   '-DPPS_BACKENDSBINARYVERSION="@0@"'.format(pps_backends_binary_version),
   '-DPAPERS_COMPILATION',
