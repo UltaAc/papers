@@ -9,7 +9,6 @@ use std::ffi::OsString;
 use std::env;
 
 mod imp {
-
     use super::*;
 
     #[derive(Default)]
@@ -112,13 +111,12 @@ mod imp {
                 Some(files) => {
                     for arg in files {
                         let f = arg.to_string_lossy();
-                        let (f, label) = Self::split_label(&f);
 
-                        if let Some(label) = label {
-                            dest = Some(LinkDest::new_page_label(label));
+                        if let Some(uri_dest) = self.parse_dest(&f) {
+                            dest = Some(uri_dest);
                         }
 
-                        let f = gio::File::for_commandline_arg(f);
+                        let f = gio::File::for_commandline_arg(arg);
                         self.open_uri_at_dest(&f.uri(), dest.as_ref(), mode);
                     }
                 }
@@ -162,16 +160,29 @@ mod imp {
     }
 
     impl PpsApplication {
-        fn split_label(arg: &str) -> (&str, Option<&str>) {
-            if let Some((filename, label)) = arg.rsplit_once('#') {
-                // Filename contains a #, check whether it's part of the path
-                // or a label.
-                let file = gio::File::for_commandline_arg(arg);
-                if !file.query_exists(gio::Cancellable::NONE) {
-                    return (filename, Some(label));
+        fn parse_dest(&self, uri: &str) -> Option<papers_document::LinkDest> {
+            if papers_document::file_get_mime_type(uri, true) == Ok("application/pdf".into()) {
+                if let Ok((_, _, _, _, _, _, Some(frag))) =
+                    glib::Uri::split(uri, glib::UriFlags::ENCODED)
+                {
+                    match frag.rsplit_once('=') {
+                        Some(("page", page)) => {
+                            if let Ok(n) = page.parse::<u32>() {
+                                if n > 0 {
+                                    return Some(LinkDest::new_page((n - 1) as i32));
+                                }
+                            }
+                        }
+                        Some(("nameddest", named_dest)) => {
+                            return Some(LinkDest::new_named(named_dest))
+                        }
+                        None => return Some(LinkDest::new_page_label(&frag)),
+                        _ => (),
+                    }
                 }
             }
-            (arg, None)
+
+            None
         }
 
         fn open_start_view(&self) {
