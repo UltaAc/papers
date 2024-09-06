@@ -28,8 +28,6 @@
 
 G_BEGIN_DECLS
 
-void			pps_print_region_contents (cairo_region_t *region);
-
 GdkPixbufFormat* 	pps_gdk_pixbuf_format_by_extension (const gchar *uri);
 void                    pps_spawn (const char      *uri,
 				   PpsLinkDest     *dest);

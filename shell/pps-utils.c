@@ -25,35 +25,6 @@
 #include <string.h>
 #include <glib/gi18n.h>
 
-/* Simple function to output the contents of a region.  Used solely for testing
- * the region code.
- */
-void
-pps_print_region_contents (cairo_region_t *region)
-{
-	gint n_rectangles, i;
-
-	if (region == NULL) {
-		g_print ("<empty region>\n");
-		return;
-	}
-
-	g_print ("<region %p>\n", region);
-	n_rectangles = cairo_region_num_rectangles (region);
-	for (i = 0; i < n_rectangles; i++) {
-		GdkRectangle rect;
-
-		cairo_region_get_rectangle (region, i, &rect);
-		g_print ("\t(%d %d, %d %d) [%dx%d]\n",
-			 rect.x,
-			 rect.y,
-			 rect.x + rect.width,
-			 rect.y + rect.height,
-			 rect.width,
-			 rect.height);
-	}
-}
-
 GdkPixbufFormat*
 pps_gdk_pixbuf_format_by_extension (const gchar *uri)
 {
