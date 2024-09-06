@@ -96,6 +96,8 @@ mod imp {
 
             papers_shell::DocumentView::ensure_type();
             papers_view::ViewPresentation::ensure_type();
+            crate::password_view::PpsPasswordView::ensure_type();
+            crate::loader_view::PpsLoaderView::ensure_type();
 
             klass.bind_template();
             klass.bind_template_callbacks();

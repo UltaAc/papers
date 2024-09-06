@@ -41,22 +41,17 @@ fn ensure_type() {
 
     // Hack: ensure type here so we don't need to add C interface
     annotation_properties_dialog::PpsAnnotationPropertiesDialog::ensure_type();
-    loader_view::PpsLoaderView::ensure_type();
     page_selector::PpsPageSelector::ensure_type();
-    password_view::PpsPasswordView::ensure_type();
     properties_general::PpsPropertiesGeneral::ensure_type();
     properties_window::PpsPropertiesWindow::ensure_type();
     search_box::PpsSearchBox::ensure_type();
     sidebar::PpsSidebar::ensure_type();
     sidebar_attachments::PpsSidebarAttachments::ensure_type();
     sidebar_annotations::PpsSidebarAnnotations::ensure_type();
-    sidebar_annotations_row::PpsSidebarAnnotationsRow::ensure_type();
     sidebar_layers::PpsSidebarLayers::ensure_type();
     sidebar_links::PpsSidebarLinks::ensure_type();
     sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
-    sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
     stack_switcher::PpsStackSwitcher::ensure_type();
-    file_monitor::PpsFileMonitor::ensure_type();
 }
 
 fn main() -> glib::ExitCode {
