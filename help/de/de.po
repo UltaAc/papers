@@ -1,8 +1,8 @@
-# German translation of the evince manual.
+# German translation of the papers manual.
 #
 # author			- Verfasser
 # booklet			- Broschüre
-# Evince Document Viewer	- Evince-Dokumentenbetrachter
+# Papers Document Viewer	- Papers-Dokumentenbetrachter
 # move around (a page)		- durch (eine Seite) bewegen, ggf. kontextabhängig
 # navigate			- navigieren
 #
@@ -11,13 +11,13 @@
 # Wolfgang Stöggl <c72578@yahoo.de>, 2011, 2014.
 # Gabor Karsay <gabor.karsay@gmx.at>, 2011.
 # Christian Kirbach <christian.kirbach@gmail.com>, 2011, 2013.
-# Tim Sabsch <tim@sabsch.com>, 2021-2023.
-# Jürgen Benvenuti <gastornis@posteo.org>, 2022, 2023.
+# Tim Sabsch <tim@sabsch.com>, 2021-2024.
+# Jürgen Benvenuti <gastornis@posteo.org>, 2022-2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: evince manual\n"
-"POT-Creation-Date: 2023-10-17 13:55+0000\n"
-"PO-Revision-Date: 2023-10-20 20:49+0200\n"
+"POT-Creation-Date: 2024-09-06 06:56+0000\n"
+"PO-Revision-Date: 2024-09-07 19:16+0200\n"
 "Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -37,22 +37,21 @@ msgstr ""
 "Wolfgang Stöggl <c72578@yahoo.de>, 2011\n"
 "Gabor Karsay <gabor.karsay@gmx.at>, 2011\n"
 "Benjamin Steinwender <b@stbe.at>, 2015\n"
-"Tim Sabsch <tim@sabsch.com>, 2021-2023\n"
-"Jürgen Benvenuti <gastornis@posteo.org>, 2022, 2023"
+"Tim Sabsch <tim@sabsch.com>, 2021-2024\n"
+"Jürgen Benvenuti <gastornis@posteo.org>, 2022-2024"
 
 #. (itstool) path: info/desc
-#: C/synctex-beamer.page:7
-msgid "Using SyncTeX with the LaTeX Beamer class."
-msgstr "SyncTeX mit der Beamer-Klasse von LaTeX verwenden."
+#: C/openerror.page:7
+msgid "Error When Opening A File."
+msgstr "Fehler beim Öffnen einer Datei."
 
 #. (itstool) path: credit/name
-#: C/synctex-beamer.page:11 C/openerror.page:13 C/duplex-7pages.page:12
-#: C/duplex-4pages.page:12 C/introduction.page:12 C/duplex-12pages.page:12
-#: C/singlesided-3-4pages.page:12 C/synctex.page:12 C/annotations-save.page:12
-#: C/documentation.page:9 C/synctex-editors.page:11 C/opening.page:15
-#: C/singlesided-17-20pages.page:12 C/singlesided-npages.page:12
-#: C/synctex-support.page:12 C/duplex-npages.page:12 C/duplex-16pages.page:12
-#: C/translate.page:10 C/synctex-compile.page:11 C/duplex-5pages.page:12
+#: C/openerror.page:13 C/duplex-7pages.page:12 C/duplex-4pages.page:12
+#: C/introduction.page:12 C/duplex-12pages.page:12
+#: C/singlesided-3-4pages.page:12 C/annotations-save.page:12
+#: C/documentation.page:9 C/opening.page:15 C/singlesided-17-20pages.page:12
+#: C/singlesided-npages.page:12 C/duplex-npages.page:12
+#: C/duplex-16pages.page:12 C/translate.page:10 C/duplex-5pages.page:12
 #: C/duplex-15pages.page:12 C/singlesided-13-16pages.page:12 C/develop.page:10
 #: C/singlesided-9-12pages.page:12 C/duplex-14pages.page:12
 #: C/duplex-13pages.page:12 C/headerbar.page:14 C/annotations-navigate.page:12
@@ -62,22 +61,19 @@ msgstr "SyncTeX mit der Beamer-Klasse von LaTeX verwenden."
 #: C/annotation-properties.page:11 C/duplex-11pages.page:12
 #: C/commandline.page:16 C/annotations.page:13 C/annotations-disabled.page:11
 #: C/duplex-3pages.page:12 C/index.page:18 C/bookmarks.page:14 C/forms.page:11
-#: C/synctex-search.page:11
 msgid "Tiffany Antopolski"
 msgstr "Tiffany Antopolski"
 
 #. (itstool) path: license/p
-#: C/synctex-beamer.page:15 C/openerror.page:17 C/duplex-7pages.page:16
-#: C/convertSVG.page:20 C/convertPostScript.page:21 C/duplex-4pages.page:16
-#: C/duplex-12pages.page:16 C/singlesided-3-4pages.page:16 C/synctex.page:16
-#: C/annotations-save.page:20 C/documentation.page:14 C/synctex-editors.page:15
-#: C/noprint.page:18 C/singlesided-17-20pages.page:16
-#: C/singlesided-npages.page:16 C/synctex-support.page:20
-#: C/duplex-npages.page:16 C/duplex-16pages.page:16 C/translate.page:19
-#: C/default-settings.page:16 C/textselection.page:15 C/synctex-compile.page:15
-#: C/duplex-5pages.page:16 C/formats.page:22 C/duplex-15pages.page:16
-#: C/singlesided-13-16pages.page:16 C/develop.page:15 C/printing.page:22
-#: C/singlesided-9-12pages.page:16 C/duplex-14pages.page:16
+#: C/openerror.page:17 C/duplex-7pages.page:16 C/convertSVG.page:20
+#: C/convertPostScript.page:21 C/duplex-4pages.page:16 C/duplex-12pages.page:16
+#: C/singlesided-3-4pages.page:16 C/annotations-save.page:20
+#: C/documentation.page:14 C/noprint.page:18 C/singlesided-17-20pages.page:16
+#: C/singlesided-npages.page:16 C/duplex-npages.page:16
+#: C/duplex-16pages.page:16 C/translate.page:19 C/default-settings.page:16
+#: C/textselection.page:15 C/duplex-5pages.page:16 C/formats.page:22
+#: C/duplex-15pages.page:16 C/singlesided-13-16pages.page:16 C/develop.page:15
+#: C/printing.page:22 C/singlesided-9-12pages.page:16 C/duplex-14pages.page:16
 #: C/duplex-13pages.page:16 C/headerbar.page:18 C/annotations-navigate.page:16
 #: C/duplex-10pages.page:16 C/duplex-6pages.page:16 C/print-order.page:16
 #: C/duplex-9pages.page:16 C/singlesided-5-8pages.page:16
@@ -87,97 +83,9 @@ msgstr "Tiffany Antopolski"
 #: C/duplex-11pages.page:16 C/commandline.page:20 C/annotations.page:21
 #: C/annotations-disabled.page:15 C/duplex-3pages.page:16 C/bookmarks.page:23
 #: C/print-2sided.page:16 C/convertpdf.page:21 C/invert-colors.page:24
-#: C/forms.page:15 C/synctex-search.page:15
+#: C/forms.page:15
 msgid "Creative Commons Share Alike 3.0"
 msgstr "Creative Commons Share Alike 3.0"
-
-#. (itstool) path: page/title
-#: C/synctex-beamer.page:19
-msgid "Beamer with SyncTeX"
-msgstr "Beamer mit SyncTeX"
-
-#. (itstool) path: page/p
-#: C/synctex-beamer.page:20
-msgid "Beamer is a LaTeX class for creating slides for presentations."
-msgstr ""
-"Beamer ist eine LaTeX-Klasse für die Erstellung von Präsentationsfolien."
-
-#. (itstool) path: page/p
-#: C/synctex-beamer.page:23
-msgid ""
-"You can perform forward and backward search in a <em>Beamer-LaTeX</em> "
-"presentation in a similar fashion to <link xref=\"synctex-"
-"search\">searching</link> through other TeX files compiled with SyncTeX. "
-"However the search brings you to the corresponding frame (slide), not "
-"necessarily the associated line of text. This difference is outlined in "
-"detail below."
-msgstr ""
-"Sie können in einer <em>Beamer-LaTeX</em>-Präsentation auf eine ähnliche "
-"Weise vorwärts und rückwärts suchen, wie Sie in anderen mit SyncTeX "
-"kompilierten TeX-Dateien <link xref=\"synctex-search\">suchen</link>. Die "
-"Suche führt Sie jedoch zur entsprechenden Folie, nicht unbedingt zur "
-"entsprechenden Textzeile. Dieser Unterschied wird nachfolgend genauer "
-"beschrieben."
-
-#. (itstool) path: section/title
-#: C/synctex-beamer.page:27
-msgid ""
-"Forward search: from Beamer-LaTeX source to PDF (<app>gedit</app> to the "
-"<app>document viewer</app>)"
-msgstr ""
-"Vorwärtssuche: Von einer Beamer-LaTeX-Quelle in ein PDF (von <app>gedit</"
-"app> zum <app>Dokumentenbetrachter</app>)"
-
-#. (itstool) path: section/p
-#: C/synctex-beamer.page:28
-msgid ""
-"With <link xref=\"synctex-search#forward-search\">forward search</link>, you "
-"can click on a specific line of Beamer-LaTeX source code. The <em>top</em> "
-"of the corresponding slide in the PDF will be outlined in red. This will "
-"often be the <em>frametitle</em>."
-msgstr ""
-"Mit der <link xref=\"synctex-search#forward-search\">Vorwärtssuche</link> "
-"können Sie auf eine bestimmte Zeile In Ihrem Beamer-LaTeX-Quellcode klicken. "
-"Der <em>Kopfbereich</em> der entsprechenden Folie im PDF wird daraufhin rot "
-"umrandet. Dies ist in aller Regel die <em>Titelzeile</em>."
-
-#. (itstool) path: section/title
-#: C/synctex-beamer.page:35
-msgid ""
-"Backward search: from PDF to Beamer-LaTeX source (from the <app>document "
-"viewer</app> to <app>gedit</app>)"
-msgstr ""
-"Rückwärtssuche: Von PDF in eine Beamer-LaTeX-Quelle (vom "
-"<app>Dokumentenbetrachter</app> nach <app>gedit</app>)"
-
-#. (itstool) path: section/p
-#: C/synctex-beamer.page:36
-msgid ""
-"With <link xref=\"synctex-search#backward-search\">backward search</link>, "
-"you click on some text in a frame, and the corresponding line of LaTex code "
-"that ends that particular frame is highlighted. This will usually be the "
-"line:"
-msgstr ""
-"Mit der <link xref=\"synctex-search#backward-search\">Rückwärtssuche</link> "
-"können Sie auf eine Textpassage in einer Folie klicken und die entsprechende "
-"Zeile im LaTeX-Code, die jene Folie abschließt, wird daraufhin "
-"hervorgehoben. Dies wird normalerweise folgende Zeile sein:"
-
-#. (itstool) path: section/code
-#: C/synctex-beamer.page:39
-#, no-wrap
-msgid "\\end{frame}"
-msgstr "\\end{frame}"
-
-#. (itstool) path: section/p
-#: C/synctex-beamer.page:40
-msgid "corresponding to the frame you clicked on."
-msgstr "bezugnehmend auf die von Ihnen angeklickte Folie."
-
-#. (itstool) path: info/desc
-#: C/openerror.page:7
-msgid "Error When Opening A File."
-msgstr "Fehler beim Öffnen einer Datei."
 
 #. (itstool) path: page/title
 #: C/openerror.page:22
@@ -187,16 +95,14 @@ msgstr "Warum kann ich eine Datei nicht öffnen?"
 #. (itstool) path: page/p
 #: C/openerror.page:24
 msgid ""
-"If you try to open a document of a format that the <app>document viewer</"
-"app> does not recognize, you will get an \"Unable to open document\" error "
-"message. Click <gui>Close</gui> to return to the <app>Document Viewer</app> "
-"window."
+"If you try to open a document of a format that <app>Papers</app> does not "
+"recognize, you will get an \"Unable to open document\" error message. Click "
+"<gui>Close</gui> to return to the <app>Papers</app> window."
 msgstr ""
-"Sollten Sie versuchen, ein vom <app>Dokumentenbetrachter</app> nicht "
-"unterstütztes Dokumentenformat zu öffnen, wird die Fehlermeldung »Das "
-"Dokument kann nicht geöffnet werden« angezeigt. Klicken Sie dann auf "
-"<gui>Schließen</gui>, um zum Fenster vom <app>Dokumentenbetrachter</app> "
-"zurückzukehren."
+"Sollten Sie versuchen, ein von <app>Papers</app> nicht unterstütztes "
+"Dokumentenformat zu öffnen, wird die Fehlermeldung »Das Dokument kann nicht "
+"geöffnet werden« angezeigt. Klicken Sie dann auf <gui>Schließen</gui>, um "
+"zum Fenster von <app>Papers</app> zurückzukehren."
 
 #. (itstool) path: info/title
 #: C/duplex-7pages.page:7
@@ -433,19 +339,19 @@ msgid "You can convert documents of the following format types to SVG files:"
 msgstr "Sie können Dokumente der folgenden Formate in SVG-Dateien umwandeln:"
 
 #. (itstool) path: item/p
-#: C/convertSVG.page:30 C/convertPostScript.page:33 C/formats.page:37
-#: C/printing.page:51 C/presentations.page:81
+#: C/convertSVG.page:30 C/convertPostScript.page:33 C/formats.page:36
+#: C/printing.page:50 C/presentations.page:80
 msgid "Portable Document Format (.pdf)"
 msgstr "Portable Document Format (.pdf)"
 
 #. (itstool) path: page/p
 #: C/convertSVG.page:32
 msgid ""
-"This works by opening the file in <app>Document Viewer</app> and "
-"\"printing\" the document as an SVG file."
+"This works by opening the file in <app>Papers</app> and \"printing\" the "
+"document as an SVG file."
 msgstr ""
-"Dies funktioniert durch Öffnen der Datei im <app>Dokumentenbetrachter</app> "
-"und durch »Drucken« des Dokuments in eine SVG-Datei."
+"Dies funktioniert durch Öffnen der Datei in <app>Papers</app> und durch "
+"»Drucken« des Dokuments in eine SVG-Datei."
 
 #. (itstool) path: item/p
 #: C/convertSVG.page:37 C/printing.page:33
@@ -493,24 +399,24 @@ msgstr ""
 "Sie können Dokumente der folgenden Formate in PostScript-Dateien umwandeln:"
 
 #. (itstool) path: item/p
-#: C/convertPostScript.page:32 C/formats.page:35 C/printing.page:50
-#: C/presentations.page:79
+#: C/convertPostScript.page:32 C/formats.page:34 C/printing.page:49
+#: C/presentations.page:78
 msgid "DjVu (.djvu, .djv)"
 msgstr "DjVu (.djvu, .djv)"
 
 #. (itstool) path: item/p
-#: C/convertPostScript.page:34 C/printing.page:53
+#: C/convertPostScript.page:34 C/printing.page:52
 msgid "Tagged Image File Format (.tiff, .tif)"
 msgstr "Tagged Image File Format (.tiff, .tif)"
 
 #. (itstool) path: page/p
 #: C/convertPostScript.page:36
 msgid ""
-"This works by opening the file in <app>Document Viewer</app> and "
-"\"printing\" the document as a PostScript file."
+"This works by opening the file in <app>Papers</app> and \"printing\" the "
+"document as a PostScript file."
 msgstr ""
-"Dies funktioniert durch Öffnen der Datei im <app>Dokumentenbetrachter</app> "
-"und durch »Drucken« des Dokuments in eine PostScript-Datei."
+"Dies funktioniert durch Öffnen der Datei in <app>Papers</app> und durch "
+"»Drucken« des Dokuments in eine PostScript-Datei."
 
 #. (itstool) path: item/p
 #: C/convertPostScript.page:41
@@ -577,8 +483,8 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/introduction.page:18
-msgid "Introduction to the <em>Evince Document Viewer</em>."
-msgstr "Einführung in den <em>Evince-Dokumentenbetrachter</em>."
+msgid "Introduction to the <em>Papers Document Viewer</em>."
+msgstr "Einführung in den <em>Papers-Dokumentenbetrachter</em>."
 
 #. (itstool) path: page/title
 #: C/introduction.page:21
@@ -588,10 +494,10 @@ msgstr "Einführung"
 #. (itstool) path: page/p
 #: C/introduction.page:23
 msgid ""
-"<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for a "
+"<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
-"<app>Evince</app> ist ein Dokumentenbetrachter. Lesen Sie unter <link "
+"<app>Papers</app> ist ein Dokumentenbetrachter. Lesen Sie unter <link "
 "xref=\"formats\"/>, welche Dateitypen Sie anschauen können."
 
 #. (itstool) path: info/desc
@@ -710,25 +616,6 @@ msgstr ""
 "Wählen Sie <gui>Gerade Seiten</gui> im Menü <gui>Beschränken auf</gui>."
 
 #. (itstool) path: info/desc
-#: C/synctex.page:7
-msgid "SyncTeX support is available."
-msgstr "Unterstützung für SyncTeX ist verfügbar."
-
-#. (itstool) path: page/title
-#: C/synctex.page:20
-msgid "What is SyncTeX?"
-msgstr "Was ist SyncTeX?"
-
-#. (itstool) path: page/p
-#: C/synctex.page:21
-msgid ""
-"SyncTeX is a method that enables synchronization between a TeX source file "
-"and the resulting PDF output."
-msgstr ""
-"SyncTeX ist eine Möglichkeit des Abgleichs einer TeX-Quelldatei mit der "
-"resultierenden PDF-Ausgabe."
-
-#. (itstool) path: info/desc
 #: C/annotations-save.page:7
 msgid "How to save your annotations."
 msgstr "So speichern Sie Ihre Anmerkungen."
@@ -747,12 +634,11 @@ msgstr "Eine Kopie eines PDF mit Anmerkungen speichern"
 #: C/annotations-save.page:24
 msgid ""
 "To save a copy of your annotated PDF for future viewing using the "
-"<app>document viewer</app> or any other PDF viewer <em>that supports "
-"annotations</em>:"
+"<app>Papers</app> or any other PDF viewer <em>that supports annotations</em>:"
 msgstr ""
 "So speichern Sie eine Kopie Ihres PDF-Dokuments mit Anmerkungen für eine "
-"zukünftige Betrachtung im <app>Dokumentenbetrachter</app> oder einem anderen "
-"PDF-Anzeigeprogramm, <em>der Anmerkungen unterstützt</em>:"
+"zukünftige Betrachtung in <app>Papers</app> oder einem anderen PDF-"
+"Anzeigeprogramm, <em>das Anmerkungen unterstützt</em>:"
 
 #. (itstool) path: item/p
 #: C/annotations-save.page:31
@@ -798,12 +684,11 @@ msgstr "Beim Schreiben der Dokumentation helfen"
 #. (itstool) path: page/p
 #: C/documentation.page:20
 msgid ""
-"The <app>Document Viewer</app> documentation is maintained by a volunteer "
-"community. You are welcome to participate."
+"The <app>Papers</app> documentation is maintained by a volunteer community. "
+"You are welcome to participate."
 msgstr ""
-"Die Dokumentation vom <app>Dokumentenbetrachter</app> wird von einer "
-"Gemeinschaft aus Freiwilligen betreut. Sie sind herzlich eingeladen, sich "
-"daran zu beteiligen."
+"Die Dokumentation von <app>Papers</app> wird von einer Gemeinschaft aus "
+"Freiwilligen betreut. Sie sind herzlich eingeladen, sich daran zu beteiligen."
 
 #. (itstool) path: page/p
 #: C/documentation.page:23
@@ -831,92 +716,6 @@ msgstr ""
 "Unser <link href=\"https://live.gnome.org/DocumentationProject/"
 "Contributing\">Wiki</link> enthält eine Reihe nützlicher Informationen für "
 "Sie bereit."
-
-#. (itstool) path: info/desc
-#: C/synctex-editors.page:7
-msgid "Which editor can you use to edit your TEX file?"
-msgstr "Welchen Editor können Sie zum Bearbeiten Ihrer TeX-Datei verwenden?"
-
-#. (itstool) path: page/title
-#: C/synctex-editors.page:20
-msgid "Supported editors"
-msgstr "Unterstützte Editoren"
-
-#. (itstool) path: section/title
-#: C/synctex-editors.page:22
-msgid "<app>gedit</app>"
-msgstr "<app>gedit</app>"
-
-#. (itstool) path: section/p
-#: C/synctex-editors.page:23
-msgid ""
-"<link xref=\"synctex-search#forward-search\">Forward Search</link> (from "
-"<app>gedit</app> to the <app>document viewer</app>) and <link xref=\"synctex-"
-"search#backward-search\">Backward search</link> (from the <app>document "
-"viewer</app> to <app>gedit</app>) are both supported."
-msgstr ""
-"<link xref=\"synctex-search#forward-search\">Vorwärtssuche</link> (von "
-"<app>gedit</app> zum <app>Dokumentenbetrachter</app>) und <link "
-"xref=\"synctex-search#backward-search\">Rückwärtssuche</link> (vom "
-"<app>Dokumentenbetrachter</app> nach <app>gedit</app>) werden beide "
-"unterstützt."
-
-#. (itstool) path: section/title
-#: C/synctex-editors.page:28
-msgid "Vim-latex"
-msgstr "Vim-latex"
-
-#. (itstool) path: section/p
-#: C/synctex-editors.page:29
-msgid ""
-"The <app>gedit</app> plugin contains a python script (<file>evince_dbus.py</"
-"file>) that can be used to get SyncTeX working with Vim. In order to use vim-"
-"latex together with the <app>document viewer</app> you need to follow the "
-"next steps:"
-msgstr ""
-"Das <app>gedit</app>-Plugin enthält ein Python-Skript (<file>evince_dbus.py</"
-"file>), das verwendet werden kann, damit SyncteX mit Vim arbeiten kann. Um "
-"vim-latex zusammen mit dem <app>Dokumentenbetrachter</app> einzusetzen, "
-"gehen Sie wie folgt vor:"
-
-#. (itstool) path: item/p
-#: C/synctex-editors.page:35
-msgid ""
-"Copy the <file>evince_dbus.py</file> to some directory in your path and give "
-"it +x permissions."
-msgstr ""
-"Kopieren Sie <file>evince_dbus.py</file> in einen beliebigen Ordner in Ihrem "
-"Suchpfad und machen Sie es ausführbar."
-
-#. (itstool) path: item/p
-#: C/synctex-editors.page:41
-msgid "Modify your <file>~/.vimrc</file> file and add the following lines."
-msgstr ""
-"Bearbeiten Sie die Datei <file>~/.vimrc</file> und fügen Sie die folgenden "
-"Zeilen hinzu."
-
-#. (itstool) path: item/code
-#: C/synctex-editors.page:44
-#, no-wrap
-msgid ""
-"\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
-"let g:Tex_DefaultTargetFormat = 'pdf'\n"
-"let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
-msgstr ""
-"\n"
-"let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
-"let g:Tex_DefaultTargetFormat = 'pdf'\n"
-"let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
-
-#. (itstool) path: item/p
-#: C/synctex-editors.page:52
-msgid ""
-"Now you can use Forward search from vim-latex by typing \\ls. Backward "
-"search is not yet supported."
-msgstr ""
-"Jetzt können Sie die Vorwärtssuche in vim-latex nutzen, indem Sie \\ls "
-"eingeben. Die Rückwärtssuche wird noch nicht unterstützt."
 
 #. (itstool) path: credit/name
 #: C/opening.page:19 C/print-differentsize.page:17 C/finding.page:23
@@ -951,28 +750,27 @@ msgstr ""
 #. (itstool) path: note/p
 #: C/opening.page:37
 msgid ""
-"Double clicking PDF, PostScript, .djvu, .dvi and Comic Book Archive files "
-"opens them in <app>Document Viewer</app> by default."
+"Double clicking PDF, PostScript, .djvu, and Comic Book Archive files opens "
+"them in <app>Papers</app> by default."
 msgstr ""
-"Ein Doppelklick öffnet PDF-, PostScript-, .djvu-, .dvi- und Comic-Book-"
-"Archivdateien im <app>Dokumentenbetrachter</app> per Voreinstellung."
+"Ein Doppelklick öffnet PDF-, PostScript-, .djvu- und Comic-Book-"
+"Archivdateien in <app>Papers</app> per Voreinstellung."
 
 #. (itstool) path: item/p
 #: C/opening.page:42
 msgid ""
 "Right-click on a file icon in <app>Files</app> and click <guiseq><gui>Open "
-"With</gui><gui>Document Viewer</gui></guiseq>."
+"With</gui><gui>Papers</gui></guiseq>."
 msgstr ""
 "Klicken Sie mit der rechten Maustaste auf ein Dateisymbol in <app>Dateien</"
-"app> und wählen Sie <guiseq><gui>Öffnen mit</gui><gui>Dokumentenbetrachter</"
-"gui></guiseq>."
+"app> und wählen Sie <guiseq><gui>Öffnen mit</gui><gui>Papers</gui></guiseq>."
 
 #. (itstool) path: page/p
 #: C/opening.page:47
-msgid "If an empty <app>Document Viewer</app> window is already open you can:"
+msgid "If an empty <app>Papers</app> window is already open you can:"
 msgstr ""
-"Wenn ein leeres Fenster vom <app>Dokumentenbetrachter</app> bereits geöffnet "
-"ist, so können Sie:"
+"Wenn ein leeres Fenster von <app>Papers</app> bereits geöffnet ist, so "
+"können Sie:"
 
 #. (itstool) path: item/p
 #: C/opening.page:51
@@ -997,12 +795,10 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/opening.page:62
-msgid ""
-"If a document is already opened in a <app>Document Viewer</app> window you "
-"can:"
+msgid "If a document is already opened in a <app>Papers</app> window you can:"
 msgstr ""
-"Wenn im Fenster vom <app>Dokumentenbetrachter</app> bereits ein Dokument "
-"geöffnet ist, so können Sie:"
+"Wenn im Fenster von <app>Papers</app> bereits ein Dokument geöffnet ist, so "
+"können Sie:"
 
 #. (itstool) path: item/p
 #: C/opening.page:66
@@ -1139,15 +935,15 @@ msgstr "Druckbeschränkungen durch PDF"
 #: C/noprint.page:75
 msgid ""
 "Some PDF documents have a setting which prevents you from printing them. "
-"Authors can set this printing restriction when they write a document. The "
-"<app>document viewer</app> overrides this restriction by default, but you "
-"may want to check that it hasn't been disabled:"
+"Authors can set this printing restriction when they write a document. "
+"<app>Papers</app> overrides this restriction by default, but you may want to "
+"check that it hasn't been disabled:"
 msgstr ""
 "Einige PDF-Dokumente haben Einstellungen hinterlegt, die ein Ausdrucken "
 "untersagen. Verfasser können Druckeinschränkungen beim Erstellen des "
-"Dokuments festlegen. Der <app>Dokumentenbetrachter</app> ignoriert diese "
-"Beschränkungen per Voreinstellung, aber eventuell wollen Sie prüfen, ob dies "
-"nicht deaktiviert wurde:"
+"Dokuments festlegen. <app>Papers</app> ignoriert diese Beschränkungen per "
+"Voreinstellung, aber eventuell wollen Sie prüfen, ob dies nicht deaktiviert "
+"wurde:"
 
 #. (itstool) path: note/p
 #: C/noprint.page:83
@@ -1185,8 +981,8 @@ msgstr "Klicken Sie auf <gui>Dconf-Editor</gui>."
 
 #. (itstool) path: item/p
 #: C/noprint.page:100
-msgid "Browse to <sys>/org/gnome/evince</sys>."
-msgstr "Suchen Sie <sys>/org/gnome/evince</sys>."
+msgid "Browse to <sys>/org/gnome/papers</sys>."
+msgstr "Suchen Sie <sys>/org/gnome/papers</sys>."
 
 #. (itstool) path: item/p
 #: C/noprint.page:103
@@ -1197,12 +993,10 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/noprint.page:108
-msgid ""
-"Go back to the <app>Document Viewer</app> and try to print the document "
-"again."
+msgid "Go back to <app>Papers</app> and try to print the document again."
 msgstr ""
-"Kehren Sie zum <app>Dokumentenbetrachter</app> zurück und versuchen Sie "
-"erneut, das Dokument zu drucken."
+"Kehren Sie zu <app>Papers</app> zurück und versuchen Sie erneut, das "
+"Dokument zu drucken."
 
 #. (itstool) path: info/desc
 #: C/singlesided-17-20pages.page:8
@@ -1370,69 +1164,6 @@ msgstr ""
 "Geben Sie die Seitenzahlen in dieser Reihenfolge ein: <_:item-1/> <_:item-2/>"
 
 #. (itstool) path: info/desc
-#: C/synctex-support.page:7
-msgid "How to add support for SyncTeX."
-msgstr "So fügen Sie Unterstützung für SyncTex hinzu."
-
-#. (itstool) path: credit/name
-#: C/synctex-support.page:16
-msgid "Germán Poo-Caamaño"
-msgstr "Germán Poo-Caamaño"
-
-#. (itstool) path: page/title
-#: C/synctex-support.page:25
-msgid "Set-up SyncTeX"
-msgstr "SyncTeX einrichten"
-
-#. (itstool) path: page/p
-#: C/synctex-support.page:26
-msgid ""
-"The following packages need to be installed in order to add support for "
-"SyncTeX:"
-msgstr ""
-"Die folgenden Pakete müssen installiert werden, um Unterstützung für SyncTeX "
-"hinzuzufügen:"
-
-#. (itstool) path: item/p
-#: C/synctex-support.page:31
-msgid "A LaTeX engine with SyncTeX support, such as <app>pdflatex</app>."
-msgstr ""
-"Eine LaTeX-Engine mit Unterstützung für SyncTex, wie <app>pdflatex</app>."
-
-#. (itstool) path: item/p
-#: C/synctex-support.page:36
-msgid ""
-"A text editor with SyncTeX support, such as <app>gedit</app> with gedit-"
-"plugins installed."
-msgstr ""
-"Ein Texteditor mit Unterstützung für SyncTeX, wie <app>gedit</app> mit "
-"installiertem Paket gedit-plugins."
-
-#. (itstool) path: page/p
-#: C/synctex-support.page:42
-msgid "In <app>gedit</app>, enable the SyncTeX Plugin:"
-msgstr "Aktivieren Sie in <app>gedit</app> das SyncTeX-Plugin:"
-
-#. (itstool) path: item/p
-#: C/synctex-support.page:47
-msgid ""
-"Press the menu button in the top-right corner of the window and select <gui "
-"style=\"menuitem\">Preferences</gui>."
-msgstr ""
-"Klicken Sie auf den Menüknopf in der oberen rechten Ecke des Fensters und "
-"wählen Sie <gui style=\"menuitem\">Einstellungen</gui>."
-
-#. (itstool) path: item/p
-#: C/synctex-support.page:50
-msgid "Select the <gui>Plugins</gui> tab."
-msgstr "Wählen Sie den Reiter <gui>Erweiterungen</gui>."
-
-#. (itstool) path: item/p
-#: C/synctex-support.page:55
-msgid "Check <gui>SyncTeX</gui>."
-msgstr "Wählen Sie <gui>SyncTeX</gui> aus."
-
-#. (itstool) path: info/desc
 #: C/duplex-npages.page:8
 msgid "Print a booklet over 16 pages."
 msgstr "Eine Broschüre mit 16 Seiten drucken."
@@ -1543,8 +1274,8 @@ msgstr "16, 1, 2, 15, 14, 3, 4, 13, 12, 5, 6, 11, 10, 7, 8, 9"
 
 #. (itstool) path: info/desc
 #: C/translate.page:7
-msgid "Localize the <app>Document Viewer.</app>"
-msgstr "Den <app>Dokumentenbetrachter</app> lokalisieren."
+msgid "Localize <app>Papers</app>."
+msgstr "<app>Papers</app> lokalisieren."
 
 #. (itstool) path: credit/name
 #: C/translate.page:15
@@ -1559,22 +1290,21 @@ msgstr "Beim Übersetzen helfen"
 #. (itstool) path: page/p
 #: C/translate.page:24
 msgid ""
-"The <app>Document Viewer</app> user interface and documentation is being "
-"translated by a world-wide volunteer community. You are welcome to "
-"participate."
+"The <app>Papers</app> user interface and documentation is being translated "
+"by a world-wide volunteer community. You are welcome to participate."
 msgstr ""
-"Die Benutzeroberfläche und die Dokumentation vom <app>Dokumentenbetrachter</"
-"app> werden von einer weltweiten Gemeinschaft aus Freiwilligen übersetzt. "
-"Sie sind herzlich eingeladen, sich daran zu beteiligen."
+"Die Benutzeroberfläche und die Dokumentation von <app>Papers</app> werden "
+"von einer weltweiten Gemeinschaft aus Freiwilligen übersetzt. Sie sind "
+"herzlich eingeladen, sich daran zu beteiligen."
 
 #. (itstool) path: page/p
 #: C/translate.page:27
 msgid ""
-"There are <link href=\"https://l10n.gnome.org/module/evince/\">many "
+"There are <link href=\"https://l10n.gnome.org/module/papers/\">many "
 "languages</link> for which translations are still needed."
 msgstr ""
 "Übersetzungen sind noch für <link href=\"https://l10n.gnome.org/module/"
-"evince/\">zahlreiche Sprachen</link> nötig."
+"papers/\">zahlreiche Sprachen</link> nötig."
 
 #. (itstool) path: page/p
 #: C/translate.page:30
@@ -1682,17 +1412,16 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/textselection.page:23
 msgid ""
-"If you highlight and copy text from a document using the <app>document "
-"viewer</app> and then paste it into another application, the formatting may "
-"alter. It may also contain different characters than the original selection. "
-"This often happens when copying text from a PDF document with multiple "
-"columns."
+"If you highlight and copy text from a document using <app>Papers</app> and "
+"then paste it into another application, the formatting may alter. It may "
+"also contain different characters than the original selection. This often "
+"happens when copying text from a PDF document with multiple columns."
 msgstr ""
-"Wenn Sie Text in einem Dokument mit dem <app>Dokumentenbetrachter</app> "
-"hervorheben und kopieren und ihn dann in eine andere Anwendung einfügen, so "
-"kann sich die Formatierung ändern. Es können auch andere Zeichen als in der "
-"ursprünglichen Auswahl enthalten sein. Dies passiert oft beim Kopieren von "
-"Text aus einem PDF-Dokument mit mehreren Spalten."
+"Wenn Sie Text in einem Dokument mit <app>Papers</app> hervorheben und "
+"kopieren und ihn dann in eine andere Anwendung einfügen, so kann sich die "
+"Formatierung ändern. Es können auch andere Zeichen als in der ursprünglichen "
+"Auswahl enthalten sein. Dies passiert oft beim Kopieren von Text aus einem "
+"PDF-Dokument mit mehreren Spalten."
 
 #. (itstool) path: page/p
 #: C/textselection.page:29
@@ -1715,61 +1444,6 @@ msgstr ""
 "Leider gibt es keinen richtigen Weg, das Problem zu beheben. Weniger Text "
 "zugleich kopieren, oder den Text in einen Texteditor (wie <app>gedit</app>) "
 "zu kopieren kann das Problem reduzieren."
-
-#. (itstool) path: info/desc
-#: C/synctex-compile.page:7
-msgid "How to compile your TeX document with SyncTeX"
-msgstr "So kompilieren Sie Ihr TeX-Dokument mit SyncTeX"
-
-# Direkte Anrede in Überschriften vermeiden
-#. (itstool) path: page/title
-#: C/synctex-compile.page:19
-msgid "Compile TeX with SyncTeX"
-msgstr "TeX mit SyncTeX kompilieren"
-
-#. (itstool) path: page/p
-#: C/synctex-compile.page:20
-msgid ""
-"Adding the line <em>\\synctex=1</em> in the preamble of your TeX file will "
-"trigger synchronization with SyncTeX."
-msgstr ""
-"Die Zeile <em>\\synctex=1</em> in der Präambel Ihrer TeX-Datei löst den "
-"Abgleich mit SyncTeX aus."
-
-#. (itstool) path: page/code
-#: C/synctex-compile.page:23
-#, no-wrap
-msgid ""
-"\n"
-"\\documentclass{article}\n"
-"\\synctex=1\n"
-"\\usepackage{fullpage}\n"
-"\\begin{document}\n"
-"...\n"
-"\\end{document}\n"
-msgstr ""
-"\n"
-"\\documentclass{article}\n"
-"\\synctex=1\n"
-"\\usepackage{fullpage}\n"
-"\\begin{document}\n"
-"...\n"
-"\\end{document}\n"
-
-#. (itstool) path: page/p
-#: C/synctex-compile.page:31
-msgid ""
-"Alternatively, you can run the pdflatex command with the <em>-synctex=1</em> "
-"option:"
-msgstr ""
-"Alternativ können Sie den pdflatex-Befehl mit der Option <em>-synctex=1</em> "
-"ausführen:"
-
-#. (itstool) path: page/screen
-#: C/synctex-compile.page:34
-#, no-wrap
-msgid "pdflatex -synctex=1 yourFile.tex"
-msgstr "pdflatex -synctex=1 IhreDatei.tex"
 
 #. (itstool) path: info/title
 #: C/duplex-5pages.page:7
@@ -1887,8 +1561,8 @@ msgstr "Unterstützte Formate"
 
 #. (itstool) path: page/p
 #: C/formats.page:29
-msgid "The <app>document viewer</app> supports the following formats:"
-msgstr "Der <app>Dokumentenbetrachter</app> unterstützt die folgenden Formate:"
+msgid "<app>Papers</app> supports the following formats:"
+msgstr "<app>Papers</app> unterstützt die folgenden Formate:"
 
 #. (itstool) path: item/p
 #: C/formats.page:33
@@ -1896,24 +1570,18 @@ msgid "Comic Book Archive (.cb7, .cbr, .cbt, and .cbz)"
 msgstr "Comic-Book-Archiv (.cb7, .cbr, .cbt und .cbz)"
 
 #. (itstool) path: item/p
-#: C/formats.page:34 C/printing.page:49 C/presentations.page:78
-#: C/convertpdf.page:32
-msgid "Device Independent file format (.dvi)"
-msgstr "Device Independent file format (.dvi)"
-
-#. (itstool) path: item/p
-#: C/formats.page:36
+#: C/formats.page:35
 msgid "Open XML Paper Specification (.oxps, .xps)"
 msgstr "XML Papier-Spezifikation (.oxps, .xps) öffnen"
 
 #. (itstool) path: item/p
-#: C/formats.page:38 C/printing.page:52 C/presentations.page:82
-#: C/convertpdf.page:33
+#: C/formats.page:37 C/printing.page:51 C/presentations.page:81
+#: C/convertpdf.page:32
 msgid "PostScript (.ps)"
 msgstr "PostScript (.ps)"
 
 #. (itstool) path: note/p
-#: C/formats.page:41
+#: C/formats.page:40
 msgid ""
 "In some Linux distributions, not all formats are supported by default, so "
 "you might not be able to view all the formats listed above."
@@ -1923,7 +1591,7 @@ msgstr ""
 "anzeigen."
 
 #. (itstool) path: note/p
-#: C/formats.page:44
+#: C/formats.page:43
 msgid ""
 "Support for a format is called a <em>backend</em>. If you get the error "
 "\"Unable to Open Document\", you may wish to check whether the backend "
@@ -2110,8 +1778,8 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/develop.page:7
-msgid "Improve the <app>Document Viewer</app>."
-msgstr "Den <app>Dokumentenbetrachter</app> verbessern."
+msgid "Improve <app>Papers</app>."
+msgstr "<app>Papers</app> verbessern."
 
 #. (itstool) path: page/title
 #: C/develop.page:19
@@ -2121,31 +1789,30 @@ msgstr "Bei der Entwicklung helfen"
 #. (itstool) path: page/p
 #: C/develop.page:20
 msgid ""
-"The <app>Document Viewer</app> is developed and maintained by a volunteer "
-"community. You are welcome to participate."
+"<app>Papers</app> is developed and maintained by a volunteer community. You "
+"are welcome to participate."
 msgstr ""
-"Der <app>Dokumentenbetrachter</app> wird von einer Gemeinschaft aus "
-"Freiwilligen entwickelt. Sie sind herzlich eingeladen, sich daran zu "
-"beteiligen."
+"<app>Papers</app> wird von einer Gemeinschaft aus Freiwilligen entwickelt. "
+"Sie sind herzlich eingeladen, sich daran zu beteiligen."
 
 #. (itstool) path: page/p
 #: C/develop.page:23
 msgid ""
-"If you would like to <link href=\"https://wiki.gnome.org/Apps/Evince\">help "
-"develop</link> the <app>Document Viewer</app>, you can get in touch with the "
-"developers at <link href=\"https://matrix.to/#/#evince:gnome.org\">#evince:"
-"gnome.org</link> on <link xref=\"help:gnome-help/help-matrix\">Matrix</link> "
-"or <link href=\"https://web.libera.chat/#gnome-evince\">#gnome-evince</link> "
-"on irc.libera.chat, or via <link href=\"https://discourse.gnome.org/tag/"
-"evince\">GNOME Discourse</link>."
+"If you would like to <link href=\"https://wiki.gnome.org/Apps/Papers\">help "
+"develop</link> <app>Papers</app>, you can get in touch with the developers "
+"at <link href=\"https://matrix.to/#/#papers:gnome.org\">#papers:gnome.org</"
+"link> on <link xref=\"help:gnome-help/help-matrix\">Matrix</link> or <link "
+"href=\"https://web.libera.chat/#gnome-papers\">#gnome-papers</link> on irc."
+"libera.chat, or via <link href=\"https://discourse.gnome.org/tag/"
+"papers\">GNOME Discourse</link>."
 msgstr ""
-"Falls Sie bei der Entwicklung vom <app>Dokumentenbetrachter</app> <link "
-"href=\"https://wiki.gnome.org/Apps/Evince\">helfen wollen</link>, nehmen Sie "
-"in <link href=\"https://matrix.to/#/#evince:gnome.org\">#evince:gnome.org</"
-"link> auf <link xref=\"help:gnome-help/help-matrix\">Matrix</link> oder "
-"<link href=\"https://web.libera.chat/#gnome-evince\">#gnome-evince</link> "
-"auf irc.libera.chat oder über <link href=\"https://discourse.gnome.org/tag/"
-"evince\">GNOME Discourse</link> Kontakt mit den Entwicklern auf."
+"Falls Sie bei der Entwicklung von <app>Papers</app> <link href=\"https://"
+"wiki.gnome.org/Apps/Papers\">helfen wollen</link>, nehmen Sie in <link "
+"href=\"https://matrix.to/#/#papers:gnome.org\">#papers:gnome.org</link> auf "
+"<link xref=\"help:gnome-help/help-matrix\">Matrix</link> oder <link "
+"href=\"https://web.libera.chat/#gnome-papers\">#gnome-papers</link> auf irc."
+"libera.chat oder über <link href=\"https://discourse.gnome.org/tag/"
+"papers\">GNOME Discourse</link> Kontakt mit den Entwicklern auf."
 
 #. (itstool) path: info/desc
 #: C/printing.page:9
@@ -2459,15 +2126,13 @@ msgstr ""
 msgid ""
 "To quickly navigate to the location of a particular annotation, click on the "
 "arrow to the left of the page number. You will see a list of annotations on "
-"that page. Click on the annotation you are interested in, and the "
-"<app>document viewer</app> will navigate to the location of the annotation "
-"in the document."
+"that page. Click on the annotation you are interested in, and <app>Papers</"
+"app> will navigate to the location of the annotation in the document."
 msgstr ""
 "Um schnell an die Stelle einer Anmerkung zu springen, klicken Sie auf den "
 "Pfeil links der Seitenzahl. Die Liste der Anmerkungen auf dieser Seite wird "
 "nun eingeblendet. Klicken Sie auf die Anmerkung, die Sie interessiert, und "
-"der <app>Dokumentenbetrachter</app> wird zum entsprechenden Ort im Dokument "
-"springen."
+"<app>Papers</app> wird zum entsprechenden Ort im Dokument springen."
 
 #. (itstool) path: page/media
 #. This is a reference to an external file such as an image or video. When
@@ -2705,7 +2370,7 @@ msgstr ""
 "einzuschicken):"
 
 #. (itstool) path: item/p
-#: C/forms-saving.page:56 C/convertpdf.page:40
+#: C/forms-saving.page:56 C/convertpdf.page:39
 msgid ""
 "Click the <gui>File options</gui> menu in the top right corner and select "
 "<gui>Print</gui> or press <keyseq><key>Ctrl</key><key>P</key></keyseq> on "
@@ -2716,7 +2381,7 @@ msgstr ""
 "<keyseq><key>Strg</key><key>P</key></keyseq>."
 
 #. (itstool) path: item/p
-#: C/forms-saving.page:61 C/convertpdf.page:45
+#: C/forms-saving.page:61 C/convertpdf.page:44
 msgid ""
 "Select <gui>Print to File</gui> and choose PDF as the <gui>Output format</"
 "gui>."
@@ -2817,22 +2482,22 @@ msgstr "Wo Sie wie Probleme melden können."
 
 #. (itstool) path: page/title
 #: C/bug-filing.page:19
-msgid "File a bug against the <app>document viewer</app>"
-msgstr "Einen Fehlerbericht für den <app>Dokumentenbetrachter</app> erstellen"
+msgid "File a bug against <app>Papers</app>"
+msgstr "Einen Fehlerbericht für <app>Papers</app> erstellen"
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:20
 msgid ""
-"The <app>document viewer</app> is maintained by a volunteer community. You "
-"are welcome to participate. If you notice a problem you can file a <em>bug "
-"report</em>. To file a bug, go to <link href=\"https://gitlab.gnome.org/"
-"GNOME/evince/issues/\"/>."
+"<app>Papers</app> is maintained by a volunteer community. You are welcome to "
+"participate. If you notice a problem you can file a <em>bug report</em>. To "
+"file a bug, go to <link href=\"https://gitlab.gnome.org/GNOME/Incubator/"
+"papers/issues/\"/>."
 msgstr ""
-"Der <app>Dokumentenbetrachter</app> wird von einer Gemeinschaft aus "
-"Freiwilligen entwickelt. Sie sind herzlich eingeladen, sich daran zu "
-"beteiligen. Falls Sie ein Problem entdecken, können Sie einen "
-"<em>Fehlerbericht erstellen</em>. Besuchen Sie hierzu <link href=\"https://"
-"gitlab.gnome.org/GNOME/evince/issues/\"/>."
+"<app>Papers</app> wird von einer Gemeinschaft aus Freiwilligen entwickelt. "
+"Sie sind herzlich eingeladen, sich daran zu beteiligen. Falls Sie ein "
+"Problem entdecken, können Sie einen <em>Fehlerbericht erstellen</em>. "
+"Besuchen Sie hierzu <link href=\"https://gitlab.gnome.org/GNOME/Incubator/"
+"papers/issues/\"/>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -2864,15 +2529,15 @@ msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
 "GettingInTouch/BugReportingGuidelines\">bug writing guidelines</link>, and "
-"please <link href=\"https://gitlab.gnome.org/GNOME/evince/issues\">browse</"
-"link> for the bug to see if it already exists."
+"please <link href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/"
+"issues\">browse</link> for the bug to see if it already exists."
 msgstr ""
-"Sobald die Erstellung des Kontos abgeschlossen ist, klicken Sie auf <gui>New "
-"issue</gui>. Bevor Sie einen Fehler melden, lesen Sie bitte die <link "
-"href=\"https://wiki.gnome.org/GettingInTouch/BugReportingGuidelines\">Bug "
-"Reporting Guidelines</link> und <link href=\"https://gitlab.gnome.org/GNOME/"
-"evince/issues\">schauen Sie bitte nach</link>, ob der Fehler vielleicht "
-"schon gemeldet wurde."
+"Sobald die Erstellung des Kontos abgeschlossen ist, klicken Sie auf "
+"<gui>Neues Ticket</gui>. Bevor Sie einen Fehler melden, lesen Sie bitte die "
+"<link href=\"https://wiki.gnome.org/GettingInTouch/"
+"BugReportingGuidelines\">Bug Reporting Guidelines</link> und <link "
+"href=\"https://gitlab.gnome.org/GNOME/Incubator/papers/issues\">schauen Sie "
+"bitte nach</link>, ob der Fehler vielleicht schon gemeldet wurde."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:33
@@ -3282,14 +2947,13 @@ msgstr "Warum wird das Dokument ständig neu geladen?"
 #. (itstool) path: page/p
 #: C/reload.page:25
 msgid ""
-"If the <app>Document Viewer</app> detects that the document you have open "
-"has changed (perhaps because another program has modified it), it will "
-"automatically reload the document and display the most recent version for "
-"you."
+"If <app>Papers</app> detects that the document you have open has changed "
+"(perhaps because another program has modified it), it will automatically "
+"reload the document and display the most recent version for you."
 msgstr ""
-"Wenn der <app>Dokumentenbetrachter</app> erkennt, dass das geöffnete "
-"Dokument verändert wurde (eventuell durch ein anderes Programm), so wird es "
-"automatisch neu geladen und die neueste Version angezeigt."
+"Wenn <app>Papers</app> erkennt, dass das geöffnete Dokument verändert wurde "
+"(eventuell durch ein anderes Programm), so wird es automatisch neu geladen "
+"und die neueste Version angezeigt."
 
 #. (itstool) path: page/p
 #: C/reload.page:29
@@ -3420,32 +3084,30 @@ msgid "Comic Book Archive (.cbr and .cbz)"
 msgstr "Comic-Book-Archiv (.cbr und .cbz)"
 
 #. (itstool) path: item/p
-#: C/presentations.page:80
+#: C/presentations.page:79
 msgid "Open Document Presentation (.odp)"
 msgstr "OpenDocument-Präsentation (.odp)"
 
 #. (itstool) path: info/desc
 #: C/editing.page:7
-msgid "You can't use the <app>document viewer</app> to edit files."
+msgid "You can't use <app>Papers</app> to edit files."
 msgstr ""
-"Sie können den <app>Dokumentenbetrachter</app> nicht zum Bearbeiten von "
-"Dateien verwenden."
+"Sie können <app>Papers</app> nicht zum Bearbeiten von Dateien verwenden."
 
 #. (itstool) path: page/title
 #: C/editing.page:21
-msgid "Can I edit documents in the document viewer?"
-msgstr "Kann ich Dokumente im Dokumentenbetrachter bearbeiten?"
+msgid "Can I edit documents in Papers?"
+msgstr "Kann ich Dokumente in Papers bearbeiten?"
 
 #. (itstool) path: page/p
 #: C/editing.page:24
 msgid ""
-"The <app>document viewer</app> can't be used to make changes to documents. "
-"You need to use the appropriate editing application for the type of file you "
-"want to change."
+"<app>Papers</app> can't be used to make changes to documents. You need to "
+"use the appropriate editing application for the type of file you want to "
+"change."
 msgstr ""
-"Der <app>Dokumentenbetrachter</app> kann nicht eingesetzt werden, um "
-"Dokumente zu verändern. Sie müssen dafür die für den Dateityp passende "
-"Anwendung verwenden."
+"<app>Papers</app> kann nicht eingesetzt werden, um Dokumente zu verändern. "
+"Sie müssen dafür die für den Dateityp passende Anwendung verwenden."
 
 #. (itstool) path: note/p
 #: C/editing.page:30
@@ -3568,10 +3230,10 @@ msgstr "Befehlszeile"
 #. (itstool) path: info/desc
 #: C/commandline.page:8
 msgid ""
-"The <cmd>evince</cmd> command can open any number of files, at specific "
+"The <cmd>papers</cmd> command can open any number of files, at specific "
 "pages and in various modes."
 msgstr ""
-"Der Befehl <cmd>evince</cmd> kann eine beliebige Anzahl Dateien auf "
+"Der Befehl <cmd>papers</cmd> kann eine beliebige Anzahl Dateien auf "
 "spezifischen Seiten in verschiedenen Modi öffnen."
 
 #. (itstool) path: page/title
@@ -3582,51 +3244,50 @@ msgstr "Die Befehlszeile"
 #. (itstool) path: page/p
 #: C/commandline.page:25
 msgid ""
-"To start the <app>Document Viewer</app> from the command line, type "
-"<cmd>evince</cmd>. You can open a specific file by typing the filename after "
-"the evince command:"
+"To start <app>Papers</app> from the command line, type <cmd>papers</cmd>. "
+"You can open a specific file by typing the filename after the papers command:"
 msgstr ""
-"Um den <app>Dokumentenbetrachter</app> in einer Befehlszeile zu starten, "
-"geben Sie <cmd>evince</cmd> ein. Sie können durch Anfügen eines Dateinamens "
-"an den Evince-Befehl eine bestimmte Datei öffnen lassen:"
+"Um <app>Papers</app> in einer Befehlszeile zu starten, geben Sie "
+"<cmd>papers</cmd> ein. Sie können durch Anfügen eines Dateinamens an den "
+"Papers-Befehl eine bestimmte Datei öffnen lassen:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:30
 #, no-wrap
-msgid "evince file.pdf"
-msgstr "evince Datei.pdf"
+msgid "papers file.pdf"
+msgstr "papers Datei.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:31
 msgid ""
-"You can open multiple files by typing the filenames after the evince "
+"You can open multiple files by typing the filenames after the papers "
 "command, separating the filenames by a space:"
 msgstr ""
 "Sie können mehrere Dateien öffnen, indem Sie die Dateinamen nach dem Befehl "
-"»evince« eingeben. Dateinamen werden durch Kommata getrennt:"
+"»papers« eingeben. Dateinamen werden durch Kommata getrennt:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:34
 #, no-wrap
-msgid "evince file1.pdf file2.pdf"
-msgstr "evince Datei1.pdf Datei2.pdf"
+msgid "papers file1.pdf file2.pdf"
+msgstr "papers Datei1.pdf Datei2.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:35
 msgid ""
-"The <app>document viewer</app> also supports the handling of files on the "
-"web. For example, after the evince command you can give the location of a "
-"file on the web:"
+"<app>Papers</app> also supports the handling of files on the web. For "
+"example, after the papers command you can give the location of a file on the "
+"web:"
 msgstr ""
-"Der <app>Dokumentenbetrachter</app> unterstützt auch die Verarbeitung von "
-"Dateien im Netz. Beispielsweise können Sie nach dem evince-Befehl eine "
-"Adresse einer Datei im Web angeben:"
+"<app>Papers</app> unterstützt auch die Verarbeitung von Dateien im Netz. "
+"Beispielsweise können Sie nach dem »papers«-Befehl eine Adresse einer Datei "
+"im Web angeben:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:38
 #, no-wrap
-msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:40
@@ -3646,17 +3307,17 @@ msgstr ""
 #. (itstool) path: section/screen
 #: C/commandline.page:45
 #, no-wrap
-msgid "evince --page-label=3 file.pdf"
-msgstr "evince --page-label=3 file.pdf"
+msgid "papers --page-label=3 file.pdf"
+msgstr "papers --page-label=3 Datei.pdf"
 
 #. (itstool) path: section/p
 #: C/commandline.page:46
 msgid ""
 "The page label should be in the same format as the page number displayed in "
-"the <app>Document Viewer</app> header bar."
+"the <app>Papers</app> header bar."
 msgstr ""
 "Die Seitenbezeichnung sollte im gleichen Format sein wie die in der "
-"Titelleiste vom <app>Dokumentenbetrachter</app> angezeigte Seitennummer."
+"Titelleiste von <app>Papers</app> angezeigte Seitennummer."
 
 #. (itstool) path: section/title
 #: C/commandline.page:52
@@ -3666,8 +3327,8 @@ msgstr "Ein Dokument im Vollbildmodus öffnen"
 #. (itstool) path: section/screen
 #: C/commandline.page:53
 #, no-wrap
-msgid "evince --fullscreen file.pdf"
-msgstr "evince --fullscreen Datei.pdf"
+msgid "papers --fullscreen file.pdf"
+msgstr "papers --fullscreen Datei.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:56
@@ -3677,8 +3338,8 @@ msgstr "Ein Dokument im Präsentationsmodus öffnen"
 #. (itstool) path: section/screen
 #: C/commandline.page:57
 #, no-wrap
-msgid "evince --presentation file.pdf"
-msgstr "evince --presentation Datei.pdf"
+msgid "papers --presentation file.pdf"
+msgstr "papers --presentation Datei.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:60
@@ -3688,8 +3349,8 @@ msgstr "Ein Dokument im Vorschaumodus öffnen"
 #. (itstool) path: section/screen
 #: C/commandline.page:61
 #, no-wrap
-msgid "evince --preview file.pdf"
-msgstr "evince --preview Datei.pdf"
+msgid "papers --preview file.pdf"
+msgstr "papers --preview Datei.pdf"
 
 #. (itstool) path: info/desc
 #: C/annotations.page:8
@@ -3710,10 +3371,10 @@ msgstr "Anmerkungen hinzufügen"
 #: C/annotations.page:27
 msgid ""
 "An annotation is a note or comment added to a PDF document. You can add "
-"annotations using the <app>document viewer</app>."
+"annotations using <app>Papers</app>."
 msgstr ""
 "Eine Anmerkung ist eine Notiz oder ein Kommentar in einem PDF-Dokument. Sie "
-"können mit dem <app>Dokumentenbetrachter</app> solche Anmerkungen hinzufügen."
+"können mit <app>Papers</app> solche Anmerkungen hinzufügen."
 
 #. (itstool) path: page/p
 #: C/annotations.page:36
@@ -3855,37 +3516,35 @@ msgstr ""
 #. (itstool) path: info/title
 #: C/index.page:7
 msgctxt "link:trail"
-msgid "Evince Document Viewer"
-msgstr "Evince-Dokumentenbetrachter"
+msgid "Papers Document Viewer"
+msgstr "Papers-Dokumentenbetrachter"
 
 #. (itstool) path: info/title
 #: C/index.page:8
 msgctxt "link"
-msgid "Evince Document Viewer"
-msgstr "Evince-Dokumentenbetrachter"
+msgid "Papers Document Viewer"
+msgstr "Papers-Dokumentenbetrachter"
 
 #. (itstool) path: info/title
 #: C/index.page:9
 msgctxt "text"
-msgid "Evince Document Viewer"
-msgstr "Evince-Dokumentenbetrachter"
+msgid "Papers Document Viewer"
+msgstr "Papers-Dokumentenbetrachter"
 
 #. (itstool) path: info/desc
 #: C/index.page:24
 msgid ""
-"<app>Document Viewer</app>, formally known as <app>Evince</app>, is made for "
-"viewing PDF documents. Learn how to get started with <app>Document Viewer</"
-"app> and its features."
+"<app>Papers</app> is made for viewing PDF documents. Learn how to get "
+"started with <app>Papers</app> and its features."
 msgstr ""
-"Der <app>Dokumentenbetrachter</app> war früher unter dem Namen <app>Evince</"
-"app> bekannt und ist zum Anzeigen von PDF-Dokumenten erstellt worden. "
-"Unternehmen Sie die ersten Schritte mit dem <app>Dokumentenbetrachter</app> "
-"und entdecken Sie seine Funktionen."
+"<app>Papers</app> ist zum Anzeigen von PDF-Dokumenten erstellt worden. "
+"Unternehmen Sie die ersten Schritte mit <app>Papers</app> und entdecken Sie "
+"seine Funktionen."
 
 #. (itstool) path: page/title
 #: C/index.page:30
-msgid "<_:media-1/> Document Viewer Help"
-msgstr "<_:media-1/> Handbuch des Dokumentenbetrachters"
+msgid "<_:media-1/> Papers Help"
+msgstr "<_:media-1/> Papers-Handbuch"
 
 #. (itstool) path: section/title
 #: C/index.page:36
@@ -3929,11 +3588,6 @@ msgstr "Tipps und Tricks"
 
 #. (itstool) path: section/title
 #: C/index.page:68
-msgid "SyncTeX"
-msgstr "SyncTeX"
-
-#. (itstool) path: section/title
-#: C/index.page:73
 msgid "Get involved"
 msgstr "Mithelfen"
 
@@ -3949,12 +3603,10 @@ msgstr "Lesezeichen"
 
 #. (itstool) path: page/p
 #: C/bookmarks.page:31
-msgid ""
-"You can add, rename and delete bookmarks using the <app>Document Viewer</"
-"app>."
+msgid "You can add, rename and delete bookmarks using <app>Papers</app>."
 msgstr ""
-"Sie können mithilfe vom <app>Dokumentenbetrachter</app> Lesezeichen anlegen, "
-"umbenennen und entfernen."
+"Sie können mithilfe von <app>Papers</app> Lesezeichen anlegen, umbenennen "
+"und entfernen."
 
 #. (itstool) path: page/p
 #: C/bookmarks.page:38
@@ -4095,16 +3747,16 @@ msgid ""
 msgstr "Sie können Dokumente der folgenden Formate in PDF-Dateien umwandeln:"
 
 #. (itstool) path: page/p
-#: C/convertpdf.page:35
+#: C/convertpdf.page:34
 msgid ""
-"This works by opening the file in <app>Document Viewer</app> and "
-"\"printing\" the document as a PDF file."
+"This works by opening the file in <app>Papers</app> and \"printing\" the "
+"document as a PDF file."
 msgstr ""
-"Dies funktioniert durch Öffnen der Datei im <app>Dokumentenbetrachter</app> "
-"und durch »Drucken« des Dokuments in eine PDF-Datei."
+"Dies funktioniert durch Öffnen der Datei in <app>Papers</app> und durch "
+"»Drucken« des Dokuments in eine PDF-Datei."
 
 #. (itstool) path: item/p
-#: C/convertpdf.page:51
+#: C/convertpdf.page:50
 msgid ""
 "Choose a name and folder in which to save the file, then click <gui>Print</"
 "gui>. The PDF will be saved in the folder you chose."
@@ -4113,24 +3765,23 @@ msgstr ""
 "auf <gui>Drucken</gui>. Das PDF wird im gewählten Ordner gespeichert."
 
 #. (itstool) path: note/p
-#: C/convertpdf.page:58
+#: C/convertpdf.page:57
 msgid ""
-"You can't select text in PostScript or .dvi files, but you usually can do "
-"this in PDF files. Converting .dvi or PostScript files to PDF will not make "
-"the text selectable. This is because the text itself isn't stored in the "
-"file (it's just an image of what the text looks like), so there is no way to "
-"recover it and put it in the PDF. You can use <em>Optical Character "
-"Recognition</em> (OCR) software to extract the text from files if you need "
-"to."
+"You can't select text in PostScript files, but you usually can do this in "
+"PDF files. Converting PostScript files to PDF will not make the text "
+"selectable. This is because the text itself isn't stored in the file (it's "
+"just an image of what the text looks like), so there is no way to recover it "
+"and put it in the PDF. You can use <em>Optical Character Recognition</em> "
+"(OCR) software to extract the text from files if you need to."
 msgstr ""
-"Sie können in Postscript- oder DVI-Dateien nichts markieren, was jedoch in "
-"PDF-Dateien möglich ist. Durch Umwandlung von DVI- oder Postscript-Dateien "
-"in PDF wird der Text jedoch nicht auswählbar. Das kommt daher, dass der Text "
-"selbst nicht in der Datei gespeichert ist, sondern nur ein Abbild ist, das "
-"den Text darstellt. Es gibt keine Möglichkeit, den eigentlichen Text "
+"Sie können in PostScript-Dateien keinen Text markieren, was jedoch in PDF-"
+"Dateien möglich ist. Durch Umwandlung von Postscript-Dateien in PDF wird der "
+"Text jedoch nicht auswählbar. Das kommt daher, dass der Text selbst nicht in "
+"der Datei gespeichert ist, sondern nur ein Abbild ist, das den Text "
+"darstellt. Es gibt keine Möglichkeit, den eigentlichen Text "
 "wiederherzustellen und im PDF zu speichern. Sie können eine "
-"<em>Texterkennungssoftware</em> verwenden, um den benötigten Text aus der "
-"Datei zu entpacken."
+"<em>Texterkennungssoftware</em> (OCR) verwenden, um den benötigten Text aus "
+"der Datei zu extrahieren."
 
 #. (itstool) path: info/desc
 #: C/invert-colors.page:8
@@ -4209,136 +3860,348 @@ msgstr ""
 "eu/2008/05/03/how-to-annotate-pdf-files-in-linux-using-xournal/\">Xournal</"
 "link> für Sie interessant."
 
-#. (itstool) path: info/desc
-#: C/synctex-search.page:7
-msgid "Flip between the <app>document viewer</app> and <app>gedit</app>."
-msgstr ""
-"Wechseln Sie zwischen dem <app>Dokumentenbetrachter</app> und <app>gedit</"
-"app>."
+#~ msgid "Using SyncTeX with the LaTeX Beamer class."
+#~ msgstr "SyncTeX mit der Beamer-Klasse von LaTeX verwenden."
 
-#. (itstool) path: page/title
-#: C/synctex-search.page:20
-msgid "Search with SyncTeX"
-msgstr "Suchen mit SyncTeX"
+#~ msgid "Beamer with SyncTeX"
+#~ msgstr "Beamer mit SyncTeX"
 
-#. (itstool) path: page/p
-#: C/synctex-search.page:21
-msgid ""
-"After you <link xref=\"synctex-compile\">compile your TeX file with SyncTeX</"
-"link>, you will be able to search. SyncTeX even supports forward and "
-"backward search from an included file."
-msgstr ""
-"Nachdem Sie Ihre <link xref=\"synctex-compile\">TeX-Datei mit SyncTeX "
-"kompiliert haben</link>, können Sie nun suchen. SyncTeX unterstützt sogar "
-"Vorwärts- und Rückwärtssuche in einer eingebundenen Datei."
+#~ msgid "Beamer is a LaTeX class for creating slides for presentations."
+#~ msgstr ""
+#~ "Beamer ist eine LaTeX-Klasse für die Erstellung von Präsentationsfolien."
 
-#. (itstool) path: section/title
-#: C/synctex-search.page:26
-msgid ""
-"Forward search: from TeX to PDF (from <app>gedit</app> to the <app>document "
-"viewer</app>)"
-msgstr ""
-"Vorwärtssuche: Von TeX nach PDF (von <app>gedit</app> zum "
-"<app>Dokumentenbetrachter</app>)"
+#~ msgid ""
+#~ "You can perform forward and backward search in a <em>Beamer-LaTeX</em> "
+#~ "presentation in a similar fashion to <link xref=\"synctex-"
+#~ "search\">searching</link> through other TeX files compiled with SyncTeX. "
+#~ "However the search brings you to the corresponding frame (slide), not "
+#~ "necessarily the associated line of text. This difference is outlined in "
+#~ "detail below."
+#~ msgstr ""
+#~ "Sie können in einer <em>Beamer-LaTeX</em>-Präsentation auf eine ähnliche "
+#~ "Weise vorwärts und rückwärts suchen, wie Sie in anderen mit SyncTeX "
+#~ "kompilierten TeX-Dateien <link xref=\"synctex-search\">suchen</link>. Die "
+#~ "Suche führt Sie jedoch zur entsprechenden Folie, nicht unbedingt zur "
+#~ "entsprechenden Textzeile. Dieser Unterschied wird nachfolgend genauer "
+#~ "beschrieben."
 
-#. (itstool) path: section/p
-#: C/synctex-search.page:27
-msgid ""
-"Forward search allows you to click on a specific section of TeX source code, "
-"and jump to the associated position in the PDF. To perform forward search:"
-msgstr ""
-"Vorwärtssuche ermöglicht es, einen bestimmten Abschnitt im TeX-Quellcode "
-"auszuwählen und sofort zur entsprechenden Position im PDF-Dokument zu "
-"springen. So führen Sie eine Vorwärtssuche aus:"
+#~ msgid ""
+#~ "Forward search: from Beamer-LaTeX source to PDF (<app>gedit</app> to the "
+#~ "<app>document viewer</app>)"
+#~ msgstr ""
+#~ "Vorwärtssuche: Von einer Beamer-LaTeX-Quelle in ein PDF (von <app>gedit</"
+#~ "app> zum <app>Dokumentenbetrachter</app>)"
 
-#. (itstool) path: item/p
-#: C/synctex-search.page:32
-msgid "Click on a line in the TeX file."
-msgstr "Klicken Sie auf eine Zeile in der TeX-Datei."
+#~ msgid ""
+#~ "With <link xref=\"synctex-search#forward-search\">forward search</link>, "
+#~ "you can click on a specific line of Beamer-LaTeX source code. The "
+#~ "<em>top</em> of the corresponding slide in the PDF will be outlined in "
+#~ "red. This will often be the <em>frametitle</em>."
+#~ msgstr ""
+#~ "Mit der <link xref=\"synctex-search#forward-search\">Vorwärtssuche</link> "
+#~ "können Sie auf eine bestimmte Zeile In Ihrem Beamer-LaTeX-Quellcode "
+#~ "klicken. Der <em>Kopfbereich</em> der entsprechenden Folie im PDF wird "
+#~ "daraufhin rot umrandet. Dies ist in aller Regel die <em>Titelzeile</em>."
 
-#. (itstool) path: item/p
-#: C/synctex-search.page:37
-msgid ""
-"In <app>gedit</app>, click <guiseq><gui>Tools</gui> <gui>Forward Search</"
-"gui></guiseq>. The corresponding line in the PDF will be outlined in red."
-msgstr ""
-"Klicken Sie in <app>gedit</app> auf <guiseq><gui>Werkzeuge</"
-"gui><gui>Vorwärtssuche</gui></guiseq>. Die entsprechende Zeile im PDF-"
-"Dokument wird rot umrandet."
+#~ msgid ""
+#~ "Backward search: from PDF to Beamer-LaTeX source (from the <app>document "
+#~ "viewer</app> to <app>gedit</app>)"
+#~ msgstr ""
+#~ "Rückwärtssuche: Von PDF in eine Beamer-LaTeX-Quelle (vom "
+#~ "<app>Dokumentenbetrachter</app> nach <app>gedit</app>)"
 
-#. (itstool) path: item/p
-#: C/synctex-search.page:40
-msgid ""
-"Alternatively, you can press <keyseq><key>Ctrl</key><key>Alt</key><key>F</"
-"key></keyseq>, or <keyseq><key>Ctrl</key>left click</keyseq>. The "
-"corresponding line in the PDF will be outlined in red."
-msgstr ""
-"Alternativ können Sie auch <keyseq><key>Strg</key><key>Alt</key><key>F</"
-"key></keyseq> drücken oder mit der Maus <key>Strg</key>+Linksklick "
-"ausführen. Die entsprechende Zeile im PDF-Dokument wird daraufhin rot "
-"umrandet."
+#~ msgid ""
+#~ "With <link xref=\"synctex-search#backward-search\">backward search</"
+#~ "link>, you click on some text in a frame, and the corresponding line of "
+#~ "LaTex code that ends that particular frame is highlighted. This will "
+#~ "usually be the line:"
+#~ msgstr ""
+#~ "Mit der <link xref=\"synctex-search#backward-search\">Rückwärtssuche</"
+#~ "link> können Sie auf eine Textpassage in einer Folie klicken und die "
+#~ "entsprechende Zeile im LaTeX-Code, die jene Folie abschließt, wird "
+#~ "daraufhin hervorgehoben. Dies wird normalerweise folgende Zeile sein:"
 
-#. (itstool) path: note/p
-#: C/synctex-search.page:46
-msgid ""
-"If the corresponding PDF file is not open, performing a forward search will "
-"open the PDF in the <app>document viewer</app>."
-msgstr ""
-"Wenn das entsprechende PDF-Dokument nicht geöffnet ist, so wird beim "
-"Durchführen einer Vorwärtssuche das PDF im <app>Dokumentenbetrachter</app> "
-"geöffnet."
-
-#. (itstool) path: section/p
-#: C/synctex-search.page:50
-msgid "If you have a complex project with several TeX files you can put"
-msgstr ""
-"Wenn Sie ein komplexes Projekt mit mehreren TeX-Dateien haben, so können Sie"
-
-#. (itstool) path: section/code
-#: C/synctex-search.page:53
 #, no-wrap
-msgid "% mainfile: mainfile.tex"
-msgstr "% mainfile: mainfile.tex"
+#~ msgid "\\end{frame}"
+#~ msgstr "\\end{frame}"
 
-#. (itstool) path: section/p
-#: C/synctex-search.page:54
-msgid ""
-"either in the first or last three lines of each included TeX file, and "
-"forward search will work. Backward search should always work, even if you "
-"don't add the modeline."
-msgstr ""
-"entweder in den ersten oder letzten drei Zeilen jeder eingebundenen TeX-"
-"Datei angeben, damit die Vorwärtssuche funktioniert. Rückwärtssuche sollte "
-"immer funktionieren, selbst wenn Sie die Zeile nicht hinzufügen."
+#~ msgid "corresponding to the frame you clicked on."
+#~ msgstr "bezugnehmend auf die von Ihnen angeklickte Folie."
 
-#. (itstool) path: section/title
-#: C/synctex-search.page:61
-msgid ""
-"Backward search: from PDF to TeX (from the <app>document viewer</app> to "
-"<app>gedit</app>)"
-msgstr ""
-"Rückwärtssuche: Von PDF nach TeX (vom <app>Dokumentenbetrachter</app> nach "
-"<app>gedit</app>)"
+#~ msgid "SyncTeX support is available."
+#~ msgstr "Unterstützung für SyncTeX ist verfügbar."
 
-#. (itstool) path: section/p
-#: C/synctex-search.page:62
-msgid ""
-"Backward search allows you to click on a specific line in the PDF file, and "
-"jump to the associated line in the TeX source code."
-msgstr ""
-"Rückwärtssuche ermöglicht es, eine bestimmte Zeile in der PDF-Datei "
-"auszuwählen und sofort zur entsprechenden Zeile im TeX-Quellcode zu springen."
+#~ msgid "What is SyncTeX?"
+#~ msgstr "Was ist SyncTeX?"
 
-#. (itstool) path: section/p
-#: C/synctex-search.page:65
-msgid ""
-"You can perform a backward search by pressing <keyseq><key>Ctrl</key>left "
-"click</keyseq> in the <app>document viewer</app>. The corresponding line in "
-"the TeX source code will be highlighted."
-msgstr ""
-"Sie können eine Rückwärtssuche durch Ausführen von <keyseq><key>Strg</"
-"key><key>Linksklick</key></keyseq> im <app>Dokumentenbetrachter</app> "
-"starten. Die entsprechende Zeile wird im TeX-Quellcode hervorgehoben."
+#~ msgid ""
+#~ "SyncTeX is a method that enables synchronization between a TeX source "
+#~ "file and the resulting PDF output."
+#~ msgstr ""
+#~ "SyncTeX ist eine Möglichkeit des Abgleichs einer TeX-Quelldatei mit der "
+#~ "resultierenden PDF-Ausgabe."
+
+#~ msgid "Which editor can you use to edit your TEX file?"
+#~ msgstr "Welchen Editor können Sie zum Bearbeiten Ihrer TeX-Datei verwenden?"
+
+#~ msgid "Supported editors"
+#~ msgstr "Unterstützte Editoren"
+
+#~ msgid "<app>gedit</app>"
+#~ msgstr "<app>gedit</app>"
+
+#~ msgid ""
+#~ "<link xref=\"synctex-search#forward-search\">Forward Search</link> (from "
+#~ "<app>gedit</app> to the <app>document viewer</app>) and <link "
+#~ "xref=\"synctex-search#backward-search\">Backward search</link> (from the "
+#~ "<app>document viewer</app> to <app>gedit</app>) are both supported."
+#~ msgstr ""
+#~ "<link xref=\"synctex-search#forward-search\">Vorwärtssuche</link> (von "
+#~ "<app>gedit</app> zum <app>Dokumentenbetrachter</app>) und <link "
+#~ "xref=\"synctex-search#backward-search\">Rückwärtssuche</link> (vom "
+#~ "<app>Dokumentenbetrachter</app> nach <app>gedit</app>) werden beide "
+#~ "unterstützt."
+
+#~ msgid "Vim-latex"
+#~ msgstr "Vim-latex"
+
+#~ msgid ""
+#~ "The <app>gedit</app> plugin contains a python script (<file>evince_dbus."
+#~ "py</file>) that can be used to get SyncTeX working with Vim. In order to "
+#~ "use vim-latex together with the <app>document viewer</app> you need to "
+#~ "follow the next steps:"
+#~ msgstr ""
+#~ "Das <app>gedit</app>-Plugin enthält ein Python-Skript (<file>evince_dbus."
+#~ "py</file>), das verwendet werden kann, damit SyncteX mit Vim arbeiten "
+#~ "kann. Um vim-latex zusammen mit dem <app>Dokumentenbetrachter</app> "
+#~ "einzusetzen, gehen Sie wie folgt vor:"
+
+#~ msgid ""
+#~ "Copy the <file>evince_dbus.py</file> to some directory in your path and "
+#~ "give it +x permissions."
+#~ msgstr ""
+#~ "Kopieren Sie <file>evince_dbus.py</file> in einen beliebigen Ordner in "
+#~ "Ihrem Suchpfad und machen Sie es ausführbar."
+
+#~ msgid "Modify your <file>~/.vimrc</file> file and add the following lines."
+#~ msgstr ""
+#~ "Bearbeiten Sie die Datei <file>~/.vimrc</file> und fügen Sie die "
+#~ "folgenden Zeilen hinzu."
+
+#, no-wrap
+#~ msgid ""
+#~ "\n"
+#~ "let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+#~ "let g:Tex_DefaultTargetFormat = 'pdf'\n"
+#~ "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
+#~ msgstr ""
+#~ "\n"
+#~ "let g:Tex_ViewRule_pdf = 'evince_dbus.py'\n"
+#~ "let g:Tex_DefaultTargetFormat = 'pdf'\n"
+#~ "let g:Tex_CompileRule_pdf = 'pdflatex --synctex=1 -interaction=nonstopmode $*'\n"
+
+#~ msgid ""
+#~ "Now you can use Forward search from vim-latex by typing \\ls. Backward "
+#~ "search is not yet supported."
+#~ msgstr ""
+#~ "Jetzt können Sie die Vorwärtssuche in vim-latex nutzen, indem Sie \\ls "
+#~ "eingeben. Die Rückwärtssuche wird noch nicht unterstützt."
+
+#~ msgid "How to add support for SyncTeX."
+#~ msgstr "So fügen Sie Unterstützung für SyncTex hinzu."
+
+#~ msgid "Germán Poo-Caamaño"
+#~ msgstr "Germán Poo-Caamaño"
+
+#~ msgid "Set-up SyncTeX"
+#~ msgstr "SyncTeX einrichten"
+
+#~ msgid ""
+#~ "The following packages need to be installed in order to add support for "
+#~ "SyncTeX:"
+#~ msgstr ""
+#~ "Die folgenden Pakete müssen installiert werden, um Unterstützung für "
+#~ "SyncTeX hinzuzufügen:"
+
+#~ msgid "A LaTeX engine with SyncTeX support, such as <app>pdflatex</app>."
+#~ msgstr ""
+#~ "Eine LaTeX-Engine mit Unterstützung für SyncTex, wie <app>pdflatex</app>."
+
+#~ msgid ""
+#~ "A text editor with SyncTeX support, such as <app>gedit</app> with gedit-"
+#~ "plugins installed."
+#~ msgstr ""
+#~ "Ein Texteditor mit Unterstützung für SyncTeX, wie <app>gedit</app> mit "
+#~ "installiertem Paket gedit-plugins."
+
+#~ msgid "In <app>gedit</app>, enable the SyncTeX Plugin:"
+#~ msgstr "Aktivieren Sie in <app>gedit</app> das SyncTeX-Plugin:"
+
+#~ msgid ""
+#~ "Press the menu button in the top-right corner of the window and select "
+#~ "<gui style=\"menuitem\">Preferences</gui>."
+#~ msgstr ""
+#~ "Klicken Sie auf den Menüknopf in der oberen rechten Ecke des Fensters und "
+#~ "wählen Sie <gui style=\"menuitem\">Einstellungen</gui>."
+
+#~ msgid "Select the <gui>Plugins</gui> tab."
+#~ msgstr "Wählen Sie den Reiter <gui>Erweiterungen</gui>."
+
+#~ msgid "Check <gui>SyncTeX</gui>."
+#~ msgstr "Wählen Sie <gui>SyncTeX</gui> aus."
+
+#~ msgid "How to compile your TeX document with SyncTeX"
+#~ msgstr "So kompilieren Sie Ihr TeX-Dokument mit SyncTeX"
+
+# Direkte Anrede in Überschriften vermeiden
+#~ msgid "Compile TeX with SyncTeX"
+#~ msgstr "TeX mit SyncTeX kompilieren"
+
+#~ msgid ""
+#~ "Adding the line <em>\\synctex=1</em> in the preamble of your TeX file "
+#~ "will trigger synchronization with SyncTeX."
+#~ msgstr ""
+#~ "Die Zeile <em>\\synctex=1</em> in der Präambel Ihrer TeX-Datei löst den "
+#~ "Abgleich mit SyncTeX aus."
+
+#, no-wrap
+#~ msgid ""
+#~ "\n"
+#~ "\\documentclass{article}\n"
+#~ "\\synctex=1\n"
+#~ "\\usepackage{fullpage}\n"
+#~ "\\begin{document}\n"
+#~ "...\n"
+#~ "\\end{document}\n"
+#~ msgstr ""
+#~ "\n"
+#~ "\\documentclass{article}\n"
+#~ "\\synctex=1\n"
+#~ "\\usepackage{fullpage}\n"
+#~ "\\begin{document}\n"
+#~ "...\n"
+#~ "\\end{document}\n"
+
+#~ msgid ""
+#~ "Alternatively, you can run the pdflatex command with the <em>-synctex=1</"
+#~ "em> option:"
+#~ msgstr ""
+#~ "Alternativ können Sie den pdflatex-Befehl mit der Option <em>-synctex=1</"
+#~ "em> ausführen:"
+
+#, no-wrap
+#~ msgid "pdflatex -synctex=1 yourFile.tex"
+#~ msgstr "pdflatex -synctex=1 IhreDatei.tex"
+
+#~ msgid "Device Independent file format (.dvi)"
+#~ msgstr "Device Independent file format (.dvi)"
+
+#~ msgid "SyncTeX"
+#~ msgstr "SyncTeX"
+
+#~ msgid "Flip between the <app>document viewer</app> and <app>gedit</app>."
+#~ msgstr ""
+#~ "Wechseln Sie zwischen dem <app>Dokumentenbetrachter</app> und <app>gedit</"
+#~ "app>."
+
+#~ msgid "Search with SyncTeX"
+#~ msgstr "Suchen mit SyncTeX"
+
+#~ msgid ""
+#~ "After you <link xref=\"synctex-compile\">compile your TeX file with "
+#~ "SyncTeX</link>, you will be able to search. SyncTeX even supports forward "
+#~ "and backward search from an included file."
+#~ msgstr ""
+#~ "Nachdem Sie Ihre <link xref=\"synctex-compile\">TeX-Datei mit SyncTeX "
+#~ "kompiliert haben</link>, können Sie nun suchen. SyncTeX unterstützt sogar "
+#~ "Vorwärts- und Rückwärtssuche in einer eingebundenen Datei."
+
+#~ msgid ""
+#~ "Forward search: from TeX to PDF (from <app>gedit</app> to the "
+#~ "<app>document viewer</app>)"
+#~ msgstr ""
+#~ "Vorwärtssuche: Von TeX nach PDF (von <app>gedit</app> zum "
+#~ "<app>Dokumentenbetrachter</app>)"
+
+#~ msgid ""
+#~ "Forward search allows you to click on a specific section of TeX source "
+#~ "code, and jump to the associated position in the PDF. To perform forward "
+#~ "search:"
+#~ msgstr ""
+#~ "Vorwärtssuche ermöglicht es, einen bestimmten Abschnitt im TeX-Quellcode "
+#~ "auszuwählen und sofort zur entsprechenden Position im PDF-Dokument zu "
+#~ "springen. So führen Sie eine Vorwärtssuche aus:"
+
+#~ msgid "Click on a line in the TeX file."
+#~ msgstr "Klicken Sie auf eine Zeile in der TeX-Datei."
+
+#~ msgid ""
+#~ "In <app>gedit</app>, click <guiseq><gui>Tools</gui> <gui>Forward Search</"
+#~ "gui></guiseq>. The corresponding line in the PDF will be outlined in red."
+#~ msgstr ""
+#~ "Klicken Sie in <app>gedit</app> auf <guiseq><gui>Werkzeuge</"
+#~ "gui><gui>Vorwärtssuche</gui></guiseq>. Die entsprechende Zeile im PDF-"
+#~ "Dokument wird rot umrandet."
+
+#~ msgid ""
+#~ "Alternatively, you can press <keyseq><key>Ctrl</key><key>Alt</key><key>F</"
+#~ "key></keyseq>, or <keyseq><key>Ctrl</key>left click</keyseq>. The "
+#~ "corresponding line in the PDF will be outlined in red."
+#~ msgstr ""
+#~ "Alternativ können Sie auch <keyseq><key>Strg</key><key>Alt</key><key>F</"
+#~ "key></keyseq> drücken oder mit der Maus <key>Strg</key>+Linksklick "
+#~ "ausführen. Die entsprechende Zeile im PDF-Dokument wird daraufhin rot "
+#~ "umrandet."
+
+#~ msgid ""
+#~ "If the corresponding PDF file is not open, performing a forward search "
+#~ "will open the PDF in the <app>document viewer</app>."
+#~ msgstr ""
+#~ "Wenn das entsprechende PDF-Dokument nicht geöffnet ist, so wird beim "
+#~ "Durchführen einer Vorwärtssuche das PDF im <app>Dokumentenbetrachter</"
+#~ "app> geöffnet."
+
+#~ msgid "If you have a complex project with several TeX files you can put"
+#~ msgstr ""
+#~ "Wenn Sie ein komplexes Projekt mit mehreren TeX-Dateien haben, so können "
+#~ "Sie"
+
+#, no-wrap
+#~ msgid "% mainfile: mainfile.tex"
+#~ msgstr "% mainfile: mainfile.tex"
+
+#~ msgid ""
+#~ "either in the first or last three lines of each included TeX file, and "
+#~ "forward search will work. Backward search should always work, even if you "
+#~ "don't add the modeline."
+#~ msgstr ""
+#~ "entweder in den ersten oder letzten drei Zeilen jeder eingebundenen TeX-"
+#~ "Datei angeben, damit die Vorwärtssuche funktioniert. Rückwärtssuche "
+#~ "sollte immer funktionieren, selbst wenn Sie die Zeile nicht hinzufügen."
+
+#~ msgid ""
+#~ "Backward search: from PDF to TeX (from the <app>document viewer</app> to "
+#~ "<app>gedit</app>)"
+#~ msgstr ""
+#~ "Rückwärtssuche: Von PDF nach TeX (vom <app>Dokumentenbetrachter</app> "
+#~ "nach <app>gedit</app>)"
+
+#~ msgid ""
+#~ "Backward search allows you to click on a specific line in the PDF file, "
+#~ "and jump to the associated line in the TeX source code."
+#~ msgstr ""
+#~ "Rückwärtssuche ermöglicht es, eine bestimmte Zeile in der PDF-Datei "
+#~ "auszuwählen und sofort zur entsprechenden Zeile im TeX-Quellcode zu "
+#~ "springen."
+
+#~ msgid ""
+#~ "You can perform a backward search by pressing <keyseq><key>Ctrl</key>left "
+#~ "click</keyseq> in the <app>document viewer</app>. The corresponding line "
+#~ "in the TeX source code will be highlighted."
+#~ msgstr ""
+#~ "Sie können eine Rückwärtssuche durch Ausführen von <keyseq><key>Strg</"
+#~ "key><key>Linksklick</key></keyseq> im <app>Dokumentenbetrachter</app> "
+#~ "starten. Die entsprechende Zeile wird im TeX-Quellcode hervorgehoben."
 
 #~ msgid ""
 #~ "Click <guiseq><gui>Edit</gui><gui>Preferences</gui><gui>Plugins</gui></"
