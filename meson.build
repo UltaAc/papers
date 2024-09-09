@@ -196,14 +196,6 @@ if enable_nautilus
   nautilus_extension_dir = libnautilus_extension_dep.get_variable(pkgconfig: 'extensiondir', pkgconfig_define: ['libdir', pps_libdir])
 endif
 
-# *** DBUS ***
-enable_dbus = get_option('dbus')
-if enable_dbus
-  # Check for dbus service dir
-  dbus_service_dir = dependency('dbus-1').get_variable(pkgconfig: 'session_bus_services_dir', pkgconfig_define: ['datadir', pps_datadir])
-endif
-config_h.set('ENABLE_DBUS', enable_dbus)
-
 # *** GNOME Keyring support ***
 enable_keyring = get_option('keyring').enabled()
 
@@ -212,7 +204,7 @@ gtk_unix_print_dep = dependency('gtk4-unix-print', version: gtk_req_version, req
 enable_gtk_unix_print = gtk_unix_print_dep.found()
 config_h.set10('GTKUNIXPRINT_ENABLED', enable_gtk_unix_print)
 
-if enable_dbus or enable_gtk_unix_print
+if enable_gtk_unix_print
   gio_unix_dep = dependency('gio-unix-2.0', version: glib_req_version)
 else
   gio_unix_dep = dependency('', required: false)
@@ -459,7 +451,6 @@ summary({'tests......................': get_option('tests'),
          'Developer documentation....': enable_docs,
          'User documentation.........': enable_user_doc,
          'GObject introspection......': gobject_introspection_dep.found(),
-         'DBus communication.........': enable_dbus,
          'Keyring integration........': enable_keyring,
          'GTK+ Unix print ...........': enable_gtk_unix_print,
         }, section: 'Features', bool_yn: true)

@@ -49,7 +49,6 @@ gboolean	pps_document_view_is_empty	                 (PpsDocumentView       *pps
 void		pps_document_view_print_range                    (PpsDocumentView       *pps_doc_view,
                                                           int             first_page,
                                                           int		 last_page);
-const gchar    *pps_document_view_get_dbus_object_path           (PpsDocumentView       *pps_doc_view);
 void            pps_document_view_focus_view                     (PpsDocumentView       *pps_doc_view);
 void            pps_document_view_handle_annot_popup             (PpsDocumentView       *pps_doc_view,
                                                           PpsAnnotation   *annot);

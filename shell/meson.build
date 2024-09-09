@@ -49,19 +49,6 @@ papers_cflags = [
 
 papers_ldflags = common_ldflags
 
-if enable_dbus
-  gdbus = 'pps-gdbus'
-
-  papers_sources += gnome.gdbus_codegen(
-    gdbus + '-generated',
-    gdbus + '.xml',
-    interface_prefix: pps_namespace,
-    namespace: pps_code_prefix,
-    object_manager: true,
-    autocleanup: 'objects',
-  )
-endif
-
 enum_types = 'ev-shell-type-builtins'
 enum_header_prefix = '''
 #include <papers-document.h>

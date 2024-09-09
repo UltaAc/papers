@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Introspection 0.1//EN"
-                      "http://www.freedesktop.org/software/dbus/introspection.dtd">
-<node>
-  <interface name='org.gnome.Papers.Application'>
-    <annotation name="org.gtk.GDBus.C.Name" value="PapersApplication" />
-  </interface>
-</node>

@@ -42,17 +42,6 @@ mod imp {
             gtk::Window::set_default_icon_name(APP_ID);
 
             self.setup_actions();
-
-            // Listen to the dbus interface
-            glib::spawn_future_local(glib::clone!(
-                #[weak(rename_to = obj)]
-                self,
-                async move {
-                    if let Err(e) = obj.dbus_service().await {
-                        glib::g_warning!("", "Failed to launch the dbus service: {}", e);
-                    }
-                }
-            ));
         }
 
         fn shutdown(&self) {
@@ -130,31 +119,6 @@ mod imp {
                 let uri = f.uri();
 
                 self.open_uri_at_dest(uri.as_str(), None, WindowRunMode::Normal);
-            }
-        }
-    }
-
-    #[zbus::interface(name = "org.gnome.Papers")]
-    impl PpsApplication {}
-
-    impl PpsApplication {
-        async fn dbus_service(&self) -> zbus::Result<()> {
-            let connection = zbus::Connection::session().await?;
-
-            connection
-                .object_server()
-                .at(
-                    format!("/org/gnome/Papers/Papers{}", OBJECT_PROFILE),
-                    PpsApplication,
-                )
-                .await?;
-
-            connection.request_name("org.gnome.Papers").await?;
-
-            loop {
-                // do something else, wait forever or timeout here:
-                // handling D-Bus messages is done in the background
-                std::future::pending::<()>().await;
             }
         }
     }
