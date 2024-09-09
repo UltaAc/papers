@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: evince master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-08-01 19:42+0000\n"
-"PO-Revision-Date: 2024-08-12 19:35+0200\n"
+"POT-Creation-Date: 2024-09-09 18:02+0000\n"
+"PO-Revision-Date: 2024-09-09 20:03+0200\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -28,10 +28,10 @@ msgstr ""
 #. Manually set name and icon
 #: data/org.gnome.Papers.desktop.in.in:3
 #: data/org.gnome.Papers.metainfo.xml.in.in:23
-#: previewer/pps-previewer-window.c:477 shell/pps-document-view.ui:68
-#: shell/pps-loader-view.ui:10 shell/pps-window-title.c:126
-#: shell-rs/src/application.rs:42 shell-rs/src/application.rs:76
-#: shell-rs/src/application.rs:313
+#: previewer/pps-previewer-window.c:477 shell/pps-document-view.c:1201
+#: shell/pps-document-view.ui:73 shell/pps-loader-view.ui:10
+#: shell-rs/src/application.rs:41 shell-rs/src/application.rs:64
+#: shell-rs/src/application.rs:288
 msgid "Papers"
 msgstr "Papers"
 
@@ -237,52 +237,52 @@ msgid "Adds support for reading PDF Documents"
 msgstr "Tilføjer understøttelse af PDF-dokumenter"
 
 #. translators: this is the document security state
-#: libdocument/backend/pdf/pps-poppler.c:720
-#: libdocument/backend/pdf/pps-poppler.c:726
+#: libdocument/backend/pdf/pps-poppler.c:717
+#: libdocument/backend/pdf/pps-poppler.c:723
 #: nautilus/pps-nautilus-extension.c:121 shell-rs/src/properties_general.rs:170
 msgid "Yes"
 msgstr "Ja"
 
 #. translators: this is the document security state
+#: libdocument/backend/pdf/pps-poppler.c:720
 #: libdocument/backend/pdf/pps-poppler.c:723
-#: libdocument/backend/pdf/pps-poppler.c:726
 #: nautilus/pps-nautilus-extension.c:123 shell-rs/src/properties_general.rs:171
 msgid "No"
 msgstr "Nej"
 
-#: libdocument/backend/pdf/pps-poppler.c:834
+#: libdocument/backend/pdf/pps-poppler.c:831
 msgid "Type 1"
 msgstr "Type 1"
 
-#: libdocument/backend/pdf/pps-poppler.c:836
+#: libdocument/backend/pdf/pps-poppler.c:833
 msgid "Type 1C"
 msgstr "Type 1C"
 
-#: libdocument/backend/pdf/pps-poppler.c:838
+#: libdocument/backend/pdf/pps-poppler.c:835
 msgid "Type 3"
 msgstr "Type 3"
 
-#: libdocument/backend/pdf/pps-poppler.c:840
+#: libdocument/backend/pdf/pps-poppler.c:837
 msgid "TrueType"
 msgstr "TrueType"
 
-#: libdocument/backend/pdf/pps-poppler.c:842
+#: libdocument/backend/pdf/pps-poppler.c:839
 msgid "Type 1 (CID)"
 msgstr "Type 1 (CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:844
+#: libdocument/backend/pdf/pps-poppler.c:841
 msgid "Type 1C (CID)"
 msgstr "Type 1C (CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:846
+#: libdocument/backend/pdf/pps-poppler.c:843
 msgid "TrueType (CID)"
 msgstr "TrueType (CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:848
+#: libdocument/backend/pdf/pps-poppler.c:845
 msgid "Unknown font type"
 msgstr "Ukendt skrifttype"
 
-#: libdocument/backend/pdf/pps-poppler.c:892
+#: libdocument/backend/pdf/pps-poppler.c:889
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
@@ -293,11 +293,11 @@ msgstr ""
 "vælger, ikke er de samme, som de skrifttyper der blev brugt til at danne "
 "PDF'en, vil gengivelsen muligvis ikke blive korrekt."
 
-#: libdocument/backend/pdf/pps-poppler.c:897
+#: libdocument/backend/pdf/pps-poppler.c:894
 msgid "All fonts are either standard or embedded."
 msgstr "Alle skrifttyper er enten standard eller indlejrede."
 
-#: libdocument/backend/pdf/pps-poppler.c:928
+#: libdocument/backend/pdf/pps-poppler.c:925
 msgid "No name"
 msgstr "Intet navn"
 
@@ -306,20 +306,20 @@ msgstr "Intet navn"
 #. Encoding: None
 #.
 #. translators: Value for 'Page Scaling:' to not scale the document pages on printing
-#: libdocument/backend/pdf/pps-poppler.c:937 libview/pps-print-operation.c:2643
+#: libdocument/backend/pdf/pps-poppler.c:934 libview/pps-print-operation.c:2643
 #: shell-rs/src/properties_general.rs:82 shell-rs/src/properties_general.rs:199
 msgid "None"
 msgstr "Ingen"
 
-#: libdocument/backend/pdf/pps-poppler.c:945
+#: libdocument/backend/pdf/pps-poppler.c:942
 msgid "Embedded subset"
 msgstr "Indlejret delmængde"
 
-#: libdocument/backend/pdf/pps-poppler.c:947
+#: libdocument/backend/pdf/pps-poppler.c:944
 msgid "Embedded"
 msgstr "Indlejret"
 
-#: libdocument/backend/pdf/pps-poppler.c:949
+#: libdocument/backend/pdf/pps-poppler.c:946
 msgid "Not embedded"
 msgstr "Ikke indlejret"
 
@@ -328,7 +328,7 @@ msgstr "Ikke indlejret"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: libdocument/backend/pdf/pps-poppler.c:956
+#: libdocument/backend/pdf/pps-poppler.c:953
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (En af de 14 standardskrifttyper)"
 
@@ -337,7 +337,7 @@ msgstr " (En af de 14 standardskrifttyper)"
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: libdocument/backend/pdf/pps-poppler.c:963
+#: libdocument/backend/pdf/pps-poppler.c:960
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (Ikke en af de 14 standardskrifttyper)"
 
@@ -351,7 +351,7 @@ msgstr " (Ikke en af de 14 standardskrifttyper)"
 #. * Substituting with TeXGyreTermes-Regular
 #. * (/usr/share/textmf/.../texgyretermes-regular.otf)
 #.
-#: libdocument/backend/pdf/pps-poppler.c:982
+#: libdocument/backend/pdf/pps-poppler.c:979
 #, c-format
 msgid ""
 "%s%s\n"
@@ -375,7 +375,7 @@ msgstr ""
 #. * Encoding: Custom
 #. * Embedded subset
 #.
-#: libdocument/backend/pdf/pps-poppler.c:1000
+#: libdocument/backend/pdf/pps-poppler.c:997
 #, c-format
 msgid ""
 "%s%s\n"
@@ -414,7 +414,7 @@ msgstr "TIFF-dokumenter"
 msgid "Adds support for reading TIFF documents"
 msgstr "Tilføjer understøttelse af TIFF-dokumenter"
 
-#: libdocument/backend/tiff/tiff-document.c:122
+#: libdocument/backend/tiff/tiff-document.c:109
 msgid "Invalid document"
 msgstr "Ugyldig dokument"
 
@@ -447,17 +447,17 @@ msgstr "Kunne ikke åbne bilaget “%s”"
 msgid "File type %s (%s) is not supported"
 msgstr "Filtype %s (%s) er ikke understøttet"
 
-#: libdocument/pps-document-factory.c:387 libdocument/pps-file-helpers.c:417
-#: libdocument/pps-file-helpers.c:463 libdocument/pps-file-helpers.c:482
-#: libdocument/pps-file-helpers.c:563 libdocument/pps-file-helpers.c:572
+#: libdocument/pps-document-factory.c:375 libdocument/pps-file-helpers.c:408
+#: libdocument/pps-file-helpers.c:454 libdocument/pps-file-helpers.c:463
+#: libdocument/pps-file-helpers.c:544 libdocument/pps-file-helpers.c:553
 msgid "Unknown MIME Type"
 msgstr "Ukendt MIME-type"
 
-#: libdocument/pps-document-factory.c:519
+#: libdocument/pps-document-factory.c:507
 msgid "All Documents"
 msgstr "Alle dokumenter"
 
-#: libdocument/pps-document-factory.c:547
+#: libdocument/pps-document-factory.c:535
 msgid "All Files"
 msgstr "Alle filer"
 
@@ -495,12 +495,12 @@ msgstr "%s, Portræt (%s)"
 msgid "%s, Landscape (%s)"
 msgstr "%s, Landskab (%s)"
 
-#: libdocument/pps-file-helpers.c:157
+#: libdocument/pps-file-helpers.c:148
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "Kunne ikke oprette en midlertidig fil: %s"
 
-#: libdocument/pps-file-helpers.c:234
+#: libdocument/pps-file-helpers.c:225
 #, c-format
 msgid "Failed to create a temporary directory: %s"
 msgstr "Kunne ikke oprette et midlertidigt katalog: %s"
@@ -509,22 +509,35 @@ msgstr "Kunne ikke oprette et midlertidigt katalog: %s"
 msgid "This work is in the Public Domain"
 msgstr "Dette værk er i public domain"
 
-#: libview/pps-jobs.c:407
+#: libview/context/pps-attachment-context.c:345
+msgid "Save Attachment"
+msgid_plural "Save Attachments"
+msgstr[0] "Gem bilag"
+msgstr[1] "Gem bilag"
+
+#: libview/context/pps-history.c:488 previewer/pps-page-selector.c:194
+#: shell/pps-document-view.c:639 shell/pps-document-view.c:2697
+#: shell/pps-sidebar-bookmarks.c:339
+#, c-format
+msgid "Page %s"
+msgstr "Side %s"
+
+#: libview/pps-jobs.c:419
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "Kunne ikke gengive side %d: %s"
 
-#: libview/pps-jobs.c:414
+#: libview/pps-jobs.c:426
 #, c-format
 msgid "Failed to render page %d"
 msgstr "Kunne ikke gengive side %d"
 
-#: libview/pps-jobs.c:632
+#: libview/pps-jobs.c:644
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "Kunne ikke oprette minuature for side %d"
 
-#: libview/pps-jobs.c:1584
+#: libview/pps-jobs.c:1596
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "Kunne ikke udskrive side %d: %s"
@@ -572,8 +585,8 @@ msgid "Invalid Page Selection"
 msgstr "Ugyldigt sidevalg"
 
 #: libview/pps-print-operation.c:2000
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.ui:628
-#: shell/pps-window.ui:155
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.ui:635
+#: shell/pps-window.ui:163
 msgid "_Close"
 msgstr "_Luk"
 
@@ -672,51 +685,51 @@ msgstr "Rul visning ned"
 msgid "Document View"
 msgstr "Dokumentvisning"
 
-#: libview/pps-view.c:2117
+#: libview/pps-view.c:2124
 msgid "Go to first page"
 msgstr "Gå til første side"
 
-#: libview/pps-view.c:2119
+#: libview/pps-view.c:2126
 msgid "Go to previous page"
 msgstr "Gå til forrige side"
 
-#: libview/pps-view.c:2121
+#: libview/pps-view.c:2128
 msgid "Go to next page"
 msgstr "Gå til næste side"
 
-#: libview/pps-view.c:2123
+#: libview/pps-view.c:2130
 msgid "Go to last page"
 msgstr "Gå til sidste side"
 
-#: libview/pps-view.c:2125
+#: libview/pps-view.c:2132
 msgid "Go to page"
 msgstr "Gå til side"
 
-#: libview/pps-view.c:2127
+#: libview/pps-view.c:2134
 msgid "Find"
 msgstr "Find"
 
-#: libview/pps-view.c:2156
+#: libview/pps-view.c:2163
 #, c-format
 msgid "Go to page %s"
 msgstr "Gå til side %s"
 
-#: libview/pps-view.c:2162
+#: libview/pps-view.c:2169
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Gå til %s i filen “%s”"
 
-#: libview/pps-view.c:2165
+#: libview/pps-view.c:2172
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Gå til filen “%s”"
 
-#: libview/pps-view.c:2173
+#: libview/pps-view.c:2180
 #, c-format
 msgid "Launch %s"
 msgstr "Start %s"
 
-#: libview/pps-view.c:2180
+#: libview/pps-view.c:2187
 #, c-format
 msgid "Reset form"
 msgstr "Nulstil formular"
@@ -742,13 +755,6 @@ msgstr "(%d af %d)"
 #, c-format
 msgid "of %d"
 msgstr "af %d"
-
-#: previewer/pps-page-selector.c:194 shell/pps-document-view.c:649
-#: shell/pps-document-view.c:2591 shell/pps-history.c:454
-#: shell/pps-sidebar-bookmarks.c:339
-#, c-format
-msgid "Page %s"
-msgstr "Side %s"
 
 #: previewer/pps-page-selector.ui:12 shell/pps-page-selector.ui:12
 msgid "Select page"
@@ -811,7 +817,7 @@ msgstr "Forrige side"
 msgid "Next Page"
 msgstr "Næste side"
 
-#: previewer/pps-previewer-window.ui:31 shell/pps-document-view.ui:217
+#: previewer/pps-previewer-window.ui:31 shell/pps-document-view.ui:224
 msgid "Page Count"
 msgstr "Sidetal"
 
@@ -823,7 +829,7 @@ msgstr "_Udskriv"
 msgid "Print This Document"
 msgstr "Udskriv dette dokument"
 
-#: previewer/pps-previewer-window.ui:48 shell/pps-document-view.ui:291
+#: previewer/pps-previewer-window.ui:48 shell/pps-document-view.ui:298
 msgid "Zoom Out"
 msgstr "Zoom ud"
 
@@ -831,7 +837,7 @@ msgstr "Zoom ud"
 msgid "Normal Size"
 msgstr "Normal størrelse"
 
-#: previewer/pps-previewer-window.ui:62 shell/pps-document-view.ui:278
+#: previewer/pps-previewer-window.ui:62 shell/pps-document-view.ui:285
 msgid "Zoom In"
 msgstr "Zoom ind"
 
@@ -1303,171 +1309,163 @@ msgstr "Bølget understregning"
 msgid "_Apply"
 msgstr "An_vend"
 
-#: shell/pps-document-view.c:490 shell-rs/src/window.rs:465
+#: shell/pps-document-view.c:480 shell-rs/src/window.rs:460
 msgid "View Details"
 msgstr "Vis detaljer"
 
-#: shell/pps-document-view.c:1132
+#: shell/pps-document-view.c:1236
 msgid "The document contains no pages"
 msgstr "Dokumentet indeholder ingen sider"
 
-#: shell/pps-document-view.c:1135
+#: shell/pps-document-view.c:1239
 msgid "The document contains only empty pages"
 msgstr "Dokumentet indeholder kun tomme sider"
 
-#: shell/pps-document-view.c:1358
+#: shell/pps-document-view.c:1467
 msgid "File Saved"
 msgstr "Fil gemt"
 
-#: shell/pps-document-view.c:1368 shell/pps-document-view.c:1421
+#: shell/pps-document-view.c:1477 shell/pps-document-view.c:1530
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Filen kunne ikke gemmes som “%s”."
 
-#: shell/pps-document-view.c:1483
+#: shell/pps-document-view.c:1592
 msgid "Save As…"
 msgstr "Gem som …"
 
-#: shell/pps-document-view.c:1789
+#: shell/pps-document-view.c:1898
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "%d ventende job i køen"
 msgstr[1] "%d ventende job i køen"
 
-#: shell/pps-document-view.c:1828
+#: shell/pps-document-view.c:1937
 msgid "Failed to Print Document"
 msgstr "Kunne ikke udskrive dokument"
 
-#: shell/pps-document-view.c:1882
+#: shell/pps-document-view.c:1991
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Udskriver job “%s”"
 
-#: shell/pps-document-view.c:1885 shell/pps-loader-view.ui:45
+#: shell/pps-document-view.c:1994 shell/pps-loader-view.ui:45
 msgid "C_ancel"
 msgstr "A_nnullér"
 
-#: shell/pps-document-view.c:2074 shell-rs/src/window.rs:267
+#: shell/pps-document-view.c:2183 shell-rs/src/window.rs:266
 msgid "Document contains form fields that have been filled out."
 msgstr "Dokumentet indeholder formularfelter, som er blevet udfyldt."
 
-#: shell/pps-document-view.c:2077 shell-rs/src/window.rs:268
+#: shell/pps-document-view.c:2186 shell-rs/src/window.rs:267
 msgid "Document contains new or modified annotations."
 msgstr "Dokumentet indeholder nye eller ændrede annoteringer."
 
-#: shell/pps-document-view.c:2084
+#: shell/pps-document-view.c:2193
 msgid "Save Changes to a Copy?"
 msgstr "Gem ændringer til en kopi?"
 
-#: shell/pps-document-view.c:2085
+#: shell/pps-document-view.c:2194
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "Hvis du ikke gemmer en kopi, vil disse ændringer gå tabt."
 
-#: shell/pps-document-view.c:2088
+#: shell/pps-document-view.c:2197
 msgid "Close _Without Saving"
 msgstr "Luk _uden at gemme"
 
-#: shell/pps-document-view.c:2089 shell/pps-document-view.ui:608
-#: shell/pps-document-view.ui:620
+#: shell/pps-document-view.c:2198 shell/pps-document-view.ui:615
+#: shell/pps-document-view.ui:627
 msgid "_Cancel"
 msgstr "_Annullér"
 
-#: shell/pps-document-view.c:2090
+#: shell/pps-document-view.c:2199
 msgid "_Save a Copy"
 msgstr "Gem en _kopi"
 
-#: shell/pps-document-view.c:2914
-msgid "Search"
-msgstr "Søgning"
-
-#: shell/pps-document-view.c:2918
-msgid "Search Unavailable"
-msgstr "Søgning utilgængelig"
-
-#: shell/pps-document-view.c:3126
-msgid "The attachment could not be saved."
-msgstr "Kunne ikke gemme bilaget."
-
-#: shell/pps-document-view.c:3604
+#: shell/pps-document-view.c:3569
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
 msgstr "Sikkerhedsbesked: dokumentet er blevet forhindret i at åbne filen “%s”"
 
-#: shell/pps-document-view.c:3665
+#: shell/pps-document-view.c:3630
 msgid "Unable to open external link"
 msgstr "Kan ikke åbne eksternt link"
 
-#: shell/pps-document-view.c:3890
+#: shell/pps-document-view.c:3855
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Kunne ikke finde passende format at gemme billede i"
 
-#: shell/pps-document-view.c:3920
+#: shell/pps-document-view.c:3885
 msgid "The image could not be saved."
 msgstr "Billedet kunne ikke gemmes."
 
-#: shell/pps-document-view.c:3956
+#: shell/pps-document-view.c:3921
 msgid "Save Image"
 msgstr "Gem billede"
 
-#: shell/pps-document-view.c:4127
+#: shell/pps-document-view.c:4092
 msgid "Unable to open attachment"
 msgstr "Kan ikke åbne bilag"
 
-#: shell/pps-document-view.c:4192
-msgid "Save Attachment"
-msgstr "Gem bilag"
+#: shell/pps-document-view.c:4111
+msgid "The attachment could not be saved."
+msgstr "Kunne ikke gemme bilaget."
 
-#: shell/pps-document-view.ui:74
+#: shell/pps-document-view.ui:64
+msgid "Search"
+msgstr "Søgning"
+
+#: shell/pps-document-view.ui:79 shell/pps-window.ui:36
 msgid "Main Menu"
 msgstr "Hovedmenu"
 
-#: shell/pps-document-view.ui:95
+#: shell/pps-document-view.ui:98
 msgid "Thumbnails"
 msgstr "Miniaturer"
 
-#: shell/pps-document-view.ui:108
+#: shell/pps-document-view.ui:111
 msgid "Outline"
 msgstr "Oversigt"
 
-#: shell/pps-document-view.ui:123
+#: shell/pps-document-view.ui:126
 msgid "Annotations"
 msgstr "Annoteringer"
 
-#: shell/pps-document-view.ui:138
+#: shell/pps-document-view.ui:141
 msgid "Bookmarks"
 msgstr "Bogmærker"
 
-#: shell/pps-document-view.ui:152
+#: shell/pps-document-view.ui:155
 msgid "Attachments"
 msgstr "Bilag"
 
-#: shell/pps-document-view.ui:168
+#: shell/pps-document-view.ui:174
 msgid "Layers"
 msgstr "Lag"
 
-#: shell/pps-document-view.ui:204
+#: shell/pps-document-view.ui:211
 msgid "Toggle Sidebar"
 msgstr "Slå sidebjælke til/fra"
 
-#: shell/pps-document-view.ui:210
+#: shell/pps-document-view.ui:217
 msgid "Document Menu"
 msgstr "Dokumentmenu"
 
-#: shell/pps-document-view.ui:258
+#: shell/pps-document-view.ui:265
 msgid "Fit Automatically"
 msgstr "Tilpas automatisk"
 
-#: shell/pps-document-view.ui:350
+#: shell/pps-document-view.ui:357
 msgid "Loading…"
 msgstr "Indlæser …"
 
-#: shell/pps-document-view.ui:599
+#: shell/pps-document-view.ui:606
 msgid "Enable Caret Navigation?"
 msgstr "Aktivér markørnavigation?"
 
-#: shell/pps-document-view.ui:600
+#: shell/pps-document-view.ui:607
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1477,19 +1475,19 @@ msgstr ""
 "flytbar markør i tekstsider og giver dig mulighed for at flytte rundt og "
 "markere tekst med dit tastatur."
 
-#: shell/pps-document-view.ui:603
+#: shell/pps-document-view.ui:610
 msgid "Don’t show this message again"
 msgstr "Vis ikke denne meddelelse igen"
 
-#: shell/pps-document-view.ui:609
+#: shell/pps-document-view.ui:616
 msgid "_Enable"
 msgstr "_Aktivér"
 
-#: shell/pps-document-view.ui:615
+#: shell/pps-document-view.ui:622
 msgid "Abort Printing?"
 msgstr "Afbryd udskrivning?"
 
-#: shell/pps-document-view.ui:616
+#: shell/pps-document-view.ui:623
 msgid ""
 "There is one or more active print jobs. If the window is closed, pending "
 "print jobs will not be printed."
@@ -1497,146 +1495,146 @@ msgstr ""
 "Der er en eller flere aktive udskriftsopgaver. Lukkes vinduet, vil ventende "
 "job ikke blive udskrevet."
 
-#: shell/pps-document-view.ui:619
+#: shell/pps-document-view.ui:626
 msgid "Abort _Print and Close"
 msgstr "Afbryd _udskrivning og luk"
 
-#: shell/pps-document-view.ui:621
+#: shell/pps-document-view.ui:628
 msgid "Close _After Printing"
 msgstr "Luk _efter udskrivning"
 
 # "Initial window state:" så adj.
-#: shell/pps-document-view.ui:635
+#: shell/pps-document-view.ui:642
 msgid "Open"
 msgstr "Åbent"
 
-#: shell/pps-document-view.ui:641
+#: shell/pps-document-view.ui:648
 msgid "Ni_ght Mode"
 msgstr "_Nattetilstand"
 
-#: shell/pps-document-view.ui:647
+#: shell/pps-document-view.ui:654 shell/pps-window.ui:170
 msgid "_Keyboard Shortcuts"
 msgstr "_Tastaturgenveje"
 
-#: shell/pps-document-view.ui:651
+#: shell/pps-document-view.ui:658 shell/pps-window.ui:174
 msgid "_Help"
 msgstr "_Hjælp"
 
-#: shell/pps-document-view.ui:655
+#: shell/pps-document-view.ui:662 shell/pps-window.ui:178
 msgid "_About Papers"
 msgstr "_Om Papers"
 
-#: shell/pps-document-view.ui:663
+#: shell/pps-document-view.ui:670
 msgid "_Print…"
 msgstr "_Udskriv …"
 
-#: shell/pps-document-view.ui:667
+#: shell/pps-document-view.ui:674
 msgid "Fullscreen"
 msgstr "Fuldskærm"
 
-#: shell/pps-document-view.ui:671
+#: shell/pps-document-view.ui:678
 msgid "Present as Slideshow"
 msgstr "Vis som præsentation"
 
-#: shell/pps-document-view.ui:677
+#: shell/pps-document-view.ui:684
 msgid "Open a C_opy"
 msgstr "Åbn en _kopi"
 
-#: shell/pps-document-view.ui:681
+#: shell/pps-document-view.ui:688
 msgid "Open With…"
 msgstr "Åbn med …"
 
-#: shell/pps-document-view.ui:685
+#: shell/pps-document-view.ui:692
 msgid "_Save As…"
 msgstr "Gem _som …"
 
-#: shell/pps-document-view.ui:691
+#: shell/pps-document-view.ui:698
 msgid "_Continuous"
 msgstr "_Fortløbende"
 
-#: shell/pps-document-view.ui:695
+#: shell/pps-document-view.ui:702
 msgid "_Dual"
 msgstr "_Dobbelt"
 
-#: shell/pps-document-view.ui:699
+#: shell/pps-document-view.ui:706
 msgid "_Odd Pages Left"
 msgstr "_Ulige sider venstre"
 
-#: shell/pps-document-view.ui:703
+#: shell/pps-document-view.ui:710
 msgid "Right to Left Document"
 msgstr "Højre til venstre-dokument"
 
-#: shell/pps-document-view.ui:709
+#: shell/pps-document-view.ui:716
 msgid "Ro_tate ⤵"
 msgstr "Ro_tér ⤵"
 
-#: shell/pps-document-view.ui:715
+#: shell/pps-document-view.ui:722
 msgid "Document Prop_erties"
 msgstr "Dokument_egenskaber"
 
-#: shell/pps-document-view.ui:724
+#: shell/pps-document-view.ui:731
 msgid "_Open Link"
 msgstr "_Åbn link"
 
-#: shell/pps-document-view.ui:729
+#: shell/pps-document-view.ui:736
 msgid "_Copy Link Address"
 msgstr "_Kopiér linkadresse"
 
-#: shell/pps-document-view.ui:734
+#: shell/pps-document-view.ui:741
 msgid "_Go To"
 msgstr "_Gå til"
 
-#: shell/pps-document-view.ui:739
+#: shell/pps-document-view.ui:746
 msgid "Open in New _Window"
 msgstr "Åben i ny _vindue"
 
-#: shell/pps-document-view.ui:746
+#: shell/pps-document-view.ui:753
 msgid "_Previous Page"
 msgstr "_Forrige side"
 
-#: shell/pps-document-view.ui:750
+#: shell/pps-document-view.ui:757
 msgid "_Next Page"
 msgstr "_Næste side"
 
-#: shell/pps-document-view.ui:756
+#: shell/pps-document-view.ui:763
 msgid "_Copy"
 msgstr "_Kopiér"
 
-#: shell/pps-document-view.ui:760
+#: shell/pps-document-view.ui:767
 msgid "Select _All"
 msgstr "Markér _alt"
 
-#: shell/pps-document-view.ui:766
+#: shell/pps-document-view.ui:773
 msgid "_Save Image As…"
 msgstr "_Gem billede som …"
 
-#: shell/pps-document-view.ui:771
+#: shell/pps-document-view.ui:778
 msgid "Copy _Image"
 msgstr "Kopiér _billede"
 
-#: shell/pps-document-view.ui:778 shell/pps-document-view.ui:815
+#: shell/pps-document-view.ui:785 shell/pps-document-view.ui:822
 #: shell/pps-sidebar-annotations.ui:85
 msgid "_Open Attachment"
 msgstr "_Åbn bilag"
 
-#: shell/pps-document-view.ui:783 shell/pps-document-view.ui:819
+#: shell/pps-document-view.ui:790 shell/pps-document-view.ui:826
 #: shell/pps-sidebar-annotations.ui:90
 msgid "_Save Attachment As…"
 msgstr "_Gem bilag som …"
 
-#: shell/pps-document-view.ui:790
+#: shell/pps-document-view.ui:797
 msgid "Annotation _Properties…"
 msgstr "A_nnoteringsegenskaber …"
 
-#: shell/pps-document-view.ui:795
+#: shell/pps-document-view.ui:802
 msgid "R_emove Annotation"
 msgstr "F_jern annotering"
 
-#: shell/pps-document-view.ui:802
+#: shell/pps-document-view.ui:809
 msgid "_Add Text Annotation"
 msgstr "_Tilføj tekstannotering"
 
-#: shell/pps-document-view.ui:807
+#: shell/pps-document-view.ui:814
 msgid "_Highlight Selected Text"
 msgstr "Fremh_æv markeret tekst"
 
@@ -1656,11 +1654,6 @@ msgstr "Foretag en søgning"
 msgid "The search results will appear here"
 msgstr "Søgeresultaterne vises her"
 
-#: shell/pps-keyring.c:76
-#, c-format
-msgid "Password for document %s"
-msgstr "Adgangskode for dokumentet %s"
-
 #: shell/pps-loader-view.ui:18
 msgid "Loading Document"
 msgstr "Indlæser dokument"
@@ -1670,31 +1663,27 @@ msgstr "Indlæser dokument"
 msgid "Password Required"
 msgstr "Adgangskode påkrævet"
 
-#: shell/pps-password-dialog.ui:8
+#: shell/pps-password-dialog.ui:7
 msgid "Cancel"
 msgstr "Annullér"
 
-#: shell/pps-password-dialog.ui:9
+#: shell/pps-password-dialog.ui:8
 msgid "Unlock"
 msgstr "Lås op"
 
-#: shell/pps-password-dialog.ui:18
+#: shell/pps-password-dialog.ui:17
 msgid "Password"
 msgstr "Adgangskode"
 
-#: shell/pps-password-dialog.ui:33
+#: shell/pps-password-dialog.ui:32
 msgid "Invalid password"
 msgstr "Ugyldig adgangskode"
 
-#: shell/pps-password-dialog.ui:49
+#: shell/pps-password-dialog.ui:48
 msgid "Forget password _immediately"
 msgstr "Glem adgangskode _øjeblikkeligt"
 
-#: shell/pps-password-dialog.ui:57
-msgid "Remember password until you _log out"
-msgstr "Husk adgangskode indtil du _logger ud"
-
-#: shell/pps-password-dialog.ui:65
+#: shell/pps-password-dialog.ui:56
 msgid "Remember _forever"
 msgstr "_Husk altid"
 
@@ -1801,31 +1790,31 @@ msgstr "Udskriv dette afsnit …"
 msgid "Previews"
 msgstr "Forhåndsvisninger"
 
-#: shell/pps-window.ui:38 shell/pps-window.ui:46
+#: shell/pps-window.ui:46 shell/pps-window.ui:54
 msgid "Open a Document"
 msgstr "Åbn et dokument"
 
-#: shell/pps-window.ui:39
+#: shell/pps-window.ui:47
 msgid "Drag and drop documents here"
 msgstr "Træk og slip dokumenter her"
 
-#: shell/pps-window.ui:44
+#: shell/pps-window.ui:52
 msgid "_Open…"
 msgstr "_Åbn …"
 
-#: shell/pps-window.ui:70
+#: shell/pps-window.ui:78
 msgid "Unable to Open Document"
 msgstr "Kan ikke åbne dokument"
 
-#: shell/pps-window.ui:75
+#: shell/pps-window.ui:83
 msgid "_Open Other File…"
 msgstr "_Åbn en anden fil …"
 
-#: shell-rs/src/application.rs:224
+#: shell-rs/src/application.rs:199
 msgid "© 1996–2024 The Papers authors"
 msgstr "© 1996–2024 forfatterne af Papers"
 
-#: shell-rs/src/application.rs:225
+#: shell-rs/src/application.rs:200
 msgid "translator-credits"
 msgstr ""
 "Ole Laursen\n"
@@ -1839,43 +1828,43 @@ msgstr ""
 "Websted http://dansk-gruppen.dk\n"
 "E-mail <dansk@dansk-gruppen.dk>"
 
-#: shell-rs/src/application.rs:320
+#: shell-rs/src/application.rs:295
 msgid "The page label of the document to display."
 msgstr "Sidemærkaten fra dokumentet der skal vises."
 
-#: shell-rs/src/application.rs:321
+#: shell-rs/src/application.rs:296
 msgid "PAGE"
 msgstr "SIDE"
 
-#: shell-rs/src/application.rs:329
+#: shell-rs/src/application.rs:304
 msgid "The page number of the document to display."
 msgstr "Sidetallet fra dokumentet der skal vises."
 
-#: shell-rs/src/application.rs:330
+#: shell-rs/src/application.rs:305
 msgid "NUMBER"
 msgstr "NUMMER"
 
-#: shell-rs/src/application.rs:338
+#: shell-rs/src/application.rs:313
 msgid "Named destination to display."
 msgstr "Navngiven destination der skal vises."
 
-#: shell-rs/src/application.rs:339
+#: shell-rs/src/application.rs:314
 msgid "DEST"
 msgstr "DEST"
 
-#: shell-rs/src/application.rs:347
+#: shell-rs/src/application.rs:322
 msgid "Run papers in fullscreen mode."
 msgstr "Start Papers i fuldskærmstilstand."
 
-#: shell-rs/src/application.rs:356
+#: shell-rs/src/application.rs:331
 msgid "Run papers in presentation mode."
 msgstr "Start Papers i præsentationstilstand."
 
-#: shell-rs/src/application.rs:365
+#: shell-rs/src/application.rs:340
 msgid "Show the version of the program."
 msgstr "Vis programmets version."
 
-#: shell-rs/src/application.rs:375
+#: shell-rs/src/application.rs:350
 msgid "[FILE…]"
 msgstr "[FIL …]"
 
@@ -1884,7 +1873,6 @@ msgid "Page {}"
 msgstr "Side {}"
 
 #: shell-rs/src/page_selector.rs:226 shell-rs/src/page_selector.rs:244
-#| msgid "(%d of %d)"
 msgid "({} of {})"
 msgstr "({} af {})"
 
@@ -1892,7 +1880,7 @@ msgstr "({} af {})"
 msgid "of {}"
 msgstr "af {}"
 
-#: shell-rs/src/password_view.rs:156
+#: shell-rs/src/password_view.rs:145
 msgid ""
 "The document “{}” is locked and requires a password before it can be opened"
 msgstr "Dokumentet “{}” er låst, og der kræves en adgangskode for at læse det."
@@ -1913,7 +1901,7 @@ msgstr "Indhold"
 msgid "Date &amp; Time"
 msgstr "Dato &amp; klokkeslæt"
 
-#: shell-rs/src/window.rs:266
+#: shell-rs/src/window.rs:265
 msgid ""
 "Document contains new or modified annotations and form fields that have been "
 "filled out."
@@ -1921,30 +1909,40 @@ msgstr ""
 "Dokumentet indeholder nye eller ændrede annoteringer og formularfelter, som "
 "er blevet udfyldt."
 
-#: shell-rs/src/window.rs:278
+#: shell-rs/src/window.rs:277
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "Hvis du genindlæser dokumentet, så vil ændringer blive permanent tabt."
 
-#: shell-rs/src/window.rs:279
+#: shell-rs/src/window.rs:278
 msgid "File changed outside Papers. Reload document?"
 msgstr ""
 "Filen blev ændret af et andet program end Papers. Genindlæs dokumentet?"
 
-#: shell-rs/src/window.rs:287
+#: shell-rs/src/window.rs:286
 msgid "_No"
 msgstr "_Nej"
 
-#: shell-rs/src/window.rs:287
+#: shell-rs/src/window.rs:286
 msgid "_Reload"
 msgstr "_Genindlæs"
 
-#: shell-rs/src/window.rs:570
+#: shell-rs/src/window.rs:562
 msgid "Failed to Load Remote File."
 msgstr "Kunne ikke indlæse fjernfil."
 
-#: shell-rs/src/window.rs:741
+#: shell-rs/src/window.rs:725
 msgid "Failed to Reload Document."
 msgstr "Kunne ikke genindlæse dokument."
+
+#~ msgid "Search Unavailable"
+#~ msgstr "Søgning utilgængelig"
+
+#, c-format
+#~ msgid "Password for document %s"
+#~ msgstr "Adgangskode for dokumentet %s"
+
+#~ msgid "Remember password until you _log out"
+#~ msgstr "Husk adgangskode indtil du _logger ud"
 
 #~ msgid "DVI document has incorrect format"
 #~ msgstr "DVI-dokument har ugyldigt format"
