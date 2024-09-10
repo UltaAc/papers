@@ -61,9 +61,6 @@ typedef struct _PpsJobFontsClass PpsJobFontsClass;
 typedef struct _PpsJobLoad PpsJobLoad;
 typedef struct _PpsJobLoadClass PpsJobLoadClass;
 
-typedef struct _PpsJobSave PpsJobSave;
-typedef struct _PpsJobSaveClass PpsJobSaveClass;
-
 typedef struct _PpsJobFind PpsJobFind;
 typedef struct _PpsJobFindClass PpsJobFindClass;
 
@@ -132,13 +129,6 @@ typedef struct _PpsJobPrintClass PpsJobPrintClass;
 #define PPS_JOB_LOAD_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_JOB_LOAD, PpsJobLoadClass))
 #define PPS_IS_JOB_LOAD_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_JOB_LOAD))
 #define PPS_JOB_LOAD_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_JOB_LOAD, PpsJobLoadClass))
-
-#define PPS_TYPE_JOB_SAVE            (pps_job_save_get_type())
-#define PPS_JOB_SAVE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_JOB_SAVE, PpsJobSave))
-#define PPS_IS_JOB_SAVE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PPS_TYPE_JOB_SAVE))
-#define PPS_JOB_SAVE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_JOB_SAVE, PpsJobSaveClass))
-#define PPS_IS_JOB_SAVE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_JOB_SAVE))
-#define PPS_JOB_SAVE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_JOB_SAVE, PpsJobSaveClass))
 
 #define PPS_TYPE_JOB_FIND            (pps_job_find_get_type())
 #define PPS_JOB_FIND(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_JOB_FIND, PpsJobFind))
@@ -321,14 +311,6 @@ struct _PpsJobLoadClass
 struct _PpsJobSave
 {
 	PpsJob parent;
-
-	gchar *uri;
-	gchar *document_uri;
-};
-
-struct _PpsJobSaveClass
-{
-	PpsJobClass parent_class;
 };
 
 struct _PpsJobFind
@@ -496,11 +478,16 @@ PpsDocument     *pps_job_load_get_loaded_document (PpsJobLoad *job);
 
 /* PpsJobSave */
 PPS_PUBLIC
-GType           pps_job_save_get_type      (void) G_GNUC_CONST;
+G_DECLARE_FINAL_TYPE (PpsJobSave, pps_job_save, PPS, JOB_SAVE, PpsJob)
+#define PPS_TYPE_JOB_SAVE            (pps_job_save_get_type())
+
 PPS_PUBLIC
 PpsJob          *pps_job_save_new           (PpsDocument      *document,
 					   const gchar     *uri,
 					   const gchar     *document_uri);
+PPS_PUBLIC
+const gchar     *pps_job_save_get_uri	   (PpsJobSave *job_save);
+
 /* PpsJobFind */
 PPS_PUBLIC
 GType           pps_job_find_get_type      (void) G_GNUC_CONST;

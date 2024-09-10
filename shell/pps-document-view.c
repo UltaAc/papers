@@ -1550,10 +1550,10 @@ pps_document_view_save_job_cb (PpsJob     *job,
 		priv->close_after_save = FALSE;
 		pps_document_view_error_message (window, error,
 					 _("The file could not be saved as “%s”."),
-					 PPS_JOB_SAVE (job)->uri);
+					 pps_job_save_get_uri (PPS_JOB_SAVE (job)));
 	} else {
 		gtk_recent_manager_add_item (gtk_recent_manager_get_default (),
-					     PPS_JOB_SAVE (job)->uri);
+					     pps_job_save_get_uri (PPS_JOB_SAVE (job)));
 	}
 
 	pps_document_view_clear_save_job (window);

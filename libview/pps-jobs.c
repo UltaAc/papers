@@ -69,7 +69,6 @@ G_DEFINE_TYPE (PpsJobPageData, pps_job_page_data, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobThumbnailTexture, pps_job_thumbnail_texture, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobFonts, pps_job_fonts, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobLoad, pps_job_load, PPS_TYPE_JOB)
-G_DEFINE_TYPE (PpsJobSave, pps_job_save, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobFind, pps_job_find, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobLayers, pps_job_layers, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobExport, pps_job_export, PPS_TYPE_JOB)
@@ -1083,6 +1082,16 @@ pps_job_load_get_loaded_document (PpsJobLoad *job)
 }
 
 /* PpsJobSave */
+
+typedef struct _PpsJobSavePrivate {
+	gchar *uri;
+	gchar *document_uri;
+} PpsJobSavePrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (PpsJobSave, pps_job_save, PPS_TYPE_JOB)
+
+#define JOB_SAVE_GET_PRIVATE(o) pps_job_save_get_instance_private (o)
+
 static void
 pps_job_save_init (PpsJobSave *job)
 {
@@ -1091,27 +1100,29 @@ pps_job_save_init (PpsJobSave *job)
 static void
 pps_job_save_dispose (GObject *object)
 {
-	PpsJobSave *job = PPS_JOB_SAVE (object);
+	PpsJobSave *job_save = PPS_JOB_SAVE (object);
+	PpsJobSavePrivate *priv = JOB_SAVE_GET_PRIVATE(job_save);
 
-	g_debug ("disposing job save: uri: %s", job->uri);
+	g_debug ("disposing job save: uri: %s", priv->uri);
 
-	g_clear_pointer (&job->uri, g_free);
-	g_clear_pointer (&job->document_uri, g_free);
+	g_clear_pointer (&priv->uri, g_free);
+	g_clear_pointer (&priv->document_uri, g_free);
 
-	(* G_OBJECT_CLASS (pps_job_save_parent_class)->dispose) (object);
+	G_OBJECT_CLASS (pps_job_save_parent_class)->dispose (object);
 }
 
 static gboolean
 pps_job_save_run (PpsJob *job)
 {
 	PpsJobSave *job_save = PPS_JOB_SAVE (job);
+	PpsJobSavePrivate *priv = JOB_SAVE_GET_PRIVATE(job_save);
 	gint       fd;
 	gchar     *tmp_filename = NULL;
 	gchar     *local_uri;
 	GError    *error = NULL;
 
 	g_debug ("running save job: uri: %s, document_uri: %s",
-			   job_save->uri, job_save->document_uri);
+			   priv->uri, priv->document_uri);
 
         fd = pps_mkstemp ("saveacopy.XXXXXX", &tmp_filename, &error);
         if (fd == -1) {
@@ -1148,11 +1159,11 @@ pps_job_save_run (PpsJob *job)
 		const gchar      *ext;
 		gchar            *uri_comp;
 
-		ext = g_strrstr (job_save->document_uri, ".gz");
+		ext = g_strrstr (priv->document_uri, ".gz");
 		if (ext && g_ascii_strcasecmp (ext, ".gz") == 0)
 			ctype = PPS_COMPRESSION_GZIP;
 
-		ext = g_strrstr (job_save->document_uri, ".bz2");
+		ext = g_strrstr (priv->document_uri, ".bz2");
 		if (ext && g_ascii_strcasecmp (ext, ".bz2") == 0)
 			ctype = PPS_COMPRESSION_BZIP2;
 
@@ -1180,13 +1191,13 @@ pps_job_save_run (PpsJob *job)
 	if (!local_uri)
 		return FALSE;
 
-	pps_xfer_uri_simple (local_uri, job_save->uri, &error);
+	pps_xfer_uri_simple (local_uri, priv->uri, &error);
 	pps_tmp_uri_unlink (local_uri);
 
         /* Copy the metadata from the original file */
         if (!error) {
                 /* Ignore errors here. Failure to copy metadata is not a hard error */
-                pps_file_copy_metadata (job_save->document_uri, job_save->uri, NULL);
+                pps_file_copy_metadata (priv->document_uri, priv->uri, NULL);
         }
 
 	if (error) {
@@ -1215,6 +1226,7 @@ pps_job_save_new (PpsDocument  *document,
 		 const gchar *document_uri)
 {
 	PpsJobSave *job;
+	PpsJobSavePrivate *priv;
 
 	g_debug ("new save job: uri: %s, document_uri: %s", uri, document_uri);
 
@@ -1222,10 +1234,20 @@ pps_job_save_new (PpsDocument  *document,
 			    "document", document,
 			    NULL);
 
-	job->uri = g_strdup (uri);
-	job->document_uri = g_strdup (document_uri);
+	priv = JOB_SAVE_GET_PRIVATE(job);
+
+	priv->uri = g_strdup (uri);
+	priv->document_uri = g_strdup (document_uri);
 
 	return PPS_JOB (job);
+}
+
+const gchar *
+pps_job_save_get_uri (PpsJobSave *job_save)
+{
+	PpsJobSavePrivate *priv = JOB_SAVE_GET_PRIVATE(job_save);
+
+	return priv->uri;
 }
 
 /* PpsJobFind */
