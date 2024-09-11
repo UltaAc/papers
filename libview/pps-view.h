@@ -121,7 +121,7 @@ gboolean       pps_view_get_page_extents_for_border (PpsView       *view,
 /* Annotations */
 PPS_PUBLIC
 void           pps_view_focus_annotation      (PpsView          *view,
-					      PpsMapping       *annot_mapping);
+					       const PpsMapping *annot_mapping);
 PPS_PUBLIC
 void           pps_view_begin_add_text_annotation  (PpsView *view);
 PPS_PUBLIC

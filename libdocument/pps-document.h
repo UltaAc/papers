@@ -240,7 +240,7 @@ GType        pps_mapping_get_type (void) G_GNUC_CONST;
 PPS_PUBLIC
 PpsMapping  *pps_mapping_new      (void);
 PPS_PUBLIC
-PpsMapping  *pps_mapping_copy     (PpsMapping *pps_mapping);
+PpsMapping  *pps_mapping_copy     (const PpsMapping *pps_mapping);
 PPS_PUBLIC
 void         pps_mapping_free     (PpsMapping *pps_mapping);
 PPS_PUBLIC

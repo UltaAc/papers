@@ -3691,15 +3691,22 @@ pps_view_create_annotation_from_selection (PpsView          *view,
 					 PPS_ANNOTATION_TYPE_TEXT_MARKUP,
 					 &doc_point_start, &doc_point_end);
 }
+
 void
 pps_view_focus_annotation (PpsView    *view,
-			  PpsMapping *annot_mapping)
+			   const PpsMapping *annot_mapping)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsMapping *dup_mapping = NULL;
+
 	if (!PPS_IS_DOCUMENT_ANNOTATIONS (priv->document))
 		return;
 
-	_pps_view_set_focused_element (view, annot_mapping,
+	if (annot_mapping) {
+		dup_mapping = pps_mapping_copy (annot_mapping);
+	}
+
+	_pps_view_set_focused_element (view, dup_mapping,
 				     pps_annotation_get_page_index (PPS_ANNOTATION (annot_mapping->data)));
 }
 

@@ -970,7 +970,7 @@ pps_mapping_new (void)
 }
 
 PpsMapping *
-pps_mapping_copy (PpsMapping *mapping)
+pps_mapping_copy (const PpsMapping *mapping)
 {
 	PpsMapping *new_mapping;
 
