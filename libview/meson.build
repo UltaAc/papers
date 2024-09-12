@@ -1,5 +1,8 @@
 libview_inc = include_directories('.')
 
+# For MacOS build
+context_inc = include_directories('context')
+
 include_subdir = join_paths(pps_include_subdir, 'libview')
 
 headers = files(
@@ -103,7 +106,7 @@ libppsview = shared_library(
   'ppsview-' + pps_api_version,
   version: pps_view_version,
   sources: sources + marshal_sources + enum_sources,
-  include_directories: top_inc,
+  include_directories: [top_inc, context_inc],
   dependencies: deps,
   c_args: cflags,
   install: true,
