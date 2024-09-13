@@ -52,15 +52,15 @@
     <color type="primary" scheme_preference="dark">#a51d2d</color>
   </branding>
   <url type="homepage">https://apps.gnome.org/Papers</url>
-  <url type="bugtracker">https://gitlab.gnome.org/GNOME/Incubator/papers/-/issues/new</url>
-  <url type="translate">https://wiki.gnome.org/TranslationProject</url>
+  <url type="bugtracker">https://gitlab.gnome.org/GNOME/Incubator/papers/-/issues</url>
+  <url type="translate">https://l10n.gnome.org/module/papers/</url>
+  <url type="contribute">https://welcome.gnome.org/app/Papers/</url>
   <url type="donation">https://www.gnome.org/donate/</url>
   <url type="vcs-browser">https://gitlab.gnome.org/GNOME/Incubator/papers/</url>
   <project_group>GNOME</project_group>
   <developer id="org.gnome">
     <name>The GNOME Project</name>
   </developer>
-  <update_contact>https://discourse.gnome.org/tag/papers</update_contact>
   <translation type="gettext">papers</translation>
   <content_rating type="oars-1.1" />
   <releases>
