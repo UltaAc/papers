@@ -8,8 +8,7 @@ use glib::UserDirectory;
 use gtk::TextDirection;
 
 use futures::{future::LocalBoxFuture, FutureExt};
-use papers_document::DocumentAnnotations;
-use papers_document::DocumentMode;
+use papers_document::{DocumentAnnotations, DocumentMode, LinkAction, LinkActionType};
 use papers_view::JobLoad;
 use papers_view::JobPriority;
 use papers_view::SizingMode;
@@ -1106,9 +1105,40 @@ mod imp {
             }
         }
 
+        fn launch_external_uri(&self, action: &LinkAction) {
+            let context = self.obj().display().app_launch_context();
+            let uri = action.uri().unwrap();
+            let file = gio::File::for_uri(&uri);
+
+            let uri = if file.uri_scheme().is_some() {
+                uri.to_string()
+            } else if uri.starts_with("www.") {
+                // Not a valid uri, assume http if it starts with www
+                format!("http://{}", uri)
+            } else {
+                return;
+            };
+
+            debug!("Launch external uri: {}", uri);
+
+            glib::spawn_future_local(glib::clone!(
+                #[weak(rename_to = obj)]
+                self,
+                async move {
+                    if let Err(e) =
+                        gio::AppInfo::launch_default_for_uri_future(&uri, Some(&context)).await
+                    {
+                        obj.error_message(Some(&e), &gettext("Unable to open external link"));
+                    }
+                }
+            ));
+        }
+
         #[template_callback]
-        fn external_link_clicked(&self) {
-            unimplemented!();
+        fn external_link_clicked(&self, action: &LinkAction) {
+            if action.action_type() == LinkActionType::ExternalUri {
+                self.launch_external_uri(action);
+            }
         }
 
         #[template_callback]
