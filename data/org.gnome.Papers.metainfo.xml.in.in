@@ -39,12 +39,24 @@
   </supports>
   <screenshots>
     <screenshot type="default">
-    <image>https://gitlab.gnome.org/GNOME/Incubator/papers/raw/main/data/screenshots/papers-1.png</image>
-    <caption>A clear, simple UI</caption>
+      <image>https://gitlab.gnome.org/GNOME/Incubator/papers/raw/main/data/screenshots/papers-1.png</image>
+      <caption>A clear, simple, and modern UI</caption>
     </screenshot>
     <screenshot>
-    <image>https://gitlab.gnome.org/GNOME/Incubator/papers/raw/main/data/screenshots/papers-2.png</image>
-    <caption>Advanced highlighting and annotation</caption>
+      <image>https://gitlab.gnome.org/GNOME/Incubator/papers/raw/main/data/screenshots/papers-2.png</image>
+      <caption>A mobile-friendly UI</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://gitlab.gnome.org/GNOME/Incubator/papers/raw/main/data/screenshots/papers-3.png</image>
+      <caption>A modern and colorful annotation list</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://gitlab.gnome.org/GNOME/Incubator/papers/raw/main/data/screenshots/papers-4.png</image>
+      <caption>Big thumbnails in the sidebar</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://gitlab.gnome.org/GNOME/Incubator/papers/raw/main/data/screenshots/papers-5.png</image>
+      <caption>All search actions are contained in the sidebar</caption>
     </screenshot>
   </screenshots>
   <branding>
@@ -64,6 +76,28 @@
   <translation type="gettext">papers</translation>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="47.0" type="stable" date="2024-09-14">
+      <description>
+        <p>This is the second major release of Papers, and the first one following the standard GNOME release schedule. This release marks a very exciting milestone, since it is the first one where a GNOME Document Viewer works in mobile as-well-as in desktop mode. Both in terms of window size, as in functionality-wise. Since the last stable release, we can highlight the following changes:</p>
+        <ul>
+          <li>The header bar has been split into in according to the modern mockups</li>
+          <li>There is a more clear split between actions that apply to the document being viewed, and those that are independent of it. For that reason, there are now two menus, one within the sidebar and one within the document view.</li>
+          <li>The search is now completely contained on the sidebar, and much more performant!</li>
+          <li>The annotation sidebar implements the modern mockups, with a complete and more colorful re-design!</li>
+          <li>Information about the last saved window size, and sidebar is no longer stored per-document. This results in more predictable state on opening new documents.</li>
+          <li>When a document has an outline, it will be presented by default instead of the thumbnails, as it is deemed more relevant.</li>
+          <li>The thumbnail sidebar now presents bigger thumbnails, with padding more fitting the HIG, and better adapting to different page sizes.</li>
+          <li>Keyboard shortcuts across the whole application and its different views and dialogs are more conformant to the HIG and therefore, more predictable.</li>
+          <li>Zooming with a mouse or touchpad now requires less precision and is easier to use.</li>
+        </ul>
+        <p>Known problems:</p>
+        <ul>
+          <li>Some people are experiencing problems with printing through flatpak.</li>
+          <li>Navigation through the current annotation sidebar can be challenging, and improving the UX is work in progress.</li>
+          <li>Accessibility is unfortunately still greatly lacking in support.</li>
+        </ul>
+      </description>
+    </release>
     <release version="46.1" type="stable" date="2024-05-23">
       <description>
         <p>This is the first Papers release! Papers is a fork of Evince ported to GTK4 and with a refreshed UI and a new group of maintainers. There has been several some other changes compared to Evince:</p>

@@ -1,3 +1,43 @@
+Papers 47.0
+--------------
+
+Papers has seen mostly maintenance work (fixing issues) and internal
+refactorings since 47.rc. Some changes we can highlight:
+
+* There is now information on how to create MacOS builds under the
+  build-aux folder (Qiu Wenbo)
+* It is now possible to sign documents with digital certificates, like
+  those stored in the national IDs of states like Estonia or Spain
+  (Jan-Michael Brummer)
+* Url parsing in commandline arguments now supports RFC 8118 for URI parsing
+  (Qiu Wenbo)
+* Windows support has been dropped due to the lack of a maintainer
+  (Pablo Correa Gomez)
+
+* Bugs fixed:
+- #3 Drop Windows support if there's no maintainer (Pablo Correa Gómez)
+- #160 Consider prioritizing ToC (table of contents) over thumbnails as
+   primary view in the sidebar, when available (Pablo Correa Gómez)
+- #211 Increase page cache size for modern computers' RAM capacity (avoid re-
+  processing thumbnails and pages when scrolling up/down) (Qiu Wenbo)
+- #222 Feature: When opening links to PDF file with `#page=4` parameter set,
+  scroll to page 4 automatically (Qiu Wenbo)
+- #235 instant crash on open with open URI portal (Markus Göllnitz)
+
+* Translation updates:
+- Basque (Asier Sarasua Garmendia)
+- Belarusian (Vasil Pupkin)
+- Chinese (China) (Luming Zh)
+- Danish (Alan Mortensen)
+- Georgian (Ekaterine Papava)
+ - German (Jürgen Benvenuti)
+- Hebrew (Yosef Or Boczko, Yaron Shahrabani)
+- Hungarian (Balázs Úr)
+- Persian (Danial Behzadi)
+- Slovenian (Martin)
+- Swedish (Anders Jonsson)
+- Ukrainian (Yuri Chornoivan)
+
 Papers 47.rc
 --------------
 
