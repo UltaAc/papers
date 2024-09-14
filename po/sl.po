@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: evince master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-09-12 06:05+0000\n"
-"PO-Revision-Date: 2024-09-12 15:21+0200\n"
+"POT-Creation-Date: 2024-09-14 21:48+0000\n"
+"PO-Revision-Date: 2024-09-15 00:01+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -144,12 +144,24 @@ msgstr ""
 "(CBR, CBT, CBZ, CB7)."
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:43
-msgid "A clear, simple UI"
-msgstr "Pregleden, enostaven vmesnik"
+msgid "A clear, simple, and modern UI"
+msgstr "Jasen, preprost in sodoben uporabniški vmesnik"
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:47
-msgid "Advanced highlighting and annotation"
-msgstr "Napredno poudarjanje in dodajanje opomb"
+msgid "A mobile-friendly UI"
+msgstr "Uporabniški vmesnik, prijazen do mobilnih naprav"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:51
+msgid "A modern and colorful annotation list"
+msgstr "Sodoben in barvit seznam opomb"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:55
+msgid "Big thumbnails in the sidebar"
+msgstr "Velike sličice v stranski vrstici"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:59
+msgid "All search actions are contained in the sidebar"
+msgstr "Vsa dejanja iskanja so vsebovana v stranski vrstici"
 
 #: data/org.gnome.Papers-previewer.desktop.in.in:3
 msgid "Print Preview"
@@ -519,22 +531,22 @@ msgstr[3] "Shrani priloge"
 msgid "Page %s"
 msgstr "Stran %s"
 
-#: libview/pps-jobs.c:419
+#: libview/pps-jobs.c:418
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "Izrisovanje strani %d je spodletelo: %s"
 
-#: libview/pps-jobs.c:426
+#: libview/pps-jobs.c:425
 #, c-format
 msgid "Failed to render page %d"
 msgstr "Izrisovanje strani %d je spodletelo"
 
-#: libview/pps-jobs.c:644
+#: libview/pps-jobs.c:643
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "Ustvarjanje sličice za stran %d je spodletelo"
 
-#: libview/pps-jobs.c:1596
+#: libview/pps-jobs.c:1618
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "Napaka med tiskanjem strani %d: %s"
@@ -1303,7 +1315,7 @@ msgstr "Čačka"
 msgid "_Apply"
 msgstr "_Uveljavi"
 
-#: shell/pps-document-view.c:497 shell-rs/src/window.rs:460
+#: shell/pps-document-view.c:497 shell-rs/src/window.rs:468
 msgid "View Details"
 msgstr "Pokaži podrobnosti"
 
@@ -1350,11 +1362,11 @@ msgstr "Tiskanje »%s«"
 msgid "C_ancel"
 msgstr "P_rekliči"
 
-#: shell/pps-document-view.c:2205 shell-rs/src/window.rs:266
+#: shell/pps-document-view.c:2205 shell-rs/src/window.rs:268
 msgid "Document contains form fields that have been filled out."
 msgstr "Dokument vsebuje že izpolnjena polja obrazca."
 
-#: shell/pps-document-view.c:2208 shell-rs/src/window.rs:267
+#: shell/pps-document-view.c:2208 shell-rs/src/window.rs:269
 msgid "Document contains new or modified annotations."
 msgstr "Dokument vsebuje nove ali spremenjene pripombe."
 
@@ -1959,7 +1971,7 @@ msgstr "Vsebina"
 msgid "Date &amp; Time"
 msgstr "Datum in čas"
 
-#: shell-rs/src/window.rs:265
+#: shell-rs/src/window.rs:267
 msgid ""
 "Document contains new or modified annotations and form fields that have been "
 "filled out."
@@ -1967,28 +1979,28 @@ msgstr ""
 "Dokument vsebuje nove ali spremenjene opombe in polja obrazcev, ki so "
 "izpolnjena."
 
-#: shell-rs/src/window.rs:277
+#: shell-rs/src/window.rs:279
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "Če dokument ponovno naložite, bodo vse spremembe trajno izgubljene."
 
-#: shell-rs/src/window.rs:278
+#: shell-rs/src/window.rs:280
 msgid "File changed outside Papers. Reload document?"
 msgstr ""
 "Datoteka se je spremenila zunaj programa Članki. Ali želite ponovno naložiti "
 "dokument?"
 
-#: shell-rs/src/window.rs:286
+#: shell-rs/src/window.rs:288
 msgid "_No"
 msgstr "_Ne"
 
-#: shell-rs/src/window.rs:286
+#: shell-rs/src/window.rs:288
 msgid "_Reload"
 msgstr "Pono_vno naloži"
 
-#: shell-rs/src/window.rs:562
+#: shell-rs/src/window.rs:570
 msgid "Failed to Load Remote File."
 msgstr "Napaka pri nalaganju oddaljene datoteke."
 
-#: shell-rs/src/window.rs:725
+#: shell-rs/src/window.rs:733
 msgid "Failed to Reload Document."
 msgstr "Ponovno nalaganje dokumenta ni uspelo."
