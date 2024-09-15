@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evince HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/issues/\n"
-"POT-Creation-Date: 2024-09-12 06:05+0000\n"
-"PO-Revision-Date: 2024-09-14 13:07+0330\n"
+"POT-Creation-Date: 2024-09-14 21:48+0000\n"
+"PO-Revision-Date: 2024-09-15 11:19+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian\n"
 "Language: fa\n"
@@ -24,14 +24,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.5\n"
 
 #. Manually set name and icon
-#: data/org.gnome.Papers.desktop.in.in:3 data/org.gnome.Papers.metainfo.xml.in.in:23
-#: previewer/pps-previewer-window.c:477 shell/pps-document-view.c:1218
-#: shell/pps-document-view.ui:73 shell/pps-loader-view.ui:10
-#: shell-rs/src/application.rs:41 shell-rs/src/application.rs:64
-#: shell-rs/src/application.rs:288
+#: data/org.gnome.Papers.desktop.in.in:3
+#: data/org.gnome.Papers.metainfo.xml.in.in:23 previewer/pps-previewer-window.c:477
+#: shell/pps-document-view.c:1218 shell/pps-document-view.ui:73
+#: shell/pps-loader-view.ui:10 shell-rs/src/application.rs:41
+#: shell-rs/src/application.rs:64 shell-rs/src/application.rs:288
 msgid "Papers"
 msgstr "کاغذها"
 
@@ -43,8 +43,8 @@ msgstr "نمایش سندهای چند صفحه‌ای"
 #: data/org.gnome.Papers.desktop.in.in:6
 msgid "pdf;ps;postscript;xps;djvu;tiff;document;presentation;viewer;papers;"
 msgstr ""
-"pdf;ps;postscript;xps;djvu;tiff;document;presentation;viewer;papers;سند;نمایش;ارائه;"
-"کاغذها;"
+"pdf;ps;postscript;xps;djvu;tiff;document;presentation;viewer;papers;سند;نمایش;"
+"ارائه;کاغذها;"
 
 #: data/org.gnome.Papers.desktop.in.in:21
 msgid "New Window"
@@ -75,12 +75,14 @@ msgid ""
 "The maximum size that will be used to cache rendered pages, limits maximum zoom "
 "level."
 msgstr ""
-"بیشینهٔ اندازهٔ استفاده شده جهت قراردادن صفحات رندر شده در حافظه‌نهان، که سطح بیشینهٔ "
-"بزرگنمایی را محدود می‌کند."
+"بیشینهٔ اندازهٔ استفاده شده جهت قراردادن صفحات رندر شده در حافظه‌نهان، که سطح "
+"بیشینهٔ بزرگنمایی را محدود می‌کند."
 
 #: data/org.gnome.Papers.gschema.xml:32
-msgid "Show a dialog to confirm that the user wants to activate the caret navigation."
-msgstr "نمایش گفت‌وگویی برای تأیید این که کاربر می‌خواهد پیمایش با مکان‌نما را فعّال کند."
+msgid ""
+"Show a dialog to confirm that the user wants to activate the caret navigation."
+msgstr ""
+"نمایش گفت‌وگویی برای تأیید این که کاربر می‌خواهد پیمایش با مکان‌نما را فعّال کند."
 
 #: data/org.gnome.Papers.gschema.xml:36
 msgid "Allow links to change the zoom level."
@@ -109,7 +111,8 @@ msgstr "نمایش دو صفحه در کنار هم."
 
 #: data/org.gnome.Papers.gschema.xml:76
 msgid ""
-"Show the first page (odd page) on the left (when displaying two pages side by side)"
+"Show the first page (odd page) on the left (when displaying two pages side by "
+"side)"
 msgstr "نمایش صفحهٔ نخست (صفحهٔ فرد) در چپ (هنگام نمایش دو صفحه در کنار هم)"
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:24
@@ -118,8 +121,8 @@ msgstr "خواندن سندها"
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:26
 msgid ""
-"A document viewer for the GNOME desktop. You can view, search or annotate documents "
-"in many different formats."
+"A document viewer for the GNOME desktop. You can view, search or annotate "
+"documents in many different formats."
 msgstr ""
 "یک سندبین برای میزکار گنوم. می‌توانید سندها را در قالب‌های مختلف دیده، جست‌وجو و "
 "حاشیه‌نویسی کنید."
@@ -129,16 +132,28 @@ msgid ""
 "Papers supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, and Comic Books "
 "archives (CBR, CBT, CBZ, CB7)."
 msgstr ""
-"کاغذها ازاین قالب‌ها پشتیبانی می‌کند: PDF ،PS ،EPS ،XPS ،DjVu ،TIFF و کتاب‌های تصویری "
-"(CBR ،CBT ،CBZ ،CB7)."
+"کاغذها ازاین قالب‌ها پشتیبانی می‌کند: PDF ،PS ،EPS ،XPS ،DjVu ،TIFF و کتاب‌های "
+"تصویری (CBR ،CBT ،CBZ ،CB7)."
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:43
-msgid "A clear, simple UI"
-msgstr "رابط کاربری‌ای تمیز و ساده"
+msgid "A clear, simple, and modern UI"
+msgstr "رابط کاربری تمیز، ساده و نوین"
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:47
-msgid "Advanced highlighting and annotation"
-msgstr "افزودن حاشیه‌نویسی و نشانه‌گذاری"
+msgid "A mobile-friendly UI"
+msgstr "میانای دوستدار همراه"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:51
+msgid "A modern and colorful annotation list"
+msgstr "سیاههٔ حاشیه‌نویسی‌های نوین و رنگی"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:55
+msgid "Big thumbnails in the sidebar"
+msgstr "بندانگشتی‌های بزرگ در نوار کناری"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:59
+msgid "All search actions are contained in the sidebar"
+msgstr "همهٔ کنش‌های جست‌وجو در نوار کناریند"
 
 #: data/org.gnome.Papers-previewer.desktop.in.in:3
 msgid "Print Preview"
@@ -221,14 +236,16 @@ msgid "Adds support for reading PDF Documents"
 msgstr "پشتیبانی از خواندن سندهای PDF را اضافه می‌کند"
 
 #. translators: this is the document security state
-#: libdocument/backend/pdf/pps-poppler.c:721 libdocument/backend/pdf/pps-poppler.c:727
-#: nautilus/pps-nautilus-extension.c:121 shell-rs/src/properties_general.rs:170
+#: libdocument/backend/pdf/pps-poppler.c:721
+#: libdocument/backend/pdf/pps-poppler.c:727 nautilus/pps-nautilus-extension.c:121
+#: shell-rs/src/properties_general.rs:170
 msgid "Yes"
 msgstr "بله"
 
 #. translators: this is the document security state
-#: libdocument/backend/pdf/pps-poppler.c:724 libdocument/backend/pdf/pps-poppler.c:727
-#: nautilus/pps-nautilus-extension.c:123 shell-rs/src/properties_general.rs:171
+#: libdocument/backend/pdf/pps-poppler.c:724
+#: libdocument/backend/pdf/pps-poppler.c:727 nautilus/pps-nautilus-extension.c:123
+#: shell-rs/src/properties_general.rs:171
 msgid "No"
 msgstr "خیر"
 
@@ -267,12 +284,12 @@ msgstr "نوع قلم نامعلوم"
 #: libdocument/backend/pdf/pps-poppler.c:893
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard 14 "
-"fonts. If the substitute fonts selected by fontconfig are not the same as the fonts "
-"used to create the PDF, the rendering may not be correct."
+"fonts. If the substitute fonts selected by fontconfig are not the same as the "
+"fonts used to create the PDF, the rendering may not be correct."
 msgstr ""
 "این سند حاوی قلم‌های غیر توکاری است که شامل ۱۴ قلم استاندار PDF نیست. اگر قلم‌های "
-"جایگزین انتخاب شده به‌وسیلهٔ fontconfig مشابه قلم‌های استفاده شده در ساخت PDF نباشند، "
-"ممکن است نمایش آن صحیح نباشد."
+"جایگزین انتخاب شده به‌وسیلهٔ fontconfig مشابه قلم‌های استفاده شده در ساخت PDF "
+"نباشند، ممکن است نمایش آن صحیح نباشد."
 
 #: libdocument/backend/pdf/pps-poppler.c:898
 msgid "All fonts are either standard or embedded."
@@ -503,22 +520,22 @@ msgstr[1] "ذخیرهٔ پیوست‌ها"
 msgid "Page %s"
 msgstr "صفحه %s"
 
-#: libview/pps-jobs.c:419
+#: libview/pps-jobs.c:418
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "شکست در پرداخت صفحهٔ %Id: ‏%s"
 
-#: libview/pps-jobs.c:426
+#: libview/pps-jobs.c:425
 #, c-format
 msgid "Failed to render page %d"
 msgstr "شکست در پرداخت صفحهٔ %Id"
 
-#: libview/pps-jobs.c:644
+#: libview/pps-jobs.c:643
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "شکست در ایجاد بندانگشتی برای صفحهٔ %Id"
 
-#: libview/pps-jobs.c:1596
+#: libview/pps-jobs.c:1618
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "شکست در چاپ صفحهٔ %Id: ‏%s"
@@ -600,11 +617,11 @@ msgstr ""
 "\n"
 "• “None”: هیچ مقیاس بندی انجام نشود \n"
 "\n"
-"• “Shrink to Printable Area”: صفحه‌های سند بزرگتر از ناحیهٔ چاپ برای جور شدن بر ناحیهٔ "
-"قابل چاپ صفحهٔ چاپگر کوچکتر می‌شوند. \n"
+"• “Shrink to Printable Area”: صفحه‌های سند بزرگتر از ناحیهٔ چاپ برای جور شدن بر "
+"ناحیهٔ قابل چاپ صفحهٔ چاپگر کوچکتر می‌شوند. \n"
 "\n"
-"• “Fit to Printable Area”: صفحه‌های سند بزرگتر یا کوچکتر می‌شوند تا اندازه‌ای که برای "
-"جور شدن بر ناحیهٔ قابل چاپ صفحهٔ چاپگر لازم باشد \n"
+"• “Fit to Printable Area”: صفحه‌های سند بزرگتر یا کوچکتر می‌شوند تا اندازه‌ای که "
+"برای جور شدن بر ناحیهٔ قابل چاپ صفحهٔ چاپگر لازم باشد \n"
 
 #: libview/pps-print-operation.c:2660
 msgid "Auto Rotate and Center"
@@ -612,11 +629,11 @@ msgstr "چرخش و در مرکز قرار دادن خودکار"
 
 #: libview/pps-print-operation.c:2663
 msgid ""
-"Rotate printer page orientation of each page to match orientation of each document "
-"page. Document pages will be centered within the printer page."
+"Rotate printer page orientation of each page to match orientation of each "
+"document page. Document pages will be centered within the printer page."
 msgstr ""
-"چرخاندن جهت صفحهٔ چاپگر برای هر صفحه برای جور شدن با جهت هر صفحهٔ سند. صفحه‌های سند در "
-"مرکز صفحهٔ چاپگر قرار خواهند گرفت."
+"چرخاندن جهت صفحهٔ چاپگر برای هر صفحه برای جور شدن با جهت هر صفحهٔ سند. صفحه‌های سند "
+"در مرکز صفحهٔ چاپگر قرار خواهند گرفت."
 
 #: libview/pps-print-operation.c:2668
 msgid "Select page size using document page size"
@@ -624,7 +641,8 @@ msgstr "انتخاب اندازهٔ صفحه با استفاده از انداز
 
 #: libview/pps-print-operation.c:2670
 msgid ""
-"When enabled, each page will be printed on the same size paper as the document page."
+"When enabled, each page will be printed on the same size paper as the document "
+"page."
 msgstr "وقتی فعال باشد، هر صفحه بر روی کاغذی با همان اندازهٔ صفحهٔ سند چاپ خواهد شد."
 
 #: libview/pps-print-operation.c:2675
@@ -815,7 +833,8 @@ msgstr "اندازهٔ عادی"
 msgid "Zoom In"
 msgstr "بزرگ‌نمایی"
 
-#: nautilus/pps-nautilus-extension.c:125 shell/pps-annotation-properties-dialog.ui:59
+#: nautilus/pps-nautilus-extension.c:125
+#: shell/pps-annotation-properties-dialog.ui:59
 #: shell-rs/src/properties_general.rs:172
 msgid "Unknown"
 msgstr "ناشناخته"
@@ -1258,7 +1277,7 @@ msgstr "دایره"
 
 #: shell/pps-annotation-properties-dialog.ui:69
 msgid "Markup Type"
-msgstr "گونهٔ نشانه‌گذاری:"
+msgstr "گونهٔ نشانه‌گذاری"
 
 #: shell/pps-annotation-properties-dialog.ui:73
 msgid "Highlight"
@@ -1280,7 +1299,7 @@ msgstr "پیچ و تاب"
 msgid "_Apply"
 msgstr "_اعمال"
 
-#: shell/pps-document-view.c:497 shell-rs/src/window.rs:460
+#: shell/pps-document-view.c:497 shell-rs/src/window.rs:468
 msgid "View Details"
 msgstr "نمایش جزییات"
 
@@ -1325,11 +1344,11 @@ msgstr "چاپ کردن کار «%s»"
 msgid "C_ancel"
 msgstr "_لغو"
 
-#: shell/pps-document-view.c:2205 shell-rs/src/window.rs:266
+#: shell/pps-document-view.c:2205 shell-rs/src/window.rs:268
 msgid "Document contains form fields that have been filled out."
 msgstr "سند دارای زمینه‌های فرمی است که پُر شده‌اند."
 
-#: shell/pps-document-view.c:2208 shell-rs/src/window.rs:267
+#: shell/pps-document-view.c:2208 shell-rs/src/window.rs:269
 msgid "Document contains new or modified annotations."
 msgstr "سند دارای حاشیه‌نویسی‌های جدید یا تغییر یافته است."
 
@@ -1413,10 +1432,12 @@ msgstr "گزینش بیش از حد کوچک است"
 #: shell/pps-document-view.c:3715
 msgid ""
 "A signature of this size may be too small to read. If you would like to create a "
-"potentially more readable signature, press `Start over` and draw a bigger rectangle."
+"potentially more readable signature, press `Start over` and draw a bigger "
+"rectangle."
 msgstr ""
-"شاید امضایی در این اندازه برای خواندن بیش از حد کوچک باشد. اگر می‌خواهید امضایی با "
-"قابلیت خواندن بیش‌تری ایجاد کنید، «امضا از نو» را زده و چهارگوشی بزرگ‌تر رسم کنید."
+"شاید امضایی در این اندازه برای خواندن بیش از حد کوچک باشد. اگر می‌خواهید امضایی "
+"با قابلیت خواندن بیش‌تری ایجاد کنید، «امضا از نو» را زده و چهارگوشی بزرگ‌تر رسم "
+"کنید."
 
 #: shell/pps-document-view.c:3717
 msgid "Start _Over"
@@ -1513,9 +1534,9 @@ msgid ""
 "cursor in text pages, allowing you to move around and select text with your "
 "keyboard."
 msgstr ""
-"فشردن کلید F7 حالت پیمایش مکان‌نما را روشن یا خاموش می‌کند. این امکان مکان‌نمایی قابل "
-"حرکت را در صفحات متنی قرار داده که می‌گذارد در سند حرکت کنید و متن‌ها را با صفحه‌کلید "
-"برگزینید."
+"فشردن کلید F7 حالت پیمایش مکان‌نما را روشن یا خاموش می‌کند. این امکان مکان‌نمایی "
+"قابل حرکت را در صفحات متنی قرار داده که می‌گذارد در سند حرکت کنید و متن‌ها را با "
+"صفحه‌کلید برگزینید."
 
 #: shell/pps-document-view.ui:615
 msgid "Don’t show this message again"
@@ -1531,9 +1552,10 @@ msgstr "خاتمهٔ چاپ؟"
 
 #: shell/pps-document-view.ui:628
 msgid ""
-"There is one or more active print jobs. If the window is closed, pending print jobs "
-"will not be printed."
-msgstr "یک یا چند کار چاپ فعّال است. اگر پنجره بسته شود، کارهای منتظر، چاپ نخواهند شد."
+"There is one or more active print jobs. If the window is closed, pending print "
+"jobs will not be printed."
+msgstr ""
+"یک یا چند کار چاپ فعّال است. اگر پنجره بسته شود، کارهای منتظر، چاپ نخواهند شد."
 
 #: shell/pps-document-view.ui:631
 msgid "Abort _Print and Close"
@@ -1722,7 +1744,8 @@ msgid "Remember _forever"
 msgstr "برای _همیشه بخاطر بسپار"
 
 #: shell/pps-password-view.ui:20
-msgid "This document is locked and can only be read by entering the correct password"
+msgid ""
+"This document is locked and can only be read by entering the correct password"
 msgstr "این سند قفل شده است و تنها با ورود گذرواژهٔ درست قابل خواندن است"
 
 #: shell/pps-password-view.ui:25
@@ -1927,36 +1950,39 @@ msgstr "محتوا"
 msgid "Date &amp; Time"
 msgstr "تاریخ و زمان"
 
-#: shell-rs/src/window.rs:265
+#: shell-rs/src/window.rs:267
 msgid ""
-"Document contains new or modified annotations and form fields that have been filled "
-"out."
+"Document contains new or modified annotations and form fields that have been "
+"filled out."
 msgstr ""
 "سند دارای زمینه‌های فرم یا حاشیه نویسی‌های جدید یا تغییریافته  است که پُر شده‌اند."
 
-#: shell-rs/src/window.rs:277
+#: shell-rs/src/window.rs:279
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "اگر سند را بازخوانی کنید، تغییرات برای همیشه از بین خواهند رفت."
 
-#: shell-rs/src/window.rs:278
+#: shell-rs/src/window.rs:280
 msgid "File changed outside Papers. Reload document?"
 msgstr "پرونده خارج از کاغذها دگرگون شد. بار کردن دوبارهٔ سند؟"
 
-#: shell-rs/src/window.rs:286
+#: shell-rs/src/window.rs:288
 msgid "_No"
 msgstr "_خیر"
 
-#: shell-rs/src/window.rs:286
+#: shell-rs/src/window.rs:288
 msgid "_Reload"
 msgstr "_بازخوانی"
 
-#: shell-rs/src/window.rs:562
+#: shell-rs/src/window.rs:570
 msgid "Failed to Load Remote File."
 msgstr "شکست در بار کردن پروندهٔ دوردست."
 
-#: shell-rs/src/window.rs:725
+#: shell-rs/src/window.rs:733
 msgid "Failed to Reload Document."
 msgstr "شکست در بازخوانی سند."
+
+#~ msgid "Advanced highlighting and annotation"
+#~ msgstr "افزودن حاشیه‌نویسی و نشانه‌گذاری"
 
 #, c-format
 #~ msgid "Password for document %s"
@@ -2454,28 +2480,28 @@ msgstr "شکست در بازخوانی سند."
 #~ "Foundation; either version 2 of the License, or (at your option) any later "
 #~ "version.\n"
 #~ msgstr ""
-#~ "اوینس یک نرم افزار آزاد است. شما می توانید بر اساس شروط مجوز کلی همگانی GPL که "
-#~ "توسط بنیاد نرم افزار های آزاد (FSF) منتشر شده است، آنرا تغییر داده و/یا توزیع "
-#~ "مجدد نمایید شما می توانید با صلاحدید خودتان از نسخه ۲ مجوز GPL یا نسخه های بعدی "
-#~ "استفاده کنید.\n"
+#~ "اوینس یک نرم افزار آزاد است. شما می توانید بر اساس شروط مجوز کلی همگانی GPL "
+#~ "که توسط بنیاد نرم افزار های آزاد (FSF) منتشر شده است، آنرا تغییر داده و/یا "
+#~ "توزیع مجدد نمایید شما می توانید با صلاحدید خودتان از نسخه ۲ مجوز GPL یا نسخه "
+#~ "های بعدی استفاده کنید.\n"
 
 #~ msgid ""
 #~ "Evince is distributed in the hope that it will be useful, but WITHOUT ANY "
-#~ "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A "
-#~ "PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
+#~ "WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR "
+#~ "A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
 #~ msgstr ""
-#~ "اوینس به این امید توزیع می شود که کارآیی لازم را داشته باشد، ولی هیچ تضمینی نمی "
-#~ "دهد. حتی تضمین ضمنی برای کارامدی یا مناسب بودن برای یک کاربرد خاص. برای اطلاعات "
-#~ "بیشتر مجوز GPL را ملاحظه نمایید.\n"
+#~ "اوینس به این امید توزیع می شود که کارآیی لازم را داشته باشد، ولی هیچ تضمینی "
+#~ "نمی دهد. حتی تضمین ضمنی برای کارامدی یا مناسب بودن برای یک کاربرد خاص. برای "
+#~ "اطلاعات بیشتر مجوز GPL را ملاحظه نمایید.\n"
 
 #~ msgid ""
 #~ "You should have received a copy of the GNU General Public License along with "
-#~ "Evince; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, "
-#~ "Fifth Floor, Boston, MA 02110-1301  USA\n"
+#~ "Evince; if not, write to the Free Software Foundation, Inc., 51 Franklin "
+#~ "Street, Fifth Floor, Boston, MA 02110-1301  USA\n"
 #~ msgstr ""
-#~ "شما باید به همراه اوینس نسخه‌ای از اجازه‌نامه‌ی همگانی عمومی گنو دریافت کرده باشد؛ "
-#~ "اگر این طور نیست برای شرکت بنیاد نرم افزارهای آزاد به آدرس زیر بنویسید:51 "
-#~ "Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA \n"
+#~ "شما باید به همراه اوینس نسخه‌ای از اجازه‌نامه‌ی همگانی عمومی گنو دریافت کرده "
+#~ "باشد؛ اگر این طور نیست برای شرکت بنیاد نرم افزارهای آزاد به آدرس زیر "
+#~ "بنویسید:51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA \n"
 
 #~ msgid "Go to previous history item"
 #~ msgstr "رفتن به مورد قبلی در تاریخچه"
@@ -2507,7 +2533,8 @@ msgstr "شکست در بازخوانی سند."
 #~ msgid "P_roperties…"
 #~ msgstr "ویژ_گی‌ها…"
 
-#~ msgid "Error launching the command “%s” in order to decompress the comic book: %s"
+#~ msgid ""
+#~ "Error launching the command “%s” in order to decompress the comic book: %s"
 #~ msgstr "خطا در راه‌اندازی فرمان «%s» جهت نافشرده‌سازی کتاب کمیک: %s"
 
 #~ msgid "The command “%s” failed at decompressing the comic book."
