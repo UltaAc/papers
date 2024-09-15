@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: evince.HEAD.he\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-09-12 06:05+0000\n"
-"PO-Revision-Date: 2024-09-12 11:58+0300\n"
+"POT-Creation-Date: 2024-09-14 21:48+0000\n"
+"PO-Revision-Date: 2024-09-15 06:40+0300\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: Hebrew <yoseforb@gmail.com>\n"
 "Language: he\n"
@@ -140,12 +140,24 @@ msgstr ""
 "SyncTeX) וארכיבי ספרי  קומקיס (CBR, CBT, CBZ, CB7)."
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:43
-msgid "A clear, simple UI"
-msgstr "ממשק נקי ופשוט"
+msgid "A clear, simple, and modern UI"
+msgstr "ממשק נקי, פשוט וחדיש"
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:47
-msgid "Advanced highlighting and annotation"
-msgstr "פרשנות והדגשה מתקדמים"
+msgid "A mobile-friendly UI"
+msgstr "ממשק משתמש ידידותי למכשירים ניידים"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:51
+msgid "A modern and colorful annotation list"
+msgstr "רשימת הערות חדישה וצבעונית"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:55
+msgid "Big thumbnails in the sidebar"
+msgstr "תמונות ממוזערות גדולות בסרגל הצד"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:59
+msgid "All search actions are contained in the sidebar"
+msgstr "כל פעולות החיפושת מאוגדות בסרגל הצד"
 
 #: data/org.gnome.Papers-previewer.desktop.in.in:3
 msgid "Print Preview"
@@ -512,22 +524,22 @@ msgstr[3] "שמירת צרופות"
 msgid "Page %s"
 msgstr "עמוד %s"
 
-#: libview/pps-jobs.c:419
+#: libview/pps-jobs.c:418
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "עיבוד עמוד %d נכשל: %s"
 
-#: libview/pps-jobs.c:426
+#: libview/pps-jobs.c:425
 #, c-format
 msgid "Failed to render page %d"
 msgstr "עיבוד עמוד %d נכשל"
 
-#: libview/pps-jobs.c:644
+#: libview/pps-jobs.c:643
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "יצירת תמונה ממוזערת עבור עמוד %d נכשלה"
 
-#: libview/pps-jobs.c:1596
+#: libview/pps-jobs.c:1618
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "הדפסת עמוד %d נכשלה: ‏%s"
@@ -1293,7 +1305,7 @@ msgstr "משורבט"
 msgid "_Apply"
 msgstr "ה_חלה"
 
-#: shell/pps-document-view.c:497 shell-rs/src/window.rs:460
+#: shell/pps-document-view.c:497 shell-rs/src/window.rs:468
 msgid "View Details"
 msgstr "הצגת פרטים"
 
@@ -1340,11 +1352,11 @@ msgstr "המשימה „%s“ מודפסת"
 msgid "C_ancel"
 msgstr "_ביטול"
 
-#: shell/pps-document-view.c:2205 shell-rs/src/window.rs:266
+#: shell/pps-document-view.c:2205 shell-rs/src/window.rs:268
 msgid "Document contains form fields that have been filled out."
 msgstr "המסמך מכיל שדות טופס שמולאו."
 
-#: shell/pps-document-view.c:2208 shell-rs/src/window.rs:267
+#: shell/pps-document-view.c:2208 shell-rs/src/window.rs:269
 msgid "Document contains new or modified annotations."
 msgstr "המסמך מכיל פרשנויות חדשות או כאלה ששונו."
 
@@ -1413,8 +1425,8 @@ msgstr "ביטול"
 msgid "Select signing certificate"
 msgstr "בחירת אישור חתימה"
 
-#: shell/pps-document-view.c:3649
 # msgctxt "shortcut window"
+#: shell/pps-document-view.c:3649
 msgid "Select"
 msgstr "בחירה"
 
@@ -1422,8 +1434,8 @@ msgstr "בחירה"
 msgid "No certificates found!"
 msgstr "לא נמצאו אישורים!"
 
-#: shell/pps-document-view.c:3714
 # msgctxt "shortcut window"
+#: shell/pps-document-view.c:3714
 msgid "Selection too small"
 msgstr "הבחירה קטנה מדי"
 
@@ -1949,35 +1961,38 @@ msgstr "תוכן"
 msgid "Date &amp; Time"
 msgstr "תאריך ושעה"
 
-#: shell-rs/src/window.rs:265
+#: shell-rs/src/window.rs:267
 msgid ""
 "Document contains new or modified annotations and form fields that have been "
 "filled out."
 msgstr "המסמך מכיל הערות חדשות או כאלה ששונו ושדות טופס שמולאו."
 
-#: shell-rs/src/window.rs:277
+#: shell-rs/src/window.rs:279
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "טעינה מחדש של המסמך תגרום לשינויים לאבד לצמיתות."
 
-#: shell-rs/src/window.rs:278
+#: shell-rs/src/window.rs:280
 msgid "File changed outside Papers. Reload document?"
 msgstr "המסמך שונה מחוץ ליישום. לטעון את המסמך מחדש?"
 
-#: shell-rs/src/window.rs:286
+#: shell-rs/src/window.rs:288
 msgid "_No"
 msgstr "_לא"
 
-#: shell-rs/src/window.rs:286
+#: shell-rs/src/window.rs:288
 msgid "_Reload"
 msgstr "_טעינה מחדש"
 
-#: shell-rs/src/window.rs:562
+#: shell-rs/src/window.rs:570
 msgid "Failed to Load Remote File."
 msgstr "טעינת הקובץ המרוחק נכשלה."
 
-#: shell-rs/src/window.rs:725
+#: shell-rs/src/window.rs:733
 msgid "Failed to Reload Document."
 msgstr "טעינת המסמך מחדש נכשלה."
+
+#~ msgid "Advanced highlighting and annotation"
+#~ msgstr "פרשנות והדגשה מתקדמים"
 
 #~ msgid "Search Unavailable"
 #~ msgstr "החיפוש לא זמין"
