@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Papers\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-09-12 06:05+0000\n"
-"PO-Revision-Date: 2024-09-12 14:07+0200\n"
+"POT-Creation-Date: 2024-09-14 21:48+0000\n"
+"PO-Revision-Date: 2024-09-15 03:41+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -137,12 +137,24 @@ msgstr ""
 "კომიქსების წიგნების არქივების (CBR, CBT, CBZ, CB7)."
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:43
-msgid "A clear, simple UI"
-msgstr "სუფთა, მარტივი UI"
+msgid "A clear, simple, and modern UI"
+msgstr "სუფთა, მარტივი და თანამედროვე ინტერფეისი"
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:47
-msgid "Advanced highlighting and annotation"
-msgstr "დამატებითი გამკვეთა და ანოტაცია"
+msgid "A mobile-friendly UI"
+msgstr "მობილურის ინტერფეისი"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:51
+msgid "A modern and colorful annotation list"
+msgstr "თანამედროვე და ფერადი ანოტაციის სია"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:55
+msgid "Big thumbnails in the sidebar"
+msgstr "დიდი მინიატურები გვერდით პანელზე"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:59
+msgid "All search actions are contained in the sidebar"
+msgstr "ყველა ძებნის ქმედება გვერდით პანელში ხდება"
 
 #: data/org.gnome.Papers-previewer.desktop.in.in:3
 msgid "Print Preview"
@@ -510,22 +522,22 @@ msgstr[0] "მიმაგრებული ფაილის შენახ�
 msgid "Page %s"
 msgstr "გვერდი: %s"
 
-#: libview/pps-jobs.c:419
+#: libview/pps-jobs.c:418
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "%d-ე გვერდის რენდერის შეცდომა: %s"
 
-#: libview/pps-jobs.c:426
+#: libview/pps-jobs.c:425
 #, c-format
 msgid "Failed to render page %d"
 msgstr "%d-ე გვერდის რენდერის შეცდომა"
 
-#: libview/pps-jobs.c:644
+#: libview/pps-jobs.c:643
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "%d-ე გვერდის მინიატურის შექმნის შეცდომა"
 
-#: libview/pps-jobs.c:1596
+#: libview/pps-jobs.c:1618
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "%d-ე გვერდის დაბეჭდვის შეცდომა: %s"
@@ -1296,7 +1308,7 @@ msgstr "ტალღებიანი"
 msgid "_Apply"
 msgstr "_გადატარება"
 
-#: shell/pps-document-view.c:497 shell-rs/src/window.rs:460
+#: shell/pps-document-view.c:497 shell-rs/src/window.rs:468
 msgid "View Details"
 msgstr "დეტალების ნახვა"
 
@@ -1340,11 +1352,11 @@ msgstr "ამოცანის დაბეჭდვა (%s)"
 msgid "C_ancel"
 msgstr "_გაუქმება"
 
-#: shell/pps-document-view.c:2205 shell-rs/src/window.rs:266
+#: shell/pps-document-view.c:2205 shell-rs/src/window.rs:268
 msgid "Document contains form fields that have been filled out."
 msgstr "დოკუმენტი შეიცავს შევსებულ ფორმის ველებს."
 
-#: shell/pps-document-view.c:2208 shell-rs/src/window.rs:267
+#: shell/pps-document-view.c:2208 shell-rs/src/window.rs:269
 msgid "Document contains new or modified annotations."
 msgstr "დოკუმენტი ახალ ან შეცვლილ ანოტაციებს შეიცავს."
 
@@ -1944,7 +1956,7 @@ msgstr "შემცველობა"
 msgid "Date &amp; Time"
 msgstr "თარიღი &amp; დრო"
 
-#: shell-rs/src/window.rs:265
+#: shell-rs/src/window.rs:267
 msgid ""
 "Document contains new or modified annotations and form fields that have been "
 "filled out."
@@ -1952,29 +1964,32 @@ msgstr ""
 "დოკუმენტი შეიცავს ახალ ან შეცვლილ ანოტაციებს და ფორმის ველებს, რომლებიც "
 "შევსებულია."
 
-#: shell-rs/src/window.rs:277
+#: shell-rs/src/window.rs:279
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "თუ დოკუმენტს თავიდან ჩატვირთავთ, ცვლილებები სამუდამოდ დაიკარგება."
 
-#: shell-rs/src/window.rs:278
+#: shell-rs/src/window.rs:280
 msgid "File changed outside Papers. Reload document?"
 msgstr "ფაილი Papers-ის გარეთ შეიცვალა. ჩავტვირთო დოკუმენტი თავიდან?"
 
-#: shell-rs/src/window.rs:286
+#: shell-rs/src/window.rs:288
 msgid "_No"
 msgstr "არა"
 
-#: shell-rs/src/window.rs:286
+#: shell-rs/src/window.rs:288
 msgid "_Reload"
 msgstr "_გადატვირთვა"
 
-#: shell-rs/src/window.rs:562
+#: shell-rs/src/window.rs:570
 msgid "Failed to Load Remote File."
 msgstr "დაშორებული ფაილის ჩატვირთვის შეცდომა."
 
-#: shell-rs/src/window.rs:725
+#: shell-rs/src/window.rs:733
 msgid "Failed to Reload Document."
 msgstr "დოკუმენტის თავიდან ჩატვირთვის შეცდომა."
+
+#~ msgid "Advanced highlighting and annotation"
+#~ msgstr "დამატებითი გამკვეთა და ანოტაცია"
 
 #, c-format
 #~ msgid "Password for document %s"
