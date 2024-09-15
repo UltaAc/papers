@@ -25,8 +25,8 @@ msgstr ""
 "Project-Id-Version: evince master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-09-12 06:05+0000\n"
-"PO-Revision-Date: 2024-09-12 19:08+0800\n"
+"POT-Creation-Date: 2024-09-14 21:48+0000\n"
+"PO-Revision-Date: 2024-09-15 10:05+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -145,12 +145,24 @@ msgstr ""
 "CBT、CBZ、CB7）。"
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:43
-msgid "A clear, simple UI"
-msgstr "简洁明了的用户界面"
+msgid "A clear, simple, and modern UI"
+msgstr "简洁明了且现代的用户界面"
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:47
-msgid "Advanced highlighting and annotation"
-msgstr "高级突出显示和注释"
+msgid "A mobile-friendly UI"
+msgstr "移动设备友好的用户界面"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:51
+msgid "A modern and colorful annotation list"
+msgstr "现代且多彩的批注列表"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:55
+msgid "Big thumbnails in the sidebar"
+msgstr "侧边栏中大尺寸的缩略图"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:59
+msgid "All search actions are contained in the sidebar"
+msgstr "侧边栏中包含了所有搜索操作"
 
 #: data/org.gnome.Papers-previewer.desktop.in.in:3
 msgid "Print Preview"
@@ -512,22 +524,22 @@ msgstr[0] "保存附件"
 msgid "Page %s"
 msgstr "第 %s 页"
 
-#: libview/pps-jobs.c:419
+#: libview/pps-jobs.c:418
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "无法渲染第 %d 页：%s"
 
-#: libview/pps-jobs.c:426
+#: libview/pps-jobs.c:425
 #, c-format
 msgid "Failed to render page %d"
 msgstr "无法渲染第 %d 页"
 
-#: libview/pps-jobs.c:644
+#: libview/pps-jobs.c:643
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "无法为第 %d 页创建缩略图"
 
-#: libview/pps-jobs.c:1596
+#: libview/pps-jobs.c:1618
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "打印页面 %d 失败： %s"
@@ -1292,7 +1304,7 @@ msgstr "弯曲线"
 msgid "_Apply"
 msgstr "应用(_A)"
 
-#: shell/pps-document-view.c:497 shell-rs/src/window.rs:460
+#: shell/pps-document-view.c:497 shell-rs/src/window.rs:468
 msgid "View Details"
 msgstr "查看详情"
 
@@ -1336,11 +1348,11 @@ msgstr "打印任务“%s”"
 msgid "C_ancel"
 msgstr "取消(_A)"
 
-#: shell/pps-document-view.c:2205 shell-rs/src/window.rs:266
+#: shell/pps-document-view.c:2205 shell-rs/src/window.rs:268
 msgid "Document contains form fields that have been filled out."
 msgstr "文档含已填写表单。"
 
-#: shell/pps-document-view.c:2208 shell-rs/src/window.rs:267
+#: shell/pps-document-view.c:2208 shell-rs/src/window.rs:269
 msgid "Document contains new or modified annotations."
 msgstr "文档含新的或修改过的批注。"
 
@@ -1962,35 +1974,38 @@ msgstr "目录"
 msgid "Date &amp; Time"
 msgstr "日期和时间"
 
-#: shell-rs/src/window.rs:265
+#: shell-rs/src/window.rs:267
 msgid ""
 "Document contains new or modified annotations and form fields that have been "
 "filled out."
 msgstr "文档包含新的或修改的批注和已填写的表单区域。"
 
-#: shell-rs/src/window.rs:277
+#: shell-rs/src/window.rs:279
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "如果重新载入文档，修改将会永久丢失。"
 
-#: shell-rs/src/window.rs:278
+#: shell-rs/src/window.rs:280
 msgid "File changed outside Papers. Reload document?"
 msgstr "文件已被外部程序修改。重新加载文档吗？"
 
-#: shell-rs/src/window.rs:286
+#: shell-rs/src/window.rs:288
 msgid "_No"
 msgstr "否(_N)"
 
-#: shell-rs/src/window.rs:286
+#: shell-rs/src/window.rs:288
 msgid "_Reload"
 msgstr "重新载入(_R)"
 
-#: shell-rs/src/window.rs:562
+#: shell-rs/src/window.rs:570
 msgid "Failed to Load Remote File."
 msgstr "载入远程文件失败。"
 
-#: shell-rs/src/window.rs:725
+#: shell-rs/src/window.rs:733
 msgid "Failed to Reload Document."
 msgstr "重新载入文档失败。"
+
+#~ msgid "Advanced highlighting and annotation"
+#~ msgstr "高级突出显示和注释"
 
 #, c-format
 #~ msgid "Password for document %s"
