@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: evince\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/issues/"
 "\n"
-"POT-Creation-Date: 2024-09-12 06:05+0000\n"
-"PO-Revision-Date: 2024-09-12 20:50+0300\n"
+"POT-Creation-Date: 2024-09-14 21:48+0000\n"
+"PO-Revision-Date: 2024-09-15 19:31+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -147,12 +147,25 @@ msgstr ""
 "XPS, DjVu, TIFF, а також архіви коміксів (CBR, CBT, CBZ, CB7)."
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:43
-msgid "A clear, simple UI"
-msgstr "Простий і зрозумілий інтерфейс"
+#| msgid "A clear, simple UI"
+msgid "A clear, simple, and modern UI"
+msgstr "Простий, зрозумілий і сучасний інтерфейс"
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:47
-msgid "Advanced highlighting and annotation"
-msgstr "Широкі можливості із позначення та анотування документів"
+msgid "A mobile-friendly UI"
+msgstr "Зручний інтерфейс для мобільних пристроїв"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:51
+msgid "A modern and colorful annotation list"
+msgstr "Сучасний кольоровий список анотацій"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:55
+msgid "Big thumbnails in the sidebar"
+msgstr "Великі мініатюри на бічній панелі"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:59
+msgid "All search actions are contained in the sidebar"
+msgstr "Усі дії з пошуку на бічній панелі"
 
 #: data/org.gnome.Papers-previewer.desktop.in.in:3
 msgid "Print Preview"
@@ -522,22 +535,22 @@ msgstr[2] "Зберегти долучення"
 msgid "Page %s"
 msgstr "Сторінка %s"
 
-#: libview/pps-jobs.c:419
+#: libview/pps-jobs.c:418
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "Не вдалося відтворити сторінку %d: %s"
 
-#: libview/pps-jobs.c:426
+#: libview/pps-jobs.c:425
 #, c-format
 msgid "Failed to render page %d"
 msgstr "Не вдалося відтворити сторінку %d"
 
-#: libview/pps-jobs.c:644
+#: libview/pps-jobs.c:643
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "Не вдалося створити мініатюру для сторінки %d"
 
-#: libview/pps-jobs.c:1596
+#: libview/pps-jobs.c:1618
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "Не вдалось надрукувати сторінку %d: %s"
@@ -1306,7 +1319,7 @@ msgstr "Напис"
 msgid "_Apply"
 msgstr "З_астосувати"
 
-#: shell/pps-document-view.c:497 shell-rs/src/window.rs:460
+#: shell/pps-document-view.c:497 shell-rs/src/window.rs:468
 msgid "View Details"
 msgstr "Переглянути подробиці"
 
@@ -1352,11 +1365,11 @@ msgstr "Друкування завдання «%s»"
 msgid "C_ancel"
 msgstr "_Скасувати"
 
-#: shell/pps-document-view.c:2205 shell-rs/src/window.rs:266
+#: shell/pps-document-view.c:2205 shell-rs/src/window.rs:268
 msgid "Document contains form fields that have been filled out."
 msgstr "Документ містить поля форми, які заповнено."
 
-#: shell/pps-document-view.c:2208 shell-rs/src/window.rs:267
+#: shell/pps-document-view.c:2208 shell-rs/src/window.rs:269
 msgid "Document contains new or modified annotations."
 msgstr "Документ містить нові або змінені примітки."
 
@@ -1426,8 +1439,6 @@ msgid "Select signing certificate"
 msgstr "Виберіть сертифікат підписування"
 
 #: shell/pps-document-view.c:3649
-#| msgctxt "shortcut window"
-#| msgid "Select All"
 msgid "Select"
 msgstr "Вибрати"
 
@@ -1436,8 +1447,6 @@ msgid "No certificates found!"
 msgstr "Сертифікатів не знайдено!"
 
 #: shell/pps-document-view.c:3714
-#| msgctxt "shortcut window"
-#| msgid "Select All"
 msgid "Selection too small"
 msgstr "Позначено надто мало"
 
@@ -1447,9 +1456,9 @@ msgid ""
 "create a potentially more readable signature, press `Start over` and draw a "
 "bigger rectangle."
 msgstr ""
-"Підпис цього розміру є надто малим для читання. Якщо ви хочете створити"
-" потенційно придатніший для читання підпис, натисніть «Почати з початку» і"
-" намалюйте більший прямокутник."
+"Підпис цього розміру є надто малим для читання. Якщо ви хочете створити "
+"потенційно придатніший для читання підпис, натисніть «Почати з початку» і "
+"намалюйте більший прямокутник."
 
 #: shell/pps-document-view.c:3717
 msgid "Start _Over"
@@ -1965,36 +1974,39 @@ msgstr "Вміст"
 msgid "Date &amp; Time"
 msgstr "Дата та час"
 
-#: shell-rs/src/window.rs:265
+#: shell-rs/src/window.rs:267
 msgid ""
 "Document contains new or modified annotations and form fields that have been "
 "filled out."
 msgstr ""
 "Документ містить нові або змінені анотації та поля форм, які заповнено."
 
-#: shell-rs/src/window.rs:277
+#: shell-rs/src/window.rs:279
 msgid "If you reload the document, changes will be permanently lost."
 msgstr "Якщо перезапустити документ, зміни буде остаточно втрачено."
 
-#: shell-rs/src/window.rs:278
+#: shell-rs/src/window.rs:280
 msgid "File changed outside Papers. Reload document?"
 msgstr "До файла внесено зміни поза «Паперами». Перезавантажити документ?"
 
-#: shell-rs/src/window.rs:286
+#: shell-rs/src/window.rs:288
 msgid "_No"
 msgstr "_Ні"
 
-#: shell-rs/src/window.rs:286
+#: shell-rs/src/window.rs:288
 msgid "_Reload"
 msgstr "_Оновити"
 
-#: shell-rs/src/window.rs:562
+#: shell-rs/src/window.rs:570
 msgid "Failed to Load Remote File."
 msgstr "Не вдалось завантажити віддалений файл."
 
-#: shell-rs/src/window.rs:725
+#: shell-rs/src/window.rs:733
 msgid "Failed to Reload Document."
 msgstr "Не вдалось оновити документ."
+
+#~ msgid "Advanced highlighting and annotation"
+#~ msgstr "Широкі можливості із позначення та анотування документів"
 
 #, c-format
 #~ msgid "Password for document %s"
