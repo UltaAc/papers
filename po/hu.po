@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: papers master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/issues/"
 "\n"
-"POT-Creation-Date: 2024-09-12 06:05+0000\n"
-"PO-Revision-Date: 2024-09-13 16:53+0200\n"
+"POT-Creation-Date: 2024-09-14 21:48+0000\n"
+"PO-Revision-Date: 2024-09-16 01:23+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -148,12 +148,25 @@ msgstr ""
 "DjVu, TIFF, valamint képregény-archívumok (CBR, CBT, CBZ, CB7)."
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:43
-msgid "A clear, simple UI"
-msgstr "Egyszerű, letisztult felhasználói felület"
+#| msgid "A clear, simple UI"
+msgid "A clear, simple, and modern UI"
+msgstr "Letisztult, egyszerű és modern felhasználói felület"
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:47
-msgid "Advanced highlighting and annotation"
-msgstr "Fejlett kiemelés és jegyzetek hozzáadása"
+msgid "A mobile-friendly UI"
+msgstr "Mobilbarát felhasználói felület"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:51
+msgid "A modern and colorful annotation list"
+msgstr "Modern és színes jegyzetlista"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:55
+msgid "Big thumbnails in the sidebar"
+msgstr "Nagy bélyegképek az oldalsávon"
+
+#: data/org.gnome.Papers.metainfo.xml.in.in:59
+msgid "All search actions are contained in the sidebar"
+msgstr "Az összes keresési művelet megtalálható az oldalsávon"
 
 #: data/org.gnome.Papers-previewer.desktop.in.in:3
 msgid "Print Preview"
@@ -520,22 +533,22 @@ msgstr[1] "Mellékletek mentése"
 msgid "Page %s"
 msgstr "Oldal: %s"
 
-#: libview/pps-jobs.c:419
+#: libview/pps-jobs.c:418
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "Nem sikerült megjeleníteni a(z) %d. oldalt: %s"
 
-#: libview/pps-jobs.c:426
+#: libview/pps-jobs.c:425
 #, c-format
 msgid "Failed to render page %d"
 msgstr "Nem sikerült megjeleníteni a(z) %d. oldalt"
 
-#: libview/pps-jobs.c:644
+#: libview/pps-jobs.c:643
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "Nem sikerült bélyegképet létrehozni a(z) %d. oldalhoz"
 
-#: libview/pps-jobs.c:1596
+#: libview/pps-jobs.c:1618
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "Nem sikerült kinyomtatni a(z) %d. oldalt: %s"
@@ -1309,7 +1322,7 @@ msgstr "Hullámos"
 msgid "_Apply"
 msgstr "_Alkalmaz"
 
-#: shell/pps-document-view.c:497 shell-rs/src/window.rs:460
+#: shell/pps-document-view.c:497 shell-rs/src/window.rs:468
 msgid "View Details"
 msgstr "Részletek megtekintése"
 
@@ -1354,11 +1367,11 @@ msgstr "A(z) „%s” feladat nyomtatása"
 msgid "C_ancel"
 msgstr "Mé_gse"
 
-#: shell/pps-document-view.c:2205 shell-rs/src/window.rs:266
+#: shell/pps-document-view.c:2205 shell-rs/src/window.rs:268
 msgid "Document contains form fields that have been filled out."
 msgstr "A dokumentum olyan űrlapmezőket tartalmaz, amelyek ki lettek töltve."
 
-#: shell/pps-document-view.c:2208 shell-rs/src/window.rs:267
+#: shell/pps-document-view.c:2208 shell-rs/src/window.rs:269
 msgid "Document contains new or modified annotations."
 msgstr "A dokumentum új vagy módosított jegyzeteket tartalmaz."
 
@@ -1428,8 +1441,6 @@ msgid "Select signing certificate"
 msgstr "Aláíró tanúsítvány kiválasztása"
 
 #: shell/pps-document-view.c:3649
-#| msgctxt "shortcut window"
-#| msgid "Select All"
 msgid "Select"
 msgstr "Kiválasztás"
 
@@ -1438,8 +1449,6 @@ msgid "No certificates found!"
 msgstr "Nem találhatók tanúsítványok!"
 
 #: shell/pps-document-view.c:3714
-#| msgctxt "shortcut window"
-#| msgid "Select All"
 msgid "Selection too small"
 msgstr "A kijelölés túl kicsi"
 
@@ -1449,9 +1458,9 @@ msgid ""
 "create a potentially more readable signature, press `Start over` and draw a "
 "bigger rectangle."
 msgstr ""
-"Egy ilyen méretű aláírás túl kicsi lehet ahhoz, hogy olvasható legyen. Ha egy"
-" valószínűleg jobban olvasható aláírást szeretne létrehozni, akkor nyomja meg"
-" az „Újrakezdés” gombot, és rajzoljon egy nagyobb téglalapot."
+"Egy ilyen méretű aláírás túl kicsi lehet ahhoz, hogy olvasható legyen. Ha "
+"egy valószínűleg jobban olvasható aláírást szeretne létrehozni, akkor nyomja "
+"meg az „Újrakezdés” gombot, és rajzoljon egy nagyobb téglalapot."
 
 #: shell/pps-document-view.c:3717
 msgid "Start _Over"
@@ -1970,7 +1979,7 @@ msgstr "Tartalom"
 msgid "Date &amp; Time"
 msgstr "Dátum és idő"
 
-#: shell-rs/src/window.rs:265
+#: shell-rs/src/window.rs:267
 msgid ""
 "Document contains new or modified annotations and form fields that have been "
 "filled out."
@@ -1978,27 +1987,27 @@ msgstr ""
 "A dokumentum új vagy módosított jegyzeteket és olyan űrlapmezőket tartalmaz, "
 "amelyek ki lettek töltve."
 
-#: shell-rs/src/window.rs:277
+#: shell-rs/src/window.rs:279
 msgid "If you reload the document, changes will be permanently lost."
 msgstr ""
 "Ha újratölti a dokumentumot, akkor a változtatások véglegesen elvesznek."
 
-#: shell-rs/src/window.rs:278
+#: shell-rs/src/window.rs:280
 msgid "File changed outside Papers. Reload document?"
 msgstr "A fájl megváltozott a Papírokon kívül. Újratölti a dokumentumot?"
 
-#: shell-rs/src/window.rs:286
+#: shell-rs/src/window.rs:288
 msgid "_No"
 msgstr "_Nem"
 
-#: shell-rs/src/window.rs:286
+#: shell-rs/src/window.rs:288
 msgid "_Reload"
 msgstr "Új_ratöltés"
 
-#: shell-rs/src/window.rs:562
+#: shell-rs/src/window.rs:570
 msgid "Failed to Load Remote File."
 msgstr "Nem sikerült betölteni a távoli fájlt."
 
-#: shell-rs/src/window.rs:725
+#: shell-rs/src/window.rs:733
 msgid "Failed to Reload Document."
 msgstr "Nem sikerült újratölteni a dokumentumot."
