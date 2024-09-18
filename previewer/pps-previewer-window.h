@@ -35,8 +35,6 @@ struct _PpsPreviewerWindow {
 
 PpsPreviewerWindow *pps_previewer_window_new            (void);
 
-PpsDocumentModel   *pps_previewer_window_get_document_model (PpsPreviewerWindow *window);
-
 void       pps_previewer_window_set_job                (PpsPreviewerWindow *window,
                                                        PpsJob             *job);
 gboolean   pps_previewer_window_set_print_settings     (PpsPreviewerWindow *window,

@@ -578,16 +578,6 @@ pps_previewer_window_set_source_file (PpsPreviewerWindow *window,
 	priv->source_file = g_strdup (source_file);
 }
 
-PpsDocumentModel *
-pps_previewer_window_get_document_model (PpsPreviewerWindow *window)
-{
-	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
-
-        g_return_val_if_fail (PPS_IS_PREVIEWER_WINDOW (window), NULL);
-
-        return priv->model;
-}
-
 /**
  * pps_previewer_window_set_source_fd:
  * @window:
