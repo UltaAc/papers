@@ -84,4 +84,11 @@
       </object>
     </property>
   </template>
+
+  <object class="AdwAlertDialog" id="dialog">
+    <property name="heading" translatable="yes">Failed to Print Document</property>
+    <responses>
+      <response id="close" translatable="yes">_Close</response>
+    </responses>
+  </object>
 </interface>

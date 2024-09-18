@@ -41,6 +41,7 @@ typedef  struct _PpsPreviewerWindowPrivate {
 
 	PpsView           *view;
 	GtkWidget        *page_selector;
+	AdwAlertDialog	 *dialog;
 
 	/* Printing */
 	GtkPrintSettings *print_settings;
@@ -64,16 +65,12 @@ static void
 pps_previewer_window_error_dialog_run (PpsPreviewerWindow *window,
 				      GError            *error)
 {
-	GtkWidget *dialog;
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
 
-	dialog = gtk_message_dialog_new (GTK_WINDOW (window),
-					 GTK_DIALOG_MODAL |
-					 GTK_DIALOG_DESTROY_WITH_PARENT,
-					 GTK_MESSAGE_ERROR,
-					 GTK_BUTTONS_CLOSE,
-					 "%s", _("Failed to print document"));
-	gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-						  "%s", error->message);
+	if (error)
+		adw_alert_dialog_set_body (priv->dialog, error->message);
+
+	adw_dialog_present (ADW_DIALOG (priv->dialog), GTK_WIDGET (window));
 }
 
 static void
@@ -436,6 +433,7 @@ pps_previewer_window_class_init (PpsPreviewerWindowClass *klass)
 	gtk_widget_class_bind_template_child_private (widget_class, PpsPreviewerWindow, view);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsPreviewerWindow, page_selector);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsPreviewerWindow, model);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsPreviewerWindow, dialog);
 }
 
 /* Public methods */
