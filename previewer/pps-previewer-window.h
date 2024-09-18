@@ -20,24 +20,14 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
-
+#include <adwaita.h>
 #include <papers-document.h>
 #include <papers-view.h>
 
 G_BEGIN_DECLS
 
 #define PPS_TYPE_PREVIEWER_WINDOW                  (pps_previewer_window_get_type())
-#define PPS_PREVIEWER_WINDOW(object)               (G_TYPE_CHECK_INSTANCE_CAST((object), PPS_TYPE_PREVIEWER_WINDOW, PpsPreviewerWindow))
-#define PPS_PREVIEWER_WINDOW_CLASS(klass)          (G_TYPE_CHECK_CLASS_CAST((klass), PPS_TYPE_PREVIEWER_WINDOW, PpsPreviewerWindowClass))
-#define PPS_IS_PREVIEWER_WINDOW(object)            (G_TYPE_CHECK_INSTANCE_TYPE((object), PPS_TYPE_PREVIEWER_WINDOW))
-#define PPS_IS_PREVIEWER_WINDOW_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE((klass), PPS_TYPE_PREVIEWER_WINDOW))
-#define PPS_PREVIEWER_WINDOW_GET_CLASS(object)     (G_TYPE_INSTANCE_GET_CLASS((object), PPS_TYPE_PREVIEWER_WINDOW, PpsPreviewerWindowClass))
-
-typedef struct _PpsPreviewerWindow      PpsPreviewerWindow;
-typedef struct _PpsPreviewerWindowClass PpsPreviewerWindowClass;
-
-GType              pps_previewer_window_get_type       (void) G_GNUC_CONST;
+G_DECLARE_FINAL_TYPE(PpsPreviewerWindow, pps_previewer_window, PPS, PREVIEWER_WINDOW, AdwApplicationWindow)
 
 PpsPreviewerWindow *pps_previewer_window_new            (void);
 

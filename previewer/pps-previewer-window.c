@@ -55,10 +55,6 @@ struct _PpsPreviewerWindow {
 	int               source_fd;
 };
 
-struct _PpsPreviewerWindowClass {
-	AdwApplicationWindowClass base_class;
-};
-
 #define MIN_SCALE 0.05409
 #define MAX_SCALE 4.0
 
