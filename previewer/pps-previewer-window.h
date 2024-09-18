@@ -29,6 +29,10 @@ G_BEGIN_DECLS
 #define PPS_TYPE_PREVIEWER_WINDOW                  (pps_previewer_window_get_type())
 G_DECLARE_FINAL_TYPE(PpsPreviewerWindow, pps_previewer_window, PPS, PREVIEWER_WINDOW, AdwApplicationWindow)
 
+struct _PpsPreviewerWindow {
+	AdwApplicationWindow base_instance;
+};
+
 PpsPreviewerWindow *pps_previewer_window_new            (void);
 
 PpsDocumentModel   *pps_previewer_window_get_document_model (PpsPreviewerWindow *window);

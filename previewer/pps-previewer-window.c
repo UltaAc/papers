@@ -34,9 +34,7 @@
 
 #include "pps-previewer-window.h"
 
-struct _PpsPreviewerWindow {
-	AdwApplicationWindow base_instance;
-
+typedef  struct _PpsPreviewerWindowPrivate {
 	PpsJob            *job;
 	PpsDocumentModel  *model;
 	PpsDocument       *document;
@@ -53,12 +51,14 @@ struct _PpsPreviewerWindow {
 	gchar            *print_job_title;
 	gchar            *source_file;
 	int               source_fd;
-};
+} PpsPreviewerWindowPrivate;
 
 #define MIN_SCALE 0.05409
 #define MAX_SCALE 4.0
 
-G_DEFINE_TYPE (PpsPreviewerWindow, pps_previewer_window, ADW_TYPE_APPLICATION_WINDOW)
+G_DEFINE_TYPE_WITH_PRIVATE (PpsPreviewerWindow, pps_previewer_window, ADW_TYPE_APPLICATION_WINDOW)
+
+#define GET_PRIVATE(o) pps_previewer_window_get_instance_private (o)
 
 static void
 pps_previewer_window_error_dialog_run (PpsPreviewerWindow *window,
@@ -90,8 +90,9 @@ pps_previewer_window_previous_page (GSimpleAction *action,
 				   gpointer       user_data)
 {
         PpsPreviewerWindow *window = PPS_PREVIEWER_WINDOW (user_data);
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
 
-	pps_view_previous_page (window->view);
+	pps_view_previous_page (priv->view);
 }
 
 static void
@@ -100,8 +101,9 @@ pps_previewer_window_next_page (GSimpleAction *action,
                                gpointer       user_data)
 {
         PpsPreviewerWindow *window = PPS_PREVIEWER_WINDOW (user_data);
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
 
-	pps_view_next_page (window->view);
+	pps_view_next_page (priv->view);
 }
 
 static void
@@ -110,9 +112,10 @@ pps_previewer_window_zoom_in (GSimpleAction *action,
                              gpointer       user_data)
 {
         PpsPreviewerWindow *window = PPS_PREVIEWER_WINDOW (user_data);
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
 
-	pps_document_model_set_sizing_mode (window->model, PPS_SIZING_FREE);
-	pps_view_zoom_in (window->view);
+	pps_document_model_set_sizing_mode (priv->model, PPS_SIZING_FREE);
+	pps_view_zoom_in (priv->view);
 }
 
 static void
@@ -121,9 +124,10 @@ pps_previewer_window_zoom_out (GSimpleAction *action,
 			      gpointer       user_data)
 {
         PpsPreviewerWindow *window = PPS_PREVIEWER_WINDOW (user_data);
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
 
-	pps_document_model_set_sizing_mode (window->model, PPS_SIZING_FREE);
-	pps_view_zoom_out (window->view);
+	pps_document_model_set_sizing_mode (priv->model, PPS_SIZING_FREE);
+	pps_view_zoom_out (priv->view);
 }
 
 static void
@@ -132,8 +136,9 @@ pps_previewer_window_zoom_default (GSimpleAction *action,
                                   gpointer       user_data)
 {
         PpsPreviewerWindow *window = PPS_PREVIEWER_WINDOW (user_data);
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
 
-	pps_document_model_set_sizing_mode (window->model,
+	pps_document_model_set_sizing_mode (priv->model,
 					   PPS_SIZING_AUTOMATIC);
 }
 
@@ -142,8 +147,10 @@ pps_previewer_window_action_page_activated (GObject           *object,
                                            PpsLink            *link,
                                            PpsPreviewerWindow *window)
 {
-       pps_view_handle_link (window->view, link);
-       gtk_widget_grab_focus (GTK_WIDGET (window->view));
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
+
+       pps_view_handle_link (priv->view, link);
+       gtk_widget_grab_focus (GTK_WIDGET (priv->view));
 }
 
 static void
@@ -152,8 +159,9 @@ pps_previewer_window_focus_page_selector (GSimpleAction *action,
                                          gpointer       user_data)
 {
         PpsPreviewerWindow *window = PPS_PREVIEWER_WINDOW (user_data);
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
 
-	gtk_widget_grab_focus (window->page_selector);
+	gtk_widget_grab_focus (priv->page_selector);
 }
 
 #if GTKUNIXPRINT_ENABLED
@@ -174,21 +182,22 @@ pps_previewer_window_print_finished (GtkPrintJob       *print_job,
 static void
 pps_previewer_window_do_print (PpsPreviewerWindow *window)
 {
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
 	GtkPrintJob *job;
 	gboolean     rv = FALSE;
 	GError      *error = NULL;
 
-	job = gtk_print_job_new (window->print_job_title ?
-				 window->print_job_title :
-				 (window->source_file ? window->source_file : _("Papers Document Viewer")),
-				 window->printer,
-				 window->print_settings,
-				 window->print_page_setup);
+	job = gtk_print_job_new (priv->print_job_title ?
+				 priv->print_job_title :
+				 (priv->source_file ? priv->source_file : _("Papers Document Viewer")),
+				 priv->printer,
+				 priv->print_settings,
+				 priv->print_page_setup);
 
-        if (window->source_fd != -1)
-                rv = gtk_print_job_set_source_fd (job, window->source_fd, &error);
-        else if (window->source_file != NULL)
-                rv = gtk_print_job_set_source_file (job, window->source_file, &error);
+        if (priv->source_fd != -1)
+                rv = gtk_print_job_set_source_fd (job, priv->source_fd, &error);
+        else if (priv->source_file != NULL)
+                rv = gtk_print_job_set_source_file (job, priv->source_file, &error);
         else
                 g_set_error_literal (&error, GTK_PRINT_ERROR, GTK_PRINT_ERROR_GENERAL,
                                      "Neither file nor FD to print.");
@@ -208,7 +217,9 @@ pps_previewer_window_do_print (PpsPreviewerWindow *window)
 static void
 pps_previewer_window_enumerate_finished (PpsPreviewerWindow *window)
 {
-	if (window->printer) {
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
+
+	if (priv->printer) {
 		pps_previewer_window_do_print (window);
 	} else {
 		GError *error = NULL;
@@ -217,7 +228,7 @@ pps_previewer_window_enumerate_finished (PpsPreviewerWindow *window)
 			     GTK_PRINT_ERROR,
 			     GTK_PRINT_ERROR_GENERAL,
 			     _("The selected printer “%s” could not be found"),
-			     gtk_print_settings_get_printer (window->print_settings));
+			     gtk_print_settings_get_printer (priv->print_settings));
 
 		pps_previewer_window_error_dialog_run (window, error);
 		g_error_free (error);
@@ -228,13 +239,15 @@ static gboolean
 pps_previewer_window_enumerate_printers (GtkPrinter        *printer,
 					PpsPreviewerWindow *window)
 {
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
+
 	const gchar *printer_name;
 
-	printer_name = gtk_print_settings_get_printer (window->print_settings);
+	printer_name = gtk_print_settings_get_printer (priv->print_settings);
 	if ((printer_name
 	     && strcmp (printer_name, gtk_printer_get_name (printer)) == 0) ||
 	    (!printer_name && gtk_printer_is_default (printer))) {
-		g_set_object (&window->printer, printer);
+		g_set_object (&priv->printer, printer);
 
 		return TRUE; /* we're done */
 	}
@@ -248,11 +261,12 @@ pps_previewer_window_print (GSimpleAction *action,
 			   gpointer       user_data)
 {
         PpsPreviewerWindow *window = PPS_PREVIEWER_WINDOW (user_data);
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
 
-	if (!window->print_settings)
-		window->print_settings = gtk_print_settings_new ();
-	if (!window->print_page_setup)
-		window->print_page_setup = gtk_page_setup_new ();
+	if (!priv->print_settings)
+		priv->print_settings = gtk_print_settings_new ();
+	if (!priv->print_page_setup)
+		priv->print_page_setup = gtk_page_setup_new ();
 	gtk_enumerate_printers ((GtkPrinterFunc)pps_previewer_window_enumerate_printers,
 				window,
 				(GDestroyNotify)pps_previewer_window_enumerate_finished,
@@ -291,7 +305,8 @@ model_page_changed (PpsDocumentModel* model,
 		    gint new_page,
 		    PpsPreviewerWindow *window)
 {
-	gint n_pages = pps_document_get_n_pages (pps_document_model_get_document (window->model));
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
+	gint n_pages = pps_document_get_n_pages (pps_document_model_get_document (priv->model));
 
         pps_previewer_window_set_action_enabled (window,
                                                 "go-previous-page",
@@ -317,21 +332,22 @@ static void
 load_job_finished_cb (PpsJob             *job,
                       PpsPreviewerWindow *window)
 {
-        g_assert (job == window->job);
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
+        g_assert (job == priv->job);
 	g_autoptr (GError) error = NULL;
 
 	if (!pps_job_is_succeeded (job, &error)) {
 		pps_previewer_window_error_dialog_run (window, error);
-		g_clear_object (&window->job);
+		g_clear_object (&priv->job);
                 return;
         }
 
-	window->document = pps_job_load_get_loaded_document (PPS_JOB_LOAD (job));
+	priv->document = pps_job_load_get_loaded_document (PPS_JOB_LOAD (job));
 
-	g_clear_object (&window->job);
+	g_clear_object (&priv->job);
 
-        pps_document_model_set_document (window->model, window->document);
-        g_signal_connect (window->model, "notify::sizing-mode",
+        pps_document_model_set_document (priv->model, priv->document);
+        g_signal_connect (priv->model, "notify::sizing-mode",
                           G_CALLBACK (view_sizing_mode_changed),
                           window);
 }
@@ -340,21 +356,22 @@ static void
 pps_previewer_window_dispose (GObject *object)
 {
 	PpsPreviewerWindow *window = PPS_PREVIEWER_WINDOW (object);
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
 
-	g_clear_object (&window->job);
-	g_clear_object (&window->model);
-	g_clear_object (&window->document);
-	g_clear_object (&window->print_settings);
-	g_clear_object (&window->print_page_setup);
+	g_clear_object (&priv->job);
+	g_clear_object (&priv->model);
+	g_clear_object (&priv->document);
+	g_clear_object (&priv->print_settings);
+	g_clear_object (&priv->print_page_setup);
 #if GTKUNIXPRINT_ENABLED
-	g_clear_object (&window->printer);
+	g_clear_object (&priv->printer);
 #endif
-	g_clear_pointer (&window->print_job_title, g_free);
-	g_clear_pointer (&window->source_file, g_free);
+	g_clear_pointer (&priv->print_job_title, g_free);
+	g_clear_pointer (&priv->source_file, g_free);
 
-        if (window->source_fd != -1) {
-                close (window->source_fd);
-                window->source_fd = -1;
+        if (priv->source_fd != -1) {
+                close (priv->source_fd);
+                priv->source_fd = -1;
         }
 
 	G_OBJECT_CLASS (pps_previewer_window_parent_class)->dispose (object);
@@ -363,7 +380,9 @@ pps_previewer_window_dispose (GObject *object)
 static void
 pps_previewer_window_init (PpsPreviewerWindow *window)
 {
-	window->source_fd = -1;
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
+
+	priv->source_fd = -1;
 
 	gtk_widget_init_template (GTK_WIDGET (window));
 
@@ -376,30 +395,31 @@ static void
 pps_previewer_window_constructed (GObject *object)
 {
 	PpsPreviewerWindow *window = PPS_PREVIEWER_WINDOW (object);
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
 	gdouble            dpi;
 
 	G_OBJECT_CLASS (pps_previewer_window_parent_class)->constructed (object);
 
-	window->model = pps_document_model_new ();
-	pps_document_model_set_continuous (window->model, FALSE);
+	priv->model = pps_document_model_new ();
+	pps_document_model_set_continuous (priv->model, FALSE);
 
-	pps_view_set_model (window->view, window->model);
-	pps_page_selector_set_model (PPS_PAGE_SELECTOR (window->page_selector),
-			window->model);
+	pps_view_set_model (priv->view, priv->model);
+	pps_page_selector_set_model (PPS_PAGE_SELECTOR (priv->page_selector),
+			priv->model);
 
 	dpi = pps_document_misc_get_widget_dpi (GTK_WIDGET (window));
-	pps_document_model_set_min_scale (window->model, MIN_SCALE * dpi / 72.0);
-	pps_document_model_set_max_scale (window->model, MAX_SCALE * dpi / 72.0);
-	pps_document_model_set_sizing_mode (window->model, PPS_SIZING_AUTOMATIC);
+	pps_document_model_set_min_scale (priv->model, MIN_SCALE * dpi / 72.0);
+	pps_document_model_set_max_scale (priv->model, MAX_SCALE * dpi / 72.0);
+	pps_document_model_set_sizing_mode (priv->model, PPS_SIZING_AUTOMATIC);
 
-	view_sizing_mode_changed (window->model, NULL, window);
+	view_sizing_mode_changed (priv->model, NULL, window);
 
-	g_signal_connect (window->page_selector,
+	g_signal_connect (priv->page_selector,
 			  "activate-link",
 			  G_CALLBACK (pps_previewer_window_action_page_activated),
 			  window);
 
-	g_signal_connect_object (window->model, "page-changed",
+	g_signal_connect_object (priv->model, "page-changed",
 				 G_CALLBACK (model_page_changed),
 				 window, 0);
 }
@@ -417,8 +437,8 @@ pps_previewer_window_class_init (PpsPreviewerWindowClass *klass)
 	gtk_widget_class_set_template_from_resource (widget_class,
 			"/org/gnome/papers/previewer/ui/previewer-window.ui");
 
-	gtk_widget_class_bind_template_child (widget_class, PpsPreviewerWindow, view);
-	gtk_widget_class_bind_template_child (widget_class, PpsPreviewerWindow, page_selector);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsPreviewerWindow, view);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsPreviewerWindow, page_selector);
 }
 
 /* Public methods */
@@ -434,15 +454,17 @@ void
 pps_previewer_window_set_job (PpsPreviewerWindow *window,
                              PpsJob             *job)
 {
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
+
         g_return_if_fail (PPS_IS_PREVIEWER_WINDOW (window));
         g_return_if_fail (PPS_IS_JOB (job));
 
-        g_set_object (&window->job, job);
+        g_set_object (&priv->job, job);
 
-        g_signal_connect_object (window->job, "finished",
+        g_signal_connect_object (priv->job, "finished",
                                  G_CALLBACK (load_job_finished_cb),
                                  window, 0);
-        pps_job_scheduler_push_job (window->job, PPS_JOB_PRIORITY_NONE);
+        pps_job_scheduler_push_job (priv->job, PPS_JOB_PRIORITY_NONE);
 }
 
 static gboolean
@@ -450,6 +472,7 @@ pps_previewer_window_set_print_settings_take_file (PpsPreviewerWindow *window,
                                                   GMappedFile       *file,
                                                   GError           **error)
 {
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
         GBytes           *bytes;
         GKeyFile         *key_file;
         GtkPrintSettings *psettings;
@@ -457,9 +480,9 @@ pps_previewer_window_set_print_settings_take_file (PpsPreviewerWindow *window,
         char             *job_name;
         gboolean          rv;
 
-        g_clear_object (&window->print_settings);
-        g_clear_object (&window->print_page_setup);
-        g_clear_pointer (&window->print_job_title, g_free);
+        g_clear_object (&priv->print_settings);
+        g_clear_object (&priv->print_page_setup);
+        g_clear_pointer (&priv->print_job_title, g_free);
 
         bytes = g_mapped_file_get_bytes (file);
         key_file = g_key_file_new ();
@@ -468,31 +491,31 @@ pps_previewer_window_set_print_settings_take_file (PpsPreviewerWindow *window,
         g_mapped_file_unref (file);
 
         if (!rv) {
-                window->print_settings = gtk_print_settings_new ();
-                window->print_page_setup = gtk_page_setup_new ();
-                window->print_job_title = g_strdup (_("Papers"));
+                priv->print_settings = gtk_print_settings_new ();
+                priv->print_page_setup = gtk_page_setup_new ();
+                priv->print_job_title = g_strdup (_("Papers"));
                 return FALSE;
         }
 
         psettings = gtk_print_settings_new_from_key_file (key_file,
                                                           "Print Settings",
                                                           NULL);
-        window->print_settings = psettings ? psettings : gtk_print_settings_new ();
+        priv->print_settings = psettings ? psettings : gtk_print_settings_new ();
 
         psetup = gtk_page_setup_new_from_key_file (key_file,
                                                    "Page Setup",
                                                    NULL);
-        window->print_page_setup = psetup ? psetup : gtk_page_setup_new ();
+        priv->print_page_setup = psetup ? psetup : gtk_page_setup_new ();
 
         job_name = g_key_file_get_string (key_file,
                                           "Print Job", "title",
                                           NULL);
         if (job_name && job_name[0]) {
-                window->print_job_title = job_name;
+                priv->print_job_title = job_name;
                 gtk_window_set_title (GTK_WINDOW (window), job_name);
         } else {
                 g_free (job_name);
-                window->print_job_title = g_strdup (_("Papers Document Viewer"));
+                priv->print_job_title = g_strdup (_("Papers Document Viewer"));
         }
 
         g_key_file_free (key_file);
@@ -550,18 +573,22 @@ void
 pps_previewer_window_set_source_file (PpsPreviewerWindow *window,
 				     const gchar       *source_file)
 {
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
+
         g_return_if_fail (PPS_IS_PREVIEWER_WINDOW (window));
 
-        g_free (window->source_file);
-	window->source_file = g_strdup (source_file);
+        g_free (priv->source_file);
+	priv->source_file = g_strdup (source_file);
 }
 
 PpsDocumentModel *
 pps_previewer_window_get_document_model (PpsPreviewerWindow *window)
 {
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
+
         g_return_val_if_fail (PPS_IS_PREVIEWER_WINDOW (window), NULL);
 
-        return window->model;
+        return priv->model;
 }
 
 /**
@@ -580,6 +607,8 @@ pps_previewer_window_set_source_fd (PpsPreviewerWindow *window,
                                    int                fd,
                                    GError           **error)
 {
+	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
+
         int nfd;
 
         g_return_val_if_fail (PPS_IS_PREVIEWER_WINDOW (window), FALSE);
@@ -594,10 +623,10 @@ pps_previewer_window_set_source_fd (PpsPreviewerWindow *window,
                 return FALSE;
         }
 
-        if (window->source_fd != -1)
-                close (window->source_fd);
+        if (priv->source_fd != -1)
+                close (priv->source_fd);
 
-        window->source_fd = fd;
+        priv->source_fd = fd;
 
         return TRUE;
 }
