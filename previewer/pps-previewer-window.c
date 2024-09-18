@@ -359,7 +359,6 @@ pps_previewer_window_dispose (GObject *object)
 	PpsPreviewerWindowPrivate *priv = GET_PRIVATE (window);
 
 	g_clear_object (&priv->job);
-	g_clear_object (&priv->model);
 	g_clear_object (&priv->document);
 	g_clear_object (&priv->print_settings);
 	g_clear_object (&priv->print_page_setup);
@@ -400,9 +399,6 @@ pps_previewer_window_constructed (GObject *object)
 
 	G_OBJECT_CLASS (pps_previewer_window_parent_class)->constructed (object);
 
-	priv->model = pps_document_model_new ();
-	pps_document_model_set_continuous (priv->model, FALSE);
-
 	pps_view_set_model (priv->view, priv->model);
 	pps_page_selector_set_model (PPS_PAGE_SELECTOR (priv->page_selector),
 			priv->model);
@@ -439,6 +435,7 @@ pps_previewer_window_class_init (PpsPreviewerWindowClass *klass)
 
 	gtk_widget_class_bind_template_child_private (widget_class, PpsPreviewerWindow, view);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsPreviewerWindow, page_selector);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsPreviewerWindow, model);
 }
 
 /* Public methods */

@@ -155,7 +155,7 @@ pps_pixbuf_cache_finalize (GObject *object)
 		pixbuf_cache->next_job = NULL;
 	}
 
-	g_object_unref (pixbuf_cache->model);
+	g_clear_object (&pixbuf_cache->model);
 
 	G_OBJECT_CLASS (pps_pixbuf_cache_parent_class)->finalize (object);
 }
