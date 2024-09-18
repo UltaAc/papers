@@ -8,8 +8,8 @@
   </object>
 
   <template class="PpsPreviewerWindow" parent="AdwApplicationWindow">
-    <property name="default-width">1280</property>
-    <property name="default-height">1280</property>
+    <property name="default-width">600</property>
+    <property name="default-height">600</property>
     <property name="title"></property>
 
     <property name="content">
