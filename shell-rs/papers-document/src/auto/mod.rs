@@ -54,6 +54,9 @@ pub use self::document_security::DocumentSecurity;
 mod document_text;
 pub use self::document_text::DocumentText;
 
+mod font_description;
+pub use self::font_description::FontDescription;
+
 mod image;
 pub use self::image::Image;
 
@@ -136,6 +139,7 @@ pub(crate) mod traits {
     pub use super::document_links::DocumentLinksExt;
     pub use super::document_security::DocumentSecurityExt;
     pub use super::document_text::DocumentTextExt;
+    pub use super::font_description::FontDescriptionExt;
     pub use super::image::ImageExt;
     pub use super::layer::LayerExt;
     pub use super::outlines::OutlinesExt;

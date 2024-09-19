@@ -106,6 +106,11 @@ impl Document {
     //pub fn misc_texture_from_surface(surface: /*Ignored*/&mut cairo::Surface) -> /*Ignored*/Option<gdk::Texture> {
     //    unsafe { TODO: call ffi:pps_document_misc_texture_from_surface() }
     //}
+
+    //#[doc(alias = "pps_document_signature_get_certificate_info")]
+    //pub fn signature_get_certificate_info(document_signatures: /*Ignored*/&DocumentSignatures, id: &str) -> /*Ignored*/Option<CertificateInfo> {
+    //    unsafe { TODO: call ffi:pps_document_signature_get_certificate_info() }
+    //}
 }
 
 mod sealed {

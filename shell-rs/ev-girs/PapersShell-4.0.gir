@@ -35,18 +35,18 @@ and/or use gtk-doc annotations.  -->
       <constructor name="new" c:identifier="pps_document_view_new">
         <doc xml:space="preserve"
              filename="shell/pps-document-view.c"
-             line="4298">Creates a #GtkWidget that represents the window.</doc>
+             line="4735">Creates a #GtkWidget that represents the window.</doc>
         <source-position filename="shell/pps-document-view.h" line="42"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="4303">the #GtkWidget that represents the window.</doc>
+               line="4740">the #GtkWidget that represents the window.</doc>
           <type name="DocumentView" c:type="PpsDocumentView*"/>
         </return-value>
       </constructor>
       <method name="close_handled"
               c:identifier="pps_document_view_close_handled">
-        <source-position filename="shell/pps-document-view.h" line="61"/>
+        <source-position filename="shell/pps-document-view.h" line="60"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -57,7 +57,7 @@ and/or use gtk-doc annotations.  -->
         </parameters>
       </method>
       <method name="focus_view" c:identifier="pps_document_view_focus_view">
-        <source-position filename="shell/pps-document-view.h" line="53"/>
+        <source-position filename="shell/pps-document-view.h" line="52"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -67,49 +67,37 @@ and/or use gtk-doc annotations.  -->
           </instance-parameter>
         </parameters>
       </method>
-      <method name="get_dbus_object_path"
-              c:identifier="pps_document_view_get_dbus_object_path">
-        <source-position filename="shell/pps-document-view.h" line="52"/>
-        <return-value transfer-ownership="none">
-          <type name="utf8" c:type="const gchar*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="pps_doc_view" transfer-ownership="none">
-            <type name="DocumentView" c:type="PpsDocumentView*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
       <method name="get_metadata"
               c:identifier="pps_document_view_get_metadata">
-        <source-position filename="shell/pps-document-view.h" line="56"/>
+        <source-position filename="shell/pps-document-view.h" line="55"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="4328">the #PpsMetadata of the document shown in the window.</doc>
+               line="4765">the #PpsMetadata of the document shown in the window.</doc>
           <type name="PapersView.Metadata" c:type="PpsMetadata*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="4326">the #PpsDocumentView</doc>
+                 line="4763">the #PpsDocumentView</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="get_model" c:identifier="pps_document_view_get_model">
-        <source-position filename="shell/pps-document-view.h" line="65"/>
+        <source-position filename="shell/pps-document-view.h" line="64"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="4390">the #PpsDocumentModel</doc>
+               line="4827">the #PpsDocumentModel</doc>
           <type name="PapersView.DocumentModel" c:type="PpsDocumentModel*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="4388">the #PpsDocumentView</doc>
+                 line="4825">the #PpsDocumentView</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
@@ -117,26 +105,26 @@ and/or use gtk-doc annotations.  -->
       <method name="get_uri" c:identifier="pps_document_view_get_uri">
         <doc xml:space="preserve"
              filename="shell/pps-document-view.c"
-             line="1287">It returns the uri of the document showed in the #PpsDocumentView.</doc>
+             line="1309">It returns the uri of the document showed in the #PpsDocumentView.</doc>
         <source-position filename="shell/pps-document-view.h" line="43"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="1293">the uri of the document showed in the #PpsDocumentView.</doc>
+               line="1315">the uri of the document showed in the #PpsDocumentView.</doc>
           <type name="utf8" c:type="const char*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1289">The instance of the #PpsDocumentView.</doc>
+                 line="1311">The instance of the #PpsDocumentView.</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="handle_annot_popup"
               c:identifier="pps_document_view_handle_annot_popup">
-        <source-position filename="shell/pps-document-view.h" line="54"/>
+        <source-position filename="shell/pps-document-view.h" line="53"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -152,13 +140,13 @@ and/or use gtk-doc annotations.  -->
       <method name="is_empty" c:identifier="pps_document_view_is_empty">
         <doc xml:space="preserve"
              filename="shell/pps-document-view.c"
-             line="414">It does look if there is any document loaded or if there is any job to load
+             line="431">It does look if there is any document loaded or if there is any job to load
 a document.</doc>
         <source-position filename="shell/pps-document-view.h" line="48"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="421">%TRUE if there isn't any document loaded or any any documente to be
+               line="438">%TRUE if there isn't any document loaded or any any documente to be
          loaded, %FALSE in other case.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -166,7 +154,7 @@ a document.</doc>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="416">The instance of the #PpsDocumentView.</doc>
+                 line="433">The instance of the #PpsDocumentView.</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
@@ -181,13 +169,13 @@ a document.</doc>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1316">A #PpsDocumentView</doc>
+                 line="1338">A #PpsDocumentView</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
           <parameter name="document" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1317">A #PpsDocument to open in the document view</doc>
+                 line="1339">A #PpsDocument to open in the document view</doc>
             <type name="PapersDocument.Document" c:type="PpsDocument*"/>
           </parameter>
           <parameter name="metadata"
@@ -196,7 +184,7 @@ a document.</doc>
                      allow-none="1">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1318">A #PpsMetadata if the documents supports it</doc>
+                 line="1340">A #PpsMetadata if the document supports it</doc>
             <type name="PapersView.Metadata" c:type="PpsMetadata*"/>
           </parameter>
           <parameter name="dest"
@@ -205,7 +193,7 @@ a document.</doc>
                      allow-none="1">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1319">A #PpsLinkDest</doc>
+                 line="1341">A #PpsLinkDest</doc>
             <type name="PapersDocument.LinkDest" c:type="PpsLinkDest*"/>
           </parameter>
         </parameters>
@@ -229,7 +217,7 @@ a document.</doc>
       </method>
       <method name="reload_document"
               c:identifier="pps_document_view_reload_document">
-        <source-position filename="shell/pps-document-view.h" line="59"/>
+        <source-position filename="shell/pps-document-view.h" line="58"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -244,7 +232,7 @@ a document.</doc>
       </method>
       <method name="set_document"
               c:identifier="pps_document_view_set_document">
-        <source-position filename="shell/pps-document-view.h" line="57"/>
+        <source-position filename="shell/pps-document-view.h" line="56"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -259,7 +247,7 @@ a document.</doc>
       </method>
       <method name="set_filenames"
               c:identifier="pps_document_view_set_filenames">
-        <source-position filename="shell/pps-document-view.h" line="62"/>
+        <source-position filename="shell/pps-document-view.h" line="61"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -277,7 +265,7 @@ a document.</doc>
       </method>
       <method name="set_fullscreen_mode"
               c:identifier="pps_document_view_set_fullscreen_mode">
-        <source-position filename="shell/pps-document-view.h" line="66"/>
+        <source-position filename="shell/pps-document-view.h" line="65"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -292,7 +280,7 @@ a document.</doc>
       </method>
       <method name="set_inverted_colors"
               c:identifier="pps_document_view_set_inverted_colors">
-        <source-position filename="shell/pps-document-view.h" line="68"/>
+        <source-position filename="shell/pps-document-view.h" line="67"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -479,114 +467,6 @@ a document.</doc>
       <source-position filename="shell/pps-message-area.h" line="33"/>
       <parameters>
         <parameter name="klass">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_OBJECT"
-                    c:identifier="PPS_IS_OBJECT"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="148"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_OBJECT_MANAGER_CLIENT"
-                    c:identifier="PPS_IS_OBJECT_MANAGER_CLIENT"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="234"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_OBJECT_MANAGER_CLIENT_CLASS"
-                    c:identifier="PPS_IS_OBJECT_MANAGER_CLIENT_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="235"/>
-      <parameters>
-        <parameter name="k">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_OBJECT_PROXY"
-                    c:identifier="PPS_IS_OBJECT_PROXY"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="169"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_OBJECT_PROXY_CLASS"
-                    c:identifier="PPS_IS_OBJECT_PROXY_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="170"/>
-      <parameters>
-        <parameter name="k">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_OBJECT_SKELETON"
-                    c:identifier="PPS_IS_OBJECT_SKELETON"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="200"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_OBJECT_SKELETON_CLASS"
-                    c:identifier="PPS_IS_OBJECT_SKELETON_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="201"/>
-      <parameters>
-        <parameter name="k">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_PAPERS_APPLICATION"
-                    c:identifier="PPS_IS_PAPERS_APPLICATION"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="22"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_PAPERS_APPLICATION_PROXY"
-                    c:identifier="PPS_IS_PAPERS_APPLICATION_PROXY"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="46"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_PAPERS_APPLICATION_PROXY_CLASS"
-                    c:identifier="PPS_IS_PAPERS_APPLICATION_PROXY_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="47"/>
-      <parameters>
-        <parameter name="k">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_PAPERS_APPLICATION_SKELETON"
-                    c:identifier="PPS_IS_PAPERS_APPLICATION_SKELETON"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="116"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="IS_PAPERS_APPLICATION_SKELETON_CLASS"
-                    c:identifier="PPS_IS_PAPERS_APPLICATION_SKELETON_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="117"/>
-      <parameters>
-        <parameter name="k">
         </parameter>
       </parameters>
     </function-macro>
@@ -797,804 +677,6 @@ a document.</doc>
         <type name="Adw.BinClass" c:type="AdwBinClass"/>
       </field>
     </record>
-    <function-macro name="OBJECT" c:identifier="PPS_OBJECT" introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="147"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="OBJECT_GET_IFACE"
-                    c:identifier="PPS_OBJECT_GET_IFACE"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="149"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="OBJECT_MANAGER_CLIENT"
-                    c:identifier="PPS_OBJECT_MANAGER_CLIENT"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="231"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="OBJECT_MANAGER_CLIENT_CLASS"
-                    c:identifier="PPS_OBJECT_MANAGER_CLIENT_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="232"/>
-      <parameters>
-        <parameter name="k">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="OBJECT_MANAGER_CLIENT_GET_CLASS"
-                    c:identifier="PPS_OBJECT_MANAGER_CLIENT_GET_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="233"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="OBJECT_PROXY"
-                    c:identifier="PPS_OBJECT_PROXY"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="166"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="OBJECT_PROXY_CLASS"
-                    c:identifier="PPS_OBJECT_PROXY_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="167"/>
-      <parameters>
-        <parameter name="k">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="OBJECT_PROXY_GET_CLASS"
-                    c:identifier="PPS_OBJECT_PROXY_GET_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="168"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="OBJECT_SKELETON"
-                    c:identifier="PPS_OBJECT_SKELETON"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="197"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="OBJECT_SKELETON_CLASS"
-                    c:identifier="PPS_OBJECT_SKELETON_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="198"/>
-      <parameters>
-        <parameter name="k">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="OBJECT_SKELETON_GET_CLASS"
-                    c:identifier="PPS_OBJECT_SKELETON_GET_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="199"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <interface name="Object"
-               c:symbol-prefix="object"
-               c:type="PpsObject"
-               glib:type-name="PpsObject"
-               glib:get-type="pps_object_get_type"
-               glib:type-struct="ObjectIface">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="923">The #PpsObject type is a specialized container of interfaces.</doc>
-      <source-position filename="shell/pps-gdbus-generated.h" line="158"/>
-      <prerequisite name="Gio.DBusObject"/>
-      <method name="get_papers_application"
-              c:identifier="pps_object_get_papers_application"
-              glib:get-property="papers-application">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="953">Gets the #PpsPapersApplication instance for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt; on @object, if any.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="162"/>
-        <return-value transfer-ownership="full" nullable="1">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="959">A #PpsPapersApplication that must be freed with g_object_unref() or %NULL if @object does not implement the interface.</doc>
-          <type name="PapersApplication" c:type="PpsPapersApplication*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="object" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="955">A #PpsObject.</doc>
-            <type name="Object" c:type="PpsObject*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="peek_papers_application"
-              c:identifier="pps_object_peek_papers_application"
-              introspectable="0">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="971">Like pps_object_get_papers_application() but doesn't increase the reference count on the returned object.
-
-It is not safe to use the returned object if you are on another thread than the one where the #GDBusObjectManagerClient or #GDBusObjectManagerServer for @object is running.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="163"/>
-        <return-value transfer-ownership="none" nullable="1">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="979">A #PpsPapersApplication or %NULL if @object does not implement the interface. Do not free the returned object, it is owned by @object.</doc>
-          <type name="PapersApplication" c:type="PpsPapersApplication*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="object" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="973">A #PpsObject.</doc>
-            <type name="Object" c:type="PpsObject*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <property name="papers-application"
-                writable="1"
-                transfer-ownership="none"
-                getter="get_papers_application">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="942">The #PpsPapersApplication instance corresponding to the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt;, if any.
-
-Connect to the #GObject::notify signal to get informed of property changes.</doc>
-        <type name="PapersApplication"/>
-      </property>
-    </interface>
-    <record name="ObjectIface"
-            c:type="PpsObjectIface"
-            glib:is-gtype-struct-for="Object">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="929">Virtual table for the #PpsObject interface.</doc>
-      <source-position filename="shell/pps-gdbus-generated.h" line="158"/>
-      <field name="parent_iface">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="931">The parent interface.</doc>
-        <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
-      </field>
-    </record>
-    <class name="ObjectManagerClient"
-           c:symbol-prefix="object_manager_client"
-           c:type="PpsObjectManagerClient"
-           parent="Gio.DBusObjectManagerClient"
-           glib:type-name="PpsObjectManagerClient"
-           glib:get-type="pps_object_manager_client_get_type"
-           glib:type-struct="ObjectManagerClientClass">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="1237">The #PpsObjectManagerClient structure contains only private data and should only be accessed using the provided API.</doc>
-      <source-position filename="shell/pps-gdbus-generated.h" line="251"/>
-      <implements name="Gio.AsyncInitable"/>
-      <implements name="Gio.DBusObjectManager"/>
-      <implements name="Gio.Initable"/>
-      <constructor name="new_finish"
-                   c:identifier="pps_object_manager_client_new_finish"
-                   throws="1">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="1324">Finishes an operation started with pps_object_manager_client_new().</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="269"/>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="1331">The constructed object manager client or %NULL if @error is set.</doc>
-          <type name="ObjectManagerClient" c:type="GDBusObjectManager*"/>
-        </return-value>
-        <parameters>
-          <parameter name="res" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1326">The #GAsyncResult obtained from the #GAsyncReadyCallback passed to pps_object_manager_client_new().</doc>
-            <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <constructor name="new_for_bus_finish"
-                   c:identifier="pps_object_manager_client_new_for_bus_finish"
-                   throws="1">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="1414">Finishes an operation started with pps_object_manager_client_new_for_bus().</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="288"/>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="1421">The constructed object manager client or %NULL if @error is set.</doc>
-          <type name="ObjectManagerClient" c:type="GDBusObjectManager*"/>
-        </return-value>
-        <parameters>
-          <parameter name="res" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1416">The #GAsyncResult obtained from the #GAsyncReadyCallback passed to pps_object_manager_client_new_for_bus().</doc>
-            <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <constructor name="new_for_bus_sync"
-                   c:identifier="pps_object_manager_client_new_for_bus_sync"
-                   throws="1">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="1439">Like pps_object_manager_client_new_sync() but takes a #GBusType instead of a #GDBusConnection.
-
-The calling thread is blocked until a reply is received.
-
-See pps_object_manager_client_new_for_bus() for the asynchronous version of this constructor.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="291"/>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="1454">The constructed object manager client or %NULL if @error is set.</doc>
-          <type name="ObjectManagerClient" c:type="GDBusObjectManager*"/>
-        </return-value>
-        <parameters>
-          <parameter name="bus_type" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1441">A #GBusType.</doc>
-            <type name="Gio.BusType" c:type="GBusType"/>
-          </parameter>
-          <parameter name="flags" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1442">Flags from the #GDBusObjectManagerClientFlags enumeration.</doc>
-            <type name="Gio.DBusObjectManagerClientFlags"
-                  c:type="GDBusObjectManagerClientFlags"/>
-          </parameter>
-          <parameter name="name" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1443">A bus name (well-known or unique).</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="object_path" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1444">An object path.</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="cancellable"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1445">A #GCancellable or %NULL.</doc>
-            <type name="Gio.Cancellable" c:type="GCancellable*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <constructor name="new_sync"
-                   c:identifier="pps_object_manager_client_new_sync"
-                   throws="1">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="1349">Synchronously creates #GDBusObjectManagerClient using pps_object_manager_client_get_proxy_type() as the #GDBusProxyTypeFunc. See g_dbus_object_manager_client_new_sync() for more details.
-
-The calling thread is blocked until a reply is received.
-
-See pps_object_manager_client_new() for the asynchronous version of this constructor.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="272"/>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="1364">The constructed object manager client or %NULL if @error is set.</doc>
-          <type name="ObjectManagerClient" c:type="GDBusObjectManager*"/>
-        </return-value>
-        <parameters>
-          <parameter name="connection" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1351">A #GDBusConnection.</doc>
-            <type name="Gio.DBusConnection" c:type="GDBusConnection*"/>
-          </parameter>
-          <parameter name="flags" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1352">Flags from the #GDBusObjectManagerClientFlags enumeration.</doc>
-            <type name="Gio.DBusObjectManagerClientFlags"
-                  c:type="GDBusObjectManagerClientFlags"/>
-          </parameter>
-          <parameter name="name"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1353">A bus name (well-known or unique) or %NULL if @connection is not a message bus connection.</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="object_path" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1354">An object path.</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="cancellable"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1355">A #GCancellable or %NULL.</doc>
-            <type name="Gio.Cancellable" c:type="GCancellable*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <function name="get_proxy_type"
-                c:identifier="pps_object_manager_client_get_proxy_type">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="1262">A #GDBusProxyTypeFunc that maps @interface_name to the generated #GDBusObjectProxy derived and #GDBusProxy derived types.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="259"/>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="1271">A #GDBusProxy derived #GType if @interface_name is not %NULL, otherwise the #GType for #PpsObjectProxy.</doc>
-          <type name="GType" c:type="GType"/>
-        </return-value>
-        <parameters>
-          <parameter name="manager" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1264">A #GDBusObjectManagerClient.</doc>
-            <type name="Gio.DBusObjectManagerClient"
-                  c:type="GDBusObjectManagerClient*"/>
-          </parameter>
-          <parameter name="object_path" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1265">The object path of the remote object (unused).</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="interface_name"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1266">Interface name of the remote object or %NULL to get the object proxy #GType.</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="user_data"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1267">User data (unused).</doc>
-            <type name="gpointer" c:type="gpointer"/>
-          </parameter>
-        </parameters>
-      </function>
-      <function name="new"
-                c:identifier="pps_object_manager_client_new"
-                glib:finish-func="new_finish">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="1294">Asynchronously creates #GDBusObjectManagerClient using pps_object_manager_client_get_proxy_type() as the #GDBusProxyTypeFunc. See g_dbus_object_manager_client_new() for more details.
-
-When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
-You can then call pps_object_manager_client_new_finish() to get the result of the operation.
-
-See pps_object_manager_client_new_sync() for the synchronous, blocking version of this constructor.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="261"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="connection" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1296">A #GDBusConnection.</doc>
-            <type name="Gio.DBusConnection" c:type="GDBusConnection*"/>
-          </parameter>
-          <parameter name="flags" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1297">Flags from the #GDBusObjectManagerClientFlags enumeration.</doc>
-            <type name="Gio.DBusObjectManagerClientFlags"
-                  c:type="GDBusObjectManagerClientFlags"/>
-          </parameter>
-          <parameter name="name"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1298">A bus name (well-known or unique) or %NULL if @connection is not a message bus connection.</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="object_path" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1299">An object path.</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="cancellable"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1300">A #GCancellable or %NULL.</doc>
-            <type name="Gio.Cancellable" c:type="GCancellable*"/>
-          </parameter>
-          <parameter name="callback"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1"
-                     scope="async"
-                     closure="6">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1301">A #GAsyncReadyCallback to call when the request is satisfied.</doc>
-            <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
-          </parameter>
-          <parameter name="user_data"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1302">User data to pass to @callback.</doc>
-            <type name="gpointer" c:type="gpointer"/>
-          </parameter>
-        </parameters>
-      </function>
-      <function name="new_for_bus"
-                c:identifier="pps_object_manager_client_new_for_bus"
-                glib:finish-func="new_for_bus_finish">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="1384">Like pps_object_manager_client_new() but takes a #GBusType instead of a #GDBusConnection.
-
-When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
-You can then call pps_object_manager_client_new_for_bus_finish() to get the result of the operation.
-
-See pps_object_manager_client_new_for_bus_sync() for the synchronous, blocking version of this constructor.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="280"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="bus_type" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1386">A #GBusType.</doc>
-            <type name="Gio.BusType" c:type="GBusType"/>
-          </parameter>
-          <parameter name="flags" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1387">Flags from the #GDBusObjectManagerClientFlags enumeration.</doc>
-            <type name="Gio.DBusObjectManagerClientFlags"
-                  c:type="GDBusObjectManagerClientFlags"/>
-          </parameter>
-          <parameter name="name" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1388">A bus name (well-known or unique).</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="object_path" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1389">An object path.</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="cancellable"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1390">A #GCancellable or %NULL.</doc>
-            <type name="Gio.Cancellable" c:type="GCancellable*"/>
-          </parameter>
-          <parameter name="callback"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1"
-                     scope="async"
-                     closure="6">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1391">A #GAsyncReadyCallback to call when the request is satisfied.</doc>
-            <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
-          </parameter>
-          <parameter name="user_data"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1392">User data to pass to @callback.</doc>
-            <type name="gpointer" c:type="gpointer"/>
-          </parameter>
-        </parameters>
-      </function>
-      <field name="parent_instance" readable="0" private="1">
-        <type name="Gio.DBusObjectManagerClient"
-              c:type="GDBusObjectManagerClient"/>
-      </field>
-      <field name="priv" readable="0" private="1">
-        <type name="ObjectManagerClientPrivate"
-              c:type="PpsObjectManagerClientPrivate*"/>
-      </field>
-    </class>
-    <record name="ObjectManagerClientClass"
-            c:type="PpsObjectManagerClientClass"
-            glib:is-gtype-struct-for="ObjectManagerClient">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="1243">Class structure for #PpsObjectManagerClient.</doc>
-      <source-position filename="shell/pps-gdbus-generated.h" line="251"/>
-      <field name="parent_class">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="1245">The parent class.</doc>
-        <type name="Gio.DBusObjectManagerClientClass"
-              c:type="GDBusObjectManagerClientClass"/>
-      </field>
-    </record>
-    <record name="ObjectManagerClientPrivate"
-            c:type="PpsObjectManagerClientPrivate"
-            disguised="1"
-            opaque="1">
-      <source-position filename="shell/pps-gdbus-generated.h" line="239"/>
-    </record>
-    <class name="ObjectProxy"
-           c:symbol-prefix="object_proxy"
-           c:type="PpsObjectProxy"
-           parent="Gio.DBusObjectProxy"
-           glib:type-name="PpsObjectProxy"
-           glib:get-type="pps_object_proxy_get_type"
-           glib:type-struct="ObjectProxyClass">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="1003">The #PpsObjectProxy structure contains only private data and should only be accessed using the provided API.</doc>
-      <source-position filename="shell/pps-gdbus-generated.h" line="186"/>
-      <implements name="Gio.DBusObject"/>
-      <implements name="Object"/>
-      <constructor name="new" c:identifier="pps_object_proxy_new">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="1080">Creates a new proxy object.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="194"/>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="1087">The proxy object.</doc>
-          <type name="ObjectProxy" c:type="PpsObjectProxy*"/>
-        </return-value>
-        <parameters>
-          <parameter name="connection" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1082">A #GDBusConnection.</doc>
-            <type name="Gio.DBusConnection" c:type="GDBusConnection*"/>
-          </parameter>
-          <parameter name="object_path" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1083">An object path.</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <field name="parent_instance" readable="0" private="1">
-        <type name="Gio.DBusObjectProxy" c:type="GDBusObjectProxy"/>
-      </field>
-      <field name="priv" readable="0" private="1">
-        <type name="ObjectProxyPrivate" c:type="PpsObjectProxyPrivate*"/>
-      </field>
-    </class>
-    <record name="ObjectProxyClass"
-            c:type="PpsObjectProxyClass"
-            glib:is-gtype-struct-for="ObjectProxy">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="1009">Class structure for #PpsObjectProxy.</doc>
-      <source-position filename="shell/pps-gdbus-generated.h" line="186"/>
-      <field name="parent_class">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="1011">The parent class.</doc>
-        <type name="Gio.DBusObjectProxyClass" c:type="GDBusObjectProxyClass"/>
-      </field>
-    </record>
-    <record name="ObjectProxyPrivate"
-            c:type="PpsObjectProxyPrivate"
-            disguised="1"
-            opaque="1">
-      <source-position filename="shell/pps-gdbus-generated.h" line="174"/>
-    </record>
-    <class name="ObjectSkeleton"
-           c:symbol-prefix="object_skeleton"
-           c:type="PpsObjectSkeleton"
-           parent="Gio.DBusObjectSkeleton"
-           glib:type-name="PpsObjectSkeleton"
-           glib:get-type="pps_object_skeleton_get_type"
-           glib:type-struct="ObjectSkeletonClass">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="1098">The #PpsObjectSkeleton structure contains only private data and should only be accessed using the provided API.</doc>
-      <source-position filename="shell/pps-gdbus-generated.h" line="217"/>
-      <implements name="Gio.DBusObject"/>
-      <implements name="Object"/>
-      <constructor name="new" c:identifier="pps_object_skeleton_new">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="1196">Creates a new skeleton object.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="225"/>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="1202">The skeleton object.</doc>
-          <type name="ObjectSkeleton" c:type="PpsObjectSkeleton*"/>
-        </return-value>
-        <parameters>
-          <parameter name="object_path" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1198">An object path.</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <method name="set_papers_application"
-              c:identifier="pps_object_skeleton_set_papers_application">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="1211">Sets the #PpsPapersApplication instance for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt; on @object.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="226"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="object" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1213">A #PpsObjectSkeleton.</doc>
-            <type name="ObjectSkeleton" c:type="PpsObjectSkeleton*"/>
-          </instance-parameter>
-          <parameter name="interface_"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="1214">A #PpsPapersApplication or %NULL to clear the interface.</doc>
-            <type name="PapersApplication" c:type="PpsPapersApplication*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <field name="parent_instance" readable="0" private="1">
-        <type name="Gio.DBusObjectSkeleton" c:type="GDBusObjectSkeleton"/>
-      </field>
-      <field name="priv" readable="0" private="1">
-        <type name="ObjectSkeletonPrivate" c:type="PpsObjectSkeletonPrivate*"/>
-      </field>
-    </class>
-    <record name="ObjectSkeletonClass"
-            c:type="PpsObjectSkeletonClass"
-            glib:is-gtype-struct-for="ObjectSkeleton">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="1104">Class structure for #PpsObjectSkeleton.</doc>
-      <source-position filename="shell/pps-gdbus-generated.h" line="217"/>
-      <field name="parent_class">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="1106">The parent class.</doc>
-        <type name="Gio.DBusObjectSkeletonClass"
-              c:type="GDBusObjectSkeletonClass"/>
-      </field>
-    </record>
-    <record name="ObjectSkeletonPrivate"
-            c:type="PpsObjectSkeletonPrivate"
-            disguised="1"
-            opaque="1">
-      <source-position filename="shell/pps-gdbus-generated.h" line="205"/>
-    </record>
-    <function-macro name="PAPERS_APPLICATION"
-                    c:identifier="PPS_PAPERS_APPLICATION"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="21"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="PAPERS_APPLICATION_GET_IFACE"
-                    c:identifier="PPS_PAPERS_APPLICATION_GET_IFACE"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="23"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="PAPERS_APPLICATION_PROXY"
-                    c:identifier="PPS_PAPERS_APPLICATION_PROXY"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="43"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="PAPERS_APPLICATION_PROXY_CLASS"
-                    c:identifier="PPS_PAPERS_APPLICATION_PROXY_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="44"/>
-      <parameters>
-        <parameter name="k">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="PAPERS_APPLICATION_PROXY_GET_CLASS"
-                    c:identifier="PPS_PAPERS_APPLICATION_PROXY_GET_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="45"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="PAPERS_APPLICATION_SKELETON"
-                    c:identifier="PPS_PAPERS_APPLICATION_SKELETON"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="113"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="PAPERS_APPLICATION_SKELETON_CLASS"
-                    c:identifier="PPS_PAPERS_APPLICATION_SKELETON_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="114"/>
-      <parameters>
-        <parameter name="k">
-        </parameter>
-      </parameters>
-    </function-macro>
-    <function-macro name="PAPERS_APPLICATION_SKELETON_GET_CLASS"
-                    c:identifier="PPS_PAPERS_APPLICATION_SKELETON_GET_CLASS"
-                    introspectable="0">
-      <source-position filename="shell/pps-gdbus-generated.h" line="115"/>
-      <parameters>
-        <parameter name="o">
-        </parameter>
-      </parameters>
-    </function-macro>
     <function-macro name="PROGRESS_MESSAGE_AREA"
                     c:identifier="PPS_PROGRESS_MESSAGE_AREA"
                     introspectable="0">
@@ -1622,485 +704,6 @@ See pps_object_manager_client_new_for_bus_sync() for the synchronous, blocking v
         </parameter>
       </parameters>
     </function-macro>
-    <interface name="PapersApplication"
-               c:symbol-prefix="papers_application"
-               c:type="PpsPapersApplication"
-               glib:type-name="PpsPapersApplication"
-               glib:get-type="pps_papers_application_get_type"
-               glib:type-struct="PapersApplicationIface">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="260">Abstract interface type for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt;.</doc>
-      <source-position filename="shell/pps-gdbus-generated.h" line="32"/>
-      <function name="interface_info"
-                c:identifier="pps_papers_application_interface_info">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="229">Gets a machine-readable description of the &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt; D-Bus interface.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="36"/>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="234">A #GDBusInterfaceInfo. Do not free.</doc>
-          <type name="Gio.DBusInterfaceInfo" c:type="GDBusInterfaceInfo*"/>
-        </return-value>
-      </function>
-      <function name="override_properties"
-                c:identifier="pps_papers_application_override_properties">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="242">Overrides all #GObject properties in the #PpsPapersApplication interface for a concrete class.
-The properties are overridden in the order they are defined.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="37"/>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="250">The last property id.</doc>
-          <type name="guint" c:type="guint"/>
-        </return-value>
-        <parameters>
-          <parameter name="klass" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="244">The class structure for a #GObject derived class.</doc>
-            <type name="GObject.ObjectClass" c:type="GObjectClass*"/>
-          </parameter>
-          <parameter name="property_id_begin" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="245">The property id to assign to the first overridden property.</doc>
-            <type name="guint" c:type="guint"/>
-          </parameter>
-        </parameters>
-      </function>
-    </interface>
-    <record name="PapersApplicationIface"
-            c:type="PpsPapersApplicationIface"
-            glib:is-gtype-struct-for="PapersApplication">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="266">Virtual table for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt;.</doc>
-      <source-position filename="shell/pps-gdbus-generated.h" line="32"/>
-      <field name="parent_iface">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="268">The parent interface.</doc>
-        <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
-      </field>
-    </record>
-    <class name="PapersApplicationProxy"
-           c:symbol-prefix="papers_application_proxy"
-           c:type="PpsPapersApplicationProxy"
-           parent="Gio.DBusProxy"
-           glib:type-name="PpsPapersApplicationProxy"
-           glib:get-type="pps_papers_application_proxy_get_type"
-           glib:type-struct="PapersApplicationProxyClass">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="283">The #PpsPapersApplicationProxy structure contains only private data and should only be accessed using the provided API.</doc>
-      <source-position filename="shell/pps-gdbus-generated.h" line="63"/>
-      <implements name="Gio.AsyncInitable"/>
-      <implements name="Gio.DBusInterface"/>
-      <implements name="Gio.Initable"/>
-      <implements name="PapersApplication"/>
-      <constructor name="new_finish"
-                   c:identifier="pps_papers_application_proxy_new_finish"
-                   throws="1">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="474">Finishes an operation started with pps_papers_application_proxy_new().</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="79"/>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="481">The constructed proxy object or %NULL if @error is set.</doc>
-          <type name="PapersApplicationProxy" c:type="PpsPapersApplication*"/>
-        </return-value>
-        <parameters>
-          <parameter name="res" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="476">The #GAsyncResult obtained from the #GAsyncReadyCallback passed to pps_papers_application_proxy_new().</doc>
-            <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <constructor name="new_for_bus_finish"
-                   c:identifier="pps_papers_application_proxy_new_for_bus_finish"
-                   throws="1">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="564">Finishes an operation started with pps_papers_application_proxy_new_for_bus().</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="98"/>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="571">The constructed proxy object or %NULL if @error is set.</doc>
-          <type name="PapersApplicationProxy" c:type="PpsPapersApplication*"/>
-        </return-value>
-        <parameters>
-          <parameter name="res" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="566">The #GAsyncResult obtained from the #GAsyncReadyCallback passed to pps_papers_application_proxy_new_for_bus().</doc>
-            <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <constructor name="new_for_bus_sync"
-                   c:identifier="pps_papers_application_proxy_new_for_bus_sync"
-                   throws="1">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="589">Like pps_papers_application_proxy_new_sync() but takes a #GBusType instead of a #GDBusConnection.
-
-The calling thread is blocked until a reply is received.
-
-See pps_papers_application_proxy_new_for_bus() for the asynchronous version of this constructor.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="101"/>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="604">The constructed proxy object or %NULL if @error is set.</doc>
-          <type name="PapersApplicationProxy" c:type="PpsPapersApplication*"/>
-        </return-value>
-        <parameters>
-          <parameter name="bus_type" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="591">A #GBusType.</doc>
-            <type name="Gio.BusType" c:type="GBusType"/>
-          </parameter>
-          <parameter name="flags" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="592">Flags from the #GDBusProxyFlags enumeration.</doc>
-            <type name="Gio.DBusProxyFlags" c:type="GDBusProxyFlags"/>
-          </parameter>
-          <parameter name="name" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="593">A bus name (well-known or unique).</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="object_path" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="594">An object path.</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="cancellable"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="595">A #GCancellable or %NULL.</doc>
-            <type name="Gio.Cancellable" c:type="GCancellable*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <constructor name="new_sync"
-                   c:identifier="pps_papers_application_proxy_new_sync"
-                   throws="1">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="499">Synchronously creates a proxy for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt;. See g_dbus_proxy_new_sync() for more details.
-
-The calling thread is blocked until a reply is received.
-
-See pps_papers_application_proxy_new() for the asynchronous version of this constructor.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="82"/>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="514">The constructed proxy object or %NULL if @error is set.</doc>
-          <type name="PapersApplicationProxy" c:type="PpsPapersApplication*"/>
-        </return-value>
-        <parameters>
-          <parameter name="connection" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="501">A #GDBusConnection.</doc>
-            <type name="Gio.DBusConnection" c:type="GDBusConnection*"/>
-          </parameter>
-          <parameter name="flags" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="502">Flags from the #GDBusProxyFlags enumeration.</doc>
-            <type name="Gio.DBusProxyFlags" c:type="GDBusProxyFlags"/>
-          </parameter>
-          <parameter name="name"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="503">A bus name (well-known or unique) or %NULL if @connection is not a message bus connection.</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="object_path" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="504">An object path.</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="cancellable"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="505">A #GCancellable or %NULL.</doc>
-            <type name="Gio.Cancellable" c:type="GCancellable*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <function name="new"
-                c:identifier="pps_papers_application_proxy_new"
-                glib:finish-func="new_finish">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="444">Asynchronously creates a proxy for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt;. See g_dbus_proxy_new() for more details.
-
-When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
-You can then call pps_papers_application_proxy_new_finish() to get the result of the operation.
-
-See pps_papers_application_proxy_new_sync() for the synchronous, blocking version of this constructor.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="71"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="connection" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="446">A #GDBusConnection.</doc>
-            <type name="Gio.DBusConnection" c:type="GDBusConnection*"/>
-          </parameter>
-          <parameter name="flags" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="447">Flags from the #GDBusProxyFlags enumeration.</doc>
-            <type name="Gio.DBusProxyFlags" c:type="GDBusProxyFlags"/>
-          </parameter>
-          <parameter name="name"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="448">A bus name (well-known or unique) or %NULL if @connection is not a message bus connection.</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="object_path" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="449">An object path.</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="cancellable"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="450">A #GCancellable or %NULL.</doc>
-            <type name="Gio.Cancellable" c:type="GCancellable*"/>
-          </parameter>
-          <parameter name="callback"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1"
-                     scope="async"
-                     closure="6">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="451">A #GAsyncReadyCallback to call when the request is satisfied.</doc>
-            <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
-          </parameter>
-          <parameter name="user_data"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="452">User data to pass to @callback.</doc>
-            <type name="gpointer" c:type="gpointer"/>
-          </parameter>
-        </parameters>
-      </function>
-      <function name="new_for_bus"
-                c:identifier="pps_papers_application_proxy_new_for_bus"
-                glib:finish-func="new_for_bus_finish">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="534">Like pps_papers_application_proxy_new() but takes a #GBusType instead of a #GDBusConnection.
-
-When the operation is finished, @callback will be invoked in the thread-default main loop of the thread you are calling this method from (see g_main_context_push_thread_default()).
-You can then call pps_papers_application_proxy_new_for_bus_finish() to get the result of the operation.
-
-See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blocking version of this constructor.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="90"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <parameter name="bus_type" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="536">A #GBusType.</doc>
-            <type name="Gio.BusType" c:type="GBusType"/>
-          </parameter>
-          <parameter name="flags" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="537">Flags from the #GDBusProxyFlags enumeration.</doc>
-            <type name="Gio.DBusProxyFlags" c:type="GDBusProxyFlags"/>
-          </parameter>
-          <parameter name="name" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="538">A bus name (well-known or unique).</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="object_path" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="539">An object path.</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="cancellable"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="540">A #GCancellable or %NULL.</doc>
-            <type name="Gio.Cancellable" c:type="GCancellable*"/>
-          </parameter>
-          <parameter name="callback"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1"
-                     scope="async"
-                     closure="6">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="541">A #GAsyncReadyCallback to call when the request is satisfied.</doc>
-            <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
-          </parameter>
-          <parameter name="user_data"
-                     transfer-ownership="none"
-                     nullable="1"
-                     allow-none="1">
-            <doc xml:space="preserve"
-                 filename="shell/pps-gdbus-generated.c"
-                 line="542">User data to pass to @callback.</doc>
-            <type name="gpointer" c:type="gpointer"/>
-          </parameter>
-        </parameters>
-      </function>
-      <field name="parent_instance" readable="0" private="1">
-        <type name="Gio.DBusProxy" c:type="GDBusProxy"/>
-      </field>
-      <field name="priv" readable="0" private="1">
-        <type name="PapersApplicationProxyPrivate"
-              c:type="PpsPapersApplicationProxyPrivate*"/>
-      </field>
-    </class>
-    <record name="PapersApplicationProxyClass"
-            c:type="PpsPapersApplicationProxyClass"
-            glib:is-gtype-struct-for="PapersApplicationProxy">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="289">Class structure for #PpsPapersApplicationProxy.</doc>
-      <source-position filename="shell/pps-gdbus-generated.h" line="63"/>
-      <field name="parent_class">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="291">The parent class.</doc>
-        <type name="Gio.DBusProxyClass" c:type="GDBusProxyClass"/>
-      </field>
-    </record>
-    <record name="PapersApplicationProxyPrivate"
-            c:type="PpsPapersApplicationProxyPrivate"
-            disguised="1"
-            opaque="1">
-      <source-position filename="shell/pps-gdbus-generated.h" line="51"/>
-    </record>
-    <class name="PapersApplicationSkeleton"
-           c:symbol-prefix="papers_application_skeleton"
-           c:type="PpsPapersApplicationSkeleton"
-           parent="Gio.DBusInterfaceSkeleton"
-           glib:type-name="PpsPapersApplicationSkeleton"
-           glib:get-type="pps_papers_application_skeleton_get_type"
-           glib:type-struct="PapersApplicationSkeletonClass">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="626">The #PpsPapersApplicationSkeleton structure contains only private data and should only be accessed using the provided API.</doc>
-      <source-position filename="shell/pps-gdbus-generated.h" line="133"/>
-      <implements name="Gio.DBusInterface"/>
-      <implements name="PapersApplication"/>
-      <constructor name="new"
-                   c:identifier="pps_papers_application_skeleton_new">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="897">Creates a skeleton object for the D-Bus interface &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt;.</doc>
-        <source-position filename="shell/pps-gdbus-generated.h" line="141"/>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="902">The skeleton object.</doc>
-          <type name="PapersApplicationSkeleton"
-                c:type="PpsPapersApplication*"/>
-        </return-value>
-      </constructor>
-      <field name="parent_instance" readable="0" private="1">
-        <type name="Gio.DBusInterfaceSkeleton"
-              c:type="GDBusInterfaceSkeleton"/>
-      </field>
-      <field name="priv" readable="0" private="1">
-        <type name="PapersApplicationSkeletonPrivate"
-              c:type="PpsPapersApplicationSkeletonPrivate*"/>
-      </field>
-    </class>
-    <record name="PapersApplicationSkeletonClass"
-            c:type="PpsPapersApplicationSkeletonClass"
-            glib:is-gtype-struct-for="PapersApplicationSkeleton">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="632">Class structure for #PpsPapersApplicationSkeleton.</doc>
-      <source-position filename="shell/pps-gdbus-generated.h" line="133"/>
-      <field name="parent_class">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="634">The parent class.</doc>
-        <type name="Gio.DBusInterfaceSkeletonClass"
-              c:type="GDBusInterfaceSkeletonClass"/>
-      </field>
-    </record>
-    <record name="PapersApplicationSkeletonPrivate"
-            c:type="PpsPapersApplicationSkeletonPrivate"
-            disguised="1"
-            opaque="1">
-      <source-position filename="shell/pps-gdbus-generated.h" line="121"/>
-    </record>
-    <docsection name="PpsObject">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="915">This section contains the #PpsObject, #PpsObjectProxy, and #PpsObjectSkeleton types which make it easier to work with objects implementing generated types for D-Bus interfaces.</doc>
-    </docsection>
-    <docsection name="PpsObjectManagerClient">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="1229">This section contains a #GDBusObjectManagerClient that uses pps_object_manager_client_get_proxy_type() as the #GDBusProxyTypeFunc.</doc>
-    </docsection>
-    <docsection name="PpsPapersApplication">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="205">This section contains code for working with the &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt; D-Bus interface in C.</doc>
-    </docsection>
     <class name="ProgressMessageArea"
            c:symbol-prefix="progress_message_area"
            c:type="PpsProgressMessageArea"
@@ -2302,7 +905,7 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
     </record>
     <function name="gdk_pixbuf_format_by_extension"
               c:identifier="pps_gdk_pixbuf_format_by_extension">
-      <source-position filename="shell/pps-utils.h" line="33"/>
+      <source-position filename="shell/pps-utils.h" line="31"/>
       <return-value transfer-ownership="full">
         <type name="GdkPixbuf.PixbufFormat" c:type="GdkPixbufFormat*"/>
       </return-value>
@@ -2318,63 +921,8 @@ See pps_papers_application_proxy_new_for_bus_sync() for the synchronous, blockin
         <type name="Gio.Resource" c:type="GResource*"/>
       </return-value>
     </function>
-    <function name="papers_application_interface_info"
-              c:identifier="pps_papers_application_interface_info"
-              moved-to="PapersApplication.interface_info">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="229">Gets a machine-readable description of the &lt;link linkend="gdbus-interface-org-gnome-Papers-Application.top_of_page"&gt;org.gnome.Papers.Application&lt;/link&gt; D-Bus interface.</doc>
-      <source-position filename="shell/pps-gdbus-generated.h" line="36"/>
-      <return-value transfer-ownership="none">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="234">A #GDBusInterfaceInfo. Do not free.</doc>
-        <type name="Gio.DBusInterfaceInfo" c:type="GDBusInterfaceInfo*"/>
-      </return-value>
-    </function>
-    <function name="papers_application_override_properties"
-              c:identifier="pps_papers_application_override_properties"
-              moved-to="PapersApplication.override_properties">
-      <doc xml:space="preserve"
-           filename="shell/pps-gdbus-generated.c"
-           line="242">Overrides all #GObject properties in the #PpsPapersApplication interface for a concrete class.
-The properties are overridden in the order they are defined.</doc>
-      <source-position filename="shell/pps-gdbus-generated.h" line="37"/>
-      <return-value transfer-ownership="none">
-        <doc xml:space="preserve"
-             filename="shell/pps-gdbus-generated.c"
-             line="250">The last property id.</doc>
-        <type name="guint" c:type="guint"/>
-      </return-value>
-      <parameters>
-        <parameter name="klass" transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="244">The class structure for a #GObject derived class.</doc>
-          <type name="GObject.ObjectClass" c:type="GObjectClass*"/>
-        </parameter>
-        <parameter name="property_id_begin" transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="shell/pps-gdbus-generated.c"
-               line="245">The property id to assign to the first overridden property.</doc>
-          <type name="guint" c:type="guint"/>
-        </parameter>
-      </parameters>
-    </function>
-    <function name="print_region_contents"
-              c:identifier="pps_print_region_contents">
-      <source-position filename="shell/pps-utils.h" line="31"/>
-      <return-value transfer-ownership="none">
-        <type name="none" c:type="void"/>
-      </return-value>
-      <parameters>
-        <parameter name="region" transfer-ownership="none">
-          <type name="cairo.Region" c:type="cairo_region_t*"/>
-        </parameter>
-      </parameters>
-    </function>
     <function name="spawn" c:identifier="pps_spawn">
-      <source-position filename="shell/pps-utils.h" line="34"/>
+      <source-position filename="shell/pps-utils.h" line="32"/>
       <return-value transfer-ownership="none">
         <type name="none" c:type="void"/>
       </return-value>
@@ -2385,7 +933,7 @@ The properties are overridden in the order they are defined.</doc>
                    allow-none="1">
           <doc xml:space="preserve"
                filename="shell/pps-utils.c"
-               line="92">The uri to be opened.</doc>
+               line="63">The uri to be opened.</doc>
           <type name="utf8" c:type="const char*"/>
         </parameter>
         <parameter name="dest"
@@ -2394,7 +942,7 @@ The properties are overridden in the order they are defined.</doc>
                    allow-none="1">
           <doc xml:space="preserve"
                filename="shell/pps-utils.c"
-               line="93">The #PpsLinkDest of the document.</doc>
+               line="64">The #PpsLinkDest of the document.</doc>
           <type name="PapersDocument.LinkDest" c:type="PpsLinkDest*"/>
         </parameter>
       </parameters>

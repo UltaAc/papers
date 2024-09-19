@@ -17,11 +17,6 @@ use glib::translate::*;
 //    unsafe { TODO: call ffi:pps_get_resource() }
 //}
 
-//#[doc(alias = "pps_print_region_contents")]
-//pub fn print_region_contents(region: /*Ignored*/&mut cairo::Region) {
-//    unsafe { TODO: call ffi:pps_print_region_contents() }
-//}
-
 #[doc(alias = "pps_spawn")]
 pub fn spawn(uri: Option<&str>, dest: Option<&papers_document::LinkDest>) {
     assert_initialized_main_thread!();

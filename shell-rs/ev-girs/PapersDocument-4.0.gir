@@ -1427,6 +1427,82 @@ equal to the required one, and &lt;literal&gt;0&lt;/literal&gt; otherwise.</doc>
         </parameter>
       </parameters>
     </function-macro>
+    <record name="CertificateInfo"
+            c:type="PpsCertificateInfo"
+            glib:type-name="PpsCertificateInfo"
+            glib:get-type="pps_certificate_info_get_type"
+            c:symbol-prefix="certificate_info">
+      <source-position filename="libdocument/pps-signature.h" line="42"/>
+      <field name="id" writable="1">
+        <type name="utf8" c:type="char*"/>
+      </field>
+      <field name="subject_common_name" writable="1">
+        <type name="utf8" c:type="char*"/>
+      </field>
+      <constructor name="new" c:identifier="pps_certificate_info_new">
+        <source-position filename="libdocument/pps-signature.h" line="51"/>
+        <return-value transfer-ownership="full">
+          <type name="CertificateInfo" c:type="PpsCertificateInfo*"/>
+        </return-value>
+        <parameters>
+          <parameter name="id" transfer-ownership="none">
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+          <parameter name="subject_common_name" transfer-ownership="none">
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="copy" c:identifier="pps_certificate_info_copy">
+        <source-position filename="libdocument/pps-signature.h" line="55"/>
+        <return-value transfer-ownership="full">
+          <type name="CertificateInfo" c:type="PpsCertificateInfo*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="certificate_info"
+                              transfer-ownership="none">
+            <type name="CertificateInfo" c:type="const PpsCertificateInfo*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="free" c:identifier="pps_certificate_info_free">
+        <source-position filename="libdocument/pps-signature.h" line="58"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="certificate_info"
+                              transfer-ownership="none">
+            <type name="CertificateInfo" c:type="PpsCertificateInfo*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_id" c:identifier="pps_certificate_info_get_id">
+        <source-position filename="libdocument/pps-signature.h" line="61"/>
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="certificate_info"
+                              transfer-ownership="none">
+            <type name="CertificateInfo" c:type="const PpsCertificateInfo*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_subject_common_name"
+              c:identifier="pps_certificate_info_get_subject_common_name">
+        <source-position filename="libdocument/pps-signature.h" line="64"/>
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="certificate_info"
+                              transfer-ownership="none">
+            <type name="CertificateInfo" c:type="const PpsCertificateInfo*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+    </record>
     <enumeration name="CompressionType"
                  glib:type-name="PpsCompressionType"
                  glib:get-type="pps_compression_type_get_type"
@@ -1781,6 +1857,22 @@ Returns 96 as fallback value.</doc>
                  filename="libdocument/pps-document-misc.c"
                  line="68">a #cairo_surface_t</doc>
             <type name="cairo.Surface" c:type="cairo_surface_t*"/>
+          </parameter>
+        </parameters>
+      </function>
+      <function name="signature_get_certificate_info"
+                c:identifier="pps_document_signature_get_certificate_info">
+        <source-position filename="libdocument/pps-document-signatures.h"
+                         line="71"/>
+        <return-value transfer-ownership="full">
+          <type name="CertificateInfo" c:type="PpsCertificateInfo*"/>
+        </return-value>
+        <parameters>
+          <parameter name="document_signatures" transfer-ownership="none">
+            <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+          </parameter>
+          <parameter name="id" transfer-ownership="none">
+            <type name="utf8" c:type="const char*"/>
           </parameter>
         </parameters>
       </function>
@@ -6719,6 +6811,486 @@ interface</doc>
         </callback>
       </field>
     </record>
+    <interface name="DocumentSignatures"
+               c:symbol-prefix="document_signatures"
+               c:type="PpsDocumentSignatures"
+               glib:type-name="PpsDocumentSignatures"
+               glib:get-type="pps_document_signatures_get_type"
+               glib:type-struct="DocumentSignaturesInterface">
+      <source-position filename="libdocument/pps-document-signatures.h"
+                       line="61"/>
+      <virtual-method name="can_sign" invoker="can_sign">
+        <doc xml:space="preserve"
+             filename="libdocument/pps-document-signatures.c"
+             line="140">Checks whether document supports digital signing.</doc>
+        <source-position filename="libdocument/pps-document-signatures.h"
+                         line="60"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-signatures.c"
+               line="146">%TRUE if signing is supported,otherwise %FALSE</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_signatures"
+                              transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="142">a #PpsDocumentSignatures</doc>
+            <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+          </instance-parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="get_available_signing_certificates"
+                      invoker="get_available_signing_certificates">
+        <source-position filename="libdocument/pps-document-signatures.h"
+                         line="49"/>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-signatures.c"
+               line="54">a list of #PpsCertificateInfo objects or %NULL</doc>
+          <type name="GLib.List" c:type="GList*">
+            <type name="CertificateInfo"/>
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_signatures"
+                              transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="52">an #PpsDocumentSignatures</doc>
+            <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+          </instance-parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="get_certificate_info">
+        <source-position filename="libdocument/pps-document-signatures.h"
+                         line="50"/>
+        <return-value transfer-ownership="full">
+          <type name="CertificateInfo" c:type="PpsCertificateInfo*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_signatures"
+                              transfer-ownership="none">
+            <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+          </instance-parameter>
+          <parameter name="nick_name" transfer-ownership="none">
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="set_password_callback"
+                      invoker="set_password_callback">
+        <doc xml:space="preserve"
+             filename="libdocument/pps-document-signatures.c"
+             line="32">Popplers crypto backend asks for certificate password before access,
+so set a helper function to actually allow the user to enter his password.</doc>
+        <source-position filename="libdocument/pps-document-signatures.h"
+                         line="47"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_signatures"
+                              transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="34">an #PpsDocumentSignatures</doc>
+            <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+          </instance-parameter>
+          <parameter name="cb" transfer-ownership="none" scope="call">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="35">an #PpsSignaturePasswordCallback</doc>
+            <type name="SignaturePasswordCallback"
+                  c:type="PpsSignaturePasswordCallback"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="sign" glib:finish-func="sign_finish">
+        <source-position filename="libdocument/pps-document-signatures.h"
+                         line="52"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_signatures"
+                              transfer-ownership="none">
+            <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+          </instance-parameter>
+          <parameter name="signature" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </parameter>
+          <parameter name="cancellable"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <type name="Gio.Cancellable" c:type="GCancellable*"/>
+          </parameter>
+          <parameter name="callback"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     scope="async"
+                     closure="3">
+            <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+          </parameter>
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     closure="3">
+            <type name="gpointer" c:type="gpointer"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="sign_finish" invoker="sign_finish" throws="1">
+        <doc xml:space="preserve"
+             filename="libdocument/pps-document-signatures.c"
+             line="115">Finish `pps_document_signatures_sign` operation,</doc>
+        <source-position filename="libdocument/pps-document-signatures.h"
+                         line="57"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-signatures.c"
+               line="123">%TRUE if signing finish has been started,otherwise %FALSE</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_signatures"
+                              transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="117">a #PpsDocumentSignatures</doc>
+            <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+          </instance-parameter>
+          <parameter name="result" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="118">a #GAsyncResult</doc>
+            <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="can_sign" c:identifier="pps_document_signatures_can_sign">
+        <doc xml:space="preserve"
+             filename="libdocument/pps-document-signatures.c"
+             line="140">Checks whether document supports digital signing.</doc>
+        <source-position filename="libdocument/pps-document-signatures.h"
+                         line="83"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-signatures.c"
+               line="146">%TRUE if signing is supported,otherwise %FALSE</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_signatures"
+                              transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="142">a #PpsDocumentSignatures</doc>
+            <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_available_signing_certificates"
+              c:identifier="pps_document_signatures_get_available_signing_certificates">
+        <source-position filename="libdocument/pps-document-signatures.h"
+                         line="64"/>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-signatures.c"
+               line="54">a list of #PpsCertificateInfo objects or %NULL</doc>
+          <type name="GLib.List" c:type="GList*">
+            <type name="CertificateInfo"/>
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_signatures"
+                              transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="52">an #PpsDocumentSignatures</doc>
+            <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="set_password_callback"
+              c:identifier="pps_document_signatures_set_password_callback">
+        <doc xml:space="preserve"
+             filename="libdocument/pps-document-signatures.c"
+             line="32">Popplers crypto backend asks for certificate password before access,
+so set a helper function to actually allow the user to enter his password.</doc>
+        <source-position filename="libdocument/pps-document-signatures.h"
+                         line="67"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_signatures"
+                              transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="34">an #PpsDocumentSignatures</doc>
+            <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+          </instance-parameter>
+          <parameter name="cb" transfer-ownership="none" scope="call">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="35">an #PpsSignaturePasswordCallback</doc>
+            <type name="SignaturePasswordCallback"
+                  c:type="PpsSignaturePasswordCallback"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="sign"
+              c:identifier="pps_document_signatures_sign"
+              glib:finish-func="sign_finish">
+        <doc xml:space="preserve"
+             filename="libdocument/pps-document-signatures.c"
+             line="86">Start the final async process of signing a document using the prepared signature.</doc>
+        <source-position filename="libdocument/pps-document-signatures.h"
+                         line="76"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-signatures.c"
+               line="96">%TRUE if signing has been started,otherwise %FALSE</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_signatures"
+                              transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="88">an #PpsDocumentSignatures</doc>
+            <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+          </instance-parameter>
+          <parameter name="signature" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="89">a #PpsSignature</doc>
+            <type name="Signature" c:type="PpsSignature*"/>
+          </parameter>
+          <parameter name="cancellable"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="90">a #GCancellable</doc>
+            <type name="Gio.Cancellable" c:type="GCancellable*"/>
+          </parameter>
+          <parameter name="callback"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     scope="async"
+                     closure="3">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="91">a #GAsyncReadyCallback</doc>
+            <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+          </parameter>
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="92">callback user data</doc>
+            <type name="gpointer" c:type="gpointer"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="sign_finish"
+              c:identifier="pps_document_signatures_sign_finish"
+              throws="1">
+        <doc xml:space="preserve"
+             filename="libdocument/pps-document-signatures.c"
+             line="115">Finish `pps_document_signatures_sign` operation,</doc>
+        <source-position filename="libdocument/pps-document-signatures.h"
+                         line="87"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-signatures.c"
+               line="123">%TRUE if signing finish has been started,otherwise %FALSE</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_signatures"
+                              transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="117">a #PpsDocumentSignatures</doc>
+            <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+          </instance-parameter>
+          <parameter name="result" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="118">a #GAsyncResult</doc>
+            <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+          </parameter>
+        </parameters>
+      </method>
+    </interface>
+    <record name="DocumentSignaturesInterface"
+            c:type="PpsDocumentSignaturesInterface"
+            glib:is-gtype-struct-for="DocumentSignatures">
+      <source-position filename="libdocument/pps-document-signatures.h"
+                       line="61"/>
+      <field name="base_iface">
+        <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
+      </field>
+      <field name="set_password_callback">
+        <callback name="set_password_callback">
+          <source-position filename="libdocument/pps-document-signatures.h"
+                           line="47"/>
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="document_signatures" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="libdocument/pps-document-signatures.c"
+                   line="34">an #PpsDocumentSignatures</doc>
+              <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+            </parameter>
+            <parameter name="cb" transfer-ownership="none" scope="call">
+              <doc xml:space="preserve"
+                   filename="libdocument/pps-document-signatures.c"
+                   line="35">an #PpsSignaturePasswordCallback</doc>
+              <type name="SignaturePasswordCallback"
+                    c:type="PpsSignaturePasswordCallback"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="get_available_signing_certificates">
+        <callback name="get_available_signing_certificates">
+          <source-position filename="libdocument/pps-document-signatures.h"
+                           line="49"/>
+          <return-value transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="54">a list of #PpsCertificateInfo objects or %NULL</doc>
+            <type name="GLib.List" c:type="GList*">
+              <type name="CertificateInfo"/>
+            </type>
+          </return-value>
+          <parameters>
+            <parameter name="document_signatures" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="libdocument/pps-document-signatures.c"
+                   line="52">an #PpsDocumentSignatures</doc>
+              <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="get_certificate_info">
+        <callback name="get_certificate_info">
+          <source-position filename="libdocument/pps-document-signatures.h"
+                           line="50"/>
+          <return-value transfer-ownership="full">
+            <type name="CertificateInfo" c:type="PpsCertificateInfo*"/>
+          </return-value>
+          <parameters>
+            <parameter name="document_signatures" transfer-ownership="none">
+              <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+            </parameter>
+            <parameter name="nick_name" transfer-ownership="none">
+              <type name="utf8" c:type="const char*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="sign">
+        <callback name="sign">
+          <source-position filename="libdocument/pps-document-signatures.h"
+                           line="52"/>
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="document_signatures" transfer-ownership="none">
+              <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+            </parameter>
+            <parameter name="signature" transfer-ownership="none">
+              <type name="Signature" c:type="PpsSignature*"/>
+            </parameter>
+            <parameter name="cancellable"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
+              <type name="Gio.Cancellable" c:type="GCancellable*"/>
+            </parameter>
+            <parameter name="callback"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1"
+                       scope="async"
+                       closure="4">
+              <type name="Gio.AsyncReadyCallback"
+                    c:type="GAsyncReadyCallback"/>
+            </parameter>
+            <parameter name="user_data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1"
+                       closure="4">
+              <type name="gpointer" c:type="gpointer"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="sign_finish">
+        <callback name="sign_finish" throws="1">
+          <source-position filename="libdocument/pps-document-signatures.h"
+                           line="57"/>
+          <return-value transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="123">%TRUE if signing finish has been started,otherwise %FALSE</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="document_signatures" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="libdocument/pps-document-signatures.c"
+                   line="117">a #PpsDocumentSignatures</doc>
+              <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+            </parameter>
+            <parameter name="result" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="libdocument/pps-document-signatures.c"
+                   line="118">a #GAsyncResult</doc>
+              <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="can_sign">
+        <callback name="can_sign">
+          <source-position filename="libdocument/pps-document-signatures.h"
+                           line="60"/>
+          <return-value transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="146">%TRUE if signing is supported,otherwise %FALSE</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="document_signatures" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="libdocument/pps-document-signatures.c"
+                   line="142">a #PpsDocumentSignatures</doc>
+              <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
     <interface name="DocumentText"
                c:symbol-prefix="document_text"
                c:type="PpsDocumentText"
@@ -9601,6 +10173,14 @@ interface</doc>
       <source-position filename="libdocument/pps-version.h" line="35"/>
       <type name="gint" c:type="gint"/>
     </constant>
+    <constant name="MINOR_VERSION" value="0" c:type="PPS_MINOR_VERSION">
+      <doc xml:space="preserve"
+           filename="libdocument/pps-version.h"
+           line="37">The minor version number of the EV library
+(e.g. in version 3.1.4 this is 1).</doc>
+      <source-position filename="libdocument/pps-version.h" line="43"/>
+      <type name="gint" c:type="gint"/>
+    </constant>
     <record name="Mapping"
             c:type="PpsMapping"
             glib:type-name="PpsMapping"
@@ -10812,6 +11392,449 @@ interface</doc>
               glib:name="PPS_SELECTION_STYLE_LINE">
       </member>
     </enumeration>
+    <class name="Signature"
+           c:symbol-prefix="signature"
+           c:type="PpsSignature"
+           parent="GObject.Object"
+           glib:type-name="PpsSignature"
+           glib:get-type="pps_signature_get_type"
+           glib:type-struct="SignatureClass">
+      <source-position filename="libdocument/pps-signature.h" line="36"/>
+      <constructor name="new" c:identifier="pps_signature_new">
+        <source-position filename="libdocument/pps-signature.h" line="76"/>
+        <return-value transfer-ownership="full">
+          <type name="Signature" c:type="PpsSignature*"/>
+        </return-value>
+      </constructor>
+      <method name="get_background_color"
+              c:identifier="pps_signature_get_background_color">
+        <source-position filename="libdocument/pps-signature.h" line="192"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="color" transfer-ownership="none">
+            <type name="Gdk.RGBA" c:type="GdkRGBA*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_border_color"
+              c:identifier="pps_signature_get_border_color">
+        <source-position filename="libdocument/pps-signature.h" line="182"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="color" transfer-ownership="none">
+            <type name="Gdk.RGBA" c:type="GdkRGBA*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_border_width"
+              c:identifier="pps_signature_get_border_width">
+        <source-position filename="libdocument/pps-signature.h" line="153"/>
+        <return-value transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_certificate_info"
+              c:identifier="pps_signature_get_certificate_info">
+        <source-position filename="libdocument/pps-signature.h" line="84"/>
+        <return-value transfer-ownership="full">
+          <type name="CertificateInfo" c:type="PpsCertificateInfo*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_destination_file"
+              c:identifier="pps_signature_get_destination_file">
+        <source-position filename="libdocument/pps-signature.h" line="92"/>
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_font_color"
+              c:identifier="pps_signature_get_font_color">
+        <source-position filename="libdocument/pps-signature.h" line="172"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="color" transfer-ownership="none">
+            <type name="Gdk.RGBA" c:type="GdkRGBA*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_font_size" c:identifier="pps_signature_get_font_size">
+        <source-position filename="libdocument/pps-signature.h" line="134"/>
+        <return-value transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_left_font_size"
+              c:identifier="pps_signature_get_left_font_size">
+        <source-position filename="libdocument/pps-signature.h" line="143"/>
+        <return-value transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_owner_password"
+              c:identifier="pps_signature_get_owner_password">
+        <source-position filename="libdocument/pps-signature.h" line="202"/>
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_page" c:identifier="pps_signature_get_page">
+        <source-position filename="libdocument/pps-signature.h" line="100"/>
+        <return-value transfer-ownership="none">
+          <type name="gint" c:type="gint"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_password" c:identifier="pps_signature_get_password">
+        <source-position filename="libdocument/pps-signature.h" line="163"/>
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_rect" c:identifier="pps_signature_get_rect">
+        <source-position filename="libdocument/pps-signature.h" line="108"/>
+        <return-value transfer-ownership="full">
+          <type name="Rectangle" c:type="PpsRectangle*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_signature" c:identifier="pps_signature_get_signature">
+        <source-position filename="libdocument/pps-signature.h" line="116"/>
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_signature_left"
+              c:identifier="pps_signature_get_signature_left">
+        <source-position filename="libdocument/pps-signature.h" line="124"/>
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_user_password"
+              c:identifier="pps_signature_get_user_password">
+        <source-position filename="libdocument/pps-signature.h" line="211"/>
+        <return-value transfer-ownership="none">
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="set_background_color"
+              c:identifier="pps_signature_set_background_color">
+        <source-position filename="libdocument/pps-signature.h" line="187"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="color" transfer-ownership="none">
+            <type name="Gdk.RGBA" c:type="GdkRGBA*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_border_color"
+              c:identifier="pps_signature_set_border_color">
+        <source-position filename="libdocument/pps-signature.h" line="177"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="color" transfer-ownership="none">
+            <type name="Gdk.RGBA" c:type="GdkRGBA*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_border_width"
+              c:identifier="pps_signature_set_border_width">
+        <source-position filename="libdocument/pps-signature.h" line="148"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="width" transfer-ownership="none">
+            <type name="gint" c:type="int"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_certificate_info"
+              c:identifier="pps_signature_set_certificate_info">
+        <source-position filename="libdocument/pps-signature.h" line="79"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="certificate" transfer-ownership="none">
+            <type name="CertificateInfo" c:type="const PpsCertificateInfo*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_destination_file"
+              c:identifier="pps_signature_set_destination_file">
+        <source-position filename="libdocument/pps-signature.h" line="87"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="file" transfer-ownership="none">
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_font_color"
+              c:identifier="pps_signature_set_font_color">
+        <source-position filename="libdocument/pps-signature.h" line="167"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="color" transfer-ownership="none">
+            <type name="Gdk.RGBA" c:type="GdkRGBA*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_font_size" c:identifier="pps_signature_set_font_size">
+        <source-position filename="libdocument/pps-signature.h" line="129"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="size" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_left_font_size"
+              c:identifier="pps_signature_set_left_font_size">
+        <source-position filename="libdocument/pps-signature.h" line="138"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="size" transfer-ownership="none">
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_owner_password"
+              c:identifier="pps_signature_set_owner_password">
+        <source-position filename="libdocument/pps-signature.h" line="197"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="password" transfer-ownership="none">
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_page" c:identifier="pps_signature_set_page">
+        <source-position filename="libdocument/pps-signature.h" line="95"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="page" transfer-ownership="none">
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_password" c:identifier="pps_signature_set_password">
+        <source-position filename="libdocument/pps-signature.h" line="158"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="password" transfer-ownership="none">
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_rect" c:identifier="pps_signature_set_rect">
+        <source-position filename="libdocument/pps-signature.h" line="103"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="rect" transfer-ownership="none">
+            <type name="Rectangle" c:type="const PpsRectangle*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_signature" c:identifier="pps_signature_set_signature">
+        <source-position filename="libdocument/pps-signature.h" line="111"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="signature" transfer-ownership="none">
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_signature_left"
+              c:identifier="pps_signature_set_signature_left">
+        <source-position filename="libdocument/pps-signature.h" line="119"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="signature_left" transfer-ownership="none">
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_user_password"
+              c:identifier="pps_signature_set_user_password">
+        <source-position filename="libdocument/pps-signature.h" line="206"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Signature" c:type="PpsSignature*"/>
+          </instance-parameter>
+          <parameter name="password" transfer-ownership="none">
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="base_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+    </class>
+    <record name="SignatureClass"
+            c:type="PpsSignatureClass"
+            glib:is-gtype-struct-for="Signature">
+      <source-position filename="libdocument/pps-signature.h" line="36"/>
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <callback name="SignaturePasswordCallback"
+              c:type="PpsSignaturePasswordCallback">
+      <source-position filename="libdocument/pps-document-signatures.h"
+                       line="40"/>
+      <return-value transfer-ownership="full">
+        <type name="utf8" c:type="char*"/>
+      </return-value>
+      <parameters>
+        <parameter name="text" transfer-ownership="none">
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+      </parameters>
+    </callback>
     <class name="TransitionEffect"
            c:symbol-prefix="transition_effect"
            c:type="PpsTransitionEffect"

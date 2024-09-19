@@ -50,6 +50,7 @@ generate = [
     "PapersDocument.DocumentText",
     "PapersDocument.FindOptions",
     "PapersDocument.FindRectangle",
+    "PapersDocument.FontDescription",
     "PapersDocument.Image",
     "PapersDocument.Layer",
     "PapersDocument.Link",

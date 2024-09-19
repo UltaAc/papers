@@ -259,16 +259,6 @@ pub trait DocumentViewExt: IsA<DocumentView> + sealed::Sealed + 'static {
         }
     }
 
-    #[doc(alias = "pps_document_view_get_dbus_object_path")]
-    #[doc(alias = "get_dbus_object_path")]
-    fn dbus_object_path(&self) -> Option<glib::GString> {
-        unsafe {
-            from_glib_none(ffi::pps_document_view_get_dbus_object_path(
-                self.as_ref().to_glib_none().0,
-            ))
-        }
-    }
-
     #[doc(alias = "pps_document_view_get_metadata")]
     #[doc(alias = "get_metadata")]
     fn metadata(&self) -> Option<papers_view::Metadata> {

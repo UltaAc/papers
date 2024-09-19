@@ -62,6 +62,13 @@ impl View {
         }
     }
 
+    #[doc(alias = "pps_view_cancel_signature_rect")]
+    pub fn cancel_signature_rect(&self) {
+        unsafe {
+            ffi::pps_view_cancel_signature_rect(self.to_glib_none().0);
+        }
+    }
+
     #[doc(alias = "pps_view_copy")]
     pub fn copy(&self) {
         unsafe {
@@ -290,6 +297,13 @@ impl View {
                 self.to_glib_none().0,
                 context.as_ref().to_glib_none().0,
             );
+        }
+    }
+
+    #[doc(alias = "pps_view_start_signature_rect")]
+    pub fn start_signature_rect(&self) {
+        unsafe {
+            ffi::pps_view_start_signature_rect(self.to_glib_none().0);
         }
     }
 
@@ -630,6 +644,11 @@ impl View {
     pub fn emit_selection_changed(&self) {
         self.emit_by_name::<()>("selection-changed", &[]);
     }
+
+    //#[doc(alias = "signature-rect")]
+    //pub fn connect_signature_rect<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
+    //    Unimplemented p0: *.Pointer
+    //}
 
     #[doc(alias = "can-zoom-in")]
     pub fn connect_can_zoom_in_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
