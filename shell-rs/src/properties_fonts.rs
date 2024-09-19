@@ -9,10 +9,13 @@ mod imp {
     #[derive(CompositeTemplate, Debug, Default)]
     #[template(resource = "/org/gnome/papers/ui/properties-fonts.ui")]
     pub struct PpsPropertiesFonts {
-        #[template_child(id = "list_box")]
+        #[template_child]
         list_box: TemplateChild<gtk::ListBox>,
-        #[template_child(id = "fonts_page")]
+        #[template_child]
         fonts_page: TemplateChild<adw::PreferencesPage>,
+        #[template_child]
+        stack: TemplateChild<adw::ViewStack>,
+
         fonts_job: RefCell<Option<JobFonts>>,
         document: RefCell<Option<Document>>,
         job_handler_id: RefCell<Option<SignalHandlerId>>,
@@ -42,21 +45,25 @@ mod imp {
                     {
                         obj.list_box.bind_model(doc_fonts.model().as_ref(), |obj| {
                             let row = adw::ActionRow::new();
+                            let font = obj
+                                .downcast_ref::<papers_document::FontDescription>()
+                                .unwrap();
 
-                            for (source, target) in [("name", "title"), ("details", "subtitle")] {
-                                obj.bind_property(source, &row, target)
-                                    .sync_create()
-                                    .build();
-                            }
+                            row.set_title(&font.name().unwrap_or_default());
+                            row.set_subtitle(&font.details().unwrap_or_default());
 
                             row.into()
                         });
 
                         let fonts_summary = doc_fonts.fonts_summary().unwrap_or_default();
                         obj.fonts_page.set_description(fonts_summary.as_str());
+
+                        obj.stack.set_visible_child_name("fonts");
                     }
                 }
             ));
+
+            self.stack.set_visible_child_name("load");
 
             job.scheduler_push_job(JobPriority::PriorityNone);
 
