@@ -58,9 +58,6 @@ typedef struct _PpsJobAnnotsClass PpsJobAnnotsClass;
 typedef struct _PpsJobFonts PpsJobFonts;
 typedef struct _PpsJobFontsClass PpsJobFontsClass;
 
-typedef struct _PpsJobLoad PpsJobLoad;
-typedef struct _PpsJobLoadClass PpsJobLoadClass;
-
 typedef struct _PpsJobFind PpsJobFind;
 typedef struct _PpsJobFindClass PpsJobFindClass;
 
@@ -124,14 +121,6 @@ typedef struct _PpsJobSignaturesClass PpsJobSignaturesClass;
 #define PPS_JOB_FONTS_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_JOB_FONTS, PpsJobFontsClass))
 #define PPS_IS_JOB_FONTS_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_JOB_FONTS))
 #define PPS_JOB_FONTS_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_JOB_FONTS, PpsJobFontsClass))
-
-
-#define PPS_TYPE_JOB_LOAD            (pps_job_load_get_type())
-#define PPS_JOB_LOAD(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_JOB_LOAD, PpsJobLoad))
-#define PPS_IS_JOB_LOAD(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PPS_TYPE_JOB_LOAD))
-#define PPS_JOB_LOAD_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_JOB_LOAD, PpsJobLoadClass))
-#define PPS_IS_JOB_LOAD_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_JOB_LOAD))
-#define PPS_JOB_LOAD_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_JOB_LOAD, PpsJobLoadClass))
 
 #define PPS_TYPE_JOB_FIND            (pps_job_find_get_type())
 #define PPS_JOB_FIND(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_JOB_FIND, PpsJobFind))
@@ -308,19 +297,6 @@ struct _PpsJobFontsClass
 struct _PpsJobLoad
 {
 	PpsJob parent;
-
-	gchar *uri;
-	int fd;
-	char *mime_type;
-	gchar *password;
-	GPasswordSave password_save;
-	PpsDocumentLoadFlags flags;
-	PpsDocument *loaded_document;
-};
-
-struct _PpsJobLoadClass
-{
-	PpsJobClass parent_class;
 };
 
 struct _PpsJobSave
@@ -460,7 +436,9 @@ PpsJob 	       *pps_job_fonts_new 	  (PpsDocument      *document);
 
 /* PpsJobLoad */
 PPS_PUBLIC
-GType           pps_job_load_get_type      (void) G_GNUC_CONST;
+G_DECLARE_FINAL_TYPE (PpsJobLoad, pps_job_load, PPS, JOB_LOAD, PpsJob)
+#define PPS_TYPE_JOB_LOAD            (pps_job_load_get_type())
+
 PPS_PUBLIC
 PpsJob          *pps_job_load_new           (void);
 PPS_PUBLIC

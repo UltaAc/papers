@@ -69,7 +69,6 @@ G_DEFINE_TYPE (PpsJobRenderTexture, pps_job_render_texture, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobPageData, pps_job_page_data, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobThumbnailTexture, pps_job_thumbnail_texture, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobFonts, pps_job_fonts, PPS_TYPE_JOB)
-G_DEFINE_TYPE (PpsJobLoad, pps_job_load, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobFind, pps_job_find, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobLayers, pps_job_layers, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobExport, pps_job_export, PPS_TYPE_JOB)
@@ -772,30 +771,44 @@ pps_job_fonts_new (PpsDocument *document)
  *
  */
 
+ typedef struct _PpsJobLoadPrivate
+{
+	gchar *uri;
+	int fd;
+	char *mime_type;
+	gchar *password;
+	GPasswordSave password_save;
+	PpsDocumentLoadFlags flags;
+	PpsDocument *loaded_document;
+} PpsJobLoadPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (PpsJobLoad, pps_job_load, PPS_TYPE_JOB)
+
+#define JOB_LOAD_GET_PRIVATE(o) pps_job_load_get_instance_private (o)
+
 static void
 pps_job_load_init (PpsJobLoad *job)
 {
-	job->flags = PPS_DOCUMENT_LOAD_FLAG_NONE;
-	job->uri = NULL;
-	job->fd = -1;
-	job->password_save = G_PASSWORD_SAVE_NEVER;
-	job->mime_type = NULL;
+	PpsJobLoadPrivate *priv = JOB_LOAD_GET_PRIVATE (job);
+
+	priv->fd = -1;
 }
 
 static void
 pps_job_load_dispose (GObject *object)
 {
 	PpsJobLoad *job = PPS_JOB_LOAD (object);
+	PpsJobLoadPrivate *priv = JOB_LOAD_GET_PRIVATE (job);
 
-	if (job->fd != -1) {
-		close (job->fd);
-		job->fd = -1;
+	if (priv->fd != -1) {
+		close (priv->fd);
+		priv->fd = -1;
 	}
 
-	g_clear_pointer (&job->mime_type, g_free);
-	g_clear_pointer (&job->uri, g_free);
-	g_clear_pointer (&job->password, g_free);
-	g_clear_object (&job->loaded_document);
+	g_clear_pointer (&priv->mime_type, g_free);
+	g_clear_pointer (&priv->uri, g_free);
+	g_clear_pointer (&priv->password, g_free);
+	g_clear_object (&priv->loaded_document);
 
 	G_OBJECT_CLASS (pps_job_load_parent_class)->dispose (object);
 }
@@ -820,11 +833,12 @@ static gboolean
 pps_job_load_run (PpsJob *job)
 {
 	PpsJobLoad *job_load = PPS_JOB_LOAD (job);
+	PpsJobLoadPrivate *priv = JOB_LOAD_GET_PRIVATE (job_load);
 	GError    *error = NULL;
 
 	g_debug ("running load job");
 
-	if (job_load->uri == NULL && job_load->fd == -1) {
+	if (priv->uri == NULL && priv->fd == -1) {
 		g_set_error_literal (&error, G_FILE_ERROR, G_FILE_ERROR_BADF,
 				     "Either the URI or the FD must be set!");
 		pps_job_failed_from_error (job, error);
@@ -835,54 +849,54 @@ pps_job_load_run (PpsJob *job)
 	/* This job may already have a document even if the job didn't complete
 	   because, e.g., a password is required - if so, just reload rather than
 	   creating a new instance */
-	if (job_load->loaded_document) {
-		PpsDocument *loaded_doc = job_load->loaded_document;
+	if (priv->loaded_document) {
+		PpsDocument *loaded_doc = priv->loaded_document;
 		const gchar *uncompressed_uri;
 
-		if (job_load->password) {
+		if (priv->password) {
 			pps_document_security_set_password (PPS_DOCUMENT_SECURITY (loaded_doc),
-							   job_load->password);
+							   priv->password);
 		}
 
 		pps_job_reset (job);
 
-		if (job_load->uri) {
+		if (priv->uri) {
 			uncompressed_uri = g_object_get_data (G_OBJECT (loaded_doc),
 							      "uri-uncompressed");
 			pps_document_load_full (loaded_doc,
-					       uncompressed_uri ? uncompressed_uri : job_load->uri,
-					       job_load->flags,
+					       uncompressed_uri ? uncompressed_uri : priv->uri,
+					       priv->flags,
 					       &error);
 		} else {
 			/* We need to dup the FD since we may need to pass it again
 			 * if the document is reloaded, as pps_document calls
 			 * consume it.
 			 */
-			int fd = pps_dupfd (job_load->fd, &error);
+			int fd = pps_dupfd (priv->fd, &error);
 			if (fd != -1)
 				pps_document_load_fd (loaded_doc,
 						     fd,
-						     job_load->flags,
+						     priv->flags,
 						     pps_job_get_cancellable (job),
 						     &error);
 		}
 	} else {
-		if (job_load->uri) {
-			job_load->loaded_document =
-				pps_document_factory_get_document_full (job_load->uri,
-								       job_load->flags,
+		if (priv->uri) {
+			priv->loaded_document =
+				pps_document_factory_get_document_full (priv->uri,
+								       priv->flags,
 								       &error);
 		} else {
 			/* We need to dup the FD since we may need to pass it again
 			 * if the document is reloaded, as pps_document calls
 			 * consume it.
 			 */
-			int fd = pps_dupfd (job_load->fd, &error);
+			int fd = pps_dupfd (priv->fd, &error);
 			if (fd != -1)
-				job_load->loaded_document =
+				priv->loaded_document =
 					pps_document_factory_get_document_for_fd (fd,
-										 job_load->mime_type,
-										 job_load->flags,
+										 priv->mime_type,
+										 priv->flags,
 										 pps_job_get_cancellable (job),
 										 &error);
 		}
@@ -933,14 +947,16 @@ void
 pps_job_load_set_uri (PpsJobLoad   *job,
 		     const gchar *uri)
 {
+	PpsJobLoadPrivate *priv = JOB_LOAD_GET_PRIVATE (job);
+
 	g_return_if_fail (PPS_IS_JOB_LOAD (job));
 	g_return_if_fail (uri != NULL);
-	g_return_if_fail (job->fd == -1);
+	g_return_if_fail (priv->fd == -1);
 
 	g_debug ("load job set uri: %s", uri);
 
-	g_free (job->uri);
-	job->uri = g_strdup (uri);
+	g_free (priv->uri);
+	priv->uri = g_strdup (uri);
 }
 
 /**
@@ -965,18 +981,20 @@ pps_job_load_set_fd (PpsJobLoad   *job,
 		    const char  *mime_type,
 		    GError     **error)
 {
+	PpsJobLoadPrivate *priv = JOB_LOAD_GET_PRIVATE (job);
+
 	g_return_val_if_fail (PPS_IS_JOB_LOAD (job), FALSE);
 	g_return_val_if_fail (fd != -1, FALSE);
 	g_return_val_if_fail (mime_type != NULL, FALSE);
-	g_return_val_if_fail (job->uri == NULL, FALSE);
+	g_return_val_if_fail (priv->uri == NULL, FALSE);
 
 	g_debug ("load job set fd: %d, mime: %s", fd, mime_type);
 
-	g_free (job->mime_type);
-	job->mime_type = g_strdup (mime_type);
+	g_free (priv->mime_type);
+	priv->mime_type = g_strdup (mime_type);
 
-	job->fd = pps_dupfd (fd, error);
-	return job->fd != -1;
+	priv->fd = pps_dupfd (fd, error);
+	return priv->fd != -1;
 }
 
 /**
@@ -998,17 +1016,19 @@ pps_job_load_take_fd (PpsJobLoad  *job,
 		     int         fd,
 		     const char *mime_type)
 {
+	PpsJobLoadPrivate *priv = JOB_LOAD_GET_PRIVATE (job);
+
 	g_return_if_fail (PPS_IS_JOB_LOAD (job));
 	g_return_if_fail (fd != -1);
 	g_return_if_fail (mime_type != NULL);
-	g_return_if_fail (job->uri == NULL);
+	g_return_if_fail (priv->uri == NULL);
 
 	g_debug ("load job take fd: %d %s", fd, mime_type);
 
-	g_free (job->mime_type);
-	job->mime_type = g_strdup (mime_type);
+	g_free (priv->mime_type);
+	priv->mime_type = g_strdup (mime_type);
 
-	job->fd = fd;
+	priv->fd = fd;
 }
 
 /**
@@ -1020,47 +1040,52 @@ pps_job_load_take_fd (PpsJobLoad  *job,
 void
 pps_job_load_set_password (PpsJobLoad *job, const gchar *password)
 {
+	PpsJobLoadPrivate *priv = JOB_LOAD_GET_PRIVATE (job);
 	g_return_if_fail (PPS_IS_JOB_LOAD (job));
 
 	g_debug ("load job setting password");
 
-	g_free (job->password);
-	job->password = g_strdup (password);
+	g_free (priv->password);
+	priv->password = g_strdup (password);
 }
 
 const gchar *
 pps_job_load_get_password (PpsJobLoad *job)
 {
+	PpsJobLoadPrivate *priv = JOB_LOAD_GET_PRIVATE (job);
 	g_return_val_if_fail (PPS_IS_JOB_LOAD (job), NULL);
 
-	return job->password;
+	return priv->password;
 }
 
 void
 pps_job_load_set_password_save (PpsJobLoad *job, GPasswordSave save)
 {
+	PpsJobLoadPrivate *priv = JOB_LOAD_GET_PRIVATE (job);
 	g_return_if_fail (PPS_IS_JOB_LOAD (job));
 
 	g_debug ("load job setting password save");
 
-	job->password_save = save;
+	priv->password_save = save;
 }
 
 GPasswordSave
 pps_job_load_get_password_save (PpsJobLoad *job)
 {
+	PpsJobLoadPrivate *priv = JOB_LOAD_GET_PRIVATE (job);
 	g_return_val_if_fail (PPS_IS_JOB_LOAD (job), G_PASSWORD_SAVE_NEVER);
 
-	return job->password_save;
+	return priv->password_save;
 }
 
 void
 pps_job_load_set_load_flags (PpsJobLoad           *job,
 			    PpsDocumentLoadFlags  flags)
 {
+	PpsJobLoadPrivate *priv = JOB_LOAD_GET_PRIVATE (job);
 	g_return_if_fail (PPS_IS_JOB_LOAD (job));
 
-	job->flags = flags;
+	priv->flags = flags;
 }
 
 /**
@@ -1074,12 +1099,13 @@ pps_job_load_set_load_flags (PpsJobLoad           *job,
 PpsDocument*
 pps_job_load_get_loaded_document (PpsJobLoad *job)
 {
+	PpsJobLoadPrivate *priv = JOB_LOAD_GET_PRIVATE (job);
 	g_return_val_if_fail (PPS_IS_JOB_LOAD (job), NULL);
 
-	if (!job->loaded_document)
+	if (!priv->loaded_document)
 		return NULL;
 
-	return g_object_ref (job->loaded_document);
+	return g_object_ref (priv->loaded_document);
 }
 
 /* PpsJobSave */
