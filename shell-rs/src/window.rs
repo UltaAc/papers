@@ -813,9 +813,9 @@ mod imp {
             );
         }
 
-        pub(super) fn open_uri(
+        pub(super) fn open_file(
             &self,
-            uri: &str,
+            file: &impl IsA<gio::File>,
             dest: Option<&papers_document::LinkDest>,
             mode: Option<WindowRunMode>,
         ) {
@@ -825,7 +825,7 @@ mod imp {
             self.dest.replace(dest.cloned());
 
             // Create a monitor for the document
-            let monitor = PpsFileMonitor::new(uri);
+            let monitor = PpsFileMonitor::new(&file.uri());
             monitor.connect_closure(
                 "changed",
                 false,
@@ -841,16 +841,18 @@ mod imp {
             );
             self.monitor.replace(Some(monitor));
 
-            let source_file = gio::File::for_uri(uri);
-
             // Try to use FUSE-backed files if possible to avoid downloading
-            let path = source_file
+            let path = file
                 .path()
                 .and_then(|p| glib::filename_to_uri(p, None).ok());
-            let uri = path.as_ref().map(|gs| gs.as_str()).unwrap_or(uri);
+            let file_uri = file.uri();
+            let uri = path
+                .as_ref()
+                .map(|gs| gs.as_str())
+                .unwrap_or(file_uri.as_str());
 
-            self.set_filenames(&source_file);
-            self.init_metadata_with_default_values(&source_file);
+            self.set_filenames(file.as_ref());
+            self.init_metadata_with_default_values(file.as_ref());
 
             self.setup_window_size();
 
@@ -981,22 +983,24 @@ mod imp {
             self.load_job.replace(Some(load_job.clone()));
             self.load_job_handler.replace(Some(id));
 
-            self.file.replace(Some(source_file.clone()));
+            self.file.replace(Some(file.clone().into()));
+
+            let file = file.clone();
 
             glib::spawn_future_local(glib::clone!(
                 #[weak(rename_to = obj)]
                 self,
                 async move {
                     if path.is_none() {
-                        obj.load_remote_file(&source_file).await;
+                        obj.load_remote_file(file.as_ref()).await;
                     } else {
                         // source_file is probably local, but make sure it's seekable
                         // before loading it directly.
-                        let result = source_file.read_future(glib::Priority::DEFAULT).await;
+                        let result = file.read_future(glib::Priority::DEFAULT).await;
 
                         if let Ok(stream) = result {
                             if !stream.can_seek() {
-                                return obj.load_remote_file(&source_file).await;
+                                return obj.load_remote_file(file.as_ref()).await;
                             }
                         }
 
@@ -1061,12 +1065,13 @@ mod imp {
                     };
 
                     for f in files.iter::<gio::File>() {
-                        let uri = f.unwrap().uri();
+                        let f = f.unwrap();
+                        let uri = f.uri();
 
                         if obj.obj().uri().is_some_and(|u| u != uri) {
                             spawn(Some(&uri), None, None);
                         } else {
-                            obj.open_uri(&uri, None, None);
+                            obj.open_file(&f, None, None);
                         }
                     }
 
@@ -1166,7 +1171,7 @@ mod imp {
                         crate::application::spawn(Some(&uri), None, None);
                     }
                 } else {
-                    self.open_uri(&uri, None, None);
+                    self.open_file(&file, None, None);
                 }
             }
 
@@ -1199,7 +1204,9 @@ impl PpsWindow {
         dest: Option<&papers_document::LinkDest>,
         mode: Option<WindowRunMode>,
     ) {
-        self.imp().open_uri(uri, dest, mode)
+        let file = gio::File::for_uri(uri);
+
+        self.imp().open_file(&file, dest, mode)
     }
 
     pub fn is_empty(&self) -> bool {
