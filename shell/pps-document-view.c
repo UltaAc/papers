@@ -232,7 +232,7 @@ static void     view_external_link_cb                   (PpsDocumentView        
 static void     pps_document_view_show_find_bar                 (PpsDocumentView         *pps_doc_view);
 static void     pps_document_view_close_find_bar                (PpsDocumentView         *pps_doc_view);
 
-static char    *pps_window_signature_password_callback   (const char *text);
+static char    *pps_document_view_signature_password_callback   (const char *text);
 
 G_DEFINE_TYPE_WITH_PRIVATE (PpsDocumentView, pps_document_view, ADW_TYPE_BREAKPOINT_BIN)
 
@@ -1264,7 +1264,7 @@ pps_document_view_set_document (PpsDocumentView *pps_doc_view, PpsDocument *docu
 
 	/* Set password callback */
 	if (PPS_IS_DOCUMENT_SIGNATURES (priv->document)) {
-		pps_document_signatures_set_password_callback (PPS_DOCUMENT_SIGNATURES (priv->document), pps_window_signature_password_callback);
+		pps_document_signatures_set_password_callback (PPS_DOCUMENT_SIGNATURES (priv->document), pps_document_view_signature_password_callback);
 	}
 
 	gtk_widget_grab_focus (priv->view);
@@ -3424,7 +3424,7 @@ on_password (AdwMessageDialog *self,
 }
 
 static char *
-pps_window_signature_password_callback (const char *text)
+pps_document_view_signature_password_callback (const char *text)
 {
 	AdwDialog *dialog;
 	GtkWindow *parent = NULL;
@@ -3579,9 +3579,9 @@ pps_document_view_draw_rect_action (PpsDocumentView *pps_doc_view)
 }
 
 static void
-pps_window_certificate_selection_response (GtkWidget *dialog,
-                                           char      *response,
-                                           gpointer   user_data)
+pps_document_view_certificate_selection_response (GtkWidget *dialog,
+						  char      *response,
+						  gpointer   user_data)
 {
 	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -3674,7 +3674,7 @@ pps_document_view_create_certificate_selection (PpsDocumentView *pps_doc_view)
 		gtk_list_box_select_row (GTK_LIST_BOX (priv->certificate_listbox), gtk_list_box_get_row_at_index (GTK_LIST_BOX (priv->certificate_listbox), 0));
 		adw_alert_dialog_set_extra_child (ADW_ALERT_DIALOG (dialog), priv->certificate_listbox);
 		g_list_free_full (certificates, (GDestroyNotify) pps_certificate_info_free);
-		g_signal_connect (dialog, "response::select", G_CALLBACK (pps_window_certificate_selection_response), pps_doc_view);
+		g_signal_connect (dialog, "response::select", G_CALLBACK (pps_document_view_certificate_selection_response), pps_doc_view);
 	} else {
 		adw_alert_dialog_set_body (ADW_ALERT_DIALOG (dialog), _("No certificates found!"));
 		adw_alert_dialog_set_default_response (ADW_ALERT_DIALOG (dialog), "cancel");
