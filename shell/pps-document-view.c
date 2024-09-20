@@ -78,6 +78,7 @@ typedef struct {
 	AdwAlertDialog *caret_mode_alert;
 	AdwAlertDialog *error_alert;
 	AdwAlertDialog *print_cancel_alert;
+	AdwAlertDialog *rect_small_alert;
 	AdwOverlaySplitView *split_view;
 
 	/* Settings */
@@ -3683,35 +3684,25 @@ pps_document_view_create_certificate_selection (PpsDocumentView *pps_doc_view)
 }
 
 static void
-pps_window_on_signature_rect_too_small_response (AdwAlertDialog *self,
-                                                 gchar          *response,
-                                                 gpointer        user_data)
+pps_document_view_on_signature_rect_too_small_response (PpsDocumentView *pps_doc_view,
+							gchar          *response)
 {
-	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
-	if (g_strcmp0 (response, "sign") == 0) {
+	if (g_str_equal (response, "sign")) {
 		pps_document_view_create_certificate_selection (pps_doc_view);
 		return;
 	}
 
-	g_action_group_activate_action(G_ACTION_GROUP (priv->document_action_group), "digital-signing", NULL);
+	g_action_group_activate_action (G_ACTION_GROUP (priv->document_action_group), "digital-signing", NULL);
 }
 
 static void
 pps_document_view_show_signature_rect_too_small_warning (PpsDocumentView *pps_doc_view)
 {
-	AdwDialog *dialog;
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
-	dialog = adw_alert_dialog_new (_("Selection too small"), NULL);
-	adw_alert_dialog_format_body (ADW_ALERT_DIALOG (dialog), _("A signature of this size may be too small to read. If you would like to create a potentially more readable signature, press `Start over` and draw a bigger rectangle."));
-
-	adw_alert_dialog_add_responses (ADW_ALERT_DIALOG (dialog), "cancel", _("Start _Over"), "sign", _("_Sign"), NULL);
-	adw_alert_dialog_set_default_response (ADW_ALERT_DIALOG (dialog), "cancel");
-	adw_alert_dialog_set_close_response (ADW_ALERT_DIALOG (dialog), "cancel");
-
-	g_signal_connect (dialog, "response", G_CALLBACK (pps_window_on_signature_rect_too_small_response), pps_doc_view);
-	adw_dialog_present (dialog, GTK_WIDGET (pps_doc_view));
+	adw_dialog_present (ADW_DIALOG (priv->rect_small_alert), GTK_WIDGET (pps_doc_view));
 }
 
 static gboolean
@@ -4657,6 +4648,7 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, toast_overlay);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, error_alert);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, print_cancel_alert);
+	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, rect_small_alert);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, banner);
 
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, model);
@@ -4699,6 +4691,7 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_callback (widget_class, caret_navigation_alert_response_cb);
 	gtk_widget_class_bind_template_callback (widget_class, print_jobs_confirmation_dialog_response);
 	gtk_widget_class_bind_template_callback (widget_class, view_details_cb);
+	gtk_widget_class_bind_template_callback (widget_class, pps_document_view_on_signature_rect_too_small_response);
 
 	gtk_widget_class_bind_template_callback (widget_class, view_external_link_cb);
 	gtk_widget_class_bind_template_callback (widget_class, view_handle_link_cb);

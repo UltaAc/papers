@@ -600,6 +600,19 @@
     <signal name="response" handler="caret_navigation_alert_response_cb" />
   </object>
 
+  <object class="AdwAlertDialog" id="rect_small_alert">
+    <property name="heading" translatable="yes">Selection too Small</property>
+    <property name="body" translatable="yes">A signature of this size may be too small to read. If you would like to create a potentially more readable signature, press `Start over` and draw a bigger rectangle.</property>
+    <property name="follows-content-size">True</property>
+    <property name="default-response">cancel</property>
+    <property name="close-response">cancel</property>
+    <responses>
+      <response id="cancel" translatable="yes">Start _Over</response>
+      <response id="sign" appearance="destructive" translatable="yes">_Sign</response>
+    </responses>
+    <signal name="response" handler="pps_document_view_on_signature_rect_too_small_response" swapped="yes" />
+  </object>
+
   <object class="AdwAlertDialog" id="print_cancel_alert">
     <property name="heading" translatable="yes">Abort Printing?</property>
     <property name="body" translatable="yes">There is one or more active print jobs. If the window is closed, pending print jobs will not be printed.</property>
