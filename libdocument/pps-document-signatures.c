@@ -156,3 +156,19 @@ pps_document_signatures_can_sign (PpsDocumentSignatures *document_signatures)
 	return FALSE;
 }
 
+/**
+ * pps_document_signatures_get_signatures:
+ * @document_signatures: an #PpsDocumentSignatures
+ *
+ * Returns: (element-type PpsSignature) (transfer full): a list of #PpsSignature objects
+ */
+GList *
+pps_document_signatures_get_signatures (PpsDocumentSignatures *document_signatures)
+{
+	PpsDocumentSignaturesInterface *iface = PPS_DOCUMENT_SIGNATURES_GET_IFACE (document_signatures);
+
+	if (iface->get_signatures)
+		return iface->get_signatures (document_signatures);
+
+	return NULL;
+}

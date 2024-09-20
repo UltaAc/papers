@@ -48,6 +48,7 @@
 #include "pps-document-view.h"
 #include "pps-progress-message-area.h"
 #include "pps-document-signatures.h"
+#include "pps-signature-details.h"
 
 #define MOUSE_BACK_BUTTON 8
 #define MOUSE_FORWARD_BUTTON 9
@@ -70,6 +71,7 @@ typedef struct {
 	GtkWidget *find_sidebar;
 	GtkWidget *page_selector;
 	GtkWidget *header_bar;
+	GtkWidget *signature_banner;
 
 	GtkRevealer *zoom_fit_best_revealer;
 
@@ -1233,6 +1235,36 @@ pps_document_view_update_title (PpsDocumentView *pps_doc_view)
 	g_free (title);
 }
 
+static void
+signatures_job_finished_callback (PpsJobSignatures *job,
+                                  PpsDocumentView  *pps_doc_view)
+{
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+	gboolean is_invalid = FALSE;
+	GList *signature_list = pps_job_signatures_get_signatures (job);
+
+	if (g_list_length (signature_list) == 0)
+		return;
+
+	for (GList *iter = signature_list; iter && iter->data; iter = iter->next) {
+		PpsSignature *signature = PPS_SIGNATURE (iter->data);
+
+		if (!pps_signature_is_valid (signature)) {
+			is_invalid = TRUE;
+			break;
+		}
+	}
+
+	if (is_invalid) {
+		gtk_widget_add_css_class (priv->signature_banner, "error");
+		adw_banner_set_title (ADW_BANNER (priv->signature_banner), _("Digital Signature is invalid!"));
+	} else {
+		gtk_widget_remove_css_class (priv->signature_banner, "error");
+		adw_banner_set_title (ADW_BANNER (priv->signature_banner), _("Document has been digitally signed."));
+	}
+	adw_banner_set_revealed (ADW_BANNER (priv->signature_banner), TRUE);
+}
+
 void
 pps_document_view_set_document (PpsDocumentView *pps_doc_view, PpsDocument *document)
 {
@@ -1247,6 +1279,15 @@ pps_document_view_set_document (PpsDocumentView *pps_doc_view, PpsDocument *docu
 	pps_document_view_set_message_area (pps_doc_view, NULL);
 
 	pps_document_view_set_document_metadata (pps_doc_view);
+
+	/* if the document contains signatures show the top info message
+	   so the user can quickly see this information */
+	if (PPS_IS_DOCUMENT_SIGNATURES (document)) {
+		PpsJob *job = pps_job_signatures_new (document);
+
+		g_signal_connect (job, "finished", G_CALLBACK (signatures_job_finished_callback), pps_doc_view);
+		pps_job_scheduler_push_job (job, PPS_JOB_PRIORITY_NONE);
+	}
 
 	if (pps_document_get_n_pages (document) <= 0) {
 		pps_document_view_warning_message (pps_doc_view, "%s",
@@ -3598,7 +3639,7 @@ pps_window_certificate_selection_response (GtkWidget *dialog,
 	if (!priv->signature_certificate_info)
 		return;
 
-	priv->signature = pps_signature_new ();
+	priv->signature = pps_signature_new (NULL, PPS_SIGNATURE_STATUS_INVALID, PPS_CERTIFICATE_STATUS_GENERIC_ERROR, NULL);;
 	pps_signature_set_certificate_info (priv->signature, priv->signature_certificate_info);
 
 	time (&t);
@@ -4564,6 +4605,16 @@ pps_document_view_popup_cmd_save_attachment_as (GSimpleAction *action,
 }
 
 static void
+view_details_cb (AdwBanner *self,
+                 gpointer   user_data)
+{
+	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+
+	pps_signature_details_show (priv->document, GTK_WINDOW (pps_doc_view));
+}
+
+static void
 pps_document_view_init (PpsDocumentView *pps_doc_view)
 {
 	guint page_cache_mb;
@@ -4660,6 +4711,7 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, model);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, view);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, signature_banner);
 
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, page_selector);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, header_bar);
@@ -4696,6 +4748,7 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_callback (widget_class, scroll_child_history_cb);
 	gtk_widget_class_bind_template_callback (widget_class, caret_navigation_alert_response_cb);
 	gtk_widget_class_bind_template_callback (widget_class, print_jobs_confirmation_dialog_response);
+	gtk_widget_class_bind_template_callback (widget_class, view_details_cb);
 
 	gtk_widget_class_bind_template_callback (widget_class, view_external_link_cb);
 	gtk_widget_class_bind_template_callback (widget_class, view_handle_link_cb);

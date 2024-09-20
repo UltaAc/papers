@@ -73,6 +73,9 @@ typedef struct _PpsJobExportClass PpsJobExportClass;
 typedef struct _PpsJobPrint PpsJobPrint;
 typedef struct _PpsJobPrintClass PpsJobPrintClass;
 
+typedef struct _PpsJobSignatures PpsJobSignatures;
+typedef struct _PpsJobSignaturesClass PpsJobSignaturesClass;
+
 #define PPS_TYPE_JOB_LINKS            (pps_job_links_get_type())
 #define PPS_JOB_LINKS(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_JOB_LINKS, PpsJobLinks))
 #define PPS_IS_JOB_LINKS(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PPS_TYPE_JOB_LINKS))
@@ -158,6 +161,13 @@ typedef struct _PpsJobPrintClass PpsJobPrintClass;
 #define PPS_IS_JOB_PRINT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_JOB_PRINT))
 #define PPS_JOB_PRINT_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_JOB_PRINT, PpsJobPrintClass))
 
+#define PPS_TYPE_JOB_SIGNATURES               (pps_job_signatures_get_type())
+#define PPS_JOB_SIGNATURES(object)            (G_TYPE_CHECK_INSTANCE_CAST((object), PPS_TYPE_JOB_SIGNATURES, PpsJobSignatures))
+#define PPS_IS_JOB_SIGNATURES(object)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PPS_TYPE_JOB_SIGNATURES))
+#define PPS_JOB_SIGNATURES_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST((klass), PPS_TYPE_JOB_SIGNATURES, PpsJobSignaturesClass))
+#define PPS_IS_JOB_SIGNATURES_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_JOB_SIGNATURES))
+#define PPS_JOB_SIGNATURES_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_JOB_SIGNATURES, PpsJobSignaturesClass))
+
 struct _PpsJobLinks
 {
 	PpsJob parent;
@@ -217,6 +227,11 @@ struct _PpsJobRenderTexture
 };
 
 struct _PpsJobRenderTextureClass
+{
+	PpsJobClass parent_class;
+};
+
+struct _PpsJobSignaturesClass
 {
 	PpsJobClass parent_class;
 };
@@ -534,5 +549,14 @@ void            pps_job_print_set_page    (PpsJobPrint     *job,
 PPS_PUBLIC
 void            pps_job_print_set_cairo   (PpsJobPrint     *job,
 					  cairo_t        *cr);
+
+/* PpsJobSignatures */
+PPS_PUBLIC
+GType           pps_job_signatures_get_type  (void) G_GNUC_CONST;
+PPS_PUBLIC
+PpsJob          *pps_job_signatures_new       (PpsDocument     *document);
+PPS_PUBLIC
+GList *
+pps_job_signatures_get_signatures (PpsJobSignatures *self);
 
 G_END_DECLS

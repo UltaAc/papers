@@ -53,6 +53,7 @@
 #include "pps-document-attachments.h"
 #include "pps-document-signatures.h"
 #include "pps-document-text.h"
+#include "pps-document-signatures.h"
 #include "pps-font-description.h"
 #include "pps-form-field-private.h"
 #include "pps-selection.h"
@@ -61,6 +62,7 @@
 #include "pps-image.h"
 #include "pps-media.h"
 #include "pps-file-helpers.h"
+#include "pps-signature.h"
 
 #if (defined (HAVE_CAIRO_PDF) || defined (HAVE_CAIRO_PS))
 #define HAVE_CAIRO_PRINT
@@ -116,13 +118,13 @@ static void pdf_document_document_print_iface_init       (PpsDocumentPrintInterf
 static void pdf_document_document_annotations_iface_init (PpsDocumentAnnotationsInterface *iface);
 static void pdf_document_document_attachments_iface_init (PpsDocumentAttachmentsInterface *iface);
 static void pdf_document_document_media_iface_init       (PpsDocumentMediaInterface       *iface);
+static void pdf_document_document_signatures_iface_init  (PpsDocumentSignaturesInterface  *iface);
 static void pdf_document_find_iface_init                 (PpsDocumentFindInterface        *iface);
 static void pdf_document_file_exporter_iface_init        (PpsFileExporterInterface        *iface);
 static void pdf_selection_iface_init                     (PpsSelectionInterface           *iface);
 static void pdf_document_page_transition_iface_init      (PpsDocumentTransitionInterface  *iface);
 static void pdf_document_text_iface_init                 (PpsDocumentTextInterface        *iface);
 static int  pdf_document_get_n_pages			 (PpsDocument                     *document);
-static void pdf_document_signatures_iface_init           (PpsDocumentSignaturesInterface  *iface);
 
 static PpsLinkDest *pps_link_dest_from_dest    (PdfDocument       *pdf_document,
 					      PopplerDest       *dest);
@@ -157,6 +159,8 @@ G_DEFINE_TYPE_WITH_CODE (PdfDocument,
 						pdf_document_document_attachments_iface_init)
 			 G_IMPLEMENT_INTERFACE (PPS_TYPE_DOCUMENT_MEDIA,
 						pdf_document_document_media_iface_init)
+			 G_IMPLEMENT_INTERFACE (PPS_TYPE_DOCUMENT_SIGNATURES,
+						pdf_document_document_signatures_iface_init)
 			 G_IMPLEMENT_INTERFACE (PPS_TYPE_DOCUMENT_FIND,
 						pdf_document_find_iface_init)
 			 G_IMPLEMENT_INTERFACE (PPS_TYPE_FILE_EXPORTER,
@@ -166,9 +170,7 @@ G_DEFINE_TYPE_WITH_CODE (PdfDocument,
 			 G_IMPLEMENT_INTERFACE (PPS_TYPE_DOCUMENT_TRANSITION,
 						pdf_document_page_transition_iface_init)
 			 G_IMPLEMENT_INTERFACE (PPS_TYPE_DOCUMENT_TEXT,
-						pdf_document_text_iface_init)
-			 G_IMPLEMENT_INTERFACE (PPS_TYPE_DOCUMENT_SIGNATURES,
-						pdf_document_signatures_iface_init));
+						pdf_document_text_iface_init));
 
 static void
 pdf_document_dispose (GObject *object)
@@ -4187,8 +4189,97 @@ pdf_document_get_certificate_info (PpsDocumentSignatures *document,
 	return info;
 }
 
+static GList *
+pdf_document_signatures_get_signatures (PpsDocumentSignatures *document)
+{
+	PdfDocument *pdf_document = PDF_DOCUMENT (document);
+	GList *ret_list = NULL;
+	GList *signature_fields = NULL;
+	GList *iter;
+
+	signature_fields = poppler_document_get_signature_fields (pdf_document->document);
+
+	for (iter = signature_fields; iter != NULL; iter = iter->next) {
+		PopplerFormField *field = iter->data;
+		PopplerSignatureInfo *info = NULL;
+		PpsSignature *signature = NULL;
+		PpsSignatureStatus signature_status;
+		PpsCertificateStatus certificate_status;
+		GDateTime *sign_time;
+
+		if (poppler_form_field_get_field_type (field) != POPPLER_FORM_FIELD_SIGNATURE)
+			continue;
+
+		info = poppler_form_field_signature_validate_sync (field,
+								   POPPLER_SIGNATURE_VALIDATION_FLAG_VALIDATE_CERTIFICATE |
+								   POPPLER_SIGNATURE_VALIDATION_FLAG_USE_AIA_CERTIFICATE_FETCH,
+								   NULL,
+								   NULL);
+		if (info == NULL || poppler_signature_info_get_certificate_info (info) == NULL)
+			continue;
+
+		switch (poppler_signature_info_get_signature_status (info)) {
+		case POPPLER_SIGNATURE_VALID:
+			signature_status = PPS_SIGNATURE_STATUS_VALID;
+			break;
+		case POPPLER_SIGNATURE_INVALID:
+			signature_status = PPS_SIGNATURE_STATUS_INVALID;
+			break;
+		case POPPLER_SIGNATURE_DIGEST_MISMATCH:
+			signature_status = PPS_SIGNATURE_STATUS_DIGEST_MISMATCH;
+			break;
+		case POPPLER_SIGNATURE_DECODING_ERROR:
+			signature_status = PPS_SIGNATURE_STATUS_DECODING_ERROR;
+			break;
+		default:
+		case POPPLER_SIGNATURE_GENERIC_ERROR:
+			signature_status = PPS_SIGNATURE_STATUS_GENERIC_ERROR;
+			break;
+		}
+		poppler_signature_info_free (info);
+
+		info = poppler_form_field_signature_validate_sync (field, POPPLER_SIGNATURE_VALIDATION_FLAG_VALIDATE_CERTIFICATE, NULL, NULL);
+		switch (poppler_signature_info_get_certificate_status (info)) {
+		case POPPLER_CERTIFICATE_TRUSTED:
+			certificate_status = PPS_CERTIFICATE_STATUS_TRUSTED;
+			break;
+		case POPPLER_CERTIFICATE_UNTRUSTED_ISSUER:
+			certificate_status = PPS_CERTIFICATE_STATUS_UNTRUSTED_ISSUER;
+			break;
+		case POPPLER_CERTIFICATE_UNKNOWN_ISSUER:
+			certificate_status = PPS_CERTIFICATE_STATUS_UNKNOWN_ISSUER;
+			break;
+		case POPPLER_CERTIFICATE_REVOKED:
+			certificate_status = PPS_CERTIFICATE_STATUS_REVOKED;
+			break;
+		case POPPLER_CERTIFICATE_EXPIRED:
+			certificate_status = PPS_CERTIFICATE_STATUS_EXPIRED;
+			break;
+		case POPPLER_CERTIFICATE_GENERIC_ERROR:
+			certificate_status = PPS_CERTIFICATE_STATUS_GENERIC_ERROR;
+			break;
+		default:
+		case POPPLER_CERTIFICATE_NOT_VERIFIED:
+			certificate_status = PPS_CERTIFICATE_STATUS_NOT_VERIFIED;
+			break;
+		}
+
+		sign_time = poppler_signature_info_get_local_signing_time (info);
+		signature = pps_signature_new (poppler_signature_info_get_signer_name (info),
+					       signature_status,
+					       certificate_status,
+					       sign_time);
+		ret_list = g_list_append (ret_list, signature);
+		poppler_signature_info_free (info);
+	}
+
+	g_clear_list (&signature_fields, g_object_unref);
+
+	return ret_list;
+}
+
 static void
-pdf_document_signatures_iface_init (PpsDocumentSignaturesInterface *iface)
+pdf_document_document_signatures_iface_init (PpsDocumentSignaturesInterface *iface)
 {
 	iface->set_password_callback = pdf_document_set_password_callback;
 	iface->get_available_signing_certificates = pdf_document_get_available_signing_certifcates;
@@ -4196,4 +4287,5 @@ pdf_document_signatures_iface_init (PpsDocumentSignaturesInterface *iface)
 	iface->sign = pdf_document_signatures_sign;
 	iface->sign_finish = pdf_document_signatures_sign_finish;
 	iface->can_sign = pdf_document_signatures_can_sign;
+	iface->get_signatures = pdf_document_signatures_get_signatures;
 }

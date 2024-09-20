@@ -235,6 +235,13 @@
                   </object>
                 </child>
                 <child>
+                  <object class="AdwBanner" id="signature_banner">
+                    <property name="title" translatable="yes">Document has been digitally signed.</property>
+                    <property name="button-label" translatable="yes">View Details…</property>
+                    <signal name="button-clicked" handler="view_details_cb"/>
+                  </object>
+                </child>
+                <child>
                   <object class="GtkOverlay">
                     <property name="valign">fill</property>
                     <property name="vexpand">True</property>

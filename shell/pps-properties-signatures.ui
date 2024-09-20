@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="PpsPropertiesSignatures" parent="AdwBin">
+    <property name="child">
+      <object class="AdwPreferencesPage" id="signatures_page">
+        <child>
+          <object class="AdwPreferencesGroup" id="signature_overview">
+            <property name="title" translatable="yes">Document Status</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup" id="signature_details">
+            <property name="title" translatable="yes">Signature Details</property>
+            <child>
+              <object class="GtkListBox" id="list_box">
+                <property name="selection-mode">none</property>
+                <style>
+                  <class name="boxed-list"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </property>
+  </template>
+</interface>

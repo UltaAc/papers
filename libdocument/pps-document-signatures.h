@@ -36,7 +36,6 @@ G_BEGIN_DECLS
 PPS_PUBLIC
 G_DECLARE_INTERFACE (PpsDocumentSignatures, pps_document_signatures, PPS, DOCUMENT_SIGNATURES, GObject)
 
-
 typedef char * (*PpsSignaturePasswordCallback)(const gchar *text);
 
 struct _PpsDocumentSignaturesInterface
@@ -58,6 +57,7 @@ struct _PpsDocumentSignaturesInterface
 	                         GAsyncResult           *result,
 	                         GError                **error);
 	gboolean  (*can_sign) (PpsDocumentSignatures *document_signatures);
+	GList *(*get_signatures) (PpsDocumentSignatures *document_signatures);
 };
 
 PPS_PUBLIC
@@ -87,6 +87,10 @@ gboolean
 pps_document_signatures_sign_finish (PpsDocumentSignatures  *document_signatures,
                                      GAsyncResult           *result,
                                      GError                **error);
+
+PPS_PUBLIC
+GList *
+pps_document_signatures_get_signatures (PpsDocumentSignatures *document_signatures);
 
 G_END_DECLS
 

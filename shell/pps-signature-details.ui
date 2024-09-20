@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="PpsSignatureDetails" parent="AdwDialog">
+    <property name="content-height">400</property>
+    <property name="content-width">360</property>
+    <property name="child">
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="AdwHeaderBar"/>
+        </child>
+        <property name="content">
+          <object class="AdwStatusPage" id="status_page">
+            <property name="title" translatable="yes">Signature Details</property>
+            <property name="icon-name">application-certificate-symbolic</property>
+            <style>
+              <class name="compact"/>
+            </style>
+            <property name="child">
+              <object class="GtkListBox" id="listbox">
+                <property name="selection-mode">none</property>
+                <style>
+                  <class name="boxed-list"/>
+                </style>
+              </object>
+            </property>
+          </object>
+        </property>
+      </object>
+    </property>
+  </template>
+</interface>

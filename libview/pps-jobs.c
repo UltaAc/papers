@@ -35,6 +35,7 @@
 #include "pps-document-layers.h"
 #include "pps-document-print.h"
 #include "pps-document-annotations.h"
+#include "pps-document-signatures.h"
 #include "pps-document-attachments.h"
 #include "pps-document-media.h"
 #include "pps-document-text.h"
@@ -1665,4 +1666,81 @@ pps_job_print_set_cairo (PpsJobPrint *job,
 	if (job->cr)
 		cairo_destroy (job->cr);
 	job->cr = cr ? cairo_reference (cr) : NULL;
+}
+
+/* PpsJobSignatures */
+
+struct _PpsJobSignatures
+{
+	PpsJob parent;
+
+	GList *signatures;
+};
+
+G_DEFINE_TYPE (PpsJobSignatures, pps_job_signatures, PPS_TYPE_JOB)
+
+static void
+pps_job_signatures_init (PpsJobSignatures *job)
+{
+}
+
+static void
+pps_job_signatures_dispose (GObject *object)
+{
+	PpsJobSignatures *job;
+
+	job = PPS_JOB_SIGNATURES (object);
+
+	g_clear_object (&job->signatures);
+
+	(* G_OBJECT_CLASS (pps_job_signatures_parent_class)->dispose) (object);
+}
+
+static gboolean
+pps_job_signatures_run (PpsJob *job)
+{
+	PpsJobSignatures *job_signatures = PPS_JOB_SIGNATURES (job);
+
+	pps_document_doc_mutex_lock (pps_job_get_document (job));
+	job_signatures->signatures =
+		pps_document_signatures_get_signatures (PPS_DOCUMENT_SIGNATURES ((pps_job_get_document (job))));
+	pps_document_doc_mutex_unlock (pps_job_get_document (job));
+
+	pps_job_succeeded (job);
+
+	return FALSE;
+}
+
+static void
+pps_job_signatures_class_init (PpsJobSignaturesClass *class)
+{
+	GObjectClass *oclass = G_OBJECT_CLASS (class);
+	PpsJobClass   *job_class = PPS_JOB_CLASS (class);
+
+	oclass->dispose = pps_job_signatures_dispose;
+	job_class->run = pps_job_signatures_run;
+}
+
+PpsJob *
+pps_job_signatures_new (PpsDocument *document)
+{
+	PpsJob *job;
+
+	job = g_object_new (PPS_TYPE_JOB_SIGNATURES, "document", document, NULL);
+
+	return job;
+}
+
+/**
+ * pps_job_signatures_get_signatures:
+ * @self: a #PpsJobSignatures
+ *
+ * Get all available signatures
+ *
+ * Returns: (element-type PpsSignature) (transfer none): all available signatures
+ */
+GList *
+pps_job_signatures_get_signatures (PpsJobSignatures *self)
+{
+	return self->signatures;
 }

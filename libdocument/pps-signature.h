@@ -41,6 +41,24 @@ typedef struct
 	char *subject_common_name;
 } PpsCertificateInfo;
 
+typedef enum {
+	PPS_SIGNATURE_STATUS_VALID = 0,
+	PPS_SIGNATURE_STATUS_INVALID,
+	PPS_SIGNATURE_STATUS_DIGEST_MISMATCH,
+	PPS_SIGNATURE_STATUS_DECODING_ERROR,
+	PPS_SIGNATURE_STATUS_GENERIC_ERROR
+} PpsSignatureStatus;
+
+typedef enum {
+	PPS_CERTIFICATE_STATUS_TRUSTED = 0,
+	PPS_CERTIFICATE_STATUS_UNTRUSTED_ISSUER,
+	PPS_CERTIFICATE_STATUS_UNKNOWN_ISSUER,
+	PPS_CERTIFICATE_STATUS_REVOKED,
+	PPS_CERTIFICATE_STATUS_EXPIRED,
+	PPS_CERTIFICATE_STATUS_GENERIC_ERROR,
+	PPS_CERTIFICATE_STATUS_NOT_VERIFIED
+} PpsCertificateStatus;
+
 /* Certificate Information */
 #define PPS_TYPE_CERTIFICATE_INFO (pps_certificate_info_get_type())
 
@@ -70,10 +88,6 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC (PpsCertificateInfo, pps_certificate_info_free)
 struct _PpsSignature {
 	GObject base_instance;
 };
-
-PPS_PUBLIC
-PpsSignature *
-pps_signature_new (void);
 
 PPS_PUBLIC
 void pps_signature_set_certificate_info (PpsSignature             *self,
@@ -209,6 +223,37 @@ pps_signature_set_user_password (PpsSignature *self,
 PPS_PUBLIC
 const char *
 pps_signature_get_user_password (PpsSignature *self);
+
+PPS_PUBLIC
+PpsSignature *
+pps_signature_new (const gchar          *signer_name,
+                   PpsSignatureStatus    signature_status,
+                   PpsCertificateStatus  certificate_status,
+                   GDateTime            *signature_time);
+
+PPS_PUBLIC
+PpsCertificateStatus
+pps_signature_get_certificate_status (PpsSignature *self);
+
+PPS_PUBLIC
+char *
+pps_signature_certificate_status_str (PpsCertificateStatus status);
+
+PPS_PUBLIC
+PpsSignatureStatus
+pps_signature_get_signature_status (PpsSignature *self);
+
+PPS_PUBLIC
+char *
+pps_signature_signature_status_str (PpsSignatureStatus status);
+
+PPS_PUBLIC
+GDateTime *
+pps_signature_get_signature_time (PpsSignature *self);
+
+PPS_PUBLIC
+gboolean
+pps_signature_is_valid (PpsSignature *self);
 
 #endif
 
