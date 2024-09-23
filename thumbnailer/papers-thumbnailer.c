@@ -118,7 +118,7 @@ papers_thumbnailer_get_document (GFile *file)
 	PpsDocument *document = NULL;
 	gchar      *uri, *path;
 	GFile      *tmp_file = NULL;
-	GError     *error = NULL;
+	g_autoptr (GError) error = NULL;
 
 	path = get_local_path (file);
 
@@ -133,7 +133,6 @@ papers_thumbnailer_get_document (GFile *file)
 		g_free (template);
 		if (!tmp_file) {
 			g_printerr ("Error loading remote document: %s\n", error->message);
-			g_error_free (error);
 
 			return NULL;
 		}
@@ -142,7 +141,6 @@ papers_thumbnailer_get_document (GFile *file)
 			     NULL, NULL, NULL, &error);
 		if (error) {
 			g_printerr ("Error loading remote document: %s\n", error->message);
-			g_error_free (error);
 			g_object_unref (tmp_file);
 
 			return NULL;
@@ -169,11 +167,9 @@ papers_thumbnailer_get_document (GFile *file)
 		if (error->domain == PPS_DOCUMENT_ERROR &&
 		    error->code == PPS_DOCUMENT_ERROR_ENCRYPTED) {
 			/* FIXME: Create a thumb for cryp docs */
-			g_error_free (error);
 			return NULL;
 		}
 		g_printerr ("Error loading document: %s\n", error->message);
-		g_error_free (error);
 		return NULL;
 	}
 
@@ -183,28 +179,18 @@ papers_thumbnailer_get_document (GFile *file)
 static gboolean
 papers_thumbnail_pngenc_get (PpsDocument *document, const char *thumbnail, int size)
 {
-	PpsRenderContext *rc;
 	double width, height;
-	GdkPixbuf *pixbuf;
-	PpsPage *page;
-
-	page = pps_document_get_page (document, 0);
+	g_autoptr (PpsRenderContext) rc = NULL;
+	g_autoptr (GdkPixbuf) pixbuf = NULL;
+	g_autoptr (PpsPage) page = pps_document_get_page (document, 0);
 
 	pps_document_get_page_size (document, 0, &width, &height);
 
 	rc = pps_render_context_new (page, 0, size / MAX (height, width));
 	pixbuf = pps_document_get_thumbnail (document, rc);
-	g_object_unref (rc);
-	g_object_unref (page);
 
-	if (pixbuf != NULL) {
-		if (gdk_pixbuf_save (pixbuf, thumbnail, "png", NULL, NULL)) {
-			g_object_unref  (pixbuf);
-			return TRUE;
-		}
-
-		g_object_unref  (pixbuf);
-	}
+	if (pixbuf && gdk_pixbuf_save (pixbuf, thumbnail, "png", NULL, NULL))
+		return TRUE;
 
 	return FALSE;
 }
