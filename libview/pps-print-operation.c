@@ -387,6 +387,7 @@ struct _PpsPrintOperationExport {
 
 	PpsJob *job_export;
 	GError *error;
+	GtkPrintDialog *dialog;
 
 	gint n_pages;
 	gint current_page;
@@ -1284,6 +1285,11 @@ pps_print_operation_export_init (PpsPrintOperationExport *export)
 {
 	/* sheets are counted from 1 to be physical */
 	export->sheet = 1;
+	export->dialog = gtk_print_dialog_new ();
+
+	/* translators: Title of the print dialog */
+	gtk_print_dialog_set_title (export->dialog, _("Print"));
+	gtk_print_dialog_set_modal (export->dialog, TRUE);
 }
 
 static void
@@ -1320,11 +1326,7 @@ pps_print_operation_export_class_init (PpsPrintOperationExportClass *klass)
 	g_object_class->finalize = pps_print_operation_export_finalize;
 }
 
-/* Export with unix print dialogue */
-
-#if GTKUNIXPRINT_ENABLED
-
-#include <gtk/gtkunixprint.h>
+/* Export with GtkPrintDialog */
 
 #define PPS_TYPE_PRINT_OPERATION_EXPORT_UNIX            (pps_print_operation_export_unix_get_type())
 #define PPS_PRINT_OPERATION_EXPORT_UNIX(object)         (G_TYPE_CHECK_INSTANCE_CAST((object), PPS_TYPE_PRINT_OPERATION_EXPORT_UNIX, PpsPrintOperationExportUnix))
@@ -1343,7 +1345,7 @@ struct _PpsPrintOperationExportUnix {
 
 	GtkWindow *parent_window;
 
-	GtkPrinter *printer;
+	GtkPrintSetup *print_setup;
 
 	/* Context */
 };
@@ -1355,68 +1357,43 @@ struct _PpsPrintOperationExportUnixClass {
 G_DEFINE_TYPE (PpsPrintOperationExportUnix, pps_print_operation_export_unix, PPS_TYPE_PRINT_OPERATION_EXPORT)
 
 static void
-pps_print_operation_export_unix_set_printer (PpsPrintOperationExportUnix *export,
-                                            GtkPrinter                 *printer)
-{
-	g_set_object (&export->printer, printer);
-}
-
-static void
-export_unix_print_dialog_response_cb (GtkDialog              *dialog,
-                                      gint                    response,
-                                      PpsPrintOperationExport *export)
+export_unix_print_dialog_setup_cb (GtkPrintDialog  		  *dialog,
+				   GAsyncResult    		  *res,
+				   PpsPrintOperationExport        *export)
 {
 	PpsPrintOperationExportUnix *export_unix = PPS_PRINT_OPERATION_EXPORT_UNIX (export);
-	PpsPrintOperation     *op = PPS_PRINT_OPERATION (export);
+	PpsPrintOperation     *op = PPS_PRINT_OPERATION (export_unix);
 	GtkPrintSettings     *print_settings;
 	GtkPageSetup         *page_setup;
-	GtkPrinter           *printer;
+	GtkPrintSetup        *print_setup;
 	PpsFileExporterFormat  format;
 
-	if (response != GTK_RESPONSE_OK &&
-	    response != GTK_RESPONSE_APPLY) {
+	print_setup = gtk_print_dialog_setup_finish (dialog, res, NULL);
+
+	if (!print_setup) {
 		gtk_window_destroy (GTK_WINDOW (dialog));
 		g_signal_emit (op, signals[DONE], 0, GTK_PRINT_OPERATION_RESULT_CANCEL);
 
 		return;
 	}
 
-	op->print_preview = (response == GTK_RESPONSE_APPLY);
+	page_setup = gtk_print_setup_get_page_setup (print_setup);
+	print_settings = gtk_print_setup_get_print_settings (print_setup);
 
-	printer = gtk_print_unix_dialog_get_selected_printer (GTK_PRINT_UNIX_DIALOG (dialog));
-	pps_print_operation_export_unix_set_printer (export_unix, printer);
+	// op->print_preview = (response == GTK_RESPONSE_APPLY);
 
-	print_settings = gtk_print_unix_dialog_get_settings (GTK_PRINT_UNIX_DIALOG (dialog));
 	pps_print_operation_export_set_print_settings (op, print_settings);
-
-	page_setup = gtk_print_unix_dialog_get_page_setup (GTK_PRINT_UNIX_DIALOG (dialog));
 	pps_print_operation_export_set_default_page_setup (op, page_setup);
+
+	export_unix->print_setup = print_setup;
 
 	format = get_file_exporter_format (PPS_FILE_EXPORTER (op->document),
                                            print_settings);
 
-	if ((format == PPS_FILE_FORMAT_PS && !gtk_printer_accepts_ps (export_unix->printer)) ||
-	    (format == PPS_FILE_FORMAT_PDF && !gtk_printer_accepts_pdf (export_unix->printer))) {
-		gtk_window_destroy (GTK_WINDOW (dialog));
-
-		g_set_error_literal (&export->error,
-                                     GTK_PRINT_ERROR,
-                                     GTK_PRINT_ERROR_GENERAL,
-                                     _("Requested format is not supported by this printer."));
-		g_signal_emit (op, signals[DONE], 0, GTK_PRINT_OPERATION_RESULT_ERROR);
-
-		return;
-	}
-
         if (!pps_print_operation_export_mkstemp (export, format)) {
-		gtk_window_destroy (GTK_WINDOW (dialog));
-
 		g_signal_emit (op, signals[DONE], 0, GTK_PRINT_OPERATION_RESULT_ERROR);
 		return;
 	}
-
-        /* FIXMEchpe (why) is this necessary? */
-	export->current_page = gtk_print_unix_dialog_get_current_page (GTK_PRINT_UNIX_DIALOG (dialog));
 
         if (!pps_print_operation_export_update_ranges (export)) {
 		AdwAlertDialog *alert_dialog;
@@ -1429,30 +1406,24 @@ export_unix_print_dialog_response_cb (GtkDialog              *dialog,
 		return;
 	}
 
-	gtk_window_destroy (GTK_WINDOW (dialog));
-
         pps_print_operation_export_prepare (export, format);
 }
 
 static void
-export_unix_print_job_finished_cb (GtkPrintJob            *print_job,
-                                   PpsPrintOperationExport *export,
-                                   GError                 *error)
+export_unix_print_job_finished_cb (GtkPrintDialog  		  *dialog,
+				   GAsyncResult    		  *res,
+				   PpsPrintOperationExport        *export)
 {
 	PpsPrintOperation *op = PPS_PRINT_OPERATION (export);
+	g_autoptr (GError) error = NULL;
 
-	if (error) {
-		g_set_error_literal (&export->error,
-				     GTK_PRINT_ERROR,
-				     GTK_PRINT_ERROR_GENERAL,
-				     error->message);
+	if (!gtk_print_dialog_print_file_finish (dialog, res, &error)) {
 		g_signal_emit (op, signals[DONE], 0, GTK_PRINT_OPERATION_RESULT_ERROR);
 	} else {
 		g_signal_emit (op, signals[DONE], 0, GTK_PRINT_OPERATION_RESULT_APPLY);
 	}
 
 	pps_print_operation_export_clear_temp_file (export);
-	g_object_unref (print_job);
 
 	pps_print_operation_export_run_next (export);
 }
@@ -1463,40 +1434,17 @@ pps_print_operation_export_unix_run (PpsPrintOperation *op,
 {
 	PpsPrintOperationExport *export = PPS_PRINT_OPERATION_EXPORT (op);
 	PpsPrintOperationExportUnix *export_unix = PPS_PRINT_OPERATION_EXPORT_UNIX (op);
-	GtkWidget              *dialog;
-	GtkPrintCapabilities    capabilities;
 
         PPS_PRINT_OPERATION_CLASS (pps_print_operation_export_unix_parent_class)->run (op, parent);
 
 	export_unix->parent_window = parent;
 
-	/* translators: Title of the print dialog */
-	dialog = gtk_print_unix_dialog_new (_("Print"), parent);
-	gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
-
-	capabilities = GTK_PRINT_CAPABILITY_PREVIEW |
-		pps_file_exporter_get_capabilities (PPS_FILE_EXPORTER (op->document));
-	gtk_print_unix_dialog_set_manual_capabilities (GTK_PRINT_UNIX_DIALOG (dialog),
-						       capabilities);
-
-	gtk_print_unix_dialog_set_embed_page_setup (GTK_PRINT_UNIX_DIALOG (dialog),
-						    export->embed_page_setup);
-
-	gtk_print_unix_dialog_set_current_page (GTK_PRINT_UNIX_DIALOG (dialog),
-						export->current_page);
-
-	gtk_print_unix_dialog_set_settings (GTK_PRINT_UNIX_DIALOG (dialog),
-					    export->print_settings);
-
 	if (export->page_setup)
-		gtk_print_unix_dialog_set_page_setup (GTK_PRINT_UNIX_DIALOG (dialog),
-						      export->page_setup);
+		gtk_print_dialog_set_page_setup (export->dialog, export->page_setup);
 
-	g_signal_connect (dialog, "response",
-			  G_CALLBACK (export_unix_print_dialog_response_cb),
-			  export);
+	gtk_print_dialog_set_print_settings (export->dialog, export->print_settings);
 
-	gtk_window_present (GTK_WINDOW (dialog));
+	gtk_print_dialog_setup (export->dialog, parent, NULL, (GAsyncReadyCallback)export_unix_print_dialog_setup_cb, export);
 }
 
 static gboolean
@@ -1582,34 +1530,17 @@ pps_print_operation_export_unix_send_job (PpsPrintOperationExport *export,
                                          GtkPrintSettings       *settings,
                                          GError                **error)
 {
-        PpsPrintOperationExportUnix *export_unix = PPS_PRINT_OPERATION_EXPORT_UNIX (export);
-        GtkPrintJob *job;
-        GError *err = NULL;
+	PpsPrintOperationExportUnix *export_unix = PPS_PRINT_OPERATION_EXPORT_UNIX (export);
+	g_autoptr (GFile) file = g_file_new_for_path (export->temp_file);
 
-        job = gtk_print_job_new (export->job_name,
-                                 export_unix->printer,
-                                 settings,
-                                 export->page_setup);
-        gtk_print_job_set_source_file (job, export->temp_file, &err);
-        if (err) {
-                g_propagate_error (error, err);
-        } else {
-                gtk_print_job_send (job,
-                                    (GtkPrintJobCompleteFunc) export_unix_print_job_finished_cb,
-                                    g_object_ref (export),
-                                    (GDestroyNotify) g_object_unref);
-        }
+	gtk_print_dialog_print_file (export->dialog, export_unix->parent_window, export_unix->print_setup, file, NULL, (GAsyncReadyCallback)export_unix_print_job_finished_cb, export);
 
-        return err != NULL;
+        return TRUE;
 }
 
 static void
 pps_print_operation_export_unix_finalize (GObject *object)
 {
-	PpsPrintOperationExportUnix *export_unix = PPS_PRINT_OPERATION_EXPORT_UNIX (object);
-
-	g_clear_object (&export_unix->printer);
-
 	G_OBJECT_CLASS (pps_print_operation_export_unix_parent_class)->finalize (object);
 }
 
@@ -1633,8 +1564,6 @@ pps_print_operation_export_unix_class_init (PpsPrintOperationExportUnixClass *kl
 
 	g_object_class->finalize = pps_print_operation_export_unix_finalize;
 }
-
-#endif /* GTKUNIXPRINT_ENABLED */
 
 /* Print to cairo interface */
 #define PPS_TYPE_PRINT_OPERATION_PRINT         (pps_print_operation_print_get_type())
@@ -2232,9 +2161,7 @@ pps_print_operation_get_gtype_for_document (PpsDocument *document)
         if (PPS_IS_DOCUMENT_PRINT (document) && g_strcmp0 (env, "export") != 0) {
                 type = PPS_TYPE_PRINT_OPERATION_PRINT;
         } else if (PPS_IS_FILE_EXPORTER (document)) {
-#if GTKUNIXPRINT_ENABLED
                 type = PPS_TYPE_PRINT_OPERATION_EXPORT_UNIX;
-#endif
         }
 
         return type;

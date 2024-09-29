@@ -82,7 +82,6 @@ enum_sources = gnome.mkenums_simple(
 )
 
 deps = [
-  gtk_unix_print_dep,
   gthread_dep,
   libppsdocument_dep,
   libaw_dep,
