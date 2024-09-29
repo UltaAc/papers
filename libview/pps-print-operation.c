@@ -388,6 +388,8 @@ struct _PpsPrintOperationExport {
 	PpsJob *job_export;
 	GError *error;
 	GtkPrintDialog *dialog;
+	GtkWindow *parent_window;
+	GtkPrintSetup *print_setup;
 
 	gint n_pages;
 	gint current_page;
@@ -432,7 +434,10 @@ struct _PpsPrintOperationExportClass {
                                    GError                **error);
 };
 
-G_DEFINE_ABSTRACT_TYPE (PpsPrintOperationExport, pps_print_operation_export, PPS_TYPE_PRINT_OPERATION)
+G_DEFINE_TYPE (PpsPrintOperationExport, pps_print_operation_export, PPS_TYPE_PRINT_OPERATION)
+
+static void pps_print_operation_export_run_next (PpsPrintOperationExport *export);
+static void pps_print_operation_export_clear_temp_file (PpsPrintOperationExport *export);
 
 /* Internal print queue */
 static GHashTable *print_queue = NULL;
@@ -525,9 +530,95 @@ pps_print_operation_export_run_previewer (PpsPrintOperationExport *export,
 {
 	g_return_val_if_fail (PPS_IS_PRINT_OPERATION_EXPORT (export), FALSE);
 
-        return PPS_PRINT_OPERATION_EXPORT_GET_CLASS (export)->run_previewer (export,
-                                                                            settings,
-                                                                            error);
+        PpsPrintOperation *op = PPS_PRINT_OPERATION (export);
+        GKeyFile *key_file;
+        gchar    *data = NULL;
+        gsize     data_len;
+        gchar    *print_settings_file = NULL;
+        GError   *err = NULL;
+
+        key_file = g_key_file_new ();
+
+        gtk_print_settings_to_key_file (settings, key_file, NULL);
+        gtk_page_setup_to_key_file (export->page_setup, key_file, NULL);
+        g_key_file_set_string (key_file, "Print Job", "title", export->job_name);
+
+        data = g_key_file_to_data (key_file, &data_len, &err);
+        if (data) {
+                gint fd;
+
+                fd = g_file_open_tmp ("print-settingsXXXXXX", &print_settings_file, &err);
+                if (!error)
+                        g_file_set_contents (print_settings_file, data, data_len, &err);
+                close (fd);
+
+                g_free (data);
+        }
+
+        g_key_file_free (key_file);
+
+        if (!err) {
+                gchar  *cmd;
+                gchar  *quoted_filename;
+                gchar  *quoted_settings_filename;
+                GAppInfo *app;
+                GdkAppLaunchContext *ctx;
+
+                quoted_filename = g_shell_quote (export->temp_file);
+                quoted_settings_filename = g_shell_quote (print_settings_file);
+                cmd = g_strdup_printf ("papers-previewer --unlink-tempfile --print-settings %s %s",
+                                       quoted_settings_filename, quoted_filename);
+
+                g_free (quoted_filename);
+                g_free (quoted_settings_filename);
+
+                app = g_app_info_create_from_commandline (cmd, NULL, 0, &err);
+
+                if (app != NULL) {
+                        ctx = gdk_display_get_app_launch_context (gtk_widget_get_display (GTK_WIDGET (export->parent_window)));
+
+                        g_app_info_launch (app, NULL, G_APP_LAUNCH_CONTEXT (ctx), &err);
+
+                        g_object_unref (app);
+                        g_object_unref (ctx);
+                }
+
+                g_free (cmd);
+        }
+
+        if (err) {
+                if (print_settings_file)
+                        g_unlink (print_settings_file);
+                g_free (print_settings_file);
+
+                g_propagate_error (error, err);
+        } else {
+                g_signal_emit (op, signals[DONE], 0, GTK_PRINT_OPERATION_RESULT_APPLY);
+                /* temp_file will be deleted by the previewer */
+
+                pps_print_operation_export_run_next (export);
+        }
+
+        return err != NULL;
+}
+
+static void
+export_unix_print_job_finished_cb (GtkPrintDialog  		  *dialog,
+				   GAsyncResult    		  *res,
+				   PpsPrintOperationExport        *export)
+{
+	PpsPrintOperation *op = PPS_PRINT_OPERATION (export);
+	g_autoptr (GError) error = NULL;
+
+	if (!gtk_print_dialog_print_file_finish (dialog, res, &error)) {
+		g_signal_emit (op, signals[DONE], 0, GTK_PRINT_OPERATION_RESULT_ERROR);
+	} else {
+		g_signal_emit (op, signals[DONE], 0, GTK_PRINT_OPERATION_RESULT_APPLY);
+	}
+
+	pps_print_operation_export_clear_temp_file (export);
+
+	pps_print_operation_export_run_next (export);
 }
 
 static gboolean
@@ -536,10 +627,11 @@ pps_print_operation_export_send_job (PpsPrintOperationExport *export,
                                     GError                **error)
 {
 	g_return_val_if_fail (PPS_IS_PRINT_OPERATION_EXPORT (export), FALSE);
+	g_autoptr (GFile) file = g_file_new_for_path (export->temp_file);
 
-        return PPS_PRINT_OPERATION_EXPORT_GET_CLASS (export)->send_job (export,
-                                                                       settings,
-                                                                       error);
+	gtk_print_dialog_print_file (export->dialog, export->parent_window, export->print_setup, file, NULL, (GAsyncReadyCallback)export_unix_print_job_finished_cb, export);
+
+        return TRUE;
 }
 
 static void
@@ -1054,17 +1146,6 @@ get_file_exporter_format (PpsFileExporter   *exporter,
 }
 
 static void
-pps_print_operation_export_run (PpsPrintOperation *op,
-			       GtkWindow        *parent)
-{
-	PpsPrintOperationExport *export = PPS_PRINT_OPERATION_EXPORT (op);
-
-	pps_print_queue_init ();
-
-	export->error = NULL;
-}
-
-static void
 pps_print_operation_export_cancel (PpsPrintOperation *op)
 {
 	PpsPrintOperationExport *export = PPS_PRINT_OPERATION_EXPORT (op);
@@ -1240,6 +1321,77 @@ pps_print_operation_export_prepare (PpsPrintOperationExport *export,
 }
 
 static void
+export_print_dialog_setup_cb (GtkPrintDialog  		  *dialog,
+			      GAsyncResult    		  *res,
+			      PpsPrintOperationExport     *export)
+{
+	PpsPrintOperation     *op = PPS_PRINT_OPERATION (export);
+	GtkPrintSettings     *print_settings;
+	GtkPageSetup         *page_setup;
+	GtkPrintSetup        *print_setup;
+	PpsFileExporterFormat  format;
+
+	print_setup = gtk_print_dialog_setup_finish (dialog, res, NULL);
+
+	if (!print_setup) {
+		gtk_window_destroy (GTK_WINDOW (dialog));
+		g_signal_emit (op, signals[DONE], 0, GTK_PRINT_OPERATION_RESULT_CANCEL);
+
+		return;
+	}
+
+	page_setup = gtk_print_setup_get_page_setup (print_setup);
+	print_settings = gtk_print_setup_get_print_settings (print_setup);
+
+	// op->print_preview = (response == GTK_RESPONSE_APPLY);
+
+	pps_print_operation_export_set_print_settings (op, print_settings);
+	pps_print_operation_export_set_default_page_setup (op, page_setup);
+
+	export->print_setup = print_setup;
+
+	format = get_file_exporter_format (PPS_FILE_EXPORTER (op->document),
+                                           print_settings);
+
+        if (!pps_print_operation_export_mkstemp (export, format)) {
+		g_signal_emit (op, signals[DONE], 0, GTK_PRINT_OPERATION_RESULT_ERROR);
+		return;
+	}
+
+        if (!pps_print_operation_export_update_ranges (export)) {
+		AdwAlertDialog *alert_dialog;
+
+		alert_dialog = ADW_ALERT_DIALOG (adw_alert_dialog_new (_("Invalid Page Selection"),
+					_("Your print range selection does not include any pages")));
+		adw_alert_dialog_add_response (alert_dialog, "close", _("_Close"));
+		adw_dialog_present (ADW_DIALOG (alert_dialog), GTK_WIDGET (dialog));
+
+		return;
+	}
+
+        pps_print_operation_export_prepare (export, format);
+}
+
+static void
+pps_print_operation_export_run (PpsPrintOperation *op,
+			        GtkWindow        *parent)
+{
+	PpsPrintOperationExport *export = PPS_PRINT_OPERATION_EXPORT (op);
+
+	pps_print_queue_init ();
+
+	export->error = NULL;
+	export->parent_window = parent;
+
+	if (export->page_setup)
+		gtk_print_dialog_set_page_setup (export->dialog, export->page_setup);
+
+	gtk_print_dialog_set_print_settings (export->dialog, export->print_settings);
+
+	gtk_print_dialog_setup (export->dialog, parent, NULL, (GAsyncReadyCallback)export_print_dialog_setup_cb, export);
+}
+
+static void
 pps_print_operation_export_finalize (GObject *object)
 {
 	PpsPrintOperationExport *export = PPS_PRINT_OPERATION_EXPORT (object);
@@ -1324,245 +1476,6 @@ pps_print_operation_export_class_init (PpsPrintOperationExportClass *klass)
 
 	g_object_class->constructed = pps_print_operation_export_constructed;
 	g_object_class->finalize = pps_print_operation_export_finalize;
-}
-
-/* Export with GtkPrintDialog */
-
-#define PPS_TYPE_PRINT_OPERATION_EXPORT_UNIX            (pps_print_operation_export_unix_get_type())
-#define PPS_PRINT_OPERATION_EXPORT_UNIX(object)         (G_TYPE_CHECK_INSTANCE_CAST((object), PPS_TYPE_PRINT_OPERATION_EXPORT_UNIX, PpsPrintOperationExportUnix))
-#define PPS_PRINT_OPERATION_EXPORT_UNIX_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), PPS_TYPE_PRINT_OPERATION_EXPORT_UNIX, PpsPrintOperationExportUnixClass))
-#define PPS_IS_PRINT_OPERATION_EXPORT_UNIX(object)      (G_TYPE_CHECK_INSTANCE_TYPE((object), PPS_TYPE_PRINT_OPERATION_EXPORT_UNIX))
-#define PPS_IS_PRINT_OPERATION_EXPORT_UNIX_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_PRINT_OPERATION_EXPORT_UNIX))
-#define PPS_PRINT_OPERATION_EXPORT_UNIX_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_PRINT_OPERATION_EXPORT_UNIX, PpsPrintOperationExportUnixClass))
-
-typedef struct _PpsPrintOperationExportUnix      PpsPrintOperationExportUnix;
-typedef struct _PpsPrintOperationExportUnixClass PpsPrintOperationExportUnixClass;
-
-static GType    pps_print_operation_export_unix_get_type (void) G_GNUC_CONST;
-
-struct _PpsPrintOperationExportUnix {
-	PpsPrintOperationExport parent;
-
-	GtkWindow *parent_window;
-
-	GtkPrintSetup *print_setup;
-
-	/* Context */
-};
-
-struct _PpsPrintOperationExportUnixClass {
-	PpsPrintOperationExportClass parent_class;
-};
-
-G_DEFINE_TYPE (PpsPrintOperationExportUnix, pps_print_operation_export_unix, PPS_TYPE_PRINT_OPERATION_EXPORT)
-
-static void
-export_unix_print_dialog_setup_cb (GtkPrintDialog  		  *dialog,
-				   GAsyncResult    		  *res,
-				   PpsPrintOperationExport        *export)
-{
-	PpsPrintOperationExportUnix *export_unix = PPS_PRINT_OPERATION_EXPORT_UNIX (export);
-	PpsPrintOperation     *op = PPS_PRINT_OPERATION (export_unix);
-	GtkPrintSettings     *print_settings;
-	GtkPageSetup         *page_setup;
-	GtkPrintSetup        *print_setup;
-	PpsFileExporterFormat  format;
-
-	print_setup = gtk_print_dialog_setup_finish (dialog, res, NULL);
-
-	if (!print_setup) {
-		gtk_window_destroy (GTK_WINDOW (dialog));
-		g_signal_emit (op, signals[DONE], 0, GTK_PRINT_OPERATION_RESULT_CANCEL);
-
-		return;
-	}
-
-	page_setup = gtk_print_setup_get_page_setup (print_setup);
-	print_settings = gtk_print_setup_get_print_settings (print_setup);
-
-	// op->print_preview = (response == GTK_RESPONSE_APPLY);
-
-	pps_print_operation_export_set_print_settings (op, print_settings);
-	pps_print_operation_export_set_default_page_setup (op, page_setup);
-
-	export_unix->print_setup = print_setup;
-
-	format = get_file_exporter_format (PPS_FILE_EXPORTER (op->document),
-                                           print_settings);
-
-        if (!pps_print_operation_export_mkstemp (export, format)) {
-		g_signal_emit (op, signals[DONE], 0, GTK_PRINT_OPERATION_RESULT_ERROR);
-		return;
-	}
-
-        if (!pps_print_operation_export_update_ranges (export)) {
-		AdwAlertDialog *alert_dialog;
-
-		alert_dialog = ADW_ALERT_DIALOG (adw_alert_dialog_new (_("Invalid Page Selection"),
-					_("Your print range selection does not include any pages")));
-		adw_alert_dialog_add_response (alert_dialog, "close", _("_Close"));
-		adw_dialog_present (ADW_DIALOG (alert_dialog), GTK_WIDGET (dialog));
-
-		return;
-	}
-
-        pps_print_operation_export_prepare (export, format);
-}
-
-static void
-export_unix_print_job_finished_cb (GtkPrintDialog  		  *dialog,
-				   GAsyncResult    		  *res,
-				   PpsPrintOperationExport        *export)
-{
-	PpsPrintOperation *op = PPS_PRINT_OPERATION (export);
-	g_autoptr (GError) error = NULL;
-
-	if (!gtk_print_dialog_print_file_finish (dialog, res, &error)) {
-		g_signal_emit (op, signals[DONE], 0, GTK_PRINT_OPERATION_RESULT_ERROR);
-	} else {
-		g_signal_emit (op, signals[DONE], 0, GTK_PRINT_OPERATION_RESULT_APPLY);
-	}
-
-	pps_print_operation_export_clear_temp_file (export);
-
-	pps_print_operation_export_run_next (export);
-}
-
-static void
-pps_print_operation_export_unix_run (PpsPrintOperation *op,
-                                    GtkWindow        *parent)
-{
-	PpsPrintOperationExport *export = PPS_PRINT_OPERATION_EXPORT (op);
-	PpsPrintOperationExportUnix *export_unix = PPS_PRINT_OPERATION_EXPORT_UNIX (op);
-
-        PPS_PRINT_OPERATION_CLASS (pps_print_operation_export_unix_parent_class)->run (op, parent);
-
-	export_unix->parent_window = parent;
-
-	if (export->page_setup)
-		gtk_print_dialog_set_page_setup (export->dialog, export->page_setup);
-
-	gtk_print_dialog_set_print_settings (export->dialog, export->print_settings);
-
-	gtk_print_dialog_setup (export->dialog, parent, NULL, (GAsyncReadyCallback)export_unix_print_dialog_setup_cb, export);
-}
-
-static gboolean
-pps_print_operation_export_unix_run_previewer (PpsPrintOperationExport *export,
-                                              GtkPrintSettings       *settings,
-                                              GError                **error)
-{
-        PpsPrintOperation *op = PPS_PRINT_OPERATION (export);
-        PpsPrintOperationExportUnix *export_unix = PPS_PRINT_OPERATION_EXPORT_UNIX (export);
-        GKeyFile *key_file;
-        gchar    *data = NULL;
-        gsize     data_len;
-        gchar    *print_settings_file = NULL;
-        GError   *err = NULL;
-
-        key_file = g_key_file_new ();
-
-        gtk_print_settings_to_key_file (settings, key_file, NULL);
-        gtk_page_setup_to_key_file (export->page_setup, key_file, NULL);
-        g_key_file_set_string (key_file, "Print Job", "title", export->job_name);
-
-        data = g_key_file_to_data (key_file, &data_len, &err);
-        if (data) {
-                gint fd;
-
-                fd = g_file_open_tmp ("print-settingsXXXXXX", &print_settings_file, &err);
-                if (!error)
-                        g_file_set_contents (print_settings_file, data, data_len, &err);
-                close (fd);
-
-                g_free (data);
-        }
-
-        g_key_file_free (key_file);
-
-        if (!err) {
-                gchar  *cmd;
-                gchar  *quoted_filename;
-                gchar  *quoted_settings_filename;
-                GAppInfo *app;
-                GdkAppLaunchContext *ctx;
-
-                quoted_filename = g_shell_quote (export->temp_file);
-                quoted_settings_filename = g_shell_quote (print_settings_file);
-                cmd = g_strdup_printf ("papers-previewer --unlink-tempfile --print-settings %s %s",
-                                       quoted_settings_filename, quoted_filename);
-
-                g_free (quoted_filename);
-                g_free (quoted_settings_filename);
-
-                app = g_app_info_create_from_commandline (cmd, NULL, 0, &err);
-
-                if (app != NULL) {
-                        ctx = gdk_display_get_app_launch_context (gtk_widget_get_display (GTK_WIDGET (export_unix->parent_window)));
-
-                        g_app_info_launch (app, NULL, G_APP_LAUNCH_CONTEXT (ctx), &err);
-
-                        g_object_unref (app);
-                        g_object_unref (ctx);
-                }
-
-                g_free (cmd);
-        }
-
-        if (err) {
-                if (print_settings_file)
-                        g_unlink (print_settings_file);
-                g_free (print_settings_file);
-
-                g_propagate_error (error, err);
-        } else {
-                g_signal_emit (op, signals[DONE], 0, GTK_PRINT_OPERATION_RESULT_APPLY);
-                /* temp_file will be deleted by the previewer */
-
-                pps_print_operation_export_run_next (export);
-        }
-
-        return err != NULL;
-}
-
-static gboolean
-pps_print_operation_export_unix_send_job (PpsPrintOperationExport *export,
-                                         GtkPrintSettings       *settings,
-                                         GError                **error)
-{
-	PpsPrintOperationExportUnix *export_unix = PPS_PRINT_OPERATION_EXPORT_UNIX (export);
-	g_autoptr (GFile) file = g_file_new_for_path (export->temp_file);
-
-	gtk_print_dialog_print_file (export->dialog, export_unix->parent_window, export_unix->print_setup, file, NULL, (GAsyncReadyCallback)export_unix_print_job_finished_cb, export);
-
-        return TRUE;
-}
-
-static void
-pps_print_operation_export_unix_finalize (GObject *object)
-{
-	G_OBJECT_CLASS (pps_print_operation_export_unix_parent_class)->finalize (object);
-}
-
-static void
-pps_print_operation_export_unix_init (PpsPrintOperationExportUnix *export)
-{
-}
-
-static void
-pps_print_operation_export_unix_class_init (PpsPrintOperationExportUnixClass *klass)
-{
-	GObjectClass          *g_object_class = G_OBJECT_CLASS (klass);
-	PpsPrintOperationClass *pps_print_op_class = PPS_PRINT_OPERATION_CLASS (klass);
-	PpsPrintOperationExportClass *pps_print_op_ex_class = PPS_PRINT_OPERATION_EXPORT_CLASS (klass);
-
-	pps_print_op_class->run = pps_print_operation_export_unix_run;
-        //	pps_print_op_class->cancel = pps_print_operation_export_unix_cancel;
-
-        pps_print_op_ex_class->send_job = pps_print_operation_export_unix_send_job;
-        pps_print_op_ex_class->run_previewer = pps_print_operation_export_unix_run_previewer;
-
-	g_object_class->finalize = pps_print_operation_export_unix_finalize;
 }
 
 /* Print to cairo interface */
@@ -2161,7 +2074,7 @@ pps_print_operation_get_gtype_for_document (PpsDocument *document)
         if (PPS_IS_DOCUMENT_PRINT (document) && g_strcmp0 (env, "export") != 0) {
                 type = PPS_TYPE_PRINT_OPERATION_PRINT;
         } else if (PPS_IS_FILE_EXPORTER (document)) {
-                type = PPS_TYPE_PRINT_OPERATION_EXPORT_UNIX;
+                type = PPS_TYPE_PRINT_OPERATION_EXPORT;
         }
 
         return type;
