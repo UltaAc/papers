@@ -84,6 +84,9 @@
     <key name="sidebar-page" type="s">
       <default>'links'</default>
     </key>
+    <key name="annot-color" type="s">
+      <default>'yellow'</default>
+    </key>
   </schema>
 
 </schemalist>

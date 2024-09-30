@@ -980,6 +980,7 @@ pps_document_view_setup_default (PpsDocumentView *pps_doc_view)
 	PpsDocumentModel *model = priv->model;
 	GSettings       *settings = priv->default_settings;
 	gboolean show_sidebar;
+	g_autofree gchar *annot_color = NULL;
 
 	/* Sidebar */
 	show_sidebar = g_settings_get_boolean (settings, "show-sidebar");
@@ -989,6 +990,10 @@ pps_document_view_setup_default (PpsDocumentView *pps_doc_view)
 	} else {
 		adw_overlay_split_view_set_show_sidebar (priv->split_view, show_sidebar);
 	}
+
+	/* Annotation color */
+	annot_color = g_settings_get_string (settings, "annot-color");
+	g_action_group_change_action_state (G_ACTION_GROUP (priv->document_action_group), "annot-color", g_variant_new_string (annot_color));
 
 	/* Document model */
 	pps_document_model_set_continuous (model, g_settings_get_boolean (settings, "continuous"));
@@ -1001,11 +1006,8 @@ pps_document_view_setup_default (PpsDocumentView *pps_doc_view)
 	if (pps_document_model_get_sizing_mode (model) == PPS_SIZING_FREE)
 		pps_document_model_set_scale (model, g_settings_get_double (settings, "zoom"));
 
-	g_simple_action_set_state (
-		G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (priv->document_action_group),
-		                                             "enable-spellchecking")),
-		g_variant_new_boolean (FALSE)
-	);
+	g_action_group_change_action_state (G_ACTION_GROUP (priv->document_action_group), "enable-spellchecking", g_variant_new_boolean (FALSE));
+
 	pps_view_set_enable_spellchecking (PPS_VIEW (priv->view),
 		g_settings_get_boolean (settings, "enable-spellchecking"));
 }
@@ -2308,6 +2310,7 @@ pps_document_view_save_settings (PpsDocumentView *pps_doc_view)
 	PpsDocumentModel *model = priv->model;
 	GSettings       *settings = priv->default_settings;
 	PpsSizingMode     sizing_mode;
+	g_autoptr (GVariant)  annot_color = NULL;
 
 	g_settings_set_boolean (settings, "continuous",
 				pps_document_model_get_continuous (model));
@@ -2327,6 +2330,10 @@ pps_document_view_save_settings (PpsDocumentView *pps_doc_view)
 	}
 	g_settings_set_boolean (settings, "show-sidebar",
 				adw_overlay_split_view_get_show_sidebar (ADW_OVERLAY_SPLIT_VIEW (priv->split_view)));
+
+	annot_color = g_action_group_get_action_state (G_ACTION_GROUP (priv->document_action_group), "annot-color");
+
+	g_settings_set_string (settings, "annot-color", g_variant_get_string (annot_color, NULL));
 
 	g_settings_set_boolean (settings, "enable-spellchecking",
 				pps_view_get_enable_spellchecking (pps_view));
