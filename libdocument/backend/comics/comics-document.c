@@ -350,13 +350,10 @@ comics_document_load (PpsDocument *document,
 		      GError    **error)
 {
 	ComicsDocument *comics_document = COMICS_DOCUMENT (document);
-	gchar *mime_type;
-	GFile *file;
+	g_autofree gchar *mime_type = NULL;
+	g_autoptr (GFile) file = g_file_new_for_uri (uri);
 
-	file = g_file_new_for_uri (uri);
 	comics_document->archive_path = g_file_get_path (file);
-	g_object_unref (file);
-
 	if (!comics_document->archive_path) {
 		g_set_error_literal (error,
                                      PPS_DOCUMENT_ERROR,
@@ -371,11 +368,8 @@ comics_document_load (PpsDocument *document,
 	if (mime_type == NULL)
 		return FALSE;
 
-	if (!comics_check_decompress_support (mime_type, comics_document, error)) {
-		g_free (mime_type);
+	if (!comics_check_decompress_support (mime_type, comics_document, error))
 		return FALSE;
-	}
-	g_free (mime_type);
 
 	/* Get list of files in archive */
 	comics_document->page_names = comics_document_list (comics_document, error);
