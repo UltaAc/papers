@@ -14,7 +14,6 @@
         </child>
         <child>
           <object class="AdwStatusPage">
-            <property name="icon-name">browser-download-symbolic</property>
             <property name="title" translatable="yes">Loading Document</property>
             <property name="description" bind-source="PpsLoaderView"
                       bind-property="uri"
