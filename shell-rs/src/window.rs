@@ -817,12 +817,11 @@ mod imp {
             &self,
             uri: &str,
             dest: Option<&papers_document::LinkDest>,
-            mode: WindowRunMode,
+            mode: Option<WindowRunMode>,
         ) {
             self.clear_load_job();
             self.clear_local_uri();
 
-            self.set_mode(mode);
             self.dest.replace(dest.cloned());
 
             // Create a monitor for the document
@@ -882,8 +881,8 @@ mod imp {
                                 }
                             }
 
-                            if mode != WindowRunMode::Normal {
-                                pending_mode = mode;
+                            if let Some(m) = mode {
+                                pending_mode = m;
                             }
 
                             obj.document_view.open_document(
@@ -1063,9 +1062,9 @@ mod imp {
                         let uri = f.unwrap().uri();
 
                         if obj.obj().uri().is_some_and(|u| u != uri) {
-                            spawn(Some(&uri), None, WindowRunMode::Normal);
+                            spawn(Some(&uri), None, None);
                         } else {
-                            obj.open_uri(&uri, None, WindowRunMode::Normal);
+                            obj.open_uri(&uri, None, None);
                         }
                     }
 
@@ -1162,10 +1161,10 @@ mod imp {
                 // document!
                 if let Some(current_uri) = current_uri {
                     if current_uri != uri {
-                        crate::application::spawn(Some(&uri), None, WindowRunMode::Normal);
+                        crate::application::spawn(Some(&uri), None, None);
                     }
                 } else {
-                    self.open_uri(&uri, None, WindowRunMode::Normal);
+                    self.open_uri(&uri, None, None);
                 }
             }
 
@@ -1196,7 +1195,7 @@ impl PpsWindow {
         &self,
         uri: &str,
         dest: Option<&papers_document::LinkDest>,
-        mode: WindowRunMode,
+        mode: Option<WindowRunMode>,
     ) {
         self.imp().open_uri(uri, dest, mode)
     }

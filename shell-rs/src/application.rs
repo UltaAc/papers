@@ -70,12 +70,12 @@ mod imp {
 
         fn command_line(&self, command_line: &gio::ApplicationCommandLine) -> glib::ExitCode {
             let options = command_line.options_dict();
-            let mut mode = WindowRunMode::Normal;
+            let mut mode = None;
 
             if options.contains("fullscreen") {
-                mode = WindowRunMode::Fullscreen;
+                mode = Some(WindowRunMode::Fullscreen);
             } else if options.contains("presentation") {
-                mode = WindowRunMode::Presentation;
+                mode = Some(WindowRunMode::Presentation);
             }
 
             let page_index = options.lookup::<i32>("page-index").unwrap();
@@ -118,7 +118,7 @@ mod imp {
             for f in files {
                 let uri = f.uri();
 
-                self.open_uri_at_dest(uri.as_str(), None, WindowRunMode::Normal);
+                self.open_uri_at_dest(uri.as_str(), None, None);
             }
         }
     }
@@ -157,7 +157,7 @@ mod imp {
             &self,
             uri: &str,
             dest: Option<&papers_document::LinkDest>,
-            mode: WindowRunMode,
+            mode: Option<WindowRunMode>,
         ) {
             let obj = self.obj();
             let mut n_window = 0;
@@ -261,7 +261,7 @@ mod imp {
                 gio::ActionEntryBuilder::new("new")
                     .activate(|_, _, _| {
                         // spawn an empty window
-                        spawn(None, None, WindowRunMode::Normal);
+                        spawn(None, None, None);
                     })
                     .build(),
             ];
@@ -380,7 +380,7 @@ impl PpsApplication {
     }
 }
 
-pub fn spawn(uri: Option<&str>, dest: Option<&LinkDest>, mode: WindowRunMode) {
+pub fn spawn(uri: Option<&str>, dest: Option<&LinkDest>, mode: Option<WindowRunMode>) {
     let mut cmd = String::new();
 
     match env::current_exe() {
@@ -415,8 +415,8 @@ pub fn spawn(uri: Option<&str>, dest: Option<&LinkDest>, mode: WindowRunMode) {
 
     // Mode
     match mode {
-        WindowRunMode::Fullscreen => cmd.push_str(" -f"),
-        WindowRunMode::Presentation => cmd.push_str(" -s"),
+        Some(WindowRunMode::Fullscreen) => cmd.push_str(" -f"),
+        Some(WindowRunMode::Presentation) => cmd.push_str(" -s"),
         _ => (),
     }
 
