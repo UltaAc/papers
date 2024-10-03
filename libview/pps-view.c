@@ -7130,9 +7130,6 @@ pps_view_set_property (GObject      *object,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	switch (prop_id) {
-	case PROP_IS_LOADING:
-		pps_view_set_loading (view, g_value_get_boolean (value));
-		break;
 	case PROP_HADJUSTMENT:
 		pps_view_set_scroll_adjustment (view, GTK_ORIENTATION_HORIZONTAL,
 					       (GtkAdjustment *) g_value_get_object (value));
@@ -9486,5 +9483,3 @@ pps_view_stop_signature_rect (PpsView *view)
 	pps_rectangle_free (rect);
 	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
-
-
