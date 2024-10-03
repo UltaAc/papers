@@ -25,14 +25,30 @@
                 <child>
                   <object class="AdwClamp">
                     <property name="child">
-                      <object class="GtkProgressBar" id="progress_bar">
-                        <property name="fraction"
-                          bind-source="PpsLoaderView"
-                          bind-property="fraction"
-                          bind-flags="bidirectional" />
-                        <property name="show-text">True</property>
-                        <property name="width-request">250</property>
-                        <property name="halign">center</property>
+                      <object class="GtkStack" id="stack">
+                        <child>
+                          <object class="GtkStackPage">
+                            <property name="name">spinner</property>
+                            <property name="child">
+                              <object class="AdwSpinner" id="spinner">
+                                <property name="width-request">64</property>
+                                <property name="height-request">64</property>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkStackPage">
+                            <property name="name">bar</property>
+                            <property name="child">
+                              <object class="GtkProgressBar" id="progress_bar">
+                                <property name="show-text">True</property>
+                                <property name="width-request">250</property>
+                                <property name="halign">center</property>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
                       </object>
                     </property>
                   </object>

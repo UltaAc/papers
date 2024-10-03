@@ -242,135 +242,105 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkOverlay">
-                    <property name="valign">fill</property>
-                    <property name="vexpand">True</property>
+                  <object class="AdwToastOverlay" id="toast_overlay">
                     <property name="child">
-                      <object class="AdwToastOverlay" id="toast_overlay">
-                        <property name="child">
-                          <object class="GtkOverlay">
-                            <child type="overlay">
-                              <object class="GtkBox">
-                                <style>
-                                  <class name="zoom-overlay" />
-                                </style>
-                                <property name="orientation">vertical</property>
-                                <property name="spacing">9</property>
-                                <property name="margin-top">18</property>
-                                <property name="margin-bottom">18</property>
-                                <property name="margin-start">18</property>
-                                <property name="margin-end">18</property>
-                                <property name="halign">end</property>
-                                <property name="valign">end</property>
-                                <child>
-                                  <object class="GtkRevealer" id="zoom_fit_best_revealer">
-                                    <property name="transition-type">crossfade</property>
-                                    <property name="child">
-                                      <object class="GtkButton">
-                                        <style>
-                                          <class name="circular" />
-                                          <class name="osd" />
-                                        </style>
-                                        <property name="icon-name">zoom-fit-best-symbolic</property>
-                                        <property name="action-name">doc.sizing-mode</property>
-                                        <property name="action-target">'automatic'</property>
-                                        <property name="tooltip-text" translatable="yes">Fit Automatically</property>
-                                      </object>
-                                    </property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkSeparator">
-                                    <style>
-                                      <class name="spacer" />
-                                    </style>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkButton">
-                                    <style>
-                                      <class name="circular" />
-                                      <class name="osd" />
-                                    </style>
-                                    <property name="icon-name">zoom-in-symbolic</property>
-                                    <property name="action-name">doc.zoom-in</property>
-                                    <property name="tooltip-text" translatable="yes">Zoom In</property>
-                                    <property name="sensitive" bind-source="view"
-                                      bind-property="can-zoom-in" bind-flags="sync-create" />
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkButton">
-                                    <style>
-                                      <class name="circular" />
-                                      <class name="osd" />
-                                    </style>
-                                    <property name="icon-name">zoom-out-symbolic</property>
-                                    <property name="action-name">doc.zoom-out</property>
-                                    <property name="tooltip-text" translatable="yes">Zoom Out</property>
-                                    <property name="sensitive" bind-source="view"
-                                      bind-property="can-zoom-out" bind-flags="sync-create" />
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                            <property name="child">
-                              <object class="GtkScrolledWindow" id="scrolled_window">
+                      <object class="GtkOverlay">
+                        <child type="overlay">
+                          <object class="GtkBox">
+                            <style>
+                              <class name="zoom-overlay" />
+                            </style>
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">9</property>
+                            <property name="margin-top">18</property>
+                            <property name="margin-bottom">18</property>
+                            <property name="margin-start">18</property>
+                            <property name="margin-end">18</property>
+                            <property name="halign">end</property>
+                            <property name="valign">end</property>
+                            <child>
+                              <object class="GtkRevealer" id="zoom_fit_best_revealer">
+                                <property name="transition-type">crossfade</property>
                                 <property name="child">
-                                  <object class="PpsView" id="view">
-                                    <property name="hexpand">True</property>
-                                    <property name="vexpand">True</property>
-                                    <property name="halign">fill</property>
-                                    <property name="valign">fill</property>
-                                    <signal name="external-link" handler="view_external_link_cb"
-                                      swapped="yes" />
-                                    <signal name="handle-link" handler="view_handle_link_cb" />
-                                    <signal name="popup" handler="view_menu_popup_cb" />
-                                    <signal name="selection-changed"
-                                      handler="view_selection_changed_cb" />
-                                    <signal name="scroll" handler="scroll_history_cb" />
-                                    <signal name="annot-added" handler="view_annot_added" />
-                                    <signal name="annot-removed" handler="view_annot_removed" />
-                                    <signal name="layers-changed" handler="view_layers_changed_cb" />
-                                    <signal name="notify::is-loading"
-                                      handler="view_is_loading_changed_cb" />
-                                    <signal name="cursor-moved" handler="view_caret_cursor_moved_cb" />
+                                  <object class="GtkButton">
+                                    <style>
+                                      <class name="circular" />
+                                      <class name="osd" />
+                                    </style>
+                                    <property name="icon-name">zoom-fit-best-symbolic</property>
+                                    <property name="action-name">doc.sizing-mode</property>
+                                    <property name="action-target">'automatic'</property>
+                                    <property name="tooltip-text" translatable="yes">Fit Automatically</property>
                                   </object>
                                 </property>
-                                <signal name="scroll-child" handler="scroll_child_history_cb" />
-                                <child>
-                                  <object class="GtkEventControllerFocus">
-                                    <signal name="enter" handler="scrolled_window_focus_in_cb" />
-                                  </object>
-                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSeparator">
+                                <style>
+                                  <class name="spacer" />
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton">
+                                <style>
+                                  <class name="circular" />
+                                  <class name="osd" />
+                                </style>
+                                <property name="icon-name">zoom-in-symbolic</property>
+                                <property name="action-name">doc.zoom-in</property>
+                                <property name="tooltip-text" translatable="yes">Zoom In</property>
+                                <property name="sensitive" bind-source="view"
+					  bind-property="can-zoom-in" bind-flags="sync-create" />
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton">
+                                <style>
+                                  <class name="circular" />
+                                  <class name="osd" />
+                                </style>
+                                <property name="icon-name">zoom-out-symbolic</property>
+                                <property name="action-name">doc.zoom-out</property>
+                                <property name="tooltip-text" translatable="yes">Zoom Out</property>
+                                <property name="sensitive" bind-source="view"
+					  bind-property="can-zoom-out" bind-flags="sync-create" />
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <property name="child">
+                          <object class="GtkScrolledWindow" id="scrolled_window">
+                            <property name="child">
+                              <object class="PpsView" id="view">
+                                <property name="hexpand">True</property>
+                                <property name="vexpand">True</property>
+                                <property name="halign">fill</property>
+                                <property name="valign">fill</property>
+                                <signal name="external-link" handler="view_external_link_cb"
+					swapped="yes" />
+                                <signal name="handle-link" handler="view_handle_link_cb" />
+                                <signal name="popup" handler="view_menu_popup_cb" />
+                                <signal name="selection-changed"
+					handler="view_selection_changed_cb" />
+                                <signal name="scroll" handler="scroll_history_cb" />
+                                <signal name="annot-added" handler="view_annot_added" />
+                                <signal name="annot-removed" handler="view_annot_removed" />
+                                <signal name="layers-changed" handler="view_layers_changed_cb" />
+                                <signal name="cursor-moved" handler="view_caret_cursor_moved_cb" />
                               </object>
                             </property>
+                            <signal name="scroll-child" handler="scroll_child_history_cb" />
+                            <child>
+                              <object class="GtkEventControllerFocus">
+                                <signal name="enter" handler="scrolled_window_focus_in_cb" />
+                              </object>
+                            </child>
                           </object>
                         </property>
                       </object>
                     </property>
-                    <child type="overlay">
-                      <object class="GtkBox" id="loading_message">
-                        <property name="name">pps-loading-message</property>
-                        <property name="orientation">horizontal</property>
-                        <property name="spacing">12</property>
-                        <property name="margin-start">10</property>
-                        <property name="margin-end">10</property>
-                        <property name="margin-top">10</property>
-                        <property name="margin-bottom">10</property>
-                        <property name="halign">end</property>
-                        <property name="valign">start</property>
-                        <property name="visible">True</property>
-                        <child>
-                          <object class="AdwSpinner" />
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="label" translatable="yes">Loading…</property>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
                   </object>
                 </child>
                 <child>

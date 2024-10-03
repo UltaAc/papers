@@ -10,8 +10,12 @@ mod imp {
     #[template(resource = "/org/gnome/papers/ui/loader-view.ui")]
     pub struct PpsLoaderView {
         #[template_child]
+        stack: TemplateChild<gtk::Stack>,
+        #[template_child]
         progress_bar: TemplateChild<gtk::ProgressBar>,
-        #[property(get, set)]
+        #[template_child]
+        spinner: TemplateChild<adw::Spinner>,
+        #[property(get, set = Self::set_fraction)]
         fraction: Cell<f64>,
         #[property(get, set)]
         uri: RefCell<String>,
@@ -46,7 +50,17 @@ mod imp {
         }
     }
 
-    impl PpsLoaderView {}
+    impl PpsLoaderView {
+        fn set_fraction(&self, fraction: f64) {
+            if fraction < 0.0 {
+                self.stack.set_visible_child_name("spinner");
+            } else {
+                self.progress_bar.set_fraction(fraction);
+                self.stack.set_visible_child_name("bar");
+            }
+            self.fraction.set(fraction);
+        }
+    }
 
     #[gtk::template_callbacks]
     impl PpsLoaderView {

@@ -59,7 +59,6 @@ typedef struct {
 	GtkWidget *document_toolbar_view;
 	GtkWidget *scrolled_window;
 	GtkWidget *view;
-	GtkWidget *loading_message;
 	GtkWidget *message_area;
 	GtkWidget *banner;
 	GtkWidget *sidebar_stack;
@@ -88,9 +87,6 @@ typedef struct {
 
 	/* Progress Messages */
 	GCancellable *progress_cancellable;
-
-	/* Loading message */
-	guint loading_message_timeout;
 
 	/* Menu button */
 	GtkWidget    *action_menu_button;
@@ -529,38 +525,6 @@ pps_document_view_warning_message (PpsDocumentView    *window,
 	adw_toast_overlay_add_toast (priv->toast_overlay, toast);
 }
 
-static gboolean
-show_loading_message_cb (PpsDocumentView *window)
-{
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
-
-	priv->loading_message_timeout = 0;
-	gtk_widget_set_visible (priv->loading_message, TRUE);
-
-	return G_SOURCE_REMOVE;
-}
-
-static void
-pps_document_view_show_loading_message (PpsDocumentView *window)
-{
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
-
-	if (priv->loading_message_timeout)
-		return;
-	priv->loading_message_timeout =
-		g_timeout_add_seconds_full (G_PRIORITY_LOW, 3, (GSourceFunc)show_loading_message_cb, window, NULL);
-}
-
-static void
-pps_document_view_hide_loading_message (PpsDocumentView *window)
-{
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
-
-	g_clear_handle_id (&priv->loading_message_timeout, g_source_remove);
-
-	gtk_widget_set_visible (priv->loading_message, FALSE);
-}
-
 static const gchar *
 find_link_in_outlines (PpsOutlines *outlines, PpsLink *link)
 {
@@ -784,17 +748,6 @@ view_layers_changed_cb (PpsView   *view,
 	 *        We should use a method after rust port of PpsDocumentView.
 	 */
 	g_signal_emit_by_name (priv->sidebar_layers, "update-visibility", NULL);
-}
-
-static void
-view_is_loading_changed_cb (PpsView     *view,
-			    GParamSpec *spec,
-			    PpsDocumentView   *window)
-{
-	if (pps_view_is_loading (view))
-		pps_document_view_show_loading_message (window);
-	else
-		pps_document_view_hide_loading_message (window);
 }
 
 static void
@@ -3387,8 +3340,6 @@ pps_document_view_dispose (GObject *object)
 	g_clear_object (&priv->bookmarks);
 	g_clear_object (&priv->metadata);
 
-	g_clear_handle_id (&priv->loading_message_timeout, g_source_remove);
-
 	g_clear_object (&priv->attachment_popup_menu);
 
 	g_settings_apply (priv->default_settings);
@@ -4702,7 +4653,6 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, document_toolbar_view);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, split_view);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, scrolled_window);
-	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, loading_message);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, caret_mode_alert);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, toast_overlay);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, error_alert);
@@ -4758,7 +4708,6 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_callback (widget_class, view_annot_added);
 	gtk_widget_class_bind_template_callback (widget_class, view_annot_removed);
 	gtk_widget_class_bind_template_callback (widget_class, view_layers_changed_cb);
-	gtk_widget_class_bind_template_callback (widget_class, view_is_loading_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, view_caret_cursor_moved_cb);
 
 	/* model */

@@ -590,7 +590,7 @@ mod imp {
                     self,
                     async move {
                         while let Some((n, total)) = stream.next().await {
-                            if total <= 0 {
+                            if total < 0 {
                                 return;
                             }
 
@@ -1000,6 +1000,8 @@ mod imp {
                             }
                         }
 
+                        obj.loader_view.set_fraction(-1_f64);
+                        obj.set_mode(WindowRunMode::LoaderView);
                         load_job.scheduler_push_job(papers_view::JobPriority::PriorityNone);
                     }
                 }
