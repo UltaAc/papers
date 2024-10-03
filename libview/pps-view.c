@@ -66,7 +66,6 @@ enum {
 
 enum {
 	PROP_0,
-	PROP_IS_LOADING,
 	PROP_HADJUSTMENT,
 	PROP_VADJUSTMENT,
 	PROP_HSCROLL_POLICY,
@@ -546,18 +545,6 @@ pps_view_scroll_to_page_position (PpsView *view, GtkOrientation orientation)
 }
 
 static void
-pps_view_set_loading (PpsView       *view,
-		     gboolean      loading)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	if (priv->loading == loading)
-		return;
-
-	priv->loading = loading;
-	g_object_notify (G_OBJECT (view), "is-loading");
-}
-
-static void
 pps_view_set_adjustment_values (PpsView         *view,
 			       GtkOrientation  orientation,
 			       int	       width,
@@ -702,7 +689,6 @@ view_update_range_and_current_page (PpsView *view)
 
 			if (best_current_page >= 0 && priv->current_page != best_current_page) {
 				priv->current_page = best_current_page;
-				pps_view_set_loading (view, FALSE);
 				pps_document_model_set_page (priv->model, best_current_page);
 			}
 		}
@@ -6981,16 +6967,9 @@ draw_one_page (PpsView       *view,
 		page_texture = pps_pixbuf_cache_get_texture (priv->pixbuf_cache, page);
 
 		if (!page_texture) {
-			if (page == current_page)
-				pps_view_set_loading (view, TRUE);
-
 			*page_ready = FALSE;
-
 			return;
 		}
-
-		if (page == current_page)
-			pps_view_set_loading (view, FALSE);
 
 		pps_view_get_page_size (view, page, &width, &height);
 
@@ -7093,9 +7072,6 @@ pps_view_get_property (GObject     *object,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	switch (prop_id) {
-	case PROP_IS_LOADING:
-		g_value_set_boolean (value, priv->loading);
-		break;
 	case PROP_CAN_ZOOM_IN:
 		g_value_set_boolean (value, priv->can_zoom_in);
 		break;
@@ -7509,21 +7485,6 @@ pps_view_class_init (PpsViewClass *class)
 						 context_longpress_gesture_pressed_cb);
 
 	/**
-	 * PpsView:is-loading:
-	 *
-	 * Allows to implement a custom notification system.
-	 *
-	 * Since: 3.8
-	 */
-	g_object_class_install_property (object_class,
-					 PROP_IS_LOADING,
-					 g_param_spec_boolean ("is-loading",
-							       "Is Loading",
-							       "Whether the view is loading",
-							       FALSE,
-							       G_PARAM_READABLE |
-							       G_PARAM_STATIC_STRINGS));
-	/**
 	 * PpsView:can-zoom-in:
 	 *
 	 * Since: 3.8
@@ -7788,8 +7749,6 @@ pps_view_change_page (PpsView *view,
 	priv->current_page = new_page;
 	priv->pending_scroll = SCROLL_TO_PAGE_POSITION;
 
-	pps_view_set_loading (view, FALSE);
-
 	pps_document_misc_get_pointer_position (GTK_WIDGET (view), &x, &y);
 	pps_view_handle_cursor_over_xy (view, x, y);
 
@@ -7982,21 +7941,6 @@ pps_view_set_page_cache_size (PpsView *view,
 	view_update_scale_limits (view);
 }
 
-/**
- * pps_view_is_loading:
- * @view:
- *
- * Returns: %TRUE iff the view is currently loading a document
- *
- * Since: 3.8
- */
-gboolean
-pps_view_is_loading (PpsView *view)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	return priv->loading;
-}
-
 static void
 pps_view_document_changed_cb (PpsDocumentModel *model,
 			     GParamSpec      *pspec,
@@ -8021,7 +7965,6 @@ pps_view_document_changed_cb (PpsDocumentModel *model,
 			    !pps_document_check_dimensions (priv->document))
 				return;
 
-			pps_view_set_loading (view, FALSE);
 			setup_caches (view);
 
 			if (priv->caret_enabled)

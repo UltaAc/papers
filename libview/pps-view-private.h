@@ -158,15 +158,12 @@ typedef struct _PpsViewPrivate {
 	gdouble scale;
 	gint spacing;
 
-	gboolean loading;
 	gboolean can_zoom_in;
 	gboolean can_zoom_out;
 	gboolean continuous;
 	gboolean dual_even_left;
 	PpsSizingMode sizing_mode;
 	PpsPageLayout page_layout;
-	GtkWidget *loading_window;
-	guint loading_timeout;
 	gboolean allow_links_change_zoom;
 
 	/* Key bindings propagation */
