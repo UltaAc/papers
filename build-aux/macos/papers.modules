@@ -70,7 +70,6 @@
   </cmake>
 
   <meson id="papers" mesonargs="-Ddocumentation=false
-                                -Ddbus=false
                                 -Dintrospection=disabled
                                 -Duser_doc=false
                                 -Dcomics=enabled
@@ -175,8 +174,8 @@
   </meson>
 
   <meson id="libadwaita" mesonargs="-Dvapi=false -Dintrospection=disabled">
-    <branch module="libadwaita/1.6/libadwaita-1.6.beta.tar.xz"
-            version="1.6.beta" />
+    <branch module="libadwaita/1.6/libadwaita-1.6.0.tar.xz"
+            version="1.6.0" />
     <dependencies>
       <dep package="gtk-4" />
       <dep package="adwaita-icon-theme" />
@@ -187,8 +186,8 @@
   <meson id="gtk-4"
          mesonargs="-Dx11-backend=false -Dmedia-gstreamer=disabled">
 
-    <branch module="gtk/4.16/gtk-4.16.0.tar.xz"
-            version="4.16.0">
+    <branch module="gtk/4.16/gtk-4.16.3.tar.xz"
+            version="4.16.3">
     </branch>
 
     <dependencies>
