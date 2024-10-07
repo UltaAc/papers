@@ -3632,8 +3632,6 @@ pps_document_view_create_certificate_selection (PpsDocumentView *pps_doc_view)
 	certificates = pps_document_signatures_get_available_signing_certificates (PPS_DOCUMENT_SIGNATURES (priv->document));
 
 	dialog = adw_alert_dialog_new (_("Certificate Required"), NULL);
-	adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "cancel", _("Cancel"));
-	adw_alert_dialog_set_close_response (ADW_ALERT_DIALOG (dialog), "cancel");
 
 	if (certificates != NULL) {
 		GtkWidget *check_button_group = NULL;
@@ -3642,6 +3640,8 @@ pps_document_view_create_certificate_selection (PpsDocumentView *pps_doc_view)
 		adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "select", _("Select"));
 		adw_alert_dialog_set_response_appearance (ADW_ALERT_DIALOG (dialog), "select", ADW_RESPONSE_SUGGESTED);
 
+		adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "cancel", _("_Cancel"));
+		adw_alert_dialog_set_close_response (ADW_ALERT_DIALOG (dialog), "cancel");
 		adw_alert_dialog_set_default_response (ADW_ALERT_DIALOG (dialog), "select");
 
 		priv->certificate_listbox = gtk_list_box_new ();
@@ -3676,8 +3676,10 @@ pps_document_view_create_certificate_selection (PpsDocumentView *pps_doc_view)
 		g_list_free_full (certificates, (GDestroyNotify) pps_certificate_info_free);
 		g_signal_connect (dialog, "response::select", G_CALLBACK (pps_document_view_certificate_selection_response), pps_doc_view);
 	} else {
-		adw_alert_dialog_set_body (ADW_ALERT_DIALOG (dialog), _("No certificates found!"));
-		adw_alert_dialog_set_default_response (ADW_ALERT_DIALOG (dialog), "cancel");
+		adw_alert_dialog_set_body (ADW_ALERT_DIALOG (dialog), _("A certificate is required to sign this document"));
+		// show close if the certificate is null, or if no cert is found
+		adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "close", _("_Close"));
+		adw_alert_dialog_set_close_response (ADW_ALERT_DIALOG (dialog), "close");
 	}
 
 	adw_dialog_present (dialog, GTK_WIDGET (pps_doc_view));
