@@ -34,8 +34,8 @@ msgstr ""
 "Project-Id-Version: Evince master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-10-03 13:40+0000\n"
-"PO-Revision-Date: 2024-10-03 15:48+0200\n"
+"POT-Creation-Date: 2024-10-08 18:50+0000\n"
+"PO-Revision-Date: 2024-10-08 21:30+0200\n"
 "Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -48,7 +48,7 @@ msgstr ""
 #. Manually set name and icon
 #: data/org.gnome.Papers.desktop.in.in:3
 #: data/org.gnome.Papers.metainfo.xml.in.in:23
-#: previewer/pps-previewer-window.c:491 shell/pps-document-view.c:1220
+#: previewer/pps-previewer-window.c:491 shell/pps-document-view.c:1174
 #: shell/pps-document-view.ui:73 shell/pps-loader-view.ui:10
 #: shell-rs/src/application.rs:41 shell-rs/src/application.rs:64
 #: shell-rs/src/application.rs:288
@@ -230,7 +230,7 @@ msgstr ""
 "libarchive fehlt die Unterstützung für die Komprimierung dieses Comicbuchs, "
 "bitte kontaktieren Sie Ihren Distributor"
 
-#: libdocument/backend/comics/comics-document.c:364
+#: libdocument/backend/comics/comics-document.c:361
 msgid "Can not get local path for archive"
 msgstr "Lokaler Pfad des Archivs kann nicht ermittelt werden"
 
@@ -556,28 +556,28 @@ msgstr[0] "Anlage speichern"
 msgstr[1] "Anlagen speichern"
 
 #: libview/context/pps-history.c:488 previewer/pps-page-selector.c:194
-#: shell/pps-document-view.c:658 shell/pps-document-view.c:2760
+#: shell/pps-document-view.c:623 shell/pps-document-view.c:2714
 #: shell/pps-sidebar-bookmarks.c:339
 #, c-format
 msgid "Page %s"
 msgstr "Seite %s"
 
-#: libview/pps-jobs.c:419
+#: libview/pps-jobs.c:418
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "Fehler beim Darstellen der Seite %d: %s"
 
-#: libview/pps-jobs.c:426
+#: libview/pps-jobs.c:425
 #, c-format
 msgid "Failed to render page %d"
 msgstr "Fehler beim Darstellen der Seite %d"
 
-#: libview/pps-jobs.c:644
+#: libview/pps-jobs.c:643
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "Fehler beim Erstellen eines Vorschaubildes von Seite %d"
 
-#: libview/pps-jobs.c:1619
+#: libview/pps-jobs.c:1645
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "Fehler beim Drucken der Seite %d: %s"
@@ -615,7 +615,7 @@ msgid "Your print range selection does not include any pages"
 msgstr "Ihre Druckbereichsauswahl enthält keine Seiten"
 
 #: libview/pps-print-operation.c:1366 previewer/pps-previewer-window.ui:91
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.ui:647
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.ui:630
 #: shell/pps-window.ui:163
 msgid "_Close"
 msgstr "S_chließen"
@@ -717,51 +717,51 @@ msgstr "Ansicht nach unten verschieben"
 msgid "Document View"
 msgstr "Dokumentenansicht"
 
-#: libview/pps-view.c:2126
+#: libview/pps-view.c:2112
 msgid "Go to first page"
 msgstr "Zur ersten Seite gehen"
 
-#: libview/pps-view.c:2128
+#: libview/pps-view.c:2114
 msgid "Go to previous page"
 msgstr "Zur vorherigen Seite gehen"
 
-#: libview/pps-view.c:2130
+#: libview/pps-view.c:2116
 msgid "Go to next page"
 msgstr "Zur nächsten Seite gehen"
 
-#: libview/pps-view.c:2132
+#: libview/pps-view.c:2118
 msgid "Go to last page"
 msgstr "Zur letzten Seite gehen"
 
-#: libview/pps-view.c:2134
+#: libview/pps-view.c:2120
 msgid "Go to page"
 msgstr "Zu Seite gehen"
 
-#: libview/pps-view.c:2136
+#: libview/pps-view.c:2122
 msgid "Find"
 msgstr "Suchen"
 
-#: libview/pps-view.c:2165
+#: libview/pps-view.c:2151
 #, c-format
 msgid "Go to page %s"
 msgstr "Zu Seite %s gehen"
 
-#: libview/pps-view.c:2171
+#: libview/pps-view.c:2157
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Zu %s in Datei »%s« gehen"
 
-#: libview/pps-view.c:2174
+#: libview/pps-view.c:2160
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Zu Datei »%s« gehen"
 
-#: libview/pps-view.c:2182
+#: libview/pps-view.c:2168
 #, c-format
 msgid "Launch %s"
 msgstr "%s starten"
 
-#: libview/pps-view.c:2189
+#: libview/pps-view.c:2175
 #, c-format
 msgid "Reset form"
 msgstr "Formular zurücksetzen"
@@ -858,7 +858,7 @@ msgstr "_Drucken"
 msgid "Print This Document"
 msgstr "Dieses Dokument drucken"
 
-#: previewer/pps-previewer-window.ui:53 shell/pps-document-view.ui:310
+#: previewer/pps-previewer-window.ui:53 shell/pps-document-view.ui:306
 msgid "Zoom Out"
 msgstr "Verkleinern"
 
@@ -866,11 +866,11 @@ msgstr "Verkleinern"
 msgid "Normal Size"
 msgstr "Normale Größe"
 
-#: previewer/pps-previewer-window.ui:67 shell/pps-document-view.ui:297
+#: previewer/pps-previewer-window.ui:67 shell/pps-document-view.ui:293
 msgid "Zoom In"
 msgstr "Vergrößern"
 
-#: previewer/pps-previewer-window.ui:89 shell/pps-document-view.c:2000
+#: previewer/pps-previewer-window.ui:89 shell/pps-document-view.c:1954
 msgid "Failed to Print Document"
 msgstr "Dokument konnte nicht gedruckt werden"
 
@@ -1342,109 +1342,109 @@ msgstr "Verschnörkelt"
 msgid "_Apply"
 msgstr "An_wenden"
 
-#: shell/pps-document-view.c:499 shell-rs/src/window.rs:467
+#: shell/pps-document-view.c:496 shell-rs/src/window.rs:467
 msgid "View Details"
 msgstr "Details anzeigen"
 
-#: shell/pps-document-view.c:1260
+#: shell/pps-document-view.c:1214
 msgid "Digital Signature is invalid!"
 msgstr "Digitale Signatur ist ungültig!"
 
-#: shell/pps-document-view.c:1263 shell/pps-document-view.ui:239
+#: shell/pps-document-view.c:1217 shell/pps-document-view.ui:239
 msgid "Document has been digitally signed."
 msgstr "Dokument wurde digital signiert."
 
-#: shell/pps-document-view.c:1294
+#: shell/pps-document-view.c:1248
 msgid "The document contains no pages"
 msgstr "Das Dokument enthält keine Seiten"
 
-#: shell/pps-document-view.c:1297
+#: shell/pps-document-view.c:1251
 msgid "The document contains only empty pages"
 msgstr "Das Dokument enthält nur leere Seiten"
 
-#: shell/pps-document-view.c:1530
+#: shell/pps-document-view.c:1484
 msgid "File Saved"
 msgstr "Datei gespeichert"
 
-#: shell/pps-document-view.c:1540 shell/pps-document-view.c:1593
+#: shell/pps-document-view.c:1494 shell/pps-document-view.c:1547
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Die Datei konnte nicht als »%s« gespeichert werden."
 
-#: shell/pps-document-view.c:1655
+#: shell/pps-document-view.c:1609
 msgid "Save As…"
 msgstr "Speichern unter …"
 
-#: shell/pps-document-view.c:1961
+#: shell/pps-document-view.c:1915
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "%d ausstehender Auftrag in Warteschlange"
 msgstr[1] "%d ausstehende Aufträge in Warteschlange"
 
-#: shell/pps-document-view.c:2054
+#: shell/pps-document-view.c:2008
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Druckauftrag »%s« wird ausgeführt"
 
-#: shell/pps-document-view.c:2057 shell/pps-loader-view.ui:45
+#: shell/pps-document-view.c:2011 shell/pps-loader-view.ui:60
 msgid "C_ancel"
 msgstr "A_bbrechen"
 
-#: shell/pps-document-view.c:2246 shell-rs/src/window.rs:267
+#: shell/pps-document-view.c:2200 shell-rs/src/window.rs:267
 msgid "Document contains form fields that have been filled out."
 msgstr "Das Dokument enthält Formularfelder, die ausgefüllt wurden."
 
-#: shell/pps-document-view.c:2249 shell-rs/src/window.rs:268
+#: shell/pps-document-view.c:2203 shell-rs/src/window.rs:268
 msgid "Document contains new or modified annotations."
 msgstr "Das Dokument enthält neue oder veränderte Anmerkungen."
 
-#: shell/pps-document-view.c:2256
+#: shell/pps-document-view.c:2210
 msgid "Save Changes to a Copy?"
 msgstr "Änderungen als Kopie speichern?"
 
-#: shell/pps-document-view.c:2257
+#: shell/pps-document-view.c:2211
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr ""
 "Wenn keine Kopie gespeichert wird, gehen die Einträge dauerhaft verloren."
 
-#: shell/pps-document-view.c:2260
+#: shell/pps-document-view.c:2214
 msgid "Close _Without Saving"
 msgstr "Schließen, _ohne zu speichern"
 
-#: shell/pps-document-view.c:2261 shell/pps-document-view.c:3486
-#: shell/pps-document-view.c:3622 shell/pps-document-view.ui:627
-#: shell/pps-document-view.ui:639
+#: shell/pps-document-view.c:2215 shell/pps-document-view.c:3438
+#: shell/pps-document-view.c:3574 shell/pps-document-view.ui:597
+#: shell/pps-document-view.ui:622
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
-#: shell/pps-document-view.c:2262
+#: shell/pps-document-view.c:2216
 msgid "_Save a Copy"
 msgstr "Eine Kopie _speichern"
 
-#: shell/pps-document-view.c:3483
+#: shell/pps-document-view.c:3435
 #, c-format
 msgid "Please enter password for %s"
 msgstr "Bitte Passwort eingeben für %s"
 
-#: shell/pps-document-view.c:3485 shell/pps-password-dialog.ui:4
+#: shell/pps-document-view.c:3437 shell/pps-password-dialog.ui:4
 #: shell/pps-password-view.ui:10 shell/pps-password-view.ui:19
 msgid "Password Required"
 msgstr "Passwort erforderlich"
 
-#: shell/pps-document-view.c:3487
+#: shell/pps-document-view.c:3439
 msgid "_Login"
 msgstr "Anme_lden"
 
-#: shell/pps-document-view.c:3586
+#: shell/pps-document-view.c:3538
 msgid "Save Signed File"
 msgstr "Signierte Datei speichern"
 
-#: shell/pps-document-view.c:3621
+#: shell/pps-document-view.c:3573
 msgid "Draw a rectangle to insert a signature field"
 msgstr "Ein Rechteck zeichnen, um ein Signaturfeld einzufügen"
 
-#: shell/pps-document-view.c:3646
+#: shell/pps-document-view.c:3598
 #, c-format
 msgid ""
 "Digitally signed by %s\n"
@@ -1453,49 +1453,27 @@ msgstr ""
 "Digital signiert von %s\n"
 "Datum: %s"
 
-#: shell/pps-document-view.c:3682
+#: shell/pps-document-view.c:3634
 msgid "Certificate Required"
 msgstr "Zertifikat erforderlich"
 
-#: shell/pps-document-view.c:3683 shell/pps-password-dialog.ui:7
+#: shell/pps-document-view.c:3635 shell/pps-password-dialog.ui:7
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: shell/pps-document-view.c:3689
+#: shell/pps-document-view.c:3641
 msgid "Select signing certificate"
 msgstr "Signaturzertifikat auswählen"
 
-#: shell/pps-document-view.c:3690
+#: shell/pps-document-view.c:3642
 msgid "Select"
 msgstr "Auswählen"
 
-#: shell/pps-document-view.c:3727
+#: shell/pps-document-view.c:3679
 msgid "No certificates found!"
 msgstr "Keine Zertifikate gefunden!"
 
-#: shell/pps-document-view.c:3755
-msgid "Selection too small"
-msgstr "Auswahl zu klein"
-
-#: shell/pps-document-view.c:3756
-msgid ""
-"A signature of this size may be too small to read. If you would like to "
-"create a potentially more readable signature, press `Start over` and draw a "
-"bigger rectangle."
-msgstr ""
-"Eine Signatur dieser Größe könnte zu klein sein, um sie zu lesen. Wenn Sie "
-"eine möglicherweise besser lesbare Signatur erstellen möchten, drücken Sie "
-"»Neu beginnen« und zeichnen Sie ein größeres Rechteck."
-
-#: shell/pps-document-view.c:3758
-msgid "Start _Over"
-msgstr "_Neu beginnen"
-
-#: shell/pps-document-view.c:3758
-msgid "_Sign"
-msgstr "_Signieren"
-
-#: shell/pps-document-view.c:4041
+#: shell/pps-document-view.c:3983
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
@@ -1503,27 +1481,27 @@ msgstr ""
 "Sicherheitswarnung: Dieses Dokument wurde daran gehindert, die Datei »%s« zu "
 "öffnen"
 
-#: shell/pps-document-view.c:4102 shell-rs/src/window.rs:1131
+#: shell/pps-document-view.c:4044 shell-rs/src/window.rs:1137
 msgid "Unable to open external link"
 msgstr "Externer Link konnte nicht geöffnet werden"
 
-#: shell/pps-document-view.c:4327
+#: shell/pps-document-view.c:4269
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Es wurde kein geeignetes Format zum Speichern des Bildes gefunden"
 
-#: shell/pps-document-view.c:4357
+#: shell/pps-document-view.c:4299
 msgid "The image could not be saved."
 msgstr "Das Bild konnte nicht gespeichert werden."
 
-#: shell/pps-document-view.c:4393
+#: shell/pps-document-view.c:4335
 msgid "Save Image"
 msgstr "Bild speichern"
 
-#: shell/pps-document-view.c:4564
+#: shell/pps-document-view.c:4506
 msgid "Unable to open attachment"
 msgstr "Anlage konnte nicht geöffnet werden"
 
-#: shell/pps-document-view.c:4583
+#: shell/pps-document-view.c:4525
 msgid "The attachment could not be saved."
 msgstr "Die Anlage konnte nicht gespeichert werden."
 
@@ -1571,19 +1549,15 @@ msgstr "Dokumentenmenü"
 msgid "View Details…"
 msgstr "Details anzeigen …"
 
-#: shell/pps-document-view.ui:277
+#: shell/pps-document-view.ui:273
 msgid "Fit Automatically"
 msgstr "Automatisch anpassen"
 
-#: shell/pps-document-view.ui:369
-msgid "Loading…"
-msgstr "Wird geladen …"
-
-#: shell/pps-document-view.ui:618
+#: shell/pps-document-view.ui:588
 msgid "Enable Caret Navigation?"
 msgstr "Eingabemarke-Navigation aktivieren?"
 
-#: shell/pps-document-view.ui:619
+#: shell/pps-document-view.ui:589
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1593,19 +1567,41 @@ msgstr ""
 "Diese Funktion platziert eine bewegliche Eingabemarke in Textseiten und "
 "erlaubt es Ihnen, mit der Tastatur zu navigieren sowie Text zu markieren."
 
-#: shell/pps-document-view.ui:622
+#: shell/pps-document-view.ui:592
 msgid "Don’t show this message again"
 msgstr "Diese Nachricht nicht mehr anzeigen"
 
-#: shell/pps-document-view.ui:628
+#: shell/pps-document-view.ui:598
 msgid "_Enable"
 msgstr "_Aktivieren"
 
-#: shell/pps-document-view.ui:634
+#: shell/pps-document-view.ui:604
+msgid "Selection too Small"
+msgstr "Auswahl zu klein"
+
+#: shell/pps-document-view.ui:605
+msgid ""
+"A signature of this size may be too small to read. If you would like to "
+"create a potentially more readable signature, press `Start over` and draw a "
+"bigger rectangle."
+msgstr ""
+"Eine Signatur dieser Größe könnte zu klein sein, um sie zu lesen. Wenn Sie "
+"eine möglicherweise besser lesbare Signatur erstellen möchten, drücken Sie "
+"»Neu beginnen« und zeichnen Sie ein größeres Rechteck."
+
+#: shell/pps-document-view.ui:610
+msgid "Start _Over"
+msgstr "_Neu beginnen"
+
+#: shell/pps-document-view.ui:611
+msgid "_Sign"
+msgstr "_Signieren"
+
+#: shell/pps-document-view.ui:617
 msgid "Abort Printing?"
 msgstr "Drucken abbrechen?"
 
-#: shell/pps-document-view.ui:635
+#: shell/pps-document-view.ui:618
 msgid ""
 "There is one or more active print jobs. If the window is closed, pending "
 "print jobs will not be printed."
@@ -1613,149 +1609,149 @@ msgstr ""
 "Es gibt noch einen oder mehrere aktive Druckaufträge. Wenn das Fenster "
 "geschlossen wird, werden ausstehende Druckaufträge nicht ausgeführt."
 
-#: shell/pps-document-view.ui:638
+#: shell/pps-document-view.ui:621
 msgid "Abort _Print and Close"
 msgstr "Drucken a_bbrechen und schließen"
 
-#: shell/pps-document-view.ui:640
+#: shell/pps-document-view.ui:623
 msgid "Close _After Printing"
 msgstr "Nach dem Drucken _schließen"
 
-#: shell/pps-document-view.ui:654
+#: shell/pps-document-view.ui:637
 msgid "Open"
 msgstr "Öffnen"
 
-#: shell/pps-document-view.ui:660
+#: shell/pps-document-view.ui:643
 msgid "Ni_ght Mode"
 msgstr "Na_chtmodus"
 
-#: shell/pps-document-view.ui:666 shell/pps-window.ui:170
+#: shell/pps-document-view.ui:649 shell/pps-window.ui:170
 msgid "_Keyboard Shortcuts"
 msgstr "_Tastenkürzel"
 
-#: shell/pps-document-view.ui:670 shell/pps-window.ui:174
+#: shell/pps-document-view.ui:653 shell/pps-window.ui:174
 msgid "_Help"
 msgstr "_Hilfe"
 
-#: shell/pps-document-view.ui:674 shell/pps-window.ui:178
+#: shell/pps-document-view.ui:657 shell/pps-window.ui:178
 msgid "_About Papers"
 msgstr "_Info zu Papers"
 
-#: shell/pps-document-view.ui:682
+#: shell/pps-document-view.ui:665
 msgid "_Print…"
 msgstr "_Drucken …"
 
-#: shell/pps-document-view.ui:686
+#: shell/pps-document-view.ui:669
 msgid "Fullscreen"
 msgstr "Vollbild"
 
-#: shell/pps-document-view.ui:690
+#: shell/pps-document-view.ui:673
 msgid "Present as Slideshow"
 msgstr "Als Diaschau präsentieren"
 
-#: shell/pps-document-view.ui:696
+#: shell/pps-document-view.ui:679
 msgid "Sign D_igitally…"
 msgstr "D_igital signieren …"
 
-#: shell/pps-document-view.ui:702
+#: shell/pps-document-view.ui:685
 msgid "Open a C_opy"
 msgstr "Eine _Kopie öffnen"
 
-#: shell/pps-document-view.ui:706
+#: shell/pps-document-view.ui:689
 msgid "Open With…"
 msgstr "Öffnen mit …"
 
-#: shell/pps-document-view.ui:710
+#: shell/pps-document-view.ui:693
 msgid "_Save As…"
 msgstr "Speichern _unter …"
 
-#: shell/pps-document-view.ui:716
+#: shell/pps-document-view.ui:699
 msgid "_Continuous"
 msgstr "_Fortlaufend"
 
-#: shell/pps-document-view.ui:720
+#: shell/pps-document-view.ui:703
 msgid "_Dual"
 msgstr "_Zweiseitig"
 
-#: shell/pps-document-view.ui:724
+#: shell/pps-document-view.ui:707
 msgid "_Odd Pages Left"
 msgstr "Zweiseitig (_ungerade Seiten links)"
 
-#: shell/pps-document-view.ui:728
+#: shell/pps-document-view.ui:711
 msgid "Right to Left Document"
 msgstr "Rechts-nach-links-Dokument"
 
-#: shell/pps-document-view.ui:734
+#: shell/pps-document-view.ui:717
 msgid "Ro_tate ⤵"
 msgstr "Nach _rechts drehen"
 
-#: shell/pps-document-view.ui:740
+#: shell/pps-document-view.ui:723
 msgid "Document Prop_erties"
 msgstr "Dokument_eigenschaften"
 
-#: shell/pps-document-view.ui:749
+#: shell/pps-document-view.ui:732
 msgid "_Open Link"
 msgstr "Link ö_ffnen"
 
-#: shell/pps-document-view.ui:754
+#: shell/pps-document-view.ui:737
 msgid "_Copy Link Address"
 msgstr "Link-Adresse _kopieren"
 
-#: shell/pps-document-view.ui:759
+#: shell/pps-document-view.ui:742
 msgid "_Go To"
 msgstr "_Gehe zu"
 
-#: shell/pps-document-view.ui:764
+#: shell/pps-document-view.ui:747
 msgid "Open in New _Window"
 msgstr "In neuem _Fenster öffnen"
 
-#: shell/pps-document-view.ui:771
+#: shell/pps-document-view.ui:754
 msgid "_Previous Page"
 msgstr "_Vorherige Seite"
 
-#: shell/pps-document-view.ui:775
+#: shell/pps-document-view.ui:758
 msgid "_Next Page"
 msgstr "_Nächste Seite"
 
-#: shell/pps-document-view.ui:781
+#: shell/pps-document-view.ui:764
 msgid "_Copy"
 msgstr "_Kopieren"
 
-#: shell/pps-document-view.ui:785
+#: shell/pps-document-view.ui:768
 msgid "Select _All"
 msgstr "_Alles auswählen"
 
-#: shell/pps-document-view.ui:791
+#: shell/pps-document-view.ui:774
 msgid "_Save Image As…"
 msgstr "Bild _speichern unter …"
 
-#: shell/pps-document-view.ui:796
+#: shell/pps-document-view.ui:779
 msgid "Copy _Image"
 msgstr "Bild _kopieren"
 
-#: shell/pps-document-view.ui:803 shell/pps-document-view.ui:840
+#: shell/pps-document-view.ui:786 shell/pps-document-view.ui:823
 #: shell/pps-sidebar-annotations.ui:85
 msgid "_Open Attachment"
 msgstr "Anlage ö_ffnen"
 
-#: shell/pps-document-view.ui:808 shell/pps-document-view.ui:844
+#: shell/pps-document-view.ui:791 shell/pps-document-view.ui:827
 #: shell/pps-sidebar-annotations.ui:90
 msgid "_Save Attachment As…"
 msgstr "Anlage _speichern als …"
 
-#: shell/pps-document-view.ui:815
+#: shell/pps-document-view.ui:798
 msgid "Annotation _Properties…"
 msgstr "_Eigenschaften für Anmerkungen …"
 
-#: shell/pps-document-view.ui:820
+#: shell/pps-document-view.ui:803
 msgid "R_emove Annotation"
 msgstr "Anmerkung _entfernen"
 
-#: shell/pps-document-view.ui:827
+#: shell/pps-document-view.ui:810
 msgid "_Add Text Annotation"
 msgstr "_Textanmerkung hinzufügen"
 
-#: shell/pps-document-view.ui:832
+#: shell/pps-document-view.ui:815
 msgid "_Highlight Selected Text"
 msgstr "Ausgewählten Text _hervorheben"
 
@@ -1775,7 +1771,7 @@ msgstr "Suche ausführen"
 msgid "The search results will appear here"
 msgstr "Die Suchergebnisse werden hier erscheinen"
 
-#: shell/pps-loader-view.ui:18
+#: shell/pps-loader-view.ui:17
 msgid "Loading Document"
 msgstr "Dokument wird geladen"
 
@@ -2055,6 +2051,9 @@ msgstr "Laden des entfernten Dokumentes ist fehlgeschlagen."
 #: shell-rs/src/window.rs:732
 msgid "Failed to Reload Document."
 msgstr "Dokument konnte nicht erneut geladen werden."
+
+#~ msgid "Loading…"
+#~ msgstr "Wird geladen …"
 
 #~ msgid "Requested format is not supported by this printer."
 #~ msgstr "Angefragtes Format wird von diesem Drucker nicht unterstützt."
