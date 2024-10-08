@@ -10,9 +10,7 @@ girs_directories = ["../../gir-files/", "../../ev-girs"]
 external_libraries = [
     "Gio",
     "GLib",
-    "Cairo",
     "GdkPixbuf",
-    "GObject",
     "Gtk",
     "PapersDocument",
     "PapersView",
