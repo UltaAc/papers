@@ -36,7 +36,7 @@ G_BEGIN_DECLS
 PPS_PUBLIC
 G_DECLARE_INTERFACE (PpsDocumentSignatures, pps_document_signatures, PPS, DOCUMENT_SIGNATURES, GObject)
 
-typedef char * (*PpsSignaturePasswordCallback)(const gchar *text);
+typedef char * (*PpsSignaturePasswordCallback)(const gchar *text, gpointer user_data);
 
 struct _PpsDocumentSignaturesInterface
 {
@@ -44,7 +44,8 @@ struct _PpsDocumentSignaturesInterface
 
 	/* Methods  */
 	void      (*set_password_callback) (PpsDocumentSignatures        *document_signatures,
-	                                    PpsSignaturePasswordCallback  cb);
+	                                    PpsSignaturePasswordCallback  cb,
+					    gpointer user_data);
 	GList    *(*get_available_signing_certificates) (PpsDocumentSignatures *document_signatures);
 	PpsCertificateInfo *(*get_certificate_info) (PpsDocumentSignatures *document_signatures,
 	                                             const char            *nick_name);
@@ -65,7 +66,8 @@ GList *pps_document_signatures_get_available_signing_certificates (PpsDocumentSi
 
 PPS_PUBLIC
 void pps_document_signatures_set_password_callback (PpsDocumentSignatures        *document_signatures,
-                                                    PpsSignaturePasswordCallback  cb);
+                                                    PpsSignaturePasswordCallback  cb,
+						    gpointer		          user_data);
 
 PPS_PUBLIC
 PpsCertificateInfo *pps_document_signature_get_certificate_info (PpsDocumentSignatures *document_signatures,

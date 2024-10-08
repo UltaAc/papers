@@ -32,19 +32,21 @@ pps_document_signatures_default_init (PpsDocumentSignaturesInterface *klass)
 /**
  * pps_document_signatures_set_password_callback:
  * @document_signatures: an #PpsDocumentSignatures
- * @cb: (scope call): an #PpsSignaturePasswordCallback
+ * @cb: (scope call): (closure user_data) an #PpsSignaturePasswordCallback
+ * @user_data: data to pass to @cb
  *
  * Popplers crypto backend asks for certificate password before access,
  * so set a helper function to actually allow the user to enter his password.
  */
 void
 pps_document_signatures_set_password_callback (PpsDocumentSignatures        *document_signatures,
-                                               PpsSignaturePasswordCallback  cb)
+                                               PpsSignaturePasswordCallback  cb,
+					       gpointer 		     user_data)
 {
 	PpsDocumentSignaturesInterface *iface = PPS_DOCUMENT_SIGNATURES_GET_IFACE (document_signatures);
 
 	if (iface->set_password_callback)
-		iface->set_password_callback (document_signatures, cb);
+		iface->set_password_callback (document_signatures, cb, user_data);
 }
 
 /**

@@ -4142,11 +4142,27 @@ pdf_document_signatures_can_sign (PpsDocumentSignatures *document)
 	return TRUE;
 }
 
+static PpsSignaturePasswordCallback real_cb = NULL;
+static gpointer cb_data = NULL;
+
+static char *
+nss_callback_wrapper (const char *name)
+{
+	return real_cb (name, cb_data);
+}
+
 static void
 pdf_document_set_password_callback (PpsDocumentSignatures        *document,
-				    PpsSignaturePasswordCallback  cb)
+				    PpsSignaturePasswordCallback  cb,
+				    gpointer 		   	  user_data)
 {
-	poppler_set_nss_password_callback (cb);
+	if (!cb)
+		poppler_set_nss_password_callback (NULL);
+	else
+		poppler_set_nss_password_callback (nss_callback_wrapper);
+
+	real_cb = cb;
+	cb_data = user_data;
 }
 
 static GList *

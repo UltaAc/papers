@@ -232,7 +232,7 @@ static void     view_external_link_cb                   (PpsDocumentView        
 static void     pps_document_view_show_find_bar                 (PpsDocumentView         *pps_doc_view);
 static void     pps_document_view_close_find_bar                (PpsDocumentView         *pps_doc_view);
 
-static char    *pps_document_view_signature_password_callback   (const char *text);
+static char    *pps_document_view_signature_password_callback   (const char *text, gpointer user_data);
 
 G_DEFINE_TYPE_WITH_PRIVATE (PpsDocumentView, pps_document_view, ADW_TYPE_BREAKPOINT_BIN)
 
@@ -1264,7 +1264,7 @@ pps_document_view_set_document (PpsDocumentView *pps_doc_view, PpsDocument *docu
 
 	/* Set password callback */
 	if (PPS_IS_DOCUMENT_SIGNATURES (priv->document)) {
-		pps_document_signatures_set_password_callback (PPS_DOCUMENT_SIGNATURES (priv->document), pps_document_view_signature_password_callback);
+		pps_document_signatures_set_password_callback (PPS_DOCUMENT_SIGNATURES (priv->document), pps_document_view_signature_password_callback, NULL);
 	}
 
 	gtk_widget_grab_focus (priv->view);
@@ -3424,7 +3424,7 @@ on_password (AdwMessageDialog *self,
 }
 
 static char *
-pps_document_view_signature_password_callback (const char *text)
+pps_document_view_signature_password_callback (const char *text, gpointer user_data)
 {
 	AdwDialog *dialog;
 	GtkWindow *parent = NULL;
