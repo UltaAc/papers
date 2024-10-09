@@ -4623,14 +4623,6 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 	g_signal_connect_object (priv->search_context, "result-activated",
 				 G_CALLBACK (sidebar_navigate_to_view),
 				 pps_doc_view, G_CONNECT_SWAPPED);
-	g_signal_connect_object (priv->sidebar, "navigated-to-view",
-				 G_CALLBACK (sidebar_navigate_to_view),
-				 pps_doc_view, G_CONNECT_SWAPPED);
-
-	g_signal_connect_object (G_OBJECT (priv->view), "signature-rect",
-				 G_CALLBACK (pps_document_view_on_signature_rect),
-				 pps_doc_view,
-				 G_CONNECT_DEFAULT);
 }
 
 static void
@@ -4704,6 +4696,7 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_callback (widget_class, view_annot_removed);
 	gtk_widget_class_bind_template_callback (widget_class, view_layers_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, view_caret_cursor_moved_cb);
+	gtk_widget_class_bind_template_callback (widget_class, pps_document_view_on_signature_rect);
 
 	/* model */
 	gtk_widget_class_bind_template_callback (widget_class, page_changed_cb);
@@ -4722,6 +4715,7 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_callback (widget_class, attachment_bar_menu_popup_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_layers_visibility_changed);
 	gtk_widget_class_bind_template_callback (widget_class, bookmark_activated_cb);
+	gtk_widget_class_bind_template_callback (widget_class, sidebar_navigate_to_view);
 
 	/* settings */
 	gtk_widget_class_bind_template_callback (widget_class, override_restrictions_changed);
