@@ -280,10 +280,12 @@ mod imp {
                                         .and_downcast::<PpsDocumentView>()
                                         .unwrap();
 
-                                    document_view.error_message(
-                                        Some(&error),
-                                        &gettext("Unable to Open Attachment"),
-                                    );
+                                    if !error.matches(gtk::DialogError::Dismissed) {
+                                        document_view.error_message(
+                                            Some(&error),
+                                            &gettext("Unable to Open Attachment"),
+                                        );
+                                    }
                                 }
                             }
                         ),

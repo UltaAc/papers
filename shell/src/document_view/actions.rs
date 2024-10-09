@@ -944,7 +944,9 @@ impl imp::PpsDocumentView {
         let context = self.obj().display().app_launch_context();
 
         if let Err(e) = attachment.open(&context) {
-            self.error_message(Some(&e), &gettext("Unable to Open Attachment"));
+            if !e.matches(gtk::DialogError::Dismissed) {
+                self.error_message(Some(&e), &gettext("Unable to Open Attachment"));
+            }
         }
     }
 
