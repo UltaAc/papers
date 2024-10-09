@@ -3465,7 +3465,7 @@ load_signed_document (gpointer user_data)
 	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
-	g_autofree char *uri = g_strdup_printf ("file://%s", pps_signature_get_destination_file (priv->signature));
+	g_autofree char *uri = g_filename_to_uri (pps_signature_get_destination_file (priv->signature), NULL, NULL);
 
 	pps_spawn (uri, NULL);
 	g_clear_object (&priv->signature);
@@ -3939,9 +3939,9 @@ get_uri (const char *filename, PpsDocumentView *window)
 	/* The filename can be a valid URI (file:///) or a path in filesystem */
 	if (g_uri_is_valid (filename, G_URI_FLAGS_NONE, NULL))
 		ret = g_strdup (filename);
-	else if (g_path_is_absolute (filename)) {
-		ret =  g_strdup_printf ("file://%s", filename);
-	} else {
+	else if (g_path_is_absolute (filename))
+		ret = g_filename_to_uri (filename, NULL, NULL);
+	else {
 		g_autoptr(GFile) base_file = NULL;
 		g_autoptr(GFile) file = NULL;
 		g_autofree gchar *dir = NULL;
@@ -4032,7 +4032,7 @@ launch_external_uri (PpsDocumentView *window, PpsLinkAction *action)
 				g_free (parent_uri);
 				g_object_unref (parent);
 			} else {
-				new_uri = g_strdup_printf ("file:///%s", uri);
+				new_uri = g_filename_to_uri (uri, NULL, NULL);
 			}
 		}
 		ret = g_app_info_launch_default_for_uri (new_uri, G_APP_LAUNCH_CONTEXT (context), &error);
