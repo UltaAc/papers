@@ -25,8 +25,8 @@ msgstr ""
 "Project-Id-Version: evince master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-10-08 18:50+0000\n"
-"PO-Revision-Date: 2024-10-10 09:08+0800\n"
+"POT-Creation-Date: 2024-10-10 21:59+0000\n"
+"PO-Revision-Date: 2024-10-11 07:34+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -1568,8 +1568,8 @@ msgid "Close _After Printing"
 msgstr "打印后关闭(_A)"
 
 #: shell/pps-document-view.ui:637
-msgid "Open"
-msgstr "打开"
+msgid "Open…"
+msgstr "打开…"
 
 #: shell/pps-document-view.ui:643
 msgid "Ni_ght Mode"
@@ -2002,6 +2002,9 @@ msgstr "载入远程文件失败。"
 #: shell-rs/src/window.rs:732
 msgid "Failed to Reload Document."
 msgstr "重新载入文档失败。"
+
+#~ msgid "Open"
+#~ msgstr "打开"
 
 #~ msgid "Loading…"
 #~ msgstr "正在载入…"
