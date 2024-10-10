@@ -634,7 +634,7 @@
   <menu id="sidebar_menu">
     <section>
       <item>
-        <attribute name="label" translatable="yes">Open</attribute>
+        <attribute name="label" translatable="yes">Open…</attribute>
         <attribute name="action">win.open</attribute>
       </item>
     </section>
