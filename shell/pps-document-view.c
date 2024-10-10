@@ -2777,8 +2777,6 @@ pps_document_view_cmd_escape (GSimpleAction *action,
 	} else if (adw_overlay_split_view_get_collapsed (priv->split_view) &&
 	           adw_overlay_split_view_get_show_sidebar (priv->split_view))
 		adw_overlay_split_view_set_show_sidebar (priv->split_view, FALSE);
-	else
-		pps_view_cancel_add_text_annotation (PPS_VIEW (priv->view));
 }
 
 static void
@@ -3329,9 +3327,22 @@ pps_document_view_cmd_add_text_annotation (GSimpleAction *action,
                                            GVariant *state,
                                            gpointer user_data)
 {
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (PPS_DOCUMENT_VIEW (user_data));
+	PpsDocumentView *self = PPS_DOCUMENT_VIEW (user_data);
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (self);
+	GdkRectangle rect;
+	gint x, y;
 
-	pps_view_begin_add_text_annotation (PPS_VIEW (priv->view));
+	pps_document_misc_get_pointer_position (priv->view, &x, &y);
+	if (x == y && x == -1) {
+		// Check if the pointer is not over the current surface, then
+		// it should be in the popover, and we should get the point
+		// from where the popover is pointing
+		gtk_popover_get_pointing_to (GTK_POPOVER (priv->view_popup), &rect);
+		x = rect.x;
+		y = rect.y;
+	}
+
+	pps_view_add_text_annotation_at_point (PPS_VIEW (priv->view), x, y);
 }
 
 static void

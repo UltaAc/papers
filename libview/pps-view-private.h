@@ -193,7 +193,6 @@ typedef struct _PpsViewPrivate {
 
 	/* Annotations */
 	GList *window_children;
-	gboolean adding_text_annot;
 	MovingAnnotInfo moving_annot_info;
 	GHashTable *annot_window_map;
 	gboolean enable_spellchecking;
