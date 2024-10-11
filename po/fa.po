@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evince HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/issues/\n"
-"POT-Creation-Date: 2024-10-08 18:50+0000\n"
-"PO-Revision-Date: 2024-10-10 18:33+0330\n"
+"POT-Creation-Date: 2024-10-10 21:59+0000\n"
+"PO-Revision-Date: 2024-10-11 16:53+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian\n"
 "Language: fa\n"
@@ -1566,8 +1566,8 @@ msgid "Close _After Printing"
 msgstr "بستن _پس از چاپ"
 
 #: shell/pps-document-view.ui:637
-msgid "Open"
-msgstr "گشودن"
+msgid "Open…"
+msgstr "گشودن…"
 
 #: shell/pps-document-view.ui:643
 msgid "Ni_ght Mode"
@@ -1980,6 +1980,9 @@ msgstr "شکست در بار کردن پروندهٔ دوردست."
 #: shell-rs/src/window.rs:732
 msgid "Failed to Reload Document."
 msgstr "شکست در بازخوانی سند."
+
+#~ msgid "Open"
+#~ msgstr "گشودن"
 
 #~ msgid "Loading…"
 #~ msgstr "بار کردن…"
