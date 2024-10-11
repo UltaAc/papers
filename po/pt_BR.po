@@ -1,4 +1,4 @@
-# Brazilian Portuguese translation of Evince.
+# Brazilian Portuguese translation of Papers.
 # Copyright (C) 2024 the Papers authors.
 # This file is distributed under the same license as the papers package.
 # Raphael Higino <In Memoriam>, 2004-2005, 2007.
@@ -28,7 +28,7 @@ msgstr ""
 "Project-Id-Version: papers\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-10-08 18:50+0000\n"
+"POT-Creation-Date: 2024-10-10 21:59+0000\n"
 "PO-Revision-Date: 2024-10-08 16:47-0300\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>\n"
@@ -1622,10 +1622,9 @@ msgstr "Abortar _imprimir e fechar"
 msgid "Close _After Printing"
 msgstr "Fech_ar depois de imprimir"
 
-#  Contexto: Estado inicial da janela
 #: shell/pps-document-view.ui:637
-msgid "Open"
-msgstr "Aberto"
+msgid "Open…"
+msgstr "Abrir…"
 
 #: shell/pps-document-view.ui:643
 msgid "Ni_ght Mode"
@@ -2069,6 +2068,10 @@ msgstr "Falha ao carregar o arquivo remoto."
 #: shell-rs/src/window.rs:732
 msgid "Failed to Reload Document."
 msgstr "Falha ao recarregar o documento."
+
+#  Contexto: Estado inicial da janela
+#~ msgid "Open"
+#~ msgstr "Aberto"
 
 #~ msgid "Requested format is not supported by this printer."
 #~ msgstr "Esta impressora não oferece suporte ao formato solicitado."
