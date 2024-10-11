@@ -34,8 +34,8 @@ msgstr ""
 "Project-Id-Version: Evince master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-10-08 18:50+0000\n"
-"PO-Revision-Date: 2024-10-08 21:30+0200\n"
+"POT-Creation-Date: 2024-10-10 21:59+0000\n"
+"PO-Revision-Date: 2024-10-11 10:16+0200\n"
 "Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -1618,8 +1618,8 @@ msgid "Close _After Printing"
 msgstr "Nach dem Drucken _schließen"
 
 #: shell/pps-document-view.ui:637
-msgid "Open"
-msgstr "Öffnen"
+msgid "Open…"
+msgstr "Öffnen …"
 
 #: shell/pps-document-view.ui:643
 msgid "Ni_ght Mode"
@@ -2051,6 +2051,9 @@ msgstr "Laden des entfernten Dokumentes ist fehlgeschlagen."
 #: shell-rs/src/window.rs:732
 msgid "Failed to Reload Document."
 msgstr "Dokument konnte nicht erneut geladen werden."
+
+#~ msgid "Open"
+#~ msgstr "Öffnen"
 
 #~ msgid "Loading…"
 #~ msgstr "Wird geladen …"
