@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Evince HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-10-03 13:40+0000\n"
-"PO-Revision-Date: 2024-10-04 17:43+0200\n"
+"POT-Creation-Date: 2024-10-10 21:59+0000\n"
+"PO-Revision-Date: 2024-10-12 22:20+0200\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -17,13 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Project-Style: gnome\n"
 
 #. Manually set name and icon
 #: data/org.gnome.Papers.desktop.in.in:3
 #: data/org.gnome.Papers.metainfo.xml.in.in:23
-#: previewer/pps-previewer-window.c:491 shell/pps-document-view.c:1220
+#: previewer/pps-previewer-window.c:491 shell/pps-document-view.c:1174
 #: shell/pps-document-view.ui:73 shell/pps-loader-view.ui:10
 #: shell-rs/src/application.rs:41 shell-rs/src/application.rs:64
 #: shell-rs/src/application.rs:288
@@ -204,7 +204,7 @@ msgstr ""
 "libarchive possedís pas la presa en carga del format de compression "
 "d’aquesta benda dessenhada, contactatz vòstre provesidor"
 
-#: libdocument/backend/comics/comics-document.c:364
+#: libdocument/backend/comics/comics-document.c:361
 msgid "Can not get local path for archive"
 msgstr "Obtencion impossibla del camin local de l’archiu"
 
@@ -527,28 +527,28 @@ msgstr[0] "Enregistrar la pèça junta"
 msgstr[1] "Enregistrar las pèças juntas"
 
 #: libview/context/pps-history.c:488 previewer/pps-page-selector.c:194
-#: shell/pps-document-view.c:658 shell/pps-document-view.c:2760
+#: shell/pps-document-view.c:623 shell/pps-document-view.c:2714
 #: shell/pps-sidebar-bookmarks.c:339
 #, c-format
 msgid "Page %s"
 msgstr "Pagina %s"
 
-#: libview/pps-jobs.c:419
+#: libview/pps-jobs.c:418
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "Fracàs del rendut de la pagina %d : %s"
 
-#: libview/pps-jobs.c:426
+#: libview/pps-jobs.c:425
 #, c-format
 msgid "Failed to render page %d"
 msgstr "Fracàs del rendut de la pagina %d"
 
-#: libview/pps-jobs.c:644
+#: libview/pps-jobs.c:643
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "Impossible de crear una miniatura per la pagina %d"
 
-#: libview/pps-jobs.c:1619
+#: libview/pps-jobs.c:1645
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "Impossible d'imprimir la pagina %d : %s"
@@ -586,7 +586,7 @@ msgid "Your print range selection does not include any pages"
 msgstr "Vòstre interval d'impression inclutz pas cap de pagina"
 
 #: libview/pps-print-operation.c:1366 previewer/pps-previewer-window.ui:91
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.ui:647
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.ui:630
 #: shell/pps-window.ui:163
 msgid "_Close"
 msgstr "_Tampar"
@@ -691,51 +691,51 @@ msgstr "Far defilar la vista cap aval"
 msgid "Document View"
 msgstr "Vista del document"
 
-#: libview/pps-view.c:2126
+#: libview/pps-view.c:2112
 msgid "Go to first page"
 msgstr "Anar a la primièra pagina"
 
-#: libview/pps-view.c:2128
+#: libview/pps-view.c:2114
 msgid "Go to previous page"
 msgstr "Anar a la pagina precedenta"
 
-#: libview/pps-view.c:2130
+#: libview/pps-view.c:2116
 msgid "Go to next page"
 msgstr "Anar a la pagina seguenta"
 
-#: libview/pps-view.c:2132
+#: libview/pps-view.c:2118
 msgid "Go to last page"
 msgstr "Anar a la darrièra pagina"
 
-#: libview/pps-view.c:2134
+#: libview/pps-view.c:2120
 msgid "Go to page"
 msgstr "Anar a la pagina"
 
-#: libview/pps-view.c:2136
+#: libview/pps-view.c:2122
 msgid "Find"
 msgstr "Recercar"
 
-#: libview/pps-view.c:2165
+#: libview/pps-view.c:2151
 #, c-format
 msgid "Go to page %s"
 msgstr "Anar a la pagina %s"
 
-#: libview/pps-view.c:2171
+#: libview/pps-view.c:2157
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Anar a %s sul fichièr « %s »"
 
-#: libview/pps-view.c:2174
+#: libview/pps-view.c:2160
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Anar a la pagina « %s »"
 
-#: libview/pps-view.c:2182
+#: libview/pps-view.c:2168
 #, c-format
 msgid "Launch %s"
 msgstr "Aviar %s"
 
-#: libview/pps-view.c:2189
+#: libview/pps-view.c:2175
 #, c-format
 msgid "Reset form"
 msgstr "Reïnicializar lo formulari"
@@ -831,7 +831,7 @@ msgstr "_Imprimir"
 msgid "Print This Document"
 msgstr "Imprimir aqueste document"
 
-#: previewer/pps-previewer-window.ui:53 shell/pps-document-view.ui:310
+#: previewer/pps-previewer-window.ui:53 shell/pps-document-view.ui:306
 msgid "Zoom Out"
 msgstr "Zoom arrièr"
 
@@ -839,11 +839,11 @@ msgstr "Zoom arrièr"
 msgid "Normal Size"
 msgstr "Talha normala"
 
-#: previewer/pps-previewer-window.ui:67 shell/pps-document-view.ui:297
+#: previewer/pps-previewer-window.ui:67 shell/pps-document-view.ui:293
 msgid "Zoom In"
 msgstr "Zoom avant"
 
-#: previewer/pps-previewer-window.ui:89 shell/pps-document-view.c:2000
+#: previewer/pps-previewer-window.ui:89 shell/pps-document-view.c:1954
 msgid "Failed to Print Document"
 msgstr "L'impression del document a fracassat"
 
@@ -1315,110 +1315,110 @@ msgstr "Desformat"
 msgid "_Apply"
 msgstr "_Aplicar"
 
-#: shell/pps-document-view.c:499 shell-rs/src/window.rs:467
+#: shell/pps-document-view.c:496 shell-rs/src/window.rs:467
 msgid "View Details"
 msgstr "Veire los detalhs"
 
-#: shell/pps-document-view.c:1260
+#: shell/pps-document-view.c:1214
 msgid "Digital Signature is invalid!"
 msgstr "La signatura electronica es invalida."
 
-#: shell/pps-document-view.c:1263 shell/pps-document-view.ui:239
+#: shell/pps-document-view.c:1217 shell/pps-document-view.ui:239
 msgid "Document has been digitally signed."
 msgstr "Lo document foguèt signat electronicament."
 
-#: shell/pps-document-view.c:1294
+#: shell/pps-document-view.c:1248
 msgid "The document contains no pages"
 msgstr "Lo document a pas cap de pagina"
 
-#: shell/pps-document-view.c:1297
+#: shell/pps-document-view.c:1251
 msgid "The document contains only empty pages"
 msgstr "Lo document conten pas que de paginas voidas"
 
-#: shell/pps-document-view.c:1530
+#: shell/pps-document-view.c:1484
 msgid "File Saved"
 msgstr "Fichièr enregistrat"
 
-#: shell/pps-document-view.c:1540 shell/pps-document-view.c:1593
+#: shell/pps-document-view.c:1494 shell/pps-document-view.c:1547
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Lo fichièr pòt pas èsser enregistrat sous « %s »."
 
-#: shell/pps-document-view.c:1655
+#: shell/pps-document-view.c:1609
 msgid "Save As…"
 msgstr "Enregistrar jos…"
 
-#: shell/pps-document-view.c:1961
+#: shell/pps-document-view.c:1915
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "%d prètzfach en espèra dins la fila"
 msgstr[1] "%d prètzfaches en espèra dins la fila"
 
-#: shell/pps-document-view.c:2054
+#: shell/pps-document-view.c:2008
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Impression de lo prètzfache « %s »"
 
-#: shell/pps-document-view.c:2057 shell/pps-loader-view.ui:45
+#: shell/pps-document-view.c:2011 shell/pps-loader-view.ui:60
 msgid "C_ancel"
 msgstr "An_ullar"
 
-#: shell/pps-document-view.c:2246 shell-rs/src/window.rs:267
+#: shell/pps-document-view.c:2200 shell-rs/src/window.rs:267
 msgid "Document contains form fields that have been filled out."
 msgstr "Lo document conten de camps de formulari que son estats garnits."
 
-#: shell/pps-document-view.c:2249 shell-rs/src/window.rs:268
+#: shell/pps-document-view.c:2203 shell-rs/src/window.rs:268
 msgid "Document contains new or modified annotations."
 msgstr "Lo document conten d'anotacions novèlas o modificadas."
 
-#: shell/pps-document-view.c:2256
+#: shell/pps-document-view.c:2210
 msgid "Save Changes to a Copy?"
 msgstr "Enregistrar las modificacion dins una còpia ?"
 
-#: shell/pps-document-view.c:2257
+#: shell/pps-document-view.c:2211
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr ""
 "Se enregistratz pas una còpia, las modificacions seràn perdudas "
 "definitivament."
 
-#: shell/pps-document-view.c:2260
+#: shell/pps-document-view.c:2214
 msgid "Close _Without Saving"
 msgstr "Tampar _sans enregistrar"
 
-#: shell/pps-document-view.c:2261 shell/pps-document-view.c:3486
-#: shell/pps-document-view.c:3622 shell/pps-document-view.ui:627
-#: shell/pps-document-view.ui:639
+#: shell/pps-document-view.c:2215 shell/pps-document-view.c:3438
+#: shell/pps-document-view.c:3574 shell/pps-document-view.ui:597
+#: shell/pps-document-view.ui:622
 msgid "_Cancel"
 msgstr "_Anullar"
 
-#: shell/pps-document-view.c:2262
+#: shell/pps-document-view.c:2216
 msgid "_Save a Copy"
 msgstr "_Enregistrar una còpia"
 
-#: shell/pps-document-view.c:3483
+#: shell/pps-document-view.c:3435
 #, c-format
 msgid "Please enter password for %s"
 msgstr "Mercés de picar lo senhal per %s"
 
-#: shell/pps-document-view.c:3485 shell/pps-password-dialog.ui:4
+#: shell/pps-document-view.c:3437 shell/pps-password-dialog.ui:4
 #: shell/pps-password-view.ui:10 shell/pps-password-view.ui:19
 msgid "Password Required"
 msgstr "Senhal requesit"
 
-#: shell/pps-document-view.c:3487
+#: shell/pps-document-view.c:3439
 msgid "_Login"
 msgstr "_Connexion"
 
-#: shell/pps-document-view.c:3586
+#: shell/pps-document-view.c:3538
 msgid "Save Signed File"
 msgstr "Enregistrat fichièr signat"
 
-#: shell/pps-document-view.c:3621
+#: shell/pps-document-view.c:3573
 msgid "Draw a rectangle to insert a signature field"
 msgstr "Dessenhar un rectangle per inserir un camp de signatura"
 
-#: shell/pps-document-view.c:3646
+#: shell/pps-document-view.c:3598
 #, c-format
 msgid ""
 "Digitally signed by %s\n"
@@ -1427,49 +1427,27 @@ msgstr ""
 "Signat electronicament per %s\n"
 "Data : %s"
 
-#: shell/pps-document-view.c:3682
+#: shell/pps-document-view.c:3634
 msgid "Certificate Required"
 msgstr "Certificat requerit"
 
-#: shell/pps-document-view.c:3683 shell/pps-password-dialog.ui:7
+#: shell/pps-document-view.c:3635 shell/pps-password-dialog.ui:7
 msgid "Cancel"
 msgstr "Anullar"
 
-#: shell/pps-document-view.c:3689
+#: shell/pps-document-view.c:3641
 msgid "Select signing certificate"
 msgstr "Seleccionar lo certificat de signatura"
 
-#: shell/pps-document-view.c:3690
+#: shell/pps-document-view.c:3642
 msgid "Select"
 msgstr "Seleccionar"
 
-#: shell/pps-document-view.c:3727
+#: shell/pps-document-view.c:3679
 msgid "No certificates found!"
 msgstr "Cap de certificat pas trobat."
 
-#: shell/pps-document-view.c:3755
-msgid "Selection too small"
-msgstr "Seleccion tròpa pichona"
-
-#: shell/pps-document-view.c:3756
-msgid ""
-"A signature of this size may be too small to read. If you would like to "
-"create a potentially more readable signature, press `Start over` and draw a "
-"bigger rectangle."
-msgstr ""
-"Una signatura d'aquesta talha pòt èsser tròp pichona a legir. Se volètz "
-"crear una signatura potencialament mai legibla, quichatz sus « Recomençar « "
-"e dessenhatz un rectangle mai grand."
-
-#: shell/pps-document-view.c:3758
-msgid "Start _Over"
-msgstr "_Recomençar"
-
-#: shell/pps-document-view.c:3758
-msgid "_Sign"
-msgstr "_Signar"
-
-#: shell/pps-document-view.c:4041
+#: shell/pps-document-view.c:3983
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
@@ -1477,27 +1455,27 @@ msgstr ""
 "Alterta de seguretat : avèm empachat aquesta document de dobrir lo fichièr "
 "« %s »"
 
-#: shell/pps-document-view.c:4102 shell-rs/src/window.rs:1131
+#: shell/pps-document-view.c:4044 shell-rs/src/window.rs:1137
 msgid "Unable to open external link"
 msgstr "Impossible de dobrir lo ligam extèrne"
 
-#: shell/pps-document-view.c:4327
+#: shell/pps-document-view.c:4269
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Impossible de trobar lo format apropriat per enregistrar l'imatge"
 
-#: shell/pps-document-view.c:4357
+#: shell/pps-document-view.c:4299
 msgid "The image could not be saved."
 msgstr "L'imatge pòt pas èsser enregistrada."
 
-#: shell/pps-document-view.c:4393
+#: shell/pps-document-view.c:4335
 msgid "Save Image"
 msgstr "Enregistrar l'imatge"
 
-#: shell/pps-document-view.c:4564
+#: shell/pps-document-view.c:4506
 msgid "Unable to open attachment"
 msgstr "Impossible de dobrir la pèça junta"
 
-#: shell/pps-document-view.c:4583
+#: shell/pps-document-view.c:4525
 msgid "The attachment could not be saved."
 msgstr "La pèça junta pòt pas èsser enregistrada."
 
@@ -1545,19 +1523,15 @@ msgstr "Menú del document"
 msgid "View Details…"
 msgstr "Veire los detalhs…"
 
-#: shell/pps-document-view.ui:277
+#: shell/pps-document-view.ui:273
 msgid "Fit Automatically"
 msgstr "_Adaptar automaticament"
 
-#: shell/pps-document-view.ui:369
-msgid "Loading…"
-msgstr "Cargament…"
-
-#: shell/pps-document-view.ui:618
+#: shell/pps-document-view.ui:588
 msgid "Enable Caret Navigation?"
 msgstr "Activar la navegacion al cursor ?"
 
-#: shell/pps-document-view.ui:619
+#: shell/pps-document-view.ui:589
 msgid ""
 "Pressing F7 turns the caret navigation on or off. This feature places a "
 "moveable cursor in text pages, allowing you to move around and select text "
@@ -1567,19 +1541,41 @@ msgstr ""
 "foncionalitat plaça un cursor desplaçable dins las paginas de tèxte, que vos "
 "permet de vos desplaçar e de seleccionar de tèxte amb lo clavièr."
 
-#: shell/pps-document-view.ui:622
+#: shell/pps-document-view.ui:592
 msgid "Don’t show this message again"
 msgstr "Mostrar pas mai aqueste messatge"
 
-#: shell/pps-document-view.ui:628
+#: shell/pps-document-view.ui:598
 msgid "_Enable"
 msgstr "_Activar"
 
-#: shell/pps-document-view.ui:634
+#: shell/pps-document-view.ui:604
+msgid "Selection too Small"
+msgstr "Seleccion tròpa pichona"
+
+#: shell/pps-document-view.ui:605
+msgid ""
+"A signature of this size may be too small to read. If you would like to "
+"create a potentially more readable signature, press `Start over` and draw a "
+"bigger rectangle."
+msgstr ""
+"Una signatura d'aquesta talha pòt èsser tròp pichona a legir. Se volètz "
+"crear una signatura potencialament mai legibla, quichatz sus « Recomençar "
+"« e dessenhatz un rectangle mai grand."
+
+#: shell/pps-document-view.ui:610
+msgid "Start _Over"
+msgstr "_Recomençar"
+
+#: shell/pps-document-view.ui:611
+msgid "_Sign"
+msgstr "_Signar"
+
+#: shell/pps-document-view.ui:617
 msgid "Abort Printing?"
 msgstr "Interrompre l'impression ?"
 
-#: shell/pps-document-view.ui:635
+#: shell/pps-document-view.ui:618
 msgid ""
 "There is one or more active print jobs. If the window is closed, pending "
 "print jobs will not be printed."
@@ -1587,149 +1583,149 @@ msgstr ""
 "I a un o mai d’un prètzfach d’impression actiu. Se tampatz la fenèstra, los "
 "prètzfaches en espèra d'impression seràn pas imprimits."
 
-#: shell/pps-document-view.ui:638
+#: shell/pps-document-view.ui:621
 msgid "Abort _Print and Close"
 msgstr "Anullar l'_impression e tampar"
 
-#: shell/pps-document-view.ui:640
+#: shell/pps-document-view.ui:623
 msgid "Close _After Printing"
 msgstr "Tampar _aprèp l'impression"
 
-#: shell/pps-document-view.ui:654
-msgid "Open"
-msgstr "Dobrir"
+#: shell/pps-document-view.ui:637
+msgid "Open…"
+msgstr "Dobrir…"
 
-#: shell/pps-document-view.ui:660
+#: shell/pps-document-view.ui:643
 msgid "Ni_ght Mode"
 msgstr "Mòde n_uèch"
 
-#: shell/pps-document-view.ui:666 shell/pps-window.ui:170
+#: shell/pps-document-view.ui:649 shell/pps-window.ui:170
 msgid "_Keyboard Shortcuts"
 msgstr "_Acorchis de clavièr"
 
-#: shell/pps-document-view.ui:670 shell/pps-window.ui:174
+#: shell/pps-document-view.ui:653 shell/pps-window.ui:174
 msgid "_Help"
 msgstr "Ajud_a"
 
-#: shell/pps-document-view.ui:674 shell/pps-window.ui:178
+#: shell/pps-document-view.ui:657 shell/pps-window.ui:178
 msgid "_About Papers"
 msgstr "_A prepaus de Papers"
 
-#: shell/pps-document-view.ui:682
+#: shell/pps-document-view.ui:665
 msgid "_Print…"
 msgstr "_Imprimir…"
 
-#: shell/pps-document-view.ui:686
+#: shell/pps-document-view.ui:669
 msgid "Fullscreen"
 msgstr "Ecran complèt"
 
-#: shell/pps-document-view.ui:690
+#: shell/pps-document-view.ui:673
 msgid "Present as Slideshow"
 msgstr "Presentar en diaporama"
 
-#: shell/pps-document-view.ui:696
+#: shell/pps-document-view.ui:679
 msgid "Sign D_igitally…"
 msgstr "S_ignar electronicament…"
 
-#: shell/pps-document-view.ui:702
+#: shell/pps-document-view.ui:685
 msgid "Open a C_opy"
 msgstr "Dobrir una _còpia"
 
-#: shell/pps-document-view.ui:706
+#: shell/pps-document-view.ui:689
 msgid "Open With…"
 msgstr "Dobrir amb…"
 
-#: shell/pps-document-view.ui:710
+#: shell/pps-document-view.ui:693
 msgid "_Save As…"
 msgstr "_Enregistrar jos…"
 
-#: shell/pps-document-view.ui:716
+#: shell/pps-document-view.ui:699
 msgid "_Continuous"
 msgstr "_Continú"
 
-#: shell/pps-document-view.ui:720
+#: shell/pps-document-view.ui:703
 msgid "_Dual"
 msgstr "_Doble"
 
-#: shell/pps-document-view.ui:724
+#: shell/pps-document-view.ui:707
 msgid "_Odd Pages Left"
 msgstr "_Paginas imparas a esquèrra"
 
-#: shell/pps-document-view.ui:728
+#: shell/pps-document-view.ui:711
 msgid "Right to Left Document"
 msgstr "Document de drecha a esquèrra"
 
-#: shell/pps-document-view.ui:734
+#: shell/pps-document-view.ui:717
 msgid "Ro_tate ⤵"
 msgstr "Pivo_tar ⤵"
 
-#: shell/pps-document-view.ui:740
+#: shell/pps-document-view.ui:723
 msgid "Document Prop_erties"
 msgstr "Propri_etats del document"
 
-#: shell/pps-document-view.ui:749
+#: shell/pps-document-view.ui:732
 msgid "_Open Link"
 msgstr "_Dobrir lo ligam"
 
-#: shell/pps-document-view.ui:754
+#: shell/pps-document-view.ui:737
 msgid "_Copy Link Address"
 msgstr "_Copiar l'adreça del ligam"
 
-#: shell/pps-document-view.ui:759
+#: shell/pps-document-view.ui:742
 msgid "_Go To"
 msgstr "A_nar a"
 
-#: shell/pps-document-view.ui:764
+#: shell/pps-document-view.ui:747
 msgid "Open in New _Window"
 msgstr "Dobrir dins una _novèla fenèstra"
 
-#: shell/pps-document-view.ui:771
+#: shell/pps-document-view.ui:754
 msgid "_Previous Page"
 msgstr "Pagina _precedenta"
 
-#: shell/pps-document-view.ui:775
+#: shell/pps-document-view.ui:758
 msgid "_Next Page"
 msgstr "Pagina _seguenta"
 
-#: shell/pps-document-view.ui:781
+#: shell/pps-document-view.ui:764
 msgid "_Copy"
 msgstr "_Copiar"
 
-#: shell/pps-document-view.ui:785
+#: shell/pps-document-view.ui:768
 msgid "Select _All"
 msgstr "Seleccionar _tot"
 
-#: shell/pps-document-view.ui:791
+#: shell/pps-document-view.ui:774
 msgid "_Save Image As…"
 msgstr "_Enregistrar l'imatge jos…"
 
-#: shell/pps-document-view.ui:796
+#: shell/pps-document-view.ui:779
 msgid "Copy _Image"
 msgstr "Copiar l'_imatge"
 
-#: shell/pps-document-view.ui:803 shell/pps-document-view.ui:840
+#: shell/pps-document-view.ui:786 shell/pps-document-view.ui:823
 #: shell/pps-sidebar-annotations.ui:85
 msgid "_Open Attachment"
 msgstr "_Dobrir la pèça junta"
 
-#: shell/pps-document-view.ui:808 shell/pps-document-view.ui:844
+#: shell/pps-document-view.ui:791 shell/pps-document-view.ui:827
 #: shell/pps-sidebar-annotations.ui:90
 msgid "_Save Attachment As…"
 msgstr "_Enregistrar la pèça junta jos…"
 
-#: shell/pps-document-view.ui:815
+#: shell/pps-document-view.ui:798
 msgid "Annotation _Properties…"
 msgstr "_Proprietats de l'anotacion…"
 
-#: shell/pps-document-view.ui:820
+#: shell/pps-document-view.ui:803
 msgid "R_emove Annotation"
 msgstr "L_evar las anotacions"
 
-#: shell/pps-document-view.ui:827
+#: shell/pps-document-view.ui:810
 msgid "_Add Text Annotation"
 msgstr "Apondre una anotacion tèxte"
 
-#: shell/pps-document-view.ui:832
+#: shell/pps-document-view.ui:815
 msgid "_Highlight Selected Text"
 msgstr "_Metre en susbrilhança lo tèxt seleccionat"
 
@@ -1749,7 +1745,7 @@ msgstr "Lançar una recèrca"
 msgid "The search results will appear here"
 msgstr "Los resultats de la recèrca s’apareisseràn aquí"
 
-#: shell/pps-loader-view.ui:18
+#: shell/pps-loader-view.ui:17
 msgid "Loading Document"
 msgstr "Cargament del document"
 
@@ -2013,6 +2009,12 @@ msgstr "Impossible de cargar lo fichièr distant."
 #: shell-rs/src/window.rs:732
 msgid "Failed to Reload Document."
 msgstr "Lo recargament del document a fracassat."
+
+#~ msgid "Loading…"
+#~ msgstr "Cargament…"
+
+#~ msgid "Open"
+#~ msgstr "Dobrir"
 
 #~ msgid "Requested format is not supported by this printer."
 #~ msgstr "Lo format desirat es pas pres en carga per aquesta imprimenta."
