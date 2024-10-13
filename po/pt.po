@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: 3.8\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-10-08 18:50+0000\n"
-"PO-Revision-Date: 2024-10-09 11:39+0100\n"
+"POT-Creation-Date: 2024-10-10 21:59+0000\n"
+"PO-Revision-Date: 2024-10-13 17:31+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://l10n.gnome.org/teams/pt/>\n"
 "Language: pt\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #. Manually set name and icon
 #: data/org.gnome.Papers.desktop.in.in:3
@@ -1597,8 +1597,8 @@ msgid "Close _After Printing"
 msgstr "Fechar _após imprimir"
 
 #: shell/pps-document-view.ui:637
-msgid "Open"
-msgstr "Abrir"
+msgid "Open…"
+msgstr "Abrir…"
 
 #: shell/pps-document-view.ui:643
 msgid "Ni_ght Mode"
@@ -2012,6 +2012,9 @@ msgstr "Falha ao carregar o ficheiro remoto."
 #: shell-rs/src/window.rs:732
 msgid "Failed to Reload Document."
 msgstr "Falha ao recarregar o documento."
+
+#~ msgid "Open"
+#~ msgstr "Abrir"
 
 #~ msgid "Loading…"
 #~ msgstr "A carregar…"
