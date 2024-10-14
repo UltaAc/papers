@@ -70,6 +70,38 @@ or
 G_MESSAGES_DEBUG=all papers document.pdf
 ```
 
+### Builder Cannot Run Papers
+
+One of the possible problems that can be encountered when running Papers in
+GNOME Builder is missing SDKs or runtimes that were not installed for some reason.
+If you encountered similar problem, such as missing `org.gnome.Sdk` or alike:
+
+#### `org.gnome.Sdk//master`
+
+GNOME SDK can be installed from the GNOME Nightly repository, which can be installed with:
+
+```bash
+# Papers is built against the current unstable version of GNOME's platform and SDK which is available from its own gnome-nightly repo
+flatpak remote-add --user --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
+flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --user --if-not-exists gnome-nightly https://nightly.gnome.org/gnome-nightly.flatpakrepo
+```
+
+Finally, you can install it with:
+
+```bash
+flatpak install gnome-nightly org.gnome.Sdk//master
+```
+
+
+#### `org.freedesktop.Sdk.Extension.rust-stable//24.08`
+
+Rust Extension of Freedesktop SDK, on the other hand, can be installed from the similar repository
+with:
+
+```bash
+flatpak install org.freedesktop.Sdk.Extension.rust-stable//24.08
+```
 
 ## Code Style
 
