@@ -3540,33 +3540,28 @@ pps_view_create_annotation_real (PpsView *view,
 		doc_rect.y2 = end->y;
 		annot = pps_annotation_text_markup_highlight_new (page);
 		break;
-	case PPS_ANNOTATION_TYPE_ATTACHMENT:
-		/* TODO */
-		g_object_unref (page);
-		pps_document_doc_mutex_unlock (priv->document);
-		return NULL;
 	default:
 		g_assert_not_reached ();
+		pps_document_doc_mutex_unlock (priv->document);
+		return NULL;
 	}
-	g_object_unref (page);
 
 	pps_annotation_set_area (annot, &doc_rect);
 	pps_annotation_set_rgba (annot, &priv->annot_color);
 
-	if (PPS_IS_ANNOTATION_MARKUP (annot)) {
-		popup_rect.x1 = doc_rect.x2;
-		popup_rect.x2 = popup_rect.x1 + ANNOT_POPUP_WINDOW_DEFAULT_WIDTH;
-		popup_rect.y1 = doc_rect.y2;
-		popup_rect.y2 = popup_rect.y1 + ANNOT_POPUP_WINDOW_DEFAULT_HEIGHT;
-		g_object_set (annot,
-		              "rectangle", &popup_rect,
-		              "can-have-popup", TRUE,
-		              "has_popup", TRUE,
-		              "popup_is_open", FALSE,
-		              "label", g_get_real_name (),
-		              "opacity", 1.0,
-		              NULL);
-	}
+	popup_rect.x1 = doc_rect.x2;
+	popup_rect.x2 = popup_rect.x1 + ANNOT_POPUP_WINDOW_DEFAULT_WIDTH;
+	popup_rect.y1 = doc_rect.y2;
+	popup_rect.y2 = popup_rect.y1 + ANNOT_POPUP_WINDOW_DEFAULT_HEIGHT;
+	g_object_set (annot,
+	              "rectangle", &popup_rect,
+	              "can-have-popup", TRUE,
+	              "has_popup", TRUE,
+	              "popup_is_open", FALSE,
+	              "label", g_get_real_name (),
+	              "opacity", 1.0,
+	              NULL);
+
 	pps_document_annotations_add_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document), annot);
 	/* Re-fetch area as eg. adding Text Markup annots updates area for its bounding box */
 	pps_annotation_get_area (annot, &doc_rect);
