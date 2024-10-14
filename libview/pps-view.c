@@ -3526,10 +3526,11 @@ pps_view_create_annotation_real (PpsView *view,
 	page = pps_document_get_page (priv->document, annot_page);
 	switch (type) {
 	case PPS_ANNOTATION_TYPE_TEXT:
-		doc_rect.x1 = start->x;
-		doc_rect.y1 = start->y;
-		doc_rect.x2 = doc_rect.x1 + ANNOTATION_ICON_SIZE;
-		doc_rect.y2 = doc_rect.y1 + ANNOTATION_ICON_SIZE;
+		g_assert (end == NULL);
+		doc_rect.x1 = start->x - ANNOTATION_ICON_SIZE / 2;
+		doc_rect.y1 = start->y - ANNOTATION_ICON_SIZE / 2;
+		doc_rect.x2 = start->x + ANNOTATION_ICON_SIZE / 2;
+		doc_rect.y2 = start->y + ANNOTATION_ICON_SIZE / 2;
 		annot = pps_annotation_text_new (page);
 		break;
 	case PPS_ANNOTATION_TYPE_TEXT_MARKUP:
