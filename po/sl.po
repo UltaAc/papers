@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: evince master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-10-10 21:59+0000\n"
-"PO-Revision-Date: 2024-10-11 14:30+0200\n"
+"POT-Creation-Date: 2024-10-15 19:21+0000\n"
+"PO-Revision-Date: 2024-10-15 21:26+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -583,9 +583,10 @@ msgstr "Neveljaven izbor strani"
 msgid "Your print range selection does not include any pages"
 msgstr "Območje tiskanja ne vključuje nobene strani"
 
+#. show close if the certificate is null, or if no cert is found
 #: libview/pps-print-operation.c:1366 previewer/pps-previewer-window.ui:91
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.ui:630
-#: shell/pps-window.ui:163
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.c:3681
+#: shell/pps-document-view.ui:630 shell/pps-window.ui:163
 msgid "_Close"
 msgstr "_Zapri"
 
@@ -1382,8 +1383,8 @@ msgid "Close _Without Saving"
 msgstr "Zapri _brez shranjevanja"
 
 #: shell/pps-document-view.c:2215 shell/pps-document-view.c:3438
-#: shell/pps-document-view.c:3574 shell/pps-document-view.ui:597
-#: shell/pps-document-view.ui:622
+#: shell/pps-document-view.c:3574 shell/pps-document-view.c:3643
+#: shell/pps-document-view.ui:597 shell/pps-document-view.ui:622
 msgid "_Cancel"
 msgstr "_Prekliči"
 
@@ -1426,50 +1427,46 @@ msgstr ""
 msgid "Certificate Required"
 msgstr "Potrebno je potrdilo"
 
-#: shell/pps-document-view.c:3635 shell/pps-password-dialog.ui:7
-msgid "Cancel"
-msgstr "Prekliči"
-
-#: shell/pps-document-view.c:3641
+#: shell/pps-document-view.c:3639
 msgid "Select signing certificate"
 msgstr "Izberite potrdilo za podpisovanje"
 
-#: shell/pps-document-view.c:3642
+#: shell/pps-document-view.c:3640
 msgid "Select"
 msgstr "Izberi"
 
 #: shell/pps-document-view.c:3679
-msgid "No certificates found!"
-msgstr "Potrdil ni bilo mogoče najti!"
+msgid "A certificate is required to sign this document"
+msgstr "Za podpis tega dokumenta je potrebno potrdilo"
 
-#: shell/pps-document-view.c:3983
+#: shell/pps-document-view.c:3985
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
 msgstr ""
 "Varnostno opozorilo: dokumentu je bilo onemogočeno odpiranje datoteke »%s«."
 
-#: shell/pps-document-view.c:4044 shell-rs/src/window.rs:1137
+#: shell/pps-document-view.c:4046 shell-rs/src/window.rs:1137
 msgid "Unable to open external link"
 msgstr "Ni mogoče odpreti zunanje povezave"
 
-#: shell/pps-document-view.c:4269
+#: shell/pps-document-view.c:4271
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Ni mogoče najti ustreznega zapisa za shranjevanje slike"
 
-#: shell/pps-document-view.c:4299
+#: shell/pps-document-view.c:4301
 msgid "The image could not be saved."
 msgstr "Slike ni mogoče shraniti."
 
-#: shell/pps-document-view.c:4335
+#: shell/pps-document-view.c:4337
 msgid "Save Image"
 msgstr "Shrani sliko"
 
-#: shell/pps-document-view.c:4506
+#: shell/pps-document-view.c:4508
 msgid "Unable to open attachment"
 msgstr "Ni mogoče odpreti priloge"
 
-#: shell/pps-document-view.c:4525
+#: shell/pps-document-view.c:4527
 msgid "The attachment could not be saved."
 msgstr "Ni mogoče shraniti priloge."
 
@@ -1741,6 +1738,10 @@ msgstr "Rezultati iskanja bodo prikazani tukaj"
 #: shell/pps-loader-view.ui:17
 msgid "Loading Document"
 msgstr "Poteka nalaganje dokumenta"
+
+#: shell/pps-password-dialog.ui:7
+msgid "Cancel"
+msgstr "Prekliči"
 
 #: shell/pps-password-dialog.ui:8
 msgid "Unlock"
