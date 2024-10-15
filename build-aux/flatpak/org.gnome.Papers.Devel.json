@@ -165,7 +165,8 @@
                 "-Dintrospection=disabled",
                 "-Duser_doc=false",
                 "-Dprofile=devel",
-                "-Dtests=false"
+                "-Dtests=false",
+                "--libdir=/app/lib"
             ],
             "sources": [
                 {
