@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: 3.8\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-10-10 21:59+0000\n"
-"PO-Revision-Date: 2024-10-13 17:31+0100\n"
+"POT-Creation-Date: 2024-10-15 19:21+0000\n"
+"PO-Revision-Date: 2024-10-16 15:37+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://l10n.gnome.org/teams/pt/>\n"
 "Language: pt\n"
@@ -589,9 +589,10 @@ msgstr "Seleção de página inválida"
 msgid "Your print range selection does not include any pages"
 msgstr "A seleção de intervalo de impressão não inclui qualquer página"
 
+#. show close if the certificate is null, or if no cert is found
 #: libview/pps-print-operation.c:1366 previewer/pps-previewer-window.ui:91
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.ui:630
-#: shell/pps-window.ui:163
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.c:3681
+#: shell/pps-document-view.ui:630 shell/pps-window.ui:163
 msgid "_Close"
 msgstr "Fe_char"
 
@@ -1393,8 +1394,8 @@ msgid "Close _Without Saving"
 msgstr "Fechar _sem guardar"
 
 #: shell/pps-document-view.c:2215 shell/pps-document-view.c:3438
-#: shell/pps-document-view.c:3574 shell/pps-document-view.ui:597
-#: shell/pps-document-view.ui:622
+#: shell/pps-document-view.c:3574 shell/pps-document-view.c:3643
+#: shell/pps-document-view.ui:597 shell/pps-document-view.ui:622
 msgid "_Cancel"
 msgstr "_Cancelar"
 
@@ -1437,50 +1438,46 @@ msgstr ""
 msgid "Certificate Required"
 msgstr "Certificado obrigatório"
 
-#: shell/pps-document-view.c:3635 shell/pps-password-dialog.ui:7
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: shell/pps-document-view.c:3641
+#: shell/pps-document-view.c:3639
 msgid "Select signing certificate"
 msgstr "Selecionar certificado de assinatura"
 
-#: shell/pps-document-view.c:3642
+#: shell/pps-document-view.c:3640
 msgid "Select"
 msgstr "Selecionar"
 
 #: shell/pps-document-view.c:3679
-msgid "No certificates found!"
-msgstr "Não foram encontrados certificados!"
+msgid "A certificate is required to sign this document"
+msgstr "É necessário um certificado para assinar este documento"
 
-#: shell/pps-document-view.c:3983
+#: shell/pps-document-view.c:3985
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
 msgstr ""
 "Alerta de segurança: este documento foi impedido de abrir o ficheiro “%s”"
 
-#: shell/pps-document-view.c:4044 shell-rs/src/window.rs:1137
+#: shell/pps-document-view.c:4046 shell-rs/src/window.rs:1137
 msgid "Unable to open external link"
 msgstr "Não é possível abrir uma ligação externa"
 
-#: shell/pps-document-view.c:4269
+#: shell/pps-document-view.c:4271
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Não foi possível encontrar o formato apropriado para guardar a imagem"
 
-#: shell/pps-document-view.c:4299
+#: shell/pps-document-view.c:4301
 msgid "The image could not be saved."
 msgstr "Não foi possível guardar a imagem."
 
-#: shell/pps-document-view.c:4335
+#: shell/pps-document-view.c:4337
 msgid "Save Image"
 msgstr "Guardar a imagem"
 
-#: shell/pps-document-view.c:4506
+#: shell/pps-document-view.c:4508
 msgid "Unable to open attachment"
 msgstr "Não é possível abrir o anexo"
 
-#: shell/pps-document-view.c:4525
+#: shell/pps-document-view.c:4527
 msgid "The attachment could not be saved."
 msgstr "Não foi possível guardar o anexo."
 
@@ -1754,6 +1751,10 @@ msgstr "Os resultados da pesquisa aparecerão aqui"
 msgid "Loading Document"
 msgstr "A carregar documento"
 
+#: shell/pps-password-dialog.ui:7
+msgid "Cancel"
+msgstr "Cancelar"
+
 #: shell/pps-password-dialog.ui:8
 msgid "Unlock"
 msgstr "Desbloquear"
@@ -2012,6 +2013,9 @@ msgstr "Falha ao carregar o ficheiro remoto."
 #: shell-rs/src/window.rs:732
 msgid "Failed to Reload Document."
 msgstr "Falha ao recarregar o documento."
+
+#~ msgid "No certificates found!"
+#~ msgstr "Não foram encontrados certificados!"
 
 #~ msgid "Open"
 #~ msgstr "Abrir"
