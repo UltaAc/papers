@@ -9,12 +9,22 @@
     border-radius: 0;
 }
 
-window.pps-annotation-window {
-    padding-left: 2px;
-    padding-right: 2px;
-    padding-bottom: 2px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+
+window.pps-annotation-window headerbar {
+    box-shadow: none;
+    font-weight: 800;
+    font-size: larger;
+}
+
+window.pps-annotation-window label {
+    padding-top: 12px;
+    padding-bottom: 6px;
+}
+
+window.pps-annotation-window textview {
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-bottom: 18px;
 }
 
 .zoom-overlay button.circular {

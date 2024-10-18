@@ -20,6 +20,7 @@
  */
 
 #include "config.h"
+#include <glib/gi18n-lib.h>
 
 #include <string.h>
 #include <math.h>
@@ -95,6 +96,7 @@ pps_annotation_window_set_color (PpsAnnotationWindow *window,
 {
 	GtkCssProvider     *css_provider = gtk_css_provider_new ();
 	GtkStyleContext    *context = NULL;
+
 	g_autofree char    *rgba_str = gdk_rgba_to_string (color);
 	g_autofree char    *css_data = NULL;
 	g_autoptr (GdkRGBA) icon_color = pps_color_contrast_get_best_foreground_color (color);
@@ -109,9 +111,22 @@ pps_annotation_window_set_color (PpsAnnotationWindow *window,
 
 	css_data = g_strdup_printf ("headerbar { background-color: %s ; color: %s; }",
 				    rgba_str, icon_color_str);
+
 	css_provider = gtk_css_provider_new ();
 	gtk_css_provider_load_from_string (css_provider, css_data);
 	context = gtk_widget_get_style_context (GTK_WIDGET (window->headerbar));
+
+	gtk_style_context_add_provider (context,
+					GTK_STYLE_PROVIDER (css_provider),
+					GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+
+	css_data =  g_strdup_printf ("textview { background-color: %s ; color: %s; }",
+				    rgba_str, icon_color_str);
+	css_provider = gtk_css_provider_new ();
+	gtk_css_provider_load_from_string (css_provider, css_data);
+	context = gtk_widget_get_style_context (GTK_WIDGET (window->text_view));
+
 	gtk_style_context_add_provider (context,
 					GTK_STYLE_PROVIDER (css_provider),
 					GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -262,7 +277,7 @@ pps_annotation_window_constructor (GType                  type,
 	gtk_window_set_transient_for (GTK_WINDOW (window), window->parent);
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (window), FALSE);
 
-	label = pps_annotation_markup_get_label (markup);
+	label = _("Edit Note");
 	window->is_open = pps_annotation_markup_get_popup_is_open (markup);
 	pps_annotation_markup_get_rectangle (markup, &window->rect);
 
