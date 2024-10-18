@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evince HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/issues/\n"
-"POT-Creation-Date: 2024-10-10 21:59+0000\n"
-"PO-Revision-Date: 2024-10-11 16:53+0330\n"
+"POT-Creation-Date: 2024-10-15 19:21+0000\n"
+"PO-Revision-Date: 2024-10-19 00:44+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian\n"
 "Language: fa\n"
@@ -572,9 +572,10 @@ msgstr "گزینش صفحهٔ نامعتبر"
 msgid "Your print range selection does not include any pages"
 msgstr "محدوده انتخاب شدهٔ شما جهت چاپ هیچ صفحه‌ای را در بر نمی‌گیرد"
 
+#. show close if the certificate is null, or if no cert is found
 #: libview/pps-print-operation.c:1366 previewer/pps-previewer-window.ui:91
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.ui:630
-#: shell/pps-window.ui:163
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.c:3681
+#: shell/pps-document-view.ui:630 shell/pps-window.ui:163
 msgid "_Close"
 msgstr "_بستن"
 
@@ -1365,8 +1366,8 @@ msgid "Close _Without Saving"
 msgstr "بستن _بدون ذخیره"
 
 #: shell/pps-document-view.c:2215 shell/pps-document-view.c:3438
-#: shell/pps-document-view.c:3574 shell/pps-document-view.ui:597
-#: shell/pps-document-view.ui:622
+#: shell/pps-document-view.c:3574 shell/pps-document-view.c:3643
+#: shell/pps-document-view.ui:597 shell/pps-document-view.ui:622
 msgid "_Cancel"
 msgstr "_لغو"
 
@@ -1409,48 +1410,44 @@ msgstr ""
 msgid "Certificate Required"
 msgstr "نیازمند گواهی"
 
-#: shell/pps-document-view.c:3635 shell/pps-password-dialog.ui:7
-msgid "Cancel"
-msgstr "لغو"
-
-#: shell/pps-document-view.c:3641
+#: shell/pps-document-view.c:3639
 msgid "Select signing certificate"
 msgstr "گزینش گواهی امضا"
 
-#: shell/pps-document-view.c:3642
+#: shell/pps-document-view.c:3640
 msgid "Select"
 msgstr "گزینش"
 
 #: shell/pps-document-view.c:3679
-msgid "No certificates found!"
-msgstr "هیچ گواهی‌ای پیدا نشد!"
+msgid "A certificate is required to sign this document"
+msgstr "امضای این سند نیازمند گواهی است"
 
-#: shell/pps-document-view.c:3983
+#: shell/pps-document-view.c:3985
 #, c-format
 msgid "Security alert: this document has been prevented from opening the file “%s”"
 msgstr "هشدار امنیتی: این سند از گشودن پروندهٔ «%s» باز داشته شد"
 
-#: shell/pps-document-view.c:4044 shell-rs/src/window.rs:1137
+#: shell/pps-document-view.c:4046 shell-rs/src/window.rs:1137
 msgid "Unable to open external link"
 msgstr "گشودن پیوند خارجی ممکن نیست"
 
-#: shell/pps-document-view.c:4269
+#: shell/pps-document-view.c:4271
 msgid "Couldn’t find appropriate format to save image"
 msgstr "قالب مناسب برای ذخیرهٔ عکس پیدا نشد"
 
-#: shell/pps-document-view.c:4299
+#: shell/pps-document-view.c:4301
 msgid "The image could not be saved."
 msgstr "تصویر ذخیره نشد."
 
-#: shell/pps-document-view.c:4335
+#: shell/pps-document-view.c:4337
 msgid "Save Image"
 msgstr "ذخیرهٔ تصویر"
 
-#: shell/pps-document-view.c:4506
+#: shell/pps-document-view.c:4508
 msgid "Unable to open attachment"
 msgstr "گشودن پیوست ممکن نیست"
 
-#: shell/pps-document-view.c:4525
+#: shell/pps-document-view.c:4527
 msgid "The attachment could not be saved."
 msgstr "پیوست ذخیره نشد."
 
@@ -1723,6 +1720,10 @@ msgstr "نتایج جست‌وجو این‌جا ظاهر خواهند شد"
 msgid "Loading Document"
 msgstr "بار کردن سند"
 
+#: shell/pps-password-dialog.ui:7
+msgid "Cancel"
+msgstr "لغو"
+
 #: shell/pps-password-dialog.ui:8
 msgid "Unlock"
 msgstr "قفل‌گشایی"
@@ -1980,6 +1981,9 @@ msgstr "شکست در بار کردن پروندهٔ دوردست."
 #: shell-rs/src/window.rs:732
 msgid "Failed to Reload Document."
 msgstr "شکست در بازخوانی سند."
+
+#~ msgid "No certificates found!"
+#~ msgstr "هیچ گواهی‌ای پیدا نشد!"
 
 #~ msgid "Open"
 #~ msgstr "گشودن"
