@@ -107,7 +107,6 @@ pps_annotation_window_set_color (PpsAnnotationWindow *window,
 	gtk_style_context_add_provider (context,
 					GTK_STYLE_PROVIDER (css_provider),
 					GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-	g_free (css_data);
 
 	css_data = g_strdup_printf ("headerbar { background-color: %s ; color: %s; }",
 				    rgba_str, icon_color_str);
@@ -119,7 +118,6 @@ pps_annotation_window_set_color (PpsAnnotationWindow *window,
 	gtk_style_context_add_provider (context,
 					GTK_STYLE_PROVIDER (css_provider),
 					GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-
 
 	css_data =  g_strdup_printf ("textview { background-color: %s ; color: %s; }",
 				    rgba_str, icon_color_str);
