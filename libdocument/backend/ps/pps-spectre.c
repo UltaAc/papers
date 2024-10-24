@@ -21,13 +21,13 @@
 
 #include <config.h>
 #include <glib/gi18n-lib.h>
-#include <stdlib.h>
 #include <libspectre/spectre.h>
+#include <stdlib.h>
 
 #include "pps-spectre.h"
 
-#include "pps-file-exporter.h"
 #include "pps-document-misc.h"
+#include "pps-file-exporter.h"
 
 struct _PSDocument {
 	PpsDocument object;
@@ -40,11 +40,9 @@ struct _PSDocumentClass {
 	PpsDocumentClass parent_class;
 };
 
-static void ps_document_file_exporter_iface_init       (PpsFileExporterInterface       *iface);
+static void ps_document_file_exporter_iface_init (PpsFileExporterInterface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (PSDocument, ps_document, PPS_TYPE_DOCUMENT,
-			 G_IMPLEMENT_INTERFACE (PPS_TYPE_FILE_EXPORTER,
-						ps_document_file_exporter_iface_init))
+G_DEFINE_TYPE_WITH_CODE (PSDocument, ps_document, PPS_TYPE_DOCUMENT, G_IMPLEMENT_INTERFACE (PPS_TYPE_FILE_EXPORTER, ps_document_file_exporter_iface_init))
 
 /* PSDocument */
 static void
@@ -73,11 +71,11 @@ ps_document_dispose (GObject *object)
 /* PpsDocumentIface */
 static gboolean
 ps_document_load (PpsDocument *document,
-		  const char *uri,
-		  GError    **error)
+                  const char *uri,
+                  GError **error)
 {
 	PSDocument *ps = PS_DOCUMENT (document);
-	gchar      *filename;
+	gchar *filename;
 
 	filename = g_filename_from_uri (uri, NULL, error);
 	if (!filename)
@@ -91,10 +89,10 @@ ps_document_load (PpsDocument *document,
 
 		filename_dsp = g_filename_display_name (filename);
 		g_set_error (error,
-			     G_FILE_ERROR,
-			     G_FILE_ERROR_FAILED,
-			     _("Failed to load document “%s”"),
-			     filename_dsp);
+		             G_FILE_ERROR,
+		             G_FILE_ERROR_FAILED,
+		             _ ("Failed to load document “%s”"),
+		             filename_dsp);
 		g_free (filename_dsp);
 		g_free (filename);
 
@@ -108,11 +106,11 @@ ps_document_load (PpsDocument *document,
 
 static gboolean
 ps_document_save (PpsDocument *document,
-		  const char *uri,
-		  GError    **error)
+                  const char *uri,
+                  GError **error)
 {
 	PSDocument *ps = PS_DOCUMENT (document);
-	gchar      *filename;
+	gchar *filename;
 
 	filename = g_filename_from_uri (uri, NULL, error);
 	if (!filename)
@@ -124,10 +122,10 @@ ps_document_save (PpsDocument *document,
 
 		filename_dsp = g_filename_display_name (filename);
 		g_set_error (error,
-			     G_FILE_ERROR,
-			     G_FILE_ERROR_FAILED,
-			     _("Failed to save document “%s”"),
-			     filename_dsp);
+		             G_FILE_ERROR,
+		             G_FILE_ERROR_FAILED,
+		             _ ("Failed to save document “%s”"),
+		             filename_dsp);
 		g_free (filename_dsp);
 		g_free (filename);
 
@@ -149,16 +147,16 @@ ps_document_get_n_pages (PpsDocument *document)
 
 static PpsPage *
 ps_document_get_page (PpsDocument *document,
-		      gint        index)
+                      gint index)
 {
-	PSDocument  *ps = PS_DOCUMENT (document);
+	PSDocument *ps = PS_DOCUMENT (document);
 	SpectrePage *ps_page;
-	PpsPage      *page;
+	PpsPage *page;
 
 	ps_page = spectre_document_get_page (ps->doc, index);
 	page = pps_page_new (index);
-	page->backend_page = (PpsBackendPage)ps_page;
-	page->backend_destroy_func = (PpsBackendPageDestroyFunc)spectre_page_free;
+	page->backend_page = (PpsBackendPage) ps_page;
+	page->backend_destroy_func = (PpsBackendPageDestroyFunc) spectre_page_free;
 
 	return page;
 }
@@ -167,15 +165,15 @@ static gint
 get_page_rotation (SpectrePage *page)
 {
 	switch (spectre_page_get_orientation (page)) {
-	        default:
-	        case SPECTRE_ORIENTATION_PORTRAIT:
-			return 0;
-	        case SPECTRE_ORIENTATION_LANDSCAPE:
-			return 90;
-	        case SPECTRE_ORIENTATION_REVERSE_PORTRAIT:
-			return 180;
-	        case SPECTRE_ORIENTATION_REVERSE_LANDSCAPE:
-			return 270;
+	default:
+	case SPECTRE_ORIENTATION_PORTRAIT:
+		return 0;
+	case SPECTRE_ORIENTATION_LANDSCAPE:
+		return 90;
+	case SPECTRE_ORIENTATION_REVERSE_PORTRAIT:
+		return 180;
+	case SPECTRE_ORIENTATION_REVERSE_LANDSCAPE:
+		return 270;
 	}
 
 	return 0;
@@ -183,16 +181,16 @@ get_page_rotation (SpectrePage *page)
 
 static void
 ps_document_get_page_size (PpsDocument *document,
-			   PpsPage     *page,
-			   double     *width,
-			   double     *height)
+                           PpsPage *page,
+                           double *width,
+                           double *height)
 {
 	SpectrePage *ps_page;
-	gdouble      page_width, page_height;
-	gint         pwidth, pheight;
-	gint         rotate;
+	gdouble page_width, page_height;
+	gint pwidth, pheight;
+	gint rotate;
 
-	ps_page = (SpectrePage *)page->backend_page;
+	ps_page = (SpectrePage *) page->backend_page;
 
 	spectre_page_get_size (ps_page, &pwidth, &pheight);
 
@@ -216,39 +214,39 @@ ps_document_get_page_size (PpsDocument *document,
 
 static char *
 ps_document_get_page_label (PpsDocument *document,
-			    PpsPage     *page)
+                            PpsPage *page)
 {
-        const gchar *label = spectre_page_get_label ((SpectrePage *)page->backend_page);
-        gchar       *utf8;
+	const gchar *label = spectre_page_get_label ((SpectrePage *) page->backend_page);
+	gchar *utf8;
 
-        if (!label)
-                return NULL;
+	if (!label)
+		return NULL;
 
-        if (g_utf8_validate (label, -1, NULL))
-                return g_strdup (label);
+	if (g_utf8_validate (label, -1, NULL))
+		return g_strdup (label);
 
-        /* Try with latin1 and ASCII encondings */
-        utf8 = g_convert (label, -1, "utf-8", "latin1", NULL, NULL, NULL);
-        if (!utf8)
-                utf8 = g_convert (label, -1, "utf-8", "ASCII", NULL, NULL, NULL);
+	/* Try with latin1 and ASCII encondings */
+	utf8 = g_convert (label, -1, "utf-8", "latin1", NULL, NULL, NULL);
+	if (!utf8)
+		utf8 = g_convert (label, -1, "utf-8", "ASCII", NULL, NULL, NULL);
 
-        return utf8;
+	return utf8;
 }
 
 static PpsDocumentInfo *
 ps_document_get_info (PpsDocument *document)
 {
-	PSDocument     *ps = PS_DOCUMENT (document);
+	PSDocument *ps = PS_DOCUMENT (document);
 	PpsDocumentInfo *info;
-	const gchar    *creator;
-	SpectrePage    *ps_page;
-	gint            width, height;
+	const gchar *creator;
+	SpectrePage *ps_page;
+	gint width, height;
 
 	info = pps_document_info_new ();
 	info->fields_mask |= PPS_DOCUMENT_INFO_TITLE |
 	                     PPS_DOCUMENT_INFO_FORMAT |
-			     PPS_DOCUMENT_INFO_CREATOR |
-			     PPS_DOCUMENT_INFO_N_PAGES |
+	                     PPS_DOCUMENT_INFO_CREATOR |
+	                     PPS_DOCUMENT_INFO_N_PAGES |
 	                     PPS_DOCUMENT_INFO_PAPER_SIZE;
 
 	creator = spectre_document_get_creator (ps->doc);
@@ -261,15 +259,15 @@ ps_document_get_info (PpsDocument *document)
 	info->format = g_strdup (spectre_document_get_format (ps->doc));
 	info->creator = g_strdup (creator ? creator : spectre_document_get_for (ps->doc));
 	info->n_pages = spectre_document_get_n_pages (ps->doc);
-	info->paper_width  = width / 72.0f * 25.4f;
+	info->paper_width = width / 72.0f * 25.4f;
 	info->paper_height = height / 72.0f * 25.4f;
 
 	return info;
 }
 
 static gboolean
-ps_document_get_backend_info (PpsDocument            *document,
-			      PpsDocumentBackendInfo *info)
+ps_document_get_backend_info (PpsDocument *document,
+                              PpsDocumentBackendInfo *info)
 {
 	info->name = "libspectre";
 	info->version = SPECTRE_VERSION_STRING;
@@ -278,27 +276,27 @@ ps_document_get_backend_info (PpsDocument            *document,
 }
 
 static cairo_surface_t *
-ps_document_render (PpsDocument      *document,
-		    PpsRenderContext *rc)
+ps_document_render (PpsDocument *document,
+                    PpsRenderContext *rc)
 {
-	SpectrePage          *ps_page;
+	SpectrePage *ps_page;
 	SpectreRenderContext *src;
-	gint                  width_points;
-	gint                  height_points;
-	gint                  width, height;
-	gint                  swidth, sheight;
-	guchar               *data = NULL;
-	gint                  stride;
-	gint                  rotation;
-	cairo_surface_t      *surface;
+	gint width_points;
+	gint height_points;
+	gint width, height;
+	gint swidth, sheight;
+	guchar *data = NULL;
+	gint stride;
+	gint rotation;
+	cairo_surface_t *surface;
 	static const cairo_user_data_key_t key;
 
-	ps_page = (SpectrePage *)rc->page->backend_page;
+	ps_page = (SpectrePage *) rc->page->backend_page;
 
 	spectre_page_get_size (ps_page, &width_points, &height_points);
 
 	pps_render_context_compute_transformed_size (rc, width_points, height_points,
-					            &width, &height);
+	                                             &width, &height);
 
 	rotation = (rc->rotation + get_page_rotation (ps_page)) % 360;
 
@@ -312,8 +310,8 @@ ps_document_render (PpsDocument      *document,
 
 	src = spectre_render_context_new ();
 	spectre_render_context_set_scale (src,
-					  (gdouble)swidth / width_points,
-					  (gdouble)sheight / height_points);
+	                                  (gdouble) swidth / width_points,
+	                                  (gdouble) sheight / height_points);
 	spectre_render_context_set_rotation (src, rotation);
 	spectre_page_render (ps_page, src, &data, &stride);
 	spectre_render_context_free (src);
@@ -330,18 +328,18 @@ ps_document_render (PpsDocument      *document,
 	}
 
 	surface = cairo_image_surface_create_for_data (data,
-						       CAIRO_FORMAT_RGB24,
-						       width, height,
-						       stride);
+	                                               CAIRO_FORMAT_RGB24,
+	                                               width, height,
+	                                               stride);
 	cairo_surface_set_user_data (surface, &key,
-				     data, (cairo_destroy_func_t)g_free);
+	                             data, (cairo_destroy_func_t) g_free);
 	return surface;
 }
 
 static void
 ps_document_class_init (PSDocumentClass *klass)
 {
-	GObjectClass    *object_class = G_OBJECT_CLASS (klass);
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 	PpsDocumentClass *pps_document_class = PPS_DOCUMENT_CLASS (klass);
 
 	object_class->dispose = ps_document_dispose;
@@ -359,8 +357,8 @@ ps_document_class_init (PSDocumentClass *klass)
 
 /* PpsFileExporterIface */
 static void
-ps_document_file_exporter_begin (PpsFileExporter        *exporter,
-				 PpsFileExporterContext *fc)
+ps_document_file_exporter_begin (PpsFileExporter *exporter,
+                                 PpsFileExporterContext *fc)
 {
 	PSDocument *ps = PS_DOCUMENT (exporter);
 
@@ -368,26 +366,26 @@ ps_document_file_exporter_begin (PpsFileExporter        *exporter,
 		spectre_exporter_free (ps->exporter);
 
 	switch (fc->format) {
-	        case PPS_FILE_FORMAT_PS:
-			ps->exporter =
-				spectre_exporter_new (ps->doc,
-						      SPECTRE_EXPORTER_FORMAT_PS);
-			break;
-	        case PPS_FILE_FORMAT_PDF:
-			ps->exporter =
-				spectre_exporter_new (ps->doc,
-						      SPECTRE_EXPORTER_FORMAT_PDF);
-			break;
-	        default:
-			g_assert_not_reached ();
+	case PPS_FILE_FORMAT_PS:
+		ps->exporter =
+		    spectre_exporter_new (ps->doc,
+		                          SPECTRE_EXPORTER_FORMAT_PS);
+		break;
+	case PPS_FILE_FORMAT_PDF:
+		ps->exporter =
+		    spectre_exporter_new (ps->doc,
+		                          SPECTRE_EXPORTER_FORMAT_PDF);
+		break;
+	default:
+		g_assert_not_reached ();
 	}
 
 	spectre_exporter_begin (ps->exporter, fc->filename);
 }
 
 static void
-ps_document_file_exporter_do_page (PpsFileExporter  *exporter,
-				   PpsRenderContext *rc)
+ps_document_file_exporter_do_page (PpsFileExporter *exporter,
+                                   PpsRenderContext *rc)
 {
 	PSDocument *ps = PS_DOCUMENT (exporter);
 
@@ -405,12 +403,12 @@ ps_document_file_exporter_end (PpsFileExporter *exporter)
 static PpsFileExporterCapabilities
 ps_document_file_exporter_get_capabilities (PpsFileExporter *exporter)
 {
-	return  PPS_FILE_EXPORTER_CAN_PAGE_SET |
-		PPS_FILE_EXPORTER_CAN_COPIES |
-		PPS_FILE_EXPORTER_CAN_COLLATE |
-		PPS_FILE_EXPORTER_CAN_REVERSE |
-		PPS_FILE_EXPORTER_CAN_GENERATE_PS |
-		PPS_FILE_EXPORTER_CAN_GENERATE_PDF;
+	return PPS_FILE_EXPORTER_CAN_PAGE_SET |
+	       PPS_FILE_EXPORTER_CAN_COPIES |
+	       PPS_FILE_EXPORTER_CAN_COLLATE |
+	       PPS_FILE_EXPORTER_CAN_REVERSE |
+	       PPS_FILE_EXPORTER_CAN_GENERATE_PS |
+	       PPS_FILE_EXPORTER_CAN_GENERATE_PDF;
 }
 
 static void

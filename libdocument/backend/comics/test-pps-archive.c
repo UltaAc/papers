@@ -72,7 +72,7 @@ main (int argc, char **argv)
 
 	if (!pps_archive_open_filename (ar, argv[2], &error)) {
 		g_warning ("Failed to open '%s': %s",
-			   argv[2], error->message);
+		           argv[2], error->message);
 		g_error_free (error);
 		goto out;
 	}
@@ -100,9 +100,9 @@ main (int argc, char **argv)
 			printed_header = TRUE;
 		}
 
-		g_print ("%c\t%"G_GINT64_FORMAT"\t%s\n",
-			 is_encrypted ? 'P' : ' ',
-			 size, name);
+		g_print ("%c\t%" G_GINT64_FORMAT "\t%s\n",
+		         is_encrypted ? 'P' : ' ',
+		         size, name);
 	}
 
 	pps_archive_reset (ar);

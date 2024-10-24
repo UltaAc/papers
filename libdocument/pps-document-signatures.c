@@ -39,9 +39,9 @@ pps_document_signatures_default_init (PpsDocumentSignaturesInterface *klass)
  * so set a helper function to actually allow the user to enter his password.
  */
 void
-pps_document_signatures_set_password_callback (PpsDocumentSignatures        *document_signatures,
-                                               PpsSignaturePasswordCallback  cb,
-					       gpointer 		     user_data)
+pps_document_signatures_set_password_callback (PpsDocumentSignatures *document_signatures,
+                                               PpsSignaturePasswordCallback cb,
+                                               gpointer user_data)
 {
 	PpsDocumentSignaturesInterface *iface = PPS_DOCUMENT_SIGNATURES_GET_IFACE (document_signatures);
 
@@ -75,7 +75,7 @@ pps_document_signatures_get_available_signing_certificates (PpsDocumentSignature
  */
 PpsCertificateInfo *
 pps_document_signature_get_certificate_info (PpsDocumentSignatures *document_signatures,
-                                             const char            *id)
+                                             const char *id)
 {
 	PpsDocumentSignaturesInterface *iface = PPS_DOCUMENT_SIGNATURES_GET_IFACE (document_signatures);
 
@@ -99,10 +99,10 @@ pps_document_signature_get_certificate_info (PpsDocumentSignatures *document_sig
  */
 gboolean
 pps_document_signatures_sign (PpsDocumentSignatures *document_signatures,
-                              PpsSignature          *signature,
-                              GCancellable          *cancellable,
-                              GAsyncReadyCallback    callback,
-                              gpointer               user_data)
+                              PpsSignature *signature,
+                              GCancellable *cancellable,
+                              GAsyncReadyCallback callback,
+                              gpointer user_data)
 {
 	PpsDocumentSignaturesInterface *iface = PPS_DOCUMENT_SIGNATURES_GET_IFACE (document_signatures);
 
@@ -125,9 +125,9 @@ pps_document_signatures_sign (PpsDocumentSignatures *document_signatures,
  * Returns: %TRUE if signing finish has been started,otherwise %FALSE
  */
 gboolean
-pps_document_signatures_sign_finish (PpsDocumentSignatures  *document_signatures,
-                                     GAsyncResult           *result,
-                                     GError                **error)
+pps_document_signatures_sign_finish (PpsDocumentSignatures *document_signatures,
+                                     GAsyncResult *result,
+                                     GError **error)
 {
 	PpsDocumentSignaturesInterface *iface = PPS_DOCUMENT_SIGNATURES_GET_IFACE (document_signatures);
 

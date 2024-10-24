@@ -19,17 +19,17 @@
 
 #include <config.h>
 
+#include <errno.h>
+#include <fcntl.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <string.h>
-#include <errno.h>
-#include <fcntl.h>
 
 #include <glib.h>
-#include <glib/gstdio.h>
 #include <glib/gi18n-lib.h>
+#include <glib/gstdio.h>
 
 #include "pps-file-helpers.h"
 
@@ -47,27 +47,27 @@ static gchar *tmp_dir = NULL;
  */
 static gboolean
 _pps_dir_ensure_exists (const gchar *dir,
-                       int          mode,
-                       GError     **error)
+                        int mode,
+                        GError **error)
 {
-        int errsv;
-        char *display_name;
+	int errsv;
+	char *display_name;
 
-        g_return_val_if_fail (dir != NULL, FALSE);
+	g_return_val_if_fail (dir != NULL, FALSE);
 
-        errno = 0;
+	errno = 0;
 	if (g_mkdir_with_parents (dir, mode) == 0)
 		return TRUE;
 
-        errsv = errno;
+	errsv = errno;
 	if (errsv == EEXIST && g_file_test (dir, G_FILE_TEST_IS_DIR))
-                return TRUE;
+		return TRUE;
 
-        display_name = g_filename_display_name (dir);
-        g_set_error (error, G_IO_ERROR, g_io_error_from_errno (errsv),
-                     "Failed to create directory '%s': %s",
-                     display_name, g_strerror (errsv));
-        g_free (display_name);
+	display_name = g_filename_display_name (dir);
+	g_set_error (error, G_IO_ERROR, g_io_error_from_errno (errsv),
+	             "Failed to create directory '%s': %s",
+	             display_name, g_strerror (errsv));
+	g_free (display_name);
 
 	return FALSE;
 }
@@ -85,18 +85,18 @@ static const char *
 _pps_tmp_dir (GError **error)
 {
 
-        if (tmp_dir == NULL) {
-                gchar *dirname;
-                const gchar *prgname;
+	if (tmp_dir == NULL) {
+		gchar *dirname;
+		const gchar *prgname;
 
-                prgname = g_get_prgname ();
-                dirname = g_strdup_printf ("%s-%u", prgname ? prgname : "unknown", getpid ());
-                tmp_dir = g_build_filename (g_get_tmp_dir (), dirname, NULL);
-                g_free (dirname);
-        }
+		prgname = g_get_prgname ();
+		dirname = g_strdup_printf ("%s-%u", prgname ? prgname : "unknown", getpid ());
+		tmp_dir = g_build_filename (g_get_tmp_dir (), dirname, NULL);
+		g_free (dirname);
+	}
 
-        if (!_pps_dir_ensure_exists (tmp_dir, 0700, error))
-                return NULL;
+	if (!_pps_dir_ensure_exists (tmp_dir, 0700, error))
+		return NULL;
 
 	return tmp_dir;
 }
@@ -127,43 +127,43 @@ _pps_file_helpers_shutdown (void)
  *   on error with @error filled in
  */
 int
-pps_mkstemp (const char  *tmpl,
-            char       **file_name,
-            GError     **error)
+pps_mkstemp (const char *tmpl,
+             char **file_name,
+             GError **error)
 {
-        const char *tmp;
-        char *name;
-        int fd;
+	const char *tmp;
+	char *name;
+	int fd;
 
-        if ((tmp = _pps_tmp_dir (error)) == NULL)
-              return -1;
+	if ((tmp = _pps_tmp_dir (error)) == NULL)
+		return -1;
 
-        name = g_build_filename (tmp, tmpl, NULL);
-        fd = g_mkstemp_full (name, O_RDWR | O_CLOEXEC, 0600);
+	name = g_build_filename (tmp, tmpl, NULL);
+	fd = g_mkstemp_full (name, O_RDWR | O_CLOEXEC, 0600);
 
-        if (fd == -1) {
+	if (fd == -1) {
 		int errsv = errno;
 
-                g_set_error (error, G_IO_ERROR, g_io_error_from_errno (errsv),
-                             _("Failed to create a temporary file: %s"),
-                             g_strerror (errsv));
+		g_set_error (error, G_IO_ERROR, g_io_error_from_errno (errsv),
+		             _ ("Failed to create a temporary file: %s"),
+		             g_strerror (errsv));
 
-                g_free (name);
-                return -1;
-        }
+		g_free (name);
+		return -1;
+	}
 
-        if (file_name)
-                *file_name = name;
+	if (file_name)
+		*file_name = name;
 
-        return fd;
+	return fd;
 }
 
 static void
 close_fd_cb (gpointer fdptr)
 {
-        int fd = GPOINTER_TO_INT (fdptr);
+	int fd = GPOINTER_TO_INT (fdptr);
 
-        close (fd);
+	close (fd);
 }
 
 /**
@@ -177,24 +177,24 @@ close_fd_cb (gpointer fdptr)
  *   on error with @error filled in
  */
 GFile *
-pps_mkstemp_file (const char        *tmpl,
-                 GError           **error)
+pps_mkstemp_file (const char *tmpl,
+                  GError **error)
 {
-        char *file_name;
-        int fd;
-        GFile *file;
+	char *file_name;
+	int fd;
+	GFile *file;
 
-        fd = pps_mkstemp (tmpl, &file_name, error);
-        if (fd == -1)
-                return NULL;
+	fd = pps_mkstemp (tmpl, &file_name, error);
+	if (fd == -1)
+		return NULL;
 
-        file = g_file_new_for_path (file_name);
-        g_free (file_name);
+	file = g_file_new_for_path (file_name);
+	g_free (file_name);
 
-        g_object_set_data_full (G_OBJECT (file), "pps-mkstemp-fd",
-                                GINT_TO_POINTER (fd), (GDestroyNotify) close_fd_cb);
+	g_object_set_data_full (G_OBJECT (file), "pps-mkstemp-fd",
+	                        GINT_TO_POINTER (fd), (GDestroyNotify) close_fd_cb);
 
-        return file;
+	return file;
 }
 
 /**
@@ -208,28 +208,28 @@ pps_mkstemp_file (const char        *tmpl,
  *   on error with @error filled in
  */
 gchar *
-pps_mkdtemp (const char        *tmpl,
-            GError           **error)
+pps_mkdtemp (const char *tmpl,
+             GError **error)
 {
-        const char *tmp;
-        char *name;
+	const char *tmp;
+	char *name;
 
-        if ((tmp = _pps_tmp_dir (error)) == NULL)
-              return NULL;
+	if ((tmp = _pps_tmp_dir (error)) == NULL)
+		return NULL;
 
-        name = g_build_filename (tmp, tmpl, NULL);
-        if (g_mkdtemp (name) == NULL) {
+	name = g_build_filename (tmp, tmpl, NULL);
+	if (g_mkdtemp (name) == NULL) {
 		int errsv = errno;
 
-                g_set_error (error, G_IO_ERROR, g_io_error_from_errno (errsv),
-                             _("Failed to create a temporary directory: %s"),
-                             g_strerror (errsv));
+		g_set_error (error, G_IO_ERROR, g_io_error_from_errno (errsv),
+		             _ ("Failed to create a temporary directory: %s"),
+		             g_strerror (errsv));
 
-                g_free (name);
-                return NULL;
-        }
+		g_free (name);
+		return NULL;
+	}
 
-        return name;
+	return name;
 }
 
 /* Remove a local temp file created by papers */
@@ -251,7 +251,7 @@ void
 pps_tmp_file_unlink (GFile *file)
 {
 	gboolean res;
-	GError  *error = NULL;
+	GError *error = NULL;
 
 	if (!file)
 		return;
@@ -289,7 +289,7 @@ pps_tmp_uri_unlink (const gchar *uri)
 gboolean
 pps_file_is_temp (GFile *file)
 {
-	gchar   *path;
+	gchar *path;
 	gboolean retval;
 
 	if (!g_file_is_native (file))
@@ -317,8 +317,8 @@ pps_file_is_temp (GFile *file)
  */
 gboolean
 pps_xfer_uri_simple (const char *from,
-		    const char *to,
-		    GError     **error)
+                     const char *to,
+                     GError **error)
 {
 	GFile *source_file;
 	GFile *target_file;
@@ -327,15 +327,15 @@ pps_xfer_uri_simple (const char *from,
 	if (!from)
 		return TRUE;
 
-        g_return_val_if_fail (to != NULL, TRUE);
+	g_return_val_if_fail (to != NULL, TRUE);
 
 	source_file = g_file_new_for_uri (from);
 	target_file = g_file_new_for_uri (to);
 
 	result = g_file_copy (source_file, target_file,
-			      G_FILE_COPY_TARGET_DEFAULT_PERMS |
-			      G_FILE_COPY_OVERWRITE,
-			      NULL, NULL, NULL, error);
+	                      G_FILE_COPY_TARGET_DEFAULT_PERMS |
+	                          G_FILE_COPY_OVERWRITE,
+	                      NULL, NULL, NULL, error);
 
 	g_object_unref (target_file);
 	g_object_unref (source_file);
@@ -358,42 +358,42 @@ pps_xfer_uri_simple (const char *from,
  */
 gboolean
 pps_file_copy_metadata (const char *from,
-                       const char *to,
-                       GError     **error)
+                        const char *to,
+                        GError **error)
 {
-        GFile *source_file;
-        GFile *target_file;
-        gboolean result;
+	GFile *source_file;
+	GFile *target_file;
+	gboolean result;
 
-        g_return_val_if_fail (from != NULL, FALSE);
-        g_return_val_if_fail (to != NULL, FALSE);
+	g_return_val_if_fail (from != NULL, FALSE);
+	g_return_val_if_fail (to != NULL, FALSE);
 
-        source_file = g_file_new_for_uri (from);
-        target_file = g_file_new_for_uri (to);
+	source_file = g_file_new_for_uri (from);
+	target_file = g_file_new_for_uri (to);
 
-        result = g_file_copy_attributes (source_file, target_file,
-                                         G_FILE_COPY_ALL_METADATA |
-                                         G_FILE_COPY_TARGET_DEFAULT_PERMS,
-                                         NULL, error);
+	result = g_file_copy_attributes (source_file, target_file,
+	                                 G_FILE_COPY_ALL_METADATA |
+	                                     G_FILE_COPY_TARGET_DEFAULT_PERMS,
+	                                 NULL, error);
 
-        g_object_unref (target_file);
-        g_object_unref (source_file);
+	g_object_unref (target_file);
+	g_object_unref (source_file);
 
-        return result;
+	return result;
 }
 
 static gchar *
 get_mime_type_from_uri (const gchar *uri, GError **error)
 {
-	GFile       *file;
-	GFileInfo   *file_info;
+	GFile *file;
+	GFileInfo *file_info;
 	const gchar *content_type;
-        gchar       *mime_type = NULL;
+	gchar *mime_type = NULL;
 
 	file = g_file_new_for_uri (uri);
 	file_info = g_file_query_info (file,
-				       G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-				       0, NULL, error);
+	                               G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+	                               0, NULL, error);
 	g_object_unref (file);
 
 	if (file_info == NULL)
@@ -401,12 +401,12 @@ get_mime_type_from_uri (const gchar *uri, GError **error)
 
 	content_type = g_file_info_get_content_type (file_info);
 	if (content_type != NULL) {
-                mime_type = g_content_type_get_mime_type (content_type);
-        }
-        if (mime_type == NULL) {
-                g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                                     _("Unknown MIME Type"));
-        }
+		mime_type = g_content_type_get_mime_type (content_type);
+	}
+	if (mime_type == NULL) {
+		g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_FAILED,
+		                     _ ("Unknown MIME Type"));
+	}
 
 	g_object_unref (file_info);
 	return mime_type;
@@ -415,13 +415,13 @@ get_mime_type_from_uri (const gchar *uri, GError **error)
 static gchar *
 get_mime_type_from_data (const gchar *uri, GError **error)
 {
-	GFile            *file;
+	GFile *file;
 	GFileInputStream *input_stream;
-	gssize            size_read;
-	guchar            buffer[1024];
-	gboolean          retval;
-	gchar            *content_type;
-        gchar            *mime_type = NULL;
+	gssize size_read;
+	guchar buffer[1024];
+	gboolean retval;
+	gchar *content_type;
+	gchar *mime_type = NULL;
 
 	file = g_file_new_for_uri (uri);
 
@@ -432,7 +432,7 @@ get_mime_type_from_data (const gchar *uri, GError **error)
 	}
 
 	size_read = g_input_stream_read (G_INPUT_STREAM (input_stream),
-					 buffer, sizeof (buffer), NULL, error);
+	                                 buffer, sizeof (buffer), NULL, error);
 	if (size_read == -1) {
 		g_object_unref (input_stream);
 		g_object_unref (file);
@@ -447,21 +447,21 @@ get_mime_type_from_data (const gchar *uri, GError **error)
 		return NULL;
 
 	content_type = g_content_type_guess (NULL, /* no filename */
-					     buffer, size_read,
-					     NULL);
-        if (content_type == NULL) {
-                g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                                     _("Unknown MIME Type"));
-                return NULL;
-        }
+	                                     buffer, size_read,
+	                                     NULL);
+	if (content_type == NULL) {
+		g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_FAILED,
+		                     _ ("Unknown MIME Type"));
+		return NULL;
+	}
 
-        mime_type = g_content_type_get_mime_type (content_type);
-        g_free (content_type);
+	mime_type = g_content_type_get_mime_type (content_type);
+	g_free (content_type);
 
-        if (mime_type == NULL) {
-                g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                                     _("Unknown MIME Type"));
-        }
+	if (mime_type == NULL) {
+		g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_FAILED,
+		                     _ ("Unknown MIME Type"));
+	}
 
 	return mime_type;
 }
@@ -477,8 +477,8 @@ get_mime_type_from_data (const gchar *uri, GError **error)
  */
 gchar *
 pps_file_get_mime_type (const gchar *uri,
-		       gboolean     fast,
-		       GError     **error)
+                        gboolean fast,
+                        GError **error)
 {
 	return fast ? get_mime_type_from_uri (uri, error) : get_mime_type_from_data (uri, error);
 }
@@ -492,107 +492,107 @@ pps_file_get_mime_type (const gchar *uri,
  *   by @fd, or %NULL on error or if the MIME type could not be determined
  */
 gchar *
-pps_file_get_mime_type_from_fd (int      fd,
-                               GError **error)
+pps_file_get_mime_type_from_fd (int fd,
+                                GError **error)
 {
-        guchar buffer[4096];
-        ssize_t r;
-        off_t pos;
-        char *content_type, *mime_type;
+	guchar buffer[4096];
+	ssize_t r;
+	off_t pos;
+	char *content_type, *mime_type;
 
-        g_return_val_if_fail (fd != -1, NULL);
+	g_return_val_if_fail (fd != -1, NULL);
 
-        pos = lseek (fd, 0, SEEK_CUR);
-        if (pos == (off_t)-1) {
-                int errsv = errno;
-                g_set_error (error, G_IO_ERROR,
-                             g_io_error_from_errno (errsv),
-                             "Failed to get MIME type: %s",
-                             g_strerror (errsv));
-                return NULL;
-        }
+	pos = lseek (fd, 0, SEEK_CUR);
+	if (pos == (off_t) -1) {
+		int errsv = errno;
+		g_set_error (error, G_IO_ERROR,
+		             g_io_error_from_errno (errsv),
+		             "Failed to get MIME type: %s",
+		             g_strerror (errsv));
+		return NULL;
+	}
 
-        do {
-                r = read (fd, buffer, sizeof (buffer));
-        } while (r == -1 && errno == EINTR);
+	do {
+		r = read (fd, buffer, sizeof (buffer));
+	} while (r == -1 && errno == EINTR);
 
-        if (r == -1) {
-                int errsv = errno;
-                g_set_error (error, G_IO_ERROR,
-                             g_io_error_from_errno (errsv),
-                             "Failed to get MIME type: %s",
-                             g_strerror (errsv));
+	if (r == -1) {
+		int errsv = errno;
+		g_set_error (error, G_IO_ERROR,
+		             g_io_error_from_errno (errsv),
+		             "Failed to get MIME type: %s",
+		             g_strerror (errsv));
 
-                (void) lseek (fd, pos, SEEK_SET);
-                return NULL;
-        }
+		(void) lseek (fd, pos, SEEK_SET);
+		return NULL;
+	}
 
-        if (lseek (fd, pos, SEEK_SET) == (off_t)-1) {
-                int errsv = errno;
-                g_set_error (error, G_IO_ERROR,
-                             g_io_error_from_errno (errsv),
-                             "Failed to get MIME type: %s",
-                             g_strerror (errsv));
-                return NULL;
-        }
+	if (lseek (fd, pos, SEEK_SET) == (off_t) -1) {
+		int errsv = errno;
+		g_set_error (error, G_IO_ERROR,
+		             g_io_error_from_errno (errsv),
+		             "Failed to get MIME type: %s",
+		             g_strerror (errsv));
+		return NULL;
+	}
 
-        content_type = g_content_type_guess (NULL, /* no filename */
-                                             buffer, r,
-                                             NULL);
-        if (content_type == NULL) {
-                g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                                     _("Unknown MIME Type"));
-                return NULL;
-        }
+	content_type = g_content_type_guess (NULL, /* no filename */
+	                                     buffer, r,
+	                                     NULL);
+	if (content_type == NULL) {
+		g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_FAILED,
+		                     _ ("Unknown MIME Type"));
+		return NULL;
+	}
 
-        mime_type = g_content_type_get_mime_type (content_type);
-        g_free (content_type);
+	mime_type = g_content_type_get_mime_type (content_type);
+	g_free (content_type);
 
-        if (mime_type == NULL) {
-                g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_FAILED,
-                                     _("Unknown MIME Type"));
-                return NULL;
-        }
+	if (mime_type == NULL) {
+		g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_FAILED,
+		                     _ ("Unknown MIME Type"));
+		return NULL;
+	}
 
-        return mime_type;
+	return mime_type;
 }
 
 /* Compressed files support */
 
 static const char *compressor_cmds[] = {
-  NULL,
-  "bzip2",
-  "gzip",
-  "xz"
+	NULL,
+	"bzip2",
+	"gzip",
+	"xz"
 };
 
-#define N_ARGS      4
+#define N_ARGS 4
 #define BUFFER_SIZE 1024
 
 static void
 compression_child_setup_cb (gpointer fd_ptr)
 {
-        int fd = GPOINTER_TO_INT (fd_ptr);
-        int flags;
+	int fd = GPOINTER_TO_INT (fd_ptr);
+	int flags;
 
-        flags = fcntl (fd, F_GETFD);
-        if (flags >= 0 && (flags & FD_CLOEXEC)) {
-                flags &= ~FD_CLOEXEC;
-                fcntl (fd, F_SETFD, flags);
-        }
+	flags = fcntl (fd, F_GETFD);
+	if (flags >= 0 && (flags & FD_CLOEXEC)) {
+		flags &= ~FD_CLOEXEC;
+		fcntl (fd, F_SETFD, flags);
+	}
 }
 
 static gchar *
-compression_run (const gchar       *uri,
-		 PpsCompressionType  type,
-		 gboolean           compress,
-		 GError           **error)
+compression_run (const gchar *uri,
+                 PpsCompressionType type,
+                 gboolean compress,
+                 GError **error)
 {
 	gchar *argv[N_ARGS];
 	gchar *uri_dst = NULL;
 	gchar *filename, *filename_dst = NULL;
 	gchar *cmd;
-	gint   fd, pout;
+	gint fd, pout;
 	GError *err = NULL;
 
 	if (type == PPS_COMPRESSION_NONE)
@@ -603,8 +603,8 @@ compression_run (const gchar       *uri,
 		/* FIXME: better error codes! */
 		/* FIXME: i18n later */
 		g_set_error (error, G_FILE_ERROR, G_FILE_ERROR_FAILED,
-			     "Failed to find the \"%s\" command in the search path.",
-                             compressor_cmds[type]);
+		             "Failed to find the \"%s\" command in the search path.",
+		             compressor_cmds[type]);
 		return NULL;
 	}
 
@@ -614,7 +614,7 @@ compression_run (const gchar       *uri,
 		return NULL;
 	}
 
-        fd = pps_mkstemp ("comp.XXXXXX", &filename_dst, error);
+	fd = pps_mkstemp ("comp.XXXXXX", &filename_dst, error);
 	if (fd == -1) {
 		g_free (cmd);
 		g_free (filename);
@@ -628,10 +628,10 @@ compression_run (const gchar       *uri,
 	argv[3] = NULL;
 
 	if (g_spawn_async_with_pipes (NULL, argv, NULL,
-				      G_SPAWN_STDERR_TO_DEV_NULL,
-                                      compression_child_setup_cb, GINT_TO_POINTER (fd),
-                                      NULL,
-				      NULL, &pout, NULL, &err)) {
+	                              G_SPAWN_STDERR_TO_DEV_NULL,
+	                              compression_child_setup_cb, GINT_TO_POINTER (fd),
+	                              NULL,
+	                              NULL, &pout, NULL, &err)) {
 		GIOChannel *in, *out;
 		gchar buf[BUFFER_SIZE];
 		GIOStatus read_st, write_st;
@@ -644,14 +644,14 @@ compression_run (const gchar       *uri,
 
 		do {
 			read_st = g_io_channel_read_chars (in, buf,
-							   BUFFER_SIZE,
-							   &bytes_read,
-							   error);
+			                                   BUFFER_SIZE,
+			                                   &bytes_read,
+			                                   error);
 			if (read_st == G_IO_STATUS_NORMAL) {
 				write_st = g_io_channel_write_chars (out, buf,
-								     bytes_read,
-								     &bytes_written,
-								     error);
+				                                     bytes_read,
+				                                     &bytes_written,
+				                                     error);
 				if (write_st == G_IO_STATUS_ERROR)
 					break;
 			} else if (read_st == G_IO_STATUS_ERROR) {
@@ -697,9 +697,9 @@ compression_run (const gchar       *uri,
  * Returns: a newly allocated string URI, or %NULL on error
  */
 gchar *
-pps_file_uncompress (const gchar       *uri,
-		    PpsCompressionType  type,
-		    GError           **error)
+pps_file_uncompress (const gchar *uri,
+                     PpsCompressionType type,
+                     GError **error)
 {
 	g_return_val_if_fail (uri != NULL, NULL);
 
@@ -726,9 +726,9 @@ pps_file_uncompress (const gchar       *uri,
  * Returns: a newly allocated string URI, or %NULL on error
  */
 gchar *
-pps_file_compress (const gchar       *uri,
-		  PpsCompressionType  type,
-		  GError           **error)
+pps_file_compress (const gchar *uri,
+                   PpsCompressionType type,
+                   GError **error)
 {
 	g_return_val_if_fail (uri != NULL, NULL);
 

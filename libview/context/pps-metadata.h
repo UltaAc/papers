@@ -21,62 +21,62 @@
 #pragma once
 
 #include <libdocument/pps-macros.h>
-#if !defined (__PPS_PAPERS_VIEW_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_VIEW_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-view.h> can be included directly."
 #endif
 
-#include <glib-object.h>
 #include <gio/gio.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 
 PPS_PUBLIC
-#define PPS_TYPE_METADATA         (pps_metadata_get_type())
+#define PPS_TYPE_METADATA (pps_metadata_get_type ())
 
-G_DECLARE_FINAL_TYPE(PpsMetadata, pps_metadata, PPS, METADATA, GObject)
-
-PPS_PUBLIC
-PpsMetadata *pps_metadata_new                   (GFile       *file);
-PPS_PUBLIC
-gboolean    pps_metadata_is_empty              (PpsMetadata  *metadata);
+G_DECLARE_FINAL_TYPE (PpsMetadata, pps_metadata, PPS, METADATA, GObject)
 
 PPS_PUBLIC
-gboolean    pps_metadata_get_string            (PpsMetadata  *metadata,
-					       const gchar *key,
-					       const gchar     **value);
+PpsMetadata *pps_metadata_new (GFile *file);
 PPS_PUBLIC
-gboolean    pps_metadata_set_string            (PpsMetadata  *metadata,
-					       const gchar *key,
-					       const gchar *value);
-PPS_PUBLIC
-gboolean    pps_metadata_get_int               (PpsMetadata  *metadata,
-					       const gchar *key,
-					       gint        *value);
-PPS_PUBLIC
-gboolean    pps_metadata_set_int               (PpsMetadata  *metadata,
-					       const gchar *key,
-					       gint         value);
-PPS_PUBLIC
-gboolean    pps_metadata_get_double            (PpsMetadata  *metadata,
-					       const gchar *key,
-					       gdouble     *value);
-PPS_PUBLIC
-gboolean    pps_metadata_set_double            (PpsMetadata  *metadata,
-					       const gchar *key,
-					       gdouble      value);
-PPS_PUBLIC
-gboolean    pps_metadata_get_boolean           (PpsMetadata  *metadata,
-					       const gchar *key,
-					       gboolean    *value);
-PPS_PUBLIC
-gboolean    pps_metadata_set_boolean           (PpsMetadata  *metadata,
-					       const gchar *key,
-					       gboolean     value);
-PPS_PUBLIC
-gboolean    pps_metadata_has_key               (PpsMetadata  *metadata,
-                                               const gchar *key);
+gboolean pps_metadata_is_empty (PpsMetadata *metadata);
 
 PPS_PUBLIC
-gboolean    pps_metadata_is_file_supported (GFile       *file);
+gboolean pps_metadata_get_string (PpsMetadata *metadata,
+                                  const gchar *key,
+                                  const gchar **value);
+PPS_PUBLIC
+gboolean pps_metadata_set_string (PpsMetadata *metadata,
+                                  const gchar *key,
+                                  const gchar *value);
+PPS_PUBLIC
+gboolean pps_metadata_get_int (PpsMetadata *metadata,
+                               const gchar *key,
+                               gint *value);
+PPS_PUBLIC
+gboolean pps_metadata_set_int (PpsMetadata *metadata,
+                               const gchar *key,
+                               gint value);
+PPS_PUBLIC
+gboolean pps_metadata_get_double (PpsMetadata *metadata,
+                                  const gchar *key,
+                                  gdouble *value);
+PPS_PUBLIC
+gboolean pps_metadata_set_double (PpsMetadata *metadata,
+                                  const gchar *key,
+                                  gdouble value);
+PPS_PUBLIC
+gboolean pps_metadata_get_boolean (PpsMetadata *metadata,
+                                   const gchar *key,
+                                   gboolean *value);
+PPS_PUBLIC
+gboolean pps_metadata_set_boolean (PpsMetadata *metadata,
+                                   const gchar *key,
+                                   gboolean value);
+PPS_PUBLIC
+gboolean pps_metadata_has_key (PpsMetadata *metadata,
+                               const gchar *key);
+
+PPS_PUBLIC
+gboolean pps_metadata_is_file_supported (GFile *file);
 
 G_END_DECLS

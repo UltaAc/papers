@@ -69,8 +69,8 @@ pps_document_fonts_get_fonts_summary (PpsDocumentFonts *document_fonts)
 {
 	PpsDocumentFontsInterface *iface = PPS_DOCUMENT_FONTS_GET_IFACE (document_fonts);
 
-        if (!iface->get_fonts_summary)
-                return NULL;
+	if (!iface->get_fonts_summary)
+		return NULL;
 
 	return iface->get_fonts_summary (document_fonts);
 }

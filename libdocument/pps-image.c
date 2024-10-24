@@ -27,10 +27,10 @@
 #include "pps-image.h"
 
 struct _PpsImagePrivate {
-	gint       page;
-	gint       id;
+	gint page;
+	gint id;
 	GdkPixbuf *pixbuf;
-	gchar     *tmp_uri;
+	gchar *tmp_uri;
 };
 
 typedef struct _PpsImagePrivate PpsImagePrivate;
@@ -56,7 +56,7 @@ pps_image_finalize (GObject *object)
 		g_clear_pointer (&priv->tmp_uri, g_free);
 	}
 
-	(* G_OBJECT_CLASS (pps_image_parent_class)->finalize) (object);
+	(*G_OBJECT_CLASS (pps_image_parent_class)->finalize) (object);
 }
 
 static void
@@ -76,7 +76,7 @@ pps_image_init (PpsImage *image)
 
 PpsImage *
 pps_image_new (gint page,
-	      gint img_id)
+               gint img_id)
 {
 	PpsImage *image;
 	PpsImagePrivate *priv;
@@ -141,13 +141,13 @@ pps_image_get_pixbuf (PpsImage *image)
 }
 
 const gchar *
-pps_image_save_tmp (PpsImage   *image,
-		   GdkPixbuf *pixbuf)
+pps_image_save_tmp (PpsImage *image,
+                    GdkPixbuf *pixbuf)
 {
 	GError *error = NULL;
-	gchar  *filename = NULL;
+	gchar *filename = NULL;
 	PpsImagePrivate *priv;
-        int fd;
+	int fd;
 
 	g_return_val_if_fail (PPS_IS_IMAGE (image), NULL);
 	g_return_val_if_fail (GDK_IS_PIXBUF (pixbuf), NULL);
@@ -161,21 +161,21 @@ pps_image_save_tmp (PpsImage   *image,
 		goto had_error;
 
 	gdk_pixbuf_save (pixbuf, filename,
-			 "png", &error,
-			 "compression", "3", NULL);
-        close (fd);
+	                 "png", &error,
+	                 "compression", "3", NULL);
+	close (fd);
 
 	if (!error) {
 		priv->tmp_uri = g_filename_to_uri (filename, NULL, &error);
-                if (priv->tmp_uri == NULL)
-                        goto had_error;
+		if (priv->tmp_uri == NULL)
+			goto had_error;
 
 		g_free (filename);
 
 		return priv->tmp_uri;
 	}
 
-    had_error:
+had_error:
 
 	/* Erro saving image */
 	g_warning ("Error saving image: %s", error->message);

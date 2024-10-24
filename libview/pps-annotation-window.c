@@ -22,16 +22,16 @@
 #include "config.h"
 #include <glib/gi18n-lib.h>
 
-#include <string.h>
-#include <math.h>
 #include <adwaita.h>
+#include <math.h>
+#include <string.h>
 
 #include <pps-document-annotations.h>
 
 #include "pps-annotation-window.h"
 #include "pps-color-contrast.h"
-#include "pps-view-marshal.h"
 #include "pps-document-misc.h"
+#include "pps-view-marshal.h"
 
 #ifdef GDK_WINDOWING_X11
 #include <gdk/x11/gdkx.h>
@@ -45,18 +45,18 @@ enum {
 };
 
 struct _PpsAnnotationWindow {
-	GtkWindow     base_instance;
+	GtkWindow base_instance;
 
 	PpsAnnotation *annotation;
-	GtkWindow     *parent;
-	PpsDocument   *document;
+	GtkWindow *parent;
+	PpsDocument *document;
 
-	GtkWidget    *headerbar;
-	GtkWidget    *title_label;
-	GtkWidget    *text_view;
+	GtkWidget *headerbar;
+	GtkWidget *title_label;
+	GtkWidget *text_view;
 
-	gboolean      is_open;
-	PpsRectangle   rect;
+	gboolean is_open;
+	PpsRectangle rect;
 };
 
 struct _PpsAnnotationWindowClass {
@@ -68,10 +68,10 @@ G_DEFINE_TYPE (PpsAnnotationWindow, pps_annotation_window, GTK_TYPE_WINDOW)
 static void
 pps_annotation_window_sync_contents (PpsAnnotationWindow *window)
 {
-	gchar         *contents;
-	GtkTextIter    start, end;
+	gchar *contents;
+	GtkTextIter start, end;
 	GtkTextBuffer *buffer;
-	PpsAnnotation  *annot = window->annotation;
+	PpsAnnotation *annot = window->annotation;
 
 	if (!window->annotation)
 		return;
@@ -82,8 +82,8 @@ pps_annotation_window_sync_contents (PpsAnnotationWindow *window)
 	if (pps_annotation_set_contents (annot, contents)) {
 		pps_document_doc_mutex_lock (window->document);
 		pps_document_annotations_save_annotation (PPS_DOCUMENT_ANNOTATIONS (window->document),
-							  annot,
-							  PPS_ANNOTATIONS_SAVE_CONTENTS);
+		                                          annot,
+		                                          PPS_ANNOTATIONS_SAVE_CONTENTS);
 		pps_document_doc_mutex_unlock (window->document);
 	}
 
@@ -92,47 +92,46 @@ pps_annotation_window_sync_contents (PpsAnnotationWindow *window)
 
 static void
 pps_annotation_window_set_color (PpsAnnotationWindow *window,
-				GdkRGBA            *color)
+                                 GdkRGBA *color)
 {
-	GtkCssProvider     *css_provider = gtk_css_provider_new ();
-	GtkStyleContext    *context = NULL;
-
-	g_autofree char    *rgba_str = gdk_rgba_to_string (color);
-	g_autofree char    *css_data = NULL;
+	GtkCssProvider *css_provider = gtk_css_provider_new ();
+	GtkStyleContext *context = NULL;
+	g_autofree char *rgba_str = gdk_rgba_to_string (color);
+	g_autofree char *css_data = NULL;
 	g_autoptr (GdkRGBA) icon_color = pps_color_contrast_get_best_foreground_color (color);
-	g_autofree char    *icon_color_str = gdk_rgba_to_string (icon_color);
+	g_autofree char *icon_color_str = gdk_rgba_to_string (icon_color);
 	css_data = g_strdup_printf ("window { background-color: %s ; }", rgba_str);
 	gtk_css_provider_load_from_string (css_provider, css_data);
 	context = gtk_widget_get_style_context (GTK_WIDGET (window));
 	gtk_style_context_add_provider (context,
-					GTK_STYLE_PROVIDER (css_provider),
-					GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+	                                GTK_STYLE_PROVIDER (css_provider),
+	                                GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+	g_free (css_data);
 
 	css_data = g_strdup_printf ("headerbar { background-color: %s ; color: %s; }",
-				    rgba_str, icon_color_str);
-
+	                            rgba_str, icon_color_str);
 	css_provider = gtk_css_provider_new ();
 	gtk_css_provider_load_from_string (css_provider, css_data);
 	context = gtk_widget_get_style_context (GTK_WIDGET (window->headerbar));
 
 	gtk_style_context_add_provider (context,
-					GTK_STYLE_PROVIDER (css_provider),
-					GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+	                                GTK_STYLE_PROVIDER (css_provider),
+	                                GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-	css_data =  g_strdup_printf ("textview { background-color: %s ; color: %s; }",
-				    rgba_str, icon_color_str);
+	css_data = g_strdup_printf ("textview { background-color: %s ; color: %s; }",
+	                            rgba_str, icon_color_str);
 	css_provider = gtk_css_provider_new ();
 	gtk_css_provider_load_from_string (css_provider, css_data);
 	context = gtk_widget_get_style_context (GTK_WIDGET (window->text_view));
 
 	gtk_style_context_add_provider (context,
-					GTK_STYLE_PROVIDER (css_provider),
-					GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+	                                GTK_STYLE_PROVIDER (css_provider),
+	                                GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
 static void
 pps_annotation_window_set_opacity (PpsAnnotationWindow *window,
-		                  gdouble             opacity)
+                                   gdouble opacity)
 {
 	gtk_widget_set_opacity (GTK_WIDGET (window), opacity);
 	gtk_widget_set_opacity (GTK_WIDGET (window->text_view), opacity);
@@ -140,8 +139,8 @@ pps_annotation_window_set_opacity (PpsAnnotationWindow *window,
 
 static void
 pps_annotation_window_label_changed (PpsAnnotationMarkup *annot,
-				    GParamSpec         *pspec,
-				    PpsAnnotationWindow *window)
+                                     GParamSpec *pspec,
+                                     PpsAnnotationWindow *window)
 {
 	const gchar *label = pps_annotation_markup_get_label (annot);
 
@@ -149,9 +148,9 @@ pps_annotation_window_label_changed (PpsAnnotationMarkup *annot,
 }
 
 static void
-pps_annotation_window_color_changed (PpsAnnotation       *annot,
-				    GParamSpec         *pspec,
-				    PpsAnnotationWindow *window)
+pps_annotation_window_color_changed (PpsAnnotation *annot,
+                                     GParamSpec *pspec,
+                                     PpsAnnotationWindow *window)
 {
 	GdkRGBA rgba;
 
@@ -160,9 +159,9 @@ pps_annotation_window_color_changed (PpsAnnotation       *annot,
 }
 
 static void
-pps_annotation_window_opacity_changed (PpsAnnotation       *annot,
-		                      GParamSpec         *pspec,
-				      PpsAnnotationWindow *window)
+pps_annotation_window_opacity_changed (PpsAnnotation *annot,
+                                       GParamSpec *pspec,
+                                       PpsAnnotationWindow *window)
 {
 	gdouble opacity;
 
@@ -171,10 +170,10 @@ pps_annotation_window_opacity_changed (PpsAnnotation       *annot,
 }
 
 static void
-pps_annotation_window_set_property (GObject      *object,
-				   guint         prop_id,
-				   const GValue *value,
-				   GParamSpec   *pspec)
+pps_annotation_window_set_property (GObject *object,
+                                    guint prop_id,
+                                    const GValue *value,
+                                    GParamSpec *pspec)
 {
 	PpsAnnotationWindow *window = PPS_ANNOTATION_WINDOW (object);
 
@@ -211,7 +210,7 @@ pps_annotation_window_init (PpsAnnotationWindow *window)
 	gtk_widget_set_halign (window->title_label, GTK_ALIGN_FILL);
 	gtk_widget_set_hexpand (window->title_label, TRUE);
 	adw_header_bar_set_title_widget (ADW_HEADER_BAR (window->headerbar),
-					 window->title_label);
+	                                 window->title_label);
 
 	/* Contents */
 	swindow = gtk_scrolled_window_new ();
@@ -224,8 +223,8 @@ pps_annotation_window_init (PpsAnnotationWindow *window)
 	gtk_widget_set_vexpand (swindow, TRUE);
 	gtk_window_set_focus (GTK_WINDOW (window), window->text_view);
 	g_signal_connect_swapped (window->text_view, "notify::has-focus",
-				  G_CALLBACK (pps_annotation_window_sync_contents),
-				  window);
+	                          G_CALLBACK (pps_annotation_window_sync_contents),
+	                          window);
 
 	gtk_box_append (GTK_BOX (vbox), swindow);
 
@@ -250,24 +249,22 @@ pps_annotation_window_init (PpsAnnotationWindow *window)
 }
 
 static GObject *
-pps_annotation_window_constructor (GType                  type,
-				  guint                  n_construct_properties,
-				  GObjectConstructParam *construct_params)
+pps_annotation_window_constructor (GType type,
+                                   guint n_construct_properties,
+                                   GObjectConstructParam *construct_params)
 {
-	GObject            *object;
+	GObject *object;
 	PpsAnnotationWindow *window;
-	PpsAnnotation       *annot;
+	PpsAnnotation *annot;
 	PpsAnnotationMarkup *markup;
-	const gchar        *contents;
-	const gchar        *label;
-	GdkRGBA             color;
-	PpsRectangle        *rect;
-	gdouble             scale;
-	gdouble             opacity;
+	const gchar *contents;
+	const gchar *label;
+	GdkRGBA color;
+	PpsRectangle *rect;
+	gdouble scale;
+	gdouble opacity;
 
-	object = G_OBJECT_CLASS (pps_annotation_window_parent_class)->constructor (type,
-										  n_construct_properties,
-										  construct_params);
+	object = G_OBJECT_CLASS (pps_annotation_window_parent_class)->constructor (type, n_construct_properties, construct_params);
 	window = PPS_ANNOTATION_WINDOW (object);
 	annot = window->annotation;
 	markup = PPS_ANNOTATION_MARKUP (annot);
@@ -275,7 +272,7 @@ pps_annotation_window_constructor (GType                  type,
 	gtk_window_set_transient_for (GTK_WINDOW (window), window->parent);
 	gtk_window_set_destroy_with_parent (GTK_WINDOW (window), FALSE);
 
-	label = _("Edit Note");
+	label = _ ("Edit Note");
 	window->is_open = pps_annotation_markup_get_popup_is_open (markup);
 	pps_annotation_markup_get_rectangle (markup, &window->rect);
 
@@ -284,8 +281,8 @@ pps_annotation_window_constructor (GType                  type,
 	/* Rectangle is at doc resolution (72.0) */
 	scale = pps_document_misc_get_widget_dpi (GTK_WIDGET (window)) / 72.0;
 	gtk_window_set_default_size (GTK_WINDOW (window),
-				     (gint)((rect->x2 - rect->x1) * scale),
-				     (gint)((rect->y2 - rect->y1) * scale));
+	                             (gint) ((rect->x2 - rect->x1) * scale),
+	                             (gint) ((rect->y2 - rect->y1) * scale));
 
 	pps_annotation_get_rgba (annot, &color);
 	pps_annotation_window_set_color (window, &color);
@@ -305,22 +302,22 @@ pps_annotation_window_constructor (GType                  type,
 	}
 
 	g_signal_connect (annot, "notify::label",
-			  G_CALLBACK (pps_annotation_window_label_changed),
-			  window);
+	                  G_CALLBACK (pps_annotation_window_label_changed),
+	                  window);
 	g_signal_connect (annot, "notify::rgba",
-			  G_CALLBACK (pps_annotation_window_color_changed),
-			  window);
+	                  G_CALLBACK (pps_annotation_window_color_changed),
+	                  window);
 	g_signal_connect (annot, "notify::opacity",
-			  G_CALLBACK (pps_annotation_window_opacity_changed),
-			  window);
+	                  G_CALLBACK (pps_annotation_window_opacity_changed),
+	                  window);
 
 	return object;
 }
 
 static gboolean
-pps_annotation_window_escape_pressed (GtkWidget	*widget,
-				     GVariant	*args,
-				     gpointer	user_data)
+pps_annotation_window_escape_pressed (GtkWidget *widget,
+                                      GVariant *args,
+                                      gpointer user_data)
 {
 	gtk_window_close (GTK_WINDOW (widget));
 	return TRUE;
@@ -347,7 +344,7 @@ pps_annotation_window_close_request (GtkWindow *window)
 static void
 pps_annotation_window_class_init (PpsAnnotationWindowClass *klass)
 {
-	GObjectClass   *g_object_class = G_OBJECT_CLASS (klass);
+	GObjectClass *g_object_class = G_OBJECT_CLASS (klass);
 	GtkWidgetClass *gtk_widget_class = GTK_WIDGET_CLASS (klass);
 	GtkWindowClass *gtk_window_class = GTK_WINDOW_CLASS (klass);
 
@@ -357,41 +354,41 @@ pps_annotation_window_class_init (PpsAnnotationWindowClass *klass)
 	gtk_window_class->close_request = pps_annotation_window_close_request;
 
 	gtk_widget_class_add_binding (gtk_widget_class, GDK_KEY_Escape, 0,
-				      pps_annotation_window_escape_pressed, NULL);
+	                              pps_annotation_window_escape_pressed, NULL);
 
 	g_object_class_install_property (g_object_class,
-					 PROP_ANNOTATION,
-					 g_param_spec_object ("annotation",
-							      "Annotation",
-							      "The annotation associated to the window",
-							      PPS_TYPE_ANNOTATION_MARKUP,
-							      G_PARAM_WRITABLE |
-							      G_PARAM_CONSTRUCT_ONLY |
-                                                              G_PARAM_STATIC_STRINGS));
+	                                 PROP_ANNOTATION,
+	                                 g_param_spec_object ("annotation",
+	                                                      "Annotation",
+	                                                      "The annotation associated to the window",
+	                                                      PPS_TYPE_ANNOTATION_MARKUP,
+	                                                      G_PARAM_WRITABLE |
+	                                                          G_PARAM_CONSTRUCT_ONLY |
+	                                                          G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
-					 PROP_PARENT,
-					 g_param_spec_object ("parent",
-							      "Parent",
-							      "The parent window",
-							      GTK_TYPE_WINDOW,
-							      G_PARAM_WRITABLE |
-							      G_PARAM_CONSTRUCT_ONLY |
-                                                              G_PARAM_STATIC_STRINGS));
+	                                 PROP_PARENT,
+	                                 g_param_spec_object ("parent",
+	                                                      "Parent",
+	                                                      "The parent window",
+	                                                      GTK_TYPE_WINDOW,
+	                                                      G_PARAM_WRITABLE |
+	                                                          G_PARAM_CONSTRUCT_ONLY |
+	                                                          G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
-					 PROP_DOCUMENT,
-					 g_param_spec_object ("document",
-							      NULL, NULL,
-							      PPS_TYPE_DOCUMENT,
-							      G_PARAM_WRITABLE |
-							      G_PARAM_CONSTRUCT_ONLY |
-							      G_PARAM_STATIC_STRINGS));
+	                                 PROP_DOCUMENT,
+	                                 g_param_spec_object ("document",
+	                                                      NULL, NULL,
+	                                                      PPS_TYPE_DOCUMENT,
+	                                                      G_PARAM_WRITABLE |
+	                                                          G_PARAM_CONSTRUCT_ONLY |
+	                                                          G_PARAM_STATIC_STRINGS));
 }
 
 /* Public methods */
 GtkWidget *
 pps_annotation_window_new (PpsAnnotation *annot,
-			   GtkWindow     *parent,
-			   PpsDocument   *document)
+                           GtkWindow *parent,
+                           PpsDocument *document)
 {
 	GtkWidget *window;
 
@@ -399,10 +396,10 @@ pps_annotation_window_new (PpsAnnotation *annot,
 	g_return_val_if_fail (GTK_IS_WINDOW (parent), NULL);
 
 	window = g_object_new (PPS_TYPE_ANNOTATION_WINDOW,
-			       "annotation", annot,
-			       "parent", parent,
-			       "document", document,
-			       NULL);
+	                       "annotation", annot,
+	                       "parent", parent,
+	                       "document", document,
+	                       NULL);
 	return window;
 }
 
@@ -424,7 +421,7 @@ pps_annotation_window_is_open (PpsAnnotationWindow *window)
 
 void
 pps_annotation_window_get_rectangle (PpsAnnotationWindow *window,
-				    PpsRectangle        *rect)
+                                     PpsRectangle *rect)
 {
 	g_return_if_fail (PPS_IS_ANNOTATION_WINDOW (window));
 	g_return_if_fail (rect != NULL);
@@ -434,7 +431,7 @@ pps_annotation_window_get_rectangle (PpsAnnotationWindow *window,
 
 void
 pps_annotation_window_set_rectangle (PpsAnnotationWindow *window,
-				    const PpsRectangle  *rect)
+                                     const PpsRectangle *rect)
 {
 	g_return_if_fail (PPS_IS_ANNOTATION_WINDOW (window));
 	g_return_if_fail (rect != NULL);
@@ -444,14 +441,14 @@ pps_annotation_window_set_rectangle (PpsAnnotationWindow *window,
 
 void
 pps_annotation_window_set_enable_spellchecking (PpsAnnotationWindow *window,
-                                               gboolean enable_spellchecking)
+                                                gboolean enable_spellchecking)
 {
-        g_return_if_fail (PPS_IS_ANNOTATION_WINDOW (window));
+	g_return_if_fail (PPS_IS_ANNOTATION_WINDOW (window));
 }
 
 gboolean
 pps_annotation_window_get_enable_spellchecking (PpsAnnotationWindow *window)
 {
-        g_return_val_if_fail (PPS_IS_ANNOTATION_WINDOW (window), FALSE);
-        return FALSE;
+	g_return_val_if_fail (PPS_IS_ANNOTATION_WINDOW (window), FALSE);
+	return FALSE;
 }

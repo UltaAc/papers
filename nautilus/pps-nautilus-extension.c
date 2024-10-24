@@ -38,16 +38,13 @@
 
 #include "pps-nautilus-extension.h"
 
-static void properties_model_provider_iface_init
-	(NautilusPropertiesModelProviderInterface *iface);
+static void properties_model_provider_iface_init (NautilusPropertiesModelProviderInterface *iface);
 
-struct _PpsDocumentPropertiesModelProvider
-{
+struct _PpsDocumentPropertiesModelProvider {
 	GObject parent_instance;
 };
 
-static GList *pps_properties_get_models
-	(NautilusPropertiesModelProvider *provider, GList *files);
+static GList *pps_properties_get_models (NautilusPropertiesModelProvider *provider, GList *files);
 
 G_DEFINE_DYNAMIC_TYPE_EXTENDED (PpsDocumentPropertiesModelProvider,
                                 pps_document_properties_model_provider,
@@ -65,14 +62,15 @@ build_properties (PpsDocument *document)
 	GDateTime *datetime = NULL;
 	char *text;
 
-#define SET_PROPERTY(p, value) 	do  {				\
-	g_list_store_append (model, 				\
-		nautilus_properties_item_new (_(properties_info[p##_PROPERTY].label), value)); \
+#define SET_PROPERTY(p, value)                                                                                       \
+	do {                                                                                                         \
+		g_list_store_append (model,                                                                          \
+		                     nautilus_properties_item_new (_ (properties_info[p##_PROPERTY].label), value)); \
 	} while (0)
 
-#define FIELD_SET_PROPERTY(p, value) 			\
-	if (info->fields_mask & PPS_DOCUMENT_INFO_##p) {	\
-		SET_PROPERTY (p, value);		\
+#define FIELD_SET_PROPERTY(p, value)                     \
+	if (info->fields_mask & PPS_DOCUMENT_INFO_##p) { \
+		SET_PROPERTY (p, value);                 \
 	}
 
 	FIELD_SET_PROPERTY (TITLE, info->title);
@@ -83,21 +81,21 @@ build_properties (PpsDocument *document)
 	FIELD_SET_PROPERTY (PRODUCER, info->producer);
 	FIELD_SET_PROPERTY (CREATOR, info->creator);
 
-	datetime = pps_document_info_get_created_datetime(info);
+	datetime = pps_document_info_get_created_datetime (info);
 	if (datetime != NULL) {
-		text = pps_document_misc_format_datetime(datetime);
-		SET_PROPERTY(CREATION_DATE, text);
-		g_free(text);
+		text = pps_document_misc_format_datetime (datetime);
+		SET_PROPERTY (CREATION_DATE, text);
+		g_free (text);
 	} else {
-		SET_PROPERTY(CREATION_DATE, NULL);
+		SET_PROPERTY (CREATION_DATE, NULL);
 	}
-	datetime = pps_document_info_get_modified_datetime(info);
+	datetime = pps_document_info_get_modified_datetime (info);
 	if (datetime != NULL) {
-		text = pps_document_misc_format_datetime(datetime);
-		SET_PROPERTY(MOD_DATE, text);
-		g_free(text);
+		text = pps_document_misc_format_datetime (datetime);
+		SET_PROPERTY (MOD_DATE, text);
+		g_free (text);
 	} else {
-		SET_PROPERTY(MOD_DATE, NULL);
+		SET_PROPERTY (MOD_DATE, NULL);
 	}
 
 	FIELD_SET_PROPERTY (FORMAT, info->format);
@@ -118,11 +116,11 @@ build_properties (PpsDocument *document)
 
 	if (info->fields_mask & PPS_DOCUMENT_INFO_CONTAINS_JS) {
 		if (info->contains_js == PPS_DOCUMENT_CONTAINS_JS_YES) {
-			text = _("Yes");
+			text = _ ("Yes");
 		} else if (info->contains_js == PPS_DOCUMENT_CONTAINS_JS_NO) {
-			text = _("No");
+			text = _ ("No");
 		} else {
-			text = _("Unknown");
+			text = _ ("Unknown");
 		}
 		SET_PROPERTY (CONTAINS_JS, text);
 	}
@@ -140,7 +138,7 @@ build_properties (PpsDocument *document)
 
 static GList *
 pps_properties_get_models (NautilusPropertiesModelProvider *provider,
-			 GList *files)
+                           GList *files)
 {
 	GError *error = NULL;
 	PpsDocument *document = NULL;
@@ -167,7 +165,7 @@ pps_properties_get_models (NautilusPropertiesModelProvider *provider,
 		goto end;
 	}
 
-	properties_group = nautilus_properties_model_new (_("Document Properties"), build_properties (document));
+	properties_group = nautilus_properties_model_new (_ ("Document Properties"), build_properties (document));
 
 	models = g_list_prepend (models, properties_group);
 end:
@@ -213,13 +211,13 @@ PPS_PUBLIC
 void
 nautilus_module_shutdown (void)
 {
-        pps_shutdown ();
+	pps_shutdown ();
 }
 
 PPS_PUBLIC
 void
 nautilus_module_list_types (const GType **types,
-                            int          *num_types)
+                            int *num_types)
 {
 	static GType type_list[1];
 

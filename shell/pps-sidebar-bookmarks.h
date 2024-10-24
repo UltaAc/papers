@@ -20,24 +20,24 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
 #include <glib-object.h>
+#include <gtk/gtk.h>
 
 #include "pps-sidebar-page.h"
 #include <papers-view.h>
 
 G_BEGIN_DECLS
 
-typedef struct _PpsSidebarBookmarks        PpsSidebarBookmarks;
-typedef struct _PpsSidebarBookmarksClass   PpsSidebarBookmarksClass;
+typedef struct _PpsSidebarBookmarks PpsSidebarBookmarks;
+typedef struct _PpsSidebarBookmarksClass PpsSidebarBookmarksClass;
 typedef struct _PpsSidebarBookmarksPrivate PpsSidebarBookmarksPrivate;
 
-#define PPS_TYPE_SIDEBAR_BOOKMARKS              (pps_sidebar_bookmarks_get_type())
-#define PPS_SIDEBAR_BOOKMARKS(object)           (G_TYPE_CHECK_INSTANCE_CAST((object), PPS_TYPE_SIDEBAR_BOOKMARKS, PpsSidebarBookmarks))
-#define PPS_SIDEBAR_BOOKMARKS_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), PPS_TYPE_SIDEBAR_BOOKMARKS, PpsSidebarBookmarksClass))
-#define PPS_IS_SIDEBAR_BOOKMARKS(object)        (G_TYPE_CHECK_INSTANCE_TYPE((object), PPS_TYPE_SIDEBAR_BOOKMARKS))
-#define PPS_IS_SIDEBAR_BOOKMARKS_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass), PPS_TYPE_SIDEBAR_BOOKMARKS))
-#define PPS_SIDEBAR_BOOKMARKS_GET_CLASS(object) (G_TYPE_INSTANCE_GET_CLASS((object), PPS_TYPE_SIDEBAR_BOOKMARKS, PpsSidebarBookmarksClass))
+#define PPS_TYPE_SIDEBAR_BOOKMARKS (pps_sidebar_bookmarks_get_type ())
+#define PPS_SIDEBAR_BOOKMARKS(object) (G_TYPE_CHECK_INSTANCE_CAST ((object), PPS_TYPE_SIDEBAR_BOOKMARKS, PpsSidebarBookmarks))
+#define PPS_SIDEBAR_BOOKMARKS_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_SIDEBAR_BOOKMARKS, PpsSidebarBookmarksClass))
+#define PPS_IS_SIDEBAR_BOOKMARKS(object) (G_TYPE_CHECK_INSTANCE_TYPE ((object), PPS_TYPE_SIDEBAR_BOOKMARKS))
+#define PPS_IS_SIDEBAR_BOOKMARKS_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_SIDEBAR_BOOKMARKS))
+#define PPS_SIDEBAR_BOOKMARKS_GET_CLASS(object) (G_TYPE_INSTANCE_GET_CLASS ((object), PPS_TYPE_SIDEBAR_BOOKMARKS, PpsSidebarBookmarksClass))
 
 struct _PpsSidebarBookmarks {
 	PpsSidebarPage base_instance;
@@ -46,14 +46,14 @@ struct _PpsSidebarBookmarks {
 struct _PpsSidebarBookmarksClass {
 	PpsSidebarPageClass base_class;
 
-        void (*add_bookmark) (PpsSidebarBookmarks *sidebar_bookmarks);
-        void (*activated)    (PpsSidebarBookmarks *sidebar_bookmarks,
-                              gint                old_page,
-                              gint                page);
+	void (*add_bookmark) (PpsSidebarBookmarks *sidebar_bookmarks);
+	void (*activated) (PpsSidebarBookmarks *sidebar_bookmarks,
+	                   gint old_page,
+	                   gint page);
 };
 
-GType      pps_sidebar_bookmarks_get_type      (void) G_GNUC_CONST;
-GtkWidget *pps_sidebar_bookmarks_new           (void);
-void       pps_sidebar_bookmarks_set_bookmarks (PpsSidebarBookmarks *sidebar_bookmarks,
-					       PpsBookmarks        *bookmarks);
+GType pps_sidebar_bookmarks_get_type (void) G_GNUC_CONST;
+GtkWidget *pps_sidebar_bookmarks_new (void);
+void pps_sidebar_bookmarks_set_bookmarks (PpsSidebarBookmarks *sidebar_bookmarks,
+                                          PpsBookmarks *bookmarks);
 G_END_DECLS

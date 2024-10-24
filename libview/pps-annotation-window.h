@@ -21,7 +21,7 @@
 
 #pragma once
 
-#if !defined (PAPERS_COMPILATION)
+#if !defined(PAPERS_COMPILATION)
 #error "This is a private header."
 #endif
 
@@ -33,28 +33,28 @@
 
 G_BEGIN_DECLS
 
-typedef struct _PpsAnnotationWindow      PpsAnnotationWindow;
+typedef struct _PpsAnnotationWindow PpsAnnotationWindow;
 typedef struct _PpsAnnotationWindowClass PpsAnnotationWindowClass;
 
-#define PPS_TYPE_ANNOTATION_WINDOW              (pps_annotation_window_get_type())
-#define PPS_ANNOTATION_WINDOW(object)           (G_TYPE_CHECK_INSTANCE_CAST((object), PPS_TYPE_ANNOTATION_WINDOW, PpsAnnotationWindow))
-#define PPS_ANNOTATION_WINDOW_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), PPS_TYPE_ANNOTATION_WINDOW, PpsAnnotationWindowClass))
-#define PPS_IS_ANNOTATION_WINDOW(object)        (G_TYPE_CHECK_INSTANCE_TYPE((object), PPS_TYPE_ANNOTATION_WINDOW))
-#define PPS_IS_ANNOTATION_WINDOW_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass), PPS_TYPE_ANNOTATION_WINDOW))
-#define PPS_ANNOTATION_WINDOW_GET_CLASS(object) (G_TYPE_INSTANCE_GET_CLASS((object), PPS_TYPE_ANNOTATION_WINDOW, PpsAnnotationWindowClass))
+#define PPS_TYPE_ANNOTATION_WINDOW (pps_annotation_window_get_type ())
+#define PPS_ANNOTATION_WINDOW(object) (G_TYPE_CHECK_INSTANCE_CAST ((object), PPS_TYPE_ANNOTATION_WINDOW, PpsAnnotationWindow))
+#define PPS_ANNOTATION_WINDOW_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_ANNOTATION_WINDOW, PpsAnnotationWindowClass))
+#define PPS_IS_ANNOTATION_WINDOW(object) (G_TYPE_CHECK_INSTANCE_TYPE ((object), PPS_TYPE_ANNOTATION_WINDOW))
+#define PPS_IS_ANNOTATION_WINDOW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_ANNOTATION_WINDOW))
+#define PPS_ANNOTATION_WINDOW_GET_CLASS(object) (G_TYPE_INSTANCE_GET_CLASS ((object), PPS_TYPE_ANNOTATION_WINDOW, PpsAnnotationWindowClass))
 
-GType         pps_annotation_window_get_type       (void) G_GNUC_CONST;
-GtkWidget    *pps_annotation_window_new            (PpsAnnotation       *annot,
-						    GtkWindow           *parent,
-						    PpsDocument         *document);
+GType pps_annotation_window_get_type (void) G_GNUC_CONST;
+GtkWidget *pps_annotation_window_new (PpsAnnotation *annot,
+                                      GtkWindow *parent,
+                                      PpsDocument *document);
 PpsAnnotation *pps_annotation_window_get_annotation (PpsAnnotationWindow *window);
-gboolean      pps_annotation_window_is_open        (PpsAnnotationWindow *window);
-void          pps_annotation_window_get_rectangle  (PpsAnnotationWindow *window,
-						   PpsRectangle        *rect);
-void          pps_annotation_window_set_rectangle  (PpsAnnotationWindow *window,
-						   const PpsRectangle  *rect);
-void          pps_annotation_window_set_enable_spellchecking (PpsAnnotationWindow *window,
-                                                             gboolean spellcheck);
-gboolean      pps_annotation_window_get_enable_spellchecking (PpsAnnotationWindow *window);
+gboolean pps_annotation_window_is_open (PpsAnnotationWindow *window);
+void pps_annotation_window_get_rectangle (PpsAnnotationWindow *window,
+                                          PpsRectangle *rect);
+void pps_annotation_window_set_rectangle (PpsAnnotationWindow *window,
+                                          const PpsRectangle *rect);
+void pps_annotation_window_set_enable_spellchecking (PpsAnnotationWindow *window,
+                                                     gboolean spellcheck);
+gboolean pps_annotation_window_get_enable_spellchecking (PpsAnnotationWindow *window);
 
 G_END_DECLS

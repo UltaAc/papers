@@ -31,8 +31,8 @@
 #include <langinfo.h>
 #endif
 
-#include <gtk/gtk.h>
 #include <glib/gi18n-lib.h>
+#include <gtk/gtk.h>
 
 G_DEFINE_BOXED_TYPE (PpsDocumentInfo, pps_document_info, pps_document_info_copy, pps_document_info_free)
 
@@ -44,7 +44,7 @@ G_DEFINE_BOXED_TYPE (PpsDocumentInfo, pps_document_info, pps_document_info_copy,
 PpsDocumentInfo *
 pps_document_info_new (void)
 {
-        return g_new0 (PpsDocumentInfo, 1);
+	return g_new0 (PpsDocumentInfo, 1);
 }
 
 /**
@@ -56,11 +56,11 @@ pps_document_info_new (void)
 PpsDocumentInfo *
 pps_document_info_copy (const PpsDocumentInfo *info)
 {
-        PpsDocumentInfo *copy;
+	PpsDocumentInfo *copy;
 
-        g_return_val_if_fail (info != NULL, NULL);
+	g_return_val_if_fail (info != NULL, NULL);
 
-        copy = pps_document_info_new ();
+	copy = pps_document_info_new ();
 
 	copy->title = g_strdup (info->title);
 	copy->format = g_strdup (info->format);
@@ -72,8 +72,8 @@ pps_document_info_copy (const PpsDocumentInfo *info)
 	copy->producer = g_strdup (info->producer);
 	copy->linearized = g_strdup (info->linearized);
 
-        copy->creation_datetime = g_date_time_ref (info->creation_datetime);
-        copy->modified_datetime = g_date_time_ref (info->modified_datetime);
+	copy->creation_datetime = g_date_time_ref (info->creation_datetime);
+	copy->modified_datetime = g_date_time_ref (info->modified_datetime);
 
 	copy->layout = info->layout;
 	copy->mode = info->mode;
@@ -84,7 +84,7 @@ pps_document_info_copy (const PpsDocumentInfo *info)
 
 	copy->fields_mask = info->fields_mask;
 
-        return copy;
+	return copy;
 }
 
 /**
@@ -96,8 +96,8 @@ pps_document_info_copy (const PpsDocumentInfo *info)
 void
 pps_document_info_free (PpsDocumentInfo *info)
 {
-        if (info == NULL)
-                return;
+	if (info == NULL)
+		return;
 
 	g_free (info->title);
 	g_free (info->format);
@@ -110,10 +110,10 @@ pps_document_info_free (PpsDocumentInfo *info)
 	g_free (info->security);
 	pps_document_license_free (info->license);
 
-        g_clear_pointer (&info->creation_datetime, g_date_time_unref);
-        g_clear_pointer (&info->modified_datetime, g_date_time_unref);
+	g_clear_pointer (&info->creation_datetime, g_date_time_unref);
+	g_clear_pointer (&info->modified_datetime, g_date_time_unref);
 
-        g_free (info);
+	g_free (info);
 }
 
 /*
@@ -125,7 +125,7 @@ pps_document_info_free (PpsDocumentInfo *info)
  */
 void
 pps_document_info_take_created_datetime (PpsDocumentInfo *info,
-                                        GDateTime      *datetime)
+                                         GDateTime *datetime)
 {
 	g_return_if_fail (info != NULL);
 	g_clear_pointer (&info->creation_datetime, g_date_time_unref);
@@ -146,7 +146,7 @@ pps_document_info_get_created_datetime (const PpsDocumentInfo *info)
 	g_return_val_if_fail (info != NULL, NULL);
 	g_return_val_if_fail (info->fields_mask & PPS_DOCUMENT_INFO_CREATION_DATETIME, NULL);
 
-        return info->creation_datetime;
+	return info->creation_datetime;
 }
 
 /*
@@ -158,7 +158,7 @@ pps_document_info_get_created_datetime (const PpsDocumentInfo *info)
  */
 void
 pps_document_info_take_modified_datetime (PpsDocumentInfo *info,
-                                         GDateTime      *datetime)
+                                          GDateTime *datetime)
 {
 	g_return_if_fail (info != NULL);
 
@@ -194,10 +194,10 @@ pps_document_info_get_modified_datetime (const PpsDocumentInfo *info)
  */
 gboolean
 pps_document_info_set_from_xmp (PpsDocumentInfo *info,
-                               const char     *xmp,
-                               gssize          size)
+                                const char *xmp,
+                                gssize size)
 {
-        return pps_xmp_parse (xmp, size != -1 ? size : strlen (xmp), info);
+	return pps_xmp_parse (xmp, size != -1 ? size : strlen (xmp), info);
 }
 
 static GtkUnit
@@ -209,16 +209,16 @@ get_default_user_units (void)
 	 * Do *not* translate it to "predefinito:mm", if it
 	 * it isn't default:mm or default:inch it will not work
 	 */
-	gchar *e = _("default:mm");
+	gchar *e = _ ("default:mm");
 
 #ifdef HAVE__NL_MEASUREMENT_MEASUREMENT
 	gchar *imperial = NULL;
 
 	imperial = nl_langinfo (_NL_MEASUREMENT_MEASUREMENT);
 	if (imperial && imperial[0] == 2)
-		return GTK_UNIT_INCH;  /* imperial */
+		return GTK_UNIT_INCH; /* imperial */
 	if (imperial && imperial[0] == 1)
-		return GTK_UNIT_MM;  /* metric */
+		return GTK_UNIT_MM; /* metric */
 #endif
 
 	if (strcmp (e, "default:mm") == 0)
@@ -261,13 +261,13 @@ pps_document_info_regular_paper_size (const PpsDocumentInfo *info)
 	units = get_default_user_units ();
 
 	if (units == GTK_UNIT_MM) {
-		exact_size = g_strdup_printf(_("%.0f × %.0f mm"),
-					     info->paper_width,
-					     info->paper_height);
+		exact_size = g_strdup_printf (_ ("%.0f × %.0f mm"),
+		                              info->paper_width,
+		                              info->paper_height);
 	} else {
-		exact_size = g_strdup_printf (_("%.2f × %.2f inch"),
-					      info->paper_width  / 25.4f,
-					      info->paper_height / 25.4f);
+		exact_size = g_strdup_printf (_ ("%.2f × %.2f inch"),
+		                              info->paper_width / 25.4f,
+		                              info->paper_height / 25.4f);
 	}
 
 	paper_sizes = gtk_paper_size_get_paper_sizes (FALSE);
@@ -286,23 +286,23 @@ pps_document_info_regular_paper_size (const PpsDocumentInfo *info)
 		height_tolerance = get_tolerance (paper_height);
 
 		if (ABS (info->paper_height - paper_height) <= height_tolerance &&
-		    ABS (info->paper_width  - paper_width) <= width_tolerance) {
+		    ABS (info->paper_width - paper_width) <= width_tolerance) {
 			/* Note to translators: first placeholder is the paper name (eg.
 			 * A4), second placeholder is the paper size (eg. 297x210 mm) */
-			str = g_strdup_printf (_("%s, Portrait (%s)"),
-					       gtk_paper_size_get_display_name (size),
-					       exact_size);
-		} else if (ABS (info->paper_width  - paper_height) <= height_tolerance &&
-			   ABS (info->paper_height - paper_width) <= width_tolerance) {
+			str = g_strdup_printf (_ ("%s, Portrait (%s)"),
+			                       gtk_paper_size_get_display_name (size),
+			                       exact_size);
+		} else if (ABS (info->paper_width - paper_height) <= height_tolerance &&
+		           ABS (info->paper_height - paper_width) <= width_tolerance) {
 			/* Note to translators: first placeholder is the paper name (eg.
 			 * A4), second placeholder is the paper size (eg. 297x210 mm) */
-			str = g_strdup_printf ( _("%s, Landscape (%s)"),
-						gtk_paper_size_get_display_name (size),
-						exact_size);
+			str = g_strdup_printf (_ ("%s, Landscape (%s)"),
+			                       gtk_paper_size_get_display_name (size),
+			                       exact_size);
 		}
 	}
 
-	g_list_free_full (paper_sizes, (GDestroyNotify)gtk_paper_size_free);
+	g_list_free_full (paper_sizes, (GDestroyNotify) gtk_paper_size_free);
 
 	if (str != NULL) {
 		g_free (exact_size);

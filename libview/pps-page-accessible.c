@@ -22,21 +22,20 @@
 
 #include <config.h>
 
-#include <glib/gi18n-lib.h>
-#include "pps-page-accessible.h"
 #include "pps-form-field-accessible.h"
 #include "pps-image-accessible.h"
 #include "pps-link-accessible.h"
+#include "pps-page-accessible.h"
 #include "pps-view-private.h"
+#include <glib/gi18n-lib.h>
 
 struct _PpsPageAccessiblePrivate {
-        PpsViewAccessible *view_accessible;
-	gint              page;
-	GHashTable       *links;
-	GPtrArray        *children;
-	gboolean          children_initialized;
+	PpsViewAccessible *view_accessible;
+	gint page;
+	GHashTable *links;
+	GPtrArray *children;
+	gboolean children_initialized;
 };
-
 
 enum {
 	PROP_0,
@@ -48,11 +47,7 @@ static void pps_page_accessible_component_iface_init (AtkComponentIface *iface);
 static void pps_page_accessible_hypertext_iface_init (AtkHypertextIface *iface);
 static void pps_page_accessible_text_iface_init (AtkTextIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (PpsPageAccessible, pps_page_accessible, ATK_TYPE_OBJECT,
-			 G_ADD_PRIVATE (PpsPageAccessible)
-			 G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT, pps_page_accessible_component_iface_init)
-			 G_IMPLEMENT_INTERFACE (ATK_TYPE_HYPERTEXT, pps_page_accessible_hypertext_iface_init)
-			 G_IMPLEMENT_INTERFACE (ATK_TYPE_TEXT, pps_page_accessible_text_iface_init))
+G_DEFINE_TYPE_WITH_CODE (PpsPageAccessible, pps_page_accessible, ATK_TYPE_OBJECT, G_ADD_PRIVATE (PpsPageAccessible) G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT, pps_page_accessible_component_iface_init) G_IMPLEMENT_INTERFACE (ATK_TYPE_HYPERTEXT, pps_page_accessible_hypertext_iface_init) G_IMPLEMENT_INTERFACE (ATK_TYPE_TEXT, pps_page_accessible_text_iface_init))
 
 gint
 pps_page_accessible_get_page (PpsPageAccessible *page_accessible)
@@ -170,17 +165,17 @@ pps_page_accessible_finalize (GObject *object)
 {
 	PpsPageAccessiblePrivate *priv = PPS_PAGE_ACCESSIBLE (object)->priv;
 
-        g_clear_pointer (&priv->links, g_hash_table_destroy);
+	g_clear_pointer (&priv->links, g_hash_table_destroy);
 	clear_children (PPS_PAGE_ACCESSIBLE (object));
 
 	G_OBJECT_CLASS (pps_page_accessible_parent_class)->finalize (object);
 }
 
 static void
-pps_page_accessible_set_property (GObject      *object,
-				 guint         prop_id,
-				 const GValue *value,
-				 GParamSpec   *pspec)
+pps_page_accessible_set_property (GObject *object,
+                                  guint prop_id,
+                                  const GValue *value,
+                                  GParamSpec *pspec)
 {
 	PpsPageAccessible *accessible = PPS_PAGE_ACCESSIBLE (object);
 
@@ -197,10 +192,10 @@ pps_page_accessible_set_property (GObject      *object,
 }
 
 static void
-pps_page_accessible_get_property (GObject    *object,
-				 guint       prop_id,
-				 GValue     *value,
-				 GParamSpec *pspec)
+pps_page_accessible_get_property (GObject *object,
+                                  guint prop_id,
+                                  GValue *value,
+                                  GParamSpec *pspec)
 {
 	PpsPageAccessible *accessible = PPS_PAGE_ACCESSIBLE (object);
 
@@ -246,8 +241,8 @@ pps_page_accessible_ref_relation_set (AtkObject *accessible)
 		AtkObject *next_page;
 
 		next_page = atk_object_ref_accessible_child (ATK_OBJECT (self->priv->view_accessible),
-							     self->priv->page + 1);
-		accessible_array [0] = next_page;
+		                                             self->priv->page + 1);
+		accessible_array[0] = next_page;
 		relation = atk_relation_new (accessible_array, 1, ATK_RELATION_FLOWS_TO);
 		atk_relation_set_add (relation_set, relation);
 
@@ -259,8 +254,8 @@ pps_page_accessible_ref_relation_set (AtkObject *accessible)
 		AtkObject *prpps_page;
 
 		prpps_page = atk_object_ref_accessible_child (ATK_OBJECT (self->priv->view_accessible),
-							     self->priv->page - 1);
-		accessible_array [0] = prpps_page;
+		                                              self->priv->page - 1);
+		accessible_array[0] = prpps_page;
 		relation = atk_relation_new (accessible_array, 1, ATK_RELATION_FLOWS_FROM);
 		atk_relation_set_add (relation_set, relation);
 
@@ -322,33 +317,33 @@ pps_page_accessible_ref_state_set (AtkObject *accessible)
 static gint
 pps_page_accessible_get_n_children (AtkObject *accessible)
 {
-       PpsPageAccessible *self;
+	PpsPageAccessible *self;
 
-       self = PPS_PAGE_ACCESSIBLE (accessible);
+	self = PPS_PAGE_ACCESSIBLE (accessible);
 
-       return self->priv->children == NULL ? 0 : self->priv->children->len;
+	return self->priv->children == NULL ? 0 : self->priv->children->len;
 }
 
 static AtkObject *
 pps_page_accessible_ref_child (AtkObject *accessible,
-			      gint       i)
+                               gint i)
 {
-       PpsPageAccessible *self;
+	PpsPageAccessible *self;
 
-       self = PPS_PAGE_ACCESSIBLE (accessible);
+	self = PPS_PAGE_ACCESSIBLE (accessible);
 
-       g_return_val_if_fail (i >= 0 || i < self->priv->children->len, NULL);
+	g_return_val_if_fail (i >= 0 || i < self->priv->children->len, NULL);
 
-       return g_object_ref (g_ptr_array_index (self->priv->children, i));
+	return g_object_ref (g_ptr_array_index (self->priv->children, i));
 }
 
 static void
 pps_page_accessible_class_init (PpsPageAccessibleClass *klass)
 {
-	GObjectClass   *g_object_class = G_OBJECT_CLASS (klass);
+	GObjectClass *g_object_class = G_OBJECT_CLASS (klass);
 	AtkObjectClass *atk_class = ATK_OBJECT_CLASS (klass);
 
-	atk_class->get_parent  = pps_page_accessible_get_parent;
+	atk_class->get_parent = pps_page_accessible_get_parent;
 	atk_class->ref_relation_set = pps_page_accessible_ref_relation_set;
 	atk_class->ref_state_set = pps_page_accessible_ref_state_set;
 	atk_class->get_n_children = pps_page_accessible_get_n_children;
@@ -356,27 +351,26 @@ pps_page_accessible_class_init (PpsPageAccessibleClass *klass)
 
 	g_object_class->get_property = pps_page_accessible_get_property;
 	g_object_class->set_property = pps_page_accessible_set_property;
-        g_object_class->finalize = pps_page_accessible_finalize;
+	g_object_class->finalize = pps_page_accessible_finalize;
 
 	g_object_class_install_property (g_object_class,
-					 PROP_VIEW_ACCESSIBLE,
-					 g_param_spec_object ("view-accessible",
-							      "View Accessible",
-							      "The view accessible associated to this page",
-							      PPS_TYPE_VIEW_ACCESSIBLE,
-							      G_PARAM_READWRITE |
-							      G_PARAM_CONSTRUCT_ONLY |
-                                                              G_PARAM_STATIC_STRINGS));
+	                                 PROP_VIEW_ACCESSIBLE,
+	                                 g_param_spec_object ("view-accessible",
+	                                                      "View Accessible",
+	                                                      "The view accessible associated to this page",
+	                                                      PPS_TYPE_VIEW_ACCESSIBLE,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_CONSTRUCT_ONLY |
+	                                                          G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
-					 PROP_PAGE,
-					 g_param_spec_int ("page",
-							   "Page",
-							   "Page index this page represents",
-							   -1, G_MAXINT, -1,
-							   G_PARAM_READWRITE |
-							   G_PARAM_CONSTRUCT_ONLY |
-                                                           G_PARAM_STATIC_STRINGS));
-
+	                                 PROP_PAGE,
+	                                 g_param_spec_int ("page",
+	                                                   "Page",
+	                                                   "Page index this page represents",
+	                                                   -1, G_MAXINT, -1,
+	                                                   G_PARAM_READWRITE |
+	                                                       G_PARAM_CONSTRUCT_ONLY |
+	                                                       G_PARAM_STATIC_STRINGS));
 }
 
 PpsView *
@@ -395,10 +389,10 @@ pps_page_accessible_get_view (PpsPageAccessible *page_accessible)
  * broken accessibility implementation w.r.t. sentences.
  */
 static gboolean
-treat_as_soft_return (PpsView       *view,
-		      gint          page,
-		      PangoLogAttr *log_attrs,
-		      gint          offset)
+treat_as_soft_return (PpsView *view,
+                      gint page,
+                      PangoLogAttr *log_attrs,
+                      gint offset)
 {
 	PpsRectangle *areas = NULL;
 	guint n_areas = 0;
@@ -409,7 +403,6 @@ treat_as_soft_return (PpsView       *view,
 	PpsRectangle *next_line_end;
 	PpsRectangle *next_word_end;
 	gint prpps_offset, next_offset;
-
 
 	if (!log_attrs[offset].is_white)
 		return FALSE;
@@ -434,7 +427,8 @@ treat_as_soft_return (PpsView       *view,
 	 * and a newline at the end of a paragraph that is followed by a heading.
 	 */
 	this_line_end = areas + prpps_offset;
-	next_line_start = areas + next_offset;;
+	next_line_start = areas + next_offset;
+	;
 
 	this_line_height = this_line_end->y2 - this_line_end->y1;
 	if (ABS (this_line_height - (next_line_start->y2 - next_line_start->y1)) > 0.25)
@@ -454,17 +448,20 @@ treat_as_soft_return (PpsView       *view,
 	 * and hanging indents (e.g. in the works cited within an academic paper). So we'll
 	 * be somewhat tolerant here.
 	 */
-	for ( ; prpps_offset > 0 && !log_attrs[prpps_offset].is_mandatory_break; prpps_offset--);
+	for (; prpps_offset > 0 && !log_attrs[prpps_offset].is_mandatory_break; prpps_offset--)
+		;
 	this_line_start = areas + prpps_offset;
 	if (ABS (this_line_start->x1 - next_line_start->x1) > 20)
 		return FALSE;
 
 	/* Ditto for x2, but this line might be short due to a wide word on the next line. */
-	for ( ; next_offset < n_areas && !log_attrs[next_offset].is_word_end; next_offset++);
+	for (; next_offset < n_areas && !log_attrs[next_offset].is_word_end; next_offset++)
+		;
 	next_word_end = areas + next_offset;
 	next_word_width = next_word_end->x2 - next_line_start->x1;
 
-	for ( ; next_offset < n_areas && !log_attrs[next_offset + 1].is_mandatory_break; next_offset++);
+	for (; next_offset < n_areas && !log_attrs[next_offset + 1].is_mandatory_break; next_offset++)
+		;
 	next_line_end = areas + next_offset;
 	if (next_line_end->x2 - (this_line_end->x2 + next_word_width) > 20)
 		return FALSE;
@@ -474,13 +471,13 @@ treat_as_soft_return (PpsView       *view,
 
 static gchar *
 pps_page_accessible_get_substring (AtkText *text,
-				  gint     start_offset,
-				  gint     end_offset)
+                                   gint start_offset,
+                                   gint end_offset)
 {
 	PpsPageAccessible *self = PPS_PAGE_ACCESSIBLE (text);
 	PpsView *view = pps_page_accessible_get_view (self);
 	gchar *substring, *normalized;
-	const gchar* page_text;
+	const gchar *page_text;
 
 	if (!view->page_cache)
 		return NULL;
@@ -499,32 +496,32 @@ pps_page_accessible_get_substring (AtkText *text,
 
 static gchar *
 pps_page_accessible_get_text (AtkText *text,
-			     gint     start_pos,
-			     gint     end_pos)
+                              gint start_pos,
+                              gint end_pos)
 {
 	return pps_page_accessible_get_substring (text, start_pos, end_pos);
 }
 
 static gunichar
 pps_page_accessible_get_character_at_offset (AtkText *text,
-					    gint     offset)
+                                             gint offset)
 {
 	gchar *string;
 	gunichar unichar;
 
 	string = pps_page_accessible_get_substring (text, offset, offset + 1);
 	unichar = g_utf8_get_char (string);
-	g_free(string);
+	g_free (string);
 
 	return unichar;
 }
 
 static void
-pps_page_accessible_get_range_for_boundary (AtkText          *text,
-					   AtkTextBoundary   boundary_type,
-					   gint              offset,
-					   gint             *start_offset,
-					   gint             *end_offset)
+pps_page_accessible_get_range_for_boundary (AtkText *text,
+                                            AtkTextBoundary boundary_type,
+                                            gint offset,
+                                            gint *start_offset,
+                                            gint *end_offset)
 {
 	PpsPageAccessible *self = PPS_PAGE_ACCESSIBLE (text);
 	PpsView *view = pps_page_accessible_get_view (self);
@@ -549,8 +546,10 @@ pps_page_accessible_get_range_for_boundary (AtkText          *text,
 		end = offset + 1;
 		break;
 	case ATK_TEXT_BOUNDARY_WORD_START:
-		for (start = offset; start > 0 && !log_attrs[start].is_word_start; start--);
-		for (end = offset + 1; end < n_attrs && !log_attrs[end].is_word_start; end++);
+		for (start = offset; start > 0 && !log_attrs[start].is_word_start; start--)
+			;
+		for (end = offset + 1; end < n_attrs && !log_attrs[end].is_word_start; end++)
+			;
 		break;
 	case ATK_TEXT_BOUNDARY_SENTENCE_START:
 		for (start = offset; start > 0; start--) {
@@ -567,8 +566,10 @@ pps_page_accessible_get_range_for_boundary (AtkText          *text,
 		}
 		break;
 	case ATK_TEXT_BOUNDARY_LINE_START:
-		for (start = offset; start > 0 && !log_attrs[start].is_mandatory_break; start--);
-		for (end = offset + 1; end < n_attrs && !log_attrs[end].is_mandatory_break; end++);
+		for (start = offset; start > 0 && !log_attrs[start].is_mandatory_break; start--)
+			;
+		for (end = offset + 1; end < n_attrs && !log_attrs[end].is_mandatory_break; end++)
+			;
 		break;
 	default:
 		/* The "END" boundary types are deprecated */
@@ -580,11 +581,11 @@ pps_page_accessible_get_range_for_boundary (AtkText          *text,
 }
 
 static gchar *
-pps_page_accessible_get_text_at_offset (AtkText        *text,
-                                       gint            offset,
-                                       AtkTextBoundary boundary_type,
-                                       gint           *start_offset,
-                                       gint           *end_offset)
+pps_page_accessible_get_text_at_offset (AtkText *text,
+                                        gint offset,
+                                        AtkTextBoundary boundary_type,
+                                        gint *start_offset,
+                                        gint *end_offset)
 {
 	gchar *retval;
 
@@ -597,7 +598,7 @@ pps_page_accessible_get_text_at_offset (AtkText        *text,
 	 * speech synthesizers tend to pause after the newline char as if it were the end
 	 * of the sentence.
 	 */
-        if (boundary_type == ATK_TEXT_BOUNDARY_SENTENCE_START)
+	if (boundary_type == ATK_TEXT_BOUNDARY_SENTENCE_START)
 		g_strdelimit (retval, "\n", ' ');
 
 	return retval;
@@ -622,8 +623,8 @@ pps_page_accessible_set_caret_offset (AtkText *text, gint offset)
 	PpsView *view = pps_page_accessible_get_view (self);
 
 	pps_view_set_caret_cursor_position (view,
-					   self->priv->page,
-					   offset);
+	                                    self->priv->page,
+	                                    offset);
 
 	return TRUE;
 }
@@ -641,10 +642,10 @@ pps_page_accessible_get_character_count (AtkText *text)
 }
 
 static gboolean
-get_selection_bounds (PpsView          *view,
-		      PpsViewSelection *selection,
-		      gint            *start_offset,
-		      gint            *end_offset)
+get_selection_bounds (PpsView *view,
+                      PpsViewSelection *selection,
+                      gint *start_offset,
+                      gint *end_offset)
 {
 	cairo_rectangle_int_t rect;
 	gint start, end;
@@ -654,19 +655,19 @@ get_selection_bounds (PpsView          *view,
 
 	cairo_region_get_rectangle (selection->covered_region, 0, &rect);
 	start = _pps_view_get_caret_cursor_offset_at_doc_point (view,
-							       selection->page,
-							       rect.x / view->scale,
-							       (rect.y + (rect.height / 2)) / view->scale);
+	                                                        selection->page,
+	                                                        rect.x / view->scale,
+	                                                        (rect.y + (rect.height / 2)) / view->scale);
 	if (start == -1)
 		return FALSE;
 
 	cairo_region_get_rectangle (selection->covered_region,
-				    cairo_region_num_rectangles (selection->covered_region) - 1,
-				    &rect);
+	                            cairo_region_num_rectangles (selection->covered_region) - 1,
+	                            &rect);
 	end = _pps_view_get_caret_cursor_offset_at_doc_point (view,
-							     selection->page,
-							     (rect.x + rect.width) / view->scale,
-							     (rect.y + (rect.height / 2)) / view->scale);
+	                                                      selection->page,
+	                                                      (rect.x + rect.width) / view->scale,
+	                                                      (rect.y + (rect.height / 2)) / view->scale);
 	if (end == -1)
 		return FALSE;
 
@@ -688,7 +689,7 @@ pps_page_accessible_get_n_selections (AtkText *text)
 		return 0;
 
 	for (l = view->selection_info.selections; l != NULL; l = l->next) {
-		PpsViewSelection *selection = (PpsViewSelection *)l->data;
+		PpsViewSelection *selection = (PpsViewSelection *) l->data;
 
 		if (selection->page != self->priv->page)
 			continue;
@@ -702,9 +703,9 @@ pps_page_accessible_get_n_selections (AtkText *text)
 
 static gchar *
 pps_page_accessible_get_selection (AtkText *text,
-				  gint     selection_num,
-				  gint    *start_pos,
-				  gint    *end_pos)
+                                   gint selection_num,
+                                   gint *start_pos,
+                                   gint *end_pos)
 {
 	PpsPageAccessible *self = PPS_PAGE_ACCESSIBLE (text);
 	PpsView *view = pps_page_accessible_get_view (self);
@@ -722,7 +723,7 @@ pps_page_accessible_get_selection (AtkText *text,
 		return NULL;
 
 	for (l = view->selection_info.selections; l != NULL; l = l->next) {
-		PpsViewSelection *selection = (PpsViewSelection *)l->data;
+		PpsViewSelection *selection = (PpsViewSelection *) l->data;
 		gint start = 0, end = 0;
 
 		if (selection->page != self->priv->page)
@@ -735,9 +736,9 @@ pps_page_accessible_get_selection (AtkText *text,
 
 			pps_document_doc_mutex_lock (priv->document);
 			selected_text = pps_selection_get_selected_text (PPS_SELECTION (view->document),
-									page,
-									selection->style,
-									&(selection->rect));
+			                                                 page,
+			                                                 selection->style,
+			                                                 &(selection->rect));
 
 			pps_document_doc_mutex_unlock (priv->document);
 
@@ -759,34 +760,34 @@ pps_page_accessible_get_selection (AtkText *text,
 }
 
 static AtkAttributeSet *
-add_attribute (AtkAttributeSet  *attr_set,
-               AtkTextAttribute  attr_type,
-               gchar            *attr_value)
+add_attribute (AtkAttributeSet *attr_set,
+               AtkTextAttribute attr_type,
+               gchar *attr_value)
 {
-  AtkAttribute *attr = g_new (AtkAttribute, 1);
+	AtkAttribute *attr = g_new (AtkAttribute, 1);
 
-  attr->name = g_strdup (atk_text_attribute_get_name (attr_type));
-  attr->value = attr_value;
+	attr->name = g_strdup (atk_text_attribute_get_name (attr_type));
+	attr->value = attr_value;
 
-  return g_slist_prepend (attr_set, attr);
+	return g_slist_prepend (attr_set, attr);
 }
 
 static AtkAttributeSet *
-get_run_attributes (PangoAttrList   *attrs,
-		    const gchar     *text,
-		    gint             offset,
-		    gint            *start_offset,
-		    gint            *end_offset)
+get_run_attributes (PangoAttrList *attrs,
+                    const gchar *text,
+                    gint offset,
+                    gint *start_offset,
+                    gint *end_offset)
 {
-	AtkAttributeSet   *atk_attr_set = NULL;
-	PangoAttrString   *pango_string;
-	PangoAttrInt      *pango_int;
-	PangoAttrColor    *pango_color;
+	AtkAttributeSet *atk_attr_set = NULL;
+	PangoAttrString *pango_string;
+	PangoAttrInt *pango_int;
+	PangoAttrColor *pango_color;
 	PangoAttrIterator *iter;
-	gint               i, start, end;
-	gboolean           has_attrs = FALSE;
-	glong              text_length;
-	gchar             *attr_value;
+	gint i, start, end;
+	gboolean has_attrs = FALSE;
+	glong text_length;
+	gchar *attr_value;
 
 	text_length = g_utf8_strlen (text, -1);
 	if (offset < 0 || offset >= text_length)
@@ -804,7 +805,7 @@ get_run_attributes (PangoAttrList   *attrs,
 			if (end == G_MAXINT) /* Last iterator */
 				end = text_length;
 			*end_offset = g_utf8_pointer_to_offset (text, text + end);
-			 has_attrs = TRUE;
+			has_attrs = TRUE;
 		}
 	} while (!has_attrs && pango_attr_iterator_next (iter));
 
@@ -829,17 +830,17 @@ get_run_attributes (PangoAttrList   *attrs,
 	pango_int = (PangoAttrInt *) pango_attr_iterator_get (iter, PANGO_ATTR_UNDERLINE);
 	if (pango_int) {
 		atk_attr_set = add_attribute (atk_attr_set,
-					      ATK_TEXT_ATTR_UNDERLINE,
-					      g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_UNDERLINE,
-										      pango_int->value)));
+		                              ATK_TEXT_ATTR_UNDERLINE,
+		                              g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_UNDERLINE,
+		                                                                      pango_int->value)));
 	}
 
 	pango_color = (PangoAttrColor *) pango_attr_iterator_get (iter, PANGO_ATTR_FOREGROUND);
 	if (pango_color) {
 		attr_value = g_strdup_printf ("%u,%u,%u",
-					      pango_color->color.red,
-					      pango_color->color.green,
-					      pango_color->color.blue);
+		                              pango_color->color.red,
+		                              pango_color->color.green,
+		                              pango_color->color.blue);
 		atk_attr_set = add_attribute (atk_attr_set, ATK_TEXT_ATTR_FG_COLOR, attr_value);
 	}
 
@@ -848,16 +849,16 @@ get_run_attributes (PangoAttrList   *attrs,
 	return atk_attr_set;
 }
 
-static AtkAttributeSet*
+static AtkAttributeSet *
 pps_page_accessible_get_run_attributes (AtkText *text,
-				       gint     offset,
-				       gint    *start_offset,
-				       gint    *end_offset)
+                                        gint offset,
+                                        gint *start_offset,
+                                        gint *end_offset)
 {
 	PpsPageAccessible *self = PPS_PAGE_ACCESSIBLE (text);
 	PpsView *view = pps_page_accessible_get_view (self);
 	PangoAttrList *attrs;
-	const gchar   *page_text;
+	const gchar *page_text;
 
 	if (offset < 0)
 		return NULL;
@@ -876,7 +877,7 @@ pps_page_accessible_get_run_attributes (AtkText *text,
 	return get_run_attributes (attrs, page_text, offset, start_offset, end_offset);
 }
 
-static AtkAttributeSet*
+static AtkAttributeSet *
 pps_page_accessible_get_default_attributes (AtkText *text)
 {
 	/* No default attributes */
@@ -884,13 +885,13 @@ pps_page_accessible_get_default_attributes (AtkText *text)
 }
 
 static void
-pps_page_accessible_get_character_extents (AtkText      *text,
-					  gint         offset,
-					  gint         *x,
-					  gint         *y,
-					  gint         *width,
-					  gint         *height,
-					  AtkCoordType coords)
+pps_page_accessible_get_character_extents (AtkText *text,
+                                           gint offset,
+                                           gint *x,
+                                           gint *y,
+                                           gint *width,
+                                           gint *height,
+                                           AtkCoordType coords)
 {
 	PpsPageAccessible *self = PPS_PAGE_ACCESSIBLE (text);
 	PpsView *view = pps_page_accessible_get_view (self);
@@ -933,10 +934,10 @@ pps_page_accessible_get_character_extents (AtkText      *text,
 }
 
 static gint
-pps_page_accessible_get_offset_at_point (AtkText      *text,
-					gint         x,
-					gint         y,
-					AtkCoordType coords)
+pps_page_accessible_get_offset_at_point (AtkText *text,
+                                         gint x,
+                                         gint y,
+                                         AtkCoordType coords)
 {
 	PpsPageAccessible *self = PPS_PAGE_ACCESSIBLE (text);
 	PpsView *view = pps_page_accessible_get_view (self);
@@ -946,7 +947,7 @@ pps_page_accessible_get_offset_at_point (AtkText      *text,
 	guint n_areas = 0;
 	guint i;
 	gint x_widget, y_widget;
-	gint offset=-1;
+	gint offset = -1;
 	GdkPoint view_point;
 	gdouble doc_x, doc_y;
 	GtkBorder border;
@@ -992,7 +993,7 @@ pps_page_accessible_get_offset_at_point (AtkText      *text,
  */
 static gboolean
 pps_page_accessible_remove_selection (AtkText *text,
-				     gint     selection_num)
+                                      gint selection_num)
 {
 	PpsPageAccessible *self = PPS_PAGE_ACCESSIBLE (text);
 	PpsView *view = pps_page_accessible_get_view (self);
@@ -1007,9 +1008,9 @@ pps_page_accessible_remove_selection (AtkText *text,
 
 static gboolean
 pps_page_accessible_set_selection (AtkText *text,
-				  gint	   selection_num,
-				  gint     start_pos,
-				  gint     end_pos)
+                                   gint selection_num,
+                                   gint start_pos,
+                                   gint end_pos)
 {
 	PpsPageAccessible *self = PPS_PAGE_ACCESSIBLE (text);
 	PpsView *view = pps_page_accessible_get_view (self);
@@ -1035,19 +1036,18 @@ pps_page_accessible_set_selection (AtkText *text,
 
 static gboolean
 pps_page_accessible_add_selection (AtkText *text,
-				  gint     start_pos,
-				  gint     end_pos)
+                                   gint start_pos,
+                                   gint end_pos)
 {
 	return pps_page_accessible_set_selection (text, 0, start_pos, end_pos);
-
 }
 
-#if ATK_CHECK_VERSION (2, 32, 0)
+#if ATK_CHECK_VERSION(2, 32, 0)
 static gboolean
-pps_page_accessible_scroll_substring_to (AtkText       *text,
-					gint           start_pos,
-					gint           end_pos,
-					AtkScrollType  type)
+pps_page_accessible_scroll_substring_to (AtkText *text,
+                                         gint start_pos,
+                                         gint end_pos,
+                                         AtkScrollType type)
 {
 	PpsPageAccessible *self = PPS_PAGE_ACCESSIBLE (text);
 	PpsView *view = pps_page_accessible_get_view (self);
@@ -1107,12 +1107,12 @@ pps_page_accessible_scroll_substring_to (AtkText       *text,
 }
 
 static gboolean
-pps_page_accessible_scroll_substring_to_point (AtkText      *text,
-					      gint          start_pos,
-					      gint          end_pos,
-                                              AtkCoordType  coords,
-                                              gint          x,
-                                              gint          y)
+pps_page_accessible_scroll_substring_to_point (AtkText *text,
+                                               gint start_pos,
+                                               gint end_pos,
+                                               AtkCoordType coords,
+                                               gint x,
+                                               gint y)
 {
 	PpsPageAccessible *self = PPS_PAGE_ACCESSIBLE (text);
 	PpsView *view = pps_page_accessible_get_view (self);
@@ -1176,7 +1176,7 @@ pps_page_accessible_init (PpsPageAccessible *page)
 {
 	atk_object_set_role (ATK_OBJECT (page), ATK_ROLE_PAGE);
 
-        page->priv = pps_page_accessible_get_instance_private (page);
+	page->priv = pps_page_accessible_get_instance_private (page);
 }
 
 static void
@@ -1196,7 +1196,7 @@ pps_page_accessible_text_iface_init (AtkTextIface *iface)
 	iface->get_default_attributes = pps_page_accessible_get_default_attributes;
 	iface->get_character_extents = pps_page_accessible_get_character_extents;
 	iface->get_offset_at_point = pps_page_accessible_get_offset_at_point;
-#if ATK_CHECK_VERSION (2, 32, 0)
+#if ATK_CHECK_VERSION(2, 32, 0)
 	iface->scroll_substring_to = pps_page_accessible_scroll_substring_to;
 	iface->scroll_substring_to_point = pps_page_accessible_scroll_substring_to_point;
 #endif
@@ -1205,26 +1205,26 @@ pps_page_accessible_text_iface_init (AtkTextIface *iface)
 static GHashTable *
 pps_page_accessible_get_links (PpsPageAccessible *accessible)
 {
-	PpsPageAccessiblePrivate* priv = accessible->priv;
+	PpsPageAccessiblePrivate *priv = accessible->priv;
 
 	if (priv->links)
 		return priv->links;
 
 	priv->links = g_hash_table_new_full (g_direct_hash,
-					     g_direct_equal,
-					     NULL,
-					     (GDestroyNotify)g_object_unref);
+	                                     g_direct_equal,
+	                                     NULL,
+	                                     (GDestroyNotify) g_object_unref);
 	return priv->links;
 }
 
 static AtkHyperlink *
 pps_page_accessible_get_link (AtkHypertext *hypertext,
-			     gint          link_index)
+                              gint link_index)
 {
-	GHashTable       *links;
-	PpsMappingList    *link_mapping;
-	gint              n_links;
-	PpsMapping        *mapping;
+	GHashTable *links;
+	PpsMappingList *link_mapping;
+	gint n_links;
+	PpsMapping *mapping;
 	PpsLinkAccessible *atk_link;
 	PpsPageAccessible *self = PPS_PAGE_ACCESSIBLE (hypertext);
 	PpsView *view = pps_page_accessible_get_view (self);
@@ -1251,8 +1251,8 @@ pps_page_accessible_get_link (AtkHypertext *hypertext,
 
 	mapping = pps_mapping_list_nth (link_mapping, n_links - link_index - 1);
 	atk_link = pps_link_accessible_new (PPS_PAGE_ACCESSIBLE (hypertext),
-					   PPS_LINK (mapping->data),
-					   &mapping->area);
+	                                    PPS_LINK (mapping->data),
+	                                    &mapping->area);
 	g_hash_table_insert (links, GINT_TO_POINTER (link_index), atk_link);
 
 	return atk_hyperlink_impl_get_hyperlink (ATK_HYPERLINK_IMPL (atk_link));
@@ -1269,21 +1269,21 @@ pps_page_accessible_get_n_links (AtkHypertext *hypertext)
 		return 0;
 
 	link_mapping = pps_page_cache_get_link_mapping (view->page_cache,
-						       self->priv->page);
+	                                                self->priv->page);
 
 	return link_mapping ? pps_mapping_list_length (link_mapping) : 0;
 }
 
 static gint
 pps_page_accessible_get_link_index (AtkHypertext *hypertext,
-				   gint          offset)
+                                    gint offset)
 {
 	guint i;
 	gint n_links = pps_page_accessible_get_n_links (hypertext);
 
 	for (i = 0; i < n_links; i++) {
 		AtkHyperlink *hyperlink;
-		gint          start_index, end_index;
+		gint start_index, end_index;
 
 		hyperlink = pps_page_accessible_get_link (hypertext, i);
 		start_index = atk_hyperlink_get_start_index (hyperlink);
@@ -1306,11 +1306,11 @@ pps_page_accessible_hypertext_iface_init (AtkHypertextIface *iface)
 
 static void
 pps_page_accessible_get_extents (AtkComponent *atk_component,
-				gint         *x,
-				gint         *y,
-				gint         *width,
-				gint         *height,
-				AtkCoordType coord_type)
+                                 gint *x,
+                                 gint *y,
+                                 gint *width,
+                                 gint *height,
+                                 AtkCoordType coord_type)
 {
 	PpsPageAccessible *self;
 	PpsView *view;
@@ -1337,13 +1337,13 @@ pps_page_accessible_get_extents (AtkComponent *atk_component,
 static void
 pps_page_accessible_component_iface_init (AtkComponentIface *iface)
 {
-        iface->get_extents = pps_page_accessible_get_extents;
+	iface->get_extents = pps_page_accessible_get_extents;
 }
 
 static void
 page_cached_cb (PpsPageCache *cache,
-		gint page,
-		PpsPageAccessible *self)
+                gint page,
+                PpsPageAccessible *self)
 {
 	if (page == self->priv->page)
 		pps_page_accessible_initialize_children (self);
@@ -1351,33 +1351,33 @@ page_cached_cb (PpsPageCache *cache,
 
 PpsPageAccessible *
 pps_page_accessible_new (PpsViewAccessible *view_accessible,
-                        gint              page)
+                         gint page)
 {
-        PpsPageAccessible *atk_page;
+	PpsPageAccessible *atk_page;
 	PpsView *view;
 
 	g_return_val_if_fail (PPS_IS_VIEW_ACCESSIBLE (view_accessible), NULL);
 	g_return_val_if_fail (page >= 0, NULL);
 
-        atk_page = g_object_new (PPS_TYPE_PAGE_ACCESSIBLE,
-				 "view-accessible", view_accessible,
-				 "page", page,
-				 NULL);
+	atk_page = g_object_new (PPS_TYPE_PAGE_ACCESSIBLE,
+	                         "view-accessible", view_accessible,
+	                         "page", page,
+	                         NULL);
 
 	view = pps_page_accessible_get_view (PPS_PAGE_ACCESSIBLE (atk_page));
 	if (pps_page_cache_is_page_cached (view->page_cache, page))
 		pps_page_accessible_initialize_children (PPS_PAGE_ACCESSIBLE (atk_page));
 	else
 		g_signal_connect (view->page_cache, "page-cached",
-				  G_CALLBACK (page_cached_cb),
-				  atk_page);
+		                  G_CALLBACK (page_cached_cb),
+		                  atk_page);
 
-        return PPS_PAGE_ACCESSIBLE (atk_page);
+	return PPS_PAGE_ACCESSIBLE (atk_page);
 }
 
 AtkObject *
 pps_page_accessible_get_accessible_for_mapping (PpsPageAccessible *page_accessible,
-					       PpsMapping        *mapping)
+                                                PpsMapping *mapping)
 {
 	gint i;
 
@@ -1399,7 +1399,7 @@ pps_page_accessible_get_accessible_for_mapping (PpsPageAccessible *page_accessib
 
 void
 pps_page_accessible_update_element_state (PpsPageAccessible *page_accessible,
-					 PpsMapping        *mapping)
+                                          PpsMapping *mapping)
 {
 	AtkObject *child;
 

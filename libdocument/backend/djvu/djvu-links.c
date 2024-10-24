@@ -18,18 +18,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
-#include <string.h>
-#include <glib.h>
-#include <libdjvu/miniexp.h>
-#include "djvu-document.h"
 #include "djvu-links.h"
 #include "djvu-document-private.h"
+#include "djvu-document.h"
 #include "pps-document-links.h"
 #include "pps-mapping-list.h"
 #include "pps-outlines.h"
+#include <config.h>
+#include <glib.h>
+#include <libdjvu/miniexp.h>
+#include <string.h>
 
-static gboolean number_from_miniexp(miniexp_t sexp, int *number)
+static gboolean
+number_from_miniexp (miniexp_t sexp, int *number)
 {
 	if (miniexp_numberp (sexp)) {
 		*number = miniexp_to_int (sexp);
@@ -39,7 +40,8 @@ static gboolean number_from_miniexp(miniexp_t sexp, int *number)
 	}
 }
 
-static gboolean string_from_miniexp(miniexp_t sexp, const char **str)
+static gboolean
+string_from_miniexp (miniexp_t sexp, const char **str)
 {
 	if (miniexp_stringp (sexp)) {
 		*str = miniexp_to_str (sexp);
@@ -49,11 +51,12 @@ static gboolean string_from_miniexp(miniexp_t sexp, const char **str)
 	}
 }
 
-static gboolean number_from_string_10(const gchar *str, guint64 *number)
+static gboolean
+number_from_string_10 (const gchar *str, guint64 *number)
 {
 	gchar *end_ptr;
 
-	*number = g_ascii_strtoull(str, &end_ptr, 10);
+	*number = g_ascii_strtoull (str, &end_ptr, 10);
 	if (*end_ptr == '\0') {
 		return TRUE;
 	} else {
@@ -68,7 +71,7 @@ get_djvu_link_page (const DjvuDocument *djvu_document, const gchar *link_name, i
 
 	/* #pagenum, #+pageoffset, #-pageoffset */
 	if (g_str_has_prefix (link_name, "#")) {
-		if (g_str_has_suffix (link_name,".djvu")) {
+		if (g_str_has_suffix (link_name, ".djvu")) {
 			/* File identifiers */
 			gpointer page = NULL;
 
@@ -127,7 +130,7 @@ get_djvu_link_action (const DjvuDocument *djvu_document, const gchar *link_name,
 	if (pps_dest) {
 		pps_action = pps_link_action_new_dest (pps_dest);
 		g_object_unref (pps_dest);
-	} else if (strstr(link_name, "://") != NULL) {
+	} else if (strstr (link_name, "://") != NULL) {
 		/* It's probably an URI */
 		pps_action = pps_link_action_new_external_uri (link_name);
 	}
@@ -159,8 +162,8 @@ str_to_utf8 (const gchar *text)
 
 	for (i = 0; i < n_encodings_to_try; i++) {
 		utf8_text = g_convert (text, -1, "UTF-8",
-				       encodings_to_try[i],
-				       NULL, NULL, NULL);
+		                       encodings_to_try[i],
+		                       NULL, NULL, NULL);
 		if (utf8_text)
 			break;
 	}
@@ -182,8 +185,8 @@ str_to_utf8 (const gchar *text)
  */
 static void
 build_tree (const DjvuDocument *djvu_document,
-	    GListStore         *model,
-	    miniexp_t           iter)
+            GListStore *model,
+            miniexp_t iter)
 {
 	const char *title, *link_dest;
 	char *title_markup;
@@ -195,13 +198,14 @@ build_tree (const DjvuDocument *djvu_document,
 	if (miniexp_car (iter) == miniexp_symbol ("bookmarks")) {
 		/* The (bookmarks) cons */
 		iter = miniexp_cdr (iter);
-	} else if ( miniexp_length (iter) >= 2 ) {
+	} else if (miniexp_length (iter) >= 2) {
 		gchar *utf8_title = NULL;
 
 		/* An entry */
-		if (!string_from_miniexp (miniexp_car (iter), &title)) goto unknown_entry;
-		if (!string_from_miniexp (miniexp_cadr (iter), &link_dest)) goto unknown_entry;
-
+		if (!string_from_miniexp (miniexp_car (iter), &title))
+			goto unknown_entry;
+		if (!string_from_miniexp (miniexp_cadr (iter), &link_dest))
+			goto unknown_entry;
 
 		if (!g_utf8_validate (title, -1, NULL)) {
 			utf8_title = str_to_utf8 (title);
@@ -217,7 +221,7 @@ build_tree (const DjvuDocument *djvu_document,
 		}
 
 		outlines = g_object_new (PPS_TYPE_OUTLINES, "markup", title_markup, "expand", FALSE, "link", pps_link, NULL);
-		g_list_store_append(model, outlines);
+		g_list_store_append (model, outlines);
 
 		g_clear_object (&pps_action);
 		g_clear_object (&pps_link);
@@ -239,52 +243,56 @@ build_tree (const DjvuDocument *djvu_document,
 	}
 	return;
 
- unknown_entry:
+unknown_entry:
 	g_warning ("DjvuLibre error: Unknown entry in bookmarks");
 	return;
 }
 
 static gboolean
 get_djvu_hyperlink_area (ddjvu_pageinfo_t *page_info,
-			 miniexp_t         sexp,
-			 PpsMapping        *pps_link_mapping)
+                         miniexp_t sexp,
+                         PpsMapping *pps_link_mapping)
 {
 	miniexp_t iter;
 
 	iter = sexp;
 
-	if ((miniexp_car (iter) == miniexp_symbol ("rect") || miniexp_car (iter) == miniexp_symbol ("oval"))
-	    && miniexp_length (iter) == 5) {
+	if ((miniexp_car (iter) == miniexp_symbol ("rect") || miniexp_car (iter) == miniexp_symbol ("oval")) && miniexp_length (iter) == 5) {
 		/* FIXME: get bounding box for (oval) since Papers doesn't support shaped links */
 		int minx, miny, width, height;
 
 		iter = miniexp_cdr (iter);
-		if (!number_from_miniexp (miniexp_car (iter), &minx)) goto unknown_link;
+		if (!number_from_miniexp (miniexp_car (iter), &minx))
+			goto unknown_link;
 		iter = miniexp_cdr (iter);
-		if (!number_from_miniexp (miniexp_car (iter), &miny)) goto unknown_link;
+		if (!number_from_miniexp (miniexp_car (iter), &miny))
+			goto unknown_link;
 		iter = miniexp_cdr (iter);
-		if (!number_from_miniexp (miniexp_car (iter), &width)) goto unknown_link;
+		if (!number_from_miniexp (miniexp_car (iter), &width))
+			goto unknown_link;
 		iter = miniexp_cdr (iter);
-		if (!number_from_miniexp (miniexp_car (iter), &height)) goto unknown_link;
+		if (!number_from_miniexp (miniexp_car (iter), &height))
+			goto unknown_link;
 
 		pps_link_mapping->area.x1 = minx;
 		pps_link_mapping->area.x2 = (minx + width);
 		pps_link_mapping->area.y1 = (page_info->height - (miny + height));
 		pps_link_mapping->area.y2 = (page_info->height - miny);
-	} else if (miniexp_car (iter) == miniexp_symbol ("poly")
-		   && miniexp_length (iter) >= 5 && miniexp_length (iter) % 2 == 1) {
+	} else if (miniexp_car (iter) == miniexp_symbol ("poly") && miniexp_length (iter) >= 5 && miniexp_length (iter) % 2 == 1) {
 
 		/* FIXME: get bounding box since Papers doesn't support shaped links */
 		int minx = G_MAXINT, miny = G_MAXINT;
 		int maxx = G_MININT, maxy = G_MININT;
 
-		iter = miniexp_cdr(iter);
+		iter = miniexp_cdr (iter);
 		while (iter != miniexp_nil) {
 			int x, y;
 
-			if (!number_from_miniexp (miniexp_car(iter), &x)) goto unknown_link;
+			if (!number_from_miniexp (miniexp_car (iter), &x))
+				goto unknown_link;
 			iter = miniexp_cdr (iter);
-			if (!number_from_miniexp (miniexp_car(iter), &y)) goto unknown_link;
+			if (!number_from_miniexp (miniexp_car (iter), &y))
+				goto unknown_link;
 			iter = miniexp_cdr (iter);
 
 			minx = MIN (minx, x);
@@ -304,16 +312,16 @@ get_djvu_hyperlink_area (ddjvu_pageinfo_t *page_info,
 
 	return TRUE;
 
- unknown_link:
-	g_warning("DjvuLibre error: Unknown hyperlink area %s", miniexp_to_name(miniexp_car(sexp)));
+unknown_link:
+	g_warning ("DjvuLibre error: Unknown hyperlink area %s", miniexp_to_name (miniexp_car (sexp)));
 	return FALSE;
 }
 
 static PpsMapping *
-get_djvu_hyperlink_mapping (DjvuDocument     *djvu_document,
-			    int               page,
-			    ddjvu_pageinfo_t *page_info,
-			    miniexp_t         sexp)
+get_djvu_hyperlink_mapping (DjvuDocument *djvu_document,
+                            int page,
+                            ddjvu_pageinfo_t *page_info,
+                            miniexp_t sexp)
 {
 	PpsMapping *pps_link_mapping = NULL;
 	PpsLinkAction *pps_action = NULL;
@@ -324,41 +332,48 @@ get_djvu_hyperlink_mapping (DjvuDocument     *djvu_document,
 
 	iter = sexp;
 
-	if (miniexp_car (iter) != miniexp_symbol ("maparea")) goto unknown_mapping;
+	if (miniexp_car (iter) != miniexp_symbol ("maparea"))
+		goto unknown_mapping;
 
-	iter = miniexp_cdr(iter);
+	iter = miniexp_cdr (iter);
 
-	if (miniexp_caar(iter) == miniexp_symbol("url")) {
-		if (!string_from_miniexp (miniexp_cadr (miniexp_car (iter)), &url)) goto unknown_mapping;
-		if (!string_from_miniexp (miniexp_caddr (miniexp_car (iter)), &url_target)) goto unknown_mapping;
+	if (miniexp_caar (iter) == miniexp_symbol ("url")) {
+		if (!string_from_miniexp (miniexp_cadr (miniexp_car (iter)), &url))
+			goto unknown_mapping;
+		if (!string_from_miniexp (miniexp_caddr (miniexp_car (iter)), &url_target))
+			goto unknown_mapping;
 	} else {
-		if (!string_from_miniexp (miniexp_car(iter), &url)) goto unknown_mapping;
+		if (!string_from_miniexp (miniexp_car (iter), &url))
+			goto unknown_mapping;
 		url_target = NULL;
 	}
 
 	iter = miniexp_cdr (iter);
-	if (!string_from_miniexp (miniexp_car(iter), &comment)) goto unknown_mapping;
+	if (!string_from_miniexp (miniexp_car (iter), &comment))
+		goto unknown_mapping;
 
 	iter = miniexp_cdr (iter);
-	if (!get_djvu_hyperlink_area (page_info, miniexp_car(iter), pps_link_mapping)) goto unknown_mapping;
+	if (!get_djvu_hyperlink_area (page_info, miniexp_car (iter), pps_link_mapping))
+		goto unknown_mapping;
 
 	iter = miniexp_cdr (iter);
 	/* FIXME: DjVu hyperlink attributes are ignored */
 
 	pps_action = get_djvu_link_action (djvu_document, url, page);
-	if (!pps_action) goto unknown_mapping;
+	if (!pps_action)
+		goto unknown_mapping;
 
 	pps_link_mapping->data = pps_link_new (comment, pps_action);
 	g_object_unref (pps_action);
 
 	return pps_link_mapping;
 
- unknown_mapping:
-	if (pps_link_mapping) g_free(pps_link_mapping);
-	g_warning("DjvuLibre error: Unknown hyperlink %s", miniexp_to_name(miniexp_car(sexp)));
+unknown_mapping:
+	if (pps_link_mapping)
+		g_free (pps_link_mapping);
+	g_warning ("DjvuLibre error: Unknown hyperlink %s", miniexp_to_name (miniexp_car (sexp)));
 	return NULL;
 }
-
 
 gboolean
 djvu_links_has_document_links (PpsDocumentLinks *document_links)
@@ -379,21 +394,21 @@ djvu_links_has_document_links (PpsDocumentLinks *document_links)
 
 PpsMappingList *
 djvu_links_get_links (PpsDocumentLinks *document_links,
-                      gint             page,
-                      double           scale_factor)
+                      gint page,
+                      double scale_factor)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (document_links);
 	GList *retval = NULL;
 	miniexp_t page_annotations = miniexp_nil;
 	miniexp_t *hyperlinks = NULL, *iter = NULL;
 	PpsMapping *pps_link_mapping;
-        ddjvu_pageinfo_t page_info;
+	ddjvu_pageinfo_t page_info;
 
 	while ((page_annotations = ddjvu_document_get_pageanno (djvu_document->d_document, page)) == miniexp_dummy)
 		djvu_handle_events (djvu_document, TRUE, NULL);
 
 	while (ddjvu_document_get_pageinfo (djvu_document->d_document, page, &page_info) < DDJVU_JOB_OK)
-		djvu_handle_events(djvu_document, TRUE, NULL);
+		djvu_handle_events (djvu_document, TRUE, NULL);
 
 	if (page_annotations) {
 		hyperlinks = ddjvu_anno_get_hyperlinks (page_annotations);
@@ -413,12 +428,12 @@ djvu_links_get_links (PpsDocumentLinks *document_links,
 		ddjvu_miniexp_release (djvu_document->d_document, page_annotations);
 	}
 
-	return pps_mapping_list_new (page, retval, (GDestroyNotify)g_object_unref);
+	return pps_mapping_list_new (page, retval, (GDestroyNotify) g_object_unref);
 }
 
 PpsLinkDest *
-djvu_links_find_link_dest (PpsDocumentLinks  *document_links,
-                           const gchar      *link_name)
+djvu_links_find_link_dest (PpsDocumentLinks *document_links,
+                           const gchar *link_name)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (document_links);
 	PpsLinkDest *pps_dest = NULL;
@@ -433,8 +448,8 @@ djvu_links_find_link_dest (PpsDocumentLinks  *document_links,
 }
 
 gint
-djvu_links_find_link_page (PpsDocumentLinks  *document_links,
-			   const gchar      *link_name)
+djvu_links_find_link_page (PpsDocumentLinks *document_links,
+                           const gchar *link_name)
 {
 	DjvuDocument *djvu_document = DJVU_DOCUMENT (document_links);
 	gint page;

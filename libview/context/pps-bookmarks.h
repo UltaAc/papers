@@ -21,7 +21,7 @@
 #pragma once
 
 #include <libdocument/pps-macros.h>
-#if !defined (__PPS_PAPERS_VIEW_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_VIEW_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-view.h> can be included directly."
 #endif
 
@@ -31,49 +31,48 @@
 
 G_BEGIN_DECLS
 
-#define PPS_TYPE_BOOKMARK	   (pps_bookmark_get_type())
+#define PPS_TYPE_BOOKMARK (pps_bookmark_get_type ())
 typedef struct _PpsBookmark {
-        guint  page;
-        gchar *title;
+	guint page;
+	gchar *title;
 } PpsBookmark;
 
 PPS_PUBLIC
 GType pps_bookmark_get_type (void);
 
 PPS_PUBLIC
-PpsBookmark *pps_bookmark_new  (gint page, const gchar *title);
+PpsBookmark *pps_bookmark_new (gint page, const gchar *title);
 
 PPS_PUBLIC
 PpsBookmark *pps_bookmark_copy (const PpsBookmark *bookmark);
 
 PPS_PUBLIC
-void         pps_bookmark_free (PpsBookmark *bookmark);
+void pps_bookmark_free (PpsBookmark *bookmark);
 
 PPS_PUBLIC
-guint	     pps_bookmark_get_page (const PpsBookmark *bookmark);
+guint pps_bookmark_get_page (const PpsBookmark *bookmark);
 
 PPS_PUBLIC
 const gchar *pps_bookmark_get_title (const PpsBookmark *bookmark);
 
-
 PPS_PUBLIC
 G_DECLARE_FINAL_TYPE (PpsBookmarks, pps_bookmarks, PPS, BOOKMARKS, GObject)
-#define PPS_TYPE_BOOKMARKS         (pps_bookmarks_get_type())
+#define PPS_TYPE_BOOKMARKS (pps_bookmarks_get_type ())
 
 PPS_PUBLIC
-PpsBookmarks *pps_bookmarks_new           (PpsMetadata *metadata);
+PpsBookmarks *pps_bookmarks_new (PpsMetadata *metadata);
 PPS_PUBLIC
-GList       *pps_bookmarks_get_bookmarks (PpsBookmarks *bookmarks);
+GList *pps_bookmarks_get_bookmarks (PpsBookmarks *bookmarks);
 PPS_PUBLIC
-gboolean     pps_bookmarks_has_bookmarks (PpsBookmarks *bookmarks);
+gboolean pps_bookmarks_has_bookmarks (PpsBookmarks *bookmarks);
 PPS_PUBLIC
-void         pps_bookmarks_add           (PpsBookmarks *bookmarks,
-                                         PpsBookmark  *bookmark);
+void pps_bookmarks_add (PpsBookmarks *bookmarks,
+                        PpsBookmark *bookmark);
 PPS_PUBLIC
-void         pps_bookmarks_delete        (PpsBookmarks *bookmarks,
-                                         PpsBookmark  *bookmark);
+void pps_bookmarks_delete (PpsBookmarks *bookmarks,
+                           PpsBookmark *bookmark);
 PPS_PUBLIC
-void         pps_bookmarks_update        (PpsBookmarks *bookmarks,
-                                         PpsBookmark  *bookmark);
+void pps_bookmarks_update (PpsBookmarks *bookmarks,
+                           PpsBookmark *bookmark);
 
 G_END_DECLS

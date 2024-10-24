@@ -59,7 +59,7 @@ pps_document_links_get_links_model (PpsDocumentLinks *document_links)
 
 PpsMappingList *
 pps_document_links_get_links (PpsDocumentLinks *document_links,
-			     PpsPage          *page)
+                              PpsPage *page)
 {
 	PpsDocumentLinksInterface *iface = PPS_DOCUMENT_LINKS_GET_IFACE (document_links);
 
@@ -75,7 +75,7 @@ pps_document_links_get_links (PpsDocumentLinks *document_links,
  */
 PpsLinkDest *
 pps_document_links_find_link_dest (PpsDocumentLinks *document_links,
-				  const gchar     *link_name)
+                                   const gchar *link_name)
 {
 	PpsDocumentLinksInterface *iface = PPS_DOCUMENT_LINKS_GET_IFACE (document_links);
 	PpsLinkDest *retval;
@@ -89,7 +89,7 @@ pps_document_links_find_link_dest (PpsDocumentLinks *document_links,
 
 gint
 pps_document_links_find_link_page (PpsDocumentLinks *document_links,
-				  const gchar     *link_name)
+                                   const gchar *link_name)
 {
 	PpsDocumentLinksInterface *iface = PPS_DOCUMENT_LINKS_GET_IFACE (document_links);
 	gint retval;
@@ -104,20 +104,19 @@ pps_document_links_find_link_page (PpsDocumentLinks *document_links,
 /* Helper functions */
 gint
 pps_document_links_get_dest_page (PpsDocumentLinks *document_links,
-				 PpsLinkDest      *dest)
+                                  PpsLinkDest *dest)
 {
 	gint page = -1;
 
 	switch (pps_link_dest_get_dest_type (dest)) {
 	case PPS_LINK_DEST_TYPE_NAMED: {
 		page = pps_document_links_find_link_page (document_links,
-							 pps_link_dest_get_named_dest (dest));
-	}
-		break;
+		                                          pps_link_dest_get_named_dest (dest));
+	} break;
 	case PPS_LINK_DEST_TYPE_PAGE_LABEL:
 		pps_document_find_page_by_label (PPS_DOCUMENT (document_links),
-						pps_link_dest_get_page_label (dest),
-						&page);
+		                                 pps_link_dest_get_page_label (dest),
+		                                 &page);
 		break;
 	default:
 		page = pps_link_dest_get_page (dest);
@@ -128,7 +127,7 @@ pps_document_links_get_dest_page (PpsDocumentLinks *document_links,
 
 gchar *
 pps_document_links_get_dest_page_label (PpsDocumentLinks *document_links,
-				       PpsLinkDest      *dest)
+                                        PpsLinkDest *dest)
 {
 	gchar *label = NULL;
 
@@ -140,7 +139,7 @@ pps_document_links_get_dest_page_label (PpsDocumentLinks *document_links,
 		page = pps_document_links_get_dest_page (document_links, dest);
 		if (page != -1)
 			label = pps_document_get_page_label (PPS_DOCUMENT (document_links),
-							    page);
+			                                     page);
 	}
 
 	return label;
@@ -164,7 +163,7 @@ get_link_dest (PpsLink *link)
 
 gint
 pps_document_links_get_link_page (PpsDocumentLinks *document_links,
-				 PpsLink          *link)
+                                  PpsLink *link)
 {
 	PpsLinkDest *dest;
 
@@ -175,7 +174,7 @@ pps_document_links_get_link_page (PpsDocumentLinks *document_links,
 
 gchar *
 pps_document_links_get_link_page_label (PpsDocumentLinks *document_links,
-				       PpsLink          *link)
+                                        PpsLink *link)
 {
 	PpsLinkDest *dest;
 

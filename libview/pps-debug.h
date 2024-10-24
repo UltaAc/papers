@@ -34,7 +34,7 @@
 
 #pragma once
 
-#if !defined (PAPERS_COMPILATION)
+#if !defined(PAPERS_COMPILATION)
 #error "This is a private header."
 #endif
 
@@ -47,15 +47,15 @@ G_BEGIN_DECLS
 #ifdef PPS_ENABLE_DEBUG
 
 typedef enum {
-        PPS_DEBUG_BORDER_NONE       = 0,
-        PPS_DEBUG_BORDER_CHARS      = 1 << 0,
-        PPS_DEBUG_BORDER_LINKS      = 1 << 1,
-        PPS_DEBUG_BORDER_FORMS      = 1 << 2,
-        PPS_DEBUG_BORDER_ANNOTS     = 1 << 3,
-        PPS_DEBUG_BORDER_IMAGES     = 1 << 4,
-        PPS_DEBUG_BORDER_MEDIA      = 1 << 5,
-        PPS_DEBUG_BORDER_SELECTIONS = 1 << 6,
-        PPS_DEBUG_BORDER_ALL        = (1 << 7) - 1
+	PPS_DEBUG_BORDER_NONE = 0,
+	PPS_DEBUG_BORDER_CHARS = 1 << 0,
+	PPS_DEBUG_BORDER_LINKS = 1 << 1,
+	PPS_DEBUG_BORDER_FORMS = 1 << 2,
+	PPS_DEBUG_BORDER_ANNOTS = 1 << 3,
+	PPS_DEBUG_BORDER_IMAGES = 1 << 4,
+	PPS_DEBUG_BORDER_MEDIA = 1 << 5,
+	PPS_DEBUG_BORDER_SELECTIONS = 1 << 6,
+	PPS_DEBUG_BORDER_ALL = (1 << 7) - 1
 } PpsDebugBorders;
 
 PPS_PRIVATE
@@ -69,14 +69,14 @@ PpsDebugBorders pps_debug_get_debug_borders (void);
 
 #define PPS_PROFILER_START(job_type, message)                 \
 	int64_t sysprof_begin = SYSPROF_CAPTURE_CURRENT_TIME; \
-	const char* sysprof_name = job_type;                  \
-	g_autofree const char* sysprof_message = message;
-#define PPS_PROFILER_STOP() \
-	sysprof_collector_mark(sysprof_begin,                                \
-			       SYSPROF_CAPTURE_CURRENT_TIME - sysprof_begin, \
-			       "papers",                                     \
-			       sysprof_name,                                 \
-			       sysprof_message);
+	const char *sysprof_name = job_type;                  \
+	g_autofree const char *sysprof_message = message;
+#define PPS_PROFILER_STOP()                                                   \
+	sysprof_collector_mark (sysprof_begin,                                \
+	                        SYSPROF_CAPTURE_CURRENT_TIME - sysprof_begin, \
+	                        "papers",                                     \
+	                        sysprof_name,                                 \
+	                        sysprof_message);
 
 #else /* HAVE_SYSPROF */
 

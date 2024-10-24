@@ -20,24 +20,22 @@
 
 #include <config.h>
 
-#include <string.h>
 #include <gtk/gtk.h>
+#include <string.h>
 
 #include "pps-document-misc.h"
-
 
 cairo_surface_t *
 pps_document_misc_surface_from_pixbuf (GdkPixbuf *pixbuf)
 {
 	cairo_surface_t *surface;
-	cairo_t         *cr;
+	cairo_t *cr;
 
 	g_return_val_if_fail (GDK_IS_PIXBUF (pixbuf), NULL);
 
-	surface = cairo_image_surface_create (gdk_pixbuf_get_has_alpha (pixbuf) ?
-					      CAIRO_FORMAT_ARGB32 : CAIRO_FORMAT_RGB24,
-					      gdk_pixbuf_get_width (pixbuf),
-					      gdk_pixbuf_get_height (pixbuf));
+	surface = cairo_image_surface_create (gdk_pixbuf_get_has_alpha (pixbuf) ? CAIRO_FORMAT_ARGB32 : CAIRO_FORMAT_RGB24,
+	                                      gdk_pixbuf_get_width (pixbuf),
+	                                      gdk_pixbuf_get_height (pixbuf));
 	cr = cairo_create (surface);
 	gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
 	cairo_paint (cr);
@@ -57,10 +55,10 @@ pps_document_misc_pixbuf_from_surface (cairo_surface_t *surface)
 {
 	g_return_val_if_fail (surface, NULL);
 
-        return gdk_pixbuf_get_from_surface (surface,
-                                            0, 0,
-                                            cairo_image_surface_get_width (surface),
-                                            cairo_image_surface_get_height (surface));
+	return gdk_pixbuf_get_from_surface (surface,
+	                                    0, 0,
+	                                    cairo_image_surface_get_width (surface),
+	                                    cairo_image_surface_get_height (surface));
 }
 
 /**
@@ -83,15 +81,15 @@ pps_document_misc_texture_from_surface (cairo_surface_t *surface)
 	g_return_val_if_fail (cairo_image_surface_get_height (surface) > 0, NULL);
 
 	bytes = g_bytes_new_with_free_func (cairo_image_surface_get_data (surface),
-					    cairo_image_surface_get_height (surface) * cairo_image_surface_get_stride (surface),
-					    (GDestroyNotify)cairo_surface_destroy,
-					    cairo_surface_reference (surface));
+	                                    cairo_image_surface_get_height (surface) * cairo_image_surface_get_stride (surface),
+	                                    (GDestroyNotify) cairo_surface_destroy,
+	                                    cairo_surface_reference (surface));
 
 	texture = gdk_memory_texture_new (cairo_image_surface_get_width (surface),
-					  cairo_image_surface_get_height (surface),
-					  GDK_MEMORY_DEFAULT,
-					  bytes,
-					  cairo_image_surface_get_stride (surface));
+	                                  cairo_image_surface_get_height (surface),
+	                                  GDK_MEMORY_DEFAULT,
+	                                  bytes,
+	                                  cairo_image_surface_get_stride (surface));
 
 	g_bytes_unref (bytes);
 
@@ -100,15 +98,15 @@ pps_document_misc_texture_from_surface (cairo_surface_t *surface)
 
 cairo_surface_t *
 pps_document_misc_surface_rotate_and_scale (cairo_surface_t *surface,
-					   gint             dest_width,
-					   gint             dest_height,
-					   gint             dest_rotation)
+                                            gint dest_width,
+                                            gint dest_height,
+                                            gint dest_rotation)
 {
 	cairo_surface_t *new_surface;
-	cairo_t         *cr;
-	gint             width, height;
-	gint             new_width = dest_width;
-	gint             new_height = dest_height;
+	cairo_t *cr;
+	gint width, height;
+	gint new_width = dest_width;
+	gint new_height = dest_height;
 
 	width = cairo_image_surface_get_width (surface);
 	height = cairo_image_surface_get_height (surface);
@@ -125,30 +123,30 @@ pps_document_misc_surface_rotate_and_scale (cairo_surface_t *surface,
 	}
 
 	new_surface = cairo_surface_create_similar (surface,
-						    cairo_surface_get_content (surface),
-						    new_width, new_height);
+	                                            cairo_surface_get_content (surface),
+	                                            new_width, new_height);
 
 	cr = cairo_create (new_surface);
 	switch (dest_rotation) {
-	        case 90:
-			cairo_translate (cr, new_width, 0);
-			break;
-	        case 180:
-			cairo_translate (cr, new_width, new_height);
-			break;
-	        case 270:
-			cairo_translate (cr, 0, new_height);
-			break;
-	        default:
-			cairo_translate (cr, 0, 0);
+	case 90:
+		cairo_translate (cr, new_width, 0);
+		break;
+	case 180:
+		cairo_translate (cr, new_width, new_height);
+		break;
+	case 270:
+		cairo_translate (cr, 0, new_height);
+		break;
+	default:
+		cairo_translate (cr, 0, 0);
 	}
 	cairo_rotate (cr, dest_rotation * G_PI / 180.0);
 
 	if (dest_width != width || dest_height != height) {
 		cairo_pattern_set_filter (cairo_get_source (cr), CAIRO_FILTER_BILINEAR);
 		cairo_scale (cr,
-			     (gdouble)dest_width / width,
-			     (gdouble)dest_height / height);
+		             (gdouble) dest_width / width,
+		             (gdouble) dest_height / height);
 	}
 
 	cairo_set_source_surface (cr, surface, 0, 0);
@@ -171,12 +169,12 @@ pps_document_misc_surface_rotate_and_scale (cairo_surface_t *surface,
 gdouble
 pps_document_misc_get_widget_dpi (GtkWidget *widget)
 {
-	GdkDisplay   *display = gtk_widget_get_display (widget);
-	GtkNative    *native = gtk_widget_get_native (widget);
-	GdkSurface   *surface = NULL;
-	GdkMonitor   *monitor = NULL;
-	gboolean      is_landscape;
-	GdkRectangle  geometry;
+	GdkDisplay *display = gtk_widget_get_display (widget);
+	GtkNative *native = gtk_widget_get_native (widget);
+	GdkSurface *surface = NULL;
+	GdkMonitor *monitor = NULL;
+	gboolean is_landscape;
+	GdkRectangle geometry;
 
 	if (native != NULL)
 		surface = gtk_native_get_surface (native);
@@ -237,13 +235,13 @@ pps_document_misc_format_datetime (GDateTime *dt)
  */
 void
 pps_document_misc_get_pointer_position (GtkWidget *widget,
-                                       gint      *x,
-                                       gint      *y)
+                                        gint *x,
+                                        gint *y)
 {
-	gdouble     dx, dy;
-	GdkSeat    *seat;
-	GtkNative  *native;
-	GdkDevice  *device_pointer;
+	gdouble dx, dy;
+	GdkSeat *seat;
+	GtkNative *native;
+	GdkDevice *device_pointer;
 	GdkSurface *surface;
 	graphene_point_t point;
 
@@ -268,8 +266,8 @@ pps_document_misc_get_pointer_position (GtkWidget *widget,
 		return;
 
 	gdk_surface_get_device_position (surface,
-					 device_pointer,
-					 &dx, &dy, NULL);
+	                                 device_pointer,
+	                                 &dx, &dy, NULL);
 
 	if (x)
 		*x = dx;
@@ -277,7 +275,7 @@ pps_document_misc_get_pointer_position (GtkWidget *widget,
 		*y = dy;
 
 	if (!gtk_widget_compute_point (widget, GTK_WIDGET (native),
-				       &GRAPHENE_POINT_INIT(0, 0), &point))
+	                               &GRAPHENE_POINT_INIT (0, 0), &point))
 		g_warn_if_reached ();
 
 	if (x)

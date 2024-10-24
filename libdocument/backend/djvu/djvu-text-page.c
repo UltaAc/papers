@@ -17,12 +17,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#include "djvu-text-page.h"
 #include <config.h>
-#include <string.h>
 #include <glib.h>
 #include <libdjvu/miniexp.h>
-#include "djvu-text-page.h"
-
+#include <string.h>
 
 /**
  * djvu_text_page_union:
@@ -34,7 +33,7 @@
  */
 static void
 djvu_text_page_union (PpsRectangle *target,
-		      PpsRectangle *source)
+                      PpsRectangle *source)
 {
 	if (source->x1 < target->x1)
 		target->x1 = source->x1;
@@ -58,8 +57,8 @@ djvu_text_page_union (PpsRectangle *target,
  */
 static gboolean
 djvu_text_page_selection_process_box (DjvuTextPage *page,
-				      miniexp_t     p,
-				      int           delimit)
+                                      miniexp_t p,
+                                      int delimit)
 {
 	if (page->results || p == page->start) {
 		PpsRectangle box;
@@ -73,9 +72,9 @@ djvu_text_page_selection_process_box (DjvuTextPage *page,
 
 		if (text != NULL && text[0] != '\0') {
 			if (!(delimit & 2) && page->results != NULL) {
-				PpsRectangle *union_box = (PpsRectangle *)page->results->data;
+				PpsRectangle *union_box = (PpsRectangle *) page->results->data;
 
-                                /* If still on the same line, add box to union */
+				/* If still on the same line, add box to union */
 				djvu_text_page_union (union_box, &box);
 			} else {
 				/* A new line, a new box */
@@ -101,17 +100,17 @@ djvu_text_page_selection_process_box (DjvuTextPage *page,
  */
 static gboolean
 djvu_text_page_selection_process_text (DjvuTextPage *page,
-                                       miniexp_t     p,
-                                       int           delimit)
+                                       miniexp_t p,
+                                       int delimit)
 {
 	if (page->text || p == page->start) {
 		char *token_text = (char *) miniexp_to_str (miniexp_nth (5, p));
 		if (page->text) {
 			char *new_text =
-			    g_strjoin (delimit & 2 ? "\n" :
-			    	       delimit & 1 ? " " : NULL,
-				       page->text, token_text,
-				       NULL);
+			    g_strjoin (delimit & 2 ? "\n" : delimit & 1 ? " "
+			                                                : NULL,
+			               page->text, token_text,
+			               NULL);
 			g_free (page->text);
 			page->text = new_text;
 		} else
@@ -136,14 +135,13 @@ djvu_text_page_selection_process_text (DjvuTextPage *page,
  */
 static gboolean
 djvu_text_page_selection (DjvuSelectionType type,
-			  DjvuTextPage *page,
-			  miniexp_t     p,
-			  int           delimit)
+                          DjvuTextPage *page,
+                          miniexp_t p,
+                          int delimit)
 {
-        miniexp_t deeper;
+	miniexp_t deeper;
 
-	g_return_val_if_fail (miniexp_consp (p) && miniexp_symbolp
-			      (miniexp_car (p)), FALSE);
+	g_return_val_if_fail (miniexp_consp (p) && miniexp_symbolp (miniexp_car (p)), FALSE);
 
 	if (miniexp_car (p) != page->char_symbol)
 		delimit |= miniexp_car (p) == page->word_symbol ? 1 : 2;
@@ -171,8 +169,8 @@ djvu_text_page_selection (DjvuSelectionType type,
 
 static void
 djvu_text_page_limits_process (DjvuTextPage *page,
-			       miniexp_t     p,
-			       PpsRectangle  *rect)
+                               miniexp_t p,
+                               PpsRectangle *rect)
 {
 	PpsRectangle current;
 	const char *text;
@@ -185,22 +183,21 @@ djvu_text_page_limits_process (DjvuTextPage *page,
 	if (current.x2 >= rect->x1 && current.y1 <= rect->y2 &&
 	    current.x1 <= rect->x2 && current.y2 >= rect->y1 &&
 	    text != NULL && text[0] != '\0') {
-	    	if (page->start == miniexp_nil)
-	    		page->start = p;
-	    	page->end = p;
+		if (page->start == miniexp_nil)
+			page->start = p;
+		page->end = p;
 	}
 }
 
-
 static void
 djvu_text_page_limits (DjvuTextPage *page,
-			  miniexp_t     p,
-			  PpsRectangle  *rect)
+                       miniexp_t p,
+                       PpsRectangle *rect)
 {
-        miniexp_t deeper;
+	miniexp_t deeper;
 
 	g_return_if_fail (miniexp_consp (p) &&
-			  miniexp_symbolp (miniexp_car (p)));
+	                  miniexp_symbolp (miniexp_car (p)));
 
 	deeper = miniexp_cddr (miniexp_cdddr (p));
 	while (deeper != miniexp_nil) {
@@ -223,7 +220,7 @@ djvu_text_page_limits (DjvuTextPage *page,
  */
 GList *
 djvu_text_page_get_selection_region (DjvuTextPage *page,
-                                     PpsRectangle  *rectangle)
+                                     PpsRectangle *rectangle)
 {
 	page->start = miniexp_nil;
 	page->end = miniexp_nil;
@@ -239,9 +236,9 @@ djvu_text_page_get_selection_region (DjvuTextPage *page,
 
 char *
 djvu_text_page_copy (DjvuTextPage *page,
-		     PpsRectangle  *rectangle)
+                     PpsRectangle *rectangle)
 {
-	char* text;
+	char *text;
 
 	page->start = miniexp_nil;
 	page->end = miniexp_nil;
@@ -268,7 +265,7 @@ djvu_text_page_copy (DjvuTextPage *page,
  */
 static miniexp_t
 djvu_text_page_position (DjvuTextPage *page,
-			 int           position)
+                         int position)
 {
 	GArray *links = page->links;
 	int low = 0;
@@ -279,7 +276,7 @@ djvu_text_page_position (DjvuTextPage *page,
 
 	/* Shamelessly copied from GNU classpath */
 	while (low <= hi) {
-                DjvuTextLink *link;
+		DjvuTextLink *link;
 
 		mid = (low + hi) >> 1;
 		link = &g_array_index (links, DjvuTextLink, mid);
@@ -307,9 +304,9 @@ djvu_text_page_position (DjvuTextPage *page,
  */
 static gboolean
 djvu_text_page_sexpr_process (DjvuTextPage *page,
-                              miniexp_t     p,
-                              miniexp_t     start,
-                              miniexp_t     end)
+                              miniexp_t p,
+                              miniexp_t start,
+                              miniexp_t end)
 {
 	if (page->bounding_box || p == start) {
 		PpsRectangle *new_rectangle = pps_rectangle_new ();
@@ -319,7 +316,7 @@ djvu_text_page_sexpr_process (DjvuTextPage *page,
 		new_rectangle->y2 = miniexp_to_int (miniexp_nth (4, p));
 		if (page->bounding_box) {
 			djvu_text_page_union (page->bounding_box,
-					      new_rectangle);
+			                      new_rectangle);
 			g_free (new_rectangle);
 		} else
 			page->bounding_box = new_rectangle;
@@ -343,25 +340,22 @@ djvu_text_page_sexpr_process (DjvuTextPage *page,
  */
 static gboolean
 djvu_text_page_sexpr (DjvuTextPage *page,
-		      miniexp_t p,
-		      miniexp_t start,
-		      miniexp_t end)
+                      miniexp_t p,
+                      miniexp_t start,
+                      miniexp_t end)
 {
-        miniexp_t deeper;
+	miniexp_t deeper;
 
-	g_return_val_if_fail (miniexp_consp (p) && miniexp_symbolp
-			      (miniexp_car (p)), FALSE);
+	g_return_val_if_fail (miniexp_consp (p) && miniexp_symbolp (miniexp_car (p)), FALSE);
 
 	deeper = miniexp_cddr (miniexp_cdddr (p));
 	while (deeper != miniexp_nil) {
 		miniexp_t str = miniexp_car (deeper);
 		if (miniexp_stringp (str)) {
-			if (!djvu_text_page_sexpr_process
-			    (page, p, start, end))
+			if (!djvu_text_page_sexpr_process (page, p, start, end))
 				return FALSE;
 		} else {
-			if (!djvu_text_page_sexpr
-			    (page, str, start, end))
+			if (!djvu_text_page_sexpr (page, str, start, end))
 				return FALSE;
 		}
 		deeper = miniexp_cdr (deeper);
@@ -379,8 +373,8 @@ djvu_text_page_sexpr (DjvuTextPage *page,
  */
 static PpsRectangle *
 djvu_text_page_box (DjvuTextPage *page,
-		    miniexp_t     start,
-		    miniexp_t     end)
+                    miniexp_t start,
+                    miniexp_t end)
 {
 	page->bounding_box = NULL;
 	djvu_text_page_sexpr (page, page->text_structure, start, end);
@@ -398,15 +392,15 @@ djvu_text_page_box (DjvuTextPage *page,
  */
 static void
 djvu_text_page_append_text (DjvuTextPage *page,
-			    miniexp_t     p,
-			    gboolean      case_sensitive,
-			    gboolean      delimit)
+                            miniexp_t p,
+                            gboolean case_sensitive,
+                            gboolean delimit)
 {
 	char *token_text;
 	miniexp_t deeper;
 
 	g_return_if_fail (miniexp_consp (p) &&
-			  miniexp_symbolp (miniexp_car (p)));
+	                  miniexp_symbolp (miniexp_car (p)));
 
 	delimit |= page->char_symbol != miniexp_car (p);
 
@@ -415,8 +409,7 @@ djvu_text_page_append_text (DjvuTextPage *page,
 		miniexp_t data = miniexp_car (deeper);
 		if (miniexp_stringp (data)) {
 			DjvuTextLink link;
-			link.position = page->text == NULL ? 0 :
-			    strlen (page->text);
+			link.position = page->text == NULL ? 0 : strlen (page->text);
 			link.pair = p;
 			g_array_append_val (page->links, link);
 
@@ -428,8 +421,8 @@ djvu_text_page_append_text (DjvuTextPage *page,
 			else {
 				char *new_text =
 				    g_strjoin (delimit ? " " : NULL,
-					       page->text, token_text,
-					       NULL);
+				               page->text, token_text,
+				               NULL);
 				g_free (page->text);
 				page->text = new_text;
 			}
@@ -437,7 +430,7 @@ djvu_text_page_append_text (DjvuTextPage *page,
 				g_free (token_text);
 		} else
 			djvu_text_page_append_text (page, data,
-						    case_sensitive, delimit);
+			                            case_sensitive, delimit);
 		delimit = FALSE;
 		deeper = miniexp_cdr (deeper);
 	}
@@ -453,7 +446,7 @@ djvu_text_page_append_text (DjvuTextPage *page,
  */
 void
 djvu_text_page_search (DjvuTextPage *page,
-		       const char   *text)
+                       const char *text)
 {
 	char *haystack = page->text;
 	int search_len;
@@ -475,7 +468,6 @@ djvu_text_page_search (DjvuTextPage *page,
 	page->results = g_list_reverse (page->results);
 }
 
-
 /**
  * djvu_text_page_index_text:
  * @page: #DjvuTextPage instance
@@ -485,10 +477,10 @@ djvu_text_page_search (DjvuTextPage *page,
  */
 void
 djvu_text_page_index_text (DjvuTextPage *page,
-	       		       gboolean      case_sensitive)
+                           gboolean case_sensitive)
 {
 	djvu_text_page_append_text (page, page->text_structure,
-				    case_sensitive, FALSE);
+	                            case_sensitive, FALSE);
 }
 
 /**

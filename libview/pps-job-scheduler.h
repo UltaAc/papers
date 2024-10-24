@@ -20,14 +20,14 @@
 
 #pragma once
 
-#if !defined (__PPS_PAPERS_VIEW_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_VIEW_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-view.h> can be included directly."
 #endif
 
 #include <glib.h>
 
-#include <papers-document.h>
 #include "pps-jobs.h"
+#include <papers-document.h>
 
 G_BEGIN_DECLS
 
@@ -40,12 +40,12 @@ typedef enum {
 } PpsJobPriority;
 
 PPS_PUBLIC
-void   pps_job_scheduler_push_job               (PpsJob        *job,
-                                                PpsJobPriority priority);
+void pps_job_scheduler_push_job (PpsJob *job,
+                                 PpsJobPriority priority);
 PPS_PUBLIC
-void   pps_job_scheduler_update_job             (PpsJob        *job,
-                                                PpsJobPriority priority);
+void pps_job_scheduler_update_job (PpsJob *job,
+                                   PpsJobPriority priority);
 PPS_PUBLIC
-void   pps_job_scheduler_wait                   (void);
+void pps_job_scheduler_wait (void);
 
 G_END_DECLS

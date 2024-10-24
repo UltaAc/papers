@@ -32,8 +32,9 @@ enum {
 	PROP_SIDEBAR,
 };
 
-typedef struct {
-        PpsDocumentModel *model;
+typedef struct
+{
+	PpsDocumentModel *model;
 	GObject *sidebar; // PpsSidebar *sidebar;
 } PpsSidebarPagePrivate;
 
@@ -43,21 +44,21 @@ G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (PpsSidebarPage, pps_sidebar_page, ADW_TYPE_
 
 gboolean
 pps_sidebar_page_support_document (PpsSidebarPage *sidebar_page,
-				   PpsDocument    *document)
+                                   PpsDocument *document)
 {
 	PpsSidebarPageClass *class = PPS_SIDEBAR_PAGE_GET_CLASS (sidebar_page);
 
 	g_return_val_if_fail (PPS_IS_SIDEBAR_PAGE (sidebar_page), FALSE);
-        g_return_val_if_fail (PPS_IS_DOCUMENT (document), FALSE);
+	g_return_val_if_fail (PPS_IS_DOCUMENT (document), FALSE);
 
-        g_return_val_if_fail (class->support_document, FALSE);
+	g_return_val_if_fail (class->support_document, FALSE);
 
-        return class->support_document (sidebar_page, document);
+	return class->support_document (sidebar_page, document);
 }
 
 static void
-pps_sidebar_page_set_document_model (PpsSidebarPage   *sidebar_page,
-				     PpsDocumentModel *model)
+pps_sidebar_page_set_document_model (PpsSidebarPage *sidebar_page,
+                                     PpsDocumentModel *model)
 {
 	PpsSidebarPagePrivate *priv = GET_PRIVATE (sidebar_page);
 
@@ -69,7 +70,7 @@ pps_sidebar_page_set_document_model (PpsSidebarPage   *sidebar_page,
 
 static void
 pps_sidebar_page_set_sidebar (PpsSidebarPage *sidebar_page,
-			      GObject        *sidebar) // PpsSidebar
+                              GObject *sidebar) // PpsSidebar
 {
 	PpsSidebarPagePrivate *priv = GET_PRIVATE (sidebar_page);
 
@@ -85,7 +86,7 @@ pps_sidebar_page_set_sidebar (PpsSidebarPage *sidebar_page,
  *
  * Returns: (transfer none) (nullable): The #PpsDocumentModel
  */
-PpsDocumentModel*
+PpsDocumentModel *
 pps_sidebar_page_get_document_model (PpsSidebarPage *sidebar_page)
 {
 	PpsSidebarPagePrivate *priv = GET_PRIVATE (sidebar_page);
@@ -93,10 +94,10 @@ pps_sidebar_page_get_document_model (PpsSidebarPage *sidebar_page)
 }
 
 static void
-pps_sidebar_page_set_property (GObject      *object,
-			       guint         prop_id,
-			       const GValue *value,
-			       GParamSpec   *pspec)
+pps_sidebar_page_set_property (GObject *object,
+                               guint prop_id,
+                               const GValue *value,
+                               GParamSpec *pspec)
 {
 	PpsSidebarPage *sidebar_page = PPS_SIDEBAR_PAGE (object);
 
@@ -120,13 +121,13 @@ pps_sidebar_page_init (PpsSidebarPage *self)
 static void
 pps_sidebar_page_dispose (GObject *object)
 {
-        PpsSidebarPage *sidebar_page = PPS_SIDEBAR_PAGE (object);
-        PpsSidebarPagePrivate *priv = GET_PRIVATE (sidebar_page);
+	PpsSidebarPage *sidebar_page = PPS_SIDEBAR_PAGE (object);
+	PpsSidebarPagePrivate *priv = GET_PRIVATE (sidebar_page);
 
 	g_clear_object (&priv->model);
 	g_clear_object (&priv->sidebar);
 
-        G_OBJECT_CLASS (pps_sidebar_page_parent_class)->dispose (object);
+	G_OBJECT_CLASS (pps_sidebar_page_parent_class)->dispose (object);
 }
 
 static void
@@ -138,24 +139,24 @@ pps_sidebar_page_class_init (PpsSidebarPageClass *class)
 	object_class->set_property = pps_sidebar_page_set_property;
 
 	g_object_class_install_property (object_class,
-					 PROP_DOCUMENT_MODEL,
-					 g_param_spec_object ("document-model",
-							      "DocumentModel",
-							      "The document model",
-							      PPS_TYPE_DOCUMENT_MODEL,
-							      G_PARAM_WRITABLE |
-							      G_PARAM_CONSTRUCT_ONLY |
-							      G_PARAM_STATIC_STRINGS));
+	                                 PROP_DOCUMENT_MODEL,
+	                                 g_param_spec_object ("document-model",
+	                                                      "DocumentModel",
+	                                                      "The document model",
+	                                                      PPS_TYPE_DOCUMENT_MODEL,
+	                                                      G_PARAM_WRITABLE |
+	                                                          G_PARAM_CONSTRUCT_ONLY |
+	                                                          G_PARAM_STATIC_STRINGS));
 
 	g_object_class_install_property (object_class,
-					 PROP_SIDEBAR,
-					 g_param_spec_object ("sidebar",
-							      "Sidebar",
-							      "The sidebar containing this page",
-							      G_TYPE_OBJECT, // PPS_TYPE_SIDEBAR
-							      G_PARAM_WRITABLE |
-							      G_PARAM_CONSTRUCT_ONLY |
-							      G_PARAM_STATIC_STRINGS));
+	                                 PROP_SIDEBAR,
+	                                 g_param_spec_object ("sidebar",
+	                                                      "Sidebar",
+	                                                      "The sidebar containing this page",
+	                                                      G_TYPE_OBJECT, // PPS_TYPE_SIDEBAR
+	                                                      G_PARAM_WRITABLE |
+	                                                          G_PARAM_CONSTRUCT_ONLY |
+	                                                          G_PARAM_STATIC_STRINGS));
 }
 
 void

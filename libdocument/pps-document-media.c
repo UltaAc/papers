@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
 #include "pps-document-media.h"
+#include <config.h>
 
 G_DEFINE_INTERFACE (PpsDocumentMedia, pps_document_media, 0)
 
@@ -30,7 +30,7 @@ pps_document_media_default_init (PpsDocumentMediaInterface *klass)
 
 PpsMappingList *
 pps_document_media_get_media_mapping (PpsDocumentMedia *document_media,
-                                     PpsPage           *page)
+                                      PpsPage *page)
 {
 	PpsDocumentMediaInterface *iface = PPS_DOCUMENT_MEDIA_GET_IFACE (document_media);
 

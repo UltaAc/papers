@@ -32,17 +32,16 @@ G_BEGIN_DECLS
 typedef struct _PpsPageSelector PpsPageSelector;
 typedef struct _PpsPageSelectorClass PpsPageSelectorClass;
 
-struct _PpsPageSelectorClass
-{
+struct _PpsPageSelectorClass {
 	GtkBoxClass parent_class;
 
-	void (* activate_link) (PpsPageSelector *page_action,
-			        PpsLink             *link);
+	void (*activate_link) (PpsPageSelector *page_action,
+	                       PpsLink *link);
 };
 
-GType pps_page_selector_get_type          (void) G_GNUC_CONST;
+GType pps_page_selector_get_type (void) G_GNUC_CONST;
 
-void pps_page_selector_set_model          (PpsPageSelector *page_selector,
-					  PpsDocumentModel    *doc_model);
+void pps_page_selector_set_model (PpsPageSelector *page_selector,
+                                  PpsDocumentModel *doc_model);
 
 G_END_DECLS

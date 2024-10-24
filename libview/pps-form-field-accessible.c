@@ -26,29 +26,27 @@
 
 struct _PpsFormFieldAccessiblePrivate {
 	PpsPageAccessible *page;
-	PpsFormField      *form_field;
-	PpsRectangle       area;
+	PpsFormField *form_field;
+	PpsRectangle area;
 
-	gchar            *name;
-	gint              start_index;
-	gint              end_index;
+	gchar *name;
+	gint start_index;
+	gint end_index;
 
-	AtkStateSet      *saved_states;
+	AtkStateSet *saved_states;
 };
 
 static void pps_form_field_accessible_component_iface_init (AtkComponentIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (PpsFormFieldAccessible, pps_form_field_accessible, ATK_TYPE_OBJECT,
-			 G_ADD_PRIVATE (PpsFormFieldAccessible)
-			 G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT, pps_form_field_accessible_component_iface_init))
+G_DEFINE_TYPE_WITH_CODE (PpsFormFieldAccessible, pps_form_field_accessible, ATK_TYPE_OBJECT, G_ADD_PRIVATE (PpsFormFieldAccessible) G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT, pps_form_field_accessible_component_iface_init))
 
 static void
 pps_form_field_accessible_get_extents (AtkComponent *atk_component,
-				      gint         *x,
-				      gint         *y,
-				      gint         *width,
-				      gint         *height,
-				      AtkCoordType coord_type)
+                                       gint *x,
+                                       gint *y,
+                                       gint *width,
+                                       gint *height,
+                                       AtkCoordType coord_type)
 {
 	PpsFormFieldAccessible *self;
 	PpsViewAccessible *view_accessible;
@@ -87,8 +85,8 @@ pps_form_field_accessible_component_iface_init (AtkComponentIface *iface)
 
 static gboolean
 get_indices_in_parent (AtkObject *atk_object,
-		       gint *start,
-		       gint *end)
+                       gint *start,
+                       gint *end)
 {
 	PpsFormFieldAccessiblePrivate *priv;
 	PpsView *view;
@@ -109,14 +107,14 @@ get_indices_in_parent (AtkObject *atk_object,
 		return FALSE;
 
 	pps_page_cache_get_text_layout (view->page_cache,
-				       pps_page_accessible_get_page (priv->page),
-				       &areas, &n_areas);
+	                                pps_page_accessible_get_page (priv->page),
+	                                &areas, &n_areas);
 	if (!areas)
 		return FALSE;
 
 	for (i = 0; i < n_areas; i++) {
 		PpsRectangle *rect = areas + i;
-		gdouble      c_x, c_y;
+		gdouble c_x, c_y;
 
 		c_x = rect->x1 + (rect->x2 - rect->x1) / 2.;
 		c_y = rect->y1 + (rect->y2 - rect->y1) / 2.;
@@ -133,7 +131,7 @@ get_indices_in_parent (AtkObject *atk_object,
 
 	for (i = priv->start_index + 1; i < n_areas; i++) {
 		PpsRectangle *rect = areas + i;
-		gdouble      c_x, c_y;
+		gdouble c_x, c_y;
 
 		/* A zero-sized text rect suggests a line break. If it is within the text of the
 		 * field, we want to preserve it; if it is the character immediately after, we
@@ -371,10 +369,10 @@ pps_form_field_accessible_init (PpsFormFieldAccessible *accessible)
 	accessible->priv->end_index = -1;
 }
 
-PpsFormFieldAccessible*
+PpsFormFieldAccessible *
 pps_form_field_accessible_new (PpsPageAccessible *page,
-			      PpsFormField      *form_field,
-			      PpsRectangle      *area)
+                               PpsFormField *form_field,
+                               PpsRectangle *area)
 {
 	PpsFormFieldAccessible *atk_form_field;
 

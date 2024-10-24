@@ -27,15 +27,15 @@
 
 G_BEGIN_DECLS
 
-#define PPS_TYPE_PROGRESS_MESSAGE_AREA                  (pps_progress_message_area_get_type ())
-#define PPS_PROGRESS_MESSAGE_AREA(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_PROGRESS_MESSAGE_AREA, PpsProgressMessageArea))
-#define PPS_PROGRESS_MESSAGE_AREA_CLASS(klass)          (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_PROGRESS_MESSAGE_AREA, PpsProgressMessageAreaClass))
-#define PPS_IS_PROGRESS_MESSAGE_AREA(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PPS_TYPE_PROGRESS_MESSAGE_AREA))
-#define PPS_IS_PROGRESS_MESSAGE_AREA_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_PROGRESS_MESSAGE_AREA))
-#define PPS_PROGRESS_MESSAGE_AREA_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_PROGRESS_MESSAGE_AREA, PpsProgressMessageAreaClass))
+#define PPS_TYPE_PROGRESS_MESSAGE_AREA (pps_progress_message_area_get_type ())
+#define PPS_PROGRESS_MESSAGE_AREA(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_PROGRESS_MESSAGE_AREA, PpsProgressMessageArea))
+#define PPS_PROGRESS_MESSAGE_AREA_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_PROGRESS_MESSAGE_AREA, PpsProgressMessageAreaClass))
+#define PPS_IS_PROGRESS_MESSAGE_AREA(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PPS_TYPE_PROGRESS_MESSAGE_AREA))
+#define PPS_IS_PROGRESS_MESSAGE_AREA_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_PROGRESS_MESSAGE_AREA))
+#define PPS_PROGRESS_MESSAGE_AREA_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_PROGRESS_MESSAGE_AREA, PpsProgressMessageAreaClass))
 
-typedef struct _PpsProgressMessageArea        PpsProgressMessageArea;
-typedef struct _PpsProgressMessageAreaClass   PpsProgressMessageAreaClass;
+typedef struct _PpsProgressMessageArea PpsProgressMessageArea;
+typedef struct _PpsProgressMessageAreaClass PpsProgressMessageAreaClass;
 
 struct _PpsProgressMessageArea {
 	PpsMessageArea parent_instance;
@@ -45,12 +45,12 @@ struct _PpsProgressMessageAreaClass {
 	PpsMessageAreaClass parent_class;
 };
 
-GType      pps_progress_message_area_get_type        (void) G_GNUC_CONST;
-GtkWidget *pps_progress_message_area_new             (const gchar           *icon_name,
-						     const gchar           *text);
-void       pps_progress_message_area_set_status      (PpsProgressMessageArea *area,
-						     const gchar           *str);
-void       pps_progress_message_area_set_fraction    (PpsProgressMessageArea *area,
-						     gdouble                fraction);
+GType pps_progress_message_area_get_type (void) G_GNUC_CONST;
+GtkWidget *pps_progress_message_area_new (const gchar *icon_name,
+                                          const gchar *text);
+void pps_progress_message_area_set_status (PpsProgressMessageArea *area,
+                                           const gchar *str);
+void pps_progress_message_area_set_fraction (PpsProgressMessageArea *area,
+                                             gdouble fraction);
 
 G_END_DECLS

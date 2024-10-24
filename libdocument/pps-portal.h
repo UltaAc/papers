@@ -17,7 +17,7 @@
 
 #pragma once
 
-#if !defined (PAPERS_COMPILATION)
+#if !defined(PAPERS_COMPILATION)
 #error "This is a private header."
 #endif
 

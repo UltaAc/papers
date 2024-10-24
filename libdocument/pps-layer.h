@@ -19,18 +19,18 @@
 
 #pragma once
 
-#if !defined (__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-document.h> can be included directly."
 #endif
 
-#include <glib-object.h>
 #include <gio/gio.h>
+#include <glib-object.h>
 
 #include "pps-macros.h"
 
 G_BEGIN_DECLS
 
-#define PPS_TYPE_LAYER              (pps_layer_get_type())
+#define PPS_TYPE_LAYER (pps_layer_get_type ())
 
 PPS_PUBLIC
 G_DECLARE_FINAL_TYPE (PpsLayer, pps_layer, PPS, LAYER, GObject)
@@ -40,12 +40,12 @@ struct _PpsLayer {
 };
 
 PPS_PUBLIC
-PpsLayer  *pps_layer_new         (gint     rb_group);
+PpsLayer *pps_layer_new (gint rb_group);
 PPS_PUBLIC
-gint      pps_layer_get_rb_group (PpsLayer *layer);
+gint pps_layer_get_rb_group (PpsLayer *layer);
 PPS_PUBLIC
-void	  pps_layer_set_children (PpsLayer *pps_layer,
-				  GListModel *children);
+void pps_layer_set_children (PpsLayer *pps_layer,
+                             GListModel *children);
 PPS_PUBLIC
 GListModel *pps_layer_get_children (PpsLayer *pps_layer);
 

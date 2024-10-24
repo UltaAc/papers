@@ -34,23 +34,23 @@ typedef enum {
 	PPS_ARCHIVE_TYPE_TAR
 } PpsArchiveType;
 
-PpsArchive     *pps_archive_new                (void);
-gboolean       pps_archive_set_archive_type   (PpsArchive     *archive,
-					      PpsArchiveType  archive_type);
-PpsArchiveType  pps_archive_get_archive_type   (PpsArchive     *archive);
-gboolean       pps_archive_open_filename      (PpsArchive     *archive,
-					      const char    *path,
-					      GError       **error);
-gboolean       pps_archive_read_next_header   (PpsArchive     *archive,
-					      GError       **error);
-gboolean       pps_archive_at_entry           (PpsArchive     *archive);
-const char    *pps_archive_get_entry_pathname (PpsArchive     *archive);
-gint64         pps_archive_get_entry_size     (PpsArchive     *archive);
-gboolean       pps_archive_get_entry_is_encrypted (PpsArchive *archive);
-gssize         pps_archive_read_data          (PpsArchive     *archive,
-					      void          *buf,
-					      gsize          count,
-					      GError       **error);
-void           pps_archive_reset              (PpsArchive     *archive);
+PpsArchive *pps_archive_new (void);
+gboolean pps_archive_set_archive_type (PpsArchive *archive,
+                                       PpsArchiveType archive_type);
+PpsArchiveType pps_archive_get_archive_type (PpsArchive *archive);
+gboolean pps_archive_open_filename (PpsArchive *archive,
+                                    const char *path,
+                                    GError **error);
+gboolean pps_archive_read_next_header (PpsArchive *archive,
+                                       GError **error);
+gboolean pps_archive_at_entry (PpsArchive *archive);
+const char *pps_archive_get_entry_pathname (PpsArchive *archive);
+gint64 pps_archive_get_entry_size (PpsArchive *archive);
+gboolean pps_archive_get_entry_is_encrypted (PpsArchive *archive);
+gssize pps_archive_read_data (PpsArchive *archive,
+                              void *buf,
+                              gsize count,
+                              GError **error);
+void pps_archive_reset (PpsArchive *archive);
 
 G_END_DECLS

@@ -34,26 +34,27 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <glib/gstdio.h>
-#include <glib/gi18n.h>
-#include <gio/gio.h>
-#include <gtk/gtk.h>
 #include <adwaita.h>
+#include <gio/gio.h>
+#include <glib/gi18n.h>
+#include <glib/gstdio.h>
+#include <gtk/gtk.h>
 
+#include "pps-document-signatures.h"
+#include "pps-document-view.h"
 #include "pps-find-sidebar.h"
 #include "pps-message-area.h"
+#include "pps-progress-message-area.h"
 #include "pps-sidebar-bookmarks.h"
+#include "pps-signature-details.h"
 #include "pps-utils.h"
 #include "pps-view-presentation.h"
-#include "pps-document-view.h"
-#include "pps-progress-message-area.h"
-#include "pps-document-signatures.h"
-#include "pps-signature-details.h"
 
 #define MOUSE_BACK_BUTTON 8
 #define MOUSE_FORWARD_BUTTON 9
 
-typedef struct {
+typedef struct
+{
 	/* UI */
 	GtkWidget *stack;
 	GtkWidget *document_toolbar_view;
@@ -89,18 +90,18 @@ typedef struct {
 	GCancellable *progress_cancellable;
 
 	/* Menu button */
-	GtkWidget    *action_menu_button;
+	GtkWidget *action_menu_button;
 
 	/* Popup view */
-	GtkWidget    *view_popup;
-	PpsLink       *link;
-	PpsImage      *image;
+	GtkWidget *view_popup;
+	PpsLink *link;
+	PpsImage *image;
 	PpsAnnotation *annot;
 
 	/* Popup attachment */
-	GMenuModel   *attachment_popup_menu;
-	GtkWidget    *attachment_popup;
-	GListModel   *attachments;
+	GMenuModel *attachment_popup_menu;
+	GtkWidget *attachment_popup;
+	GListModel *attachments;
 
 	/* Digital signing */
 	GtkWidget *certificate_listbox;
@@ -133,16 +134,16 @@ typedef struct {
 
 	/* Has the document been modified? */
 	gboolean is_modified;
-	gulong   modified_handler_id;
+	gulong modified_handler_id;
 
-	PpsJob            *save_job;
-	gboolean          close_after_save;
+	PpsJob *save_job;
+	gboolean close_after_save;
 
 	/* Printing */
-	GQueue           *print_queue;
+	GQueue *print_queue;
 	GtkPrintSettings *print_settings;
-	GtkPageSetup     *print_page_setup;
-	gboolean          close_after_print;
+	GtkPageSetup *print_page_setup;
+	gboolean close_after_print;
 
 	/* Misc Runtime State */
 	gboolean sidebar_was_open_before_find;
@@ -151,21 +152,21 @@ typedef struct {
 
 #define GET_PRIVATE(o) pps_document_view_get_instance_private (o)
 
-#define GS_LOCKDOWN_SCHEMA_NAME  "org.gnome.desktop.lockdown"
-#define GS_LOCKDOWN_SAVE         "disable-save-to-disk"
-#define GS_LOCKDOWN_PRINT        "disable-printing"
-#define GS_LOCKDOWN_PRINT_SETUP  "disable-print-setup"
+#define GS_LOCKDOWN_SCHEMA_NAME "org.gnome.desktop.lockdown"
+#define GS_LOCKDOWN_SAVE "disable-save-to-disk"
+#define GS_LOCKDOWN_PRINT "disable-printing"
+#define GS_LOCKDOWN_PRINT_SETUP "disable-print-setup"
 
-#define GS_SCHEMA_NAME           "org.gnome.Papers"
+#define GS_SCHEMA_NAME "org.gnome.Papers"
 #define GS_OVERRIDE_RESTRICTIONS "override-restrictions"
-#define GS_PAGE_CACHE_SIZE       "page-cache-size"
+#define GS_PAGE_CACHE_SIZE "page-cache-size"
 #define GS_LAST_DOCUMENT_DIRECTORY "document-directory"
 #define GS_LAST_PICTURES_DIRECTORY "pictures-directory"
 #define GS_ALLOW_LINKS_CHANGE_ZOOM "allow-links-change-zoom"
 
-#define PPS_PRINT_SETTINGS_FILE  "print-settings"
+#define PPS_PRINT_SETTINGS_FILE "print-settings"
 #define PPS_PRINT_SETTINGS_GROUP "Print Settings"
-#define PPS_PAGE_SETUP_GROUP     "Page Setup"
+#define PPS_PAGE_SETUP_GROUP "Page Setup"
 
 static const gchar *document_print_settings[] = {
 	GTK_PRINT_SETTINGS_COLLATE,
@@ -178,72 +179,72 @@ static const gchar *document_print_settings[] = {
 	GTK_PRINT_SETTINGS_OUTPUT_URI
 };
 
-static void	pps_document_view_update_actions_sensitivity    (PpsDocumentView         *pps_doc_view);
-static void	pps_document_view_document_modified_cb		(PpsDocument *document,
-                                                         GParamSpec *pspec,
-                                                         PpsDocumentView   *pps_doc_view);
-static void     pps_document_view_save_job_cb                   (PpsJob            *save,
-							 PpsDocumentView         *window);
-static void     pps_document_view_popup_cmd_open_link           (GSimpleAction    *action,
-							 GVariant         *parameter,
-							 gpointer          user_data);
-static void     pps_document_view_popup_cmd_open_link_new_window(GSimpleAction    *action,
-							 GVariant         *parameter,
-							 gpointer          user_data);
-static void     pps_document_view_popup_cmd_copy_link_address   (GSimpleAction    *action,
-							 GVariant         *parameter,
-							 gpointer          user_data);
-static void     pps_document_view_popup_cmd_save_image_as       (GSimpleAction    *action,
-							 GVariant         *parameter,
-							 gpointer          user_data);
-static void     pps_document_view_popup_cmd_copy_image          (GSimpleAction    *action,
-							 GVariant         *parameter,
-							 gpointer          user_data);
-static void     pps_document_view_popup_cmd_annot_properties    (GSimpleAction    *action,
-							 GVariant         *parameter,
-							 gpointer          user_data);
-static void     pps_document_view_popup_cmd_remove_annotation   (GSimpleAction    *action,
-							 GVariant         *parameter,
-							 gpointer          user_data);
-static void	pps_document_view_popup_cmd_open_attachment     (GSimpleAction    *action,
-							 GVariant         *parameter,
-							 gpointer          user_data);
-static void	pps_document_view_popup_cmd_save_attachment_as  (GSimpleAction    *action,
-							 GVariant         *parameter,
-							 gpointer          user_data);
-static void	view_handle_link_cb 			(PpsView           *view,
-							 PpsLink           *link,
-							 PpsLink           *backlink,
-							 PpsDocumentView         *window);
-static void	bookmark_activated_cb 		        (PpsSidebarBookmarks *sidebar_bookmarks,
-							 gint              old_page,
-							 gint              page,
-							 PpsDocumentView         *window);
-static void	scroll_history_cb                       (PpsView           *view,
-							 GtkScrollType     scroll,
-							 gboolean          horizontal,
-							 PpsDocumentView         *window);
-static void	scroll_child_history_cb                 (GtkScrolledWindow *scrolled_window,
-							 GtkScrollType      scroll,
-							 gboolean           horizontal,
-							 PpsDocumentView          *window);
-static void     activate_link_cb                        (GObject          *object,
-							 PpsLink           *link,
-							 PpsDocumentView         *window);
-static void     view_external_link_cb                   (PpsDocumentView         *window,
-							 PpsLinkAction     *action);
+static void pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view);
+static void pps_document_view_document_modified_cb (PpsDocument *document,
+                                                    GParamSpec *pspec,
+                                                    PpsDocumentView *pps_doc_view);
+static void pps_document_view_save_job_cb (PpsJob *save,
+                                           PpsDocumentView *window);
+static void pps_document_view_popup_cmd_open_link (GSimpleAction *action,
+                                                   GVariant *parameter,
+                                                   gpointer user_data);
+static void pps_document_view_popup_cmd_open_link_new_window (GSimpleAction *action,
+                                                              GVariant *parameter,
+                                                              gpointer user_data);
+static void pps_document_view_popup_cmd_copy_link_address (GSimpleAction *action,
+                                                           GVariant *parameter,
+                                                           gpointer user_data);
+static void pps_document_view_popup_cmd_save_image_as (GSimpleAction *action,
+                                                       GVariant *parameter,
+                                                       gpointer user_data);
+static void pps_document_view_popup_cmd_copy_image (GSimpleAction *action,
+                                                    GVariant *parameter,
+                                                    gpointer user_data);
+static void pps_document_view_popup_cmd_annot_properties (GSimpleAction *action,
+                                                          GVariant *parameter,
+                                                          gpointer user_data);
+static void pps_document_view_popup_cmd_remove_annotation (GSimpleAction *action,
+                                                           GVariant *parameter,
+                                                           gpointer user_data);
+static void pps_document_view_popup_cmd_open_attachment (GSimpleAction *action,
+                                                         GVariant *parameter,
+                                                         gpointer user_data);
+static void pps_document_view_popup_cmd_save_attachment_as (GSimpleAction *action,
+                                                            GVariant *parameter,
+                                                            gpointer user_data);
+static void view_handle_link_cb (PpsView *view,
+                                 PpsLink *link,
+                                 PpsLink *backlink,
+                                 PpsDocumentView *window);
+static void bookmark_activated_cb (PpsSidebarBookmarks *sidebar_bookmarks,
+                                   gint old_page,
+                                   gint page,
+                                   PpsDocumentView *window);
+static void scroll_history_cb (PpsView *view,
+                               GtkScrollType scroll,
+                               gboolean horizontal,
+                               PpsDocumentView *window);
+static void scroll_child_history_cb (GtkScrolledWindow *scrolled_window,
+                                     GtkScrollType scroll,
+                                     gboolean horizontal,
+                                     PpsDocumentView *window);
+static void activate_link_cb (GObject *object,
+                              PpsLink *link,
+                              PpsDocumentView *window);
+static void view_external_link_cb (PpsDocumentView *window,
+                                   PpsLinkAction *action);
 
-static void     pps_document_view_show_find_bar                 (PpsDocumentView         *pps_doc_view);
-static void     pps_document_view_close_find_bar                (PpsDocumentView         *pps_doc_view);
+static void pps_document_view_show_find_bar (PpsDocumentView *pps_doc_view);
+static void pps_document_view_close_find_bar (PpsDocumentView *pps_doc_view);
 
-static char    *pps_document_view_signature_password_callback   (const char *text, gpointer user_data);
+static char *pps_document_view_signature_password_callback (const char *text, gpointer user_data);
 
 G_DEFINE_TYPE_WITH_PRIVATE (PpsDocumentView, pps_document_view, ADW_TYPE_BREAKPOINT_BIN)
 
 static void
-pps_document_view_set_action_enabled (PpsDocumentView   *pps_doc_view,
-					const char *name,
-					gboolean    enabled)
+pps_document_view_set_action_enabled (PpsDocumentView *pps_doc_view,
+                                      const char *name,
+                                      gboolean enabled)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	GAction *action;
@@ -257,7 +258,7 @@ pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	PpsDocument *document = priv->document;
-	PpsView     *view = PPS_VIEW (priv->view);
+	PpsView *view = PPS_VIEW (priv->view);
 	g_autofree PpsDocumentInfo *info = NULL;
 	gboolean has_document = FALSE;
 	gboolean ok_to_print = TRUE;
@@ -270,7 +271,7 @@ pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
 	gboolean dual_mode = FALSE;
 	gboolean has_pages = FALSE;
 	gboolean can_sign = FALSE;
-	int      n_pages = 0, page = -1;
+	int n_pages = 0, page = -1;
 
 	if (document) {
 		has_document = TRUE;
@@ -303,8 +304,8 @@ pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
 
 	if (has_document && priv->settings) {
 		override_restrictions =
-			g_settings_get_boolean (priv->settings,
-						GS_OVERRIDE_RESTRICTIONS);
+		    g_settings_get_boolean (priv->settings,
+		                            GS_OVERRIDE_RESTRICTIONS);
 	}
 
 	if (!override_restrictions && info && info->fields_mask & PPS_DOCUMENT_INFO_PERMISSIONS) {
@@ -312,7 +313,7 @@ pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
 		ok_to_copy = (info->permissions & PPS_DOCUMENT_PERMISSIONS_OK_TO_COPY);
 	}
 
-	if (has_document && !pps_print_operation_exists_for_document(document))
+	if (has_document && !pps_print_operation_exists_for_document (document))
 		ok_to_print = FALSE;
 
 	if (has_document && priv->lockdown_settings &&
@@ -327,30 +328,27 @@ pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
 
 	/* File menu */
 	pps_document_view_set_action_enabled (pps_doc_view, "open-copy", has_document);
-	pps_document_view_set_action_enabled (pps_doc_view, "save-as", has_document &&
-				      ok_to_copy);
-	pps_document_view_set_action_enabled (pps_doc_view, "print", has_pages &&
-				      ok_to_print);
+	pps_document_view_set_action_enabled (pps_doc_view, "save-as", has_document && ok_to_copy);
+	pps_document_view_set_action_enabled (pps_doc_view, "print", has_pages && ok_to_print);
 	pps_document_view_set_action_enabled (pps_doc_view, "show-properties",
-				      has_document && has_properties);
+	                                      has_document && has_properties);
 	pps_document_view_set_action_enabled (pps_doc_view, "open-with",
-						has_document);
+	                                      has_document);
 
-        /* Edit menu */
-	pps_document_view_set_action_enabled (pps_doc_view, "select-all", has_pages &&
-				      can_get_text);
+	/* Edit menu */
+	pps_document_view_set_action_enabled (pps_doc_view, "select-all", has_pages && can_get_text);
 	pps_document_view_set_action_enabled (pps_doc_view, "find",
-						can_find);
+	                                      can_find);
 	pps_document_view_set_action_enabled (pps_doc_view, "toggle-find",
-						can_find);
+	                                      can_find);
 	pps_document_view_set_action_enabled (pps_doc_view, "add-text-annotation",
-				       can_annotate);
+	                                      can_annotate);
 	pps_document_view_set_action_enabled (pps_doc_view, "rotate-left", has_pages);
 	pps_document_view_set_action_enabled (pps_doc_view, "rotate-right", has_pages);
 
 	pps_document_view_set_action_enabled (pps_doc_view, "digital-signing", can_sign);
 
-        /* View menu */
+	/* View menu */
 	pps_document_view_set_action_enabled (pps_doc_view, "continuous", has_pages);
 	pps_document_view_set_action_enabled (pps_doc_view, "dual-page", has_pages);
 	pps_document_view_set_action_enabled (pps_doc_view, "rtl", has_pages);
@@ -358,22 +356,21 @@ pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
 
 	/* Bookmarks menu */
 	pps_document_view_set_action_enabled (pps_doc_view, "add-bookmark",
-				      has_pages && priv->bookmarks);
+	                                      has_pages && priv->bookmarks);
 
 	pps_document_view_set_action_enabled (pps_doc_view, "copy",
-					has_pages &&
-					pps_view_has_selection (view));
-	pps_document_view_set_action_enabled (pps_doc_view, "dual-odd-left", dual_mode &&
-				      has_pages);
+	                                      has_pages &&
+	                                          pps_view_has_selection (view));
+	pps_document_view_set_action_enabled (pps_doc_view, "dual-odd-left", dual_mode && has_pages);
 
 	pps_document_view_set_action_enabled (pps_doc_view, "zoom-in",
-				      has_pages &&
-				      pps_view_can_zoom_in (view));
+	                                      has_pages &&
+	                                          pps_view_can_zoom_in (view));
 	pps_document_view_set_action_enabled (pps_doc_view, "zoom-out",
-				      has_pages &&
-				      pps_view_can_zoom_out (view));
+	                                      has_pages &&
+	                                          pps_view_can_zoom_out (view));
 
-        /* Go menu */
+	/* Go menu */
 	if (has_pages) {
 		pps_document_view_set_action_enabled (pps_doc_view, "go-previous-page", page > 0);
 		pps_document_view_set_action_enabled (pps_doc_view, "go-next-page", page < n_pages - 1);
@@ -389,22 +386,21 @@ pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
 	}
 
 	pps_document_view_set_action_enabled (pps_doc_view, "go-back-history",
-						!pps_history_is_frozen (priv->history) &&
-						pps_history_can_go_back (priv->history));
+	                                      !pps_history_is_frozen (priv->history) &&
+	                                          pps_history_can_go_back (priv->history));
 	pps_document_view_set_action_enabled (pps_doc_view, "go-forward-history",
-						!pps_history_is_frozen (priv->history) &&
-						pps_history_can_go_forward (priv->history));
+	                                      !pps_history_is_frozen (priv->history) &&
+	                                          pps_history_can_go_forward (priv->history));
 
 	pps_document_view_set_action_enabled (pps_doc_view, "caret-navigation",
-				      has_pages &&
-				      pps_view_supports_caret_navigation (view));
+	                                      has_pages &&
+	                                          pps_view_supports_caret_navigation (view));
 }
-
 
 static void
 update_sizing_buttons (PpsDocumentView *window)
 {
-	GAction     *action;
+	GAction *action;
 	const gchar *mode = NULL;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
@@ -426,7 +422,7 @@ update_sizing_buttons (PpsDocumentView *window)
 	}
 
 	gtk_revealer_set_reveal_child (priv->zoom_fit_best_revealer,
-				       pps_document_model_get_sizing_mode (priv->model) != PPS_SIZING_AUTOMATIC);
+	                               pps_document_model_get_sizing_mode (priv->model) != PPS_SIZING_AUTOMATIC);
 
 	g_simple_action_set_state (G_SIMPLE_ACTION (action), g_variant_new_string (mode));
 }
@@ -450,10 +446,9 @@ pps_document_view_is_empty (PpsDocumentView *pps_doc_view)
 	return priv->document == NULL;
 }
 
-
 static void
-pps_document_view_set_message_area (PpsDocumentView  *window,
-			    GtkWidget *area)
+pps_document_view_set_message_area (PpsDocumentView *window,
+                                    GtkWidget *area)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
@@ -467,7 +462,7 @@ pps_document_view_set_message_area (PpsDocumentView  *window,
 	if (!area)
 		return;
 
-	adw_toolbar_view_add_top_bar(ADW_TOOLBAR_VIEW (priv->document_toolbar_view), priv->message_area);
+	adw_toolbar_view_add_top_bar (ADW_TOOLBAR_VIEW (priv->document_toolbar_view), priv->message_area);
 }
 
 static void
@@ -478,14 +473,15 @@ error_message_detail_cb (AdwToast *toast, PpsDocumentView *window)
 	adw_dialog_present (ADW_DIALOG (priv->error_alert), GTK_WIDGET (window));
 }
 
-G_GNUC_PRINTF (3, 4) static void
-pps_document_view_error_message (PpsDocumentView    *window,
-			 GError      *error,
-			 const gchar *format,
-			 ...)
+G_GNUC_PRINTF (3, 4)
+static void
+pps_document_view_error_message (PpsDocumentView *window,
+                                 GError *error,
+                                 const gchar *format,
+                                 ...)
 {
-	AdwToast  *toast;
-	va_list    args;
+	AdwToast *toast;
+	va_list args;
 	g_autofree gchar *msg = NULL;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
@@ -497,9 +493,9 @@ pps_document_view_error_message (PpsDocumentView    *window,
 	adw_toast_set_timeout (toast, 20);
 
 	if (error) {
-		adw_toast_set_button_label (toast, _("View Details"));
+		adw_toast_set_button_label (toast, _ ("View Details"));
 		g_signal_connect (toast, "button-clicked",
-			(GCallback)error_message_detail_cb, window);
+		                  (GCallback) error_message_detail_cb, window);
 
 		adw_alert_dialog_set_heading (priv->error_alert, msg);
 		adw_alert_dialog_set_body (priv->error_alert, error->message);
@@ -508,14 +504,15 @@ pps_document_view_error_message (PpsDocumentView    *window,
 	adw_toast_overlay_add_toast (priv->toast_overlay, toast);
 }
 
-G_GNUC_PRINTF (2, 3) static void
-pps_document_view_warning_message (PpsDocumentView    *window,
-			   const gchar *format,
-			   ...)
+G_GNUC_PRINTF (2, 3)
+static void
+pps_document_view_warning_message (PpsDocumentView *window,
+                                   const gchar *format,
+                                   ...)
 {
 	AdwToast *toast;
-	va_list    args;
-	gchar     *msg = NULL;
+	va_list args;
+	gchar *msg = NULL;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
 	va_start (args, format);
@@ -568,7 +565,7 @@ find_link_in_outlines (PpsOutlines *outlines, PpsLink *link)
 
 static const gchar *
 pps_document_view_find_title_for_link (PpsDocumentView *window,
-			       PpsLink   *link)
+                                       PpsLink *link)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
@@ -578,8 +575,8 @@ pps_document_view_find_title_for_link (PpsDocumentView *window,
 		const gchar *link_title = NULL;
 
 		g_object_get (G_OBJECT (priv->sidebar_links),
-			      "model", &model,
-			      NULL);
+		              "model", &model,
+		              NULL);
 		if (model) {
 			int n = g_list_model_get_n_items (model);
 
@@ -600,8 +597,7 @@ pps_document_view_find_title_for_link (PpsDocumentView *window,
 }
 
 static void
-view_handle_link_cb (PpsView *view, PpsLink *link, PpsLink *backlink,
-		     PpsDocumentView *window)
+view_handle_link_cb (PpsView *view, PpsLink *link, PpsLink *backlink, PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 	PpsLink *new_link = NULL;
@@ -614,9 +610,9 @@ view_handle_link_cb (PpsView *view, PpsLink *link, PpsLink *backlink,
 			new_link = pps_link_new (link_title, pps_link_get_action (link));
 		} else {
 			PpsLinkAction *action;
-			PpsLinkDest   *dest;
-			gchar        *page_label;
-			gchar        *title;
+			PpsLinkDest *dest;
+			gchar *page_label;
+			gchar *title;
 
 			action = pps_link_get_action (link);
 			dest = pps_link_action_get_dest (action);
@@ -624,7 +620,7 @@ view_handle_link_cb (PpsView *view, PpsLink *link, PpsLink *backlink,
 			if (!page_label)
 				return;
 
-			title = g_strdup_printf (_("Page %s"), page_label);
+			title = g_strdup_printf (_ ("Page %s"), page_label);
 			g_free (page_label);
 
 			new_link = pps_link_new (title, action);
@@ -641,9 +637,9 @@ view_handle_link_cb (PpsView *view, PpsLink *link, PpsLink *backlink,
 
 static void
 bookmark_activated_cb (PpsSidebarBookmarks *sidebar_bookmarks,
-		       gint                old_page,
-		       gint                page,
-		       PpsDocumentView           *window)
+                       gint old_page,
+                       gint page,
+                       PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = pps_document_view_get_instance_private (window);
 
@@ -652,10 +648,10 @@ bookmark_activated_cb (PpsSidebarBookmarks *sidebar_bookmarks,
 }
 
 static void
-scroll_history_cb (PpsView        *view,
-		   GtkScrollType  scroll,
-		   gboolean       horizontal,
-		   PpsDocumentView      *window)
+scroll_history_cb (PpsView *view,
+                   GtkScrollType scroll,
+                   gboolean horizontal,
+                   PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = pps_document_view_get_instance_private (window);
 	gint old_page = -1;
@@ -665,16 +661,16 @@ scroll_history_cb (PpsView        *view,
 		return;
 
 	switch (scroll) {
-		case GTK_SCROLL_START:
-			old_page = pps_document_model_get_page (priv->model);
-			new_page = 0;
-			break;
-		case GTK_SCROLL_END:
-			old_page = pps_document_model_get_page (priv->model);
-			new_page = pps_document_get_n_pages (priv->document) - 1;
-			break;
-		default:
-			break;
+	case GTK_SCROLL_START:
+		old_page = pps_document_model_get_page (priv->model);
+		new_page = 0;
+		break;
+	case GTK_SCROLL_END:
+		old_page = pps_document_model_get_page (priv->model);
+		new_page = pps_document_get_n_pages (priv->document) - 1;
+		break;
+	default:
+		break;
 	}
 
 	if (old_page >= 0 && new_page >= 0) {
@@ -685,9 +681,9 @@ scroll_history_cb (PpsView        *view,
 
 static void
 scroll_child_history_cb (GtkScrolledWindow *scrolled_window,
-			 GtkScrollType      scroll,
-			 gboolean           horizontal,
-			 PpsDocumentView          *window)
+                         GtkScrollType scroll,
+                         gboolean horizontal,
+                         PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = pps_document_view_get_instance_private (window);
 
@@ -712,22 +708,21 @@ scroll_child_history_cb (GtkScrolledWindow *scrolled_window,
 		if (old_page >= 0 && new_page >= 0) {
 			pps_history_add_page (priv->history, old_page);
 			pps_history_add_page (priv->history, new_page);
-
 		}
 	}
 }
 
 static gboolean
-scrolled_window_focus_in_cb (GtkEventControllerFocus    *self,
-			     PpsDocumentView                   *window)
+scrolled_window_focus_in_cb (GtkEventControllerFocus *self,
+                             PpsDocumentView *window)
 {
 	pps_document_view_focus_view (window);
 	return GDK_EVENT_STOP;
 }
 
 static void
-view_selection_changed_cb (PpsView   *view,
-			   PpsDocumentView *window)
+view_selection_changed_cb (PpsView *view,
+                           PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 	PpsDocument *document = priv->document;
@@ -737,34 +732,15 @@ view_selection_changed_cb (PpsView   *view,
 	pps_document_view_set_action_enabled (window, "copy", has_selection);
 
 	can_annotate = PPS_IS_DOCUMENT_ANNOTATIONS (document) &&
-		pps_document_annotations_can_add_annotation (PPS_DOCUMENT_ANNOTATIONS (document));
+	               pps_document_annotations_can_add_annotation (PPS_DOCUMENT_ANNOTATIONS (document));
 
 	pps_document_view_set_action_enabled (window, "add-highlight-annotation",
-				       can_annotate && has_selection);
-
-	if (can_annotate && has_selection && !priv->annot_menu_child_added) {
-		g_autoptr (GMenuItem) item = g_menu_item_new (NULL, NULL);
-
-		g_menu_item_set_attribute (item, "custom", "s", "palette");
-
-		g_menu_insert_item (priv->annot_menu, 0, item);
-
-		gtk_popover_menu_add_child (GTK_POPOVER_MENU (priv->view_popup),
-					    priv->annot_menu_child, "palette");
-
-		priv->annot_menu_child_added = TRUE;
-	}
-
-	if (!(can_annotate && has_selection) && priv->annot_menu_child_added) {
-		g_menu_remove_all (priv->annot_menu);
-
-		priv->annot_menu_child_added = FALSE;
-	}
+	                                      can_annotate && has_selection);
 }
 
 static void
-view_layers_changed_cb (PpsView   *view,
-			PpsDocumentView *window)
+view_layers_changed_cb (PpsView *view,
+                        PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
@@ -775,13 +751,13 @@ view_layers_changed_cb (PpsView   *view,
 }
 
 static void
-view_caret_cursor_moved_cb (PpsView   *view,
-			    guint     page,
-			    guint     offset,
-			    PpsDocumentView *window)
+view_caret_cursor_moved_cb (PpsView *view,
+                            guint page,
+                            guint offset,
+                            PpsDocumentView *window)
 {
 	GVariant *position;
-	gchar    *caret_position;
+	gchar *caret_position;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
 	if (!priv->metadata)
@@ -796,10 +772,10 @@ view_caret_cursor_moved_cb (PpsView   *view,
 }
 
 static void
-page_changed_cb (PpsDocumentView        *pps_doc_view,
-			   gint             old_page,
-			   gint             new_page,
-			   PpsDocumentModel *model)
+page_changed_cb (PpsDocumentView *pps_doc_view,
+                 gint old_page,
+                 gint new_page,
+                 PpsDocumentModel *model)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
@@ -812,10 +788,10 @@ page_changed_cb (PpsDocumentView        *pps_doc_view,
 static void
 setup_model_from_metadata (PpsDocumentView *window)
 {
-	gint     page;
-	const gchar   *sizing_mode;
-	gdouble  zoom;
-	gint     rotation;
+	gint page;
+	const gchar *sizing_mode;
+	gdouble zoom;
+	gint rotation;
 	gboolean inverted_colors = FALSE;
 	gboolean continuous = FALSE;
 	gboolean dual_page = FALSE;
@@ -835,15 +811,14 @@ setup_model_from_metadata (PpsDocumentView *window)
 	if (pps_metadata_get_string (priv->metadata, "sizing-mode", &sizing_mode)) {
 		GEnumValue *enum_value;
 
-		enum_value = g_enum_get_value_by_nick
-			(g_type_class_peek (PPS_TYPE_SIZING_MODE), sizing_mode);
+		enum_value = g_enum_get_value_by_nick (g_type_class_peek (PPS_TYPE_SIZING_MODE), sizing_mode);
 		pps_document_model_set_sizing_mode (priv->model, enum_value->value);
 	}
 
 	/* Zoom */
 	if (pps_document_model_get_sizing_mode (priv->model) == PPS_SIZING_FREE) {
 		if (pps_metadata_get_double (priv->metadata, "zoom", &zoom)) {
-			zoom *= pps_document_misc_get_widget_dpi  (GTK_WIDGET (window)) / 72.0;
+			zoom *= pps_document_misc_get_widget_dpi (GTK_WIDGET (window)) / 72.0;
 			pps_document_model_set_scale (priv->model, zoom);
 		}
 	}
@@ -880,7 +855,7 @@ setup_model_from_metadata (PpsDocumentView *window)
 	/* Dual page */
 	if (pps_metadata_get_boolean (priv->metadata, "dual-page", &dual_page)) {
 		pps_document_model_set_page_layout (priv->model,
-			dual_page ? PPS_PAGE_LAYOUT_DUAL : PPS_PAGE_LAYOUT_SINGLE);
+		                                    dual_page ? PPS_PAGE_LAYOUT_DUAL : PPS_PAGE_LAYOUT_SINGLE);
 	}
 
 	/* Dual page odd pages left */
@@ -897,7 +872,7 @@ setup_model_from_metadata (PpsDocumentView *window)
 static void
 setup_document (PpsDocumentView *window)
 {
-	gint    page, n_pages;
+	gint page, n_pages;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
 	/* Make sure to not open a document on the last page,
@@ -926,7 +901,7 @@ setup_view_from_metadata (PpsDocumentView *window)
 	/* Caret navigation mode */
 	if (pps_view_supports_caret_navigation (PPS_VIEW (priv->view))) {
 		gboolean caret_navigation;
-		const gchar   *caret_position;
+		const gchar *caret_position;
 
 		if (pps_metadata_get_string (priv->metadata, "caret-position", &caret_position)) {
 			GVariant *position;
@@ -939,7 +914,7 @@ setup_view_from_metadata (PpsDocumentView *window)
 				g_variant_unref (position);
 
 				pps_view_set_caret_cursor_position (PPS_VIEW (priv->view),
-								   page, offset);
+				                                    page, offset);
 			}
 		}
 
@@ -950,21 +925,21 @@ setup_view_from_metadata (PpsDocumentView *window)
 
 static void
 page_cache_size_changed (GSettings *settings,
-			 gchar     *key,
-			 PpsDocumentView  *pps_doc_view)
+                         gchar *key,
+                         PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	guint page_cache_mb;
 
 	page_cache_mb = g_settings_get_uint (settings, GS_PAGE_CACHE_SIZE);
 	pps_view_set_page_cache_size (PPS_VIEW (priv->view),
-				     (gsize) page_cache_mb * 1024 * 1024);
+	                              (gsize) page_cache_mb * 1024 * 1024);
 }
 
 static void
 allow_links_change_zoom_changed (GSettings *settings,
-			 gchar     *key,
-			 PpsDocumentView  *pps_doc_view)
+                                 gchar *key,
+                                 PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	gboolean allow_links_change_zoom = g_settings_get_boolean (settings, GS_ALLOW_LINKS_CHANGE_ZOOM);
@@ -977,7 +952,7 @@ pps_document_view_setup_default (PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	PpsDocumentModel *model = priv->model;
-	GSettings       *settings = priv->default_settings;
+	GSettings *settings = priv->default_settings;
 	gboolean show_sidebar;
 	g_autofree gchar *annot_color = NULL;
 
@@ -996,8 +971,7 @@ pps_document_view_setup_default (PpsDocumentView *pps_doc_view)
 
 	/* Document model */
 	pps_document_model_set_continuous (model, g_settings_get_boolean (settings, "continuous"));
-	pps_document_model_set_page_layout (model, g_settings_get_boolean (settings, "dual-page") ?
-			PPS_PAGE_LAYOUT_DUAL : PPS_PAGE_LAYOUT_SINGLE);
+	pps_document_model_set_page_layout (model, g_settings_get_boolean (settings, "dual-page") ? PPS_PAGE_LAYOUT_DUAL : PPS_PAGE_LAYOUT_SINGLE);
 	pps_document_model_set_dual_page_odd_pages_left (model, g_settings_get_boolean (settings, "dual-page-odd-left"));
 	pps_document_model_set_rtl (model, gtk_widget_get_default_direction () == GTK_TEXT_DIR_RTL ? TRUE : FALSE);
 	pps_document_model_set_inverted_colors (model, g_settings_get_boolean (settings, "inverted-colors"));
@@ -1005,24 +979,26 @@ pps_document_view_setup_default (PpsDocumentView *pps_doc_view)
 	if (pps_document_model_get_sizing_mode (model) == PPS_SIZING_FREE)
 		pps_document_model_set_scale (model, g_settings_get_double (settings, "zoom"));
 
-	g_action_group_change_action_state (G_ACTION_GROUP (priv->document_action_group), "enable-spellchecking", g_variant_new_boolean (FALSE));
-
+	g_simple_action_set_state (
+	    G_SIMPLE_ACTION (g_action_map_lookup_action (G_ACTION_MAP (priv->document_action_group),
+	                                                 "enable-spellchecking")),
+	    g_variant_new_boolean (FALSE));
 	pps_view_set_enable_spellchecking (PPS_VIEW (priv->view),
-		g_settings_get_boolean (settings, "enable-spellchecking"));
+	                                   g_settings_get_boolean (settings, "enable-spellchecking"));
 }
 
 static void
 override_restrictions_changed (GSettings *settings,
-			       gchar     *key,
-			       PpsDocumentView  *pps_doc_view)
+                               gchar *key,
+                               PpsDocumentView *pps_doc_view)
 {
 	pps_document_view_update_actions_sensitivity (pps_doc_view);
 }
 
 static void
-lockdown_changed (GSettings   *lockdown,
-		  const gchar *key,
-		  PpsDocumentView    *pps_doc_view)
+lockdown_changed (GSettings *lockdown,
+                  const gchar *key,
+                  PpsDocumentView *pps_doc_view)
 {
 	pps_document_view_update_actions_sensitivity (pps_doc_view);
 }
@@ -1035,7 +1011,7 @@ pps_document_view_setup_lockdown (PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	GSettingsSchemaSource *source;
-	g_autoptr(GSettingsSchema) schema = NULL;
+	g_autoptr (GSettingsSchema) schema = NULL;
 	static gboolean probed = FALSE;
 
 	if (priv->lockdown_settings || probed)
@@ -1052,7 +1028,7 @@ pps_document_view_setup_lockdown (PpsDocumentView *pps_doc_view)
 	priv->lockdown_settings = g_settings_new_full (schema, NULL, NULL);
 
 	g_signal_connect (priv->lockdown_settings, "changed",
-			  G_CALLBACK (lockdown_changed), pps_doc_view);
+	                  G_CALLBACK (lockdown_changed), pps_doc_view);
 }
 
 static void
@@ -1080,18 +1056,18 @@ static void
 pps_document_view_setup_sidebar (PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
-	GSettings       *settings = priv->default_settings;
+	GSettings *settings = priv->default_settings;
 
 	// Use BIND_GET_NO_CHANGES so that when we have several DocumentViews
 	// One instance sidebar does not get updated when the other one applies
 	// the settings
 	g_settings_bind (settings, "sidebar-page",
-			 priv->sidebar, "visible-child-name",
-			 G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_GET_NO_CHANGES);
+	                 priv->sidebar, "visible-child-name",
+	                 G_SETTINGS_BIND_DEFAULT | G_SETTINGS_BIND_GET_NO_CHANGES);
 }
 
 /* Known backends (for bad extensions fix) */
-#define PPS_BACKEND_PS  "PSDocument"
+#define PPS_BACKEND_PS "PSDocument"
 #define PPS_BACKEND_PDF "PdfDocument"
 
 typedef struct
@@ -1101,7 +1077,7 @@ typedef struct
 } BadTitleEntry;
 
 /* Some docs report titles with confusing extensions (ex. .doc for pdf).
-	   Erase the confusing extension of the title */
+           Erase the confusing extension of the title */
 static void
 pps_document_view_sanitize_title (PpsDocumentView *pps_doc_view, char **title)
 {
@@ -1129,7 +1105,7 @@ pps_document_view_sanitize_title (PpsDocumentView *pps_doc_view, char **title)
 		    g_str_has_suffix (*title, bad_extensions[i].text)) {
 			char *new_title;
 
-			new_title = g_strndup (*title, strlen(*title) - strlen(bad_extensions[i].text));
+			new_title = g_strndup (*title, strlen (*title) - strlen (bad_extensions[i].text));
 			g_free (*title);
 			*title = new_title;
 		}
@@ -1139,7 +1115,7 @@ pps_document_view_sanitize_title (PpsDocumentView *pps_doc_view, char **title)
 		if (g_ascii_strcasecmp (bad_prefixes[i].backend, backend) == 0 &&
 		    g_str_has_prefix (*title, bad_prefixes[i].text)) {
 			char *new_title;
-			int len = strlen(bad_prefixes[i].text);
+			int len = strlen (bad_prefixes[i].text);
 
 			new_title = g_strdup_printf ("%s", (*title) + len);
 			g_free (*title);
@@ -1170,11 +1146,11 @@ pps_document_view_update_title (PpsDocumentView *pps_doc_view)
 		doc_title = g_strstrip (doc_title);
 
 		if (doc_title[0] != '\0' &&
-			g_utf8_validate (doc_title, -1, NULL)) {
+		    g_utf8_validate (doc_title, -1, NULL)) {
 			pps_document_view_sanitize_title (pps_doc_view, &doc_title);
 		} else {
 			g_clear_pointer (&doc_title, g_free);
-                }
+		}
 	}
 
 	ltr = gtk_widget_get_direction (GTK_WIDGET (pps_doc_view)) == GTK_TEXT_DIR_LTR;
@@ -1188,15 +1164,15 @@ pps_document_view_update_title (PpsDocumentView *pps_doc_view)
 		else
 			title = g_strdup_printf ("%s — %s", title_header, subtitle);
 
-                for (p = title; *p; ++p) {
-                        /* an '\n' byte is always ASCII, no need for UTF-8 special casing */
-                        if (*p == '\n')
-                                *p = ' ';
-                }
+		for (p = title; *p; ++p) {
+			/* an '\n' byte is always ASCII, no need for UTF-8 special casing */
+			if (*p == '\n')
+				*p = ' ';
+		}
 	} else if (priv->display_name) {
 		title = g_strdup (priv->display_name);
 	} else {
-		title = g_strdup (_("Papers"));
+		title = g_strdup (_ ("Papers"));
 	}
 
 	native = gtk_widget_get_native (GTK_WIDGET (pps_doc_view));
@@ -1216,7 +1192,7 @@ pps_document_view_update_title (PpsDocumentView *pps_doc_view)
 
 static void
 signatures_job_finished_callback (PpsJobSignatures *job,
-                                  PpsDocumentView  *pps_doc_view)
+                                  PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	gboolean is_invalid = FALSE;
@@ -1236,10 +1212,10 @@ signatures_job_finished_callback (PpsJobSignatures *job,
 
 	if (is_invalid) {
 		gtk_widget_add_css_class (priv->signature_banner, "error");
-		adw_banner_set_title (ADW_BANNER (priv->signature_banner), _("Digital Signature is invalid!"));
+		adw_banner_set_title (ADW_BANNER (priv->signature_banner), _ ("Digital Signature is invalid!"));
 	} else {
 		gtk_widget_remove_css_class (priv->signature_banner, "error");
-		adw_banner_set_title (ADW_BANNER (priv->signature_banner), _("Document has been digitally signed."));
+		adw_banner_set_title (ADW_BANNER (priv->signature_banner), _ ("Document has been digitally signed."));
 	}
 	adw_banner_set_revealed (ADW_BANNER (priv->signature_banner), TRUE);
 }
@@ -1270,10 +1246,10 @@ pps_document_view_set_document (PpsDocumentView *pps_doc_view, PpsDocument *docu
 
 	if (pps_document_get_n_pages (document) <= 0) {
 		pps_document_view_warning_message (pps_doc_view, "%s",
-					   _("The document contains no pages"));
+		                                   _ ("The document contains no pages"));
 	} else if (!pps_document_check_dimensions (document)) {
 		pps_document_view_warning_message (pps_doc_view, "%s",
-					   _("The document contains only empty pages"));
+		                                   _ ("The document contains only empty pages"));
 	}
 
 	pps_document_view_update_actions_sensitivity (pps_doc_view);
@@ -1310,7 +1286,7 @@ pps_document_view_clear_local_uri (PpsDocumentView *pps_doc_view)
 
 static void
 pps_document_view_handle_link (PpsDocumentView *pps_doc_view,
-		       PpsLinkDest *dest)
+                               PpsLinkDest *dest)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
@@ -1362,10 +1338,10 @@ pps_document_view_reset_progress_cancellable (PpsDocumentView *pps_doc_view)
  *
  */
 void
-pps_document_view_open_document (PpsDocumentView  *pps_doc_view,
-				 PpsDocument *document,
-				 PpsMetadata *metadata,
-				 PpsLinkDest *dest)
+pps_document_view_open_document (PpsDocumentView *pps_doc_view,
+                                 PpsDocument *document,
+                                 PpsMetadata *metadata,
+                                 PpsLinkDest *dest)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
@@ -1397,80 +1373,80 @@ pps_document_view_open_document (PpsDocumentView  *pps_doc_view,
 static const gchar *
 get_settings_key_for_directory (GUserDirectory directory)
 {
-        switch (directory) {
-                case G_USER_DIRECTORY_PICTURES:
-                        return GS_LAST_PICTURES_DIRECTORY;
-                case G_USER_DIRECTORY_DOCUMENTS:
-                default:
-                        return GS_LAST_DOCUMENT_DIRECTORY;
-        }
+	switch (directory) {
+	case G_USER_DIRECTORY_PICTURES:
+		return GS_LAST_PICTURES_DIRECTORY;
+	case G_USER_DIRECTORY_DOCUMENTS:
+	default:
+		return GS_LAST_DOCUMENT_DIRECTORY;
+	}
 }
 
 static void
-pps_document_view_file_dialog_restore_folder (PpsDocumentView       *window,
-				       GtkFileDialog   *dialog,
-				       GUserDirectory   directory)
+pps_document_view_file_dialog_restore_folder (PpsDocumentView *window,
+                                              GtkFileDialog *dialog,
+                                              GUserDirectory directory)
 {
-        const gchar *dir;
-        gchar *folder_path;
-        GFile *folder;
+	const gchar *dir;
+	gchar *folder_path;
+	GFile *folder;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
-        g_settings_get (priv->settings,
-                        get_settings_key_for_directory (directory),
-                        "ms", &folder_path);
+	g_settings_get (priv->settings,
+	                get_settings_key_for_directory (directory),
+	                "ms", &folder_path);
 
-        dir = g_get_user_special_dir (directory);
-        folder_path = folder_path ?: g_strdup (dir) ?: g_strdup (g_get_home_dir ());
+	dir = g_get_user_special_dir (directory);
+	folder_path = folder_path ?: g_strdup (dir) ?
+	                                            : g_strdup (g_get_home_dir ());
 
-        folder = g_file_new_for_path (folder_path);
+	folder = g_file_new_for_path (folder_path);
 	gtk_file_dialog_set_initial_folder (dialog, folder);
 
-        g_free (folder_path);
-        g_object_unref (folder);
+	g_free (folder_path);
+	g_object_unref (folder);
 }
 
 static void
-pps_document_view_file_dialog_save_folder (PpsDocumentView       *window,
-				    GFile           *file,
-				    GUserDirectory   directory)
+pps_document_view_file_dialog_save_folder (PpsDocumentView *window,
+                                           GFile *file,
+                                           GUserDirectory directory)
 {
-        gchar *path = NULL;
-        GFile *folder = NULL;
+	gchar *path = NULL;
+	GFile *folder = NULL;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
 	if (file)
 		folder = g_file_get_parent (file);
 
-
 	/* Store 'nothing' if the folder is the default one */
-        if (folder && g_strcmp0 (g_file_get_path (folder), g_get_user_special_dir (directory)) != 0)
-                path = g_file_get_path (folder);
+	if (folder && g_strcmp0 (g_file_get_path (folder), g_get_user_special_dir (directory)) != 0)
+		path = g_file_get_path (folder);
 
 	g_clear_object (&folder);
 
 	g_settings_set (priv->settings,
-                        get_settings_key_for_directory (directory),
-                        "ms", path);
-        g_free (path);
+	                get_settings_key_for_directory (directory),
+	                "ms", path);
+	g_free (path);
 }
 
 static void
-pps_document_view_open_copy_at_dest (PpsDocumentView   *window,
-			     PpsLinkDest *dest)
+pps_document_view_open_copy_at_dest (PpsDocumentView *window,
+                                     PpsLinkDest *dest)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
 	GtkNative *native = gtk_widget_get_native (GTK_WIDGET (window));
 
 	g_signal_emit_by_name (native, "open-copy", priv->metadata, dest,
-			       priv->display_name, priv->edit_name, NULL);
+	                       priv->display_name, priv->edit_name, NULL);
 }
 
 static void
 pps_document_view_cmd_file_open_copy (GSimpleAction *action,
-			      GVariant      *parameter,
-			      gpointer       user_data)
+                                      GVariant *parameter,
+                                      gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 
@@ -1479,8 +1455,8 @@ pps_document_view_cmd_file_open_copy (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_file_open_with (GSimpleAction *action,
-                               GVariant      *parameter,
-                               gpointer       user_data)
+                                      GVariant *parameter,
+                                      gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 	const char *uri;
@@ -1491,22 +1467,22 @@ pps_document_view_cmd_file_open_with (GSimpleAction *action,
 	file = g_file_new_for_uri (uri);
 	launcher = gtk_file_launcher_new (file);
 	gtk_file_launcher_launch (launcher,
-				  GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (window))),
-				  NULL, NULL, NULL);
+	                          GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (window))),
+	                          NULL, NULL, NULL);
 }
 
 static void
-window_save_file_copy_ready_cb (GFile        *src,
-				GAsyncResult *async_result,
-				GFile        *dst)
+window_save_file_copy_ready_cb (GFile *src,
+                                GAsyncResult *async_result,
+                                GFile *dst)
 {
 	PpsDocumentView *pps_doc_view;
-	GError   *error = NULL;
+	GError *error = NULL;
 
 	pps_doc_view = PPS_DOCUMENT_VIEW (g_object_get_data (G_OBJECT (dst), "pps-window"));
 
 	if (g_file_copy_finish (src, async_result, &error)) {
-		pps_document_view_warning_message (pps_doc_view, _("File Saved"));
+		pps_document_view_warning_message (pps_doc_view, _ ("File Saved"));
 		pps_tmp_file_unlink (src);
 		return;
 	}
@@ -1516,8 +1492,8 @@ window_save_file_copy_ready_cb (GFile        *src,
 
 		name = g_file_get_basename (dst);
 		pps_document_view_error_message (pps_doc_view, error,
-					 _("The file could not be saved as “%s”."),
-					 name);
+		                                 _ ("The file could not be saved as “%s”."),
+		                                 name);
 		g_free (name);
 	}
 	pps_tmp_file_unlink (src);
@@ -1525,22 +1501,22 @@ window_save_file_copy_ready_cb (GFile        *src,
 }
 
 static void
-pps_document_view_save_remote (PpsDocumentView  *pps_doc_view,
-		       GFile     *src,
-		       GFile     *dst)
+pps_document_view_save_remote (PpsDocumentView *pps_doc_view,
+                               GFile *src,
+                               GFile *dst)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
 	pps_document_view_reset_progress_cancellable (pps_doc_view);
 	g_object_set_data (G_OBJECT (dst), "pps-window", pps_doc_view);
 	g_file_copy_async (src, dst,
-			   G_FILE_COPY_OVERWRITE,
-			   G_PRIORITY_DEFAULT,
-			   priv->progress_cancellable,
-			   NULL,
-			   dst,
-			   (GAsyncReadyCallback)window_save_file_copy_ready_cb,
-			   dst);
+	                   G_FILE_COPY_OVERWRITE,
+	                   G_PRIORITY_DEFAULT,
+	                   priv->progress_cancellable,
+	                   NULL,
+	                   dst,
+	                   (GAsyncReadyCallback) window_save_file_copy_ready_cb,
+	                   dst);
 }
 
 static void
@@ -1553,15 +1529,15 @@ pps_document_view_clear_save_job (PpsDocumentView *pps_doc_view)
 			pps_job_cancel (priv->save_job);
 
 		g_signal_handlers_disconnect_by_func (priv->save_job,
-						      pps_document_view_save_job_cb,
-						      pps_doc_view);
+		                                      pps_document_view_save_job_cb,
+		                                      pps_doc_view);
 		g_clear_object (&priv->save_job);
 	}
 }
 
 static void
-pps_document_view_save_job_cb (PpsJob     *job,
-		       PpsDocumentView  *window)
+pps_document_view_save_job_cb (PpsJob *job,
+                               PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 	g_autoptr (GError) error = NULL;
@@ -1569,23 +1545,23 @@ pps_document_view_save_job_cb (PpsJob     *job,
 	if (!pps_job_is_succeeded (job, &error)) {
 		priv->close_after_save = FALSE;
 		pps_document_view_error_message (window, error,
-					 _("The file could not be saved as “%s”."),
-					 pps_job_save_get_uri (PPS_JOB_SAVE (job)));
+		                                 _ ("The file could not be saved as “%s”."),
+		                                 pps_job_save_get_uri (PPS_JOB_SAVE (job)));
 	} else {
 		gtk_recent_manager_add_item (gtk_recent_manager_get_default (),
-					     pps_job_save_get_uri (PPS_JOB_SAVE (job)));
+		                             pps_job_save_get_uri (PPS_JOB_SAVE (job)));
 	}
 
 	pps_document_view_clear_save_job (window);
 
 	if (priv->close_after_save)
-		g_idle_add_once ((GSourceOnceFunc)gtk_window_destroy, gtk_widget_get_native (GTK_WIDGET (window)));
+		g_idle_add_once ((GSourceOnceFunc) gtk_window_destroy, gtk_widget_get_native (GTK_WIDGET (window)));
 }
 
 static void
-file_save_dialog_response_cb (GtkFileDialog	*dialog,
-			      GAsyncResult	*result,
-			      PpsDocumentView		*pps_doc_view)
+file_save_dialog_response_cb (GtkFileDialog *dialog,
+                              GAsyncResult *result,
+                              PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	GFile *file;
@@ -1598,8 +1574,8 @@ file_save_dialog_response_cb (GtkFileDialog	*dialog,
 		return;
 	}
 
-        pps_document_view_file_dialog_save_folder (pps_doc_view, file,
-                                            G_USER_DIRECTORY_DOCUMENTS);
+	pps_document_view_file_dialog_save_folder (pps_doc_view, file,
+	                                           G_USER_DIRECTORY_DOCUMENTS);
 
 	uri = g_file_get_uri (file);
 	g_clear_object (&file);
@@ -1610,10 +1586,10 @@ file_save_dialog_response_cb (GtkFileDialog	*dialog,
 
 	pps_document_view_clear_save_job (pps_doc_view);
 	priv->save_job = pps_job_save_new (priv->document,
-						     uri, priv->uri);
+	                                   uri, priv->uri);
 	g_signal_connect (priv->save_job, "finished",
-			  G_CALLBACK (pps_document_view_save_job_cb),
-			  pps_doc_view);
+	                  G_CALLBACK (pps_document_view_save_job_cb),
+	                  pps_doc_view);
 	/* The priority doesn't matter for this job */
 	pps_job_scheduler_push_job (priv->save_job, PPS_JOB_PRIORITY_NONE);
 
@@ -1631,7 +1607,7 @@ pps_document_view_save_as (PpsDocumentView *pps_doc_view)
 
 	dialog = gtk_file_dialog_new ();
 
-	gtk_file_dialog_set_title (dialog, _("Save As…"));
+	gtk_file_dialog_set_title (dialog, _ ("Save As…"));
 	pps_document_factory_add_filters (dialog, priv->document);
 
 	file = g_file_new_for_uri (priv->uri);
@@ -1643,15 +1619,15 @@ pps_document_view_save_as (PpsDocumentView *pps_doc_view)
 	gtk_file_dialog_set_initial_name (dialog, base_name);
 
 	documents_dir = g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS);
-	default_dir = g_file_test (documents_dir, G_FILE_TEST_EXISTS | G_FILE_TEST_IS_DIR) ?
-	              documents_dir : g_get_home_dir ();
+	default_dir = g_file_test (documents_dir, G_FILE_TEST_EXISTS | G_FILE_TEST_IS_DIR) ? documents_dir : g_get_home_dir ();
 
 	tmp_dir = g_build_filename ("tmp", NULL);
 	var_tmp_dir = g_build_filename ("var", "tmp", NULL);
 	dest_dir = dir_name && !g_str_has_prefix (dir_name, g_get_tmp_dir ()) &&
-			    !g_str_has_prefix (dir_name, tmp_dir) &&
-	                    !g_str_has_prefix (dir_name, var_tmp_dir) ?
-	                    dir_name : default_dir;
+	                   !g_str_has_prefix (dir_name, tmp_dir) &&
+	                   !g_str_has_prefix (dir_name, var_tmp_dir)
+	               ? dir_name
+	               : default_dir;
 
 	dest_file = g_file_new_for_path (dest_dir);
 	gtk_file_dialog_set_initial_folder (dialog, dest_file);
@@ -1665,13 +1641,13 @@ pps_document_view_save_as (PpsDocumentView *pps_doc_view)
 	gtk_file_dialog_set_modal (dialog, TRUE);
 
 	gtk_file_dialog_save (dialog, GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (pps_doc_view))), NULL,
-			(GAsyncReadyCallback)file_save_dialog_response_cb, pps_doc_view);
+	                      (GAsyncReadyCallback) file_save_dialog_response_cb, pps_doc_view);
 }
 
 static void
 pps_document_view_cmd_save_as (GSimpleAction *action,
-		       GVariant      *parameter,
-		       gpointer       user_data)
+                               GVariant *parameter,
+                               gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 
@@ -1682,7 +1658,7 @@ static gchar *
 print_settings_filename (gboolean create)
 {
 	if (create) {
-		g_autofree gchar *dot_dir = g_build_filename (g_get_user_config_dir (),"papers", NULL);
+		g_autofree gchar *dot_dir = g_build_filename (g_get_user_config_dir (), "papers", NULL);
 		g_mkdir_with_parents (dot_dir, 0700);
 	}
 
@@ -1693,23 +1669,23 @@ static GKeyFile *
 get_print_settings_file (void)
 {
 	GKeyFile *print_settings_file;
-	gchar    *filename;
-        GError *error = NULL;
+	gchar *filename;
+	GError *error = NULL;
 
 	print_settings_file = g_key_file_new ();
 
 	filename = print_settings_filename (FALSE);
-        if (!g_key_file_load_from_file (print_settings_file,
-                                        filename,
-                                        G_KEY_FILE_KEEP_COMMENTS |
-                                        G_KEY_FILE_KEEP_TRANSLATIONS,
-                                        &error)) {
+	if (!g_key_file_load_from_file (print_settings_file,
+	                                filename,
+	                                G_KEY_FILE_KEEP_COMMENTS |
+	                                    G_KEY_FILE_KEEP_TRANSLATIONS,
+	                                &error)) {
 
-                /* Don't warn if the file simply doesn't exist */
-                if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
+		/* Don't warn if the file simply doesn't exist */
+		if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
 			g_warning ("%s", error->message);
 
-                g_error_free (error);
+		g_error_free (error);
 	}
 
 	g_free (filename);
@@ -1720,7 +1696,7 @@ get_print_settings_file (void)
 static void
 save_print_setting_file (GKeyFile *key_file)
 {
-	gchar  *filename;
+	gchar *filename;
 	GError *error = NULL;
 
 	filename = print_settings_filename (TRUE);
@@ -1733,12 +1709,12 @@ save_print_setting_file (GKeyFile *key_file)
 }
 
 static void
-pps_document_view_save_print_settings (PpsDocumentView         *window,
-			       GtkPrintSettings *print_settings)
+pps_document_view_save_print_settings (PpsDocumentView *window,
+                                       GtkPrintSettings *print_settings)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 	GKeyFile *key_file;
-	gint      i;
+	gint i;
 
 	key_file = get_print_settings_file ();
 	gtk_print_settings_to_key_file (print_settings, key_file, PPS_PRINT_SETTINGS_GROUP);
@@ -1750,15 +1726,15 @@ pps_document_view_save_print_settings (PpsDocumentView         *window,
 	for (i = 0; i < G_N_ELEMENTS (document_print_settings); i++) {
 		/* Remove it from global settings */
 		g_key_file_remove_key (key_file, PPS_PRINT_SETTINGS_GROUP,
-				       document_print_settings[i], NULL);
+		                       document_print_settings[i], NULL);
 
 		if (priv->metadata) {
 			const gchar *value;
 
 			value = gtk_print_settings_get (print_settings,
-							document_print_settings[i]);
+			                                document_print_settings[i]);
 			pps_metadata_set_string (priv->metadata,
-						document_print_settings[i], value);
+			                         document_print_settings[i], value);
 		}
 	}
 
@@ -1767,8 +1743,8 @@ pps_document_view_save_print_settings (PpsDocumentView         *window,
 }
 
 static void
-pps_document_view_save_print_page_setup (PpsDocumentView     *window,
-				 GtkPageSetup *page_setup)
+pps_document_view_save_print_page_setup (PpsDocumentView *window,
+                                         GtkPageSetup *page_setup)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 	GKeyFile *key_file;
@@ -1778,15 +1754,15 @@ pps_document_view_save_print_page_setup (PpsDocumentView     *window,
 
 	/* Do not save document settings in global file */
 	g_key_file_remove_key (key_file, PPS_PAGE_SETUP_GROUP,
-			       "page-setup-orientation", NULL);
+	                       "page-setup-orientation", NULL);
 	g_key_file_remove_key (key_file, PPS_PAGE_SETUP_GROUP,
-			       "page-setup-margin-top", NULL);
+	                       "page-setup-margin-top", NULL);
 	g_key_file_remove_key (key_file, PPS_PAGE_SETUP_GROUP,
-			       "page-setup-margin-bottom", NULL);
+	                       "page-setup-margin-bottom", NULL);
 	g_key_file_remove_key (key_file, PPS_PAGE_SETUP_GROUP,
-			       "page-setup-margin-left", NULL);
+	                       "page-setup-margin-left", NULL);
 	g_key_file_remove_key (key_file, PPS_PAGE_SETUP_GROUP,
-			       "page-setup-margin-right", NULL);
+	                       "page-setup-margin-right", NULL);
 
 	save_print_setting_file (key_file);
 	g_key_file_free (key_file);
@@ -1796,20 +1772,20 @@ pps_document_view_save_print_page_setup (PpsDocumentView     *window,
 
 	/* Save page setup options that are specific to the document */
 	pps_metadata_set_int (priv->metadata, "page-setup-orientation",
-			     gtk_page_setup_get_orientation (page_setup));
+	                      gtk_page_setup_get_orientation (page_setup));
 	pps_metadata_set_double (priv->metadata, "page-setup-margin-top",
-				gtk_page_setup_get_top_margin (page_setup, GTK_UNIT_MM));
+	                         gtk_page_setup_get_top_margin (page_setup, GTK_UNIT_MM));
 	pps_metadata_set_double (priv->metadata, "page-setup-margin-bottom",
-				gtk_page_setup_get_bottom_margin (page_setup, GTK_UNIT_MM));
+	                         gtk_page_setup_get_bottom_margin (page_setup, GTK_UNIT_MM));
 	pps_metadata_set_double (priv->metadata, "page-setup-margin-left",
-				gtk_page_setup_get_left_margin (page_setup, GTK_UNIT_MM));
+	                         gtk_page_setup_get_left_margin (page_setup, GTK_UNIT_MM));
 	pps_metadata_set_double (priv->metadata, "page-setup-margin-right",
-				gtk_page_setup_get_right_margin (page_setup, GTK_UNIT_MM));
+	                         gtk_page_setup_get_right_margin (page_setup, GTK_UNIT_MM));
 }
 
 static void
-pps_document_view_load_print_settings_from_metadata (PpsDocumentView         *window,
-					     GtkPrintSettings *print_settings)
+pps_document_view_load_print_settings_from_metadata (PpsDocumentView *window,
+                                                     GtkPrintSettings *print_settings)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 	gint i;
@@ -1822,19 +1798,19 @@ pps_document_view_load_print_settings_from_metadata (PpsDocumentView         *wi
 		const gchar *value = NULL;
 
 		pps_metadata_get_string (priv->metadata,
-					document_print_settings[i], &value);
+		                         document_print_settings[i], &value);
 		gtk_print_settings_set (print_settings,
-					document_print_settings[i], value);
+		                        document_print_settings[i], value);
 	}
 }
 
 static void
-pps_document_view_load_print_page_setup_from_metadata (PpsDocumentView     *window,
-					       GtkPageSetup *page_setup)
+pps_document_view_load_print_page_setup_from_metadata (PpsDocumentView *window,
+                                                       GtkPageSetup *page_setup)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
-	gint          int_value;
-	gdouble       double_value;
+	gint int_value;
+	gdouble double_value;
 	GtkPaperSize *paper_size = gtk_page_setup_get_paper_size (page_setup);
 
 	/* Load page setup options that are specific to the document */
@@ -1850,8 +1826,8 @@ pps_document_view_load_print_page_setup_from_metadata (PpsDocumentView     *wind
 		gtk_page_setup_set_top_margin (page_setup, double_value, GTK_UNIT_MM);
 	} else {
 		gtk_page_setup_set_top_margin (page_setup,
-					       gtk_paper_size_get_default_top_margin (paper_size, GTK_UNIT_MM),
-					       GTK_UNIT_MM);
+		                               gtk_paper_size_get_default_top_margin (paper_size, GTK_UNIT_MM),
+		                               GTK_UNIT_MM);
 	}
 
 	if (priv->metadata &&
@@ -1859,8 +1835,8 @@ pps_document_view_load_print_page_setup_from_metadata (PpsDocumentView     *wind
 		gtk_page_setup_set_bottom_margin (page_setup, double_value, GTK_UNIT_MM);
 	} else {
 		gtk_page_setup_set_bottom_margin (page_setup,
-						  gtk_paper_size_get_default_bottom_margin (paper_size, GTK_UNIT_MM),
-						  GTK_UNIT_MM);
+		                                  gtk_paper_size_get_default_bottom_margin (paper_size, GTK_UNIT_MM),
+		                                  GTK_UNIT_MM);
 	}
 
 	if (priv->metadata &&
@@ -1868,8 +1844,8 @@ pps_document_view_load_print_page_setup_from_metadata (PpsDocumentView     *wind
 		gtk_page_setup_set_left_margin (page_setup, double_value, GTK_UNIT_MM);
 	} else {
 		gtk_page_setup_set_left_margin (page_setup,
-						gtk_paper_size_get_default_left_margin (paper_size, GTK_UNIT_MM),
-						GTK_UNIT_MM);
+		                                gtk_paper_size_get_default_left_margin (paper_size, GTK_UNIT_MM),
+		                                GTK_UNIT_MM);
 	}
 
 	if (priv->metadata &&
@@ -1877,8 +1853,8 @@ pps_document_view_load_print_page_setup_from_metadata (PpsDocumentView     *wind
 		gtk_page_setup_set_right_margin (page_setup, double_value, GTK_UNIT_MM);
 	} else {
 		gtk_page_setup_set_right_margin (page_setup,
-						 gtk_paper_size_get_default_right_margin (paper_size, GTK_UNIT_MM),
-						 GTK_UNIT_MM);
+		                                 gtk_paper_size_get_default_right_margin (paper_size, GTK_UNIT_MM),
+		                                 GTK_UNIT_MM);
 	}
 }
 
@@ -1887,9 +1863,7 @@ get_print_settings (GKeyFile *key_file)
 {
 	GtkPrintSettings *print_settings;
 
-	print_settings = g_key_file_has_group (key_file, PPS_PRINT_SETTINGS_GROUP) ?
-		gtk_print_settings_new_from_key_file (key_file, PPS_PRINT_SETTINGS_GROUP, NULL) :
-		gtk_print_settings_new ();
+	print_settings = g_key_file_has_group (key_file, PPS_PRINT_SETTINGS_GROUP) ? gtk_print_settings_new_from_key_file (key_file, PPS_PRINT_SETTINGS_GROUP, NULL) : gtk_print_settings_new ();
 
 	return print_settings ? print_settings : gtk_print_settings_new ();
 }
@@ -1899,9 +1873,7 @@ get_print_page_setup (GKeyFile *key_file)
 {
 	GtkPageSetup *page_setup;
 
-	page_setup = g_key_file_has_group (key_file, PPS_PAGE_SETUP_GROUP) ?
-		gtk_page_setup_new_from_key_file (key_file, PPS_PAGE_SETUP_GROUP, NULL) :
-		gtk_page_setup_new ();
+	page_setup = g_key_file_has_group (key_file, PPS_PAGE_SETUP_GROUP) ? gtk_page_setup_new_from_key_file (key_file, PPS_PAGE_SETUP_GROUP, NULL) : gtk_page_setup_new ();
 
 	return page_setup ? page_setup : gtk_page_setup_new ();
 }
@@ -1922,7 +1894,7 @@ pps_document_view_print_cancel (PpsDocumentView *pps_doc_view)
 
 static void
 pps_document_view_print_update_pending_jobs_message (PpsDocumentView *pps_doc_view,
-					     gint      n_jobs)
+                                                     gint n_jobs)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	gchar *text = NULL;
@@ -1938,19 +1910,20 @@ pps_document_view_print_update_pending_jobs_message (PpsDocumentView *pps_doc_vi
 
 	if (n_jobs > 1) {
 		text = g_strdup_printf (ngettext ("%d pending job in queue",
-						  "%d pending jobs in queue",
-						  n_jobs - 1), n_jobs - 1);
+		                                  "%d pending jobs in queue",
+		                                  n_jobs - 1),
+		                        n_jobs - 1);
 	}
 
 	pps_message_area_set_secondary_text (PPS_MESSAGE_AREA (priv->message_area),
-					    text);
+	                                     text);
 	g_free (text);
 }
 
 static void
-pps_document_view_print_operation_done (PpsPrintOperation       *op,
-				GtkPrintOperationResult result,
-				PpsDocumentView               *pps_doc_view)
+pps_document_view_print_operation_done (PpsPrintOperation *op,
+                                        GtkPrintOperationResult result,
+                                        PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	gint n_jobs;
@@ -1970,17 +1943,16 @@ pps_document_view_print_operation_done (PpsPrintOperation       *op,
 		}
 	}
 
-		break;
+	break;
 	case GTK_PRINT_OPERATION_RESULT_ERROR: {
-		GError    *error = NULL;
+		GError *error = NULL;
 
 		pps_print_operation_get_error (op, &error);
 
-		pps_document_view_error_message (pps_doc_view, error, _("Failed to Print Document"));
+		pps_document_view_error_message (pps_doc_view, error, _ ("Failed to Print Document"));
 
 		g_error_free (error);
-	}
-		break;
+	} break;
 	case GTK_PRINT_OPERATION_RESULT_CANCEL:
 	default:
 		break;
@@ -1992,14 +1964,14 @@ pps_document_view_print_operation_done (PpsPrintOperation       *op,
 	pps_document_view_print_update_pending_jobs_message (pps_doc_view, n_jobs);
 
 	if (n_jobs == 0 && priv->close_after_print)
-		g_idle_add_once ((GSourceOnceFunc)gtk_window_destroy,
-				 gtk_widget_get_native (GTK_WIDGET (pps_doc_view)));
+		g_idle_add_once ((GSourceOnceFunc) gtk_window_destroy,
+		                 gtk_widget_get_native (GTK_WIDGET (pps_doc_view)));
 }
 
 static void
 pps_document_view_print_progress_response_cb (PpsProgressMessageArea *area,
-				      gint                   response,
-				      PpsDocumentView              *pps_doc_view)
+                                              gint response,
+                                              PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
@@ -2015,43 +1987,43 @@ pps_document_view_print_progress_response_cb (PpsProgressMessageArea *area,
 
 static void
 pps_document_view_print_operation_status_changed (PpsPrintOperation *op,
-					  PpsDocumentView         *pps_doc_view)
+                                                  PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	const gchar *status;
-	gdouble      fraction;
+	gdouble fraction;
 
 	status = pps_print_operation_get_status (op);
 	fraction = pps_print_operation_get_progress (op);
 
 	if (!priv->message_area) {
-		GtkWidget   *area;
+		GtkWidget *area;
 		const gchar *job_name;
-		gchar       *text;
+		gchar *text;
 
 		job_name = pps_print_operation_get_job_name (op);
-		text = g_strdup_printf (_("Printing job “%s”"), job_name);
+		text = g_strdup_printf (_ ("Printing job “%s”"), job_name);
 
 		area = pps_progress_message_area_new ("document-print-symbolic", text);
-		pps_message_area_add_button (PPS_MESSAGE_AREA (area), _("C_ancel"), GTK_RESPONSE_CANCEL);
+		pps_message_area_add_button (PPS_MESSAGE_AREA (area), _ ("C_ancel"), GTK_RESPONSE_CANCEL);
 		pps_document_view_print_update_pending_jobs_message (pps_doc_view, 1);
 		g_signal_connect (pps_message_area_get_info_bar (PPS_MESSAGE_AREA (area)), "response",
-				  G_CALLBACK (pps_document_view_print_progress_response_cb),
-				  pps_doc_view);
+		                  G_CALLBACK (pps_document_view_print_progress_response_cb),
+		                  pps_doc_view);
 
 		pps_document_view_set_message_area (pps_doc_view, area);
 		g_free (text);
 	}
 
 	pps_progress_message_area_set_status (PPS_PROGRESS_MESSAGE_AREA (priv->message_area),
-					     status);
+	                                      status);
 	pps_progress_message_area_set_fraction (PPS_PROGRESS_MESSAGE_AREA (priv->message_area),
-					       fraction);
+	                                        fraction);
 }
 
 static void
 pps_document_view_print_operation_begin_print (PpsPrintOperation *op,
-				       PpsDocumentView         *pps_doc_view)
+                                               PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
@@ -2060,25 +2032,25 @@ pps_document_view_print_operation_begin_print (PpsPrintOperation *op,
 
 	g_queue_push_head (priv->print_queue, op);
 	pps_document_view_print_update_pending_jobs_message (pps_doc_view,
-						     g_queue_get_length (priv->print_queue));
+	                                                     g_queue_get_length (priv->print_queue));
 }
 
 void
 pps_document_view_print_range (PpsDocumentView *pps_doc_view,
-		       gint      first_page,
-		       gint      last_page)
+                               gint first_page,
+                               gint last_page)
 {
 	PpsPrintOperation *op;
-	GKeyFile         *print_settings_file;
+	GKeyFile *print_settings_file;
 	GtkPrintSettings *print_settings;
-	GtkPageSetup     *print_page_setup;
-	gint              current_page;
-	gint              document_last_page;
-	gboolean          embed_page_setup;
-	gchar            *output_basename;
-	gchar            *dot;
+	GtkPageSetup *print_page_setup;
+	gint current_page;
+	gint document_last_page;
+	gboolean embed_page_setup;
+	gchar *output_basename;
+	gchar *dot;
 	PpsDocumentViewPrivate *priv;
-	GtkNative	 *native;
+	GtkNative *native;
 
 	g_return_if_fail (PPS_IS_DOCUMENT_VIEW (pps_doc_view));
 	priv = GET_PRIVATE (pps_doc_view);
@@ -2094,14 +2066,14 @@ pps_document_view_print_range (PpsDocumentView *pps_doc_view,
 	}
 
 	g_signal_connect (op, "begin_print",
-			  G_CALLBACK (pps_document_view_print_operation_begin_print),
-			  (gpointer)pps_doc_view);
+	                  G_CALLBACK (pps_document_view_print_operation_begin_print),
+	                  (gpointer) pps_doc_view);
 	g_signal_connect (op, "status_changed",
-			  G_CALLBACK (pps_document_view_print_operation_status_changed),
-			  (gpointer)pps_doc_view);
+	                  G_CALLBACK (pps_document_view_print_operation_status_changed),
+	                  (gpointer) pps_doc_view);
 	g_signal_connect (op, "done",
-			  G_CALLBACK (pps_document_view_print_operation_done),
-			  (gpointer)pps_doc_view);
+	                  G_CALLBACK (pps_document_view_print_operation_done),
+	                  (gpointer) pps_doc_view);
 
 	current_page = pps_document_model_get_page (priv->model);
 	document_last_page = pps_document_get_n_pages (priv->document);
@@ -2122,9 +2094,9 @@ pps_document_view_print_range (PpsDocumentView *pps_doc_view,
 		range.end = last_page - 1;
 
 		gtk_print_settings_set_print_pages (print_settings,
-						    GTK_PRINT_PAGES_RANGES);
+		                                    GTK_PRINT_PAGES_RANGES);
 		gtk_print_settings_set_page_ranges (print_settings,
-						    &range, 1);
+		                                    &range, 1);
 	}
 
 	output_basename = g_strdup (priv->edit_name);
@@ -2134,8 +2106,8 @@ pps_document_view_print_range (PpsDocumentView *pps_doc_view,
 
 	/* Set output basename for printing to file */
 	gtk_print_settings_set (print_settings,
-			        GTK_PRINT_SETTINGS_OUTPUT_BASENAME,
-			        output_basename);
+	                        GTK_PRINT_SETTINGS_OUTPUT_BASENAME,
+	                        output_basename);
 	g_free (output_basename);
 
 	native = gtk_widget_get_native (GTK_WIDGET (pps_doc_view));
@@ -2144,10 +2116,9 @@ pps_document_view_print_range (PpsDocumentView *pps_doc_view,
 	pps_print_operation_set_current_page (op, current_page);
 	pps_print_operation_set_print_settings (op, print_settings);
 	pps_print_operation_set_default_page_setup (op, print_page_setup);
-	embed_page_setup = priv->lockdown_settings ?
-		!g_settings_get_boolean (priv->lockdown_settings,
-					 GS_LOCKDOWN_PRINT_SETUP) :
-		TRUE;
+	embed_page_setup = priv->lockdown_settings ? !g_settings_get_boolean (priv->lockdown_settings,
+	                                                                      GS_LOCKDOWN_PRINT_SETUP)
+	                                           : TRUE;
 	pps_print_operation_set_embed_page_setup (op, embed_page_setup);
 
 	g_object_unref (print_settings);
@@ -2163,13 +2134,13 @@ pps_document_view_print (PpsDocumentView *window)
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
 	pps_document_view_print_range (window, 1,
-			       pps_document_get_n_pages (priv->document));
+	                               pps_document_get_n_pages (priv->document));
 }
 
 static void
 pps_document_view_cmd_file_print (GSimpleAction *action,
-			  GVariant      *state,
-			  gpointer       user_data)
+                                  GVariant *state,
+                                  gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -2180,22 +2151,22 @@ pps_document_view_cmd_file_print (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_file_properties (GSimpleAction *action,
-			       GVariant      *state,
-			       gpointer       user_data)
+                                       GVariant *state,
+                                       gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	GtkWidget *properties;
 
 	properties = g_object_new (g_type_from_name ("PpsPropertiesWindow"),
-				   "document", priv->document, NULL);
+	                           "document", priv->document, NULL);
 	adw_dialog_present (ADW_DIALOG (properties), GTK_WIDGET (pps_doc_view));
 }
 
 static void
 document_modified_confirmation_dialog_response (AdwAlertDialog *dialog,
-						gchar          *response,
-						PpsDocumentView      *pps_doc_view)
+                                                gchar *response,
+                                                PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
@@ -2210,10 +2181,10 @@ document_modified_confirmation_dialog_response (AdwAlertDialog *dialog,
 }
 
 static gboolean
-pps_document_view_check_document_modified (PpsDocumentView      *pps_doc_view)
+pps_document_view_check_document_modified (PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
-	PpsDocument  *document = priv->document;
+	PpsDocument *document = priv->document;
 	AdwAlertDialog *dialog;
 	const gchar *text, *secondary_text, *secondary_text_command;
 
@@ -2222,30 +2193,30 @@ pps_document_view_check_document_modified (PpsDocumentView      *pps_doc_view)
 
 	if (PPS_IS_DOCUMENT_FORMS (document) &&
 	    pps_document_forms_document_is_modified (PPS_DOCUMENT_FORMS (document))) {
-		secondary_text = _("Document contains form fields that have been filled out.");
+		secondary_text = _ ("Document contains form fields that have been filled out.");
 	} else if (PPS_IS_DOCUMENT_ANNOTATIONS (document) &&
-		   pps_document_annotations_document_is_modified (PPS_DOCUMENT_ANNOTATIONS (document))) {
-		secondary_text = _("Document contains new or modified annotations.");
+	           pps_document_annotations_document_is_modified (PPS_DOCUMENT_ANNOTATIONS (document))) {
+		secondary_text = _ ("Document contains new or modified annotations.");
 	} else {
 		return FALSE;
 	}
 
 	dialog = ADW_ALERT_DIALOG (adw_alert_dialog_new (NULL, NULL));
 
-	text = _("Save Changes to a Copy?");
-	secondary_text_command = _("If you don’t save a copy, changes will be permanently lost.");
+	text = _ ("Save Changes to a Copy?");
+	secondary_text_command = _ ("If you don’t save a copy, changes will be permanently lost.");
 
 	adw_alert_dialog_add_responses (dialog,
-					"no", _("Close _Without Saving"),
-					"cancel", _("_Cancel"),
-					"yes", _("_Save a Copy"),
-					NULL);
+	                                "no", _ ("Close _Without Saving"),
+	                                "cancel", _ ("_Cancel"),
+	                                "yes", _ ("_Save a Copy"),
+	                                NULL);
 	adw_alert_dialog_set_response_appearance (dialog, "no", ADW_RESPONSE_DESTRUCTIVE);
 	adw_alert_dialog_set_response_appearance (dialog, "yes", ADW_RESPONSE_SUGGESTED);
 
 	g_signal_connect (dialog, "response",
-			G_CALLBACK (document_modified_confirmation_dialog_response),
-			pps_doc_view);
+	                  G_CALLBACK (document_modified_confirmation_dialog_response),
+	                  pps_doc_view);
 
 	adw_alert_dialog_set_heading (dialog, text);
 	adw_alert_dialog_format_body (dialog, "%s %s", secondary_text, secondary_text_command);
@@ -2258,8 +2229,8 @@ pps_document_view_check_document_modified (PpsDocumentView      *pps_doc_view)
 
 static void
 print_jobs_confirmation_dialog_response (AdwAlertDialog *dialog,
-					 gchar          *response,
-					 PpsDocumentView      *pps_doc_view)
+                                         gchar *response,
+                                         PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
@@ -2269,7 +2240,7 @@ print_jobs_confirmation_dialog_response (AdwAlertDialog *dialog,
 			gtk_window_destroy (GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (pps_doc_view))));
 		else
 			priv->close_after_print = TRUE;
-	} else if (g_str_equal(response, "force-close")) {
+	} else if (g_str_equal (response, "force-close")) {
 		priv->close_after_print = TRUE;
 		if (priv->print_queue &&
 		    !g_queue_is_empty (priv->print_queue)) {
@@ -2288,10 +2259,9 @@ pps_document_view_check_print_queue (PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	g_autofree gchar *text = NULL;
-	gint       n_print_jobs;
+	gint n_print_jobs;
 
-	n_print_jobs = priv->print_queue ?
-		g_queue_get_length (priv->print_queue) : 0;
+	n_print_jobs = priv->print_queue ? g_queue_get_length (priv->print_queue) : 0;
 
 	if (n_print_jobs == 0)
 		return FALSE;
@@ -2305,20 +2275,20 @@ static void
 pps_document_view_save_settings (PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
-	PpsView          *pps_view = PPS_VIEW (priv->view);
+	PpsView *pps_view = PPS_VIEW (priv->view);
 	PpsDocumentModel *model = priv->model;
-	GSettings       *settings = priv->default_settings;
-	PpsSizingMode     sizing_mode;
-	g_autoptr (GVariant)  annot_color = NULL;
+	GSettings *settings = priv->default_settings;
+	PpsSizingMode sizing_mode;
+	g_autoptr (GVariant) annot_color = NULL;
 
 	g_settings_set_boolean (settings, "continuous",
-				pps_document_model_get_continuous (model));
+	                        pps_document_model_get_continuous (model));
 	g_settings_set_boolean (settings, "dual-page",
-		                pps_document_model_get_page_layout (model) == PPS_PAGE_LAYOUT_DUAL);
+	                        pps_document_model_get_page_layout (model) == PPS_PAGE_LAYOUT_DUAL);
 	g_settings_set_boolean (settings, "dual-page-odd-left",
-				pps_document_model_get_dual_page_odd_pages_left (model));
+	                        pps_document_model_get_dual_page_odd_pages_left (model));
 	g_settings_set_boolean (settings, "inverted-colors",
-				pps_document_model_get_inverted_colors (model));
+	                        pps_document_model_get_inverted_colors (model));
 	sizing_mode = pps_document_model_get_sizing_mode (model);
 	g_settings_set_enum (settings, "sizing-mode", sizing_mode);
 	if (sizing_mode == PPS_SIZING_FREE) {
@@ -2328,21 +2298,21 @@ pps_document_view_save_settings (PpsDocumentView *pps_doc_view)
 		g_settings_set_double (settings, "zoom", zoom);
 	}
 	g_settings_set_boolean (settings, "show-sidebar",
-				adw_overlay_split_view_get_show_sidebar (ADW_OVERLAY_SPLIT_VIEW (priv->split_view)));
+	                        adw_overlay_split_view_get_show_sidebar (ADW_OVERLAY_SPLIT_VIEW (priv->split_view)));
 
 	annot_color = g_action_group_get_action_state (G_ACTION_GROUP (priv->document_action_group), "annot-color");
 
 	g_settings_set_string (settings, "annot-color", g_variant_get_string (annot_color, NULL));
 
 	g_settings_set_boolean (settings, "enable-spellchecking",
-				pps_view_get_enable_spellchecking (pps_view));
+	                        pps_view_get_enable_spellchecking (pps_view));
 	g_settings_apply (settings);
 }
 
 static void
 pps_document_view_cmd_select_page (GSimpleAction *action,
-			    GVariant      *parameter,
-			    gpointer       user_data)
+                                   GVariant *parameter,
+                                   gpointer user_data)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (PPS_DOCUMENT_VIEW (user_data));
 
@@ -2351,8 +2321,8 @@ pps_document_view_cmd_select_page (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_continuous (GSimpleAction *action,
-			  GVariant      *state,
-			  gpointer       user_data)
+                                  GVariant *state,
+                                  gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
@@ -2361,11 +2331,10 @@ pps_document_view_cmd_continuous (GSimpleAction *action,
 	g_simple_action_set_state (action, state);
 }
 
-
 static void
 pps_document_view_cmd_dual (GSimpleAction *action,
-		    GVariant      *state,
-		    gpointer       user_data)
+                            GVariant *state,
+                            gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
@@ -2376,46 +2345,45 @@ pps_document_view_cmd_dual (GSimpleAction *action,
 	dual_page = g_variant_get_boolean (state);
 
 	pps_document_model_set_page_layout (priv->model,
-			dual_page ? PPS_PAGE_LAYOUT_DUAL : PPS_PAGE_LAYOUT_SINGLE);
+	                                    dual_page ? PPS_PAGE_LAYOUT_DUAL : PPS_PAGE_LAYOUT_SINGLE);
 	g_simple_action_set_state (action, state);
 
 	if (document)
 		has_pages = pps_document_get_n_pages (priv->document) > 0;
 
-	pps_document_view_set_action_enabled (window, "dual-odd-left", dual_page &&
-				      has_pages);
+	pps_document_view_set_action_enabled (window, "dual-odd-left", dual_page && has_pages);
 }
 
 static void
 pps_document_view_cmd_dual_odd_pages_left (GSimpleAction *action,
-				   GVariant      *state,
-				   gpointer       user_data)
+                                           GVariant *state,
+                                           gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
 	pps_document_model_set_dual_page_odd_pages_left (priv->model,
-							g_variant_get_boolean (state));
+	                                                 g_variant_get_boolean (state));
 	g_simple_action_set_state (action, state);
 }
 
 static void
 pps_document_view_cmd_rtl (GSimpleAction *action,
-                   GVariant      *state,
-                   gpointer       user_data)
+                           GVariant *state,
+                           gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
 	pps_document_model_set_rtl (priv->model,
-	                           g_variant_get_boolean (state));
+	                            g_variant_get_boolean (state));
 	g_simple_action_set_state (action, state);
 }
 
 static void
 pps_document_view_change_sizing_mode_action_state (GSimpleAction *action,
-					   GVariant      *state,
-					   gpointer       user_data)
+                                                   GVariant *state,
+                                                   gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
@@ -2439,8 +2407,8 @@ pps_document_view_change_sizing_mode_action_state (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_annotation_color_action_state (GSimpleAction *action,
-					   GVariant      *state,
-					   gpointer       user_data)
+                                                     GVariant *state,
+                                                     gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
@@ -2461,7 +2429,7 @@ pps_document_view_cmd_annotation_color_action_state (GSimpleAction *action,
 	else if (g_str_equal (color, "green"))
 		gdk_rgba_parse (&priv->annot_color, "#33d17a");
 	else
-		g_assert_not_reached();
+		g_assert_not_reached ();
 
 	if (priv->view)
 		pps_view_set_annotation_color (PPS_VIEW (priv->view), &priv->annot_color);
@@ -2471,8 +2439,8 @@ pps_document_view_cmd_annotation_color_action_state (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_view_zoom (GSimpleAction *action,
-			 GVariant      *parameter,
-			 gpointer       user_data)
+                                 GVariant *parameter,
+                                 gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -2480,13 +2448,13 @@ pps_document_view_cmd_view_zoom (GSimpleAction *action,
 
 	pps_document_model_set_sizing_mode (priv->model, PPS_SIZING_FREE);
 	pps_document_model_set_scale (priv->model,
-				     zoom * pps_document_misc_get_widget_dpi (GTK_WIDGET (pps_doc_view)) / 72.0);
+	                              zoom * pps_document_misc_get_widget_dpi (GTK_WIDGET (pps_doc_view)) / 72.0);
 }
 
 static void
 pps_document_view_cmd_edit_select_all (GSimpleAction *action,
-			       GVariant      *parameter,
-			       gpointer       user_data)
+                                       GVariant *parameter,
+                                       gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -2496,8 +2464,8 @@ pps_document_view_cmd_edit_select_all (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_toggle_find (GSimpleAction *action,
-			   GVariant      *state,
-			   gpointer       user_data)
+                                   GVariant *state,
+                                   gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -2525,8 +2493,8 @@ pps_document_view_find_restart (PpsDocumentView *pps_doc_view)
 
 static void
 pps_document_view_cmd_find (GSimpleAction *action,
-		    GVariant      *parameter,
-		    gpointer       user_data)
+                            GVariant *parameter,
+                            gpointer user_data)
 {
 	PpsView *view;
 	PpsDocumentView *pps_doc_view = user_data;
@@ -2534,23 +2502,22 @@ pps_document_view_cmd_find (GSimpleAction *action,
 	g_autofree gchar *selected_text = NULL;
 
 	view = PPS_VIEW (priv->view);
-        selected_text = pps_view_get_selected_text (view);
+	selected_text = pps_view_get_selected_text (view);
 
-        if (selected_text != NULL && g_strcmp0(selected_text, "") != 0) {
+	if (selected_text != NULL && g_strcmp0 (selected_text, "") != 0) {
 		pps_search_context_set_search_term (priv->search_context, selected_text);
 		g_action_group_change_action_state (G_ACTION_GROUP (priv->document_action_group),
-						    "toggle-find", g_variant_new_boolean (TRUE));
+		                                    "toggle-find", g_variant_new_boolean (TRUE));
 		pps_document_view_find_restart (pps_doc_view);
 	} else {
 		gtk_widget_activate_action (GTK_WIDGET (pps_doc_view), "doc.toggle-find", NULL);
 	}
-
 }
 
 static void
 pps_document_view_cmd_find_next (GSimpleAction *action,
-			      GVariant      *parameter,
-			      gpointer       user_data)
+                                 GVariant *parameter,
+                                 gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -2561,8 +2528,8 @@ pps_document_view_cmd_find_next (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_find_previous (GSimpleAction *action,
-				  GVariant      *parameter,
-				  gpointer       user_data)
+                                     GVariant *parameter,
+                                     gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -2573,8 +2540,8 @@ pps_document_view_cmd_find_previous (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_edit_copy (GSimpleAction *action,
-			 GVariant      *parameter,
-			 gpointer       user_data)
+                                 GVariant *parameter,
+                                 gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -2584,8 +2551,8 @@ pps_document_view_cmd_edit_copy (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_edit_rotate_left (GSimpleAction *action,
-				GVariant      *parameter,
-				gpointer       user_data)
+                                        GVariant *parameter,
+                                        gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -2596,8 +2563,8 @@ pps_document_view_cmd_edit_rotate_left (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_edit_rotate_right (GSimpleAction *action,
-				 GVariant      *parameter,
-				 gpointer       user_data)
+                                         GVariant *parameter,
+                                         gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -2608,21 +2575,21 @@ pps_document_view_cmd_edit_rotate_right (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_view_enable_spellchecking (GSimpleAction *action,
-				    GVariant      *state,
-				    gpointer       user_data)
+                                                 GVariant *state,
+                                                 gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
 	pps_view_set_enable_spellchecking (PPS_VIEW (priv->view),
-	g_variant_get_boolean (state));
+	                                   g_variant_get_boolean (state));
 	g_simple_action_set_state (action, state);
 }
 
 static void
 pps_document_view_cmd_view_zoom_in (GSimpleAction *action,
-			    GVariant      *parameter,
-			    gpointer       user_data)
+                                    GVariant *parameter,
+                                    gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -2633,8 +2600,8 @@ pps_document_view_cmd_view_zoom_in (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_view_zoom_out (GSimpleAction *action,
-			     GVariant      *parameter,
-			     gpointer       user_data)
+                                     GVariant *parameter,
+                                     gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -2645,8 +2612,8 @@ pps_document_view_cmd_view_zoom_out (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_go_back_history (GSimpleAction *action,
-			       GVariant      *parameter,
-			       gpointer       user_data)
+                                       GVariant *parameter,
+                                       gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -2660,8 +2627,8 @@ pps_document_view_cmd_go_back_history (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_go_forward_history (GSimpleAction *action,
-				  GVariant      *parameter,
-				  gpointer       user_data)
+                                          GVariant *parameter,
+                                          gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -2671,8 +2638,8 @@ pps_document_view_cmd_go_forward_history (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_go_previous_page (GSimpleAction *action,
-				GVariant      *parameter,
-				gpointer       user_data)
+                                        GVariant *parameter,
+                                        gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
@@ -2682,8 +2649,8 @@ pps_document_view_cmd_go_previous_page (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_go_next_page (GSimpleAction *action,
-					GVariant      *parameter,
-					gpointer       user_data)
+                                    GVariant *parameter,
+                                    gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
@@ -2693,8 +2660,8 @@ pps_document_view_cmd_go_next_page (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_go_first_page (GSimpleAction *action,
-					 GVariant      *parameter,
-					 gpointer       user_data)
+                                     GVariant *parameter,
+                                     gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
@@ -2710,8 +2677,8 @@ pps_document_view_cmd_go_first_page (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_go_last_page (GSimpleAction *action,
-			    GVariant      *parameter,
-			    gpointer       user_data)
+                                    GVariant *parameter,
+                                    gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
@@ -2720,18 +2687,17 @@ pps_document_view_cmd_go_last_page (GSimpleAction *action,
 	gint new_page = pps_document_get_n_pages (priv->document) - 1;
 
 	pps_document_model_set_page (priv->model,
-				    pps_document_get_n_pages (priv->document) - 1);
+	                             pps_document_get_n_pages (priv->document) - 1);
 	if (old_page >= 0 && new_page >= 0) {
 		pps_history_add_page (priv->history, old_page);
 		pps_history_add_page (priv->history, new_page);
 	}
-
 }
 
 static void
 pps_document_view_cmd_go_forward (GSimpleAction *action,
-			  GVariant      *parameter,
-			  gpointer       user_data)
+                                  GVariant *parameter,
+                                  gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -2747,8 +2713,8 @@ pps_document_view_cmd_go_forward (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_go_backwards (GSimpleAction *action,
-			    GVariant      *parameter,
-			    gpointer       user_data)
+                                    GVariant *parameter,
+                                    gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -2763,17 +2729,17 @@ pps_document_view_cmd_go_backwards (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_bookmarks_add (GSimpleAction *action,
-			     GVariant      *parameter,
-			     gpointer       user_data)
+                                     GVariant *parameter,
+                                     gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 	PpsBookmark bm;
-	gchar     *page_label;
+	gchar *page_label;
 
 	bm.page = pps_document_model_get_page (priv->model);
 	page_label = pps_document_get_page_label (priv->document, bm.page);
-	bm.title = g_strdup_printf (_("Page %s"), page_label);
+	bm.title = g_strdup_printf (_ ("Page %s"), page_label);
 	g_free (page_label);
 
 	/* PpsBookmarks takes ownership of bookmark */
@@ -2782,8 +2748,8 @@ pps_document_view_cmd_bookmarks_add (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_bookmarks_delete (GSimpleAction *action,
-				GVariant      *parameter,
-				gpointer       user_data)
+                                        GVariant *parameter,
+                                        gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
@@ -2797,20 +2763,19 @@ pps_document_view_cmd_bookmarks_delete (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_escape (GSimpleAction *action,
-			      GVariant      *parameter,
-			      gpointer       user_data)
+                              GVariant *parameter,
+                              gpointer user_data)
 {
 	PpsDocumentView *window = PPS_DOCUMENT_VIEW (user_data);
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 	GtkNative *native = gtk_widget_get_native (GTK_WIDGET (window));
 
-	if (gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack))
-	    == priv->find_sidebar)
+	if (gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack)) == priv->find_sidebar)
 		gtk_widget_activate_action (GTK_WIDGET (window), "doc.toggle-find", NULL);
 	else if (gtk_window_is_fullscreen (GTK_WINDOW (native))) {
 		g_action_group_change_action_state (G_ACTION_GROUP (native), "fullscreen", g_variant_new_boolean (FALSE));
 	} else if (adw_overlay_split_view_get_collapsed (priv->split_view) &&
-		   adw_overlay_split_view_get_show_sidebar (priv->split_view))
+	           adw_overlay_split_view_get_show_sidebar (priv->split_view))
 		adw_overlay_split_view_set_show_sidebar (priv->split_view, FALSE);
 	else
 		pps_view_cancel_add_text_annotation (PPS_VIEW (priv->view));
@@ -2829,17 +2794,17 @@ save_sizing_mode (PpsDocumentView *window)
 	mode = pps_document_model_get_sizing_mode (priv->model);
 	enum_value = g_enum_get_value (g_type_class_peek (PPS_TYPE_SIZING_MODE), mode);
 	pps_metadata_set_string (priv->metadata, "sizing-mode",
-				enum_value->value_nick);
+	                         enum_value->value_nick);
 }
 
 static void
 pps_document_view_document_modified_cb (PpsDocument *document,
-                                GParamSpec *pspec,
-                                PpsDocumentView   *pps_doc_view)
+                                        GParamSpec *pspec,
+                                        PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	AdwWindowTitle *window_title = ADW_WINDOW_TITLE (
-		adw_header_bar_get_title_widget (ADW_HEADER_BAR (priv->header_bar)));
+	    adw_header_bar_get_title_widget (ADW_HEADER_BAR (priv->header_bar)));
 	const gchar *title = adw_window_title_get_title (window_title);
 	gchar *new_title;
 
@@ -2858,33 +2823,30 @@ pps_document_view_document_modified_cb (PpsDocument *document,
 	}
 }
 
-
 static void
 sizing_mode_changed_cb (PpsDocumentModel *model,
-				  GParamSpec      *pspec,
-		 		  PpsDocumentView        *pps_doc_view)
+                        GParamSpec *pspec,
+                        PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	PpsSizingMode sizing_mode = pps_document_model_get_sizing_mode (model);
 
 	g_object_set (priv->scrolled_window,
-		      "hscrollbar-policy",
-		      sizing_mode == PPS_SIZING_FREE ?
-		      GTK_POLICY_AUTOMATIC : GTK_POLICY_NEVER,
-		      "vscrollbar-policy", GTK_POLICY_AUTOMATIC,
-		      NULL);
+	              "hscrollbar-policy",
+	              sizing_mode == PPS_SIZING_FREE ? GTK_POLICY_AUTOMATIC : GTK_POLICY_NEVER,
+	              "vscrollbar-policy", GTK_POLICY_AUTOMATIC,
+	              NULL);
 
 	update_sizing_buttons (pps_doc_view);
 	save_sizing_mode (pps_doc_view);
 }
-
 
 static void
 zoom_changed_cb (PpsDocumentModel *model, GParamSpec *pspec, PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
-        pps_document_view_update_actions_sensitivity (pps_doc_view);
+	pps_document_view_update_actions_sensitivity (pps_doc_view);
 
 	if (!priv->metadata)
 		return;
@@ -2900,8 +2862,8 @@ zoom_changed_cb (PpsDocumentModel *model, GParamSpec *pspec, PpsDocumentView *pp
 
 static void
 continuous_changed_cb (PpsDocumentModel *model,
-				 GParamSpec      *pspec,
-				 PpsDocumentView        *pps_doc_view)
+                       GParamSpec *pspec,
+                       PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	gboolean continuous;
@@ -2918,21 +2880,21 @@ continuous_changed_cb (PpsDocumentModel *model,
 
 static void
 rotation_changed_cb (PpsDocumentModel *model,
-			       GParamSpec      *pspec,
-			       PpsDocumentView        *window)
+                     GParamSpec *pspec,
+                     PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 	gint rotation = pps_document_model_get_rotation (model);
 
 	if (priv->metadata && !pps_document_view_is_empty (window))
 		pps_metadata_set_int (priv->metadata, "rotation",
-				     rotation);
+		                      rotation);
 }
 
 static void
 inverted_colors_changed_cb (PpsDocumentModel *model,
-			              GParamSpec      *pspec,
-			              PpsDocumentView        *window)
+                            GParamSpec *pspec,
+                            PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 	gboolean inverted_colors = pps_document_model_get_inverted_colors (model);
@@ -2944,7 +2906,7 @@ inverted_colors_changed_cb (PpsDocumentModel *model,
 	if (native) {
 		action = g_action_map_lookup_action (G_ACTION_MAP (native), "inverted-colors");
 		g_simple_action_set_state (G_SIMPLE_ACTION (action),
-				   g_variant_new_boolean (inverted_colors));
+		                           g_variant_new_boolean (inverted_colors));
 	}
 
 	if (inverted_colors)
@@ -2954,13 +2916,13 @@ inverted_colors_changed_cb (PpsDocumentModel *model,
 
 	if (priv->metadata && !pps_document_view_is_empty (window))
 		pps_metadata_set_boolean (priv->metadata, "inverted-colors",
-					 inverted_colors);
+		                          inverted_colors);
 }
 
 static void
 page_layout_changed_cb (PpsDocumentModel *model,
-			GParamSpec      *pspec,
-			PpsDocumentView        *pps_doc_view)
+                        GParamSpec *pspec,
+                        PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	gboolean dual_page;
@@ -2977,8 +2939,8 @@ page_layout_changed_cb (PpsDocumentModel *model,
 
 static void
 dual_mode_odd_pages_left_changed_cb (PpsDocumentModel *model,
-					       GParamSpec      *pspec,
-					       PpsDocumentView        *pps_doc_view)
+                                     GParamSpec *pspec,
+                                     PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	gboolean odd_left;
@@ -2991,13 +2953,13 @@ dual_mode_odd_pages_left_changed_cb (PpsDocumentModel *model,
 
 	if (priv->metadata && !pps_document_view_is_empty (pps_doc_view))
 		pps_metadata_set_boolean (priv->metadata, "dual-page-odd-left",
-					 odd_left);
+		                          odd_left);
 }
 
 static void
 direction_changed_cb (PpsDocumentModel *model,
-                          GParamSpec      *pspec,
-                          PpsDocumentView        *pps_doc_view)
+                      GParamSpec *pspec,
+                      PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	gboolean rtl;
@@ -3010,13 +2972,13 @@ direction_changed_cb (PpsDocumentModel *model,
 
 	if (priv->metadata && !pps_document_view_is_empty (pps_doc_view))
 		pps_metadata_set_boolean (priv->metadata, "rtl",
-					 rtl);
+		                          rtl);
 }
 
 static void
 pps_document_view_view_cmd_toggle_sidebar (GSimpleAction *action,
-				   GVariant      *state,
-				   gpointer       user_data)
+                                           GVariant *state,
+                                           gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -3029,19 +2991,17 @@ pps_document_view_view_cmd_toggle_sidebar (GSimpleAction *action,
 
 static void
 sidebar_visibility_changed_cb (AdwOverlaySplitView *split_view,
-                               GParamSpec          *pspec,
-                               PpsDocumentView            *pps_doc_view)
+                               GParamSpec *pspec,
+                               PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	GSettings *settings = priv->default_settings;
 	gboolean visible = adw_overlay_split_view_get_show_sidebar (split_view);
 
 	g_action_group_change_action_state (G_ACTION_GROUP (priv->document_action_group), "show-sidebar",
-						g_variant_new_boolean (visible));
+	                                    g_variant_new_boolean (visible));
 
-	if (priv->metadata
-		&& gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack)) != priv->find_sidebar
-		&& !adw_overlay_split_view_get_collapsed (priv->split_view))
+	if (priv->metadata && gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack)) != priv->find_sidebar && !adw_overlay_split_view_get_collapsed (priv->split_view))
 		g_settings_set_boolean (settings, "show-sidebar", visible);
 	if (!visible)
 		gtk_widget_grab_focus (priv->view);
@@ -3049,8 +3009,8 @@ sidebar_visibility_changed_cb (AdwOverlaySplitView *split_view,
 
 static void
 sidebar_collapsed_changed_cb (AdwOverlaySplitView *split_view,
-                              GParamSpec          *pspec,
-                              PpsDocumentView           *pps_doc_view)
+                              GParamSpec *pspec,
+                              PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
@@ -3058,18 +3018,17 @@ sidebar_collapsed_changed_cb (AdwOverlaySplitView *split_view,
 
 	if (collapsed) {
 		priv->sidebar_was_open_before_collapsed =
-			adw_overlay_split_view_get_show_sidebar (split_view) && priv->sidebar_was_open_before_find;
+		    adw_overlay_split_view_get_show_sidebar (split_view) && priv->sidebar_was_open_before_find;
 		adw_overlay_split_view_set_show_sidebar (split_view, FALSE);
 	} else {
 		adw_overlay_split_view_set_show_sidebar (split_view,
-							 priv->sidebar_was_open_before_collapsed);
+		                                         priv->sidebar_was_open_before_collapsed);
 	}
-
 }
 
 static void
 zoom_selector_activated (GtkWidget *zoom_action,
-			 PpsDocumentView *window)
+                         PpsDocumentView *window)
 {
 	pps_document_view_focus_view (window);
 }
@@ -3086,11 +3045,11 @@ sidebar_navigate_to_view (PpsDocumentView *window)
 
 static void
 view_menu_link_popup (PpsDocumentView *pps_doc_view,
-		      PpsLink   *link)
+                      PpsLink *link)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
-	gboolean  show_external = FALSE;
-	gboolean  show_internal = FALSE;
+	gboolean show_external = FALSE;
+	gboolean show_internal = FALSE;
 
 	g_set_object (&priv->link, link);
 
@@ -3100,16 +3059,16 @@ view_menu_link_popup (PpsDocumentView *pps_doc_view,
 		pps_action = pps_link_get_action (link);
 		if (pps_action) {
 			switch (pps_link_action_get_action_type (pps_action)) {
-		                case PPS_LINK_ACTION_TYPE_GOTO_DEST:
-		                case PPS_LINK_ACTION_TYPE_GOTO_REMOTE:
-					show_internal = TRUE;
-					break;
-		                case PPS_LINK_ACTION_TYPE_EXTERNAL_URI:
-		                case PPS_LINK_ACTION_TYPE_LAUNCH:
-					show_external = TRUE;
-					break;
-		                default:
-					break;
+			case PPS_LINK_ACTION_TYPE_GOTO_DEST:
+			case PPS_LINK_ACTION_TYPE_GOTO_REMOTE:
+				show_internal = TRUE;
+				break;
+			case PPS_LINK_ACTION_TYPE_EXTERNAL_URI:
+			case PPS_LINK_ACTION_TYPE_LAUNCH:
+				show_external = TRUE;
+				break;
+			default:
+				break;
 			}
 		}
 	}
@@ -3122,8 +3081,8 @@ view_menu_link_popup (PpsDocumentView *pps_doc_view,
 }
 
 static void
-view_menu_image_popup (PpsDocumentView  *pps_doc_view,
-		       PpsImage   *image)
+view_menu_image_popup (PpsDocumentView *pps_doc_view,
+                       PpsImage *image)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	gboolean show_image = !!image;
@@ -3135,8 +3094,8 @@ view_menu_image_popup (PpsDocumentView  *pps_doc_view,
 }
 
 static void
-view_menu_annot_popup (PpsDocumentView     *pps_doc_view,
-		       PpsAnnotation *annot)
+view_menu_annot_popup (PpsDocumentView *pps_doc_view,
+                       PpsAnnotation *annot)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	gboolean show_annot_props = FALSE;
@@ -3176,14 +3135,14 @@ view_menu_annot_popup (PpsDocumentView     *pps_doc_view,
 }
 
 static void
-view_menu_popup_cb (PpsView   *view,
-		    GList    *items,
-		    double    x,
-		    double    y,
-		    PpsDocumentView *pps_doc_view)
+view_menu_popup_cb (PpsView *view,
+                    GList *items,
+                    double x,
+                    double y,
+                    PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
-	GList   *l;
+	GList *l;
 	gboolean has_link = FALSE;
 	gboolean has_image = FALSE;
 	gboolean has_annot = FALSE;
@@ -3210,21 +3169,21 @@ view_menu_popup_cb (PpsView   *view,
 		view_menu_annot_popup (pps_doc_view, NULL);
 
 	if (!gtk_widget_compute_point (GTK_WIDGET (view),
-				      gtk_widget_get_parent (priv->view_popup),
-				      &GRAPHENE_POINT_INIT(x, y), &window_point))
+	                               gtk_widget_get_parent (priv->view_popup),
+	                               &GRAPHENE_POINT_INIT (x, y), &window_point))
 		g_warn_if_reached ();
 
 	gtk_popover_set_pointing_to (GTK_POPOVER (priv->view_popup),
-				&(const GdkRectangle) { window_point.x, window_point.y, 1, 1 });
+	                             &(const GdkRectangle) { window_point.x, window_point.y, 1, 1 });
 	gtk_popover_popup (GTK_POPOVER (priv->view_popup));
 }
 
 static gboolean
-attachment_bar_menu_popup_cb (GtkWidget        *attachbar,
-			      gdouble           x,
-			      gdouble           y,
-			      GListModel       *attachments,
-			      PpsDocumentView        *pps_doc_view)
+attachment_bar_menu_popup_cb (GtkWidget *attachbar,
+                              gdouble x,
+                              gdouble y,
+                              GListModel *attachments,
+                              PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	graphene_point_t new_point;
@@ -3238,21 +3197,21 @@ attachment_bar_menu_popup_cb (GtkWidget        *attachbar,
 	priv->attachments = g_object_ref (attachments);
 
 	if (!gtk_widget_compute_point (GTK_WIDGET (attachbar),
-				       gtk_widget_get_parent (priv->attachment_popup),
-				       &GRAPHENE_POINT_INIT(x, y),
-				       &new_point))
+	                               gtk_widget_get_parent (priv->attachment_popup),
+	                               &GRAPHENE_POINT_INIT (x, y),
+	                               &new_point))
 		return FALSE;
 
 	gtk_popover_set_pointing_to (GTK_POPOVER (priv->attachment_popup),
-				&(const GdkRectangle) { new_point.x, new_point.y, 1, 1 });
+	                             &(const GdkRectangle) { new_point.x, new_point.y, 1, 1 });
 	gtk_popover_popup (GTK_POPOVER (priv->attachment_popup));
 
 	return TRUE;
 }
 
 void
-pps_document_view_handle_annot_popup (PpsDocumentView     *pps_doc_view,
-			      PpsAnnotation *annot)
+pps_document_view_handle_annot_popup (PpsDocumentView *pps_doc_view,
+                                      PpsAnnotation *annot)
 {
 	view_menu_annot_popup (pps_doc_view, annot);
 }
@@ -3262,8 +3221,7 @@ pps_document_view_show_find_bar (PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
-	if (gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack))
-	    == priv->find_sidebar) {
+	if (gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack)) == priv->find_sidebar) {
 		gtk_widget_grab_focus (priv->find_sidebar);
 		return;
 	}
@@ -3275,8 +3233,8 @@ pps_document_view_show_find_bar (PpsDocumentView *pps_doc_view)
 
 	if (!adw_overlay_split_view_get_collapsed (priv->split_view)) {
 		priv->sidebar_was_open_before_find =
-			g_variant_get_boolean(g_action_group_get_action_state (G_ACTION_GROUP (priv->document_action_group),
-									       "show-sidebar"));
+		    g_variant_get_boolean (g_action_group_get_action_state (G_ACTION_GROUP (priv->document_action_group),
+		                                                            "show-sidebar"));
 	} else {
 		priv->sidebar_was_open_before_find = priv->sidebar_was_open_before_collapsed;
 	}
@@ -3284,11 +3242,11 @@ pps_document_view_show_find_bar (PpsDocumentView *pps_doc_view)
 	pps_history_freeze (priv->history);
 
 	gtk_stack_set_visible_child (GTK_STACK (priv->sidebar_stack),
-				     priv->find_sidebar);
+	                             priv->find_sidebar);
 
 	gtk_widget_grab_focus (priv->find_sidebar);
 	g_action_group_change_action_state (G_ACTION_GROUP (priv->document_action_group), "show-sidebar",
-						g_variant_new_boolean (TRUE));
+	                                    g_variant_new_boolean (TRUE));
 	pps_document_view_set_action_enabled (pps_doc_view, "find-next", TRUE);
 	pps_document_view_set_action_enabled (pps_doc_view, "find-previous", TRUE);
 }
@@ -3298,18 +3256,17 @@ pps_document_view_close_find_bar (PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
-	if (gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack))
-	    != priv->find_sidebar)
+	if (gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack)) != priv->find_sidebar)
 		return;
 
 	if (!adw_overlay_split_view_get_collapsed (priv->split_view))
 		adw_overlay_split_view_set_show_sidebar (priv->split_view,
-							 priv->sidebar_was_open_before_find);
+		                                         priv->sidebar_was_open_before_find);
 
 	priv->sidebar_was_open_before_find = TRUE;
 
 	gtk_stack_set_visible_child (GTK_STACK (priv->sidebar_stack),
-				     priv->sidebar);
+	                             priv->sidebar);
 
 	gtk_widget_grab_focus (priv->view);
 
@@ -3321,7 +3278,7 @@ pps_document_view_close_find_bar (PpsDocumentView *pps_doc_view)
 
 static void
 pps_document_view_set_caret_navigation_enabled (PpsDocumentView *window,
-					gboolean enabled)
+                                                gboolean enabled)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
@@ -3333,22 +3290,22 @@ pps_document_view_set_caret_navigation_enabled (PpsDocumentView *window,
 
 static void
 pps_document_view_cmd_view_toggle_caret_navigation (GSimpleAction *action,
-					    GVariant      *state,
-					    gpointer       user_data)
+                                                    GVariant *state,
+                                                    gpointer user_data)
 {
-	PpsDocumentView  *window = user_data;
+	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
-	gboolean   enabled;
-	AdwToast  *toast;
+	AdwToast *toast;
 	g_autofree gchar *msg = NULL;
+	gboolean enabled;
 
 	enabled = pps_view_is_caret_navigation_enabled (PPS_VIEW (priv->view));
 	pps_document_view_set_caret_navigation_enabled (window, !enabled);
 
-	if (!enabled){
-		msg = g_strdup_printf (_("Caret navigation mode is now enabled, press F7 to disable."));
+	if (!enabled) {
+		msg = g_strdup_printf (_ ("Caret navigation mode is now enabled, press F7 to disable."));
 	} else {
-		msg = g_strdup_printf (_("Caret navigation mode is now disabled, press F7 to enable."));
+		msg = g_strdup_printf (_ ("Caret navigation mode is now disabled, press F7 to enable."));
 	}
 
 	toast = adw_toast_new (msg);
@@ -3359,8 +3316,8 @@ pps_document_view_cmd_view_toggle_caret_navigation (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_add_highlight_annotation (GSimpleAction *action,
-                                        GVariant      *state,
-                                        gpointer       user_data)
+                                                GVariant *state,
+                                                gpointer user_data)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (PPS_DOCUMENT_VIEW (user_data));
 
@@ -3369,8 +3326,8 @@ pps_document_view_cmd_add_highlight_annotation (GSimpleAction *action,
 
 static void
 pps_document_view_cmd_add_text_annotation (GSimpleAction *action,
-				    GVariant      *state,
-				    gpointer       user_data)
+                                           GVariant *state,
+                                           gpointer user_data)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (PPS_DOCUMENT_VIEW (user_data));
 
@@ -3418,33 +3375,33 @@ pps_document_view_dispose (GObject *object)
 }
 
 static void
-pps_document_view_button_pressed (GtkGestureClick* self,
-			      gint n_press,
-			      gdouble x,
-			      gdouble y,
-			      gpointer user_data)
+pps_document_view_button_pressed (GtkGestureClick *self,
+                                  gint n_press,
+                                  gdouble x,
+                                  gdouble y,
+                                  gpointer user_data)
 {
-        PpsDocumentView *window = PPS_DOCUMENT_VIEW (user_data);
+	PpsDocumentView *window = PPS_DOCUMENT_VIEW (user_data);
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 	GdkEvent *event = gtk_event_controller_get_current_event (GTK_EVENT_CONTROLLER (self));
 
 	if (gdk_event_get_event_type (event) == GDK_TOUCH_BEGIN)
 		return;
 
-        switch (gdk_button_event_get_button(event)) {
-        case MOUSE_BACK_BUTTON: {
+	switch (gdk_button_event_get_button (event)) {
+	case MOUSE_BACK_BUTTON: {
 		gint old_page = pps_document_model_get_page (priv->model);
 
 		if (old_page >= 0)
 			pps_history_add_page (priv->history, old_page);
 
 		pps_history_go_back (priv->history);
-                break;
+		break;
 	}
 	case MOUSE_FORWARD_BUTTON:
 		pps_history_go_forward (priv->history);
 		break;
-        default:
+	default:
 		break;
 	}
 }
@@ -3457,8 +3414,8 @@ struct PasswordData {
 
 static void
 on_password (AdwMessageDialog *self,
-             char             *response,
-             gpointer          user_data)
+             char *response,
+             gpointer user_data)
 {
 	struct PasswordData *data = user_data;
 
@@ -3478,12 +3435,12 @@ pps_document_view_signature_password_callback (const char *text, gpointer user_d
 	g_autofree char *body = NULL;
 	struct PasswordData data;
 
-	parent = gtk_application_get_active_window (GTK_APPLICATION (g_application_get_default()));
-	body = g_strdup_printf (_("Please enter password for %s"), text);
+	parent = gtk_application_get_active_window (GTK_APPLICATION (g_application_get_default ()));
+	body = g_strdup_printf (_ ("Please enter password for %s"), text);
 
-	dialog = adw_alert_dialog_new (_("Password Required"), body);
-	adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "cancel", _("_Cancel"));
-	adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "login", _("_Login"));
+	dialog = adw_alert_dialog_new (_ ("Password Required"), body);
+	adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "cancel", _ ("_Cancel"));
+	adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "login", _ ("_Login"));
 	adw_alert_dialog_set_response_appearance (ADW_ALERT_DIALOG (dialog), "login", ADW_RESPONSE_SUGGESTED);
 	adw_alert_dialog_set_default_response (ADW_ALERT_DIALOG (dialog), "login");
 
@@ -3519,9 +3476,9 @@ load_signed_document (gpointer user_data)
 }
 
 static void
-on_document_signed (GObject      *source_object,
+on_document_signed (GObject *source_object,
                     GAsyncResult *result,
-                    gpointer      user_data)
+                    gpointer user_data)
 {
 	g_autoptr (GError) error = NULL;
 	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
@@ -3538,9 +3495,9 @@ on_document_signed (GObject      *source_object,
 }
 
 static void
-pps_document_view_certificate_save_file (PpsDocumentView   	  *pps_doc_view,
-					 const PpsCertificateInfo *certificate_info,
-					 const char               *filename)
+pps_document_view_certificate_save_file (PpsDocumentView *pps_doc_view,
+                                         const PpsCertificateInfo *certificate_info,
+                                         const char *filename)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
@@ -3550,9 +3507,9 @@ pps_document_view_certificate_save_file (PpsDocumentView   	  *pps_doc_view,
 }
 
 static void
-on_signed_save (GObject      *source_object,
+on_signed_save (GObject *source_object,
                 GAsyncResult *res,
-                gpointer      user_data)
+                gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -3565,7 +3522,7 @@ on_signed_save (GObject      *source_object,
 			g_warning ("Could not save signed file: %s", error->message);
 
 		g_clear_pointer (&priv->signature_certificate_info, pps_certificate_info_free);
-    		return;
+		return;
 	}
 
 	filename = g_file_get_path (file);
@@ -3582,7 +3539,7 @@ pps_document_view_certificate_save_as_dialog (PpsDocumentView *pps_doc_view)
 	char *last_dot = NULL;
 
 	dialog = gtk_file_dialog_new ();
-	gtk_file_dialog_set_title (dialog, _("Save Signed File"));
+	gtk_file_dialog_set_title (dialog, _ ("Save Signed File"));
 
 	last_dot = strrchr (priv->edit_name, '.');
 	if (last_dot) {
@@ -3600,7 +3557,7 @@ pps_document_view_certificate_save_as_dialog (PpsDocumentView *pps_doc_view)
 
 static void
 pps_document_view_banner_cancel_cb (AdwBanner *self,
-				    gpointer   user_data)
+                                    gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -3617,9 +3574,9 @@ pps_document_view_draw_rect_action (PpsDocumentView *pps_doc_view)
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	PpsView *view = PPS_VIEW (priv->view);
 
-	adw_banner_set_title (ADW_BANNER (priv->banner), _("Draw a rectangle to insert a signature field"));
-	adw_banner_set_button_label (ADW_BANNER (priv->banner), _("_Cancel"));
-	g_signal_connect_object (G_OBJECT (priv->banner), "button-clicked", G_CALLBACK (pps_document_view_banner_cancel_cb),  pps_doc_view, 0);
+	adw_banner_set_title (ADW_BANNER (priv->banner), _ ("Draw a rectangle to insert a signature field"));
+	adw_banner_set_button_label (ADW_BANNER (priv->banner), _ ("_Cancel"));
+	g_signal_connect_object (G_OBJECT (priv->banner), "button-clicked", G_CALLBACK (pps_document_view_banner_cancel_cb), pps_doc_view, 0);
 	adw_banner_set_revealed (ADW_BANNER (priv->banner), TRUE);
 
 	pps_view_start_signature_rect (view);
@@ -3627,8 +3584,8 @@ pps_document_view_draw_rect_action (PpsDocumentView *pps_doc_view)
 
 static void
 pps_document_view_certificate_selection_response (GtkWidget *dialog,
-						  char      *response,
-						  gpointer   user_data)
+                                                  char *response,
+                                                  gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -3638,13 +3595,14 @@ pps_document_view_certificate_selection_response (GtkWidget *dialog,
 	if (!priv->signature_certificate_info)
 		return;
 
-	priv->signature = pps_signature_new (NULL, PPS_SIGNATURE_STATUS_INVALID, PPS_CERTIFICATE_STATUS_GENERIC_ERROR, NULL);;
+	priv->signature = pps_signature_new (NULL, PPS_SIGNATURE_STATUS_INVALID, PPS_CERTIFICATE_STATUS_GENERIC_ERROR, NULL);
+	;
 	pps_signature_set_certificate_info (priv->signature, priv->signature_certificate_info);
 
 	time (&t);
-	tmp = g_strdup_printf (_("Digitally signed by %s\nDate: %s"),
-			       pps_certificate_info_get_subject_common_name (priv->signature_certificate_info),
-			       ctime (&t));
+	tmp = g_strdup_printf (_ ("Digitally signed by %s\nDate: %s"),
+	                       pps_certificate_info_get_subject_common_name (priv->signature_certificate_info),
+	                       ctime (&t));
 	pps_signature_set_signature (priv->signature, tmp);
 	pps_signature_set_signature_left (priv->signature, pps_certificate_info_get_subject_common_name (priv->signature_certificate_info));
 
@@ -3653,7 +3611,7 @@ pps_document_view_certificate_selection_response (GtkWidget *dialog,
 
 static void
 on_radio_button_toggled (GtkWidget *button,
-                         gpointer   user_data)
+                         gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
 
@@ -3664,7 +3622,7 @@ on_radio_button_toggled (GtkWidget *button,
 
 		g_clear_pointer (&priv->signature_certificate_info, pps_certificate_info_free);
 
-		priv->signature_certificate_info = pps_document_signature_get_certificate_info (PPS_DOCUMENT_SIGNATURES (priv->document), (const char *)nick);
+		priv->signature_certificate_info = pps_document_signature_get_certificate_info (PPS_DOCUMENT_SIGNATURES (priv->document), (const char *) nick);
 	}
 }
 
@@ -3678,16 +3636,16 @@ pps_document_view_create_certificate_selection (PpsDocumentView *pps_doc_view)
 
 	certificates = pps_document_signatures_get_available_signing_certificates (PPS_DOCUMENT_SIGNATURES (priv->document));
 
-	dialog = adw_alert_dialog_new (_("Certificate Required"), NULL);
+	dialog = adw_alert_dialog_new (_ ("Certificate Required"), NULL);
 
 	if (certificates != NULL) {
 		GtkWidget *check_button_group = NULL;
 
-		adw_alert_dialog_set_body (ADW_ALERT_DIALOG (dialog), _("Select signing certificate"));
-		adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "select", _("Select"));
+		adw_alert_dialog_set_body (ADW_ALERT_DIALOG (dialog), _ ("Select signing certificate"));
+		adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "select", _ ("Select"));
 		adw_alert_dialog_set_response_appearance (ADW_ALERT_DIALOG (dialog), "select", ADW_RESPONSE_SUGGESTED);
 
-		adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "cancel", _("_Cancel"));
+		adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "cancel", _ ("_Cancel"));
 		adw_alert_dialog_set_close_response (ADW_ALERT_DIALOG (dialog), "cancel");
 		adw_alert_dialog_set_default_response (ADW_ALERT_DIALOG (dialog), "select");
 
@@ -3723,9 +3681,9 @@ pps_document_view_create_certificate_selection (PpsDocumentView *pps_doc_view)
 		g_list_free_full (certificates, (GDestroyNotify) pps_certificate_info_free);
 		g_signal_connect (dialog, "response::select", G_CALLBACK (pps_document_view_certificate_selection_response), pps_doc_view);
 	} else {
-		adw_alert_dialog_set_body (ADW_ALERT_DIALOG (dialog), _("A certificate is required to sign this document"));
+		adw_alert_dialog_set_body (ADW_ALERT_DIALOG (dialog), _ ("A certificate is required to sign this document"));
 		// show close if the certificate is null, or if no cert is found
-		adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "close", _("_Close"));
+		adw_alert_dialog_add_response (ADW_ALERT_DIALOG (dialog), "close", _ ("_Close"));
 		adw_alert_dialog_set_close_response (ADW_ALERT_DIALOG (dialog), "close");
 	}
 
@@ -3734,7 +3692,7 @@ pps_document_view_create_certificate_selection (PpsDocumentView *pps_doc_view)
 
 static void
 pps_document_view_on_signature_rect_too_small_response (PpsDocumentView *pps_doc_view,
-							gchar          *response)
+                                                        gchar *response)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
@@ -3756,8 +3714,8 @@ pps_document_view_show_signature_rect_too_small_warning (PpsDocumentView *pps_do
 
 static gboolean
 calculate_font_size (PpsRectangle *rect,
-                     const char   *text,
-                     int           border_size,
+                     const char *text,
+                     int border_size,
                      unsigned int *font_size)
 {
 	double width;
@@ -3791,10 +3749,10 @@ calculate_font_size (PpsRectangle *rect,
 }
 
 static void
-pps_document_view_on_signature_rect (PpsView      	*view,
-				     guint         	 page,
-				     PpsRectangle 	*rect,
-				     PpsDocumentView 	*pps_doc_view)
+pps_document_view_on_signature_rect (PpsView *view,
+                                     guint page,
+                                     PpsRectangle *rect,
+                                     PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	gdouble width, height;
@@ -3813,9 +3771,9 @@ pps_document_view_on_signature_rect (PpsView      	*view,
 
 	/* Calculate font size for main (right) signature text */
 	if (!calculate_font_size (rect,
-				  pps_signature_get_signature (priv->signature),
-				  pps_signature_get_border_width (priv->signature),
-				  &font_size)) {
+	                          pps_signature_get_signature (priv->signature),
+	                          pps_signature_get_border_width (priv->signature),
+	                          &font_size)) {
 		pps_document_view_show_signature_rect_too_small_warning (pps_doc_view);
 		return;
 	}
@@ -3824,9 +3782,9 @@ pps_document_view_on_signature_rect (PpsView      	*view,
 
 	/* Calculate font size for left signature text */
 	if (!calculate_font_size (rect,
-				  pps_signature_get_signature_left (priv->signature),
-				  pps_signature_get_border_width (priv->signature),
-				  &font_size)) {
+	                          pps_signature_get_signature_left (priv->signature),
+	                          pps_signature_get_border_width (priv->signature),
+	                          &font_size)) {
 		pps_document_view_show_signature_rect_too_small_warning (pps_doc_view);
 		return;
 	}
@@ -3839,8 +3797,8 @@ pps_document_view_on_signature_rect (PpsView      	*view,
 
 static void
 pps_document_view_cmd_digital_signing (GSimpleAction *action,
-				       GVariant      *parameter,
-				       gpointer       user_data)
+                                       GVariant *parameter,
+                                       gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = user_data;
 
@@ -3911,7 +3869,6 @@ sidebar_links_link_activated_cb (void *sidebar_links, PpsLink *link, PpsDocument
 	pps_view_handle_link (PPS_VIEW (priv->view), link);
 }
 
-
 static void
 activate_link_cb (GObject *object, PpsLink *link, PpsDocumentView *window)
 {
@@ -3923,19 +3880,19 @@ activate_link_cb (GObject *object, PpsLink *link, PpsDocumentView *window)
 
 static void
 history_changed_cb (PpsHistory *history,
-                    PpsDocumentView  *window)
+                    PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
 	pps_document_view_set_action_enabled (window, "go-back-history",
-						pps_history_can_go_back (priv->history));
+	                                      pps_history_can_go_back (priv->history));
 	pps_document_view_set_action_enabled (window, "go-forward-history",
-						pps_history_can_go_forward (priv->history));
+	                                      pps_history_can_go_forward (priv->history));
 }
 
 static void
-sidebar_layers_visibility_changed (GObject          *layers,
-				   PpsDocumentView        *window)
+sidebar_layers_visibility_changed (GObject *layers,
+                                   PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
@@ -3943,9 +3900,9 @@ sidebar_layers_visibility_changed (GObject          *layers,
 }
 
 static void
-sidebar_annots_annot_activated_cb (GObject               *sidebar_annots,
-				   PpsMapping            *annot_mapping,
-				   PpsDocumentView             *window)
+sidebar_annots_annot_activated_cb (GObject *sidebar_annots,
+                                   PpsMapping *annot_mapping,
+                                   PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
@@ -3953,9 +3910,9 @@ sidebar_annots_annot_activated_cb (GObject               *sidebar_annots,
 }
 
 static void
-view_annot_added (PpsView       *view,
-		  PpsAnnotation *annot,
-		  PpsDocumentView     *window)
+view_annot_added (PpsView *view,
+                  PpsAnnotation *annot,
+                  PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
@@ -3966,9 +3923,9 @@ view_annot_added (PpsView       *view,
 }
 
 static void
-view_annot_removed (PpsView       *view,
-		    PpsAnnotation *annot,
-		    PpsDocumentView     *window)
+view_annot_removed (PpsView *view,
+                    PpsAnnotation *annot,
+                    PpsDocumentView *window)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
@@ -3990,8 +3947,8 @@ get_uri (const char *filename, PpsDocumentView *window)
 	else if (g_path_is_absolute (filename))
 		ret = g_filename_to_uri (filename, NULL, NULL);
 	else {
-		g_autoptr(GFile) base_file = NULL;
-		g_autoptr(GFile) file = NULL;
+		g_autoptr (GFile) base_file = NULL;
+		g_autoptr (GFile) file = NULL;
 		g_autofree gchar *dir = NULL;
 
 		dir = g_path_get_dirname (priv->uri);
@@ -4030,8 +3987,8 @@ launch_action (PpsDocumentView *pps_doc_view, PpsLinkAction *action)
 
 	if (!file_is_pdf (uri)) {
 		pps_document_view_warning_message (pps_doc_view,
-			_("Security alert: this document has been prevented from opening the file “%s”"),
-			filename);
+		                                   _ ("Security alert: this document has been prevented from opening the file “%s”"),
+		                                   filename);
 		return;
 	}
 
@@ -4089,13 +4046,13 @@ launch_external_uri (PpsDocumentView *window, PpsLinkAction *action)
 		ret = g_app_info_launch_default_for_uri (uri, G_APP_LAUNCH_CONTEXT (context), &error);
 	}
 
-  	if (ret == FALSE) {
+	if (ret == FALSE) {
 		pps_document_view_error_message (window, error,
-					 "%s", _("Unable to open external link"));
+		                                 "%s", _ ("Unable to open external link"));
 		g_error_free (error);
 	}
 
-        g_object_unref (context);
+	g_object_unref (context);
 }
 
 static void
@@ -4108,7 +4065,7 @@ open_remote_link (PpsDocumentView *window, PpsLinkAction *action)
 	dir = g_path_get_dirname (priv->uri);
 
 	uri = g_build_filename (dir, pps_link_action_get_filename (action),
-				NULL);
+	                        NULL);
 	g_free (dir);
 
 	// The goto-remote action should not reference the file itself. If it
@@ -4124,7 +4081,7 @@ open_remote_link (PpsDocumentView *window, PpsLinkAction *action)
 static void
 do_action_named (PpsDocumentView *window, PpsLinkAction *action)
 {
-	PpsDocumentViewPrivate *priv = GET_PRIVATE(window);
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 	const gchar *name = pps_link_action_get_name (action);
 	GActionGroup *group = G_ACTION_GROUP (priv->document_action_group);
 
@@ -4150,8 +4107,8 @@ do_action_named (PpsDocumentView *window, PpsLinkAction *action)
 		g_warning ("Unimplemented named action: %s, please post a "
 		           "bug report in Papers Gitlab "
 		           "(https://gitlab.gnome.org/GNOME/Incubator/papers/issues) "
-			   "with a testcase.",
-			   name);
+		           "with a testcase.",
+		           name);
 	}
 }
 
@@ -4159,7 +4116,7 @@ static void
 reset_form (PpsDocumentView *window, PpsLinkAction *action)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
-	PpsDocument      *document = priv->document;
+	PpsDocument *document = priv->document;
 
 	if (PPS_IS_DOCUMENT_FORMS (document)) {
 		pps_document_forms_reset_form (PPS_DOCUMENT_FORMS (document), action);
@@ -4171,40 +4128,39 @@ static void
 view_external_link_cb (PpsDocumentView *window, PpsLinkAction *action)
 {
 	switch (pps_link_action_get_action_type (action)) {
-	        case PPS_LINK_ACTION_TYPE_GOTO_DEST: {
-			PpsLinkDest *dest;
+	case PPS_LINK_ACTION_TYPE_GOTO_DEST: {
+		PpsLinkDest *dest;
 
-			dest = pps_link_action_get_dest (action);
-			if (!dest)
-				return;
+		dest = pps_link_action_get_dest (action);
+		if (!dest)
+			return;
 
-			pps_document_view_open_copy_at_dest (window, dest);
-		}
-			break;
-	        case PPS_LINK_ACTION_TYPE_EXTERNAL_URI:
-			launch_external_uri (window, action);
-			break;
-	        case PPS_LINK_ACTION_TYPE_LAUNCH:
-			launch_action (window, action);
-			break;
-	        case PPS_LINK_ACTION_TYPE_GOTO_REMOTE:
-			open_remote_link (window, action);
-			break;
-	        case PPS_LINK_ACTION_TYPE_NAMED:
-			do_action_named (window, action);
-			break;
-	        case PPS_LINK_ACTION_TYPE_RESET_FORM:
-			reset_form (window, action);
-			break;
-	        default:
-			g_assert_not_reached ();
+		pps_document_view_open_copy_at_dest (window, dest);
+	} break;
+	case PPS_LINK_ACTION_TYPE_EXTERNAL_URI:
+		launch_external_uri (window, action);
+		break;
+	case PPS_LINK_ACTION_TYPE_LAUNCH:
+		launch_action (window, action);
+		break;
+	case PPS_LINK_ACTION_TYPE_GOTO_REMOTE:
+		open_remote_link (window, action);
+		break;
+	case PPS_LINK_ACTION_TYPE_NAMED:
+		do_action_named (window, action);
+		break;
+	case PPS_LINK_ACTION_TYPE_RESET_FORM:
+		reset_form (window, action);
+		break;
+	default:
+		g_assert_not_reached ();
 	}
 }
 
 static void
 pps_document_view_popup_cmd_open_link (GSimpleAction *action,
-			       GVariant      *parameter,
-			       gpointer       user_data)
+                                       GVariant *parameter,
+                                       gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
@@ -4214,12 +4170,12 @@ pps_document_view_popup_cmd_open_link (GSimpleAction *action,
 
 static void
 pps_document_view_popup_cmd_open_link_new_window (GSimpleAction *action,
-					  GVariant      *parameter,
-					  gpointer       user_data)
+                                                  GVariant *parameter,
+                                                  gpointer user_data)
 {
 	PpsLinkAction *pps_action = NULL;
-	PpsLinkDest   *dest;
-	PpsDocumentView     *window = user_data;
+	PpsLinkDest *dest;
+	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
 	pps_action = pps_link_get_action (priv->link);
@@ -4235,11 +4191,11 @@ pps_document_view_popup_cmd_open_link_new_window (GSimpleAction *action,
 
 static void
 pps_document_view_popup_cmd_copy_link_address (GSimpleAction *action,
-				       GVariant      *parameter,
-				       gpointer       user_data)
+                                               GVariant *parameter,
+                                               gpointer user_data)
 {
 	PpsLinkAction *pps_action;
-	PpsDocumentView     *window = user_data;
+	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
 	pps_action = pps_link_get_action (priv->link);
@@ -4247,17 +4203,17 @@ pps_document_view_popup_cmd_copy_link_address (GSimpleAction *action,
 		return;
 
 	pps_view_copy_link_address (PPS_VIEW (priv->view),
-				   pps_action);
+	                            pps_action);
 }
 
 static GFile *
-create_file_from_uri_for_format (const gchar     *uri,
-				 GdkPixbufFormat *format)
+create_file_from_uri_for_format (const gchar *uri,
+                                 GdkPixbufFormat *format)
 {
-	GFile  *target_file;
+	GFile *target_file;
 	gchar **extensions;
-	gchar  *uri_extension;
-	gint    i;
+	gchar *uri_extension;
+	gint i;
 
 	extensions = gdk_pixbuf_format_get_extensions (format);
 	for (i = 0; extensions[i]; i++) {
@@ -4276,20 +4232,20 @@ create_file_from_uri_for_format (const gchar     *uri,
 }
 
 static void
-image_save_dialog_response_cb (GtkFileDialog     *dialog,
-			       GAsyncResult      *result,
-			       PpsDocumentView         *pps_doc_view)
+image_save_dialog_response_cb (GtkFileDialog *dialog,
+                               GAsyncResult *result,
+                               PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
-	GFile           *target_file;
-	gboolean         is_native;
-	GError          *error = NULL;
-	GdkPixbuf       *pixbuf;
-	gchar           *uri;
-	gchar           *filename;
-	gchar           *file_format;
+	GFile *target_file;
+	gboolean is_native;
+	GError *error = NULL;
+	GdkPixbuf *pixbuf;
+	gchar *uri;
+	gchar *filename;
+	gchar *file_format;
 	GdkPixbufFormat *format = NULL;
-	GFile		*file;
+	GFile *file;
 
 	file = gtk_file_dialog_save_finish (dialog, result, NULL);
 
@@ -4297,7 +4253,7 @@ image_save_dialog_response_cb (GtkFileDialog     *dialog,
 		return;
 
 	pps_document_view_file_dialog_save_folder (pps_doc_view, file,
-					     G_USER_DIRECTORY_PICTURES);
+	                                           G_USER_DIRECTORY_PICTURES);
 
 	uri = g_file_get_uri (file);
 	g_clear_object (&file);
@@ -4315,8 +4271,8 @@ image_save_dialog_response_cb (GtkFileDialog     *dialog,
 
 	if (format == NULL) {
 		pps_document_view_error_message (pps_doc_view, NULL,
-					 "%s",
-					 _("Couldn’t find appropriate format to save image"));
+		                                 "%s",
+		                                 _ ("Couldn’t find appropriate format to save image"));
 		g_free (uri);
 		return;
 	}
@@ -4328,14 +4284,14 @@ image_save_dialog_response_cb (GtkFileDialog     *dialog,
 	if (is_native) {
 		filename = g_file_get_path (target_file);
 	} else {
-                /* Create a temporary local file to save to */
-                if (pps_mkstemp ("saveimage.XXXXXX", &filename, &error) == -1)
-                        goto has_error;
+		/* Create a temporary local file to save to */
+		if (pps_mkstemp ("saveimage.XXXXXX", &filename, &error) == -1)
+			goto has_error;
 	}
 
 	pps_document_doc_mutex_lock (priv->document);
 	pixbuf = pps_document_images_get_image (PPS_DOCUMENT_IMAGES (priv->document),
-					       priv->image);
+	                                        priv->image);
 	pps_document_doc_mutex_unlock (priv->document);
 
 	file_format = gdk_pixbuf_format_get_name (format);
@@ -4343,10 +4299,10 @@ image_save_dialog_response_cb (GtkFileDialog     *dialog,
 	g_free (file_format);
 	g_object_unref (pixbuf);
 
-    has_error:
+has_error:
 	if (error) {
 		pps_document_view_error_message (pps_doc_view, error,
-					 "%s", _("The image could not be saved."));
+		                                 "%s", _ ("The image could not be saved."));
 		g_error_free (error);
 		g_free (filename);
 		g_object_unref (target_file);
@@ -4368,21 +4324,21 @@ image_save_dialog_response_cb (GtkFileDialog     *dialog,
 
 static void
 pps_document_view_popup_cmd_save_image_as (GSimpleAction *action,
-				   GVariant      *parameter,
-				   gpointer       user_data)
+                                           GVariant *parameter,
+                                           gpointer user_data)
 {
-	PpsDocumentView  *window = user_data;
+	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 	GtkFileDialog *dialog;
-	g_autoptr(GDateTime) now = NULL;
-	g_autofree gchar *initial_name =  NULL;
+	g_autoptr (GDateTime) now = NULL;
+	g_autofree gchar *initial_name = NULL;
 
 	if (!priv->image)
 		return;
 
 	dialog = gtk_file_dialog_new ();
 
-	gtk_file_dialog_set_title (dialog, _("Save Image"));
+	gtk_file_dialog_set_title (dialog, _ ("Save Image"));
 	gtk_file_dialog_set_modal (dialog, TRUE);
 
 	now = g_date_time_new_now_local ();
@@ -4395,22 +4351,21 @@ pps_document_view_popup_cmd_save_image_as (GSimpleAction *action,
 	gtk_file_dialog_set_initial_name (dialog, initial_name);
 
 	pps_document_view_file_dialog_restore_folder (window, dialog,
-					       G_USER_DIRECTORY_PICTURES);
+	                                              G_USER_DIRECTORY_PICTURES);
 
-	gtk_file_dialog_save (dialog, GTK_WINDOW (gtk_widget_get_native(GTK_WIDGET (window))), NULL,
-			      (GAsyncReadyCallback)image_save_dialog_response_cb,
-			      window);
+	gtk_file_dialog_save (dialog, GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (window))), NULL,
+	                      (GAsyncReadyCallback) image_save_dialog_response_cb,
+	                      window);
 }
-
 
 static void
 pps_document_view_popup_cmd_copy_image (GSimpleAction *action,
-				GVariant      *parameter,
-				gpointer       user_data)
+                                        GVariant *parameter,
+                                        gpointer user_data)
 {
 	GdkClipboard *clipboard;
-	GdkPixbuf    *pixbuf;
-	PpsDocumentView     *window = user_data;
+	GdkPixbuf *pixbuf;
+	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
 	if (!priv->image)
@@ -4419,37 +4374,37 @@ pps_document_view_popup_cmd_copy_image (GSimpleAction *action,
 	clipboard = gtk_widget_get_clipboard (GTK_WIDGET (window));
 	pps_document_doc_mutex_lock (priv->document);
 	pixbuf = pps_document_images_get_image (PPS_DOCUMENT_IMAGES (priv->document),
-					       priv->image);
+	                                        priv->image);
 	pps_document_doc_mutex_unlock (priv->document);
 
 	gdk_clipboard_set_texture (clipboard,
-			gdk_texture_new_for_pixbuf (pixbuf));
+	                           gdk_texture_new_for_pixbuf (pixbuf));
 	g_object_unref (pixbuf);
 }
 
 static void
 pps_document_view_popup_cmd_annot_properties_response_cb (AdwAlertDialog *dialog,
-						   gchar 	  *response,
-						   PpsDocumentView      *window)
+                                                          gchar *response,
+                                                          PpsDocumentView *window)
 {
-	PpsDocumentViewPrivate              *priv = GET_PRIVATE (window);
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
-	g_autoptr(GdkRGBA)            rgba = NULL;
-	gdouble                       opacity;
-	g_autofree gchar              *author = NULL;
-	gboolean                      popup_is_open;
-	PpsAnnotation                 *annot = priv->annot;
-	PpsAnnotationsSaveMask         mask = PPS_ANNOTATIONS_SAVE_NONE;
+	g_autoptr (GdkRGBA) rgba = NULL;
+	gdouble opacity;
+	g_autofree gchar *author = NULL;
+	gboolean popup_is_open;
+	PpsAnnotation *annot = priv->annot;
+	PpsAnnotationsSaveMask mask = PPS_ANNOTATIONS_SAVE_NONE;
 
 	if (!g_str_equal (response, "apply")) {
 		return;
 	}
 
 	g_object_get (dialog, "author", &author,
-			      "rgba", &rgba,
-			      "opacity", &opacity,
-			      "popup-open", &popup_is_open,
-			      NULL);
+	              "rgba", &rgba,
+	              "opacity", &opacity,
+	              "popup-open", &popup_is_open,
+	              NULL);
 	/* Set annotations changes */
 	if (pps_annotation_markup_set_label (PPS_ANNOTATION_MARKUP (annot), author))
 		mask |= PPS_ANNOTATIONS_SAVE_LABEL;
@@ -4482,8 +4437,8 @@ pps_document_view_popup_cmd_annot_properties_response_cb (AdwAlertDialog *dialog
 	if (mask != PPS_ANNOTATIONS_SAVE_NONE) {
 		pps_document_doc_mutex_lock (priv->document);
 		pps_document_annotations_save_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document),
-							 priv->annot,
-							 mask);
+		                                          priv->annot,
+		                                          mask);
 		pps_document_doc_mutex_unlock (priv->document);
 
 		/* FIXME: update annot region only */
@@ -4493,46 +4448,46 @@ pps_document_view_popup_cmd_annot_properties_response_cb (AdwAlertDialog *dialog
 
 static void
 pps_document_view_popup_cmd_annot_properties (GSimpleAction *action,
-				      GVariant      *parameter,
-				      gpointer       user_data)
+                                              GVariant *parameter,
+                                              gpointer user_data)
 {
-	PpsDocumentView                     *window = user_data;
-	PpsDocumentViewPrivate              *priv = GET_PRIVATE (window);
-	AdwAlertDialog                *dialog;
-	PpsAnnotation                 *annot = priv->annot;
+	PpsDocumentView *window = user_data;
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
+	AdwAlertDialog *dialog;
+	PpsAnnotation *annot = priv->annot;
 
 	if (!annot)
 		return;
 
 	dialog = g_object_new (g_type_from_name ("PpsAnnotationPropertiesDialog"),
-			"annotation", priv->annot, NULL);
+	                       "annotation", priv->annot, NULL);
 
 	g_signal_connect (dialog, "response",
-				G_CALLBACK (pps_document_view_popup_cmd_annot_properties_response_cb),
-				window);
+	                  G_CALLBACK (pps_document_view_popup_cmd_annot_properties_response_cb),
+	                  window);
 	adw_dialog_present (ADW_DIALOG (dialog), GTK_WIDGET (window));
 }
 
 static void
 pps_document_view_popup_cmd_remove_annotation (GSimpleAction *action,
-				       GVariant      *parameter,
-				       gpointer       user_data)
+                                               GVariant *parameter,
+                                               gpointer user_data)
 {
 	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
 	pps_view_remove_annotation (PPS_VIEW (priv->view),
-				   priv->annot);
+	                            priv->annot);
 }
 
 static void
 pps_document_view_popup_cmd_open_attachment (GSimpleAction *action,
-				     GVariant      *parameter,
-				     gpointer       user_data)
+                                             GVariant *parameter,
+                                             gpointer user_data)
 {
 	GdkDisplay *display;
-	guint	    n_items, i;
-	PpsDocumentView  *window = user_data;
+	guint n_items, i;
+	PpsDocumentView *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
 	if (!priv->attachments)
@@ -4544,7 +4499,7 @@ pps_document_view_popup_cmd_open_attachment (GSimpleAction *action,
 
 	for (i = 0; i < n_items; i++) {
 		PpsAttachment *attachment;
-		GError       *error = NULL;
+		GError *error = NULL;
 		GdkAppLaunchContext *context = gdk_display_get_app_launch_context (display);
 
 		attachment = g_list_model_get_item (priv->attachments, i);
@@ -4553,7 +4508,7 @@ pps_document_view_popup_cmd_open_attachment (GSimpleAction *action,
 
 		if (error) {
 			pps_document_view_error_message (window, error,
-						 "%s", _("Unable to open attachment"));
+			                                 "%s", _ ("Unable to open attachment"));
 			g_error_free (error);
 		}
 
@@ -4563,8 +4518,8 @@ pps_document_view_popup_cmd_open_attachment (GSimpleAction *action,
 
 static void
 attachments_save_response_cb (PpsAttachmentContext *attachment_context,
-			      GAsyncResult         *result,
-			      PpsDocumentView      *document_view)
+                              GAsyncResult *result,
+                              PpsDocumentView *document_view)
 {
 	g_autoptr (GError) error = NULL;
 
@@ -4572,15 +4527,15 @@ attachments_save_response_cb (PpsAttachmentContext *attachment_context,
 
 	if (error)
 		pps_document_view_error_message (document_view, error,
-						 "%s", _("The attachment could not be saved."));
+		                                 "%s", _ ("The attachment could not be saved."));
 }
 
 static void
 pps_document_view_popup_cmd_save_attachment_as (GSimpleAction *action,
-						GVariant      *parameter,
-						gpointer       document_view_pointer)
+                                                GVariant *parameter,
+                                                gpointer document_view_pointer)
 {
-	PpsDocumentView        *document_view = PPS_DOCUMENT_VIEW (document_view_pointer);
+	PpsDocumentView *document_view = PPS_DOCUMENT_VIEW (document_view_pointer);
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (document_view);
 
 	if (!priv->attachments)
@@ -4589,16 +4544,16 @@ pps_document_view_popup_cmd_save_attachment_as (GSimpleAction *action,
 	pps_document_view_reset_progress_cancellable (document_view);
 
 	pps_attachment_context_save_attachments_async (priv->attachment_context,
-						       g_object_ref (priv->attachments),
-						       GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (document_view))),
-						       priv->progress_cancellable,
-						       (GAsyncReadyCallback)attachments_save_response_cb,
-						       document_view);
+	                                               g_object_ref (priv->attachments),
+	                                               GTK_WINDOW (gtk_widget_get_root (GTK_WIDGET (document_view))),
+	                                               priv->progress_cancellable,
+	                                               (GAsyncReadyCallback) attachments_save_response_cb,
+	                                               document_view);
 }
 
 static void
 view_details_cb (AdwBanner *self,
-                 gpointer   user_data)
+                 gpointer user_data)
 {
 	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
@@ -4626,33 +4581,33 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 	priv->history = pps_history_new (priv->model);
 
 	g_signal_connect (priv->history, "activate-link",
-			  G_CALLBACK (activate_link_cb),
-			  pps_doc_view);
-        g_signal_connect (priv->history, "changed",
-                          G_CALLBACK (history_changed_cb),
-                          pps_doc_view);
+	                  G_CALLBACK (activate_link_cb),
+	                  pps_doc_view);
+	g_signal_connect (priv->history, "changed",
+	                  G_CALLBACK (history_changed_cb),
+	                  pps_doc_view);
 
 	priv->document_action_group = g_simple_action_group_new ();
 	g_action_map_add_action_entries (G_ACTION_MAP (priv->document_action_group),
-					 actions,
-					 G_N_ELEMENTS (actions),
-					 pps_doc_view);
+	                                 actions,
+	                                 G_N_ELEMENTS (actions),
+	                                 pps_doc_view);
 	gtk_widget_insert_action_group (GTK_WIDGET (pps_doc_view),
-					"doc", G_ACTION_GROUP (priv->document_action_group));
+	                                "doc", G_ACTION_GROUP (priv->document_action_group));
 	// These are only enabled once the search has started
 	pps_document_view_set_action_enabled (pps_doc_view, "find-next", FALSE);
 	pps_document_view_set_action_enabled (pps_doc_view, "find-previous", FALSE);
 
-	g_action_group_change_action_state (G_ACTION_GROUP (priv->document_action_group), "annot-color", g_variant_new_string("yellow"));
+	g_action_group_change_action_state (G_ACTION_GROUP (priv->document_action_group), "annot-color", g_variant_new_string ("yellow"));
 
 	page_cache_mb = g_settings_get_uint (priv->settings,
-					     GS_PAGE_CACHE_SIZE);
+	                                     GS_PAGE_CACHE_SIZE);
 	pps_view_set_page_cache_size (PPS_VIEW (priv->view),
-				     (gsize) page_cache_mb * 1024 * 1024);
+	                              (gsize) page_cache_mb * 1024 * 1024);
 	allow_links_change_zoom = g_settings_get_boolean (priv->settings,
-				     GS_ALLOW_LINKS_CHANGE_ZOOM);
+	                                                  GS_ALLOW_LINKS_CHANGE_ZOOM);
 	pps_view_set_allow_links_change_zoom (PPS_VIEW (priv->view),
-				     allow_links_change_zoom);
+	                                      allow_links_change_zoom);
 	pps_view_set_model (PPS_VIEW (priv->view), priv->model);
 
 	g_settings_delay (priv->default_settings);
@@ -4662,8 +4617,8 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 	pps_document_view_update_actions_sensitivity (pps_doc_view);
 
 	g_object_bind_property (g_action_map_lookup_action (G_ACTION_MAP (priv->document_action_group), "find"), "enabled",
-				priv->find_sidebar, "visible",
-				G_BINDING_SYNC_CREATE);
+	                        priv->find_sidebar, "visible",
+	                        G_BINDING_SYNC_CREATE);
 
 	priv->search_context = pps_search_context_new (priv->model);
 
@@ -4671,8 +4626,8 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 	pps_view_set_search_context (PPS_VIEW (priv->view), priv->search_context);
 
 	g_signal_connect_object (priv->search_context, "result-activated",
-				 G_CALLBACK (sidebar_navigate_to_view),
-				 pps_doc_view, G_CONNECT_SWAPPED);
+	                         G_CALLBACK (sidebar_navigate_to_view),
+	                         pps_doc_view, G_CONNECT_SWAPPED);
 }
 
 static void
@@ -4684,15 +4639,15 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	g_object_class->dispose = pps_document_view_dispose;
 
 	gtk_widget_class_set_template_from_resource (widget_class,
-		"/org/gnome/papers/ui/document-view.ui");
-	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, document_toolbar_view);
-	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, split_view);
-	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, scrolled_window);
-	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, toast_overlay);
-	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, error_alert);
-	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, print_cancel_alert);
-	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, rect_small_alert);
-	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, banner);
+	                                             "/org/gnome/papers/ui/document-view.ui");
+	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, document_toolbar_view);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, split_view);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, scrolled_window);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, toast_overlay);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, error_alert);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, print_cancel_alert);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, rect_small_alert);
+	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, banner);
 
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, model);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, view);
@@ -4798,7 +4753,6 @@ pps_document_view_focus_view (PpsDocumentView *pps_doc_view)
 	gtk_widget_grab_focus (priv->view);
 }
 
-
 /**
  * pps_document_view_get_metadata:
  * @pps_doc_view: the #PpsDocumentView
@@ -4822,8 +4776,7 @@ pps_document_view_reload_document (PpsDocumentView *pps_doc_view, PpsDocument *d
 	pps_document_view_set_document (pps_doc_view, document);
 
 	/* Restart the search after reloading */
-	if (gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack))
-	    == priv->find_sidebar)
+	if (gtk_stack_get_visible_child (GTK_STACK (priv->sidebar_stack)) == priv->find_sidebar)
 		pps_search_context_restart (priv->search_context);
 }
 
@@ -4847,8 +4800,8 @@ pps_document_view_close_handled (PpsDocumentView *pps_doc_view)
 
 void
 pps_document_view_set_filenames (PpsDocumentView *pps_doc_view,
-				const gchar      *display_name,
-				const gchar      *edit_name)
+                                 const gchar *display_name,
+                                 const gchar *edit_name)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
@@ -4878,7 +4831,7 @@ pps_document_view_get_model (PpsDocumentView *pps_doc_view)
 
 void
 pps_document_view_set_fullscreen_mode (PpsDocumentView *pps_doc_view,
-				       gboolean         fullscreened)
+                                       gboolean fullscreened)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
@@ -4887,7 +4840,7 @@ pps_document_view_set_fullscreen_mode (PpsDocumentView *pps_doc_view,
 
 void
 pps_document_view_set_inverted_colors (PpsDocumentView *pps_doc_view,
-				       gboolean         inverted)
+                                       gboolean inverted)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	g_return_if_fail (PPS_DOCUMENT_VIEW (pps_doc_view));

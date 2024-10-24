@@ -23,48 +23,48 @@
 
 #pragma once
 
+#include <adwaita.h>
 #include <glib.h>
 #include <gtk/gtk.h>
-#include <adwaita.h>
 
 #include "pps-link.h"
 #include <papers-view.h>
 
 G_BEGIN_DECLS
 
-#define PPS_TYPE_DOCUMENT_VIEW		(pps_document_view_get_type())
+#define PPS_TYPE_DOCUMENT_VIEW (pps_document_view_get_type ())
 G_DECLARE_FINAL_TYPE (PpsDocumentView, pps_document_view, PPS, DOCUMENT_VIEW, AdwBreakpointBin)
 
 struct _PpsDocumentView {
 	AdwBreakpointBin base_instance;
 };
 
-PpsDocumentView       *pps_document_view_new                            (void);
-const char     *pps_document_view_get_uri                        (PpsDocumentView       *pps_doc_view);
-void		pps_document_view_open_document (PpsDocumentView  *pps_doc_view,
-						 PpsDocument *document,
-						 PpsMetadata *metadata,
-						 PpsLinkDest *dest);
-gboolean	pps_document_view_is_empty	                 (PpsDocumentView       *pps_doc_view);
-void		pps_document_view_print_range                    (PpsDocumentView       *pps_doc_view,
-                                                          int             first_page,
-                                                          int		 last_page);
-void            pps_document_view_focus_view                     (PpsDocumentView       *pps_doc_view);
-void            pps_document_view_handle_annot_popup             (PpsDocumentView       *pps_doc_view,
-                                                          PpsAnnotation   *annot);
-PpsMetadata     *pps_document_view_get_metadata			 (PpsDocumentView	 *pps_doc_view);
-void		pps_document_view_set_document 		(PpsDocumentView *pps_doc_view,
-							 PpsDocument *document);
-void		pps_document_view_reload_document 	(PpsDocumentView *pps_doc_view,
-							 PpsDocument *document);
-gboolean	pps_document_view_close_handled 	(PpsDocumentView *pps_doc_view);
-void		pps_document_view_set_filenames		(PpsDocumentView *pps_doc_view,
-							 const gchar      *display_name,
-							 const gchar      *edit_name);
-PpsDocumentModel *pps_document_view_get_model 		(PpsDocumentView *pps_doc_view);
-void		pps_document_view_set_fullscreen_mode 	(PpsDocumentView *pps_doc_view,
-				       			 gboolean         fullscreened);
-void		pps_document_view_set_inverted_colors 	(PpsDocumentView *pps_doc_view,
-				       			 gboolean         inverted);
+PpsDocumentView *pps_document_view_new (void);
+const char *pps_document_view_get_uri (PpsDocumentView *pps_doc_view);
+void pps_document_view_open_document (PpsDocumentView *pps_doc_view,
+                                      PpsDocument *document,
+                                      PpsMetadata *metadata,
+                                      PpsLinkDest *dest);
+gboolean pps_document_view_is_empty (PpsDocumentView *pps_doc_view);
+void pps_document_view_print_range (PpsDocumentView *pps_doc_view,
+                                    int first_page,
+                                    int last_page);
+void pps_document_view_focus_view (PpsDocumentView *pps_doc_view);
+void pps_document_view_handle_annot_popup (PpsDocumentView *pps_doc_view,
+                                           PpsAnnotation *annot);
+PpsMetadata *pps_document_view_get_metadata (PpsDocumentView *pps_doc_view);
+void pps_document_view_set_document (PpsDocumentView *pps_doc_view,
+                                     PpsDocument *document);
+void pps_document_view_reload_document (PpsDocumentView *pps_doc_view,
+                                        PpsDocument *document);
+gboolean pps_document_view_close_handled (PpsDocumentView *pps_doc_view);
+void pps_document_view_set_filenames (PpsDocumentView *pps_doc_view,
+                                      const gchar *display_name,
+                                      const gchar *edit_name);
+PpsDocumentModel *pps_document_view_get_model (PpsDocumentView *pps_doc_view);
+void pps_document_view_set_fullscreen_mode (PpsDocumentView *pps_doc_view,
+                                            gboolean fullscreened);
+void pps_document_view_set_inverted_colors (PpsDocumentView *pps_doc_view,
+                                            gboolean inverted);
 
 G_END_DECLS

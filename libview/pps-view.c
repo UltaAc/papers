@@ -20,33 +20,33 @@
 
 #include "config.h"
 
-#include <stdlib.h>
 #include <math.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include <adwaita.h>
+#include <gdk/gdkkeysyms.h>
 #include <glib/gi18n-lib.h>
 #include <gtk/gtk.h>
-#include <gdk/gdkkeysyms.h>
 
-#include "pps-mapping-list.h"
 #include "pps-document-forms.h"
 #include "pps-document-images.h"
-#include "pps-document-links.h"
 #include "pps-document-layers.h"
+#include "pps-document-links.h"
 #include "pps-document-media.h"
 #include "pps-document-misc.h"
+#include "pps-mapping-list.h"
 
-#include "pps-view.h"
 #include "pps-view-private.h"
+#include "pps-view.h"
 
-#include "pps-form-field-private.h"
-#include "pps-pixbuf-cache.h"
-#include "pps-page-cache.h"
-#include "pps-view-marshal.h"
-#include "pps-document-annotations.h"
 #include "pps-annotation-window.h"
 #include "pps-debug.h"
+#include "pps-document-annotations.h"
+#include "pps-form-field-private.h"
+#include "pps-page-cache.h"
+#include "pps-pixbuf-cache.h"
+#include "pps-view-marshal.h"
 
 enum {
 	SIGNAL_SCROLL,
@@ -81,19 +81,20 @@ typedef enum {
 	PPS_VIEW_FIND_PREV
 } PpsViewFindDirection;
 
-typedef struct {
+typedef struct
+{
 	/* View coords */
-	gint        x;
-	gint        y;
+	gint x;
+	gint y;
 
 	/* Document */
-	guint       page;
+	guint page;
 	PpsRectangle doc_rect;
 } PpsViewChild;
 
 #define MIN_SCALE 0.05409 /* large documents (comics) need a small value, see #702 */
-#define ZOOM_IN_FACTOR  1.2
-#define ZOOM_OUT_FACTOR (1.0/ZOOM_IN_FACTOR)
+#define ZOOM_IN_FACTOR 1.2
+#define ZOOM_OUT_FACTOR (1.0 / ZOOM_IN_FACTOR)
 
 #define SCROLL_TIME 150
 #define SCROLL_PAGE_THRESHOLD 0.7
@@ -101,181 +102,179 @@ typedef struct {
 #define DEFAULT_PIXBUF_CACHE_SIZE 52428800 /* 50MB */
 
 #define PPS_STYLE_CLASS_DOCUMENT_PAGE "document-page"
-#define PPS_STYLE_CLASS_INVERTED      "inverted"
-#define PPS_STYLE_CLASS_FIND_RESULTS  "find-results"
+#define PPS_STYLE_CLASS_INVERTED "inverted"
+#define PPS_STYLE_CLASS_FIND_RESULTS "find-results"
 
-#define ANNOT_POPUP_WINDOW_DEFAULT_WIDTH  200
+#define ANNOT_POPUP_WINDOW_DEFAULT_WIDTH 200
 #define ANNOT_POPUP_WINDOW_DEFAULT_HEIGHT 150
 #define ANNOTATION_ICON_SIZE 24
 
-#define LINK_PREVIEW_PAGE_RATIO 1.0 / 3.0     /* Size of popover with respect to page size */
-#define LINK_PREVIEW_HORIZONTAL_LINK_POS 0.5  /* as fraction of preview width */
-#define LINK_PREVIEW_VERTICAL_LINK_POS 0.3    /* as fraction of preview height */
-#define LINK_PREVIEW_DELAY_MS 300             /* Delay before showing preview in milliseconds */
+#define LINK_PREVIEW_PAGE_RATIO 1.0 / 3.0    /* Size of popover with respect to page size */
+#define LINK_PREVIEW_HORIZONTAL_LINK_POS 0.5 /* as fraction of preview width */
+#define LINK_PREVIEW_VERTICAL_LINK_POS 0.3   /* as fraction of preview height */
+#define LINK_PREVIEW_DELAY_MS 300            /* Delay before showing preview in milliseconds */
 
 #define BUTTON_MODIFIER_MASK (GDK_BUTTON1_MASK | GDK_BUTTON2_MASK | GDK_BUTTON3_MASK | GDK_BUTTON4_MASK | GDK_BUTTON5_MASK)
 
 /*** Geometry computations ***/
-static void       compute_border                             (PpsView             *view,
-							      GtkBorder          *border);
-static void       get_page_y_offset                          (PpsView             *view,
-							      int                 page,
-							      int                *y_offset,
-							      GtkBorder          *border);
-static void       find_page_at_location                      (PpsView             *view,
-							      gdouble             x,
-							      gdouble             y,
-							      gint               *page,
-							      gint               *x_offset,
-							      gint               *y_offset);
-static gboolean   real_pps_view_get_page_extents              (PpsView             *view,
-							      gint                page,
-							      GdkRectangle       *page_area,
-							      GtkBorder          *border,
-							      gboolean            use_passed_border);
+static void compute_border (PpsView *view,
+                            GtkBorder *border);
+static void get_page_y_offset (PpsView *view,
+                               int page,
+                               int *y_offset,
+                               GtkBorder *border);
+static void find_page_at_location (PpsView *view,
+                                   gdouble x,
+                                   gdouble y,
+                                   gint *page,
+                                   gint *x_offset,
+                                   gint *y_offset);
+static gboolean real_pps_view_get_page_extents (PpsView *view,
+                                                gint page,
+                                                GdkRectangle *page_area,
+                                                GtkBorder *border,
+                                                gboolean use_passed_border);
 /*** Hyperrefs ***/
-static PpsLink *   pps_view_get_link_at_location 		     (PpsView             *view,
-				  	         	      gdouble             x,
-		            				      gdouble             y);
-static char*      tip_from_link                              (PpsView             *view,
-							      PpsLink             *link);
-static void       pps_view_link_preview_popover_cleanup       (PpsView             *view);
-static void       get_link_area                              (PpsView             *view,
-							      gint                x,
-							      gint                y,
-							      PpsLink             *link,
-							      GdkRectangle       *area);
-static void       link_preview_set_thumbnail                 (GdkTexture    *page_surface,
-							      PpsView             *view);
-static void       link_preview_job_finished_cb               (PpsJobThumbnailTexture     *job,
-							      PpsView             *view);
-static void       link_preview_delayed_show                  (PpsView *view);
+static PpsLink *pps_view_get_link_at_location (PpsView *view,
+                                               gdouble x,
+                                               gdouble y);
+static char *tip_from_link (PpsView *view,
+                            PpsLink *link);
+static void pps_view_link_preview_popover_cleanup (PpsView *view);
+static void get_link_area (PpsView *view,
+                           gint x,
+                           gint y,
+                           PpsLink *link,
+                           GdkRectangle *area);
+static void link_preview_set_thumbnail (GdkTexture *page_surface,
+                                        PpsView *view);
+static void link_preview_job_finished_cb (PpsJobThumbnailTexture *job,
+                                          PpsView *view);
+static void link_preview_delayed_show (PpsView *view);
 /*** Forms ***/
-static PpsFormField *pps_view_get_form_field_at_location       (PpsView             *view,
-							       gdouble            x,
-							       gdouble            y);
+static PpsFormField *pps_view_get_form_field_at_location (PpsView *view,
+                                                          gdouble x,
+                                                          gdouble y);
 /*** Media ***/
-static PpsMedia     *pps_view_get_media_at_location            (PpsView             *view,
-							      gdouble             x,
-							      gdouble             y);
-static gboolean     pps_view_find_player_for_media            (PpsView             *view,
-							      PpsMedia            *media);
+static PpsMedia *pps_view_get_media_at_location (PpsView *view,
+                                                 gdouble x,
+                                                 gdouble y);
+static gboolean pps_view_find_player_for_media (PpsView *view,
+                                                PpsMedia *media);
 
-static PpsAnnotation *pps_view_get_annotation_at_location      (PpsView             *view,
-							      gdouble             x,
-							      gdouble             y);
-static void          hide_annotation_windows                 (PpsView             *view,
-							      gint                page);
+static PpsAnnotation *pps_view_get_annotation_at_location (PpsView *view,
+                                                           gdouble x,
+                                                           gdouble y);
+static void hide_annotation_windows (PpsView *view,
+                                     gint page);
 
-static void       pps_view_remove_all_form_fields             (PpsView             *view);
+static void pps_view_remove_all_form_fields (PpsView *view);
 
 /*** Drawing ***/
-static void       highlight_find_results                     (PpsView             *view,
-                                                              GtkSnapshot        *snapshot,
-							      int                 page);
-static void       draw_one_page                              (PpsView             *view,
-							      gint                page,
-							      GtkSnapshot        *snapshot,
-							      GdkRectangle       *page_area,
-							      GtkBorder          *border,
-							      GdkRectangle       *expose_area,
-							      gboolean		 *page_ready);
-static void      draw_surface                                (GtkSnapshot            *snapshot,
-							      GdkTexture             *texture,
-							      const graphene_point_t *point,
-							      const graphene_rect_t  *area,
-							      gboolean                inverted);
-static void       pps_view_reload_page                        (PpsView             *view,
-							      gint                page,
-							      cairo_region_t     *region);
+static void highlight_find_results (PpsView *view,
+                                    GtkSnapshot *snapshot,
+                                    int page);
+static void draw_one_page (PpsView *view,
+                           gint page,
+                           GtkSnapshot *snapshot,
+                           GdkRectangle *page_area,
+                           GtkBorder *border,
+                           GdkRectangle *expose_area,
+                           gboolean *page_ready);
+static void draw_surface (GtkSnapshot *snapshot,
+                          GdkTexture *texture,
+                          const graphene_point_t *point,
+                          const graphene_rect_t *area,
+                          gboolean inverted);
+static void pps_view_reload_page (PpsView *view,
+                                  gint page,
+                                  cairo_region_t *region);
 /*** Callbacks ***/
-static void       pps_view_change_page                        (PpsView             *view,
-							      gint                new_page);
-static void       job_finished_cb                            (PpsPixbufCache      *pixbuf_cache,
-							      cairo_region_t     *region,
-							      PpsView             *view);
-static void       pps_view_page_changed_cb                    (PpsDocumentModel    *model,
-							      gint                old_page,
-							      gint                new_page,
-							      PpsView             *view);
-static void       adjustment_value_changed_cb                (GtkAdjustment      *adjustment,
-							      PpsView             *view);
-static void       pps_interrupt_scroll_animation_cb	     (GtkAdjustment      *adjustment,
-							      PpsView             *view);
+static void pps_view_change_page (PpsView *view,
+                                  gint new_page);
+static void job_finished_cb (PpsPixbufCache *pixbuf_cache,
+                             cairo_region_t *region,
+                             PpsView *view);
+static void pps_view_page_changed_cb (PpsDocumentModel *model,
+                                      gint old_page,
+                                      gint new_page,
+                                      PpsView *view);
+static void adjustment_value_changed_cb (GtkAdjustment *adjustment,
+                                         PpsView *view);
+static void pps_interrupt_scroll_animation_cb (GtkAdjustment *adjustment,
+                                               PpsView *view);
 /*** Zoom and sizing ***/
-static double   zoom_for_size_fit_width	 		     (gdouble doc_width,
-							      gdouble doc_height,
-	    						      int     target_width,
-							      int     target_height);
-static double   zoom_for_size_fit_height		     (gdouble doc_width,
-			  				      gdouble doc_height,
-							      int     target_width,
-							      int     target_height);
-static double	zoom_for_size_fit_page 			     (gdouble doc_width,
-							      gdouble doc_height,
-							      int     target_width,
-							      int     target_height);
-static double   zoom_for_size_automatic                      (GtkWidget *widget,
-							      gdouble    doc_width,
-							      gdouble    doc_height,
-							      int        target_width,
-							      int        target_height);
-static gboolean pps_view_can_zoom                             (PpsView *view,
-                                                              gdouble factor);
-static void     pps_view_zoom                                 (PpsView *view,
-                                                              gdouble factor);
-static void     pps_view_zoom_for_size                        (PpsView *view,
-							      int     width,
-							      int     height);
-static void	pps_view_zoom_for_size_continuous_and_dual_page (PpsView *view,
-							        int     width,
-						     	        int     height);
-static void	pps_view_zoom_for_size_continuous	       (PpsView *view,
-					    		        int     width,
-								int     height);
-static void 	pps_view_zoom_for_size_dual_page 	       (PpsView *view,
-						    		int     width,
-								int     height);
-static void	pps_view_zoom_for_size_single_page 	       (PpsView *view,
-				    			        int     width,
-					    			int     height);
-static gboolean	pps_view_page_fits			       (PpsView         *view,
-								GtkOrientation  orientation);
+static double zoom_for_size_fit_width (gdouble doc_width,
+                                       gdouble doc_height,
+                                       int target_width,
+                                       int target_height);
+static double zoom_for_size_fit_height (gdouble doc_width,
+                                        gdouble doc_height,
+                                        int target_width,
+                                        int target_height);
+static double zoom_for_size_fit_page (gdouble doc_width,
+                                      gdouble doc_height,
+                                      int target_width,
+                                      int target_height);
+static double zoom_for_size_automatic (GtkWidget *widget,
+                                       gdouble doc_width,
+                                       gdouble doc_height,
+                                       int target_width,
+                                       int target_height);
+static gboolean pps_view_can_zoom (PpsView *view,
+                                   gdouble factor);
+static void pps_view_zoom (PpsView *view,
+                           gdouble factor);
+static void pps_view_zoom_for_size (PpsView *view,
+                                    int width,
+                                    int height);
+static void pps_view_zoom_for_size_continuous_and_dual_page (PpsView *view,
+                                                             int width,
+                                                             int height);
+static void pps_view_zoom_for_size_continuous (PpsView *view,
+                                               int width,
+                                               int height);
+static void pps_view_zoom_for_size_dual_page (PpsView *view,
+                                              int width,
+                                              int height);
+static void pps_view_zoom_for_size_single_page (PpsView *view,
+                                                int width,
+                                                int height);
+static gboolean pps_view_page_fits (PpsView *view,
+                                    GtkOrientation orientation);
 /*** Cursors ***/
-static void       pps_view_set_cursor                         (PpsView             *view,
-							      PpsViewCursor        new_cursor);
+static void pps_view_set_cursor (PpsView *view,
+                                 PpsViewCursor new_cursor);
 
 /*** Find ***/
-static gint         pps_view_find_get_n_results               (PpsView             *view,
-							      gint                page);
-static PpsFindRectangle *pps_view_find_get_result              (PpsView             *view,
-							      gint                page,
-							      gint                result);
-static void       jump_to_find_result                        (PpsView             *view);
-static void       jump_to_find_page                          (PpsView             *view,
-							      PpsViewFindDirection direction,
-							      gint                shift);
-static void       pps_view_find_cancel                       (PpsView         *view);
+static gint pps_view_find_get_n_results (PpsView *view,
+                                         gint page);
+static PpsFindRectangle *pps_view_find_get_result (PpsView *view,
+                                                   gint page,
+                                                   gint result);
+static void jump_to_find_result (PpsView *view);
+static void jump_to_find_page (PpsView *view,
+                               PpsViewFindDirection direction,
+                               gint shift);
+static void pps_view_find_cancel (PpsView *view);
 
 /*** Selection ***/
-static void       compute_selections                         (PpsView             *view,
-							      PpsSelectionStyle    style,
-							      GdkPoint           *start,
-							      GdkPoint           *stop);
-static void       clear_selection                            (PpsView             *view);
-static void       selection_free                             (PpsViewSelection    *selection);
-static char*      get_selected_text                          (PpsView             *pps_view);
+static void compute_selections (PpsView *view,
+                                PpsSelectionStyle style,
+                                GdkPoint *start,
+                                GdkPoint *stop);
+static void clear_selection (PpsView *view);
+static void selection_free (PpsViewSelection *selection);
+static char *get_selected_text (PpsView *pps_view);
 
 /*** Caret navigation ***/
-static void       pps_view_check_cursor_blink                 (PpsView             *pps_view);
+static void pps_view_check_cursor_blink (PpsView *pps_view);
 
-void              pps_view_stop_signature_rect                (PpsView *view);
+void pps_view_stop_signature_rect (PpsView *view);
 
-static void       pps_view_update_primary_selection           (PpsView             *view);
+static void pps_view_update_primary_selection (PpsView *view);
 
-G_DEFINE_TYPE_WITH_CODE (PpsView, pps_view, GTK_TYPE_WIDGET,
-			 G_ADD_PRIVATE (PpsView)
-			 G_IMPLEMENT_INTERFACE (GTK_TYPE_SCROLLABLE, NULL))
+G_DEFINE_TYPE_WITH_CODE (PpsView, pps_view, GTK_TYPE_WIDGET, G_ADD_PRIVATE (PpsView) G_IMPLEMENT_INTERFACE (GTK_TYPE_SCROLLABLE, NULL))
 
 #define GET_PRIVATE(o) pps_view_get_instance_private (o)
 
@@ -283,8 +282,8 @@ G_DEFINE_TYPE_WITH_CODE (PpsView, pps_view, GTK_TYPE_WIDGET,
 #define PPS_HEIGHT_TO_PAGE_CACHE_KEY "pps-height-to-page-cache"
 
 static void
-pps_view_build_height_to_page_cache (PpsView		*view,
-                                    PpsHeightToPageCache *cache)
+pps_view_build_height_to_page_cache (PpsView *view,
+                                     PpsHeightToPageCache *cache)
 {
 	gboolean swap, uniform;
 	int i;
@@ -340,7 +339,7 @@ pps_view_build_height_to_page_cache (PpsView		*view,
 	}
 
 	for (i = cache->dual_even_left; i < n_pages + 2; i += 2) {
-    		if (uniform) {
+		if (uniform) {
 			uniform_height = swap ? u_width : u_height;
 			cache->dual_height_to_page[i] = ((i + cache->dual_even_left) / 2) * uniform_height;
 			if (i + 1 < n_pages + 2)
@@ -367,7 +366,7 @@ pps_view_build_height_to_page_cache (PpsView		*view,
 			if (i + 1 < n_pages + 2) {
 				cache->dual_height_to_page[i] = saved_height;
 				cache->dual_height_to_page[i + 1] = saved_height;
-				saved_height += MAX(page_height, next_page_height);
+				saved_height += MAX (page_height, next_page_height);
 			} else {
 				cache->dual_height_to_page[i] = saved_height;
 			}
@@ -397,9 +396,9 @@ pps_view_get_height_to_page_cache (PpsView *view)
 		cache = g_new0 (PpsHeightToPageCache, 1);
 		pps_view_build_height_to_page_cache (view, cache);
 		g_object_set_data_full (G_OBJECT (priv->document),
-					PPS_HEIGHT_TO_PAGE_CACHE_KEY,
-					cache,
-					(GDestroyNotify)pps_height_to_page_cache_free);
+		                        PPS_HEIGHT_TO_PAGE_CACHE_KEY,
+		                        cache,
+		                        (GDestroyNotify) pps_height_to_page_cache_free);
 	}
 
 	return cache;
@@ -407,9 +406,9 @@ pps_view_get_height_to_page_cache (PpsView *view)
 
 static void
 pps_view_get_height_to_page (PpsView *view,
-			    gint    page,
-			    gint   *height,
-			    gint   *dual_height)
+                             gint page,
+                             gint *height,
+                             gint *dual_height)
 {
 	PpsHeightToPageCache *cache = NULL;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -426,18 +425,18 @@ pps_view_get_height_to_page (PpsView *view,
 
 	if (height) {
 		h = cache->height_to_page[page];
-		*height = (gint)(h * priv->scale + 0.5);
-    }
+		*height = (gint) (h * priv->scale + 0.5);
+	}
 
 	if (dual_height) {
 		dh = cache->dual_height_to_page[page];
-		*dual_height = (gint)(dh * priv->scale + 0.5);
+		*dual_height = (gint) (dh * priv->scale + 0.5);
 	}
 }
 
 static gboolean
-is_dual_page (PpsView   *view,
-	      gboolean *odd_left_out)
+is_dual_page (PpsView *view,
+              gboolean *odd_left_out)
 {
 	gboolean dual = FALSE;
 	gboolean odd_left = FALSE;
@@ -445,9 +444,9 @@ is_dual_page (PpsView   *view,
 
 	switch (priv->page_layout) {
 	case PPS_PAGE_LAYOUT_AUTOMATIC: {
-		double        scale;
-		double        doc_width;
-		double        doc_height;
+		double scale;
+		double doc_width;
+		double doc_height;
 
 		scale = pps_document_misc_get_widget_dpi (GTK_WIDGET (view)) / 72.0;
 
@@ -461,8 +460,7 @@ is_dual_page (PpsView   *view,
 			odd_left = !priv->dual_even_left;
 			dual = TRUE;
 		}
-	}
-		break;
+	} break;
 	case PPS_PAGE_LAYOUT_DUAL:
 		odd_left = !priv->dual_even_left;
 		if (pps_document_get_n_pages (priv->document) > 1)
@@ -481,10 +479,10 @@ is_dual_page (PpsView   *view,
 }
 
 static void
-scroll_to_point (PpsView        *view,
-		 gdouble        x,
-		 gdouble        y,
-		 GtkOrientation orientation)
+scroll_to_point (PpsView *view,
+                 gdouble x,
+                 gdouble y,
+                 GtkOrientation orientation)
 {
 	gdouble page_size;
 	gdouble upper, lower;
@@ -497,10 +495,10 @@ scroll_to_point (PpsView        *view,
 
 		if (priv->continuous) {
 			gtk_adjustment_clamp_page (priv->vadjustment,
-						   y, y + page_size);
+			                           y, y + page_size);
 		} else {
 			gtk_adjustment_set_value (priv->vadjustment,
-						  CLAMP (y, lower, upper - page_size));
+			                          CLAMP (y, lower, upper - page_size));
 		}
 	} else {
 		page_size = gtk_adjustment_get_page_size (priv->hadjustment);
@@ -509,10 +507,10 @@ scroll_to_point (PpsView        *view,
 
 		if (is_dual_page (view, NULL)) {
 			gtk_adjustment_clamp_page (priv->hadjustment, x,
-						   x + page_size);
+			                           x + page_size);
 		} else {
 			gtk_adjustment_set_value (priv->hadjustment,
-						  CLAMP (x, lower, upper - page_size));
+			                          CLAMP (x, lower, upper - page_size));
 		}
 	}
 }
@@ -529,7 +527,7 @@ pps_view_scroll_to_page_position (PpsView *view, GtkOrientation orientation)
 	if ((orientation == GTK_ORIENTATION_VERTICAL && priv->pending_point.y == 0) ||
 	    (orientation == GTK_ORIENTATION_HORIZONTAL && priv->pending_point.x == 0)) {
 		GdkRectangle page_area;
-		GtkBorder    border;
+		GtkBorder border;
 
 		pps_view_get_page_extents (view, priv->current_page, &page_area, &border);
 		x = MAX (0, page_area.x - priv->spacing);
@@ -538,7 +536,7 @@ pps_view_scroll_to_page_position (PpsView *view, GtkOrientation orientation)
 		GdkPoint view_point;
 
 		_pps_view_transform_doc_point_to_view_point (view, priv->current_page,
-							    &priv->pending_point, &view_point);
+		                                             &priv->pending_point, &view_point);
 		x = view_point.x;
 		y = view_point.y;
 	}
@@ -547,17 +545,17 @@ pps_view_scroll_to_page_position (PpsView *view, GtkOrientation orientation)
 }
 
 static void
-pps_view_set_adjustment_values (PpsView         *view,
-			       GtkOrientation  orientation,
-			       int	       width,
-			       int	       height)
+pps_view_set_adjustment_values (PpsView *view,
+                                GtkOrientation orientation,
+                                int width,
+                                int height)
 {
 	GtkAdjustment *adjustment;
 	gint req_size, alloc_size, new_value;
 	gdouble page_size, value, upper, factor, zoom_center;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	if (orientation == GTK_ORIENTATION_HORIZONTAL)  {
+	if (orientation == GTK_ORIENTATION_HORIZONTAL) {
 		req_size = priv->requisition.width;
 		alloc_size = gtk_widget_get_width (GTK_WIDGET (view));
 		adjustment = priv->hadjustment;
@@ -581,11 +579,11 @@ pps_view_set_adjustment_values (PpsView         *view,
 
 	if (upper != .0) {
 		switch (priv->pending_scroll) {
-    	        case SCROLL_TO_KEEP_POSITION:
-    	        case SCROLL_TO_FIND_LOCATION:
+		case SCROLL_TO_KEEP_POSITION:
+		case SCROLL_TO_FIND_LOCATION:
 			factor = value / upper;
 			break;
-    	        case SCROLL_TO_PAGE_POSITION:
+		case SCROLL_TO_PAGE_POSITION:
 			break;
 		case SCROLL_TO_CENTER:
 			factor = (value + zoom_center) / upper;
@@ -597,28 +595,28 @@ pps_view_set_adjustment_values (PpsView         *view,
 	page_size = alloc_size;
 
 	gtk_adjustment_configure (adjustment, value, 0, upper,
-			alloc_size * 0.1, alloc_size * 0.9, page_size);
+	                          alloc_size * 0.1, alloc_size * 0.9, page_size);
 
 	/*
 	 * We add 0.5 to the values before to average out our rounding errors.
 	 */
 	switch (priv->pending_scroll) {
-    	        case SCROLL_TO_KEEP_POSITION:
-    	        case SCROLL_TO_FIND_LOCATION:
-			new_value = CLAMP (upper * factor + 0.5, 0, upper - page_size);
-			gtk_adjustment_set_value (adjustment, new_value);
-			break;
-    	        case SCROLL_TO_PAGE_POSITION:
-			pps_view_scroll_to_page_position (view, orientation);
-			break;
-	        case SCROLL_TO_CENTER:
-			new_value = CLAMP (upper * factor - zoom_center + 0.5, 0, upper - page_size);
-			if (orientation == GTK_ORIENTATION_HORIZONTAL)
-				priv->zoom_center_x = -1.0;
-			else
-				priv->zoom_center_y = -1.0;
-			gtk_adjustment_set_value (adjustment, new_value);
-			break;
+	case SCROLL_TO_KEEP_POSITION:
+	case SCROLL_TO_FIND_LOCATION:
+		new_value = CLAMP (upper * factor + 0.5, 0, upper - page_size);
+		gtk_adjustment_set_value (adjustment, new_value);
+		break;
+	case SCROLL_TO_PAGE_POSITION:
+		pps_view_scroll_to_page_position (view, orientation);
+		break;
+	case SCROLL_TO_CENTER:
+		new_value = CLAMP (upper * factor - zoom_center + 0.5, 0, upper - page_size);
+		if (orientation == GTK_ORIENTATION_HORIZONTAL)
+			priv->zoom_center_x = -1.0;
+		else
+			priv->zoom_center_y = -1.0;
+		gtk_adjustment_set_value (adjustment, new_value);
+		break;
 	}
 }
 
@@ -731,12 +729,12 @@ view_update_range_and_current_page (PpsView *view)
 	}
 
 	pps_page_cache_set_page_range (priv->page_cache,
-				      priv->start_page,
-				      priv->end_page);
+	                               priv->start_page,
+	                               priv->end_page);
 	pps_pixbuf_cache_set_page_range (priv->pixbuf_cache,
-					priv->start_page,
-					priv->end_page,
-					priv->selection_info.selections);
+	                                 priv->start_page,
+	                                 priv->end_page,
+	                                 priv->selection_info.selections);
 #if 0
 	if (priv->accessible)
 		pps_view_accessible_set_page_range (PPS_VIEW_ACCESSIBLE (priv->accessible),
@@ -749,13 +747,13 @@ view_update_range_and_current_page (PpsView *view)
 }
 
 static void
-pps_view_set_scroll_adjustment (PpsView         *view,
-			       GtkOrientation  orientation,
-			       GtkAdjustment  *adjustment)
+pps_view_set_scroll_adjustment (PpsView *view,
+                                GtkOrientation orientation,
+                                GtkAdjustment *adjustment)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GtkAdjustment **to_set;
-	const gchar    *prop_name;
+	const gchar *prop_name;
 
 	if (orientation == GTK_ORIENTATION_HORIZONTAL) {
 		to_set = &priv->hadjustment;
@@ -770,8 +768,8 @@ pps_view_set_scroll_adjustment (PpsView         *view,
 
 	if (*to_set) {
 		g_signal_handlers_disconnect_by_func (*to_set,
-						      (gpointer) adjustment_value_changed_cb,
-						      view);
+		                                      (gpointer) adjustment_value_changed_cb,
+		                                      view);
 
 		g_object_unref (*to_set);
 	}
@@ -779,11 +777,11 @@ pps_view_set_scroll_adjustment (PpsView         *view,
 	if (!adjustment)
 		adjustment = gtk_adjustment_new (0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 	g_signal_connect (adjustment, "value-changed",
-			  G_CALLBACK (adjustment_value_changed_cb),
-			  view);
+	                  G_CALLBACK (adjustment_value_changed_cb),
+	                  view);
 	g_signal_connect (adjustment, "value-changed",
-			  G_CALLBACK (pps_interrupt_scroll_animation_cb),
-			  view);
+	                  G_CALLBACK (pps_interrupt_scroll_animation_cb),
+	                  view);
 	*to_set = g_object_ref_sink (adjustment);
 
 	g_object_notify (G_OBJECT (view), prop_name);
@@ -791,22 +789,22 @@ pps_view_set_scroll_adjustment (PpsView         *view,
 
 static void
 add_scroll_binding_keypad (GtkWidgetClass *widget_class,
-    			   guint           keyval,
-    			   GdkModifierType modifiers,
-    			   GtkScrollType   scroll,
-			   GtkOrientation  orientation)
+                           guint keyval,
+                           GdkModifierType modifiers,
+                           GtkScrollType scroll,
+                           GtkOrientation orientation)
 {
 	guint keypad_keyval = keyval - GDK_KEY_Left + GDK_KEY_KP_Left;
 
 	gtk_widget_class_add_binding_signal (widget_class, keyval, modifiers,
-				      "scroll", "(ii)", scroll, orientation);
+	                                     "scroll", "(ii)", scroll, orientation);
 	gtk_widget_class_add_binding_signal (widget_class, keypad_keyval, modifiers,
-				      "scroll", "(ii)", scroll, orientation);
+	                                     "scroll", "(ii)", scroll, orientation);
 }
 
 static gdouble
-compute_scroll_increment (PpsView        *view,
-			  GtkScrollType  scroll)
+compute_scroll_increment (PpsView *view,
+                          GtkScrollType scroll)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GtkAdjustment *adjustment = priv->vadjustment;
@@ -844,15 +842,15 @@ compute_scroll_increment (PpsView        *view,
 	cairo_region_intersect (region, text_region);
 	if (cairo_region_num_rectangles (region)) {
 		PpsRenderContext *rc;
-		PpsPage  *pps_page;
+		PpsPage *pps_page;
 		cairo_region_t *sel_region;
 
 		cairo_region_get_rectangle (region, 0, &rect);
 		pps_page = pps_document_get_page (priv->document, page);
 		rc = pps_render_context_new (pps_page, priv->rotation, 0.);
 		pps_render_context_set_target_size (rc,
-						   page_area.width - (border.left + border.right),
-						   page_area.height - (border.left + border.right));
+		                                    page_area.width - (border.left + border.right),
+		                                    page_area.height - (border.left + border.right));
 		g_object_unref (pps_page);
 		/* Get the selection region to know the height of the line */
 		doc_rect.x1 = doc_rect.x2 = rect.x + 0.5;
@@ -860,8 +858,8 @@ compute_scroll_increment (PpsView        *view,
 
 		pps_document_doc_mutex_lock (priv->document);
 		sel_region = pps_selection_get_selection_region (PPS_SELECTION (priv->document),
-								rc, PPS_SELECTION_STYLE_LINE,
-								&doc_rect);
+		                                                 rc, PPS_SELECTION_STYLE_LINE,
+		                                                 &doc_rect);
 		pps_document_doc_mutex_unlock (priv->document);
 
 		g_object_unref (rc);
@@ -879,7 +877,6 @@ compute_scroll_increment (PpsView        *view,
 	cairo_region_destroy (region);
 
 	return gtk_adjustment_get_page_size (adjustment) * fraction;
-
 }
 
 static void
@@ -927,16 +924,16 @@ static void
 pps_interrupt_scroll_animation_cb (GtkAdjustment *adjustment, PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	if(!priv->pending_scroll_animation){
+	if (!priv->pending_scroll_animation) {
 		adw_animation_pause (priv->scroll_animation_vertical);
 		adw_animation_pause (priv->scroll_animation_horizontal);
 	}
 }
 
 static void
-pps_view_scroll (PpsView        *view,
-		GtkScrollType  scroll,
-		GtkOrientation orientation)
+pps_view_scroll (PpsView *view,
+                 GtkScrollType scroll,
+                 GtkOrientation orientation)
 {
 	GtkAdjustment *adjustment;
 	gdouble value, increment, upper, lower, page_size, step_increment, prev_value;
@@ -950,31 +947,29 @@ pps_view_scroll (PpsView        *view,
 
 	if (pps_view_page_fits (view, orientation)) {
 		switch (scroll) {
-			case GTK_SCROLL_PAGE_BACKWARD:
-			case GTK_SCROLL_STEP_BACKWARD:
-				pps_view_previous_page (view);
-				break;
-			case GTK_SCROLL_PAGE_FORWARD:
-			case GTK_SCROLL_STEP_FORWARD:
-				pps_view_next_page (view);
-				break;
-			case GTK_SCROLL_START:
-				pps_view_first_page (view);
-				break;
-			case GTK_SCROLL_END:
-				pps_view_last_page (view);
-				break;
-			default:
-				break;
+		case GTK_SCROLL_PAGE_BACKWARD:
+		case GTK_SCROLL_STEP_BACKWARD:
+			pps_view_previous_page (view);
+			break;
+		case GTK_SCROLL_PAGE_FORWARD:
+		case GTK_SCROLL_STEP_FORWARD:
+			pps_view_next_page (view);
+			break;
+		case GTK_SCROLL_START:
+			pps_view_first_page (view);
+			break;
+		case GTK_SCROLL_END:
+			pps_view_last_page (view);
+			break;
+		default:
+			break;
 		}
 		return;
 	}
 
 	/* Assign values for increment and vertical adjustment */
-	adjustment = orientation == GTK_ORIENTATION_HORIZONTAL ?
-			priv->hadjustment : priv->vadjustment;
-	animation = orientation == GTK_ORIENTATION_HORIZONTAL ?
-			priv->scroll_animation_horizontal : priv->scroll_animation_vertical;
+	adjustment = orientation == GTK_ORIENTATION_HORIZONTAL ? priv->hadjustment : priv->vadjustment;
+	animation = orientation == GTK_ORIENTATION_HORIZONTAL ? priv->scroll_animation_horizontal : priv->scroll_animation_vertical;
 	value = gtk_adjustment_get_value (adjustment);
 	prev_value = value;
 	upper = gtk_adjustment_get_upper (adjustment);
@@ -989,60 +984,60 @@ pps_view_scroll (PpsView        *view,
 		last_page = TRUE;
 
 	switch (scroll) {
-		case GTK_SCROLL_PAGE_BACKWARD:
-			/* Do not jump backwards if at the first page */
-			if (value == lower && first_page) {
-				/* Do nothing */
-				/* At the top of a page, assign the upper bound limit of previous page */
-			} else if (value == lower) {
-				value = upper - page_size;
-				pps_view_previous_page (view);
-				/* Jump to the top */
-			} else {
-				increment = compute_scroll_increment (view, GTK_SCROLL_PAGE_BACKWARD);
-				value = MAX (value - increment, lower);
-			}
-			break;
-		case GTK_SCROLL_PAGE_FORWARD:
-			/* Do not jump forward if at the last page */
-			if (value == (upper - page_size) && last_page) {
-				/* Do nothing */
-			/* At the bottom of a page, assign the lower bound limit of next page */
-			} else if (value == (upper - page_size)) {
-				value = 0;
-				pps_view_next_page (view);
-			/* Jump to the bottom */
-			} else {
-				increment = compute_scroll_increment (view, GTK_SCROLL_PAGE_FORWARD);
-				value = MIN (value + increment, upper - page_size);
-			}
-			break;
-	        case GTK_SCROLL_STEP_BACKWARD:
-			value -= step_increment;
-			break;
-	        case GTK_SCROLL_STEP_FORWARD:
-			value += step_increment;
-			break;
-        	case GTK_SCROLL_STEP_DOWN:
-			value -= step_increment / 10;
-			break;
-        	case GTK_SCROLL_STEP_UP:
-			value += step_increment / 10;
-			break;
-	        case GTK_SCROLL_START:
-			value = lower;
-			if (!first_page)
-				pps_view_first_page (view);
-			break;
-	        case GTK_SCROLL_END:
+	case GTK_SCROLL_PAGE_BACKWARD:
+		/* Do not jump backwards if at the first page */
+		if (value == lower && first_page) {
+			/* Do nothing */
+			/* At the top of a page, assign the upper bound limit of previous page */
+		} else if (value == lower) {
 			value = upper - page_size;
-			if (!last_page)
-				pps_view_last_page (view);
-			/* Changing pages causes the top to be shown. Here we want the bottom shown. */
-			priv->pending_point.y = value;
-			break;
-        	default:
-			break;
+			pps_view_previous_page (view);
+			/* Jump to the top */
+		} else {
+			increment = compute_scroll_increment (view, GTK_SCROLL_PAGE_BACKWARD);
+			value = MAX (value - increment, lower);
+		}
+		break;
+	case GTK_SCROLL_PAGE_FORWARD:
+		/* Do not jump forward if at the last page */
+		if (value == (upper - page_size) && last_page) {
+			/* Do nothing */
+			/* At the bottom of a page, assign the lower bound limit of next page */
+		} else if (value == (upper - page_size)) {
+			value = 0;
+			pps_view_next_page (view);
+			/* Jump to the bottom */
+		} else {
+			increment = compute_scroll_increment (view, GTK_SCROLL_PAGE_FORWARD);
+			value = MIN (value + increment, upper - page_size);
+		}
+		break;
+	case GTK_SCROLL_STEP_BACKWARD:
+		value -= step_increment;
+		break;
+	case GTK_SCROLL_STEP_FORWARD:
+		value += step_increment;
+		break;
+	case GTK_SCROLL_STEP_DOWN:
+		value -= step_increment / 10;
+		break;
+	case GTK_SCROLL_STEP_UP:
+		value += step_increment / 10;
+		break;
+	case GTK_SCROLL_START:
+		value = lower;
+		if (!first_page)
+			pps_view_first_page (view);
+		break;
+	case GTK_SCROLL_END:
+		value = upper - page_size;
+		if (!last_page)
+			pps_view_last_page (view);
+		/* Changing pages causes the top to be shown. Here we want the bottom shown. */
+		priv->pending_point.y = value;
+		break;
+	default:
+		break;
 	}
 
 	value = CLAMP (value, lower, upper - page_size);
@@ -1062,7 +1057,7 @@ pps_view_scroll (PpsView        *view,
 		adw_animation_pause (animation);
 		adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (animation), prev_value);
 		gdouble end_value = adw_timed_animation_get_value_to (ADW_TIMED_ANIMATION (animation));
-		adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (animation), end_value + (value-prev_value));
+		adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (animation), end_value + (value - prev_value));
 		adw_animation_reset (animation);
 		adw_animation_play (animation);
 	}
@@ -1086,11 +1081,12 @@ _pps_view_ensure_rectangle_is_visible (PpsView *view, GdkRectangle *rect)
 	adj_value = gtk_adjustment_get_value (adjustment);
 
 	if (rect->y < adj_value) {
-		value = MAX (gtk_adjustment_get_lower (adjustment), rect->y - MARGIN);
+		value = MAX (gtk_adjustment_get_lower (adjustment),
+		             rect->y - MARGIN);
 		gtk_adjustment_set_value (priv->vadjustment, value);
 	} else if (rect->y + rect->height > adj_value + widget_height) {
-		value = MIN (gtk_adjustment_get_upper (adjustment), rect->y + rect->height -
-			     widget_height + MARGIN);
+		value = MIN (gtk_adjustment_get_upper (adjustment),
+		             rect->y + rect->height - widget_height + MARGIN);
 		gtk_adjustment_set_value (priv->vadjustment, value);
 	}
 
@@ -1098,11 +1094,12 @@ _pps_view_ensure_rectangle_is_visible (PpsView *view, GdkRectangle *rect)
 	adj_value = gtk_adjustment_get_value (adjustment);
 
 	if (rect->x < adj_value) {
-		value = MAX (gtk_adjustment_get_lower (adjustment), rect->x - MARGIN);
+		value = MAX (gtk_adjustment_get_lower (adjustment),
+		             rect->x - MARGIN);
 		gtk_adjustment_set_value (priv->hadjustment, value);
 	} else if (rect->x + rect->height > adj_value + widget_width) {
-		value = MIN (gtk_adjustment_get_upper (adjustment), rect->x + rect->width -
-			     widget_width + MARGIN);
+		value = MIN (gtk_adjustment_get_upper (adjustment),
+		             rect->x + rect->width - widget_width + MARGIN);
 		gtk_adjustment_set_value (priv->hadjustment, value);
 	}
 }
@@ -1112,7 +1109,7 @@ _pps_view_ensure_rectangle_is_visible (PpsView *view, GdkRectangle *rect)
 static void
 compute_border (PpsView *view, GtkBorder *border)
 {
-	GtkWidget       *widget = GTK_WIDGET (view);
+	GtkWidget *widget = GTK_WIDGET (view);
 	GtkStyleContext *context = gtk_widget_get_style_context (widget);
 
 	gtk_style_context_save (context);
@@ -1124,19 +1121,19 @@ compute_border (PpsView *view, GtkBorder *border)
 
 void
 _get_page_size_for_scale_and_rotation (PpsDocument *document,
-				       gint        page,
-				       gdouble     scale,
-				       gint        rotation,
-				       gint       *page_width,
-				       gint       *page_height)
+                                       gint page,
+                                       gdouble scale,
+                                       gint rotation,
+                                       gint *page_width,
+                                       gint *page_height)
 {
 	gdouble w, h;
-	gint    width, height;
+	gint width, height;
 
 	pps_document_get_page_size (document, page, &w, &h);
 
-	width = (gint)(w * scale + 0.5);
-	height = (gint)(h * scale + 0.5);
+	width = (gint) (w * scale + 0.5);
+	height = (gint) (h * scale + 0.5);
 
 	if (page_width)
 		*page_width = (rotation == 0 || rotation == 180) ? width : height;
@@ -1146,32 +1143,32 @@ _get_page_size_for_scale_and_rotation (PpsDocument *document,
 
 static void
 pps_view_get_page_size (PpsView *view,
-		       gint    page,
-		       gint   *page_width,
-		       gint   *page_height)
+                        gint page,
+                        gint *page_width,
+                        gint *page_height)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	_get_page_size_for_scale_and_rotation (priv->document,
-					       page,
-					       priv->scale,
-					       priv->rotation,
-					       page_width,
-					       page_height);
+	                                       page,
+	                                       priv->scale,
+	                                       priv->rotation,
+	                                       page_width,
+	                                       page_height);
 }
 
 static void
 pps_view_get_max_page_size (PpsView *view,
-			   gint   *max_width,
-			   gint   *max_height)
+                            gint *max_width,
+                            gint *max_height)
 {
 	double w, h;
-	gint   width, height;
+	gint width, height;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	pps_document_get_max_page_size (priv->document, &w, &h);
 
-	width = (gint)(w * priv->scale + 0.5);
-	height = (gint)(h * priv->scale + 0.5);
+	width = (gint) (w * priv->scale + 0.5);
+	height = (gint) (h * priv->scale + 0.5);
 
 	if (max_width)
 		*max_width = (priv->rotation == 0 || priv->rotation == 180) ? width : height;
@@ -1191,7 +1188,7 @@ get_page_y_offset (PpsView *view, int page, int *y_offset, GtkBorder *border)
 	if (is_dual_page (view, &odd_left)) {
 		pps_view_get_height_to_page (view, page, NULL, &offset);
 		offset += ((page + !odd_left) / 2 + 1) * priv->spacing +
-			((page + !odd_left) / 2 ) * (border->top + border->bottom);
+		          ((page + !odd_left) / 2) * (border->top + border->bottom);
 	} else {
 		pps_view_get_height_to_page (view, page, &offset, NULL);
 		offset += (page + 1) * priv->spacing + page * (border->top + border->bottom);
@@ -1202,29 +1199,29 @@ get_page_y_offset (PpsView *view, int page, int *y_offset, GtkBorder *border)
 }
 
 gboolean
-pps_view_get_page_extents_for_border (PpsView       *view,
-				     gint          page,
-				     GtkBorder    *border,
-				     GdkRectangle *page_area)
+pps_view_get_page_extents_for_border (PpsView *view,
+                                      gint page,
+                                      GtkBorder *border,
+                                      GdkRectangle *page_area)
 {
 	return real_pps_view_get_page_extents (view, page, page_area, border, TRUE);
 }
 
 gboolean
-pps_view_get_page_extents (PpsView       *view,
-			  gint          page,
-			  GdkRectangle *page_area,
-			  GtkBorder    *border)
+pps_view_get_page_extents (PpsView *view,
+                           gint page,
+                           GdkRectangle *page_area,
+                           GtkBorder *border)
 {
 	return real_pps_view_get_page_extents (view, page, page_area, border, FALSE);
 }
 
 static gboolean
-real_pps_view_get_page_extents (PpsView       *view,
-			       gint          page,
-			       GdkRectangle *page_area,
-			       GtkBorder    *border,
-			       gboolean      use_passed_border)
+real_pps_view_get_page_extents (PpsView *view,
+                                gint page,
+                                GdkRectangle *page_area,
+                                GtkBorder *border,
+                                gboolean use_passed_border)
 {
 	GtkWidget *widget = GTK_WIDGET (view);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -1278,13 +1275,12 @@ real_pps_view_get_page_extents (PpsView       *view,
 			GtkBorder overall_border;
 			gint other_page;
 
-			other_page = (page % 2 == !odd_left) ? page + 1: page - 1;
+			other_page = (page % 2 == !odd_left) ? page + 1 : page - 1;
 
 			/* First, we get the bounding box of the two pages */
-			if (other_page < pps_document_get_n_pages (priv->document)
-			    && (0 <= other_page)) {
+			if (other_page < pps_document_get_n_pages (priv->document) && (0 <= other_page)) {
 				pps_view_get_page_size (view, other_page,
-						       &width_2, &height_2);
+				                        &width_2, &height_2);
 				if (width_2 > width)
 					max_width = width_2;
 				if (height_2 > height)
@@ -1306,19 +1302,20 @@ real_pps_view_get_page_extents (PpsView       *view,
 			else
 				x = x + (max_width + overall_border.left + overall_border.right) + priv->spacing;
 
-			y = y + (max_height - height)/2;
+			y = y + (max_height - height) / 2;
 
 			/* Adjust for extra allocation */
 			x = x + MAX (0, widget_width -
-				     ((max_width + overall_border.left + overall_border.right) * 2 + priv->spacing * 3))/2;
-			y = y + MAX (0, widget_height - (height + priv->spacing * 2))/2;
+			                    ((max_width + overall_border.left + overall_border.right) * 2 + priv->spacing * 3)) /
+			            2;
+			y = y + MAX (0, widget_height - (height + priv->spacing * 2)) / 2;
 		} else {
 			x = priv->spacing;
 			y = priv->spacing;
 
 			/* Adjust for extra allocation */
-			x = x + MAX (0, widget_width - (width + border->left + border->right + priv->spacing * 2))/2;
-			y = y + MAX (0, widget_height - (height + border->top + border->bottom +  priv->spacing * 2))/2;
+			x = x + MAX (0, widget_width - (width + border->left + border->right + priv->spacing * 2)) / 2;
+			y = y + MAX (0, widget_height - (height + border->top + border->bottom + priv->spacing * 2)) / 2;
 		}
 
 		page_area->x = x;
@@ -1329,31 +1326,35 @@ real_pps_view_get_page_extents (PpsView       *view,
 }
 
 static void
-get_doc_page_size (PpsView  *view,
-		   gint     page,
-		   gdouble *width,
-		   gdouble *height)
+get_doc_page_size (PpsView *view,
+                   gint page,
+                   gdouble *width,
+                   gdouble *height)
 {
 	double w, h;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	pps_document_get_page_size (priv->document, page, &w, &h);
 	if (priv->rotation == 0 || priv->rotation == 180) {
-		if (width) *width = w;
-		if (height) *height = h;
+		if (width)
+			*width = w;
+		if (height)
+			*height = h;
 	} else {
-		if (width) *width = h;
-		if (height) *height = w;
+		if (width)
+			*width = h;
+		if (height)
+			*height = w;
 	}
 }
 
 void
-_pps_view_transform_view_point_to_doc_point (PpsView       *view,
-					    GdkPoint     *view_point,
-					    GdkRectangle *page_area,
-					    GtkBorder    *border,
-					    double       *doc_point_x,
-					    double       *doc_point_y)
+_pps_view_transform_view_point_to_doc_point (PpsView *view,
+                                             GdkPoint *view_point,
+                                             GdkRectangle *page_area,
+                                             GtkBorder *border,
+                                             double *doc_point_x,
+                                             double *doc_point_y)
 {
 	double x, y, width, height, doc_x, doc_y;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -1389,11 +1390,11 @@ _pps_view_transform_view_point_to_doc_point (PpsView       *view,
 }
 
 void
-_pps_view_transform_view_rect_to_doc_rect (PpsView       *view,
-					  GdkRectangle *view_rect,
-					  GdkRectangle *page_area,
-					  GtkBorder    *border,
-					  PpsRectangle  *doc_rect)
+_pps_view_transform_view_rect_to_doc_rect (PpsView *view,
+                                           GdkRectangle *view_rect,
+                                           GdkRectangle *page_area,
+                                           GtkBorder *border,
+                                           PpsRectangle *doc_rect)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	doc_rect->x1 = MAX ((double) (view_rect->x - page_area->x - border->left) / priv->scale, 0);
@@ -1403,10 +1404,10 @@ _pps_view_transform_view_rect_to_doc_rect (PpsView       *view,
 }
 
 void
-_pps_view_transform_doc_point_by_rotation_scale (PpsView   *view,
-					    int       page,
-					    PpsPoint  *doc_point,
-					    GdkPoint *view_point)
+_pps_view_transform_doc_point_by_rotation_scale (PpsView *view,
+                                                 int page,
+                                                 PpsPoint *doc_point,
+                                                 GdkPoint *view_point)
 {
 	GdkRectangle page_area;
 	GtkBorder border;
@@ -1425,42 +1426,39 @@ _pps_view_transform_doc_point_by_rotation_scale (PpsView   *view,
 		get_doc_page_size (view, page, &width, NULL);
 		x = width - doc_point->y;
 		y = doc_point->x;
-	}
-		break;
+	} break;
 	case 180: {
 		gdouble width, height;
 
 		get_doc_page_size (view, page, &width, &height);
 		x = width - doc_point->x;
 		y = height - doc_point->y;
-	}
-		break;
+	} break;
 	case 270: {
 		gdouble height;
 
 		get_doc_page_size (view, page, NULL, &height);
 		x = doc_point->y;
 		y = height - doc_point->x;
-	}
-		break;
+	} break;
 	default:
 		g_assert_not_reached ();
 	}
 
 	pps_view_get_page_extents (view, page, &page_area, &border);
 
-	view_x = CLAMP ((gint)(x * priv->scale + 0.5), 0, page_area.width);
-	view_y = CLAMP ((gint)(y * priv->scale + 0.5), 0, page_area.height);
+	view_x = CLAMP ((gint) (x * priv->scale + 0.5), 0, page_area.width);
+	view_y = CLAMP ((gint) (y * priv->scale + 0.5), 0, page_area.height);
 
 	view_point->x = view_x;
 	view_point->y = view_y;
 }
 
 void
-_pps_view_transform_doc_point_to_view_point (PpsView   *view,
-					    int       page,
-					    PpsPoint  *doc_point,
-					    GdkPoint *view_point)
+_pps_view_transform_doc_point_to_view_point (PpsView *view,
+                                             int page,
+                                             PpsPoint *doc_point,
+                                             GdkPoint *view_point)
 {
 	GdkRectangle page_area;
 	GtkBorder border;
@@ -1473,10 +1471,10 @@ _pps_view_transform_doc_point_to_view_point (PpsView   *view,
 }
 
 void
-_pps_view_transform_doc_rect_to_view_rect (PpsView       *view,
-					  int           page,
-					  PpsRectangle  *doc_rect,
-					  GdkRectangle *view_rect)
+_pps_view_transform_doc_rect_to_view_rect (PpsView *view,
+                                           int page,
+                                           PpsRectangle *doc_rect,
+                                           GdkRectangle *view_rect)
 {
 	GdkRectangle page_area;
 	GtkBorder border;
@@ -1499,8 +1497,7 @@ _pps_view_transform_doc_rect_to_view_rect (PpsView       *view,
 		y = doc_rect->x1;
 		w = doc_rect->y2 - doc_rect->y1;
 		h = doc_rect->x2 - doc_rect->x1;
-	}
-		break;
+	} break;
 	case 180: {
 		gdouble width, height;
 
@@ -1509,8 +1506,7 @@ _pps_view_transform_doc_rect_to_view_rect (PpsView       *view,
 		y = height - doc_rect->y2;
 		w = doc_rect->x2 - doc_rect->x1;
 		h = doc_rect->y2 - doc_rect->y1;
-	}
-		break;
+	} break;
 	case 270: {
 		gdouble height;
 
@@ -1519,27 +1515,26 @@ _pps_view_transform_doc_rect_to_view_rect (PpsView       *view,
 		y = height - doc_rect->x2;
 		w = doc_rect->y2 - doc_rect->y1;
 		h = doc_rect->x2 - doc_rect->x1;
-	}
-		break;
+	} break;
 	default:
 		g_assert_not_reached ();
 	}
 
 	pps_view_get_page_extents (view, page, &page_area, &border);
 
-	view_rect->x = (gint)(x * priv->scale + 0.5) + page_area.x + border.left;
-	view_rect->y = (gint)(y * priv->scale + 0.5) + page_area.y + border.top;
-	view_rect->width = (gint)(w * priv->scale + 0.5);
-	view_rect->height = (gint)(h * priv->scale + 0.5);
+	view_rect->x = (gint) (x * priv->scale + 0.5) + page_area.x + border.left;
+	view_rect->y = (gint) (y * priv->scale + 0.5) + page_area.y + border.top;
+	view_rect->width = (gint) (w * priv->scale + 0.5);
+	view_rect->height = (gint) (h * priv->scale + 0.5);
 }
 
 static void
-find_page_at_location (PpsView  *view,
-		       gdouble  x,
-		       gdouble  y,
-		       gint    *page,
-		       gint    *x_offset,
-		       gint    *y_offset)
+find_page_at_location (PpsView *view,
+                       gdouble x,
+                       gdouble y,
+                       gint *page,
+                       gint *x_offset,
+                       gint *y_offset)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	int i;
@@ -1556,7 +1551,7 @@ find_page_at_location (PpsView  *view,
 	for (i = priv->start_page; i >= 0 && i <= priv->end_page; i++) {
 		GdkRectangle page_area;
 
-		if (! pps_view_get_page_extents_for_border (view, i, &border, &page_area))
+		if (!pps_view_get_page_extents_for_border (view, i, &border, &page_area))
 			continue;
 
 		if ((x >= page_area.x + border.left) &&
@@ -1574,9 +1569,9 @@ find_page_at_location (PpsView  *view,
 }
 
 static gboolean
-location_in_text (PpsView  *view,
-		  gdouble  x,
-		  gdouble  y)
+location_in_text (PpsView *view,
+                  gdouble x,
+                  gdouble y)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	cairo_region_t *region;
@@ -1598,14 +1593,14 @@ location_in_text (PpsView  *view,
 
 static gboolean
 get_doc_point_from_offset (PpsView *view,
-			   gint    page,
-			   gint    x_offset,
-			   gint    y_offset,
-			   gint   *x_new,
-			   gint   *y_new)
+                           gint page,
+                           gint x_offset,
+                           gint y_offset,
+                           gint *x_new,
+                           gint *y_new)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-        gdouble width, height;
+	gdouble width, height;
 	double x, y;
 
 	get_doc_page_size (view, page, &width, &height);
@@ -1613,21 +1608,21 @@ get_doc_point_from_offset (PpsView *view,
 	x_offset = x_offset / priv->scale;
 	y_offset = y_offset / priv->scale;
 
-        if (priv->rotation == 0) {
-                x = x_offset;
-                y = y_offset;
-        } else if (priv->rotation == 90) {
-                x = y_offset;
-                y = width - x_offset;
-        } else if (priv->rotation == 180) {
-                x = width - x_offset;
-                y = height - y_offset;
-        } else if (priv->rotation == 270) {
-                x = height - y_offset;
-                y = x_offset;
-        } else {
-                g_assert_not_reached ();
-        }
+	if (priv->rotation == 0) {
+		x = x_offset;
+		y = y_offset;
+	} else if (priv->rotation == 90) {
+		x = y_offset;
+		y = width - x_offset;
+	} else if (priv->rotation == 180) {
+		x = width - x_offset;
+		y = height - y_offset;
+	} else if (priv->rotation == 270) {
+		x = height - y_offset;
+		y = x_offset;
+	} else {
+		g_assert_not_reached ();
+	}
 
 	*x_new = x;
 	*y_new = y;
@@ -1636,12 +1631,12 @@ get_doc_point_from_offset (PpsView *view,
 }
 
 static gboolean
-get_doc_point_from_location (PpsView  *view,
-			     gdouble  x,
-			     gdouble  y,
-			     gint    *page,
-			     gint    *x_new,
-			     gint    *y_new)
+get_doc_point_from_location (PpsView *view,
+                             gdouble x,
+                             gdouble y,
+                             gint *page,
+                             gint *x_new,
+                             gint *y_new)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	gint x_offset = 0, y_offset = 0;
@@ -1656,11 +1651,11 @@ get_doc_point_from_location (PpsView  *view,
 }
 
 static void
-pps_view_get_area_from_mapping (PpsView        *view,
-			       guint          page,
-			       PpsMappingList *mapping_list,
-			       gconstpointer  data,
-			       GdkRectangle  *area)
+pps_view_get_area_from_mapping (PpsView *view,
+                                guint page,
+                                PpsMappingList *mapping_list,
+                                gconstpointer data,
+                                GdkRectangle *area)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -1679,12 +1674,12 @@ pps_child_free (PpsViewChild *child)
 }
 
 static void
-pps_view_put (PpsView      *view,
-	     GtkWidget   *child_widget,
-	     gint         x,
-	     gint         y,
-	     guint        page,
-	     PpsRectangle *doc_rect)
+pps_view_put (PpsView *view,
+              GtkWidget *child_widget,
+              gint x,
+              gint y,
+              guint page,
+              PpsRectangle *doc_rect)
 {
 	PpsViewChild *child;
 
@@ -1696,16 +1691,16 @@ pps_view_put (PpsView      *view,
 	child->doc_rect = *doc_rect;
 
 	g_object_set_data_full (G_OBJECT (child_widget), "pps-child",
-			child, (GDestroyNotify)pps_child_free);
+	                        child, (GDestroyNotify) pps_child_free);
 
 	gtk_widget_set_parent (child_widget, GTK_WIDGET (view));
 }
 
 static void
-pps_view_put_to_doc_rect (PpsView      *view,
-			 GtkWidget   *child_widget,
-			 guint        page,
-			 PpsRectangle *doc_rect)
+pps_view_put_to_doc_rect (PpsView *view,
+                          GtkWidget *child_widget,
+                          guint page,
+                          PpsRectangle *doc_rect)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GdkRectangle area;
@@ -1718,10 +1713,10 @@ pps_view_put_to_doc_rect (PpsView      *view,
 
 /*** Hyperref ***/
 static PpsMapping *
-get_link_mapping_at_location (PpsView  *view,
-			      gdouble  x,
-			      gdouble  y,
-			      gint    *page)
+get_link_mapping_at_location (PpsView *view,
+                              gdouble x,
+                              gdouble y,
+                              gint *page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	gint x_new = 0, y_new = 0;
@@ -1741,9 +1736,9 @@ get_link_mapping_at_location (PpsView  *view,
 }
 
 static PpsLink *
-pps_view_get_link_at_location (PpsView  *view,
-			      gdouble  x,
-			      gdouble  y)
+pps_view_get_link_at_location (PpsView *view,
+                               gdouble x,
+                               gdouble y)
 {
 	PpsMapping *mapping;
 	gint page;
@@ -1774,9 +1769,9 @@ goto_fitr_dest (PpsView *view, PpsLinkDest *dest)
 		doc_height = pps_link_dest_get_bottom (dest) - top;
 
 		zoom = zoom_for_size_fit_page (doc_width,
-					       doc_height,
-					       widget_width,
-					       widget_height);
+		                               doc_height,
+		                               widget_width,
+		                               widget_height);
 
 		pps_document_model_set_sizing_mode (priv->model, PPS_SIZING_FREE);
 		pps_document_model_set_scale (priv->model, zoom);
@@ -1815,8 +1810,8 @@ goto_fitv_dest (PpsView *view, PpsLinkDest *dest)
 		pps_document_get_page_size (priv->document, page, &doc_width, &doc_height);
 
 		zoom = zoom_for_size_fit_height (doc_width - doc_point.x, doc_height,
-						 gtk_widget_get_width (GTK_WIDGET (view)),
-						 gtk_widget_get_height (GTK_WIDGET (view)));
+		                                 gtk_widget_get_width (GTK_WIDGET (view)),
+		                                 gtk_widget_get_height (GTK_WIDGET (view)));
 
 		pps_document_model_set_sizing_mode (priv->model, PPS_SIZING_FREE);
 		pps_document_model_set_scale (priv->model, zoom);
@@ -1849,8 +1844,8 @@ goto_fith_dest (PpsView *view, PpsLinkDest *dest)
 		pps_document_get_page_size (priv->document, page, &doc_width, NULL);
 
 		zoom = zoom_for_size_fit_width (doc_width, top,
-						gtk_widget_get_width (GTK_WIDGET (view)),
-						gtk_widget_get_height (GTK_WIDGET (view)));
+		                                gtk_widget_get_width (GTK_WIDGET (view)),
+		                                gtk_widget_get_height (GTK_WIDGET (view)));
 
 		pps_document_model_set_sizing_mode (priv->model, PPS_SIZING_FIT_WIDTH);
 		pps_document_model_set_scale (priv->model, zoom);
@@ -1876,8 +1871,8 @@ goto_fit_dest (PpsView *view, PpsLinkDest *dest)
 		pps_document_get_page_size (priv->document, page, &doc_width, &doc_height);
 
 		zoom = zoom_for_size_fit_page (doc_width, doc_height,
-					       gtk_widget_get_width (GTK_WIDGET (view)),
-					       gtk_widget_get_height (GTK_WIDGET (view)));
+		                               gtk_widget_get_width (GTK_WIDGET (view)),
+		                               gtk_widget_get_height (GTK_WIDGET (view)));
 
 		pps_document_model_set_sizing_mode (priv->model, PPS_SIZING_FIT_PAGE);
 		pps_document_model_set_scale (priv->model, zoom);
@@ -1931,30 +1926,30 @@ goto_dest (PpsView *view, PpsLinkDest *dest)
 	type = pps_link_dest_get_dest_type (dest);
 
 	switch (type) {
-		case PPS_LINK_DEST_TYPE_PAGE:
-			pps_document_model_set_page (priv->model, page);
-			break;
-		case PPS_LINK_DEST_TYPE_FIT:
-			goto_fit_dest (view, dest);
-			break;
-		case PPS_LINK_DEST_TYPE_FITH:
-			goto_fith_dest (view, dest);
-			break;
-		case PPS_LINK_DEST_TYPE_FITV:
-			goto_fitv_dest (view, dest);
-			break;
-		case PPS_LINK_DEST_TYPE_FITR:
-			goto_fitr_dest (view, dest);
-			break;
-		case PPS_LINK_DEST_TYPE_XYZ:
-			goto_xyz_dest (view, dest);
-			break;
-		case PPS_LINK_DEST_TYPE_PAGE_LABEL:
-			pps_document_model_set_page_by_label (priv->model, pps_link_dest_get_page_label (dest));
-			break;
-		default:
-			g_assert_not_reached ();
- 	}
+	case PPS_LINK_DEST_TYPE_PAGE:
+		pps_document_model_set_page (priv->model, page);
+		break;
+	case PPS_LINK_DEST_TYPE_FIT:
+		goto_fit_dest (view, dest);
+		break;
+	case PPS_LINK_DEST_TYPE_FITH:
+		goto_fith_dest (view, dest);
+		break;
+	case PPS_LINK_DEST_TYPE_FITV:
+		goto_fitv_dest (view, dest);
+		break;
+	case PPS_LINK_DEST_TYPE_FITR:
+		goto_fitr_dest (view, dest);
+		break;
+	case PPS_LINK_DEST_TYPE_XYZ:
+		goto_xyz_dest (view, dest);
+		break;
+	case PPS_LINK_DEST_TYPE_PAGE_LABEL:
+		pps_document_model_set_page_by_label (priv->model, pps_link_dest_get_page_label (dest));
+		break;
+	default:
+		g_assert_not_reached ();
+	}
 
 	if (current_page != priv->current_page)
 		pps_document_model_set_page (priv->model, priv->current_page);
@@ -1969,12 +1964,12 @@ pps_view_goto_dest (PpsView *view, PpsLinkDest *dest)
 	type = pps_link_dest_get_dest_type (dest);
 
 	if (type == PPS_LINK_DEST_TYPE_NAMED) {
-		PpsLinkDest  *dest2;
+		PpsLinkDest *dest2;
 		const gchar *named_dest;
 
 		named_dest = pps_link_dest_get_named_dest (dest);
 		dest2 = pps_document_links_find_link_dest (PPS_DOCUMENT_LINKS (priv->document),
-							  named_dest);
+		                                           named_dest);
 		if (dest2) {
 			goto_dest (view, dest2);
 			g_object_unref (dest2);
@@ -1990,14 +1985,14 @@ static void
 pps_view_link_to_current_view (PpsView *view, PpsLink **backlink)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsLinkDest   *backlink_dest = NULL;
+	PpsLinkDest *backlink_dest = NULL;
 	PpsLinkAction *backlink_action = NULL;
 
-	gint          backlink_page = priv->start_page;
-	gdouble       zoom = pps_document_model_get_scale (priv->model);
+	gint backlink_page = priv->start_page;
+	gdouble zoom = pps_document_model_get_scale (priv->model);
 
-	GtkBorder     border;
-	GdkRectangle  backlink_page_area;
+	GtkBorder border;
+	GdkRectangle backlink_page_area;
 
 	gboolean is_dual = pps_document_model_get_page_layout (priv->model) == PPS_PAGE_LAYOUT_DUAL;
 	gint x_offset;
@@ -2016,7 +2011,7 @@ pps_view_link_to_current_view (PpsView *view, PpsLink **backlink)
 
 		/* get right-hand page extents (no need to recompute border) */
 		pps_view_get_page_extents_for_border (view, backlink_page,
-						     &border, &backlink_page_area);
+		                                      &border, &backlink_page_area);
 		x_offset = backlink_page_area.x;
 	}
 
@@ -2024,8 +2019,8 @@ pps_view_link_to_current_view (PpsView *view, PpsLink **backlink)
 	gdouble backlink_dest_y = (priv->scroll_y - y_offset - border.top) / priv->scale;
 
 	backlink_dest = pps_link_dest_new_xyz (backlink_page, backlink_dest_x,
-					      backlink_dest_y, zoom, TRUE,
-					      TRUE, TRUE);
+	                                       backlink_dest_y, zoom, TRUE,
+	                                       TRUE, TRUE);
 
 	backlink_action = pps_link_action_new_dest (backlink_dest);
 	g_object_unref (backlink_dest);
@@ -2038,7 +2033,7 @@ void
 pps_view_handle_link (PpsView *view, PpsLink *link)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsLinkAction    *action = NULL;
+	PpsLinkAction *action = NULL;
 	PpsLinkActionType type;
 
 	action = pps_link_get_action (link);
@@ -2048,60 +2043,58 @@ pps_view_handle_link (PpsView *view, PpsLink *link)
 	type = pps_link_action_get_action_type (action);
 
 	switch (type) {
-	        case PPS_LINK_ACTION_TYPE_GOTO_DEST: {
-			/* Build a synthetic Link representing our current view into the
-			 * document. */
+	case PPS_LINK_ACTION_TYPE_GOTO_DEST: {
+		/* Build a synthetic Link representing our current view into the
+		 * document. */
 
-			PpsLinkDest *dest;
-			PpsLink     *backlink = NULL;
+		PpsLinkDest *dest;
+		PpsLink *backlink = NULL;
 
-			pps_view_link_to_current_view (view, &backlink);
+		pps_view_link_to_current_view (view, &backlink);
 
-			g_signal_emit (view, signals[SIGNAL_HANDLE_LINK], 0, link, backlink);
+		g_signal_emit (view, signals[SIGNAL_HANDLE_LINK], 0, link, backlink);
 
-			dest = pps_link_action_get_dest (action);
-			pps_view_goto_dest (view, dest);
+		dest = pps_link_action_get_dest (action);
+		pps_view_goto_dest (view, dest);
+	} break;
+	case PPS_LINK_ACTION_TYPE_LAYERS_STATE: {
+		GList *show, *hide, *toggle;
+		GList *l;
+		PpsDocumentLayers *document_layers;
+
+		document_layers = PPS_DOCUMENT_LAYERS (priv->document);
+
+		show = pps_link_action_get_show_list (action);
+		for (l = show; l; l = g_list_next (l)) {
+			pps_document_layers_show_layer (document_layers, PPS_LAYER (l->data));
 		}
-			break;
-	        case PPS_LINK_ACTION_TYPE_LAYERS_STATE: {
-			GList            *show, *hide, *toggle;
-			GList            *l;
-			PpsDocumentLayers *document_layers;
 
-			document_layers = PPS_DOCUMENT_LAYERS (priv->document);
-
-			show = pps_link_action_get_show_list (action);
-			for (l = show; l; l = g_list_next (l)) {
-				pps_document_layers_show_layer (document_layers, PPS_LAYER (l->data));
-			}
-
-			hide = pps_link_action_get_hide_list (action);
-			for (l = hide; l; l = g_list_next (l)) {
-				pps_document_layers_hide_layer (document_layers, PPS_LAYER (l->data));
-			}
-
-			toggle = pps_link_action_get_toggle_list (action);
-			for (l = toggle; l; l = g_list_next (l)) {
-				PpsLayer *layer = PPS_LAYER (l->data);
-
-				if (pps_document_layers_layer_is_visible (document_layers, layer)) {
-					pps_document_layers_hide_layer (document_layers, layer);
-				} else {
-					pps_document_layers_show_layer (document_layers, layer);
-				}
-			}
-
-			g_signal_emit (view, signals[SIGNAL_LAYERS_CHANGED], 0);
-			pps_view_reload (view);
+		hide = pps_link_action_get_hide_list (action);
+		for (l = hide; l; l = g_list_next (l)) {
+			pps_document_layers_hide_layer (document_layers, PPS_LAYER (l->data));
 		}
-			break;
-	        case PPS_LINK_ACTION_TYPE_GOTO_REMOTE:
-	        case PPS_LINK_ACTION_TYPE_EXTERNAL_URI:
-	        case PPS_LINK_ACTION_TYPE_LAUNCH:
-	        case PPS_LINK_ACTION_TYPE_NAMED:
-	        case PPS_LINK_ACTION_TYPE_RESET_FORM:
-			g_signal_emit (view, signals[SIGNAL_EXTERNAL_LINK], 0, action);
-			break;
+
+		toggle = pps_link_action_get_toggle_list (action);
+		for (l = toggle; l; l = g_list_next (l)) {
+			PpsLayer *layer = PPS_LAYER (l->data);
+
+			if (pps_document_layers_layer_is_visible (document_layers, layer)) {
+				pps_document_layers_hide_layer (document_layers, layer);
+			} else {
+				pps_document_layers_show_layer (document_layers, layer);
+			}
+		}
+
+		g_signal_emit (view, signals[SIGNAL_LAYERS_CHANGED], 0);
+		pps_view_reload (view);
+	} break;
+	case PPS_LINK_ACTION_TYPE_GOTO_REMOTE:
+	case PPS_LINK_ACTION_TYPE_EXTERNAL_URI:
+	case PPS_LINK_ACTION_TYPE_LAUNCH:
+	case PPS_LINK_ACTION_TYPE_NAMED:
+	case PPS_LINK_ACTION_TYPE_RESET_FORM:
+		g_signal_emit (view, signals[SIGNAL_EXTERNAL_LINK], 0, action);
+		break;
 	}
 }
 
@@ -2111,17 +2104,17 @@ tip_from_action_named (PpsLinkAction *action)
 	const gchar *name = pps_link_action_get_name (action);
 
 	if (g_ascii_strcasecmp (name, "FirstPage") == 0) {
-		return g_strdup (_("Go to first page"));
+		return g_strdup (_ ("Go to first page"));
 	} else if (g_ascii_strcasecmp (name, "PrevPage") == 0) {
-		return g_strdup (_("Go to previous page"));
+		return g_strdup (_ ("Go to previous page"));
 	} else if (g_ascii_strcasecmp (name, "NextPage") == 0) {
-		return g_strdup (_("Go to next page"));
+		return g_strdup (_ ("Go to next page"));
 	} else if (g_ascii_strcasecmp (name, "LastPage") == 0) {
-		return g_strdup (_("Go to last page"));
+		return g_strdup (_ ("Go to last page"));
 	} else if (g_ascii_strcasecmp (name, "GoToPage") == 0) {
-		return g_strdup (_("Go to page"));
+		return g_strdup (_ ("Go to page"));
 	} else if (g_ascii_strcasecmp (name, "Find") == 0) {
-		return g_strdup (_("Find"));
+		return g_strdup (_ ("Find"));
 	}
 
 	return NULL;
@@ -2146,40 +2139,40 @@ tip_from_link (PpsView *view, PpsLink *link)
 	type = pps_link_action_get_action_type (action);
 
 	switch (type) {
-	        case PPS_LINK_ACTION_TYPE_GOTO_DEST:
-			page_label = pps_document_links_get_dest_page_label (PPS_DOCUMENT_LINKS (priv->document),
-									    pps_link_action_get_dest (action));
-			if (page_label) {
-    				msg = g_strdup_printf (_("Go to page %s"), page_label);
-				g_free (page_label);
-			}
-			break;
-	        case PPS_LINK_ACTION_TYPE_GOTO_REMOTE:
-			if (title) {
-				msg = g_strdup_printf (_("Go to %s on file “%s”"), title,
-						       pps_link_action_get_filename (action));
-			} else {
-				msg = g_strdup_printf (_("Go to file “%s”"),
-						       pps_link_action_get_filename (action));
-			}
-			break;
-	        case PPS_LINK_ACTION_TYPE_EXTERNAL_URI:
-			msg = g_strdup (pps_link_action_get_uri (action));
-			break;
-	        case PPS_LINK_ACTION_TYPE_LAUNCH:
-			msg = g_strdup_printf (_("Launch %s"),
-					       pps_link_action_get_filename (action));
-			break;
-	        case PPS_LINK_ACTION_TYPE_NAMED:
-			msg = tip_from_action_named (action);
-			break;
-	        case PPS_LINK_ACTION_TYPE_RESET_FORM:
-			msg = g_strdup_printf (_("Reset form"));
-			break;
-	        default:
-			if (title)
-				msg = g_strdup (title);
-			break;
+	case PPS_LINK_ACTION_TYPE_GOTO_DEST:
+		page_label = pps_document_links_get_dest_page_label (PPS_DOCUMENT_LINKS (priv->document),
+		                                                     pps_link_action_get_dest (action));
+		if (page_label) {
+			msg = g_strdup_printf (_ ("Go to page %s"), page_label);
+			g_free (page_label);
+		}
+		break;
+	case PPS_LINK_ACTION_TYPE_GOTO_REMOTE:
+		if (title) {
+			msg = g_strdup_printf (_ ("Go to %s on file “%s”"), title,
+			                       pps_link_action_get_filename (action));
+		} else {
+			msg = g_strdup_printf (_ ("Go to file “%s”"),
+			                       pps_link_action_get_filename (action));
+		}
+		break;
+	case PPS_LINK_ACTION_TYPE_EXTERNAL_URI:
+		msg = g_strdup (pps_link_action_get_uri (action));
+		break;
+	case PPS_LINK_ACTION_TYPE_LAUNCH:
+		msg = g_strdup_printf (_ ("Launch %s"),
+		                       pps_link_action_get_filename (action));
+		break;
+	case PPS_LINK_ACTION_TYPE_NAMED:
+		msg = tip_from_action_named (action);
+		break;
+	case PPS_LINK_ACTION_TYPE_RESET_FORM:
+		msg = g_strdup_printf (_ ("Reset form"));
+		break;
+	default:
+		if (title)
+			msg = g_strdup (title);
+		break;
 	}
 
 	return msg;
@@ -2189,16 +2182,16 @@ static void
 handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	GdkRectangle     link_area;
-	PpsLinkAction    *action;
-	PpsLinkDest      *dest;
-	PpsLinkDestType   type;
-	GtkWidget       *popover, *spinner;
-	GdkTexture      *page_texture = NULL;
-	guint            link_dest_page;
-	PpsPoint          link_dest_doc;
-	GdkPoint         link_dest_view;
-	gint             device_scale = 1;
+	GdkRectangle link_area;
+	PpsLinkAction *action;
+	PpsLinkDest *dest;
+	PpsLinkDestType type;
+	GtkWidget *popover, *spinner;
+	GdkTexture *page_texture = NULL;
+	guint link_dest_page;
+	PpsPoint link_dest_doc;
+	GdkPoint link_dest_view;
+	gint device_scale = 1;
 
 	pps_view_set_cursor (view, PPS_VIEW_CURSOR_LINK);
 
@@ -2217,8 +2210,7 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y)
 	type = pps_link_dest_get_dest_type (dest);
 	if (type == PPS_LINK_DEST_TYPE_NAMED) {
 		dest = pps_document_links_find_link_dest (PPS_DOCUMENT_LINKS (priv->document),
-							 pps_link_dest_get_named_dest (dest));
-
+		                                          pps_link_dest_get_named_dest (dest));
 	}
 
 	/* Handle the case that page doesn't exist */
@@ -2239,20 +2231,20 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y)
 	gtk_popover_set_autohide (GTK_POPOVER (popover), FALSE);
 
 	spinner = adw_spinner_new ();
-	gtk_popover_set_child (GTK_POPOVER (popover) , spinner);
+	gtk_popover_set_child (GTK_POPOVER (popover), spinner);
 
 	/* Start thumbnailing job async */
 	link_dest_page = pps_link_dest_get_page (dest);
 	device_scale = gtk_widget_get_scale_factor (GTK_WIDGET (view));
 	priv->link_preview.job = pps_job_thumbnail_texture_new (priv->document,
-							     link_dest_page,
-							     priv->rotation,
-							     priv->scale * device_scale);
+	                                                        link_dest_page,
+	                                                        priv->rotation,
+	                                                        priv->scale * device_scale);
 
 	link_dest_doc.x = pps_link_dest_get_left (dest, NULL);
 	link_dest_doc.y = pps_link_dest_get_top (dest, NULL);
 	_pps_view_transform_doc_point_by_rotation_scale (view, link_dest_page,
-							&link_dest_doc, &link_dest_view);
+	                                                 &link_dest_doc, &link_dest_view);
 	priv->link_preview.left = link_dest_view.x;
 	priv->link_preview.top = link_dest_view.y;
 	priv->link_preview.link = link;
@@ -2263,8 +2255,8 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y)
 		link_preview_set_thumbnail (page_texture, view);
 	else {
 		g_signal_connect (priv->link_preview.job, "finished",
-				  G_CALLBACK (link_preview_job_finished_cb),
-				  view);
+		                  G_CALLBACK (link_preview_job_finished_cb),
+		                  view);
 		pps_job_scheduler_push_job (priv->link_preview.job, PPS_JOB_PRIORITY_LOW);
 	}
 
@@ -2272,21 +2264,21 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y)
 		g_object_unref (dest);
 
 	priv->link_preview.delay_timeout_id =
-		g_timeout_add_once (LINK_PREVIEW_DELAY_MS,
-				    (GSourceOnceFunc)link_preview_delayed_show,
-				    view);
+	    g_timeout_add_once (LINK_PREVIEW_DELAY_MS,
+	                        (GSourceOnceFunc) link_preview_delayed_show,
+	                        view);
 	g_source_set_name_by_id (priv->link_preview.delay_timeout_id,
-				 "[papers] link_preview_timeout");
+	                         "[papers] link_preview_timeout");
 }
 
 static void
 pps_view_handle_cursor_over_xy (PpsView *view, gint x, gint y)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsLink       *link;
-	PpsFormField  *field;
+	PpsLink *link;
+	PpsFormField *field;
 	PpsAnnotation *annot = NULL;
-	PpsMedia      *media;
+	PpsMedia *media;
 
 	if (priv->cursor == PPS_VIEW_CURSOR_HIDDEN)
 		return;
@@ -2336,9 +2328,9 @@ pps_view_handle_cursor_over_xy (PpsView *view, gint x, gint y)
 
 /*** Images ***/
 static PpsImage *
-pps_view_get_image_at_location (PpsView  *view,
-			       gdouble  x,
-			       gdouble  y)
+pps_view_get_image_at_location (PpsView *view,
+                                gdouble x,
+                                gdouble y)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	gint page = -1;
@@ -2361,17 +2353,17 @@ pps_view_get_image_at_location (PpsView  *view,
 
 /*** Focus ***/
 static gboolean
-pps_view_get_focused_area (PpsView       *view,
-			  GdkRectangle *area)
+pps_view_get_focused_area (PpsView *view,
+                           GdkRectangle *area)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	if (!priv->focused_element)
 		return FALSE;
 
 	_pps_view_transform_doc_rect_to_view_rect (view,
-						  priv->focused_element_page,
-						  &priv->focused_element->area,
-						  area);
+	                                           priv->focused_element_page,
+	                                           &priv->focused_element->area,
+	                                           area);
 	area->x -= priv->scroll_x + 1;
 	area->y -= priv->scroll_y + 1;
 	area->width += 1;
@@ -2382,10 +2374,10 @@ pps_view_get_focused_area (PpsView       *view,
 
 void
 _pps_view_set_focused_element (PpsView *view,
-			     PpsMapping *element_mapping,
-			     gint page)
+                               PpsMapping *element_mapping,
+                               gint page)
 {
-	GdkRectangle    view_rect;
+	GdkRectangle view_rect;
 	cairo_region_t *region = NULL;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -2417,10 +2409,10 @@ _pps_view_set_focused_element (PpsView *view,
 
 /*** Forms ***/
 static PpsMapping *
-get_form_field_mapping_at_location (PpsView  *view,
-				    gdouble  x,
-				    gdouble  y,
-				    gint    *page)
+get_form_field_mapping_at_location (PpsView *view,
+                                    gdouble x,
+                                    gdouble y,
+                                    gint *page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	gint x_new = 0, y_new = 0;
@@ -2441,9 +2433,9 @@ get_form_field_mapping_at_location (PpsView  *view,
 }
 
 static PpsFormField *
-pps_view_get_form_field_at_location (PpsView  *view,
-				    gdouble  x,
-				    gdouble  y)
+pps_view_get_form_field_at_location (PpsView *view,
+                                     gdouble x,
+                                     gdouble y)
 {
 	PpsMapping *field_mapping;
 	gint page;
@@ -2454,45 +2446,45 @@ pps_view_get_form_field_at_location (PpsView  *view,
 }
 
 static cairo_region_t *
-pps_view_form_field_get_region (PpsView      *view,
-			       PpsFormField *field)
+pps_view_form_field_get_region (PpsView *view,
+                                PpsFormField *field)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	GdkRectangle   view_area;
+	GdkRectangle view_area;
 	PpsMappingList *forms_mapping;
 
 	forms_mapping = pps_page_cache_get_form_field_mapping (priv->page_cache,
-							      field->page->index);
+	                                                       field->page->index);
 	pps_view_get_area_from_mapping (view, field->page->index,
-				       forms_mapping,
-				       field, &view_area);
+	                                forms_mapping,
+	                                field, &view_area);
 
 	return cairo_region_create_rectangle (&view_area);
 }
 
 static void
 pps_view_form_field_destroy (GtkWidget *widget,
-			    PpsView    *view)
+                             PpsView *view)
 {
-	g_idle_add_once ((GSourceOnceFunc)pps_view_remove_all_form_fields, view);
+	g_idle_add_once ((GSourceOnceFunc) pps_view_remove_all_form_fields, view);
 }
 
 static void
-pps_view_form_field_button_toggle (PpsView      *view,
-				  PpsFormField *field)
+pps_view_form_field_button_toggle (PpsView *view,
+                                   PpsFormField *field)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsMappingList     *forms_mapping;
-	cairo_region_t    *region;
-	gboolean           state;
-	GList             *l;
+	PpsMappingList *forms_mapping;
+	cairo_region_t *region;
+	gboolean state;
+	GList *l;
 	PpsFormFieldButton *field_button = PPS_FORM_FIELD_BUTTON (field);
 
 	if (field_button->type == PPS_FORM_FIELD_BUTTON_PUSH)
 		return;
 
 	state = pps_document_forms_form_field_button_get_state (PPS_DOCUMENT_FORMS (priv->document),
-							       field);
+	                                                        field);
 
 	/* FIXME: it actually depends on NoToggleToOff flags */
 	if (field_button->type == PPS_FORM_FIELD_BUTTON_RADIO && state && field_button->state)
@@ -2504,10 +2496,10 @@ pps_view_form_field_button_toggle (PpsView      *view,
 	 * we need to update also the region for the current selected item
 	 */
 	forms_mapping = pps_page_cache_get_form_field_mapping (priv->page_cache,
-							      field->page->index);
+	                                                       field->page->index);
 
 	for (l = pps_mapping_list_get_list (forms_mapping); l; l = g_list_next (l)) {
-		PpsFormField *button = ((PpsMapping *)(l->data))->data;
+		PpsFormField *button = ((PpsMapping *) (l->data))->data;
 		cairo_region_t *button_region;
 
 		if (button->id == field->id)
@@ -2526,8 +2518,8 @@ pps_view_form_field_button_toggle (PpsView      *view,
 
 	/* Update state */
 	pps_document_forms_form_field_button_set_state (PPS_DOCUMENT_FORMS (priv->document),
-						       field,
-						       !state);
+	                                                field,
+	                                                !state);
 	field_button->state = !state;
 
 #if 0
@@ -2542,19 +2534,19 @@ pps_view_form_field_button_toggle (PpsView      *view,
 }
 
 static GtkWidget *
-pps_view_form_field_button_create_widget (PpsView      *view,
-					 PpsFormField *field)
+pps_view_form_field_button_create_widget (PpsView *view,
+                                          PpsFormField *field)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsMappingList *form_mapping;
-	PpsMapping     *mapping;
+	PpsMapping *mapping;
 
 	/* We need to do this focus grab prior to setting the focused element for accessibility */
 	if (!gtk_widget_has_focus (GTK_WIDGET (view)))
 		gtk_widget_grab_focus (GTK_WIDGET (view));
 
 	form_mapping = pps_page_cache_get_form_field_mapping (priv->page_cache,
-							     field->page->index);
+	                                                      field->page->index);
 	mapping = pps_mapping_list_find (form_mapping, field);
 	_pps_view_set_focused_element (view, mapping, field->page->index);
 
@@ -2562,8 +2554,8 @@ pps_view_form_field_button_create_widget (PpsView      *view,
 }
 
 static void
-pps_view_form_field_text_save (PpsView    *view,
-			      GtkWidget *widget)
+pps_view_form_field_text_save (PpsView *view,
+                               GtkWidget *widget)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsFormField *field;
@@ -2575,12 +2567,12 @@ pps_view_form_field_text_save (PpsView    *view,
 
 	if (field->changed) {
 		PpsFormFieldText *field_text = PPS_FORM_FIELD_TEXT (field);
-		cairo_region_t  *field_region;
+		cairo_region_t *field_region;
 
 		field_region = pps_view_form_field_get_region (view, field);
 
 		pps_document_forms_form_field_text_set_text (PPS_DOCUMENT_FORMS (priv->document),
-							    field, field_text->text);
+		                                             field, field_text->text);
 		field->changed = FALSE;
 		pps_view_reload_page (view, field->page->index, field_region);
 		cairo_region_destroy (field_region);
@@ -2588,11 +2580,11 @@ pps_view_form_field_text_save (PpsView    *view,
 }
 
 static void
-pps_view_form_field_text_changed (GObject      *widget,
-				  PpsFormField *field)
+pps_view_form_field_text_changed (GObject *widget,
+                                  PpsFormField *field)
 {
 	PpsFormFieldText *field_text = PPS_FORM_FIELD_TEXT (field);
-	gchar           *text = NULL;
+	gchar *text = NULL;
 
 	if (GTK_IS_ENTRY (widget)) {
 		text = g_strdup (gtk_editable_get_text (GTK_EDITABLE (widget)));
@@ -2601,7 +2593,7 @@ pps_view_form_field_text_changed (GObject      *widget,
 
 		gtk_text_buffer_get_bounds (GTK_TEXT_BUFFER (widget), &start, &end);
 		text = gtk_text_buffer_get_text (GTK_TEXT_BUFFER (widget),
-						 &start, &end, FALSE);
+		                                 &start, &end, FALSE);
 	}
 
 	if (!field_text->text ||
@@ -2613,100 +2605,100 @@ pps_view_form_field_text_changed (GObject      *widget,
 }
 
 static void
-pps_view_form_field_text_focus_out (GtkEventControllerFocus	*self,
-				   PpsView			*view)
+pps_view_form_field_text_focus_out (GtkEventControllerFocus *self,
+                                    PpsView *view)
 {
 	GtkWidget *widget = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (self));
 	pps_view_form_field_text_save (view, widget);
 }
 
 static void
-pps_view_form_field_text_button_pressed (GtkGestureClick	*self,
-					gint n_press,
-					gdouble x,
-					gdouble y,
-					gpointer user_data)
+pps_view_form_field_text_button_pressed (GtkGestureClick *self,
+                                         gint n_press,
+                                         gdouble x,
+                                         gdouble y,
+                                         gpointer user_data)
 {
 	gtk_gesture_set_state (GTK_GESTURE (self), GTK_EVENT_SEQUENCE_CLAIMED);
 }
 
 static GtkWidget *
-pps_view_form_field_text_create_widget (PpsView      *view,
-				       PpsFormField *field)
+pps_view_form_field_text_create_widget (PpsView *view,
+                                        PpsFormField *field)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsFormFieldText *field_text = PPS_FORM_FIELD_TEXT (field);
-	GtkWidget       *text = NULL;
-	GtkTextBuffer   *buffer = NULL;
-	gchar           *txt;
+	GtkWidget *text = NULL;
+	GtkTextBuffer *buffer = NULL;
+	gchar *txt;
 	GtkEventController *controller;
 
 	txt = pps_document_forms_form_field_text_get_text (PPS_DOCUMENT_FORMS (priv->document),
-							  field);
+	                                                   field);
 
 	switch (field_text->type) {
-	        case PPS_FORM_FIELD_TEXT_FILE_SELECT:
-			/* TODO */
-			return NULL;
-	        case PPS_FORM_FIELD_TEXT_NORMAL:
-			text = gtk_entry_new ();
-			gtk_entry_set_has_frame (GTK_ENTRY (text), FALSE);
-			/* Remove '.flat' style added by previous call
-			 * gtk_entry_set_has_frame(FALSE) which caused bug #687 */
-			gtk_widget_remove_css_class (text, "flat");
-			gtk_entry_set_max_length (GTK_ENTRY (text), field_text->max_len);
-			gtk_entry_set_visibility (GTK_ENTRY (text), !field_text->is_password);
+	case PPS_FORM_FIELD_TEXT_FILE_SELECT:
+		/* TODO */
+		return NULL;
+	case PPS_FORM_FIELD_TEXT_NORMAL:
+		text = gtk_entry_new ();
+		gtk_entry_set_has_frame (GTK_ENTRY (text), FALSE);
+		/* Remove '.flat' style added by previous call
+		 * gtk_entry_set_has_frame(FALSE) which caused bug #687 */
+		gtk_widget_remove_css_class (text, "flat");
+		gtk_entry_set_max_length (GTK_ENTRY (text), field_text->max_len);
+		gtk_entry_set_visibility (GTK_ENTRY (text), !field_text->is_password);
 
-			if (txt)
-				gtk_editable_set_text (GTK_EDITABLE (text), txt);
+		if (txt)
+			gtk_editable_set_text (GTK_EDITABLE (text), txt);
 
-			g_signal_connect_after (text, "activate",
-						G_CALLBACK (pps_view_form_field_destroy),
-						view);
-			g_signal_connect (text, "changed",
-					  G_CALLBACK (pps_view_form_field_text_changed),
-					  field);
-			break;
-	        case PPS_FORM_FIELD_TEXT_MULTILINE:
-			text = gtk_text_view_new ();
-			buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
+		g_signal_connect_after (text, "activate",
+		                        G_CALLBACK (pps_view_form_field_destroy),
+		                        view);
+		g_signal_connect (text, "changed",
+		                  G_CALLBACK (pps_view_form_field_text_changed),
+		                  field);
+		break;
+	case PPS_FORM_FIELD_TEXT_MULTILINE:
+		text = gtk_text_view_new ();
+		buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
 
-			if (txt) {
-				gtk_text_buffer_set_text (buffer, txt, -1);
-			}
+		if (txt) {
+			gtk_text_buffer_set_text (buffer, txt, -1);
+		}
 
-			g_signal_connect (buffer, "changed",
-					  G_CALLBACK (pps_view_form_field_text_changed),
-					  field);
+		g_signal_connect (buffer, "changed",
+		                  G_CALLBACK (pps_view_form_field_text_changed),
+		                  field);
 
-			break;
-		default:
-			g_assert_not_reached ();
+		break;
+	default:
+		g_assert_not_reached ();
 	}
 
 	g_clear_pointer (&txt, g_free);
 
 	controller = GTK_EVENT_CONTROLLER (gtk_event_controller_focus_new ());
 	g_signal_connect (controller, "leave",
-				G_CALLBACK (pps_view_form_field_text_focus_out),
-				view);
+	                  G_CALLBACK (pps_view_form_field_text_focus_out),
+	                  view);
 	gtk_widget_add_controller (text, controller);
 
 	controller = GTK_EVENT_CONTROLLER (gtk_gesture_click_new ());
 	g_signal_connect (controller, "pressed",
-				G_CALLBACK (pps_view_form_field_text_button_pressed), NULL);
+	                  G_CALLBACK (pps_view_form_field_text_button_pressed), NULL);
 	gtk_widget_add_controller (text, controller);
 
 	g_object_weak_ref (G_OBJECT (text),
-			   (GWeakNotify)pps_view_form_field_text_save,
-			   view);
+	                   (GWeakNotify) pps_view_form_field_text_save,
+	                   view);
 
 	return text;
 }
 
 static void
-pps_view_form_field_choice_save (PpsView    *view,
-				GtkWidget *widget)
+pps_view_form_field_choice_save (PpsView *view,
+                                 GtkWidget *widget)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsFormField *field;
@@ -2717,21 +2709,21 @@ pps_view_form_field_choice_save (PpsView    *view,
 	field = g_object_get_data (G_OBJECT (widget), "form-field");
 
 	if (field->changed) {
-		GList             *l;
+		GList *l;
 		PpsFormFieldChoice *field_choice = PPS_FORM_FIELD_CHOICE (field);
-		cairo_region_t    *field_region;
+		cairo_region_t *field_region;
 
 		field_region = pps_view_form_field_get_region (view, field);
 
 		if (field_choice->is_editable) {
 			pps_document_forms_form_field_choice_set_text (PPS_DOCUMENT_FORMS (priv->document),
-								      field, field_choice->text);
+			                                               field, field_choice->text);
 		} else {
 			pps_document_forms_form_field_choice_unselect_all (PPS_DOCUMENT_FORMS (priv->document), field);
 			for (l = field_choice->selected_items; l; l = g_list_next (l)) {
 				pps_document_forms_form_field_choice_select_item (PPS_DOCUMENT_FORMS (priv->document),
-										 field,
-										 GPOINTER_TO_INT (l->data));
+				                                                  field,
+				                                                  GPOINTER_TO_INT (l->data));
 			}
 		}
 		field->changed = FALSE;
@@ -2741,8 +2733,8 @@ pps_view_form_field_choice_save (PpsView    *view,
 }
 
 static void
-pps_view_form_field_choice_changed (GtkWidget   *widget,
-				   PpsFormField *field)
+pps_view_form_field_choice_changed (GtkWidget *widget,
+                                    PpsFormField *field)
 {
 	PpsFormFieldChoice *field_choice = PPS_FORM_FIELD_CHOICE (field);
 
@@ -2751,10 +2743,10 @@ pps_view_form_field_choice_changed (GtkWidget   *widget,
 
 		item = gtk_combo_box_get_active (GTK_COMBO_BOX (widget));
 		if (item != -1 && (!field_choice->selected_items ||
-		    GPOINTER_TO_INT (field_choice->selected_items->data) != item)) {
+		                   GPOINTER_TO_INT (field_choice->selected_items->data) != item)) {
 			g_clear_pointer (&field_choice->selected_items, g_list_free);
 			field_choice->selected_items = g_list_prepend (field_choice->selected_items,
-								       GINT_TO_POINTER (item));
+			                                               GINT_TO_POINTER (item));
 			field->changed = TRUE;
 		}
 
@@ -2771,22 +2763,22 @@ pps_view_form_field_choice_changed (GtkWidget   *widget,
 		}
 	} else if (GTK_IS_TREE_SELECTION (widget)) {
 		GtkTreeSelection *selection = GTK_TREE_SELECTION (widget);
-		GtkTreeModel     *model;
-		GList            *items, *l;
+		GtkTreeModel *model;
+		GList *items, *l;
 
 		items = gtk_tree_selection_get_selected_rows (selection, &model);
 		g_clear_pointer (&field_choice->selected_items, g_list_free);
 
 		for (l = items; l && l->data; l = g_list_next (l)) {
-			GtkTreeIter  iter;
-			GtkTreePath *path = (GtkTreePath *)l->data;
-			gint         item;
+			GtkTreeIter iter;
+			GtkTreePath *path = (GtkTreePath *) l->data;
+			gint item;
 
 			gtk_tree_model_get_iter (model, &iter, path);
 			gtk_tree_model_get (model, &iter, 1, &item, -1);
 
 			field_choice->selected_items = g_list_prepend (field_choice->selected_items,
-								       GINT_TO_POINTER (item));
+			                                               GINT_TO_POINTER (item));
 
 			gtk_tree_path_free (path);
 		}
@@ -2798,9 +2790,9 @@ pps_view_form_field_choice_changed (GtkWidget   *widget,
 }
 
 typedef struct _PopupShownData {
-	GtkWidget   *choice;
+	GtkWidget *choice;
 	PpsFormField *field;
-	PpsView      *view;
+	PpsView *view;
 } PopupShownData;
 
 static void
@@ -2815,9 +2807,9 @@ pps_view_form_field_choice_popup_shown_real (PopupShownData *data)
 }
 
 static void
-pps_view_form_field_choice_popup_shown_cb (GObject    *self,
-					  GParamSpec *pspec,
-					  PpsView     *view)
+pps_view_form_field_choice_popup_shown_cb (GObject *self,
+                                           GParamSpec *pspec,
+                                           PpsView *view)
 {
 	PpsFormField *field;
 	GtkWidget *choice;
@@ -2838,50 +2830,50 @@ pps_view_form_field_choice_popup_shown_cb (GObject    *self,
 	data->view = view;
 	/* We need to use an idle here because combobox "active" item is not updated yet */
 	g_idle_add_once ((GSourceOnceFunc) pps_view_form_field_choice_popup_shown_real,
-			 (gpointer) data);
+	                 (gpointer) data);
 }
 
 static GtkWidget *
-pps_view_form_field_choice_create_widget (PpsView      *view,
-					 PpsFormField *field)
+pps_view_form_field_choice_create_widget (PpsView *view,
+                                          PpsFormField *field)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsFormFieldChoice *field_choice = PPS_FORM_FIELD_CHOICE (field);
-	GtkWidget         *choice;
-	GtkTreeModel      *model;
-	gint               n_items, i;
-	gint               selected_item = -1;
+	GtkWidget *choice;
+	GtkTreeModel *model;
+	gint n_items, i;
+	gint selected_item = -1;
 
 	n_items = pps_document_forms_form_field_choice_get_n_items (PPS_DOCUMENT_FORMS (priv->document),
-								   field);
+	                                                            field);
 	model = GTK_TREE_MODEL (gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_INT));
 	for (i = 0; i < n_items; i++) {
 		GtkTreeIter iter;
-		gchar      *item;
+		gchar *item;
 
 		item = pps_document_forms_form_field_choice_get_item (PPS_DOCUMENT_FORMS (priv->document),
-								     field, i);
+		                                                      field, i);
 		if (pps_document_forms_form_field_choice_is_item_selected (
-			    PPS_DOCUMENT_FORMS (priv->document), field, i)) {
+			PPS_DOCUMENT_FORMS (priv->document), field, i)) {
 			selected_item = i;
 			/* FIXME: we need a get_selected_items function in poppler */
 			field_choice->selected_items = g_list_prepend (field_choice->selected_items,
-								       GINT_TO_POINTER (i));
+			                                               GINT_TO_POINTER (i));
 		}
 
 		if (item) {
 			gtk_list_store_append (GTK_LIST_STORE (model), &iter);
 			gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-					    0, item,
-					    1, i,
-					    -1);
+			                    0, item,
+			                    1, i,
+			                    -1);
 			g_free (item);
 		}
 	}
 
 	if (field_choice->type == PPS_FORM_FIELD_CHOICE_LIST) {
-		GtkCellRenderer  *renderer;
-		GtkWidget        *tree_view;
+		GtkCellRenderer *renderer;
+		GtkWidget *tree_view;
 		GtkTreeSelection *selection;
 
 		tree_view = gtk_tree_view_new_with_model (model);
@@ -2896,20 +2888,20 @@ pps_view_form_field_choice_create_widget (PpsView      *view,
 
 		renderer = gtk_cell_renderer_text_new ();
 		gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (tree_view),
-							     0,
-							     "choix", renderer,
-							     "text", 0,
-							     NULL);
+		                                             0,
+		                                             "choix", renderer,
+		                                             "text", 0,
+		                                             NULL);
 
 		choice = gtk_scrolled_window_new ();
 		gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (choice), tree_view);
 
 		g_signal_connect (selection, "changed",
-				  G_CALLBACK (pps_view_form_field_choice_changed),
-				  field);
+		                  G_CALLBACK (pps_view_form_field_choice_changed),
+		                  field);
 		g_signal_connect_after (selection, "changed",
-					G_CALLBACK (pps_view_form_field_destroy),
-					view);
+		                        G_CALLBACK (pps_view_form_field_destroy),
+		                        view);
 	} else if (field_choice->is_editable) { /* ComboBoxEntry */
 		GtkEntry *combo_entry;
 		gchar *text;
@@ -2928,48 +2920,48 @@ pps_view_form_field_choice_create_widget (PpsView      *view,
 		}
 
 		g_signal_connect (choice, "changed",
-				  G_CALLBACK (pps_view_form_field_choice_changed),
-				  field);
+		                  G_CALLBACK (pps_view_form_field_choice_changed),
+		                  field);
 		g_signal_connect_after (gtk_combo_box_get_child (GTK_COMBO_BOX (choice)),
-					"activate",
-					G_CALLBACK (pps_view_form_field_destroy),
-					view);
+		                        "activate",
+		                        G_CALLBACK (pps_view_form_field_destroy),
+		                        view);
 	} else { /* ComboBoxText */
 		GtkCellRenderer *renderer;
 
 		choice = gtk_combo_box_new_with_model (model);
 		renderer = gtk_cell_renderer_text_new ();
 		gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (choice),
-					    renderer, TRUE);
+		                            renderer, TRUE);
 		gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (choice),
-						renderer,
-						"text", 0,
-						NULL);
+		                                renderer,
+		                                "text", 0,
+		                                NULL);
 		gtk_combo_box_set_active (GTK_COMBO_BOX (choice), selected_item);
 
 		/* See issue #294 for why we use this instead of "changed" signal */
 		g_signal_connect (choice, "notify::popup-shown",
-				  G_CALLBACK (pps_view_form_field_choice_popup_shown_cb),
-				  view);
+		                  G_CALLBACK (pps_view_form_field_choice_popup_shown_cb),
+		                  view);
 	}
 
 	g_object_unref (model);
 
 	g_object_weak_ref (G_OBJECT (choice),
-			   (GWeakNotify)pps_view_form_field_choice_save,
-			   view);
+	                   (GWeakNotify) pps_view_form_field_choice_save,
+	                   view);
 
 	return choice;
 }
 
 void
-_pps_view_focus_form_field (PpsView      *view,
-			  PpsFormField *field)
+_pps_view_focus_form_field (PpsView *view,
+                            PpsFormField *field)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	GtkWidget     *field_widget = NULL;
+	GtkWidget *field_widget = NULL;
 	PpsMappingList *form_field_mapping;
-	PpsMapping     *mapping;
+	PpsMapping *mapping;
 
 	_pps_view_set_focused_element (view, NULL, -1);
 
@@ -2996,11 +2988,11 @@ _pps_view_focus_form_field (PpsView      *view,
 	gtk_widget_add_css_class (field_widget, "view");
 
 	g_object_set_data_full (G_OBJECT (field_widget), "form-field",
-				g_object_ref (field),
-				(GDestroyNotify)g_object_unref);
+	                        g_object_ref (field),
+	                        (GDestroyNotify) g_object_unref);
 
 	form_field_mapping = pps_page_cache_get_form_field_mapping (priv->page_cache,
-								   field->page->index);
+	                                                            field->page->index);
 	mapping = pps_mapping_list_find (form_field_mapping, field);
 	_pps_view_set_focused_element (view, mapping, field->page->index);
 	pps_view_put_to_doc_rect (view, field_widget, field->page->index, &mapping->area);
@@ -3008,7 +3000,7 @@ _pps_view_focus_form_field (PpsView      *view,
 	/* gtk_combo_box_popup do nothing if widget is not mapped. It seems that
 	 * the widget only get mapped after adding to PpsView as child in GTK4.
 	 */
-	if (GTK_IS_COMBO_BOX(field_widget)) {
+	if (GTK_IS_COMBO_BOX (field_widget)) {
 		gtk_combo_box_popup (GTK_COMBO_BOX (field_widget));
 	}
 
@@ -3017,8 +3009,8 @@ _pps_view_focus_form_field (PpsView      *view,
 }
 
 static void
-pps_view_handle_form_field (PpsView      *view,
-			   PpsFormField *field)
+pps_view_handle_form_field (PpsView *view,
+                            PpsFormField *field)
 {
 	if (field->is_read_only)
 		return;
@@ -3030,15 +3022,14 @@ pps_view_handle_form_field (PpsView      *view,
 
 	if (PPS_IS_FORM_FIELD_BUTTON (field))
 		pps_view_form_field_button_toggle (view, field);
-
 }
 
 /* Media */
 static PpsMapping *
 get_media_mapping_at_location (PpsView *view,
-			       gdouble x,
-			       gdouble y,
-			       gint *page)
+                               gdouble x,
+                               gdouble y,
+                               gint *page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	gint x_new = 0, y_new = 0;
@@ -3056,12 +3047,12 @@ get_media_mapping_at_location (PpsView *view,
 }
 
 static PpsMedia *
-pps_view_get_media_at_location (PpsView  *view,
-			       gdouble  x,
-			       gdouble  y)
+pps_view_get_media_at_location (PpsView *view,
+                                gdouble x,
+                                gdouble y)
 {
 	PpsMapping *media_mapping;
-	gint       page;
+	gint page;
 
 	media_mapping = get_media_mapping_at_location (view, x, y, &page);
 
@@ -3069,17 +3060,16 @@ pps_view_get_media_at_location (PpsView  *view,
 }
 
 static gboolean
-pps_view_find_player_for_media (PpsView  *view,
-			       PpsMedia *media)
+pps_view_find_player_for_media (PpsView *view,
+                                PpsMedia *media)
 {
 	for (GtkWidget *child = gtk_widget_get_first_child (GTK_WIDGET (view));
-		child != NULL;
-		child = gtk_widget_get_next_sibling (child))
-	{
+	     child != NULL;
+	     child = gtk_widget_get_next_sibling (child)) {
 		if (!GTK_IS_VIDEO (child))
 			continue;
 
-		if (g_object_get_data (G_OBJECT(child), "media") == media)
+		if (g_object_get_data (G_OBJECT (child), "media") == media)
 			return TRUE;
 	}
 
@@ -3087,16 +3077,16 @@ pps_view_find_player_for_media (PpsView  *view,
 }
 
 static void
-pps_view_handle_media (PpsView  *view,
-		      PpsMedia *media)
+pps_view_handle_media (PpsView *view,
+                       PpsMedia *media)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	GtkWidget     *player;
+	GtkWidget *player;
 	PpsMappingList *media_mapping;
-	PpsMapping     *mapping;
-	GdkRectangle   render_area;
-	guint          page;
-	GFile	      *uri;
+	PpsMapping *mapping;
+	GdkRectangle render_area;
+	guint page;
+	GFile *uri;
 
 	page = pps_media_get_page_index (media);
 	media_mapping = pps_page_cache_get_media_mapping (priv->page_cache, page);
@@ -3112,8 +3102,8 @@ pps_view_handle_media (PpsView  *view,
 	g_object_unref (uri);
 
 	g_object_set_data_full (G_OBJECT (player), "media",
-				g_object_ref (media),
-				(GDestroyNotify)g_object_unref);
+	                        g_object_ref (media),
+	                        (GDestroyNotify) g_object_unref);
 
 	mapping = pps_mapping_list_find (media_mapping, media);
 	_pps_view_transform_doc_rect_to_view_rect (view, page, &mapping->area, &render_area);
@@ -3125,8 +3115,8 @@ pps_view_handle_media (PpsView  *view,
 
 /* Annotations */
 static GtkWidget *
-get_window_for_annot (PpsView       *view,
-		      PpsAnnotation *annot)
+get_window_for_annot (PpsView *view,
+                      PpsAnnotation *annot)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	if (priv->annot_window_map == NULL)
@@ -3136,9 +3126,9 @@ get_window_for_annot (PpsView       *view,
 }
 
 static void
-map_annot_to_window (PpsView       *view,
+map_annot_to_window (PpsView *view,
                      PpsAnnotation *annot,
-		     GtkWidget    *window)
+                     GtkWidget *window)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	if (priv->annot_window_map == NULL)
@@ -3148,8 +3138,8 @@ map_annot_to_window (PpsView       *view,
 }
 
 static PpsViewWindowChild *
-pps_view_get_window_child (PpsView    *view,
-			  GtkWidget *window)
+pps_view_get_window_child (PpsView *view,
+                           GtkWidget *window)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GList *children = priv->window_children;
@@ -3157,7 +3147,7 @@ pps_view_get_window_child (PpsView    *view,
 	while (children) {
 		PpsViewWindowChild *child;
 
-		child = (PpsViewWindowChild *)children->data;
+		child = (PpsViewWindowChild *) children->data;
 		children = children->next;
 
 		if (child->window == window)
@@ -3168,9 +3158,9 @@ pps_view_get_window_child (PpsView    *view,
 }
 
 static void
-pps_view_window_child_put (PpsView    *view,
-			  GtkWidget *window,
-			  guint      page)
+pps_view_window_child_put (PpsView *view,
+                           GtkWidget *window,
+                           guint page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsViewWindowChild *child;
@@ -3186,18 +3176,18 @@ pps_view_window_child_put (PpsView    *view,
 }
 
 static void
-pps_view_remove_window_child_for_annot (PpsView       *view,
-				       guint         page,
-				       PpsAnnotation *annot)
+pps_view_remove_window_child_for_annot (PpsView *view,
+                                        guint page,
+                                        PpsAnnotation *annot)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GList *children = priv->window_children;
 
 	while (children) {
 		PpsViewWindowChild *child;
-		PpsAnnotation      *wannot;
+		PpsAnnotation *wannot;
 
-		child = (PpsViewWindowChild *)children->data;
+		child = (PpsViewWindowChild *) children->data;
 
 		if (child->page != page) {
 			children = children->next;
@@ -3225,7 +3215,7 @@ pps_view_window_children_free (PpsView *view)
 	for (l = priv->window_children; l && l->data; l = g_list_next (l)) {
 		PpsViewWindowChild *child;
 
-		child = (PpsViewWindowChild *)l->data;
+		child = (PpsViewWindowChild *) l->data;
 		gtk_window_destroy (GTK_WINDOW (child->window));
 		g_free (child);
 	}
@@ -3234,7 +3224,7 @@ pps_view_window_children_free (PpsView *view)
 
 static gboolean
 annotation_window_closed (PpsAnnotationWindow *window,
-			  PpsView             *view)
+                          PpsView *view)
 {
 	PpsViewWindowChild *child;
 
@@ -3244,44 +3234,44 @@ annotation_window_closed (PpsAnnotationWindow *window,
 }
 
 static GtkWidget *
-pps_view_create_annotation_window (PpsView       *view,
-				  PpsAnnotation *annot)
+pps_view_create_annotation_window (PpsView *view,
+                                   PpsAnnotation *annot)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	GtkWindow  *parent = GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (view)));
-	GtkWidget  *window = pps_annotation_window_new (annot, parent,
-							priv->document);
-	guint       page;
+	GtkWindow *parent = GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (view)));
+	GtkWidget *window = pps_annotation_window_new (annot, parent,
+	                                               priv->document);
+	guint page;
 
 	g_signal_connect (window, "close-request",
-			  G_CALLBACK (annotation_window_closed),
-			  view);
+	                  G_CALLBACK (annotation_window_closed),
+	                  view);
 	map_annot_to_window (view, annot, window);
 
 	page = pps_annotation_get_page_index (annot);
 
 	pps_view_window_child_put (view, window, page);
 
-        pps_annotation_window_set_enable_spellchecking (PPS_ANNOTATION_WINDOW (window), pps_view_get_enable_spellchecking (view));
+	pps_annotation_window_set_enable_spellchecking (PPS_ANNOTATION_WINDOW (window), pps_view_get_enable_spellchecking (view));
 
 	return window;
 }
 
 static void
 show_annotation_windows (PpsView *view,
-			 gint    page)
+                         gint page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsMappingList *annots;
-	GList         *l;
+	GList *l;
 
 	annots = pps_page_cache_get_annot_mapping (priv->page_cache, page);
 
 	for (l = pps_mapping_list_get_list (annots); l && l->data; l = g_list_next (l)) {
-		PpsAnnotation      *annot;
-		GtkWidget         *window;
+		PpsAnnotation *annot;
+		GtkWidget *window;
 
-		annot = ((PpsMapping *)(l->data))->data;
+		annot = ((PpsMapping *) (l->data))->data;
 
 		if (!PPS_IS_ANNOTATION_MARKUP (annot))
 			continue;
@@ -3302,19 +3292,19 @@ show_annotation_windows (PpsView *view,
 
 static void
 hide_annotation_windows (PpsView *view,
-			 gint    page)
+                         gint page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsMappingList *annots;
-	GList         *l;
+	GList *l;
 
 	annots = pps_page_cache_get_annot_mapping (priv->page_cache, page);
 
 	for (l = pps_mapping_list_get_list (annots); l && l->data; l = g_list_next (l)) {
 		PpsAnnotation *annot;
-		GtkWidget    *window;
+		GtkWidget *window;
 
-		annot = ((PpsMapping *)(l->data))->data;
+		annot = ((PpsMapping *) (l->data))->data;
 
 		if (!PPS_IS_ANNOTATION_MARKUP (annot))
 			continue;
@@ -3327,7 +3317,7 @@ hide_annotation_windows (PpsView *view,
 
 static int
 cmp_mapping_area_size (PpsMapping *a,
-		       PpsMapping *b)
+                       PpsMapping *b)
 {
 	gdouble wa, ha, wb, hb;
 
@@ -3351,9 +3341,9 @@ cmp_mapping_area_size (PpsMapping *a,
 
 static PpsMapping *
 get_annotation_mapping_at_location (PpsView *view,
-				    gdouble x,
-				    gdouble y,
-				    gint *page)
+                                    gdouble x,
+                                    gdouble y,
+                                    gint *page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	gint x_new = 0, y_new = 0;
@@ -3391,8 +3381,7 @@ get_annotation_mapping_at_location (PpsView *view,
 			annot = PPS_ANNOTATION (mapping->data);
 
 			if (pps_annotation_get_annotation_type (annot) == PPS_ANNOTATION_TYPE_TEXT_MARKUP &&
-			    pps_document_annotations_over_markup (doc_annots, annot, (gdouble) x_new, (gdouble) y_new)
-								== PPS_ANNOTATION_OVER_MARKUP_NOT)
+			    pps_document_annotations_over_markup (doc_annots, annot, (gdouble) x_new, (gdouble) y_new) == PPS_ANNOTATION_OVER_MARKUP_NOT)
 				continue; /* ignore markup annots clicked outside the markup text */
 
 			/* In case of only one match choose that. Otherwise
@@ -3406,9 +3395,9 @@ get_annotation_mapping_at_location (PpsView *view,
 }
 
 static PpsAnnotation *
-pps_view_get_annotation_at_location (PpsView  *view,
-				    gdouble  x,
-				    gdouble  y)
+pps_view_get_annotation_at_location (PpsView *view,
+                                     gdouble x,
+                                     gdouble y)
 {
 	PpsMapping *annotation_mapping;
 	gint page;
@@ -3419,8 +3408,8 @@ pps_view_get_annotation_at_location (PpsView  *view,
 }
 
 static void
-pps_view_annotation_show_popup_window (PpsView    *view,
-				      GtkWidget *window)
+pps_view_annotation_show_popup_window (PpsView *view,
+                                       GtkWidget *window)
 {
 	PpsViewWindowChild *child;
 
@@ -3435,8 +3424,8 @@ pps_view_annotation_show_popup_window (PpsView    *view,
 }
 
 static void
-pps_view_annotation_create_show_popup_window (PpsView       *view,
-					     PpsAnnotation *annot)
+pps_view_annotation_create_show_popup_window (PpsView *view,
+                                              PpsAnnotation *annot)
 {
 	GtkWidget *window = pps_view_create_annotation_window (view, annot);
 
@@ -3444,11 +3433,11 @@ pps_view_annotation_create_show_popup_window (PpsView       *view,
 }
 
 static void
-pps_view_handle_annotation (PpsView       *view,
-			   PpsAnnotation *annot,
-			   gdouble       x,
-			   gdouble       y,
-			   guint32       timestamp)
+pps_view_handle_annotation (PpsView *view,
+                            PpsAnnotation *annot,
+                            gdouble x,
+                            gdouble y,
+                            guint32 timestamp)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	if (PPS_IS_ANNOTATION_MARKUP (annot)) {
@@ -3456,12 +3445,12 @@ pps_view_handle_annotation (PpsView       *view,
 
 		window = get_window_for_annot (view, annot);
 		if (!window && pps_annotation_markup_can_have_popup (PPS_ANNOTATION_MARKUP (annot))) {
-			PpsRectangle    popup_rect;
+			PpsRectangle popup_rect;
 			PpsMappingList *annots;
-			PpsMapping     *mapping;
+			PpsMapping *mapping;
 
 			annots = pps_page_cache_get_annot_mapping (priv->page_cache,
-								  pps_annotation_get_page_index (annot));
+			                                           pps_annotation_get_page_index (annot));
 			mapping = pps_mapping_list_find (annots, annot);
 
 			popup_rect.x1 = mapping->area.x2;
@@ -3469,31 +3458,31 @@ pps_view_handle_annotation (PpsView       *view,
 			popup_rect.x2 = popup_rect.x1 + ANNOT_POPUP_WINDOW_DEFAULT_WIDTH;
 			popup_rect.y2 = popup_rect.y1 + ANNOT_POPUP_WINDOW_DEFAULT_HEIGHT;
 			g_object_set (annot,
-				      "rectangle", &popup_rect,
-				      "has_popup", TRUE,
-				      "popup_is_open", TRUE,
-				      NULL);
+			              "rectangle", &popup_rect,
+			              "has_popup", TRUE,
+			              "popup_is_open", TRUE,
+			              NULL);
 
 			window = pps_view_create_annotation_window (view, annot);
 		} else if (window && pps_annotation_markup_has_popup (PPS_ANNOTATION_MARKUP (annot))) {
-			PpsMappingList     *annots;
-			PpsRectangle        popup_rect;
-			PpsMapping         *mapping;
+			PpsMappingList *annots;
+			PpsRectangle popup_rect;
+			PpsMapping *mapping;
 
 			annots = pps_page_cache_get_annot_mapping (priv->page_cache,
-								  pps_annotation_get_page_index (annot));
+			                                           pps_annotation_get_page_index (annot));
 			mapping = pps_mapping_list_find (annots, annot);
 			pps_annotation_markup_get_rectangle (PPS_ANNOTATION_MARKUP (annot),
-							    &popup_rect);
+			                                     &popup_rect);
 
 			popup_rect.x2 = mapping->area.x2 + popup_rect.x2 - popup_rect.x1;
 			popup_rect.y2 = mapping->area.y2 + popup_rect.y2 - popup_rect.y1;
 			popup_rect.x1 = mapping->area.x2;
 			popup_rect.y1 = mapping->area.y2;
 			g_object_set (annot,
-				      "rectangle", &popup_rect,
-				      "popup_is_open", TRUE,
-				      NULL);
+			              "rectangle", &popup_rect,
+			              "popup_is_open", TRUE,
+			              NULL);
 		}
 		pps_view_annotation_show_popup_window (view, window);
 	}
@@ -3509,8 +3498,8 @@ pps_view_handle_annotation (PpsView       *view,
 			gdk_app_launch_context_set_timestamp (context, timestamp);
 
 			pps_attachment_open (attachment,
-					    G_APP_LAUNCH_CONTEXT (context),
-					    &error);
+			                     G_APP_LAUNCH_CONTEXT (context),
+			                     &error);
 
 			if (error) {
 				g_warning ("%s", error->message);
@@ -3522,30 +3511,30 @@ pps_view_handle_annotation (PpsView       *view,
 	}
 }
 
-static PpsAnnotation*
-pps_view_create_annotation_real (PpsView           *view,
-				 gint               annot_page,
-				 PpsAnnotationType  type,
-				 PpsPoint          *start,
-				 PpsPoint          *end)
+static PpsAnnotation *
+pps_view_create_annotation_real (PpsView *view,
+                                 gint annot_page,
+                                 PpsAnnotationType type,
+                                 PpsPoint *start,
+                                 PpsPoint *end)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsAnnotation   *annot;
-	PpsRectangle     doc_rect, popup_rect;
-	PpsPage         *page;
-	GdkRectangle    view_rect;
+	PpsAnnotation *annot;
+	PpsRectangle doc_rect, popup_rect;
+	PpsPage *page;
+	GdkRectangle view_rect;
 	cairo_region_t *region;
 
 	pps_document_doc_mutex_lock (priv->document);
 	page = pps_document_get_page (priv->document, annot_page);
-        switch (type) {
-        case PPS_ANNOTATION_TYPE_TEXT:
-                doc_rect.x1 = start->x;
-                doc_rect.y1 = start->y;
-                doc_rect.x2 = doc_rect.x1 + ANNOTATION_ICON_SIZE;
-                doc_rect.y2 = doc_rect.y1 + ANNOTATION_ICON_SIZE;
-                annot = pps_annotation_text_new (page);
-                break;
+	switch (type) {
+	case PPS_ANNOTATION_TYPE_TEXT:
+		doc_rect.x1 = start->x;
+		doc_rect.y1 = start->y;
+		doc_rect.x2 = doc_rect.x1 + ANNOTATION_ICON_SIZE;
+		doc_rect.y2 = doc_rect.y1 + ANNOTATION_ICON_SIZE;
+		annot = pps_annotation_text_new (page);
+		break;
 	case PPS_ANNOTATION_TYPE_TEXT_MARKUP:
 		doc_rect.x1 = start->x;
 		doc_rect.y1 = start->y;
@@ -3572,13 +3561,13 @@ pps_view_create_annotation_real (PpsView           *view,
 		popup_rect.y1 = doc_rect.y2;
 		popup_rect.y2 = popup_rect.y1 + ANNOT_POPUP_WINDOW_DEFAULT_HEIGHT;
 		g_object_set (annot,
-			      "rectangle", &popup_rect,
-			      "can-have-popup", TRUE,
-			      "has_popup", TRUE,
-			      "popup_is_open", FALSE,
-			      "label", g_get_real_name (),
-			      "opacity", 1.0,
-			      NULL);
+		              "rectangle", &popup_rect,
+		              "can-have-popup", TRUE,
+		              "has_popup", TRUE,
+		              "popup_is_open", FALSE,
+		              "label", g_get_real_name (),
+		              "opacity", 1.0,
+		              NULL);
 	}
 	pps_document_annotations_add_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document), annot);
 	/* Re-fetch area as eg. adding Text Markup annots updates area for its bounding box */
@@ -3602,17 +3591,17 @@ pps_view_create_annotation_real (PpsView           *view,
 
 static void
 pps_view_create_text_annotation_at_point (PpsView *view,
-					  GdkPoint *point)
+                                          GdkPoint *point)
 {
-	PpsPoint        doc_point;
-	PpsAnnotation  *annot;
-	gint            annot_page;
-	gint            offset;
-	GdkRectangle    page_area;
-	GtkBorder       border;
+	PpsPoint doc_point;
+	PpsAnnotation *annot;
+	gint annot_page;
+	gint offset;
+	GdkRectangle page_area;
+	GtkBorder border;
 
 	find_page_at_location (view, point->x, point->y,
-			       &annot_page, &offset, &offset);
+	                       &annot_page, &offset, &offset);
 	if (annot_page == -1) {
 		pps_view_cancel_add_text_annotation (view);
 		return;
@@ -3620,20 +3609,20 @@ pps_view_create_text_annotation_at_point (PpsView *view,
 
 	pps_view_get_page_extents (view, annot_page, &page_area, &border);
 	_pps_view_transform_view_point_to_doc_point (view, point,
-						     &page_area, &border,
-						     &doc_point.x, &doc_point.y);
+	                                             &page_area, &border,
+	                                             &doc_point.x, &doc_point.y);
 
 	annot = pps_view_create_annotation_real (view, annot_page,
-						 PPS_ANNOTATION_TYPE_TEXT,
-						 &doc_point, NULL);
+	                                         PPS_ANNOTATION_TYPE_TEXT,
+	                                         &doc_point, NULL);
 	pps_view_annotation_create_show_popup_window (view, annot);
 }
 
 static gboolean
-pps_view_get_doc_points_from_selection_region (PpsView  *view,
-					      gint     page,
-					      PpsPoint *begin,
-					      PpsPoint *end)
+pps_view_get_doc_points_from_selection_region (PpsView *view,
+                                               gint page,
+                                               PpsPoint *begin,
+                                               PpsPoint *end)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	cairo_rectangle_int_t first, last;
@@ -3649,14 +3638,14 @@ pps_view_get_doc_points_from_selection_region (PpsView  *view,
 		return FALSE;
 
 	cairo_region_get_rectangle (region, 0, &first);
-	cairo_region_get_rectangle (region, cairo_region_num_rectangles(region) - 1, &last);
+	cairo_region_get_rectangle (region, cairo_region_num_rectangles (region) - 1, &last);
 
 	if (!get_doc_point_from_offset (view, page, first.x, first.y + (first.height / 2),
-					&(start.x), &(start.y)))
+	                                &(start.x), &(start.y)))
 		return FALSE;
 
 	if (!get_doc_point_from_offset (view, page, last.x + last.width, last.y + (last.height / 2),
-					&(stop.x), &(stop.y)))
+	                                &(stop.x), &(stop.y)))
 		return FALSE;
 
 	begin->x = start.x;
@@ -3668,8 +3657,8 @@ pps_view_get_doc_points_from_selection_region (PpsView  *view,
 }
 
 static void
-pps_view_create_annotation_from_selection (PpsView          *view,
-					  PpsViewSelection *selection)
+pps_view_create_annotation_from_selection (PpsView *view,
+                                           PpsViewSelection *selection)
 {
 	PpsPoint doc_point_start;
 	PpsPoint doc_point_end;
@@ -3679,7 +3668,7 @@ pps_view_create_annotation_from_selection (PpsView          *view,
 	if (selection->style == PPS_SELECTION_STYLE_WORD || selection->style == PPS_SELECTION_STYLE_LINE) {
 
 		if (!pps_view_get_doc_points_from_selection_region (view, selection->page,
-								   &doc_point_start, &doc_point_end))
+		                                                    &doc_point_start, &doc_point_end))
 			return;
 	} else {
 		doc_point_start.x = selection->rect.x1;
@@ -3689,13 +3678,13 @@ pps_view_create_annotation_from_selection (PpsView          *view,
 	}
 
 	pps_view_create_annotation_real (view, selection->page,
-					 PPS_ANNOTATION_TYPE_TEXT_MARKUP,
-					 &doc_point_start, &doc_point_end);
+	                                 PPS_ANNOTATION_TYPE_TEXT_MARKUP,
+	                                 &doc_point_start, &doc_point_end);
 }
 
 void
-pps_view_focus_annotation (PpsView    *view,
-			   const PpsMapping *annot_mapping)
+pps_view_focus_annotation (PpsView *view,
+                           const PpsMapping *annot_mapping)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsMapping *dup_mapping = NULL;
@@ -3708,7 +3697,7 @@ pps_view_focus_annotation (PpsView    *view,
 	}
 
 	_pps_view_set_focused_element (view, dup_mapping,
-				     pps_annotation_get_page_index (PPS_ANNOTATION (annot_mapping->data)));
+	                               pps_annotation_get_page_index (PPS_ANNOTATION (annot_mapping->data)));
 }
 
 void
@@ -3736,35 +3725,35 @@ pps_view_cancel_add_text_annotation (PpsView *view)
 }
 
 void
-pps_view_remove_annotation (PpsView       *view,
-                           PpsAnnotation *annot)
+pps_view_remove_annotation (PpsView *view,
+                            PpsAnnotation *annot)
 {
-        guint page;
+	guint page;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-        g_return_if_fail (PPS_IS_VIEW (view));
-        g_return_if_fail (PPS_IS_ANNOTATION (annot));
+	g_return_if_fail (PPS_IS_VIEW (view));
+	g_return_if_fail (PPS_IS_ANNOTATION (annot));
 
 	g_object_ref (annot);
 
-        page = pps_annotation_get_page_index (annot);
+	page = pps_annotation_get_page_index (annot);
 
-        if (PPS_IS_ANNOTATION_MARKUP (annot))
+	if (PPS_IS_ANNOTATION_MARKUP (annot))
 		pps_view_remove_window_child_for_annot (view, page, annot);
 	if (priv->annot_window_map != NULL)
 		g_hash_table_remove (priv->annot_window_map, annot);
 
-        _pps_view_set_focused_element (view, NULL, -1);
+	_pps_view_set_focused_element (view, NULL, -1);
 
-        pps_document_doc_mutex_lock (priv->document);
-        pps_document_annotations_remove_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document),
-                                                   annot);
-        pps_document_doc_mutex_unlock (priv->document);
+	pps_document_doc_mutex_lock (priv->document);
+	pps_document_annotations_remove_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document),
+	                                            annot);
+	pps_document_doc_mutex_unlock (priv->document);
 
-        pps_page_cache_mark_dirty (priv->page_cache, page, PPS_PAGE_DATA_INCLUDE_ANNOTS);
+	pps_page_cache_mark_dirty (priv->page_cache, page, PPS_PAGE_DATA_INCLUDE_ANNOTS);
 
 	/* FIXME: only redraw the annot area */
-        pps_view_reload_page (view, page, NULL);
+	pps_view_reload_page (view, page, NULL);
 
 	g_signal_emit (view, signals[SIGNAL_ANNOT_REMOVED], 0, annot);
 	g_object_unref (annot);
@@ -3781,8 +3770,8 @@ cursor_is_in_visible_page (PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	return (priv->cursor_page == priv->current_page ||
-		(priv->cursor_page >= priv->start_page &&
-		 priv->cursor_page <= priv->end_page));
+	        (priv->cursor_page >= priv->start_page &&
+	         priv->cursor_page <= priv->end_page));
 }
 
 static gboolean
@@ -3830,17 +3819,17 @@ get_cursor_blink_timeout_id (PpsView *view)
 }
 
 static gboolean
-get_caret_cursor_area (PpsView       *view,
-		       gint          page,
-		       gint          offset,
-		       GdkRectangle *area)
+get_caret_cursor_area (PpsView *view,
+                       gint page,
+                       gint offset,
+                       GdkRectangle *area)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsRectangle *areas = NULL;
 	PpsRectangle *doc_rect;
-	guint        n_areas = 0;
-	gdouble      cursor_aspect_ratio;
-	gint         stem_width;
+	guint n_areas = 0;
+	gdouble cursor_aspect_ratio;
+	gint stem_width;
 
 	if (!priv->caret_enabled || priv->rotation != 0)
 		return FALSE;
@@ -3859,7 +3848,7 @@ get_caret_cursor_area (PpsView       *view,
 	if (offset == n_areas ||
 	    ((doc_rect->x1 == doc_rect->x2 || doc_rect->y1 == doc_rect->y2) && offset > 0)) {
 		PpsRectangle *prev;
-		PpsRectangle  last_rect;
+		PpsRectangle last_rect;
 
 		/* Special characters like \n have an empty bounding box
 		 * and the end of a page doesn't have any bounding box,
@@ -3880,9 +3869,9 @@ get_caret_cursor_area (PpsView       *view,
 	area->y -= priv->scroll_y;
 
 	g_object_get (gtk_settings_get_for_display (
-		gtk_style_context_get_display (gtk_widget_get_style_context (GTK_WIDGET (view)))),
-                "gtk-cursor-aspect-ratio", &cursor_aspect_ratio,
-                NULL);
+			  gtk_style_context_get_display (gtk_widget_get_style_context (GTK_WIDGET (view)))),
+	              "gtk-cursor-aspect-ratio", &cursor_aspect_ratio,
+	              NULL);
 
 	stem_width = area->height * cursor_aspect_ratio + 1;
 	area->x -= (stem_width / 2);
@@ -3894,7 +3883,7 @@ get_caret_cursor_area (PpsView       *view,
 static void
 show_cursor (PpsView *view)
 {
-	GtkWidget   *widget;
+	GtkWidget *widget;
 	GdkRectangle view_rect;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -3912,7 +3901,7 @@ show_cursor (PpsView *view)
 static void
 hide_cursor (PpsView *view)
 {
-	GtkWidget   *widget;
+	GtkWidget *widget;
 	GdkRectangle view_rect;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -3953,7 +3942,7 @@ blink_cb (PpsView *view)
 		blink_time *= CURSOR_ON_MULTIPLIER;
 	}
 
-	priv->cursor_blink_timeout_id = g_timeout_add (blink_time / CURSOR_DIVIDER, (GSourceFunc)blink_cb, view);
+	priv->cursor_blink_timeout_id = g_timeout_add (blink_time / CURSOR_DIVIDER, (GSourceFunc) blink_cb, view);
 
 	return G_SOURCE_REMOVE;
 }
@@ -3962,11 +3951,11 @@ static void
 pps_view_check_cursor_blink (PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	if (cursor_should_blink (view))	{
+	if (cursor_should_blink (view)) {
 		if (priv->cursor_blink_timeout_id == 0) {
 			show_cursor (view);
 			priv->cursor_blink_timeout_id = g_timeout_add (get_cursor_blink_time (view) * CURSOR_ON_MULTIPLIER / CURSOR_DIVIDER,
-										 (GSourceFunc)blink_cb, view);
+			                                               (GSourceFunc) blink_cb, view);
 		}
 
 		return;
@@ -3989,7 +3978,7 @@ pps_view_pend_cursor_blink (PpsView *view)
 
 	show_cursor (view);
 	priv->cursor_blink_timeout_id = g_timeout_add (get_cursor_blink_time (view) * CURSOR_PEND_MULTIPLIER / CURSOR_DIVIDER,
-								 (GSourceFunc)blink_cb, view);
+	                                               (GSourceFunc) blink_cb, view);
 }
 
 static void
@@ -4050,8 +4039,8 @@ pps_view_supports_caret_navigation (PpsView *view)
  * Since: 3.10
  */
 void
-pps_view_set_caret_navigation_enabled (PpsView   *view,
-				      gboolean enabled)
+pps_view_set_caret_navigation_enabled (PpsView *view,
+                                       gboolean enabled)
 {
 	g_return_if_fail (PPS_IS_VIEW (view));
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -4095,8 +4084,8 @@ pps_view_is_caret_navigation_enabled (PpsView *view)
  */
 void
 pps_view_set_caret_cursor_position (PpsView *view,
-				   guint   page,
-				   guint   offset)
+                                    guint page,
+                                    guint offset)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	g_return_if_fail (PPS_IS_VIEW (view));
@@ -4108,7 +4097,7 @@ pps_view_set_caret_cursor_position (PpsView *view,
 		priv->cursor_offset = offset;
 
 		g_signal_emit (view, signals[SIGNAL_CURSOR_MOVED], 0,
-			       priv->cursor_page, priv->cursor_offset);
+		               priv->cursor_page, priv->cursor_offset);
 
 		if (priv->caret_enabled && cursor_is_in_visible_page (view))
 			gtk_widget_queue_draw (GTK_WIDGET (view));
@@ -4117,8 +4106,8 @@ pps_view_set_caret_cursor_position (PpsView *view,
 /*** GtkWidget implementation ***/
 
 static void
-pps_view_size_request_continuous_dual_page (PpsView         *view,
-			     	           GtkRequisition *requisition)
+pps_view_size_request_continuous_dual_page (PpsView *view,
+                                            GtkRequisition *requisition)
 {
 	gint n_pages;
 	GtkBorder border;
@@ -4139,8 +4128,8 @@ pps_view_size_request_continuous_dual_page (PpsView         *view,
 }
 
 static void
-pps_view_size_request_continuous (PpsView         *view,
-				 GtkRequisition *requisition)
+pps_view_size_request_continuous (PpsView *view,
+                                  GtkRequisition *requisition)
 {
 	gint n_pages;
 	GtkBorder border;
@@ -4161,8 +4150,8 @@ pps_view_size_request_continuous (PpsView         *view,
 }
 
 static void
-pps_view_size_request_dual_page (PpsView         *view,
-				GtkRequisition *requisition)
+pps_view_size_request_dual_page (PpsView *view,
+                                 GtkRequisition *requisition)
 {
 	GtkBorder border;
 	gint width, height;
@@ -4170,13 +4159,13 @@ pps_view_size_request_dual_page (PpsView         *view,
 
 	/* Find the largest of the two. */
 	pps_view_get_page_size (view,
-			       priv->current_page,
-			       &width, &height);
+	                        priv->current_page,
+	                        &width, &height);
 	if (priv->current_page + 1 < pps_document_get_n_pages (priv->document)) {
 		gint width_2, height_2;
 		pps_view_get_page_size (view,
-				       priv->current_page + 1,
-				       &width_2, &height_2);
+		                        priv->current_page + 1,
+		                        &width_2, &height_2);
 		if (width_2 > width) {
 			width = width_2;
 			height = height_2;
@@ -4198,8 +4187,8 @@ pps_view_size_request_dual_page (PpsView         *view,
 }
 
 static void
-pps_view_size_request_single_page (PpsView         *view,
-				  GtkRequisition *requisition)
+pps_view_size_request_single_page (PpsView *view,
+                                   GtkRequisition *requisition)
 {
 	GtkBorder border;
 	gint width, height;
@@ -4222,8 +4211,8 @@ pps_view_size_request_single_page (PpsView         *view,
 }
 
 static void
-pps_view_size_request (GtkWidget      *widget,
-		      GtkRequisition *requisition)
+pps_view_size_request (GtkWidget *widget,
+                       GtkRequisition *requisition)
 {
 	PpsView *view = PPS_VIEW (widget);
 	gboolean dual_page;
@@ -4233,15 +4222,15 @@ pps_view_size_request (GtkWidget      *widget,
 		priv->requisition.width = 1;
 		priv->requisition.height = 1;
 	} else {
-		dual_page = is_dual_page(view, NULL);
+		dual_page = is_dual_page (view, NULL);
 		if (priv->continuous && dual_page)
-			pps_view_size_request_continuous_dual_page(view, &priv->requisition);
+			pps_view_size_request_continuous_dual_page (view, &priv->requisition);
 		else if (priv->continuous)
-			pps_view_size_request_continuous(view, &priv->requisition);
+			pps_view_size_request_continuous (view, &priv->requisition);
 		else if (dual_page)
-			pps_view_size_request_dual_page(view, &priv->requisition);
+			pps_view_size_request_dual_page (view, &priv->requisition);
 		else
-			pps_view_size_request_single_page(view, &priv->requisition);
+			pps_view_size_request_single_page (view, &priv->requisition);
 	}
 
 	if (requisition)
@@ -4249,13 +4238,13 @@ pps_view_size_request (GtkWidget      *widget,
 }
 
 static void
-pps_view_measure (GtkWidget* widget,
-		 GtkOrientation orientation,
-		 int for_size,
-		 int* minimum,
-		 int* natural,
-		 int* minimum_baseline,
-		 int* natural_baseline)
+pps_view_measure (GtkWidget *widget,
+                  GtkOrientation orientation,
+                  int for_size,
+                  int *minimum,
+                  int *natural,
+                  int *minimum_baseline,
+                  int *natural_baseline)
 {
 	GtkRequisition requisition;
 
@@ -4269,10 +4258,10 @@ pps_view_measure (GtkWidget* widget,
 }
 
 static void
-pps_view_size_allocate (GtkWidget      *widget,
-		       int             width,
-		       int	       height,
-		       int	       baseline)
+pps_view_size_allocate (GtkWidget *widget,
+                        int width,
+                        int height,
+                        int baseline)
 {
 	PpsView *view = PPS_VIEW (widget);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -4298,8 +4287,8 @@ pps_view_size_allocate (GtkWidget      *widget,
 	priv->pending_point.y = 0;
 
 	for (GtkWidget *child = gtk_widget_get_first_child (widget);
-		child != NULL;
-		child = gtk_widget_get_next_sibling (child)) {
+	     child != NULL;
+	     child = gtk_widget_get_next_sibling (child)) {
 		PpsViewChild *data = g_object_get_data (G_OBJECT (child), "pps-child");
 		GdkRectangle view_area;
 
@@ -4330,8 +4319,7 @@ pps_view_scroll_event (GtkEventControllerScroll *self, gdouble dx, gdouble dy, G
 
 	pps_view_link_preview_popover_cleanup (view);
 
-	state = gtk_event_controller_get_current_event_state (GTK_EVENT_CONTROLLER (self))
-			 & gtk_accelerator_get_default_mod_mask ();
+	state = gtk_event_controller_get_current_event_state (GTK_EVENT_CONTROLLER (self)) & gtk_accelerator_get_default_mod_mask ();
 
 	if (state == GDK_CONTROL_MASK) {
 		pps_document_model_set_sizing_mode (priv->model, PPS_SIZING_FREE);
@@ -4358,7 +4346,7 @@ pps_view_scroll_event (GtkEventControllerScroll *self, gdouble dx, gdouble dy, G
 
 static PpsViewSelection *
 find_selection_for_page (PpsView *view,
-			 gint    page)
+                         gint page)
 {
 	GList *list;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -4377,11 +4365,11 @@ find_selection_for_page (PpsView *view,
 
 /* This is based on the deprecated function gtk_draw_insertion_cursor. */
 static void
-draw_caret_cursor (PpsView	*view,
-		   GtkSnapshot	*snapshot)
+draw_caret_cursor (PpsView *view,
+                   GtkSnapshot *snapshot)
 {
 	GdkRectangle view_rect;
-	GdkRGBA      cursor_color;
+	GdkRGBA cursor_color;
 	GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (view));
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -4393,34 +4381,34 @@ draw_caret_cursor (PpsView	*view,
 	gtk_snapshot_save (snapshot);
 
 	gtk_snapshot_append_color (snapshot, &cursor_color,
-			&GRAPHENE_RECT_INIT (
-				view_rect.x,
-				view_rect.y,
-				view_rect.width,
-				view_rect.height));
+	                           &GRAPHENE_RECT_INIT (
+				       view_rect.x,
+				       view_rect.y,
+				       view_rect.width,
+				       view_rect.height));
 
 	gtk_snapshot_restore (snapshot);
 }
 
 static gboolean
-should_draw_caret_cursor (PpsView  *view,
-			  gint     page)
+should_draw_caret_cursor (PpsView *view,
+                          gint page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	return (priv->caret_enabled &&
-		priv->cursor_page == page &&
-		priv->cursor_visible &&
-		gtk_widget_has_focus (GTK_WIDGET (view)) &&
-		!pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache, page, priv->scale));
+	        priv->cursor_page == page &&
+	        priv->cursor_visible &&
+	        gtk_widget_has_focus (GTK_WIDGET (view)) &&
+	        !pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache, page, priv->scale));
 }
 
 static void
-draw_focus (PpsView       *view,
-	    GtkSnapshot  *snapshot,
-	    gint          page,
-	    GdkRectangle *clip)
+draw_focus (PpsView *view,
+            GtkSnapshot *snapshot,
+            gint page,
+            GdkRectangle *clip)
 {
-	GtkWidget   *widget = GTK_WIDGET (view);
+	GtkWidget *widget = GTK_WIDGET (view);
 	GdkRectangle rect;
 	GdkRectangle intersect;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -4436,20 +4424,20 @@ draw_focus (PpsView       *view,
 
 	if (gdk_rectangle_intersect (&rect, clip, &intersect)) {
 		gtk_snapshot_render_focus (snapshot,
-				gtk_widget_get_style_context (widget),
-				  intersect.x,
-				  intersect.y,
-				  intersect.width,
-				  intersect.height);
+		                           gtk_widget_get_style_context (widget),
+		                           intersect.x,
+		                           intersect.y,
+		                           intersect.width,
+		                           intersect.height);
 	}
 }
 
 #ifdef PPS_ENABLE_DEBUG
 static void
-stroke_view_rect (GtkSnapshot  *snapshot,
-		  GdkRectangle *clip,
-		  GdkRGBA      *color,
-		  GdkRectangle *view_rect)
+stroke_view_rect (GtkSnapshot *snapshot,
+                  GdkRectangle *clip,
+                  GdkRGBA *color,
+                  GdkRectangle *view_rect)
 {
 	GdkRectangle intersect;
 	GdkRGBA border_color[4] = { *color, *color, *color, *color };
@@ -4457,19 +4445,19 @@ stroke_view_rect (GtkSnapshot  *snapshot,
 
 	if (gdk_rectangle_intersect (view_rect, clip, &intersect)) {
 		gtk_snapshot_append_border (snapshot,
-			&GSK_ROUNDED_RECT_INIT (intersect.x, intersect.y,
-				 intersect.width, intersect.height),
-			border_width, border_color);
+		                            &GSK_ROUNDED_RECT_INIT (intersect.x, intersect.y,
+		                                                    intersect.width, intersect.height),
+		                            border_width, border_color);
 	}
 }
 
 static void
-stroke_doc_rect (PpsView       *view,
-		 GtkSnapshot  *snapshot,
-		 GdkRGBA      *color,
-		 gint          page,
-		 GdkRectangle *clip,
-		 PpsRectangle  *doc_rect)
+stroke_doc_rect (PpsView *view,
+                 GtkSnapshot *snapshot,
+                 GdkRGBA *color,
+                 gint page,
+                 GdkRectangle *clip,
+                 PpsRectangle *doc_rect)
 {
 	GdkRectangle view_rect;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -4481,15 +4469,15 @@ stroke_doc_rect (PpsView       *view,
 }
 
 static void
-show_chars_border (PpsView       *view,
-		   GtkSnapshot  *snapshot,
-		   gint          page,
-		   GdkRectangle *clip)
+show_chars_border (PpsView *view,
+                   GtkSnapshot *snapshot,
+                   gint page,
+                   GdkRectangle *clip)
 {
 	PpsRectangle *areas = NULL;
-	guint        n_areas = 0;
-	guint        i;
-	GdkRGBA      color = { 1, 0, 0, 1 };
+	guint n_areas = 0;
+	guint i;
+	GdkRGBA color = { 1, 0, 0, 1 };
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	pps_page_cache_get_text_layout (priv->page_cache, page, &areas, &n_areas);
@@ -4497,98 +4485,97 @@ show_chars_border (PpsView       *view,
 		return;
 
 	for (i = 0; i < n_areas; i++) {
-		PpsRectangle  *doc_rect = areas + i;
+		PpsRectangle *doc_rect = areas + i;
 
 		stroke_doc_rect (view, snapshot, &color, page, clip, doc_rect);
 	}
 }
 
 static void
-show_mapping_list_border (PpsView        *view,
-			  GtkSnapshot   *snapshot,
-			  GdkRGBA       *color,
-			  gint           page,
-			  GdkRectangle  *clip,
-			  PpsMappingList *mapping_list)
+show_mapping_list_border (PpsView *view,
+                          GtkSnapshot *snapshot,
+                          GdkRGBA *color,
+                          gint page,
+                          GdkRectangle *clip,
+                          PpsMappingList *mapping_list)
 {
 	GList *l;
 
 	for (l = pps_mapping_list_get_list (mapping_list); l; l = g_list_next (l)) {
-		PpsMapping *mapping = (PpsMapping *)l->data;
+		PpsMapping *mapping = (PpsMapping *) l->data;
 
 		stroke_doc_rect (view, snapshot, color, page, clip, &mapping->area);
 	}
 }
 
 static void
-show_links_border (PpsView       *view,
-		   GtkSnapshot  *snapshot,
-		   gint          page,
-		   GdkRectangle *clip)
+show_links_border (PpsView *view,
+                   GtkSnapshot *snapshot,
+                   gint page,
+                   GdkRectangle *clip)
 {
 	GdkRGBA color = { 0, 0, 1, 1 };
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	show_mapping_list_border (view, snapshot, &color, page, clip,
-				  pps_page_cache_get_link_mapping (priv->page_cache, page));
+	                          pps_page_cache_get_link_mapping (priv->page_cache, page));
 }
 
 static void
-show_forms_border (PpsView       *view,
-		   GtkSnapshot  *snapshot,
-		   gint          page,
-		   GdkRectangle *clip)
+show_forms_border (PpsView *view,
+                   GtkSnapshot *snapshot,
+                   gint page,
+                   GdkRectangle *clip)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GdkRGBA color = { 0, 1, 0, 1 };
 	show_mapping_list_border (view, snapshot, &color, page, clip,
-				  pps_page_cache_get_form_field_mapping (priv->page_cache, page));
+	                          pps_page_cache_get_form_field_mapping (priv->page_cache, page));
 }
 
 static void
-show_annots_border (PpsView       *view,
-		    GtkSnapshot  *snapshot,
-		    gint          page,
-		    GdkRectangle *clip)
+show_annots_border (PpsView *view,
+                    GtkSnapshot *snapshot,
+                    gint page,
+                    GdkRectangle *clip)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GdkRGBA color = { 0, 1, 1, 1 };
 	show_mapping_list_border (view, snapshot, &color, page, clip,
-				  pps_page_cache_get_annot_mapping (priv->page_cache, page));
+	                          pps_page_cache_get_annot_mapping (priv->page_cache, page));
 }
 
 static void
-show_images_border (PpsView       *view,
-		    GtkSnapshot  *snapshot,
-		    gint          page,
-		    GdkRectangle *clip)
+show_images_border (PpsView *view,
+                    GtkSnapshot *snapshot,
+                    gint page,
+                    GdkRectangle *clip)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GdkRGBA color = { 1, 0, 1, 1 };
 	show_mapping_list_border (view, snapshot, &color, page, clip,
-				  pps_page_cache_get_image_mapping (priv->page_cache, page));
+	                          pps_page_cache_get_image_mapping (priv->page_cache, page));
 }
 
 static void
-show_media_border (PpsView       *view,
-		   GtkSnapshot  *snapshot,
-		   gint          page,
-		   GdkRectangle *clip)
+show_media_border (PpsView *view,
+                   GtkSnapshot *snapshot,
+                   gint page,
+                   GdkRectangle *clip)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GdkRGBA color = { 1, 1, 0, 1 };
 	show_mapping_list_border (view, snapshot, &color, page, clip,
-				  pps_page_cache_get_media_mapping (priv->page_cache, page));
+	                          pps_page_cache_get_media_mapping (priv->page_cache, page));
 }
 
-
 static void
-show_selections_border (PpsView       *view,
-			GtkSnapshot  *snapshot,
-			gint          page,
-			GdkRectangle *clip)
+show_selections_border (PpsView *view,
+                        GtkSnapshot *snapshot,
+                        gint page,
+                        GdkRectangle *clip)
 {
 	cairo_region_t *region;
-	guint           i, n_rects;
+	guint i, n_rects;
 	GdkRGBA color = { 0.75, 0.50, 0.25, 1 };
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -4616,12 +4603,12 @@ show_selections_border (PpsView       *view,
 }
 
 static void
-draw_debug_borders (PpsView       *view,
-		    GtkSnapshot  *snapshot,
-		    gint          page,
-		    GdkRectangle *clip)
+draw_debug_borders (PpsView *view,
+                    GtkSnapshot *snapshot,
+                    gint page,
+                    GdkRectangle *clip)
 {
-	PpsDebugBorders borders = pps_debug_get_debug_borders();
+	PpsDebugBorders borders = pps_debug_get_debug_borders ();
 
 	if (borders & PPS_DEBUG_BORDER_CHARS)
 		show_chars_border (view, snapshot, page, clip);
@@ -4641,9 +4628,9 @@ draw_debug_borders (PpsView       *view,
 #endif
 
 static void
-draw_selection_rect (PpsView     *view,
+draw_selection_rect (PpsView *view,
                      GtkSnapshot *snapshot,
-                     gint         page)
+                     gint page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GskRoundedRect outline;
@@ -4677,26 +4664,27 @@ draw_selection_rect (PpsView     *view,
 	fg_color.alpha = 0.2;
 
 	gtk_snapshot_save (snapshot);
-	gsk_rounded_rect_init_from_rect (&outline, &GRAPHENE_RECT_INIT(x, y, w, h), 1);
-	gtk_snapshot_append_color (snapshot, &fg_color, &GRAPHENE_RECT_INIT(x, y, w, h));
-	gtk_snapshot_append_border (snapshot, &outline, (float[4]) {1, 1, 1, 1}, (GdkRGBA [4]) { bg_color, bg_color, bg_color, bg_color });
+	gsk_rounded_rect_init_from_rect (&outline, &GRAPHENE_RECT_INIT (x, y, w, h), 1);
+	gtk_snapshot_append_color (snapshot, &fg_color, &GRAPHENE_RECT_INIT (x, y, w, h));
+	gtk_snapshot_append_border (snapshot, &outline, (float[4]) { 1, 1, 1, 1 }, (GdkRGBA[4]) { bg_color, bg_color, bg_color, bg_color });
 	gtk_snapshot_restore (snapshot);
 }
 
-static void pps_view_snapshot(GtkWidget *widget, GtkSnapshot *snapshot)
+static void
+pps_view_snapshot (GtkWidget *widget, GtkSnapshot *snapshot)
 {
 	int width, height;
 	PpsView *view = PPS_VIEW (widget);
-	gint         i;
+	gint i;
 	GdkRectangle clip_rect;
 	GtkBorder border;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	width = gtk_widget_get_width(widget);
-	height = gtk_widget_get_height(widget);
+	width = gtk_widget_get_width (widget);
+	height = gtk_widget_get_height (widget);
 
 	gtk_snapshot_render_background (snapshot, gtk_widget_get_style_context (widget),
-			       0, 0, width, height);
+	                                0, 0, width, height);
 
 	clip_rect.x = 0;
 	clip_rect.y = 0;
@@ -4745,8 +4733,8 @@ static void pps_view_snapshot(GtkWidget *widget, GtkSnapshot *snapshot)
 
 static void
 pps_view_set_focused_element_at_location (PpsView *view,
-					 gdouble x,
-					 gdouble y)
+                                          gdouble x,
+                                          gdouble y)
 {
 	PpsMapping *mapping;
 	PpsFormField *field;
@@ -4770,17 +4758,17 @@ pps_view_set_focused_element_at_location (PpsView *view,
 		return;
 	}
 
-        _pps_view_set_focused_element (view, NULL, -1);
+	_pps_view_set_focused_element (view, NULL, -1);
 }
 
 static gboolean
 pps_view_do_popup_menu (PpsView *view,
-		       gdouble x,
-		       gdouble y)
+                        gdouble x,
+                        gdouble y)
 {
-	GList        *items = NULL;
-	PpsLink       *link;
-	PpsImage      *image;
+	GList *items = NULL;
+	PpsLink *link;
+	PpsImage *image;
 	PpsAnnotation *annot;
 
 	image = pps_view_get_image_at_location (view, x, y);
@@ -4803,15 +4791,15 @@ pps_view_do_popup_menu (PpsView *view,
 }
 
 static void
-get_link_area (PpsView       *view,
-	       gint          x,
-	       gint          y,
-	       PpsLink       *link,
-	       GdkRectangle *area)
+get_link_area (PpsView *view,
+               gint x,
+               gint y,
+               PpsLink *link,
+               GdkRectangle *area)
 {
 	PpsMappingList *link_mapping;
-	gint           page;
-	gint           x_offset = 0, y_offset = 0;
+	gint page;
+	gint x_offset = 0, y_offset = 0;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	x += priv->scroll_x;
@@ -4821,20 +4809,20 @@ get_link_area (PpsView       *view,
 
 	link_mapping = pps_page_cache_get_link_mapping (priv->page_cache, page);
 	pps_view_get_area_from_mapping (view, page,
-				       link_mapping,
-				       link, area);
+	                                link_mapping,
+	                                link, area);
 }
 
 static void
-get_annot_area (PpsView       *view,
-	       gint          x,
-	       gint          y,
-	       PpsAnnotation *annot,
-	       GdkRectangle *area)
+get_annot_area (PpsView *view,
+                gint x,
+                gint y,
+                PpsAnnotation *annot,
+                GdkRectangle *area)
 {
 	PpsMappingList *annot_mapping;
-	gint           page;
-	gint           x_offset = 0, y_offset = 0;
+	gint page;
+	gint x_offset = 0, y_offset = 0;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	x += priv->scroll_x;
@@ -4844,20 +4832,20 @@ get_annot_area (PpsView       *view,
 
 	annot_mapping = pps_page_cache_get_annot_mapping (priv->page_cache, page);
 	pps_view_get_area_from_mapping (view, page,
-				       annot_mapping,
-				       annot, area);
+	                                annot_mapping,
+	                                annot, area);
 }
 
 static void
-get_field_area (PpsView       *view,
-	        gint          x,
-	        gint          y,
-	        PpsFormField  *field,
-	        GdkRectangle *area)
+get_field_area (PpsView *view,
+                gint x,
+                gint y,
+                PpsFormField *field,
+                GdkRectangle *area)
 {
 	PpsMappingList *field_mapping;
-	gint           page;
-	gint           x_offset = 0, y_offset = 0;
+	gint page;
+	gint x_offset = 0, y_offset = 0;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	x += priv->scroll_x;
@@ -4869,21 +4857,20 @@ get_field_area (PpsView       *view,
 	pps_view_get_area_from_mapping (view, page, field_mapping, field, area);
 }
 
-
 static void
 link_preview_set_thumbnail (GdkTexture *page_texture,
-			    PpsView *view)
+                            PpsView *view)
 {
-	PpsViewPrivate  *priv = GET_PRIVATE (view);
-	GtkWidget       *popover = priv->link_preview.popover;
-	GtkWidget       *picture;
-	GtkSnapshot	*snapshot;
-	gdouble          x, y;   /* position of the link on destination page */
-	gint             pwidth, pheight;  /* dimensions of destination page */
-	gint             vwidth, vheight;  /* dimensions of main view */
-	gint             width, height;    /* dimensions of popup */
-	gint             left, top;
-	gint		 scale;
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+	GtkWidget *popover = priv->link_preview.popover;
+	GtkWidget *picture;
+	GtkSnapshot *snapshot;
+	gdouble x, y;         /* position of the link on destination page */
+	gint pwidth, pheight; /* dimensions of destination page */
+	gint vwidth, vheight; /* dimensions of main view */
+	gint width, height;   /* dimensions of popup */
+	gint left, top;
+	gint scale;
 
 	scale = gtk_widget_get_scale_factor (GTK_WIDGET (view));
 
@@ -4903,7 +4890,7 @@ link_preview_set_thumbnail (GdkTexture *page_texture,
 	 * and the reader can see context both in the popup and the main page.
 	 */
 	width = MIN (pwidth, vwidth);
-	height = MIN (pheight, (int)(vheight * LINK_PREVIEW_PAGE_RATIO));
+	height = MIN (pheight, (int) (vheight * LINK_PREVIEW_PAGE_RATIO));
 
 	/* Position on the destination page that will be in the top left
 	 * corner of the popup. We choose the link destination to be centered
@@ -4927,10 +4914,10 @@ link_preview_set_thumbnail (GdkTexture *page_texture,
 	snapshot = gtk_snapshot_new ();
 	gtk_snapshot_push_clip (snapshot, &GRAPHENE_RECT_INIT (0, 0, width, height));
 	draw_surface (snapshot,
-		      page_texture,
-		      &GRAPHENE_POINT_INIT (-left, -top),
-		      &GRAPHENE_RECT_INIT (0, 0, pwidth, pheight),
-		      pps_document_model_get_inverted_colors (priv->model));
+	              page_texture,
+	              &GRAPHENE_POINT_INIT (-left, -top),
+	              &GRAPHENE_RECT_INIT (0, 0, pwidth, pheight),
+	              pps_document_model_get_inverted_colors (priv->model));
 	gtk_snapshot_pop (snapshot);
 
 	picture = gtk_picture_new_for_paintable (gtk_snapshot_free_to_paintable (snapshot, NULL));
@@ -4950,7 +4937,7 @@ link_preview_delayed_show (PpsView *view)
 
 static void
 link_preview_job_finished_cb (PpsJobThumbnailTexture *job,
-			      PpsView *view)
+                              PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	if (!pps_job_is_succeeded (PPS_JOB (job), NULL)) {
@@ -4983,17 +4970,17 @@ pps_view_link_preview_popover_cleanup (PpsView *view)
 }
 
 static gboolean
-pps_view_query_tooltip (GtkWidget  *widget,
-		       gint        x,
-		       gint        y,
-		       gboolean    keyboard_tip,
-		       GtkTooltip *tooltip)
+pps_view_query_tooltip (GtkWidget *widget,
+                        gint x,
+                        gint y,
+                        gboolean keyboard_tip,
+                        GtkTooltip *tooltip)
 {
-	PpsView       *view = PPS_VIEW (widget);
-	PpsFormField  *field;
-	PpsLink       *link;
+	PpsView *view = PPS_VIEW (widget);
+	PpsFormField *field;
+	PpsLink *link;
 	PpsAnnotation *annot;
-	gchar        *text;
+	gchar *text;
 
 	annot = pps_view_get_annotation_at_location (view, x, y);
 	if (annot) {
@@ -5048,17 +5035,17 @@ pps_view_query_tooltip (GtkWidget  *widget,
 
 gint
 _pps_view_get_caret_cursor_offset_at_doc_point (PpsView *view,
-					       gint    page,
-					       gdouble doc_x,
-					       gdouble doc_y)
+                                                gint page,
+                                                gdouble doc_x,
+                                                gdouble doc_y)
 {
 	PpsRectangle *areas = NULL;
-	guint        n_areas = 0;
-	gint         offset = -1;
-	gint         first_line_offset;
-	gint         last_line_offset = -1;
+	guint n_areas = 0;
+	gint offset = -1;
+	gint first_line_offset;
+	gint last_line_offset = -1;
 	PpsRectangle *rect;
-	guint        i;
+	guint i;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	pps_page_cache_get_text_layout (priv->page_cache, page, &areas, &n_areas);
@@ -5076,7 +5063,7 @@ _pps_view_get_caret_cursor_offset_at_doc_point (PpsView *view,
 					/* Location is before the start of the line */
 					if (last_line_offset != -1) {
 						PpsRectangle *last = areas + last_line_offset;
-						gint         dx1, dx2;
+						gint dx1, dx2;
 
 						/* If there's a previous line, check distances */
 
@@ -5129,9 +5116,9 @@ _pps_view_get_caret_cursor_offset_at_doc_point (PpsView *view,
 
 static gboolean
 position_caret_cursor_at_doc_point (PpsView *view,
-				    gint    page,
-				    gdouble doc_x,
-				    gdouble doc_y)
+                                    gint page,
+                                    gdouble doc_x,
+                                    gdouble doc_y)
 {
 	gint offset;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -5152,8 +5139,8 @@ position_caret_cursor_at_doc_point (PpsView *view,
 
 static gboolean
 position_caret_cursor_at_location (PpsView *view,
-				   gdouble x,
-				   gdouble y)
+                                   gdouble x,
+                                   gdouble y)
 {
 	gint page;
 	gint doc_x, doc_y;
@@ -5173,10 +5160,10 @@ position_caret_cursor_at_location (PpsView *view,
 }
 
 static gboolean
-position_caret_cursor_for_event (PpsView         *view,
-				 gdouble	 x,
-				 gdouble	 y,
-				 gboolean        redraw)
+position_caret_cursor_for_event (PpsView *view,
+                                 gdouble x,
+                                 gdouble y,
+                                 gboolean redraw)
 {
 	GdkRectangle area;
 	GdkRectangle prev_area = { 0, 0, 0, 0 };
@@ -5204,10 +5191,10 @@ position_caret_cursor_for_event (PpsView         *view,
 
 static void
 pps_view_button_press_event (GtkGestureClick *self,
-			     int	      n_press,
-			     double	      x,
-			     double	      y,
-			     gpointer	      user_data)
+                             int n_press,
+                             double x,
+                             double y,
+                             gpointer user_data)
 {
 	GtkEventController *controller = GTK_EVENT_CONTROLLER (self);
 	GtkWidget *widget = gtk_event_controller_get_widget (controller);
@@ -5238,57 +5225,57 @@ pps_view_button_press_event (GtkGestureClick *self,
 	}
 
 	switch (button) {
-	        case GDK_BUTTON_PRIMARY: {
-			PpsFormField *field;
-			PpsMapping *link;
-			PpsMedia *media;
-			gint page;
+	case GDK_BUTTON_PRIMARY: {
+		PpsFormField *field;
+		PpsMapping *link;
+		PpsMedia *media;
+		gint page;
 
-			if (PPS_IS_SELECTION (priv->document)) {
-				switch (n_press % 3) {
-				case 1:
-					priv->selection_info.style = PPS_SELECTION_STYLE_GLYPH;
-					break;
-				case 2:
-					priv->selection_info.style = PPS_SELECTION_STYLE_WORD;
-					break;
-				case 0:
-					priv->selection_info.style = PPS_SELECTION_STYLE_LINE;
-					break;
-				}
-				if (n_press > 1) {
-					GdkPoint point;
-					/* In case of WORD or LINE, compute selections */
-					point.x = x + priv->scroll_x;
-					point.y = y + priv->scroll_y;
-					compute_selections (view,
-							    priv->selection_info.style,
-							    &point,
-							    &point);
-				}
+		if (PPS_IS_SELECTION (priv->document)) {
+			switch (n_press % 3) {
+			case 1:
+				priv->selection_info.style = PPS_SELECTION_STYLE_GLYPH;
+				break;
+			case 2:
+				priv->selection_info.style = PPS_SELECTION_STYLE_WORD;
+				break;
+			case 0:
+				priv->selection_info.style = PPS_SELECTION_STYLE_LINE;
+				break;
 			}
-
-			if ((media = pps_view_get_media_at_location (view, x, y))) {
-				pps_view_handle_media (view, media);
-			} else if ((field = pps_view_get_form_field_at_location (view, x, y))) {
-				pps_view_remove_all_form_fields (view);
-				pps_view_handle_form_field (view, field);
-			} else if ((link = get_link_mapping_at_location (view, x, y, &page))){
-				_pps_view_set_focused_element (view, link, page);
-			} else {
-				pps_view_remove_all_form_fields (view);
-				_pps_view_set_focused_element (view, NULL, -1);
-
-				if (position_caret_cursor_for_event (view, x, y, TRUE)) {
-					priv->cursor_blink_time = 0;
-					pps_view_pend_cursor_blink (view);
-				}
+			if (n_press > 1) {
+				GdkPoint point;
+				/* In case of WORD or LINE, compute selections */
+				point.x = x + priv->scroll_x;
+				point.y = y + priv->scroll_y;
+				compute_selections (view,
+				                    priv->selection_info.style,
+				                    &point,
+				                    &point);
 			}
 		}
-			return;
-		case GDK_BUTTON_MIDDLE:
-			pps_view_set_focused_element_at_location (view, x, y);
-			return;
+
+		if ((media = pps_view_get_media_at_location (view, x, y))) {
+			pps_view_handle_media (view, media);
+		} else if ((field = pps_view_get_form_field_at_location (view, x, y))) {
+			pps_view_remove_all_form_fields (view);
+			pps_view_handle_form_field (view, field);
+		} else if ((link = get_link_mapping_at_location (view, x, y, &page))) {
+			_pps_view_set_focused_element (view, link, page);
+		} else {
+			pps_view_remove_all_form_fields (view);
+			_pps_view_set_focused_element (view, NULL, -1);
+
+			if (position_caret_cursor_for_event (view, x, y, TRUE)) {
+				priv->cursor_blink_time = 0;
+				pps_view_pend_cursor_blink (view);
+			}
+		}
+	}
+		return;
+	case GDK_BUTTON_MIDDLE:
+		pps_view_set_focused_element_at_location (view, x, y);
+		return;
 	}
 }
 
@@ -5308,9 +5295,9 @@ pps_view_scroll_drag_release (PpsView *view)
 	v_page_size = gtk_adjustment_get_page_size (priv->vadjustment);
 
 	dhadj_value = h_page_size *
-		      (gdouble)priv->drag_info.momentum.x / gtk_widget_get_width (GTK_WIDGET (view));
+	              (gdouble) priv->drag_info.momentum.x / gtk_widget_get_width (GTK_WIDGET (view));
 	dvadj_value = v_page_size *
-		      (gdouble)priv->drag_info.momentum.y / gtk_widget_get_height (GTK_WIDGET (view));
+	              (gdouble) priv->drag_info.momentum.y / gtk_widget_get_height (GTK_WIDGET (view));
 
 	oldhadjustment = gtk_adjustment_get_value (priv->hadjustment);
 	oldvadjustment = gtk_adjustment_get_value (priv->vadjustment);
@@ -5328,11 +5315,11 @@ pps_view_scroll_drag_release (PpsView *view)
 		priv->drag_info.momentum.y = 0;
 
 	gtk_adjustment_set_value (priv->hadjustment,
-				  MIN (oldhadjustment + dhadj_value,
-				       h_upper - h_page_size));
+	                          MIN (oldhadjustment + dhadj_value,
+	                               h_upper - h_page_size));
 	gtk_adjustment_set_value (priv->vadjustment,
-				  MIN (oldvadjustment + dvadj_value,
-				       v_upper - v_page_size));
+	                          MIN (oldvadjustment + dvadj_value,
+	                               v_upper - v_page_size));
 
 	if (((priv->drag_info.momentum.x < 1) && (priv->drag_info.momentum.x > -1)) &&
 	    ((priv->drag_info.momentum.y < 1) && (priv->drag_info.momentum.y > -1)))
@@ -5342,10 +5329,10 @@ pps_view_scroll_drag_release (PpsView *view)
 }
 
 static void
-middle_clicked_drag_begin_cb (GtkGestureDrag	*self,
-			      gdouble		 start_x,
-			      gdouble		 start_y,
-			      PpsView		*view)
+middle_clicked_drag_begin_cb (GtkGestureDrag *self,
+                              gdouble start_x,
+                              gdouble start_y,
+                              PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	/* use root coordinates as reference point because
@@ -5357,10 +5344,10 @@ middle_clicked_drag_begin_cb (GtkGestureDrag	*self,
 }
 
 static void
-middle_clicked_drag_update_cb (GtkGestureDrag	*self,
-			       gdouble		 offset_x,
-			       gdouble		 offset_y,
-			       PpsView		*view)
+middle_clicked_drag_update_cb (GtkGestureDrag *self,
+                               gdouble offset_x,
+                               gdouble offset_y,
+                               PpsView *view)
 {
 	GdkEvent *event = gtk_event_controller_get_current_event (GTK_EVENT_CONTROLLER (self));
 	gdouble dhadj_value, dvadj_value;
@@ -5369,9 +5356,9 @@ middle_clicked_drag_update_cb (GtkGestureDrag	*self,
 	gtk_gesture_set_state (GTK_GESTURE (self), GTK_EVENT_SEQUENCE_CLAIMED);
 
 	dhadj_value = gtk_adjustment_get_page_size (priv->hadjustment) *
-				      offset_x / gtk_widget_get_width (GTK_WIDGET (view));
+	              offset_x / gtk_widget_get_width (GTK_WIDGET (view));
 	dvadj_value = gtk_adjustment_get_page_size (priv->vadjustment) *
-				      offset_y / gtk_widget_get_height (GTK_WIDGET (view));
+	              offset_y / gtk_widget_get_height (GTK_WIDGET (view));
 
 	/* We will update the drag event's start position if
 	 * the adjustment value is changed, but only if the
@@ -5381,11 +5368,11 @@ middle_clicked_drag_update_cb (GtkGestureDrag	*self,
 
 	/* clamp scrolling to visible area */
 	gtk_adjustment_set_value (priv->hadjustment, MIN (priv->drag_info.hadj - dhadj_value,
-					gtk_adjustment_get_upper (priv->hadjustment) -
-					gtk_adjustment_get_page_size (priv->hadjustment)));
+	                                                  gtk_adjustment_get_upper (priv->hadjustment) -
+	                                                      gtk_adjustment_get_page_size (priv->hadjustment)));
 	gtk_adjustment_set_value (priv->vadjustment, MIN (priv->drag_info.vadj - dvadj_value,
-					gtk_adjustment_get_upper (priv->vadjustment) -
-					gtk_adjustment_get_page_size (priv->vadjustment)));
+	                                                  gtk_adjustment_get_upper (priv->vadjustment) -
+	                                                      gtk_adjustment_get_page_size (priv->vadjustment)));
 
 	priv->drag_info.in_notify = FALSE;
 
@@ -5397,9 +5384,9 @@ middle_clicked_drag_update_cb (GtkGestureDrag	*self,
 
 static void
 middle_clicked_end_swipe_cb (GtkGestureSwipe *gesture,
-			     gdouble          velocity_x,
-			     gdouble          velocity_y,
-			     PpsView         *view)
+                             gdouble velocity_x,
+                             gdouble velocity_y,
+                             PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -5407,7 +5394,7 @@ middle_clicked_end_swipe_cb (GtkGestureSwipe *gesture,
 	priv->drag_info.momentum.y = -velocity_y / 100;
 
 	priv->drag_info.release_timeout_id =
-			g_timeout_add (20, (GSourceFunc)pps_view_scroll_drag_release, view);
+	    g_timeout_add (20, (GSourceFunc) pps_view_scroll_drag_release, view);
 }
 
 static void
@@ -5444,9 +5431,9 @@ selection_update_idle_cb (PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	compute_selections (view,
-			    priv->selection_info.style,
-			    &priv->selection_info.start,
-			    &priv->motion);
+	                    priv->selection_info.style,
+	                    &priv->selection_info.start,
+	                    &priv->motion);
 	priv->selection_update_id = 0;
 }
 
@@ -5469,10 +5456,10 @@ selection_scroll_timeout_cb (PpsView *view)
 
 	if (shift)
 		gtk_adjustment_set_value (priv->vadjustment,
-					  CLAMP (gtk_adjustment_get_value (priv->vadjustment) + shift,
-						 gtk_adjustment_get_lower (priv->vadjustment),
-						 gtk_adjustment_get_upper (priv->vadjustment) -
-						 gtk_adjustment_get_page_size (priv->vadjustment)));
+		                          CLAMP (gtk_adjustment_get_value (priv->vadjustment) + shift,
+		                                 gtk_adjustment_get_lower (priv->vadjustment),
+		                                 gtk_adjustment_get_upper (priv->vadjustment) -
+		                                     gtk_adjustment_get_page_size (priv->vadjustment)));
 
 	if (x > widget_width) {
 		shift = (x - widget_width) / 2;
@@ -5482,33 +5469,33 @@ selection_scroll_timeout_cb (PpsView *view)
 
 	if (shift)
 		gtk_adjustment_set_value (priv->hadjustment,
-					  CLAMP (gtk_adjustment_get_value (priv->hadjustment) + shift,
-						 gtk_adjustment_get_lower (priv->hadjustment),
-						 gtk_adjustment_get_upper (priv->hadjustment) -
-						 gtk_adjustment_get_page_size (priv->hadjustment)));
+		                          CLAMP (gtk_adjustment_get_value (priv->hadjustment) + shift,
+		                                 gtk_adjustment_get_lower (priv->hadjustment),
+		                                 gtk_adjustment_get_upper (priv->hadjustment) -
+		                                     gtk_adjustment_get_page_size (priv->hadjustment)));
 
 	return TRUE;
 }
 
 static void
-pps_view_move_annot_to_point (PpsView  *view,
-			      GdkPoint *view_point)
+pps_view_move_annot_to_point (PpsView *view,
+                              GdkPoint *view_point)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsRectangle  rect;
-	PpsRectangle  current_area;
-	PpsPoint      doc_point;
+	PpsRectangle rect;
+	PpsRectangle current_area;
+	PpsPoint doc_point;
 	GdkRectangle page_area;
-	GtkBorder    border;
-	guint        annot_page;
-	double       page_width;
-	double       page_height;
+	GtkBorder border;
+	guint annot_page;
+	double page_width;
+	double page_height;
 
 	pps_annotation_get_area (priv->moving_annot_info.annot, &current_area);
 	annot_page = pps_annotation_get_page_index (priv->moving_annot_info.annot);
 	pps_view_get_page_extents (view, annot_page, &page_area, &border);
 	_pps_view_transform_view_point_to_doc_point (view, view_point, &page_area, &border,
-						     &doc_point.x, &doc_point.y);
+	                                             &doc_point.x, &doc_point.y);
 
 	pps_document_get_page_size (priv->document, annot_page, &page_width, &page_height);
 
@@ -5532,8 +5519,8 @@ pps_view_move_annot_to_point (PpsView  *view,
 	pps_document_doc_mutex_lock (priv->document);
 	if (pps_annotation_set_area (priv->moving_annot_info.annot, &rect)) {
 		pps_document_annotations_save_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document),
-							  priv->moving_annot_info.annot,
-							  PPS_ANNOTATIONS_SAVE_AREA);
+		                                          priv->moving_annot_info.annot,
+		                                          PPS_ANNOTATIONS_SAVE_AREA);
 	}
 	pps_document_doc_mutex_unlock (priv->document);
 
@@ -5543,28 +5530,27 @@ pps_view_move_annot_to_point (PpsView  *view,
 
 static void
 selection_update_cb (GtkGestureDrag *selection_gesture,
-		     gdouble         offset_x,
-		     gdouble         offset_y,
-		     PpsView        *view)
+                     gdouble offset_x,
+                     gdouble offset_y,
+                     PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GdkEventSequence *sequence = gtk_gesture_single_get_current_sequence (GTK_GESTURE_SINGLE (selection_gesture));
 	gdouble x, y;
 
-	if (!gtk_drag_check_threshold (GTK_WIDGET (view), 0, 0, offset_x, offset_y)
-	    && gtk_gesture_get_sequence_state (GTK_GESTURE (selection_gesture), sequence) != GTK_EVENT_SEQUENCE_CLAIMED)
+	if (!gtk_drag_check_threshold (GTK_WIDGET (view), 0, 0, offset_x, offset_y) && gtk_gesture_get_sequence_state (GTK_GESTURE (selection_gesture), sequence) != GTK_EVENT_SEQUENCE_CLAIMED)
 		return;
 
 	if (g_list_length (priv->selection_info.selections) > 0)
 		gtk_gesture_set_state (GTK_GESTURE (selection_gesture),
-				       GTK_EVENT_SEQUENCE_CLAIMED);
+		                       GTK_EVENT_SEQUENCE_CLAIMED);
 
 	/* Schedule timeout to scroll during drag, and scroll once to allow
 	   arbitrary speed. */
 	if (!priv->selection_scroll_id)
 		priv->selection_scroll_id = g_timeout_add (SCROLL_TIME,
-							   (GSourceFunc)selection_scroll_timeout_cb,
-							   view);
+		                                           (GSourceFunc) selection_scroll_timeout_cb,
+		                                           view);
 	else
 		selection_scroll_timeout_cb (view);
 
@@ -5580,15 +5566,15 @@ selection_update_cb (GtkGestureDrag *selection_gesture,
 	 * mouse. */
 	if (!priv->selection_update_id)
 		priv->selection_update_id =
-			g_idle_add_once ((GSourceOnceFunc)selection_update_idle_cb,
-					 view);
+		    g_idle_add_once ((GSourceOnceFunc) selection_update_idle_cb,
+		                     view);
 }
 
 static void
 selection_begin_cb (GtkGestureDrag *selection_gesture,
-		    gdouble         x,
-		    gdouble         y,
-		    PpsView        *view)
+                    gdouble x,
+                    gdouble y,
+                    PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GtkEventController *controller = GTK_EVENT_CONTROLLER (selection_gesture);
@@ -5597,13 +5583,13 @@ selection_begin_cb (GtkGestureDrag *selection_gesture,
 	/* Selection in rotated documents has never worked */
 	if (!PPS_IS_SELECTION (priv->document) || priv->rotation != 0) {
 		gtk_gesture_set_state (GTK_GESTURE (selection_gesture),
-				       GTK_EVENT_SEQUENCE_DENIED);
+		                       GTK_EVENT_SEQUENCE_DENIED);
 		return;
 	}
 
 	if (state & GDK_SHIFT_MASK) {
 		gtk_gesture_set_state (GTK_GESTURE (selection_gesture),
-				       GTK_EVENT_SEQUENCE_CLAIMED);
+		                       GTK_EVENT_SEQUENCE_CLAIMED);
 
 		selection_update_cb (selection_gesture, 0, 0, view);
 	} else {
@@ -5614,9 +5600,9 @@ selection_begin_cb (GtkGestureDrag *selection_gesture,
 
 static void
 selection_end_cb (GtkGestureDrag *selection_gesture,
-		  gdouble         offset_x,
-		  gdouble         offset_y,
-		  PpsView        *view)
+                  gdouble offset_x,
+                  gdouble offset_y,
+                  PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -5631,9 +5617,9 @@ selection_end_cb (GtkGestureDrag *selection_gesture,
 
 static void
 signing_update_cb (GtkGestureDrag *signing_gesture,
-                   gdouble         offset_x,
-                   gdouble         offset_y,
-                   PpsView        *view)
+                   gdouble offset_x,
+                   gdouble offset_y,
+                   PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -5647,9 +5633,9 @@ signing_update_cb (GtkGestureDrag *signing_gesture,
 
 static void
 signing_begin_cb (GtkGestureDrag *signing_gesture,
-                  gdouble         x,
-                  gdouble         y,
-                  PpsView        *view)
+                  gdouble x,
+                  gdouble y,
+                  PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -5666,9 +5652,9 @@ signing_begin_cb (GtkGestureDrag *signing_gesture,
 
 static void
 signing_end_cb (GtkGestureDrag *selection_gesture,
-                gdouble         x,
-                gdouble         y,
-                PpsView        *view)
+                gdouble x,
+                gdouble y,
+                PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -5681,9 +5667,9 @@ signing_end_cb (GtkGestureDrag *selection_gesture,
 
 static void
 annotation_drag_update_cb (GtkGestureDrag *annotation_drag_gesture,
-			   gdouble         offset_x,
-			   gdouble         offset_y,
-			   PpsView        *view)
+                           gdouble offset_x,
+                           gdouble offset_y,
+                           PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GdkEventSequence *sequence = gtk_gesture_single_get_current_sequence (GTK_GESTURE_SINGLE (annotation_drag_gesture));
@@ -5693,12 +5679,11 @@ annotation_drag_update_cb (GtkGestureDrag *annotation_drag_gesture,
 		g_assert_not_reached ();
 
 	if (gtk_drag_check_threshold (GTK_WIDGET (view), 0, 0,
-					 offset_x, offset_y))
+	                              offset_x, offset_y))
 		gtk_gesture_set_state (GTK_GESTURE (annotation_drag_gesture),
-				       GTK_EVENT_SEQUENCE_CLAIMED);
+		                       GTK_EVENT_SEQUENCE_CLAIMED);
 
-	if (gtk_gesture_get_sequence_state (GTK_GESTURE (annotation_drag_gesture), sequence)
-	    != GTK_EVENT_SEQUENCE_CLAIMED)
+	if (gtk_gesture_get_sequence_state (GTK_GESTURE (annotation_drag_gesture), sequence) != GTK_EVENT_SEQUENCE_CLAIMED)
 		return;
 
 	gtk_gesture_drag_get_start_point (annotation_drag_gesture, &x, &y);
@@ -5711,22 +5696,22 @@ annotation_drag_update_cb (GtkGestureDrag *annotation_drag_gesture,
 
 static void
 annotation_drag_begin_cb (GtkGestureDrag *annotation_drag_gesture,
-			  gdouble         x,
-			  gdouble         y,
-			  PpsView        *view)
+                          gdouble x,
+                          gdouble y,
+                          PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsAnnotation  *annot = pps_view_get_annotation_at_location (view, x, y);
-	PpsRectangle  current_area;
-	GdkPoint     view_point;
-	PpsPoint      doc_point;
+	PpsAnnotation *annot = pps_view_get_annotation_at_location (view, x, y);
+	PpsRectangle current_area;
+	GdkPoint view_point;
+	PpsPoint doc_point;
 	GdkRectangle page_area;
-	GtkBorder    border;
-	guint        annot_page;
+	GtkBorder border;
+	guint annot_page;
 
 	if (!PPS_IS_ANNOTATION_TEXT (annot)) {
 		gtk_gesture_set_state (GTK_GESTURE (annotation_drag_gesture),
-				       GTK_EVENT_SEQUENCE_DENIED);
+		                       GTK_EVENT_SEQUENCE_DENIED);
 		return;
 	}
 
@@ -5741,17 +5726,17 @@ annotation_drag_begin_cb (GtkGestureDrag *annotation_drag_gesture,
 	annot_page = pps_annotation_get_page_index (annot);
 	pps_view_get_page_extents (view, annot_page, &page_area, &border);
 	_pps_view_transform_view_point_to_doc_point (view, &view_point,
-						     &page_area, &border,
-						     &doc_point.x, &doc_point.y);
+	                                             &page_area, &border,
+	                                             &doc_point.x, &doc_point.y);
 	priv->moving_annot_info.cursor_offset.x = doc_point.x - current_area.x1;
 	priv->moving_annot_info.cursor_offset.y = doc_point.y - current_area.y1;
 }
 
 static void
 annotation_drag_end_cb (GtkGestureDrag *annotation_drag_gesture,
-			gdouble         offset_x,
-			gdouble         offset_y,
-			PpsView        *view)
+                        gdouble offset_x,
+                        gdouble offset_y,
+                        PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -5760,15 +5745,14 @@ annotation_drag_end_cb (GtkGestureDrag *annotation_drag_gesture,
 
 static void
 pps_view_motion_notify_event (GtkEventControllerMotion *controller,
-			      gdouble			x,
-			      gdouble			y,
-			      PpsView		       *view)
+                              gdouble x,
+                              gdouble y,
+                              PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GdkModifierType modifier = gtk_event_controller_get_current_event_state (GTK_EVENT_CONTROLLER (controller));
 
-	if (!priv->document
-	    || (modifier & BUTTON_MODIFIER_MASK) != GDK_NO_MODIFIER_MASK)
+	if (!priv->document || (modifier & BUTTON_MODIFIER_MASK) != GDK_NO_MODIFIER_MASK)
 		return;
 
 	pps_view_handle_cursor_over_xy (view, x, y);
@@ -5808,7 +5792,7 @@ pps_view_get_selected_text (PpsView *view)
  * Since: 3.30
  */
 gboolean
-pps_view_add_text_markup_annotation_for_selected_text (PpsView  *view)
+pps_view_add_text_markup_annotation_for_selected_text (PpsView *view)
 {
 	GList *l;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -5817,7 +5801,7 @@ pps_view_add_text_markup_annotation_for_selected_text (PpsView  *view)
 		return FALSE;
 
 	for (l = priv->selection_info.selections; l != NULL; l = l->next) {
-		PpsViewSelection *selection = (PpsViewSelection *)l->data;
+		PpsViewSelection *selection = (PpsViewSelection *) l->data;
 
 		pps_view_create_annotation_from_selection (view, selection);
 	}
@@ -5828,7 +5812,7 @@ pps_view_add_text_markup_annotation_for_selected_text (PpsView  *view)
 }
 
 void
-pps_view_set_annotation_color (PpsView  *view, GdkRGBA *color)
+pps_view_set_annotation_color (PpsView *view, GdkRGBA *color)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -5839,56 +5823,56 @@ pps_view_set_annotation_color (PpsView  *view, GdkRGBA *color)
 
 void
 pps_view_set_enable_spellchecking (PpsView *view,
-                                  gboolean enabled)
+                                   gboolean enabled)
 {
-        PpsMappingList *annots;
-        GList         *l;
-        gint           n_pages = 0;
-        gint           current_page;
+	PpsMappingList *annots;
+	GList *l;
+	gint n_pages = 0;
+	gint current_page;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-        g_return_if_fail (PPS_IS_VIEW (view));
+	g_return_if_fail (PPS_IS_VIEW (view));
 
-        priv->enable_spellchecking = enabled;
+	priv->enable_spellchecking = enabled;
 
-        if (priv->document)
-                n_pages = pps_document_get_n_pages (priv->document);
+	if (priv->document)
+		n_pages = pps_document_get_n_pages (priv->document);
 
-        for (current_page = 0; current_page < n_pages; current_page++) {
-                annots = pps_page_cache_get_annot_mapping (priv->page_cache, current_page);
+	for (current_page = 0; current_page < n_pages; current_page++) {
+		annots = pps_page_cache_get_annot_mapping (priv->page_cache, current_page);
 
-                for (l = pps_mapping_list_get_list (annots); l && l->data; l = g_list_next (l)) {
-                        PpsAnnotation      *annot;
-                        GtkWidget         *window;
+		for (l = pps_mapping_list_get_list (annots); l && l->data; l = g_list_next (l)) {
+			PpsAnnotation *annot;
+			GtkWidget *window;
 
-                        annot = ((PpsMapping *)(l->data))->data;
+			annot = ((PpsMapping *) (l->data))->data;
 
-                        if (!PPS_IS_ANNOTATION_MARKUP (annot))
-                                continue;
+			if (!PPS_IS_ANNOTATION_MARKUP (annot))
+				continue;
 
-                        window = get_window_for_annot (view, annot);
+			window = get_window_for_annot (view, annot);
 
-                        if (window) {
-                                pps_annotation_window_set_enable_spellchecking (PPS_ANNOTATION_WINDOW (window), priv->enable_spellchecking);
-                        }
-                }
-        }
+			if (window) {
+				pps_annotation_window_set_enable_spellchecking (PPS_ANNOTATION_WINDOW (window), priv->enable_spellchecking);
+			}
+		}
+	}
 }
 
 gboolean
 pps_view_get_enable_spellchecking (PpsView *view)
 {
-        g_return_val_if_fail (PPS_IS_VIEW (view), FALSE);
+	g_return_val_if_fail (PPS_IS_VIEW (view), FALSE);
 
-        return FALSE;
+	return FALSE;
 }
 
 static void
 pps_view_button_release_event (GtkGestureClick *self,
-			       gint 		n_press,
-			       gdouble		x,
-			       gdouble		y,
-			       PpsView	       *view)
+                               gint n_press,
+                               gdouble x,
+                               gdouble y,
+                               PpsView *view)
 {
 	GtkEventController *controller = GTK_EVENT_CONTROLLER (self);
 	guint32 time = gtk_event_controller_get_current_event_time (controller);
@@ -5937,7 +5921,7 @@ pps_view_button_release_event (GtkGestureClick *self,
 		position_caret_cursor_for_event (view, x, y, FALSE);
 	} else if (link) {
 		if (button == GDK_BUTTON_MIDDLE) {
-			PpsLinkAction    *action;
+			PpsLinkAction *action;
 			PpsLinkActionType type;
 
 			action = pps_link_get_action (link);
@@ -5947,8 +5931,8 @@ pps_view_button_release_event (GtkGestureClick *self,
 			type = pps_link_action_get_action_type (action);
 			if (type == PPS_LINK_ACTION_TYPE_GOTO_DEST) {
 				g_signal_emit (view,
-					       signals[SIGNAL_EXTERNAL_LINK],
-					       0, action);
+				               signals[SIGNAL_EXTERNAL_LINK],
+				               0, action);
 			}
 		} else {
 			pps_view_handle_link (view, link);
@@ -5958,9 +5942,9 @@ pps_view_button_release_event (GtkGestureClick *self,
 
 static void
 context_longpress_gesture_pressed_cb (GtkGestureLongPress *gesture,
-				      gdouble		   x,
-				      gdouble		   y,
-				      PpsView		  *view)
+                                      gdouble x,
+                                      gdouble y,
+                                      PpsView *view)
 {
 	pps_view_set_focused_element_at_location (view, x, y);
 	pps_view_do_popup_menu (view, x, y);
@@ -5968,9 +5952,9 @@ context_longpress_gesture_pressed_cb (GtkGestureLongPress *gesture,
 
 static gint
 go_to_next_page (PpsView *view,
-		 gint    page)
+                 gint page)
 {
-	int      n_pages;
+	int n_pages;
 	gboolean dual_page;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -5993,7 +5977,7 @@ go_to_next_page (PpsView *view,
 
 static gint
 go_to_previous_page (PpsView *view,
-		     gint    page)
+                     gint page)
 {
 	gboolean dual_page;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -6026,7 +6010,7 @@ static gboolean
 cursor_go_to_page_end (PpsView *view)
 {
 	PangoLogAttr *log_attrs = NULL;
-	gulong        n_attrs;
+	gulong n_attrs;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (!priv->page_cache)
@@ -6094,7 +6078,7 @@ cursor_backward_char (PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PangoLogAttr *log_attrs = NULL;
-	gulong        n_attrs;
+	gulong n_attrs;
 
 	if (!priv->page_cache)
 		return FALSE;
@@ -6118,7 +6102,7 @@ cursor_forward_char (PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PangoLogAttr *log_attrs = NULL;
-	gulong        n_attrs;
+	gulong n_attrs;
 
 	if (!priv->page_cache)
 		return FALSE;
@@ -6142,8 +6126,8 @@ cursor_backward_word_start (PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PangoLogAttr *log_attrs = NULL;
-	gulong        n_attrs;
-	gint          i, j;
+	gulong n_attrs;
+	gint i, j;
 
 	if (!priv->page_cache)
 		return FALSE;
@@ -6153,7 +6137,8 @@ cursor_backward_word_start (PpsView *view)
 		return FALSE;
 
 	/* Skip current word starts */
-	for (i = priv->cursor_offset; i >= 0 && log_attrs[i].is_word_start; i--);
+	for (i = priv->cursor_offset; i >= 0 && log_attrs[i].is_word_start; i--)
+		;
 	if (i <= 0) {
 		if (cursor_go_to_previous_page (view))
 			return cursor_backward_word_start (view);
@@ -6161,7 +6146,8 @@ cursor_backward_word_start (PpsView *view)
 	}
 
 	/* Move to the beginning of the word */
-	for (j = i; j >= 0 && !log_attrs[j].is_word_start; j--);
+	for (j = i; j >= 0 && !log_attrs[j].is_word_start; j--)
+		;
 	priv->cursor_offset = MAX (0, j);
 
 	return TRUE;
@@ -6171,8 +6157,8 @@ static gboolean
 cursor_forward_word_end (PpsView *view)
 {
 	PangoLogAttr *log_attrs = NULL;
-	gulong        n_attrs;
-	gint          i, j;
+	gulong n_attrs;
+	gint i, j;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (!priv->page_cache)
@@ -6183,7 +6169,8 @@ cursor_forward_word_end (PpsView *view)
 		return FALSE;
 
 	/* Skip current word ends */
-	for (i = priv->cursor_offset; i < n_attrs && log_attrs[i].is_word_end; i++);
+	for (i = priv->cursor_offset; i < n_attrs && log_attrs[i].is_word_end; i++)
+		;
 	if (i >= n_attrs) {
 		if (cursor_go_to_next_page (view))
 			return cursor_forward_word_end (view);
@@ -6191,7 +6178,8 @@ cursor_forward_word_end (PpsView *view)
 	}
 
 	/* Move to the end of the word. */
-	for (j = i; j < n_attrs && !log_attrs[j].is_word_end; j++);
+	for (j = i; j < n_attrs && !log_attrs[j].is_word_end; j++)
+		;
 	priv->cursor_offset = MIN (j, n_attrs);
 
 	return TRUE;
@@ -6201,8 +6189,8 @@ static gboolean
 cursor_go_to_line_start (PpsView *view)
 {
 	PangoLogAttr *log_attrs = NULL;
-	gulong        n_attrs;
-	gint          i;
+	gulong n_attrs;
+	gint i;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (!priv->page_cache)
@@ -6212,7 +6200,8 @@ cursor_go_to_line_start (PpsView *view)
 	if (!log_attrs)
 		return FALSE;
 
-	for (i = priv->cursor_offset; i >= 0 && !log_attrs[i].is_mandatory_break; i--);
+	for (i = priv->cursor_offset; i >= 0 && !log_attrs[i].is_mandatory_break; i--)
+		;
 	priv->cursor_offset = MAX (0, i);
 
 	return TRUE;
@@ -6222,7 +6211,7 @@ static gboolean
 cursor_backward_line (PpsView *view)
 {
 	PangoLogAttr *log_attrs = NULL;
-	gulong        n_attrs;
+	gulong n_attrs;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (!cursor_go_to_line_start (view))
@@ -6245,8 +6234,8 @@ static gboolean
 cursor_go_to_line_end (PpsView *view)
 {
 	PangoLogAttr *log_attrs = NULL;
-	gulong        n_attrs;
-	gint          i;
+	gulong n_attrs;
+	gint i;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (!priv->page_cache)
@@ -6256,7 +6245,8 @@ cursor_go_to_line_end (PpsView *view)
 	if (!log_attrs)
 		return FALSE;
 
-	for (i = priv->cursor_offset + 1; i <= n_attrs && !log_attrs[i].is_mandatory_break; i++);
+	for (i = priv->cursor_offset + 1; i <= n_attrs && !log_attrs[i].is_mandatory_break; i++)
+		;
 	priv->cursor_offset = MIN (i, n_attrs);
 
 	if (priv->cursor_offset == n_attrs)
@@ -6273,7 +6263,7 @@ static gboolean
 cursor_forward_line (PpsView *view)
 {
 	PangoLogAttr *log_attrs = NULL;
-	gulong        n_attrs;
+	gulong n_attrs;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (!cursor_go_to_line_end (view))
@@ -6292,15 +6282,15 @@ cursor_forward_line (PpsView *view)
 }
 
 static gboolean
-cursor_clear_selection (PpsView  *view,
-			gboolean forward)
+cursor_clear_selection (PpsView *view,
+                        gboolean forward)
 {
-	GList                *l;
-	PpsViewSelection      *selection;
+	GList *l;
+	PpsViewSelection *selection;
 	cairo_rectangle_int_t rect;
-	cairo_region_t        *region, *tmp_region = NULL;
-	gint                  doc_x, doc_y;
-	GdkRectangle          area;
+	cairo_region_t *region, *tmp_region = NULL;
+	gint doc_x, doc_y;
+	GdkRectangle area;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	/* When clearing the selection, move the cursor to
@@ -6310,14 +6300,14 @@ cursor_clear_selection (PpsView  *view,
 		return FALSE;
 
 	l = forward ? g_list_last (priv->selection_info.selections) : priv->selection_info.selections;
-	selection = (PpsViewSelection *)l->data;
+	selection = (PpsViewSelection *) l->data;
 
 	region = selection->covered_region;
 
 	/* The selection boundary is not in the current page */
 	if (!region || cairo_region_is_empty (region)) {
 		PpsRenderContext *rc;
-		PpsPage          *page;
+		PpsPage *page;
 
 		pps_document_doc_mutex_lock (priv->document);
 
@@ -6326,9 +6316,9 @@ cursor_clear_selection (PpsView  *view,
 		g_object_unref (page);
 
 		tmp_region = pps_selection_get_selection_region (PPS_SELECTION (priv->document),
-								rc,
-								PPS_SELECTION_STYLE_GLYPH,
-								&(selection->rect));
+		                                                 rc,
+		                                                 PPS_SELECTION_STYLE_GLYPH,
+		                                                 &(selection->rect));
 		g_object_unref (rc);
 
 		pps_document_doc_mutex_unlock (priv->document);
@@ -6342,8 +6332,8 @@ cursor_clear_selection (PpsView  *view,
 	}
 
 	cairo_region_get_rectangle (region,
-				    forward ? cairo_region_num_rectangles (region) - 1 : 0,
-				    &rect);
+	                            forward ? cairo_region_num_rectangles (region) - 1 : 0,
+	                            &rect);
 
 	if (tmp_region) {
 		cairo_region_destroy (tmp_region);
@@ -6351,8 +6341,8 @@ cursor_clear_selection (PpsView  *view,
 	}
 
 	if (!get_doc_point_from_offset (view, selection->page,
-					forward ? rect.x + rect.width : rect.x,
-					rect.y + (rect.height / 2), &doc_x, &doc_y))
+	                                forward ? rect.x + rect.width : rect.x,
+	                                rect.y + (rect.height / 2), &doc_x, &doc_y))
 		return FALSE;
 
 	position_caret_cursor_at_doc_point (view, selection->page, doc_x, doc_y);
@@ -6364,21 +6354,21 @@ cursor_clear_selection (PpsView  *view,
 }
 
 static gboolean
-pps_view_move_cursor (PpsView         *view,
-		     GtkMovementStep step,
-		     gint            count,
-		     gboolean        extend_selections)
+pps_view_move_cursor (PpsView *view,
+                      GtkMovementStep step,
+                      gint count,
+                      gboolean extend_selections)
 {
-	GdkRectangle    rect;
-	GdkRectangle    prev_rect;
-	gint            prev_offset;
-	gint            prev_page;
-	GdkRectangle    select_start_rect;
-	gint            select_start_offset = 0;
-	gint            select_start_page = 0;
-	gboolean        changed_page;
-	gboolean        clear_selections = FALSE;
-	const gboolean  forward = count >= 0;
+	GdkRectangle rect;
+	GdkRectangle prev_rect;
+	gint prev_offset;
+	gint prev_page;
+	GdkRectangle select_start_rect;
+	gint select_start_offset = 0;
+	gint select_start_page = 0;
+	gboolean changed_page;
+	gboolean clear_selections = FALSE;
+	const gboolean forward = count >= 0;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (!priv->caret_enabled || priv->rotation != 0)
@@ -6424,7 +6414,7 @@ pps_view_move_cursor (PpsView         *view,
 		break;
 	case GTK_MOVEMENT_DISPLAY_LINES:
 		if (!clear_selections || cursor_clear_selection (view, count > 0)) {
-			while(count > 0) {
+			while (count > 0) {
 				cursor_forward_line (view);
 				count--;
 			}
@@ -6435,7 +6425,7 @@ pps_view_move_cursor (PpsView         *view,
 		}
 		break;
 	case GTK_MOVEMENT_DISPLAY_LINE_ENDS:
-		if (!clear_selections  || cursor_clear_selection (view, count > 0)) {
+		if (!clear_selections || cursor_clear_selection (view, count > 0)) {
 			if (count > 0)
 				cursor_go_to_line_end (view);
 			else if (count < 0)
@@ -6489,9 +6479,9 @@ pps_view_move_cursor (PpsView         *view,
 		}
 
 		if (changed_page) {
-                       rect.x += priv->scroll_x;
-                       rect.y += priv->scroll_y;
-                       _pps_view_ensure_rectangle_is_visible (view, &rect);
+			rect.x += priv->scroll_x;
+			rect.y += priv->scroll_y;
+			_pps_view_ensure_rectangle_is_visible (view, &rect);
 			g_signal_emit (view, signals[SIGNAL_CURSOR_MOVED], 0, priv->cursor_page, priv->cursor_offset);
 			clear_selection (view);
 			return TRUE;
@@ -6502,8 +6492,8 @@ pps_view_move_cursor (PpsView         *view,
 		const gint prev_cursor_offset = priv->cursor_offset;
 
 		position_caret_cursor_at_location (view,
-						   MAX (rect.x, priv->cursor_line_offset),
-						   rect.y + (rect.height / 2));
+		                                   MAX (rect.x, priv->cursor_line_offset),
+		                                   rect.y + (rect.height / 2));
 		/* Make sure we didn't move the cursor in the wrong direction
 		 * in case the visual order isn't the same as the logical one,
 		 * in order to avoid cursor movement loops */
@@ -6549,9 +6539,9 @@ pps_view_move_cursor (PpsView         *view,
 		end_point.y = rect.y + rect.height / 2;
 
 		compute_selections (view,
-				    PPS_SELECTION_STYLE_GLYPH,
-				    &start_point,
-				    &end_point);
+		                    PPS_SELECTION_STYLE_GLYPH,
+		                    &start_point,
+		                    &end_point);
 	} else if (clear_selections)
 		clear_selection (view);
 
@@ -6559,8 +6549,8 @@ pps_view_move_cursor (PpsView         *view,
 }
 
 static gboolean
-pps_view_activate_form_field (PpsView      *view,
-			     PpsFormField *field)
+pps_view_activate_form_field (PpsView *view,
+                              PpsFormField *field)
 {
 	gboolean handled = FALSE;
 
@@ -6603,7 +6593,7 @@ current_event_is_space_key_press (void)
 
 static gboolean
 pps_view_activate_link (PpsView *view,
-		       PpsLink *link)
+                        PpsLink *link)
 {
 #if 0
 	/* Most of the GtkWidgets emit activate on both Space and Return key press,
@@ -6638,8 +6628,8 @@ pps_view_activate (PpsView *view)
 }
 
 static void
-pps_view_focus_in (GtkEventControllerFocus	*self,
-		  gpointer			 user_data)
+pps_view_focus_in (GtkEventControllerFocus *self,
+                   gpointer user_data)
 {
 	PpsView *view = PPS_VIEW (user_data);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -6652,8 +6642,8 @@ pps_view_focus_in (GtkEventControllerFocus	*self,
 }
 
 static void
-pps_view_focus_out (GtkEventControllerFocus	*self,
-		   gpointer			 user_data)
+pps_view_focus_out (GtkEventControllerFocus *self,
+                    gpointer user_data)
 {
 	PpsView *view = PPS_VIEW (user_data);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -6668,10 +6658,10 @@ pps_view_focus_out (GtkEventControllerFocus	*self,
 /*** Drawing ***/
 
 static void
-draw_rubberband (PpsView             *view,
-		 GtkSnapshot        *snapshot,
-		 const GdkRectangle *rect,
-		 gboolean            active)
+draw_rubberband (PpsView *view,
+                 GtkSnapshot *snapshot,
+                 const GdkRectangle *rect,
+                 gboolean active)
 {
 	GtkStyleContext *context;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -6685,9 +6675,9 @@ draw_rubberband (PpsView             *view,
 		gtk_style_context_set_state (context, GTK_STATE_FLAG_SELECTED);
 
 	gtk_snapshot_render_background (snapshot, context,
-			  rect->x - priv->scroll_x,
-			  rect->y - priv->scroll_y,
-			  rect->width, rect->height);
+	                                rect->x - priv->scroll_x,
+	                                rect->y - priv->scroll_y,
+	                                rect->width, rect->height);
 	gtk_style_context_restore (context);
 }
 
@@ -6703,9 +6693,9 @@ accent_changed_cb (PpsView *view)
 }
 
 static void
-highlight_find_results (PpsView		*view,
-                        GtkSnapshot	*snapshot,
-                        int		 page)
+highlight_find_results (PpsView *view,
+                        GtkSnapshot *snapshot,
+                        int page)
 {
 	PpsRectangle *pps_rect;
 	gint i, n_results = 0;
@@ -6740,24 +6730,24 @@ highlight_find_results (PpsView		*view,
 			_pps_view_transform_doc_rect_to_view_rect (view, page, pps_rect, &view_rectangle);
 			draw_rubberband (view, snapshot, &view_rectangle, TRUE);
 		}
-        }
+	}
 
 	pps_rectangle_free (pps_rect);
 }
 
 static void
-draw_surface (GtkSnapshot     *snapshot,
-	      GdkTexture      *texture,
-	      const graphene_point_t *point,
-	      const graphene_rect_t *area,
-	      gboolean inverted)
+draw_surface (GtkSnapshot *snapshot,
+              GdkTexture *texture,
+              const graphene_point_t *point,
+              const graphene_rect_t *area,
+              gboolean inverted)
 {
 	gtk_snapshot_save (snapshot);
 	gtk_snapshot_translate (snapshot, point);
 
 	if (inverted) {
 		gtk_snapshot_push_blend (snapshot, GSK_BLEND_MODE_DIFFERENCE);
-		gtk_snapshot_append_color (snapshot, &(GdkRGBA) {1., 1., 1., 1.}, area);
+		gtk_snapshot_append_color (snapshot, &(GdkRGBA) { 1., 1., 1., 1. }, area);
 		gtk_snapshot_pop (snapshot);
 	}
 
@@ -6770,9 +6760,9 @@ draw_surface (GtkSnapshot     *snapshot,
 }
 
 void
-_pps_view_get_selection_colors (PpsView  *view,
-			       GdkRGBA *bg_color,
-			       GdkRGBA *fg_color)
+_pps_view_get_selection_colors (PpsView *view,
+                                GdkRGBA *bg_color,
+                                GdkRGBA *fg_color)
 {
 	if (bg_color) {
 		AdwStyleManager *style_manager = adw_style_manager_get_default ();
@@ -6789,14 +6779,14 @@ _pps_view_get_selection_colors (PpsView  *view,
 }
 
 static void
-draw_selection_region (GtkSnapshot    *snapshot,
-		       GtkWidget      *widget,
-		       cairo_region_t *region,
-		       GdkRGBA        *color,
-		       gint            x,
-		       gint            y,
-		       gdouble         scale_x,
-		       gdouble         scale_y)
+draw_selection_region (GtkSnapshot *snapshot,
+                       GtkWidget *widget,
+                       cairo_region_t *region,
+                       GdkRGBA *color,
+                       gint x,
+                       gint y,
+                       gdouble scale_x,
+                       gdouble scale_y)
 {
 	cairo_rectangle_int_t box;
 	gint n_boxes, i;
@@ -6807,7 +6797,7 @@ draw_selection_region (GtkSnapshot    *snapshot,
 	gtk_style_context_save (context);
 	gtk_style_context_add_class (context, PPS_STYLE_CLASS_FIND_RESULTS);
 	state = gtk_style_context_get_state (context) |
-		(gtk_widget_has_focus (widget) ? GTK_STATE_FLAG_SELECTED : GTK_STATE_FLAG_ACTIVE);
+	        (gtk_widget_has_focus (widget) ? GTK_STATE_FLAG_SELECTED : GTK_STATE_FLAG_ACTIVE);
 	gtk_style_context_set_state (context, state);
 
 	gtk_snapshot_save (snapshot);
@@ -6819,7 +6809,7 @@ draw_selection_region (GtkSnapshot    *snapshot,
 		cairo_region_get_rectangle (region, i, &box);
 
 		gtk_snapshot_render_background (snapshot, context,
-			box.x, box.y, box.width, box.height);
+		                                box.x, box.y, box.width, box.height);
 	}
 
 	gtk_snapshot_restore (snapshot);
@@ -6827,22 +6817,22 @@ draw_selection_region (GtkSnapshot    *snapshot,
 }
 
 static void
-draw_one_page (PpsView       *view,
-	       gint          page,
-	       GtkSnapshot  *snapshot,
-	       GdkRectangle *page_area,
-	       GtkBorder    *border,
-	       GdkRectangle *expose_area,
-	       gboolean     *page_ready)
+draw_one_page (PpsView *view,
+               gint page,
+               GtkSnapshot *snapshot,
+               GdkRectangle *page_area,
+               GtkBorder *border,
+               GdkRectangle *expose_area,
+               gboolean *page_ready)
 {
 	GtkStyleContext *context;
-	GdkRectangle     overlap;
-	GdkRectangle     real_page_area;
-	gint             current_page;
-	GtkWidget	*widget = GTK_WIDGET (view);
+	GdkRectangle overlap;
+	GdkRectangle real_page_area;
+	gint current_page;
+	GtkWidget *widget = GTK_WIDGET (view);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	if (! gdk_rectangle_intersect (page_area, expose_area, &overlap))
+	if (!gdk_rectangle_intersect (page_area, expose_area, &overlap))
 		return;
 
 	/* Render the document itself */
@@ -6871,8 +6861,8 @@ draw_one_page (PpsView       *view,
 	gtk_style_context_restore (context);
 
 	if (gdk_rectangle_intersect (&real_page_area, expose_area, &overlap)) {
-		gint             width, height;
-		GdkTexture      *page_texture = NULL, *selection_texture = NULL;
+		gint width, height;
+		GdkTexture *page_texture = NULL, *selection_texture = NULL;
 		graphene_point_t point;
 		graphene_rect_t area;
 		cairo_region_t *region = NULL;
@@ -6888,8 +6878,8 @@ draw_one_page (PpsView       *view,
 		pps_view_get_page_size (view, page, &width, &height);
 
 		area = GRAPHENE_RECT_INIT (real_page_area.x - overlap.x,
-					   real_page_area.y - overlap.y,
-					   width, height);
+		                           real_page_area.y - overlap.y,
+		                           width, height);
 		point = GRAPHENE_POINT_INIT (overlap.x, overlap.y);
 
 		draw_surface (snapshot, page_texture, &point, &area, inverted);
@@ -6899,26 +6889,26 @@ draw_one_page (PpsView       *view,
 			return;
 
 		selection_texture = pps_pixbuf_cache_get_selection_texture (priv->pixbuf_cache,
-									   page,
-									   priv->scale);
+		                                                            page,
+		                                                            priv->scale);
 		if (selection_texture) {
 			draw_surface (snapshot, selection_texture, &point, &area, false);
 			return;
 		}
 
 		region = pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache,
-							       page,
-							       priv->scale);
+		                                                page,
+		                                                priv->scale);
 		if (region) {
 			double scale_x, scale_y;
 			GdkRGBA color;
 
-			scale_x = (gdouble)width / gdk_texture_get_width (page_texture);
-			scale_y = (gdouble)height / gdk_texture_get_height (page_texture);
+			scale_x = (gdouble) width / gdk_texture_get_width (page_texture);
+			scale_y = (gdouble) height / gdk_texture_get_height (page_texture);
 
 			_pps_view_get_selection_colors (view, &color, NULL);
 			draw_selection_region (snapshot, widget, region, &color, real_page_area.x, real_page_area.y,
-					       scale_x, scale_y);
+			                       scale_x, scale_y);
 		}
 	}
 }
@@ -6931,7 +6921,7 @@ pps_view_finalize (GObject *object)
 	PpsView *view = PPS_VIEW (object);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	g_list_free_full (g_steal_pointer (&priv->selection_info.selections), (GDestroyNotify)selection_free);
+	g_list_free_full (g_steal_pointer (&priv->selection_info.selections), (GDestroyNotify) selection_free);
 	g_clear_object (&priv->link_selected);
 
 	g_clear_object (&priv->dnd_image);
@@ -6970,17 +6960,17 @@ pps_view_dispose (GObject *object)
 
 	pps_view_link_preview_popover_cleanup (view);
 
-        gtk_scrollable_set_hadjustment (GTK_SCROLLABLE (view), NULL);
-        gtk_scrollable_set_vadjustment (GTK_SCROLLABLE (view), NULL);
+	gtk_scrollable_set_hadjustment (GTK_SCROLLABLE (view), NULL);
+	gtk_scrollable_set_vadjustment (GTK_SCROLLABLE (view), NULL);
 
 	G_OBJECT_CLASS (pps_view_parent_class)->dispose (object);
 }
 
 static void
-pps_view_get_property (GObject     *object,
-		      guint        prop_id,
-		      GValue      *value,
-		      GParamSpec  *pspec)
+pps_view_get_property (GObject *object,
+                       guint prop_id,
+                       GValue *value,
+                       GParamSpec *pspec)
 {
 	PpsView *view = PPS_VIEW (object);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -7011,10 +7001,10 @@ pps_view_get_property (GObject     *object,
 }
 
 static void
-pps_view_set_property (GObject      *object,
-		      guint         prop_id,
-		      const GValue *value,
-		      GParamSpec   *pspec)
+pps_view_set_property (GObject *object,
+                       guint prop_id,
+                       const GValue *value,
+                       GParamSpec *pspec)
 {
 	PpsView *view = PPS_VIEW (object);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -7022,11 +7012,11 @@ pps_view_set_property (GObject      *object,
 	switch (prop_id) {
 	case PROP_HADJUSTMENT:
 		pps_view_set_scroll_adjustment (view, GTK_ORIENTATION_HORIZONTAL,
-					       (GtkAdjustment *) g_value_get_object (value));
+		                                (GtkAdjustment *) g_value_get_object (value));
 		break;
 	case PROP_VADJUSTMENT:
 		pps_view_set_scroll_adjustment (view, GTK_ORIENTATION_VERTICAL,
-					       (GtkAdjustment *) g_value_get_object (value));
+		                                (GtkAdjustment *) g_value_get_object (value));
 		break;
 	case PROP_HSCROLL_POLICY:
 		priv->hscroll_policy = g_value_get_enum (value);
@@ -7045,11 +7035,11 @@ pps_view_set_property (GObject      *object,
 static void
 view_update_scale_limits (PpsView *view)
 {
-	gdouble    min_width, min_height;
-	gdouble    width, height;
-	gdouble    max_scale;
-	gdouble    dpi;
-	gint       rotation;
+	gdouble min_width, min_height;
+	gdouble width, height;
+	gdouble max_scale;
+	gdouble dpi;
+	gint rotation;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (!priv->document)
@@ -7070,28 +7060,25 @@ view_update_scale_limits (PpsView *view)
 
 static void
 page_swipe_cb (GtkGestureSwipe *gesture,
-	       gdouble          velocity_x,
-	       gdouble          velocity_y,
-	       PpsView         *view)
+               gdouble velocity_x,
+               gdouble velocity_y,
+               PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (priv->continuous)
 		return;
 
-	GtkTextDirection direction = gtk_widget_get_direction (GTK_WIDGET (view))
-				     || gtk_widget_get_default_direction ();
+	GtkTextDirection direction = gtk_widget_get_direction (GTK_WIDGET (view)) || gtk_widget_get_default_direction ();
 	gdouble angle = atan2 (velocity_x, velocity_y);
-	gdouble speed = sqrt(pow (velocity_x, 2) + pow (velocity_y, 2));
+	gdouble speed = sqrt (pow (velocity_x, 2) + pow (velocity_y, 2));
 
 	if (speed > 30) {
 		gtk_gesture_set_state (GTK_GESTURE (gesture),
-				       GTK_EVENT_SEQUENCE_CLAIMED);
+		                       GTK_EVENT_SEQUENCE_CLAIMED);
 		if ((G_PI_4 < angle && angle <= 3 * G_PI_4) ||
-		    (direction == GTK_TEXT_DIR_LTR
-		     && (-G_PI_4 < angle && angle <= G_PI_4)) ||
-		    (direction == GTK_TEXT_DIR_RTL
-		     && !(-3 * G_PI_4 < angle && angle <= 3 * G_PI_4)))
+		    (direction == GTK_TEXT_DIR_LTR && (-G_PI_4 < angle && angle <= G_PI_4)) ||
+		    (direction == GTK_TEXT_DIR_RTL && !(-3 * G_PI_4 < angle && angle <= 3 * G_PI_4)))
 
 			pps_view_previous_page (view);
 		else
@@ -7100,35 +7087,35 @@ page_swipe_cb (GtkGestureSwipe *gesture,
 }
 
 static void
-add_move_binding_keypad (GtkWidgetClass	*widget_class,
-			 guint           keyval,
-			 GdkModifierType modifiers,
-			 GtkMovementStep step,
-			 gint            count)
+add_move_binding_keypad (GtkWidgetClass *widget_class,
+                         guint keyval,
+                         GdkModifierType modifiers,
+                         GtkMovementStep step,
+                         gint count)
 {
 	guint keypad_keyval = keyval - GDK_KEY_Left + GDK_KEY_KP_Left;
 
 	gtk_widget_class_add_binding_signal (widget_class, keyval, modifiers,
-					"move-cursor", "(iib)",
-					step, count, FALSE);
+	                                     "move-cursor", "(iib)",
+	                                     step, count, FALSE);
 
 	gtk_widget_class_add_binding_signal (widget_class, keypad_keyval, modifiers,
-					"move-cursor", "(iib)",
-					step, count, FALSE);
+	                                     "move-cursor", "(iib)",
+	                                     step, count, FALSE);
 
 	/* Selection-extending version */
 	gtk_widget_class_add_binding_signal (widget_class, keyval, modifiers | GDK_SHIFT_MASK,
-					"move-cursor", "(iib)",
-					step, count, TRUE);
+	                                     "move-cursor", "(iib)",
+	                                     step, count, TRUE);
 	gtk_widget_class_add_binding_signal (widget_class, keypad_keyval, modifiers | GDK_SHIFT_MASK,
-					"move-cursor", "(iib)",
-					step, count, TRUE);
+	                                     "move-cursor", "(iib)",
+	                                     step, count, TRUE);
 }
 
 static gint
 pps_view_mapping_compare (const PpsMapping *a,
-			 const PpsMapping *b,
-			 gpointer         user_data)
+                          const PpsMapping *b,
+                          gpointer user_data)
 {
 	GtkTextDirection text_direction = GPOINTER_TO_INT (user_data);
 	gint y1 = a->area.y1 + (a->area.y2 - a->area.y1) / 2;
@@ -7148,19 +7135,19 @@ pps_view_mapping_compare (const PpsMapping *a,
 }
 
 static GList *
-pps_view_get_sorted_mapping_list (PpsView          *view,
-				 GtkDirectionType direction,
-				 gint             page)
+pps_view_get_sorted_mapping_list (PpsView *view,
+                                  GtkDirectionType direction,
+                                  gint page)
 {
-	GList         *mapping_list = NULL, *l;
+	GList *mapping_list = NULL, *l;
 	PpsMappingList *forms_mapping;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	forms_mapping = pps_page_cache_get_form_field_mapping (priv->page_cache, page);
 
 	for (l = pps_mapping_list_get_list (forms_mapping); l; l = g_list_next (l)) {
-		PpsMapping   *mapping = (PpsMapping *)l->data;
-		PpsFormField *field = (PpsFormField *)mapping->data;
+		PpsMapping *mapping = (PpsMapping *) l->data;
+		PpsFormField *field = (PpsFormField *) mapping->data;
 
 		if (field->is_read_only || PPS_IS_FORM_FIELD_SIGNATURE (field))
 			continue;
@@ -7172,8 +7159,8 @@ pps_view_get_sorted_mapping_list (PpsView          *view,
 		return NULL;
 
 	mapping_list = g_list_sort_with_data (g_list_reverse (mapping_list),
-					      (GCompareDataFunc)pps_view_mapping_compare,
-					      GINT_TO_POINTER (gtk_widget_get_direction (GTK_WIDGET (view))));
+	                                      (GCompareDataFunc) pps_view_mapping_compare,
+	                                      GINT_TO_POINTER (gtk_widget_get_direction (GTK_WIDGET (view))));
 
 	if (direction == GTK_DIR_TAB_BACKWARD)
 		mapping_list = g_list_reverse (mapping_list);
@@ -7205,24 +7192,24 @@ child_focus_backward_idle_cb (gpointer user_data)
 }
 
 static void
-schedule_child_focus_in_idle (PpsView           *view,
-			      GtkDirectionType  direction)
+schedule_child_focus_in_idle (PpsView *view,
+                              GtkDirectionType direction)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	g_clear_handle_id (&priv->child_focus_idle_id, g_source_remove);
 	priv->child_focus_idle_id =
-		g_idle_add (direction == GTK_DIR_TAB_FORWARD ? child_focus_forward_idle_cb : child_focus_backward_idle_cb,
-			    view);
+	    g_idle_add (direction == GTK_DIR_TAB_FORWARD ? child_focus_forward_idle_cb : child_focus_backward_idle_cb,
+	                view);
 }
 
 static gboolean
-pps_view_focus_next (PpsView           *view,
-		    GtkDirectionType  direction)
+pps_view_focus_next (PpsView *view,
+                     GtkDirectionType direction)
 {
 	PpsMapping *focus_element;
-	GList     *elements;
-	gboolean   had_focused_element;
+	GList *elements;
+	gboolean had_focused_element;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (priv->focused_element) {
@@ -7275,8 +7262,8 @@ pps_view_focus_next (PpsView           *view,
 }
 
 static gboolean
-pps_view_focus (GtkWidget        *widget,
-	       GtkDirectionType  direction)
+pps_view_focus (GtkWidget *widget,
+                GtkDirectionType direction)
 {
 	PpsView *view = PPS_VIEW (widget);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -7290,8 +7277,8 @@ pps_view_focus (GtkWidget        *widget,
 }
 
 static void
-notify_scale_factor_cb (PpsView     *view,
-			GParamSpec *pspec)
+notify_scale_factor_cb (PpsView *view,
+                        GParamSpec *pspec)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -7300,9 +7287,9 @@ notify_scale_factor_cb (PpsView     *view,
 }
 
 static void
-zoom_gesture_begin_cb (GtkGesture       *gesture,
-		       GdkEventSequence *sequence,
-		       PpsView           *view)
+zoom_gesture_begin_cb (GtkGesture *gesture,
+                       GdkEventSequence *sequence,
+                       PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -7311,8 +7298,8 @@ zoom_gesture_begin_cb (GtkGesture       *gesture,
 
 static void
 zoom_gesture_scale_changed_cb (GtkGestureZoom *gesture,
-			       gdouble         scale,
-			       PpsView         *view)
+                               gdouble scale,
+                               PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	gdouble factor;
@@ -7338,7 +7325,7 @@ pps_view_class_init (PpsViewClass *class)
 
 	object_class->get_property = pps_view_get_property;
 	object_class->set_property = pps_view_set_property;
-        object_class->dispose = pps_view_dispose;
+	object_class->dispose = pps_view_dispose;
 	object_class->finalize = pps_view_finalize;
 
 	widget_class->snapshot = pps_view_snapshot;
@@ -7354,12 +7341,12 @@ pps_view_class_init (PpsViewClass *class)
 	class->activate = pps_view_activate;
 
 	gtk_widget_class_set_template_from_resource (widget_class,
-			"/org/gnome/papers/ui/view.ui");
+	                                             "/org/gnome/papers/ui/view.ui");
 
 	gtk_widget_class_bind_template_child_private (widget_class, PpsView,
-						      middle_clicked_drag_gesture);
+	                                              middle_clicked_drag_gesture);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsView,
-						      middle_clicked_drag_swipe_gesture);
+	                                              middle_clicked_drag_swipe_gesture);
 
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_button_press_event);
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_button_release_event);
@@ -7370,33 +7357,33 @@ pps_view_class_init (PpsViewClass *class)
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_focus_in);
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_focus_out);
 	gtk_widget_class_bind_template_callback (widget_class,
-						 selection_begin_cb);
+	                                         selection_begin_cb);
 	gtk_widget_class_bind_template_callback (widget_class,
-						 selection_end_cb);
+	                                         selection_end_cb);
 	gtk_widget_class_bind_template_callback (widget_class,
-						 selection_update_cb);
+	                                         selection_update_cb);
 	gtk_widget_class_bind_template_callback (widget_class,
-						 annotation_drag_begin_cb);
+	                                         annotation_drag_begin_cb);
 	gtk_widget_class_bind_template_callback (widget_class,
-						 annotation_drag_end_cb);
+	                                         annotation_drag_end_cb);
 	gtk_widget_class_bind_template_callback (widget_class,
-						 annotation_drag_update_cb);
+	                                         annotation_drag_update_cb);
 	gtk_widget_class_bind_template_callback (widget_class,
-						 signing_begin_cb);
+	                                         signing_begin_cb);
 	gtk_widget_class_bind_template_callback (widget_class,
-						 signing_end_cb);
+	                                         signing_end_cb);
 	gtk_widget_class_bind_template_callback (widget_class,
-						 signing_update_cb);
+	                                         signing_update_cb);
 	gtk_widget_class_bind_template_callback (widget_class,
-						 middle_clicked_drag_begin_cb);
+	                                         middle_clicked_drag_begin_cb);
 	gtk_widget_class_bind_template_callback (widget_class,
-						 middle_clicked_drag_update_cb);
+	                                         middle_clicked_drag_update_cb);
 	gtk_widget_class_bind_template_callback (widget_class,
-						 middle_clicked_end_swipe_cb);
+	                                         middle_clicked_end_swipe_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_scroll_event);
 	gtk_widget_class_bind_template_callback (widget_class, page_swipe_cb);
 	gtk_widget_class_bind_template_callback (widget_class,
-						 context_longpress_gesture_pressed_cb);
+	                                         context_longpress_gesture_pressed_cb);
 
 	/**
 	 * PpsView:can-zoom-in:
@@ -7404,26 +7391,26 @@ pps_view_class_init (PpsViewClass *class)
 	 * Since: 3.8
 	 */
 	g_object_class_install_property (object_class,
-					 PROP_CAN_ZOOM_IN,
-					 g_param_spec_boolean ("can-zoom-in",
-							       "Can Zoom In",
-							       "Whether the view can be zoomed in further",
-							       TRUE,
-							       G_PARAM_READABLE |
-							       G_PARAM_STATIC_STRINGS));
+	                                 PROP_CAN_ZOOM_IN,
+	                                 g_param_spec_boolean ("can-zoom-in",
+	                                                       "Can Zoom In",
+	                                                       "Whether the view can be zoomed in further",
+	                                                       TRUE,
+	                                                       G_PARAM_READABLE |
+	                                                           G_PARAM_STATIC_STRINGS));
 	/**
 	 * PpsView:can-zoom-out:
 	 *
 	 * Since: 3.8
 	 */
 	g_object_class_install_property (object_class,
-					 PROP_CAN_ZOOM_OUT,
-					 g_param_spec_boolean ("can-zoom-out",
-							       "Can Zoom Out",
-							       "Whether the view can be zoomed out further",
-							       TRUE,
-							       G_PARAM_READABLE |
-							       G_PARAM_STATIC_STRINGS));
+	                                 PROP_CAN_ZOOM_OUT,
+	                                 g_param_spec_boolean ("can-zoom-out",
+	                                                       "Can Zoom Out",
+	                                                       "Whether the view can be zoomed out further",
+	                                                       TRUE,
+	                                                       G_PARAM_READABLE |
+	                                                           G_PARAM_STATIC_STRINGS));
 
 	/* Scrollable interface */
 	g_object_class_override_property (object_class, PROP_HADJUSTMENT, "hadjustment");
@@ -7432,131 +7419,130 @@ pps_view_class_init (PpsViewClass *class)
 	g_object_class_override_property (object_class, PROP_VSCROLL_POLICY, "vscroll-policy");
 
 	signals[SIGNAL_SCROLL] = g_signal_new ("scroll",
-	  	         G_TYPE_FROM_CLASS (object_class),
-		         G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-		         G_STRUCT_OFFSET (PpsViewClass, scroll),
-		         NULL, NULL,
-		         pps_view_marshal_BOOLEAN__ENUM_ENUM,
-		         G_TYPE_BOOLEAN, 2,
-		         GTK_TYPE_SCROLL_TYPE,
-		         GTK_TYPE_ORIENTATION);
+	                                       G_TYPE_FROM_CLASS (object_class),
+	                                       G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+	                                       G_STRUCT_OFFSET (PpsViewClass, scroll),
+	                                       NULL, NULL,
+	                                       pps_view_marshal_BOOLEAN__ENUM_ENUM,
+	                                       G_TYPE_BOOLEAN, 2,
+	                                       GTK_TYPE_SCROLL_TYPE,
+	                                       GTK_TYPE_ORIENTATION);
 	signals[SIGNAL_HANDLE_LINK] = g_signal_new ("handle-link",
-	  	         G_TYPE_FROM_CLASS (object_class),
-		         G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-		         G_STRUCT_OFFSET (PpsViewClass, handle_link),
-		         NULL, NULL,
-		         NULL,
-		         G_TYPE_NONE, 2,
-		         G_TYPE_OBJECT, G_TYPE_OBJECT);
+	                                            G_TYPE_FROM_CLASS (object_class),
+	                                            G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+	                                            G_STRUCT_OFFSET (PpsViewClass, handle_link),
+	                                            NULL, NULL,
+	                                            NULL,
+	                                            G_TYPE_NONE, 2,
+	                                            G_TYPE_OBJECT, G_TYPE_OBJECT);
 	signals[SIGNAL_EXTERNAL_LINK] = g_signal_new ("external-link",
-	  	         G_TYPE_FROM_CLASS (object_class),
-		         G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-		         G_STRUCT_OFFSET (PpsViewClass, external_link),
-		         NULL, NULL,
-		         g_cclosure_marshal_VOID__OBJECT,
-		         G_TYPE_NONE, 1,
-		         PPS_TYPE_LINK_ACTION);
+	                                              G_TYPE_FROM_CLASS (object_class),
+	                                              G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+	                                              G_STRUCT_OFFSET (PpsViewClass, external_link),
+	                                              NULL, NULL,
+	                                              g_cclosure_marshal_VOID__OBJECT,
+	                                              G_TYPE_NONE, 1,
+	                                              PPS_TYPE_LINK_ACTION);
 	signals[SIGNAL_POPUP_MENU] = g_signal_new ("popup",
-	  	         G_TYPE_FROM_CLASS (object_class),
-		         G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-		         G_STRUCT_OFFSET (PpsViewClass, popup_menu),
-		         NULL, NULL,
-		         pps_view_marshal_VOID__POINTER_DOUBLE_DOUBLE,
-		         G_TYPE_NONE, 3,
-			 G_TYPE_POINTER,
-			 G_TYPE_DOUBLE,
-			 G_TYPE_DOUBLE);
+	                                           G_TYPE_FROM_CLASS (object_class),
+	                                           G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+	                                           G_STRUCT_OFFSET (PpsViewClass, popup_menu),
+	                                           NULL, NULL,
+	                                           pps_view_marshal_VOID__POINTER_DOUBLE_DOUBLE,
+	                                           G_TYPE_NONE, 3,
+	                                           G_TYPE_POINTER,
+	                                           G_TYPE_DOUBLE,
+	                                           G_TYPE_DOUBLE);
 	signals[SIGNAL_SELECTION_CHANGED] = g_signal_new ("selection-changed",
-                         G_TYPE_FROM_CLASS (object_class),
-                         G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-                         G_STRUCT_OFFSET (PpsViewClass, selection_changed),
-                         NULL, NULL,
-			 g_cclosure_marshal_VOID__VOID,
-                         G_TYPE_NONE, 0,
-                         G_TYPE_NONE);
+	                                                  G_TYPE_FROM_CLASS (object_class),
+	                                                  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+	                                                  G_STRUCT_OFFSET (PpsViewClass, selection_changed),
+	                                                  NULL, NULL,
+	                                                  g_cclosure_marshal_VOID__VOID,
+	                                                  G_TYPE_NONE, 0,
+	                                                  G_TYPE_NONE);
 	signals[SIGNAL_ANNOT_ADDED] = g_signal_new ("annot-added",
-	  	         G_TYPE_FROM_CLASS (object_class),
-		         G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-		         G_STRUCT_OFFSET (PpsViewClass, annot_added),
-		         NULL, NULL,
-		         g_cclosure_marshal_VOID__OBJECT,
-		         G_TYPE_NONE, 1,
-			 PPS_TYPE_ANNOTATION);
+	                                            G_TYPE_FROM_CLASS (object_class),
+	                                            G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+	                                            G_STRUCT_OFFSET (PpsViewClass, annot_added),
+	                                            NULL, NULL,
+	                                            g_cclosure_marshal_VOID__OBJECT,
+	                                            G_TYPE_NONE, 1,
+	                                            PPS_TYPE_ANNOTATION);
 	signals[SIGNAL_ANNOT_REMOVED] = g_signal_new ("annot-removed",
-	  	         G_TYPE_FROM_CLASS (object_class),
-		         G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-		         G_STRUCT_OFFSET (PpsViewClass, annot_removed),
-		         NULL, NULL,
-		         g_cclosure_marshal_VOID__OBJECT,
-		         G_TYPE_NONE, 1,
- 		         PPS_TYPE_ANNOTATION);
+	                                              G_TYPE_FROM_CLASS (object_class),
+	                                              G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+	                                              G_STRUCT_OFFSET (PpsViewClass, annot_removed),
+	                                              NULL, NULL,
+	                                              g_cclosure_marshal_VOID__OBJECT,
+	                                              G_TYPE_NONE, 1,
+	                                              PPS_TYPE_ANNOTATION);
 	signals[SIGNAL_LAYERS_CHANGED] = g_signal_new ("layers-changed",
-	  	         G_TYPE_FROM_CLASS (object_class),
-		         G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-		         G_STRUCT_OFFSET (PpsViewClass, layers_changed),
-		         NULL, NULL,
-		         g_cclosure_marshal_VOID__VOID,
-		         G_TYPE_NONE, 0,
-			 G_TYPE_NONE);
+	                                               G_TYPE_FROM_CLASS (object_class),
+	                                               G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+	                                               G_STRUCT_OFFSET (PpsViewClass, layers_changed),
+	                                               NULL, NULL,
+	                                               g_cclosure_marshal_VOID__VOID,
+	                                               G_TYPE_NONE, 0,
+	                                               G_TYPE_NONE);
 	signals[SIGNAL_MOVE_CURSOR] = g_signal_new ("move-cursor",
-		         G_TYPE_FROM_CLASS (object_class),
-		         G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-		         G_STRUCT_OFFSET (PpsViewClass, move_cursor),
-		         NULL, NULL,
-		         pps_view_marshal_BOOLEAN__ENUM_INT_BOOLEAN,
-		         G_TYPE_BOOLEAN, 3,
-		         GTK_TYPE_MOVEMENT_STEP,
-			 G_TYPE_INT,
-			 G_TYPE_BOOLEAN);
+	                                            G_TYPE_FROM_CLASS (object_class),
+	                                            G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+	                                            G_STRUCT_OFFSET (PpsViewClass, move_cursor),
+	                                            NULL, NULL,
+	                                            pps_view_marshal_BOOLEAN__ENUM_INT_BOOLEAN,
+	                                            G_TYPE_BOOLEAN, 3,
+	                                            GTK_TYPE_MOVEMENT_STEP,
+	                                            G_TYPE_INT,
+	                                            G_TYPE_BOOLEAN);
 	signals[SIGNAL_CURSOR_MOVED] = g_signal_new ("cursor-moved",
-			 G_TYPE_FROM_CLASS (object_class),
-			 G_SIGNAL_RUN_LAST,
-		         0,
-		         NULL, NULL,
-		         pps_view_marshal_VOID__INT_INT,
-		         G_TYPE_NONE, 2,
-		         G_TYPE_INT,
-			 G_TYPE_INT);
+	                                             G_TYPE_FROM_CLASS (object_class),
+	                                             G_SIGNAL_RUN_LAST,
+	                                             0,
+	                                             NULL, NULL,
+	                                             pps_view_marshal_VOID__INT_INT,
+	                                             G_TYPE_NONE, 2,
+	                                             G_TYPE_INT,
+	                                             G_TYPE_INT);
 	signals[SIGNAL_ACTIVATE] = g_signal_new ("activate",
-			 G_OBJECT_CLASS_TYPE (object_class),
-			 G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
-			 G_STRUCT_OFFSET (PpsViewClass, activate),
-			 NULL, NULL,
-			 g_cclosure_marshal_VOID__VOID,
-			 G_TYPE_NONE, 0,
-			 G_TYPE_NONE);
+	                                         G_OBJECT_CLASS_TYPE (object_class),
+	                                         G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+	                                         G_STRUCT_OFFSET (PpsViewClass, activate),
+	                                         NULL, NULL,
+	                                         g_cclosure_marshal_VOID__VOID,
+	                                         G_TYPE_NONE, 0,
+	                                         G_TYPE_NONE);
 	signals[SIGNAL_SIGNATURE_RECT] = g_signal_new ("signature-rect",
-			G_TYPE_FROM_CLASS (object_class),
-			G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
-			G_STRUCT_OFFSET (PpsViewClass, signature_rect),
-			NULL, NULL,
-			g_cclosure_marshal_VOID__UINT_POINTER,
-			G_TYPE_NONE, 2,
-			G_TYPE_UINT,
-			G_TYPE_POINTER);
-
+	                                               G_TYPE_FROM_CLASS (object_class),
+	                                               G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+	                                               G_STRUCT_OFFSET (PpsViewClass, signature_rect),
+	                                               NULL, NULL,
+	                                               g_cclosure_marshal_VOID__UINT_POINTER,
+	                                               G_TYPE_NONE, 2,
+	                                               G_TYPE_UINT,
+	                                               G_TYPE_POINTER);
 
 	gtk_widget_class_set_activate_signal (widget_class, signals[SIGNAL_ACTIVATE]);
 
-	add_move_binding_keypad (widget_class, GDK_KEY_Left,  0, GTK_MOVEMENT_VISUAL_POSITIONS, -1);
+	add_move_binding_keypad (widget_class, GDK_KEY_Left, 0, GTK_MOVEMENT_VISUAL_POSITIONS, -1);
 	add_move_binding_keypad (widget_class, GDK_KEY_Right, 0, GTK_MOVEMENT_VISUAL_POSITIONS, 1);
-	add_move_binding_keypad (widget_class, GDK_KEY_Left,  GDK_CONTROL_MASK, GTK_MOVEMENT_WORDS, -1);
+	add_move_binding_keypad (widget_class, GDK_KEY_Left, GDK_CONTROL_MASK, GTK_MOVEMENT_WORDS, -1);
 	add_move_binding_keypad (widget_class, GDK_KEY_Right, GDK_CONTROL_MASK, GTK_MOVEMENT_WORDS, 1);
-	add_move_binding_keypad (widget_class, GDK_KEY_Up,    0, GTK_MOVEMENT_DISPLAY_LINES, -1);
-	add_move_binding_keypad (widget_class, GDK_KEY_Down,  0, GTK_MOVEMENT_DISPLAY_LINES, 1);
-	add_move_binding_keypad (widget_class, GDK_KEY_Home,  0, GTK_MOVEMENT_DISPLAY_LINE_ENDS, -1);
-	add_move_binding_keypad (widget_class, GDK_KEY_End,   0, GTK_MOVEMENT_DISPLAY_LINE_ENDS, 1);
-	add_move_binding_keypad (widget_class, GDK_KEY_Home,  GDK_CONTROL_MASK, GTK_MOVEMENT_BUFFER_ENDS, -1);
-	add_move_binding_keypad (widget_class, GDK_KEY_End,   GDK_CONTROL_MASK, GTK_MOVEMENT_BUFFER_ENDS, 1);
+	add_move_binding_keypad (widget_class, GDK_KEY_Up, 0, GTK_MOVEMENT_DISPLAY_LINES, -1);
+	add_move_binding_keypad (widget_class, GDK_KEY_Down, 0, GTK_MOVEMENT_DISPLAY_LINES, 1);
+	add_move_binding_keypad (widget_class, GDK_KEY_Home, 0, GTK_MOVEMENT_DISPLAY_LINE_ENDS, -1);
+	add_move_binding_keypad (widget_class, GDK_KEY_End, 0, GTK_MOVEMENT_DISPLAY_LINE_ENDS, 1);
+	add_move_binding_keypad (widget_class, GDK_KEY_Home, GDK_CONTROL_MASK, GTK_MOVEMENT_BUFFER_ENDS, -1);
+	add_move_binding_keypad (widget_class, GDK_KEY_End, GDK_CONTROL_MASK, GTK_MOVEMENT_BUFFER_ENDS, 1);
 
-        add_scroll_binding_keypad (widget_class, GDK_KEY_Left,  0, GTK_SCROLL_STEP_BACKWARD, GTK_ORIENTATION_HORIZONTAL);
-        add_scroll_binding_keypad (widget_class, GDK_KEY_Right, 0, GTK_SCROLL_STEP_FORWARD, GTK_ORIENTATION_HORIZONTAL);
-        add_scroll_binding_keypad (widget_class, GDK_KEY_Left,  GDK_ALT_MASK, GTK_SCROLL_STEP_DOWN, GTK_ORIENTATION_HORIZONTAL);
-        add_scroll_binding_keypad (widget_class, GDK_KEY_Right, GDK_ALT_MASK, GTK_SCROLL_STEP_UP, GTK_ORIENTATION_HORIZONTAL);
-        add_scroll_binding_keypad (widget_class, GDK_KEY_Up,    0, GTK_SCROLL_STEP_BACKWARD, GTK_ORIENTATION_VERTICAL);
-        add_scroll_binding_keypad (widget_class, GDK_KEY_Down,  0, GTK_SCROLL_STEP_FORWARD, GTK_ORIENTATION_VERTICAL);
-        add_scroll_binding_keypad (widget_class, GDK_KEY_Up,    GDK_ALT_MASK, GTK_SCROLL_STEP_DOWN, GTK_ORIENTATION_VERTICAL);
-        add_scroll_binding_keypad (widget_class, GDK_KEY_Down,  GDK_ALT_MASK, GTK_SCROLL_STEP_UP, GTK_ORIENTATION_VERTICAL);
+	add_scroll_binding_keypad (widget_class, GDK_KEY_Left, 0, GTK_SCROLL_STEP_BACKWARD, GTK_ORIENTATION_HORIZONTAL);
+	add_scroll_binding_keypad (widget_class, GDK_KEY_Right, 0, GTK_SCROLL_STEP_FORWARD, GTK_ORIENTATION_HORIZONTAL);
+	add_scroll_binding_keypad (widget_class, GDK_KEY_Left, GDK_ALT_MASK, GTK_SCROLL_STEP_DOWN, GTK_ORIENTATION_HORIZONTAL);
+	add_scroll_binding_keypad (widget_class, GDK_KEY_Right, GDK_ALT_MASK, GTK_SCROLL_STEP_UP, GTK_ORIENTATION_HORIZONTAL);
+	add_scroll_binding_keypad (widget_class, GDK_KEY_Up, 0, GTK_SCROLL_STEP_BACKWARD, GTK_ORIENTATION_VERTICAL);
+	add_scroll_binding_keypad (widget_class, GDK_KEY_Down, 0, GTK_SCROLL_STEP_FORWARD, GTK_ORIENTATION_VERTICAL);
+	add_scroll_binding_keypad (widget_class, GDK_KEY_Up, GDK_ALT_MASK, GTK_SCROLL_STEP_DOWN, GTK_ORIENTATION_VERTICAL);
+	add_scroll_binding_keypad (widget_class, GDK_KEY_Down, GDK_ALT_MASK, GTK_SCROLL_STEP_UP, GTK_ORIENTATION_VERTICAL);
 	add_scroll_binding_keypad (widget_class, GDK_KEY_Page_Up, 0, GTK_SCROLL_PAGE_BACKWARD, GTK_ORIENTATION_VERTICAL);
 	add_scroll_binding_keypad (widget_class, GDK_KEY_Page_Down, 0, GTK_SCROLL_PAGE_FORWARD, GTK_ORIENTATION_VERTICAL);
 	add_scroll_binding_keypad (widget_class, GDK_KEY_Home, GDK_CONTROL_MASK, GTK_SCROLL_START, GTK_ORIENTATION_VERTICAL);
@@ -7566,41 +7552,41 @@ pps_view_class_init (PpsViewClass *class)
 	 * because we also have those bindings for scrolling.
 	 */
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_space, 0,
-				      "activate", NULL);
+	                                     "activate", NULL);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_KP_Space, 0,
-				      "activate", NULL);
+	                                     "activate", NULL);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_Return, 0,
-				      "activate", NULL);
+	                                     "activate", NULL);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_ISO_Enter, 0,
-				      "activate", NULL);
+	                                     "activate", NULL);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_KP_Enter, 0,
-				      "activate", NULL);
+	                                     "activate", NULL);
 
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_Return, 0, "scroll",
-				      "(ii)", GTK_SCROLL_PAGE_FORWARD, GTK_ORIENTATION_VERTICAL);
+	                                     "(ii)", GTK_SCROLL_PAGE_FORWARD, GTK_ORIENTATION_VERTICAL);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_Return, GDK_SHIFT_MASK, "scroll",
-				      "(ii)", GTK_SCROLL_PAGE_BACKWARD, GTK_ORIENTATION_VERTICAL);
+	                                     "(ii)", GTK_SCROLL_PAGE_BACKWARD, GTK_ORIENTATION_VERTICAL);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_H, 0, "scroll",
-				      "(ii)", GTK_SCROLL_STEP_BACKWARD, GTK_ORIENTATION_HORIZONTAL);
+	                                     "(ii)", GTK_SCROLL_STEP_BACKWARD, GTK_ORIENTATION_HORIZONTAL);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_J, 0, "scroll",
-				      "(ii)", GTK_SCROLL_STEP_FORWARD, GTK_ORIENTATION_VERTICAL);
+	                                     "(ii)", GTK_SCROLL_STEP_FORWARD, GTK_ORIENTATION_VERTICAL);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_K, 0, "scroll",
-				      "(ii)", GTK_SCROLL_STEP_BACKWARD, GTK_ORIENTATION_VERTICAL);
+	                                     "(ii)", GTK_SCROLL_STEP_BACKWARD, GTK_ORIENTATION_VERTICAL);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_L, 0, "scroll",
-				      "(ii)", GTK_SCROLL_STEP_FORWARD, GTK_ORIENTATION_HORIZONTAL);
+	                                     "(ii)", GTK_SCROLL_STEP_FORWARD, GTK_ORIENTATION_HORIZONTAL);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_space, 0, "scroll",
-				      "(ii)", GTK_SCROLL_PAGE_FORWARD, GTK_ORIENTATION_VERTICAL);
+	                                     "(ii)", GTK_SCROLL_PAGE_FORWARD, GTK_ORIENTATION_VERTICAL);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_space, GDK_SHIFT_MASK, "scroll",
-				      "(ii)", GTK_SCROLL_PAGE_BACKWARD, GTK_ORIENTATION_VERTICAL);
+	                                     "(ii)", GTK_SCROLL_PAGE_BACKWARD, GTK_ORIENTATION_VERTICAL);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_BackSpace, 0, "scroll",
-				      "(ii)", GTK_SCROLL_PAGE_BACKWARD, GTK_ORIENTATION_VERTICAL);
+	                                     "(ii)", GTK_SCROLL_PAGE_BACKWARD, GTK_ORIENTATION_VERTICAL);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_BackSpace, GDK_SHIFT_MASK, "scroll",
-				      "(ii)",  GTK_SCROLL_PAGE_FORWARD, GTK_ORIENTATION_VERTICAL);
+	                                     "(ii)", GTK_SCROLL_PAGE_FORWARD, GTK_ORIENTATION_VERTICAL);
 
 	gtk_widget_class_add_binding (widget_class,
-				      GDK_KEY_a, GDK_CONTROL_MASK,
-				      (GtkShortcutFunc) pps_view_select_all,
-				      NULL);
+	                              GDK_KEY_a, GDK_CONTROL_MASK,
+	                              (GtkShortcutFunc) pps_view_select_all,
+	                              NULL);
 }
 
 static void
@@ -7631,10 +7617,8 @@ pps_view_init (PpsView *view)
 	priv->window_children = NULL;
 	priv->zoom_center_x = -1;
 	priv->zoom_center_y = -1;
-	priv->scroll_animation_vertical = adw_timed_animation_new (GTK_WIDGET (view), 0, 0, 200, adw_callback_animation_target_new
-							   ((AdwAnimationTargetFunc) pps_scroll_vertical_animation_cb, view, NULL));
-	priv->scroll_animation_horizontal = adw_timed_animation_new (GTK_WIDGET (view), 0, 0, 200, adw_callback_animation_target_new
-							   ((AdwAnimationTargetFunc) pps_scroll_horizontal_animation_cb, view, NULL));
+	priv->scroll_animation_vertical = adw_timed_animation_new (GTK_WIDGET (view), 0, 0, 200, adw_callback_animation_target_new ((AdwAnimationTargetFunc) pps_scroll_vertical_animation_cb, view, NULL));
+	priv->scroll_animation_horizontal = adw_timed_animation_new (GTK_WIDGET (view), 0, 0, 200, adw_callback_animation_target_new ((AdwAnimationTargetFunc) pps_scroll_horizontal_animation_cb, view, NULL));
 
 	adw_animation_pause (priv->scroll_animation_vertical);
 	adw_animation_pause (priv->scroll_animation_horizontal);
@@ -7642,20 +7626,20 @@ pps_view_init (PpsView *view)
 	gtk_widget_init_template (GTK_WIDGET (view));
 
 	gtk_gesture_group (priv->middle_clicked_drag_gesture,
-			   priv->middle_clicked_drag_swipe_gesture);
+	                   priv->middle_clicked_drag_swipe_gesture);
 
 	g_signal_connect_object (adw_style_manager_get_default (),
-				 "notify::accent-color",
-				 G_CALLBACK (accent_changed_cb),
-				 view,
-				 G_CONNECT_SWAPPED);
+	                         "notify::accent-color",
+	                         G_CALLBACK (accent_changed_cb),
+	                         view,
+	                         G_CONNECT_SWAPPED);
 }
 
 /*** Callbacks ***/
 
 static void
 pps_view_change_page (PpsView *view,
-		     gint    new_page)
+                      gint new_page)
 {
 	gint x, y;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -7670,18 +7654,18 @@ pps_view_change_page (PpsView *view,
 }
 
 static void
-job_finished_cb (PpsPixbufCache  *pixbuf_cache,
-		 cairo_region_t *region,
-		 PpsView         *view)
+job_finished_cb (PpsPixbufCache *pixbuf_cache,
+                 cairo_region_t *region,
+                 PpsView *view)
 {
 	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
 static void
 pps_view_page_changed_cb (PpsDocumentModel *model,
-			 gint             old_page,
-			 gint             new_page,
-			 PpsView          *view)
+                          gint old_page,
+                          gint new_page,
+                          PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	if (!priv->document)
@@ -7723,7 +7707,7 @@ schedule_scroll_cursor_update (PpsView *view)
 
 static void
 adjustment_value_changed_cb (GtkAdjustment *adjustment,
-			     PpsView        *view)
+                             PpsView *view)
 {
 	GtkWidget *widget = GTK_WIDGET (view);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -7757,8 +7741,8 @@ adjustment_value_changed_cb (GtkAdjustment *adjustment,
 	}
 
 	for (GtkWidget *child = gtk_widget_get_first_child (widget);
-		child != NULL;
-		child = gtk_widget_get_next_sibling (child)) {
+	     child != NULL;
+	     child = gtk_widget_get_next_sibling (child)) {
 		PpsViewChild *data = g_object_get_data (G_OBJECT (child), "pps-child");
 
 		if (!data)
@@ -7810,11 +7794,11 @@ setup_caches (PpsView *view)
 	priv->page_cache = pps_page_cache_new (priv->document);
 
 	pps_page_cache_set_flags (priv->page_cache,
-				 pps_page_cache_get_flags (priv->page_cache) |
-				 PPS_PAGE_DATA_INCLUDE_TEXT_LAYOUT |
-				 PPS_PAGE_DATA_INCLUDE_TEXT |
-				 PPS_PAGE_DATA_INCLUDE_TEXT_ATTRS |
-		                 PPS_PAGE_DATA_INCLUDE_TEXT_LOG_ATTRS);
+	                          pps_page_cache_get_flags (priv->page_cache) |
+	                              PPS_PAGE_DATA_INCLUDE_TEXT_LAYOUT |
+	                              PPS_PAGE_DATA_INCLUDE_TEXT |
+	                              PPS_PAGE_DATA_INCLUDE_TEXT_ATTRS |
+	                              PPS_PAGE_DATA_INCLUDE_TEXT_LOG_ATTRS);
 
 	g_signal_connect (priv->pixbuf_cache, "job-finished", G_CALLBACK (job_finished_cb), view);
 }
@@ -7842,7 +7826,7 @@ clear_caches (PpsView *view)
  */
 void
 pps_view_set_page_cache_size (PpsView *view,
-			     gsize   cache_size)
+                              gsize cache_size)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	if (priv->pixbuf_cache_size == cache_size)
@@ -7857,8 +7841,8 @@ pps_view_set_page_cache_size (PpsView *view,
 
 static void
 pps_view_document_changed_cb (PpsDocumentModel *model,
-			     GParamSpec      *pspec,
-			     PpsView          *view)
+                              GParamSpec *pspec,
+                              PpsView *view)
 {
 	PpsDocument *document = pps_document_model_get_document (model);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -7899,8 +7883,8 @@ pps_view_document_changed_cb (PpsDocumentModel *model,
 
 static void
 pps_view_rotation_changed_cb (PpsDocumentModel *model,
-			     GParamSpec      *pspec,
-			     PpsView          *view)
+                              GParamSpec *pspec,
+                              PpsView *view)
 {
 	gint rotation = pps_document_model_get_rotation (model);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -7923,16 +7907,16 @@ pps_view_rotation_changed_cb (PpsDocumentModel *model,
 
 static void
 pps_view_inverted_colors_changed_cb (PpsDocumentModel *model,
-				    GParamSpec      *pspec,
-				    PpsView          *view)
+                                     GParamSpec *pspec,
+                                     PpsView *view)
 {
 	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
 static void
 pps_view_sizing_mode_changed_cb (PpsDocumentModel *model,
-				GParamSpec      *pspec,
-				PpsView          *view)
+                                 GParamSpec *pspec,
+                                 PpsView *view)
 {
 	PpsSizingMode mode = pps_document_model_get_sizing_mode (model);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -7970,8 +7954,8 @@ update_can_zoom (PpsView *view)
 
 static void
 pps_view_page_layout_changed_cb (PpsDocumentModel *model,
-				GParamSpec      *pspec,
-				PpsView          *view)
+                                 GParamSpec *pspec,
+                                 PpsView *view)
 {
 	PpsPageLayout layout = pps_document_model_get_page_layout (model);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -7989,8 +7973,8 @@ pps_view_page_layout_changed_cb (PpsDocumentModel *model,
 #define EPSILON 0.0000001
 static void
 pps_view_scale_changed_cb (PpsDocumentModel *model,
-			  GParamSpec      *pspec,
-			  PpsView          *view)
+                           GParamSpec *pspec,
+                           PpsView *view)
 {
 	gdouble scale = pps_document_model_get_scale (model);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -8009,40 +7993,40 @@ pps_view_scale_changed_cb (PpsDocumentModel *model,
 
 static void
 pps_view_min_scale_changed_cb (PpsDocumentModel *model,
-			      GParamSpec      *pspec,
-			      PpsView          *view)
+                               GParamSpec *pspec,
+                               PpsView *view)
 {
 	update_can_zoom (view);
 }
 
 static void
 pps_view_max_scale_changed_cb (PpsDocumentModel *model,
-			      GParamSpec      *pspec,
-			      PpsView          *view)
+                               GParamSpec *pspec,
+                               PpsView *view)
 {
 	update_can_zoom (view);
 }
 
 static void
 pps_view_continuous_changed_cb (PpsDocumentModel *model,
-			       GParamSpec      *pspec,
-			       PpsView          *view)
+                                GParamSpec *pspec,
+                                PpsView *view)
 {
 	gboolean continuous = pps_document_model_get_continuous (model);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (priv->document) {
-		GdkPoint     view_point;
+		GdkPoint view_point;
 		GdkRectangle page_area;
-		GtkBorder    border;
+		GtkBorder border;
 
 		view_point.x = priv->scroll_x;
 		view_point.y = priv->scroll_y;
 		pps_view_get_page_extents (view, priv->start_page, &page_area, &border);
 		_pps_view_transform_view_point_to_doc_point (view, &view_point,
-							    &page_area, &border,
-							    &priv->pending_point.x,
-							    &priv->pending_point.y);
+		                                             &page_area, &border,
+		                                             &priv->pending_point.x,
+		                                             &priv->pending_point.y);
 	}
 	priv->continuous = continuous;
 	priv->pending_scroll = SCROLL_TO_PAGE_POSITION;
@@ -8051,8 +8035,8 @@ pps_view_continuous_changed_cb (PpsDocumentModel *model,
 
 static void
 pps_view_dual_odd_left_changed_cb (PpsDocumentModel *model,
-				  GParamSpec      *pspec,
-				  PpsView          *view)
+                                   GParamSpec *pspec,
+                                   PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	priv->dual_even_left = !pps_document_model_get_dual_page_odd_pages_left (model);
@@ -8065,8 +8049,8 @@ pps_view_dual_odd_left_changed_cb (PpsDocumentModel *model,
 
 static void
 pps_view_direction_changed_cb (PpsDocumentModel *model,
-                              GParamSpec      *pspec,
-                              PpsView          *view)
+                               GParamSpec *pspec,
+                               PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	gboolean rtl = pps_document_model_get_rtl (model);
@@ -8076,8 +8060,8 @@ pps_view_direction_changed_cb (PpsDocumentModel *model,
 }
 
 void
-pps_view_set_model (PpsView          *view,
-		   PpsDocumentModel *model)
+pps_view_set_model (PpsView *view,
+                    PpsDocumentModel *model)
 {
 	g_return_if_fail (PPS_IS_VIEW (view));
 	g_return_if_fail (PPS_IS_DOCUMENT_MODEL (model));
@@ -8098,45 +8082,45 @@ pps_view_set_model (PpsView          *view,
 	priv->scale = pps_document_model_get_scale (priv->model);
 	priv->continuous = pps_document_model_get_continuous (priv->model);
 	priv->page_layout = pps_document_model_get_page_layout (priv->model);
-	gtk_widget_set_direction (GTK_WIDGET(view), pps_document_model_get_rtl (priv->model));
+	gtk_widget_set_direction (GTK_WIDGET (view), pps_document_model_get_rtl (priv->model));
 	pps_view_document_changed_cb (priv->model, NULL, view);
 
 	g_signal_connect (priv->model, "notify::document",
-			  G_CALLBACK (pps_view_document_changed_cb),
-			  view);
+	                  G_CALLBACK (pps_view_document_changed_cb),
+	                  view);
 	g_signal_connect (priv->model, "notify::rotation",
-			  G_CALLBACK (pps_view_rotation_changed_cb),
-			  view);
+	                  G_CALLBACK (pps_view_rotation_changed_cb),
+	                  view);
 	g_signal_connect (priv->model, "notify::inverted-colors",
-			  G_CALLBACK (pps_view_inverted_colors_changed_cb),
-			  view);
+	                  G_CALLBACK (pps_view_inverted_colors_changed_cb),
+	                  view);
 	g_signal_connect (priv->model, "notify::sizing-mode",
-			  G_CALLBACK (pps_view_sizing_mode_changed_cb),
-			  view);
+	                  G_CALLBACK (pps_view_sizing_mode_changed_cb),
+	                  view);
 	g_signal_connect (priv->model, "notify::page-layout",
-			  G_CALLBACK (pps_view_page_layout_changed_cb),
-			  view);
+	                  G_CALLBACK (pps_view_page_layout_changed_cb),
+	                  view);
 	g_signal_connect (priv->model, "notify::scale",
-			  G_CALLBACK (pps_view_scale_changed_cb),
-			  view);
+	                  G_CALLBACK (pps_view_scale_changed_cb),
+	                  view);
 	g_signal_connect (priv->model, "notify::min-scale",
-			  G_CALLBACK (pps_view_min_scale_changed_cb),
-			  view);
+	                  G_CALLBACK (pps_view_min_scale_changed_cb),
+	                  view);
 	g_signal_connect (priv->model, "notify::max-scale",
-			  G_CALLBACK (pps_view_max_scale_changed_cb),
-			  view);
+	                  G_CALLBACK (pps_view_max_scale_changed_cb),
+	                  view);
 	g_signal_connect (priv->model, "notify::continuous",
-			  G_CALLBACK (pps_view_continuous_changed_cb),
-			  view);
+	                  G_CALLBACK (pps_view_continuous_changed_cb),
+	                  view);
 	g_signal_connect (priv->model, "notify::dual-odd-left",
-			  G_CALLBACK (pps_view_dual_odd_left_changed_cb),
-			  view);
+	                  G_CALLBACK (pps_view_dual_odd_left_changed_cb),
+	                  view);
 	g_signal_connect (priv->model, "notify::rtl",
-			  G_CALLBACK (pps_view_direction_changed_cb),
-			  view);
+	                  G_CALLBACK (pps_view_direction_changed_cb),
+	                  view);
 	g_signal_connect (priv->model, "page-changed",
-			  G_CALLBACK (pps_view_page_changed_cb),
-			  view);
+	                  G_CALLBACK (pps_view_page_changed_cb),
+	                  view);
 #if 0
 	if (priv->accessible)
 		pps_view_accessible_set_model (PPS_VIEW_ACCESSIBLE (priv->accessible),
@@ -8145,16 +8129,16 @@ pps_view_set_model (PpsView          *view,
 }
 
 static void
-pps_view_reload_page (PpsView         *view,
-		     gint            page,
-		     cairo_region_t *region)
+pps_view_reload_page (PpsView *view,
+                      gint page,
+                      cairo_region_t *region)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	pps_pixbuf_cache_reload_page (priv->pixbuf_cache,
-				     region,
-				     page,
-				     priv->rotation,
-				     priv->scale);
+	                              region,
+	                              page,
+	                              priv->rotation,
+	                              priv->scale);
 }
 
 void
@@ -8221,43 +8205,43 @@ pps_view_zoom_out (PpsView *view)
 
 static double
 zoom_for_size_fit_width (gdouble doc_width,
-			 gdouble doc_height,
-			 int     target_width,
-			 int     target_height)
+                         gdouble doc_height,
+                         int target_width,
+                         int target_height)
 {
-	return (double)target_width / doc_width;
+	return (double) target_width / doc_width;
 }
 
 static double
 zoom_for_size_fit_height (gdouble doc_width,
-			  gdouble doc_height,
-			  int     target_width,
-			  int     target_height)
+                          gdouble doc_height,
+                          int target_width,
+                          int target_height)
 {
-	return (double)target_height / doc_height;
+	return (double) target_height / doc_height;
 }
 
 static double
 zoom_for_size_fit_page (gdouble doc_width,
-			gdouble doc_height,
-			int     target_width,
-			int     target_height)
+                        gdouble doc_height,
+                        int target_width,
+                        int target_height)
 {
 	double w_scale;
 	double h_scale;
 
-	w_scale = (double)target_width / doc_width;
-	h_scale = (double)target_height / doc_height;
+	w_scale = (double) target_width / doc_width;
+	h_scale = (double) target_height / doc_height;
 
 	return MIN (w_scale, h_scale);
 }
 
 static double
 zoom_for_size_automatic (GtkWidget *widget,
-			 gdouble    doc_width,
-			 gdouble    doc_height,
-			 int        target_width,
-			 int        target_height)
+                         gdouble doc_width,
+                         gdouble doc_height,
+                         int target_width,
+                         int target_height)
 {
 	double fit_width_scale;
 	double scale;
@@ -8281,8 +8265,8 @@ zoom_for_size_automatic (GtkWidget *widget,
 
 static void
 pps_view_zoom_for_size_continuous_and_dual_page (PpsView *view,
-						int     width,
-						int     height)
+                                                 int width,
+                                                 int height)
 {
 	gdouble doc_width, doc_height;
 	GtkBorder border;
@@ -8313,7 +8297,7 @@ pps_view_zoom_for_size_continuous_and_dual_page (PpsView *view,
 		break;
 	case PPS_SIZING_AUTOMATIC:
 		scale = zoom_for_size_automatic (GTK_WIDGET (view),
-						 doc_width, doc_height, width, height);
+		                                 doc_width, doc_height, width, height);
 		break;
 	default:
 		g_assert_not_reached ();
@@ -8324,8 +8308,8 @@ pps_view_zoom_for_size_continuous_and_dual_page (PpsView *view,
 
 static void
 pps_view_zoom_for_size_continuous (PpsView *view,
-				  int     width,
-				  int     height)
+                                   int width,
+                                   int height)
 {
 	gdouble doc_width, doc_height;
 	GtkBorder border;
@@ -8355,7 +8339,7 @@ pps_view_zoom_for_size_continuous (PpsView *view,
 		break;
 	case PPS_SIZING_AUTOMATIC:
 		scale = zoom_for_size_automatic (GTK_WIDGET (view),
-						 doc_width, doc_height, width, height);
+		                                 doc_width, doc_height, width, height);
 		break;
 	default:
 		g_assert_not_reached ();
@@ -8366,8 +8350,8 @@ pps_view_zoom_for_size_continuous (PpsView *view,
 
 static void
 pps_view_zoom_for_size_dual_page (PpsView *view,
-				 int     width,
-				 int     height)
+                                  int width,
+                                  int height)
 {
 	GtkBorder border;
 	gdouble doc_width, doc_height;
@@ -8391,7 +8375,7 @@ pps_view_zoom_for_size_dual_page (PpsView *view,
 	compute_border (view, &border);
 
 	doc_width = doc_width * 2;
-	width -= ((border.left + border.right)* 2 + 3 * priv->spacing);
+	width -= ((border.left + border.right) * 2 + 3 * priv->spacing);
 	height -= (border.top + border.bottom + 2 * priv->spacing);
 
 	switch (priv->sizing_mode) {
@@ -8403,7 +8387,7 @@ pps_view_zoom_for_size_dual_page (PpsView *view,
 		break;
 	case PPS_SIZING_AUTOMATIC:
 		scale = zoom_for_size_automatic (GTK_WIDGET (view),
-						 doc_width, doc_height, width, height);
+		                                 doc_width, doc_height, width, height);
 		break;
 	default:
 		g_assert_not_reached ();
@@ -8414,8 +8398,8 @@ pps_view_zoom_for_size_dual_page (PpsView *view,
 
 static void
 pps_view_zoom_for_size_single_page (PpsView *view,
-				   int     width,
-				   int     height)
+                                    int width,
+                                    int height)
 {
 	gdouble doc_width, doc_height;
 	GtkBorder border;
@@ -8439,7 +8423,7 @@ pps_view_zoom_for_size_single_page (PpsView *view,
 		break;
 	case PPS_SIZING_AUTOMATIC:
 		scale = zoom_for_size_automatic (GTK_WIDGET (view),
-						 doc_width, doc_height, width, height);
+		                                 doc_width, doc_height, width, height);
 		break;
 	default:
 		g_assert_not_reached ();
@@ -8450,19 +8434,18 @@ pps_view_zoom_for_size_single_page (PpsView *view,
 
 static void
 pps_view_zoom_for_size (PpsView *view,
-		       int     width,
-		       int     height)
+                        int width,
+                        int height)
 {
 	gboolean dual_page;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	g_return_if_fail (PPS_IS_VIEW (view));
 	g_return_if_fail (priv->sizing_mode == PPS_SIZING_FIT_WIDTH ||
-			  priv->sizing_mode == PPS_SIZING_FIT_PAGE ||
-			  priv->sizing_mode == PPS_SIZING_AUTOMATIC);
+	                  priv->sizing_mode == PPS_SIZING_FIT_PAGE ||
+	                  priv->sizing_mode == PPS_SIZING_AUTOMATIC);
 	g_return_if_fail (width >= 0);
 	g_return_if_fail (height >= 0);
-
 
 	if (priv->document == NULL)
 		return;
@@ -8479,11 +8462,11 @@ pps_view_zoom_for_size (PpsView *view,
 }
 
 static gboolean
-pps_view_page_fits (PpsView         *view,
-		   GtkOrientation  orientation)
+pps_view_page_fits (PpsView *view,
+                    GtkOrientation orientation)
 {
 	GtkRequisition requisition;
-	double         size;
+	double size;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	int widget_width = gtk_widget_get_width (GTK_WIDGET (view));
 	int widget_height = gtk_widget_get_height (GTK_WIDGET (view));
@@ -8668,10 +8651,10 @@ pps_view_find_started (PpsView *view, PpsJobFind *job)
 }
 
 void
-pps_view_set_search_context (PpsView          *view,
-			     PpsSearchContext *context)
+pps_view_set_search_context (PpsView *view,
+                             PpsSearchContext *context)
 {
-        PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	g_return_if_fail (PPS_IS_SEARCH_CONTEXT (context));
 
@@ -8685,17 +8668,17 @@ pps_view_set_search_context (PpsView          *view,
 	g_set_object (&priv->search_context, context);
 
 	g_signal_connect_object (priv->search_context, "started",
-				 G_CALLBACK (pps_view_find_started),
-				 view, G_CONNECT_SWAPPED);
+	                         G_CALLBACK (pps_view_find_started),
+	                         view, G_CONNECT_SWAPPED);
 	g_signal_connect_object (priv->search_context, "cleared",
-				 G_CALLBACK (pps_view_find_cancel),
-				 view, G_CONNECT_SWAPPED);
+	                         G_CALLBACK (pps_view_find_cancel),
+	                         view, G_CONNECT_SWAPPED);
 	g_signal_connect_object (priv->search_context, "finished",
-				 G_CALLBACK (find_job_finished_cb),
-				 view, G_CONNECT_SWAPPED);
+	                         G_CALLBACK (find_job_finished_cb),
+	                         view, G_CONNECT_SWAPPED);
 	g_signal_connect_object (priv->search_context, "result-activated",
-				 G_CALLBACK (pps_view_find_set_result),
-				 view, G_CONNECT_SWAPPED);
+	                         G_CALLBACK (pps_view_find_set_result),
+	                         view, G_CONNECT_SWAPPED);
 }
 
 /**
@@ -8709,7 +8692,7 @@ pps_view_set_search_context (PpsView          *view,
  */
 void
 pps_view_find_restart (PpsView *view,
-		      gint    page)
+                       gint page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -8731,7 +8714,8 @@ pps_view_find_next (PpsView *view)
 
 	n_results = pps_view_find_get_n_results (view, priv->find_page);
 	priv->find_result += pps_view_find_is_next_line (view, priv->find_page, priv->find_result)
-	                     ? 2 : 1;
+	                         ? 2
+	                         : 1;
 
 	if (priv->find_result >= n_results) {
 		priv->find_result = 0;
@@ -8750,7 +8734,8 @@ pps_view_find_previous (PpsView *view)
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	priv->find_result -= pps_view_find_is_next_line (view, priv->find_page, priv->find_result - 2)
-	                     ? 2 : 1;
+	                         ? 2
+	                         : 1;
 
 	if (priv->find_result < 0) {
 		jump_to_find_page (view, PPS_VIEW_FIND_PREV, -1);
@@ -8816,28 +8801,28 @@ pps_view_find_cancel (PpsView *view)
 /*** Selections ***/
 static gboolean
 gdk_rectangle_point_in (GdkRectangle *rectangle,
-			GdkPoint     *point)
+                        GdkPoint *point)
 {
 	return rectangle->x <= point->x &&
-		rectangle->y <= point->y &&
-		point->x < rectangle->x + rectangle->width &&
-		point->y < rectangle->y + rectangle->height;
+	       rectangle->y <= point->y &&
+	       point->x < rectangle->x + rectangle->width &&
+	       point->y < rectangle->y + rectangle->height;
 }
 
 static inline gboolean
 gdk_point_equal (GdkPoint *a,
-		 GdkPoint *b)
+                 GdkPoint *b)
 {
 	return a->x == b->x && a->y == b->y;
 }
 
 static gboolean
-get_selection_page_range (PpsView          *view,
-			  PpsSelectionStyle style,
-			  GdkPoint        *start,
-			  GdkPoint        *stop,
-			  gint            *first_page,
-			  gint            *last_page)
+get_selection_page_range (PpsView *view,
+                          PpsSelectionStyle style,
+                          GdkPoint *start,
+                          GdkPoint *stop,
+                          gint *first_page,
+                          gint *last_page)
 {
 	gint start_page, end_page;
 	gint first, last;
@@ -8891,10 +8876,10 @@ get_selection_page_range (PpsView          *view,
 }
 
 static GList *
-compute_new_selection (PpsView          *view,
-		       PpsSelectionStyle style,
-		       GdkPoint         *start,
-		       GdkPoint         *stop)
+compute_new_selection (PpsView *view,
+                       PpsSelectionStyle style,
+                       GdkPoint *start,
+                       GdkPoint *stop)
 {
 	int i, first, last;
 	GtkBorder border;
@@ -8914,9 +8899,9 @@ compute_new_selection (PpsView          *view,
 	compute_border (view, &border);
 	for (i = first; i <= last; i++) {
 		PpsViewSelection *selection;
-		GdkRectangle     page_area;
-		GdkPoint        *point;
-		gdouble          width, height;
+		GdkRectangle page_area;
+		GdkPoint *point;
+		gdouble width, height;
 
 		get_doc_page_size (view, i, &width, &height);
 
@@ -8935,9 +8920,9 @@ compute_new_selection (PpsView          *view,
 
 		if (i == first) {
 			_pps_view_transform_view_point_to_doc_point (view, point,
-								    &page_area, &border,
-								    &selection->rect.x1,
-								    &selection->rect.y1);
+			                                             &page_area, &border,
+			                                             &selection->rect.x1,
+			                                             &selection->rect.y1);
 		}
 
 		/* If the selection is contained within just one page,
@@ -8948,9 +8933,9 @@ compute_new_selection (PpsView          *view,
 
 		if (i == last) {
 			_pps_view_transform_view_point_to_doc_point (view, point,
-								    &page_area, &border,
-								    &selection->rect.x2,
-								    &selection->rect.y2);
+			                                             &page_area, &border,
+			                                             &selection->rect.x2,
+			                                             &selection->rect.y2);
 		}
 
 		list = g_list_prepend (list, selection);
@@ -8964,7 +8949,7 @@ compute_new_selection (PpsView          *view,
  */
 static void
 merge_selection_region (PpsView *view,
-			GList  *new_list)
+                        GList *new_list)
 {
 	GList *old_list;
 	GList *new_list_ptr, *old_list_ptr;
@@ -8972,7 +8957,7 @@ merge_selection_region (PpsView *view,
 
 	/* Update the selection */
 	old_list = pps_pixbuf_cache_get_selection_list (priv->pixbuf_cache);
-	g_list_free_full (priv->selection_info.selections, (GDestroyNotify)selection_free);
+	g_list_free_full (priv->selection_info.selections, (GDestroyNotify) selection_free);
 	priv->selection_info.selections = new_list;
 	pps_pixbuf_cache_set_selection_list (priv->pixbuf_cache, new_list);
 	g_signal_emit (view, signals[SIGNAL_SELECTION_CHANGED], 0, NULL);
@@ -9021,8 +9006,8 @@ merge_selection_region (PpsView *view,
 			cairo_region_t *tmp_region;
 
 			tmp_region = pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache,
-									   cur_page,
-									   priv->scale);
+			                                                    cur_page,
+			                                                    priv->scale);
 
 			g_clear_pointer (&new_sel->covered_region, cairo_region_destroy);
 
@@ -9034,12 +9019,12 @@ merge_selection_region (PpsView *view,
 		if (old_sel && new_sel && (old_sel->covered_region || new_sel->covered_region))
 			need_redraw = TRUE;
 		else if (old_sel && !new_sel &&
-			 old_sel->covered_region &&
-			 !cairo_region_is_empty (old_sel->covered_region))
+		         old_sel->covered_region &&
+		         !cairo_region_is_empty (old_sel->covered_region))
 			need_redraw = TRUE;
 		else if (!old_sel && new_sel &&
-			 new_sel->covered_region &&
-			 !cairo_region_is_empty (new_sel->covered_region))
+		         new_sel->covered_region &&
+		         !cairo_region_is_empty (new_sel->covered_region))
 			need_redraw = TRUE;
 
 		if (need_redraw)
@@ -9049,14 +9034,14 @@ merge_selection_region (PpsView *view,
 	pps_view_check_cursor_blink (view);
 
 	/* Free the old list, now that we're done with it. */
-	g_list_free_full (old_list, (GDestroyNotify)selection_free);
+	g_list_free_full (old_list, (GDestroyNotify) selection_free);
 }
 
 static void
-compute_selections (PpsView          *view,
-		    PpsSelectionStyle style,
-		    GdkPoint        *start,
-		    GdkPoint        *stop)
+compute_selections (PpsView *view,
+                    PpsSelectionStyle style,
+                    GdkPoint *start,
+                    GdkPoint *stop)
 {
 	merge_selection_region (view, compute_new_selection (view, style, start, stop));
 }
@@ -9112,7 +9097,7 @@ gboolean
 pps_view_has_selection (PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	g_return_val_if_fail(PPS_IS_VIEW(view), FALSE);
+	g_return_val_if_fail (PPS_IS_VIEW (view), FALSE);
 
 	return priv->selection_info.selections != NULL;
 }
@@ -9124,9 +9109,9 @@ _pps_view_clear_selection (PpsView *view)
 }
 
 void
-_pps_view_set_selection (PpsView   *view,
-			GdkPoint *start_point,
-			GdkPoint *end_point)
+_pps_view_set_selection (PpsView *view,
+                         GdkPoint *start_point,
+                         GdkPoint *end_point)
 {
 	compute_selections (view, PPS_SELECTION_STYLE_GLYPH, start_point, end_point);
 }
@@ -9144,14 +9129,14 @@ get_selected_text (PpsView *view)
 	pps_document_doc_mutex_lock (priv->document);
 
 	for (l = priv->selection_info.selections; l != NULL; l = l->next) {
-		PpsViewSelection *selection = (PpsViewSelection *)l->data;
+		PpsViewSelection *selection = (PpsViewSelection *) l->data;
 		PpsPage *page;
 		gchar *tmp;
 
 		page = pps_document_get_page (priv->document, selection->page);
 		tmp = pps_selection_get_selected_text (PPS_SELECTION (priv->document),
-						      page, selection->style,
-						      &(selection->rect));
+		                                       page, selection->style,
+		                                       &(selection->rect));
 		g_object_unref (page);
 		g_string_append (text, tmp);
 		g_free (tmp);
@@ -9168,8 +9153,8 @@ get_selected_text (PpsView *view)
 }
 
 static void
-pps_view_clipboard_copy (PpsView      *view,
-			const gchar *text)
+pps_view_clipboard_copy (PpsView *view,
+                         const gchar *text)
 {
 	GdkClipboard *clipboard;
 
@@ -9215,8 +9200,8 @@ pps_view_copy (PpsView *view)
 }
 
 void
-pps_view_copy_link_address (PpsView       *view,
-			   PpsLinkAction *action)
+pps_view_copy_link_address (PpsView *view,
+                            PpsLinkAction *action)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -9239,7 +9224,7 @@ pps_view_set_cursor (PpsView *view, PpsViewCursor new_cursor)
 	priv->cursor = new_cursor;
 
 	gtk_widget_set_cursor_from_name (GTK_WIDGET (view),
-			pps_view_cursor_name (new_cursor));
+	                                 pps_view_cursor_name (new_cursor));
 }
 
 gboolean
@@ -9318,12 +9303,12 @@ pps_view_stop_signature_rect (PpsView *view)
 {
 	PpsRectangle *rect = pps_rectangle_new ();
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsPoint         start;
-	PpsPoint         end;
-	gint            signature_page;
-	gint            offset;
-	GdkRectangle    page_area;
-	GtkBorder       border;
+	PpsPoint start;
+	PpsPoint end;
+	gint signature_page;
+	gint offset;
+	GdkRectangle page_area;
+	GtkBorder border;
 
 	pps_view_set_cursor (view, PPS_VIEW_CURSOR_IBEAM);
 
@@ -9335,17 +9320,17 @@ pps_view_stop_signature_rect (PpsView *view)
 
 	pps_view_get_page_extents (view, signature_page, &page_area, &border);
 	_pps_view_transform_view_point_to_doc_point (view,
-						     &priv->signing_info.start,
-						     &page_area,
-						     &border,
-						     &start.x,
-						     &start.y);
+	                                             &priv->signing_info.start,
+	                                             &page_area,
+	                                             &border,
+	                                             &start.x,
+	                                             &start.y);
 	_pps_view_transform_view_point_to_doc_point (view,
-						     &priv->signing_info.stop,
-						     &page_area,
-						     &border,
-						     &end.x,
-						     &end.y);
+	                                             &priv->signing_info.stop,
+	                                             &page_area,
+	                                             &border,
+	                                             &end.x,
+	                                             &end.y);
 
 	rect->x1 = MIN (priv->signing_info.start.x, priv->signing_info.stop.x);
 	rect->y1 = MIN (priv->signing_info.start.y, priv->signing_info.stop.y);

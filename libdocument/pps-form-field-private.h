@@ -20,14 +20,14 @@
 
 #pragma once
 
-#if !defined (PAPERS_COMPILATION)
+#if !defined(PAPERS_COMPILATION)
 #error "Only <papers-document.h> can be included directly."
 #endif
 
-//#include <glib-object.h>
+// #include <glib-object.h>
 
-#include "pps-macros.h"
 #include "pps-form-field.h"
+#include "pps-macros.h"
 
 G_BEGIN_DECLS
 
@@ -35,7 +35,7 @@ G_BEGIN_DECLS
 PPS_PRIVATE
 gchar *pps_form_field_get_alternate_name (PpsFormField *field);
 PPS_PRIVATE
-void   pps_form_field_set_alternate_name (PpsFormField *field,
-					 gchar       *alternative_text);
+void pps_form_field_set_alternate_name (PpsFormField *field,
+                                        gchar *alternative_text);
 
 G_END_DECLS

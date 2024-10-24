@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
 #include "pps-link.h"
+#include <config.h>
 
 enum {
 	PROP_0,
@@ -32,7 +32,7 @@ struct _PpsLink {
 };
 
 struct _PpsLinkPrivate {
-	gchar        *title;
+	gchar *title;
 	PpsLinkAction *action;
 };
 
@@ -66,10 +66,10 @@ pps_link_get_action (PpsLink *self)
 }
 
 static void
-pps_link_get_property (GObject    *object,
-		      guint       prop_id,
-		      GValue     *value,
-		      GParamSpec *param_spec)
+pps_link_get_property (GObject *object,
+                       guint prop_id,
+                       GValue *value,
+                       GParamSpec *param_spec)
 {
 	PpsLink *self;
 
@@ -77,41 +77,41 @@ pps_link_get_property (GObject    *object,
 	PpsLinkPrivate *priv = GET_PRIVATE (self);
 
 	switch (prop_id) {
-	        case PROP_TITLE:
-			g_value_set_string (value, priv->title);
-			break;
-	        case PROP_ACTION:
-			g_value_set_object (value, priv->action);
-			break;
-	        default:
-			G_OBJECT_WARN_INVALID_PROPERTY_ID (object,
-							   prop_id,
-							   param_spec);
-			break;
+	case PROP_TITLE:
+		g_value_set_string (value, priv->title);
+		break;
+	case PROP_ACTION:
+		g_value_set_object (value, priv->action);
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object,
+		                                   prop_id,
+		                                   param_spec);
+		break;
 	}
 }
 
 static void
-pps_link_set_property (GObject      *object,
-		      guint         prop_id,
-		      const GValue *value,
-		      GParamSpec   *param_spec)
+pps_link_set_property (GObject *object,
+                       guint prop_id,
+                       const GValue *value,
+                       GParamSpec *param_spec)
 {
 	PpsLink *self = PPS_LINK (object);
 	PpsLinkPrivate *priv = GET_PRIVATE (self);
 
 	switch (prop_id) {
-	        case PROP_TITLE:
-			priv->title = g_value_dup_string (value);
-			break;
-	        case PROP_ACTION:
-			priv->action = g_value_dup_object (value);
-			break;
-	        default:
-			G_OBJECT_WARN_INVALID_PROPERTY_ID (object,
-							   prop_id,
-							   param_spec);
-			break;
+	case PROP_TITLE:
+		priv->title = g_value_dup_string (value);
+		break;
+	case PROP_ACTION:
+		priv->action = g_value_dup_object (value);
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object,
+		                                   prop_id,
+		                                   param_spec);
+		break;
 	}
 }
 
@@ -144,23 +144,23 @@ pps_link_class_init (PpsLinkClass *pps_window_class)
 	g_object_class->finalize = pps_link_finalize;
 
 	g_object_class_install_property (g_object_class,
-					 PROP_TITLE,
-					 g_param_spec_string ("title",
-				     	 		      "Link Title",
-				     			      "The link title",
-							      NULL,
-							      G_PARAM_READWRITE |
-				     			      G_PARAM_CONSTRUCT_ONLY |
-                                                              G_PARAM_STATIC_STRINGS));
+	                                 PROP_TITLE,
+	                                 g_param_spec_string ("title",
+	                                                      "Link Title",
+	                                                      "The link title",
+	                                                      NULL,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_CONSTRUCT_ONLY |
+	                                                          G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
-					 PROP_ACTION,
-					 g_param_spec_object ("action",
-							      "Link Action",
-							      "The link action",
-							      PPS_TYPE_LINK_ACTION,
-							      G_PARAM_READWRITE |
-							      G_PARAM_CONSTRUCT_ONLY |
-							      G_PARAM_STATIC_STRINGS));
+	                                 PROP_ACTION,
+	                                 g_param_spec_object ("action",
+	                                                      "Link Action",
+	                                                      "The link action",
+	                                                      PPS_TYPE_LINK_ACTION,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_CONSTRUCT_ONLY |
+	                                                          G_PARAM_STATIC_STRINGS));
 }
 
 /**
@@ -169,11 +169,11 @@ pps_link_class_init (PpsLinkClass *pps_window_class)
  * @action: a #PpsLinkAction
  */
 PpsLink *
-pps_link_new (const char   *title,
-	     PpsLinkAction *action)
+pps_link_new (const char *title,
+              PpsLinkAction *action)
 {
 	return PPS_LINK (g_object_new (PPS_TYPE_LINK,
-				      "title", title,
-				      "action", action,
-				      NULL));
+	                               "title", title,
+	                               "action", action,
+	                               NULL));
 }

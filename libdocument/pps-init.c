@@ -44,21 +44,21 @@ static int pps_init_count;
 gboolean
 pps_init (void)
 {
-        static gboolean have_backends;
+	static gboolean have_backends;
 
-        if (pps_init_count++ > 0)
-                return have_backends;
+	if (pps_init_count++ > 0)
+		return have_backends;
 
 	/* set up translation catalog */
 	bindtextdomain (GETTEXT_PACKAGE, PPS_LOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 
 	xmp_init ();
-        gdk_pixbuf_init_modules (EXTRA_GDK_PIXBUF_LOADERS_DIR, NULL);
-        _pps_file_helpers_init ();
-        have_backends = _pps_document_factory_init ();
+	gdk_pixbuf_init_modules (EXTRA_GDK_PIXBUF_LOADERS_DIR, NULL);
+	_pps_file_helpers_init ();
+	have_backends = _pps_document_factory_init ();
 
-        return have_backends;
+	return have_backends;
 }
 
 /**
@@ -69,14 +69,14 @@ pps_init (void)
 void
 pps_shutdown (void)
 {
-        g_assert (_pps_is_initialized ());
+	g_assert (_pps_is_initialized ());
 
-        if (--pps_init_count > 0)
-                return;
+	if (--pps_init_count > 0)
+		return;
 
 	xmp_terminate ();
-        _pps_document_factory_shutdown ();
-        _pps_file_helpers_shutdown ();
+	_pps_document_factory_shutdown ();
+	_pps_file_helpers_shutdown ();
 }
 
 /*
@@ -87,5 +87,5 @@ pps_shutdown (void)
 gboolean
 _pps_is_initialized (void)
 {
-        return pps_init_count > 0;
+	return pps_init_count > 0;
 }

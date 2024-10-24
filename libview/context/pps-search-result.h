@@ -21,7 +21,7 @@
 #pragma once
 
 #include <libdocument/pps-macros.h>
-#if !defined (__PPS_PAPERS_VIEW_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_VIEW_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-view.h> can be included directly."
 #endif
 
@@ -30,12 +30,12 @@
 G_BEGIN_DECLS
 
 PPS_PUBLIC
-#define PPS_TYPE_SEARCH_RESULT              (pps_search_result_get_type ())
+#define PPS_TYPE_SEARCH_RESULT (pps_search_result_get_type ())
 
 G_DECLARE_FINAL_TYPE (PpsSearchResult, pps_search_result, PPS, SEARCH_RESULT, GObject)
 
 struct _PpsSearchResult {
-        GObject parent_instance;
+	GObject parent_instance;
 };
 
 struct _PpsSearchResultClass {
@@ -43,18 +43,18 @@ struct _PpsSearchResultClass {
 };
 
 PPS_PUBLIC
-PpsSearchResult *pps_search_result_new      (gchar* markup,
-					     gchar* label,
-					     guint  page,
-					     guint  index);
+PpsSearchResult *pps_search_result_new (gchar *markup,
+                                        gchar *label,
+                                        guint page,
+                                        guint index);
 
 PPS_PUBLIC
-const gchar*     pps_search_result_get_markup (PpsSearchResult *self);
+const gchar *pps_search_result_get_markup (PpsSearchResult *self);
 PPS_PUBLIC
-const gchar*     pps_search_result_get_label  (PpsSearchResult *self);
+const gchar *pps_search_result_get_label (PpsSearchResult *self);
 PPS_PUBLIC
-guint            pps_search_result_get_page   (PpsSearchResult *self);
+guint pps_search_result_get_page (PpsSearchResult *self);
 PPS_PUBLIC
-guint            pps_search_result_get_index  (PpsSearchResult *self);
+guint pps_search_result_get_index (PpsSearchResult *self);
 
 G_END_DECLS

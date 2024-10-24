@@ -25,8 +25,8 @@
 #include <string.h>
 
 #include <gio/gio.h>
-#include <glib/gstdio.h>
 #include <glib/gi18n-lib.h>
+#include <glib/gstdio.h>
 #include <gtk/gtk.h>
 
 #include "pps-backend-info.h"
@@ -41,91 +41,91 @@ static GList *pps_backends_list = NULL;
 static GHashTable *pps_module_hash = NULL;
 static gchar *pps_backends_dir = NULL;
 
-static PpsDocument* pps_document_factory_new_document_for_mime_type (const char *mime_type,
-                                                                   GError **error);
+static PpsDocument *pps_document_factory_new_document_for_mime_type (const char *mime_type,
+                                                                     GError **error);
 
 static PpsBackendInfo *
 get_backend_info_for_mime_type (const gchar *mime_type)
 {
-        GList *l;
-        gchar *content_type = g_content_type_from_mime_type (mime_type);
+	GList *l;
+	gchar *content_type = g_content_type_from_mime_type (mime_type);
 
-        for (l = pps_backends_list; l; l = l->next) {
-                PpsBackendInfo *info = (PpsBackendInfo *) l->data;
-                char **mime_types = info->mime_types;
-                guint i;
+	for (l = pps_backends_list; l; l = l->next) {
+		PpsBackendInfo *info = (PpsBackendInfo *) l->data;
+		char **mime_types = info->mime_types;
+		guint i;
 
-                for (i = 0; mime_types[i] != NULL; ++i) {
-                        if (g_content_type_is_mime_type (content_type, mime_types[i])) {
-                                g_free (content_type);
-                                return info;
-                        }
-                }
-        }
+		for (i = 0; mime_types[i] != NULL; ++i) {
+			if (g_content_type_is_mime_type (content_type, mime_types[i])) {
+				g_free (content_type);
+				return info;
+			}
+		}
+	}
 
-        g_free (content_type);
-        return NULL;
+	g_free (content_type);
+	return NULL;
 }
 
 static PpsBackendInfo *
 get_backend_info_for_document (PpsDocument *document)
 {
-        PpsBackendInfo *info;
+	PpsBackendInfo *info;
 
-        info = g_object_get_data (G_OBJECT (document), BACKEND_DATA_KEY);
+	info = g_object_get_data (G_OBJECT (document), BACKEND_DATA_KEY);
 
-        g_warn_if_fail (info != NULL);
-        return info;
+	g_warn_if_fail (info != NULL);
+	return info;
 }
 
 static PpsDocument *
 pps_document_factory_new_document_for_mime_type (const gchar *mime_type,
-                                                GError **error)
+                                                 GError **error)
 {
-        PpsDocument    *document;
-        PpsBackendInfo *info;
-        GModule *module = NULL;
+	PpsDocument *document;
+	PpsBackendInfo *info;
+	GModule *module = NULL;
 	GType backend_type;
 	GType (*query_type_function) (void) = NULL;
 
-        g_return_val_if_fail (mime_type != NULL, NULL);
+	g_return_val_if_fail (mime_type != NULL, NULL);
 
-        info = get_backend_info_for_mime_type (mime_type);
-        if (info == NULL) {
-                char *content_type, *mime_desc = NULL;
+	info = get_backend_info_for_mime_type (mime_type);
+	if (info == NULL) {
+		char *content_type, *mime_desc = NULL;
 
-                content_type = g_content_type_from_mime_type (mime_type);
-                if (content_type)
-                        mime_desc = g_content_type_get_description (content_type);
+		content_type = g_content_type_from_mime_type (mime_type);
+		if (content_type)
+			mime_desc = g_content_type_get_description (content_type);
 
-                g_set_error (error,
-                             PPS_DOCUMENT_ERROR,
-                             PPS_DOCUMENT_ERROR_INVALID,
-                             _("File type %s (%s) is not supported"),
-                             mime_desc ? mime_desc : "(unknown)", mime_type);
-                g_free (mime_desc);
-                g_free (content_type);
+		g_set_error (error,
+		             PPS_DOCUMENT_ERROR,
+		             PPS_DOCUMENT_ERROR_INVALID,
+		             _ ("File type %s (%s) is not supported"),
+		             mime_desc ? mime_desc : "(unknown)", mime_type);
+		g_free (mime_desc);
+		g_free (content_type);
 
-                return NULL;
-        }
+		return NULL;
+	}
 
-        if (pps_module_hash != NULL) {
-                module = g_hash_table_lookup (pps_module_hash, info->module_name);
-        }
-        if (module == NULL) {
+	if (pps_module_hash != NULL) {
+		module = g_hash_table_lookup (pps_module_hash, info->module_name);
+	}
+	if (module == NULL) {
 		g_autofree gchar *path = NULL;
 
 		path = g_strconcat (pps_backends_dir, G_DIR_SEPARATOR_S,
-				    info->module_name, NULL);
+		                    info->module_name, NULL);
 
 		module = g_module_open (path, 0);
 
 		if (!g_module_symbol (module, "pps_backend_query_type",
-				      (void *) &query_type_function)) {
+		                      (void *) &query_type_function)) {
 			const char *err = g_module_error ();
 			g_set_error (error, PPS_DOCUMENT_ERROR, PPS_DOCUMENT_ERROR_INVALID,
-				     "Failed to load backend for '%s': %s",
-				     mime_type, err ? err : "unknown error");
+			             "Failed to load backend for '%s': %s",
+			             mime_type, err ? err : "unknown error");
 			g_module_close (module);
 			return NULL;
 		}
@@ -136,20 +136,20 @@ pps_document_factory_new_document_for_mime_type (const gchar *mime_type,
 		 * confuse the GType system. */
 		g_module_make_resident (module);
 
-                if (pps_module_hash == NULL) {
-                        pps_module_hash = g_hash_table_new_full (g_str_hash, g_str_equal,
-                                                                g_free,
-                                                                NULL /* leaked on purpose */);
-                }
-                g_hash_table_insert (pps_module_hash, g_strdup (info->module_name), module);
-        }
+		if (pps_module_hash == NULL) {
+			pps_module_hash = g_hash_table_new_full (g_str_hash, g_str_equal,
+			                                         g_free,
+			                                         NULL /* leaked on purpose */);
+		}
+		g_hash_table_insert (pps_module_hash, g_strdup (info->module_name), module);
+	}
 
 	if (!query_type_function && !g_module_symbol (module, "pps_backend_query_type",
-			      (void *) &query_type_function)) {
+	                                              (void *) &query_type_function)) {
 		const char *err = g_module_error ();
 		g_set_error (error, PPS_DOCUMENT_ERROR, PPS_DOCUMENT_ERROR_INVALID,
-			     "Failed to load backend for '%s': %s",
-			     mime_type, err ? err : "unknown error");
+		             "Failed to load backend for '%s': %s",
+		             mime_type, err ? err : "unknown error");
 		return NULL;
 	}
 
@@ -158,11 +158,11 @@ pps_document_factory_new_document_for_mime_type (const gchar *mime_type,
 
 	document = g_object_new (backend_type, NULL);
 
-        g_object_set_data_full (G_OBJECT (document), BACKEND_DATA_KEY,
-                                _pps_backend_info_ref (info),
-                                (GDestroyNotify) _pps_backend_info_unref);
+	g_object_set_data_full (G_OBJECT (document), BACKEND_DATA_KEY,
+	                        _pps_backend_info_ref (info),
+	                        (GDestroyNotify) _pps_backend_info_unref);
 
-        return document;
+	return document;
 }
 
 static PpsCompressionType
@@ -179,13 +179,12 @@ get_compression_from_mime_type (const gchar *mime_type)
 			return PPS_COMPRESSION_GZIP;
 		else if (g_ascii_strcasecmp (type, "bz") == 0)
 			return PPS_COMPRESSION_BZIP2;
-                else if (g_ascii_strcasecmp (type, "xz") == 0)
-                        return PPS_COMPRESSION_LZMA;
+		else if (g_ascii_strcasecmp (type, "xz") == 0)
+			return PPS_COMPRESSION_LZMA;
 	}
 
 	return PPS_COMPRESSION_NONE;
 }
-
 
 /*
  * new_document_for_uri:
@@ -202,13 +201,13 @@ get_compression_from_mime_type (const gchar *mime_type)
  * Returns: a new #PpsDocument instance, or %NULL on error with @error filled in
  */
 static PpsDocument *
-new_document_for_uri (const char        *uri,
-                      gboolean           fast,
+new_document_for_uri (const char *uri,
+                      gboolean fast,
                       PpsCompressionType *compression,
-                      GError           **error)
+                      GError **error)
 {
 	PpsDocument *document = NULL;
-	gchar      *mime_type = NULL;
+	gchar *mime_type = NULL;
 
 	*compression = PPS_COMPRESSION_NONE;
 
@@ -218,13 +217,13 @@ new_document_for_uri (const char        *uri,
 
 	document = pps_document_factory_new_document_for_mime_type (mime_type, error);
 	if (document == NULL)
-                return NULL;
+		return NULL;
 
 	*compression = get_compression_from_mime_type (mime_type);
 
 	g_free (mime_type);
 
-        return document;
+	return document;
 }
 
 static void
@@ -250,16 +249,16 @@ _pps_document_factory_init (void)
 	if (pps_backends_list)
 		return TRUE;
 
-        if (g_getenv ("PPS_BACKENDS_DIR") != NULL)
-                pps_backends_dir = g_strdup (g_getenv ("PPS_BACKENDS_DIR"));
+	if (g_getenv ("PPS_BACKENDS_DIR") != NULL)
+		pps_backends_dir = g_strdup (g_getenv ("PPS_BACKENDS_DIR"));
 
 	if (!pps_backends_dir) {
-        pps_backends_dir = g_strdup (PPS_BACKENDSDIR);
+		pps_backends_dir = g_strdup (PPS_BACKENDSDIR);
 	}
 
-        pps_backends_list = _pps_backend_info_load_from_dir (pps_backends_dir);
+	pps_backends_list = _pps_backend_info_load_from_dir (pps_backends_dir);
 
-        return pps_backends_list != NULL;
+	return pps_backends_list != NULL;
 }
 
 /*
@@ -291,9 +290,9 @@ _pps_document_factory_shutdown (void)
  * Returns: (transfer full): a new #PpsDocument, or %NULL
  */
 PpsDocument *
-pps_document_factory_get_document_full (const char           *uri,
-				       PpsDocumentLoadFlags   flags,
-				       GError              **error)
+pps_document_factory_get_document_full (const char *uri,
+                                        PpsDocumentLoadFlags flags,
+                                        GError **error)
 {
 	PpsDocument *document;
 	int result;
@@ -310,9 +309,9 @@ pps_document_factory_get_document_full (const char           *uri,
 		uri_unc = pps_file_uncompress (uri, compression, &err);
 		if (uri_unc) {
 			g_object_set_data_full (G_OBJECT (document),
-						"uri-uncompressed",
-						uri_unc,
-						(GDestroyNotify) free_uncompressed_uri);
+			                        "uri-uncompressed",
+			                        uri_unc,
+			                        (GDestroyNotify) free_uncompressed_uri);
 		} else if (err != NULL) {
 			/* Error uncompressing file */
 			g_object_unref (document);
@@ -328,7 +327,7 @@ pps_document_factory_get_document_full (const char           *uri,
 			     g_error_matches (err, PPS_DOCUMENT_ERROR, PPS_DOCUMENT_ERROR_UNSUPPORTED_CONTENT))) {
 				g_propagate_error (error, err);
 				return document;
-			    }
+			}
 			/* else fall through to slow mime code section below */
 		} else {
 			return document;
@@ -351,9 +350,9 @@ pps_document_factory_get_document_full (const char           *uri,
 	uri_unc = pps_file_uncompress (uri, compression, &err);
 	if (uri_unc) {
 		g_object_set_data_full (G_OBJECT (document),
-					"uri-uncompressed",
-					uri_unc,
-					(GDestroyNotify) free_uncompressed_uri);
+		                        "uri-uncompressed",
+		                        uri_unc,
+		                        (GDestroyNotify) free_uncompressed_uri);
 	} else if (err != NULL) {
 		/* Error uncompressing file */
 		g_propagate_error (error, err);
@@ -363,16 +362,16 @@ pps_document_factory_get_document_full (const char           *uri,
 	}
 
 	result = pps_document_load_full (document, uri_unc ? uri_unc : uri,
-					PPS_DOCUMENT_LOAD_FLAG_NONE, &err);
+	                                 PPS_DOCUMENT_LOAD_FLAG_NONE, &err);
 	if (result == FALSE) {
 		if (err == NULL) {
 			/* FIXME: this really should not happen; the backend should
 			 * always return a meaningful error.
 			 */
 			g_set_error_literal (&err,
-                                             PPS_DOCUMENT_ERROR,
-                                             PPS_DOCUMENT_ERROR_INVALID,
-                                             _("Unknown MIME Type"));
+			                     PPS_DOCUMENT_ERROR,
+			                     PPS_DOCUMENT_ERROR_INVALID,
+			                     _ ("Unknown MIME Type"));
 		} else if (g_error_matches (err, PPS_DOCUMENT_ERROR, PPS_DOCUMENT_ERROR_ENCRYPTED)) {
 			g_propagate_error (error, err);
 			return document;
@@ -402,8 +401,8 @@ PpsDocument *
 pps_document_factory_get_document (const char *uri, GError **error)
 {
 	return pps_document_factory_get_document_full (uri,
-						      PPS_DOCUMENT_LOAD_FLAG_NONE,
-						      error);
+	                                               PPS_DOCUMENT_LOAD_FLAG_NONE,
+	                                               error);
 }
 
 /**
@@ -432,52 +431,52 @@ pps_document_factory_get_document (const char *uri, GError **error)
  *
  * Since: 42.0
  */
-PpsDocument*
+PpsDocument *
 pps_document_factory_get_document_for_fd (int fd,
-                                         const char *mime_type,
-                                         PpsDocumentLoadFlags flags,
-                                         GCancellable *cancellable,
-                                         GError **error)
+                                          const char *mime_type,
+                                          PpsDocumentLoadFlags flags,
+                                          GCancellable *cancellable,
+                                          GError **error)
 {
-        PpsDocument *document;
+	PpsDocument *document;
 
-        g_return_val_if_fail (fd != -1, NULL);
-        g_return_val_if_fail (error == NULL || *error == NULL, NULL);
+	g_return_val_if_fail (fd != -1, NULL);
+	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-        if (mime_type == NULL) {
-                g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
-                                     "Cannot query mime type from file descriptor");
-                close (fd);
-                return NULL;
-        }
+	if (mime_type == NULL) {
+		g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
+		                     "Cannot query mime type from file descriptor");
+		close (fd);
+		return NULL;
+	}
 
-        document = pps_document_factory_new_document_for_mime_type (mime_type, error);
-        if (document == NULL) {
-                close (fd);
-                return NULL;
-        }
+	document = pps_document_factory_new_document_for_mime_type (mime_type, error);
+	if (document == NULL) {
+		close (fd);
+		return NULL;
+	}
 
-        if (!pps_document_load_fd (document, fd, flags, cancellable, error)) {
-                /* fd is now consumed */
-                g_object_unref (document);
-                return NULL;
-        }
+	if (!pps_document_load_fd (document, fd, flags, cancellable, error)) {
+		/* fd is now consumed */
+		g_object_unref (document);
+		return NULL;
+	}
 
-        return document;
+	return document;
 }
 
 static void
 file_filter_add_mime_types (PpsBackendInfo *info, GtkFileFilter *filter)
 {
-        char **mime_types;
+	char **mime_types;
 	guint i;
 
-        mime_types = info->mime_types;
-        if (mime_types == NULL)
-                return;
+	mime_types = info->mime_types;
+	if (mime_types == NULL)
+		return;
 
-        for (i = 0; mime_types[i] != NULL; ++i)
-                gtk_file_filter_add_mime_type (filter, mime_types[i]);
+	for (i = 0; mime_types[i] != NULL; ++i)
+		gtk_file_filter_add_mime_type (filter, mime_types[i]);
 }
 
 /**
@@ -504,16 +503,16 @@ pps_document_factory_add_filters (GtkFileDialog *dialog, PpsDocument *document)
 	g_return_if_fail (document == NULL || PPS_IS_DOCUMENT (document));
 
 	default_filter = all_documents_filter = gtk_file_filter_new ();
-	gtk_file_filter_set_name (all_documents_filter, _("All Documents"));
-	g_list_foreach (pps_backends_list, (GFunc)file_filter_add_mime_types,
-			all_documents_filter);
-	g_list_store_append(filters, all_documents_filter);
+	gtk_file_filter_set_name (all_documents_filter, _ ("All Documents"));
+	g_list_foreach (pps_backends_list, (GFunc) file_filter_add_mime_types,
+	                all_documents_filter);
+	g_list_store_append (filters, all_documents_filter);
 
 	if (document) {
 		PpsBackendInfo *info;
 
 		info = get_backend_info_for_document (document);
-                g_assert (info != NULL);
+		g_assert (info != NULL);
 		default_filter = gtk_file_filter_new ();
 		gtk_file_filter_set_name (default_filter, info->type_desc);
 		file_filter_add_mime_types (info, default_filter);
@@ -523,7 +522,7 @@ pps_document_factory_add_filters (GtkFileDialog *dialog, PpsDocument *document)
 
 		for (l = pps_backends_list; l; l = l->next) {
 			GtkFileFilter *filter = gtk_file_filter_new ();
-                        PpsBackendInfo *info = (PpsBackendInfo *) l->data;
+			PpsBackendInfo *info = (PpsBackendInfo *) l->data;
 
 			gtk_file_filter_set_name (filter, info->type_desc);
 			file_filter_add_mime_types (info, filter);
@@ -532,10 +531,10 @@ pps_document_factory_add_filters (GtkFileDialog *dialog, PpsDocument *document)
 	}
 
 	all_files_filter = gtk_file_filter_new ();
-	gtk_file_filter_set_name (all_files_filter, _("All Files"));
+	gtk_file_filter_set_name (all_files_filter, _ ("All Files"));
 	gtk_file_filter_add_pattern (all_files_filter, "*");
 	g_list_store_append (filters, all_files_filter);
 
 	gtk_file_dialog_set_filters (dialog, G_LIST_MODEL (filters));
-	gtk_file_dialog_set_default_filter (dialog,  default_filter);
+	gtk_file_dialog_set_default_filter (dialog, default_filter);
 }

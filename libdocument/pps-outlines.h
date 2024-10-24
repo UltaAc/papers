@@ -18,7 +18,7 @@
  */
 #pragma once
 
-#if !defined (__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-document.h> can be included directly."
 #endif
 
@@ -27,14 +27,13 @@
 
 G_BEGIN_DECLS
 
-#define PPS_TYPE_OUTLINES              (pps_outlines_get_type ())
+#define PPS_TYPE_OUTLINES (pps_outlines_get_type ())
 
 PPS_PUBLIC
 G_DECLARE_FINAL_TYPE (PpsOutlines, pps_outlines, PPS, OUTLINES, GObject);
 
-struct _PpsOutlines
-{
-        GObject parent;
+struct _PpsOutlines {
+	GObject parent;
 };
 
 PPS_PUBLIC

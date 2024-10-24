@@ -1,5 +1,5 @@
 /*
-* Copyright © 2009 Christian Persch
+ * Copyright © 2009 Christian Persch
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by the
@@ -36,7 +36,7 @@
 #include <libview/pps-job.h>
 #include <libview/pps-jobs.h>
 #include <libview/pps-print-operation.h>
-#include <libview/pps-view.h>
 #include <libview/pps-view-type-builtins.h>
+#include <libview/pps-view.h>
 
 #undef __PPS_PAPERS_VIEW_H_INSIDE__

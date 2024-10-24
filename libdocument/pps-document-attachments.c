@@ -51,5 +51,3 @@ pps_document_attachments_get_attachments (PpsDocumentAttachments *document_attac
 
 	return iface->get_attachments (document_attachments);
 }
-
-

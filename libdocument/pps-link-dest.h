@@ -20,7 +20,7 @@
 
 #pragma once
 
-#if !defined (__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-document.h> can be included directly."
 #endif
 
@@ -30,7 +30,7 @@
 
 G_BEGIN_DECLS
 
-#define PPS_TYPE_LINK_DEST              (pps_link_dest_get_type())
+#define PPS_TYPE_LINK_DEST (pps_link_dest_get_type ())
 
 PPS_PUBLIC
 G_DECLARE_FINAL_TYPE (PpsLinkDest, pps_link_dest, PPS, LINK_DEST, GObject)
@@ -48,60 +48,60 @@ typedef enum {
 } PpsLinkDestType;
 
 PPS_PUBLIC
-PpsLinkDestType  pps_link_dest_get_dest_type  (PpsLinkDest  *self);
+PpsLinkDestType pps_link_dest_get_dest_type (PpsLinkDest *self);
 PPS_PUBLIC
-gint            pps_link_dest_get_page       (PpsLinkDest  *self);
+gint pps_link_dest_get_page (PpsLinkDest *self);
 PPS_PUBLIC
-gdouble         pps_link_dest_get_top        (PpsLinkDest  *self,
-					     gboolean    *change_top);
+gdouble pps_link_dest_get_top (PpsLinkDest *self,
+                               gboolean *change_top);
 PPS_PUBLIC
-gdouble         pps_link_dest_get_left       (PpsLinkDest  *self,
-					     gboolean    *change_left);
+gdouble pps_link_dest_get_left (PpsLinkDest *self,
+                                gboolean *change_left);
 PPS_PUBLIC
-gdouble         pps_link_dest_get_bottom     (PpsLinkDest  *self);
+gdouble pps_link_dest_get_bottom (PpsLinkDest *self);
 PPS_PUBLIC
-gdouble         pps_link_dest_get_right      (PpsLinkDest  *self);
+gdouble pps_link_dest_get_right (PpsLinkDest *self);
 PPS_PUBLIC
-gdouble         pps_link_dest_get_zoom       (PpsLinkDest  *self,
-					     gboolean    *change_zoom);
+gdouble pps_link_dest_get_zoom (PpsLinkDest *self,
+                                gboolean *change_zoom);
 PPS_PUBLIC
-const gchar    *pps_link_dest_get_named_dest (PpsLinkDest  *self);
+const gchar *pps_link_dest_get_named_dest (PpsLinkDest *self);
 PPS_PUBLIC
-const gchar    *pps_link_dest_get_page_label (PpsLinkDest  *self);
+const gchar *pps_link_dest_get_page_label (PpsLinkDest *self);
 
 PPS_PUBLIC
-PpsLinkDest     *pps_link_dest_new_page       (gint         page);
+PpsLinkDest *pps_link_dest_new_page (gint page);
 PPS_PUBLIC
-PpsLinkDest     *pps_link_dest_new_xyz        (gint         page,
-					     gdouble      left,
-					     gdouble      top,
-					     gdouble      zoom,
-					     gboolean     change_left,
-					     gboolean     change_top,
-					     gboolean     change_zoom);
+PpsLinkDest *pps_link_dest_new_xyz (gint page,
+                                    gdouble left,
+                                    gdouble top,
+                                    gdouble zoom,
+                                    gboolean change_left,
+                                    gboolean change_top,
+                                    gboolean change_zoom);
 PPS_PUBLIC
-PpsLinkDest     *pps_link_dest_new_fit        (gint         page);
+PpsLinkDest *pps_link_dest_new_fit (gint page);
 PPS_PUBLIC
-PpsLinkDest     *pps_link_dest_new_fith       (gint         page,
-					     gdouble      top,
-					     gboolean     change_top);
+PpsLinkDest *pps_link_dest_new_fith (gint page,
+                                     gdouble top,
+                                     gboolean change_top);
 PPS_PUBLIC
-PpsLinkDest     *pps_link_dest_new_fitv       (gint         page,
-					     gdouble      left,
-					     gboolean     change_left);
+PpsLinkDest *pps_link_dest_new_fitv (gint page,
+                                     gdouble left,
+                                     gboolean change_left);
 PPS_PUBLIC
-PpsLinkDest     *pps_link_dest_new_fitr       (gint         page,
-					     gdouble      left,
-					     gdouble      bottom,
-					     gdouble      right,
-					     gdouble      top);
+PpsLinkDest *pps_link_dest_new_fitr (gint page,
+                                     gdouble left,
+                                     gdouble bottom,
+                                     gdouble right,
+                                     gdouble top);
 PPS_PUBLIC
-PpsLinkDest     *pps_link_dest_new_named      (const gchar *named_dest);
+PpsLinkDest *pps_link_dest_new_named (const gchar *named_dest);
 PPS_PUBLIC
-PpsLinkDest     *pps_link_dest_new_page_label (const gchar *page_label);
+PpsLinkDest *pps_link_dest_new_page_label (const gchar *page_label);
 
 PPS_PUBLIC
-gboolean        pps_link_dest_equal          (PpsLinkDest  *a,
-                                             PpsLinkDest  *b);
+gboolean pps_link_dest_equal (PpsLinkDest *a,
+                              PpsLinkDest *b);
 
 G_END_DECLS

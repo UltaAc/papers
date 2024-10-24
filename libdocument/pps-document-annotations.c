@@ -30,7 +30,7 @@ pps_document_annotations_default_init (PpsDocumentAnnotationsInterface *klass)
 
 PpsMappingList *
 pps_document_annotations_get_annotations (PpsDocumentAnnotations *document_annots,
-					 PpsPage                *page)
+                                          PpsPage *page)
 {
 	PpsDocumentAnnotationsInterface *iface = PPS_DOCUMENT_ANNOTATIONS_GET_IFACE (document_annots);
 
@@ -47,8 +47,8 @@ pps_document_annotations_document_is_modified (PpsDocumentAnnotations *document_
 
 void
 pps_document_annotations_save_annotation (PpsDocumentAnnotations *document_annots,
-					 PpsAnnotation          *annot,
-					 PpsAnnotationsSaveMask  mask)
+                                          PpsAnnotation *annot,
+                                          PpsAnnotationsSaveMask mask)
 {
 	PpsDocumentAnnotationsInterface *iface = PPS_DOCUMENT_ANNOTATIONS_GET_IFACE (document_annots);
 
@@ -57,7 +57,7 @@ pps_document_annotations_save_annotation (PpsDocumentAnnotations *document_annot
 
 void
 pps_document_annotations_add_annotation (PpsDocumentAnnotations *document_annots,
-					 PpsAnnotation          *annot)
+                                         PpsAnnotation *annot)
 {
 	PpsDocumentAnnotationsInterface *iface = PPS_DOCUMENT_ANNOTATIONS_GET_IFACE (document_annots);
 
@@ -75,7 +75,7 @@ pps_document_annotations_can_add_annotation (PpsDocumentAnnotations *document_an
 
 void
 pps_document_annotations_remove_annotation (PpsDocumentAnnotations *document_annots,
-					   PpsAnnotation          *annot)
+                                            PpsAnnotation *annot)
 {
 	PpsDocumentAnnotationsInterface *iface = PPS_DOCUMENT_ANNOTATIONS_GET_IFACE (document_annots);
 
@@ -86,16 +86,16 @@ pps_document_annotations_remove_annotation (PpsDocumentAnnotations *document_ann
 gboolean
 pps_document_annotations_can_remove_annotation (PpsDocumentAnnotations *document_annots)
 {
-        PpsDocumentAnnotationsInterface *iface = PPS_DOCUMENT_ANNOTATIONS_GET_IFACE (document_annots);
+	PpsDocumentAnnotationsInterface *iface = PPS_DOCUMENT_ANNOTATIONS_GET_IFACE (document_annots);
 
 	return iface->remove_annotation != NULL;
 }
 
 PpsAnnotationsOverMarkup
 pps_document_annotations_over_markup (PpsDocumentAnnotations *document_annots,
-				     PpsAnnotation          *annot,
-				     gdouble                x,
-				     gdouble                y)
+                                      PpsAnnotation *annot,
+                                      gdouble x,
+                                      gdouble y)
 {
 	PpsDocumentAnnotationsInterface *iface = PPS_DOCUMENT_ANNOTATIONS_GET_IFACE (document_annots);
 

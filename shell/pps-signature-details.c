@@ -19,8 +19,8 @@
  */
 
 #include "pps-signature-details.h"
-#include "pps-jobs.h"
 #include "pps-job-scheduler.h"
+#include "pps-jobs.h"
 
 #include <glib/gi18n.h>
 
@@ -51,7 +51,7 @@ pps_signature_details_init (PpsSignatureDetails *self)
 }
 
 static void
-signatures_job_finished_callback (PpsJobSignatures    *job,
+signatures_job_finished_callback (PpsJobSignatures *job,
                                   PpsSignatureDetails *self)
 {
 	gboolean is_invalid = FALSE;
@@ -79,12 +79,12 @@ signatures_job_finished_callback (PpsJobSignatures    *job,
 		g_object_bind_property (G_OBJECT (signature), "signer-name", G_OBJECT (row), "title", G_BINDING_SYNC_CREATE | G_BINDING_DEFAULT);
 
 		date_row = adw_action_row_new ();
-		adw_preferences_row_set_title (ADW_PREFERENCES_ROW (date_row), _("Date"));
+		adw_preferences_row_set_title (ADW_PREFERENCES_ROW (date_row), _ ("Date"));
 		adw_action_row_set_subtitle (ADW_ACTION_ROW (date_row), signing_time);
 		adw_expander_row_add_row (ADW_EXPANDER_ROW (row), date_row);
 
 		signature_status_row = adw_action_row_new ();
-		adw_preferences_row_set_title (ADW_PREFERENCES_ROW (signature_status_row), _("Signature Status"));
+		adw_preferences_row_set_title (ADW_PREFERENCES_ROW (signature_status_row), _ ("Signature Status"));
 		adw_action_row_set_subtitle (ADW_ACTION_ROW (signature_status_row), pps_signature_signature_status_str (signature_status));
 		if (signature_status != PPS_SIGNATURE_STATUS_VALID) {
 			GtkWidget *status_img = gtk_image_new_from_icon_name ("emblem-important-symbolic");
@@ -94,7 +94,7 @@ signatures_job_finished_callback (PpsJobSignatures    *job,
 		adw_expander_row_add_row (ADW_EXPANDER_ROW (row), signature_status_row);
 
 		certificate_status_row = adw_action_row_new ();
-		adw_preferences_row_set_title (ADW_PREFERENCES_ROW (certificate_status_row), _("Certificate Status"));
+		adw_preferences_row_set_title (ADW_PREFERENCES_ROW (certificate_status_row), _ ("Certificate Status"));
 		adw_action_row_set_subtitle (ADW_ACTION_ROW (certificate_status_row), pps_signature_certificate_status_str (certificate_status));
 		if (certificate_status != PPS_CERTIFICATE_STATUS_TRUSTED) {
 			GtkWidget *status_img = gtk_image_new_from_icon_name ("emblem-important-symbolic");
@@ -115,7 +115,7 @@ signatures_job_finished_callback (PpsJobSignatures    *job,
 
 void
 pps_signature_details_show (PpsDocument *document,
-                            GtkWindow             *window)
+                            GtkWindow *window)
 {
 	PpsSignatureDetails *self = PPS_SIGNATURE_DETAILS (g_object_new (PPS_TYPE_SIGNATURE_DETAILS, NULL));
 	PpsJob *job = pps_job_signatures_new (document);

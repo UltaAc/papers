@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
 #include "pps-document-images.h"
+#include <config.h>
 
 G_DEFINE_INTERFACE (PpsDocumentImages, pps_document_images, 0)
 
@@ -30,7 +30,7 @@ pps_document_images_default_init (PpsDocumentImagesInterface *klass)
 
 PpsMappingList *
 pps_document_images_get_image_mapping (PpsDocumentImages *document_images,
-				      PpsPage           *page)
+                                       PpsPage *page)
 {
 	PpsDocumentImagesInterface *iface = PPS_DOCUMENT_IMAGES_GET_IFACE (document_images);
 
@@ -46,7 +46,7 @@ pps_document_images_get_image_mapping (PpsDocumentImages *document_images,
  */
 GdkPixbuf *
 pps_document_images_get_image (PpsDocumentImages *document_images,
-			      PpsImage          *image)
+                               PpsImage *image)
 {
 	PpsDocumentImagesInterface *iface = PPS_DOCUMENT_IMAGES_GET_IFACE (document_images);
 

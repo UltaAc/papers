@@ -54,10 +54,10 @@ enum {
 G_DEFINE_TYPE_WITH_PRIVATE (PpsTransitionEffect, pps_transition_effect, G_TYPE_OBJECT)
 
 static void
-pps_transition_effect_set_property (GObject	*object,
-				   guint	 prop_id,
-				   const GValue *value,
-				   GParamSpec	*pspec)
+pps_transition_effect_set_property (GObject *object,
+                                    guint prop_id,
+                                    const GValue *value,
+                                    GParamSpec *pspec)
 {
 	PpsTransitionEffectPrivate *priv;
 
@@ -95,10 +95,10 @@ pps_transition_effect_set_property (GObject	*object,
 }
 
 static void
-pps_transition_effect_get_property (GObject    *object,
-				   guint       prop_id,
-				   GValue     *value,
-				   GParamSpec *pspec)
+pps_transition_effect_get_property (GObject *object,
+                                    guint prop_id,
+                                    GValue *value,
+                                    GParamSpec *pspec)
 {
 	PpsTransitionEffectPrivate *priv;
 
@@ -154,87 +154,87 @@ pps_transition_effect_class_init (PpsTransitionEffectClass *klass)
 	object_class->get_property = pps_transition_effect_get_property;
 
 	g_object_class_install_property (object_class,
-					 PROP_TYPE,
-					 g_param_spec_enum ("type",
-							    "Effect type",
-							    "Page transition effect type",
-							    PPS_TYPE_TRANSITION_EFFECT_TYPE,
-							    PPS_TRANSITION_EFFECT_REPLACE,
-							    G_PARAM_READWRITE |
-                                                            G_PARAM_STATIC_STRINGS));
+	                                 PROP_TYPE,
+	                                 g_param_spec_enum ("type",
+	                                                    "Effect type",
+	                                                    "Page transition effect type",
+	                                                    PPS_TYPE_TRANSITION_EFFECT_TYPE,
+	                                                    PPS_TRANSITION_EFFECT_REPLACE,
+	                                                    G_PARAM_READWRITE |
+	                                                        G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (object_class,
-					 PROP_ALIGNMENT,
-					 g_param_spec_enum ("alignment",
-							    "Effect alignment",
-							    "Alignment for the effect",
-							    PPS_TYPE_TRANSITION_EFFECT_ALIGNMENT,
-							    PPS_TRANSITION_ALIGNMENT_HORIZONTAL,
-							    G_PARAM_READWRITE |
-                                                            G_PARAM_STATIC_STRINGS));
+	                                 PROP_ALIGNMENT,
+	                                 g_param_spec_enum ("alignment",
+	                                                    "Effect alignment",
+	                                                    "Alignment for the effect",
+	                                                    PPS_TYPE_TRANSITION_EFFECT_ALIGNMENT,
+	                                                    PPS_TRANSITION_ALIGNMENT_HORIZONTAL,
+	                                                    G_PARAM_READWRITE |
+	                                                        G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (object_class,
-					 PROP_DIRECTION,
-					 g_param_spec_enum ("direction",
-							    "Effect direction",
-							    "Direction for the effect",
-							    PPS_TYPE_TRANSITION_EFFECT_DIRECTION,
-							    PPS_TRANSITION_DIRECTION_INWARD,
-							    G_PARAM_READWRITE |
-                                                            G_PARAM_STATIC_STRINGS));
+	                                 PROP_DIRECTION,
+	                                 g_param_spec_enum ("direction",
+	                                                    "Effect direction",
+	                                                    "Direction for the effect",
+	                                                    PPS_TYPE_TRANSITION_EFFECT_DIRECTION,
+	                                                    PPS_TRANSITION_DIRECTION_INWARD,
+	                                                    G_PARAM_READWRITE |
+	                                                        G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (object_class,
-					 PROP_DURATION,
-					 g_param_spec_int ("duration",
-							   "Effect duration",
-							   "Effect duration in seconds",
-							   0, G_MAXINT, 0,
-							   G_PARAM_READWRITE |
-                                                           G_PARAM_STATIC_STRINGS |
-                                                           G_PARAM_DEPRECATED));
+	                                 PROP_DURATION,
+	                                 g_param_spec_int ("duration",
+	                                                   "Effect duration",
+	                                                   "Effect duration in seconds",
+	                                                   0, G_MAXINT, 0,
+	                                                   G_PARAM_READWRITE |
+	                                                       G_PARAM_STATIC_STRINGS |
+	                                                       G_PARAM_DEPRECATED));
 	g_object_class_install_property (object_class,
-					 PROP_DURATION_REAL,
-					 g_param_spec_double ("duration-real",
-							      "Effect duration in seconds (expressed as decimal number)",
-							      "Effect duration in seconds (expressed as decimal number)",
-							      0., 86400., 0., /* Arbitrary 1 day max value */
-							      G_PARAM_READWRITE |
-							      G_PARAM_STATIC_STRINGS));
+	                                 PROP_DURATION_REAL,
+	                                 g_param_spec_double ("duration-real",
+	                                                      "Effect duration in seconds (expressed as decimal number)",
+	                                                      "Effect duration in seconds (expressed as decimal number)",
+	                                                      0., 86400., 0., /* Arbitrary 1 day max value */
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (object_class,
-					 PROP_ANGLE,
-					 g_param_spec_int ("angle",
-							   "Effect angle",
-							   "Effect angle in degrees, counted "
-							   "counterclockwise from left to right",
-							   0, 360, 0,
-							   G_PARAM_READWRITE |
-                                                           G_PARAM_STATIC_STRINGS));
+	                                 PROP_ANGLE,
+	                                 g_param_spec_int ("angle",
+	                                                   "Effect angle",
+	                                                   "Effect angle in degrees, counted "
+	                                                   "counterclockwise from left to right",
+	                                                   0, 360, 0,
+	                                                   G_PARAM_READWRITE |
+	                                                       G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (object_class,
-					 PROP_SCALE,
-					 g_param_spec_double ("scale",
-							      "Effect scale",
-							      "Scale at which the effect is applied",
-							      0., 1., 1.,
-							      G_PARAM_READWRITE |
-                                                              G_PARAM_STATIC_STRINGS));
+	                                 PROP_SCALE,
+	                                 g_param_spec_double ("scale",
+	                                                      "Effect scale",
+	                                                      "Scale at which the effect is applied",
+	                                                      0., 1., 1.,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (object_class,
-					 PROP_RECTANGULAR,
-					 g_param_spec_boolean ("rectangular",
-							       "Rectangular area",
-							       "Whether the covered area is rectangular",
-							       FALSE,
-							       G_PARAM_READWRITE |
-                                                               G_PARAM_STATIC_STRINGS));
+	                                 PROP_RECTANGULAR,
+	                                 g_param_spec_boolean ("rectangular",
+	                                                       "Rectangular area",
+	                                                       "Whether the covered area is rectangular",
+	                                                       FALSE,
+	                                                       G_PARAM_READWRITE |
+	                                                           G_PARAM_STATIC_STRINGS));
 }
 
 PpsTransitionEffect *
-pps_transition_effect_new (PpsTransitionEffectType  type,
-			  const gchar		 *first_property_name,
-			  ...)
+pps_transition_effect_new (PpsTransitionEffectType type,
+                           const gchar *first_property_name,
+                           ...)
 {
 	GObject *object;
-	va_list	 args;
+	va_list args;
 
 	object = g_object_new (PPS_TYPE_TRANSITION_EFFECT,
-			       "type", type,
-			       NULL);
+	                       "type", type,
+	                       NULL);
 
 	va_start (args, first_property_name);
 	g_object_set_valist (object, first_property_name, args);

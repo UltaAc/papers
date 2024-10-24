@@ -18,19 +18,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#if !defined (__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <ppsince-document.h> can be included directly."
 #endif
 
 #ifndef PPS_SIGNATURE_H
 #define PPS_SIGNATURE_H
 
-#include <gdk/gdk.h>
 #include "pps-document.h"
+#include <gdk/gdk.h>
 
 G_BEGIN_DECLS
 
-#define PPS_TYPE_SIGNATURE                 (pps_signature_get_type())
+#define PPS_TYPE_SIGNATURE (pps_signature_get_type ())
 
 PPS_PUBLIC
 G_DECLARE_FINAL_TYPE (PpsSignature, pps_signature, PPS, SIGNATURE, GObject);
@@ -60,10 +60,10 @@ typedef enum {
 } PpsCertificateStatus;
 
 /* Certificate Information */
-#define PPS_TYPE_CERTIFICATE_INFO (pps_certificate_info_get_type())
+#define PPS_TYPE_CERTIFICATE_INFO (pps_certificate_info_get_type ())
 
 PPS_PUBLIC
-GType pps_certificate_info_get_type(void) G_GNUC_CONST;
+GType pps_certificate_info_get_type (void) G_GNUC_CONST;
 
 PPS_PUBLIC
 PpsCertificateInfo *pps_certificate_info_new (const char *id,
@@ -90,7 +90,7 @@ struct _PpsSignature {
 };
 
 PPS_PUBLIC
-void pps_signature_set_certificate_info (PpsSignature             *self,
+void pps_signature_set_certificate_info (PpsSignature *self,
                                          const PpsCertificateInfo *certificate);
 
 PPS_PUBLIC
@@ -99,7 +99,7 @@ pps_signature_get_certificate_info (PpsSignature *self);
 
 PPS_PUBLIC
 void pps_signature_set_destination_file (PpsSignature *self,
-                                         const char   *file);
+                                         const char *file);
 
 PPS_PUBLIC
 const char *
@@ -107,14 +107,13 @@ pps_signature_get_destination_file (PpsSignature *self);
 
 PPS_PUBLIC
 void pps_signature_set_page (PpsSignature *self,
-                             guint         page);
+                             guint page);
 
 PPS_PUBLIC
-gint
-pps_signature_get_page (PpsSignature *self);
+gint pps_signature_get_page (PpsSignature *self);
 
 PPS_PUBLIC
-void pps_signature_set_rect (PpsSignature       *self,
+void pps_signature_set_rect (PpsSignature *self,
                              const PpsRectangle *rect);
 
 PPS_PUBLIC
@@ -123,7 +122,7 @@ pps_signature_get_rect (PpsSignature *self);
 
 PPS_PUBLIC
 void pps_signature_set_signature (PpsSignature *self,
-                                  const char   *signature);
+                                  const char *signature);
 
 PPS_PUBLIC
 const char *
@@ -131,94 +130,76 @@ pps_signature_get_signature (PpsSignature *self);
 
 PPS_PUBLIC
 void pps_signature_set_signature_left (PpsSignature *self,
-                                       const char   *signature_left);
+                                       const char *signature_left);
 
 PPS_PUBLIC
 const char *
 pps_signature_get_signature_left (PpsSignature *self);
 
+PPS_PUBLIC
+void pps_signature_set_font_size (PpsSignature *self,
+                                  gint size);
 
 PPS_PUBLIC
-void
-pps_signature_set_font_size (PpsSignature *self,
-                             gint          size);
+gint pps_signature_get_font_size (PpsSignature *self);
 
 PPS_PUBLIC
-gint
-pps_signature_get_font_size (PpsSignature *self);
+void pps_signature_set_left_font_size (PpsSignature *self,
+                                       gint size);
 
 PPS_PUBLIC
-void
-pps_signature_set_left_font_size (PpsSignature *self,
-                                  gint          size);
+gint pps_signature_get_left_font_size (PpsSignature *self);
 
 PPS_PUBLIC
-gint
-pps_signature_get_left_font_size (PpsSignature *self);
-
-
-PPS_PUBLIC
-void
-pps_signature_set_border_width (PpsSignature *self,
-                                int           width);
+void pps_signature_set_border_width (PpsSignature *self,
+                                     int width);
 
 PPS_PUBLIC
-gint
-pps_signature_get_border_width (PpsSignature *self);
-
+gint pps_signature_get_border_width (PpsSignature *self);
 
 PPS_PUBLIC
-void
-pps_signature_set_password (PpsSignature *self,
-                            const char   *password);
+void pps_signature_set_password (PpsSignature *self,
+                                 const char *password);
 
 PPS_PUBLIC
 const char *
 pps_signature_get_password (PpsSignature *self);
 
 PPS_PUBLIC
-void
-pps_signature_set_font_color (PpsSignature *self,
-                              GdkRGBA      *color);
+void pps_signature_set_font_color (PpsSignature *self,
+                                   GdkRGBA *color);
 
 PPS_PUBLIC
-void
-pps_signature_get_font_color (PpsSignature *self,
-                              GdkRGBA      *color);
+void pps_signature_get_font_color (PpsSignature *self,
+                                   GdkRGBA *color);
 
 PPS_PUBLIC
-void
-pps_signature_set_border_color (PpsSignature *self,
-                                GdkRGBA      *color);
+void pps_signature_set_border_color (PpsSignature *self,
+                                     GdkRGBA *color);
 
 PPS_PUBLIC
-void
-pps_signature_get_border_color (PpsSignature *self,
-                                GdkRGBA      *color);
+void pps_signature_get_border_color (PpsSignature *self,
+                                     GdkRGBA *color);
 
 PPS_PUBLIC
-void
-pps_signature_set_background_color (PpsSignature *self,
-                                    GdkRGBA      *color);
+void pps_signature_set_background_color (PpsSignature *self,
+                                         GdkRGBA *color);
 
 PPS_PUBLIC
-void
-pps_signature_get_background_color (PpsSignature *self,
-                                    GdkRGBA      *color);
+void pps_signature_get_background_color (PpsSignature *self,
+                                         GdkRGBA *color);
 
 PPS_PUBLIC
-void
-pps_signature_set_owner_password (PpsSignature *self,
-                                  const char   *password);
+void pps_signature_set_owner_password (PpsSignature *self,
+                                       const char *password);
 
 PPS_PUBLIC
 const char *
 pps_signature_get_owner_password (PpsSignature *self);
 
 PPS_PUBLIC
-void
-pps_signature_set_user_password (PpsSignature *self,
-                                 const char   *password);
+void pps_signature_set_user_password (PpsSignature *self,
+                                      const char *password);
 
 PPS_PUBLIC
 const char *
@@ -226,10 +207,10 @@ pps_signature_get_user_password (PpsSignature *self);
 
 PPS_PUBLIC
 PpsSignature *
-pps_signature_new (const gchar          *signer_name,
-                   PpsSignatureStatus    signature_status,
-                   PpsCertificateStatus  certificate_status,
-                   GDateTime            *signature_time);
+pps_signature_new (const gchar *signer_name,
+                   PpsSignatureStatus signature_status,
+                   PpsCertificateStatus certificate_status,
+                   GDateTime *signature_time);
 
 PPS_PUBLIC
 PpsCertificateStatus
@@ -256,4 +237,3 @@ gboolean
 pps_signature_is_valid (PpsSignature *self);
 
 #endif
-

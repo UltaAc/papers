@@ -40,9 +40,9 @@ pps_document_find_default_init (PpsDocumentFindInterface *klass)
  */
 GList *
 pps_document_find_find_text (PpsDocumentFind *document_find,
-			    PpsPage         *page,
-			    const gchar    *text,
-			    PpsFindOptions   options)
+                             PpsPage *page,
+                             const gchar *text,
+                             PpsFindOptions options)
 {
 	PpsDocumentFindInterface *iface = PPS_DOCUMENT_FIND_GET_IFACE (document_find);
 

@@ -19,7 +19,7 @@
 
 #pragma once
 
-#if !defined (__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-document.h> can be included directly."
 #endif
 
@@ -30,57 +30,55 @@
 
 G_BEGIN_DECLS
 
-#define PPS_TYPE_RENDER_CONTEXT		(pps_render_context_get_type())
+#define PPS_TYPE_RENDER_CONTEXT (pps_render_context_get_type ())
 
 PPS_PUBLIC
 G_DECLARE_FINAL_TYPE (PpsRenderContext, pps_render_context, PPS, RENDER_CONTEXT, GObject)
 
-struct _PpsRenderContext
-{
+struct _PpsRenderContext {
 	GObject parent;
 
 	PpsPage *page;
-	gint    rotation;
+	gint rotation;
 	gdouble scale;
-	gint	target_width;
-	gint	target_height;
+	gint target_width;
+	gint target_height;
 };
 
-
 PPS_PUBLIC
-PpsRenderContext *pps_render_context_new             (PpsPage          *page,
-						    gint             rotation,
-						    gdouble          scale);
+PpsRenderContext *pps_render_context_new (PpsPage *page,
+                                          gint rotation,
+                                          gdouble scale);
 PPS_PUBLIC
-void             pps_render_context_set_page        (PpsRenderContext *rc,
-						    PpsPage          *page);
+void pps_render_context_set_page (PpsRenderContext *rc,
+                                  PpsPage *page);
 PPS_PUBLIC
-void             pps_render_context_set_rotation    (PpsRenderContext *rc,
-						    gint             rotation);
+void pps_render_context_set_rotation (PpsRenderContext *rc,
+                                      gint rotation);
 PPS_PUBLIC
-void             pps_render_context_set_scale       (PpsRenderContext *rc,
-						    gdouble          scale);
+void pps_render_context_set_scale (PpsRenderContext *rc,
+                                   gdouble scale);
 PPS_PUBLIC
-void             pps_render_context_set_target_size (PpsRenderContext *rc,
-                                                    int              target_width,
-                                                    int              target_height);
+void pps_render_context_set_target_size (PpsRenderContext *rc,
+                                         int target_width,
+                                         int target_height);
 PPS_PUBLIC
-void             pps_render_context_compute_scaled_size      (PpsRenderContext *rc,
-                                                             double           width_points,
-                                                             double           height_points,
-                                                             int             *scaled_width,
-                                                             int             *scaled_height);
+void pps_render_context_compute_scaled_size (PpsRenderContext *rc,
+                                             double width_points,
+                                             double height_points,
+                                             int *scaled_width,
+                                             int *scaled_height);
 PPS_PUBLIC
-void             pps_render_context_compute_transformed_size (PpsRenderContext *rc,
-                                                             double	      width_points,
-                                                             double	      height_points,
-                                                             int	     *transformed_width,
-                                                             int	     *transformed_height);
+void pps_render_context_compute_transformed_size (PpsRenderContext *rc,
+                                                  double width_points,
+                                                  double height_points,
+                                                  int *transformed_width,
+                                                  int *transformed_height);
 PPS_PUBLIC
-void             pps_render_context_compute_scales  (PpsRenderContext *rc,
-                                                    double           width_points,
-                                                    double           height_points,
-                                                    double          *scale_x,
-                                                    double          *scale_y);
+void pps_render_context_compute_scales (PpsRenderContext *rc,
+                                        double width_points,
+                                        double height_points,
+                                        double *scale_x,
+                                        double *scale_y);
 
 G_END_DECLS

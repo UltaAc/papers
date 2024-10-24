@@ -20,24 +20,24 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
 #include "pps-form-field.h"
 #include "pps-form-field-private.h"
+#include <config.h>
 
 typedef struct
 {
-	gchar   *alt_ui_name;
+	gchar *alt_ui_name;
 } PpsFormFieldPrivate;
 
-static void pps_form_field_init                 (PpsFormField               *field);
-static void pps_form_field_class_init           (PpsFormFieldClass          *klass);
-static void pps_form_field_text_init            (PpsFormFieldText           *field_text);
-static void pps_form_field_text_class_init      (PpsFormFieldTextClass      *klass);
-static void pps_form_field_button_init          (PpsFormFieldButton         *field_button);
-static void pps_form_field_button_class_init    (PpsFormFieldButtonClass    *klass);
-static void pps_form_field_choice_init          (PpsFormFieldChoice         *field_choice);
-static void pps_form_field_choice_class_init    (PpsFormFieldChoiceClass    *klass);
-static void pps_form_field_signature_init       (PpsFormFieldSignature      *field_choice);
+static void pps_form_field_init (PpsFormField *field);
+static void pps_form_field_class_init (PpsFormFieldClass *klass);
+static void pps_form_field_text_init (PpsFormFieldText *field_text);
+static void pps_form_field_text_class_init (PpsFormFieldTextClass *klass);
+static void pps_form_field_button_init (PpsFormFieldButton *field_button);
+static void pps_form_field_button_class_init (PpsFormFieldButtonClass *klass);
+static void pps_form_field_choice_init (PpsFormFieldChoice *field_choice);
+static void pps_form_field_choice_class_init (PpsFormFieldChoiceClass *klass);
+static void pps_form_field_signature_init (PpsFormFieldSignature *field_choice);
 static void pps_form_field_signature_class_init (PpsFormFieldSignatureClass *klass);
 
 G_DEFINE_TYPE (PpsFormFieldText, pps_form_field_text, PPS_TYPE_FORM_FIELD)
@@ -68,7 +68,7 @@ pps_form_field_finalize (GObject *object)
 	g_clear_object (&field->activation_link);
 	g_clear_pointer (&priv->alt_ui_name, g_free);
 
-	(* G_OBJECT_CLASS (pps_form_field_parent_class)->finalize) (object);
+	(*G_OBJECT_CLASS (pps_form_field_parent_class)->finalize) (object);
 }
 
 static void
@@ -116,7 +116,7 @@ pps_form_field_get_alternate_name (PpsFormField *field)
  **/
 void
 pps_form_field_set_alternate_name (PpsFormField *field,
-				  gchar       *alternative_text)
+                                   gchar *alternative_text)
 {
 	PpsFormFieldPrivate *priv;
 
@@ -137,7 +137,7 @@ pps_form_field_text_finalize (GObject *object)
 
 	g_clear_pointer (&field_text->text, g_free);
 
-	(* G_OBJECT_CLASS (pps_form_field_text_parent_class)->finalize) (object);
+	(*G_OBJECT_CLASS (pps_form_field_text_parent_class)->finalize) (object);
 }
 
 static void
@@ -171,7 +171,7 @@ pps_form_field_choice_finalize (GObject *object)
 	g_clear_pointer (&field_choice->selected_items, g_list_free);
 	g_clear_pointer (&field_choice->text, g_free);
 
-	(* G_OBJECT_CLASS (pps_form_field_choice_parent_class)->finalize) (object);
+	(*G_OBJECT_CLASS (pps_form_field_choice_parent_class)->finalize) (object);
 }
 
 static void
@@ -198,14 +198,15 @@ pps_form_field_signature_class_init (PpsFormFieldSignatureClass *klass)
 }
 
 PpsFormField *
-pps_form_field_text_new (gint                id,
-			PpsFormFieldTextType type)
+pps_form_field_text_new (gint id,
+                         PpsFormFieldTextType type)
 {
 	PpsFormField *field;
 
 	g_return_val_if_fail (id >= 0, NULL);
 	g_return_val_if_fail (type >= PPS_FORM_FIELD_TEXT_NORMAL &&
-			      type <= PPS_FORM_FIELD_TEXT_FILE_SELECT, NULL);
+	                          type <= PPS_FORM_FIELD_TEXT_FILE_SELECT,
+	                      NULL);
 
 	field = PPS_FORM_FIELD (g_object_new (PPS_TYPE_FORM_FIELD_TEXT, NULL));
 	field->id = id;
@@ -215,14 +216,15 @@ pps_form_field_text_new (gint                id,
 }
 
 PpsFormField *
-pps_form_field_button_new (gint                  id,
-			  PpsFormFieldButtonType type)
+pps_form_field_button_new (gint id,
+                           PpsFormFieldButtonType type)
 {
 	PpsFormField *field;
 
 	g_return_val_if_fail (id >= 0, NULL);
 	g_return_val_if_fail (type >= PPS_FORM_FIELD_BUTTON_PUSH &&
-			      type <= PPS_FORM_FIELD_BUTTON_RADIO, NULL);
+	                          type <= PPS_FORM_FIELD_BUTTON_RADIO,
+	                      NULL);
 
 	field = PPS_FORM_FIELD (g_object_new (PPS_TYPE_FORM_FIELD_BUTTON, NULL));
 	field->id = id;
@@ -232,14 +234,15 @@ pps_form_field_button_new (gint                  id,
 }
 
 PpsFormField *
-pps_form_field_choice_new (gint                  id,
-			  PpsFormFieldChoiceType type)
+pps_form_field_choice_new (gint id,
+                           PpsFormFieldChoiceType type)
 {
 	PpsFormField *field;
 
 	g_return_val_if_fail (id >= 0, NULL);
 	g_return_val_if_fail (type >= PPS_FORM_FIELD_CHOICE_COMBO &&
-			      type <= PPS_FORM_FIELD_CHOICE_LIST, NULL);
+	                          type <= PPS_FORM_FIELD_CHOICE_LIST,
+	                      NULL);
 
 	field = PPS_FORM_FIELD (g_object_new (PPS_TYPE_FORM_FIELD_CHOICE, NULL));
 	field->id = id;

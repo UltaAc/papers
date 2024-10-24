@@ -30,9 +30,7 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (PpsSignatureDetails, pps_signature_details, PPS, SIGNATURE_DETAILS, AdwDialog)
 
-void
-pps_signature_details_show (PpsDocument *document,
-                            GtkWindow             *window);
+void pps_signature_details_show (PpsDocument *document,
+                                 GtkWindow *window);
 
 G_END_DECLS
-

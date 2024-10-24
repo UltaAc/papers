@@ -21,9 +21,7 @@
 
 #include "pps-font-description.h"
 
-
-struct _PpsFontDescriptionPrivate
-{
+struct _PpsFontDescriptionPrivate {
 	char *name;
 	char *details;
 };
@@ -44,10 +42,11 @@ pps_font_description_init (PpsFontDescription *self)
 {
 }
 
-static void pps_font_description_set_property (GObject      *object,
-					       guint         prop_id,
-					       const GValue *value,
-					       GParamSpec   *pspec)
+static void
+pps_font_description_set_property (GObject *object,
+                                   guint prop_id,
+                                   const GValue *value,
+                                   GParamSpec *pspec)
 {
 	PpsFontDescriptionPrivate *priv = GET_PRIVATE (PPS_FONT_DESCRIPTION (object));
 
@@ -64,10 +63,11 @@ static void pps_font_description_set_property (GObject      *object,
 	}
 }
 
-static void pps_font_description_get_property (GObject    *object,
-					       guint       prop_id,
-					       GValue     *value,
-					       GParamSpec *pspec)
+static void
+pps_font_description_get_property (GObject *object,
+                                   guint prop_id,
+                                   GValue *value,
+                                   GParamSpec *pspec)
 {
 	PpsFontDescriptionPrivate *priv = GET_PRIVATE (PPS_FONT_DESCRIPTION (object));
 
@@ -105,24 +105,24 @@ pps_font_description_class_init (PpsFontDescriptionClass *klass)
 	object_class->dispose = pps_font_description_dispose;
 
 	g_object_class_install_property (object_class,
-					 PROP_NAME,
-					 g_param_spec_string ("name",
-							      "name",
-							      "The name of the font",
-							      NULL,
-							      G_PARAM_READWRITE |
-							      G_PARAM_STATIC_STRINGS |
-							      G_PARAM_CONSTRUCT_ONLY));
+	                                 PROP_NAME,
+	                                 g_param_spec_string ("name",
+	                                                      "name",
+	                                                      "The name of the font",
+	                                                      NULL,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_STATIC_STRINGS |
+	                                                          G_PARAM_CONSTRUCT_ONLY));
 
 	g_object_class_install_property (object_class,
-					 PROP_DETAILS,
-					 g_param_spec_string ("details",
-							      "details",
-							      "The details of the font",
-							      NULL,
-							      G_PARAM_READWRITE |
-							      G_PARAM_STATIC_STRINGS |
-							      G_PARAM_CONSTRUCT_ONLY));
+	                                 PROP_DETAILS,
+	                                 g_param_spec_string ("details",
+	                                                      "details",
+	                                                      "The details of the font",
+	                                                      NULL,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_STATIC_STRINGS |
+	                                                          G_PARAM_CONSTRUCT_ONLY));
 }
 
 PpsFontDescription *

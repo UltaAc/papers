@@ -21,52 +21,50 @@
 
 #include "config.h"
 
+#include <errno.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
-#include <fcntl.h>
 #include <sys/stat.h>
-#include <errno.h>
 
-#include "pps-document.h"
 #include "pps-document-misc.h"
+#include "pps-document.h"
 
 enum {
 	PROP_0,
 	PROP_MODIFIED
 };
 
-typedef struct _PpsPageSize
-{
+typedef struct _PpsPageSize {
 	gdouble width;
 	gdouble height;
 } PpsPageSize;
 
-struct _PpsDocumentPrivate
-{
-	gchar          *uri;
-	guint64         file_size;
+struct _PpsDocumentPrivate {
+	gchar *uri;
+	guint64 file_size;
 
-	gboolean        cache_loaded;
-	gboolean        modified;
+	gboolean cache_loaded;
+	gboolean modified;
 
-	gboolean        uniform;
-	gdouble         uniform_width;
-	gdouble         uniform_height;
+	gboolean uniform;
+	gdouble uniform_width;
+	gdouble uniform_height;
 
-	gdouble         max_width;
-	gdouble         max_height;
-	gdouble         min_width;
-	gdouble         min_height;
-	gint            max_label;
+	gdouble max_width;
+	gdouble max_height;
+	gdouble min_width;
+	gdouble min_height;
+	gint max_label;
 
-	gchar         **page_labels;
-	PpsPageSize     *page_sizes;
-	GMutex		mutex;
+	gchar **page_labels;
+	PpsPageSize *page_sizes;
+	GMutex mutex;
 };
 
-static guint64         _pps_document_get_size        (const char *uri);
-static gchar          *_pps_document_get_page_label  (PpsDocument *document,
-						     PpsPage     *page);
+static guint64 _pps_document_get_size (const char *uri);
+static gchar *_pps_document_get_page_label (PpsDocument *document,
+                                            PpsPage *page);
 
 typedef struct _PpsDocumentPrivate PpsDocumentPrivate;
 
@@ -77,16 +75,16 @@ G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (PpsDocument, pps_document, G_TYPE_OBJECT)
 GQuark
 pps_document_error_quark (void)
 {
-  static GQuark q = 0;
-  if (q == 0)
-    q = g_quark_from_static_string ("pps-document-error-quark");
+	static GQuark q = 0;
+	if (q == 0)
+		q = g_quark_from_static_string ("pps-document-error-quark");
 
-  return q;
+	return q;
 }
 
 static PpsPage *
 pps_document_impl_get_page (PpsDocument *document,
-			   gint        index)
+                            gint index)
 {
 	return pps_page_new (index);
 }
@@ -111,15 +109,15 @@ pps_document_finalize (GObject *object)
 }
 
 static void
-pps_document_set_property (GObject      *object,
-			  guint         prop_id,
-			  const GValue *value,
-			  GParamSpec   *pspec)
+pps_document_set_property (GObject *object,
+                           guint prop_id,
+                           const GValue *value,
+                           GParamSpec *pspec)
 {
 	switch (prop_id) {
 	case PROP_MODIFIED:
 		pps_document_set_modified (PPS_DOCUMENT (object),
-					  g_value_get_boolean (value));
+		                           g_value_get_boolean (value));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -128,10 +126,10 @@ pps_document_set_property (GObject      *object,
 }
 
 static void
-pps_document_get_property (GObject     *object,
-			  guint        prop_id,
-			  GValue      *value,
-			  GParamSpec  *pspec)
+pps_document_get_property (GObject *object,
+                           guint prop_id,
+                           GValue *value,
+                           GParamSpec *pspec)
 {
 	PpsDocument *document = PPS_DOCUMENT (object);
 	PpsDocumentPrivate *priv = GET_PRIVATE (document);
@@ -171,13 +169,13 @@ pps_document_class_init (PpsDocumentClass *klass)
 	g_object_class->finalize = pps_document_finalize;
 
 	g_object_class_install_property (g_object_class,
-					 PROP_MODIFIED,
-					 g_param_spec_boolean ("modified",
-							       "Is modified",
-							       "Whether the document has been modified",
-							       FALSE,
-							       G_PARAM_READWRITE |
-							       G_PARAM_STATIC_STRINGS));
+	                                 PROP_MODIFIED,
+	                                 g_param_spec_boolean ("modified",
+	                                                       "Is modified",
+	                                                       "Whether the document has been modified",
+	                                                       FALSE,
+	                                                       G_PARAM_READWRITE |
+	                                                           G_PARAM_STATIC_STRINGS));
 }
 
 /**
@@ -211,7 +209,7 @@ pps_document_get_modified (PpsDocument *document)
  */
 void
 pps_document_set_modified (PpsDocument *document,
-			  gboolean    modified)
+                           gboolean modified)
 {
 	g_return_if_fail (PPS_IS_DOCUMENT (document));
 	PpsDocumentPrivate *priv = GET_PRIVATE (document);
@@ -249,98 +247,98 @@ pps_document_doc_mutex_trylock (PpsDocument *document)
 static void
 pps_document_setup_cache (PpsDocument *document)
 {
-        PpsDocumentPrivate *priv = GET_PRIVATE (document);
-        gboolean custom_page_labels = FALSE;
+	PpsDocumentPrivate *priv = GET_PRIVATE (document);
+	gboolean custom_page_labels = FALSE;
 	gint n_pages = pps_document_get_n_pages (document);
-        gint i;
+	gint i;
 
 	/* ensure that no component relies on a loaded
 	 * cache while it is (re-)generated
 	 */
 	priv->cache_loaded = FALSE;
 
-        for (i = 0; i < n_pages; i++) {
-                PpsPage     *page = pps_document_get_page (document, i);
-                gdouble      page_width = 0;
-                gdouble      page_height = 0;
-                PpsPageSize *page_size;
-                gchar       *page_label;
+	for (i = 0; i < n_pages; i++) {
+		PpsPage *page = pps_document_get_page (document, i);
+		gdouble page_width = 0;
+		gdouble page_height = 0;
+		PpsPageSize *page_size;
+		gchar *page_label;
 
-                pps_document_get_page_size (document, i, &page_width, &page_height);
+		pps_document_get_page_size (document, i, &page_width, &page_height);
 
-                if (i == 0) {
-                        priv->uniform_width = page_width;
-                        priv->uniform_height = page_height;
-                        priv->max_width = priv->uniform_width;
-                        priv->max_height = priv->uniform_height;
-                        priv->min_width = priv->uniform_width;
-                        priv->min_height = priv->uniform_height;
-                } else if (priv->uniform &&
-                            (priv->uniform_width != page_width ||
-                            priv->uniform_height != page_height)) {
-                        /* It's a different page size.  Backfill the array. */
-                        int j;
+		if (i == 0) {
+			priv->uniform_width = page_width;
+			priv->uniform_height = page_height;
+			priv->max_width = priv->uniform_width;
+			priv->max_height = priv->uniform_height;
+			priv->min_width = priv->uniform_width;
+			priv->min_height = priv->uniform_height;
+		} else if (priv->uniform &&
+		           (priv->uniform_width != page_width ||
+		            priv->uniform_height != page_height)) {
+			/* It's a different page size.  Backfill the array. */
+			int j;
 
-                        priv->page_sizes = g_new0 (PpsPageSize, n_pages);
+			priv->page_sizes = g_new0 (PpsPageSize, n_pages);
 
-                        for (j = 0; j < i; j++) {
-                                page_size = &(priv->page_sizes[j]);
-                                page_size->width = priv->uniform_width;
-                                page_size->height = priv->uniform_height;
-                        }
-                        priv->uniform = FALSE;
-                }
-                if (!priv->uniform) {
-                        page_size = &(priv->page_sizes[i]);
+			for (j = 0; j < i; j++) {
+				page_size = &(priv->page_sizes[j]);
+				page_size->width = priv->uniform_width;
+				page_size->height = priv->uniform_height;
+			}
+			priv->uniform = FALSE;
+		}
+		if (!priv->uniform) {
+			page_size = &(priv->page_sizes[i]);
 
-                        page_size->width = page_width;
-                        page_size->height = page_height;
+			page_size->width = page_width;
+			page_size->height = page_height;
 
-                        if (page_width > priv->max_width)
-                                priv->max_width = page_width;
-                        if (page_width < priv->min_width)
-                                priv->min_width = page_width;
+			if (page_width > priv->max_width)
+				priv->max_width = page_width;
+			if (page_width < priv->min_width)
+				priv->min_width = page_width;
 
-                        if (page_height > priv->max_height)
-                                priv->max_height = page_height;
-                        if (page_height < priv->min_height)
-                                priv->min_height = page_height;
-                }
+			if (page_height > priv->max_height)
+				priv->max_height = page_height;
+			if (page_height < priv->min_height)
+				priv->min_height = page_height;
+		}
 
-                page_label = _pps_document_get_page_label (document, page);
-                if (page_label) {
-                        if (!priv->page_labels)
-                                priv->page_labels = g_new0 (gchar *, n_pages + 1);
+		page_label = _pps_document_get_page_label (document, page);
+		if (page_label) {
+			if (!priv->page_labels)
+				priv->page_labels = g_new0 (gchar *, n_pages + 1);
 
-                        if (!custom_page_labels) {
-                                gchar *real_page_label;
+			if (!custom_page_labels) {
+				gchar *real_page_label;
 
-                                real_page_label = g_strdup_printf ("%d", i + 1);
-                                custom_page_labels = g_strcmp0 (real_page_label, page_label) != 0;
-                                g_free (real_page_label);
-                        }
+				real_page_label = g_strdup_printf ("%d", i + 1);
+				custom_page_labels = g_strcmp0 (real_page_label, page_label) != 0;
+				g_free (real_page_label);
+			}
 
-                        priv->page_labels[i] = page_label;
-                        priv->max_label = MAX (priv->max_label,
-                                                g_utf8_strlen (page_label, 256));
-                }
+			priv->page_labels[i] = page_label;
+			priv->max_label = MAX (priv->max_label,
+			                       g_utf8_strlen (page_label, 256));
+		}
 
-                g_object_unref (page);
-        }
+		g_object_unref (page);
+	}
 
 	if (!custom_page_labels)
 		g_clear_pointer (&priv->page_labels, g_strfreev);
 
-        /* Cache some info about the document to avoid
-         * going to the backends since it requires locks
-         */
+	/* Cache some info about the document to avoid
+	 * going to the backends since it requires locks
+	 */
 	priv->cache_loaded = TRUE;
 }
 
 static void
 pps_document_ensure_cache (PpsDocument *document)
 {
-        PpsDocumentPrivate *priv = GET_PRIVATE (document);
+	PpsDocumentPrivate *priv = GET_PRIVATE (document);
 
 	if (!priv->cache_loaded) {
 		g_mutex_lock (&priv->mutex);
@@ -368,10 +366,10 @@ pps_document_ensure_cache (PpsDocument *document)
  * Returns: %TRUE on success, or %FALSE on failure.
  */
 gboolean
-pps_document_load_full (PpsDocument           *document,
-		       const char           *uri,
-		       PpsDocumentLoadFlags   flags,
-		       GError              **error)
+pps_document_load_full (PpsDocument *document,
+                        const char *uri,
+                        PpsDocumentLoadFlags flags,
+                        GError **error)
 {
 	PpsDocumentClass *klass = PPS_DOCUMENT_GET_CLASS (document);
 	gboolean retval;
@@ -384,20 +382,20 @@ pps_document_load_full (PpsDocument           *document,
 			g_propagate_error (error, err);
 		} else {
 			g_warning ("%s::PpsDocument::load returned FALSE but did not fill in @error; fix the backend!\n",
-				   G_OBJECT_TYPE_NAME (document));
+			           G_OBJECT_TYPE_NAME (document));
 
 			/* So upper layers don't crash */
 			g_set_error_literal (error,
-					     PPS_DOCUMENT_ERROR,
-					     PPS_DOCUMENT_ERROR_INVALID,
-					     "Internal error in backend");
+			                     PPS_DOCUMENT_ERROR,
+			                     PPS_DOCUMENT_ERROR_INVALID,
+			                     "Internal error in backend");
 		}
 	} else {
 		if (!(flags & PPS_DOCUMENT_LOAD_FLAG_NO_CACHE))
 			pps_document_setup_cache (document);
 		priv->uri = g_strdup (uri);
 		priv->file_size = _pps_document_get_size (uri);
-        }
+	}
 
 	return retval;
 }
@@ -421,12 +419,12 @@ pps_document_load_full (PpsDocument           *document,
  * Returns: %TRUE on success, or %FALSE on failure.
  */
 gboolean
-pps_document_load (PpsDocument  *document,
-		  const char  *uri,
-		  GError     **error)
+pps_document_load (PpsDocument *document,
+                   const char *uri,
+                   GError **error)
 {
 	return pps_document_load_full (document, uri,
-				      PPS_DOCUMENT_LOAD_FLAG_NONE, error);
+	                               PPS_DOCUMENT_LOAD_FLAG_NONE, error);
 }
 
 /**
@@ -451,65 +449,65 @@ pps_document_load (PpsDocument  *document,
  * Since: 42.0
  */
 gboolean
-pps_document_load_fd (PpsDocument         *document,
-                     int                 fd,
-                     PpsDocumentLoadFlags flags,
-                     GCancellable       *cancellable,
-                     GError            **error)
+pps_document_load_fd (PpsDocument *document,
+                      int fd,
+                      PpsDocumentLoadFlags flags,
+                      GCancellable *cancellable,
+                      GError **error)
 {
-        PpsDocumentClass *klass;
-        struct stat statbuf;
-        int fd_flags;
+	PpsDocumentClass *klass;
+	struct stat statbuf;
+	int fd_flags;
 
-        g_return_val_if_fail (PPS_IS_DOCUMENT (document), FALSE);
-        g_return_val_if_fail (fd != -1, FALSE);
-        g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
-        g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+	g_return_val_if_fail (PPS_IS_DOCUMENT (document), FALSE);
+	g_return_val_if_fail (fd != -1, FALSE);
+	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
+	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-        klass = PPS_DOCUMENT_GET_CLASS (document);
-        if (!klass->load_fd) {
-                g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
-                                     "Backend does not support loading from file descriptor");
-                close (fd);
-                return FALSE;
-        }
+	klass = PPS_DOCUMENT_GET_CLASS (document);
+	if (!klass->load_fd) {
+		g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
+		                     "Backend does not support loading from file descriptor");
+		close (fd);
+		return FALSE;
+	}
 
-        if (fstat(fd, &statbuf) == -1 ||
-            (fd_flags = fcntl (fd, F_GETFL, &flags)) == -1) {
-                int errsv = errno;
-                g_set_error_literal (error, G_FILE_ERROR,
-                                     g_file_error_from_errno (errsv),
-                                     g_strerror (errsv));
-                close (fd);
-                return FALSE;
-        }
+	if (fstat (fd, &statbuf) == -1 ||
+	    (fd_flags = fcntl (fd, F_GETFL, &flags)) == -1) {
+		int errsv = errno;
+		g_set_error_literal (error, G_FILE_ERROR,
+		                     g_file_error_from_errno (errsv),
+		                     g_strerror (errsv));
+		close (fd);
+		return FALSE;
+	}
 
-        if (!S_ISREG(statbuf.st_mode)) {
-                g_set_error_literal (error, G_FILE_ERROR, G_FILE_ERROR_BADF,
-                                     "Not a regular file.");
-                close (fd);
-                return FALSE;
-        }
+	if (!S_ISREG (statbuf.st_mode)) {
+		g_set_error_literal (error, G_FILE_ERROR, G_FILE_ERROR_BADF,
+		                     "Not a regular file.");
+		close (fd);
+		return FALSE;
+	}
 
-        switch (fd_flags & O_ACCMODE) {
-        case O_RDONLY:
-        case O_RDWR:
-                break;
-        case O_WRONLY:
-        default:
-                g_set_error_literal (error, G_FILE_ERROR, G_FILE_ERROR_BADF,
-                                     "Not a readable file descriptor.");
-                close (fd);
-                return FALSE;
-        }
+	switch (fd_flags & O_ACCMODE) {
+	case O_RDONLY:
+	case O_RDWR:
+		break;
+	case O_WRONLY:
+	default:
+		g_set_error_literal (error, G_FILE_ERROR, G_FILE_ERROR_BADF,
+		                     "Not a readable file descriptor.");
+		close (fd);
+		return FALSE;
+	}
 
-        if (!klass->load_fd (document, fd, flags, cancellable, error))
-                return FALSE;
+	if (!klass->load_fd (document, fd, flags, cancellable, error))
+		return FALSE;
 
-        if (!(flags & PPS_DOCUMENT_LOAD_FLAG_NO_CACHE))
-                pps_document_setup_cache (document);
+	if (!(flags & PPS_DOCUMENT_LOAD_FLAG_NO_CACHE))
+		pps_document_setup_cache (document);
 
-        return TRUE;
+	return TRUE;
 }
 
 /**
@@ -523,9 +521,9 @@ pps_document_load_fd (PpsDocument         *document,
  * Returns: %TRUE on success, or %FALSE on error with @error filled in
  */
 gboolean
-pps_document_save (PpsDocument  *document,
-		  const char  *uri,
-		  GError     **error)
+pps_document_save (PpsDocument *document,
+                   const char *uri,
+                   GError **error)
 {
 	PpsDocumentClass *klass = PPS_DOCUMENT_GET_CLASS (document);
 
@@ -541,7 +539,7 @@ pps_document_save (PpsDocument  *document,
  */
 PpsPage *
 pps_document_get_page (PpsDocument *document,
-		      gint        index)
+                       gint index)
 {
 	PpsDocumentClass *klass = PPS_DOCUMENT_GET_CLASS (document);
 
@@ -549,13 +547,13 @@ pps_document_get_page (PpsDocument *document,
 }
 
 static guint64
-_pps_document_get_size (const char  *uri)
+_pps_document_get_size (const char *uri)
 {
-	GFile  *file = g_file_new_for_uri (uri);
+	GFile *file = g_file_new_for_uri (uri);
 	guint64 size = 0;
 
 	GFileInfo *info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
-                                             G_FILE_QUERY_INFO_NONE, NULL, NULL);
+	                                     G_FILE_QUERY_INFO_NONE, NULL, NULL);
 	if (info) {
 		size = g_file_info_get_size (info);
 
@@ -568,7 +566,7 @@ _pps_document_get_size (const char  *uri)
 }
 
 gint
-pps_document_get_n_pages (PpsDocument  *document)
+pps_document_get_n_pages (PpsDocument *document)
 {
 	g_return_val_if_fail (PPS_IS_DOCUMENT (document), 0);
 
@@ -586,9 +584,9 @@ pps_document_get_n_pages (PpsDocument  *document)
  */
 void
 pps_document_get_page_size (PpsDocument *document,
-			    gint         page_index,
-			    double      *width,
-			    double      *height)
+                            gint page_index,
+                            double *width,
+                            double *height)
 {
 	PpsDocumentClass *klass = PPS_DOCUMENT_GET_CLASS (document);
 	PpsDocumentPrivate *priv;
@@ -599,13 +597,9 @@ pps_document_get_page_size (PpsDocument *document,
 
 	if (priv->cache_loaded) {
 		if (width)
-			*width = priv->uniform ?
-				priv->uniform_width :
-				priv->page_sizes[page_index].width;
+			*width = priv->uniform ? priv->uniform_width : priv->page_sizes[page_index].width;
 		if (height)
-			*height = priv->uniform ?
-				priv->uniform_height :
-				priv->page_sizes[page_index].height;
+			*height = priv->uniform ? priv->uniform_height : priv->page_sizes[page_index].height;
 	} else {
 		PpsPage *page;
 
@@ -619,17 +613,16 @@ pps_document_get_page_size (PpsDocument *document,
 
 static gchar *
 _pps_document_get_page_label (PpsDocument *document,
-			     PpsPage     *page)
+                              PpsPage *page)
 {
 	PpsDocumentClass *klass = PPS_DOCUMENT_GET_CLASS (document);
 
-	return klass->get_page_label ?
-		klass->get_page_label (document, page) : NULL;
+	return klass->get_page_label ? klass->get_page_label (document, page) : NULL;
 }
 
 gchar *
 pps_document_get_page_label (PpsDocument *document,
-			    gint        page_index)
+                             gint page_index)
 {
 	PpsDocumentPrivate *priv;
 	g_return_val_if_fail (PPS_IS_DOCUMENT (document), NULL);
@@ -649,9 +642,7 @@ pps_document_get_page_label (PpsDocument *document,
 		return page_label ? page_label : g_strdup_printf ("%d", page_index + 1);
 	}
 
-	return (priv->page_labels && priv->page_labels[page_index]) ?
-		g_strdup (priv->page_labels[page_index]) :
-		g_strdup_printf ("%d", page_index + 1);
+	return (priv->page_labels && priv->page_labels[page_index]) ? g_strdup (priv->page_labels[page_index]) : g_strdup_printf ("%d", page_index + 1);
 }
 
 /**
@@ -686,8 +677,8 @@ pps_document_get_backend_info (PpsDocument *document, PpsDocumentBackendInfo *in
 }
 
 cairo_surface_t *
-pps_document_render (PpsDocument      *document,
-		    PpsRenderContext *rc)
+pps_document_render (PpsDocument *document,
+                     PpsRenderContext *rc)
 {
 	PpsDocumentClass *klass = PPS_DOCUMENT_GET_CLASS (document);
 
@@ -695,11 +686,11 @@ pps_document_render (PpsDocument      *document,
 }
 
 static GdkPixbuf *
-_pps_document_get_thumbnail (PpsDocument      *document,
-			    PpsRenderContext *rc)
+_pps_document_get_thumbnail (PpsDocument *document,
+                             PpsRenderContext *rc)
 {
 	cairo_surface_t *surface;
-	GdkPixbuf       *pixbuf = NULL;
+	GdkPixbuf *pixbuf = NULL;
 
 	surface = pps_document_render (document, rc);
 	if (surface != NULL) {
@@ -718,8 +709,8 @@ _pps_document_get_thumbnail (PpsDocument      *document,
  * Returns: (transfer full): a #GdkPixbuf
  */
 GdkPixbuf *
-pps_document_get_thumbnail (PpsDocument      *document,
-			   PpsRenderContext *rc)
+pps_document_get_thumbnail (PpsDocument *document,
+                            PpsRenderContext *rc)
 {
 	PpsDocumentClass *klass = PPS_DOCUMENT_GET_CLASS (document);
 
@@ -739,8 +730,8 @@ pps_document_get_thumbnail (PpsDocument      *document,
  * Since: 3.14
  */
 cairo_surface_t *
-pps_document_get_thumbnail_surface (PpsDocument      *document,
-				   PpsRenderContext *rc)
+pps_document_get_thumbnail_surface (PpsDocument *document,
+                                    PpsRenderContext *rc)
 {
 	PpsDocumentClass *klass = PPS_DOCUMENT_GET_CLASS (document);
 
@@ -749,7 +740,6 @@ pps_document_get_thumbnail_surface (PpsDocument      *document,
 
 	return pps_document_render (document, rc);
 }
-
 
 const gchar *
 pps_document_get_uri (PpsDocument *document)
@@ -766,8 +756,7 @@ pps_document_get_title (PpsDocument *document)
 	g_return_val_if_fail (PPS_IS_DOCUMENT (document), NULL);
 	g_autofree PpsDocumentInfo *info = pps_document_get_info (document);
 
-	return (info->fields_mask & PPS_DOCUMENT_INFO_TITLE) ?
-		info->title : NULL;
+	return (info->fields_mask & PPS_DOCUMENT_INFO_TITLE) ? info->title : NULL;
 }
 
 gboolean
@@ -790,8 +779,8 @@ pps_document_is_page_size_uniform (PpsDocument *document)
  */
 void
 pps_document_get_max_page_size (PpsDocument *document,
-			       gdouble    *width,
-			       gdouble    *height)
+                                gdouble *width,
+                                gdouble *height)
 {
 	g_return_if_fail (PPS_IS_DOCUMENT (document));
 	PpsDocumentPrivate *priv = GET_PRIVATE (document);
@@ -813,8 +802,8 @@ pps_document_get_max_page_size (PpsDocument *document,
  */
 void
 pps_document_get_min_page_size (PpsDocument *document,
-			       gdouble    *width,
-			       gdouble    *height)
+                                gdouble *width,
+                                gdouble *height)
 {
 	g_return_if_fail (PPS_IS_DOCUMENT (document));
 	PpsDocumentPrivate *priv = GET_PRIVATE (document);
@@ -869,7 +858,6 @@ pps_document_has_text_page_labels (PpsDocument *document)
 	return priv->page_labels != NULL;
 }
 
-
 /**
  * pps_document_find_page_by_label:
  * @document: a #PpsDocument
@@ -880,9 +868,9 @@ pps_document_has_text_page_labels (PpsDocument *document)
  *
  */
 gboolean
-pps_document_find_page_by_label (PpsDocument  *document,
-				const gchar *page_label,
-				gint        *page_index)
+pps_document_find_page_by_label (PpsDocument *document,
+                                 const gchar *page_label,
+                                 gint *page_index)
 {
 	gint i, page, n_pages;
 	glong value;
@@ -897,10 +885,10 @@ pps_document_find_page_by_label (PpsDocument  *document,
 
 	n_pages = pps_document_get_n_pages (document);
 
-        /* First, look for a literal label match */
-	for (i = 0; priv->page_labels && i < n_pages; i ++) {
+	/* First, look for a literal label match */
+	for (i = 0; priv->page_labels && i < n_pages; i++) {
 		if (priv->page_labels[i] != NULL &&
-		    ! strcmp (page_label, priv->page_labels[i])) {
+		    !strcmp (page_label, priv->page_labels[i])) {
 			*page_index = i;
 			return TRUE;
 		}
@@ -909,7 +897,7 @@ pps_document_find_page_by_label (PpsDocument  *document,
 	/* Second, look for a match with case insensitively */
 	for (i = 0; priv->page_labels && i < n_pages; i++) {
 		if (priv->page_labels[i] != NULL &&
-		    ! strcasecmp (page_label, priv->page_labels[i])) {
+		    !strcasecmp (page_label, priv->page_labels[i])) {
 			*page_index = i;
 			return TRUE;
 		}
@@ -922,7 +910,7 @@ pps_document_find_page_by_label (PpsDocument  *document,
 		page = MIN (G_MAXINT, value);
 
 		/* convert from a page label to a page offset */
-		page --;
+		page--;
 		if (page >= 0 && page < n_pages) {
 			*page_index = page;
 			return TRUE;
@@ -1045,15 +1033,15 @@ pps_mapping_get_data (const PpsMapping *pps_mapping)
 
 gint
 pps_rect_cmp (PpsRectangle *a,
-	     PpsRectangle *b)
+              PpsRectangle *b)
 {
 	if (a == b)
 		return 0;
 	if (a == NULL || b == NULL)
 		return 1;
 
-	return ! ((ABS (a->x1 - b->x1) < EPSILON) &&
-		  (ABS (a->y1 - b->y1) < EPSILON) &&
-		  (ABS (a->x2 - b->x2) < EPSILON) &&
-		  (ABS (a->y2 - b->y2) < EPSILON));
+	return !((ABS (a->x1 - b->x1) < EPSILON) &&
+	         (ABS (a->y1 - b->y1) < EPSILON) &&
+	         (ABS (a->x2 - b->x2) < EPSILON) &&
+	         (ABS (a->y2 - b->y2) < EPSILON));
 }

@@ -19,18 +19,18 @@
 
 #pragma once
 
-#if !defined (__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-document.h> can be included directly."
 #endif
 
-#include <glib-object.h>
 #include <gio/gio.h>
+#include <glib-object.h>
 
 #include "pps-macros.h"
 
 G_BEGIN_DECLS
 
-#define PPS_TYPE_ATTACHMENT              (pps_attachment_get_type())
+#define PPS_TYPE_ATTACHMENT (pps_attachment_get_type ())
 
 #define PPS_ATTACHMENT_ERROR (pps_attachment_error_quark ())
 
@@ -42,35 +42,35 @@ struct _PpsAttachmentClass {
 };
 
 PPS_PUBLIC
-GQuark        pps_attachment_error_quark          (void) G_GNUC_CONST;
+GQuark pps_attachment_error_quark (void) G_GNUC_CONST;
 
 PPS_PUBLIC
-PpsAttachment *pps_attachment_new (const gchar  *name,
-				 const gchar  *description,
-				 GDateTime    *mtime,
-				 GDateTime    *ctime,
-				 gsize         size,
-				 gpointer      data);
+PpsAttachment *pps_attachment_new (const gchar *name,
+                                   const gchar *description,
+                                   GDateTime *mtime,
+                                   GDateTime *ctime,
+                                   gsize size,
+                                   gpointer data);
 
 PPS_PUBLIC
-const gchar *pps_attachment_get_name              (PpsAttachment *attachment);
+const gchar *pps_attachment_get_name (PpsAttachment *attachment);
 PPS_PUBLIC
-const gchar *pps_attachment_get_description       (PpsAttachment *attachment);
+const gchar *pps_attachment_get_description (PpsAttachment *attachment);
 
 PPS_PUBLIC
-GDateTime   *pps_attachment_get_modification_datetime (PpsAttachment *attachment);
+GDateTime *pps_attachment_get_modification_datetime (PpsAttachment *attachment);
 PPS_PUBLIC
-GDateTime   *pps_attachment_get_creation_datetime     (PpsAttachment *attachment);
+GDateTime *pps_attachment_get_creation_datetime (PpsAttachment *attachment);
 
 PPS_PUBLIC
-const gchar *pps_attachment_get_mime_type         (PpsAttachment *attachment);
+const gchar *pps_attachment_get_mime_type (PpsAttachment *attachment);
 PPS_PUBLIC
-gboolean     pps_attachment_save                  (PpsAttachment *attachment,
-						  GFile        *file,
-						  GError      **error);
+gboolean pps_attachment_save (PpsAttachment *attachment,
+                              GFile *file,
+                              GError **error);
 PPS_PUBLIC
-gboolean     pps_attachment_open                  (PpsAttachment       *attachment,
-						  GAppLaunchContext  *context,
-						  GError            **error);
+gboolean pps_attachment_open (PpsAttachment *attachment,
+                              GAppLaunchContext *context,
+                              GError **error);
 
 G_END_DECLS

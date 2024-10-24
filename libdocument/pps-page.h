@@ -19,10 +19,9 @@
 
 #pragma once
 
-#if !defined (__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-document.h> can be included directly."
 #endif
-
 
 #include <glib-object.h>
 
@@ -30,12 +29,12 @@
 
 G_BEGIN_DECLS
 
-#define PPS_TYPE_PAGE              (pps_page_get_type())
+#define PPS_TYPE_PAGE (pps_page_get_type ())
 
 PPS_PUBLIC
 G_DECLARE_FINAL_TYPE (PpsPage, pps_page, PPS, PAGE, GObject)
 
-typedef gpointer       PpsBackendPage;
+typedef gpointer PpsBackendPage;
 typedef GDestroyNotify PpsBackendPageDestroyFunc;
 
 struct _PpsPage {
@@ -43,12 +42,11 @@ struct _PpsPage {
 
 	gint index;
 
-	PpsBackendPage            backend_page;
+	PpsBackendPage backend_page;
 	PpsBackendPageDestroyFunc backend_destroy_func;
 };
 
-
 PPS_PUBLIC
-PpsPage *pps_page_new      (gint index);
+PpsPage *pps_page_new (gint index);
 
 G_END_DECLS

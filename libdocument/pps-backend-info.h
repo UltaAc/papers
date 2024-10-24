@@ -19,7 +19,7 @@
 
 #pragma once
 
-#if !defined (PAPERS_COMPILATION)
+#if !defined(PAPERS_COMPILATION)
 #error "This is a private header."
 #endif
 
@@ -30,20 +30,20 @@ G_BEGIN_DECLS
 typedef struct _PpsBackendInfo PpsBackendInfo;
 
 struct _PpsBackendInfo {
-        /* These two fields must be first for API/ABI compat with PpsTypeInfo */
-        gchar       *type_desc;
-        gchar      **mime_types;
+	/* These two fields must be first for API/ABI compat with PpsTypeInfo */
+	gchar *type_desc;
+	gchar **mime_types;
 
-        volatile int ref_count;
+	volatile int ref_count;
 
-	gchar       *module_name;
-	gboolean     resident;
+	gchar *module_name;
+	gboolean resident;
 };
 
-PpsBackendInfo *_pps_backend_info_ref           (PpsBackendInfo *info);
+PpsBackendInfo *_pps_backend_info_ref (PpsBackendInfo *info);
 
-void           _pps_backend_info_unref         (PpsBackendInfo *info);
+void _pps_backend_info_unref (PpsBackendInfo *info);
 
-GList         *_pps_backend_info_load_from_dir (const char *path);
+GList *_pps_backend_info_load_from_dir (const char *path);
 
 G_END_DECLS

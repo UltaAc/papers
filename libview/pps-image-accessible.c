@@ -25,23 +25,20 @@
 #include "pps-view-private.h"
 
 struct _PpsImageAccessiblePrivate {
-        PpsPageAccessible *page;
-        PpsImage          *image;
-        PpsRectangle       area;
+	PpsPageAccessible *page;
+	PpsImage *image;
+	PpsRectangle area;
 };
 
 static void pps_image_accessible_component_iface_init (AtkComponentIface *iface);
-static void pps_image_accessible_image_iface_init     (AtkImageIface *iface);
+static void pps_image_accessible_image_iface_init (AtkImageIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (PpsImageAccessible, pps_image_accessible, ATK_TYPE_OBJECT,
-			 G_ADD_PRIVATE (PpsImageAccessible)
-			 G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT, pps_image_accessible_component_iface_init)
-			 G_IMPLEMENT_INTERFACE (ATK_TYPE_IMAGE, pps_image_accessible_image_iface_init))
+G_DEFINE_TYPE_WITH_CODE (PpsImageAccessible, pps_image_accessible, ATK_TYPE_OBJECT, G_ADD_PRIVATE (PpsImageAccessible) G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT, pps_image_accessible_component_iface_init) G_IMPLEMENT_INTERFACE (ATK_TYPE_IMAGE, pps_image_accessible_image_iface_init))
 
 static void
-pps_image_accessible_get_atk_rect (AtkObject    *atk_object,
-				  AtkCoordType  coord_type,
-				  PpsRectangle  *atk_rect)
+pps_image_accessible_get_atk_rect (AtkObject *atk_object,
+                                   AtkCoordType coord_type,
+                                   PpsRectangle *atk_rect)
 {
 	PpsImageAccessible *image;
 	PpsViewAccessible *view_accessible;
@@ -55,11 +52,11 @@ pps_image_accessible_get_atk_rect (AtkObject    *atk_object,
 
 static void
 pps_image_accessible_get_extents (AtkComponent *atk_component,
-				 gint         *x,
-				 gint         *y,
-				 gint         *width,
-				 gint         *height,
-				 AtkCoordType  coord_type)
+                                  gint *x,
+                                  gint *y,
+                                  gint *width,
+                                  gint *height,
+                                  AtkCoordType coord_type)
 {
 	PpsRectangle atk_rect;
 
@@ -92,8 +89,8 @@ pps_image_accessible_get_image_locale (AtkImage *atk_image)
 
 static void
 pps_image_accessible_get_image_size (AtkImage *atk_image,
-				    int      *width,
-				    int      *height)
+                                     int *width,
+                                     int *height)
 {
 	PpsRectangle atk_rect;
 
@@ -103,10 +100,10 @@ pps_image_accessible_get_image_size (AtkImage *atk_image,
 }
 
 static void
-pps_image_accessible_get_image_position (AtkImage     *atk_image,
-					gint         *x,
-					gint         *y,
-					AtkCoordType  coord_type)
+pps_image_accessible_get_image_position (AtkImage *atk_image,
+                                         gint *x,
+                                         gint *y,
+                                         AtkCoordType coord_type)
 {
 	PpsRectangle atk_rect;
 
@@ -193,8 +190,8 @@ pps_image_accessible_image_iface_init (AtkImageIface *iface)
 
 PpsImageAccessible *
 pps_image_accessible_new (PpsPageAccessible *page,
-			 PpsImage          *image,
-			 PpsRectangle      *area)
+                          PpsImage *image,
+                          PpsRectangle *area)
 {
 	PpsImageAccessible *atk_image;
 

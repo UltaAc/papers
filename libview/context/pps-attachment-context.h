@@ -21,7 +21,7 @@
 #pragma once
 
 #include <libdocument/pps-macros.h>
-#if !defined (__PPS_PAPERS_VIEW_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_VIEW_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-view.h> can be included directly."
 #endif
 
@@ -32,13 +32,13 @@
 
 G_BEGIN_DECLS
 
-#define PPS_TYPE_ATTACHMENT_CONTEXT    (pps_attachment_context_get_type())
+#define PPS_TYPE_ATTACHMENT_CONTEXT (pps_attachment_context_get_type ())
 
 PPS_PUBLIC
 G_DECLARE_FINAL_TYPE (PpsAttachmentContext, pps_attachment_context, PPS, ATTACHMENT_CONTEXT, GObject)
 
 struct _PpsAttachmentContext {
-        GObject parent_instance;
+	GObject parent_instance;
 };
 
 struct _PpsAttachmentContextClass {
@@ -53,21 +53,21 @@ typedef enum {
 } PpsAttachmentContextError;
 
 PPS_PUBLIC
-GQuark                pps_attachment_context_error_quark             (void);
+GQuark pps_attachment_context_error_quark (void);
 PPS_PUBLIC
-PpsAttachmentContext *pps_attachment_context_new                     (PpsDocumentModel *model);
+PpsAttachmentContext *pps_attachment_context_new (PpsDocumentModel *model);
 PPS_PUBLIC
-GListModel           *pps_attachment_context_get_model               (PpsAttachmentContext *context);
+GListModel *pps_attachment_context_get_model (PpsAttachmentContext *context);
 PPS_PUBLIC
-void                  pps_attachment_context_save_attachments_async  (PpsAttachmentContext *context,
-								      GListModel           *attachments,
-								      GtkWindow            *parent,
-								      GCancellable         *cancellable,
-								      GAsyncReadyCallback   callback,
-								      gpointer              user_data);
+void pps_attachment_context_save_attachments_async (PpsAttachmentContext *context,
+                                                    GListModel *attachments,
+                                                    GtkWindow *parent,
+                                                    GCancellable *cancellable,
+                                                    GAsyncReadyCallback callback,
+                                                    gpointer user_data);
 PPS_PUBLIC
-gboolean              pps_attachment_context_save_attachments_finish (PpsAttachmentContext *context,
-								      GAsyncResult         *result,
-								      GError              **error);
+gboolean pps_attachment_context_save_attachments_finish (PpsAttachmentContext *context,
+                                                         GAsyncResult *result,
+                                                         GError **error);
 
 G_END_DECLS

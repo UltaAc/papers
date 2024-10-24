@@ -39,7 +39,7 @@ pps_page_finalize (GObject *object)
 	}
 	page->backend_page = NULL;
 
-	(* G_OBJECT_CLASS (pps_page_parent_class)->finalize) (object);
+	(*G_OBJECT_CLASS (pps_page_parent_class)->finalize) (object);
 }
 
 static void

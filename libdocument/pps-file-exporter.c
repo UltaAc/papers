@@ -20,9 +20,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
 #include "pps-file-exporter.h"
 #include "pps-document.h"
+#include <config.h>
 
 G_DEFINE_INTERFACE (PpsFileExporter, pps_file_exporter, 0)
 
@@ -32,12 +32,12 @@ pps_file_exporter_default_init (PpsFileExporterInterface *klass)
 }
 
 void
-pps_file_exporter_begin (PpsFileExporter        *exporter,
-                        PpsFileExporterContext *fc)
+pps_file_exporter_begin (PpsFileExporter *exporter,
+                         PpsFileExporterContext *fc)
 {
-        PpsFileExporterInterface *iface = PPS_FILE_EXPORTER_GET_IFACE (exporter);
+	PpsFileExporterInterface *iface = PPS_FILE_EXPORTER_GET_IFACE (exporter);
 
-        iface->begin (exporter, fc);
+	iface->begin (exporter, fc);
 }
 
 void
@@ -50,12 +50,12 @@ pps_file_exporter_begin_page (PpsFileExporter *exporter)
 }
 
 void
-pps_file_exporter_do_page (PpsFileExporter  *exporter,
-			  PpsRenderContext *rc)
+pps_file_exporter_do_page (PpsFileExporter *exporter,
+                           PpsRenderContext *rc)
 {
-        PpsFileExporterInterface *iface = PPS_FILE_EXPORTER_GET_IFACE (exporter);
+	PpsFileExporterInterface *iface = PPS_FILE_EXPORTER_GET_IFACE (exporter);
 
-        iface->do_page (exporter, rc);
+	iface->do_page (exporter, rc);
 }
 
 void
@@ -70,9 +70,9 @@ pps_file_exporter_end_page (PpsFileExporter *exporter)
 void
 pps_file_exporter_end (PpsFileExporter *exporter)
 {
-        PpsFileExporterInterface *iface = PPS_FILE_EXPORTER_GET_IFACE (exporter);
+	PpsFileExporterInterface *iface = PPS_FILE_EXPORTER_GET_IFACE (exporter);
 
-        iface->end (exporter);
+	iface->end (exporter);
 }
 
 PpsFileExporterCapabilities

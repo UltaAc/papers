@@ -22,7 +22,7 @@
 #pragma once
 
 #include <libdocument/pps-macros.h>
-#if !defined (__PPS_PAPERS_VIEW_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_VIEW_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-view.h> can be included directly."
 #endif
 
@@ -34,13 +34,13 @@
 
 G_BEGIN_DECLS
 
-#define PPS_TYPE_SEARCH_CONTEXT    (pps_search_context_get_type())
+#define PPS_TYPE_SEARCH_CONTEXT (pps_search_context_get_type ())
 
 PPS_PUBLIC
 G_DECLARE_FINAL_TYPE (PpsSearchContext, pps_search_context, PPS, SEARCH_CONTEXT, GObject)
 
 struct _PpsSearchContext {
-        GObject parent_instance;
+	GObject parent_instance;
 };
 
 struct _PpsSearchContextClass {
@@ -48,23 +48,23 @@ struct _PpsSearchContextClass {
 };
 
 PPS_PUBLIC
-PpsSearchContext *pps_search_context_new         (PpsDocumentModel *model);
+PpsSearchContext *pps_search_context_new (PpsDocumentModel *model);
 PPS_PUBLIC
-const gchar*      pps_search_context_get_search_term (PpsSearchContext *context);
+const gchar *pps_search_context_get_search_term (PpsSearchContext *context);
 PPS_PUBLIC
-void              pps_search_context_set_search_term (PpsSearchContext *context,
-						      const gchar      *search_term);
+void pps_search_context_set_search_term (PpsSearchContext *context,
+                                         const gchar *search_term);
 PPS_PUBLIC
-PpsFindOptions    pps_search_context_get_options (PpsSearchContext *context);
+PpsFindOptions pps_search_context_get_options (PpsSearchContext *context);
 PPS_PUBLIC
-void              pps_search_context_set_options (PpsSearchContext *context,
-					          PpsFindOptions    options);
+void pps_search_context_set_options (PpsSearchContext *context,
+                                     PpsFindOptions options);
 PPS_PUBLIC
-GListModel*       pps_search_context_get_result_model (PpsSearchContext *context);
+GListModel *pps_search_context_get_result_model (PpsSearchContext *context);
 PPS_PUBLIC
-void              pps_search_context_restart     (PpsSearchContext *context);
+void pps_search_context_restart (PpsSearchContext *context);
 PPS_PUBLIC
-void              pps_search_context_select_result (PpsSearchContext *context,
-						    PpsSearchResult  *result);
+void pps_search_context_select_result (PpsSearchContext *context,
+                                       PpsSearchResult *result);
 
 G_END_DECLS

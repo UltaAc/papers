@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
 #include "pps-document-forms.h"
+#include <config.h>
 
 G_DEFINE_INTERFACE (PpsDocumentForms, pps_document_forms, 0)
 
@@ -30,7 +30,7 @@ pps_document_forms_default_init (PpsDocumentFormsInterface *klass)
 
 PpsMappingList *
 pps_document_forms_get_form_fields (PpsDocumentForms *document_forms,
-				   PpsPage          *page)
+                                    PpsPage *page)
 {
 	PpsDocumentFormsInterface *iface = PPS_DOCUMENT_FORMS_GET_IFACE (document_forms);
 
@@ -47,7 +47,7 @@ pps_document_forms_document_is_modified (PpsDocumentForms *document_forms)
 
 void
 pps_document_forms_reset_form (PpsDocumentForms *document_forms,
-                              PpsLinkAction    *action)
+                               PpsLinkAction *action)
 {
 	PpsDocumentFormsInterface *iface = PPS_DOCUMENT_FORMS_GET_IFACE (document_forms);
 
@@ -57,7 +57,7 @@ pps_document_forms_reset_form (PpsDocumentForms *document_forms,
 
 gchar *
 pps_document_forms_form_field_text_get_text (PpsDocumentForms *document_forms,
-					    PpsFormField     *field)
+                                             PpsFormField *field)
 {
 	PpsDocumentFormsInterface *iface = PPS_DOCUMENT_FORMS_GET_IFACE (document_forms);
 
@@ -66,8 +66,8 @@ pps_document_forms_form_field_text_get_text (PpsDocumentForms *document_forms,
 
 void
 pps_document_forms_form_field_text_set_text (PpsDocumentForms *document_forms,
-					    PpsFormField     *field,
-					    const gchar     *text)
+                                             PpsFormField *field,
+                                             const gchar *text)
 {
 	PpsDocumentFormsInterface *iface = PPS_DOCUMENT_FORMS_GET_IFACE (document_forms);
 
@@ -75,8 +75,8 @@ pps_document_forms_form_field_text_set_text (PpsDocumentForms *document_forms,
 }
 
 gboolean
-pps_document_forms_form_field_button_get_state (PpsDocumentForms   *document_forms,
-					       PpsFormField       *field)
+pps_document_forms_form_field_button_get_state (PpsDocumentForms *document_forms,
+                                                PpsFormField *field)
 {
 	PpsDocumentFormsInterface *iface = PPS_DOCUMENT_FORMS_GET_IFACE (document_forms);
 
@@ -84,9 +84,9 @@ pps_document_forms_form_field_button_get_state (PpsDocumentForms   *document_for
 }
 
 void
-pps_document_forms_form_field_button_set_state (PpsDocumentForms   *document_forms,
-					       PpsFormField       *field,
-					       gboolean           state)
+pps_document_forms_form_field_button_set_state (PpsDocumentForms *document_forms,
+                                                PpsFormField *field,
+                                                gboolean state)
 {
 	PpsDocumentFormsInterface *iface = PPS_DOCUMENT_FORMS_GET_IFACE (document_forms);
 
@@ -94,9 +94,9 @@ pps_document_forms_form_field_button_set_state (PpsDocumentForms   *document_for
 }
 
 gchar *
-pps_document_forms_form_field_choice_get_item (PpsDocumentForms   *document_forms,
-					      PpsFormField       *field,
-					      gint               index)
+pps_document_forms_form_field_choice_get_item (PpsDocumentForms *document_forms,
+                                               PpsFormField *field,
+                                               gint index)
 {
 	PpsDocumentFormsInterface *iface = PPS_DOCUMENT_FORMS_GET_IFACE (document_forms);
 
@@ -104,8 +104,8 @@ pps_document_forms_form_field_choice_get_item (PpsDocumentForms   *document_form
 }
 
 gint
-pps_document_forms_form_field_choice_get_n_items (PpsDocumentForms   *document_forms,
-						 PpsFormField       *field)
+pps_document_forms_form_field_choice_get_n_items (PpsDocumentForms *document_forms,
+                                                  PpsFormField *field)
 {
 	PpsDocumentFormsInterface *iface = PPS_DOCUMENT_FORMS_GET_IFACE (document_forms);
 
@@ -113,9 +113,9 @@ pps_document_forms_form_field_choice_get_n_items (PpsDocumentForms   *document_f
 }
 
 gboolean
-pps_document_forms_form_field_choice_is_item_selected (PpsDocumentForms   *document_forms,
-						      PpsFormField       *field,
-						      gint               index)
+pps_document_forms_form_field_choice_is_item_selected (PpsDocumentForms *document_forms,
+                                                       PpsFormField *field,
+                                                       gint index)
 {
 	PpsDocumentFormsInterface *iface = PPS_DOCUMENT_FORMS_GET_IFACE (document_forms);
 
@@ -123,9 +123,9 @@ pps_document_forms_form_field_choice_is_item_selected (PpsDocumentForms   *docum
 }
 
 void
-pps_document_forms_form_field_choice_select_item (PpsDocumentForms   *document_forms,
-						 PpsFormField       *field,
-						 gint               index)
+pps_document_forms_form_field_choice_select_item (PpsDocumentForms *document_forms,
+                                                  PpsFormField *field,
+                                                  gint index)
 {
 	PpsDocumentFormsInterface *iface = PPS_DOCUMENT_FORMS_GET_IFACE (document_forms);
 
@@ -133,9 +133,9 @@ pps_document_forms_form_field_choice_select_item (PpsDocumentForms   *document_f
 }
 
 void
-pps_document_forms_form_field_choice_toggle_item (PpsDocumentForms   *document_forms,
-						 PpsFormField       *field,
-						 gint               index)
+pps_document_forms_form_field_choice_toggle_item (PpsDocumentForms *document_forms,
+                                                  PpsFormField *field,
+                                                  gint index)
 {
 	PpsDocumentFormsInterface *iface = PPS_DOCUMENT_FORMS_GET_IFACE (document_forms);
 
@@ -143,8 +143,8 @@ pps_document_forms_form_field_choice_toggle_item (PpsDocumentForms   *document_f
 }
 
 void
-pps_document_forms_form_field_choice_unselect_all (PpsDocumentForms   *document_forms,
-						  PpsFormField       *field)
+pps_document_forms_form_field_choice_unselect_all (PpsDocumentForms *document_forms,
+                                                   PpsFormField *field)
 {
 	PpsDocumentFormsInterface *iface = PPS_DOCUMENT_FORMS_GET_IFACE (document_forms);
 
@@ -152,9 +152,9 @@ pps_document_forms_form_field_choice_unselect_all (PpsDocumentForms   *document_
 }
 
 void
-pps_document_forms_form_field_choice_set_text (PpsDocumentForms   *document_forms,
-					      PpsFormField       *field,
-					      const gchar       *text)
+pps_document_forms_form_field_choice_set_text (PpsDocumentForms *document_forms,
+                                               PpsFormField *field,
+                                               const gchar *text)
 {
 	PpsDocumentFormsInterface *iface = PPS_DOCUMENT_FORMS_GET_IFACE (document_forms);
 
@@ -162,8 +162,8 @@ pps_document_forms_form_field_choice_set_text (PpsDocumentForms   *document_form
 }
 
 gchar *
-pps_document_forms_form_field_choice_get_text (PpsDocumentForms   *document_forms,
-					      PpsFormField       *field)
+pps_document_forms_form_field_choice_get_text (PpsDocumentForms *document_forms,
+                                               PpsFormField *field)
 {
 	PpsDocumentFormsInterface *iface = PPS_DOCUMENT_FORMS_GET_IFACE (document_forms);
 

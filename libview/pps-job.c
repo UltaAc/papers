@@ -20,8 +20,8 @@
 
 #include <config.h>
 
-#include "pps-job.h"
 #include "pps-debug.h"
+#include "pps-job.h"
 
 #ifdef G_LOG_DOMAIN
 #undef G_LOG_DOMAIN
@@ -72,20 +72,20 @@ pps_job_dispose (GObject *object)
 	PpsJob *job = PPS_JOB (object);
 	PpsJobPrivate *priv = GET_PRIVATE (job);
 
-	g_debug ("disposing %s (%p)", PPS_GET_TYPE_NAME(job), job);
+	g_debug ("disposing %s (%p)", PPS_GET_TYPE_NAME (job), job);
 
 	g_clear_object (&priv->document);
 	g_clear_object (&priv->cancellable);
 	g_clear_error (&priv->error);
 
-	(* G_OBJECT_CLASS (pps_job_parent_class)->dispose) (object);
+	(*G_OBJECT_CLASS (pps_job_parent_class)->dispose) (object);
 }
 
 static void
-pps_job_set_property (GObject      *object,
-		     guint         prop_id,
-		     const GValue *value,
-		     GParamSpec   *pspec)
+pps_job_set_property (GObject *object,
+                      guint prop_id,
+                      const GValue *value,
+                      GParamSpec *pspec)
 {
 	PpsJob *job = PPS_JOB (object);
 	PpsJobPrivate *priv = GET_PRIVATE (job);
@@ -108,31 +108,31 @@ pps_job_class_init (PpsJobClass *klass)
 	g_object_class->set_property = pps_job_set_property;
 
 	job_signals[CANCELLED] =
-		g_signal_new ("cancelled",
-			      PPS_TYPE_JOB,
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (PpsJobClass, cancelled),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0);
-	job_signals [FINISHED] =
-		g_signal_new ("finished",
-			      PPS_TYPE_JOB,
-			      G_SIGNAL_RUN_FIRST,
-			      G_STRUCT_OFFSET (PpsJobClass, finished),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0);
+	    g_signal_new ("cancelled",
+	                  PPS_TYPE_JOB,
+	                  G_SIGNAL_RUN_LAST,
+	                  G_STRUCT_OFFSET (PpsJobClass, cancelled),
+	                  NULL, NULL,
+	                  g_cclosure_marshal_VOID__VOID,
+	                  G_TYPE_NONE, 0);
+	job_signals[FINISHED] =
+	    g_signal_new ("finished",
+	                  PPS_TYPE_JOB,
+	                  G_SIGNAL_RUN_FIRST,
+	                  G_STRUCT_OFFSET (PpsJobClass, finished),
+	                  NULL, NULL,
+	                  g_cclosure_marshal_VOID__VOID,
+	                  G_TYPE_NONE, 0);
 
 	g_object_class_install_property (g_object_class,
-					 PROP_DOCUMENT,
-					 g_param_spec_object ("document",
-							      "Document",
-							      "The document",
-							      PPS_TYPE_DOCUMENT,
-							      G_PARAM_WRITABLE |
-							      G_PARAM_CONSTRUCT_ONLY |
-							      G_PARAM_STATIC_STRINGS));
+	                                 PROP_DOCUMENT,
+	                                 g_param_spec_object ("document",
+	                                                      "Document",
+	                                                      "The document",
+	                                                      PPS_TYPE_DOCUMENT,
+	                                                      G_PARAM_WRITABLE |
+	                                                          G_PARAM_CONSTRUCT_ONLY |
+	                                                          G_PARAM_STATIC_STRINGS));
 }
 
 static gboolean
@@ -165,10 +165,10 @@ pps_job_emit_finished (PpsJob *job)
 	priv->finished = TRUE;
 
 	priv->idle_finished_id =
-		g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
-				 (GSourceFunc)emit_finished,
-				 g_object_ref (job),
-				 (GDestroyNotify)g_object_unref);
+	    g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
+	                     (GSourceFunc) emit_finished,
+	                     g_object_ref (job),
+	                     (GDestroyNotify) g_object_unref);
 }
 
 gboolean
@@ -177,7 +177,7 @@ pps_job_run (PpsJob *job)
 	PpsJobClass *class = PPS_JOB_GET_CLASS (job);
 	gboolean ret;
 
-	PPS_PROFILER_START (PPS_GET_TYPE_NAME (job), g_strdup("running"));
+	PPS_PROFILER_START (PPS_GET_TYPE_NAME (job), g_strdup ("running"));
 	ret = class->run (job);
 	PPS_PROFILER_STOP ();
 	return ret;
@@ -197,22 +197,22 @@ pps_job_cancel (PpsJob *job)
 	priv->cancelled = TRUE;
 	g_cancellable_cancel (priv->cancellable);
 
-        if (priv->finished && priv->idle_finished_id == 0)
-                return;
+	if (priv->finished && priv->idle_finished_id == 0)
+		return;
 
 	g_signal_emit (job, job_signals[CANCELLED], 0);
 }
 
 void
-pps_job_failed (PpsJob       *job,
-	       GQuark       domain,
-	       gint         code,
-	       const gchar *format,
-	       ...)
+pps_job_failed (PpsJob *job,
+                GQuark domain,
+                gint code,
+                const gchar *format,
+                ...)
 {
 	PpsJobPrivate *priv = GET_PRIVATE (job);
 	va_list args;
-	gchar  *message;
+	gchar *message;
 
 	if (priv->failed || priv->finished)
 		return;
@@ -237,8 +237,8 @@ pps_job_failed (PpsJob       *job,
  * @error: a #GError
  */
 void
-pps_job_failed_from_error (PpsJob  *job,
-			  GError *error)
+pps_job_failed_from_error (PpsJob *job,
+                           GError *error)
 {
 	PpsJobPrivate *priv = GET_PRIVATE (job);
 
@@ -283,7 +283,7 @@ pps_job_is_finished (PpsJob *job)
  * Returns: whether the job succeed
  */
 gboolean
-pps_job_is_succeeded (PpsJob   *job, GError **error)
+pps_job_is_succeeded (PpsJob *job, GError **error)
 {
 	PpsJobPrivate *priv = GET_PRIVATE (job);
 
@@ -302,7 +302,7 @@ pps_job_is_succeeded (PpsJob   *job, GError **error)
  * Returns: (transfer none): The #PpsDocument of this job.
  */
 PpsDocument *
-pps_job_get_document (PpsJob	 *job)
+pps_job_get_document (PpsJob *job)
 {
 	PpsJobPrivate *priv = GET_PRIVATE (job);
 
@@ -318,7 +318,7 @@ pps_job_get_document (PpsJob	 *job)
  * Returns: (transfer none): The #GCancellable of this job.
  */
 GCancellable *
-pps_job_get_cancellable (PpsJob	 *job)
+pps_job_get_cancellable (PpsJob *job)
 {
 	PpsJobPrivate *priv = GET_PRIVATE (job);
 

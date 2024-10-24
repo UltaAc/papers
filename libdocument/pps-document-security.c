@@ -41,7 +41,7 @@ pps_document_security_has_document_security (PpsDocumentSecurity *document_secur
 
 void
 pps_document_security_set_password (PpsDocumentSecurity *document_security,
-				   const char         *password)
+                                    const char *password)
 {
 	PpsDocumentSecurityInterface *iface = PPS_DOCUMENT_SECURITY_GET_IFACE (document_security);
 	iface->set_password (document_security, password);

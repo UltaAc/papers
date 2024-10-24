@@ -26,76 +26,80 @@
 
 #include <glib/gi18n.h>
 
-#include "pps-jobs.h"
 #include "pps-attachment-context.h"
+#include "pps-jobs.h"
 #include <papers-view.h>
 
 enum {
-        PROP_0,
-        PROP_DOCUMENT_MODEL,
+	PROP_0,
+	PROP_DOCUMENT_MODEL,
 	NUM_PROPERTIES
 };
 
-typedef struct {
-        PpsDocumentModel  *document_model;
-        PpsJobAttachments *job;
-        GListStore        *attachment_model;
+typedef struct
+{
+	PpsDocumentModel *document_model;
+	PpsJobAttachments *job;
+	GListStore *attachment_model;
 } PpsAttachmentContextPrivate;
 
-typedef struct {
+typedef struct
+{
 	PpsAttachmentContext *context;
 	GListModel *attachments;
 } PpsAttachmentContextSaveData;
 
 G_DEFINE_TYPE_WITH_PRIVATE (PpsAttachmentContext, pps_attachment_context, G_TYPE_OBJECT)
 
-G_DEFINE_QUARK (pps-attachment-context-error-quark, pps_attachment_context_error)
+G_DEFINE_QUARK (pps - attachment - context - error - quark, pps_attachment_context_error)
 
 #define GET_PRIVATE(o) pps_attachment_context_get_instance_private (o)
 
-static GParamSpec *props[NUM_PROPERTIES] = { NULL, };
+static GParamSpec *props[NUM_PROPERTIES] = {
+	NULL,
+};
 
 static void
 pps_attachment_context_clear_job (PpsAttachmentContext *context)
 {
-        PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
+	PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
 
-        if (!priv->job)
-                return;
+	if (!priv->job)
+		return;
 
-        if (!pps_job_is_finished (PPS_JOB (priv->job)))
-                pps_job_cancel (PPS_JOB (priv->job));
+	if (!pps_job_is_finished (PPS_JOB (priv->job)))
+		pps_job_cancel (PPS_JOB (priv->job));
 
-        g_signal_handlers_disconnect_matched (priv->job, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, context);
+	g_signal_handlers_disconnect_matched (priv->job, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, context);
 	g_clear_object (&priv->job);
 }
 
 static void
-attachments_job_finished_cb (PpsJobAttachments    *job,
-			     PpsAttachmentContext *context)
+attachments_job_finished_cb (PpsJobAttachments *job,
+                             PpsAttachmentContext *context)
 {
-        PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
-        g_autoptr (GPtrArray) attachments_array = g_ptr_array_new ();
-        PpsAttachment **attachments;
-        gsize           n_attachments;
+	PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
+	g_autoptr (GPtrArray) attachments_array = g_ptr_array_new ();
+	PpsAttachment **attachments;
+	gsize n_attachments;
 
 	for (GList *l = job->attachments; l && l->data; l = g_list_next (l)) {
 		g_ptr_array_add (attachments_array, l->data);
 	}
 
-        attachments = (PpsAttachment**) g_ptr_array_steal (attachments_array, &n_attachments);
-        if (n_attachments > 0)
-                g_list_store_splice (priv->attachment_model, 0, 0, (gpointer*) attachments, (guint) n_attachments);
+	attachments = (PpsAttachment **) g_ptr_array_steal (attachments_array, &n_attachments);
+	if (n_attachments > 0)
+		g_list_store_splice (priv->attachment_model, 0, 0, (gpointer *) attachments, (guint) n_attachments);
 
 	pps_attachment_context_clear_job (context);
 }
 
 static void
 pps_attachment_context_setup_document (PpsAttachmentContext *context,
-                                       PpsDocument          *document)
+                                       PpsDocument *document)
 {
-        PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
-	GListStore* attachment_model = G_LIST_STORE (pps_attachment_context_get_model (context));
+	PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
+	GListStore *attachment_model = G_LIST_STORE (pps_attachment_context_get_model (context));
 
 	g_list_store_remove_all (attachment_model);
 
@@ -105,37 +109,36 @@ pps_attachment_context_setup_document (PpsAttachmentContext *context,
 	if (!pps_document_attachments_has_attachments (PPS_DOCUMENT_ATTACHMENTS (document)))
 		return;
 
-        pps_attachment_context_clear_job (context);
+	pps_attachment_context_clear_job (context);
 
-        priv->job = PPS_JOB_ATTACHMENTS (pps_job_attachments_new (document));
-        g_signal_connect (priv->job, "finished",
-                          G_CALLBACK (attachments_job_finished_cb),
-                          context);
+	priv->job = PPS_JOB_ATTACHMENTS (pps_job_attachments_new (document));
+	g_signal_connect (priv->job, "finished",
+	                  G_CALLBACK (attachments_job_finished_cb),
+	                  context);
 	g_signal_connect_swapped (priv->job, "cancelled",
-				  G_CALLBACK (pps_attachment_context_clear_job),
-				  context);
+	                          G_CALLBACK (pps_attachment_context_clear_job),
+	                          context);
 
-        pps_job_scheduler_push_job (PPS_JOB (priv->job), PPS_JOB_PRIORITY_NONE);
+	pps_job_scheduler_push_job (PPS_JOB (priv->job), PPS_JOB_PRIORITY_NONE);
 }
 
 static void
-document_changed_cb (PpsDocumentModel     *model,
-                     GParamSpec           *pspec,
+document_changed_cb (PpsDocumentModel *model,
+                     GParamSpec *pspec,
                      PpsAttachmentContext *context)
 {
-        pps_attachment_context_setup_document (context, pps_document_model_get_document (model));
+	pps_attachment_context_setup_document (context, pps_document_model_get_document (model));
 }
 
 static void
 pps_attachment_context_dispose (GObject *object)
 {
-        PpsAttachmentContext *context = PPS_ATTACHMENT_CONTEXT (object);
+	PpsAttachmentContext *context = PPS_ATTACHMENT_CONTEXT (object);
 
-        pps_attachment_context_clear_job (context);
+	pps_attachment_context_clear_job (context);
 
-        G_OBJECT_CLASS (pps_attachment_context_parent_class)->dispose (object);
+	G_OBJECT_CLASS (pps_attachment_context_parent_class)->dispose (object);
 }
-
 
 static void
 pps_attachment_context_init (PpsAttachmentContext *context)
@@ -143,65 +146,65 @@ pps_attachment_context_init (PpsAttachmentContext *context)
 }
 
 static void
-pps_attachment_context_set_property (GObject      *object,
-				     guint         prop_id,
-				     const GValue *value,
-				     GParamSpec   *pspec)
+pps_attachment_context_set_property (GObject *object,
+                                     guint prop_id,
+                                     const GValue *value,
+                                     GParamSpec *pspec)
 {
-        PpsAttachmentContext *context = PPS_ATTACHMENT_CONTEXT (object);
-        PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
+	PpsAttachmentContext *context = PPS_ATTACHMENT_CONTEXT (object);
+	PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
 
-        switch (prop_id) {
-        case PROP_DOCUMENT_MODEL:
-                priv->document_model = g_value_get_object (value);
-                break;
-        default:
-                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-        }
+	switch (prop_id) {
+	case PROP_DOCUMENT_MODEL:
+		priv->document_model = g_value_get_object (value);
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+	}
 }
 
 static void
 pps_attachment_context_constructed (GObject *object)
 {
 	PpsAttachmentContext *context = PPS_ATTACHMENT_CONTEXT (object);
-        PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
+	PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
 
-        G_OBJECT_CLASS (pps_attachment_context_parent_class)->constructed (object);
+	G_OBJECT_CLASS (pps_attachment_context_parent_class)->constructed (object);
 
-        g_object_add_weak_pointer (G_OBJECT (priv->document_model),
-                                   (gpointer)&priv->document_model);
+	g_object_add_weak_pointer (G_OBJECT (priv->document_model),
+	                           (gpointer) &priv->document_model);
 
-        pps_attachment_context_setup_document (context, pps_document_model_get_document (priv->document_model));
-        g_signal_connect_object (priv->document_model, "notify::document",
-                                 G_CALLBACK (document_changed_cb),
-                                 context, G_CONNECT_DEFAULT);
+	pps_attachment_context_setup_document (context, pps_document_model_get_document (priv->document_model));
+	g_signal_connect_object (priv->document_model, "notify::document",
+	                         G_CALLBACK (document_changed_cb),
+	                         context, G_CONNECT_DEFAULT);
 }
 
 static void
 pps_attachment_context_class_init (PpsAttachmentContextClass *klass)
 {
-        GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
-        gobject_class->set_property = pps_attachment_context_set_property;
-        gobject_class->dispose = pps_attachment_context_dispose;
-        gobject_class->constructed = pps_attachment_context_constructed;
+	gobject_class->set_property = pps_attachment_context_set_property;
+	gobject_class->dispose = pps_attachment_context_dispose;
+	gobject_class->constructed = pps_attachment_context_constructed;
 
 	props[PROP_DOCUMENT_MODEL] =
-        	g_param_spec_object ("document-model",
-				     "DocumentModel",
-				     "The document model",
-				     PPS_TYPE_DOCUMENT_MODEL,
-				     G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
+	    g_param_spec_object ("document-model",
+	                         "DocumentModel",
+	                         "The document model",
+	                         PPS_TYPE_DOCUMENT_MODEL,
+	                         G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
 	g_object_class_install_properties (gobject_class, NUM_PROPERTIES, props);
 }
 
-PpsAttachmentContext*
+PpsAttachmentContext *
 pps_attachment_context_new (PpsDocumentModel *model)
 {
-        return PPS_ATTACHMENT_CONTEXT (g_object_new (PPS_TYPE_ATTACHMENT_CONTEXT,
-						     "document-model", model,
-						     NULL));
+	return PPS_ATTACHMENT_CONTEXT (g_object_new (PPS_TYPE_ATTACHMENT_CONTEXT,
+	                                             "document-model", model,
+	                                             NULL));
 }
 
 /**
@@ -209,10 +212,10 @@ pps_attachment_context_new (PpsDocumentModel *model)
  *
  * Returns: (transfer none) (not nullable): the returned #GListModel of #PpsAttachment s
  */
-GListModel*
+GListModel *
 pps_attachment_context_get_model (PpsAttachmentContext *context)
 {
-        PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
+	PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
 
 	if (priv->attachment_model == NULL) {
 		priv->attachment_model = g_list_store_new (PPS_TYPE_ATTACHMENT);
@@ -230,9 +233,9 @@ free_save_data (PpsAttachmentContextSaveData *save_data)
 
 static void
 save_attachment_to_target_file (PpsAttachment *attachment,
-                                GFile         *target_file,
-                                gboolean       is_dir,
-				GError       **error)
+                                GFile *target_file,
+                                gboolean is_dir,
+                                GError **error)
 {
 	g_autoptr (GFile) save_to = NULL;
 	gboolean is_native = g_file_is_native (target_file);
@@ -247,26 +250,26 @@ save_attachment_to_target_file (PpsAttachment *attachment,
 		 * location.
 		 */
 		*error = g_error_new (PPS_ATTACHMENT_CONTEXT_ERROR,
-				      PPS_ATTACHMENT_CONTEXT_ERROR_NOT_IMPLEMENTED,
-				      "Saving to remote locations is not implemented");
+		                      PPS_ATTACHMENT_CONTEXT_ERROR_NOT_IMPLEMENTED,
+		                      "Saving to remote locations is not implemented");
 		return;
 	}
 
 	if (is_dir)
 		save_to = g_file_get_child (target_file,
-                    /* FIXME chpe: file name encoding! */
-					    pps_attachment_get_name (attachment));
+		                            /* FIXME chpe: file name encoding! */
+		                            pps_attachment_get_name (attachment));
 	else
 		save_to = g_object_ref (target_file);
 
-        if (save_to)
-                pps_attachment_save (attachment, save_to, error);
+	if (save_to)
+		pps_attachment_save (attachment, save_to, error);
 }
 
 static void
 attachments_save_dialog_response_cb (GtkFileDialog *dialog,
-				     GAsyncResult  *result,
-				     GTask         *task)
+                                     GAsyncResult *result,
+                                     GTask *task)
 {
 	PpsAttachmentContextSaveData *save_data = g_task_get_task_data (task);
 	gboolean is_dir = g_list_model_get_n_items (save_data->attachments) != 1;
@@ -281,7 +284,7 @@ attachments_save_dialog_response_cb (GtkFileDialog *dialog,
 
 	for (i = 0; !error && i < g_list_model_get_n_items (save_data->attachments); i++) {
 		save_attachment_to_target_file (g_list_model_get_item (save_data->attachments, i),
-						target_file, is_dir, &error);
+		                                target_file, is_dir, &error);
 	}
 
 	if (error)
@@ -291,7 +294,6 @@ attachments_save_dialog_response_cb (GtkFileDialog *dialog,
 
 	g_object_unref (task);
 }
-
 
 /**
  * pps_attachment_context_save_attachments_async:
@@ -309,11 +311,11 @@ attachments_save_dialog_response_cb (GtkFileDialog *dialog,
  */
 void
 pps_attachment_context_save_attachments_async (PpsAttachmentContext *context,
-					       GListModel           *attachments,
-					       GtkWindow            *parent,
-					       GCancellable         *cancellable,
-					       GAsyncReadyCallback   callback,
-					       gpointer              user_data)
+                                               GListModel *attachments,
+                                               GtkWindow *parent,
+                                               GCancellable *cancellable,
+                                               GAsyncReadyCallback callback,
+                                               gpointer user_data)
 {
 	GtkFileDialog *dialog;
 	GTask *task;
@@ -333,28 +335,28 @@ pps_attachment_context_save_attachments_async (PpsAttachmentContext *context,
 
 	if (g_list_model_get_n_items (attachments) == 0) {
 		g_task_return_error (task,
-				     g_error_new (PPS_ATTACHMENT_CONTEXT_ERROR,
-						  PPS_ATTACHMENT_CONTEXT_ERROR_EMPTY_INPUT,
-						  "No attachment was selected"));
+		                     g_error_new (PPS_ATTACHMENT_CONTEXT_ERROR,
+		                                  PPS_ATTACHMENT_CONTEXT_ERROR_EMPTY_INPUT,
+		                                  "No attachment was selected"));
 		g_object_unref (task);
 		return;
 	}
 
 	dialog = gtk_file_dialog_new ();
 
-	gtk_file_dialog_set_title (dialog, ngettext("Save Attachment", "Save Attachments", g_list_model_get_n_items (attachments)));
+	gtk_file_dialog_set_title (dialog, ngettext ("Save Attachment", "Save Attachments", g_list_model_get_n_items (attachments)));
 	gtk_file_dialog_set_modal (dialog, TRUE);
 
 	if (g_list_model_get_n_items (attachments) == 1) {
 		gtk_file_dialog_set_initial_name (dialog, pps_attachment_get_name (g_list_model_get_item (attachments, 0)));
 
 		gtk_file_dialog_save (dialog, parent, cancellable,
-				      (GAsyncReadyCallback)attachments_save_dialog_response_cb,
-				      task);
+		                      (GAsyncReadyCallback) attachments_save_dialog_response_cb,
+		                      task);
 	} else {
 		gtk_file_dialog_select_folder (dialog, parent, cancellable,
-					       (GAsyncReadyCallback)attachments_save_dialog_response_cb,
-					       task);
+		                               (GAsyncReadyCallback) attachments_save_dialog_response_cb,
+		                               task);
 	}
 }
 
@@ -370,10 +372,10 @@ pps_attachment_context_save_attachments_async (PpsAttachmentContext *context,
  */
 gboolean
 pps_attachment_context_save_attachments_finish (PpsAttachmentContext *context,
-						GAsyncResult         *result,
-						GError              **error)
+                                                GAsyncResult *result,
+                                                GError **error)
 {
-  g_return_val_if_fail (g_task_is_valid (result, context), FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, context), FALSE);
 
-  return g_task_propagate_boolean (G_TASK (result), error);
+	return g_task_propagate_boolean (G_TASK (result), error);
 }

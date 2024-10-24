@@ -22,10 +22,10 @@
 
 #include "pps-utils.h"
 
-#include <string.h>
 #include <glib/gi18n.h>
+#include <string.h>
 
-GdkPixbufFormat*
+GdkPixbufFormat *
 pps_gdk_pixbuf_format_by_extension (const gchar *uri)
 {
 	GSList *pixbuf_formats = NULL;
@@ -39,14 +39,14 @@ pps_gdk_pixbuf_format_by_extension (const gchar *uri)
 		GdkPixbufFormat *format = iter->data;
 
 		if (gdk_pixbuf_format_is_disabled (format) ||
-	    	    !gdk_pixbuf_format_is_writable (format))
-		            continue;
+		    !gdk_pixbuf_format_is_writable (format))
+			continue;
 
-	        extension_list = gdk_pixbuf_format_get_extensions (format);
+		extension_list = gdk_pixbuf_format_get_extensions (format);
 
 		for (i = 0; extension_list[i] != 0; i++) {
 			if (g_str_has_suffix (uri, extension_list[i])) {
-			    	g_slist_free (pixbuf_formats);
+				g_slist_free (pixbuf_formats);
 				g_strfreev (extension_list);
 				return format;
 			}
@@ -64,13 +64,13 @@ pps_gdk_pixbuf_format_by_extension (const gchar *uri)
  * @dest: (nullable): The #PpsLinkDest of the document.
  */
 void
-pps_spawn (const char	  *uri,
-	   PpsLinkDest	   *dest)
+pps_spawn (const char *uri,
+           PpsLinkDest *dest)
 {
 	GString *cmd;
 	gchar *path, *cmdline;
 	GAppInfo *app;
-	GError	*error = NULL;
+	GError *error = NULL;
 
 	cmd = g_string_new (NULL);
 
@@ -84,7 +84,7 @@ pps_spawn (const char	  *uri,
 		switch (pps_link_dest_get_dest_type (dest)) {
 		case PPS_LINK_DEST_TYPE_PAGE_LABEL:
 			g_string_append_printf (cmd, " --page-label=%s",
-						pps_link_dest_get_page_label (dest));
+			                        pps_link_dest_get_page_label (dest));
 			break;
 		case PPS_LINK_DEST_TYPE_PAGE:
 		case PPS_LINK_DEST_TYPE_XYZ:
@@ -93,11 +93,11 @@ pps_spawn (const char	  *uri,
 		case PPS_LINK_DEST_TYPE_FITV:
 		case PPS_LINK_DEST_TYPE_FITR:
 			g_string_append_printf (cmd, " --page-index=%d",
-						pps_link_dest_get_page (dest) + 1);
+			                        pps_link_dest_get_page (dest) + 1);
 			break;
 		case PPS_LINK_DEST_TYPE_NAMED:
 			g_string_append_printf (cmd, " --named-dest=%s",
-						pps_link_dest_get_named_dest (dest));
+			                        pps_link_dest_get_named_dest (dest));
 			break;
 		default:
 			break;
@@ -121,7 +121,7 @@ pps_spawn (const char	  *uri,
 		 * See https://bugzilla.gnome.org/show_bug.cgi?id=644604
 		 */
 		if (uri) {
-			uri_list.data = (gchar *)uri;
+			uri_list.data = (gchar *) uri;
 			uri_list.prev = uri_list.next = NULL;
 			uris = &uri_list;
 		}

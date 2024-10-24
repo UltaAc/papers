@@ -18,19 +18,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <math.h>
 #include <config.h>
 #include <glib/gi18n-lib.h>
 #include <gtk/gtk.h>
+#include <math.h>
 
-#include "pps-selection.h"
+#include "pps-page-accessible.h"
 #include "pps-page-cache.h"
+#include "pps-selection.h"
 #include "pps-view-accessible.h"
 #include "pps-view-private.h"
-#include "pps-page-accessible.h"
 
-static void pps_view_accessible_action_iface_init    (AtkActionIface    *iface);
-static void pps_view_accessible_document_iface_init  (AtkDocumentIface  *iface);
+static void pps_view_accessible_action_iface_init (AtkActionIface *iface);
+static void pps_view_accessible_document_iface_init (AtkDocumentIface *iface);
 
 enum {
 	ACTION_SCROLL_UP,
@@ -38,17 +38,15 @@ enum {
 	LAST_ACTION
 };
 
-static const gchar *const pps_view_accessible_action_names[] =
-{
-	N_("Scroll Up"),
-	N_("Scroll Down"),
+static const gchar *const pps_view_accessible_action_names[] = {
+	N_ ("Scroll Up"),
+	N_ ("Scroll Down"),
 	NULL
 };
 
-static const gchar *const pps_view_accessible_action_descriptions[] =
-{
-	N_("Scroll View Up"),
-	N_("Scroll View Down"),
+static const gchar *const pps_view_accessible_action_descriptions[] = {
+	N_ ("Scroll View Up"),
+	N_ ("Scroll View Down"),
 	NULL
 };
 
@@ -56,8 +54,8 @@ struct _PpsViewAccessiblePrivate {
 	PpsDocumentModel *model;
 
 	/* AtkAction */
-	gchar        *action_descriptions[LAST_ACTION];
-	guint         action_idle_handler;
+	gchar *action_descriptions[LAST_ACTION];
+	guint action_idle_handler;
 	GtkScrollType idle_scroll;
 
 	gint previous_cursor_page;
@@ -68,11 +66,7 @@ struct _PpsViewAccessiblePrivate {
 	GPtrArray *children;
 };
 
-G_DEFINE_TYPE_WITH_CODE (PpsViewAccessible, pps_view_accessible, GTK_TYPE_CONTAINER_ACCESSIBLE,
-			 G_ADD_PRIVATE (PpsViewAccessible)
-			 G_IMPLEMENT_INTERFACE (ATK_TYPE_ACTION, pps_view_accessible_action_iface_init)
-			 G_IMPLEMENT_INTERFACE (ATK_TYPE_DOCUMENT, pps_view_accessible_document_iface_init)
-	)
+G_DEFINE_TYPE_WITH_CODE (PpsViewAccessible, pps_view_accessible, GTK_TYPE_CONTAINER_ACCESSIBLE, G_ADD_PRIVATE (PpsViewAccessible) G_IMPLEMENT_INTERFACE (ATK_TYPE_ACTION, pps_view_accessible_action_iface_init) G_IMPLEMENT_INTERFACE (ATK_TYPE_DOCUMENT, pps_view_accessible_document_iface_init))
 
 static gint
 get_relevant_page (PpsView *view)
@@ -111,7 +105,7 @@ pps_view_accessible_finalize (GObject *object)
 	g_clear_handle_id (&priv->action_idle_handler, g_source_remove);
 
 	for (i = 0; i < LAST_ACTION; i++)
-		g_free (priv->action_descriptions [i]);
+		g_free (priv->action_descriptions[i]);
 
 	clear_children (PPS_VIEW_ACCESSIBLE (object));
 
@@ -120,7 +114,7 @@ pps_view_accessible_finalize (GObject *object)
 
 static void
 pps_view_accessible_initialize (AtkObject *obj,
-			       gpointer   data)
+                                gpointer data)
 {
 	PpsViewAccessiblePrivate *priv;
 
@@ -129,7 +123,7 @@ pps_view_accessible_initialize (AtkObject *obj,
 
 	gtk_accessible_set_widget (GTK_ACCESSIBLE (obj), GTK_WIDGET (data));
 
-	atk_object_set_name (obj, _("Document View"));
+	atk_object_set_name (obj, _ ("Document View"));
 	atk_object_set_role (obj, ATK_ROLE_DOCUMENT_FRAME);
 
 	priv = PPS_VIEW_ACCESSIBLE (obj)->priv;
@@ -146,7 +140,7 @@ pps_view_accessible_get_n_pages (PpsViewAccessible *self)
 
 static AtkObject *
 pps_view_accessible_ref_child (AtkObject *obj,
-			      gint       i)
+                               gint i)
 {
 	PpsViewAccessible *self;
 	PpsView *view;
@@ -191,7 +185,7 @@ pps_view_accessible_init (PpsViewAccessible *accessible)
 	accessible->priv = pps_view_accessible_get_instance_private (accessible);
 }
 
-#if ATK_CHECK_VERSION (2, 11, 3)
+#if ATK_CHECK_VERSION(2, 11, 3)
 static gint
 pps_view_accessible_get_page_count (AtkDocument *atk_document)
 {
@@ -219,7 +213,7 @@ pps_view_accessible_get_current_page_number (AtkDocument *atk_document)
 static void
 pps_view_accessible_document_iface_init (AtkDocumentIface *iface)
 {
-#if ATK_CHECK_VERSION (2, 11, 3)
+#if ATK_CHECK_VERSION(2, 11, 3)
 	iface->get_current_page_number = pps_view_accessible_get_current_page_number;
 	iface->get_page_count = pps_view_accessible_get_page_count;
 #endif
@@ -228,7 +222,7 @@ pps_view_accessible_document_iface_init (AtkDocumentIface *iface)
 static gboolean
 pps_view_accessible_idle_do_action (gpointer data)
 {
-	PpsViewAccessiblePrivate* priv = PPS_VIEW_ACCESSIBLE (data)->priv;
+	PpsViewAccessiblePrivate *priv = PPS_VIEW_ACCESSIBLE (data)->priv;
 	PpsView *view = PPS_VIEW (gtk_accessible_get_widget (GTK_ACCESSIBLE (data)));
 
 	g_signal_emit_by_name (view, "scroll", priv->idle_scroll, GTK_ORIENTATION_VERTICAL);
@@ -238,9 +232,9 @@ pps_view_accessible_idle_do_action (gpointer data)
 
 static gboolean
 pps_view_accessible_action_do_action (AtkAction *action,
-				     gint       i)
+                                      gint i)
 {
-	PpsViewAccessiblePrivate* priv = PPS_VIEW_ACCESSIBLE (action)->priv;
+	PpsViewAccessiblePrivate *priv = PPS_VIEW_ACCESSIBLE (action)->priv;
 
 	if (gtk_accessible_get_widget (GTK_ACCESSIBLE (action)) == NULL)
 		return FALSE;
@@ -271,9 +265,9 @@ pps_view_accessible_action_get_n_actions (AtkAction *action)
 
 static const gchar *
 pps_view_accessible_action_get_description (AtkAction *action,
-					   gint       i)
+                                            gint i)
 {
-	PpsViewAccessiblePrivate* priv = PPS_VIEW_ACCESSIBLE (action)->priv;
+	PpsViewAccessiblePrivate *priv = PPS_VIEW_ACCESSIBLE (action)->priv;
 
 	if (i < 0 || i >= LAST_ACTION)
 		return NULL;
@@ -286,7 +280,7 @@ pps_view_accessible_action_get_description (AtkAction *action,
 
 static const gchar *
 pps_view_accessible_action_get_name (AtkAction *action,
-				    gint       i)
+                                     gint i)
 {
 	if (i < 0 || i >= LAST_ACTION)
 		return NULL;
@@ -295,11 +289,11 @@ pps_view_accessible_action_get_name (AtkAction *action,
 }
 
 static gboolean
-pps_view_accessible_action_set_description (AtkAction   *action,
-					   gint         i,
-					   const gchar *description)
+pps_view_accessible_action_set_description (AtkAction *action,
+                                            gint i,
+                                            const gchar *description)
 {
-	PpsViewAccessiblePrivate* priv = PPS_VIEW_ACCESSIBLE (action)->priv;
+	PpsViewAccessiblePrivate *priv = PPS_VIEW_ACCESSIBLE (action)->priv;
 	gchar *old_description;
 
 	if (i < 0 || i >= LAST_ACTION)
@@ -313,7 +307,7 @@ pps_view_accessible_action_set_description (AtkAction   *action,
 }
 
 static void
-pps_view_accessible_action_iface_init (AtkActionIface * iface)
+pps_view_accessible_action_iface_init (AtkActionIface *iface)
 {
 	iface->do_action = pps_view_accessible_action_do_action;
 	iface->get_n_actions = pps_view_accessible_action_get_n_actions;
@@ -324,11 +318,11 @@ pps_view_accessible_action_iface_init (AtkActionIface * iface)
 
 static void
 pps_view_accessible_cursor_moved (PpsView *view,
-				 gint page,
-				 gint offset,
-				 PpsViewAccessible *accessible)
+                                  gint page,
+                                  gint offset,
+                                  PpsViewAccessible *accessible)
 {
-	PpsViewAccessiblePrivate* priv = accessible->priv;
+	PpsViewAccessiblePrivate *priv = accessible->priv;
 	PpsPageAccessible *page_accessible = NULL;
 
 	if (priv->previous_cursor_page != page) {
@@ -337,7 +331,7 @@ pps_view_accessible_cursor_moved (PpsView *view,
 		if (priv->previous_cursor_page >= 0) {
 			AtkObject *previous_page = NULL;
 			previous_page = g_ptr_array_index (priv->children,
-							   priv->previous_cursor_page);
+			                                   priv->previous_cursor_page);
 			atk_object_notify_state_change (previous_page, ATK_STATE_FOCUSED, FALSE);
 		}
 
@@ -345,7 +339,7 @@ pps_view_accessible_cursor_moved (PpsView *view,
 		current_page = g_ptr_array_index (priv->children, page);
 		atk_object_notify_state_change (current_page, ATK_STATE_FOCUSED, TRUE);
 
-#if ATK_CHECK_VERSION (2, 11, 2)
+#if ATK_CHECK_VERSION(2, 11, 2)
 		/* +1 as user start to count on 1, but papers starts on 0 */
 		g_signal_emit_by_name (accessible, "page-changed", page + 1);
 #endif
@@ -357,22 +351,22 @@ pps_view_accessible_cursor_moved (PpsView *view,
 
 static void
 pps_view_accessible_selection_changed (PpsView *view,
-				      PpsViewAccessible *view_accessible)
+                                       PpsViewAccessible *view_accessible)
 {
 	AtkObject *page_accessible;
 
 	page_accessible = g_ptr_array_index (view_accessible->priv->children,
-					     get_relevant_page (view));
+	                                     get_relevant_page (view));
 	g_signal_emit_by_name (page_accessible, "text-selection-changed");
 }
 
 static void
-page_changed_cb (PpsDocumentModel  *model,
-		 gint              old_page,
-		 gint              new_page,
-		 PpsViewAccessible *accessible)
+page_changed_cb (PpsDocumentModel *model,
+                 gint old_page,
+                 gint new_page,
+                 PpsViewAccessible *accessible)
 {
-#if ATK_CHECK_VERSION (2, 11, 2)
+#if ATK_CHECK_VERSION(2, 11, 2)
 	PpsView *view;
 
 	view = PPS_VIEW (gtk_accessible_get_widget (GTK_ACCESSIBLE (accessible)));
@@ -398,19 +392,19 @@ initialize_children (PpsViewAccessible *self)
 		g_ptr_array_add (self->priv->children, child);
 	}
 
-        /* When a document is reloaded, it may have less pages.
-         * We need to update the end page accordingly to avoid
-         * invalid access to self->priv->children
-         * See https://bugzilla.gnome.org/show_bug.cgi?id=735744
-         */
+	/* When a document is reloaded, it may have less pages.
+	 * We need to update the end page accordingly to avoid
+	 * invalid access to self->priv->children
+	 * See https://bugzilla.gnome.org/show_bug.cgi?id=735744
+	 */
 	if (self->priv->end_page >= n_pages)
 		self->priv->end_page = n_pages - 1;
 }
 
 static void
-document_changed_cb (PpsDocumentModel  *model,
-		     GParamSpec       *pspec,
-		     PpsViewAccessible *accessible)
+document_changed_cb (PpsDocumentModel *model,
+                     GParamSpec *pspec,
+                     PpsViewAccessible *accessible)
 {
 	PpsDocument *document = pps_document_model_get_document (model);
 
@@ -433,9 +427,9 @@ document_changed_cb (PpsDocumentModel  *model,
 
 void
 pps_view_accessible_set_model (PpsViewAccessible *accessible,
-			      PpsDocumentModel  *model)
+                               PpsDocumentModel *model)
 {
-	PpsViewAccessiblePrivate* priv = accessible->priv;
+	PpsViewAccessiblePrivate *priv = accessible->priv;
 
 	if (priv->model == model)
 		return;
@@ -449,17 +443,17 @@ pps_view_accessible_set_model (PpsViewAccessible *accessible,
 
 	document_changed_cb (model, NULL, accessible);
 	g_signal_connect (priv->model, "page-changed",
-			  G_CALLBACK (page_changed_cb),
-			  accessible);
+	                  G_CALLBACK (page_changed_cb),
+	                  accessible);
 	g_signal_connect (priv->model, "notify::document",
-			  G_CALLBACK (document_changed_cb),
-			  accessible);
+	                  G_CALLBACK (document_changed_cb),
+	                  accessible);
 }
 
 static gboolean
-pps_view_accessible_focus_changed (GtkWidget        *widget,
-				  GdkEventFocus    *event,
-				  PpsViewAccessible *self)
+pps_view_accessible_focus_changed (GtkWidget *widget,
+                                   GdkEventFocus *event,
+                                   PpsViewAccessible *self)
 {
 	AtkObject *page_accessible;
 
@@ -470,9 +464,9 @@ pps_view_accessible_focus_changed (GtkWidget        *widget,
 		return FALSE;
 
 	page_accessible = g_ptr_array_index (self->priv->children,
-					     get_relevant_page (PPS_VIEW (widget)));
+	                                     get_relevant_page (PPS_VIEW (widget)));
 	atk_object_notify_state_change (page_accessible,
-					ATK_STATE_FOCUSED, event->in);
+	                                ATK_STATE_FOCUSED, event->in);
 
 	return FALSE;
 }
@@ -481,7 +475,7 @@ AtkObject *
 pps_view_accessible_new (GtkWidget *widget)
 {
 	AtkObject *accessible;
-	PpsView    *view;
+	PpsView *view;
 
 	g_return_val_if_fail (PPS_IS_VIEW (widget), NULL);
 
@@ -489,22 +483,22 @@ pps_view_accessible_new (GtkWidget *widget)
 	atk_object_initialize (accessible, widget);
 
 	g_signal_connect (widget, "cursor-moved",
-			  G_CALLBACK (pps_view_accessible_cursor_moved),
-			  accessible);
+	                  G_CALLBACK (pps_view_accessible_cursor_moved),
+	                  accessible);
 	g_signal_connect (widget, "selection-changed",
-			  G_CALLBACK (pps_view_accessible_selection_changed),
-			  accessible);
+	                  G_CALLBACK (pps_view_accessible_selection_changed),
+	                  accessible);
 	g_signal_connect (widget, "focus-in-event",
-			  G_CALLBACK (pps_view_accessible_focus_changed),
-			  accessible);
+	                  G_CALLBACK (pps_view_accessible_focus_changed),
+	                  accessible);
 	g_signal_connect (widget, "focus-out-event",
-			  G_CALLBACK (pps_view_accessible_focus_changed),
-			  accessible);
+	                  G_CALLBACK (pps_view_accessible_focus_changed),
+	                  accessible);
 
 	view = PPS_VIEW (widget);
 	if (view->model)
 		pps_view_accessible_set_model (PPS_VIEW_ACCESSIBLE (accessible),
-					      view->model);
+		                               view->model);
 
 	return accessible;
 }
@@ -523,10 +517,10 @@ pps_view_accessible_get_relevant_page (PpsViewAccessible *accessible)
 
 void
 _transform_doc_rect_to_atk_rect (PpsViewAccessible *accessible,
-				 gint              page,
-				 PpsRectangle      *doc_rect,
-				 PpsRectangle      *atk_rect,
-				 AtkCoordType      coord_type)
+                                 gint page,
+                                 PpsRectangle *doc_rect,
+                                 PpsRectangle *atk_rect,
+                                 AtkCoordType coord_type)
 {
 	PpsView *view;
 	GdkRectangle view_rect;
@@ -559,8 +553,8 @@ _transform_doc_rect_to_atk_rect (PpsViewAccessible *accessible,
 
 gboolean
 pps_view_accessible_is_doc_rect_showing (PpsViewAccessible *accessible,
-					gint              page,
-					PpsRectangle      *doc_rect)
+                                         gint page,
+                                         PpsRectangle *doc_rect)
 {
 	PpsView *view;
 	GdkRectangle view_rect;
@@ -578,15 +572,15 @@ pps_view_accessible_is_doc_rect_showing (PpsViewAccessible *accessible,
 
 	_pps_view_transform_doc_rect_to_view_rect (view, page, doc_rect, &view_rect);
 	hidden = view_rect.x + view_rect.width < x || view_rect.x > x + allocation.width ||
-		view_rect.y + view_rect.height < y || view_rect.y > y + allocation.height;
+	         view_rect.y + view_rect.height < y || view_rect.y > y + allocation.height;
 
 	return !hidden;
 }
 
 void
 pps_view_accessible_set_page_range (PpsViewAccessible *accessible,
-				   gint start,
-				   gint end)
+                                    gint start,
+                                    gint end)
 {
 	gint i;
 	AtkObject *page;
@@ -613,8 +607,8 @@ pps_view_accessible_set_page_range (PpsViewAccessible *accessible,
 
 void
 pps_view_accessible_set_focused_element (PpsViewAccessible *accessible,
-					PpsMapping        *new_focus,
-					gint              new_focus_page)
+                                         PpsMapping *new_focus,
+                                         gint new_focus_page)
 {
 	PpsPageAccessible *page;
 
@@ -634,8 +628,8 @@ pps_view_accessible_set_focused_element (PpsViewAccessible *accessible,
 
 void
 pps_view_accessible_update_element_state (PpsViewAccessible *accessible,
-					 PpsMapping        *element,
-					 gint              element_page)
+                                          PpsMapping *element,
+                                          gint element_page)
 {
 	PpsPageAccessible *page;
 

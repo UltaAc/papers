@@ -22,42 +22,38 @@
 #include "config.h"
 
 #include <config.h>
-#include <stdio.h>
-#include <stdint.h>
 #include <glib.h>
 #include <glib/gi18n-lib.h>
+#include <stdint.h>
+#include <stdio.h>
 
-#include "tiffio.h"
-#include "tiff2ps.h"
-#include "tiff-document.h"
 #include "pps-document-info.h"
 #include "pps-document-misc.h"
 #include "pps-file-exporter.h"
 #include "pps-file-helpers.h"
+#include "tiff-document.h"
+#include "tiff2ps.h"
+#include "tiffio.h"
 
-struct _TiffDocumentClass
-{
-  PpsDocumentClass parent_class;
+struct _TiffDocumentClass {
+	PpsDocumentClass parent_class;
 };
 
-struct _TiffDocument
-{
-  PpsDocument parent_instance;
+struct _TiffDocument {
+	PpsDocument parent_instance;
 
-  TIFF *tiff;
-  gint n_pages;
-  TIFF2PSContext *ps_export_ctx;
+	TIFF *tiff;
+	gint n_pages;
+	TIFF2PSContext *ps_export_ctx;
 
-  gchar *uri;
+	gchar *uri;
 };
 
 typedef struct _TiffDocumentClass TiffDocumentClass;
 
 static void tiff_document_document_file_exporter_iface_init (PpsFileExporterInterface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (TiffDocument, tiff_document, PPS_TYPE_DOCUMENT,
-			 G_IMPLEMENT_INTERFACE (PPS_TYPE_FILE_EXPORTER,
-						tiff_document_document_file_exporter_iface_init))
+G_DEFINE_TYPE_WITH_CODE (TiffDocument, tiff_document, PPS_TYPE_DOCUMENT, G_IMPLEMENT_INTERFACE (PPS_TYPE_FILE_EXPORTER, tiff_document_document_file_exporter_iface_init))
 
 static TIFFErrorHandler orig_error_handler = NULL;
 static TIFFErrorHandler orig_warning_handler = NULL;
@@ -77,9 +73,9 @@ pop_handlers (void)
 }
 
 static gboolean
-tiff_document_load (PpsDocument  *document,
-		    const char  *uri,
-		    GError     **error)
+tiff_document_load (PpsDocument *document,
+                    const char *uri,
+                    GError **error)
 {
 	TiffDocument *tiff_document = TIFF_DOCUMENT (document);
 	gchar *filename;
@@ -96,17 +92,17 @@ tiff_document_load (PpsDocument  *document,
 		guint32 w, h;
 
 		/* FIXME: unused data? why bother here */
-		TIFFGetField(tiff, TIFFTAG_IMAGEWIDTH, &w);
-		TIFFGetField(tiff, TIFFTAG_IMAGELENGTH, &h);
+		TIFFGetField (tiff, TIFFTAG_IMAGEWIDTH, &w);
+		TIFFGetField (tiff, TIFFTAG_IMAGELENGTH, &h);
 	}
 
 	if (!tiff) {
 		pop_handlers ();
 
-    		g_set_error_literal (error,
-				     PPS_DOCUMENT_ERROR,
-				     PPS_DOCUMENT_ERROR_INVALID,
-				     _("Invalid document"));
+		g_set_error_literal (error,
+		                     PPS_DOCUMENT_ERROR,
+		                     PPS_DOCUMENT_ERROR_INVALID,
+		                     _ ("Invalid document"));
 
 		g_free (filename);
 		return FALSE;
@@ -122,9 +118,9 @@ tiff_document_load (PpsDocument  *document,
 }
 
 static gboolean
-tiff_document_save (PpsDocument  *document,
-		    const char  *uri,
-		    GError     **error)
+tiff_document_save (PpsDocument *document,
+                    const char *uri,
+                    GError **error)
 {
 	TiffDocument *tiff_document = TIFF_DOCUMENT (document);
 
@@ -132,7 +128,7 @@ tiff_document_save (PpsDocument  *document,
 }
 
 static int
-tiff_document_get_n_pages (PpsDocument  *document)
+tiff_document_get_n_pages (PpsDocument *document)
 {
 	TiffDocument *tiff_document = TIFF_DOCUMENT (document);
 
@@ -144,9 +140,8 @@ tiff_document_get_n_pages (PpsDocument  *document)
 		tiff_document->n_pages = 0;
 
 		do {
-			tiff_document->n_pages ++;
-		}
-		while (TIFFReadDirectory (tiff_document->tiff));
+			tiff_document->n_pages++;
+		} while (TIFFReadDirectory (tiff_document->tiff));
 		pop_handlers ();
 	}
 
@@ -155,8 +150,8 @@ tiff_document_get_n_pages (PpsDocument  *document)
 
 static void
 tiff_document_get_resolution (TiffDocument *tiff_document,
-			      gfloat       *x_res,
-			      gfloat       *y_res)
+                              gfloat *x_res,
+                              gfloat *y_res)
 {
 	gfloat x = 0.0;
 	gfloat y = 0.0;
@@ -179,9 +174,9 @@ tiff_document_get_resolution (TiffDocument *tiff_document,
 
 static void
 tiff_document_get_page_size (PpsDocument *document,
-			     PpsPage     *page,
-			     double     *width,
-			     double     *height)
+                             PpsPage *page,
+                             double *width,
+                             double *height)
 {
 	guint32 w, h;
 	gfloat x_res, y_res;
@@ -208,8 +203,8 @@ tiff_document_get_page_size (PpsDocument *document,
 }
 
 static cairo_surface_t *
-tiff_document_render (PpsDocument      *document,
-		      PpsRenderContext *rc)
+tiff_document_render (PpsDocument *document,
+                      PpsRenderContext *rc)
 {
 	TiffDocument *tiff_document = TIFF_DOCUMENT (document);
 	int width, height;
@@ -229,23 +224,23 @@ tiff_document_render (PpsDocument      *document,
 	push_handlers ();
 	if (TIFFSetDirectory (tiff_document->tiff, rc->page->index) != 1) {
 		pop_handlers ();
-		g_warning("Failed to select page %d", rc->page->index);
+		g_warning ("Failed to select page %d", rc->page->index);
 		return NULL;
 	}
 
 	if (!TIFFGetField (tiff_document->tiff, TIFFTAG_IMAGEWIDTH, &width)) {
 		pop_handlers ();
-		g_warning("Failed to read image width");
+		g_warning ("Failed to read image width");
 		return NULL;
 	}
 
-	if (! TIFFGetField (tiff_document->tiff, TIFFTAG_IMAGELENGTH, &height)) {
+	if (!TIFFGetField (tiff_document->tiff, TIFFTAG_IMAGELENGTH, &height)) {
 		pop_handlers ();
-		g_warning("Failed to read image height");
+		g_warning ("Failed to read image height");
 		return NULL;
 	}
 
-	if (! TIFFGetField (tiff_document->tiff, TIFFTAG_ORIENTATION, &orientation)) {
+	if (!TIFFGetField (tiff_document->tiff, TIFFTAG_ORIENTATION, &orientation)) {
 		orientation = ORIENTATION_TOPLEFT;
 	}
 
@@ -255,19 +250,19 @@ tiff_document_render (PpsDocument      *document,
 
 	/* Sanity check the doc */
 	if (width <= 0 || height <= 0) {
-		g_warning("Invalid width or height.");
+		g_warning ("Invalid width or height.");
 		return NULL;
 	}
 
 	rowstride = cairo_format_stride_for_width (CAIRO_FORMAT_RGB24, width);
 	if (rowstride / 4 != width) {
-		g_warning("Overflow while rendering document.");
+		g_warning ("Overflow while rendering document.");
 		/* overflow, or cairo was changed in an unsupported way */
 		return NULL;
 	}
 
 	if (height >= INT_MAX / rowstride) {
-		g_warning("Overflow while rendering document.");
+		g_warning ("Overflow while rendering document.");
 		/* overflow */
 		return NULL;
 	}
@@ -275,37 +270,37 @@ tiff_document_render (PpsDocument      *document,
 
 	pixels = g_try_malloc (bytes);
 	if (!pixels) {
-		g_warning("Failed to allocate memory for rendering.");
+		g_warning ("Failed to allocate memory for rendering.");
 		return NULL;
 	}
 
 	if (!TIFFReadRGBAImageOriented (tiff_document->tiff,
-					width, height,
-					(uint32_t *)pixels,
-					orientation, 0)) {
+	                                width, height,
+	                                (uint32_t *) pixels,
+	                                orientation, 0)) {
 		g_warning ("Failed to read TIFF image.");
 		g_free (pixels);
 		return NULL;
 	}
 
 	surface = cairo_image_surface_create_for_data (pixels,
-						       CAIRO_FORMAT_RGB24,
-						       width, height,
-						       rowstride);
+	                                               CAIRO_FORMAT_RGB24,
+	                                               width, height,
+	                                               rowstride);
 	cairo_surface_set_user_data (surface, &key,
-				     pixels, (cairo_destroy_func_t)g_free);
+	                             pixels, (cairo_destroy_func_t) g_free);
 	pop_handlers ();
 
 	/* Convert the format returned by libtiff to
-	* what cairo expects
-	*/
+	 * what cairo expects
+	 */
 	p = pixels;
 	while (p < pixels + bytes) {
-		guint32 *pixel = (guint32*)p;
-		guint8 r = TIFFGetR(*pixel);
-		guint8 g = TIFFGetG(*pixel);
-		guint8 b = TIFFGetB(*pixel);
-		guint8 a = TIFFGetA(*pixel);
+		guint32 *pixel = (guint32 *) p;
+		guint8 r = TIFFGetR (*pixel);
+		guint8 g = TIFFGetG (*pixel);
+		guint8 b = TIFFGetB (*pixel);
+		guint8 a = TIFFGetA (*pixel);
 
 		*pixel = (a << 24) | (r << 16) | (g << 8) | b;
 
@@ -313,10 +308,10 @@ tiff_document_render (PpsDocument      *document,
 	}
 
 	pps_render_context_compute_scaled_size (rc, width, height * (x_res / y_res),
-					       &scaled_width, &scaled_height);
+	                                        &scaled_width, &scaled_height);
 	rotated_surface = pps_document_misc_surface_rotate_and_scale (surface,
-								     scaled_width, scaled_height,
-								     rc->rotation);
+	                                                              scaled_width, scaled_height,
+	                                                              rc->rotation);
 	cairo_surface_destroy (surface);
 
 	return rotated_surface;
@@ -329,8 +324,8 @@ free_buffer (guchar *pixels, gpointer data)
 }
 
 static GdkPixbuf *
-tiff_document_get_thumbnail (PpsDocument      *document,
-			     PpsRenderContext *rc)
+tiff_document_get_thumbnail (PpsDocument *document,
+                             PpsRenderContext *rc)
 {
 	TiffDocument *tiff_document = TIFF_DOCUMENT (document);
 	int width, height;
@@ -353,7 +348,7 @@ tiff_document_get_thumbnail (PpsDocument      *document,
 		return NULL;
 	}
 
-	if (! TIFFGetField (tiff_document->tiff, TIFFTAG_IMAGELENGTH, &height)) {
+	if (!TIFFGetField (tiff_document->tiff, TIFFTAG_IMAGELENGTH, &height)) {
 		pop_handlers ();
 		return NULL;
 	}
@@ -381,23 +376,23 @@ tiff_document_get_thumbnail (PpsDocument      *document,
 		return NULL;
 
 	if (!TIFFReadRGBAImageOriented (tiff_document->tiff,
-					width, height,
-					(uint32_t *)pixels,
-					ORIENTATION_TOPLEFT, 0)) {
+	                                width, height,
+	                                (uint32_t *) pixels,
+	                                ORIENTATION_TOPLEFT, 0)) {
 		g_free (pixels);
 		return NULL;
 	}
 
 	pixbuf = gdk_pixbuf_new_from_data (pixels, GDK_COLORSPACE_RGB, TRUE, 8,
-					   width, height, rowstride,
-					   free_buffer, NULL);
+	                                   width, height, rowstride,
+	                                   free_buffer, NULL);
 	pop_handlers ();
 
 	pps_render_context_compute_scaled_size (rc, width, height * (x_res / y_res),
-					       &scaled_width, &scaled_height);
+	                                        &scaled_width, &scaled_height);
 	scaled_pixbuf = gdk_pixbuf_scale_simple (pixbuf,
-						 scaled_width, scaled_height,
-						 GDK_INTERP_BILINEAR);
+	                                         scaled_width, scaled_height,
+	                                         GDK_INTERP_BILINEAR);
 	g_object_unref (pixbuf);
 
 	rotated_pixbuf = gdk_pixbuf_rotate_simple (scaled_pixbuf, 360 - rc->rotation);
@@ -408,7 +403,7 @@ tiff_document_get_thumbnail (PpsDocument      *document,
 
 static gchar *
 tiff_document_get_page_label (PpsDocument *document,
-			      PpsPage     *page)
+                              PpsPage *page)
 {
 	TiffDocument *tiff_document = TIFF_DOCUMENT (document);
 	static gchar *label;
@@ -424,18 +419,18 @@ tiff_document_get_page_label (PpsDocument *document,
 static PpsDocumentInfo *
 tiff_document_get_info (PpsDocument *document)
 {
-        TiffDocument *tiff_document = TIFF_DOCUMENT (document);
-        PpsDocumentInfo *info;
-        const void *data;
-        uint32_t size;
+	TiffDocument *tiff_document = TIFF_DOCUMENT (document);
+	PpsDocumentInfo *info;
+	const void *data;
+	uint32_t size;
 
-        info = pps_document_info_new ();
+	info = pps_document_info_new ();
 
-        if (TIFFGetField (tiff_document->tiff, TIFFTAG_XMLPACKET, &size, &data) == 1) {
-                pps_document_info_set_from_xmp (info, (const char*)data, size);
-        }
+	if (TIFFGetField (tiff_document->tiff, TIFFTAG_XMLPACKET, &size, &data) == 1) {
+		pps_document_info_set_from_xmp (info, (const char *) data, size);
+	}
 
-        return info;
+	return info;
 }
 
 static void
@@ -454,7 +449,7 @@ tiff_document_finalize (GObject *object)
 static void
 tiff_document_class_init (TiffDocumentClass *klass)
 {
-	GObjectClass    *gobject_class = G_OBJECT_CLASS (klass);
+	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	PpsDocumentClass *pps_document_class = PPS_DOCUMENT_CLASS (klass);
 
 	gobject_class->finalize = tiff_document_finalize;
@@ -471,12 +466,12 @@ tiff_document_class_init (TiffDocumentClass *klass)
 
 /* postscript exporter implementation */
 static void
-tiff_document_file_exporter_begin (PpsFileExporter        *exporter,
-				   PpsFileExporterContext *fc)
+tiff_document_file_exporter_begin (PpsFileExporter *exporter,
+                                   PpsFileExporterContext *fc)
 {
 	TiffDocument *document = TIFF_DOCUMENT (exporter);
 
-	document->ps_export_ctx = tiff2ps_context_new(fc->filename);
+	document->ps_export_ctx = tiff2ps_context_new (fc->filename);
 }
 
 static void
@@ -489,7 +484,7 @@ tiff_document_file_exporter_do_page (PpsFileExporter *exporter, PpsRenderContext
 	if (TIFFSetDirectory (document->tiff, rc->page->index) != 1)
 		return;
 	tiff2ps_process_page (document->ps_export_ctx, document->tiff,
-			      0, 0, 0, 0, 0);
+	                      0, 0, 0, 0, 0);
 }
 
 static void
@@ -499,17 +494,17 @@ tiff_document_file_exporter_end (PpsFileExporter *exporter)
 
 	if (document->ps_export_ctx == NULL)
 		return;
-	tiff2ps_context_finalize(document->ps_export_ctx);
+	tiff2ps_context_finalize (document->ps_export_ctx);
 }
 
 static PpsFileExporterCapabilities
 tiff_document_file_exporter_get_capabilities (PpsFileExporter *exporter)
 {
-	return  PPS_FILE_EXPORTER_CAN_PAGE_SET |
-		PPS_FILE_EXPORTER_CAN_COPIES |
-		PPS_FILE_EXPORTER_CAN_COLLATE |
-		PPS_FILE_EXPORTER_CAN_REVERSE |
-		PPS_FILE_EXPORTER_CAN_GENERATE_PS;
+	return PPS_FILE_EXPORTER_CAN_PAGE_SET |
+	       PPS_FILE_EXPORTER_CAN_COPIES |
+	       PPS_FILE_EXPORTER_CAN_COLLATE |
+	       PPS_FILE_EXPORTER_CAN_REVERSE |
+	       PPS_FILE_EXPORTER_CAN_GENERATE_PS;
 }
 
 static void

@@ -21,11 +21,10 @@
 #include "config.h"
 
 #include "pps-document-model.h"
-#include "pps-view-type-builtins.h"
 #include "pps-view-marshal.h"
+#include "pps-view-type-builtins.h"
 
-struct _PpsDocumentModel
-{
+struct _PpsDocumentModel {
 	GObject base;
 
 	PpsDocument *document;
@@ -61,8 +60,7 @@ enum {
 	PROP_PAGE_LAYOUT
 };
 
-enum
-{
+enum {
 	PAGE_CHANGED,
 	N_SIGNALS
 };
@@ -85,16 +83,16 @@ pps_document_model_finalize (GObject *object)
 }
 
 static void
-pps_document_model_set_property (GObject      *object,
-				guint         prop_id,
-				const GValue *value,
-				GParamSpec   *pspec)
+pps_document_model_set_property (GObject *object,
+                                 guint prop_id,
+                                 const GValue *value,
+                                 GParamSpec *pspec)
 {
 	PpsDocumentModel *model = PPS_DOCUMENT_MODEL (object);
 
 	switch (prop_id) {
 	case PROP_DOCUMENT:
-		pps_document_model_set_document (model, (PpsDocument *)g_value_get_object (value));
+		pps_document_model_set_document (model, (PpsDocument *) g_value_get_object (value));
 		break;
 	case PROP_PAGE:
 		pps_document_model_set_page (model, g_value_get_int (value));
@@ -135,10 +133,10 @@ pps_document_model_set_property (GObject      *object,
 }
 
 static void
-pps_document_model_get_property (GObject    *object,
-				guint       prop_id,
-				GValue     *value,
-				GParamSpec *pspec)
+pps_document_model_get_property (GObject *object,
+                                 guint prop_id,
+                                 GValue *value,
+                                 GParamSpec *pspec)
 {
 	PpsDocumentModel *model = PPS_DOCUMENT_MODEL (object);
 
@@ -195,114 +193,114 @@ pps_document_model_class_init (PpsDocumentModelClass *klass)
 
 	/* Properties */
 	g_object_class_install_property (g_object_class,
-					 PROP_DOCUMENT,
-					 g_param_spec_object ("document",
-							      "Document",
-							      "The current document",
-							      PPS_TYPE_DOCUMENT,
-							      G_PARAM_READWRITE |
-                                                              G_PARAM_STATIC_STRINGS));
+	                                 PROP_DOCUMENT,
+	                                 g_param_spec_object ("document",
+	                                                      "Document",
+	                                                      "The current document",
+	                                                      PPS_TYPE_DOCUMENT,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
-					 PROP_PAGE,
-					 g_param_spec_int ("page",
-							   "Page",
-							   "Current page",
-							   -1, G_MAXINT, -1,
-							   G_PARAM_READWRITE |
-                                                           G_PARAM_STATIC_STRINGS));
+	                                 PROP_PAGE,
+	                                 g_param_spec_int ("page",
+	                                                   "Page",
+	                                                   "Current page",
+	                                                   -1, G_MAXINT, -1,
+	                                                   G_PARAM_READWRITE |
+	                                                       G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
-					 PROP_ROTATION,
-					 g_param_spec_int ("rotation",
-							   "Rotation",
-							   "Current rotation angle",
-							   0, 360, 0,
-							   G_PARAM_READWRITE |
-                                                           G_PARAM_STATIC_STRINGS));
+	                                 PROP_ROTATION,
+	                                 g_param_spec_int ("rotation",
+	                                                   "Rotation",
+	                                                   "Current rotation angle",
+	                                                   0, 360, 0,
+	                                                   G_PARAM_READWRITE |
+	                                                       G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
-					 PROP_INVERTED_COLORS,
-					 g_param_spec_boolean ("inverted-colors",
-							       "Inverted Colors",
-							       "Whether document is displayed with inverted colors",
-							       FALSE,
-							       G_PARAM_READWRITE |
-                                                               G_PARAM_STATIC_STRINGS));
+	                                 PROP_INVERTED_COLORS,
+	                                 g_param_spec_boolean ("inverted-colors",
+	                                                       "Inverted Colors",
+	                                                       "Whether document is displayed with inverted colors",
+	                                                       FALSE,
+	                                                       G_PARAM_READWRITE |
+	                                                           G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
-					 PROP_SCALE,
-					 g_param_spec_double ("scale",
-							      "Scale",
-							      "Current scale factor",
-							      0., G_MAXDOUBLE, 1.,
-							      G_PARAM_READWRITE |
-                                                              G_PARAM_STATIC_STRINGS));
+	                                 PROP_SCALE,
+	                                 g_param_spec_double ("scale",
+	                                                      "Scale",
+	                                                      "Current scale factor",
+	                                                      0., G_MAXDOUBLE, 1.,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
-					 PROP_MIN_SCALE,
-					 g_param_spec_double ("min-scale",
-							      "Minimum Scale",
-							      "Minimum scale factor",
-							      0., G_MAXDOUBLE, DEFAULT_MIN_SCALE,
-							      G_PARAM_READWRITE |
-                                                              G_PARAM_STATIC_STRINGS));
+	                                 PROP_MIN_SCALE,
+	                                 g_param_spec_double ("min-scale",
+	                                                      "Minimum Scale",
+	                                                      "Minimum scale factor",
+	                                                      0., G_MAXDOUBLE, DEFAULT_MIN_SCALE,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
-					 PROP_MAX_SCALE,
-					 g_param_spec_double ("max-scale",
-							      "Maximum Scale",
-							      "Maximum scale factor",
-							      0., G_MAXDOUBLE, DEFAULT_MAX_SCALE,
-							      G_PARAM_READWRITE |
-                                                              G_PARAM_STATIC_STRINGS));
+	                                 PROP_MAX_SCALE,
+	                                 g_param_spec_double ("max-scale",
+	                                                      "Maximum Scale",
+	                                                      "Maximum scale factor",
+	                                                      0., G_MAXDOUBLE, DEFAULT_MAX_SCALE,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
-					 PROP_SIZING_MODE,
-					 g_param_spec_enum ("sizing-mode",
-							    "Sizing Mode",
-							    "Current sizing mode",
-							    PPS_TYPE_SIZING_MODE,
-							    PPS_SIZING_FIT_WIDTH,
-							    G_PARAM_READWRITE |
-                                                            G_PARAM_STATIC_STRINGS));
+	                                 PROP_SIZING_MODE,
+	                                 g_param_spec_enum ("sizing-mode",
+	                                                    "Sizing Mode",
+	                                                    "Current sizing mode",
+	                                                    PPS_TYPE_SIZING_MODE,
+	                                                    PPS_SIZING_FIT_WIDTH,
+	                                                    G_PARAM_READWRITE |
+	                                                        G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
-					 PROP_PAGE_LAYOUT,
-					 g_param_spec_enum ("page-layout",
-							    "Page Layout",
-							    "Current page layout",
-							    PPS_TYPE_PAGE_LAYOUT,
-							    PPS_PAGE_LAYOUT_SINGLE,
-							    G_PARAM_READWRITE |
-							    G_PARAM_STATIC_STRINGS));
+	                                 PROP_PAGE_LAYOUT,
+	                                 g_param_spec_enum ("page-layout",
+	                                                    "Page Layout",
+	                                                    "Current page layout",
+	                                                    PPS_TYPE_PAGE_LAYOUT,
+	                                                    PPS_PAGE_LAYOUT_SINGLE,
+	                                                    G_PARAM_READWRITE |
+	                                                        G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
-					 PROP_CONTINUOUS,
-					 g_param_spec_boolean ("continuous",
-							       "Continuous",
-							       "Whether document is displayed in continuous mode",
-							       TRUE,
-							       G_PARAM_READWRITE |
-                                                               G_PARAM_STATIC_STRINGS));
+	                                 PROP_CONTINUOUS,
+	                                 g_param_spec_boolean ("continuous",
+	                                                       "Continuous",
+	                                                       "Whether document is displayed in continuous mode",
+	                                                       TRUE,
+	                                                       G_PARAM_READWRITE |
+	                                                           G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
-					 PROP_DUAL_PAGE_ODD_LEFT,
-					 g_param_spec_boolean ("dual-odd-left",
-							       "Odd Pages Left",
-							       "Whether odd pages are displayed on left side in dual mode",
-							       FALSE,
-							       G_PARAM_READWRITE |
-                                                               G_PARAM_STATIC_STRINGS));
+	                                 PROP_DUAL_PAGE_ODD_LEFT,
+	                                 g_param_spec_boolean ("dual-odd-left",
+	                                                       "Odd Pages Left",
+	                                                       "Whether odd pages are displayed on left side in dual mode",
+	                                                       FALSE,
+	                                                       G_PARAM_READWRITE |
+	                                                           G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
-					 PROP_RTL,
-					 g_param_spec_boolean ("rtl",
-							       "Right to Left",
-							       "Whether the document is written from right to left",
-							       FALSE,
-							       G_PARAM_READWRITE |
-                                                               G_PARAM_STATIC_STRINGS));
+	                                 PROP_RTL,
+	                                 g_param_spec_boolean ("rtl",
+	                                                       "Right to Left",
+	                                                       "Whether the document is written from right to left",
+	                                                       FALSE,
+	                                                       G_PARAM_READWRITE |
+	                                                           G_PARAM_STATIC_STRINGS));
 
 	/* Signals */
-	signals [PAGE_CHANGED] =
-		g_signal_new ("page-changed",
-			      PPS_TYPE_DOCUMENT_MODEL,
-			      G_SIGNAL_RUN_LAST,
-			      0,
-			      NULL, NULL,
-			      pps_view_marshal_VOID__INT_INT,
-			      G_TYPE_NONE, 2,
-			      G_TYPE_INT, G_TYPE_INT);
+	signals[PAGE_CHANGED] =
+	    g_signal_new ("page-changed",
+	                  PPS_TYPE_DOCUMENT_MODEL,
+	                  G_SIGNAL_RUN_LAST,
+	                  0,
+	                  NULL, NULL,
+	                  pps_view_marshal_VOID__INT_INT,
+	                  G_TYPE_NONE, 2,
+	                  G_TYPE_INT, G_TYPE_INT);
 }
 
 static void
@@ -333,7 +331,7 @@ pps_document_model_new_with_document (PpsDocument *document)
 
 void
 pps_document_model_set_document (PpsDocumentModel *model,
-				PpsDocument      *document)
+                                 PpsDocument *document)
 {
 	g_return_if_fail (PPS_IS_DOCUMENT_MODEL (model));
 	g_return_if_fail (PPS_IS_DOCUMENT (document));
@@ -343,7 +341,7 @@ pps_document_model_set_document (PpsDocumentModel *model,
 
 	model->n_pages = pps_document_get_n_pages (document);
 	pps_document_model_set_page (model, CLAMP (model->page, 0,
-						  model->n_pages - 1));
+	                                           model->n_pages - 1));
 
 	g_object_notify (G_OBJECT (model), "document");
 }
@@ -366,7 +364,7 @@ pps_document_model_get_document (PpsDocumentModel *model)
 
 void
 pps_document_model_set_page (PpsDocumentModel *model,
-			    gint             page)
+                             gint page)
 {
 	gint old_page;
 
@@ -386,7 +384,7 @@ pps_document_model_set_page (PpsDocumentModel *model,
 
 void
 pps_document_model_set_page_by_label (PpsDocumentModel *model,
-				     const gchar     *page_label)
+                                      const gchar *page_label)
 {
 	gint page;
 
@@ -407,13 +405,12 @@ pps_document_model_get_page (PpsDocumentModel *model)
 
 void
 pps_document_model_set_scale (PpsDocumentModel *model,
-			     gdouble          scale)
+                              gdouble scale)
 {
 	g_return_if_fail (PPS_IS_DOCUMENT_MODEL (model));
 
 	scale = CLAMP (scale,
-		       model->sizing_mode == PPS_SIZING_FREE ?
-		       model->min_scale : 0, model->max_scale);
+	               model->sizing_mode == PPS_SIZING_FREE ? model->min_scale : 0, model->max_scale);
 
 	if (scale == model->scale)
 		return;
@@ -433,7 +430,7 @@ pps_document_model_get_scale (PpsDocumentModel *model)
 
 void
 pps_document_model_set_max_scale (PpsDocumentModel *model,
-				 gdouble          max_scale)
+                                  gdouble max_scale)
 {
 	g_return_if_fail (PPS_IS_DOCUMENT_MODEL (model));
 
@@ -458,7 +455,7 @@ pps_document_model_get_max_scale (PpsDocumentModel *model)
 
 void
 pps_document_model_set_min_scale (PpsDocumentModel *model,
-				 gdouble          min_scale)
+                                  gdouble min_scale)
 {
 	g_return_if_fail (PPS_IS_DOCUMENT_MODEL (model));
 
@@ -483,7 +480,7 @@ pps_document_model_get_min_scale (PpsDocumentModel *model)
 
 void
 pps_document_model_set_sizing_mode (PpsDocumentModel *model,
-				   PpsSizingMode     mode)
+                                    PpsSizingMode mode)
 {
 	g_return_if_fail (PPS_IS_DOCUMENT_MODEL (model));
 
@@ -514,7 +511,7 @@ pps_document_model_get_sizing_mode (PpsDocumentModel *model)
  */
 void
 pps_document_model_set_page_layout (PpsDocumentModel *model,
-				   PpsPageLayout	    layout)
+                                    PpsPageLayout layout)
 {
 	g_return_if_fail (PPS_IS_DOCUMENT_MODEL (model));
 
@@ -544,7 +541,7 @@ pps_document_model_get_page_layout (PpsDocumentModel *model)
 
 void
 pps_document_model_set_rotation (PpsDocumentModel *model,
-				gint             rotation)
+                                 gint rotation)
 {
 	g_return_if_fail (PPS_IS_DOCUMENT_MODEL (model));
 
@@ -571,7 +568,7 @@ pps_document_model_get_rotation (PpsDocumentModel *model)
 
 void
 pps_document_model_set_inverted_colors (PpsDocumentModel *model,
-				       gboolean         inverted_colors)
+                                        gboolean inverted_colors)
 {
 	g_return_if_fail (PPS_IS_DOCUMENT_MODEL (model));
 
@@ -593,7 +590,7 @@ pps_document_model_get_inverted_colors (PpsDocumentModel *model)
 
 void
 pps_document_model_set_continuous (PpsDocumentModel *model,
-				  gboolean         continuous)
+                                   gboolean continuous)
 {
 	g_return_if_fail (PPS_IS_DOCUMENT_MODEL (model));
 
@@ -617,7 +614,7 @@ pps_document_model_get_continuous (PpsDocumentModel *model)
 
 void
 pps_document_model_set_dual_page_odd_pages_left (PpsDocumentModel *model,
-						gboolean         odd_left)
+                                                 gboolean odd_left)
 {
 	g_return_if_fail (PPS_IS_DOCUMENT_MODEL (model));
 
@@ -641,7 +638,7 @@ pps_document_model_get_dual_page_odd_pages_left (PpsDocumentModel *model)
 
 void
 pps_document_model_set_rtl (PpsDocumentModel *model,
-                           gboolean         rtl)
+                            gboolean rtl)
 {
 	g_return_if_fail (PPS_IS_DOCUMENT_MODEL (model));
 

@@ -20,8 +20,8 @@
 
 #include "config.h"
 
-#include "pps-document.h"
 #include "pps-document-print.h"
+#include "pps-document.h"
 
 G_DEFINE_INTERFACE (PpsDocumentPrint, pps_document_print, 0)
 
@@ -32,8 +32,8 @@ pps_document_print_default_init (PpsDocumentPrintInterface *klass)
 
 void
 pps_document_print_print_page (PpsDocumentPrint *document_print,
-			      PpsPage          *page,
-			      cairo_t         *cr)
+                               PpsPage *page,
+                               cairo_t *cr)
 {
 	PpsDocumentPrintInterface *iface = PPS_DOCUMENT_PRINT_GET_IFACE (document_print);
 

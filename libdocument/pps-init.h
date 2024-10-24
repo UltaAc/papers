@@ -19,7 +19,7 @@
 
 #pragma once
 
-#if !defined (__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-document.h> can be included directly."
 #endif
 
@@ -30,11 +30,11 @@
 G_BEGIN_DECLS
 
 PPS_PUBLIC
-gboolean    pps_init           (void);
+gboolean pps_init (void);
 
 PPS_PUBLIC
-void        pps_shutdown       (void);
+void pps_shutdown (void);
 
-gboolean   _pps_is_initialized (void);
+gboolean _pps_is_initialized (void);
 
 G_END_DECLS

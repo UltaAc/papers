@@ -54,7 +54,7 @@ pps_document_layers_get_layers (PpsDocumentLayers *document_layers)
 
 void
 pps_document_layers_show_layer (PpsDocumentLayers *document_layers,
-			       PpsLayer          *layer)
+                                PpsLayer *layer)
 {
 	PpsDocumentLayersInterface *iface = PPS_DOCUMENT_LAYERS_GET_IFACE (document_layers);
 
@@ -63,7 +63,7 @@ pps_document_layers_show_layer (PpsDocumentLayers *document_layers,
 
 void
 pps_document_layers_hide_layer (PpsDocumentLayers *document_layers,
-			       PpsLayer          *layer)
+                                PpsLayer *layer)
 {
 	PpsDocumentLayersInterface *iface = PPS_DOCUMENT_LAYERS_GET_IFACE (document_layers);
 
@@ -72,7 +72,7 @@ pps_document_layers_hide_layer (PpsDocumentLayers *document_layers,
 
 gboolean
 pps_document_layers_layer_is_visible (PpsDocumentLayers *document_layers,
-				     PpsLayer          *layer)
+                                      PpsLayer *layer)
 {
 	PpsDocumentLayersInterface *iface = PPS_DOCUMENT_LAYERS_GET_IFACE (document_layers);
 

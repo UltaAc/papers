@@ -1,20 +1,19 @@
-#include <config.h>
 #include "pps-pixbuf-cache.h"
 #include "pps-job-scheduler.h"
 #include "pps-view-private.h"
+#include <config.h>
 
 typedef enum {
-        SCROLL_DIRECTION_DOWN,
-        SCROLL_DIRECTION_UP
+	SCROLL_DIRECTION_DOWN,
+	SCROLL_DIRECTION_UP
 } ScrollDirection;
 
-typedef struct _CacheJobInfo
-{
+typedef struct _CacheJobInfo {
 	PpsJob *job;
 	gboolean page_ready;
 
 	/* Region of the page that needs to be drawn */
-	cairo_region_t  *region;
+	cairo_region_t *region;
 	GdkTexture *texture;
 
 	/* Device scale factor of target widget */
@@ -23,21 +22,20 @@ typedef struct _CacheJobInfo
 	/* Selection data.
 	 * Selection_points are the coordinates encapsulated in selection.
 	 * target_points is the target selection size. */
-	PpsRectangle      target_points;
+	PpsRectangle target_points;
 	PpsSelectionStyle selection_style;
-	gboolean         points_set;
+	gboolean points_set;
 
-	GdkTexture	*selection_texture;
-	gdouble          selection_scale;
-	PpsRectangle      selection_points;
+	GdkTexture *selection_texture;
+	gdouble selection_scale;
+	PpsRectangle selection_points;
 
 	cairo_region_t *selection_region;
-	gdouble         selection_region_scale;
-	PpsRectangle     selection_region_points;
+	gdouble selection_region_scale;
+	PpsRectangle selection_region_points;
 } CacheJobInfo;
 
-struct _PpsPixbufCache
-{
+struct _PpsPixbufCache {
 	GObject parent;
 
 	/* We keep a link to our containing view just for style information. */
@@ -46,7 +44,7 @@ struct _PpsPixbufCache
 	PpsDocumentModel *model;
 	int start_page;
 	int end_page;
-        ScrollDirection scroll_direction;
+	ScrollDirection scroll_direction;
 
 	gsize max_size;
 
@@ -62,41 +60,39 @@ struct _PpsPixbufCache
 	CacheJobInfo *next_job;
 };
 
-struct _PpsPixbufCacheClass
-{
+struct _PpsPixbufCacheClass {
 	GObjectClass parent_class;
 
-	void (* job_finished) (PpsPixbufCache *pixbuf_cache);
+	void (*job_finished) (PpsPixbufCache *pixbuf_cache);
 };
 
-
-enum
-{
+enum {
 	JOB_FINISHED,
 	N_SIGNALS,
 };
 
-static guint signals[N_SIGNALS] = {0, };
+static guint signals[N_SIGNALS] = {
+	0,
+};
 
-static void          pps_pixbuf_cache_init       (PpsPixbufCache      *pixbuf_cache);
-static void          pps_pixbuf_cache_class_init (PpsPixbufCacheClass *pixbuf_cache);
-static void          pps_pixbuf_cache_finalize   (GObject            *object);
-static void          pps_pixbuf_cache_dispose    (GObject            *object);
-static void          job_finished_cb            (PpsJob              *job,
-						 PpsPixbufCache      *pixbuf_cache);
-static CacheJobInfo *find_job_cache             (PpsPixbufCache      *pixbuf_cache,
-						 int                 page);
-static gboolean      new_selection_surface_needed(PpsPixbufCache      *pixbuf_cache,
-						  CacheJobInfo       *job_info,
-						  gint                page,
-						  gfloat              scale);
-
+static void pps_pixbuf_cache_init (PpsPixbufCache *pixbuf_cache);
+static void pps_pixbuf_cache_class_init (PpsPixbufCacheClass *pixbuf_cache);
+static void pps_pixbuf_cache_finalize (GObject *object);
+static void pps_pixbuf_cache_dispose (GObject *object);
+static void job_finished_cb (PpsJob *job,
+                             PpsPixbufCache *pixbuf_cache);
+static CacheJobInfo *find_job_cache (PpsPixbufCache *pixbuf_cache,
+                                     int page);
+static gboolean new_selection_surface_needed (PpsPixbufCache *pixbuf_cache,
+                                              CacheJobInfo *job_info,
+                                              gint page,
+                                              gfloat scale);
 
 /* These are used for iterating through the prev and next arrays */
 #define FIRST_VISIBLE_PREV(pixbuf_cache) \
 	(MAX (0, pixbuf_cache->preload_cache_size - pixbuf_cache->start_page))
 #define VISIBLE_NEXT_LEN(pixbuf_cache) \
-	(MIN(pixbuf_cache->preload_cache_size, pps_document_get_n_pages (pixbuf_cache->document) - (1 + pixbuf_cache->end_page)))
+	(MIN (pixbuf_cache->preload_cache_size, pps_document_get_n_pages (pixbuf_cache->document) - (1 + pixbuf_cache->end_page)))
 #define PAGE_CACHE_LEN(pixbuf_cache) \
 	((pixbuf_cache->end_page - pixbuf_cache->start_page) + 1)
 
@@ -122,14 +118,14 @@ pps_pixbuf_cache_class_init (PpsPixbufCacheClass *class)
 	object_class->dispose = pps_pixbuf_cache_dispose;
 
 	signals[JOB_FINISHED] =
-		g_signal_new ("job-finished",
-			      G_OBJECT_CLASS_TYPE (object_class),
-			      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-			      G_STRUCT_OFFSET (PpsPixbufCacheClass, job_finished),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__POINTER,
-			      G_TYPE_NONE, 1,
-			      G_TYPE_POINTER);
+	    g_signal_new ("job-finished",
+	                  G_OBJECT_CLASS_TYPE (object_class),
+	                  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+	                  G_STRUCT_OFFSET (PpsPixbufCacheClass, job_finished),
+	                  NULL, NULL,
+	                  g_cclosure_marshal_VOID__POINTER,
+	                  G_TYPE_NONE, 1,
+	                  G_TYPE_POINTER);
 }
 
 static void
@@ -141,17 +137,17 @@ pps_pixbuf_cache_finalize (GObject *object)
 
 	if (pixbuf_cache->job_list) {
 		g_slice_free1 (sizeof (CacheJobInfo) * pixbuf_cache->job_list_len,
-			       pixbuf_cache->job_list);
+		               pixbuf_cache->job_list);
 		pixbuf_cache->job_list = NULL;
 	}
 	if (pixbuf_cache->prev_job) {
 		g_slice_free1 (sizeof (CacheJobInfo) * pixbuf_cache->preload_cache_size,
-			       pixbuf_cache->prev_job);
+		               pixbuf_cache->prev_job);
 		pixbuf_cache->prev_job = NULL;
 	}
 	if (pixbuf_cache->next_job) {
 		g_slice_free1 (sizeof (CacheJobInfo) * pixbuf_cache->preload_cache_size,
-			       pixbuf_cache->next_job);
+		               pixbuf_cache->next_job);
 		pixbuf_cache->next_job = NULL;
 	}
 
@@ -162,11 +158,11 @@ pps_pixbuf_cache_finalize (GObject *object)
 
 static void
 end_job (CacheJobInfo *job_info,
-	 gpointer      data)
+         gpointer data)
 {
 	g_signal_handlers_disconnect_by_func (job_info->job,
-					      G_CALLBACK (job_finished_cb),
-					      data);
+	                                      G_CALLBACK (job_finished_cb),
+	                                      data);
 	if (!pps_job_is_finished (job_info->job))
 		pps_job_cancel (job_info->job);
 	g_clear_object (&job_info->job);
@@ -174,7 +170,7 @@ end_job (CacheJobInfo *job_info,
 
 static void
 dispose_cache_job_info (CacheJobInfo *job_info,
-			gpointer      data)
+                        gpointer data)
 {
 	if (job_info == NULL)
 		return;
@@ -210,11 +206,10 @@ pps_pixbuf_cache_dispose (GObject *object)
 	G_OBJECT_CLASS (pps_pixbuf_cache_parent_class)->dispose (object);
 }
 
-
 PpsPixbufCache *
-pps_pixbuf_cache_new (GtkWidget       *view,
-		     PpsDocumentModel *model,
-		     gsize            max_size)
+pps_pixbuf_cache_new (GtkWidget *view,
+                      PpsDocumentModel *model,
+                      gsize max_size)
 {
 	PpsPixbufCache *pixbuf_cache;
 
@@ -230,7 +225,7 @@ pps_pixbuf_cache_new (GtkWidget       *view,
 
 void
 pps_pixbuf_cache_set_max_size (PpsPixbufCache *pixbuf_cache,
-			      gsize          max_size)
+                               gsize max_size)
 {
 	if (pixbuf_cache->max_size == max_size)
 		return;
@@ -243,20 +238,20 @@ pps_pixbuf_cache_set_max_size (PpsPixbufCache *pixbuf_cache,
 static int
 get_device_scale (PpsPixbufCache *pixbuf_cache)
 {
-        return gtk_widget_get_scale_factor (pixbuf_cache->view);
+	return gtk_widget_get_scale_factor (pixbuf_cache->view);
 }
 
 static void
 set_device_scale_on_surface (cairo_surface_t *surface,
-                             int              device_scale)
+                             int device_scale)
 {
-        cairo_surface_set_device_scale (surface, device_scale, device_scale);
+	cairo_surface_set_device_scale (surface, device_scale, device_scale);
 }
 
 static void
 copy_job_to_job_info (PpsJobRenderTexture *job_render,
-		      CacheJobInfo     *job_info,
-		      PpsPixbufCache    *pixbuf_cache)
+                      CacheJobInfo *job_info,
+                      PpsPixbufCache *pixbuf_cache)
 {
 	g_set_object (&job_info->texture, job_render->texture);
 
@@ -283,8 +278,8 @@ copy_job_to_job_info (PpsJobRenderTexture *job_render,
 }
 
 static void
-job_finished_cb (PpsJob         *job,
-		 PpsPixbufCache *pixbuf_cache)
+job_finished_cb (PpsJob *job,
+                 PpsPixbufCache *pixbuf_cache)
 {
 	CacheJobInfo *job_info;
 	PpsJobRenderTexture *job_render = PPS_JOB_RENDER_TEXTURE (job);
@@ -312,8 +307,8 @@ job_finished_cb (PpsJob         *job,
  */
 static void
 check_job_size_and_unref (PpsPixbufCache *pixbuf_cache,
-			  CacheJobInfo  *job_info,
-			  gfloat         scale)
+                          CacheJobInfo *job_info,
+                          gfloat scale)
 {
 	gint width, height;
 	gint device_scale;
@@ -323,13 +318,13 @@ check_job_size_and_unref (PpsPixbufCache *pixbuf_cache,
 	if (job_info->job == NULL)
 		return;
 
-        device_scale = get_device_scale (pixbuf_cache);
+	device_scale = get_device_scale (pixbuf_cache);
 	if (job_info->device_scale == device_scale) {
 		_get_page_size_for_scale_and_rotation (pps_job_get_document (job_info->job),
-						       PPS_JOB_RENDER_TEXTURE (job_info->job)->page,
-						       scale,
-						       PPS_JOB_RENDER_TEXTURE (job_info->job)->rotation,
-						       &width, &height);
+		                                       PPS_JOB_RENDER_TEXTURE (job_info->job)->page,
+		                                       scale,
+		                                       PPS_JOB_RENDER_TEXTURE (job_info->job)->rotation,
+		                                       &width, &height);
 		if (width * device_scale == PPS_JOB_RENDER_TEXTURE (job_info->job)->target_width &&
 		    height * device_scale == PPS_JOB_RENDER_TEXTURE (job_info->job)->target_height)
 			return;
@@ -342,16 +337,16 @@ check_job_size_and_unref (PpsPixbufCache *pixbuf_cache,
  * new cache.  It clears the old job if it doesn't have a place.
  */
 static void
-move_one_job (CacheJobInfo  *job_info,
-	      PpsPixbufCache *pixbuf_cache,
-	      int            page,
-	      CacheJobInfo  *new_job_list,
-	      CacheJobInfo  *new_prev_job,
-	      CacheJobInfo  *new_next_job,
-	      int            new_preload_cache_size,
-	      int            start_page,
-	      int            end_page,
-	      gint           priority)
+move_one_job (CacheJobInfo *job_info,
+              PpsPixbufCache *pixbuf_cache,
+              int page,
+              CacheJobInfo *new_job_list,
+              CacheJobInfo *new_prev_job,
+              CacheJobInfo *new_next_job,
+              int new_preload_cache_size,
+              int start_page,
+              int end_page,
+              gint priority)
 {
 	CacheJobInfo *target_page = NULL;
 	int page_offset;
@@ -368,20 +363,20 @@ move_one_job (CacheJobInfo  *job_info,
 		page_offset = (page - (start_page - new_preload_cache_size));
 
 		g_assert (page_offset >= 0 &&
-			  page_offset < new_preload_cache_size);
+		          page_offset < new_preload_cache_size);
 		target_page = new_prev_job + page_offset;
 		new_priority = PPS_JOB_PRIORITY_LOW;
 	} else if (page > end_page) {
 		page_offset = (page - (end_page + 1));
 
 		g_assert (page_offset >= 0 &&
-			  page_offset < new_preload_cache_size);
+		          page_offset < new_preload_cache_size);
 		target_page = new_next_job + page_offset;
 		new_priority = PPS_JOB_PRIORITY_LOW;
 	} else {
 		page_offset = page - start_page;
 		g_assert (page_offset >= 0 &&
-			  page_offset <= ((end_page - start_page) + 1));
+		          page_offset <= ((end_page - start_page) + 1));
 		new_priority = PPS_JOB_PRIORITY_URGENT;
 		target_page = new_job_list + page_offset;
 	}
@@ -398,28 +393,28 @@ move_one_job (CacheJobInfo  *job_info,
 
 static gsize
 pps_pixbuf_cache_get_page_size (PpsPixbufCache *pixbuf_cache,
-			       gint           page_index,
-			       gdouble        scale,
-			       gint           rotation)
+                                gint page_index,
+                                gdouble scale,
+                                gint rotation)
 {
 	gint width, height;
 
 	_get_page_size_for_scale_and_rotation (pixbuf_cache->document,
-					       page_index, scale, rotation,
-					       &width, &height);
+	                                       page_index, scale, rotation,
+	                                       &width, &height);
 	return height * cairo_format_stride_for_width (CAIRO_FORMAT_RGB24, width);
 }
 
 static gint
 pps_pixbuf_cache_get_preload_size (PpsPixbufCache *pixbuf_cache,
-				  gint           start_page,
-				  gint           end_page,
-				  gdouble        scale,
-				  gint           rotation)
+                                   gint start_page,
+                                   gint end_page,
+                                   gdouble scale,
+                                   gint rotation)
 {
 	gsize range_size = 0;
-	gint  new_preload_cache_size = 0;
-	gint  i;
+	gint new_preload_cache_size = 0;
+	gint i;
 	guint n_pages = pps_document_get_n_pages (pixbuf_cache->document);
 
 	/* Get the size of the current range */
@@ -433,12 +428,12 @@ pps_pixbuf_cache_get_preload_size (PpsPixbufCache *pixbuf_cache,
 	i = 1;
 	while (((start_page - i > 0) || (end_page + i < n_pages)) &&
 	       new_preload_cache_size < MAX_PRELOADED_PAGES) {
-		gsize    page_size;
+		gsize page_size;
 		gboolean updated = FALSE;
 
 		if (end_page + i < n_pages) {
 			page_size = pps_pixbuf_cache_get_page_size (pixbuf_cache, end_page + i,
-								   scale, rotation);
+			                                            scale, rotation);
 			if (page_size + range_size <= pixbuf_cache->max_size) {
 				range_size += page_size;
 				new_preload_cache_size++;
@@ -450,7 +445,7 @@ pps_pixbuf_cache_get_preload_size (PpsPixbufCache *pixbuf_cache,
 
 		if (start_page - i > 0) {
 			page_size = pps_pixbuf_cache_get_page_size (pixbuf_cache, start_page - i,
-								   scale, rotation);
+			                                            scale, rotation);
 			if (page_size + range_size <= pixbuf_cache->max_size) {
 				range_size += page_size;
 				if (!updated)
@@ -467,23 +462,23 @@ pps_pixbuf_cache_get_preload_size (PpsPixbufCache *pixbuf_cache,
 
 static void
 pps_pixbuf_cache_update_range (PpsPixbufCache *pixbuf_cache,
-			      gint           start_page,
-			      gint           end_page,
-			      guint          rotation,
-			      gdouble        scale)
+                               gint start_page,
+                               gint end_page,
+                               guint rotation,
+                               gdouble scale)
 {
 	CacheJobInfo *new_job_list;
 	CacheJobInfo *new_prev_job = NULL;
 	CacheJobInfo *new_next_job = NULL;
-	gint          new_preload_cache_size;
-	guint         new_job_list_len;
-	int           i, page;
+	gint new_preload_cache_size;
+	guint new_job_list_len;
+	int i, page;
 
 	new_preload_cache_size = pps_pixbuf_cache_get_preload_size (pixbuf_cache,
-								   start_page,
-								   end_page,
-								   scale,
-								   rotation);
+	                                                            start_page,
+	                                                            end_page,
+	                                                            scale,
+	                                                            rotation);
 	if (pixbuf_cache->start_page == start_page &&
 	    pixbuf_cache->end_page == end_page &&
 	    pixbuf_cache->preload_cache_size == new_preload_cache_size)
@@ -506,22 +501,22 @@ pps_pixbuf_cache_update_range (PpsPixbufCache *pixbuf_cache,
 			dispose_cache_job_info (pixbuf_cache->prev_job + i, pixbuf_cache);
 		} else {
 			move_one_job (pixbuf_cache->prev_job + i,
-				      pixbuf_cache, page,
-				      new_job_list, new_prev_job, new_next_job,
-				      new_preload_cache_size,
-				      start_page, end_page, PPS_JOB_PRIORITY_LOW);
+			              pixbuf_cache, page,
+			              new_job_list, new_prev_job, new_next_job,
+			              new_preload_cache_size,
+			              start_page, end_page, PPS_JOB_PRIORITY_LOW);
 		}
-		page ++;
+		page++;
 	}
 
 	page = pixbuf_cache->start_page;
 	for (i = 0; i < PAGE_CACHE_LEN (pixbuf_cache) && page >= 0; i++) {
 		move_one_job (pixbuf_cache->job_list + i,
-			      pixbuf_cache, page,
-			      new_job_list, new_prev_job, new_next_job,
-			      new_preload_cache_size,
-			      start_page, end_page, PPS_JOB_PRIORITY_URGENT);
-		page ++;
+		              pixbuf_cache, page,
+		              new_job_list, new_prev_job, new_next_job,
+		              new_preload_cache_size,
+		              start_page, end_page, PPS_JOB_PRIORITY_URGENT);
+		page++;
 	}
 
 	for (i = 0; i < pixbuf_cache->preload_cache_size; i++) {
@@ -529,25 +524,25 @@ pps_pixbuf_cache_update_range (PpsPixbufCache *pixbuf_cache,
 			dispose_cache_job_info (pixbuf_cache->next_job + i, pixbuf_cache);
 		} else {
 			move_one_job (pixbuf_cache->next_job + i,
-				      pixbuf_cache, page,
-				      new_job_list, new_prev_job, new_next_job,
-				      new_preload_cache_size,
-				      start_page, end_page, PPS_JOB_PRIORITY_LOW);
+			              pixbuf_cache, page,
+			              new_job_list, new_prev_job, new_next_job,
+			              new_preload_cache_size,
+			              start_page, end_page, PPS_JOB_PRIORITY_LOW);
 		}
-		page ++;
+		page++;
 	}
 
 	if (pixbuf_cache->job_list) {
 		g_slice_free1 (sizeof (CacheJobInfo) * pixbuf_cache->job_list_len,
-			       pixbuf_cache->job_list);
+		               pixbuf_cache->job_list);
 	}
 	if (pixbuf_cache->prev_job) {
 		g_slice_free1 (sizeof (CacheJobInfo) * pixbuf_cache->preload_cache_size,
-			       pixbuf_cache->prev_job);
+		               pixbuf_cache->prev_job);
 	}
 	if (pixbuf_cache->next_job) {
 		g_slice_free1 (sizeof (CacheJobInfo) * pixbuf_cache->preload_cache_size,
-			       pixbuf_cache->next_job);
+		               pixbuf_cache->next_job);
 	}
 
 	pixbuf_cache->preload_cache_size = new_preload_cache_size;
@@ -563,7 +558,7 @@ pps_pixbuf_cache_update_range (PpsPixbufCache *pixbuf_cache,
 
 static CacheJobInfo *
 find_job_cache (PpsPixbufCache *pixbuf_cache,
-		int            page)
+                int page)
 {
 	int page_offset;
 
@@ -575,7 +570,7 @@ find_job_cache (PpsPixbufCache *pixbuf_cache,
 		page_offset = (page - (pixbuf_cache->start_page - pixbuf_cache->preload_cache_size));
 
 		g_assert (page_offset >= 0 &&
-			  page_offset < pixbuf_cache->preload_cache_size);
+		          page_offset < pixbuf_cache->preload_cache_size);
 		return pixbuf_cache->prev_job + page_offset;
 	}
 
@@ -583,19 +578,19 @@ find_job_cache (PpsPixbufCache *pixbuf_cache,
 		page_offset = (page - (pixbuf_cache->end_page + 1));
 
 		g_assert (page_offset >= 0 &&
-			  page_offset < pixbuf_cache->preload_cache_size);
+		          page_offset < pixbuf_cache->preload_cache_size);
 		return pixbuf_cache->next_job + page_offset;
 	}
 
 	page_offset = page - pixbuf_cache->start_page;
 	g_assert (page_offset >= 0 &&
-		  page_offset <= PAGE_CACHE_LEN(pixbuf_cache));
+	          page_offset <= PAGE_CACHE_LEN (pixbuf_cache));
 	return pixbuf_cache->job_list + page_offset;
 }
 
 static void
 pps_pixbuf_cache_clear_job_sizes (PpsPixbufCache *pixbuf_cache,
-				 gfloat         scale)
+                                  gfloat scale)
 {
 	int i;
 
@@ -610,15 +605,15 @@ pps_pixbuf_cache_clear_job_sizes (PpsPixbufCache *pixbuf_cache,
 }
 
 static void
-add_job (PpsPixbufCache  *pixbuf_cache,
-	 CacheJobInfo   *job_info,
-	 cairo_region_t *region,
-	 gint            width,
-	 gint            height,
-	 gint            page,
-	 gint            rotation,
-	 gfloat          scale,
-	 PpsJobPriority   priority)
+add_job (PpsPixbufCache *pixbuf_cache,
+         CacheJobInfo *job_info,
+         cairo_region_t *region,
+         gint width,
+         gint height,
+         gint page,
+         gint rotation,
+         gfloat scale,
+         PpsJobPriority priority)
 {
 	job_info->device_scale = get_device_scale (pixbuf_cache);
 	job_info->page_ready = FALSE;
@@ -631,34 +626,34 @@ add_job (PpsPixbufCache  *pixbuf_cache,
 		end_job (job_info, pixbuf_cache);
 
 	job_info->job = pps_job_render_texture_new (pixbuf_cache->document,
-						 page, rotation,
-						 scale * job_info->device_scale,
-						 width * job_info->device_scale,
-						 height * job_info->device_scale);
+	                                            page, rotation,
+	                                            scale * job_info->device_scale,
+	                                            width * job_info->device_scale,
+	                                            height * job_info->device_scale);
 
 	if (new_selection_surface_needed (pixbuf_cache, job_info, page, scale)) {
 		GdkRGBA text, base;
 
 		_pps_view_get_selection_colors (PPS_VIEW (pixbuf_cache->view), &base, &text);
 		pps_job_render_texture_set_selection_info (PPS_JOB_RENDER_TEXTURE (job_info->job),
-							&(job_info->target_points),
-							job_info->selection_style,
-							&text, &base);
+		                                           &(job_info->target_points),
+		                                           job_info->selection_style,
+		                                           &text, &base);
 	}
 
 	g_signal_connect (job_info->job, "finished",
-			  G_CALLBACK (job_finished_cb),
-			  pixbuf_cache);
+	                  G_CALLBACK (job_finished_cb),
+	                  pixbuf_cache);
 	pps_job_scheduler_push_job (job_info->job, priority);
 }
 
 static void
 add_job_if_needed (PpsPixbufCache *pixbuf_cache,
-		   CacheJobInfo  *job_info,
-		   gint           page,
-		   gint           rotation,
-		   gfloat         scale,
-		   PpsJobPriority  priority)
+                   CacheJobInfo *job_info,
+                   gint page,
+                   gint rotation,
+                   gfloat scale,
+                   PpsJobPriority priority)
 {
 	gint device_scale = get_device_scale (pixbuf_cache);
 	gint width, height;
@@ -667,8 +662,8 @@ add_job_if_needed (PpsPixbufCache *pixbuf_cache,
 		return;
 
 	_get_page_size_for_scale_and_rotation (pixbuf_cache->document,
-					       page, scale, rotation,
-					       &width, &height);
+	                                       page, scale, rotation,
+	                                       &width, &height);
 
 	if (job_info->texture &&
 	    job_info->device_scale == device_scale &&
@@ -683,52 +678,52 @@ add_job_if_needed (PpsPixbufCache *pixbuf_cache,
 	}
 
 	add_job (pixbuf_cache, job_info, NULL,
-		 width, height, page, rotation, scale,
-		 priority);
+	         width, height, page, rotation, scale,
+	         priority);
 }
 
 static void
 add_prev_jobs_if_needed (PpsPixbufCache *pixbuf_cache,
-                         gint           rotation,
-                         gfloat         scale)
+                         gint rotation,
+                         gfloat scale)
 {
-        CacheJobInfo *job_info;
-        int page;
-        int i;
+	CacheJobInfo *job_info;
+	int page;
+	int i;
 
-        for (i = pixbuf_cache->preload_cache_size - 1; i >= FIRST_VISIBLE_PREV(pixbuf_cache); i--) {
-                job_info = (pixbuf_cache->prev_job + i);
-                page = pixbuf_cache->start_page - pixbuf_cache->preload_cache_size + i;
+	for (i = pixbuf_cache->preload_cache_size - 1; i >= FIRST_VISIBLE_PREV (pixbuf_cache); i--) {
+		job_info = (pixbuf_cache->prev_job + i);
+		page = pixbuf_cache->start_page - pixbuf_cache->preload_cache_size + i;
 
-                add_job_if_needed (pixbuf_cache, job_info,
-                                   page, rotation, scale,
-                                   PPS_JOB_PRIORITY_LOW);
-        }
+		add_job_if_needed (pixbuf_cache, job_info,
+		                   page, rotation, scale,
+		                   PPS_JOB_PRIORITY_LOW);
+	}
 }
 
 static void
 add_next_jobs_if_needed (PpsPixbufCache *pixbuf_cache,
-                         gint           rotation,
-                         gfloat         scale)
+                         gint rotation,
+                         gfloat scale)
 {
-        CacheJobInfo *job_info;
-        int page;
-        int i;
+	CacheJobInfo *job_info;
+	int page;
+	int i;
 
-        for (i = 0; i < VISIBLE_NEXT_LEN(pixbuf_cache); i++) {
-                job_info = (pixbuf_cache->next_job + i);
-                page = pixbuf_cache->end_page + 1 + i;
+	for (i = 0; i < VISIBLE_NEXT_LEN (pixbuf_cache); i++) {
+		job_info = (pixbuf_cache->next_job + i);
+		page = pixbuf_cache->end_page + 1 + i;
 
-                add_job_if_needed (pixbuf_cache, job_info,
-                                   page, rotation, scale,
-                                   PPS_JOB_PRIORITY_LOW);
-        }
+		add_job_if_needed (pixbuf_cache, job_info,
+		                   page, rotation, scale,
+		                   PPS_JOB_PRIORITY_LOW);
+	}
 }
 
 static void
 pps_pixbuf_cache_add_jobs_if_needed (PpsPixbufCache *pixbuf_cache,
-				    gint           rotation,
-				    gfloat         scale)
+                                     gint rotation,
+                                     gfloat scale)
 {
 	CacheJobInfo *job_info;
 	int page;
@@ -739,47 +734,47 @@ pps_pixbuf_cache_add_jobs_if_needed (PpsPixbufCache *pixbuf_cache,
 		page = pixbuf_cache->start_page + i;
 
 		add_job_if_needed (pixbuf_cache, job_info,
-				   page, rotation, scale,
-				   PPS_JOB_PRIORITY_URGENT);
+		                   page, rotation, scale,
+		                   PPS_JOB_PRIORITY_URGENT);
 	}
 
-        if (pixbuf_cache->scroll_direction == SCROLL_DIRECTION_UP) {
-                add_prev_jobs_if_needed (pixbuf_cache, rotation, scale);
-                add_next_jobs_if_needed (pixbuf_cache, rotation, scale);
-        } else {
-                add_next_jobs_if_needed (pixbuf_cache, rotation, scale);
-                add_prev_jobs_if_needed (pixbuf_cache, rotation, scale);
-        }
+	if (pixbuf_cache->scroll_direction == SCROLL_DIRECTION_UP) {
+		add_prev_jobs_if_needed (pixbuf_cache, rotation, scale);
+		add_next_jobs_if_needed (pixbuf_cache, rotation, scale);
+	} else {
+		add_next_jobs_if_needed (pixbuf_cache, rotation, scale);
+		add_prev_jobs_if_needed (pixbuf_cache, rotation, scale);
+	}
 }
 
 static ScrollDirection
 pps_pixbuf_cache_get_scroll_direction (PpsPixbufCache *pixbuf_cache,
-                                      gint           start_page,
-                                      gint           end_page)
+                                       gint start_page,
+                                       gint end_page)
 {
-        if (start_page < pixbuf_cache->start_page)
-                return SCROLL_DIRECTION_UP;
+	if (start_page < pixbuf_cache->start_page)
+		return SCROLL_DIRECTION_UP;
 
-        if (end_page > pixbuf_cache->end_page)
-                return SCROLL_DIRECTION_DOWN;
+	if (end_page > pixbuf_cache->end_page)
+		return SCROLL_DIRECTION_DOWN;
 
-        if (start_page > pixbuf_cache->start_page)
-                return SCROLL_DIRECTION_DOWN;
+	if (start_page > pixbuf_cache->start_page)
+		return SCROLL_DIRECTION_DOWN;
 
-        if (end_page < pixbuf_cache->end_page)
-                return SCROLL_DIRECTION_UP;
+	if (end_page < pixbuf_cache->end_page)
+		return SCROLL_DIRECTION_UP;
 
-        return pixbuf_cache->scroll_direction;
+	return pixbuf_cache->scroll_direction;
 }
 
 void
-pps_pixbuf_cache_set_page_range (PpsPixbufCache  *pixbuf_cache,
-				gint            start_page,
-				gint            end_page,
-				GList          *selection_list)
+pps_pixbuf_cache_set_page_range (PpsPixbufCache *pixbuf_cache,
+                                 gint start_page,
+                                 gint end_page,
+                                 GList *selection_list)
 {
 	gdouble scale = pps_document_model_get_scale (pixbuf_cache->model);
-	gint    rotation = pps_document_model_get_rotation (pixbuf_cache->model);
+	gint rotation = pps_document_model_get_rotation (pixbuf_cache->model);
 
 	g_return_if_fail (PPS_IS_PIXBUF_CACHE (pixbuf_cache));
 
@@ -787,7 +782,7 @@ pps_pixbuf_cache_set_page_range (PpsPixbufCache  *pixbuf_cache,
 	g_return_if_fail (end_page >= 0 && end_page < pps_document_get_n_pages (pixbuf_cache->document));
 	g_return_if_fail (end_page >= start_page);
 
-        pixbuf_cache->scroll_direction = pps_pixbuf_cache_get_scroll_direction (pixbuf_cache, start_page, end_page);
+	pixbuf_cache->scroll_direction = pps_pixbuf_cache_get_scroll_direction (pixbuf_cache, start_page, end_page);
 
 	/* First, resize the page_range as needed.  We cull old pages
 	 * mercilessly. */
@@ -807,7 +802,7 @@ pps_pixbuf_cache_set_page_range (PpsPixbufCache  *pixbuf_cache,
 
 GdkTexture *
 pps_pixbuf_cache_get_texture (PpsPixbufCache *pixbuf_cache,
-			     gint           page)
+                              gint page)
 {
 	CacheJobInfo *job_info;
 
@@ -830,9 +825,9 @@ pps_pixbuf_cache_get_texture (PpsPixbufCache *pixbuf_cache,
 
 static gboolean
 new_selection_surface_needed (PpsPixbufCache *pixbuf_cache,
-			      CacheJobInfo  *job_info,
-			      gint           page,
-			      gfloat         scale)
+                              CacheJobInfo *job_info,
+                              gint page,
+                              gfloat scale)
 {
 	if (job_info->selection_texture)
 		return job_info->selection_scale != scale;
@@ -841,9 +836,9 @@ new_selection_surface_needed (PpsPixbufCache *pixbuf_cache,
 
 static gboolean
 new_selection_region_needed (PpsPixbufCache *pixbuf_cache,
-			     CacheJobInfo  *job_info,
-			     gint           page,
-			     gfloat         scale)
+                             CacheJobInfo *job_info,
+                             gint page,
+                             gfloat scale)
 {
 	if (job_info->selection_region)
 		return job_info->selection_region_scale != scale;
@@ -852,9 +847,9 @@ new_selection_region_needed (PpsPixbufCache *pixbuf_cache,
 
 static void
 clear_selection_surface_if_needed (PpsPixbufCache *pixbuf_cache,
-                                   CacheJobInfo  *job_info,
-                                   gint           page,
-                                   gfloat         scale)
+                                   CacheJobInfo *job_info,
+                                   gint page,
+                                   gfloat scale)
 {
 	if (new_selection_surface_needed (pixbuf_cache, job_info, page, scale)) {
 		g_clear_object (&job_info->selection_texture);
@@ -864,9 +859,9 @@ clear_selection_surface_if_needed (PpsPixbufCache *pixbuf_cache,
 
 static void
 clear_selection_region_if_needed (PpsPixbufCache *pixbuf_cache,
-                                  CacheJobInfo  *job_info,
-                                  gint           page,
-                                  gfloat         scale)
+                                  CacheJobInfo *job_info,
+                                  gint page,
+                                  gfloat scale)
 {
 	if (new_selection_region_needed (pixbuf_cache, job_info, page, scale)) {
 		g_clear_pointer (&job_info->selection_region, cairo_region_destroy);
@@ -893,7 +888,6 @@ pps_pixbuf_cache_clear (PpsPixbufCache *pixbuf_cache)
 		dispose_cache_job_info (pixbuf_cache->job_list + i, pixbuf_cache);
 	}
 }
-
 
 void
 pps_pixbuf_cache_style_changed (PpsPixbufCache *pixbuf_cache)
@@ -934,9 +928,9 @@ pps_pixbuf_cache_style_changed (PpsPixbufCache *pixbuf_cache)
 }
 
 GdkTexture *
-pps_pixbuf_cache_get_selection_texture (PpsPixbufCache   *pixbuf_cache,
-				       gint             page,
-				       gfloat           scale)
+pps_pixbuf_cache_get_selection_texture (PpsPixbufCache *pixbuf_cache,
+                                        gint page,
+                                        gfloat scale)
 {
 	CacheJobInfo *job_info;
 
@@ -985,24 +979,24 @@ pps_pixbuf_cache_get_selection_texture (PpsPixbufCache   *pixbuf_cache,
 		}
 
 		pps_page = pps_document_get_page (pixbuf_cache->document, page);
-                _get_page_size_for_scale_and_rotation (pixbuf_cache->document,
-                                                       page,
-						       scale * job_info->device_scale,
-						       0, &width, &height);
+		_get_page_size_for_scale_and_rotation (pixbuf_cache->document,
+		                                       page,
+		                                       scale * job_info->device_scale,
+		                                       0, &width, &height);
 
 		rc = pps_render_context_new (pps_page, 0, scale * job_info->device_scale);
-                pps_render_context_set_target_size (rc, width, height);
+		pps_render_context_set_target_size (rc, width, height);
 		g_object_unref (pps_page);
 
 		_pps_view_get_selection_colors (PPS_VIEW (pixbuf_cache->view), &base, &text);
 		pps_selection_render_selection (PPS_SELECTION (pixbuf_cache->document),
-					       rc, &selection,
-					       &(job_info->target_points),
-					       old_points,
-					       job_info->selection_style,
-					       &text, &base);
-                if (selection)
-                        set_device_scale_on_surface (selection, job_info->device_scale);
+		                                rc, &selection,
+		                                &(job_info->target_points),
+		                                old_points,
+		                                job_info->selection_style,
+		                                &text, &base);
+		if (selection)
+			set_device_scale_on_surface (selection, job_info->device_scale);
 		job_info->selection_points = job_info->target_points;
 		job_info->selection_scale = scale * job_info->device_scale;
 
@@ -1018,8 +1012,8 @@ pps_pixbuf_cache_get_selection_texture (PpsPixbufCache   *pixbuf_cache,
 
 cairo_region_t *
 pps_pixbuf_cache_get_selection_region (PpsPixbufCache *pixbuf_cache,
-				      gint           page,
-				      gfloat         scale)
+                                       gint page,
+                                       gfloat scale)
 {
 	CacheJobInfo *job_info;
 
@@ -1039,8 +1033,7 @@ pps_pixbuf_cache_get_selection_region (PpsPixbufCache *pixbuf_cache,
 	 * assumption that it'll be updated later and we can scale it as need
 	 * be */
 	if (job_info->job && PPS_JOB_RENDER_TEXTURE (job_info->job)->include_selection)
-		return job_info->selection_region && !cairo_region_is_empty(job_info->selection_region) ?
-                        job_info->selection_region : NULL;
+		return job_info->selection_region && !cairo_region_is_empty (job_info->selection_region) ? job_info->selection_region : NULL;
 
 	/* Now, lets see if we need to resize the region.  If we do, we clear the
 	 * old one. */
@@ -1058,8 +1051,8 @@ pps_pixbuf_cache_get_selection_region (PpsPixbufCache *pixbuf_cache,
 		pps_page = pps_document_get_page (pixbuf_cache->document, page);
 
 		_get_page_size_for_scale_and_rotation (pixbuf_cache->document,
-						       page, scale, 0,
-						       &width, &height);
+		                                       page, scale, 0,
+		                                       &width, &height);
 
 		rc = pps_render_context_new (pps_page, 0, 0.);
 		pps_render_context_set_target_size (rc, width, height);
@@ -1068,21 +1061,20 @@ pps_pixbuf_cache_get_selection_region (PpsPixbufCache *pixbuf_cache,
 		if (job_info->selection_region)
 			cairo_region_destroy (job_info->selection_region);
 		job_info->selection_region =
-			pps_selection_get_selection_region (PPS_SELECTION (pixbuf_cache->document),
-							   rc, job_info->selection_style,
-							   &(job_info->target_points));
+		    pps_selection_get_selection_region (PPS_SELECTION (pixbuf_cache->document),
+		                                        rc, job_info->selection_style,
+		                                        &(job_info->target_points));
 		job_info->selection_region_points = job_info->target_points;
 		job_info->selection_region_scale = scale;
 		g_object_unref (rc);
 		pps_document_doc_mutex_unlock (pixbuf_cache->document);
 	}
-	return job_info->selection_region && !cairo_region_is_empty(job_info->selection_region) ?
-                job_info->selection_region : NULL;
+	return job_info->selection_region && !cairo_region_is_empty (job_info->selection_region) ? job_info->selection_region : NULL;
 }
 
 static void
-update_job_selection (CacheJobInfo    *job_info,
-		      PpsViewSelection *selection)
+update_job_selection (CacheJobInfo *job_info,
+                      PpsViewSelection *selection)
 {
 	job_info->points_set = TRUE;
 	job_info->target_points = selection->rect;
@@ -1105,7 +1097,7 @@ clear_job_selection (CacheJobInfo *job_info)
  */
 void
 pps_pixbuf_cache_set_selection_list (PpsPixbufCache *pixbuf_cache,
-				    GList         *selection_list)
+                                     GList *selection_list)
 {
 	PpsViewSelection *selection;
 	GList *list = selection_list;
@@ -1117,23 +1109,23 @@ pps_pixbuf_cache_set_selection_list (PpsPixbufCache *pixbuf_cache,
 	if (!PPS_IS_SELECTION (pixbuf_cache->document))
 		return;
 
-        if (pixbuf_cache->start_page == -1 || pixbuf_cache->end_page == -1)
-                return;
+	if (pixbuf_cache->start_page == -1 || pixbuf_cache->end_page == -1)
+		return;
 
 	/* We check each area to see what needs updating, and what needs freeing; */
 	page = pixbuf_cache->start_page - pixbuf_cache->preload_cache_size;
 	for (i = 0; i < pixbuf_cache->preload_cache_size; i++) {
 		if (page < 0) {
-			page ++;
+			page++;
 			continue;
 		}
 
 		selection = NULL;
 		while (list) {
-			if (((PpsViewSelection *)list->data)->page == page) {
+			if (((PpsViewSelection *) list->data)->page == page) {
 				selection = list->data;
 				break;
-			} else if (((PpsViewSelection *)list->data)->page > page)
+			} else if (((PpsViewSelection *) list->data)->page > page)
 				break;
 			list = list->next;
 		}
@@ -1142,17 +1134,17 @@ pps_pixbuf_cache_set_selection_list (PpsPixbufCache *pixbuf_cache,
 			update_job_selection (pixbuf_cache->prev_job + i, selection);
 		else
 			clear_job_selection (pixbuf_cache->prev_job + i);
-		page ++;
+		page++;
 	}
 
 	page = pixbuf_cache->start_page;
 	for (i = 0; i < PAGE_CACHE_LEN (pixbuf_cache); i++) {
 		selection = NULL;
 		while (list) {
-			if (((PpsViewSelection *)list->data)->page == page) {
+			if (((PpsViewSelection *) list->data)->page == page) {
 				selection = list->data;
 				break;
-			} else if (((PpsViewSelection *)list->data)->page > page)
+			} else if (((PpsViewSelection *) list->data)->page > page)
 				break;
 			list = list->next;
 		}
@@ -1161,7 +1153,7 @@ pps_pixbuf_cache_set_selection_list (PpsPixbufCache *pixbuf_cache,
 			update_job_selection (pixbuf_cache->job_list + i, selection);
 		else
 			clear_job_selection (pixbuf_cache->job_list + i);
-		page ++;
+		page++;
 	}
 
 	for (i = 0; i < pixbuf_cache->preload_cache_size; i++) {
@@ -1170,10 +1162,10 @@ pps_pixbuf_cache_set_selection_list (PpsPixbufCache *pixbuf_cache,
 
 		selection = NULL;
 		while (list) {
-			if (((PpsViewSelection *)list->data)->page == page) {
+			if (((PpsViewSelection *) list->data)->page == page) {
 				selection = list->data;
 				break;
-			} else if (((PpsViewSelection *)list->data)->page > page)
+			} else if (((PpsViewSelection *) list->data)->page > page)
 				break;
 			list = list->next;
 		}
@@ -1182,10 +1174,9 @@ pps_pixbuf_cache_set_selection_list (PpsPixbufCache *pixbuf_cache,
 			update_job_selection (pixbuf_cache->next_job + i, selection);
 		else
 			clear_job_selection (pixbuf_cache->next_job + i);
-		page ++;
+		page++;
 	}
 }
-
 
 /* Returns what the pixbuf cache thinks is */
 
@@ -1199,14 +1190,14 @@ pps_pixbuf_cache_get_selection_list (PpsPixbufCache *pixbuf_cache)
 
 	g_return_val_if_fail (PPS_IS_PIXBUF_CACHE (pixbuf_cache), NULL);
 
-        if (pixbuf_cache->start_page == -1 || pixbuf_cache->end_page == -1)
-                return NULL;
+	if (pixbuf_cache->start_page == -1 || pixbuf_cache->end_page == -1)
+		return NULL;
 
 	/* We check each area to see what needs updating, and what needs freeing; */
 	page = pixbuf_cache->start_page - pixbuf_cache->preload_cache_size;
 	for (i = 0; i < pixbuf_cache->preload_cache_size; i++) {
 		if (page < 0) {
-			page ++;
+			page++;
 			continue;
 		}
 
@@ -1219,7 +1210,7 @@ pps_pixbuf_cache_get_selection_list (PpsPixbufCache *pixbuf_cache)
 			retval = g_list_prepend (retval, selection);
 		}
 
-		page ++;
+		page++;
 	}
 
 	page = pixbuf_cache->start_page;
@@ -1233,7 +1224,7 @@ pps_pixbuf_cache_get_selection_list (PpsPixbufCache *pixbuf_cache)
 			retval = g_list_prepend (retval, selection);
 		}
 
-		page ++;
+		page++;
 	}
 
 	for (i = 0; i < pixbuf_cache->preload_cache_size; i++) {
@@ -1249,30 +1240,30 @@ pps_pixbuf_cache_get_selection_list (PpsPixbufCache *pixbuf_cache)
 			retval = g_list_prepend (retval, selection);
 		}
 
-		page ++;
+		page++;
 	}
 
 	return g_list_reverse (retval);
 }
 
 void
-pps_pixbuf_cache_reload_page (PpsPixbufCache  *pixbuf_cache,
-			     cairo_region_t *region,
-			     gint            page,
-			     gint            rotation,
-			     gdouble         scale)
+pps_pixbuf_cache_reload_page (PpsPixbufCache *pixbuf_cache,
+                              cairo_region_t *region,
+                              gint page,
+                              gint rotation,
+                              gdouble scale)
 {
 	CacheJobInfo *job_info;
-        gint width, height;
+	gint width, height;
 
 	job_info = find_job_cache (pixbuf_cache, page);
 	if (job_info == NULL)
 		return;
 
 	_get_page_size_for_scale_and_rotation (pixbuf_cache->document,
-					       page, scale, rotation,
-					       &width, &height);
-        add_job (pixbuf_cache, job_info, region,
-		 width, height, page, rotation, scale,
-		 PPS_JOB_PRIORITY_URGENT);
+	                                       page, scale, rotation,
+	                                       &width, &height);
+	add_job (pixbuf_cache, job_info, region,
+	         width, height, page, rotation, scale,
+	         PPS_JOB_PRIORITY_URGENT);
 }

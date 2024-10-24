@@ -26,8 +26,8 @@
 #define G_LOG_DOMAIN "PpsJobScheduler"
 
 typedef struct _PpsSchedulerJob {
-	PpsJob         *job;
-	PpsJobPriority  priority;
+	PpsJob *job;
+	PpsJobPriority priority;
 } PpsSchedulerJob;
 
 static gpointer
@@ -78,10 +78,10 @@ pps_job_thread (PpsSchedulerJob *scheduler_job, gpointer data)
 
 static gint
 job_priority_compare (PpsSchedulerJob *a,
-		      PpsSchedulerJob *b,
-		      gpointer data)
+                      PpsSchedulerJob *b,
+                      gpointer data)
 {
-	return (gint)a->priority - (gint)b->priority;
+	return (gint) a->priority - (gint) b->priority;
 }
 
 static gpointer
@@ -90,17 +90,17 @@ pps_job_scheduler_init (gpointer data)
 	/* We limit the thread numbers to 8 since threads above 8 may result
 	 * increased latency on some machine. For example, AMD 5950x.
 	 */
-	GThreadPool *pool = g_thread_pool_new_full ((GFunc)pps_job_thread, NULL,
-                       (GDestroyNotify)pps_scheduler_job_destroy,
-                       /* MIN (8, g_get_num_processors()),
-                        * Temporary remove multi-threading. See
-                        * https://gitlab.gnome.org/GNOME/Incubator/papers/-/issues/107
-                        * for more context
-                        */
-                       1,
-                       TRUE, NULL);
+	GThreadPool *pool = g_thread_pool_new_full ((GFunc) pps_job_thread, NULL,
+	                                            (GDestroyNotify) pps_scheduler_job_destroy,
+	                                            /* MIN (8, g_get_num_processors()),
+	                                             * Temporary remove multi-threading. See
+	                                             * https://gitlab.gnome.org/GNOME/Incubator/papers/-/issues/107
+	                                             * for more context
+	                                             */
+	                                            1,
+	                                            TRUE, NULL);
 
-	g_thread_pool_set_sort_function(pool, (GCompareDataFunc)job_priority_compare, NULL);
+	g_thread_pool_set_sort_function (pool, (GCompareDataFunc) job_priority_compare, NULL);
 
 	return pool;
 }
@@ -117,15 +117,15 @@ static void
 pps_job_queue_push (PpsSchedulerJob *job)
 {
 	g_debug ("pushing job: %s, priority: %d",
-		 PPS_GET_TYPE_NAME (job->job), job->priority);
+	         PPS_GET_TYPE_NAME (job->job), job->priority);
 
 	g_hash_table_insert (pps_jobs_hash (), job->job, job);
 	g_thread_pool_push (pps_thread_pool (), job, NULL);
 }
 
 void
-pps_job_scheduler_push_job (PpsJob         *job,
-			   PpsJobPriority  priority)
+pps_job_scheduler_push_job (PpsJob *job,
+                            PpsJobPriority priority)
 {
 	PpsSchedulerJob *s_job;
 
@@ -137,15 +137,15 @@ pps_job_scheduler_push_job (PpsJob         *job,
 }
 
 void
-pps_job_scheduler_update_job (PpsJob         *job,
-			     PpsJobPriority  priority)
+pps_job_scheduler_update_job (PpsJob *job,
+                              PpsJobPriority priority)
 {
 	g_debug ("update priority for job: %s, priority %d",
-		 PPS_GET_TYPE_NAME (job), priority);
+	         PPS_GET_TYPE_NAME (job), priority);
 
 	if (priority == PPS_JOB_PRIORITY_URGENT)
-		g_thread_pool_move_to_front (pps_thread_pool(),
-				g_hash_table_lookup (pps_jobs_hash (), job));
+		g_thread_pool_move_to_front (pps_thread_pool (),
+		                             g_hash_table_lookup (pps_jobs_hash (), job));
 }
 
 /**
@@ -159,7 +159,7 @@ pps_job_scheduler_wait (void)
 {
 	g_debug ("Waiting for empty job list");
 
-	while (g_thread_pool_unprocessed (pps_thread_pool()))
+	while (g_thread_pool_unprocessed (pps_thread_pool ()))
 		g_usleep (100);
 
 	g_debug ("Job list is empty");

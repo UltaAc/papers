@@ -20,15 +20,15 @@
 
 #include "config.h"
 
-#include <stdlib.h>
-#include <glib/gi18n-lib.h>
 #include <gdk/gdkkeysyms.h>
+#include <glib/gi18n-lib.h>
+#include <stdlib.h>
 
-#include "pps-view-presentation.h"
-#include "pps-jobs.h"
 #include "pps-job-scheduler.h"
-#include "pps-view-cursor.h"
+#include "pps-jobs.h"
 #include "pps-page-cache.h"
+#include "pps-view-cursor.h"
+#include "pps-view-presentation.h"
 
 enum {
 	PROP_0,
@@ -52,37 +52,36 @@ typedef enum {
 	PPS_PRESENTATION_END
 } PpsPresentationState;
 
-struct _PpsViewPresentationPrivate
-{
-        guint                  is_constructing : 1;
+struct _PpsViewPresentationPrivate {
+	guint is_constructing : 1;
 
-	gint64		       start_time;
-	gdouble		       transition_time;
-	gint                   animation_tick_id;
-	gint                   inhibit_id;
+	gint64 start_time;
+	gdouble transition_time;
+	gint animation_tick_id;
+	gint inhibit_id;
 
-	guint                  current_page;
-	guint                  previous_page;
-	GdkTexture            *current_texture;
-	GdkTexture	      *previous_texture;
-	PpsDocument            *document;
-	guint                  rotation;
-	gboolean               inverted_colors;
-	PpsPresentationState    state;
+	guint current_page;
+	guint previous_page;
+	GdkTexture *current_texture;
+	GdkTexture *previous_texture;
+	PpsDocument *document;
+	guint rotation;
+	gboolean inverted_colors;
+	PpsPresentationState state;
 
 	/* Cursors */
-	PpsViewCursor           cursor;
-	guint                  hide_cursor_timeout_id;
+	PpsViewCursor cursor;
+	guint hide_cursor_timeout_id;
 
 	/* Goto Window */
-	GtkWidget             *goto_popup;
-	GtkWidget             *goto_entry;
+	GtkWidget *goto_popup;
+	GtkWidget *goto_entry;
 
 	/* Page Transition */
-	guint                  trans_timeout_id;
+	guint trans_timeout_id;
 
 	/* Links */
-	PpsPageCache           *page_cache;
+	PpsPageCache *page_cache;
 
 	PpsJob *prev_job;
 	PpsJob *curr_job;
@@ -93,26 +92,25 @@ typedef struct _PpsViewPresentationPrivate PpsViewPresentationPrivate;
 
 #define GET_PRIVATE(o) pps_view_presentation_get_instance_private (o)
 
-struct _PpsViewPresentationClass
-{
+struct _PpsViewPresentationClass {
 	GtkWidgetClass base_class;
 
 	/* signals */
-	void (* change_page)   (PpsViewPresentation *pview,
-                                GtkScrollType       scroll);
-	void (* finished)      (PpsViewPresentation *pview);
-        void (* external_link) (PpsViewPresentation *pview,
-                                PpsLinkAction       *action);
+	void (*change_page) (PpsViewPresentation *pview,
+	                     GtkScrollType scroll);
+	void (*finished) (PpsViewPresentation *pview);
+	void (*external_link) (PpsViewPresentation *pview,
+	                       PpsLinkAction *action);
 };
 
 static guint signals[N_SIGNALS] = { 0 };
 
 static void pps_view_presentation_set_cursor_for_location (PpsViewPresentation *pview,
-							  gdouble             x,
-							  gdouble             y);
+                                                           gdouble x,
+                                                           gdouble y);
 
 static void pps_view_presentation_update_current_texture (PpsViewPresentation *pview,
-							 GdkTexture    *surface);
+                                                          GdkTexture *surface);
 
 #define HIDE_CURSOR_TIMEOUT 5000
 
@@ -136,8 +134,8 @@ pps_view_presentation_set_normal_or_end (PpsViewPresentation *pview)
 	else
 		priv->state = PPS_PRESENTATION_NORMAL;
 
-	gtk_widget_remove_css_class(widget, "white-mode");
-        gtk_widget_queue_draw (widget);
+	gtk_widget_remove_css_class (widget, "white-mode");
+	gtk_widget_queue_draw (widget);
 }
 
 static void
@@ -152,7 +150,7 @@ pps_view_presentation_set_black (PpsViewPresentation *pview)
 
 	priv->state = PPS_PRESENTATION_BLACK;
 
-	gtk_widget_remove_css_class(widget, "white-mode");
+	gtk_widget_remove_css_class (widget, "white-mode");
 	gtk_widget_queue_draw (widget);
 }
 
@@ -168,7 +166,7 @@ pps_view_presentation_set_white (PpsViewPresentation *pview)
 
 	priv->state = PPS_PRESENTATION_WHITE;
 
-	gtk_widget_add_css_class(widget, "white-mode");
+	gtk_widget_add_css_class (widget, "white-mode");
 }
 
 static void
@@ -187,9 +185,9 @@ pps_view_presentation_set_end (PpsViewPresentation *pview)
 
 static void
 pps_view_presentation_get_view_size (PpsViewPresentation *pview,
-				    guint               page,
-				    int                *view_width,
-				    int                *view_height)
+                                     guint page,
+                                     int *view_width,
+                                     int *view_height)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
@@ -210,24 +208,24 @@ pps_view_presentation_get_view_size (PpsViewPresentation *pview,
 
 	if (widget_width / width < widget_height / height) {
 		*view_width = widget_width;
-		*view_height = (int)((widget_width / width) * height + 0.5);
+		*view_height = (int) ((widget_width / width) * height + 0.5);
 	} else {
-		*view_width = (int)((widget_height / height) * width + 0.5);
+		*view_width = (int) ((widget_height / height) * width + 0.5);
 		*view_height = widget_height;
 	}
 }
 
 static void
 pps_view_presentation_get_page_area (PpsViewPresentation *pview,
-				    GdkRectangle       *area)
+                                     GdkRectangle *area)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
-	GtkWidget    *widget = GTK_WIDGET (pview);
-	gint          view_width, view_height, widget_width, widget_height;
+	GtkWidget *widget = GTK_WIDGET (pview);
+	gint view_width, view_height, widget_width, widget_height;
 
 	pps_view_presentation_get_view_size (pview, priv->current_page,
-					    &view_width, &view_height);
+	                                     &view_width, &view_height);
 
 	widget_width = gtk_widget_get_width (widget);
 	widget_height = gtk_widget_get_height (widget);
@@ -267,19 +265,19 @@ pps_view_presentation_transition_start (PpsViewPresentation *pview)
 	pps_view_presentation_transition_stop (pview);
 
 	duration = pps_document_transition_get_page_duration (PPS_DOCUMENT_TRANSITION (priv->document),
-							     priv->current_page);
+	                                                      priv->current_page);
 	if (duration >= 0) {
-		        priv->trans_timeout_id =
-				g_timeout_add_once (duration * 1000,
-						    (GSourceOnceFunc) transition_next_page,
-						    pview);
+		priv->trans_timeout_id =
+		    g_timeout_add_once (duration * 1000,
+		                        (GSourceOnceFunc) transition_next_page,
+		                        pview);
 	}
 }
 
 static gboolean
-animation_tick_cb (GtkWidget     *widget,
-		   GdkFrameClock *clock,
-		   gpointer       unused)
+animation_tick_cb (GtkWidget *widget,
+                   GdkFrameClock *clock,
+                   gpointer unused)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (widget);
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
@@ -294,20 +292,19 @@ animation_tick_cb (GtkWidget     *widget,
 	if (priv->start_time == 0)
 		priv->start_time = frame_time;
 
-	priv->transition_time = (frame_time - priv->start_time) / (float)G_USEC_PER_SEC;
+	priv->transition_time = (frame_time - priv->start_time) / (float) G_USEC_PER_SEC;
 
 	gtk_widget_queue_draw (widget);
 
 	effect = pps_document_transition_get_effect (
-			PPS_DOCUMENT_TRANSITION (priv->document),
-			priv->current_page);
+	    PPS_DOCUMENT_TRANSITION (priv->document),
+	    priv->current_page);
 	g_object_get (effect, "duration-real", &duration, NULL);
 
 	if (priv->transition_time >= duration) {
 		pps_view_presentation_transition_start (pview);
 		return G_SOURCE_REMOVE;
-	}
-	else {
+	} else {
 		return G_SOURCE_CONTINUE;
 	}
 }
@@ -332,24 +329,24 @@ pps_view_presentation_animation_start (PpsViewPresentation *pview)
 
 	priv->start_time = 0;
 	priv->animation_tick_id = gtk_widget_add_tick_callback (widget,
-			animation_tick_cb, pview, NULL);
+	                                                        animation_tick_cb, pview, NULL);
 	gtk_widget_queue_draw (widget);
 }
 
 static GdkTexture *
 get_texture_from_job (PpsViewPresentation *pview,
-                      PpsJob              *job)
+                      PpsJob *job)
 {
-        if (!job)
-                return NULL;
+	if (!job)
+		return NULL;
 
-        return PPS_JOB_RENDER_TEXTURE (job)->texture;
+	return PPS_JOB_RENDER_TEXTURE (job)->texture;
 }
 
 /* Page Navigation */
 static void
-job_finished_cb (PpsJob              *job,
-		 PpsViewPresentation *pview)
+job_finished_cb (PpsJob *job,
+                 PpsViewPresentation *pview)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
@@ -357,41 +354,41 @@ job_finished_cb (PpsJob              *job,
 		return;
 
 	pps_view_presentation_update_current_texture (pview,
-			get_texture_from_job (pview, job));
+	                                              get_texture_from_job (pview, job));
 
 	pps_view_presentation_animation_start (pview);
 }
 
 static PpsJob *
 pps_view_presentation_schedule_new_job (PpsViewPresentation *pview,
-				       gint                page,
-				       PpsJobPriority       priority)
+                                        gint page,
+                                        PpsJobPriority priority)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
 	PpsJob *job;
-        int    view_width, view_height;
+	int view_width, view_height;
 
 	if (page < 0 || page >= pps_document_get_n_pages (priv->document))
 		return NULL;
 
-        pps_view_presentation_get_view_size (pview, page, &view_width, &view_height);
+	pps_view_presentation_get_view_size (pview, page, &view_width, &view_height);
 	gint device_scale = gtk_widget_get_scale_factor (GTK_WIDGET (pview));
 	view_width *= device_scale;
 	view_height *= device_scale;
 	job = pps_job_render_texture_new (priv->document, page, priv->rotation, 0.,
-				       view_width, view_height);
+	                                  view_width, view_height);
 	g_signal_connect (job, "finished",
-			  G_CALLBACK (job_finished_cb),
-			  pview);
+	                  G_CALLBACK (job_finished_cb),
+	                  pview);
 	pps_job_scheduler_push_job (job, priority);
 
 	return job;
 }
 
 static void
-pps_view_presentation_clear_job (PpsViewPresentation  *pview,
-				 PpsJob              **job)
+pps_view_presentation_clear_job (PpsViewPresentation *pview,
+                                 PpsJob **job)
 {
 	if (!*job)
 		return;
@@ -413,7 +410,7 @@ pps_view_presentation_reset_jobs (PpsViewPresentation *pview)
 
 static void
 pps_view_presentation_update_current_texture (PpsViewPresentation *pview,
-					     GdkTexture    *texture)
+                                              GdkTexture *texture)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
@@ -426,7 +423,7 @@ pps_view_presentation_update_current_texture (PpsViewPresentation *pview,
 
 static void
 pps_view_presentation_update_current_page (PpsViewPresentation *pview,
-					  guint               page)
+                                           guint page)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
@@ -537,7 +534,7 @@ pps_view_presentation_update_current_page (PpsViewPresentation *pview,
 
 	if (PPS_JOB_RENDER_TEXTURE (priv->curr_job)->texture) {
 		pps_view_presentation_update_current_texture (pview,
-				PPS_JOB_RENDER_TEXTURE (priv->curr_job)->texture);
+		                                              PPS_JOB_RENDER_TEXTURE (priv->curr_job)->texture);
 
 		pps_view_presentation_animation_start (pview);
 	}
@@ -545,10 +542,9 @@ pps_view_presentation_update_current_page (PpsViewPresentation *pview,
 
 static void
 pps_view_presentation_set_current_page (PpsViewPresentation *pview,
-                                       guint               page)
+                                        guint page)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
-
 
 	if (priv->current_page == page)
 		return;
@@ -566,7 +562,7 @@ pps_view_presentation_next_page (PpsViewPresentation *pview)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	guint n_pages;
-	gint  new_page;
+	gint new_page;
 
 	switch (priv->state) {
 	case PPS_PRESENTATION_BLACK:
@@ -630,12 +626,12 @@ key_is_numeric (int keyval)
 }
 
 static void
-pps_view_presentation_goto_entry_activate (GtkEntry           *entry,
-					  PpsViewPresentation *pview)
+pps_view_presentation_goto_entry_activate (GtkEntry *entry,
+                                           PpsViewPresentation *pview)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	const gchar *text;
-	gint         page;
+	gint page;
 
 	text = gtk_editable_get_text (GTK_EDITABLE (entry));
 	page = atoi (text) - 1;
@@ -647,7 +643,7 @@ pps_view_presentation_goto_entry_activate (GtkEntry           *entry,
 /* Links */
 static gboolean
 pps_view_presentation_link_is_supported (PpsViewPresentation *pview,
-					PpsLink             *link)
+                                         PpsLink *link)
 {
 	PpsLinkAction *action;
 
@@ -659,9 +655,9 @@ pps_view_presentation_link_is_supported (PpsViewPresentation *pview,
 	case PPS_LINK_ACTION_TYPE_GOTO_DEST:
 		return pps_link_action_get_dest (action) != NULL;
 	case PPS_LINK_ACTION_TYPE_NAMED:
-        case PPS_LINK_ACTION_TYPE_GOTO_REMOTE:
-        case PPS_LINK_ACTION_TYPE_EXTERNAL_URI:
-        case PPS_LINK_ACTION_TYPE_LAUNCH:
+	case PPS_LINK_ACTION_TYPE_GOTO_REMOTE:
+	case PPS_LINK_ACTION_TYPE_EXTERNAL_URI:
+	case PPS_LINK_ACTION_TYPE_LAUNCH:
 		return TRUE;
 	default:
 		return FALSE;
@@ -672,15 +668,15 @@ pps_view_presentation_link_is_supported (PpsViewPresentation *pview,
 
 static PpsLink *
 pps_view_presentation_get_link_at_location (PpsViewPresentation *pview,
-					   gdouble             x,
-					   gdouble             y)
+                                            gdouble x,
+                                            gdouble y)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
-	GdkRectangle   page_area;
+	GdkRectangle page_area;
 	PpsMappingList *link_mapping;
-	PpsLink        *link;
-	gdouble        width, height;
-	gdouble        new_x, new_y;
+	PpsLink *link;
+	gdouble width, height;
+	gdouble new_x, new_y;
 
 	if (!priv->page_cache)
 		return NULL;
@@ -720,14 +716,14 @@ pps_view_presentation_get_link_at_location (PpsViewPresentation *pview,
 
 static void
 pps_view_presentation_handle_link (PpsViewPresentation *pview,
-                                  PpsLink             *link)
+                                   PpsLink *link)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	PpsLinkAction *action;
 
 	action = pps_link_get_action (link);
 
-        switch (pps_link_action_get_action_type (action)) {
+	switch (pps_link_action_get_action_type (action)) {
 	case PPS_LINK_ACTION_TYPE_NAMED: {
 		const gchar *name = pps_link_action_get_name (action);
 
@@ -743,35 +739,33 @@ pps_view_presentation_handle_link (PpsViewPresentation *pview,
 			n_pages = pps_document_get_n_pages (priv->document);
 			pps_view_presentation_update_current_page (pview, n_pages - 1);
 		}
-        }
-                break;
+	} break;
 
 	case PPS_LINK_ACTION_TYPE_GOTO_DEST: {
 		PpsLinkDest *dest;
-		gint        page;
+		gint page;
 
 		dest = pps_link_action_get_dest (action);
 		page = pps_document_links_get_dest_page (PPS_DOCUMENT_LINKS (priv->document), dest);
 		pps_view_presentation_update_current_page (pview, page);
-        }
-                break;
-        case PPS_LINK_ACTION_TYPE_GOTO_REMOTE:
-        case PPS_LINK_ACTION_TYPE_EXTERNAL_URI:
-        case PPS_LINK_ACTION_TYPE_LAUNCH:
-                g_signal_emit (pview, signals[SIGNAL_EXTERNAL_LINK], 0, action);
-                break;
-        default:
-                break;
+	} break;
+	case PPS_LINK_ACTION_TYPE_GOTO_REMOTE:
+	case PPS_LINK_ACTION_TYPE_EXTERNAL_URI:
+	case PPS_LINK_ACTION_TYPE_LAUNCH:
+		g_signal_emit (pview, signals[SIGNAL_EXTERNAL_LINK], 0, action);
+		break;
+	default:
+		break;
 	}
 }
 
 /* Cursors */
 static void
 pps_view_presentation_set_cursor (PpsViewPresentation *pview,
-				 PpsViewCursor        view_cursor)
+                                  PpsViewCursor view_cursor)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
-	GtkWidget  *widget = GTK_WIDGET (pview);
+	GtkWidget *widget = GTK_WIDGET (pview);
 
 	if (priv->cursor == view_cursor)
 		return;
@@ -782,13 +776,13 @@ pps_view_presentation_set_cursor (PpsViewPresentation *pview,
 	priv->cursor = view_cursor;
 
 	gtk_widget_set_cursor_from_name (widget,
-			pps_view_cursor_name (view_cursor));
+	                                 pps_view_cursor_name (view_cursor));
 }
 
 static void
 pps_view_presentation_set_cursor_for_location (PpsViewPresentation *pview,
-					      gdouble             x,
-					      gdouble             y)
+                                               gdouble x,
+                                               gdouble y)
 {
 	if (pps_view_presentation_get_link_at_location (pview, x, y))
 		pps_view_presentation_set_cursor (pview, PPS_VIEW_CURSOR_LINK);
@@ -817,9 +811,9 @@ pps_view_presentation_hide_cursor_timeout_start (PpsViewPresentation *pview)
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	pps_view_presentation_hide_cursor_timeout_stop (pview);
 	priv->hide_cursor_timeout_id =
-		g_timeout_add_once (HIDE_CURSOR_TIMEOUT,
-				    (GSourceOnceFunc)hide_cursor_timeout_cb,
-				    pview);
+	    g_timeout_add_once (HIDE_CURSOR_TIMEOUT,
+	                        (GSourceOnceFunc) hide_cursor_timeout_cb,
+	                        pview);
 }
 
 static void
@@ -831,10 +825,10 @@ pps_view_presentation_inhibit_screenlock (PpsViewPresentation *pview)
 	if (priv->inhibit_id != 0)
 		return;
 
-        priv->inhibit_id = gtk_application_inhibit (GTK_APPLICATION (g_application_get_default ()),
-						    window,
-						    GTK_APPLICATION_INHIBIT_IDLE,
-						    _("Running in presentation mode"));
+	priv->inhibit_id = gtk_application_inhibit (GTK_APPLICATION (g_application_get_default ()),
+	                                            window,
+	                                            GTK_APPLICATION_INHIBIT_IDLE,
+	                                            _ ("Running in presentation mode"));
 }
 
 static void
@@ -846,7 +840,7 @@ pps_view_presentation_uninhibit_screenlock (PpsViewPresentation *pview)
 		return;
 
 	gtk_application_uninhibit (GTK_APPLICATION (g_application_get_default ()),
-				   priv->inhibit_id);
+	                           priv->inhibit_id);
 	priv->inhibit_id = 0;
 }
 
@@ -860,7 +854,7 @@ pps_view_presentation_dispose (GObject *object)
 
 	pps_view_presentation_transition_stop (pview);
 	pps_view_presentation_hide_cursor_timeout_stop (pview);
-        pps_view_presentation_reset_jobs (pview);
+	pps_view_presentation_reset_jobs (pview);
 
 	g_clear_object (&priv->current_texture);
 	g_clear_object (&priv->page_cache);
@@ -885,7 +879,7 @@ pps_view_presentation_snapshot_end_page (PpsViewPresentation *pview, GtkSnapshot
 	PangoFontDescription *font_desc;
 	gchar *markup;
 	int text_width, text_height, x_center;
-	const gchar *text = _("End of presentation. Press Esc or click to exit.");
+	const gchar *text = _ ("End of presentation. Press Esc or click to exit.");
 
 	if (priv->state != PPS_PRESENTATION_END)
 		return;
@@ -902,7 +896,7 @@ pps_view_presentation_snapshot_end_page (PpsViewPresentation *pview, GtkSnapshot
 	x_center = gtk_widget_get_width (widget) / 2 - text_width / 2;
 
 	gtk_snapshot_render_layout (snapshot, gtk_widget_get_style_context (widget),
-				x_center, 15, layout);
+	                            x_center, 15, layout);
 
 	pango_font_description_free (font_desc);
 	g_object_unref (layout);
@@ -941,8 +935,8 @@ pps_view_presentation_load_shader (PpsTransitionEffectType type)
 
 static GBytes *
 pps_view_presentation_build_shader_args (GskGLShader *shader,
-					PpsTransitionEffect *effect,
-					gdouble progress)
+                                         PpsTransitionEffect *effect,
+                                         gdouble progress)
 {
 	GskShaderArgsBuilder *builder = gsk_shader_args_builder_new (shader, NULL);
 	PpsTransitionEffectType type;
@@ -956,7 +950,7 @@ pps_view_presentation_build_shader_args (GskGLShader *shader,
 	switch (type) {
 	case PPS_TRANSITION_EFFECT_SPLIT:
 		g_object_get (effect, "direction", &direction,
-				"alignment", &alignment, NULL);
+		              "alignment", &alignment, NULL);
 		gsk_shader_args_builder_set_int (builder, 1, direction);
 		gsk_shader_args_builder_set_int (builder, 2, alignment);
 		break;
@@ -978,7 +972,7 @@ pps_view_presentation_build_shader_args (GskGLShader *shader,
 		break;
 	case PPS_TRANSITION_EFFECT_FLY:
 		g_object_get (effect, "angle", &angle,
-				"scale", &scale, NULL);
+		              "scale", &scale, NULL);
 		gsk_shader_args_builder_set_int (builder, 1, angle);
 		gsk_shader_args_builder_set_float (builder, 2, scale);
 		break;
@@ -993,8 +987,8 @@ pps_view_presentation_build_shader_args (GskGLShader *shader,
 
 static void
 pps_view_presentation_animation_snapshot (PpsViewPresentation *pview,
-					 GtkSnapshot *snapshot,
-					 graphene_rect_t *area)
+                                          GtkSnapshot *snapshot,
+                                          graphene_rect_t *area)
 {
 	GtkNative *native = gtk_widget_get_native (GTK_WIDGET (pview));
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
@@ -1008,8 +1002,8 @@ pps_view_presentation_animation_snapshot (PpsViewPresentation *pview,
 	int height = gtk_widget_get_height (GTK_WIDGET (pview));
 
 	PpsTransitionEffect *effect = pps_document_transition_get_effect (
-					PPS_DOCUMENT_TRANSITION (priv->document),
-					priv->current_page);
+	    PPS_DOCUMENT_TRANSITION (priv->document),
+	    priv->current_page);
 	g_object_get (effect, "duration-real", &duration, "type", &type, NULL);
 
 	shader = pps_view_presentation_load_shader (type);
@@ -1018,19 +1012,19 @@ pps_view_presentation_animation_snapshot (PpsViewPresentation *pview,
 
 	if (shader && gsk_gl_shader_compile (shader, renderer, &error)) {
 		gtk_snapshot_push_gl_shader (snapshot, shader, &GRAPHENE_RECT_INIT (0, 0, width, height),
-					pps_view_presentation_build_shader_args (shader, effect, progress));
+		                             pps_view_presentation_build_shader_args (shader, effect, progress));
 
 		// TODO: handle different page size
 		if (priv->previous_texture)
 			gtk_snapshot_append_texture (snapshot, priv->previous_texture, area);
 		else
-			gtk_snapshot_append_color (snapshot, &(GdkRGBA){0., 0., 0., 1.}, area);
+			gtk_snapshot_append_color (snapshot, &(GdkRGBA) { 0., 0., 0., 1. }, area);
 
 		gtk_snapshot_gl_shader_pop_texture (snapshot); /* current child */
 
 		gtk_snapshot_append_texture (snapshot, priv->current_texture, area);
 		gtk_snapshot_gl_shader_pop_texture (snapshot); /* next child */
-		gtk_snapshot_pop(snapshot);
+		gtk_snapshot_pop (snapshot);
 	} else {
 		if (error)
 			g_warning ("failed to compile shader '%s'\n", error->message);
@@ -1043,17 +1037,18 @@ pps_view_presentation_animation_snapshot (PpsViewPresentation *pview,
 	g_clear_pointer (&error, g_error_free);
 }
 
-static void pps_view_presentation_snapshot(GtkWidget *widget, GtkSnapshot *snapshot)
+static void
+pps_view_presentation_snapshot (GtkWidget *widget, GtkSnapshot *snapshot)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (widget);
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
-	GtkStyleContext    *context = gtk_widget_get_style_context (widget);
-	GdkRectangle        page_area;
-	graphene_rect_t     area;
+	GtkStyleContext *context = gtk_widget_get_style_context (widget);
+	GdkRectangle page_area;
+	graphene_rect_t area;
 
 	gtk_snapshot_render_background (snapshot, context, 0, 0,
-                               gtk_widget_get_width (widget),
-                               gtk_widget_get_height (widget));
+	                                gtk_widget_get_width (widget),
+	                                gtk_widget_get_height (widget));
 
 	switch (priv->state) {
 	case PPS_PRESENTATION_END:
@@ -1077,11 +1072,11 @@ static void pps_view_presentation_snapshot(GtkWidget *widget, GtkSnapshot *snaps
 
 	pps_view_presentation_get_page_area (pview, &page_area);
 	area = GRAPHENE_RECT_INIT (page_area.x, page_area.y,
-				   page_area.width, page_area.height);
+	                           page_area.width, page_area.height);
 
 	if (priv->inverted_colors) {
 		gtk_snapshot_push_blend (snapshot, GSK_BLEND_MODE_DIFFERENCE);
-		gtk_snapshot_append_color (snapshot, &(GdkRGBA) { 1., 1., 1., 1.}, &area);
+		gtk_snapshot_append_color (snapshot, &(GdkRGBA) { 1., 1., 1., 1. }, &area);
 		gtk_snapshot_pop (snapshot);
 	}
 
@@ -1096,10 +1091,10 @@ static void pps_view_presentation_snapshot(GtkWidget *widget, GtkSnapshot *snaps
 
 static gboolean
 pps_view_presentation_key_press_event (GtkEventControllerKey *self,
-				      guint keyval,
-				      guint keycode,
-				      GdkModifierType state,
-				      GtkWidget *widget)
+                                       guint keyval,
+                                       guint keycode,
+                                       GdkModifierType state,
+                                       GtkWidget *widget)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (widget);
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
@@ -1151,7 +1146,7 @@ pps_view_presentation_key_press_event (GtkEventControllerKey *self,
 
 		pps_document_misc_get_pointer_position (GTK_WIDGET (pview), &x, &y);
 		gtk_popover_set_pointing_to (GTK_POPOVER (priv->goto_popup),
-				&(GdkRectangle) {x, y, 1, 1});
+		                             &(GdkRectangle) { x, y, 1, 1 });
 
 		gtk_editable_set_text (GTK_EDITABLE (priv->goto_entry), digit);
 		gtk_editable_set_position (GTK_EDITABLE (priv->goto_entry), -1);
@@ -1165,11 +1160,11 @@ pps_view_presentation_key_press_event (GtkEventControllerKey *self,
 }
 
 static void
-pps_view_presentation_primary_button_released (GtkGestureClick    *self,
-					       gint		   n_press,
-					       gdouble             x,
-					       gdouble             y,
-					       GtkWidget          *widget)
+pps_view_presentation_primary_button_released (GtkGestureClick *self,
+                                               gint n_press,
+                                               gdouble x,
+                                               gdouble y,
+                                               GtkWidget *widget)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (widget);
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
@@ -1188,11 +1183,11 @@ pps_view_presentation_primary_button_released (GtkGestureClick    *self,
 }
 
 static void
-pps_view_presentation_secondary_button_released (GtkGestureClick    *self,
-						 gint		     n_press,
-						 gdouble             x,
-						 gdouble             y,
-						 GtkWidget          *widget)
+pps_view_presentation_secondary_button_released (GtkGestureClick *self,
+                                                 gint n_press,
+                                                 gdouble x,
+                                                 gdouble y,
+                                                 GtkWidget *widget)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (widget);
 
@@ -1200,10 +1195,10 @@ pps_view_presentation_secondary_button_released (GtkGestureClick    *self,
 }
 
 static void
-pps_view_presentation_motion_notify_event (GtkEventControllerMotion	*self,
-					  gdouble			 x,
-					  gdouble			 y,
-					  GtkWidget			*widget)
+pps_view_presentation_motion_notify_event (GtkEventControllerMotion *self,
+                                           gdouble x,
+                                           gdouble y,
+                                           GtkWidget *widget)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (widget);
 
@@ -1213,7 +1208,7 @@ pps_view_presentation_motion_notify_event (GtkEventControllerMotion	*self,
 
 static void
 pps_view_presentation_change_page (PpsViewPresentation *pview,
-				  GtkScrollType       scroll)
+                                   GtkScrollType scroll)
 {
 	switch (scroll) {
 	case GTK_SCROLL_PAGE_FORWARD:
@@ -1229,14 +1224,13 @@ pps_view_presentation_change_page (PpsViewPresentation *pview,
 
 static gboolean
 pps_view_presentation_scroll_event (GtkEventControllerScroll *self,
-				   gdouble dx,
-				   gdouble dy,
-				   PpsViewPresentation *pview)
+                                    gdouble dx,
+                                    gdouble dy,
+                                    PpsViewPresentation *pview)
 {
 	GtkEventController *controller = GTK_EVENT_CONTROLLER (self);
 	GdkEvent *event = gtk_event_controller_get_current_event (controller);
-	guint state = gtk_event_controller_get_current_event_state (controller)
-			& gtk_accelerator_get_default_mod_mask ();
+	guint state = gtk_event_controller_get_current_event_state (controller) & gtk_accelerator_get_default_mod_mask ();
 	if (state != 0)
 		return FALSE;
 
@@ -1249,31 +1243,30 @@ pps_view_presentation_scroll_event (GtkEventControllerScroll *self,
 	case GDK_SCROLL_LEFT:
 		pps_view_presentation_change_page (pview, GTK_SCROLL_PAGE_BACKWARD);
 		break;
-        case GDK_SCROLL_SMOOTH:
-                return FALSE;
+	case GDK_SCROLL_SMOOTH:
+		return FALSE;
 	}
 
 	return TRUE;
 }
 
-
 static void
 add_change_page_binding_keypad (GtkWidgetClass *widget_class,
-				guint           keyval,
-				GdkModifierType modifiers,
-				GtkScrollType   scroll)
+                                guint keyval,
+                                GdkModifierType modifiers,
+                                GtkScrollType scroll)
 {
 	guint keypad_keyval = keyval - GDK_KEY_Left + GDK_KEY_KP_Left;
 
 	gtk_widget_class_add_binding_signal (widget_class, keyval, modifiers,
-					"change_page", "(i)", scroll);
+	                                     "change_page", "(i)", scroll);
 	gtk_widget_class_add_binding_signal (widget_class, keypad_keyval, modifiers,
-					"change_page", "(i)", scroll);
+	                                     "change_page", "(i)", scroll);
 }
 
 static void
 pps_view_presentation_set_document (PpsViewPresentation *pview,
-				    PpsDocument 	*document)
+                                    PpsDocument *document)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
@@ -1290,10 +1283,10 @@ pps_view_presentation_set_document (PpsViewPresentation *pview,
 }
 
 static void
-pps_view_presentation_set_property (GObject      *object,
-				   guint         prop_id,
-				   const GValue *value,
-				   GParamSpec   *pspec)
+pps_view_presentation_set_property (GObject *object,
+                                    guint prop_id,
+                                    const GValue *value,
+                                    GParamSpec *pspec)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (object);
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
@@ -1306,7 +1299,7 @@ pps_view_presentation_set_property (GObject      *object,
 		pps_view_presentation_set_current_page (pview, g_value_get_uint (value));
 		break;
 	case PROP_ROTATION:
-                pps_view_presentation_set_rotation (pview, g_value_get_uint (value));
+		pps_view_presentation_set_rotation (pview, g_value_get_uint (value));
 		break;
 	case PROP_INVERTED_COLORS:
 		priv->inverted_colors = g_value_get_boolean (value);
@@ -1317,68 +1310,66 @@ pps_view_presentation_set_property (GObject      *object,
 }
 
 static void
-pps_view_presentation_get_property (GObject    *object,
-                                   guint       prop_id,
-                                   GValue     *value,
-                                   GParamSpec *pspec)
+pps_view_presentation_get_property (GObject *object,
+                                    guint prop_id,
+                                    GValue *value,
+                                    GParamSpec *pspec)
 {
-        PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (object);
+	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (object);
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
-        switch (prop_id) {
-        case PROP_CURRENT_PAGE:
-                g_value_set_uint (value, priv->current_page);
-                break;
-        case PROP_ROTATION:
-                g_value_set_uint (value, pps_view_presentation_get_rotation (pview));
-                break;
-        default:
-                G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-        }
+	switch (prop_id) {
+	case PROP_CURRENT_PAGE:
+		g_value_set_uint (value, priv->current_page);
+		break;
+	case PROP_ROTATION:
+		g_value_set_uint (value, pps_view_presentation_get_rotation (pview));
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+	}
 }
 
 static void
 pps_view_presentation_notify_scale_factor (PpsViewPresentation *pview)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
-        if (!gtk_widget_get_realized (GTK_WIDGET (pview)))
-                return;
+	if (!gtk_widget_get_realized (GTK_WIDGET (pview)))
+		return;
 
-        pps_view_presentation_reset_jobs (pview);
-        pps_view_presentation_update_current_page (pview, priv->current_page);
+	pps_view_presentation_reset_jobs (pview);
+	pps_view_presentation_update_current_page (pview, priv->current_page);
 }
 
 static GObject *
-pps_view_presentation_constructor (GType                  type,
-				  guint                  n_construct_properties,
-				  GObjectConstructParam *construct_params)
+pps_view_presentation_constructor (GType type,
+                                   guint n_construct_properties,
+                                   GObjectConstructParam *construct_params)
 {
-	GObject            *object;
+	GObject *object;
 	PpsViewPresentation *pview;
 
-	object = G_OBJECT_CLASS (pps_view_presentation_parent_class)->constructor (type,
-										  n_construct_properties,
-										  construct_params);
+	object = G_OBJECT_CLASS (pps_view_presentation_parent_class)->constructor (type, n_construct_properties, construct_params);
 	pview = PPS_VIEW_PRESENTATION (object);
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
-        priv->is_constructing = FALSE;
+	priv->is_constructing = FALSE;
 
-        g_signal_connect (object, "notify::scale-factor",
-                          G_CALLBACK (pps_view_presentation_notify_scale_factor), NULL);
+	g_signal_connect (object, "notify::scale-factor",
+	                  G_CALLBACK (pps_view_presentation_notify_scale_factor), NULL);
 
 	return object;
 }
 
 static void
-pps_view_presentation_size_allocate (GtkWidget	*widget,
-				    int		 width,
-				    int		 height,
-				    int		 baseline)
+pps_view_presentation_size_allocate (GtkWidget *widget,
+                                     int width,
+                                     int height,
+                                     int baseline)
 {
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (widget);
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	GtkWidgetClass *parent_class = GTK_WIDGET_CLASS (
-		pps_view_presentation_parent_class);
+	    pps_view_presentation_parent_class);
 	parent_class->size_allocate (widget, width, height, baseline);
 
 	if (priv->goto_popup)
@@ -1389,11 +1380,11 @@ static void
 pps_view_presentation_class_init (PpsViewPresentationClass *klass)
 {
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-	GObjectClass   *gobject_class = G_OBJECT_CLASS (klass);
+	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
 	klass->change_page = pps_view_presentation_change_page;
 
-        gobject_class->dispose = pps_view_presentation_dispose;
+	gobject_class->dispose = pps_view_presentation_dispose;
 
 	widget_class->snapshot = pps_view_presentation_snapshot;
 	widget_class->size_allocate = pps_view_presentation_size_allocate;
@@ -1402,72 +1393,72 @@ pps_view_presentation_class_init (PpsViewPresentationClass *klass)
 
 	gobject_class->constructor = pps_view_presentation_constructor;
 	gobject_class->set_property = pps_view_presentation_set_property;
-        gobject_class->get_property = pps_view_presentation_get_property;
+	gobject_class->get_property = pps_view_presentation_get_property;
 
 	g_object_class_install_property (gobject_class,
-					 PROP_DOCUMENT,
-					 g_param_spec_object ("document",
-							      "Document",
-							      "Document",
-							      PPS_TYPE_DOCUMENT,
-							      G_PARAM_WRITABLE |
-							      G_PARAM_CONSTRUCT |
-                                                              G_PARAM_STATIC_STRINGS));
+	                                 PROP_DOCUMENT,
+	                                 g_param_spec_object ("document",
+	                                                      "Document",
+	                                                      "Document",
+	                                                      PPS_TYPE_DOCUMENT,
+	                                                      G_PARAM_WRITABLE |
+	                                                          G_PARAM_CONSTRUCT |
+	                                                          G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (gobject_class,
-					 PROP_CURRENT_PAGE,
-					 g_param_spec_uint ("current-page",
-							    "Current Page",
-							    "The current page",
-							    0, G_MAXUINT, 0,
-							    G_PARAM_READWRITE |
-							    G_PARAM_CONSTRUCT |
-                                                            G_PARAM_STATIC_STRINGS));
+	                                 PROP_CURRENT_PAGE,
+	                                 g_param_spec_uint ("current-page",
+	                                                    "Current Page",
+	                                                    "The current page",
+	                                                    0, G_MAXUINT, 0,
+	                                                    G_PARAM_READWRITE |
+	                                                        G_PARAM_CONSTRUCT |
+	                                                        G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (gobject_class,
-					 PROP_ROTATION,
-					 g_param_spec_uint ("rotation",
-							    "Rotation",
-							    "Current rotation angle",
-							    0, 360, 0,
-							    G_PARAM_READWRITE |
-							    G_PARAM_CONSTRUCT |
-                                                            G_PARAM_STATIC_STRINGS));
+	                                 PROP_ROTATION,
+	                                 g_param_spec_uint ("rotation",
+	                                                    "Rotation",
+	                                                    "Current rotation angle",
+	                                                    0, 360, 0,
+	                                                    G_PARAM_READWRITE |
+	                                                        G_PARAM_CONSTRUCT |
+	                                                        G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (gobject_class,
-					 PROP_INVERTED_COLORS,
-					 g_param_spec_boolean ("inverted-colors",
-							       "Inverted Colors",
-							       "Whether presentation is displayed with inverted colors",
-							       FALSE,
-							       G_PARAM_WRITABLE |
-							       G_PARAM_CONSTRUCT |
-                                                               G_PARAM_STATIC_STRINGS));
+	                                 PROP_INVERTED_COLORS,
+	                                 g_param_spec_boolean ("inverted-colors",
+	                                                       "Inverted Colors",
+	                                                       "Whether presentation is displayed with inverted colors",
+	                                                       FALSE,
+	                                                       G_PARAM_WRITABLE |
+	                                                           G_PARAM_CONSTRUCT |
+	                                                           G_PARAM_STATIC_STRINGS));
 
 	signals[CHANGE_PAGE] =
-		g_signal_new ("change_page",
-			      G_OBJECT_CLASS_TYPE (gobject_class),
-			      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-			      G_STRUCT_OFFSET (PpsViewPresentationClass, change_page),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__ENUM,
-			      G_TYPE_NONE, 1,
-			      GTK_TYPE_SCROLL_TYPE);
+	    g_signal_new ("change_page",
+	                  G_OBJECT_CLASS_TYPE (gobject_class),
+	                  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+	                  G_STRUCT_OFFSET (PpsViewPresentationClass, change_page),
+	                  NULL, NULL,
+	                  g_cclosure_marshal_VOID__ENUM,
+	                  G_TYPE_NONE, 1,
+	                  GTK_TYPE_SCROLL_TYPE);
 	signals[FINISHED] =
-		g_signal_new ("finished",
-			      G_OBJECT_CLASS_TYPE (gobject_class),
-			      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-			      G_STRUCT_OFFSET (PpsViewPresentationClass, finished),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0,
-			      G_TYPE_NONE);
-        signals[SIGNAL_EXTERNAL_LINK] =
-                g_signal_new ("external-link",
-                              G_TYPE_FROM_CLASS (gobject_class),
-                              G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-                              G_STRUCT_OFFSET (PpsViewPresentationClass, external_link),
-                              NULL, NULL,
-                              g_cclosure_marshal_VOID__OBJECT,
-                              G_TYPE_NONE, 1,
-                              PPS_TYPE_LINK_ACTION);
+	    g_signal_new ("finished",
+	                  G_OBJECT_CLASS_TYPE (gobject_class),
+	                  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+	                  G_STRUCT_OFFSET (PpsViewPresentationClass, finished),
+	                  NULL, NULL,
+	                  g_cclosure_marshal_VOID__VOID,
+	                  G_TYPE_NONE, 0,
+	                  G_TYPE_NONE);
+	signals[SIGNAL_EXTERNAL_LINK] =
+	    g_signal_new ("external-link",
+	                  G_TYPE_FROM_CLASS (gobject_class),
+	                  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+	                  G_STRUCT_OFFSET (PpsViewPresentationClass, external_link),
+	                  NULL, NULL,
+	                  g_cclosure_marshal_VOID__OBJECT,
+	                  G_TYPE_NONE, 1,
+	                  PPS_TYPE_LINK_ACTION);
 
 	gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/papers/ui/view-presentation.ui");
 
@@ -1483,31 +1474,31 @@ pps_view_presentation_class_init (PpsViewPresentationClass *klass)
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_inhibit_screenlock);
 	gtk_widget_class_bind_template_callback (widget_class, pps_view_presentation_uninhibit_screenlock);
 
-	add_change_page_binding_keypad (widget_class, GDK_KEY_Left,  0, GTK_SCROLL_PAGE_BACKWARD);
+	add_change_page_binding_keypad (widget_class, GDK_KEY_Left, 0, GTK_SCROLL_PAGE_BACKWARD);
 	add_change_page_binding_keypad (widget_class, GDK_KEY_Right, 0, GTK_SCROLL_PAGE_FORWARD);
-	add_change_page_binding_keypad (widget_class, GDK_KEY_Up,    0, GTK_SCROLL_PAGE_BACKWARD);
-	add_change_page_binding_keypad (widget_class, GDK_KEY_Down,  0, GTK_SCROLL_PAGE_FORWARD);
+	add_change_page_binding_keypad (widget_class, GDK_KEY_Up, 0, GTK_SCROLL_PAGE_BACKWARD);
+	add_change_page_binding_keypad (widget_class, GDK_KEY_Down, 0, GTK_SCROLL_PAGE_FORWARD);
 
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_space, 0,
-			"change_page", "(i)", GTK_SCROLL_PAGE_FORWARD);
+	                                     "change_page", "(i)", GTK_SCROLL_PAGE_FORWARD);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_space, 0,
-			"change_page", "(i)", GTK_SCROLL_PAGE_FORWARD);
+	                                     "change_page", "(i)", GTK_SCROLL_PAGE_FORWARD);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_space, GDK_SHIFT_MASK,
-			"change_page", "(i)", GTK_SCROLL_PAGE_BACKWARD);
+	                                     "change_page", "(i)", GTK_SCROLL_PAGE_BACKWARD);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_BackSpace, 0,
-			"change_page", "(i)", GTK_SCROLL_PAGE_BACKWARD);
+	                                     "change_page", "(i)", GTK_SCROLL_PAGE_BACKWARD);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_Page_Down, 0,
-			"change_page", "(i)", GTK_SCROLL_PAGE_FORWARD);
+	                                     "change_page", "(i)", GTK_SCROLL_PAGE_FORWARD);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_Page_Up, 0,
-			"change_page", "(i)", GTK_SCROLL_PAGE_BACKWARD);
+	                                     "change_page", "(i)", GTK_SCROLL_PAGE_BACKWARD);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_J, 0,
-			"change_page", "(i)", GTK_SCROLL_PAGE_FORWARD);
+	                                     "change_page", "(i)", GTK_SCROLL_PAGE_FORWARD);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_H, 0,
-			"change_page", "(i)", GTK_SCROLL_PAGE_BACKWARD);
+	                                     "change_page", "(i)", GTK_SCROLL_PAGE_BACKWARD);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_L, 0,
-			"change_page", "(i)", GTK_SCROLL_PAGE_FORWARD);
+	                                     "change_page", "(i)", GTK_SCROLL_PAGE_FORWARD);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_K, 0,
-			"change_page", "(i)", GTK_SCROLL_PAGE_BACKWARD);
+	                                     "change_page", "(i)", GTK_SCROLL_PAGE_BACKWARD);
 }
 
 static void
@@ -1522,19 +1513,19 @@ pps_view_presentation_init (PpsViewPresentation *pview)
 
 PpsViewPresentation *
 pps_view_presentation_new (PpsDocument *document,
-			  guint       current_page,
-			  guint       rotation,
-			  gboolean    inverted_colors)
+                           guint current_page,
+                           guint rotation,
+                           gboolean inverted_colors)
 {
 	g_return_val_if_fail (PPS_IS_DOCUMENT (document), NULL);
 	g_return_val_if_fail (current_page < pps_document_get_n_pages (document), NULL);
 
 	return g_object_new (PPS_TYPE_VIEW_PRESENTATION,
-			     "document", document,
-			     "current_page", current_page,
-			     "rotation", rotation,
-			     "inverted_colors", inverted_colors,
-			     NULL);
+	                     "document", document,
+	                     "current_page", current_page,
+	                     "rotation", rotation,
+	                     "inverted_colors", inverted_colors,
+	                     NULL);
 }
 
 guint
@@ -1547,25 +1538,25 @@ pps_view_presentation_get_current_page (PpsViewPresentation *pview)
 
 void
 pps_view_presentation_set_rotation (PpsViewPresentation *pview,
-                                   gint                rotation)
+                                    gint rotation)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
-        if (rotation >= 360)
-                rotation -= 360;
-        else if (rotation < 0)
-                rotation += 360;
+	if (rotation >= 360)
+		rotation -= 360;
+	else if (rotation < 0)
+		rotation += 360;
 
-        if (priv->rotation == rotation)
-                return;
+	if (priv->rotation == rotation)
+		return;
 
-        priv->rotation = rotation;
-        g_object_notify (G_OBJECT (pview), "rotation");
-        if (priv->is_constructing)
-                return;
+	priv->rotation = rotation;
+	g_object_notify (G_OBJECT (pview), "rotation");
+	if (priv->is_constructing)
+		return;
 
-        pps_view_presentation_reset_jobs (pview);
-        pps_view_presentation_update_current_page (pview, priv->current_page);
+	pps_view_presentation_reset_jobs (pview);
+	pps_view_presentation_update_current_page (pview, priv->current_page);
 }
 
 guint
@@ -1573,5 +1564,5 @@ pps_view_presentation_get_rotation (PpsViewPresentation *pview)
 {
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 
-        return priv->rotation;
+	return priv->rotation;
 }

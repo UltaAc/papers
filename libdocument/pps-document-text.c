@@ -31,8 +31,8 @@ pps_document_text_default_init (PpsDocumentTextInterface *klass)
 }
 
 gchar *
-pps_document_text_get_text (PpsDocumentText   *document_text,
-			   PpsPage           *page)
+pps_document_text_get_text (PpsDocumentText *document_text,
+                            PpsPage *page)
 {
 	PpsDocumentTextInterface *iface = PPS_DOCUMENT_TEXT_GET_IFACE (document_text);
 
@@ -53,9 +53,9 @@ pps_document_text_get_text (PpsDocumentText   *document_text,
  */
 gboolean
 pps_document_text_get_text_layout (PpsDocumentText *document_text,
-				   PpsPage         *page,
-				   PpsRectangle   **areas,
-				   guint           *n_areas)
+                                   PpsPage *page,
+                                   PpsRectangle **areas,
+                                   guint *n_areas)
 {
 	PpsDocumentTextInterface *iface = PPS_DOCUMENT_TEXT_GET_IFACE (document_text);
 
@@ -75,10 +75,10 @@ pps_document_text_get_text_layout (PpsDocumentText *document_text,
  *
  * Since: 47
  */
-gchar*
+gchar *
 pps_document_text_get_text_in_area (PpsDocumentText *document_text,
-				    PpsPage         *page,
-				    PpsRectangle    *area)
+                                    PpsPage *page,
+                                    PpsRectangle *area)
 {
 	PpsDocumentTextInterface *iface = PPS_DOCUMENT_TEXT_GET_IFACE (document_text);
 
@@ -90,7 +90,7 @@ pps_document_text_get_text_in_area (PpsDocumentText *document_text,
 
 cairo_region_t *
 pps_document_text_get_text_mapping (PpsDocumentText *document_text,
-				   PpsPage         *page)
+                                    PpsPage *page)
 {
 	PpsDocumentTextInterface *iface = PPS_DOCUMENT_TEXT_GET_IFACE (document_text);
 
@@ -113,7 +113,7 @@ pps_document_text_get_text_mapping (PpsDocumentText *document_text,
  */
 PangoAttrList *
 pps_document_text_get_text_attrs (PpsDocumentText *document_text,
-				 PpsPage         *page)
+                                  PpsPage *page)
 {
 	PpsDocumentTextInterface *iface = PPS_DOCUMENT_TEXT_GET_IFACE (document_text);
 

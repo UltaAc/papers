@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
 #include "pps-document-transition.h"
+#include <config.h>
 
 G_DEFINE_INTERFACE (PpsDocumentTransition, pps_document_transition, 0)
 
@@ -30,7 +30,7 @@ pps_document_transition_default_init (PpsDocumentTransitionInterface *klass)
 
 gdouble
 pps_document_transition_get_page_duration (PpsDocumentTransition *document_trans,
-					  gint                  page)
+                                           gint page)
 {
 	PpsDocumentTransitionInterface *iface = PPS_DOCUMENT_TRANSITION_GET_IFACE (document_trans);
 
@@ -49,7 +49,7 @@ pps_document_transition_get_page_duration (PpsDocumentTransition *document_trans
  */
 PpsTransitionEffect *
 pps_document_transition_get_effect (PpsDocumentTransition *document_trans,
-				   gint                  page)
+                                    gint page)
 {
 	PpsDocumentTransitionInterface *iface = PPS_DOCUMENT_TRANSITION_GET_IFACE (document_trans);
 	PpsTransitionEffect *effect = NULL;

@@ -20,31 +20,29 @@
 
 #pragma once
 
+#include <adwaita.h>
 #include <glib-object.h>
 #include <glib.h>
-#include <adwaita.h>
 
 #include "pps-document.h"
 #include <papers-view.h>
 
 G_BEGIN_DECLS
 
-#define PPS_TYPE_SIDEBAR_PAGE	    	(pps_sidebar_page_get_type ())
+#define PPS_TYPE_SIDEBAR_PAGE (pps_sidebar_page_get_type ())
 G_DECLARE_DERIVABLE_TYPE (PpsSidebarPage, pps_sidebar_page, PPS, SIDEBAR_PAGE, AdwBin)
 
-struct _PpsSidebarPageClass
-{
+struct _PpsSidebarPageClass {
 	AdwBinClass parent_class;
 
 	/* Methods  */
-	gboolean    (* support_document)  (PpsSidebarPage *sidebar_page,
-				           PpsDocument    *document);
+	gboolean (*support_document) (PpsSidebarPage *sidebar_page,
+	                              PpsDocument *document);
 };
 
-gboolean          pps_sidebar_page_support_document   (PpsSidebarPage *sidebar_page,
-						       PpsDocument    *document);
+gboolean pps_sidebar_page_support_document (PpsSidebarPage *sidebar_page,
+                                            PpsDocument *document);
 PpsDocumentModel *pps_sidebar_page_get_document_model (PpsSidebarPage *sidebar_page);
-void              pps_sidebar_page_navigate_to_view   (PpsSidebarPage    *sidebar_page);
-
+void pps_sidebar_page_navigate_to_view (PpsSidebarPage *sidebar_page);
 
 G_END_DECLS

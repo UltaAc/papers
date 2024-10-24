@@ -20,19 +20,19 @@
 
 #pragma once
 
-#if !defined (PAPERS_COMPILATION)
+#if !defined(PAPERS_COMPILATION)
 #error "This is a private header."
 #endif
 
-#include "pps-view.h"
-#include "pps-pixbuf-cache.h"
-#include "pps-page-cache.h"
-#include "pps-jobs.h"
-#include "pps-image.h"
+#include "adwaita.h"
 #include "pps-form-field.h"
+#include "pps-image.h"
+#include "pps-jobs.h"
+#include "pps-page-cache.h"
+#include "pps-pixbuf-cache.h"
 #include "pps-selection.h"
 #include "pps-view-cursor.h"
-#include "adwaita.h"
+#include "pps-view.h"
 
 struct GdkPoint {
 	gint x;
@@ -42,7 +42,8 @@ struct GdkPoint {
 typedef struct GdkPoint GdkPoint;
 
 /* Information for middle clicking and moving around the doc */
-typedef struct {
+typedef struct
+{
 	gdouble hadj;
 	gdouble vadj;
 	guint release_timeout_id;
@@ -51,18 +52,20 @@ typedef struct {
 } DragInfo;
 
 /* Information for handling selection */
-typedef struct {
+typedef struct
+{
 	GdkPoint start;
 	GList *selections;
 	PpsSelectionStyle style;
 } SelectionInfo;
 
 /* Annotation popup windows */
-typedef struct {
+typedef struct
+{
 	GtkWidget *window;
-	guint      page;
+	guint page;
 
-	gboolean   visible;
+	gboolean visible;
 } PpsViewWindowChild;
 
 typedef enum {
@@ -80,22 +83,25 @@ typedef struct _PpsHeightToPageCache {
 } PpsHeightToPageCache;
 
 /* Information for handling annotations */
-typedef struct {
-	PpsPoint       cursor_offset;
+typedef struct
+{
+	PpsPoint cursor_offset;
 	PpsAnnotation *annot;
 } MovingAnnotInfo;
 
 /* Information for handling link preview thumbnails */
-typedef struct {
-	PpsJob     *job;
-	gdouble    left;
-	gdouble    top;
+typedef struct
+{
+	PpsJob *job;
+	gdouble left;
+	gdouble top;
 	GtkWidget *popover;
-	PpsLink    *link;
-	guint      delay_timeout_id;
+	PpsLink *link;
+	guint delay_timeout_id;
 } PpsLinkPreview;
 
-typedef struct {
+typedef struct
+{
 	gboolean active;
 	gboolean in_selection;
 	GdkPoint start;
@@ -138,15 +144,15 @@ typedef struct _PpsViewPrivate {
 	guint update_cursor_idle_id;
 
 	/* Delta sum for emulating normal scrolling */
-	gdouble       total_delta;
+	gdouble total_delta;
 	PendingScroll pending_scroll;
-	gboolean      pending_resize;
-	PpsPoint       pending_point;
+	gboolean pending_resize;
+	PpsPoint pending_point;
 
 	/* Animation for scrolling with keys */
-	AdwAnimation	*scroll_animation_vertical;
-	AdwAnimation	*scroll_animation_horizontal;
-	gboolean	pending_scroll_animation;
+	AdwAnimation *scroll_animation_vertical;
+	AdwAnimation *scroll_animation_horizontal;
+	gboolean pending_scroll_animation;
 
 	/* Current geometry */
 
@@ -186,12 +192,12 @@ typedef struct _PpsViewPrivate {
 	PpsImage *dnd_image;
 
 	/* Annotations */
-	GList             *window_children;
-	gboolean           adding_text_annot;
-	MovingAnnotInfo    moving_annot_info;
-	GHashTable        *annot_window_map;
-	gboolean           enable_spellchecking;
-	GdkRGBA		   annot_color;
+	GList *window_children;
+	gboolean adding_text_annot;
+	MovingAnnotInfo moving_annot_info;
+	GHashTable *annot_window_map;
+	gboolean enable_spellchecking;
+	GdkRGBA annot_color;
 
 	/* Focus */
 	PpsMapping *focused_element;
@@ -200,12 +206,12 @@ typedef struct _PpsViewPrivate {
 
 	/* Caret navigation */
 	gboolean caret_enabled;
-	gint     cursor_offset;
-	gint     cursor_page;
-	gdouble  cursor_line_offset;
+	gint cursor_offset;
+	gint cursor_page;
+	gdouble cursor_line_offset;
 	gboolean cursor_visible;
-	guint    cursor_blink_timeout_id;
-	guint    cursor_blink_time;
+	guint cursor_blink_timeout_id;
+	guint cursor_blink_time;
 
 	/* Gestures */
 	GtkGesture *middle_clicked_drag_gesture;
@@ -226,81 +232,81 @@ typedef struct _PpsViewPrivate {
 struct _PpsViewClass {
 	GtkWidgetClass parent_class;
 
-        void     (*scroll)            (PpsView         *view,
-				       GtkScrollType   scroll,
-				       GtkOrientation  orientation);
-        void     (*handle_link)       (PpsView         *view,
-				       gint            old_page,
-				       PpsLink         *link);
-        void     (*external_link)     (PpsView         *view,
-				       PpsLinkAction   *action);
-        void     (*popup_menu)        (PpsView         *view,
-				       GList          *items);
-        void     (*selection_changed) (PpsView         *view);
-        void     (*annot_added)       (PpsView         *view,
-				       PpsAnnotation   *annot);
-        void     (*annot_cancel_add)  (PpsView         *view);
-        void     (*annot_changed)     (PpsView         *view,
-				       PpsAnnotation   *annot);
-        void     (*annot_removed)     (PpsView         *view,
-				       PpsAnnotation   *annot);
-        void     (*layers_changed)    (PpsView         *view);
-        gboolean (*move_cursor)       (PpsView         *view,
-				       GtkMovementStep step,
-				       gint            count,
-				       gboolean        extend_selection);
-	void     (*activate)          (PpsView         *view);
-	void     (*signature_rect)    (PpsView         *view,
-				       guint            page,
-				       PpsRectangle    *rectangle);
+	void (*scroll) (PpsView *view,
+	                GtkScrollType scroll,
+	                GtkOrientation orientation);
+	void (*handle_link) (PpsView *view,
+	                     gint old_page,
+	                     PpsLink *link);
+	void (*external_link) (PpsView *view,
+	                       PpsLinkAction *action);
+	void (*popup_menu) (PpsView *view,
+	                    GList *items);
+	void (*selection_changed) (PpsView *view);
+	void (*annot_added) (PpsView *view,
+	                     PpsAnnotation *annot);
+	void (*annot_cancel_add) (PpsView *view);
+	void (*annot_changed) (PpsView *view,
+	                       PpsAnnotation *annot);
+	void (*annot_removed) (PpsView *view,
+	                       PpsAnnotation *annot);
+	void (*layers_changed) (PpsView *view);
+	gboolean (*move_cursor) (PpsView *view,
+	                         GtkMovementStep step,
+	                         gint count,
+	                         gboolean extend_selection);
+	void (*activate) (PpsView *view);
+	void (*signature_rect) (PpsView *view,
+	                        guint page,
+	                        PpsRectangle *rectangle);
 };
 
 void _get_page_size_for_scale_and_rotation (PpsDocument *document,
-					    gint        page,
-					    gdouble     scale,
-					    gint        rotation,
-					    gint       *page_width,
-					    gint       *page_height);
-void _pps_view_transform_view_point_to_doc_point (PpsView       *view,
-						 GdkPoint     *view_point,
-						 GdkRectangle *page_area,
-						 GtkBorder    *border,
-						 double       *doc_point_x,
-						 double       *doc_point_y);
-void _pps_view_transform_view_rect_to_doc_rect (PpsView       *view,
-					       GdkRectangle *view_rect,
-					       GdkRectangle *page_area,
-					       GtkBorder    *border,
-					       PpsRectangle  *doc_rect);
-void _pps_view_transform_doc_point_to_view_point (PpsView   *view,
-						 int       page,
-						 PpsPoint  *doc_point,
-						 GdkPoint *view_point);
-void _pps_view_transform_doc_point_by_rotation_scale (PpsView   *view,
-						 int       page,
-						 PpsPoint  *doc_point,
-						 GdkPoint *view_point);
-void _pps_view_transform_doc_rect_to_view_rect (PpsView       *view,
-					       int           page,
-					       PpsRectangle  *doc_rect,
-					       GdkRectangle *view_rect);
-void _pps_view_get_selection_colors (PpsView  *view,
-				    GdkRGBA *bg_color,
-				    GdkRGBA *fg_color);
+                                            gint page,
+                                            gdouble scale,
+                                            gint rotation,
+                                            gint *page_width,
+                                            gint *page_height);
+void _pps_view_transform_view_point_to_doc_point (PpsView *view,
+                                                  GdkPoint *view_point,
+                                                  GdkRectangle *page_area,
+                                                  GtkBorder *border,
+                                                  double *doc_point_x,
+                                                  double *doc_point_y);
+void _pps_view_transform_view_rect_to_doc_rect (PpsView *view,
+                                                GdkRectangle *view_rect,
+                                                GdkRectangle *page_area,
+                                                GtkBorder *border,
+                                                PpsRectangle *doc_rect);
+void _pps_view_transform_doc_point_to_view_point (PpsView *view,
+                                                  int page,
+                                                  PpsPoint *doc_point,
+                                                  GdkPoint *view_point);
+void _pps_view_transform_doc_point_by_rotation_scale (PpsView *view,
+                                                      int page,
+                                                      PpsPoint *doc_point,
+                                                      GdkPoint *view_point);
+void _pps_view_transform_doc_rect_to_view_rect (PpsView *view,
+                                                int page,
+                                                PpsRectangle *doc_rect,
+                                                GdkRectangle *view_rect);
+void _pps_view_get_selection_colors (PpsView *view,
+                                     GdkRGBA *bg_color,
+                                     GdkRGBA *fg_color);
 gint _pps_view_get_caret_cursor_offset_at_doc_point (PpsView *view,
-						    gint    page,
-						    gdouble doc_x,
-						    gdouble doc_y);
-void _pps_view_clear_selection (PpsView   *view);
-void _pps_view_set_selection   (PpsView   *view,
-			       GdkPoint *start_point,
-			       GdkPoint *end_point);
+                                                     gint page,
+                                                     gdouble doc_x,
+                                                     gdouble doc_y);
+void _pps_view_clear_selection (PpsView *view);
+void _pps_view_set_selection (PpsView *view,
+                              GdkPoint *start_point,
+                              GdkPoint *end_point);
 
 void _pps_view_set_focused_element (PpsView *view,
-				   PpsMapping *element_mapping,
-				   gint page);
-void _pps_view_focus_form_field    (PpsView      *view,
-				   PpsFormField *field);
+                                    PpsMapping *element_mapping,
+                                    gint page);
+void _pps_view_focus_form_field (PpsView *view,
+                                 PpsFormField *field);
 
-void _pps_view_ensure_rectangle_is_visible (PpsView       *view,
-					   GdkRectangle *rect);
+void _pps_view_ensure_rectangle_is_visible (PpsView *view,
+                                            GdkRectangle *rect);

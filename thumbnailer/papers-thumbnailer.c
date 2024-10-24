@@ -37,7 +37,7 @@ static const gchar **file_arguments;
 
 static const GOptionEntry goption_options[] = {
 	{ "size", 's', 0, G_OPTION_ARG_INT, &size, NULL, "SIZE" },
-        { "no-limit", 'l', G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &time_limit, "Don't limit the thumbnailing time to 15 seconds", NULL },
+	{ "no-limit", 'l', G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &time_limit, "Don't limit the thumbnailing time to 15 seconds", NULL },
 	{ G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &file_arguments, NULL, "<input> <ouput>" },
 	{ NULL }
 };
@@ -46,36 +46,36 @@ static const GOptionEntry goption_options[] = {
 G_GNUC_NORETURN static gpointer
 time_monitor (gpointer data)
 {
-        const gchar *app_name;
+	const gchar *app_name;
 
-        g_usleep (DEFAULT_SLEEP_TIME);
+	g_usleep (DEFAULT_SLEEP_TIME);
 
-        if (finished)
-                g_thread_exit (NULL);
+	if (finished)
+		g_thread_exit (NULL);
 
-        app_name = g_get_application_name ();
-        if (app_name == NULL)
-                app_name = g_get_prgname ();
-        g_printerr ("%s couldn't process file: '%s'\n"
-                    "Reason: Took too much time to process.\n",
-                    app_name,
-                    (const char *) data);
+	app_name = g_get_application_name ();
+	if (app_name == NULL)
+		app_name = g_get_prgname ();
+	g_printerr ("%s couldn't process file: '%s'\n"
+	            "Reason: Took too much time to process.\n",
+	            app_name,
+	            (const char *) data);
 
-        exit (0);
+	exit (0);
 }
 
 static void
 time_monitor_start (const char *input)
 {
-        finished = FALSE;
+	finished = FALSE;
 
-        g_thread_new ("ThumbnailerTimer", time_monitor, (gpointer) input);
+	g_thread_new ("ThumbnailerTimer", time_monitor, (gpointer) input);
 }
 
 static void
 time_monitor_stop (void)
 {
-        finished = TRUE;
+	finished = TRUE;
 }
 
 static void
@@ -116,8 +116,8 @@ static PpsDocument *
 papers_thumbnailer_get_document (GFile *file)
 {
 	PpsDocument *document = NULL;
-	gchar      *uri, *path;
-	GFile      *tmp_file = NULL;
+	gchar *uri, *path;
+	GFile *tmp_file = NULL;
 	g_autoptr (GError) error = NULL;
 
 	path = get_local_path (file);
@@ -138,7 +138,7 @@ papers_thumbnailer_get_document (GFile *file)
 		}
 
 		g_file_copy (file, tmp_file, G_FILE_COPY_OVERWRITE,
-			     NULL, NULL, NULL, &error);
+		             NULL, NULL, NULL, &error);
 		if (error) {
 			g_printerr ("Error loading remote document: %s\n", error->message);
 			g_object_unref (tmp_file);
@@ -155,8 +155,8 @@ papers_thumbnailer_get_document (GFile *file)
 	if (tmp_file) {
 		if (document) {
 			g_object_weak_ref (G_OBJECT (document),
-					   delete_temp_file,
-					   tmp_file);
+			                   delete_temp_file,
+			                   tmp_file);
 		} else {
 			pps_tmp_file_unlink (tmp_file);
 			g_object_unref (tmp_file);
@@ -208,12 +208,12 @@ print_usage (GOptionContext *context)
 int
 main (int argc, char *argv[])
 {
-	PpsDocument     *document;
+	PpsDocument *document;
 	GOptionContext *context;
-	const char     *input;
-	const char     *output;
-	GFile          *file;
-	GError         *error = NULL;
+	const char *input;
+	const char *output;
+	GFile *file;
+	GError *error = NULL;
 
 	setlocale (LC_ALL, "");
 
@@ -248,8 +248,8 @@ main (int argc, char *argv[])
 	input = file_arguments[0];
 	output = file_arguments[1];
 
-        if (!pps_init ())
-                return -1;
+	if (!pps_init ())
+		return -1;
 
 	file = g_file_new_for_commandline_arg (input);
 	document = papers_thumbnailer_get_document (file);
@@ -260,8 +260,8 @@ main (int argc, char *argv[])
 		return -2;
 	}
 
-        if (time_limit)
-                time_monitor_start (input);
+	if (time_limit)
+		time_monitor_start (input);
 
 	if (!papers_thumbnail_pngenc_get (document, output, size)) {
 		g_object_unref (document);
@@ -269,9 +269,9 @@ main (int argc, char *argv[])
 		return -2;
 	}
 
-        time_monitor_stop ();
+	time_monitor_stop ();
 	g_object_unref (document);
-        pps_shutdown ();
+	pps_shutdown ();
 
 	return 0;
 }

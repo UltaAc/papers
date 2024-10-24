@@ -20,7 +20,7 @@
 
 #pragma once
 
-#if !defined (__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-document.h> can be included directly."
 #endif
 
@@ -30,7 +30,7 @@
 
 G_BEGIN_DECLS
 
-#define PPS_TYPE_TRANSITION_EFFECT		  (pps_transition_effect_get_type ())
+#define PPS_TYPE_TRANSITION_EFFECT (pps_transition_effect_get_type ())
 
 PPS_PUBLIC
 G_DECLARE_FINAL_TYPE (PpsTransitionEffect, pps_transition_effect, PPS, TRANSITION_EFFECT, GObject)
@@ -60,14 +60,13 @@ typedef enum {
 	PPS_TRANSITION_DIRECTION_OUTWARD
 } PpsTransitionEffectDirection;
 
-struct _PpsTransitionEffect
-{
+struct _PpsTransitionEffect {
 	GObject parent_instance;
 };
 
 PPS_PUBLIC
-PpsTransitionEffect   *pps_transition_effect_new                (PpsTransitionEffectType  type,
-							       const gchar            *first_property_name,
-							       ...);
+PpsTransitionEffect *pps_transition_effect_new (PpsTransitionEffectType type,
+                                                const gchar *first_property_name,
+                                                ...);
 
 G_END_DECLS

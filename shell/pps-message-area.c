@@ -23,14 +23,15 @@
 
 #include "pps-message-area.h"
 
-typedef struct {
+typedef struct
+{
 	GtkInfoBar *info_bar;
 	GtkWidget *main_box;
 	GtkWidget *image;
 	GtkWidget *label;
 	GtkWidget *secondary_label;
 
-	guint      message_type : 3;
+	guint message_type : 3;
 } PpsMessageAreaPrivate;
 
 enum {
@@ -40,20 +41,17 @@ enum {
 	PROP_IMAGE
 };
 
-static void pps_message_area_set_property (GObject      *object,
-					  guint         prop_id,
-					  const GValue *value,
-					  GParamSpec   *pspec);
-static void pps_message_area_get_property (GObject      *object,
-					  guint         prop_id,
-					  GValue       *value,
-					  GParamSpec   *pspec);
+static void pps_message_area_set_property (GObject *object,
+                                           guint prop_id,
+                                           const GValue *value,
+                                           GParamSpec *pspec);
+static void pps_message_area_get_property (GObject *object,
+                                           guint prop_id,
+                                           GValue *value,
+                                           GParamSpec *pspec);
 static void pps_message_area_buildable_iface_init (GtkBuildableIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (PpsMessageArea, pps_message_area, ADW_TYPE_BIN,
-                         G_ADD_PRIVATE (PpsMessageArea)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE,
-                                                pps_message_area_buildable_iface_init))
+G_DEFINE_TYPE_WITH_CODE (PpsMessageArea, pps_message_area, ADW_TYPE_BIN, G_ADD_PRIVATE (PpsMessageArea) G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, pps_message_area_buildable_iface_init))
 
 #define GET_PRIVATE(o) pps_message_area_get_instance_private (o);
 
@@ -76,29 +74,29 @@ pps_message_area_class_init (PpsMessageAreaClass *class)
 	gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_ALERT);
 
 	g_object_class_install_property (gobject_class,
-					 PROP_TEXT,
-					 g_param_spec_string ("text",
-							      "Text",
-							      "The primary text of the message dialog",
-							      NULL,
-							      G_PARAM_READWRITE |
-                                                              G_PARAM_STATIC_STRINGS));
+	                                 PROP_TEXT,
+	                                 g_param_spec_string ("text",
+	                                                      "Text",
+	                                                      "The primary text of the message dialog",
+	                                                      NULL,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (gobject_class,
-					 PROP_SECONDARY_TEXT,
-					 g_param_spec_string ("secondary-text",
-							      "Secondary Text",
-							      "The secondary text of the message dialog",
-							      NULL,
-							      G_PARAM_READWRITE |
-                                                              G_PARAM_STATIC_STRINGS));
+	                                 PROP_SECONDARY_TEXT,
+	                                 g_param_spec_string ("secondary-text",
+	                                                      "Secondary Text",
+	                                                      "The secondary text of the message dialog",
+	                                                      NULL,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (gobject_class,
-					 PROP_IMAGE,
-					 g_param_spec_object ("image",
-							      "Image",
-							      "The image",
-							      GTK_TYPE_WIDGET,
-							      G_PARAM_READWRITE |
-                                                              G_PARAM_STATIC_STRINGS));
+	                                 PROP_IMAGE,
+	                                 g_param_spec_object ("image",
+	                                                      "Image",
+	                                                      "The image",
+	                                                      GTK_TYPE_WIDGET,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_STATIC_STRINGS));
 }
 
 static void
@@ -108,10 +106,10 @@ pps_message_area_init (PpsMessageArea *area)
 }
 
 static void
-pps_message_area_set_property (GObject      *object,
-			      guint         prop_id,
-			      const GValue *value,
-			      GParamSpec   *pspec)
+pps_message_area_set_property (GObject *object,
+                               guint prop_id,
+                               const GValue *value,
+                               GParamSpec *pspec)
 {
 	PpsMessageArea *area = PPS_MESSAGE_AREA (object);
 
@@ -123,7 +121,7 @@ pps_message_area_set_property (GObject      *object,
 		pps_message_area_set_secondary_text (area, g_value_get_string (value));
 		break;
 	case PROP_IMAGE:
-		pps_message_area_set_image (area, (GtkWidget *)g_value_get_object (value));
+		pps_message_area_set_image (area, (GtkWidget *) g_value_get_object (value));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -132,10 +130,10 @@ pps_message_area_set_property (GObject      *object,
 }
 
 static void
-pps_message_area_get_property (GObject     *object,
-			      guint        prop_id,
-			      GValue      *value,
-			      GParamSpec  *pspec)
+pps_message_area_get_property (GObject *object,
+                               guint prop_id,
+                               GValue *value,
+                               GParamSpec *pspec)
 {
 	PpsMessageArea *area = PPS_MESSAGE_AREA (object);
 	PpsMessageAreaPrivate *priv = GET_PRIVATE (area);
@@ -160,29 +158,29 @@ static GtkBuildableIface *parent_buildable_iface;
 
 static GObject *
 pps_message_area_buildable_get_internal_child (GtkBuildable *buildable,
-                             GtkBuilder   *builder,
-                             const char   *childname)
+                                               GtkBuilder *builder,
+                                               const char *childname)
 {
-        PpsMessageArea *area = PPS_MESSAGE_AREA (buildable);
+	PpsMessageArea *area = PPS_MESSAGE_AREA (buildable);
 
-        if (g_strcmp0 (childname, "main_box") == 0)
-                return G_OBJECT (_pps_message_area_get_main_box (area));
+	if (g_strcmp0 (childname, "main_box") == 0)
+		return G_OBJECT (_pps_message_area_get_main_box (area));
 
-        return parent_buildable_iface->get_internal_child (buildable, builder, childname);
+	return parent_buildable_iface->get_internal_child (buildable, builder, childname);
 }
 
 static void
 pps_message_area_buildable_iface_init (GtkBuildableIface *iface)
 {
-        parent_buildable_iface = g_type_interface_peek_parent (iface);
+	parent_buildable_iface = g_type_interface_peek_parent (iface);
 
-        iface->get_internal_child = pps_message_area_buildable_get_internal_child;
+	iface->get_internal_child = pps_message_area_buildable_get_internal_child;
 }
 
 void
-pps_message_area_add_button (PpsMessageArea    *area,
-			     const gchar       *button_text,
-			     gint 		response_id)
+pps_message_area_add_button (PpsMessageArea *area,
+                             const gchar *button_text,
+                             gint response_id)
 {
 	PpsMessageAreaPrivate *priv = GET_PRIVATE (area);
 
@@ -217,7 +215,7 @@ pps_message_area_get_info_bar (PpsMessageArea *area)
 
 void
 pps_message_area_set_image (PpsMessageArea *area,
-			   GtkWidget     *image)
+                            GtkWidget *image)
 {
 	GtkWidget *parent;
 	PpsMessageAreaPrivate *priv;
@@ -240,7 +238,7 @@ pps_message_area_set_image (PpsMessageArea *area,
 
 void
 pps_message_area_set_image_from_icon_name (PpsMessageArea *area,
-					  const gchar   *icon_name)
+                                           const gchar *icon_name)
 {
 	PpsMessageAreaPrivate *priv;
 
@@ -250,12 +248,12 @@ pps_message_area_set_image_from_icon_name (PpsMessageArea *area,
 	priv = GET_PRIVATE (area);
 
 	gtk_image_set_from_icon_name (GTK_IMAGE (priv->image),
-				      icon_name);
+	                              icon_name);
 }
 
 void
 pps_message_area_set_text (PpsMessageArea *area,
-			  const gchar   *str)
+                           const gchar *str)
 {
 	PpsMessageAreaPrivate *priv;
 
@@ -280,7 +278,7 @@ pps_message_area_set_text (PpsMessageArea *area,
 
 void
 pps_message_area_set_secondary_text (PpsMessageArea *area,
-				    const gchar   *str)
+                                     const gchar *str)
 {
 	PpsMessageAreaPrivate *priv;
 

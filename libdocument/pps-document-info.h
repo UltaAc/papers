@@ -20,7 +20,7 @@
 
 #pragma once
 
-#if !defined (__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-document.h> can be included directly."
 #endif
 
@@ -31,13 +31,12 @@
 
 G_BEGIN_DECLS
 
-typedef struct _PpsDocumentInfo    PpsDocumentInfo;
+typedef struct _PpsDocumentInfo PpsDocumentInfo;
 typedef struct _PpsDocumentLicense PpsDocumentLicense;
 
-#define PPS_TYPE_DOCUMENT_INFO (pps_document_info_get_type())
+#define PPS_TYPE_DOCUMENT_INFO (pps_document_info_get_type ())
 
-typedef enum
-{
+typedef enum {
 	PPS_DOCUMENT_LAYOUT_SINGLE_PAGE,
 	PPS_DOCUMENT_LAYOUT_ONE_COLUMN,
 	PPS_DOCUMENT_LAYOUT_TWO_COLUMN_LEFT,
@@ -46,8 +45,7 @@ typedef enum
 	PPS_DOCUMENT_LAYOUT_TWO_PAGE_RIGHT
 } PpsDocumentLayout;
 
-typedef enum
-{
+typedef enum {
 	PPS_DOCUMENT_MODE_NONE,
 	PPS_DOCUMENT_MODE_USE_OC,
 	PPS_DOCUMENT_MODE_USE_THUMBS,
@@ -56,15 +54,13 @@ typedef enum
 	PPS_DOCUMENT_MODE_PRESENTATION = PPS_DOCUMENT_MODE_FULL_SCREEN /* Will these be different? */
 } PpsDocumentMode;
 
-typedef enum
-{
+typedef enum {
 	PPS_DOCUMENT_CONTAINS_JS_UNKNOWN,
 	PPS_DOCUMENT_CONTAINS_JS_NO,
 	PPS_DOCUMENT_CONTAINS_JS_YES
 } PpsDocumentContainsJS;
 
-typedef enum
-{
+typedef enum {
 	PPS_DOCUMENT_UI_HINT_HIDE_TOOLBAR = 1 << 0,
 	PPS_DOCUMENT_UI_HINT_HIDE_MENUBAR = 1 << 1,
 	PPS_DOCUMENT_UI_HINT_HIDE_WINDOWUI = 1 << 2,
@@ -75,13 +71,9 @@ typedef enum
 } PpsDocumentUIHints;
 
 /* This define is needed because glib-mkenums chokes with multiple lines */
-#define _PERMISSIONS_FULL (PPS_DOCUMENT_PERMISSIONS_OK_TO_PRINT  \
-			 | PPS_DOCUMENT_PERMISSIONS_OK_TO_MODIFY \
-			 | PPS_DOCUMENT_PERMISSIONS_OK_TO_COPY   \
-			 | PPS_DOCUMENT_PERMISSIONS_OK_TO_ADD_NOTES)
+#define _PERMISSIONS_FULL (PPS_DOCUMENT_PERMISSIONS_OK_TO_PRINT | PPS_DOCUMENT_PERMISSIONS_OK_TO_MODIFY | PPS_DOCUMENT_PERMISSIONS_OK_TO_COPY | PPS_DOCUMENT_PERMISSIONS_OK_TO_ADD_NOTES)
 
-typedef enum
-{
+typedef enum {
 	PPS_DOCUMENT_PERMISSIONS_OK_TO_PRINT = 1 << 0,
 	PPS_DOCUMENT_PERMISSIONS_OK_TO_MODIFY = 1 << 1,
 	PPS_DOCUMENT_PERMISSIONS_OK_TO_COPY = 1 << 2,
@@ -89,8 +81,7 @@ typedef enum
 	PPS_DOCUMENT_PERMISSIONS_FULL = _PERMISSIONS_FULL
 } PpsDocumentPermissions;
 
-typedef enum
-{
+typedef enum {
 	PPS_DOCUMENT_INFO_TITLE = 1 << 0,
 	PPS_DOCUMENT_INFO_FORMAT = 1 << 1,
 	PPS_DOCUMENT_INFO_AUTHOR = 1 << 2,
@@ -112,8 +103,7 @@ typedef enum
 	PPS_DOCUMENT_INFO_CONTAINS_JS = 1 << 18
 } PpsDocumentInfoFields;
 
-struct _PpsDocumentInfo
-{
+struct _PpsDocumentInfo {
 	char *title;
 	char *format; /* eg, "pdf-1.5" */
 	char *author;
@@ -129,7 +119,7 @@ struct _PpsDocumentInfo
 	PpsDocumentMode mode;
 	guint ui_hints;
 	guint permissions;
-	int   n_pages;
+	int n_pages;
 	double paper_height;
 	double paper_width;
 	PpsDocumentLicense *license;
@@ -140,80 +130,79 @@ struct _PpsDocumentInfo
 };
 
 PPS_PUBLIC
-GType           pps_document_info_get_type (void) G_GNUC_CONST;
+GType pps_document_info_get_type (void) G_GNUC_CONST;
 PPS_PUBLIC
-PpsDocumentInfo* pps_document_info_new      (void);
+PpsDocumentInfo *pps_document_info_new (void);
 PPS_PUBLIC
-PpsDocumentInfo *pps_document_info_copy     (const PpsDocumentInfo *info);
+PpsDocumentInfo *pps_document_info_copy (const PpsDocumentInfo *info);
 PPS_PUBLIC
-void            pps_document_info_free     (PpsDocumentInfo *info);
+void pps_document_info_free (PpsDocumentInfo *info);
 PPS_PUBLIC
-GDateTime      *pps_document_info_get_created_datetime   (const PpsDocumentInfo *info);
+GDateTime *pps_document_info_get_created_datetime (const PpsDocumentInfo *info);
 PPS_PUBLIC
-GDateTime      *pps_document_info_get_modified_datetime  (const PpsDocumentInfo *info);
+GDateTime *pps_document_info_get_modified_datetime (const PpsDocumentInfo *info);
 PPS_PUBLIC
-char           *pps_document_info_regular_paper_size     (const PpsDocumentInfo *info);
+char *pps_document_info_regular_paper_size (const PpsDocumentInfo *info);
 PPS_PUBLIC
-gboolean 	pps_document_info_pages 		 (const PpsDocumentInfo *info, gint *pages);
+gboolean pps_document_info_pages (const PpsDocumentInfo *info, gint *pages);
 PPS_PUBLIC
-gboolean 	pps_document_info_contains_js 		 (const PpsDocumentInfo *info, PpsDocumentContainsJS *contains_js);
+gboolean pps_document_info_contains_js (const PpsDocumentInfo *info, PpsDocumentContainsJS *contains_js);
 PPS_PUBLIC
-gboolean        pps_document_info_permissions 		 (const PpsDocumentInfo *info, PpsDocumentPermissions *permissions);
+gboolean pps_document_info_permissions (const PpsDocumentInfo *info, PpsDocumentPermissions *permissions);
 PPS_PUBLIC
-gboolean        pps_document_info_start_mode 		 (const PpsDocumentInfo *info, PpsDocumentMode *mode);
+gboolean pps_document_info_start_mode (const PpsDocumentInfo *info, PpsDocumentMode *mode);
 PPS_PUBLIC
-gboolean        pps_document_info_license 		 (const PpsDocumentInfo *info, PpsDocumentLicense **license);
+gboolean pps_document_info_license (const PpsDocumentInfo *info, PpsDocumentLicense **license);
 PPS_PUBLIC
-gboolean        pps_document_info_title 		 (const PpsDocumentInfo *info, gchar **title);
+gboolean pps_document_info_title (const PpsDocumentInfo *info, gchar **title);
 PPS_PUBLIC
-gboolean 	pps_document_info_format		 (const PpsDocumentInfo *info, gchar **format);
+gboolean pps_document_info_format (const PpsDocumentInfo *info, gchar **format);
 PPS_PUBLIC
-gboolean 	pps_document_info_author		 (const PpsDocumentInfo *info, gchar **author);
+gboolean pps_document_info_author (const PpsDocumentInfo *info, gchar **author);
 PPS_PUBLIC
-gboolean 	pps_document_info_subject		 (const PpsDocumentInfo *info, gchar **subject);
+gboolean pps_document_info_subject (const PpsDocumentInfo *info, gchar **subject);
 PPS_PUBLIC
-gboolean 	pps_document_info_keywords		 (const PpsDocumentInfo *info, gchar **keywords);
+gboolean pps_document_info_keywords (const PpsDocumentInfo *info, gchar **keywords);
 PPS_PUBLIC
-gboolean 	pps_document_info_creator		 (const PpsDocumentInfo *info, gchar **creator);
+gboolean pps_document_info_creator (const PpsDocumentInfo *info, gchar **creator);
 PPS_PUBLIC
-gboolean 	pps_document_info_producer		 (const PpsDocumentInfo *info, gchar **producer);
+gboolean pps_document_info_producer (const PpsDocumentInfo *info, gchar **producer);
 PPS_PUBLIC
-gboolean 	pps_document_info_linearized		 (const PpsDocumentInfo *info, gchar **linearized);
+gboolean pps_document_info_linearized (const PpsDocumentInfo *info, gchar **linearized);
 PPS_PUBLIC
-gboolean 	pps_document_info_security		 (const PpsDocumentInfo *info, gchar **security);
+gboolean pps_document_info_security (const PpsDocumentInfo *info, gchar **security);
 
-
 PPS_PRIVATE
-void            pps_document_info_take_created_datetime  (PpsDocumentInfo *info,
-                                                         GDateTime      *datetime);
+void pps_document_info_take_created_datetime (PpsDocumentInfo *info,
+                                              GDateTime *datetime);
 PPS_PRIVATE
-void            pps_document_info_take_modified_datetime (PpsDocumentInfo *info,
-                                                         GDateTime      *datetime);
+void pps_document_info_take_modified_datetime (PpsDocumentInfo *info,
+                                               GDateTime *datetime);
 PPS_PRIVATE
-gboolean        pps_document_info_set_from_xmp           (PpsDocumentInfo *info,
-                                                         const char     *xmp,
-                                                         gssize          size);
+gboolean pps_document_info_set_from_xmp (PpsDocumentInfo *info,
+                                         const char *xmp,
+                                         gssize size);
 
 /* PpsDocumentLicense */
-#define PPS_TYPE_DOCUMENT_LICENSE (pps_document_license_get_type())
+#define PPS_TYPE_DOCUMENT_LICENSE (pps_document_license_get_type ())
 struct _PpsDocumentLicense {
 	gchar *text;
 	gchar *uri;
 	gchar *web_statement;
 };
 PPS_PUBLIC
-GType              pps_document_license_get_type          (void) G_GNUC_CONST;
+GType pps_document_license_get_type (void) G_GNUC_CONST;
 PPS_PUBLIC
-PpsDocumentLicense *pps_document_license_new               (void);
+PpsDocumentLicense *pps_document_license_new (void);
 PPS_PUBLIC
-PpsDocumentLicense *pps_document_license_copy              (PpsDocumentLicense *license);
+PpsDocumentLicense *pps_document_license_copy (PpsDocumentLicense *license);
 PPS_PUBLIC
-void               pps_document_license_free              (PpsDocumentLicense *license);
+void pps_document_license_free (PpsDocumentLicense *license);
 PPS_PUBLIC
-const gchar       *pps_document_license_get_text          (PpsDocumentLicense *license);
+const gchar *pps_document_license_get_text (PpsDocumentLicense *license);
 PPS_PUBLIC
-const gchar       *pps_document_license_get_uri           (PpsDocumentLicense *license);
+const gchar *pps_document_license_get_uri (PpsDocumentLicense *license);
 PPS_PUBLIC
-const gchar       *pps_document_license_get_web_statement (PpsDocumentLicense *license);
+const gchar *pps_document_license_get_web_statement (PpsDocumentLicense *license);
 
 G_END_DECLS

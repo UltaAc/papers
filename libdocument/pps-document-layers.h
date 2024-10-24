@@ -20,7 +20,7 @@
 
 #pragma once
 
-#if !defined (__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-document.h> can be included directly."
 #endif
 
@@ -28,12 +28,12 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
-#include "pps-macros.h"
 #include "pps-layer.h"
+#include "pps-macros.h"
 
 G_BEGIN_DECLS
 
-#define PPS_TYPE_DOCUMENT_LAYERS		   (pps_document_layers_get_type ())
+#define PPS_TYPE_DOCUMENT_LAYERS (pps_document_layers_get_type ())
 
 PPS_PUBLIC
 G_DECLARE_INTERFACE (PpsDocumentLayers, pps_document_layers, PPS, DOCUMENT_LAYERS, GObject)
@@ -48,34 +48,33 @@ enum {
 	PPS_DOCUMENT_LAYERS_N_COLUMNS
 };
 
-struct _PpsDocumentLayersInterface
-{
+struct _PpsDocumentLayersInterface {
 	GTypeInterface base_iface;
 
 	/* Methods  */
-	gboolean      (* has_layers)       (PpsDocumentLayers *document_layers);
-	GListModel   *(* get_layers)       (PpsDocumentLayers *document_layers);
+	gboolean (*has_layers) (PpsDocumentLayers *document_layers);
+	GListModel *(*get_layers) (PpsDocumentLayers *document_layers);
 
-	void          (* show_layer)       (PpsDocumentLayers *document_layers,
-					    PpsLayer          *layer);
-	void          (* hide_layer)       (PpsDocumentLayers *document_layers,
-					    PpsLayer          *layer);
-	gboolean      (* layer_is_visible) (PpsDocumentLayers *document_layers,
-					    PpsLayer          *layer);
+	void (*show_layer) (PpsDocumentLayers *document_layers,
+	                    PpsLayer *layer);
+	void (*hide_layer) (PpsDocumentLayers *document_layers,
+	                    PpsLayer *layer);
+	gboolean (*layer_is_visible) (PpsDocumentLayers *document_layers,
+	                              PpsLayer *layer);
 };
 
 PPS_PUBLIC
-gboolean      pps_document_layers_has_layers       (PpsDocumentLayers *document_layers);
+gboolean pps_document_layers_has_layers (PpsDocumentLayers *document_layers);
 PPS_PUBLIC
-GListModel   *pps_document_layers_get_layers       (PpsDocumentLayers *document_layers);
+GListModel *pps_document_layers_get_layers (PpsDocumentLayers *document_layers);
 PPS_PUBLIC
-void          pps_document_layers_show_layer       (PpsDocumentLayers *document_layers,
-						   PpsLayer          *layer);
+void pps_document_layers_show_layer (PpsDocumentLayers *document_layers,
+                                     PpsLayer *layer);
 PPS_PUBLIC
-void          pps_document_layers_hide_layer       (PpsDocumentLayers *document_layers,
-						   PpsLayer          *layer);
+void pps_document_layers_hide_layer (PpsDocumentLayers *document_layers,
+                                     PpsLayer *layer);
 PPS_PUBLIC
-gboolean      pps_document_layers_layer_is_visible (PpsDocumentLayers *document_layers,
-						   PpsLayer          *layer);
+gboolean pps_document_layers_layer_is_visible (PpsDocumentLayers *document_layers,
+                                               PpsLayer *layer);
 
 G_END_DECLS

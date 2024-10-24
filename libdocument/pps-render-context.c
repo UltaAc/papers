@@ -17,17 +17,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
 #include "pps-render-context.h"
+#include <config.h>
 
-static void pps_render_context_init       (PpsRenderContext      *rc);
+static void pps_render_context_init (PpsRenderContext *rc);
 static void pps_render_context_class_init (PpsRenderContextClass *class);
 
 G_DEFINE_TYPE (PpsRenderContext, pps_render_context, G_TYPE_OBJECT);
 
 #define FLIP_DIMENSIONS(rc) ((rc)->rotation == 90 || (rc)->rotation == 270)
 
-static void pps_render_context_init (PpsRenderContext *rc) { /* Do Nothing */ }
+static void
+pps_render_context_init (PpsRenderContext *rc)
+{ /* Do Nothing */
+}
 
 static void
 pps_render_context_dispose (GObject *object)
@@ -38,7 +41,7 @@ pps_render_context_dispose (GObject *object)
 
 	g_clear_object (&rc->page);
 
-	(* G_OBJECT_CLASS (pps_render_context_parent_class)->dispose) (object);
+	(*G_OBJECT_CLASS (pps_render_context_parent_class)->dispose) (object);
 }
 
 static void
@@ -53,8 +56,8 @@ pps_render_context_class_init (PpsRenderContextClass *class)
 
 PpsRenderContext *
 pps_render_context_new (PpsPage *page,
-		       gint    rotation,
-		       gdouble scale)
+                        gint rotation,
+                        gdouble scale)
 {
 	PpsRenderContext *rc;
 
@@ -71,7 +74,7 @@ pps_render_context_new (PpsPage *page,
 
 void
 pps_render_context_set_page (PpsRenderContext *rc,
-			    PpsPage          *page)
+                             PpsPage *page)
 {
 	g_return_if_fail (rc != NULL);
 	g_return_if_fail (PPS_IS_PAGE (page));
@@ -81,7 +84,7 @@ pps_render_context_set_page (PpsRenderContext *rc,
 
 void
 pps_render_context_set_rotation (PpsRenderContext *rc,
-				int              rotation)
+                                 int rotation)
 {
 	g_return_if_fail (rc != NULL);
 
@@ -90,7 +93,7 @@ pps_render_context_set_rotation (PpsRenderContext *rc,
 
 void
 pps_render_context_set_scale (PpsRenderContext *rc,
-			     gdouble          scale)
+                              gdouble scale)
 {
 	g_return_if_fail (rc != NULL);
 
@@ -99,8 +102,8 @@ pps_render_context_set_scale (PpsRenderContext *rc,
 
 void
 pps_render_context_set_target_size (PpsRenderContext *rc,
-				   int		    target_width,
-				   int		    target_height)
+                                    int target_width,
+                                    int target_height)
 {
 	g_return_if_fail (rc != NULL);
 
@@ -110,10 +113,10 @@ pps_render_context_set_target_size (PpsRenderContext *rc,
 
 void
 pps_render_context_compute_scaled_size (PpsRenderContext *rc,
-				       double		width_points,
-				       double		height_points,
-				       int	       *scaled_width,
-				       int	       *scaled_height)
+                                        double width_points,
+                                        double height_points,
+                                        int *scaled_width,
+                                        int *scaled_height)
 {
 	g_return_if_fail (rc != NULL);
 
@@ -136,17 +139,17 @@ pps_render_context_compute_scaled_size (PpsRenderContext *rc,
 
 void
 pps_render_context_compute_transformed_size (PpsRenderContext *rc,
-					    double	     width_points,
-					    double	     height_points,
-					    int	            *transformed_width,
-					    int	            *transformed_height)
+                                             double width_points,
+                                             double height_points,
+                                             int *transformed_width,
+                                             int *transformed_height)
 {
 	int scaled_width, scaled_height;
 
 	g_return_if_fail (rc != NULL);
 
 	pps_render_context_compute_scaled_size (rc, width_points, height_points,
-					       &scaled_width, &scaled_height);
+	                                        &scaled_width, &scaled_height);
 
 	if (transformed_width)
 		*transformed_width = FLIP_DIMENSIONS (rc) ? scaled_height : scaled_width;
@@ -157,17 +160,17 @@ pps_render_context_compute_transformed_size (PpsRenderContext *rc,
 
 void
 pps_render_context_compute_scales (PpsRenderContext *rc,
-				  double	   width_points,
-				  double	   height_points,
-				  double	  *scale_x,
-				  double	  *scale_y)
+                                   double width_points,
+                                   double height_points,
+                                   double *scale_x,
+                                   double *scale_y)
 {
 	int scaled_width, scaled_height;
 
 	g_return_if_fail (rc != NULL);
 
 	pps_render_context_compute_scaled_size (rc, width_points, height_points,
-					       &scaled_width, &scaled_height);
+	                                        &scaled_width, &scaled_height);
 
 	if (scale_x)
 		*scale_x = scaled_width / width_points;

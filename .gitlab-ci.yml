@@ -30,8 +30,8 @@ clang-format:
     stage: lint
     image: alpine:edge
     script:
-        - apk clang19-extra-tools
-        - .gitlab-ci/clang-format.sh
+        - apk add clang19-extra-tools
+        - ./.gitlab-ci/clang-format.sh
 
 build.container.fedora:
     extends: '.fdo.container-build@fedora'

@@ -26,7 +26,7 @@ static double
 get_srgb (const double color_component)
 {
 	/* calculation of sRGB color is based on note 1 of
-         * https://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef
+	 * https://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef
 	 */
 	if (color_component <= 0.03928)
 		return color_component / 12.92;
@@ -46,7 +46,7 @@ get_relative_luminance (const GdkRGBA *color)
 
 static double
 get_contrast_level (const GdkRGBA *bg_color,
-		    const GdkRGBA *fg_color)
+                    const GdkRGBA *fg_color)
 {
 	/* the contrast level calculus is based on WCAG 2.0 guideline 1.4  */
 	/* https://www.w3.org/WAI/GL/UNDERSTANDING-WCAG20/visual-audio-contrast7.html#key-terms
@@ -64,8 +64,8 @@ get_contrast_level (const GdkRGBA *bg_color,
  */
 GdkRGBA *
 pps_color_contrast_get_most_readable_color (const GdkRGBA *bg_color,
-					   GdkRGBA       *first_color,
-					   GdkRGBA       *second_color)
+                                            GdkRGBA *first_color,
+                                            GdkRGBA *second_color)
 {
 	const double first_contrast = get_contrast_level (bg_color, first_color);
 	const double second_contrast = get_contrast_level (bg_color, second_color);

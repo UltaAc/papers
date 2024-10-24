@@ -19,7 +19,7 @@
 
 #pragma once
 
-#if !defined (__PPS_PAPERS_VIEW_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_VIEW_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-view.h> can be included directly."
 #endif
 
@@ -31,7 +31,7 @@ G_BEGIN_DECLS
 PPS_PUBLIC
 #define PPS_TYPE_DOCUMENT_MODEL (pps_document_model_get_type ())
 
-G_DECLARE_FINAL_TYPE(PpsDocumentModel, pps_document_model, PPS, DOCUMENT_MODEL, GObject)
+G_DECLARE_FINAL_TYPE (PpsDocumentModel, pps_document_model, PPS, DOCUMENT_MODEL, GObject)
 
 /**
  * PpsSizingMode:
@@ -41,10 +41,10 @@ G_DECLARE_FINAL_TYPE(PpsDocumentModel, pps_document_model, PPS, DOCUMENT_MODEL, 
  * @PPS_SIZING_AUTOMATIC: Since: 3.8
  */
 typedef enum {
-        PPS_SIZING_FIT_PAGE,
+	PPS_SIZING_FIT_PAGE,
 	PPS_SIZING_FIT_WIDTH,
 	PPS_SIZING_FREE,
-        PPS_SIZING_AUTOMATIC
+	PPS_SIZING_AUTOMATIC
 } PpsSizingMode;
 
 typedef enum {
@@ -54,72 +54,72 @@ typedef enum {
 } PpsPageLayout;
 
 PPS_PUBLIC
-PpsDocumentModel *pps_document_model_new               (void);
+PpsDocumentModel *pps_document_model_new (void);
 PPS_PUBLIC
-PpsDocumentModel *pps_document_model_new_with_document (PpsDocument      *document);
+PpsDocumentModel *pps_document_model_new_with_document (PpsDocument *document);
 
 PPS_PUBLIC
-void             pps_document_model_set_document      (PpsDocumentModel *model,
-						      PpsDocument      *document);
+void pps_document_model_set_document (PpsDocumentModel *model,
+                                      PpsDocument *document);
 PPS_PUBLIC
-PpsDocument      *pps_document_model_get_document      (PpsDocumentModel *model);
+PpsDocument *pps_document_model_get_document (PpsDocumentModel *model);
 PPS_PUBLIC
-void             pps_document_model_set_page          (PpsDocumentModel *model,
-						      gint             page);
+void pps_document_model_set_page (PpsDocumentModel *model,
+                                  gint page);
 PPS_PUBLIC
-void             pps_document_model_set_page_by_label (PpsDocumentModel *model,
-						      const gchar     *page_label);
+void pps_document_model_set_page_by_label (PpsDocumentModel *model,
+                                           const gchar *page_label);
 PPS_PUBLIC
-gint             pps_document_model_get_page          (PpsDocumentModel *model);
+gint pps_document_model_get_page (PpsDocumentModel *model);
 PPS_PUBLIC
-void             pps_document_model_set_scale         (PpsDocumentModel *model,
-						      gdouble          scale);
+void pps_document_model_set_scale (PpsDocumentModel *model,
+                                   gdouble scale);
 PPS_PUBLIC
-gdouble          pps_document_model_get_scale         (PpsDocumentModel *model);
+gdouble pps_document_model_get_scale (PpsDocumentModel *model);
 PPS_PUBLIC
-void             pps_document_model_set_max_scale     (PpsDocumentModel *model,
-						      gdouble          max_scale);
+void pps_document_model_set_max_scale (PpsDocumentModel *model,
+                                       gdouble max_scale);
 PPS_PUBLIC
-gdouble          pps_document_model_get_max_scale     (PpsDocumentModel *model);
+gdouble pps_document_model_get_max_scale (PpsDocumentModel *model);
 PPS_PUBLIC
-void             pps_document_model_set_min_scale     (PpsDocumentModel *model,
-						      gdouble          min_scale);
+void pps_document_model_set_min_scale (PpsDocumentModel *model,
+                                       gdouble min_scale);
 PPS_PUBLIC
-gdouble          pps_document_model_get_min_scale     (PpsDocumentModel *model);
+gdouble pps_document_model_get_min_scale (PpsDocumentModel *model);
 PPS_PUBLIC
-void             pps_document_model_set_sizing_mode   (PpsDocumentModel *model,
-						      PpsSizingMode     mode);
+void pps_document_model_set_sizing_mode (PpsDocumentModel *model,
+                                         PpsSizingMode mode);
 PPS_PUBLIC
-PpsSizingMode     pps_document_model_get_sizing_mode   (PpsDocumentModel *model);
+PpsSizingMode pps_document_model_get_sizing_mode (PpsDocumentModel *model);
 PPS_PUBLIC
-void             pps_document_model_set_page_layout   (PpsDocumentModel *model,
-						     PpsPageLayout     layout);
+void pps_document_model_set_page_layout (PpsDocumentModel *model,
+                                         PpsPageLayout layout);
 PPS_PUBLIC
-PpsPageLayout	 pps_document_model_get_page_layout   (PpsDocumentModel *model);
+PpsPageLayout pps_document_model_get_page_layout (PpsDocumentModel *model);
 PPS_PUBLIC
-void             pps_document_model_set_rotation      (PpsDocumentModel *model,
-						      gint             rotation);
+void pps_document_model_set_rotation (PpsDocumentModel *model,
+                                      gint rotation);
 PPS_PUBLIC
-gint             pps_document_model_get_rotation      (PpsDocumentModel *model);
+gint pps_document_model_get_rotation (PpsDocumentModel *model);
 PPS_PUBLIC
-void           pps_document_model_set_inverted_colors (PpsDocumentModel *model,
-						      gboolean         inverted_colors);
+void pps_document_model_set_inverted_colors (PpsDocumentModel *model,
+                                             gboolean inverted_colors);
 PPS_PUBLIC
-gboolean       pps_document_model_get_inverted_colors (PpsDocumentModel *model);
+gboolean pps_document_model_get_inverted_colors (PpsDocumentModel *model);
 PPS_PUBLIC
-void             pps_document_model_set_continuous    (PpsDocumentModel *model,
-						      gboolean         continuous);
+void pps_document_model_set_continuous (PpsDocumentModel *model,
+                                        gboolean continuous);
 PPS_PUBLIC
-gboolean         pps_document_model_get_continuous    (PpsDocumentModel *model);
+gboolean pps_document_model_get_continuous (PpsDocumentModel *model);
 PPS_PUBLIC
-void             pps_document_model_set_dual_page_odd_pages_left (PpsDocumentModel *model,
-								 gboolean         odd_left);
+void pps_document_model_set_dual_page_odd_pages_left (PpsDocumentModel *model,
+                                                      gboolean odd_left);
 PPS_PUBLIC
-gboolean         pps_document_model_get_dual_page_odd_pages_left (PpsDocumentModel *model);
+gboolean pps_document_model_get_dual_page_odd_pages_left (PpsDocumentModel *model);
 PPS_PUBLIC
-void             pps_document_model_set_rtl (PpsDocumentModel *model,
-                                            gboolean         rtl);
+void pps_document_model_set_rtl (PpsDocumentModel *model,
+                                 gboolean rtl);
 PPS_PUBLIC
-gboolean         pps_document_model_get_rtl (PpsDocumentModel *model);
+gboolean pps_document_model_get_rtl (PpsDocumentModel *model);
 
 G_END_DECLS

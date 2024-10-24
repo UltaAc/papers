@@ -25,11 +25,12 @@
 #include "pps-search-result.h"
 #include <string.h>
 
-typedef struct {
-        gchar* markup;
-        gchar* label;
-        guint  page;
-        guint  index;
+typedef struct
+{
+	gchar *markup;
+	gchar *label;
+	guint page;
+	guint index;
 } PpsSearchResultPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (PpsSearchResult, pps_search_result, G_TYPE_OBJECT)
@@ -44,7 +45,7 @@ pps_search_result_init (PpsSearchResult *self)
 static void
 pps_search_result_finalize (GObject *object)
 {
-	PpsSearchResult *self           = PPS_SEARCH_RESULT (object);
+	PpsSearchResult *self = PPS_SEARCH_RESULT (object);
 	PpsSearchResultPrivate *private = GET_PRIVATE (self);
 
 	g_clear_pointer (&private->markup, g_free);
@@ -61,24 +62,24 @@ pps_search_result_class_init (PpsSearchResultClass *result_class)
 	object_class->finalize = pps_search_result_finalize;
 }
 
-PpsSearchResult*
-pps_search_result_new (gchar* markup,
-                       gchar* label,
-                       guint  page,
-                       guint  index)
+PpsSearchResult *
+pps_search_result_new (gchar *markup,
+                       gchar *label,
+                       guint page,
+                       guint index)
 {
-        PpsSearchResult        *result = g_object_new (PPS_TYPE_SEARCH_RESULT, NULL);
+	PpsSearchResult *result = g_object_new (PPS_TYPE_SEARCH_RESULT, NULL);
 	PpsSearchResultPrivate *private = GET_PRIVATE (result);
 
-        private->markup = markup;
-        private->label = label;
-        private->page = page;
-        private->index = index;
+	private->markup = markup;
+	private->label = label;
+	private->page = page;
+	private->index = index;
 
-        return result;
+	return result;
 }
 
-const gchar*
+const gchar *
 pps_search_result_get_markup (PpsSearchResult *self)
 {
 	PpsSearchResultPrivate *private = GET_PRIVATE (self);
@@ -86,7 +87,7 @@ pps_search_result_get_markup (PpsSearchResult *self)
 	return private->markup;
 }
 
-const gchar*
+const gchar *
 pps_search_result_get_label (PpsSearchResult *self)
 {
 	PpsSearchResultPrivate *private = GET_PRIVATE (self);

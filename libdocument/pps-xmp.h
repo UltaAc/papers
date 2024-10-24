@@ -18,7 +18,7 @@
 
 #pragma once
 
-#if !defined (PAPERS_COMPILATION)
+#if !defined(PAPERS_COMPILATION)
 #error "This is a private header."
 #endif
 
@@ -26,8 +26,8 @@
 
 G_BEGIN_DECLS
 
-gboolean pps_xmp_parse (const char     *xmp,
-                       gsize           size,
-                       PpsDocumentInfo *info);
+gboolean pps_xmp_parse (const char *xmp,
+                        gsize size,
+                        PpsDocumentInfo *info);
 
 G_END_DECLS

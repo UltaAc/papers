@@ -30,14 +30,14 @@ pps_selection_default_init (PpsSelectionInterface *klass)
 }
 
 void
-pps_selection_render_selection (PpsSelection      *selection,
-			       PpsRenderContext  *rc,
-			       cairo_surface_t **surface,
-			       PpsRectangle      *points,
-			       PpsRectangle      *old_points,
-			       PpsSelectionStyle  style,
-			       GdkRGBA          *text,
-			       GdkRGBA          *base)
+pps_selection_render_selection (PpsSelection *selection,
+                                PpsRenderContext *rc,
+                                cairo_surface_t **surface,
+                                PpsRectangle *points,
+                                PpsRectangle *old_points,
+                                PpsSelectionStyle style,
+                                GdkRGBA *text,
+                                GdkRGBA *base)
 {
 	PpsSelectionInterface *iface = PPS_SELECTION_GET_IFACE (selection);
 
@@ -45,17 +45,17 @@ pps_selection_render_selection (PpsSelection      *selection,
 		return;
 
 	iface->render_selection (selection, rc,
-				 surface,
-				 points, old_points,
-				 style,
-				 text, base);
+	                         surface,
+	                         points, old_points,
+	                         style,
+	                         text, base);
 }
 
 gchar *
-pps_selection_get_selected_text (PpsSelection      *selection,
-				PpsPage           *page,
-				PpsSelectionStyle  style,
-				PpsRectangle      *points)
+pps_selection_get_selected_text (PpsSelection *selection,
+                                 PpsPage *page,
+                                 PpsSelectionStyle style,
+                                 PpsRectangle *points)
 {
 	PpsSelectionInterface *iface = PPS_SELECTION_GET_IFACE (selection);
 
@@ -63,10 +63,10 @@ pps_selection_get_selected_text (PpsSelection      *selection,
 }
 
 cairo_region_t *
-pps_selection_get_selection_region (PpsSelection     *selection,
-				   PpsRenderContext *rc,
-				   PpsSelectionStyle style,
-				   PpsRectangle     *points)
+pps_selection_get_selection_region (PpsSelection *selection,
+                                    PpsRenderContext *rc,
+                                    PpsSelectionStyle style,
+                                    PpsRectangle *points)
 {
 	PpsSelectionInterface *iface = PPS_SELECTION_GET_IFACE (selection);
 

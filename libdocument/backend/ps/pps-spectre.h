@@ -25,20 +25,20 @@
 
 #include <glib-object.h>
 
-#include "pps-macros.h"
 #include "pps-document.h"
+#include "pps-macros.h"
 
 G_BEGIN_DECLS
 
-#define PS_TYPE_DOCUMENT           (ps_document_get_type())
-#define PS_DOCUMENT(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), PS_TYPE_DOCUMENT, PSDocument))
-#define PS_DOCUMENT_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), PS_TYPE_DOCUMENT, PSDocumentClass))
-#define PS_IS_DOCUMENT(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PS_TYPE_DOCUMENT))
-#define PS_DOCUMENT_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS((obj), PS_TYPE_DOCUMENT, PSDocumentClass))
+#define PS_TYPE_DOCUMENT (ps_document_get_type ())
+#define PS_DOCUMENT(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), PS_TYPE_DOCUMENT, PSDocument))
+#define PS_DOCUMENT_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), PS_TYPE_DOCUMENT, PSDocumentClass))
+#define PS_IS_DOCUMENT(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PS_TYPE_DOCUMENT))
+#define PS_DOCUMENT_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), PS_TYPE_DOCUMENT, PSDocumentClass))
 
-typedef struct _PSDocument      PSDocument;
+typedef struct _PSDocument PSDocument;
 typedef struct _PSDocumentClass PSDocumentClass;
 
-GType                 ps_document_get_type    (void) G_GNUC_CONST;
+GType ps_document_get_type (void) G_GNUC_CONST;
 
 G_END_DECLS

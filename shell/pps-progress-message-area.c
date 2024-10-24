@@ -23,10 +23,11 @@
 
 #include <gtk/gtk.h>
 
-#include "pps-progress-message-area.h"
 #include "pps-message-area.h"
+#include "pps-progress-message-area.h"
 
-typedef struct {
+typedef struct
+{
 	GtkWidget *label;
 	GtkWidget *progress_bar;
 } PpsProgressMessageAreaPrivate;
@@ -37,17 +38,16 @@ enum {
 	PROP_FRACTION
 };
 
-static void pps_progress_message_area_set_property (GObject      *object,
-						   guint         prop_id,
-						   const GValue *value,
-						   GParamSpec   *pspec);
-static void pps_progress_message_area_get_property (GObject      *object,
-						   guint         prop_id,
-						   GValue       *value,
-						   GParamSpec   *pspec);
+static void pps_progress_message_area_set_property (GObject *object,
+                                                    guint prop_id,
+                                                    const GValue *value,
+                                                    GParamSpec *pspec);
+static void pps_progress_message_area_get_property (GObject *object,
+                                                    guint prop_id,
+                                                    GValue *value,
+                                                    GParamSpec *pspec);
 
-G_DEFINE_TYPE_WITH_PRIVATE (PpsProgressMessageArea, pps_progress_message_area,
-			    PPS_TYPE_MESSAGE_AREA)
+G_DEFINE_TYPE_WITH_PRIVATE (PpsProgressMessageArea, pps_progress_message_area, PPS_TYPE_MESSAGE_AREA)
 
 static void
 pps_progress_message_area_class_init (PpsProgressMessageAreaClass *class)
@@ -63,21 +63,21 @@ pps_progress_message_area_class_init (PpsProgressMessageAreaClass *class)
 	gtk_widget_class_bind_template_child_private (widget_class, PpsProgressMessageArea, progress_bar);
 
 	g_object_class_install_property (gobject_class,
-					 PROP_STATUS,
-					 g_param_spec_string ("status",
-							      "Status",
-							      "The status text of the progress area",
-							      NULL,
-							      G_PARAM_READWRITE |
-                                                              G_PARAM_STATIC_STRINGS));
+	                                 PROP_STATUS,
+	                                 g_param_spec_string ("status",
+	                                                      "Status",
+	                                                      "The status text of the progress area",
+	                                                      NULL,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (gobject_class,
-					 PROP_FRACTION,
-					 g_param_spec_double ("fraction",
-							      "Fraction",
-							      "The fraction of total work that has been completed",
-							      0.0, 1.0, 0.0,
-							      G_PARAM_READWRITE |
-                                                              G_PARAM_STATIC_STRINGS));
+	                                 PROP_FRACTION,
+	                                 g_param_spec_double ("fraction",
+	                                                      "Fraction",
+	                                                      "The fraction of total work that has been completed",
+	                                                      0.0, 1.0, 0.0,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_STATIC_STRINGS));
 }
 
 static void
@@ -87,10 +87,10 @@ pps_progress_message_area_init (PpsProgressMessageArea *area)
 }
 
 static void
-pps_progress_message_area_set_property (GObject      *object,
-				       guint         prop_id,
-				       const GValue *value,
-				       GParamSpec   *pspec)
+pps_progress_message_area_set_property (GObject *object,
+                                        guint prop_id,
+                                        const GValue *value,
+                                        GParamSpec *pspec)
 {
 	PpsProgressMessageArea *area = PPS_PROGRESS_MESSAGE_AREA (object);
 
@@ -107,10 +107,10 @@ pps_progress_message_area_set_property (GObject      *object,
 }
 
 static void
-pps_progress_message_area_get_property (GObject    *object,
-				       guint       prop_id,
-				       GValue     *value,
-				       GParamSpec *pspec)
+pps_progress_message_area_get_property (GObject *object,
+                                        guint prop_id,
+                                        GValue *value,
+                                        GParamSpec *pspec)
 {
 	PpsProgressMessageArea *area = PPS_PROGRESS_MESSAGE_AREA (object);
 	PpsProgressMessageAreaPrivate *priv;
@@ -126,8 +126,7 @@ pps_progress_message_area_get_property (GObject    *object,
 
 		fraction = gtk_progress_bar_get_fraction (GTK_PROGRESS_BAR (priv->progress_bar));
 		g_value_set_double (value, fraction);
-	}
-		break;
+	} break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 	}
@@ -135,26 +134,26 @@ pps_progress_message_area_get_property (GObject    *object,
 
 GtkWidget *
 pps_progress_message_area_new (const gchar *icon_name,
-			       const gchar *text)
+                               const gchar *text)
 {
-	GtkWidget  *widget;
+	GtkWidget *widget;
 	GtkInfoBar *info_bar;
 
 	widget = g_object_new (PPS_TYPE_PROGRESS_MESSAGE_AREA,
-			       "text", text,
-			       NULL);
+	                       "text", text,
+	                       NULL);
 	info_bar = pps_message_area_get_info_bar (PPS_MESSAGE_AREA (widget));
 	gtk_info_bar_set_message_type (info_bar, GTK_MESSAGE_OTHER);
 
 	pps_message_area_set_image_from_icon_name (PPS_MESSAGE_AREA (widget),
-						  icon_name);
+	                                           icon_name);
 
 	return widget;
 }
 
 void
 pps_progress_message_area_set_status (PpsProgressMessageArea *area,
-				     const gchar           *str)
+                                      const gchar *str)
 {
 	PpsProgressMessageAreaPrivate *priv;
 
@@ -169,7 +168,7 @@ pps_progress_message_area_set_status (PpsProgressMessageArea *area,
 
 void
 pps_progress_message_area_set_fraction (PpsProgressMessageArea *area,
-				       gdouble                fraction)
+                                        gdouble fraction)
 {
 	PpsProgressMessageAreaPrivate *priv;
 
@@ -178,6 +177,6 @@ pps_progress_message_area_set_fraction (PpsProgressMessageArea *area,
 	priv = pps_progress_message_area_get_instance_private (area);
 
 	gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (priv->progress_bar),
-				       fraction);
+	                               fraction);
 	g_object_notify (G_OBJECT (area), "fraction");
 }

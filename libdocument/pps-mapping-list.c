@@ -27,10 +27,10 @@
  * Since: 3.8
  */
 struct _PpsMappingList {
-	guint          page;
-	GList         *list;
+	guint page;
+	GList *list;
 	GDestroyNotify data_destroy_func;
-	volatile gint  ref_count;
+	volatile gint ref_count;
 };
 
 G_DEFINE_BOXED_TYPE (PpsMappingList, pps_mapping_list, pps_mapping_list_ref, pps_mapping_list_unref)
@@ -44,7 +44,7 @@ G_DEFINE_BOXED_TYPE (PpsMappingList, pps_mapping_list, pps_mapping_list_ref, pps
  */
 PpsMapping *
 pps_mapping_list_find (PpsMappingList *mapping_list,
-		      gconstpointer  data)
+                       gconstpointer data)
 {
 	GList *list;
 
@@ -68,8 +68,8 @@ pps_mapping_list_find (PpsMappingList *mapping_list,
  */
 PpsMapping *
 pps_mapping_list_find_custom (PpsMappingList *mapping_list,
-			     gconstpointer  data,
-			     GCompareFunc   func)
+                              gconstpointer data,
+                              GCompareFunc func)
 {
 	GList *list;
 
@@ -92,16 +92,16 @@ pps_mapping_list_find_custom (PpsMappingList *mapping_list,
  */
 PpsMapping *
 pps_mapping_list_nth (PpsMappingList *mapping_list,
-                     guint          n)
+                      guint n)
 {
-        g_return_val_if_fail (mapping_list != NULL, NULL);
+	g_return_val_if_fail (mapping_list != NULL, NULL);
 
-        return (PpsMapping *)g_list_nth_data (mapping_list->list, n);
+	return (PpsMapping *) g_list_nth_data (mapping_list->list, n);
 }
 
 static int
 cmp_mapping_area_size (PpsMapping *a,
-		       PpsMapping *b)
+                       PpsMapping *b)
 {
 	gdouble wa, ha, wb, hb;
 
@@ -135,8 +135,8 @@ cmp_mapping_area_size (PpsMapping *a,
  */
 PpsMapping *
 pps_mapping_list_get (PpsMappingList *mapping_list,
-		     gdouble        x,
-		     gdouble        y)
+                      gdouble x,
+                      gdouble y)
 {
 	GList *list;
 	PpsMapping *found = NULL;
@@ -154,7 +154,7 @@ pps_mapping_list_get (PpsMappingList *mapping_list,
 			/* In case of only one match choose that. Otherwise
 			 * compare the area of the bounding boxes and return the
 			 * smallest element */
-			if(found == NULL || cmp_mapping_area_size (mapping, found) < 0)
+			if (found == NULL || cmp_mapping_area_size (mapping, found) < 0)
 				found = mapping;
 		}
 	}
@@ -172,8 +172,8 @@ pps_mapping_list_get (PpsMappingList *mapping_list,
  */
 gpointer
 pps_mapping_list_get_data (PpsMappingList *mapping_list,
-			  gdouble        x,
-			  gdouble        y)
+                           gdouble x,
+                           gdouble y)
 {
 	PpsMapping *mapping;
 
@@ -205,11 +205,11 @@ pps_mapping_list_get_list (PpsMappingList *mapping_list)
  */
 void
 pps_mapping_list_remove (PpsMappingList *mapping_list,
-			PpsMapping     *mapping)
+                         PpsMapping *mapping)
 {
 	mapping_list->list = g_list_remove (mapping_list->list, mapping);
-        mapping_list->data_destroy_func (mapping->data);
-        g_free (mapping);
+	mapping_list->data_destroy_func (mapping->data);
+	g_free (mapping);
 }
 
 guint
@@ -221,9 +221,9 @@ pps_mapping_list_get_page (PpsMappingList *mapping_list)
 guint
 pps_mapping_list_length (PpsMappingList *mapping_list)
 {
-        g_return_val_if_fail (mapping_list != NULL, 0);
+	g_return_val_if_fail (mapping_list != NULL, 0);
 
-        return g_list_length (mapping_list->list);
+	return g_list_length (mapping_list->list);
 }
 
 /**
@@ -235,9 +235,9 @@ pps_mapping_list_length (PpsMappingList *mapping_list)
  * Returns: an #PpsMappingList
  */
 PpsMappingList *
-pps_mapping_list_new (guint          page,
-		     GList         *list,
-		     GDestroyNotify data_destroy_func)
+pps_mapping_list_new (guint page,
+                      GList *list,
+                      GDestroyNotify data_destroy_func)
 {
 	PpsMappingList *mapping_list;
 
@@ -264,8 +264,8 @@ pps_mapping_list_ref (PpsMappingList *mapping_list)
 }
 
 static void
-mapping_list_free_foreach (PpsMapping     *mapping,
-			   GDestroyNotify destroy_func)
+mapping_list_free_foreach (PpsMapping *mapping,
+                           GDestroyNotify destroy_func)
 {
 	destroy_func (mapping->data);
 	g_free (mapping);
@@ -279,8 +279,8 @@ pps_mapping_list_unref (PpsMappingList *mapping_list)
 
 	if (g_atomic_int_add (&mapping_list->ref_count, -1) - 1 == 0) {
 		g_list_foreach (mapping_list->list,
-				(GFunc)mapping_list_free_foreach,
-				mapping_list->data_destroy_func);
+		                (GFunc) mapping_list_free_foreach,
+		                mapping_list->data_destroy_func);
 		g_list_free (mapping_list->list);
 		g_slice_free (PpsMappingList, mapping_list);
 	}

@@ -20,14 +20,14 @@
 
 #pragma once
 
-#if !defined (PAPERS_COMPILATION)
+#if !defined(PAPERS_COMPILATION)
 #error "This is a private header."
 #endif
 
 #include <gdk/gdk.h>
 
-GdkRGBA  *pps_color_contrast_get_most_readable_color   (const GdkRGBA *bg_color,
-						       GdkRGBA *first_color,
-						       GdkRGBA *second_color);
+GdkRGBA *pps_color_contrast_get_most_readable_color (const GdkRGBA *bg_color,
+                                                     GdkRGBA *first_color,
+                                                     GdkRGBA *second_color);
 
-GdkRGBA  *pps_color_contrast_get_best_foreground_color (const GdkRGBA *bg_color);
+GdkRGBA *pps_color_contrast_get_best_foreground_color (const GdkRGBA *bg_color);

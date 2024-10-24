@@ -19,7 +19,7 @@
 
 #pragma once
 
-#if !defined (__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined (PAPERS_COMPILATION)
+#if !defined(__PPS_PAPERS_DOCUMENT_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-document.h> can be included directly."
 #endif
 
@@ -35,24 +35,24 @@ G_BEGIN_DECLS
 PPS_PUBLIC
 cairo_surface_t *pps_document_misc_surface_from_pixbuf (GdkPixbuf *pixbuf);
 PPS_PUBLIC
-GdkPixbuf       *pps_document_misc_pixbuf_from_surface (cairo_surface_t *surface);
+GdkPixbuf *pps_document_misc_pixbuf_from_surface (cairo_surface_t *surface);
 PPS_PUBLIC
-GdkTexture      *pps_document_misc_texture_from_surface (cairo_surface_t *surface);
+GdkTexture *pps_document_misc_texture_from_surface (cairo_surface_t *surface);
 PPS_PUBLIC
 cairo_surface_t *pps_document_misc_surface_rotate_and_scale (cairo_surface_t *surface,
-							    gint             dest_width,
-							    gint             dest_height,
-							    gint             dest_rotation);
+                                                             gint dest_width,
+                                                             gint dest_height,
+                                                             gint dest_rotation);
 
 PPS_PUBLIC
-gdouble          pps_document_misc_get_widget_dpi (GtkWidget *widget);
+gdouble pps_document_misc_get_widget_dpi (GtkWidget *widget);
 
 PPS_PUBLIC
-gchar           *pps_document_misc_format_datetime (GDateTime *dt);
+gchar *pps_document_misc_format_datetime (GDateTime *dt);
 
 PPS_PUBLIC
-void             pps_document_misc_get_pointer_position (GtkWidget *widget,
-							gint      *x,
-							gint      *y);
+void pps_document_misc_get_pointer_position (GtkWidget *widget,
+                                             gint *x,
+                                             gint *y);
 
 G_END_DECLS
