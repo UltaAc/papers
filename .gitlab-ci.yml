@@ -26,6 +26,13 @@ editorconfig:
         - apk add editorconfig-checker
         - ec --disable-indentation --exclude '^.git/'
 
+clang-format:
+    stage: lint
+    image: alpine:edge
+    script:
+        - apk clang19-extra-tools
+        - .gitlab-ci/clang-format.sh
+
 build.container.fedora:
     extends: '.fdo.container-build@fedora'
     stage: prepare

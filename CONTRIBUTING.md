@@ -113,13 +113,9 @@ flatpak install org.freedesktop.Sdk.Extension.rust-stable//24.08
 
 ## Code Style
 
-For C, Papers follows the [Linux](https://welcome.gnome.org/app/Papers/) coding
-style (K&R), with some mix of GObject and Gtk coding style. However, the code
-has not evolved organically, and there is a mix and match of coding style with
-respect to indentation and others.
-
-On the lack of established CI to check code formatting, please always indent
-with tabs and follow the code style of surrounding code.
+Papers uses code formatters to increase consistency and simplify development.
+Please fix CI code formatting issues, and configure your development environment
+to use clang-format for C code, and rust-fmt for Rust code.
 
 ### Commit messages
 
