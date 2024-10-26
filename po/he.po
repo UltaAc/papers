@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: evince.HEAD.he\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-10-10 21:59+0000\n"
-"PO-Revision-Date: 2024-10-12 14:32+0300\n"
+"POT-Creation-Date: 2024-10-15 19:21+0000\n"
+"PO-Revision-Date: 2024-10-26 09:56+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <yoseforb@gmail.com>\n"
 "Language: he\n"
@@ -576,9 +576,10 @@ msgstr "בחירת עמוד שגויה"
 msgid "Your print range selection does not include any pages"
 msgstr "בחירת טווח ההדפסה שלך אינו כולל עמודים כלשהם"
 
+#. show close if the certificate is null, or if no cert is found
 #: libview/pps-print-operation.c:1366 previewer/pps-previewer-window.ui:91
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.ui:630
-#: shell/pps-window.ui:163
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.c:3681
+#: shell/pps-document-view.ui:630 shell/pps-window.ui:163
 msgid "_Close"
 msgstr "_סגירה"
 
@@ -1372,8 +1373,8 @@ msgid "Close _Without Saving"
 msgstr "סגירה _ללא שמירה"
 
 #: shell/pps-document-view.c:2215 shell/pps-document-view.c:3438
-#: shell/pps-document-view.c:3574 shell/pps-document-view.ui:597
-#: shell/pps-document-view.ui:622
+#: shell/pps-document-view.c:3574 shell/pps-document-view.c:3643
+#: shell/pps-document-view.ui:597 shell/pps-document-view.ui:622
 msgid "_Cancel"
 msgstr "_ביטול"
 
@@ -1416,50 +1417,46 @@ msgstr ""
 msgid "Certificate Required"
 msgstr "דרוש אישור"
 
-#: shell/pps-document-view.c:3635 shell/pps-password-dialog.ui:7
-msgid "Cancel"
-msgstr "ביטול"
-
-#: shell/pps-document-view.c:3641
+#: shell/pps-document-view.c:3639
 msgid "Select signing certificate"
 msgstr "בחירת אישור חתימה"
 
 # msgctxt "shortcut window"
-#: shell/pps-document-view.c:3642
+#: shell/pps-document-view.c:3640
 msgid "Select"
 msgstr "בחירה"
 
 #: shell/pps-document-view.c:3679
-msgid "No certificates found!"
-msgstr "לא נמצאו אישורים!"
+msgid "A certificate is required to sign this document"
+msgstr "צריך אישור כדי לחתום על האישור הזה"
 
-#: shell/pps-document-view.c:3983
+#: shell/pps-document-view.c:3985
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
 msgstr "התרעת אבטחה: מסמך זה נמנע מפתיחת הקובץ „%s”"
 
-#: shell/pps-document-view.c:4044 shell-rs/src/window.rs:1137
+#: shell/pps-document-view.c:4046 shell-rs/src/window.rs:1137
 msgid "Unable to open external link"
 msgstr "לא ניתן לפתוח קישור חיצוני"
 
-#: shell/pps-document-view.c:4269
+#: shell/pps-document-view.c:4271
 msgid "Couldn’t find appropriate format to save image"
 msgstr "לא נמצאה התבנית המתאימה לשמירת התמונה"
 
-#: shell/pps-document-view.c:4299
+#: shell/pps-document-view.c:4301
 msgid "The image could not be saved."
 msgstr "לא ניתן לשמור את התמונה."
 
-#: shell/pps-document-view.c:4335
+#: shell/pps-document-view.c:4337
 msgid "Save Image"
 msgstr "שמירת התמונה"
 
-#: shell/pps-document-view.c:4506
+#: shell/pps-document-view.c:4508
 msgid "Unable to open attachment"
 msgstr "לא ניתן לפתוח את הצרופה"
 
-#: shell/pps-document-view.c:4525
+#: shell/pps-document-view.c:4527
 msgid "The attachment could not be saved."
 msgstr "לא ניתן לשמור את הצרופה."
 
@@ -1733,6 +1730,10 @@ msgstr "תוצאות החיפוש תופענה כאן"
 msgid "Loading Document"
 msgstr "המסמך בטעינה"
 
+#: shell/pps-password-dialog.ui:7
+msgid "Cancel"
+msgstr "ביטול"
+
 #: shell/pps-password-dialog.ui:8
 msgid "Unlock"
 msgstr "שחרור"
@@ -1989,6 +1990,9 @@ msgstr "טעינת הקובץ המרוחק נכשלה."
 #: shell-rs/src/window.rs:732
 msgid "Failed to Reload Document."
 msgstr "טעינת המסמך מחדש נכשלה."
+
+#~ msgid "No certificates found!"
+#~ msgstr "לא נמצאו אישורים!"
 
 #~ msgid "Requested format is not supported by this printer."
 #~ msgstr "התבנית הדרושה אינה נתמכת על ידי מדפסת זו."
