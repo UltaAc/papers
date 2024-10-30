@@ -25,6 +25,14 @@ PPS_DEBUG_SHOW_BORDERS
 PPS_DEBUG_JOBS=1 papers document.pdf
 ```
 
+### Asking Development-related questions
+
+If you are working or want to work on Papers, but you bump into
+development-related questions, the Papers developers and community are reachable
+in the public [Matrix room](https://matrix.to/#/#papers:gnome.org). Do not
+hesitate to join and ask questions if you still have any after reading this
+document!
+
 ### ‘Show borders’ debugging hint
 
 Papers can show a border around the following graphical elements:
