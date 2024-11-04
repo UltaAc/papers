@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: evince\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-10-17 20:39+0000\n"
-"PO-Revision-Date: 2024-10-23 14:52+0200\n"
+"POT-Creation-Date: 2024-11-04 12:20+0000\n"
+"PO-Revision-Date: 2024-11-04 15:16+0100\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -36,7 +36,7 @@ msgstr ""
 #. Manually set name and icon
 #: data/org.gnome.Papers.desktop.in.in:3
 #: data/org.gnome.Papers.metainfo.xml.in.in:23
-#: previewer/pps-previewer-window.c:491 shell/pps-document-view.c:1174
+#: previewer/pps-previewer-window.c:491 shell/pps-document-view.c:1200
 #: shell/pps-document-view.ui:73 shell/pps-loader-view.ui:10
 #: shell-rs/src/application.rs:41 shell-rs/src/application.rs:64
 #: shell-rs/src/application.rs:288
@@ -537,7 +537,7 @@ msgstr[1] "Uložit přílohy"
 msgstr[2] "Uložit přílohy"
 
 #: libview/context/pps-history.c:488 previewer/pps-page-selector.c:194
-#: shell/pps-document-view.c:623 shell/pps-document-view.c:2714
+#: shell/pps-document-view.c:628 shell/pps-document-view.c:2777
 #: shell/pps-sidebar-bookmarks.c:339
 #, c-format
 msgid "Page %s"
@@ -597,7 +597,7 @@ msgstr "Snažíte se vytisknout výběr, který nezahrnuje žádné stránky"
 
 #. show close if the certificate is null, or if no cert is found
 #: libview/pps-print-operation.c:1366 previewer/pps-previewer-window.ui:91
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.c:3681
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.c:3744
 #: shell/pps-document-view.ui:632 shell/pps-window.ui:163
 msgid "_Close"
 msgstr "_Zavřít"
@@ -700,54 +700,67 @@ msgstr "Posunout pohled dolů"
 msgid "Document View"
 msgstr "Pohled na dokument"
 
-#: libview/pps-view.c:2112
+#: libview/pps-view.c:2114
 msgid "Go to first page"
 msgstr "Přejít na první stránku"
 
-#: libview/pps-view.c:2114
+#: libview/pps-view.c:2116
 msgid "Go to previous page"
 msgstr "Přejít na předchozí stránku"
 
-#: libview/pps-view.c:2116
+#: libview/pps-view.c:2118
 msgid "Go to next page"
 msgstr "Přejít na následující stránku"
 
-#: libview/pps-view.c:2118
+#: libview/pps-view.c:2120
 msgid "Go to last page"
 msgstr "Přejít na poslední stránku"
 
-#: libview/pps-view.c:2120
+#: libview/pps-view.c:2122
 msgid "Go to page"
 msgstr "Přejít na stránku"
 
-#: libview/pps-view.c:2122
+#: libview/pps-view.c:2124
 msgid "Find"
 msgstr "Najít"
 
-#: libview/pps-view.c:2151
+#: libview/pps-view.c:2153
 #, c-format
 msgid "Go to page %s"
 msgstr "Přejít na stránku %s"
 
-#: libview/pps-view.c:2157
+#: libview/pps-view.c:2159
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Přejít na %s v souboru „%s“"
 
-#: libview/pps-view.c:2160
+#: libview/pps-view.c:2162
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Přejít na soubor “%s”"
 
-#: libview/pps-view.c:2168
+#: libview/pps-view.c:2170
 #, c-format
 msgid "Launch %s"
 msgstr "Spustit %s"
 
-#: libview/pps-view.c:2175
+#: libview/pps-view.c:2177
 #, c-format
 msgid "Reset form"
 msgstr "Čistý formulář"
+
+#: libview/pps-view.c:4072
+#, c-format
+msgid "Caret navigation mode is now %s"
+msgstr "Režim kurzorové navigace je nyní %s"
+
+#: libview/pps-view.c:4072
+msgid "enabled"
+msgstr "povolen"
+
+#: libview/pps-view.c:4072
+msgid "disabled"
+msgstr "zakázán"
 
 #: libview/pps-view-presentation.c:837
 msgid "Running in presentation mode"
@@ -852,7 +865,7 @@ msgstr "Normální velikost"
 msgid "Zoom In"
 msgstr "Přiblížit"
 
-#: previewer/pps-previewer-window.ui:89 shell/pps-document-view.c:1954
+#: previewer/pps-previewer-window.ui:89 shell/pps-document-view.c:1980
 msgid "Failed to Print Document"
 msgstr "Nepodařilo se vytisknout dokument"
 
@@ -1324,40 +1337,40 @@ msgstr "vlnovka"
 msgid "_Apply"
 msgstr "_Použít"
 
-#: shell/pps-document-view.c:496 shell-rs/src/window.rs:467
+#: shell/pps-document-view.c:501 shell-rs/src/window.rs:467
 msgid "View Details"
 msgstr "Zobrazit podrobnosti"
 
-#: shell/pps-document-view.c:1214
+#: shell/pps-document-view.c:1240
 msgid "Digital Signature is invalid!"
 msgstr "Digitální podpis je neplatný!"
 
-#: shell/pps-document-view.c:1217 shell/pps-document-view.ui:240
+#: shell/pps-document-view.c:1243 shell/pps-document-view.ui:240
 msgid "Document has been digitally signed."
 msgstr "Dokument byl digitálně podepsán."
 
-#: shell/pps-document-view.c:1248
+#: shell/pps-document-view.c:1274
 msgid "The document contains no pages"
 msgstr "Dokument neobsahuje žádné stránky"
 
-#: shell/pps-document-view.c:1251
+#: shell/pps-document-view.c:1277
 msgid "The document contains only empty pages"
 msgstr "Dokument obsahuje pouze prázdné stránky"
 
-#: shell/pps-document-view.c:1484
+#: shell/pps-document-view.c:1510
 msgid "File Saved"
 msgstr "Soubor byl uložen"
 
-#: shell/pps-document-view.c:1494 shell/pps-document-view.c:1547
+#: shell/pps-document-view.c:1520 shell/pps-document-view.c:1573
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Soubor nelze uložit jako „%s“."
 
-#: shell/pps-document-view.c:1609
+#: shell/pps-document-view.c:1635
 msgid "Save As…"
 msgstr "Uložení jako…"
 
-#: shell/pps-document-view.c:1915
+#: shell/pps-document-view.c:1941
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
@@ -1365,68 +1378,68 @@ msgstr[0] "%d nevyřízená úloha ve frontě"
 msgstr[1] "%d nevyřízené úlohy ve frontě"
 msgstr[2] "%d nevyřízených úloh ve frontě"
 
-#: shell/pps-document-view.c:2008
+#: shell/pps-document-view.c:2034
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Tiskne se úloha „%s“"
 
-#: shell/pps-document-view.c:2011 shell/pps-loader-view.ui:60
+#: shell/pps-document-view.c:2037 shell/pps-loader-view.ui:60
 msgid "C_ancel"
 msgstr "_Zrušit"
 
-#: shell/pps-document-view.c:2200 shell-rs/src/window.rs:267
+#: shell/pps-document-view.c:2226 shell-rs/src/window.rs:267
 msgid "Document contains form fields that have been filled out."
 msgstr "Dokument obsahuje pole, která byla vyplněna. "
 
-#: shell/pps-document-view.c:2203 shell-rs/src/window.rs:268
+#: shell/pps-document-view.c:2229 shell-rs/src/window.rs:268
 msgid "Document contains new or modified annotations."
 msgstr "Dokument obsahuje nové nebo změněné poznámky. "
 
-#: shell/pps-document-view.c:2210
+#: shell/pps-document-view.c:2236
 msgid "Save Changes to a Copy?"
 msgstr "Uložit změny do kopie?"
 
-#: shell/pps-document-view.c:2211
+#: shell/pps-document-view.c:2237
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "Pokud neuložíte kopii, budou změny nenávratně ztraceny."
 
-#: shell/pps-document-view.c:2214
+#: shell/pps-document-view.c:2240
 msgid "Close _Without Saving"
 msgstr "Zavřít _bez uložení"
 
-#: shell/pps-document-view.c:2215 shell/pps-document-view.c:3438
-#: shell/pps-document-view.c:3574 shell/pps-document-view.c:3643
+#: shell/pps-document-view.c:2241 shell/pps-document-view.c:3501
+#: shell/pps-document-view.c:3637 shell/pps-document-view.c:3706
 #: shell/pps-document-view.ui:599 shell/pps-document-view.ui:624
 msgid "_Cancel"
 msgstr "_Zrušit"
 
-#: shell/pps-document-view.c:2216
+#: shell/pps-document-view.c:2242
 msgid "_Save a Copy"
 msgstr "Uložit _kopii"
 
-#: shell/pps-document-view.c:3435
+#: shell/pps-document-view.c:3498
 #, c-format
 msgid "Please enter password for %s"
 msgstr "Zadejte prosím heslo pro %s"
 
-#: shell/pps-document-view.c:3437 shell/pps-password-dialog.ui:4
+#: shell/pps-document-view.c:3500 shell/pps-password-dialog.ui:4
 #: shell/pps-password-view.ui:10 shell/pps-password-view.ui:19
 msgid "Password Required"
 msgstr "Je vyžadováno heslo"
 
-#: shell/pps-document-view.c:3439
+#: shell/pps-document-view.c:3502
 msgid "_Login"
 msgstr "Přih_lásit"
 
-#: shell/pps-document-view.c:3538
+#: shell/pps-document-view.c:3601
 msgid "Save Signed File"
 msgstr "Uložit podepsaný soubor"
 
-#: shell/pps-document-view.c:3573
+#: shell/pps-document-view.c:3636
 msgid "Draw a rectangle to insert a signature field"
 msgstr "Nakreslete obdélník pro vložení pole podpisu"
 
-#: shell/pps-document-view.c:3598
+#: shell/pps-document-view.c:3661
 #, c-format
 msgid ""
 "Digitally signed by %s\n"
@@ -1435,23 +1448,23 @@ msgstr ""
 "Digitální podpis od %s\n"
 "Datum: %s"
 
-#: shell/pps-document-view.c:3634
+#: shell/pps-document-view.c:3697
 msgid "Certificate Required"
 msgstr "Je vyžadován certifikát"
 
-#: shell/pps-document-view.c:3639
+#: shell/pps-document-view.c:3702
 msgid "Select signing certificate"
 msgstr "Vyberte podpisový certifikát"
 
-#: shell/pps-document-view.c:3640
+#: shell/pps-document-view.c:3703
 msgid "Select"
 msgstr "Vybrat"
 
-#: shell/pps-document-view.c:3679
+#: shell/pps-document-view.c:3742
 msgid "A certificate is required to sign this document"
 msgstr "K podepsání tohoto dokumentu je vyžadován certifikát"
 
-#: shell/pps-document-view.c:3985
+#: shell/pps-document-view.c:4049
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
@@ -1459,27 +1472,27 @@ msgstr ""
 "Bezpečnostní upozornění: tomuto dokumentu bylo zabráněno v otevření souboru "
 "„%s“."
 
-#: shell/pps-document-view.c:4046 shell-rs/src/window.rs:1137
+#: shell/pps-document-view.c:4110 shell-rs/src/window.rs:1137
 msgid "Unable to open external link"
 msgstr "Nepodařilo se otevřít externí odkaz"
 
-#: shell/pps-document-view.c:4271
+#: shell/pps-document-view.c:4335
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Nepodařilo se najít vhodný formát pro uložení obrázku"
 
-#: shell/pps-document-view.c:4301
+#: shell/pps-document-view.c:4365
 msgid "The image could not be saved."
 msgstr "Nepodařilo se uložit obrázek."
 
-#: shell/pps-document-view.c:4337
+#: shell/pps-document-view.c:4401
 msgid "Save Image"
 msgstr "Uložit obrázek"
 
-#: shell/pps-document-view.c:4508
+#: shell/pps-document-view.c:4572
 msgid "Unable to open attachment"
 msgstr "Nepodařilo se otevřít přílohu"
 
-#: shell/pps-document-view.c:4527
+#: shell/pps-document-view.c:4591
 msgid "The attachment could not be saved."
 msgstr "Nepodařilo se uložit přílohu."
 
@@ -1668,69 +1681,69 @@ msgstr "O_točit ⤵"
 msgid "Document Prop_erties"
 msgstr "Vlastnosti dokum_entu"
 
-#: shell/pps-document-view.ui:734
+#: shell/pps-document-view.ui:830
 msgid "_Open Link"
 msgstr "_Otevřít odkaz"
 
-#: shell/pps-document-view.ui:739
+#: shell/pps-document-view.ui:835
 msgid "_Copy Link Address"
 msgstr "_Kopírovat adresu odkazu"
 
-#: shell/pps-document-view.ui:744
+#: shell/pps-document-view.ui:840
 msgid "_Go To"
 msgstr "_Přejít na"
 
-#: shell/pps-document-view.ui:749
+#: shell/pps-document-view.ui:845
 msgid "Open in New _Window"
 msgstr "Otevřít v novém _okně"
 
-#: shell/pps-document-view.ui:756
+#: shell/pps-document-view.ui:852
 msgid "_Previous Page"
 msgstr "_Předchozí stránka"
 
-#: shell/pps-document-view.ui:760
+#: shell/pps-document-view.ui:856
 msgid "_Next Page"
 msgstr "_Následující stránka"
 
-#: shell/pps-document-view.ui:766
+#: shell/pps-document-view.ui:862
 msgid "_Copy"
 msgstr "_Kopírovat"
 
-#: shell/pps-document-view.ui:770
+#: shell/pps-document-view.ui:866
 msgid "Select _All"
 msgstr "Vy_brat vše"
 
-#: shell/pps-document-view.ui:776
+#: shell/pps-document-view.ui:872
 msgid "_Save Image As…"
 msgstr "_Uložit obrázek jako…"
 
-#: shell/pps-document-view.ui:781
+#: shell/pps-document-view.ui:877
 msgid "Copy _Image"
 msgstr "Kopí_rovat obrázek"
 
-#: shell/pps-document-view.ui:788 shell/pps-document-view.ui:825
+#: shell/pps-document-view.ui:884 shell/pps-document-view.ui:922
 #: shell/pps-sidebar-annotations.ui:85
 msgid "_Open Attachment"
 msgstr "_Otevřít přílohu"
 
-#: shell/pps-document-view.ui:793 shell/pps-document-view.ui:829
+#: shell/pps-document-view.ui:889 shell/pps-document-view.ui:926
 #: shell/pps-sidebar-annotations.ui:90
 msgid "_Save Attachment As…"
 msgstr "_Uložit přílohu jako…"
 
-#: shell/pps-document-view.ui:800
+#: shell/pps-document-view.ui:897
 msgid "Annotation _Properties…"
 msgstr "Vlastnosti _poznámky…"
 
-#: shell/pps-document-view.ui:805
+#: shell/pps-document-view.ui:902
 msgid "R_emove Annotation"
 msgstr "O_dstranit poznámku"
 
-#: shell/pps-document-view.ui:812
+#: shell/pps-document-view.ui:909
 msgid "_Add Text Annotation"
 msgstr "Op_atřit textovou poznámkou"
 
-#: shell/pps-document-view.ui:817
+#: shell/pps-document-view.ui:914
 msgid "_Highlight Selected Text"
 msgstr "Z_výraznit vybraný text"
 
