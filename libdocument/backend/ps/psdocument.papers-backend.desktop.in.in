@@ -1,5 +1,0 @@
-[Papers Backend]
-Module=psdocument
-Resident=true
-TypeDescription=PostScript Documents
-MimeType=@PS_MIME_TYPES@;

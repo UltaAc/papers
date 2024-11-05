@@ -67,7 +67,6 @@ build.container.fedora:
             libgxps-devel
             libsass-devel
             libsecret-devel
-            libspectre-devel
             libtiff-devel
             nautilus-devel
             poppler-glib-devel

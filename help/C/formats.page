@@ -4,10 +4,8 @@
 
   <info>
     <link type="guide" xref="index#pres"/>
-    <link type="seealso" xref="convertpdf"/>
-    <link type="seealso" xref="convertPostScript"/>
     <link type="seealso" xref="convertSVG"/>
-    <desc>PDF, PostScript and many others are.</desc>
+    <desc>PDF, DejaVu and many others are.</desc>
 
     <revision pkgversion="3.14" date="2013-06-15" status="final"/>
     <credit type="author">
@@ -34,7 +32,6 @@
  <item><p>DjVu (.djvu, .djv)</p></item>
  <item><p>Open XML Paper Specification (.oxps, .xps)</p></item>
  <item><p>Portable Document Format (.pdf)</p></item>
- <item><p>PostScript (.ps)</p></item>
 </list>
 <note>
 <p>

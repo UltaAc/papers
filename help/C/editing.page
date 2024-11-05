@@ -28,7 +28,7 @@
 
 <note>
  <p>
- PDF and PostScript (.ps) files are not usually intended to be edited, but PDF editing software is available. Try
+ PDF files are not usually intended to be edited, but PDF editing software is available. Try
  <app>LibreOffice Draw</app> or <app>Okular</app>, for example.
  Furthermore, <app>pdfarranger</app> allows rearranging or removing pages and merging files.
  </p>

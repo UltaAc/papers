@@ -23,8 +23,6 @@ if enable_user_doc
     'bookmarks.page',
     'bug-filing.page',
     'commandline.page',
-    'convertpdf.page',
-    'convertPostScript.page',
     'convertSVG.page',
     'default-settings.page',
     'develop.page',

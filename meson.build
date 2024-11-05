@@ -253,16 +253,6 @@ mime_types_list = {
     'application/x-gzpdf',
     'application/x-xzpdf',
   ],
-  'ps': [
-    'application/postscript',
-    'application/x-bzpostscript',
-    'application/x-gzpostscript',
-    'application/x-ext-eps',
-    'application/x-ext-ps',
-    'image/x-bzeps',
-    'image/x-eps',
-    'image/x-gzeps',
-  ],
   'tiff': [
     'image/tiff'
   ],
@@ -274,16 +264,6 @@ mime_types_list = {
 
 backends = {}
 papers_mime_types = []
-
-# *** Spectre ***
-if not get_option('ps').disabled()
-  # libspectre (used by ps backend)
-  libspectre_req_version = '>= 0.2.0'
-  libspectre_dep = dependency('libspectre', version: libspectre_req_version, required: false)
-  config_h.set('HAVE_SPECTRE', libspectre_dep.found())
-else
-  libspectre_dep = disabler()
-endif
 
 # *** Comic Book ***
 libarchive_req_version = '>= 3.6.0'
@@ -324,23 +304,11 @@ if enable_pdf
     config_h.set('HAVE_CAIRO_PS', true)
   endif
 
-  backends += {'pdf': mime_types_list.get('pdf')}
+  backends += {'pdf': mime_types_list.get('pdf') + mime_types_list.get('illustrator')}
   papers_mime_types += mime_types_list.get('pdf')
+  papers_mime_types += mime_types_list.get('illustrator')
 elif get_option('pdf').auto()
   warning('PDF support is disabled since poppler-glib version ' + poppler_req_version + ' not found')
-endif
-
-# *** PostScript ***
-enable_ps = not get_option('ps').disabled() and libspectre_dep.found()
-if enable_ps
-  backends += {'ps': mime_types_list.get('ps')}
-  papers_mime_types += mime_types_list.get('ps')
-elif not get_option('ps').disabled()
-  str = 'PS support is disabled since libspectre (version ' + libspectre_req_version + ') is needed'
-  if get_option('ps').auto()
-    error(str)
-  endif
-  warning(str)
 endif
 
 # *** TIFF ***
@@ -362,14 +330,6 @@ if enable_xps
   papers_mime_types += mime_types_list.get('xps')
 elif get_option('xps').auto()
   warning('** XPS support is disabled since libgxps (version ' + libgxps_req_version + ') is needed')
-endif
-
-if enable_pdf and enable_ps
-  backends += {
-    'pdf': mime_types_list.get('pdf') + mime_types_list.get('illustrator'),
-    'ps': mime_types_list.get('ps') + mime_types_list.get('illustrator'),
-  }
-  papers_mime_types += mime_types_list.get('illustrator')
 endif
 
 mime_types_conf = configuration_data()
@@ -446,7 +406,6 @@ summary({'Viewer.....................': enable_viewer,
 summary({'Comics.....................': enable_comics,
          'DJVU.......................': enable_djvu,
          'PDF........................': enable_pdf,
-         'PostScript.................': enable_ps,
          'TIFF.......................': enable_tiff,
          'XPS........................': enable_xps,
         }, section: 'Backends', bool_yn: true)

@@ -30,9 +30,6 @@
   <repository name="poppler"
               href="https://poppler.freedesktop.org/"
               type="tarball" />
-  <repository name="libspectre"
-              href="https://libspectre.freedesktop.org/releases/"
-              type="tarball" />
   <repository name="desktop-file-utils"
               href="https://www.freedesktop.org/software/desktop-file-utils/releases/"
               type="tarball" />
@@ -74,7 +71,6 @@
                                 -Duser_doc=false
                                 -Dcomics=enabled
                                 -Dxps=enabled
-                                -Dps=enabled
                                 -Ddjvu=enabled
                                 -Dnautilus=false">
     <branch repo="gnome-gitlab" module="GNOME/Incubator/papers.git"
@@ -88,7 +84,6 @@
       <dep package="libarchive" />
       <dep package="djvu" />
       <dep package="libgxps" />
-      <dep package="libspectre" />
       <dep package="shared-mime-info" />
     </dependencies>
   </meson>
@@ -113,32 +108,6 @@
   <autotools id="lcms2">
     <branch repo="github-tarball" version="2.15"
             module="mm2/Little-CMS/releases/download/lcms2.15/lcms2-2.15.tar.gz" />
-  </autotools>
-
-  <autotools id="libspectre" supports-non-srcdir-builds="no">
-    <branch repo="libspectre" version="0.2.12"
-            module="libspectre-0.2.12.tar.gz" />
-    <dependencies>
-      <dep package="ghostscript" />
-    </dependencies>
-  </autotools>
-
-  <autotools id="ghostscript"
-             autogenargs="--disable-cups
-                          --disable-gtk
-                          --disable-compile-inits
-                          --without-x"
-             autogen-template="%(srcdir)s/%(autogen-sh)s
-                               --prefix %(prefix)s
-                               %(autogenargs)s
-                               DARWIN_LDFLAGS_SO_PREFIX=%(prefix)s/lib/"
-             supports-non-srcdir-builds="no"
-             makeargs="so"
-             makeinstallargs="install-so">
-    <branch repo="github-tarball" version="10.01.2"
-            module="ArtifexSoftware/ghostpdl-downloads/releases/download/gs10012/ghostpdl-10.01.2.tar.xz">
-      <patch file="ghostscript-fix-naming.patch" strip="1" />
-    </branch>
   </autotools>
 
   <meson id="xmlb">
