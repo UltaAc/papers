@@ -1,5 +1,0 @@
-[Papers Backend]
-Module=xpsdocument
-Resident=true
-TypeDescription=XPS Documents
-MimeType=@XPS_MIME_TYPES@;

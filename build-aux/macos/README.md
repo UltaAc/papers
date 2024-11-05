@@ -33,5 +33,4 @@ Here is the descriptions of files inside this directory:
 |      pdf      |    ✓    |           ✓           |
 | cbz, cbr, cb7 |    ✓    |           ✓           |
 |     djvu      |    ✓    |                       |
-|      xps      |    ✓    |                       |
 |   tiff, tif   |    ✓    |                       |

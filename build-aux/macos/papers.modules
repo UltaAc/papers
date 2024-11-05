@@ -70,7 +70,6 @@
                                 -Dintrospection=disabled
                                 -Duser_doc=false
                                 -Dcomics=enabled
-                                -Dxps=enabled
                                 -Ddjvu=enabled
                                 -Dnautilus=false">
     <branch repo="gnome-gitlab" module="GNOME/Incubator/papers.git"
@@ -83,7 +82,6 @@
       <dep package="exempi" />
       <dep package="libarchive" />
       <dep package="djvu" />
-      <dep package="libgxps" />
       <dep package="shared-mime-info" />
     </dependencies>
   </meson>
@@ -97,13 +95,6 @@
     <branch repo="sourceforge" module="djvu/djvulibre-3.5.28.tar.gz"
             version="3.5.28" />
   </autotools>
-
-  <meson id="libgxps" mesonargs="-Denable-test=false">
-    <branch module="libgxps/0.3/libgxps-0.3.2.tar.xz" version="0.3.2" />
-    <dependencies>
-      <dep package="lcms2" />
-    </dependencies>
-  </meson>
 
   <autotools id="lcms2">
     <branch repo="github-tarball" version="2.15"

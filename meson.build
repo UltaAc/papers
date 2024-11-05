@@ -256,10 +256,6 @@ mime_types_list = {
   'tiff': [
     'image/tiff'
   ],
-  'xps': [
-    'application/oxps',
-    'application/vnd.ms-xpsdocument',
-  ],
 }
 
 backends = {}
@@ -319,17 +315,6 @@ if enable_tiff
   papers_mime_types += mime_types_list.get('tiff')
 elif get_option('tiff').auto()
   warning('Tiff support is disabled since tiff library version 4.0 or newer not found')
-endif
-
-# *** XPS ***
-libgxps_req_version = '>= 0.2.1'
-libgxps_dep = dependency('libgxps', version: libgxps_req_version, required: get_option('xps'))
-enable_xps = libgxps_dep.found()
-if enable_xps
-  backends += {'xps': mime_types_list.get('xps')}
-  papers_mime_types += mime_types_list.get('xps')
-elif get_option('xps').auto()
-  warning('** XPS support is disabled since libgxps (version ' + libgxps_req_version + ') is needed')
 endif
 
 mime_types_conf = configuration_data()
@@ -407,7 +392,6 @@ summary({'Comics.....................': enable_comics,
          'DJVU.......................': enable_djvu,
          'PDF........................': enable_pdf,
          'TIFF.......................': enable_tiff,
-         'XPS........................': enable_xps,
         }, section: 'Backends', bool_yn: true)
 summary({'tests......................': get_option('tests'),
          'Developer documentation....': enable_docs,

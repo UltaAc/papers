@@ -16,8 +16,6 @@ libdocument/backend/pdf/pdfdocument.papers-backend.desktop.in.in
 libdocument/backend/tiff/papers-tiffdocument.metainfo.xml.in.in
 libdocument/backend/tiff/tiff-document.c
 libdocument/backend/tiff/tiffdocument.papers-backend.desktop.in.in
-libdocument/backend/xps/papers-xpsdocument.metainfo.xml.in.in
-libdocument/backend/xps/xpsdocument.papers-backend.desktop.in.in
 libdocument/pps-attachment.c
 libdocument/pps-document-factory.c
 libdocument/pps-document-info.c

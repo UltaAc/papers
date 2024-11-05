@@ -22,14 +22,12 @@ This software is licensed under the [GPLv2][license].
 * [DjVuLibre for DjVu viewing][djvulibre]
 * [Archive library for Comic Book Resources (CBR) viewing][comics]
 * [LibTiff for Multipage TIFF viewing][tiff]
-* [LibGXPS for XML Paper Specification (XPS) viewing][xps]
 
 [gnome]: https://www.gnome.org/
 [poppler]: https://poppler.freedesktop.org/
 [djvulibre]: https://djvulibre.djvuzone.org/
 [comics]: https://libarchive.org/
 [tiff]: http://libtiff.org/
-[xps]: https://wiki.gnome.org/Projects/libgxps
 [license]: COPYING
 [papers-logo]: data/icons/scalable/apps/org.gnome.Papers.svg
 [flatpak]: https://flathub.org/api/badge?svg&locale=en
