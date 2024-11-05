@@ -326,7 +326,6 @@
                                 <signal name="selection-changed"
 					handler="view_selection_changed_cb" />
                                 <signal name="scroll" handler="scroll_history_cb" />
-                                <signal name="annot-added" handler="view_annot_added" />
                                 <signal name="annot-removed" handler="view_annot_removed" />
                                 <signal name="layers-changed" handler="view_layers_changed_cb" />
                                 <signal name="cursor-moved" handler="view_caret_cursor_moved_cb" />

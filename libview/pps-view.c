@@ -54,7 +54,6 @@ enum {
 	SIGNAL_EXTERNAL_LINK,
 	SIGNAL_POPUP_MENU,
 	SIGNAL_SELECTION_CHANGED,
-	SIGNAL_ANNOT_ADDED,
 	SIGNAL_ANNOT_REMOVED,
 	SIGNAL_LAYERS_CHANGED,
 	SIGNAL_MOVE_CURSOR,
@@ -3578,7 +3577,6 @@ pps_view_create_annotation_real (PpsView *view,
 	pps_view_reload_page (view, annot_page, region);
 	cairo_region_destroy (region);
 
-	g_signal_emit (view, signals[SIGNAL_ANNOT_ADDED], 0, annot);
 	return annot;
 }
 
@@ -3625,8 +3623,6 @@ pps_view_add_text_annotation_at_point (PpsView *view,
 	annot = pps_view_create_annotation_real (view, annot_page,
 	                                         PPS_ANNOTATION_TYPE_TEXT,
 	                                         &doc_point, NULL);
-	if (!annot)
-		return FALSE;
 	pps_view_annotation_create_show_popup_window (view, annot);
 
 	return TRUE;
@@ -7430,14 +7426,6 @@ pps_view_class_init (PpsViewClass *class)
 	                                                  g_cclosure_marshal_VOID__VOID,
 	                                                  G_TYPE_NONE, 0,
 	                                                  G_TYPE_NONE);
-	signals[SIGNAL_ANNOT_ADDED] = g_signal_new ("annot-added",
-	                                            G_TYPE_FROM_CLASS (object_class),
-	                                            G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-	                                            G_STRUCT_OFFSET (PpsViewClass, annot_added),
-	                                            NULL, NULL,
-	                                            g_cclosure_marshal_VOID__OBJECT,
-	                                            G_TYPE_NONE, 1,
-	                                            PPS_TYPE_ANNOTATION);
 	signals[SIGNAL_ANNOT_REMOVED] = g_signal_new ("annot-removed",
 	                                              G_TYPE_FROM_CLASS (object_class),
 	                                              G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,

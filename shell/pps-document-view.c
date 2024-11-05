@@ -3342,7 +3342,12 @@ pps_document_view_cmd_add_text_annotation (GSimpleAction *action,
 		y = rect.y;
 	}
 
-	pps_view_add_text_annotation_at_point (PPS_VIEW (priv->view), x, y);
+	if (pps_view_add_text_annotation_at_point (PPS_VIEW (priv->view), x, y)) {
+		/* FIXME: We use a indirect way to call a method to rust object.
+		 *        We should use a method after rust port of PpsWindow.
+		 */
+		g_signal_emit_by_name (priv->sidebar_annots, "annot-added", NULL);
+	}
 }
 
 static void
@@ -3918,19 +3923,6 @@ sidebar_annots_annot_activated_cb (GObject *sidebar_annots,
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 
 	pps_view_focus_annotation (PPS_VIEW (priv->view), annot_mapping);
-}
-
-static void
-view_annot_added (PpsView *view,
-                  PpsAnnotation *annot,
-                  PpsDocumentView *window)
-{
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
-
-	/* FIXME: We use a indirect way to call a method to rust object.
-	 *        We should use a method after rust port of PpsWindow.
-	 */
-	g_signal_emit_by_name (priv->sidebar_annots, "annot-added", NULL);
 }
 
 static void
@@ -4708,7 +4700,6 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_callback (widget_class, view_menu_popup_cb);
 	gtk_widget_class_bind_template_callback (widget_class, view_selection_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, scroll_history_cb);
-	gtk_widget_class_bind_template_callback (widget_class, view_annot_added);
 	gtk_widget_class_bind_template_callback (widget_class, view_annot_removed);
 	gtk_widget_class_bind_template_callback (widget_class, view_layers_changed_cb);
 	gtk_widget_class_bind_template_callback (widget_class, view_caret_cursor_moved_cb);
