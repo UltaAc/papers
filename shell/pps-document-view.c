@@ -75,7 +75,6 @@ typedef struct {
 	GtkRevealer *zoom_fit_best_revealer;
 
 	AdwToastOverlay *toast_overlay;
-	AdwAlertDialog *caret_mode_alert;
 	AdwAlertDialog *error_alert;
 	AdwAlertDialog *print_cancel_alert;
 	AdwAlertDialog *rect_small_alert;
@@ -3333,26 +3332,6 @@ pps_document_view_set_caret_navigation_enabled (PpsDocumentView *window,
 }
 
 static void
-caret_navigation_alert_response_cb (AdwAlertDialog *alert,
-				    gchar	   *response,
-				    PpsDocumentView      *window)
-{
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
-
-	/* Turn the caret navigation mode on */
-	if (g_str_equal ("enable", response))
-		pps_document_view_set_caret_navigation_enabled (window, TRUE);
-
-	/* Turn the confirmation dialog off if the user has requested not to show it again */
-	if (gtk_check_button_get_active (GTK_CHECK_BUTTON (adw_alert_dialog_get_extra_child (alert)))) {
-		g_settings_set_boolean (priv->settings, "show-caret-navigation-message", FALSE);
-		g_settings_apply (priv->settings);
-	}
-
-	gtk_widget_grab_focus (priv->view);
-}
-
-static void
 pps_document_view_cmd_view_toggle_caret_navigation (GSimpleAction *action,
 					    GVariant      *state,
 					    gpointer       user_data)
@@ -3360,17 +3339,22 @@ pps_document_view_cmd_view_toggle_caret_navigation (GSimpleAction *action,
 	PpsDocumentView  *window = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
 	gboolean   enabled;
+	AdwToast  *toast;
+	g_autofree gchar *msg = NULL;
 
-	/* Don't ask for user confirmation to turn the caret navigation off when it is active,
-	 * or to turn it on when the confirmation dialog is not to be shown per settings */
 	enabled = pps_view_is_caret_navigation_enabled (PPS_VIEW (priv->view));
-	if (enabled || !g_settings_get_boolean (priv->settings, "show-caret-navigation-message")) {
-		pps_document_view_set_caret_navigation_enabled (window, !enabled);
-		return;
+	pps_document_view_set_caret_navigation_enabled (window, !enabled);
+
+	if (!enabled){
+		msg = g_strdup_printf (_("Caret navigation mode is now enabled, press F7 to disable."));
+	} else {
+		msg = g_strdup_printf (_("Caret navigation mode is now disabled, press F7 to enable."));
 	}
 
-	/* Ask for user confirmation to turn the caret navigation mode on */
-	adw_dialog_present (ADW_DIALOG (priv->caret_mode_alert), GTK_WIDGET (window));
+	toast = adw_toast_new (msg);
+	adw_toast_set_timeout (toast, 5);
+
+	adw_toast_overlay_add_toast (priv->toast_overlay, toast);
 }
 
 static void
@@ -4704,7 +4688,6 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, document_toolbar_view);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, split_view);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, scrolled_window);
-	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, caret_mode_alert);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, toast_overlay);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, error_alert);
 	gtk_widget_class_bind_template_child_private(widget_class, PpsDocumentView, print_cancel_alert);
@@ -4750,7 +4733,6 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_callback (widget_class, zoom_selector_activated);
 	gtk_widget_class_bind_template_callback (widget_class, scrolled_window_focus_in_cb);
 	gtk_widget_class_bind_template_callback (widget_class, scroll_child_history_cb);
-	gtk_widget_class_bind_template_callback (widget_class, caret_navigation_alert_response_cb);
 	gtk_widget_class_bind_template_callback (widget_class, print_jobs_confirmation_dialog_response);
 	gtk_widget_class_bind_template_callback (widget_class, view_details_cb);
 	gtk_widget_class_bind_template_callback (widget_class, pps_document_view_on_signature_rect_too_small_response);

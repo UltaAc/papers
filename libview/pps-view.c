@@ -4055,9 +4055,6 @@ pps_view_set_caret_navigation_enabled (PpsView   *view,
 {
 	g_return_if_fail (PPS_IS_VIEW (view));
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	AdwToast  *toast;
-	AdwToastOverlay *overlay;
-	g_autofree gchar *msg = NULL;
 
 	if (priv->caret_enabled != enabled) {
 		priv->caret_enabled = enabled;
@@ -4068,15 +4065,6 @@ pps_view_set_caret_navigation_enabled (PpsView   *view,
 
 		if (cursor_is_in_visible_page (view))
 			gtk_widget_queue_draw (GTK_WIDGET (view));
-
-		msg = g_strdup_printf(_("Caret navigation mode is now %s"), enabled ? _("enabled") : _("disabled"));
-
-		toast = adw_toast_new (msg);
-		adw_toast_set_timeout (toast, 5);
-
-		overlay = ADW_TOAST_OVERLAY (gtk_widget_get_ancestor (GTK_WIDGET (view), ADW_TYPE_TOAST_OVERLAY));
-
-		adw_toast_overlay_add_toast (overlay, toast);
 	}
 }
 
