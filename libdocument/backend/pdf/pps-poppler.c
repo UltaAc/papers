@@ -23,9 +23,6 @@
 #include "pps-outlines.h"
 
 #include <gtk/gtk.h>
-#include <poppler-document.h>
-#include <poppler-features.h>
-#include <poppler-page.h>
 #include <poppler.h>
 #include <string.h>
 #ifdef HAVE_CAIRO_PDF
