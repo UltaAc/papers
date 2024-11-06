@@ -33,6 +33,12 @@ clang-format:
         - apk add clang19-extra-tools
         - ./.gitlab-ci/clang-format.sh
 
+pot-files:
+    stage: lint
+    image: alpine:edge
+    script:
+        - ./.gitlab-ci/check-potfiles.sh
+
 build.container.fedora:
     extends: '.fdo.container-build@fedora'
     stage: prepare
