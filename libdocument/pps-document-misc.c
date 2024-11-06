@@ -265,9 +265,10 @@ pps_document_misc_get_pointer_position (GtkWidget *widget,
 	if (!surface)
 		return;
 
-	gdk_surface_get_device_position (surface,
-	                                 device_pointer,
-	                                 &dx, &dy, NULL);
+	if (!gdk_surface_get_device_position (surface,
+	                                      device_pointer,
+	                                      &dx, &dy, NULL))
+		return;
 
 	if (x)
 		*x = dx;
