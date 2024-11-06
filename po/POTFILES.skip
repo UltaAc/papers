@@ -16,3 +16,4 @@ libdocument/backend/tiff/papers-tiffdocument.metainfo.xml.in
 libdocument/backend/tiff/tiffdocument.papers-backend.desktop.in
 libdocument/backend/xps/papers-xpsdocument.metainfo.xml.in
 libdocument/backend/xps/xpsdocument.papers-backend.desktop.in
+shell-rs/src/i18n.rs
