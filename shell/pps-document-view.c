@@ -736,6 +736,24 @@ view_selection_changed_cb (PpsView *view,
 
 	pps_document_view_set_action_enabled (window, "add-highlight-annotation",
 	                                      can_annotate && has_selection);
+
+	if (can_annotate && has_selection && !priv->annot_menu_child_added) {
+		g_autoptr (GMenuItem) item = g_menu_item_new (NULL, NULL);
+
+		g_menu_item_set_attribute (item, "custom", "s", "palette");
+		g_menu_insert_item (priv->annot_menu, 0, item);
+
+		gtk_popover_menu_add_child (GTK_POPOVER_MENU (priv->view_popup),
+		                            priv->annot_menu_child, "palette");
+
+		priv->annot_menu_child_added = TRUE;
+	}
+
+	if (!(can_annotate && has_selection) && priv->annot_menu_child_added) {
+		g_menu_remove_all (priv->annot_menu);
+
+		priv->annot_menu_child_added = FALSE;
+	}
 }
 
 static void
