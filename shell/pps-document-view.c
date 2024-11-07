@@ -260,50 +260,35 @@ pps_document_view_set_default_actions (PpsDocumentView *pps_doc_view)
 	PpsDocument *document = priv->document;
 	PpsView *view = PPS_VIEW (priv->view);
 	g_autofree PpsDocumentInfo *info = pps_document_get_info (document);
-	gboolean has_properties = TRUE;
-	gboolean can_get_text = FALSE;
-	gboolean can_find = FALSE;
-	gboolean can_annotate = FALSE;
 	gboolean dual_mode = pps_document_model_get_page_layout (priv->model) == PPS_PAGE_LAYOUT_DUAL;
-	;
-	gboolean can_sign = FALSE;
 
 	if (!info || info->fields_mask == 0) {
-		has_properties = FALSE;
+		pps_document_view_set_action_enabled (pps_doc_view, "show-properties",
+		                                      FALSE);
 	}
 
-	if (PPS_IS_SELECTION (document)) {
-		can_get_text = TRUE;
+	if (!PPS_IS_SELECTION (document)) {
+		pps_document_view_set_action_enabled (pps_doc_view, "select-all",
+		                                      FALSE);
 	}
 
-	if (PPS_IS_DOCUMENT_FIND (document)) {
-		can_find = TRUE;
+	if (!PPS_IS_DOCUMENT_FIND (document)) {
+		pps_document_view_set_action_enabled (pps_doc_view, "find",
+		                                      FALSE);
+		pps_document_view_set_action_enabled (pps_doc_view, "toggle-find",
+		                                      FALSE);
 	}
 
-	if (PPS_IS_DOCUMENT_ANNOTATIONS (document)) {
-		can_annotate = pps_document_annotations_can_add_annotation (PPS_DOCUMENT_ANNOTATIONS (document));
+	if (!PPS_IS_DOCUMENT_ANNOTATIONS (document)) {
+		pps_document_view_set_action_enabled (pps_doc_view,
+		                                      "add-text-annotation",
+		                                      pps_document_annotations_can_add_annotation (PPS_DOCUMENT_ANNOTATIONS (document)));
 	}
 
 	if (PPS_IS_DOCUMENT_SIGNATURES (document)) {
-		can_sign = pps_document_signatures_can_sign (PPS_DOCUMENT_SIGNATURES (document));
+		pps_document_view_set_action_enabled (pps_doc_view, "digital-signing",
+		                                      pps_document_signatures_can_sign (PPS_DOCUMENT_SIGNATURES (document)));
 	}
-
-	/* File menu */
-	pps_document_view_set_action_enabled (pps_doc_view, "show-properties",
-	                                      has_properties);
-
-	/* Edit menu */
-	pps_document_view_set_action_enabled (pps_doc_view, "select-all",
-	                                      can_get_text);
-	pps_document_view_set_action_enabled (pps_doc_view, "find",
-	                                      can_find);
-	pps_document_view_set_action_enabled (pps_doc_view, "toggle-find",
-	                                      can_find);
-	pps_document_view_set_action_enabled (pps_doc_view, "add-text-annotation",
-	                                      can_annotate);
-
-	pps_document_view_set_action_enabled (pps_doc_view, "digital-signing",
-	                                      can_sign);
 
 	/* View menu */
 	pps_document_view_set_action_enabled (pps_doc_view, "enable-spellchecking",
@@ -313,8 +298,6 @@ pps_document_view_set_default_actions (PpsDocumentView *pps_doc_view)
 	pps_document_view_set_action_enabled (pps_doc_view, "add-bookmark",
 	                                      !!priv->bookmarks);
 
-	pps_document_view_set_action_enabled (pps_doc_view, "copy",
-	                                      pps_view_has_selection (view));
 	pps_document_view_set_action_enabled (pps_doc_view, "dual-odd-left", dual_mode);
 
 	pps_document_view_set_action_enabled (pps_doc_view, "zoom-in",
