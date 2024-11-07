@@ -4513,9 +4513,11 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 	                                 pps_doc_view);
 	gtk_widget_insert_action_group (GTK_WIDGET (pps_doc_view),
 	                                "doc", G_ACTION_GROUP (priv->document_action_group));
-	// These are only enabled once the search has started
+	// These are only enabled once the user takes action
 	pps_document_view_set_action_enabled (pps_doc_view, "find-next", FALSE);
 	pps_document_view_set_action_enabled (pps_doc_view, "find-previous", FALSE);
+	pps_document_view_set_action_enabled (pps_doc_view, "add-highlight-annotation", FALSE);
+	pps_document_view_set_action_enabled (pps_doc_view, "copy", FALSE);
 
 	page_cache_mb = g_settings_get_uint (priv->settings,
 	                                     GS_PAGE_CACHE_SIZE);
