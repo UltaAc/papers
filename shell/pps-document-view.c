@@ -254,91 +254,73 @@ pps_document_view_set_action_enabled (PpsDocumentView *pps_doc_view,
 }
 
 static void
-pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
+pps_document_view_set_default_actions (PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	PpsDocument *document = priv->document;
 	PpsView *view = PPS_VIEW (priv->view);
-	g_autofree PpsDocumentInfo *info = NULL;
-	gboolean has_document = FALSE;
+	g_autofree PpsDocumentInfo *info = pps_document_get_info (document);
 	gboolean has_properties = TRUE;
 	gboolean can_get_text = FALSE;
 	gboolean can_find = FALSE;
 	gboolean can_annotate = FALSE;
-	gboolean dual_mode = FALSE;
-	gboolean has_pages = FALSE;
+	gboolean dual_mode = pps_document_model_get_page_layout (priv->model) == PPS_PAGE_LAYOUT_DUAL;
+	;
 	gboolean can_sign = FALSE;
-	int n_pages = 0;
-
-	if (document) {
-		has_document = TRUE;
-		info = pps_document_get_info (document);
-		n_pages = pps_document_get_n_pages (priv->document);
-		has_pages = n_pages > 0;
-		dual_mode = pps_document_model_get_page_layout (priv->model) == PPS_PAGE_LAYOUT_DUAL;
-	}
 
 	if (!info || info->fields_mask == 0) {
 		has_properties = FALSE;
 	}
 
-	if (has_document && PPS_IS_SELECTION (document)) {
+	if (PPS_IS_SELECTION (document)) {
 		can_get_text = TRUE;
 	}
 
-	if (has_pages && PPS_IS_DOCUMENT_FIND (document)) {
+	if (PPS_IS_DOCUMENT_FIND (document)) {
 		can_find = TRUE;
 	}
 
-	if (has_document && PPS_IS_DOCUMENT_ANNOTATIONS (document)) {
+	if (PPS_IS_DOCUMENT_ANNOTATIONS (document)) {
 		can_annotate = pps_document_annotations_can_add_annotation (PPS_DOCUMENT_ANNOTATIONS (document));
 	}
 
-	if (has_document && PPS_IS_DOCUMENT_SIGNATURES (document)) {
+	if (PPS_IS_DOCUMENT_SIGNATURES (document)) {
 		can_sign = pps_document_signatures_can_sign (PPS_DOCUMENT_SIGNATURES (document));
 	}
 
 	/* File menu */
-	pps_document_view_set_action_enabled (pps_doc_view, "open-copy", has_document);
 	pps_document_view_set_action_enabled (pps_doc_view, "show-properties",
-	                                      has_document && has_properties);
-	pps_document_view_set_action_enabled (pps_doc_view, "open-with",
-	                                      has_document);
+	                                      has_properties);
 
 	/* Edit menu */
-	pps_document_view_set_action_enabled (pps_doc_view, "select-all", has_pages && can_get_text);
+	pps_document_view_set_action_enabled (pps_doc_view, "select-all",
+	                                      can_get_text);
 	pps_document_view_set_action_enabled (pps_doc_view, "find",
 	                                      can_find);
 	pps_document_view_set_action_enabled (pps_doc_view, "toggle-find",
 	                                      can_find);
 	pps_document_view_set_action_enabled (pps_doc_view, "add-text-annotation",
 	                                      can_annotate);
-	pps_document_view_set_action_enabled (pps_doc_view, "rotate-left", has_pages);
-	pps_document_view_set_action_enabled (pps_doc_view, "rotate-right", has_pages);
 
-	pps_document_view_set_action_enabled (pps_doc_view, "digital-signing", can_sign);
+	pps_document_view_set_action_enabled (pps_doc_view, "digital-signing",
+	                                      can_sign);
 
 	/* View menu */
-	pps_document_view_set_action_enabled (pps_doc_view, "continuous", has_pages);
-	pps_document_view_set_action_enabled (pps_doc_view, "dual-page", has_pages);
-	pps_document_view_set_action_enabled (pps_doc_view, "rtl", has_pages);
-	pps_document_view_set_action_enabled (pps_doc_view, "enable-spellchecking", FALSE);
+	pps_document_view_set_action_enabled (pps_doc_view, "enable-spellchecking",
+	                                      FALSE);
 
 	/* Bookmarks menu */
 	pps_document_view_set_action_enabled (pps_doc_view, "add-bookmark",
-	                                      has_pages && priv->bookmarks);
+	                                      !!priv->bookmarks);
 
 	pps_document_view_set_action_enabled (pps_doc_view, "copy",
-	                                      has_pages &&
-	                                          pps_view_has_selection (view));
-	pps_document_view_set_action_enabled (pps_doc_view, "dual-odd-left", dual_mode && has_pages);
+	                                      pps_view_has_selection (view));
+	pps_document_view_set_action_enabled (pps_doc_view, "dual-odd-left", dual_mode);
 
 	pps_document_view_set_action_enabled (pps_doc_view, "zoom-in",
-	                                      has_pages &&
-	                                          pps_view_can_zoom_in (view));
+	                                      pps_view_can_zoom_in (view));
 	pps_document_view_set_action_enabled (pps_doc_view, "zoom-out",
-	                                      has_pages &&
-	                                          pps_view_can_zoom_out (view));
+	                                      pps_view_can_zoom_out (view));
 
 	pps_document_view_set_action_enabled (pps_doc_view, "go-back-history",
 	                                      !pps_history_is_frozen (priv->history) &&
@@ -348,8 +330,7 @@ pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
 	                                          pps_history_can_go_forward (priv->history));
 
 	pps_document_view_set_action_enabled (pps_doc_view, "caret-navigation",
-	                                      has_pages &&
-	                                          pps_view_supports_caret_navigation (view));
+	                                      pps_view_supports_caret_navigation (view));
 
 	doc_restrictions_changed (pps_doc_view, NULL);
 }
@@ -1240,7 +1221,7 @@ pps_document_view_set_document (PpsDocumentView *pps_doc_view, PpsDocument *docu
 		                                   _ ("The document contains only empty pages"));
 	}
 
-	pps_document_view_update_actions_sensitivity (pps_doc_view);
+	pps_document_view_set_default_actions (pps_doc_view);
 
 	priv->is_modified = FALSE;
 	priv->modified_handler_id = g_signal_connect (document, "notify::modified", G_CALLBACK (pps_document_view_document_modified_cb), pps_doc_view);
