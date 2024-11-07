@@ -128,7 +128,6 @@ typedef struct
 
 	GMenu *annot_menu;
 	GtkWidget *annot_menu_child;
-	gboolean annot_menu_child_added;
 
 	GSimpleActionGroup *document_action_group;
 
@@ -279,10 +278,18 @@ pps_document_view_set_default_actions (PpsDocumentView *pps_doc_view)
 		                                      FALSE);
 	}
 
-	if (!PPS_IS_DOCUMENT_ANNOTATIONS (document)) {
+	if (PPS_IS_DOCUMENT_ANNOTATIONS (document) &&
+	    pps_document_annotations_can_add_annotation (PPS_DOCUMENT_ANNOTATIONS (document))) {
+		g_autoptr (GMenuItem) item = g_menu_item_new (NULL, NULL);
+		g_menu_item_set_attribute (item, "custom", "s", "palette");
+		g_menu_insert_item (priv->annot_menu, 0, item);
+
+		gtk_popover_menu_add_child (GTK_POPOVER_MENU (priv->view_popup),
+		                            priv->annot_menu_child, "palette");
+	} else {
 		pps_document_view_set_action_enabled (pps_doc_view,
 		                                      "add-text-annotation",
-		                                      pps_document_annotations_can_add_annotation (PPS_DOCUMENT_ANNOTATIONS (document)));
+		                                      FALSE);
 	}
 
 	if (PPS_IS_DOCUMENT_SIGNATURES (document)) {
@@ -649,24 +656,6 @@ view_selection_changed_cb (PpsView *view,
 
 	pps_document_view_set_action_enabled (window, "add-highlight-annotation",
 	                                      can_annotate && has_selection);
-
-	if (can_annotate && has_selection && !priv->annot_menu_child_added) {
-		g_autoptr (GMenuItem) item = g_menu_item_new (NULL, NULL);
-
-		g_menu_item_set_attribute (item, "custom", "s", "palette");
-		g_menu_insert_item (priv->annot_menu, 0, item);
-
-		gtk_popover_menu_add_child (GTK_POPOVER_MENU (priv->view_popup),
-		                            priv->annot_menu_child, "palette");
-
-		priv->annot_menu_child_added = TRUE;
-	}
-
-	if (!(can_annotate && has_selection) && priv->annot_menu_child_added) {
-		g_menu_remove_all (priv->annot_menu);
-
-		priv->annot_menu_child_added = FALSE;
-	}
 }
 
 static void
