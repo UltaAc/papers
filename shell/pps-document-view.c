@@ -1230,7 +1230,7 @@ signatures_job_finished_callback (PpsJobSignatures *job,
 	adw_banner_set_revealed (ADW_BANNER (priv->signature_banner), TRUE);
 }
 
-void
+static void
 pps_document_view_set_document (PpsDocumentView *pps_doc_view, PpsDocument *document)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);

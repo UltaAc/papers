@@ -52,8 +52,6 @@ void pps_document_view_print_range (PpsDocumentView *pps_doc_view,
 void pps_document_view_handle_annot_popup (PpsDocumentView *pps_doc_view,
                                            PpsAnnotation *annot);
 PpsMetadata *pps_document_view_get_metadata (PpsDocumentView *pps_doc_view);
-void pps_document_view_set_document (PpsDocumentView *pps_doc_view,
-                                     PpsDocument *document);
 void pps_document_view_reload_document (PpsDocumentView *pps_doc_view,
                                         PpsDocument *document);
 gboolean pps_document_view_close_handled (PpsDocumentView *pps_doc_view);
