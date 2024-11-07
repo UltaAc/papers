@@ -22,7 +22,7 @@
 
   <object class="GSettings" id="settings">
     <property name="schema-id">org.gnome.Papers</property>
-    <signal name="changed::override-restrictions" handler="override_restrictions_changed" />
+    <signal name="changed::override-restrictions" handler="doc_restrictions_changed" swapped="yes" />
     <signal name="changed::page-cache-size" handler="page_cache_size_changed" />
     <signal name="changed::allow-links-change-zoom" handler="allow_links_change_zoom_changed" />
   </object>

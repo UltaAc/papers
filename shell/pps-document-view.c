@@ -179,7 +179,6 @@ static const gchar *document_print_settings[] = {
 	GTK_PRINT_SETTINGS_OUTPUT_URI
 };
 
-static void pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view);
 static void pps_document_view_document_modified_cb (PpsDocument *document,
                                                     GParamSpec *pspec,
                                                     PpsDocumentView *pps_doc_view);
@@ -238,6 +237,7 @@ static void pps_document_view_show_find_bar (PpsDocumentView *pps_doc_view);
 static void pps_document_view_close_find_bar (PpsDocumentView *pps_doc_view);
 
 static char *pps_document_view_signature_password_callback (const char *text, gpointer user_data);
+static void doc_restrictions_changed (PpsDocumentView *self, gchar *key);
 
 G_DEFINE_TYPE_WITH_PRIVATE (PpsDocumentView, pps_document_view, ADW_TYPE_BREAKPOINT_BIN)
 
@@ -261,10 +261,7 @@ pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
 	PpsView *view = PPS_VIEW (priv->view);
 	g_autofree PpsDocumentInfo *info = NULL;
 	gboolean has_document = FALSE;
-	gboolean ok_to_print = TRUE;
-	gboolean ok_to_copy = TRUE;
 	gboolean has_properties = TRUE;
-	gboolean override_restrictions = TRUE;
 	gboolean can_get_text = FALSE;
 	gboolean can_find = FALSE;
 	gboolean can_annotate = FALSE;
@@ -301,34 +298,8 @@ pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
 		can_sign = pps_document_signatures_can_sign (PPS_DOCUMENT_SIGNATURES (document));
 	}
 
-	if (has_document && priv->settings) {
-		override_restrictions =
-		    g_settings_get_boolean (priv->settings,
-		                            GS_OVERRIDE_RESTRICTIONS);
-	}
-
-	if (!override_restrictions && info && info->fields_mask & PPS_DOCUMENT_INFO_PERMISSIONS) {
-		ok_to_print = (info->permissions & PPS_DOCUMENT_PERMISSIONS_OK_TO_PRINT);
-		ok_to_copy = (info->permissions & PPS_DOCUMENT_PERMISSIONS_OK_TO_COPY);
-	}
-
-	if (has_document && !pps_print_operation_exists_for_document (document))
-		ok_to_print = FALSE;
-
-	if (has_document && priv->lockdown_settings &&
-	    g_settings_get_boolean (priv->lockdown_settings, GS_LOCKDOWN_SAVE)) {
-		ok_to_copy = FALSE;
-	}
-
-	if (has_document && priv->lockdown_settings &&
-	    g_settings_get_boolean (priv->lockdown_settings, GS_LOCKDOWN_PRINT)) {
-		ok_to_print = FALSE;
-	}
-
 	/* File menu */
 	pps_document_view_set_action_enabled (pps_doc_view, "open-copy", has_document);
-	pps_document_view_set_action_enabled (pps_doc_view, "save-as", has_document && ok_to_copy);
-	pps_document_view_set_action_enabled (pps_doc_view, "print", has_pages && ok_to_print);
 	pps_document_view_set_action_enabled (pps_doc_view, "show-properties",
 	                                      has_document && has_properties);
 	pps_document_view_set_action_enabled (pps_doc_view, "open-with",
@@ -379,6 +350,8 @@ pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
 	pps_document_view_set_action_enabled (pps_doc_view, "caret-navigation",
 	                                      has_pages &&
 	                                          pps_view_supports_caret_navigation (view));
+
+	doc_restrictions_changed (pps_doc_view, NULL);
 }
 
 static void
@@ -980,19 +953,44 @@ pps_document_view_setup_default (PpsDocumentView *pps_doc_view)
 }
 
 static void
-override_restrictions_changed (GSettings *settings,
-                               gchar *key,
-                               PpsDocumentView *pps_doc_view)
+doc_restrictions_changed (PpsDocumentView *self,
+                          gchar *key)
 {
-	pps_document_view_update_actions_sensitivity (pps_doc_view);
-}
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (self);
+	gboolean override_restrictions = TRUE;
+	g_autofree PpsDocumentInfo *info = NULL;
+	gboolean ok_to_print = TRUE;
+	gboolean ok_to_copy = TRUE;
 
-static void
-lockdown_changed (GSettings *lockdown,
-                  const gchar *key,
-                  PpsDocumentView *pps_doc_view)
-{
-	pps_document_view_update_actions_sensitivity (pps_doc_view);
+	if (!priv->document) {
+		pps_document_view_set_action_enabled (self, "save-as", FALSE);
+		pps_document_view_set_action_enabled (self, "print", FALSE);
+		return;
+	}
+
+	info = pps_document_get_info (priv->document);
+	override_restrictions = g_settings_get_boolean (priv->settings,
+	                                                GS_OVERRIDE_RESTRICTIONS);
+
+	if (!override_restrictions && info && info->fields_mask & PPS_DOCUMENT_INFO_PERMISSIONS) {
+		ok_to_print = (info->permissions & PPS_DOCUMENT_PERMISSIONS_OK_TO_PRINT);
+		ok_to_copy = (info->permissions & PPS_DOCUMENT_PERMISSIONS_OK_TO_COPY);
+	}
+
+	if (!pps_print_operation_exists_for_document (priv->document))
+		ok_to_print = FALSE;
+
+	if (g_settings_get_boolean (priv->lockdown_settings, GS_LOCKDOWN_SAVE)) {
+		ok_to_copy = FALSE;
+	}
+
+	if (priv->lockdown_settings &&
+	    g_settings_get_boolean (priv->lockdown_settings, GS_LOCKDOWN_PRINT)) {
+		ok_to_print = FALSE;
+	}
+
+	pps_document_view_set_action_enabled (self, "save-as", ok_to_copy);
+	pps_document_view_set_action_enabled (self, "print", ok_to_print);
 }
 
 /* This function detects the schema dynamically, since not only
@@ -1016,8 +1014,9 @@ pps_document_view_setup_lockdown (PpsDocumentView *pps_doc_view)
 
 	priv->lockdown_settings = g_settings_new_full (schema, NULL, NULL);
 
-	g_signal_connect (priv->lockdown_settings, "changed",
-	                  G_CALLBACK (lockdown_changed), pps_doc_view);
+	g_signal_connect_swapped (priv->lockdown_settings, "changed",
+	                          G_CALLBACK (doc_restrictions_changed),
+	                          pps_doc_view);
 }
 
 static void
@@ -4685,7 +4684,7 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_navigate_to_view);
 
 	/* settings */
-	gtk_widget_class_bind_template_callback (widget_class, override_restrictions_changed);
+	gtk_widget_class_bind_template_callback (widget_class, doc_restrictions_changed);
 	gtk_widget_class_bind_template_callback (widget_class, page_cache_size_changed);
 	gtk_widget_class_bind_template_callback (widget_class, allow_links_change_zoom_changed);
 }
