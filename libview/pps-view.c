@@ -8151,12 +8151,16 @@ pps_view_zoom (PpsView *view, gdouble factor)
 void
 pps_view_zoom_in (PpsView *view)
 {
+	if (!pps_view_can_zoom_in (view))
+		return;
 	pps_view_zoom (view, ZOOM_IN_FACTOR);
 }
 
 void
 pps_view_zoom_out (PpsView *view)
 {
+	if (!pps_view_can_zoom_out (view))
+		return;
 	pps_view_zoom (view, ZOOM_OUT_FACTOR);
 }
 
