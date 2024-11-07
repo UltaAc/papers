@@ -1004,12 +1004,9 @@ pps_document_view_setup_lockdown (PpsDocumentView *pps_doc_view)
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 	GSettingsSchemaSource *source;
 	g_autoptr (GSettingsSchema) schema = NULL;
-	static gboolean probed = FALSE;
 
-	if (priv->lockdown_settings || probed)
+	if (priv->lockdown_settings)
 		return;
-
-	probed = TRUE;
 
 	source = g_settings_schema_source_get_default ();
 	schema = g_settings_schema_source_lookup (source, GS_LOCKDOWN_SCHEMA_NAME, TRUE);
@@ -1248,8 +1245,6 @@ pps_document_view_set_document (PpsDocumentView *pps_doc_view, PpsDocument *docu
 
 	priv->is_modified = FALSE;
 	priv->modified_handler_id = g_signal_connect (document, "notify::modified", G_CALLBACK (pps_document_view_document_modified_cb), pps_doc_view);
-
-	pps_document_view_setup_lockdown (pps_doc_view);
 
 	// This cannot be done in pps_document_view_setup_default because before
 	// having a document, we don't know which sidebars are supported
@@ -4597,6 +4592,8 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 	g_signal_connect_object (priv->search_context, "result-activated",
 	                         G_CALLBACK (sidebar_navigate_to_view),
 	                         pps_doc_view, G_CONNECT_SWAPPED);
+
+	pps_document_view_setup_lockdown (pps_doc_view);
 }
 
 static void
