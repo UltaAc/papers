@@ -2827,8 +2827,12 @@ static void
 zoom_changed_cb (PpsDocumentModel *model, GParamSpec *pspec, PpsDocumentView *pps_doc_view)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+	PpsView *view = PPS_VIEW (priv->view);
 
-	pps_document_view_update_actions_sensitivity (pps_doc_view);
+	pps_document_view_set_action_enabled (pps_doc_view, "zoom-in",
+	                                      pps_view_can_zoom_in (view));
+	pps_document_view_set_action_enabled (pps_doc_view, "zoom-out",
+	                                      pps_view_can_zoom_out (view));
 
 	if (!priv->metadata)
 		return;
