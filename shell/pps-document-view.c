@@ -4592,8 +4592,6 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 	pps_document_view_set_action_enabled (pps_doc_view, "find-next", FALSE);
 	pps_document_view_set_action_enabled (pps_doc_view, "find-previous", FALSE);
 
-	g_action_group_change_action_state (G_ACTION_GROUP (priv->document_action_group), "annot-color", g_variant_new_string ("yellow"));
-
 	page_cache_mb = g_settings_get_uint (priv->settings,
 	                                     GS_PAGE_CACHE_SIZE);
 	pps_view_set_page_cache_size (PPS_VIEW (priv->view),
