@@ -2139,24 +2139,16 @@ pps_document_view_print_range (PpsDocumentView *pps_doc_view,
 }
 
 static void
-pps_document_view_print (PpsDocumentView *window)
-{
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
-
-	pps_document_view_print_range (window, 1,
-	                               pps_document_get_n_pages (priv->document));
-}
-
-static void
 pps_document_view_cmd_file_print (GSimpleAction *action,
                                   GVariant *state,
                                   gpointer user_data)
 {
-	PpsDocumentView *pps_doc_view = user_data;
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+	PpsDocumentView *self = user_data;
+	PpsDocumentViewPrivate *priv = GET_PRIVATE (self);
 
 	gtk_menu_button_popdown (GTK_MENU_BUTTON (priv->action_menu_button));
-	pps_document_view_print (pps_doc_view);
+	pps_document_view_print_range (self, 1,
+	                               pps_document_get_n_pages (priv->document));
 }
 
 static void
