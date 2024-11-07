@@ -271,12 +271,11 @@ pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
 	gboolean dual_mode = FALSE;
 	gboolean has_pages = FALSE;
 	gboolean can_sign = FALSE;
-	int n_pages = 0, page = -1;
+	int n_pages = 0;
 
 	if (document) {
 		has_document = TRUE;
 		info = pps_document_get_info (document);
-		page = pps_document_model_get_page (priv->model);
 		n_pages = pps_document_get_n_pages (priv->document);
 		has_pages = n_pages > 0;
 		dual_mode = pps_document_model_get_page_layout (priv->model) == PPS_PAGE_LAYOUT_DUAL;
@@ -369,21 +368,6 @@ pps_document_view_update_actions_sensitivity (PpsDocumentView *pps_doc_view)
 	pps_document_view_set_action_enabled (pps_doc_view, "zoom-out",
 	                                      has_pages &&
 	                                          pps_view_can_zoom_out (view));
-
-	/* Go menu */
-	if (has_pages) {
-		pps_document_view_set_action_enabled (pps_doc_view, "go-previous-page", page > 0);
-		pps_document_view_set_action_enabled (pps_doc_view, "go-next-page", page < n_pages - 1);
-		pps_document_view_set_action_enabled (pps_doc_view, "go-first-page", page > 0);
-		pps_document_view_set_action_enabled (pps_doc_view, "go-last-page", page < n_pages - 1);
-		pps_document_view_set_action_enabled (pps_doc_view, "select-page", TRUE);
-	} else {
-		pps_document_view_set_action_enabled (pps_doc_view, "go-first-page", FALSE);
-		pps_document_view_set_action_enabled (pps_doc_view, "go-previous-page", FALSE);
-		pps_document_view_set_action_enabled (pps_doc_view, "go-next-page", FALSE);
-		pps_document_view_set_action_enabled (pps_doc_view, "go-last-page", FALSE);
-		pps_document_view_set_action_enabled (pps_doc_view, "select-page", FALSE);
-	}
 
 	pps_document_view_set_action_enabled (pps_doc_view, "go-back-history",
 	                                      !pps_history_is_frozen (priv->history) &&
@@ -788,8 +772,6 @@ page_changed_cb (PpsDocumentView *pps_doc_view,
                  PpsDocumentModel *model)
 {
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
-
-	pps_document_view_update_actions_sensitivity (pps_doc_view);
 
 	if (priv->metadata && !pps_document_view_is_empty (pps_doc_view))
 		pps_metadata_set_int (priv->metadata, "page", new_page);
