@@ -4598,7 +4598,6 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 	pps_document_view_setup_default (pps_doc_view);
 
 	sizing_mode_changed_cb (priv->model, NULL, pps_doc_view);
-	pps_document_view_update_actions_sensitivity (pps_doc_view);
 
 	g_object_bind_property (g_action_map_lookup_action (G_ACTION_MAP (priv->document_action_group), "find"), "enabled",
 	                        priv->find_sidebar, "visible",
