@@ -1694,7 +1694,8 @@ pps_job_signatures_dispose (GObject *object)
 
 	job = PPS_JOB_SIGNATURES (object);
 
-	g_clear_object (&job->signatures);
+	g_list_free_full (job->signatures, (GDestroyNotify) g_object_unref);
+	job->signatures = NULL;
 
 	(*G_OBJECT_CLASS (pps_job_signatures_parent_class)->dispose) (object);
 }
