@@ -57,6 +57,7 @@ struct _PpsDocumentSignaturesInterface {
 	                         GAsyncResult *result,
 	                         GError **error);
 	gboolean (*can_sign) (PpsDocumentSignatures *document_signatures);
+	gboolean (*has_signatures) (PpsDocumentSignatures *document_signatures);
 	GList *(*get_signatures) (PpsDocumentSignatures *document_signatures);
 };
 
@@ -88,6 +89,10 @@ gboolean
 pps_document_signatures_sign_finish (PpsDocumentSignatures *document_signatures,
                                      GAsyncResult *result,
                                      GError **error);
+
+PPS_PUBLIC
+gboolean
+pps_document_signatures_has_signatures (PpsDocumentSignatures *document_signatures);
 
 PPS_PUBLIC
 GList *

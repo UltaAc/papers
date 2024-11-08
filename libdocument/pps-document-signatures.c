@@ -159,6 +159,23 @@ pps_document_signatures_can_sign (PpsDocumentSignatures *document_signatures)
 }
 
 /**
+ * pps_document_signatures_has_signatures:
+ * @document_signatures: an #PpsDocumentSignatures
+ *
+ * Returns: if the document has digital signatures
+ */
+gboolean
+pps_document_signatures_has_signatures (PpsDocumentSignatures *document_signatures)
+{
+	PpsDocumentSignaturesInterface *iface = PPS_DOCUMENT_SIGNATURES_GET_IFACE (document_signatures);
+
+	if (iface->has_signatures)
+		return iface->has_signatures (document_signatures);
+
+	return FALSE;
+}
+
+/**
  * pps_document_signatures_get_signatures:
  * @document_signatures: an #PpsDocumentSignatures
  *

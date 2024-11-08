@@ -4225,6 +4225,14 @@ pdf_document_signatures_get_signatures (PpsDocumentSignatures *document)
 	return ret_list;
 }
 
+static gboolean
+pdf_document_signatures_has_signatures (PpsDocumentSignatures *document)
+{
+	PdfDocument *pdf_document = PDF_DOCUMENT (document);
+
+	return (poppler_document_get_n_signatures (pdf_document->document) > 0);
+}
+
 static void
 pdf_document_document_signatures_iface_init (PpsDocumentSignaturesInterface *iface)
 {
@@ -4235,4 +4243,5 @@ pdf_document_document_signatures_iface_init (PpsDocumentSignaturesInterface *ifa
 	iface->sign_finish = pdf_document_signatures_sign_finish;
 	iface->can_sign = pdf_document_signatures_can_sign;
 	iface->get_signatures = pdf_document_signatures_get_signatures;
+	iface->has_signatures = pdf_document_signatures_has_signatures;
 }
