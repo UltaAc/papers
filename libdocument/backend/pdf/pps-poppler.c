@@ -3957,7 +3957,9 @@ find_poppler_certificate_info (PpsCertificateInfo *certificate_info)
 {
 	GList *signing_certificates = poppler_get_available_signing_certificates ();
 	PopplerCertificateInfo *ret = NULL;
-	const char *certificate_id = pps_certificate_info_get_id (certificate_info);
+	g_autofree char *certificate_id = NULL;
+
+	g_object_get (certificate_info, "id", &certificate_id, NULL);
 
 	for (GList *list = signing_certificates; list != NULL && list->data != NULL; list = list->next) {
 		PopplerCertificateInfo *certificate_info = list->data;
@@ -3982,12 +3984,17 @@ pdf_document_signatures_sign (PpsDocumentSignatures *document,
 {
 	PdfDocument *self = PDF_DOCUMENT (document);
 	PopplerSigningData *signing_data = poppler_signing_data_new ();
-	PopplerCertificateInfo *cert_info = find_poppler_certificate_info (pps_signature_get_certificate_info (signature));
+	PopplerCertificateInfo *cert_info;
+	PpsCertificateInfo *cinfo = NULL;
 	PopplerRectangle signing_rect;
 	PpsRectangle *rect;
 	PopplerColor color;
 	gdouble height;
 	GdkRGBA rgba;
+
+	g_object_get (signature, "certificate-info", &cinfo, NULL);
+	cert_info = find_poppler_certificate_info (cinfo);
+	g_object_unref (cinfo);
 
 	g_assert (cert_info);
 
@@ -4091,7 +4098,10 @@ pdf_document_get_available_signing_certifcates (PpsDocumentSignatures *document)
 
 	for (GList *list = signing_certs; list != NULL && list->data != NULL; list = list->next) {
 		PopplerCertificateInfo *info = list->data;
-		PpsCertificateInfo *cert_info = pps_certificate_info_new (poppler_certificate_info_get_id (info), poppler_certificate_info_get_subject_common_name (info));
+		PpsCertificateInfo *cert_info = g_object_new (PPS_TYPE_CERTIFICATE_INFO,
+		                                              "id", poppler_certificate_info_get_id (info),
+		                                              "subject-common-name", poppler_certificate_info_get_subject_common_name (info),
+		                                              NULL);
 
 		ev_certs = g_list_append (ev_certs, cert_info);
 	}
@@ -4113,9 +4123,12 @@ pdf_document_get_certificate_info (PpsDocumentSignatures *document,
 
 	for (list = pdf_document_get_available_signing_certifcates (document); list != NULL && list->data != NULL; list = list->next) {
 		PpsCertificateInfo *cert_info = list->data;
+		g_autofree char *certificate_id = NULL;
 
-		if (g_strcmp0 (pps_certificate_info_get_id (cert_info), id) == 0) {
-			info = pps_certificate_info_copy (cert_info);
+		g_object_get (cert_info, "id", &certificate_id, NULL);
+
+		if (g_strcmp0 (certificate_id, id) == 0) {
+			info = g_object_ref (cert_info);
 			break;
 		}
 	}

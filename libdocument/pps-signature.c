@@ -57,7 +57,8 @@ enum {
 	PROP_SIGNER_NAME,
 	PROP_SIGNATURE_STATUS,
 	PROP_CERTIFICATE_STATUS,
-	PROP_SIGN_TIME
+	PROP_SIGN_TIME,
+	PROP_CERTIFICATE_INFO
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (PpsSignature, pps_signature, G_TYPE_OBJECT);
@@ -69,7 +70,7 @@ pps_signature_finalize (GObject *object)
 	PpsSignature *self = PPS_SIGNATURE (object);
 	PpsSignaturePrivate *priv = GET_SIG_PRIVATE (self);
 
-	g_clear_pointer (&priv->certificate_info, pps_certificate_info_free);
+	g_clear_object (&priv->certificate_info);
 	g_clear_pointer (&priv->destination_file, g_free);
 	g_clear_pointer (&priv->password, g_free);
 	g_clear_pointer (&priv->signature, g_free);
@@ -126,6 +127,11 @@ pps_signature_set_property (GObject *object,
 			g_date_time_ref (priv->signature_time);
 		break;
 
+	case PROP_CERTIFICATE_INFO:
+		g_clear_object (&priv->certificate_info);
+		priv->certificate_info = g_object_ref (g_value_get_object (value));
+		break;
+
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object,
 		                                   property_id,
@@ -158,6 +164,10 @@ pps_signature_get_property (GObject *object,
 
 	case PROP_SIGN_TIME:
 		g_value_set_pointer (value, priv->signature_time);
+		break;
+
+	case PROP_CERTIFICATE_INFO:
+		g_value_set_object (value, priv->certificate_info);
 		break;
 
 	default:
@@ -220,25 +230,17 @@ pps_signature_class_init (PpsSignatureClass *klass)
 	                                                         G_PARAM_CONSTRUCT_ONLY |
 	                                                         G_PARAM_STATIC_STRINGS));
 
+	g_object_class_install_property (g_object_class,
+	                                 PROP_CERTIFICATE_INFO,
+	                                 g_param_spec_object ("certificate-info",
+	                                                      "CertificateInfo",
+	                                                      "Information about certificate used for the signature",
+	                                                      PPS_TYPE_CERTIFICATE_INFO,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_CONSTRUCT_ONLY |
+	                                                          G_PARAM_STATIC_STRINGS));
+
 	g_object_class->finalize = pps_signature_finalize;
-}
-
-void
-pps_signature_set_certificate_info (PpsSignature *self,
-                                    const PpsCertificateInfo *certificate_info)
-{
-	PpsSignaturePrivate *priv = GET_SIG_PRIVATE (self);
-
-	g_clear_object (&priv->certificate_info);
-	priv->certificate_info = pps_certificate_info_copy (certificate_info);
-}
-
-PpsCertificateInfo *
-pps_signature_get_certificate_info (PpsSignature *self)
-{
-	PpsSignaturePrivate *priv = GET_SIG_PRIVATE (self);
-
-	return priv->certificate_info;
 }
 
 void
@@ -638,50 +640,12 @@ gboolean
 pps_signature_is_valid (PpsSignature *self)
 {
 	PpsSignaturePrivate *priv = GET_SIG_PRIVATE (self);
+	PpsCertificateInfo *certificate_info = NULL;
+	PpsCertificateStatus certificate_status = PPS_CERTIFICATE_STATUS_NOT_VERIFIED;
 
-	return priv->certificate_status == PPS_CERTIFICATE_STATUS_TRUSTED && priv->signature_status == PPS_SIGNATURE_STATUS_VALID;
-}
+	g_object_get (self, "certificate-info", &certificate_info, NULL);
+	if (certificate_info != NULL)
+		g_object_get (certificate_info, "status", &certificate_status, NULL);
 
-/* Certificate Info */
-
-G_DEFINE_BOXED_TYPE (PpsCertificateInfo, pps_certificate_info, pps_certificate_info_copy, pps_certificate_info_free)
-
-PpsCertificateInfo *
-pps_certificate_info_new (const char *id, const char *subject_common_name)
-{
-	PpsCertificateInfo *info = (PpsCertificateInfo *) g_malloc0 (sizeof (PpsCertificateInfo));
-
-	info->id = g_strdup (id);
-	info->subject_common_name = g_strdup (subject_common_name);
-	return info;
-}
-
-PpsCertificateInfo *
-pps_certificate_info_copy (const PpsCertificateInfo *info)
-
-{
-	PpsCertificateInfo *info_copy = (PpsCertificateInfo *) g_malloc0 (sizeof (PpsCertificateInfo));
-
-	info_copy->id = g_strdup (info->id);
-	info_copy->subject_common_name = g_strdup (info->subject_common_name);
-	return info_copy;
-}
-
-void
-pps_certificate_info_free (PpsCertificateInfo *info)
-{
-	g_clear_pointer (&info->id, g_free);
-	g_clear_pointer (&info->subject_common_name, g_free);
-}
-
-const char *
-pps_certificate_info_get_id (const PpsCertificateInfo *info)
-{
-	return info->id;
-}
-
-const char *
-pps_certificate_info_get_subject_common_name (const PpsCertificateInfo *info)
-{
-	return info->subject_common_name;
+	return certificate_status == PPS_CERTIFICATE_STATUS_TRUSTED && priv->signature_status == PPS_SIGNATURE_STATUS_VALID;
 }

@@ -5,6 +5,7 @@ include_subdir = join_paths(pps_include_subdir, 'libdocument')
 headers = files(
   'pps-annotation.h',
   'pps-attachment.h',
+  'pps-certificate-info.h',
   'pps-document-annotations.h',
   'pps-document-attachments.h',
   'pps-document-factory.h',
@@ -54,6 +55,7 @@ sources = files(
   'pps-annotation.c',
   'pps-attachment.c',
   'pps-backend-info.c',
+  'pps-certificate-info.c',
   'pps-document.c',
   'pps-document-annotations.c',
   'pps-document-attachments.c',

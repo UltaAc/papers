@@ -3463,7 +3463,7 @@ on_signed_save (GObject *source_object,
 		if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
 			g_warning ("Could not save signed file: %s", error->message);
 
-		g_clear_pointer (&priv->signature_certificate_info, pps_certificate_info_free);
+		g_clear_object (&priv->signature_certificate_info);
 		return;
 	}
 
@@ -3531,22 +3531,24 @@ pps_document_view_certificate_selection_response (GtkWidget *dialog,
 {
 	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
-	g_autofree char *tmp = NULL;
+	g_autofree char *tmp = NULL, *subject_common_name = NULL;
 	time_t t;
 
 	if (!priv->signature_certificate_info)
 		return;
 
 	priv->signature = pps_signature_new (NULL, PPS_SIGNATURE_STATUS_INVALID, PPS_CERTIFICATE_STATUS_GENERIC_ERROR, NULL);
-	;
-	pps_signature_set_certificate_info (priv->signature, priv->signature_certificate_info);
+	g_object_set (priv->signature,
+	              "certificate-info", priv->signature_certificate_info,
+	              NULL);
 
 	time (&t);
+	g_object_get (priv->signature_certificate_info, "subject-common-name", &subject_common_name, NULL);
 	tmp = g_strdup_printf (_ ("Digitally signed by %s\nDate: %s"),
-	                       pps_certificate_info_get_subject_common_name (priv->signature_certificate_info),
+	                       subject_common_name,
 	                       ctime (&t));
 	pps_signature_set_signature (priv->signature, tmp);
-	pps_signature_set_signature_left (priv->signature, pps_certificate_info_get_subject_common_name (priv->signature_certificate_info));
+	pps_signature_set_signature_left (priv->signature, subject_common_name);
 
 	pps_document_view_draw_rect_action (pps_doc_view);
 }
@@ -3562,7 +3564,7 @@ on_radio_button_toggled (GtkWidget *button,
 		GtkWidget *row = gtk_widget_get_ancestor (GTK_WIDGET (button), ADW_TYPE_ACTION_ROW);
 		const char *nick = adw_preferences_row_get_title (ADW_PREFERENCES_ROW (row));
 
-		g_clear_pointer (&priv->signature_certificate_info, pps_certificate_info_free);
+		g_clear_object (&priv->signature_certificate_info);
 
 		priv->signature_certificate_info = pps_document_signature_get_certificate_info (PPS_DOCUMENT_SIGNATURES (priv->document), (const char *) nick);
 	}
@@ -3599,8 +3601,14 @@ pps_document_view_create_certificate_selection (PpsDocumentView *pps_doc_view)
 			PpsCertificateInfo *certificate_info = list->data;
 			GtkWidget *row = adw_action_row_new ();
 			GtkWidget *check_button;
+			g_autofree char *subject_common_name = NULL, *id = NULL;
 
-			adw_preferences_row_set_title (ADW_PREFERENCES_ROW (row), pps_certificate_info_get_id (certificate_info));
+			g_object_get (certificate_info,
+			              "subject-common-name", &subject_common_name,
+			              "id", &id,
+			              NULL);
+
+			adw_preferences_row_set_title (ADW_PREFERENCES_ROW (row), id);
 
 			check_button = gtk_check_button_new ();
 			gtk_widget_set_valign (check_button, GTK_ALIGN_CENTER);
@@ -3614,13 +3622,13 @@ pps_document_view_create_certificate_selection (PpsDocumentView *pps_doc_view)
 				gtk_check_button_set_active (GTK_CHECK_BUTTON (check_button), TRUE);
 			}
 
-			adw_action_row_set_subtitle (ADW_ACTION_ROW (row), pps_certificate_info_get_subject_common_name (certificate_info));
+			adw_action_row_set_subtitle (ADW_ACTION_ROW (row), subject_common_name);
 			gtk_list_box_insert (GTK_LIST_BOX (priv->certificate_listbox), row, -1);
 		}
 
 		gtk_list_box_select_row (GTK_LIST_BOX (priv->certificate_listbox), gtk_list_box_get_row_at_index (GTK_LIST_BOX (priv->certificate_listbox), 0));
 		adw_alert_dialog_set_extra_child (ADW_ALERT_DIALOG (dialog), priv->certificate_listbox);
-		g_list_free_full (certificates, (GDestroyNotify) pps_certificate_info_free);
+		g_list_free_full (certificates, (GDestroyNotify) g_object_unref);
 		g_signal_connect (dialog, "response::select", G_CALLBACK (pps_document_view_certificate_selection_response), pps_doc_view);
 	} else {
 		adw_alert_dialog_set_body (ADW_ALERT_DIALOG (dialog), _ ("A certificate is required to sign this document"));

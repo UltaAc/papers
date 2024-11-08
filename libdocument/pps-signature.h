@@ -25,6 +25,7 @@
 #ifndef PPS_SIGNATURE_H
 #define PPS_SIGNATURE_H
 
+#include "pps-certificate-info.h"
 #include "pps-document.h"
 #include <gdk/gdk.h>
 
@@ -35,12 +36,6 @@ G_BEGIN_DECLS
 PPS_PUBLIC
 G_DECLARE_FINAL_TYPE (PpsSignature, pps_signature, PPS, SIGNATURE, GObject);
 
-typedef struct
-{
-	char *id;
-	char *subject_common_name;
-} PpsCertificateInfo;
-
 typedef enum {
 	PPS_SIGNATURE_STATUS_VALID = 0,
 	PPS_SIGNATURE_STATUS_INVALID,
@@ -49,53 +44,11 @@ typedef enum {
 	PPS_SIGNATURE_STATUS_GENERIC_ERROR
 } PpsSignatureStatus;
 
-typedef enum {
-	PPS_CERTIFICATE_STATUS_TRUSTED = 0,
-	PPS_CERTIFICATE_STATUS_UNTRUSTED_ISSUER,
-	PPS_CERTIFICATE_STATUS_UNKNOWN_ISSUER,
-	PPS_CERTIFICATE_STATUS_REVOKED,
-	PPS_CERTIFICATE_STATUS_EXPIRED,
-	PPS_CERTIFICATE_STATUS_GENERIC_ERROR,
-	PPS_CERTIFICATE_STATUS_NOT_VERIFIED
-} PpsCertificateStatus;
-
-/* Certificate Information */
-#define PPS_TYPE_CERTIFICATE_INFO (pps_certificate_info_get_type ())
-
-PPS_PUBLIC
-GType pps_certificate_info_get_type (void) G_GNUC_CONST;
-
-PPS_PUBLIC
-PpsCertificateInfo *pps_certificate_info_new (const char *id,
-                                              const char *subject_common_name);
-
-PPS_PUBLIC
-PpsCertificateInfo *pps_certificate_info_copy (const PpsCertificateInfo *certificate_info);
-
-PPS_PUBLIC
-void pps_certificate_info_free (PpsCertificateInfo *certificate_info);
-
-PPS_PUBLIC
-const char *pps_certificate_info_get_id (const PpsCertificateInfo *certificate_info);
-
-PPS_PUBLIC
-const char *pps_certificate_info_get_subject_common_name (const PpsCertificateInfo *certificate_info);
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (PpsCertificateInfo, pps_certificate_info_free)
-
 /* Signature */
 
 struct _PpsSignature {
 	GObject base_instance;
 };
-
-PPS_PUBLIC
-void pps_signature_set_certificate_info (PpsSignature *self,
-                                         const PpsCertificateInfo *certificate);
-
-PPS_PUBLIC
-PpsCertificateInfo *
-pps_signature_get_certificate_info (PpsSignature *self);
 
 PPS_PUBLIC
 void pps_signature_set_destination_file (PpsSignature *self,
