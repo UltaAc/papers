@@ -159,33 +159,6 @@ const char *
 pps_signature_get_user_password (PpsSignature *self);
 
 PPS_PUBLIC
-PpsSignature *
-pps_signature_new (const gchar *signer_name,
-                   PpsSignatureStatus signature_status,
-                   PpsCertificateStatus certificate_status,
-                   GDateTime *signature_time);
-
-PPS_PUBLIC
-PpsCertificateStatus
-pps_signature_get_certificate_status (PpsSignature *self);
-
-PPS_PUBLIC
-char *
-pps_signature_certificate_status_str (PpsCertificateStatus status);
-
-PPS_PUBLIC
-PpsSignatureStatus
-pps_signature_get_signature_status (PpsSignature *self);
-
-PPS_PUBLIC
-char *
-pps_signature_signature_status_str (PpsSignatureStatus status);
-
-PPS_PUBLIC
-GDateTime *
-pps_signature_get_signature_time (PpsSignature *self);
-
-PPS_PUBLIC
 gboolean
 pps_signature_is_valid (PpsSignature *self);
 

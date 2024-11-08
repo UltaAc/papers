@@ -3537,10 +3537,10 @@ pps_document_view_certificate_selection_response (GtkWidget *dialog,
 	if (!priv->signature_certificate_info)
 		return;
 
-	priv->signature = pps_signature_new (NULL, PPS_SIGNATURE_STATUS_INVALID, PPS_CERTIFICATE_STATUS_GENERIC_ERROR, NULL);
-	g_object_set (priv->signature,
-	              "certificate-info", priv->signature_certificate_info,
-	              NULL);
+	priv->signature = g_object_new (PPS_TYPE_SIGNATURE,
+	                                "status", PPS_SIGNATURE_STATUS_INVALID,
+	                                "certificate-info", priv->signature_certificate_info,
+	                                NULL);
 
 	time (&t);
 	g_object_get (priv->signature_certificate_info, "subject-common-name", &subject_common_name, NULL);
