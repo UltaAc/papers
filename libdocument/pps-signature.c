@@ -142,7 +142,7 @@ pps_signature_get_property (GObject *object,
 		break;
 
 	case PROP_SIGN_TIME:
-		g_value_set_pointer (value, priv->signature_time);
+		g_value_set_boxed (value, g_date_time_ref (priv->signature_time));
 		break;
 
 	case PROP_CERTIFICATE_INFO:
