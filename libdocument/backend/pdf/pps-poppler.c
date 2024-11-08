@@ -4153,6 +4153,8 @@ pdf_document_signatures_get_signatures (PpsDocumentSignatures *document)
 		PpsSignatureStatus signature_status;
 		PpsCertificateStatus certificate_status;
 		GDateTime *sign_time;
+		PopplerCertificateInfo *certificate_info;
+		PpsCertificateInfo *cert_info;
 
 		if (poppler_form_field_get_field_type (field) != POPPLER_FORM_FIELD_SIGNATURE)
 			continue;
@@ -4211,12 +4213,34 @@ pdf_document_signatures_get_signatures (PpsDocumentSignatures *document)
 			break;
 		}
 
-		sign_time = poppler_signature_info_get_local_signing_time (info);
-		signature = pps_signature_new (poppler_signature_info_get_signer_name (info),
-		                               signature_status,
-		                               certificate_status,
-		                               sign_time);
-		ret_list = g_list_append (ret_list, signature);
+		certificate_info = poppler_signature_info_get_certificate_info (info);
+		if (certificate_info != NULL) {
+			cert_info = g_object_new (PPS_TYPE_CERTIFICATE_INFO,
+			                          "subject-common-name", poppler_certificate_info_get_subject_common_name (certificate_info),
+			                          "subject-email", poppler_certificate_info_get_subject_email (certificate_info),
+			                          "subject-organization", poppler_certificate_info_get_subject_organization (certificate_info),
+			                          "issuer-common-name", poppler_certificate_info_get_issuer_common_name (certificate_info),
+			                          "issuer-email", poppler_certificate_info_get_issuer_email (certificate_info),
+			                          "issuer-organization", poppler_certificate_info_get_issuer_organization (certificate_info),
+			                          "issuance-time", poppler_certificate_info_get_issuance_time (certificate_info),
+			                          "expiration-time", poppler_certificate_info_get_expiration_time (certificate_info),
+			                          "status", certificate_status,
+			                          NULL);
+
+			sign_time = poppler_signature_info_get_local_signing_time (info);
+
+			signature = g_object_new (PPS_TYPE_SIGNATURE,
+			                          "certificate-info", cert_info,
+			                          "signature-time", sign_time,
+			                          "status", signature_status,
+			                          NULL);
+
+			ret_list = g_list_append (ret_list, signature);
+
+			g_object_unref (cert_info);
+		} else {
+			g_warning ("Could not get certificate info for a signature!");
+		}
 		poppler_signature_info_free (info);
 	}
 
