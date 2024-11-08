@@ -20,6 +20,7 @@ mod password_view;
 mod properties_fonts;
 mod properties_general;
 mod properties_license;
+mod properties_signatures;
 mod properties_window;
 mod search_box;
 mod sidebar;

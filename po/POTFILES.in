@@ -52,13 +52,11 @@ shell/pps-properties-license.ui
 shell/pps-properties-signatures.ui
 shell/pps-properties-window.ui
 shell/pps-search-box.ui
-shell/pps-signature-details.c
 shell/pps-sidebar-annotations.ui
 shell/pps-sidebar-bookmarks.c
 shell/pps-sidebar-bookmarks.ui
 shell/pps-sidebar-links.ui
 shell/pps-sidebar-thumbnails.ui
-shell/pps-signature-details.ui
 shell/pps-utils.c
 shell/pps-window.ui
 shell-rs/src/annotation_properties_dialog.rs
@@ -70,6 +68,7 @@ shell-rs/src/password_view.rs
 shell-rs/src/properties_fonts.rs
 shell-rs/src/properties_general.rs
 shell-rs/src/properties_license.rs
+shell-rs/src/properties_signatures.rs
 shell-rs/src/properties_window.rs
 shell-rs/src/sidebar_annotations.rs
 shell-rs/src/sidebar_annotations_row.rs

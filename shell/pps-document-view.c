@@ -46,7 +46,6 @@
 #include "pps-message-area.h"
 #include "pps-progress-message-area.h"
 #include "pps-sidebar-bookmarks.h"
-#include "pps-signature-details.h"
 #include "pps-utils.h"
 #include "pps-view-presentation.h"
 
@@ -4485,8 +4484,13 @@ view_details_cb (AdwBanner *self,
 {
 	PpsDocumentView *pps_doc_view = PPS_DOCUMENT_VIEW (user_data);
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
+	GtkWidget *properties;
 
-	pps_signature_details_show (priv->document, GTK_WINDOW (pps_doc_view));
+	properties = g_object_new (g_type_from_name ("PpsPropertiesWindow"),
+	                           "document", priv->document,
+	                           "visible-page-name", "signatures",
+	                           NULL);
+	adw_dialog_present (ADW_DIALOG (properties), GTK_WIDGET (pps_doc_view));
 }
 
 static void

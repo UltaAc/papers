@@ -5,8 +5,7 @@ papers_sources = files(
   'pps-utils.c',
   'pps-document-view.c',
   'pps-sidebar-bookmarks.c',
-  'pps-sidebar-page.c',
-  'pps-signature-details.c',
+  'pps-sidebar-page.c'
 )
 
 resources_conf = configuration_data()

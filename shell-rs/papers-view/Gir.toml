@@ -38,6 +38,7 @@ generate = [
     "PapersView.JobLinks",
     "PapersView.JobLoad",
     "PapersView.JobPriority",
+    "PapersView.JobSignatures",
     "PapersView.JobThumbnailTexture",
     "PapersView.PageLayout",
     "PapersView.PrintOperation",

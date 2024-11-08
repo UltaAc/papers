@@ -1,5 +1,6 @@
 use crate::deps::*;
 
+use glib::property::PropertySet;
 use papers_document::DocumentFonts;
 
 mod imp {
@@ -16,15 +17,21 @@ mod imp {
         #[template_child]
         pub(super) license: TemplateChild<crate::properties_license::PpsPropertiesLicense>,
         #[template_child]
+        pub(super) signatures: TemplateChild<crate::properties_signatures::PpsPropertiesSignatures>,
+        #[template_child]
         pub(super) fonts_page: TemplateChild<adw::ViewStackPage>,
         #[template_child]
         pub(super) license_page: TemplateChild<adw::ViewStackPage>,
+        #[template_child]
+        pub(super) signatures_page: TemplateChild<adw::ViewStackPage>,
         #[template_child]
         pub(super) view_switcher: TemplateChild<adw::ViewSwitcher>,
         #[template_child]
         pub(super) header_bar: TemplateChild<adw::HeaderBar>,
         #[property(get, nullable, set = Self::set_document)]
         pub(super) document: RefCell<Option<Document>>,
+        #[property(get, nullable, set = Self::set_visible_page_name)]
+        pub(super) visible_page_name: RefCell<String>,
     }
 
     #[glib::object_subclass]
@@ -37,6 +44,7 @@ mod imp {
             crate::properties_fonts::PpsPropertiesFonts::ensure_type();
             crate::properties_general::PpsPropertiesGeneral::ensure_type();
             crate::properties_license::PpsPropertiesLicense::ensure_type();
+            crate::properties_signatures::PpsPropertiesSignatures::ensure_type();
 
             klass.bind_template();
         }
@@ -65,6 +73,7 @@ mod imp {
                 let license = document.info().and_then(|i| i.license());
                 let has_license = license.is_some();
                 let has_fonts = document.dynamic_cast_ref::<DocumentFonts>().is_some();
+                let mut has_signatures = false;
 
                 if has_fonts {
                     self.fonts.imp().set_document(document.clone());
@@ -74,14 +83,26 @@ mod imp {
                     self.license.imp().set_license(&mut license);
                 }
 
+                if let Some(signatures) = document.dynamic_cast_ref::<DocumentSignatures>() {
+                    has_signatures = signatures.has_signatures();
+                    if has_signatures {
+                        self.signatures.imp().set_document(document.clone());
+                    }
+                }
+
                 self.fonts_page.set_visible(has_fonts);
                 self.license_page.set_visible(has_license);
+                self.signatures_page.set_visible(has_signatures);
             } else {
                 self.fonts_page.set_visible(false);
                 self.license_page.set_visible(false);
+                self.signatures_page.set_visible(false);
             }
 
-            if self.fonts_page.is_visible() || self.license_page.is_visible() {
+            if self.fonts_page.is_visible()
+                || self.license_page.is_visible()
+                || self.signatures_page.is_visible()
+            {
                 self.header_bar
                     .set_title_widget(Some(&self.view_switcher.clone()));
             } else {
@@ -89,6 +110,16 @@ mod imp {
             }
 
             self.document.replace(document);
+        }
+
+        fn set_visible_page_name(&self, page_name: String) {
+            if page_name.as_str() == "fonts"
+                || page_name.as_str() == "license"
+                || page_name.as_str() == "signatures"
+            {
+                self.stack.set_visible_child_name(page_name.as_str());
+                self.visible_page_name.set(page_name);
+            }
         }
     }
 }

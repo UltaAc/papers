@@ -55,6 +55,17 @@
                 </property>
               </object>
             </child>
+            <child>
+              <object class="AdwViewStackPage" id="signatures_page">
+                <property name="name">signatures</property>
+                <property name="title" translatable="yes">_Signatures</property>
+                <property name="use-underline">True</property>
+                <property name="icon-name">document-edit-symbolic</property>
+                <property name="child">
+                  <object class="PpsPropertiesSignatures" id="signatures" />
+                </property>
+              </object>
+            </child>
           </object>
         </property>
       </object>
