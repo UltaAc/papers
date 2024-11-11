@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Evince HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-11-08 05:52+0000\n"
-"PO-Revision-Date: 2024-11-08 13:29+0100\n"
+"POT-Creation-Date: 2024-11-08 12:30+0000\n"
+"PO-Revision-Date: 2024-11-11 09:58+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -542,7 +542,7 @@ msgstr "Estatut desconegut"
 
 #: libdocument/pps-signature.c:598
 msgid "Valid"
-msgstr " Valida "
+msgstr "Valida"
 
 #: libdocument/pps-signature.c:600
 msgid "Invalid"
@@ -550,7 +550,7 @@ msgstr "Invalid"
 
 #: libdocument/pps-signature.c:602
 msgid "Digest mismatch"
-msgstr ""
+msgstr "Desacordança del resumit"
 
 #: libdocument/pps-signature.c:604
 msgid "Decoding error"
@@ -1445,11 +1445,13 @@ msgstr "_Enregistrar una còpia"
 #, c-format
 msgid "Caret navigation mode is now enabled, press F7 to disable."
 msgstr ""
+"Lo mòde navegacion al cursor es ara activat, quichatz F7 per lo desactivar."
 
 #: shell/pps-document-view.c:3242
 #, c-format
 msgid "Caret navigation mode is now disabled, press F7 to enable."
 msgstr ""
+"Lo mòde navegacion al cursor es ara desactivat, quichatz F7 per l’activar."
 
 #: shell/pps-document-view.c:3391
 #, c-format
