@@ -115,7 +115,7 @@ flatpak install org.freedesktop.Sdk.Extension.rust-stable//24.08
 
 Papers uses code formatters to increase consistency and simplify development.
 Please fix CI code formatting issues, and configure your development environment
-to use clang-format for C code, and rust-fmt for Rust code.
+to use clang-format for C code, and rustfmt for Rust code.
 
 ### Commit messages
 
