@@ -6,6 +6,7 @@ min_cfg_version = "4.0"
 work_mode = "sys"
 disable_format = false
 girs_directories = ["../../gir-files/", "../../ev-girs"]
+single_version_file = true
 
 external_libraries = [
     "Gio",
