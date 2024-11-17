@@ -3245,6 +3245,7 @@ pps_document_view_cmd_add_highlight_annotation (GSimpleAction *action,
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (PPS_DOCUMENT_VIEW (user_data));
 
 	pps_view_add_text_markup_annotation_for_selected_text (PPS_VIEW (priv->view));
+	g_signal_emit_by_name (priv->sidebar_annots, "annot-added", NULL);
 }
 
 static void
