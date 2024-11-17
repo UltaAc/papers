@@ -27,19 +27,25 @@ impl View {
         unsafe { from_glib_none(ffi::pps_view_new()) }
     }
 
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    #[doc(alias = "pps_view_add_text_annotation_at_point")]
+    pub fn add_text_annotation_at_point(&self, x: i32, y: i32) -> bool {
+        unsafe {
+            from_glib(ffi::pps_view_add_text_annotation_at_point(
+                self.to_glib_none().0,
+                x,
+                y,
+            ))
+        }
+    }
+
     #[doc(alias = "pps_view_add_text_markup_annotation_for_selected_text")]
     pub fn add_text_markup_annotation_for_selected_text(&self) -> bool {
         unsafe {
             from_glib(ffi::pps_view_add_text_markup_annotation_for_selected_text(
                 self.to_glib_none().0,
             ))
-        }
-    }
-
-    #[doc(alias = "pps_view_begin_add_text_annotation")]
-    pub fn begin_add_text_annotation(&self) {
-        unsafe {
-            ffi::pps_view_begin_add_text_annotation(self.to_glib_none().0);
         }
     }
 
@@ -53,13 +59,6 @@ impl View {
     #[doc(alias = "can-zoom-out")]
     pub fn can_zoom_out(&self) -> bool {
         unsafe { from_glib(ffi::pps_view_can_zoom_out(self.to_glib_none().0)) }
-    }
-
-    #[doc(alias = "pps_view_cancel_add_text_annotation")]
-    pub fn cancel_add_text_annotation(&self) {
-        unsafe {
-            ffi::pps_view_cancel_add_text_annotation(self.to_glib_none().0);
-        }
     }
 
     #[doc(alias = "pps_view_cancel_signature_rect")]
@@ -365,38 +364,6 @@ impl View {
 
     pub fn emit_activate(&self) {
         self.emit_by_name::<()>("activate", &[]);
-    }
-
-    #[doc(alias = "annot-added")]
-    pub fn connect_annot_added<F: Fn(&Self, &papers_document::Annotation) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
-        unsafe extern "C" fn annot_added_trampoline<
-            F: Fn(&View, &papers_document::Annotation) + 'static,
-        >(
-            this: *mut ffi::PpsView,
-            object: *mut papers_document::ffi::PpsAnnotation,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), &from_glib_borrow(object))
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"annot-added\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
-                    annot_added_trampoline::<F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
-        }
-    }
-
-    pub fn emit_annot_added(&self, object: &papers_document::Annotation) {
-        self.emit_by_name::<()>("annot-added", &[&object]);
     }
 
     #[doc(alias = "annot-removed")]

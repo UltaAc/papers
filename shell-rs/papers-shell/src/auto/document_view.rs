@@ -339,16 +339,6 @@ pub trait DocumentViewExt: IsA<DocumentView> + sealed::Sealed + 'static {
         }
     }
 
-    #[doc(alias = "pps_document_view_set_document")]
-    fn set_document(&self, document: &impl IsA<papers_document::Document>) {
-        unsafe {
-            ffi::pps_document_view_set_document(
-                self.as_ref().to_glib_none().0,
-                document.as_ref().to_glib_none().0,
-            );
-        }
-    }
-
     #[doc(alias = "pps_document_view_set_filenames")]
     fn set_filenames(&self, display_name: &str, edit_name: &str) {
         unsafe {
