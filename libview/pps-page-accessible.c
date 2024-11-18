@@ -948,7 +948,7 @@ pps_page_accessible_get_offset_at_point (AtkText *text,
 	guint i;
 	gint x_widget, y_widget;
 	gint offset = -1;
-	GdkPoint view_point;
+	gdouble view_x, view_y;
 	gdouble doc_x, doc_y;
 	GtkBorder border;
 	GdkRectangle page_area;
@@ -960,23 +960,23 @@ pps_page_accessible_get_offset_at_point (AtkText *text,
 	if (!areas)
 		return -1;
 
-	view_point.x = x;
-	view_point.y = y;
+	view_x = x;
+	view_y = y;
 	toplevel = gtk_widget_get_toplevel (GTK_WIDGET (view));
 	gtk_widget_translate_coordinates (GTK_WIDGET (view), toplevel, 0, 0, &x_widget, &y_widget);
-	view_point.x -= x_widget;
-	view_point.y -= y_widget;
+	view_x -= x_widget;
+	view_y -= y_widget;
 
 	if (coords == ATK_XY_SCREEN) {
 		gint x_window, y_window;
 
 		gdk_window_get_origin (gtk_widget_get_window (toplevel), &x_window, &y_window);
-		view_point.x -= x_window;
-		view_point.y -= y_window;
+		view_x -= x_window;
+		view_y -= y_window;
 	}
 
 	pps_view_get_page_extents (view, self->priv->page, &page_area, &border);
-	_pps_view_transform_view_point_to_doc_point (view, &view_point, &page_area, &border, &doc_x, &doc_y);
+	_pps_view_transform_view_point_to_doc_point (view, view_x, view_y, &page_area, &border, &doc_x, &doc_y);
 
 	for (i = 0; i < n_areas; i++) {
 		rect = areas + i;
@@ -1017,7 +1017,7 @@ pps_page_accessible_set_selection (AtkText *text,
 	PpsRectangle *areas = NULL;
 	guint n_areas = 0;
 	GdkRectangle start_rect, end_rect;
-	GdkPoint start_point, end_point;
+	gdouble start_x, start_y, end_x, end_y;
 
 	pps_page_cache_get_text_layout (view->page_cache, self->priv->page, &areas, &n_areas);
 	if (start_pos < 0 || end_pos >= n_areas)
@@ -1025,11 +1025,11 @@ pps_page_accessible_set_selection (AtkText *text,
 
 	_pps_view_transform_doc_rect_to_view_rect (view, self->priv->page, areas + start_pos, &start_rect);
 	_pps_view_transform_doc_rect_to_view_rect (view, self->priv->page, areas + end_pos - 1, &end_rect);
-	start_point.x = start_rect.x;
-	start_point.y = start_rect.y;
-	end_point.x = end_rect.x + end_rect.width;
-	end_point.y = end_rect.y + end_rect.height;
-	_pps_view_set_selection (view, &start_point, &end_point);
+	start_x = start_rect.x;
+	start_y = start_rect.y;
+	end_x = end_rect.x + end_rect.width;
+	end_y = end_rect.y + end_rect.height;
+	_pps_view_set_selection (view, start_x, start_y, end_x, end_y);
 
 	return TRUE;
 }
@@ -1052,7 +1052,7 @@ pps_page_accessible_scroll_substring_to (AtkText *text,
 	PpsPageAccessible *self = PPS_PAGE_ACCESSIBLE (text);
 	PpsView *view = pps_page_accessible_get_view (self);
 	GdkRectangle start_rect, end_rect;
-	GdkPoint start_point, end_point;
+	gdouble start_x, start_y, end_x, end_y;
 	gdouble hpage_size, vpage_size;
 	PpsRectangle *areas = NULL;
 	guint n_areas = 0;
@@ -1066,34 +1066,34 @@ pps_page_accessible_scroll_substring_to (AtkText *text,
 
 	_pps_view_transform_doc_rect_to_view_rect (view, self->priv->page, areas + start_pos, &start_rect);
 	_pps_view_transform_doc_rect_to_view_rect (view, self->priv->page, areas + end_pos - 1, &end_rect);
-	start_point.x = start_rect.x;
-	start_point.y = start_rect.y;
-	end_point.x = end_rect.x + end_rect.width;
-	end_point.y = end_rect.y + end_rect.height;
+	start_x = start_rect.x;
+	start_y = start_rect.y;
+	end_x = end_rect.x + end_rect.width;
+	end_y = end_rect.y + end_rect.height;
 
 	hpage_size = gtk_adjustment_get_page_size (view->hadjustment);
 	vpage_size = gtk_adjustment_get_page_size (view->vadjustment);
 
 	switch (type) {
 	case ATK_SCROLL_TOP_LEFT:
-		gtk_adjustment_clamp_page (view->hadjustment, start_point.x, start_point.x + hpage_size);
-		gtk_adjustment_clamp_page (view->vadjustment, start_point.y, start_point.y + vpage_size);
+		gtk_adjustment_clamp_page (view->hadjustment, start_x, start_x + hpage_size);
+		gtk_adjustment_clamp_page (view->vadjustment, start_y, start_y + vpage_size);
 		break;
 	case ATK_SCROLL_BOTTOM_RIGHT:
-		gtk_adjustment_clamp_page (view->hadjustment, end_point.x - hpage_size, end_point.x);
-		gtk_adjustment_clamp_page (view->vadjustment, end_point.y - vpage_size, end_point.y);
+		gtk_adjustment_clamp_page (view->hadjustment, end_x - hpage_size, end_x);
+		gtk_adjustment_clamp_page (view->vadjustment, end_y - vpage_size, end_y);
 		break;
 	case ATK_SCROLL_TOP_EDGE:
-		gtk_adjustment_clamp_page (view->vadjustment, start_point.y, start_point.y + vpage_size);
+		gtk_adjustment_clamp_page (view->vadjustment, start_y, start_y + vpage_size);
 		break;
 	case ATK_SCROLL_BOTTOM_EDGE:
-		gtk_adjustment_clamp_page (view->vadjustment, end_point.y - vpage_size, end_point.y);
+		gtk_adjustment_clamp_page (view->vadjustment, end_y - vpage_size, end_y);
 		break;
 	case ATK_SCROLL_LEFT_EDGE:
-		gtk_adjustment_clamp_page (view->hadjustment, start_point.x, start_point.x + hpage_size);
+		gtk_adjustment_clamp_page (view->hadjustment, start_x, start_x + hpage_size);
 		break;
 	case ATK_SCROLL_RIGHT_EDGE:
-		gtk_adjustment_clamp_page (view->hadjustment, end_point.x - hpage_size, end_point.x);
+		gtk_adjustment_clamp_page (view->hadjustment, end_x - hpage_size, end_x);
 		break;
 	case ATK_SCROLL_ANYWHERE:
 		_pps_view_ensure_rectangle_is_visible (view, &end_rect);
@@ -1117,7 +1117,7 @@ pps_page_accessible_scroll_substring_to_point (AtkText *text,
 	PpsPageAccessible *self = PPS_PAGE_ACCESSIBLE (text);
 	PpsView *view = pps_page_accessible_get_view (self);
 	GdkRectangle start_rect;
-	GdkPoint view_point, start_point;
+	gdouble view_x, view_y, start_x, start_y;
 	gdouble hpage_size, vpage_size;
 	PpsRectangle *areas = NULL;
 	guint n_areas = 0;
@@ -1136,36 +1136,36 @@ pps_page_accessible_scroll_substring_to_point (AtkText *text,
 
 	/* Assume that the API wants to place the top left of the substring at (x, y). */
 	_pps_view_transform_doc_rect_to_view_rect (view, self->priv->page, areas + start_pos, &start_rect);
-	start_point.x = start_rect.x;
-	start_point.y = start_rect.y;
+	start_x = start_rect.x;
+	start_y = start_rect.y;
 
 	hpage_size = gtk_adjustment_get_page_size (view->hadjustment);
 	vpage_size = gtk_adjustment_get_page_size (view->vadjustment);
 
-	view_point.x = x;
-	view_point.y = y;
+	view_x = x;
+	view_y = y;
 	toplevel = gtk_widget_get_toplevel (GTK_WIDGET (view));
 	gtk_widget_translate_coordinates (GTK_WIDGET (view), toplevel, 0, 0, &x_widget, &y_widget);
-	view_point.x -= x_widget;
-	view_point.y -= y_widget;
+	view_x -= x_widget;
+	view_y -= y_widget;
 
 	if (coords == ATK_XY_SCREEN) {
 		gint x_window, y_window;
 
 		gdk_window_get_origin (gtk_widget_get_window (toplevel), &x_window, &y_window);
-		view_point.x -= x_window;
-		view_point.y -= y_window;
+		view_x -= x_window;
+		view_y -= y_window;
 	}
 
 	pps_view_get_page_extents (view, self->priv->page, &page_area, &border);
-	_pps_view_transform_view_point_to_doc_point (view, &view_point, &page_area, &border, &doc_x, &doc_y);
+	_pps_view_transform_view_point_to_doc_point (view, view_x, view_y, &page_area, &border, &doc_x, &doc_y);
 
 	/* Calculate scrolling difference */
-	start_point.x -= doc_x;
-	start_point.y -= doc_y;
+	start_x -= doc_x;
+	start_y -= doc_y;
 
-	gtk_adjustment_clamp_page (view->hadjustment, start_point.x, start_point.x + hpage_size);
-	gtk_adjustment_clamp_page (view->vadjustment, start_point.y, start_point.y + vpage_size);
+	gtk_adjustment_clamp_page (view->hadjustment, start_x, start_x + hpage_size);
+	gtk_adjustment_clamp_page (view->vadjustment, start_y, start_y + vpage_size);
 
 	return TRUE;
 }

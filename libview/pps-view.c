@@ -260,8 +260,10 @@ static void pps_view_find_cancel (PpsView *view);
 /*** Selection ***/
 static void compute_selections (PpsView *view,
                                 PpsSelectionStyle style,
-                                GdkPoint *start,
-                                GdkPoint *stop);
+                                gdouble start_x,
+                                gdouble start_y,
+                                gdouble stop_x,
+                                gdouble stop_y);
 static void clear_selection (PpsView *view);
 static void selection_free (PpsViewSelection *selection);
 static char *get_selected_text (PpsView *pps_view);
@@ -532,12 +534,14 @@ pps_view_scroll_to_page_position (PpsView *view, GtkOrientation orientation)
 		x = MAX (0, page_area.x - priv->spacing);
 		y = MAX (0, page_area.y - priv->spacing);
 	} else {
-		GdkPoint view_point;
+		gdouble view_point_x, view_point_y;
 
 		_pps_view_transform_doc_point_to_view_point (view, priv->current_page,
-		                                             &priv->pending_point, &view_point);
-		x = view_point.x;
-		y = view_point.y;
+		                                             &priv->pending_point,
+		                                             &view_point_x,
+		                                             &view_point_y);
+		x = view_point_x;
+		y = view_point_y;
 	}
 
 	scroll_to_point (view, x, y, orientation);
@@ -1349,7 +1353,8 @@ get_doc_page_size (PpsView *view,
 
 void
 _pps_view_transform_view_point_to_doc_point (PpsView *view,
-                                             GdkPoint *view_point,
+                                             gdouble view_point_x,
+                                             gdouble view_point_y,
                                              GdkRectangle *page_area,
                                              GtkBorder *border,
                                              double *doc_point_x,
@@ -1358,8 +1363,8 @@ _pps_view_transform_view_point_to_doc_point (PpsView *view,
 	double x, y, width, height, doc_x, doc_y;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	x = doc_x = MAX ((double) (view_point->x - page_area->x - border->left) / priv->scale, 0);
-	y = doc_y = MAX ((double) (view_point->y - page_area->y - border->top) / priv->scale, 0);
+	x = doc_x = MAX ((double) (view_point_x - page_area->x - border->left) / priv->scale, 0);
+	y = doc_y = MAX ((double) (view_point_y - page_area->y - border->top) / priv->scale, 0);
 
 	pps_document_get_page_size (priv->document, priv->current_page, &width, &height);
 
@@ -1406,7 +1411,8 @@ void
 _pps_view_transform_doc_point_by_rotation_scale (PpsView *view,
                                                  int page,
                                                  PpsPoint *doc_point,
-                                                 GdkPoint *view_point)
+                                                 gdouble *view_point_x,
+                                                 gdouble *view_point_y)
 {
 	GdkRectangle page_area;
 	GtkBorder border;
@@ -1449,24 +1455,25 @@ _pps_view_transform_doc_point_by_rotation_scale (PpsView *view,
 	view_x = CLAMP ((gint) (x * priv->scale + 0.5), 0, page_area.width);
 	view_y = CLAMP ((gint) (y * priv->scale + 0.5), 0, page_area.height);
 
-	view_point->x = view_x;
-	view_point->y = view_y;
+	*view_point_x = view_x;
+	*view_point_y = view_y;
 }
 
 void
 _pps_view_transform_doc_point_to_view_point (PpsView *view,
                                              int page,
                                              PpsPoint *doc_point,
-                                             GdkPoint *view_point)
+                                             gdouble *view_point_x,
+                                             gdouble *view_point_y)
 {
 	GdkRectangle page_area;
 	GtkBorder border;
-	_pps_view_transform_doc_point_by_rotation_scale (view, page, doc_point, view_point);
+	_pps_view_transform_doc_point_by_rotation_scale (view, page, doc_point, view_point_x, view_point_y);
 
 	pps_view_get_page_extents (view, page, &page_area, &border);
 
-	view_point->x = view_point->x + page_area.x + border.left;
-	view_point->y = view_point->y + page_area.y + border.top;
+	*view_point_x = *view_point_x + page_area.x + border.left;
+	*view_point_y = *view_point_y + page_area.y + border.top;
 }
 
 void
@@ -1595,8 +1602,8 @@ get_doc_point_from_offset (PpsView *view,
                            gint page,
                            gint x_offset,
                            gint y_offset,
-                           gint *x_new,
-                           gint *y_new)
+                           gdouble *x_new,
+                           gdouble *y_new)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	gdouble width, height;
@@ -1634,8 +1641,8 @@ get_doc_point_from_location (PpsView *view,
                              gdouble x,
                              gdouble y,
                              gint *page,
-                             gint *x_new,
-                             gint *y_new)
+                             gdouble *x_new,
+                             gdouble *y_new)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	gint x_offset = 0, y_offset = 0;
@@ -1718,7 +1725,7 @@ get_link_mapping_at_location (PpsView *view,
                               gint *page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	gint x_new = 0, y_new = 0;
+	gdouble x_new = 0, y_new = 0;
 	PpsMappingList *link_mapping;
 
 	if (!PPS_IS_DOCUMENT_LINKS (priv->document))
@@ -2189,7 +2196,7 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y)
 	GdkTexture *page_texture = NULL;
 	guint link_dest_page;
 	PpsPoint link_dest_doc;
-	GdkPoint link_dest_view;
+	gdouble link_dest_x, link_dest_y;
 	gint device_scale = 1;
 
 	pps_view_set_cursor (view, PPS_VIEW_CURSOR_LINK);
@@ -2243,9 +2250,9 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y)
 	link_dest_doc.x = pps_link_dest_get_left (dest, NULL);
 	link_dest_doc.y = pps_link_dest_get_top (dest, NULL);
 	_pps_view_transform_doc_point_by_rotation_scale (view, link_dest_page,
-	                                                 &link_dest_doc, &link_dest_view);
-	priv->link_preview.left = link_dest_view.x;
-	priv->link_preview.top = link_dest_view.y;
+	                                                 &link_dest_doc, &link_dest_x, &link_dest_y);
+	priv->link_preview.left = link_dest_x;
+	priv->link_preview.top = link_dest_y;
 	priv->link_preview.link = link;
 
 	page_texture = pps_pixbuf_cache_get_texture (priv->pixbuf_cache, link_dest_page);
@@ -2330,7 +2337,7 @@ pps_view_get_image_at_location (PpsView *view,
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	gint page = -1;
-	gint x_new = 0, y_new = 0;
+	gdouble x_new = 0, y_new = 0;
 	PpsMappingList *image_mapping;
 
 	if (!PPS_IS_DOCUMENT_IMAGES (priv->document))
@@ -2411,7 +2418,7 @@ get_form_field_mapping_at_location (PpsView *view,
                                     gint *page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	gint x_new = 0, y_new = 0;
+	gdouble x_new = 0, y_new = 0;
 	PpsMappingList *forms_mapping;
 
 	if (!PPS_IS_DOCUMENT_FORMS (priv->document))
@@ -3028,7 +3035,7 @@ get_media_mapping_at_location (PpsView *view,
                                gint *page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	gint x_new = 0, y_new = 0;
+	gdouble x_new = 0, y_new = 0;
 	PpsMappingList *media_mapping;
 
 	if (!PPS_IS_DOCUMENT_MEDIA (priv->document))
@@ -3342,7 +3349,7 @@ get_annotation_mapping_at_location (PpsView *view,
                                     gint *page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	gint x_new = 0, y_new = 0;
+	gdouble x_new = 0, y_new = 0;
 	PpsMappingList *annotations_mapping;
 	PpsDocumentAnnotations *doc_annots;
 	PpsAnnotation *annot;
@@ -3602,13 +3609,14 @@ pps_view_add_text_annotation_at_point (PpsView *view,
 	gint offset;
 	GdkRectangle page_area;
 	GtkBorder border;
-	GdkPoint point;
+	gdouble point_x;
+	gdouble point_y;
 
 	x += priv->scroll_x;
 	y += priv->scroll_y;
 
-	point.x = x;
-	point.y = y;
+	point_x = x;
+	point_y = y;
 
 	find_page_at_location (view, x, y,
 	                       &annot_page, &offset, &offset);
@@ -3616,7 +3624,7 @@ pps_view_add_text_annotation_at_point (PpsView *view,
 		return FALSE;
 
 	pps_view_get_page_extents (view, annot_page, &page_area, &border);
-	_pps_view_transform_view_point_to_doc_point (view, &point,
+	_pps_view_transform_view_point_to_doc_point (view, point_x, point_y,
 	                                             &page_area, &border,
 	                                             &doc_point.x, &doc_point.y);
 
@@ -3636,7 +3644,7 @@ pps_view_get_doc_points_from_selection_region (PpsView *view,
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	cairo_rectangle_int_t first, last;
-	GdkPoint start, stop;
+	gdouble start_x, start_y, stop_x, stop_y;
 	cairo_region_t *region = NULL;
 
 	if (!priv->pixbuf_cache)
@@ -3651,17 +3659,17 @@ pps_view_get_doc_points_from_selection_region (PpsView *view,
 	cairo_region_get_rectangle (region, cairo_region_num_rectangles (region) - 1, &last);
 
 	if (!get_doc_point_from_offset (view, page, first.x, first.y + (first.height / 2),
-	                                &(start.x), &(start.y)))
+	                                &start_x, &start_y))
 		return FALSE;
 
 	if (!get_doc_point_from_offset (view, page, last.x + last.width, last.y + (last.height / 2),
-	                                &(stop.x), &(stop.y)))
+	                                &stop_x, &stop_y))
 		return FALSE;
 
-	begin->x = start.x;
-	begin->y = start.y;
-	end->x = stop.x;
-	end->y = stop.y;
+	begin->x = start_x;
+	begin->y = start_y;
+	end->x = stop_x;
+	end->y = stop_y;
 
 	return TRUE;
 }
@@ -4628,10 +4636,10 @@ draw_selection_rect (PpsView *view,
 	if (!priv->signing_info.in_selection)
 		return;
 
-	pos_x1 = priv->signing_info.start.x - priv->scroll_x;
-	pos_y1 = priv->signing_info.start.y - priv->scroll_y;
-	pos_x2 = priv->signing_info.stop.x - priv->scroll_x;
-	pos_y2 = priv->signing_info.stop.y - priv->scroll_y;
+	pos_x1 = priv->signing_info.start_x - priv->scroll_x;
+	pos_y1 = priv->signing_info.start_y - priv->scroll_y;
+	pos_x2 = priv->signing_info.stop_x - priv->scroll_x;
+	pos_y2 = priv->signing_info.stop_y - priv->scroll_y;
 
 	x = MIN (pos_x1, pos_x2);
 	y = MIN (pos_y1, pos_y2);
@@ -5129,7 +5137,7 @@ position_caret_cursor_at_location (PpsView *view,
                                    gdouble y)
 {
 	gint page;
-	gint doc_x, doc_y;
+	gdouble doc_x, doc_y;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (!priv->caret_enabled || priv->rotation != 0)
@@ -5226,14 +5234,14 @@ pps_view_button_press_event (GtkGestureClick *self,
 				break;
 			}
 			if (n_press > 1) {
-				GdkPoint point;
+				double point_x, point_y;
 				/* In case of WORD or LINE, compute selections */
-				point.x = x + priv->scroll_x;
-				point.y = y + priv->scroll_y;
+				point_x = x + priv->scroll_x;
+				point_y = y + priv->scroll_y;
 				compute_selections (view,
 				                    priv->selection_info.style,
-				                    &point,
-				                    &point);
+				                    point_x, point_y,
+				                    point_x, point_y);
 			}
 		}
 
@@ -5270,16 +5278,16 @@ pps_view_scroll_drag_release (PpsView *view)
 	gdouble h_upper, v_upper;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	priv->drag_info.momentum.x /= 1.2;
-	priv->drag_info.momentum.y /= 1.2; /* Alter these constants to change "friction" */
+	priv->drag_info.momentum_x /= 1.2;
+	priv->drag_info.momentum_y /= 1.2; /* Alter these constants to change "friction" */
 
 	h_page_size = gtk_adjustment_get_page_size (priv->hadjustment);
 	v_page_size = gtk_adjustment_get_page_size (priv->vadjustment);
 
 	dhadj_value = h_page_size *
-	              (gdouble) priv->drag_info.momentum.x / gtk_widget_get_width (GTK_WIDGET (view));
+	              (gdouble) priv->drag_info.momentum_x / gtk_widget_get_width (GTK_WIDGET (view));
 	dvadj_value = v_page_size *
-	              (gdouble) priv->drag_info.momentum.y / gtk_widget_get_height (GTK_WIDGET (view));
+	              (gdouble) priv->drag_info.momentum_y / gtk_widget_get_height (GTK_WIDGET (view));
 
 	oldhadjustment = gtk_adjustment_get_value (priv->hadjustment);
 	oldvadjustment = gtk_adjustment_get_value (priv->vadjustment);
@@ -5291,10 +5299,10 @@ pps_view_scroll_drag_release (PpsView *view)
 	 * multiplying it on -0.5 or stop scrolling by setting momentum to 0. */
 	if (((oldhadjustment + dhadj_value) > (h_upper - h_page_size)) ||
 	    ((oldhadjustment + dhadj_value) < 0))
-		priv->drag_info.momentum.x = 0;
+		priv->drag_info.momentum_x = 0;
 	if (((oldvadjustment + dvadj_value) > (v_upper - v_page_size)) ||
 	    ((oldvadjustment + dvadj_value) < 0))
-		priv->drag_info.momentum.y = 0;
+		priv->drag_info.momentum_y = 0;
 
 	gtk_adjustment_set_value (priv->hadjustment,
 	                          MIN (oldhadjustment + dhadj_value,
@@ -5303,8 +5311,8 @@ pps_view_scroll_drag_release (PpsView *view)
 	                          MIN (oldvadjustment + dvadj_value,
 	                               v_upper - v_page_size));
 
-	if (((priv->drag_info.momentum.x < 1) && (priv->drag_info.momentum.x > -1)) &&
-	    ((priv->drag_info.momentum.y < 1) && (priv->drag_info.momentum.y > -1)))
+	if (((priv->drag_info.momentum_x < 1) && (priv->drag_info.momentum_x > -1)) &&
+	    ((priv->drag_info.momentum_y < 1) && (priv->drag_info.momentum_y > -1)))
 		return G_SOURCE_REMOVE;
 	else
 		return G_SOURCE_CONTINUE;
@@ -5372,8 +5380,8 @@ middle_clicked_end_swipe_cb (GtkGestureSwipe *gesture,
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	priv->drag_info.momentum.x = -velocity_x / 100;
-	priv->drag_info.momentum.y = -velocity_y / 100;
+	priv->drag_info.momentum_x = -velocity_x / 100;
+	priv->drag_info.momentum_y = -velocity_y / 100;
 
 	priv->drag_info.release_timeout_id =
 	    g_timeout_add (20, (GSourceFunc) pps_view_scroll_drag_release, view);
@@ -5414,8 +5422,8 @@ selection_update_idle_cb (PpsView *view)
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	compute_selections (view,
 	                    priv->selection_info.style,
-	                    &priv->selection_info.start,
-	                    &priv->motion);
+	                    priv->selection_info.start_x, priv->selection_info.start_y,
+	                    priv->motion_x, priv->motion_y);
 	priv->selection_update_id = 0;
 }
 
@@ -5461,7 +5469,8 @@ selection_scroll_timeout_cb (PpsView *view)
 
 static void
 pps_view_move_annot_to_point (PpsView *view,
-                              GdkPoint *view_point)
+                              gdouble view_point_x,
+                              gdouble view_point_y)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsRectangle rect;
@@ -5476,7 +5485,7 @@ pps_view_move_annot_to_point (PpsView *view,
 	pps_annotation_get_area (priv->moving_annot_info.annot, &current_area);
 	annot_page = pps_annotation_get_page_index (priv->moving_annot_info.annot);
 	pps_view_get_page_extents (view, annot_page, &page_area, &border);
-	_pps_view_transform_view_point_to_doc_point (view, view_point, &page_area, &border,
+	_pps_view_transform_view_point_to_doc_point (view, view_point_x, view_point_y, &page_area, &border,
 	                                             &doc_point.x, &doc_point.y);
 
 	pps_document_get_page_size (priv->document, annot_page, &page_width, &page_height);
@@ -5538,8 +5547,8 @@ selection_update_cb (GtkGestureDrag *selection_gesture,
 
 	gtk_gesture_drag_get_start_point (selection_gesture, &x, &y);
 
-	priv->motion.x = x + offset_x + priv->scroll_x;
-	priv->motion.y = y + offset_y + priv->scroll_y;
+	priv->motion_x = x + offset_x + priv->scroll_x;
+	priv->motion_y = y + offset_y + priv->scroll_y;
 
 	/* Queue an idle to handle the motion.  We do this because
 	 * handling any selection events in the motion could be slower
@@ -5575,8 +5584,8 @@ selection_begin_cb (GtkGestureDrag *selection_gesture,
 
 		selection_update_cb (selection_gesture, 0, 0, view);
 	} else {
-		priv->selection_info.start.x = x + priv->scroll_x;
-		priv->selection_info.start.y = y + priv->scroll_y;
+		priv->selection_info.start_x = x + priv->scroll_x;
+		priv->selection_info.start_y = y + priv->scroll_y;
 	}
 }
 
@@ -5608,8 +5617,8 @@ signing_update_cb (GtkGestureDrag *signing_gesture,
 	if (!priv->signing_info.active)
 		return;
 
-	priv->signing_info.stop.x = priv->signing_info.start.x + offset_x;
-	priv->signing_info.stop.y = priv->signing_info.start.y + offset_y;
+	priv->signing_info.stop_x = priv->signing_info.start_x + offset_x;
+	priv->signing_info.stop_y = priv->signing_info.start_y + offset_y;
 	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
@@ -5626,9 +5635,10 @@ signing_begin_cb (GtkGestureDrag *signing_gesture,
 
 	gtk_gesture_set_state (GTK_GESTURE (signing_gesture), GTK_EVENT_SEQUENCE_CLAIMED);
 
-	priv->signing_info.start.x = x + priv->scroll_x;
-	priv->signing_info.start.y = y + priv->scroll_y;
-	priv->signing_info.stop = priv->signing_info.start;
+	priv->signing_info.start_x = x + priv->scroll_x;
+	priv->signing_info.start_y = y + priv->scroll_y;
+	priv->signing_info.stop_x = priv->signing_info.start_x;
+	priv->signing_info.stop_y = priv->signing_info.start_y;
 	priv->signing_info.in_selection = TRUE;
 }
 
@@ -5656,6 +5666,7 @@ annotation_drag_update_cb (GtkGestureDrag *annotation_drag_gesture,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GdkEventSequence *sequence = gtk_gesture_single_get_current_sequence (GTK_GESTURE_SINGLE (annotation_drag_gesture));
 	gdouble x, y;
+	gdouble view_point_x, view_point_y;
 
 	if (!priv->moving_annot_info.annot)
 		g_assert_not_reached ();
@@ -5670,10 +5681,9 @@ annotation_drag_update_cb (GtkGestureDrag *annotation_drag_gesture,
 
 	gtk_gesture_drag_get_start_point (annotation_drag_gesture, &x, &y);
 
-	GdkPoint view_point;
-	view_point.x = x + offset_x + priv->scroll_x;
-	view_point.y = y + offset_y + priv->scroll_y;
-	pps_view_move_annot_to_point (view, &view_point);
+	view_point_x = x + offset_x + priv->scroll_x;
+	view_point_y = y + offset_y + priv->scroll_y;
+	pps_view_move_annot_to_point (view, view_point_x, view_point_y);
 }
 
 static void
@@ -5685,7 +5695,8 @@ annotation_drag_begin_cb (GtkGestureDrag *annotation_drag_gesture,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsAnnotation *annot = pps_view_get_annotation_at_location (view, x, y);
 	PpsRectangle current_area;
-	GdkPoint view_point;
+	gdouble view_point_x;
+	gdouble view_point_y;
 	PpsPoint doc_point;
 	GdkRectangle page_area;
 	GtkBorder border;
@@ -5703,11 +5714,11 @@ annotation_drag_begin_cb (GtkGestureDrag *annotation_drag_gesture,
 	/* Remember the offset of the cursor with respect to
 	 * the annotation area in order to prevent the annotation from
 	 * jumping under the cursor while moving it. */
-	view_point.x = x + priv->scroll_x;
-	view_point.y = y + priv->scroll_y;
+	view_point_x = x + priv->scroll_x;
+	view_point_y = y + priv->scroll_y;
 	annot_page = pps_annotation_get_page_index (annot);
 	pps_view_get_page_extents (view, annot_page, &page_area, &border);
-	_pps_view_transform_view_point_to_doc_point (view, &view_point,
+	_pps_view_transform_view_point_to_doc_point (view, view_point_x, view_point_y,
 	                                             &page_area, &border,
 	                                             &doc_point.x, &doc_point.y);
 	priv->moving_annot_info.cursor_offset.x = doc_point.x - current_area.x1;
@@ -6254,7 +6265,7 @@ cursor_clear_selection (PpsView *view,
 	PpsViewSelection *selection;
 	cairo_rectangle_int_t rect;
 	cairo_region_t *region, *tmp_region = NULL;
-	gint doc_x, doc_y;
+	gdouble doc_x, doc_y;
 	GdkRectangle area;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -6492,21 +6503,21 @@ pps_view_move_cursor (PpsView *view,
 
 	/* Select text */
 	if (extend_selections && PPS_IS_SELECTION (priv->document)) {
-		GdkPoint start_point, end_point;
+		gdouble start_x, start_y, end_x, end_y;
 
 		if (!get_caret_cursor_area (view, select_start_page, select_start_offset, &select_start_rect))
 			return TRUE;
 
-		start_point.x = select_start_rect.x + priv->scroll_x;
-		start_point.y = select_start_rect.y + (select_start_rect.height / 2) + priv->scroll_y;
+		start_x = select_start_rect.x + priv->scroll_x;
+		start_y = select_start_rect.y + (select_start_rect.height / 2) + priv->scroll_y;
 
-		end_point.x = rect.x;
-		end_point.y = rect.y + rect.height / 2;
+		end_x = rect.x;
+		end_y = rect.y + rect.height / 2;
 
 		compute_selections (view,
 		                    PPS_SELECTION_STYLE_GLYPH,
-		                    &start_point,
-		                    &end_point);
+		                    start_x, start_y,
+		                    end_x, end_y);
 	} else if (clear_selections)
 		clear_selection (view);
 
@@ -7973,14 +7984,15 @@ pps_view_continuous_changed_cb (PpsDocumentModel *model,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (priv->document) {
-		GdkPoint view_point;
+		gdouble view_point_x;
+		gdouble view_point_y;
 		GdkRectangle page_area;
 		GtkBorder border;
 
-		view_point.x = priv->scroll_x;
-		view_point.y = priv->scroll_y;
+		view_point_x = priv->scroll_x;
+		view_point_y = priv->scroll_y;
 		pps_view_get_page_extents (view, priv->start_page, &page_area, &border);
-		_pps_view_transform_view_point_to_doc_point (view, &view_point,
+		_pps_view_transform_view_point_to_doc_point (view, view_point_x, view_point_y,
 		                                             &page_area, &border,
 		                                             &priv->pending_point.x,
 		                                             &priv->pending_point.y);
@@ -8762,26 +8774,28 @@ pps_view_find_cancel (PpsView *view)
 /*** Selections ***/
 static gboolean
 gdk_rectangle_point_in (GdkRectangle *rectangle,
-                        GdkPoint *point)
+                        gdouble x,
+                        gdouble y)
 {
-	return rectangle->x <= point->x &&
-	       rectangle->y <= point->y &&
-	       point->x < rectangle->x + rectangle->width &&
-	       point->y < rectangle->y + rectangle->height;
+	return rectangle->x <= x &&
+	       rectangle->y <= y &&
+	       x < rectangle->x + rectangle->width &&
+	       y < rectangle->y + rectangle->height;
 }
 
 static inline gboolean
-gdk_point_equal (GdkPoint *a,
-                 GdkPoint *b)
+gdk_point_equal (gdouble x1, gdouble y1, gdouble x2, gdouble y2)
 {
-	return a->x == b->x && a->y == b->y;
+	return x1 == x2 && y1 == y2;
 }
 
 static gboolean
 get_selection_page_range (PpsView *view,
                           PpsSelectionStyle style,
-                          GdkPoint *start,
-                          GdkPoint *stop,
+                          gdouble start_x,
+                          gdouble start_y,
+                          gdouble stop_x,
+                          gdouble stop_y,
                           gint *first_page,
                           gint *last_page)
 {
@@ -8793,7 +8807,7 @@ get_selection_page_range (PpsView *view,
 
 	n_pages = pps_document_get_n_pages (priv->document);
 
-	if (gdk_point_equal (start, stop)) {
+	if (gdk_point_equal (start_x, start_y, stop_x, stop_y)) {
 		start_page = priv->start_page;
 		end_page = priv->end_page;
 	} else if (priv->continuous) {
@@ -8818,8 +8832,8 @@ get_selection_page_range (PpsView *view,
 		page_area.y -= border.top;
 		page_area.width += border.left + border.right;
 		page_area.height += border.top + border.bottom;
-		if (gdk_rectangle_point_in (&page_area, start) ||
-		    gdk_rectangle_point_in (&page_area, stop)) {
+		if (gdk_rectangle_point_in (&page_area, start_x, start_y) ||
+		    gdk_rectangle_point_in (&page_area, stop_x, stop_y)) {
 			if (first == -1)
 				first = i;
 			last = i;
@@ -8839,19 +8853,21 @@ get_selection_page_range (PpsView *view,
 static GList *
 compute_new_selection (PpsView *view,
                        PpsSelectionStyle style,
-                       GdkPoint *start,
-                       GdkPoint *stop)
+                       gdouble start_x,
+                       gdouble start_y,
+                       gdouble stop_x,
+                       gdouble stop_y)
 {
 	int i, first, last;
 	GtkBorder border;
 	GList *list = NULL;
 
 	/* First figure out the range of pages the selection affects. */
-	if (!get_selection_page_range (view, style, start, stop, &first, &last))
+	if (!get_selection_page_range (view, style, start_x, start_y, stop_x, stop_y, &first, &last))
 		return list;
 
 	/* If everything is equal, then there's nothing to select */
-	if (first == last && gdk_point_equal (start, stop) && style == PPS_SELECTION_STYLE_GLYPH)
+	if (first == last && gdk_point_equal (start_x, start_y, stop_x, stop_y) && style == PPS_SELECTION_STYLE_GLYPH)
 		return list;
 
 	/* Now create a list of PpsViewSelection's for the affected
@@ -8861,8 +8877,8 @@ compute_new_selection (PpsView *view,
 	for (i = first; i <= last; i++) {
 		PpsViewSelection *selection;
 		GdkRectangle page_area;
-		GdkPoint *point;
 		gdouble width, height;
+		gdouble point_x, point_y;
 
 		get_doc_page_size (view, i, &width, &height);
 
@@ -8874,13 +8890,16 @@ compute_new_selection (PpsView *view,
 		selection->rect.y2 = height;
 
 		pps_view_get_page_extents_for_border (view, i, &border, &page_area);
-		if (gdk_rectangle_point_in (&page_area, start))
-			point = start;
-		else
-			point = stop;
+		if (gdk_rectangle_point_in (&page_area, start_x, start_y)) {
+			point_x = start_x;
+			point_y = start_y;
+		} else {
+			point_x = stop_x;
+			point_y = stop_y;
+		}
 
 		if (i == first) {
-			_pps_view_transform_view_point_to_doc_point (view, point,
+			_pps_view_transform_view_point_to_doc_point (view, point_x, point_y,
 			                                             &page_area, &border,
 			                                             &selection->rect.x1,
 			                                             &selection->rect.y1);
@@ -8889,11 +8908,13 @@ compute_new_selection (PpsView *view,
 		/* If the selection is contained within just one page,
 		 * make sure we don't write 'start' into both points
 		 * in selection->rect. */
-		if (first == last)
-			point = stop;
+		if (first == last) {
+			point_x = stop_x;
+			point_y = stop_y;
+		}
 
 		if (i == last) {
-			_pps_view_transform_view_point_to_doc_point (view, point,
+			_pps_view_transform_view_point_to_doc_point (view, point_x, point_y,
 			                                             &page_area, &border,
 			                                             &selection->rect.x2,
 			                                             &selection->rect.y2);
@@ -9001,10 +9022,12 @@ merge_selection_region (PpsView *view,
 static void
 compute_selections (PpsView *view,
                     PpsSelectionStyle style,
-                    GdkPoint *start,
-                    GdkPoint *stop)
+                    gdouble start_x,
+                    gdouble start_y,
+                    gdouble stop_x,
+                    gdouble stop_y)
 {
-	merge_selection_region (view, compute_new_selection (view, style, start, stop));
+	merge_selection_region (view, compute_new_selection (view, style, start_x, start_y, stop_x, stop_y));
 }
 
 /* Free's the selection.  It's up to the caller to queue redraws if needed.
@@ -9071,10 +9094,12 @@ _pps_view_clear_selection (PpsView *view)
 
 void
 _pps_view_set_selection (PpsView *view,
-                         GdkPoint *start_point,
-                         GdkPoint *end_point)
+                         gdouble start_x,
+                         gdouble start_y,
+                         gdouble stop_x,
+                         gdouble stop_y)
 {
-	compute_selections (view, PPS_SELECTION_STYLE_GLYPH, start_point, end_point);
+	compute_selections (view, PPS_SELECTION_STYLE_GLYPH, start_x, start_y, stop_x, stop_y);
 }
 
 static char *
@@ -9273,7 +9298,7 @@ pps_view_stop_signature_rect (PpsView *view)
 
 	pps_view_set_cursor (view, PPS_VIEW_CURSOR_IBEAM);
 
-	find_page_at_location (view, priv->signing_info.start.x, priv->signing_info.start.y, &signature_page, &offset, &offset);
+	find_page_at_location (view, priv->signing_info.start_x, priv->signing_info.start_y, &signature_page, &offset, &offset);
 	if (signature_page == -1) {
 		g_warning ("%s: Invalid signature page", __FUNCTION__);
 		return;
@@ -9281,22 +9306,20 @@ pps_view_stop_signature_rect (PpsView *view)
 
 	pps_view_get_page_extents (view, signature_page, &page_area, &border);
 	_pps_view_transform_view_point_to_doc_point (view,
-	                                             &priv->signing_info.start,
-	                                             &page_area,
-	                                             &border,
+	                                             priv->signing_info.start_x, priv->signing_info.start_y,
+	                                             &page_area, &border,
 	                                             &start.x,
 	                                             &start.y);
 	_pps_view_transform_view_point_to_doc_point (view,
-	                                             &priv->signing_info.stop,
-	                                             &page_area,
-	                                             &border,
+	                                             priv->signing_info.stop_x, priv->signing_info.stop_y,
+	                                             &page_area, &border,
 	                                             &end.x,
 	                                             &end.y);
 
-	rect->x1 = MIN (priv->signing_info.start.x, priv->signing_info.stop.x);
-	rect->y1 = MIN (priv->signing_info.start.y, priv->signing_info.stop.y);
-	rect->x2 = MAX (priv->signing_info.start.x, priv->signing_info.stop.x);
-	rect->y2 = MAX (priv->signing_info.start.y, priv->signing_info.stop.y);
+	rect->x1 = MIN (priv->signing_info.start_x, priv->signing_info.stop_x);
+	rect->y1 = MIN (priv->signing_info.start_y, priv->signing_info.stop_y);
+	rect->x2 = MAX (priv->signing_info.start_x, priv->signing_info.stop_x);
+	rect->y2 = MAX (priv->signing_info.start_y, priv->signing_info.stop_y);
 
 	rect->x1 = MIN (start.x, end.x);
 	rect->y1 = MIN (start.y, end.y);

@@ -34,29 +34,26 @@
 #include "pps-view-cursor.h"
 #include "pps-view.h"
 
-struct GdkPoint {
-	gint x;
-	gint y;
-};
-
-typedef struct GdkPoint GdkPoint;
-
 /* Information for middle clicking and moving around the doc */
 typedef struct
 {
 	gdouble hadj;
 	gdouble vadj;
 	guint release_timeout_id;
-	GdkPoint momentum;
+	gdouble momentum_x;
+	gdouble momentum_y;
 	gboolean in_notify;
 } DragInfo;
 
 /* Information for handling selection */
 typedef struct
 {
-	GdkPoint start;
+	gdouble start_x;
+	gdouble start_y;
 	GList *selections;
 	PpsSelectionStyle style;
+	gdouble motion_x;
+	gdouble motion_y;
 } SelectionInfo;
 
 /* Annotation popup windows */
@@ -104,8 +101,10 @@ typedef struct
 {
 	gboolean active;
 	gboolean in_selection;
-	GdkPoint start;
-	GdkPoint stop;
+	gdouble start_x;
+	gdouble start_y;
+	gdouble stop_x;
+	gdouble stop_y;
 } SigningInfo;
 
 typedef struct _PpsViewPrivate {
@@ -179,7 +178,8 @@ typedef struct _PpsViewPrivate {
 	DragInfo drag_info;
 
 	/* Selection */
-	GdkPoint motion;
+	gdouble motion_x;
+	gdouble motion_y;
 	guint selection_update_id;
 	guint selection_scroll_id;
 
@@ -267,11 +267,12 @@ void _get_page_size_for_scale_and_rotation (PpsDocument *document,
                                             gint *page_width,
                                             gint *page_height);
 void _pps_view_transform_view_point_to_doc_point (PpsView *view,
-                                                  GdkPoint *view_point,
+                                                  gdouble view_point_x,
+                                                  gdouble view_point_y,
                                                   GdkRectangle *page_area,
                                                   GtkBorder *border,
-                                                  double *doc_point_x,
-                                                  double *doc_point_y);
+                                                  gdouble *doc_point_x,
+                                                  gdouble *doc_point_y);
 void _pps_view_transform_view_rect_to_doc_rect (PpsView *view,
                                                 GdkRectangle *view_rect,
                                                 GdkRectangle *page_area,
@@ -280,11 +281,13 @@ void _pps_view_transform_view_rect_to_doc_rect (PpsView *view,
 void _pps_view_transform_doc_point_to_view_point (PpsView *view,
                                                   int page,
                                                   PpsPoint *doc_point,
-                                                  GdkPoint *view_point);
+                                                  gdouble *view_point_x,
+                                                  gdouble *view_point_y);
 void _pps_view_transform_doc_point_by_rotation_scale (PpsView *view,
                                                       int page,
                                                       PpsPoint *doc_point,
-                                                      GdkPoint *view_point);
+                                                      gdouble *view_point_x,
+                                                      gdouble *view_point_y);
 void _pps_view_transform_doc_rect_to_view_rect (PpsView *view,
                                                 int page,
                                                 PpsRectangle *doc_rect,
@@ -298,8 +301,10 @@ gint _pps_view_get_caret_cursor_offset_at_doc_point (PpsView *view,
                                                      gdouble doc_y);
 void _pps_view_clear_selection (PpsView *view);
 void _pps_view_set_selection (PpsView *view,
-                              GdkPoint *start_point,
-                              GdkPoint *end_point);
+                              gdouble start_x,
+                              gdouble start_y,
+                              gdouble stop_x,
+                              gdouble stop_y);
 
 void _pps_view_set_focused_element (PpsView *view,
                                     PpsMapping *element_mapping,
