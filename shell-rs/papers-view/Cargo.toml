@@ -16,6 +16,7 @@ rustdoc-args = ["--cfg", "docsrs"]
 [features]
 default = ["v46"]
 v46 = ["ffi/v46", "ffi/v42"]
+v48 = ["ffi/v48", "v46"]
 
 [dependencies]
 libc = "0.2"
