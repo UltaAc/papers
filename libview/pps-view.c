@@ -8783,19 +8783,11 @@ gdk_rectangle_point_in (GdkRectangle *rectangle,
 	       y < rectangle->y + rectangle->height;
 }
 
-static inline gboolean
-gdk_point_equal (gdouble x1, gdouble y1, gdouble x2, gdouble y2)
-{
-	return x1 == x2 && y1 == y2;
-}
-
 static gboolean
 get_selection_page_range (PpsView *view,
                           PpsSelectionStyle style,
-                          gdouble start_x,
-                          gdouble start_y,
-                          gdouble stop_x,
-                          gdouble stop_y,
+                          graphene_point_t *start,
+                          graphene_point_t *stop,
                           gint *first_page,
                           gint *last_page)
 {
@@ -8807,7 +8799,7 @@ get_selection_page_range (PpsView *view,
 
 	n_pages = pps_document_get_n_pages (priv->document);
 
-	if (gdk_point_equal (start_x, start_y, stop_x, stop_y)) {
+	if (graphene_point_equal (start, stop)) {
 		start_page = priv->start_page;
 		end_page = priv->end_page;
 	} else if (priv->continuous) {
@@ -8832,8 +8824,8 @@ get_selection_page_range (PpsView *view,
 		page_area.y -= border.top;
 		page_area.width += border.left + border.right;
 		page_area.height += border.top + border.bottom;
-		if (gdk_rectangle_point_in (&page_area, start_x, start_y) ||
-		    gdk_rectangle_point_in (&page_area, stop_x, stop_y)) {
+		if (gdk_rectangle_point_in (&page_area, start->x, start->y) ||
+		    gdk_rectangle_point_in (&page_area, stop->x, stop->y)) {
 			if (first == -1)
 				first = i;
 			last = i;
@@ -8853,21 +8845,19 @@ get_selection_page_range (PpsView *view,
 static GList *
 compute_new_selection (PpsView *view,
                        PpsSelectionStyle style,
-                       gdouble start_x,
-                       gdouble start_y,
-                       gdouble stop_x,
-                       gdouble stop_y)
+                       graphene_point_t *start,
+                       graphene_point_t *stop)
 {
 	int i, first, last;
 	GtkBorder border;
 	GList *list = NULL;
 
 	/* First figure out the range of pages the selection affects. */
-	if (!get_selection_page_range (view, style, start_x, start_y, stop_x, stop_y, &first, &last))
+	if (!get_selection_page_range (view, style, start, stop, &first, &last))
 		return list;
 
 	/* If everything is equal, then there's nothing to select */
-	if (first == last && gdk_point_equal (start_x, start_y, stop_x, stop_y) && style == PPS_SELECTION_STYLE_GLYPH)
+	if (first == last && graphene_point_equal (start, stop) && style == PPS_SELECTION_STYLE_GLYPH)
 		return list;
 
 	/* Now create a list of PpsViewSelection's for the affected
@@ -8890,12 +8880,12 @@ compute_new_selection (PpsView *view,
 		selection->rect.y2 = height;
 
 		pps_view_get_page_extents_for_border (view, i, &border, &page_area);
-		if (gdk_rectangle_point_in (&page_area, start_x, start_y)) {
-			point_x = start_x;
-			point_y = start_y;
+		if (gdk_rectangle_point_in (&page_area, start->x, start->y)) {
+			point_x = start->x;
+			point_y = start->y;
 		} else {
-			point_x = stop_x;
-			point_y = stop_y;
+			point_x = stop->x;
+			point_y = stop->y;
 		}
 
 		if (i == first) {
@@ -8909,8 +8899,8 @@ compute_new_selection (PpsView *view,
 		 * make sure we don't write 'start' into both points
 		 * in selection->rect. */
 		if (first == last) {
-			point_x = stop_x;
-			point_y = stop_y;
+			point_x = stop->x;
+			point_y = stop->y;
 		}
 
 		if (i == last) {
@@ -9027,7 +9017,10 @@ compute_selections (PpsView *view,
                     gdouble stop_x,
                     gdouble stop_y)
 {
-	merge_selection_region (view, compute_new_selection (view, style, start_x, start_y, stop_x, stop_y));
+	graphene_point_t start = GRAPHENE_POINT_INIT (start_x, start_y);
+	graphene_point_t stop = GRAPHENE_POINT_INIT (stop_x, stop_y);
+
+	merge_selection_region (view, compute_new_selection (view, style, &start, &stop));
 }
 
 /* Free's the selection.  It's up to the caller to queue redraws if needed.
