@@ -172,7 +172,7 @@ str_to_utf8 (const gchar *text)
 }
 
 /**
- * Builds the index GtkTreeModel from DjVu s-expr
+ * Builds the index GListStore from DjVu s-expr
  *
  * (bookmarks
  *   ("title1" "dest1"
@@ -189,18 +189,17 @@ build_tree (const DjvuDocument *djvu_document,
             miniexp_t iter)
 {
 	const char *title, *link_dest;
-	char *title_markup;
+	g_autofree gchar *title_markup = NULL;
+	g_autofree gchar *utf8_title = NULL;
 
-	PpsLinkAction *pps_action = NULL;
-	PpsLink *pps_link = NULL;
-	PpsOutlines *outlines = NULL;
+	g_autoptr (PpsLinkAction) pps_action = NULL;
+	g_autoptr (PpsLink) pps_link = NULL;
+	g_autoptr (PpsOutlines) outlines = NULL;
 
 	if (miniexp_car (iter) == miniexp_symbol ("bookmarks")) {
 		/* The (bookmarks) cons */
 		iter = miniexp_cdr (iter);
 	} else if (miniexp_length (iter) >= 2) {
-		gchar *utf8_title = NULL;
-
 		/* An entry */
 		if (!string_from_miniexp (miniexp_car (iter), &title))
 			goto unknown_entry;
@@ -223,24 +222,20 @@ build_tree (const DjvuDocument *djvu_document,
 		outlines = g_object_new (PPS_TYPE_OUTLINES, "markup", title_markup, "expand", FALSE, "link", pps_link, NULL);
 		g_list_store_append (model, outlines);
 
-		g_clear_object (&pps_action);
-		g_clear_object (&pps_link);
-		g_free (title_markup);
-		g_free (utf8_title);
 		iter = miniexp_cddr (iter);
 	} else {
 		goto unknown_entry;
 	}
 
-	for (; iter != miniexp_nil; iter = miniexp_cdr (iter)) {
-		if (outlines) {
-			GListStore *children = g_list_store_new (PPS_TYPE_OUTLINES);
-			build_tree (djvu_document, children, miniexp_car (iter));
-			g_object_set (outlines, "children", children, NULL);
-		} else {
-			build_tree (djvu_document, model, miniexp_car (iter));
-		}
+	if (outlines && iter != miniexp_nil) {
+		model = g_list_store_new (PPS_TYPE_OUTLINES);
+		g_object_set (outlines, "children", model, NULL);
 	}
+
+	for (; iter != miniexp_nil; iter = miniexp_cdr (iter)) {
+		build_tree (djvu_document, model, miniexp_car (iter));
+	}
+
 	return;
 
 unknown_entry:
