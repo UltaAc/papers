@@ -86,6 +86,7 @@ manual = [
     "GObject.Object",
     "Gtk.FileDialog",
     "Gtk.Widget",
+    "Pango.FontDescription",
 ]
 
 [[object]]

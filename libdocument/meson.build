@@ -202,6 +202,7 @@ if gobject_introspection_dep.found()
     'Gio-2.0',
     'GLib-2.0',
     'Gtk-4.0',
+    'Pango-1.0',
   ]
 
   libppsdocument_gir = gnome.generate_gir(

@@ -1346,6 +1346,7 @@ dependencies = [
  "log",
  "lru",
  "oo7",
+ "pango",
  "papers-document",
  "papers-shell",
  "papers-view",
@@ -1362,6 +1363,7 @@ dependencies = [
  "glib",
  "gtk4",
  "libc",
+ "pango",
  "papers-document-sys",
 ]
 

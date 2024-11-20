@@ -41,3 +41,7 @@ version = "0.9"
 [dependencies.gdk]
 package = "gdk4"
 version = "0.9"
+
+[dependencies.pango]
+package = "pango"
+version = "0.20"

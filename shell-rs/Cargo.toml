@@ -40,6 +40,10 @@ features = ["v4_12"]
 package = "gdk4"
 version = "0.9"
 
+[dependencies.pango]
+package = "pango"
+version = "0.20.0"
+
 [dependencies.adw]
 package = "libadwaita"
 version = "0.7"
