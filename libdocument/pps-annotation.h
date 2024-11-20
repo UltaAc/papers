@@ -54,6 +54,12 @@ G_DECLARE_INTERFACE (PpsAnnotationMarkup, pps_annotation_markup, PPS, ANNOTATION
 PPS_PUBLIC
 G_DECLARE_FINAL_TYPE (PpsAnnotationText, pps_annotation_text, PPS, ANNOTATION_TEXT, PpsAnnotation);
 
+/* PpsAnnotationFreeText */
+#define PPS_TYPE_ANNOTATION_FREE_TEXT (pps_annotation_free_text_get_type ())
+PPS_PUBLIC
+G_DECLARE_FINAL_TYPE (
+    PpsAnnotationFreeText, pps_annotation_free_text, PPS, ANNOTATION_FREE_TEXT, PpsAnnotation);
+
 /* PpsAnnotationAttachment */
 #define PPS_TYPE_ANNOTATION_ATTACHMENT (pps_annotation_attachment_get_type ())
 PPS_PUBLIC
@@ -67,6 +73,7 @@ G_DECLARE_FINAL_TYPE (PpsAnnotationTextMarkup, pps_annotation_text_markup, PPS, 
 typedef enum {
 	PPS_ANNOTATION_TYPE_UNKNOWN,
 	PPS_ANNOTATION_TYPE_TEXT,
+	PPS_ANNOTATION_TYPE_FREE_TEXT,
 	PPS_ANNOTATION_TYPE_ATTACHMENT,
 	PPS_ANNOTATION_TYPE_TEXT_MARKUP
 } PpsAnnotationType;
@@ -188,6 +195,23 @@ gboolean pps_annotation_text_get_is_open (PpsAnnotationText *text);
 PPS_PUBLIC
 gboolean pps_annotation_text_set_is_open (PpsAnnotationText *text,
                                           gboolean is_open);
+
+/* PpsAnnotationFreeText */
+PPS_PUBLIC
+PpsAnnotation *pps_annotation_free_text_new (PpsPage *page);
+PPS_PUBLIC
+gboolean pps_annotation_free_text_set_font_description (PpsAnnotationFreeText *annot,
+                                                        const PangoFontDescription *font_desc);
+PPS_PUBLIC
+PangoFontDescription *pps_annotation_free_text_get_font_description (PpsAnnotationFreeText *annot);
+PPS_PUBLIC
+gboolean pps_annotation_free_text_set_font_rgba (PpsAnnotationFreeText *annot,
+                                                 const GdkRGBA *rgba);
+PPS_PUBLIC
+GdkRGBA *pps_annotation_free_text_get_font_rgba (PpsAnnotationFreeText *annot);
+PPS_PUBLIC
+void pps_annotation_free_text_auto_resize (PpsAnnotationFreeText *annot,
+                                           PangoContext *ctx);
 
 /* PpsAnnotationAttachment */
 PPS_PUBLIC

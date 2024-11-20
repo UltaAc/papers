@@ -71,6 +71,22 @@ G_DEFINE_TYPE_WITH_CODE (PpsAnnotationText,
                              G_ADD_PRIVATE (PpsAnnotationText));
 #define GET_ANNOT_TEXT_PRIVATE(o) pps_annotation_text_get_instance_private (o)
 
+/* PpsAnnotationFreeText*/
+typedef struct {
+	PangoFontDescription *font_desc;
+	GdkRGBA font_rgba;
+} PpsAnnotationFreeTextPrivate;
+
+struct _PpsAnnotationFreeText {
+	PpsAnnotation parent;
+};
+
+G_DEFINE_TYPE_WITH_CODE (PpsAnnotationFreeText,
+                         pps_annotation_free_text,
+                         PPS_TYPE_ANNOTATION,
+                         G_ADD_PRIVATE (PpsAnnotationFreeText));
+#define GET_ANNOT_FREE_TEXT_PRIVATE(o) pps_annotation_free_text_get_instance_private (o)
+
 /* PpsAnnotationAttachment */
 typedef struct
 {
@@ -149,6 +165,13 @@ enum {
 /* PpsAnnotationTextMarkup */
 enum {
 	PROP_TEXT_MARKUP_TYPE = PROP_MARKUP_POPUP_IS_OPEN + 1
+};
+
+/* PpsAnnotationFreeText */
+enum {
+	PROP_ANNOT_FREE_TEXT_0,
+	PROP_ANNOT_FREE_TEXT_FONT_DESC,
+	PROP_ANNOT_FREE_TEXT_FONT_RGBA
 };
 
 /* PpsAnnotation */
@@ -1301,6 +1324,241 @@ pps_annotation_text_set_is_open (PpsAnnotationText *text,
 	g_object_notify (G_OBJECT (text), "is_open");
 
 	return TRUE;
+}
+
+/* PpsAnnotationFreeText */
+
+static void
+pps_annotation_free_text_init (PpsAnnotationFreeText *annot)
+{
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (PPS_ANNOTATION (annot));
+
+	priv->type = PPS_ANNOTATION_TYPE_FREE_TEXT;
+}
+
+static void
+pps_annotation_free_text_set_property (GObject *object,
+                                       guint prop_id,
+                                       const GValue *value,
+                                       GParamSpec *pspec)
+{
+	PpsAnnotationFreeText *annot = PPS_ANNOTATION_FREE_TEXT (object);
+
+	switch (prop_id) {
+	case PROP_ANNOT_FREE_TEXT_FONT_DESC:
+		pps_annotation_free_text_set_font_description (annot, g_value_get_boxed (value));
+		break;
+	case PROP_ANNOT_FREE_TEXT_FONT_RGBA:
+		pps_annotation_free_text_set_font_rgba (annot, g_value_get_boxed (value));
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+	}
+}
+
+static void
+pps_annotation_free_text_get_property (GObject *object,
+                                       guint prop_id,
+                                       GValue *value,
+                                       GParamSpec *pspec)
+{
+	PpsAnnotationFreeTextPrivate *priv = GET_ANNOT_FREE_TEXT_PRIVATE (PPS_ANNOTATION_FREE_TEXT (object));
+
+	switch (prop_id) {
+	case PROP_ANNOT_FREE_TEXT_FONT_RGBA:
+		g_value_set_boxed (value, &priv->font_rgba);
+		break;
+	case PROP_ANNOT_FREE_TEXT_FONT_DESC:
+		g_value_set_boxed (value, &priv->font_desc);
+		break;
+	default:
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+	}
+}
+
+static void
+pps_annotation_free_text_dispose (GObject *object)
+{
+	PpsAnnotationFreeTextPrivate *priv = GET_ANNOT_FREE_TEXT_PRIVATE (PPS_ANNOTATION_FREE_TEXT (object));
+
+	g_clear_pointer (&priv->font_desc, pango_font_description_free);
+
+	G_OBJECT_CLASS (pps_annotation_free_text_parent_class)->dispose (object);
+}
+
+static void
+pps_annotation_free_text_class_init (PpsAnnotationFreeTextClass *klass)
+{
+	GObjectClass *g_object_class = G_OBJECT_CLASS (klass);
+	g_object_class->set_property = pps_annotation_free_text_set_property;
+	g_object_class->get_property = pps_annotation_free_text_get_property;
+	g_object_class->dispose = pps_annotation_free_text_dispose;
+
+	g_object_class_install_property (g_object_class,
+	                                 PROP_ANNOT_FREE_TEXT_FONT_DESC,
+	                                 g_param_spec_boxed ("font-desc", NULL, NULL,
+	                                                     PANGO_TYPE_FONT_DESCRIPTION,
+	                                                     G_PARAM_READWRITE |
+	                                                         G_PARAM_STATIC_STRINGS));
+
+	g_object_class_install_property (g_object_class,
+	                                 PROP_ANNOT_FREE_TEXT_FONT_RGBA,
+	                                 g_param_spec_boxed ("font-rgba", NULL, NULL,
+	                                                     GDK_TYPE_RGBA,
+	                                                     G_PARAM_READWRITE |
+	                                                         G_PARAM_STATIC_STRINGS));
+}
+
+/**
+ * pps_annotation_free_text_new:
+ * @page: a #PpsPage
+ *
+ * Creates a new free text annotation in the page. Font shall be set afterwards.
+ *
+ * Returns: a new free text annotation
+ *
+ * Since: 48.0
+ */
+PpsAnnotation *
+pps_annotation_free_text_new (PpsPage *page)
+{
+	return PPS_ANNOTATION (g_object_new (PPS_TYPE_ANNOTATION_FREE_TEXT, "page", page, NULL));
+}
+
+/**
+ * pps_annotation_free_text_set_font_description:
+ * @annot: an #PpsAnnotationFreeText
+ * @font_desc: a #PangoFontDescription
+ *
+ * Set the font of the free text annotation to annotation to @font_desc.
+ *
+ * Returns: %TRUE if the font description has been changed, %FALSE otherwise
+ *
+ * Since: 48.0
+ */
+gboolean
+pps_annotation_free_text_set_font_description (PpsAnnotationFreeText *annot,
+                                               const PangoFontDescription *font_desc)
+{
+	PpsAnnotationFreeTextPrivate *priv = GET_ANNOT_FREE_TEXT_PRIVATE (PPS_ANNOTATION_FREE_TEXT (annot));
+	if (priv->font_desc && pango_font_description_equal (priv->font_desc, font_desc)) {
+		return FALSE;
+	}
+	g_clear_pointer (&priv->font_desc, pango_font_description_free);
+	priv->font_desc = pango_font_description_copy (font_desc);
+
+	g_object_notify (G_OBJECT (annot), "font-desc");
+	return TRUE;
+}
+
+/**
+ * pps_annotation_free_text_get_font_description:
+ * @annot: an #PpsAnnotationFreeText
+ *
+ * Returns a copy of the font descption used by the annotation.
+ *
+ * Returns: (transfer full): the font description used to display the annotation.
+ *
+ * Since: 48.0
+ */
+PangoFontDescription *
+pps_annotation_free_text_get_font_description (PpsAnnotationFreeText *annot)
+{
+	PpsAnnotationFreeTextPrivate *priv = GET_ANNOT_FREE_TEXT_PRIVATE (PPS_ANNOTATION_FREE_TEXT (annot));
+
+	return pango_font_description_copy (priv->font_desc);
+}
+
+/**
+ * pps_annotation_free_text_set_font_rgba:
+ * @annot: an #PpsAnnotationFreeText
+ * @rgba: a #GdkRGBA
+ *
+ * Set the text color of the annotation to @rgba.
+ *
+ * Returns: %TRUE if the color has been changed, %FALSE otherwise
+ *
+ * Since: 48.0
+ */
+gboolean
+pps_annotation_free_text_set_font_rgba (PpsAnnotationFreeText *annot, const GdkRGBA *rgba)
+{
+	PpsAnnotationFreeTextPrivate *priv = GET_ANNOT_FREE_TEXT_PRIVATE (PPS_ANNOTATION_FREE_TEXT (annot));
+
+	if (gdk_rgba_equal (&(priv->font_rgba), rgba)) {
+		return FALSE;
+	}
+
+	priv->font_rgba = *rgba;
+
+	g_object_notify (G_OBJECT (annot), "font-rgba");
+
+	return TRUE;
+}
+
+/**
+ * pps_annotation_free_text_get_font_rgba:
+ * @annot: an #PpsAnnotationFreeText
+ *
+ * Gets the text color of @annot.
+ *
+ * Returns: (transfer full): the font RGBA, must be freed by the caller
+ *
+ * Since: 48.0
+ */
+GdkRGBA *
+pps_annotation_free_text_get_font_rgba (PpsAnnotationFreeText *annot)
+{
+	PpsAnnotationFreeTextPrivate *priv = GET_ANNOT_FREE_TEXT_PRIVATE (PPS_ANNOTATION_FREE_TEXT (annot));
+
+	return gdk_rgba_copy (&priv->font_rgba);
+}
+
+/**
+ * pps_annotation_free_text_auto_resize:
+ * @annot: an #PpsAnnotationFreeText
+ * @ctx: a valid #PangoContext
+ *
+ * Resize the annotation so as all the text fits in its rect, according to Pango metrics.
+ * This should typically be called every time the content is changed unless the free text
+ * annotation is supposed to be fixed width for instance.
+ *
+ * Since: 48.0
+ */
+void
+pps_annotation_free_text_auto_resize (PpsAnnotationFreeText *annot, PangoContext *ctx)
+{
+	PpsAnnotationFreeTextPrivate *priv = GET_ANNOT_FREE_TEXT_PRIVATE (PPS_ANNOTATION_FREE_TEXT (annot));
+
+	gint width, height, border_width;
+	PpsRectangle rect;
+
+	/* The text is going to be measured with a pango layout with the same settings as the annot. */
+	g_autoptr (PangoLayout) layout = pango_layout_new (ctx);
+	gint font_size = pango_font_description_get_size (priv->font_desc);
+	g_autoptr (PangoAttrList) list = pango_attr_list_new ();
+	// font_size is in px, convert it to pt with /0.75
+	PangoAttribute *attr = pango_attr_line_height_new_absolute (font_size / 0.75);
+
+	const gchar *contents = pps_annotation_get_contents (PPS_ANNOTATION (annot));
+	pango_layout_set_text (layout, contents, -1);
+
+	pango_attr_list_change (list, attr);
+	pango_layout_set_attributes (layout, list);
+	pango_layout_set_font_description (layout, priv->font_desc);
+
+	pango_layout_get_size (layout, &width, &height);
+
+	/* Updating the annot size based on the current position. */
+	pps_annotation_get_area (PPS_ANNOTATION (annot), &rect);
+	/* poppler adds a padding of the same extent as the border width, so the actual width/height must
+	be increased by 4*border_width
+	+ 2 is necessary because poppler does not layout characters exactly as pango unfortunately */
+	border_width = pps_annotation_get_border_width (PPS_ANNOTATION (annot));
+	rect.x2 = rect.x1 + width / PANGO_SCALE * 0.75 + 4 * border_width + 2;
+	/* We add 1/4 of a line below so descending characters are shown.*/
+	rect.y2 = rect.y1 + height / PANGO_SCALE * 0.75 + 4 * border_width + 0.25 * font_size / PANGO_SCALE + 2;
+	pps_annotation_set_area (PPS_ANNOTATION (annot), &rect);
 }
 
 /* PpsAnnotationAttachment */

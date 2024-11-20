@@ -61,8 +61,11 @@ typedef enum {
 	/* Text Markup Annotations */
 	PPS_ANNOTATIONS_SAVE_TEXT_MARKUP_TYPE = 1 << 11,
 
+	/* Free Text Annotations */
+	PPS_ANNOTATIONS_SAVE_FREE_TEXT_FONT = 1 << 12,
+
 	/* Save all */
-	PPS_ANNOTATIONS_SAVE_ALL = (1 << 12) - 1
+	PPS_ANNOTATIONS_SAVE_ALL = (1 << 13) - 1
 } PpsAnnotationsSaveMask;
 
 typedef enum {

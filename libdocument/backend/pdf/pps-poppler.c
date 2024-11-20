@@ -2549,6 +2549,12 @@ poppler_annot_color_to_gdk_rgba (PopplerAnnot *poppler_annot, GdkRGBA *color)
 	PopplerColor *poppler_color;
 
 	poppler_color = poppler_annot_get_color (poppler_annot);
+#ifdef HAVE_FREE_TEXT
+	if (POPPLER_IS_ANNOT_FREE_TEXT (poppler_annot) && !poppler_color) {
+		color->alpha = 0.0;
+		return;
+	}
+#endif
 	poppler_color_to_gdk_rgba (poppler_color, color);
 	g_free (poppler_color);
 }
@@ -2621,6 +2627,7 @@ poppler_annot_can_have_popup_window (PopplerAnnot *poppler_annot)
 {
 	switch (poppler_annot_get_annot_type (poppler_annot)) {
 	case POPPLER_ANNOT_TEXT:
+	case POPPLER_ANNOT_FREE_TEXT:
 	case POPPLER_ANNOT_LINE:
 	case POPPLER_ANNOT_SQUARE:
 	case POPPLER_ANNOT_CIRCLE:
@@ -2706,6 +2713,9 @@ pps_annot_from_poppler_annot (PopplerAnnot *poppler_annot,
 	case POPPLER_ANNOT_SQUIGGLY:
 		pps_annot = pps_annotation_text_markup_squiggly_new (page);
 		break;
+	case POPPLER_ANNOT_STAMP:
+		pps_annot = pps_annotation_stamp_new (page);
+		break;
 	case POPPLER_ANNOT_LINK:
 	case POPPLER_ANNOT_WIDGET:
 	case POPPLER_ANNOT_MOVIE:
@@ -2719,10 +2729,44 @@ pps_annot_from_poppler_annot (PopplerAnnot *poppler_annot,
 		if (action && action->type == POPPLER_ACTION_RENDITION)
 			break;
 	}
+#ifdef HAVE_FREE_TEXT
+	case POPPLER_ANNOT_FREE_TEXT: {
+		PopplerAnnotFreeText *poppler_ft = POPPLER_ANNOT_FREE_TEXT (poppler_annot);
+		PpsAnnotationFreeText *pps_annot_ft;
+		g_autoptr (PangoFontDescription) font;
+		g_autoptr (PopplerFontDescription) poppler_font;
+		g_autoptr (PopplerColor) font_color;
+		GdkRGBA font_rgba = { 0, 0, 0, 1.0 };
+		gdouble border_width;
+
+		pps_annot = pps_annotation_free_text_new (page);
+		pps_annot_ft = PPS_ANNOTATION_FREE_TEXT (pps_annot);
+
+		/* Font */
+		poppler_font = poppler_annot_free_text_get_font_desc (poppler_ft);
+		font = pango_font_description_new ();
+		pango_font_description_set_family (font, poppler_font->font_name);
+		pango_font_description_set_weight (font, poppler_font->weight);
+		pango_font_description_set_style (font, poppler_font->style);
+		pango_font_description_set_stretch (font, poppler_font->stretch);
+		pango_font_description_set_size (font, poppler_font->size_pt * PANGO_SCALE);
+		pps_annotation_free_text_set_font_description (pps_annot_ft, font);
+
+		/* Font color */
+		font_color = poppler_annot_free_text_get_font_color (poppler_ft);
+		poppler_color_to_gdk_rgba (font_color, &font_rgba);
+		pps_annotation_free_text_set_font_rgba (pps_annot_ft, &font_rgba);
+
+		/* Border width. This should be generalized to other annotations in the future. */
+		poppler_annot_get_border_width (poppler_annot, &border_width);
+		pps_annotation_set_border_width (pps_annot, border_width);
+	} break;
+#else
+	case POPPLER_ANNOT_FREE_TEXT:
+#endif
 		/* Fall through */
 	case POPPLER_ANNOT_3D:
 	case POPPLER_ANNOT_CARET:
-	case POPPLER_ANNOT_FREE_TEXT:
 	case POPPLER_ANNOT_LINE:
 	case POPPLER_ANNOT_SOUND:
 	case POPPLER_ANNOT_SQUARE:
@@ -2791,6 +2835,13 @@ pps_annot_from_poppler_annot (PopplerAnnot *poppler_annot,
 
 		poppler_annot_color_to_gdk_rgba (poppler_annot, &color);
 		pps_annotation_set_rgba (pps_annot, &color);
+
+		PopplerAnnotFlag flag = poppler_annot_get_flags (poppler_annot);
+		if (flag & POPPLER_ANNOT_FLAG_HIDDEN) {
+			pps_annotation_set_hidden (pps_annot, TRUE);
+		} else {
+			pps_annotation_set_hidden (pps_annot, FALSE);
+		}
 
 		if (poppler_annot_can_have_popup_window (poppler_annot)) {
 			PopplerAnnotMarkup *markup;
@@ -3104,6 +3155,27 @@ pdf_document_annotations_add_annotation (PpsDocumentAnnotations *document_annota
 		poppler_annot_text_set_icon (POPPLER_ANNOT_TEXT (poppler_annot),
 		                             get_poppler_annot_text_icon (icon));
 	} break;
+#ifdef HAVE_FREE_TEXT
+	case PPS_ANNOTATION_TYPE_FREE_TEXT: {
+		PpsAnnotationFreeText *annot_ft = PPS_ANNOTATION_FREE_TEXT (annot);
+		g_autoptr (PangoFontDescription) font;
+		g_autoptr (PopplerFontDescription) poppler_font;
+		gdouble size;
+		poppler_annot = poppler_annot_free_text_new (self->document, &poppler_rect);
+
+		/* Fonts */
+		font = pps_annotation_free_text_get_font_description (annot_ft);
+		size = pango_font_description_get_size (font) / PANGO_SCALE;
+		poppler_font = poppler_font_description_new (pango_font_description_get_family (font));
+		poppler_font->weight = pango_font_description_get_weight (font);
+		poppler_font->stretch = pango_font_description_get_stretch (font);
+		poppler_font->style = pango_font_description_get_style (font);
+		poppler_font->size_pt = size;
+		poppler_annot_free_text_set_font_desc (POPPLER_ANNOT_FREE_TEXT (poppler_annot), poppler_font);
+
+		poppler_annot_set_border_width (poppler_annot, pps_annotation_get_border_width (annot));
+	} break;
+#endif
 	case PPS_ANNOTATION_TYPE_TEXT_MARKUP: {
 		GArray *quads;
 		PopplerRectangle bbox;
@@ -3255,16 +3327,28 @@ pdf_document_annotations_save_annotation (PpsDocumentAnnotations *document_annot
 
 	if (mask & PPS_ANNOTATIONS_SAVE_COLOR) {
 		PopplerColor color;
-		GdkRGBA pps_color;
+		g_autoptr (GdkRGBA) pps_color = NULL;
 
-		pps_annotation_get_rgba (annot, &pps_color);
-		gdk_rgba_to_poppler_color (&pps_color, &color);
+		pps_annotation_get_rgba (annot, pps_color);
+		gdk_rgba_to_poppler_color (pps_color, &color);
 
-		if (pps_color.alpha > 0.) {
+		if (pps_color->alpha > 0.) {
 			poppler_annot_set_color (poppler_annot, &color);
 		} else {
 			poppler_annot_set_color (poppler_annot, NULL);
 		}
+#ifdef HAVE_FREE_TEXT
+		if (PPS_IS_ANNOTATION_FREE_TEXT (annot)) {
+			if (pps_color) {
+				gdk_rgba_free (pps_color);
+			}
+			pps_color = pps_annotation_free_text_get_font_rgba (PPS_ANNOTATION_FREE_TEXT (annot));
+			gdk_rgba_to_poppler_color (pps_color, &color);
+
+			poppler_annot_free_text_set_font_color (
+			    POPPLER_ANNOT_FREE_TEXT (poppler_annot), &color);
+		}
+#endif
 	}
 
 	if (mask & PPS_ANNOTATIONS_SAVE_AREA && !PPS_IS_ANNOTATION_TEXT_MARKUP (annot)) {
@@ -3325,6 +3409,26 @@ pdf_document_annotations_save_annotation (PpsDocumentAnnotations *document_annot
 		if (mask & PPS_ANNOTATIONS_SAVE_POPUP_IS_OPEN)
 			poppler_annot_markup_set_popup_is_open (markup, pps_annotation_markup_get_popup_is_open (pps_markup));
 	}
+
+#ifdef HAVE_FREE_TEXT
+	if (mask & PPS_ANNOTATIONS_SAVE_FREE_TEXT_FONT && PPS_IS_ANNOTATION_FREE_TEXT (annot)) {
+		PpsAnnotationFreeText *annot_ft = PPS_ANNOTATION_FREE_TEXT (annot);
+		PopplerAnnotFreeText *poppler_annot_ft = POPPLER_ANNOT_FREE_TEXT (poppler_annot);
+		g_autoptr (PangoFontDescription) font;
+		g_autoptr (PopplerFontDescription) poppler_font;
+		gdouble size;
+
+		font = pps_annotation_free_text_get_font_description (annot_ft);
+		size = pango_font_description_get_size (font) / PANGO_SCALE;
+		poppler_font = poppler_font_description_new (pango_font_description_get_family (font));
+
+		poppler_font->weight = pango_font_description_get_weight (font);
+		poppler_font->stretch = pango_font_description_get_stretch (font);
+		poppler_font->style = pango_font_description_get_style (font);
+		poppler_font->size_pt = size;
+		poppler_annot_free_text_set_font_desc (poppler_annot_ft, poppler_font);
+	}
+#endif
 
 	if (PPS_IS_ANNOTATION_TEXT (annot)) {
 		PpsAnnotationText *pps_text = PPS_ANNOTATION_TEXT (annot);

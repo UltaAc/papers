@@ -22,6 +22,7 @@ external_libraries = [
 generate = [
     "PapersDocument.Annotation",
     "PapersDocument.AnnotationAttachment",
+    "PapersDocument.AnnotationFreeText",
     "PapersDocument.AnnotationMarkup",
     "PapersDocument.AnnotationText",
     "PapersDocument.AnnotationTextIcon",
