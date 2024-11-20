@@ -172,16 +172,8 @@ pdf_document_dispose (GObject *object)
 {
 	PdfDocument *self = PDF_DOCUMENT (object);
 
-	if (self->print_ctx) {
-		pdf_print_context_free (self->print_ctx);
-		self->print_ctx = NULL;
-	}
-
-	if (self->annots) {
-		g_hash_table_destroy (self->annots);
-		self->annots = NULL;
-	}
-
+	g_clear_pointer (&self->print_ctx, pdf_print_context_free);
+	g_clear_pointer (&self->annots, g_hash_table_destroy);
 	g_clear_object (&self->document);
 	g_clear_pointer (&self->fonts_iter, poppler_fonts_iter_free);
 
