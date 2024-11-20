@@ -1043,6 +1043,8 @@ pps_view_presentation_snapshot (GtkWidget *widget, GtkSnapshot *snapshot)
 	PpsViewPresentation *pview = PPS_VIEW_PRESENTATION (widget);
 	PpsViewPresentationPrivate *priv = GET_PRIVATE (pview);
 	GtkStyleContext *context = gtk_widget_get_style_context (widget);
+	GtkSnapshot *document_snapshot = gtk_snapshot_new ();
+	GskRenderNode *document_node;
 	GdkRectangle page_area;
 	graphene_rect_t area;
 
@@ -1074,19 +1076,31 @@ pps_view_presentation_snapshot (GtkWidget *widget, GtkSnapshot *snapshot)
 	area = GRAPHENE_RECT_INIT (page_area.x, page_area.y,
 	                           page_area.width, page_area.height);
 
+	if (PPS_IS_DOCUMENT_TRANSITION (priv->document))
+		pps_view_presentation_animation_snapshot (pview, document_snapshot, &area);
+	else
+		gtk_snapshot_append_texture (document_snapshot, priv->current_texture, &area);
+
+	document_node = gtk_snapshot_free_to_node (document_snapshot);
+
+	if (!document_node)
+		return;
+
 	if (priv->inverted_colors) {
+		gtk_snapshot_push_blend (snapshot, GSK_BLEND_MODE_COLOR);
 		gtk_snapshot_push_blend (snapshot, GSK_BLEND_MODE_DIFFERENCE);
 		gtk_snapshot_append_color (snapshot, &(GdkRGBA) { 1., 1., 1., 1. }, &area);
 		gtk_snapshot_pop (snapshot);
+		gtk_snapshot_append_node (snapshot, document_node);
+		gtk_snapshot_pop (snapshot);
+		gtk_snapshot_pop (snapshot);
+		gtk_snapshot_append_node (snapshot, document_node);
+		gtk_snapshot_pop (snapshot);
+	} else {
+		gtk_snapshot_append_node (snapshot, document_node);
 	}
 
-	if (PPS_IS_DOCUMENT_TRANSITION (priv->document))
-		pps_view_presentation_animation_snapshot (pview, snapshot, &area);
-	else
-		gtk_snapshot_append_texture (snapshot, priv->current_texture, &area);
-
-	if (priv->inverted_colors)
-		gtk_snapshot_pop (snapshot);
+	gsk_render_node_unref (document_node);
 }
 
 static gboolean

@@ -6722,15 +6722,18 @@ draw_surface (GtkSnapshot *snapshot,
 	gtk_snapshot_translate (snapshot, point);
 
 	if (inverted) {
+		gtk_snapshot_push_blend (snapshot, GSK_BLEND_MODE_COLOR);
 		gtk_snapshot_push_blend (snapshot, GSK_BLEND_MODE_DIFFERENCE);
 		gtk_snapshot_append_color (snapshot, &(GdkRGBA) { 1., 1., 1., 1. }, area);
 		gtk_snapshot_pop (snapshot);
-	}
-
-	gtk_snapshot_append_texture (snapshot, texture, area);
-
-	if (inverted)
+		gtk_snapshot_append_texture (snapshot, texture, area);
 		gtk_snapshot_pop (snapshot);
+		gtk_snapshot_pop (snapshot);
+		gtk_snapshot_append_texture (snapshot, texture, area);
+		gtk_snapshot_pop (snapshot);
+	} else {
+		gtk_snapshot_append_texture (snapshot, texture, area);
+	}
 
 	gtk_snapshot_restore (snapshot);
 }
