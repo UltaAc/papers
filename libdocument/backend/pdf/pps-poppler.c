@@ -121,9 +121,9 @@ static void pdf_document_page_transition_iface_init (PpsDocumentTransitionInterf
 static void pdf_document_text_iface_init (PpsDocumentTextInterface *iface);
 static int pdf_document_get_n_pages (PpsDocument *document);
 
-static PpsLinkDest *pps_link_dest_from_dest (PdfDocument *pdf_document,
+static PpsLinkDest *pps_link_dest_from_dest (PdfDocument *self,
                                              PopplerDest *dest);
-static PpsLink *pps_link_from_action (PdfDocument *pdf_document,
+static PpsLink *pps_link_from_action (PdfDocument *self,
                                       PopplerAction *action);
 static void pdf_print_context_free (PdfPrintContext *ctx);
 static gboolean attachment_save_to_buffer (PopplerAttachment *attachment,
@@ -170,28 +170,28 @@ G_DEFINE_TYPE_WITH_CODE (PdfDocument,
 static void
 pdf_document_dispose (GObject *object)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (object);
+	PdfDocument *self = PDF_DOCUMENT (object);
 
-	if (pdf_document->print_ctx) {
-		pdf_print_context_free (pdf_document->print_ctx);
-		pdf_document->print_ctx = NULL;
+	if (self->print_ctx) {
+		pdf_print_context_free (self->print_ctx);
+		self->print_ctx = NULL;
 	}
 
-	if (pdf_document->annots) {
-		g_hash_table_destroy (pdf_document->annots);
-		pdf_document->annots = NULL;
+	if (self->annots) {
+		g_hash_table_destroy (self->annots);
+		self->annots = NULL;
 	}
 
-	g_clear_object (&pdf_document->document);
-	g_clear_pointer (&pdf_document->fonts_iter, poppler_fonts_iter_free);
+	g_clear_object (&self->document);
+	g_clear_pointer (&self->fonts_iter, poppler_fonts_iter_free);
 
 	G_OBJECT_CLASS (pdf_document_parent_class)->dispose (object);
 }
 
 static void
-pdf_document_init (PdfDocument *pdf_document)
+pdf_document_init (PdfDocument *self)
 {
-	pdf_document->password = NULL;
+	self->password = NULL;
 }
 
 static void
@@ -226,15 +226,15 @@ pdf_document_save (PpsDocument *document,
                    const char *uri,
                    GError **error)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (document);
+	PdfDocument *self = PDF_DOCUMENT (document);
 	gboolean retval;
 	GError *poppler_error = NULL;
 
-	retval = poppler_document_save (pdf_document->document,
+	retval = poppler_document_save (self->document,
 	                                uri, &poppler_error);
 	if (retval) {
-		pdf_document->forms_modified = FALSE;
-		pdf_document->annots_modified = FALSE;
+		self->forms_modified = FALSE;
+		self->annots_modified = FALSE;
 		pps_document_set_modified (PPS_DOCUMENT (document), FALSE);
 	} else {
 		convert_error (poppler_error, error);
@@ -249,12 +249,12 @@ pdf_document_load (PpsDocument *document,
                    GError **error)
 {
 	GError *poppler_error = NULL;
-	PdfDocument *pdf_document = PDF_DOCUMENT (document);
+	PdfDocument *self = PDF_DOCUMENT (document);
 
-	pdf_document->document =
-	    poppler_document_new_from_file (uri, pdf_document->password, &poppler_error);
+	self->document =
+	    poppler_document_new_from_file (uri, self->password, &poppler_error);
 
-	if (pdf_document->document == NULL) {
+	if (self->document == NULL) {
 		convert_error (poppler_error, error);
 		return FALSE;
 	}
@@ -270,15 +270,15 @@ pdf_document_load_stream (PpsDocument *document,
                           GError **error)
 {
 	GError *err = NULL;
-	PdfDocument *pdf_document = PDF_DOCUMENT (document);
+	PdfDocument *self = PDF_DOCUMENT (document);
 
-	pdf_document->document =
+	self->document =
 	    poppler_document_new_from_stream (stream, -1,
-	                                      pdf_document->password,
+	                                      self->password,
 	                                      cancellable,
 	                                      &err);
 
-	if (pdf_document->document == NULL) {
+	if (self->document == NULL) {
 		convert_error (err, error);
 		return FALSE;
 	}
@@ -294,15 +294,15 @@ pdf_document_load_gfile (PpsDocument *document,
                          GError **error)
 {
 	GError *err = NULL;
-	PdfDocument *pdf_document = PDF_DOCUMENT (document);
+	PdfDocument *self = PDF_DOCUMENT (document);
 
-	pdf_document->document =
+	self->document =
 	    poppler_document_new_from_gfile (file,
-	                                     pdf_document->password,
+	                                     self->password,
 	                                     cancellable,
 	                                     &err);
 
-	if (pdf_document->document == NULL) {
+	if (self->document == NULL) {
 		convert_error (err, error);
 		return FALSE;
 	}
@@ -318,15 +318,15 @@ pdf_document_load_fd (PpsDocument *document,
                       GError **error)
 {
 	GError *err = NULL;
-	PdfDocument *pdf_document = PDF_DOCUMENT (document);
+	PdfDocument *self = PDF_DOCUMENT (document);
 
 	/* Note: this consumes @fd */
-	pdf_document->document =
+	self->document =
 	    poppler_document_new_from_fd (fd,
-	                                  pdf_document->password,
+	                                  self->password,
 	                                  &err);
 
-	if (pdf_document->document == NULL) {
+	if (self->document == NULL) {
 		convert_error (err, error);
 		return FALSE;
 	}
@@ -344,11 +344,11 @@ static PpsPage *
 pdf_document_get_page (PpsDocument *document,
                        gint index)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (document);
+	PdfDocument *self = PDF_DOCUMENT (document);
 	PopplerPage *poppler_page;
 	PpsPage *page;
 
-	poppler_page = poppler_document_get_page (pdf_document->document, index);
+	poppler_page = poppler_document_get_page (self->document, index);
 	page = pps_page_new (index);
 	page->backend_page = (PpsBackendPage) g_object_ref (poppler_page);
 	page->backend_destroy_func = (PpsBackendPageDestroyFunc) g_object_unref;
@@ -801,19 +801,19 @@ pdf_document_security_iface_init (PpsDocumentSecurityInterface *iface)
 static void
 pdf_document_fonts_scan (PpsDocumentFonts *document_fonts)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (document_fonts);
+	PdfDocument *self = PDF_DOCUMENT (document_fonts);
 	PopplerFontInfo *font_info;
 	PopplerFontsIter *fonts_iter;
 	int n_pages;
 
 	g_return_if_fail (PDF_IS_DOCUMENT (document_fonts));
 
-	font_info = poppler_font_info_new (pdf_document->document);
+	font_info = poppler_font_info_new (self->document);
 	n_pages = pps_document_get_n_pages (PPS_DOCUMENT (document_fonts));
 	poppler_font_info_scan (font_info, n_pages, &fonts_iter);
 
-	g_clear_pointer (&pdf_document->fonts_iter, poppler_fonts_iter_free);
-	pdf_document->fonts_iter = fonts_iter;
+	g_clear_pointer (&self->fonts_iter, poppler_fonts_iter_free);
+	self->fonts_iter = fonts_iter;
 
 	poppler_font_info_free (font_info);
 }
@@ -878,9 +878,9 @@ is_standard_font (const gchar *name, PopplerFontType type)
 static const gchar *
 pdf_document_fonts_get_fonts_summary (PpsDocumentFonts *document_fonts)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (document_fonts);
+	PdfDocument *self = PDF_DOCUMENT (document_fonts);
 
-	if (pdf_document->missing_fonts)
+	if (self->missing_fonts)
 		return _ ("This document contains non-embedded fonts that are not from the "
 		          "PDF Standard 14 fonts. If the substitute fonts selected by fontconfig "
 		          "are not the same as the fonts used to create the PDF, the rendering may "
@@ -892,8 +892,8 @@ pdf_document_fonts_get_fonts_summary (PpsDocumentFonts *document_fonts)
 static GListModel *
 pdf_document_fonts_get_model (PpsDocumentFonts *document_fonts)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (document_fonts);
-	PopplerFontsIter *iter = pdf_document->fonts_iter;
+	PdfDocument *self = PDF_DOCUMENT (document_fonts);
+	PopplerFontsIter *iter = self->fonts_iter;
 	GListStore *model = NULL;
 
 	g_return_val_if_fail (PDF_IS_DOCUMENT (document_fonts), NULL);
@@ -953,7 +953,7 @@ pdf_document_fonts_get_model (PpsDocumentFonts *document_fonts)
 				 * "TrueType (Not one of the Standard 14 Fonts)"
 				 */
 				standard_str = _ (" (Not one of the Standard 14 Fonts)");
-				pdf_document->missing_fonts = TRUE;
+				self->missing_fonts = TRUE;
 			}
 		}
 
@@ -1018,12 +1018,12 @@ pdf_document_document_fonts_iface_init (PpsDocumentFontsInterface *iface)
 static gboolean
 pdf_document_links_has_document_links (PpsDocumentLinks *document_links)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (document_links);
+	PdfDocument *self = PDF_DOCUMENT (document_links);
 	PopplerIndexIter *iter;
 
 	g_return_val_if_fail (PDF_IS_DOCUMENT (document_links), FALSE);
 
-	iter = poppler_index_iter_new (pdf_document->document);
+	iter = poppler_index_iter_new (self->document);
 	if (iter == NULL)
 		return FALSE;
 	poppler_index_iter_free (iter);
@@ -1032,7 +1032,7 @@ pdf_document_links_has_document_links (PpsDocumentLinks *document_links)
 }
 
 static PpsLinkDest *
-pps_link_dest_from_dest (PdfDocument *pdf_document,
+pps_link_dest_from_dest (PdfDocument *self,
                          PopplerDest *dest)
 {
 	PpsLinkDest *pps_dest = NULL;
@@ -1045,7 +1045,7 @@ pps_link_dest_from_dest (PdfDocument *pdf_document,
 		PopplerPage *poppler_page;
 		double height;
 
-		poppler_page = poppler_document_get_page (pdf_document->document,
+		poppler_page = poppler_document_get_page (self->document,
 		                                          MAX (0, dest->page_num - 1));
 		poppler_page_get_size (poppler_page, NULL, &height);
 		pps_dest = pps_link_dest_new_xyz (dest->page_num - 1,
@@ -1066,7 +1066,7 @@ pps_link_dest_from_dest (PdfDocument *pdf_document,
 		PopplerPage *poppler_page;
 		double height;
 
-		poppler_page = poppler_document_get_page (pdf_document->document,
+		poppler_page = poppler_document_get_page (self->document,
 		                                          MAX (0, dest->page_num - 1));
 		poppler_page_get_size (poppler_page, NULL, &height);
 		pps_dest = pps_link_dest_new_fith (dest->page_num - 1,
@@ -1084,7 +1084,7 @@ pps_link_dest_from_dest (PdfDocument *pdf_document,
 		PopplerPage *poppler_page;
 		double height;
 
-		poppler_page = poppler_document_get_page (pdf_document->document,
+		poppler_page = poppler_document_get_page (self->document,
 		                                          MAX (0, dest->page_num - 1));
 		poppler_page_get_size (poppler_page, NULL, &height);
 		/* for papers we ensure that bottom <= top and left <= right */
@@ -1118,7 +1118,7 @@ pps_link_dest_from_dest (PdfDocument *pdf_document,
 }
 
 static PpsLink *
-pps_link_from_action (PdfDocument *pdf_document,
+pps_link_from_action (PdfDocument *self,
                       PopplerAction *action)
 {
 	PpsLink *link = NULL;
@@ -1131,14 +1131,14 @@ pps_link_from_action (PdfDocument *pdf_document,
 	case POPPLER_ACTION_GOTO_DEST: {
 		PpsLinkDest *dest;
 
-		dest = pps_link_dest_from_dest (pdf_document, action->goto_dest.dest);
+		dest = pps_link_dest_from_dest (self, action->goto_dest.dest);
 		pps_action = pps_link_action_new_dest (dest);
 		g_object_unref (dest);
 	} break;
 	case POPPLER_ACTION_GOTO_REMOTE: {
 		PpsLinkDest *dest;
 
-		dest = pps_link_dest_from_dest (pdf_document, action->goto_remote.dest);
+		dest = pps_link_dest_from_dest (self, action->goto_remote.dest);
 		pps_action = pps_link_action_new_remote (dest,
 		                                         action->goto_remote.file_name);
 		g_object_unref (dest);
@@ -1234,7 +1234,7 @@ pps_link_from_action (PdfDocument *pdf_document,
 }
 
 static void
-build_tree (PdfDocument *pdf_document,
+build_tree (PdfDocument *self,
             GListStore *model,
             PopplerIndexIter *iter)
 {
@@ -1254,7 +1254,7 @@ build_tree (PdfDocument *pdf_document,
 		if (!action)
 			continue;
 
-		link = pps_link_from_action (pdf_document, action);
+		link = pps_link_from_action (self, action);
 		if (!link || strlen (pps_link_get_title (link)) <= 0) {
 			poppler_action_free (action);
 			if (link)
@@ -1275,7 +1275,7 @@ build_tree (PdfDocument *pdf_document,
 		child = poppler_index_iter_get_child (iter);
 		if (child) {
 			children = g_list_store_new (PPS_TYPE_OUTLINES);
-			build_tree (pdf_document, children, child);
+			build_tree (self, children, child);
 		}
 
 		g_object_set (outlines, "children", children, NULL);
@@ -1287,18 +1287,18 @@ build_tree (PdfDocument *pdf_document,
 static GListModel *
 pdf_document_links_get_links_model (PpsDocumentLinks *document_links)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (document_links);
+	PdfDocument *self = PDF_DOCUMENT (document_links);
 	GListStore *model = NULL;
 	PopplerIndexIter *iter;
 
 	g_return_val_if_fail (PDF_IS_DOCUMENT (document_links), NULL);
 
-	iter = poppler_index_iter_new (pdf_document->document);
+	iter = poppler_index_iter_new (self->document);
 	/* Create the model if we have items*/
 	if (iter != NULL) {
 		model = g_list_store_new (PPS_TYPE_OUTLINES);
 
-		build_tree (pdf_document, model, iter);
+		build_tree (self, model, iter);
 		poppler_index_iter_free (iter);
 
 		return G_LIST_MODEL (model);
@@ -1311,16 +1311,13 @@ static PpsMappingList *
 pdf_document_links_get_links (PpsDocumentLinks *document_links,
                               PpsPage *page)
 {
-	PdfDocument *pdf_document;
-	PopplerPage *poppler_page;
+	PdfDocument *self = PDF_DOCUMENT (document_links);
+	PopplerPage *poppler_page = POPPLER_PAGE (page->backend_page);
+	GList *mapping_list = poppler_page_get_link_mapping (poppler_page);
 	GList *retval = NULL;
-	GList *mapping_list;
 	GList *list;
 	double height;
 
-	pdf_document = PDF_DOCUMENT (document_links);
-	poppler_page = POPPLER_PAGE (page->backend_page);
-	mapping_list = poppler_page_get_link_mapping (poppler_page);
 	poppler_page_get_size (poppler_page, NULL, &height);
 
 	for (list = mapping_list; list; list = list->next) {
@@ -1329,7 +1326,7 @@ pdf_document_links_get_links (PpsDocumentLinks *document_links,
 
 		link_mapping = (PopplerLinkMapping *) list->data;
 		pps_link_mapping = g_new (PpsMapping, 1);
-		pps_link_mapping->data = pps_link_from_action (pdf_document,
+		pps_link_mapping->data = pps_link_from_action (self,
 		                                               link_mapping->action);
 		pps_link_mapping->area.x1 = link_mapping->area.x1;
 		pps_link_mapping->area.x2 = link_mapping->area.x2;
@@ -1349,15 +1346,14 @@ static PpsLinkDest *
 pdf_document_links_find_link_dest (PpsDocumentLinks *document_links,
                                    const gchar *link_name)
 {
-	PdfDocument *pdf_document;
+	PdfDocument *self = PDF_DOCUMENT (document_links);
 	PopplerDest *dest;
 	PpsLinkDest *pps_dest = NULL;
 
-	pdf_document = PDF_DOCUMENT (document_links);
-	dest = poppler_document_find_dest (pdf_document->document,
+	dest = poppler_document_find_dest (self->document,
 	                                   link_name);
 	if (dest) {
-		pps_dest = pps_link_dest_from_dest (pdf_document, dest);
+		pps_dest = pps_link_dest_from_dest (self, dest);
 		poppler_dest_free (dest);
 	}
 
@@ -1368,12 +1364,11 @@ static gint
 pdf_document_links_find_link_page (PpsDocumentLinks *document_links,
                                    const gchar *link_name)
 {
-	PdfDocument *pdf_document;
+	PdfDocument *self = PDF_DOCUMENT (document_links);
 	PopplerDest *dest;
 	gint retval = -1;
 
-	pdf_document = PDF_DOCUMENT (document_links);
-	dest = poppler_document_find_dest (pdf_document->document,
+	dest = poppler_document_find_dest (self->document,
 	                                   link_name);
 	if (dest) {
 		retval = dest->page_num - 1;
@@ -1431,13 +1426,12 @@ static GdkPixbuf *
 pdf_document_images_get_image (PpsDocumentImages *document_images,
                                PpsImage *image)
 {
+	PdfDocument *self = PDF_DOCUMENT (document_images);
 	GdkPixbuf *retval = NULL;
-	PdfDocument *pdf_document;
 	PopplerPage *poppler_page;
 	cairo_surface_t *surface;
 
-	pdf_document = PDF_DOCUMENT (document_images);
-	poppler_page = poppler_document_get_page (pdf_document->document,
+	poppler_page = poppler_document_get_page (self->document,
 	                                          pps_image_get_page (image));
 
 	surface = poppler_page_get_image (poppler_page, pps_image_get_id (image));
@@ -1547,16 +1541,16 @@ static void
 pdf_document_file_exporter_begin (PpsFileExporter *exporter,
                                   PpsFileExporterContext *fc)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (exporter);
+	PdfDocument *self = PDF_DOCUMENT (exporter);
 	PdfPrintContext *ctx;
 #ifdef HAVE_CAIRO_PRINT
 	cairo_surface_t *surface = NULL;
 #endif
 
-	if (pdf_document->print_ctx)
-		pdf_print_context_free (pdf_document->print_ctx);
-	pdf_document->print_ctx = g_new0 (PdfPrintContext, 1);
-	ctx = pdf_document->print_ctx;
+	if (self->print_ctx)
+		pdf_print_context_free (self->print_ctx);
+	self->print_ctx = g_new0 (PdfPrintContext, 1);
+	ctx = self->print_ctx;
 	ctx->format = fc->format;
 
 #ifdef HAVE_CAIRO_PRINT
@@ -1615,7 +1609,7 @@ pdf_document_file_exporter_begin (PpsFileExporter *exporter,
 
 #else  /* HAVE_CAIRO_PRINT */
 	if (ctx->format == PPS_FILE_FORMAT_PS) {
-		ctx->ps_file = poppler_ps_file_new (pdf_document->document,
+		ctx->ps_file = poppler_ps_file_new (self->document,
 		                                    fc->filename, fc->first_page,
 		                                    fc->last_page - fc->first_page + 1);
 		poppler_ps_file_set_paper_size (ctx->ps_file, fc->paper_width, fc->paper_height);
@@ -1627,10 +1621,10 @@ pdf_document_file_exporter_begin (PpsFileExporter *exporter,
 static void
 pdf_document_file_exporter_begin_page (PpsFileExporter *exporter)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (exporter);
-	PdfPrintContext *ctx = pdf_document->print_ctx;
+	PdfDocument *self = PDF_DOCUMENT (exporter);
+	PdfPrintContext *ctx = self->print_ctx;
 
-	g_return_if_fail (pdf_document->print_ctx != NULL);
+	g_return_if_fail (self->print_ctx != NULL);
 
 	ctx->pages_printed = 0;
 
@@ -1653,8 +1647,8 @@ static void
 pdf_document_file_exporter_do_page (PpsFileExporter *exporter,
                                     PpsRenderContext *rc)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (exporter);
-	PdfPrintContext *ctx = pdf_document->print_ctx;
+	PdfDocument *self = PDF_DOCUMENT (exporter);
+	PdfPrintContext *ctx = self->print_ctx;
 	PopplerPage *poppler_page;
 #ifdef HAVE_CAIRO_PRINT
 	gdouble page_width, page_height;
@@ -1665,7 +1659,7 @@ pdf_document_file_exporter_do_page (PpsFileExporter *exporter,
 	gdouble xscale, yscale;
 #endif
 
-	g_return_if_fail (pdf_document->print_ctx != NULL);
+	g_return_if_fail (self->print_ctx != NULL);
 
 	poppler_page = POPPLER_PAGE (rc->page->backend_page);
 
@@ -1757,22 +1751,22 @@ pdf_document_file_exporter_do_page (PpsFileExporter *exporter,
 static void
 pdf_document_file_exporter_end_page (PpsFileExporter *exporter)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (exporter);
+	PdfDocument *self = PDF_DOCUMENT (exporter);
 
-	g_return_if_fail (pdf_document->print_ctx != NULL);
+	g_return_if_fail (self->print_ctx != NULL);
 
 #ifdef HAVE_CAIRO_PRINT
-	cairo_show_page (pdf_document->print_ctx->cr);
+	cairo_show_page (self->print_ctx->cr);
 #endif
 }
 
 static void
 pdf_document_file_exporter_end (PpsFileExporter *exporter)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (exporter);
+	PdfDocument *self = PDF_DOCUMENT (exporter);
 
-	pdf_print_context_free (pdf_document->print_ctx);
-	pdf_document->print_ctx = NULL;
+	pdf_print_context_free (self->print_ctx);
+	self->print_ctx = NULL;
 }
 
 static PpsFileExporterCapabilities
@@ -2068,12 +2062,11 @@ static gdouble
 pdf_document_get_page_duration (PpsDocumentTransition *trans,
                                 gint page)
 {
-	PdfDocument *pdf_document;
+	PdfDocument *self = PDF_DOCUMENT (trans);
 	PopplerPage *poppler_page;
 	gdouble duration = -1;
 
-	pdf_document = PDF_DOCUMENT (trans);
-	poppler_page = poppler_document_get_page (pdf_document->document, page);
+	poppler_page = poppler_document_get_page (self->document, page);
 	if (!poppler_page)
 		return -1;
 
@@ -2087,13 +2080,12 @@ static PpsTransitionEffect *
 pdf_document_get_effect (PpsDocumentTransition *trans,
                          gint page)
 {
-	PdfDocument *pdf_document;
+	PdfDocument *self = PDF_DOCUMENT (trans);
 	PopplerPage *poppler_page;
 	PopplerPageTransition *page_transition;
 	PpsTransitionEffect *effect;
 
-	pdf_document = PDF_DOCUMENT (trans);
-	poppler_page = poppler_document_get_page (pdf_document->document, page);
+	poppler_page = poppler_document_get_page (self->document, page);
 
 	if (!poppler_page)
 		return NULL;
@@ -2136,12 +2128,11 @@ pdf_document_get_crop_box (PpsDocument  *document,
 			   int          page,
 			   PpsRectangle *rect)
 {
-	PdfDocument *pdf_document;
+	PdfDocument *self = PDF_DOCUMENT (document);;
 	PopplerPage *poppler_page;
 	PopplerRectangle poppler_rect;
 
-	pdf_document = PDF_DOCUMENT (document);
-	poppler_page = poppler_document_get_page (pdf_document->document, page);
+	poppler_page = poppler_document_get_page (self->document, page);
 	poppler_page_get_crop_box (poppler_page, &poppler_rect);
 	rect->x1 = poppler_rect.x1;
 	rect->x2 = poppler_rect.x2;
@@ -2151,7 +2142,7 @@ pdf_document_get_crop_box (PpsDocument  *document,
 #endif
 
 static PpsFormField *
-pps_form_field_from_poppler_field (PdfDocument *pdf_document,
+pps_form_field_from_poppler_field (PdfDocument *self,
                                    PopplerFormField *poppler_field)
 {
 	PpsFormField *pps_field = NULL;
@@ -2254,7 +2245,7 @@ pps_form_field_from_poppler_field (PdfDocument *pdf_document,
 	pps_form_field_set_alternate_name (pps_field, alt_ui_name);
 
 	if (action)
-		pps_field->activation_link = pps_link_from_action (pdf_document, action);
+		pps_field->activation_link = pps_link_from_action (self, action);
 
 	return pps_field;
 }
@@ -2871,18 +2862,15 @@ pdf_document_annotations_get_annotations (PpsDocumentAnnotations *document_annot
                                           PpsPage *page)
 {
 	GList *retval = NULL;
-	PdfDocument *pdf_document;
-	PopplerPage *poppler_page;
+	PdfDocument *self = PDF_DOCUMENT (document_annotations);
+	PopplerPage *poppler_page = POPPLER_PAGE (page->backend_page);
 	PpsMappingList *mapping_list;
 	GList *annots;
 	GList *list;
 	gdouble height;
 
-	pdf_document = PDF_DOCUMENT (document_annotations);
-	poppler_page = POPPLER_PAGE (page->backend_page);
-
-	if (pdf_document->annots) {
-		mapping_list = (PpsMappingList *) g_hash_table_lookup (pdf_document->annots,
+	if (self->annots) {
+		mapping_list = (PpsMappingList *) g_hash_table_lookup (self->annots,
 		                                                       GINT_TO_POINTER (page->index));
 		if (mapping_list)
 			return pps_mapping_list_ref (mapping_list);
@@ -2938,15 +2926,15 @@ pdf_document_annotations_get_annotations (PpsDocumentAnnotations *document_annot
 	if (!retval)
 		return NULL;
 
-	if (!pdf_document->annots) {
-		pdf_document->annots = g_hash_table_new_full (g_direct_hash,
-		                                              g_direct_equal,
-		                                              (GDestroyNotify) NULL,
-		                                              (GDestroyNotify) pps_mapping_list_unref);
+	if (!self->annots) {
+		self->annots = g_hash_table_new_full (g_direct_hash,
+		                                      g_direct_equal,
+		                                      (GDestroyNotify) NULL,
+		                                      (GDestroyNotify) pps_mapping_list_unref);
 	}
 
 	mapping_list = pps_mapping_list_new (page->index, g_list_reverse (retval), (GDestroyNotify) g_object_unref);
-	g_hash_table_insert (pdf_document->annots,
+	g_hash_table_insert (self->annots,
 	                     GINT_TO_POINTER (page->index),
 	                     pps_mapping_list_ref (mapping_list));
 
@@ -2963,31 +2951,28 @@ static void
 pdf_document_annotations_remove_annotation (PpsDocumentAnnotations *document_annotations,
                                             PpsAnnotation *annot)
 {
-	PopplerPage *poppler_page;
-	PdfDocument *pdf_document;
-	PpsPage *page;
+	PdfDocument *self = PDF_DOCUMENT (document_annotations);
+	PpsPage *page = pps_annotation_get_page (annot);
+	PopplerPage *poppler_page = POPPLER_PAGE (page->backend_page);
 	PopplerAnnot *poppler_annot;
 	PpsMappingList *mapping_list;
 	PpsMapping *annot_mapping;
 
 	poppler_annot = POPPLER_ANNOT (g_object_get_data (G_OBJECT (annot), "poppler-annot"));
-	pdf_document = PDF_DOCUMENT (document_annotations);
-	page = pps_annotation_get_page (annot);
-	poppler_page = POPPLER_PAGE (page->backend_page);
 
 	poppler_page_remove_annot (poppler_page, poppler_annot);
 
-	/* We don't check for pdf_document->annots, if it were NULL then something is really wrong */
-	mapping_list = (PpsMappingList *) g_hash_table_lookup (pdf_document->annots,
+	/* We don't check for self->annots, if it were NULL then something is really wrong */
+	mapping_list = (PpsMappingList *) g_hash_table_lookup (self->annots,
 	                                                       GINT_TO_POINTER (page->index));
 	if (mapping_list) {
 		annot_mapping = pps_mapping_list_find (mapping_list, annot);
 		pps_mapping_list_remove (mapping_list, annot_mapping);
 		if (pps_mapping_list_length (mapping_list) == 0)
-			g_hash_table_remove (pdf_document->annots, GINT_TO_POINTER (page->index));
+			g_hash_table_remove (self->annots, GINT_TO_POINTER (page->index));
 	}
 
-	pdf_document->annots_modified = TRUE;
+	self->annots_modified = TRUE;
 	pps_document_set_modified (PPS_DOCUMENT (document_annotations), TRUE);
 }
 
@@ -3093,10 +3078,10 @@ static void
 pdf_document_annotations_add_annotation (PpsDocumentAnnotations *document_annotations,
                                          PpsAnnotation *annot)
 {
+	PdfDocument *self = PDF_DOCUMENT (document_annotations);
+	PpsPage *page = pps_annotation_get_page (annot);
+	PopplerPage *poppler_page = POPPLER_PAGE (page->backend_page);
 	PopplerAnnot *poppler_annot;
-	PdfDocument *pdf_document;
-	PpsPage *page;
-	PopplerPage *poppler_page;
 	GList *list = NULL;
 	PpsMappingList *mapping_list;
 	PpsMapping *annot_mapping;
@@ -3105,10 +3090,6 @@ pdf_document_annotations_add_annotation (PpsDocumentAnnotations *document_annota
 	PopplerColor poppler_color;
 	GdkRGBA color;
 	PpsRectangle rect;
-
-	pdf_document = PDF_DOCUMENT (document_annotations);
-	page = pps_annotation_get_page (annot);
-	poppler_page = POPPLER_PAGE (page->backend_page);
 
 	pps_annotation_get_area (annot, &rect);
 
@@ -3123,7 +3104,7 @@ pdf_document_annotations_add_annotation (PpsDocumentAnnotations *document_annota
 		PpsAnnotationText *text = PPS_ANNOTATION_TEXT (annot);
 		PpsAnnotationTextIcon icon;
 
-		poppler_annot = poppler_annot_text_new (pdf_document->document, &poppler_rect);
+		poppler_annot = poppler_annot_text_new (self->document, &poppler_rect);
 
 		icon = pps_annotation_text_get_icon (text);
 		poppler_annot_text_set_icon (POPPLER_ANNOT_TEXT (poppler_annot),
@@ -3149,7 +3130,7 @@ pdf_document_annotations_add_annotation (PpsDocumentAnnotations *document_annota
 
 		switch (pps_annotation_text_markup_get_markup_type (PPS_ANNOTATION_TEXT_MARKUP (annot))) {
 		case PPS_ANNOTATION_TEXT_MARKUP_HIGHLIGHT:
-			poppler_annot = poppler_annot_text_markup_new_highlight (pdf_document->document, &poppler_rect, quads);
+			poppler_annot = poppler_annot_text_markup_new_highlight (self->document, &poppler_rect, quads);
 			break;
 		default:
 			g_assert_not_reached ();
@@ -3201,14 +3182,14 @@ pdf_document_annotations_add_annotation (PpsDocumentAnnotations *document_annota
 	                        poppler_annot,
 	                        (GDestroyNotify) g_object_unref);
 
-	if (pdf_document->annots) {
-		mapping_list = (PpsMappingList *) g_hash_table_lookup (pdf_document->annots,
+	if (self->annots) {
+		mapping_list = (PpsMappingList *) g_hash_table_lookup (self->annots,
 		                                                       GINT_TO_POINTER (page->index));
 	} else {
-		pdf_document->annots = g_hash_table_new_full (g_direct_hash,
-		                                              g_direct_equal,
-		                                              (GDestroyNotify) NULL,
-		                                              (GDestroyNotify) pps_mapping_list_unref);
+		self->annots = g_hash_table_new_full (g_direct_hash,
+		                                      g_direct_equal,
+		                                      (GDestroyNotify) NULL,
+		                                      (GDestroyNotify) pps_mapping_list_unref);
 		mapping_list = NULL;
 	}
 
@@ -3220,12 +3201,12 @@ pdf_document_annotations_add_annotation (PpsDocumentAnnotations *document_annota
 	} else {
 		list = g_list_append (list, annot_mapping);
 		mapping_list = pps_mapping_list_new (page->index, list, (GDestroyNotify) g_object_unref);
-		g_hash_table_insert (pdf_document->annots,
+		g_hash_table_insert (self->annots,
 		                     GINT_TO_POINTER (page->index),
 		                     pps_mapping_list_ref (mapping_list));
 	}
 
-	pdf_document->annots_modified = TRUE;
+	self->annots_modified = TRUE;
 	pps_document_set_modified (PPS_DOCUMENT (document_annotations), TRUE);
 }
 
@@ -3367,30 +3348,28 @@ pdf_document_annotations_save_annotation (PpsDocumentAnnotations *document_annot
 
 		if (mask & PPS_ANNOTATIONS_SAVE_TEXT_MARKUP_TYPE) {
 			/* In poppler every text markup annotation type is a different class */
+			PdfDocument *self = PDF_DOCUMENT (document_annotations);
 			GArray *quads;
 			PopplerRectangle rect;
 			PopplerAnnot *new_annot = NULL;
-			PdfDocument *pdf_document;
 			PpsPage *page;
 			PopplerPage *poppler_page;
-
-			pdf_document = PDF_DOCUMENT (document_annotations);
 
 			quads = poppler_annot_text_markup_get_quadrilaterals (text_markup);
 			poppler_annot_get_rectangle (POPPLER_ANNOT (text_markup), &rect);
 
 			switch (pps_annotation_text_markup_get_markup_type (pps_text_markup)) {
 			case PPS_ANNOTATION_TEXT_MARKUP_HIGHLIGHT:
-				new_annot = poppler_annot_text_markup_new_highlight (pdf_document->document, &rect, quads);
+				new_annot = poppler_annot_text_markup_new_highlight (self->document, &rect, quads);
 				break;
 			case PPS_ANNOTATION_TEXT_MARKUP_STRIKE_OUT:
-				new_annot = poppler_annot_text_markup_new_strikeout (pdf_document->document, &rect, quads);
+				new_annot = poppler_annot_text_markup_new_strikeout (self->document, &rect, quads);
 				break;
 			case PPS_ANNOTATION_TEXT_MARKUP_UNDERLINE:
-				new_annot = poppler_annot_text_markup_new_underline (pdf_document->document, &rect, quads);
+				new_annot = poppler_annot_text_markup_new_underline (self->document, &rect, quads);
 				break;
 			case PPS_ANNOTATION_TEXT_MARKUP_SQUIGGLY:
-				new_annot = poppler_annot_text_markup_new_squiggly (pdf_document->document, &rect, quads);
+				new_annot = poppler_annot_text_markup_new_squiggly (self->document, &rect, quads);
 				break;
 			}
 
@@ -3669,17 +3648,13 @@ static PpsMappingList *
 pdf_document_media_get_media_mapping (PpsDocumentMedia *document_media,
                                       PpsPage *page)
 {
+	PdfDocument *self = PDF_DOCUMENT (document_media);
+	PopplerPage *poppler_page = POPPLER_PAGE (page->backend_page);
+	GList *annots = poppler_page_get_annot_mapping (poppler_page);
 	GList *retval = NULL;
-	PdfDocument *pdf_document;
-	PopplerPage *poppler_page;
-	GList *annots;
 	GList *list;
 	gdouble height;
 
-	pdf_document = PDF_DOCUMENT (document_media);
-	poppler_page = POPPLER_PAGE (page->backend_page);
-
-	annots = poppler_page_get_annot_mapping (poppler_page);
 	poppler_page_get_size (poppler_page, NULL, &height);
 
 	for (list = annots; list; list = list->next) {
@@ -3694,7 +3669,7 @@ pdf_document_media_get_media_mapping (PpsDocumentMedia *document_media,
 			PopplerAnnotMovie *poppler_annot;
 
 			poppler_annot = POPPLER_ANNOT_MOVIE (mapping->annot);
-			media = pps_media_from_poppler_movie (PPS_DOCUMENT (pdf_document), page,
+			media = pps_media_from_poppler_movie (PPS_DOCUMENT (self), page,
 			                                      poppler_annot_movie_get_movie (poppler_annot));
 		} break;
 		case POPPLER_ANNOT_SCREEN: {
@@ -3702,7 +3677,7 @@ pdf_document_media_get_media_mapping (PpsDocumentMedia *document_media,
 
 			action = poppler_annot_screen_get_action (POPPLER_ANNOT_SCREEN (mapping->annot));
 			if (action && action->type == POPPLER_ACTION_RENDITION) {
-				media = pps_media_from_poppler_rendition (PPS_DOCUMENT (pdf_document), page,
+				media = pps_media_from_poppler_rendition (PPS_DOCUMENT (self), page,
 				                                          action->rendition.media);
 			}
 		} break;
@@ -3801,12 +3776,12 @@ attachment_save_to_buffer (PopplerAttachment *attachment,
 static GList *
 pdf_document_attachments_get_attachments (PpsDocumentAttachments *document)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (document);
+	PdfDocument *self = PDF_DOCUMENT (document);
 	GList *attachments;
 	GList *list;
 	GList *retval = NULL;
 
-	attachments = poppler_document_get_attachments (pdf_document->document);
+	attachments = poppler_document_get_attachments (self->document);
 
 	for (list = attachments; list; list = list->next) {
 		PopplerAttachment *attachment;
@@ -3847,9 +3822,9 @@ pdf_document_attachments_get_attachments (PpsDocumentAttachments *document)
 static gboolean
 pdf_document_attachments_has_attachments (PpsDocumentAttachments *document)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (document);
+	PdfDocument *self = PDF_DOCUMENT (document);
 
-	return poppler_document_has_attachments (pdf_document->document);
+	return poppler_document_has_attachments (self->document);
 }
 
 static void
@@ -3863,10 +3838,10 @@ pdf_document_document_attachments_iface_init (PpsDocumentAttachmentsInterface *i
 static gboolean
 pdf_document_layers_has_layers (PpsDocumentLayers *document)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (document);
+	PdfDocument *self = PDF_DOCUMENT (document);
 	PopplerLayersIter *iter;
 
-	iter = poppler_layers_iter_new (pdf_document->document);
+	iter = poppler_layers_iter_new (self->document);
 	if (!iter)
 		return FALSE;
 	poppler_layers_iter_free (iter);
@@ -3875,7 +3850,7 @@ pdf_document_layers_has_layers (PpsDocumentLayers *document)
 }
 
 static void
-build_layers_tree (PdfDocument *pdf_document,
+build_layers_tree (PdfDocument *self,
                    GListStore *model,
                    PopplerLayersIter *iter)
 {
@@ -3925,7 +3900,7 @@ build_layers_tree (PdfDocument *pdf_document,
 
 		if (child) {
 			GListStore *children = g_list_store_new (PPS_TYPE_LAYER);
-			build_layers_tree (pdf_document, children, child);
+			build_layers_tree (self, children, child);
 			pps_layer_set_children (pps_layer, G_LIST_MODEL (children));
 		}
 
@@ -3937,13 +3912,13 @@ static GListModel *
 pdf_document_layers_get_layers (PpsDocumentLayers *document)
 {
 	GListStore *model = NULL;
-	PdfDocument *pdf_document = PDF_DOCUMENT (document);
+	PdfDocument *self = PDF_DOCUMENT (document);
 	PopplerLayersIter *iter;
 
-	iter = poppler_layers_iter_new (pdf_document->document);
+	iter = poppler_layers_iter_new (self->document);
 	if (iter) {
 		model = g_list_store_new (PPS_TYPE_LAYER);
-		build_layers_tree (pdf_document, model, iter);
+		build_layers_tree (self, model, iter);
 		poppler_layers_iter_free (iter);
 		return G_LIST_MODEL (model);
 	}
@@ -4027,7 +4002,7 @@ pdf_document_signatures_sign (PpsDocumentSignatures *document,
                               GAsyncReadyCallback callback,
                               gpointer user_data)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (document);
+	PdfDocument *self = PDF_DOCUMENT (document);
 	PopplerSigningData *signing_data = poppler_signing_data_new ();
 	PopplerCertificateInfo *cert_info = find_poppler_certificate_info (pps_signature_get_certificate_info (signature));
 	PopplerRectangle signing_rect;
@@ -4088,7 +4063,7 @@ pdf_document_signatures_sign (PpsDocumentSignatures *document,
 
 	poppler_signing_data_set_signature_rectangle (signing_data, &signing_rect);
 
-	poppler_document_sign (POPPLER_DOCUMENT (pdf_document->document), signing_data, cancellable, callback, user_data);
+	poppler_document_sign (POPPLER_DOCUMENT (self->document), signing_data, cancellable, callback, user_data);
 }
 
 static gboolean
@@ -4096,9 +4071,9 @@ pdf_document_signatures_sign_finish (PpsDocumentSignatures *document_signatures,
                                      GAsyncResult *result,
                                      GError **error)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (document_signatures);
+	PdfDocument *self = PDF_DOCUMENT (document_signatures);
 
-	return poppler_document_sign_finish (POPPLER_DOCUMENT (pdf_document->document), result, error);
+	return poppler_document_sign_finish (POPPLER_DOCUMENT (self->document), result, error);
 }
 
 static gboolean
@@ -4173,12 +4148,12 @@ pdf_document_get_certificate_info (PpsDocumentSignatures *document,
 static GList *
 pdf_document_signatures_get_signatures (PpsDocumentSignatures *document)
 {
-	PdfDocument *pdf_document = PDF_DOCUMENT (document);
+	PdfDocument *self = PDF_DOCUMENT (document);
 	GList *ret_list = NULL;
 	GList *signature_fields = NULL;
 	GList *iter;
 
-	signature_fields = poppler_document_get_signature_fields (pdf_document->document);
+	signature_fields = poppler_document_get_signature_fields (self->document);
 
 	for (iter = signature_fields; iter != NULL; iter = iter->next) {
 		PopplerFormField *field = iter->data;
