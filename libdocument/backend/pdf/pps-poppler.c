@@ -184,6 +184,10 @@ static void
 pdf_document_init (PdfDocument *self)
 {
 	self->password = NULL;
+	self->annots = g_hash_table_new_full (g_direct_hash,
+	                                      g_direct_equal,
+	                                      (GDestroyNotify) NULL,
+	                                      (GDestroyNotify) pps_mapping_list_unref);
 }
 
 static void
@@ -2861,12 +2865,10 @@ pdf_document_annotations_get_annotations (PpsDocumentAnnotations *document_annot
 	GList *list;
 	gdouble height;
 
-	if (self->annots) {
-		mapping_list = (PpsMappingList *) g_hash_table_lookup (self->annots,
-		                                                       GINT_TO_POINTER (page->index));
-		if (mapping_list)
-			return pps_mapping_list_ref (mapping_list);
-	}
+	mapping_list = (PpsMappingList *) g_hash_table_lookup (self->annots,
+	                                                       GINT_TO_POINTER (page->index));
+	if (mapping_list)
+		return pps_mapping_list_ref (mapping_list);
 
 	annots = poppler_page_get_annot_mapping (poppler_page);
 	poppler_page_get_size (poppler_page, NULL, &height);
@@ -2917,13 +2919,6 @@ pdf_document_annotations_get_annotations (PpsDocumentAnnotations *document_annot
 
 	if (!retval)
 		return NULL;
-
-	if (!self->annots) {
-		self->annots = g_hash_table_new_full (g_direct_hash,
-		                                      g_direct_equal,
-		                                      (GDestroyNotify) NULL,
-		                                      (GDestroyNotify) pps_mapping_list_unref);
-	}
 
 	mapping_list = pps_mapping_list_new (page->index, g_list_reverse (retval), (GDestroyNotify) g_object_unref);
 	g_hash_table_insert (self->annots,
@@ -3174,16 +3169,8 @@ pdf_document_annotations_add_annotation (PpsDocumentAnnotations *document_annota
 	                        poppler_annot,
 	                        (GDestroyNotify) g_object_unref);
 
-	if (self->annots) {
-		mapping_list = (PpsMappingList *) g_hash_table_lookup (self->annots,
-		                                                       GINT_TO_POINTER (page->index));
-	} else {
-		self->annots = g_hash_table_new_full (g_direct_hash,
-		                                      g_direct_equal,
-		                                      (GDestroyNotify) NULL,
-		                                      (GDestroyNotify) pps_mapping_list_unref);
-		mapping_list = NULL;
-	}
+	mapping_list = (PpsMappingList *) g_hash_table_lookup (self->annots,
+	                                                       GINT_TO_POINTER (page->index));
 
 	annot_set_unique_name (annot);
 
