@@ -23,6 +23,7 @@ int main() {
     printf("%s;%zu;%zu\n", "PpsBackendPage", sizeof(PpsBackendPage), alignof(PpsBackendPage));
     printf("%s;%zu;%zu\n", "PpsBackendPageDestroyFunc", sizeof(PpsBackendPageDestroyFunc), alignof(PpsBackendPageDestroyFunc));
     printf("%s;%zu;%zu\n", "PpsCertificateInfo", sizeof(PpsCertificateInfo), alignof(PpsCertificateInfo));
+    printf("%s;%zu;%zu\n", "PpsCertificateInfoClass", sizeof(PpsCertificateInfoClass), alignof(PpsCertificateInfoClass));
     printf("%s;%zu;%zu\n", "PpsCertificateStatus", sizeof(PpsCertificateStatus), alignof(PpsCertificateStatus));
     printf("%s;%zu;%zu\n", "PpsCompressionType", sizeof(PpsCompressionType), alignof(PpsCompressionType));
     printf("%s;%zu;%zu\n", "PpsDocument", sizeof(PpsDocument), alignof(PpsDocument));

@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{ffi, DocumentInfo, Page};
+use crate::{ffi, CertificateInfo, DocumentInfo, DocumentSignatures, Page};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -107,10 +107,19 @@ impl Document {
     //    unsafe { TODO: call ffi:pps_document_misc_texture_from_surface() }
     //}
 
-    //#[doc(alias = "pps_document_signature_get_certificate_info")]
-    //pub fn signature_get_certificate_info(document_signatures: /*Ignored*/&DocumentSignatures, id: &str) -> /*Ignored*/Option<CertificateInfo> {
-    //    unsafe { TODO: call ffi:pps_document_signature_get_certificate_info() }
-    //}
+    #[doc(alias = "pps_document_signature_get_certificate_info")]
+    pub fn signature_get_certificate_info(
+        document_signatures: &impl IsA<DocumentSignatures>,
+        id: &str,
+    ) -> Option<CertificateInfo> {
+        skip_assert_initialized!();
+        unsafe {
+            from_glib_none(ffi::pps_document_signature_get_certificate_info(
+                document_signatures.as_ref().to_glib_none().0,
+                id.to_glib_none().0,
+            ))
+        }
+    }
 }
 
 mod sealed {

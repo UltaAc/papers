@@ -344,16 +344,14 @@ impl ::std::fmt::Debug for PpsAttachmentClass {
 
 #[derive(Copy, Clone)]
 #[repr(C)]
-pub struct PpsCertificateInfo {
-    pub id: *mut c_char,
-    pub subject_common_name: *mut c_char,
+pub struct PpsCertificateInfoClass {
+    pub parent_class: gobject::GObjectClass,
 }
 
-impl ::std::fmt::Debug for PpsCertificateInfo {
+impl ::std::fmt::Debug for PpsCertificateInfoClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PpsCertificateInfo @ {self:p}"))
-            .field("id", &self.id)
-            .field("subject_common_name", &self.subject_common_name)
+        f.debug_struct(&format!("PpsCertificateInfoClass @ {self:p}"))
+            .field("parent_class", &self.parent_class)
             .finish()
     }
 }
@@ -879,6 +877,7 @@ pub struct PpsDocumentSignaturesInterface {
         ) -> gboolean,
     >,
     pub can_sign: Option<unsafe extern "C" fn(*mut PpsDocumentSignatures) -> gboolean>,
+    pub has_signatures: Option<unsafe extern "C" fn(*mut PpsDocumentSignatures) -> gboolean>,
     pub get_signatures:
         Option<unsafe extern "C" fn(*mut PpsDocumentSignatures) -> *mut glib::GList>,
 }
@@ -896,6 +895,7 @@ impl ::std::fmt::Debug for PpsDocumentSignaturesInterface {
             .field("sign", &self.sign)
             .field("sign_finish", &self.sign_finish)
             .field("can_sign", &self.can_sign)
+            .field("has_signatures", &self.has_signatures)
             .field("get_signatures", &self.get_signatures)
             .finish()
     }
@@ -1453,6 +1453,20 @@ impl ::std::fmt::Debug for PpsAttachment {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("PpsAttachment @ {self:p}"))
             .field("parent_instance", &self.parent_instance)
+            .finish()
+    }
+}
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct PpsCertificateInfo {
+    pub base_instance: gobject::GObject,
+}
+
+impl ::std::fmt::Debug for PpsCertificateInfo {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("PpsCertificateInfo @ {self:p}"))
+            .field("base_instance", &self.base_instance)
             .finish()
     }
 }
@@ -2096,25 +2110,6 @@ extern "C" {
     pub fn pps_find_options_get_type() -> GType;
 
     //=========================================================================
-    // PpsCertificateInfo
-    //=========================================================================
-    pub fn pps_certificate_info_get_type() -> GType;
-    pub fn pps_certificate_info_new(
-        id: *const c_char,
-        subject_common_name: *const c_char,
-    ) -> *mut PpsCertificateInfo;
-    pub fn pps_certificate_info_copy(
-        certificate_info: *const PpsCertificateInfo,
-    ) -> *mut PpsCertificateInfo;
-    pub fn pps_certificate_info_free(certificate_info: *mut PpsCertificateInfo);
-    pub fn pps_certificate_info_get_id(
-        certificate_info: *const PpsCertificateInfo,
-    ) -> *const c_char;
-    pub fn pps_certificate_info_get_subject_common_name(
-        certificate_info: *const PpsCertificateInfo,
-    ) -> *const c_char;
-
-    //=========================================================================
     // PpsDocumentInfo
     //=========================================================================
     pub fn pps_document_info_get_type() -> GType;
@@ -2387,6 +2382,15 @@ extern "C" {
         file: *mut gio::GFile,
         error: *mut *mut glib::GError,
     ) -> gboolean;
+
+    //=========================================================================
+    // PpsCertificateInfo
+    //=========================================================================
+    pub fn pps_certificate_info_get_type() -> GType;
+    pub fn pps_certificate_info_new(
+        id: *const c_char,
+        subject_common_name: *const c_char,
+    ) -> *mut PpsCertificateInfo;
 
     //=========================================================================
     // PpsDocument
@@ -2749,19 +2753,9 @@ extern "C" {
     // PpsSignature
     //=========================================================================
     pub fn pps_signature_get_type() -> GType;
-    pub fn pps_signature_new(
-        signer_name: *const c_char,
-        signature_status: PpsSignatureStatus,
-        certificate_status: PpsCertificateStatus,
-        signature_time: *mut glib::GDateTime,
-    ) -> *mut PpsSignature;
-    pub fn pps_signature_certificate_status_str(status: PpsCertificateStatus) -> *mut c_char;
-    pub fn pps_signature_signature_status_str(status: PpsSignatureStatus) -> *mut c_char;
     pub fn pps_signature_get_background_color(self_: *mut PpsSignature, color: *mut gdk::GdkRGBA);
     pub fn pps_signature_get_border_color(self_: *mut PpsSignature, color: *mut gdk::GdkRGBA);
     pub fn pps_signature_get_border_width(self_: *mut PpsSignature) -> c_int;
-    pub fn pps_signature_get_certificate_info(self_: *mut PpsSignature) -> *mut PpsCertificateInfo;
-    pub fn pps_signature_get_certificate_status(self_: *mut PpsSignature) -> PpsCertificateStatus;
     pub fn pps_signature_get_destination_file(self_: *mut PpsSignature) -> *const c_char;
     pub fn pps_signature_get_font_color(self_: *mut PpsSignature, color: *mut gdk::GdkRGBA);
     pub fn pps_signature_get_font_size(self_: *mut PpsSignature) -> c_int;
@@ -2772,17 +2766,11 @@ extern "C" {
     pub fn pps_signature_get_rect(self_: *mut PpsSignature) -> *mut PpsRectangle;
     pub fn pps_signature_get_signature(self_: *mut PpsSignature) -> *const c_char;
     pub fn pps_signature_get_signature_left(self_: *mut PpsSignature) -> *const c_char;
-    pub fn pps_signature_get_signature_status(self_: *mut PpsSignature) -> PpsSignatureStatus;
-    pub fn pps_signature_get_signature_time(self_: *mut PpsSignature) -> *mut glib::GDateTime;
     pub fn pps_signature_get_user_password(self_: *mut PpsSignature) -> *const c_char;
     pub fn pps_signature_is_valid(self_: *mut PpsSignature) -> gboolean;
     pub fn pps_signature_set_background_color(self_: *mut PpsSignature, color: *mut gdk::GdkRGBA);
     pub fn pps_signature_set_border_color(self_: *mut PpsSignature, color: *mut gdk::GdkRGBA);
     pub fn pps_signature_set_border_width(self_: *mut PpsSignature, width: c_int);
-    pub fn pps_signature_set_certificate_info(
-        self_: *mut PpsSignature,
-        certificate: *const PpsCertificateInfo,
-    );
     pub fn pps_signature_set_destination_file(self_: *mut PpsSignature, file: *const c_char);
     pub fn pps_signature_set_font_color(self_: *mut PpsSignature, color: *mut gdk::GdkRGBA);
     pub fn pps_signature_set_font_size(self_: *mut PpsSignature, size: c_int);
@@ -3103,6 +3091,9 @@ extern "C" {
     pub fn pps_document_signatures_get_signatures(
         document_signatures: *mut PpsDocumentSignatures,
     ) -> *mut glib::GList;
+    pub fn pps_document_signatures_has_signatures(
+        document_signatures: *mut PpsDocumentSignatures,
+    ) -> gboolean;
     pub fn pps_document_signatures_set_password_callback(
         document_signatures: *mut PpsDocumentSignatures,
         cb: PpsSignaturePasswordCallback,

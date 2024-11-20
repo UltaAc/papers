@@ -308,6 +308,13 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         },
     ),
     (
+        "PpsCertificateInfoClass",
+        Layout {
+            size: size_of::<PpsCertificateInfoClass>(),
+            alignment: align_of::<PpsCertificateInfoClass>(),
+        },
+    ),
+    (
         "PpsCertificateStatus",
         Layout {
             size: size_of::<PpsCertificateStatus>(),

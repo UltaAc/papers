@@ -1427,20 +1427,18 @@ equal to the required one, and &lt;literal&gt;0&lt;/literal&gt; otherwise.</doc>
         </parameter>
       </parameters>
     </function-macro>
-    <record name="CertificateInfo"
-            c:type="PpsCertificateInfo"
-            glib:type-name="PpsCertificateInfo"
-            glib:get-type="pps_certificate_info_get_type"
-            c:symbol-prefix="certificate_info">
-      <source-position filename="libdocument/pps-signature.h" line="42"/>
-      <field name="id" writable="1">
-        <type name="utf8" c:type="char*"/>
-      </field>
-      <field name="subject_common_name" writable="1">
-        <type name="utf8" c:type="char*"/>
-      </field>
+    <class name="CertificateInfo"
+           c:symbol-prefix="certificate_info"
+           c:type="PpsCertificateInfo"
+           parent="GObject.Object"
+           glib:type-name="PpsCertificateInfo"
+           glib:get-type="pps_certificate_info_get_type"
+           glib:type-struct="CertificateInfoClass">
+      <source-position filename="libdocument/pps-certificate-info.h"
+                       line="35"/>
       <constructor name="new" c:identifier="pps_certificate_info_new">
-        <source-position filename="libdocument/pps-signature.h" line="69"/>
+        <source-position filename="libdocument/pps-certificate-info.h"
+                         line="52"/>
         <return-value transfer-ownership="full">
           <type name="CertificateInfo" c:type="PpsCertificateInfo*"/>
         </return-value>
@@ -1453,55 +1451,86 @@ equal to the required one, and &lt;literal&gt;0&lt;/literal&gt; otherwise.</doc>
           </parameter>
         </parameters>
       </constructor>
-      <method name="copy" c:identifier="pps_certificate_info_copy">
-        <source-position filename="libdocument/pps-signature.h" line="73"/>
-        <return-value transfer-ownership="full">
-          <type name="CertificateInfo" c:type="PpsCertificateInfo*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="certificate_info"
-                              transfer-ownership="none">
-            <type name="CertificateInfo" c:type="const PpsCertificateInfo*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="free" c:identifier="pps_certificate_info_free">
-        <source-position filename="libdocument/pps-signature.h" line="76"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="certificate_info"
-                              transfer-ownership="none">
-            <type name="CertificateInfo" c:type="PpsCertificateInfo*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="get_id" c:identifier="pps_certificate_info_get_id">
-        <source-position filename="libdocument/pps-signature.h" line="79"/>
-        <return-value transfer-ownership="none">
-          <type name="utf8" c:type="const char*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="certificate_info"
-                              transfer-ownership="none">
-            <type name="CertificateInfo" c:type="const PpsCertificateInfo*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="get_subject_common_name"
-              c:identifier="pps_certificate_info_get_subject_common_name">
-        <source-position filename="libdocument/pps-signature.h" line="82"/>
-        <return-value transfer-ownership="none">
-          <type name="utf8" c:type="const char*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="certificate_info"
-                              transfer-ownership="none">
-            <type name="CertificateInfo" c:type="const PpsCertificateInfo*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
+      <property name="expiration-time"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="GLib.DateTime"/>
+      </property>
+      <property name="id"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none"
+                default-value="NULL">
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="issuance-time"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <type name="GLib.DateTime"/>
+      </property>
+      <property name="issuer-common-name"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none"
+                default-value="NULL">
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="issuer-email"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none"
+                default-value="NULL">
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="issuer-organization"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none"
+                default-value="NULL">
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="status"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none"
+                default-value="PPS_CERTIFICATE_STATUS_NOT_VERIFIED">
+        <type name="CertificateStatus"/>
+      </property>
+      <property name="subject-common-name"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none"
+                default-value="NULL">
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="subject-email"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none"
+                default-value="NULL">
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="subject-organization"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none"
+                default-value="NULL">
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <field name="base_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+    </class>
+    <record name="CertificateInfoClass"
+            c:type="PpsCertificateInfoClass"
+            glib:is-gtype-struct-for="CertificateInfo">
+      <source-position filename="libdocument/pps-certificate-info.h"
+                       line="35"/>
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
     </record>
     <enumeration name="CertificateStatus"
                  glib:type-name="PpsCertificateStatus"
@@ -1908,10 +1937,11 @@ Returns 96 as fallback value.</doc>
         </parameters>
       </function>
       <function name="signature_get_certificate_info"
-                c:identifier="pps_document_signature_get_certificate_info">
+                c:identifier="pps_document_signature_get_certificate_info"
+                introspectable="0">
         <source-position filename="libdocument/pps-document-signatures.h"
-                         line="72"/>
-        <return-value transfer-ownership="full">
+                         line="73"/>
+        <return-value>
           <type name="CertificateInfo" c:type="PpsCertificateInfo*"/>
         </return-value>
         <parameters>
@@ -6865,7 +6895,7 @@ interface</doc>
                glib:get-type="pps_document_signatures_get_type"
                glib:type-struct="DocumentSignaturesInterface">
       <source-position filename="libdocument/pps-document-signatures.h"
-                       line="61"/>
+                       line="62"/>
       <virtual-method name="can_sign" invoker="can_sign">
         <doc xml:space="preserve"
              filename="libdocument/pps-document-signatures.c"
@@ -6910,10 +6940,10 @@ interface</doc>
           </instance-parameter>
         </parameters>
       </virtual-method>
-      <virtual-method name="get_certificate_info">
+      <virtual-method name="get_certificate_info" introspectable="0">
         <source-position filename="libdocument/pps-document-signatures.h"
                          line="49"/>
-        <return-value transfer-ownership="full">
+        <return-value>
           <type name="CertificateInfo" c:type="PpsCertificateInfo*"/>
         </return-value>
         <parameters>
@@ -6928,14 +6958,33 @@ interface</doc>
       </virtual-method>
       <virtual-method name="get_signatures" invoker="get_signatures">
         <source-position filename="libdocument/pps-document-signatures.h"
-                         line="60"/>
+                         line="61"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-signatures.c"
-               line="165">a list of #PpsSignature objects</doc>
+               line="182">a list of #PpsSignature objects</doc>
           <type name="GLib.List" c:type="GList*">
             <type name="Signature"/>
           </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_signatures"
+                              transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="180">an #PpsDocumentSignatures</doc>
+            <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+          </instance-parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="has_signatures" invoker="has_signatures">
+        <source-position filename="libdocument/pps-document-signatures.h"
+                         line="60"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-signatures.c"
+               line="165">if the document has digital signatures</doc>
+          <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="document_signatures"
@@ -7058,7 +7107,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
              filename="libdocument/pps-document-signatures.c"
              line="142">Checks whether document supports digital signing.</doc>
         <source-position filename="libdocument/pps-document-signatures.h"
-                         line="84"/>
+                         line="85"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-signatures.c"
@@ -7078,7 +7127,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       <method name="get_available_signing_certificates"
               c:identifier="pps_document_signatures_get_available_signing_certificates">
         <source-position filename="libdocument/pps-document-signatures.h"
-                         line="64"/>
+                         line="65"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-signatures.c"
@@ -7100,14 +7149,34 @@ so set a helper function to actually allow the user to enter his password.</doc>
       <method name="get_signatures"
               c:identifier="pps_document_signatures_get_signatures">
         <source-position filename="libdocument/pps-document-signatures.h"
-                         line="94"/>
+                         line="99"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-signatures.c"
-               line="165">a list of #PpsSignature objects</doc>
+               line="182">a list of #PpsSignature objects</doc>
           <type name="GLib.List" c:type="GList*">
             <type name="Signature"/>
           </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_signatures"
+                              transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="180">an #PpsDocumentSignatures</doc>
+            <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="has_signatures"
+              c:identifier="pps_document_signatures_has_signatures">
+        <source-position filename="libdocument/pps-document-signatures.h"
+                         line="95"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libdocument/pps-document-signatures.c"
+               line="165">if the document has digital signatures</doc>
+          <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="document_signatures"
@@ -7126,7 +7195,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
              line="32">Popplers crypto backend asks for certificate password before access,
 so set a helper function to actually allow the user to enter his password.</doc>
         <source-position filename="libdocument/pps-document-signatures.h"
-                         line="67"/>
+                         line="68"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -7166,7 +7235,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
              filename="libdocument/pps-document-signatures.c"
              line="88">Start the final async process of signing a document using the prepared signature.</doc>
         <source-position filename="libdocument/pps-document-signatures.h"
-                         line="77"/>
+                         line="78"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-signatures.c"
@@ -7225,7 +7294,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
              filename="libdocument/pps-document-signatures.c"
              line="117">Finish `pps_document_signatures_sign` operation,</doc>
         <source-position filename="libdocument/pps-document-signatures.h"
-                         line="88"/>
+                         line="89"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-signatures.c"
@@ -7253,7 +7322,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
             c:type="PpsDocumentSignaturesInterface"
             glib:is-gtype-struct-for="DocumentSignatures">
       <source-position filename="libdocument/pps-document-signatures.h"
-                       line="61"/>
+                       line="62"/>
       <field name="base_iface">
         <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
       </field>
@@ -7316,11 +7385,11 @@ so set a helper function to actually allow the user to enter his password.</doc>
           </parameters>
         </callback>
       </field>
-      <field name="get_certificate_info">
-        <callback name="get_certificate_info">
+      <field name="get_certificate_info" introspectable="0">
+        <callback name="get_certificate_info" introspectable="0">
           <source-position filename="libdocument/pps-document-signatures.h"
                            line="49"/>
-          <return-value transfer-ownership="full">
+          <return-value>
             <type name="CertificateInfo" c:type="PpsCertificateInfo*"/>
           </return-value>
           <parameters>
@@ -7418,14 +7487,34 @@ so set a helper function to actually allow the user to enter his password.</doc>
           </parameters>
         </callback>
       </field>
+      <field name="has_signatures">
+        <callback name="has_signatures">
+          <source-position filename="libdocument/pps-document-signatures.h"
+                           line="60"/>
+          <return-value transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-signatures.c"
+                 line="165">if the document has digital signatures</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="document_signatures" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="libdocument/pps-document-signatures.c"
+                   line="163">an #PpsDocumentSignatures</doc>
+              <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
       <field name="get_signatures">
         <callback name="get_signatures">
           <source-position filename="libdocument/pps-document-signatures.h"
-                           line="60"/>
+                           line="61"/>
           <return-value transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-signatures.c"
-                 line="165">a list of #PpsSignature objects</doc>
+                 line="182">a list of #PpsSignature objects</doc>
             <type name="GLib.List" c:type="GList*">
               <type name="Signature"/>
             </type>
@@ -7434,7 +7523,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
             <parameter name="document_signatures" transfer-ownership="none">
               <doc xml:space="preserve"
                    filename="libdocument/pps-document-signatures.c"
-                   line="163">an #PpsDocumentSignatures</doc>
+                   line="180">an #PpsDocumentSignatures</doc>
               <type name="DocumentSignatures" c:type="PpsDocumentSignatures*"/>
             </parameter>
           </parameters>
@@ -11549,78 +11638,10 @@ so set a helper function to actually allow the user to enter his password.</doc>
            glib:type-name="PpsSignature"
            glib:get-type="pps_signature_get_type"
            glib:type-struct="SignatureClass">
-      <source-position filename="libdocument/pps-signature.h" line="36"/>
-      <constructor name="new" c:identifier="pps_signature_new">
-        <source-position filename="libdocument/pps-signature.h" line="210"/>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve"
-               filename="libdocument/pps-signature.c"
-               line="507">Newly allocated #PpsSignature object initialized with given parameters</doc>
-          <type name="Signature" c:type="PpsSignature*"/>
-        </return-value>
-        <parameters>
-          <parameter name="signer_name" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="libdocument/pps-signature.c"
-                 line="502">name of signer who signed this document</doc>
-            <type name="utf8" c:type="const gchar*"/>
-          </parameter>
-          <parameter name="signature_status" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="libdocument/pps-signature.c"
-                 line="503">status of the signature</doc>
-            <type name="SignatureStatus" c:type="PpsSignatureStatus"/>
-          </parameter>
-          <parameter name="certificate_status" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="libdocument/pps-signature.c"
-                 line="504">status of the certificate of the signature</doc>
-            <type name="CertificateStatus" c:type="PpsCertificateStatus"/>
-          </parameter>
-          <parameter name="signature_time" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="libdocument/pps-signature.c"
-                 line="505">time of signing of the document</doc>
-            <type name="GLib.DateTime" c:type="GDateTime*"/>
-          </parameter>
-        </parameters>
-      </constructor>
-      <function name="certificate_status_str"
-                c:identifier="pps_signature_certificate_status_str">
-        <doc xml:space="preserve"
-             filename="libdocument/pps-signature.c"
-             line="553">Converts certificate status to string.</doc>
-        <source-position filename="libdocument/pps-signature.h" line="221"/>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve"
-               filename="libdocument/pps-signature.c"
-               line="559">certificate status as string</doc>
-          <type name="utf8" c:type="char*"/>
-        </return-value>
-        <parameters>
-          <parameter name="status" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="libdocument/pps-signature.c"
-                 line="555">a #PpsCertificateStatus</doc>
-            <type name="CertificateStatus" c:type="PpsCertificateStatus"/>
-          </parameter>
-        </parameters>
-      </function>
-      <function name="signature_status_str"
-                c:identifier="pps_signature_signature_status_str">
-        <source-position filename="libdocument/pps-signature.h" line="229"/>
-        <return-value transfer-ownership="full">
-          <type name="utf8" c:type="char*"/>
-        </return-value>
-        <parameters>
-          <parameter name="status" transfer-ownership="none">
-            <type name="SignatureStatus" c:type="PpsSignatureStatus"/>
-          </parameter>
-        </parameters>
-      </function>
+      <source-position filename="libdocument/pps-signature.h" line="37"/>
       <method name="get_background_color"
               c:identifier="pps_signature_get_background_color">
-        <source-position filename="libdocument/pps-signature.h" line="189"/>
+        <source-position filename="libdocument/pps-signature.h" line="142"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -11635,7 +11656,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="get_border_color"
               c:identifier="pps_signature_get_border_color">
-        <source-position filename="libdocument/pps-signature.h" line="181"/>
+        <source-position filename="libdocument/pps-signature.h" line="134"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -11650,7 +11671,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="get_border_width"
               c:identifier="pps_signature_get_border_width">
-        <source-position filename="libdocument/pps-signature.h" line="158"/>
+        <source-position filename="libdocument/pps-signature.h" line="111"/>
         <return-value transfer-ownership="none">
           <type name="gint" c:type="gint"/>
         </return-value>
@@ -11660,40 +11681,9 @@ so set a helper function to actually allow the user to enter his password.</doc>
           </instance-parameter>
         </parameters>
       </method>
-      <method name="get_certificate_info"
-              c:identifier="pps_signature_get_certificate_info">
-        <source-position filename="libdocument/pps-signature.h" line="98"/>
-        <return-value transfer-ownership="full">
-          <type name="CertificateInfo" c:type="PpsCertificateInfo*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="self" transfer-ownership="none">
-            <type name="Signature" c:type="PpsSignature*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="get_certificate_status"
-              c:identifier="pps_signature_get_certificate_status"
-              glib:get-property="certificate-status">
-        <source-position filename="libdocument/pps-signature.h" line="217"/>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="libdocument/pps-signature.c"
-               line="529">a #PpsCertificateStatus</doc>
-          <type name="CertificateStatus" c:type="PpsCertificateStatus"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="self" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="libdocument/pps-signature.c"
-                 line="527">a #PpsSignature</doc>
-            <type name="Signature" c:type="PpsSignature*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
       <method name="get_destination_file"
               c:identifier="pps_signature_get_destination_file">
-        <source-position filename="libdocument/pps-signature.h" line="106"/>
+        <source-position filename="libdocument/pps-signature.h" line="59"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const char*"/>
         </return-value>
@@ -11705,7 +11695,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="get_font_color"
               c:identifier="pps_signature_get_font_color">
-        <source-position filename="libdocument/pps-signature.h" line="173"/>
+        <source-position filename="libdocument/pps-signature.h" line="126"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -11719,7 +11709,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="get_font_size" c:identifier="pps_signature_get_font_size">
-        <source-position filename="libdocument/pps-signature.h" line="144"/>
+        <source-position filename="libdocument/pps-signature.h" line="97"/>
         <return-value transfer-ownership="none">
           <type name="gint" c:type="gint"/>
         </return-value>
@@ -11731,7 +11721,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="get_left_font_size"
               c:identifier="pps_signature_get_left_font_size">
-        <source-position filename="libdocument/pps-signature.h" line="151"/>
+        <source-position filename="libdocument/pps-signature.h" line="104"/>
         <return-value transfer-ownership="none">
           <type name="gint" c:type="gint"/>
         </return-value>
@@ -11743,7 +11733,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="get_owner_password"
               c:identifier="pps_signature_get_owner_password">
-        <source-position filename="libdocument/pps-signature.h" line="198"/>
+        <source-position filename="libdocument/pps-signature.h" line="151"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const char*"/>
         </return-value>
@@ -11754,7 +11744,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="get_page" c:identifier="pps_signature_get_page">
-        <source-position filename="libdocument/pps-signature.h" line="113"/>
+        <source-position filename="libdocument/pps-signature.h" line="66"/>
         <return-value transfer-ownership="none">
           <type name="gint" c:type="gint"/>
         </return-value>
@@ -11765,7 +11755,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="get_password" c:identifier="pps_signature_get_password">
-        <source-position filename="libdocument/pps-signature.h" line="166"/>
+        <source-position filename="libdocument/pps-signature.h" line="119"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const char*"/>
         </return-value>
@@ -11776,7 +11766,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="get_rect" c:identifier="pps_signature_get_rect">
-        <source-position filename="libdocument/pps-signature.h" line="121"/>
+        <source-position filename="libdocument/pps-signature.h" line="74"/>
         <return-value transfer-ownership="full">
           <type name="Rectangle" c:type="PpsRectangle*"/>
         </return-value>
@@ -11787,7 +11777,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="get_signature" c:identifier="pps_signature_get_signature">
-        <source-position filename="libdocument/pps-signature.h" line="129"/>
+        <source-position filename="libdocument/pps-signature.h" line="82"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const char*"/>
         </return-value>
@@ -11799,7 +11789,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="get_signature_left"
               c:identifier="pps_signature_get_signature_left">
-        <source-position filename="libdocument/pps-signature.h" line="137"/>
+        <source-position filename="libdocument/pps-signature.h" line="90"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const char*"/>
         </return-value>
@@ -11809,50 +11799,9 @@ so set a helper function to actually allow the user to enter his password.</doc>
           </instance-parameter>
         </parameters>
       </method>
-      <method name="get_signature_status"
-              c:identifier="pps_signature_get_signature_status"
-              glib:get-property="signature-status">
-        <source-position filename="libdocument/pps-signature.h" line="225"/>
-        <return-value transfer-ownership="none">
-          <doc xml:space="preserve"
-               filename="libdocument/pps-signature.c"
-               line="543">a #PpsSignatureStatus</doc>
-          <type name="SignatureStatus" c:type="PpsSignatureStatus"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="self" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="libdocument/pps-signature.c"
-                 line="541">a #PpsSignature</doc>
-            <type name="Signature" c:type="PpsSignature*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="get_signature_time"
-              c:identifier="pps_signature_get_signature_time"
-              glib:get-property="signature-time">
-        <doc xml:space="preserve"
-             filename="libdocument/pps-signature.c"
-             line="613">Get signature time</doc>
-        <source-position filename="libdocument/pps-signature.h" line="233"/>
-        <return-value transfer-ownership="full">
-          <doc xml:space="preserve"
-               filename="libdocument/pps-signature.c"
-               line="619">signature time</doc>
-          <type name="GLib.DateTime" c:type="GDateTime*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="self" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="libdocument/pps-signature.c"
-                 line="615">a #PpsSignature</doc>
-            <type name="Signature" c:type="PpsSignature*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
       <method name="get_user_password"
               c:identifier="pps_signature_get_user_password">
-        <source-position filename="libdocument/pps-signature.h" line="206"/>
+        <source-position filename="libdocument/pps-signature.h" line="159"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const char*"/>
         </return-value>
@@ -11865,26 +11814,26 @@ so set a helper function to actually allow the user to enter his password.</doc>
       <method name="is_valid" c:identifier="pps_signature_is_valid">
         <doc xml:space="preserve"
              filename="libdocument/pps-signature.c"
-             line="629">Checks whether signature is valid</doc>
-        <source-position filename="libdocument/pps-signature.h" line="237"/>
+             line="460">Checks whether signature is valid</doc>
+        <source-position filename="libdocument/pps-signature.h" line="163"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-signature.c"
-               line="635">signature valid status</doc>
+               line="466">signature valid status</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-signature.c"
-                 line="631">a #PpsSignature</doc>
+                 line="462">a #PpsSignature</doc>
             <type name="Signature" c:type="PpsSignature*"/>
           </instance-parameter>
         </parameters>
       </method>
       <method name="set_background_color"
               c:identifier="pps_signature_set_background_color">
-        <source-position filename="libdocument/pps-signature.h" line="185"/>
+        <source-position filename="libdocument/pps-signature.h" line="138"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -11899,7 +11848,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="set_border_color"
               c:identifier="pps_signature_set_border_color">
-        <source-position filename="libdocument/pps-signature.h" line="177"/>
+        <source-position filename="libdocument/pps-signature.h" line="130"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -11914,7 +11863,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="set_border_width"
               c:identifier="pps_signature_set_border_width">
-        <source-position filename="libdocument/pps-signature.h" line="154"/>
+        <source-position filename="libdocument/pps-signature.h" line="107"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -11927,24 +11876,9 @@ so set a helper function to actually allow the user to enter his password.</doc>
           </parameter>
         </parameters>
       </method>
-      <method name="set_certificate_info"
-              c:identifier="pps_signature_set_certificate_info">
-        <source-position filename="libdocument/pps-signature.h" line="93"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="self" transfer-ownership="none">
-            <type name="Signature" c:type="PpsSignature*"/>
-          </instance-parameter>
-          <parameter name="certificate" transfer-ownership="none">
-            <type name="CertificateInfo" c:type="const PpsCertificateInfo*"/>
-          </parameter>
-        </parameters>
-      </method>
       <method name="set_destination_file"
               c:identifier="pps_signature_set_destination_file">
-        <source-position filename="libdocument/pps-signature.h" line="101"/>
+        <source-position filename="libdocument/pps-signature.h" line="54"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -11959,7 +11893,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="set_font_color"
               c:identifier="pps_signature_set_font_color">
-        <source-position filename="libdocument/pps-signature.h" line="169"/>
+        <source-position filename="libdocument/pps-signature.h" line="122"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -11973,7 +11907,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="set_font_size" c:identifier="pps_signature_set_font_size">
-        <source-position filename="libdocument/pps-signature.h" line="140"/>
+        <source-position filename="libdocument/pps-signature.h" line="93"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -11988,7 +11922,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="set_left_font_size"
               c:identifier="pps_signature_set_left_font_size">
-        <source-position filename="libdocument/pps-signature.h" line="147"/>
+        <source-position filename="libdocument/pps-signature.h" line="100"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12003,7 +11937,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="set_owner_password"
               c:identifier="pps_signature_set_owner_password">
-        <source-position filename="libdocument/pps-signature.h" line="193"/>
+        <source-position filename="libdocument/pps-signature.h" line="146"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12017,7 +11951,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="set_page" c:identifier="pps_signature_set_page">
-        <source-position filename="libdocument/pps-signature.h" line="109"/>
+        <source-position filename="libdocument/pps-signature.h" line="62"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12031,7 +11965,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="set_password" c:identifier="pps_signature_set_password">
-        <source-position filename="libdocument/pps-signature.h" line="161"/>
+        <source-position filename="libdocument/pps-signature.h" line="114"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12045,7 +11979,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="set_rect" c:identifier="pps_signature_set_rect">
-        <source-position filename="libdocument/pps-signature.h" line="116"/>
+        <source-position filename="libdocument/pps-signature.h" line="69"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12059,7 +11993,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="set_signature" c:identifier="pps_signature_set_signature">
-        <source-position filename="libdocument/pps-signature.h" line="124"/>
+        <source-position filename="libdocument/pps-signature.h" line="77"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12074,7 +12008,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="set_signature_left"
               c:identifier="pps_signature_set_signature_left">
-        <source-position filename="libdocument/pps-signature.h" line="132"/>
+        <source-position filename="libdocument/pps-signature.h" line="85"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12089,7 +12023,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </method>
       <method name="set_user_password"
               c:identifier="pps_signature_set_user_password">
-        <source-position filename="libdocument/pps-signature.h" line="201"/>
+        <source-position filename="libdocument/pps-signature.h" line="154"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -12102,35 +12036,24 @@ so set a helper function to actually allow the user to enter his password.</doc>
           </parameter>
         </parameters>
       </method>
-      <property name="certificate-status"
+      <property name="certificate-info"
                 writable="1"
                 construct-only="1"
-                transfer-ownership="none"
-                getter="get_certificate_status"
-                default-value="PPS_CERTIFICATE_STATUS_NOT_VERIFIED">
-        <type name="CertificateStatus"/>
-      </property>
-      <property name="signature-status"
-                writable="1"
-                construct-only="1"
-                transfer-ownership="none"
-                getter="get_signature_status"
-                default-value="PPS_SIGNATURE_STATUS_INVALID">
-        <type name="SignatureStatus"/>
+                transfer-ownership="none">
+        <type name="CertificateInfo"/>
       </property>
       <property name="signature-time"
                 writable="1"
                 construct-only="1"
-                transfer-ownership="none"
-                getter="get_signature_time">
+                transfer-ownership="none">
         <type name="GLib.DateTime"/>
       </property>
-      <property name="signer-name"
+      <property name="status"
                 writable="1"
                 construct-only="1"
                 transfer-ownership="none"
-                default-value="NULL">
-        <type name="utf8" c:type="gchar*"/>
+                default-value="PPS_SIGNATURE_STATUS_INVALID">
+        <type name="SignatureStatus"/>
       </property>
       <field name="base_instance">
         <type name="GObject.Object" c:type="GObject"/>
@@ -12139,7 +12062,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
     <record name="SignatureClass"
             c:type="PpsSignatureClass"
             glib:is-gtype-struct-for="Signature">
-      <source-position filename="libdocument/pps-signature.h" line="36"/>
+      <source-position filename="libdocument/pps-signature.h" line="37"/>
       <field name="parent_class">
         <type name="GObject.ObjectClass" c:type="GObjectClass"/>
       </field>

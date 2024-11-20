@@ -36,6 +36,9 @@ pub use self::job_links::JobLinks;
 mod job_load;
 pub use self::job_load::JobLoad;
 
+mod job_signatures;
+pub use self::job_signatures::JobSignatures;
+
 mod job_thumbnail_texture;
 pub use self::job_thumbnail_texture::JobThumbnailTexture;
 

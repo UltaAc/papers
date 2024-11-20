@@ -344,6 +344,122 @@ impl From<AnnotationType> for glib::Value {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PpsCertificateStatus")]
+pub enum CertificateStatus {
+    #[doc(alias = "PPS_CERTIFICATE_STATUS_TRUSTED")]
+    Trusted,
+    #[doc(alias = "PPS_CERTIFICATE_STATUS_UNTRUSTED_ISSUER")]
+    UntrustedIssuer,
+    #[doc(alias = "PPS_CERTIFICATE_STATUS_UNKNOWN_ISSUER")]
+    UnknownIssuer,
+    #[doc(alias = "PPS_CERTIFICATE_STATUS_REVOKED")]
+    Revoked,
+    #[doc(alias = "PPS_CERTIFICATE_STATUS_EXPIRED")]
+    Expired,
+    #[doc(alias = "PPS_CERTIFICATE_STATUS_GENERIC_ERROR")]
+    GenericError,
+    #[doc(alias = "PPS_CERTIFICATE_STATUS_NOT_VERIFIED")]
+    NotVerified,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl IntoGlib for CertificateStatus {
+    type GlibType = ffi::PpsCertificateStatus;
+
+    #[inline]
+    fn into_glib(self) -> ffi::PpsCertificateStatus {
+        match self {
+            Self::Trusted => ffi::PPS_CERTIFICATE_STATUS_TRUSTED,
+            Self::UntrustedIssuer => ffi::PPS_CERTIFICATE_STATUS_UNTRUSTED_ISSUER,
+            Self::UnknownIssuer => ffi::PPS_CERTIFICATE_STATUS_UNKNOWN_ISSUER,
+            Self::Revoked => ffi::PPS_CERTIFICATE_STATUS_REVOKED,
+            Self::Expired => ffi::PPS_CERTIFICATE_STATUS_EXPIRED,
+            Self::GenericError => ffi::PPS_CERTIFICATE_STATUS_GENERIC_ERROR,
+            Self::NotVerified => ffi::PPS_CERTIFICATE_STATUS_NOT_VERIFIED,
+            Self::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::PpsCertificateStatus> for CertificateStatus {
+    #[inline]
+    unsafe fn from_glib(value: ffi::PpsCertificateStatus) -> Self {
+        skip_assert_initialized!();
+
+        match value {
+            ffi::PPS_CERTIFICATE_STATUS_TRUSTED => Self::Trusted,
+            ffi::PPS_CERTIFICATE_STATUS_UNTRUSTED_ISSUER => Self::UntrustedIssuer,
+            ffi::PPS_CERTIFICATE_STATUS_UNKNOWN_ISSUER => Self::UnknownIssuer,
+            ffi::PPS_CERTIFICATE_STATUS_REVOKED => Self::Revoked,
+            ffi::PPS_CERTIFICATE_STATUS_EXPIRED => Self::Expired,
+            ffi::PPS_CERTIFICATE_STATUS_GENERIC_ERROR => Self::GenericError,
+            ffi::PPS_CERTIFICATE_STATUS_NOT_VERIFIED => Self::NotVerified,
+            value => Self::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for CertificateStatus {
+    #[inline]
+    #[doc(alias = "pps_certificate_status_get_type")]
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::pps_certificate_status_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for CertificateStatus {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
+    }
+}
+
+impl glib::value::ValueType for CertificateStatus {
+    type Type = Self;
+}
+
+unsafe impl<'a> glib::value::FromValue<'a> for CertificateStatus {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    #[inline]
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        skip_assert_initialized!();
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for CertificateStatus {
+    #[inline]
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    #[inline]
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+impl From<CertificateStatus> for glib::Value {
+    #[inline]
+    fn from(v: CertificateStatus) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 #[doc(alias = "PpsCompressionType")]
 pub enum CompressionType {
     #[doc(alias = "PPS_COMPRESSION_NONE")]
@@ -1112,6 +1228,114 @@ impl ToValue for SelectionStyle {
 impl From<SelectionStyle> for glib::Value {
     #[inline]
     fn from(v: SelectionStyle) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
+#[doc(alias = "PpsSignatureStatus")]
+pub enum SignatureStatus {
+    #[doc(alias = "PPS_SIGNATURE_STATUS_VALID")]
+    Valid,
+    #[doc(alias = "PPS_SIGNATURE_STATUS_INVALID")]
+    Invalid,
+    #[doc(alias = "PPS_SIGNATURE_STATUS_DIGEST_MISMATCH")]
+    DigestMismatch,
+    #[doc(alias = "PPS_SIGNATURE_STATUS_DECODING_ERROR")]
+    DecodingError,
+    #[doc(alias = "PPS_SIGNATURE_STATUS_GENERIC_ERROR")]
+    GenericError,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl IntoGlib for SignatureStatus {
+    type GlibType = ffi::PpsSignatureStatus;
+
+    #[inline]
+    fn into_glib(self) -> ffi::PpsSignatureStatus {
+        match self {
+            Self::Valid => ffi::PPS_SIGNATURE_STATUS_VALID,
+            Self::Invalid => ffi::PPS_SIGNATURE_STATUS_INVALID,
+            Self::DigestMismatch => ffi::PPS_SIGNATURE_STATUS_DIGEST_MISMATCH,
+            Self::DecodingError => ffi::PPS_SIGNATURE_STATUS_DECODING_ERROR,
+            Self::GenericError => ffi::PPS_SIGNATURE_STATUS_GENERIC_ERROR,
+            Self::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::PpsSignatureStatus> for SignatureStatus {
+    #[inline]
+    unsafe fn from_glib(value: ffi::PpsSignatureStatus) -> Self {
+        skip_assert_initialized!();
+
+        match value {
+            ffi::PPS_SIGNATURE_STATUS_VALID => Self::Valid,
+            ffi::PPS_SIGNATURE_STATUS_INVALID => Self::Invalid,
+            ffi::PPS_SIGNATURE_STATUS_DIGEST_MISMATCH => Self::DigestMismatch,
+            ffi::PPS_SIGNATURE_STATUS_DECODING_ERROR => Self::DecodingError,
+            ffi::PPS_SIGNATURE_STATUS_GENERIC_ERROR => Self::GenericError,
+            value => Self::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for SignatureStatus {
+    #[inline]
+    #[doc(alias = "pps_signature_status_get_type")]
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::pps_signature_status_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for SignatureStatus {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
+    }
+}
+
+impl glib::value::ValueType for SignatureStatus {
+    type Type = Self;
+}
+
+unsafe impl<'a> glib::value::FromValue<'a> for SignatureStatus {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    #[inline]
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        skip_assert_initialized!();
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for SignatureStatus {
+    #[inline]
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    #[inline]
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+impl From<SignatureStatus> for glib::Value {
+    #[inline]
+    fn from(v: SignatureStatus) -> Self {
         skip_assert_initialized!();
         ToValue::to_value(&v)
     }

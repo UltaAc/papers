@@ -21,6 +21,9 @@ pub use self::annotation_text_markup::AnnotationTextMarkup;
 mod attachment;
 pub use self::attachment::Attachment;
 
+mod certificate_info;
+pub use self::certificate_info::CertificateInfo;
+
 mod document;
 pub use self::document::Document;
 
@@ -50,6 +53,9 @@ pub use self::document_links::DocumentLinks;
 
 mod document_security;
 pub use self::document_security::DocumentSecurity;
+
+mod document_signatures;
+pub use self::document_signatures::DocumentSignatures;
 
 mod document_text;
 pub use self::document_text::DocumentText;
@@ -81,6 +87,9 @@ pub use self::page::Page;
 mod selection;
 pub use self::selection::Selection;
 
+mod signature;
+pub use self::signature::Signature;
+
 mod transition_effect;
 pub use self::transition_effect::TransitionEffect;
 
@@ -106,6 +115,7 @@ mod enums;
 pub use self::enums::AnnotationTextIcon;
 pub use self::enums::AnnotationTextMarkupType;
 pub use self::enums::AnnotationType;
+pub use self::enums::CertificateStatus;
 pub use self::enums::CompressionType;
 pub use self::enums::DocumentContainsJS;
 pub use self::enums::DocumentError;
@@ -113,6 +123,7 @@ pub use self::enums::DocumentMode;
 pub use self::enums::LinkActionType;
 pub use self::enums::LinkDestType;
 pub use self::enums::SelectionStyle;
+pub use self::enums::SignatureStatus;
 pub use self::enums::TransitionEffectAlignment;
 pub use self::enums::TransitionEffectDirection;
 pub use self::enums::TransitionEffectType;
@@ -128,6 +139,7 @@ pub(crate) mod traits {
     pub use super::annotation::AnnotationExt;
     pub use super::annotation_markup::AnnotationMarkupExt;
     pub use super::attachment::AttachmentExt;
+    pub use super::certificate_info::CertificateInfoExt;
     pub use super::document::DocumentExt;
     pub use super::document_annotations::DocumentAnnotationsExt;
     pub use super::document_attachments::DocumentAttachmentsExt;
@@ -138,11 +150,13 @@ pub(crate) mod traits {
     pub use super::document_layers::DocumentLayersExt;
     pub use super::document_links::DocumentLinksExt;
     pub use super::document_security::DocumentSecurityExt;
+    pub use super::document_signatures::DocumentSignaturesExt;
     pub use super::document_text::DocumentTextExt;
     pub use super::font_description::FontDescriptionExt;
     pub use super::image::ImageExt;
     pub use super::layer::LayerExt;
     pub use super::outlines::OutlinesExt;
     pub use super::selection::SelectionExt;
+    pub use super::signature::SignatureExt;
     pub use super::transition_effect::TransitionEffectExt;
 }
