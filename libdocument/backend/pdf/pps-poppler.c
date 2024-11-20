@@ -3271,6 +3271,15 @@ pdf_document_annotations_save_annotation (PpsDocumentAnnotations *document_annot
 		poppler_annot_set_rectangle (poppler_annot, &poppler_rect);
 	}
 
+	if (mask & PPS_ANNOTATIONS_SAVE_HIDDEN) {
+		PopplerAnnotFlag flag = poppler_annot_get_flags (poppler_annot);
+		flag = flag & ~POPPLER_ANNOT_FLAG_HIDDEN;
+		if (pps_annotation_get_hidden (annot)) {
+			flag = flag | POPPLER_ANNOT_FLAG_HIDDEN;
+		}
+		poppler_annot_set_flags (poppler_annot, flag);
+	}
+
 	if (PPS_IS_ANNOTATION_MARKUP (annot)) {
 		PpsAnnotationMarkup *pps_markup = PPS_ANNOTATION_MARKUP (annot);
 		PopplerAnnotMarkup *markup = POPPLER_ANNOT_MARKUP (poppler_annot);

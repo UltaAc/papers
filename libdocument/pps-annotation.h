@@ -120,6 +120,16 @@ PPS_PUBLIC
 gboolean pps_annotation_set_modified (PpsAnnotation *annot,
                                       const gchar *modified);
 PPS_PUBLIC
+gboolean pps_annotation_set_hidden (PpsAnnotation *annot,
+                                    const gboolean hidden);
+PPS_PUBLIC
+gboolean pps_annotation_get_hidden (PpsAnnotation *annot);
+PPS_PUBLIC
+gboolean pps_annotation_set_border_width (PpsAnnotation *annot,
+                                          const gdouble width);
+PPS_PUBLIC
+gdouble pps_annotation_get_border_width (PpsAnnotation *annot);
+PPS_PUBLIC
 gboolean pps_annotation_set_modified_from_time_t (PpsAnnotation *annot,
                                                   time_t utime);
 PPS_PUBLIC

@@ -35,7 +35,9 @@ typedef struct
 	gchar *name;
 	gchar *modified;
 	GdkRGBA rgba;
+	gboolean hidden;
 	PpsRectangle area;
+	gdouble border_width;
 } PpsAnnotationPrivate;
 
 G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (PpsAnnotation, pps_annotation, G_TYPE_OBJECT);
@@ -117,7 +119,9 @@ enum {
 	PROP_ANNOT_NAME,
 	PROP_ANNOT_MODIFIED,
 	PROP_ANNOT_RGBA,
-	PROP_ANNOT_AREA
+	PROP_ANNOT_AREA,
+	PROP_ANNOT_HIDDEN,
+	PROP_ANNOT_BORDER_WIDTH
 };
 
 /* PpsAnnotationMarkup */
@@ -202,6 +206,11 @@ pps_annotation_set_property (GObject *object,
 	case PROP_ANNOT_AREA:
 		pps_annotation_set_area (annot, g_value_get_boxed (value));
 		break;
+	case PROP_ANNOT_HIDDEN:
+		pps_annotation_set_hidden (annot, g_value_get_boolean (value));
+		break;
+	case PROP_ANNOT_BORDER_WIDTH:
+		pps_annotation_set_border_width (annot, g_value_get_double (value));
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 	}
@@ -232,6 +241,11 @@ pps_annotation_get_property (GObject *object,
 	case PROP_ANNOT_AREA:
 		g_value_set_boxed (value, &priv->area);
 		break;
+	case PROP_ANNOT_HIDDEN:
+		g_value_set_boolean (value, priv->hidden);
+		break;
+	case PROP_ANNOT_BORDER_WIDTH:
+		g_value_set_double (value, priv->border_width);
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 	}
@@ -308,6 +322,39 @@ pps_annotation_class_init (PpsAnnotationClass *klass)
 	                                                     PPS_TYPE_RECTANGLE,
 	                                                     G_PARAM_READWRITE |
 	                                                         G_PARAM_STATIC_STRINGS));
+
+	/**
+	 * PpsAnnotation:border-width:
+	 *
+	 * The border width of the annotation. This is only partially implemented, as there is no way
+	 * to set the color. Thus, it may only be used for padding at this moment.
+	 *
+	 * Since: 48.0
+	 */
+	g_object_class_install_property (g_object_class,
+	                                 PROP_ANNOT_BORDER_WIDTH,
+	                                 g_param_spec_double ("border-width",
+	                                                      "Border Width",
+	                                                      "The annotation border width",
+	                                                      0., G_MAXDOUBLE, 0.,
+	                                                      G_PARAM_READWRITE |
+	                                                          G_PARAM_STATIC_STRINGS));
+
+	/**
+	 * PpsAnnotation:hidden:
+	 *
+	 * A flag to hide an annotation from the view.
+	 *
+	 * Since: 48.0
+	 */
+	g_object_class_install_property (g_object_class,
+	                                 PROP_ANNOT_BORDER_WIDTH,
+	                                 g_param_spec_boolean ("hidden",
+	                                                       "Hidden Flag",
+	                                                       "Whether the annotation is hidden or not",
+	                                                       FALSE,
+	                                                       G_PARAM_READWRITE |
+	                                                           G_PARAM_STATIC_STRINGS));
 }
 
 PpsAnnotationType
@@ -670,6 +717,82 @@ pps_annotation_set_area (PpsAnnotation *annot,
 		g_object_notify (G_OBJECT (annot), "area");
 
 	return TRUE;
+}
+
+/**
+ * pps_annotation_set_hidden:
+ * @annot: a #PpsAnnotation
+ * @hidden: a boolean
+ *
+ * Set whether the annotation is hidden or not.
+ *
+ * Returns: %TRUE if the visibility of the annotation has been changed, %FALSE otherwise
+ *
+ * Since: 48.0
+ */
+gboolean
+pps_annotation_set_hidden (PpsAnnotation *annot, const gboolean hidden)
+{
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+	if (priv->hidden != hidden) {
+		priv->hidden = hidden;
+		g_object_notify (G_OBJECT (annot), "hidden");
+		return TRUE;
+	}
+	return FALSE;
+}
+
+/**
+ * pps_annotation_get_hidden:
+ * @annot: a #PpsAnnotation
+ *
+ * Gets the hidden flag of @annot, i.e. whether it is hidden or not.
+ *
+ * Since: 48.0
+ */
+gboolean
+pps_annotation_get_hidden (PpsAnnotation *annot)
+{
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+	return priv->hidden;
+}
+
+/**
+ * pps_annotation_set_border_width:
+ * @annot: a #PpsAnnotation
+ * @width: double
+ *
+ * Set the area of the annotation to @area.
+ *
+ * Returns: %TRUE if the border width has been changed, %FALSE otherwise
+ *
+ * Since: 48.0
+ */
+gboolean
+pps_annotation_set_border_width (PpsAnnotation *annot, const gdouble width)
+{
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+	if (priv->border_width != width) {
+		priv->border_width = width;
+		g_object_notify (G_OBJECT (annot), "border-width");
+		return TRUE;
+	}
+	return FALSE;
+}
+
+/**
+ * pps_annotation_get_border_width:
+ * @annot: a #PpsAnnotation
+ *
+ * Gets the border width of @annot.
+ *
+ * Since: 48.0
+ */
+gdouble
+pps_annotation_get_border_width (PpsAnnotation *annot)
+{
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (annot);
+	return priv->border_width;
 }
 
 /* PpsAnnotationMarkup */
