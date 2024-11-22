@@ -7488,7 +7488,7 @@ pps_view_class_init (PpsViewClass *class)
 	                                               g_cclosure_marshal_VOID__UINT_POINTER,
 	                                               G_TYPE_NONE, 2,
 	                                               G_TYPE_UINT,
-	                                               G_TYPE_POINTER);
+	                                               PPS_TYPE_RECTANGLE);
 
 	gtk_widget_class_set_activate_signal (widget_class, signals[SIGNAL_ACTIVATE]);
 
