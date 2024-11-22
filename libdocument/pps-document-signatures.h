@@ -70,8 +70,8 @@ void pps_document_signatures_set_password_callback (PpsDocumentSignatures *docum
                                                     gpointer user_data);
 
 PPS_PUBLIC
-PpsCertificateInfo *pps_document_signature_get_certificate_info (PpsDocumentSignatures *document_signatures,
-                                                                 const char *id);
+PpsCertificateInfo *pps_document_signatures_get_certificate_info (PpsDocumentSignatures *document_signatures,
+                                                                  const char *nick_name);
 
 PPS_PUBLIC
 gboolean

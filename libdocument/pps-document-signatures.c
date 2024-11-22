@@ -67,20 +67,20 @@ pps_document_signatures_get_available_signing_certificates (PpsDocumentSignature
 }
 
 /**
- * pps_document_signature_get_certificate: (skip)
+ * pps_document_signatures_get_certificate_info:
  * @document_signatures: an #PpsDocumentSignatures
  * @nick_name: certificate nick name
  *
  * Returns: (transfer full): a new #PpsCertificateInfo, or %NULL
  */
 PpsCertificateInfo *
-pps_document_signature_get_certificate_info (PpsDocumentSignatures *document_signatures,
-                                             const char *id)
+pps_document_signatures_get_certificate_info (PpsDocumentSignatures *document_signatures,
+                                              const char *nick_name)
 {
 	PpsDocumentSignaturesInterface *iface = PPS_DOCUMENT_SIGNATURES_GET_IFACE (document_signatures);
 
 	if (iface->get_certificate_info)
-		return iface->get_certificate_info (document_signatures, id);
+		return iface->get_certificate_info (document_signatures, nick_name);
 
 	return NULL;
 }

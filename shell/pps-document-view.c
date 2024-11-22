@@ -3565,7 +3565,7 @@ on_radio_button_toggled (GtkWidget *button,
 
 		g_clear_object (&priv->signature_certificate_info);
 
-		priv->signature_certificate_info = pps_document_signature_get_certificate_info (PPS_DOCUMENT_SIGNATURES (priv->document), (const char *) nick);
+		priv->signature_certificate_info = pps_document_signatures_get_certificate_info (PPS_DOCUMENT_SIGNATURES (priv->document), (const char *) nick);
 	}
 }
 
