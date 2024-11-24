@@ -2627,7 +2627,6 @@ poppler_annot_can_have_popup_window (PopplerAnnot *poppler_annot)
 {
 	switch (poppler_annot_get_annot_type (poppler_annot)) {
 	case POPPLER_ANNOT_TEXT:
-	case POPPLER_ANNOT_FREE_TEXT:
 	case POPPLER_ANNOT_LINE:
 	case POPPLER_ANNOT_SQUARE:
 	case POPPLER_ANNOT_CIRCLE:
@@ -2637,7 +2636,6 @@ poppler_annot_can_have_popup_window (PopplerAnnot *poppler_annot)
 	case POPPLER_ANNOT_UNDERLINE:
 	case POPPLER_ANNOT_SQUIGGLY:
 	case POPPLER_ANNOT_STRIKE_OUT:
-	case POPPLER_ANNOT_STAMP:
 	case POPPLER_ANNOT_CARET:
 	case POPPLER_ANNOT_INK:
 	case POPPLER_ANNOT_FILE_ATTACHMENT:
@@ -2769,8 +2767,7 @@ pps_annot_from_poppler_annot (PopplerAnnot *poppler_annot,
 	case POPPLER_ANNOT_CARET:
 	case POPPLER_ANNOT_LINE:
 	case POPPLER_ANNOT_SOUND:
-	case POPPLER_ANNOT_SQUARE:
-	case POPPLER_ANNOT_STAMP: {
+	case POPPLER_ANNOT_SQUARE: {
 		/* FIXME: These annotations are unimplemented, but they were already
 		 * reported in Papers Bugzilla with test case.  We add a special
 		 * warning to let the user know it is unimplemented, yet we do not
@@ -3203,6 +3200,11 @@ pdf_document_annotations_add_annotation (PpsDocumentAnnotations *document_annota
 		}
 		g_array_unref (quads);
 	} break;
+	case PPS_ANNOTATION_TYPE_STAMP: {
+		poppler_annot = poppler_annot_stamp_new (self->document, &poppler_rect);
+		poppler_annot_stamp_set_custom_image (POPPLER_ANNOT_STAMP (poppler_annot), pps_annotation_stamp_get_surface (PPS_ANNOTATION_STAMP (annot)), NULL);
+		break;
+	}
 	default:
 		g_assert_not_reached ();
 	}
