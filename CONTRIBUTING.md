@@ -8,6 +8,10 @@ therefore must be licensed as GPLv2+.
 You do not need to assign us copyright attribution.
 It is our belief that you should always retain copyright on your own work.
 
+When a contribution it's close to being finished, maintainers might amend the
+last touches themselves to avoid bikeshedding or endless style nits. You will
+keep your authorship on any of those changes.
+
 ## Code Style
 
 Papers uses code formatters to increase consistency and simplify development.
