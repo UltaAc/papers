@@ -8,6 +8,70 @@ therefore must be licensed as GPLv2+.
 You do not need to assign us copyright attribution.
 It is our belief that you should always retain copyright on your own work.
 
+## Code Style
+
+Papers uses code formatters to increase consistency and simplify development.
+Please fix CI code formatting issues, and configure your development environment
+to use clang-format for C code, and rustfmt for Rust code.
+
+### Commit messages
+
+The expected format for git commit messages is as follows:
+
+```plain
+subsection: short explanation of the commit
+
+Longer explanation explaining exactly what's changed, whether any
+external or private interfaces changed, what bugs were fixed (with bug
+tracker reference if applicable) and so forth. Be concise but not too
+brief.
+
+Closes #1234
+```
+ - Always add a brief description of the commit to the _first_ line of
+ the commit and terminate by two newlines (it will work without the
+ second newline, but that is not nice for the interfaces).
+
+ - Whenever possible, the first line should include the subsystem of
+   the papers the commit belongs: `shell`, `libdocument`, `libview`,
+   `libmisc`, `backends`, `build`, `doc`, `flatpak`.
+   e.g. “flatpak: bump version of poppler”
+
+ - First line (the brief description) must only be one sentence and
+ should start with a capital letter unless it starts with a lowercase
+ symbol or identifier. Don't use a trailing period either. Aim to not
+ exceed 72 characters.
+
+ - The main description (the body) is normal prose and should use normal
+ punctuation and capital letters where appropriate. Consider the commit
+ message as an email sent to the developers (or yourself, six months
+ down the line) detailing **why** you changed something. There's no need
+ to specify the **how**: the changes can be inlined.
+
+ - While adding the main description please make sure that individual lines
+within the body are no longer than 80 columns, ideally a bit less. This makes
+it easier to read without scrolling (both in GitLab as well as a terminal with
+the default terminal size).
+
+ - When committing code on behalf of others use the `--author` option, e.g.
+ `git commit -a --author "Joe Coder <joe@coder.org>"` and `--signoff`.
+
+ - If your commit is addressing an issue, use the
+ [GitLab syntax](https://docs.gitlab.com/ce/user/project/issues/automatic_issue_closing.html)
+ to automatically close the issue when merging the commit with the upstream
+ repository:
+
+```plain
+Closes #1234
+Fixes #1234
+Closes: https://gitlab.gnome.org/GNOME/gtk/issues/1234
+```
+
+ - If you have a merge request with multiple commits and none of them
+ completely fixes an issue, you should add a reference to the issue in
+ the commit message, e.g. `Bug: #1234`, and use the automatic issue
+ closing syntax in the description of the merge request.
+
 ## Troubleshooting
 
 To enable the debug messages, set the environment variable for the section
@@ -110,67 +174,3 @@ with:
 ```bash
 flatpak install org.freedesktop.Sdk.Extension.rust-stable//24.08
 ```
-
-## Code Style
-
-Papers uses code formatters to increase consistency and simplify development.
-Please fix CI code formatting issues, and configure your development environment
-to use clang-format for C code, and rustfmt for Rust code.
-
-### Commit messages
-
-The expected format for git commit messages is as follows:
-
-```plain
-subsection: short explanation of the commit
-
-Longer explanation explaining exactly what's changed, whether any
-external or private interfaces changed, what bugs were fixed (with bug
-tracker reference if applicable) and so forth. Be concise but not too
-brief.
-
-Closes #1234
-```
- - Always add a brief description of the commit to the _first_ line of
- the commit and terminate by two newlines (it will work without the
- second newline, but that is not nice for the interfaces).
-
- - Whenever possible, the first line should include the subsystem of
-   the papers the commit belongs: `shell`, `libdocument`, `libview`,
-   `libmisc`, `backends`, `build`, `doc`, `flatpak`.
-   e.g. “flatpak: bump version of poppler”
-
- - First line (the brief description) must only be one sentence and
- should start with a capital letter unless it starts with a lowercase
- symbol or identifier. Don't use a trailing period either. Aim to not
- exceed 72 characters.
-
- - The main description (the body) is normal prose and should use normal
- punctuation and capital letters where appropriate. Consider the commit
- message as an email sent to the developers (or yourself, six months
- down the line) detailing **why** you changed something. There's no need
- to specify the **how**: the changes can be inlined.
-
- - While adding the main description please make sure that individual lines
-within the body are no longer than 80 columns, ideally a bit less. This makes
-it easier to read without scrolling (both in GitLab as well as a terminal with
-the default terminal size).
-
- - When committing code on behalf of others use the `--author` option, e.g.
- `git commit -a --author "Joe Coder <joe@coder.org>"` and `--signoff`.
-
- - If your commit is addressing an issue, use the
- [GitLab syntax](https://docs.gitlab.com/ce/user/project/issues/automatic_issue_closing.html)
- to automatically close the issue when merging the commit with the upstream
- repository:
-
-```plain
-Closes #1234
-Fixes #1234
-Closes: https://gitlab.gnome.org/GNOME/gtk/issues/1234
-```
-
- - If you have a merge request with multiple commits and none of them
- completely fixes an issue, you should add a reference to the issue in
- the commit message, e.g. `Bug: #1234`, and use the automatic issue
- closing syntax in the description of the merge request.
