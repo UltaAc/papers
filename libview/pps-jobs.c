@@ -1139,9 +1139,9 @@ pps_job_save_run (PpsJob *job)
 	PpsJobSave *job_save = PPS_JOB_SAVE (job);
 	PpsJobSavePrivate *priv = JOB_SAVE_GET_PRIVATE (job_save);
 	gint fd;
-	gchar *tmp_filename = NULL;
-	gchar *local_uri;
-	GError *error = NULL;
+	g_autofree gchar *tmp_filename = NULL;
+	g_autofree gchar *tmp_uri = NULL;
+	g_autoptr (GError) error = NULL;
 
 	g_debug ("running save job: uri: %s, document_uri: %s",
 	         priv->uri, priv->document_uri);
@@ -1149,8 +1149,6 @@ pps_job_save_run (PpsJob *job)
 	fd = pps_mkstemp ("saveacopy.XXXXXX", &tmp_filename, &error);
 	if (fd == -1) {
 		pps_job_failed_from_error (job, error);
-		g_error_free (error);
-
 		return FALSE;
 	}
 	close (fd);
@@ -1158,18 +1156,15 @@ pps_job_save_run (PpsJob *job)
 	pps_document_doc_mutex_lock (pps_job_get_document (job));
 
 	/* Save document to temp filename */
-	local_uri = g_filename_to_uri (tmp_filename, NULL, &error);
-	if (local_uri != NULL) {
-		pps_document_save (pps_job_get_document (job), local_uri, &error);
+	tmp_uri = g_filename_to_uri (tmp_filename, NULL, &error);
+	if (tmp_uri != NULL) {
+		pps_document_save (pps_job_get_document (job), tmp_uri, &error);
 	}
 
 	pps_document_doc_mutex_unlock (pps_job_get_document (job));
 
 	if (error) {
-		g_free (local_uri);
 		pps_job_failed_from_error (job, error);
-		g_error_free (error);
-
 		return FALSE;
 	}
 
@@ -1189,32 +1184,26 @@ pps_job_save_run (PpsJob *job)
 		if (ext && g_ascii_strcasecmp (ext, ".bz2") == 0)
 			ctype = PPS_COMPRESSION_BZIP2;
 
-		uri_comp = pps_file_compress (local_uri, ctype, &error);
-		g_free (local_uri);
+		uri_comp = pps_file_compress (tmp_uri, ctype, &error);
 		g_unlink (tmp_filename);
 
 		if (!uri_comp || error) {
-			local_uri = NULL;
+			tmp_uri = NULL;
 		} else {
-			local_uri = uri_comp;
+			tmp_uri = uri_comp;
 		}
 	}
 
-	g_free (tmp_filename);
-
 	if (error) {
-		g_free (local_uri);
 		pps_job_failed_from_error (job, error);
-		g_error_free (error);
-
 		return FALSE;
 	}
 
-	if (!local_uri)
+	if (!tmp_uri)
 		return FALSE;
 
-	pps_xfer_uri_simple (local_uri, priv->uri, &error);
-	pps_tmp_uri_unlink (local_uri);
+	pps_xfer_uri_simple (tmp_uri, priv->uri, &error);
+	pps_tmp_uri_unlink (tmp_uri);
 
 	/* Copy the metadata from the original file */
 	if (!error) {
@@ -1224,7 +1213,6 @@ pps_job_save_run (PpsJob *job)
 
 	if (error) {
 		pps_job_failed_from_error (job, error);
-		g_error_free (error);
 	} else {
 		pps_job_succeeded (job);
 	}
