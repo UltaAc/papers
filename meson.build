@@ -241,6 +241,7 @@ mime_types_list = {
     'application/x-ext-djv',
     'application/x-ext-djvu',
     'image/vnd.djvu',
+    'image/vnd.djvu+multipage',
   ],
   'illustrator': [
     'application/illustrator'
