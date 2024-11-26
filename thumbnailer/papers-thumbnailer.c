@@ -90,14 +90,13 @@ delete_temp_file (gpointer data, GObject *object)
 static char *
 get_target_uri (GFile *file)
 {
-	GFileInfo *info;
+	g_autoptr (GFileInfo) info = NULL;
 	char *target;
 
 	info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI, G_FILE_QUERY_INFO_NONE, NULL, NULL);
 	if (info == NULL)
 		return NULL;
 	target = g_strdup (g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_TARGET_URI));
-	g_object_unref (info);
 
 	return target;
 }
@@ -116,21 +115,21 @@ static PpsDocument *
 papers_thumbnailer_get_document (GFile *file)
 {
 	PpsDocument *document = NULL;
-	gchar *uri, *path;
-	GFile *tmp_file = NULL;
+	g_autofree gchar *uri = NULL;
+	g_autofree gchar *path = NULL;
+	g_autoptr (GFile) tmp_file = NULL;
 	g_autoptr (GError) error = NULL;
 
 	path = get_local_path (file);
 
 	if (!path) {
-		gchar *base_name, *template;
+		g_autofree gchar *base_name = NULL;
+		g_autofree gchar *template = NULL;
 
 		base_name = g_file_get_basename (file);
 		template = g_strdup_printf ("document.XXXXXX-%s", base_name);
-		g_free (base_name);
 
 		tmp_file = pps_mkstemp_file (template, &error);
-		g_free (template);
 		if (!tmp_file) {
 			g_printerr ("Error loading remote document: %s\n", error->message);
 
@@ -141,14 +140,11 @@ papers_thumbnailer_get_document (GFile *file)
 		             NULL, NULL, NULL, &error);
 		if (error) {
 			g_printerr ("Error loading remote document: %s\n", error->message);
-			g_object_unref (tmp_file);
-
 			return NULL;
 		}
 		uri = g_file_get_uri (tmp_file);
 	} else {
 		uri = g_filename_to_uri (path, NULL, NULL);
-		g_free (path);
 	}
 
 	document = pps_document_factory_get_document_full (uri, PPS_DOCUMENT_LOAD_FLAG_NO_CACHE, &error);
@@ -159,10 +155,8 @@ papers_thumbnailer_get_document (GFile *file)
 			                   tmp_file);
 		} else {
 			pps_tmp_file_unlink (tmp_file);
-			g_object_unref (tmp_file);
 		}
 	}
-	g_free (uri);
 	if (error) {
 		if (error->domain == PPS_DOCUMENT_ERROR &&
 		    error->code == PPS_DOCUMENT_ERROR_ENCRYPTED) {
@@ -208,12 +202,12 @@ print_usage (GOptionContext *context)
 int
 main (int argc, char *argv[])
 {
-	PpsDocument *document;
+	g_autoptr (PpsDocument) document = NULL;
 	GOptionContext *context;
 	const char *input;
 	const char *output;
-	GFile *file;
-	GError *error = NULL;
+	g_autoptr (GFile) file = NULL;
+	g_autoptr (GError) error = NULL;
 
 	setlocale (LC_ALL, "");
 
@@ -222,7 +216,6 @@ main (int argc, char *argv[])
 
 	if (!g_option_context_parse (context, &argc, &argv, &error)) {
 		g_printerr ("%s\n", error->message);
-		g_error_free (error);
 		print_usage (context);
 		g_option_context_free (context);
 
@@ -253,7 +246,6 @@ main (int argc, char *argv[])
 
 	file = g_file_new_for_commandline_arg (input);
 	document = papers_thumbnailer_get_document (file);
-	g_object_unref (file);
 
 	if (!document) {
 		pps_shutdown ();
@@ -264,13 +256,11 @@ main (int argc, char *argv[])
 		time_monitor_start (input);
 
 	if (!papers_thumbnail_pngenc_get (document, output, size)) {
-		g_object_unref (document);
 		pps_shutdown ();
 		return -2;
 	}
 
 	time_monitor_stop ();
-	g_object_unref (document);
 	pps_shutdown ();
 
 	return 0;
