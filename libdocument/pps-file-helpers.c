@@ -235,7 +235,7 @@ pps_tmp_file_unlink (GFile *file)
 void
 pps_tmp_uri_unlink (const gchar *uri)
 {
-	GFile *file;
+	g_autoptr (GFile) file = NULL;
 
 	if (!uri)
 		return;
@@ -243,12 +243,10 @@ pps_tmp_uri_unlink (const gchar *uri)
 	file = g_file_new_for_uri (uri);
 	if (!g_file_is_native (file)) {
 		g_warning ("Attempting to delete non native uri: %s\n", uri);
-		g_object_unref (file);
 		return;
 	}
 
 	pps_tmp_file_unlink (file);
-	g_object_unref (file);
 }
 
 gboolean
