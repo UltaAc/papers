@@ -49,9 +49,6 @@ PPS_PUBLIC
 GFile *pps_mkstemp_file (const char *tmpl,
                          GError **error);
 PPS_PUBLIC
-gchar *pps_mkdtemp (const char *tmpl,
-                    GError **error);
-PPS_PUBLIC
 void pps_tmp_filename_unlink (const gchar *filename);
 PPS_PUBLIC
 void pps_tmp_file_unlink (GFile *file);

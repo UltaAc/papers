@@ -197,41 +197,6 @@ pps_mkstemp_file (const char *tmpl,
 	return file;
 }
 
-/**
- * pps_mkdtemp:
- * @tmpl: a template string; must end in 'XXXXXX'
- * @error: a location to store a #GError
- *
- * Creates a temp directory in the papers temp directory.
- *
- * Returns: (type filename): a newly allocated string with the temp directory name, or %NULL
- *   on error with @error filled in
- */
-gchar *
-pps_mkdtemp (const char *tmpl,
-             GError **error)
-{
-	const char *tmp;
-	char *name;
-
-	if ((tmp = _pps_tmp_dir (error)) == NULL)
-		return NULL;
-
-	name = g_build_filename (tmp, tmpl, NULL);
-	if (g_mkdtemp (name) == NULL) {
-		int errsv = errno;
-
-		g_set_error (error, G_IO_ERROR, g_io_error_from_errno (errsv),
-		             _ ("Failed to create a temporary directory: %s"),
-		             g_strerror (errsv));
-
-		g_free (name);
-		return NULL;
-	}
-
-	return name;
-}
-
 /* Remove a local temp file created by papers */
 void
 pps_tmp_filename_unlink (const gchar *filename)

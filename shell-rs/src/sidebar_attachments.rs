@@ -2,7 +2,11 @@ use crate::deps::*;
 use papers_document::{Attachment, DocumentAttachments};
 use papers_shell::SidebarPage;
 use papers_view::AttachmentContext;
-
+use std::env;
+use std::fs;
+use std::io;
+use std::path::Path;
+use std::process;
 mod imp {
     use super::*;
 
@@ -243,9 +247,27 @@ mod imp {
             }
 
             let mut files = Vec::new();
+            fn get_unique_temp_dir() -> Result<String, io::Error> {
+                let exe_path = env::current_exe()?;
+
+                // Extract the executable name from the path
+                let exe_name = exe_path.file_name().unwrap_or_default().to_string_lossy();
+
+                // "Build a unique directory path in the temp folder using the executable name and process ID
+
+                let full_temp_path =
+                    env::temp_dir().join(format!("{}-{}", exe_name, process::id()));
+
+                // Ensure the directory exists (create it if necessary)
+                if !full_temp_path.exists() {
+                    fs::create_dir_all(&full_temp_path)?;
+                }
+
+                return Ok(full_temp_path.to_str().unwrap().to_string());
+            }
 
             for attachment in self.selected_attachment() {
-                let tempdir = match papers_document::mkdtemp("attachments.XXXXXX") {
+                let tempdir = match get_unique_temp_dir() {
                     Ok(s) => s,
                     Err(e) => {
                         warn!("{e}");
@@ -257,7 +279,7 @@ mod imp {
                     continue;
                 };
 
-                let template = tempdir.join(name);
+                let template = Path::new(&tempdir).join(name);
                 let file = gio::File::for_path(template);
 
                 if let Err(e) = attachment.save(&file) {
