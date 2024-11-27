@@ -310,7 +310,6 @@ static gboolean
 pdf_document_load_fd (PpsDocument *document,
                       int fd,
                       PpsDocumentLoadFlags flags,
-                      GCancellable *cancellable,
                       GError **error)
 {
 	GError *err = NULL;

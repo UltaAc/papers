@@ -43,7 +43,6 @@ PPS_PUBLIC
 PpsDocument *pps_document_factory_get_document_for_fd (int fd,
                                                        const char *mime_type,
                                                        PpsDocumentLoadFlags flags,
-                                                       GCancellable *cancellable,
                                                        GError **error);
 
 PPS_PUBLIC

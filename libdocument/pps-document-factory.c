@@ -435,7 +435,6 @@ PpsDocument *
 pps_document_factory_get_document_for_fd (int fd,
                                           const char *mime_type,
                                           PpsDocumentLoadFlags flags,
-                                          GCancellable *cancellable,
                                           GError **error)
 {
 	PpsDocument *document;
@@ -456,7 +455,7 @@ pps_document_factory_get_document_for_fd (int fd,
 		return NULL;
 	}
 
-	if (!pps_document_load_fd (document, fd, flags, cancellable, error)) {
+	if (!pps_document_load_fd (document, fd, flags, error)) {
 		/* fd is now consumed */
 		g_object_unref (document);
 		return NULL;

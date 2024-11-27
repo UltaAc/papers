@@ -872,7 +872,6 @@ pps_job_load_run (PpsJob *job)
 				pps_document_load_fd (loaded_doc,
 				                      fd,
 				                      priv->flags,
-				                      pps_job_get_cancellable (job),
 				                      &error);
 		}
 	} else {
@@ -892,7 +891,6 @@ pps_job_load_run (PpsJob *job)
 				    pps_document_factory_get_document_for_fd (fd,
 				                                              priv->mime_type,
 				                                              priv->flags,
-				                                              pps_job_get_cancellable (job),
 				                                              &error);
 		}
 	}

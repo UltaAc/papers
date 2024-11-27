@@ -113,7 +113,6 @@ struct _PpsDocumentClass {
 	gboolean (*load_fd) (PpsDocument *document,
 	                     int fd,
 	                     PpsDocumentLoadFlags flags,
-	                     GCancellable *cancellable,
 	                     GError **error);
 };
 
@@ -151,7 +150,6 @@ PPS_PUBLIC
 gboolean pps_document_load_fd (PpsDocument *document,
                                int fd,
                                PpsDocumentLoadFlags flags,
-                               GCancellable *cancellable,
                                GError **error);
 PPS_PUBLIC
 gboolean pps_document_save (PpsDocument *document,

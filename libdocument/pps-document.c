@@ -432,7 +432,6 @@ pps_document_load (PpsDocument *document,
  * @document: a #PpsDocument
  * @fd: a file descriptor
  * @flags: flags from #PpsDocumentLoadFlags
- * @cancellable: (allow-none): a #GCancellable, or %NULL
  * @error: (allow-none): a #GError location to store an error, or %NULL
  *
  * Synchronously loads the document from @fd, which must refer to
@@ -452,7 +451,6 @@ gboolean
 pps_document_load_fd (PpsDocument *document,
                       int fd,
                       PpsDocumentLoadFlags flags,
-                      GCancellable *cancellable,
                       GError **error)
 {
 	PpsDocumentClass *klass;
@@ -461,7 +459,6 @@ pps_document_load_fd (PpsDocument *document,
 
 	g_return_val_if_fail (PPS_IS_DOCUMENT (document), FALSE);
 	g_return_val_if_fail (fd != -1, FALSE);
-	g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
 	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
 	klass = PPS_DOCUMENT_GET_CLASS (document);
@@ -501,7 +498,7 @@ pps_document_load_fd (PpsDocument *document,
 		return FALSE;
 	}
 
-	if (!klass->load_fd (document, fd, flags, cancellable, error))
+	if (!klass->load_fd (document, fd, flags, error))
 		return FALSE;
 
 	if (!(flags & PPS_DOCUMENT_LOAD_FLAG_NO_CACHE))
