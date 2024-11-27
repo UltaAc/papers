@@ -7515,6 +7515,8 @@ pps_view_class_init (PpsViewClass *class)
 	add_scroll_binding_keypad (widget_class, GDK_KEY_Page_Down, 0, GTK_SCROLL_PAGE_FORWARD, GTK_ORIENTATION_VERTICAL);
 	add_scroll_binding_keypad (widget_class, GDK_KEY_Home, GDK_CONTROL_MASK, GTK_SCROLL_START, GTK_ORIENTATION_VERTICAL);
 	add_scroll_binding_keypad (widget_class, GDK_KEY_End, GDK_CONTROL_MASK, GTK_SCROLL_END, GTK_ORIENTATION_VERTICAL);
+	add_scroll_binding_keypad (widget_class, GDK_KEY_BackSpace, 0, GTK_SCROLL_PAGE_BACKWARD, GTK_ORIENTATION_VERTICAL);
+	add_scroll_binding_keypad (widget_class, GDK_KEY_space, 0, GTK_SCROLL_PAGE_FORWARD, GTK_ORIENTATION_VERTICAL);
 
 	/* We can't use the bindings defined in GtkWindow for Space and Return,
 	 * because we also have those bindings for scrolling.
@@ -7546,11 +7548,6 @@ pps_view_class_init (PpsViewClass *class)
 	                                     "(ii)", GTK_SCROLL_PAGE_FORWARD, GTK_ORIENTATION_VERTICAL);
 	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_space, GDK_SHIFT_MASK, "scroll",
 	                                     "(ii)", GTK_SCROLL_PAGE_BACKWARD, GTK_ORIENTATION_VERTICAL);
-	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_BackSpace, 0, "scroll",
-	                                     "(ii)", GTK_SCROLL_PAGE_BACKWARD, GTK_ORIENTATION_VERTICAL);
-	gtk_widget_class_add_binding_signal (widget_class, GDK_KEY_BackSpace, GDK_SHIFT_MASK, "scroll",
-	                                     "(ii)", GTK_SCROLL_PAGE_FORWARD, GTK_ORIENTATION_VERTICAL);
-
 	gtk_widget_class_add_binding (widget_class,
 	                              GDK_KEY_a, GDK_CONTROL_MASK,
 	                              (GtkShortcutFunc) pps_view_select_all,
