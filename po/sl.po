@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: evince master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-11-06 16:00+0000\n"
-"PO-Revision-Date: 2024-11-06 18:24+0100\n"
+"POT-Creation-Date: 2024-11-27 13:41+0000\n"
+"PO-Revision-Date: 2024-11-27 15:37+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenščina <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -28,7 +28,7 @@ msgstr ""
 #. Manually set name and icon
 #: data/org.gnome.Papers.desktop.in.in:3
 #: data/org.gnome.Papers.metainfo.xml.in.in:23
-#: previewer/pps-previewer-window.c:488 shell/pps-document-view.c:1175
+#: previewer/pps-previewer-window.c:488 shell/pps-document-view.c:1116
 #: shell/pps-document-view.ui:73 shell/pps-loader-view.ui:10
 #: shell-rs/src/application.rs:41 shell-rs/src/application.rs:64
 #: shell-rs/src/application.rs:288
@@ -41,10 +41,10 @@ msgstr "Poglejte večstranske dokumente"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Papers.desktop.in.in:6
-msgid "pdf;ps;postscript;xps;djvu;tiff;document;presentation;viewer;papers;"
+msgid "pdf;djvu;tiff;document;presentation;viewer;papers;"
 msgstr ""
-"pdf;ps;postscript;xps;djvu;tiff;dokument;predstavitev;pregledovalnik;"
-"časopisi;papers;članki;članek;revija;revije;"
+"pdf;djvu;tiff;dokument;predstavitev;pregledovalnik;časopisi;papers;članki;"
+"članek;revija;revije;"
 
 #: data/org.gnome.Papers.desktop.in.in:21
 msgid "New Window"
@@ -131,10 +131,10 @@ msgstr ""
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:27
 msgid ""
-"Papers supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, and Comic Books "
-"archives (CBR, CBT, CBZ, CB7)."
+"Papers supports documents in: PDF, DjVu, TIFF, and Comic Books archives "
+"(CBR, CBT, CBZ, CB7)."
 msgstr ""
-"Program podpira zapise PDF, PS, EPS, XPS, DjVu in TIFF ter arhive stripov "
+"Program podpira dokumente v zapisu: PDF, DjVu in TIFF ter arhive stripov "
 "(CBR, CBT, CBZ, CB7)."
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:43
@@ -239,52 +239,52 @@ msgid "Adds support for reading PDF Documents"
 msgstr "Doda podporo za branje datotek PDF"
 
 #. translators: this is the document security state
-#: libdocument/backend/pdf/pps-poppler.c:713
-#: libdocument/backend/pdf/pps-poppler.c:719
+#: libdocument/backend/pdf/pps-poppler.c:709
+#: libdocument/backend/pdf/pps-poppler.c:715
 #: nautilus/pps-nautilus-extension.c:119 shell-rs/src/properties_general.rs:170
 msgid "Yes"
 msgstr "Da"
 
 #. translators: this is the document security state
-#: libdocument/backend/pdf/pps-poppler.c:716
-#: libdocument/backend/pdf/pps-poppler.c:719
+#: libdocument/backend/pdf/pps-poppler.c:712
+#: libdocument/backend/pdf/pps-poppler.c:715
 #: nautilus/pps-nautilus-extension.c:121 shell-rs/src/properties_general.rs:171
 msgid "No"
 msgstr "Ne"
 
-#: libdocument/backend/pdf/pps-poppler.c:826
+#: libdocument/backend/pdf/pps-poppler.c:822
 msgid "Type 1"
 msgstr "Vrsta 1"
 
-#: libdocument/backend/pdf/pps-poppler.c:828
+#: libdocument/backend/pdf/pps-poppler.c:824
 msgid "Type 1C"
 msgstr "Vrsta 1C"
 
-#: libdocument/backend/pdf/pps-poppler.c:830
+#: libdocument/backend/pdf/pps-poppler.c:826
 msgid "Type 3"
 msgstr "Vrsta 3"
 
-#: libdocument/backend/pdf/pps-poppler.c:832
+#: libdocument/backend/pdf/pps-poppler.c:828
 msgid "TrueType"
 msgstr "TrueType"
 
-#: libdocument/backend/pdf/pps-poppler.c:834
+#: libdocument/backend/pdf/pps-poppler.c:830
 msgid "Type 1 (CID)"
 msgstr "Vrsta 1 (CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:836
+#: libdocument/backend/pdf/pps-poppler.c:832
 msgid "Type 1C (CID)"
 msgstr "Vrsta 1C (CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:838
+#: libdocument/backend/pdf/pps-poppler.c:834
 msgid "TrueType (CID)"
 msgstr "TrueType (CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:840
+#: libdocument/backend/pdf/pps-poppler.c:836
 msgid "Unknown font type"
 msgstr "Neznana vrsta pisave"
 
-#: libdocument/backend/pdf/pps-poppler.c:884
+#: libdocument/backend/pdf/pps-poppler.c:880
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
@@ -294,11 +294,11 @@ msgstr ""
 "pisavami in tudi niso vstavljene. Ko so izbrane nadomestne pisave, ki niso "
 "enake pisavam v dokumentu PDF, izris običajno ni pravilen."
 
-#: libdocument/backend/pdf/pps-poppler.c:889
+#: libdocument/backend/pdf/pps-poppler.c:885
 msgid "All fonts are either standard or embedded."
 msgstr "Vse pisave so ali standardne ali pa vstavljene."
 
-#: libdocument/backend/pdf/pps-poppler.c:920
+#: libdocument/backend/pdf/pps-poppler.c:916
 msgid "No name"
 msgstr "Brez imena"
 
@@ -307,20 +307,20 @@ msgstr "Brez imena"
 #. Encoding: None
 #.
 #. translators: Value for 'Page Scaling:' to not scale the document pages on printing
-#: libdocument/backend/pdf/pps-poppler.c:929 libview/pps-print-operation.c:1901
+#: libdocument/backend/pdf/pps-poppler.c:925 libview/pps-print-operation.c:1901
 #: shell-rs/src/properties_general.rs:82 shell-rs/src/properties_general.rs:199
 msgid "None"
 msgstr "Ni določeno"
 
-#: libdocument/backend/pdf/pps-poppler.c:937
+#: libdocument/backend/pdf/pps-poppler.c:933
 msgid "Embedded subset"
 msgstr "Vgrajena podmnožica"
 
-#: libdocument/backend/pdf/pps-poppler.c:939
+#: libdocument/backend/pdf/pps-poppler.c:935
 msgid "Embedded"
 msgstr "Vgrajeno"
 
-#: libdocument/backend/pdf/pps-poppler.c:941
+#: libdocument/backend/pdf/pps-poppler.c:937
 msgid "Not embedded"
 msgstr "Ni vgrajeno"
 
@@ -329,7 +329,7 @@ msgstr "Ni vgrajeno"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: libdocument/backend/pdf/pps-poppler.c:948
+#: libdocument/backend/pdf/pps-poppler.c:944
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (Določena med standardnimi 14 pisavami)"
 
@@ -338,7 +338,7 @@ msgstr " (Določena med standardnimi 14 pisavami)"
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: libdocument/backend/pdf/pps-poppler.c:955
+#: libdocument/backend/pdf/pps-poppler.c:951
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (Ni določena med standardnimi 14 pisavami.)"
 
@@ -352,7 +352,7 @@ msgstr " (Ni določena med standardnimi 14 pisavami.)"
 #. * Substituting with TeXGyreTermes-Regular
 #. * (/usr/share/textmf/.../texgyretermes-regular.otf)
 #.
-#: libdocument/backend/pdf/pps-poppler.c:974
+#: libdocument/backend/pdf/pps-poppler.c:970
 #, c-format
 msgid ""
 "%s%s\n"
@@ -376,7 +376,7 @@ msgstr ""
 #. * Encoding: Custom
 #. * Embedded subset
 #.
-#: libdocument/backend/pdf/pps-poppler.c:992
+#: libdocument/backend/pdf/pps-poppler.c:988
 #, c-format
 msgid ""
 "%s%s\n"
@@ -386,25 +386,6 @@ msgstr ""
 "%s%s\n"
 "Kodiranje: %s\n"
 "%s"
-
-#: libdocument/backend/ps/papers-psdocument.metainfo.xml.in.in:5
-#: libdocument/backend/ps/psdocument.papers-backend.desktop.in.in:5
-msgid "PostScript Documents"
-msgstr "Dokumenti PostScript"
-
-#: libdocument/backend/ps/papers-psdocument.metainfo.xml.in.in:6
-msgid "Adds support for reading PostScript documents"
-msgstr "Doda podporo za branje datotek PostScript"
-
-#: libdocument/backend/ps/pps-spectre.c:94
-#, c-format
-msgid "Failed to load document “%s”"
-msgstr "Nalaganje dokumenta »%s« je spodletelo"
-
-#: libdocument/backend/ps/pps-spectre.c:127
-#, c-format
-msgid "Failed to save document “%s”"
-msgstr "Napaka med shranjevanjem dokumenta “%s”"
 
 #: libdocument/backend/tiff/papers-tiffdocument.metainfo.xml.in.in:5
 #: libdocument/backend/tiff/tiffdocument.papers-backend.desktop.in.in:4
@@ -418,15 +399,6 @@ msgstr "Doda podporo za branje datotek TIFF"
 #: libdocument/backend/tiff/tiff-document.c:105
 msgid "Invalid document"
 msgstr "Neveljaven dokument"
-
-#: libdocument/backend/xps/papers-xpsdocument.metainfo.xml.in.in:5
-#: libdocument/backend/xps/xpsdocument.papers-backend.desktop.in.in:5
-msgid "XPS Documents"
-msgstr "Dokumenti XPS"
-
-#: libdocument/backend/xps/papers-xpsdocument.metainfo.xml.in.in:6
-msgid "Adds support for reading XPS documents"
-msgstr "Doda podporo za branje datotek XPS"
 
 #: libdocument/pps-attachment.c:304 libdocument/pps-attachment.c:325
 #, c-format
@@ -448,9 +420,9 @@ msgstr "Ni mogoče odpreti priloge »%s«"
 msgid "File type %s (%s) is not supported"
 msgstr "Vrsta datoteke %s (%s) ni podprta"
 
-#: libdocument/pps-document-factory.c:374 libdocument/pps-file-helpers.c:408
-#: libdocument/pps-file-helpers.c:454 libdocument/pps-file-helpers.c:463
-#: libdocument/pps-file-helpers.c:544 libdocument/pps-file-helpers.c:553
+#: libdocument/pps-document-factory.c:374 libdocument/pps-file-helpers.c:373
+#: libdocument/pps-file-helpers.c:419 libdocument/pps-file-helpers.c:428
+#: libdocument/pps-file-helpers.c:509 libdocument/pps-file-helpers.c:518
 msgid "Unknown MIME Type"
 msgstr "Neznana MIME vrsta"
 
@@ -500,11 +472,6 @@ msgstr "%s, ležeče (%s)"
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "Ni mogoče ustvariti začasne datoteke: %s"
-
-#: libdocument/pps-file-helpers.c:225
-#, c-format
-msgid "Failed to create a temporary directory: %s"
-msgstr "Ni mogoče ustvariti začasne mape: %s"
 
 #: libdocument/pps-signature.c:566
 msgid "Trusted"
@@ -567,7 +534,7 @@ msgstr[2] "Shrani prilogi"
 msgstr[3] "Shrani priloge"
 
 #: libview/context/pps-history.c:493 previewer/pps-page-selector.c:194
-#: shell/pps-document-view.c:623 shell/pps-document-view.c:2742
+#: shell/pps-document-view.c:551 shell/pps-document-view.c:2673
 #: shell/pps-sidebar-bookmarks.c:339
 #, c-format
 msgid "Page %s"
@@ -631,8 +598,8 @@ msgstr "Območje tiskanja ne vključuje nobene strani"
 
 #. show close if the certificate is null, or if no cert is found
 #: libview/pps-print-operation.c:1361 previewer/pps-previewer-window.ui:91
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.c:3686
-#: shell/pps-document-view.ui:616 shell/pps-window.ui:163
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.c:3628
+#: shell/pps-document-view.ui:609 shell/pps-window.ui:163
 msgid "_Close"
 msgstr "_Zapri"
 
@@ -733,51 +700,51 @@ msgstr "Pomakni pogled dol"
 msgid "Document View"
 msgstr "Dokumentni pogled"
 
-#: libview/pps-view.c:2107
+#: libview/pps-view.c:2113
 msgid "Go to first page"
 msgstr "Pojdi na prvo stran"
 
-#: libview/pps-view.c:2109
+#: libview/pps-view.c:2115
 msgid "Go to previous page"
 msgstr "Pojdi na prejšnjo stran"
 
-#: libview/pps-view.c:2111
+#: libview/pps-view.c:2117
 msgid "Go to next page"
 msgstr "Pojdi na naslednjo stran"
 
-#: libview/pps-view.c:2113
+#: libview/pps-view.c:2119
 msgid "Go to last page"
 msgstr "Pojdi na zadnjo stran"
 
-#: libview/pps-view.c:2115
+#: libview/pps-view.c:2121
 msgid "Go to page"
 msgstr "Pojdi na stran"
 
-#: libview/pps-view.c:2117
+#: libview/pps-view.c:2123
 msgid "Find"
 msgstr "Poišči"
 
-#: libview/pps-view.c:2146
+#: libview/pps-view.c:2152
 #, c-format
 msgid "Go to page %s"
 msgstr "Pojdi na stran %s"
 
-#: libview/pps-view.c:2152
+#: libview/pps-view.c:2158
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Pojdi na %s v datoteki »%s«"
 
-#: libview/pps-view.c:2155
+#: libview/pps-view.c:2161
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Skoči na datoteko »%s«"
 
-#: libview/pps-view.c:2163
+#: libview/pps-view.c:2169
 #, c-format
 msgid "Launch %s"
 msgstr "Zaženi %s"
 
-#: libview/pps-view.c:2170
+#: libview/pps-view.c:2176
 #, c-format
 msgid "Reset form"
 msgstr "Ponastavi obrazec"
@@ -861,7 +828,7 @@ msgstr "Predhodna stran"
 msgid "Next Page"
 msgstr "Naslednja stran"
 
-#: previewer/pps-previewer-window.ui:36 shell/pps-document-view.ui:225
+#: previewer/pps-previewer-window.ui:36 shell/pps-document-view.ui:224
 msgid "Page Count"
 msgstr "Število strani"
 
@@ -873,7 +840,7 @@ msgstr "_Natisni"
 msgid "Print This Document"
 msgstr "Natisnite ta dokument"
 
-#: previewer/pps-previewer-window.ui:53 shell/pps-document-view.ui:307
+#: previewer/pps-previewer-window.ui:53 shell/pps-document-view.ui:306
 msgid "Zoom Out"
 msgstr "Oddalji"
 
@@ -881,11 +848,11 @@ msgstr "Oddalji"
 msgid "Normal Size"
 msgstr "Navadna velikost"
 
-#: previewer/pps-previewer-window.ui:67 shell/pps-document-view.ui:294
+#: previewer/pps-previewer-window.ui:67 shell/pps-document-view.ui:293
 msgid "Zoom In"
 msgstr "Približaj"
 
-#: previewer/pps-previewer-window.ui:89 shell/pps-document-view.c:1952
+#: previewer/pps-previewer-window.ui:89 shell/pps-document-view.c:1891
 msgid "Failed to Print Document"
 msgstr "Tiskanje dokumenta ni uspelo"
 
@@ -1357,40 +1324,40 @@ msgstr "Čačka"
 msgid "_Apply"
 msgstr "_Uveljavi"
 
-#: shell/pps-document-view.c:496 shell-rs/src/window.rs:467
+#: shell/pps-document-view.c:424 shell-rs/src/window.rs:466
 msgid "View Details"
 msgstr "Pokaži podrobnosti"
 
-#: shell/pps-document-view.c:1215
+#: shell/pps-document-view.c:1156
 msgid "Digital Signature is invalid!"
 msgstr "Digitalni podpis je neveljaven!"
 
-#: shell/pps-document-view.c:1218 shell/pps-document-view.ui:240
+#: shell/pps-document-view.c:1159 shell/pps-document-view.ui:239
 msgid "Document has been digitally signed."
 msgstr "Dokument je digitalno podpisan."
 
-#: shell/pps-document-view.c:1249
+#: shell/pps-document-view.c:1190
 msgid "The document contains no pages"
 msgstr "Dokument ne vsebuje nobene strani"
 
-#: shell/pps-document-view.c:1252
+#: shell/pps-document-view.c:1193
 msgid "The document contains only empty pages"
 msgstr "Dokument vsebuje le prazne strani"
 
-#: shell/pps-document-view.c:1485
+#: shell/pps-document-view.c:1424
 msgid "File Saved"
 msgstr "Datoteka je shranjena"
 
-#: shell/pps-document-view.c:1495 shell/pps-document-view.c:1548
+#: shell/pps-document-view.c:1434 shell/pps-document-view.c:1487
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Ni mogoče shraniti datoteke kot »%s«."
 
-#: shell/pps-document-view.c:1610
+#: shell/pps-document-view.c:1549
 msgid "Save As…"
 msgstr "Shrani kot …"
 
-#: shell/pps-document-view.c:1912
+#: shell/pps-document-view.c:1851
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
@@ -1399,80 +1366,80 @@ msgstr[1] "%d posel v vrsti"
 msgstr[2] "%d posla v vrsti"
 msgstr[3] "%d posli v vrsti"
 
-#: shell/pps-document-view.c:2005
+#: shell/pps-document-view.c:1944
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Tiskanje »%s«"
 
-#: shell/pps-document-view.c:2008 shell/pps-loader-view.ui:60
+#: shell/pps-document-view.c:1947 shell/pps-loader-view.ui:60
 msgid "C_ancel"
 msgstr "P_rekliči"
 
-#: shell/pps-document-view.c:2196 shell-rs/src/window.rs:267
+#: shell/pps-document-view.c:2127 shell-rs/src/window.rs:267
 msgid "Document contains form fields that have been filled out."
 msgstr "Dokument vsebuje že izpolnjena polja obrazca."
 
-#: shell/pps-document-view.c:2199 shell-rs/src/window.rs:268
+#: shell/pps-document-view.c:2130 shell-rs/src/window.rs:268
 msgid "Document contains new or modified annotations."
 msgstr "Dokument vsebuje nove ali spremenjene pripombe."
 
-#: shell/pps-document-view.c:2206
+#: shell/pps-document-view.c:2137
 msgid "Save Changes to a Copy?"
 msgstr "Ali želite shraniti spremembe v kopijo?"
 
-#: shell/pps-document-view.c:2207
+#: shell/pps-document-view.c:2138
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "V primeru, da kopije ne shranite, bodo spremembe trajno izgubljene."
 
-#: shell/pps-document-view.c:2210
+#: shell/pps-document-view.c:2141
 msgid "Close _Without Saving"
 msgstr "Zapri _brez shranjevanja"
 
-#: shell/pps-document-view.c:2211 shell/pps-document-view.c:3442
-#: shell/pps-document-view.c:3578 shell/pps-document-view.c:3648
-#: shell/pps-document-view.ui:608
+#: shell/pps-document-view.c:2142 shell/pps-document-view.c:3384
+#: shell/pps-document-view.c:3520 shell/pps-document-view.c:3590
+#: shell/pps-document-view.ui:601
 msgid "_Cancel"
 msgstr "_Prekliči"
 
-#: shell/pps-document-view.c:2212
+#: shell/pps-document-view.c:2143
 msgid "_Save a Copy"
 msgstr "_Shrani kopijo"
 
-#: shell/pps-document-view.c:3306
+#: shell/pps-document-view.c:3229
 #, c-format
 msgid "Caret navigation mode is now enabled, press F7 to disable."
 msgstr ""
 "Način krmarjenja kazalke je zdaj omogočen, pritisnite F7, da ga onemogočite."
 
-#: shell/pps-document-view.c:3308
+#: shell/pps-document-view.c:3231
 #, c-format
 msgid "Caret navigation mode is now disabled, press F7 to enable."
 msgstr ""
 "Način krmarjenja kazalke je zdaj onemogočen, pritisnite F7, da ga omogočite."
 
-#: shell/pps-document-view.c:3439
+#: shell/pps-document-view.c:3381
 #, c-format
 msgid "Please enter password for %s"
 msgstr "Vnesite geslo za %s"
 
-#: shell/pps-document-view.c:3441 shell/pps-password-dialog.ui:4
+#: shell/pps-document-view.c:3383 shell/pps-password-dialog.ui:4
 #: shell/pps-password-view.ui:10 shell/pps-password-view.ui:19
 msgid "Password Required"
 msgstr "Zahtevano geslo"
 
-#: shell/pps-document-view.c:3443
+#: shell/pps-document-view.c:3385
 msgid "_Login"
 msgstr "_Prijava"
 
-#: shell/pps-document-view.c:3542
+#: shell/pps-document-view.c:3484
 msgid "Save Signed File"
 msgstr "Shrani podpisano datoteko"
 
-#: shell/pps-document-view.c:3577
+#: shell/pps-document-view.c:3519
 msgid "Draw a rectangle to insert a signature field"
 msgstr "Narišite pravokotnik za vstavljanje polja s podpisom"
 
-#: shell/pps-document-view.c:3603
+#: shell/pps-document-view.c:3545
 #, c-format
 msgid ""
 "Digitally signed by %s\n"
@@ -1481,50 +1448,50 @@ msgstr ""
 "Digitalno podpisal/a %s\n"
 "Datum: %s"
 
-#: shell/pps-document-view.c:3639
+#: shell/pps-document-view.c:3581
 msgid "Certificate Required"
 msgstr "Potrebno je potrdilo"
 
-#: shell/pps-document-view.c:3644
+#: shell/pps-document-view.c:3586
 msgid "Select signing certificate"
 msgstr "Izberite potrdilo za podpisovanje"
 
-#: shell/pps-document-view.c:3645
+#: shell/pps-document-view.c:3587
 msgid "Select"
 msgstr "Izberi"
 
-#: shell/pps-document-view.c:3684
+#: shell/pps-document-view.c:3626
 msgid "A certificate is required to sign this document"
 msgstr "Za podpis tega dokumenta je potrebno potrdilo"
 
-#: shell/pps-document-view.c:3990
+#: shell/pps-document-view.c:3910
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
 msgstr ""
 "Varnostno opozorilo: dokumentu je bilo onemogočeno odpiranje datoteke »%s«."
 
-#: shell/pps-document-view.c:4051 shell-rs/src/window.rs:1137
+#: shell/pps-document-view.c:3971 shell-rs/src/window.rs:1136
 msgid "Unable to open external link"
 msgstr "Ni mogoče odpreti zunanje povezave"
 
-#: shell/pps-document-view.c:4275
+#: shell/pps-document-view.c:4195
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Ni mogoče najti ustreznega zapisa za shranjevanje slike"
 
-#: shell/pps-document-view.c:4305
+#: shell/pps-document-view.c:4225
 msgid "The image could not be saved."
 msgstr "Slike ni mogoče shraniti."
 
-#: shell/pps-document-view.c:4341
+#: shell/pps-document-view.c:4261
 msgid "Save Image"
 msgstr "Shrani sliko"
 
-#: shell/pps-document-view.c:4511
+#: shell/pps-document-view.c:4431
 msgid "Unable to open attachment"
 msgstr "Ni mogoče odpreti priloge"
 
-#: shell/pps-document-view.c:4530
+#: shell/pps-document-view.c:4450
 msgid "The attachment could not be saved."
 msgstr "Ni mogoče shraniti priloge."
 
@@ -1544,43 +1511,43 @@ msgstr "Sličice"
 msgid "Outline"
 msgstr "Obris"
 
-#: shell/pps-document-view.ui:127
+#: shell/pps-document-view.ui:126
 msgid "Annotations"
 msgstr "Pripombe"
 
-#: shell/pps-document-view.ui:142
+#: shell/pps-document-view.ui:141
 msgid "Bookmarks"
 msgstr "Zaznamki"
 
-#: shell/pps-document-view.ui:156
+#: shell/pps-document-view.ui:155
 msgid "Attachments"
 msgstr "Priloge"
 
-#: shell/pps-document-view.ui:175
+#: shell/pps-document-view.ui:174
 msgid "Layers"
 msgstr "Plasti"
 
-#: shell/pps-document-view.ui:212
+#: shell/pps-document-view.ui:211
 msgid "Toggle Sidebar"
 msgstr "Preklopi stransko okno"
 
-#: shell/pps-document-view.ui:218
+#: shell/pps-document-view.ui:217
 msgid "Document Menu"
 msgstr "Meni Dokument"
 
-#: shell/pps-document-view.ui:241
+#: shell/pps-document-view.ui:240
 msgid "View Details…"
 msgstr "Pokaži podrobnosti …"
 
-#: shell/pps-document-view.ui:274
+#: shell/pps-document-view.ui:273
 msgid "Fit Automatically"
 msgstr "Samodejno prilagodi"
 
-#: shell/pps-document-view.ui:590
+#: shell/pps-document-view.ui:583
 msgid "Selection too Small"
 msgstr "Izbor je premajhen"
 
-#: shell/pps-document-view.ui:591
+#: shell/pps-document-view.ui:584
 msgid ""
 "A signature of this size may be too small to read. If you would like to "
 "create a potentially more readable signature, press `Start over` and draw a "
@@ -1589,19 +1556,19 @@ msgstr ""
 "Podpis te velikosti je lahko premajhen za branje. Če želite ustvariti bolj "
 "berljiv podpis, pritisnite »Začni znova« in narišite večji pravokotnik."
 
-#: shell/pps-document-view.ui:596
+#: shell/pps-document-view.ui:589
 msgid "Start _Over"
 msgstr "Začnite _znova"
 
-#: shell/pps-document-view.ui:597
+#: shell/pps-document-view.ui:590
 msgid "_Sign"
 msgstr "_Podpiši"
 
-#: shell/pps-document-view.ui:603
+#: shell/pps-document-view.ui:596
 msgid "Abort Printing?"
 msgstr "Prekinitev tiskanja?"
 
-#: shell/pps-document-view.ui:604
+#: shell/pps-document-view.ui:597
 msgid ""
 "There is one or more active print jobs. If the window is closed, pending "
 "print jobs will not be printed."
@@ -1609,149 +1576,141 @@ msgstr ""
 "Obstaja eno ali več dejavnih opravil tiskanja. V primeru, da zaprete okno, "
 "čakajoči posli tiskanja ne bodo izvršeni."
 
-#: shell/pps-document-view.ui:607
+#: shell/pps-document-view.ui:600
 msgid "Abort _Print and Close"
 msgstr "Prekini _tiskanje in zapri okno"
 
-#: shell/pps-document-view.ui:609
+#: shell/pps-document-view.ui:602
 msgid "Close _After Printing"
 msgstr "Zapri _po tiskanju"
 
-#: shell/pps-document-view.ui:623
+#: shell/pps-document-view.ui:616
 msgid "Open…"
 msgstr "Odpri …"
 
-#: shell/pps-document-view.ui:629
+#: shell/pps-document-view.ui:622
 msgid "Ni_ght Mode"
 msgstr "_Nočni način prikaza"
 
-#: shell/pps-document-view.ui:635 shell/pps-window.ui:170
+#: shell/pps-document-view.ui:628 shell/pps-window.ui:170
 msgid "_Keyboard Shortcuts"
 msgstr "_Tipkovne bližnjice‫"
 
-#: shell/pps-document-view.ui:639 shell/pps-window.ui:174
+#: shell/pps-document-view.ui:632 shell/pps-window.ui:174
 msgid "_Help"
 msgstr "Pomo_č"
 
-#: shell/pps-document-view.ui:643 shell/pps-window.ui:178
+#: shell/pps-document-view.ui:636 shell/pps-window.ui:178
 msgid "_About Papers"
 msgstr "_O programu Članki"
 
-#: shell/pps-document-view.ui:651
+#: shell/pps-document-view.ui:644
 msgid "_Print…"
 msgstr "Na_tisni …"
 
-#: shell/pps-document-view.ui:655
+#: shell/pps-document-view.ui:648
 msgid "Fullscreen"
 msgstr "Celozaslonski način"
 
-#: shell/pps-document-view.ui:659
+#: shell/pps-document-view.ui:652
 msgid "Present as Slideshow"
 msgstr "Prikaži kot diapredstavitev"
 
-#: shell/pps-document-view.ui:665
+#: shell/pps-document-view.ui:658
 msgid "Sign D_igitally…"
 msgstr "Podpiši d_igitalno ..."
 
-#: shell/pps-document-view.ui:671
+#: shell/pps-document-view.ui:664
 msgid "Open a C_opy"
 msgstr "Odpri kopijo"
 
-#: shell/pps-document-view.ui:675
+#: shell/pps-document-view.ui:668
 msgid "Open With…"
 msgstr "Odpri z ..."
 
-#: shell/pps-document-view.ui:679
+#: shell/pps-document-view.ui:672
 msgid "_Save As…"
 msgstr "S_hrani kot …"
 
-#: shell/pps-document-view.ui:685
+#: shell/pps-document-view.ui:678
 msgid "_Continuous"
 msgstr "N_eprekinjeno premikanje"
 
-#: shell/pps-document-view.ui:689
+#: shell/pps-document-view.ui:682
 msgid "_Dual"
 msgstr "_Dvojni pogled strani"
 
-#: shell/pps-document-view.ui:693
+#: shell/pps-document-view.ui:686
 msgid "_Odd Pages Left"
 msgstr "_Preostale lihe strani"
 
-#: shell/pps-document-view.ui:697
+#: shell/pps-document-view.ui:690
 msgid "Right to Left Document"
 msgstr "Dokument z zapisom z desne proti levi"
 
-#: shell/pps-document-view.ui:703
+#: shell/pps-document-view.ui:696
 msgid "Ro_tate ⤵"
 msgstr "Zavrti _levo ⤵"
 
-#: shell/pps-document-view.ui:709
+#: shell/pps-document-view.ui:702
 msgid "Document Prop_erties"
 msgstr "Lastnosti do_kumenta"
 
-#: shell/pps-document-view.ui:814
+#: shell/pps-document-view.ui:807
 msgid "_Open Link"
 msgstr "_Odpri povezavo"
 
-#: shell/pps-document-view.ui:819
+#: shell/pps-document-view.ui:812
 msgid "_Copy Link Address"
 msgstr "_Kopiraj naslov povezave"
 
-#: shell/pps-document-view.ui:824
+#: shell/pps-document-view.ui:817
 msgid "_Go To"
 msgstr "Sk_oči na"
 
-#: shell/pps-document-view.ui:829
+#: shell/pps-document-view.ui:822
 msgid "Open in New _Window"
 msgstr "Odpri v _novem oknu"
 
-#: shell/pps-document-view.ui:836
-msgid "_Previous Page"
-msgstr "P_redhodna stran"
-
-#: shell/pps-document-view.ui:840
-msgid "_Next Page"
-msgstr "_Naslednja stran"
-
-#: shell/pps-document-view.ui:846
+#: shell/pps-document-view.ui:829
 msgid "_Copy"
 msgstr "_Kopiraj"
 
-#: shell/pps-document-view.ui:850
+#: shell/pps-document-view.ui:833
 msgid "Select _All"
 msgstr "Izberi _vse"
 
-#: shell/pps-document-view.ui:856
+#: shell/pps-document-view.ui:839
 msgid "_Save Image As…"
 msgstr "S_hrani sliko kot …"
 
-#: shell/pps-document-view.ui:861
+#: shell/pps-document-view.ui:844
 msgid "Copy _Image"
 msgstr "Kopiraj _sliko"
 
-#: shell/pps-document-view.ui:868 shell/pps-document-view.ui:906
+#: shell/pps-document-view.ui:851 shell/pps-document-view.ui:889
 #: shell/pps-sidebar-annotations.ui:85
 msgid "_Open Attachment"
 msgstr "_Odpri prilogo"
 
-#: shell/pps-document-view.ui:873 shell/pps-document-view.ui:910
+#: shell/pps-document-view.ui:856 shell/pps-document-view.ui:893
 #: shell/pps-sidebar-annotations.ui:90
 msgid "_Save Attachment As…"
 msgstr "Shrani prilogo _kot …"
 
-#: shell/pps-document-view.ui:881
+#: shell/pps-document-view.ui:864
 msgid "Annotation _Properties…"
 msgstr "Lastnosti _pripombe …"
 
-#: shell/pps-document-view.ui:886
+#: shell/pps-document-view.ui:869
 msgid "R_emove Annotation"
 msgstr "_Odstrani pripombo"
 
-#: shell/pps-document-view.ui:893
+#: shell/pps-document-view.ui:876
 msgid "_Add Text Annotation"
 msgstr "_Dodaj besedilno pripombo"
 
-#: shell/pps-document-view.ui:898
+#: shell/pps-document-view.ui:881
 msgid "_Highlight Selected Text"
 msgstr "_Poudari izbrano besedilo"
 
@@ -2053,10 +2012,10 @@ msgstr "_Ne"
 msgid "_Reload"
 msgstr "Pono_vno naloži"
 
-#: shell-rs/src/window.rs:569
+#: shell-rs/src/window.rs:568
 msgid "Failed to Load Remote File."
 msgstr "Napaka pri nalaganju oddaljene datoteke."
 
-#: shell-rs/src/window.rs:732
+#: shell-rs/src/window.rs:731
 msgid "Failed to Reload Document."
 msgstr "Ponovno nalaganje dokumenta ni uspelo."
