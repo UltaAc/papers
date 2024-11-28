@@ -348,7 +348,7 @@ pps_job_annots_new (PpsDocument *document)
  * pps_job_annots_get_annots:
  * @job: an #PpsJobAnnots
  *
- * Returns: (transfer none) (element-type PpsMappingList):
+ * Returns: (nullable) (transfer none) (element-type PpsMappingList):
  */
 GList *
 pps_job_annots_get_annots (PpsJobAnnots *job)
