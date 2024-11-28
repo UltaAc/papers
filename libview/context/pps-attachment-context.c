@@ -81,9 +81,10 @@ attachments_job_finished_cb (PpsJobAttachments *job,
 	PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
 	g_autoptr (GPtrArray) attachments_array = g_ptr_array_new ();
 	PpsAttachment **attachments;
+	GList *attachments_list = pps_job_attachments_get_attachments (job);
 	gsize n_attachments;
 
-	for (GList *l = job->attachments; l && l->data; l = g_list_next (l)) {
+	for (GList *l = attachments_list; l && l->data; l = g_list_next (l)) {
 		g_ptr_array_add (attachments_array, l->data);
 	}
 

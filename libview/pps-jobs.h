@@ -46,9 +46,6 @@ typedef struct _PpsJobPageDataClass PpsJobPageDataClass;
 typedef struct _PpsJobThumbnailTexture PpsJobThumbnailTexture;
 typedef struct _PpsJobThumbnailTextureClass PpsJobThumbnailTextureClass;
 
-typedef struct _PpsJobAttachments PpsJobAttachments;
-typedef struct _PpsJobAttachmentsClass PpsJobAttachmentsClass;
-
 typedef struct _PpsJobAnnots PpsJobAnnots;
 typedef struct _PpsJobAnnotsClass PpsJobAnnotsClass;
 
@@ -69,13 +66,6 @@ typedef struct _PpsJobPrintClass PpsJobPrintClass;
 
 typedef struct _PpsJobSignatures PpsJobSignatures;
 typedef struct _PpsJobSignaturesClass PpsJobSignaturesClass;
-
-#define PPS_TYPE_JOB_ATTACHMENTS (pps_job_attachments_get_type ())
-#define PPS_JOB_ATTACHMENTS(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_JOB_ATTACHMENTS, PpsJobAttachments))
-#define PPS_IS_JOB_ATTACHMENTS(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PPS_TYPE_JOB_ATTACHMENTS))
-#define PPS_JOB_ATTACHMENTS_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_JOB_ATTACHMENTS, PpsJobAttachmentsClass))
-#define PPS_IS_JOB_ATTACHMENTS_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_JOB_ATTACHMENTS))
-#define PPS_JOB_ATTACHMENTS_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_JOB_ATTACHMENTS, PpsJobAttachmentsClass))
 
 #define PPS_TYPE_JOB_ANNOTS (pps_job_annots_get_type ())
 #define PPS_JOB_ANNOTS(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_JOB_ANNOTS, PpsJobAnnots))
@@ -153,12 +143,6 @@ struct _PpsJobLinks {
 
 struct _PpsJobAttachments {
 	PpsJob parent;
-
-	GList *attachments;
-};
-
-struct _PpsJobAttachmentsClass {
-	PpsJobClass parent_class;
 };
 
 struct _PpsJobAnnots {
@@ -334,7 +318,9 @@ GListModel *pps_job_links_get_model (PpsJobLinks *job);
 
 /* PpsJobAttachments */
 PPS_PUBLIC
-GType pps_job_attachments_get_type (void) G_GNUC_CONST;
+G_DECLARE_FINAL_TYPE (PpsJobAttachments, pps_job_attachments, PPS, JOB_ATTACHMENTS, PpsJob)
+#define PPS_TYPE_JOB_ATTACHMENTS (pps_job_attachments_get_type ())
+
 PPS_PUBLIC
 PpsJob *pps_job_attachments_new (PpsDocument *document);
 PPS_PUBLIC

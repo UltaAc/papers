@@ -60,7 +60,6 @@ enum {
 
 static guint job_find_signals[FIND_LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (PpsJobAttachments, pps_job_attachments, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobAnnots, pps_job_annots, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobRenderTexture, pps_job_render_texture, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobPageData, pps_job_page_data, PPS_TYPE_JOB)
@@ -191,6 +190,14 @@ pps_job_links_get_model (PpsJobLinks *self)
 }
 
 /* PpsJobAttachments */
+typedef struct _PpsJobAttachmentsPrivate {
+	GList *attachments;
+} PpsJobAttachmentsPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (PpsJobAttachments, pps_job_attachments, PPS_TYPE_JOB)
+
+#define JOB_ATTACHMENTS_GET_PRIVATE(o) pps_job_attachments_get_instance_private (o)
+
 static void
 pps_job_attachments_init (PpsJobAttachments *job)
 {
@@ -199,22 +206,22 @@ pps_job_attachments_init (PpsJobAttachments *job)
 static void
 pps_job_attachments_dispose (GObject *object)
 {
-	PpsJobAttachments *job = PPS_JOB_ATTACHMENTS (object);
+	PpsJobAttachmentsPrivate *priv = JOB_ATTACHMENTS_GET_PRIVATE (PPS_JOB_ATTACHMENTS (object));
 
-	g_list_free_full (g_steal_pointer (&job->attachments), g_object_unref);
+	g_list_free_full (g_steal_pointer (&priv->attachments), g_object_unref);
 
-	(*G_OBJECT_CLASS (pps_job_attachments_parent_class)->dispose) (object);
+	G_OBJECT_CLASS (pps_job_attachments_parent_class)->dispose (object);
 }
 
 static gboolean
 pps_job_attachments_run (PpsJob *job)
 {
-	PpsJobAttachments *job_attachments = PPS_JOB_ATTACHMENTS (job);
+	PpsJobAttachmentsPrivate *priv = JOB_ATTACHMENTS_GET_PRIVATE (PPS_JOB_ATTACHMENTS (job));
 
 	g_debug ("running attachments job");
 
 	pps_document_doc_mutex_lock (pps_job_get_document (job));
-	job_attachments->attachments =
+	priv->attachments =
 	    pps_document_attachments_get_attachments (PPS_DOCUMENT_ATTACHMENTS (pps_job_get_document (job)));
 	pps_document_doc_mutex_unlock (pps_job_get_document (job));
 
@@ -230,9 +237,11 @@ pps_job_attachments_run (PpsJob *job)
  * Returns: (nullable) (transfer none) (element-type PpsAttachment): a list of #PpsAttachment objects
  */
 GList *
-pps_job_attachments_get_attachments (PpsJobAttachments *job_attachments)
+pps_job_attachments_get_attachments (PpsJobAttachments *self)
 {
-	return job_attachments->attachments;
+	PpsJobAttachmentsPrivate *priv = JOB_ATTACHMENTS_GET_PRIVATE (self);
+
+	return priv->attachments;
 }
 
 static void
