@@ -60,7 +60,6 @@ enum {
 
 static guint job_find_signals[FIND_LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (PpsJobLinks, pps_job_links, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobAttachments, pps_job_attachments, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobAnnots, pps_job_annots, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobRenderTexture, pps_job_render_texture, PPS_TYPE_JOB)
@@ -73,6 +72,14 @@ G_DEFINE_TYPE (PpsJobExport, pps_job_export, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobPrint, pps_job_print, PPS_TYPE_JOB)
 
 /* PpsJobLinks */
+typedef struct _PpsJobLinksPrivate {
+	GListModel *model;
+} PpsJobLinksPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (PpsJobLinks, pps_job_links, PPS_TYPE_JOB)
+
+#define JOB_LINKS_GET_PRIVATE(o) pps_job_links_get_instance_private (o)
+
 static void
 pps_job_links_init (PpsJobLinks *job)
 {
@@ -81,13 +88,11 @@ pps_job_links_init (PpsJobLinks *job)
 static void
 pps_job_links_dispose (GObject *object)
 {
-	PpsJobLinks *job;
+	PpsJobLinksPrivate *priv = JOB_LINKS_GET_PRIVATE (PPS_JOB_LINKS (object));
 
-	job = PPS_JOB_LINKS (object);
+	g_clear_object (&priv->model);
 
-	g_clear_object (&job->model);
-
-	(*G_OBJECT_CLASS (pps_job_links_parent_class)->dispose) (object);
+	G_OBJECT_CLASS (pps_job_links_parent_class)->dispose (object);
 }
 
 static void
@@ -128,15 +133,15 @@ fill_page_labels (GListModel *model, PpsJob *job)
 static gboolean
 pps_job_links_run (PpsJob *job)
 {
-	PpsJobLinks *job_links = PPS_JOB_LINKS (job);
+	PpsJobLinksPrivate *priv = JOB_LINKS_GET_PRIVATE (PPS_JOB_LINKS (job));
 
 	g_debug ("running links job");
 
 	pps_document_doc_mutex_lock (pps_job_get_document (job));
-	job_links->model = pps_document_links_get_links_model (PPS_DOCUMENT_LINKS (pps_job_get_document (job)));
+	priv->model = pps_document_links_get_links_model (PPS_DOCUMENT_LINKS (pps_job_get_document (job)));
 	pps_document_doc_mutex_unlock (pps_job_get_document (job));
 
-	fill_page_labels (job_links->model, job);
+	fill_page_labels (priv->model, job);
 
 	pps_job_succeeded (job);
 
@@ -178,9 +183,11 @@ pps_job_links_new (PpsDocument *document)
  * Since: 3.6
  */
 GListModel *
-pps_job_links_get_model (PpsJobLinks *job)
+pps_job_links_get_model (PpsJobLinks *self)
 {
-	return job->model;
+	PpsJobLinksPrivate *priv = JOB_LINKS_GET_PRIVATE (self);
+
+	return priv->model;
 }
 
 /* PpsJobAttachments */
