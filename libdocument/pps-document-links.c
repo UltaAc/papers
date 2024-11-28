@@ -47,7 +47,7 @@ pps_document_links_has_document_links (PpsDocumentLinks *document_links)
  * pps_document_links_get_links_model:
  * @document_links: an #PpsDocumentLinks
  *
- * Returns: (transfer full): a #GListModel
+ * Returns: (nullable) (transfer full): a #GListModel
  */
 GListModel *
 pps_document_links_get_links_model (PpsDocumentLinks *document_links)
