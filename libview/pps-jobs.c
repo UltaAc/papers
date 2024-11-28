@@ -60,7 +60,6 @@ enum {
 
 static guint job_find_signals[FIND_LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (PpsJobAnnots, pps_job_annots, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobRenderTexture, pps_job_render_texture, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobPageData, pps_job_page_data, PPS_TYPE_JOB)
 G_DEFINE_TYPE (PpsJobThumbnailTexture, pps_job_thumbnail_texture, PPS_TYPE_JOB)
@@ -269,6 +268,14 @@ pps_job_attachments_new (PpsDocument *document)
 }
 
 /* PpsJobAnnots */
+typedef struct _PpsJobAnnotsPrivate {
+	GList *annots;
+} PpsJobAnnotsPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (PpsJobAnnots, pps_job_annots, PPS_TYPE_JOB)
+
+#define JOB_ANNOTS_GET_PRIVATE(o) pps_job_annots_get_instance_private (o)
+
 static void
 pps_job_annots_init (PpsJobAnnots *job)
 {
@@ -277,9 +284,9 @@ pps_job_annots_init (PpsJobAnnots *job)
 static void
 pps_job_annots_dispose (GObject *object)
 {
-	PpsJobAnnots *job = PPS_JOB_ANNOTS (object);
+	PpsJobAnnotsPrivate *priv = JOB_ANNOTS_GET_PRIVATE (PPS_JOB_ANNOTS (object));
 
-	g_list_free_full (g_steal_pointer (&job->annots), (GDestroyNotify) pps_mapping_list_unref);
+	g_list_free_full (g_steal_pointer (&priv->annots), (GDestroyNotify) pps_mapping_list_unref);
 
 	G_OBJECT_CLASS (pps_job_annots_parent_class)->dispose (object);
 }
@@ -287,13 +294,12 @@ pps_job_annots_dispose (GObject *object)
 static gboolean
 pps_job_annots_run (PpsJob *job)
 {
-	PpsJobAnnots *job_annots = PPS_JOB_ANNOTS (job);
-	gint i;
+	PpsJobAnnotsPrivate *priv = JOB_ANNOTS_GET_PRIVATE (PPS_JOB_ANNOTS (job));
 
 	g_debug ("running annots job");
 
 	pps_document_doc_mutex_lock (pps_job_get_document (job));
-	for (i = 0; i < pps_document_get_n_pages (pps_job_get_document (job)); i++) {
+	for (gint i = 0; i < pps_document_get_n_pages (pps_job_get_document (job)); i++) {
 		PpsMappingList *mapping_list;
 		PpsPage *page;
 
@@ -303,11 +309,11 @@ pps_job_annots_run (PpsJob *job)
 		g_object_unref (page);
 
 		if (mapping_list)
-			job_annots->annots = g_list_prepend (job_annots->annots, mapping_list);
+			priv->annots = g_list_prepend (priv->annots, mapping_list);
 	}
 	pps_document_doc_mutex_unlock (pps_job_get_document (job));
 
-	job_annots->annots = g_list_reverse (job_annots->annots);
+	priv->annots = g_list_reverse (priv->annots);
 
 	pps_job_succeeded (job);
 
@@ -347,7 +353,9 @@ pps_job_annots_new (PpsDocument *document)
 GList *
 pps_job_annots_get_annots (PpsJobAnnots *job)
 {
-	return job->annots;
+	PpsJobAnnotsPrivate *priv = JOB_ANNOTS_GET_PRIVATE (job);
+
+	return priv->annots;
 }
 
 /* PpsJobRenderTexture */

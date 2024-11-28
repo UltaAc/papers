@@ -46,9 +46,6 @@ typedef struct _PpsJobPageDataClass PpsJobPageDataClass;
 typedef struct _PpsJobThumbnailTexture PpsJobThumbnailTexture;
 typedef struct _PpsJobThumbnailTextureClass PpsJobThumbnailTextureClass;
 
-typedef struct _PpsJobAnnots PpsJobAnnots;
-typedef struct _PpsJobAnnotsClass PpsJobAnnotsClass;
-
 typedef struct _PpsJobFonts PpsJobFonts;
 typedef struct _PpsJobFontsClass PpsJobFontsClass;
 
@@ -66,13 +63,6 @@ typedef struct _PpsJobPrintClass PpsJobPrintClass;
 
 typedef struct _PpsJobSignatures PpsJobSignatures;
 typedef struct _PpsJobSignaturesClass PpsJobSignaturesClass;
-
-#define PPS_TYPE_JOB_ANNOTS (pps_job_annots_get_type ())
-#define PPS_JOB_ANNOTS(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_JOB_ANNOTS, PpsJobAnnots))
-#define PPS_IS_JOB_ANNOTS(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PPS_TYPE_JOB_ANNOTS))
-#define PPS_JOB_ANNOTS_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_JOB_ANNOTS, PpsJobAnnotsClass))
-#define PPS_IS_JOB_ANNOTS_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_JOB_ANNOTS))
-#define PPS_JOB_ANNOTS_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_JOB_ANNOTS, PpsJobAnnotsClass))
 
 #define PPS_TYPE_JOB_RENDER_TEXTURE (pps_job_render_texture_get_type ())
 #define PPS_JOB_RENDER_TEXTURE(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_JOB_RENDER_TEXTURE, PpsJobRenderTexture))
@@ -147,12 +137,6 @@ struct _PpsJobAttachments {
 
 struct _PpsJobAnnots {
 	PpsJob parent;
-
-	GList *annots;
-};
-
-struct _PpsJobAnnotsClass {
-	PpsJobClass parent_class;
 };
 
 struct _PpsJobRenderTexture {
@@ -328,7 +312,9 @@ GList *pps_job_attachments_get_attachments (PpsJobAttachments *job_attachments);
 
 /* PpsJobAnnots */
 PPS_PUBLIC
-GType pps_job_annots_get_type (void) G_GNUC_CONST;
+G_DECLARE_FINAL_TYPE (PpsJobAnnots, pps_job_annots, PPS, JOB_ANNOTS, PpsJob)
+#define PPS_TYPE_JOB_ANNOTS (pps_job_annots_get_type ())
+
 PPS_PUBLIC
 PpsJob *pps_job_annots_new (PpsDocument *document);
 PPS_PUBLIC
