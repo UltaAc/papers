@@ -174,9 +174,9 @@ pps_job_links_new (PpsDocument *document)
  * pps_job_links_get_model:
  * @job: #PpsJobLinks
  *
- * Get a #GtkTreeModel loaded with the links
+ * Get a #GListModel loaded with the links
  *
- * Return value: (transfer none): The #GtkTreeModel loaded
+ * Returns: (nullable) (transfer none): a #GListModel of #PpsOutlines objects
  *
  * Since: 3.6
  */
