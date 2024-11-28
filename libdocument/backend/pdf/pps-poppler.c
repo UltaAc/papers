@@ -3755,20 +3755,17 @@ static GList *
 pdf_document_attachments_get_attachments (PpsDocumentAttachments *document)
 {
 	PdfDocument *self = PDF_DOCUMENT (document);
-	GList *attachments;
 	GList *list;
 	GList *retval = NULL;
 
-	attachments = poppler_document_get_attachments (self->document);
+	list = poppler_document_get_attachments (self->document);
 
-	for (list = attachments; list; list = list->next) {
-		PopplerAttachment *attachment;
+	while (list) {
+		PopplerAttachment *attachment = (PopplerAttachment *) list->data;
 		PpsAttachment *pps_attachment;
 		gchar *data = NULL;
 		gsize size;
 		GError *error = NULL;
-
-		attachment = (PopplerAttachment *) list->data;
 
 		if (attachment_save_to_buffer (attachment, &data, &size, &error)) {
 			GDateTime *mtime, *ctime;
@@ -3791,8 +3788,10 @@ pdf_document_attachments_get_attachments (PpsDocumentAttachments *document)
 			}
 		}
 
-		g_object_unref (attachment);
+		list = list->next;
 	}
+
+	g_list_free_full (list, g_object_unref);
 
 	return g_list_reverse (retval);
 }
