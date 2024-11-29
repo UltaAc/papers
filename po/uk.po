@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: evince\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/issues/"
 "\n"
-"POT-Creation-Date: 2024-11-06 16:00+0000\n"
-"PO-Revision-Date: 2024-11-06 22:44+0200\n"
+"POT-Creation-Date: 2024-11-27 13:41+0000\n"
+"PO-Revision-Date: 2024-11-29 18:48+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -25,7 +25,7 @@ msgstr ""
 #. Manually set name and icon
 #: data/org.gnome.Papers.desktop.in.in:3
 #: data/org.gnome.Papers.metainfo.xml.in.in:23
-#: previewer/pps-previewer-window.c:488 shell/pps-document-view.c:1175
+#: previewer/pps-previewer-window.c:488 shell/pps-document-view.c:1116
 #: shell/pps-document-view.ui:73 shell/pps-loader-view.ui:10
 #: shell-rs/src/application.rs:41 shell-rs/src/application.rs:64
 #: shell-rs/src/application.rs:288
@@ -38,9 +38,10 @@ msgstr "Перегляд багатосторінкових документів
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Papers.desktop.in.in:6
-msgid "pdf;ps;postscript;xps;djvu;tiff;document;presentation;viewer;papers;"
+#| msgid "pdf;ps;postscript;xps;djvu;tiff;document;presentation;viewer;papers;"
+msgid "pdf;djvu;tiff;document;presentation;viewer;papers;"
 msgstr ""
-"pdf;ps;postscript;xps;djvu;tiff;document;presentation;viewer;evince;документ;"
+"pdf;djvu;tiff;document;presentation;viewer;evince;документ;"
 "презентація;перегляд;папери;"
 
 #: data/org.gnome.Papers.desktop.in.in:21
@@ -131,12 +132,15 @@ msgstr ""
 "анотувати ці документи."
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:27
+#| msgid ""
+#| "Papers supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, and Comic "
+#| "Books archives (CBR, CBT, CBZ, CB7)."
 msgid ""
-"Papers supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, and Comic Books "
-"archives (CBR, CBT, CBZ, CB7)."
+"Papers supports documents in: PDF, DjVu, TIFF, and Comic Books archives "
+"(CBR, CBT, CBZ, CB7)."
 msgstr ""
-"У «Паперах» передбачено підтримку документів у таких форматах: PDF, PS, EPS, "
-"XPS, DjVu, TIFF, а також архіви коміксів (CBR, CBT, CBZ, CB7)."
+"У «Паперах» передбачено підтримку документів у таких форматах: PDF, DjVu,"
+" TIFF, а також архіви коміксів (CBR, CBT, CBZ, CB7)."
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:43
 msgid "A clear, simple, and modern UI"
@@ -241,52 +245,52 @@ msgid "Adds support for reading PDF Documents"
 msgstr "Додає підтримування читання документів PDF"
 
 #. translators: this is the document security state
-#: libdocument/backend/pdf/pps-poppler.c:713
-#: libdocument/backend/pdf/pps-poppler.c:719
+#: libdocument/backend/pdf/pps-poppler.c:709
+#: libdocument/backend/pdf/pps-poppler.c:715
 #: nautilus/pps-nautilus-extension.c:119 shell-rs/src/properties_general.rs:170
 msgid "Yes"
 msgstr "Так"
 
 #. translators: this is the document security state
-#: libdocument/backend/pdf/pps-poppler.c:716
-#: libdocument/backend/pdf/pps-poppler.c:719
+#: libdocument/backend/pdf/pps-poppler.c:712
+#: libdocument/backend/pdf/pps-poppler.c:715
 #: nautilus/pps-nautilus-extension.c:121 shell-rs/src/properties_general.rs:171
 msgid "No"
 msgstr "Ні"
 
-#: libdocument/backend/pdf/pps-poppler.c:826
+#: libdocument/backend/pdf/pps-poppler.c:822
 msgid "Type 1"
 msgstr "Type 1"
 
-#: libdocument/backend/pdf/pps-poppler.c:828
+#: libdocument/backend/pdf/pps-poppler.c:824
 msgid "Type 1C"
 msgstr "Type 1C"
 
-#: libdocument/backend/pdf/pps-poppler.c:830
+#: libdocument/backend/pdf/pps-poppler.c:826
 msgid "Type 3"
 msgstr "Type 3"
 
-#: libdocument/backend/pdf/pps-poppler.c:832
+#: libdocument/backend/pdf/pps-poppler.c:828
 msgid "TrueType"
 msgstr "TrueType"
 
-#: libdocument/backend/pdf/pps-poppler.c:834
+#: libdocument/backend/pdf/pps-poppler.c:830
 msgid "Type 1 (CID)"
 msgstr "Type 1 (CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:836
+#: libdocument/backend/pdf/pps-poppler.c:832
 msgid "Type 1C (CID)"
 msgstr "Type 1C (CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:838
+#: libdocument/backend/pdf/pps-poppler.c:834
 msgid "TrueType (CID)"
 msgstr "TrueType (CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:840
+#: libdocument/backend/pdf/pps-poppler.c:836
 msgid "Unknown font type"
 msgstr "Шрифт невідомого типу"
 
-#: libdocument/backend/pdf/pps-poppler.c:884
+#: libdocument/backend/pdf/pps-poppler.c:880
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
@@ -296,11 +300,11 @@ msgstr ""
 "для PDF. Якщо замінник шрифтів, вибраний через fontconfig, не такий самий як "
 "шрифт для створення PDF, то відтворення може бути неправильним."
 
-#: libdocument/backend/pdf/pps-poppler.c:889
+#: libdocument/backend/pdf/pps-poppler.c:885
 msgid "All fonts are either standard or embedded."
 msgstr "Усі шрифти є або стандартними, або вбудованими."
 
-#: libdocument/backend/pdf/pps-poppler.c:920
+#: libdocument/backend/pdf/pps-poppler.c:916
 msgid "No name"
 msgstr "Без назви"
 
@@ -309,20 +313,20 @@ msgstr "Без назви"
 #. Encoding: None
 #.
 #. translators: Value for 'Page Scaling:' to not scale the document pages on printing
-#: libdocument/backend/pdf/pps-poppler.c:929 libview/pps-print-operation.c:1901
+#: libdocument/backend/pdf/pps-poppler.c:925 libview/pps-print-operation.c:1901
 #: shell-rs/src/properties_general.rs:82 shell-rs/src/properties_general.rs:199
 msgid "None"
 msgstr "Немає"
 
-#: libdocument/backend/pdf/pps-poppler.c:937
+#: libdocument/backend/pdf/pps-poppler.c:933
 msgid "Embedded subset"
 msgstr "Вбудований набір"
 
-#: libdocument/backend/pdf/pps-poppler.c:939
+#: libdocument/backend/pdf/pps-poppler.c:935
 msgid "Embedded"
 msgstr "Вбудований"
 
-#: libdocument/backend/pdf/pps-poppler.c:941
+#: libdocument/backend/pdf/pps-poppler.c:937
 msgid "Not embedded"
 msgstr "Не вбудований"
 
@@ -331,7 +335,7 @@ msgstr "Не вбудований"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: libdocument/backend/pdf/pps-poppler.c:948
+#: libdocument/backend/pdf/pps-poppler.c:944
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (Один із стандартних 14 шрифтів)"
 
@@ -340,7 +344,7 @@ msgstr " (Один із стандартних 14 шрифтів)"
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: libdocument/backend/pdf/pps-poppler.c:955
+#: libdocument/backend/pdf/pps-poppler.c:951
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (Один не із стандартних 14 шрифтів)"
 
@@ -354,7 +358,7 @@ msgstr " (Один не із стандартних 14 шрифтів)"
 #. * Substituting with TeXGyreTermes-Regular
 #. * (/usr/share/textmf/.../texgyretermes-regular.otf)
 #.
-#: libdocument/backend/pdf/pps-poppler.c:974
+#: libdocument/backend/pdf/pps-poppler.c:970
 #, c-format
 msgid ""
 "%s%s\n"
@@ -378,7 +382,7 @@ msgstr ""
 #. * Encoding: Custom
 #. * Embedded subset
 #.
-#: libdocument/backend/pdf/pps-poppler.c:992
+#: libdocument/backend/pdf/pps-poppler.c:988
 #, c-format
 msgid ""
 "%s%s\n"
@@ -388,25 +392,6 @@ msgstr ""
 "%s%s\n"
 "Кодування: %s\n"
 "%s"
-
-#: libdocument/backend/ps/papers-psdocument.metainfo.xml.in.in:5
-#: libdocument/backend/ps/psdocument.papers-backend.desktop.in.in:5
-msgid "PostScript Documents"
-msgstr "Документи PostScript"
-
-#: libdocument/backend/ps/papers-psdocument.metainfo.xml.in.in:6
-msgid "Adds support for reading PostScript documents"
-msgstr "Додає підтримування читання документів PostScript"
-
-#: libdocument/backend/ps/pps-spectre.c:94
-#, c-format
-msgid "Failed to load document “%s”"
-msgstr "Не вдалось відкрити документ «%s»"
-
-#: libdocument/backend/ps/pps-spectre.c:127
-#, c-format
-msgid "Failed to save document “%s”"
-msgstr "Не вдалось зберегти документ «%s»"
 
 #: libdocument/backend/tiff/papers-tiffdocument.metainfo.xml.in.in:5
 #: libdocument/backend/tiff/tiffdocument.papers-backend.desktop.in.in:4
@@ -420,15 +405,6 @@ msgstr "Додає підтримування читання документі�
 #: libdocument/backend/tiff/tiff-document.c:105
 msgid "Invalid document"
 msgstr "Некоректний документ"
-
-#: libdocument/backend/xps/papers-xpsdocument.metainfo.xml.in.in:5
-#: libdocument/backend/xps/xpsdocument.papers-backend.desktop.in.in:5
-msgid "XPS Documents"
-msgstr "Документи XPS"
-
-#: libdocument/backend/xps/papers-xpsdocument.metainfo.xml.in.in:6
-msgid "Adds support for reading XPS documents"
-msgstr "Додає підтримування читання документів XPS"
 
 #: libdocument/pps-attachment.c:304 libdocument/pps-attachment.c:325
 #, c-format
@@ -450,9 +426,9 @@ msgstr "Неможливо відкрити долучення «%s»"
 msgid "File type %s (%s) is not supported"
 msgstr "Файл типу %s (%s) не підтримується"
 
-#: libdocument/pps-document-factory.c:374 libdocument/pps-file-helpers.c:408
-#: libdocument/pps-file-helpers.c:454 libdocument/pps-file-helpers.c:463
-#: libdocument/pps-file-helpers.c:544 libdocument/pps-file-helpers.c:553
+#: libdocument/pps-document-factory.c:374 libdocument/pps-file-helpers.c:373
+#: libdocument/pps-file-helpers.c:419 libdocument/pps-file-helpers.c:428
+#: libdocument/pps-file-helpers.c:509 libdocument/pps-file-helpers.c:518
 msgid "Unknown MIME Type"
 msgstr "Невідомий тип MIME"
 
@@ -503,11 +479,6 @@ msgstr "%s, альбомна (%s)"
 msgid "Failed to create a temporary file: %s"
 msgstr "Помилка при створенні тимчасового файла: %s"
 
-#: libdocument/pps-file-helpers.c:225
-#, c-format
-msgid "Failed to create a temporary directory: %s"
-msgstr "Помилка при створенні тимчасового каталогу: %s"
-
 #: libdocument/pps-signature.c:566
 msgid "Trusted"
 msgstr "Надійний"
@@ -517,7 +488,6 @@ msgid "Untrusted issuer"
 msgstr "Ненадійний видавець"
 
 #: libdocument/pps-signature.c:570
-#| msgid "Unknown"
 msgid "Unknown issuer"
 msgstr "Невідомий видавець"
 
@@ -530,7 +500,6 @@ msgid "Expired"
 msgstr "Застарілий"
 
 #: libdocument/pps-signature.c:576
-#| msgid "Modified"
 msgid "Not verified"
 msgstr "Не перевірено"
 
@@ -539,7 +508,6 @@ msgid "Generic error"
 msgstr "Загальна помилка"
 
 #: libdocument/pps-signature.c:582 libdocument/pps-signature.c:610
-#| msgid "Unknown"
 msgid "Unknown status"
 msgstr "Невідомий стан"
 
@@ -548,7 +516,6 @@ msgid "Valid"
 msgstr "Коректний"
 
 #: libdocument/pps-signature.c:600
-#| msgid "Invalid document"
 msgid "Invalid"
 msgstr "Некоректний"
 
@@ -572,14 +539,13 @@ msgstr[1] "Зберегти долучення"
 msgstr[2] "Зберегти долучення"
 
 #: libview/context/pps-history.c:493 previewer/pps-page-selector.c:194
-#: shell/pps-document-view.c:623 shell/pps-document-view.c:2742
+#: shell/pps-document-view.c:551 shell/pps-document-view.c:2673
 #: shell/pps-sidebar-bookmarks.c:339
 #, c-format
 msgid "Page %s"
 msgstr "Сторінка %s"
 
 #: libview/pps-annotation-window.c:275
-#| msgid "Note"
 msgid "Edit Note"
 msgstr "Змінити нотатку"
 
@@ -637,8 +603,8 @@ msgstr "Вибраний діапазон сторінок не містить �
 
 #. show close if the certificate is null, or if no cert is found
 #: libview/pps-print-operation.c:1361 previewer/pps-previewer-window.ui:91
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.c:3686
-#: shell/pps-document-view.ui:616 shell/pps-window.ui:163
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.c:3628
+#: shell/pps-document-view.ui:609 shell/pps-window.ui:163
 msgid "_Close"
 msgstr "_Закрити"
 
@@ -739,51 +705,51 @@ msgstr "Прокрутка документа вниз"
 msgid "Document View"
 msgstr "Перегляд документа"
 
-#: libview/pps-view.c:2107
+#: libview/pps-view.c:2113
 msgid "Go to first page"
 msgstr "Перейти до першої сторінки"
 
-#: libview/pps-view.c:2109
+#: libview/pps-view.c:2115
 msgid "Go to previous page"
 msgstr "Перейти до попередньої сторінки"
 
-#: libview/pps-view.c:2111
+#: libview/pps-view.c:2117
 msgid "Go to next page"
 msgstr "Перейти до наступної сторінки"
 
-#: libview/pps-view.c:2113
+#: libview/pps-view.c:2119
 msgid "Go to last page"
 msgstr "Перейти до останньої сторінки"
 
-#: libview/pps-view.c:2115
+#: libview/pps-view.c:2121
 msgid "Go to page"
 msgstr "Перейти до сторінки"
 
-#: libview/pps-view.c:2117
+#: libview/pps-view.c:2123
 msgid "Find"
 msgstr "Знайти"
 
-#: libview/pps-view.c:2146
+#: libview/pps-view.c:2152
 #, c-format
 msgid "Go to page %s"
 msgstr "Перейти до сторінки %s"
 
-#: libview/pps-view.c:2152
+#: libview/pps-view.c:2158
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Перейти до %s у файлі «%s»"
 
-#: libview/pps-view.c:2155
+#: libview/pps-view.c:2161
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Перейти до файла «%s»"
 
-#: libview/pps-view.c:2163
+#: libview/pps-view.c:2169
 #, c-format
 msgid "Launch %s"
 msgstr "Запустити %s"
 
-#: libview/pps-view.c:2170
+#: libview/pps-view.c:2176
 #, c-format
 msgid "Reset form"
 msgstr "Відновити початковий стан форми"
@@ -867,7 +833,7 @@ msgstr "Попередня сторінка"
 msgid "Next Page"
 msgstr "Наступна сторінка"
 
-#: previewer/pps-previewer-window.ui:36 shell/pps-document-view.ui:225
+#: previewer/pps-previewer-window.ui:36 shell/pps-document-view.ui:224
 msgid "Page Count"
 msgstr "Кількість сторінок"
 
@@ -879,7 +845,7 @@ msgstr "_Надрукувати"
 msgid "Print This Document"
 msgstr "Надрукувати цей документ"
 
-#: previewer/pps-previewer-window.ui:53 shell/pps-document-view.ui:307
+#: previewer/pps-previewer-window.ui:53 shell/pps-document-view.ui:306
 msgid "Zoom Out"
 msgstr "Зменшити"
 
@@ -887,11 +853,11 @@ msgstr "Зменшити"
 msgid "Normal Size"
 msgstr "Звичайний розмір"
 
-#: previewer/pps-previewer-window.ui:67 shell/pps-document-view.ui:294
+#: previewer/pps-previewer-window.ui:67 shell/pps-document-view.ui:293
 msgid "Zoom In"
 msgstr "Збільшити"
 
-#: previewer/pps-previewer-window.ui:89 shell/pps-document-view.c:1952
+#: previewer/pps-previewer-window.ui:89 shell/pps-document-view.c:1891
 msgid "Failed to Print Document"
 msgstr "Не вдалося надрукувати документ"
 
@@ -1363,40 +1329,40 @@ msgstr "Напис"
 msgid "_Apply"
 msgstr "З_астосувати"
 
-#: shell/pps-document-view.c:496 shell-rs/src/window.rs:467
+#: shell/pps-document-view.c:424 shell-rs/src/window.rs:466
 msgid "View Details"
 msgstr "Переглянути подробиці"
 
-#: shell/pps-document-view.c:1215
+#: shell/pps-document-view.c:1156
 msgid "Digital Signature is invalid!"
 msgstr "Цифровий підпис є некоректним!"
 
-#: shell/pps-document-view.c:1218 shell/pps-document-view.ui:240
+#: shell/pps-document-view.c:1159 shell/pps-document-view.ui:239
 msgid "Document has been digitally signed."
 msgstr "Документ має цифровий підпис."
 
-#: shell/pps-document-view.c:1249
+#: shell/pps-document-view.c:1190
 msgid "The document contains no pages"
 msgstr "Документ не містить сторінок"
 
-#: shell/pps-document-view.c:1252
+#: shell/pps-document-view.c:1193
 msgid "The document contains only empty pages"
 msgstr "Документ містить лише порожні сторінки"
 
-#: shell/pps-document-view.c:1485
+#: shell/pps-document-view.c:1424
 msgid "File Saved"
 msgstr "Файл збережено"
 
-#: shell/pps-document-view.c:1495 shell/pps-document-view.c:1548
+#: shell/pps-document-view.c:1434 shell/pps-document-view.c:1487
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Документ неможливо зберегти як «%s»."
 
-#: shell/pps-document-view.c:1610
+#: shell/pps-document-view.c:1549
 msgid "Save As…"
 msgstr "Зберегти як…"
 
-#: shell/pps-document-view.c:1912
+#: shell/pps-document-view.c:1851
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
@@ -1404,80 +1370,78 @@ msgstr[0] "%d завдання у черзі"
 msgstr[1] "%d завдання у черзі"
 msgstr[2] "%d завдань у черзі"
 
-#: shell/pps-document-view.c:2005
+#: shell/pps-document-view.c:1944
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Друкування завдання «%s»"
 
-#: shell/pps-document-view.c:2008 shell/pps-loader-view.ui:60
+#: shell/pps-document-view.c:1947 shell/pps-loader-view.ui:60
 msgid "C_ancel"
 msgstr "_Скасувати"
 
-#: shell/pps-document-view.c:2196 shell-rs/src/window.rs:267
+#: shell/pps-document-view.c:2127 shell-rs/src/window.rs:267
 msgid "Document contains form fields that have been filled out."
 msgstr "Документ містить поля форми, які заповнено."
 
-#: shell/pps-document-view.c:2199 shell-rs/src/window.rs:268
+#: shell/pps-document-view.c:2130 shell-rs/src/window.rs:268
 msgid "Document contains new or modified annotations."
 msgstr "Документ містить нові або змінені примітки."
 
-#: shell/pps-document-view.c:2206
+#: shell/pps-document-view.c:2137
 msgid "Save Changes to a Copy?"
 msgstr "Зберегти зміни до копії?"
 
-#: shell/pps-document-view.c:2207
+#: shell/pps-document-view.c:2138
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr "Якщо копію не збережено, зміни буде остаточно втрачено."
 
-#: shell/pps-document-view.c:2210
+#: shell/pps-document-view.c:2141
 msgid "Close _Without Saving"
 msgstr "Закрити б_ез збереження"
 
-#: shell/pps-document-view.c:2211 shell/pps-document-view.c:3442
-#: shell/pps-document-view.c:3578 shell/pps-document-view.c:3648
-#: shell/pps-document-view.ui:608
+#: shell/pps-document-view.c:2142 shell/pps-document-view.c:3384
+#: shell/pps-document-view.c:3520 shell/pps-document-view.c:3590
+#: shell/pps-document-view.ui:601
 msgid "_Cancel"
 msgstr "_Скасувати"
 
-#: shell/pps-document-view.c:2212
+#: shell/pps-document-view.c:2143
 msgid "_Save a Copy"
 msgstr "_Зберегти копію"
 
-#: shell/pps-document-view.c:3306
+#: shell/pps-document-view.c:3229
 #, c-format
-#| msgid "Caret navigation mode is now %s"
 msgid "Caret navigation mode is now enabled, press F7 to disable."
 msgstr "Режим навігації з курсором увімкнено, натисніть F7, щоб вимкнути."
 
-#: shell/pps-document-view.c:3308
+#: shell/pps-document-view.c:3231
 #, c-format
-#| msgid "Caret navigation mode is now %s"
 msgid "Caret navigation mode is now disabled, press F7 to enable."
 msgstr "Режим навігації з курсором вимкнено, натисніть F7, щоб увімкнути."
 
-#: shell/pps-document-view.c:3439
+#: shell/pps-document-view.c:3381
 #, c-format
 msgid "Please enter password for %s"
 msgstr "Будь ласка, введіть пароль до %s"
 
-#: shell/pps-document-view.c:3441 shell/pps-password-dialog.ui:4
+#: shell/pps-document-view.c:3383 shell/pps-password-dialog.ui:4
 #: shell/pps-password-view.ui:10 shell/pps-password-view.ui:19
 msgid "Password Required"
 msgstr "Потрібно пароль"
 
-#: shell/pps-document-view.c:3443
+#: shell/pps-document-view.c:3385
 msgid "_Login"
 msgstr "_Увійти"
 
-#: shell/pps-document-view.c:3542
+#: shell/pps-document-view.c:3484
 msgid "Save Signed File"
 msgstr "Зберегти підписаний файл"
 
-#: shell/pps-document-view.c:3577
+#: shell/pps-document-view.c:3519
 msgid "Draw a rectangle to insert a signature field"
 msgstr "Намалюйте прямокутник для вставлення поля підпису"
 
-#: shell/pps-document-view.c:3603
+#: shell/pps-document-view.c:3545
 #, c-format
 msgid ""
 "Digitally signed by %s\n"
@@ -1486,23 +1450,23 @@ msgstr ""
 "Цифровий підпис %s\n"
 "Дата: %s"
 
-#: shell/pps-document-view.c:3639
+#: shell/pps-document-view.c:3581
 msgid "Certificate Required"
 msgstr "Потрібен сертифікат"
 
-#: shell/pps-document-view.c:3644
+#: shell/pps-document-view.c:3586
 msgid "Select signing certificate"
 msgstr "Виберіть сертифікат підписування"
 
-#: shell/pps-document-view.c:3645
+#: shell/pps-document-view.c:3587
 msgid "Select"
 msgstr "Вибрати"
 
-#: shell/pps-document-view.c:3684
+#: shell/pps-document-view.c:3626
 msgid "A certificate is required to sign this document"
 msgstr "Для підписування цього документа потрібен сертифікат"
 
-#: shell/pps-document-view.c:3990
+#: shell/pps-document-view.c:3910
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
@@ -1510,27 +1474,27 @@ msgstr ""
 "Попередження безпеки: програма запобігла відкриттю файла «%s» з цього "
 "документа"
 
-#: shell/pps-document-view.c:4051 shell-rs/src/window.rs:1137
+#: shell/pps-document-view.c:3971 shell-rs/src/window.rs:1136
 msgid "Unable to open external link"
 msgstr "Не вдалось відкрити зовнішнє посилання"
 
-#: shell/pps-document-view.c:4275
+#: shell/pps-document-view.c:4195
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Неможливо знайти відповідний формат для збереження зображення"
 
-#: shell/pps-document-view.c:4305
+#: shell/pps-document-view.c:4225
 msgid "The image could not be saved."
 msgstr "Не вдалось зберегти зображення."
 
-#: shell/pps-document-view.c:4341
+#: shell/pps-document-view.c:4261
 msgid "Save Image"
 msgstr "Зберегти зображення"
 
-#: shell/pps-document-view.c:4511
+#: shell/pps-document-view.c:4431
 msgid "Unable to open attachment"
 msgstr "Не вдалось відкрити долучення"
 
-#: shell/pps-document-view.c:4530
+#: shell/pps-document-view.c:4450
 msgid "The attachment could not be saved."
 msgstr "Долучення зберегти неможливо."
 
@@ -1550,43 +1514,43 @@ msgstr "Мініатюри"
 msgid "Outline"
 msgstr "Нарис"
 
-#: shell/pps-document-view.ui:127
+#: shell/pps-document-view.ui:126
 msgid "Annotations"
 msgstr "Примітка"
 
-#: shell/pps-document-view.ui:142
+#: shell/pps-document-view.ui:141
 msgid "Bookmarks"
 msgstr "Закладки"
 
-#: shell/pps-document-view.ui:156
+#: shell/pps-document-view.ui:155
 msgid "Attachments"
 msgstr "Долучення"
 
-#: shell/pps-document-view.ui:175
+#: shell/pps-document-view.ui:174
 msgid "Layers"
 msgstr "Шари"
 
-#: shell/pps-document-view.ui:212
+#: shell/pps-document-view.ui:211
 msgid "Toggle Sidebar"
 msgstr "Увімкнути або вимкнути бічну панель"
 
-#: shell/pps-document-view.ui:218
+#: shell/pps-document-view.ui:217
 msgid "Document Menu"
 msgstr "Меню документа"
 
-#: shell/pps-document-view.ui:241
+#: shell/pps-document-view.ui:240
 msgid "View Details…"
 msgstr "Переглянути подробиці…"
 
-#: shell/pps-document-view.ui:274
+#: shell/pps-document-view.ui:273
 msgid "Fit Automatically"
 msgstr "Автоматичний розмір"
 
-#: shell/pps-document-view.ui:590
+#: shell/pps-document-view.ui:583
 msgid "Selection too Small"
 msgstr "Позначено надто мало"
 
-#: shell/pps-document-view.ui:591
+#: shell/pps-document-view.ui:584
 msgid ""
 "A signature of this size may be too small to read. If you would like to "
 "create a potentially more readable signature, press `Start over` and draw a "
@@ -1596,19 +1560,19 @@ msgstr ""
 "потенційно придатніший для читання підпис, натисніть «Почати з початку» і "
 "намалюйте більший прямокутник."
 
-#: shell/pps-document-view.ui:596
+#: shell/pps-document-view.ui:589
 msgid "Start _Over"
 msgstr "По_чати з початку"
 
-#: shell/pps-document-view.ui:597
+#: shell/pps-document-view.ui:590
 msgid "_Sign"
 msgstr "П_ідписати"
 
-#: shell/pps-document-view.ui:603
+#: shell/pps-document-view.ui:596
 msgid "Abort Printing?"
 msgstr "Скасувати друкування?"
 
-#: shell/pps-document-view.ui:604
+#: shell/pps-document-view.ui:597
 msgid ""
 "There is one or more active print jobs. If the window is closed, pending "
 "print jobs will not be printed."
@@ -1616,149 +1580,141 @@ msgstr ""
 "Не завершено одне або декілька завдань з друку. Якщо ви закриєте вікно, "
 "завдання з черги друку не буде виконано."
 
-#: shell/pps-document-view.ui:607
+#: shell/pps-document-view.ui:600
 msgid "Abort _Print and Close"
 msgstr "Скасувати др_ук та закрити"
 
-#: shell/pps-document-view.ui:609
+#: shell/pps-document-view.ui:602
 msgid "Close _After Printing"
 msgstr "Закрити п_ісля друкування"
 
-#: shell/pps-document-view.ui:623
+#: shell/pps-document-view.ui:616
 msgid "Open…"
 msgstr "Відкрити…"
 
-#: shell/pps-document-view.ui:629
+#: shell/pps-document-view.ui:622
 msgid "Ni_ght Mode"
 msgstr "_Нічний режим"
 
-#: shell/pps-document-view.ui:635 shell/pps-window.ui:170
+#: shell/pps-document-view.ui:628 shell/pps-window.ui:170
 msgid "_Keyboard Shortcuts"
 msgstr "_Клавіатурні скорочення"
 
-#: shell/pps-document-view.ui:639 shell/pps-window.ui:174
+#: shell/pps-document-view.ui:632 shell/pps-window.ui:174
 msgid "_Help"
 msgstr "_Довідка"
 
-#: shell/pps-document-view.ui:643 shell/pps-window.ui:178
+#: shell/pps-document-view.ui:636 shell/pps-window.ui:178
 msgid "_About Papers"
 msgstr "_Про «Папери»"
 
-#: shell/pps-document-view.ui:651
+#: shell/pps-document-view.ui:644
 msgid "_Print…"
 msgstr "Над_рукувати…"
 
-#: shell/pps-document-view.ui:655
+#: shell/pps-document-view.ui:648
 msgid "Fullscreen"
 msgstr "На весь екран"
 
-#: shell/pps-document-view.ui:659
+#: shell/pps-document-view.ui:652
 msgid "Present as Slideshow"
 msgstr "Презентація у форматі слайдів"
 
-#: shell/pps-document-view.ui:665
+#: shell/pps-document-view.ui:658
 msgid "Sign D_igitally…"
 msgstr "_Цифровий підпис…"
 
-#: shell/pps-document-view.ui:671
+#: shell/pps-document-view.ui:664
 msgid "Open a C_opy"
 msgstr "Відкрити _копію"
 
-#: shell/pps-document-view.ui:675
+#: shell/pps-document-view.ui:668
 msgid "Open With…"
 msgstr "Відкрити за допомогою…"
 
-#: shell/pps-document-view.ui:679
+#: shell/pps-document-view.ui:672
 msgid "_Save As…"
 msgstr "Зберегти _як…"
 
-#: shell/pps-document-view.ui:685
+#: shell/pps-document-view.ui:678
 msgid "_Continuous"
 msgstr "Б_езперервно"
 
-#: shell/pps-document-view.ui:689
+#: shell/pps-document-view.ui:682
 msgid "_Dual"
 msgstr "_Дві сторінки"
 
-#: shell/pps-document-view.ui:693
+#: shell/pps-document-view.ui:686
 msgid "_Odd Pages Left"
 msgstr "_Непарні сторінки зліва"
 
-#: shell/pps-document-view.ui:697
+#: shell/pps-document-view.ui:690
 msgid "Right to Left Document"
 msgstr "Документ із писемністю справа ліворуч"
 
-#: shell/pps-document-view.ui:703
+#: shell/pps-document-view.ui:696
 msgid "Ro_tate ⤵"
 msgstr "По_вернути ⤵"
 
-#: shell/pps-document-view.ui:709
+#: shell/pps-document-view.ui:702
 msgid "Document Prop_erties"
 msgstr "В_ластивості документа"
 
-#: shell/pps-document-view.ui:814
+#: shell/pps-document-view.ui:807
 msgid "_Open Link"
 msgstr "_Відкрити посилання"
 
-#: shell/pps-document-view.ui:819
+#: shell/pps-document-view.ui:812
 msgid "_Copy Link Address"
 msgstr "_Копіювати адресу посилання"
 
-#: shell/pps-document-view.ui:824
+#: shell/pps-document-view.ui:817
 msgid "_Go To"
 msgstr "Пере_йти до"
 
-#: shell/pps-document-view.ui:829
+#: shell/pps-document-view.ui:822
 msgid "Open in New _Window"
 msgstr "Відкрити у новому _вікні"
 
-#: shell/pps-document-view.ui:836
-msgid "_Previous Page"
-msgstr "_Назад"
-
-#: shell/pps-document-view.ui:840
-msgid "_Next Page"
-msgstr "_Далі"
-
-#: shell/pps-document-view.ui:846
+#: shell/pps-document-view.ui:829
 msgid "_Copy"
 msgstr "_Копіювати"
 
-#: shell/pps-document-view.ui:850
+#: shell/pps-document-view.ui:833
 msgid "Select _All"
 msgstr "Виді_лити все"
 
-#: shell/pps-document-view.ui:856
+#: shell/pps-document-view.ui:839
 msgid "_Save Image As…"
 msgstr "Зберегти зображення _як…"
 
-#: shell/pps-document-view.ui:861
+#: shell/pps-document-view.ui:844
 msgid "Copy _Image"
 msgstr "Копіювати _зображення"
 
-#: shell/pps-document-view.ui:868 shell/pps-document-view.ui:906
+#: shell/pps-document-view.ui:851 shell/pps-document-view.ui:889
 #: shell/pps-sidebar-annotations.ui:85
 msgid "_Open Attachment"
 msgstr "_Відкрити долучення"
 
-#: shell/pps-document-view.ui:873 shell/pps-document-view.ui:910
+#: shell/pps-document-view.ui:856 shell/pps-document-view.ui:893
 #: shell/pps-sidebar-annotations.ui:90
 msgid "_Save Attachment As…"
 msgstr "З_берегти долучення як…"
 
-#: shell/pps-document-view.ui:881
+#: shell/pps-document-view.ui:864
 msgid "Annotation _Properties…"
 msgstr "Властивості при_мітки…"
 
-#: shell/pps-document-view.ui:886
+#: shell/pps-document-view.ui:869
 msgid "R_emove Annotation"
 msgstr "Ви_лучити примітку"
 
-#: shell/pps-document-view.ui:893
+#: shell/pps-document-view.ui:876
 msgid "_Add Text Annotation"
 msgstr "_Додати текстову анотацію"
 
-#: shell/pps-document-view.ui:898
+#: shell/pps-document-view.ui:881
 msgid "_Highlight Selected Text"
 msgstr "_Підсвітити вибраний текст"
 
@@ -1829,13 +1785,10 @@ msgid "Further Information"
 msgstr "Подальша інформація"
 
 #: shell/pps-properties-signatures.ui:8
-#| msgctxt "shortcut window"
-#| msgid "Go to Document Start"
 msgid "Document Status"
 msgstr "Стан документа"
 
 #: shell/pps-properties-signatures.ui:13 shell/pps-signature-details.ui:13
-#| msgid "View Details"
 msgid "Signature Details"
 msgstr "Подробиці підписування"
 
@@ -1880,7 +1833,6 @@ msgid "Signature Status"
 msgstr "Стан підписування"
 
 #: shell/pps-signature-details.c:97
-#| msgid "Certificate Required"
 msgid "Certificate Status"
 msgstr "Стан сертифікації"
 
@@ -2059,13 +2011,43 @@ msgstr "_Ні"
 msgid "_Reload"
 msgstr "_Оновити"
 
-#: shell-rs/src/window.rs:569
+#: shell-rs/src/window.rs:568
 msgid "Failed to Load Remote File."
 msgstr "Не вдалось завантажити віддалений файл."
 
-#: shell-rs/src/window.rs:732
+#: shell-rs/src/window.rs:731
 msgid "Failed to Reload Document."
 msgstr "Не вдалось оновити документ."
+
+#~ msgid "PostScript Documents"
+#~ msgstr "Документи PostScript"
+
+#~ msgid "Adds support for reading PostScript documents"
+#~ msgstr "Додає підтримування читання документів PostScript"
+
+#, c-format
+#~ msgid "Failed to load document “%s”"
+#~ msgstr "Не вдалось відкрити документ «%s»"
+
+#, c-format
+#~ msgid "Failed to save document “%s”"
+#~ msgstr "Не вдалось зберегти документ «%s»"
+
+#~ msgid "XPS Documents"
+#~ msgstr "Документи XPS"
+
+#~ msgid "Adds support for reading XPS documents"
+#~ msgstr "Додає підтримування читання документів XPS"
+
+#, c-format
+#~ msgid "Failed to create a temporary directory: %s"
+#~ msgstr "Помилка при створенні тимчасового каталогу: %s"
+
+#~ msgid "_Previous Page"
+#~ msgstr "_Назад"
+
+#~ msgid "_Next Page"
+#~ msgstr "_Далі"
 
 #~ msgid ""
 #~ "Show a dialog to confirm that the user wants to activate the caret "
