@@ -410,7 +410,6 @@ pps_document_factory_get_document (const char *uri, GError **error)
  * @fd: a file descriptor
  * @mime_type: the mime type
  * @flags: flags from #PpsDocumentLoadFlags
- * @cancellable: (allow-none): a #GCancellable, or %NULL
  * @error: (allow-none): a #GError location to store an error, or %NULL
  *
  * Synchronously creates a #PpsDocument for the document from @fd using the backend
