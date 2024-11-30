@@ -263,7 +263,7 @@ mod imp {
                     fs::create_dir_all(&full_temp_path)?;
                 }
 
-                return Ok(full_temp_path.to_str().unwrap().to_string());
+                Ok(full_temp_path.to_string_lossy().to_string())
             }
 
             for attachment in self.selected_attachment() {
