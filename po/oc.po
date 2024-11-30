@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Evince HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-11-08 12:30+0000\n"
-"PO-Revision-Date: 2024-11-11 09:58+0100\n"
+"POT-Creation-Date: 2024-11-27 13:41+0000\n"
+"PO-Revision-Date: 2024-11-30 20:44+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -23,7 +23,7 @@ msgstr ""
 #. Manually set name and icon
 #: data/org.gnome.Papers.desktop.in.in:3
 #: data/org.gnome.Papers.metainfo.xml.in.in:23
-#: previewer/pps-previewer-window.c:488 shell/pps-document-view.c:1127
+#: previewer/pps-previewer-window.c:488 shell/pps-document-view.c:1116
 #: shell/pps-document-view.ui:73 shell/pps-loader-view.ui:10
 #: shell-rs/src/application.rs:41 shell-rs/src/application.rs:64
 #: shell-rs/src/application.rs:288
@@ -38,10 +38,10 @@ msgstr "Afichar de documents multipaginas"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Papers.desktop.in.in:6
-msgid "pdf;ps;postscript;xps;djvu;tiff;document;presentation;viewer;papers;"
+msgid "pdf;djvu;tiff;document;presentation;viewer;papers;"
 msgstr ""
-"pdf;ps;postscript;xps;djvu;tiff;document;presentacion;visionador;"
-"visualizaire;visualizaira;visualizador;visualizadora;papers;"
+"pdf;djvu;tiff;document;presentacion;visionador;visualizaire;visualizaira;"
+"visualizador;visualizadoira;papers;"
 
 #: data/org.gnome.Papers.desktop.in.in:21
 msgid "New Window"
@@ -132,11 +132,11 @@ msgstr ""
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:27
 msgid ""
-"Papers supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, and Comic Books "
-"archives (CBR, CBT, CBZ, CB7)."
+"Papers supports documents in: PDF, DjVu, TIFF, and Comic Books archives "
+"(CBR, CBT, CBZ, CB7)."
 msgstr ""
-"Papers pren en carga los documents : PDF, PS, EPS, XPS, DjVu, TIFF, e los "
-"archius de BD (CBR, CBT, CBZ, CB7)."
+"Papers pren en carga los documents : PDF, DjVu, TIFF, e los archius de BD "
+"(CBR, CBT, CBZ, CB7)."
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:43
 msgid "A clear, simple, and modern UI"
@@ -240,52 +240,52 @@ msgid "Adds support for reading PDF Documents"
 msgstr "Apond la presa en carga de la lectura dels documents PDF"
 
 #. translators: this is the document security state
-#: libdocument/backend/pdf/pps-poppler.c:713
-#: libdocument/backend/pdf/pps-poppler.c:719
+#: libdocument/backend/pdf/pps-poppler.c:709
+#: libdocument/backend/pdf/pps-poppler.c:715
 #: nautilus/pps-nautilus-extension.c:119 shell-rs/src/properties_general.rs:170
 msgid "Yes"
 msgstr "Òc"
 
 #. translators: this is the document security state
-#: libdocument/backend/pdf/pps-poppler.c:716
-#: libdocument/backend/pdf/pps-poppler.c:719
+#: libdocument/backend/pdf/pps-poppler.c:712
+#: libdocument/backend/pdf/pps-poppler.c:715
 #: nautilus/pps-nautilus-extension.c:121 shell-rs/src/properties_general.rs:171
 msgid "No"
 msgstr "Non"
 
-#: libdocument/backend/pdf/pps-poppler.c:826
+#: libdocument/backend/pdf/pps-poppler.c:822
 msgid "Type 1"
 msgstr "Tipe 1"
 
-#: libdocument/backend/pdf/pps-poppler.c:828
+#: libdocument/backend/pdf/pps-poppler.c:824
 msgid "Type 1C"
 msgstr "Tipe 1C"
 
-#: libdocument/backend/pdf/pps-poppler.c:830
+#: libdocument/backend/pdf/pps-poppler.c:826
 msgid "Type 3"
 msgstr "Tipe 3"
 
-#: libdocument/backend/pdf/pps-poppler.c:832
+#: libdocument/backend/pdf/pps-poppler.c:828
 msgid "TrueType"
 msgstr "TrueType"
 
-#: libdocument/backend/pdf/pps-poppler.c:834
+#: libdocument/backend/pdf/pps-poppler.c:830
 msgid "Type 1 (CID)"
 msgstr "Tipe 1 (CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:836
+#: libdocument/backend/pdf/pps-poppler.c:832
 msgid "Type 1C (CID)"
 msgstr "Tipe 1C (CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:838
+#: libdocument/backend/pdf/pps-poppler.c:834
 msgid "TrueType (CID)"
 msgstr "TrueTipe (CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:840
+#: libdocument/backend/pdf/pps-poppler.c:836
 msgid "Unknown font type"
 msgstr "Tipe de polissa desconegut"
 
-#: libdocument/backend/pdf/pps-poppler.c:884
+#: libdocument/backend/pdf/pps-poppler.c:880
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
@@ -296,11 +296,11 @@ msgstr ""
 "seleccionadas per « fontconfig » son pas las meteissas que las polissas "
 "utilizadas per crear lo PDF, lo rendut risca d'èsser incorrècte."
 
-#: libdocument/backend/pdf/pps-poppler.c:889
+#: libdocument/backend/pdf/pps-poppler.c:885
 msgid "All fonts are either standard or embedded."
 msgstr "Totas las polissas son siá estandards o integradas."
 
-#: libdocument/backend/pdf/pps-poppler.c:920
+#: libdocument/backend/pdf/pps-poppler.c:916
 msgid "No name"
 msgstr "Sens nom"
 
@@ -309,20 +309,20 @@ msgstr "Sens nom"
 #. Encoding: None
 #.
 #. translators: Value for 'Page Scaling:' to not scale the document pages on printing
-#: libdocument/backend/pdf/pps-poppler.c:929 libview/pps-print-operation.c:1901
+#: libdocument/backend/pdf/pps-poppler.c:925 libview/pps-print-operation.c:1901
 #: shell-rs/src/properties_general.rs:82 shell-rs/src/properties_general.rs:199
 msgid "None"
 msgstr "Pas cap"
 
-#: libdocument/backend/pdf/pps-poppler.c:937
+#: libdocument/backend/pdf/pps-poppler.c:933
 msgid "Embedded subset"
 msgstr "Sosensemble integrat"
 
-#: libdocument/backend/pdf/pps-poppler.c:939
+#: libdocument/backend/pdf/pps-poppler.c:935
 msgid "Embedded"
 msgstr "Integrat"
 
-#: libdocument/backend/pdf/pps-poppler.c:941
+#: libdocument/backend/pdf/pps-poppler.c:937
 msgid "Not embedded"
 msgstr "Pas integrat"
 
@@ -331,7 +331,7 @@ msgstr "Pas integrat"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: libdocument/backend/pdf/pps-poppler.c:948
+#: libdocument/backend/pdf/pps-poppler.c:944
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (una de las 14 polissas estandardas)"
 
@@ -340,7 +340,7 @@ msgstr " (una de las 14 polissas estandardas)"
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: libdocument/backend/pdf/pps-poppler.c:955
+#: libdocument/backend/pdf/pps-poppler.c:951
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (pas una de las 14 polissas estandardas)"
 
@@ -354,7 +354,7 @@ msgstr " (pas una de las 14 polissas estandardas)"
 #. * Substituting with TeXGyreTermes-Regular
 #. * (/usr/share/textmf/.../texgyretermes-regular.otf)
 #.
-#: libdocument/backend/pdf/pps-poppler.c:974
+#: libdocument/backend/pdf/pps-poppler.c:970
 #, c-format
 msgid ""
 "%s%s\n"
@@ -378,7 +378,7 @@ msgstr ""
 #. * Encoding: Custom
 #. * Embedded subset
 #.
-#: libdocument/backend/pdf/pps-poppler.c:992
+#: libdocument/backend/pdf/pps-poppler.c:988
 #, c-format
 msgid ""
 "%s%s\n"
@@ -388,25 +388,6 @@ msgstr ""
 "%s%s\n"
 "Encodatge : %s\n"
 "%s"
-
-#: libdocument/backend/ps/papers-psdocument.metainfo.xml.in.in:5
-#: libdocument/backend/ps/psdocument.papers-backend.desktop.in.in:5
-msgid "PostScript Documents"
-msgstr "Documents PostScript"
-
-#: libdocument/backend/ps/papers-psdocument.metainfo.xml.in.in:6
-msgid "Adds support for reading PostScript documents"
-msgstr "Apond la presa en carga de la lectura dels documents PostScript"
-
-#: libdocument/backend/ps/pps-spectre.c:94
-#, c-format
-msgid "Failed to load document “%s”"
-msgstr "Lo cargament del document « %s » a fracassat"
-
-#: libdocument/backend/ps/pps-spectre.c:127
-#, c-format
-msgid "Failed to save document “%s”"
-msgstr "L'enregistrament del document « %s » a fracassat"
 
 #: libdocument/backend/tiff/papers-tiffdocument.metainfo.xml.in.in:5
 #: libdocument/backend/tiff/tiffdocument.papers-backend.desktop.in.in:4
@@ -420,15 +401,6 @@ msgstr "Apond la presa en carga de la lectura dels documents TIFF"
 #: libdocument/backend/tiff/tiff-document.c:105
 msgid "Invalid document"
 msgstr "Document invalid"
-
-#: libdocument/backend/xps/papers-xpsdocument.metainfo.xml.in.in:5
-#: libdocument/backend/xps/xpsdocument.papers-backend.desktop.in.in:5
-msgid "XPS Documents"
-msgstr "Documents XPS"
-
-#: libdocument/backend/xps/papers-xpsdocument.metainfo.xml.in.in:6
-msgid "Adds support for reading XPS documents"
-msgstr "Apond la presa en carga de la lectura dels documents XPS"
 
 #: libdocument/pps-attachment.c:304 libdocument/pps-attachment.c:325
 #, c-format
@@ -450,9 +422,9 @@ msgstr "Impossible de dobrir la pèça junta « %s »"
 msgid "File type %s (%s) is not supported"
 msgstr "Lo tipe de fichièr %s (%s) es pas pres en carga"
 
-#: libdocument/pps-document-factory.c:374 libdocument/pps-file-helpers.c:408
-#: libdocument/pps-file-helpers.c:454 libdocument/pps-file-helpers.c:463
-#: libdocument/pps-file-helpers.c:544 libdocument/pps-file-helpers.c:553
+#: libdocument/pps-document-factory.c:374 libdocument/pps-file-helpers.c:373
+#: libdocument/pps-file-helpers.c:419 libdocument/pps-file-helpers.c:428
+#: libdocument/pps-file-helpers.c:509 libdocument/pps-file-helpers.c:518
 msgid "Unknown MIME Type"
 msgstr "Tipe MIME desconegut"
 
@@ -502,11 +474,6 @@ msgstr "%s, païsatge (%s)"
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "Impossible de crear un fichièr temporari : %s"
-
-#: libdocument/pps-file-helpers.c:225
-#, c-format
-msgid "Failed to create a temporary directory: %s"
-msgstr "Impossible de crear un repertòri temporari : %s"
 
 #: libdocument/pps-signature.c:566
 msgid "Trusted"
@@ -567,7 +534,7 @@ msgstr[0] "Enregistrar la pèça junta"
 msgstr[1] "Enregistrar las pèças juntas"
 
 #: libview/context/pps-history.c:493 previewer/pps-page-selector.c:194
-#: shell/pps-document-view.c:544 shell/pps-document-view.c:2684
+#: shell/pps-document-view.c:551 shell/pps-document-view.c:2673
 #: shell/pps-sidebar-bookmarks.c:339
 #, c-format
 msgid "Page %s"
@@ -631,7 +598,7 @@ msgstr "Vòstre interval d'impression inclutz pas cap de pagina"
 
 #. show close if the certificate is null, or if no cert is found
 #: libview/pps-print-operation.c:1361 previewer/pps-previewer-window.ui:91
-#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.c:3638
+#: shell/pps-annotation-properties-dialog.ui:87 shell/pps-document-view.c:3628
 #: shell/pps-document-view.ui:609 shell/pps-window.ui:163
 msgid "_Close"
 msgstr "_Tampar"
@@ -736,51 +703,51 @@ msgstr "Far defilar la vista cap aval"
 msgid "Document View"
 msgstr "Vista del document"
 
-#: libview/pps-view.c:2106
+#: libview/pps-view.c:2113
 msgid "Go to first page"
 msgstr "Anar a la primièra pagina"
 
-#: libview/pps-view.c:2108
+#: libview/pps-view.c:2115
 msgid "Go to previous page"
 msgstr "Anar a la pagina precedenta"
 
-#: libview/pps-view.c:2110
+#: libview/pps-view.c:2117
 msgid "Go to next page"
 msgstr "Anar a la pagina seguenta"
 
-#: libview/pps-view.c:2112
+#: libview/pps-view.c:2119
 msgid "Go to last page"
 msgstr "Anar a la darrièra pagina"
 
-#: libview/pps-view.c:2114
+#: libview/pps-view.c:2121
 msgid "Go to page"
 msgstr "Anar a la pagina"
 
-#: libview/pps-view.c:2116
+#: libview/pps-view.c:2123
 msgid "Find"
 msgstr "Recercar"
 
-#: libview/pps-view.c:2145
+#: libview/pps-view.c:2152
 #, c-format
 msgid "Go to page %s"
 msgstr "Anar a la pagina %s"
 
-#: libview/pps-view.c:2151
+#: libview/pps-view.c:2158
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Anar a %s sul fichièr « %s »"
 
-#: libview/pps-view.c:2154
+#: libview/pps-view.c:2161
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Anar a la pagina « %s »"
 
-#: libview/pps-view.c:2162
+#: libview/pps-view.c:2169
 #, c-format
 msgid "Launch %s"
 msgstr "Aviar %s"
 
-#: libview/pps-view.c:2169
+#: libview/pps-view.c:2176
 #, c-format
 msgid "Reset form"
 msgstr "Reïnicializar lo formulari"
@@ -888,7 +855,7 @@ msgstr "Talha normala"
 msgid "Zoom In"
 msgstr "Zoom avant"
 
-#: previewer/pps-previewer-window.ui:89 shell/pps-document-view.c:1902
+#: previewer/pps-previewer-window.ui:89 shell/pps-document-view.c:1891
 msgid "Failed to Print Document"
 msgstr "L'impression del document a fracassat"
 
@@ -1360,122 +1327,122 @@ msgstr "Desformat"
 msgid "_Apply"
 msgstr "_Aplicar"
 
-#: shell/pps-document-view.c:417 shell-rs/src/window.rs:466
+#: shell/pps-document-view.c:424 shell-rs/src/window.rs:466
 msgid "View Details"
 msgstr "Veire los detalhs"
 
-#: shell/pps-document-view.c:1167
+#: shell/pps-document-view.c:1156
 msgid "Digital Signature is invalid!"
 msgstr "La signatura electronica es invalida."
 
-#: shell/pps-document-view.c:1170 shell/pps-document-view.ui:239
+#: shell/pps-document-view.c:1159 shell/pps-document-view.ui:239
 msgid "Document has been digitally signed."
 msgstr "Lo document foguèt signat electronicament."
 
-#: shell/pps-document-view.c:1201
+#: shell/pps-document-view.c:1190
 msgid "The document contains no pages"
 msgstr "Lo document a pas cap de pagina"
 
-#: shell/pps-document-view.c:1204
+#: shell/pps-document-view.c:1193
 msgid "The document contains only empty pages"
 msgstr "Lo document conten pas que de paginas voidas"
 
-#: shell/pps-document-view.c:1435
+#: shell/pps-document-view.c:1424
 msgid "File Saved"
 msgstr "Fichièr enregistrat"
 
-#: shell/pps-document-view.c:1445 shell/pps-document-view.c:1498
+#: shell/pps-document-view.c:1434 shell/pps-document-view.c:1487
 #, c-format
 msgid "The file could not be saved as “%s”."
 msgstr "Lo fichièr pòt pas èsser enregistrat sous « %s »."
 
-#: shell/pps-document-view.c:1560
+#: shell/pps-document-view.c:1549
 msgid "Save As…"
 msgstr "Enregistrar jos…"
 
-#: shell/pps-document-view.c:1862
+#: shell/pps-document-view.c:1851
 #, c-format
 msgid "%d pending job in queue"
 msgid_plural "%d pending jobs in queue"
 msgstr[0] "%d prètzfach en espèra dins la fila"
 msgstr[1] "%d prètzfaches en espèra dins la fila"
 
-#: shell/pps-document-view.c:1955
+#: shell/pps-document-view.c:1944
 #, c-format
 msgid "Printing job “%s”"
 msgstr "Impression de lo prètzfache « %s »"
 
-#: shell/pps-document-view.c:1958 shell/pps-loader-view.ui:60
+#: shell/pps-document-view.c:1947 shell/pps-loader-view.ui:60
 msgid "C_ancel"
 msgstr "An_ullar"
 
-#: shell/pps-document-view.c:2138 shell-rs/src/window.rs:267
+#: shell/pps-document-view.c:2127 shell-rs/src/window.rs:267
 msgid "Document contains form fields that have been filled out."
 msgstr "Lo document conten de camps de formulari que son estats garnits."
 
-#: shell/pps-document-view.c:2141 shell-rs/src/window.rs:268
+#: shell/pps-document-view.c:2130 shell-rs/src/window.rs:268
 msgid "Document contains new or modified annotations."
 msgstr "Lo document conten d'anotacions novèlas o modificadas."
 
-#: shell/pps-document-view.c:2148
+#: shell/pps-document-view.c:2137
 msgid "Save Changes to a Copy?"
 msgstr "Enregistrar las modificacion dins una còpia ?"
 
-#: shell/pps-document-view.c:2149
+#: shell/pps-document-view.c:2138
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr ""
 "Se enregistratz pas una còpia, las modificacions seràn perdudas "
 "definitivament."
 
-#: shell/pps-document-view.c:2152
+#: shell/pps-document-view.c:2141
 msgid "Close _Without Saving"
 msgstr "Tampar _sans enregistrar"
 
-#: shell/pps-document-view.c:2153 shell/pps-document-view.c:3394
-#: shell/pps-document-view.c:3530 shell/pps-document-view.c:3600
+#: shell/pps-document-view.c:2142 shell/pps-document-view.c:3384
+#: shell/pps-document-view.c:3520 shell/pps-document-view.c:3590
 #: shell/pps-document-view.ui:601
 msgid "_Cancel"
 msgstr "_Anullar"
 
-#: shell/pps-document-view.c:2154
+#: shell/pps-document-view.c:2143
 msgid "_Save a Copy"
 msgstr "_Enregistrar una còpia"
 
-#: shell/pps-document-view.c:3240
+#: shell/pps-document-view.c:3229
 #, c-format
 msgid "Caret navigation mode is now enabled, press F7 to disable."
 msgstr ""
 "Lo mòde navegacion al cursor es ara activat, quichatz F7 per lo desactivar."
 
-#: shell/pps-document-view.c:3242
+#: shell/pps-document-view.c:3231
 #, c-format
 msgid "Caret navigation mode is now disabled, press F7 to enable."
 msgstr ""
 "Lo mòde navegacion al cursor es ara desactivat, quichatz F7 per l’activar."
 
-#: shell/pps-document-view.c:3391
+#: shell/pps-document-view.c:3381
 #, c-format
 msgid "Please enter password for %s"
 msgstr "Mercés de picar lo senhal per %s"
 
-#: shell/pps-document-view.c:3393 shell/pps-password-dialog.ui:4
+#: shell/pps-document-view.c:3383 shell/pps-password-dialog.ui:4
 #: shell/pps-password-view.ui:10 shell/pps-password-view.ui:19
 msgid "Password Required"
 msgstr "Senhal requesit"
 
-#: shell/pps-document-view.c:3395
+#: shell/pps-document-view.c:3385
 msgid "_Login"
 msgstr "_Connexion"
 
-#: shell/pps-document-view.c:3494
+#: shell/pps-document-view.c:3484
 msgid "Save Signed File"
 msgstr "Enregistrat fichièr signat"
 
-#: shell/pps-document-view.c:3529
+#: shell/pps-document-view.c:3519
 msgid "Draw a rectangle to insert a signature field"
 msgstr "Dessenhar un rectangle per inserir un camp de signatura"
 
-#: shell/pps-document-view.c:3555
+#: shell/pps-document-view.c:3545
 #, c-format
 msgid ""
 "Digitally signed by %s\n"
@@ -1484,23 +1451,23 @@ msgstr ""
 "Signat electronicament per %s\n"
 "Data : %s"
 
-#: shell/pps-document-view.c:3591
+#: shell/pps-document-view.c:3581
 msgid "Certificate Required"
 msgstr "Certificat requerit"
 
-#: shell/pps-document-view.c:3596
+#: shell/pps-document-view.c:3586
 msgid "Select signing certificate"
 msgstr "Seleccionar lo certificat de signatura"
 
-#: shell/pps-document-view.c:3597
+#: shell/pps-document-view.c:3587
 msgid "Select"
 msgstr "Seleccionar"
 
-#: shell/pps-document-view.c:3636
+#: shell/pps-document-view.c:3626
 msgid "A certificate is required to sign this document"
 msgstr "Se requerís un certificat per signar aqueste document"
 
-#: shell/pps-document-view.c:3920
+#: shell/pps-document-view.c:3910
 #, c-format
 msgid ""
 "Security alert: this document has been prevented from opening the file “%s”"
@@ -1508,27 +1475,27 @@ msgstr ""
 "Alterta de seguretat : avèm empachat aquesta document de dobrir lo fichièr "
 "« %s »"
 
-#: shell/pps-document-view.c:3981 shell-rs/src/window.rs:1136
+#: shell/pps-document-view.c:3971 shell-rs/src/window.rs:1136
 msgid "Unable to open external link"
 msgstr "Impossible de dobrir lo ligam extèrne"
 
-#: shell/pps-document-view.c:4205
+#: shell/pps-document-view.c:4195
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Impossible de trobar lo format apropriat per enregistrar l'imatge"
 
-#: shell/pps-document-view.c:4235
+#: shell/pps-document-view.c:4225
 msgid "The image could not be saved."
 msgstr "L'imatge pòt pas èsser enregistrada."
 
-#: shell/pps-document-view.c:4271
+#: shell/pps-document-view.c:4261
 msgid "Save Image"
 msgstr "Enregistrar l'imatge"
 
-#: shell/pps-document-view.c:4441
+#: shell/pps-document-view.c:4431
 msgid "Unable to open attachment"
 msgstr "Impossible de dobrir la pèça junta"
 
-#: shell/pps-document-view.c:4460
+#: shell/pps-document-view.c:4450
 msgid "The attachment could not be saved."
 msgstr "La pèça junta pòt pas èsser enregistrada."
 
@@ -2056,6 +2023,27 @@ msgstr "Impossible de cargar lo fichièr distant."
 #: shell-rs/src/window.rs:731
 msgid "Failed to Reload Document."
 msgstr "Lo recargament del document a fracassat."
+
+#~ msgid "PostScript Documents"
+#~ msgstr "Documents PostScript"
+
+#~ msgid "Adds support for reading PostScript documents"
+#~ msgstr "Apond la presa en carga de la lectura dels documents PostScript"
+
+#~ msgid "Failed to load document “%s”"
+#~ msgstr "Lo cargament del document « %s » a fracassat"
+
+#~ msgid "Failed to save document “%s”"
+#~ msgstr "L'enregistrament del document « %s » a fracassat"
+
+#~ msgid "XPS Documents"
+#~ msgstr "Documents XPS"
+
+#~ msgid "Adds support for reading XPS documents"
+#~ msgstr "Apond la presa en carga de la lectura dels documents XPS"
+
+#~ msgid "Failed to create a temporary directory: %s"
+#~ msgstr "Impossible de crear un repertòri temporari : %s"
 
 #~ msgid ""
 #~ "Show a dialog to confirm that the user wants to activate the caret "
