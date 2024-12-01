@@ -135,8 +135,10 @@ static void
 pps_attachment_context_dispose (GObject *object)
 {
 	PpsAttachmentContext *context = PPS_ATTACHMENT_CONTEXT (object);
+	PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
 
 	pps_attachment_context_clear_job (context);
+	g_clear_object (&priv->attachment_model);
 
 	G_OBJECT_CLASS (pps_attachment_context_parent_class)->dispose (object);
 }
@@ -144,6 +146,9 @@ pps_attachment_context_dispose (GObject *object)
 static void
 pps_attachment_context_init (PpsAttachmentContext *context)
 {
+	PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
+
+	priv->attachment_model = g_list_store_new (PPS_TYPE_ATTACHMENT);
 }
 
 static void
@@ -217,10 +222,6 @@ GListModel *
 pps_attachment_context_get_model (PpsAttachmentContext *context)
 {
 	PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
-
-	if (priv->attachment_model == NULL) {
-		priv->attachment_model = g_list_store_new (PPS_TYPE_ATTACHMENT);
-	}
 
 	return G_LIST_MODEL (priv->attachment_model);
 }
