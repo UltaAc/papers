@@ -112,10 +112,7 @@ typedef struct _PpsViewPrivate {
 
 	/* Find */
 	PpsSearchContext *search_context;
-	gint find_page;     /* Page of active find result */
-	gint find_result;   /* Index of active find result on find_pages[find_page]. For matches across
-	                     * two lines (which comprise two PpsFindRectangle's), this will always point
-	                     * to the first one, i.e. the one where rect->next_line is TRUE */
+	PpsSearchResult *find_result; /* The selected find_result */
 	gboolean highlight_find_results;
 
 	PpsDocumentModel *model;

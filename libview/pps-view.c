@@ -245,9 +245,6 @@ static gboolean pps_view_page_fits (PpsView *view,
 static void pps_view_set_cursor (PpsView *view,
                                  PpsViewCursor new_cursor);
 
-/*** Find ***/
-static void pps_view_find_cancel (PpsView *view);
-
 /*** Selection ***/
 static void compute_selections (PpsView *view,
                                 PpsSelectionStyle style,
@@ -6688,8 +6685,7 @@ highlight_find_results (PpsView *view,
 		pps_rect->y1 = find_rect->y1;
 		pps_rect->y2 = find_rect->y2;
 
-		if (page == priv->find_page &&
-		    pps_search_result_get_index (result) == priv->find_result)
+		if (result == priv->find_result)
 			active = TRUE;
 		_pps_view_transform_doc_rect_to_view_rect (view, page, pps_rect,
 		                                           &view_rectangle);
@@ -6924,8 +6920,6 @@ pps_view_dispose (GObject *object)
 	g_clear_object (&priv->page_cache);
 	g_clear_object (&priv->scroll_animation_vertical);
 	g_clear_object (&priv->scroll_animation_horizontal);
-
-	pps_view_find_cancel (view);
 
 	pps_view_window_children_free (view);
 
@@ -7575,7 +7569,6 @@ pps_view_init (PpsView *view)
 	priv->pending_scroll = SCROLL_TO_PAGE_POSITION;
 	priv->pending_point.x = 0;
 	priv->pending_point.y = 0;
-	priv->find_page = -1;
 	priv->highlight_find_results = FALSE;
 	priv->pixbuf_cache_size = DEFAULT_PIXBUF_CACHE_SIZE;
 	priv->caret_enabled = FALSE;
@@ -7821,9 +7814,6 @@ pps_view_document_changed_cb (PpsDocumentModel *model,
 		clear_caches (view);
 
 		g_set_object (&priv->document, document);
-
-		priv->find_page = -1;
-		priv->find_result = 0;
 
 		if (priv->document) {
 			if (pps_document_get_n_pages (priv->document) <= 0 ||
@@ -8478,7 +8468,7 @@ pps_view_page_fits (PpsView *view,
 
 /*** Find ***/
 static void
-jump_to_find_result (PpsView *view, GList *rect_list)
+jump_to_find_result (PpsView *view, guint page, GList *rect_list)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsRectangle *rect = pps_rectangle_new ();
@@ -8499,11 +8489,11 @@ jump_to_find_result (PpsView *view, GList *rect_list)
 		rect->x2 = MAX (rect->x2, rect_next->x2);
 		rect->y2 = MAX (rect->y2, rect_next->y2);
 	}
-	_pps_view_transform_doc_rect_to_view_rect (view, priv->find_page,
+	_pps_view_transform_doc_rect_to_view_rect (view, page,
 	                                           rect, &view_rect);
 	_pps_view_ensure_rectangle_is_visible (view, &view_rect);
 	if (priv->caret_enabled && priv->rotation == 0)
-		position_caret_cursor_at_doc_point (view, priv->find_page,
+		position_caret_cursor_at_doc_point (view, page,
 		                                    find_rect->x1, find_rect->y1);
 
 	pps_rectangle_free (rect);
@@ -8516,24 +8506,15 @@ pps_view_find_finished_cb (PpsView *view)
 }
 
 static void
-pps_view_find_started (PpsView *view, PpsJobFind *job)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	pps_view_find_cancel (view);
-	priv->find_page = priv->current_page;
-	priv->find_result = 0;
-}
-
-static void
 pps_view_find_set_result (PpsView *view, PpsSearchResult *result)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	guint page = pps_search_result_get_page (result);
 
-	priv->find_page = pps_search_result_get_page (result);
-	priv->find_result = pps_search_result_get_index (result);
-	pps_document_model_set_page (priv->model, priv->find_page);
-	jump_to_find_result (view, pps_search_result_get_rectangle_list (result));
+	g_set_weak_pointer (&priv->find_result, result);
+	pps_document_model_set_page (priv->model, page);
+	jump_to_find_result (view, page,
+	                     pps_search_result_get_rectangle_list (result));
 	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
@@ -8546,20 +8527,12 @@ pps_view_set_search_context (PpsView *view,
 	g_return_if_fail (PPS_IS_SEARCH_CONTEXT (context));
 
 	if (priv->search_context != NULL) {
-		g_signal_handlers_disconnect_by_func (priv->search_context, pps_view_find_started, view);
-		g_signal_handlers_disconnect_by_func (priv->search_context, pps_view_find_cancel, view);
 		g_signal_handlers_disconnect_by_func (priv->search_context, pps_view_find_finished_cb, view);
 		g_signal_handlers_disconnect_by_func (priv->search_context, pps_view_find_set_result, view);
 	}
 
 	g_set_object (&priv->search_context, context);
 
-	g_signal_connect_object (priv->search_context, "started",
-	                         G_CALLBACK (pps_view_find_started),
-	                         view, G_CONNECT_SWAPPED);
-	g_signal_connect_object (priv->search_context, "cleared",
-	                         G_CALLBACK (pps_view_find_cancel),
-	                         view, G_CONNECT_SWAPPED);
 	g_signal_connect_object (priv->search_context, "finished",
 	                         G_CALLBACK (pps_view_find_finished_cb),
 	                         view, G_CONNECT_SWAPPED);
@@ -8575,15 +8548,6 @@ pps_view_find_set_highlight_search (PpsView *view, gboolean value)
 
 	priv->highlight_find_results = value;
 	gtk_widget_queue_draw (GTK_WIDGET (view));
-}
-
-static void
-pps_view_find_cancel (PpsView *view)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	priv->find_pages = NULL;
-	priv->find_page = -1;
-	priv->find_result = 0;
 }
 
 /*** Selections ***/
