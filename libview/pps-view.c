@@ -251,10 +251,6 @@ static gint pps_view_find_get_n_results (PpsView *view,
 static PpsFindRectangle *pps_view_find_get_result (PpsView *view,
                                                    gint page,
                                                    gint result);
-static void jump_to_find_result (PpsView *view);
-static void jump_to_find_page (PpsView *view,
-                               PpsViewFindDirection direction,
-                               gint shift);
 static void pps_view_find_cancel (PpsView *view);
 
 /*** Selection ***/
