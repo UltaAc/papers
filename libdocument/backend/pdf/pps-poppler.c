@@ -237,6 +237,42 @@ convert_error (GError *poppler_error,
 	}
 }
 
+static PopplerRectangle
+pps_rect_to_poppler (PpsPage *page, const PpsRectangle *pps_rect)
+{
+	gdouble height;
+	PopplerRectangle poppler_rect;
+
+	poppler_page_get_size (POPPLER_PAGE (page->backend_page), NULL, &height);
+
+	// Popplers' coordinate system starts at the bottom left, ours at
+	// the top left
+	poppler_rect.x1 = pps_rect->x1;
+	poppler_rect.x2 = pps_rect->x2;
+	poppler_rect.y1 = height - pps_rect->y2;
+	poppler_rect.y2 = height - pps_rect->y1;
+
+	return poppler_rect;
+}
+
+static PpsRectangle
+poppler_rect_to_pps (PpsPage *page, const PopplerRectangle *poppler_rect)
+{
+	gdouble height;
+	PpsRectangle pps_rect;
+
+	poppler_page_get_size (POPPLER_PAGE (page->backend_page), NULL, &height);
+
+	// Popplers' coordinate system starts at the bottom left, ours at
+	// the top left
+	pps_rect.x1 = poppler_rect->x1;
+	pps_rect.x2 = poppler_rect->x2;
+	pps_rect.y1 = height - poppler_rect->y2;
+	pps_rect.y2 = height - poppler_rect->y1;
+
+	return pps_rect;
+}
+
 /* PpsDocument */
 static gboolean
 pdf_document_save (PpsDocument *document,
@@ -1328,13 +1364,9 @@ pdf_document_links_get_links (PpsDocumentLinks *document_links,
                               PpsPage *page)
 {
 	PdfDocument *self = PDF_DOCUMENT (document_links);
-	PopplerPage *poppler_page = POPPLER_PAGE (page->backend_page);
-	GList *mapping_list = poppler_page_get_link_mapping (poppler_page);
+	GList *mapping_list = poppler_page_get_link_mapping (POPPLER_PAGE (page->backend_page));
 	GList *retval = NULL;
 	GList *list;
-	double height;
-
-	poppler_page_get_size (poppler_page, NULL, &height);
 
 	for (list = mapping_list; list; list = list->next) {
 		PopplerLinkMapping *link_mapping;
@@ -1344,11 +1376,7 @@ pdf_document_links_get_links (PpsDocumentLinks *document_links,
 		pps_link_mapping = g_new (PpsMapping, 1);
 		pps_link_mapping->data = pps_link_from_action (self,
 		                                               link_mapping->action);
-		pps_link_mapping->area.x1 = link_mapping->area.x1;
-		pps_link_mapping->area.x2 = link_mapping->area.x2;
-		/* Invert this for X-style coordinates */
-		pps_link_mapping->area.y1 = height - link_mapping->area.y2;
-		pps_link_mapping->area.y2 = height - link_mapping->area.y1;
+		pps_link_mapping->area = poppler_rect_to_pps (page, &link_mapping->area);
 
 		retval = g_list_prepend (retval, pps_link_mapping);
 	}
@@ -1476,7 +1504,6 @@ pdf_document_find_find_text (PpsDocumentFind *document_find,
 {
 	GList *matches, *l;
 	PopplerPage *poppler_page;
-	gdouble height;
 	GList *retval = NULL;
 	guint find_flags = 0;
 
@@ -1500,16 +1527,15 @@ pdf_document_find_find_text (PpsDocumentFind *document_find,
 	if (!matches)
 		return NULL;
 
-	poppler_page_get_size (poppler_page, NULL, &height);
 	for (l = matches; l && l->data; l = g_list_next (l)) {
 		PpsFindRectangle *pps_rect = pps_find_rectangle_new ();
-
+		PpsRectangle aux;
 		PopplerRectangle *rect = (PopplerRectangle *) l->data;
-		pps_rect->x1 = rect->x1;
-		pps_rect->x2 = rect->x2;
-		/* Invert this for X-style coordinates */
-		pps_rect->y1 = height - rect->y2;
-		pps_rect->y2 = height - rect->y1;
+		aux = poppler_rect_to_pps (page, rect);
+		pps_rect->x1 = aux.x1;
+		pps_rect->x2 = aux.x2;
+		pps_rect->y1 = aux.y2;
+		pps_rect->y2 = aux.y1;
 		pps_rect->next_line = poppler_rectangle_find_get_match_continued (rect);
 		pps_rect->after_hyphen = pps_rect->next_line && poppler_rectangle_find_get_ignored_hyphen (rect);
 		retval = g_list_prepend (retval, pps_rect);
@@ -2265,17 +2291,13 @@ static PpsMappingList *
 pdf_document_forms_get_form_fields (PpsDocumentForms *document,
                                     PpsPage *page)
 {
-	PopplerPage *poppler_page;
 	GList *retval = NULL;
 	GList *fields;
 	GList *list;
-	double height;
 
 	g_return_val_if_fail (POPPLER_IS_PAGE (page->backend_page), NULL);
 
-	poppler_page = POPPLER_PAGE (page->backend_page);
-	fields = poppler_page_get_form_field_mapping (poppler_page);
-	poppler_page_get_size (poppler_page, NULL, &height);
+	fields = poppler_page_get_form_field_mapping (POPPLER_PAGE (page->backend_page));
 
 	for (list = fields; list; list = list->next) {
 		PopplerFormFieldMapping *mapping;
@@ -2289,10 +2311,7 @@ pdf_document_forms_get_form_fields (PpsDocumentForms *document,
 			continue;
 
 		field_mapping = g_new0 (PpsMapping, 1);
-		field_mapping->area.x1 = mapping->area.x1;
-		field_mapping->area.x2 = mapping->area.x2;
-		field_mapping->area.y1 = height - mapping->area.y2;
-		field_mapping->area.y2 = height - mapping->area.y1;
+		field_mapping->area = poppler_rect_to_pps (page, &mapping->area);
 		field_mapping->data = pps_field;
 		pps_field->page = PPS_PAGE (g_object_ref (page));
 
@@ -2851,15 +2870,8 @@ pps_annot_from_poppler_annot (PopplerAnnot *poppler_annot,
 			if (poppler_annot_markup_get_popup_rectangle (markup, &poppler_rect)) {
 				PpsRectangle pps_rect;
 				gboolean is_open;
-				gdouble height;
 
-				poppler_page_get_size (POPPLER_PAGE (page->backend_page),
-				                       NULL, &height);
-				pps_rect.x1 = poppler_rect.x1;
-				pps_rect.x2 = poppler_rect.x2;
-				pps_rect.y1 = height - poppler_rect.y2;
-				pps_rect.y2 = height - poppler_rect.y1;
-
+				pps_rect = poppler_rect_to_pps (page, &poppler_rect);
 				is_open = poppler_annot_markup_get_popup_is_open (markup);
 
 				g_object_set (pps_annot,
@@ -2914,19 +2926,16 @@ pdf_document_annotations_get_annotations (PpsDocumentAnnotations *document_annot
 {
 	GList *retval = NULL;
 	PdfDocument *self = PDF_DOCUMENT (document_annotations);
-	PopplerPage *poppler_page = POPPLER_PAGE (page->backend_page);
 	PpsMappingList *mapping_list;
 	GList *annots;
 	GList *list;
-	gdouble height;
 
 	mapping_list = (PpsMappingList *) g_hash_table_lookup (self->annots,
 	                                                       GINT_TO_POINTER (page->index));
 	if (mapping_list)
 		return pps_mapping_list_ref (mapping_list);
 
-	annots = poppler_page_get_annot_mapping (poppler_page);
-	poppler_page_get_size (poppler_page, NULL, &height);
+	annots = poppler_page_get_annot_mapping (POPPLER_PAGE (page->backend_page));
 
 	for (list = annots; list; list = list->next) {
 		PopplerAnnotMapping *mapping;
@@ -2944,17 +2953,11 @@ pdf_document_annotations_get_annotations (PpsDocumentAnnotations *document_annot
 			annot_set_unique_name (pps_annot);
 
 		annot_mapping = g_new (PpsMapping, 1);
+		annot_mapping->area = poppler_rect_to_pps (page, &mapping->area);
 		if (PPS_IS_ANNOTATION_TEXT (pps_annot)) {
 			/* Force 24x24 rectangle */
-			annot_mapping->area.x1 = mapping->area.x1;
 			annot_mapping->area.x2 = annot_mapping->area.x1 + 24;
-			annot_mapping->area.y1 = height - mapping->area.y2;
-			annot_mapping->area.y2 = MIN (height, annot_mapping->area.y1 + 24);
-		} else {
-			annot_mapping->area.x1 = mapping->area.x1;
-			annot_mapping->area.x2 = mapping->area.x2;
-			annot_mapping->area.y1 = height - mapping->area.y2;
-			annot_mapping->area.y2 = height - mapping->area.y1;
+			annot_mapping->area.y2 = annot_mapping->area.y1 + 24;
 		}
 		annot_mapping->data = pps_annot;
 		pps_annotation_set_area (pps_annot, &annot_mapping->area);
@@ -3122,24 +3125,17 @@ pdf_document_annotations_add_annotation (PpsDocumentAnnotations *document_annota
 {
 	PdfDocument *self = PDF_DOCUMENT (document_annotations);
 	PpsPage *page = pps_annotation_get_page (annot);
-	PopplerPage *poppler_page = POPPLER_PAGE (page->backend_page);
 	PopplerAnnot *poppler_annot;
 	GList *list = NULL;
 	PpsMappingList *mapping_list;
 	PpsMapping *annot_mapping;
 	PopplerRectangle poppler_rect;
-	gdouble height;
 	PopplerColor poppler_color;
 	GdkRGBA color;
 	PpsRectangle rect;
 
 	pps_annotation_get_area (annot, &rect);
-
-	poppler_page_get_size (poppler_page, NULL, &height);
-	poppler_rect.x1 = rect.x1;
-	poppler_rect.x2 = rect.x2;
-	poppler_rect.y1 = height - rect.y2;
-	poppler_rect.y2 = height - rect.y1;
+	poppler_rect = pps_rect_to_poppler (page, &rect);
 
 	switch (pps_annotation_get_annotation_type (annot)) {
 	case PPS_ANNOTATION_TYPE_TEXT: {
@@ -3177,23 +3173,19 @@ pdf_document_annotations_add_annotation (PpsDocumentAnnotations *document_annota
 		GArray *quads;
 		PopplerRectangle bbox;
 
-		quads = get_quads_for_area (poppler_page, &poppler_rect, &bbox);
+		quads = get_quads_for_area (POPPLER_PAGE (page->backend_page),
+		                            &poppler_rect, &bbox);
 
 		if (!quads)
 			return;
 
-		poppler_rect.x1 = rect.x1 = bbox.x1;
-		poppler_rect.x2 = rect.x2 = bbox.x2;
-		rect.y1 = height - bbox.y2;
-		rect.y2 = height - bbox.y1;
-		poppler_rect.y1 = bbox.y1;
-		poppler_rect.y2 = bbox.y2;
+		rect = poppler_rect_to_pps (page, &bbox);
 
 		pps_annotation_set_area (annot, &rect);
 
 		switch (pps_annotation_text_markup_get_markup_type (PPS_ANNOTATION_TEXT_MARKUP (annot))) {
 		case PPS_ANNOTATION_TEXT_MARKUP_HIGHLIGHT:
-			poppler_annot = poppler_annot_text_markup_new_highlight (self->document, &poppler_rect, quads);
+			poppler_annot = poppler_annot_text_markup_new_highlight (self->document, &bbox, quads);
 			break;
 		default:
 			g_assert_not_reached ();
@@ -3225,10 +3217,7 @@ pdf_document_annotations_add_annotation (PpsDocumentAnnotations *document_annota
 			PpsRectangle popup_rect;
 
 			pps_annotation_markup_get_rectangle (markup, &popup_rect);
-			poppler_rect.x1 = popup_rect.x1;
-			poppler_rect.x2 = popup_rect.x2;
-			poppler_rect.y1 = height - popup_rect.y2;
-			poppler_rect.y2 = height - popup_rect.y1;
+			poppler_rect = pps_rect_to_poppler (page, &popup_rect);
 			poppler_annot_markup_set_popup (POPPLER_ANNOT_MARKUP (poppler_annot), &poppler_rect);
 			poppler_annot_markup_set_popup_is_open (POPPLER_ANNOT_MARKUP (poppler_annot),
 			                                        pps_annotation_markup_get_popup_is_open (markup));
@@ -3239,7 +3228,7 @@ pdf_document_annotations_add_annotation (PpsDocumentAnnotations *document_annota
 			poppler_annot_markup_set_label (POPPLER_ANNOT_MARKUP (poppler_annot), label);
 	}
 
-	poppler_page_add_annot (poppler_page, poppler_annot);
+	poppler_page_add_annot (POPPLER_PAGE (page->backend_page), poppler_annot);
 
 	annot_mapping = g_new (PpsMapping, 1);
 	annot_mapping->area = rect;
@@ -3356,17 +3345,10 @@ pdf_document_annotations_save_annotation (PpsDocumentAnnotations *document_annot
 	if (mask & PPS_ANNOTATIONS_SAVE_AREA && !PPS_IS_ANNOTATION_TEXT_MARKUP (annot)) {
 		PpsRectangle area;
 		PopplerRectangle poppler_rect;
-		PpsPage *page;
-		gdouble height;
-
-		page = pps_annotation_get_page (annot);
-		poppler_page_get_size (POPPLER_PAGE (page->backend_page), NULL, &height);
+		PpsPage *page = pps_annotation_get_page (annot);
 
 		pps_annotation_get_area (annot, &area);
-		poppler_rect.x1 = area.x1;
-		poppler_rect.x2 = area.x2;
-		poppler_rect.y1 = height - area.y2;
-		poppler_rect.y2 = height - area.y1;
+		poppler_rect = pps_rect_to_poppler (page, &area);
 		poppler_annot_set_rectangle (poppler_annot, &poppler_rect);
 	}
 
@@ -3391,17 +3373,10 @@ pdf_document_annotations_save_annotation (PpsDocumentAnnotations *document_annot
 			PpsPage *page;
 			PpsRectangle pps_rect;
 			PopplerRectangle poppler_rect;
-			gdouble height;
 
 			page = pps_annotation_get_page (annot);
-			poppler_page_get_size (POPPLER_PAGE (page->backend_page),
-			                       NULL, &height);
 			pps_annotation_markup_get_rectangle (pps_markup, &pps_rect);
-
-			poppler_rect.x1 = pps_rect.x1;
-			poppler_rect.x2 = pps_rect.x2;
-			poppler_rect.y1 = height - pps_rect.y2;
-			poppler_rect.y2 = height - pps_rect.y1;
+			poppler_rect = pps_rect_to_poppler (page, &pps_rect);
 
 			if (poppler_annot_markup_has_popup (markup))
 				poppler_annot_markup_set_popup_rectangle (markup, &poppler_rect);
@@ -3498,31 +3473,19 @@ pdf_document_annotations_save_annotation (PpsDocumentAnnotations *document_annot
 			PpsRectangle rect;
 			GArray *quads;
 			PpsPage *page;
-			PopplerPage *poppler_page;
 			PopplerRectangle poppler_rect, bbox;
-			gdouble height;
 
 			page = pps_annotation_get_page (annot);
-			poppler_page = POPPLER_PAGE (page->backend_page);
-
 			pps_annotation_get_area (annot, &rect);
+			poppler_rect = pps_rect_to_poppler (page, &rect);
 
-			poppler_page_get_size (POPPLER_PAGE (page->backend_page), NULL, &height);
-
-			poppler_rect.x1 = rect.x1;
-			poppler_rect.x2 = rect.x2;
-			poppler_rect.y1 = height - rect.y2;
-			poppler_rect.y2 = height - rect.y1;
-
-			quads = get_quads_for_area (poppler_page, &poppler_rect, &bbox);
+			quads = get_quads_for_area (POPPLER_PAGE (page->backend_page),
+			                            &poppler_rect, &bbox);
 
 			if (!quads)
 				return;
 
-			rect.x1 = bbox.x1;
-			rect.x2 = bbox.x2;
-			rect.y1 = height - bbox.y2;
-			rect.y2 = height - bbox.y1;
+			rect = poppler_rect_to_pps (page, &bbox);
 
 			pps_annotation_set_area (annot, &rect);
 			poppler_annot_set_rectangle (poppler_annot, &bbox);
@@ -3750,13 +3713,9 @@ pdf_document_media_get_media_mapping (PpsDocumentMedia *document_media,
                                       PpsPage *page)
 {
 	PdfDocument *self = PDF_DOCUMENT (document_media);
-	PopplerPage *poppler_page = POPPLER_PAGE (page->backend_page);
-	GList *annots = poppler_page_get_annot_mapping (poppler_page);
+	GList *annots = poppler_page_get_annot_mapping (POPPLER_PAGE (page->backend_page));
 	GList *retval = NULL;
 	GList *list;
-	gdouble height;
-
-	poppler_page_get_size (poppler_page, NULL, &height);
 
 	for (list = annots; list; list = list->next) {
 		PopplerAnnotMapping *mapping;
@@ -3792,10 +3751,7 @@ pdf_document_media_get_media_mapping (PpsDocumentMedia *document_media,
 		media_mapping = g_new (PpsMapping, 1);
 
 		media_mapping->data = media;
-		media_mapping->area.x1 = mapping->area.x1;
-		media_mapping->area.x2 = mapping->area.x2;
-		media_mapping->area.y1 = height - mapping->area.y2;
-		media_mapping->area.y2 = height - mapping->area.y1;
+		media_mapping->area = poppler_rect_to_pps (page, &mapping->area);
 
 		retval = g_list_prepend (retval, media_mapping);
 	}
@@ -4128,8 +4084,8 @@ pdf_document_signatures_sign (PpsDocumentSignatures *document,
 	PpsCertificateInfo *cinfo = NULL;
 	PopplerRectangle signing_rect;
 	PpsRectangle *rect;
+	PpsPage *page;
 	PopplerColor color;
-	gdouble height;
 	GdkRGBA rgba;
 	struct poppler_sign_cb_data *wrapper_data = g_malloc (sizeof (struct poppler_sign_cb_data));
 
@@ -4179,13 +4135,10 @@ pdf_document_signatures_sign (PpsDocumentSignatures *document,
 	if (pps_signature_get_user_password (signature))
 		poppler_signing_data_set_document_user_password (signing_data, pps_signature_get_user_password (signature));
 
-	pps_document_get_page_size (PPS_DOCUMENT (document), pps_signature_get_page (signature), NULL, &height);
-
 	rect = pps_signature_get_rect (signature);
-	signing_rect.x1 = rect->x1;
-	signing_rect.y1 = height - rect->y1;
-	signing_rect.x2 = rect->x2;
-	signing_rect.y2 = height - rect->y2;
+	page = pps_document_get_page (PPS_DOCUMENT (document),
+	                              pps_signature_get_page (signature));
+	signing_rect = pps_rect_to_poppler (page, rect);
 
 	poppler_signing_data_set_signature_rectangle (signing_data, &signing_rect);
 
