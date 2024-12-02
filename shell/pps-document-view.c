@@ -2389,7 +2389,6 @@ pps_document_view_find_restart (PpsDocumentView *pps_doc_view)
 	gint page;
 
 	page = pps_document_model_get_page (priv->model);
-	pps_view_find_restart (PPS_VIEW (priv->view), page);
 	pps_find_sidebar_restart (PPS_FIND_SIDEBAR (priv->find_sidebar), page);
 }
 
@@ -2424,7 +2423,6 @@ pps_document_view_cmd_find_next (GSimpleAction *action,
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
-	pps_view_find_next (PPS_VIEW (priv->view));
 	pps_find_sidebar_next (PPS_FIND_SIDEBAR (priv->find_sidebar));
 }
 
@@ -2436,7 +2434,6 @@ pps_document_view_cmd_find_previous (GSimpleAction *action,
 	PpsDocumentView *pps_doc_view = user_data;
 	PpsDocumentViewPrivate *priv = GET_PRIVATE (pps_doc_view);
 
-	pps_view_find_previous (PPS_VIEW (priv->view));
 	pps_find_sidebar_previous (PPS_FIND_SIDEBAR (priv->find_sidebar));
 }
 

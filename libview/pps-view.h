@@ -84,13 +84,6 @@ PPS_PUBLIC
 void pps_view_set_search_context (PpsView *view,
                                   PpsSearchContext *context);
 PPS_PUBLIC
-void pps_view_find_restart (PpsView *view,
-                            gint page);
-PPS_PUBLIC
-void pps_view_find_next (PpsView *view);
-PPS_PUBLIC
-void pps_view_find_previous (PpsView *view);
-PPS_PUBLIC
 void pps_view_find_set_highlight_search (PpsView *view,
                                          gboolean value);
 

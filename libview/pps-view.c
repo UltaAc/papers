@@ -8490,18 +8490,6 @@ pps_view_find_get_result (PpsView *view, gint page, gint result)
 	return priv->find_pages ? (PpsFindRectangle *) g_list_nth_data (priv->find_pages[page], result) : NULL;
 }
 
-static gboolean
-pps_view_find_is_next_line (PpsView *view, gint page, gint result)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	if (!priv->find_pages)
-		return FALSE;
-
-	GList *elem = g_list_nth (priv->find_pages[page], result);
-	return elem && ((PpsFindRectangle *) elem->data)->next_line;
-}
-
 static void
 jump_to_find_result (PpsView *view)
 {
@@ -8660,75 +8648,6 @@ pps_view_set_search_context (PpsView *view,
 	g_signal_connect_object (priv->search_context, "result-activated",
 	                         G_CALLBACK (pps_view_find_set_result),
 	                         view, G_CONNECT_SWAPPED);
-}
-
-/**
- * pps_view_find_restart:
- * @view: an #PpsView
- * @page: a page index
- *
- * Restart the current search operation from the given @page.
- *
- * Since: 3.12
- */
-void
-pps_view_find_restart (PpsView *view,
-                       gint page)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	if (!priv->find_job)
-		return;
-
-	priv->find_page = page;
-	priv->find_result = 0;
-	jump_to_find_page (view, PPS_VIEW_FIND_NEXT, 0);
-	jump_to_find_result (view);
-	gtk_widget_queue_draw (GTK_WIDGET (view));
-}
-
-void
-pps_view_find_next (PpsView *view)
-{
-	gint n_results;
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	n_results = pps_view_find_get_n_results (view, priv->find_page);
-	priv->find_result += pps_view_find_is_next_line (view, priv->find_page, priv->find_result)
-	                         ? 2
-	                         : 1;
-
-	if (priv->find_result >= n_results) {
-		priv->find_result = 0;
-		jump_to_find_page (view, PPS_VIEW_FIND_NEXT, 1);
-	} else if (priv->find_page != priv->current_page) {
-		jump_to_find_page (view, PPS_VIEW_FIND_NEXT, 0);
-	}
-
-	jump_to_find_result (view);
-	gtk_widget_queue_draw (GTK_WIDGET (view));
-}
-
-void
-pps_view_find_previous (PpsView *view)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	priv->find_result -= pps_view_find_is_next_line (view, priv->find_page, priv->find_result - 2)
-	                         ? 2
-	                         : 1;
-
-	if (priv->find_result < 0) {
-		jump_to_find_page (view, PPS_VIEW_FIND_PREV, -1);
-		priv->find_result = MAX (0, pps_view_find_get_n_results (view, priv->find_page) - 1);
-		if (priv->find_result && pps_view_find_is_next_line (view, priv->find_page, priv->find_result))
-			priv->find_result--; /* set to last "non-nextline" result */
-	} else if (priv->find_page != priv->current_page) {
-		jump_to_find_page (view, PPS_VIEW_FIND_PREV, 0);
-	}
-
-	jump_to_find_result (view);
-	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
 void
