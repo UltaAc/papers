@@ -315,6 +315,7 @@ process_matches_idle (PpsSearchContext *context)
 		gchar *page_label;
 		gchar *page_text;
 		PpsRectangle *areas = NULL;
+		PpsSearchResult *result = NULL;
 		guint n_areas;
 		PangoLogAttr *text_log_attrs;
 		gulong text_log_attrs_length;
@@ -342,12 +343,18 @@ process_matches_idle (PpsSearchContext *context)
 
 		for (l = matches; l; l = g_list_next (l)) {
 			PpsFindRectangle *match = (PpsFindRectangle *) l->data;
-			PpsSearchResult *result;
 			gchar *markup;
 			gint new_offset;
 
-			if (l->prev && ((PpsFindRectangle *) l->prev->data)->next_line)
-				continue; /* Skip as this is second part of a multi-line match */
+			if (l->prev && ((PpsFindRectangle *) l->prev->data)->next_line) {
+				/* Multi-line match. We should delay creation
+				 * instead of appending rectangles, but that
+				 * requires a lot of refactoring in the
+				 * logic around this function. */
+				g_assert (result != NULL);
+				pps_search_result_append_rectangle (result, match);
+				continue;
+			}
 
 			new_offset = get_match_offset (areas, n_areas, match, offset);
 			if (new_offset == -1) {
@@ -372,7 +379,8 @@ process_matches_idle (PpsSearchContext *context)
 			result = pps_search_result_new (g_strdup (markup),
 			                                g_strdup (page_label),
 			                                current_page,
-			                                index++);
+			                                index++,
+			                                match);
 			g_ptr_array_add (results_array, result);
 
 			g_free (markup);

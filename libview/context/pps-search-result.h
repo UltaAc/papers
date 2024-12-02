@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include <libdocument/pps-macros.h>
+#include <papers-document.h>
 #if !defined(__PPS_PAPERS_VIEW_H_INSIDE__) && !defined(PAPERS_COMPILATION)
 #error "Only <papers-view.h> can be included directly."
 #endif
@@ -46,7 +46,8 @@ PPS_PUBLIC
 PpsSearchResult *pps_search_result_new (gchar *markup,
                                         gchar *label,
                                         guint page,
-                                        guint index);
+                                        guint index,
+                                        PpsFindRectangle *rect);
 
 PPS_PUBLIC
 const gchar *pps_search_result_get_markup (PpsSearchResult *self);
@@ -56,5 +57,9 @@ PPS_PUBLIC
 guint pps_search_result_get_page (PpsSearchResult *self);
 PPS_PUBLIC
 guint pps_search_result_get_index (PpsSearchResult *self);
+PPS_PUBLIC
+GList *pps_search_result_get_rectangle_list (PpsSearchResult *self);
+PPS_PUBLIC
+void pps_search_result_append_rectangle (PpsSearchResult *self, PpsFindRectangle *rect);
 
 G_END_DECLS

@@ -31,6 +31,7 @@ typedef struct
 	gchar *label;
 	guint page;
 	guint index;
+	GList *find_rectangles;
 } PpsSearchResultPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (PpsSearchResult, pps_search_result, G_TYPE_OBJECT)
@@ -43,15 +44,18 @@ pps_search_result_init (PpsSearchResult *self)
 }
 
 static void
-pps_search_result_finalize (GObject *object)
+pps_search_result_dispose (GObject *object)
 {
 	PpsSearchResult *self = PPS_SEARCH_RESULT (object);
-	PpsSearchResultPrivate *private = GET_PRIVATE (self);
+	PpsSearchResultPrivate *priv = GET_PRIVATE (self);
 
-	g_clear_pointer (&private->markup, g_free);
-	g_clear_pointer (&private->label, g_free);
+	g_clear_pointer (&priv->markup, g_free);
+	g_clear_pointer (&priv->label, g_free);
+	g_list_free_full (priv->find_rectangles,
+	                  (GDestroyNotify) pps_find_rectangle_free);
+	priv->find_rectangles = NULL;
 
-	G_OBJECT_CLASS (pps_search_result_parent_class)->finalize (object);
+	G_OBJECT_CLASS (pps_search_result_parent_class)->dispose (object);
 }
 
 static void
@@ -59,22 +63,25 @@ pps_search_result_class_init (PpsSearchResultClass *result_class)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (result_class);
 
-	object_class->finalize = pps_search_result_finalize;
+	object_class->dispose = pps_search_result_dispose;
 }
 
 PpsSearchResult *
 pps_search_result_new (gchar *markup,
                        gchar *label,
                        guint page,
-                       guint index)
+                       guint index,
+                       PpsFindRectangle *rect)
 {
 	PpsSearchResult *result = g_object_new (PPS_TYPE_SEARCH_RESULT, NULL);
-	PpsSearchResultPrivate *private = GET_PRIVATE (result);
+	PpsSearchResultPrivate *priv = GET_PRIVATE (result);
 
-	private->markup = markup;
-	private->label = label;
-	private->page = page;
-	private->index = index;
+	priv->markup = markup;
+	priv->label = label;
+	priv->page = page;
+	priv->index = index;
+	priv->find_rectangles = g_list_append (priv->find_rectangles,
+	                                       pps_find_rectangle_copy (rect));
 
 	return result;
 }
@@ -109,4 +116,36 @@ pps_search_result_get_index (PpsSearchResult *self)
 	PpsSearchResultPrivate *private = GET_PRIVATE (self);
 
 	return private->index;
+}
+
+/**
+ * pps_search_result_get_rectangle_list:
+ * @self: the PpsSearchResult
+ *
+ * Returns: (nullable) (transfer none) (element-type PpsFindRectangle): the
+ * list of rectangles for this result.
+ */
+GList *
+pps_search_result_get_rectangle_list (PpsSearchResult *self)
+{
+	PpsSearchResultPrivate *priv = GET_PRIVATE (self);
+
+	return priv->find_rectangles;
+}
+
+/**
+ * pps_search_result_append_rectangle:
+ * @self: the PpsSearchResult
+ * @rect: the #PpsFindRectangle to append
+ *
+ * Appends a rectangle to the search result. This should not be used outside the
+ * creation of the search result.
+ */
+void
+pps_search_result_append_rectangle (PpsSearchResult *self, PpsFindRectangle *rect)
+{
+	PpsSearchResultPrivate *priv = GET_PRIVATE (self);
+
+	priv->find_rectangles = g_list_append (priv->find_rectangles,
+	                                       pps_find_rectangle_copy (rect));
 }
