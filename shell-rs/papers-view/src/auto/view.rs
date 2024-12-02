@@ -92,38 +92,10 @@ impl View {
         }
     }
 
-    #[doc(alias = "pps_view_find_next")]
-    pub fn find_next(&self) {
-        unsafe {
-            ffi::pps_view_find_next(self.to_glib_none().0);
-        }
-    }
-
-    #[doc(alias = "pps_view_find_previous")]
-    pub fn find_previous(&self) {
-        unsafe {
-            ffi::pps_view_find_previous(self.to_glib_none().0);
-        }
-    }
-
-    #[doc(alias = "pps_view_find_restart")]
-    pub fn find_restart(&self, page: i32) {
-        unsafe {
-            ffi::pps_view_find_restart(self.to_glib_none().0, page);
-        }
-    }
-
     #[doc(alias = "pps_view_find_set_highlight_search")]
     pub fn find_set_highlight_search(&self, value: bool) {
         unsafe {
             ffi::pps_view_find_set_highlight_search(self.to_glib_none().0, value.into_glib());
-        }
-    }
-
-    #[doc(alias = "pps_view_find_set_result")]
-    pub fn find_set_result(&self, page: i32, result: i32) {
-        unsafe {
-            ffi::pps_view_find_set_result(self.to_glib_none().0, page, result);
         }
     }
 
@@ -618,7 +590,7 @@ impl View {
 
     //#[doc(alias = "signature-rect")]
     //pub fn connect_signature_rect<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
-    //    Unimplemented p0: *.Pointer
+    //    Ignored p0: PapersDocument.Rectangle
     //}
 
     #[doc(alias = "can-zoom-in")]

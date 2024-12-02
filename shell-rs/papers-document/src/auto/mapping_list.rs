@@ -28,11 +28,6 @@ impl MappingList {
     //    unsafe { TODO: call ffi:pps_mapping_list_find() }
     //}
 
-    //#[doc(alias = "pps_mapping_list_find_custom")]
-    //pub fn find_custom(&self, data: /*Unimplemented*/Option<Basic: Pointer>, func: /*Unimplemented*/FnMut(/*Unimplemented*/Option<Basic: Pointer>) -> i32) -> Option<Mapping> {
-    //    unsafe { TODO: call ffi:pps_mapping_list_find_custom() }
-    //}
-
     #[doc(alias = "pps_mapping_list_get")]
     pub fn get(&self, x: f64, y: f64) -> Option<Mapping> {
         unsafe { from_glib_none(ffi::pps_mapping_list_get(self.to_glib_none().0, x, y)) }

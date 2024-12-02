@@ -508,14 +508,12 @@ impl ::std::fmt::Debug for PpsJob {
 #[repr(C)]
 pub struct PpsJobAnnots {
     pub parent: PpsJob,
-    pub annots: *mut glib::GList,
 }
 
 impl ::std::fmt::Debug for PpsJobAnnots {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("PpsJobAnnots @ {self:p}"))
             .field("parent", &self.parent)
-            .field("annots", &self.annots)
             .finish()
     }
 }
@@ -524,14 +522,12 @@ impl ::std::fmt::Debug for PpsJobAnnots {
 #[repr(C)]
 pub struct PpsJobAttachments {
     pub parent: PpsJob,
-    pub attachments: *mut glib::GList,
 }
 
 impl ::std::fmt::Debug for PpsJobAttachments {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("PpsJobAttachments @ {self:p}"))
             .field("parent", &self.parent)
-            .field("attachments", &self.attachments)
             .finish()
     }
 }
@@ -614,14 +610,12 @@ impl ::std::fmt::Debug for PpsJobLayers {
 #[repr(C)]
 pub struct PpsJobLinks {
     pub parent: PpsJob,
-    pub model: *mut gio::GListModel,
 }
 
 impl ::std::fmt::Debug for PpsJobLinks {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("PpsJobLinks @ {self:p}"))
             .field("parent", &self.parent)
-            .field("model", &self.model)
             .finish()
     }
 }
@@ -1330,11 +1324,17 @@ extern "C" {
         label: *mut c_char,
         page: c_uint,
         index: c_uint,
+        rect: *mut papers_document::PpsFindRectangle,
     ) -> *mut PpsSearchResult;
+    pub fn pps_search_result_append_rectangle(
+        self_: *mut PpsSearchResult,
+        rect: *mut papers_document::PpsFindRectangle,
+    );
     pub fn pps_search_result_get_index(self_: *mut PpsSearchResult) -> c_uint;
     pub fn pps_search_result_get_label(self_: *mut PpsSearchResult) -> *const c_char;
     pub fn pps_search_result_get_markup(self_: *mut PpsSearchResult) -> *const c_char;
     pub fn pps_search_result_get_page(self_: *mut PpsSearchResult) -> c_uint;
+    pub fn pps_search_result_get_rectangle_list(self_: *mut PpsSearchResult) -> *mut glib::GList;
 
     //=========================================================================
     // PpsView
@@ -1360,11 +1360,7 @@ extern "C" {
     );
     pub fn pps_view_current_event_is_type(view: *mut PpsView, type_: gdk::GdkEventType)
         -> gboolean;
-    pub fn pps_view_find_next(view: *mut PpsView);
-    pub fn pps_view_find_previous(view: *mut PpsView);
-    pub fn pps_view_find_restart(view: *mut PpsView, page: c_int);
     pub fn pps_view_find_set_highlight_search(view: *mut PpsView, value: gboolean);
-    pub fn pps_view_find_set_result(view: *mut PpsView, page: c_int, result: c_int);
     pub fn pps_view_focus_annotation(
         view: *mut PpsView,
         annot_mapping: *const papers_document::PpsMapping,

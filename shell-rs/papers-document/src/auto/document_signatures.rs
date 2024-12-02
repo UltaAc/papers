@@ -46,6 +46,17 @@ pub trait DocumentSignaturesExt: IsA<DocumentSignatures> + sealed::Sealed + 'sta
         }
     }
 
+    #[doc(alias = "pps_document_signatures_get_certificate_info")]
+    #[doc(alias = "get_certificate_info")]
+    fn certificate_info(&self, nick_name: &str) -> Option<CertificateInfo> {
+        unsafe {
+            from_glib_full(ffi::pps_document_signatures_get_certificate_info(
+                self.as_ref().to_glib_none().0,
+                nick_name.to_glib_none().0,
+            ))
+        }
+    }
+
     #[doc(alias = "pps_document_signatures_get_signatures")]
     #[doc(alias = "get_signatures")]
     fn signatures(&self) -> Vec<Signature> {

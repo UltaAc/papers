@@ -490,7 +490,6 @@ pub struct PpsDocumentClass {
             *mut PpsDocument,
             c_int,
             PpsDocumentLoadFlags,
-            *mut gio::GCancellable,
             *mut *mut glib::GError,
         ) -> gboolean,
     >,
@@ -2236,11 +2235,6 @@ extern "C" {
         mapping_list: *mut PpsMappingList,
         data: gconstpointer,
     ) -> *mut PpsMapping;
-    pub fn pps_mapping_list_find_custom(
-        mapping_list: *mut PpsMappingList,
-        data: gconstpointer,
-        func: glib::GCompareFunc,
-    ) -> *mut PpsMapping;
     pub fn pps_mapping_list_get(
         mapping_list: *mut PpsMappingList,
         x: c_double,
@@ -2410,7 +2404,6 @@ extern "C" {
         fd: c_int,
         mime_type: *const c_char,
         flags: PpsDocumentLoadFlags,
-        cancellable: *mut gio::GCancellable,
         error: *mut *mut glib::GError,
     ) -> *mut PpsDocument;
     pub fn pps_document_factory_get_document_full(
@@ -2440,10 +2433,6 @@ extern "C" {
     pub fn pps_document_misc_texture_from_surface(
         surface: *mut cairo::cairo_surface_t,
     ) -> *mut gdk::GdkTexture;
-    pub fn pps_document_signature_get_certificate_info(
-        document_signatures: *mut PpsDocumentSignatures,
-        id: *const c_char,
-    ) -> *mut PpsCertificateInfo;
     pub fn pps_document_check_dimensions(document: *mut PpsDocument) -> gboolean;
     pub fn pps_document_doc_mutex_lock(document: *mut PpsDocument);
     pub fn pps_document_doc_mutex_trylock(document: *mut PpsDocument) -> gboolean;
@@ -2506,7 +2495,6 @@ extern "C" {
         document: *mut PpsDocument,
         fd: c_int,
         flags: PpsDocumentLoadFlags,
-        cancellable: *mut gio::GCancellable,
         error: *mut *mut glib::GError,
     ) -> gboolean;
     pub fn pps_document_load_full(
@@ -3088,6 +3076,10 @@ extern "C" {
     pub fn pps_document_signatures_get_available_signing_certificates(
         document_signatures: *mut PpsDocumentSignatures,
     ) -> *mut glib::GList;
+    pub fn pps_document_signatures_get_certificate_info(
+        document_signatures: *mut PpsDocumentSignatures,
+        nick_name: *const c_char,
+    ) -> *mut PpsCertificateInfo;
     pub fn pps_document_signatures_get_signatures(
         document_signatures: *mut PpsDocumentSignatures,
     ) -> *mut glib::GList;
@@ -3222,7 +3214,6 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> *mut c_char;
     pub fn pps_init() -> gboolean;
-    pub fn pps_mkdtemp(tmpl: *const c_char, error: *mut *mut glib::GError) -> *mut c_char;
     pub fn pps_mkstemp(
         tmpl: *const c_char,
         file_name: *mut *mut c_char,

@@ -18,18 +18,10 @@ glib::wrapper! {
 impl SearchResult {
     pub const NONE: Option<&'static SearchResult> = None;
 
-    #[doc(alias = "pps_search_result_new")]
-    pub fn new(markup: &str, label: &str, page: u32, index: u32) -> SearchResult {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::pps_search_result_new(
-                markup.to_glib_none().0,
-                label.to_glib_none().0,
-                page,
-                index,
-            ))
-        }
-    }
+    //#[doc(alias = "pps_search_result_new")]
+    //pub fn new(markup: &str, label: &str, page: u32, index: u32, rect: /*Ignored*/&mut papers_document::FindRectangle) -> SearchResult {
+    //    unsafe { TODO: call ffi:pps_search_result_new() }
+    //}
 }
 
 mod sealed {
@@ -38,6 +30,11 @@ mod sealed {
 }
 
 pub trait SearchResultExt: IsA<SearchResult> + sealed::Sealed + 'static {
+    //#[doc(alias = "pps_search_result_append_rectangle")]
+    //fn append_rectangle(&self, rect: /*Ignored*/&mut papers_document::FindRectangle) {
+    //    unsafe { TODO: call ffi:pps_search_result_append_rectangle() }
+    //}
+
     #[doc(alias = "pps_search_result_get_index")]
     #[doc(alias = "get_index")]
     fn index(&self) -> u32 {
@@ -69,6 +66,12 @@ pub trait SearchResultExt: IsA<SearchResult> + sealed::Sealed + 'static {
     fn page(&self) -> u32 {
         unsafe { ffi::pps_search_result_get_page(self.as_ref().to_glib_none().0) }
     }
+
+    //#[doc(alias = "pps_search_result_get_rectangle_list")]
+    //#[doc(alias = "get_rectangle_list")]
+    //fn rectangle_list(&self) -> /*Ignored*/Vec<papers_document::FindRectangle> {
+    //    unsafe { TODO: call ffi:pps_search_result_get_rectangle_list() }
+    //}
 }
 
 impl<O: IsA<SearchResult>> SearchResultExt for O {}

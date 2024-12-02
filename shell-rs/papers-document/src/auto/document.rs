@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{ffi, CertificateInfo, DocumentInfo, DocumentSignatures, Page};
+use crate::{ffi, DocumentInfo, Page};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -51,7 +51,7 @@ impl Document {
     //#[cfg(feature = "v42")]
     //#[cfg_attr(docsrs, doc(cfg(feature = "v42")))]
     //#[doc(alias = "pps_document_factory_get_document_for_fd")]
-    //pub fn factory_get_document_for_fd(fd: i32, mime_type: &str, flags: /*Ignored*/DocumentLoadFlags, cancellable: /*Ignored*/Option<&gio::Cancellable>) -> Result<Document, glib::Error> {
+    //pub fn factory_get_document_for_fd(fd: i32, mime_type: &str, flags: /*Ignored*/DocumentLoadFlags) -> Result<Document, glib::Error> {
     //    unsafe { TODO: call ffi:pps_document_factory_get_document_for_fd() }
     //}
 
@@ -106,20 +106,6 @@ impl Document {
     //pub fn misc_texture_from_surface(surface: /*Ignored*/&mut cairo::Surface) -> /*Ignored*/Option<gdk::Texture> {
     //    unsafe { TODO: call ffi:pps_document_misc_texture_from_surface() }
     //}
-
-    #[doc(alias = "pps_document_signature_get_certificate_info")]
-    pub fn signature_get_certificate_info(
-        document_signatures: &impl IsA<DocumentSignatures>,
-        id: &str,
-    ) -> Option<CertificateInfo> {
-        skip_assert_initialized!();
-        unsafe {
-            from_glib_none(ffi::pps_document_signature_get_certificate_info(
-                document_signatures.as_ref().to_glib_none().0,
-                id.to_glib_none().0,
-            ))
-        }
-    }
 }
 
 mod sealed {
@@ -349,7 +335,7 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
     //#[cfg(feature = "v42")]
     //#[cfg_attr(docsrs, doc(cfg(feature = "v42")))]
     //#[doc(alias = "pps_document_load_fd")]
-    //fn load_fd(&self, fd: i32, flags: /*Ignored*/DocumentLoadFlags, cancellable: /*Ignored*/Option<&gio::Cancellable>) -> Result<(), glib::Error> {
+    //fn load_fd(&self, fd: i32, flags: /*Ignored*/DocumentLoadFlags) -> Result<(), glib::Error> {
     //    unsafe { TODO: call ffi:pps_document_load_fd() }
     //}
 

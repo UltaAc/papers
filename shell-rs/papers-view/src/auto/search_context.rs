@@ -3,7 +3,7 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{ffi, DocumentModel, JobFind, SearchResult};
+use crate::{ffi, DocumentModel, SearchResult};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -128,21 +128,19 @@ pub trait SearchContextExt: IsA<SearchContext> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "finished")]
-    fn connect_finished<F: Fn(&Self, &JobFind, i32) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_finished<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn finished_trampoline<
             P: IsA<SearchContext>,
-            F: Fn(&P, &JobFind, i32) + 'static,
+            F: Fn(&P, i32) + 'static,
         >(
             this: *mut ffi::PpsSearchContext,
-            object: *mut ffi::PpsJobFind,
-            p0: libc::c_int,
+            object: libc::c_int,
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(
                 SearchContext::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(object),
-                p0,
+                object,
             )
         }
         unsafe {
@@ -159,21 +157,22 @@ pub trait SearchContextExt: IsA<SearchContext> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "result-activated")]
-    fn connect_result_activated<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_result_activated<F: Fn(&Self, &SearchResult) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
         unsafe extern "C" fn result_activated_trampoline<
             P: IsA<SearchContext>,
-            F: Fn(&P, i32, i32) + 'static,
+            F: Fn(&P, &SearchResult) + 'static,
         >(
             this: *mut ffi::PpsSearchContext,
-            object: libc::c_int,
-            p0: libc::c_int,
+            object: *mut ffi::PpsSearchResult,
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
             f(
                 SearchContext::from_glib_borrow(this).unsafe_cast_ref(),
-                object,
-                p0,
+                &from_glib_borrow(object),
             )
         }
         unsafe {
@@ -190,20 +189,13 @@ pub trait SearchContextExt: IsA<SearchContext> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "started")]
-    fn connect_started<F: Fn(&Self, &JobFind) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn started_trampoline<
-            P: IsA<SearchContext>,
-            F: Fn(&P, &JobFind) + 'static,
-        >(
+    fn connect_started<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn started_trampoline<P: IsA<SearchContext>, F: Fn(&P) + 'static>(
             this: *mut ffi::PpsSearchContext,
-            object: *mut ffi::PpsJobFind,
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
-            f(
-                SearchContext::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(object),
-            )
+            f(SearchContext::from_glib_borrow(this).unsafe_cast_ref())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
