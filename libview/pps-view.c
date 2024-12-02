@@ -8491,84 +8491,35 @@ pps_view_find_get_result (PpsView *view, gint page, gint result)
 }
 
 static void
-jump_to_find_result (PpsView *view)
+jump_to_find_result (PpsView *view, GList *rect_list)
 {
-	PpsRectangle *rect;
-	gint n_results;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	gint page = priv->find_page;
+	PpsRectangle *rect = pps_rectangle_new ();
+	PpsFindRectangle *find_rect, *rect_next = NULL;
+	GdkRectangle view_rect;
 
-	n_results = pps_view_find_get_n_results (view, page);
-	rect = pps_rectangle_new ();
-
-	if (n_results > 0 && priv->find_result < n_results) {
-		PpsFindRectangle *find_rect, *rect_next;
-		GdkRectangle view_rect;
-
-		rect_next = NULL;
-		find_rect = pps_view_find_get_result (view, page, priv->find_result);
-		if (find_rect->next_line) {
-			/* For an across-lines match, make sure both rectangles are visible */
-			rect_next = pps_view_find_get_result (view, page, priv->find_result + 1);
-			rect->x1 = MIN (find_rect->x1, rect_next->x1);
-			rect->y1 = MIN (find_rect->y1, rect_next->y1);
-			rect->x2 = MAX (find_rect->x2, rect_next->x2);
-			rect->y2 = MAX (find_rect->y2, rect_next->y2);
-		} else {
-			rect->x1 = find_rect->x1;
-			rect->y1 = find_rect->y1;
-			rect->x2 = find_rect->x2;
-			rect->y2 = find_rect->y2;
-		}
-		_pps_view_transform_doc_rect_to_view_rect (view, page, rect, &view_rect);
-		_pps_view_ensure_rectangle_is_visible (view, &view_rect);
-		if (priv->caret_enabled && priv->rotation == 0)
-			position_caret_cursor_at_doc_point (view, page, find_rect->x1, find_rect->y1);
+	find_rect = (PpsFindRectangle *) rect_list->data;
+	rect->x1 = find_rect->x1;
+	rect->y1 = find_rect->y1;
+	rect->x2 = find_rect->x2;
+	rect->y2 = find_rect->y2;
+	while (rect_list->next) {
+		rect_list = rect_list->next;
+		rect_next = (PpsFindRectangle *) rect_list->data;
+		/* For an across-lines match, make sure both rectangles are visible */
+		rect->x1 = MIN (rect->x1, rect_next->x1);
+		rect->y1 = MIN (rect->y1, rect_next->y1);
+		rect->x2 = MAX (rect->x2, rect_next->x2);
+		rect->y2 = MAX (rect->y2, rect_next->y2);
 	}
+	_pps_view_transform_doc_rect_to_view_rect (view, priv->find_page,
+	                                           rect, &view_rect);
+	_pps_view_ensure_rectangle_is_visible (view, &view_rect);
+	if (priv->caret_enabled && priv->rotation == 0)
+		position_caret_cursor_at_doc_point (view, priv->find_page,
+		                                    find_rect->x1, find_rect->y1);
 
 	pps_rectangle_free (rect);
-}
-
-/**
- * jump_to_find_page:
- * @view: #PpsView instance
- * @direction: Direction to look
- * @shift: Shift from current page
- *
- * Jumps to the first page that has occurrences of searched word.
- * Uses a direction where to look and a shift from current page.
- *
- */
-static void
-jump_to_find_page (PpsView *view, PpsViewFindDirection direction, gint shift)
-{
-	int n_pages, i;
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	n_pages = pps_document_get_n_pages (priv->document);
-
-	for (i = 0; i < n_pages; i++) {
-		int page;
-
-		if (direction == PPS_VIEW_FIND_NEXT)
-			page = priv->find_page + i;
-		else
-			page = priv->find_page - i;
-		page += shift;
-
-		if (page >= n_pages)
-			page = page - n_pages;
-		else if (page < 0)
-			page = page + n_pages;
-
-		if (priv->find_pages && priv->find_pages[page]) {
-			priv->find_page = page;
-			break;
-		}
-	}
-
-	if (!priv->continuous)
-		pps_document_model_set_page (priv->model, priv->find_page);
 }
 
 static void
@@ -8607,14 +8558,14 @@ pps_view_find_started (PpsView *view, PpsJobFind *job)
 }
 
 static void
-pps_view_find_set_result (PpsView *view, gint page, gint result)
+pps_view_find_set_result (PpsView *view, PpsSearchResult *result)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	priv->find_page = page;
-	priv->find_result = result;
-	jump_to_find_page (view, PPS_VIEW_FIND_NEXT, 0);
-	jump_to_find_result (view);
+	priv->find_page = pps_search_result_get_page (result);
+	priv->find_result = pps_search_result_get_index (result);
+	pps_document_model_set_page (priv->model, priv->find_page);
+	jump_to_find_result (view, pps_search_result_get_rectangle_list (result));
 	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 

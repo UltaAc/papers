@@ -545,9 +545,8 @@ pps_search_context_class_init (PpsSearchContextClass *klass)
 	                  G_SIGNAL_RUN_LAST,
 	                  0, NULL, NULL,
 	                  g_cclosure_marshal_generic,
-	                  G_TYPE_NONE, 2,
-	                  G_TYPE_INT,
-	                  G_TYPE_INT);
+	                  G_TYPE_NONE, 1,
+	                  PPS_TYPE_SEARCH_RESULT);
 	signals[STARTED] =
 	    g_signal_new ("started",
 	                  G_OBJECT_CLASS_TYPE (gobject_class),
@@ -651,7 +650,5 @@ void
 pps_search_context_select_result (PpsSearchContext *context,
                                   PpsSearchResult *result)
 {
-	g_signal_emit (context, signals[RESULT_ACTIVATED], 0,
-	               pps_search_result_get_page (result),
-	               pps_search_result_get_index (result));
+	g_signal_emit (context, signals[RESULT_ACTIVATED], 0, result);
 }
