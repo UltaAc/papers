@@ -91,10 +91,6 @@ void pps_view_find_next (PpsView *view);
 PPS_PUBLIC
 void pps_view_find_previous (PpsView *view);
 PPS_PUBLIC
-void pps_view_find_set_result (PpsView *view,
-                               gint page,
-                               gint result);
-PPS_PUBLIC
 void pps_view_find_set_highlight_search (PpsView *view,
                                          gboolean value);
 

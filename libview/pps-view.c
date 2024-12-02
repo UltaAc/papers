@@ -8623,6 +8623,18 @@ pps_view_find_started (PpsView *view, PpsJobFind *job)
 	g_signal_connect (job, "updated", G_CALLBACK (find_job_updated_cb), view);
 }
 
+static void
+pps_view_find_set_result (PpsView *view, gint page, gint result)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+
+	priv->find_page = page;
+	priv->find_result = result;
+	jump_to_find_page (view, PPS_VIEW_FIND_NEXT, 0);
+	jump_to_find_result (view);
+	gtk_widget_queue_draw (GTK_WIDGET (view));
+}
+
 void
 pps_view_set_search_context (PpsView *view,
                              PpsSearchContext *context)
@@ -8719,28 +8731,6 @@ pps_view_find_previous (PpsView *view)
 		jump_to_find_page (view, PPS_VIEW_FIND_PREV, 0);
 	}
 
-	jump_to_find_result (view);
-	gtk_widget_queue_draw (GTK_WIDGET (view));
-}
-
-/**
- * pps_view_find_set_result:
- * @view: a #PpsView
- * @page:
- * @result:
- *
- * FIXME
- *
- * Since: 3.10
- */
-void
-pps_view_find_set_result (PpsView *view, gint page, gint result)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	priv->find_page = page;
-	priv->find_result = result;
-	jump_to_find_page (view, PPS_VIEW_FIND_NEXT, 0);
 	jump_to_find_result (view);
 	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
