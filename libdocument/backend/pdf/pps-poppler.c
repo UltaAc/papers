@@ -3525,12 +3525,9 @@ pdf_document_annotations_save_annotation (PpsDocumentAnnotations *document_annot
 			rect.y2 = height - bbox.y1;
 
 			pps_annotation_set_area (annot, &rect);
-
-			poppler_annot_text_markup_set_quadrilaterals (text_markup, quads);
 			poppler_annot_set_rectangle (poppler_annot, &bbox);
+			poppler_annot_text_markup_set_quadrilaterals (text_markup, quads);
 			g_array_unref (quads);
-
-			pps_annotation_set_area (annot, &rect);
 		}
 	}
 
