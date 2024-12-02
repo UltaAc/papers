@@ -209,7 +209,6 @@ pps_find_sidebar_highlight_first_match_of_page (PpsFindSidebar *sidebar,
 
 static void
 find_job_finished_cb (PpsSearchContext *search_context,
-                      PpsJobFind *job,
                       gint first_match_page,
                       PpsFindSidebar *sidebar)
 {

@@ -301,7 +301,7 @@ process_matches_idle (PpsSearchContext *context)
 	g_return_if_fail (PPS_IS_JOB (priv->job));
 
 	if (!pps_job_find_has_results (priv->job)) {
-		g_signal_emit (context, signals[FINISHED], 0, priv->job, first_match_page);
+		g_signal_emit (context, signals[FINISHED], 0, first_match_page);
 		pps_search_context_clear_job (context);
 		return;
 	}
@@ -396,7 +396,7 @@ process_matches_idle (PpsSearchContext *context)
 	if (n_results > 0)
 		g_list_store_splice (priv->result_model, 0, 0, (gpointer *) results, (guint) n_results);
 
-	g_signal_emit (context, signals[FINISHED], 0, priv->job, first_match_page);
+	g_signal_emit (context, signals[FINISHED], 0, first_match_page);
 
 	pps_search_context_clear_job (context);
 }
@@ -429,7 +429,7 @@ search_changed_cb (PpsSearchContext *context)
 		                  G_CALLBACK (find_job_finished_cb),
 		                  context);
 
-		g_signal_emit (context, signals[STARTED], 0, priv->job);
+		g_signal_emit (context, signals[STARTED], 0);
 		pps_job_scheduler_push_job (PPS_JOB (priv->job), PPS_JOB_PRIORITY_NONE);
 	} else {
 		g_signal_emit (context, signals[CLEARED], 0);
@@ -552,17 +552,15 @@ pps_search_context_class_init (PpsSearchContextClass *klass)
 	                  G_OBJECT_CLASS_TYPE (gobject_class),
 	                  G_SIGNAL_RUN_LAST,
 	                  0, NULL, NULL,
-	                  g_cclosure_marshal_VOID__OBJECT,
-	                  G_TYPE_NONE, 1,
-	                  PPS_TYPE_JOB_FIND);
+	                  g_cclosure_marshal_VOID__VOID,
+	                  G_TYPE_NONE, 0);
 	signals[FINISHED] =
 	    g_signal_new ("finished",
 	                  G_OBJECT_CLASS_TYPE (gobject_class),
 	                  G_SIGNAL_RUN_LAST,
 	                  0, NULL, NULL,
-	                  g_cclosure_marshal_generic,
-	                  G_TYPE_NONE, 2,
-	                  PPS_TYPE_JOB_FIND,
+	                  g_cclosure_marshal_VOID__INT,
+	                  G_TYPE_NONE, 1,
 	                  G_TYPE_INT);
 	signals[CLEARED] =
 	    g_signal_new ("cleared",

@@ -112,8 +112,6 @@ typedef struct _PpsViewPrivate {
 
 	/* Find */
 	PpsSearchContext *search_context;
-	PpsJobFind *find_job;
-	GList **find_pages; /* Backwards compatibility. Contains PpsFindRectangles's elements per page */
 	gint find_page;     /* Page of active find result */
 	gint find_result;   /* Index of active find result on find_pages[find_page]. For matches across
 	                     * two lines (which comprise two PpsFindRectangle's), this will always point

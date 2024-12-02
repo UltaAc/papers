@@ -246,11 +246,6 @@ static void pps_view_set_cursor (PpsView *view,
                                  PpsViewCursor new_cursor);
 
 /*** Find ***/
-static gint pps_view_find_get_n_results (PpsView *view,
-                                         gint page);
-static PpsFindRectangle *pps_view_find_get_result (PpsView *view,
-                                                   gint page,
-                                                   gint result);
 static void pps_view_find_cancel (PpsView *view);
 
 /*** Selection ***/
@@ -4701,7 +4696,7 @@ pps_view_snapshot (GtkWidget *widget, GtkSnapshot *snapshot)
 
 		if (page_ready && should_draw_caret_cursor (view, i))
 			draw_caret_cursor (view, snapshot);
-		if (page_ready && priv->find_pages && priv->highlight_find_results)
+		if (page_ready && priv->highlight_find_results)
 			highlight_find_results (view, snapshot, i);
 		if (page_ready && PPS_IS_DOCUMENT_ANNOTATIONS (priv->document))
 			show_annotation_windows (view, i);
@@ -6669,38 +6664,46 @@ highlight_find_results (PpsView *view,
                         GtkSnapshot *snapshot,
                         int page)
 {
-	PpsRectangle *pps_rect;
-	gint i, n_results = 0;
+	PpsRectangle *pps_rect = pps_rectangle_new ();
+	gint i = 0;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	GListModel *model = pps_search_context_get_result_model (priv->search_context);
+	PpsSearchResult *result = g_list_model_get_item (model, i);
 
-	n_results = pps_view_find_get_n_results (view, page);
-	pps_rect = pps_rectangle_new ();
-
-	for (i = 0; i < n_results; i++) {
+	for (i = 0, result = g_list_model_get_item (model, i);
+	     result != NULL;
+	     result = g_list_model_get_item (model, ++i)) {
 		PpsFindRectangle *find_rect;
+		GList *rectangles;
 		GdkRectangle view_rectangle;
-		gboolean active;
+		gboolean active = FALSE;
 
-		find_rect = pps_view_find_get_result (view, page, i);
+		if (pps_search_result_get_page (result) != page)
+			continue;
+
+		rectangles = pps_search_result_get_rectangle_list (result);
+		find_rect = (PpsFindRectangle *) rectangles->data;
 		pps_rect->x1 = find_rect->x1;
 		pps_rect->x2 = find_rect->x2;
 		pps_rect->y1 = find_rect->y1;
 		pps_rect->y2 = find_rect->y2;
 
-		active = page == priv->find_page && i == priv->find_result;
-		_pps_view_transform_doc_rect_to_view_rect (view, page, pps_rect, &view_rectangle);
+		if (page == priv->find_page &&
+		    pps_search_result_get_index (result) == priv->find_result)
+			active = TRUE;
+		_pps_view_transform_doc_rect_to_view_rect (view, page, pps_rect,
+		                                           &view_rectangle);
 		draw_rubberband (view, snapshot, &view_rectangle, active);
 
-		if (active && find_rect->next_line) {
+		if (rectangles->next) {
 			/* Draw now next result (which is second part of multi-line match) */
-			i++;
-			find_rect = pps_view_find_get_result (view, page, i);
+			find_rect = (PpsFindRectangle *) rectangles->next->data;
 			pps_rect->x1 = find_rect->x1;
 			pps_rect->x2 = find_rect->x2;
 			pps_rect->y1 = find_rect->y1;
 			pps_rect->y2 = find_rect->y2;
 			_pps_view_transform_doc_rect_to_view_rect (view, page, pps_rect, &view_rectangle);
-			draw_rubberband (view, snapshot, &view_rectangle, TRUE);
+			draw_rubberband (view, snapshot, &view_rectangle, active);
 		}
 	}
 
@@ -8474,22 +8477,6 @@ pps_view_page_fits (PpsView *view,
 }
 
 /*** Find ***/
-static gint
-pps_view_find_get_n_results (PpsView *view, gint page)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	return priv->find_pages ? g_list_length (priv->find_pages[page]) : 0;
-}
-
-static PpsFindRectangle *
-pps_view_find_get_result (PpsView *view, gint page, gint result)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	return priv->find_pages ? (PpsFindRectangle *) g_list_nth_data (priv->find_pages[page], result) : NULL;
-}
-
 static void
 jump_to_find_result (PpsView *view, GList *rect_list)
 {
@@ -8523,22 +8510,9 @@ jump_to_find_result (PpsView *view, GList *rect_list)
 }
 
 static void
-find_job_finished_cb (PpsView *view)
+pps_view_find_finished_cb (PpsView *view)
 {
 	gtk_widget_queue_draw (GTK_WIDGET (view));
-}
-
-static void
-find_job_updated_cb (PpsJobFind *job, gint page, PpsView *view)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	priv->find_pages = pps_job_find_get_results (job);
-	if (priv->find_page == -1)
-		priv->find_page = priv->current_page;
-
-	if (priv->find_page == page)
-		gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
 static void
@@ -8546,15 +8520,9 @@ pps_view_find_started (PpsView *view, PpsJobFind *job)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	if (priv->find_job == job)
-		return;
-
 	pps_view_find_cancel (view);
-	g_set_object (&priv->find_job, job);
 	priv->find_page = priv->current_page;
 	priv->find_result = 0;
-
-	g_signal_connect (job, "updated", G_CALLBACK (find_job_updated_cb), view);
 }
 
 static void
@@ -8580,7 +8548,7 @@ pps_view_set_search_context (PpsView *view,
 	if (priv->search_context != NULL) {
 		g_signal_handlers_disconnect_by_func (priv->search_context, pps_view_find_started, view);
 		g_signal_handlers_disconnect_by_func (priv->search_context, pps_view_find_cancel, view);
-		g_signal_handlers_disconnect_by_func (priv->search_context, find_job_finished_cb, view);
+		g_signal_handlers_disconnect_by_func (priv->search_context, pps_view_find_finished_cb, view);
 		g_signal_handlers_disconnect_by_func (priv->search_context, pps_view_find_set_result, view);
 	}
 
@@ -8593,7 +8561,7 @@ pps_view_set_search_context (PpsView *view,
 	                         G_CALLBACK (pps_view_find_cancel),
 	                         view, G_CONNECT_SWAPPED);
 	g_signal_connect_object (priv->search_context, "finished",
-	                         G_CALLBACK (find_job_finished_cb),
+	                         G_CALLBACK (pps_view_find_finished_cb),
 	                         view, G_CONNECT_SWAPPED);
 	g_signal_connect_object (priv->search_context, "result-activated",
 	                         G_CALLBACK (pps_view_find_set_result),
@@ -8616,14 +8584,6 @@ pps_view_find_cancel (PpsView *view)
 	priv->find_pages = NULL;
 	priv->find_page = -1;
 	priv->find_result = 0;
-
-	if (!priv->find_job)
-		return;
-
-	g_signal_handlers_disconnect_by_func (priv->find_job, find_job_updated_cb, view);
-	g_clear_object (&priv->find_job);
-
-	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
 /*** Selections ***/
