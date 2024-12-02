@@ -173,13 +173,12 @@ static void pps_view_remove_all_form_fields (PpsView *view);
 static void highlight_find_results (PpsView *view,
                                     GtkSnapshot *snapshot,
                                     int page);
-static void draw_one_page (PpsView *view,
-                           gint page,
-                           GtkSnapshot *snapshot,
-                           GdkRectangle *page_area,
-                           GtkBorder *border,
-                           GdkRectangle *expose_area,
-                           gboolean *page_ready);
+static gboolean draw_one_page (PpsView *view,
+                               gint page,
+                               GtkSnapshot *snapshot,
+                               GdkRectangle *page_area,
+                               GtkBorder *border,
+                               GdkRectangle *expose_area);
 static void draw_surface (GtkSnapshot *snapshot,
                           GdkTexture *texture,
                           const graphene_point_t *point,
@@ -4681,7 +4680,6 @@ pps_view_snapshot (GtkWidget *widget, GtkSnapshot *snapshot)
 	compute_border (view, &border);
 	for (i = priv->start_page; i >= 0 && i <= priv->end_page; i++) {
 		GdkRectangle page_area;
-		gboolean page_ready = TRUE;
 
 		if (!pps_view_get_page_extents_for_border (view, i, &border, &page_area))
 			continue;
@@ -4689,21 +4687,21 @@ pps_view_snapshot (GtkWidget *widget, GtkSnapshot *snapshot)
 		page_area.x -= priv->scroll_x;
 		page_area.y -= priv->scroll_y;
 
-		draw_one_page (view, i, snapshot, &page_area, &border, &clip_rect, &page_ready);
+		if (!draw_one_page (view, i, snapshot, &page_area, &border, &clip_rect))
+			continue;
 
-		if (page_ready && should_draw_caret_cursor (view, i))
+		if (should_draw_caret_cursor (view, i))
 			draw_caret_cursor (view, snapshot);
-		if (page_ready && priv->highlight_find_results)
+		if (priv->highlight_find_results)
 			highlight_find_results (view, snapshot, i);
-		if (page_ready && PPS_IS_DOCUMENT_ANNOTATIONS (priv->document))
+		if (PPS_IS_DOCUMENT_ANNOTATIONS (priv->document))
 			show_annotation_windows (view, i);
-		if (page_ready && priv->focused_element)
+		if (priv->focused_element)
 			draw_focus (view, snapshot, i, &clip_rect);
-		if (page_ready && priv->signing_info.active)
+		if (priv->signing_info.active)
 			draw_selection_rect (view, snapshot, i);
 #ifdef PPS_ENABLE_DEBUG
-		if (page_ready)
-			draw_debug_borders (view, snapshot, i, &clip_rect);
+		draw_debug_borders (view, snapshot, i, &clip_rect);
 #endif
 	}
 
@@ -6790,14 +6788,13 @@ draw_selection_region (GtkSnapshot *snapshot,
 	gtk_style_context_restore (context);
 }
 
-static void
+static gboolean
 draw_one_page (PpsView *view,
                gint page,
                GtkSnapshot *snapshot,
                GdkRectangle *page_area,
                GtkBorder *border,
-               GdkRectangle *expose_area,
-               gboolean *page_ready)
+               GdkRectangle *expose_area)
 {
 	GtkStyleContext *context;
 	GdkRectangle overlap;
@@ -6807,7 +6804,7 @@ draw_one_page (PpsView *view,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (!gdk_rectangle_intersect (page_area, expose_area, &overlap))
-		return;
+		return TRUE;
 
 	/* Render the document itself */
 	real_page_area = *page_area;
@@ -6816,7 +6813,6 @@ draw_one_page (PpsView *view,
 	real_page_area.y += border->top;
 	real_page_area.width -= (border->left + border->right);
 	real_page_area.height -= (border->top + border->bottom);
-	*page_ready = TRUE;
 
 	context = gtk_widget_get_style_context (GTK_WIDGET (view));
 	current_page = pps_document_model_get_page (priv->model);
@@ -6844,10 +6840,8 @@ draw_one_page (PpsView *view,
 
 		page_texture = pps_pixbuf_cache_get_texture (priv->pixbuf_cache, page);
 
-		if (!page_texture) {
-			*page_ready = FALSE;
-			return;
-		}
+		if (!page_texture)
+			return FALSE;
 
 		pps_view_get_page_size (view, page, &width, &height);
 
@@ -6860,14 +6854,14 @@ draw_one_page (PpsView *view,
 
 		/* Get the selection pixbuf iff we have something to draw */
 		if (!find_selection_for_page (view, page))
-			return;
+			return TRUE;
 
 		selection_texture = pps_pixbuf_cache_get_selection_texture (priv->pixbuf_cache,
 		                                                            page,
 		                                                            priv->scale);
 		if (selection_texture) {
 			draw_surface (snapshot, selection_texture, &point, &area, false);
-			return;
+			return TRUE;
 		}
 
 		region = pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache,
@@ -6885,6 +6879,7 @@ draw_one_page (PpsView *view,
 			                       scale_x, scale_y);
 		}
 	}
+	return TRUE;
 }
 
 /*** GObject functions ***/
