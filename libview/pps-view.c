@@ -8574,8 +8574,7 @@ jump_to_find_page (PpsView *view, PpsViewFindDirection direction, gint shift)
 static void
 find_job_finished_cb (PpsView *view)
 {
-	jump_to_find_page (view, PPS_VIEW_FIND_NEXT, 0);
-	jump_to_find_result (view);
+	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
 static void
