@@ -55,10 +55,6 @@ PPS_PUBLIC
 PpsMapping *pps_mapping_list_find (PpsMappingList *mapping_list,
                                    gconstpointer data);
 PPS_PUBLIC
-PpsMapping *pps_mapping_list_find_custom (PpsMappingList *mapping_list,
-                                          gconstpointer data,
-                                          GCompareFunc func);
-PPS_PUBLIC
 PpsMapping *pps_mapping_list_get (PpsMappingList *mapping_list,
                                   gdouble x,
                                   gdouble y);

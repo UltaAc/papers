@@ -59,31 +59,6 @@ pps_mapping_list_find (PpsMappingList *mapping_list,
 }
 
 /**
- * pps_mapping_list_find_custom:
- * @mapping_list: an #PpsMappingList
- * @data: mapping data to find
- * @func: (scope call): function to use for equality check
- *
- * Returns: (transfer none): an #PpsMapping
- */
-PpsMapping *
-pps_mapping_list_find_custom (PpsMappingList *mapping_list,
-                              gconstpointer data,
-                              GCompareFunc func)
-{
-	GList *list;
-
-	for (list = mapping_list->list; list; list = list->next) {
-		PpsMapping *mapping = list->data;
-
-		if (!func (mapping->data, data))
-			return mapping;
-	}
-
-	return NULL;
-}
-
-/**
  * pps_mapping_list_nth:
  * @mapping_list: an #PpsMappingList
  * @n: the position to retrieve
