@@ -311,7 +311,7 @@ process_matches_idle (PpsSearchContext *context)
 	for (guint current_page = 0; current_page < pps_document_get_n_pages (document); current_page++) {
 		GList *matches, *l;
 		PpsPage *page;
-		guint index;
+		guint index = 0;
 		gchar *page_label;
 		gchar *page_text;
 		PpsRectangle *areas = NULL;
@@ -340,7 +340,7 @@ process_matches_idle (PpsSearchContext *context)
 
 		offset = 0;
 
-		for (l = matches, index = 0; l; l = g_list_next (l), index++) {
+		for (l = matches; l; l = g_list_next (l)) {
 			PpsFindRectangle *match = (PpsFindRectangle *) l->data;
 			PpsSearchResult *result;
 			gchar *markup;
@@ -372,7 +372,7 @@ process_matches_idle (PpsSearchContext *context)
 			result = pps_search_result_new (g_strdup (markup),
 			                                g_strdup (page_label),
 			                                current_page,
-			                                index);
+			                                index++);
 			g_ptr_array_add (results_array, result);
 
 			g_free (markup);
