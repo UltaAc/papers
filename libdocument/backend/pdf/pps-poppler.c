@@ -3519,17 +3519,15 @@ pdf_document_annotations_save_annotation (PpsDocumentAnnotations *document_annot
 			if (!quads)
 				return;
 
-			poppler_rect.x1 = rect.x1 = bbox.x1;
-			poppler_rect.x2 = rect.x2 = bbox.x2;
+			rect.x1 = bbox.x1;
+			rect.x2 = bbox.x2;
 			rect.y1 = height - bbox.y2;
 			rect.y2 = height - bbox.y1;
-			poppler_rect.y1 = bbox.y1;
-			poppler_rect.y2 = bbox.y2;
 
 			pps_annotation_set_area (annot, &rect);
 
 			poppler_annot_text_markup_set_quadrilaterals (text_markup, quads);
-			poppler_annot_set_rectangle (poppler_annot, &poppler_rect);
+			poppler_annot_set_rectangle (poppler_annot, &bbox);
 			g_array_unref (quads);
 
 			pps_annotation_set_area (annot, &rect);
