@@ -22,6 +22,7 @@
                     <child>
                       <object class="GtkListBox" id="list_box">
                         <property name="selection-mode">none</property>
+                        <property name="visible">False</property>
                         <style>
                           <class name="boxed-list"/>
                         </style>

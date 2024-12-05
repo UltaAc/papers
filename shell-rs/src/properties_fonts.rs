@@ -43,7 +43,8 @@ mod imp {
 
                     if let Some(doc_fonts) = job.document().and_dynamic_cast_ref::<DocumentFonts>()
                     {
-                        obj.list_box.bind_model(doc_fonts.model().as_ref(), |obj| {
+                        let model = doc_fonts.model();
+                        obj.list_box.bind_model(model.as_ref(), |obj| {
                             let row = adw::ActionRow::new();
                             let font = obj
                                 .downcast_ref::<papers_document::FontDescription>()
@@ -54,6 +55,10 @@ mod imp {
 
                             row.into()
                         });
+
+                        if let Some(model) = model {
+                            obj.list_box.set_visible(model.n_items() != 0);
+                        }
 
                         let fonts_summary = doc_fonts.fonts_summary().unwrap_or_default();
                         obj.fonts_page.set_description(fonts_summary.as_str());
