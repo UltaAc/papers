@@ -12,6 +12,9 @@ typedef struct _CacheJobInfo {
 	PpsJob *job;
 	gboolean page_ready;
 
+	PpsJob *pending_job;
+	PpsJobPriority pending_priority;
+
 	/* Region of the page that needs to be drawn */
 	cairo_region_t *region;
 	GdkTexture *texture;
@@ -300,6 +303,12 @@ job_finished_cb (PpsJob *job,
 
 	copy_job_to_job_info (job_render, job_info, pixbuf_cache);
 	g_signal_emit (pixbuf_cache, signals[JOB_FINISHED], 0, job_info->region);
+
+	if (job_info->pending_job) {
+		job_info->job = job_info->pending_job;
+		job_info->pending_job = NULL;
+		pps_job_scheduler_push_job (job_info->job, job_info->pending_priority);
+	}
 }
 
 /* This checks a job to see if the job would generate the right sized pixbuf
@@ -615,6 +624,7 @@ add_job (PpsPixbufCache *pixbuf_cache,
          gfloat scale,
          PpsJobPriority priority)
 {
+	PpsJob *job;
 	job_info->device_scale = get_device_scale (pixbuf_cache);
 	job_info->page_ready = FALSE;
 
@@ -622,29 +632,41 @@ add_job (PpsPixbufCache *pixbuf_cache,
 		cairo_region_destroy (job_info->region);
 	job_info->region = region ? cairo_region_reference (region) : NULL;
 
-	if (job_info->job)
-		end_job (job_info, pixbuf_cache);
-
-	job_info->job = pps_job_render_texture_new (pixbuf_cache->document,
-	                                            page, rotation,
-	                                            scale * job_info->device_scale,
-	                                            width * job_info->device_scale,
-	                                            height * job_info->device_scale);
+	job = pps_job_render_texture_new (pixbuf_cache->document,
+	                                  page,
+	                                  rotation,
+	                                  scale * job_info->device_scale,
+	                                  width * job_info->device_scale,
+	                                  height * job_info->device_scale);
 
 	if (new_selection_surface_needed (pixbuf_cache, job_info, page, scale)) {
 		GdkRGBA text, base;
 
 		_pps_view_get_selection_colors (PPS_VIEW (pixbuf_cache->view), &base, &text);
-		pps_job_render_texture_set_selection_info (PPS_JOB_RENDER_TEXTURE (job_info->job),
+		pps_job_render_texture_set_selection_info (PPS_JOB_RENDER_TEXTURE (job),
 		                                           &(job_info->target_points),
 		                                           job_info->selection_style,
 		                                           &text, &base);
 	}
 
-	g_signal_connect (job_info->job, "finished",
+	g_signal_connect (job, "finished",
 	                  G_CALLBACK (job_finished_cb),
 	                  pixbuf_cache);
-	pps_job_scheduler_push_job (job_info->job, priority);
+	if (!job_info->job) {
+		job_info->job = job;
+		pps_job_scheduler_push_job (job, priority);
+		return;
+	}
+
+	if (job_info->pending_job) {
+		g_signal_handlers_disconnect_by_func (
+		    job_info->pending_job, G_CALLBACK (job_finished_cb), pixbuf_cache);
+		if (!pps_job_is_finished (job_info->pending_job))
+			pps_job_cancel (job_info->pending_job);
+		g_clear_object (&job_info->pending_job);
+	}
+	job_info->pending_priority = priority;
+	job_info->pending_job = job;
 }
 
 static void
