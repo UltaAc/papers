@@ -51,6 +51,11 @@ struct _PpsSignature {
 };
 
 PPS_PUBLIC
+PpsSignature *
+pps_signature_new (PpsSignatureStatus status,
+                   PpsCertificateInfo *info);
+
+PPS_PUBLIC
 void pps_signature_set_destination_file (PpsSignature *self,
                                          const char *file);
 

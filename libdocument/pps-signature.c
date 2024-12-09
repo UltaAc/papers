@@ -478,3 +478,12 @@ pps_signature_is_valid (PpsSignature *self)
 
 	return certificate_status == PPS_CERTIFICATE_STATUS_TRUSTED && priv->signature_status == PPS_SIGNATURE_STATUS_VALID;
 }
+
+PpsSignature *
+pps_signature_new (PpsSignatureStatus status, PpsCertificateInfo *info)
+{
+	return g_object_new (PPS_TYPE_SIGNATURE,
+	                     "status", PPS_SIGNATURE_STATUS_INVALID,
+	                     "certificate-info", info,
+	                     NULL);
+}
