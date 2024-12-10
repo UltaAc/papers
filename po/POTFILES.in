@@ -54,7 +54,6 @@ shell/pps-search-box.ui
 shell/pps-sidebar-annotations.ui
 shell/pps-sidebar-links.ui
 shell/pps-sidebar-thumbnails.ui
-shell/pps-utils.c
 shell/pps-window.ui
 shell-rs/src/annotation_properties_dialog.rs
 shell-rs/src/application.rs

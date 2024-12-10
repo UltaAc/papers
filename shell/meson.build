@@ -1,7 +1,6 @@
 papers_sources = files(
   'pps-message-area.c',
   'pps-progress-message-area.c',
-  'pps-utils.c',
 )
 
 resources_conf = configuration_data()
@@ -51,7 +50,6 @@ enum_header_prefix = '''
 '''
 
 headers = files(
-  'pps-utils.h',
   'pps-progress-message-area.h',
   'pps-message-area.h',
 )

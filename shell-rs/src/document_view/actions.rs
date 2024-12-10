@@ -1,6 +1,22 @@
 use super::*;
 
+use gtk::gdk::gdk_pixbuf;
 use papers_document::{DocumentImages, DocumentSignatures};
+
+fn gdk_pixbuf_format_by_extension(uri: &str) -> Option<gdk_pixbuf::PixbufFormat> {
+    for format in gdk_pixbuf::Pixbuf::formats()
+        .iter()
+        .filter(|f| !f.is_disabled() && f.is_writable())
+    {
+        for ext in format.extensions() {
+            if uri.ends_with(ext.as_str()) {
+                return Some(format.clone());
+            }
+        }
+    }
+
+    None
+}
 
 impl imp::PpsDocumentView {
     pub(crate) fn set_action_enabled(&self, name: &str, enabled: bool) {
@@ -759,7 +775,7 @@ impl imp::PpsDocumentView {
                 obj.file_dialog_save_folder(Some(&file), UserDirectory::Pictures);
 
                 let uri = file.uri();
-                let mut format = papers_shell::gdk_pixbuf_format_by_extension(&uri);
+                let mut format = gdk_pixbuf_format_by_extension(&uri);
 
                 if format.is_none()
                     && file
@@ -768,9 +784,9 @@ impl imp::PpsDocumentView {
                         .unwrap_or_default()
                 {
                     // no extension found and no extension provided within uri
-                    format = papers_shell::gdk_pixbuf_format_by_extension(".png").or(
+                    format = gdk_pixbuf_format_by_extension(".png").or(
                         // no .png support, try .jpeg
-                        papers_shell::gdk_pixbuf_format_by_extension(".jpeg"),
+                        gdk_pixbuf_format_by_extension(".jpeg"),
                     );
                 }
 
