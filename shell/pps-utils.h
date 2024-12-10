@@ -29,7 +29,5 @@
 G_BEGIN_DECLS
 
 GdkPixbufFormat *pps_gdk_pixbuf_format_by_extension (const gchar *uri);
-void pps_spawn (const char *uri,
-                PpsLinkDest *dest);
 
 G_END_DECLS
