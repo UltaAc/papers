@@ -329,12 +329,18 @@ pps_document_model_new_with_document (PpsDocument *document)
 	return g_object_new (PPS_TYPE_DOCUMENT_MODEL, "document", document, NULL);
 }
 
+/**
+ * pps_document_model_set_document:
+ * @model: a #PpsDocumentModel
+ * @document: (nullable): a #PpsDocumentModel
+ *
+ * Set the document.
+ */
 void
 pps_document_model_set_document (PpsDocumentModel *model,
                                  PpsDocument *document)
 {
 	g_return_if_fail (PPS_IS_DOCUMENT_MODEL (model));
-	g_return_if_fail (PPS_IS_DOCUMENT (document));
 
 	if (!g_set_object (&model->document, document))
 		return;
