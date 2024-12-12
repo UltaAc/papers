@@ -2077,7 +2077,14 @@ pps_print_operation_exists_for_document (PpsDocument *document)
 	return pps_print_operation_get_gtype_for_document (document) != G_TYPE_INVALID;
 }
 
-/* Factory method */
+/**
+ * pps_print_operation_new:
+ * @document: a #PpsDocument
+ *
+ * Factory method to construct #PpsPrintOperation
+ *
+ * Returns: (nullable): a #PpsPrintOperation
+ */
 PpsPrintOperation *
 pps_print_operation_new (PpsDocument *document)
 {
