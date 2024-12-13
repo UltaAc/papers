@@ -4102,6 +4102,24 @@ find_poppler_certificate_info (PpsCertificateInfo *certificate_info)
 	return ret;
 }
 
+struct poppler_sign_cb_data {
+	PdfDocument *document;
+	gpointer user_data;
+	GAsyncReadyCallback callback;
+};
+
+static void
+poppler_sign_callback_wrapper (GObject *source_object,
+                               GAsyncResult *result,
+                               gpointer user_data)
+{
+	struct poppler_sign_cb_data *data = user_data;
+
+	data->callback (G_OBJECT (data->document), result, data->user_data);
+
+	g_free (data);
+}
+
 static void
 pdf_document_signatures_sign (PpsDocumentSignatures *document,
                               PpsSignature *signature,
@@ -4118,6 +4136,7 @@ pdf_document_signatures_sign (PpsDocumentSignatures *document,
 	PopplerColor color;
 	gdouble height;
 	GdkRGBA rgba;
+	struct poppler_sign_cb_data *wrapper_data = g_malloc (sizeof (struct poppler_sign_cb_data));
 
 	g_object_get (signature, "certificate-info", &cinfo, NULL);
 	cert_info = find_poppler_certificate_info (cinfo);
@@ -4175,7 +4194,11 @@ pdf_document_signatures_sign (PpsDocumentSignatures *document,
 
 	poppler_signing_data_set_signature_rectangle (signing_data, &signing_rect);
 
-	poppler_document_sign (POPPLER_DOCUMENT (self->document), signing_data, cancellable, callback, user_data);
+	wrapper_data->user_data = user_data;
+	wrapper_data->callback = callback;
+	wrapper_data->document = self;
+
+	poppler_document_sign (POPPLER_DOCUMENT (self->document), signing_data, cancellable, poppler_sign_callback_wrapper, wrapper_data);
 }
 
 static gboolean
