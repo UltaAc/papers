@@ -137,20 +137,6 @@
                         </child>
                         <child>
                           <object class="GtkStackPage">
-                            <property name="name">bookmarks</property>
-                            <property name="title" translatable="yes">Bookmarks</property>
-                            <property name="icon-name">user-bookmarks-symbolic</property>
-                            <property name="child">
-                              <object class="PpsSidebarBookmarks" id="sidebar_bookmarks">
-                                <property name="document-model">model</property>
-                                <property name="sidebar">sidebar</property>
-                                <signal name="bookmark-activated" handler="bookmark_activated_cb" />
-                              </object>
-                            </property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkStackPage">
                             <property name="name">attachments</property>
                             <property name="title" translatable="yes">Attachments</property>
                             <property name="icon-name">mail-attachment-symbolic</property>
@@ -559,18 +545,6 @@
               <object class='GtkShortcut'>
                 <property name='trigger'>minus|&lt;Ctrl&gt;minus|KP_Subtract|&lt;Ctrl&gt;KP_Subtract</property>
                 <property name='action'>action(doc.zoom-out)</property>
-              </object>
-            </child>
-            <child>
-              <object class='GtkShortcut'>
-                <property name='trigger'>&lt;Ctrl&gt;D</property>
-                <property name='action'>action(doc.add-bookmark)</property>
-              </object>
-            </child>
-            <child>
-              <object class='GtkShortcut'>
-                <property name='trigger'>&lt;Ctrl&gt;&lt;Shift&gt;D</property>
-                <property name='action'>action(doc.delete-bookmark)</property>
               </object>
             </child>
           </object>

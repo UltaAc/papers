@@ -53,8 +53,6 @@ shell/pps-properties-signatures.ui
 shell/pps-properties-window.ui
 shell/pps-search-box.ui
 shell/pps-sidebar-annotations.ui
-shell/pps-sidebar-bookmarks.c
-shell/pps-sidebar-bookmarks.ui
 shell/pps-sidebar-links.ui
 shell/pps-sidebar-thumbnails.ui
 shell/pps-utils.c

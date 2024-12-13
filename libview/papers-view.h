@@ -25,7 +25,6 @@
 #endif
 
 #include <libview/context/pps-attachment-context.h>
-#include <libview/context/pps-bookmarks.h>
 #include <libview/context/pps-document-model.h>
 #include <libview/context/pps-history.h>
 #include <libview/context/pps-metadata.h>

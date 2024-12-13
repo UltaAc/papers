@@ -7,7 +7,6 @@ include_subdir = join_paths(pps_include_subdir, 'libview')
 
 context_headers = files(
   'context/pps-attachment-context.h',
-  'context/pps-bookmarks.h',
   'context/pps-document-model.h',
   'context/pps-history.h',
   'context/pps-metadata.h',
@@ -40,7 +39,6 @@ headers += context_headers
 
 sources = files(
   'context/pps-attachment-context.c',
-  'context/pps-bookmarks.c',
   'context/pps-document-model.c',
   'context/pps-history.c',
   'context/pps-metadata.c',

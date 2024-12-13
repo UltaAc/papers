@@ -4,7 +4,6 @@ papers_sources = files(
   'pps-progress-message-area.c',
   'pps-utils.c',
   'pps-document-view.c',
-  'pps-sidebar-bookmarks.c',
   'pps-sidebar-page.c'
 )
 

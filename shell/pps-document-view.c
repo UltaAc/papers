@@ -45,7 +45,6 @@
 #include "pps-find-sidebar.h"
 #include "pps-message-area.h"
 #include "pps-progress-message-area.h"
-#include "pps-sidebar-bookmarks.h"
 #include "pps-utils.h"
 #include "pps-view-presentation.h"
 
@@ -66,7 +65,6 @@ typedef struct
 	GtkWidget *sidebar_links;
 	GtkWidget *sidebar_layers;
 	GtkWidget *sidebar_annots;
-	GtkWidget *sidebar_bookmarks;
 	GtkWidget *find_sidebar;
 	GtkWidget *page_selector;
 	GtkWidget *header_bar;
@@ -121,7 +119,6 @@ typedef struct
 	PpsHistory *history;
 	PpsMetadata *metadata;
 	PpsAttachmentContext *attachment_context;
-	PpsBookmarks *bookmarks;
 	PpsSearchContext *search_context;
 	GdkRGBA annot_color;
 
@@ -213,10 +210,6 @@ static void view_handle_link_cb (PpsView *view,
                                  PpsLink *link,
                                  PpsLink *backlink,
                                  PpsDocumentView *window);
-static void bookmark_activated_cb (PpsSidebarBookmarks *sidebar_bookmarks,
-                                   gint old_page,
-                                   gint page,
-                                   PpsDocumentView *window);
 static void scroll_history_cb (PpsView *view,
                                GtkScrollType scroll,
                                gboolean horizontal,
@@ -299,10 +292,6 @@ pps_document_view_set_default_actions (PpsDocumentView *pps_doc_view)
 	/* View menu */
 	pps_document_view_set_action_enabled (pps_doc_view, "enable-spellchecking",
 	                                      FALSE);
-
-	/* Bookmarks menu */
-	pps_document_view_set_action_enabled (pps_doc_view, "add-bookmark",
-	                                      !!priv->bookmarks);
 
 	pps_document_view_set_action_enabled (pps_doc_view, "dual-odd-left", dual_mode);
 
@@ -560,18 +549,6 @@ view_handle_link_cb (PpsView *view, PpsLink *link, PpsLink *backlink, PpsDocumen
 	pps_history_add_link (priv->history, new_link ? new_link : link);
 	if (new_link)
 		g_object_unref (new_link);
-}
-
-static void
-bookmark_activated_cb (PpsSidebarBookmarks *sidebar_bookmarks,
-                       gint old_page,
-                       gint page,
-                       PpsDocumentView *window)
-{
-	PpsDocumentViewPrivate *priv = pps_document_view_get_instance_private (window);
-
-	pps_history_add_page (priv->history, old_page);
-	pps_history_add_page (priv->history, page);
 }
 
 static void
@@ -1296,11 +1273,6 @@ pps_document_view_open_document (PpsDocumentView *pps_doc_view,
 	setup_model_from_metadata (pps_doc_view);
 
 	pps_document_view_set_document (pps_doc_view, document);
-
-	if (priv->metadata) {
-		priv->bookmarks = pps_bookmarks_new (priv->metadata);
-		pps_sidebar_bookmarks_set_bookmarks (PPS_SIDEBAR_BOOKMARKS (priv->sidebar_bookmarks), priv->bookmarks);
-	}
 
 	setup_document (pps_doc_view);
 	setup_view_from_metadata (pps_doc_view);
@@ -2658,40 +2630,6 @@ pps_document_view_cmd_go_backwards (GSimpleAction *action,
 }
 
 static void
-pps_document_view_cmd_bookmarks_add (GSimpleAction *action,
-                                     GVariant *parameter,
-                                     gpointer user_data)
-{
-	PpsDocumentView *window = user_data;
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
-	PpsBookmark bm;
-	gchar *page_label;
-
-	bm.page = pps_document_model_get_page (priv->model);
-	page_label = pps_document_get_page_label (priv->document, bm.page);
-	bm.title = g_strdup_printf (_ ("Page %s"), page_label);
-	g_free (page_label);
-
-	/* PpsBookmarks takes ownership of bookmark */
-	pps_bookmarks_add (priv->bookmarks, &bm);
-}
-
-static void
-pps_document_view_cmd_bookmarks_delete (GSimpleAction *action,
-                                        GVariant *parameter,
-                                        gpointer user_data)
-{
-	PpsDocumentView *window = user_data;
-	PpsDocumentViewPrivate *priv = GET_PRIVATE (window);
-	PpsBookmark bm;
-
-	bm.page = pps_document_model_get_page (priv->model);
-	bm.title = NULL;
-
-	pps_bookmarks_delete (priv->bookmarks, &bm);
-}
-
-static void
 pps_document_view_cmd_escape (GSimpleAction *action,
                               GVariant *parameter,
                               gpointer user_data)
@@ -3283,7 +3221,6 @@ pps_document_view_dispose (GObject *object)
 
 	g_clear_object (&priv->attachment_context);
 	g_clear_object (&priv->search_context);
-	g_clear_object (&priv->bookmarks);
 	g_clear_object (&priv->metadata);
 
 	g_clear_object (&priv->attachment_popup_menu);
@@ -3786,8 +3723,6 @@ static const GActionEntry actions[] = {
 	{ "rotate-right", pps_document_view_cmd_edit_rotate_right },
 	{ "zoom-in", pps_document_view_cmd_view_zoom_in },
 	{ "zoom-out", pps_document_view_cmd_view_zoom_out },
-	{ "add-bookmark", pps_document_view_cmd_bookmarks_add },
-	{ "delete-bookmark", pps_document_view_cmd_bookmarks_delete },
 	{ "sizing-mode", NULL, "s", "'free'", pps_document_view_change_sizing_mode_action_state },
 	{ "zoom", pps_document_view_cmd_view_zoom, "d" },
 	{ "caret-navigation", pps_document_view_cmd_view_toggle_caret_navigation },
@@ -4505,7 +4440,6 @@ pps_document_view_init (PpsDocumentView *pps_doc_view)
 
 	g_type_ensure (PPS_TYPE_VIEW);
 	g_type_ensure (PPS_TYPE_FIND_SIDEBAR);
-	g_type_ensure (PPS_TYPE_SIDEBAR_BOOKMARKS);
 	gtk_widget_init_template (GTK_WIDGET (pps_doc_view));
 
 	priv->sidebar_was_open_before_find = TRUE;
@@ -4600,7 +4534,6 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, sidebar_links);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, sidebar_annots);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, attachment_context);
-	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, sidebar_bookmarks);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, sidebar_layers);
 	gtk_widget_class_bind_template_child_private (widget_class, PpsDocumentView, find_sidebar);
 
@@ -4648,7 +4581,6 @@ pps_document_view_class_init (PpsDocumentViewClass *pps_document_view_class)
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_annots_annot_activated_cb);
 	gtk_widget_class_bind_template_callback (widget_class, attachment_bar_menu_popup_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_layers_visibility_changed);
-	gtk_widget_class_bind_template_callback (widget_class, bookmark_activated_cb);
 	gtk_widget_class_bind_template_callback (widget_class, sidebar_navigate_to_view);
 
 	/* settings */
