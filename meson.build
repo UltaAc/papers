@@ -362,24 +362,6 @@ gnome.post_install(
   update_desktop_database: true,
 )
 
-is_stable = (pps_minor_version != 'alpha' and
-  pps_minor_version != 'beta' and
-  pps_minor_version != 'rc')
-if is_stable
-  meson.add_dist_script(
-    find_program('check-news.sh').full_path(),
-    '@0@'.format(meson.project_version()),
-    'NEWS',
-    join_paths('data', 'org.gnome.Papers.metainfo.xml.in.in')
-  )
-else
-  meson.add_dist_script(
-    find_program('check-news.sh').full_path(),
-    '@0@'.format(meson.project_version()),
-    'NEWS',
-  )
-endif
-
 summary({'Debug mode.................': pps_debug,
          'Rust build mode............': rust_target,
         }, section: 'General', bool_yn: true)
