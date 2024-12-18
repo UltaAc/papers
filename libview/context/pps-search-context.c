@@ -626,7 +626,7 @@ pps_search_context_get_options (PpsSearchContext *context)
 /**
  * pps_search_context_get_result_model:
  *
- * Returns: (transfer none): the returned #GListModel
+ * Returns: (not nullable) (transfer none): the returned #GListModel
  */
 GListModel *
 pps_search_context_get_result_model (PpsSearchContext *context)
