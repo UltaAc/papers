@@ -3539,6 +3539,7 @@ pps_view_create_annotation_real (PpsView *view,
 
 	pps_document_doc_mutex_lock (priv->document);
 	page = pps_document_get_page (priv->document, annot_page);
+	pps_document_doc_mutex_unlock (priv->document);
 	switch (type) {
 	case PPS_ANNOTATION_TYPE_TEXT:
 		g_assert (end == NULL);
@@ -3557,7 +3558,6 @@ pps_view_create_annotation_real (PpsView *view,
 		break;
 	default:
 		g_assert_not_reached ();
-		pps_document_doc_mutex_unlock (priv->document);
 		return NULL;
 	}
 
@@ -3577,6 +3577,7 @@ pps_view_create_annotation_real (PpsView *view,
 	              "opacity", 1.0,
 	              NULL);
 
+	pps_document_doc_mutex_lock (priv->document);
 	pps_document_annotations_add_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document), annot);
 	pps_document_doc_mutex_unlock (priv->document);
 
