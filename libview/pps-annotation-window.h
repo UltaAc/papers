@@ -49,10 +49,6 @@ GtkWidget *pps_annotation_window_new (PpsAnnotation *annot,
                                       PpsDocument *document);
 PpsAnnotation *pps_annotation_window_get_annotation (PpsAnnotationWindow *window);
 gboolean pps_annotation_window_is_open (PpsAnnotationWindow *window);
-void pps_annotation_window_get_rectangle (PpsAnnotationWindow *window,
-                                          PpsRectangle *rect);
-void pps_annotation_window_set_rectangle (PpsAnnotationWindow *window,
-                                          const PpsRectangle *rect);
 void pps_annotation_window_set_enable_spellchecking (PpsAnnotationWindow *window,
                                                      gboolean spellcheck);
 gboolean pps_annotation_window_get_enable_spellchecking (PpsAnnotationWindow *window);

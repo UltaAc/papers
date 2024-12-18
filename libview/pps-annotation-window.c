@@ -56,7 +56,6 @@ struct _PpsAnnotationWindow {
 	GtkWidget *text_view;
 
 	gboolean is_open;
-	PpsRectangle rect;
 };
 
 struct _PpsAnnotationWindowClass {
@@ -260,7 +259,7 @@ pps_annotation_window_constructor (GType type,
 	const gchar *contents;
 	const gchar *label;
 	GdkRGBA color;
-	PpsRectangle *rect;
+	PpsRectangle rect;
 	gdouble scale;
 	gdouble opacity;
 
@@ -274,15 +273,13 @@ pps_annotation_window_constructor (GType type,
 
 	label = _ ("Edit Note");
 	window->is_open = pps_annotation_markup_get_popup_is_open (markup);
-	pps_annotation_markup_get_rectangle (markup, &window->rect);
-
-	rect = &window->rect;
+	pps_annotation_markup_get_rectangle (markup, &rect);
 
 	/* Rectangle is at doc resolution (72.0) */
 	scale = pps_document_misc_get_widget_dpi (GTK_WIDGET (window)) / 72.0;
 	gtk_window_set_default_size (GTK_WINDOW (window),
-	                             (gint) ((rect->x2 - rect->x1) * scale),
-	                             (gint) ((rect->y2 - rect->y1) * scale));
+	                             (gint) ((rect.x2 - rect.x1) * scale),
+	                             (gint) ((rect.y2 - rect.y1) * scale));
 
 	pps_annotation_get_rgba (annot, &color);
 	pps_annotation_window_set_color (window, &color);
@@ -417,26 +414,6 @@ pps_annotation_window_is_open (PpsAnnotationWindow *window)
 	g_return_val_if_fail (PPS_IS_ANNOTATION_WINDOW (window), FALSE);
 
 	return window->is_open;
-}
-
-void
-pps_annotation_window_get_rectangle (PpsAnnotationWindow *window,
-                                     PpsRectangle *rect)
-{
-	g_return_if_fail (PPS_IS_ANNOTATION_WINDOW (window));
-	g_return_if_fail (rect != NULL);
-
-	*rect = window->rect;
-}
-
-void
-pps_annotation_window_set_rectangle (PpsAnnotationWindow *window,
-                                     const PpsRectangle *rect)
-{
-	g_return_if_fail (PPS_IS_ANNOTATION_WINDOW (window));
-	g_return_if_fail (rect != NULL);
-
-	window->rect = *rect;
 }
 
 void
