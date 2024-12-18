@@ -5298,10 +5298,11 @@ pps_view_scroll_drag_release (PpsView *view)
 	                               v_upper - v_page_size));
 
 	if (((priv->drag_info.momentum_x < 1) && (priv->drag_info.momentum_x > -1)) &&
-	    ((priv->drag_info.momentum_y < 1) && (priv->drag_info.momentum_y > -1)))
+	    ((priv->drag_info.momentum_y < 1) && (priv->drag_info.momentum_y > -1))) {
+		priv->drag_info.release_timeout_id = 0;
 		return G_SOURCE_REMOVE;
-	else
-		return G_SOURCE_CONTINUE;
+	}
+	return G_SOURCE_CONTINUE;
 }
 
 static void
