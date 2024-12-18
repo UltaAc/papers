@@ -3429,51 +3429,32 @@ pps_view_handle_annotation (PpsView *view,
                             gdouble y,
                             guint32 timestamp)
 {
-	PpsViewPrivate *priv = GET_PRIVATE (view);
 	if (PPS_IS_ANNOTATION_MARKUP (annot)) {
 		GtkWidget *window;
+		PpsAnnotationMarkup *annot_markup = PPS_ANNOTATION_MARKUP (annot);
 
 		window = get_window_for_annot (view, annot);
-		if (!window && pps_annotation_markup_can_have_popup (PPS_ANNOTATION_MARKUP (annot))) {
-			PpsRectangle popup_rect;
-			PpsMappingList *annots;
-			PpsMapping *mapping;
+		g_assert (window != NULL);
+		if (!pps_annotation_markup_can_have_popup (annot_markup)) {
+			return;
+		}
 
-			annots = pps_page_cache_get_annot_mapping (priv->page_cache,
-			                                           pps_annotation_get_page_index (annot));
-			mapping = pps_mapping_list_find (annots, annot);
+		if (!pps_annotation_markup_has_popup (annot_markup)) {
+			PpsRectangle popup_rect, area;
 
-			popup_rect.x1 = mapping->area.x2;
-			popup_rect.y1 = mapping->area.y2;
+			pps_annotation_get_area (annot, &area);
+
+			popup_rect.x1 = area.x2;
+			popup_rect.y1 = area.y2;
 			popup_rect.x2 = popup_rect.x1 + ANNOT_POPUP_WINDOW_DEFAULT_WIDTH;
 			popup_rect.y2 = popup_rect.y1 + ANNOT_POPUP_WINDOW_DEFAULT_HEIGHT;
 			g_object_set (annot,
 			              "rectangle", &popup_rect,
 			              "has_popup", TRUE,
-			              "popup_is_open", TRUE,
 			              NULL);
-
-			window = pps_view_create_annotation_window (view, annot);
-		} else if (window && pps_annotation_markup_has_popup (PPS_ANNOTATION_MARKUP (annot))) {
-			PpsMappingList *annots;
-			PpsRectangle popup_rect;
-			PpsMapping *mapping;
-
-			annots = pps_page_cache_get_annot_mapping (priv->page_cache,
-			                                           pps_annotation_get_page_index (annot));
-			mapping = pps_mapping_list_find (annots, annot);
-			pps_annotation_markup_get_rectangle (PPS_ANNOTATION_MARKUP (annot),
-			                                     &popup_rect);
-
-			popup_rect.x2 = mapping->area.x2 + popup_rect.x2 - popup_rect.x1;
-			popup_rect.y2 = mapping->area.y2 + popup_rect.y2 - popup_rect.y1;
-			popup_rect.x1 = mapping->area.x2;
-			popup_rect.y1 = mapping->area.y2;
-			g_object_set (annot,
-			              "rectangle", &popup_rect,
-			              "popup_is_open", TRUE,
-			              NULL);
+			return;
 		}
+		pps_annotation_markup_set_popup_is_open (annot_markup, TRUE);
 		pps_view_annotation_show_popup_window (view, window);
 	}
 
