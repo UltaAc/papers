@@ -285,7 +285,7 @@ void _pps_view_transform_doc_point_by_rotation_scale (PpsView *view,
                                                       gdouble *view_point_y);
 void _pps_view_transform_doc_rect_to_view_rect (PpsView *view,
                                                 int page,
-                                                PpsRectangle *doc_rect,
+                                                const PpsRectangle *doc_rect,
                                                 GdkRectangle *view_rect);
 void _pps_view_get_selection_colors (PpsView *view,
                                      GdkRGBA *bg_color,

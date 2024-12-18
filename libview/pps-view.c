@@ -1466,7 +1466,7 @@ _pps_view_transform_doc_point_to_view_point (PpsView *view,
 void
 _pps_view_transform_doc_rect_to_view_rect (PpsView *view,
                                            int page,
-                                           PpsRectangle *doc_rect,
+                                           const PpsRectangle *doc_rect,
                                            GdkRectangle *view_rect)
 {
 	GdkRectangle page_area;
