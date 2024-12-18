@@ -4790,29 +4790,6 @@ get_link_area (PpsView *view,
 }
 
 static void
-get_annot_area (PpsView *view,
-                gint x,
-                gint y,
-                PpsAnnotation *annot,
-                GdkRectangle *area)
-{
-	PpsMappingList *annot_mapping;
-	gint page;
-	gint x_offset = 0, y_offset = 0;
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	x += priv->scroll_x;
-	y += priv->scroll_y;
-
-	find_page_at_location (view, x, y, &page, &x_offset, &y_offset);
-
-	annot_mapping = pps_page_cache_get_annot_mapping (priv->page_cache, page);
-	pps_view_get_area_from_mapping (view, page,
-	                                annot_mapping,
-	                                annot, area);
-}
-
-static void
 get_field_area (PpsView *view,
                 gint x,
                 gint y,
@@ -4953,6 +4930,7 @@ pps_view_query_tooltip (GtkWidget *widget,
                         GtkTooltip *tooltip)
 {
 	PpsView *view = PPS_VIEW (widget);
+	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsFormField *field;
 	PpsLink *link;
 	PpsAnnotation *annot;
@@ -4964,11 +4942,20 @@ pps_view_query_tooltip (GtkWidget *widget,
 
 		contents = pps_annotation_get_contents (annot);
 		if (contents && *contents != '\0') {
-			GdkRectangle annot_area;
+			GdkRectangle view_area;
+			guint page_index = pps_annotation_get_page_index (annot);
+			PpsRectangle annot_area;
 
-			get_annot_area (view, x, y, annot, &annot_area);
+			pps_annotation_get_area (annot, &annot_area);
+			_pps_view_transform_doc_rect_to_view_rect (view,
+			                                           page_index,
+			                                           &annot_area,
+			                                           &view_area);
+			view_area.x -= priv->scroll_x;
+			view_area.y -= priv->scroll_y;
+
 			gtk_tooltip_set_text (tooltip, contents);
-			gtk_tooltip_set_tip_area (tooltip, &annot_area);
+			gtk_tooltip_set_tip_area (tooltip, &view_area);
 
 			return TRUE;
 		}
