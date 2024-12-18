@@ -100,9 +100,8 @@ pps_attachment_context_setup_document (PpsAttachmentContext *context,
                                        PpsDocument *document)
 {
 	PpsAttachmentContextPrivate *priv = GET_PRIVATE (context);
-	GListStore *attachment_model = G_LIST_STORE (pps_attachment_context_get_model (context));
 
-	g_list_store_remove_all (attachment_model);
+	g_list_store_remove_all (priv->attachment_model);
 
 	if (!PPS_IS_DOCUMENT_ATTACHMENTS (document))
 		return;
