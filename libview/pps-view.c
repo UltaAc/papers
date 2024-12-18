@@ -3501,6 +3501,30 @@ pps_view_handle_annotation (PpsView *view,
 	}
 }
 
+static void
+pps_view_rerender_annotation (PpsView *view,
+                              PpsAnnotation *annot)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsRectangle doc_rect;
+	guint page_index;
+	GdkRectangle view_rect;
+	cairo_region_t *region;
+
+	g_return_if_fail (PPS_IS_VIEW (view));
+	g_return_if_fail (PPS_IS_ANNOTATION (annot));
+
+	page_index = pps_annotation_get_page_index (annot);
+	pps_annotation_get_area (annot, &doc_rect);
+	_pps_view_transform_doc_rect_to_view_rect (view, page_index,
+	                                           &doc_rect, &view_rect);
+	view_rect.x -= priv->scroll_x;
+	view_rect.y -= priv->scroll_y;
+	region = cairo_region_create_rectangle (&view_rect);
+	pps_view_reload_page (view, page_index, region);
+	cairo_region_destroy (region);
+}
+
 static PpsAnnotation *
 pps_view_create_annotation_real (PpsView *view,
                                  gint annot_page,
@@ -3512,8 +3536,6 @@ pps_view_create_annotation_real (PpsView *view,
 	PpsAnnotation *annot;
 	PpsRectangle doc_rect, popup_rect;
 	PpsPage *page;
-	GdkRectangle view_rect;
-	cairo_region_t *region;
 
 	pps_document_doc_mutex_lock (priv->document);
 	page = pps_document_get_page (priv->document, annot_page);
@@ -3556,20 +3578,13 @@ pps_view_create_annotation_real (PpsView *view,
 	              NULL);
 
 	pps_document_annotations_add_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document), annot);
-	/* Re-fetch area as eg. adding Text Markup annots updates area for its bounding box */
-	pps_annotation_get_area (annot, &doc_rect);
 	pps_document_doc_mutex_unlock (priv->document);
 
 	/* If the page didn't have annots, mark the cache as dirty */
 	if (!pps_page_cache_get_annot_mapping (priv->page_cache, annot_page))
 		pps_page_cache_mark_dirty (priv->page_cache, annot_page, PPS_PAGE_DATA_INCLUDE_ANNOTS);
 
-	_pps_view_transform_doc_rect_to_view_rect (view, annot_page, &doc_rect, &view_rect);
-	view_rect.x -= priv->scroll_x;
-	view_rect.y -= priv->scroll_y;
-	region = cairo_region_create_rectangle (&view_rect);
-	pps_view_reload_page (view, annot_page, region);
-	cairo_region_destroy (region);
+	pps_view_rerender_annotation (view, annot);
 
 	return annot;
 }
@@ -3733,8 +3748,7 @@ pps_view_remove_annotation (PpsView *view,
 
 	pps_page_cache_mark_dirty (priv->page_cache, page, PPS_PAGE_DATA_INCLUDE_ANNOTS);
 
-	/* FIXME: only redraw the annot area */
-	pps_view_reload_page (view, page, NULL);
+	pps_view_rerender_annotation (view, annot);
 
 	g_signal_emit (view, signals[SIGNAL_ANNOT_REMOVED], 0, annot);
 	g_object_unref (annot);
