@@ -304,7 +304,7 @@ pps_job_annots_run (PpsJob *job)
 		PpsPage *page;
 
 		page = pps_document_get_page (pps_job_get_document (job), i);
-		mapping_list = pps_document_annotations_get_annotations (PPS_DOCUMENT_ANNOTATIONS (pps_job_get_document (job)),
+		mapping_list = pps_document_annotations_get_annotations_mapping (PPS_DOCUMENT_ANNOTATIONS (pps_job_get_document (job)),
 		                                                         page);
 		g_object_unref (page);
 
@@ -570,8 +570,8 @@ pps_job_page_data_run (PpsJob *job)
 		                                           pps_page);
 	if ((job_pd->flags & PPS_PAGE_DATA_INCLUDE_ANNOTS) && PPS_IS_DOCUMENT_ANNOTATIONS (pps_job_get_document (job)))
 		job_pd->annot_mapping =
-		    pps_document_annotations_get_annotations (PPS_DOCUMENT_ANNOTATIONS (pps_job_get_document (job)),
-		                                              pps_page);
+		    pps_document_annotations_get_annotations_mapping (PPS_DOCUMENT_ANNOTATIONS (pps_job_get_document (job)),
+		                                                      pps_page);
 	if ((job_pd->flags & PPS_PAGE_DATA_INCLUDE_MEDIA) && PPS_IS_DOCUMENT_MEDIA (pps_job_get_document (job)))
 		job_pd->media_mapping =
 		    pps_document_media_get_media_mapping (PPS_DOCUMENT_MEDIA (pps_job_get_document (job)),

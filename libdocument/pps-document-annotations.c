@@ -28,13 +28,29 @@ pps_document_annotations_default_init (PpsDocumentAnnotationsInterface *klass)
 {
 }
 
-PpsMappingList *
+/**
+ * pps_document_annotations_get_annotations:
+ * @document_annots: a #PpsDocumentAnnotations
+ * @page: the page from where to get the annotations
+ *
+ * Returns: (nullable) (transfer none) (element-type PpsAnnotation):
+ */
+GList *
 pps_document_annotations_get_annotations (PpsDocumentAnnotations *document_annots,
                                           PpsPage *page)
 {
 	PpsDocumentAnnotationsInterface *iface = PPS_DOCUMENT_ANNOTATIONS_GET_IFACE (document_annots);
 
 	return iface->get_annotations (document_annots, page);
+}
+
+PpsMappingList *
+pps_document_annotations_get_annotations_mapping (PpsDocumentAnnotations *document_annots,
+                                                  PpsPage *page)
+{
+	PpsDocumentAnnotationsInterface *iface = PPS_DOCUMENT_ANNOTATIONS_GET_IFACE (document_annots);
+
+	return iface->get_annotations_mapping (document_annots, page);
 }
 
 gboolean

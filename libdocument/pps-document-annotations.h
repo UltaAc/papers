@@ -79,8 +79,10 @@ struct _PpsDocumentAnnotationsInterface {
 	GTypeInterface base_iface;
 
 	/* Methods  */
-	PpsMappingList *(*get_annotations) (PpsDocumentAnnotations *document_annots,
-	                                    PpsPage *page);
+	GList *(*get_annotations) (PpsDocumentAnnotations *document_annots,
+	                           PpsPage *page);
+	PpsMappingList *(*get_annotations_mapping) (PpsDocumentAnnotations *document_annots,
+	                                            PpsPage *page);
 	gboolean (*document_is_modified) (PpsDocumentAnnotations *document_annots);
 	void (*add_annotation) (PpsDocumentAnnotations *document_annots,
 	                        PpsAnnotation *annot);
@@ -96,8 +98,11 @@ struct _PpsDocumentAnnotationsInterface {
 };
 
 PPS_PUBLIC
-PpsMappingList *pps_document_annotations_get_annotations (PpsDocumentAnnotations *document_annots,
-                                                          PpsPage *page);
+GList *pps_document_annotations_get_annotations (PpsDocumentAnnotations *document_annots,
+                                                 PpsPage *page);
+PPS_PUBLIC
+PpsMappingList *pps_document_annotations_get_annotations_mapping (PpsDocumentAnnotations *document_annots,
+                                                                  PpsPage *page);
 PPS_PUBLIC
 gboolean pps_document_annotations_document_is_modified (PpsDocumentAnnotations *document_annots);
 PPS_PUBLIC

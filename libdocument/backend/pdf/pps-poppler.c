@@ -2892,8 +2892,8 @@ annot_area_changed_cb (PpsAnnotation *annot,
 }
 
 static PpsMappingList *
-pdf_document_annotations_get_annotations (PpsDocumentAnnotations *document_annotations,
-                                          PpsPage *page)
+pdf_document_annotations_get_annotations_mapping (PpsDocumentAnnotations *document_annotations,
+                                                  PpsPage *page)
 {
 	GList *retval = NULL;
 	PdfDocument *self = PDF_DOCUMENT (document_annotations);
@@ -2955,6 +2955,33 @@ pdf_document_annotations_get_annotations (PpsDocumentAnnotations *document_annot
 	                     pps_mapping_list_ref (mapping_list));
 
 	return mapping_list;
+}
+
+static GList *
+pdf_document_annotations_get_annotations (PpsDocumentAnnotations *document_annotations,
+                                          PpsPage *page)
+{
+	PpsMappingList *mapping_list;
+	GList *annots = NULL;
+
+	mapping_list = pdf_document_annotations_get_annotations_mapping (document_annotations,
+
+	                                                                 page);
+
+	if (!mapping_list)
+		return NULL;
+
+	for (GList *l = pps_mapping_list_get_list (mapping_list); l; l = l->next) {
+		PpsMapping *mapping = l->data;
+		PpsAnnotation *annot = mapping->data;
+
+		annots = g_list_prepend (annots, annot);
+	}
+
+	pps_mapping_list_unref (mapping_list);
+	annots = g_list_reverse (annots);
+
+	return annots;
 }
 
 static gboolean
@@ -3562,6 +3589,7 @@ static void
 pdf_document_document_annotations_iface_init (PpsDocumentAnnotationsInterface *iface)
 {
 	iface->get_annotations = pdf_document_annotations_get_annotations;
+	iface->get_annotations_mapping = pdf_document_annotations_get_annotations_mapping;
 	iface->document_is_modified = pdf_document_annotations_document_is_modified;
 	iface->add_annotation = pdf_document_annotations_add_annotation;
 	iface->save_annotation = pdf_document_annotations_save_annotation;
