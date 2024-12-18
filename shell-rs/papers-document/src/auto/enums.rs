@@ -246,10 +246,14 @@ pub enum AnnotationType {
     Unknown,
     #[doc(alias = "PPS_ANNOTATION_TYPE_TEXT")]
     Text,
+    #[doc(alias = "PPS_ANNOTATION_TYPE_FREE_TEXT")]
+    FreeText,
     #[doc(alias = "PPS_ANNOTATION_TYPE_ATTACHMENT")]
     Attachment,
     #[doc(alias = "PPS_ANNOTATION_TYPE_TEXT_MARKUP")]
     TextMarkup,
+    #[doc(alias = "PPS_ANNOTATION_TYPE_STAMP")]
+    Stamp,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -263,8 +267,10 @@ impl IntoGlib for AnnotationType {
         match self {
             Self::Unknown => ffi::PPS_ANNOTATION_TYPE_UNKNOWN,
             Self::Text => ffi::PPS_ANNOTATION_TYPE_TEXT,
+            Self::FreeText => ffi::PPS_ANNOTATION_TYPE_FREE_TEXT,
             Self::Attachment => ffi::PPS_ANNOTATION_TYPE_ATTACHMENT,
             Self::TextMarkup => ffi::PPS_ANNOTATION_TYPE_TEXT_MARKUP,
+            Self::Stamp => ffi::PPS_ANNOTATION_TYPE_STAMP,
             Self::__Unknown(value) => value,
         }
     }
@@ -279,8 +285,10 @@ impl FromGlib<ffi::PpsAnnotationType> for AnnotationType {
         match value {
             ffi::PPS_ANNOTATION_TYPE_UNKNOWN => Self::Unknown,
             ffi::PPS_ANNOTATION_TYPE_TEXT => Self::Text,
+            ffi::PPS_ANNOTATION_TYPE_FREE_TEXT => Self::FreeText,
             ffi::PPS_ANNOTATION_TYPE_ATTACHMENT => Self::Attachment,
             ffi::PPS_ANNOTATION_TYPE_TEXT_MARKUP => Self::TextMarkup,
+            ffi::PPS_ANNOTATION_TYPE_STAMP => Self::Stamp,
             value => Self::__Unknown(value),
         }
     }

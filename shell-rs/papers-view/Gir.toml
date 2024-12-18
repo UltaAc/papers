@@ -22,8 +22,6 @@ external_libraries = [
 
 generate = [
     "PapersView.AttachmentContext",
-    "PapersView.Bookmark",
-    "PapersView.Bookmarks",
     "PapersView.DocumentModel",
     "PapersView.Metadata",
     "PapersView.SearchContext",

@@ -15,6 +15,9 @@ version = "42"
 [package.metadata.system-deps.papers_document_4_0.v47]
 version = "47"
 
+[package.metadata.system-deps.papers_document_4_0.v48]
+version = "48"
+
 [package.metadata.docs.rs]
 rustc-args = ["--cfg", "docsrs"]
 rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
@@ -65,3 +68,4 @@ tempfile = "3"
 [features]
 v42 = []
 v47 = ["v42"]
+v48 = ["v47"]

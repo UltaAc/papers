@@ -11,6 +11,8 @@ int main() {
     printf("%s;%zu;%zu\n", "PpsAnnotation", sizeof(PpsAnnotation), alignof(PpsAnnotation));
     printf("%s;%zu;%zu\n", "PpsAnnotationAttachmentClass", sizeof(PpsAnnotationAttachmentClass), alignof(PpsAnnotationAttachmentClass));
     printf("%s;%zu;%zu\n", "PpsAnnotationClass", sizeof(PpsAnnotationClass), alignof(PpsAnnotationClass));
+    printf("%s;%zu;%zu\n", "PpsAnnotationFreeTextClass", sizeof(PpsAnnotationFreeTextClass), alignof(PpsAnnotationFreeTextClass));
+    printf("%s;%zu;%zu\n", "PpsAnnotationStampClass", sizeof(PpsAnnotationStampClass), alignof(PpsAnnotationStampClass));
     printf("%s;%zu;%zu\n", "PpsAnnotationTextClass", sizeof(PpsAnnotationTextClass), alignof(PpsAnnotationTextClass));
     printf("%s;%zu;%zu\n", "PpsAnnotationTextIcon", sizeof(PpsAnnotationTextIcon), alignof(PpsAnnotationTextIcon));
     printf("%s;%zu;%zu\n", "PpsAnnotationTextMarkupClass", sizeof(PpsAnnotationTextMarkupClass), alignof(PpsAnnotationTextMarkupClass));

@@ -59,8 +59,10 @@ pub const PPS_ANNOTATION_TEXT_MARKUP_SQUIGGLY: PpsAnnotationTextMarkupType = 3;
 pub type PpsAnnotationType = c_int;
 pub const PPS_ANNOTATION_TYPE_UNKNOWN: PpsAnnotationType = 0;
 pub const PPS_ANNOTATION_TYPE_TEXT: PpsAnnotationType = 1;
-pub const PPS_ANNOTATION_TYPE_ATTACHMENT: PpsAnnotationType = 2;
-pub const PPS_ANNOTATION_TYPE_TEXT_MARKUP: PpsAnnotationType = 3;
+pub const PPS_ANNOTATION_TYPE_FREE_TEXT: PpsAnnotationType = 2;
+pub const PPS_ANNOTATION_TYPE_ATTACHMENT: PpsAnnotationType = 3;
+pub const PPS_ANNOTATION_TYPE_TEXT_MARKUP: PpsAnnotationType = 4;
+pub const PPS_ANNOTATION_TYPE_STAMP: PpsAnnotationType = 5;
 
 pub type PpsAnnotationsOverMarkup = c_int;
 pub const PPS_ANNOTATION_OVER_MARKUP_NOT_IMPLEMENTED: PpsAnnotationsOverMarkup = 0;
@@ -192,15 +194,17 @@ pub const PPS_ANNOTATIONS_SAVE_NONE: PpsAnnotationsSaveMask = 0;
 pub const PPS_ANNOTATIONS_SAVE_CONTENTS: PpsAnnotationsSaveMask = 1;
 pub const PPS_ANNOTATIONS_SAVE_COLOR: PpsAnnotationsSaveMask = 2;
 pub const PPS_ANNOTATIONS_SAVE_AREA: PpsAnnotationsSaveMask = 4;
-pub const PPS_ANNOTATIONS_SAVE_LABEL: PpsAnnotationsSaveMask = 8;
-pub const PPS_ANNOTATIONS_SAVE_OPACITY: PpsAnnotationsSaveMask = 16;
-pub const PPS_ANNOTATIONS_SAVE_POPUP_RECT: PpsAnnotationsSaveMask = 32;
-pub const PPS_ANNOTATIONS_SAVE_POPUP_IS_OPEN: PpsAnnotationsSaveMask = 64;
-pub const PPS_ANNOTATIONS_SAVE_TEXT_IS_OPEN: PpsAnnotationsSaveMask = 128;
-pub const PPS_ANNOTATIONS_SAVE_TEXT_ICON: PpsAnnotationsSaveMask = 256;
-pub const PPS_ANNOTATIONS_SAVE_ATTACHMENT: PpsAnnotationsSaveMask = 512;
-pub const PPS_ANNOTATIONS_SAVE_TEXT_MARKUP_TYPE: PpsAnnotationsSaveMask = 1024;
-pub const PPS_ANNOTATIONS_SAVE_ALL: PpsAnnotationsSaveMask = 2047;
+pub const PPS_ANNOTATIONS_SAVE_HIDDEN: PpsAnnotationsSaveMask = 8;
+pub const PPS_ANNOTATIONS_SAVE_LABEL: PpsAnnotationsSaveMask = 16;
+pub const PPS_ANNOTATIONS_SAVE_OPACITY: PpsAnnotationsSaveMask = 32;
+pub const PPS_ANNOTATIONS_SAVE_POPUP_RECT: PpsAnnotationsSaveMask = 64;
+pub const PPS_ANNOTATIONS_SAVE_POPUP_IS_OPEN: PpsAnnotationsSaveMask = 128;
+pub const PPS_ANNOTATIONS_SAVE_TEXT_IS_OPEN: PpsAnnotationsSaveMask = 256;
+pub const PPS_ANNOTATIONS_SAVE_TEXT_ICON: PpsAnnotationsSaveMask = 512;
+pub const PPS_ANNOTATIONS_SAVE_ATTACHMENT: PpsAnnotationsSaveMask = 1024;
+pub const PPS_ANNOTATIONS_SAVE_TEXT_MARKUP_TYPE: PpsAnnotationsSaveMask = 2048;
+pub const PPS_ANNOTATIONS_SAVE_FREE_TEXT_FONT: PpsAnnotationsSaveMask = 4096;
+pub const PPS_ANNOTATIONS_SAVE_ALL: PpsAnnotationsSaveMask = 8191;
 
 pub type PpsDocumentInfoFields = c_uint;
 pub const PPS_DOCUMENT_INFO_TITLE: PpsDocumentInfoFields = 1;
@@ -292,6 +296,20 @@ impl ::std::fmt::Debug for PpsAnnotationClass {
     }
 }
 
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct PpsAnnotationFreeTextClass {
+    pub parent_class: PpsAnnotationClass,
+}
+
+impl ::std::fmt::Debug for PpsAnnotationFreeTextClass {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("PpsAnnotationFreeTextClass @ {self:p}"))
+            .field("parent_class", &self.parent_class)
+            .finish()
+    }
+}
+
 #[repr(C)]
 pub struct _PpsAnnotationMarkupInterface {
     _data: [u8; 0],
@@ -299,6 +317,20 @@ pub struct _PpsAnnotationMarkupInterface {
 }
 
 pub type PpsAnnotationMarkupInterface = _PpsAnnotationMarkupInterface;
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct PpsAnnotationStampClass {
+    pub parent_class: PpsAnnotationClass,
+}
+
+impl ::std::fmt::Debug for PpsAnnotationStampClass {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("PpsAnnotationStampClass @ {self:p}"))
+            .field("parent_class", &self.parent_class)
+            .finish()
+    }
+}
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -1417,6 +1449,32 @@ impl ::std::fmt::Debug for PpsAnnotationAttachment {
 }
 
 #[repr(C)]
+pub struct PpsAnnotationFreeText {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+impl ::std::fmt::Debug for PpsAnnotationFreeText {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("PpsAnnotationFreeText @ {self:p}"))
+            .finish()
+    }
+}
+
+#[repr(C)]
+pub struct PpsAnnotationStamp {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+impl ::std::fmt::Debug for PpsAnnotationStamp {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("PpsAnnotationStamp @ {self:p}"))
+            .finish()
+    }
+}
+
+#[repr(C)]
 pub struct PpsAnnotationText {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -2268,7 +2326,13 @@ extern "C" {
     pub fn pps_annotation_equal(annot: *mut PpsAnnotation, other: *mut PpsAnnotation) -> gboolean;
     pub fn pps_annotation_get_annotation_type(annot: *mut PpsAnnotation) -> PpsAnnotationType;
     pub fn pps_annotation_get_area(annot: *mut PpsAnnotation, area: *mut PpsRectangle);
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_annotation_get_border_width(annot: *mut PpsAnnotation) -> c_double;
     pub fn pps_annotation_get_contents(annot: *mut PpsAnnotation) -> *const c_char;
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_annotation_get_hidden(annot: *mut PpsAnnotation) -> gboolean;
     pub fn pps_annotation_get_modified(annot: *mut PpsAnnotation) -> *const c_char;
     pub fn pps_annotation_get_name(annot: *mut PpsAnnotation) -> *const c_char;
     pub fn pps_annotation_get_page(annot: *mut PpsAnnotation) -> *mut PpsPage;
@@ -2278,10 +2342,16 @@ extern "C" {
         annot: *mut PpsAnnotation,
         area: *const PpsRectangle,
     ) -> gboolean;
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_annotation_set_border_width(annot: *mut PpsAnnotation, width: c_double) -> gboolean;
     pub fn pps_annotation_set_contents(
         annot: *mut PpsAnnotation,
         contents: *const c_char,
     ) -> gboolean;
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_annotation_set_hidden(annot: *mut PpsAnnotation, hidden: gboolean) -> gboolean;
     pub fn pps_annotation_set_modified(
         annot: *mut PpsAnnotation,
         modified: *const c_char,
@@ -2311,6 +2381,61 @@ extern "C" {
         annot: *mut PpsAnnotationAttachment,
         attachment: *mut PpsAttachment,
     ) -> gboolean;
+
+    //=========================================================================
+    // PpsAnnotationFreeText
+    //=========================================================================
+    pub fn pps_annotation_free_text_get_type() -> GType;
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_annotation_free_text_new(page: *mut PpsPage) -> *mut PpsAnnotation;
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_annotation_free_text_auto_resize(
+        annot: *mut PpsAnnotationFreeText,
+        ctx: *mut pango::PangoContext,
+    );
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_annotation_free_text_get_font_description(
+        annot: *mut PpsAnnotationFreeText,
+    ) -> *mut pango::PangoFontDescription;
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_annotation_free_text_get_font_rgba(
+        annot: *mut PpsAnnotationFreeText,
+    ) -> *mut gdk::GdkRGBA;
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_annotation_free_text_set_font_description(
+        annot: *mut PpsAnnotationFreeText,
+        font_desc: *const pango::PangoFontDescription,
+    ) -> gboolean;
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_annotation_free_text_set_font_rgba(
+        annot: *mut PpsAnnotationFreeText,
+        rgba: *const gdk::GdkRGBA,
+    ) -> gboolean;
+
+    //=========================================================================
+    // PpsAnnotationStamp
+    //=========================================================================
+    pub fn pps_annotation_stamp_get_type() -> GType;
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_annotation_stamp_new(page: *mut PpsPage) -> *mut PpsAnnotation;
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_annotation_stamp_get_surface(
+        stamp: *mut PpsAnnotationStamp,
+    ) -> *mut cairo::cairo_surface_t;
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_annotation_stamp_set_surface(
+        stamp: *mut PpsAnnotationStamp,
+        surface: *mut cairo::cairo_surface_t,
+    );
 
     //=========================================================================
     // PpsAnnotationText

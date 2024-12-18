@@ -9,6 +9,9 @@ pub use self::annotation::Annotation;
 mod annotation_attachment;
 pub use self::annotation_attachment::AnnotationAttachment;
 
+mod annotation_free_text;
+pub use self::annotation_free_text::AnnotationFreeText;
+
 mod annotation_markup;
 pub use self::annotation_markup::AnnotationMarkup;
 

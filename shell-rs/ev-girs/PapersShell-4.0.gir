@@ -35,12 +35,12 @@ and/or use gtk-doc annotations.  -->
       <constructor name="new" c:identifier="pps_document_view_new">
         <doc xml:space="preserve"
              filename="shell/pps-document-view.c"
-             line="4657">Creates a #GtkWidget that represents the window.</doc>
+             line="4589">Creates a #GtkWidget that represents the window.</doc>
         <source-position filename="shell/pps-document-view.h" line="42"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="4662">the #GtkWidget that represents the window.</doc>
+               line="4594">the #GtkWidget that represents the window.</doc>
           <type name="DocumentView" c:type="PpsDocumentView*"/>
         </return-value>
       </constructor>
@@ -62,14 +62,14 @@ and/or use gtk-doc annotations.  -->
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="4674">the #PpsMetadata of the document shown in the window.</doc>
+               line="4606">the #PpsMetadata of the document shown in the window.</doc>
           <type name="PapersView.Metadata" c:type="PpsMetadata*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="4672">the #PpsDocumentView</doc>
+                 line="4604">the #PpsDocumentView</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
@@ -79,14 +79,14 @@ and/or use gtk-doc annotations.  -->
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="4735">the #PpsDocumentModel</doc>
+               line="4667">the #PpsDocumentModel</doc>
           <type name="PapersView.DocumentModel" c:type="PpsDocumentModel*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="4733">the #PpsDocumentView</doc>
+                 line="4665">the #PpsDocumentView</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
@@ -94,19 +94,19 @@ and/or use gtk-doc annotations.  -->
       <method name="get_uri" c:identifier="pps_document_view_get_uri">
         <doc xml:space="preserve"
              filename="shell/pps-document-view.c"
-             line="1243">It returns the uri of the document showed in the #PpsDocumentView.</doc>
+             line="1220">It returns the uri of the document showed in the #PpsDocumentView.</doc>
         <source-position filename="shell/pps-document-view.h" line="43"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="1249">the uri of the document showed in the #PpsDocumentView.</doc>
+               line="1226">the uri of the document showed in the #PpsDocumentView.</doc>
           <type name="utf8" c:type="const char*"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1245">The instance of the #PpsDocumentView.</doc>
+                 line="1222">The instance of the #PpsDocumentView.</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
@@ -129,13 +129,13 @@ and/or use gtk-doc annotations.  -->
       <method name="is_empty" c:identifier="pps_document_view_is_empty">
         <doc xml:space="preserve"
              filename="shell/pps-document-view.c"
-             line="357">It does look if there is any document loaded or if there is any job to load
+             line="346">It does look if there is any document loaded or if there is any job to load
 a document.</doc>
         <source-position filename="shell/pps-document-view.h" line="48"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="shell/pps-document-view.c"
-               line="364">%TRUE if there isn't any document loaded or any any documente to be
+               line="353">%TRUE if there isn't any document loaded or any any documente to be
          loaded, %FALSE in other case.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -143,7 +143,7 @@ a document.</doc>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="359">The instance of the #PpsDocumentView.</doc>
+                 line="348">The instance of the #PpsDocumentView.</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
         </parameters>
@@ -158,13 +158,13 @@ a document.</doc>
           <instance-parameter name="pps_doc_view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1272">A #PpsDocumentView</doc>
+                 line="1249">A #PpsDocumentView</doc>
             <type name="DocumentView" c:type="PpsDocumentView*"/>
           </instance-parameter>
           <parameter name="document" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1273">A #PpsDocument to open in the document view</doc>
+                 line="1250">A #PpsDocument to open in the document view</doc>
             <type name="PapersDocument.Document" c:type="PpsDocument*"/>
           </parameter>
           <parameter name="metadata"
@@ -173,7 +173,7 @@ a document.</doc>
                      allow-none="1">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1274">A #PpsMetadata if the document supports it</doc>
+                 line="1251">A #PpsMetadata if the document supports it</doc>
             <type name="PapersView.Metadata" c:type="PpsMetadata*"/>
           </parameter>
           <parameter name="dest"
@@ -182,7 +182,7 @@ a document.</doc>
                      allow-none="1">
             <doc xml:space="preserve"
                  filename="shell/pps-document-view.c"
-                 line="1275">A #PpsLinkDest</doc>
+                 line="1252">A #PpsLinkDest</doc>
             <type name="PapersDocument.LinkDest" c:type="PpsLinkDest*"/>
           </parameter>
         </parameters>
@@ -762,119 +762,6 @@ a document.</doc>
       <source-position filename="shell/pps-progress-message-area.h" line="46"/>
       <field name="parent_class">
         <type name="MessageAreaClass" c:type="PpsMessageAreaClass"/>
-      </field>
-    </record>
-    <class name="SidebarPage"
-           c:symbol-prefix="sidebar_page"
-           c:type="PpsSidebarPage"
-           parent="Adw.Bin"
-           abstract="1"
-           glib:type-name="PpsSidebarPage"
-           glib:get-type="pps_sidebar_page_get_type"
-           glib:type-struct="SidebarPageClass">
-      <source-position filename="shell/pps-sidebar-page.h" line="41"/>
-      <implements name="Gtk.Accessible"/>
-      <implements name="Gtk.Buildable"/>
-      <implements name="Gtk.ConstraintTarget"/>
-      <virtual-method name="support_document" invoker="support_document">
-        <source-position filename="shell/pps-sidebar-page.h" line="39"/>
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="sidebar_page" transfer-ownership="none">
-            <type name="SidebarPage" c:type="PpsSidebarPage*"/>
-          </instance-parameter>
-          <parameter name="document" transfer-ownership="none">
-            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
-          </parameter>
-        </parameters>
-      </virtual-method>
-      <method name="get_document_model"
-              c:identifier="pps_sidebar_page_get_document_model">
-        <source-position filename="shell/pps-sidebar-page.h" line="45"/>
-        <return-value transfer-ownership="none" nullable="1">
-          <doc xml:space="preserve"
-               filename="shell/pps-sidebar-page.c"
-               line="87">The #PpsDocumentModel</doc>
-          <type name="PapersView.DocumentModel" c:type="PpsDocumentModel*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="sidebar_page" transfer-ownership="none">
-            <doc xml:space="preserve"
-                 filename="shell/pps-sidebar-page.c"
-                 line="85">A #PpsSidebarPage</doc>
-            <type name="SidebarPage" c:type="PpsSidebarPage*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="navigate_to_view"
-              c:identifier="pps_sidebar_page_navigate_to_view">
-        <source-position filename="shell/pps-sidebar-page.h" line="46"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="sidebar_page" transfer-ownership="none">
-            <type name="SidebarPage" c:type="PpsSidebarPage*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="support_document"
-              c:identifier="pps_sidebar_page_support_document">
-        <source-position filename="shell/pps-sidebar-page.h" line="43"/>
-        <return-value transfer-ownership="none">
-          <type name="gboolean" c:type="gboolean"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="sidebar_page" transfer-ownership="none">
-            <type name="SidebarPage" c:type="PpsSidebarPage*"/>
-          </instance-parameter>
-          <parameter name="document" transfer-ownership="none">
-            <type name="PapersDocument.Document" c:type="PpsDocument*"/>
-          </parameter>
-        </parameters>
-      </method>
-      <property name="document-model"
-                readable="0"
-                writable="1"
-                construct-only="1"
-                transfer-ownership="none">
-        <type name="PapersView.DocumentModel"/>
-      </property>
-      <property name="sidebar"
-                readable="0"
-                writable="1"
-                construct-only="1"
-                transfer-ownership="none">
-        <type name="GObject.Object"/>
-      </property>
-      <field name="parent_instance">
-        <type name="Adw.Bin" c:type="AdwBin"/>
-      </field>
-    </class>
-    <record name="SidebarPageClass"
-            c:type="PpsSidebarPageClass"
-            glib:is-gtype-struct-for="SidebarPage">
-      <source-position filename="shell/pps-sidebar-page.h" line="41"/>
-      <field name="parent_class">
-        <type name="Adw.BinClass" c:type="AdwBinClass"/>
-      </field>
-      <field name="support_document">
-        <callback name="support_document">
-          <source-position filename="shell/pps-sidebar-page.h" line="39"/>
-          <return-value transfer-ownership="none">
-            <type name="gboolean" c:type="gboolean"/>
-          </return-value>
-          <parameters>
-            <parameter name="sidebar_page" transfer-ownership="none">
-              <type name="SidebarPage" c:type="PpsSidebarPage*"/>
-            </parameter>
-            <parameter name="document" transfer-ownership="none">
-              <type name="PapersDocument.Document" c:type="PpsDocument*"/>
-            </parameter>
-          </parameters>
-        </callback>
       </field>
     </record>
     <function name="gdk_pixbuf_format_by_extension"

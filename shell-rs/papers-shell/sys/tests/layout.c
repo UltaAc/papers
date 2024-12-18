@@ -16,7 +16,5 @@ int main() {
     printf("%s;%zu;%zu\n", "PpsMessageAreaClass", sizeof(PpsMessageAreaClass), alignof(PpsMessageAreaClass));
     printf("%s;%zu;%zu\n", "PpsProgressMessageArea", sizeof(PpsProgressMessageArea), alignof(PpsProgressMessageArea));
     printf("%s;%zu;%zu\n", "PpsProgressMessageAreaClass", sizeof(PpsProgressMessageAreaClass), alignof(PpsProgressMessageAreaClass));
-    printf("%s;%zu;%zu\n", "PpsSidebarPage", sizeof(PpsSidebarPage), alignof(PpsSidebarPage));
-    printf("%s;%zu;%zu\n", "PpsSidebarPageClass", sizeof(PpsSidebarPageClass), alignof(PpsSidebarPageClass));
     return 0;
 }

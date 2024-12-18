@@ -6,9 +6,6 @@
 mod attachment_context;
 pub use self::attachment_context::AttachmentContext;
 
-mod bookmarks;
-pub use self::bookmarks::Bookmarks;
-
 mod document_model;
 pub use self::document_model::DocumentModel;
 
@@ -59,9 +56,6 @@ pub use self::view::View;
 
 mod view_presentation;
 pub use self::view_presentation::ViewPresentation;
-
-mod bookmark;
-pub use self::bookmark::Bookmark;
 
 mod enums;
 pub use self::enums::JobPriority;

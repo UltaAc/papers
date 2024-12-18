@@ -88,24 +88,6 @@ impl ::std::fmt::Debug for PpsProgressMessageAreaClass {
     }
 }
 
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct PpsSidebarPageClass {
-    pub parent_class: adw::AdwBinClass,
-    pub support_document: Option<
-        unsafe extern "C" fn(*mut PpsSidebarPage, *mut papers_document::PpsDocument) -> gboolean,
-    >,
-}
-
-impl ::std::fmt::Debug for PpsSidebarPageClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PpsSidebarPageClass @ {self:p}"))
-            .field("parent_class", &self.parent_class)
-            .field("support_document", &self.support_document)
-            .finish()
-    }
-}
-
 // Classes
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -158,20 +140,6 @@ pub struct PpsProgressMessageArea {
 impl ::std::fmt::Debug for PpsProgressMessageArea {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("PpsProgressMessageArea @ {self:p}"))
-            .field("parent_instance", &self.parent_instance)
-            .finish()
-    }
-}
-
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct PpsSidebarPage {
-    pub parent_instance: adw::AdwBin,
-}
-
-impl ::std::fmt::Debug for PpsSidebarPage {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PpsSidebarPage @ {self:p}"))
             .field("parent_instance", &self.parent_instance)
             .finish()
     }
@@ -284,19 +252,6 @@ extern "C" {
         area: *mut PpsProgressMessageArea,
         str: *const c_char,
     );
-
-    //=========================================================================
-    // PpsSidebarPage
-    //=========================================================================
-    pub fn pps_sidebar_page_get_type() -> GType;
-    pub fn pps_sidebar_page_get_document_model(
-        sidebar_page: *mut PpsSidebarPage,
-    ) -> *mut papers_view::PpsDocumentModel;
-    pub fn pps_sidebar_page_navigate_to_view(sidebar_page: *mut PpsSidebarPage);
-    pub fn pps_sidebar_page_support_document(
-        sidebar_page: *mut PpsSidebarPage,
-        document: *mut papers_document::PpsDocument,
-    ) -> gboolean;
 
     //=========================================================================
     // Other functions

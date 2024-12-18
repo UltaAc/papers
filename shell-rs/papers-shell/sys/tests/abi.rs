@@ -258,20 +258,6 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
             alignment: align_of::<PpsProgressMessageAreaClass>(),
         },
     ),
-    (
-        "PpsSidebarPage",
-        Layout {
-            size: size_of::<PpsSidebarPage>(),
-            alignment: align_of::<PpsSidebarPage>(),
-        },
-    ),
-    (
-        "PpsSidebarPageClass",
-        Layout {
-            size: size_of::<PpsSidebarPageClass>(),
-            alignment: align_of::<PpsSidebarPageClass>(),
-        },
-    ),
 ];
 
 const RUST_CONSTANTS: &[(&str, &str)] = &[];

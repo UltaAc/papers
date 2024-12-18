@@ -11,8 +11,6 @@ int main() {
     printf("%s;%zu;%zu\n", "PpsAttachmentContext", sizeof(PpsAttachmentContext), alignof(PpsAttachmentContext));
     printf("%s;%zu;%zu\n", "PpsAttachmentContextClass", sizeof(PpsAttachmentContextClass), alignof(PpsAttachmentContextClass));
     printf("%s;%zu;%zu\n", "PpsAttachmentContextError", sizeof(PpsAttachmentContextError), alignof(PpsAttachmentContextError));
-    printf("%s;%zu;%zu\n", "PpsBookmark", sizeof(PpsBookmark), alignof(PpsBookmark));
-    printf("%s;%zu;%zu\n", "PpsBookmarksClass", sizeof(PpsBookmarksClass), alignof(PpsBookmarksClass));
     printf("%s;%zu;%zu\n", "PpsDocumentModelClass", sizeof(PpsDocumentModelClass), alignof(PpsDocumentModelClass));
     printf("%s;%zu;%zu\n", "PpsHistory", sizeof(PpsHistory), alignof(PpsHistory));
     printf("%s;%zu;%zu\n", "PpsHistoryClass", sizeof(PpsHistoryClass), alignof(PpsHistoryClass));

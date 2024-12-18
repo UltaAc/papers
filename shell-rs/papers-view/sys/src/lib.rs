@@ -92,36 +92,6 @@ impl ::std::fmt::Debug for PpsAttachmentContextClass {
 
 #[derive(Copy, Clone)]
 #[repr(C)]
-pub struct PpsBookmark {
-    pub page: c_uint,
-    pub title: *mut c_char,
-}
-
-impl ::std::fmt::Debug for PpsBookmark {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PpsBookmark @ {self:p}"))
-            .field("page", &self.page)
-            .field("title", &self.title)
-            .finish()
-    }
-}
-
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct PpsBookmarksClass {
-    pub parent_class: gobject::GObjectClass,
-}
-
-impl ::std::fmt::Debug for PpsBookmarksClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PpsBookmarksClass @ {self:p}"))
-            .field("parent_class", &self.parent_class)
-            .finish()
-    }
-}
-
-#[derive(Copy, Clone)]
-#[repr(C)]
 pub struct PpsDocumentModelClass {
     pub parent_class: gobject::GObjectClass,
 }
@@ -448,18 +418,6 @@ impl ::std::fmt::Debug for PpsAttachmentContext {
         f.debug_struct(&format!("PpsAttachmentContext @ {self:p}"))
             .field("parent_instance", &self.parent_instance)
             .finish()
-    }
-}
-
-#[repr(C)]
-pub struct PpsBookmarks {
-    _data: [u8; 0],
-    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
-}
-
-impl ::std::fmt::Debug for PpsBookmarks {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PpsBookmarks @ {self:p}")).finish()
     }
 }
 
@@ -901,16 +859,6 @@ extern "C" {
     pub fn pps_job_page_data_flags_get_type() -> GType;
 
     //=========================================================================
-    // PpsBookmark
-    //=========================================================================
-    pub fn pps_bookmark_get_type() -> GType;
-    pub fn pps_bookmark_new(page: c_int, title: *const c_char) -> *mut PpsBookmark;
-    pub fn pps_bookmark_copy(bookmark: *const PpsBookmark) -> *mut PpsBookmark;
-    pub fn pps_bookmark_free(bookmark: *mut PpsBookmark);
-    pub fn pps_bookmark_get_page(bookmark: *const PpsBookmark) -> c_uint;
-    pub fn pps_bookmark_get_title(bookmark: *const PpsBookmark) -> *const c_char;
-
-    //=========================================================================
     // PpsAttachmentContext
     //=========================================================================
     pub fn pps_attachment_context_get_type() -> GType;
@@ -931,17 +879,6 @@ extern "C" {
         result: *mut gio::GAsyncResult,
         error: *mut *mut glib::GError,
     ) -> gboolean;
-
-    //=========================================================================
-    // PpsBookmarks
-    //=========================================================================
-    pub fn pps_bookmarks_get_type() -> GType;
-    pub fn pps_bookmarks_new(metadata: *mut PpsMetadata) -> *mut PpsBookmarks;
-    pub fn pps_bookmarks_add(bookmarks: *mut PpsBookmarks, bookmark: *mut PpsBookmark);
-    pub fn pps_bookmarks_delete(bookmarks: *mut PpsBookmarks, bookmark: *mut PpsBookmark);
-    pub fn pps_bookmarks_get_bookmarks(bookmarks: *mut PpsBookmarks) -> *mut glib::GList;
-    pub fn pps_bookmarks_has_bookmarks(bookmarks: *mut PpsBookmarks) -> gboolean;
-    pub fn pps_bookmarks_update(bookmarks: *mut PpsBookmarks, bookmark: *mut PpsBookmark);
 
     //=========================================================================
     // PpsDocumentModel

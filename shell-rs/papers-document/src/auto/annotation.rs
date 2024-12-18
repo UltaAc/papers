@@ -60,11 +60,33 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
         }
     }
 
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    #[doc(alias = "pps_annotation_get_border_width")]
+    #[doc(alias = "get_border_width")]
+    #[doc(alias = "border-width")]
+    fn border_width(&self) -> f64 {
+        unsafe { ffi::pps_annotation_get_border_width(self.as_ref().to_glib_none().0) }
+    }
+
     #[doc(alias = "pps_annotation_get_contents")]
     #[doc(alias = "get_contents")]
     fn contents(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::pps_annotation_get_contents(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
+
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    #[doc(alias = "pps_annotation_get_hidden")]
+    #[doc(alias = "get_hidden")]
+    #[doc(alias = "hidden")]
+    fn is_hidden(&self) -> bool {
+        unsafe {
+            from_glib(ffi::pps_annotation_get_hidden(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -119,6 +141,19 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
         }
     }
 
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    #[doc(alias = "pps_annotation_set_border_width")]
+    #[doc(alias = "border-width")]
+    fn set_border_width(&self, width: f64) -> bool {
+        unsafe {
+            from_glib(ffi::pps_annotation_set_border_width(
+                self.as_ref().to_glib_none().0,
+                width,
+            ))
+        }
+    }
+
     #[doc(alias = "pps_annotation_set_contents")]
     #[doc(alias = "contents")]
     fn set_contents(&self, contents: &str) -> bool {
@@ -126,6 +161,19 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
             from_glib(ffi::pps_annotation_set_contents(
                 self.as_ref().to_glib_none().0,
                 contents.to_glib_none().0,
+            ))
+        }
+    }
+
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    #[doc(alias = "pps_annotation_set_hidden")]
+    #[doc(alias = "hidden")]
+    fn set_hidden(&self, hidden: bool) -> bool {
+        unsafe {
+            from_glib(ffi::pps_annotation_set_hidden(
+                self.as_ref().to_glib_none().0,
+                hidden.into_glib(),
             ))
         }
     }
@@ -191,6 +239,34 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
         }
     }
 
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    #[doc(alias = "border-width")]
+    fn connect_border_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_border_width_trampoline<
+            P: IsA<Annotation>,
+            F: Fn(&P) + 'static,
+        >(
+            this: *mut ffi::PpsAnnotation,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
+            let f: &F = &*(f as *const F);
+            f(Annotation::from_glib_borrow(this).unsafe_cast_ref())
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::border-width\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
+                    notify_border_width_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
     #[doc(alias = "contents")]
     fn connect_contents_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notify_contents_trampoline<P: IsA<Annotation>, F: Fn(&P) + 'static>(
@@ -208,6 +284,31 @@ pub trait AnnotationExt: IsA<Annotation> + sealed::Sealed + 'static {
                 b"notify::contents\0".as_ptr() as *const _,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_contents_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    #[doc(alias = "hidden")]
+    fn connect_hidden_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_hidden_trampoline<P: IsA<Annotation>, F: Fn(&P) + 'static>(
+            this: *mut ffi::PpsAnnotation,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
+            let f: &F = &*(f as *const F);
+            f(Annotation::from_glib_borrow(this).unsafe_cast_ref())
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::hidden\0".as_ptr() as *const _,
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
+                    notify_hidden_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
             )

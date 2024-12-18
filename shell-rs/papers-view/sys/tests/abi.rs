@@ -224,20 +224,6 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         },
     ),
     (
-        "PpsBookmark",
-        Layout {
-            size: size_of::<PpsBookmark>(),
-            alignment: align_of::<PpsBookmark>(),
-        },
-    ),
-    (
-        "PpsBookmarksClass",
-        Layout {
-            size: size_of::<PpsBookmarksClass>(),
-            alignment: align_of::<PpsBookmarksClass>(),
-        },
-    ),
-    (
         "PpsDocumentModelClass",
         Layout {
             size: size_of::<PpsDocumentModelClass>(),
