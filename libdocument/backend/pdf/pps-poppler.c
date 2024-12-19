@@ -3318,23 +3318,21 @@ pdf_document_annotations_save_annotation (PpsDocumentAnnotations *document_annot
 
 	if (mask & PPS_ANNOTATIONS_SAVE_COLOR) {
 		PopplerColor color;
-		g_autoptr (GdkRGBA) pps_color = NULL;
+		GdkRGBA pps_color;
 
-		pps_annotation_get_rgba (annot, pps_color);
-		gdk_rgba_to_poppler_color (pps_color, &color);
+		pps_annotation_get_rgba (annot, &pps_color);
+		gdk_rgba_to_poppler_color (&pps_color, &color);
 
-		if (pps_color->alpha > 0.) {
+		if (pps_color.alpha > 0.) {
 			poppler_annot_set_color (poppler_annot, &color);
 		} else {
 			poppler_annot_set_color (poppler_annot, NULL);
 		}
 #ifdef HAVE_FREE_TEXT
 		if (PPS_IS_ANNOTATION_FREE_TEXT (annot)) {
-			if (pps_color) {
-				gdk_rgba_free (pps_color);
-			}
-			pps_color = pps_annotation_free_text_get_font_rgba (PPS_ANNOTATION_FREE_TEXT (annot));
-			gdk_rgba_to_poppler_color (pps_color, &color);
+			g_autoptr (GdkRGBA) pps_font_color = NULL;
+			pps_font_color = pps_annotation_free_text_get_font_rgba (PPS_ANNOTATION_FREE_TEXT (annot));
+			gdk_rgba_to_poppler_color (pps_font_color, &color);
 
 			poppler_annot_free_text_set_font_color (
 			    POPPLER_ANNOT_FREE_TEXT (poppler_annot), &color);
