@@ -149,9 +149,9 @@ static PpsMedia *pps_view_get_media_at_location (PpsView *view,
 static gboolean pps_view_find_player_for_media (PpsView *view,
                                                 PpsMedia *media);
 
-static PpsAnnotation *pps_view_get_annotation_at_location (PpsView *view,
-                                                           gdouble x,
-                                                           gdouble y);
+static PpsAnnotation *get_annotation_at_location (PpsView *view,
+                                                  gdouble x,
+                                                  gdouble y);
 static void show_annotation_windows (PpsView *view,
                                      gint page);
 static void hide_annotation_windows (PpsView *view,
@@ -2310,7 +2310,7 @@ pps_view_handle_cursor_over_xy (PpsView *view, gint x, gint y)
 			pps_view_set_cursor (view, PPS_VIEW_CURSOR_LINK);
 		else
 			pps_view_set_cursor (view, PPS_VIEW_CURSOR_NORMAL);
-	} else if ((annot = pps_view_get_annotation_at_location (view, x, y))) {
+	} else if ((annot = get_annotation_at_location (view, x, y))) {
 		pps_view_set_cursor (view, PPS_VIEW_CURSOR_LINK);
 	} else if (location_in_text (view, x, y)) {
 		pps_view_set_cursor (view, PPS_VIEW_CURSOR_IBEAM);
@@ -3211,15 +3211,15 @@ hide_annotation_windows (PpsView *view,
 }
 
 static int
-cmp_mapping_area_size (PpsMapping *a,
-                       PpsMapping *b)
+cmp_rectangle_area_size (PpsRectangle *a,
+                         PpsRectangle *b)
 {
 	gdouble wa, ha, wb, hb;
 
-	wa = a->area.x2 - a->area.x1;
-	ha = a->area.y2 - a->area.y1;
-	wb = b->area.x2 - b->area.x1;
-	hb = b->area.y2 - b->area.y1;
+	wa = a->x2 - a->x1;
+	ha = a->y2 - a->y1;
+	wb = b->x2 - b->x1;
+	hb = b->y2 - b->y1;
 
 	if (wa == wb) {
 		if (ha == hb)
@@ -3234,20 +3234,18 @@ cmp_mapping_area_size (PpsMapping *a,
 	return (wa * ha < wb * hb) ? -1 : 1;
 }
 
-static PpsMapping *
-get_annotation_mapping_at_location (PpsView *view,
-                                    gdouble x,
-                                    gdouble y,
-                                    gint *page)
+static PpsAnnotation *
+get_annotation_at_location (PpsView *view,
+                            gdouble x,
+                            gdouble y)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsDocument *document = pps_document_model_get_document (priv->model);
 	gdouble x_new = 0, y_new = 0;
-	PpsMappingList *annotations_mapping;
 	PpsDocumentAnnotations *doc_annots;
-	PpsAnnotation *annot;
-	PpsMapping *best;
-	GList *list;
+	PpsAnnotation *annot, *best;
+	GListModel *model = pps_annotations_context_get_annots_model (priv->annots_context);
+	gint i, page;
 
 	if (!PPS_IS_DOCUMENT_ANNOTATIONS (document))
 		return NULL;
@@ -3257,50 +3255,62 @@ get_annotation_mapping_at_location (PpsView *view,
 	if (!doc_annots)
 		return NULL;
 
-	if (!get_doc_point_from_location (view, x, y, page, &x_new, &y_new))
-		return NULL;
-
-	annotations_mapping = pps_page_cache_get_annot_mapping (priv->page_cache, *page);
-
-	if (!annotations_mapping)
+	if (!get_doc_point_from_location (view, x, y, &page, &x_new, &y_new))
 		return NULL;
 
 	best = NULL;
-	for (list = pps_mapping_list_get_list (annotations_mapping); list; list = list->next) {
-		PpsMapping *mapping = list->data;
+	for (i = 0, annot = g_list_model_get_item (model, i);
+	     annot != NULL;
+	     annot = g_list_model_get_item (model, ++i)) {
+		PpsRectangle area;
 
-		if ((x_new >= mapping->area.x1) &&
-		    (y_new >= mapping->area.y1) &&
-		    (x_new <= mapping->area.x2) &&
-		    (y_new <= mapping->area.y2)) {
+		if (pps_annotation_get_page_index (annot) != page)
+			continue;
 
-			annot = PPS_ANNOTATION (mapping->data);
+		pps_annotation_get_area (annot, &area);
+
+		if ((x_new >= area.x1) &&
+		    (y_new >= area.y1) &&
+		    (x_new <= area.x2) &&
+		    (y_new <= area.y2)) {
+			PpsRectangle best_area;
 
 			if (pps_annotation_get_annotation_type (annot) == PPS_ANNOTATION_TYPE_TEXT_MARKUP &&
 			    pps_document_annotations_over_markup (doc_annots, annot, (gdouble) x_new, (gdouble) y_new) == PPS_ANNOTATION_OVER_MARKUP_NOT)
 				continue; /* ignore markup annots clicked outside the markup text */
 
+			if (best == NULL) {
+				best = annot;
+				continue;
+			}
+
 			/* In case of only one match choose that. Otherwise
 			 * compare the area of the bounding boxes and return the
 			 * smallest element */
-			if (best == NULL || cmp_mapping_area_size (mapping, best) < 0)
-				best = mapping;
+			pps_annotation_get_area (best, &best_area);
+			if (cmp_rectangle_area_size (&area, &best_area) < 0)
+				best = annot;
 		}
 	}
 	return best;
 }
 
-static PpsAnnotation *
-pps_view_get_annotation_at_location (PpsView *view,
-                                     gdouble x,
-                                     gdouble y)
+static PpsMapping *
+get_annotation_mapping_at_location (PpsView *view,
+                                    gdouble x,
+                                    gdouble y)
 {
-	PpsMapping *annotation_mapping;
-	gint page;
+	PpsMapping *annotation_mapping = g_new (PpsMapping, 1);
+	PpsAnnotation *annot;
 
-	annotation_mapping = get_annotation_mapping_at_location (view, x, y, &page);
+	annot = get_annotation_at_location (view, x, y);
+	if (!annot)
+		return NULL;
 
-	return annotation_mapping ? annotation_mapping->data : NULL;
+	annotation_mapping->data = annot;
+	pps_annotation_get_area (annot, &annotation_mapping->area);
+
+	return annotation_mapping;
 }
 
 static void
@@ -4454,8 +4464,9 @@ pps_view_set_focused_element_at_location (PpsView *view,
 	PpsFormField *field;
 	gint page;
 
-	mapping = get_annotation_mapping_at_location (view, x, y, &page);
+	mapping = get_annotation_mapping_at_location (view, x, y);
 	if (mapping) {
+		page = pps_annotation_get_page_index ((PpsAnnotation *) mapping->data);
 		_pps_view_set_focused_element (view, mapping, page);
 		return;
 	}
@@ -4493,7 +4504,7 @@ pps_view_do_popup_menu (PpsView *view,
 	if (link)
 		items = g_list_prepend (items, link);
 
-	annot = pps_view_get_annotation_at_location (view, x, y);
+	annot = get_annotation_at_location (view, x, y);
 	if (annot)
 		items = g_list_prepend (items, annot);
 
@@ -4668,7 +4679,7 @@ pps_view_query_tooltip (GtkWidget *widget,
 	gchar *text;
 	guint scroll_x, scroll_y;
 
-	annot = pps_view_get_annotation_at_location (view, x, y);
+	annot = get_annotation_at_location (view, x, y);
 	if (annot) {
 		const gchar *contents;
 
@@ -5379,7 +5390,7 @@ annotation_drag_begin_cb (GtkGestureDrag *annotation_drag_gesture,
                           PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsAnnotation *annot = pps_view_get_annotation_at_location (view, x, y);
+	PpsAnnotation *annot = get_annotation_at_location (view, x, y);
 	PpsRectangle annot_area;
 	PpsPoint doc_point;
 	gint page_index;
@@ -5506,7 +5517,7 @@ pps_view_button_release_event (GtkGestureClick *self,
 	}
 
 	if (button == GDK_BUTTON_PRIMARY) {
-		PpsAnnotation *annot = pps_view_get_annotation_at_location (view, x, y);
+		PpsAnnotation *annot = get_annotation_at_location (view, x, y);
 		if (annot)
 			pps_view_handle_annotation (view, annot, x, y, time);
 	}
