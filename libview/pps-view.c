@@ -3154,17 +3154,18 @@ show_annotation_windows (PpsView *view,
                          gint page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsMappingList *annots;
-	GList *l;
+	GListModel *model = pps_annotations_context_get_annots_model (priv->annots_context);
+	gint i;
+	PpsAnnotation *annot;
 
-	annots = pps_page_cache_get_annot_mapping (priv->page_cache, page);
-
-	for (l = pps_mapping_list_get_list (annots); l && l->data; l = g_list_next (l)) {
-		PpsAnnotation *annot;
-		PpsAnnotationMarkup *annot_markup;
+	for (i = 0, annot = g_list_model_get_item (model, i);
+	     annot != NULL;
+	     annot = g_list_model_get_item (model, ++i)) {
 		PpsAnnotationWindow *window;
+		PpsAnnotationMarkup *annot_markup;
 
-		annot = ((PpsMapping *) (l->data))->data;
+		if (pps_annotation_get_page_index (annot) != page)
+			continue;
 
 		if (!PPS_IS_ANNOTATION_MARKUP (annot))
 			continue;
@@ -3188,16 +3189,17 @@ hide_annotation_windows (PpsView *view,
                          gint page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsMappingList *annots;
-	GList *l;
+	GListModel *model = pps_annotations_context_get_annots_model (priv->annots_context);
+	PpsAnnotation *annot;
+	gint i;
 
-	annots = pps_page_cache_get_annot_mapping (priv->page_cache, page);
-
-	for (l = pps_mapping_list_get_list (annots); l && l->data; l = g_list_next (l)) {
-		PpsAnnotation *annot;
+	for (i = 0, annot = g_list_model_get_item (model, i);
+	     annot != NULL;
+	     annot = g_list_model_get_item (model, ++i)) {
 		GtkWidget *window;
 
-		annot = ((PpsMapping *) (l->data))->data;
+		if (pps_annotation_get_page_index (annot) != page)
+			continue;
 
 		if (!PPS_IS_ANNOTATION_MARKUP (annot))
 			continue;
