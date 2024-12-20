@@ -1,5 +1,4 @@
 papers_sources = files(
-  'pps-message-area.c',
   'pps-progress-message-area.c',
 )
 
@@ -51,7 +50,6 @@ enum_header_prefix = '''
 
 headers = files(
   'pps-progress-message-area.h',
-  'pps-message-area.h',
 )
 
 enum_sources = gnome.mkenums_simple(
