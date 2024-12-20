@@ -8,12 +8,6 @@
 #include <stdio.h>
 
 int main() {
-    printf("%s;%zu;%zu\n", "PpsDocumentView", sizeof(PpsDocumentView), alignof(PpsDocumentView));
-    printf("%s;%zu;%zu\n", "PpsDocumentViewClass", sizeof(PpsDocumentViewClass), alignof(PpsDocumentViewClass));
-    printf("%s;%zu;%zu\n", "PpsFindSidebar", sizeof(PpsFindSidebar), alignof(PpsFindSidebar));
-    printf("%s;%zu;%zu\n", "PpsFindSidebarClass", sizeof(PpsFindSidebarClass), alignof(PpsFindSidebarClass));
-    printf("%s;%zu;%zu\n", "PpsMessageArea", sizeof(PpsMessageArea), alignof(PpsMessageArea));
-    printf("%s;%zu;%zu\n", "PpsMessageAreaClass", sizeof(PpsMessageAreaClass), alignof(PpsMessageAreaClass));
     printf("%s;%zu;%zu\n", "PpsProgressMessageArea", sizeof(PpsProgressMessageArea), alignof(PpsProgressMessageArea));
     printf("%s;%zu;%zu\n", "PpsProgressMessageAreaClass", sizeof(PpsProgressMessageAreaClass), alignof(PpsProgressMessageAreaClass));
     return 0;

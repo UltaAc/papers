@@ -6,26 +6,9 @@
 use crate::ffi;
 use glib::translate::*;
 
-#[doc(alias = "pps_gdk_pixbuf_format_by_extension")]
-pub fn gdk_pixbuf_format_by_extension(uri: &str) -> Option<gdk_pixbuf::PixbufFormat> {
+#[doc(alias = "pps_get_resource")]
+#[doc(alias = "get_resource")]
+pub fn resource() -> Option<gio::Resource> {
     assert_initialized_main_thread!();
-    unsafe {
-        from_glib_full(ffi::pps_gdk_pixbuf_format_by_extension(
-            uri.to_glib_none().0,
-        ))
-    }
-}
-
-//#[doc(alias = "pps_get_resource")]
-//#[doc(alias = "get_resource")]
-//pub fn resource() -> /*Ignored*/Option<gio::Resource> {
-//    unsafe { TODO: call ffi:pps_get_resource() }
-//}
-
-#[doc(alias = "pps_spawn")]
-pub fn spawn(uri: Option<&str>, dest: Option<&papers_document::LinkDest>) {
-    assert_initialized_main_thread!();
-    unsafe {
-        ffi::pps_spawn(uri.to_glib_none().0, dest.to_glib_none().0);
-    }
+    unsafe { from_glib_full(ffi::pps_get_resource()) }
 }

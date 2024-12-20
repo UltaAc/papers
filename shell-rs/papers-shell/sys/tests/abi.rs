@@ -203,48 +203,6 @@ fn get_c_output(name: &str) -> Result<String, Box<dyn Error>> {
 
 const RUST_LAYOUTS: &[(&str, Layout)] = &[
     (
-        "PpsDocumentView",
-        Layout {
-            size: size_of::<PpsDocumentView>(),
-            alignment: align_of::<PpsDocumentView>(),
-        },
-    ),
-    (
-        "PpsDocumentViewClass",
-        Layout {
-            size: size_of::<PpsDocumentViewClass>(),
-            alignment: align_of::<PpsDocumentViewClass>(),
-        },
-    ),
-    (
-        "PpsFindSidebar",
-        Layout {
-            size: size_of::<PpsFindSidebar>(),
-            alignment: align_of::<PpsFindSidebar>(),
-        },
-    ),
-    (
-        "PpsFindSidebarClass",
-        Layout {
-            size: size_of::<PpsFindSidebarClass>(),
-            alignment: align_of::<PpsFindSidebarClass>(),
-        },
-    ),
-    (
-        "PpsMessageArea",
-        Layout {
-            size: size_of::<PpsMessageArea>(),
-            alignment: align_of::<PpsMessageArea>(),
-        },
-    ),
-    (
-        "PpsMessageAreaClass",
-        Layout {
-            size: size_of::<PpsMessageAreaClass>(),
-            alignment: align_of::<PpsMessageAreaClass>(),
-        },
-    ),
-    (
         "PpsProgressMessageArea",
         Layout {
             size: size_of::<PpsProgressMessageArea>(),

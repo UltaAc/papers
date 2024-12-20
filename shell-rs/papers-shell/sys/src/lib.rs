@@ -34,50 +34,8 @@ use glib::{gboolean, gconstpointer, gpointer, GType};
 // Records
 #[derive(Copy, Clone)]
 #[repr(C)]
-pub struct PpsDocumentViewClass {
-    pub parent_class: adw::AdwBreakpointBinClass,
-}
-
-impl ::std::fmt::Debug for PpsDocumentViewClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PpsDocumentViewClass @ {self:p}"))
-            .field("parent_class", &self.parent_class)
-            .finish()
-    }
-}
-
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct PpsFindSidebarClass {
-    pub base_class: adw::AdwBinClass,
-}
-
-impl ::std::fmt::Debug for PpsFindSidebarClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PpsFindSidebarClass @ {self:p}"))
-            .field("base_class", &self.base_class)
-            .finish()
-    }
-}
-
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct PpsMessageAreaClass {
-    pub parent_class: adw::AdwBinClass,
-}
-
-impl ::std::fmt::Debug for PpsMessageAreaClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PpsMessageAreaClass @ {self:p}"))
-            .field("parent_class", &self.parent_class)
-            .finish()
-    }
-}
-
-#[derive(Copy, Clone)]
-#[repr(C)]
 pub struct PpsProgressMessageAreaClass {
-    pub parent_class: PpsMessageAreaClass,
+    pub parent_class: adw::AdwBinClass,
 }
 
 impl ::std::fmt::Debug for PpsProgressMessageAreaClass {
@@ -91,50 +49,8 @@ impl ::std::fmt::Debug for PpsProgressMessageAreaClass {
 // Classes
 #[derive(Copy, Clone)]
 #[repr(C)]
-pub struct PpsDocumentView {
-    pub base_instance: adw::AdwBreakpointBin,
-}
-
-impl ::std::fmt::Debug for PpsDocumentView {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PpsDocumentView @ {self:p}"))
-            .field("base_instance", &self.base_instance)
-            .finish()
-    }
-}
-
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct PpsFindSidebar {
-    pub base_instance: adw::AdwBin,
-}
-
-impl ::std::fmt::Debug for PpsFindSidebar {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PpsFindSidebar @ {self:p}"))
-            .field("base_instance", &self.base_instance)
-            .finish()
-    }
-}
-
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct PpsMessageArea {
-    pub parent_instance: adw::AdwBin,
-}
-
-impl ::std::fmt::Debug for PpsMessageArea {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PpsMessageArea @ {self:p}"))
-            .field("parent_instance", &self.parent_instance)
-            .finish()
-    }
-}
-
-#[derive(Copy, Clone)]
-#[repr(C)]
 pub struct PpsProgressMessageArea {
-    pub parent_instance: PpsMessageArea,
+    pub parent_instance: adw::AdwBin,
 }
 
 impl ::std::fmt::Debug for PpsProgressMessageArea {
@@ -151,92 +67,6 @@ impl ::std::fmt::Debug for PpsProgressMessageArea {
 extern "C" {
 
     //=========================================================================
-    // PpsDocumentView
-    //=========================================================================
-    pub fn pps_document_view_get_type() -> GType;
-    pub fn pps_document_view_new() -> *mut PpsDocumentView;
-    pub fn pps_document_view_close_handled(pps_doc_view: *mut PpsDocumentView) -> gboolean;
-    pub fn pps_document_view_get_metadata(
-        pps_doc_view: *mut PpsDocumentView,
-    ) -> *mut papers_view::PpsMetadata;
-    pub fn pps_document_view_get_model(
-        pps_doc_view: *mut PpsDocumentView,
-    ) -> *mut papers_view::PpsDocumentModel;
-    pub fn pps_document_view_get_uri(pps_doc_view: *mut PpsDocumentView) -> *const c_char;
-    pub fn pps_document_view_handle_annot_popup(
-        pps_doc_view: *mut PpsDocumentView,
-        annot: *mut papers_document::PpsAnnotation,
-    );
-    pub fn pps_document_view_is_empty(pps_doc_view: *mut PpsDocumentView) -> gboolean;
-    pub fn pps_document_view_open_document(
-        pps_doc_view: *mut PpsDocumentView,
-        document: *mut papers_document::PpsDocument,
-        metadata: *mut papers_view::PpsMetadata,
-        dest: *mut papers_document::PpsLinkDest,
-    );
-    pub fn pps_document_view_print_range(
-        pps_doc_view: *mut PpsDocumentView,
-        first_page: c_int,
-        last_page: c_int,
-    );
-    pub fn pps_document_view_reload_document(
-        pps_doc_view: *mut PpsDocumentView,
-        document: *mut papers_document::PpsDocument,
-    );
-    pub fn pps_document_view_set_filenames(
-        pps_doc_view: *mut PpsDocumentView,
-        display_name: *const c_char,
-        edit_name: *const c_char,
-    );
-    pub fn pps_document_view_set_fullscreen_mode(
-        pps_doc_view: *mut PpsDocumentView,
-        fullscreened: gboolean,
-    );
-    pub fn pps_document_view_set_inverted_colors(
-        pps_doc_view: *mut PpsDocumentView,
-        inverted: gboolean,
-    );
-
-    //=========================================================================
-    // PpsFindSidebar
-    //=========================================================================
-    pub fn pps_find_sidebar_get_type() -> GType;
-    pub fn pps_find_sidebar_new() -> *mut gtk::GtkWidget;
-    pub fn pps_find_sidebar_clear(find_sidebar: *mut PpsFindSidebar);
-    pub fn pps_find_sidebar_next(find_sidebar: *mut PpsFindSidebar);
-    pub fn pps_find_sidebar_previous(find_sidebar: *mut PpsFindSidebar);
-    pub fn pps_find_sidebar_restart(find_sidebar: *mut PpsFindSidebar, page: c_int);
-    pub fn pps_find_sidebar_set_search_context(
-        find_sidebar: *mut PpsFindSidebar,
-        context: *mut papers_view::PpsSearchContext,
-    );
-    pub fn pps_find_sidebar_update(find_sidebar: *mut PpsFindSidebar);
-
-    //=========================================================================
-    // PpsMessageArea
-    //=========================================================================
-    pub fn pps_message_area_get_type() -> GType;
-    pub fn pps_message_area_new(
-        type_: gtk::GtkMessageType,
-        text: *const c_char,
-        first_button_text: *const c_char,
-        ...
-    ) -> *mut gtk::GtkWidget;
-    pub fn pps_message_area_add_button(
-        area: *mut PpsMessageArea,
-        first_button_text: *const c_char,
-        response_id: c_int,
-    );
-    pub fn pps_message_area_get_info_bar(area: *mut PpsMessageArea) -> *mut gtk::GtkInfoBar;
-    pub fn pps_message_area_set_image(area: *mut PpsMessageArea, image: *mut gtk::GtkWidget);
-    pub fn pps_message_area_set_image_from_icon_name(
-        area: *mut PpsMessageArea,
-        icon_name: *const c_char,
-    );
-    pub fn pps_message_area_set_secondary_text(area: *mut PpsMessageArea, str: *const c_char);
-    pub fn pps_message_area_set_text(area: *mut PpsMessageArea, str: *const c_char);
-
-    //=========================================================================
     // PpsProgressMessageArea
     //=========================================================================
     pub fn pps_progress_message_area_get_type() -> GType;
@@ -244,11 +74,31 @@ extern "C" {
         icon_name: *const c_char,
         text: *const c_char,
     ) -> *mut gtk::GtkWidget;
+    pub fn pps_progress_message_area_add_button(
+        area: *mut PpsProgressMessageArea,
+        first_button_text: *const c_char,
+        response_id: c_int,
+    );
+    pub fn pps_progress_message_area_get_info_bar(
+        area: *mut PpsProgressMessageArea,
+    ) -> *mut gtk::GtkInfoBar;
     pub fn pps_progress_message_area_set_fraction(
         area: *mut PpsProgressMessageArea,
         fraction: c_double,
     );
+    pub fn pps_progress_message_area_set_image_from_icon_name(
+        area: *mut PpsProgressMessageArea,
+        icon_name: *const c_char,
+    );
+    pub fn pps_progress_message_area_set_secondary_text(
+        area: *mut PpsProgressMessageArea,
+        str: *const c_char,
+    );
     pub fn pps_progress_message_area_set_status(
+        area: *mut PpsProgressMessageArea,
+        str: *const c_char,
+    );
+    pub fn pps_progress_message_area_set_text(
         area: *mut PpsProgressMessageArea,
         str: *const c_char,
     );
@@ -256,10 +106,6 @@ extern "C" {
     //=========================================================================
     // Other functions
     //=========================================================================
-    pub fn pps_gdk_pixbuf_format_by_extension(
-        uri: *const c_char,
-    ) -> *mut gdk_pixbuf::GdkPixbufFormat;
     pub fn pps_get_resource() -> *mut gio::GResource;
-    pub fn pps_spawn(uri: *const c_char, dest: *mut papers_document::PpsLinkDest);
 
 }

@@ -26,10 +26,7 @@ external_libraries = [
 ]
 
 generate = [
-    "PapersShell.FindSidebar",
-    "PapersShell.MessageArea",
     "PapersShell.ProgressMessageArea",
-    "PapersShell.DocumentView",
     "PapersShell.*",
 ]
 
@@ -55,6 +52,7 @@ manual = [
     "Gio.Initable",
     "Gio.ListModel",
     "Gio.PasswordSave",
+    "Gio.Resource",
     "GObject.Object",
     "Gtk.Accessible",
     "Gtk.Align",
@@ -76,8 +74,6 @@ manual = [
     "PapersDocument.DocumentLicense",
     "PapersDocument.FindOptions",
     "PapersDocument.LinkDest",
-    "PapersShell.Object",
-    "PapersView.Bookmarks",
     "PapersView.DocumentModel",
     "PapersView.JobFind",
     "PapersView.Metadata",

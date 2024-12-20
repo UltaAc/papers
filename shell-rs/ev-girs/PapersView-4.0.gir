@@ -46,7 +46,7 @@ and/or use gtk-doc annotations.  -->
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/context/pps-attachment-context.c"
-               line="219">the returned #GListModel of #PpsAttachment s</doc>
+               line="218">the returned #GListModel of #PpsAttachment s</doc>
           <type name="Gio.ListModel" c:type="GListModel*"/>
         </return-value>
         <parameters>
@@ -60,7 +60,7 @@ and/or use gtk-doc annotations.  -->
               glib:finish-func="save_attachments_finish">
         <doc xml:space="preserve"
              filename="libview/context/pps-attachment-context.c"
-             line="300">This function initiates a file save operation.
+             line="299">This function initiates a file save operation.
 
 The @callback will be called when the dialog is dismissed.</doc>
         <source-position filename="libview/context/pps-attachment-context.h"
@@ -72,13 +72,13 @@ The @callback will be called when the dialog is dismissed.</doc>
           <instance-parameter name="context" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/context/pps-attachment-context.c"
-                 line="302">a #PpsAttachmentContext</doc>
+                 line="301">a #PpsAttachmentContext</doc>
             <type name="AttachmentContext" c:type="PpsAttachmentContext*"/>
           </instance-parameter>
           <parameter name="attachments" transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libview/context/pps-attachment-context.c"
-                 line="304">The attachments to save</doc>
+                 line="303">The attachments to save</doc>
             <type name="Gio.ListModel" c:type="GListModel*"/>
           </parameter>
           <parameter name="parent"
@@ -87,7 +87,7 @@ The @callback will be called when the dialog is dismissed.</doc>
                      allow-none="1">
             <doc xml:space="preserve"
                  filename="libview/context/pps-attachment-context.c"
-                 line="303">the parent `GtkWindow`</doc>
+                 line="302">the parent `GtkWindow`</doc>
             <type name="Gtk.Window" c:type="GtkWindow*"/>
           </parameter>
           <parameter name="cancellable"
@@ -96,7 +96,7 @@ The @callback will be called when the dialog is dismissed.</doc>
                      allow-none="1">
             <doc xml:space="preserve"
                  filename="libview/context/pps-attachment-context.c"
-                 line="305">a `GCancellable` to cancel the operation</doc>
+                 line="304">a `GCancellable` to cancel the operation</doc>
             <type name="Gio.Cancellable" c:type="GCancellable*"/>
           </parameter>
           <parameter name="callback"
@@ -107,7 +107,7 @@ The @callback will be called when the dialog is dismissed.</doc>
                      closure="4">
             <doc xml:space="preserve"
                  filename="libview/context/pps-attachment-context.c"
-                 line="306">a callback to call when the
+                 line="305">a callback to call when the
   operation is complete</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
@@ -117,7 +117,7 @@ The @callback will be called when the dialog is dismissed.</doc>
                      allow-none="1">
             <doc xml:space="preserve"
                  filename="libview/context/pps-attachment-context.c"
-                 line="308">data to pass to @callback</doc>
+                 line="307">data to pass to @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
         </parameters>
@@ -127,26 +127,26 @@ The @callback will be called when the dialog is dismissed.</doc>
               throws="1">
         <doc xml:space="preserve"
              filename="libview/context/pps-attachment-context.c"
-             line="365">Finishes the [method@Pps.AttachmentContext.save_attachments_async] call</doc>
+             line="364">Finishes the [method@Pps.AttachmentContext.save_attachments_async] call</doc>
         <source-position filename="libview/context/pps-attachment-context.h"
                          line="69"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/context/pps-attachment-context.c"
-               line="373">whether a files were stored</doc>
+               line="372">whether a files were stored</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="context" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/context/pps-attachment-context.c"
-                 line="367">a #PpsAttachmentContext</doc>
+                 line="366">a #PpsAttachmentContext</doc>
             <type name="AttachmentContext" c:type="PpsAttachmentContext*"/>
           </instance-parameter>
           <parameter name="result" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/context/pps-attachment-context.c"
-                 line="368">a `GAsyncResult`</doc>
+                 line="367">a `GAsyncResult`</doc>
             <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
           </parameter>
         </parameters>
@@ -4009,26 +4009,26 @@ list of rectangles for this result.</doc>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/pps-view.c"
-               line="3584">whether the annotation was added or not</doc>
+               line="3580">whether the annotation was added or not</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="3580">a #PpsView</doc>
+                 line="3576">a #PpsView</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="x" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="3581">the x coordinate over the view to place the annotation</doc>
+                 line="3577">the x coordinate over the view to place the annotation</doc>
             <type name="gint" c:type="gint"/>
           </parameter>
           <parameter name="y" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="3582">the y coordinate over the view to place the annotation</doc>
+                 line="3578">the y coordinate over the view to place the annotation</doc>
             <type name="gint" c:type="gint"/>
           </parameter>
         </parameters>
@@ -4038,7 +4038,7 @@ list of rectangles for this result.</doc>
               version="3.30">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="5761">Adds a Text Markup annotation (defaulting to a 'highlight' one) to
+             line="5743">Adds a Text Markup annotation (defaulting to a 'highlight' one) to
 the currently selected text on the document.
 
 When the selected text spans more than one page, it will add a
@@ -4047,14 +4047,14 @@ corresponding annotation for each page that contains selected text.</doc>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/pps-view.c"
-               line="5771">%TRUE if annotations were added successfully, %FALSE otherwise.</doc>
+               line="5753">%TRUE if annotations were added successfully, %FALSE otherwise.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="5763">#PpsView instance</doc>
+                 line="5745">#PpsView instance</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
         </parameters>
@@ -4237,7 +4237,7 @@ corresponding annotation for each page that contains selected text.</doc>
               version="3.30">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="5742">Returns a pointer to a constant string containing the selected
+             line="5724">Returns a pointer to a constant string containing the selected
 text in the view.
 
 The value returned may be NULL if there is no selected text.</doc>
@@ -4245,14 +4245,14 @@ The value returned may be NULL if there is no selected text.</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libview/pps-view.c"
-               line="5751">The string representing selected text.</doc>
+               line="5733">The string representing selected text.</doc>
           <type name="utf8" c:type="char*"/>
         </return-value>
         <parameters>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="5744">#PpsView instance</doc>
+                 line="5726">#PpsView instance</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
         </parameters>
@@ -4405,7 +4405,7 @@ The value returned may be NULL if there is no selected text.</doc>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="4061">a #PpsView</doc>
+                 line="4056">a #PpsView</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="page" transfer-ownership="none">
@@ -4421,7 +4421,7 @@ The value returned may be NULL if there is no selected text.</doc>
               version="3.10">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="4014">Enables or disables caret navigation mode for the document.</doc>
+             line="4009">Enables or disables caret navigation mode for the document.</doc>
         <source-position filename="libview/pps-view.h" line="137"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
@@ -4430,13 +4430,13 @@ The value returned may be NULL if there is no selected text.</doc>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="4016">a #PpsView</doc>
+                 line="4011">a #PpsView</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="enabled" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="4017">whether to enable caret navigation mode</doc>
+                 line="4012">whether to enable caret navigation mode</doc>
             <type name="gboolean" c:type="gboolean"/>
           </parameter>
         </parameters>
@@ -4474,7 +4474,7 @@ The value returned may be NULL if there is no selected text.</doc>
               c:identifier="pps_view_set_page_cache_size">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="7774">Sets the maximum size in bytes that will be used to cache
+             line="7753">Sets the maximum size in bytes that will be used to cache
 rendered pages. Use 0 to disable caching rendered pages.
 
 Note that this limit doesn't affect the current visible page range,
@@ -4488,13 +4488,13 @@ you have to use pps_document_model_set_max_scale() too.</doc>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="7776">#PpsView instance</doc>
+                 line="7755">#PpsView instance</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="cache_size" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="7777">size in bytes</doc>
+                 line="7756">size in bytes</doc>
             <type name="gsize" c:type="gsize"/>
           </parameter>
         </parameters>
@@ -4533,14 +4533,14 @@ you have to use pps_document_model_set_max_scale() too.</doc>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/pps-view.c"
-               line="3994">whether the document supports caret navigation</doc>
+               line="3989">whether the document supports caret navigation</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="3992">a #PpsView</doc>
+                 line="3987">a #PpsView</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
         </parameters>
