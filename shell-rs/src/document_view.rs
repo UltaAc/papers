@@ -14,11 +14,11 @@ use papers_document::{
     Attachment, DocumentAnnotations, DocumentForms, Link, LinkAction, LinkActionType, LinkDest,
     Outlines,
 };
-use papers_shell::ProgressMessageArea;
 use papers_view::{History, PageLayout, SizingMode};
 
 use crate::annotation_properties_dialog::PpsAnnotationPropertiesDialog;
 use crate::application;
+use crate::progress_message_area::PpsProgressMessageArea;
 use crate::properties_window::PpsPropertiesWindow;
 
 /// Action handling of this widget
@@ -117,7 +117,7 @@ mod imp {
         #[template_child]
         pub(super) document_toolbar_view: TemplateChild<adw::ToolbarView>,
 
-        pub(super) message_area: RefCell<Option<papers_shell::ProgressMessageArea>>,
+        pub(super) message_area: RefCell<Option<PpsProgressMessageArea>>,
 
         #[template_child]
         pub(super) signature_banner: TemplateChild<adw::Banner>,

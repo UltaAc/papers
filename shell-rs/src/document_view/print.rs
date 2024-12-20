@@ -44,11 +44,11 @@ impl imp::PpsDocumentView {
             let job_name = op.job_name().unwrap_or_default();
             let text = gettext_f("Printing job “{}”", [job_name]);
 
-            let area = ProgressMessageArea::new("document-print-symbolic", &text);
-            area.add_button(&gettext("C_ancel"), gtk::ResponseType::Cancel.into());
+            let area = PpsProgressMessageArea::new("document-print-symbolic", &text);
+            area.add_button(&gettext("C_ancel"), gtk::ResponseType::Cancel);
 
             #[allow(deprecated)]
-            area.info_bar().unwrap().connect_response(
+            area.info_bar().connect_response(
                 glib::clone!(@weak area, @weak op => move |_, response| {
                     if response == gtk::ResponseType::Cancel {
                         op.cancel();
@@ -62,7 +62,7 @@ impl imp::PpsDocumentView {
         }
 
         let area = self.message_area().unwrap();
-        area.set_status(&status.unwrap_or_default());
+        area.set_status(status.unwrap_or_default());
         area.set_fraction(fraction);
     }
 
@@ -75,11 +75,9 @@ impl imp::PpsDocumentView {
             0 => {
                 self.set_message_area(None);
             }
-            1 => area.set_secondary_text(&gettext("No pending job in queue")),
-            n => area.set_secondary_text(&gettext_f(
-                "{} pending jobs in queue",
-                [(n - 1).to_string()],
-            )),
+            1 => area.set_secondary_text(gettext("No pending job in queue")),
+            n => area
+                .set_secondary_text(gettext_f("{} pending jobs in queue", [(n - 1).to_string()])),
         }
     }
 

@@ -6,11 +6,11 @@ use crate::window::PpsWindow;
 use super::*;
 
 impl imp::PpsDocumentView {
-    pub(crate) fn message_area(&self) -> Option<ProgressMessageArea> {
+    pub(crate) fn message_area(&self) -> Option<PpsProgressMessageArea> {
         self.message_area.borrow().clone()
     }
 
-    pub(crate) fn set_message_area(&self, area: Option<&ProgressMessageArea>) {
+    pub(crate) fn set_message_area(&self, area: Option<&PpsProgressMessageArea>) {
         let area = area.cloned();
         let message_area = self.message_area();
 

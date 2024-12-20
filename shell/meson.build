@@ -1,5 +1,4 @@
 papers_sources = files(
-  'pps-progress-message-area.c',
 )
 
 resources_conf = configuration_data()
@@ -15,6 +14,7 @@ papers_sources += gnome.compile_resources(
   source_dir: [data_dir, data_build_dir],
   dependencies: metainfo_file,
   c_name: pps_code_prefix.to_lower(),
+  export: true,
 )
 
 marshal = 'pps-shell-marshal'
@@ -43,27 +43,11 @@ papers_cflags = [
 
 papers_ldflags = common_ldflags
 
-enum_types = 'ev-shell-type-builtins'
-enum_header_prefix = '''
-#include <papers-document.h>
-'''
-
-headers = files(
-  'pps-progress-message-area.h',
-)
-
-enum_sources = gnome.mkenums_simple(
-  enum_types,
-  sources: headers,
-  header_prefix: enum_header_prefix,
-  decorator: 'PPS_PUBLIC',
-  install_header: false,
-)
 
 libppsshell = shared_library(
   'ppsshell-' + pps_api_version,
   version: pps_view_version,
-  sources: papers_sources + enum_sources,
+  sources: papers_sources,
   include_directories: top_inc,
   dependencies: papers_deps,
   c_args: papers_cflags,
@@ -86,7 +70,7 @@ if gobject_introspection_dep.found()
 
   libppsshell_gir = gnome.generate_gir(
     [libppsshell, libppsview, libppsdocument],
-    sources: papers_sources + headers + [enum_sources[1]],
+    sources: papers_sources,
     includes: incs,
     nsversion: pps_api_version,
     namespace: 'PapersShell',

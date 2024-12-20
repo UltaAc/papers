@@ -19,6 +19,7 @@ mod keyring;
 mod loader_view;
 mod page_selector;
 mod password_view;
+mod progress_message_area;
 mod properties_fonts;
 mod properties_general;
 mod properties_license;
@@ -42,6 +43,8 @@ use deps::*;
 fn ensure_type() {
     // HACK: don't need gtk4::init after PpsApplicationWindow is port to rust
     let _ = gtk::init();
+
+    papers_shell::resource();
 
     // Hack: ensure type here so we don't need to add C interface
     annotation_properties_dialog::PpsAnnotationPropertiesDialog::ensure_type();
