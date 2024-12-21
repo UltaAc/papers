@@ -1348,7 +1348,6 @@ dependencies = [
  "oo7",
  "pango",
  "papers-document",
- "papers-shell",
  "papers-view",
 ]
 
@@ -1380,44 +1379,6 @@ dependencies = [
  "gtk4-sys",
  "libc",
  "pango-sys",
- "shell-words",
- "system-deps",
- "tempfile",
-]
-
-[[package]]
-name = "papers-shell"
-version = "0.1.0"
-dependencies = [
- "bitflags",
- "gdk-pixbuf",
- "gdk4",
- "gio",
- "glib",
- "gtk4",
- "libadwaita",
- "libc",
- "papers-document",
- "papers-shell-sys",
- "papers-view",
-]
-
-[[package]]
-name = "papers-shell-sys"
-version = "0.0.1"
-dependencies = [
- "cairo-sys-rs",
- "gdk-pixbuf-sys",
- "gdk4-sys",
- "gio-sys",
- "glib-sys",
- "gobject-sys",
- "gtk4-sys",
- "libadwaita-sys",
- "libc",
- "pango-sys",
- "papers-document-sys",
- "papers-view-sys",
  "shell-words",
  "system-deps",
  "tempfile",

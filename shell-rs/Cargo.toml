@@ -50,10 +50,6 @@ package = "libadwaita"
 version = "0.7"
 features = ["v1_6"]
 
-[dependencies.papers_shell]
-package = "papers-shell"
-path = "./papers-shell"
-
 [dependencies.papers_view]
 package = "papers-view"
 path = "./papers-view"
@@ -64,8 +60,6 @@ path = "./papers-document"
 
 [workspace]
 members = [
-  './papers-shell',
-  './papers-shell/sys',
   './papers-view',
   './papers-view/sys',
   './papers-document',

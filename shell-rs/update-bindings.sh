@@ -14,7 +14,7 @@ for g in ${@:1}; do
 	cp "$g" ev-girs
 done
 
-for d in papers-document papers-view papers-shell; do
+for d in papers-document papers-view; do
 	pushd $d > /dev/null
 	pushd sys > /dev/null
 	gir -o .

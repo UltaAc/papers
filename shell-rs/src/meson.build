@@ -32,9 +32,6 @@ cargo_env = environment()
 cargo_env.set('CARGO_HOME', build_root / 'cargo-home')
 cargo_env.set('CODEGEN_BUILD_DIR', meson.current_build_dir())
 # override library lookup, we should not use the system library.
-cargo_env.set('SYSTEM_DEPS_PAPERS_SHELL_4_0_NO_PKG_CONFIG', '1')
-cargo_env.set('SYSTEM_DEPS_PAPERS_SHELL_4_0_SEARCH_NATIVE', build_root / 'shell')
-cargo_env.set('SYSTEM_DEPS_PAPERS_SHELL_4_0_LIB', 'ppsshell-4.0')
 cargo_env.set('SYSTEM_DEPS_PAPERS_VIEW_4_0_NO_PKG_CONFIG', '1')
 cargo_env.set('SYSTEM_DEPS_PAPERS_VIEW_4_0_SEARCH_NATIVE', build_root / 'libview')
 cargo_env.set('SYSTEM_DEPS_PAPERS_VIEW_4_0_LIB', 'ppsview-4.0')
@@ -55,7 +52,7 @@ cargo_build = custom_target(
   build_always_stale: true,
   output: 'src',
   console: true,
-  depends: [libppsshell],
+  depends: [papers_resources],
   env: cargo_env,
   command: [
     cargo, 'build',
