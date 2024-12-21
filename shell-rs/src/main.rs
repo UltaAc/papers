@@ -40,11 +40,18 @@ mod window;
 
 use deps::*;
 
+fn resources_register() {
+    let resources = gio::Resource::from_data(&glib::Bytes::from_static(config::RESOURCES_DATA))
+        .expect("failed to load resources");
+
+    gio::resources_register(&resources);
+}
+
 fn ensure_type() {
     // HACK: don't need gtk4::init after PpsApplicationWindow is port to rust
     let _ = gtk::init();
 
-    papers_shell::resource();
+    resources_register();
 
     // Hack: ensure type here so we don't need to add C interface
     annotation_properties_dialog::PpsAnnotationPropertiesDialog::ensure_type();

@@ -29,6 +29,20 @@ marshal_sources = gnome.genmarshal(
 
 papers_sources += marshal_sources
 
+papers_resources = gnome.compile_resources(
+  'pps-resources',
+  configure_file(
+    input: 'papers.gresource.xml.in',
+    output: 'papers.gresource.xml',
+    configuration: resources_conf,
+  ),
+  source_dir: [data_dir, data_build_dir],
+  dependencies: metainfo_file,
+  gresource_bundle: true,
+)[0]
+
+config_h.set_quoted('RESOURCES_FILE', papers_resources.full_path())
+
 papers_deps = [
   gdk_pixbuf_dep,
   libaw_dep,
