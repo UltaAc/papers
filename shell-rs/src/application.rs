@@ -272,6 +272,7 @@ mod imp {
 
             obj.set_accels_for_action("app.help", &["F1"]);
             obj.set_accels_for_action("app.new", &["<Ctrl>N"]);
+            obj.set_accels_for_action("app.quit", &["<Ctrl>Q"]);
 
             obj.set_accels_for_action("win.open", &["<Ctrl>O"]);
             obj.set_accels_for_action("win.close", &["<Ctrl>W"]);
