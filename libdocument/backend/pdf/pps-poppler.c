@@ -1534,8 +1534,8 @@ pdf_document_find_find_text (PpsDocumentFind *document_find,
 		aux = poppler_rect_to_pps (page, rect);
 		pps_rect->x1 = aux.x1;
 		pps_rect->x2 = aux.x2;
-		pps_rect->y1 = aux.y2;
-		pps_rect->y2 = aux.y1;
+		pps_rect->y1 = aux.y1;
+		pps_rect->y2 = aux.y2;
 		pps_rect->next_line = poppler_rectangle_find_get_match_continued (rect);
 		pps_rect->after_hyphen = pps_rect->next_line && poppler_rectangle_find_get_ignored_hyphen (rect);
 		retval = g_list_prepend (retval, pps_rect);
