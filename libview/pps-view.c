@@ -3282,15 +3282,6 @@ pps_view_get_annotation_at_location (PpsView *view,
 }
 
 static void
-pps_view_annotation_create_show_popup_window (PpsView *view,
-                                              PpsAnnotation *annot)
-{
-	GtkWidget *window = pps_view_create_annotation_window (view, annot);
-
-	pps_annotation_window_show (PPS_ANNOTATION_WINDOW (window));
-}
-
-static void
 pps_view_handle_annotation (PpsView *view,
                             PpsAnnotation *annot,
                             gdouble x,
@@ -3483,7 +3474,10 @@ pps_view_add_text_annotation_at_point (PpsView *view,
 	annot = pps_view_create_annotation_real (view, annot_page,
 	                                         PPS_ANNOTATION_TYPE_TEXT,
 	                                         &doc_point, NULL);
-	pps_view_annotation_create_show_popup_window (view, annot);
+	if (PPS_IS_ANNOTATION_MARKUP (annot)) {
+		GtkWidget *window = pps_view_create_annotation_window (view, annot);
+		pps_annotation_window_show (PPS_ANNOTATION_WINDOW (window));
+	}
 
 	return TRUE;
 }
