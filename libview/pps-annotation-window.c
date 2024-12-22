@@ -335,6 +335,7 @@ static gboolean
 pps_annotation_window_close_request (GtkWindow *window)
 {
 	pps_annotation_window_sync_contents (PPS_ANNOTATION_WINDOW (window));
+	((PpsAnnotationWindow *) window)->is_open = FALSE;
 
 	return GTK_WINDOW_CLASS (pps_annotation_window_parent_class)->close_request (window);
 }
@@ -415,6 +416,15 @@ pps_annotation_window_is_open (PpsAnnotationWindow *window)
 	g_return_val_if_fail (PPS_IS_ANNOTATION_WINDOW (window), FALSE);
 
 	return window->is_open;
+}
+
+void
+pps_annotation_window_show (PpsAnnotationWindow *window)
+{
+	g_return_if_fail (PPS_IS_ANNOTATION_WINDOW (window));
+
+	window->is_open = TRUE;
+	gtk_widget_set_visible (GTK_WIDGET (window), TRUE);
 }
 
 void

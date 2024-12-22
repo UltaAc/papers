@@ -3111,118 +3111,8 @@ get_window_for_annot (PpsView *view,
                       PpsAnnotation *annot)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	if (priv->annot_window_map == NULL)
-		return NULL;
 
 	return g_hash_table_lookup (priv->annot_window_map, annot);
-}
-
-static void
-map_annot_to_window (PpsView *view,
-                     PpsAnnotation *annot,
-                     GtkWidget *window)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	if (priv->annot_window_map == NULL)
-		priv->annot_window_map = g_hash_table_new (g_direct_hash, NULL);
-
-	g_hash_table_insert (priv->annot_window_map, annot, window);
-}
-
-static PpsViewWindowChild *
-pps_view_get_window_child (PpsView *view,
-                           GtkWidget *window)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	GList *children = priv->window_children;
-
-	while (children) {
-		PpsViewWindowChild *child;
-
-		child = (PpsViewWindowChild *) children->data;
-		children = children->next;
-
-		if (child->window == window)
-			return child;
-	}
-
-	return NULL;
-}
-
-static void
-pps_view_window_child_put (PpsView *view,
-                           GtkWidget *window,
-                           guint page)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsViewWindowChild *child;
-
-	child = g_new0 (PpsViewWindowChild, 1);
-	child->window = window;
-	child->page = page;
-	child->visible = pps_annotation_window_is_open (PPS_ANNOTATION_WINDOW (window));
-
-	gtk_widget_set_visible (window, child->visible);
-
-	priv->window_children = g_list_append (priv->window_children, child);
-}
-
-static void
-pps_view_remove_window_child_for_annot (PpsView *view,
-                                        guint page,
-                                        PpsAnnotation *annot)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	GList *children = priv->window_children;
-
-	while (children) {
-		PpsViewWindowChild *child;
-		PpsAnnotation *wannot;
-
-		child = (PpsViewWindowChild *) children->data;
-
-		if (child->page != page) {
-			children = children->next;
-			continue;
-		}
-		wannot = pps_annotation_window_get_annotation (PPS_ANNOTATION_WINDOW (child->window));
-		if (pps_annotation_equal (wannot, annot)) {
-			gtk_window_destroy (GTK_WINDOW (child->window));
-			priv->window_children = g_list_delete_link (priv->window_children, children);
-			break;
-		}
-		children = children->next;
-	}
-}
-
-static void
-pps_view_window_children_free (PpsView *view)
-{
-	GList *l;
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	if (!priv->window_children)
-		return;
-
-	for (l = priv->window_children; l && l->data; l = g_list_next (l)) {
-		PpsViewWindowChild *child;
-
-		child = (PpsViewWindowChild *) l->data;
-		gtk_window_destroy (GTK_WINDOW (child->window));
-		g_free (child);
-	}
-	g_clear_pointer (&priv->window_children, g_list_free);
-}
-
-static gboolean
-annotation_window_closed (PpsAnnotationWindow *window,
-                          PpsView *view)
-{
-	PpsViewWindowChild *child;
-
-	child = pps_view_get_window_child (view, GTK_WIDGET (window));
-	child->visible = FALSE;
-	return FALSE;
 }
 
 static GtkWidget *
@@ -3233,18 +3123,11 @@ pps_view_create_annotation_window (PpsView *view,
 	GtkWindow *parent = GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (view)));
 	GtkWidget *window = pps_annotation_window_new (annot, parent,
 	                                               priv->document);
-	guint page;
 
-	g_signal_connect (window, "close-request",
-	                  G_CALLBACK (annotation_window_closed),
-	                  view);
-	map_annot_to_window (view, annot, window);
+	g_hash_table_insert (priv->annot_window_map, annot, window);
 
-	page = pps_annotation_get_page_index (annot);
-
-	pps_view_window_child_put (view, window, page);
-
-	pps_annotation_window_set_enable_spellchecking (PPS_ANNOTATION_WINDOW (window), pps_view_get_enable_spellchecking (view));
+	pps_annotation_window_set_enable_spellchecking (PPS_ANNOTATION_WINDOW (window),
+	                                                pps_view_get_enable_spellchecking (view));
 
 	return window;
 }
@@ -3261,7 +3144,7 @@ show_annotation_windows (PpsView *view,
 
 	for (l = pps_mapping_list_get_list (annots); l && l->data; l = g_list_next (l)) {
 		PpsAnnotation *annot;
-		GtkWidget *window;
+		PpsAnnotationWindow *window;
 
 		annot = ((PpsMapping *) (l->data))->data;
 
@@ -3271,11 +3154,10 @@ show_annotation_windows (PpsView *view,
 		if (!pps_annotation_markup_has_popup (PPS_ANNOTATION_MARKUP (annot)))
 			continue;
 
-		window = get_window_for_annot (view, annot);
+		window = PPS_ANNOTATION_WINDOW (get_window_for_annot (view, annot));
 		if (window) {
-			PpsViewWindowChild *child;
-			child = pps_view_get_window_child (view, window);
-			gtk_widget_set_visible (window, child->visible);
+			gboolean opened = pps_annotation_window_is_open (window);
+			gtk_widget_set_visible (GTK_WIDGET (window), opened);
 		} else {
 			pps_view_create_annotation_window (view, annot);
 		}
@@ -3400,28 +3282,12 @@ pps_view_get_annotation_at_location (PpsView *view,
 }
 
 static void
-pps_view_annotation_show_popup_window (PpsView *view,
-                                       GtkWidget *window)
-{
-	PpsViewWindowChild *child;
-
-	if (!window)
-		return;
-
-	child = pps_view_get_window_child (view, window);
-	if (!child->visible) {
-		child->visible = TRUE;
-		gtk_widget_set_visible (window, TRUE);
-	}
-}
-
-static void
 pps_view_annotation_create_show_popup_window (PpsView *view,
                                               PpsAnnotation *annot)
 {
 	GtkWidget *window = pps_view_create_annotation_window (view, annot);
 
-	pps_view_annotation_show_popup_window (view, window);
+	pps_annotation_window_show (PPS_ANNOTATION_WINDOW (window));
 }
 
 static void
@@ -3435,8 +3301,6 @@ pps_view_handle_annotation (PpsView *view,
 		GtkWidget *window;
 		PpsAnnotationMarkup *annot_markup = PPS_ANNOTATION_MARKUP (annot);
 
-		window = get_window_for_annot (view, annot);
-		g_assert (window != NULL);
 		if (!pps_annotation_markup_can_have_popup (annot_markup)) {
 			return;
 		}
@@ -3457,7 +3321,9 @@ pps_view_handle_annotation (PpsView *view,
 			return;
 		}
 		pps_annotation_markup_set_popup_is_open (annot_markup, TRUE);
-		pps_view_annotation_show_popup_window (view, window);
+		window = get_window_for_annot (view, annot);
+		g_assert (window != NULL);
+		pps_annotation_window_show (PPS_ANNOTATION_WINDOW (window));
 	}
 
 	if (PPS_IS_ANNOTATION_ATTACHMENT (annot)) {
@@ -3554,8 +3420,8 @@ pps_view_create_annotation_real (PpsView *view,
 	g_object_set (annot,
 	              "rectangle", &popup_rect,
 	              "can-have-popup", TRUE,
-	              "has_popup", TRUE,
-	              "popup_is_open", FALSE,
+	              "has-popup", TRUE,
+	              "popup-is-open", FALSE,
 	              "label", g_get_real_name (),
 	              "opacity", 1.0,
 	              NULL);
@@ -3718,10 +3584,7 @@ pps_view_remove_annotation (PpsView *view,
 
 	page = pps_annotation_get_page_index (annot);
 
-	if (PPS_IS_ANNOTATION_MARKUP (annot))
-		pps_view_remove_window_child_for_annot (view, page, annot);
-	if (priv->annot_window_map != NULL)
-		g_hash_table_remove (priv->annot_window_map, annot);
+	g_hash_table_remove (priv->annot_window_map, annot);
 
 	_pps_view_set_focused_element (view, NULL, -1);
 
@@ -6886,7 +6749,6 @@ pps_view_finalize (GObject *object)
 	g_clear_object (&priv->link_selected);
 
 	g_clear_object (&priv->dnd_image);
-	g_clear_pointer (&priv->annot_window_map, g_hash_table_destroy);
 
 	G_OBJECT_CLASS (pps_view_parent_class)->finalize (object);
 }
@@ -6907,8 +6769,7 @@ pps_view_dispose (GObject *object)
 	g_clear_object (&priv->page_cache);
 	g_clear_object (&priv->scroll_animation_vertical);
 	g_clear_object (&priv->scroll_animation_horizontal);
-
-	pps_view_window_children_free (view);
+	g_clear_pointer (&priv->annot_window_map, g_hash_table_destroy);
 
 	g_clear_handle_id (&priv->update_cursor_idle_id, g_source_remove);
 	g_clear_handle_id (&priv->selection_scroll_id, g_source_remove);
@@ -7561,11 +7422,14 @@ pps_view_init (PpsView *view)
 	priv->caret_enabled = FALSE;
 	priv->cursor_page = 0;
 	priv->allow_links_change_zoom = TRUE;
-	priv->window_children = NULL;
 	priv->zoom_center_x = -1;
 	priv->zoom_center_y = -1;
 	priv->scroll_animation_vertical = adw_timed_animation_new (GTK_WIDGET (view), 0, 0, 200, adw_callback_animation_target_new ((AdwAnimationTargetFunc) pps_scroll_vertical_animation_cb, view, NULL));
 	priv->scroll_animation_horizontal = adw_timed_animation_new (GTK_WIDGET (view), 0, 0, 200, adw_callback_animation_target_new ((AdwAnimationTargetFunc) pps_scroll_horizontal_animation_cb, view, NULL));
+	priv->annot_window_map = g_hash_table_new_full (g_direct_hash,
+	                                                NULL,
+	                                                NULL,
+	                                                (GDestroyNotify) gtk_window_destroy);
 
 	adw_animation_pause (priv->scroll_animation_vertical);
 	adw_animation_pause (priv->scroll_animation_horizontal);

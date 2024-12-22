@@ -56,15 +56,6 @@ typedef struct
 	gdouble motion_y;
 } SelectionInfo;
 
-/* Annotation popup windows */
-typedef struct
-{
-	GtkWidget *window;
-	guint page;
-
-	gboolean visible;
-} PpsViewWindowChild;
-
 typedef enum {
 	SCROLL_TO_KEEP_POSITION,
 	SCROLL_TO_PAGE_POSITION,
@@ -187,7 +178,6 @@ typedef struct _PpsViewPrivate {
 	PpsImage *dnd_image;
 
 	/* Annotations */
-	GList *window_children;
 	MovingAnnotInfo moving_annot_info;
 	GHashTable *annot_window_map;
 	gboolean enable_spellchecking;
