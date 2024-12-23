@@ -166,6 +166,8 @@ static gboolean pps_view_find_player_for_media (PpsView *view,
 static PpsAnnotation *pps_view_get_annotation_at_location (PpsView *view,
                                                            gdouble x,
                                                            gdouble y);
+static void show_annotation_windows (PpsView *view,
+                                     gint page);
 static void hide_annotation_windows (PpsView *view,
                                      gint page);
 
@@ -707,19 +709,19 @@ view_update_range_and_current_page (PpsView *view)
 		return;
 
 	if (start < priv->start_page || end > priv->end_page) {
-		gint i;
-
-		for (i = start; i < priv->start_page && start != -1; i++) {
-			hide_annotation_windows (view, i);
-		}
-
-		for (i = end; i > priv->end_page && end != -1; i--) {
-			hide_annotation_windows (view, i);
-		}
-
 		pps_view_check_cursor_blink (view);
 	}
 
+	// Change window annot state
+	for (gint i = start; i < priv->start_page && start != -1; i++) {
+		hide_annotation_windows (view, i);
+	}
+	for (gint i = priv->start_page; i <= priv->end_page; i++) {
+		show_annotation_windows (view, i);
+	}
+	for (gint i = priv->end_page + 1; i <= end && end != -1; i++) {
+		hide_annotation_windows (view, i);
+	}
 	pps_page_cache_set_page_range (priv->page_cache,
 	                               priv->start_page,
 	                               priv->end_page);
@@ -3313,7 +3315,8 @@ pps_view_handle_annotation (PpsView *view,
 		}
 		pps_annotation_markup_set_popup_is_open (annot_markup, TRUE);
 		window = get_window_for_annot (view, annot);
-		g_assert (window != NULL);
+		if (!window)
+			window = pps_view_create_annotation_window (view, annot);
 		pps_annotation_window_show (PPS_ANNOTATION_WINDOW (window));
 	}
 
@@ -4549,8 +4552,6 @@ pps_view_snapshot (GtkWidget *widget, GtkSnapshot *snapshot)
 			draw_caret_cursor (view, snapshot);
 		if (priv->highlight_find_results)
 			highlight_find_results (view, snapshot, i);
-		if (PPS_IS_DOCUMENT_ANNOTATIONS (priv->document))
-			show_annotation_windows (view, i);
 		if (priv->focused_element)
 			draw_focus (view, snapshot, i, &clip_rect);
 		if (priv->signing_info.active)
