@@ -2202,8 +2202,10 @@ pps_document_view_save_settings (PpsDocumentView *pps_doc_view)
 
 	g_settings_set_string (settings, "annot-color", g_variant_get_string (annot_color, NULL));
 
+#ifdef HAVE_LIBSPELLING
 	g_settings_set_boolean (settings, "enable-spellchecking",
 	                        pps_view_get_enable_spellchecking (pps_view));
+#endif
 	g_settings_apply (settings);
 }
 
