@@ -63,6 +63,14 @@ struct _PpsAnnotationText {
 
 static void pps_annotation_text_markup_iface_init (PpsAnnotationMarkupInterface *iface);
 
+G_DEFINE_TYPE_WITH_CODE (PpsAnnotationText,
+                         pps_annotation_text,
+                         PPS_TYPE_ANNOTATION,
+                         G_IMPLEMENT_INTERFACE (PPS_TYPE_ANNOTATION_MARKUP,
+                                                pps_annotation_text_markup_iface_init)
+                             G_ADD_PRIVATE (PpsAnnotationText));
+#define GET_ANNOT_TEXT_PRIVATE(o) pps_annotation_text_get_instance_private (o)
+
 /* PpsAnnotationStamp */
 typedef struct {
 	gdouble width;
@@ -78,14 +86,6 @@ G_DEFINE_TYPE_WITH_CODE (PpsAnnotationStamp,
                          PPS_TYPE_ANNOTATION,
                          G_ADD_PRIVATE (PpsAnnotationStamp));
 #define GET_ANNOT_STAMP_PRIVATE(o) pps_annotation_stamp_get_instance_private (o)
-
-G_DEFINE_TYPE_WITH_CODE (PpsAnnotationText,
-                         pps_annotation_text,
-                         PPS_TYPE_ANNOTATION,
-                         G_IMPLEMENT_INTERFACE (PPS_TYPE_ANNOTATION_MARKUP,
-                                                pps_annotation_text_markup_iface_init)
-                             G_ADD_PRIVATE (PpsAnnotationText));
-#define GET_ANNOT_TEXT_PRIVATE(o) pps_annotation_text_get_instance_private (o)
 
 /* PpsAnnotationFreeText*/
 typedef struct {
