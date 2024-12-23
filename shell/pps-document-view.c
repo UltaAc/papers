@@ -2669,20 +2669,19 @@ pps_document_view_document_modified_cb (PpsDocument *document,
 	AdwWindowTitle *window_title = ADW_WINDOW_TITLE (
 	    adw_header_bar_get_title_widget (ADW_HEADER_BAR (priv->header_bar)));
 	const gchar *title = adw_window_title_get_title (window_title);
-	gchar *new_title;
+	g_autofree gchar *new_title = NULL;
 
 	if (priv->is_modified)
 		return;
 
 	priv->is_modified = TRUE;
 	if (gtk_widget_get_direction (GTK_WIDGET (pps_doc_view)) == GTK_TEXT_DIR_RTL)
-		new_title = g_strconcat ("• ", title, NULL);
-	else
 		new_title = g_strconcat (title, " •", NULL);
+	else
+		new_title = g_strconcat ("• ", title, NULL);
 
 	if (new_title) {
 		adw_window_title_set_title (window_title, new_title);
-		g_free (new_title);
 	}
 }
 
