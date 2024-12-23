@@ -420,22 +420,10 @@ pps_annotation_window_set_enable_spellchecking (PpsAnnotationWindow *window,
 	g_return_if_fail (PPS_IS_ANNOTATION_WINDOW (window));
 
 #if HAVE_LIBSPELLING
-	if (enable_spellchecking == pps_annotation_window_get_enable_spellchecking (window))
+	if (enable_spellchecking == window->enable_spellchecking)
 		return;
 
 	window->enable_spellchecking = enable_spellchecking;
 	spelling_text_buffer_adapter_set_enabled (window->adapter, enable_spellchecking);
-#endif
-}
-
-gboolean
-pps_annotation_window_get_enable_spellchecking (PpsAnnotationWindow *window)
-{
-	g_return_val_if_fail (PPS_IS_ANNOTATION_WINDOW (window), FALSE);
-
-#if HAVE_LIBSPELLING
-	return window->enable_spellchecking;
-#else
-	return FALSE;
 #endif
 }

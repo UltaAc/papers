@@ -51,6 +51,5 @@ PpsAnnotation *pps_annotation_window_get_annotation (PpsAnnotationWindow *window
 gboolean pps_annotation_window_is_open (PpsAnnotationWindow *window);
 void pps_annotation_window_set_enable_spellchecking (PpsAnnotationWindow *window,
                                                      gboolean spellcheck);
-gboolean pps_annotation_window_get_enable_spellchecking (PpsAnnotationWindow *window);
 
 G_END_DECLS
