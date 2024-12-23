@@ -126,7 +126,9 @@ pps_annotation_window_set_color (PpsAnnotationWindow *window,
 	                                GTK_STYLE_PROVIDER (css_provider),
 	                                GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-	css_data = g_strdup_printf ("textview { background-color: %s ; color: %s; }",
+	css_data = g_strdup_printf ("textview { background-color: %s ; color: %s; } "
+	                            "text { background-color: %s ; color: %s; }",
+	                            rgba_str, icon_color_str,
 	                            rgba_str, icon_color_str);
 	css_provider = gtk_css_provider_new ();
 	gtk_css_provider_load_from_string (css_provider, css_data);
