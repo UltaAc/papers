@@ -227,11 +227,6 @@ struct _PpsViewClass {
 	void (*popup_menu) (PpsView *view,
 	                    GList *items);
 	void (*selection_changed) (PpsView *view);
-	void (*annot_added) (PpsView *view,
-	                     PpsAnnotation *annot);
-	void (*annot_cancel_add) (PpsView *view);
-	void (*annot_changed) (PpsView *view,
-	                       PpsAnnotation *annot);
 	void (*annot_removed) (PpsView *view,
 	                       PpsAnnotation *annot);
 	void (*layers_changed) (PpsView *view);
