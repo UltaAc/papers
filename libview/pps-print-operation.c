@@ -1505,7 +1505,7 @@ struct _PpsPrintOperationPrint {
 	gchar *job_name;
 
 	/* Page handling tab */
-	GtkWidget *scale_combo;
+	GtkWidget *scale_dropdown;
 	PpsPrintScale page_scale;
 	GtkWidget *autorotate_button;
 	gboolean autorotate;
@@ -1896,13 +1896,17 @@ pps_print_operation_print_create_custom_widget (PpsPrintOperationPrint *print,
 	label = gtk_label_new (_ ("Page Scaling:"));
 	gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
 
-	print->scale_combo = gtk_combo_box_text_new ();
 	/* translators: Value for 'Page Scaling:' to not scale the document pages on printing */
-	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (print->scale_combo), _ ("None"));
-	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (print->scale_combo), _ ("Shrink to Printable Area"));
-	gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (print->scale_combo), _ ("Fit to Printable Area"));
-	gtk_combo_box_set_active (GTK_COMBO_BOX (print->scale_combo), page_scale);
-	gtk_widget_set_tooltip_text (print->scale_combo,
+	print->scale_dropdown = gtk_drop_down_new_from_strings ((const char *[]) {
+	    _ ("None"),
+	    _ ("Shrink to Printable Area"),
+	    _ ("Fit to Printable Area"),
+	    NULL,
+	});
+
+	gtk_drop_down_set_selected (GTK_DROP_DOWN (print->scale_dropdown), page_scale);
+
+	gtk_widget_set_tooltip_text (print->scale_dropdown,
 	                             _ ("Scale document pages to fit the selected printer page. Select from one of the following:\n"
 	                                "\n"
 	                                "• “None”: No page scaling is performed.\n"
@@ -1912,7 +1916,7 @@ pps_print_operation_print_create_custom_widget (PpsPrintOperationPrint *print,
 	                                "\n"
 	                                "• “Fit to Printable Area”: Document pages are enlarged or reduced as"
 	                                " required to fit the printable area of the printer page.\n"));
-	gtk_grid_attach (GTK_GRID (grid), print->scale_combo, 1, 0, 1, 1);
+	gtk_grid_attach (GTK_GRID (grid), print->scale_dropdown, 1, 0, 1, 1);
 
 	print->autorotate_button = gtk_check_button_new_with_label (_ ("Auto Rotate and Center"));
 	gtk_check_button_set_active (GTK_CHECK_BUTTON (print->autorotate_button), autorotate);
@@ -1942,7 +1946,7 @@ pps_print_operation_print_custom_widget_apply (PpsPrintOperationPrint *print,
 {
 	GtkPrintSettings *settings;
 
-	print->page_scale = gtk_combo_box_get_active (GTK_COMBO_BOX (print->scale_combo));
+	print->page_scale = gtk_drop_down_get_selected (GTK_DROP_DOWN (print->scale_dropdown));
 	print->autorotate = gtk_check_button_get_active (GTK_CHECK_BUTTON (print->autorotate_button));
 	print->use_source_size = gtk_check_button_get_active (GTK_CHECK_BUTTON (print->source_button));
 	print->draw_borders = gtk_check_button_get_active (GTK_CHECK_BUTTON (print->borders_button));
