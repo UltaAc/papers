@@ -179,7 +179,6 @@ typedef struct _PpsViewPrivate {
 
 	/* Annotations */
 	MovingAnnotInfo moving_annot_info;
-	GHashTable *annot_window_map;
 	gboolean enable_spellchecking;
 	GdkRGBA annot_color;
 

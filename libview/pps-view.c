@@ -3109,15 +3109,6 @@ pps_view_handle_media (PpsView *view,
 
 /* Annotations */
 static GtkWidget *
-get_window_for_annot (PpsView *view,
-                      PpsAnnotation *annot)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	return g_hash_table_lookup (priv->annot_window_map, annot);
-}
-
-static GtkWidget *
 pps_view_create_annotation_window (PpsView *view,
                                    PpsAnnotation *annot)
 {
@@ -3126,7 +3117,9 @@ pps_view_create_annotation_window (PpsView *view,
 	GtkWidget *window = pps_annotation_window_new (annot, parent,
 	                                               priv->document);
 
-	g_hash_table_insert (priv->annot_window_map, annot, window);
+	g_object_set_data_full (G_OBJECT (annot), "popup",
+	                        g_object_ref_sink (window),
+	                        (GDestroyNotify) gtk_window_destroy);
 
 	pps_annotation_window_set_enable_spellchecking (PPS_ANNOTATION_WINDOW (window),
 	                                                pps_view_get_enable_spellchecking (view));
@@ -3156,7 +3149,7 @@ show_annotation_windows (PpsView *view,
 		if (!pps_annotation_markup_has_popup (PPS_ANNOTATION_MARKUP (annot)))
 			continue;
 
-		window = PPS_ANNOTATION_WINDOW (get_window_for_annot (view, annot));
+		window = g_object_get_data (G_OBJECT (annot), "popup");
 		if (window) {
 			gboolean opened = pps_annotation_window_is_open (window);
 			gtk_widget_set_visible (GTK_WIDGET (window), opened);
@@ -3185,7 +3178,7 @@ hide_annotation_windows (PpsView *view,
 		if (!PPS_IS_ANNOTATION_MARKUP (annot))
 			continue;
 
-		window = get_window_for_annot (view, annot);
+		window = g_object_get_data (G_OBJECT (annot), "popup");
 		if (window)
 			gtk_widget_set_visible (window, FALSE);
 	}
@@ -3314,7 +3307,7 @@ pps_view_handle_annotation (PpsView *view,
 			return;
 		}
 		pps_annotation_markup_set_popup_is_open (annot_markup, TRUE);
-		window = get_window_for_annot (view, annot);
+		window = g_object_get_data (G_OBJECT (annot), "popup");
 		if (!window)
 			window = pps_view_create_annotation_window (view, annot);
 		pps_annotation_window_show (PPS_ANNOTATION_WINDOW (window));
@@ -3580,8 +3573,6 @@ pps_view_remove_annotation (PpsView *view,
 	g_object_ref (annot);
 
 	page = pps_annotation_get_page_index (annot);
-
-	g_hash_table_remove (priv->annot_window_map, annot);
 
 	_pps_view_set_focused_element (view, NULL, -1);
 
@@ -5666,17 +5657,17 @@ pps_view_set_enable_spellchecking (PpsView *view,
 
 		for (l = pps_mapping_list_get_list (annots); l && l->data; l = g_list_next (l)) {
 			PpsAnnotation *annot;
-			GtkWidget *window;
+			PpsAnnotationWindow *window;
 
 			annot = ((PpsMapping *) (l->data))->data;
 
 			if (!PPS_IS_ANNOTATION_MARKUP (annot))
 				continue;
 
-			window = get_window_for_annot (view, annot);
+			window = g_object_get_data (G_OBJECT (annot), "popup");
 
 			if (window) {
-				pps_annotation_window_set_enable_spellchecking (PPS_ANNOTATION_WINDOW (window), priv->enable_spellchecking);
+				pps_annotation_window_set_enable_spellchecking (window, priv->enable_spellchecking);
 			}
 		}
 	}
@@ -6764,7 +6755,6 @@ pps_view_dispose (GObject *object)
 	g_clear_object (&priv->page_cache);
 	g_clear_object (&priv->scroll_animation_vertical);
 	g_clear_object (&priv->scroll_animation_horizontal);
-	g_clear_pointer (&priv->annot_window_map, g_hash_table_destroy);
 
 	g_clear_handle_id (&priv->update_cursor_idle_id, g_source_remove);
 	g_clear_handle_id (&priv->selection_scroll_id, g_source_remove);
@@ -7421,10 +7411,6 @@ pps_view_init (PpsView *view)
 	priv->zoom_center_y = -1;
 	priv->scroll_animation_vertical = adw_timed_animation_new (GTK_WIDGET (view), 0, 0, 200, adw_callback_animation_target_new ((AdwAnimationTargetFunc) pps_scroll_vertical_animation_cb, view, NULL));
 	priv->scroll_animation_horizontal = adw_timed_animation_new (GTK_WIDGET (view), 0, 0, 200, adw_callback_animation_target_new ((AdwAnimationTargetFunc) pps_scroll_horizontal_animation_cb, view, NULL));
-	priv->annot_window_map = g_hash_table_new_full (g_direct_hash,
-	                                                NULL,
-	                                                NULL,
-	                                                (GDestroyNotify) gtk_window_destroy);
 
 	adw_animation_pause (priv->scroll_animation_vertical);
 	adw_animation_pause (priv->scroll_animation_horizontal);
