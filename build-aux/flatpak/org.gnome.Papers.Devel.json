@@ -145,7 +145,7 @@
                 "-Dthumbnailer=false",
                 "-Ddocumentation=false",
                 "-Dintrospection=disabled",
-                "-Duser_doc=false",
+                "-Duser_doc=true",
                 "-Dprofile=devel",
                 "-Dtests=false",
                 "--libdir=/app/lib"
