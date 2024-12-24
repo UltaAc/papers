@@ -48,6 +48,8 @@
 #include "pps-pixbuf-cache.h"
 #include "pps-view-marshal.h"
 
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 enum {
 	SIGNAL_SCROLL,
 	SIGNAL_HANDLE_LINK,
@@ -9090,3 +9092,5 @@ pps_view_stop_signature_rect (PpsView *view)
 	pps_rectangle_free (rect);
 	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
+
+G_GNUC_END_IGNORE_DEPRECATIONS

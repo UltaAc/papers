@@ -55,10 +55,13 @@ pps_document_misc_pixbuf_from_surface (cairo_surface_t *surface)
 {
 	g_return_val_if_fail (surface, NULL);
 
+	G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 	return gdk_pixbuf_get_from_surface (surface,
 	                                    0, 0,
 	                                    cairo_image_surface_get_width (surface),
 	                                    cairo_image_surface_get_height (surface));
+	G_GNUC_END_IGNORE_DEPRECATIONS
 }
 
 /**

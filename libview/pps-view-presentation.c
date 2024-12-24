@@ -30,6 +30,8 @@
 #include "pps-view-cursor.h"
 #include "pps-view-presentation.h"
 
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 enum {
 	PROP_0,
 	PROP_DOCUMENT,
@@ -1582,3 +1584,5 @@ pps_view_presentation_get_rotation (PpsViewPresentation *pview)
 
 	return priv->rotation;
 }
+
+G_GNUC_END_IGNORE_DEPRECATIONS
