@@ -1894,6 +1894,8 @@ pps_print_operation_print_create_custom_widget (PpsPrintOperationPrint *print,
 	gtk_widget_set_margin_end (grid, 12);
 
 	label = gtk_label_new (_ ("Page Scaling:"));
+	gtk_widget_set_halign (GTK_WIDGET (label), GTK_ALIGN_START);
+
 	gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
 
 	/* translators: Value for 'Page Scaling:' to not scale the document pages on printing */
