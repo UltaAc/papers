@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -n "${MESON_SOURCE_ROOT}" ]; then
-	cd "${MESON_SOURCE_ROOT}/shell-rs"
+	cd "${MESON_SOURCE_ROOT}/shell"
 fi
 
 if ! command -v gir &> /dev/null

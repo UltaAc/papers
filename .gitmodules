@@ -1,10 +1,10 @@
-[submodule "shell-rs/gir-files"]
-	path = shell-rs/gir-files
+[submodule "shell/gir-files"]
+	path = shell/gir-files
 	url = https://github.com/gtk-rs/gir-files
 	branch = master
 	update = none
-[submodule "shell-rs/gir"]
-	path = shell-rs/gir
+[submodule "shell/gir"]
+	path = shell/gir
 	url = https://github.com/gtk-rs/gir
 	branch = master
 	update = none

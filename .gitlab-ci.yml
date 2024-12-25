@@ -80,7 +80,7 @@ cargo-format:
     stage: lint
     extends: '.fdo.distribution-image@fedora'
     script:
-        - cd shell-rs && cargo fmt --check
+        - cd shell && cargo fmt --check
 
 .setup-meson:
     stage: build
@@ -94,7 +94,7 @@ cargo-format:
     before_script:
         - git submodule init
         - git submodule update --checkout
-        - cargo install --path shell-rs/gir
+        - cargo install --path shell/gir
         - export PATH=$PATH:$HOME/.cargo/bin
         - meson setup $MESON_SETUP_OPTIONS --werror --fatal-meson-warnings _build
         - meson compile -C _build update-rust-bindings
@@ -121,7 +121,7 @@ meson-pot:
         MESON_SETUP_OPTIONS: "-Dbuildtype=release"
     script:
         - meson compile -C _build papers-pot
-        - if [ "$(grep 'gettext!' -R shell-rs)" != "" ]; then exit 1; fi
+        - if [ "$(grep 'gettext!' -R shell)" != "" ]; then exit 1; fi
 
 .flatpak-local:
     stage: build

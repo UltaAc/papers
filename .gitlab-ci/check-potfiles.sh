@@ -1,8 +1,8 @@
 #!/bin/sh
 
 cdirs="shell/ libdocument/ libview/ nautilus/ previewer/ thumbnailer/"
-rsdirs="shell-rs/src"
-uidirs="shell/ libview/ previewer"
+rsdirs="shell/src"
+uidirs="shell/resources libview/ previewer"
 desktopdirs="data/ libdocument/"
 
 # find C files that contain gettext keywords

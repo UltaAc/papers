@@ -343,7 +343,6 @@ subdir('data')
 enable_viewer = get_option('viewer')
 if enable_viewer
   subdir('shell')
-  subdir('shell-rs')
 else
   rust_target = 'n/a'
 endif
