@@ -15,8 +15,6 @@ use papers_view::SizingMode;
 
 use crate::application::spawn;
 use crate::config::PROFILE;
-use crate::document_view::PpsDocumentView;
-use crate::file_monitor::PpsFileMonitor;
 
 #[derive(Debug, Clone, Copy, Default, PartialEq)]
 pub enum WindowRunMode {
@@ -40,11 +38,11 @@ mod imp {
         #[template_child]
         pub(super) stack: TemplateChild<adw::ViewStack>,
         #[template_child]
-        pub(super) loader_view: TemplateChild<crate::loader_view::PpsLoaderView>,
+        pub(super) loader_view: TemplateChild<PpsLoaderView>,
         #[template_child]
         pub(super) error_page: TemplateChild<adw::StatusPage>,
         #[template_child]
-        pub(super) password_view: TemplateChild<crate::password_view::PpsPasswordView>,
+        pub(super) password_view: TemplateChild<PpsPasswordView>,
         #[template_child]
         pub(super) document_view: TemplateChild<PpsDocumentView>,
         #[template_child]
@@ -93,8 +91,8 @@ mod imp {
             gdk::FileList::ensure_type();
 
             papers_view::ViewPresentation::ensure_type();
-            crate::password_view::PpsPasswordView::ensure_type();
-            crate::loader_view::PpsLoaderView::ensure_type();
+            PpsPasswordView::ensure_type();
+            PpsLoaderView::ensure_type();
 
             klass.bind_template();
             klass.bind_template_callbacks();

@@ -121,7 +121,7 @@ mod imp {
                     .stack
                     .child_by_name("links")
                     .unwrap()
-                    .dynamic_cast_ref::<crate::sidebar_page::PpsSidebarPage>()
+                    .dynamic_cast_ref::<PpsSidebarPage>()
                     .unwrap()
                     .support_document(&document)
                 {
@@ -143,7 +143,7 @@ mod imp {
                 .stack
                 .child_by_name("links")
                 .unwrap()
-                .dynamic_cast_ref::<crate::sidebar_page::PpsSidebarPage>()
+                .dynamic_cast_ref::<PpsSidebarPage>()
                 .unwrap()
                 .support_document(&document)
             {

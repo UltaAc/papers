@@ -13,11 +13,11 @@ mod imp {
         #[template_child]
         pub(super) stack: TemplateChild<adw::ViewStack>,
         #[template_child]
-        pub(super) fonts: TemplateChild<crate::properties_fonts::PpsPropertiesFonts>,
+        pub(super) fonts: TemplateChild<PpsPropertiesFonts>,
         #[template_child]
-        pub(super) license: TemplateChild<crate::properties_license::PpsPropertiesLicense>,
+        pub(super) license: TemplateChild<PpsPropertiesLicense>,
         #[template_child]
-        pub(super) signatures: TemplateChild<crate::properties_signatures::PpsPropertiesSignatures>,
+        pub(super) signatures: TemplateChild<PpsPropertiesSignatures>,
         #[template_child]
         pub(super) fonts_page: TemplateChild<adw::ViewStackPage>,
         #[template_child]
@@ -41,10 +41,10 @@ mod imp {
         type ParentType = adw::Dialog;
 
         fn class_init(klass: &mut Self::Class) {
-            crate::properties_fonts::PpsPropertiesFonts::ensure_type();
-            crate::properties_general::PpsPropertiesGeneral::ensure_type();
-            crate::properties_license::PpsPropertiesLicense::ensure_type();
-            crate::properties_signatures::PpsPropertiesSignatures::ensure_type();
+            PpsPropertiesFonts::ensure_type();
+            PpsPropertiesGeneral::ensure_type();
+            PpsPropertiesLicense::ensure_type();
+            PpsPropertiesSignatures::ensure_type();
 
             klass.bind_template();
         }

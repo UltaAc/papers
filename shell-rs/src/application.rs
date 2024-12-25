@@ -3,10 +3,8 @@ use crate::deps::*;
 use papers_document::{LinkDest, LinkDestType};
 use papers_view::Job;
 
-use crate::window::PpsWindow;
-use std::ffi::OsString;
-
 use std::env;
+use std::ffi::OsString;
 
 mod imp {
     use super::*;

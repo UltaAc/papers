@@ -16,10 +16,7 @@ use papers_document::{
 };
 use papers_view::{History, PageLayout, SizingMode};
 
-use crate::annotation_properties_dialog::PpsAnnotationPropertiesDialog;
 use crate::application;
-use crate::progress_message_area::PpsProgressMessageArea;
-use crate::properties_window::PpsPropertiesWindow;
 
 /// Action handling of this widget
 mod actions;
@@ -54,7 +51,7 @@ mod imp {
         #[template_child]
         pub(super) split_view: TemplateChild<adw::OverlaySplitView>,
         #[template_child]
-        pub(super) page_selector: TemplateChild<crate::page_selector::PpsPageSelector>,
+        pub(super) page_selector: TemplateChild<PpsPageSelector>,
         #[template_child]
         pub(super) zoom_fit_best_revealer: TemplateChild<gtk::Revealer>,
         #[template_child]
@@ -68,20 +65,19 @@ mod imp {
 
         // sidebar
         #[template_child]
-        pub(super) sidebar: TemplateChild<crate::sidebar::PpsSidebar>,
+        pub(super) sidebar: TemplateChild<PpsSidebar>,
         #[template_child]
         pub(super) sidebar_stack: TemplateChild<gtk::Stack>,
         #[template_child]
-        pub(super) find_sidebar: TemplateChild<crate::find_sidebar::PpsFindSidebar>,
+        pub(super) find_sidebar: TemplateChild<PpsFindSidebar>,
         #[template_child]
-        pub(super) sidebar_layers: TemplateChild<crate::sidebar_layers::PpsSidebarLayers>,
+        pub(super) sidebar_layers: TemplateChild<PpsSidebarLayers>,
         #[template_child]
-        pub(super) sidebar_annots: TemplateChild<crate::sidebar_annotations::PpsSidebarAnnotations>,
+        pub(super) sidebar_annots: TemplateChild<PpsSidebarAnnotations>,
         #[template_child]
-        pub(super) sidebar_links: TemplateChild<crate::sidebar_links::PpsSidebarLinks>,
+        pub(super) sidebar_links: TemplateChild<PpsSidebarLinks>,
         #[template_child]
-        pub(super) sidebar_attachments:
-            TemplateChild<crate::sidebar_attachments::PpsSidebarAttachments>,
+        pub(super) sidebar_attachments: TemplateChild<PpsSidebarAttachments>,
         #[template_child]
         pub(super) attachment_context: TemplateChild<papers_view::AttachmentContext>,
         #[template_child]
@@ -182,9 +178,9 @@ mod imp {
 
             papers_view::View::ensure_type();
             papers_view::ViewPresentation::ensure_type();
-            crate::find_sidebar::PpsFindSidebar::ensure_type();
-            crate::page_selector::PpsPageSelector::ensure_type();
-            crate::sidebar_annotations::PpsSidebarAnnotations::ensure_type();
+            PpsFindSidebar::ensure_type();
+            PpsPageSelector::ensure_type();
+            PpsSidebarAnnotations::ensure_type();
 
             klass.bind_template();
             klass.bind_template_callbacks();

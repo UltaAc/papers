@@ -1,5 +1,4 @@
 use crate::deps::*;
-use crate::sidebar_annotations_row::PpsSidebarAnnotationsRow;
 use papers_document::{AnnotationMarkup, DocumentAnnotations, Mapping};
 use papers_view::{JobAnnots, JobPriority};
 
@@ -118,8 +117,6 @@ mod imp {
                             obj.obj().emit_by_name::<()>("annot-activated", &[&mapping])
                         }
                         gdk::BUTTON_SECONDARY => {
-                            use crate::document_view::PpsDocumentView;
-
                             let document_view = obj
                                 .obj()
                                 .ancestor(PpsDocumentView::static_type())

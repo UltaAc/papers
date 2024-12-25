@@ -1,8 +1,6 @@
 use papers_document::{DocumentSignatures, SignatureStatus};
 use papers_view::{JobPriority, JobSignatures};
 
-use crate::window::PpsWindow;
-
 use super::*;
 
 impl imp::PpsDocumentView {

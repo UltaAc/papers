@@ -1,5 +1,4 @@
 use crate::deps::*;
-use crate::sidebar::PpsSidebar;
 
 use glib::translate::*;
 

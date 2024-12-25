@@ -1,5 +1,5 @@
 use crate::deps::*;
-use crate::thumbnail_item::PpsThumbnailItem;
+
 use gdk::pango::{AttrList, WrapMode};
 use papers_view::{JobPriority, PageLayout};
 

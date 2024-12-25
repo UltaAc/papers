@@ -696,11 +696,7 @@ mod imp {
                         last_page
                     };
 
-                    if let Some(window) = self
-                        .obj()
-                        .native()
-                        .and_downcast::<crate::window::PpsWindow>()
-                    {
+                    if let Some(window) = self.obj().native().and_downcast::<PpsWindow>() {
                         window.print_range(first_page, last_page);
                     }
                 }
@@ -785,7 +781,7 @@ mod imp {
         fn metadata(&self) -> Option<Metadata> {
             self.obj()
                 .native()
-                .and_downcast::<crate::window::PpsWindow>()
+                .and_downcast::<PpsWindow>()
                 .and_then(|w| w.metadata())
         }
 

@@ -1,6 +1,5 @@
 use crate::deps::*;
 
-use crate::search_box::PpsSearchBox;
 use papers_view::SearchContext;
 
 mod imp {

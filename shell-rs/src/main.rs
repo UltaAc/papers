@@ -4,7 +4,6 @@ mod config {
     include!(concat!(env!("CODEGEN_BUILD_DIR"), "/config.rs"));
 }
 
-use application::PpsApplication;
 use config::GETTEXT_PACKAGE;
 
 mod annotation_properties_dialog;
@@ -54,18 +53,18 @@ fn ensure_type() {
     resources_register();
 
     // Hack: ensure type here so we don't need to add C interface
-    annotation_properties_dialog::PpsAnnotationPropertiesDialog::ensure_type();
-    page_selector::PpsPageSelector::ensure_type();
-    properties_general::PpsPropertiesGeneral::ensure_type();
-    properties_window::PpsPropertiesWindow::ensure_type();
-    search_box::PpsSearchBox::ensure_type();
-    sidebar::PpsSidebar::ensure_type();
-    sidebar_attachments::PpsSidebarAttachments::ensure_type();
-    sidebar_annotations::PpsSidebarAnnotations::ensure_type();
-    sidebar_layers::PpsSidebarLayers::ensure_type();
-    sidebar_links::PpsSidebarLinks::ensure_type();
-    sidebar_thumbnails::PpsSidebarThumbnails::ensure_type();
-    stack_switcher::PpsStackSwitcher::ensure_type();
+    PpsAnnotationPropertiesDialog::ensure_type();
+    PpsPageSelector::ensure_type();
+    PpsPropertiesGeneral::ensure_type();
+    PpsPropertiesWindow::ensure_type();
+    PpsSearchBox::ensure_type();
+    PpsSidebar::ensure_type();
+    PpsSidebarAttachments::ensure_type();
+    PpsSidebarAnnotations::ensure_type();
+    PpsSidebarLayers::ensure_type();
+    PpsSidebarLinks::ensure_type();
+    PpsSidebarThumbnails::ensure_type();
+    PpsStackSwitcher::ensure_type();
 }
 
 fn main() -> glib::ExitCode {
