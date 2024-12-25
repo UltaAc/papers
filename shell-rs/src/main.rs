@@ -39,13 +39,6 @@ mod window;
 
 use deps::*;
 
-fn resources_register() {
-    let resources = gio::Resource::from_data(&glib::Bytes::from_static(config::RESOURCES_DATA))
-        .expect("failed to load resources");
-
-    gio::resources_register(&resources);
-}
-
 fn main() -> glib::ExitCode {
     let mut log_builder = env_logger::builder();
     log_builder.format_timestamp_millis();
@@ -62,6 +55,5 @@ fn main() -> glib::ExitCode {
         .expect("Unable to bind the text domain codeset");
     gettextrs::textdomain(GETTEXT_PACKAGE).expect("Unable to switch to the text domain");
 
-    resources_register();
     PpsApplication::new().run()
 }
