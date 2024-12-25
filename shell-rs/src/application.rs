@@ -34,17 +34,16 @@ mod imp {
 
     impl ApplicationImpl for PpsApplication {
         fn startup(&self) {
+            let resources = gio::Resource::from_data(&glib::Bytes::from_static(RESOURCES_DATA))
+                .expect("failed to load resources");
+            gio::resources_register(&resources);
+
             self.parent_startup();
             papers_document::init();
 
             // Manually set name and icon
             glib::set_application_name(&gettext("Papers"));
             gtk::Window::set_default_icon_name(APP_ID);
-
-            let resources = gio::Resource::from_data(&glib::Bytes::from_static(RESOURCES_DATA))
-                .expect("failed to load resources");
-
-            gio::resources_register(&resources);
 
             self.setup_actions();
         }
