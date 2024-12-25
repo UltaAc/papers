@@ -178,9 +178,16 @@ mod imp {
 
             papers_view::View::ensure_type();
             papers_view::ViewPresentation::ensure_type();
+
             PpsFindSidebar::ensure_type();
             PpsPageSelector::ensure_type();
+            PpsSearchBox::ensure_type();
+            PpsSidebar::ensure_type();
             PpsSidebarAnnotations::ensure_type();
+            PpsSidebarAttachments::ensure_type();
+            PpsSidebarLayers::ensure_type();
+            PpsSidebarLinks::ensure_type();
+            PpsSidebarThumbnails::ensure_type();
 
             klass.bind_template();
             klass.bind_template_callbacks();

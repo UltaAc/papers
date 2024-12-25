@@ -46,24 +46,6 @@ fn resources_register() {
     gio::resources_register(&resources);
 }
 
-fn ensure_type() {
-    resources_register();
-
-    // Hack: ensure type here so we don't need to add C interface
-    PpsAnnotationPropertiesDialog::ensure_type();
-    PpsPageSelector::ensure_type();
-    PpsPropertiesGeneral::ensure_type();
-    PpsPropertiesWindow::ensure_type();
-    PpsSearchBox::ensure_type();
-    PpsSidebar::ensure_type();
-    PpsSidebarAttachments::ensure_type();
-    PpsSidebarAnnotations::ensure_type();
-    PpsSidebarLayers::ensure_type();
-    PpsSidebarLinks::ensure_type();
-    PpsSidebarThumbnails::ensure_type();
-    PpsStackSwitcher::ensure_type();
-}
-
 fn main() -> glib::ExitCode {
     let mut log_builder = env_logger::builder();
     log_builder.format_timestamp_millis();
@@ -80,6 +62,6 @@ fn main() -> glib::ExitCode {
         .expect("Unable to bind the text domain codeset");
     gettextrs::textdomain(GETTEXT_PACKAGE).expect("Unable to switch to the text domain");
 
-    ensure_type();
+    resources_register();
     PpsApplication::new().run()
 }

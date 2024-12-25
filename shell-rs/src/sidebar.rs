@@ -23,6 +23,8 @@ mod imp {
         type Interfaces = (gtk::Buildable,);
 
         fn class_init(klass: &mut Self::Class) {
+            PpsStackSwitcher::ensure_type();
+
             klass.bind_template();
             klass.bind_template_callbacks();
         }
