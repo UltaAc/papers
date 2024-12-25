@@ -1,9 +1,7 @@
 # List of source files that should *not* be translated.
 # Please keep this file sorted alphabetically.
-cut-n-paste/libdazzle/dzl-file-manager.c
 data/org.gnome.Papers.desktop.in
 data/org.gnome.Papers-previewer.desktop.in
-data/org.gnome.Papers.Daemon.service.in
 libdocument/backend/comics/comicsdocument.papers-backend.desktop.in
 libdocument/backend/comics/papers-comicsdocument.metainfo.xml.in
 libdocument/backend/djvu/djvudocument.papers-backend.desktop.in
