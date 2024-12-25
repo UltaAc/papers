@@ -47,9 +47,6 @@ fn resources_register() {
 }
 
 fn ensure_type() {
-    // HACK: don't need gtk4::init after PpsApplicationWindow is port to rust
-    let _ = gtk::init();
-
     resources_register();
 
     // Hack: ensure type here so we don't need to add C interface
