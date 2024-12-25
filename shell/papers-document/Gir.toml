@@ -1,5 +1,5 @@
 [options]
-girs_directories = ["../gir-files", "../ev-girs"]
+girs_directories = ["../gir-files", "../pps-girs"]
 library = "PapersDocument"
 version = "4.0"
 min_cfg_version = "4.0"

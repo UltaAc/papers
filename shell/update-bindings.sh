@@ -11,7 +11,7 @@ then
 fi
 
 for g in ${@:1}; do
-	cp "$g" ev-girs
+	cp "$g" pps-girs
 done
 
 for d in papers-document papers-view; do
