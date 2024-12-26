@@ -89,16 +89,16 @@ impl imp::PpsDocumentView {
     }
 
     #[template_callback]
-    fn scroll_child_history(&self, scroll: gtk::ScrollType, horizontal: bool) {
+    fn scroll_child_history(&self, scroll: gtk::ScrollType, horizontal: bool) -> bool {
         let Some(document) = self.document() else {
-            return;
+            return false;
         };
 
         if self.model.is_continuous() && !horizontal {
             let new_page = match scroll {
                 gtk::ScrollType::Start => 0,
                 gtk::ScrollType::End => document.n_pages() - 1,
-                _ => return,
+                _ => return false,
             };
 
             let old_page = self.model.page();
@@ -106,6 +106,8 @@ impl imp::PpsDocumentView {
             self.history.add_page(old_page);
             self.history.add_page(new_page);
         }
+
+        true
     }
 
     // misc
@@ -585,20 +587,22 @@ impl imp::PpsDocumentView {
     }
 
     #[template_callback]
-    fn scroll_history(&self, scroll: gtk::ScrollType) {
+    fn scroll_history(&self, scroll: gtk::ScrollType) -> bool {
         let Some(document) = self.document() else {
-            return;
+            return false;
         };
         let old_page = self.model.page();
 
         let new_page = match scroll {
             gtk::ScrollType::Start => 0,
             gtk::ScrollType::End => document.n_pages() - 1,
-            _ => return,
+            _ => return false,
         };
 
         self.history.add_page(old_page);
         self.history.add_page(new_page);
+
+        true
     }
 
     #[template_callback]
