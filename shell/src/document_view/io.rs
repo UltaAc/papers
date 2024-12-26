@@ -66,7 +66,9 @@ impl imp::PpsDocumentView {
 
         self.metadata.replace(metadata.cloned());
 
-        // FIXME: set uri here
+        let file = document.uri().map(|uri| gio::File::for_uri(&uri));
+
+        self.file.replace(file);
 
         self.setup_model_from_metadata();
         self.set_document(Some(document));
