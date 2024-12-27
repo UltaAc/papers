@@ -2801,30 +2801,24 @@ pps_annot_from_poppler_annot (PopplerAnnot *poppler_annot,
 
 	if (pps_annot) {
 		time_t utime;
-		gchar *modified;
-		gchar *contents;
-		gchar *name;
+		g_autofree gchar *modified;
+		g_autofree gchar *contents;
+		g_autofree gchar *name;
 		GdkRGBA color;
 
 		contents = poppler_annot_get_contents (poppler_annot);
-		if (contents) {
+		if (contents)
 			pps_annotation_set_contents (pps_annot, contents);
-			g_free (contents);
-		}
 
 		name = poppler_annot_get_name (poppler_annot);
-		if (name) {
+		if (name)
 			pps_annotation_set_name (pps_annot, name);
-			g_free (name);
-		}
 
 		modified = poppler_annot_get_modified (poppler_annot);
-		if (poppler_date_parse (modified, &utime)) {
+		if (poppler_date_parse (modified, &utime))
 			pps_annotation_set_modified_from_time_t (pps_annot, utime);
-		} else {
+		else
 			pps_annotation_set_modified (pps_annot, modified);
-		}
-		g_free (modified);
 
 		poppler_annot_color_to_gdk_rgba (poppler_annot, &color);
 		pps_annotation_set_rgba (pps_annot, &color);
