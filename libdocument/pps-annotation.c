@@ -844,7 +844,6 @@ pps_annotation_markup_set_property (GObject *object,
                                     GParamSpec *pspec)
 {
 	PpsAnnotationMarkup *self = PPS_ANNOTATION_MARKUP (object);
-	PpsAnnotationMarkupPrivate *priv = GET_ANNOT_MARKUP_PRIVATE (self);
 
 	switch (prop_id) {
 	case PROP_MARKUP_LABEL:
@@ -853,10 +852,6 @@ pps_annotation_markup_set_property (GObject *object,
 	case PROP_MARKUP_OPACITY:
 		pps_annotation_markup_set_opacity (self, g_value_get_double (value));
 		break;
-	case PROP_MARKUP_CAN_HAVE_POPUP: {
-		priv->can_have_popup = g_value_get_boolean (value);
-		break;
-	}
 	case PROP_MARKUP_HAS_POPUP:
 		pps_annotation_markup_set_has_popup (self, g_value_get_boolean (value));
 		break;
@@ -942,7 +937,7 @@ pps_annotation_markup_class_init (PpsAnnotationMarkupClass *klass)
 	                                                       "Whether it is allowed to have a popup "
 	                                                       "window for this type of markup annotation",
 	                                                       FALSE,
-	                                                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+	                                                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 	g_object_class_install_property (g_object_class,
 	                                 PROP_MARKUP_HAS_POPUP,
 	                                 g_param_spec_boolean ("has-popup",
@@ -1135,8 +1130,10 @@ static void
 pps_annotation_text_init (PpsAnnotationText *annot)
 {
 	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (PPS_ANNOTATION (annot));
+	PpsAnnotationMarkupPrivate *markup_priv = GET_ANNOT_MARKUP_PRIVATE (PPS_ANNOTATION_MARKUP (annot));
 
 	priv->type = PPS_ANNOTATION_TYPE_TEXT;
+	markup_priv->can_have_popup = TRUE;
 }
 
 static void
@@ -1596,8 +1593,10 @@ static void
 pps_annotation_attachment_init (PpsAnnotationAttachment *annot)
 {
 	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (PPS_ANNOTATION (annot));
+	PpsAnnotationMarkupPrivate *markup_priv = GET_ANNOT_MARKUP_PRIVATE (PPS_ANNOTATION_MARKUP (annot));
 
 	priv->type = PPS_ANNOTATION_TYPE_ATTACHMENT;
+	markup_priv->can_have_popup = TRUE;
 }
 
 static void
@@ -1740,8 +1739,10 @@ static void
 pps_annotation_text_markup_init (PpsAnnotationTextMarkup *annot)
 {
 	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (PPS_ANNOTATION (annot));
+	PpsAnnotationMarkupPrivate *markup_priv = GET_ANNOT_MARKUP_PRIVATE (PPS_ANNOTATION_MARKUP (annot));
 
 	priv->type = PPS_ANNOTATION_TYPE_TEXT_MARKUP;
+	markup_priv->can_have_popup = TRUE;
 }
 
 static void

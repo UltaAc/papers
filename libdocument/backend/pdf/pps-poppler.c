@@ -2641,29 +2641,6 @@ get_poppler_annot_text_icon (PpsAnnotationTextIcon icon)
 	}
 }
 
-static gboolean
-poppler_annot_can_have_popup_window (PopplerAnnot *poppler_annot)
-{
-	switch (poppler_annot_get_annot_type (poppler_annot)) {
-	case POPPLER_ANNOT_TEXT:
-	case POPPLER_ANNOT_LINE:
-	case POPPLER_ANNOT_SQUARE:
-	case POPPLER_ANNOT_CIRCLE:
-	case POPPLER_ANNOT_POLYGON:
-	case POPPLER_ANNOT_POLY_LINE:
-	case POPPLER_ANNOT_HIGHLIGHT:
-	case POPPLER_ANNOT_UNDERLINE:
-	case POPPLER_ANNOT_SQUIGGLY:
-	case POPPLER_ANNOT_STRIKE_OUT:
-	case POPPLER_ANNOT_CARET:
-	case POPPLER_ANNOT_INK:
-	case POPPLER_ANNOT_FILE_ATTACHMENT:
-		return TRUE;
-	default:
-		return FALSE;
-	}
-}
-
 static PpsAnnotation *
 pps_annot_from_poppler_annot (PopplerAnnot *poppler_annot,
                               PpsPage *page)
@@ -2859,7 +2836,8 @@ pps_annot_from_poppler_annot (PopplerAnnot *poppler_annot,
 			pps_annotation_set_hidden (pps_annot, FALSE);
 		}
 
-		if (poppler_annot_can_have_popup_window (poppler_annot)) {
+		if (PPS_IS_ANNOTATION_MARKUP (pps_annot) &&
+		    pps_annotation_markup_can_have_popup (PPS_ANNOTATION_MARKUP (pps_annot))) {
 			PopplerAnnotMarkup *markup;
 			gchar *label;
 			gdouble opacity;
@@ -2892,7 +2870,6 @@ pps_annot_from_poppler_annot (PopplerAnnot *poppler_annot,
 
 			g_object_set (pps_annot,
 			              "opacity", opacity,
-			              "can_have_popup", TRUE,
 			              NULL);
 
 			g_free (label);
