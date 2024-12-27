@@ -6,6 +6,7 @@ context_inc = include_directories('context')
 include_subdir = join_paths(pps_include_subdir, 'libview')
 
 context_headers = files(
+  'context/pps-annotations-context.h',
   'context/pps-attachment-context.h',
   'context/pps-document-model.h',
   'context/pps-history.h',
@@ -38,6 +39,7 @@ install_headers(
 headers += context_headers
 
 sources = files(
+  'context/pps-annotations-context.c',
   'context/pps-attachment-context.c',
   'context/pps-document-model.c',
   'context/pps-history.c',

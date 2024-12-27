@@ -286,7 +286,7 @@ pps_job_annots_dispose (GObject *object)
 {
 	PpsJobAnnotsPrivate *priv = JOB_ANNOTS_GET_PRIVATE (PPS_JOB_ANNOTS (object));
 
-	g_clear_list (&priv->annots, (GDestroyNotify) pps_mapping_list_unref);
+	g_clear_pointer (&priv->annots, g_list_free);
 
 	G_OBJECT_CLASS (pps_job_annots_parent_class)->dispose (object);
 }
@@ -300,20 +300,18 @@ pps_job_annots_run (PpsJob *job)
 
 	pps_document_doc_mutex_lock (pps_job_get_document (job));
 	for (gint i = 0; i < pps_document_get_n_pages (pps_job_get_document (job)); i++) {
-		PpsMappingList *mapping_list;
+		GList *annots;
 		PpsPage *page;
 
 		page = pps_document_get_page (pps_job_get_document (job), i);
-		mapping_list = pps_document_annotations_get_annotations_mapping (PPS_DOCUMENT_ANNOTATIONS (pps_job_get_document (job)),
-		                                                         page);
+		annots = pps_document_annotations_get_annotations (PPS_DOCUMENT_ANNOTATIONS (pps_job_get_document (job)),
+		                                                   page);
 		g_object_unref (page);
 
-		if (mapping_list)
-			priv->annots = g_list_prepend (priv->annots, mapping_list);
+		if (annots)
+			priv->annots = g_list_concat (priv->annots, annots);
 	}
 	pps_document_doc_mutex_unlock (pps_job_get_document (job));
-
-	priv->annots = g_list_reverse (priv->annots);
 
 	pps_job_succeeded (job);
 
@@ -348,7 +346,7 @@ pps_job_annots_new (PpsDocument *document)
  * pps_job_annots_get_annots:
  * @job: an #PpsJobAnnots
  *
- * Returns: (nullable) (transfer none) (element-type PpsMappingList):
+ * Returns: (nullable) (transfer none) (element-type PpsAnnotation):
  */
 GList *
 pps_job_annots_get_annots (PpsJobAnnots *job)
