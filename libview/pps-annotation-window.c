@@ -374,7 +374,7 @@ pps_annotation_window_class_init (PpsAnnotationWindowClass *klass)
 
 /* Public methods */
 GtkWidget *
-pps_annotation_window_new (PpsAnnotation *annot,
+pps_annotation_window_new (PpsAnnotationMarkup *annot,
                            GtkWindow *parent,
                            PpsDocument *document)
 {

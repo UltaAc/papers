@@ -56,7 +56,6 @@ enum {
 	SIGNAL_EXTERNAL_LINK,
 	SIGNAL_POPUP_MENU,
 	SIGNAL_SELECTION_CHANGED,
-	SIGNAL_ANNOT_REMOVED,
 	SIGNAL_LAYERS_CHANGED,
 	SIGNAL_MOVE_CURSOR,
 	SIGNAL_CURSOR_MOVED,
@@ -108,7 +107,6 @@ typedef struct
 
 #define ANNOT_POPUP_WINDOW_DEFAULT_WIDTH 200
 #define ANNOT_POPUP_WINDOW_DEFAULT_HEIGHT 150
-#define ANNOTATION_ICON_SIZE 24
 
 #define LINK_PREVIEW_PAGE_RATIO 1.0 / 3.0    /* Size of popover with respect to page size */
 #define LINK_PREVIEW_HORIZONTAL_LINK_POS 0.5 /* as fraction of preview width */
@@ -3096,13 +3094,28 @@ pps_view_handle_media (PpsView *view,
 /* Annotations */
 static GtkWidget *
 pps_view_create_annotation_window (PpsView *view,
-                                   PpsAnnotation *annot)
+                                   PpsAnnotationMarkup *annot)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GtkWindow *parent = GTK_WINDOW (gtk_widget_get_native (GTK_WIDGET (view)));
-	GtkWidget *window = pps_annotation_window_new (annot, parent,
-	                                               priv->document);
+	GtkWidget *window;
 
+	if (!pps_annotation_markup_has_popup (annot)) {
+		PpsRectangle popup_rect, area;
+
+		pps_annotation_get_area (PPS_ANNOTATION (annot), &area);
+
+		popup_rect.x1 = area.x2;
+		popup_rect.y1 = area.y2;
+		popup_rect.x2 = popup_rect.x1 + ANNOT_POPUP_WINDOW_DEFAULT_WIDTH;
+		popup_rect.y2 = popup_rect.y1 + ANNOT_POPUP_WINDOW_DEFAULT_HEIGHT;
+		g_object_set (annot,
+		              "rectangle", &popup_rect,
+		              "has_popup", TRUE,
+		              NULL);
+	}
+
+	window = pps_annotation_window_new (annot, parent, priv->document);
 	g_object_set_data_full (G_OBJECT (annot), "popup",
 	                        g_object_ref_sink (window),
 	                        (GDestroyNotify) gtk_window_destroy);
@@ -3125,6 +3138,7 @@ show_annotation_windows (PpsView *view,
 
 	for (l = pps_mapping_list_get_list (annots); l && l->data; l = g_list_next (l)) {
 		PpsAnnotation *annot;
+		PpsAnnotationMarkup *annot_markup;
 		PpsAnnotationWindow *window;
 
 		annot = ((PpsMapping *) (l->data))->data;
@@ -3132,7 +3146,8 @@ show_annotation_windows (PpsView *view,
 		if (!PPS_IS_ANNOTATION_MARKUP (annot))
 			continue;
 
-		if (!pps_annotation_markup_has_popup (PPS_ANNOTATION_MARKUP (annot)))
+		annot_markup = PPS_ANNOTATION_MARKUP (annot);
+		if (!pps_annotation_markup_has_popup (annot_markup))
 			continue;
 
 		window = g_object_get_data (G_OBJECT (annot), "popup");
@@ -3140,7 +3155,7 @@ show_annotation_windows (PpsView *view,
 			gboolean opened = pps_annotation_window_is_open (window);
 			gtk_widget_set_visible (GTK_WIDGET (window), opened);
 		} else {
-			pps_view_create_annotation_window (view, annot);
+			pps_view_create_annotation_window (view, annot_markup);
 		}
 	}
 }
@@ -3277,25 +3292,10 @@ pps_view_handle_annotation (PpsView *view,
 			return;
 		}
 
-		if (!pps_annotation_markup_has_popup (annot_markup)) {
-			PpsRectangle popup_rect, area;
-
-			pps_annotation_get_area (annot, &area);
-
-			popup_rect.x1 = area.x2;
-			popup_rect.y1 = area.y2;
-			popup_rect.x2 = popup_rect.x1 + ANNOT_POPUP_WINDOW_DEFAULT_WIDTH;
-			popup_rect.y2 = popup_rect.y1 + ANNOT_POPUP_WINDOW_DEFAULT_HEIGHT;
-			g_object_set (annot,
-			              "rectangle", &popup_rect,
-			              "has_popup", TRUE,
-			              NULL);
-			return;
-		}
 		pps_annotation_markup_set_popup_is_open (annot_markup, TRUE);
 		window = g_object_get_data (G_OBJECT (annot), "popup");
 		if (!window)
-			window = pps_view_create_annotation_window (view, annot);
+			window = pps_view_create_annotation_window (view, annot_markup);
 		pps_annotation_window_show (PPS_ANNOTATION_WINDOW (window));
 	}
 
@@ -3323,6 +3323,24 @@ pps_view_handle_annotation (PpsView *view,
 	}
 }
 
+void
+pps_view_focus_annotation (PpsView *view,
+                           const PpsMapping *annot_mapping)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsMapping *dup_mapping = NULL;
+
+	if (!PPS_IS_DOCUMENT_ANNOTATIONS (priv->document))
+		return;
+
+	if (annot_mapping) {
+		dup_mapping = pps_mapping_copy (annot_mapping);
+	}
+
+	_pps_view_set_focused_element (view, dup_mapping,
+	                               pps_annotation_get_page_index (PPS_ANNOTATION (annot_mapping->data)));
+}
+
 static void
 pps_view_rerender_annotation (PpsView *view,
                               PpsAnnotation *annot)
@@ -3347,189 +3365,73 @@ pps_view_rerender_annotation (PpsView *view,
 	cairo_region_destroy (region);
 }
 
-static PpsAnnotation *
-pps_view_create_annotation_real (PpsView *view,
-                                 gint annot_page,
-                                 PpsAnnotationType type,
-                                 const PpsPoint *start,
-                                 const PpsPoint *end)
+static void
+pps_view_annot_added_cb (PpsView *view,
+                         gpointer *user_data)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsAnnotation *annot;
-	PpsRectangle doc_rect, popup_rect;
-	PpsPage *page;
-
-	pps_document_doc_mutex_lock (priv->document);
-	page = pps_document_get_page (priv->document, annot_page);
-	pps_document_doc_mutex_unlock (priv->document);
-	switch (type) {
-	case PPS_ANNOTATION_TYPE_TEXT:
-		g_assert (end == NULL);
-		doc_rect.x1 = start->x - ANNOTATION_ICON_SIZE / 2;
-		doc_rect.y1 = start->y - ANNOTATION_ICON_SIZE / 2;
-		doc_rect.x2 = start->x + ANNOTATION_ICON_SIZE / 2;
-		doc_rect.y2 = start->y + ANNOTATION_ICON_SIZE / 2;
-		annot = pps_annotation_text_new (page);
-		break;
-	case PPS_ANNOTATION_TYPE_TEXT_MARKUP:
-		doc_rect.x1 = start->x;
-		doc_rect.y1 = start->y;
-		doc_rect.x2 = end->x;
-		doc_rect.y2 = end->y;
-		annot = pps_annotation_text_markup_new (page, priv->markup_type);
-		break;
-	default:
-		g_assert_not_reached ();
-		return NULL;
-	}
-
-	pps_annotation_set_area (annot, &doc_rect);
-	pps_annotation_set_rgba (annot, &priv->annot_color);
-
-	popup_rect.x1 = doc_rect.x2;
-	popup_rect.x2 = popup_rect.x1 + ANNOT_POPUP_WINDOW_DEFAULT_WIDTH;
-	popup_rect.y1 = doc_rect.y2;
-	popup_rect.y2 = popup_rect.y1 + ANNOT_POPUP_WINDOW_DEFAULT_HEIGHT;
-	g_object_set (annot,
-	              "rectangle", &popup_rect,
-	              "has-popup", TRUE,
-	              "popup-is-open", FALSE,
-	              "label", g_get_real_name (),
-	              "opacity", 1.0,
-	              NULL);
-
-	pps_document_doc_mutex_lock (priv->document);
-	pps_document_annotations_add_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document), annot);
-	pps_document_doc_mutex_unlock (priv->document);
+	PpsAnnotation *annot = PPS_ANNOTATION (user_data);
+	gint page_index = pps_annotation_get_page_index (annot);
 
 	/* If the page didn't have annots, mark the cache as dirty */
-	if (!pps_page_cache_get_annot_mapping (priv->page_cache, annot_page))
-		pps_page_cache_mark_dirty (priv->page_cache, annot_page, PPS_PAGE_DATA_INCLUDE_ANNOTS);
+	if (!pps_page_cache_get_annot_mapping (priv->page_cache, page_index))
+		pps_page_cache_mark_dirty (priv->page_cache,
+		                           page_index,
+		                           PPS_PAGE_DATA_INCLUDE_ANNOTS);
 
 	pps_view_rerender_annotation (view, annot);
 
-	return annot;
-}
-
-/**
- * pps_view_add_text_annotation_at_point:
- * @view: a #PpsView
- * @x: the x coordinate over the view to place the annotation
- * @y: the y coordinate over the view to place the annotation
- *
- * Returns: whether the annotation was added or not
- *
- * Since: 48.0
- */
-gboolean
-pps_view_add_text_annotation_at_point (PpsView *view,
-                                       gint x,
-                                       gint y)
-{
-	PpsAnnotation *annot;
-	g_autofree PpsMark *mark = pps_view_get_mark_for_view_point (view, x, y);
-
-	if (mark == NULL)
-		return FALSE;
-
-	annot = pps_view_create_annotation_real (view, mark->page_index,
-	                                         PPS_ANNOTATION_TYPE_TEXT,
-	                                         &mark->doc_point, NULL);
-	if (PPS_IS_ANNOTATION_MARKUP (annot)) {
-		GtkWidget *window = pps_view_create_annotation_window (view, annot);
+	if (PPS_IS_ANNOTATION_TEXT (annot)) {
+		GtkWidget *window = pps_view_create_annotation_window (view, PPS_ANNOTATION_MARKUP (annot));
 		pps_annotation_window_show (PPS_ANNOTATION_WINDOW (window));
 	}
 
-	return TRUE;
+	if (pps_view_has_selection (view))
+		clear_selection (view);
 }
 
-/**
- * pps_view_add_text_markup_annotation_for_selected_text:
- * @view: #PpsView instance
- *
- * Adds a Text Markup annotation (defaulting to a 'highlight' one) to
- * the currently selected text on the document.
- *
- * When the selected text spans more than one page, it will add a
- * corresponding annotation for each page that contains selected text.
- *
- * Returns: %TRUE if annotations were added successfully, %FALSE otherwise.
- *
- * Since: 3.30
- */
-gboolean
-pps_view_add_text_markup_annotation_for_selected_text (PpsView *view)
-{
-	g_autoptr (GList) selections = pps_view_get_selections (view);
-
-	if (!pps_view_has_selection (view))
-		return FALSE;
-
-	for (GList *l = selections; l != NULL; l = l->next) {
-		PpsViewSelection *selection = (PpsViewSelection *) l->data;
-		PpsPoint doc_point_start;
-		PpsPoint doc_point_end;
-
-		doc_point_start.x = selection->rect.x1;
-		doc_point_start.y = selection->rect.y1;
-		doc_point_end.x = selection->rect.x2;
-		doc_point_end.y = selection->rect.y2;
-
-		pps_view_create_annotation_real (view, selection->page,
-		                                 PPS_ANNOTATION_TYPE_TEXT_MARKUP,
-		                                 &doc_point_start, &doc_point_end);
-	}
-
-	clear_selection (view);
-
-	return TRUE;
-}
-
-void
-pps_view_focus_annotation (PpsView *view,
-                           const PpsMapping *annot_mapping)
+static void
+pps_view_annot_removed_cb (PpsView *view,
+                           gpointer *user_data)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsMapping *dup_mapping = NULL;
-
-	if (!PPS_IS_DOCUMENT_ANNOTATIONS (priv->document))
-		return;
-
-	if (annot_mapping) {
-		dup_mapping = pps_mapping_copy (annot_mapping);
-	}
-
-	_pps_view_set_focused_element (view, dup_mapping,
-	                               pps_annotation_get_page_index (PPS_ANNOTATION (annot_mapping->data)));
-}
-
-void
-pps_view_remove_annotation (PpsView *view,
-                            PpsAnnotation *annot)
-{
-	guint page;
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	g_return_if_fail (PPS_IS_VIEW (view));
-	g_return_if_fail (PPS_IS_ANNOTATION (annot));
-
-	g_object_ref (annot);
-
-	page = pps_annotation_get_page_index (annot);
+	PpsAnnotation *annot = PPS_ANNOTATION (user_data);
 
 	_pps_view_set_focused_element (view, NULL, -1);
 
-	pps_document_doc_mutex_lock (priv->document);
-	pps_document_annotations_remove_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document),
-	                                            annot);
-	pps_document_doc_mutex_unlock (priv->document);
-
-	pps_page_cache_mark_dirty (priv->page_cache, page, PPS_PAGE_DATA_INCLUDE_ANNOTS);
+	pps_page_cache_mark_dirty (priv->page_cache,
+	                           pps_annotation_get_page_index (annot),
+	                           PPS_PAGE_DATA_INCLUDE_ANNOTS);
 
 	pps_view_rerender_annotation (view, annot);
+}
 
-	g_signal_emit (view, signals[SIGNAL_ANNOT_REMOVED], 0, annot);
-	g_object_unref (annot);
+/**
+ * pps_view_set_annotations_context:
+ * @view: a #PpsView
+ * @context: (not nullable): the #PpsAnnotationsContext to set
+ *
+ * Since: 48.0
+ */
+void
+pps_view_set_annotations_context (PpsView *view,
+                                  PpsAnnotationsContext *context)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+
+	g_return_if_fail (PPS_IS_VIEW (view));
+	g_return_if_fail (PPS_IS_ANNOTATIONS_CONTEXT (context));
+
+	if (priv->annots_context) {
+		g_signal_handlers_disconnect_by_data (priv->annots_context, view);
+	}
+	g_set_object (&priv->annots_context, context);
+	g_signal_connect_object (priv->annots_context, "annot-added",
+	                         G_CALLBACK (pps_view_annot_added_cb),
+	                         view, G_CONNECT_SWAPPED);
+	g_signal_connect_object (priv->annots_context, "annot-removed",
+	                         G_CALLBACK (pps_view_annot_removed_cb),
+	                         view, G_CONNECT_SWAPPED);
 }
 
 /* Caret navigation */
@@ -5474,26 +5376,6 @@ pps_view_motion_notify_event (GtkEventControllerMotion *controller,
 }
 
 void
-pps_view_set_annotation_color (PpsView *view, const GdkRGBA *color)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	g_return_if_fail (PPS_IS_VIEW (view));
-
-	priv->annot_color = *color;
-}
-
-void
-pps_view_set_annotation_text_markup_type (PpsView *view, PpsAnnotationTextMarkupType markup_type)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	g_return_if_fail (PPS_IS_VIEW (view));
-
-	priv->markup_type = markup_type;
-}
-
-void
 pps_view_set_enable_spellchecking (PpsView *view,
                                    gboolean enabled)
 {
@@ -7118,14 +7000,6 @@ pps_view_class_init (PpsViewClass *class)
 	                                                  g_cclosure_marshal_VOID__VOID,
 	                                                  G_TYPE_NONE, 0,
 	                                                  G_TYPE_NONE);
-	signals[SIGNAL_ANNOT_REMOVED] = g_signal_new ("annot-removed",
-	                                              G_TYPE_FROM_CLASS (object_class),
-	                                              G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-	                                              G_STRUCT_OFFSET (PpsViewClass, annot_removed),
-	                                              NULL, NULL,
-	                                              g_cclosure_marshal_VOID__OBJECT,
-	                                              G_TYPE_NONE, 1,
-	                                              PPS_TYPE_ANNOTATION);
 	signals[SIGNAL_LAYERS_CHANGED] = g_signal_new ("layers-changed",
 	                                               G_TYPE_FROM_CLASS (object_class),
 	                                               G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,

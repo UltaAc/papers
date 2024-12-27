@@ -27,6 +27,7 @@
 
 #include <papers-document.h>
 
+#include "context/pps-annotations-context.h"
 #include "context/pps-document-model.h"
 #include "context/pps-search-context.h"
 #include "pps-jobs.h"
@@ -115,21 +116,11 @@ PpsMark *pps_view_get_mark_for_view_point (PpsView *view,
 
 /* Annotations */
 PPS_PUBLIC
+void pps_view_set_annotations_context (PpsView *view,
+                                       PpsAnnotationsContext *context);
+PPS_PUBLIC
 void pps_view_focus_annotation (PpsView *view,
                                 const PpsMapping *annot_mapping);
-PPS_PUBLIC
-void pps_view_remove_annotation (PpsView *view,
-                                 PpsAnnotation *annot);
-PPS_PUBLIC
-gboolean pps_view_add_text_annotation_at_point (PpsView *view,
-                                                gint x,
-                                                gint y);
-PPS_PUBLIC
-gboolean pps_view_add_text_markup_annotation_for_selected_text (PpsView *view);
-PPS_PUBLIC
-void pps_view_set_annotation_color (PpsView *view, const GdkRGBA *color);
-PPS_PUBLIC
-void pps_view_set_annotation_text_markup_type (PpsView *view, PpsAnnotationTextMarkupType markup_type);
 PPS_PUBLIC
 void pps_view_set_enable_spellchecking (PpsView *view,
                                         gboolean spellcheck);

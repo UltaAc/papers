@@ -44,7 +44,7 @@ typedef struct _PpsAnnotationWindowClass PpsAnnotationWindowClass;
 #define PPS_ANNOTATION_WINDOW_GET_CLASS(object) (G_TYPE_INSTANCE_GET_CLASS ((object), PPS_TYPE_ANNOTATION_WINDOW, PpsAnnotationWindowClass))
 
 GType pps_annotation_window_get_type (void) G_GNUC_CONST;
-GtkWidget *pps_annotation_window_new (PpsAnnotation *annot,
+GtkWidget *pps_annotation_window_new (PpsAnnotationMarkup *annot,
                                       GtkWindow *parent,
                                       PpsDocument *document);
 PpsAnnotation *pps_annotation_window_get_annotation (PpsAnnotationWindow *window);
