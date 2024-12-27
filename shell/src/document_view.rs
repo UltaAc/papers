@@ -60,7 +60,6 @@ mod imp {
         pub(super) annot_menu: TemplateChild<gio::Menu>,
         #[template_child]
         pub(super) annot_menu_child: TemplateChild<gtk::Box>,
-        pub(super) annot_color: RefCell<Option<gdk::RGBA>>,
 
         // sidebar
         #[template_child]
@@ -147,6 +146,10 @@ mod imp {
 
         // Search
         pub(super) search_context: RefCell<Option<papers_view::SearchContext>>,
+
+        // Annotations
+        #[template_child]
+        pub(super) annots_context: TemplateChild<papers_view::AnnotationsContext>,
 
         // Signature
         #[template_child]
@@ -264,6 +267,8 @@ mod imp {
 
             self.find_sidebar.set_search_context(Some(&search_context));
             self.view.set_search_context(&search_context);
+            self.view
+                .set_annotations_context(&self.annots_context.clone());
             self.search_context.replace(Some(search_context));
         }
     }

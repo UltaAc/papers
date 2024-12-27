@@ -43,13 +43,7 @@
                           </object>
                         </property>
                         <property name="model">
-                          <object class="GtkSingleSelection" id="selection">
-                            <property name="model">
-                              <object class="GListStore" id="model">
-                                <property name="item-type">PpsAnnotation</property>
-                              </object>
-                            </property>
-                          </object>
+                          <object class="GtkSingleSelection" id="selection_model"/>
                         </property>
                       </object>
                     </property>

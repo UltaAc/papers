@@ -579,11 +579,6 @@ impl imp::PpsDocumentView {
     }
 
     #[template_callback]
-    fn view_annot_removed(&self) {
-        self.sidebar_annots.annot_removed();
-    }
-
-    #[template_callback]
     fn view_layers_changed(&self) {
         self.sidebar_layers.update_visibility();
     }

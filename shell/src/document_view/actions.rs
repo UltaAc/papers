@@ -2,6 +2,7 @@ use super::*;
 
 use gtk::gdk::gdk_pixbuf;
 use papers_document::{DocumentImages, DocumentSignatures};
+use papers_view::annotations_context::AddAnnotationData;
 
 fn gdk_pixbuf_format_by_extension(uri: &str) -> Option<gdk_pixbuf::PixbufFormat> {
     for format in gdk_pixbuf::Pixbuf::formats()
@@ -294,23 +295,9 @@ impl imp::PpsDocumentView {
                 .parameter_type(Some(glib::VariantTy::STRING))
                 .state(glib::Variant::from("yellow"))
                 .change_state(glib::clone!(
-                    #[weak(rename_to = obj)]
+                    #[weak(rename_to = _obj)]
                     self,
                     move |_, action, state| {
-                        let color = state.and_then(|s| s.str()).unwrap();
-
-                        let color = match color {
-                            "yellow" => gdk::RGBA::parse("#f5c211").unwrap(),
-                            "orange" => gdk::RGBA::parse("#ff7800").unwrap(),
-                            "red" => gdk::RGBA::parse("#ed333b").unwrap(),
-                            "purple" => gdk::RGBA::parse("#c061cb").unwrap(),
-                            "blue" => gdk::RGBA::parse("#3584e4").unwrap(),
-                            "green" => gdk::RGBA::parse("#33d17a").unwrap(),
-                            _ => panic!("unknown color {}", color),
-                        };
-
-                        obj.annot_color.replace(Some(color));
-                        obj.view.set_annotation_color(&color);
                         action.set_state(state.unwrap());
                     }
                 ))
@@ -478,8 +465,9 @@ impl imp::PpsDocumentView {
                     self,
                     move |_, _, _| {
                         if let Some(annot) = obj.annot.borrow().clone() {
-                            obj.view.remove_annotation(&annot);
+                            obj.annots_context.remove_annotation(&annot);
                         };
+                        obj.annot.replace(None);
                     }
                 ))
                 .build(),
@@ -497,8 +485,7 @@ impl imp::PpsDocumentView {
                     #[weak(rename_to = obj)]
                     self,
                     move |_, _, _| {
-                        obj.view.add_text_markup_annotation_for_selected_text();
-                        obj.sidebar_annots.annot_added();
+                        obj.cmd_add_highlight_annotation();
                     }
                 ))
                 .build(),
@@ -923,6 +910,45 @@ impl imp::PpsDocumentView {
         self.toast_overlay.add_toast(toast);
     }
 
+    fn get_annot_color_rgba(&self) -> gdk::RGBA {
+        let binding = self
+            .document_action_group
+            .lookup_action("annot-color")
+            .unwrap()
+            .state()
+            .unwrap();
+        let color = binding.str().unwrap();
+        match color {
+            "yellow" => gdk::RGBA::parse("#f5c211").unwrap(),
+            "orange" => gdk::RGBA::parse("#ff7800").unwrap(),
+            "red" => gdk::RGBA::parse("#ed333b").unwrap(),
+            "purple" => gdk::RGBA::parse("#c061cb").unwrap(),
+            "blue" => gdk::RGBA::parse("#3584e4").unwrap(),
+            "green" => gdk::RGBA::parse("#33d17a").unwrap(),
+            _ => panic!("unknown color {}", color),
+        }
+    }
+
+    fn cmd_add_highlight_annotation(&self) {
+        let selections = self.view.selections();
+        for sel in selections.iter() {
+            let mut start_point = papers_document::Point::new();
+            let mut end_point = papers_document::Point::new();
+            start_point.set_x(sel.rect().x1());
+            start_point.set_y(sel.rect().y1());
+            end_point.set_x(sel.rect().x2());
+            end_point.set_y(sel.rect().y2());
+            _ = self.annots_context.add_annotation_sync(
+                sel.page(),
+                papers_document::AnnotationType::TextMarkup,
+                &start_point,
+                &end_point,
+                &self.get_annot_color_rgba(),
+                AddAnnotationData::TextMarkup(papers_document::AnnotationTextMarkupType::Highlight),
+            );
+        }
+    }
+
     fn cmd_add_text_annotation(&self) {
         let (mut x, mut y) = Document::misc_get_pointer_position(&self.view.clone());
 
@@ -936,9 +962,16 @@ impl imp::PpsDocumentView {
             y = rect.y();
         }
 
-        if self.view.add_text_annotation_at_point(x, y) {
-            self.sidebar_annots.annot_added();
-        }
+        if let Some(mark) = self.view.mark_for_view_point(x.into(), y.into()) {
+            _ = self.annots_context.add_annotation_sync(
+                mark.page_index(),
+                papers_document::AnnotationType::Text,
+                &mark.doc_point(),
+                &mark.doc_point(),
+                &self.get_annot_color_rgba(),
+                AddAnnotationData::None,
+            );
+        };
     }
 
     fn cmd_open_attachment(&self) {

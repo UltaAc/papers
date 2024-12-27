@@ -1,15 +1,19 @@
 use crate::deps::*;
 use papers_document::{AnnotationMarkup, DocumentAnnotations, Mapping};
-use papers_view::{JobAnnots, JobPriority};
+use papers_view::AnnotationsContext;
 
 use gtk::graphene;
 
 mod imp {
     use super::*;
 
-    #[derive(CompositeTemplate, Debug, Default)]
+    #[derive(CompositeTemplate, Debug, Default, Properties)]
+    #[properties(wrapper_type = super::PpsSidebarAnnotations)]
     #[template(resource = "/org/gnome/papers/ui/sidebar-annotations.ui")]
     pub struct PpsSidebarAnnotations {
+        #[property(set = Self::set_annotations_context, get)]
+        annotations_context: RefCell<Option<AnnotationsContext>>,
+
         #[template_child]
         list_view: TemplateChild<gtk::ListView>,
         #[template_child]
@@ -17,10 +21,7 @@ mod imp {
         #[template_child]
         popup: TemplateChild<gtk::PopoverMenu>,
         #[template_child]
-        model: TemplateChild<gio::ListStore>,
-
-        job: RefCell<Option<JobAnnots>>,
-        job_handler: RefCell<Option<SignalHandlerId>>,
+        selection_model: TemplateChild<gtk::SingleSelection>,
     }
 
     #[glib::object_subclass]
@@ -39,6 +40,7 @@ mod imp {
         }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for PpsSidebarAnnotations {
         fn signals() -> &'static [Signal] {
             static SIGNALS: OnceLock<Vec<Signal>> = OnceLock::new();
@@ -52,22 +54,6 @@ mod imp {
         }
 
         fn constructed(&self) {
-            if let Some(model) = self.obj().document_model() {
-                model.connect_document_notify(glib::clone!(
-                    #[weak(rename_to = obj)]
-                    self,
-                    move |model| {
-                        if model
-                            .document()
-                            .and_dynamic_cast::<DocumentAnnotations>()
-                            .is_ok()
-                        {
-                            obj.load();
-                        }
-                    }
-                ));
-            }
-
             self.obj().connect_closure(
                 "annot-activated",
                 true,
@@ -75,10 +61,6 @@ mod imp {
                     obj.navigate_to_view();
                 }),
             );
-        }
-
-        fn dispose(&self) {
-            self.clear_job();
         }
     }
 
@@ -94,6 +76,35 @@ mod imp {
 
     #[gtk::template_callbacks]
     impl PpsSidebarAnnotations {
+        fn annotations_context(&self) -> Option<AnnotationsContext> {
+            self.annotations_context.borrow().clone()
+        }
+
+        fn set_annotations_context(&self, context: Option<AnnotationsContext>) {
+            if self.annotations_context() == context {
+                return;
+            }
+
+            let binding = context.as_ref().and_then(|context| context.annots_model());
+            let model = binding.as_ref().unwrap();
+
+            model.connect_items_changed(glib::clone!(
+                #[weak(rename_to = obj)]
+                self,
+                move |model, _, _, _| {
+                    if model.n_items() > 0 {
+                        obj.stack.set_visible_child_name("annot");
+                    } else {
+                        obj.stack.set_visible_child_name("empty");
+                    }
+                }
+            ));
+
+            self.selection_model.set_model(Some(model));
+
+            self.annotations_context.replace(context);
+        }
+
         #[template_callback]
         fn list_view_factory_setup(&self, item: &gtk::ListItem, _factory: &gtk::ListItemFactory) {
             let row = PpsSidebarAnnotationsRow::new();
@@ -167,59 +178,6 @@ mod imp {
             row.set_annotation(annot);
         }
     }
-
-    impl PpsSidebarAnnotations {
-        fn clear_job(&self) {
-            if let Some(job) = self.job.take() {
-                if let Some(id) = self.job_handler.take() {
-                    job.disconnect(id);
-                }
-            }
-        }
-
-        pub(super) fn load(&self) {
-            self.clear_job();
-
-            let Some(document) = self.obj().document_model().and_then(|m| m.document()) else {
-                return;
-            };
-
-            let job = JobAnnots::new(&document);
-
-            let id = job.connect_finished(glib::clone!(
-                #[weak(rename_to = obj)]
-                self,
-                move |job| {
-                    let mapping_lists = job.annots();
-
-                    if mapping_lists.is_empty() {
-                        obj.stack.set_visible_child_name("empty");
-                    } else {
-                        obj.model.remove_all();
-
-                        for mappings in mapping_lists {
-                            for mapping in mappings.list() {
-                                if let Some(annot) =
-                                    mapping.data().and_downcast::<AnnotationMarkup>()
-                                {
-                                    obj.model.append(&annot);
-                                }
-                            }
-                        }
-                        obj.stack.set_visible_child_name("annot");
-                    }
-
-                    obj.clear_job();
-                }
-            ));
-
-            self.job.replace(Some(job.clone()));
-            self.job_handler.replace(Some(id));
-
-            // The priority doesn't matter for this job
-            job.scheduler_push_job(JobPriority::PriorityNone);
-        }
-    }
 }
 
 glib::wrapper! {
@@ -236,13 +194,5 @@ impl Default for PpsSidebarAnnotations {
 impl PpsSidebarAnnotations {
     pub fn new() -> Self {
         glib::Object::builder().build()
-    }
-
-    pub fn annot_added(&self) {
-        self.imp().load();
-    }
-
-    pub fn annot_removed(&self) {
-        self.imp().load();
     }
 }

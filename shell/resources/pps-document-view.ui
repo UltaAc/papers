@@ -135,6 +135,11 @@
                             <property name="child">
                               <object class="PpsSidebarAnnotations" id="sidebar_annots">
                                 <property name="document-model">model</property>
+                                <property name="annotations-context">
+                                  <object class="PpsAnnotationsContext" id="annots_context">
+                                    <property name="document-model">model</property>
+                                  </object>
+                                </property>
                                 <property name="sidebar">sidebar</property>
                                 <signal name="annot-activated"
                                   handler="sidebar_annots_annot_activated" swapped="yes" />
@@ -318,8 +323,6 @@
                                 <signal name="selection-changed"
                                   handler="view_selection_changed" swapped="yes" />
                                 <signal name="scroll" handler="scroll_history" swapped="yes" />
-                                <signal name="annot-removed" handler="view_annot_removed"
-                                  swapped="yes" />
                                 <signal name="layers-changed" handler="view_layers_changed"
                                   swapped="yes" />
                                 <signal name="cursor-moved" handler="view_caret_cursor_moved"
