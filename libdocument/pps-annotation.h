@@ -47,7 +47,11 @@ struct _PpsAnnotationClass {
 #define PPS_TYPE_ANNOTATION_MARKUP (pps_annotation_markup_get_type ())
 
 PPS_PUBLIC
-G_DECLARE_INTERFACE (PpsAnnotationMarkup, pps_annotation_markup, PPS, ANNOTATION_MARKUP, GObject);
+G_DECLARE_DERIVABLE_TYPE (PpsAnnotationMarkup, pps_annotation_markup, PPS, ANNOTATION_MARKUP, PpsAnnotation);
+
+struct _PpsAnnotationMarkupClass {
+	PpsAnnotationClass parent_class;
+};
 
 /* PpsAnnotationText */
 #define PPS_TYPE_ANNOTATION_TEXT (pps_annotation_text_get_type ())
