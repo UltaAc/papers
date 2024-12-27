@@ -113,6 +113,9 @@ mod imp {
             }
 
             self.setup_actions();
+
+            self.obj()
+                .change_action_state("night-mode", &self.settings.boolean("night-mode").into());
         }
 
         fn dispose(&self) {
@@ -389,17 +392,18 @@ mod imp {
                         }
                     ))
                     .build(),
-                gio::ActionEntryBuilder::new("inverted-colors")
+                gio::ActionEntryBuilder::new("night-mode")
                     .state(false.into())
                     .change_state(glib::clone!(
                         #[weak(rename_to = obj)]
                         self,
                         move |_, action, state| {
                             let state = state.unwrap();
-                            let inverted = state.get::<bool>().unwrap();
+                            let night_mode = state.get::<bool>().unwrap();
 
                             action.set_state(state);
-                            obj.document_view.set_inverted_colors(inverted);
+
+                            obj.set_night_mode(night_mode);
                         }
                     ))
                     .build(),
@@ -610,7 +614,6 @@ mod imp {
                 "continuous",
                 "dual-page",
                 "dual-page-odd-left",
-                "inverted-colors",
                 "fullscreen",
                 "window-maximized",
             ];
@@ -855,6 +858,9 @@ mod imp {
                                 dest.as_ref(),
                             );
 
+                            obj.document_view
+                                .set_inverted_colors(obj.settings.boolean("night-mode"));
+
                             match pending_mode {
                                 WindowRunMode::Presentation => obj.run_presentation(),
                                 WindowRunMode::Fullscreen => {
@@ -974,6 +980,24 @@ mod imp {
             ));
         }
 
+        fn set_night_mode(&self, night_mode: bool) {
+            self.document_view.set_inverted_colors(night_mode);
+
+            let manager = adw::StyleManager::for_display(&self.obj().display());
+
+            let color_scheme = if night_mode {
+                adw::ColorScheme::ForceDark
+            } else {
+                adw::ColorScheme::Default
+            };
+
+            manager.set_color_scheme(color_scheme);
+
+            self.settings
+                .set_boolean("night-mode", night_mode)
+                .expect("failed to save night-mode");
+        }
+
         fn settings_key_for_directory(dir: UserDirectory) -> String {
             match dir {
                 UserDirectory::Pictures => "pictures-directory",
@@ -1049,6 +1073,23 @@ mod imp {
 
     #[gtk::template_callbacks]
     impl PpsWindow {
+        #[template_callback]
+        fn night_mode_changed(&self) {
+            let night_mode = self.settings.boolean("night-mode");
+
+            let current = self
+                .obj()
+                .action_state("night-mode")
+                .unwrap()
+                .get::<bool>()
+                .unwrap();
+
+            if night_mode != current {
+                self.obj()
+                    .change_action_state("night-mode", &night_mode.into());
+            }
+        }
+
         #[template_callback]
         fn loader_view_cancelled(&self) {
             // FIXME: cancellable

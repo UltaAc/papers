@@ -253,7 +253,7 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Night Mode</property>
-                <property name="action-name">win.inverted-colors</property>
+                <property name="action-name">win.night-mode</property>
               </object>
             </child>
             <child>

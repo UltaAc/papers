@@ -13,7 +13,6 @@
     <signal name="notify::page-layout" handler="page_layout_changed" swapped="yes" />
     <signal name="notify::dual-odd-left" handler="dual_mode_odd_pages_left_changed" swapped="yes" />
     <signal name="notify::rtl" handler="direction_changed" swapped="yes" />
-    <signal name="notify::inverted-colors" handler="inverted_colors_changed" swapped="yes" />
   </object>
 
   <object class="GSimpleActionGroup" id="document_action_group" />
@@ -606,7 +605,7 @@
     <section>
       <item>
         <attribute name="label" translatable="yes">Ni_ght Mode</attribute>
-        <attribute name="action">win.inverted-colors</attribute>
+        <attribute name="action">win.night-mode</attribute>
       </item>
     </section>
     <section>

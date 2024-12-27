@@ -341,9 +341,6 @@ mod imp {
                 "dual-page-odd-left",
                 self.model.is_dual_page_odd_pages_left(),
             );
-            let _ = self
-                .default_settings
-                .set_boolean("inverted-colors", self.model.is_inverted_colors());
 
             let sizing_mode = self.model.sizing_mode();
             let _ = self
@@ -483,11 +480,6 @@ mod imp {
                 self.model.set_rotation(rotation);
             }
 
-            // Inverted colors
-            if let Some(inverted_colors) = metadata.boolean("inverted-colors") {
-                self.model.set_inverted_colors(inverted_colors);
-            }
-
             // Continuous
             if let Some(continuous) = metadata.boolean("continuous") {
                 self.model.set_continuous(continuous);
@@ -624,8 +616,6 @@ mod imp {
                 .set_dual_page_odd_pages_left(settings.boolean("dual-page-odd-left"));
             self.model
                 .set_rtl(gtk::Widget::default_direction() == TextDirection::Rtl);
-            self.model
-                .set_inverted_colors(settings.boolean("inverted-colors"));
 
             let sizing_mode = unsafe { SizingMode::from_glib(settings.enum_("sizing-mode")) };
 

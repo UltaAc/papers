@@ -733,26 +733,6 @@ impl imp::PpsDocumentView {
     }
 
     #[template_callback]
-    pub fn inverted_colors_changed(&self, _: glib::ParamSpec, model: DocumentModel) {
-        let inverted_colors = model.is_inverted_colors();
-        let manager = adw::StyleManager::for_display(&self.obj().display());
-
-        self.set_action_state("inverted-colors", &inverted_colors.into());
-
-        let color_scheme = if inverted_colors {
-            adw::ColorScheme::ForceDark
-        } else {
-            adw::ColorScheme::Default
-        };
-
-        manager.set_color_scheme(color_scheme);
-
-        self.metadata_and_then(|metadata| {
-            metadata.set_boolean("inverted-colors", inverted_colors);
-        });
-    }
-
-    #[template_callback]
     pub fn page_changed(&self, _: i32, new_page: i32) {
         self.metadata_and_then(|metadata| {
             metadata.set_int("page", new_page);

@@ -227,20 +227,6 @@ impl imp::PpsDocumentView {
                     }
                 ))
                 .build(),
-            gio::ActionEntryBuilder::new("inverted-colors")
-                .state(false.into())
-                .change_state(glib::clone!(
-                    #[weak(rename_to = obj)]
-                    self,
-                    move |_, action, state| {
-                        let state = state.unwrap();
-                        let inverted = state.get::<bool>().unwrap();
-
-                        action.set_state(state);
-                        obj.model.set_inverted_colors(inverted);
-                    }
-                ))
-                .build(),
             gio::ActionEntryBuilder::new("select-all")
                 .activate(glib::clone!(
                     #[weak(rename_to = obj)]

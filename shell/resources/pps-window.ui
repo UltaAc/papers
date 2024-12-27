@@ -5,6 +5,7 @@
 
   <object class="GSettings" id="settings">
     <property name="schema-id">org.gnome.Papers</property>
+    <signal name="changed::night-mode" handler="night_mode_changed" swapped="yes" />
   </object>
 
   <object class="GSettings" id="default_settings">

@@ -31,6 +31,9 @@
       <default>true</default>
       <summary>Allow links to change the zoom level.</summary>
     </key>
+    <key name="night-mode" type="b">
+      <default>false</default>
+    </key>
     <child name="default" schema="org.gnome.Papers.Default"/>
   </schema>
 
@@ -55,9 +58,6 @@
     <key name="zoom" type="d">
       <default>1.</default>
       <summary>Set the default zoom level to display a document.</summary>
-    </key>
-    <key name="inverted-colors" type="b">
-      <default>false</default>
     </key>
     <key name="continuous" type="b">
       <default>true</default>

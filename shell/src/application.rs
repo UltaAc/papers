@@ -288,7 +288,7 @@ mod imp {
             obj.set_accels_for_action("win.open", &["<Ctrl>O"]);
             obj.set_accels_for_action("win.close", &["<Ctrl>W"]);
             obj.set_accels_for_action("win.fullscreen", &["F11"]);
-            obj.set_accels_for_action("win.inverted-colors", &["<Ctrl>I"]);
+            obj.set_accels_for_action("win.night-mode", &["<Ctrl>I"]);
             obj.set_accels_for_action("win.presentation", &["F5", "<Shift>F5"]);
         }
 
