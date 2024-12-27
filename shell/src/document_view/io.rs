@@ -178,7 +178,7 @@ impl imp::PpsDocumentView {
             .unwrap();
 
         if !display_name.is_empty() {
-            if let Some(doc_title) = doc_title {
+            if let Some(doc_title) = doc_title.filter(|title| !title.is_empty()) {
                 let title = if ltr {
                     format!("{} - {}", display_name, doc_title)
                 } else {
