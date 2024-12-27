@@ -10,8 +10,8 @@ glib::wrapper! {
     pub struct Rectangle(BoxedInline<ffi::PpsRectangle>);
 
     match fn {
-        copy => |ptr| ffi::pps_rectangle_copy(mut_override(ptr)),
-        free => |ptr| ffi::pps_rectangle_free(ptr),
+        copy => |ptr| glib::gobject_ffi::g_boxed_copy(ffi::pps_rectangle_get_type(), ptr as *mut _) as *mut ffi::PpsRectangle,
+        free => |ptr| glib::gobject_ffi::g_boxed_free(ffi::pps_rectangle_get_type(), ptr as *mut _),
         type_ => || ffi::pps_rectangle_get_type(),
     }
 }

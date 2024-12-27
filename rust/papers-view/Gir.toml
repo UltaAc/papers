@@ -21,6 +21,7 @@ external_libraries = [
 ]
 
 generate = [
+    "PapersView.AnnotationsContext",
     "PapersView.AttachmentContext",
     "PapersView.DocumentModel",
     "PapersView.History",
@@ -44,6 +45,7 @@ generate = [
     "PapersView.PrintOperation",
     "PapersView.SizingMode",
     "PapersView.ViewPresentation",
+    "PapersView.ViewSelection",
 ]
 
 manual = [
@@ -79,6 +81,8 @@ manual = [
     "PapersDocument.LinkAction",
     "PapersDocument.Mapping",
     "PapersDocument.MappingList",
+    "PapersDocument.Mark",
+    "PapersDocument.Point",
     "PapersDocument.Signature",
 ]
 

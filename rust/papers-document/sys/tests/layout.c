@@ -86,6 +86,7 @@ int main() {
     printf("%s;%zu;%zu\n", "PpsLinkDestClass", sizeof(PpsLinkDestClass), alignof(PpsLinkDestClass));
     printf("%s;%zu;%zu\n", "PpsLinkDestType", sizeof(PpsLinkDestType), alignof(PpsLinkDestType));
     printf("%s;%zu;%zu\n", "PpsMapping", sizeof(PpsMapping), alignof(PpsMapping));
+    printf("%s;%zu;%zu\n", "PpsMark", sizeof(PpsMark), alignof(PpsMark));
     printf("%s;%zu;%zu\n", "PpsMedia", sizeof(PpsMedia), alignof(PpsMedia));
     printf("%s;%zu;%zu\n", "PpsMediaClass", sizeof(PpsMediaClass), alignof(PpsMediaClass));
     printf("%s;%zu;%zu\n", "PpsOutlines", sizeof(PpsOutlines), alignof(PpsOutlines));

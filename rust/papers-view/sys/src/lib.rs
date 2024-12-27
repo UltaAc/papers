@@ -74,6 +74,20 @@ pub const PPS_PAGE_DATA_INCLUDE_ALL: PpsJobPageDataFlags = 1023;
 // Records
 #[derive(Copy, Clone)]
 #[repr(C)]
+pub struct PpsAnnotationsContextClass {
+    pub parent_class: gobject::GObjectClass,
+}
+
+impl ::std::fmt::Debug for PpsAnnotationsContextClass {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("PpsAnnotationsContextClass @ {self:p}"))
+            .field("parent_class", &self.parent_class)
+            .finish()
+    }
+}
+
+#[derive(Copy, Clone)]
+#[repr(C)]
 pub struct PpsAttachmentContextClass {
     pub parent_class: gobject::GObjectClass,
 }
@@ -402,7 +416,41 @@ pub struct _PpsViewPresentationClass {
 
 pub type PpsViewPresentationClass = _PpsViewPresentationClass;
 
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct PpsViewSelection {
+    pub page: c_int,
+    pub rect: papers_document::PpsRectangle,
+    pub covered_region: *mut cairo::cairo_region_t,
+    pub style: papers_document::PpsSelectionStyle,
+}
+
+impl ::std::fmt::Debug for PpsViewSelection {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("PpsViewSelection @ {self:p}"))
+            .field("page", &self.page)
+            .field("rect", &self.rect)
+            .field("covered_region", &self.covered_region)
+            .field("style", &self.style)
+            .finish()
+    }
+}
+
 // Classes
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct PpsAnnotationsContext {
+    pub parent_instance: gobject::GObject,
+}
+
+impl ::std::fmt::Debug for PpsAnnotationsContext {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("PpsAnnotationsContext @ {self:p}"))
+            .field("parent_instance", &self.parent_instance)
+            .finish()
+    }
+}
+
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct PpsAttachmentContext {
@@ -855,6 +903,41 @@ extern "C" {
     pub fn pps_job_page_data_flags_get_type() -> GType;
 
     //=========================================================================
+    // PpsViewSelection
+    //=========================================================================
+    pub fn pps_view_selection_get_type() -> GType;
+    pub fn pps_view_selection_copy(selection: *mut PpsViewSelection) -> *mut PpsViewSelection;
+    pub fn pps_view_selection_free(selection: *mut PpsViewSelection);
+
+    //=========================================================================
+    // PpsAnnotationsContext
+    //=========================================================================
+    pub fn pps_annotations_context_get_type() -> GType;
+    pub fn pps_annotations_context_new(model: *mut PpsDocumentModel) -> *mut PpsAnnotationsContext;
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_annotations_context_add_annotation_sync(
+        self_: *mut PpsAnnotationsContext,
+        page_index: c_int,
+        type_: papers_document::PpsAnnotationType,
+        start: *const papers_document::PpsPoint,
+        end: *const papers_document::PpsPoint,
+        color: *const gdk::GdkRGBA,
+        user_data: gpointer,
+    ) -> *mut papers_document::PpsAnnotation;
+    pub fn pps_annotations_context_get_annots_model(
+        self_: *mut PpsAnnotationsContext,
+    ) -> *mut gio::GListModel;
+    pub fn pps_annotations_context_remove_annotation(
+        self_: *mut PpsAnnotationsContext,
+        annot: *mut papers_document::PpsAnnotation,
+    );
+    pub fn pps_annotations_context_set_color(
+        self_: *mut PpsAnnotationsContext,
+        color: *const gdk::GdkRGBA,
+    );
+
+    //=========================================================================
     // PpsAttachmentContext
     //=========================================================================
     pub fn pps_attachment_context_get_type() -> GType;
@@ -1275,14 +1358,6 @@ extern "C" {
     pub fn pps_view_get_type() -> GType;
     pub fn pps_view_new() -> *mut PpsView;
     pub fn pps_view_get_resource() -> *mut gio::GResource;
-    #[cfg(feature = "v48")]
-    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
-    pub fn pps_view_add_text_annotation_at_point(
-        view: *mut PpsView,
-        x: c_int,
-        y: c_int,
-    ) -> gboolean;
-    pub fn pps_view_add_text_markup_annotation_for_selected_text(view: *mut PpsView) -> gboolean;
     pub fn pps_view_can_zoom_in(view: *mut PpsView) -> gboolean;
     pub fn pps_view_can_zoom_out(view: *mut PpsView) -> gboolean;
     pub fn pps_view_cancel_signature_rect(view: *mut PpsView);
@@ -1300,19 +1375,17 @@ extern "C" {
     );
     pub fn pps_view_get_allow_links_change_zoom(view: *mut PpsView) -> gboolean;
     pub fn pps_view_get_enable_spellchecking(view: *mut PpsView) -> gboolean;
-    pub fn pps_view_get_page_extents(
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_view_get_mark_for_view_point(
         view: *mut PpsView,
-        page: c_int,
-        page_area: *mut gdk::GdkRectangle,
-        border: *mut gtk::GtkBorder,
-    ) -> gboolean;
-    pub fn pps_view_get_page_extents_for_border(
-        view: *mut PpsView,
-        page: c_int,
-        border: *mut gtk::GtkBorder,
-        page_area: *mut gdk::GdkRectangle,
-    ) -> gboolean;
+        view_point_x: c_double,
+        view_point_y: c_double,
+    ) -> *mut papers_document::PpsMark;
     pub fn pps_view_get_selected_text(view: *mut PpsView) -> *mut c_char;
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_view_get_selections(view: *mut PpsView) -> *mut glib::GList;
     pub fn pps_view_handle_link(view: *mut PpsView, link: *mut papers_document::PpsLink);
     pub fn pps_view_has_selection(view: *mut PpsView) -> gboolean;
     pub fn pps_view_is_caret_navigation_enabled(view: *mut PpsView) -> gboolean;
@@ -1320,16 +1393,13 @@ extern "C" {
     pub fn pps_view_next_page(view: *mut PpsView) -> gboolean;
     pub fn pps_view_previous_page(view: *mut PpsView) -> gboolean;
     pub fn pps_view_reload(view: *mut PpsView);
-    pub fn pps_view_remove_annotation(
-        view: *mut PpsView,
-        annot: *mut papers_document::PpsAnnotation,
-    );
     pub fn pps_view_select_all(view: *mut PpsView);
     pub fn pps_view_set_allow_links_change_zoom(view: *mut PpsView, allowed: gboolean);
-    pub fn pps_view_set_annotation_color(view: *mut PpsView, color: *const gdk::GdkRGBA);
-    pub fn pps_view_set_annotation_text_markup_type(
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_view_set_annotations_context(
         view: *mut PpsView,
-        markup_type: papers_document::PpsAnnotationTextMarkupType,
+        context: *mut PpsAnnotationsContext,
     );
     pub fn pps_view_set_caret_cursor_position(view: *mut PpsView, page: c_uint, offset: c_uint);
     pub fn pps_view_set_caret_navigation_enabled(view: *mut PpsView, enabled: gboolean);

@@ -36,7 +36,7 @@ mod sealed {
 pub trait JobAnnotsExt: IsA<JobAnnots> + sealed::Sealed + 'static {
     #[doc(alias = "pps_job_annots_get_annots")]
     #[doc(alias = "get_annots")]
-    fn annots(&self) -> Vec<papers_document::MappingList> {
+    fn annots(&self) -> Vec<papers_document::Annotation> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::pps_job_annots_get_annots(
                 self.as_ref().to_glib_none().0,

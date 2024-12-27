@@ -2055,7 +2055,7 @@ equal to the required one, and &lt;literal&gt;0&lt;/literal&gt; otherwise.</doc>
            glib:type-name="PpsDocument"
            glib:get-type="pps_document_get_type"
            glib:type-struct="DocumentClass">
-      <source-position filename="libdocument/pps-document.h" line="117"/>
+      <source-position filename="libdocument/pps-document.h" line="110"/>
       <function name="factory_add_filters"
                 c:identifier="pps_document_factory_add_filters">
         <doc xml:space="preserve"
@@ -2358,7 +2358,7 @@ Returns 96 as fallback value.</doc>
         </parameters>
       </function>
       <virtual-method name="get_backend_info" invoker="get_backend_info">
-        <source-position filename="libdocument/pps-document.h" line="97"/>
+        <source-position filename="libdocument/pps-document.h" line="90"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -2375,7 +2375,7 @@ Returns 96 as fallback value.</doc>
         <doc xml:space="preserve"
              filename="libdocument/pps-document.c"
              line="645">Returns the #PpsDocumentInfo for the document.</doc>
-        <source-position filename="libdocument/pps-document.h" line="96"/>
+        <source-position filename="libdocument/pps-document.h" line="89"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -2392,7 +2392,7 @@ Returns 96 as fallback value.</doc>
         </parameters>
       </virtual-method>
       <virtual-method name="get_n_pages" invoker="get_n_pages">
-        <source-position filename="libdocument/pps-document.h" line="83"/>
+        <source-position filename="libdocument/pps-document.h" line="76"/>
         <return-value transfer-ownership="none">
           <type name="gint" c:type="gint"/>
         </return-value>
@@ -2403,7 +2403,7 @@ Returns 96 as fallback value.</doc>
         </parameters>
       </virtual-method>
       <virtual-method name="get_page" invoker="get_page">
-        <source-position filename="libdocument/pps-document.h" line="84"/>
+        <source-position filename="libdocument/pps-document.h" line="77"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -2426,7 +2426,7 @@ Returns 96 as fallback value.</doc>
         </parameters>
       </virtual-method>
       <virtual-method name="get_page_label" invoker="get_page_label">
-        <source-position filename="libdocument/pps-document.h" line="90"/>
+        <source-position filename="libdocument/pps-document.h" line="83"/>
         <return-value transfer-ownership="full">
           <type name="utf8" c:type="gchar*"/>
         </return-value>
@@ -2440,7 +2440,7 @@ Returns 96 as fallback value.</doc>
         </parameters>
       </virtual-method>
       <virtual-method name="get_page_size" invoker="get_page_size">
-        <source-position filename="libdocument/pps-document.h" line="86"/>
+        <source-position filename="libdocument/pps-document.h" line="79"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -2482,7 +2482,7 @@ Returns 96 as fallback value.</doc>
         </parameters>
       </virtual-method>
       <virtual-method name="get_thumbnail" invoker="get_thumbnail">
-        <source-position filename="libdocument/pps-document.h" line="94"/>
+        <source-position filename="libdocument/pps-document.h" line="87"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -2507,7 +2507,7 @@ Returns 96 as fallback value.</doc>
       <virtual-method name="get_thumbnail_surface"
                       invoker="get_thumbnail_surface"
                       version="3.14">
-        <source-position filename="libdocument/pps-document.h" line="111"/>
+        <source-position filename="libdocument/pps-document.h" line="104"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -2541,7 +2541,7 @@ is returned. If the backend does not support the format for the document's
 contents, PPS_DOCUMENT_ERROR_UNSUPPORTED_CONTENT is returned. Other errors
 are possible too, depending on the backend used to load the document and
 the URI, e.g. #GIOError, #GFileError, and #GConvertError.</doc>
-        <source-position filename="libdocument/pps-document.h" line="77"/>
+        <source-position filename="libdocument/pps-document.h" line="70"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -2577,7 +2577,7 @@ operate on it again. It will be closed automatically if the document
 is destroyed, or if this function returns %NULL.
 
 See pps_document_load() for more information.</doc>
-        <source-position filename="libdocument/pps-document.h" line="113"/>
+        <source-position filename="libdocument/pps-document.h" line="106"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -2606,7 +2606,7 @@ See pps_document_load() for more information.</doc>
         </parameters>
       </virtual-method>
       <virtual-method name="load_gfile" throws="1">
-        <source-position filename="libdocument/pps-document.h" line="106"/>
+        <source-position filename="libdocument/pps-document.h" line="99"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -2629,7 +2629,7 @@ See pps_document_load() for more information.</doc>
         </parameters>
       </virtual-method>
       <virtual-method name="load_stream" throws="1">
-        <source-position filename="libdocument/pps-document.h" line="101"/>
+        <source-position filename="libdocument/pps-document.h" line="94"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -2652,7 +2652,7 @@ See pps_document_load() for more information.</doc>
         </parameters>
       </virtual-method>
       <virtual-method name="render" invoker="render">
-        <source-position filename="libdocument/pps-document.h" line="92"/>
+        <source-position filename="libdocument/pps-document.h" line="85"/>
         <return-value transfer-ownership="full">
           <type name="cairo.Surface" c:type="cairo_surface_t*"/>
         </return-value>
@@ -2669,7 +2669,7 @@ See pps_document_load() for more information.</doc>
         <doc xml:space="preserve"
              filename="libdocument/pps-document.c"
              line="510">Saves @document to @uri.</doc>
-        <source-position filename="libdocument/pps-document.h" line="80"/>
+        <source-position filename="libdocument/pps-document.h" line="73"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -2693,7 +2693,7 @@ See pps_document_load() for more information.</doc>
       </virtual-method>
       <method name="check_dimensions"
               c:identifier="pps_document_check_dimensions">
-        <source-position filename="libdocument/pps-document.h" line="197"/>
+        <source-position filename="libdocument/pps-document.h" line="190"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -2704,7 +2704,7 @@ See pps_document_load() for more information.</doc>
         </parameters>
       </method>
       <method name="doc_mutex_lock" c:identifier="pps_document_doc_mutex_lock">
-        <source-position filename="libdocument/pps-document.h" line="124"/>
+        <source-position filename="libdocument/pps-document.h" line="117"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -2716,7 +2716,7 @@ See pps_document_load() for more information.</doc>
       </method>
       <method name="doc_mutex_trylock"
               c:identifier="pps_document_doc_mutex_trylock">
-        <source-position filename="libdocument/pps-document.h" line="128"/>
+        <source-position filename="libdocument/pps-document.h" line="121"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -2728,7 +2728,7 @@ See pps_document_load() for more information.</doc>
       </method>
       <method name="doc_mutex_unlock"
               c:identifier="pps_document_doc_mutex_unlock">
-        <source-position filename="libdocument/pps-document.h" line="126"/>
+        <source-position filename="libdocument/pps-document.h" line="119"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -2740,7 +2740,7 @@ See pps_document_load() for more information.</doc>
       </method>
       <method name="find_page_by_label"
               c:identifier="pps_document_find_page_by_label">
-        <source-position filename="libdocument/pps-document.h" line="203"/>
+        <source-position filename="libdocument/pps-document.h" line="196"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -2773,7 +2773,7 @@ See pps_document_load() for more information.</doc>
       </method>
       <method name="get_backend_info"
               c:identifier="pps_document_get_backend_info">
-        <source-position filename="libdocument/pps-document.h" line="133"/>
+        <source-position filename="libdocument/pps-document.h" line="126"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -2790,7 +2790,7 @@ See pps_document_load() for more information.</doc>
         <doc xml:space="preserve"
              filename="libdocument/pps-document.c"
              line="645">Returns the #PpsDocumentInfo for the document.</doc>
-        <source-position filename="libdocument/pps-document.h" line="131"/>
+        <source-position filename="libdocument/pps-document.h" line="124"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -2808,7 +2808,7 @@ See pps_document_load() for more information.</doc>
       </method>
       <method name="get_max_label_len"
               c:identifier="pps_document_get_max_label_len">
-        <source-position filename="libdocument/pps-document.h" line="199"/>
+        <source-position filename="libdocument/pps-document.h" line="192"/>
         <return-value transfer-ownership="none">
           <type name="gint" c:type="gint"/>
         </return-value>
@@ -2820,7 +2820,7 @@ See pps_document_load() for more information.</doc>
       </method>
       <method name="get_max_page_size"
               c:identifier="pps_document_get_max_page_size">
-        <source-position filename="libdocument/pps-document.h" line="189"/>
+        <source-position filename="libdocument/pps-document.h" line="182"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -2853,7 +2853,7 @@ See pps_document_load() for more information.</doc>
       </method>
       <method name="get_min_page_size"
               c:identifier="pps_document_get_min_page_size">
-        <source-position filename="libdocument/pps-document.h" line="193"/>
+        <source-position filename="libdocument/pps-document.h" line="186"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -2888,7 +2888,7 @@ See pps_document_load() for more information.</doc>
               c:identifier="pps_document_get_modified"
               glib:get-property="modified"
               version="3.28">
-        <source-position filename="libdocument/pps-document.h" line="136"/>
+        <source-position filename="libdocument/pps-document.h" line="129"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -2908,7 +2908,7 @@ notify::modified signal on @document.</doc>
         </parameters>
       </method>
       <method name="get_n_pages" c:identifier="pps_document_get_n_pages">
-        <source-position filename="libdocument/pps-document.h" line="159"/>
+        <source-position filename="libdocument/pps-document.h" line="152"/>
         <return-value transfer-ownership="none">
           <type name="gint" c:type="gint"/>
         </return-value>
@@ -2919,7 +2919,7 @@ notify::modified signal on @document.</doc>
         </parameters>
       </method>
       <method name="get_page" c:identifier="pps_document_get_page">
-        <source-position filename="libdocument/pps-document.h" line="161"/>
+        <source-position filename="libdocument/pps-document.h" line="154"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -2942,7 +2942,7 @@ notify::modified signal on @document.</doc>
         </parameters>
       </method>
       <method name="get_page_label" c:identifier="pps_document_get_page_label">
-        <source-position filename="libdocument/pps-document.h" line="169"/>
+        <source-position filename="libdocument/pps-document.h" line="162"/>
         <return-value transfer-ownership="full">
           <type name="utf8" c:type="gchar*"/>
         </return-value>
@@ -2956,7 +2956,7 @@ notify::modified signal on @document.</doc>
         </parameters>
       </method>
       <method name="get_page_size" c:identifier="pps_document_get_page_size">
-        <source-position filename="libdocument/pps-document.h" line="164"/>
+        <source-position filename="libdocument/pps-document.h" line="157"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -2998,7 +2998,7 @@ notify::modified signal on @document.</doc>
         </parameters>
       </method>
       <method name="get_size" c:identifier="pps_document_get_size">
-        <source-position filename="libdocument/pps-document.h" line="181"/>
+        <source-position filename="libdocument/pps-document.h" line="174"/>
         <return-value transfer-ownership="none">
           <type name="guint64" c:type="guint64"/>
         </return-value>
@@ -3009,7 +3009,7 @@ notify::modified signal on @document.</doc>
         </parameters>
       </method>
       <method name="get_thumbnail" c:identifier="pps_document_get_thumbnail">
-        <source-position filename="libdocument/pps-document.h" line="175"/>
+        <source-position filename="libdocument/pps-document.h" line="168"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -3034,7 +3034,7 @@ notify::modified signal on @document.</doc>
       <method name="get_thumbnail_surface"
               c:identifier="pps_document_get_thumbnail_surface"
               version="3.14">
-        <source-position filename="libdocument/pps-document.h" line="178"/>
+        <source-position filename="libdocument/pps-document.h" line="171"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -3057,7 +3057,7 @@ notify::modified signal on @document.</doc>
         </parameters>
       </method>
       <method name="get_title" c:identifier="pps_document_get_title">
-        <source-position filename="libdocument/pps-document.h" line="185"/>
+        <source-position filename="libdocument/pps-document.h" line="178"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -3068,7 +3068,7 @@ notify::modified signal on @document.</doc>
         </parameters>
       </method>
       <method name="get_uri" c:identifier="pps_document_get_uri">
-        <source-position filename="libdocument/pps-document.h" line="183"/>
+        <source-position filename="libdocument/pps-document.h" line="176"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -3080,7 +3080,7 @@ notify::modified signal on @document.</doc>
       </method>
       <method name="has_text_page_labels"
               c:identifier="pps_document_has_text_page_labels">
-        <source-position filename="libdocument/pps-document.h" line="201"/>
+        <source-position filename="libdocument/pps-document.h" line="194"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -3092,7 +3092,7 @@ notify::modified signal on @document.</doc>
       </method>
       <method name="is_page_size_uniform"
               c:identifier="pps_document_is_page_size_uniform">
-        <source-position filename="libdocument/pps-document.h" line="187"/>
+        <source-position filename="libdocument/pps-document.h" line="180"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -3114,7 +3114,7 @@ is returned. If the backend does not support the format for the document's
 contents, PPS_DOCUMENT_ERROR_UNSUPPORTED_CONTENT is returned. Other errors
 are possible too, depending on the backend used to load the document and
 the URI, e.g. #GIOError, #GFileError, and #GConvertError.</doc>
-        <source-position filename="libdocument/pps-document.h" line="141"/>
+        <source-position filename="libdocument/pps-document.h" line="134"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -3150,7 +3150,7 @@ operate on it again. It will be closed automatically if the document
 is destroyed, or if this function returns %NULL.
 
 See pps_document_load() for more information.</doc>
-        <source-position filename="libdocument/pps-document.h" line="150"/>
+        <source-position filename="libdocument/pps-document.h" line="143"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -3191,7 +3191,7 @@ If the backend cannot load the specific document, PPS_DOCUMENT_ERROR_INVALID
 is returned. Other errors are possible too, depending on the backend
 used to load the document and the URI, e.g. #GIOError, #GFileError, and
 #GConvertError.</doc>
-        <source-position filename="libdocument/pps-document.h" line="145"/>
+        <source-position filename="libdocument/pps-document.h" line="138"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -3220,7 +3220,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
         </parameters>
       </method>
       <method name="render" c:identifier="pps_document_render">
-        <source-position filename="libdocument/pps-document.h" line="172"/>
+        <source-position filename="libdocument/pps-document.h" line="165"/>
         <return-value transfer-ownership="full">
           <type name="cairo.Surface" c:type="cairo_surface_t*"/>
         </return-value>
@@ -3237,7 +3237,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
         <doc xml:space="preserve"
              filename="libdocument/pps-document.c"
              line="510">Saves @document to @uri.</doc>
-        <source-position filename="libdocument/pps-document.h" line="155"/>
+        <source-position filename="libdocument/pps-document.h" line="148"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libdocument/pps-document.c"
@@ -3266,7 +3266,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
         <doc xml:space="preserve"
              filename="libdocument/pps-document.c"
              line="201">Set the @document modification state as @modified.</doc>
-        <source-position filename="libdocument/pps-document.h" line="138"/>
+        <source-position filename="libdocument/pps-document.h" line="131"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -3304,10 +3304,10 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
                glib:get-type="pps_document_annotations_get_type"
                glib:type-struct="DocumentAnnotationsInterface">
       <source-position filename="libdocument/pps-document-annotations.h"
-                       line="96"/>
+                       line="98"/>
       <virtual-method name="add_annotation" invoker="add_annotation">
         <source-position filename="libdocument/pps-document-annotations.h"
-                         line="85"/>
+                         line="87"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -3323,7 +3323,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       <virtual-method name="document_is_modified"
                       invoker="document_is_modified">
         <source-position filename="libdocument/pps-document-annotations.h"
-                         line="84"/>
+                         line="86"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -3336,6 +3336,30 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       <virtual-method name="get_annotations" invoker="get_annotations">
         <source-position filename="libdocument/pps-document-annotations.h"
                          line="82"/>
+        <return-value transfer-ownership="none" nullable="1">
+          <type name="GLib.List" c:type="GList*">
+            <type name="Annotation"/>
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_annots" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-annotations.c"
+                 line="33">a #PpsDocumentAnnotations</doc>
+            <type name="DocumentAnnotations" c:type="PpsDocumentAnnotations*"/>
+          </instance-parameter>
+          <parameter name="page" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-annotations.c"
+                 line="34">the page from where to get the annotations</doc>
+            <type name="Page" c:type="PpsPage*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="get_annotations_mapping"
+                      invoker="get_annotations_mapping">
+        <source-position filename="libdocument/pps-document-annotations.h"
+                         line="84"/>
         <return-value transfer-ownership="full">
           <type name="MappingList" c:type="PpsMappingList*"/>
         </return-value>
@@ -3350,7 +3374,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </virtual-method>
       <virtual-method name="over_markup" invoker="over_markup">
         <source-position filename="libdocument/pps-document-annotations.h"
-                         line="92"/>
+                         line="94"/>
         <return-value transfer-ownership="none">
           <type name="AnnotationsOverMarkup"
                 c:type="PpsAnnotationsOverMarkup"/>
@@ -3372,7 +3396,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </virtual-method>
       <virtual-method name="remove_annotation" invoker="remove_annotation">
         <source-position filename="libdocument/pps-document-annotations.h"
-                         line="90"/>
+                         line="92"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -3387,7 +3411,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </virtual-method>
       <virtual-method name="save_annotation" invoker="save_annotation">
         <source-position filename="libdocument/pps-document-annotations.h"
-                         line="87"/>
+                         line="89"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -3406,7 +3430,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       <method name="add_annotation"
               c:identifier="pps_document_annotations_add_annotation">
         <source-position filename="libdocument/pps-document-annotations.h"
-                         line="104"/>
+                         line="109"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -3422,7 +3446,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       <method name="can_add_annotation"
               c:identifier="pps_document_annotations_can_add_annotation">
         <source-position filename="libdocument/pps-document-annotations.h"
-                         line="115"/>
+                         line="120"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -3435,7 +3459,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       <method name="can_remove_annotation"
               c:identifier="pps_document_annotations_can_remove_annotation">
         <source-position filename="libdocument/pps-document-annotations.h"
-                         line="117"/>
+                         line="122"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -3448,7 +3472,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       <method name="document_is_modified"
               c:identifier="pps_document_annotations_document_is_modified">
         <source-position filename="libdocument/pps-document-annotations.h"
-                         line="102"/>
+                         line="107"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -3461,7 +3485,31 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       <method name="get_annotations"
               c:identifier="pps_document_annotations_get_annotations">
         <source-position filename="libdocument/pps-document-annotations.h"
-                         line="99"/>
+                         line="101"/>
+        <return-value transfer-ownership="none" nullable="1">
+          <type name="GLib.List" c:type="GList*">
+            <type name="Annotation"/>
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="document_annots" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-annotations.c"
+                 line="33">a #PpsDocumentAnnotations</doc>
+            <type name="DocumentAnnotations" c:type="PpsDocumentAnnotations*"/>
+          </instance-parameter>
+          <parameter name="page" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-document-annotations.c"
+                 line="34">the page from where to get the annotations</doc>
+            <type name="Page" c:type="PpsPage*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_annotations_mapping"
+              c:identifier="pps_document_annotations_get_annotations_mapping">
+        <source-position filename="libdocument/pps-document-annotations.h"
+                         line="104"/>
         <return-value transfer-ownership="full">
           <type name="MappingList" c:type="PpsMappingList*"/>
         </return-value>
@@ -3477,7 +3525,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       <method name="over_markup"
               c:identifier="pps_document_annotations_over_markup">
         <source-position filename="libdocument/pps-document-annotations.h"
-                         line="119"/>
+                         line="124"/>
         <return-value transfer-ownership="none">
           <type name="AnnotationsOverMarkup"
                 c:type="PpsAnnotationsOverMarkup"/>
@@ -3500,7 +3548,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       <method name="remove_annotation"
               c:identifier="pps_document_annotations_remove_annotation">
         <source-position filename="libdocument/pps-document-annotations.h"
-                         line="107"/>
+                         line="112"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -3516,7 +3564,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       <method name="save_annotation"
               c:identifier="pps_document_annotations_save_annotation">
         <source-position filename="libdocument/pps-document-annotations.h"
-                         line="111"/>
+                         line="116"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -3537,7 +3585,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
             c:type="PpsDocumentAnnotationsInterface"
             glib:is-gtype-struct-for="DocumentAnnotations">
       <source-position filename="libdocument/pps-document-annotations.h"
-                       line="96"/>
+                       line="98"/>
       <field name="base_iface">
         <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
       </field>
@@ -3545,6 +3593,32 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
         <callback name="get_annotations">
           <source-position filename="libdocument/pps-document-annotations.h"
                            line="82"/>
+          <return-value transfer-ownership="none" nullable="1">
+            <type name="GLib.List" c:type="GList*">
+              <type name="Annotation"/>
+            </type>
+          </return-value>
+          <parameters>
+            <parameter name="document_annots" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="libdocument/pps-document-annotations.c"
+                   line="33">a #PpsDocumentAnnotations</doc>
+              <type name="DocumentAnnotations"
+                    c:type="PpsDocumentAnnotations*"/>
+            </parameter>
+            <parameter name="page" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="libdocument/pps-document-annotations.c"
+                   line="34">the page from where to get the annotations</doc>
+              <type name="Page" c:type="PpsPage*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="get_annotations_mapping">
+        <callback name="get_annotations_mapping">
+          <source-position filename="libdocument/pps-document-annotations.h"
+                           line="84"/>
           <return-value transfer-ownership="full">
             <type name="MappingList" c:type="PpsMappingList*"/>
           </return-value>
@@ -3562,7 +3636,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       <field name="document_is_modified">
         <callback name="document_is_modified">
           <source-position filename="libdocument/pps-document-annotations.h"
-                           line="84"/>
+                           line="86"/>
           <return-value transfer-ownership="none">
             <type name="gboolean" c:type="gboolean"/>
           </return-value>
@@ -3577,7 +3651,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       <field name="add_annotation">
         <callback name="add_annotation">
           <source-position filename="libdocument/pps-document-annotations.h"
-                           line="85"/>
+                           line="87"/>
           <return-value transfer-ownership="none">
             <type name="none" c:type="void"/>
           </return-value>
@@ -3595,7 +3669,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       <field name="save_annotation">
         <callback name="save_annotation">
           <source-position filename="libdocument/pps-document-annotations.h"
-                           line="87"/>
+                           line="89"/>
           <return-value transfer-ownership="none">
             <type name="none" c:type="void"/>
           </return-value>
@@ -3617,7 +3691,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       <field name="remove_annotation">
         <callback name="remove_annotation">
           <source-position filename="libdocument/pps-document-annotations.h"
-                           line="90"/>
+                           line="92"/>
           <return-value transfer-ownership="none">
             <type name="none" c:type="void"/>
           </return-value>
@@ -3635,7 +3709,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       <field name="over_markup">
         <callback name="over_markup">
           <source-position filename="libdocument/pps-document-annotations.h"
-                           line="92"/>
+                           line="94"/>
           <return-value transfer-ownership="none">
             <type name="AnnotationsOverMarkup"
                   c:type="PpsAnnotationsOverMarkup"/>
@@ -3785,7 +3859,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </field>
     </record>
     <record name="DocumentBackendInfo" c:type="PpsDocumentBackendInfo">
-      <source-position filename="libdocument/pps-document.h" line="71"/>
+      <source-position filename="libdocument/pps-document.h" line="64"/>
       <field name="name" writable="1">
         <type name="utf8" c:type="const gchar*"/>
       </field>
@@ -3796,13 +3870,13 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
     <record name="DocumentClass"
             c:type="PpsDocumentClass"
             glib:is-gtype-struct-for="Document">
-      <source-position filename="libdocument/pps-document.h" line="117"/>
+      <source-position filename="libdocument/pps-document.h" line="110"/>
       <field name="base_class">
         <type name="GObject.ObjectClass" c:type="GObjectClass"/>
       </field>
       <field name="load">
         <callback name="load" throws="1">
-          <source-position filename="libdocument/pps-document.h" line="77"/>
+          <source-position filename="libdocument/pps-document.h" line="70"/>
           <return-value transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
@@ -3827,7 +3901,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </field>
       <field name="save">
         <callback name="save" throws="1">
-          <source-position filename="libdocument/pps-document.h" line="80"/>
+          <source-position filename="libdocument/pps-document.h" line="73"/>
           <return-value transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
@@ -3852,7 +3926,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </field>
       <field name="get_n_pages">
         <callback name="get_n_pages">
-          <source-position filename="libdocument/pps-document.h" line="83"/>
+          <source-position filename="libdocument/pps-document.h" line="76"/>
           <return-value transfer-ownership="none">
             <type name="gint" c:type="gint"/>
           </return-value>
@@ -3865,7 +3939,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </field>
       <field name="get_page">
         <callback name="get_page">
-          <source-position filename="libdocument/pps-document.h" line="84"/>
+          <source-position filename="libdocument/pps-document.h" line="77"/>
           <return-value transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
@@ -3890,7 +3964,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </field>
       <field name="get_page_size">
         <callback name="get_page_size">
-          <source-position filename="libdocument/pps-document.h" line="86"/>
+          <source-position filename="libdocument/pps-document.h" line="79"/>
           <return-value transfer-ownership="none">
             <type name="none" c:type="void"/>
           </return-value>
@@ -3934,7 +4008,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </field>
       <field name="get_page_label">
         <callback name="get_page_label">
-          <source-position filename="libdocument/pps-document.h" line="90"/>
+          <source-position filename="libdocument/pps-document.h" line="83"/>
           <return-value transfer-ownership="full">
             <type name="utf8" c:type="gchar*"/>
           </return-value>
@@ -3950,7 +4024,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </field>
       <field name="render">
         <callback name="render">
-          <source-position filename="libdocument/pps-document.h" line="92"/>
+          <source-position filename="libdocument/pps-document.h" line="85"/>
           <return-value transfer-ownership="full">
             <type name="cairo.Surface" c:type="cairo_surface_t*"/>
           </return-value>
@@ -3966,7 +4040,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </field>
       <field name="get_thumbnail">
         <callback name="get_thumbnail">
-          <source-position filename="libdocument/pps-document.h" line="94"/>
+          <source-position filename="libdocument/pps-document.h" line="87"/>
           <return-value transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
@@ -3991,7 +4065,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </field>
       <field name="get_info">
         <callback name="get_info">
-          <source-position filename="libdocument/pps-document.h" line="96"/>
+          <source-position filename="libdocument/pps-document.h" line="89"/>
           <return-value transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
@@ -4010,7 +4084,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </field>
       <field name="get_backend_info">
         <callback name="get_backend_info">
-          <source-position filename="libdocument/pps-document.h" line="97"/>
+          <source-position filename="libdocument/pps-document.h" line="90"/>
           <return-value transfer-ownership="none">
             <type name="gboolean" c:type="gboolean"/>
           </return-value>
@@ -4027,7 +4101,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </field>
       <field name="load_stream">
         <callback name="load_stream" throws="1">
-          <source-position filename="libdocument/pps-document.h" line="101"/>
+          <source-position filename="libdocument/pps-document.h" line="94"/>
           <return-value transfer-ownership="none">
             <type name="gboolean" c:type="gboolean"/>
           </return-value>
@@ -4052,7 +4126,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </field>
       <field name="load_gfile">
         <callback name="load_gfile" throws="1">
-          <source-position filename="libdocument/pps-document.h" line="106"/>
+          <source-position filename="libdocument/pps-document.h" line="99"/>
           <return-value transfer-ownership="none">
             <type name="gboolean" c:type="gboolean"/>
           </return-value>
@@ -4077,7 +4151,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </field>
       <field name="get_thumbnail_surface">
         <callback name="get_thumbnail_surface">
-          <source-position filename="libdocument/pps-document.h" line="111"/>
+          <source-position filename="libdocument/pps-document.h" line="104"/>
           <return-value transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
@@ -4102,7 +4176,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </field>
       <field name="load_fd">
         <callback name="load_fd" throws="1">
-          <source-position filename="libdocument/pps-document.h" line="113"/>
+          <source-position filename="libdocument/pps-document.h" line="106"/>
           <return-value transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document.c"
@@ -10847,7 +10921,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
             glib:type-name="PpsMapping"
             glib:get-type="pps_mapping_get_type"
             c:symbol-prefix="mapping">
-      <source-position filename="libdocument/pps-document.h" line="231"/>
+      <source-position filename="libdocument/pps-document.h" line="260"/>
       <field name="area" writable="1">
         <type name="Rectangle" c:type="PpsRectangle"/>
       </field>
@@ -10855,13 +10929,13 @@ so set a helper function to actually allow the user to enter his password.</doc>
         <type name="gpointer" c:type="gpointer"/>
       </field>
       <constructor name="new" c:identifier="pps_mapping_new">
-        <source-position filename="libdocument/pps-document.h" line="236"/>
+        <source-position filename="libdocument/pps-document.h" line="265"/>
         <return-value transfer-ownership="full">
           <type name="Mapping" c:type="PpsMapping*"/>
         </return-value>
       </constructor>
       <method name="copy" c:identifier="pps_mapping_copy">
-        <source-position filename="libdocument/pps-document.h" line="238"/>
+        <source-position filename="libdocument/pps-document.h" line="267"/>
         <return-value transfer-ownership="full">
           <type name="Mapping" c:type="PpsMapping*"/>
         </return-value>
@@ -10872,7 +10946,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="free" c:identifier="pps_mapping_free">
-        <source-position filename="libdocument/pps-document.h" line="240"/>
+        <source-position filename="libdocument/pps-document.h" line="269"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -10883,7 +10957,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="get_area" c:identifier="pps_mapping_get_area">
-        <source-position filename="libdocument/pps-document.h" line="244"/>
+        <source-position filename="libdocument/pps-document.h" line="273"/>
         <return-value transfer-ownership="none">
           <type name="Rectangle" c:type="PpsRectangle*"/>
         </return-value>
@@ -10894,7 +10968,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="get_data" c:identifier="pps_mapping_get_data">
-        <source-position filename="libdocument/pps-document.h" line="248"/>
+        <source-position filename="libdocument/pps-document.h" line="277"/>
         <return-value transfer-ownership="none" nullable="1">
           <type name="GObject.Object" c:type="GObject*"/>
         </return-value>
@@ -10905,7 +10979,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="set_area" c:identifier="pps_mapping_set_area">
-        <source-position filename="libdocument/pps-document.h" line="242"/>
+        <source-position filename="libdocument/pps-document.h" line="271"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -10919,7 +10993,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
         </parameters>
       </method>
       <method name="set_data" c:identifier="pps_mapping_set_data">
-        <source-position filename="libdocument/pps-document.h" line="246"/>
+        <source-position filename="libdocument/pps-document.h" line="275"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -11162,6 +11236,40 @@ so set a helper function to actually allow the user to enter his password.</doc>
         <parameters>
           <instance-parameter name="mapping_list" transfer-ownership="none">
             <type name="MappingList" c:type="PpsMappingList*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+    </record>
+    <record name="Mark"
+            c:type="PpsMark"
+            version="48.0"
+            glib:type-name="PpsMark"
+            glib:get-type="pps_mark_get_type"
+            c:symbol-prefix="mark">
+      <doc xml:space="preserve"
+           filename="libdocument/pps-document.h"
+           line="214">`PpsMark` is a simple boxed structure that is used to uniquely and invariably
+identify any point in a document. Documents have independent coordinate
+systems per page, and therefore, to uniquely identify a point, it is
+necessary to know both the index of the page, and the coordinates of the
+point within that page.
+
+This structure and its fields `page_index` and `doc_point` are public.</doc>
+      <source-position filename="libdocument/pps-document.h" line="230"/>
+      <field name="page_index" writable="1">
+        <type name="gint" c:type="gint"/>
+      </field>
+      <field name="doc_point" writable="1">
+        <type name="Point" c:type="PpsPoint"/>
+      </field>
+      <method name="copy" c:identifier="pps_mark_copy">
+        <source-position filename="libdocument/pps-document.h" line="236"/>
+        <return-value transfer-ownership="full">
+          <type name="Mark" c:type="PpsMark*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="mark" transfer-ownership="none">
+            <type name="Mark" c:type="PpsMark*"/>
           </instance-parameter>
         </parameters>
       </method>
@@ -11507,21 +11615,42 @@ so set a helper function to actually allow the user to enter his password.</doc>
         <type name="GObject.ObjectClass" c:type="GObjectClass"/>
       </field>
     </record>
-    <record name="Point" c:type="PpsPoint">
-      <source-position filename="libdocument/pps-document.h" line="66"/>
+    <record name="Point"
+            c:type="PpsPoint"
+            glib:type-name="PpsPoint"
+            glib:get-type="pps_point_get_type"
+            c:symbol-prefix="point">
+      <source-position filename="libdocument/pps-document.h" line="205"/>
       <field name="x" writable="1">
         <type name="gdouble" c:type="double"/>
       </field>
       <field name="y" writable="1">
         <type name="gdouble" c:type="double"/>
       </field>
+      <constructor name="new" c:identifier="pps_point_new">
+        <source-position filename="libdocument/pps-document.h" line="210"/>
+        <return-value transfer-ownership="full">
+          <type name="Point" c:type="PpsPoint*"/>
+        </return-value>
+      </constructor>
+      <method name="copy" c:identifier="pps_point_copy">
+        <source-position filename="libdocument/pps-document.h" line="212"/>
+        <return-value transfer-ownership="full">
+          <type name="Point" c:type="PpsPoint*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="point" transfer-ownership="none">
+            <type name="Point" c:type="PpsPoint*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
     </record>
     <record name="Rectangle"
             c:type="PpsRectangle"
             glib:type-name="PpsRectangle"
             glib:get-type="pps_rectangle_get_type"
             c:symbol-prefix="rectangle">
-      <source-position filename="libdocument/pps-document.h" line="217"/>
+      <source-position filename="libdocument/pps-document.h" line="245"/>
       <field name="x1" writable="1">
         <type name="gdouble" c:type="gdouble"/>
       </field>
@@ -11535,26 +11664,15 @@ so set a helper function to actually allow the user to enter his password.</doc>
         <type name="gdouble" c:type="gdouble"/>
       </field>
       <constructor name="new" c:identifier="pps_rectangle_new">
-        <source-position filename="libdocument/pps-document.h" line="222"/>
+        <source-position filename="libdocument/pps-document.h" line="250"/>
         <return-value transfer-ownership="full">
           <type name="Rectangle" c:type="PpsRectangle*"/>
         </return-value>
       </constructor>
       <method name="copy" c:identifier="pps_rectangle_copy">
-        <source-position filename="libdocument/pps-document.h" line="224"/>
+        <source-position filename="libdocument/pps-document.h" line="252"/>
         <return-value transfer-ownership="full">
           <type name="Rectangle" c:type="PpsRectangle*"/>
-        </return-value>
-        <parameters>
-          <instance-parameter name="pps_rect" transfer-ownership="none">
-            <type name="Rectangle" c:type="PpsRectangle*"/>
-          </instance-parameter>
-        </parameters>
-      </method>
-      <method name="free" c:identifier="pps_rectangle_free">
-        <source-position filename="libdocument/pps-document.h" line="226"/>
-        <return-value transfer-ownership="none">
-          <type name="none" c:type="void"/>
         </return-value>
         <parameters>
           <instance-parameter name="pps_rect" transfer-ownership="none">
@@ -12740,7 +12858,7 @@ so set a helper function to actually allow the user to enter his password.</doc>
       </parameters>
     </function-macro>
     <function name="backend_query_type" c:identifier="pps_backend_query_type">
-      <source-position filename="libdocument/pps-document.h" line="253"/>
+      <source-position filename="libdocument/pps-document.h" line="282"/>
       <return-value transfer-ownership="none">
         <type name="GType" c:type="GType"/>
       </return-value>
@@ -12983,7 +13101,7 @@ document library.</doc>
            line="21">These macros enable compile time checks of the library version.</doc>
     </docsection>
     <function name="rect_cmp" c:identifier="pps_rect_cmp">
-      <source-position filename="libdocument/pps-document.h" line="208"/>
+      <source-position filename="libdocument/pps-document.h" line="254"/>
       <return-value transfer-ownership="none">
         <type name="gint" c:type="gint"/>
       </return-value>

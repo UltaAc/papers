@@ -111,6 +111,16 @@ pub use self::mapping::Mapping;
 mod mapping_list;
 pub use self::mapping_list::MappingList;
 
+#[cfg(feature = "v48")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+mod mark;
+#[cfg(feature = "v48")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+pub use self::mark::Mark;
+
+mod point;
+pub use self::point::Point;
+
 mod rectangle;
 pub use self::rectangle::Rectangle;
 

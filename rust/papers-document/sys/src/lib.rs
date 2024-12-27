@@ -398,7 +398,9 @@ impl ::std::fmt::Debug for PpsCertificateInfoClass {
 #[repr(C)]
 pub struct PpsDocumentAnnotationsInterface {
     pub base_iface: gobject::GTypeInterface,
-    pub get_annotations: Option<
+    pub get_annotations:
+        Option<unsafe extern "C" fn(*mut PpsDocumentAnnotations, *mut PpsPage) -> *mut glib::GList>,
+    pub get_annotations_mapping: Option<
         unsafe extern "C" fn(*mut PpsDocumentAnnotations, *mut PpsPage) -> *mut PpsMappingList,
     >,
     pub document_is_modified: Option<unsafe extern "C" fn(*mut PpsDocumentAnnotations) -> gboolean>,
@@ -428,6 +430,7 @@ impl ::std::fmt::Debug for PpsDocumentAnnotationsInterface {
         f.debug_struct(&format!("PpsDocumentAnnotationsInterface @ {self:p}"))
             .field("base_iface", &self.base_iface)
             .field("get_annotations", &self.get_annotations)
+            .field("get_annotations_mapping", &self.get_annotations_mapping)
             .field("document_is_modified", &self.document_is_modified)
             .field("add_annotation", &self.add_annotation)
             .field("save_annotation", &self.save_annotation)
@@ -1257,6 +1260,22 @@ pub struct PpsMappingList {
 impl ::std::fmt::Debug for PpsMappingList {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("PpsMappingList @ {self:p}"))
+            .finish()
+    }
+}
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct PpsMark {
+    pub page_index: c_int,
+    pub doc_point: PpsPoint,
+}
+
+impl ::std::fmt::Debug for PpsMark {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("PpsMark @ {self:p}"))
+            .field("page_index", &self.page_index)
+            .field("doc_point", &self.doc_point)
             .finish()
     }
 }
@@ -2320,12 +2339,28 @@ extern "C" {
     pub fn pps_mapping_list_unref(mapping_list: *mut PpsMappingList);
 
     //=========================================================================
+    // PpsMark
+    //=========================================================================
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_mark_get_type() -> GType;
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    pub fn pps_mark_copy(mark: *mut PpsMark) -> *mut PpsMark;
+
+    //=========================================================================
+    // PpsPoint
+    //=========================================================================
+    pub fn pps_point_get_type() -> GType;
+    pub fn pps_point_new() -> *mut PpsPoint;
+    pub fn pps_point_copy(point: *mut PpsPoint) -> *mut PpsPoint;
+
+    //=========================================================================
     // PpsRectangle
     //=========================================================================
     pub fn pps_rectangle_get_type() -> GType;
     pub fn pps_rectangle_new() -> *mut PpsRectangle;
     pub fn pps_rectangle_copy(pps_rect: *mut PpsRectangle) -> *mut PpsRectangle;
-    pub fn pps_rectangle_free(pps_rect: *mut PpsRectangle);
 
     //=========================================================================
     // PpsAnnotation
@@ -2977,6 +3012,10 @@ extern "C" {
         document_annots: *mut PpsDocumentAnnotations,
     ) -> gboolean;
     pub fn pps_document_annotations_get_annotations(
+        document_annots: *mut PpsDocumentAnnotations,
+        page: *mut PpsPage,
+    ) -> *mut glib::GList;
+    pub fn pps_document_annotations_get_annotations_mapping(
         document_annots: *mut PpsDocumentAnnotations,
         page: *mut PpsPage,
     ) -> *mut PpsMappingList;

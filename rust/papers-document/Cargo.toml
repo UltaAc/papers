@@ -14,7 +14,7 @@ rustc-args = ["--cfg", "docsrs"]
 rustdoc-args = ["--cfg", "docsrs"]
 
 [features]
-default = ["v47"]
+default = ["v48"]
 v47 = ["ffi/v47"]
 v48 = ["ffi/v48", "v47"]
 

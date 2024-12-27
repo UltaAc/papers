@@ -4,6 +4,9 @@
 // DO NOT EDIT
 
 use crate::{ffi, DocumentModel, SearchContext};
+#[cfg(feature = "v48")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+use crate::{AnnotationsContext, ViewSelection};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -25,28 +28,6 @@ impl View {
     pub fn new() -> View {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::pps_view_new()) }
-    }
-
-    #[cfg(feature = "v48")]
-    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
-    #[doc(alias = "pps_view_add_text_annotation_at_point")]
-    pub fn add_text_annotation_at_point(&self, x: i32, y: i32) -> bool {
-        unsafe {
-            from_glib(ffi::pps_view_add_text_annotation_at_point(
-                self.to_glib_none().0,
-                x,
-                y,
-            ))
-        }
-    }
-
-    #[doc(alias = "pps_view_add_text_markup_annotation_for_selected_text")]
-    pub fn add_text_markup_annotation_for_selected_text(&self) -> bool {
-        unsafe {
-            from_glib(ffi::pps_view_add_text_markup_annotation_for_selected_text(
-                self.to_glib_none().0,
-            ))
-        }
     }
 
     #[doc(alias = "pps_view_can_zoom_in")]
@@ -126,38 +107,20 @@ impl View {
         }
     }
 
-    #[doc(alias = "pps_view_get_page_extents")]
-    #[doc(alias = "get_page_extents")]
-    pub fn is_page_extents(
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    #[doc(alias = "pps_view_get_mark_for_view_point")]
+    #[doc(alias = "get_mark_for_view_point")]
+    pub fn mark_for_view_point(
         &self,
-        page: i32,
-        page_area: &mut gdk::Rectangle,
-        border: &mut gtk::Border,
-    ) -> bool {
+        view_point_x: f64,
+        view_point_y: f64,
+    ) -> Option<papers_document::Mark> {
         unsafe {
-            from_glib(ffi::pps_view_get_page_extents(
+            from_glib_full(ffi::pps_view_get_mark_for_view_point(
                 self.to_glib_none().0,
-                page,
-                page_area.to_glib_none_mut().0,
-                border.to_glib_none_mut().0,
-            ))
-        }
-    }
-
-    #[doc(alias = "pps_view_get_page_extents_for_border")]
-    #[doc(alias = "get_page_extents_for_border")]
-    pub fn is_page_extents_for_border(
-        &self,
-        page: i32,
-        border: &mut gtk::Border,
-        page_area: &mut gdk::Rectangle,
-    ) -> bool {
-        unsafe {
-            from_glib(ffi::pps_view_get_page_extents_for_border(
-                self.to_glib_none().0,
-                page,
-                border.to_glib_none_mut().0,
-                page_area.to_glib_none_mut().0,
+                view_point_x,
+                view_point_y,
             ))
         }
     }
@@ -166,6 +129,18 @@ impl View {
     #[doc(alias = "get_selected_text")]
     pub fn selected_text(&self) -> Option<glib::GString> {
         unsafe { from_glib_full(ffi::pps_view_get_selected_text(self.to_glib_none().0)) }
+    }
+
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    #[doc(alias = "pps_view_get_selections")]
+    #[doc(alias = "get_selections")]
+    pub fn selections(&self) -> Vec<ViewSelection> {
+        unsafe {
+            FromGlibPtrContainer::from_glib_container(ffi::pps_view_get_selections(
+                self.to_glib_none().0,
+            ))
+        }
     }
 
     #[doc(alias = "pps_view_handle_link")]
@@ -211,13 +186,6 @@ impl View {
         }
     }
 
-    #[doc(alias = "pps_view_remove_annotation")]
-    pub fn remove_annotation(&self, annot: &impl IsA<papers_document::Annotation>) {
-        unsafe {
-            ffi::pps_view_remove_annotation(self.to_glib_none().0, annot.as_ref().to_glib_none().0);
-        }
-    }
-
     #[doc(alias = "pps_view_select_all")]
     pub fn select_all(&self) {
         unsafe {
@@ -232,22 +200,14 @@ impl View {
         }
     }
 
-    #[doc(alias = "pps_view_set_annotation_color")]
-    pub fn set_annotation_color(&self, color: &gdk::RGBA) {
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    #[doc(alias = "pps_view_set_annotations_context")]
+    pub fn set_annotations_context(&self, context: &impl IsA<AnnotationsContext>) {
         unsafe {
-            ffi::pps_view_set_annotation_color(self.to_glib_none().0, color.to_glib_none().0);
-        }
-    }
-
-    #[doc(alias = "pps_view_set_annotation_text_markup_type")]
-    pub fn set_annotation_text_markup_type(
-        &self,
-        markup_type: papers_document::AnnotationTextMarkupType,
-    ) {
-        unsafe {
-            ffi::pps_view_set_annotation_text_markup_type(
+            ffi::pps_view_set_annotations_context(
                 self.to_glib_none().0,
-                markup_type.into_glib(),
+                context.as_ref().to_glib_none().0,
             );
         }
     }
@@ -358,38 +318,6 @@ impl View {
 
     pub fn emit_activate(&self) {
         self.emit_by_name::<()>("activate", &[]);
-    }
-
-    #[doc(alias = "annot-removed")]
-    pub fn connect_annot_removed<F: Fn(&Self, &papers_document::Annotation) + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
-        unsafe extern "C" fn annot_removed_trampoline<
-            F: Fn(&View, &papers_document::Annotation) + 'static,
-        >(
-            this: *mut ffi::PpsView,
-            object: *mut papers_document::ffi::PpsAnnotation,
-            f: glib::ffi::gpointer,
-        ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), &from_glib_borrow(object))
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                b"annot-removed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
-                    annot_removed_trampoline::<F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
-        }
-    }
-
-    pub fn emit_annot_removed(&self, object: &papers_document::Annotation) {
-        self.emit_by_name::<()>("annot-removed", &[&object]);
     }
 
     #[doc(alias = "cursor-moved")]

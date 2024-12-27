@@ -64,9 +64,20 @@ pub trait DocumentAnnotationsExt: IsA<DocumentAnnotations> + sealed::Sealed + 's
 
     #[doc(alias = "pps_document_annotations_get_annotations")]
     #[doc(alias = "get_annotations")]
-    fn annotations(&self, page: &impl IsA<Page>) -> Option<MappingList> {
+    fn annotations(&self, page: &impl IsA<Page>) -> Vec<Annotation> {
         unsafe {
-            from_glib_full(ffi::pps_document_annotations_get_annotations(
+            FromGlibPtrContainer::from_glib_none(ffi::pps_document_annotations_get_annotations(
+                self.as_ref().to_glib_none().0,
+                page.as_ref().to_glib_none().0,
+            ))
+        }
+    }
+
+    #[doc(alias = "pps_document_annotations_get_annotations_mapping")]
+    #[doc(alias = "get_annotations_mapping")]
+    fn annotations_mapping(&self, page: &impl IsA<Page>) -> Option<MappingList> {
+        unsafe {
+            from_glib_full(ffi::pps_document_annotations_get_annotations_mapping(
                 self.as_ref().to_glib_none().0,
                 page.as_ref().to_glib_none().0,
             ))

@@ -749,6 +749,13 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         },
     ),
     (
+        "PpsMark",
+        Layout {
+            size: size_of::<PpsMark>(),
+            alignment: align_of::<PpsMark>(),
+        },
+    ),
+    (
         "PpsMedia",
         Layout {
             size: size_of::<PpsMedia>(),

@@ -3,6 +3,9 @@
 // from ../pps-girs
 // DO NOT EDIT
 
+mod annotations_context;
+pub use self::annotations_context::AnnotationsContext;
+
 mod attachment_context;
 pub use self::attachment_context::AttachmentContext;
 
@@ -63,12 +66,16 @@ pub use self::view::View;
 mod view_presentation;
 pub use self::view_presentation::ViewPresentation;
 
+mod view_selection;
+pub use self::view_selection::ViewSelection;
+
 mod enums;
 pub use self::enums::JobPriority;
 pub use self::enums::PageLayout;
 pub use self::enums::SizingMode;
 
 pub(crate) mod traits {
+    pub use super::annotations_context::AnnotationsContextExt;
     pub use super::attachment_context::AttachmentContextExt;
     pub use super::history::HistoryExt;
     pub use super::job::JobExt;

@@ -8,6 +8,8 @@
 #include <stdio.h>
 
 int main() {
+    printf("%s;%zu;%zu\n", "PpsAnnotationsContext", sizeof(PpsAnnotationsContext), alignof(PpsAnnotationsContext));
+    printf("%s;%zu;%zu\n", "PpsAnnotationsContextClass", sizeof(PpsAnnotationsContextClass), alignof(PpsAnnotationsContextClass));
     printf("%s;%zu;%zu\n", "PpsAttachmentContext", sizeof(PpsAttachmentContext), alignof(PpsAttachmentContext));
     printf("%s;%zu;%zu\n", "PpsAttachmentContextClass", sizeof(PpsAttachmentContextClass), alignof(PpsAttachmentContextClass));
     printf("%s;%zu;%zu\n", "PpsAttachmentContextError", sizeof(PpsAttachmentContextError), alignof(PpsAttachmentContextError));
@@ -54,5 +56,6 @@ int main() {
     printf("%s;%zu;%zu\n", "PpsSizingMode", sizeof(PpsSizingMode), alignof(PpsSizingMode));
     printf("%s;%zu;%zu\n", "PpsView", sizeof(PpsView), alignof(PpsView));
     printf("%s;%zu;%zu\n", "PpsViewPresentation", sizeof(PpsViewPresentation), alignof(PpsViewPresentation));
+    printf("%s;%zu;%zu\n", "PpsViewSelection", sizeof(PpsViewSelection), alignof(PpsViewSelection));
     return 0;
 }

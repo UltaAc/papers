@@ -15,6 +15,8 @@ pub mod prelude;
 #[allow(unused_imports)]
 mod auto;
 
+mod mark;
+mod point;
 mod rectangle;
 
 pub use auto::functions::*;

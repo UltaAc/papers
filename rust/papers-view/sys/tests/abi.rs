@@ -203,6 +203,20 @@ fn get_c_output(name: &str) -> Result<String, Box<dyn Error>> {
 
 const RUST_LAYOUTS: &[(&str, Layout)] = &[
     (
+        "PpsAnnotationsContext",
+        Layout {
+            size: size_of::<PpsAnnotationsContext>(),
+            alignment: align_of::<PpsAnnotationsContext>(),
+        },
+    ),
+    (
+        "PpsAnnotationsContextClass",
+        Layout {
+            size: size_of::<PpsAnnotationsContextClass>(),
+            alignment: align_of::<PpsAnnotationsContextClass>(),
+        },
+    ),
+    (
         "PpsAttachmentContext",
         Layout {
             size: size_of::<PpsAttachmentContext>(),
@@ -522,6 +536,13 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         Layout {
             size: size_of::<PpsViewPresentation>(),
             alignment: align_of::<PpsViewPresentation>(),
+        },
+    ),
+    (
+        "PpsViewSelection",
+        Layout {
+            size: size_of::<PpsViewSelection>(),
+            alignment: align_of::<PpsViewSelection>(),
         },
     ),
 ];

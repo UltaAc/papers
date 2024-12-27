@@ -101,3 +101,13 @@ boxed_inline = true
 name = "PapersDocument.Mapping"
 status = "generate"
 boxed_inline = true
+
+[[object]]
+name = "PapersDocument.Mark"
+status = "generate"
+boxed_inline = true
+
+[[object]]
+name = "PapersDocument.Point"
+status = "generate"
+boxed_inline = true
