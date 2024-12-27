@@ -1184,81 +1184,6 @@ pps_annotation_markup_set_popup_is_open (PpsAnnotationMarkup *markup,
 	return TRUE;
 }
 
-/* PpsAnnotationStamp */
-static void
-pps_annotation_stamp_init (PpsAnnotationStamp *annot)
-{
-	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (PPS_ANNOTATION (annot));
-
-	priv->type = PPS_ANNOTATION_TYPE_STAMP;
-}
-
-static void
-pps_annotation_stamp_dispose (GObject *object)
-{
-	PpsAnnotationStampPrivate *priv = GET_ANNOT_STAMP_PRIVATE (PPS_ANNOTATION_STAMP (object));
-
-	g_clear_pointer (&priv->surface, cairo_surface_destroy);
-
-	G_OBJECT_CLASS (pps_annotation_stamp_parent_class)->dispose (object);
-}
-
-static void
-pps_annotation_stamp_class_init (PpsAnnotationStampClass *klass)
-{
-	G_OBJECT_CLASS (klass)->dispose = pps_annotation_stamp_dispose;
-}
-
-/**
- * pps_annotation_stamp_set_surface:
- * @stamp: an #PpsAnnotationStamp
- * @surface: a #cairo_surface_t
- *
- * Set the custom cairo surface of the stamp.
- *
- * Since: 48.0
- */
-void
-pps_annotation_stamp_set_surface (PpsAnnotationStamp *stamp, cairo_surface_t *surface)
-{
-	PpsAnnotationStampPrivate *priv = GET_ANNOT_STAMP_PRIVATE (stamp);
-	priv->surface = cairo_surface_reference (surface);
-}
-
-/**
- * pps_annotation_stamp_get_surface:
- * @stamp: an #PpsAnnotationStamp
- *
- * Set the custom cairo surface of the stamp.
- *
- * Returns: (transfer none): the custom cairo surface of the stamp, if it exists.
- * Since: 48.0
- */
-cairo_surface_t *
-pps_annotation_stamp_get_surface (PpsAnnotationStamp *stamp)
-{
-	PpsAnnotationStampPrivate *priv = GET_ANNOT_STAMP_PRIVATE (stamp);
-	return priv->surface;
-}
-
-/**
- * pps_annotation_stamp_new:
- * @page: a #PpsPage
- *
- * Creates a new stamp annotation. ATM only the custom image type via
- * #pps_annotation_stamp_set_surface is implemented, other stamps (draft, etc.)
- * are not.
- *
- * Since: 48.0
- */
-PpsAnnotation *
-pps_annotation_stamp_new (PpsPage *page)
-{
-	return PPS_ANNOTATION (g_object_new (PPS_TYPE_ANNOTATION_STAMP,
-	                                     "page", page,
-	                                     NULL));
-}
-
 /* PpsAnnotationText */
 static void
 pps_annotation_text_init (PpsAnnotationText *annot)
@@ -1417,8 +1342,82 @@ pps_annotation_text_set_is_open (PpsAnnotationText *text,
 	return TRUE;
 }
 
-/* PpsAnnotationFreeText */
+/* PpsAnnotationStamp */
+static void
+pps_annotation_stamp_init (PpsAnnotationStamp *annot)
+{
+	PpsAnnotationPrivate *priv = GET_ANNOT_PRIVATE (PPS_ANNOTATION (annot));
 
+	priv->type = PPS_ANNOTATION_TYPE_STAMP;
+}
+
+static void
+pps_annotation_stamp_dispose (GObject *object)
+{
+	PpsAnnotationStampPrivate *priv = GET_ANNOT_STAMP_PRIVATE (PPS_ANNOTATION_STAMP (object));
+
+	g_clear_pointer (&priv->surface, cairo_surface_destroy);
+
+	G_OBJECT_CLASS (pps_annotation_stamp_parent_class)->dispose (object);
+}
+
+static void
+pps_annotation_stamp_class_init (PpsAnnotationStampClass *klass)
+{
+	G_OBJECT_CLASS (klass)->dispose = pps_annotation_stamp_dispose;
+}
+
+/**
+ * pps_annotation_stamp_set_surface:
+ * @stamp: an #PpsAnnotationStamp
+ * @surface: a #cairo_surface_t
+ *
+ * Set the custom cairo surface of the stamp.
+ *
+ * Since: 48.0
+ */
+void
+pps_annotation_stamp_set_surface (PpsAnnotationStamp *stamp, cairo_surface_t *surface)
+{
+	PpsAnnotationStampPrivate *priv = GET_ANNOT_STAMP_PRIVATE (stamp);
+	priv->surface = cairo_surface_reference (surface);
+}
+
+/**
+ * pps_annotation_stamp_get_surface:
+ * @stamp: an #PpsAnnotationStamp
+ *
+ * Set the custom cairo surface of the stamp.
+ *
+ * Returns: (transfer none): the custom cairo surface of the stamp, if it exists.
+ * Since: 48.0
+ */
+cairo_surface_t *
+pps_annotation_stamp_get_surface (PpsAnnotationStamp *stamp)
+{
+	PpsAnnotationStampPrivate *priv = GET_ANNOT_STAMP_PRIVATE (stamp);
+	return priv->surface;
+}
+
+/**
+ * pps_annotation_stamp_new:
+ * @page: a #PpsPage
+ *
+ * Creates a new stamp annotation. ATM only the custom image type via
+ * #pps_annotation_stamp_set_surface is implemented, other stamps (draft, etc.)
+ * are not.
+ *
+ * Since: 48.0
+ */
+PpsAnnotation *
+pps_annotation_stamp_new (PpsPage *page)
+{
+	return PPS_ANNOTATION (g_object_new (PPS_TYPE_ANNOTATION_STAMP,
+	                                     "page", page,
+	                                     NULL));
+}
+
+/* PpsAnnotationFreeText */
 static void
 pps_annotation_free_text_init (PpsAnnotationFreeText *annot)
 {

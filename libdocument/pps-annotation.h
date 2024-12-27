@@ -49,15 +49,15 @@ struct _PpsAnnotationClass {
 PPS_PUBLIC
 G_DECLARE_INTERFACE (PpsAnnotationMarkup, pps_annotation_markup, PPS, ANNOTATION_MARKUP, GObject);
 
-/* PpsAnnotationStamp */
-#define PPS_TYPE_ANNOTATION_STAMP (pps_annotation_stamp_get_type ())
-PPS_PUBLIC
-G_DECLARE_FINAL_TYPE (PpsAnnotationStamp, pps_annotation_stamp, PPS, ANNOTATION_STAMP, PpsAnnotation);
-
 /* PpsAnnotationText */
 #define PPS_TYPE_ANNOTATION_TEXT (pps_annotation_text_get_type ())
 PPS_PUBLIC
 G_DECLARE_FINAL_TYPE (PpsAnnotationText, pps_annotation_text, PPS, ANNOTATION_TEXT, PpsAnnotation);
+
+/* PpsAnnotationStamp */
+#define PPS_TYPE_ANNOTATION_STAMP (pps_annotation_stamp_get_type ())
+PPS_PUBLIC
+G_DECLARE_FINAL_TYPE (PpsAnnotationStamp, pps_annotation_stamp, PPS, ANNOTATION_STAMP, PpsAnnotation);
 
 /* PpsAnnotationFreeText */
 #define PPS_TYPE_ANNOTATION_FREE_TEXT (pps_annotation_free_text_get_type ())
@@ -158,14 +158,6 @@ PPS_PUBLIC
 gboolean pps_annotation_set_area (PpsAnnotation *annot,
                                   const PpsRectangle *area);
 
-/* PpsAnnotationStamp */
-PPS_PUBLIC
-PpsAnnotation *pps_annotation_stamp_new (PpsPage *page);
-PPS_PUBLIC
-void pps_annotation_stamp_set_surface (PpsAnnotationStamp *stamp, cairo_surface_t *surface);
-PPS_PUBLIC
-cairo_surface_t *pps_annotation_stamp_get_surface (PpsAnnotationStamp *stamp);
-
 /* PpsAnnotationMarkup */
 PPS_PUBLIC
 const gchar *pps_annotation_markup_get_label (PpsAnnotationMarkup *markup);
@@ -209,6 +201,14 @@ gboolean pps_annotation_text_get_is_open (PpsAnnotationText *text);
 PPS_PUBLIC
 gboolean pps_annotation_text_set_is_open (PpsAnnotationText *text,
                                           gboolean is_open);
+
+/* PpsAnnotationStamp */
+PPS_PUBLIC
+PpsAnnotation *pps_annotation_stamp_new (PpsPage *page);
+PPS_PUBLIC
+void pps_annotation_stamp_set_surface (PpsAnnotationStamp *stamp, cairo_surface_t *surface);
+PPS_PUBLIC
+cairo_surface_t *pps_annotation_stamp_get_surface (PpsAnnotationStamp *stamp);
 
 /* PpsAnnotationFreeText */
 PPS_PUBLIC
