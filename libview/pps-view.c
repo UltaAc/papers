@@ -1326,6 +1326,49 @@ _pps_view_transform_view_point_to_doc_point (PpsView *view,
 	*doc_point_y = y;
 }
 
+/**
+ * pps_view_get_mark_for_view_point:
+ * @view: a #PpsView
+ * @view_point_x: the x coordinate over the view
+ * @view_point_y: the y coordinate over the view
+ *
+ * Returns: (nullable) (transfer full): a pointer to a #PpsMark that represents
+ * the location in the document for @view_point_x and @view_point_y. If the
+ * location is not in a page in the document, it returns NULL.
+ *
+ * Since: 48.0
+ */
+PpsMark *
+pps_view_get_mark_for_view_point (PpsView *view,
+                                  gdouble view_point_x,
+                                  gdouble view_point_y)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsPoint doc_point;
+	PpsMark *mark;
+	gint page;
+	GdkRectangle page_area;
+
+	view_point_x += priv->scroll_x;
+	view_point_y += priv->scroll_y;
+
+	find_page_at_location (view, view_point_x, view_point_y,
+	                       &page, NULL, NULL);
+	if (page == -1)
+		return NULL;
+
+	pps_view_get_page_extents (view, page, &page_area);
+	_pps_view_transform_view_point_to_doc_point (view,
+	                                             view_point_x, view_point_y,
+	                                             &page_area,
+	                                             &doc_point.x, &doc_point.y);
+
+	mark = g_new (PpsMark, 1);
+	mark->page_index = page;
+	mark->doc_point = doc_point;
+	return mark;
+}
+
 void
 _pps_view_transform_view_rect_to_doc_rect (PpsView *view,
                                            GdkRectangle *view_rect,
@@ -3368,34 +3411,15 @@ pps_view_add_text_annotation_at_point (PpsView *view,
                                        gint x,
                                        gint y)
 {
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsPoint doc_point;
 	PpsAnnotation *annot;
-	gint annot_page;
-	gint offset;
-	GdkRectangle page_area;
-	gdouble point_x;
-	gdouble point_y;
+	PpsMark *mark = pps_view_get_mark_for_view_point (view, x, y);
 
-	x += priv->scroll_x;
-	y += priv->scroll_y;
-
-	point_x = x;
-	point_y = y;
-
-	find_page_at_location (view, x, y,
-	                       &annot_page, &offset, &offset);
-	if (annot_page == -1)
+	if (mark == NULL)
 		return FALSE;
 
-	pps_view_get_page_extents (view, annot_page, &page_area);
-	_pps_view_transform_view_point_to_doc_point (view, point_x, point_y,
-	                                             &page_area,
-	                                             &doc_point.x, &doc_point.y);
-
-	annot = pps_view_create_annotation_real (view, annot_page,
+	annot = pps_view_create_annotation_real (view, mark->page_index,
 	                                         PPS_ANNOTATION_TYPE_TEXT,
-	                                         &doc_point, NULL);
+	                                         &mark->doc_point, NULL);
 	if (PPS_IS_ANNOTATION_MARKUP (annot)) {
 		GtkWidget *window = pps_view_create_annotation_window (view, annot);
 		pps_annotation_window_show (PPS_ANNOTATION_WINDOW (window));
