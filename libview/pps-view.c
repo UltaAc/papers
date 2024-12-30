@@ -3362,8 +3362,8 @@ static PpsAnnotation *
 pps_view_create_annotation_real (PpsView *view,
                                  gint annot_page,
                                  PpsAnnotationType type,
-                                 PpsPoint *start,
-                                 PpsPoint *end)
+                                 const PpsPoint *start,
+                                 const PpsPoint *end)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsAnnotation *annot;
