@@ -90,8 +90,6 @@ typedef struct
 
 typedef struct
 {
-	gboolean active;
-	gboolean in_selection;
 	gdouble start_x;
 	gdouble start_y;
 	gdouble stop_x;
@@ -210,6 +208,7 @@ typedef struct _PpsViewPrivate {
 
 	/* Signing Info */
 	SigningInfo signing_info;
+	GtkEventController *signing_drag_gesture;
 } PpsViewPrivate;
 
 struct _PpsViewClass {

@@ -70,9 +70,9 @@
       </object>
     </child>
     <child>
-      <object class="GtkGestureDrag">
+      <object class="GtkGestureDrag" id="signing_drag_gesture">
         <property name="button">1</property> <!-- GTK_BUTTON_PRIMARY -->
-        <property name="propagation-phase">capture</property>
+        <property name="propagation-phase">none</property>
         <property name="exclusive">True</property>
         <signal name="drag-begin" handler="signing_begin_cb" />
         <signal name="drag-end" handler="signing_end_cb" />
