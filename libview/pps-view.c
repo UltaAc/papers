@@ -8909,11 +8909,6 @@ pps_view_stop_signature_rect (PpsView *view)
 	                                             &end.x,
 	                                             &end.y);
 
-	rect->x1 = MIN (priv->signing_info.start_x, priv->signing_info.stop_x);
-	rect->y1 = MIN (priv->signing_info.start_y, priv->signing_info.stop_y);
-	rect->x2 = MAX (priv->signing_info.start_x, priv->signing_info.stop_x);
-	rect->y2 = MAX (priv->signing_info.start_y, priv->signing_info.stop_y);
-
 	rect->x1 = MIN (start.x, end.x);
 	rect->y1 = MIN (start.y, end.y);
 	rect->x2 = MAX (start.x, end.x);
