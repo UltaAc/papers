@@ -1542,8 +1542,6 @@ find_page_at_location (PpsView *view,
 		return;
 
 	g_assert (page);
-	g_assert (x_offset);
-	g_assert (y_offset);
 
 	compute_border (view, &border);
 	for (i = priv->start_page; i >= 0 && i <= priv->end_page; i++) {
@@ -1557,8 +1555,10 @@ find_page_at_location (PpsView *view,
 		    (y >= page_area.y + border.top) &&
 		    (y < page_area.y + page_area.height - border.bottom)) {
 			*page = i;
-			*x_offset = x - (page_area.x + border.left);
-			*y_offset = y - (page_area.y + border.top);
+			if (x_offset)
+				*x_offset = x - (page_area.x + border.left);
+			if (y_offset)
+				*y_offset = y - (page_area.y + border.top);
 			return;
 		}
 	}
