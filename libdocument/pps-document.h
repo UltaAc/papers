@@ -203,6 +203,30 @@ gboolean pps_document_find_page_by_label (PpsDocument *document,
                                           const gchar *page_label,
                                           gint *page_index);
 
+/**
+ * PpsMark:
+ *
+ * `PpsMark` is a simple boxed structure that is used to uniquely and invariably
+ * identify any point in a document. Documents have independent coordinate
+ * systems per page, and therefore, to uniquely identify a point, it is
+ * necessary to know both the index of the page, and the coordinates of the
+ * point within that page.
+ *
+ * This structure and its fields `page_index` and `doc_point` are public.
+ *
+ * Since: 48.0
+ */
+typedef struct {
+	gint page_index;
+	PpsPoint doc_point;
+} PpsMark;
+#define PPS_TYPE_MARK (pps_mark_get_type ())
+
+PPS_PUBLIC
+GType pps_mark_get_type (void);
+PPS_PUBLIC
+PpsMark *pps_mark_copy (PpsMark *mark);
+
 /* PpsRectangle */
 #define PPS_TYPE_RECTANGLE (pps_rectangle_get_type ())
 typedef struct {

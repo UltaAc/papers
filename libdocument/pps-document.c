@@ -917,6 +917,22 @@ pps_document_find_page_by_label (PpsDocument *document,
 	return FALSE;
 }
 
+/* PpsMark */
+G_DEFINE_BOXED_TYPE (PpsMark, pps_mark, pps_mark_copy, g_free)
+
+PpsMark *
+pps_mark_copy (PpsMark *mark)
+{
+	PpsMark *new_mark;
+
+	g_return_val_if_fail (mark != NULL, NULL);
+
+	new_mark = g_new (PpsMark, 1);
+	*new_mark = *mark;
+
+	return new_mark;
+}
+
 /* PpsRectangle */
 G_DEFINE_BOXED_TYPE (PpsRectangle, pps_rectangle, pps_rectangle_copy, g_free)
 
