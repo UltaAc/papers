@@ -1285,47 +1285,6 @@ get_doc_page_size (PpsView *view,
 	}
 }
 
-void
-_pps_view_transform_view_point_to_doc_point (PpsView *view,
-                                             gdouble view_point_x,
-                                             gdouble view_point_y,
-                                             GdkRectangle *page_area,
-                                             double *doc_point_x,
-                                             double *doc_point_y)
-{
-	double x, y, width, height, doc_x, doc_y;
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	x = doc_x = MAX ((double) (view_point_x - page_area->x) / priv->scale, 0);
-	y = doc_y = MAX ((double) (view_point_y - page_area->y) / priv->scale, 0);
-
-	pps_document_get_page_size (priv->document, priv->current_page, &width, &height);
-
-	switch (priv->rotation) {
-	case 0:
-		x = doc_x;
-		y = doc_y;
-		break;
-	case 90:
-		x = doc_y;
-		y = height - doc_x;
-		break;
-	case 180:
-		x = width - doc_x;
-		y = height - doc_y;
-		break;
-	case 270:
-		x = width - doc_y;
-		y = doc_x;
-		break;
-	default:
-		g_assert_not_reached ();
-	}
-
-	*doc_point_x = x;
-	*doc_point_y = y;
-}
-
 /**
  * pps_view_get_doc_point_for_page:
  * @view: a #PpsView
@@ -1351,6 +1310,7 @@ pps_view_get_doc_point_for_page (PpsView *view,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsPoint doc_point;
 	GdkRectangle page_area;
+	double x, y, width, height;
 
 	g_assert (page_index >= 0);
 
@@ -1358,10 +1318,33 @@ pps_view_get_doc_point_for_page (PpsView *view,
 	view_point_y += priv->scroll_y;
 
 	pps_view_get_page_extents (view, page_index, &page_area);
-	_pps_view_transform_view_point_to_doc_point (view,
-	                                             view_point_x, view_point_y,
-	                                             &page_area,
-	                                             &doc_point.x, &doc_point.y);
+
+	x = MAX ((double) (view_point_x - page_area.x) / priv->scale, 0);
+	y = MAX ((double) (view_point_y - page_area.y) / priv->scale, 0);
+
+	pps_document_get_page_size (priv->document, priv->current_page,
+	                            &width, &height);
+
+	switch (priv->rotation) {
+	case 0:
+		doc_point.x = x;
+		doc_point.y = y;
+		break;
+	case 90:
+		doc_point.x = y;
+		doc_point.y = height - x;
+		break;
+	case 180:
+		doc_point.x = width - x;
+		doc_point.y = height - y;
+		break;
+	case 270:
+		doc_point.x = width - y;
+		doc_point.y = x;
+		break;
+	default:
+		g_assert_not_reached ();
+	}
 
 	return doc_point;
 }
@@ -8372,6 +8355,7 @@ compute_new_selection (PpsView *view,
                        graphene_point_t *start,
                        graphene_point_t *stop)
 {
+	PpsViewPrivate *priv = GET_PRIVATE (view);
 	int i, first, last;
 	GList *list = NULL;
 
@@ -8411,10 +8395,8 @@ compute_new_selection (PpsView *view,
 		}
 
 		if (i == first) {
-			_pps_view_transform_view_point_to_doc_point (view, point_x, point_y,
-			                                             &page_area,
-			                                             &selection->rect.x1,
-			                                             &selection->rect.y1);
+			selection->rect.x1 = MAX ((double) (point_x - page_area.x) / priv->scale, 0);
+			selection->rect.y1 = MAX ((double) (point_y - page_area.y) / priv->scale, 0);
 		}
 
 		/* If the selection is contained within just one page,
@@ -8426,10 +8408,8 @@ compute_new_selection (PpsView *view,
 		}
 
 		if (i == last) {
-			_pps_view_transform_view_point_to_doc_point (view, point_x, point_y,
-			                                             &page_area,
-			                                             &selection->rect.x2,
-			                                             &selection->rect.y2);
+			selection->rect.x2 = MAX ((double) (point_x - page_area.x) / priv->scale, 0);
+			selection->rect.y2 = MAX ((double) (point_y - page_area.y) / priv->scale, 0);
 		}
 
 		list = g_list_prepend (list, selection);

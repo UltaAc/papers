@@ -249,12 +249,6 @@ void _get_page_size_for_scale_and_rotation (PpsDocument *document,
                                             gint rotation,
                                             gint *page_width,
                                             gint *page_height);
-void _pps_view_transform_view_point_to_doc_point (PpsView *view,
-                                                  gdouble view_point_x,
-                                                  gdouble view_point_y,
-                                                  GdkRectangle *page_area,
-                                                  gdouble *doc_point_x,
-                                                  gdouble *doc_point_y);
 void _pps_view_transform_view_rect_to_doc_rect (PpsView *view,
                                                 GdkRectangle *view_rect,
                                                 GdkRectangle *page_area,
