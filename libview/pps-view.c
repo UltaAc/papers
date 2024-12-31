@@ -130,11 +130,11 @@ static void find_page_at_location (PpsView *view,
                                    gint *page,
                                    gint *x_offset,
                                    gint *y_offset);
-static gboolean real_pps_view_get_page_extents (PpsView *view,
-                                                gint page,
-                                                GdkRectangle *page_area,
-                                                GtkBorder *border,
-                                                gboolean use_passed_border);
+static void real_pps_view_get_page_extents (PpsView *view,
+                                            gint page,
+                                            GdkRectangle *page_area,
+                                            GtkBorder *border,
+                                            gboolean use_passed_border);
 /*** Hyperrefs ***/
 static PpsLink *pps_view_get_link_at_location (PpsView *view,
                                                gdouble x,
@@ -1193,25 +1193,25 @@ get_page_y_offset (PpsView *view, int page, int *y_offset, GtkBorder *border)
 	return;
 }
 
-gboolean
+void
 pps_view_get_page_extents_for_border (PpsView *view,
                                       gint page,
                                       GtkBorder *border,
                                       GdkRectangle *page_area)
 {
-	return real_pps_view_get_page_extents (view, page, page_area, border, TRUE);
+	real_pps_view_get_page_extents (view, page, page_area, border, TRUE);
 }
 
-gboolean
+void
 pps_view_get_page_extents (PpsView *view,
                            gint page,
                            GdkRectangle *page_area,
                            GtkBorder *border)
 {
-	return real_pps_view_get_page_extents (view, page, page_area, border, FALSE);
+	real_pps_view_get_page_extents (view, page, page_area, border, FALSE);
 }
 
-static gboolean
+static void
 real_pps_view_get_page_extents (PpsView *view,
                                 gint page,
                                 GdkRectangle *page_area,
@@ -1316,8 +1316,6 @@ real_pps_view_get_page_extents (PpsView *view,
 		page_area->x = x;
 		page_area->y = y;
 	}
-
-	return TRUE;
 }
 
 static void
@@ -1547,8 +1545,7 @@ find_page_at_location (PpsView *view,
 	for (i = priv->start_page; i >= 0 && i <= priv->end_page; i++) {
 		GdkRectangle page_area;
 
-		if (!pps_view_get_page_extents_for_border (view, i, &border, &page_area))
-			continue;
+		pps_view_get_page_extents_for_border (view, i, &border, &page_area);
 
 		if ((x >= page_area.x + border.left) &&
 		    (x < page_area.x + page_area.width - border.right) &&
@@ -4526,8 +4523,7 @@ pps_view_snapshot (GtkWidget *widget, GtkSnapshot *snapshot)
 	for (i = priv->start_page; i >= 0 && i <= priv->end_page; i++) {
 		GdkRectangle page_area;
 
-		if (!pps_view_get_page_extents_for_border (view, i, &border, &page_area))
-			continue;
+		pps_view_get_page_extents_for_border (view, i, &border, &page_area);
 
 		page_area.x -= priv->scroll_x;
 		page_area.y -= priv->scroll_y;
