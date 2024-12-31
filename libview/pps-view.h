@@ -99,13 +99,7 @@ gboolean pps_view_previous_page (PpsView *view);
 PPS_PUBLIC
 void pps_view_get_page_extents (PpsView *view,
                                 gint page,
-                                GdkRectangle *page_area,
-                                GtkBorder *border);
-PPS_PUBLIC
-void pps_view_get_page_extents_for_border (PpsView *view,
-                                           gint page,
-                                           GtkBorder *border,
-                                           GdkRectangle *page_area);
+                                GdkRectangle *page_area);
 
 /* Annotations */
 PPS_PUBLIC

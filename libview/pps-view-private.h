@@ -248,13 +248,11 @@ void _pps_view_transform_view_point_to_doc_point (PpsView *view,
                                                   gdouble view_point_x,
                                                   gdouble view_point_y,
                                                   GdkRectangle *page_area,
-                                                  GtkBorder *border,
                                                   gdouble *doc_point_x,
                                                   gdouble *doc_point_y);
 void _pps_view_transform_view_rect_to_doc_rect (PpsView *view,
                                                 GdkRectangle *view_rect,
                                                 GdkRectangle *page_area,
-                                                GtkBorder *border,
                                                 PpsRectangle *doc_rect);
 void _pps_view_transform_doc_point_to_view_point (PpsView *view,
                                                   int page,

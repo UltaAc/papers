@@ -950,7 +950,6 @@ pps_page_accessible_get_offset_at_point (AtkText *text,
 	gint offset = -1;
 	gdouble view_x, view_y;
 	gdouble doc_x, doc_y;
-	GtkBorder border;
 	GdkRectangle page_area;
 
 	if (!view->page_cache)
@@ -975,8 +974,8 @@ pps_page_accessible_get_offset_at_point (AtkText *text,
 		view_y -= y_window;
 	}
 
-	pps_view_get_page_extents (view, self->priv->page, &page_area, &border);
-	_pps_view_transform_view_point_to_doc_point (view, view_x, view_y, &page_area, &border, &doc_x, &doc_y);
+	pps_view_get_page_extents (view, self->priv->page, &page_area);
+	_pps_view_transform_view_point_to_doc_point (view, view_x, view_y, &page_area, &doc_x, &doc_y);
 
 	for (i = 0; i < n_areas; i++) {
 		rect = areas + i;
@@ -1123,7 +1122,6 @@ pps_page_accessible_scroll_substring_to_point (AtkText *text,
 	guint n_areas = 0;
 	GtkWidget *toplevel;
 	gint x_widget, y_widget;
-	GtkBorder border;
 	GdkRectangle page_area;
 	gdouble doc_x, doc_y;
 
@@ -1157,8 +1155,8 @@ pps_page_accessible_scroll_substring_to_point (AtkText *text,
 		view_y -= y_window;
 	}
 
-	pps_view_get_page_extents (view, self->priv->page, &page_area, &border);
-	_pps_view_transform_view_point_to_doc_point (view, view_x, view_y, &page_area, &border, &doc_x, &doc_y);
+	pps_view_get_page_extents (view, self->priv->page, &page_area);
+	_pps_view_transform_view_point_to_doc_point (view, view_x, view_y, &page_area, &doc_x, &doc_y);
 
 	/* Calculate scrolling difference */
 	start_x -= doc_x;
@@ -1315,12 +1313,11 @@ pps_page_accessible_get_extents (AtkComponent *atk_component,
 	PpsPageAccessible *self;
 	PpsView *view;
 	GdkRectangle page_area;
-	GtkBorder border;
 	PpsRectangle doc_rect, atk_rect;
 
 	self = PPS_PAGE_ACCESSIBLE (atk_component);
 	view = pps_page_accessible_get_view (self);
-	pps_view_get_page_extents (view, self->priv->page, &page_area, &border);
+	pps_view_get_page_extents (view, self->priv->page, &page_area);
 
 	doc_rect.x1 = page_area.x;
 	doc_rect.y1 = page_area.y;

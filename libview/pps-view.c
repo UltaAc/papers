@@ -118,23 +118,15 @@ typedef struct
 #define BUTTON_MODIFIER_MASK (GDK_BUTTON1_MASK | GDK_BUTTON2_MASK | GDK_BUTTON3_MASK | GDK_BUTTON4_MASK | GDK_BUTTON5_MASK)
 
 /*** Geometry computations ***/
-static void compute_border (PpsView *view,
-                            GtkBorder *border);
 static void get_page_y_offset (PpsView *view,
                                int page,
-                               int *y_offset,
-                               GtkBorder *border);
+                               int *y_offset);
 static void find_page_at_location (PpsView *view,
                                    gdouble x,
                                    gdouble y,
                                    gint *page,
                                    gint *x_offset,
                                    gint *y_offset);
-static void real_pps_view_get_page_extents (PpsView *view,
-                                            gint page,
-                                            GdkRectangle *page_area,
-                                            GtkBorder *border,
-                                            gboolean use_passed_border);
 /*** Hyperrefs ***/
 static PpsLink *pps_view_get_link_at_location (PpsView *view,
                                                gdouble x,
@@ -181,7 +173,6 @@ static gboolean draw_one_page (PpsView *view,
                                gint page,
                                GtkSnapshot *snapshot,
                                GdkRectangle *page_area,
-                               GtkBorder *border,
                                GdkRectangle *expose_area);
 static void draw_surface (GtkSnapshot *snapshot,
                           GdkTexture *texture,
@@ -520,9 +511,8 @@ pps_view_scroll_to_page_position (PpsView *view, GtkOrientation orientation)
 	if ((orientation == GTK_ORIENTATION_VERTICAL && priv->pending_point.y == 0) ||
 	    (orientation == GTK_ORIENTATION_HORIZONTAL && priv->pending_point.x == 0)) {
 		GdkRectangle page_area;
-		GtkBorder border;
 
-		pps_view_get_page_extents (view, priv->current_page, &page_area, &border);
+		pps_view_get_page_extents (view, priv->current_page, &page_area);
 		x = MAX (0, page_area.x - priv->spacing);
 		y = MAX (0, page_area.y - priv->spacing);
 	} else {
@@ -629,7 +619,6 @@ view_update_range_and_current_page (PpsView *view)
 
 	if (priv->continuous) {
 		GdkRectangle current_area, unused, page_area;
-		GtkBorder border;
 		gboolean found = FALSE;
 		gint area_max = -1, area;
 		gint best_current_page = -1;
@@ -645,10 +634,9 @@ view_update_range_and_current_page (PpsView *view)
 		current_area.height = gtk_adjustment_get_page_size (priv->vadjustment);
 
 		n_pages = pps_document_get_n_pages (priv->document);
-		compute_border (view, &border);
 		for (i = 0; i < n_pages; i++) {
 
-			pps_view_get_page_extents_for_border (view, i, &border, &page_area);
+			pps_view_get_page_extents (view, i, &page_area);
 
 			if (gdk_rectangle_intersect (&current_area, &page_area, &unused)) {
 				area = unused.width * unused.height;
@@ -808,7 +796,6 @@ compute_scroll_increment (PpsView *view,
 	GdkRectangle rect;
 	PpsRectangle doc_rect;
 	GdkRectangle page_area;
-	GtkBorder border;
 	gdouble fraction = 1.0;
 
 	if (scroll != GTK_SCROLL_PAGE_BACKWARD && scroll != GTK_SCROLL_PAGE_FORWARD)
@@ -820,12 +807,12 @@ compute_scroll_increment (PpsView *view,
 	if (!text_region || cairo_region_is_empty (text_region))
 		return gtk_adjustment_get_page_size (adjustment);
 
-	pps_view_get_page_extents (view, page, &page_area, &border);
+	pps_view_get_page_extents (view, page, &page_area);
 	rect.x = page_area.x + priv->scroll_x;
 	rect.y = priv->scroll_y + (scroll == GTK_SCROLL_PAGE_BACKWARD ? 5 : gtk_widget_get_height (GTK_WIDGET (view)) - 5);
 	rect.width = page_area.width;
 	rect.height = 1;
-	_pps_view_transform_view_rect_to_doc_rect (view, &rect, &page_area, &border, &doc_rect);
+	_pps_view_transform_view_rect_to_doc_rect (view, &rect, &page_area, &doc_rect);
 
 	/* Convert the doc rectangle into a GdkRectangle */
 	rect.x = doc_rect.x1;
@@ -844,8 +831,8 @@ compute_scroll_increment (PpsView *view,
 		pps_page = pps_document_get_page (priv->document, page);
 		rc = pps_render_context_new (pps_page, priv->rotation, 0.);
 		pps_render_context_set_target_size (rc,
-		                                    page_area.width - (border.left + border.right),
-		                                    page_area.height - (border.left + border.right));
+		                                    page_area.width,
+		                                    page_area.height);
 		g_object_unref (pps_page);
 		/* Get the selection region to know the height of the line */
 		doc_rect.x1 = doc_rect.x2 = rect.x + 0.5;
@@ -1100,20 +1087,6 @@ _pps_view_ensure_rectangle_is_visible (PpsView *view, GdkRectangle *rect)
 }
 
 /*** Geometry computations ***/
-
-static void
-compute_border (PpsView *view, GtkBorder *border)
-{
-	GtkWidget *widget = GTK_WIDGET (view);
-	GtkStyleContext *context = gtk_widget_get_style_context (widget);
-
-	gtk_style_context_save (context);
-	gtk_style_context_add_class (context, PPS_STYLE_CLASS_DOCUMENT_PAGE);
-	gtk_style_context_add_class (context, "card");
-	gtk_style_context_get_border (context, border);
-	gtk_style_context_restore (context);
-}
-
 void
 _get_page_size_for_scale_and_rotation (PpsDocument *document,
                                        gint page,
@@ -1172,7 +1145,7 @@ pps_view_get_max_page_size (PpsView *view,
 }
 
 static void
-get_page_y_offset (PpsView *view, int page, int *y_offset, GtkBorder *border)
+get_page_y_offset (PpsView *view, int page, int *y_offset)
 {
 	int offset = 0;
 	gboolean odd_left;
@@ -1182,11 +1155,10 @@ get_page_y_offset (PpsView *view, int page, int *y_offset, GtkBorder *border)
 
 	if (is_dual_page (view, &odd_left)) {
 		pps_view_get_height_to_page (view, page, NULL, &offset);
-		offset += ((page + !odd_left) / 2 + 1) * priv->spacing +
-		          ((page + !odd_left) / 2) * (border->top + border->bottom);
+		offset += ((page + !odd_left) / 2 + 1) * priv->spacing;
 	} else {
 		pps_view_get_height_to_page (view, page, &offset, NULL);
-		offset += (page + 1) * priv->spacing + page * (border->top + border->bottom);
+		offset += (page + 1) * priv->spacing;
 	}
 
 	*y_offset = offset;
@@ -1194,29 +1166,9 @@ get_page_y_offset (PpsView *view, int page, int *y_offset, GtkBorder *border)
 }
 
 void
-pps_view_get_page_extents_for_border (PpsView *view,
-                                      gint page,
-                                      GtkBorder *border,
-                                      GdkRectangle *page_area)
-{
-	real_pps_view_get_page_extents (view, page, page_area, border, TRUE);
-}
-
-void
 pps_view_get_page_extents (PpsView *view,
                            gint page,
-                           GdkRectangle *page_area,
-                           GtkBorder *border)
-{
-	real_pps_view_get_page_extents (view, page, page_area, border, FALSE);
-}
-
-static void
-real_pps_view_get_page_extents (PpsView *view,
-                                gint page,
-                                GdkRectangle *page_area,
-                                GtkBorder *border,
-                                gboolean use_passed_border)
+                           GdkRectangle *page_area)
 {
 	GtkWidget *widget = GTK_WIDGET (view);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
@@ -1227,10 +1179,8 @@ real_pps_view_get_page_extents (PpsView *view,
 
 	/* Get the size of the page */
 	pps_view_get_page_size (view, page, &width, &height);
-	if (!use_passed_border)
-		compute_border (view, border);
-	page_area->width = width + border->left + border->right;
-	page_area->height = height + border->top + border->bottom;
+	page_area->width = width;
+	page_area->height = height;
 
 	if (priv->continuous) {
 		gint max_width;
@@ -1238,7 +1188,6 @@ real_pps_view_get_page_extents (PpsView *view,
 		gboolean odd_left;
 
 		pps_view_get_max_page_size (view, &max_width, NULL);
-		max_width = max_width + border->left + border->right;
 		/* Get the location of the bounding box */
 		if (is_dual_page (view, &odd_left)) {
 			gboolean right_page;
@@ -1249,13 +1198,13 @@ real_pps_view_get_page_extents (PpsView *view,
 			x = priv->spacing + (right_page ? 0 : 1) * (max_width + priv->spacing);
 			x = x + MAX (0, widget_width - (max_width * 2 + priv->spacing * 3)) / 2;
 			if (right_page)
-				x = x + (max_width - width - border->left - border->right);
+				x = x + (max_width - width);
 		} else {
 			x = priv->spacing;
-			x = x + MAX (0, widget_width - (width + border->left + border->right + priv->spacing * 2)) / 2;
+			x = x + MAX (0, widget_width - (width + priv->spacing * 2)) / 2;
 		}
 
-		get_page_y_offset (view, page, &y, border);
+		get_page_y_offset (view, page, &y);
 
 		page_area->x = x;
 		page_area->y = y;
@@ -1267,7 +1216,6 @@ real_pps_view_get_page_extents (PpsView *view,
 			gint width_2, height_2;
 			gint max_width = width;
 			gint max_height = height;
-			GtkBorder overall_border;
 			gint other_page;
 
 			other_page = (page % 2 == !odd_left) ? page + 1 : page - 1;
@@ -1281,10 +1229,6 @@ real_pps_view_get_page_extents (PpsView *view,
 				if (height_2 > height)
 					max_height = height_2;
 			}
-			if (!use_passed_border)
-				compute_border (view, &overall_border);
-			else
-				overall_border = *border;
 
 			/* Find the offsets */
 			x = priv->spacing;
@@ -1295,13 +1239,13 @@ real_pps_view_get_page_extents (PpsView *view,
 			    (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL && page % 2 == odd_left))
 				x = x + max_width - width;
 			else
-				x = x + (max_width + overall_border.left + overall_border.right) + priv->spacing;
+				x = x + max_width + priv->spacing;
 
 			y = y + (max_height - height) / 2;
 
 			/* Adjust for extra allocation */
 			x = x + MAX (0, widget_width -
-			                    ((max_width + overall_border.left + overall_border.right) * 2 + priv->spacing * 3)) /
+			                    (max_width * 2 + priv->spacing * 3)) /
 			            2;
 			y = y + MAX (0, widget_height - (height + priv->spacing * 2)) / 2;
 		} else {
@@ -1309,8 +1253,8 @@ real_pps_view_get_page_extents (PpsView *view,
 			y = priv->spacing;
 
 			/* Adjust for extra allocation */
-			x = x + MAX (0, widget_width - (width + border->left + border->right + priv->spacing * 2)) / 2;
-			y = y + MAX (0, widget_height - (height + border->top + border->bottom + priv->spacing * 2)) / 2;
+			x = x + MAX (0, widget_width - (width + priv->spacing * 2)) / 2;
+			y = y + MAX (0, widget_height - (height + priv->spacing * 2)) / 2;
 		}
 
 		page_area->x = x;
@@ -1346,15 +1290,14 @@ _pps_view_transform_view_point_to_doc_point (PpsView *view,
                                              gdouble view_point_x,
                                              gdouble view_point_y,
                                              GdkRectangle *page_area,
-                                             GtkBorder *border,
                                              double *doc_point_x,
                                              double *doc_point_y)
 {
 	double x, y, width, height, doc_x, doc_y;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	x = doc_x = MAX ((double) (view_point_x - page_area->x - border->left) / priv->scale, 0);
-	y = doc_y = MAX ((double) (view_point_y - page_area->y - border->top) / priv->scale, 0);
+	x = doc_x = MAX ((double) (view_point_x - page_area->x) / priv->scale, 0);
+	y = doc_y = MAX ((double) (view_point_y - page_area->y) / priv->scale, 0);
 
 	pps_document_get_page_size (priv->document, priv->current_page, &width, &height);
 
@@ -1387,12 +1330,11 @@ void
 _pps_view_transform_view_rect_to_doc_rect (PpsView *view,
                                            GdkRectangle *view_rect,
                                            GdkRectangle *page_area,
-                                           GtkBorder *border,
                                            PpsRectangle *doc_rect)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	doc_rect->x1 = MAX ((double) (view_rect->x - page_area->x - border->left) / priv->scale, 0);
-	doc_rect->y1 = MAX ((double) (view_rect->y - page_area->y - border->top) / priv->scale, 0);
+	doc_rect->x1 = MAX ((double) (view_rect->x - page_area->x) / priv->scale, 0);
+	doc_rect->y1 = MAX ((double) (view_rect->y - page_area->y) / priv->scale, 0);
 	doc_rect->x2 = doc_rect->x1 + (double) view_rect->width / priv->scale;
 	doc_rect->y2 = doc_rect->y1 + (double) view_rect->height / priv->scale;
 }
@@ -1405,7 +1347,6 @@ _pps_view_transform_doc_point_by_rotation_scale (PpsView *view,
                                                  gdouble *view_point_y)
 {
 	GdkRectangle page_area;
-	GtkBorder border;
 	double x, y, view_x, view_y;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -1440,7 +1381,7 @@ _pps_view_transform_doc_point_by_rotation_scale (PpsView *view,
 		g_assert_not_reached ();
 	}
 
-	pps_view_get_page_extents (view, page, &page_area, &border);
+	pps_view_get_page_extents (view, page, &page_area);
 
 	view_x = CLAMP ((gint) (x * priv->scale + 0.5), 0, page_area.width);
 	view_y = CLAMP ((gint) (y * priv->scale + 0.5), 0, page_area.height);
@@ -1457,13 +1398,12 @@ _pps_view_transform_doc_point_to_view_point (PpsView *view,
                                              gdouble *view_point_y)
 {
 	GdkRectangle page_area;
-	GtkBorder border;
 	_pps_view_transform_doc_point_by_rotation_scale (view, page, doc_point, view_point_x, view_point_y);
 
-	pps_view_get_page_extents (view, page, &page_area, &border);
+	pps_view_get_page_extents (view, page, &page_area);
 
-	*view_point_x = *view_point_x + page_area.x + border.left;
-	*view_point_y = *view_point_y + page_area.y + border.top;
+	*view_point_x = *view_point_x + page_area.x;
+	*view_point_y = *view_point_y + page_area.y;
 }
 
 void
@@ -1473,7 +1413,6 @@ _pps_view_transform_doc_rect_to_view_rect (PpsView *view,
                                            GdkRectangle *view_rect)
 {
 	GdkRectangle page_area;
-	GtkBorder border;
 	double x, y, w, h;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -1516,10 +1455,10 @@ _pps_view_transform_doc_rect_to_view_rect (PpsView *view,
 		g_assert_not_reached ();
 	}
 
-	pps_view_get_page_extents (view, page, &page_area, &border);
+	pps_view_get_page_extents (view, page, &page_area);
 
-	view_rect->x = (gint) (x * priv->scale + 0.5) + page_area.x + border.left;
-	view_rect->y = (gint) (y * priv->scale + 0.5) + page_area.y + border.top;
+	view_rect->x = (gint) (x * priv->scale + 0.5) + page_area.x;
+	view_rect->y = (gint) (y * priv->scale + 0.5) + page_area.y;
 	view_rect->width = (gint) (w * priv->scale + 0.5);
 	view_rect->height = (gint) (h * priv->scale + 0.5);
 }
@@ -1534,28 +1473,26 @@ find_page_at_location (PpsView *view,
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	int i;
-	GtkBorder border;
 
 	if (priv->document == NULL)
 		return;
 
 	g_assert (page);
 
-	compute_border (view, &border);
 	for (i = priv->start_page; i >= 0 && i <= priv->end_page; i++) {
 		GdkRectangle page_area;
 
-		pps_view_get_page_extents_for_border (view, i, &border, &page_area);
+		pps_view_get_page_extents (view, i, &page_area);
 
-		if ((x >= page_area.x + border.left) &&
-		    (x < page_area.x + page_area.width - border.right) &&
-		    (y >= page_area.y + border.top) &&
-		    (y < page_area.y + page_area.height - border.bottom)) {
+		if ((x >= page_area.x) &&
+		    (x < page_area.x + page_area.width) &&
+		    (y >= page_area.y) &&
+		    (y < page_area.y + page_area.height)) {
 			*page = i;
 			if (x_offset)
-				*x_offset = x - (page_area.x + border.left);
+				*x_offset = x - page_area.x;
 			if (y_offset)
-				*y_offset = y - (page_area.y + border.top);
+				*y_offset = y - page_area.y;
 			return;
 		}
 	}
@@ -1986,32 +1923,30 @@ pps_view_link_to_current_view (PpsView *view, PpsLink **backlink)
 	gint backlink_page = priv->start_page;
 	gdouble zoom = pps_document_model_get_scale (priv->model);
 
-	GtkBorder border;
 	GdkRectangle backlink_page_area;
 
 	gboolean is_dual = pps_document_model_get_page_layout (priv->model) == PPS_PAGE_LAYOUT_DUAL;
 	gint x_offset;
 	gint y_offset;
 
-	pps_view_get_page_extents (view, backlink_page, &backlink_page_area, &border);
+	pps_view_get_page_extents (view, backlink_page, &backlink_page_area);
 	x_offset = backlink_page_area.x;
 	y_offset = backlink_page_area.y;
 
-	if (!priv->continuous && is_dual && priv->scroll_x > backlink_page_area.width + border.left) {
+	if (!priv->continuous && is_dual && priv->scroll_x > backlink_page_area.width) {
 		/* For dual-column, non-continuous mode, priv->start_page is always
 		 * the page in the left-hand column, even if that page isn't visible.
 		 * We adjust for that here when we know the page can't be visible due
 		 * to horizontal scroll. */
 		backlink_page = backlink_page + 1;
 
-		/* get right-hand page extents (no need to recompute border) */
-		pps_view_get_page_extents_for_border (view, backlink_page,
-		                                      &border, &backlink_page_area);
+		/* get right-hand page extents */
+		pps_view_get_page_extents (view, backlink_page, &backlink_page_area);
 		x_offset = backlink_page_area.x;
 	}
 
-	gdouble backlink_dest_x = (priv->scroll_x - x_offset - border.left) / priv->scale;
-	gdouble backlink_dest_y = (priv->scroll_y - y_offset - border.top) / priv->scale;
+	gdouble backlink_dest_x = (priv->scroll_x - x_offset) / priv->scale;
+	gdouble backlink_dest_y = (priv->scroll_y - y_offset) / priv->scale;
 
 	backlink_dest = pps_link_dest_new_xyz (backlink_page, backlink_dest_x,
 	                                       backlink_dest_y, zoom, TRUE,
@@ -3440,7 +3375,6 @@ pps_view_add_text_annotation_at_point (PpsView *view,
 	gint annot_page;
 	gint offset;
 	GdkRectangle page_area;
-	GtkBorder border;
 	gdouble point_x;
 	gdouble point_y;
 
@@ -3455,9 +3389,9 @@ pps_view_add_text_annotation_at_point (PpsView *view,
 	if (annot_page == -1)
 		return FALSE;
 
-	pps_view_get_page_extents (view, annot_page, &page_area, &border);
+	pps_view_get_page_extents (view, annot_page, &page_area);
 	_pps_view_transform_view_point_to_doc_point (view, point_x, point_y,
-	                                             &page_area, &border,
+	                                             &page_area,
 	                                             &doc_point.x, &doc_point.y);
 
 	annot = pps_view_create_annotation_real (view, annot_page,
@@ -3933,18 +3867,16 @@ pps_view_size_request_continuous_dual_page (PpsView *view,
                                             GtkRequisition *requisition)
 {
 	gint n_pages;
-	GtkBorder border;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	n_pages = pps_document_get_n_pages (priv->document) + 1;
-	compute_border (view, &border);
-	get_page_y_offset (view, n_pages, &requisition->height, &border);
+	get_page_y_offset (view, n_pages, &requisition->height);
 
 	if (priv->sizing_mode == PPS_SIZING_FREE) {
 		gint max_width;
 
 		pps_view_get_max_page_size (view, &max_width, NULL);
-		requisition->width = (max_width + border.left + border.right) * 2 + (priv->spacing * 3);
+		requisition->width = max_width * 2 + priv->spacing * 3;
 	} else {
 		requisition->width = 1;
 	}
@@ -3955,18 +3887,16 @@ pps_view_size_request_continuous (PpsView *view,
                                   GtkRequisition *requisition)
 {
 	gint n_pages;
-	GtkBorder border;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	n_pages = pps_document_get_n_pages (priv->document);
-	compute_border (view, &border);
-	get_page_y_offset (view, n_pages, &requisition->height, &border);
+	get_page_y_offset (view, n_pages, &requisition->height);
 
 	if (priv->sizing_mode == PPS_SIZING_FREE) {
 		gint max_width;
 
 		pps_view_get_max_page_size (view, &max_width, NULL);
-		requisition->width = max_width + (priv->spacing * 2) + border.left + border.right;
+		requisition->width = max_width + priv->spacing * 2;
 	} else {
 		requisition->width = 1;
 	}
@@ -3976,7 +3906,6 @@ static void
 pps_view_size_request_dual_page (PpsView *view,
                                  GtkRequisition *requisition)
 {
-	GtkBorder border;
 	gint width, height;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -3994,16 +3923,15 @@ pps_view_size_request_dual_page (PpsView *view,
 			height = height_2;
 		}
 	}
-	compute_border (view, &border);
 
 	if (priv->sizing_mode == PPS_SIZING_FIT_PAGE) {
 		requisition->height = 1;
 	} else {
-		requisition->height = (height + border.top + border.bottom) + (priv->spacing * 2);
+		requisition->height = height + priv->spacing * 2;
 	}
 
 	if (priv->sizing_mode == PPS_SIZING_FREE) {
-		requisition->width = ((width + border.left + border.right) * 2) + (priv->spacing * 3);
+		requisition->width = width * 2 + priv->spacing * 3;
 	} else {
 		requisition->width = 1;
 	}
@@ -4013,21 +3941,19 @@ static void
 pps_view_size_request_single_page (PpsView *view,
                                    GtkRequisition *requisition)
 {
-	GtkBorder border;
 	gint width, height;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	pps_view_get_page_size (view, priv->current_page, &width, &height);
-	compute_border (view, &border);
 
 	if (priv->sizing_mode == PPS_SIZING_FIT_PAGE) {
 		requisition->height = 1;
 	} else {
-		requisition->height = height + border.top + border.bottom + (2 * priv->spacing);
+		requisition->height = height + (2 * priv->spacing);
 	}
 
 	if (priv->sizing_mode == PPS_SIZING_FREE) {
-		requisition->width = width + border.left + border.right + (2 * priv->spacing);
+		requisition->width = width + (2 * priv->spacing);
 	} else {
 		requisition->width = 1;
 	}
@@ -4500,7 +4426,6 @@ pps_view_snapshot (GtkWidget *widget, GtkSnapshot *snapshot)
 	PpsView *view = PPS_VIEW (widget);
 	gint i;
 	GdkRectangle clip_rect;
-	GtkBorder border;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	width = gtk_widget_get_width (widget);
@@ -4519,16 +4444,15 @@ pps_view_snapshot (GtkWidget *widget, GtkSnapshot *snapshot)
 
 	gtk_snapshot_push_clip (snapshot, &GRAPHENE_RECT_INIT (0, 0, width, height));
 
-	compute_border (view, &border);
 	for (i = priv->start_page; i >= 0 && i <= priv->end_page; i++) {
 		GdkRectangle page_area;
 
-		pps_view_get_page_extents_for_border (view, i, &border, &page_area);
+		pps_view_get_page_extents (view, i, &page_area);
 
 		page_area.x -= priv->scroll_x;
 		page_area.y -= priv->scroll_y;
 
-		if (!draw_one_page (view, i, snapshot, &page_area, &border, &clip_rect))
+		if (!draw_one_page (view, i, snapshot, &page_area, &clip_rect))
 			continue;
 
 		if (should_draw_caret_cursor (view, i))
@@ -5289,15 +5213,14 @@ pps_view_move_annot_to_point (PpsView *view,
 	PpsRectangle current_area;
 	PpsPoint doc_point;
 	GdkRectangle page_area;
-	GtkBorder border;
 	guint annot_page;
 	double page_width;
 	double page_height;
 
 	pps_annotation_get_area (priv->moving_annot_info.annot, &current_area);
 	annot_page = pps_annotation_get_page_index (priv->moving_annot_info.annot);
-	pps_view_get_page_extents (view, annot_page, &page_area, &border);
-	_pps_view_transform_view_point_to_doc_point (view, view_point_x, view_point_y, &page_area, &border,
+	pps_view_get_page_extents (view, annot_page, &page_area);
+	_pps_view_transform_view_point_to_doc_point (view, view_point_x, view_point_y, &page_area,
 	                                             &doc_point.x, &doc_point.y);
 
 	pps_document_get_page_size (priv->document, annot_page, &page_width, &page_height);
@@ -5499,7 +5422,6 @@ annotation_drag_begin_cb (GtkGestureDrag *annotation_drag_gesture,
 	gdouble view_point_y;
 	PpsPoint doc_point;
 	GdkRectangle page_area;
-	GtkBorder border;
 	guint annot_page;
 
 	if (!PPS_IS_ANNOTATION_TEXT (annot)) {
@@ -5517,9 +5439,9 @@ annotation_drag_begin_cb (GtkGestureDrag *annotation_drag_gesture,
 	view_point_x = x + priv->scroll_x;
 	view_point_y = y + priv->scroll_y;
 	annot_page = pps_annotation_get_page_index (annot);
-	pps_view_get_page_extents (view, annot_page, &page_area, &border);
+	pps_view_get_page_extents (view, annot_page, &page_area);
 	_pps_view_transform_view_point_to_doc_point (view, view_point_x, view_point_y,
-	                                             &page_area, &border,
+	                                             &page_area,
 	                                             &doc_point.x, &doc_point.y);
 	priv->moving_annot_info.cursor_offset.x = doc_point.x - current_area.x1;
 	priv->moving_annot_info.cursor_offset.y = doc_point.y - current_area.y1;
@@ -6613,7 +6535,6 @@ draw_one_page (PpsView *view,
                gint page,
                GtkSnapshot *snapshot,
                GdkRectangle *page_area,
-               GtkBorder *border,
                GdkRectangle *expose_area)
 {
 	GtkStyleContext *context;
@@ -6628,11 +6549,6 @@ draw_one_page (PpsView *view,
 
 	/* Render the document itself */
 	real_page_area = *page_area;
-
-	real_page_area.x += border->left;
-	real_page_area.y += border->top;
-	real_page_area.width -= (border->left + border->right);
-	real_page_area.height -= (border->top + border->bottom);
 
 	context = gtk_widget_get_style_context (GTK_WIDGET (view));
 	current_page = pps_document_model_get_page (priv->model);
@@ -7790,13 +7706,12 @@ pps_view_continuous_changed_cb (PpsDocumentModel *model,
 		gdouble view_point_x;
 		gdouble view_point_y;
 		GdkRectangle page_area;
-		GtkBorder border;
 
 		view_point_x = priv->scroll_x;
 		view_point_y = priv->scroll_y;
-		pps_view_get_page_extents (view, priv->start_page, &page_area, &border);
+		pps_view_get_page_extents (view, priv->start_page, &page_area);
 		_pps_view_transform_view_point_to_doc_point (view, view_point_x, view_point_y,
-		                                             &page_area, &border,
+		                                             &page_area,
 		                                             &priv->pending_point.x,
 		                                             &priv->pending_point.y);
 	}
@@ -8045,7 +7960,6 @@ pps_view_zoom_for_size_continuous_and_dual_page (PpsView *view,
                                                  int height)
 {
 	gdouble doc_width, doc_height;
-	GtkBorder border;
 	gdouble scale;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -8058,11 +7972,9 @@ pps_view_zoom_for_size_continuous_and_dual_page (PpsView *view,
 		doc_height = tmp;
 	}
 
-	compute_border (view, &border);
-
 	doc_width *= 2;
-	width -= (2 * (border.left + border.right) + 3 * priv->spacing);
-	height -= (border.top + border.bottom + 2 * priv->spacing);
+	width -= 3 * priv->spacing;
+	height -= 2 * priv->spacing;
 
 	switch (priv->sizing_mode) {
 	case PPS_SIZING_FIT_WIDTH:
@@ -8088,7 +8000,6 @@ pps_view_zoom_for_size_continuous (PpsView *view,
                                    int height)
 {
 	gdouble doc_width, doc_height;
-	GtkBorder border;
 	gdouble scale;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -8101,10 +8012,8 @@ pps_view_zoom_for_size_continuous (PpsView *view,
 		doc_height = tmp;
 	}
 
-	compute_border (view, &border);
-
-	width -= (border.left + border.right + 2 * priv->spacing);
-	height -= (border.top + border.bottom + 2 * priv->spacing);
+	width -= 2 * priv->spacing;
+	height -= 2 * priv->spacing;
 
 	switch (priv->sizing_mode) {
 	case PPS_SIZING_FIT_WIDTH:
@@ -8129,7 +8038,6 @@ pps_view_zoom_for_size_dual_page (PpsView *view,
                                   int width,
                                   int height)
 {
-	GtkBorder border;
 	gdouble doc_width, doc_height;
 	gdouble scale;
 	gint other_page;
@@ -8148,11 +8056,10 @@ pps_view_zoom_for_size_dual_page (PpsView *view,
 		if (height_2 > doc_height)
 			doc_height = height_2;
 	}
-	compute_border (view, &border);
 
 	doc_width = doc_width * 2;
-	width -= ((border.left + border.right) * 2 + 3 * priv->spacing);
-	height -= (border.top + border.bottom + 2 * priv->spacing);
+	width -= 3 * priv->spacing;
+	height -= 2 * priv->spacing;
 
 	switch (priv->sizing_mode) {
 	case PPS_SIZING_FIT_WIDTH:
@@ -8178,17 +8085,13 @@ pps_view_zoom_for_size_single_page (PpsView *view,
                                     int height)
 {
 	gdouble doc_width, doc_height;
-	GtkBorder border;
 	gdouble scale;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	get_doc_page_size (view, priv->current_page, &doc_width, &doc_height);
 
-	/* Get an approximate border */
-	compute_border (view, &border);
-
-	width -= (border.left + border.right + 2 * priv->spacing);
-	height -= (border.top + border.bottom + 2 * priv->spacing);
+	width -= 2 * priv->spacing;
+	height -= 2 * priv->spacing;
 
 	switch (priv->sizing_mode) {
 	case PPS_SIZING_FIT_WIDTH:
@@ -8387,7 +8290,6 @@ get_selection_page_range (PpsView *view,
 	gint start_page, end_page;
 	gint first, last;
 	gint i, n_pages;
-	GtkBorder border;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	n_pages = pps_document_get_n_pages (priv->document);
@@ -8408,15 +8310,10 @@ get_selection_page_range (PpsView *view,
 
 	first = -1;
 	last = -1;
-	compute_border (view, &border);
 	for (i = start_page; i <= end_page; i++) {
 		GdkRectangle page_area;
 
-		pps_view_get_page_extents_for_border (view, i, &border, &page_area);
-		page_area.x -= border.left;
-		page_area.y -= border.top;
-		page_area.width += border.left + border.right;
-		page_area.height += border.top + border.bottom;
+		pps_view_get_page_extents (view, i, &page_area);
 		if (gdk_rectangle_point_in (&page_area, start->x, start->y) ||
 		    gdk_rectangle_point_in (&page_area, stop->x, stop->y)) {
 			if (first == -1)
@@ -8442,7 +8339,6 @@ compute_new_selection (PpsView *view,
                        graphene_point_t *stop)
 {
 	int i, first, last;
-	GtkBorder border;
 	GList *list = NULL;
 
 	/* First figure out the range of pages the selection affects. */
@@ -8456,7 +8352,6 @@ compute_new_selection (PpsView *view,
 	/* Now create a list of PpsViewSelection's for the affected
 	 * pages. This could be an empty list, a list of just one
 	 * page or a number of pages.*/
-	compute_border (view, &border);
 	for (i = first; i <= last; i++) {
 		PpsViewSelection *selection;
 		GdkRectangle page_area;
@@ -8472,7 +8367,7 @@ compute_new_selection (PpsView *view,
 		selection->rect.x2 = width;
 		selection->rect.y2 = height;
 
-		pps_view_get_page_extents_for_border (view, i, &border, &page_area);
+		pps_view_get_page_extents (view, i, &page_area);
 		if (gdk_rectangle_point_in (&page_area, start->x, start->y)) {
 			point_x = start->x;
 			point_y = start->y;
@@ -8483,7 +8378,7 @@ compute_new_selection (PpsView *view,
 
 		if (i == first) {
 			_pps_view_transform_view_point_to_doc_point (view, point_x, point_y,
-			                                             &page_area, &border,
+			                                             &page_area,
 			                                             &selection->rect.x1,
 			                                             &selection->rect.y1);
 		}
@@ -8498,7 +8393,7 @@ compute_new_selection (PpsView *view,
 
 		if (i == last) {
 			_pps_view_transform_view_point_to_doc_point (view, point_x, point_y,
-			                                             &page_area, &border,
+			                                             &page_area,
 			                                             &selection->rect.x2,
 			                                             &selection->rect.y2);
 		}
@@ -8883,7 +8778,6 @@ pps_view_stop_signature_rect (PpsView *view)
 	gint signature_page;
 	gint offset;
 	GdkRectangle page_area;
-	GtkBorder border;
 
 	pps_view_set_cursor (view, PPS_VIEW_CURSOR_IBEAM);
 
@@ -8893,15 +8787,15 @@ pps_view_stop_signature_rect (PpsView *view)
 		return;
 	}
 
-	pps_view_get_page_extents (view, signature_page, &page_area, &border);
+	pps_view_get_page_extents (view, signature_page, &page_area);
 	_pps_view_transform_view_point_to_doc_point (view,
 	                                             priv->signing_info.start_x, priv->signing_info.start_y,
-	                                             &page_area, &border,
+	                                             &page_area,
 	                                             &start.x,
 	                                             &start.y);
 	_pps_view_transform_view_point_to_doc_point (view,
 	                                             priv->signing_info.stop_x, priv->signing_info.stop_y,
-	                                             &page_area, &border,
+	                                             &page_area,
 	                                             &end.x,
 	                                             &end.y);
 
