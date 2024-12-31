@@ -1327,6 +1327,46 @@ _pps_view_transform_view_point_to_doc_point (PpsView *view,
 }
 
 /**
+ * pps_view_get_doc_point_for_page:
+ * @view: a #PpsView
+ * @page_index: the index of the page where view_point_x and view_point_y
+ * are located. Passing a different page is considered a programmers error
+ * @view_point_x: the x coordinate over the view
+ * @view_point_y: the y coordinate over the view
+ *
+ * This API is intended to, in some future time, be part of a PpsViewPage.
+ * For now, it's private API within libview
+ *
+ * Returns: a #PpsPoint to the place in the page corresponding to
+ * view_point_x and view_point_y
+ *
+ * Since: 48.0
+ */
+PpsPoint
+pps_view_get_doc_point_for_page (PpsView *view,
+                                 gint page_index,
+                                 gdouble view_point_x,
+                                 gdouble view_point_y)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsPoint doc_point;
+	GdkRectangle page_area;
+
+	g_assert (page_index >= 0);
+
+	view_point_x += priv->scroll_x;
+	view_point_y += priv->scroll_y;
+
+	pps_view_get_page_extents (view, page_index, &page_area);
+	_pps_view_transform_view_point_to_doc_point (view,
+	                                             view_point_x, view_point_y,
+	                                             &page_area,
+	                                             &doc_point.x, &doc_point.y);
+
+	return doc_point;
+}
+
+/**
  * pps_view_get_mark_for_view_point:
  * @view: a #PpsView
  * @view_point_x: the x coordinate over the view
@@ -1343,28 +1383,21 @@ pps_view_get_mark_for_view_point (PpsView *view,
                                   gdouble view_point_x,
                                   gdouble view_point_y)
 {
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsPoint doc_point;
 	PpsMark *mark;
-	gint page;
-	GdkRectangle page_area;
-
-	view_point_x += priv->scroll_x;
-	view_point_y += priv->scroll_y;
+	gint page_index;
+	PpsPoint doc_point;
 
 	find_page_at_location (view, view_point_x, view_point_y,
-	                       &page, NULL, NULL);
-	if (page == -1)
+	                       &page_index, NULL, NULL);
+	if (page_index == -1)
 		return NULL;
 
-	pps_view_get_page_extents (view, page, &page_area);
-	_pps_view_transform_view_point_to_doc_point (view,
-	                                             view_point_x, view_point_y,
-	                                             &page_area,
-	                                             &doc_point.x, &doc_point.y);
+	doc_point = pps_view_get_doc_point_for_page (view, page_index,
+	                                             view_point_x,
+	                                             view_point_y);
 
 	mark = g_new (PpsMark, 1);
-	mark->page_index = page;
+	mark->page_index = page_index;
 	mark->doc_point = doc_point;
 	return mark;
 }
@@ -1520,6 +1553,9 @@ find_page_at_location (PpsView *view,
 	if (priv->document == NULL)
 		return;
 
+	x += priv->scroll_x;
+	y += priv->scroll_y;
+
 	g_assert (page);
 
 	for (i = priv->start_page; i >= 0 && i <= priv->end_page; i++) {
@@ -1611,11 +1647,8 @@ get_doc_point_from_location (PpsView *view,
                              gdouble *x_new,
                              gdouble *y_new)
 {
-	PpsViewPrivate *priv = GET_PRIVATE (view);
 	gint x_offset = 0, y_offset = 0;
 
-	x += priv->scroll_x;
-	y += priv->scroll_y;
 	find_page_at_location (view, x, y, page, &x_offset, &y_offset);
 	if (*page == -1)
 		return FALSE;
@@ -2281,7 +2314,7 @@ pps_view_handle_cursor_over_xy (PpsView *view, gint x, gint y)
 			pps_view_set_cursor (view, PPS_VIEW_CURSOR_NORMAL);
 	} else if ((annot = pps_view_get_annotation_at_location (view, x, y))) {
 		pps_view_set_cursor (view, PPS_VIEW_CURSOR_LINK);
-	} else if (location_in_text (view, x + priv->scroll_x, y + priv->scroll_y)) {
+	} else if (location_in_text (view, x, y)) {
 		pps_view_set_cursor (view, PPS_VIEW_CURSOR_IBEAM);
 	} else {
 		if (priv->cursor == PPS_VIEW_CURSOR_LINK ||
@@ -3412,7 +3445,7 @@ pps_view_add_text_annotation_at_point (PpsView *view,
                                        gint y)
 {
 	PpsAnnotation *annot;
-	PpsMark *mark = pps_view_get_mark_for_view_point (view, x, y);
+	g_autofree PpsMark *mark = pps_view_get_mark_for_view_point (view, x, y);
 
 	if (mark == NULL)
 		return FALSE;
@@ -4565,9 +4598,6 @@ get_link_area (PpsView *view,
 	gint x_offset = 0, y_offset = 0;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	x += priv->scroll_x;
-	y += priv->scroll_y;
-
 	find_page_at_location (view, x, y, &page, &x_offset, &y_offset);
 
 	link_mapping = pps_page_cache_get_link_mapping (priv->page_cache, page);
@@ -4587,9 +4617,6 @@ get_field_area (PpsView *view,
 	gint page;
 	gint x_offset = 0, y_offset = 0;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	x += priv->scroll_x;
-	y += priv->scroll_y;
 
 	find_page_at_location (view, x, y, &page, &x_offset, &y_offset);
 
@@ -5233,18 +5260,15 @@ pps_view_move_annot_to_point (PpsView *view,
 	PpsRectangle rect;
 	PpsRectangle current_area;
 	PpsPoint doc_point;
-	GdkRectangle page_area;
-	guint annot_page;
+	guint page_index;
 	double page_width;
 	double page_height;
 
 	pps_annotation_get_area (priv->moving_annot_info.annot, &current_area);
-	annot_page = pps_annotation_get_page_index (priv->moving_annot_info.annot);
-	pps_view_get_page_extents (view, annot_page, &page_area);
-	_pps_view_transform_view_point_to_doc_point (view, view_point_x, view_point_y, &page_area,
-	                                             &doc_point.x, &doc_point.y);
-
-	pps_document_get_page_size (priv->document, annot_page, &page_width, &page_height);
+	page_index = pps_annotation_get_page_index (priv->moving_annot_info.annot);
+	pps_document_get_page_size (priv->document, page_index, &page_width, &page_height);
+	doc_point = pps_view_get_doc_point_for_page (view, page_index,
+	                                             view_point_x, view_point_y);
 
 	rect.x1 = MAX (0, doc_point.x - priv->moving_annot_info.cursor_offset.x);
 	rect.y1 = MAX (0, doc_point.y - priv->moving_annot_info.cursor_offset.y);
@@ -5272,7 +5296,7 @@ pps_view_move_annot_to_point (PpsView *view,
 	pps_document_doc_mutex_unlock (priv->document);
 
 	/* FIXME: reload only annotation area */
-	pps_view_reload_page (view, annot_page, NULL);
+	pps_view_reload_page (view, page_index, NULL);
 }
 
 static void
@@ -5386,10 +5410,10 @@ signing_begin_cb (GtkGestureDrag *signing_gesture,
 	gtk_gesture_set_state (GTK_GESTURE (signing_gesture),
 	                       GTK_EVENT_SEQUENCE_CLAIMED);
 
-	priv->signing_info.start_x = x + priv->scroll_x;
-	priv->signing_info.start_y = y + priv->scroll_y;
-	priv->signing_info.stop_x = priv->signing_info.start_x;
-	priv->signing_info.stop_y = priv->signing_info.start_y;
+	priv->signing_info.start_x = x;
+	priv->signing_info.start_y = y;
+	priv->signing_info.stop_x = x;
+	priv->signing_info.stop_y = y;
 }
 
 static void
@@ -5425,8 +5449,8 @@ annotation_drag_update_cb (GtkGestureDrag *annotation_drag_gesture,
 
 	gtk_gesture_drag_get_start_point (annotation_drag_gesture, &x, &y);
 
-	view_point_x = x + offset_x + priv->scroll_x;
-	view_point_y = y + offset_y + priv->scroll_y;
+	view_point_x = x + offset_x;
+	view_point_y = y + offset_y;
 	pps_view_move_annot_to_point (view, view_point_x, view_point_y);
 }
 
@@ -5438,12 +5462,9 @@ annotation_drag_begin_cb (GtkGestureDrag *annotation_drag_gesture,
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsAnnotation *annot = pps_view_get_annotation_at_location (view, x, y);
-	PpsRectangle current_area;
-	gdouble view_point_x;
-	gdouble view_point_y;
+	PpsRectangle annot_area;
 	PpsPoint doc_point;
-	GdkRectangle page_area;
-	guint annot_page;
+	gint page_index;
 
 	if (!PPS_IS_ANNOTATION_TEXT (annot)) {
 		gtk_gesture_set_state (GTK_GESTURE (annotation_drag_gesture),
@@ -5452,20 +5473,15 @@ annotation_drag_begin_cb (GtkGestureDrag *annotation_drag_gesture,
 	}
 
 	priv->moving_annot_info.annot = annot;
-	pps_annotation_get_area (annot, &current_area);
 
+	pps_annotation_get_area (annot, &annot_area);
+	page_index = pps_annotation_get_page_index (annot);
+	doc_point = pps_view_get_doc_point_for_page (view, page_index, x, y);
 	/* Remember the offset of the cursor with respect to
 	 * the annotation area in order to prevent the annotation from
 	 * jumping under the cursor while moving it. */
-	view_point_x = x + priv->scroll_x;
-	view_point_y = y + priv->scroll_y;
-	annot_page = pps_annotation_get_page_index (annot);
-	pps_view_get_page_extents (view, annot_page, &page_area);
-	_pps_view_transform_view_point_to_doc_point (view, view_point_x, view_point_y,
-	                                             &page_area,
-	                                             &doc_point.x, &doc_point.y);
-	priv->moving_annot_info.cursor_offset.x = doc_point.x - current_area.x1;
-	priv->moving_annot_info.cursor_offset.y = doc_point.y - current_area.y1;
+	priv->moving_annot_info.cursor_offset.x = doc_point.x - annot_area.x1;
+	priv->moving_annot_info.cursor_offset.y = doc_point.y - annot_area.y1;
 }
 
 static void
@@ -7731,17 +7747,9 @@ pps_view_continuous_changed_cb (PpsDocumentModel *model,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (priv->document) {
-		gdouble view_point_x;
-		gdouble view_point_y;
-		GdkRectangle page_area;
-
-		view_point_x = priv->scroll_x;
-		view_point_y = priv->scroll_y;
-		pps_view_get_page_extents (view, priv->start_page, &page_area);
-		_pps_view_transform_view_point_to_doc_point (view, view_point_x, view_point_y,
-		                                             &page_area,
-		                                             &priv->pending_point.x,
-		                                             &priv->pending_point.y);
+		priv->pending_point =
+		    pps_view_get_doc_point_for_page (view, priv->start_page,
+		                                     0, 0);
 	}
 	priv->continuous = continuous;
 	priv->pending_scroll = SCROLL_TO_PAGE_POSITION;
@@ -8799,41 +8807,27 @@ pps_view_stop_signature_rect (PpsView *view)
 {
 	PpsRectangle rect;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsPoint start;
-	PpsPoint end;
-	gint signature_page;
-	gint offset;
-	GdkRectangle page_area;
+	g_autofree PpsMark *start;
+	g_autofree PpsMark *end;
 
 	pps_view_set_cursor (view, PPS_VIEW_CURSOR_IBEAM);
 
-	find_page_at_location (view, priv->signing_info.start_x, priv->signing_info.start_y, &signature_page, &offset, &offset);
-	if (signature_page == -1) {
-		g_warning ("%s: Invalid signature page", __FUNCTION__);
-		return;
-	}
+	start = pps_view_get_mark_for_view_point (view,
+	                                          priv->signing_info.start_x,
+	                                          priv->signing_info.start_y);
+	end = pps_view_get_mark_for_view_point (view,
+	                                        priv->signing_info.stop_x,
+	                                        priv->signing_info.stop_y);
 
-	pps_view_get_page_extents (view, signature_page, &page_area);
-	_pps_view_transform_view_point_to_doc_point (view,
-	                                             priv->signing_info.start_x, priv->signing_info.start_y,
-	                                             &page_area,
-	                                             &start.x,
-	                                             &start.y);
-	_pps_view_transform_view_point_to_doc_point (view,
-	                                             priv->signing_info.stop_x, priv->signing_info.stop_y,
-	                                             &page_area,
-	                                             &end.x,
-	                                             &end.y);
-
-	rect.x1 = MIN (start.x, end.x);
-	rect.y1 = MIN (start.y, end.y);
-	rect.x2 = MAX (start.x, end.x);
-	rect.y2 = MAX (start.y, end.y);
+	rect.x1 = MIN (start->doc_point.x, end->doc_point.x);
+	rect.y1 = MIN (start->doc_point.y, end->doc_point.y);
+	rect.x2 = MAX (start->doc_point.x, end->doc_point.x);
+	rect.y2 = MAX (start->doc_point.y, end->doc_point.y);
 
 	gtk_event_controller_set_propagation_phase (priv->signing_drag_gesture,
 	                                            GTK_PHASE_NONE);
 
-	g_signal_emit (view, signals[SIGNAL_SIGNATURE_RECT], 0, signature_page, &rect);
+	g_signal_emit (view, signals[SIGNAL_SIGNATURE_RECT], 0, start->page_index, &rect);
 	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 

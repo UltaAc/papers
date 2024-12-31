@@ -239,6 +239,10 @@ struct _PpsViewClass {
 	                        PpsRectangle *rectangle);
 };
 
+PpsPoint pps_view_get_doc_point_for_page (PpsView *view,
+                                          gint page_index,
+                                          gdouble view_point_x,
+                                          gdouble view_point_y);
 void _get_page_size_for_scale_and_rotation (PpsDocument *document,
                                             gint page,
                                             gdouble scale,
