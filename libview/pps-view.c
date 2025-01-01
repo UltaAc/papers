@@ -6401,7 +6401,7 @@ highlight_find_results (PpsView *view,
                         GtkSnapshot *snapshot,
                         int page)
 {
-	PpsRectangle *pps_rect = pps_rectangle_new ();
+	PpsRectangle pps_rect;
 	gint i = 0;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GListModel *model = pps_search_context_get_result_model (priv->search_context);
@@ -6420,30 +6420,28 @@ highlight_find_results (PpsView *view,
 
 		rectangles = pps_search_result_get_rectangle_list (result);
 		find_rect = (PpsFindRectangle *) rectangles->data;
-		pps_rect->x1 = find_rect->x1;
-		pps_rect->x2 = find_rect->x2;
-		pps_rect->y1 = find_rect->y1;
-		pps_rect->y2 = find_rect->y2;
+		pps_rect.x1 = find_rect->x1;
+		pps_rect.x2 = find_rect->x2;
+		pps_rect.y1 = find_rect->y1;
+		pps_rect.y2 = find_rect->y2;
 
 		if (result == priv->find_result)
 			active = TRUE;
-		_pps_view_transform_doc_rect_to_view_rect (view, page, pps_rect,
+		_pps_view_transform_doc_rect_to_view_rect (view, page, &pps_rect,
 		                                           &view_rectangle);
 		draw_rubberband (view, snapshot, &view_rectangle, active);
 
 		if (rectangles->next) {
 			/* Draw now next result (which is second part of multi-line match) */
 			find_rect = (PpsFindRectangle *) rectangles->next->data;
-			pps_rect->x1 = find_rect->x1;
-			pps_rect->x2 = find_rect->x2;
-			pps_rect->y1 = find_rect->y1;
-			pps_rect->y2 = find_rect->y2;
-			_pps_view_transform_doc_rect_to_view_rect (view, page, pps_rect, &view_rectangle);
+			pps_rect.x1 = find_rect->x1;
+			pps_rect.x2 = find_rect->x2;
+			pps_rect.y1 = find_rect->y1;
+			pps_rect.y2 = find_rect->y2;
+			_pps_view_transform_doc_rect_to_view_rect (view, page, &pps_rect, &view_rectangle);
 			draw_rubberband (view, snapshot, &view_rectangle, active);
 		}
 	}
-
-	pps_rectangle_free (pps_rect);
 }
 
 static void
@@ -8188,32 +8186,30 @@ static void
 jump_to_find_result (PpsView *view, guint page, GList *rect_list)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsRectangle *rect = pps_rectangle_new ();
+	PpsRectangle rect;
 	PpsFindRectangle *find_rect, *rect_next = NULL;
 	GdkRectangle view_rect;
 
 	find_rect = (PpsFindRectangle *) rect_list->data;
-	rect->x1 = find_rect->x1;
-	rect->y1 = find_rect->y1;
-	rect->x2 = find_rect->x2;
-	rect->y2 = find_rect->y2;
+	rect.x1 = find_rect->x1;
+	rect.y1 = find_rect->y1;
+	rect.x2 = find_rect->x2;
+	rect.y2 = find_rect->y2;
 	while (rect_list->next) {
 		rect_list = rect_list->next;
 		rect_next = (PpsFindRectangle *) rect_list->data;
 		/* For an across-lines match, make sure both rectangles are visible */
-		rect->x1 = MIN (rect->x1, rect_next->x1);
-		rect->y1 = MIN (rect->y1, rect_next->y1);
-		rect->x2 = MAX (rect->x2, rect_next->x2);
-		rect->y2 = MAX (rect->y2, rect_next->y2);
+		rect.x1 = MIN (rect.x1, rect_next->x1);
+		rect.y1 = MIN (rect.y1, rect_next->y1);
+		rect.x2 = MAX (rect.x2, rect_next->x2);
+		rect.y2 = MAX (rect.y2, rect_next->y2);
 	}
 	_pps_view_transform_doc_rect_to_view_rect (view, page,
-	                                           rect, &view_rect);
+	                                           &rect, &view_rect);
 	_pps_view_ensure_rectangle_is_visible (view, &view_rect);
 	if (priv->caret_enabled && priv->rotation == 0)
 		position_caret_cursor_at_doc_point (view, page,
 		                                    find_rect->x1, find_rect->y1);
-
-	pps_rectangle_free (rect);
 }
 
 static void
@@ -8771,7 +8767,7 @@ pps_view_cancel_signature_rect (PpsView *view)
 static void
 pps_view_stop_signature_rect (PpsView *view)
 {
-	PpsRectangle *rect = pps_rectangle_new ();
+	PpsRectangle rect;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsPoint start;
 	PpsPoint end;
@@ -8799,16 +8795,15 @@ pps_view_stop_signature_rect (PpsView *view)
 	                                             &end.x,
 	                                             &end.y);
 
-	rect->x1 = MIN (start.x, end.x);
-	rect->y1 = MIN (start.y, end.y);
-	rect->x2 = MAX (start.x, end.x);
-	rect->y2 = MAX (start.y, end.y);
+	rect.x1 = MIN (start.x, end.x);
+	rect.y1 = MIN (start.y, end.y);
+	rect.x2 = MAX (start.x, end.x);
+	rect.y2 = MAX (start.y, end.y);
 
 	gtk_event_controller_set_propagation_phase (priv->signing_drag_gesture,
 	                                            GTK_PHASE_NONE);
 
-	g_signal_emit (view, signals[SIGNAL_SIGNATURE_RECT], 0, signature_page, rect);
-	pps_rectangle_free (rect);
+	g_signal_emit (view, signals[SIGNAL_SIGNATURE_RECT], 0, signature_page, &rect);
 	gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
