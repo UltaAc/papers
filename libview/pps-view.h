@@ -97,10 +97,6 @@ PPS_PUBLIC
 gboolean pps_view_previous_page (PpsView *view);
 
 PPS_PUBLIC
-void pps_view_get_page_extents (PpsView *view,
-                                gint page,
-                                GdkRectangle *page_area);
-PPS_PUBLIC
 PpsMark *pps_view_get_mark_for_view_point (PpsView *view,
                                            gdouble view_point_x,
                                            gdouble view_point_y);

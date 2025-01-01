@@ -239,6 +239,9 @@ struct _PpsViewClass {
 	                        PpsRectangle *rectangle);
 };
 
+void pps_view_get_page_extents (PpsView *view,
+                                gint page,
+                                GdkRectangle *page_area);
 PpsPoint pps_view_get_doc_point_for_page (PpsView *view,
                                           gint page_index,
                                           gdouble view_point_x,
