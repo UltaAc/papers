@@ -544,7 +544,11 @@ impl imp::PpsDocumentView {
                     self,
                     move |_, _, _| {
                         if let Some(file) = obj.file.borrow().clone() {
-                            gtk::FileLauncher::new(Some(&file)).launch(
+                            let launcher = gtk::FileLauncher::new(Some(&file));
+
+                            launcher.set_always_ask(true);
+
+                            launcher.launch(
                                 Some(&obj.parent_window()),
                                 gio::Cancellable::NONE,
                                 |_| {},
