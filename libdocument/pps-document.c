@@ -918,7 +918,7 @@ pps_document_find_page_by_label (PpsDocument *document,
 }
 
 /* PpsRectangle */
-G_DEFINE_BOXED_TYPE (PpsRectangle, pps_rectangle, pps_rectangle_copy, pps_rectangle_free)
+G_DEFINE_BOXED_TYPE (PpsRectangle, pps_rectangle, pps_rectangle_copy, g_free)
 
 PpsRectangle *
 pps_rectangle_new (void)
@@ -937,12 +937,6 @@ pps_rectangle_copy (PpsRectangle *rectangle)
 	*new_rectangle = *rectangle;
 
 	return new_rectangle;
-}
-
-void
-pps_rectangle_free (PpsRectangle *rectangle)
-{
-	g_free (rectangle);
 }
 
 /* PpsMapping */

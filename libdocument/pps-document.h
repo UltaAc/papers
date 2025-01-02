@@ -56,7 +56,6 @@ typedef enum {
 } PpsDocumentError;
 
 typedef struct _PpsPoint PpsPoint;
-typedef struct _PpsRectangle PpsRectangle;
 typedef struct _PpsMapping PpsMapping;
 typedef struct _PpsDocumentBackendInfo PpsDocumentBackendInfo;
 
@@ -204,17 +203,14 @@ gboolean pps_document_find_page_by_label (PpsDocument *document,
                                           const gchar *page_label,
                                           gint *page_index);
 
-PPS_PUBLIC
-gint pps_rect_cmp (PpsRectangle *a,
-                   PpsRectangle *b);
-
+/* PpsRectangle */
 #define PPS_TYPE_RECTANGLE (pps_rectangle_get_type ())
-struct _PpsRectangle {
+typedef struct {
 	gdouble x1;
 	gdouble y1;
 	gdouble x2;
 	gdouble y2;
-};
+} PpsRectangle;
 
 PPS_PUBLIC
 GType pps_rectangle_get_type (void) G_GNUC_CONST;
@@ -223,8 +219,9 @@ PpsRectangle *pps_rectangle_new (void);
 PPS_PUBLIC
 PpsRectangle *pps_rectangle_copy (PpsRectangle *pps_rect);
 PPS_PUBLIC
-void pps_rectangle_free (PpsRectangle *pps_rect);
+gint pps_rect_cmp (PpsRectangle *a, PpsRectangle *b);
 
+/* PpsMapping */
 struct _PpsMapping {
 	PpsRectangle area;
 	gpointer data;

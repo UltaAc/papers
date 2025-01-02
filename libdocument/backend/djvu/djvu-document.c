@@ -676,7 +676,7 @@ djvu_get_selection_region (DjvuDocument *djvu_document,
 	region = cairo_region_create ();
 	for (l = rects; l && l->data; l = g_list_next (l)) {
 		cairo_rectangle_int_t rect;
-		PpsRectangle *r = (PpsRectangle *) l->data;
+		g_autofree PpsRectangle *r = (PpsRectangle *) l->data;
 		gdouble tmp;
 
 		tmp = r->y1;
@@ -690,7 +690,6 @@ djvu_get_selection_region (DjvuDocument *djvu_document,
 		rect.width = (gint) ((r->x2 * scale_x) + 0.5) - rect.x;
 		rect.height = (gint) ((r->y2 * scale_y) + 0.5) - rect.y;
 		cairo_region_union_rectangle (region, &rect);
-		pps_rectangle_free (r);
 	}
 	g_list_free (l);
 
@@ -918,7 +917,7 @@ djvu_document_find_find_text (PpsDocumentFind *document,
 
 	document_get_page_size (djvu_document, page->index, &width, &height, &dpi);
 	for (l = matches; l && l->data; l = g_list_next (l)) {
-		PpsRectangle *r = (PpsRectangle *) l->data;
+		g_autofree PpsRectangle *r = (PpsRectangle *) l->data;
 		gdouble tmp = r->y1;
 
 		r->x1 *= 72.0 / dpi;
@@ -933,7 +932,6 @@ djvu_document_find_find_text (PpsDocumentFind *document,
 		pps_rect->y1 = r->y1;
 		pps_rect->y2 = r->y2;
 
-		pps_rectangle_free (r);
 		l->data = pps_rect;
 	}
 
