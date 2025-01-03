@@ -1541,7 +1541,7 @@ pdf_document_find_find_text (PpsDocumentFind *document_find,
 		retval = g_list_prepend (retval, pps_rect);
 	}
 
-	g_list_free_full (matches, (GDestroyNotify) poppler_rectangle_free);
+	g_clear_list (&matches, (GDestroyNotify) poppler_rectangle_free);
 
 	return g_list_reverse (retval);
 }
@@ -3839,7 +3839,7 @@ pdf_document_attachments_get_attachments (PpsDocumentAttachments *document)
 		list = list->next;
 	}
 
-	g_list_free_full (list, g_object_unref);
+	g_clear_list (&list, g_object_unref);
 
 	return g_list_reverse (retval);
 }

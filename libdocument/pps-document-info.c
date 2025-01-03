@@ -302,7 +302,7 @@ pps_document_info_regular_paper_size (const PpsDocumentInfo *info)
 		}
 	}
 
-	g_list_free_full (paper_sizes, (GDestroyNotify) gtk_paper_size_free);
+	g_clear_list (&paper_sizes, (GDestroyNotify) gtk_paper_size_free);
 
 	if (str != NULL) {
 		g_free (exact_size);

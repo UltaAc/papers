@@ -6730,7 +6730,8 @@ pps_view_finalize (GObject *object)
 	PpsView *view = PPS_VIEW (object);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	g_list_free_full (g_steal_pointer (&priv->selection_info.selections), (GDestroyNotify) selection_free);
+	g_clear_list (&priv->selection_info.selections, (GDestroyNotify) selection_free);
+
 	g_clear_object (&priv->link_selected);
 
 	g_clear_object (&priv->dnd_image);
@@ -8539,7 +8540,7 @@ merge_selection_region (PpsView *view,
 
 	/* Update the selection */
 	old_list = pps_pixbuf_cache_get_selection_list (priv->pixbuf_cache);
-	g_list_free_full (priv->selection_info.selections, (GDestroyNotify) selection_free);
+	g_clear_list (&priv->selection_info.selections, (GDestroyNotify) selection_free);
 	priv->selection_info.selections = new_list;
 	pps_pixbuf_cache_set_selection_list (priv->pixbuf_cache, new_list);
 	g_signal_emit (view, signals[SIGNAL_SELECTION_CHANGED], 0, NULL);
@@ -8616,7 +8617,7 @@ merge_selection_region (PpsView *view,
 	pps_view_check_cursor_blink (view);
 
 	/* Free the old list, now that we're done with it. */
-	g_list_free_full (old_list, (GDestroyNotify) selection_free);
+	g_clear_list (&old_list, (GDestroyNotify) selection_free);
 }
 
 static void

@@ -51,9 +51,7 @@ pps_search_result_dispose (GObject *object)
 
 	g_clear_pointer (&priv->markup, g_free);
 	g_clear_pointer (&priv->label, g_free);
-	g_list_free_full (priv->find_rectangles,
-	                  (GDestroyNotify) pps_find_rectangle_free);
-	priv->find_rectangles = NULL;
+	g_clear_list (&priv->find_rectangles, (GDestroyNotify) pps_find_rectangle_free);
 
 	G_OBJECT_CLASS (pps_search_result_parent_class)->dispose (object);
 }

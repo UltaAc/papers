@@ -314,10 +314,10 @@ pps_link_action_finalize (GObject *object)
 	g_clear_pointer (&priv->params, g_free);
 	g_clear_pointer (&priv->name, g_free);
 
-	g_list_free_full (g_steal_pointer (&priv->show_list), g_object_unref);
-	g_list_free_full (g_steal_pointer (&priv->hide_list), g_object_unref);
-	g_list_free_full (g_steal_pointer (&priv->toggle_list), g_object_unref);
-	g_list_free_full (g_steal_pointer (&priv->reset_fields), g_free);
+	g_clear_list (&priv->show_list, g_object_unref);
+	g_clear_list (&priv->hide_list, g_object_unref);
+	g_clear_list (&priv->toggle_list, g_object_unref);
+	g_clear_list (&priv->reset_fields, g_free);
 
 	G_OBJECT_CLASS (pps_link_action_parent_class)->finalize (object);
 }

@@ -67,17 +67,11 @@ static void pps_history_set_model (PpsHistory *history,
 static gint pps_history_get_current_page (PpsHistory *history);
 
 static void
-clear_list (GList *list)
-{
-	g_list_free_full (list, (GDestroyNotify) g_object_unref);
-}
-
-static void
 pps_history_clear (PpsHistory *history)
 {
 	PpsHistoryPrivate *priv = GET_PRIVATE (history);
 
-	g_clear_pointer (&priv->list, clear_list);
+	g_clear_list (&priv->list, g_object_unref);
 
 	priv->current = NULL;
 }
@@ -102,7 +96,8 @@ pps_history_prune (PpsHistory *history)
 	l->prev->next = NULL;
 	l->prev = NULL;
 
-	clear_list (priv->list);
+	g_clear_list (&priv->list, g_object_unref);
+
 	priv->list = l;
 
 	g_assert (g_list_length (priv->list) == PPS_HISTORY_MAX_LENGTH);
@@ -202,8 +197,7 @@ pps_history_add_link (PpsHistory *history,
 
 	if (priv->current) {
 		/* Truncate forward history at @current */
-		clear_list (priv->current->next);
-		priv->current->next = NULL;
+		g_clear_list (&priv->current->next, g_object_unref);
 	}
 
 	/* Push @link to the list */

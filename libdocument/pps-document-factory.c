@@ -269,7 +269,7 @@ _pps_document_factory_init (void)
 void
 _pps_document_factory_shutdown (void)
 {
-	g_list_free_full (g_steal_pointer (&pps_backends_list), (GDestroyNotify) _pps_backend_info_unref);
+	g_clear_list (&pps_backends_list, (GDestroyNotify) _pps_backend_info_unref);
 
 	g_clear_pointer (&pps_module_hash, g_hash_table_unref);
 	g_clear_pointer (&pps_backends_dir, g_free);

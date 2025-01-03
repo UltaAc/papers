@@ -207,7 +207,7 @@ pps_job_attachments_dispose (GObject *object)
 {
 	PpsJobAttachmentsPrivate *priv = JOB_ATTACHMENTS_GET_PRIVATE (PPS_JOB_ATTACHMENTS (object));
 
-	g_list_free_full (g_steal_pointer (&priv->attachments), g_object_unref);
+	g_clear_list (&priv->attachments, g_object_unref);
 
 	G_OBJECT_CLASS (pps_job_attachments_parent_class)->dispose (object);
 }
@@ -286,7 +286,7 @@ pps_job_annots_dispose (GObject *object)
 {
 	PpsJobAnnotsPrivate *priv = JOB_ANNOTS_GET_PRIVATE (PPS_JOB_ANNOTS (object));
 
-	g_list_free_full (g_steal_pointer (&priv->annots), (GDestroyNotify) pps_mapping_list_unref);
+	g_clear_list (&priv->annots, (GDestroyNotify) pps_mapping_list_unref);
 
 	G_OBJECT_CLASS (pps_job_annots_parent_class)->dispose (object);
 }
@@ -1299,7 +1299,7 @@ pps_job_find_dispose (GObject *object)
 		gint i;
 
 		for (i = 0; i < job->n_pages; i++) {
-			g_list_free_full (job->pages[i], (GDestroyNotify) pps_find_rectangle_free);
+			g_clear_list (&job->pages[i], (GDestroyNotify) pps_find_rectangle_free);
 		}
 
 		g_clear_pointer (&job->pages, g_free);
