@@ -225,7 +225,7 @@ mod imp {
                     | AnnotationTextMarkupType::Highlight => None,
                     _ => unimplemented!(),
                 },
-                AnnotationType::Text => None,
+                AnnotationType::Text | AnnotationType::FreeText | AnnotationType::Stamp => None,
                 _ => unimplemented!(),
             });
             self.image.set_icon_name(icon_name);
