@@ -47,15 +47,17 @@ mod imp {
 
         fn refresh_properties(&self, uri: &str, size: u64, info: &DocumentInfo) {
             macro_rules! insert_string_field {
-                ($group:ident, $title:expr, $field:ident) => {
+                ($group:ident, $title:expr, $field:ident) => {{
                     if let Some(value) = info.$field() {
                         self.add_list_box_item(&$group, &$title, Some(value.to_string().as_str()));
                     }
-                };
+
+                    info.$field().is_some()
+                }};
             }
 
             macro_rules! insert_property_time {
-                ($group:ident, $title:expr, $field:ident) => {
+                ($group:ident, $title:expr, $field:ident) => {{
                     if let Some(time) = info.$field() {
                         self.add_list_box_item(
                             &$group,
@@ -63,7 +65,9 @@ mod imp {
                             Document::misc_format_datetime(&time).as_deref(),
                         );
                     }
-                };
+
+                    info.$field().is_some()
+                }};
             }
 
             let page = adw::PreferencesPage::new();
@@ -136,34 +140,43 @@ mod imp {
             page.add(&group);
 
             // Content group
+            let mut has_field = false;
             let group = adw::PreferencesGroup::builder()
                 .title(gettext("Content"))
                 .build();
-            insert_string_field!(group, gettext("Title"), title);
-            insert_string_field!(group, gettext("Subject"), subject);
-            insert_string_field!(group, gettext("Author"), author);
-            insert_string_field!(group, gettext("Keywords"), keywords);
-            insert_string_field!(group, gettext("Producer"), producer);
-            insert_string_field!(group, gettext("Creator"), creator);
-            page.add(&group);
+            has_field |= insert_string_field!(group, gettext("Title"), title);
+            has_field |= insert_string_field!(group, gettext("Subject"), subject);
+            has_field |= insert_string_field!(group, gettext("Author"), author);
+            has_field |= insert_string_field!(group, gettext("Keywords"), keywords);
+            has_field |= insert_string_field!(group, gettext("Producer"), producer);
+            has_field |= insert_string_field!(group, gettext("Creator"), creator);
+
+            if has_field {
+                page.add(&group);
+            }
 
             // Date and time group
+            let mut has_field = false;
             let group = adw::PreferencesGroup::builder()
                 .title(gettext("Date &amp; Time"))
                 .build();
-            insert_property_time!(group, gettext("Created"), created_datetime);
-            insert_property_time!(group, gettext("Modified"), modified_datetime);
-            page.add(&group);
+            has_field |= insert_property_time!(group, gettext("Created"), created_datetime);
+            has_field |= insert_property_time!(group, gettext("Modified"), modified_datetime);
+
+            if has_field {
+                page.add(&group);
+            }
 
             // Format group
+            let mut has_field = false;
             let group = adw::PreferencesGroup::builder()
                 .title(gettext("Format"))
                 .build();
-            insert_string_field!(group, gettext("Format"), format);
-            insert_string_field!(group, gettext("Number of Pages"), pages);
-            insert_string_field!(group, gettext("Optimized"), linearized);
-            insert_string_field!(group, gettext("Security"), security);
-            insert_string_field!(group, gettext("Paper Size"), regular_paper_size);
+            has_field |= insert_string_field!(group, gettext("Format"), format);
+            has_field |= insert_string_field!(group, gettext("Number of Pages"), pages);
+            has_field |= insert_string_field!(group, gettext("Optimized"), linearized);
+            has_field |= insert_string_field!(group, gettext("Security"), security);
+            has_field |= insert_string_field!(group, gettext("Paper Size"), regular_paper_size);
 
             if let Some(contain_js) = info.contains_js() {
                 let text = match contain_js {
@@ -172,8 +185,13 @@ mod imp {
                     _ => gettext("Unknown"),
                 };
                 self.add_list_box_item(&group, &gettext("Contains Javascript"), Some(&text));
+
+                has_field |= true;
             }
-            page.add(&group);
+
+            if has_field {
+                page.add(&group);
+            }
 
             self.obj().set_child(Some(&page));
         }
