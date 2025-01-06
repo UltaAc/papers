@@ -110,7 +110,7 @@ mod imp {
                         }
 
                         let f = gio::File::for_commandline_arg(arg);
-                        self.open_uri_at_dest(&f.uri(), dest.as_ref(), mode);
+                        self.open_file_at_dest(&f, dest.as_ref(), mode);
                     }
                 }
             }
@@ -120,9 +120,7 @@ mod imp {
 
         fn open(&self, files: &[gio::File], _hint: &str) {
             for f in files {
-                let uri = f.uri();
-
-                self.open_uri_at_dest(uri.as_str(), None, None);
+                self.open_file_at_dest(f, None, None);
             }
         }
     }
@@ -157,15 +155,16 @@ mod imp {
             PpsWindow::default().present();
         }
 
-        fn open_uri_at_dest(
+        fn open_file_at_dest(
             &self,
-            uri: &str,
+            file: &gio::File,
             dest: Option<&papers_document::LinkDest>,
             mode: Option<WindowRunMode>,
         ) {
             let obj = self.obj();
             let mut n_window = 0;
             let mut window = None;
+            let uri = file.uri();
 
             for w in obj
                 .windows()
@@ -184,7 +183,7 @@ mod imp {
                 // Since we don't have security between documents, then
                 // spawn a new process! See:
                 // https://gitlab.gnome.org/GNOME/Incubator/papers/-/issues/104
-                spawn(Some(uri), dest, mode);
+                spawn(Some(file), dest, mode);
                 return;
             }
 
@@ -192,7 +191,7 @@ mod imp {
 
             // We need to load uri before showing the window, so
             // we can restore window size without flickering
-            window.open_uri(uri, dest, mode);
+            window.open(file, dest, mode);
             window.present();
         }
 
@@ -392,8 +391,9 @@ impl PpsApplication {
     }
 }
 
-pub fn spawn(uri: Option<&str>, dest: Option<&LinkDest>, mode: Option<WindowRunMode>) {
+pub fn spawn(file: Option<&gio::File>, dest: Option<&LinkDest>, mode: Option<WindowRunMode>) {
     let mut cmd = String::new();
+    let uri = file.map(|f| f.uri().to_string());
 
     match env::current_exe() {
         Ok(path) => {
@@ -444,8 +444,8 @@ pub fn spawn(uri: Option<&str>, dest: Option<&LinkDest>, mode: Option<WindowRunM
         // See https://bugzilla.gnome.org/show_bug.cgi?id=644604
         let mut uris = vec![];
 
-        if let Some(uri) = uri {
-            uris.push(uri);
+        if let Some(ref uri) = uri {
+            uris.push(uri.as_str());
         }
 
         app.launch_uris(&uris, ctx.as_ref())
@@ -454,9 +454,9 @@ pub fn spawn(uri: Option<&str>, dest: Option<&LinkDest>, mode: Option<WindowRunM
     if let Err(e) = result {
         debug!("fallback to plain spawn: {}", e.message());
 
-        if let Some(uri) = uri {
+        if let Some(ref uri) = uri {
             cmd.push(' ');
-            cmd.push_str(uri);
+            cmd.push_str(uri.as_str());
         }
 
         // MacOS take this path since GAppInfo doesn't support created by

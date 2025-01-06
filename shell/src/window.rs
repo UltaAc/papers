@@ -778,7 +778,7 @@ mod imp {
             );
         }
 
-        pub(super) fn open_file(
+        pub(super) fn open(
             &self,
             file: &impl IsA<gio::File>,
             dest: Option<&papers_document::LinkDest>,
@@ -1055,9 +1055,9 @@ mod imp {
                         let uri = f.uri();
 
                         if obj.obj().uri().is_some_and(|u| u != uri) {
-                            spawn(Some(&uri), None, None);
+                            spawn(Some(&f), None, None);
                         } else {
-                            obj.open_file(&f, None, None);
+                            obj.open(&f, None, None);
                         }
                     }
 
@@ -1171,10 +1171,10 @@ mod imp {
                 // document!
                 if let Some(current_uri) = current_uri {
                     if current_uri != uri {
-                        crate::application::spawn(Some(&uri), None, None);
+                        crate::application::spawn(Some(&file), None, None);
                     }
                 } else {
-                    self.open_file(&file, None, None);
+                    self.open(&file, None, None);
                 }
             }
 
@@ -1201,15 +1201,13 @@ impl PpsWindow {
         self.imp().file.borrow().as_ref().map(|f| f.uri().into())
     }
 
-    pub fn open_uri(
+    pub fn open(
         &self,
-        uri: &str,
+        file: &gio::File,
         dest: Option<&papers_document::LinkDest>,
         mode: Option<WindowRunMode>,
     ) {
-        let file = gio::File::for_uri(uri);
-
-        self.imp().open_file(&file, dest, mode)
+        self.imp().open(file, dest, mode)
     }
 
     pub fn is_empty(&self) -> bool {

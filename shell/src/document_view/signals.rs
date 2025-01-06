@@ -284,8 +284,9 @@ impl imp::PpsDocumentView {
 
         // The launch action should not reference the file itself. If it
         // does, simply ignore it
-        if self.file().unwrap().uri() != uri {
-            application::spawn(Some(&uri), action.dest().as_ref(), Some(self.mode.get()));
+        let file = self.file().unwrap();
+        if file.uri() != uri {
+            application::spawn(Some(&file), action.dest().as_ref(), Some(self.mode.get()));
         }
     }
 
@@ -304,7 +305,7 @@ impl imp::PpsDocumentView {
         // https://gitlab.gnome.org/GNOME/Incubator/papers/-/issues/104 is fixed
         if target != path {
             application::spawn(
-                target.to_str(),
+                Some(&gio::File::for_path(target)),
                 action.dest().as_ref(),
                 Some(WindowRunMode::Normal),
             );

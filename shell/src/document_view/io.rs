@@ -627,7 +627,11 @@ impl imp::PpsDocumentView {
                                 )
                                 .unwrap();
 
-                                crate::application::spawn(Some(uri.as_str()), None, None);
+                                crate::application::spawn(
+                                    Some(&gio::File::for_uri(&uri)),
+                                    None,
+                                    None,
+                                );
 
                                 obj.signature.take();
                             }
