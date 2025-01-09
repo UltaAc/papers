@@ -3,3 +3,4 @@ _build/
 .flatpak-builder
 po/papers.pot
 *.clang-format
+target/

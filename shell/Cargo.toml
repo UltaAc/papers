@@ -7,9 +7,6 @@ rust-version = "1.70"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[profile.release]
-lto = true
-
 [features]
 with-keyring = ["dep:oo7"]
 spell-check = []
@@ -52,19 +49,8 @@ features = ["v1_6"]
 
 [dependencies.papers_view]
 package = "papers-view"
-path = "./papers-view"
+path = "../rust/papers-view"
 
 [dependencies.papers_document]
 package = "papers-document"
-path = "./papers-document"
-
-[workspace]
-members = [
-  './papers-view',
-  './papers-view/sys',
-  './papers-document',
-  './papers-document/sys',
-]
-exclude = [
-  './gir',
-]
+path = "../rust/papers-document"

@@ -331,6 +331,8 @@ subdir('libdocument')
 subdir('libview')
 subdir('nautilus')
 
+subdir('rust')
+
 # Print Previewer
 enable_previewer = get_option('previewer')
 if enable_previewer

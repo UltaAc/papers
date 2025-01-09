@@ -1,0 +1,17 @@
+[profile.release]
+lto = true
+
+[workspace]
+resolver = "2"
+
+members = [
+  './rust/papers-view',
+  './rust/papers-view/sys',
+  './rust/papers-document',
+  './rust/papers-document/sys',
+  './shell',
+]
+
+exclude = [
+  './rust/gir',
+]

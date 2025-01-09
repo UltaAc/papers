@@ -94,7 +94,7 @@ cargo-format:
     before_script:
         - git submodule init
         - git submodule update --checkout
-        - cargo install --path shell/gir
+        - cargo install --path rust/gir
         - export PATH=$PATH:$HOME/.cargo/bin
         - meson setup $MESON_SETUP_OPTIONS --werror --fatal-meson-warnings _build
         - meson compile -C _build update-rust-bindings
