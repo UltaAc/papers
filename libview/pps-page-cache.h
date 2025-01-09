@@ -31,16 +31,8 @@
 G_BEGIN_DECLS
 
 #define PPS_TYPE_PAGE_CACHE (pps_page_cache_get_type ())
-#define PPS_PAGE_CACHE(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_PAGE_CACHE, PpsPageCache))
-#define PPS_IS_PAGE_CACHE(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PPS_TYPE_PAGE_CACHE))
-#define PPS_PAGE_CACHE_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), PPS_TYPE_PAGE_CACHE, PpsPageCacheClass))
-#define PPS_IS_PAGE_CACHE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PPS_TYPE_PAGE_CACHE))
-#define PPS_PAGE_CACHE_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), PPS_TYPE_PAGE_CACHE, PpsPageCacheClass))
+G_DECLARE_FINAL_TYPE (PpsPageCache, pps_page_cache, PPS, PAGE_CACHE, GObject)
 
-typedef struct _PpsPageCache PpsPageCache;
-typedef struct _PpsPageCacheClass PpsPageCacheClass;
-
-GType pps_page_cache_get_type (void) G_GNUC_CONST;
 PpsPageCache *pps_page_cache_new (PpsDocument *document);
 
 void pps_page_cache_set_page_range (PpsPageCache *cache,

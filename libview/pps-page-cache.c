@@ -19,17 +19,9 @@
 
 #include <config.h>
 
-#include "pps-document-annotations.h"
-#include "pps-document-forms.h"
-#include "pps-document-images.h"
-#include "pps-document-links.h"
-#include "pps-document-media.h"
-#include "pps-document-text.h"
 #include "pps-job-scheduler.h"
 #include "pps-jobs.h"
-#include "pps-mapping-list.h"
 #include "pps-page-cache.h"
-#include "pps-selection.h"
 #include <glib.h>
 
 enum {
@@ -71,10 +63,6 @@ struct _PpsPageCache {
 	gint end_page;
 
 	PpsJobPageDataFlags flags;
-};
-
-struct _PpsPageCacheClass {
-	GObjectClass parent_class;
 };
 
 #define PPS_PAGE_DATA_FLAGS_DEFAULT (    \
