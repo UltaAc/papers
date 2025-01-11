@@ -163,7 +163,7 @@ impl imp::PpsDocumentView {
         if self
             .sidebar_stack
             .visible_child()
-            .is_some_and(|child| child == *self.find_sidebar)
+            .is_some_and(|child| child != *self.find_sidebar)
             && !self.split_view.is_collapsed()
         {
             let _ = settings.set_boolean("show-sidebar", show_sidebar);
