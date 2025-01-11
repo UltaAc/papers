@@ -595,9 +595,11 @@ mod imp {
 
             if self.split_view.is_collapsed() {
                 self.sidebar_was_open_before_collapsed.set(show_sidebar);
-                self.split_view.set_show_sidebar(false);
+                self.document_action_group
+                    .change_action_state("show-sidebar", &false.into());
             } else {
-                self.split_view.set_show_sidebar(show_sidebar);
+                self.document_action_group
+                    .change_action_state("show-sidebar", &show_sidebar.into());
             }
 
             let annot_color = settings.string("annot-color");

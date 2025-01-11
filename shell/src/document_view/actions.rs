@@ -113,7 +113,7 @@ impl imp::PpsDocumentView {
                 ))
                 .build(),
             gio::ActionEntryBuilder::new("show-sidebar")
-                .state(glib::Variant::from(false))
+                .state(glib::Variant::from(true))
                 .change_state(glib::clone!(
                     #[weak(rename_to = obj)]
                     self,
