@@ -553,7 +553,7 @@ mod imp {
                 .set_visible_child(&self.find_sidebar.clone());
             self.find_sidebar.grab_focus();
             self.document_action_group
-                .change_action_state("show-sidebar-pane", &true.into());
+                .change_action_state("show-sidebar", &true.into());
             self.set_action_enabled("find-next", true);
             self.set_action_enabled("find-previous", true);
         }
