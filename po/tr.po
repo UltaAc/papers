@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Papers\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2024-11-18 21:29+0000\n"
-"PO-Revision-Date: 2024-11-06 22:38+0300\n"
+"POT-Creation-Date: 2024-12-02 11:37+0000\n"
+"PO-Revision-Date: 2024-11-30 23:21+0300\n"
 "Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -45,10 +45,9 @@ msgstr "Çok sayfalı belgeleri göster"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.Papers.desktop.in.in:6
-msgid "pdf;ps;postscript;xps;djvu;tiff;document;presentation;viewer;papers;"
+msgid "pdf;djvu;tiff;document;presentation;viewer;papers;"
 msgstr ""
-"pdf;ps;postscript;xps;djvu;tiff;document;presentation;viewer;papers;belge;"
-"sunum;görüntüleyici;"
+"pdf;djvu;tiff;document;presentation;viewer;papers;belge;sunum;görüntüleyici"
 
 #: data/org.gnome.Papers.desktop.in.in:21
 msgid "New Window"
@@ -130,11 +129,11 @@ msgstr ""
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:27
 msgid ""
-"Papers supports documents in: PDF, PS, EPS, XPS, DjVu, TIFF, and Comic Books "
-"archives (CBR, CBT, CBZ, CB7)."
+"Papers supports documents in: PDF, DjVu, TIFF, and Comic Books archives "
+"(CBR, CBT, CBZ, CB7)."
 msgstr ""
-"Papers şu belgeleri destekler: PDF, PS, EPS, XPS, DjVu, TIFF ve Çizgi Roman "
-"arşivleri (CBR, CBT, CBZ, CB7)."
+"Papers şu belgeleri destekler: PDF, DjVu, TIFF ve Çizgi Roman arşivleri "
+"(CBR, CBT, CBZ, CB7)."
 
 #: data/org.gnome.Papers.metainfo.xml.in.in:43
 msgid "A clear, simple, and modern UI"
@@ -238,52 +237,52 @@ msgid "Adds support for reading PDF Documents"
 msgstr "PDF belgelerini görüntüleme desteği ekler"
 
 #. translators: this is the document security state
-#: libdocument/backend/pdf/pps-poppler.c:713
-#: libdocument/backend/pdf/pps-poppler.c:719
+#: libdocument/backend/pdf/pps-poppler.c:708
+#: libdocument/backend/pdf/pps-poppler.c:714
 #: nautilus/pps-nautilus-extension.c:119 shell-rs/src/properties_general.rs:170
 msgid "Yes"
 msgstr "Evet"
 
 #. translators: this is the document security state
-#: libdocument/backend/pdf/pps-poppler.c:716
-#: libdocument/backend/pdf/pps-poppler.c:719
+#: libdocument/backend/pdf/pps-poppler.c:711
+#: libdocument/backend/pdf/pps-poppler.c:714
 #: nautilus/pps-nautilus-extension.c:121 shell-rs/src/properties_general.rs:171
 msgid "No"
 msgstr "Hayır"
 
-#: libdocument/backend/pdf/pps-poppler.c:826
+#: libdocument/backend/pdf/pps-poppler.c:821
 msgid "Type 1"
 msgstr "Tür 1"
 
-#: libdocument/backend/pdf/pps-poppler.c:828
+#: libdocument/backend/pdf/pps-poppler.c:823
 msgid "Type 1C"
 msgstr "Tür 1C"
 
-#: libdocument/backend/pdf/pps-poppler.c:830
+#: libdocument/backend/pdf/pps-poppler.c:825
 msgid "Type 3"
 msgstr "Tür 3"
 
-#: libdocument/backend/pdf/pps-poppler.c:832
+#: libdocument/backend/pdf/pps-poppler.c:827
 msgid "TrueType"
 msgstr "TrueType"
 
-#: libdocument/backend/pdf/pps-poppler.c:834
+#: libdocument/backend/pdf/pps-poppler.c:829
 msgid "Type 1 (CID)"
 msgstr "Tür 1 (CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:836
+#: libdocument/backend/pdf/pps-poppler.c:831
 msgid "Type 1C (CID)"
 msgstr "Tür 1C (CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:838
+#: libdocument/backend/pdf/pps-poppler.c:833
 msgid "TrueType (CID)"
 msgstr "TrueType (CID)"
 
-#: libdocument/backend/pdf/pps-poppler.c:840
+#: libdocument/backend/pdf/pps-poppler.c:835
 msgid "Unknown font type"
 msgstr "Bilinmeyen yazı tipi türü"
 
-#: libdocument/backend/pdf/pps-poppler.c:884
+#: libdocument/backend/pdf/pps-poppler.c:879
 msgid ""
 "This document contains non-embedded fonts that are not from the PDF Standard "
 "14 fonts. If the substitute fonts selected by fontconfig are not the same as "
@@ -294,11 +293,11 @@ msgstr ""
 "PDF’yi oluşturmak için kullanılan yazı tipleriyle aynı değilse belge doğru "
 "canlandırılamayabilir."
 
-#: libdocument/backend/pdf/pps-poppler.c:889
+#: libdocument/backend/pdf/pps-poppler.c:884
 msgid "All fonts are either standard or embedded."
 msgstr "Tüm yazı tipleri ya standart ya da gömülü."
 
-#: libdocument/backend/pdf/pps-poppler.c:920
+#: libdocument/backend/pdf/pps-poppler.c:915
 msgid "No name"
 msgstr "Adsız"
 
@@ -307,20 +306,20 @@ msgstr "Adsız"
 #. Encoding: None
 #.
 #. translators: Value for 'Page Scaling:' to not scale the document pages on printing
-#: libdocument/backend/pdf/pps-poppler.c:929 libview/pps-print-operation.c:1901
+#: libdocument/backend/pdf/pps-poppler.c:924 libview/pps-print-operation.c:1901
 #: shell-rs/src/properties_general.rs:82 shell-rs/src/properties_general.rs:199
 msgid "None"
 msgstr "Hiçbiri"
 
-#: libdocument/backend/pdf/pps-poppler.c:937
+#: libdocument/backend/pdf/pps-poppler.c:932
 msgid "Embedded subset"
 msgstr "Gömülü alt takım"
 
-#: libdocument/backend/pdf/pps-poppler.c:939
+#: libdocument/backend/pdf/pps-poppler.c:934
 msgid "Embedded"
 msgstr "Gömülü"
 
-#: libdocument/backend/pdf/pps-poppler.c:941
+#: libdocument/backend/pdf/pps-poppler.c:936
 msgid "Not embedded"
 msgstr "Gömülü değil"
 
@@ -329,7 +328,7 @@ msgstr "Gömülü değil"
 #. * type. Example:
 #. * "Type 1 (One of the Standard 14 Fonts)"
 #.
-#: libdocument/backend/pdf/pps-poppler.c:948
+#: libdocument/backend/pdf/pps-poppler.c:943
 msgid " (One of the Standard 14 Fonts)"
 msgstr " (Standart 14 Yazı Tipinden Biri)"
 
@@ -338,7 +337,7 @@ msgstr " (Standart 14 Yazı Tipinden Biri)"
 #. * type. Example:
 #. * "TrueType (Not one of the Standard 14 Fonts)"
 #.
-#: libdocument/backend/pdf/pps-poppler.c:955
+#: libdocument/backend/pdf/pps-poppler.c:950
 msgid " (Not one of the Standard 14 Fonts)"
 msgstr " (Standart 14 Yazı Tipinden Biri Değil)"
 
@@ -352,7 +351,7 @@ msgstr " (Standart 14 Yazı Tipinden Biri Değil)"
 #. * Substituting with TeXGyreTermes-Regular
 #. * (/usr/share/textmf/.../texgyretermes-regular.otf)
 #.
-#: libdocument/backend/pdf/pps-poppler.c:974
+#: libdocument/backend/pdf/pps-poppler.c:969
 #, c-format
 msgid ""
 "%s%s\n"
@@ -376,7 +375,7 @@ msgstr ""
 #. * Encoding: Custom
 #. * Embedded subset
 #.
-#: libdocument/backend/pdf/pps-poppler.c:992
+#: libdocument/backend/pdf/pps-poppler.c:987
 #, c-format
 msgid ""
 "%s%s\n"
@@ -386,25 +385,6 @@ msgstr ""
 "%s%s\n"
 "Kodlama: %s\n"
 "%s"
-
-#: libdocument/backend/ps/papers-psdocument.metainfo.xml.in.in:5
-#: libdocument/backend/ps/psdocument.papers-backend.desktop.in.in:5
-msgid "PostScript Documents"
-msgstr "PostScript Belgeleri"
-
-#: libdocument/backend/ps/papers-psdocument.metainfo.xml.in.in:6
-msgid "Adds support for reading PostScript documents"
-msgstr "PostScript belgelerini görüntüleme desteği ekler"
-
-#: libdocument/backend/ps/pps-spectre.c:94
-#, c-format
-msgid "Failed to load document “%s”"
-msgstr "“%s” belgesi yüklenemedi"
-
-#: libdocument/backend/ps/pps-spectre.c:127
-#, c-format
-msgid "Failed to save document “%s”"
-msgstr "“%s” belgesi kaydedilemedi"
 
 #: libdocument/backend/tiff/papers-tiffdocument.metainfo.xml.in.in:5
 #: libdocument/backend/tiff/tiffdocument.papers-backend.desktop.in.in:4
@@ -418,15 +398,6 @@ msgstr "TIFF belgelerini görüntüleme desteği ekler"
 #: libdocument/backend/tiff/tiff-document.c:105
 msgid "Invalid document"
 msgstr "Geçersiz belge"
-
-#: libdocument/backend/xps/papers-xpsdocument.metainfo.xml.in.in:5
-#: libdocument/backend/xps/xpsdocument.papers-backend.desktop.in.in:5
-msgid "XPS Documents"
-msgstr "XPS Belgeleri"
-
-#: libdocument/backend/xps/papers-xpsdocument.metainfo.xml.in.in:6
-msgid "Adds support for reading XPS documents"
-msgstr "XPS belgelerini görüntüleme desteği ekler"
 
 #: libdocument/pps-attachment.c:304 libdocument/pps-attachment.c:325
 #, c-format
@@ -448,17 +419,17 @@ msgstr "“%s” eki açılamadı"
 msgid "File type %s (%s) is not supported"
 msgstr "Dosya türü %s (%s) desteklenmiyor"
 
-#: libdocument/pps-document-factory.c:374 libdocument/pps-file-helpers.c:408
-#: libdocument/pps-file-helpers.c:454 libdocument/pps-file-helpers.c:463
-#: libdocument/pps-file-helpers.c:544 libdocument/pps-file-helpers.c:553
+#: libdocument/pps-document-factory.c:374 libdocument/pps-file-helpers.c:371
+#: libdocument/pps-file-helpers.c:417 libdocument/pps-file-helpers.c:426
+#: libdocument/pps-file-helpers.c:507 libdocument/pps-file-helpers.c:516
 msgid "Unknown MIME Type"
 msgstr "Bilinmeyen MIME Türü"
 
-#: libdocument/pps-document-factory.c:506
+#: libdocument/pps-document-factory.c:504
 msgid "All Documents"
 msgstr "Tüm Belgeler"
 
-#: libdocument/pps-document-factory.c:534
+#: libdocument/pps-document-factory.c:532
 msgid "All Files"
 msgstr "Tüm Dosyalar"
 
@@ -500,11 +471,6 @@ msgstr "%s, Yatay (%s)"
 #, c-format
 msgid "Failed to create a temporary file: %s"
 msgstr "Geçici dosya oluşturulamadı: %s"
-
-#: libdocument/pps-file-helpers.c:225
-#, c-format
-msgid "Failed to create a temporary directory: %s"
-msgstr "Geçici dizin oluşturulamadı: %s"
 
 #: libdocument/pps-signature.c:566
 msgid "Trusted"
@@ -589,7 +555,7 @@ msgstr "Sayfa %d canlandırılamadı"
 msgid "Failed to create thumbnail for page %d"
 msgstr "%d sayfasına küçük resim oluşturulamadı"
 
-#: libview/pps-jobs.c:1638
+#: libview/pps-jobs.c:1624
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "%d. sayfa yazdırılamadı: %s"
@@ -732,51 +698,51 @@ msgstr "Görünümü Aşağı Kaydır"
 msgid "Document View"
 msgstr "Belge Görünümü"
 
-#: libview/pps-view.c:2106
+#: libview/pps-view.c:2113
 msgid "Go to first page"
 msgstr "İlk sayfaya git"
 
-#: libview/pps-view.c:2108
+#: libview/pps-view.c:2115
 msgid "Go to previous page"
 msgstr "Önceki sayfaya git"
 
-#: libview/pps-view.c:2110
+#: libview/pps-view.c:2117
 msgid "Go to next page"
 msgstr "Sonraki sayfaya git"
 
-#: libview/pps-view.c:2112
+#: libview/pps-view.c:2119
 msgid "Go to last page"
 msgstr "Son sayfaya git"
 
-#: libview/pps-view.c:2114
+#: libview/pps-view.c:2121
 msgid "Go to page"
 msgstr "Sayfaya git"
 
-#: libview/pps-view.c:2116
+#: libview/pps-view.c:2123
 msgid "Find"
 msgstr "Bul"
 
-#: libview/pps-view.c:2145
+#: libview/pps-view.c:2152
 #, c-format
 msgid "Go to page %s"
 msgstr "%s sayfasına git"
 
-#: libview/pps-view.c:2151
+#: libview/pps-view.c:2158
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "“%2$s” dosyasındaki %1$s konumuna git"
 
-#: libview/pps-view.c:2154
+#: libview/pps-view.c:2161
 #, c-format
 msgid "Go to file “%s”"
 msgstr "“%s” dosyasına git"
 
-#: libview/pps-view.c:2162
+#: libview/pps-view.c:2169
 #, c-format
 msgid "Launch %s"
 msgstr "%s başlat"
 
-#: libview/pps-view.c:2169
+#: libview/pps-view.c:2176
 #, c-format
 msgid "Reset form"
 msgstr "Formu sıfırla"
@@ -2042,34 +2008,3 @@ msgstr "Uzaktaki Dosya Yüklenemedi."
 #: shell-rs/src/window.rs:731
 msgid "Failed to Reload Document."
 msgstr "Belge Yeniden Yüklenemedi."
-
-#~ msgid "_Previous Page"
-#~ msgstr "_Önceki Sayfa"
-
-#~ msgid "_Next Page"
-#~ msgstr "S_onraki Sayfa"
-
-#~ msgid ""
-#~ "Show a dialog to confirm that the user wants to activate the caret "
-#~ "navigation."
-#~ msgstr ""
-#~ "Kullanıcının imleç taramasını etkinleştirmek istediğini onaylamak için "
-#~ "bir iletişim penceresi göster."
-
-#~ msgid "Enable Caret Navigation?"
-#~ msgstr "İmleç Taraması Etkinleştirilsin Mi?"
-
-#~ msgid ""
-#~ "Pressing F7 turns the caret navigation on or off. This feature places a "
-#~ "moveable cursor in text pages, allowing you to move around and select "
-#~ "text with your keyboard."
-#~ msgstr ""
-#~ "F7’ye basmak imleç taramasını açar ya da kapatır. Bu özellik metin "
-#~ "sayfalarında hareket ettirilebilen bir imleç gösterir ve bu sayede "
-#~ "klavyenizi kullanarak sayfada dolaşabilir ve metin seçebilirsiniz."
-
-#~ msgid "Don’t show this message again"
-#~ msgstr "Bu iletiyi yeniden gösterme"
-
-#~ msgid "_Enable"
-#~ msgstr "_Etkinleştir"
