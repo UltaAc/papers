@@ -248,7 +248,6 @@ static void compute_selections (PpsView *view,
                                 gdouble stop_y);
 static void clear_selection (PpsView *view);
 static void selection_free (PpsViewSelection *selection);
-static char *get_selected_text (PpsView *pps_view);
 
 /*** Caret navigation ***/
 static void pps_view_check_cursor_blink (PpsView *pps_view);
@@ -5495,25 +5494,6 @@ pps_view_motion_notify_event (GtkEventControllerMotion *controller,
 }
 
 /**
- * pps_view_get_selected_text:
- * @view: #PpsView instance
- *
- * Returns a pointer to a constant string containing the selected
- * text in the view.
- *
- * The value returned may be NULL if there is no selected text.
- *
- * Returns: The string representing selected text.
- *
- * Since: 3.30
- */
-char *
-pps_view_get_selected_text (PpsView *view)
-{
-	return get_selected_text (view);
-}
-
-/**
  * pps_view_add_text_markup_annotation_for_selected_text:
  * @view: #PpsView instance
  *
@@ -8597,8 +8577,21 @@ _pps_view_set_selection (PpsView *view,
 	compute_selections (view, PPS_SELECTION_STYLE_GLYPH, start_x, start_y, stop_x, stop_y);
 }
 
-static char *
-get_selected_text (PpsView *view)
+/**
+ * pps_view_get_selected_text:
+ * @view: #PpsView instance
+ *
+ * Returns a pointer to a constant string containing the selected
+ * text in the view.
+ *
+ * The value returned may be NULL if there is no selected text.
+ *
+ * Returns: The string representing selected text.
+ *
+ * Since: 3.30
+ */
+char *
+pps_view_get_selected_text (PpsView *view)
 {
 	GString *text;
 	GList *l;
@@ -8656,7 +8649,7 @@ pps_view_update_primary_selection (PpsView *view)
 	if (priv->link_selected) {
 		text = g_strdup (pps_link_action_get_uri (priv->link_selected));
 	} else if (priv->selection_info.selections) {
-		text = get_selected_text (view);
+		text = pps_view_get_selected_text (view);
 	}
 
 	if (text) {
@@ -8675,7 +8668,7 @@ pps_view_copy (PpsView *view)
 	if (!PPS_IS_SELECTION (priv->document))
 		return;
 
-	text = get_selected_text (view);
+	text = pps_view_get_selected_text (view);
 	pps_view_clipboard_copy (view, text);
 	g_free (text);
 }
