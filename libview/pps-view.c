@@ -1523,7 +1523,7 @@ location_in_text (PpsView *view,
 		return FALSE;
 }
 
-static gboolean
+static void
 get_doc_point_from_offset (PpsView *view,
                            gint page,
                            gint x_offset,
@@ -1558,8 +1558,6 @@ get_doc_point_from_offset (PpsView *view,
 
 	*x_new = x;
 	*y_new = y;
-
-	return TRUE;
 }
 
 static gboolean
@@ -1578,8 +1576,9 @@ get_doc_point_from_location (PpsView *view,
 	find_page_at_location (view, x, y, page, &x_offset, &y_offset);
 	if (*page == -1)
 		return FALSE;
+	get_doc_point_from_offset (view, *page, x_offset, y_offset, x_new, y_new);
 
-	return get_doc_point_from_offset (view, *page, x_offset, y_offset, x_new, y_new);
+	return TRUE;
 }
 
 static void
@@ -3427,13 +3426,11 @@ pps_view_get_doc_points_from_selection_region (PpsView *view,
 	cairo_region_get_rectangle (region, 0, &first);
 	cairo_region_get_rectangle (region, cairo_region_num_rectangles (region) - 1, &last);
 
-	if (!get_doc_point_from_offset (view, page, first.x, first.y + (first.height / 2),
-	                                &start_x, &start_y))
-		return FALSE;
+	get_doc_point_from_offset (view, page, first.x, first.y + (first.height / 2),
+	                           &start_x, &start_y);
 
-	if (!get_doc_point_from_offset (view, page, last.x + last.width, last.y + (last.height / 2),
-	                                &stop_x, &stop_y))
-		return FALSE;
+	get_doc_point_from_offset (view, page, last.x + last.width, last.y + (last.height / 2),
+	                           &stop_x, &stop_y);
 
 	begin->x = start_x;
 	begin->y = start_y;
@@ -6054,10 +6051,9 @@ cursor_clear_selection (PpsView *view,
 		region = NULL;
 	}
 
-	if (!get_doc_point_from_offset (view, selection->page,
-	                                forward ? rect.x + rect.width : rect.x,
-	                                rect.y + (rect.height / 2), &doc_x, &doc_y))
-		return FALSE;
+	get_doc_point_from_offset (view, selection->page,
+	                           forward ? rect.x + rect.width : rect.x,
+	                           rect.y + (rect.height / 2), &doc_x, &doc_y);
 
 	position_caret_cursor_at_doc_point (view, selection->page, doc_x, doc_y);
 
