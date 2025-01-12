@@ -38,18 +38,6 @@ G_BEGIN_DECLS
 #define PPS_PIXBUF_CACHE(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), PPS_TYPE_PIXBUF_CACHE, PpsPixbufCache))
 #define PPS_IS_PIXBUF_CACHE(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PPS_TYPE_PIXBUF_CACHE))
 
-/* The coordinates in the rect here are at scale == 1.0, so that we can ignore
- * resizings.  There is one per page, maximum.
- */
-typedef struct _PpsViewSelection PpsViewSelection;
-
-struct _PpsViewSelection {
-	int page;
-	PpsRectangle rect;
-	cairo_region_t *covered_region;
-	PpsSelectionStyle style;
-};
-
 typedef struct _PpsPixbufCache PpsPixbufCache;
 typedef struct _PpsPixbufCacheClass PpsPixbufCacheClass;
 

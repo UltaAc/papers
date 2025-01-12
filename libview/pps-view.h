@@ -56,7 +56,17 @@ void pps_view_set_allow_links_change_zoom (PpsView *view,
 PPS_PUBLIC
 gboolean pps_view_get_allow_links_change_zoom (PpsView *view);
 
-/* Clipboard */
+/* Selections */
+typedef struct {
+	int page;
+	/* The coordinates here are at scale == 1.0, so that we can ignore
+	 * resizings.  There is one per page, maximum.
+	 */
+	PpsRectangle rect;
+	cairo_region_t *covered_region;
+	PpsSelectionStyle style;
+} PpsViewSelection;
+
 PPS_PUBLIC
 void pps_view_copy (PpsView *view);
 PPS_PUBLIC
@@ -68,6 +78,8 @@ PPS_PUBLIC
 gboolean pps_view_has_selection (PpsView *view);
 PPS_PUBLIC
 char *pps_view_get_selected_text (PpsView *view);
+PPS_PUBLIC
+GList *pps_view_get_selections (PpsView *view);
 
 /* Page size */
 PPS_PUBLIC

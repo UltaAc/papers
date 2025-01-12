@@ -3443,66 +3443,46 @@ pps_view_add_text_annotation_at_point (PpsView *view,
 	return TRUE;
 }
 
-static gboolean
-pps_view_get_doc_points_from_selection_region (PpsView *view,
-                                               gint page,
-                                               PpsPoint *begin,
-                                               PpsPoint *end)
+/**
+ * pps_view_add_text_markup_annotation_for_selected_text:
+ * @view: #PpsView instance
+ *
+ * Adds a Text Markup annotation (defaulting to a 'highlight' one) to
+ * the currently selected text on the document.
+ *
+ * When the selected text spans more than one page, it will add a
+ * corresponding annotation for each page that contains selected text.
+ *
+ * Returns: %TRUE if annotations were added successfully, %FALSE otherwise.
+ *
+ * Since: 3.30
+ */
+gboolean
+pps_view_add_text_markup_annotation_for_selected_text (PpsView *view)
 {
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	cairo_rectangle_int_t first, last;
-	gdouble start_x, start_y, stop_x, stop_y;
-	cairo_region_t *region = NULL;
+	g_autoptr (GList) selections = pps_view_get_selections (view);
 
-	if (!priv->pixbuf_cache)
+	if (!pps_view_has_selection (view))
 		return FALSE;
 
-	region = pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache, page, priv->scale);
+	for (GList *l = selections; l != NULL; l = l->next) {
+		PpsViewSelection *selection = (PpsViewSelection *) l->data;
+		PpsPoint doc_point_start;
+		PpsPoint doc_point_end;
 
-	if (!region)
-		return FALSE;
-
-	cairo_region_get_rectangle (region, 0, &first);
-	cairo_region_get_rectangle (region, cairo_region_num_rectangles (region) - 1, &last);
-
-	get_doc_point_from_offset (view, page, first.x, first.y + (first.height / 2),
-	                           &start_x, &start_y);
-
-	get_doc_point_from_offset (view, page, last.x + last.width, last.y + (last.height / 2),
-	                           &stop_x, &stop_y);
-
-	begin->x = start_x;
-	begin->y = start_y;
-	end->x = stop_x;
-	end->y = stop_y;
-
-	return TRUE;
-}
-
-static void
-pps_view_create_annotation_from_selection (PpsView *view,
-                                           PpsViewSelection *selection)
-{
-	PpsPoint doc_point_start;
-	PpsPoint doc_point_end;
-
-	/* Check if selection is of double/triple click type (STYLE_WORD and STYLE_LINE) and in that
-	 * case get the start/end points from the selection region of pixbuf cache. Issue #1119 */
-	if (selection->style == PPS_SELECTION_STYLE_WORD || selection->style == PPS_SELECTION_STYLE_LINE) {
-
-		if (!pps_view_get_doc_points_from_selection_region (view, selection->page,
-		                                                    &doc_point_start, &doc_point_end))
-			return;
-	} else {
 		doc_point_start.x = selection->rect.x1;
 		doc_point_start.y = selection->rect.y1;
 		doc_point_end.x = selection->rect.x2;
 		doc_point_end.y = selection->rect.y2;
+
+		pps_view_create_annotation_real (view, selection->page,
+		                                 PPS_ANNOTATION_TYPE_TEXT_MARKUP,
+		                                 &doc_point_start, &doc_point_end);
 	}
 
-	pps_view_create_annotation_real (view, selection->page,
-	                                 PPS_ANNOTATION_TYPE_TEXT_MARKUP,
-	                                 &doc_point_start, &doc_point_end);
+	clear_selection (view);
+
+	return TRUE;
 }
 
 void
@@ -5491,40 +5471,6 @@ pps_view_motion_notify_event (GtkEventControllerMotion *controller,
 		return;
 
 	pps_view_handle_cursor_over_xy (view, x, y);
-}
-
-/**
- * pps_view_add_text_markup_annotation_for_selected_text:
- * @view: #PpsView instance
- *
- * Adds a Text Markup annotation (defaulting to a 'highlight' one) to
- * the currently selected text on the document.
- *
- * When the selected text spans more than one page, it will add a
- * corresponding annotation for each page that contains selected text.
- *
- * Returns: %TRUE if annotations were added successfully, %FALSE otherwise.
- *
- * Since: 3.30
- */
-gboolean
-pps_view_add_text_markup_annotation_for_selected_text (PpsView *view)
-{
-	GList *l;
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	if (!pps_view_has_selection (view))
-		return FALSE;
-
-	for (l = priv->selection_info.selections; l != NULL; l = l->next) {
-		PpsViewSelection *selection = (PpsViewSelection *) l->data;
-
-		pps_view_create_annotation_from_selection (view, selection);
-	}
-
-	clear_selection (view);
-
-	return TRUE;
 }
 
 void
@@ -8624,6 +8570,88 @@ pps_view_get_selected_text (PpsView *view)
 	normalized_text = g_utf8_normalize (text->str, text->len, G_NORMALIZE_NFC);
 	g_string_free (text, TRUE);
 	return normalized_text;
+}
+
+static gboolean
+pps_view_get_doc_points_from_selection_region (PpsView *view,
+                                               gint page,
+                                               PpsPoint *begin,
+                                               PpsPoint *end)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+	cairo_rectangle_int_t first, last;
+	gdouble start_x, start_y, stop_x, stop_y;
+	cairo_region_t *region = NULL;
+
+	if (!priv->pixbuf_cache)
+		return FALSE;
+
+	region = pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache, page, priv->scale);
+
+	if (!region)
+		return FALSE;
+
+	cairo_region_get_rectangle (region, 0, &first);
+	cairo_region_get_rectangle (region, cairo_region_num_rectangles (region) - 1, &last);
+
+	get_doc_point_from_offset (view, page, first.x, first.y + (first.height / 2),
+	                           &start_x, &start_y);
+
+	get_doc_point_from_offset (view, page, last.x + last.width, last.y + (last.height / 2),
+	                           &stop_x, &stop_y);
+
+	begin->x = start_x;
+	begin->y = start_y;
+	end->x = stop_x;
+	end->y = stop_y;
+
+	return TRUE;
+}
+
+/**
+ * pps_view_get_selections:
+ * @view: #PpsView instance
+ *
+ * Returns: (element-type PpsViewSelection) (transfer container): a list with the
+ * current selections.
+ *
+ * Since: 48.0
+ */
+GList *
+pps_view_get_selections (PpsView *view)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+	GList *selections = NULL;
+
+	if (!pps_view_has_selection (view))
+		return NULL;
+
+	for (GList *l = priv->selection_info.selections; l != NULL; l = l->next) {
+		PpsViewSelection *selection = (PpsViewSelection *) l->data;
+
+		/* Check if selection is of double/triple click type
+		 * (STYLE_WORD and STYLE_LINE). In that
+		 * case get the start/end points from the selection region of
+		 * pixbuf cache. The reason is that when we create those selections,
+		 * we create them based on a single point. See Issue evince#1119 for
+		 * background. In the future, we should probably do this when
+		 * creating the selections, instead of at get time */
+		if (selection->style == PPS_SELECTION_STYLE_WORD ||
+		    selection->style == PPS_SELECTION_STYLE_LINE) {
+			PpsPoint doc_point_start;
+			PpsPoint doc_point_end;
+			if (!pps_view_get_doc_points_from_selection_region (view, selection->page,
+			                                                    &doc_point_start, &doc_point_end))
+				continue;
+			selection->rect.x1 = doc_point_start.x;
+			selection->rect.y1 = doc_point_start.y;
+			selection->rect.x2 = doc_point_end.x;
+			selection->rect.y2 = doc_point_end.y;
+		}
+		selections = g_list_prepend (selections, selection);
+	}
+
+	return g_list_reverse (selections);
 }
 
 static void
