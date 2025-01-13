@@ -55,14 +55,8 @@ typedef enum {
 	PPS_DOCUMENT_ERROR_ENCRYPTED
 } PpsDocumentError;
 
-typedef struct _PpsPoint PpsPoint;
 typedef struct _PpsMapping PpsMapping;
 typedef struct _PpsDocumentBackendInfo PpsDocumentBackendInfo;
-
-struct _PpsPoint {
-	double x;
-	double y;
-};
 
 struct _PpsDocumentBackendInfo {
 	const gchar *name;
@@ -202,6 +196,20 @@ PPS_PUBLIC
 gboolean pps_document_find_page_by_label (PpsDocument *document,
                                           const gchar *page_label,
                                           gint *page_index);
+
+/* PpsPoint */
+#define PPS_TYPE_POINT (pps_point_get_type ())
+typedef struct {
+	double x;
+	double y;
+} PpsPoint;
+
+PPS_PUBLIC
+GType pps_point_get_type (void);
+PPS_PUBLIC
+PpsPoint *pps_point_new (void);
+PPS_PUBLIC
+PpsPoint *pps_point_copy (PpsPoint *point);
 
 /**
  * PpsMark:

@@ -917,6 +917,28 @@ pps_document_find_page_by_label (PpsDocument *document,
 	return FALSE;
 }
 
+/* PpsPoint */
+G_DEFINE_BOXED_TYPE (PpsPoint, pps_point, pps_point_copy, g_free)
+
+PpsPoint *
+pps_point_new (void)
+{
+	return g_new0 (PpsPoint, 1);
+}
+
+PpsPoint *
+pps_point_copy (PpsPoint *point)
+{
+	PpsPoint *new_point;
+
+	g_return_val_if_fail (point != NULL, NULL);
+
+	new_point = g_new (PpsPoint, 1);
+	*new_point = *point;
+
+	return new_point;
+}
+
 /* PpsMark */
 G_DEFINE_BOXED_TYPE (PpsMark, pps_mark, pps_mark_copy, g_free)
 
