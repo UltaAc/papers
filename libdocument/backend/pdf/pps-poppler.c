@@ -3158,6 +3158,15 @@ pdf_document_annotations_add_annotation (PpsDocumentAnnotations *document_annota
 		case PPS_ANNOTATION_TEXT_MARKUP_HIGHLIGHT:
 			poppler_annot = poppler_annot_text_markup_new_highlight (self->document, &bbox, quads);
 			break;
+		case PPS_ANNOTATION_TEXT_MARKUP_SQUIGGLY:
+			poppler_annot = poppler_annot_text_markup_new_squiggly (self->document, &bbox, quads);
+			break;
+		case PPS_ANNOTATION_TEXT_MARKUP_STRIKE_OUT:
+			poppler_annot = poppler_annot_text_markup_new_strikeout (self->document, &bbox, quads);
+			break;
+		case PPS_ANNOTATION_TEXT_MARKUP_UNDERLINE:
+			poppler_annot = poppler_annot_text_markup_new_underline (self->document, &bbox, quads);
+			break;
 		default:
 			g_assert_not_reached ();
 		}
