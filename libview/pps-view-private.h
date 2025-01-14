@@ -179,6 +179,7 @@ typedef struct _PpsViewPrivate {
 	MovingAnnotInfo moving_annot_info;
 	gboolean enable_spellchecking;
 	GdkRGBA annot_color;
+	PpsAnnotationTextMarkupType markup_type;
 
 	/* Focus */
 	PpsMapping *focused_element;

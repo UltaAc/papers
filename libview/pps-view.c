@@ -3319,7 +3319,7 @@ pps_view_create_annotation_real (PpsView *view,
 		doc_rect.y1 = start->y;
 		doc_rect.x2 = end->x;
 		doc_rect.y2 = end->y;
-		annot = pps_annotation_text_markup_highlight_new (page);
+		annot = pps_annotation_text_markup_new (page, priv->markup_type);
 		break;
 	default:
 		g_assert_not_reached ();
@@ -5534,6 +5534,16 @@ pps_view_set_annotation_color (PpsView *view, GdkRGBA *color)
 	g_return_if_fail (PPS_IS_VIEW (view));
 
 	priv->annot_color = *color;
+}
+
+void
+pps_view_set_annotation_text_markup_type (PpsView *view, PpsAnnotationTextMarkupType markup_type)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+
+	g_return_if_fail (PPS_IS_VIEW (view));
+
+	priv->markup_type = markup_type;
 }
 
 void
