@@ -299,7 +299,7 @@ impl imp::PpsDocumentView {
                     move |_, action, state| {
                         let color = state.and_then(|s| s.str()).unwrap();
 
-                        let mut color = match color {
+                        let color = match color {
                             "yellow" => gdk::RGBA::parse("#f5c211").unwrap(),
                             "orange" => gdk::RGBA::parse("#ff7800").unwrap(),
                             "red" => gdk::RGBA::parse("#ed333b").unwrap(),
@@ -310,7 +310,7 @@ impl imp::PpsDocumentView {
                         };
 
                         obj.annot_color.replace(Some(color));
-                        obj.view.set_annotation_color(&mut color);
+                        obj.view.set_annotation_color(&color);
                         action.set_state(state.unwrap());
                     }
                 ))

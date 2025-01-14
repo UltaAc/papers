@@ -70,6 +70,7 @@ manual = [
     "Gtk.Widget",
     "Gtk.Window",
     "PapersDocument.Annotation",
+    "PapersDocument.AnnotationTextMarkupType",
     "PapersDocument.AnnotationType",
     "PapersDocument.Attachment",
     "PapersDocument.Document",

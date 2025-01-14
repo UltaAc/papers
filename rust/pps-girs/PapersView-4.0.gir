@@ -882,7 +882,7 @@ The @callback will be called when the dialog is dismissed.</doc>
         <return-value transfer-ownership="container">
           <doc xml:space="preserve"
                filename="libview/context/pps-history.c"
-               line="355">the back history</doc>
+               line="349">the back history</doc>
           <type name="GLib.List" c:type="GList*">
             <type name="PapersDocument.Link"/>
           </type>
@@ -891,7 +891,7 @@ The @callback will be called when the dialog is dismissed.</doc>
           <instance-parameter name="history" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/context/pps-history.c"
-                 line="353">a #PpsHistory</doc>
+                 line="347">a #PpsHistory</doc>
             <type name="History" c:type="PpsHistory*"/>
           </instance-parameter>
         </parameters>
@@ -902,7 +902,7 @@ The @callback will be called when the dialog is dismissed.</doc>
         <return-value transfer-ownership="container">
           <doc xml:space="preserve"
                filename="libview/context/pps-history.c"
-               line="381">the forward history</doc>
+               line="375">the forward history</doc>
           <type name="GLib.List" c:type="GList*">
             <type name="PapersDocument.Link"/>
           </type>
@@ -911,7 +911,7 @@ The @callback will be called when the dialog is dismissed.</doc>
           <instance-parameter name="history" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/context/pps-history.c"
-                 line="379">a #PpsHistory</doc>
+                 line="373">a #PpsHistory</doc>
             <type name="History" c:type="PpsHistory*"/>
           </instance-parameter>
         </parameters>
@@ -3348,19 +3348,19 @@ care to treat any multi-line matches as being only one result.</doc>
       <constructor name="new" c:identifier="pps_print_operation_new">
         <doc xml:space="preserve"
              filename="libview/pps-print-operation.c"
-             line="2080">Factory method to construct #PpsPrintOperation</doc>
+             line="2086">Factory method to construct #PpsPrintOperation</doc>
         <source-position filename="libview/pps-print-operation.h" line="49"/>
         <return-value transfer-ownership="full" nullable="1">
           <doc xml:space="preserve"
                filename="libview/pps-print-operation.c"
-               line="2086">a #PpsPrintOperation</doc>
+               line="2092">a #PpsPrintOperation</doc>
           <type name="PrintOperation" c:type="PpsPrintOperation*"/>
         </return-value>
         <parameters>
           <parameter name="document" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-print-operation.c"
-                 line="2082">a #PpsDocument</doc>
+                 line="2088">a #PpsDocument</doc>
             <type name="PapersDocument.Document" c:type="PpsDocument*"/>
           </parameter>
         </parameters>
@@ -3826,7 +3826,7 @@ care to treat any multi-line matches as being only one result.</doc>
               c:identifier="pps_search_result_append_rectangle">
         <doc xml:space="preserve"
              filename="libview/context/pps-search-result.c"
-             line="136">Appends a rectangle to the search result. This should not be used outside the
+             line="134">Appends a rectangle to the search result. This should not be used outside the
 creation of the search result.</doc>
         <source-position filename="libview/context/pps-search-result.h"
                          line="63"/>
@@ -3837,13 +3837,13 @@ creation of the search result.</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/context/pps-search-result.c"
-                 line="138">the PpsSearchResult</doc>
+                 line="136">the PpsSearchResult</doc>
             <type name="SearchResult" c:type="PpsSearchResult*"/>
           </instance-parameter>
           <parameter name="rect" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/context/pps-search-result.c"
-                 line="139">the #PpsFindRectangle to append</doc>
+                 line="137">the #PpsFindRectangle to append</doc>
             <type name="PapersDocument.FindRectangle"
                   c:type="PpsFindRectangle*"/>
           </parameter>
@@ -3904,7 +3904,7 @@ creation of the search result.</doc>
         <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve"
                filename="libview/context/pps-search-result.c"
-               line="125">the
+               line="123">the
 list of rectangles for this result.</doc>
           <type name="GLib.List" c:type="GList*">
             <type name="PapersDocument.FindRectangle"/>
@@ -3914,7 +3914,7 @@ list of rectangles for this result.</doc>
           <instance-parameter name="self" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/context/pps-search-result.c"
-                 line="123">the PpsSearchResult</doc>
+                 line="121">the PpsSearchResult</doc>
             <type name="SearchResult" c:type="PpsSearchResult*"/>
           </instance-parameter>
         </parameters>
@@ -3967,17 +3967,6 @@ list of rectangles for this result.</doc>
              line="41">Since: 3.8</doc>
       </member>
     </enumeration>
-    <callback name="UserRectangleCallback" c:type="PpsUserRectangleCallback">
-      <source-position filename="libview/pps-view.h" line="147"/>
-      <return-value transfer-ownership="none">
-        <type name="none" c:type="void"/>
-      </return-value>
-      <parameters>
-        <parameter name="rect" transfer-ownership="none">
-          <type name="PapersDocument.Rectangle" c:type="PpsRectangle*"/>
-        </parameter>
-      </parameters>
-    </callback>
     <class name="View"
            c:symbol-prefix="view"
            c:type="PpsView"
@@ -4009,26 +3998,26 @@ list of rectangles for this result.</doc>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/pps-view.c"
-               line="3580">whether the annotation was added or not</doc>
+               line="3431">whether the annotation was added or not</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="3576">a #PpsView</doc>
+                 line="3427">a #PpsView</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="x" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="3577">the x coordinate over the view to place the annotation</doc>
+                 line="3428">the x coordinate over the view to place the annotation</doc>
             <type name="gint" c:type="gint"/>
           </parameter>
           <parameter name="y" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="3578">the y coordinate over the view to place the annotation</doc>
+                 line="3429">the y coordinate over the view to place the annotation</doc>
             <type name="gint" c:type="gint"/>
           </parameter>
         </parameters>
@@ -4038,7 +4027,7 @@ list of rectangles for this result.</doc>
               version="3.30">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="5743">Adds a Text Markup annotation (defaulting to a 'highlight' one) to
+             line="5577">Adds a Text Markup annotation (defaulting to a 'highlight' one) to
 the currently selected text on the document.
 
 When the selected text spans more than one page, it will add a
@@ -4047,14 +4036,14 @@ corresponding annotation for each page that contains selected text.</doc>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/pps-view.c"
-               line="5753">%TRUE if annotations were added successfully, %FALSE otherwise.</doc>
+               line="5587">%TRUE if annotations were added successfully, %FALSE otherwise.</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="5745">#PpsView instance</doc>
+                 line="5579">#PpsView instance</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
         </parameters>
@@ -4125,7 +4114,7 @@ corresponding annotation for each page that contains selected text.</doc>
       </method>
       <method name="current_event_is_type"
               c:identifier="pps_view_current_event_is_type">
-        <source-position filename="libview/pps-view.h" line="144"/>
+        <source-position filename="libview/pps-view.h" line="146"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -4181,7 +4170,7 @@ corresponding annotation for each page that contains selected text.</doc>
       </method>
       <method name="get_enable_spellchecking"
               c:identifier="pps_view_get_enable_spellchecking">
-        <source-position filename="libview/pps-view.h" line="129"/>
+        <source-position filename="libview/pps-view.h" line="131"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -4237,7 +4226,7 @@ corresponding annotation for each page that contains selected text.</doc>
               version="3.30">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="5724">Returns a pointer to a constant string containing the selected
+             line="5558">Returns a pointer to a constant string containing the selected
 text in the view.
 
 The value returned may be NULL if there is no selected text.</doc>
@@ -4245,14 +4234,14 @@ The value returned may be NULL if there is no selected text.</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libview/pps-view.c"
-               line="5733">The string representing selected text.</doc>
+               line="5567">The string representing selected text.</doc>
           <type name="utf8" c:type="char*"/>
         </return-value>
         <parameters>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="5726">#PpsView instance</doc>
+                 line="5560">#PpsView instance</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
         </parameters>
@@ -4284,7 +4273,7 @@ The value returned may be NULL if there is no selected text.</doc>
       </method>
       <method name="is_caret_navigation_enabled"
               c:identifier="pps_view_is_caret_navigation_enabled">
-        <source-position filename="libview/pps-view.h" line="135"/>
+        <source-position filename="libview/pps-view.h" line="137"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -4390,14 +4379,30 @@ The value returned may be NULL if there is no selected text.</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="color" transfer-ownership="none">
-            <type name="Gdk.RGBA" c:type="GdkRGBA*"/>
+            <type name="Gdk.RGBA" c:type="const GdkRGBA*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_annotation_text_markup_type"
+              c:identifier="pps_view_set_annotation_text_markup_type">
+        <source-position filename="libview/pps-view.h" line="126"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="view" transfer-ownership="none">
+            <type name="View" c:type="PpsView*"/>
+          </instance-parameter>
+          <parameter name="markup_type" transfer-ownership="none">
+            <type name="PapersDocument.AnnotationTextMarkupType"
+                  c:type="PpsAnnotationTextMarkupType"/>
           </parameter>
         </parameters>
       </method>
       <method name="set_caret_cursor_position"
               c:identifier="pps_view_set_caret_cursor_position"
               version="3.10">
-        <source-position filename="libview/pps-view.h" line="140"/>
+        <source-position filename="libview/pps-view.h" line="142"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -4405,7 +4410,7 @@ The value returned may be NULL if there is no selected text.</doc>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="4056">a #PpsView</doc>
+                 line="3905">a #PpsView</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="page" transfer-ownership="none">
@@ -4421,8 +4426,8 @@ The value returned may be NULL if there is no selected text.</doc>
               version="3.10">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="4009">Enables or disables caret navigation mode for the document.</doc>
-        <source-position filename="libview/pps-view.h" line="137"/>
+             line="3858">Enables or disables caret navigation mode for the document.</doc>
+        <source-position filename="libview/pps-view.h" line="139"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -4430,20 +4435,20 @@ The value returned may be NULL if there is no selected text.</doc>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="4011">a #PpsView</doc>
+                 line="3860">a #PpsView</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="enabled" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="4012">whether to enable caret navigation mode</doc>
+                 line="3861">whether to enable caret navigation mode</doc>
             <type name="gboolean" c:type="gboolean"/>
           </parameter>
         </parameters>
       </method>
       <method name="set_enable_spellchecking"
               c:identifier="pps_view_set_enable_spellchecking">
-        <source-position filename="libview/pps-view.h" line="126"/>
+        <source-position filename="libview/pps-view.h" line="128"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -4474,7 +4479,7 @@ The value returned may be NULL if there is no selected text.</doc>
               c:identifier="pps_view_set_page_cache_size">
         <doc xml:space="preserve"
              filename="libview/pps-view.c"
-             line="7753">Sets the maximum size in bytes that will be used to cache
+             line="7602">Sets the maximum size in bytes that will be used to cache
 rendered pages. Use 0 to disable caching rendered pages.
 
 Note that this limit doesn't affect the current visible page range,
@@ -4488,13 +4493,13 @@ you have to use pps_document_model_set_max_scale() too.</doc>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="7755">#PpsView instance</doc>
+                 line="7604">#PpsView instance</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
           <parameter name="cache_size" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="7756">size in bytes</doc>
+                 line="7605">size in bytes</doc>
             <type name="gsize" c:type="gsize"/>
           </parameter>
         </parameters>
@@ -4529,18 +4534,18 @@ you have to use pps_document_model_set_max_scale() too.</doc>
       <method name="supports_caret_navigation"
               c:identifier="pps_view_supports_caret_navigation"
               version="3.10">
-        <source-position filename="libview/pps-view.h" line="133"/>
+        <source-position filename="libview/pps-view.h" line="135"/>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve"
                filename="libview/pps-view.c"
-               line="3989">whether the document supports caret navigation</doc>
+               line="3838">whether the document supports caret navigation</doc>
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
         <parameters>
           <instance-parameter name="view" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libview/pps-view.c"
-                 line="3987">a #PpsView</doc>
+                 line="3836">a #PpsView</doc>
             <type name="View" c:type="PpsView*"/>
           </instance-parameter>
         </parameters>
