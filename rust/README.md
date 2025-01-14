@@ -24,6 +24,25 @@ meson compile -C _build update-rust-bindings
 
 You can also update the bindings through the `shell/update-bindings.sh` script.
 
+## Handle Conflicts
+
+It's fairly common that several MR update the Rust binding code and introduce conflicts. The best practice of solving this kind of conflicts is:
+
+1. Split the binding update into a separated commit.
+2. Only solve the conflicts inside hand-written files (Gir.toml for example), then regenerating others and commit them all. In this way the auto-generated bindings are overwritten without handling any conflicts.
+
+For example:
+
+```bash
+$ git rebase -i origin/main
+$ # encounter binding update conflicts
+$ # edit rust/papers-view/Gir.toml and rust/papers-document/Gir.toml to solve conflicts
+$ meson compile -C _build update-rust-bindings
+$ meson compile -C _build # do the build test
+$ git add rust/
+$ git rebase --continue # solve the conflict
+```
+
 ## IDE Support
 
 rust-analyzer needs some environment to function properly. The environment can be set by `meson devenv`:
