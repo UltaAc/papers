@@ -1770,43 +1770,37 @@ pps_annotation_text_markup_class_init (PpsAnnotationTextMarkupClass *class)
 }
 
 PpsAnnotation *
-pps_annotation_text_markup_highlight_new (PpsPage *page)
+pps_annotation_text_markup_new (PpsPage *page, PpsAnnotationTextMarkupType markup_type)
 {
 	PpsAnnotation *annot = PPS_ANNOTATION (g_object_new (PPS_TYPE_ANNOTATION_TEXT_MARKUP,
 	                                                     "page", page,
-	                                                     "type", PPS_ANNOTATION_TEXT_MARKUP_HIGHLIGHT,
+	                                                     "type", markup_type,
 	                                                     NULL));
 	return annot;
+}
+
+PpsAnnotation *
+pps_annotation_text_markup_highlight_new (PpsPage *page)
+{
+	return pps_annotation_text_markup_new (page, PPS_ANNOTATION_TEXT_MARKUP_HIGHLIGHT);
 }
 
 PpsAnnotation *
 pps_annotation_text_markup_strike_out_new (PpsPage *page)
 {
-	PpsAnnotation *annot = PPS_ANNOTATION (g_object_new (PPS_TYPE_ANNOTATION_TEXT_MARKUP,
-	                                                     "page", page,
-	                                                     "type", PPS_ANNOTATION_TEXT_MARKUP_STRIKE_OUT,
-	                                                     NULL));
-	return annot;
+	return pps_annotation_text_markup_new (page, PPS_ANNOTATION_TEXT_MARKUP_STRIKE_OUT);
 }
 
 PpsAnnotation *
 pps_annotation_text_markup_underline_new (PpsPage *page)
 {
-	PpsAnnotation *annot = PPS_ANNOTATION (g_object_new (PPS_TYPE_ANNOTATION_TEXT_MARKUP,
-	                                                     "page", page,
-	                                                     "type", PPS_ANNOTATION_TEXT_MARKUP_UNDERLINE,
-	                                                     NULL));
-	return annot;
+	return pps_annotation_text_markup_new (page, PPS_ANNOTATION_TEXT_MARKUP_UNDERLINE);
 }
 
 PpsAnnotation *
 pps_annotation_text_markup_squiggly_new (PpsPage *page)
 {
-	PpsAnnotation *annot = PPS_ANNOTATION (g_object_new (PPS_TYPE_ANNOTATION_TEXT_MARKUP,
-	                                                     "page", page,
-	                                                     "type", PPS_ANNOTATION_TEXT_MARKUP_SQUIGGLY,
-	                                                     NULL));
-	return annot;
+	return pps_annotation_text_markup_new (page, PPS_ANNOTATION_TEXT_MARKUP_SQUIGGLY);
 }
 
 PpsAnnotationTextMarkupType

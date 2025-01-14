@@ -243,6 +243,8 @@ gboolean pps_annotation_attachment_set_attachment (PpsAnnotationAttachment *anno
 
 /* PpsAnnotationTextMarkup */
 PPS_PUBLIC
+PpsAnnotation *pps_annotation_text_markup_new (PpsPage *page, PpsAnnotationTextMarkupType markup_type);
+PPS_PUBLIC
 PpsAnnotation *pps_annotation_text_markup_highlight_new (PpsPage *page);
 PPS_PUBLIC
 PpsAnnotation *pps_annotation_text_markup_strike_out_new (PpsPage *page);
