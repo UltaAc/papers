@@ -5527,7 +5527,7 @@ pps_view_add_text_markup_annotation_for_selected_text (PpsView *view)
 }
 
 void
-pps_view_set_annotation_color (PpsView *view, GdkRGBA *color)
+pps_view_set_annotation_color (PpsView *view, const GdkRGBA *color)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
