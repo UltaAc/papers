@@ -58,6 +58,7 @@ PPS_PUBLIC
 gboolean pps_view_get_allow_links_change_zoom (PpsView *view);
 
 /* Selections */
+#define PPS_TYPE_VIEW_SELECTION (pps_view_selection_get_type ())
 typedef struct {
 	int page;
 	/* The coordinates here are at scale == 1.0, so that we can ignore
@@ -67,6 +68,13 @@ typedef struct {
 	cairo_region_t *covered_region;
 	PpsSelectionStyle style;
 } PpsViewSelection;
+
+PPS_PUBLIC
+GType pps_view_selection_get_type (void) G_GNUC_CONST;
+PPS_PUBLIC
+PpsViewSelection *pps_view_selection_copy (PpsViewSelection *selection);
+PPS_PUBLIC
+void pps_view_selection_free (PpsViewSelection *selection);
 
 PPS_PUBLIC
 void pps_view_copy (PpsView *view);

@@ -1224,7 +1224,7 @@ pps_pixbuf_cache_get_selection_list (PpsPixbufCache *pixbuf_cache)
 		}
 
 		if (pixbuf_cache->prev_job[i].selection_points.x1 != -1) {
-			selection = g_slice_new0 (PpsViewSelection);
+			selection = g_new0 (PpsViewSelection, 1);
 			selection->page = page;
 			selection->rect = pixbuf_cache->prev_job[i].selection_points;
 			if (pixbuf_cache->prev_job[i].selection_region)
@@ -1238,7 +1238,7 @@ pps_pixbuf_cache_get_selection_list (PpsPixbufCache *pixbuf_cache)
 	page = pixbuf_cache->start_page;
 	for (i = 0; i < PAGE_CACHE_LEN (pixbuf_cache); i++) {
 		if (pixbuf_cache->job_list[i].selection_points.x1 != -1) {
-			selection = g_slice_new0 (PpsViewSelection);
+			selection = g_new0 (PpsViewSelection, 1);
 			selection->page = page;
 			selection->rect = pixbuf_cache->job_list[i].selection_points;
 			if (pixbuf_cache->job_list[i].selection_region)
@@ -1254,7 +1254,7 @@ pps_pixbuf_cache_get_selection_list (PpsPixbufCache *pixbuf_cache)
 			break;
 
 		if (pixbuf_cache->next_job[i].selection_points.x1 != -1) {
-			selection = g_slice_new0 (PpsViewSelection);
+			selection = g_new0 (PpsViewSelection, 1);
 			selection->page = page;
 			selection->rect = pixbuf_cache->next_job[i].selection_points;
 			if (pixbuf_cache->next_job[i].selection_region)

@@ -245,7 +245,6 @@ static void compute_selections (PpsView *view,
                                 gdouble stop_x,
                                 gdouble stop_y);
 static void clear_selection (PpsView *view);
-static void selection_free (PpsViewSelection *selection);
 
 /*** Caret navigation ***/
 static void pps_view_check_cursor_blink (PpsView *pps_view);
@@ -6462,7 +6461,8 @@ pps_view_finalize (GObject *object)
 	PpsView *view = PPS_VIEW (object);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	g_clear_list (&priv->selection_info.selections, (GDestroyNotify) selection_free);
+	g_clear_list (&priv->selection_info.selections,
+	              (GDestroyNotify) pps_view_selection_free);
 
 	g_clear_object (&priv->link_selected);
 
@@ -8086,6 +8086,31 @@ pps_view_find_set_highlight_search (PpsView *view, gboolean value)
 }
 
 /*** Selections ***/
+G_DEFINE_BOXED_TYPE (PpsViewSelection, pps_view_selection, pps_view_selection_copy, pps_view_selection_free)
+
+PpsViewSelection *
+pps_view_selection_copy (PpsViewSelection *selection)
+{
+	PpsViewSelection *new_selection;
+
+	g_return_val_if_fail (selection != NULL, NULL);
+
+	new_selection = g_new0 (PpsViewSelection, 1);
+	*new_selection = *selection;
+	if (new_selection->covered_region)
+		new_selection->covered_region =
+		    cairo_region_reference (new_selection->covered_region);
+
+	return new_selection;
+}
+
+void
+pps_view_selection_free (PpsViewSelection *selection)
+{
+	g_clear_pointer (&selection->covered_region, cairo_region_destroy);
+	g_free (selection);
+}
+
 static gboolean
 gdk_rectangle_point_in (GdkRectangle *rectangle,
                         gdouble x,
@@ -8178,7 +8203,7 @@ compute_new_selection (PpsView *view,
 
 		get_doc_page_size (view, i, &width, &height);
 
-		selection = g_slice_new0 (PpsViewSelection);
+		selection = g_new0 (PpsViewSelection, 1);
 		selection->page = i;
 		selection->style = style;
 		selection->rect.x1 = selection->rect.y1 = 0;
@@ -8231,7 +8256,8 @@ merge_selection_region (PpsView *view,
 
 	/* Update the selection */
 	old_list = pps_pixbuf_cache_get_selection_list (priv->pixbuf_cache);
-	g_clear_list (&priv->selection_info.selections, (GDestroyNotify) selection_free);
+	g_clear_list (&priv->selection_info.selections,
+	              (GDestroyNotify) pps_view_selection_free);
 	priv->selection_info.selections = new_list;
 	pps_pixbuf_cache_set_selection_list (priv->pixbuf_cache, new_list);
 	g_signal_emit (view, signals[SIGNAL_SELECTION_CHANGED], 0, NULL);
@@ -8308,7 +8334,7 @@ merge_selection_region (PpsView *view,
 	pps_view_check_cursor_blink (view);
 
 	/* Free the old list, now that we're done with it. */
-	g_clear_list (&old_list, (GDestroyNotify) selection_free);
+	g_clear_list (&old_list, (GDestroyNotify) pps_view_selection_free);
 }
 
 static void
@@ -8323,16 +8349,6 @@ compute_selections (PpsView *view,
 	graphene_point_t stop = GRAPHENE_POINT_INIT (stop_x, stop_y);
 
 	merge_selection_region (view, compute_new_selection (view, style, &start, &stop));
-}
-
-/* Free's the selection.  It's up to the caller to queue redraws if needed.
- */
-static void
-selection_free (PpsViewSelection *selection)
-{
-	if (selection->covered_region)
-		cairo_region_destroy (selection->covered_region);
-	g_slice_free (PpsViewSelection, selection);
 }
 
 static void
@@ -8359,7 +8375,7 @@ pps_view_select_all (PpsView *view)
 
 		get_doc_page_size (view, i, &width, &height);
 
-		selection = g_slice_new0 (PpsViewSelection);
+		selection = g_new0 (PpsViewSelection, 1);
 		selection->page = i;
 		selection->style = PPS_SELECTION_STYLE_GLYPH;
 		selection->rect.x1 = selection->rect.y1 = 0;
