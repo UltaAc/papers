@@ -50,7 +50,7 @@ _pps_backend_info_new_from_file (const char *file,
                                  GError **error)
 {
 	PpsBackendInfo *info = NULL;
-	GKeyFile *backend_file = NULL;
+	g_autoptr (GKeyFile) backend_file = NULL;
 
 	backend_file = g_key_file_new ();
 	if (!g_key_file_load_from_file (backend_file, file, G_KEY_FILE_NONE, error))
@@ -76,12 +76,12 @@ _pps_backend_info_new_from_file (const char *file,
 	if (!info->mime_types)
 		goto err;
 
-	g_key_file_free (backend_file);
-
 	return info;
 
 err:
-	g_key_file_free (backend_file);
+	if (info)
+		_pps_backend_info_free (info);
+
 	return NULL;
 }
 
@@ -100,13 +100,11 @@ _pps_backend_info_load_from_dir (const char *path)
 	GList *list = NULL;
 	GDir *dir;
 	const gchar *dirent;
-	GError *error = NULL;
+	g_autoptr (GError) error = NULL;
 
 	dir = g_dir_open (path, 0, &error);
 	if (!dir) {
 		g_warning ("%s", error->message);
-		g_error_free (error);
-
 		return FALSE;
 	}
 
