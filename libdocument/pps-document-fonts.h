@@ -29,7 +29,6 @@
 
 #include <glib-object.h>
 #include <glib.h>
-#include <gtk/gtk.h>
 
 #include "pps-document.h"
 #include "pps-link.h"
