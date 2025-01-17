@@ -159,8 +159,8 @@ pps_document_factory_new_document_for_mime_type (const gchar *mime_type,
 	document = g_object_new (backend_type, NULL);
 
 	g_object_set_data_full (G_OBJECT (document), BACKEND_DATA_KEY,
-	                        _pps_backend_info_ref (info),
-	                        (GDestroyNotify) _pps_backend_info_unref);
+	                        info,
+	                        (GDestroyNotify) _pps_backend_info_free);
 
 	return document;
 }
@@ -269,7 +269,7 @@ _pps_document_factory_init (void)
 void
 _pps_document_factory_shutdown (void)
 {
-	g_clear_list (&pps_backends_list, (GDestroyNotify) _pps_backend_info_unref);
+	g_clear_list (&pps_backends_list, (GDestroyNotify) _pps_backend_info_free);
 
 	g_clear_pointer (&pps_module_hash, g_hash_table_unref);
 	g_clear_pointer (&pps_backends_dir, g_free);

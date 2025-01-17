@@ -24,43 +24,16 @@
 #define PPS_BACKENDS_GROUP "Papers Backend"
 #define PPS_BACKENDS_EXTENSION ".papers-backend"
 
-/*
- * _pps_backend_info_free:
- * @info:
- *
- * Increases refcount of @info by 1.
- */
-PpsBackendInfo *
-_pps_backend_info_ref (PpsBackendInfo *info)
-{
-	g_return_val_if_fail (info != NULL, NULL);
-	g_return_val_if_fail (info->ref_count >= 1, NULL);
-
-	g_atomic_int_inc (&info->ref_count);
-	return info;
-}
-
-/*
- * _pps_backend_info_free:
- * @info:
- *
- * Decreases refcount of @info by 1, and frees @info if the refcount reaches 0.
- */
 void
-_pps_backend_info_unref (PpsBackendInfo *info)
+_pps_backend_info_free (PpsBackendInfo *info)
 {
 	if (info == NULL)
-		return;
-
-	g_return_if_fail (info->ref_count >= 1);
-
-	if (!g_atomic_int_dec_and_test (&info->ref_count))
 		return;
 
 	g_free (info->module_name);
 	g_free (info->type_desc);
 	g_strfreev (info->mime_types);
-	g_slice_free (PpsBackendInfo, info);
+	g_free (info);
 }
 
 /**
@@ -83,8 +56,7 @@ _pps_backend_info_new_from_file (const char *file,
 	if (!g_key_file_load_from_file (backend_file, file, G_KEY_FILE_NONE, error))
 		goto err;
 
-	info = g_slice_new0 (PpsBackendInfo);
-	info->ref_count = 1;
+	info = g_new0 (PpsBackendInfo, 1);
 
 	info->module_name = g_key_file_get_string (backend_file, PPS_BACKENDS_GROUP,
 	                                           "Module", error);
@@ -110,7 +82,6 @@ _pps_backend_info_new_from_file (const char *file,
 
 err:
 	g_key_file_free (backend_file);
-	_pps_backend_info_unref (info);
 	return NULL;
 }
 

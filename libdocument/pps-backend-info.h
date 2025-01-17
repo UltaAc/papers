@@ -30,19 +30,14 @@ G_BEGIN_DECLS
 typedef struct _PpsBackendInfo PpsBackendInfo;
 
 struct _PpsBackendInfo {
-	/* These two fields must be first for API/ABI compat with PpsTypeInfo */
 	gchar *type_desc;
 	gchar **mime_types;
-
-	volatile int ref_count;
 
 	gchar *module_name;
 	gboolean resident;
 };
 
-PpsBackendInfo *_pps_backend_info_ref (PpsBackendInfo *info);
-
-void _pps_backend_info_unref (PpsBackendInfo *info);
+void _pps_backend_info_free (PpsBackendInfo *info);
 
 GList *_pps_backend_info_load_from_dir (const char *path);
 
