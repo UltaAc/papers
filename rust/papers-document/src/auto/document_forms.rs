@@ -3,7 +3,7 @@
 // from ../pps-girs
 // DO NOT EDIT
 
-use crate::{ffi, LinkAction, MappingList, Page};
+use crate::{ffi, FormField, LinkAction, MappingList, Page};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -34,65 +34,136 @@ pub trait DocumentFormsExt: IsA<DocumentForms> + sealed::Sealed + 'static {
         }
     }
 
-    //#[doc(alias = "pps_document_forms_form_field_button_get_state")]
-    //fn form_field_button_get_state(&self, field: /*Ignored*/&FormField) -> bool {
-    //    unsafe { TODO: call ffi:pps_document_forms_form_field_button_get_state() }
-    //}
+    #[doc(alias = "pps_document_forms_form_field_button_get_state")]
+    fn form_field_button_get_state(&self, field: &impl IsA<FormField>) -> bool {
+        unsafe {
+            from_glib(ffi::pps_document_forms_form_field_button_get_state(
+                self.as_ref().to_glib_none().0,
+                field.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 
-    //#[doc(alias = "pps_document_forms_form_field_button_set_state")]
-    //fn form_field_button_set_state(&self, field: /*Ignored*/&FormField, state: bool) {
-    //    unsafe { TODO: call ffi:pps_document_forms_form_field_button_set_state() }
-    //}
+    #[doc(alias = "pps_document_forms_form_field_button_set_state")]
+    fn form_field_button_set_state(&self, field: &impl IsA<FormField>, state: bool) {
+        unsafe {
+            ffi::pps_document_forms_form_field_button_set_state(
+                self.as_ref().to_glib_none().0,
+                field.as_ref().to_glib_none().0,
+                state.into_glib(),
+            );
+        }
+    }
 
-    //#[doc(alias = "pps_document_forms_form_field_choice_get_item")]
-    //fn form_field_choice_get_item(&self, field: /*Ignored*/&FormField, index: i32) -> Option<glib::GString> {
-    //    unsafe { TODO: call ffi:pps_document_forms_form_field_choice_get_item() }
-    //}
+    #[doc(alias = "pps_document_forms_form_field_choice_get_item")]
+    fn form_field_choice_get_item(
+        &self,
+        field: &impl IsA<FormField>,
+        index: i32,
+    ) -> Option<glib::GString> {
+        unsafe {
+            from_glib_full(ffi::pps_document_forms_form_field_choice_get_item(
+                self.as_ref().to_glib_none().0,
+                field.as_ref().to_glib_none().0,
+                index,
+            ))
+        }
+    }
 
-    //#[doc(alias = "pps_document_forms_form_field_choice_get_n_items")]
-    //fn form_field_choice_get_n_items(&self, field: /*Ignored*/&FormField) -> i32 {
-    //    unsafe { TODO: call ffi:pps_document_forms_form_field_choice_get_n_items() }
-    //}
+    #[doc(alias = "pps_document_forms_form_field_choice_get_n_items")]
+    fn form_field_choice_get_n_items(&self, field: &impl IsA<FormField>) -> i32 {
+        unsafe {
+            ffi::pps_document_forms_form_field_choice_get_n_items(
+                self.as_ref().to_glib_none().0,
+                field.as_ref().to_glib_none().0,
+            )
+        }
+    }
 
-    //#[doc(alias = "pps_document_forms_form_field_choice_get_text")]
-    //fn form_field_choice_get_text(&self, field: /*Ignored*/&FormField) -> Option<glib::GString> {
-    //    unsafe { TODO: call ffi:pps_document_forms_form_field_choice_get_text() }
-    //}
+    #[doc(alias = "pps_document_forms_form_field_choice_get_text")]
+    fn form_field_choice_get_text(&self, field: &impl IsA<FormField>) -> Option<glib::GString> {
+        unsafe {
+            from_glib_full(ffi::pps_document_forms_form_field_choice_get_text(
+                self.as_ref().to_glib_none().0,
+                field.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 
-    //#[doc(alias = "pps_document_forms_form_field_choice_is_item_selected")]
-    //fn form_field_choice_is_item_selected(&self, field: /*Ignored*/&FormField, index: i32) -> bool {
-    //    unsafe { TODO: call ffi:pps_document_forms_form_field_choice_is_item_selected() }
-    //}
+    #[doc(alias = "pps_document_forms_form_field_choice_is_item_selected")]
+    fn form_field_choice_is_item_selected(&self, field: &impl IsA<FormField>, index: i32) -> bool {
+        unsafe {
+            from_glib(ffi::pps_document_forms_form_field_choice_is_item_selected(
+                self.as_ref().to_glib_none().0,
+                field.as_ref().to_glib_none().0,
+                index,
+            ))
+        }
+    }
 
-    //#[doc(alias = "pps_document_forms_form_field_choice_select_item")]
-    //fn form_field_choice_select_item(&self, field: /*Ignored*/&FormField, index: i32) {
-    //    unsafe { TODO: call ffi:pps_document_forms_form_field_choice_select_item() }
-    //}
+    #[doc(alias = "pps_document_forms_form_field_choice_select_item")]
+    fn form_field_choice_select_item(&self, field: &impl IsA<FormField>, index: i32) {
+        unsafe {
+            ffi::pps_document_forms_form_field_choice_select_item(
+                self.as_ref().to_glib_none().0,
+                field.as_ref().to_glib_none().0,
+                index,
+            );
+        }
+    }
 
-    //#[doc(alias = "pps_document_forms_form_field_choice_set_text")]
-    //fn form_field_choice_set_text(&self, field: /*Ignored*/&FormField, text: &str) {
-    //    unsafe { TODO: call ffi:pps_document_forms_form_field_choice_set_text() }
-    //}
+    #[doc(alias = "pps_document_forms_form_field_choice_set_text")]
+    fn form_field_choice_set_text(&self, field: &impl IsA<FormField>, text: &str) {
+        unsafe {
+            ffi::pps_document_forms_form_field_choice_set_text(
+                self.as_ref().to_glib_none().0,
+                field.as_ref().to_glib_none().0,
+                text.to_glib_none().0,
+            );
+        }
+    }
 
-    //#[doc(alias = "pps_document_forms_form_field_choice_toggle_item")]
-    //fn form_field_choice_toggle_item(&self, field: /*Ignored*/&FormField, index: i32) {
-    //    unsafe { TODO: call ffi:pps_document_forms_form_field_choice_toggle_item() }
-    //}
+    #[doc(alias = "pps_document_forms_form_field_choice_toggle_item")]
+    fn form_field_choice_toggle_item(&self, field: &impl IsA<FormField>, index: i32) {
+        unsafe {
+            ffi::pps_document_forms_form_field_choice_toggle_item(
+                self.as_ref().to_glib_none().0,
+                field.as_ref().to_glib_none().0,
+                index,
+            );
+        }
+    }
 
-    //#[doc(alias = "pps_document_forms_form_field_choice_unselect_all")]
-    //fn form_field_choice_unselect_all(&self, field: /*Ignored*/&FormField) {
-    //    unsafe { TODO: call ffi:pps_document_forms_form_field_choice_unselect_all() }
-    //}
+    #[doc(alias = "pps_document_forms_form_field_choice_unselect_all")]
+    fn form_field_choice_unselect_all(&self, field: &impl IsA<FormField>) {
+        unsafe {
+            ffi::pps_document_forms_form_field_choice_unselect_all(
+                self.as_ref().to_glib_none().0,
+                field.as_ref().to_glib_none().0,
+            );
+        }
+    }
 
-    //#[doc(alias = "pps_document_forms_form_field_text_get_text")]
-    //fn form_field_text_get_text(&self, field: /*Ignored*/&FormField) -> Option<glib::GString> {
-    //    unsafe { TODO: call ffi:pps_document_forms_form_field_text_get_text() }
-    //}
+    #[doc(alias = "pps_document_forms_form_field_text_get_text")]
+    fn form_field_text_get_text(&self, field: &impl IsA<FormField>) -> Option<glib::GString> {
+        unsafe {
+            from_glib_full(ffi::pps_document_forms_form_field_text_get_text(
+                self.as_ref().to_glib_none().0,
+                field.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 
-    //#[doc(alias = "pps_document_forms_form_field_text_set_text")]
-    //fn form_field_text_set_text(&self, field: /*Ignored*/&FormField, text: &str) {
-    //    unsafe { TODO: call ffi:pps_document_forms_form_field_text_set_text() }
-    //}
+    #[doc(alias = "pps_document_forms_form_field_text_set_text")]
+    fn form_field_text_set_text(&self, field: &impl IsA<FormField>, text: &str) {
+        unsafe {
+            ffi::pps_document_forms_form_field_text_set_text(
+                self.as_ref().to_glib_none().0,
+                field.as_ref().to_glib_none().0,
+                text.to_glib_none().0,
+            );
+        }
+    }
 
     #[doc(alias = "pps_document_forms_get_form_fields")]
     #[doc(alias = "get_form_fields")]

@@ -66,6 +66,9 @@ pub use self::document_text::DocumentText;
 mod font_description;
 pub use self::font_description::FontDescription;
 
+mod form_field;
+pub use self::form_field::FormField;
+
 mod image;
 pub use self::image::Image;
 
@@ -86,6 +89,9 @@ pub use self::outlines::Outlines;
 
 mod page;
 pub use self::page::Page;
+
+mod render_context;
+pub use self::render_context::RenderContext;
 
 mod selection;
 pub use self::selection::Selection;
@@ -128,6 +134,7 @@ mod enums;
 pub use self::enums::AnnotationTextIcon;
 pub use self::enums::AnnotationTextMarkupType;
 pub use self::enums::AnnotationType;
+pub use self::enums::AnnotationsOverMarkup;
 pub use self::enums::CertificateStatus;
 pub use self::enums::CompressionType;
 pub use self::enums::DocumentContainsJS;
@@ -144,6 +151,7 @@ pub use self::enums::TransitionEffectType;
 mod flags;
 pub use self::flags::AnnotationsSaveMask;
 pub use self::flags::DocumentInfoFields;
+pub use self::flags::DocumentLoadFlags;
 pub use self::flags::DocumentPermissions;
 pub use self::flags::FindOptions;
 
@@ -170,6 +178,7 @@ pub(crate) mod traits {
     pub use super::image::ImageExt;
     pub use super::layer::LayerExt;
     pub use super::outlines::OutlinesExt;
+    pub use super::render_context::RenderContextExt;
     pub use super::selection::SelectionExt;
     pub use super::signature::SignatureExt;
     pub use super::transition_effect::TransitionEffectExt;

@@ -15,7 +15,8 @@ rustdoc-args = ["--cfg", "docsrs"]
 
 [features]
 default = ["v48"]
-v47 = ["ffi/v47"]
+v42 = ["ffi/v42"]
+v47 = ["ffi/v47", "v42"]
 v48 = ["ffi/v48", "v47"]
 
 [dependencies]
@@ -25,6 +26,9 @@ bitflags = "2.2"
 [dependencies.ffi]
 package = "papers-document-sys"
 path = "./sys"
+
+[dependencies.cairo-rs]
+version = "0.20"
 
 [dependencies.glib]
 version = "0.20"

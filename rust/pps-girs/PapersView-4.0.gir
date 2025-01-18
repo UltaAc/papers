@@ -42,16 +42,16 @@ and/or use gtk-doc annotations.  -->
       </constructor>
       <method name="add_annotation_sync"
               c:identifier="pps_annotations_context_add_annotation_sync"
-              version="48.0"
-              introspectable="0">
+              version="48.0">
         <doc xml:space="preserve"
              filename="libview/context/pps-annotations-context.c"
-             line="261">Add an annotation based on the provided information.
-
-Returns (transfer none): the newly created annotation</doc>
+             line="261">Add an annotation based on the provided information.</doc>
         <source-position filename="libview/context/pps-annotations-context.h"
                          line="52"/>
-        <return-value>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="libview/context/pps-annotations-context.c"
+               line="274">the newly created annotation</doc>
           <type name="PapersDocument.Annotation" c:type="PpsAnnotation*"/>
         </return-value>
         <parameters>

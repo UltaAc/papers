@@ -240,6 +240,92 @@ impl From<DocumentInfoFields> for glib::Value {
 
 bitflags! {
     #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+    #[doc(alias = "PpsDocumentLoadFlags")]
+    pub struct DocumentLoadFlags: u32 {
+        #[doc(alias = "PPS_DOCUMENT_LOAD_FLAG_NONE")]
+        const NONE = ffi::PPS_DOCUMENT_LOAD_FLAG_NONE as _;
+        #[doc(alias = "PPS_DOCUMENT_LOAD_FLAG_NO_CACHE")]
+        const NO_CACHE = ffi::PPS_DOCUMENT_LOAD_FLAG_NO_CACHE as _;
+    }
+}
+
+#[doc(hidden)]
+impl IntoGlib for DocumentLoadFlags {
+    type GlibType = ffi::PpsDocumentLoadFlags;
+
+    #[inline]
+    fn into_glib(self) -> ffi::PpsDocumentLoadFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::PpsDocumentLoadFlags> for DocumentLoadFlags {
+    #[inline]
+    unsafe fn from_glib(value: ffi::PpsDocumentLoadFlags) -> Self {
+        skip_assert_initialized!();
+        Self::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for DocumentLoadFlags {
+    #[inline]
+    #[doc(alias = "pps_document_load_flags_get_type")]
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::pps_document_load_flags_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for DocumentLoadFlags {
+    type ParamSpec = glib::ParamSpecFlags;
+    type SetValue = Self;
+    type BuilderFn = fn(&str) -> glib::ParamSpecFlagsBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder
+    }
+}
+
+impl glib::value::ValueType for DocumentLoadFlags {
+    type Type = Self;
+}
+
+unsafe impl<'a> glib::value::FromValue<'a> for DocumentLoadFlags {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    #[inline]
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        skip_assert_initialized!();
+        from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for DocumentLoadFlags {
+    #[inline]
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    #[inline]
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+impl From<DocumentLoadFlags> for glib::Value {
+    #[inline]
+    fn from(v: DocumentLoadFlags) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
+bitflags! {
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
     #[doc(alias = "PpsDocumentPermissions")]
     pub struct DocumentPermissions: u32 {
         #[doc(alias = "PPS_DOCUMENT_PERMISSIONS_OK_TO_PRINT")]

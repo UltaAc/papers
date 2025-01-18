@@ -352,6 +352,110 @@ impl From<AnnotationType> for glib::Value {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
+#[doc(alias = "PpsAnnotationsOverMarkup")]
+pub enum AnnotationsOverMarkup {
+    #[doc(alias = "PPS_ANNOTATION_OVER_MARKUP_NOT_IMPLEMENTED")]
+    NotImplemented,
+    #[doc(alias = "PPS_ANNOTATION_OVER_MARKUP_UNKNOWN")]
+    Unknown,
+    #[doc(alias = "PPS_ANNOTATION_OVER_MARKUP_YES")]
+    Yes,
+    #[doc(alias = "PPS_ANNOTATION_OVER_MARKUP_NOT")]
+    Not,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl IntoGlib for AnnotationsOverMarkup {
+    type GlibType = ffi::PpsAnnotationsOverMarkup;
+
+    #[inline]
+    fn into_glib(self) -> ffi::PpsAnnotationsOverMarkup {
+        match self {
+            Self::NotImplemented => ffi::PPS_ANNOTATION_OVER_MARKUP_NOT_IMPLEMENTED,
+            Self::Unknown => ffi::PPS_ANNOTATION_OVER_MARKUP_UNKNOWN,
+            Self::Yes => ffi::PPS_ANNOTATION_OVER_MARKUP_YES,
+            Self::Not => ffi::PPS_ANNOTATION_OVER_MARKUP_NOT,
+            Self::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::PpsAnnotationsOverMarkup> for AnnotationsOverMarkup {
+    #[inline]
+    unsafe fn from_glib(value: ffi::PpsAnnotationsOverMarkup) -> Self {
+        skip_assert_initialized!();
+
+        match value {
+            ffi::PPS_ANNOTATION_OVER_MARKUP_NOT_IMPLEMENTED => Self::NotImplemented,
+            ffi::PPS_ANNOTATION_OVER_MARKUP_UNKNOWN => Self::Unknown,
+            ffi::PPS_ANNOTATION_OVER_MARKUP_YES => Self::Yes,
+            ffi::PPS_ANNOTATION_OVER_MARKUP_NOT => Self::Not,
+            value => Self::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for AnnotationsOverMarkup {
+    #[inline]
+    #[doc(alias = "pps_annotations_over_markup_get_type")]
+    fn static_type() -> glib::Type {
+        unsafe { from_glib(ffi::pps_annotations_over_markup_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for AnnotationsOverMarkup {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
+    }
+}
+
+impl glib::value::ValueType for AnnotationsOverMarkup {
+    type Type = Self;
+}
+
+unsafe impl<'a> glib::value::FromValue<'a> for AnnotationsOverMarkup {
+    type Checker = glib::value::GenericValueTypeChecker<Self>;
+
+    #[inline]
+    unsafe fn from_value(value: &'a glib::Value) -> Self {
+        skip_assert_initialized!();
+        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl ToValue for AnnotationsOverMarkup {
+    #[inline]
+    fn to_value(&self) -> glib::Value {
+        let mut value = glib::Value::for_value_type::<Self>();
+        unsafe {
+            glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+        }
+        value
+    }
+
+    #[inline]
+    fn value_type(&self) -> glib::Type {
+        Self::static_type()
+    }
+}
+
+impl From<AnnotationsOverMarkup> for glib::Value {
+    #[inline]
+    fn from(v: AnnotationsOverMarkup) -> Self {
+        skip_assert_initialized!();
+        ToValue::to_value(&v)
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
+#[non_exhaustive]
 #[doc(alias = "PpsCertificateStatus")]
 pub enum CertificateStatus {
     #[doc(alias = "PPS_CERTIFICATE_STATUS_TRUSTED")]

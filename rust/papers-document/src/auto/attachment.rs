@@ -23,10 +23,11 @@ impl Attachment {
     //    unsafe { TODO: call ffi:pps_attachment_new() }
     //}
 
-    //#[doc(alias = "pps_attachment_error_quark")]
-    //pub fn error_quark() -> /*Ignored*/glib::Quark {
-    //    unsafe { TODO: call ffi:pps_attachment_error_quark() }
-    //}
+    #[doc(alias = "pps_attachment_error_quark")]
+    pub fn error_quark() -> glib::Quark {
+        assert_initialized_main_thread!();
+        unsafe { from_glib(ffi::pps_attachment_error_quark()) }
+    }
 }
 
 mod sealed {

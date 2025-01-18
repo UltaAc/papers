@@ -36,11 +36,16 @@ pub trait DocumentTextExt: IsA<DocumentText> + sealed::Sealed + 'static {
         }
     }
 
-    //#[doc(alias = "pps_document_text_get_text_attrs")]
-    //#[doc(alias = "get_text_attrs")]
-    //fn text_attrs(&self, page: &impl IsA<Page>) -> /*Ignored*/Option<pango::AttrList> {
-    //    unsafe { TODO: call ffi:pps_document_text_get_text_attrs() }
-    //}
+    #[doc(alias = "pps_document_text_get_text_attrs")]
+    #[doc(alias = "get_text_attrs")]
+    fn text_attrs(&self, page: &impl IsA<Page>) -> Option<pango::AttrList> {
+        unsafe {
+            from_glib_full(ffi::pps_document_text_get_text_attrs(
+                self.as_ref().to_glib_none().0,
+                page.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 
     #[cfg(feature = "v47")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v47")))]
@@ -79,11 +84,16 @@ pub trait DocumentTextExt: IsA<DocumentText> + sealed::Sealed + 'static {
         }
     }
 
-    //#[doc(alias = "pps_document_text_get_text_mapping")]
-    //#[doc(alias = "get_text_mapping")]
-    //fn text_mapping(&self, page: &impl IsA<Page>) -> /*Ignored*/Option<cairo::Region> {
-    //    unsafe { TODO: call ffi:pps_document_text_get_text_mapping() }
-    //}
+    #[doc(alias = "pps_document_text_get_text_mapping")]
+    #[doc(alias = "get_text_mapping")]
+    fn text_mapping(&self, page: &impl IsA<Page>) -> Option<cairo::Region> {
+        unsafe {
+            from_glib_full(ffi::pps_document_text_get_text_mapping(
+                self.as_ref().to_glib_none().0,
+                page.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 }
 
 impl<O: IsA<DocumentText>> DocumentTextExt for O {}

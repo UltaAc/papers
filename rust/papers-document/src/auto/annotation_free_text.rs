@@ -37,12 +37,14 @@ impl AnnotationFreeText {
         }
     }
 
-    //#[cfg(feature = "v48")]
-    //#[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
-    //#[doc(alias = "pps_annotation_free_text_auto_resize")]
-    //pub fn auto_resize(&self, ctx: /*Ignored*/&pango::Context) {
-    //    unsafe { TODO: call ffi:pps_annotation_free_text_auto_resize() }
-    //}
+    #[cfg(feature = "v48")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]
+    #[doc(alias = "pps_annotation_free_text_auto_resize")]
+    pub fn auto_resize(&self, ctx: &pango::Context) {
+        unsafe {
+            ffi::pps_annotation_free_text_auto_resize(self.to_glib_none().0, ctx.to_glib_none().0);
+        }
+    }
 
     #[cfg(feature = "v48")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v48")))]

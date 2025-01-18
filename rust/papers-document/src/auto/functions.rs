@@ -131,12 +131,6 @@ pub fn rect_cmp(a: &mut Rectangle, b: &mut Rectangle) -> i32 {
     unsafe { ffi::pps_rect_cmp(a.to_glib_none_mut().0, b.to_glib_none_mut().0) }
 }
 
-#[doc(alias = "pps_should_use_portal")]
-pub fn should_use_portal() -> bool {
-    assert_initialized_main_thread!();
-    unsafe { from_glib(ffi::pps_should_use_portal()) }
-}
-
 #[doc(alias = "pps_shutdown")]
 pub fn shutdown() {
     assert_initialized_main_thread!();

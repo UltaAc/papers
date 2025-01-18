@@ -3,7 +3,7 @@
 // from ../pps-girs
 // DO NOT EDIT
 
-use crate::{ffi, Annotation, AnnotationsSaveMask, MappingList, Page};
+use crate::{ffi, Annotation, AnnotationsOverMarkup, AnnotationsSaveMask, MappingList, Page};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -84,10 +84,17 @@ pub trait DocumentAnnotationsExt: IsA<DocumentAnnotations> + sealed::Sealed + 's
         }
     }
 
-    //#[doc(alias = "pps_document_annotations_over_markup")]
-    //fn over_markup(&self, annot: &impl IsA<Annotation>, x: f64, y: f64) -> /*Ignored*/AnnotationsOverMarkup {
-    //    unsafe { TODO: call ffi:pps_document_annotations_over_markup() }
-    //}
+    #[doc(alias = "pps_document_annotations_over_markup")]
+    fn over_markup(&self, annot: &impl IsA<Annotation>, x: f64, y: f64) -> AnnotationsOverMarkup {
+        unsafe {
+            from_glib(ffi::pps_document_annotations_over_markup(
+                self.as_ref().to_glib_none().0,
+                annot.as_ref().to_glib_none().0,
+                x,
+                y,
+            ))
+        }
+    }
 
     #[doc(alias = "pps_document_annotations_remove_annotation")]
     fn remove_annotation(&self, annot: &impl IsA<Annotation>) {

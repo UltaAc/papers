@@ -24,6 +24,7 @@ generate = [
     "PapersDocument.AnnotationAttachment",
     "PapersDocument.AnnotationFreeText",
     "PapersDocument.AnnotationMarkup",
+    "PapersDocument.AnnotationsOverMarkup",
     "PapersDocument.AnnotationsSaveMask",
     "PapersDocument.AnnotationText",
     "PapersDocument.AnnotationTextIcon",
@@ -48,6 +49,7 @@ generate = [
     "PapersDocument.DocumentLayers",
     "PapersDocument.DocumentLicense",
     "PapersDocument.DocumentLinks",
+    "PapersDocument.DocumentLoadFlags",
     "PapersDocument.DocumentMode",
     "PapersDocument.DocumentPermissions",
     "PapersDocument.DocumentSecurity",
@@ -55,6 +57,7 @@ generate = [
     "PapersDocument.DocumentText",
     "PapersDocument.FindOptions",
     "PapersDocument.FindRectangle",
+    "PapersDocument.FormField",
     "PapersDocument.FontDescription",
     "PapersDocument.Image",
     "PapersDocument.Layer",
@@ -66,6 +69,7 @@ generate = [
     "PapersDocument.MappingList",
     "PapersDocument.Outlines",
     "PapersDocument.Page",
+    "PapersDocument.RenderContext",
     "PapersDocument.Selection",
     "PapersDocument.SelectionStyle",
     "PapersDocument.Signature",
@@ -78,10 +82,13 @@ generate = [
 ]
 
 manual = [
+    "cairo.Region",
     "Gdk.RGBA",
+    "Gdk.Texture",
     "GdkPixbuf.Pixbuf",
     "GLib.DateTime",
     "GLib.Error",
+    "GLib.Quark",
     "Gio.AppLaunchContext",
     "Gio.Cancellable",
     "Gio.File",
@@ -89,6 +96,8 @@ manual = [
     "GObject.Object",
     "Gtk.FileDialog",
     "Gtk.Widget",
+    "Pango.AttrList",
+    "Pango.Context",
     "Pango.FontDescription",
 ]
 

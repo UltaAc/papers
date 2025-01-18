@@ -2060,7 +2060,7 @@ equal to the required one, and &lt;literal&gt;0&lt;/literal&gt; otherwise.</doc>
                 c:identifier="pps_document_factory_add_filters">
         <doc xml:space="preserve"
              filename="libdocument/pps-document-factory.c"
-             line="480">Adds some file filters to @dialog.
+             line="476">Adds some file filters to @dialog.
 
 Always add a "All documents" format.
 
@@ -2077,7 +2077,7 @@ can handle.</doc>
           <parameter name="dialog" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-factory.c"
-                 line="482">a #GtkFileDialog</doc>
+                 line="478">a #GtkFileDialog</doc>
             <type name="Gtk.FileDialog" c:type="GtkFileDialog*"/>
           </parameter>
           <parameter name="document"
@@ -2086,7 +2086,7 @@ can handle.</doc>
                      allow-none="1">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-factory.c"
-                 line="483">a #PpsDocument, or %NULL</doc>
+                 line="479">a #PpsDocument, or %NULL</doc>
             <type name="Document" c:type="PpsDocument*"/>
           </parameter>
         </parameters>
@@ -2096,7 +2096,7 @@ can handle.</doc>
                 throws="1">
         <doc xml:space="preserve"
              filename="libdocument/pps-document-factory.c"
-             line="387">Creates a #PpsDocument for the document at @uri; or, if no backend handling
+             line="383">Creates a #PpsDocument for the document at @uri; or, if no backend handling
 the document's type is found, or an error occurred on opening the document,
 returns %NULL and fills in @error.
 If the document is encrypted, it is returned but also @error is set to
@@ -2106,14 +2106,14 @@ If the document is encrypted, it is returned but also @error is set to
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-factory.c"
-               line="398">a new #PpsDocument, or %NULL</doc>
+               line="394">a new #PpsDocument, or %NULL</doc>
           <type name="Document" c:type="PpsDocument*"/>
         </return-value>
         <parameters>
           <parameter name="uri" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-factory.c"
-                 line="389">an URI</doc>
+                 line="385">an URI</doc>
             <type name="utf8" c:type="const char*"/>
           </parameter>
         </parameters>
@@ -2124,7 +2124,7 @@ If the document is encrypted, it is returned but also @error is set to
                 throws="1">
         <doc xml:space="preserve"
              filename="libdocument/pps-document-factory.c"
-             line="408">Synchronously creates a #PpsDocument for the document from @fd using the backend
+             line="404">Synchronously creates a #PpsDocument for the document from @fd using the backend
 for loading documents of type @mime_type; or, if the backend does not support
 loading from file descriptors, or an error occurred on opening the document,
 returns %NULL and fills in @error.
@@ -2142,26 +2142,26 @@ is destroyed, or if this function returns %NULL.</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-factory.c"
-               line="429">a new #PpsDocument, or %NULL</doc>
+               line="425">a new #PpsDocument, or %NULL</doc>
           <type name="Document" c:type="PpsDocument*"/>
         </return-value>
         <parameters>
           <parameter name="fd" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-factory.c"
-                 line="410">a file descriptor</doc>
+                 line="406">a file descriptor</doc>
             <type name="gint" c:type="int"/>
           </parameter>
           <parameter name="mime_type" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-factory.c"
-                 line="411">the mime type</doc>
+                 line="407">the mime type</doc>
             <type name="utf8" c:type="const char*"/>
           </parameter>
           <parameter name="flags" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-factory.c"
-                 line="412">flags from #PpsDocumentLoadFlags</doc>
+                 line="408">flags from #PpsDocumentLoadFlags</doc>
             <type name="DocumentLoadFlags" c:type="PpsDocumentLoadFlags"/>
           </parameter>
         </parameters>
@@ -2171,7 +2171,7 @@ is destroyed, or if this function returns %NULL.</doc>
                 throws="1">
         <doc xml:space="preserve"
              filename="libdocument/pps-document-factory.c"
-             line="278">Creates a #PpsDocument for the document at @uri; or, if no backend handling
+             line="274">Creates a #PpsDocument for the document at @uri; or, if no backend handling
 the document's type is found, or an error occurred on opening the document,
 returns %NULL and fills in @error.
 If the document is encrypted, it is returned but also @error is set to
@@ -2181,20 +2181,20 @@ If the document is encrypted, it is returned but also @error is set to
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-factory.c"
-               line="290">a new #PpsDocument, or %NULL</doc>
+               line="286">a new #PpsDocument, or %NULL</doc>
           <type name="Document" c:type="PpsDocument*"/>
         </return-value>
         <parameters>
           <parameter name="uri" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-factory.c"
-                 line="280">an URI</doc>
+                 line="276">an URI</doc>
             <type name="utf8" c:type="const char*"/>
           </parameter>
           <parameter name="flags" transfer-ownership="none">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-factory.c"
-                 line="281">flags from #PpsDocumentLoadFlags</doc>
+                 line="277">flags from #PpsDocumentLoadFlags</doc>
             <type name="DocumentLoadFlags" c:type="PpsDocumentLoadFlags"/>
           </parameter>
         </parameters>
@@ -4432,10 +4432,10 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
                glib:type-name="PpsDocumentFonts"
                glib:get-type="pps_document_fonts_get_type"
                glib:type-struct="DocumentFontsInterface">
-      <source-position filename="libdocument/pps-document-fonts.h" line="58"/>
+      <source-position filename="libdocument/pps-document-fonts.h" line="57"/>
       <virtual-method name="get_fonts_summary" invoker="get_fonts_summary">
         <source-position filename="libdocument/pps-document-fonts.h"
-                         line="57"/>
+                         line="56"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -4447,7 +4447,7 @@ used to load the document and the URI, e.g. #GIOError, #GFileError, and
       </virtual-method>
       <virtual-method name="get_model" invoker="get_model">
         <source-position filename="libdocument/pps-document-fonts.h"
-                         line="56"/>
+                         line="55"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-fonts.c"
@@ -4471,7 +4471,7 @@ interface</doc>
 To get the results of the scan, use pps_document_fonts_fill_model and
 pps_document_fonts_get_fonts_summary</doc>
         <source-position filename="libdocument/pps-document-fonts.h"
-                         line="55"/>
+                         line="54"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -4488,7 +4488,7 @@ interface</doc>
       <method name="get_fonts_summary"
               c:identifier="pps_document_fonts_get_fonts_summary">
         <source-position filename="libdocument/pps-document-fonts.h"
-                         line="65"/>
+                         line="64"/>
         <return-value transfer-ownership="none">
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -4500,7 +4500,7 @@ interface</doc>
       </method>
       <method name="get_model" c:identifier="pps_document_fonts_get_model">
         <source-position filename="libdocument/pps-document-fonts.h"
-                         line="63"/>
+                         line="62"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-fonts.c"
@@ -4524,7 +4524,7 @@ interface</doc>
 To get the results of the scan, use pps_document_fonts_fill_model and
 pps_document_fonts_get_fonts_summary</doc>
         <source-position filename="libdocument/pps-document-fonts.h"
-                         line="61"/>
+                         line="60"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -4542,14 +4542,14 @@ interface</doc>
     <record name="DocumentFontsInterface"
             c:type="PpsDocumentFontsInterface"
             glib:is-gtype-struct-for="DocumentFonts">
-      <source-position filename="libdocument/pps-document-fonts.h" line="58"/>
+      <source-position filename="libdocument/pps-document-fonts.h" line="57"/>
       <field name="base_iface">
         <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
       </field>
       <field name="scan">
         <callback name="scan">
           <source-position filename="libdocument/pps-document-fonts.h"
-                           line="55"/>
+                           line="54"/>
           <return-value transfer-ownership="none">
             <type name="none" c:type="void"/>
           </return-value>
@@ -4567,7 +4567,7 @@ interface</doc>
       <field name="get_model">
         <callback name="get_model">
           <source-position filename="libdocument/pps-document-fonts.h"
-                           line="56"/>
+                           line="55"/>
           <return-value transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-fonts.c"
@@ -4588,7 +4588,7 @@ interface</doc>
       <field name="get_fonts_summary">
         <callback name="get_fonts_summary">
           <source-position filename="libdocument/pps-document-fonts.h"
-                           line="57"/>
+                           line="56"/>
           <return-value transfer-ownership="none">
             <type name="utf8" c:type="const gchar*"/>
           </return-value>
@@ -6247,10 +6247,10 @@ interface</doc>
                glib:type-name="PpsDocumentLayers"
                glib:get-type="pps_document_layers_get_type"
                glib:type-struct="DocumentLayersInterface">
-      <source-position filename="libdocument/pps-document-layers.h" line="64"/>
+      <source-position filename="libdocument/pps-document-layers.h" line="63"/>
       <virtual-method name="get_layers" invoker="get_layers">
         <source-position filename="libdocument/pps-document-layers.h"
-                         line="56"/>
+                         line="55"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-layers.c"
@@ -6268,7 +6268,7 @@ interface</doc>
       </virtual-method>
       <virtual-method name="has_layers" invoker="has_layers">
         <source-position filename="libdocument/pps-document-layers.h"
-                         line="55"/>
+                         line="54"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -6280,7 +6280,7 @@ interface</doc>
       </virtual-method>
       <virtual-method name="hide_layer" invoker="hide_layer">
         <source-position filename="libdocument/pps-document-layers.h"
-                         line="60"/>
+                         line="59"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -6295,7 +6295,7 @@ interface</doc>
       </virtual-method>
       <virtual-method name="layer_is_visible" invoker="layer_is_visible">
         <source-position filename="libdocument/pps-document-layers.h"
-                         line="62"/>
+                         line="61"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -6310,7 +6310,7 @@ interface</doc>
       </virtual-method>
       <virtual-method name="show_layer" invoker="show_layer">
         <source-position filename="libdocument/pps-document-layers.h"
-                         line="58"/>
+                         line="57"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -6325,7 +6325,7 @@ interface</doc>
       </virtual-method>
       <method name="get_layers" c:identifier="pps_document_layers_get_layers">
         <source-position filename="libdocument/pps-document-layers.h"
-                         line="69"/>
+                         line="68"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-layers.c"
@@ -6343,7 +6343,7 @@ interface</doc>
       </method>
       <method name="has_layers" c:identifier="pps_document_layers_has_layers">
         <source-position filename="libdocument/pps-document-layers.h"
-                         line="67"/>
+                         line="66"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -6355,7 +6355,7 @@ interface</doc>
       </method>
       <method name="hide_layer" c:identifier="pps_document_layers_hide_layer">
         <source-position filename="libdocument/pps-document-layers.h"
-                         line="74"/>
+                         line="73"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -6371,7 +6371,7 @@ interface</doc>
       <method name="layer_is_visible"
               c:identifier="pps_document_layers_layer_is_visible">
         <source-position filename="libdocument/pps-document-layers.h"
-                         line="77"/>
+                         line="76"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -6386,7 +6386,7 @@ interface</doc>
       </method>
       <method name="show_layer" c:identifier="pps_document_layers_show_layer">
         <source-position filename="libdocument/pps-document-layers.h"
-                         line="71"/>
+                         line="70"/>
         <return-value transfer-ownership="none">
           <type name="none" c:type="void"/>
         </return-value>
@@ -6403,14 +6403,14 @@ interface</doc>
     <record name="DocumentLayersInterface"
             c:type="PpsDocumentLayersInterface"
             glib:is-gtype-struct-for="DocumentLayers">
-      <source-position filename="libdocument/pps-document-layers.h" line="64"/>
+      <source-position filename="libdocument/pps-document-layers.h" line="63"/>
       <field name="base_iface">
         <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
       </field>
       <field name="has_layers">
         <callback name="has_layers">
           <source-position filename="libdocument/pps-document-layers.h"
-                           line="55"/>
+                           line="54"/>
           <return-value transfer-ownership="none">
             <type name="gboolean" c:type="gboolean"/>
           </return-value>
@@ -6424,7 +6424,7 @@ interface</doc>
       <field name="get_layers">
         <callback name="get_layers">
           <source-position filename="libdocument/pps-document-layers.h"
-                           line="56"/>
+                           line="55"/>
           <return-value transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-layers.c"
@@ -6444,7 +6444,7 @@ interface</doc>
       <field name="show_layer">
         <callback name="show_layer">
           <source-position filename="libdocument/pps-document-layers.h"
-                           line="58"/>
+                           line="57"/>
           <return-value transfer-ownership="none">
             <type name="none" c:type="void"/>
           </return-value>
@@ -6461,7 +6461,7 @@ interface</doc>
       <field name="hide_layer">
         <callback name="hide_layer">
           <source-position filename="libdocument/pps-document-layers.h"
-                           line="60"/>
+                           line="59"/>
           <return-value transfer-ownership="none">
             <type name="none" c:type="void"/>
           </return-value>
@@ -6478,7 +6478,7 @@ interface</doc>
       <field name="layer_is_visible">
         <callback name="layer_is_visible">
           <source-position filename="libdocument/pps-document-layers.h"
-                           line="62"/>
+                           line="61"/>
           <return-value transfer-ownership="none">
             <type name="gboolean" c:type="gboolean"/>
           </return-value>
@@ -6660,10 +6660,10 @@ interface</doc>
                glib:type-name="PpsDocumentLinks"
                glib:get-type="pps_document_links_get_type"
                glib:type-struct="DocumentLinksInterface">
-      <source-position filename="libdocument/pps-document-links.h" line="66"/>
+      <source-position filename="libdocument/pps-document-links.h" line="65"/>
       <virtual-method name="find_link_dest" invoker="find_link_dest">
         <source-position filename="libdocument/pps-document-links.h"
-                         line="62"/>
+                         line="61"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-links.c"
@@ -6687,7 +6687,7 @@ interface</doc>
       </virtual-method>
       <virtual-method name="find_link_page" invoker="find_link_page">
         <source-position filename="libdocument/pps-document-links.h"
-                         line="64"/>
+                         line="63"/>
         <return-value transfer-ownership="none">
           <type name="gint" c:type="gint"/>
         </return-value>
@@ -6702,7 +6702,7 @@ interface</doc>
       </virtual-method>
       <virtual-method name="get_links" invoker="get_links">
         <source-position filename="libdocument/pps-document-links.h"
-                         line="60"/>
+                         line="59"/>
         <return-value transfer-ownership="full">
           <type name="MappingList" c:type="PpsMappingList*"/>
         </return-value>
@@ -6717,7 +6717,7 @@ interface</doc>
       </virtual-method>
       <virtual-method name="get_links_model" invoker="get_links_model">
         <source-position filename="libdocument/pps-document-links.h"
-                         line="59"/>
+                         line="58"/>
         <return-value transfer-ownership="full" nullable="1">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-links.c"
@@ -6735,7 +6735,7 @@ interface</doc>
       </virtual-method>
       <virtual-method name="has_document_links" invoker="has_document_links">
         <source-position filename="libdocument/pps-document-links.h"
-                         line="58"/>
+                         line="57"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -6748,7 +6748,7 @@ interface</doc>
       <method name="find_link_dest"
               c:identifier="pps_document_links_find_link_dest">
         <source-position filename="libdocument/pps-document-links.h"
-                         line="77"/>
+                         line="76"/>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-links.c"
@@ -6773,7 +6773,7 @@ interface</doc>
       <method name="find_link_page"
               c:identifier="pps_document_links_find_link_page">
         <source-position filename="libdocument/pps-document-links.h"
-                         line="80"/>
+                         line="79"/>
         <return-value transfer-ownership="none">
           <type name="gint" c:type="gint"/>
         </return-value>
@@ -6789,7 +6789,7 @@ interface</doc>
       <method name="get_dest_page"
               c:identifier="pps_document_links_get_dest_page">
         <source-position filename="libdocument/pps-document-links.h"
-                         line="83"/>
+                         line="82"/>
         <return-value transfer-ownership="none">
           <type name="gint" c:type="gint"/>
         </return-value>
@@ -6805,7 +6805,7 @@ interface</doc>
       <method name="get_dest_page_label"
               c:identifier="pps_document_links_get_dest_page_label">
         <source-position filename="libdocument/pps-document-links.h"
-                         line="86"/>
+                         line="85"/>
         <return-value transfer-ownership="full">
           <type name="utf8" c:type="gchar*"/>
         </return-value>
@@ -6821,7 +6821,7 @@ interface</doc>
       <method name="get_link_page"
               c:identifier="pps_document_links_get_link_page">
         <source-position filename="libdocument/pps-document-links.h"
-                         line="89"/>
+                         line="88"/>
         <return-value transfer-ownership="none">
           <type name="gint" c:type="gint"/>
         </return-value>
@@ -6837,7 +6837,7 @@ interface</doc>
       <method name="get_link_page_label"
               c:identifier="pps_document_links_get_link_page_label">
         <source-position filename="libdocument/pps-document-links.h"
-                         line="92"/>
+                         line="91"/>
         <return-value transfer-ownership="full">
           <type name="utf8" c:type="gchar*"/>
         </return-value>
@@ -6852,7 +6852,7 @@ interface</doc>
       </method>
       <method name="get_links" c:identifier="pps_document_links_get_links">
         <source-position filename="libdocument/pps-document-links.h"
-                         line="74"/>
+                         line="73"/>
         <return-value transfer-ownership="full">
           <type name="MappingList" c:type="PpsMappingList*"/>
         </return-value>
@@ -6868,7 +6868,7 @@ interface</doc>
       <method name="get_links_model"
               c:identifier="pps_document_links_get_links_model">
         <source-position filename="libdocument/pps-document-links.h"
-                         line="71"/>
+                         line="70"/>
         <return-value transfer-ownership="full" nullable="1">
           <doc xml:space="preserve"
                filename="libdocument/pps-document-links.c"
@@ -6887,7 +6887,7 @@ interface</doc>
       <method name="has_document_links"
               c:identifier="pps_document_links_has_document_links">
         <source-position filename="libdocument/pps-document-links.h"
-                         line="69"/>
+                         line="68"/>
         <return-value transfer-ownership="none">
           <type name="gboolean" c:type="gboolean"/>
         </return-value>
@@ -6901,14 +6901,14 @@ interface</doc>
     <record name="DocumentLinksInterface"
             c:type="PpsDocumentLinksInterface"
             glib:is-gtype-struct-for="DocumentLinks">
-      <source-position filename="libdocument/pps-document-links.h" line="66"/>
+      <source-position filename="libdocument/pps-document-links.h" line="65"/>
       <field name="base_iface">
         <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
       </field>
       <field name="has_document_links">
         <callback name="has_document_links">
           <source-position filename="libdocument/pps-document-links.h"
-                           line="58"/>
+                           line="57"/>
           <return-value transfer-ownership="none">
             <type name="gboolean" c:type="gboolean"/>
           </return-value>
@@ -6922,7 +6922,7 @@ interface</doc>
       <field name="get_links_model">
         <callback name="get_links_model">
           <source-position filename="libdocument/pps-document-links.h"
-                           line="59"/>
+                           line="58"/>
           <return-value transfer-ownership="full" nullable="1">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-links.c"
@@ -6942,7 +6942,7 @@ interface</doc>
       <field name="get_links">
         <callback name="get_links">
           <source-position filename="libdocument/pps-document-links.h"
-                           line="60"/>
+                           line="59"/>
           <return-value transfer-ownership="full">
             <type name="MappingList" c:type="PpsMappingList*"/>
           </return-value>
@@ -6959,7 +6959,7 @@ interface</doc>
       <field name="find_link_dest">
         <callback name="find_link_dest">
           <source-position filename="libdocument/pps-document-links.h"
-                           line="62"/>
+                           line="61"/>
           <return-value transfer-ownership="full">
             <doc xml:space="preserve"
                  filename="libdocument/pps-document-links.c"
@@ -6985,7 +6985,7 @@ interface</doc>
       <field name="find_link_page">
         <callback name="find_link_page">
           <source-position filename="libdocument/pps-document-links.h"
-                           line="64"/>
+                           line="63"/>
           <return-value transfer-ownership="none">
             <type name="gint" c:type="gint"/>
           </return-value>
@@ -11716,6 +11716,9 @@ This structure and its fields `page_index` and `doc_point` are public.</doc>
         </return-value>
         <parameters>
           <instance-parameter name="rc" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-render-context.c"
+                 line="116">an #PpsRenderContext</doc>
             <type name="RenderContext" c:type="PpsRenderContext*"/>
           </instance-parameter>
           <parameter name="width_points" transfer-ownership="none">
@@ -11724,10 +11727,16 @@ This structure and its fields `page_index` and `doc_point` are public.</doc>
           <parameter name="height_points" transfer-ownership="none">
             <type name="gdouble" c:type="double"/>
           </parameter>
-          <parameter name="scaled_width" transfer-ownership="none">
+          <parameter name="scaled_width"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
             <type name="gint" c:type="int*"/>
           </parameter>
-          <parameter name="scaled_height" transfer-ownership="none">
+          <parameter name="scaled_height"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
             <type name="gint" c:type="int*"/>
           </parameter>
         </parameters>
@@ -11741,6 +11750,9 @@ This structure and its fields `page_index` and `doc_point` are public.</doc>
         </return-value>
         <parameters>
           <instance-parameter name="rc" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-render-context.c"
+                 line="182">an #PpsRenderContext</doc>
             <type name="RenderContext" c:type="PpsRenderContext*"/>
           </instance-parameter>
           <parameter name="width_points" transfer-ownership="none">
@@ -11749,10 +11761,16 @@ This structure and its fields `page_index` and `doc_point` are public.</doc>
           <parameter name="height_points" transfer-ownership="none">
             <type name="gdouble" c:type="double"/>
           </parameter>
-          <parameter name="scale_x" transfer-ownership="none">
+          <parameter name="scale_x"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
             <type name="gdouble" c:type="double*"/>
           </parameter>
-          <parameter name="scale_y" transfer-ownership="none">
+          <parameter name="scale_y"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
             <type name="gdouble" c:type="double*"/>
           </parameter>
         </parameters>
@@ -11766,6 +11784,9 @@ This structure and its fields `page_index` and `doc_point` are public.</doc>
         </return-value>
         <parameters>
           <instance-parameter name="rc" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="libdocument/pps-render-context.c"
+                 line="151">an #PpsRenderContext</doc>
             <type name="RenderContext" c:type="PpsRenderContext*"/>
           </instance-parameter>
           <parameter name="width_points" transfer-ownership="none">
@@ -11774,10 +11795,16 @@ This structure and its fields `page_index` and `doc_point` are public.</doc>
           <parameter name="height_points" transfer-ownership="none">
             <type name="gdouble" c:type="double"/>
           </parameter>
-          <parameter name="transformed_width" transfer-ownership="none">
+          <parameter name="transformed_width"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
             <type name="gint" c:type="int*"/>
           </parameter>
-          <parameter name="transformed_height" transfer-ownership="none">
+          <parameter name="transformed_height"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
             <type name="gint" c:type="int*"/>
           </parameter>
         </parameters>
@@ -13113,20 +13140,6 @@ document library.</doc>
           <type name="Rectangle" c:type="PpsRectangle*"/>
         </parameter>
       </parameters>
-    </function>
-    <function name="should_use_portal"
-              c:identifier="pps_should_use_portal"
-              version="3.30">
-      <doc xml:space="preserve"
-           filename="libdocument/pps-portal.c"
-           line="22">Checks whether papers should use the portal.</doc>
-      <source-position filename="libdocument/pps-portal.h" line="31"/>
-      <return-value transfer-ownership="none">
-        <doc xml:space="preserve"
-             filename="libdocument/pps-portal.c"
-             line="27">whether papers should use the portal</doc>
-        <type name="gboolean" c:type="gboolean"/>
-      </return-value>
     </function>
     <function name="shutdown" c:identifier="pps_shutdown">
       <doc xml:space="preserve"

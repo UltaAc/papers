@@ -3401,7 +3401,6 @@ extern "C" {
     ) -> c_int;
     pub fn pps_mkstemp_file(tmpl: *const c_char, error: *mut *mut glib::GError) -> *mut gio::GFile;
     pub fn pps_rect_cmp(a: *mut PpsRectangle, b: *mut PpsRectangle) -> c_int;
-    pub fn pps_should_use_portal() -> gboolean;
     pub fn pps_shutdown();
     pub fn pps_tmp_file_unlink(file: *mut gio::GFile);
     pub fn pps_tmp_filename_unlink(filename: *const c_char);

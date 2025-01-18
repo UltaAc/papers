@@ -3,7 +3,7 @@
 // from ../pps-girs
 // DO NOT EDIT
 
-use crate::{ffi, DocumentInfo, Page};
+use crate::{ffi, DocumentInfo, DocumentLoadFlags, Page, RenderContext};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -48,17 +48,51 @@ impl Document {
         }
     }
 
-    //#[cfg(feature = "v42")]
-    //#[cfg_attr(docsrs, doc(cfg(feature = "v42")))]
-    //#[doc(alias = "pps_document_factory_get_document_for_fd")]
-    //pub fn factory_get_document_for_fd(fd: i32, mime_type: &str, flags: /*Ignored*/DocumentLoadFlags) -> Result<Document, glib::Error> {
-    //    unsafe { TODO: call ffi:pps_document_factory_get_document_for_fd() }
-    //}
+    #[cfg(feature = "v42")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v42")))]
+    #[doc(alias = "pps_document_factory_get_document_for_fd")]
+    pub fn factory_get_document_for_fd(
+        fd: i32,
+        mime_type: &str,
+        flags: DocumentLoadFlags,
+    ) -> Result<Document, glib::Error> {
+        assert_initialized_main_thread!();
+        unsafe {
+            let mut error = std::ptr::null_mut();
+            let ret = ffi::pps_document_factory_get_document_for_fd(
+                fd,
+                mime_type.to_glib_none().0,
+                flags.into_glib(),
+                &mut error,
+            );
+            if error.is_null() {
+                Ok(from_glib_full(ret))
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
 
-    //#[doc(alias = "pps_document_factory_get_document_full")]
-    //pub fn factory_get_document_full(uri: &str, flags: /*Ignored*/DocumentLoadFlags) -> Result<Document, glib::Error> {
-    //    unsafe { TODO: call ffi:pps_document_factory_get_document_full() }
-    //}
+    #[doc(alias = "pps_document_factory_get_document_full")]
+    pub fn factory_get_document_full(
+        uri: &str,
+        flags: DocumentLoadFlags,
+    ) -> Result<Document, glib::Error> {
+        assert_initialized_main_thread!();
+        unsafe {
+            let mut error = std::ptr::null_mut();
+            let ret = ffi::pps_document_factory_get_document_full(
+                uri.to_glib_none().0,
+                flags.into_glib(),
+                &mut error,
+            );
+            if error.is_null() {
+                Ok(from_glib_full(ret))
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
 
     #[doc(alias = "pps_document_misc_format_datetime")]
     pub fn misc_format_datetime(dt: &glib::DateTime) -> Option<glib::GString> {
@@ -103,7 +137,7 @@ impl Document {
     //}
 
     //#[doc(alias = "pps_document_misc_texture_from_surface")]
-    //pub fn misc_texture_from_surface(surface: /*Ignored*/&mut cairo::Surface) -> /*Ignored*/Option<gdk::Texture> {
+    //pub fn misc_texture_from_surface(surface: /*Ignored*/&mut cairo::Surface) -> Option<gdk::Texture> {
     //    unsafe { TODO: call ffi:pps_document_misc_texture_from_surface() }
     //}
 }
@@ -272,15 +306,20 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
         unsafe { ffi::pps_document_get_size(self.as_ref().to_glib_none().0) }
     }
 
-    //#[doc(alias = "pps_document_get_thumbnail")]
-    //#[doc(alias = "get_thumbnail")]
-    //fn thumbnail(&self, rc: /*Ignored*/&RenderContext) -> Option<gdk_pixbuf::Pixbuf> {
-    //    unsafe { TODO: call ffi:pps_document_get_thumbnail() }
-    //}
+    #[doc(alias = "pps_document_get_thumbnail")]
+    #[doc(alias = "get_thumbnail")]
+    fn thumbnail(&self, rc: &impl IsA<RenderContext>) -> Option<gdk_pixbuf::Pixbuf> {
+        unsafe {
+            from_glib_full(ffi::pps_document_get_thumbnail(
+                self.as_ref().to_glib_none().0,
+                rc.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 
     //#[doc(alias = "pps_document_get_thumbnail_surface")]
     //#[doc(alias = "get_thumbnail_surface")]
-    //fn thumbnail_surface(&self, rc: /*Ignored*/&RenderContext) -> /*Ignored*/Option<cairo::Surface> {
+    //fn thumbnail_surface(&self, rc: &impl IsA<RenderContext>) -> /*Ignored*/Option<cairo::Surface> {
     //    unsafe { TODO: call ffi:pps_document_get_thumbnail_surface() }
     //}
 
@@ -332,20 +371,48 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
         }
     }
 
-    //#[cfg(feature = "v42")]
-    //#[cfg_attr(docsrs, doc(cfg(feature = "v42")))]
-    //#[doc(alias = "pps_document_load_fd")]
-    //fn load_fd(&self, fd: i32, flags: /*Ignored*/DocumentLoadFlags) -> Result<(), glib::Error> {
-    //    unsafe { TODO: call ffi:pps_document_load_fd() }
-    //}
+    #[cfg(feature = "v42")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v42")))]
+    #[doc(alias = "pps_document_load_fd")]
+    fn load_fd(&self, fd: i32, flags: DocumentLoadFlags) -> Result<(), glib::Error> {
+        unsafe {
+            let mut error = std::ptr::null_mut();
+            let is_ok = ffi::pps_document_load_fd(
+                self.as_ref().to_glib_none().0,
+                fd,
+                flags.into_glib(),
+                &mut error,
+            );
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
 
-    //#[doc(alias = "pps_document_load_full")]
-    //fn load_full(&self, uri: &str, flags: /*Ignored*/DocumentLoadFlags) -> Result<(), glib::Error> {
-    //    unsafe { TODO: call ffi:pps_document_load_full() }
-    //}
+    #[doc(alias = "pps_document_load_full")]
+    fn load_full(&self, uri: &str, flags: DocumentLoadFlags) -> Result<(), glib::Error> {
+        unsafe {
+            let mut error = std::ptr::null_mut();
+            let is_ok = ffi::pps_document_load_full(
+                self.as_ref().to_glib_none().0,
+                uri.to_glib_none().0,
+                flags.into_glib(),
+                &mut error,
+            );
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
 
     //#[doc(alias = "pps_document_render")]
-    //fn render(&self, rc: /*Ignored*/&RenderContext) -> /*Ignored*/Option<cairo::Surface> {
+    //fn render(&self, rc: &impl IsA<RenderContext>) -> /*Ignored*/Option<cairo::Surface> {
     //    unsafe { TODO: call ffi:pps_document_render() }
     //}
 
