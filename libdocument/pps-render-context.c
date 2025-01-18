@@ -111,6 +111,15 @@ pps_render_context_set_target_size (PpsRenderContext *rc,
 	rc->target_height = target_height;
 }
 
+/**
+ * pps_render_context_compute_scaled_size:
+ * @rc: an #PpsRenderContext
+ * @width_points:
+ * @height_points:
+ * @scaled_width: (out):
+ * @scaled_height: (out):
+ *
+ */
 void
 pps_render_context_compute_scaled_size (PpsRenderContext *rc,
                                         double width_points,
@@ -137,6 +146,15 @@ pps_render_context_compute_scaled_size (PpsRenderContext *rc,
 	}
 }
 
+/**
+ * pps_render_context_compute_transformed_size:
+ * @rc: an #PpsRenderContext
+ * @width_points:
+ * @height_points:
+ * @transformed_width: (out):
+ * @transformed_height: (out):
+ *
+ */
 void
 pps_render_context_compute_transformed_size (PpsRenderContext *rc,
                                              double width_points,
@@ -158,6 +176,15 @@ pps_render_context_compute_transformed_size (PpsRenderContext *rc,
 		*transformed_height = FLIP_DIMENSIONS (rc) ? scaled_width : scaled_height;
 }
 
+/**
+ * pps_render_context_compute_scales:
+ * @rc: an #PpsRenderContext
+ * @width_points:
+ * @height_points:
+ * @scale_x: (out):
+ * @scale_y: (out):
+ *
+ */
 void
 pps_render_context_compute_scales (PpsRenderContext *rc,
                                    double width_points,
