@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: evince\n"
-"POT-Creation-Date: 2025-01-11 11:40+0000\n"
-"PO-Revision-Date: 2025-01-20 15:30+0100\n"
+"POT-Creation-Date: 2025-01-20 14:35+0000\n"
+"PO-Revision-Date: 2025-01-20 16:50+0100\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -825,13 +825,10 @@ msgstr "Záložky"
 #. (itstool) path: page/p
 #: C/bookmarks.page:31
 #, fuzzy
-#| msgid ""
-#| "You can add, rename and delete bookmarks using the <app>Document Viewer</"
-#| "app>."
 msgid "You can add, rename and delete bookmarks using <app>Papers</app>."
 msgstr ""
 "V <app>prohlížeči dokumentů</app> můžete přidávat, přejmenovávat a "
-"ostraňovat záložky."
+"odstraňovat záložky."
 
 #. (itstool) path: page/p
 #: C/bookmarks.page:38
@@ -1179,15 +1176,11 @@ msgstr "Příkazový řádek"
 
 #. (itstool) path: info/desc
 #: C/commandline.page:8
-#, fuzzy
-#| msgid ""
-#| "The <cmd>evince</cmd> command can open any number of files, at specific "
-#| "pages and in various modes."
 msgid ""
 "The <cmd>papers</cmd> command can open any number of files, at specific "
 "pages and in various modes."
 msgstr ""
-"Příkaz <cmd>evince</cmd> umí otevřít libovolný počet souborů na určených "
+"Příkaz <cmd>papers</cmd> umí otevřít libovolný počet souborů na určených "
 "stránkách a v různých režimech."
 
 #. (itstool) path: page/title
@@ -1198,66 +1191,51 @@ msgstr "Příkazový řádek"
 #. (itstool) path: page/p
 #: C/commandline.page:25
 #, fuzzy
-#| msgid ""
-#| "To start the <app>Document Viewer</app> from the command line, type "
-#| "<cmd>evince</cmd>. You can open a specific file by typing the filename "
-#| "after the evince command:"
 msgid ""
 "To start <app>Papers</app> from the command line, type <cmd>papers</cmd>. "
 "You can open a specific file by typing the filename after the papers command:"
 msgstr ""
 "Pro spuštění <app>prohlížeče dokumentů</app> z příkazového řádku napište "
-"<cmd>evince</cmd>. Můžete také otevřít konkrétní soubor zadáním jeho názvu "
-"za příkaz evince:"
+"<cmd>papers</cmd>. Můžete také otevřít konkrétní soubor zadáním jeho názvu "
+"za příkaz papers:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:30
-#, fuzzy, no-wrap
-#| msgid "evince file.pdf"
+#, no-wrap
 msgid "papers file.pdf"
-msgstr "evince soubor.pdf"
+msgstr "papers soubor.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:31
-#, fuzzy
-#| msgid ""
-#| "You can open multiple files by typing the filenames after the evince "
-#| "command, separating the filenames by a space:"
 msgid ""
 "You can open multiple files by typing the filenames after the papers "
 "command, separating the filenames by a space:"
 msgstr ""
-"Abyste otevřeli více souborů, zadejte zadejte za příkaz evince jejich názvy "
+"Abyste otevřeli více souborů, zadejte zadejte za příkaz papers jejich názvy "
 "oddělené pomocí mezer:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:34
-#, fuzzy, no-wrap
-#| msgid "evince file1.pdf file2.pdf"
+#, no-wrap
 msgid "papers file1.pdf file2.pdf"
-msgstr "evince soubor1.pdf soubor2.pdf"
+msgstr "papers soubor1.pdf soubor2.pdf"
 
 #. (itstool) path: page/p
 #: C/commandline.page:35
 #, fuzzy
-#| msgid ""
-#| "The <app>document viewer</app> also supports the handling of files on the "
-#| "web. For example, after the evince command you can give the location of a "
-#| "file on the web:"
 msgid ""
 "<app>Papers</app> also supports the handling of files on the web. For "
 "example, after the papers command you can give the location of a file on the "
 "web:"
 msgstr ""
 "<app>Prohlížeč dokumentů</app> podporuje také práci se soubory z webu. "
-"Můžete napříkaz za příkaz evince zadat umístění souboru na webu:"
+"Můžete například za příkaz papers zadat umístění souboru na webu:"
 
 #. (itstool) path: page/screen
 #: C/commandline.page:38
-#, fuzzy, no-wrap
-#| msgid "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+#, no-wrap
 msgid "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
-msgstr "evince http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
+msgstr "papers http://www.claymath.org/millennium/P_vs_NP/pvsnp.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:40
@@ -1275,10 +1253,9 @@ msgstr ""
 
 #. (itstool) path: section/screen
 #: C/commandline.page:45
-#, fuzzy, no-wrap
-#| msgid "evince --page-label=3 file.pdf"
+#, no-wrap
 msgid "papers --page-label=3 file.pdf"
-msgstr "evince --page-label=3 soubor.pdf"
+msgstr "papers --page-label=3 soubor.pdf"
 
 #. (itstool) path: section/p
 #: C/commandline.page:46
@@ -1300,10 +1277,9 @@ msgstr "Otevření dokumentu v režimu celé obrazovky"
 
 #. (itstool) path: section/screen
 #: C/commandline.page:53
-#, fuzzy, no-wrap
-#| msgid "evince --fullscreen file.pdf"
+#, no-wrap
 msgid "papers --fullscreen file.pdf"
-msgstr "evince --fullscreen soubor.pdf"
+msgstr "papers --fullscreen soubor.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:56
@@ -1312,10 +1288,9 @@ msgstr "Otevření dokumentu v režimu prezentace"
 
 #. (itstool) path: section/screen
 #: C/commandline.page:57
-#, fuzzy, no-wrap
-#| msgid "evince --presentation file.pdf"
+#, no-wrap
 msgid "papers --presentation file.pdf"
-msgstr "evince --presentation soubor.pdf"
+msgstr "papers --presentation soubor.pdf"
 
 #. (itstool) path: section/title
 #: C/commandline.page:60
@@ -1324,10 +1299,9 @@ msgstr "Otevření dokumentu v režimu náhledu"
 
 #. (itstool) path: section/screen
 #: C/commandline.page:61
-#, fuzzy, no-wrap
-#| msgid "evince --preview file.pdf"
+#, no-wrap
 msgid "papers --preview file.pdf"
-msgstr "evince --preview soubor.pdf"
+msgstr "papers --preview soubor.pdf"
 
 #. (itstool) path: info/desc
 #: C/forms.page:7
@@ -1566,7 +1540,7 @@ msgstr "20, 1, 2, 19, 18, 3, 4, 17, 16, 5, 6, 15, 14, 7, 8, 13, 12, 9, 10, 11"
 #: C/singlesided-17-20pages.page:56 C/duplex-16pages.page:36
 #: C/singlesided-13-16pages.page:58
 msgid "Type the numbers of the pages in this order: <_:item-1/>"
-msgstr "Zapište čísla stránek v tomto přadí: <_:item-1/>"
+msgstr "Zapište čísla stránek v tomto pořadí: <_:item-1/>"
 
 #. (itstool) path: info/desc
 #: C/develop.page:7
@@ -1601,13 +1575,6 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/develop.page:23
 #, fuzzy
-#| msgid ""
-#| "If you would like to <link href=\"https://wiki.gnome.org/Apps/"
-#| "Evince\">help develop</link> the <app>Document Viewer</app>, you can get "
-#| "in touch with the developers using <link href=\"https://cbe005.chat."
-#| "mibbit.com/?url=irc%3A%2F%2Firc.gnome.org%2Fevince\">irc</link>, or via "
-#| "our <link href=\"https://mail.gnome.org/mailman/listinfo/evince-"
-#| "list\">mailing list</link>."
 msgid ""
 "If you would like to <link href=\"https://wiki.gnome.org/Apps/Papers\">help "
 "develop</link> <app>Papers</app>, you can get in touch with the developers "
@@ -1617,12 +1584,13 @@ msgid ""
 "libera.chat, or via <link href=\"https://discourse.gnome.org/tag/"
 "papers\">GNOME Discourse</link>."
 msgstr ""
-"Jestli chcete <link href=\"https://wiki.gnome.org/Apps/Evince\">pomoci s "
+"Jestli chcete <link href=\"https://wiki.gnome.org/Apps/Papers\">pomoci s "
 "vývojem</link> <app>Prohlížeče dokumentů</app>, můžete se s vývojáři "
-"kontaktovat na <link href=\"https://cbe005.chat.mibbit.com/?"
-"url=irc%3A%2F%2Firc.gnome.org%2Fevince\">IRC</link> nebo přes <link "
-"href=\"https://mail.gnome.org/mailman/listinfo/evince-list\">poštovní "
-"konferenci</link>. Ke komunikaci se používá angličtina."
+"kontaktovat na <link href=\"https://matrix.to/#/#papers:gnome.org\">#papers:"
+"gnome.org</link> na <link xref=\"help:gnome-help/help-matrix\">Matrixu</"
+"link> nebo <link href=\"https://web.libera.chat/#gnome-papers\">#gnome-"
+"papers</link> na irc.libera.chat, případně přes <link href=\"https://"
+"discourse.gnome.org/tag/papers\">Discourse GNOME</link>."
 
 #. (itstool) path: info/desc
 #: C/finding.page:29
@@ -2215,44 +2183,28 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/translate.page:27
-#, fuzzy
-#| msgid ""
-#| "There are <link href=\"http://l10n.gnome.org/module/evince/\">many "
-#| "languages</link> for which translations are still needed."
 msgid ""
 "There are <link href=\"https://l10n.gnome.org/module/papers/\">many "
 "languages</link> for which translations are still needed."
 msgstr ""
-"Stále je <link href=\"http://l10n.gnome.org/module/evince/\">řada jazyků</"
+"Stále je <link href=\"http://l10n.gnome.org/module/papers/\">řada jazyků</"
 "link>, do kterých je třeba překlad udělat."
 
 #. (itstool) path: page/p
 #: C/translate.page:30
-#, fuzzy
-#| msgid ""
-#| "To start translating you will need to <link href=\"http://l10n.gnome."
-#| "org\">create an account</link> and join the <link href=\"http://l10n."
-#| "gnome.org/teams/\">translation team</link> for your language. This will "
-#| "give you the ability to upload new translations."
 msgid ""
 "To start translating you will need to <link href=\"https://l10n.gnome."
 "org\">create an account</link> and join the <link href=\"https://l10n.gnome."
 "org/teams/\">translation team</link> for your language. This will give you "
 "the ability to upload new translations."
 msgstr ""
-"Jestli chcete překládat, musíte si <link href=\"http://l10n.gnome."
-"org\">vytvořit účet</link> a přidat se k <link href=\"http://l10n.gnome.org/"
+"Jestli chcete překládat, musíte si <link href=\"https://l10n.gnome."
+"org\">vytvořit účet</link> a přidat se k <link href=\"https://l10n.gnome.org/"
 "teams/\">překladatelskému týmu</link> svého jazyka. Pak budete moci odesílat "
 "své nové překlady."
 
 #. (itstool) path: page/p
 #: C/translate.page:34
-#, fuzzy
-#| msgid ""
-#| "You can chat with GNOME translators using <link href=\"https://cbe003."
-#| "chat.mibbit.com/?url=irc%3A%2F%2Firc.gnome.org%2Fi18n\">irc</link>. "
-#| "People on the channel are located worldwide, so you may not get an "
-#| "immediate response as a result of timezone differences."
 msgid ""
 "You can chat with GNOME translators in <link href=\"https://matrix.to/#/"
 "#i18n:gnome.org\">#i18n:gnome.org</link> on <link xref=\"help:gnome-help/"
@@ -2262,24 +2214,20 @@ msgid ""
 "timezone differences."
 msgstr ""
 "S ostatními překladateli můžete komunikovat pomocí <link href=\"https://"
-"cbe003.chat.mibbit.com/?url=irc%3A%2F%2Firc.gnome.org%2Fi18n\">IRC</link>. "
-"Lidé na tomto kanále jsou z celého světa, tak počítejte s tím, že kvůli "
-"rozdílným časovým pásmům, nemusí reagovat hned."
+"matrix.to/#/#i18n:gnome.org\">#i18n:gnome.org</link> on <link xref=\"help:"
+"gnome-help/help-matrix\">Matrixu</link> nebo <link href=\"https://web.libera."
+"chat/#gnome-i18n\">#gnome-i18n</link> na irc.libera.chat. Lidé na tomto "
+"kanále jsou z celého světa, tak počítejte s tím, že kvůli rozdílným časovým "
+"pásmům, nemusí reagovat hned."
 
 #. (itstool) path: page/p
 #: C/translate.page:41
-#, fuzzy
-#| msgid ""
-#| "Alternatively, you can contact the Internationalization Team using their "
-#| "<link href=\"http://mail.gnome.org/mailman/listinfo/gnome-i18n\">mailing "
-#| "list</link>."
 msgid ""
 "Alternatively, you can contact the Internationalization Team using <link "
 "href=\"https://discourse.gnome.org/tag/i18n\">GNOME Discourse</link>."
 msgstr ""
 "Případně můžete kontaktovat Internacionalizační tým přes jeho <link "
-"href=\"http://mail.gnome.org/mailman/listinfo/gnome-i18n\">poštovní "
-"konferenci</link>."
+"href=\"https://discourse.gnome.org/tag/i18n\">Discourse GNOME</link>."
 
 #. (itstool) path: info/desc
 #: C/headerbar.page:8
@@ -2816,10 +2764,8 @@ msgstr "Klikněte na <gui>Editor dconf</gui>."
 
 #. (itstool) path: item/p
 #: C/noprint.page:100
-#, fuzzy
-#| msgid "Browse to <sys>/org/gnome/evince</sys>."
 msgid "Browse to <sys>/org/gnome/papers</sys>."
-msgstr "Přejděte do <sys>/org/gnome/evince</sys>."
+msgstr "Přejděte do <sys>/org/gnome/papers</sys>."
 
 #. (itstool) path: item/p
 #: C/noprint.page:103
@@ -2870,6 +2816,12 @@ msgid ""
 "libera.chat, or via <link href=\"https://discourse.gnome.org/tag/"
 "documentation\">GNOME Discourse</link>."
 msgstr ""
+"Chcete-li přispět do dokumentačního projektu, neváhejte nás kontaktovat na "
+"<link href=\"https://matrix.to/#/#docs:gnome.org\">#docs:gnome.org</link> na "
+"<link xref=\"help:gnome-help/help-matrix\">Matrixu</link> nebo <link "
+"href=\"https://web.libera.chat/#gnome-docs\">#gnome-docs</link> na irc."
+"libera.chat, případně přes <link href=\"https://discourse.gnome.org/tag/"
+"documentation\">Discourse GNOME</link>."
 
 #. (itstool) path: page/p
 #: C/documentation.page:30
@@ -2961,10 +2913,8 @@ msgstr ""
 
 #. (itstool) path: info/desc
 #: C/introduction.page:18
-#, fuzzy
-#| msgid "Introduction to the <em>Evince Document Viewer</em>."
 msgid "Introduction to the <em>Papers Document Viewer</em>."
-msgstr "Úvod do <em>prohlížeče dokumentů Evince</em>."
+msgstr "Úvod do <em>prohlížeče dokumentů Papers</em>."
 
 #. (itstool) path: page/title
 #: C/introduction.page:21
@@ -2973,65 +2923,46 @@ msgstr "Úvod"
 
 #. (itstool) path: page/p
 #: C/introduction.page:23
-#, fuzzy
-#| msgid ""
-#| "<app>Evince</app> is a document viewer. See <link xref=\"formats\"/> for "
-#| "a list of file types you can view."
 msgid ""
 "<app>Papers</app> is a document viewer. See <link xref=\"formats\"/> for a "
 "list of file types you can view."
 msgstr ""
-"<app>Evince</app> je prohlížeč dokumentů. Viz <link xref=\"formats\"/> pro "
+"<app>Papers</app> je prohlížeč dokumentů. Viz <link xref=\"formats\"/> pro "
 "seznam všech typů souborů, které můžete prohlížet."
 
 #. (itstool) path: info/title
 #: C/index.page:7
-#, fuzzy
-#| msgctxt "link:trail"
-#| msgid "Evince Document Viewer"
 msgctxt "link:trail"
 msgid "Papers Document Viewer"
-msgstr "Prohlížeč dokumentů Evince"
+msgstr "Prohlížeč dokumentů Papers"
 
 #. (itstool) path: info/title
 #: C/index.page:8
-#, fuzzy
-#| msgctxt "link"
-#| msgid "Evince Document Viewer"
 msgctxt "link"
 msgid "Papers Document Viewer"
-msgstr "Prohlížeč dokumentů Evince"
+msgstr "Prohlížeč dokumentů Papers"
 
 #. (itstool) path: info/title
 #: C/index.page:9
-#, fuzzy
-#| msgctxt "text"
-#| msgid "Evince Document Viewer"
 msgctxt "text"
 msgid "Papers Document Viewer"
-msgstr "Prohlížeč dokumentů Evince"
+msgstr "Prohlížeč dokumentů Papers"
 
 #. (itstool) path: info/desc
 #: C/index.page:24
 #, fuzzy
-#| msgid ""
-#| "<app>Document Viewer</app>, formally known as <app>Evince</app>, is made "
-#| "for viewing PDF documents. Learn how to get started with <app>Document "
-#| "Viewer</app> and its features."
 msgid ""
 "<app>Papers</app> is made for viewing PDF documents. Learn how to get "
 "started with <app>Papers</app> and its features."
 msgstr ""
-"<app>Prohlížeč dokumentů</app>, dříve známý jako <app>Evince</app> je "
-"stvořen k prohlížení dokumentů PDF. Podívejte se, jak se s ním pracuje a co "
-"všechno umí."
+"<app>Prohlížeč dokumentů</app> je určen k prohlížení dokumentů PDF. Přečtěte "
+"si, jak začít s aplikací <app>Prohlížeč dokumentů</app> a jejími funkcemi."
 
 #. (itstool) path: page/title
 #: C/index.page:30
 #, fuzzy
-#| msgid "<_:media-1/> Document Viewer Help"
 msgid "<_:media-1/> Papers Help"
-msgstr "<_:media-1/> Prohlížeč dokumentů Evince"
+msgstr "<_:media-1/> Prohlížeč dokumentů"
 
 #. (itstool) path: section/title
 #: C/index.page:36
@@ -3510,10 +3441,8 @@ msgstr "Kopie šifrovaných souborů nelze ukládat a tisknout."
 
 #. (itstool) path: info/desc
 #: C/formats.page:8
-#, fuzzy
-#| msgid "PDF, PostScript and many others are."
 msgid "PDF, DejaVu and many others are."
-msgstr "Podporovány jsou PDF, PostScript a řada dalších."
+msgstr "Podporovány jsou PDF, DejaVu a řada dalších."
 
 #. (itstool) path: page/title
 #: C/formats.page:25
@@ -3653,11 +3582,6 @@ msgstr "Vyplňujte chybová hlášení o <app>prohlížeči dokumentů</app>"
 #. (itstool) path: page/p
 #: C/bug-filing.page:20
 #, fuzzy
-#| msgid ""
-#| "The <app>document viewer</app> is maintained by a volunteer community. "
-#| "You are welcome to participate. If you notice a problem you can file a "
-#| "<em>bug report</em>. To file a bug, go to <link href=\"https://gitlab."
-#| "gnome.org/GNOME/evince/issues/\"/>."
 msgid ""
 "<app>Papers</app> is maintained by a volunteer community. You are welcome to "
 "participate. If you notice a problem you can file a <em>bug report</em>. To "
@@ -3667,7 +3591,7 @@ msgstr ""
 "O <app>Prohlížeče dokumentů</app> se stará komunita dobrovolníků. Vaše "
 "případná účast bude vítána. Pokud si povšimnete nějakého problému, můžete "
 "vyplnit <em>chybové hlášení</em> na <link href=\"https://gitlab.gnome.org/"
-"GNOME/evince/issues/\"/>."
+"GNOME/papers/issues/\"/>."
 
 #. (itstool) path: page/p
 #: C/bug-filing.page:23
@@ -3697,12 +3621,6 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/bug-filing.page:29
 #, fuzzy
-#| msgid ""
-#| "Once you have an account, log in, and click on <gui>New issue</gui>. "
-#| "Before reporting a bug, please read the <link href=\"https://wiki.gnome."
-#| "org/GettingInTouch/BugReportingGuidelines\">bug writing guidelines</"
-#| "link>, and please <link href=\"https://gitlab.gnome.org/GNOME/evince/"
-#| "issues\">browse</link> for the bug to see if it already exists."
 msgid ""
 "Once you have an account, log in, and click on <gui>New issue</gui>. Before "
 "reporting a bug, please read the <link href=\"https://wiki.gnome.org/"
@@ -3712,8 +3630,8 @@ msgid ""
 msgstr ""
 "Když už účet máte, přihlaste se a klikněte na <gui>New issue</gui>. Před "
 "nahlášením chyby si prosím přečtěte <link href=\"https://wiki.gnome.org/"
-"GettingInTouch/BugReportingGuidelines\">přiručku k hlášení chyb</link> "
-"(odkaz je v angličtině) a <link href=\"https://gitlab.gnome.org/GNOME/evince/"
+"GettingInTouch/BugReportingGuidelines\">příručku k hlášení chyb</link> "
+"(odkaz je v angličtině) a <link href=\"https://gitlab.gnome.org/GNOME/papers/"
 "issues\">podívejte</link> se prosím, jestli stejnou chybu nenahlásil už "
 "někdo jiný."
 
@@ -3804,23 +3722,17 @@ msgstr ""
 
 #. (itstool) path: note/p
 #: C/editing.page:30
-#, fuzzy
-#| msgid ""
-#| "PDF and PostScript (.ps) files are not usually intended to be edited, but "
-#| "PDF editing software is available. Try <app>LibreOffice Draw</app> or "
-#| "<app>Okular</app>, for example. Furthermore, <app>pdfarranger</app> "
-#| "allows rearranging or removing pages and merging files."
 msgid ""
 "PDF files are not usually intended to be edited, but PDF editing software is "
 "available. Try <app>LibreOffice Draw</app> or <app>Okular</app>, for "
 "example. Furthermore, <app>pdfarranger</app> allows rearranging or removing "
 "pages and merging files."
 msgstr ""
-"Soubory PDF a PostScriptové (.ps) nejsou obvykle vytvářeny se záměrem, že se "
-"v nich budou provádět úpravy. Přesto je k dispozici software, který to umí. "
-"Můžete například zkusit <app>LibreOffice Draw</app> nebo <app>Okular</app>. "
-"Mimo to existuje <app>pdfarranger</app>, který umožňuje měnit pořádí "
-"stránek, odebírat stránky a slučovat soubory."
+"Soubory PDF nejsou obvykle vytvářeny se záměrem, že se v nich budou provádět "
+"úpravy. Přesto je k dispozici software, který to umí. Můžete například "
+"zkusit <app>LibreOffice Draw</app> nebo <app>Okular</app>. Mimo to existuje "
+"<app>pdfarranger</app>, který umožňuje měnit pořadí stránek, odebírat "
+"stránky a slučovat soubory."
 
 #~ msgid "Using SyncTeX with the LaTeX Beamer class."
 #~ msgstr "Používání SyncTeX spolu se třídou LaTeX Beamer."
