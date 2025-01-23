@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Evince HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2025-01-11 11:39+0000\n"
-"PO-Revision-Date: 2025-01-17 22:42+0100\n"
+"POT-Creation-Date: 2025-01-17 21:43+0000\n"
+"PO-Revision-Date: 2025-01-23 18:01+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -25,7 +25,7 @@ msgstr ""
 #: data/org.gnome.Papers.metainfo.xml.in.in:23
 #: previewer/pps-previewer-window.c:488 shell/resources/pps-document-view.ui:80
 #: shell/resources/pps-loader-view.ui:10 shell/src/application.rs:45
-#: shell/src/application.rs:68 shell/src/application.rs:300
+#: shell/src/application.rs:68 shell/src/application.rs:299
 #: shell/src/document_view/io.rs:198 shell/src/document_view/io.rs:199
 msgid "Papers"
 msgstr "Papers"
@@ -654,51 +654,51 @@ msgstr "Far defilar la vista cap aval"
 msgid "Document View"
 msgstr "Vista del document"
 
-#: libview/pps-view.c:2104
+#: libview/pps-view.c:2037
 msgid "Go to first page"
 msgstr "Anar a la primièra pagina"
 
-#: libview/pps-view.c:2106
+#: libview/pps-view.c:2039
 msgid "Go to previous page"
 msgstr "Anar a la pagina precedenta"
 
-#: libview/pps-view.c:2108
+#: libview/pps-view.c:2041
 msgid "Go to next page"
 msgstr "Anar a la pagina seguenta"
 
-#: libview/pps-view.c:2110
+#: libview/pps-view.c:2043
 msgid "Go to last page"
 msgstr "Anar a la darrièra pagina"
 
-#: libview/pps-view.c:2112
+#: libview/pps-view.c:2045
 msgid "Go to page"
 msgstr "Anar a la pagina"
 
-#: libview/pps-view.c:2114
+#: libview/pps-view.c:2047
 msgid "Find"
 msgstr "Recercar"
 
-#: libview/pps-view.c:2143
+#: libview/pps-view.c:2076
 #, c-format
 msgid "Go to page %s"
 msgstr "Anar a la pagina %s"
 
-#: libview/pps-view.c:2149
+#: libview/pps-view.c:2082
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Anar a %s sul fichièr « %s »"
 
-#: libview/pps-view.c:2152
+#: libview/pps-view.c:2085
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Anar a la pagina « %s »"
 
-#: libview/pps-view.c:2160
+#: libview/pps-view.c:2093
 #, c-format
 msgid "Launch %s"
 msgstr "Aviar %s"
 
-#: libview/pps-view.c:2167
+#: libview/pps-view.c:2100
 #, c-format
 msgid "Reset form"
 msgstr "Reïnicializar lo formulari"
@@ -1367,7 +1367,7 @@ msgstr ""
 msgid "Abort _Print and Close"
 msgstr "Anullar l'_impression e tampar"
 
-#: shell/resources/pps-document-view.ui:586 shell/src/document_view.rs:714
+#: shell/resources/pps-document-view.ui:586 shell/src/document_view.rs:716
 #: shell/src/document_view/io.rs:473 shell/src/document_view/io.rs:517
 msgid "_Cancel"
 msgstr "_Anullar"
@@ -1673,53 +1673,53 @@ msgstr "Impossible de dobrir lo document"
 msgid "_Open Other File…"
 msgstr "_Dobrir autre fichièr…"
 
-#: shell/src/application.rs:203
+#: shell/src/application.rs:202
 msgid "© 1996–2024 The Papers authors"
 msgstr "© 1996-2024 Los autors del visionador de documents Papers"
 
-#: shell/src/application.rs:204
+#: shell/src/application.rs:203
 msgid "translator-credits"
 msgstr ""
 "Cédric Valmary <cvalmary@yahoo.fr>\n"
 "Quentin PAGÈS"
 
-#: shell/src/application.rs:307
+#: shell/src/application.rs:306
 msgid "The page label of the document to display."
 msgstr "L'etiqueta de la pagina del document d'afichar."
 
-#: shell/src/application.rs:308
+#: shell/src/application.rs:307
 msgid "PAGE"
 msgstr "PAGINA"
 
-#: shell/src/application.rs:316
+#: shell/src/application.rs:315
 msgid "The page number of the document to display."
 msgstr "Lo numèro de la pagina del document d'afichar."
 
-#: shell/src/application.rs:317
+#: shell/src/application.rs:316
 msgid "NUMBER"
 msgstr "NUMÈRO"
 
-#: shell/src/application.rs:325
+#: shell/src/application.rs:324
 msgid "Named destination to display."
 msgstr "Destinacion nomenada d'afichar."
 
-#: shell/src/application.rs:326
+#: shell/src/application.rs:325
 msgid "DEST"
 msgstr "DEST"
 
-#: shell/src/application.rs:334
+#: shell/src/application.rs:333
 msgid "Run papers in fullscreen mode."
 msgstr "Executar papers en mòde ecran complèt."
 
-#: shell/src/application.rs:343
+#: shell/src/application.rs:342
 msgid "Run papers in presentation mode."
 msgstr "Executar papers en mòde presentacion."
 
-#: shell/src/application.rs:352
+#: shell/src/application.rs:351
 msgid "Show the version of the program."
 msgstr "Afichar la version del programa."
 
-#: shell/src/application.rs:362
+#: shell/src/application.rs:361
 msgid "[FILE…]"
 msgstr "[FICHIÈR…]"
 
@@ -1727,7 +1727,7 @@ msgstr "[FICHIÈR…]"
 msgid "View Details"
 msgstr "Veire los detalhs"
 
-#: shell/src/document_view.rs:693
+#: shell/src/document_view.rs:695
 msgid ""
 "Document contains new or modified annotations and form fields that have been "
 "filled out."
@@ -1735,29 +1735,29 @@ msgstr ""
 "Lo document conten d’anotacions novèlas o modificadas e de camps de "
 "formulari que son estats garnits."
 
-#: shell/src/document_view.rs:694
+#: shell/src/document_view.rs:696
 msgid "Document contains form fields that have been filled out."
 msgstr "Lo document conten de camps de formulari que son estats garnits."
 
-#: shell/src/document_view.rs:695
+#: shell/src/document_view.rs:697
 msgid "Document contains new or modified annotations."
 msgstr "Lo document conten d'anotacions novèlas o modificadas."
 
-#: shell/src/document_view.rs:703
+#: shell/src/document_view.rs:705
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr ""
 "Se enregistratz pas una còpia, las modificacions seràn perdudas "
 "definitivament."
 
-#: shell/src/document_view.rs:704
+#: shell/src/document_view.rs:706
 msgid "Save Changes to a Copy?"
 msgstr "Enregistrar las modificacion dins una còpia ?"
 
-#: shell/src/document_view.rs:713
+#: shell/src/document_view.rs:715
 msgid "Close _Without Saving"
 msgstr "Tampar _sans enregistrar"
 
-#: shell/src/document_view.rs:715
+#: shell/src/document_view.rs:717
 msgid "_Save a Copy"
 msgstr "_Enregistrar una còpia"
 
@@ -1839,7 +1839,7 @@ msgstr "Seleccionar"
 msgid "A certificate is required to sign this document"
 msgstr "Se requerís un certificat per signar aqueste document"
 
-#: shell/src/document_view/io.rs:652
+#: shell/src/document_view/io.rs:656
 msgid "Save Signed File"
 msgstr "Enregistrat fichièr signat"
 
@@ -1864,7 +1864,7 @@ msgid "Security alert: this document has been prevented from opening the file"
 msgstr ""
 "Alèrta de seguretat : avèm empachat aquesta document de dobrir lo fichièr"
 
-#: shell/src/document_view/signals.rs:449 shell/src/page_selector.rs:77
+#: shell/src/document_view/signals.rs:450 shell/src/page_selector.rs:77
 #: shell/src/sidebar_annotations_row.rs:82
 msgid "Page {}"
 msgstr "Pagina {}"
@@ -1914,16 +1914,12 @@ msgid "Signature is invalid."
 msgstr "La signatura es invalida."
 
 #: shell/src/properties_signatures.rs:194
-#, fuzzy
-#| msgid "Document has been digitally signed."
 msgid "Document has been changed after signing."
-msgstr "Lo document foguèt signat electronicament."
+msgstr "Lo document a cambiat aprèp la signatura."
 
 #: shell/src/properties_signatures.rs:198
-#, fuzzy
-#| msgid "The image could not be saved."
 msgid "Signature could not be decoded."
-msgstr "L'imatge pòt pas èsser enregistrada."
+msgstr "Se podiá pas descodar la signatura."
 
 #: shell/src/properties_signatures.rs:202
 msgid "Signature verification error."
@@ -1931,31 +1927,31 @@ msgstr "Error de verificacion de la signatura."
 
 #: shell/src/properties_signatures.rs:214
 msgid "Signed with a certificate issued by trusted issuer."
-msgstr ""
+msgstr "Signat amb un certificat per un emitor fisable."
 
 #: shell/src/properties_signatures.rs:220
 msgid "Signed with a certificate issued by untrusted issuer."
-msgstr ""
+msgstr "Signat amb un certificat per un emitor pas fisable."
 
 #: shell/src/properties_signatures.rs:226
 msgid "Signed with a certificate issued by unknown issuer."
-msgstr ""
+msgstr "Signat amb un certificat per un emitor desconegut."
 
 #: shell/src/properties_signatures.rs:231
 msgid "Signed with revoked certificate."
-msgstr ""
+msgstr "Signat amb un certificat revocat."
 
 #: shell/src/properties_signatures.rs:235
 msgid "Signed with expired certificate."
-msgstr ""
+msgstr "Signat amb un certificat expirat."
 
 #: shell/src/properties_signatures.rs:239
 msgid "Certificate verification error."
-msgstr ""
+msgstr "Error de verificacion del certificat."
 
 #: shell/src/properties_signatures.rs:243
 msgid "Certificate has not been verified."
-msgstr ""
+msgstr "Lo certificat es pas estat verificat."
 
 #: shell/src/properties_signatures.rs:256
 msgid "Organization"
@@ -1966,32 +1962,24 @@ msgid "Date and Time"
 msgstr "Data e ora"
 
 #: shell/src/properties_signatures.rs:276
-#, fuzzy
-#| msgid "Certificate Required"
 msgid "Certificate Issuer"
-msgstr "Certificat requerit"
+msgstr "Emetor del certificat"
 
 #: shell/src/properties_signatures.rs:287
-#, fuzzy
-#| msgid "Certificate Status"
 msgid "Certificate Issuer's Email"
-msgstr "Estatut del certificat"
+msgstr "Adreça electronica de l’emetor del certificat"
 
 #: shell/src/properties_signatures.rs:298
 msgid "Certificate Issuer's Organization"
-msgstr ""
+msgstr "Organizacion de l’emetor del certificat"
 
 #: shell/src/properties_signatures.rs:309
-#, fuzzy
-#| msgid "Certificate Required"
 msgid "Certificate's Issuance Time"
-msgstr "Certificat requerit"
+msgstr "Data d’emission del certificat"
 
 #: shell/src/properties_signatures.rs:321
-#, fuzzy
-#| msgid "Certificate Required"
 msgid "Certificate's Expiration Time"
-msgstr "Certificat requerit"
+msgstr "Data d’expiracion del certificat"
 
 #~ msgid "Trusted"
 #~ msgstr "Fisable"
