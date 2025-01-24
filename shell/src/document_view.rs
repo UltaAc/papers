@@ -832,6 +832,10 @@ impl PpsDocumentView {
     pub fn reload_document(&self, document: Option<&Document>) {
         self.imp().reload_document(document);
     }
+
+    pub fn error_message(&self, error: Option<&glib::Error>, msg: &str) {
+        self.imp().error_message(error, msg);
+    }
 }
 
 impl Default for PpsDocumentView {
