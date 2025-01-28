@@ -114,34 +114,11 @@ mod imp {
             self.stack.visible_child_name().map(|gs| gs.to_string())
         }
 
-        fn set_visible_child_name(&self, name: Option<String>) {
+        fn set_visible_child_default(&self) {
             let Some(document) = self.document() else {
                 return;
             };
-            let Some(name) = name else {
-                if self
-                    .stack
-                    .child_by_name("links")
-                    .unwrap()
-                    .dynamic_cast_ref::<PpsSidebarPage>()
-                    .unwrap()
-                    .support_document(&document)
-                {
-                    self.stack.set_visible_child_name("links");
-                } else {
-                    self.stack.set_visible_child_name("thumbnails");
-                }
-                return;
-            };
-            let page = self.stack.child_by_name(&name).unwrap();
-
-            if page
-                .dynamic_cast_ref::<PpsSidebarPage>()
-                .unwrap()
-                .support_document(&document)
-            {
-                self.stack.set_visible_child(&page);
-            } else if self
+            if self
                 .stack
                 .child_by_name("links")
                 .unwrap()
@@ -152,6 +129,41 @@ mod imp {
                 self.stack.set_visible_child_name("links");
             } else {
                 self.stack.set_visible_child_name("thumbnails");
+            }
+        }
+
+        fn set_visible_child_name(&self, name: Option<String>) {
+            let Some(document) = self.document() else {
+                return;
+            };
+            let Some(name) = name else {
+                self.set_visible_child_default();
+                return;
+            };
+
+            if ![
+                "annotations",
+                "attachments",
+                "layers",
+                "links",
+                "thumbnails",
+            ]
+            .contains(&name.as_str())
+            {
+                self.set_visible_child_default();
+                return;
+            }
+
+            let page = self.stack.child_by_name(&name).unwrap();
+
+            if page
+                .dynamic_cast_ref::<PpsSidebarPage>()
+                .unwrap()
+                .support_document(&document)
+            {
+                self.stack.set_visible_child(&page);
+            } else {
+                self.set_visible_child_default();
             }
         }
     }
