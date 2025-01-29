@@ -96,8 +96,6 @@ typedef struct
 } SigningInfo;
 
 typedef struct _PpsViewPrivate {
-	PpsDocument *document;
-
 	/* Find */
 	PpsSearchContext *search_context;
 	PpsSearchResult *find_result; /* The selected find_result */

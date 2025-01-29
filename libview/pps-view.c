@@ -272,7 +272,7 @@ pps_view_build_height_to_page_cache (PpsView *view,
 	gdouble u_width, u_height;
 	gint n_pages;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	PpsDocument *document = priv->document;
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
 	swap = (priv->rotation == 90 || priv->rotation == 270);
 
@@ -367,15 +367,16 @@ pps_view_get_height_to_page_cache (PpsView *view)
 {
 	PpsHeightToPageCache *cache;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
-	if (!priv->document)
+	if (!document)
 		return NULL;
 
-	cache = g_object_get_data (G_OBJECT (priv->document), PPS_HEIGHT_TO_PAGE_CACHE_KEY);
+	cache = g_object_get_data (G_OBJECT (document), PPS_HEIGHT_TO_PAGE_CACHE_KEY);
 	if (!cache) {
 		cache = g_new0 (PpsHeightToPageCache, 1);
 		pps_view_build_height_to_page_cache (view, cache);
-		g_object_set_data_full (G_OBJECT (priv->document),
+		g_object_set_data_full (G_OBJECT (document),
 		                        PPS_HEIGHT_TO_PAGE_CACHE_KEY,
 		                        cache,
 		                        (GDestroyNotify) pps_height_to_page_cache_free);
@@ -423,6 +424,7 @@ is_dual_page (PpsView *view,
 	gboolean dual = FALSE;
 	gboolean odd_left = FALSE;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
 	switch (priv->page_layout) {
 	case PPS_PAGE_LAYOUT_AUTOMATIC: {
@@ -432,10 +434,10 @@ is_dual_page (PpsView *view,
 
 		scale = pps_document_misc_get_widget_dpi (GTK_WIDGET (view)) / 72.0;
 
-		pps_document_get_max_page_size (priv->document, &doc_width, &doc_height);
+		pps_document_get_max_page_size (document, &doc_width, &doc_height);
 
 		/* If the width is ok and the height is pretty close, try to fit it in */
-		if (pps_document_get_n_pages (priv->document) > 1 &&
+		if (pps_document_get_n_pages (document) > 1 &&
 		    doc_width < doc_height &&
 		    gtk_widget_get_width (GTK_WIDGET (view)) > (2 * doc_width * scale) &&
 		    gtk_widget_get_height (GTK_WIDGET (view)) > (doc_height * scale * 0.9)) {
@@ -445,7 +447,7 @@ is_dual_page (PpsView *view,
 	} break;
 	case PPS_PAGE_LAYOUT_DUAL:
 		odd_left = !priv->dual_even_left;
-		if (pps_document_get_n_pages (priv->document) > 1)
+		if (pps_document_get_n_pages (document) > 1)
 			dual = TRUE;
 		break;
 	case PPS_PAGE_LAYOUT_SINGLE:
@@ -503,7 +505,7 @@ pps_view_scroll_to_page_position (PpsView *view, GtkOrientation orientation)
 	gdouble x, y;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	if (!priv->document)
+	if (!pps_document_model_get_document (priv->model))
 		return;
 
 	if ((orientation == GTK_ORIENTATION_VERTICAL && priv->pending_point.y == 0) ||
@@ -607,12 +609,13 @@ static void
 view_update_range_and_current_page (PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 	gint start = priv->start_page;
 	gint end = priv->end_page;
 	gboolean odd_left;
 
-	if (pps_document_get_n_pages (priv->document) <= 0 ||
-	    !pps_document_check_dimensions (priv->document))
+	if (pps_document_get_n_pages (document) <= 0 ||
+	    !pps_document_check_dimensions (document))
 		return;
 
 	if (priv->continuous) {
@@ -631,7 +634,7 @@ view_update_range_and_current_page (PpsView *view)
 		current_area.y = gtk_adjustment_get_value (priv->vadjustment);
 		current_area.height = gtk_adjustment_get_page_size (priv->vadjustment);
 
-		n_pages = pps_document_get_n_pages (priv->document);
+		n_pages = pps_document_get_n_pages (document);
 		for (i = 0; i < n_pages; i++) {
 
 			pps_view_get_page_extents (view, i, &page_area);
@@ -676,7 +679,7 @@ view_update_range_and_current_page (PpsView *view)
 	} else if (is_dual_page (view, &odd_left)) {
 		if (priv->current_page % 2 == !odd_left) {
 			priv->start_page = priv->current_page;
-			if (priv->current_page + 1 < pps_document_get_n_pages (priv->document))
+			if (priv->current_page + 1 < pps_document_get_n_pages (document))
 				priv->end_page = priv->start_page + 1;
 			else
 				priv->end_page = priv->start_page;
@@ -788,6 +791,7 @@ compute_scroll_increment (PpsView *view,
                           GtkScrollType scroll)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 	GtkAdjustment *adjustment = priv->vadjustment;
 	cairo_region_t *text_region, *region;
 	gint page;
@@ -826,7 +830,7 @@ compute_scroll_increment (PpsView *view,
 		cairo_region_t *sel_region;
 
 		cairo_region_get_rectangle (region, 0, &rect);
-		pps_page = pps_document_get_page (priv->document, page);
+		pps_page = pps_document_get_page (document, page);
 		rc = pps_render_context_new (pps_page, priv->rotation, 0.);
 		pps_render_context_set_target_size (rc,
 		                                    page_area.width,
@@ -836,11 +840,11 @@ compute_scroll_increment (PpsView *view,
 		doc_rect.x1 = doc_rect.x2 = rect.x + 0.5;
 		doc_rect.y1 = doc_rect.y2 = rect.y + 0.5;
 
-		pps_document_doc_mutex_lock (priv->document);
-		sel_region = pps_selection_get_selection_region (PPS_SELECTION (priv->document),
+		pps_document_doc_mutex_lock (document);
+		sel_region = pps_selection_get_selection_region (PPS_SELECTION (document),
 		                                                 rc, PPS_SELECTION_STYLE_LINE,
 		                                                 &doc_rect);
-		pps_document_doc_mutex_unlock (priv->document);
+		pps_document_doc_mutex_unlock (document);
 
 		g_object_unref (rc);
 
@@ -871,11 +875,12 @@ pps_view_last_page (PpsView *view)
 {
 	gint n_pages;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
-	if (!priv->document)
+	if (!document)
 		return;
 
-	n_pages = pps_document_get_n_pages (priv->document);
+	n_pages = pps_document_get_n_pages (document);
 	if (n_pages <= 1)
 		return;
 
@@ -960,7 +965,7 @@ pps_view_scroll (PpsView *view,
 	/* Assign boolean for first and last page */
 	if (priv->current_page == 0)
 		first_page = TRUE;
-	if (priv->current_page == pps_document_get_n_pages (priv->document) - 1)
+	if (priv->current_page == pps_document_get_n_pages (pps_document_model_get_document (priv->model)) - 1)
 		last_page = TRUE;
 
 	switch (scroll) {
@@ -1114,7 +1119,7 @@ pps_view_get_page_size (PpsView *view,
                         gint *page_height)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	_get_page_size_for_scale_and_rotation (priv->document,
+	_get_page_size_for_scale_and_rotation (pps_document_model_get_document (priv->model),
 	                                       page,
 	                                       pps_document_model_get_scale (priv->model),
 	                                       priv->rotation,
@@ -1131,7 +1136,7 @@ pps_view_get_max_page_size (PpsView *view,
 	gint width, height;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	pps_document_get_max_page_size (priv->document, &w, &h);
+	pps_document_get_max_page_size (pps_document_model_get_document (priv->model), &w, &h);
 	scale = pps_document_model_get_scale (priv->model);
 
 	width = (gint) (w * scale + 0.5);
@@ -1220,7 +1225,7 @@ pps_view_get_page_extents (PpsView *view,
 			other_page = (page % 2 == !odd_left) ? page + 1 : page - 1;
 
 			/* First, we get the bounding box of the two pages */
-			if (other_page < pps_document_get_n_pages (priv->document) && (0 <= other_page)) {
+			if (other_page < pps_document_get_n_pages (pps_document_model_get_document (priv->model)) && (0 <= other_page)) {
 				pps_view_get_page_size (view, other_page,
 				                        &width_2, &height_2);
 				if (width_2 > width)
@@ -1270,7 +1275,7 @@ get_doc_page_size (PpsView *view,
 	double w, h;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	pps_document_get_page_size (priv->document, page, &w, &h);
+	pps_document_get_page_size (pps_document_model_get_document (priv->model), page, &w, &h);
 	if (priv->rotation == 0 || priv->rotation == 180) {
 		if (width)
 			*width = w;
@@ -1310,6 +1315,7 @@ pps_view_get_doc_point_for_page (PpsView *view,
 	PpsPoint doc_point;
 	GdkRectangle page_area;
 	double x, y, width, height, scale;
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
 	g_assert (page_index >= 0);
 
@@ -1323,7 +1329,7 @@ pps_view_get_doc_point_for_page (PpsView *view,
 	x = MAX ((double) (view_point_x - page_area.x) / scale, 0);
 	y = MAX ((double) (view_point_y - page_area.y) / scale, 0);
 
-	pps_document_get_page_size (priv->document, priv->current_page,
+	pps_document_get_page_size (document, priv->current_page,
 	                            &width, &height);
 
 	switch (priv->rotation) {
@@ -1538,7 +1544,7 @@ find_page_at_location (PpsView *view,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	int i;
 
-	if (priv->document == NULL)
+	if (pps_document_model_get_document (priv->model) == NULL)
 		return;
 
 	x += priv->scroll_x;
@@ -1719,7 +1725,7 @@ get_link_mapping_at_location (PpsView *view,
 	gdouble x_new = 0, y_new = 0;
 	PpsMappingList *link_mapping;
 
-	if (!PPS_IS_DOCUMENT_LINKS (priv->document))
+	if (!PPS_IS_DOCUMENT_LINKS (pps_document_model_get_document (priv->model)))
 		return NULL;
 
 	if (!get_doc_point_from_location (view, x, y, page, &x_new, &y_new))
@@ -1789,6 +1795,7 @@ static void
 goto_fitv_dest (PpsView *view, PpsLinkDest *dest)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 	PpsPoint doc_point;
 	gint page;
 	double left;
@@ -1804,7 +1811,7 @@ goto_fitv_dest (PpsView *view, PpsLinkDest *dest)
 		gdouble doc_width, doc_height;
 		double zoom;
 
-		pps_document_get_page_size (priv->document, page, &doc_width, &doc_height);
+		pps_document_get_page_size (document, page, &doc_width, &doc_height);
 
 		zoom = zoom_for_size_fit_height (doc_width - doc_point.x, doc_height,
 		                                 gtk_widget_get_width (GTK_WIDGET (view)),
@@ -1823,6 +1830,7 @@ static void
 goto_fith_dest (PpsView *view, PpsLinkDest *dest)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 	PpsPoint doc_point;
 	gint page;
 	gdouble top;
@@ -1838,7 +1846,7 @@ goto_fith_dest (PpsView *view, PpsLinkDest *dest)
 		gdouble doc_width;
 		gdouble zoom;
 
-		pps_document_get_page_size (priv->document, page, &doc_width, NULL);
+		pps_document_get_page_size (document, page, &doc_width, NULL);
 
 		zoom = zoom_for_size_fit_width (doc_width, top,
 		                                gtk_widget_get_width (GTK_WIDGET (view)),
@@ -1857,6 +1865,7 @@ static void
 goto_fit_dest (PpsView *view, PpsLinkDest *dest)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 	int page;
 
 	page = pps_link_dest_get_page (dest);
@@ -1865,7 +1874,7 @@ goto_fit_dest (PpsView *view, PpsLinkDest *dest)
 		double zoom;
 		gdouble doc_width, doc_height;
 
-		pps_document_get_page_size (priv->document, page, &doc_width, &doc_height);
+		pps_document_get_page_size (document, page, &doc_width, &doc_height);
 
 		zoom = zoom_for_size_fit_page (doc_width, doc_height,
 		                               gtk_widget_get_width (GTK_WIDGET (view)),
@@ -1913,7 +1922,7 @@ goto_dest (PpsView *view, PpsLinkDest *dest)
 	int page, n_pages, current_page;
 
 	page = pps_link_dest_get_page (dest);
-	n_pages = pps_document_get_n_pages (priv->document);
+	n_pages = pps_document_get_n_pages (pps_document_model_get_document (priv->model));
 
 	if (page < 0 || page >= n_pages)
 		return;
@@ -1965,7 +1974,7 @@ pps_view_goto_dest (PpsView *view, PpsLinkDest *dest)
 		const gchar *named_dest;
 
 		named_dest = pps_link_dest_get_named_dest (dest);
-		dest2 = pps_document_links_find_link_dest (PPS_DOCUMENT_LINKS (priv->document),
+		dest2 = pps_document_links_find_link_dest (PPS_DOCUMENT_LINKS (pps_document_model_get_document (priv->model)),
 		                                           named_dest);
 		if (dest2) {
 			goto_dest (view, dest2);
@@ -2057,7 +2066,7 @@ pps_view_handle_link (PpsView *view, PpsLink *link)
 		GList *l;
 		PpsDocumentLayers *document_layers;
 
-		document_layers = PPS_DOCUMENT_LAYERS (priv->document);
+		document_layers = PPS_DOCUMENT_LAYERS (pps_document_model_get_document (priv->model));
 
 		show = pps_link_action_get_show_list (action);
 		for (l = show; l; l = g_list_next (l)) {
@@ -2135,7 +2144,7 @@ tip_from_link (PpsView *view, PpsLink *link)
 
 	switch (type) {
 	case PPS_LINK_ACTION_TYPE_GOTO_DEST:
-		page_label = pps_document_links_get_dest_page_label (PPS_DOCUMENT_LINKS (priv->document),
+		page_label = pps_document_links_get_dest_page_label (PPS_DOCUMENT_LINKS (pps_document_model_get_document (priv->model)),
 		                                                     pps_link_action_get_dest (action));
 		if (page_label) {
 			msg = g_strdup_printf (_ ("Go to page %s"), page_label);
@@ -2205,7 +2214,7 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y)
 
 	type = pps_link_dest_get_dest_type (dest);
 	if (type == PPS_LINK_DEST_TYPE_NAMED) {
-		dest = pps_document_links_find_link_dest (PPS_DOCUMENT_LINKS (priv->document),
+		dest = pps_document_links_find_link_dest (PPS_DOCUMENT_LINKS (pps_document_model_get_document (priv->model)),
 		                                          pps_link_dest_get_named_dest (dest));
 	}
 
@@ -2233,7 +2242,7 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y)
 	link_dest_page = pps_link_dest_get_page (dest);
 	device_scale = gtk_widget_get_scale_factor (GTK_WIDGET (view));
 	scale = pps_document_model_get_scale (priv->model);
-	priv->link_preview.job = pps_job_thumbnail_texture_new (priv->document,
+	priv->link_preview.job = pps_job_thumbnail_texture_new (pps_document_model_get_document (priv->model),
 	                                                        link_dest_page,
 	                                                        priv->rotation,
 	                                                        scale * device_scale);
@@ -2327,7 +2336,7 @@ pps_view_get_image_at_location (PpsView *view,
 	gdouble x_new = 0, y_new = 0;
 	PpsMappingList *image_mapping;
 
-	if (!PPS_IS_DOCUMENT_IMAGES (priv->document))
+	if (!PPS_IS_DOCUMENT_IMAGES (pps_document_model_get_document (priv->model)))
 		return NULL;
 
 	if (!get_doc_point_from_location (view, x, y, &page, &x_new, &y_new))
@@ -2408,7 +2417,7 @@ get_form_field_mapping_at_location (PpsView *view,
 	gdouble x_new = 0, y_new = 0;
 	PpsMappingList *forms_mapping;
 
-	if (!PPS_IS_DOCUMENT_FORMS (priv->document))
+	if (!PPS_IS_DOCUMENT_FORMS (pps_document_model_get_document (priv->model)))
 		return NULL;
 
 	if (!get_doc_point_from_location (view, x, y, page, &x_new, &y_new))
@@ -2473,7 +2482,7 @@ pps_view_form_field_button_toggle (PpsView *view,
 	if (field_button->type == PPS_FORM_FIELD_BUTTON_PUSH)
 		return;
 
-	state = pps_document_forms_form_field_button_get_state (PPS_DOCUMENT_FORMS (priv->document),
+	state = pps_document_forms_form_field_button_get_state (PPS_DOCUMENT_FORMS (pps_document_model_get_document (priv->model)),
 	                                                        field);
 
 	/* FIXME: it actually depends on NoToggleToOff flags */
@@ -2507,7 +2516,7 @@ pps_view_form_field_button_toggle (PpsView *view,
 	}
 
 	/* Update state */
-	pps_document_forms_form_field_button_set_state (PPS_DOCUMENT_FORMS (priv->document),
+	pps_document_forms_form_field_button_set_state (PPS_DOCUMENT_FORMS (pps_document_model_get_document (priv->model)),
 	                                                field,
 	                                                !state);
 	field_button->state = !state;
@@ -2548,9 +2557,10 @@ pps_view_form_field_text_save (PpsView *view,
                                GtkWidget *widget)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 	PpsFormField *field;
 
-	if (!priv->document)
+	if (!document)
 		return;
 
 	field = g_object_get_data (G_OBJECT (widget), "form-field");
@@ -2561,7 +2571,7 @@ pps_view_form_field_text_save (PpsView *view,
 
 		field_region = pps_view_form_field_get_region (view, field);
 
-		pps_document_forms_form_field_text_set_text (PPS_DOCUMENT_FORMS (priv->document),
+		pps_document_forms_form_field_text_set_text (PPS_DOCUMENT_FORMS (document),
 		                                             field, field_text->text);
 		field->changed = FALSE;
 		pps_view_reload_page (view, field->page->index, field_region);
@@ -2623,7 +2633,7 @@ pps_view_form_field_text_create_widget (PpsView *view,
 	gchar *txt;
 	GtkEventController *controller;
 
-	txt = pps_document_forms_form_field_text_get_text (PPS_DOCUMENT_FORMS (priv->document),
+	txt = pps_document_forms_form_field_text_get_text (PPS_DOCUMENT_FORMS (pps_document_model_get_document (priv->model)),
 	                                                   field);
 
 	switch (field_text->type) {
@@ -2691,9 +2701,10 @@ pps_view_form_field_choice_save (PpsView *view,
                                  GtkWidget *widget)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 	PpsFormField *field;
 
-	if (!priv->document)
+	if (!document)
 		return;
 
 	field = g_object_get_data (G_OBJECT (widget), "form-field");
@@ -2706,12 +2717,12 @@ pps_view_form_field_choice_save (PpsView *view,
 		field_region = pps_view_form_field_get_region (view, field);
 
 		if (field_choice->is_editable) {
-			pps_document_forms_form_field_choice_set_text (PPS_DOCUMENT_FORMS (priv->document),
+			pps_document_forms_form_field_choice_set_text (PPS_DOCUMENT_FORMS (document),
 			                                               field, field_choice->text);
 		} else {
-			pps_document_forms_form_field_choice_unselect_all (PPS_DOCUMENT_FORMS (priv->document), field);
+			pps_document_forms_form_field_choice_unselect_all (PPS_DOCUMENT_FORMS (document), field);
 			for (l = field_choice->selected_items; l; l = g_list_next (l)) {
-				pps_document_forms_form_field_choice_select_item (PPS_DOCUMENT_FORMS (priv->document),
+				pps_document_forms_form_field_choice_select_item (PPS_DOCUMENT_FORMS (document),
 				                                                  field,
 				                                                  GPOINTER_TO_INT (l->data));
 			}
@@ -2828,23 +2839,24 @@ pps_view_form_field_choice_create_widget (PpsView *view,
                                           PpsFormField *field)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 	PpsFormFieldChoice *field_choice = PPS_FORM_FIELD_CHOICE (field);
 	GtkWidget *choice;
 	GtkTreeModel *model;
 	gint n_items, i;
 	gint selected_item = -1;
 
-	n_items = pps_document_forms_form_field_choice_get_n_items (PPS_DOCUMENT_FORMS (priv->document),
+	n_items = pps_document_forms_form_field_choice_get_n_items (PPS_DOCUMENT_FORMS (document),
 	                                                            field);
 	model = GTK_TREE_MODEL (gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_INT));
 	for (i = 0; i < n_items; i++) {
 		GtkTreeIter iter;
 		gchar *item;
 
-		item = pps_document_forms_form_field_choice_get_item (PPS_DOCUMENT_FORMS (priv->document),
+		item = pps_document_forms_form_field_choice_get_item (PPS_DOCUMENT_FORMS (document),
 		                                                      field, i);
 		if (pps_document_forms_form_field_choice_is_item_selected (
-			PPS_DOCUMENT_FORMS (priv->document), field, i)) {
+			PPS_DOCUMENT_FORMS (document), field, i)) {
 			selected_item = i;
 			/* FIXME: we need a get_selected_items function in poppler */
 			field_choice->selected_items = g_list_prepend (field_choice->selected_items,
@@ -2903,7 +2915,7 @@ pps_view_form_field_choice_create_widget (PpsView *view,
 		gtk_editable_set_width_chars (GTK_EDITABLE (combo_entry), 1);
 		gtk_combo_box_set_entry_text_column (GTK_COMBO_BOX (choice), 0);
 
-		text = pps_document_forms_form_field_choice_get_text (PPS_DOCUMENT_FORMS (priv->document), field);
+		text = pps_document_forms_form_field_choice_get_text (PPS_DOCUMENT_FORMS (document), field);
 		if (text) {
 			gtk_editable_set_text (GTK_EDITABLE (combo_entry), text);
 			g_free (text);
@@ -3025,7 +3037,7 @@ get_media_mapping_at_location (PpsView *view,
 	gdouble x_new = 0, y_new = 0;
 	PpsMappingList *media_mapping;
 
-	if (!PPS_IS_DOCUMENT_MEDIA (priv->document))
+	if (!PPS_IS_DOCUMENT_MEDIA (pps_document_model_get_document (priv->model)))
 		return NULL;
 
 	if (!get_doc_point_from_location (view, x, y, page, &x_new, &y_new))
@@ -3127,7 +3139,7 @@ pps_view_create_annotation_window (PpsView *view,
 		              NULL);
 	}
 
-	window = pps_annotation_window_new (annot, parent, priv->document);
+	window = pps_annotation_window_new (annot, parent, pps_document_model_get_document (priv->model));
 	g_object_set_data_full (G_OBJECT (annot), "popup",
 	                        g_object_ref_sink (window),
 	                        (GDestroyNotify) gtk_window_destroy);
@@ -3228,6 +3240,7 @@ get_annotation_mapping_at_location (PpsView *view,
                                     gint *page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 	gdouble x_new = 0, y_new = 0;
 	PpsMappingList *annotations_mapping;
 	PpsDocumentAnnotations *doc_annots;
@@ -3235,10 +3248,10 @@ get_annotation_mapping_at_location (PpsView *view,
 	PpsMapping *best;
 	GList *list;
 
-	if (!PPS_IS_DOCUMENT_ANNOTATIONS (priv->document))
+	if (!PPS_IS_DOCUMENT_ANNOTATIONS (document))
 		return NULL;
 
-	doc_annots = PPS_DOCUMENT_ANNOTATIONS (priv->document);
+	doc_annots = PPS_DOCUMENT_ANNOTATIONS (document);
 
 	if (!doc_annots)
 		return NULL;
@@ -3342,7 +3355,7 @@ pps_view_focus_annotation (PpsView *view,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsMapping *dup_mapping = NULL;
 
-	if (!PPS_IS_DOCUMENT_ANNOTATIONS (priv->document))
+	if (!PPS_IS_DOCUMENT_ANNOTATIONS (pps_document_model_get_document (priv->model)))
 		return;
 
 	if (annot_mapping) {
@@ -3675,8 +3688,9 @@ preload_pages_for_caret_navigation (PpsView *view)
 {
 	gint n_pages;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
-	if (!priv->document)
+	if (!document)
 		return;
 
 	/* Upload to the cache the first and last pages,
@@ -3684,7 +3698,7 @@ preload_pages_for_caret_navigation (PpsView *view)
 	 * in the beginning/end of the document, for example
 	 * when pressing <Ctr>Home/End
 	 */
-	n_pages = pps_document_get_n_pages (priv->document);
+	n_pages = pps_document_get_n_pages (document);
 
 	/* For documents with at least 3 pages, those are already cached anyway */
 	if (n_pages > 0 && n_pages <= 3)
@@ -3707,11 +3721,12 @@ pps_view_supports_caret_navigation (PpsView *view)
 {
 	PpsDocumentTextInterface *iface;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
-	if (!priv->document || !PPS_IS_DOCUMENT_TEXT (priv->document))
+	if (!document || !PPS_IS_DOCUMENT_TEXT (document))
 		return FALSE;
 
-	iface = PPS_DOCUMENT_TEXT_GET_IFACE (priv->document);
+	iface = PPS_DOCUMENT_TEXT_GET_IFACE (document);
 	if (!iface->get_text_layout || !iface->get_text)
 		return FALSE;
 
@@ -3777,9 +3792,10 @@ pps_view_set_caret_cursor_position (PpsView *view,
                                     guint offset)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 	g_return_if_fail (PPS_IS_VIEW (view));
-	g_return_if_fail (PPS_IS_DOCUMENT (priv->document));
-	g_return_if_fail (page < pps_document_get_n_pages (priv->document));
+	g_return_if_fail (PPS_IS_DOCUMENT (document));
+	g_return_if_fail (page < pps_document_get_n_pages (document));
 
 	if (priv->cursor_page != page || priv->cursor_offset != offset) {
 		priv->cursor_page = page;
@@ -3801,7 +3817,7 @@ pps_view_size_request_continuous_dual_page (PpsView *view,
 	gint n_pages;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	n_pages = pps_document_get_n_pages (priv->document) + 1;
+	n_pages = pps_document_get_n_pages (pps_document_model_get_document (priv->model)) + 1;
 	get_page_y_offset (view, n_pages, &requisition->height);
 
 	if (priv->sizing_mode == PPS_SIZING_FREE) {
@@ -3821,7 +3837,7 @@ pps_view_size_request_continuous (PpsView *view,
 	gint n_pages;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	n_pages = pps_document_get_n_pages (priv->document);
+	n_pages = pps_document_get_n_pages (pps_document_model_get_document (priv->model));
 	get_page_y_offset (view, n_pages, &requisition->height);
 
 	if (priv->sizing_mode == PPS_SIZING_FREE) {
@@ -3840,12 +3856,13 @@ pps_view_size_request_dual_page (PpsView *view,
 {
 	gint width, height;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
 	/* Find the largest of the two. */
 	pps_view_get_page_size (view,
 	                        priv->current_page,
 	                        &width, &height);
-	if (priv->current_page + 1 < pps_document_get_n_pages (priv->document)) {
+	if (priv->current_page + 1 < pps_document_get_n_pages (document)) {
 		gint width_2, height_2;
 		pps_view_get_page_size (view,
 		                        priv->current_page + 1,
@@ -3899,7 +3916,7 @@ pps_view_size_request (GtkWidget *widget,
 	gboolean dual_page;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	if (priv->document == NULL) {
+	if (pps_document_model_get_document (priv->model) == NULL) {
 		priv->requisition.width = 1;
 		priv->requisition.height = 1;
 	} else {
@@ -3947,7 +3964,7 @@ pps_view_size_allocate (GtkWidget *widget,
 	PpsView *view = PPS_VIEW (widget);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	if (!priv->document)
+	if (!pps_document_model_get_document (priv->model))
 		return;
 
 	if (priv->sizing_mode == PPS_SIZING_FIT_WIDTH ||
@@ -4373,7 +4390,7 @@ pps_view_snapshot (GtkWidget *widget, GtkSnapshot *snapshot)
 	clip_rect.width = width;
 	clip_rect.height = height;
 
-	if (priv->document == NULL)
+	if (pps_document_model_get_document (priv->model) == NULL)
 		return;
 
 	gtk_snapshot_push_clip (snapshot, &GRAPHENE_RECT_INIT (0, 0, width, height));
@@ -4859,10 +4876,11 @@ pps_view_button_press_event (GtkGestureClick *self,
 
 	PpsView *view = PPS_VIEW (widget);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
 	pps_view_link_preview_popover_cleanup (view);
 
-	if (!priv->document || pps_document_get_n_pages (priv->document) <= 0)
+	if (!document || pps_document_get_n_pages (document) <= 0)
 		return;
 
 	if (!gtk_widget_has_focus (widget)) {
@@ -4884,7 +4902,7 @@ pps_view_button_press_event (GtkGestureClick *self,
 		PpsMedia *media;
 		gint page;
 
-		if (PPS_IS_SELECTION (priv->document)) {
+		if (PPS_IS_SELECTION (document)) {
 			if (n_press > 1) {
 				/* In case of WORD or LINE, compute selections */
 				double point_x, point_y;
@@ -5138,6 +5156,7 @@ pps_view_move_annot_to_point (PpsView *view,
                               gdouble view_point_y)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 	PpsRectangle rect;
 	PpsRectangle current_area;
 	PpsPoint doc_point;
@@ -5147,7 +5166,7 @@ pps_view_move_annot_to_point (PpsView *view,
 
 	pps_annotation_get_area (priv->moving_annot_info.annot, &current_area);
 	page_index = pps_annotation_get_page_index (priv->moving_annot_info.annot);
-	pps_document_get_page_size (priv->document, page_index, &page_width, &page_height);
+	pps_document_get_page_size (document, page_index, &page_width, &page_height);
 	doc_point = pps_view_get_doc_point_for_page (view, page_index,
 	                                             view_point_x, view_point_y);
 
@@ -5168,13 +5187,13 @@ pps_view_move_annot_to_point (PpsView *view,
 
 	/* Take the mutex before set_area, because the notify signal
 	 * updates the mappings in the backend */
-	pps_document_doc_mutex_lock (priv->document);
+	pps_document_doc_mutex_lock (document);
 	if (pps_annotation_set_area (priv->moving_annot_info.annot, &rect)) {
-		pps_document_annotations_save_annotation (PPS_DOCUMENT_ANNOTATIONS (priv->document),
+		pps_document_annotations_save_annotation (PPS_DOCUMENT_ANNOTATIONS (document),
 		                                          priv->moving_annot_info.annot,
 		                                          PPS_ANNOTATIONS_SAVE_AREA);
 	}
-	pps_document_doc_mutex_unlock (priv->document);
+	pps_document_doc_mutex_unlock (document);
 
 	/* FIXME: reload only annotation area */
 	pps_view_reload_page (view, page_index, NULL);
@@ -5233,7 +5252,7 @@ selection_begin_cb (GtkGestureDrag *selection_gesture,
 	GdkModifierType state = gtk_event_controller_get_current_event_state (controller);
 
 	/* Selection in rotated documents has never worked */
-	if (!PPS_IS_SELECTION (priv->document) || priv->rotation != 0) {
+	if (!PPS_IS_SELECTION (pps_document_model_get_document (priv->model)) || priv->rotation != 0) {
 		gtk_gesture_set_state (GTK_GESTURE (selection_gesture),
 		                       GTK_EVENT_SEQUENCE_DENIED);
 		return;
@@ -5385,7 +5404,7 @@ pps_view_motion_notify_event (GtkEventControllerMotion *controller,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	GdkModifierType modifier = gtk_event_controller_get_current_event_state (GTK_EVENT_CONTROLLER (controller));
 
-	if (!priv->document || (modifier & BUTTON_MODIFIER_MASK) != GDK_NO_MODIFIER_MASK)
+	if (!pps_document_model_get_document (priv->model) || (modifier & BUTTON_MODIFIER_MASK) != GDK_NO_MODIFIER_MASK)
 		return;
 
 	pps_view_handle_cursor_over_xy (view, x, y);
@@ -5400,13 +5419,14 @@ pps_view_set_enable_spellchecking (PpsView *view,
 	gint n_pages = 0;
 	gint current_page;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
 	g_return_if_fail (PPS_IS_VIEW (view));
 
 	priv->enable_spellchecking = enabled;
 
-	if (priv->document)
-		n_pages = pps_document_get_n_pages (priv->document);
+	if (document)
+		n_pages = pps_document_get_n_pages (document);
 
 	for (current_page = 0; current_page < n_pages; current_page++) {
 		annots = pps_page_cache_get_annot_mapping (priv->page_cache, current_page);
@@ -5461,7 +5481,7 @@ pps_view_button_release_event (GtkGestureClick *self,
 		clear_selection (view);
 	}
 
-	if (priv->document &&
+	if (pps_document_model_get_document (priv->model) &&
 	    (button == GDK_BUTTON_PRIMARY ||
 	     button == GDK_BUTTON_MIDDLE)) {
 		link = pps_view_get_link_at_location (view, x, y);
@@ -5516,11 +5536,12 @@ go_to_next_page (PpsView *view,
 	int n_pages;
 	gboolean dual_page;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
-	if (!priv->document)
+	if (!document)
 		return -1;
 
-	n_pages = pps_document_get_n_pages (priv->document);
+	n_pages = pps_document_get_n_pages (document);
 
 	dual_page = is_dual_page (view, NULL);
 	page += dual_page ? 2 : 1;
@@ -5541,7 +5562,7 @@ go_to_previous_page (PpsView *view,
 	gboolean dual_page;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	if (!priv->document)
+	if (!pps_document_model_get_document (priv->model))
 		return -1;
 
 	dual_page = is_dual_page (view, NULL);
@@ -5625,10 +5646,12 @@ static gboolean
 cursor_go_to_document_end (PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	if (!priv->document)
+	PpsDocument *document = pps_document_model_get_document (priv->model);
+
+	if (!document)
 		return FALSE;
 
-	priv->cursor_page = pps_document_get_n_pages (priv->document) - 1;
+	priv->cursor_page = pps_document_get_n_pages (document) - 1;
 	return cursor_go_to_page_end (view);
 }
 
@@ -5868,20 +5891,21 @@ cursor_clear_selection (PpsView *view,
 		PpsRenderContext *rc;
 		PpsPage *page;
 		gdouble scale = pps_document_model_get_scale (priv->model);
+		PpsDocument *document = pps_document_model_get_document (priv->model);
 
-		pps_document_doc_mutex_lock (priv->document);
+		pps_document_doc_mutex_lock (document);
 
-		page = pps_document_get_page (priv->document, selection->page);
+		page = pps_document_get_page (document, selection->page);
 		rc = pps_render_context_new (page, priv->rotation, scale);
 		g_object_unref (page);
 
-		tmp_region = pps_selection_get_selection_region (PPS_SELECTION (priv->document),
+		tmp_region = pps_selection_get_selection_region (PPS_SELECTION (document),
 		                                                 rc,
 		                                                 PPS_SELECTION_STYLE_GLYPH,
 		                                                 &(selection->rect));
 		g_object_unref (rc);
 
-		pps_document_doc_mutex_unlock (priv->document);
+		pps_document_doc_mutex_unlock (document);
 
 		if (!tmp_region || cairo_region_is_empty (tmp_region)) {
 			cairo_region_destroy (tmp_region);
@@ -6085,7 +6109,7 @@ pps_view_move_cursor (PpsView *view,
 	gtk_widget_queue_draw (GTK_WIDGET (view));
 
 	/* Select text */
-	if (extend_selections && PPS_IS_SELECTION (priv->document)) {
+	if (extend_selections && PPS_IS_SELECTION (pps_document_model_get_document (priv->model))) {
 		gdouble start_x, start_y, end_x, end_y;
 
 		if (!get_caret_cursor_area (view, select_start_page, select_start_offset, &select_start_rect))
@@ -6170,16 +6194,18 @@ static void
 pps_view_activate (PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
+
 	if (!priv->focused_element)
 		return;
 
-	if (PPS_IS_DOCUMENT_FORMS (priv->document) &&
+	if (PPS_IS_DOCUMENT_FORMS (document) &&
 	    PPS_IS_FORM_FIELD (priv->focused_element->data)) {
 		priv->key_binding_handled = pps_view_activate_form_field (view, PPS_FORM_FIELD (priv->focused_element->data));
 		return;
 	}
 
-	if (PPS_IS_DOCUMENT_LINKS (priv->document) &&
+	if (PPS_IS_DOCUMENT_LINKS (document) &&
 	    PPS_IS_LINK (priv->focused_element->data)) {
 		priv->key_binding_handled = pps_view_activate_link (view, PPS_LINK (priv->focused_element->data));
 		return;
@@ -6502,7 +6528,6 @@ pps_view_dispose (GObject *object)
 	}
 
 	g_clear_object (&priv->pixbuf_cache);
-	g_clear_object (&priv->document);
 	g_clear_object (&priv->page_cache);
 	g_clear_object (&priv->scroll_animation_vertical);
 	g_clear_object (&priv->scroll_animation_horizontal);
@@ -6597,15 +6622,16 @@ view_update_scale_limits (PpsView *view)
 	gdouble dpi;
 	gint rotation;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
-	if (!priv->document)
+	if (!document)
 		return;
 
 	rotation = pps_document_model_get_rotation (priv->model);
 
 	dpi = pps_document_misc_get_widget_dpi (GTK_WIDGET (view)) / 72.0;
 
-	pps_document_get_min_page_size (priv->document, &min_width, &min_height);
+	pps_document_get_min_page_size (document, &min_width, &min_height);
 	width = (rotation == 0 || rotation == 180) ? min_width : min_height;
 	height = (rotation == 0 || rotation == 180) ? min_height : min_width;
 	max_scale = sqrt (priv->pixbuf_cache_size / (width * dpi * 4 * height * dpi));
@@ -6824,7 +6850,7 @@ pps_view_focus (GtkWidget *widget,
 	PpsView *view = PPS_VIEW (widget);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	if (priv->document) {
+	if (pps_document_model_get_document (priv->model)) {
 		if (direction == GTK_DIR_TAB_FORWARD || direction == GTK_DIR_TAB_BACKWARD)
 			return pps_view_focus_next (view, direction);
 	}
@@ -6838,7 +6864,7 @@ notify_scale_factor_cb (PpsView *view,
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	if (priv->document)
+	if (pps_document_model_get_document (priv->model))
 		view_update_range_and_current_page (view);
 }
 
@@ -7204,7 +7230,7 @@ pps_view_page_changed_cb (PpsDocumentModel *model,
                           PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	if (!priv->document)
+	if (!pps_document_model_get_document (priv->model))
 		return;
 
 	if (priv->current_page != new_page) {
@@ -7311,7 +7337,7 @@ adjustment_value_changed_cb (GtkAdjustment *adjustment,
 		schedule_scroll_cursor_update (view);
 #endif
 
-	if (priv->document)
+	if (pps_document_model_get_document (priv->model))
 		view_update_range_and_current_page (view);
 }
 
@@ -7327,7 +7353,7 @@ setup_caches (PpsView *view)
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	priv->height_to_page_cache = pps_view_get_height_to_page_cache (view);
 	priv->pixbuf_cache = pps_pixbuf_cache_new (GTK_WIDGET (view), priv->model, priv->pixbuf_cache_size);
-	priv->page_cache = pps_page_cache_new (priv->document);
+	priv->page_cache = pps_page_cache_new (pps_document_model_get_document (priv->model));
 
 	pps_page_cache_set_flags (priv->page_cache,
 	                          pps_page_cache_get_flags (priv->page_cache) |
@@ -7372,7 +7398,8 @@ pps_view_set_page_cache_size (PpsView *view,
 	if (priv->pixbuf_cache)
 		pps_pixbuf_cache_set_max_size (priv->pixbuf_cache, cache_size);
 
-	view_update_scale_limits (view);
+	if (priv->model)
+		view_update_scale_limits (view);
 }
 
 static void
@@ -7383,35 +7410,32 @@ pps_view_document_changed_cb (PpsDocumentModel *model,
 	PpsDocument *document = pps_document_model_get_document (model);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	if (document != priv->document) {
-		gint current_page;
+	gint current_page;
 
-		pps_view_remove_all (view);
-		clear_caches (view);
+	pps_view_remove_all (view);
+	clear_caches (view);
 
-		g_set_object (&priv->document, document);
+	if (document == NULL)
+		return;
 
-		if (priv->document) {
-			if (pps_document_get_n_pages (priv->document) <= 0 ||
-			    !pps_document_check_dimensions (priv->document))
-				return;
+	if (pps_document_get_n_pages (document) <= 0 ||
+	    !pps_document_check_dimensions (document))
+		return;
 
-			setup_caches (view);
+	setup_caches (view);
 
-			if (priv->caret_enabled)
-				preload_pages_for_caret_navigation (view);
-		}
+	if (priv->caret_enabled)
+		preload_pages_for_caret_navigation (view);
 
-		current_page = pps_document_model_get_page (model);
-		if (priv->current_page != current_page) {
-			pps_view_change_page (view, current_page);
-		} else {
-			priv->pending_scroll = SCROLL_TO_KEEP_POSITION;
-			gtk_widget_queue_resize (GTK_WIDGET (view));
-		}
-
-		view_update_scale_limits (view);
+	current_page = pps_document_model_get_page (model);
+	if (priv->current_page != current_page) {
+		pps_view_change_page (view, current_page);
+	} else {
+		priv->pending_scroll = SCROLL_TO_KEEP_POSITION;
+		gtk_widget_queue_resize (GTK_WIDGET (view));
 	}
+
+	view_update_scale_limits (view);
 }
 
 static void
@@ -7420,13 +7444,14 @@ pps_view_rotation_changed_cb (PpsDocumentModel *model,
                               PpsView *view)
 {
 	gint rotation = pps_document_model_get_rotation (model);
+	PpsDocument *document = pps_document_model_get_document (model);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	priv->rotation = rotation;
 
 	if (priv->pixbuf_cache) {
 		pps_pixbuf_cache_clear (priv->pixbuf_cache);
-		if (!pps_document_is_page_size_uniform (priv->document))
+		if (!pps_document_is_page_size_uniform (document))
 			priv->pending_scroll = SCROLL_TO_PAGE_POSITION;
 		gtk_widget_queue_resize (GTK_WIDGET (view));
 	}
@@ -7541,9 +7566,10 @@ pps_view_continuous_changed_cb (PpsDocumentModel *model,
                                 PpsView *view)
 {
 	gboolean continuous = pps_document_model_get_continuous (model);
+	PpsDocument *document = pps_document_model_get_document (model);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	if (priv->document) {
+	if (document) {
 		priv->pending_point =
 		    pps_view_get_doc_point_for_page (view, priv->start_page,
 		                                     0, 0);
@@ -7794,8 +7820,9 @@ pps_view_zoom_for_size_continuous_and_dual_page (PpsView *view,
 	gdouble doc_width, doc_height;
 	gdouble scale;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
-	pps_document_get_max_page_size (priv->document, &doc_width, &doc_height);
+	pps_document_get_max_page_size (document, &doc_width, &doc_height);
 	if (priv->rotation == 90 || priv->rotation == 270) {
 		gdouble tmp;
 
@@ -7834,8 +7861,9 @@ pps_view_zoom_for_size_continuous (PpsView *view,
 	gdouble doc_width, doc_height;
 	gdouble scale;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
-	pps_document_get_max_page_size (priv->document, &doc_width, &doc_height);
+	pps_document_get_max_page_size (document, &doc_width, &doc_height);
 	if (priv->rotation == 90 || priv->rotation == 270) {
 		gdouble tmp;
 
@@ -7874,12 +7902,13 @@ pps_view_zoom_for_size_dual_page (PpsView *view,
 	gdouble scale;
 	gint other_page;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
 	other_page = priv->current_page ^ 1;
 
 	/* Find the largest of the two. */
 	get_doc_page_size (view, priv->current_page, &doc_width, &doc_height);
-	if (other_page < pps_document_get_n_pages (priv->document)) {
+	if (other_page < pps_document_get_n_pages (document)) {
 		gdouble width_2, height_2;
 
 		get_doc_page_size (view, other_page, &width_2, &height_2);
@@ -7958,7 +7987,7 @@ pps_view_zoom_for_size (PpsView *view,
 	g_return_if_fail (width >= 0);
 	g_return_if_fail (height >= 0);
 
-	if (priv->document == NULL)
+	if (priv->model == NULL || pps_document_model_get_document (priv->model) == NULL)
 		return;
 
 	dual_page = is_dual_page (view, NULL);
@@ -8146,8 +8175,9 @@ get_selection_page_range (PpsView *view,
 	gint first, last;
 	gint i, n_pages;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
-	n_pages = pps_document_get_n_pages (priv->document);
+	n_pages = pps_document_get_n_pages (document);
 
 	if (graphene_point_equal (start, stop)) {
 		start_page = priv->start_page;
@@ -8376,12 +8406,13 @@ pps_view_select_all (PpsView *view)
 	GList *selections = NULL;
 	int n_pages, i;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
 	/* Disable selection on rotated pages for the 0.4.0 series */
 	if (priv->rotation != 0)
 		return;
 
-	n_pages = pps_document_get_n_pages (priv->document);
+	n_pages = pps_document_get_n_pages (document);
 	for (i = 0; i < n_pages; i++) {
 		gdouble width, height;
 		PpsViewSelection *selection;
@@ -8446,18 +8477,19 @@ pps_view_get_selected_text (PpsView *view)
 	GList *l;
 	gchar *normalized_text;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsDocument *document = pps_document_model_get_document (priv->model);
 
 	text = g_string_new (NULL);
 
-	pps_document_doc_mutex_lock (priv->document);
+	pps_document_doc_mutex_lock (document);
 
 	for (l = priv->selection_info.selections; l != NULL; l = l->next) {
 		PpsViewSelection *selection = (PpsViewSelection *) l->data;
 		PpsPage *page;
 		gchar *tmp;
 
-		page = pps_document_get_page (priv->document, selection->page);
-		tmp = pps_selection_get_selected_text (PPS_SELECTION (priv->document),
+		page = pps_document_get_page (document, selection->page);
+		tmp = pps_selection_get_selected_text (PPS_SELECTION (document),
 		                                       page, selection->style,
 		                                       &(selection->rect));
 		g_object_unref (page);
@@ -8465,7 +8497,7 @@ pps_view_get_selected_text (PpsView *view)
 		g_free (tmp);
 	}
 
-	pps_document_doc_mutex_unlock (priv->document);
+	pps_document_doc_mutex_unlock (document);
 
 	/* For copying text from the document to the clipboard, we want a normalization
 	 * that preserves 'canonical equivalence' i.e. that text after normalization
@@ -8575,7 +8607,7 @@ pps_view_update_primary_selection (PpsView *view)
 	GdkClipboard *clipboard;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	if (!PPS_IS_SELECTION (priv->document))
+	if (!PPS_IS_SELECTION (pps_document_model_get_document (priv->model)))
 		return;
 
 	if (priv->link_selected) {
@@ -8597,7 +8629,7 @@ pps_view_copy (PpsView *view)
 	char *text;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	if (!PPS_IS_SELECTION (priv->document))
+	if (!PPS_IS_SELECTION (pps_document_model_get_document (priv->model)))
 		return;
 
 	text = pps_view_get_selected_text (view);
