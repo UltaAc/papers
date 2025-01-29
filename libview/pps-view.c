@@ -392,7 +392,9 @@ pps_view_get_height_to_page (PpsView *view,
 {
 	PpsHeightToPageCache *cache = NULL;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	gdouble h, dh;
+	gdouble h, dh, scale;
+
+	scale = pps_document_model_get_scale (priv->model);
 
 	if (!priv->height_to_page_cache)
 		return;
@@ -405,12 +407,12 @@ pps_view_get_height_to_page (PpsView *view,
 
 	if (height) {
 		h = cache->height_to_page[page];
-		*height = (gint) (h * priv->scale + 0.5);
+		*height = (gint) (h * scale + 0.5);
 	}
 
 	if (dual_height) {
 		dh = cache->dual_height_to_page[page];
-		*dual_height = (gint) (dh * priv->scale + 0.5);
+		*dual_height = (gint) (dh * scale + 0.5);
 	}
 }
 
@@ -1114,7 +1116,7 @@ pps_view_get_page_size (PpsView *view,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	_get_page_size_for_scale_and_rotation (priv->document,
 	                                       page,
-	                                       priv->scale,
+	                                       pps_document_model_get_scale (priv->model),
 	                                       priv->rotation,
 	                                       page_width,
 	                                       page_height);
@@ -1125,14 +1127,15 @@ pps_view_get_max_page_size (PpsView *view,
                             gint *max_width,
                             gint *max_height)
 {
-	double w, h;
+	double w, h, scale;
 	gint width, height;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	pps_document_get_max_page_size (priv->document, &w, &h);
+	scale = pps_document_model_get_scale (priv->model);
 
-	width = (gint) (w * priv->scale + 0.5);
-	height = (gint) (h * priv->scale + 0.5);
+	width = (gint) (w * scale + 0.5);
+	height = (gint) (h * scale + 0.5);
 
 	if (max_width)
 		*max_width = (priv->rotation == 0 || priv->rotation == 180) ? width : height;
@@ -1306,17 +1309,19 @@ pps_view_get_doc_point_for_page (PpsView *view,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsPoint doc_point;
 	GdkRectangle page_area;
-	double x, y, width, height;
+	double x, y, width, height, scale;
 
 	g_assert (page_index >= 0);
+
+	scale = pps_document_model_get_scale (priv->model);
 
 	view_point_x += priv->scroll_x;
 	view_point_y += priv->scroll_y;
 
 	pps_view_get_page_extents (view, page_index, &page_area);
 
-	x = MAX ((double) (view_point_x - page_area.x) / priv->scale, 0);
-	y = MAX ((double) (view_point_y - page_area.y) / priv->scale, 0);
+	x = MAX ((double) (view_point_x - page_area.x) / scale, 0);
+	y = MAX ((double) (view_point_y - page_area.y) / scale, 0);
 
 	pps_document_get_page_size (priv->document, priv->current_page,
 	                            &width, &height);
@@ -1388,10 +1393,12 @@ _pps_view_transform_view_rect_to_doc_rect (PpsView *view,
                                            PpsRectangle *doc_rect)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	doc_rect->x1 = MAX ((double) (view_rect->x - page_area->x) / priv->scale, 0);
-	doc_rect->y1 = MAX ((double) (view_rect->y - page_area->y) / priv->scale, 0);
-	doc_rect->x2 = doc_rect->x1 + (double) view_rect->width / priv->scale;
-	doc_rect->y2 = doc_rect->y1 + (double) view_rect->height / priv->scale;
+	gdouble scale = pps_document_model_get_scale (priv->model);
+
+	doc_rect->x1 = MAX ((double) (view_rect->x - page_area->x) / scale, 0);
+	doc_rect->y1 = MAX ((double) (view_rect->y - page_area->y) / scale, 0);
+	doc_rect->x2 = doc_rect->x1 + (double) view_rect->width / scale;
+	doc_rect->y2 = doc_rect->y1 + (double) view_rect->height / scale;
 }
 
 void
@@ -1402,7 +1409,7 @@ _pps_view_transform_doc_point_by_rotation_scale (PpsView *view,
                                                  gdouble *view_point_y)
 {
 	GdkRectangle page_area;
-	double x, y, view_x, view_y;
+	double x, y, view_x, view_y, scale;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	switch (priv->rotation) {
@@ -1437,9 +1444,10 @@ _pps_view_transform_doc_point_by_rotation_scale (PpsView *view,
 	}
 
 	pps_view_get_page_extents (view, page, &page_area);
+	scale = pps_document_model_get_scale (priv->model);
 
-	view_x = CLAMP ((gint) (x * priv->scale + 0.5), 0, page_area.width);
-	view_y = CLAMP ((gint) (y * priv->scale + 0.5), 0, page_area.height);
+	view_x = CLAMP ((gint) (x * scale + 0.5), 0, page_area.width);
+	view_y = CLAMP ((gint) (y * scale + 0.5), 0, page_area.height);
 
 	*view_point_x = view_x;
 	*view_point_y = view_y;
@@ -1468,7 +1476,7 @@ _pps_view_transform_doc_rect_to_view_rect (PpsView *view,
                                            GdkRectangle *view_rect)
 {
 	GdkRectangle page_area;
-	double x, y, w, h;
+	double x, y, w, h, scale;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	switch (priv->rotation) {
@@ -1511,11 +1519,12 @@ _pps_view_transform_doc_rect_to_view_rect (PpsView *view,
 	}
 
 	pps_view_get_page_extents (view, page, &page_area);
+	scale = pps_document_model_get_scale (priv->model);
 
-	view_rect->x = (gint) (x * priv->scale + 0.5) + page_area.x;
-	view_rect->y = (gint) (y * priv->scale + 0.5) + page_area.y;
-	view_rect->width = (gint) (w * priv->scale + 0.5);
-	view_rect->height = (gint) (h * priv->scale + 0.5);
+	view_rect->x = (gint) (x * scale + 0.5) + page_area.x;
+	view_rect->y = (gint) (y * scale + 0.5) + page_area.y;
+	view_rect->width = (gint) (w * scale + 0.5);
+	view_rect->height = (gint) (h * scale + 0.5);
 }
 
 static void
@@ -1567,6 +1576,7 @@ location_in_text (PpsView *view,
 	cairo_region_t *region;
 	gint page = -1;
 	gint x_offset = 0, y_offset = 0;
+	gdouble scale = pps_document_model_get_scale (priv->model);
 
 	find_page_at_location (view, x, y, &page, &x_offset, &y_offset);
 
@@ -1576,7 +1586,7 @@ location_in_text (PpsView *view,
 	region = pps_page_cache_get_text_mapping (priv->page_cache, page);
 
 	if (region)
-		return cairo_region_contains_point (region, x_offset / priv->scale, y_offset / priv->scale);
+		return cairo_region_contains_point (region, x_offset / scale, y_offset / scale);
 	else
 		return FALSE;
 }
@@ -1590,13 +1600,14 @@ get_doc_point_from_offset (PpsView *view,
                            gdouble *y_new)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	gdouble width, height;
+	gdouble width, height, scale;
 	double x, y;
 
 	get_doc_page_size (view, page, &width, &height);
+	scale = pps_document_model_get_scale (priv->model);
 
-	x_offset = x_offset / priv->scale;
-	y_offset = y_offset / priv->scale;
+	x_offset = x_offset / scale;
+	y_offset = y_offset / scale;
 
 	if (priv->rotation == 0) {
 		x = x_offset;
@@ -1999,8 +2010,8 @@ pps_view_link_to_current_view (PpsView *view, PpsLink **backlink)
 		x_offset = backlink_page_area.x;
 	}
 
-	gdouble backlink_dest_x = (priv->scroll_x - x_offset) / priv->scale;
-	gdouble backlink_dest_y = (priv->scroll_y - y_offset) / priv->scale;
+	gdouble backlink_dest_x = (priv->scroll_x - x_offset) / zoom;
+	gdouble backlink_dest_y = (priv->scroll_y - y_offset) / zoom;
 
 	backlink_dest = pps_link_dest_new_xyz (backlink_page, backlink_dest_x,
 	                                       backlink_dest_y, zoom, TRUE,
@@ -2175,6 +2186,7 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y)
 	guint link_dest_page;
 	PpsPoint link_dest_doc;
 	gdouble link_dest_x, link_dest_y;
+	gdouble scale;
 	gint device_scale = 1;
 
 	pps_view_set_cursor (view, PPS_VIEW_CURSOR_LINK);
@@ -2220,10 +2232,11 @@ handle_cursor_over_link (PpsView *view, PpsLink *link, gint x, gint y)
 	/* Start thumbnailing job async */
 	link_dest_page = pps_link_dest_get_page (dest);
 	device_scale = gtk_widget_get_scale_factor (GTK_WIDGET (view));
+	scale = pps_document_model_get_scale (priv->model);
 	priv->link_preview.job = pps_job_thumbnail_texture_new (priv->document,
 	                                                        link_dest_page,
 	                                                        priv->rotation,
-	                                                        priv->scale * device_scale);
+	                                                        scale * device_scale);
 
 	link_dest_doc.x = pps_link_dest_get_left (dest, NULL);
 	link_dest_doc.y = pps_link_dest_get_top (dest, NULL);
@@ -3452,12 +3465,14 @@ static gboolean
 cursor_should_blink (PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	gdouble scale = pps_document_model_get_scale (priv->model);
+
 	if (priv->caret_enabled &&
 	    priv->rotation == 0 &&
 	    cursor_is_in_visible_page (view) &&
 	    gtk_widget_has_focus (GTK_WIDGET (view)) &&
 	    priv->pixbuf_cache &&
-	    !pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache, priv->cursor_page, priv->scale)) {
+	    !pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache, priv->cursor_page, scale)) {
 		GtkSettings *settings;
 		gboolean blink;
 
@@ -4061,11 +4076,13 @@ should_draw_caret_cursor (PpsView *view,
                           gint page)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	gdouble scale = pps_document_model_get_scale (priv->model);
+
 	return (priv->caret_enabled &&
 	        priv->cursor_page == page &&
 	        priv->cursor_visible &&
 	        gtk_widget_has_focus (GTK_WIDGET (view)) &&
-	        !pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache, page, priv->scale));
+	        !pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache, page, scale));
 }
 
 static void
@@ -5850,11 +5867,12 @@ cursor_clear_selection (PpsView *view,
 	if (!region || cairo_region_is_empty (region)) {
 		PpsRenderContext *rc;
 		PpsPage *page;
+		gdouble scale = pps_document_model_get_scale (priv->model);
 
 		pps_document_doc_mutex_lock (priv->document);
 
 		page = pps_document_get_page (priv->document, selection->page);
-		rc = pps_render_context_new (page, priv->rotation, priv->scale);
+		rc = pps_render_context_new (page, priv->rotation, scale);
 		g_object_unref (page);
 
 		tmp_region = pps_selection_get_selection_region (PPS_SELECTION (priv->document),
@@ -6378,6 +6396,7 @@ draw_one_page (PpsView *view,
 	gint current_page;
 	GtkWidget *widget = GTK_WIDGET (view);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	gdouble scale = pps_document_model_get_scale (priv->model);
 
 	if (!gdk_rectangle_intersect (page_area, expose_area, &overlap))
 		return TRUE;
@@ -6429,7 +6448,7 @@ draw_one_page (PpsView *view,
 
 		selection_texture = pps_pixbuf_cache_get_selection_texture (priv->pixbuf_cache,
 		                                                            page,
-		                                                            priv->scale);
+		                                                            scale);
 		if (selection_texture) {
 			draw_surface (snapshot, selection_texture, &point, &area, false);
 			return TRUE;
@@ -6437,7 +6456,7 @@ draw_one_page (PpsView *view,
 
 		region = pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache,
 		                                                page,
-		                                                priv->scale);
+		                                                scale);
 		if (region) {
 			double scale_x, scale_y;
 			GdkRGBA color;
@@ -7117,7 +7136,6 @@ pps_view_init (PpsView *view)
 	priv->start_page = -1;
 	priv->end_page = -1;
 	priv->spacing = 12;
-	priv->scale = 1.0;
 	priv->current_page = -1;
 	priv->cursor = PPS_VIEW_CURSOR_NORMAL;
 	priv->selection_info.selections = NULL;
@@ -7446,15 +7464,17 @@ update_can_zoom (PpsView *view)
 {
 	gdouble min_scale;
 	gdouble max_scale;
+	gdouble scale;
 	gboolean can_zoom_in;
 	gboolean can_zoom_out;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	min_scale = pps_document_model_get_min_scale (priv->model);
 	max_scale = pps_document_model_get_max_scale (priv->model);
+	scale = pps_document_model_get_scale (priv->model);
 
-	can_zoom_in = priv->scale < max_scale;
-	can_zoom_out = priv->scale > min_scale;
+	can_zoom_in = scale < max_scale;
+	can_zoom_out = scale > min_scale;
 
 	if (can_zoom_in != priv->can_zoom_in) {
 		priv->can_zoom_in = can_zoom_in;
@@ -7485,19 +7505,12 @@ pps_view_page_layout_changed_cb (PpsDocumentModel *model,
 	 */
 }
 
-#define EPSILON 0.0000001
 static void
 pps_view_scale_changed_cb (PpsDocumentModel *model,
                            GParamSpec *pspec,
                            PpsView *view)
 {
-	gdouble scale = pps_document_model_get_scale (model);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	if (ABS (priv->scale - scale) < EPSILON)
-		return;
-
-	priv->scale = scale;
 
 	priv->pending_resize = TRUE;
 	if (priv->sizing_mode == PPS_SIZING_FREE)
@@ -7586,7 +7599,6 @@ pps_view_set_model (PpsView *view,
 	/* Initialize view from model */
 	priv->rotation = pps_document_model_get_rotation (priv->model);
 	priv->sizing_mode = pps_document_model_get_sizing_mode (priv->model);
-	priv->scale = pps_document_model_get_scale (priv->model);
 	priv->continuous = pps_document_model_get_continuous (priv->model);
 	priv->page_layout = pps_document_model_get_page_layout (priv->model);
 	gtk_widget_set_direction (GTK_WIDGET (view), pps_document_model_get_rtl (priv->model));
@@ -7645,7 +7657,7 @@ pps_view_reload_page (PpsView *view,
 	                              region,
 	                              page,
 	                              priv->rotation,
-	                              priv->scale);
+	                              pps_document_model_get_scale (priv->model));
 }
 
 void
@@ -8182,6 +8194,7 @@ compute_new_selection (PpsView *view,
                        graphene_point_t *stop)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	gdouble scale = pps_document_model_get_scale (priv->model);
 	int i, first, last;
 	GList *list = NULL;
 
@@ -8220,8 +8233,8 @@ compute_new_selection (PpsView *view,
 		}
 
 		if (i == first) {
-			selection->rect.x1 = MAX ((double) (point_x - page_area.x) / priv->scale, 0);
-			selection->rect.y1 = MAX ((double) (point_y - page_area.y) / priv->scale, 0);
+			selection->rect.x1 = MAX ((double) (point_x - page_area.x) / scale, 0);
+			selection->rect.y1 = MAX ((double) (point_y - page_area.y) / scale, 0);
 		}
 
 		/* If the selection is contained within just one page,
@@ -8233,8 +8246,8 @@ compute_new_selection (PpsView *view,
 		}
 
 		if (i == last) {
-			selection->rect.x2 = MAX ((double) (point_x - page_area.x) / priv->scale, 0);
-			selection->rect.y2 = MAX ((double) (point_y - page_area.y) / priv->scale, 0);
+			selection->rect.x2 = MAX ((double) (point_x - page_area.x) / scale, 0);
+			selection->rect.y2 = MAX ((double) (point_y - page_area.y) / scale, 0);
 		}
 
 		list = g_list_prepend (list, selection);
@@ -8307,7 +8320,7 @@ merge_selection_region (PpsView *view,
 
 			tmp_region = pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache,
 			                                                    cur_page,
-			                                                    priv->scale);
+			                                                    pps_document_model_get_scale (priv->model));
 
 			g_clear_pointer (&new_sel->covered_region, cairo_region_destroy);
 
@@ -8469,6 +8482,7 @@ pps_view_get_doc_points_from_selection_region (PpsView *view,
                                                PpsPoint *end)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	gdouble scale = pps_document_model_get_scale (priv->model);
 	cairo_rectangle_int_t first, last;
 	gdouble start_x, start_y, stop_x, stop_y;
 	cairo_region_t *region = NULL;
@@ -8476,7 +8490,7 @@ pps_view_get_doc_points_from_selection_region (PpsView *view,
 	if (!priv->pixbuf_cache)
 		return FALSE;
 
-	region = pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache, page, priv->scale);
+	region = pps_pixbuf_cache_get_selection_region (priv->pixbuf_cache, page, scale);
 
 	if (!region)
 		return FALSE;
