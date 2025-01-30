@@ -478,7 +478,7 @@ scroll_to_point (PpsView *view,
 		upper = gtk_adjustment_get_upper (priv->vadjustment);
 		lower = gtk_adjustment_get_lower (priv->vadjustment);
 
-		if (priv->continuous) {
+		if (pps_document_model_get_continuous (priv->model)) {
 			gtk_adjustment_clamp_page (priv->vadjustment,
 			                           y, y + page_size);
 		} else {
@@ -619,7 +619,7 @@ view_update_range_and_current_page (PpsView *view)
 	    !pps_document_check_dimensions (document))
 		return;
 
-	if (priv->continuous) {
+	if (pps_document_model_get_continuous (priv->model)) {
 		GdkRectangle current_area, unused, page_area;
 		gboolean found = FALSE;
 		gint area_max = -1, area;
@@ -1188,7 +1188,7 @@ pps_view_get_page_extents (PpsView *view,
 	page_area->width = width;
 	page_area->height = height;
 
-	if (priv->continuous) {
+	if (pps_document_model_get_continuous (priv->model)) {
 		gint max_width;
 		gint x, y;
 		gboolean odd_left;
@@ -2012,7 +2012,7 @@ pps_view_link_to_current_view (PpsView *view, PpsLink **backlink)
 	x_offset = backlink_page_area.x;
 	y_offset = backlink_page_area.y;
 
-	if (!priv->continuous && is_dual && priv->scroll_x > backlink_page_area.width) {
+	if (!pps_document_model_get_continuous (priv->model) && is_dual && priv->scroll_x > backlink_page_area.width) {
 		/* For dual-column, non-continuous mode, priv->start_page is always
 		 * the page in the left-hand column, even if that page isn't visible.
 		 * We adjust for that here when we know the page can't be visible due
@@ -3920,7 +3920,7 @@ pps_view_size_request (GtkWidget *widget,
                        GtkRequisition *requisition)
 {
 	PpsView *view = PPS_VIEW (widget);
-	gboolean dual_page;
+	gboolean dual_page, continuous;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	if (pps_document_model_get_document (priv->model) == NULL) {
@@ -3928,9 +3928,11 @@ pps_view_size_request (GtkWidget *widget,
 		priv->requisition.height = 1;
 	} else {
 		dual_page = is_dual_page (view, NULL);
-		if (priv->continuous && dual_page)
+		continuous = pps_document_model_get_continuous (priv->model);
+
+		if (continuous && dual_page)
 			pps_view_size_request_continuous_dual_page (view, &priv->requisition);
-		else if (priv->continuous)
+		else if (continuous)
 			pps_view_size_request_continuous (view, &priv->requisition);
 		else if (dual_page)
 			pps_view_size_request_dual_page (view, &priv->requisition);
@@ -6057,7 +6059,7 @@ pps_view_move_cursor (PpsView *view,
 	if (!get_caret_cursor_area (view, priv->cursor_page, priv->cursor_offset, &rect))
 		return TRUE;
 
-	if (!priv->continuous) {
+	if (!pps_document_model_get_continuous (priv->model)) {
 		changed_page = FALSE;
 		if (prev_page < priv->cursor_page) {
 			pps_view_next_page (view);
@@ -6448,7 +6450,7 @@ draw_one_page (PpsView *view,
 	if (pps_document_model_get_inverted_colors (priv->model))
 		gtk_style_context_add_class (context, PPS_STYLE_CLASS_INVERTED);
 
-	if (priv->continuous && page == current_page)
+	if (pps_document_model_get_continuous (priv->model) && page == current_page)
 		gtk_style_context_set_state (context, GTK_STATE_FLAG_ACTIVE);
 
 	gtk_snapshot_render_background (snapshot, context, page_area->x, page_area->y, page_area->width, page_area->height);
@@ -6657,7 +6659,7 @@ page_swipe_cb (GtkGestureSwipe *gesture,
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	if (priv->continuous)
+	if (pps_document_model_get_continuous (priv->model))
 		return;
 
 	GtkTextDirection direction = gtk_widget_get_direction (GTK_WIDGET (view)) || gtk_widget_get_default_direction ();
@@ -7174,7 +7176,6 @@ pps_view_init (PpsView *view)
 	priv->current_page = -1;
 	priv->cursor = PPS_VIEW_CURSOR_NORMAL;
 	priv->selection_info.selections = NULL;
-	priv->continuous = TRUE;
 	priv->pending_scroll = SCROLL_TO_PAGE_POSITION;
 	priv->pending_point.x = 0;
 	priv->pending_point.y = 0;
@@ -7562,7 +7563,6 @@ pps_view_continuous_changed_cb (PpsDocumentModel *model,
                                 GParamSpec *pspec,
                                 PpsView *view)
 {
-	gboolean continuous = pps_document_model_get_continuous (model);
 	PpsDocument *document = pps_document_model_get_document (model);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
@@ -7571,7 +7571,6 @@ pps_view_continuous_changed_cb (PpsDocumentModel *model,
 		    pps_view_get_doc_point_for_page (view, priv->start_page,
 		                                     0, 0);
 	}
-	priv->continuous = continuous;
 	priv->pending_scroll = SCROLL_TO_PAGE_POSITION;
 	gtk_widget_queue_resize (GTK_WIDGET (view));
 }
@@ -7619,7 +7618,6 @@ pps_view_set_model (PpsView *view,
 	g_set_object (&priv->model, model);
 
 	/* Initialize view from model */
-	priv->continuous = pps_document_model_get_continuous (priv->model);
 	gtk_widget_set_direction (GTK_WIDGET (view), pps_document_model_get_rtl (priv->model));
 	pps_view_document_changed_cb (priv->model, NULL, view);
 
@@ -7975,6 +7973,7 @@ pps_view_zoom_for_size (PpsView *view,
 	gboolean dual_page;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsSizingMode sizing_mode = pps_document_model_get_sizing_mode (priv->model);
+	gboolean continuous = pps_document_model_get_continuous (priv->model);
 
 	g_return_if_fail (PPS_IS_VIEW (view));
 	g_return_if_fail (sizing_mode == PPS_SIZING_FIT_WIDTH ||
@@ -7987,9 +7986,9 @@ pps_view_zoom_for_size (PpsView *view,
 		return;
 
 	dual_page = is_dual_page (view, NULL);
-	if (priv->continuous && dual_page)
+	if (continuous && dual_page)
 		pps_view_zoom_for_size_continuous_and_dual_page (view, width, height);
-	else if (priv->continuous)
+	else if (continuous)
 		pps_view_zoom_for_size_continuous (view, width, height);
 	else if (dual_page)
 		pps_view_zoom_for_size_dual_page (view, width, height);
@@ -8179,7 +8178,7 @@ get_selection_page_range (PpsView *view,
 	if (graphene_point_equal (start, stop)) {
 		start_page = priv->start_page;
 		end_page = priv->end_page;
-	} else if (priv->continuous) {
+	} else if (pps_document_model_get_continuous (priv->model)) {
 		start_page = 0;
 		end_page = n_pages - 1;
 	} else if (is_dual_page (view, NULL)) {
