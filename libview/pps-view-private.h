@@ -140,7 +140,6 @@ typedef struct _PpsViewPrivate {
 	gint end_page;
 	gint current_page;
 
-	gint rotation;
 	gint spacing;
 
 	gboolean can_zoom_in;
