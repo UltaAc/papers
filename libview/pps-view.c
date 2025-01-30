@@ -284,7 +284,7 @@ pps_view_build_height_to_page_cache (PpsView *view,
 	g_free (cache->dual_height_to_page);
 
 	cache->rotation = rotation;
-	cache->dual_even_left = priv->dual_even_left;
+	cache->dual_even_left = !pps_document_model_get_dual_page_odd_pages_left (priv->model);
 	cache->height_to_page = g_new0 (gdouble, n_pages + 1);
 	cache->dual_height_to_page = g_new0 (gdouble, n_pages + 2);
 
@@ -403,7 +403,7 @@ pps_view_get_height_to_page (PpsView *view,
 
 	cache = priv->height_to_page_cache;
 	if (cache->rotation != pps_document_model_get_rotation (priv->model) ||
-	    cache->dual_even_left != priv->dual_even_left) {
+	    cache->dual_even_left != !pps_document_model_get_dual_page_odd_pages_left (priv->model)) {
 		pps_view_build_height_to_page_cache (view, cache);
 	}
 
@@ -427,7 +427,7 @@ is_dual_page (PpsView *view,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsDocument *document = pps_document_model_get_document (priv->model);
 
-	switch (priv->page_layout) {
+	switch (pps_document_model_get_page_layout (priv->model)) {
 	case PPS_PAGE_LAYOUT_AUTOMATIC: {
 		double scale;
 		double doc_width;
@@ -442,12 +442,12 @@ is_dual_page (PpsView *view,
 		    doc_width < doc_height &&
 		    gtk_widget_get_width (GTK_WIDGET (view)) > (2 * doc_width * scale) &&
 		    gtk_widget_get_height (GTK_WIDGET (view)) > (doc_height * scale * 0.9)) {
-			odd_left = !priv->dual_even_left;
+			odd_left = pps_document_model_get_dual_page_odd_pages_left (priv->model);
 			dual = TRUE;
 		}
 	} break;
 	case PPS_PAGE_LAYOUT_DUAL:
-		odd_left = !priv->dual_even_left;
+		odd_left = pps_document_model_get_dual_page_odd_pages_left (priv->model);
 		if (pps_document_get_n_pages (document) > 1)
 			dual = TRUE;
 		break;
@@ -7175,8 +7175,6 @@ pps_view_init (PpsView *view)
 	priv->cursor = PPS_VIEW_CURSOR_NORMAL;
 	priv->selection_info.selections = NULL;
 	priv->continuous = TRUE;
-	priv->dual_even_left = TRUE;
-	priv->page_layout = PPS_PAGE_LAYOUT_SINGLE;
 	priv->pending_scroll = SCROLL_TO_PAGE_POSITION;
 	priv->pending_point.x = 0;
 	priv->pending_point.y = 0;
@@ -7519,10 +7517,7 @@ pps_view_page_layout_changed_cb (PpsDocumentModel *model,
                                  GParamSpec *pspec,
                                  PpsView *view)
 {
-	PpsPageLayout layout = pps_document_model_get_page_layout (model);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	priv->page_layout = layout;
 
 	priv->pending_scroll = SCROLL_TO_PAGE_POSITION;
 	gtk_widget_queue_resize (GTK_WIDGET (view));
@@ -7587,7 +7582,6 @@ pps_view_dual_odd_left_changed_cb (PpsDocumentModel *model,
                                    PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	priv->dual_even_left = !pps_document_model_get_dual_page_odd_pages_left (model);
 	priv->pending_scroll = SCROLL_TO_PAGE_POSITION;
 	if (pps_document_model_get_page_layout (model) == PPS_PAGE_LAYOUT_DUAL)
 		/* odd_left may be set when not in dual mode,
@@ -7626,7 +7620,6 @@ pps_view_set_model (PpsView *view,
 
 	/* Initialize view from model */
 	priv->continuous = pps_document_model_get_continuous (priv->model);
-	priv->page_layout = pps_document_model_get_page_layout (priv->model);
 	gtk_widget_set_direction (GTK_WIDGET (view), pps_document_model_get_rtl (priv->model));
 	pps_view_document_changed_cb (priv->model, NULL, view);
 
