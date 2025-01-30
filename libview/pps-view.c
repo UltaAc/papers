@@ -3825,7 +3825,7 @@ pps_view_size_request_continuous_dual_page (PpsView *view,
 	n_pages = pps_document_get_n_pages (pps_document_model_get_document (priv->model)) + 1;
 	get_page_y_offset (view, n_pages, &requisition->height);
 
-	if (priv->sizing_mode == PPS_SIZING_FREE) {
+	if (pps_document_model_get_sizing_mode (priv->model) == PPS_SIZING_FREE) {
 		gint max_width;
 
 		pps_view_get_max_page_size (view, &max_width, NULL);
@@ -3845,7 +3845,7 @@ pps_view_size_request_continuous (PpsView *view,
 	n_pages = pps_document_get_n_pages (pps_document_model_get_document (priv->model));
 	get_page_y_offset (view, n_pages, &requisition->height);
 
-	if (priv->sizing_mode == PPS_SIZING_FREE) {
+	if (pps_document_model_get_sizing_mode (priv->model) == PPS_SIZING_FREE) {
 		gint max_width;
 
 		pps_view_get_max_page_size (view, &max_width, NULL);
@@ -3862,6 +3862,7 @@ pps_view_size_request_dual_page (PpsView *view,
 	gint width, height;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsDocument *document = pps_document_model_get_document (priv->model);
+	PpsSizingMode sizing_mode = pps_document_model_get_sizing_mode (priv->model);
 
 	/* Find the largest of the two. */
 	pps_view_get_page_size (view,
@@ -3878,13 +3879,13 @@ pps_view_size_request_dual_page (PpsView *view,
 		}
 	}
 
-	if (priv->sizing_mode == PPS_SIZING_FIT_PAGE) {
+	if (sizing_mode == PPS_SIZING_FIT_PAGE) {
 		requisition->height = 1;
 	} else {
 		requisition->height = height + priv->spacing * 2;
 	}
 
-	if (priv->sizing_mode == PPS_SIZING_FREE) {
+	if (sizing_mode == PPS_SIZING_FREE) {
 		requisition->width = width * 2 + priv->spacing * 3;
 	} else {
 		requisition->width = 1;
@@ -3897,16 +3898,17 @@ pps_view_size_request_single_page (PpsView *view,
 {
 	gint width, height;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsSizingMode sizing_mode = pps_document_model_get_sizing_mode (priv->model);
 
 	pps_view_get_page_size (view, priv->current_page, &width, &height);
 
-	if (priv->sizing_mode == PPS_SIZING_FIT_PAGE) {
+	if (sizing_mode == PPS_SIZING_FIT_PAGE) {
 		requisition->height = 1;
 	} else {
 		requisition->height = height + (2 * priv->spacing);
 	}
 
-	if (priv->sizing_mode == PPS_SIZING_FREE) {
+	if (sizing_mode == PPS_SIZING_FREE) {
 		requisition->width = width + (2 * priv->spacing);
 	} else {
 		requisition->width = 1;
@@ -3968,13 +3970,14 @@ pps_view_size_allocate (GtkWidget *widget,
 {
 	PpsView *view = PPS_VIEW (widget);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsSizingMode sizing_mode = pps_document_model_get_sizing_mode (priv->model);
 
 	if (!pps_document_model_get_document (priv->model))
 		return;
 
-	if (priv->sizing_mode == PPS_SIZING_FIT_WIDTH ||
-	    priv->sizing_mode == PPS_SIZING_FIT_PAGE ||
-	    priv->sizing_mode == PPS_SIZING_AUTOMATIC) {
+	if (sizing_mode == PPS_SIZING_FIT_WIDTH ||
+	    sizing_mode == PPS_SIZING_FIT_PAGE ||
+	    sizing_mode == PPS_SIZING_AUTOMATIC) {
 		pps_view_zoom_for_size (view, width, height);
 		pps_view_size_request (widget, NULL);
 	}
@@ -7173,7 +7176,6 @@ pps_view_init (PpsView *view)
 	priv->selection_info.selections = NULL;
 	priv->continuous = TRUE;
 	priv->dual_even_left = TRUE;
-	priv->sizing_mode = PPS_SIZING_FIT_WIDTH;
 	priv->page_layout = PPS_PAGE_LAYOUT_SINGLE;
 	priv->pending_scroll = SCROLL_TO_PAGE_POSITION;
 	priv->pending_point.x = 0;
@@ -7480,11 +7482,7 @@ pps_view_sizing_mode_changed_cb (PpsDocumentModel *model,
                                  GParamSpec *pspec,
                                  PpsView *view)
 {
-	PpsSizingMode mode = pps_document_model_get_sizing_mode (model);
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
-	priv->sizing_mode = mode;
-	if (mode != PPS_SIZING_FREE)
+	if (pps_document_model_get_sizing_mode (model) != PPS_SIZING_FREE)
 		gtk_widget_queue_resize (GTK_WIDGET (view));
 }
 
@@ -7542,7 +7540,7 @@ pps_view_scale_changed_cb (PpsDocumentModel *model,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	priv->pending_resize = TRUE;
-	if (priv->sizing_mode == PPS_SIZING_FREE)
+	if (pps_document_model_get_sizing_mode (priv->model) == PPS_SIZING_FREE)
 		gtk_widget_queue_resize (GTK_WIDGET (view));
 
 	update_can_zoom (view);
@@ -7627,7 +7625,6 @@ pps_view_set_model (PpsView *view,
 	g_set_object (&priv->model, model);
 
 	/* Initialize view from model */
-	priv->sizing_mode = pps_document_model_get_sizing_mode (priv->model);
 	priv->continuous = pps_document_model_get_continuous (priv->model);
 	priv->page_layout = pps_document_model_get_page_layout (priv->model);
 	gtk_widget_set_direction (GTK_WIDGET (view), pps_document_model_get_rtl (priv->model));
@@ -7732,7 +7729,7 @@ pps_view_zoom (PpsView *view, gdouble factor)
 	gdouble scale;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
-	g_return_if_fail (priv->sizing_mode == PPS_SIZING_FREE);
+	g_return_if_fail (pps_document_model_get_sizing_mode (priv->model) == PPS_SIZING_FREE);
 
 	priv->pending_scroll = SCROLL_TO_CENTER;
 	scale = pps_document_model_get_scale (priv->model) * factor;
@@ -7839,7 +7836,7 @@ pps_view_zoom_for_size_continuous_and_dual_page (PpsView *view,
 	width -= 3 * priv->spacing;
 	height -= 2 * priv->spacing;
 
-	switch (priv->sizing_mode) {
+	switch (pps_document_model_get_sizing_mode (priv->model)) {
 	case PPS_SIZING_FIT_WIDTH:
 		scale = zoom_for_size_fit_width (doc_width, doc_height, width, height);
 		break;
@@ -7880,7 +7877,7 @@ pps_view_zoom_for_size_continuous (PpsView *view,
 	width -= 2 * priv->spacing;
 	height -= 2 * priv->spacing;
 
-	switch (priv->sizing_mode) {
+	switch (pps_document_model_get_sizing_mode (priv->model)) {
 	case PPS_SIZING_FIT_WIDTH:
 		scale = zoom_for_size_fit_width (doc_width, doc_height, width, height);
 		break;
@@ -7927,7 +7924,7 @@ pps_view_zoom_for_size_dual_page (PpsView *view,
 	width -= 3 * priv->spacing;
 	height -= 2 * priv->spacing;
 
-	switch (priv->sizing_mode) {
+	switch (pps_document_model_get_sizing_mode (priv->model)) {
 	case PPS_SIZING_FIT_WIDTH:
 		scale = zoom_for_size_fit_width (doc_width, doc_height, width, height);
 		break;
@@ -7959,7 +7956,7 @@ pps_view_zoom_for_size_single_page (PpsView *view,
 	width -= 2 * priv->spacing;
 	height -= 2 * priv->spacing;
 
-	switch (priv->sizing_mode) {
+	switch (pps_document_model_get_sizing_mode (priv->model)) {
 	case PPS_SIZING_FIT_WIDTH:
 		scale = zoom_for_size_fit_width (doc_width, doc_height, width, height);
 		break;
@@ -7984,11 +7981,12 @@ pps_view_zoom_for_size (PpsView *view,
 {
 	gboolean dual_page;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	PpsSizingMode sizing_mode = pps_document_model_get_sizing_mode (priv->model);
 
 	g_return_if_fail (PPS_IS_VIEW (view));
-	g_return_if_fail (priv->sizing_mode == PPS_SIZING_FIT_WIDTH ||
-	                  priv->sizing_mode == PPS_SIZING_FIT_PAGE ||
-	                  priv->sizing_mode == PPS_SIZING_AUTOMATIC);
+	g_return_if_fail (sizing_mode == PPS_SIZING_FIT_WIDTH ||
+	                  sizing_mode == PPS_SIZING_FIT_PAGE ||
+	                  sizing_mode == PPS_SIZING_AUTOMATIC);
 	g_return_if_fail (width >= 0);
 	g_return_if_fail (height >= 0);
 
@@ -8015,13 +8013,14 @@ pps_view_page_fits (PpsView *view,
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	int widget_width = gtk_widget_get_width (GTK_WIDGET (view));
 	int widget_height = gtk_widget_get_height (GTK_WIDGET (view));
+	PpsSizingMode sizing_mode = pps_document_model_get_sizing_mode (priv->model);
 
-	if (priv->sizing_mode == PPS_SIZING_FIT_PAGE)
+	if (sizing_mode == PPS_SIZING_FIT_PAGE)
 		return TRUE;
 
 	if (orientation == GTK_ORIENTATION_HORIZONTAL &&
-	    (priv->sizing_mode == PPS_SIZING_FIT_WIDTH ||
-	     priv->sizing_mode == PPS_SIZING_AUTOMATIC))
+	    (sizing_mode == PPS_SIZING_FIT_WIDTH ||
+	     sizing_mode == PPS_SIZING_AUTOMATIC))
 		return TRUE;
 
 	pps_view_size_request (GTK_WIDGET (view), &requisition);
