@@ -659,7 +659,7 @@ impl imp::PpsDocumentView {
                     }
                 ))
                 .build(),
-            gio::ActionEntryBuilder::new("go-back")
+            gio::ActionEntryBuilder::new("go-backwards")
                 .activate(glib::clone!(
                     #[weak(rename_to = obj)]
                     self,
