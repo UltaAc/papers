@@ -655,6 +655,8 @@ impl imp::PpsDocumentView {
 
                         if current_page + 10 < n_pages {
                             obj.model.set_page(current_page + 10);
+                        } else {
+                            obj.model.set_page(n_pages - 1);
                         }
                     }
                 ))
@@ -668,6 +670,8 @@ impl imp::PpsDocumentView {
 
                         if current_page - 10 >= 0 {
                             obj.model.set_page(current_page - 10);
+                        } else {
+                            obj.model.set_page(0);
                         }
                     }
                 ))
