@@ -18,23 +18,6 @@ image.symbolic-circular {
 }
 
 
-window.pps-annotation-window headerbar {
-    box-shadow: none;
-    font-weight: 800;
-    font-size: larger;
-}
-
-window.pps-annotation-window label {
-    padding-top: 12px;
-    padding-bottom: 6px;
-}
-
-window.pps-annotation-window textview {
-    padding-left: 18px;
-    padding-right: 18px;
-    padding-bottom: 18px;
-}
-
 .zoom-overlay button.circular {
     padding: 3px;
 }
@@ -136,6 +119,20 @@ window.pps-annotation-window {
 window.pps-annotation-window headerbar {
     background-color: var(--annotation-color);
     color: var(--annotation-fg-color);
+    box-shadow: none;
+    font-weight: 800;
+    font-size: larger;
+}
+
+window.pps-annotation-window label {
+    padding-top: 12px;
+    padding-bottom: 6px;
+}
+
+window.pps-annotation-window textview {
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-bottom: 18px;
 }
 
 .color-button {
