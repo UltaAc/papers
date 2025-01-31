@@ -249,10 +249,9 @@ impl imp::PpsDocumentView {
             .unwrap_or_default();
 
         if !is_pdf {
-            self.warning_message(&format!(
-                "{} “{}”",
-                gettext("Security alert: this document has been prevented from opening the file"),
-                filename
+            self.warning_message(&gettext_f(
+                "Security alert: this document has been prevented from opening the file “{}”",
+                [filename],
             ));
             return;
         }
