@@ -124,12 +124,19 @@ window.pps-annotation-window headerbar {
     font-size: larger;
 }
 
+window.pps-annotation-window text {
+    background-color: var(--annotation-color);
+    color: var(--annotation-fg-color);
+}
+
 window.pps-annotation-window label {
     padding-top: 12px;
     padding-bottom: 6px;
 }
 
 window.pps-annotation-window textview {
+    background-color: var(--annotation-color);
+    color: var(--annotation-fg-color);
     padding-left: 18px;
     padding-right: 18px;
     padding-bottom: 18px;
