@@ -141,12 +141,12 @@ mod imp {
                     .and_downcast::<papers_view::SearchResult>()
                     .unwrap();
 
-                let current_page = result.page();
-                let current_index_in_page = result.index();
+                let result_page = result.page();
+                let result_index_in_page = result.index();
 
-                if current_page == page && current_index_in_page == 0 {
+                if result_page == page && result_index_in_page == 0 {
                     break;
-                } else if current_page < page {
+                } else if result_page < page {
                     lower_bound = index + 1;
                 } else {
                     upper_bound = index - 1;
