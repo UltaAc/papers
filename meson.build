@@ -306,7 +306,7 @@ if enable_pdf
   backends += {'pdf': mime_types_list.get('pdf') + mime_types_list.get('illustrator')}
   papers_mime_types += mime_types_list.get('pdf')
   papers_mime_types += mime_types_list.get('illustrator')
-  if poppler_glib_dep.version().version_compare('>= 24.12.0')
+  if poppler_glib_dep.version().version_compare('>= 25.02.0')
     add_project_arguments ('-DHAVE_FREE_TEXT', language: 'c')
   endif
 elif get_option('pdf').auto()

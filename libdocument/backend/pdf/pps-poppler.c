@@ -2739,11 +2739,15 @@ pps_annot_from_poppler_annot (PopplerAnnot *poppler_annot,
 		/* Font */
 		poppler_font = poppler_annot_free_text_get_font_desc (poppler_ft);
 		font = pango_font_description_new ();
-		pango_font_description_set_family (font, poppler_font->font_name);
-		pango_font_description_set_weight (font, poppler_font->weight);
-		pango_font_description_set_style (font, poppler_font->style);
-		pango_font_description_set_stretch (font, poppler_font->stretch);
-		pango_font_description_set_size (font, poppler_font->size_pt * PANGO_SCALE);
+		if (poppler_font) {
+			pango_font_description_set_family (font, poppler_font->font_name);
+			pango_font_description_set_weight (font, poppler_font->weight);
+			pango_font_description_set_style (font, poppler_font->style);
+			pango_font_description_set_stretch (font, poppler_font->stretch);
+			pango_font_description_set_size (font, poppler_font->size_pt * PANGO_SCALE);
+		} else {
+			pango_font_description_set_size (font, 12 * PANGO_SCALE);
+		}
 		pps_annotation_free_text_set_font_description (pps_annot_ft, font);
 
 		/* Font color */
