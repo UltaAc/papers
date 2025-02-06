@@ -76,6 +76,29 @@
   <translation type="gettext">papers</translation>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="48~beta" type="development" date="2025-02-06">
+      <description>
+        <p>Papers has seen numerous improvements over the course of the last six months:</p>
+        <ul>
+          <li>The annotation windows were redesigned. And their context menu's now feature a colour chooser.</li>
+          <li>The night mode was improved with respect to colour accuracy—it no longer changes the hue.
+            The night mode also propagates to other open windows and is retained across different documents.</li>
+          <li>The attachment sidebar has seen a complete overhaul granting a better overview for longer lists.</li>
+          <li>Since last version, you can sign documents digitally. With this release, you can also verify them.</li>
+        </ul>
+        <p>And there were equally many fixes for pre-existing issues:</p>
+        <ul>
+          <li>Opening a document via drag and drop works again.</li>
+          <li>The document will scroll to the nearest search result, which it previously sometimes failed to.</li>
+          <li>Annotation's windows will no longer be transparent, when the annotations themselves are.</li>
+          <li>Switching between fullscreen and presentation mode works correctly.</li>
+          <li>Zooming with mice is slower for some devices that had issues before.</li>
+          <li>Copying text with the middle mouse button is possible.</li>
+          <li>Opening the user manual from the menu item <em>Help</em> works now also with Flatpak.</li>
+          <li>“Expand all under this element” does no longer crash Papers.</li>
+        </ul>
+      </description>
+    </release>
     <release version="47.0" type="stable" date="2024-09-14">
       <description>
         <p>This is the second major release of Papers, and the first one following the standard GNOME release schedule. This release marks a very exciting milestone, since it is the first one where a GNOME Document Viewer works in mobile as-well-as in desktop mode. Both in terms of window size, as in functionality-wise. Since the last stable release, we can highlight the following changes:</p>

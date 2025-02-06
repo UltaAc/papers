@@ -1,20 +1,50 @@
-Papers 48.alpha
+Papers 48.beta
 ----------------
 
-Some changes we can highlight:
+Potentially of interest to packaging and other downstreams might be:
+* The location of the shell and the Rust bindings changed after the shell's Rust
+  port was completed.
+* Papers minimum required Poppler version did not change, however to support
+  free text annotations Poppler >= 25.02 is required with a detection at build
+  time only.
 * The PostScript and XPS document formats have been dropped. Papers has a
   modular plugin system that allows implementing support for those formats
   out-of-tree. If there are users still interested in those formats, feel
-  free to reach out to the maintainers, so we can help you setup maintenance
+  free to reach out to us, so we can help you setup maintenance
   out-of-tree, and make sure we don't break them. However, we recommend
   transforming any old documents you might still have in those formats, to
   other more appropriate and moderns formats still read by the Papers'
   default configuration. For PostScript, there has been a previous discussion
-  to which you can contribute
-  (https://gitlab.gnome.org/GNOME/Incubator/papers/-/issues/151). For XPS,
-  there has been no previous public consideration, but the format seems to have
-  been deprecated
-  (https://gitlab.gnome.org/GNOME/Incubator/papers/-/merge_requests/367#note_2276634).
+  to which you can contribute (#151). For XPS, there has been no previous public
+  consideration, but the format seems to never have gained traction and is
+  deprecated elsewhere.
+  (https://gitlab.gnome.org/GNOME/Incubator/papers/-/merge_requests/367#note_2276634)
+
+Some changes we can highlight:
+* simplified printing job handling relying more on GTK's implementation (!339, Qiu Wenbo)
+* After supporting digitially signing in 47, we now have the counterpart of
+  digital signature verification. (!299, Jan-Michael Brummer; !357, Marek Kašík)
+* Redesign of annotation windows (!356, Om Thorat)
+* improved context menu for annotation (!338, Qiu Wenbo; !372, Pablo Correa Gomez)
+* replaced caret mode confirmation dialog with toast (!365 & !368, Om Thorat)
+* Create text annotations in a single action (!351, Pablo Correa Gomez)
+* removed bookmarks sidebar completely (!396, Qiu Wenbo) It was unmaintained,
+  did not follow current mock-ups, and the way bookmarks were stored locally
+  had multiple issues. Both UI and backend would need to be written from scratch.
+  If you want this, get in touch with us.
+* The night mode now preserves hue and only adjust the luminosity. From now on
+  this is no longer a per-document setting is retained across open and future
+  windows. (!380, Philipp Jungkamp; !419, Qiu Wenbo)
+* finished Rust port of shell (!398, !146, !405, !406, !414, !429, Qiu Wenbo)
+* supporting free text and stamp annotations (!397, lbaudin)
+* add support for libspellig (!288, Qiu Wenbo)
+* update attachment sidebar UI (!293, Markus Göllnitz)
+
+Fixes:
+* #262: text selection does not copy content with middle mouse button (!362, nibon7)
+* #263: support help action in Flatpak's bubblewrap sandbox (!411, Maximiliano)
+* handle switching between fullscreen and presentation mode correctly (!425, nibon7)
+* #332: nearest search result not scrolled to if it's the first one (!441, Pablo Correa Gomez)
 
 Papers 47.0
 --------------
