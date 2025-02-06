@@ -199,7 +199,7 @@ mod imp {
             let about =
                 adw::AboutDialog::from_appdata("/org/gnome/papers/metainfo.xml", Some(VERSION));
 
-            about.set_copyright(&gettext("© 1996–2024 The Papers authors"));
+            about.set_copyright(&gettext("© 1996–2025 The Papers authors"));
             about.set_translator_credits(&gettext("translator-credits"));
 
             about.set_developers(&[
@@ -214,6 +214,7 @@ mod imp {
                 "Germán Poo-Caamaño <gpoo\u{0040}gnome.org>",
                 "Qiu Wenbo <qiuwenbo\u{0040}gnome.org>",
                 "Pablo Correa Gómez <ablocorrea\u{0040}hotmail.com>",
+                "Markus Göllnitz https://bewares.it/",
             ]);
 
             about.set_documenters(&[
