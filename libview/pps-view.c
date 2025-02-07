@@ -769,6 +769,20 @@ pps_view_set_scroll_adjustment (PpsView *view,
 }
 
 static void
+get_scroll_offset (PpsView *view,
+                   guint *scroll_x,
+                   guint *scroll_y)
+{
+	PpsViewPrivate *priv = GET_PRIVATE (view);
+
+	if (scroll_x != NULL)
+		*scroll_x = (guint) gtk_adjustment_get_value (priv->hadjustment);
+
+	if (scroll_y != NULL)
+		*scroll_y = (guint) gtk_adjustment_get_value (priv->vadjustment);
+}
+
+static void
 add_scroll_binding_keypad (GtkWidgetClass *widget_class,
                            guint keyval,
                            GdkModifierType modifiers,
@@ -796,6 +810,9 @@ compute_scroll_increment (PpsView *view,
 	PpsRectangle doc_rect;
 	GdkRectangle page_area;
 	gdouble fraction = 1.0;
+	guint scroll_x, scroll_y;
+
+	get_scroll_offset (view, &scroll_x, &scroll_y);
 
 	if (scroll != GTK_SCROLL_PAGE_BACKWARD && scroll != GTK_SCROLL_PAGE_FORWARD)
 		return gtk_adjustment_get_page_size (adjustment);
@@ -807,8 +824,8 @@ compute_scroll_increment (PpsView *view,
 		return gtk_adjustment_get_page_size (adjustment);
 
 	pps_view_get_page_extents (view, page, &page_area);
-	rect.x = page_area.x + priv->scroll_x;
-	rect.y = priv->scroll_y + (scroll == GTK_SCROLL_PAGE_BACKWARD ? 5 : gtk_widget_get_height (GTK_WIDGET (view)) - 5);
+	rect.x = page_area.x + scroll_x;
+	rect.y = scroll_y + (scroll == GTK_SCROLL_PAGE_BACKWARD ? 5 : gtk_widget_get_height (GTK_WIDGET (view)) - 5);
 	rect.width = page_area.width;
 	rect.height = 1;
 	_pps_view_transform_view_rect_to_doc_rect (view, &rect, &page_area, &doc_rect);
@@ -1320,13 +1337,13 @@ pps_view_get_doc_point_for_page (PpsView *view,
 
 	scale = pps_document_model_get_scale (priv->model);
 
-	view_point_x += priv->scroll_x;
-	view_point_y += priv->scroll_y;
+	view_point_x += gtk_adjustment_get_value (priv->hadjustment);
+	view_point_y += gtk_adjustment_get_value (priv->vadjustment);
 
 	pps_view_get_page_extents (view, page_index, &page_area);
 
-	x = MAX ((double) (view_point_x - page_area.x) / scale, 0);
-	y = MAX ((double) (view_point_y - page_area.y) / scale, 0);
+	x = MAX ((view_point_x - (double) page_area.x) / scale, 0);
+	y = MAX ((view_point_y - (double) page_area.y) / scale, 0);
 
 	pps_document_get_page_size (document, priv->current_page,
 	                            &width, &height);
@@ -1546,8 +1563,8 @@ find_page_at_location (PpsView *view,
 	if (pps_document_model_get_document (priv->model) == NULL)
 		return;
 
-	x += priv->scroll_x;
-	y += priv->scroll_y;
+	x += gtk_adjustment_get_value (priv->hadjustment);
+	y += gtk_adjustment_get_value (priv->vadjustment);
 
 	g_assert (page);
 
@@ -1661,14 +1678,14 @@ pps_view_get_area_from_mapping (PpsView *view,
                                 gconstpointer data,
                                 GdkRectangle *area)
 {
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-
 	PpsMapping *mapping;
+	guint scroll_x, scroll_y;
 
+	get_scroll_offset (view, &scroll_x, &scroll_y);
 	mapping = pps_mapping_list_find (mapping_list, data);
 	_pps_view_transform_doc_rect_to_view_rect (view, page, &mapping->area, area);
-	area->x -= priv->scroll_x;
-	area->y -= priv->scroll_y;
+	area->x -= scroll_x;
+	area->y -= scroll_y;
 }
 
 static void
@@ -1975,21 +1992,19 @@ pps_view_link_to_current_view (PpsView *view, PpsLink **backlink)
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsLinkDest *backlink_dest = NULL;
 	PpsLinkAction *backlink_action = NULL;
-
 	gint backlink_page = priv->start_page;
 	gdouble zoom = pps_document_model_get_scale (priv->model);
-
 	GdkRectangle backlink_page_area;
-
 	gboolean is_dual = pps_document_model_get_page_layout (priv->model) == PPS_PAGE_LAYOUT_DUAL;
-	gint x_offset;
-	gint y_offset;
+	gint x_offset, y_offset;
+	guint scroll_x, scroll_y;
 
+	get_scroll_offset (view, &scroll_x, &scroll_y);
 	pps_view_get_page_extents (view, backlink_page, &backlink_page_area);
 	x_offset = backlink_page_area.x;
 	y_offset = backlink_page_area.y;
 
-	if (!pps_document_model_get_continuous (priv->model) && is_dual && priv->scroll_x > backlink_page_area.width) {
+	if (!pps_document_model_get_continuous (priv->model) && is_dual && scroll_x > backlink_page_area.width) {
 		/* For dual-column, non-continuous mode, priv->start_page is always
 		 * the page in the left-hand column, even if that page isn't visible.
 		 * We adjust for that here when we know the page can't be visible due
@@ -2001,8 +2016,8 @@ pps_view_link_to_current_view (PpsView *view, PpsLink **backlink)
 		x_offset = backlink_page_area.x;
 	}
 
-	gdouble backlink_dest_x = (priv->scroll_x - x_offset) / zoom;
-	gdouble backlink_dest_y = (priv->scroll_y - y_offset) / zoom;
+	gdouble backlink_dest_x = (scroll_x - x_offset) / zoom;
+	gdouble backlink_dest_y = (scroll_y - y_offset) / zoom;
 
 	backlink_dest = pps_link_dest_new_xyz (backlink_page, backlink_dest_x,
 	                                       backlink_dest_y, zoom, TRUE,
@@ -2338,15 +2353,18 @@ pps_view_get_focused_area (PpsView *view,
                            GdkRectangle *area)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	guint scroll_x, scroll_y;
+
 	if (!priv->focused_element)
 		return FALSE;
 
+	get_scroll_offset (view, &scroll_x, &scroll_y);
 	_pps_view_transform_doc_rect_to_view_rect (view,
 	                                           priv->focused_element_page,
 	                                           &priv->focused_element->area,
 	                                           area);
-	area->x -= priv->scroll_x + 1;
-	area->y -= priv->scroll_y + 1;
+	area->x -= scroll_x + 1;
+	area->y -= scroll_y + 1;
 	area->width += 1;
 	area->height += 1;
 
@@ -2361,6 +2379,7 @@ _pps_view_set_focused_element (PpsView *view,
 	GdkRectangle view_rect;
 	cairo_region_t *region = NULL;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	guint scroll_x, scroll_y;
 
 #if 0
 	if (priv->accessible)
@@ -2373,6 +2392,8 @@ _pps_view_set_focused_element (PpsView *view,
 	priv->focused_element = element_mapping;
 	priv->focused_element_page = page;
 
+	get_scroll_offset (view, &scroll_x, &scroll_y);
+
 	if (pps_view_get_focused_area (view, &view_rect)) {
 		if (!region)
 			region = cairo_region_create_rectangle (&view_rect);
@@ -2380,8 +2401,8 @@ _pps_view_set_focused_element (PpsView *view,
 			cairo_region_union_rectangle (region, &view_rect);
 
 		pps_document_model_set_page (priv->model, page);
-		view_rect.x += priv->scroll_x;
-		view_rect.y += priv->scroll_y;
+		view_rect.x += scroll_x;
+		view_rect.y += scroll_y;
 		_pps_view_ensure_rectangle_is_visible (view, &view_rect);
 	}
 
@@ -3348,21 +3369,22 @@ static void
 pps_view_rerender_annotation (PpsView *view,
                               PpsAnnotation *annot)
 {
-	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsRectangle doc_rect;
 	guint page_index;
 	GdkRectangle view_rect;
 	cairo_region_t *region;
+	guint scroll_x, scroll_y;
 
 	g_return_if_fail (PPS_IS_VIEW (view));
 	g_return_if_fail (PPS_IS_ANNOTATION (annot));
 
+	get_scroll_offset (view, &scroll_x, &scroll_y);
 	page_index = pps_annotation_get_page_index (annot);
 	pps_annotation_get_area (annot, &doc_rect);
 	_pps_view_transform_doc_rect_to_view_rect (view, page_index,
 	                                           &doc_rect, &view_rect);
-	view_rect.x -= priv->scroll_x;
-	view_rect.y -= priv->scroll_y;
+	view_rect.x -= scroll_x;
+	view_rect.y -= scroll_y;
 	region = cairo_region_create_rectangle (&view_rect);
 	pps_view_reload_page (view, page_index, region);
 	cairo_region_destroy (region);
@@ -3510,6 +3532,7 @@ get_caret_cursor_area (PpsView *view,
 	guint n_areas = 0;
 	gdouble cursor_aspect_ratio;
 	gint stem_width;
+	guint scroll_x, scroll_y;
 
 	if (!priv->caret_enabled || pps_document_model_get_rotation (priv->model) != 0)
 		return FALSE;
@@ -3523,6 +3546,8 @@ get_caret_cursor_area (PpsView *view,
 
 	if (offset > n_areas)
 		return FALSE;
+
+	get_scroll_offset (view, &scroll_x, &scroll_y);
 
 	doc_rect = areas + offset;
 	if (offset == n_areas ||
@@ -3545,8 +3570,8 @@ get_caret_cursor_area (PpsView *view,
 		_pps_view_transform_doc_rect_to_view_rect (view, page, doc_rect, area);
 	}
 
-	area->x -= priv->scroll_x;
-	area->y -= priv->scroll_y;
+	area->x -= scroll_x;
+	area->y -= scroll_y;
 
 	g_object_get (gtk_settings_get_for_display (
 			  gtk_style_context_get_display (gtk_widget_get_style_context (GTK_WIDGET (view)))),
@@ -3946,6 +3971,7 @@ pps_view_size_allocate (GtkWidget *widget,
 	PpsView *view = PPS_VIEW (widget);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsSizingMode sizing_mode = pps_document_model_get_sizing_mode (priv->model);
+	guint scroll_x, scroll_y;
 
 	if (!pps_document_model_get_document (priv->model))
 		return;
@@ -3967,6 +3993,8 @@ pps_view_size_allocate (GtkWidget *widget,
 	priv->pending_point.x = 0;
 	priv->pending_point.y = 0;
 
+	get_scroll_offset (view, &scroll_x, &scroll_y);
+
 	for (GtkWidget *child = gtk_widget_get_first_child (widget);
 	     child != NULL;
 	     child = gtk_widget_get_next_sibling (child)) {
@@ -3977,8 +4005,8 @@ pps_view_size_allocate (GtkWidget *widget,
 			continue;
 
 		_pps_view_transform_doc_rect_to_view_rect (view, data->page, &data->doc_rect, &view_area);
-		view_area.x -= priv->scroll_x;
-		view_area.y -= priv->scroll_y;
+		view_area.x -= scroll_x;
+		view_area.y -= scroll_y;
 
 		gtk_widget_set_size_request (child, view_area.width, view_area.height);
 		// TODO: this is a temporary solution to eliminate the warning
@@ -4143,11 +4171,12 @@ stroke_doc_rect (PpsView *view,
                  PpsRectangle *doc_rect)
 {
 	GdkRectangle view_rect;
-	PpsViewPrivate *priv = GET_PRIVATE (view);
+	guint scroll_x, scroll_y;
 
+	get_scroll_offset (view, &scroll_x, &scroll_y);
 	_pps_view_transform_doc_rect_to_view_rect (view, page, doc_rect, &view_rect);
-	view_rect.x -= priv->scroll_x;
-	view_rect.y -= priv->scroll_y;
+	view_rect.x -= scroll_x;
+	view_rect.y -= scroll_y;
 	stroke_view_rect (snapshot, clip, color, &view_rect);
 }
 
@@ -4321,14 +4350,18 @@ draw_signing_rect (PpsView *view,
 	gint x, y, w, h;
 	GdkRGBA fg_color;
 	GdkRGBA bg_color;
+	gdouble scroll_x, scroll_y;
 
 	if (!gtk_gesture_is_active (GTK_GESTURE (priv->signing_drag_gesture)))
 		return;
 
-	pos_x1 = priv->signing_info.start_x - priv->scroll_x;
-	pos_y1 = priv->signing_info.start_y - priv->scroll_y;
-	pos_x2 = priv->signing_info.stop_x - priv->scroll_x;
-	pos_y2 = priv->signing_info.stop_y - priv->scroll_y;
+	scroll_x = gtk_adjustment_get_value (priv->hadjustment);
+	scroll_y = gtk_adjustment_get_value (priv->vadjustment);
+
+	pos_x1 = priv->signing_info.start_x - scroll_x;
+	pos_y1 = priv->signing_info.start_y - scroll_y;
+	pos_x2 = priv->signing_info.stop_x - scroll_x;
+	pos_y2 = priv->signing_info.stop_y - scroll_y;
 
 	x = MIN (pos_x1, pos_x2);
 	y = MIN (pos_y1, pos_y2);
@@ -4361,6 +4394,9 @@ pps_view_snapshot (GtkWidget *widget, GtkSnapshot *snapshot)
 	gint i;
 	GdkRectangle clip_rect;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	guint scroll_x, scroll_y;
+
+	get_scroll_offset (view, &scroll_x, &scroll_y);
 
 	width = gtk_widget_get_width (widget);
 	height = gtk_widget_get_height (widget);
@@ -4383,8 +4419,8 @@ pps_view_snapshot (GtkWidget *widget, GtkSnapshot *snapshot)
 
 		pps_view_get_page_extents (view, i, &page_area);
 
-		page_area.x -= priv->scroll_x;
-		page_area.y -= priv->scroll_y;
+		page_area.x -= scroll_x;
+		page_area.y -= scroll_y;
 
 		if (!draw_one_page (view, i, snapshot, &page_area, &clip_rect))
 			continue;
@@ -4624,15 +4660,17 @@ pps_view_query_tooltip (GtkWidget *widget,
                         GtkTooltip *tooltip)
 {
 	PpsView *view = PPS_VIEW (widget);
-	PpsViewPrivate *priv = GET_PRIVATE (view);
 	PpsFormField *field;
 	PpsLink *link;
 	PpsAnnotation *annot;
 	gchar *text;
+	guint scroll_x, scroll_y;
 
 	annot = pps_view_get_annotation_at_location (view, x, y);
 	if (annot) {
 		const gchar *contents;
+
+		get_scroll_offset (view, &scroll_x, &scroll_y);
 
 		contents = pps_annotation_get_contents (annot);
 		if (contents && *contents != '\0') {
@@ -4645,8 +4683,8 @@ pps_view_query_tooltip (GtkWidget *widget,
 			                                           page_index,
 			                                           &annot_area,
 			                                           &view_area);
-			view_area.x -= priv->scroll_x;
-			view_area.y -= priv->scroll_y;
+			view_area.x -= scroll_x;
+			view_area.y -= scroll_y;
 
 			gtk_tooltip_set_text (tooltip, contents);
 			gtk_tooltip_set_tip_area (tooltip, &view_area);
@@ -4901,8 +4939,8 @@ pps_view_button_press_event (GtkGestureClick *self,
 					style = PPS_SELECTION_STYLE_LINE;
 					break;
 				}
-				point_x = x + priv->scroll_x;
-				point_y = y + priv->scroll_y;
+				point_x = x + gtk_adjustment_get_value (priv->hadjustment);
+				point_y = y + gtk_adjustment_get_value (priv->vadjustment);
 				compute_selections (view,
 				                    style,
 				                    point_x, point_y,
@@ -5210,8 +5248,8 @@ selection_update_cb (GtkGestureDrag *selection_gesture,
 
 	gtk_gesture_drag_get_start_point (selection_gesture, &x, &y);
 
-	priv->motion_x = x + offset_x + priv->scroll_x;
-	priv->motion_y = y + offset_y + priv->scroll_y;
+	priv->motion_x = x + offset_x + gtk_adjustment_get_value (priv->hadjustment);
+	priv->motion_y = y + offset_y + gtk_adjustment_get_value (priv->vadjustment);
 
 	/* Queue an idle to handle the motion.  We do this because
 	 * handling any selection events in the motion could be slower
@@ -5247,8 +5285,8 @@ selection_begin_cb (GtkGestureDrag *selection_gesture,
 
 		selection_update_cb (selection_gesture, 0, 0, view);
 	} else {
-		priv->selection_info.start_x = x + priv->scroll_x;
-		priv->selection_info.start_y = y + priv->scroll_y;
+		priv->selection_info.start_x = x + gtk_adjustment_get_value (priv->hadjustment);
+		priv->selection_info.start_y = y + gtk_adjustment_get_value (priv->vadjustment);
 	}
 }
 
@@ -5937,6 +5975,7 @@ pps_view_move_cursor (PpsView *view,
 	gboolean clear_selections = FALSE;
 	const gboolean forward = count >= 0;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
+	guint scroll_x, scroll_y;
 
 	if (!priv->caret_enabled || pps_document_model_get_rotation (priv->model) != 0)
 		return FALSE;
@@ -5946,6 +5985,8 @@ pps_view_move_cursor (PpsView *view,
 
 	prev_offset = priv->cursor_offset;
 	prev_page = priv->cursor_page;
+
+	get_scroll_offset (view, &scroll_x, &scroll_y);
 
 	if (extend_selections) {
 		select_start_offset = priv->cursor_offset;
@@ -6046,8 +6087,8 @@ pps_view_move_cursor (PpsView *view,
 		}
 
 		if (changed_page) {
-			rect.x += priv->scroll_x;
-			rect.y += priv->scroll_y;
+			rect.x += scroll_x;
+			rect.y += scroll_y;
 			_pps_view_ensure_rectangle_is_visible (view, &rect);
 			g_signal_emit (view, signals[SIGNAL_CURSOR_MOVED], 0, priv->cursor_page, priv->cursor_offset);
 			clear_selection (view);
@@ -6082,8 +6123,8 @@ pps_view_move_cursor (PpsView *view,
 
 	get_caret_cursor_area (view, prev_page, prev_offset, &prev_rect);
 
-	rect.x += priv->scroll_x;
-	rect.y += priv->scroll_y;
+	rect.x += scroll_x;
+	rect.y += scroll_y;
 
 	pps_document_model_set_page (priv->model, priv->cursor_page);
 	_pps_view_ensure_rectangle_is_visible (view, &rect);
@@ -6099,8 +6140,8 @@ pps_view_move_cursor (PpsView *view,
 		if (!get_caret_cursor_area (view, select_start_page, select_start_offset, &select_start_rect))
 			return TRUE;
 
-		start_x = select_start_rect.x + priv->scroll_x;
-		start_y = select_start_rect.y + (select_start_rect.height / 2) + priv->scroll_y;
+		start_x = select_start_rect.x + scroll_x;
+		start_y = select_start_rect.y + (select_start_rect.height / 2) + scroll_y;
 
 		end_x = rect.x;
 		end_y = rect.y + rect.height / 2;
@@ -6233,8 +6274,9 @@ draw_rubberband (PpsView *view,
                  gboolean active)
 {
 	GtkStyleContext *context;
-	PpsViewPrivate *priv = GET_PRIVATE (view);
+	guint scroll_x, scroll_y;
 
+	get_scroll_offset (view, &scroll_x, &scroll_y);
 	context = gtk_widget_get_style_context (GTK_WIDGET (view));
 	gtk_style_context_save (context);
 	gtk_style_context_add_class (context, PPS_STYLE_CLASS_FIND_RESULTS);
@@ -6244,8 +6286,8 @@ draw_rubberband (PpsView *view,
 		gtk_style_context_set_state (context, GTK_STATE_FLAG_SELECTED);
 
 	gtk_snapshot_render_background (snapshot, context,
-	                                rect->x - priv->scroll_x,
-	                                rect->y - priv->scroll_y,
+	                                rect->x - scroll_x,
+	                                rect->y - scroll_y,
 	                                rect->width, rect->height);
 	gtk_style_context_restore (context);
 }
