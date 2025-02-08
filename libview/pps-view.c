@@ -83,10 +83,6 @@ typedef enum {
 
 typedef struct
 {
-	/* View coords */
-	gint x;
-	gint y;
-
 	/* Document */
 	guint page;
 	PpsRectangle doc_rect;
@@ -1684,8 +1680,6 @@ pps_child_free (PpsViewChild *child)
 static void
 pps_view_put (PpsView *view,
               GtkWidget *child_widget,
-              gint x,
-              gint y,
               guint page,
               PpsRectangle *doc_rect)
 {
@@ -1693,8 +1687,6 @@ pps_view_put (PpsView *view,
 
 	child = g_slice_new (PpsViewChild);
 
-	child->x = x;
-	child->y = y;
 	child->page = page;
 	child->doc_rect = *doc_rect;
 
@@ -1702,21 +1694,6 @@ pps_view_put (PpsView *view,
 	                        child, (GDestroyNotify) pps_child_free);
 
 	gtk_widget_set_parent (child_widget, GTK_WIDGET (view));
-}
-
-static void
-pps_view_put_to_doc_rect (PpsView *view,
-                          GtkWidget *child_widget,
-                          guint page,
-                          PpsRectangle *doc_rect)
-{
-	PpsViewPrivate *priv = GET_PRIVATE (view);
-	GdkRectangle area;
-
-	_pps_view_transform_doc_rect_to_view_rect (view, page, doc_rect, &area);
-	area.x -= priv->scroll_x;
-	area.y -= priv->scroll_y;
-	pps_view_put (view, child_widget, area.x, area.y, page, doc_rect);
 }
 
 /*** Hyperref ***/
@@ -3002,7 +2979,7 @@ _pps_view_focus_form_field (PpsView *view,
 	                                                            field->page->index);
 	mapping = pps_mapping_list_find (form_field_mapping, field);
 	_pps_view_set_focused_element (view, mapping, field->page->index);
-	pps_view_put_to_doc_rect (view, field_widget, field->page->index, &mapping->area);
+	pps_view_put (view, field_widget, field->page->index, &mapping->area);
 
 	/* gtk_combo_box_popup do nothing if widget is not mapped. It seems that
 	 * the widget only get mapped after adding to PpsView as child in GTK4.
@@ -3091,7 +3068,6 @@ pps_view_handle_media (PpsView *view,
 	GtkWidget *player;
 	PpsMappingList *media_mapping;
 	PpsMapping *mapping;
-	GdkRectangle render_area;
 	guint page;
 	GFile *uri;
 
@@ -3113,11 +3089,8 @@ pps_view_handle_media (PpsView *view,
 	                        (GDestroyNotify) g_object_unref);
 
 	mapping = pps_mapping_list_find (media_mapping, media);
-	_pps_view_transform_doc_rect_to_view_rect (view, page, &mapping->area, &render_area);
-	render_area.x -= priv->scroll_x;
-	render_area.y -= priv->scroll_y;
 
-	pps_view_put (view, player, render_area.x, render_area.y, page, &mapping->area);
+	pps_view_put (view, player, page, &mapping->area);
 }
 
 /* Annotations */
@@ -7280,7 +7253,6 @@ adjustment_value_changed_cb (GtkAdjustment *adjustment,
 {
 	GtkWidget *widget = GTK_WIDGET (view);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	int dx = 0, dy = 0;
 	gint value;
 
 	if (!gtk_widget_get_realized (widget))
@@ -7295,7 +7267,6 @@ adjustment_value_changed_cb (GtkAdjustment *adjustment,
 
 	if (priv->hadjustment) {
 		value = (gint) gtk_adjustment_get_value (priv->hadjustment);
-		dx = priv->scroll_x - value;
 		priv->scroll_x = value;
 	} else {
 		priv->scroll_x = 0;
@@ -7303,7 +7274,6 @@ adjustment_value_changed_cb (GtkAdjustment *adjustment,
 
 	if (priv->vadjustment) {
 		value = (gint) gtk_adjustment_get_value (priv->vadjustment);
-		dy = priv->scroll_y - value;
 		priv->scroll_y = value;
 	} else {
 		priv->scroll_y = 0;
@@ -7312,13 +7282,9 @@ adjustment_value_changed_cb (GtkAdjustment *adjustment,
 	for (GtkWidget *child = gtk_widget_get_first_child (widget);
 	     child != NULL;
 	     child = gtk_widget_get_next_sibling (child)) {
-		PpsViewChild *data = g_object_get_data (G_OBJECT (child), "pps-child");
-
-		if (!data)
+		if (!g_object_get_data (G_OBJECT (child), "pps-child"))
 			continue;
 
-		data->x += dx;
-		data->y += dy;
 		if (gtk_widget_get_visible (child) && gtk_widget_get_visible (widget))
 			gtk_widget_queue_resize (widget);
 	}
