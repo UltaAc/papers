@@ -5029,10 +5029,9 @@ middle_clicked_drag_begin_cb (GtkGestureDrag *self,
                               PpsView *view)
 {
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	/* use root coordinates as reference point because
-	 * scrolling changes window relative coordinates */
-	priv->drag_info.hadj = gtk_adjustment_get_value (priv->hadjustment);
-	priv->drag_info.vadj = gtk_adjustment_get_value (priv->vadjustment);
+
+	priv->drag_info.last_offset_x = 0;
+	priv->drag_info.last_offset_y = 0;
 
 	pps_view_set_cursor (view, PPS_VIEW_CURSOR_DRAG);
 }
@@ -5043,37 +5042,33 @@ middle_clicked_drag_update_cb (GtkGestureDrag *self,
                                gdouble offset_y,
                                PpsView *view)
 {
-	GdkEvent *event = gtk_event_controller_get_current_event (GTK_EVENT_CONTROLLER (self));
-	gdouble dhadj_value, dvadj_value;
+	gdouble delta_x, delta_y, delta_h_adjustment, delta_v_adjustment;
 	PpsViewPrivate *priv = GET_PRIVATE (view);
 
 	gtk_gesture_set_state (GTK_GESTURE (self), GTK_EVENT_SEQUENCE_CLAIMED);
 
-	dhadj_value = gtk_adjustment_get_page_size (priv->hadjustment) *
-	              offset_x / gtk_widget_get_width (GTK_WIDGET (view));
-	dvadj_value = gtk_adjustment_get_page_size (priv->vadjustment) *
-	              offset_y / gtk_widget_get_height (GTK_WIDGET (view));
+	delta_x = offset_x - priv->drag_info.last_offset_x;
+	delta_y = offset_y - priv->drag_info.last_offset_y;
+
+	delta_h_adjustment = gtk_adjustment_get_page_size (priv->hadjustment) *
+	                     delta_x / gtk_widget_get_width (GTK_WIDGET (view));
+	delta_v_adjustment = gtk_adjustment_get_page_size (priv->vadjustment) *
+	                     delta_y / gtk_widget_get_height (GTK_WIDGET (view));
 
 	/* We will update the drag event's start position if
 	 * the adjustment value is changed, but only if the
 	 * change was not caused by this function. */
 
-	priv->drag_info.in_notify = TRUE;
-
 	/* clamp scrolling to visible area */
-	gtk_adjustment_set_value (priv->hadjustment, MIN (priv->drag_info.hadj - dhadj_value,
+	gtk_adjustment_set_value (priv->hadjustment, MIN (gtk_adjustment_get_value (priv->hadjustment) - delta_h_adjustment,
 	                                                  gtk_adjustment_get_upper (priv->hadjustment) -
 	                                                      gtk_adjustment_get_page_size (priv->hadjustment)));
-	gtk_adjustment_set_value (priv->vadjustment, MIN (priv->drag_info.vadj - dvadj_value,
+	gtk_adjustment_set_value (priv->vadjustment, MIN (gtk_adjustment_get_value (priv->vadjustment) - delta_v_adjustment,
 	                                                  gtk_adjustment_get_upper (priv->vadjustment) -
 	                                                      gtk_adjustment_get_page_size (priv->vadjustment)));
 
-	priv->drag_info.in_notify = FALSE;
-
-	gdouble x, y;
-
-	gdk_event_get_axis (event, GDK_AXIS_X, &x);
-	gdk_event_get_axis (event, GDK_AXIS_Y, &y);
+	priv->drag_info.last_offset_x = offset_x;
+	priv->drag_info.last_offset_y = offset_y;
 }
 
 static void
@@ -7295,31 +7290,9 @@ adjustment_value_changed_cb (GtkAdjustment *adjustment,
 {
 	GtkWidget *widget = GTK_WIDGET (view);
 	PpsViewPrivate *priv = GET_PRIVATE (view);
-	gint value;
 
 	if (!gtk_widget_get_realized (widget))
 		return;
-
-	/* If the adjustment value is set during a drag event, update the drag
-	 * start position so it can continue from the new location. */
-	if (!priv->drag_info.in_notify) {
-		priv->drag_info.hadj += gtk_adjustment_get_value (priv->hadjustment) - priv->scroll_x;
-		priv->drag_info.vadj += gtk_adjustment_get_value (priv->vadjustment) - priv->scroll_y;
-	}
-
-	if (priv->hadjustment) {
-		value = (gint) gtk_adjustment_get_value (priv->hadjustment);
-		priv->scroll_x = value;
-	} else {
-		priv->scroll_x = 0;
-	}
-
-	if (priv->vadjustment) {
-		value = (gint) gtk_adjustment_get_value (priv->vadjustment);
-		priv->scroll_y = value;
-	} else {
-		priv->scroll_y = 0;
-	}
 
 	for (GtkWidget *child = gtk_widget_get_first_child (widget);
 	     child != NULL;

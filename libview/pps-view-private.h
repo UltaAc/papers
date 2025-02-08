@@ -37,8 +37,8 @@
 /* Information for middle clicking and moving around the doc */
 typedef struct
 {
-	gdouble hadj;
-	gdouble vadj;
+	gdouble last_offset_x;
+	gdouble last_offset_y;
 	guint release_timeout_id;
 	gdouble momentum_x;
 	gdouble momentum_y;
@@ -117,9 +117,6 @@ typedef struct _PpsViewPrivate {
 	 * driving the scrollable adjustment values */
 	guint hscroll_policy : 1;
 	guint vscroll_policy : 1;
-
-	gint scroll_x;
-	gint scroll_y;
 
 	guint update_cursor_idle_id;
 
