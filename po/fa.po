@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evince HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/issues/\n"
-"POT-Creation-Date: 2025-01-11 11:39+0000\n"
-"PO-Revision-Date: 2025-01-12 11:42+0330\n"
+"POT-Creation-Date: 2025-02-06 11:23+0000\n"
+"PO-Revision-Date: 2025-02-11 02:04+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian\n"
 "Language: fa\n"
@@ -467,7 +467,7 @@ msgid "This work is in the Public Domain"
 msgstr "این کار در دامنهٔ عمومی است"
 
 #: libview/context/pps-attachment-context.c:348
-#: shell/src/document_view/actions.rs:963
+#: shell/src/document_view/actions.rs:1001
 msgid "Save Attachment"
 msgid_plural "Save Attachments"
 msgstr[0] "ذخیرهٔ پیوست"
@@ -478,26 +478,26 @@ msgstr[1] "ذخیرهٔ پیوست‌ها"
 msgid "Page %s"
 msgstr "صفحه %s"
 
-#: libview/pps-annotation-window.c:281
+#: libview/pps-annotation-window.c:270
 msgid "Edit Note"
 msgstr "ویرایش یاداشت"
 
-#: libview/pps-jobs.c:438
+#: libview/pps-jobs.c:436
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "شکست در پرداخت صفحهٔ %Id: ‏%s"
 
-#: libview/pps-jobs.c:445
+#: libview/pps-jobs.c:443
 #, c-format
 msgid "Failed to render page %d"
 msgstr "شکست در پرداخت صفحهٔ %Id"
 
-#: libview/pps-jobs.c:663
+#: libview/pps-jobs.c:661
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "شکست در ایجاد بندانگشتی برای صفحهٔ %Id"
 
-#: libview/pps-jobs.c:1648
+#: libview/pps-jobs.c:1646
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "شکست در چاپ صفحهٔ %Id: ‏%s"
@@ -537,7 +537,7 @@ msgstr "محدوده انتخاب شدهٔ شما جهت چاپ هیچ صفحه�
 #. show close if the certificate is null, or if no cert is found
 #: libview/pps-print-operation.c:1361 previewer/pps-previewer-window.ui:91
 #: shell/resources/pps-annotation-properties-dialog.ui:87
-#: shell/resources/pps-document-view.ui:594 shell/resources/pps-window.ui:164
+#: shell/resources/pps-document-view.ui:589 shell/resources/pps-window.ui:164
 #: shell/src/document_view/io.rs:589
 msgid "_Close"
 msgstr "_بستن"
@@ -638,51 +638,51 @@ msgstr "لغزشِ نما به پایین"
 msgid "Document View"
 msgstr "نمای سند"
 
-#: libview/pps-view.c:2104
+#: libview/pps-view.c:2091
 msgid "Go to first page"
 msgstr "رفتن به صفحهٔ نخست"
 
-#: libview/pps-view.c:2106
+#: libview/pps-view.c:2093
 msgid "Go to previous page"
 msgstr "رفتن به صفحهٔ پیشین"
 
-#: libview/pps-view.c:2108
+#: libview/pps-view.c:2095
 msgid "Go to next page"
 msgstr "رفتن به صفحهٔ بعدی"
 
-#: libview/pps-view.c:2110
+#: libview/pps-view.c:2097
 msgid "Go to last page"
 msgstr "رفتن به صفحهٔ پایانی"
 
-#: libview/pps-view.c:2112
+#: libview/pps-view.c:2099
 msgid "Go to page"
 msgstr "رفتن به صفحه"
 
-#: libview/pps-view.c:2114
+#: libview/pps-view.c:2101
 msgid "Find"
 msgstr "یافتن"
 
-#: libview/pps-view.c:2143
+#: libview/pps-view.c:2130
 #, c-format
 msgid "Go to page %s"
 msgstr "رفتن به صفحهٔ %s"
 
-#: libview/pps-view.c:2149
+#: libview/pps-view.c:2136
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "برو به %s در پروندهٔ «%s»"
 
-#: libview/pps-view.c:2152
+#: libview/pps-view.c:2139
 #, c-format
 msgid "Go to file “%s”"
 msgstr "رفتن به پروندهٔ «%s»"
 
-#: libview/pps-view.c:2160
+#: libview/pps-view.c:2147
 #, c-format
 msgid "Launch %s"
 msgstr "راه‌اندازی %s"
 
-#: libview/pps-view.c:2167
+#: libview/pps-view.c:2154
 #, c-format
 msgid "Reset form"
 msgstr "بازنشانی فرم"
@@ -766,7 +766,7 @@ msgstr "صفحهٔ پیش"
 msgid "Next Page"
 msgstr "صفحهٔ بعد"
 
-#: previewer/pps-previewer-window.ui:36 shell/resources/pps-document-view.ui:217
+#: previewer/pps-previewer-window.ui:36 shell/resources/pps-document-view.ui:221
 msgid "Page Count"
 msgstr "شمارش صفحه"
 
@@ -778,7 +778,7 @@ msgstr "_چاپ"
 msgid "Print This Document"
 msgstr "چاپ این سند"
 
-#: previewer/pps-previewer-window.ui:53 shell/resources/pps-document-view.ui:300
+#: previewer/pps-previewer-window.ui:53 shell/resources/pps-document-view.ui:304
 msgid "Zoom Out"
 msgstr "کوچک‌نمایی"
 
@@ -786,7 +786,7 @@ msgstr "کوچک‌نمایی"
 msgid "Normal Size"
 msgstr "اندازهٔ عادی"
 
-#: previewer/pps-previewer-window.ui:67 shell/resources/pps-document-view.ui:287
+#: previewer/pps-previewer-window.ui:67 shell/resources/pps-document-view.ui:291
 msgid "Zoom In"
 msgstr "بزرگ‌نمایی"
 
@@ -1182,7 +1182,7 @@ msgid "Touchpad Gestures"
 msgstr "حرکات صفحه‌لمسی"
 
 #: shell/resources/pps-annotation-properties-dialog.ui:4
-#: shell/resources/pps-sidebar-annotations.ui:75
+#: shell/resources/pps-sidebar-annotations.ui:69
 msgid "Annotation Properties"
 msgstr "ویژگی‌های حاشیه‌نویسی"
 
@@ -1282,39 +1282,39 @@ msgstr "طرح کلی"
 msgid "Annotations"
 msgstr "حاشیه‌نویسی‌ها"
 
-#: shell/resources/pps-document-view.ui:148
+#: shell/resources/pps-document-view.ui:153
 msgid "Attachments"
 msgstr "پیوست‌ها"
 
-#: shell/resources/pps-document-view.ui:167
+#: shell/resources/pps-document-view.ui:171
 msgid "Layers"
 msgstr "لایه‌ها"
 
-#: shell/resources/pps-document-view.ui:204
+#: shell/resources/pps-document-view.ui:208
 msgid "Toggle Sidebar"
 msgstr "تغییر وضعیت نوار کناری"
 
-#: shell/resources/pps-document-view.ui:210
+#: shell/resources/pps-document-view.ui:214
 msgid "Document Menu"
 msgstr "فهرست سند"
 
-#: shell/resources/pps-document-view.ui:233 shell/src/document_view/io.rs:266
+#: shell/resources/pps-document-view.ui:237 shell/src/document_view/io.rs:266
 msgid "Document has been digitally signed."
 msgstr "سند به صورت رقمی امضا شده."
 
-#: shell/resources/pps-document-view.ui:234
+#: shell/resources/pps-document-view.ui:238
 msgid "View Signature…"
 msgstr "دیدن امضا…"
 
-#: shell/resources/pps-document-view.ui:267
+#: shell/resources/pps-document-view.ui:271
 msgid "Fit Automatically"
 msgstr "برازش خودکار"
 
-#: shell/resources/pps-document-view.ui:568
+#: shell/resources/pps-document-view.ui:563
 msgid "Selection too Small"
 msgstr "گزینش بیش از حد کوچک"
 
-#: shell/resources/pps-document-view.ui:569
+#: shell/resources/pps-document-view.ui:564
 msgid ""
 "A signature of this size may be too small to read. If you would like to create "
 "a potentially more readable signature, press `Start over` and draw a bigger "
@@ -1324,183 +1324,181 @@ msgstr ""
 "با قابلیت خواندن بیش‌تری ایجاد کنید، «امضا از نو» را زده و چهارگوشی بزرگ‌تر رسم "
 "کنید."
 
-#: shell/resources/pps-document-view.ui:574
+#: shell/resources/pps-document-view.ui:569
 msgid "Start _Over"
 msgstr "آغاز از _نو"
 
-#: shell/resources/pps-document-view.ui:575
+#: shell/resources/pps-document-view.ui:570
 msgid "_Sign"
 msgstr "_امضا"
 
-#: shell/resources/pps-document-view.ui:581
+#: shell/resources/pps-document-view.ui:576
 msgid "Abort Printing?"
 msgstr "خاتمهٔ چاپ؟"
 
-#: shell/resources/pps-document-view.ui:582
+#: shell/resources/pps-document-view.ui:577
 msgid ""
 "There is one or more active print jobs. If the window is closed, pending print "
 "jobs will not be printed."
 msgstr ""
 "یک یا چند کار چاپ فعّال است. اگر پنجره بسته شود، کارهای منتظر، چاپ نخواهند شد."
 
-#: shell/resources/pps-document-view.ui:585
+#: shell/resources/pps-document-view.ui:580
 msgid "Abort _Print and Close"
 msgstr "خاتمهٔ _چاپ و بستن"
 
-#: shell/resources/pps-document-view.ui:586 shell/src/document_view.rs:714
+#: shell/resources/pps-document-view.ui:581 shell/src/document_view.rs:718
 #: shell/src/document_view/io.rs:473 shell/src/document_view/io.rs:517
 msgid "_Cancel"
 msgstr "_لغو"
 
-#: shell/resources/pps-document-view.ui:587
+#: shell/resources/pps-document-view.ui:582
 msgid "Close _After Printing"
 msgstr "بستن _پس از چاپ"
 
-#: shell/resources/pps-document-view.ui:601
+#: shell/resources/pps-document-view.ui:596
 msgid "Open…"
 msgstr "گشودن…"
 
-#: shell/resources/pps-document-view.ui:607
+#: shell/resources/pps-document-view.ui:602
 msgid "Ni_ght Mode"
 msgstr "حالت _شب"
 
-#: shell/resources/pps-document-view.ui:613 shell/resources/pps-window.ui:171
+#: shell/resources/pps-document-view.ui:608 shell/resources/pps-window.ui:171
 msgid "_Keyboard Shortcuts"
 msgstr "_کلید‌های میانبر"
 
-#: shell/resources/pps-document-view.ui:617 shell/resources/pps-window.ui:175
+#: shell/resources/pps-document-view.ui:612 shell/resources/pps-window.ui:175
 msgid "_Help"
 msgstr "_راهنما"
 
-#: shell/resources/pps-document-view.ui:621 shell/resources/pps-window.ui:179
+#: shell/resources/pps-document-view.ui:616 shell/resources/pps-window.ui:179
 msgid "_About Papers"
 msgstr "_دربارهٔ کاغذها"
 
-#: shell/resources/pps-document-view.ui:629
+#: shell/resources/pps-document-view.ui:624
 msgid "_Print…"
 msgstr "_چاپ…"
 
-#: shell/resources/pps-document-view.ui:633
+#: shell/resources/pps-document-view.ui:628
 msgid "Fullscreen"
 msgstr "تمام‌صفحه"
 
-#: shell/resources/pps-document-view.ui:637
+#: shell/resources/pps-document-view.ui:632
 msgid "Present as Slideshow"
 msgstr "ارائه به عنوان اسلاید"
 
-#: shell/resources/pps-document-view.ui:643
+#: shell/resources/pps-document-view.ui:638
 msgid "Sign D_igitally…"
 msgstr "امضای _رقمی…"
 
-#: shell/resources/pps-document-view.ui:649
+#: shell/resources/pps-document-view.ui:644
 msgid "Open a C_opy"
 msgstr "گشودن یک _رونوشت"
 
-#: shell/resources/pps-document-view.ui:653
+#: shell/resources/pps-document-view.ui:648
 msgid "Open With…"
 msgstr "گشودن با…"
 
-#: shell/resources/pps-document-view.ui:657
+#: shell/resources/pps-document-view.ui:652
 msgid "_Save As…"
 msgstr "_ذخیره به نام…"
 
-#: shell/resources/pps-document-view.ui:663
+#: shell/resources/pps-document-view.ui:658
 msgid "_Continuous"
 msgstr "_پیوسته"
 
-#: shell/resources/pps-document-view.ui:667
+#: shell/resources/pps-document-view.ui:662
 msgid "_Dual"
 msgstr "_دوتایی"
 
-#: shell/resources/pps-document-view.ui:671
+#: shell/resources/pps-document-view.ui:666
 msgid "_Odd Pages Left"
 msgstr "شروع از صفحات _فرد"
 
-#: shell/resources/pps-document-view.ui:675
+#: shell/resources/pps-document-view.ui:670
 msgid "Right to Left Document"
 msgstr "سند راست به چپ"
 
-#: shell/resources/pps-document-view.ui:681
+#: shell/resources/pps-document-view.ui:676
 msgid "Ro_tate ⤵"
 msgstr "_چرخش ⤵"
 
-#: shell/resources/pps-document-view.ui:687
+#: shell/resources/pps-document-view.ui:682
 msgid "Document Prop_erties"
 msgstr "_ویژگی‌های سند"
 
-#: shell/resources/pps-document-view.ui:792
+#: shell/resources/pps-document-view.ui:787
 msgid "_Open Link"
 msgstr "_گشودن پیوند"
 
-#: shell/resources/pps-document-view.ui:797
+#: shell/resources/pps-document-view.ui:792
 msgid "_Copy Link Address"
 msgstr "_رونوشت از نشانی پیوند"
 
-#: shell/resources/pps-document-view.ui:802
+#: shell/resources/pps-document-view.ui:797
 msgid "_Go To"
 msgstr "_رفتن به"
 
-#: shell/resources/pps-document-view.ui:807
+#: shell/resources/pps-document-view.ui:802
 msgid "Open in New _Window"
 msgstr "گشودن در یک پنجرهٔ _جدید"
 
-#: shell/resources/pps-document-view.ui:814
+#: shell/resources/pps-document-view.ui:809
 msgid "_Copy"
 msgstr "_رونوشت"
 
-#: shell/resources/pps-document-view.ui:818
+#: shell/resources/pps-document-view.ui:813
 msgid "Select _All"
 msgstr "انتخاب _همه"
 
-#: shell/resources/pps-document-view.ui:824
+#: shell/resources/pps-document-view.ui:819
 msgid "_Save Image As…"
 msgstr "_ذخیرهٔ تصویر به نام…"
 
-#: shell/resources/pps-document-view.ui:829
+#: shell/resources/pps-document-view.ui:824
 msgid "Copy _Image"
 msgstr "رونوشت _تصویر"
 
-#: shell/resources/pps-document-view.ui:836
-#: shell/resources/pps-document-view.ui:874
-#: shell/resources/pps-sidebar-annotations.ui:85
+#: shell/resources/pps-document-view.ui:831
+#: shell/resources/pps-sidebar-annotations.ui:79
 msgid "_Open Attachment"
 msgstr "_گشودن پیوست"
 
-#: shell/resources/pps-document-view.ui:841
-#: shell/resources/pps-document-view.ui:878
-#: shell/resources/pps-sidebar-annotations.ui:90
+#: shell/resources/pps-document-view.ui:836
+#: shell/resources/pps-sidebar-annotations.ui:84
 msgid "_Save Attachment As…"
 msgstr "_ذخیرهٔ پیوست به نام…"
 
-#: shell/resources/pps-document-view.ui:849
+#: shell/resources/pps-document-view.ui:844
 msgid "Annotation _Properties…"
 msgstr "_ویژگی‌های حاشیه‌نویسی…"
 
-#: shell/resources/pps-document-view.ui:854
+#: shell/resources/pps-document-view.ui:849
 msgid "R_emove Annotation"
 msgstr "_برداشتن حاشیه‌نویسی"
 
-#: shell/resources/pps-document-view.ui:861
+#: shell/resources/pps-document-view.ui:856
 msgid "_Add Text Annotation"
 msgstr "_افزودن حاشیه‌نویسی متنی"
 
-#: shell/resources/pps-document-view.ui:866
+#: shell/resources/pps-document-view.ui:861
 msgid "_Highlight Selected Text"
 msgstr "_نشانه‌گذاری متن گزیده"
 
-#: shell/resources/pps-find-sidebar.ui:69
+#: shell/resources/pps-find-sidebar.ui:70
 msgid "No Results Found"
 msgstr "هیچ نتیجه‌ای پیدا نشد"
 
-#: shell/resources/pps-find-sidebar.ui:70
+#: shell/resources/pps-find-sidebar.ui:71
 msgid "Try a different search"
 msgstr "جست‌وجویی دیگر را بیازمایید"
 
-#: shell/resources/pps-find-sidebar.ui:84
+#: shell/resources/pps-find-sidebar.ui:85
 msgid "Perform a Search"
 msgstr "انجام جست‌وجو"
 
-#: shell/resources/pps-find-sidebar.ui:85
+#: shell/resources/pps-find-sidebar.ui:86
 msgid "The search results will appear here"
 msgstr "نتایج جست‌وجو این‌جا ظاهر خواهند شد"
 
@@ -1606,7 +1604,7 @@ msgstr "_حساس به کوچکی و بزرگی حروف"
 msgid "No Annotations"
 msgstr "بدون حاشیه‌نویسی"
 
-#: shell/resources/pps-sidebar-annotations.ui:80
+#: shell/resources/pps-sidebar-annotations.ui:74
 msgid "Remove Annotation"
 msgstr "حذف حاشیه‌نویسی"
 
@@ -1650,11 +1648,11 @@ msgstr "ناتوان در گشودن سند"
 msgid "_Open Other File…"
 msgstr "_گشودن دیگر پرونده‌ّا…"
 
-#: shell/src/application.rs:203
-msgid "© 1996–2024 The Papers authors"
+#: shell/src/application.rs:202
+msgid "© 1996–2025 The Papers authors"
 msgstr "© ۱۹۹۶ - ۲۰۲۴ نگارندگان کاغذها"
 
-#: shell/src/application.rs:204
+#: shell/src/application.rs:203
 msgid "translator-credits"
 msgstr ""
 "آرش موسوی <mousavi.arash@gmail.com>\n"
@@ -1704,67 +1702,67 @@ msgstr "نمایش نگارش برنامه."
 msgid "[FILE…]"
 msgstr "[FILE…]"
 
-#: shell/src/document_view.rs:297
+#: shell/src/document_view.rs:299
 msgid "View Details"
 msgstr "نمایش جزییات"
 
-#: shell/src/document_view.rs:693
+#: shell/src/document_view.rs:697
 msgid ""
 "Document contains new or modified annotations and form fields that have been "
 "filled out."
 msgstr ""
 "سند دارای زمینه‌های فرم یا حاشیه نویسی‌های جدید یا تغییریافته  است که پُر شده‌اند."
 
-#: shell/src/document_view.rs:694
+#: shell/src/document_view.rs:698
 msgid "Document contains form fields that have been filled out."
 msgstr "سند دارای زمینه‌های فرمی است که پُر شده‌اند."
 
-#: shell/src/document_view.rs:695
+#: shell/src/document_view.rs:699
 msgid "Document contains new or modified annotations."
 msgstr "سند دارای حاشیه‌نویسی‌های جدید یا تغییر یافته است."
 
-#: shell/src/document_view.rs:703
+#: shell/src/document_view.rs:707
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr ""
 "اگر یک رونوشت از سند را ذخیره نکنید، تغییرات برای همیشه از بین خواهند رفت."
 
-#: shell/src/document_view.rs:704
+#: shell/src/document_view.rs:708
 msgid "Save Changes to a Copy?"
 msgstr "ذخیرهٔ دگرگونی‌ها در یک رونوشت؟"
 
-#: shell/src/document_view.rs:713
+#: shell/src/document_view.rs:717
 msgid "Close _Without Saving"
 msgstr "بستن _بدون ذخیره"
 
-#: shell/src/document_view.rs:715
+#: shell/src/document_view.rs:719
 msgid "_Save a Copy"
 msgstr "_ذخیرهٔ یک رونوشت"
 
-#: shell/src/document_view/actions.rs:750
+#: shell/src/document_view/actions.rs:741
 msgid "Save Image"
 msgstr "ذخیرهٔ تصویر"
 
-#: shell/src/document_view/actions.rs:786
+#: shell/src/document_view/actions.rs:777
 msgid "Couldn’t find appropriate format to save image"
 msgstr "قالب مناسب برای ذخیرهٔ عکس پیدا نشد"
 
-#: shell/src/document_view/actions.rs:809
+#: shell/src/document_view/actions.rs:800
 msgid "The image could not be saved."
 msgstr "تصویر ذخیره نشد."
 
-#: shell/src/document_view/actions.rs:912
+#: shell/src/document_view/actions.rs:903
 msgid "Caret navigation mode is now enabled, press F7 to disable."
 msgstr "حالت پیمایش مکان‌نما اکنون به کار افتاده. برای از کار انداختن F7 را بزنید."
 
-#: shell/src/document_view/actions.rs:914
+#: shell/src/document_view/actions.rs:905
 msgid "Caret navigation mode is now disabled, press F7 to enable."
 msgstr "حالت پیمایش مکان‌نما اکنون از کار افتاده. برای به کار انداختن F7 را بزنید."
 
-#: shell/src/document_view/actions.rs:950
+#: shell/src/document_view/actions.rs:985 shell/src/sidebar_attachments.rs:286
 msgid "Unable to Open Attachment"
 msgstr "ناتوان در گشودن پیوست"
 
-#: shell/src/document_view/actions.rs:980
+#: shell/src/document_view/actions.rs:1018
 msgid "The attachment could not be saved."
 msgstr "پیوست ذخیره نشد."
 
@@ -1816,7 +1814,7 @@ msgstr "گزینش"
 msgid "A certificate is required to sign this document"
 msgstr "امضای این سند نیازمند گواهی است"
 
-#: shell/src/document_view/io.rs:652
+#: shell/src/document_view/io.rs:656
 msgid "Save Signed File"
 msgstr "ذخیرهٔ پروندهٔ امضا شده"
 
@@ -1832,15 +1830,15 @@ msgstr "هیچ کاری در صف منتظر نیست"
 msgid "{} pending jobs in queue"
 msgstr "تعداد {} کار منتظر در صف"
 
-#: shell/src/document_view/signals.rs:250
+#: shell/src/document_view/signals.rs:225
 msgid "Unable to open external link"
 msgstr "گشودن پیوند خارجی ممکن نیست"
 
-#: shell/src/document_view/signals.rs:279
+#: shell/src/document_view/signals.rs:254
 msgid "Security alert: this document has been prevented from opening the file"
 msgstr "هشدار امنیتی: این سند از گشودن پرونده باز داشته شد"
 
-#: shell/src/document_view/signals.rs:449 shell/src/page_selector.rs:77
+#: shell/src/document_view/signals.rs:425 shell/src/page_selector.rs:77
 #: shell/src/sidebar_annotations_row.rs:82
 msgid "Page {}"
 msgstr "صفحهٔ {}"
@@ -1896,7 +1894,7 @@ msgstr "امضا نتوانست کدگشایی شود."
 
 #: shell/src/properties_signatures.rs:202
 msgid "Signature verification error."
-msgstr "خطای تأیید امضا"
+msgstr "خطای تأیید امضا."
 
 #: shell/src/properties_signatures.rs:214
 msgid "Signed with a certificate issued by trusted issuer."
