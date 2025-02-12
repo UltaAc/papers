@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Evince HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2025-01-17 21:43+0000\n"
-"PO-Revision-Date: 2025-01-23 18:01+0100\n"
+"POT-Creation-Date: 2025-02-12 14:21+0000\n"
+"PO-Revision-Date: 2025-02-13 00:57+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -25,7 +25,7 @@ msgstr ""
 #: data/org.gnome.Papers.metainfo.xml.in.in:23
 #: previewer/pps-previewer-window.c:488 shell/resources/pps-document-view.ui:80
 #: shell/resources/pps-loader-view.ui:10 shell/src/application.rs:45
-#: shell/src/application.rs:68 shell/src/application.rs:299
+#: shell/src/application.rs:68 shell/src/application.rs:300
 #: shell/src/document_view/io.rs:198 shell/src/document_view/io.rs:199
 msgid "Papers"
 msgstr "Papers"
@@ -416,22 +416,22 @@ msgstr "Impossible de dobrir la pèça junta « %s » : %s"
 msgid "Couldn’t open attachment “%s”"
 msgstr "Impossible de dobrir la pèça junta « %s »"
 
-#: libdocument/pps-document-factory.c:104
+#: libdocument/pps-document-factory.c:100
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "Lo tipe de fichièr %s (%s) es pas pres en carga"
 
-#: libdocument/pps-document-factory.c:374 libdocument/pps-file-helpers.c:371
+#: libdocument/pps-document-factory.c:370 libdocument/pps-file-helpers.c:371
 #: libdocument/pps-file-helpers.c:417 libdocument/pps-file-helpers.c:426
 #: libdocument/pps-file-helpers.c:507 libdocument/pps-file-helpers.c:516
 msgid "Unknown MIME Type"
 msgstr "Tipe MIME desconegut"
 
-#: libdocument/pps-document-factory.c:504
+#: libdocument/pps-document-factory.c:500
 msgid "All Documents"
 msgstr "Totes los documents"
 
-#: libdocument/pps-document-factory.c:532
+#: libdocument/pps-document-factory.c:528
 msgid "All Files"
 msgstr "Totes los fichièrs"
 
@@ -479,7 +479,7 @@ msgid "This work is in the Public Domain"
 msgstr "Aquesta òbra es dins lo domeni public"
 
 #: libview/context/pps-attachment-context.c:348
-#: shell/src/document_view/actions.rs:963
+#: shell/src/document_view/actions.rs:1001
 msgid "Save Attachment"
 msgid_plural "Save Attachments"
 msgstr[0] "Enregistrar la pèça junta"
@@ -490,26 +490,26 @@ msgstr[1] "Enregistrar las pèças juntas"
 msgid "Page %s"
 msgstr "Pagina %s"
 
-#: libview/pps-annotation-window.c:281
+#: libview/pps-annotation-window.c:270
 msgid "Edit Note"
 msgstr "Modificar la nòta"
 
-#: libview/pps-jobs.c:438
+#: libview/pps-jobs.c:436
 #, c-format
 msgid "Failed to render page %d: %s"
 msgstr "Fracàs del rendut de la pagina %d : %s"
 
-#: libview/pps-jobs.c:445
+#: libview/pps-jobs.c:443
 #, c-format
 msgid "Failed to render page %d"
 msgstr "Fracàs del rendut de la pagina %d"
 
-#: libview/pps-jobs.c:663
+#: libview/pps-jobs.c:661
 #, c-format
 msgid "Failed to create thumbnail for page %d"
 msgstr "Impossible de crear una miniatura per la pagina %d"
 
-#: libview/pps-jobs.c:1648
+#: libview/pps-jobs.c:1646
 #, c-format
 msgid "Failed to print page %d: %s"
 msgstr "Impossible d'imprimir la pagina %d : %s"
@@ -549,7 +549,7 @@ msgstr "Vòstre interval d'impression inclutz pas cap de pagina"
 #. show close if the certificate is null, or if no cert is found
 #: libview/pps-print-operation.c:1361 previewer/pps-previewer-window.ui:91
 #: shell/resources/pps-annotation-properties-dialog.ui:87
-#: shell/resources/pps-document-view.ui:594 shell/resources/pps-window.ui:164
+#: shell/resources/pps-document-view.ui:589 shell/resources/pps-window.ui:164
 #: shell/src/document_view/io.rs:589
 msgid "_Close"
 msgstr "_Tampar"
@@ -654,51 +654,51 @@ msgstr "Far defilar la vista cap aval"
 msgid "Document View"
 msgstr "Vista del document"
 
-#: libview/pps-view.c:2037
+#: libview/pps-view.c:2108
 msgid "Go to first page"
 msgstr "Anar a la primièra pagina"
 
-#: libview/pps-view.c:2039
+#: libview/pps-view.c:2110
 msgid "Go to previous page"
 msgstr "Anar a la pagina precedenta"
 
-#: libview/pps-view.c:2041
+#: libview/pps-view.c:2112
 msgid "Go to next page"
 msgstr "Anar a la pagina seguenta"
 
-#: libview/pps-view.c:2043
+#: libview/pps-view.c:2114
 msgid "Go to last page"
 msgstr "Anar a la darrièra pagina"
 
-#: libview/pps-view.c:2045
+#: libview/pps-view.c:2116
 msgid "Go to page"
 msgstr "Anar a la pagina"
 
-#: libview/pps-view.c:2047
+#: libview/pps-view.c:2118
 msgid "Find"
 msgstr "Recercar"
 
-#: libview/pps-view.c:2076
+#: libview/pps-view.c:2147
 #, c-format
 msgid "Go to page %s"
 msgstr "Anar a la pagina %s"
 
-#: libview/pps-view.c:2082
+#: libview/pps-view.c:2153
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Anar a %s sul fichièr « %s »"
 
-#: libview/pps-view.c:2085
+#: libview/pps-view.c:2156
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Anar a la pagina « %s »"
 
-#: libview/pps-view.c:2093
+#: libview/pps-view.c:2164
 #, c-format
 msgid "Launch %s"
 msgstr "Aviar %s"
 
-#: libview/pps-view.c:2100
+#: libview/pps-view.c:2171
 #, c-format
 msgid "Reset form"
 msgstr "Reïnicializar lo formulari"
@@ -783,7 +783,7 @@ msgid "Next Page"
 msgstr "Pagina seguenta"
 
 #: previewer/pps-previewer-window.ui:36
-#: shell/resources/pps-document-view.ui:217
+#: shell/resources/pps-document-view.ui:221
 msgid "Page Count"
 msgstr "Descompte de las paginas"
 
@@ -796,7 +796,7 @@ msgid "Print This Document"
 msgstr "Imprimir aqueste document"
 
 #: previewer/pps-previewer-window.ui:53
-#: shell/resources/pps-document-view.ui:300
+#: shell/resources/pps-document-view.ui:304
 msgid "Zoom Out"
 msgstr "Zoom arrièr"
 
@@ -805,11 +805,11 @@ msgid "Normal Size"
 msgstr "Talha normala"
 
 #: previewer/pps-previewer-window.ui:67
-#: shell/resources/pps-document-view.ui:287
+#: shell/resources/pps-document-view.ui:291
 msgid "Zoom In"
 msgstr "Zoom avant"
 
-#: previewer/pps-previewer-window.ui:89 shell/src/document_view/print.rs:98
+#: previewer/pps-previewer-window.ui:89 shell/src/document_view/print.rs:104
 msgid "Failed to Print Document"
 msgstr "L'impression del document a fracassat"
 
@@ -1201,7 +1201,7 @@ msgid "Touchpad Gestures"
 msgstr "Gèstes amb lo pavat tactil"
 
 #: shell/resources/pps-annotation-properties-dialog.ui:4
-#: shell/resources/pps-sidebar-annotations.ui:75
+#: shell/resources/pps-sidebar-annotations.ui:69
 msgid "Annotation Properties"
 msgstr "Proprietats de las anotacions"
 
@@ -1281,6 +1281,7 @@ msgstr "Desformat"
 msgid "_Apply"
 msgstr "_Aplicar"
 
+#. Translators: This is an action (a verb in English) that opens the sidebar to start a search
 #: shell/resources/pps-document-view.ui:71
 msgid "Search"
 msgstr "Recercar"
@@ -1301,39 +1302,39 @@ msgstr "Esquèma"
 msgid "Annotations"
 msgstr "Anotacions"
 
-#: shell/resources/pps-document-view.ui:148
+#: shell/resources/pps-document-view.ui:153
 msgid "Attachments"
 msgstr "Pèças juntas"
 
-#: shell/resources/pps-document-view.ui:167
+#: shell/resources/pps-document-view.ui:171
 msgid "Layers"
 msgstr "Jaces"
 
-#: shell/resources/pps-document-view.ui:204
+#: shell/resources/pps-document-view.ui:208
 msgid "Toggle Sidebar"
 msgstr "Afichar o amagar lo panèl lateral"
 
-#: shell/resources/pps-document-view.ui:210
+#: shell/resources/pps-document-view.ui:214
 msgid "Document Menu"
 msgstr "Menú del document"
 
-#: shell/resources/pps-document-view.ui:233 shell/src/document_view/io.rs:266
+#: shell/resources/pps-document-view.ui:237 shell/src/document_view/io.rs:266
 msgid "Document has been digitally signed."
 msgstr "Lo document foguèt signat electronicament."
 
-#: shell/resources/pps-document-view.ui:234
+#: shell/resources/pps-document-view.ui:238
 msgid "View Signature…"
 msgstr "Afichar la signatura…"
 
-#: shell/resources/pps-document-view.ui:267
+#: shell/resources/pps-document-view.ui:271
 msgid "Fit Automatically"
 msgstr "_Adaptar automaticament"
 
-#: shell/resources/pps-document-view.ui:568
+#: shell/resources/pps-document-view.ui:563
 msgid "Selection too Small"
 msgstr "Seleccion tròpa pichona"
 
-#: shell/resources/pps-document-view.ui:569
+#: shell/resources/pps-document-view.ui:564
 msgid ""
 "A signature of this size may be too small to read. If you would like to "
 "create a potentially more readable signature, press `Start over` and draw a "
@@ -1343,19 +1344,19 @@ msgstr ""
 "crear una signatura potencialament mai legibla, quichatz sus « Recomençar « "
 "e dessenhatz un rectangle mai grand."
 
-#: shell/resources/pps-document-view.ui:574
+#: shell/resources/pps-document-view.ui:569
 msgid "Start _Over"
 msgstr "_Recomençar"
 
-#: shell/resources/pps-document-view.ui:575
+#: shell/resources/pps-document-view.ui:570
 msgid "_Sign"
 msgstr "_Signar"
 
-#: shell/resources/pps-document-view.ui:581
+#: shell/resources/pps-document-view.ui:576
 msgid "Abort Printing?"
 msgstr "Interrompre l'impression ?"
 
-#: shell/resources/pps-document-view.ui:582
+#: shell/resources/pps-document-view.ui:577
 msgid ""
 "There is one or more active print jobs. If the window is closed, pending "
 "print jobs will not be printed."
@@ -1363,164 +1364,162 @@ msgstr ""
 "I a un o mai d’un prètzfach d’impression actiu. Se tampatz la fenèstra, los "
 "prètzfaches en espèra d'impression seràn pas imprimits."
 
-#: shell/resources/pps-document-view.ui:585
+#: shell/resources/pps-document-view.ui:580
 msgid "Abort _Print and Close"
 msgstr "Anullar l'_impression e tampar"
 
-#: shell/resources/pps-document-view.ui:586 shell/src/document_view.rs:716
+#: shell/resources/pps-document-view.ui:581 shell/src/document_view.rs:718
 #: shell/src/document_view/io.rs:473 shell/src/document_view/io.rs:517
 msgid "_Cancel"
 msgstr "_Anullar"
 
-#: shell/resources/pps-document-view.ui:587
+#: shell/resources/pps-document-view.ui:582
 msgid "Close _After Printing"
 msgstr "Tampar _aprèp l'impression"
 
-#: shell/resources/pps-document-view.ui:601
+#: shell/resources/pps-document-view.ui:596
 msgid "Open…"
 msgstr "Dobrir…"
 
-#: shell/resources/pps-document-view.ui:607
+#: shell/resources/pps-document-view.ui:602
 msgid "Ni_ght Mode"
 msgstr "Mòde n_uèch"
 
-#: shell/resources/pps-document-view.ui:613 shell/resources/pps-window.ui:171
+#: shell/resources/pps-document-view.ui:608 shell/resources/pps-window.ui:171
 msgid "_Keyboard Shortcuts"
 msgstr "_Acorchis de clavièr"
 
-#: shell/resources/pps-document-view.ui:617 shell/resources/pps-window.ui:175
+#: shell/resources/pps-document-view.ui:612 shell/resources/pps-window.ui:175
 msgid "_Help"
 msgstr "Ajud_a"
 
-#: shell/resources/pps-document-view.ui:621 shell/resources/pps-window.ui:179
+#: shell/resources/pps-document-view.ui:616 shell/resources/pps-window.ui:179
 msgid "_About Papers"
 msgstr "_A prepaus de Papers"
 
-#: shell/resources/pps-document-view.ui:629
+#: shell/resources/pps-document-view.ui:624
 msgid "_Print…"
 msgstr "_Imprimir…"
 
-#: shell/resources/pps-document-view.ui:633
+#: shell/resources/pps-document-view.ui:628
 msgid "Fullscreen"
 msgstr "Ecran complèt"
 
-#: shell/resources/pps-document-view.ui:637
+#: shell/resources/pps-document-view.ui:632
 msgid "Present as Slideshow"
 msgstr "Presentar en diaporama"
 
-#: shell/resources/pps-document-view.ui:643
+#: shell/resources/pps-document-view.ui:638
 msgid "Sign D_igitally…"
 msgstr "S_ignar electronicament…"
 
-#: shell/resources/pps-document-view.ui:649
+#: shell/resources/pps-document-view.ui:644
 msgid "Open a C_opy"
 msgstr "Dobrir una _còpia"
 
-#: shell/resources/pps-document-view.ui:653
+#: shell/resources/pps-document-view.ui:648
 msgid "Open With…"
 msgstr "Dobrir amb…"
 
-#: shell/resources/pps-document-view.ui:657
+#: shell/resources/pps-document-view.ui:652
 msgid "_Save As…"
 msgstr "_Enregistrar jos…"
 
-#: shell/resources/pps-document-view.ui:663
+#: shell/resources/pps-document-view.ui:658
 msgid "_Continuous"
 msgstr "_Continú"
 
-#: shell/resources/pps-document-view.ui:667
+#: shell/resources/pps-document-view.ui:662
 msgid "_Dual"
 msgstr "_Doble"
 
-#: shell/resources/pps-document-view.ui:671
+#: shell/resources/pps-document-view.ui:666
 msgid "_Odd Pages Left"
 msgstr "_Paginas imparas a esquèrra"
 
-#: shell/resources/pps-document-view.ui:675
+#: shell/resources/pps-document-view.ui:670
 msgid "Right to Left Document"
 msgstr "Document de drecha a esquèrra"
 
-#: shell/resources/pps-document-view.ui:681
+#: shell/resources/pps-document-view.ui:676
 msgid "Ro_tate ⤵"
 msgstr "Pivo_tar ⤵"
 
-#: shell/resources/pps-document-view.ui:687
+#: shell/resources/pps-document-view.ui:682
 msgid "Document Prop_erties"
 msgstr "Propri_etats del document"
 
-#: shell/resources/pps-document-view.ui:792
+#: shell/resources/pps-document-view.ui:787
 msgid "_Open Link"
 msgstr "_Dobrir lo ligam"
 
-#: shell/resources/pps-document-view.ui:797
+#: shell/resources/pps-document-view.ui:792
 msgid "_Copy Link Address"
 msgstr "_Copiar l'adreça del ligam"
 
-#: shell/resources/pps-document-view.ui:802
+#: shell/resources/pps-document-view.ui:797
 msgid "_Go To"
 msgstr "A_nar a"
 
-#: shell/resources/pps-document-view.ui:807
+#: shell/resources/pps-document-view.ui:802
 msgid "Open in New _Window"
 msgstr "Dobrir dins una _novèla fenèstra"
 
-#: shell/resources/pps-document-view.ui:814
+#: shell/resources/pps-document-view.ui:809
 msgid "_Copy"
 msgstr "_Copiar"
 
-#: shell/resources/pps-document-view.ui:818
+#: shell/resources/pps-document-view.ui:813
 msgid "Select _All"
 msgstr "Seleccionar _tot"
 
-#: shell/resources/pps-document-view.ui:824
+#: shell/resources/pps-document-view.ui:819
 msgid "_Save Image As…"
 msgstr "_Enregistrar l'imatge jos…"
 
-#: shell/resources/pps-document-view.ui:829
+#: shell/resources/pps-document-view.ui:824
 msgid "Copy _Image"
 msgstr "Copiar l'_imatge"
 
-#: shell/resources/pps-document-view.ui:836
-#: shell/resources/pps-document-view.ui:874
-#: shell/resources/pps-sidebar-annotations.ui:85
+#: shell/resources/pps-document-view.ui:831
+#: shell/resources/pps-sidebar-annotations.ui:79
 msgid "_Open Attachment"
 msgstr "_Dobrir la pèça junta"
 
-#: shell/resources/pps-document-view.ui:841
-#: shell/resources/pps-document-view.ui:878
-#: shell/resources/pps-sidebar-annotations.ui:90
+#: shell/resources/pps-document-view.ui:836
+#: shell/resources/pps-sidebar-annotations.ui:84
 msgid "_Save Attachment As…"
 msgstr "_Enregistrar la pèça junta jos…"
 
-#: shell/resources/pps-document-view.ui:849
+#: shell/resources/pps-document-view.ui:844
 msgid "Annotation _Properties…"
 msgstr "_Proprietats de l'anotacion…"
 
-#: shell/resources/pps-document-view.ui:854
+#: shell/resources/pps-document-view.ui:849
 msgid "R_emove Annotation"
 msgstr "L_evar las anotacions"
 
-#: shell/resources/pps-document-view.ui:861
+#: shell/resources/pps-document-view.ui:856
 msgid "_Add Text Annotation"
 msgstr "Apondre una anotacion tèxte"
 
-#: shell/resources/pps-document-view.ui:866
+#: shell/resources/pps-document-view.ui:861
 msgid "_Highlight Selected Text"
 msgstr "_Metre en susbrilhança lo tèxt seleccionat"
 
-#: shell/resources/pps-find-sidebar.ui:69
+#: shell/resources/pps-find-sidebar.ui:70
 msgid "No Results Found"
 msgstr "Cap de resultat pas trobat"
 
-#: shell/resources/pps-find-sidebar.ui:70
+#: shell/resources/pps-find-sidebar.ui:71
 msgid "Try a different search"
 msgstr "Ensajatz una recèrca diferenta"
 
-#: shell/resources/pps-find-sidebar.ui:84
+#: shell/resources/pps-find-sidebar.ui:85
 msgid "Perform a Search"
 msgstr "Lançar una recèrca"
 
-#: shell/resources/pps-find-sidebar.ui:85
+#: shell/resources/pps-find-sidebar.ui:86
 msgid "The search results will appear here"
 msgstr "Los resultats de la recèrca s’apareisseràn aquí"
 
@@ -1629,7 +1628,7 @@ msgstr "Respectar la c_assa"
 msgid "No Annotations"
 msgstr "Cap d’annotacion"
 
-#: shell/resources/pps-sidebar-annotations.ui:80
+#: shell/resources/pps-sidebar-annotations.ui:74
 msgid "Remove Annotation"
 msgstr "Levar las anotacions"
 
@@ -1674,8 +1673,8 @@ msgid "_Open Other File…"
 msgstr "_Dobrir autre fichièr…"
 
 #: shell/src/application.rs:202
-msgid "© 1996–2024 The Papers authors"
-msgstr "© 1996-2024 Los autors del visionador de documents Papers"
+msgid "© 1996–2025 The Papers authors"
+msgstr "© 1996-2025 Los autors del visionador de documents Papers"
 
 #: shell/src/application.rs:203
 msgid "translator-credits"
@@ -1683,51 +1682,51 @@ msgstr ""
 "Cédric Valmary <cvalmary@yahoo.fr>\n"
 "Quentin PAGÈS"
 
-#: shell/src/application.rs:306
+#: shell/src/application.rs:307
 msgid "The page label of the document to display."
 msgstr "L'etiqueta de la pagina del document d'afichar."
 
-#: shell/src/application.rs:307
+#: shell/src/application.rs:308
 msgid "PAGE"
 msgstr "PAGINA"
 
-#: shell/src/application.rs:315
+#: shell/src/application.rs:316
 msgid "The page number of the document to display."
 msgstr "Lo numèro de la pagina del document d'afichar."
 
-#: shell/src/application.rs:316
+#: shell/src/application.rs:317
 msgid "NUMBER"
 msgstr "NUMÈRO"
 
-#: shell/src/application.rs:324
+#: shell/src/application.rs:325
 msgid "Named destination to display."
 msgstr "Destinacion nomenada d'afichar."
 
-#: shell/src/application.rs:325
+#: shell/src/application.rs:326
 msgid "DEST"
 msgstr "DEST"
 
-#: shell/src/application.rs:333
+#: shell/src/application.rs:334
 msgid "Run papers in fullscreen mode."
 msgstr "Executar papers en mòde ecran complèt."
 
-#: shell/src/application.rs:342
+#: shell/src/application.rs:343
 msgid "Run papers in presentation mode."
 msgstr "Executar papers en mòde presentacion."
 
-#: shell/src/application.rs:351
+#: shell/src/application.rs:352
 msgid "Show the version of the program."
 msgstr "Afichar la version del programa."
 
-#: shell/src/application.rs:361
+#: shell/src/application.rs:362
 msgid "[FILE…]"
 msgstr "[FICHIÈR…]"
 
-#: shell/src/document_view.rs:297
+#: shell/src/document_view.rs:299
 msgid "View Details"
 msgstr "Veire los detalhs"
 
-#: shell/src/document_view.rs:695
+#: shell/src/document_view.rs:697
 msgid ""
 "Document contains new or modified annotations and form fields that have been "
 "filled out."
@@ -1735,59 +1734,59 @@ msgstr ""
 "Lo document conten d’anotacions novèlas o modificadas e de camps de "
 "formulari que son estats garnits."
 
-#: shell/src/document_view.rs:696
+#: shell/src/document_view.rs:698
 msgid "Document contains form fields that have been filled out."
 msgstr "Lo document conten de camps de formulari que son estats garnits."
 
-#: shell/src/document_view.rs:697
+#: shell/src/document_view.rs:699
 msgid "Document contains new or modified annotations."
 msgstr "Lo document conten d'anotacions novèlas o modificadas."
 
-#: shell/src/document_view.rs:705
+#: shell/src/document_view.rs:707
 msgid "If you don’t save a copy, changes will be permanently lost."
 msgstr ""
 "Se enregistratz pas una còpia, las modificacions seràn perdudas "
 "definitivament."
 
-#: shell/src/document_view.rs:706
+#: shell/src/document_view.rs:708
 msgid "Save Changes to a Copy?"
 msgstr "Enregistrar las modificacion dins una còpia ?"
 
-#: shell/src/document_view.rs:715
+#: shell/src/document_view.rs:717
 msgid "Close _Without Saving"
 msgstr "Tampar _sans enregistrar"
 
-#: shell/src/document_view.rs:717
+#: shell/src/document_view.rs:719
 msgid "_Save a Copy"
 msgstr "_Enregistrar una còpia"
 
-#: shell/src/document_view/actions.rs:750
+#: shell/src/document_view/actions.rs:741
 msgid "Save Image"
 msgstr "Enregistrar l'imatge"
 
-#: shell/src/document_view/actions.rs:786
+#: shell/src/document_view/actions.rs:777
 msgid "Couldn’t find appropriate format to save image"
 msgstr "Impossible de trobar lo format apropriat per enregistrar l'imatge"
 
-#: shell/src/document_view/actions.rs:809
+#: shell/src/document_view/actions.rs:800
 msgid "The image could not be saved."
 msgstr "L'imatge pòt pas èsser enregistrada."
 
-#: shell/src/document_view/actions.rs:912
+#: shell/src/document_view/actions.rs:903
 msgid "Caret navigation mode is now enabled, press F7 to disable."
 msgstr ""
 "Lo mòde navegacion al cursor es ara activat, quichatz F7 per lo desactivar."
 
-#: shell/src/document_view/actions.rs:914
+#: shell/src/document_view/actions.rs:905
 msgid "Caret navigation mode is now disabled, press F7 to enable."
 msgstr ""
 "Lo mòde navegacion al cursor es ara desactivat, quichatz F7 per l’activar."
 
-#: shell/src/document_view/actions.rs:950
+#: shell/src/document_view/actions.rs:985 shell/src/sidebar_attachments.rs:286
 msgid "Unable to Open Attachment"
 msgstr "Impossible de dobrir la pèça junta"
 
-#: shell/src/document_view/actions.rs:980
+#: shell/src/document_view/actions.rs:1018
 msgid "The attachment could not be saved."
 msgstr "La pèça junta pòt pas èsser enregistrada."
 
@@ -1848,32 +1847,40 @@ msgid "Printing job “{}”"
 msgstr "Impression del prètzfach « {} »"
 
 #: shell/src/document_view/print.rs:78
-msgid "No pending job in queue"
+msgid "No pending jobs in queue"
 msgstr "Cap de prètzfach en espèra dins la fila"
 
-#: shell/src/document_view/print.rs:80
-msgid "{} pending jobs in queue"
-msgstr "{} prètzfaches en espèra dins la fila"
+#: shell/src/document_view/print.rs:81
+msgid "{} pending job in queue"
+msgid_plural "{} pending jobs in queue"
+msgstr[0] "{} prètzfach en espèra dins la fila"
+msgstr[1] "{} prètzfaches en espèra dins la fila"
 
-#: shell/src/document_view/signals.rs:250
+#: shell/src/document_view/signals.rs:225
 msgid "Unable to open external link"
 msgstr "Impossible de dobrir lo ligam extèrne"
 
-#: shell/src/document_view/signals.rs:279
-msgid "Security alert: this document has been prevented from opening the file"
+#: shell/src/document_view/signals.rs:253
+msgid ""
+"Security alert: this document has been prevented from opening the file “{}”"
 msgstr ""
-"Alèrta de seguretat : avèm empachat aquesta document de dobrir lo fichièr"
+"Alèrta de seguretat : avèm empachat aquesta document de dobrir lo fichièr "
+"« {} »"
 
-#: shell/src/document_view/signals.rs:450 shell/src/page_selector.rs:77
+#: shell/src/document_view/signals.rs:424 shell/src/page_selector.rs:77
 #: shell/src/sidebar_annotations_row.rs:82
 msgid "Page {}"
 msgstr "Pagina {}"
 
-#: shell/src/page_selector.rs:226 shell/src/page_selector.rs:244
-msgid "({} of {})"
-msgstr "({} de {})"
+#. Translators: Do NOT translate the content between
+#. '{' and '}' they are variable names. Changing their
+#. order is possible
+#: shell/src/page_selector.rs:230 shell/src/page_selector.rs:258
+msgid "({pagenum} of {totalpages})"
+msgstr "({pagenum} de {totalpages})"
 
-#: shell/src/page_selector.rs:228 shell/src/page_selector.rs:246
+#. Translators: the placeholder is the total amount of pages
+#: shell/src/page_selector.rs:238 shell/src/page_selector.rs:268
 msgid "of {}"
 msgstr "de {}"
 
@@ -1980,6 +1987,9 @@ msgstr "Data d’emission del certificat"
 #: shell/src/properties_signatures.rs:321
 msgid "Certificate's Expiration Time"
 msgstr "Data d’expiracion del certificat"
+
+#~ msgid "({} of {})"
+#~ msgstr "({} de {})"
 
 #~ msgid "Trusted"
 #~ msgstr "Fisable"
