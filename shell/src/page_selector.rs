@@ -223,8 +223,18 @@ mod imp {
                 let n_pages = document.n_pages();
 
                 let label_text = if self.show_page_number_in_pages_label(page) {
-                    gettext_f("({} of {})", [(page + 1).to_string(), n_pages.to_string()])
+                    gettext_fd(
+                        // Translators: Do NOT translate the content between
+                        // '{' and '}' they are variable names. Changing their
+                        // order is possible
+                        "({pagenum} of {totalpages})",
+                        &[
+                            ("pagenum", &(page + 1).to_string()),
+                            ("totalpages", &n_pages.to_string()),
+                        ],
+                    )
                 } else {
+                    // Translators: the placeholder is the total amount of pages
                     gettext_f("of {}", [n_pages.to_string()])
                 };
 
@@ -241,8 +251,20 @@ mod imp {
             let max_page_numeric_label = format!("{n_pages}").len() as i32;
 
             let max_label_len = if document.has_text_page_labels() {
-                gettext_f("({} of {})", [n_pages.to_string(), n_pages.to_string()]).len() - 2
+                gettext_fd(
+                    // Translators: Do NOT translate the content between
+                    // '{' and '}' they are variable names. Changing their
+                    // order is possible
+                    "({pagenum} of {totalpages})",
+                    &[
+                        ("pagenum", &n_pages.to_string()),
+                        ("totalpages", &n_pages.to_string()),
+                    ],
+                )
+                .len()
+                    - 2
             } else {
+                // Translators: the placeholder is the total amount of pages
                 gettext_f("of {}", [n_pages.to_string()]).len()
             } as i32;
 
