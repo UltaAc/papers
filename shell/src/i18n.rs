@@ -7,3 +7,12 @@ pub fn gettext_f(format: &str, args: impl IntoIterator<Item = impl AsRef<str>>) 
 
     s
 }
+//pub fn freplace(s: String, args: &[(&str, &str)]) -> String {
+pub fn gettext_fd(msgid: &str, args: &[(&str, &str)]) -> String {
+    let mut s = gettextrs::gettext(msgid);
+
+    for (k, v) in args {
+        s = s.replace(&format!("{{{k}}}"), v);
+    }
+    s
+}
