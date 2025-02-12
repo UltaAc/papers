@@ -4,10 +4,12 @@ if [ -n "${MESON_SOURCE_ROOT}" ]; then
 	cd "${MESON_SOURCE_ROOT}/rust"
 fi
 
+export PATH="$PATH:${MESON_SOURCE_ROOT}/rust/gir/target/release"
+
 if ! command -v gir &> /dev/null
 then
-    echo "command gir could not be found in PATH"
-    exit 1
+	echo "command gir could not be found in PATH"
+	exit 1
 fi
 
 for g in ${@:1}; do
