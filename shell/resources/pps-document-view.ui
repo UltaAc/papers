@@ -68,7 +68,7 @@
                      <property name="child">
                        <object class="GtkToggleButton" id="find_button">
                          <property name="icon-name">edit-find-symbolic</property>
-                         <property name="tooltip-text" translatable="yes">Search</property>
+                         <property name="tooltip-text" translatable="yes" comments="Translators: This is an action (a verb in English) that opens the sidebar to start a search">Search</property>
                          <property name="action-name">doc.toggle-find</property>
                        </object>
                      </property>
