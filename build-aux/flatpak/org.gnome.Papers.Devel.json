@@ -56,14 +56,9 @@
             ],
             "sources": [
                 {
-                    "type": "archive",
-                    "url": "https://poppler.freedesktop.org/poppler-data-0.4.12.tar.gz",
-                    "sha256": "c835b640a40ce357e1b83666aabd95edffa24ddddd49b8daff63adb851cdab74",
-                    "x-checker-data": {
-                        "type": "anitya",
-                        "project-id": 3687,
-                        "url-template": "https://poppler.freedesktop.org/poppler-data-$version.tar.gz"
-                    }
+                    "type": "git",
+                    "url": "https://gitlab.freedesktop.org/poppler/poppler-data.git",
+                    "branch": "master"
                 }
             ]
         },
@@ -87,14 +82,9 @@
             ],
             "sources": [
                 {
-                    "type": "archive",
-                    "url": "https://poppler.freedesktop.org/poppler-25.02.0.tar.xz",
-                    "sha256": "21234cb2a9647d73c752ce4031e65a79d11a511a835f2798284c2497b8701dee",
-                    "x-checker-data": {
-                        "type": "anitya",
-                        "project-id": 3686,
-                        "url-template": "https://poppler.freedesktop.org/poppler-$version.tar.xz"
-                    }
+                    "type": "git",
+                    "url": "https://gitlab.freedesktop.org/poppler/poppler.git",
+                    "branch": "master"
                 }
             ]
         },
