@@ -236,14 +236,6 @@ pps_document_doc_mutex_unlock (PpsDocument *document)
 	g_mutex_unlock (&priv->mutex);
 }
 
-gboolean
-pps_document_doc_mutex_trylock (PpsDocument *document)
-{
-	PpsDocumentPrivate *priv = GET_PRIVATE (document);
-
-	return g_mutex_trylock (&priv->mutex);
-}
-
 static void
 pps_document_setup_cache (PpsDocument *document)
 {
