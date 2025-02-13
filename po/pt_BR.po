@@ -21,24 +21,24 @@
 # Ricardo Silva Veloso <ricvelozo@gmail.com>, 2018.
 # Leônidas Araújo <leorusvellt@hotmail.com>, 2022.
 # Juliano de Souza Camargo <julianosc@pm.me>, 2024.
-# Rafael Fontenelle <rafaelff@gnome.org>, 2013-2025.
 # Daniel Dias Rodrigues <danieldiasr@gmail.com>, 2025.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2013-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: papers\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/"
 "issues/\n"
-"POT-Creation-Date: 2025-02-07 11:05+0000\n"
-"PO-Revision-Date: 2025-02-08 14:22-0300\n"
-"Last-Translator: Daniel Dias Rodrigues <danieldiasr@gmail.com>\n"
+"POT-Creation-Date: 2025-02-13 04:46+0000\n"
+"PO-Revision-Date: 2025-02-13 16:14-0300\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.5\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"X-Generator: Gtranslator 47.1\n"
 "X-Project-Style: gnome\n"
 "X-DL-Team: pt_BR\n"
 "X-DL-Module: evince\n"
@@ -677,51 +677,51 @@ msgstr "Rolar visualização para baixo"
 msgid "Document View"
 msgstr "Visualização do documento"
 
-#: libview/pps-view.c:2091
+#: libview/pps-view.c:2108
 msgid "Go to first page"
 msgstr "Vai para a primeira página"
 
-#: libview/pps-view.c:2093
+#: libview/pps-view.c:2110
 msgid "Go to previous page"
 msgstr "Vai para a página anterior"
 
-#: libview/pps-view.c:2095
+#: libview/pps-view.c:2112
 msgid "Go to next page"
 msgstr "Vai para a próxima página"
 
-#: libview/pps-view.c:2097
+#: libview/pps-view.c:2114
 msgid "Go to last page"
 msgstr "Vai para a última página"
 
-#: libview/pps-view.c:2099
+#: libview/pps-view.c:2116
 msgid "Go to page"
 msgstr "Vai para a página"
 
-#: libview/pps-view.c:2101
+#: libview/pps-view.c:2118
 msgid "Find"
 msgstr "Localizar"
 
-#: libview/pps-view.c:2130
+#: libview/pps-view.c:2147
 #, c-format
 msgid "Go to page %s"
 msgstr "Vai para a página %s"
 
-#: libview/pps-view.c:2136
+#: libview/pps-view.c:2153
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "Vai para %s no arquivo “%s”"
 
-#: libview/pps-view.c:2139
+#: libview/pps-view.c:2156
 #, c-format
 msgid "Go to file “%s”"
 msgstr "Vai para o arquivo “%s”"
 
-#: libview/pps-view.c:2147
+#: libview/pps-view.c:2164
 #, c-format
 msgid "Launch %s"
 msgstr "Inicia %s"
 
-#: libview/pps-view.c:2154
+#: libview/pps-view.c:2171
 #, c-format
 msgid "Reset form"
 msgstr "Redefinir formulário"
@@ -833,7 +833,7 @@ msgstr "Tamanho normal"
 msgid "Zoom In"
 msgstr "Ampliar"
 
-#: previewer/pps-previewer-window.ui:89 shell/src/document_view/print.rs:98
+#: previewer/pps-previewer-window.ui:89 shell/src/document_view/print.rs:104
 msgid "Failed to Print Document"
 msgstr "Falha ao imprimir o documento"
 
@@ -1309,6 +1309,7 @@ msgstr "Rabiscado"
 msgid "_Apply"
 msgstr "_Aplicar"
 
+#. Translators: This is an action (a verb in English) that opens the sidebar to start a search
 #: shell/resources/pps-document-view.ui:71
 msgid "Search"
 msgstr "Pesquisar"
@@ -1902,32 +1903,39 @@ msgid "Printing job “{}”"
 msgstr "Imprimindo o trabalho “{}”"
 
 #: shell/src/document_view/print.rs:78
-msgid "No pending job in queue"
+msgid "No pending jobs in queue"
 msgstr "Nenhum trabalho pendente na fila"
 
-#: shell/src/document_view/print.rs:80
-msgid "{} pending jobs in queue"
-msgstr "{} trabalhos pendentes na fila"
+#: shell/src/document_view/print.rs:81
+msgid "{} pending job in queue"
+msgid_plural "{} pending jobs in queue"
+msgstr[0] "{} trabalho pendente na fila"
+msgstr[1] "{} trabalhos pendentes na fila"
 
 #: shell/src/document_view/signals.rs:225
 msgid "Unable to open external link"
 msgstr "Não foi possível abrir o link externo"
 
-#: shell/src/document_view/signals.rs:254
-msgid "Security alert: this document has been prevented from opening the file"
-msgstr "Alerta de segurança: este documento foi impedido de abrir o arquivo"
+#: shell/src/document_view/signals.rs:253
+msgid ""
+"Security alert: this document has been prevented from opening the file “{}”"
+msgstr ""
+"Alerta de segurança: este documento foi impedido de abrir o arquivo “{}”"
 
-#: shell/src/document_view/signals.rs:425 shell/src/page_selector.rs:77
+#: shell/src/document_view/signals.rs:424 shell/src/page_selector.rs:77
 #: shell/src/sidebar_annotations_row.rs:82
 msgid "Page {}"
 msgstr "Página {}"
 
-#  Contexto: [Página] 15 de 100
-#: shell/src/page_selector.rs:226 shell/src/page_selector.rs:244
-msgid "({} of {})"
-msgstr "({} de {})"
+#. Translators: Do NOT translate the content between
+#. '{' and '}' they are variable names. Changing their
+#. order is possible
+#: shell/src/page_selector.rs:230 shell/src/page_selector.rs:258
+msgid "({pagenum} of {totalpages})"
+msgstr "({pagenum} de {totalpages})"
 
-#: shell/src/page_selector.rs:228 shell/src/page_selector.rs:246
+#. Translators: the placeholder is the total amount of pages
+#: shell/src/page_selector.rs:238 shell/src/page_selector.rs:268
 msgid "of {}"
 msgstr "de {}"
 
@@ -2032,6 +2040,10 @@ msgstr "Data de emissão do certificado"
 #: shell/src/properties_signatures.rs:321
 msgid "Certificate's Expiration Time"
 msgstr "Data de expiração do certificado"
+
+#  Contexto: [Página] 15 de 100
+#~ msgid "({} of {})"
+#~ msgstr "({} de {})"
 
 #~ msgid "Trusted"
 #~ msgstr "Confiável"
