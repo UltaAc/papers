@@ -13,6 +13,11 @@ jobs:
       run:
         working-directory: build-aux/macos
 
+    env:
+      PKG_CONFIG_PATH: "/opt/homebrew/lib/pkgconfig:/opt/homebrew/share/pkgconfig"
+      LDFLAGS: "-L/opt/homebrew/lib"
+      CPPFLAGS: "-I/opt/homebrew/include"
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -83,7 +88,7 @@ jobs:
 
       - name: Configure environment
         run: |
-          echo "PKG_CONFIG_PATH=/opt/homebrew/lib/pkgconfig" >> $GITHUB_ENV
+          echo "PKG_CONFIG_PATH=/opt/homebrew/lib/pkgconfig:/opt/homebrew/share/pkgconfig" >> $GITHUB_ENV
           echo "LDFLAGS=-L/opt/homebrew/lib" >> $GITHUB_ENV
           echo "CPPFLAGS=-I/opt/homebrew/include" >> $GITHUB_ENV
 

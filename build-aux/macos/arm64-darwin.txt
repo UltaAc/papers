@@ -16,4 +16,4 @@ c_args = ['-arch', 'arm64', '-I/opt/homebrew/include']
 cpp_args = ['-arch', 'arm64', '-I/opt/homebrew/include']
 objc_args = ['-arch', 'arm64']
 objcpp_args = ['-arch', 'arm64']
-pkg_config_path = '/opt/homebrew/lib/pkgconfig'
+pkg_config_path = '/opt/homebrew/lib/pkgconfig:/opt/homebrew/share/pkgconfig'
