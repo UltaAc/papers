@@ -18,15 +18,13 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Cache dependencies
+      - name: Cache Homebrew
         uses: actions/cache@v3
         with:
           path: |
             /opt/homebrew
-            ~/gtk-mac-bundler
-            ~/gtk/inst
-            ~/gtk/src
-          key: ${{ runner.os }}-arm64-pro-${{ hashFiles('papers.modules') }}-v3
+            ~/Library/Caches/Homebrew
+          key: ${{ runner.os }}-arm64-brew-${{ hashFiles('build-aux/macos/papers.modules') }}
 
       - name: Setup ARM64 environment
         run: |
@@ -37,6 +35,10 @@ jobs:
 
       - name: Install core dependencies
         run: |
+          # Limit Homebrew to only essential packages
+          export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
+          export HOMEBREW_NO_AUTO_UPDATE=1
+
           arch -arm64 brew install \
             meson \
             ninja \
@@ -47,7 +49,17 @@ jobs:
             libarchive \
             poppler \
             djvulibre \
-            --formula
+            --formula \
+            --ignore-dependencies \
+            --overwrite
+
+          # Explicitly prevent unwanted upgrades
+          arch -arm64 brew pin python@3.12 sqlite certifi
+          arch -arm64 brew unlink azure-cli aws-sam-cli selenium-server kotlin || true
+
+          # Cleanup any accidental installations
+          arch -arm64 brew autoremove
+          arch -arm64 brew cleanup
 
       - name: Build gtk-mac-bundler
         run: |
@@ -69,36 +81,44 @@ jobs:
 
       - name: Build and package (unsigned)
         run: |
-          # Set JHBuild prefix
+          # Set JHBuild prefix and paths
           export JH_PREFIX="$HOME/gtk/inst"
+          export PROJECT_ROOT="$GITHUB_WORKSPACE"
           export PATH="$JH_PREFIX/bin:$PATH"
 
-          # Build with explicit ARM64 flags
-          meson setup builddir --prefix=$JH_PREFIX \
+          # Verify meson.build exists
+          if [ ! -f "$PROJECT_ROOT/meson.build" ]; then
+            echo "❌ Missing meson.build in project root!"
+            exit 1
+          fi
+
+          # Configure build with explicit source path
+          meson setup "$PROJECT_ROOT/builddir" "$PROJECT_ROOT" \
+            --prefix="$JH_PREFIX" \
+            --cross-file="$PROJECT_ROOT/build-aux/macos/arm64-darwin.txt" \
             -Dbuildtype=release \
             -Ddefault_library=both \
-            --cross-file=arm64-darwin.txt \
             --wipe
 
-          ninja -C builddir install -j$(sysctl -n hw.activecpu)
+          # Build and install
+          ninja -C "$PROJECT_ROOT/builddir" install -j$(sysctl -n hw.activecpu)
 
-          # Bypass bundle validation
-          sed -i '' 's/CFBundleSignature/CFBundleIdentifier/' Info.plist
-          sed -i '' 's/<\/dict>/<key>LSRequiresNativeExecution<\/key><true\/><\/dict>/' Info.plist
+          # Verify binary
+          if [ ! -f "$JH_PREFIX/bin/papers" ]; then
+            echo "❌ Binary build failed!"
+            exit 1
+          fi
 
-          # Create app bundle without signing
+          # Create bundle
+          cd build-aux/macos
           gtk-mac-bundler papers.bundle \
             --binary="$JH_PREFIX/bin/papers" \
             --resource="$JH_PREFIX/share" \
             --icon=Papers.icns \
             --no-sign
 
-          # Remove quarantine attributes
-          xattr -dr com.apple.quarantine papers.app
-
-          # Create DMG without signing
+          # Create DMG
           create-dmg \
-            --no-internet-enable \
             --volname "Papers ARM64" \
             papers-unsigned.dmg \
             papers.app/
