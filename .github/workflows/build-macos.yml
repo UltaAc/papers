@@ -49,6 +49,13 @@ jobs:
             poppler \
             djvulibre \
             gdk-pixbuf \
+            pango \
+            cairo \
+            fontconfig \
+            freetype \
+            harfbuzz \
+            glib \
+            gtk4 \
             --formula \
             --ignore-dependencies
 
