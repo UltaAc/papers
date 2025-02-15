@@ -13,78 +13,98 @@ jobs:
         working-directory: build-aux/macos
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        submodules: recursive
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-        path: |
-          /opt/homebrew
-          ~/gtk-mac-bundler
-          ~/gtk/inst
-          ~/gtk/src
-        key: ${{ runner.os }}-arm64-pro-${{ hashFiles('papers.modules') }}-v3
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            /opt/homebrew
+            ~/gtk-mac-bundler
+            ~/gtk/inst
+            ~/gtk/src
+          key: ${{ runner.os }}-arm64-pro-${{ hashFiles('papers.modules') }}-v3
 
-    - name: Setup ARM64 environment
-      run: |
-        # Install Homebrew for ARM
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshrc
-        source ~/.zshrc
+      - name: Setup ARM64 environment
+        run: |
+          # Install Homebrew for ARM
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshrc
+          source ~/.zshrc
 
-    - name: Install core dependencies
-      run: |
-        arch -arm64 brew install \
-          meson \
-          ninja \
-          cmake \
-          gettext \
-          pkg-config \
-          gtk-mac-integration \
-          libarchive \
-          poppler \
-          djvulibre \
-          --formula
+      - name: Install core dependencies
+        run: |
+          arch -arm64 brew install \
+            meson \
+            ninja \
+            cmake \
+            gettext \
+            pkg-config \
+            gtk-mac-integration \
+            libarchive \
+            poppler \
+            djvulibre \
+            --formula
 
-    - name: Build gtk-mac-bundler
-      run: |
-        git clone --depth 1 https://gitlab.gnome.org/GNOME/gtk-mac-bundler.git ~/gtk-mac-bundler
-        cd ~/gtk-mac-bundler
-        make install
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: Build gtk-mac-bundler
+        run: |
+          git clone --depth 1 https://gitlab.gnome.org/GNOME/gtk-mac-bundler.git ~/gtk-mac-bundler
+          cd ~/gtk-mac-bundler
+          make install
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
-    - name: Configure build environment
-      run: |
-        export CC="clang -arch arm64"
-        export CXX="clang++ -arch arm64"
-        export MACOSX_DEPLOYMENT_TARGET=12.0
-        export PKG_CONFIG_PATH="/opt/homebrew/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
-        
-        # Enable parallel builds
-        echo "MAKEFLAGS=-j$(sysctl -n hw.ncpu)" >> $GITHUB_ENV
-        echo "NINJAFLAGS=-j$(sysctl -n hw.activecpu)" >> $GITHUB_ENV
+      - name: Configure build environment
+        run: |
+          export CC="clang -arch arm64"
+          export CXX="clang++ -arch arm64"
+          export MACOSX_DEPLOYMENT_TARGET=12.0
+          export PKG_CONFIG_PATH="/opt/homebrew/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
 
-    - name: Build and package
-      run: |
-        make clean
-        make -j$(sysctl -n hw.activecpu) papers.app
-        create-dmg \
-          --volname "Papers ARM64" \
-          --background Papers.icns \
-          --window-pos 200 120 \
-          --window-size 800 400 \
-          --icon-size 100 \
-          --icon "papers.app" 200 190 \
-          --hide-extension "papers.app" \
-          --app-drop-link 600 185 \
-          "papers-arm64.dmg" \
-          "papers.app/"
+          # Enable parallel builds
+          echo "MAKEFLAGS=-j$(sysctl -n hw.ncpu)" >> $GITHUB_ENV
+          echo "NINJAFLAGS=-j$(sysctl -n hw.activecpu)" >> $GITHUB_ENV
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: Papers-ARM64-Pro
-        path: build-aux/macos/papers-arm64.dmg
+      - name: Build and package (unsigned)
+        run: |
+          # Set JHBuild prefix
+          export JH_PREFIX="$HOME/gtk/inst"
+          export PATH="$JH_PREFIX/bin:$PATH"
+
+          # Build with explicit ARM64 flags
+          meson setup builddir --prefix=$JH_PREFIX \
+            -Dbuildtype=release \
+            -Ddefault_library=both \
+            --cross-file=arm64-darwin.txt \
+            --wipe
+
+          ninja -C builddir install -j$(sysctl -n hw.activecpu)
+
+          # Bypass bundle validation
+          sed -i '' 's/CFBundleSignature/CFBundleIdentifier/' Info.plist
+          sed -i '' 's/<\/dict>/<key>LSRequiresNativeExecution<\/key><true\/><\/dict>/' Info.plist
+
+          # Create app bundle without signing
+          gtk-mac-bundler papers.bundle \
+            --binary="$JH_PREFIX/bin/papers" \
+            --resource="$JH_PREFIX/share" \
+            --icon=Papers.icns \
+            --no-sign
+
+          # Remove quarantine attributes
+          xattr -dr com.apple.quarantine papers.app
+
+          # Create DMG without signing
+          create-dmg \
+            --no-internet-enable \
+            --volname "Papers ARM64" \
+            papers-unsigned.dmg \
+            papers.app/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Papers-ARM64-Pro
+          path: build-aux/macos/papers-unsigned.dmg
