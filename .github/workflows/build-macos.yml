@@ -1,0 +1,70 @@
+name: Build macOS DMG
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-dmg:
+    runs-on: macos-15-arm64-xlarge
+    timeout-minutes: 120
+    defaults:
+      run:
+        working-directory: build-aux/macos
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/gtk/inst
+          ~/gtk/src
+          /opt/homebrew
+        key: ${{ runner.os }}-arm64-deps-${{ hashFiles('build-aux/macos/papers.modules') }}
+
+    - name: Install ARM-optimized dependencies
+      run: |
+        # Install native ARM Homebrew
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshrc
+        source ~/.zshrc
+
+        # Install with architecture flags
+        arch -arm64 brew install \
+          create-dmg \
+          meson \
+          ninja \
+          cmake \
+          gtk-mac-bundler \
+          gettext \
+          pkg-config
+
+    - name: Parallel build setup
+      run: |
+        # Enable parallel builds
+        export MAKEFLAGS="-j$(sysctl -n hw.ncpu)"
+        export NINJAFLAGS="-j$(sysctl -n hw.activecpu)"
+        export CTEST_PARALLEL_LEVEL=$(sysctl -n hw.ncpu)
+
+    - name: Build using ARM optimizations
+      run: |
+        # ARM-specific build flags
+        export CFLAGS="-mcpu=apple-m1 -mtune=apple-m1"
+        export CXXFLAGS="-mcpu=apple-m1 -mtune=apple-m1"
+        export ARCHFLAGS="-arch arm64"
+
+        # Build commands
+        make clean
+        make -j$(sysctl -n hw.activecpu)
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Papers-ARM64.dmg
+        path: build-aux/macos/papers.dmg
