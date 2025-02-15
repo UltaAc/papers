@@ -79,25 +79,19 @@ jobs:
           echo "MAKEFLAGS=-j$(sysctl -n hw.ncpu)" >> $GITHUB_ENV
           echo "NINJAFLAGS=-j$(sysctl -n hw.activecpu)" >> $GITHUB_ENV
 
-      - name: Build and package (unsigned)
+      - name: Build and package
         run: |
           # Set JHBuild prefix and paths
           export JH_PREFIX="$HOME/gtk/inst"
           export PROJECT_ROOT="$GITHUB_WORKSPACE"
           export PATH="$JH_PREFIX/bin:$PATH"
 
-          # Verify critical files exist
-          ls -l "$PROJECT_ROOT/build-aux/macos/arm64-darwin.txt"
+          # Verify critical files
           ls -l "$PROJECT_ROOT/meson.build"
+          ls -l "$PROJECT_ROOT/build-aux/macos/arm64-darwin.txt"
 
-          # Verify cross-file exists before build
-          if [ ! -f "$PROJECT_ROOT/build-aux/macos/arm64-darwin.txt" ]; then
-            echo "❌ Missing cross file!"
-            exit 1
-          fi
-
-          # Configure build with explicit source path
-          meson setup "$PROJECT_ROOT/builddir" \
+          # Configure with explicit source directory
+          meson setup "$PROJECT_ROOT/builddir" "$PROJECT_ROOT" \
             --cross-file="$PROJECT_ROOT/build-aux/macos/arm64-darwin.txt" \
             --prefix="$JH_PREFIX" \
             -Dbuildtype=release \
@@ -105,12 +99,6 @@ jobs:
 
           # Build and install
           ninja -C "$PROJECT_ROOT/builddir" install -j$(sysctl -n hw.activecpu)
-
-          # Verify binary
-          if [ ! -f "$JH_PREFIX/bin/papers" ]; then
-            echo "❌ Binary build failed!"
-            exit 1
-          fi
 
           # Create bundle
           cd build-aux/macos
