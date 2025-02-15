@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: evince HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/papers/issues/\n"
-"POT-Creation-Date: 2025-02-06 11:23+0000\n"
-"PO-Revision-Date: 2025-02-11 02:04+0330\n"
+"POT-Creation-Date: 2025-02-13 04:46+0000\n"
+"PO-Revision-Date: 2025-02-15 11:33+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian\n"
 "Language: fa\n"
@@ -404,22 +404,22 @@ msgstr "پیوست باز نشد «%s»: %s"
 msgid "Couldn’t open attachment “%s”"
 msgstr "پیوست باز نشد «%s»"
 
-#: libdocument/pps-document-factory.c:104
+#: libdocument/pps-document-factory.c:100
 #, c-format
 msgid "File type %s (%s) is not supported"
 msgstr "نوع پروندهٔ %s (%s) پشتیبانی نمی‌شود"
 
-#: libdocument/pps-document-factory.c:374 libdocument/pps-file-helpers.c:371
+#: libdocument/pps-document-factory.c:370 libdocument/pps-file-helpers.c:371
 #: libdocument/pps-file-helpers.c:417 libdocument/pps-file-helpers.c:426
 #: libdocument/pps-file-helpers.c:507 libdocument/pps-file-helpers.c:516
 msgid "Unknown MIME Type"
 msgstr "نوع MIME نامعلوم"
 
-#: libdocument/pps-document-factory.c:504
+#: libdocument/pps-document-factory.c:500
 msgid "All Documents"
 msgstr "همهٔ سندها"
 
-#: libdocument/pps-document-factory.c:532
+#: libdocument/pps-document-factory.c:528
 msgid "All Files"
 msgstr "همهٔ پرونده‌ها"
 
@@ -638,51 +638,51 @@ msgstr "لغزشِ نما به پایین"
 msgid "Document View"
 msgstr "نمای سند"
 
-#: libview/pps-view.c:2091
+#: libview/pps-view.c:2108
 msgid "Go to first page"
 msgstr "رفتن به صفحهٔ نخست"
 
-#: libview/pps-view.c:2093
+#: libview/pps-view.c:2110
 msgid "Go to previous page"
 msgstr "رفتن به صفحهٔ پیشین"
 
-#: libview/pps-view.c:2095
+#: libview/pps-view.c:2112
 msgid "Go to next page"
 msgstr "رفتن به صفحهٔ بعدی"
 
-#: libview/pps-view.c:2097
+#: libview/pps-view.c:2114
 msgid "Go to last page"
 msgstr "رفتن به صفحهٔ پایانی"
 
-#: libview/pps-view.c:2099
+#: libview/pps-view.c:2116
 msgid "Go to page"
 msgstr "رفتن به صفحه"
 
-#: libview/pps-view.c:2101
+#: libview/pps-view.c:2118
 msgid "Find"
 msgstr "یافتن"
 
-#: libview/pps-view.c:2130
+#: libview/pps-view.c:2147
 #, c-format
 msgid "Go to page %s"
 msgstr "رفتن به صفحهٔ %s"
 
-#: libview/pps-view.c:2136
+#: libview/pps-view.c:2153
 #, c-format
 msgid "Go to %s on file “%s”"
 msgstr "برو به %s در پروندهٔ «%s»"
 
-#: libview/pps-view.c:2139
+#: libview/pps-view.c:2156
 #, c-format
 msgid "Go to file “%s”"
 msgstr "رفتن به پروندهٔ «%s»"
 
-#: libview/pps-view.c:2147
+#: libview/pps-view.c:2164
 #, c-format
 msgid "Launch %s"
 msgstr "راه‌اندازی %s"
 
-#: libview/pps-view.c:2154
+#: libview/pps-view.c:2171
 #, c-format
 msgid "Reset form"
 msgstr "بازنشانی فرم"
@@ -790,7 +790,7 @@ msgstr "اندازهٔ عادی"
 msgid "Zoom In"
 msgstr "بزرگ‌نمایی"
 
-#: previewer/pps-previewer-window.ui:89 shell/src/document_view/print.rs:98
+#: previewer/pps-previewer-window.ui:89 shell/src/document_view/print.rs:104
 msgid "Failed to Print Document"
 msgstr "شکست در چاپ سند"
 
@@ -1262,6 +1262,7 @@ msgstr "پیچ و تاب"
 msgid "_Apply"
 msgstr "_اعمال"
 
+#. Translators: This is an action (a verb in English) that opens the sidebar to start a search
 #: shell/resources/pps-document-view.ui:71
 msgid "Search"
 msgstr "جست‌وجو"
@@ -1823,31 +1824,38 @@ msgid "Printing job “{}”"
 msgstr "چاپ کردن کار «{}»"
 
 #: shell/src/document_view/print.rs:78
-msgid "No pending job in queue"
+msgid "No pending jobs in queue"
 msgstr "هیچ کاری در صف منتظر نیست"
 
-#: shell/src/document_view/print.rs:80
-msgid "{} pending jobs in queue"
-msgstr "تعداد {} کار منتظر در صف"
+#: shell/src/document_view/print.rs:81
+msgid "{} pending job in queue"
+msgid_plural "{} pending jobs in queue"
+msgstr[0] "تعداد {} کار منتظر در صف"
+msgstr[1] "تعداد {} کار منتظر در صف"
 
 #: shell/src/document_view/signals.rs:225
 msgid "Unable to open external link"
 msgstr "گشودن پیوند خارجی ممکن نیست"
 
-#: shell/src/document_view/signals.rs:254
-msgid "Security alert: this document has been prevented from opening the file"
-msgstr "هشدار امنیتی: این سند از گشودن پرونده باز داشته شد"
+#: shell/src/document_view/signals.rs:253
+msgid ""
+"Security alert: this document has been prevented from opening the file “{}”"
+msgstr "هشدار امنیتی: این سند از گشودن پروندهٔ «{}» باز داشته شد"
 
-#: shell/src/document_view/signals.rs:425 shell/src/page_selector.rs:77
+#: shell/src/document_view/signals.rs:424 shell/src/page_selector.rs:77
 #: shell/src/sidebar_annotations_row.rs:82
 msgid "Page {}"
 msgstr "صفحهٔ {}"
 
-#: shell/src/page_selector.rs:226 shell/src/page_selector.rs:244
-msgid "({} of {})"
-msgstr "({} از {})"
+#. Translators: Do NOT translate the content between
+#. '{' and '}' they are variable names. Changing their
+#. order is possible
+#: shell/src/page_selector.rs:230 shell/src/page_selector.rs:258
+msgid "({pagenum} of {totalpages})"
+msgstr "({pagenum} از {totalpages})"
 
-#: shell/src/page_selector.rs:228 shell/src/page_selector.rs:246
+#. Translators: the placeholder is the total amount of pages
+#: shell/src/page_selector.rs:238 shell/src/page_selector.rs:268
 msgid "of {}"
 msgstr "از {}"
 
@@ -1951,6 +1959,9 @@ msgstr "زمان صدور گواهی"
 #: shell/src/properties_signatures.rs:321
 msgid "Certificate's Expiration Time"
 msgstr "زمان انقضای گواهی"
+
+#~ msgid "({} of {})"
+#~ msgstr "({} از {})"
 
 #~ msgid "Trusted"
 #~ msgstr "مورد اعتماد"
