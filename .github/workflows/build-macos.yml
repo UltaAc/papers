@@ -1,4 +1,4 @@
-name: Build macOS DMG
+name: ARM64 Optimized macOS Build
 
 on:
   push:
@@ -6,15 +6,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-dmg:
-    runs-on: macos-latest
-    timeout-minutes: 120
+  build:
+    runs-on: macos-15-xlarge
     defaults:
       run:
         working-directory: build-aux/macos
 
     steps:
-    - name: Checkout
+    - name: Checkout repository
       uses: actions/checkout@v4
       with:
         submodules: recursive
@@ -23,48 +22,69 @@ jobs:
       uses: actions/cache@v3
       with:
         path: |
+          /opt/homebrew
+          ~/gtk-mac-bundler
           ~/gtk/inst
           ~/gtk/src
-          /opt/homebrew
-        key: ${{ runner.os }}-arm64-deps-${{ hashFiles('build-aux/macos/papers.modules') }}
+        key: ${{ runner.os }}-arm64-pro-${{ hashFiles('papers.modules') }}-v3
 
-    - name: Install ARM-optimized dependencies
+    - name: Setup ARM64 environment
       run: |
-        # Install native ARM Homebrew
+        # Install Homebrew for ARM
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshrc
         source ~/.zshrc
 
-        # Install with architecture flags
+    - name: Install core dependencies
+      run: |
         arch -arm64 brew install \
-          create-dmg \
           meson \
           ninja \
           cmake \
-          gtk-mac-bundler \
           gettext \
-          pkg-config
+          pkg-config \
+          gtk-mac-integration \
+          libarchive \
+          poppler \
+          djvulibre \
+          --formula
 
-    - name: Parallel build setup
+    - name: Build gtk-mac-bundler
       run: |
+        git clone --depth 1 https://gitlab.gnome.org/GNOME/gtk-mac-bundler.git ~/gtk-mac-bundler
+        cd ~/gtk-mac-bundler
+        make install
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+    - name: Configure build environment
+      run: |
+        export CC="clang -arch arm64"
+        export CXX="clang++ -arch arm64"
+        export MACOSX_DEPLOYMENT_TARGET=12.0
+        export PKG_CONFIG_PATH="/opt/homebrew/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
+        
         # Enable parallel builds
-        export MAKEFLAGS="-j$(sysctl -n hw.ncpu)"
-        export NINJAFLAGS="-j$(sysctl -n hw.activecpu)"
-        export CTEST_PARALLEL_LEVEL=$(sysctl -n hw.ncpu)
+        echo "MAKEFLAGS=-j$(sysctl -n hw.ncpu)" >> $GITHUB_ENV
+        echo "NINJAFLAGS=-j$(sysctl -n hw.activecpu)" >> $GITHUB_ENV
 
-    - name: Build using ARM optimizations
+    - name: Build and package
       run: |
-        # ARM-specific build flags
-        export CFLAGS="-mcpu=apple-m1 -mtune=apple-m1"
-        export CXXFLAGS="-mcpu=apple-m1 -mtune=apple-m1"
-        export ARCHFLAGS="-arch arm64"
-
-        # Build commands
         make clean
-        make -j$(sysctl -n hw.activecpu)
+        make -j$(sysctl -n hw.activecpu) papers.app
+        create-dmg \
+          --volname "Papers ARM64" \
+          --background Papers.icns \
+          --window-pos 200 120 \
+          --window-size 800 400 \
+          --icon-size 100 \
+          --icon "papers.app" 200 190 \
+          --hide-extension "papers.app" \
+          --app-drop-link 600 185 \
+          "papers-arm64.dmg" \
+          "papers.app/"
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Papers-ARM64.dmg
-        path: build-aux/macos/papers.dmg
+        name: Papers-ARM64-Pro
+        path: build-aux/macos/papers-arm64.dmg
