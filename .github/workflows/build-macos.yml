@@ -86,18 +86,21 @@ jobs:
           export PROJECT_ROOT="$GITHUB_WORKSPACE"
           export PATH="$JH_PREFIX/bin:$PATH"
 
-          # Verify meson.build exists
-          if [ ! -f "$PROJECT_ROOT/meson.build" ]; then
-            echo "❌ Missing meson.build in project root!"
+          # Verify critical files exist
+          ls -l "$PROJECT_ROOT/build-aux/macos/arm64-darwin.txt"
+          ls -l "$PROJECT_ROOT/meson.build"
+
+          # Verify cross-file exists before build
+          if [ ! -f "$PROJECT_ROOT/build-aux/macos/arm64-darwin.txt" ]; then
+            echo "❌ Missing cross file!"
             exit 1
           fi
 
           # Configure build with explicit source path
-          meson setup "$PROJECT_ROOT/builddir" "$PROJECT_ROOT" \
-            --prefix="$JH_PREFIX" \
+          meson setup "$PROJECT_ROOT/builddir" \
             --cross-file="$PROJECT_ROOT/build-aux/macos/arm64-darwin.txt" \
+            --prefix="$JH_PREFIX" \
             -Dbuildtype=release \
-            -Ddefault_library=both \
             --wipe
 
           # Build and install

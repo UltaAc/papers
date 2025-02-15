@@ -1,16 +1,17 @@
 [binaries]
-c = 'clang -arch arm64'
-cpp = 'clang++ -arch arm64'
-objc = 'clang -arch arm64'
-objcpp = 'clang++ -arch arm64'
+c = 'clang'
+cpp = 'clang++'
 ar = 'ar'
 strip = 'strip'
 
 [host_machine]
 system = 'darwin'
-cpu_family = 'aarch64'  # Critical for ARM64 detection :cite[1]
+cpu_family = 'aarch64'  # Critical for ARM64 detection
 cpu = 'arm64'
 endian = 'little'
 
 [properties]
-needs_exe_wrapper = false
+c_args = ['-arch', 'arm64']
+cpp_args = ['-arch', 'arm64']
+objc_args = ['-arch', 'arm64']
+objcpp_args = ['-arch', 'arm64']
